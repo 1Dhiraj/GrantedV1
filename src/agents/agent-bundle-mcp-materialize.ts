@@ -4,7 +4,7 @@ import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { normalizeToolParameterSchema } from "@openclaw/ai/internal/openai";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { logWarn } from "../logger.js";
 import {
   getPluginToolMeta,
@@ -606,7 +606,7 @@ export async function materializeBundleMcpToolsForRun(params: {
 export async function createBundleMcpToolRuntime(params: {
   workspaceDir: string;
   agentDir?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   excludeServerNames?: ReadonlySet<string>;
   reservedToolNames?: Iterable<string>;
   safeServerNamesByServer?: ReadonlyMap<string, string>;
@@ -614,7 +614,7 @@ export async function createBundleMcpToolRuntime(params: {
     sessionId: string;
     workspaceDir: string;
     agentDir?: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     excludeServerNames?: ReadonlySet<string>;
     safeServerNamesByServer?: ReadonlyMap<string, string>;
   }) => SessionMcpRuntime;

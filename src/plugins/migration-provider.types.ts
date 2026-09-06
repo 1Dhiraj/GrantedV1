@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginLogger } from "./logger-types.js";
 import type { PluginRuntime } from "./runtime/types.js";
 
-export type PluginConfigMigration = (config: OpenClawConfig) =>
+export type PluginConfigMigration = (config: GrantedConfig) =>
   | {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       changes: string[];
     }
   | null
@@ -102,7 +102,7 @@ export type MigrationConfigRuntime = Pick<
 >;
 
 export type MigrationProviderContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime?: PluginRuntime;
   /** Host-owned config mutation target for isolated embedded migration flows. */
   configRuntime?: MigrationConfigRuntime;
@@ -142,7 +142,7 @@ export type MigrationProviderPlugin = {
 };
 
 type PluginSetupAutoEnableContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
 };
 

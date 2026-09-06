@@ -17,7 +17,7 @@ import {
 } from "openclaw/plugin-sdk/diagnostic-runtime";
 import {
   createDiagnosticsOtelService,
-  type OpenClawPluginServiceContext,
+  type GrantedPluginServiceContext,
 } from "../../../../extensions/diagnostics-otel/runtime-api.js";
 import { onTrustedInternalDiagnosticEvent } from "../../../../src/infra/diagnostic-events.js";
 import { registerDiagnosticTracePropagationBridge } from "../../../../src/infra/diagnostic-trace-propagation.js";
@@ -544,7 +544,7 @@ function createDirectProducerContext(params: {
   logsExporter: OtelLogsExporter;
   outputDir: string;
   writeLog: (line: string) => void;
-}): OpenClawPluginServiceContext {
+}): GrantedPluginServiceContext {
   return {
     config: {
       diagnostics: {

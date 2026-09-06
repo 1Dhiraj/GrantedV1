@@ -5,7 +5,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ExecutionDecisionWork } from "../../../audit/execution-decision-work.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { createDeferredCore } from "../../../shared/deferred.js";
 import { loadSubagentSpawnModuleForTest } from "./subagent-spawn.test-helpers.js";
 
@@ -19,7 +19,7 @@ describe("subagent fork context through SQLite and tool boundaries", () => {
   const parentId = "parent-session";
   let tempDir: string;
   let storePath: string;
-  let config: OpenClawConfig;
+  let config: GrantedConfig;
   let threadBindingAvailable: boolean;
   let sessions: typeof import("../../../config/sessions/session-accessor.js");
   let forkSession: ForkSession;

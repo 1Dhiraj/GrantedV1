@@ -1,7 +1,7 @@
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
 // Signal compatibility migration moves shipped flat transport config into account ownership.
 import type { ChannelDoctorConfigMutation } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { SignalTransportConfig } from "./account-types.js";
 import {
@@ -376,9 +376,9 @@ function shouldMaterializeTransport(entries: Record<string, unknown>[], index: n
 }
 
 export function clearLegacySignalTransportFieldsForAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   const next = structuredClone(params.cfg);
   const signal = next.channels?.signal as unknown;
   if (!isRecord(signal)) {
@@ -471,10 +471,10 @@ function allocateMigratedManagedPorts(params: {
 }
 
 function applyMigratedSignalTransports(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entries: Record<string, unknown>[];
   transports: Array<SignalTransportConfig | undefined>;
-}): OpenClawConfig | undefined {
+}): GrantedConfig | undefined {
   const next = structuredClone(params.cfg);
   const nextSignal = next.channels?.signal as unknown;
   if (!isRecord(nextSignal)) {
@@ -510,7 +510,7 @@ function applyMigratedSignalTransports(params: {
   return next;
 }
 
-function hasContainerTransportWithoutEffectiveAccount(cfg: OpenClawConfig): boolean {
+function hasContainerTransportWithoutEffectiveAccount(cfg: GrantedConfig): boolean {
   const signal = cfg.channels?.signal as unknown;
   if (!isRecord(signal)) {
     return false;
@@ -557,7 +557,7 @@ function hasContainerTransportWithoutEffectiveAccount(cfg: OpenClawConfig): bool
 }
 
 export async function migrateLegacySignalTransportConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   detect?: DetectTransport;
 }): Promise<ChannelDoctorConfigMutation> {
   const signal = params.cfg.channels?.signal as unknown;
@@ -654,7 +654,7 @@ export async function migrateLegacySignalTransportConfig(params: {
 }
 
 export function migrateLegacySignalTransportConfigSync(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): ChannelDoctorConfigMutation {
   const signal = cfg.channels?.signal as unknown;
   if (!isRecord(signal)) {

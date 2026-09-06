@@ -5,7 +5,7 @@ import { writeWorkspaceSkills } from "../../skills/test-support/e2e-test-helpers
 import { readSkillProposalRecord } from "../../skills/workshop/store.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";
@@ -35,7 +35,7 @@ vi.mock("../../skills/workshop/target-lock.js", () => ({
 }));
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   commitLockState.active = false;

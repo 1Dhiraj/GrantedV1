@@ -1,6 +1,6 @@
 // Decides whether a rate-limited run may switch models, or should wait on the
 // one it has.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /**
  * Whether a 429 on this provider is allowed to escalate to the model fallback
@@ -17,7 +17,7 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
  * switching, so it is tried first regardless.
  */
 export function allowsRateLimitModelFallback(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
 }): boolean {
   const cooldowns = params.cfg?.auth?.cooldowns;

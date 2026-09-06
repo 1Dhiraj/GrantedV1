@@ -1,5 +1,5 @@
 // Comfy helper module supports test helpers behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import * as providerAuth from "openclaw/plugin-sdk/provider-auth-runtime";
 import { expect, vi } from "vitest";
 
@@ -20,24 +20,24 @@ type ComfyCloudJobResponseOptions = {
   redirectLocation?: string;
 };
 
-export function buildComfyConfig(config: Record<string, unknown>): OpenClawConfig {
+export function buildComfyConfig(config: Record<string, unknown>): GrantedConfig {
   return {
     plugins: {
       entries: {
         comfy: { config },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
-export function buildLegacyComfyConfig(config: Record<string, unknown>): OpenClawConfig {
+export function buildLegacyComfyConfig(config: Record<string, unknown>): GrantedConfig {
   return {
     models: {
       providers: {
         comfy: config,
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 export function parseComfyJsonBody(

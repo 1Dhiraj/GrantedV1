@@ -1,7 +1,7 @@
 /** Declares the explicitly approved, lazily loaded node-backed Codex exec-server. */
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 
@@ -45,7 +45,7 @@ function parseCodexNodePlacementWorkspace(value: unknown) {
 }
 
 /** Registers the exact pinned exec-server as an explicitly approved duplex node command. */
-export function createCodexNodeExecServerCommand(): OpenClawPluginNodeHostCommand {
+export function createCodexNodeExecServerCommand(): GrantedPluginNodeHostCommand {
   const activeProcesses = new Set<() => Promise<void>>();
   return {
     command: CODEX_NODE_EXEC_SERVER_COMMAND,
@@ -121,7 +121,7 @@ export function createCodexNodeExecServerCommand(): OpenClawPluginNodeHostComman
 }
 
 /** Keeps node launch behind command opt-in and a live Full owner or human decision. */
-export function createCodexNodeExecServerInvokePolicy(): OpenClawPluginNodeInvokePolicy {
+export function createCodexNodeExecServerInvokePolicy(): GrantedPluginNodeInvokePolicy {
   return {
     commands: [CODEX_NODE_EXEC_SERVER_COMMAND],
     dangerous: true,

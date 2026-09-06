@@ -4,18 +4,18 @@ import { withTempHome as withTempHomeBase } from "openclaw/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveAgentRuntimeConfig } from "../agents/agent-runtime-config.js";
 import { resolveSession } from "../agents/command/session.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { createThrowingTestRuntime } from "./test-runtime-config-helpers.js";
 
 type ConfigSnapshotForWrite = {
-  snapshot: { valid: boolean; resolved: OpenClawConfig };
+  snapshot: { valid: boolean; resolved: GrantedConfig };
   writeOptions: { basePluginMetadataSnapshot?: PluginMetadataSnapshot };
 };
 
 type ResolveCommandConfigParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   commandName: string;
   targetIds: Set<string>;
   allowedPaths?: Set<string>;
@@ -23,7 +23,7 @@ type ResolveCommandConfigParams = {
   runtime: RuntimeEnv;
 };
 
-const loadConfigMock = vi.hoisted(() => vi.fn<() => OpenClawConfig>());
+const loadConfigMock = vi.hoisted(() => vi.fn<() => GrantedConfig>());
 const readConfigFileSnapshotForWriteMock = vi.hoisted(() =>
   vi.fn<() => Promise<ConfigSnapshotForWrite>>(),
 );
@@ -42,7 +42,7 @@ vi.mock("../cli/command-secret-targets.js", () => ({
   getAgentRuntimeOptionalCommandSecretPaths: () =>
     new Set(["plugins.entries.firecrawl.config.webFetch.apiKey"]),
   getScopedChannelsCommandSecretTargets: (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     channel?: string;
     accountId?: string;
     defaultAccountWhenMissing?: boolean;
@@ -75,7 +75,7 @@ vi.mock("../cli/command-secret-targets.js", () => ({
 
 vi.mock("../secrets/target-registry.js", () => ({
   discoverConfigSecretTargetsByIds: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     targetIds: Iterable<string>,
   ): Array<{ path: string }> => {
     const ids = new Set(targetIds);
@@ -86,7 +86,7 @@ vi.mock("../secrets/target-registry.js", () => ({
 }));
 
 const setRuntimeConfigSnapshotMock = vi.hoisted(() =>
-  vi.fn<(cfg: OpenClawConfig, sourceConfig: OpenClawConfig) => void>(),
+  vi.fn<(cfg: GrantedConfig, sourceConfig: GrantedConfig) => void>(),
 );
 vi.mock("../config/runtime-snapshot.js", () => ({
   getRuntimeConfigSourceSnapshot: () => null,
@@ -103,8 +103,8 @@ vi.mock("../secrets/runtime-state.js", () => ({
 const prepareSecretsRuntimeSnapshotMock = vi.hoisted(() =>
   vi.fn(
     async (params: {
-      config: OpenClawConfig;
-      assignmentConfig: OpenClawConfig;
+      config: GrantedConfig;
+      assignmentConfig: GrantedConfig;
       pluginMetadataSnapshot?: Pick<PluginMetadataSnapshot, "plugins" | "manifestRegistry">;
     }) => ({
       sourceConfig: params.config,
@@ -125,8 +125,8 @@ vi.mock("../secrets/runtime.js", () => ({
 const resolveCommandConfigWithSecretsMock = vi.hoisted(() =>
   vi.fn<
     (params: ResolveCommandConfigParams) => Promise<{
-      resolvedConfig: OpenClawConfig;
-      effectiveConfig: OpenClawConfig;
+      resolvedConfig: GrantedConfig;
+      effectiveConfig: GrantedConfig;
       diagnostics: never[];
     }>
   >(),
@@ -150,7 +150,7 @@ function requireResolveCommandConfigParams(callIndex = 0): ResolveCommandConfigP
   return params;
 }
 
-function mockConfig(home: string, storePath: string): OpenClawConfig {
+function mockConfig(home: string, storePath: string): GrantedConfig {
   const cfg = {
     agents: {
       defaults: {
@@ -160,7 +160,7 @@ function mockConfig(home: string, storePath: string): OpenClawConfig {
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   loadConfigMock.mockReturnValue(cfg);
   return cfg;
 }
@@ -173,7 +173,7 @@ beforeEach(() => {
     configRefsPrepared: true,
   }));
   readConfigFileSnapshotForWriteMock.mockResolvedValue({
-    snapshot: { valid: false, resolved: {} as OpenClawConfig },
+    snapshot: { valid: false, resolved: {} as GrantedConfig },
     writeOptions: {},
   });
 });
@@ -183,7 +183,7 @@ describe("agentCommand runtime config", () => {
     await withTempHome(async (home) => {
       const store = path.join(home, "sessions.json");
       const loadedConfig = mockConfig(home, store);
-      const sourceConfig = { ...loadedConfig, secrets: { providers: {} } } as OpenClawConfig;
+      const sourceConfig = { ...loadedConfig, secrets: { providers: {} } } as GrantedConfig;
       const pluginMetadataSnapshot = {
         plugins: [],
         manifestRegistry: { plugins: [], diagnostics: [] },
@@ -233,7 +233,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const sourceConfig = {
         ...loadedConfig,
         models: {
@@ -245,7 +245,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const resolvedConfig = {
         ...loadedConfig,
         models: {
@@ -257,7 +257,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       loadConfigMock.mockReturnValue(loadedConfig);
       readConfigFileSnapshotForWriteMock.mockResolvedValue({
@@ -300,7 +300,7 @@ describe("agentCommand runtime config", () => {
         telegram: {
           botToken: { source: "env", provider: "default", id: "TELEGRAM_BOT_TOKEN" },
         },
-      } as unknown as OpenClawConfig["channels"];
+      } as unknown as GrantedConfig["channels"];
       resolveCommandConfigWithSecretsMock.mockResolvedValueOnce({
         resolvedConfig: loadedConfig,
         effectiveConfig: loadedConfig,
@@ -327,7 +327,7 @@ describe("agentCommand runtime config", () => {
         discord: {
           token: { source: "env", provider: "default", id: "DISCORD_BOT_TOKEN" },
         },
-      } as unknown as OpenClawConfig["channels"];
+      } as unknown as GrantedConfig["channels"];
       resolveCommandConfigWithSecretsMock.mockResolvedValueOnce({
         resolvedConfig: loadedConfig,
         effectiveConfig: loadedConfig,
@@ -363,7 +363,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig["channels"];
+      } as unknown as GrantedConfig["channels"];
       resolveCommandConfigWithSecretsMock.mockResolvedValueOnce({
         resolvedConfig: loadedConfig,
         effectiveConfig: loadedConfig,
@@ -394,7 +394,7 @@ describe("agentCommand runtime config", () => {
             models: [],
           },
         },
-      } as OpenClawConfig["models"];
+      } as GrantedConfig["models"];
       loadedConfig.channels = {
         telegram: {
           botToken: { source: "env", provider: "default", id: "TELEGRAM_BOT_TOKEN" },
@@ -407,7 +407,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig["channels"];
+      } as unknown as GrantedConfig["channels"];
       resolveCommandConfigWithSecretsMock.mockResolvedValueOnce({
         resolvedConfig: loadedConfig,
         effectiveConfig: loadedConfig,
@@ -447,7 +447,7 @@ describe("agentCommand runtime config", () => {
   it.each([
     {
       name: "global memory headers",
-      apply: (config: OpenClawConfig) => {
+      apply: (config: GrantedConfig) => {
         config.memory = {
           search: {
             remote: {
@@ -456,12 +456,12 @@ describe("agentCommand runtime config", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig["memory"];
+        } as unknown as GrantedConfig["memory"];
       },
     },
     {
       name: "per-agent memory headers",
-      apply: (config: OpenClawConfig) => {
+      apply: (config: GrantedConfig) => {
         config.agents = {
           ...config.agents,
           entries: {
@@ -481,12 +481,12 @@ describe("agentCommand runtime config", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig["agents"];
+        } as unknown as GrantedConfig["agents"];
       },
     },
     {
       name: "per-agent TTS provider",
-      apply: (config: OpenClawConfig) => {
+      apply: (config: GrantedConfig) => {
         config.agents = {
           ...config.agents,
           entries: {
@@ -500,7 +500,7 @@ describe("agentCommand runtime config", () => {
               },
             },
           },
-        } as OpenClawConfig["agents"];
+        } as GrantedConfig["agents"];
       },
     },
   ])("resolves command secrets for $name", async ({ apply }) => {

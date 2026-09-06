@@ -10,18 +10,18 @@ import { normalizeSqliteNumber } from "../../infra/sqlite-number.js";
 import { registerSecretValueForRedaction } from "../../logging/secret-redaction-registry.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
 import { ensureSecretStoreSchema } from "../../state/openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import {
   SECRET_STORE_VALUE_MAX_BYTES,
   SecretStoreValidationError,
 } from "./secret-store-validation-error.js";
 
-type HiddenGitHubStoreDatabase = Pick<OpenClawStateKyselyDatabase, "secret_store_entries">;
-type HiddenGitHubStoreRow = Selectable<OpenClawStateKyselyDatabase["secret_store_entries"]>;
+type HiddenGitHubStoreDatabase = Pick<GrantedStateKyselyDatabase, "secret_store_entries">;
+type HiddenGitHubStoreRow = Selectable<GrantedStateKyselyDatabase["secret_store_entries"]>;
 type HiddenGitHubStoreKind = "device" | "oauth";
 type HiddenGitHubStoreNameKind = "setup" | HiddenGitHubStoreKind;
 type HiddenGitHubStorePrefix = "github-device" | "github-oauth";
@@ -204,7 +204,7 @@ export function writeHiddenGitHubSecretRecord(params: {
   name: string;
   value: string;
   updatedBy?: string | null;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): void {
   assertHiddenGitHubSecretRecordName(params.name);
   validateHiddenGitHubSecretValue(params.value);
@@ -233,7 +233,7 @@ export function writeHiddenGitHubSecretRecord(params: {
 /** Reads one exact live hidden GitHub authorization record. */
 export function readHiddenGitHubSecretRecord(params: {
   name: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): string | undefined {
   const kind = assertHiddenGitHubSecretRecordName(params.name);
   try {
@@ -268,7 +268,7 @@ export function readHiddenGitHubSecretRecord(params: {
 /** Lists live hidden GitHub authorization records of one exact class. */
 export function listHiddenGitHubSecretRecordNames(params: {
   prefix: HiddenGitHubStorePrefix;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): string[] {
   try {
     const now = Date.now();
@@ -311,7 +311,7 @@ export function listHiddenGitHubSecretRecordNames(params: {
 /** Hard-deletes one exact hidden GitHub authorization record. */
 export function deleteHiddenGitHubSecretRecord(params: {
   name: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): void {
   assertHiddenGitHubSecretRecordName(params.name);
   try {

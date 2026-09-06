@@ -7,18 +7,18 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { find as findWorkerSessionPlacement } from "./worker-environments/placement-row-codec.js";
 
 const PLACEMENT_GRANT_TTL_MS = 30 * 24 * 60 * 60_000;
 
 type PlacementGrantDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "operator_approvals" | "worker_environments" | "worker_session_placements"
 >;
 
@@ -79,7 +79,7 @@ function hasExactAttachedSession(value: string, sessionId: string): boolean {
 }
 
 function isPlacementBindingCurrent(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   binding: PlacementStandingGrantMintSpec,
 ): boolean {
   const placement = findWorkerSessionPlacement(database.db, binding.sessionId);
@@ -113,7 +113,7 @@ function isPlacementBindingCurrent(
 
 /** Resolves the exact active node-backed placement from Gateway-owned rows. */
 function resolvePlacementStandingGrantBinding(
-  input: PlacementGrantResolutionInput & { databaseOptions?: OpenClawStateDatabaseOptions },
+  input: PlacementGrantResolutionInput & { databaseOptions?: GrantedStateDatabaseOptions },
 ): PlacementStandingGrantMintSpec | null {
   if (
     !input.pluginId.trim() ||
@@ -185,7 +185,7 @@ function resolveRetainedGrant(params: {
   binding: PlacementStandingGrantMintSpec;
   runtimeEpoch: string;
   nowMs: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): ConsumePlacementStandingGrantResult {
   const key = placementGrantKey(params.binding);
   const grant = params.grants.get(key);
@@ -243,7 +243,7 @@ function resolveRetainedGrant(params: {
 
 export function createPlacementStandingGrantRuntime(params: {
   runtimeEpoch: string;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   now?: () => number;
 }): PlacementStandingGrantRuntime {
   const grants = new Map<string, PlacementStandingGrantRecord>();

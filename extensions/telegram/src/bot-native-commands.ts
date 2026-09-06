@@ -7,7 +7,7 @@ import {
 } from "openclaw/plugin-sdk/command-auth-native";
 import type {
   ChannelGroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
@@ -47,18 +47,18 @@ type TelegramNativeCommandContext = Context & { match?: string };
 
 type RegisterTelegramNativeCommandsParams = {
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   accountId: string;
   telegramCfg: TelegramAccountConfig;
   mediaMaxBytes?: number;
   nativeEnabled: boolean;
   nativeSkillsEnabled: boolean;
-  resolveGroupPolicy: (chatId: string | number, cfg: OpenClawConfig) => ChannelGroupPolicy;
+  resolveGroupPolicy: (chatId: string | number, cfg: GrantedConfig) => ChannelGroupPolicy;
   resolveTelegramGroupConfig: (
     chatId: string | number,
     messageThreadId: number | undefined,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
   ) => TelegramResolvedGroupConfig;
   shouldSkipUpdate: (ctx: TelegramUpdateKeyContext) => boolean;
   telegramDeps?: TelegramNativeCommandDeps;

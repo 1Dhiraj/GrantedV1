@@ -1,5 +1,5 @@
 // Signal plugin module implements reaction level behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveReactionLevel,
   type ReactionLevel,
@@ -20,7 +20,7 @@ export type ResolvedSignalReactionLevel = ResolvedReactionLevel;
  * - "extensive": Agent can react liberally
  */
 export function resolveSignalReactionLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
 }): ResolvedSignalReactionLevel {
   const account = resolveSignalAccount({

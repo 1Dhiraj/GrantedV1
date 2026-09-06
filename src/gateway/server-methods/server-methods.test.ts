@@ -12,7 +12,7 @@ import { GATEWAY_CLIENT_IDS } from "../../../packages/gateway-protocol/src/clien
 import { validateExecApprovalRequestParams } from "../../../packages/gateway-protocol/src/index.js";
 import { STREAM_ERROR_FALLBACK_TEXT } from "../../agents/stream-message-shared.js";
 import { HEARTBEAT_PROMPT } from "../../auto-reply/heartbeat.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { registerLegacyContextEngine } from "../../context-engine/legacy.registration.js";
 import {
   registerContextEngineForOwner,
@@ -2388,12 +2388,12 @@ describe("timestampOptsFromConfig", () => {
   it.each([
     {
       name: "extracts timezone from config",
-      cfg: { agents: { defaults: { userTimezone: "America/Chicago" } } } as OpenClawConfig,
+      cfg: { agents: { defaults: { userTimezone: "America/Chicago" } } } as GrantedConfig,
       expected: "America/Chicago",
     },
     {
       name: "falls back gracefully with empty config",
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       expected: Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
     },
   ])("$name", ({ cfg, expected }) => {
@@ -2403,10 +2403,10 @@ describe("timestampOptsFromConfig", () => {
   it("keeps timestamp injection enabled for upgraded configs", () => {
     const upgradedConfigWithExistingDefaults = {
       agents: { defaults: { userTimezone: "America/Chicago" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     // Timestamp injection is fixed on even when other agent defaults exist.
-    expect(timestampOptsFromConfig({} as OpenClawConfig).includeTimestamp).toBe(true);
+    expect(timestampOptsFromConfig({} as GrantedConfig).includeTimestamp).toBe(true);
     expect(timestampOptsFromConfig(upgradedConfigWithExistingDefaults).includeTimestamp).toBe(true);
   });
 });
@@ -2728,7 +2728,7 @@ describe("exec approval handlers", () => {
     });
   }
 
-  function createExecApprovalFixture(opts?: { config?: OpenClawConfig }) {
+  function createExecApprovalFixture(opts?: { config?: GrantedConfig }) {
     const manager = new ExecApprovalManager();
     const handlers = createExecApprovalHandlers(manager);
     const broadcasts: Array<{ event: string; payload: unknown }> = [];
@@ -2881,7 +2881,7 @@ describe("exec approval handlers", () => {
     expect(fallbackRespond).toHaveBeenCalledWith(true, { ok: true }, undefined);
   }
 
-  async function expectDroppedApprovalCommandSpans(config?: OpenClawConfig) {
+  async function expectDroppedApprovalCommandSpans(config?: GrantedConfig) {
     const { request } = await requestExecApprovalForTest(
       {
         timeoutMs: 10,
@@ -4972,7 +4972,7 @@ describe("gateway healthHandlers.health cache freshness", () => {
     try {
       const contextEngine = await resolveContextEngine({
         plugins: { slots: { contextEngine: engineId } },
-      } as OpenClawConfig);
+      } as GrantedConfig);
       await contextEngine.assemble({ sessionId: "s1", messages: [] });
 
       const { respond } = await requestHealthSnapshot({ cached: createHealthSnapshot({}) });

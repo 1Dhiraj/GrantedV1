@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { linePlugin } from "./channel.js";
 
 const userId = `U${"a".repeat(32)}`;
-const cfg: OpenClawConfig = {
+const cfg: GrantedConfig = {
   channels: {
     line: {
       channelAccessToken: "heartbeat-default-fixture",

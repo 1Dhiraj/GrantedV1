@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginKind } from "./plugin-kind.types.js";
 import {
   loadPluginMetadataSnapshot,
@@ -37,10 +37,10 @@ function mergeRuntimeKinds(
 }
 
 export function applySlotSelectionForPlugin(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginId: string,
   preparedMetadata?: PluginMetadataSnapshot,
-): { config: OpenClawConfig; warnings: string[] } {
+): { config: GrantedConfig; warnings: string[] } {
   // Selection inspects the install candidate, never the running Gateway's inventory.
   const metadataSnapshot =
     preparedMetadata ??

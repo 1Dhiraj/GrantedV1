@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
 import { afterEach, describe, expect, it } from "vitest";
-import { clearRuntimeConfigSnapshot, type OpenClawConfig } from "../../../config/config.js";
+import { clearRuntimeConfigSnapshot, type GrantedConfig } from "../../../config/config.js";
 import { GatewayClient } from "../../../gateway/client.js";
 import { startGatewayServer, type GatewayServer } from "../../../gateway/server.js";
 import { extractPayloadText } from "../../../gateway/test-helpers.agent-results.js";
@@ -13,7 +13,7 @@ import { isTruthyEnvValue } from "../../../infra/env.js";
 import { resetPluginRuntimeStateForTest } from "../../../plugins/runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../test-utils/openclaw-test-state.js";
 import { getFreePort } from "../../../test-utils/ports.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../../utils/message-channel.js";
@@ -42,7 +42,7 @@ type LiveSubagentModelConfig = {
   provider: "openai" | "google";
   requiredEnv: "OPENAI_API_KEY" | "GEMINI_API_KEY" | "GOOGLE_API_KEY";
 };
-type LiveSubagentModelProviders = NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>;
+type LiveSubagentModelProviders = NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>;
 
 function resolveLiveSubagentModelConfig(): LiveSubagentModelConfig {
   const modelKey = process.env.GRANTED_LIVE_SUBAGENT_E2E_MODEL?.trim() || "openai/gpt-5.6-luna";
@@ -68,10 +68,10 @@ function liveSubagentConfig(
   port: number,
   token: string,
   options?: {
-    queue?: NonNullable<OpenClawConfig["messages"]>["queue"];
+    queue?: NonNullable<GrantedConfig["messages"]>["queue"];
     toolAllow?: string[];
   },
-): OpenClawConfig {
+): GrantedConfig {
   const providerConfig = resolveLiveSubagentModelConfig();
   const modelId = modelKey.replace(/^(openai|google)\//u, "");
   const providers: LiveSubagentModelProviders = {};
@@ -196,7 +196,7 @@ function createGatewayClient(params: {
 }
 
 describeLive("subagent announce live", () => {
-  let state: OpenClawTestState | undefined;
+  let state: GrantedTestState | undefined;
   let server: GatewayServer | undefined;
   let client: GatewayClient | undefined;
 

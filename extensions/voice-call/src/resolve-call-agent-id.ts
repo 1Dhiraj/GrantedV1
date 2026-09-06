@@ -1,5 +1,5 @@
 import { resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
 import type { VoiceCallConfig } from "./config.js";
 import type { CallRecord } from "./types.js";
@@ -7,7 +7,7 @@ import type { CallRecord } from "./types.js";
 /** Setup and startup must resolve the same owner before provisioning telephony. */
 export function resolveVoiceCallAgentId(
   config: Pick<VoiceCallConfig, "agentId">,
-  coreConfig: OpenClawConfig,
+  coreConfig: GrantedConfig,
 ): string {
   return config.agentId
     ? normalizeAgentId(config.agentId)

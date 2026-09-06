@@ -1,5 +1,5 @@
 /** Resolves the selected native harness from a run-owned plugin registry. */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderRouteOverridePresence } from "../../plugin-sdk/provider-model-types.js";
 import {
   normalizePluginsConfig,
@@ -44,7 +44,7 @@ type AgentHarnessRuntimePayloadFailure = {
 function describeMissingHarnessRegistration(
   runtime: string,
   pluginRegistry: PluginRegistry | undefined,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): string {
   const context = getPluginRuntimeLoadContext(pluginRegistry);
   const activationSourceConfig = context?.activationSourceConfig ?? config;
@@ -128,7 +128,7 @@ function describeMissingHarnessRegistration(
 export function resolveAgentHarnessRuntimeAvailability(params: {
   runtime: string;
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   payloadFailures: readonly AgentHarnessRuntimePayloadFailure[];
   payloadCheckedPluginIds: readonly string[];
@@ -183,7 +183,7 @@ export function resolveAgentHarnessRuntimeAvailability(params: {
 export async function ensureSelectedAgentHarnessPlugin(params: {
   provider: string;
   modelId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   agentHarnessId?: string;

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   executorTestMocks,
@@ -26,7 +26,7 @@ describe("Telegram native command built-ins", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         providerOverride: "anthropic",
@@ -80,7 +80,7 @@ describe("Telegram native command built-ins", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       sessionMocks.sessionStoreEntries.mockReturnValue({
         "agent:main:main": {
           providerOverride: "openai",
@@ -116,7 +116,7 @@ describe("Telegram native command built-ins", () => {
   it("resolves /think menu choices against the runtime catalog for live-discovered models", async () => {
     const cfg = {
       agents: { defaults: { models: { "ollama/*": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         providerOverride: "ollama",
@@ -152,7 +152,7 @@ describe("Telegram native command built-ins", () => {
   it("loads the runtime catalog for /think when no session model override is set", async () => {
     const cfg = {
       agents: { defaults: { model: "ollama/glm-5.2:cloud", models: { "ollama/*": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({});
     const runtimeCatalog = [
       { provider: "ollama", id: "glm-5.2:cloud", name: "glm-5.2:cloud", reasoning: true },
@@ -176,7 +176,7 @@ describe("Telegram native command built-ins", () => {
   });
 
   it("inherits the parent session model when building DM thread native argument menus", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         providerOverride: "anthropic",
@@ -219,7 +219,7 @@ describe("Telegram native command built-ins", () => {
           thinkingDefault: "medium",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         providerOverride: "anthropic",
@@ -268,7 +268,7 @@ describe("Telegram native command built-ins", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         modelProvider: "openai-codex",
@@ -321,7 +321,7 @@ describe("Telegram native command built-ins", () => {
           model: { primary: "anthropic/claude-opus-4-8" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({});
     agentRuntimeMocks.loadModelCatalog.mockImplementation(async (params) => {
       if (!params?.readOnly) {
@@ -376,7 +376,7 @@ describe("Telegram native command built-ins", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({
       "agent:main:main": {
         providerOverride: "anthropic",
@@ -422,7 +422,7 @@ describe("Telegram native command built-ins", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     sessionMocks.sessionStoreEntries.mockReturnValue({});
 
     const { handler, sendMessage } = registerAndResolveCommandHandler({

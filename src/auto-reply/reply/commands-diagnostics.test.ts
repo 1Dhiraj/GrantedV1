@@ -1,7 +1,7 @@
 // Tests diagnostics command output and runtime diagnostic toggles.
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
 import { clearPluginCommands, registerPluginCommand } from "../../plugins/commands.js";
@@ -9,11 +9,11 @@ import { createPluginRegistry } from "../../plugins/registry.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { PluginRuntime } from "../../plugins/runtime/types.js";
 import { createBundledPluginRecord } from "../../plugins/status.test-fixtures.js";
-import type { OpenClawPluginCommandDefinition, PluginCommandContext } from "../../plugins/types.js";
+import type { GrantedPluginCommandDefinition, PluginCommandContext } from "../../plugins/types.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { normalizeSessionDeliveryState } from "../../utils/delivery-context.shared.js";
 
-type PluginCommandHandler = OpenClawPluginCommandDefinition["handler"];
+type PluginCommandHandler = GrantedPluginCommandDefinition["handler"];
 import type { MsgContext } from "../templating.js";
 import { handleDiagnosticsCommand as defaultDiagnosticsCommandHandler } from "./commands-diagnostics.js";
 import type { HandleCommandsParams } from "./commands-types.js";
@@ -107,7 +107,7 @@ function buildDiagnosticsParams(
   overrides: Partial<HandleCommandsParams> = {},
 ): HandleCommandsParams {
   return {
-    cfg: { commands: { text: true } } as OpenClawConfig,
+    cfg: { commands: { text: true } } as GrantedConfig,
     ctx: {
       Provider: "whatsapp",
       Surface: "whatsapp",

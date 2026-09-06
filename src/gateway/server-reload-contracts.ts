@@ -1,5 +1,5 @@
 import type { CliDeps } from "../cli/deps.types.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import type { HeartbeatRunner } from "../infra/heartbeat-runner.js";
 import type { GatewayRestartEmitter } from "../infra/restart.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
@@ -68,8 +68,8 @@ export type GatewayGmailRestartAbortController = {
 export type GatewayHotReloadPublication = {
   publish: (commit: () => Promise<void>, isCommitted: () => boolean) => Promise<void>;
   isCurrent: () => boolean;
-  sourceConfig: OpenClawConfig;
-  prepareRestartRuntimeConfig?: () => Promise<OpenClawConfig>;
+  sourceConfig: GrantedConfig;
+  prepareRestartRuntimeConfig?: () => Promise<GrantedConfig>;
   runtimeEnv?: NodeJS.ProcessEnv;
 };
 
@@ -82,14 +82,14 @@ export type GatewayRestartTransactionResult = {
 
 export type GatewayRestartRequestOptions = {
   retainDebtAcrossConfigChanges?: boolean;
-  prepareRuntimeConfig?: () => Promise<OpenClawConfig>;
-  debtConfig?: OpenClawConfig;
+  prepareRuntimeConfig?: () => Promise<GrantedConfig>;
+  debtConfig?: GrantedConfig;
 };
 
 export type AcceptedRestartTarget = {
-  runtimeConfig: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
-  prepareRuntimeConfig: () => Promise<OpenClawConfig>;
+  runtimeConfig: GrantedConfig;
+  sourceConfig: GrantedConfig;
+  prepareRuntimeConfig: () => Promise<GrantedConfig>;
 };
 
 export type AcceptedRestartTargetOwnership = {
@@ -169,8 +169,8 @@ export type GatewayReloadHandlerParams = {
   getChannelAutostartSuppression?: GatewayChannelManager["getAutostartSuppression"];
   stopPostReadySidecars?: () => Promise<void> | void;
   reloadPlugins: (params: {
-    nextConfig: OpenClawConfig;
-    sourceConfig: OpenClawConfig;
+    nextConfig: GrantedConfig;
+    sourceConfig: GrantedConfig;
     changedPaths: readonly string[];
     beforeReplace: (
       channels: ReadonlySet<ChannelKind>,
@@ -190,7 +190,7 @@ export type GatewayReloadHandlerParams = {
   logCron: { error: (msg: string) => void };
   logReload: GatewayReloadLog;
   cronReconciliation: GatewayCronReconciliation;
-  createHealthMonitor: (config: OpenClawConfig) => ChannelHealthMonitor | null;
+  createHealthMonitor: (config: GrantedConfig) => ChannelHealthMonitor | null;
   createGmailRestartAbortController?: () => GatewayGmailRestartAbortController;
   clearGmailRestartAbortController?: (controller: GatewayGmailRestartAbortController) => void;
   onCronRestart?: () => void;
@@ -206,8 +206,8 @@ export type ManagedGatewayConfigReloaderParams = Omit<
 > & {
   configRevisionProjector: import("./config-revision-token.js").GatewayConfigRevisionProjector;
   minimalTestGateway: boolean;
-  initialConfig: OpenClawConfig;
-  initialCompareConfig?: OpenClawConfig;
+  initialConfig: GrantedConfig;
+  initialCompareConfig?: GrantedConfig;
   initialSnapshotRawHash: string | null;
   initialAuthoredConfig: unknown;
   initialIncludedPaths?: readonly string[];
@@ -225,22 +225,22 @@ export type ManagedGatewayConfigReloaderParams = Omit<
   activateRuntimeSecrets: ActivateRuntimeSecrets;
   /** Applies one immutable effective config/compare snapshot before reload planning. */
   prepareConfigCandidate?: (params: {
-    runtimeConfig: OpenClawConfig;
-    sourceConfig: OpenClawConfig;
+    runtimeConfig: GrantedConfig;
+    sourceConfig: GrantedConfig;
   }) => {
-    runtimeConfig: OpenClawConfig;
-    compareConfig: OpenClawConfig;
-    reapplyRuntimeOverlays?: (config: OpenClawConfig) => OpenClawConfig;
-    reapplyCompareOverlays?: (config: OpenClawConfig) => OpenClawConfig;
+    runtimeConfig: GrantedConfig;
+    compareConfig: GrantedConfig;
+    reapplyRuntimeOverlays?: (config: GrantedConfig) => GrantedConfig;
+    reapplyCompareOverlays?: (config: GrantedConfig) => GrantedConfig;
   };
   /** Reapplies fixed process-lifetime overlays before secrets preparation. */
-  applyRuntimeConfigOverrides?: (config: OpenClawConfig) => OpenClawConfig;
-  resolveSharedGatewaySessionGenerationForConfig: (config: OpenClawConfig) => string | undefined;
+  applyRuntimeConfigOverrides?: (config: GrantedConfig) => GrantedConfig;
+  resolveSharedGatewaySessionGenerationForConfig: (config: GrantedConfig) => string | undefined;
   sharedGatewaySessionGenerationState: SharedGatewaySessionGenerationState;
   clients: Iterable<SharedGatewayAuthClient>;
-  prepareTerminalConfig: (plan: GatewayReloadPlan, nextConfig: OpenClawConfig) => void;
-  reconcileTerminalSessions: (plan: GatewayReloadPlan, nextConfig: OpenClawConfig) => void;
-  commitTerminalConfig: (nextConfig: OpenClawConfig) => void;
+  prepareTerminalConfig: (plan: GatewayReloadPlan, nextConfig: GrantedConfig) => void;
+  reconcileTerminalSessions: (plan: GatewayReloadPlan, nextConfig: GrantedConfig) => void;
+  commitTerminalConfig: (nextConfig: GrantedConfig) => void;
   acceptTerminalConfig: (options: { retireRejectedRestart: boolean }) => void;
 };
 

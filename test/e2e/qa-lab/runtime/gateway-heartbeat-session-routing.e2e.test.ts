@@ -14,7 +14,7 @@ import {
   replaceSessionEntry,
 } from "../../../../src/config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../../../../src/config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { readSessionMessagesAsync } from "../../../../src/gateway/session-transcript-readers.js";
 import {
   disconnectGatewayClient,
@@ -351,7 +351,7 @@ describe("Gateway heartbeat session routing", () => {
             entries: { [PROOF_CHANNEL_ID]: { enabled: true } },
             slots: { memory: "none" },
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
 
         gateway = await startGatewayWithClient({
           cfg: config,

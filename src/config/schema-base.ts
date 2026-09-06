@@ -17,7 +17,7 @@ import {
 } from "./schema.shared.js";
 import { applyDerivedTags } from "./schema.tags.js";
 import { applyResolvedConfigTierHints } from "./schema.tiers.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
 type ConfigSchema = Record<string, unknown>;
 
@@ -133,22 +133,18 @@ function computeBaseConfigSchemaStablePayload(): BaseConfigSchemaStablePayload {
       version: baseConfigSchemaStablePayload.version,
     };
   }
-  const schema = OpenClawSchema.toJSONSchema({
+  const schema = GrantedSchema.toJSONSchema({
     io: "input",
     target: "draft-07",
     unrepresentable: "any",
   });
-  schema.title = "OpenClawConfig";
+  schema.title = "GrantedConfig";
   const schemaRoot = asSchemaObject(schema);
   if (schemaRoot) {
     applyFieldDocumentation(schemaRoot);
   }
-  const baseHints = mapSensitivePaths(OpenClawSchema, "", buildBaseHints());
-  const sensitiveUrlPaths = collectMatchingSchemaPaths(
-    OpenClawSchema,
-    "",
-    isSensitiveUrlConfigPath,
-  );
+  const baseHints = mapSensitivePaths(GrantedSchema, "", buildBaseHints());
+  const sensitiveUrlPaths = collectMatchingSchemaPaths(GrantedSchema, "", isSensitiveUrlConfigPath);
   const publicSchema = preparePublicSchema(schema);
   const stablePayload = {
     schema: publicSchema,

@@ -3,7 +3,7 @@ import {
   normalizeStringEntries,
   normalizeUniqueStringEntries,
 } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   AgentToolResultMiddleware,
   AgentToolResultMiddlewareOptions,
@@ -33,14 +33,14 @@ import type {
   AnyAgentTool,
   AgentHarness,
   CliBackendPlugin,
-  OpenClawPluginApi,
+  GrantedPluginApi,
   ImageGenerationProviderPlugin,
   MediaUnderstandingProviderPlugin,
   TranscriptSourceProvider,
   MigrationProviderPlugin,
   MusicGenerationProviderPlugin,
-  OpenClawPluginCliRootCommandDescriptor,
-  OpenClawPluginCliRegistrar,
+  GrantedPluginCliRootCommandDescriptor,
+  GrantedPluginCliRegistrar,
   PluginTextTransformRegistration,
   ProviderPlugin,
   RealtimeTranscriptionProviderPlugin,
@@ -54,14 +54,14 @@ import type {
 } from "./types.js";
 
 type CapturedPluginCliRegistration = {
-  register: OpenClawPluginCliRegistrar;
+  register: GrantedPluginCliRegistrar;
   parentPath: string[];
   commands: string[];
-  descriptors: OpenClawPluginCliRootCommandDescriptor[];
+  descriptors: GrantedPluginCliRootCommandDescriptor[];
 };
 
 export type CapturedPluginRegistration = {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   providers: ProviderPlugin[];
   agentHarnesses: AgentHarness[];
   cliRegistrars: CapturedPluginCliRegistration[];
@@ -96,10 +96,10 @@ export type CapturedPluginRegistration = {
 };
 
 export function createCapturedPluginRegistration(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   id?: string;
   name?: string;
-  registrationMode?: OpenClawPluginApi["registrationMode"];
+  registrationMode?: GrantedPluginApi["registrationMode"];
   source?: string;
 }): CapturedPluginRegistration {
   const providers: ProviderPlugin[] = [];
@@ -182,7 +182,7 @@ export function createCapturedPluginRegistration(params?: {
       name: pluginName,
       source: pluginSource,
       registrationMode,
-      config: params?.config ?? ({} as OpenClawConfig),
+      config: params?.config ?? ({} as GrantedConfig),
       runtime:
         registrationMode === "cli-metadata" || registrationMode === "setup-only"
           ? createUnavailableRuntime(registrationMode, pluginId)
@@ -196,9 +196,9 @@ export function createCapturedPluginRegistration(params?: {
           const descriptors = (opts?.descriptors ?? [])
             .map((descriptor) => {
               const machineOutput = rootRegistration
-                ? (descriptor as OpenClawPluginCliRootCommandDescriptor).machineOutput
+                ? (descriptor as GrantedPluginCliRootCommandDescriptor).machineOutput
                 : undefined;
-              const normalized: OpenClawPluginCliRootCommandDescriptor = {
+              const normalized: GrantedPluginCliRootCommandDescriptor = {
                 name: descriptor.name.trim(),
                 description: descriptor.description.trim(),
                 hasSubcommands: descriptor.hasSubcommands,
@@ -372,7 +372,7 @@ export function createCapturedPluginRegistration(params?: {
 
 export function capturePluginRegistration(
   params: NonNullable<Parameters<typeof createCapturedPluginRegistration>[0]> & {
-    register(api: OpenClawPluginApi): void;
+    register(api: GrantedPluginApi): void;
   },
 ): CapturedPluginRegistration {
   const captured = createCapturedPluginRegistration(params);

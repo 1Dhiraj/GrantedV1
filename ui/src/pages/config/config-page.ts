@@ -50,7 +50,7 @@ import { isMissingOperatorReadScopeError } from "../../lib/gateway-errors.ts";
 import { canCallGatewayMethod } from "../../lib/gateway-methods.ts";
 import { loadModelCatalog } from "../../lib/model-catalog-store.ts";
 import { resolveScrollBehavior } from "../../lib/scroll-behavior.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
@@ -261,7 +261,7 @@ function applyTextScale(value: unknown) {
   );
 }
 
-export class ConfigPage extends OpenClawLightDomElement {
+export class ConfigPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

@@ -4,7 +4,7 @@ import path from "node:path";
 // Verifies fallback cooldown probe decisions and diagnostic records.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createDiagnosticLogRecordCapture } from "../logging/test-helpers/diagnostic-log-capture.js";
 import type { AuthProfileStore } from "./auth-profiles.js";
 import type { FailoverReason } from "./failover/signal.js";
@@ -248,7 +248,7 @@ async function expectProbeFailureFallsBack({
         },
       },
     },
-  } as Partial<OpenClawConfig>);
+  } as Partial<GrantedConfig>);
 
   mockedIsProfileInCooldown.mockReturnValue(true);
   mockedGetSoonestCooldownExpiry.mockReturnValue(1_700_000_000_000 + 30 * 1000);
@@ -282,7 +282,7 @@ describe("runWithModelFallback – probe logic", () => {
   const NOW = 1_700_000_000_000;
 
   const runPrimaryCandidate = (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     run: (provider: string, model: string) => Promise<unknown>,
   ) =>
     runWithModelFallback({
@@ -527,7 +527,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
     mockedGetSoonestCooldownExpiry.mockReturnValue(NOW + 60 * 1000);
     const fallbackRun = vi
       .fn()
@@ -657,7 +657,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
 
     mockedResolveAuthProfileOrder.mockImplementation(({ provider }: { provider: string }) => {
       if (provider === "google") {
@@ -799,7 +799,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
 
     // Far-future cooldown with no fallback chain: the primary must still be
     // probed so a recovered rolling cap resumes work instead of staying silent
@@ -883,7 +883,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
 
     // Put only OpenAI into cooldown; Anthropic is available
     mockedIsProfileInCooldown.mockImplementation((_store: AuthProfileStore, profileId: string) =>
@@ -916,7 +916,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
     mockedIsProfileInCooldown.mockReturnValue(false);
     const run = vi
       .fn()
@@ -1005,7 +1005,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
 
     // Both providers in cooldown
     mockedIsProfileInCooldown.mockReturnValue(true);
@@ -1057,7 +1057,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
     mockedIsProfileInCooldown.mockImplementation((_store: AuthProfileStore, profileId: string) =>
       profileId.startsWith("anthropic"),
     );
@@ -1099,7 +1099,7 @@ describe("runWithModelFallback – probe logic", () => {
           },
         },
       },
-    } as Partial<OpenClawConfig>);
+    } as Partial<GrantedConfig>);
     mockedIsProfileInCooldown.mockReturnValue(false);
     const run = vi.fn().mockRejectedValueOnce(new Error("primary failed"));
 

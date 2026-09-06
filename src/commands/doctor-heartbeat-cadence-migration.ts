@@ -2,7 +2,7 @@
 import { note } from "../../packages/terminal-core/src/note.js";
 import { tryResolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   applyHeartbeatMonitorJobs,
   heartbeatMonitorAddOptions,
@@ -29,7 +29,7 @@ type HeartbeatCadenceMigrationResult = {
   warnings: string[];
 };
 
-function createDoctorCronService(storePath: string, cfg: OpenClawConfig): CronService {
+function createDoctorCronService(storePath: string, cfg: GrantedConfig): CronService {
   const noop = () => {};
   const log = { debug: noop, info: noop, warn: noop, error: noop };
   return new CronService({
@@ -48,7 +48,7 @@ function createDoctorCronService(storePath: string, cfg: OpenClawConfig): CronSe
 }
 
 async function loadHeartbeatMonitorPlanReadOnly(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   storePath: string,
   env: NodeJS.ProcessEnv,
 ): Promise<HeartbeatMonitorPlan> {
@@ -92,7 +92,7 @@ function cadenceFinding(params: {
 
 /** Reports heartbeat monitor rows that do not yet match cadence config. */
 export async function collectHeartbeatCadenceMigrationFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<readonly HealthFinding[]> {
   const storePath = resolveCronJobsStorePathFromConfig(cfg, env);
@@ -115,7 +115,7 @@ export async function collectHeartbeatCadenceMigrationFindings(
 
 /** Creates or updates the stable monitor rows used by heartbeat execution. */
 export async function ensureHeartbeatMonitorJobs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   storePath: string,
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<Map<string, CronJob>> {
@@ -134,7 +134,7 @@ export async function ensureHeartbeatMonitorJobs(
 
 /** Previews or applies config-to-cron heartbeat cadence materialization. */
 export async function maybeMigrateHeartbeatCadenceToCron(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   shouldRepair: boolean;
   env?: NodeJS.ProcessEnv;
 }): Promise<HeartbeatCadenceMigrationResult> {

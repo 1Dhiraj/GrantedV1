@@ -1,5 +1,5 @@
 // QA Lab Slack credentials, instrumentation, and channel config.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { asNonArrayRecord, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
   type SlackQaRuntimeEnv,
@@ -113,7 +113,7 @@ export function instrumentSlackPostMessage(client: WebClient) {
 }
 
 export function buildSlackQaConfig(
-  baseCfg: OpenClawConfig,
+  baseCfg: GrantedConfig,
   params: {
     channelId: string;
     driverBotUserId: string;
@@ -123,7 +123,7 @@ export function buildSlackQaConfig(
     sutAppToken: string;
     sutBotToken: string;
   },
-): OpenClawConfig {
+): GrantedConfig {
   const codexApprovalConfig = params.overrides?.codexApproval === true;
   const progressOverrides = params.overrides?.progress;
   const primaryModel = params.primaryModel;

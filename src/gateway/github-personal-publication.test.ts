@@ -8,7 +8,7 @@ import {
   resetSessionEntryLifecycle,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
 import { ensurePersonalGitHubPublicationSchema } from "../state/openclaw-state-db-schema-additive.js";
@@ -78,7 +78,7 @@ describe("personal publication authority and recovery", () => {
   let otherOwner: string;
   let action: ReturnType<typeof preparePersonalGitHubSessionAction>;
   let client: GatewayClient;
-  let config: OpenClawConfig;
+  let config: GrantedConfig;
   let context: GatewayRequestContext;
   let runtime: Awaited<ReturnType<typeof createPersonalPublicationFixture>>["runtime"];
   let generation: string;

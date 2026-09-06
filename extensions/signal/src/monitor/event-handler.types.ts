@@ -4,7 +4,7 @@ import type { StatusReactionTiming } from "openclaw/plugin-sdk/channel-feedback"
 import type {
   DmPolicy,
   GroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   SignalReactionNotificationMode,
 } from "openclaw/plugin-sdk/config-contracts";
 import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
@@ -97,7 +97,7 @@ export type SignalEventHandlerDeps = {
   statusReactionTiming?: Required<StatusReactionTiming>;
   abortSignal?: AbortSignal;
   runTrackedTask?: (task: () => Promise<void>) => void;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   baseUrl: string;
   account?: string;
   accountUuid?: string;
@@ -125,7 +125,7 @@ export type SignalEventHandlerDeps = {
     maxBytes: number;
   }) => Promise<{ path: string; contentType?: string } | null>;
   deliverReplies: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     replies: ReplyPayload[];
     target: string;
     baseUrl: string;

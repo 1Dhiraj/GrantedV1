@@ -4,7 +4,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
 } from "../../packages/normalization-core/src/string-coerce.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { callGateway as defaultCallGateway } from "../gateway/call.js";
 import {
   createSessionVisibilityDecisionChecker,
@@ -105,7 +105,7 @@ export async function listSpawnedSessionKeys(params: {
 }
 
 /** Resolve configured session-tool visibility, defaulting invalid or missing values to agent. */
-export function resolveSessionToolsVisibility(cfg: OpenClawConfig): SessionToolsVisibility {
+export function resolveSessionToolsVisibility(cfg: GrantedConfig): SessionToolsVisibility {
   const raw = (cfg.tools as { sessions?: { visibility?: unknown } } | undefined)?.sessions
     ?.visibility;
   const value = normalizeLowercaseStringOrEmpty(raw);
@@ -117,7 +117,7 @@ export function resolveSessionToolsVisibility(cfg: OpenClawConfig): SessionTools
 
 /** Resolve visibility after applying sandbox clamps for spawned-session-only agents. */
 export function resolveEffectiveSessionToolsVisibility(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sandboxed: boolean;
 }): SessionToolsVisibility {
   const visibility = resolveSessionToolsVisibility(params.cfg);
@@ -132,7 +132,7 @@ export function resolveEffectiveSessionToolsVisibility(params: {
 }
 
 /** Resolve sandbox-specific session visibility clamp for agent defaults. */
-export function resolveSandboxSessionToolsVisibility(cfg: OpenClawConfig): "spawned" | "all" {
+export function resolveSandboxSessionToolsVisibility(cfg: GrantedConfig): "spawned" | "all" {
   return cfg.agents?.defaults?.sandbox?.sessionToolsVisibility ?? "spawned";
 }
 
@@ -201,7 +201,7 @@ function matchesCompiledWildcard(
 }
 
 /** Compile agent-to-agent allow rules into reusable matching predicates. */
-export function createAgentToAgentPolicy(cfg: OpenClawConfig): AgentToAgentPolicy {
+export function createAgentToAgentPolicy(cfg: GrantedConfig): AgentToAgentPolicy {
   const routingA2A = cfg.tools?.agentToAgent;
   const enabled = routingA2A?.enabled === true;
   const rawAllowPatterns = Array.isArray(routingA2A?.allow) ? routingA2A.allow : [];

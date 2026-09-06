@@ -8,7 +8,7 @@ import {
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { hasUnresolvedConfigPath } from "../config/resolution-facts.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayAuth } from "../gateway/auth-resolve.js";
 import { resolveGatewayAuthTokenSourceConflict } from "../gateway/auth-token-source-conflict.js";
 import { createGatewayCredentialPlan } from "../gateway/credential-planner.js";
@@ -16,7 +16,7 @@ import type { SecurityAuditFinding } from "./audit.types.js";
 import { collectCoreInsecureOrDangerousFlags } from "./core-dangerous-config-flags.js";
 import { DEFAULT_GATEWAY_HTTP_TOOL_DENY } from "./dangerous-tools.js";
 
-type CollectDangerousConfigFlags = (cfg: OpenClawConfig) => string[];
+type CollectDangerousConfigFlags = (cfg: GrantedConfig) => string[];
 
 type CollectGatewayConfigFindingsOptions = {
   collectDangerousConfigFlags?: CollectDangerousConfigFlags;
@@ -24,8 +24,8 @@ type CollectGatewayConfigFindingsOptions = {
 };
 
 export function collectGatewayConfigFindings(
-  cfg: OpenClawConfig,
-  sourceConfig: OpenClawConfig,
+  cfg: GrantedConfig,
+  sourceConfig: GrantedConfig,
   env: NodeJS.ProcessEnv,
   options: CollectGatewayConfigFindingsOptions = {},
 ): SecurityAuditFinding[] {

@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { Type } from "typebox";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { GatewayRequestContext } from "../../gateway/server-methods/types.js";
 import { renderTerminalBufferText } from "../../gateway/terminal/buffer-text.js";
 import type { TerminalAgentActionOutcome } from "../../gateway/terminal/session-manager.types.js";
@@ -69,7 +69,7 @@ type TerminalToolOptions = {
   agentId?: string;
   agentSessionKey?: string;
   sessionId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   execSession?: ExecSessionDefaults;
   execOverrides?: ExecPolicyOverrides & { mode?: ExecMode };
   runId?: string;

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetConfigRuntimeState } from "../config/config.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resetGatewayWorkAdmission } from "../process/gateway-work-admission.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
@@ -33,12 +33,12 @@ describe("stale exec heartbeat wakes", () => {
     currentHandlerDisposer = setRuntimeHeartbeatWakeHandler(handler);
   }
 
-  function heartbeatConfig(every = "30m"): OpenClawConfig {
+  function heartbeatConfig(every = "30m"): GrantedConfig {
     return {
       agents: {
         defaults: { heartbeat: { every } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   beforeEach(() => {
@@ -176,7 +176,7 @@ describe("stale exec heartbeat wakes", () => {
   it("keeps a scheduled turn alive when an acknowledged exec wake coalesces with it", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
       setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -219,7 +219,7 @@ describe("stale exec heartbeat wakes", () => {
   it("keeps tagged cron work alive when an exec wake is coalesced", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
       setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -258,7 +258,7 @@ describe("stale exec heartbeat wakes", () => {
   it("retires a stale exec wake before retryable busy gates", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
       setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,

@@ -1,7 +1,7 @@
 // Runs music generation requests through provider runtimes and fallbacks.
 import type { FallbackAttempt } from "../agents/model-fallback.types.js";
 import { resolveAgentModelTimeoutMsValue } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { parseMusicGenerationModelRef } from "../media-generation/model-ref.js";
 import {
@@ -40,7 +40,7 @@ type MusicGenerationRuntimeDeps = {
 
 /** List runtime-visible music generation providers for a config snapshot. */
 export function listRuntimeMusicGenerationProviders(
-  params?: { config?: OpenClawConfig },
+  params?: { config?: GrantedConfig },
   deps: MusicGenerationRuntimeDeps = {},
 ) {
   return (deps.listProviders ?? listMusicGenerationProviders)(params?.config);

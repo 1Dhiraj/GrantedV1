@@ -3,7 +3,7 @@ import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { PLUGIN_APPROVAL_DESCRIPTION_MAX_LENGTH } from "../../infra/plugin-approvals.js";
 import { logDebug } from "../../logger.js";
 import type { PluginHookBeforeToolCallResult } from "../../plugins/hook-before-tool-call-result.js";
@@ -172,7 +172,7 @@ function lifecycleApprovalTimeoutReason(params: {
   ].join(" ");
 }
 
-function resolveApprovalConfig(config?: OpenClawConfig): OpenClawConfig | undefined {
+function resolveApprovalConfig(config?: GrantedConfig): GrantedConfig | undefined {
   if (config) {
     return config;
   }
@@ -189,7 +189,7 @@ function resolveApprovalConfig(config?: OpenClawConfig): OpenClawConfig | undefi
 export async function resolveSkillWorkshopToolApproval(params: {
   toolName: string;
   toolParams: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): Promise<PluginHookBeforeToolCallResult | undefined> {
   if (params.toolName !== "skill_workshop") {

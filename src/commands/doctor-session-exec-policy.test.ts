@@ -5,13 +5,13 @@ import {
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ExecAsk, ExecSecurity } from "../infra/exec-approvals-core.js";
 import { maxAsk, minSecurity } from "../infra/exec-approvals-policy.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 
 const note = vi.hoisted(() => vi.fn());
@@ -19,7 +19,7 @@ vi.mock("../../packages/terminal-core/src/note.js", () => ({ note }));
 
 import { noteSessionTranscriptHealth } from "./doctor-session-transcripts.js";
 
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 
 afterEach(async () => {
   note.mockClear();
@@ -30,7 +30,7 @@ afterEach(async () => {
 describe("doctor legacy session exec policy", () => {
   it.each<{
     name: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     legacy: { execSecurity?: string; execAsk?: string };
     host?: SessionEntry["execHost"];
     sandbox?: SessionEntry["sandbox"];

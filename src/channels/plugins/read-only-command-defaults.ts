@@ -5,7 +5,7 @@
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveStateDir, STATE_DIR } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isBlockedObjectKey } from "../../infra/prototype-keys.js";
 import { isInstalledPluginEnabled } from "../../plugins/installed-plugin-index.js";
 import type { PluginManifestRecord } from "../../plugins/manifest-registry.js";
@@ -78,7 +78,7 @@ export function resolveReadOnlyChannelCommandDefaults(
     env?: NodeJS.ProcessEnv;
     stateDir?: string;
     workspaceDir?: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
   },
 ): ChannelCommandDefaults | undefined {
   const normalizedChannelId = normalizeOptionalString(channelId) ?? "";

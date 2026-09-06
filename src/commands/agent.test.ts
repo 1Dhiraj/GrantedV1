@@ -35,7 +35,7 @@ import {
 import { addSessionMember, listSessionMembers } from "../config/sessions/session-sharing-store.js";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
 import type { InternalSessionEntry as SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getBootEchoContextForSession } from "../gateway/boot-echo-guard.js";
 import { runBootOnce } from "../gateway/boot.js";
 import { emitAgentEvent, onAgentEvent, resetAgentEventsForTest } from "../infra/agent-events.js";
@@ -316,7 +316,7 @@ vi.mock("../agents/command/delivery.runtime.js", () => {
   return {
     deliverAgentCommandResult: vi.fn(
       async (params: {
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         deps: {
           sendMessageTelegram?: (
             to: string,
@@ -403,9 +403,9 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
 function mockConfig(
   home: string,
   storePath: string,
-  agentOverrides?: Partial<NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>>,
-  telegramOverrides?: Partial<NonNullable<NonNullable<OpenClawConfig["channels"]>["telegram"]>>,
-  agentsList?: NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>,
+  agentOverrides?: Partial<NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>>,
+  telegramOverrides?: Partial<NonNullable<NonNullable<GrantedConfig["channels"]>["telegram"]>>,
+  agentsList?: NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>,
 ) {
   const cfg = {
     meta: { migrations: { modelPolicyAllowlist: true } },
@@ -422,7 +422,7 @@ function mockConfig(
     channels: {
       telegram: telegramOverrides ? { ...telegramOverrides } : undefined,
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   configIoMocks.loadConfig.mockReturnValue(cfg);
   return cfg;
 }
@@ -558,7 +558,7 @@ function installThinkingTestProviders(channels: Parameters<typeof createTestRegi
 }
 
 function createOutboundSessionRouteFixture(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   channel: string;
   accountId?: string | null;
@@ -593,7 +593,7 @@ beforeEach(() => {
   vi.mocked(loadEnabledClaudeBundleCommands).mockReturnValue([]);
   vi.mocked(modelSelectionModule.isCliProvider).mockImplementation(() => false);
   configIoMocks.readConfigFileSnapshotForWrite.mockResolvedValue({
-    snapshot: { valid: false, resolved: {} as OpenClawConfig },
+    snapshot: { valid: false, resolved: {} as GrantedConfig },
     writeOptions: {},
   });
 });

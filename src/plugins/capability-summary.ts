@@ -10,7 +10,7 @@ import type {
   PluginInstallTrust,
   PluginsInspectResult,
 } from "../../packages/gateway-protocol/src/schema/plugins.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   PluginAcceptedDeclaredSurface,
   PluginEntryConfig,
@@ -299,7 +299,7 @@ export function buildPluginCapabilityConsentReview(params: {
     version?: string;
   };
   record: PluginInstallRecord;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   declared?: PluginAcceptedDeclaredSurface;
   previousDeclared?: PluginAcceptedDeclaredSurface;
   widened?: Partial<PluginAcceptedDeclaredSurface>;

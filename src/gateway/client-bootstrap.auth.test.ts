@@ -6,12 +6,12 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { createConfigIoContext } from "../config/io.context.js";
 import { readConfigFileSnapshotFromContext } from "../config/io.snapshot.js";
 import type { GatewayRemoteConfig } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayClientBootstrap } from "./client-bootstrap.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function remoteGatewayConfig(remote?: GatewayRemoteConfig): OpenClawConfig {
+function remoteGatewayConfig(remote?: GatewayRemoteConfig): GrantedConfig {
   return {
     gateway: {
       mode: "remote",
@@ -24,7 +24,7 @@ function remoteGatewayConfig(remote?: GatewayRemoteConfig): OpenClawConfig {
 }
 
 async function expectInteractiveAuth(
-  params: { config: OpenClawConfig; env?: NodeJS.ProcessEnv },
+  params: { config: GrantedConfig; env?: NodeJS.ProcessEnv },
   expectedAuth: { token?: string; password?: string },
 ): Promise<void> {
   const result = await resolveGatewayClientBootstrap({

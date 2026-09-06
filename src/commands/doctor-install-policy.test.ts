@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { noteInstallPolicyHealth } from "./doctor-install-policy.js";
 
 const noteMock = vi.hoisted(() => vi.fn());
@@ -11,7 +11,7 @@ const noteMock = vi.hoisted(() => vi.fn());
 vi.mock("../../packages/terminal-core/src/note.js", () => ({ note: noteMock }));
 
 async function collectInstallPolicyHealthLines(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: { deep?: boolean; env?: NodeJS.ProcessEnv } = {},
 ): Promise<string[]> {
   noteMock.mockClear();
@@ -29,7 +29,7 @@ async function writePolicyScript(dir: string, response: string): Promise<string>
   return scriptPath;
 }
 
-function configWithPolicy(scriptPath: string): OpenClawConfig {
+function configWithPolicy(scriptPath: string): GrantedConfig {
   return {
     security: {
       installPolicy: {

@@ -21,12 +21,12 @@ import {
   type SecretsStoreState,
 } from "../../lib/secrets-store/index.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { renderSecretsStore, type SecretsDialogMode } from "./view.ts";
 
 const MAX_VALUE_BYTES = 64 * 1024;
 
-class SecretsPage extends OpenClawLightDomElement {
+class SecretsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { applyDockerOpenAiProviderConfig, type OpenClawConfig } from "./docker-openai-seed.ts";
+import { applyDockerOpenAiProviderConfig, type GrantedConfig } from "./docker-openai-seed.ts";
 import { writeProbeMcpServer } from "./lib/mcp-code-mode-probe-server.ts";
 
 async function main() {
@@ -66,7 +66,7 @@ async function main() {
           },
         },
       },
-    } satisfies OpenClawConfig,
+    } satisfies GrantedConfig,
     apiKey,
   );
 

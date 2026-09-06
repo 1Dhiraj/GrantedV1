@@ -1,5 +1,5 @@
 // Deepinfra tests cover video generation provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
@@ -252,7 +252,7 @@ describe("deepinfra video generation provider", () => {
             deepinfra: { baseUrl: "https://video.example.com/v1/openai" },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(
@@ -288,7 +288,7 @@ describe("deepinfra video generation provider", () => {
             deepinfra: { nativeBaseUrl: "https://gw.example.com/v1/inference" },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(resolveProviderHttpRequestConfigMock.mock.calls[0]?.[0]).toMatchObject({
@@ -315,7 +315,7 @@ describe("deepinfra video generation provider", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
       })
       .then(
         () => undefined,

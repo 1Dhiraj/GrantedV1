@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { autoMigrateLegacyState } from "../infra/state-migrations.doctor.js";
 import { resetAutoMigrateLegacyStateDirForTest } from "../infra/state-migrations.state-dir.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -148,7 +148,7 @@ describe("installed channel legacy session surfaces", () => {
           "blocked-session-owner": { enabled: false },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     writePersistedInstalledPluginIndexInstallRecordsSync(
       {
@@ -247,7 +247,7 @@ describe("installed channel legacy session surfaces", () => {
         allow: ["enabled-only-session-owner"],
         entries: { "enabled-only-session-owner": { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     writePersistedInstalledPluginIndexInstallRecordsSync(
       {
         "enabled-only-session-owner": {
@@ -322,7 +322,7 @@ export const legacySessionSurface = {
         allow: ["broken-session-owner"],
         entries: { "broken-session-owner": { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     writePersistedInstalledPluginIndexInstallRecordsSync(
       {
         "broken-session-owner": {

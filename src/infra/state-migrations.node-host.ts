@@ -10,7 +10,7 @@ import {
   type NodeHostGatewayConfig,
 } from "../node-host/config.js";
 import { normalizeNodeHostCloudflareAccessConfig } from "../node-host/gateway-cloudflare-access.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -32,7 +32,7 @@ const LEGACY_NODE_HOST_MAX_BYTES = 64 * 1024;
 const CONFIG_KEYS = new Set(["version", "nodeId", "token", "displayName", "gateway"]);
 const GATEWAY_KEYS = new Set(["host", "port", "tls", "tlsFingerprint", "contextPath"]);
 
-type NodeHostConfigDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type NodeHostConfigDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 type CanonicalNodeHostState = {
   config: NodeHostConfig;

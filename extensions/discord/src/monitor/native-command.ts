@@ -2,7 +2,7 @@
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { loadPreparedModelCatalog, resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
 import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildPairingReply } from "openclaw/plugin-sdk/conversation-runtime";
 import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
 import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
@@ -105,7 +105,7 @@ const NON_PLUGIN_COMMAND_DISPATCH = Object.freeze({ kind: "non-plugin" as const 
 
 export function createDiscordNativeCommand(params: {
   command: NativeCommandSpec | PluginCommandNativeCandidate;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordConfig;
   accountId: string;
   sessionPrefix: string;
@@ -227,7 +227,7 @@ async function dispatchDiscordCommandInteraction(params: {
   prompt: string;
   command: ChatCommandDefinition;
   commandArgs?: DiscordCommandArgs;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordConfig;
   accountId: string;
   sessionPrefix: string;

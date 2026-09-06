@@ -10,7 +10,7 @@ import { detectMime, normalizeMimeType } from "@openclaw/media-core/mime";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
 import type { SsrFPolicy } from "../infra/net/ssrf.js";
@@ -385,7 +385,7 @@ export async function extractImageContentFromSource(
 export async function extractFileContentFromSource(params: {
   source: InputFileSource;
   limits: InputFileLimits;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<InputFileExtractResult> {
   const { source, limits } = params;
   const filename = source.filename || "file";
@@ -442,7 +442,7 @@ export async function extractFileContentFromBuffer(params: {
   mimeType?: string;
   charset?: string;
   limits: InputFileLimits;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   classification?: AttachmentClassification;
 }): Promise<InputFileExtractResult> {
   const { buffer, limits } = params;

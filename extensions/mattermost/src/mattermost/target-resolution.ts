@@ -14,7 +14,7 @@ import {
   parseMattermostApiStatus,
 } from "./client.js";
 import { resolveMattermostTrustedChatKind } from "./monitor-auth.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { GrantedConfig } from "./runtime-api.js";
 
 type MattermostOpaqueTargetResolution = {
   kind: "user" | "channel" | "group";
@@ -141,7 +141,7 @@ function isExplicitMattermostTarget(raw: string): boolean {
 
 export async function resolveMattermostOpaqueTarget(params: {
   input: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   accountId?: string | null;
   token?: string;
   baseUrl?: string;

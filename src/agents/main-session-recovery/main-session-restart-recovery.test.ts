@@ -10,7 +10,7 @@ import { resolveReplyRunDeliveryContext } from "../../auto-reply/reply/agent-run
 import { markInboundContextLabel } from "../../auto-reply/reply/inbound-context-marker.js";
 import type { ChannelOutboundAdapter } from "../../channels/plugins/types.public.js";
 import type { CliDeps } from "../../cli/outbound-send-deps.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import * as configSessions from "../../config/sessions.js";
 import type { InternalSessionEntry as SessionEntry } from "../../config/sessions.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
@@ -119,7 +119,7 @@ const discordDeliveryContext = {
 } as const;
 const executionIdentityEnabledConfig = {
   logging: { audit: { executionIdentity: true } },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 vi.mock("../../gateway/call.js", () => ({
   callGateway: vi.fn(async () => ({ runId: "run-resumed" })),
@@ -690,7 +690,7 @@ describe("main-session-restart-recovery", () => {
 
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const storePaths = await resolveRestartRecoveryStorePaths({ cfg, stateDir: tmpDir });
 
     expect(storePaths).toContain(path.join(configuredSessionsDir, "sessions.json"));
@@ -754,7 +754,7 @@ describe("main-session-restart-recovery", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(resolveRestartRecoveryStorePaths({ cfg, stateDir: tmpDir })).resolves.toContain(
       storePath,
@@ -806,7 +806,7 @@ describe("main-session-restart-recovery", () => {
         entries: { ops: {}, research: {} },
       },
       session: { scope: "global", store: storePath },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await expect(
       recoverStore({
@@ -1456,7 +1456,7 @@ describe("main-session-restart-recovery", () => {
           meta: { durationMs: 1 },
         };
         await deliverAgentCommandResult({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           deps: {} as CliDeps,
           runtime: { log: vi.fn(), error: vi.fn() } as never,
           opts: {
@@ -1619,7 +1619,7 @@ describe("main-session-restart-recovery", () => {
         meta: { durationMs: 1 },
       };
       await deliverAgentCommandResult({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         deps: {} as CliDeps,
         runtime: { log: vi.fn(), error: vi.fn() } as never,
         opts: {
@@ -1727,7 +1727,7 @@ describe("main-session-restart-recovery", () => {
     ["upgrade config without the new setting", {}],
     ["explicit collection disable", { logging: { audit: { executionIdentity: false } } }],
     ["disabled audit ledger", { logging: { audit: { enabled: false, executionIdentity: true } } }],
-  ] satisfies Array<[string, OpenClawConfig | undefined]>)(
+  ] satisfies Array<[string, GrantedConfig | undefined]>)(
     "stores no recovery identity with %s",
     async (_label, cfg) => {
       const sessionsDir = await makeSessionsDir();
@@ -3334,7 +3334,7 @@ describe("main-session-restart-recovery", () => {
     const lateStorePath = path.join(lateSessionsDir, "sessions.json");
     const cfg = {
       agents: { list: [{ id: "main", default: true }, { id: "late" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const discoverySpy = vi.spyOn(configSessions, "resolveAllAgentSessionStoreTargetsSync");
     const originalApply = sessionAccessor.applySessionEntryReplacements;
     let restoredLateStore = false;
@@ -3496,7 +3496,7 @@ describe("main-session-restart-recovery", () => {
     ]);
     let currentConfig = {
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const recovery = scheduleRestartAbortedMainSessionRecovery({
       delayMs: 0,
@@ -3507,7 +3507,7 @@ describe("main-session-restart-recovery", () => {
     await Promise.resolve();
     currentConfig = {
       agents: { list: [{ id: "main", default: true }, { id: "work" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     releaseStartup.resolve();
 
     await waitForFast(() => expect(callGateway).toHaveBeenCalledOnce());
@@ -3712,7 +3712,7 @@ describe("main-session-restart-recovery", () => {
       sessionsDir,
       pendingFinalDelivery: makePendingFinalDelivery(),
     });
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const discoverySpy = vi.spyOn(configSessions, "resolveAllAgentSessionStoreTargetsSync");
     const firstDispatch = createDeferred();
     const secondDispatch = createDeferred();

@@ -5,7 +5,7 @@ import path from "node:path";
 import { __setFsSafeTestHooksForTest } from "@openclaw/fs-safe/test-hooks";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { readOutboundMediaFile } from "./bounded-read-file.js";
 import { buildOutboundMediaLoadOptions } from "./load-options.js";
 import { getDefaultMediaLocalRoots } from "./local-roots.js";
@@ -40,7 +40,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
 
   it("preserves caller-provided workspaceDir from mediaAccess", () => {
     const result = resolveAgentScopedOutboundMediaAccess({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       mediaAccess: { workspaceDir: "/tmp/media-workspace" },
     });
 
@@ -55,7 +55,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
 
   it("prefers explicit workspaceDir over mediaAccess.workspaceDir", () => {
     const result = resolveAgentScopedOutboundMediaAccess({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       workspaceDir: "/tmp/explicit-workspace",
       mediaAccess: { workspaceDir: "/tmp/media-workspace" },
     });
@@ -76,7 +76,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
         tools: {
           fs: { workspaceOnly: true },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       workspaceDir,
       mediaSources: [`${workspaceDir}/report.html`],
     });
@@ -86,7 +86,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
   });
 
   it("does not enable host reads when sender group policy denies read", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read"],
       },
@@ -126,7 +126,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
           allow: ["read"],
           toolsBySender: { "id:attacker": { deny: ["read"] } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       identity: { messageProvider: "requestchat", requesterSenderId: "attacker" },
     },
     {
@@ -144,7 +144,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
             },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       identity: {
         agentId: "restricted",
         messageProvider: "requestchat",
@@ -158,7 +158,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
           allow: ["read"],
           toolsBySender: { "channel:requestchat:attacker": { deny: ["read"] } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       identity: {
         sessionKey: "agent:main:requestchat:group:ops",
         requesterSenderId: "attacker",
@@ -171,7 +171,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
           allow: ["read"],
           toolsBySender: { "*": { deny: ["read"] } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       identity: { messageProvider: "requestchat", requesterSenderId: "attacker" },
     },
     {
@@ -181,7 +181,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
           allow: ["read"],
           toolsBySender: { "*": { deny: ["read"] } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       identity: { messageProvider: "requestchat" },
     },
   ])("does not enable host reads for $name policy", ({ cfg, identity }) => {
@@ -196,7 +196,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
   });
 
   it("keeps host reads enabled when agent sender policy allows the requester", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read"],
         toolsBySender: { "*": { deny: ["read"] } },
@@ -235,7 +235,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.writeFile(workspaceFile, "private");
     await fs.writeFile(managedFile, "managed");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read"],
         toolsBySender: { "id:attacker": { deny: ["read"] } },
@@ -289,7 +289,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
     const access = resolveAgentScopedOutboundMediaAccess({
       cfg: {
         tools: { allow: ["read"], fs: { workspaceOnly: true } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       workspaceDir,
       mediaSources: [tempMediaPath],
       workspaceMediaAccess: {
@@ -318,7 +318,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
         tools: {
           allow: ["read"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:slack:group:C123",
       groupChannel: "#incidents",
       groupSpace: "team-a",
@@ -340,7 +340,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
   });
 
   it("keeps host reads enabled when sender group policy allows read", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read"],
       },
@@ -376,7 +376,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
         tools: {
           allow: ["read"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       messageProvider: "requestchat",
       requesterSenderId: "trusted-user",
     });
@@ -394,7 +394,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
           tools: {
             allow: ["read"],
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         workspaceDir,
       });
 
@@ -421,7 +421,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
       await fs.writeFile(path.join(outsideDir, "report.csv"), "outside-secret");
       await fs.symlink(insideDir, aliasDir);
       const result = resolveAgentScopedOutboundMediaAccess({
-        cfg: { tools: { allow: ["read"] } } as OpenClawConfig,
+        cfg: { tools: { allow: ["read"] } } as GrantedConfig,
         workspaceDir,
         mediaSources: [filePath],
       });
@@ -465,7 +465,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       messageProvider: "requestchat",
       requesterSenderId: "dm-sender",
     });

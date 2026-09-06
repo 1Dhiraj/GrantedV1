@@ -1,6 +1,6 @@
 import {
   decodeNodePtyResumeParams,
-  type OpenClawPluginNodeHostCommandIo,
+  type GrantedPluginNodeHostCommandIo,
   runNodePtyCommand,
   validateClaudeSessionId,
 } from "openclaw/plugin-sdk/node-host";
@@ -63,7 +63,7 @@ export async function readClaudeSession(paramsJSON?: string | null): Promise<str
 
 export async function resumeClaudeSession(
   paramsJSON: string | null | undefined,
-  io: OpenClawPluginNodeHostCommandIo | undefined,
+  io: GrantedPluginNodeHostCommandIo | undefined,
 ): Promise<string> {
   if (!io) {
     throw new Error("Claude terminal command requires duplex transport");

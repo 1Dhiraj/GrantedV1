@@ -1,11 +1,11 @@
 // agents_list tests cover subagent discovery, runtime metadata, and legacy
 // runtime override handling.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { compactToolOutputHint } from "../tool-schema-hints.js";
 import { createAgentsListTool } from "./agents-list-tool.js";
 
-const loadConfigMock = vi.fn<() => OpenClawConfig>();
+const loadConfigMock = vi.fn<() => GrantedConfig>();
 
 type AgentListDetails = {
   requester?: string;
@@ -55,7 +55,7 @@ describe("agents_list tool", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const tool = createAgentsListTool({ agentSessionKey: "agent:main:main" });
     expect(tool.outputSchema).toMatchObject({
@@ -103,7 +103,7 @@ describe("agents_list tool", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const result = await createAgentsListTool({ agentSessionKey: "agent:main:main" }).execute(
       "call",
@@ -139,7 +139,7 @@ describe("agents_list tool", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     const result = await createAgentsListTool({ agentSessionKey: "agent:main:main" }).execute(
       "call",
@@ -159,7 +159,7 @@ describe("agents_list tool", () => {
       agents: {
         list: [{ id: "main", default: true }, { id: "codex" }],
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     const result = await createAgentsListTool({ agentSessionKey: "agent:main:main" }).execute(
       "call",
@@ -193,7 +193,7 @@ describe("agents_list tool", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     const result = await createAgentsListTool({ agentSessionKey: "agent:main:main" }).execute(
       "call",
@@ -228,7 +228,7 @@ describe("agents_list tool", () => {
           { id: "strict", agentRuntime: { id: "codex" } },
         ],
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     const result = await createAgentsListTool({ agentSessionKey: "agent:main:main" }).execute(
       "call",

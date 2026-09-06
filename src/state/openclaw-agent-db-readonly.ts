@@ -4,8 +4,8 @@ import { clearNodeSqliteKyselyCacheForDatabase } from "../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type {
-  OpenClawAgentDatabase,
-  OpenClawAgentDatabaseOptions,
+  GrantedAgentDatabase,
+  GrantedAgentDatabaseOptions,
 } from "./openclaw-agent-db-contract.js";
 import {
   assertCanonicalAgentPersistenceVersion,
@@ -20,13 +20,13 @@ import {
 } from "./openclaw-agent-db.paths.js";
 import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
 
-type OpenClawAgentReadOnlyDatabase = {
+type GrantedAgentReadOnlyDatabase = {
   agentId: string;
   db: DatabaseSync;
   path: string;
 };
 
-type OpenClawAgentDatabaseReadOnlyResult<T> =
+type GrantedAgentDatabaseReadOnlyResult<T> =
   | { found: true; value: T }
   | { found: false; reason: "database-missing" | "schema-missing" | "table-missing" };
 
@@ -38,8 +38,8 @@ type OpenClawAgentDatabaseReadOnlyResult<T> =
  * back to a fresh connection, which reports the precise reason.
  */
 function findOpenAgentDatabase(
-  options: OpenClawAgentDatabaseOptions,
-): OpenClawAgentDatabase | undefined {
+  options: GrantedAgentDatabaseOptions,
+): GrantedAgentDatabase | undefined {
   try {
     return getOpenClawAgentDatabaseIfOpen(options);
   } catch {
@@ -49,10 +49,10 @@ function findOpenAgentDatabase(
 
 /** Read agent state without creating, registering, migrating, or joining its writable lifecycle. */
 export function withOpenClawAgentDatabaseReadOnly<T>(
-  operation: (database: OpenClawAgentReadOnlyDatabase) => T,
-  options: OpenClawAgentDatabaseOptions,
+  operation: (database: GrantedAgentReadOnlyDatabase) => T,
+  options: GrantedAgentDatabaseOptions,
   behavior: { throwOnMissingTable?: boolean; allowExtension?: boolean } = {},
-): OpenClawAgentDatabaseReadOnlyResult<T> {
+): GrantedAgentDatabaseReadOnlyResult<T> {
   const agentId = normalizeAgentId(options.agentId);
   const pathname = resolveOpenClawAgentSqlitePath({ ...options, agentId });
   if (isIncognitoOpenClawAgentSqlitePath(pathname, { agentId, env: options.env })) {

@@ -7,7 +7,7 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -24,8 +24,8 @@ export const MAX_PLUGIN_BLOB_BYTES_PER_ENTRY = 100 * 1024 * 1024;
 export const MAX_PLUGIN_BLOB_BYTES_PER_PLUGIN = 512 * 1024 * 1024;
 export const MAX_PLUGIN_BLOB_ENTRIES_PER_PLUGIN = 50_000;
 
-type PluginBlobTable = OpenClawStateKyselyDatabase["plugin_blob_entries"];
-type PluginBlobDatabase = Pick<OpenClawStateKyselyDatabase, "plugin_blob_entries">;
+type PluginBlobTable = GrantedStateKyselyDatabase["plugin_blob_entries"];
+type PluginBlobDatabase = Pick<GrantedStateKyselyDatabase, "plugin_blob_entries">;
 type PluginBlobRow = Selectable<PluginBlobTable>;
 
 export type PluginBlobStoredInfo = Pick<

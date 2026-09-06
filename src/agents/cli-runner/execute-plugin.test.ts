@@ -1,7 +1,7 @@
 import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   CliBackendExecute,
   CliBackendExecuteContext,
@@ -37,7 +37,7 @@ const SUCCESS_RESULT = {
 
 async function createExecution(
   options: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     sessionEntry?: RunCliAgentParams["sessionEntry"];
     nativeTools?: string[];
     abortSignal?: AbortSignal;
@@ -608,7 +608,7 @@ describe("plugin-owned CLI execution host boundary", () => {
   });
 
   it("retains safe standing approvals only for the exact live process and current turn policy", async () => {
-    const config: OpenClawConfig = { tools: { exec: { security: "allowlist", ask: "on-miss" } } };
+    const config: GrantedConfig = { tools: { exec: { security: "allowlist", ask: "on-miss" } } };
     mockCallGatewayTool
       .mockResolvedValueOnce({ id: "approval-first", decision: "allow-always" })
       .mockResolvedValueOnce({ id: "approval-second", decision: "allow-always" });

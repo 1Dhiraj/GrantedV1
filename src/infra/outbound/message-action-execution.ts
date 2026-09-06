@@ -17,7 +17,7 @@ import type {
   ChannelPlugin,
   ChannelThreadingToolContext,
 } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeMessagePresentation } from "../../interactive/payload.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { readBooleanParam } from "../../plugin-sdk/boolean-param.js";
@@ -63,7 +63,7 @@ const loadMessageActionGatewayRuntime = createLazyRuntimeModule(
 export function annotateSourceDelivery<T extends MessageActionResult>(
   result: T,
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     actionParams: Record<string, unknown>;
     channel: ChannelId;
     accountId?: string | null;
@@ -280,7 +280,7 @@ function applyCrossContextMessageDecoration({
 }
 
 export async function applyMessageCrossContextMarker(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: ChannelId;
   action: ChannelMessageActionName;
   target: string;
@@ -314,7 +314,7 @@ export async function applyMessageCrossContextMarker(params: {
 }
 
 export async function executeGatewayAction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   params: Record<string, unknown>;
   channel: ChannelId;
   channelPlugin?: ChannelPlugin;

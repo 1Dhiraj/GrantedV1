@@ -2,8 +2,8 @@ import crypto from "node:crypto";
 import { EventEmitter } from "node:events";
 import { createServer, IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { connect, Socket } from "node:net";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -12,7 +12,7 @@ import {
   type TelegramMiniAppLaunchTickets,
 } from "./launch-ticket.js";
 
-type OpenClawPluginHttpRouteParams = Parameters<OpenClawPluginApi["registerHttpRoute"]>[0];
+type GrantedPluginHttpRouteParams = Parameters<GrantedPluginApi["registerHttpRoute"]>[0];
 
 const issueDeviceBootstrapToken = vi.hoisted(() =>
   vi.fn(async () => ({ token: "issued", expiresAtMs: Date.now() + 600_000 })),
@@ -76,8 +76,8 @@ class MockResponse extends EventEmitter {
   }
 }
 
-function createRoute(cfg: OpenClawConfig): OpenClawPluginHttpRouteParams {
-  let route: OpenClawPluginHttpRouteParams | null = null;
+function createRoute(cfg: GrantedConfig): GrantedPluginHttpRouteParams {
+  let route: GrantedPluginHttpRouteParams | null = null;
   const api = createTestPluginApi({
     config: cfg,
     registerHttpRoute(params) {
@@ -92,7 +92,7 @@ function createRoute(cfg: OpenClawConfig): OpenClawPluginHttpRouteParams {
 }
 
 async function callRoute(params: {
-  route: OpenClawPluginHttpRouteParams;
+  route: GrantedPluginHttpRouteParams;
   method: string;
   url: string;
   body?: string;
@@ -109,7 +109,7 @@ async function callRoute(params: {
   return await callRouteRequest(params.route, req);
 }
 
-async function callRouteRequest(route: OpenClawPluginHttpRouteParams, req: IncomingMessage) {
+async function callRouteRequest(route: GrantedPluginHttpRouteParams, req: IncomingMessage) {
   const res = new MockResponse() as ServerResponse & MockResponse;
   await route.handler(req, res);
   return res;
@@ -159,7 +159,7 @@ async function readSocketResponse(socket: Socket): Promise<string> {
   });
 }
 
-function config(allowFrom: string[] = ["123456"]): OpenClawConfig {
+function config(allowFrom: string[] = ["123456"]): GrantedConfig {
   return {
     channels: {
       telegram: {

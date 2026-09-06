@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../../../../src/auto-reply/templating.js";
-import type { OpenClawConfig } from "../../../../src/config/types.js";
+import type { GrantedConfig } from "../../../../src/config/types.js";
 import { applyMediaUnderstanding } from "../../../../src/media-understanding/apply.js";
 import { MIN_AUDIO_FILE_BYTES } from "../../../../src/media-understanding/defaults.constants.js";
 import type { MediaUnderstandingProvider } from "../../../../src/media-understanding/types.js";
@@ -22,9 +22,9 @@ async function writeAudioFixture(dir: string, name: string, fill: number): Promi
 
 function createSelectionConfig(
   attachments: NonNullable<
-    NonNullable<NonNullable<OpenClawConfig["tools"]>["media"]>["audio"]
+    NonNullable<NonNullable<GrantedConfig["tools"]>["media"]>["audio"]
   >["attachments"],
-): OpenClawConfig {
+): GrantedConfig {
   return {
     models: {
       providers: {
@@ -163,7 +163,7 @@ describe("QA media audio selection product proof", () => {
       Body: "",
       media: [{ path: audioPath, contentType: "audio/wav" }],
     };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           "qa-stt": {

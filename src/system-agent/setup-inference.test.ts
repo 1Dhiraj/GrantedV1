@@ -20,7 +20,7 @@ import type { ConfigWriteOptions } from "../config/io.js";
 import { createConfigFileSnapshot } from "../config/io.snapshot-shared.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import { getRuntimeConfigWriteApplication } from "../config/runtime-write-application.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import {
   getCurrentPluginMetadataSnapshot,
@@ -148,7 +148,7 @@ vi.mock("../commands/onboard-inference.js", async (importActual) => {
 });
 
 const runtime = { log: () => {}, error: () => {}, exit: () => {} } as never;
-const materializedMainRuntimeConfig: OpenClawConfig = {
+const materializedMainRuntimeConfig: GrantedConfig = {
   agents: { entries: { main: { default: true } } },
 };
 const testCliRuntimeArtifactFingerprint = "test-cli-runtime-artifact";
@@ -215,12 +215,12 @@ async function createMainAgentFixture() {
   const agentDir = path.join(stateDir, "agent");
   const initialConfig = {
     agents: { list: [{ id: "main", default: true, agentDir }] },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   return { stateDir, agentDir, initialConfig };
 }
 
 function mockConfigSnapshot(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: {
     exists?: boolean;
     valid?: boolean;
@@ -228,8 +228,8 @@ function mockConfigSnapshot(
     path?: string;
     hash?: string;
     issues?: Array<{ path: string; message: string }>;
-    sourceConfig?: OpenClawConfig;
-    runtimeConfig?: OpenClawConfig;
+    sourceConfig?: GrantedConfig;
+    runtimeConfig?: GrantedConfig;
   } = {},
 ) {
   const { includeMetadata, ...snapshot } = options;
@@ -244,7 +244,7 @@ function mockConfigSnapshot(
 
 const deferSuiteTempDirCleanup = async () => {};
 
-function canonicalizeAgentEntriesForTest(config: OpenClawConfig): OpenClawConfig {
+function canonicalizeAgentEntriesForTest(config: GrantedConfig): GrantedConfig {
   const next = structuredClone(config);
   const list = next.agents?.list;
   if (!list) {
@@ -258,7 +258,7 @@ function canonicalizeAgentEntriesForTest(config: OpenClawConfig): OpenClawConfig
   return next;
 }
 
-function materializeRuntimeAgentListForTest(config: OpenClawConfig): OpenClawConfig {
+function materializeRuntimeAgentListForTest(config: GrantedConfig): GrantedConfig {
   const next = canonicalizeAgentEntriesForTest(config);
   if (!next.agents?.entries) {
     return next;
@@ -467,7 +467,7 @@ type SuccessfulRunParams = {
   onSuccessfulAuthBinding?: (binding: AgentExecutionAuthBinding) => void;
   authProfileId?: string;
   agentHarnessRuntimeOverride?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   reportedModel?: string;
 };
 
@@ -536,7 +536,7 @@ function openAiOAuthCredential(token: string, lifetimeMs = 3_600_000) {
 }
 
 function mockCodexRuntimeInstall(installRecord?: PluginInstallRecord) {
-  return vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+  return vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => ({
     ok: true as const,
     cfg: installRecord
       ? {
@@ -567,25 +567,25 @@ function activateCodexSetup(params: Omit<TestSetupInferenceActivationParams, "ki
 type TestConfigTransformInput = {
   writeOptions?: ConfigWriteOptions;
   transform: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     context: {
       snapshot: {
         exists: true;
         valid: true;
         path: string;
-        config: OpenClawConfig;
-        sourceConfig: OpenClawConfig;
-        runtimeConfig: OpenClawConfig;
+        config: GrantedConfig;
+        sourceConfig: GrantedConfig;
+        runtimeConfig: GrantedConfig;
       };
       previousHash: string | null;
       attempt: number;
     },
-  ) => Promise<{ nextConfig: OpenClawConfig }> | { nextConfig: OpenClawConfig };
+  ) => Promise<{ nextConfig: GrantedConfig }> | { nextConfig: GrantedConfig };
 };
 
 function createConfigTransformHarness(
-  sourceConfig: OpenClawConfig = {},
-  runtimeConfig: OpenClawConfig = sourceConfig,
+  sourceConfig: GrantedConfig = {},
+  runtimeConfig: GrantedConfig = sourceConfig,
 ) {
   const state = {
     sourceConfig: canonicalizeAgentEntriesForTest(sourceConfig),
@@ -657,7 +657,7 @@ describe("applySystemAgentModelSelection", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await applySystemAgentModelSelection({
       config,
@@ -805,7 +805,7 @@ describe("detectSetupInference", () => {
     ]);
     const detection = await detectSetupInference({
       resolveManifestProviderAuthChoices,
-      enablePluginInConfig: ((config: OpenClawConfig) => ({ enabled: true, config })) as never,
+      enablePluginInConfig: ((config: GrantedConfig) => ({ enabled: true, config })) as never,
       probeLocalCommand: vi.fn(async (command) => ({ command, found: false })),
     });
     expect(detection.candidates).toHaveLength(2);
@@ -898,7 +898,7 @@ describe("detectSetupInference", () => {
           website: "https://local.example.com/download",
         },
       ],
-      enablePluginInConfig: ((config: OpenClawConfig) => ({ enabled: true, config })) as never,
+      enablePluginInConfig: ((config: GrantedConfig) => ({ enabled: true, config })) as never,
       resolvePluginProviders: () => [provider],
     });
 
@@ -1210,7 +1210,7 @@ describe("detectSetupInference", () => {
 
   it("detects the explicitly selected owner in a multi-agent fleet", async () => {
     const { readConfigFileSnapshot } = await import("../config/config.js");
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: {
@@ -1255,7 +1255,7 @@ describe("detectSetupInference", () => {
 
   it("does not re-offer the configured Codex route as a setup candidate", async () => {
     const { readConfigFileSnapshot } = await import("../config/config.js");
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: { model: "openai/gpt-5.6-sol" },
         entries: {
@@ -1314,7 +1314,7 @@ describe("detectSetupInference", () => {
 
   it("keeps a Codex candidate when it would switch the configured model", async () => {
     const { readConfigFileSnapshot } = await import("../config/config.js");
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: { model: "openai/gpt-5.5" },
         entries: {
@@ -1459,10 +1459,10 @@ describe("detectSetupInference", () => {
 });
 
 async function runCodexSetupWithFinalConfig(params: {
-  initialConfig?: OpenClawConfig;
-  currentConfig: OpenClawConfig;
-  currentRuntimeConfig?: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  initialConfig?: GrantedConfig;
+  currentConfig: GrantedConfig;
+  currentRuntimeConfig?: GrantedConfig;
+  sourceConfig: GrantedConfig;
 }) {
   const initialConfig = params.initialConfig ?? params.sourceConfig;
   let persistedConfig = structuredClone(params.currentConfig);
@@ -1548,7 +1548,7 @@ describe("activateSetupInference", () => {
     vi.restoreAllMocks();
   });
 
-  function createGroqSetupProvider(configPatch?: Partial<OpenClawConfig>): ProviderPlugin {
+  function createGroqSetupProvider(configPatch?: Partial<GrantedConfig>): ProviderPlugin {
     return {
       id: "groq",
       label: "Groq",
@@ -1704,7 +1704,7 @@ describe("activateSetupInference", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(initialConfig);
     const runCliAgent = vi.fn(successfulRunner("claude-cli", "claude-opus-5"));
     const resolveRouteMetadata = vi.fn(resolvePluginMetadataSnapshot);
@@ -1760,7 +1760,7 @@ describe("activateSetupInference", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(initialConfig);
     const runCliAgent = vi.fn(successfulRunner("claude-cli", "claude-opus-5"));
 
@@ -1813,7 +1813,7 @@ describe("activateSetupInference", () => {
   it("rejects an unattested existing route before handing off to OpenClaw", async () => {
     const config = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createPreRosterConfigTransformHarness();
     const result = await activateSetupInference({
       kind: "existing-model",
@@ -1890,7 +1890,7 @@ describe("activateSetupInference", () => {
   });
 
   it("reconciles a config write that committed before its writer threw", async () => {
-    let committedConfig: OpenClawConfig | undefined;
+    let committedConfig: GrantedConfig | undefined;
     const readConfigFileSnapshot = vi.fn(async () => {
       const sourceConfig = committedConfig ?? {};
       return {
@@ -1912,9 +1912,9 @@ describe("activateSetupInference", () => {
     const transformConfig = vi.fn(
       async (params: {
         transform: (
-          config: OpenClawConfig,
-          context: { snapshot: { config: OpenClawConfig; runtimeConfig: OpenClawConfig } },
-        ) => Promise<{ nextConfig: OpenClawConfig }>;
+          config: GrantedConfig,
+          context: { snapshot: { config: GrantedConfig; runtimeConfig: GrantedConfig } },
+        ) => Promise<{ nextConfig: GrantedConfig }>;
       }) => {
         committedConfig = (
           await params.transform(
@@ -1969,14 +1969,14 @@ describe("activateSetupInference", () => {
   });
 
   it("exposes the locked authored config before committing the verified model", async () => {
-    const probedConfig: OpenClawConfig = {
+    const probedConfig: GrantedConfig = {
       wizard: { securityAcknowledgedAt: "2026-08-02T00:00:00.000Z" },
     };
-    const lockedConfig: OpenClawConfig = {
+    const lockedConfig: GrantedConfig = {
       wizard: { securityAcknowledgedAt: "2026-08-03T00:00:00.000Z" },
     };
     const configHarness = createConfigTransformHarness(lockedConfig);
-    const onCommitStarted = vi.fn((sourceConfig: OpenClawConfig) => {
+    const onCommitStarted = vi.fn((sourceConfig: GrantedConfig) => {
       expect(sourceConfig.wizard?.securityAcknowledgedAt).toBe("2026-08-03T00:00:00.000Z");
       expect(configHarness.current().agents?.defaults?.model).toBeUndefined();
     });
@@ -2008,7 +2008,7 @@ describe("activateSetupInference", () => {
     const events: string[] = [];
     const ensureCodex = vi.fn(
       async (params: {
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         beforePersistentEffect?: () => void | Promise<void>;
       }) => {
         await params.beforePersistentEffect?.();
@@ -2033,7 +2033,7 @@ describe("activateSetupInference", () => {
   });
 
   it("uses the materialized runtime roster when activating from a missing config file", async () => {
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
     };
     const configHarness = createConfigTransformHarness(runtimeConfig, runtimeConfig);
@@ -2063,7 +2063,7 @@ describe("activateSetupInference", () => {
   it.each([
     {
       name: "auto-enables the lean surface for a verified local model",
-      initialConfig: {} satisfies OpenClawConfig,
+      initialConfig: {} satisfies GrantedConfig,
       expectedLean: true,
       expectedAnnouncement: true,
     },
@@ -2071,7 +2071,7 @@ describe("activateSetupInference", () => {
       name: "preserves an explicit localModelLean=false",
       initialConfig: {
         agents: { defaults: { experimental: { localModelLean: false } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedLean: false,
       expectedAnnouncement: false,
     },
@@ -2180,10 +2180,10 @@ describe("activateSetupInference", () => {
   });
 
   it("rebases model persistence on concurrent default-agent edits", async () => {
-    const probedConfig: OpenClawConfig = {
+    const probedConfig: GrantedConfig = {
       agents: { list: [{ id: "work", default: true, model: "openai/broken" }] },
     };
-    const concurrentConfig: OpenClawConfig = {
+    const concurrentConfig: GrantedConfig = {
       agents: {
         defaults: { systemAgent: { agentId: "work" } },
         list: [
@@ -2234,7 +2234,7 @@ describe("activateSetupInference", () => {
             { id: "other", agentDir: "/tmp/other", model: "openai/broken" },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
     {
       name: "system agent",
@@ -2246,7 +2246,7 @@ describe("activateSetupInference", () => {
             { id: "other", agentDir: "/tmp/other", model: "openai/broken" },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
     {
       name: "default agent directory",
@@ -2261,7 +2261,7 @@ describe("activateSetupInference", () => {
             },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
     {
       name: "system agent execution settings",
@@ -2280,7 +2280,7 @@ describe("activateSetupInference", () => {
             { id: "other", agentDir: "/tmp/other", model: "openai/broken" },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
   ])("rejects a changed $name after the live probe", async ({ concurrent }) => {
     const probedConfig = {
@@ -2291,7 +2291,7 @@ describe("activateSetupInference", () => {
           { id: "other", agentDir: "/tmp/other", model: "openai/broken" },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(concurrent);
 
     await expect(
@@ -2319,7 +2319,7 @@ describe("activateSetupInference", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const concurrentConfig = structuredClone(initialConfig);
     concurrentConfig.agents!.defaults!.models!["anthropic/claude-opus-5"] = {
       agentRuntime: { id: "codex" },
@@ -2367,8 +2367,8 @@ describe("activateSetupInference", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
-    const runtimeConfig: OpenClawConfig = structuredClone(sourceConfig);
+    } satisfies GrantedConfig;
+    const runtimeConfig: GrantedConfig = structuredClone(sourceConfig);
     runtimeConfig.models!.providers!.openai!.models = [
       {
         id: "gpt-5.6",
@@ -2407,10 +2407,10 @@ describe("activateSetupInference", () => {
   it("rejects an existing route that changes after its live probe", async () => {
     const initialConfig = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const readConfigFileSnapshot = vi
       .fn()
       .mockResolvedValueOnce({ exists: true, valid: true, config: initialConfig })
@@ -2484,7 +2484,7 @@ describe("activateSetupInference", () => {
           model: "claude-cli/claude-opus-5",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const result = await activateSetupInference({
       kind: "existing-model",
       deps: {
@@ -2548,7 +2548,7 @@ describe("activateSetupInference", () => {
   });
 
   it("does not configure Codex while selecting Claude as the primary backend", async () => {
-    const sourceConfig = {} satisfies OpenClawConfig;
+    const sourceConfig = {} satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(sourceConfig);
     const ensureCodexRuntimePlugin = vi.fn();
     const runCliAgent = vi.fn(async (params: SuccessfulRunParams) => {
@@ -2594,7 +2594,7 @@ describe("activateSetupInference", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(initialConfig);
     const runCliAgent = vi.fn(successfulRunner("claude-cli", "claude-opus-5"));
 
@@ -2625,7 +2625,7 @@ describe("activateSetupInference", () => {
   it.each([
     [
       "an explicitly disabled Codex plugin",
-      { plugins: { entries: { codex: { enabled: false } } } } satisfies OpenClawConfig,
+      { plugins: { entries: { codex: { enabled: false } } } } satisfies GrantedConfig,
     ],
     [
       "an explicit supervision opt-out",
@@ -2633,9 +2633,9 @@ describe("activateSetupInference", () => {
         plugins: {
           entries: { codex: { config: { supervision: { enabled: false } } } },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     ],
-    ["plugin policy", { plugins: { deny: ["codex"] } } satisfies OpenClawConfig],
+    ["plugin policy", { plugins: { deny: ["codex"] } } satisfies GrantedConfig],
   ])("preserves %s while selecting another backend", async (_label, config) => {
     const ensureCodexRuntimePlugin = vi.fn();
     const configHarness = createConfigTransformHarness(config);
@@ -2889,7 +2889,7 @@ describe("activateSetupInference", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const runEmbeddedAgent = vi.fn(successfulRunner("anthropic", "claude-opus-5"));
     const configHarness = createConfigTransformHarness(initialConfig);
 
@@ -2948,7 +2948,7 @@ describe("activateSetupInference", () => {
         ...initialConfig.agents,
         defaults: { models: { "openai/gpt-5.4": {} } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     resolveAgentDir(initialConfig, "main");
     const runAuth = vi.fn(async () => ({
       profiles: [
@@ -3168,7 +3168,7 @@ describe("activateSetupInference", () => {
             "groq:legacy": { provider: "groq", mode: credentialType },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       // Custom agent directories must be bound to their configured owner before
       // the shared per-agent database is created.
       resolveAgentDir(initialConfig, "main");
@@ -3210,7 +3210,7 @@ describe("activateSetupInference", () => {
         ],
       };
       const resolvePluginProviders = vi.fn(() => [provider]);
-      const enablePluginInConfig = vi.fn((config: OpenClawConfig, pluginId: string) => ({
+      const enablePluginInConfig = vi.fn((config: GrantedConfig, pluginId: string) => ({
         config: {
           ...config,
           plugins: { entries: { [pluginId]: { enabled: true } } },
@@ -3359,7 +3359,7 @@ describe("activateSetupInference", () => {
       plugins: {
         entries: { operator: { enabled: true, config: { revision: "initial" } } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const concurrentConfig = structuredClone(initialConfig);
     concurrentConfig.gateway = { port: 19_000 };
     concurrentConfig.agents!.defaults!.workspace = "/operator/concurrent";
@@ -3428,7 +3428,7 @@ describe("activateSetupInference", () => {
         },
       ],
     };
-    const enablePluginInConfig = (config: OpenClawConfig, pluginId: string) => ({
+    const enablePluginInConfig = (config: GrantedConfig, pluginId: string) => ({
       enabled: true as const,
       config: {
         ...config,
@@ -3442,7 +3442,7 @@ describe("activateSetupInference", () => {
       },
     });
     const runEmbeddedAgent = vi.fn(
-      async (params: SuccessfulRunParams & { config: OpenClawConfig }) =>
+      async (params: SuccessfulRunParams & { config: GrantedConfig }) =>
         successfulRun("groq", "llama-3.3-70b-versatile", params),
     );
     const configHarness = createConfigTransformHarness(concurrentConfig);
@@ -3588,7 +3588,7 @@ describe("activateSetupInference", () => {
     const initialConfig = {
       agents: { list: [{ id: "main", default: true, agentDir }] },
       auth: { profiles: { "groq:default": { provider: "groq", mode: "api_key" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     resolveAgentDir(initialConfig, "main");
     seedInMemoryAuthProfileStore(agentDir, {
       version: 1,
@@ -3702,7 +3702,7 @@ describe("activateSetupInference", () => {
         ...initialConfig.agents,
         defaults: { model: "openai/gpt-5.5" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     resolveAgentDir(initialConfig, "main");
     const readConfigFileSnapshot = vi
       .fn()
@@ -3753,7 +3753,7 @@ describe("activateSetupInference", () => {
   it("retains a credential when a post-write concurrent edit still references it", async () => {
     const { stateDir, agentDir, initialConfig } = await createMainAgentFixture();
     resolveAgentDir(initialConfig, "main");
-    let currentConfig: OpenClawConfig = initialConfig;
+    let currentConfig: GrantedConfig = initialConfig;
     const readConfigFileSnapshot = vi.fn(async () => ({
       exists: true,
       valid: true,
@@ -3854,7 +3854,7 @@ describe("activateSetupInference", () => {
         ...initialConfig.agents,
         defaults: { model: "openai/gpt-5.5" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     let realStoreWrites = 0;
     const updateAuthProfileStore = vi.fn(async (params) => {
       if (params.agentDir === agentDir) {
@@ -3971,8 +3971,8 @@ describe("activateSetupInference", () => {
     const initialConfig = {
       agents: { list: [{ id: "main", default: true, agentDir }] },
       models: { providers: { aux: auxProvider } },
-    } satisfies OpenClawConfig;
-    const concurrentConfig: OpenClawConfig = {
+    } satisfies GrantedConfig;
+    const concurrentConfig: GrantedConfig = {
       ...initialConfig,
       models: {
         providers: {
@@ -4085,7 +4085,7 @@ describe("activateSetupInference", () => {
       async (ctx: {
         agentDir?: string;
         opts: { githubCopilotToken?: unknown };
-        config: OpenClawConfig;
+        config: GrantedConfig;
       }) => {
         const token =
           typeof ctx.opts.githubCopilotToken === "string" ? ctx.opts.githubCopilotToken : "";
@@ -4105,7 +4105,7 @@ describe("activateSetupInference", () => {
               },
             },
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
       },
     );
     const provider: ProviderPlugin = {
@@ -4133,14 +4133,14 @@ describe("activateSetupInference", () => {
         defaults: { model: { primary: existingModel } },
         list: [{ id: "main", default: true, agentDir }],
       },
-    } satisfies OpenClawConfig;
-    const concurrentConfig: OpenClawConfig = {
+    } satisfies GrantedConfig;
+    const concurrentConfig: GrantedConfig = {
       gateway: { port: 19000 },
       agents: {
         defaults: { model: { primary: existingModel } },
         list: [{ id: "main", default: true, agentDir }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configHarness = createConfigTransformHarness(concurrentConfig);
 
     try {
@@ -4390,8 +4390,8 @@ describe("activateSetupInference", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
-    const ensureCodex = vi.fn(async (params: { cfg: OpenClawConfig }) => {
+    } satisfies GrantedConfig;
+    const ensureCodex = vi.fn(async (params: { cfg: GrantedConfig }) => {
       events.push("install-plugin");
       return {
         ok: true as const,
@@ -4423,7 +4423,7 @@ describe("activateSetupInference", () => {
       events.push("live-test");
       return successfulRun("openai", "gpt-5.6-sol", params);
     });
-    let persistedConfig: OpenClawConfig = {
+    let persistedConfig: GrantedConfig = {
       ...initialConfig,
       gateway: { port: 19000 },
     };
@@ -4432,15 +4432,15 @@ describe("activateSetupInference", () => {
     const transformConfig = vi.fn(
       async (params: {
         transform: (
-          config: OpenClawConfig,
+          config: GrantedConfig,
           context: {
             snapshot: {
-              config: OpenClawConfig;
-              sourceConfig: OpenClawConfig;
-              runtimeConfig: OpenClawConfig;
+              config: GrantedConfig;
+              sourceConfig: GrantedConfig;
+              runtimeConfig: GrantedConfig;
             };
           },
-        ) => Promise<{ nextConfig: OpenClawConfig }> | { nextConfig: OpenClawConfig };
+        ) => Promise<{ nextConfig: GrantedConfig }> | { nextConfig: GrantedConfig };
       }) => {
         const transformed = (
           await params.transform(persistedConfig, {
@@ -4682,9 +4682,9 @@ describe("activateSetupInference", () => {
   });
 
   it("probes and persists an exact non-default model through the Codex route", async () => {
-    const initialConfig: OpenClawConfig = {};
+    const initialConfig: GrantedConfig = {};
     const configHarness = createConfigTransformHarness(initialConfig);
-    const ensureCodex = vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+    const ensureCodex = vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => ({
       ok: true as const,
       cfg: {
         ...cfg,
@@ -4829,7 +4829,7 @@ describe("activateSetupInference", () => {
         },
       },
     });
-    const prepareProbeMetadata = (config: OpenClawConfig, workspaceDir: string) => {
+    const prepareProbeMetadata = (config: GrantedConfig, workspaceDir: string) => {
       const prepared = prepareOwnedPluginLoadContext(
         {
           config,
@@ -4942,11 +4942,11 @@ describe("activateSetupInference", () => {
     };
     const sourceConfig = {
       plugins: { installs: staleAuthoredRecords },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const runtimeConfig = {
       plugins: { installs: canonicalRecords },
-    } satisfies OpenClawConfig;
-    const ensureCodex = vi.fn(async (params: { cfg: OpenClawConfig }) => ({
+    } satisfies GrantedConfig;
+    const ensureCodex = vi.fn(async (params: { cfg: GrantedConfig }) => ({
       ok: true as const,
       cfg: {
         ...params.cfg,
@@ -4957,21 +4957,21 @@ describe("activateSetupInference", () => {
       },
       required: true,
     }));
-    let persistedConfig: OpenClawConfig = sourceConfig;
+    let persistedConfig: GrantedConfig = sourceConfig;
     let installIndex: Record<string, PluginInstallRecord> = structuredClone(canonicalRecords);
     const pendingInstallRecords: unknown[] = [];
     const transformConfig = vi.fn(
       async (params: {
         transform: (
-          config: OpenClawConfig,
+          config: GrantedConfig,
           context: {
             snapshot: {
-              config: OpenClawConfig;
-              sourceConfig: OpenClawConfig;
-              runtimeConfig: OpenClawConfig;
+              config: GrantedConfig;
+              sourceConfig: GrantedConfig;
+              runtimeConfig: GrantedConfig;
             };
           },
-        ) => Promise<{ nextConfig: OpenClawConfig }> | { nextConfig: OpenClawConfig };
+        ) => Promise<{ nextConfig: GrantedConfig }> | { nextConfig: GrantedConfig };
       }) => {
         const transformed = (
           await params.transform(persistedConfig, {
@@ -5137,7 +5137,7 @@ describe("activateSetupInference", () => {
       spec: "@openclaw/codex",
       installPath: "/tmp/plugins/codex-staged-registry",
     };
-    const persistedConfig = { plugins: { enabled: false } } satisfies OpenClawConfig;
+    const persistedConfig = { plugins: { enabled: false } } satisfies GrantedConfig;
     const stagedRegistry = createEmptyPluginRegistry();
     stagedRegistry.plugins.push({
       id: "codex",
@@ -5193,7 +5193,7 @@ describe("activateSetupInference", () => {
     const runEmbeddedAgent = vi.fn();
     const transformConfig = vi.fn();
     const refreshPluginRegistry = vi.fn();
-    const blockedConfig: OpenClawConfig = { plugins: { allow: ["other"] } };
+    const blockedConfig: GrantedConfig = { plugins: { allow: ["other"] } };
     const result = await activateCodexSetup({
       deps: {
         readConfigFileSnapshot: mockConfigSnapshot(blockedConfig, { includeMetadata: true }),
@@ -5277,7 +5277,7 @@ describe("activateSetupInference", () => {
     let installedRecordCache: PluginInstallRecord | undefined;
     let metadataCache: PluginInstallRecord | undefined;
     let discoveryCache: PluginInstallRecord | undefined;
-    const ensureCodex = vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => {
+    const ensureCodex = vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => {
       const cachedRecord = installedRecordCache ?? metadataCache ?? discoveryCache;
       if (cachedRecord) {
         return {
@@ -5321,13 +5321,13 @@ describe("activateSetupInference", () => {
     });
     const markRetained = vi.fn(async () => true);
     const committedInstallRecords: PluginInstallRecord[] = [];
-    let currentConfig: OpenClawConfig = {};
+    let currentConfig: GrantedConfig = {};
     const transformConfig = vi.fn(
       async (params: {
         transform: (
-          config: OpenClawConfig,
-          context: { snapshot: { config: OpenClawConfig; runtimeConfig: OpenClawConfig } },
-        ) => Promise<{ nextConfig: OpenClawConfig }>;
+          config: GrantedConfig,
+          context: { snapshot: { config: GrantedConfig; runtimeConfig: GrantedConfig } },
+        ) => Promise<{ nextConfig: GrantedConfig }>;
       }) => {
         const transformed = await params.transform(currentConfig, {
           snapshot: {
@@ -5429,7 +5429,7 @@ describe("activateSetupInference", () => {
       installPath: "/tmp/plugins/codex",
     };
     const installRecords = testCase.installRecords ?? { codex: installRecord };
-    let committedConfig: OpenClawConfig | undefined;
+    let committedConfig: GrantedConfig | undefined;
     const readConfigFileSnapshot = vi.fn(async () => {
       const sourceConfig = committedConfig ?? {};
       return {
@@ -5443,9 +5443,9 @@ describe("activateSetupInference", () => {
     const transformConfig = vi.fn(
       async (params: {
         transform: (
-          config: OpenClawConfig,
-          context: { snapshot: { config: OpenClawConfig; runtimeConfig: OpenClawConfig } },
-        ) => Promise<{ nextConfig: OpenClawConfig }>;
+          config: GrantedConfig,
+          context: { snapshot: { config: GrantedConfig; runtimeConfig: GrantedConfig } },
+        ) => Promise<{ nextConfig: GrantedConfig }>;
       }) => {
         const transformed = await params.transform(
           {},
@@ -5655,7 +5655,7 @@ describe("activateSetupInference Codex configuration", () => {
   it.each([
     {
       name: "omitted",
-      config: {} satisfies OpenClawConfig,
+      config: {} satisfies GrantedConfig,
       expectedSupervision: undefined,
     },
     {
@@ -5664,7 +5664,7 @@ describe("activateSetupInference Codex configuration", () => {
         plugins: {
           entries: { codex: { config: { supervision: {} } } },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedSupervision: {},
     },
   ])("does not add Codex supervision when it is $name", async (testCase) => {
@@ -5699,7 +5699,7 @@ describe("activateSetupInference Codex configuration", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const { result, persistedConfig } = await runCodexSetupWithFinalConfig({
       currentConfig: config,
@@ -5730,7 +5730,7 @@ describe("activateSetupInference Codex configuration", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const { result, persistedConfig } = await runCodexSetupWithFinalConfig({
       currentConfig: config,
@@ -5761,7 +5761,7 @@ describe("activateSetupInference Codex configuration", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const { result, persistedConfig, transformConfig } = await runCodexSetupWithFinalConfig({
       currentConfig: config,
@@ -5787,7 +5787,7 @@ describe("activateSetupInference Codex configuration", () => {
           codex: { config: { supervision: { enabled: false } } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const { result, persistedConfig } = await runCodexSetupWithFinalConfig({
       initialConfig: resolvedSource,
@@ -5804,7 +5804,7 @@ describe("activateSetupInference Codex configuration", () => {
   });
 
   it("fails closed when effective plugin policy changes before the success commit", async () => {
-    const denied = { plugins: { deny: ["codex"] } } satisfies OpenClawConfig;
+    const denied = { plugins: { deny: ["codex"] } } satisfies GrantedConfig;
     const { result, refreshPluginRegistry, transformConfig } = await runCodexSetupWithFinalConfig({
       initialConfig: {},
       currentConfig: denied,
@@ -5906,7 +5906,7 @@ describe("verifySetupInference", () => {
           "openai:p2": { provider: "openai", mode: "api_key" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const profiles = {
       "openai:p1": { type: "api_key" as const, provider: "openai", key: "key-1" },
       "openai:p2": { type: "api_key" as const, provider: "openai", key: "key-2" },
@@ -5974,7 +5974,7 @@ describe("verifySetupInference", () => {
     const authProfileId = "anthropic:claude-cli";
     const config = {
       agents: { defaults: { model: "claude-cli/claude-opus-5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const profiles = {
       [authProfileId]: {
         type: "oauth" as const,
@@ -6052,7 +6052,7 @@ describe("verifySetupInference", () => {
     const config = {
       agents: { defaults: { model: `openai/gpt-5.5@${profileId}` } },
       auth: { profiles: { [profileId]: { provider: "openai", mode: "api_key" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const captureSystemAgentOwnerPluginArtifacts = vi.fn(() => ({
       ownerPluginIds: ["openai"],
       ownerPluginArtifacts: [{ pluginId: "openai", fingerprint: "openai-runtime-v1" }],
@@ -6132,7 +6132,7 @@ describe("verifySetupInference", () => {
         },
       },
       plugins: { entries: { codex: { enabled: true } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const externalStore = vi.fn(
       (_agentDir?: string, options?: { externalCliProviderIds?: Iterable<string> }) => {
         const exposeCodexProfile = Array.from(options?.externalCliProviderIds ?? []).includes(
@@ -6235,7 +6235,7 @@ describe("verifySetupInference", () => {
       });
       const systemAgentTurnParams = runEmbeddedAgent.mock.calls[2]?.[0];
       expect(systemAgentTurnParams).toBeDefined();
-      expect((systemAgentTurnParams as { config?: OpenClawConfig }).config).toBe(
+      expect((systemAgentTurnParams as { config?: GrantedConfig }).config).toBe(
         verification.binding.execution.runConfig,
       );
       expect(validateAgentHarnessRuntimeArtifact).toHaveBeenCalledWith({
@@ -6266,7 +6266,7 @@ describe("verifySetupInference", () => {
           "openai:p2": { provider: "openai", mode: "api_key" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const profiles = {
       "openai:p1": { type: "api_key" as const, provider: "openai", key: "key-1" },
       "openai:p2": { type: "api_key" as const, provider: "openai", key: "key-2" },
@@ -6494,10 +6494,10 @@ describe("verifySetupInference", () => {
   it("rejects a configured route that changes during its live check", async () => {
     const initialConfig = {
       agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: { primary: "anthropic/claude-opus-5" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const readConfigFileSnapshot = vi
       .fn()
       .mockResolvedValueOnce({ exists: true, valid: true, config: initialConfig })
@@ -6696,7 +6696,7 @@ describe("verifySetupInference", () => {
       successfulRun("google-gemini-cli", "gemini-3.1-pro-preview"),
     );
     const modelRef = "google/gemini-3.1-pro-preview";
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       auth: {
         order: { [testCase.profileProvider]: [testCase.profileId] },
       },

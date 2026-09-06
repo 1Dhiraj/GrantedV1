@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { zstdCompressSync } from "node:zlib";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { loadSqliteVecExtension } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
 import { deleteSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
@@ -37,7 +37,7 @@ import { readShortTermRecallEntries } from "./short-term-promotion.js";
 describe("memory forget", () => {
   let stateDir: string;
   let workspaceDir: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   let vectorDatabase: DatabaseSync | undefined;
 
   beforeEach(async () => {

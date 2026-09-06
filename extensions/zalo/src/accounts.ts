@@ -1,7 +1,7 @@
 // Zalo plugin module implements accounts behavior.
 import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
 import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { SecretInputStringResolutionMode } from "./secret-input.js";
 import { resolveZaloToken } from "./token.js";
@@ -23,7 +23,7 @@ const {
 export { listZaloAccountIds, resolveDefaultZaloAccountId };
 
 function resolveZaloAccountWithMode(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   mode: SecretInputStringResolutionMode;
 }): ResolvedZaloAccount {
@@ -55,13 +55,13 @@ function resolveZaloAccountWithMode(params: {
 }
 
 export function resolveZaloAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedZaloAccount {
   return resolveZaloAccountWithMode({ ...params, mode: "strict" });
 }
 
-export function inspectZaloAccount(params: { cfg: OpenClawConfig; accountId?: string | null }) {
+export function inspectZaloAccount(params: { cfg: GrantedConfig; accountId?: string | null }) {
   const account = resolveZaloAccountWithMode({ ...params, mode: "inspect" });
   return {
     ...account,

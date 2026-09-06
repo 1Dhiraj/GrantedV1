@@ -9,7 +9,7 @@ import { createChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/a
 import type { ExecApprovalActionDescriptor } from "openclaw/plugin-sdk/approval-reply-runtime";
 import type {
   DiscordExecApprovalConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { logDebug, logError } from "openclaw/plugin-sdk/logging-core";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -73,7 +73,7 @@ function resolveHandlerContext(params: ChannelApprovalCapabilityHandlerContext):
 
 class ExecApprovalContainer extends DiscordUiContainer {
   constructor(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId: string;
     title: string;
     description?: string;
@@ -245,7 +245,7 @@ function resolveCommandPreviews(
 
 function createApprovalContainer(params: {
   view: ApprovalViewModel;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   actionRow?: Row<Button>;
 }): ExecApprovalContainer {
@@ -330,7 +330,7 @@ function createApprovalContainer(params: {
 }
 
 async function updateMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token: string;
   channelId: string;
@@ -357,7 +357,7 @@ async function updateMessage(params: {
 }
 
 async function finalizeMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token: string;
   cleanupAfterResolve?: boolean;

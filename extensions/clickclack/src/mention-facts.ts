@@ -9,7 +9,7 @@ import {
   buildMentionRegexes,
   normalizeMentionText,
 } from "openclaw/plugin-sdk/channel-mention-gating";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 
 type ClickClackMentionFacts = {
   canDetectMention: boolean;
@@ -20,7 +20,7 @@ type ClickClackMentionFacts = {
 const CLICKCLACK_MENTION_PATTERN = /(?:^|[^a-z0-9_@-])@([a-z0-9][a-z0-9_-]{1,31})(?![a-z0-9_-])/giu;
 
 function buildLocalMentionRegexes(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   mentionPatterns: string[];
   channelId?: string;
 }): RegExp[] {
@@ -37,7 +37,7 @@ function buildLocalMentionRegexes(params: {
         mentionPatterns: params.mentionPatterns,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return buildMentionRegexes(syntheticCfg, undefined, {
     provider: "clickclack",
     conversationId: params.channelId,
@@ -67,7 +67,7 @@ export function resolveClickClackMentionFacts(params: {
   body?: string;
   mentionPatterns: string[];
   botHandle?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   channelId?: string;
 }): ClickClackMentionFacts {

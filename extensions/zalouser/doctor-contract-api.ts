@@ -2,7 +2,7 @@
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildAgentSessionKey, parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import {
   archiveLegacyStateSource,
@@ -79,7 +79,7 @@ async function collectLegacyZalouserCredentialSources(
 }
 
 async function collectLegacyZalouserDmEntries(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
   options: { readOnly?: boolean } = {},
 ): Promise<LegacyZalouserDmEntry[]> {

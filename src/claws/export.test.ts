@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { McpServerConfig } from "../config/types.mcp.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { PLUGIN_ARTIFACT_ADAPTER_IDENTITY } from "../plugins/install-artifact-inspection.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { applyClawAddPlan } from "./add.js";
@@ -165,7 +165,7 @@ async function installedFixture(
     openClawProfile,
     context: { workspace: join(root, "workspace-worker") },
   });
-  let config: OpenClawConfig = {};
+  let config: GrantedConfig = {};
   await applyClawAddPlan(plan, {
     consentPlanIntegrity: plan.planIntegrity,
     env: { GRANTED_STATE_DIR: join(root, "state") },

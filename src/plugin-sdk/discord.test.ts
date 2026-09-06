@@ -6,7 +6,7 @@ import type { MessageReceipt } from "./channel-outbound.js";
 import type {
   DiscordComponentSendOpts,
   DiscordComponentSendResult,
-  OpenClawConfig,
+  GrantedConfig,
 } from "./discord.js";
 
 const mocks = vi.hoisted(() => {
@@ -183,7 +183,7 @@ describe("discord plugin-sdk facade", () => {
     type IsCfgOptional = object extends Pick<DiscordComponentSendOpts, "cfg"> ? true : false;
 
     expectTypeOf<IsCfgOptional>().toEqualTypeOf<false>();
-    expectTypeOf<DiscordComponentSendOpts["cfg"]>().toEqualTypeOf<OpenClawConfig>();
+    expectTypeOf<DiscordComponentSendOpts["cfg"]>().toEqualTypeOf<GrantedConfig>();
     expectTypeOf<DiscordComponentSendResult>().toEqualTypeOf<{
       messageId: string;
       channelId: string;

@@ -13,7 +13,7 @@ import { resolveGatewayNativeServiceIdentityConflict } from "../daemon/constants
 import { resolveHomeRelativePath, resolveRequiredHomeDir } from "../infra/home-dir.js";
 import { parseTcpPort } from "../infra/tcp-port.js";
 import { isFastTestRuntimeEnv } from "../infra/test-runtime-env.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 /**
  * Nix mode detection: When GRANTED_NIX_MODE=1, the gateway is running under Nix.
@@ -470,7 +470,7 @@ function parseGatewayPortEnvValue(raw: string | undefined): number | null {
 }
 
 export function resolveGatewayPort(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): number {
   const envRaw = env.GRANTED_GATEWAY_PORT?.trim();

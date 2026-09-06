@@ -5,7 +5,7 @@ import {
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
 import { applySessionEntryCanonicalReplacements } from "../config/sessions/session-accessor.sqlite-replacement-projection.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createDeferredCore } from "../shared/deferred.js";
@@ -689,7 +689,7 @@ describe("sessions.patchMany orchestration", () => {
       const cfg = {
         session: { mainKey: "work" },
         agents: { list: [{ id: "main", default: true }] },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const canonicalKey = "agent:main:work";
       const conflictingAlias = "agent:main:main";
       const siblingKeys = ["agent:main:alias-race-before", "agent:main:alias-race-after"];
@@ -793,7 +793,7 @@ describe("sessions.patchMany orchestration", () => {
       const cfg = {
         session: { mainKey: "work" },
         agents: { list: [{ id: "main", default: true }] },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const canonicalKey = "agent:main:work";
       const conflictingAlias = "agent:main:main";
       await upsertSessionEntryCore(

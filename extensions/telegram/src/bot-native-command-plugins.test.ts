@@ -4,7 +4,7 @@ import {
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
 // Telegram tests cover bot native commands plugin behavior.
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
 import type { SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -42,7 +42,7 @@ vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
 type CommandBotHarness = ReturnType<typeof createCommandBot>;
 type PlugCommandHarnessParams = {
   botHarness?: CommandBotHarness;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   command?: Record<string, unknown>;
   acceptsArgs?: boolean;
   args?: string;
@@ -158,7 +158,7 @@ describe("registerTelegramNativeCommands", () => {
 
   it("passes agent-scoped media roots for plugin command replies with media", async () => {
     const mediaMaxBytes = 50 * 1024 * 1024;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true }, { id: "work" }],
       },
@@ -634,7 +634,7 @@ describe("registerTelegramNativeCommands", () => {
       updatedAt: 1,
     });
     const { handler } = registerPlugCommand({
-      cfg: { commands: { allowFrom: { telegram: ["200"] } } } as OpenClawConfig,
+      cfg: { commands: { allowFrom: { telegram: ["200"] } } } as GrantedConfig,
     });
 
     await handler(

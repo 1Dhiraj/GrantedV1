@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { hasBillableUsage, hasNonzeroUsage, type NormalizedUsage } from "../../agents/usage.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginHookReplyUsageState } from "../../plugins/hook-types.js";
 import {
   estimateAggregateUsageCost,
@@ -51,7 +51,7 @@ const formatResponseUsageLine = (params: {
 };
 
 export const resolveResponseUsageLine = (params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir: string;
   sessionRaw?: string | null;
   channel?: string;

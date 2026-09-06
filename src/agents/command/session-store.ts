@@ -12,7 +12,7 @@ import { patchSessionEntryCore } from "../../config/sessions/session-accessor.js
 import { projectSessionSnapshotChanges } from "../../config/sessions/session-snapshot-merge.js";
 import { resolveMaintenanceConfigFromInput } from "../../config/sessions/store-maintenance.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createLazyPromise } from "../../shared/lazy-promise.js";
 import {
   clearAllCliSessions,
@@ -42,7 +42,7 @@ export function normalizeSessionTokenCount(value: number | undefined): number | 
 
 /** Applies run result metadata, usage, and CLI bindings to a session entry. */
 export async function updateSessionStoreAfterAgentRun(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir: string;
   sessionId: string;
   sessionKey: string;

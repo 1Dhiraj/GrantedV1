@@ -9,7 +9,7 @@ import { runCommandWithTimeout, type CommandOptions, type SpawnResult } from "..
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../state/openclaw-state-db.js";
 import { loadSessionEntry } from "./session-utils.js";
 import { writeSessionStore } from "./test-helpers.js";
@@ -273,7 +273,7 @@ async function runGit(workspace: string, ...args: string[]): Promise<void> {
   }
 }
 
-let database: OpenClawStateDatabase | undefined;
+let database: GrantedStateDatabase | undefined;
 let root: string | undefined;
 let tunnelManager: ReturnType<typeof createWorkerTunnelManager> | undefined;
 let workerService: WorkerEnvironmentService | undefined;

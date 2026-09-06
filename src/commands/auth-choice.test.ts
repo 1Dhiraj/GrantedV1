@@ -8,7 +8,7 @@ import {
   setupAuthTestEnv,
 } from "../../test/helpers/auth-wizard.js";
 import { resolveAgentDir } from "../agents/agent-scope.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { ModelProviderConfig } from "../config/types.models.js";
 import * as providerAuthChoices from "../plugins/provider-auth-choices.js";
@@ -120,7 +120,7 @@ vi.mock("../plugins/provider-oauth-flow.js", () => ({
 
 vi.mock("../plugins/provider-auth-helpers.js", () => ({
   applyAuthProfileConfig: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     params: {
       profileId: string;
       provider: string;
@@ -128,7 +128,7 @@ vi.mock("../plugins/provider-auth-helpers.js", () => ({
       email?: string;
       displayName?: string;
     },
-  ): OpenClawConfig => ({
+  ): GrantedConfig => ({
     ...cfg,
     auth: {
       ...cfg.auth,
@@ -268,7 +268,7 @@ function resolveProviderPluginChoice(params: { providers: ProviderPlugin[]; choi
 function providerConfigPatch(
   providerId: string,
   patch: Record<string, unknown>,
-): Partial<OpenClawConfig> {
+): Partial<GrantedConfig> {
   const providers: Record<string, ModelProviderConfig> = {
     [providerId]: patch as ModelProviderConfig,
   };
@@ -399,7 +399,7 @@ async function createApiKeyProvider(params: {
   expectedProviders?: string[];
   noteMessage?: string;
   noteTitle?: string;
-  applyConfig?: Partial<OpenClawConfig>;
+  applyConfig?: Partial<GrantedConfig>;
 }): Promise<ProviderPlugin> {
   const profileIds =
     params.profileIds && params.profileIds.length > 0
@@ -438,7 +438,7 @@ async function createApiKeyProvider(params: {
                 input,
               ),
             })),
-            ...(params.applyConfig ? { configPatch: params.applyConfig as OpenClawConfig } : {}),
+            ...(params.applyConfig ? { configPatch: params.applyConfig as GrantedConfig } : {}),
             ...(params.defaultModel ? { defaultModel: params.defaultModel } : {}),
           };
         },
@@ -514,7 +514,7 @@ async function createDefaultProviderPlugins(): Promise<ProviderPlugin[]> {
             credential: buildApiKeyCredential("zai", token),
           },
         ],
-        configPatch: providerConfigPatch("zai", { baseUrl }) as OpenClawConfig,
+        configPatch: providerConfigPatch("zai", { baseUrl }) as GrantedConfig,
         defaultModel: `zai/${modelId}`,
       };
     },
@@ -660,7 +660,7 @@ describe("applyAuthChoice", () => {
     };
   }
   async function readAuthProfiles() {
-    return readTestAuthProfileStore(resolveAgentDir({} as OpenClawConfig, "main"));
+    return readTestAuthProfileStore(resolveAgentDir({} as GrantedConfig, "main"));
   }
   async function readAuthProfilesForAgentDir(agentDir: string) {
     return readTestAuthProfileStore(agentDir);
@@ -669,7 +669,7 @@ describe("applyAuthChoice", () => {
     return (await readAuthProfiles()).profiles?.[profileId];
   }
   function expectAuthProfileConfig(
-    result: { config: OpenClawConfig },
+    result: { config: GrantedConfig },
     profileId: string,
     expected: { provider: string; mode: string },
   ) {
@@ -757,7 +757,7 @@ describe("applyAuthChoice", () => {
 
     const result = await applyAuthChoice({
       authChoice: "token",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       prompter: createPrompter({}),
       runtime: createExitThrowingRuntime(),
       setDefaultModel: true,
@@ -970,7 +970,7 @@ describe("applyAuthChoice", () => {
   it("uses provided tokens without prompting across alias and direct provider choices", async () => {
     const scenarios: Array<{
       authChoice: "apiKey" | "gemini-api-key";
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       setDefaultModel: boolean;
       tokenProvider: string;
       token: string;

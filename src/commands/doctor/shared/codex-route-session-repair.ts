@@ -20,7 +20,7 @@ import {
 } from "../../../config/sessions/session-accessor.js";
 import { resolveAllAgentSessionStoreTargetsSync } from "../../../config/sessions/targets.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { loadJsonFileThroughSymlink } from "../../../infra/json-file.js";
 import {
   loadLegacySessionStore,
@@ -336,7 +336,7 @@ function sessionEntryHasLegacyCodexRoute(
 
 function resolveVerifiedSessionAuthProfileIdMap(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   authProfileIdMap: ReadonlyMap<string, string> | undefined;
 }): ReadonlyMap<string, string> | undefined {
@@ -396,7 +396,7 @@ function resolveVerifiedSessionAuthProfileIdMap(params: {
 
 /** Scan or repair all configured agent session stores that still contain legacy Codex routes. */
 export async function maybeRepairCodexSessionRoutes(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   shouldRepair: boolean;
   codexRuntimeReady?: boolean;

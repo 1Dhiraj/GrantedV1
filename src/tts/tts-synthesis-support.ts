@@ -1,5 +1,5 @@
 import { normalizeOptionalString as readTtsResultString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig, ResolvedTtsPersona, TtsProvider } from "../config/types.js";
+import type { GrantedConfig, ResolvedTtsPersona, TtsProvider } from "../config/types.js";
 import { logVerbose } from "../globals.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { redactSensitiveText } from "../logging/redact.js";
@@ -87,7 +87,7 @@ type TtsProviderReadyResolution =
 
 function resolveReadySpeechProvider(params: {
   provider: TtsProvider;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config: ResolvedTtsConfig;
   persona?: ResolvedTtsPersona;
   voiceModel?: VoiceModelRef;
@@ -159,7 +159,7 @@ function resolveReadySpeechProvider(params: {
 async function prepareSpeechSynthesis(params: {
   provider: NonNullable<ReturnType<typeof getSpeechProvider>>;
   text: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerConfig: SpeechProviderConfig;
   providerOverrides?: SpeechProviderOverrides;
   persona?: ResolvedTtsPersona;
@@ -201,7 +201,7 @@ async function prepareSpeechSynthesis(params: {
 
 export function resolveTtsRequestSetup(params: {
   text: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prefsPath?: string;
   providerOverride?: TtsProvider;
   disableFallback?: boolean;
@@ -210,7 +210,7 @@ export function resolveTtsRequestSetup(params: {
   accountId?: string;
 }):
   | {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       config: ResolvedTtsConfig;
       persona?: ResolvedTtsPersona;
       providers: VoiceProviderCandidate[];
@@ -250,7 +250,7 @@ type TtsProviderOperation<TSynthesis> =
       kind: "ready";
       synthesize: (params: {
         prepared: PreparedSpeechSynthesis;
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         target: "audio-file" | "voice-note" | "telephony";
         timeoutMs: number;
       }) => Promise<TSynthesis>;
@@ -273,7 +273,7 @@ type TtsProviderSuccess<TSynthesis> = {
 };
 
 export async function executeTtsProviderAttempts<TSynthesis, TResult>(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config: ResolvedTtsConfig;
   persona?: ResolvedTtsPersona;
   providers: VoiceProviderCandidate[];

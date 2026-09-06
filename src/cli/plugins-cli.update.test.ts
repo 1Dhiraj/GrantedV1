@@ -2,7 +2,7 @@
 import path from "node:path";
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { ClawHubTrustErrorCode } from "../infra/clawhub-install-trust.js";
 import { resolveRegistryUpdateChannel } from "../infra/update-channels.js";
 import type { PluginCapabilityConsentReview } from "../plugins/capability-summary.js";
@@ -68,7 +68,7 @@ function createTrackedPluginConfig(params: {
   pluginId: string;
   spec: string;
   resolvedName?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       installs: {
@@ -80,7 +80,7 @@ function createTrackedPluginConfig(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createCapabilityConsentReview(): PluginCapabilityConsentReview {
@@ -142,13 +142,13 @@ function expectSingleCallParams(mockFn: ReturnType<typeof vi.fn>) {
 }
 
 function primeUpdateConfigSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   configPath?: string;
   hash?: string;
-  loadedConfig?: OpenClawConfig;
+  loadedConfig?: GrantedConfig;
   parsed?: Record<string, unknown>;
-  runtimeConfig?: OpenClawConfig;
-  sourceConfig?: OpenClawConfig;
+  runtimeConfig?: GrantedConfig;
+  sourceConfig?: GrantedConfig;
   valid?: boolean;
   includeFileHashesForWrite?: Record<string, string>;
   includeFileTargetsForWrite?: Record<string, string>;
@@ -186,7 +186,7 @@ function primeUpdateConfigSnapshot(params: {
   return prepared;
 }
 
-function primeBlockedUpdateConfig(section: "hooks" | "plugins", config: OpenClawConfig): void {
+function primeBlockedUpdateConfig(section: "hooks" | "plugins", config: GrantedConfig): void {
   const externalPath = path.join(
     path.parse(process.cwd()).root,
     "external-openclaw",
@@ -202,7 +202,7 @@ function primeBlockedUpdateConfig(section: "hooks" | "plugins", config: OpenClaw
 }
 
 function primePluginUpdate(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   outcomes: Awaited<ReturnType<typeof updateNpmInstalledPluginsMock>>["outcomes"] = [],
   changed = false,
   transactions?: PluginInstallTransaction[],
@@ -221,7 +221,7 @@ function primePluginUpdate(
   });
 }
 
-function primeBravePluginRecordUpdate(config: OpenClawConfig) {
+function primeBravePluginRecordUpdate(config: GrantedConfig) {
   const previousRecords = {
     brave: {
       source: "npm",
@@ -247,7 +247,7 @@ function primeBravePluginRecordUpdate(config: OpenClawConfig) {
         ...config.plugins,
         installs: nextRecords,
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     [{ pluginId: "brave", status: "updated", message: "Updated brave." }],
     true,
   );
@@ -270,7 +270,7 @@ async function expectSkippedClawHubPluginUpdate(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   pluginCliConfigMock.mockReturnValue(config);
   setInstalledPluginIndexInstallRecords(config.plugins?.installs ?? {});
   primePluginUpdate(config, [
@@ -381,7 +381,7 @@ describe("plugins cli update", () => {
     { id: "constructor", args: [] },
     { id: "@acme/missing-plugin@beta", args: [] },
   ])("rejects untracked update target $id $args", async ({ id, args }) => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     primeUpdateConfigSnapshot({ config });
     primePluginUpdate(config, [
       { pluginId: id, status: "skipped", message: `No install record for "${id}".` },
@@ -415,7 +415,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeUpdateConfigSnapshot({ config });
     setInstalledPluginIndexInstallRecords(config.plugins?.installs ?? {});
 
@@ -448,7 +448,7 @@ describe("plugins cli update", () => {
         installPath: sharedPath,
       },
     };
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     primeUpdateConfigSnapshot({ config });
     setInstalledPluginIndexInstallRecords(installRecords);
 
@@ -462,7 +462,7 @@ describe("plugins cli update", () => {
     ["demo-hooks", undefined],
     ["@acme/demo-hooks", "@acme/demo-hooks"],
   ])("updates tracked hook packs through plugins update (%s)", async (target, specOverride) => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const nextConfig = cfg;
 
     primeUpdateConfigSnapshot({ config: cfg });
@@ -512,14 +512,14 @@ describe("plugins cli update", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const snapshotConfig = {
       plugins: {
         entries: {
           alpha: { enabled: false },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const installRecords = {
       alpha: {
         source: "npm",
@@ -545,15 +545,13 @@ describe("plugins cli update", () => {
         installPath: "/home/test/.openclaw/hooks/new-hooks",
       },
     });
-    updateNpmInstalledPluginsMock.mockImplementation(
-      async (params: { config: OpenClawConfig }) => ({
-        config: params.config,
-        changed: false,
-        outcomes: [],
-      }),
-    );
+    updateNpmInstalledPluginsMock.mockImplementation(async (params: { config: GrantedConfig }) => ({
+      config: params.config,
+      changed: false,
+      outcomes: [],
+    }));
     updateNpmInstalledHookPacksMock.mockImplementation(
-      async (params: { config: OpenClawConfig }) => ({
+      async (params: { config: GrantedConfig }) => ({
         config: params.config,
         changed: false,
         outcomes: [],
@@ -584,7 +582,7 @@ describe("plugins cli update", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const persistedRecords = {
       alpha: {
         source: "npm",
@@ -613,7 +611,7 @@ describe("plugins cli update", () => {
         ...cfg.plugins,
         installs: persistedRecords,
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await runPluginsCommand(["plugins", "update", "alpha"]);
 
@@ -649,7 +647,7 @@ describe("plugins cli update", () => {
   });
 
   it("allows index-only legacy id migration when an included plugins section has no references", async () => {
-    const cfg = { plugins: {} } as OpenClawConfig;
+    const cfg = { plugins: {} } as GrantedConfig;
     const pluginRecords = createTrackedPluginConfig({
       pluginId: "voice-call",
       spec: "@openclaw/voice-call@1.0.0",
@@ -665,7 +663,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords(pluginRecords ?? {});
     primePluginUpdate(
@@ -697,7 +695,7 @@ describe("plugins cli update", () => {
       plugins: {
         load: { paths: ["/tmp/demo/index.js"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const pluginRecords = {
       [pluginId]: {
         source: "git",
@@ -711,7 +709,7 @@ describe("plugins cli update", () => {
         ...cfg.plugins,
         installs: pluginRecords,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords(pluginRecords);
     primePluginUpdate(
@@ -749,7 +747,7 @@ describe("plugins cli update", () => {
           brave: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const sourceCfg = structuredClone(cfg);
     delete sourceCfg.gateway;
     primeUpdateConfigSnapshot({
@@ -783,7 +781,7 @@ describe("plugins cli update", () => {
       plugins: {
         load: { paths: [previousInstallPath, customPath] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const previousRecords = {
       brave: {
         source: "npm" as const,
@@ -803,7 +801,7 @@ describe("plugins cli update", () => {
         load: { paths: [nextInstallPath, customPath] },
         installs: nextRecords,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeUpdateConfigSnapshot({ config: cfg });
     setInstalledPluginIndexInstallRecords(previousRecords);
     primePluginUpdate(
@@ -853,14 +851,14 @@ describe("plugins cli update", () => {
           brave: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const changedCfg = {
       ...cfg,
       gateway: {
         ...cfg.gateway,
         port: 18890,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const initialSnapshot = primeUpdateConfigSnapshot({ config: cfg });
     const changedSnapshot = {
       ...initialSnapshot,
@@ -934,7 +932,7 @@ describe("plugins cli update", () => {
   it("rolls back persisted install records when included config changes during a records-only update", async () => {
     const includePath = "/tmp/plugins.json5";
     const includeTarget = "/tmp/plugins.json5";
-    const cfg = { plugins: {} } as OpenClawConfig;
+    const cfg = { plugins: {} } as GrantedConfig;
     const initialSnapshot = primeUpdateConfigSnapshot({
       config: cfg,
       parsed: {
@@ -1018,7 +1016,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const initialSnapshot = primeUpdateConfigSnapshot({ config: cfg });
     const invalidSnapshot = {
       ...initialSnapshot,
@@ -1068,7 +1066,7 @@ describe("plugins cli update", () => {
           "voice-call": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords({
       "voice-call": {
@@ -1097,7 +1095,7 @@ describe("plugins cli update", () => {
           "fish-audio": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords({
       "fish-audio": {
@@ -1127,7 +1125,7 @@ describe("plugins cli update", () => {
       plugins: {
         load: { paths: [installPath] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords({
       demo: {
@@ -1181,7 +1179,7 @@ describe("plugins cli update", () => {
             "voice-call": { enabled: true },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       primeBlockedUpdateConfig("plugins", cfg);
       setInstalledPluginIndexInstallRecords({
         "voice-call": record,
@@ -1205,11 +1203,11 @@ describe("plugins cli update", () => {
       "external-openclaw",
       "plugins.json5",
     );
-    const cfg = { plugins: {} } as OpenClawConfig;
+    const cfg = { plugins: {} } as GrantedConfig;
     primeUpdateConfigSnapshot({
       config: cfg,
       parsed: { plugins: { $include: externalPath } },
-      sourceConfig: { plugins: { $include: externalPath } } as unknown as OpenClawConfig,
+      sourceConfig: { plugins: { $include: externalPath } } as unknown as GrantedConfig,
       includeFileTargetsForWrite: {
         [externalPath]: externalPath,
       },
@@ -1244,7 +1242,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setHookInstallRecords({
       "demo-hooks": {
@@ -1277,7 +1275,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords(cfg.plugins?.installs ?? {});
     primePluginUpdate(cfg, [
@@ -1309,7 +1307,7 @@ describe("plugins cli update", () => {
           demo: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeBlockedUpdateConfig("plugins", cfg);
     setInstalledPluginIndexInstallRecords({
       demo: {
@@ -1339,7 +1337,7 @@ describe("plugins cli update", () => {
       plugins: {
         installs: {},
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await expect(runPluginsCommand(["plugins", "update"])).rejects.toThrow("__exit__:1");
 
@@ -1352,7 +1350,7 @@ describe("plugins cli update", () => {
       plugins: {
         installs: {},
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await runPluginsCommand(["plugins", "update", "--all"]);
 
@@ -1670,7 +1668,7 @@ describe("plugins cli update", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const previousRecords = {
       alpha: {
         source: "npm" as const,
@@ -1688,7 +1686,7 @@ describe("plugins cli update", () => {
       messages: {
         ackReactionScope: "group-mentions",
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextRuntimeConfig = {
       ...runtimeConfig,
       plugins: {
@@ -1696,7 +1694,7 @@ describe("plugins cli update", () => {
         installs: nextRecords,
       },
       messages: runtimeConfig.messages,
-    } as OpenClawConfig;
+    } as GrantedConfig;
     primeUpdateConfigSnapshot({
       config: cfg,
       runtimeConfig,
@@ -1770,7 +1768,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextConfig = {
       plugins: {
         installs: {
@@ -1784,7 +1782,7 @@ describe("plugins cli update", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(cfg);
     setInstalledPluginIndexInstallRecords(cfg.plugins?.installs ?? {});
     primePluginUpdate(
@@ -1846,7 +1844,7 @@ describe("plugins cli update", () => {
   });
 
   it("exits non-zero when a hook pack update reports an error", async () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(cfg);
     setHookInstallRecords({
       "demo-hooks": {

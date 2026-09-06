@@ -19,14 +19,14 @@ import {
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { ensureMcpOAuthPendingSchema } from "../state/openclaw-state-db-schema-additive.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
 } from "../state/openclaw-state-db.js";
 
 type McpOAuthDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "mcp_oauth_pending_authorizations" | "mcp_oauth_stores"
 >;
 

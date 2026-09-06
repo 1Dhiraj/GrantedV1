@@ -7,7 +7,7 @@ import {
 import { resolveUserTimezone } from "../agents/date-time.js";
 import type { CliDeps } from "../cli/deps.types.js";
 import { resolveControlUiAutomationRunUrl } from "../config/control-ui-link-base.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { redactCronCommandSummaryForExternalDelivery } from "../cron/command-output-summary.js";
 import { resolveCronDeliveryPlan, sendCronAnnouncePayloadStrict } from "../cron/delivery.js";
 import { retryTransientDirectCronDelivery } from "../cron/isolated-agent/delivery-dispatch-policy.js";
@@ -32,7 +32,7 @@ type CronLogger = {
 
 type CronAgentResolver = (requested?: string | null) => {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 };
 
 type CronFailureAlertParams = Parameters<
@@ -143,7 +143,7 @@ function buildCronWebhookHeaders(webhookToken?: string): Record<string, string> 
 function appendCronRunStarted(
   message: string,
   runAtMs: number | undefined,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): string {
   if (typeof runAtMs !== "number" || !Number.isFinite(runAtMs)) {
     return message;
@@ -158,7 +158,7 @@ function appendCronFailureAlertDetails(
   message: string,
   jobId: string,
   runAtMs: number | undefined,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): string {
   const withRunStarted = appendCronRunStarted(message, runAtMs, config);
   const inspectUrl = resolveControlUiAutomationRunUrl(config, {

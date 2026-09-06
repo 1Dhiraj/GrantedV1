@@ -11,7 +11,7 @@ export type {
   DmPolicy,
   GroupPolicy,
   GroupToolPolicyConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 export {
   GROUP_POLICY_BLOCKED_LABEL,

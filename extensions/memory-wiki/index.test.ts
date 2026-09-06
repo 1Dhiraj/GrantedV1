@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { withEnv } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "./api.js";
+import type { GrantedConfig } from "./api.js";
 import plugin from "./index.js";
 import {
   createMemoryWikiCompiledCachePublicationId,
@@ -166,7 +166,7 @@ describe("memory-wiki plugin", () => {
     const rootDir = await createTempDir("memory-wiki-index-agents-");
     const appConfig = {
       agents: { entries: { support: { default: true }, marketing: {} } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { api, registerTool } = createPluginApi();
     api.config = appConfig;
     api.pluginConfig = {

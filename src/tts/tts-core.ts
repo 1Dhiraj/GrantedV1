@@ -7,7 +7,7 @@ import {
   resolveModelRefFromString,
   type ModelRef,
 } from "../agents/model-selection.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { sanitizeAssistantVisibleText } from "../shared/text/assistant-visible-text.js";
 import type { ResolvedTtsConfig } from "./tts-types.js";
 export {
@@ -54,7 +54,7 @@ type SummaryModelSelection = {
 };
 
 function resolveSummaryModelRef(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   config: ResolvedTtsConfig,
 ): SummaryModelSelection {
   const defaultRef = resolveDefaultModelForAgent({ cfg });
@@ -80,7 +80,7 @@ export async function summarizeText(
   params: {
     text: string;
     targetLength: number;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     config: ResolvedTtsConfig;
     timeoutMs: number;
   },

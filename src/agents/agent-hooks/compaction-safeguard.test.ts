@@ -7,7 +7,7 @@ import { createAssistantMessageEventStream, type Model } from "openclaw/plugin-s
 /** Tests compaction safeguard summaries, quality audit, providers, and runtime settings. */
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { CompactionProvider } from "../../plugins/compaction-provider.js";
 import {
   requireActivePluginRegistry,
@@ -1089,7 +1089,7 @@ describe("compaction-safeguard runtime registry", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     buildEmbeddedExtensionFactories({
       cfg,

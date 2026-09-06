@@ -1,7 +1,7 @@
 import { HTTPFetchError } from "@line/bot-sdk";
 import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { createRuntime } from "./channel.sendPayload.test-support.js";
 import { lineOutboundAdapter } from "./outbound.js";
 import { setLineRuntime } from "./runtime.js";
@@ -27,7 +27,7 @@ describe("line outbound delivery outcomes", () => {
         text: "hello",
         payload: { text: "hello" },
         accountId: "default",
-        cfg: { channels: { line: {} } } as OpenClawConfig,
+        cfg: { channels: { line: {} } } as GrantedConfig,
       }),
     ).rejects.toMatchObject({
       name: "PlatformMessageNotDispatchedError",
@@ -57,7 +57,7 @@ describe("line outbound delivery outcomes", () => {
         text: "hello",
         payload: { text: "hello" },
         accountId: "default",
-        cfg: { channels: { line: {} } } as OpenClawConfig,
+        cfg: { channels: { line: {} } } as GrantedConfig,
       }),
     ).rejects.toBe(partial);
   });

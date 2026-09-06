@@ -5,7 +5,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
 } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/core";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
@@ -109,7 +109,7 @@ describe("Slack transport credential activation", () => {
                 },
               },
             },
-          } satisfies OpenClawConfig;
+          } satisfies GrantedConfig;
           const connected = createDeferred<void>();
           const controller = new AbortController();
           const run = monitorSlackProvider({

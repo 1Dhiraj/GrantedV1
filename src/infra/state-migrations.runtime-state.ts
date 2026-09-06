@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import { resolveRequiredHomeDir } from "./home-dir.js";
 import {
@@ -17,14 +17,14 @@ import { archiveLegacyImportSource } from "./state-migrations.storage.js";
 import type { LegacyStateDetection, MigrationMessages } from "./state-migrations.types.js";
 import { normalizeVoiceWakeRoutingConfig } from "./voicewake-routing.js";
 
-type LegacyVoiceWakeImportDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
-type LegacyConfigHealthImportDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type LegacyVoiceWakeImportDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
+type LegacyConfigHealthImportDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 type LegacyPluginBindingApprovalsImportDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "plugin_binding_approvals"
 >;
 type LegacyCurrentConversationBindingsImportDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "current_conversation_bindings"
 >;
 

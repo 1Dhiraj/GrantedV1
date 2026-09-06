@@ -9,7 +9,7 @@ import type {
 } from "../../packages/gateway-protocol/src/index.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { resolveAgentMainSessionKey } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseAgentSessionKey, parseSessionDeliveryRoute } from "../routing/session-key.js";
 import {
   isAcpSessionKey,
@@ -82,7 +82,7 @@ function classifyRest(rest: string): SessionClassification {
  * paths, or other data that is not already a session-list field.
  */
 export function sessionClassificationForRow(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string,
   agentId: string,
   entry?: SessionEntry,

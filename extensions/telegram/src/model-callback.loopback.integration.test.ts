@@ -5,7 +5,7 @@ import type { AddressInfo } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Bot } from "grammy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { listSessionEntries } from "openclaw/plugin-sdk/session-store-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { defaultTelegramBotDeps, type TelegramBotDeps } from "./bot-deps.js";
@@ -103,7 +103,7 @@ describe("Telegram model callback loopback", () => {
     try {
       const apiRoot = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
       const storePath = join(stateDir, "sessions.json");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           defaults: {
             model: "anthropic/claude-opus-4-6",

@@ -1,10 +1,10 @@
 // E2E: hook dispatch uses the shared cron budget without starving older cron work.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 import { createDeferred } from "./helpers/promise.js";
 
@@ -37,7 +37,7 @@ type HeldModelServer = {
   url: string;
 };
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const modelServers: HeldModelServer[] = [];
 
 afterEach(async () => {
@@ -214,7 +214,7 @@ describe("Gateway hook concurrency", () => {
   );
 });
 
-function createTestConfig(baseUrl: string): OpenClawConfig {
+function createTestConfig(baseUrl: string): GrantedConfig {
   return {
     plugins: { slots: { memory: "none" } },
     hooks: {
@@ -259,7 +259,7 @@ function createTestConfig(baseUrl: string): OpenClawConfig {
 }
 
 async function warmGatewayHook(
-  instance: OpenClawTestInstance,
+  instance: GrantedTestInstance,
   modelServer: HeldModelServer,
 ): Promise<void> {
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -285,7 +285,7 @@ async function warmGatewayHook(
   throw new Error("Gateway hook warmup did not reach the model after three attempts");
 }
 
-async function postHook(instance: OpenClawTestInstance, index: number): Promise<HookResponse> {
+async function postHook(instance: GrantedTestInstance, index: number): Promise<HookResponse> {
   const response = await fetch(`http://127.0.0.1:${instance.port}/hooks/agent`, {
     method: "POST",
     headers: {
@@ -407,7 +407,7 @@ async function drainRequest(request: IncomingMessage): Promise<string> {
 }
 
 async function waitForCronRun(
-  instance: OpenClawTestInstance,
+  instance: GrantedTestInstance,
   jobId: string,
   runId: string,
 ): Promise<void> {

@@ -5,7 +5,7 @@
 // legacy-state import, so it stays a leaf.
 import { createHash } from "node:crypto";
 import fs from "node:fs";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 
@@ -20,10 +20,7 @@ export type PersistedSentMessage = {
   timestamp: number;
 };
 
-export type SentMessageConfig = Pick<
-  OpenClawConfig,
-  "agents" | "bindings" | "channels" | "session"
->;
+export type SentMessageConfig = Pick<GrantedConfig, "agents" | "bindings" | "channels" | "session">;
 
 function resolveSentMessageAgentId(
   cfg?: SentMessageConfig,
@@ -33,7 +30,7 @@ function resolveSentMessageAgentId(
     owner?.agentId?.trim() ||
     (cfg
       ? resolveTelegramAccountOwnerAgentId({
-          cfg: cfg as OpenClawConfig,
+          cfg: cfg as GrantedConfig,
           accountId: owner?.accountId,
         })
       : "main")

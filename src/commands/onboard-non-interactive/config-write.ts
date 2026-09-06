@@ -1,11 +1,11 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 /** Commits a non-interactive onboard config update with pending plugin records handled first. */
 export async function commitNonInteractiveOnboardConfig(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   baseHash?: string;
   reset?: boolean;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const { writeWizardConfigFile } = await import("../../wizard/setup.shared.js");
   // Ordinary onboard reruns must preserve existing agents.list / bindings.
   // Only explicit --reset may allow a config size drop; see openclaw#84692.

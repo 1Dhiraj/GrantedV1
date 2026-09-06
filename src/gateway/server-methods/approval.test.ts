@@ -11,7 +11,7 @@ import {
   validateApprovalResolveResult,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ExecApprovalForwarder } from "../../infra/exec-approval-forwarder.js";
 import {
   resolveExecApprovalRequestAllowedDecisions,
@@ -24,11 +24,11 @@ import {
 } from "../../infra/plugin-approvals.js";
 import type { SystemAgentApprovalRequestPayload } from "../../infra/system-agent-approvals.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../../state/user-profiles.js";
 import { withEnvAsync } from "../../test-utils/env.js";
@@ -54,13 +54,13 @@ vi.mock("../approval-channel-custody.js", () => ({
 }));
 
 const tempDirs: string[] = [];
-type OperatorApprovalDatabase = Pick<OpenClawStateKyselyDatabase, "operator_approvals">;
+type OperatorApprovalDatabase = Pick<GrantedStateKyselyDatabase, "operator_approvals">;
 const managersForCleanup: Array<{
   listPendingRecords(): Array<{ id: string }>;
   expire(id: string, resolvedBy?: string | null): boolean;
 }> = [];
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-approval-handler-")),
   );
@@ -68,7 +68,7 @@ function createDatabaseOptions(): OpenClawStateDatabaseOptions {
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
-function createManagers(databaseOptions: OpenClawStateDatabaseOptions) {
+function createManagers(databaseOptions: GrantedStateDatabaseOptions) {
   const persistence = { runtimeEpoch: "approval-handler-test", databaseOptions };
   const managers = {
     exec: new ExecApprovalManager<ExecApprovalRequestPayload>({
@@ -94,7 +94,7 @@ function createManagers(databaseOptions: OpenClawStateDatabaseOptions) {
   return managers;
 }
 
-function deleteDurableApproval(databaseOptions: OpenClawStateDatabaseOptions, id: string): void {
+function deleteDurableApproval(databaseOptions: GrantedStateDatabaseOptions, id: string): void {
   const database = openOpenClawStateDatabase(databaseOptions);
   const stateDb = getNodeSqliteKysely<OperatorApprovalDatabase>(database.db);
   executeSqliteQuerySync(
@@ -104,7 +104,7 @@ function deleteDurableApproval(databaseOptions: OpenClawStateDatabaseOptions, id
 }
 
 function corruptDurableApprovalPresentation(
-  databaseOptions: OpenClawStateDatabaseOptions,
+  databaseOptions: GrantedStateDatabaseOptions,
   id: string,
 ): void {
   const database = openOpenClawStateDatabase(databaseOptions);
@@ -502,7 +502,7 @@ describe("unified approval handlers", () => {
         id: "approval:foreign",
         request: { sessionKey: foreignKey },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "guest",
@@ -1222,7 +1222,7 @@ describe("unified approval handlers", () => {
     tempDirs.push(stateDir);
     const databasePath = path.join(stateDir, "state.sqlite");
     const backupPath = path.join(stateDir, "state.backup.sqlite");
-    const databaseOptions = { path: databasePath } satisfies OpenClawStateDatabaseOptions;
+    const databaseOptions = { path: databasePath } satisfies GrantedStateDatabaseOptions;
     const managers = createManagers(databaseOptions);
     const pending = registerExec(managers.exec, { id: "transient-storage-repair" });
     closeOpenClawStateDatabaseForTest();

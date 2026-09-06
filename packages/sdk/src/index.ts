@@ -14,7 +14,7 @@ export {
   SessionsNamespace,
   TasksNamespace,
   ToolsNamespace,
-  type OpenClawOptions,
+  type GrantedOptions,
 } from "./client.js";
 export { EventHub, isGatewayEvent } from "./event-hub.js";
 export { normalizeGatewayEvent } from "./normalize.js";
@@ -46,9 +46,9 @@ export type {
   GatewayEnvironmentsListResult,
   GatewayRequestOptions,
   JsonObject,
-  OpenClawEvent,
-  OpenClawEventType,
-  OpenClawTransport,
+  GrantedEvent,
+  GrantedEventType,
+  GrantedTransport,
   RunCreateParams,
   RunResult,
   RunStatus,

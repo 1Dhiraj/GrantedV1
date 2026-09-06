@@ -2,7 +2,7 @@
  * Retry and error policy for subagent announcement delivery.
  */
 import { clampTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isFastTestRuntimeEnv } from "../../../infra/env.js";
 import {
   isOutboundDeliveryError,
@@ -32,7 +32,7 @@ export function sourceOwnerChangedResult(): SubagentAnnounceDeliveryResult {
   };
 }
 
-export function resolveSubagentAnnounceTimeoutMs(cfg: OpenClawConfig): number {
+export function resolveSubagentAnnounceTimeoutMs(cfg: GrantedConfig): number {
   const configured = cfg.agents?.defaults?.subagents?.announceTimeoutMs;
   return clampTimerTimeoutMs(configured) ?? DEFAULT_SUBAGENT_ANNOUNCE_TIMEOUT_MS;
 }

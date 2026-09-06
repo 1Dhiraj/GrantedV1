@@ -7,7 +7,7 @@ import {
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { ensureSessionTranscriptArchiveSchema } from "../../state/openclaw-agent-session-transcript-archive-schema.js";
 import {
@@ -26,7 +26,7 @@ import {
 
 /** Inserts the canonical archive row inside the lifecycle deletion transaction. */
 export function persistSessionTranscriptArchive(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   plan: MaterializedSessionStateDeletePlan,
 ): void {
   const archive = plan.archive;

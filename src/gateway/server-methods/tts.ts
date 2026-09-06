@@ -5,7 +5,7 @@ import {
   errorShape,
   validateTtsSpeakParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import {
   assertSecretOwnerAvailable,
   SecretSurfaceUnavailableError,
@@ -42,7 +42,7 @@ function yieldBeforeTtsStatusSetup(): Promise<void> {
   });
 }
 
-function resolveTtsGatewayStatusFacts(cfg: OpenClawConfig) {
+function resolveTtsGatewayStatusFacts(cfg: GrantedConfig) {
   const settings = resolveTtsSettingsSnapshot({ cfg });
   const speechProviders = listSpeechProviders(cfg);
   const configuredByProvider = new Map(

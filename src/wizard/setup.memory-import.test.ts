@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   MigrationApplyResult,
   MigrationPlan,
@@ -23,7 +23,7 @@ vi.mock("../commands/migrate/memory-import.js", () => ({
 
 import { runSetupMemoryImportStep } from "./setup.memory-import.js";
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   agents: {
     defaults: { workspace: "/tmp/openclaw-memory-step" },
     list: [{ id: "main", default: true }],

@@ -2,7 +2,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import type { LookupFn } from "../src/infra/net/ssrf.js";
 import * as cliArgs from "./lib/arg-utils.mts";
 
@@ -111,7 +111,7 @@ const MARKDOWN_BODY = "# Web Fetch Benchmark\n\n" + "- markdown list item\n".rep
 const OFFLINE_PROVIDER_ENV_VARS = ["FIRECRAWL_API_KEY"] as const;
 
 const lookupFn = (async () => [{ address: "93.184.216.34", family: 4 }]) as unknown as LookupFn;
-const toolConfig: OpenClawConfig = {
+const toolConfig: GrantedConfig = {
   tools: {
     web: {
       fetch: {

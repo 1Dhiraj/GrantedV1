@@ -6,7 +6,7 @@ import {
   normalizeOptionalString as readNonEmptyString,
   parseBooleanValue,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { OpenClawExecAsk, OpenClawExecSecurity } from "./config-contracts.js";
+import type { GrantedExecAsk, GrantedExecSecurity } from "./config-contracts.js";
 import type { CodexServiceTier } from "./protocol.js";
 
 const START_OPTIONS_KEY_SECRET_SYMBOL = Symbol.for("openclaw.codexAppServerStartOptionsKeySecret");
@@ -72,11 +72,11 @@ export function readBooleanEnv(value: string | undefined): boolean | undefined {
   return parseBooleanValue(value);
 }
 
-export function readExecSecurity(value: unknown): OpenClawExecSecurity | undefined {
+export function readExecSecurity(value: unknown): GrantedExecSecurity | undefined {
   return value === "deny" || value === "allowlist" || value === "full" ? value : undefined;
 }
 
-export function readExecAsk(value: unknown): OpenClawExecAsk | undefined {
+export function readExecAsk(value: unknown): GrantedExecAsk | undefined {
   return value === "off" || value === "on-miss" || value === "always" ? value : undefined;
 }
 

@@ -2,7 +2,7 @@ import { z } from "zod";
 /** SQLite-backed persistence for durable per-agent Talk voice-call records. */
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { VOICE_TRANSCRIPT_MAX_UNRESOLVED } from "./voice-transcript.js";
 
@@ -131,7 +131,7 @@ export function readVoiceSessionRecord(
 }
 
 export function readVoiceSessionRecordInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   voiceSessionId: string,
 ): ClientVoiceSessionRecord | undefined {
   const row = database.db
@@ -141,7 +141,7 @@ export function readVoiceSessionRecordInTransaction(
 }
 
 export function writeVoiceSessionRecordInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   record: ClientVoiceSessionRecord,
 ): void {
   database.db

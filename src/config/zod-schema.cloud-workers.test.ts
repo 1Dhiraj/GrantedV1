@@ -2,17 +2,17 @@
 import { describe, expect, it } from "vitest";
 import { computeBaseConfigSchemaResponse } from "./schema-base.js";
 import { CLOUD_WORKER_FIELD_HELP, CLOUD_WORKER_FIELD_LABELS } from "./zod-schema.cloud-workers.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
 function parseCloudWorkers(value: unknown) {
-  const result = OpenClawSchema.safeParse({ cloudWorkers: value });
+  const result = GrantedSchema.safeParse({ cloudWorkers: value });
   if (!result.success) {
     throw new Error(JSON.stringify(result.error.issues, null, 2));
   }
   return result.data.cloudWorkers;
 }
 
-describe("OpenClawSchema cloudWorkers config", () => {
+describe("GrantedSchema cloudWorkers config", () => {
   it("derives cloud worker labels and help from the field schemas", () => {
     const response = computeBaseConfigSchemaResponse({ generatedAt: "cloud-worker-metadata" });
     const properties = (
@@ -72,13 +72,13 @@ describe("OpenClawSchema cloudWorkers config", () => {
   });
 
   it("is absent by default and accepts an empty opt-in block", () => {
-    expect(OpenClawSchema.parse({}).cloudWorkers).toBeUndefined();
+    expect(GrantedSchema.parse({}).cloudWorkers).toBeUndefined();
     expect(parseCloudWorkers({})).toStrictEqual({});
   });
 
   it("accepts the desktop Labs gate only as a boolean", () => {
     expect(parseCloudWorkers({ desktop: true })).toStrictEqual({ desktop: true });
-    expect(OpenClawSchema.safeParse({ cloudWorkers: { desktop: "true" } }).success).toBe(false);
+    expect(GrantedSchema.safeParse({ cloudWorkers: { desktop: "true" } }).success).toBe(false);
   });
 
   it("accepts normalized per-project default profiles", () => {
@@ -103,7 +103,7 @@ describe("OpenClawSchema cloudWorkers config", () => {
     { "github.com/acme/app.git": "development" },
     { "github.com/acme": "development" },
   ])("rejects invalid per-project profile mappings %#", (projectProfiles) => {
-    expect(OpenClawSchema.safeParse({ cloudWorkers: { projectProfiles } }).success).toBe(false);
+    expect(GrantedSchema.safeParse({ cloudWorkers: { projectProfiles } }).success).toBe(false);
   });
 
   it("accepts provider-owned settings", () => {
@@ -210,7 +210,7 @@ describe("OpenClawSchema cloudWorkers config", () => {
   it.each(["", "0m", "59s", "0.5m", "-1m", "60000", "forever", 60_000, null])(
     "rejects an invalid or sub-minute idle suspend duration: %s",
     (suspendAfter) => {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         cloudWorkers: { profiles: { development: { provider: "qa-lab", suspendAfter } } },
       });
       expect(result.success).toBe(false);
@@ -241,6 +241,6 @@ describe("OpenClawSchema cloudWorkers config", () => {
     },
     { profiles: { development: { provider: "qa-lab", unsupported: true } } },
   ])("rejects invalid core profile fields %#", (cloudWorkers) => {
-    expect(OpenClawSchema.safeParse({ cloudWorkers }).success).toBe(false);
+    expect(GrantedSchema.safeParse({ cloudWorkers }).success).toBe(false);
   });
 });

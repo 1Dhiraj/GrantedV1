@@ -4,8 +4,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
 import type {
-  OpenClawConfig,
-  OpenClawPluginApi,
+  GrantedConfig,
+  GrantedPluginApi,
   PluginLogger,
 } from "openclaw/plugin-sdk/plugin-entry";
 import {
@@ -114,8 +114,8 @@ export class LogbookService {
   constructor(
     private readonly config: LogbookConfig,
     private readonly deps: {
-      runtime: NonNullable<OpenClawPluginApi["runtime"]>;
-      fullConfig: OpenClawConfig;
+      runtime: NonNullable<GrantedPluginApi["runtime"]>;
+      fullConfig: GrantedConfig;
       logger: PluginLogger;
       dataDir: string;
     },

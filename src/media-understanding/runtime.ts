@@ -4,7 +4,7 @@ import path from "node:path";
 import { kindFromMime, mimeTypeFromFilePath } from "@openclaw/media-core/mime";
 import { hasHttpUrlPrefix } from "@openclaw/net-policy/url-protocol";
 import { resolveAgentDir, resolveDefaultAgentDir } from "../agents/agent-scope.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { DEFAULT_MAX_BYTES } from "./defaults.constants.js";
 import { normalizeImageDescriptionInput } from "./image-input-normalize.js";
 import { describeImageWithModel } from "./image-runtime.js";
@@ -146,7 +146,7 @@ export async function runMediaUnderstandingFile(
     params.timeoutMs > 0
       ? Math.ceil(params.timeoutMs / 1000)
       : undefined;
-  const cfg: OpenClawConfig =
+  const cfg: GrantedConfig =
     requestPrompt || requestTimeoutSeconds !== undefined
       ? ({
           ...params.cfg,
@@ -168,7 +168,7 @@ export async function runMediaUnderstandingFile(
               },
             },
           },
-        } as OpenClawConfig)
+        } as GrantedConfig)
       : params.cfg;
   const ctx = buildFileContext({
     ...params,
@@ -327,7 +327,7 @@ async function readImageDescriptionInput(params: {
   filePath: string;
   mediaUrl?: string;
   mime?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs: number;
 }): Promise<{ buffer: Buffer; fileName: string; mime?: string }> {
   const attachments = normalizeMediaAttachments(
@@ -396,7 +396,7 @@ export async function describeVideoFile(
 export async function transcribeAudioFile(
   params: TranscribeAudioFileParams,
 ): Promise<RunMediaUnderstandingFileResult> {
-  const cfg: OpenClawConfig =
+  const cfg: GrantedConfig =
     params.language || params.prompt
       ? ({
           ...params.cfg,
@@ -413,7 +413,7 @@ export async function transcribeAudioFile(
               },
             },
           },
-        } as OpenClawConfig)
+        } as GrantedConfig)
       : params.cfg;
   const result = await runMediaUnderstandingFile({ ...params, cfg, capability: "audio" });
   return result;

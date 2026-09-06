@@ -1,7 +1,7 @@
 // Googlechat tests cover targets plugin behavior.
 import { createServer } from "node:http";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import { downloadGoogleChatMedia, sendGoogleChatMessage, updateGoogleChatMessage } from "./api.js";
 import {
@@ -280,7 +280,7 @@ describe("googlechat group policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveGoogleChatGroupRequireMention({ cfg, groupId: "spaces/AAA" })).toBe(false);
     expect(resolveGoogleChatGroupRequireMention({ cfg, groupId: "spaces/BBB" })).toBe(true);

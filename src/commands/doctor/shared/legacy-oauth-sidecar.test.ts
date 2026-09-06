@@ -4,11 +4,11 @@ import { resetLogger, setLoggerOverride } from "../../../logging/logger.js";
 import { loggingState } from "../../../logging/state.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../test-utils/openclaw-test-state.js";
 import { loadLegacyOAuthSidecarMaterial } from "./legacy-oauth-sidecar.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 
 function setPlatform(value: NodeJS.Platform): () => void {
   const descriptor = Object.getOwnPropertyDescriptor(process, "platform");
@@ -21,7 +21,7 @@ function setPlatform(value: NodeJS.Platform): () => void {
 }
 
 async function writeLegacySidecarThatNeedsKeychain(): Promise<{
-  state: OpenClawTestState;
+  state: GrantedTestState;
   ref: { source: "openclaw-credentials"; provider: "openai-codex"; id: string };
   profileId: string;
 }> {
@@ -83,7 +83,7 @@ describe("loadLegacyOAuthSidecarMaterial keychain-only headless warning", () => 
     resetLogger();
   });
 
-  function envWithoutVitestSignals(state: OpenClawTestState): NodeJS.ProcessEnv {
+  function envWithoutVitestSignals(state: GrantedTestState): NodeJS.ProcessEnv {
     const env: NodeJS.ProcessEnv = { ...state.env };
     delete env.VITEST;
     delete env.VITEST_WORKER_ID;

@@ -19,7 +19,7 @@ import type {
   PluginHookBeforePromptBuildResult,
 } from "../../plugins/types.js";
 import { resetCommandQueueStateForTest } from "../../process/command-queue.test-support.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import type { AuthProfileStore } from "../auth-profiles/types.js";
 import { extractObservedOverflowTokenCount } from "../embedded-agent-helpers/context-overflow-observation.js";
 import type { FailoverReason } from "../failover/signal.js";
@@ -444,7 +444,7 @@ const mockedShouldPreferExplicitConfigApiKeyAuth = vi.fn(() => false);
 // the mocked codex harness does not claim: such runs select the built-in openclaw
 // host harness and pay its one-time source-compile cost. Suites proving plugin
 // harness behavior must pin provider "openai" (see run.session-permissions.test.ts).
-export function createOverflowRunParams(state: Pick<OpenClawTestState, "workspaceDir">) {
+export function createOverflowRunParams(state: Pick<GrantedTestState, "workspaceDir">) {
   return {
     agentId: "main",
     sessionId: "test-session",
@@ -1076,7 +1076,7 @@ export async function loadRunOverflowCompactionHarness(): Promise<{
 /** Move one-time runner compilation out of individual behavior timings. */
 export async function warmRunOverflowCompactionHarness(
   runEmbeddedAgent: TestRunEmbeddedAgent,
-  state: Pick<OpenClawTestState, "workspaceDir">,
+  state: Pick<GrantedTestState, "workspaceDir">,
   params?: Partial<Parameters<typeof runEmbeddedAgent>[0]>,
 ): Promise<void> {
   resetRunOverflowCompactionHarnessMocks();

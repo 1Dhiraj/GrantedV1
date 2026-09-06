@@ -10,7 +10,7 @@ import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-a
 import type { AgentModelEntryConfig } from "../config/types.agent-defaults.js";
 import type { AgentRuntimePolicyConfig } from "../config/types.agents-shared.js";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { listAgentEntries, resolveSessionAgentIds } from "./agent-scope.js";
 
@@ -41,7 +41,7 @@ function hasRuntimePolicy(value: AgentRuntimePolicyConfig | undefined): boolean 
 }
 
 function resolveProviderConfig(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   provider: string | undefined,
 ): ModelProviderConfig | undefined {
   if (!config?.models?.providers || !provider?.trim()) {
@@ -143,7 +143,7 @@ function modelEntryMatchKind(params: {
 }
 
 function resolveAgentModelEntryRuntimePolicy(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider?: string;
   modelId?: string;
   agentId?: string;
@@ -211,7 +211,7 @@ function resolveModelConfig(params: {
 
 /** Resolves the effective runtime policy for an agent/model/provider selection. */
 export function resolveModelRuntimePolicy(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider?: string;
   modelId?: string;
   agentId?: string;

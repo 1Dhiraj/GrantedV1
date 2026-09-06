@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
 import { getActivePluginRegistry } from "../../plugins/runtime.js";
 import { dedupeByKey } from "../../shared/dedupe-by-key.js";
@@ -105,7 +105,7 @@ function enrichHarnessRows(
 }
 
 export async function augmentModelCatalogWithAgentHarness(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;

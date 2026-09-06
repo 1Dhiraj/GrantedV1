@@ -4,7 +4,7 @@ import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite
 import { updateSqliteTranscriptEventJsonInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
-  OpenClawAgentDatabaseLeaseActiveError,
+  GrantedAgentDatabaseLeaseActiveError,
   assertAgentDatabaseMaintenanceAuthority,
   assertNoOpenClawAgentDatabaseLeases,
 } from "../state/openclaw-agent-db-lease.js";
@@ -12,9 +12,9 @@ import {
   assertOpenClawAgentDatabaseForMaintenance,
   migrateOpenClawAgentDatabaseForMaintenance,
 } from "../state/openclaw-agent-db-maintenance.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
   withAgentDatabaseMaintenanceLease,
 } from "../state/openclaw-agent-db.js";
 import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
@@ -38,7 +38,7 @@ import type { MigrationMessages } from "./state-migrations.types.js";
 const MIGRATION_META_KEY = "historical-transcript-directives-v1";
 
 type TranscriptDirectiveMigrationDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "schema_meta" | "transcript_events"
 >;
 
@@ -62,7 +62,7 @@ function createMigrationDatabaseHandle(
   database: DatabaseSync,
   agentId: string,
   pathname: string,
-): OpenClawAgentDatabase {
+): GrantedAgentDatabase {
   return {
     agentId,
     db: database,
@@ -250,7 +250,7 @@ function hasActiveAgentDatabaseLease(agentId: string, env: NodeJS.ProcessEnv): b
     assertNoOpenClawAgentDatabaseLeases(agentId, { env });
     return false;
   } catch (error) {
-    if (error instanceof OpenClawAgentDatabaseLeaseActiveError) {
+    if (error instanceof GrantedAgentDatabaseLeaseActiveError) {
       return true;
     }
     throw error;
@@ -266,7 +266,7 @@ async function yieldBetweenTranscriptBatches(): Promise<void> {
 async function migrateTranscriptSessions(params: {
   agentId: string;
   database: DatabaseSync;
-  owner: OpenClawAgentDatabase;
+  owner: GrantedAgentDatabase;
   pathname: string;
   start: Extract<MigrationCursor, { phase: "transcripts" }>;
 }): Promise<number> {

@@ -2,7 +2,7 @@ import { mkdirSync, rmSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { EmbeddingInput } from "openclaw/plugin-sdk/embedding-providers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { clearEmbeddingProviders as clearRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
@@ -451,7 +451,7 @@ export function createManagerIndexFixture(deps: {
         list: [{ id: "main", default: true }],
       },
       models: params.providerAliases ? { providers: params.providerAliases } : undefined,
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
   const requireManager = (
     result: ManagerResult,

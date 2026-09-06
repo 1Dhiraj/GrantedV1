@@ -1,5 +1,5 @@
 // Openai tests cover image generation provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildOpenAIImageGenerationProvider } from "./image-generation-provider.js";
 
@@ -325,7 +325,7 @@ function expectNoJsonRequestUrlContaining(expectedFragment: string) {
 
 describe("openai image generation provider", () => {
   const provider = buildOpenAIImageGenerationProvider();
-  const emptyConfig: OpenClawConfig = {};
+  const emptyConfig: GrantedConfig = {};
   type OpenAIImageRequest = Parameters<typeof provider.generateImage>[0];
   const generateOpenAIImage = (
     prompt: string,
@@ -756,7 +756,7 @@ describe("openai image generation provider", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await generateOpenAIImage("Create an image through a provider overlay", {
       cfg,
     });

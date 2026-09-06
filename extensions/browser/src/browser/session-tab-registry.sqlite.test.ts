@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   OpenKeyedStoreOptions,
   PluginStateSyncKeyedStore,
@@ -20,7 +20,7 @@ import {
 import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerBrowserPlugin } from "../../plugin-registration.js";
-import type { OpenClawPluginApi } from "../../runtime-api.js";
+import type { GrantedPluginApi } from "../../runtime-api.js";
 import type { CloseTrackedCdpTargetResult } from "./cdp.helpers.js";
 import { BROWSER_TAB_UNREACHABLE_RETIRE_MS } from "./constants.js";
 import {
@@ -69,7 +69,7 @@ function setBrowserProfileConfig(): void {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   setRuntimeConfigSnapshot(config, config);
 }
 
@@ -104,7 +104,7 @@ describe("durable session tab registry", () => {
               createPluginStateKeyedStoreForTests("browser", options),
             openSyncKeyedStore,
           },
-        } as unknown as OpenClawPluginApi["runtime"],
+        } as unknown as GrantedPluginApi["runtime"],
       }),
     );
   }

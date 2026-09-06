@@ -1,5 +1,5 @@
 // Telegram plugin module implements target writeback behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   readConfigFileSnapshotForWrite,
   replaceConfigFile,
@@ -76,7 +76,7 @@ function rewriteTargetIfMatch(params: {
 }
 
 function replaceTelegramDefaultToTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sourceTarget: string;
   resolvedTarget: string;
 }): boolean {
@@ -115,7 +115,7 @@ function replaceTelegramDefaultToTargets(params: {
 }
 
 export async function maybePersistResolvedTelegramTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   rawTarget: string;
   resolvedChatId: string;
   verbose?: boolean;

@@ -11,13 +11,13 @@ import {
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { resolveAllAgentSessionStoreTargetsSync } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
 import { buildConversationRef } from "../routing/conversation-ref.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
 import {
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { runDoctorAgentDatabaseOperation } from "./doctor-agent-database-operation.js";
 
@@ -88,7 +88,7 @@ function listLegacyRows(database: import("node:sqlite").DatabaseSync): Conversat
   ).rows.filter((row) => canonicalIdentity(row) !== null);
 }
 
-function resolveRepairScopes(cfg: OpenClawConfig, env: NodeJS.ProcessEnv) {
+function resolveRepairScopes(cfg: GrantedConfig, env: NodeJS.ProcessEnv) {
   return resolveAllAgentSessionStoreTargetsSync(cfg, { env }).map((target) => {
     const scope = resolveSqliteReadScope({
       agentId: target.agentId,
@@ -101,7 +101,7 @@ function resolveRepairScopes(cfg: OpenClawConfig, env: NodeJS.ProcessEnv) {
 
 /** Finds stale General-topic rows without creating or migrating agent databases. */
 export function detectTelegramGeneralTopicConversationRepairs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): TelegramGeneralTopicConversationRepair[] {
   const env = params.env ?? process.env;
@@ -170,7 +170,7 @@ function canonicalizeLegacySessionEntry(
   };
 }
 
-function repairLegacyRow(database: OpenClawAgentDatabase, legacyConversationId: string): boolean {
+function repairLegacyRow(database: GrantedAgentDatabase, legacyConversationId: string): boolean {
   const db = getSessionKysely(database.db);
   const legacy = executeSqliteQuerySync(
     database.db,
@@ -315,7 +315,7 @@ function repairLegacyRow(database: OpenClawAgentDatabase, legacyConversationId: 
 
 /** Canonicalizes stale rows and merges every durable reference in one transaction per agent DB. */
 export async function repairTelegramGeneralTopicConversations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<number> {
   const env = params.env ?? process.env;

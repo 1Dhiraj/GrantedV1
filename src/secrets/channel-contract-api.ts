@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolveConfigWidePluginManifestRegistry } from "../config/io.plugin-metadata.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openRootFileSync } from "../infra/boundary-file-read.js";
 import { shouldRejectHardlinkedPluginFiles } from "../plugins/hardlink-policy.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
@@ -18,7 +18,7 @@ import type { SecretTargetRegistryEntry } from "./target-registry-types.js";
 
 type BundledChannelContractApi = {
   collectRuntimeConfigAssignments?: (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     defaults: SecretDefaults | undefined;
     context: ResolverContext;
   }) => void;
@@ -160,7 +160,7 @@ function recordOwnsChannel(record: PluginManifestRecord, channelId: string): boo
 
 function listChannelSecretContractRecords(params: {
   channelId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   loadablePluginOrigins?: ReadonlyMap<string, PluginOrigin>;
 }): PluginManifestRecord[] {
@@ -189,7 +189,7 @@ function listChannelSecretContractRecords(params: {
 /** Loads a channel secret contract API for a channel id and current plugin origin policy. */
 export function loadChannelSecretContractApi(params: {
   channelId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   loadablePluginOrigins?: ReadonlyMap<string, PluginOrigin>;
   bundledOnly?: boolean;

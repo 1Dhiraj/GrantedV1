@@ -9,7 +9,7 @@ import path from "node:path";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { GatewayClientRequestError } from "../gateway/client.js";
 import { createAbortError } from "../infra/abort-signal.js";
 import {
@@ -3499,7 +3499,7 @@ describe("before_tool_call tool content private-data capture", () => {
     }
   }
 
-  function configWithToolContent(): OpenClawConfig {
+  function configWithToolContent(): GrantedConfig {
     return {
       diagnostics: {
         enabled: true,

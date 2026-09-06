@@ -32,7 +32,7 @@ import { resolveMcpTransportConfig } from "../agents/mcp-transport-config.js";
 import { parseConfigValue } from "../auto-reply/reply/config-value.js";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
 import type { McpCodexToolApprovalMode } from "../config/types.mcp.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   startOAuthLoopbackCallbackServer,
@@ -293,7 +293,7 @@ async function collectMcpDoctorIssues(params: {
   name: string;
   server: Record<string, unknown>;
   probe: boolean;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   path: string;
 }): Promise<McpDoctorIssue[]> {
   const issues: McpDoctorIssue[] = [];
@@ -400,7 +400,7 @@ async function collectMcpDoctorIssues(params: {
 }
 
 async function probeMcpServerIssues(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   name: string;
   server: Record<string, unknown>;
 }): Promise<McpDoctorIssue[]> {
@@ -564,9 +564,9 @@ function formatMcpProbeResult(catalog: McpToolCatalog) {
 }
 
 function buildMcpProbeConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   servers: Record<string, Record<string, unknown>>;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     ...params.config,
     mcp: {
@@ -617,7 +617,7 @@ function failOnMcpProbeIssues(params: Parameters<typeof resolveMcpProbeIssue>[0]
 }
 
 async function probeMcpServersOrFail(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   servers: Record<string, Record<string, unknown>>;
   path: string;
 }): Promise<ReturnType<typeof formatMcpProbeResult>> {

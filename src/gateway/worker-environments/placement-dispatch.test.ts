@@ -7,7 +7,7 @@ import { WORKER_LAUNCH_V2_PROTOCOL_FEATURE } from "../../../packages/gateway-pro
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import {
   type DispatchStage,
@@ -21,7 +21,7 @@ import { deriveEnvironmentIntent } from "./service-contract.js";
 
 describe("worker placement dispatch", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let placementStore: PlacementStore;
   const createTestHarness = (
     options: Parameters<typeof createHarness>[1] = {},

@@ -12,7 +12,7 @@ import {
   hasSessionEntriesByStatusReadOnly,
   type SessionTranscriptTurnExpectedState,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveAgentSessionDirs } from "../session-dirs.js";
 
@@ -89,7 +89,7 @@ export function hasCurrentProcessOwner(params: {
 }
 
 export async function discoverRestartRecoveryStorePaths(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   stateDir?: string;
 }): Promise<string[]> {
   const storePaths = new Set<string>();

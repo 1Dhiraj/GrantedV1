@@ -5,7 +5,7 @@ import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
 // End-to-end auth-profile rotation coverage for embedded runner retries.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { redactIdentifier } from "../logging/redact-identifier.js";
 import { wrapRunWithTestPreparedAdmission } from "./admitted-run-context.test-support.js";
 import {
@@ -165,7 +165,7 @@ afterEach(() => {
   resetLoggerFn();
 });
 
-const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): OpenClawConfig =>
+const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): GrantedConfig =>
   ({
     agents: {
       defaults: {
@@ -195,9 +195,9 @@ const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): OpenClawC
         },
       },
     },
-  }) satisfies OpenClawConfig;
+  }) satisfies GrantedConfig;
 
-const makeAgentOverrideOnlyFallbackConfig = (agentId: string): OpenClawConfig =>
+const makeAgentOverrideOnlyFallbackConfig = (agentId: string): GrantedConfig =>
   ({
     agents: {
       defaults: {
@@ -234,11 +234,11 @@ const makeAgentOverrideOnlyFallbackConfig = (agentId: string): OpenClawConfig =>
         },
       },
     },
-  }) satisfies OpenClawConfig;
+  }) satisfies GrantedConfig;
 
 const copilotModelId = "gpt-4o";
 
-const makeCopilotConfig = (): OpenClawConfig =>
+const makeCopilotConfig = (): GrantedConfig =>
   ({
     agents: {
       list: [{ id: "test" }],
@@ -262,7 +262,7 @@ const makeCopilotConfig = (): OpenClawConfig =>
         },
       },
     },
-  }) satisfies OpenClawConfig;
+  }) satisfies GrantedConfig;
 
 const writeAuthStore = async (
   agentDir: string,
@@ -432,7 +432,7 @@ async function runAutoPinnedOpenAiTurn(params: {
   sessionKey: string;
   runId: string;
   authProfileId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   await runEmbeddedAgentInline({
     sessionId: "session:test",
@@ -463,7 +463,7 @@ async function runAutoPinnedRotationCase(params: {
   errorMessage: string;
   sessionKey: string;
   runId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   runEmbeddedAttemptMock.mockReset();
   return withAgentWorkspace(async ({ agentDir, workspaceDir }) => {
@@ -489,7 +489,7 @@ async function runAutoPinnedPromptErrorRotationCase(params: {
   errorMessage: string;
   sessionKey: string;
   runId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   runEmbeddedAttemptMock.mockReset();
   return withAgentWorkspace(async ({ agentDir, workspaceDir }) => {

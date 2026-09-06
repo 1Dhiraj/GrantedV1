@@ -1,5 +1,5 @@
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 
 type RemoteModelCatalogStoreRow = {
   id: number;
@@ -21,7 +21,7 @@ type RemoteModelCatalogWriteResult =
 const REMOTE_MODEL_CATALOG_STATE_KEY = "modelCatalog.remote";
 
 export function readRemoteModelCatalog(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): RemoteModelCatalogStoreRow | undefined {
   const snapshot = readConfigMachineState<RemoteModelCatalogSnapshot>(
     REMOTE_MODEL_CATALOG_STATE_KEY,
@@ -32,7 +32,7 @@ export function readRemoteModelCatalog(
 
 export function writeRemoteModelCatalog(
   row: RemoteModelCatalogSnapshot,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): RemoteModelCatalogWriteResult {
   let result: RemoteModelCatalogWriteResult = { status: "written" };
   updateConfigMachineState<RemoteModelCatalogSnapshot>(
@@ -65,7 +65,7 @@ export function markRemoteModelCatalogChecked(
     etag?: string | null;
     lastModified?: string | null;
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   let matched = false;
   updateConfigMachineState<RemoteModelCatalogSnapshot>(

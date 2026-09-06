@@ -1,6 +1,6 @@
 // Covers gateway security audit aggregation.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setConfigResolutionFacts } from "../config/resolution-facts.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { collectGatewayConfigFindings } from "./audit-gateway-config.js";
@@ -23,7 +23,7 @@ describe("security audit gateway config findings", () => {
     { bind: "loopback", allowTailscale: false, missingAuth: true },
     { bind: "lan", allowTailscale: true, missingAuth: true },
   ] as const)("limits Tailscale auth to its enabled loopback path: %j", (testCase) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         bind: testCase.bind,
         auth: { allowTailscale: testCase.allowTailscale },
@@ -63,7 +63,7 @@ describe("security audit gateway config findings", () => {
         },
       ),
       (async () => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {
             bind: "lan",
             auth: {
@@ -79,7 +79,7 @@ describe("security audit gateway config findings", () => {
         expect(hasFinding("gateway.bind_no_auth", findings)).toBe(false);
       })(),
       (async () => {
-        const sourceConfig: OpenClawConfig = {
+        const sourceConfig: GrantedConfig = {
           gateway: {
             bind: "lan",
             auth: {
@@ -96,7 +96,7 @@ describe("security audit gateway config findings", () => {
             },
           },
         };
-        const resolvedConfig: OpenClawConfig = {
+        const resolvedConfig: GrantedConfig = {
           gateway: {
             bind: "lan",
             auth: {},
@@ -107,7 +107,7 @@ describe("security audit gateway config findings", () => {
         expect(hasFinding("gateway.bind_no_auth", findings)).toBe(false);
       })(),
       (async () => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {
             bind: "lan",
             auth: { token: "secret" },
@@ -117,7 +117,7 @@ describe("security audit gateway config findings", () => {
         expect(hasFindingWithSeverity("gateway.auth_no_rate_limit", "warn", findings)).toBe(true);
       })(),
       (async () => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {
             bind: "lan",
             auth: {
@@ -133,7 +133,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("honors runtime password auth override for bind auth checks", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         bind: "lan",
         auth: {},
@@ -156,7 +156,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("warns when GRANTED_GATEWAY_TOKEN shadows a different configured token source", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: { auth: { token: "config-token" } },
     };
     const findings = collectGatewayConfigFindings(cfg, cfg, {
@@ -167,7 +167,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("does not warn inside the managed gateway service credential context", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: { auth: { token: "config-token" } },
     };
     const findings = collectGatewayConfigFindings(cfg, cfg, {
@@ -179,7 +179,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("does not count an unresolved token as configured auth", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       gateway: { bind: "lan", auth: { mode: "token", token: "${MISSING_TOKEN}" } },
     };
     setConfigResolutionFacts(config, new Set(["gateway.auth.token"]));
@@ -193,7 +193,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("does not warn when gateway.auth.token resolves from GRANTED_GATEWAY_TOKEN", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: { auth: { token: "${GRANTED_GATEWAY_TOKEN}" } },
       secrets: { providers: { default: { source: "env" } } },
     };
@@ -205,7 +205,7 @@ describe("security audit gateway config findings", () => {
   });
 
   it("does not warn about local gateway auth token precedence in remote mode", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: { token: "remote-token" },

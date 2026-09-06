@@ -10,7 +10,7 @@ import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js
 import { makeTempWorkspace, writeWorkspaceFile } from "../test-helpers/workspace.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   LEGACY_WORKSPACE_ATTESTATION_HEADER,
@@ -42,7 +42,7 @@ import {
 } from "./workspace.js";
 
 const LEGACY_HEARTBEAT_FILENAME = "HEARTBEAT.md";
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeEach(async () => {
   resetLegacyWorkspaceStateCheckForTest();

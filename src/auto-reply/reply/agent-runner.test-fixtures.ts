@@ -4,7 +4,7 @@ import { onTestFinished } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { TemplateContext } from "../templating.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";
 
@@ -67,11 +67,11 @@ export function createTestQueuedFollowupRun(fixture: FollowupRunFixture): Follow
 }
 
 export function withTestModelContextTokens(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   followupRun: FollowupRun;
   defaultModel: string;
   contextTokens?: number;
-}): OpenClawConfig {
+}): GrantedConfig {
   if (params.contextTokens === undefined) {
     return params.cfg;
   }
@@ -95,7 +95,7 @@ export function withTestModelContextTokens(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 export async function writeTestSessionStore(

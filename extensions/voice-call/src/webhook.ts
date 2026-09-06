@@ -1,7 +1,7 @@
 // Voice Call plugin module implements webhook behavior.
 import http from "node:http";
 import { URL } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import {
   asDateTimestampMs,
@@ -23,7 +23,7 @@ import {
   readRequestBodyWithLimit,
   requestBodyErrorToText,
 } from "../api.js";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import { isAllowlistedCaller, normalizePhoneNumber } from "./allowlist.js";
 import {
   normalizeVoiceCallConfig,
@@ -186,9 +186,9 @@ export class VoiceCallWebhookServer {
   private config: VoiceCallConfig;
   private manager: CallManager;
   private provider: VoiceCallProvider;
-  private coreConfig: OpenClawConfig | null;
-  private fullConfig: OpenClawConfig | null;
-  private agentRuntime: OpenClawPluginApi["runtime"]["agent"] | null;
+  private coreConfig: GrantedConfig | null;
+  private fullConfig: GrantedConfig | null;
+  private agentRuntime: GrantedPluginApi["runtime"]["agent"] | null;
   private logger: Logger;
   private stopStaleCallReaper: (() => void) | null = null;
   private readonly webhookInFlightLimiter = createWebhookInFlightLimiter();
@@ -205,9 +205,9 @@ export class VoiceCallWebhookServer {
     config: VoiceCallConfig,
     manager: CallManager,
     provider: VoiceCallProvider,
-    coreConfig?: OpenClawConfig,
-    fullConfig?: OpenClawConfig,
-    agentRuntime?: OpenClawPluginApi["runtime"]["agent"],
+    coreConfig?: GrantedConfig,
+    fullConfig?: GrantedConfig,
+    agentRuntime?: GrantedPluginApi["runtime"]["agent"],
     logger?: Logger,
   ) {
     this.config = normalizeVoiceCallConfig(config);
@@ -354,14 +354,14 @@ export class VoiceCallWebhookServer {
   private async initializeMediaStreaming(): Promise<void> {
     const streaming = this.config.streaming;
     const pluginConfig =
-      this.fullConfig ?? (this.coreConfig as unknown as OpenClawConfig | undefined);
+      this.fullConfig ?? (this.coreConfig as unknown as GrantedConfig | undefined);
     const { getRealtimeTranscriptionProvider, listRealtimeTranscriptionProviders } =
       await loadRealtimeTranscriptionRuntime();
     const resolution = resolveConfiguredCapabilityProvider({
       configuredProviderId: streaming.provider,
       providerConfigs: streaming.providers,
       cfg: pluginConfig,
-      cfgForResolve: pluginConfig ?? ({} as OpenClawConfig),
+      cfgForResolve: pluginConfig ?? ({} as GrantedConfig),
       getConfiguredProvider: (providerId) =>
         getRealtimeTranscriptionProvider(providerId, pluginConfig),
       listProviders: () =>
@@ -393,7 +393,7 @@ export class VoiceCallWebhookServer {
     const streamConfig: MediaStreamConfig = {
       transcriptionProvider: provider,
       providerConfig,
-      cfg: this.fullConfig ?? (this.coreConfig as OpenClawConfig | null) ?? undefined,
+      cfg: this.fullConfig ?? (this.coreConfig as GrantedConfig | null) ?? undefined,
       preStartTimeoutMs: streaming.preStartTimeoutMs,
       maxPendingConnections: streaming.maxPendingConnections,
       maxPendingConnectionsPerIp: streaming.maxPendingConnectionsPerIp,

@@ -54,7 +54,7 @@ export type GatewayEvent = {
 };
 
 /** Minimal transport interface consumed by the OpenClaw SDK client. */
-export type OpenClawTransport = {
+export type GrantedTransport = {
   request<T = unknown>(
     method: string,
     params?: unknown,
@@ -65,7 +65,7 @@ export type OpenClawTransport = {
 };
 
 /** Transport variant that requires an explicit connection step. */
-export type ConnectableOpenClawTransport = OpenClawTransport & {
+export type ConnectableOpenClawTransport = GrantedTransport & {
   connect(): Promise<void>;
 };
 
@@ -274,7 +274,7 @@ export type RunResult = {
 };
 
 /** Stable SDK event type taxonomy derived from raw Gateway events. */
-export type OpenClawEventType =
+export type GrantedEventType =
   | "run.created"
   | "run.queued"
   | "run.started"
@@ -305,11 +305,11 @@ export type OpenClawEventType =
   | "raw";
 
 /** Normalized SDK event with common run/session/task metadata. */
-export type OpenClawEvent<TData = unknown> = {
+export type GrantedEvent<TData = unknown> = {
   version: 1;
   id: string;
   ts: number;
-  type: OpenClawEventType;
+  type: GrantedEventType;
   runId?: string;
   sessionId?: string;
   sessionKey?: string;

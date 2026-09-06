@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { FsSafeError, root, type ReadResult, type Root } from "../../infra/fs-safe.js";
 import {
   executeSqliteQuerySync,
@@ -81,7 +81,7 @@ type SkillProposalLookupScope = {
 };
 
 type SkillProposalReadOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   reconcile?: boolean;
 };
 
@@ -447,7 +447,7 @@ export async function readSkillProposalManifest(
 async function reconcileInterruptedApply(
   proposalId: string,
   options: SkillWorkshopStoreOptions,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): Promise<boolean> {
   const stored = readStoredProposal(proposalId, options);
   if (!stored || stored.record.status !== "pending") {

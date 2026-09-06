@@ -7,13 +7,13 @@ import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime
 import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
 import { resolveDefaultAgentId } from "openclaw/plugin-sdk/memory-host-core";
 import { getActiveMemorySearchManager } from "openclaw/plugin-sdk/memory-host-search";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import {
   normalizeLowercaseStringOrEmpty,
   uniqueStrings,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import { assessClaimFreshness, isClaimContestedStatus } from "./claim-health.js";
 import {
@@ -168,7 +168,7 @@ type QuerySearchOverrides = {
   searchCorpus?: WikiSearchCorpus;
 };
 
-type ConversationRecallContext = NonNullable<OpenClawPluginToolContext["conversationRecall"]>;
+type ConversationRecallContext = NonNullable<GrantedPluginToolContext["conversationRecall"]>;
 
 function sortWikiSearchResults(results: WikiSearchResult[]): WikiSearchResult[] {
   return results.toSorted((left, right) => {
@@ -918,7 +918,7 @@ function isBridgeCompiledPage(page: QueryableWikiPage): boolean {
 }
 
 function createWikiPageVisibilityFilter(params: {
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
   sandboxed?: boolean;
@@ -951,7 +951,7 @@ function shouldUseSharedMemory(config: ResolvedMemoryWikiConfig): boolean {
 
 function assertSessionVisibilityAppConfig(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
   sandboxed?: boolean;
@@ -980,13 +980,13 @@ function shouldSearchWiki(config: ResolvedMemoryWikiConfig): boolean {
 
 function shouldSearchSharedMemory(
   config: ResolvedMemoryWikiConfig,
-  appConfig?: OpenClawConfig,
+  appConfig?: GrantedConfig,
 ): boolean {
   return shouldUseSharedMemory(config) && appConfig !== undefined;
 }
 
 function resolveActiveMemoryAgentId(params: {
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
 }): string | null {
@@ -1006,7 +1006,7 @@ function resolveActiveMemoryAgentId(params: {
 }
 
 async function resolveActiveMemoryManager(params: {
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
 }) {
@@ -1253,7 +1253,7 @@ export function resolveQueryableWikiPageByLookup(
 
 export async function searchMemoryWiki(input: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
   sandboxed?: boolean;
@@ -1341,7 +1341,7 @@ export async function searchMemoryWiki(input: {
 
 export async function getMemoryWikiPage(input: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   agentSessionKey?: string;
   sandboxed?: boolean;

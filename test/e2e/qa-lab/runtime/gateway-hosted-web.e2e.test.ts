@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import adminHttpRpcPlugin from "../../../../extensions/admin-http-rpc/index.js";
 import canvasPlugin from "../../../../extensions/canvas/index.js";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../../../../src/config/config.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { startGatewayServer } from "../../../../src/gateway/server.js";
 import {
   connectGatewayClient,
@@ -67,7 +67,7 @@ describe("Gateway hosted web surfaces", () => {
         "utf8",
       );
 
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         gateway: {
           mode: "local",
           bind: "loopback",

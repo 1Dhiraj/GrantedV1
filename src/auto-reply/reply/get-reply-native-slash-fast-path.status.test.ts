@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import * as preparedModelCatalog from "../../agents/prepared-model-catalog.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createSessionConversationTestRegistry } from "../../test-utils/session-conversation-registry.js";
@@ -253,7 +253,7 @@ describe("native /status channel model routing", () => {
               discord: { "123": "openai/gpt-5.5" },
             },
           },
-        } as OpenClawConfig),
+        } as GrantedConfig),
         agentId: "main",
         agentDir: "/tmp/agent",
         agentCfg: undefined,

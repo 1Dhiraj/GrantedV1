@@ -3,7 +3,7 @@ import { state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { icons } from "../components/icons.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { formatUiExternalText } from "./format-error.ts";
 
 type ToastDismissReason = "action" | "dismiss" | "disconnected" | "replaced" | "timeout";
@@ -42,7 +42,7 @@ function restingToastLayer() {
 // dropping it, so no caller's message disappears because it arrived too early.
 let queuedToast: ToastOptions | null = null;
 
-class OpenClawToastHost extends OpenClawLightDomContentsElement {
+class GrantedToastHost extends GrantedLightDomContentsElement {
   @state() private toast: ToastOptions | null = null;
   @state() private active = false;
   private readonly toastQueue: ToastOptions[] = [];
@@ -220,7 +220,7 @@ export function showToast(options: ToastOptions): boolean {
   if (typeof document === "undefined") {
     return false;
   }
-  const host = document.querySelector<OpenClawToastHost>("openclaw-toast-host");
+  const host = document.querySelector<GrantedToastHost>("openclaw-toast-host");
   if (!host) {
     queuedToast = options;
     return false;
@@ -245,11 +245,11 @@ export function showToast(options: ToastOptions): boolean {
 
 // Guarded so DOM-free (node) consumers of send-failure surfacing can load this module.
 if (typeof customElements !== "undefined" && !customElements.get("openclaw-toast-host")) {
-  customElements.define("openclaw-toast-host", OpenClawToastHost);
+  customElements.define("openclaw-toast-host", GrantedToastHost);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-toast-host": OpenClawToastHost;
+    "openclaw-toast-host": GrantedToastHost;
   }
 }

@@ -23,7 +23,7 @@ import {
   loadPersistedPluginModelCatalogsReadOnly,
 } from "../agents/plugin-model-catalog.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { listAgentModelsJsonPaths } from "../secrets/storage-scan.js";
 import { shortenHomePath } from "../utils.js";
@@ -53,11 +53,7 @@ function credentialMatches(
   );
 }
 
-function matchesProviderEnvRefMarker(
-  cfg: OpenClawConfig,
-  provider: string,
-  value: string,
-): boolean {
+function matchesProviderEnvRefMarker(cfg: GrantedConfig, provider: string, value: string): boolean {
   const ref = resolveProviderConfigSecretInput(cfg, provider).ref;
   if (ref?.source !== "env") {
     return false;
@@ -69,7 +65,7 @@ function matchesProviderEnvRefMarker(
   return candidate === id || candidate === `$${id}` || candidate === `\${${id}}`;
 }
 
-function findProviderSecretRefProfileIds(store: AuthProfileStore, cfg: OpenClawConfig): string[] {
+function findProviderSecretRefProfileIds(store: AuthProfileStore, cfg: GrantedConfig): string[] {
   return Object.entries(store.profiles).flatMap(([profileId, credential]) => {
     return credential.type === "api_key" &&
       credential.key &&
@@ -83,7 +79,7 @@ function collectCredentials(
   providers: unknown,
   store: AuthProfileStore,
   blockedStores: readonly AuthProfileStore[] = [],
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): PlaintextCredential[] {
   if (!isRecord(providers)) {
     return [];
@@ -282,7 +278,7 @@ function collectAgentCatalogs(agentDir: string, warnings: string[]): AgentCatalo
 
 /** Copies and verifies catalog credentials before the runtime retires plaintext catalog auth. */
 export async function maybeMigrateModelCatalogCredentials(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   prompter: DoctorPrompter;
   runtime: RuntimeEnv;

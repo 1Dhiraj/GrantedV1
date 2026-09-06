@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createCronToolsAllowPreflightDiagnostics } from "./run-delivery-trace.js";
 
 const cfg = {
@@ -8,7 +8,7 @@ const cfg = {
       notes: { transport: "stdio", command: "notes-mcp" },
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 describe("configured MCP inherited-cap diagnostics", () => {
   it("persists an actionable warning for legacy Codex default caps", async () => {
@@ -65,7 +65,7 @@ describe("configured MCP inherited-cap diagnostics", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const base = {
       cfg: agentScopedCfg,
       jobId: "job-agent-scope",

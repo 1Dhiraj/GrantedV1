@@ -8,7 +8,7 @@ import {
 } from "openclaw/plugin-sdk/session-store-runtime";
 import { appendSessionTranscriptMessagesByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
-import { applyDockerOpenAiProviderConfig, type OpenClawConfig } from "./docker-openai-seed.ts";
+import { applyDockerOpenAiProviderConfig, type GrantedConfig } from "./docker-openai-seed.ts";
 
 async function main() {
   const stateDir = process.env.GRANTED_STATE_DIR?.trim() || path.join(os.homedir(), ".openclaw");
@@ -36,7 +36,7 @@ async function main() {
       plugins: {
         enabled: false,
       },
-    } satisfies OpenClawConfig,
+    } satisfies GrantedConfig,
     "sk-docker-smoke-test",
   );
 

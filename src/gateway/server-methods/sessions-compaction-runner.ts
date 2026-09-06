@@ -18,12 +18,12 @@ import {
   scanSessionTranscriptTree,
   selectSessionTranscriptTreePathNodes,
 } from "../../config/sessions/transcript-tree.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveSessionModelRef } from "../session-utils.js";
 
 type GatewaySessionCompactionParams = {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: SessionEntry;
   sessionId: string;
   sessionKey: string;

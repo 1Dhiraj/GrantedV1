@@ -4,7 +4,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as loggingConfigModule from "../logging/config.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";
 import { resetSecretRedactionRegistryForTest } from "../logging/secret-redaction-registry.test-support.js";
@@ -24,13 +24,13 @@ function textMessage(text: string): AgentMessage {
   });
 }
 
-function cfg(_mode: "tools" | "off", patterns?: string[]): OpenClawConfig {
+function cfg(_mode: "tools" | "off", patterns?: string[]): GrantedConfig {
   return {
     logging: patterns ? { redactPatterns: patterns } : {},
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
-function googleCompatCfg(): OpenClawConfig {
+function googleCompatCfg(): GrantedConfig {
   return {
     ...cfg("tools"),
     models: {
@@ -42,7 +42,7 @@ function googleCompatCfg(): OpenClawConfig {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
 const EMAIL_PATTERN = String.raw`([\w]|[-.])+@([\w]|[-.])+\.\w+`;
@@ -825,7 +825,7 @@ describe("redactTranscriptMessage", () => {
     const inputCfg = {
       logging: { redactSensitive: "tools" },
       models: { providers: { openai: { apiKey: "test-key" } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = redactTranscriptMessage(msg, inputCfg) as unknown as {
       api: string;

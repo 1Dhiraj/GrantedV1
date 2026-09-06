@@ -9,7 +9,7 @@ import {
   replaceSessionEntrySync,
 } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -30,7 +30,7 @@ describe("doctor canonical session-key retention repair", () => {
       const cfg = {
         agents: { list: [{ id: "main", default: true }, { id: "ops" }] },
         session: { mainKey: "shared", store: storeTemplate },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       replaceSessionEntrySync(
         {
@@ -219,7 +219,7 @@ describe("doctor canonical session-key retention repair", () => {
         const cfg = {
           agents: { list: [{ id: "main", default: true }, { id: "ops" }] },
           session: { mainKey: "work", store: storeTemplate },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         insertLegacySession({
           agentId: "ops",
           entry: { sessionId: "winner", updatedAt: 20 },

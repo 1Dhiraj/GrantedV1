@@ -31,7 +31,7 @@ import {
 import { resolveSessionModelOverrideSource } from "../config/sessions/model-override-provenance.js";
 import { sessionEntryForkedFromParent } from "../config/sessions/session-entry-lineage.js";
 import { sessionCreatorProfileId } from "../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { projectPluginSessionExtensionsSync } from "../plugins/host-hook-state.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { classifySessionKind } from "../sessions/classify-session-kind.js";
@@ -84,7 +84,7 @@ function channelAvatarRevision(reference: string): string {
 }
 
 export function buildGatewaySessionRow(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
   key: string;

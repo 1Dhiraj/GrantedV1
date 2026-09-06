@@ -8,7 +8,7 @@ import {
   isSafeWorkspaceAttestationFilename,
   registerWorkspaceStateAliasesInTransaction,
 } from "../agents/workspace-state-store.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -29,7 +29,7 @@ import type { LegacyWorkspaceStateSource } from "./state-migrations.workspace-se
 const MIGRATION_KIND = WORKSPACE_LEGACY_STATE_MIGRATION_KIND;
 
 type WorkspaceMigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   | "workspace_setup_state"
   | "workspace_path_aliases"
   | "workspace_generated_bootstrap_hashes"

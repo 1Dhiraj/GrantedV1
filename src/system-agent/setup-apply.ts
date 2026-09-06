@@ -13,7 +13,7 @@ import {
   validateConfigObjectWithPlugins,
 } from "../config/config.js";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { formatExternalSupervisorActionRequired } from "../infra/gateway-supervision.js";
 import { enablePluginInConfig } from "../plugins/enable.js";
@@ -64,13 +64,13 @@ export type SystemAgentSetupApplyParams = {
   /** Provider-auth config produced in the isolated manual-key flow. */
   configPatch?: unknown;
   /** Success-gated final normalization against the config held by the write lock. */
-  finalizeConfig?: (config: OpenClawConfig, sourceConfig: OpenClawConfig) => OpenClawConfig;
+  finalizeConfig?: (config: GrantedConfig, sourceConfig: GrantedConfig) => GrantedConfig;
   /** Plugin whose enablement belongs to the successful setup transaction. */
   enablePluginId?: string;
   /** Refresh an installed plugin after its success-gated enablement commits. */
   refreshPluginRegistry?: boolean;
   /** Synchronous cross-store guard receives authored config under the final write lock. */
-  assertCommitPreconditions?: (sourceConfig: OpenClawConfig) => void;
+  assertCommitPreconditions?: (sourceConfig: GrantedConfig) => void;
   /** Resume an interrupted local installation without restarting a running Gateway. */
   resume?: boolean;
   installDaemon?: boolean;
@@ -129,7 +129,7 @@ export function createQuickstartNotePrompter(runtime: RuntimeEnv): WizardPrompte
   };
 }
 
-function applySecurityAcknowledgement(config: OpenClawConfig): OpenClawConfig {
+function applySecurityAcknowledgement(config: GrantedConfig): GrantedConfig {
   if (config.wizard?.securityAcknowledgedAt) {
     return config;
   }
@@ -208,7 +208,7 @@ export async function applySystemAgentSetup(
           import("../agents/model-selection.js"),
         ] as const)
       : undefined;
-  const assertExpectedTarget = (config: OpenClawConfig): void => {
+  const assertExpectedTarget = (config: GrantedConfig): void => {
     if (!guardModules) {
       return;
     }
@@ -316,7 +316,7 @@ export async function applySystemAgentSetup(
   const prompter = createQuickstartNotePrompter(runtime);
   const { configureGatewayForSetup } = await import("../wizard/setup.gateway-config.js");
   const buildSetupCandidate = async (
-    currentBaseConfig: OpenClawConfig,
+    currentBaseConfig: GrantedConfig,
     hasAuthoredRosterEntries: boolean,
   ) => {
     const roster = listAgentEntries(currentBaseConfig);
@@ -331,7 +331,7 @@ export async function applySystemAgentSetup(
       setupBaseConfig = enabled.config;
     }
     if (configPatch !== undefined) {
-      setupBaseConfig = applyMergePatch(setupBaseConfig, configPatch) as OpenClawConfig;
+      setupBaseConfig = applyMergePatch(setupBaseConfig, configPatch) as GrantedConfig;
     }
     if (currentHasRoster) {
       const { list: _legacyList, ...agents } = setupBaseConfig.agents ?? {};

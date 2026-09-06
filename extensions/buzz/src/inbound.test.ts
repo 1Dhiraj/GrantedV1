@@ -5,7 +5,7 @@ import {
 import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
 // Buzz tests cover inbound room admission, mention gating, and reply delivery.
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -154,7 +154,7 @@ function createHistoryParams(historyLimit = 2, roles = new Map<string, string>()
   );
   return {
     account: createAccount({ historyLimit }),
-    cfg: {} satisfies OpenClawConfig,
+    cfg: {} satisfies GrantedConfig,
     bus,
     ...createLifecycle(),
     historyMap: new Map<string, HistoryEntry[]>(),
@@ -324,7 +324,7 @@ describe("handleBuzzInbound", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     await handleBuzzInbound({
       ...params,
       cfg,
@@ -406,7 +406,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({ mentionedPubkeys: [BOT_PUBLIC_KEY] }),
       ...lifecycle,
@@ -479,7 +479,7 @@ describe("handleBuzzInbound", () => {
         groupAllowFrom: [SENDER_PUBLIC_KEY],
         groups: { [ROOM_ID]: { requireMention: false } },
       }),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus,
       message: createMessage(),
       ...createLifecycle(),
@@ -502,7 +502,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({ text: "@openclaw status" }),
       ...createLifecycle(),
@@ -518,7 +518,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage(),
       ...createLifecycle(),
@@ -553,7 +553,7 @@ describe("handleBuzzInbound", () => {
       });
       const params = {
         account: createAccount(),
-        cfg: {} satisfies OpenClawConfig,
+        cfg: {} satisfies GrantedConfig,
         bus: createBus(),
         message: createMessage({ mentionedPubkeys: mentioned ? [BOT_PUBLIC_KEY] : [] }),
         signal: abort.signal,
@@ -589,7 +589,7 @@ describe("handleBuzzInbound", () => {
         groupPolicy: "allowlist",
         groupAllowFrom: [OTHER_PUBLIC_KEY],
       }),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({ mentionedPubkeys: [BOT_PUBLIC_KEY] }),
       ...createLifecycle(),
@@ -638,7 +638,7 @@ describe("handleBuzzInbound", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       for (const [index, id] of ["loop-first", "loop-second"].entries()) {
         if (index === 1) {
           account.relayUrl = `wss://${relayHost.toUpperCase()}:443/`;
@@ -716,7 +716,7 @@ describe("handleBuzzInbound", () => {
           },
         },
       }),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage(),
       ...createLifecycle(),
@@ -737,7 +737,7 @@ describe("handleBuzzInbound", () => {
         groupAllowFrom: [OTHER_PUBLIC_KEY],
         groups: { [ROOM_ID]: { requireMention: true, groupAllowFrom: [SENDER_PUBLIC_KEY] } },
       }),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({
         text: "/status",
@@ -760,7 +760,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({ text: "/status" }),
       ...createLifecycle(),
@@ -776,7 +776,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus,
       message: createMessage({
         id: "event-reply",
@@ -829,7 +829,7 @@ describe("handleBuzzInbound", () => {
           },
         },
       }),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({
         kind: BUZZ_DIFF_MESSAGE_KIND,
@@ -869,7 +869,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({
         kind: BUZZ_DIFF_MESSAGE_KIND,
@@ -893,7 +893,7 @@ describe("handleBuzzInbound", () => {
 
     await handleBuzzInbound({
       account: createAccount(),
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       bus: createBus(),
       message: createMessage({ mentionedPubkeys: [BOT_PUBLIC_KEY] }),
       ...createLifecycle(),

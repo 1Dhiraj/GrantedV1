@@ -10,7 +10,7 @@ import {
 import { saveCronStore } from "../cron/store.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   formatCronSessionDiagnosticFields,
@@ -19,7 +19,7 @@ import {
 } from "./diagnostic-session-context.js";
 
 let tempDir: string | undefined;
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 async function seedSessionTranscript(params: {
   agentId: string;

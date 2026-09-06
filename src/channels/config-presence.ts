@@ -15,7 +15,7 @@ import {
   listBundledChannelIdsWithPersistedAuthState,
 } from "../channels/plugins/persisted-auth-state.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginDiscoveryResult } from "../plugins/discovery.js";
 import { listOfficialExternalChannelEnvVars } from "../plugins/official-external-plugin-catalog.js";
 import { isRecord } from "../utils.js";
@@ -50,7 +50,7 @@ export function hasMeaningfulChannelConfig(value: unknown): boolean {
 }
 
 /** Lists channels explicitly disabled in config so activation logic can suppress auto-detection. */
-export function listExplicitlyDisabledChannelIdsForConfig(cfg: OpenClawConfig): string[] {
+export function listExplicitlyDisabledChannelIdsForConfig(cfg: GrantedConfig): string[] {
   const channels = isRecord(cfg.channels) ? cfg.channels : null;
   if (!channels) {
     return [];
@@ -79,7 +79,7 @@ function hasPersistedChannelState(env: NodeJS.ProcessEnv): boolean {
 
 /** Lists channel ids detected from config, env vars, or persisted auth state. */
 export function listPotentialConfiguredChannelIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
   options: ChannelPresenceOptions = {},
 ): string[] {
@@ -92,7 +92,7 @@ export function listPotentialConfiguredChannelIds(
 
 /** Lists deduplicated channel presence signals with their detection source. */
 export function listPotentialConfiguredChannelPresenceSignals(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
   options: ChannelPresenceOptions = {},
 ): ChannelPresenceSignal[] {

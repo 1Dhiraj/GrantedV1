@@ -13,7 +13,7 @@ import {
   resolveOpenClawManifestRequires,
 } from "../shared/frontmatter.js";
 import type {
-  OpenClawHookMetadata,
+  GrantedHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
@@ -50,7 +50,7 @@ function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
 /** Resolve OpenClaw hook metadata from the manifest block in HOOK.md frontmatter. */
 export function resolveHookManifestMetadata(
   frontmatter: ParsedHookFrontmatter,
-): OpenClawHookMetadata | undefined {
+): GrantedHookMetadata | undefined {
   const metadataObj = resolveOpenClawManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;

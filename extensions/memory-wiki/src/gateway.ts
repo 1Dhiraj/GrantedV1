@@ -3,7 +3,7 @@ import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { ErrorCodes, errorShape } from "openclaw/plugin-sdk/gateway-runtime";
 import { resolveDefaultAgentId } from "openclaw/plugin-sdk/memory-host-core";
 import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
-import type { OpenClawConfig, OpenClawPluginApi } from "../api.js";
+import type { GrantedConfig, GrantedPluginApi } from "../api.js";
 import { applyMemoryWikiMutation, normalizeMemoryWikiMutationInput } from "./apply.js";
 import { compileMemoryWikiVault } from "./compile.js";
 import {
@@ -37,9 +37,7 @@ const READ_SCOPE = "operator.read" as const;
 const WRITE_SCOPE = "operator.write" as const;
 const ADMIN_SCOPE = "operator.admin" as const;
 const LOCAL_FILE_INGEST_SCOPE = ADMIN_SCOPE;
-type GatewayMethodContext = Parameters<
-  Parameters<OpenClawPluginApi["registerGatewayMethod"]>[1]
->[0];
+type GatewayMethodContext = Parameters<Parameters<GrantedPluginApi["registerGatewayMethod"]>[1]>[0];
 type GatewayRespond = GatewayMethodContext["respond"];
 
 function readStringParam(params: Record<string, unknown>, key: string): string | undefined;
@@ -100,18 +98,18 @@ function respondError(respond: GatewayRespond, error: unknown) {
 }
 
 export function registerMemoryWikiGatewayMethods(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
-  getAppConfig?: () => OpenClawConfig | undefined;
-  resolveConfig?: (agentId?: string, appConfig?: OpenClawConfig) => ResolvedMemoryWikiConfig;
+  appConfig?: GrantedConfig;
+  getAppConfig?: () => GrantedConfig | undefined;
+  resolveConfig?: (agentId?: string, appConfig?: GrantedConfig) => ResolvedMemoryWikiConfig;
   resolveSourceSyncSignal?: () => AbortSignal | undefined;
 }) {
   const { api, config: baseConfig } = params;
 
   const syncImportedSourcesInBackground = (
     config: ResolvedMemoryWikiConfig,
-    appConfig?: OpenClawConfig,
+    appConfig?: GrantedConfig,
   ) => {
     const signal = params.resolveSourceSyncSignal?.();
     if (params.resolveSourceSyncSignal && !signal) {
@@ -135,7 +133,7 @@ export function registerMemoryWikiGatewayMethods(params: {
       return params.getAppConfig();
     }
     if (typeof api.runtime.config?.current === "function") {
-      return api.runtime.config.current() as OpenClawConfig;
+      return api.runtime.config.current() as GrantedConfig;
     }
     return params.appConfig;
   };

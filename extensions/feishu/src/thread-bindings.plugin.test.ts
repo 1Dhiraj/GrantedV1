@@ -4,7 +4,7 @@ import {
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   resolveRuntimeConversationBindingRoute,
@@ -29,7 +29,7 @@ it("approves, routes, and detaches an opaque Feishu plugin target without invent
     const cfg = {
       agents: { entries: { alpha: {}, beta: {} } },
       bindings: [{ agentId: "alpha", match: { channel: "feishu" } }],
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const manager = createFeishuThreadBindingManager({ cfg, accountId: "default" });
     const owner = { pluginId: "fixture-runtime", pluginRoot: tempRoot };
     const conversation = {

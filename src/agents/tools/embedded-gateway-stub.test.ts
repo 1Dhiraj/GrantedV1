@@ -1,12 +1,12 @@
 // Embedded gateway stub tests cover in-process gateway methods used by agent
 // tools when no external gateway transport is available.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmbeddedCallGateway } from "./embedded-gateway-stub.js";
 
 const runtime = vi.hoisted(() => ({
   getRuntimeConfig: vi.fn(
-    (): OpenClawConfig => ({ agents: { list: [{ id: "main", default: true }] } }),
+    (): GrantedConfig => ({ agents: { list: [{ id: "main", default: true }] } }),
   ),
   resolveSessionStoreKey: vi.fn(({ sessionKey }: { sessionKey: string }) =>
     sessionKey === "main" ? "agent:main:main" : sessionKey,
@@ -147,7 +147,7 @@ describe("embedded gateway stub", () => {
   it.each([undefined, "/stores/{agentId}.sqlite"])(
     "canonicalizes embedded session search filters with store %s",
     async (store) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
         ...(store ? { session: { store } } : {}),
       };
@@ -189,7 +189,7 @@ describe("embedded gateway stub", () => {
   it.each(["main", "ops"])(
     "resolves omitted search filters through the fixed-store owner %s",
     async (agentId) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [{ id: "main", default: true }, { id: "ops" }],
           defaults: { sessionStore: { agentId } },

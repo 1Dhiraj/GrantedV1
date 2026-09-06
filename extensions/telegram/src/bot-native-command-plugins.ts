@@ -1,7 +1,7 @@
 // Telegram plugin module implements native plugin command behavior.
 import { randomUUID } from "node:crypto";
 import type { Bot, Context } from "grammy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginCommandNativeCandidate } from "openclaw/plugin-sdk/plugin-command-runtime";
 import { hasOutboundReplyContent } from "openclaw/plugin-sdk/reply-payload";
 import {
@@ -125,7 +125,7 @@ async function resolveTelegramPluginThreadParams(params: {
 }
 
 async function resolveTelegramCommandTranscriptContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }): Promise<{ sessionId?: string; sessionFile?: string; authProfileId?: string }> {

@@ -46,7 +46,7 @@ import { isPreparedModelCatalogFull } from "../../agents/prepared-model-runtime.
 import { preparedModelRuntimeConfigsMatch } from "../../agents/prepared-model-runtime.js";
 import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.js";
 import { getRuntimeConfigSourceSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 import { loadDeferredCatalog, readPreparedCatalog } from "../server-model-catalog-auth.js";
@@ -87,7 +87,7 @@ function resolveModelsListView(params: Record<string, unknown>): ModelCatalogBro
 
 /** Configured dynamic-catalog providers that omit explicit model inventory. */
 function listConfiguredRuntimeDiscoveryProviderIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   metadataSnapshot?: Pick<PluginMetadataSnapshot, "plugins">,
 ): Set<string> {
   const ids = new Set<string>();
@@ -157,7 +157,7 @@ function resolveProviderConfigInventoryEntries(params: {
 
 /** Builds one per-agent, snapshot-scoped route projection for Gateway thinking metadata. */
 export function createGatewayAgentModelCatalogProjector(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   snapshot: ModelCatalogSnapshot;
   metadataSnapshot: PluginMetadataSnapshot;
@@ -275,7 +275,7 @@ export function createGatewayAgentModelCatalogProjector(params: {
 
 function createPublicModelsListProjector(params: {
   thinkingCatalog: ModelCatalogEntry[];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   configuredEntriesByKey: ReturnType<typeof resolveConfiguredModelEntries>["byKey"];
   includeInput?: boolean;
@@ -357,7 +357,7 @@ function createPublicModelsListProjector(params: {
 }
 
 function apiKeyProviderCapabilities(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   metadataSnapshot: PluginMetadataSnapshot;
   workspaceDir: string;
 }): ApiKeyProviderCapabilities {
@@ -380,7 +380,7 @@ type BuildModelsListResultParams = {
   params: Record<string, unknown>;
   preloadedCatalog?: {
     agentId: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     snapshot: ModelCatalogSnapshot;
   };
   catalogProjector?: ReturnType<typeof createGatewayAgentModelCatalogProjector>;

@@ -1,14 +1,14 @@
 // Node-host plugin command contracts, including the opt-in duplex transport.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
-export type OpenClawPluginNodeHostCommandAvailabilityContext = {
+export type GrantedPluginNodeHostCommandAvailabilityContext = {
   /** Node-local configuration used to build this host's Gateway declaration. */
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Node-host process environment. */
   env: NodeJS.ProcessEnv;
 };
 
-export type OpenClawPluginNodeHostCommandIo = {
+export type GrantedPluginNodeHostCommandIo = {
   emitChunk(chunk: string): Promise<void>;
   onInput(callback: (payloadJSON: string) => void): void;
   /** Complete binary messages; available when the node host dispatches a duplex command. */
@@ -19,7 +19,7 @@ export type OpenClawPluginNodeHostCommandIo = {
   signal: AbortSignal;
 };
 
-export type OpenClawPluginNodeWorkspace = {
+export type GrantedPluginNodeWorkspace = {
   workspaceDir: string;
   environmentId: string;
   sessionId: string;
@@ -27,7 +27,7 @@ export type OpenClawPluginNodeWorkspace = {
   sessionKey: string;
 };
 
-export type OpenClawPluginNodeHostCommandContext = {
+export type GrantedPluginNodeHostCommandContext = {
   /** Emit one node-owned event through the active Gateway connection. */
   sendNodeEvent(event: string, payload: unknown): Promise<unknown>;
   /** Agent session that owns this invocation, when the caller supplied one. */
@@ -37,29 +37,29 @@ export type OpenClawPluginNodeHostCommandContext = {
   /** Prepare local exec policy; call the returned guard synchronously immediately before spawn. */
   prepareExecAuthorization?: (source: "human-approved" | "session-full") => () => void;
   /** Protect one exact node-owned placement workspace for this invocation's lifetime. */
-  acquireManagedWorkspace?: (request: OpenClawPluginNodeWorkspace) => {
+  acquireManagedWorkspace?: (request: GrantedPluginNodeWorkspace) => {
     workspaceDir: string;
     release: () => void;
   };
 };
 
-type OpenClawPluginNodeHostCommandBase = {
+type GrantedPluginNodeHostCommandBase = {
   command: string;
   cap?: string;
   dangerous?: boolean;
   /** Settle node-local startup before the initial capability declaration; registration stays synchronous. */
-  prepare?: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => Promise<void> | void;
+  prepare?: (context: GrantedPluginNodeHostCommandAvailabilityContext) => Promise<void> | void;
   /** Return false to omit this command and capability from the node declaration. */
-  isAvailable?: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => boolean;
+  isAvailable?: (context: GrantedPluginNodeHostCommandAvailabilityContext) => boolean;
   /** Watch node-local availability and request a fresh Gateway declaration. */
   watchAvailability?: (
-    context: OpenClawPluginNodeHostCommandAvailabilityContext,
+    context: GrantedPluginNodeHostCommandAvailabilityContext,
     onChange: () => void,
   ) => (() => void) | void;
   /** Release command-owned state when the active Gateway connection closes. */
   onDisconnect?: () => Promise<void> | void;
   /** Optional Computer Use declaration published with this command's node manifest. */
-  computerUse?: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => unknown;
+  computerUse?: (context: GrantedPluginNodeHostCommandAvailabilityContext) => unknown;
   agentTool?: {
     name: string;
     description: string;
@@ -70,14 +70,14 @@ type OpenClawPluginNodeHostCommandBase = {
   };
 };
 
-export type OpenClawPluginNodeHostCommand = OpenClawPluginNodeHostCommandBase & {
+export type GrantedPluginNodeHostCommand = GrantedPluginNodeHostCommandBase & {
   // Not a discriminated handle signature: a union of different arities makes
   // plain `command.handle(params)` uncallable for consumers holding the union.
   // The node host enforces io presence for duplex commands at runtime.
   duplex?: boolean;
   handle: (
     paramsJSON?: string | null,
-    io?: OpenClawPluginNodeHostCommandIo,
-    context?: OpenClawPluginNodeHostCommandContext,
+    io?: GrantedPluginNodeHostCommandIo,
+    context?: GrantedPluginNodeHostCommandContext,
   ) => Promise<string>;
 };

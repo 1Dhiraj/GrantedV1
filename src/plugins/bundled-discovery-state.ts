@@ -1,6 +1,6 @@
 // Bundled-discovery compatibility is machine-owned upgrade state.
 import { readConfigMachineState } from "../state/config-machine-state.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   hasActivePluginInstallRoots,
@@ -9,7 +9,7 @@ import {
 import { registerPluginMetadataProcessMemoLifecycleClear } from "./plugin-metadata-lifecycle.js";
 
 export function readBundledDiscoveryMode(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): "compat" | "allowlist" | undefined {
   const resolvedOptions =
     options.path || options.database || !hasActivePluginInstallRoots()

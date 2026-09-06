@@ -1,7 +1,7 @@
 // Startup auth tests cover weak-token rejection, startup auth repair, env secret
 // references, and merged Tailscale gateway auth config.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { getConfigResolutionFacts, setConfigResolutionFacts } from "../config/resolution-facts.js";
 import { assertGatewayAuthNotKnownWeak } from "./known-weak-gateway-secrets.js";
 import { applyGatewayAuthOverridesForStartupPreflight } from "./server-startup-config-helpers.js";
@@ -13,7 +13,7 @@ const KNOWN_WEAK_GATEWAY_TOKEN_PLACEHOLDERS = [
 ] as const;
 
 const mocks = vi.hoisted(() => ({
-  replaceConfigFile: vi.fn(async (_params: { nextConfig: OpenClawConfig }) => {}),
+  replaceConfigFile: vi.fn(async (_params: { nextConfig: GrantedConfig }) => {}),
 }));
 
 vi.mock("../config/mutate.js", () => ({
@@ -30,7 +30,7 @@ vi.mock("../config/mutate.js", async () => {
 
 type StartupAuthInput = Parameters<typeof ensureGatewayStartupAuth>[0];
 type StartupAuthResult = Awaited<ReturnType<typeof ensureGatewayStartupAuth>>;
-type GatewayAuthConfig = NonNullable<NonNullable<OpenClawConfig["gateway"]>["auth"]>;
+type GatewayAuthConfig = NonNullable<NonNullable<GrantedConfig["gateway"]>["auth"]>;
 type GatewayAuthCheck = Parameters<typeof assertGatewayAuthNotKnownWeak>[0];
 
 function emptyEnv(): NodeJS.ProcessEnv {
@@ -41,13 +41,13 @@ function gatewayEnvSecretRef(id: string) {
   return { source: "env" as const, provider: "default", id };
 }
 
-function gatewayAuthConfig(auth: GatewayAuthConfig): OpenClawConfig {
+function gatewayAuthConfig(auth: GatewayAuthConfig): GrantedConfig {
   return {
     gateway: { auth },
   };
 }
 
-function gatewayAuthConfigWithDefaultEnvProvider(auth: GatewayAuthConfig): OpenClawConfig {
+function gatewayAuthConfigWithDefaultEnvProvider(auth: GatewayAuthConfig): GrantedConfig {
   return {
     ...gatewayAuthConfig(auth),
     secrets: {
@@ -97,7 +97,7 @@ describe("ensureGatewayStartupAuth", () => {
     expect(result.auth.password).toBe(password);
   }
 
-  async function expectEphemeralGeneratedTokenWhenOverridden(cfg: OpenClawConfig) {
+  async function expectEphemeralGeneratedTokenWhenOverridden(cfg: GrantedConfig) {
     const result = await runStartupAuth({
       cfg,
       authOverride: { mode: "token" },
@@ -113,7 +113,7 @@ describe("ensureGatewayStartupAuth", () => {
     mocks.replaceConfigFile.mockClear();
   });
 
-  async function expectNoTokenGeneration(cfg: OpenClawConfig, mode: string) {
+  async function expectNoTokenGeneration(cfg: GrantedConfig, mode: string) {
     const result = await runStartupAuth({
       cfg,
       persist: true,
@@ -125,7 +125,7 @@ describe("ensureGatewayStartupAuth", () => {
   }
 
   async function expectResolvedToken(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     env: NodeJS.ProcessEnv;
     authOverride?: StartupAuthInput["authOverride"];
     expectedToken: string;
@@ -147,7 +147,7 @@ describe("ensureGatewayStartupAuth", () => {
     expect(mocks.replaceConfigFile).not.toHaveBeenCalled();
   }
 
-  function createMissingGatewayTokenSecretRefConfig(): OpenClawConfig {
+  function createMissingGatewayTokenSecretRefConfig(): GrantedConfig {
     return gatewayAuthConfigWithDefaultEnvProvider({
       mode: "token",
       token: gatewayEnvSecretRef("MISSING_GW_TOKEN"),

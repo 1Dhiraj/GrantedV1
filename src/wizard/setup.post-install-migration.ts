@@ -1,6 +1,6 @@
 // Post-install migration helpers guide users through setup after package install.
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   readMigrationConfigPatchDetails,
@@ -12,7 +12,7 @@ import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import type { WizardPrompter } from "./prompts.js";
 
 type PostInstallMigrationOptions = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: RuntimeEnv;
   // Required only on interactive paths; non-interactive callers can omit it
   // since the helper only emits hint lines in that mode.
@@ -27,7 +27,7 @@ type PostInstallMigrationOptions = {
 };
 
 type PostInstallMigrationResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
 };
 
 type ResolvedProviderCandidate = {
@@ -42,7 +42,7 @@ const loadMigrationContextModule = createLazyRuntimeModule(
 const loadConfigPathsModule = createLazyRuntimeModule(() => import("../config/paths.js"));
 
 async function resolveCandidates(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: RuntimeEnv;
   installedPluginIds: readonly string[];
 }): Promise<ResolvedProviderCandidate[]> {
@@ -116,9 +116,9 @@ function logMigrationHint(runtime: RuntimeEnv, candidate: ResolvedProviderCandid
 }
 
 function applyMigrationConfigPatches(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   result: { items?: readonly unknown[] } | undefined,
-): OpenClawConfig {
+): GrantedConfig {
   const items = result?.items ?? [];
   const patches = items
     .filter((item): item is Parameters<typeof readMigrationConfigPatchDetails>[0] =>

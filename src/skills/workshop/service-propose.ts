@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { buildWorkspaceSkillStatus, resolveSkillStatusEntry } from "../discovery/status.js";
 import {
@@ -32,7 +32,7 @@ import {
 import { assertWritableSkillTarget } from "./workspace-skill-read.js";
 
 type SkillWorkshopWorkspaceOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
 };
 

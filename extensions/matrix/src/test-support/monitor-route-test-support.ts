@@ -8,4 +8,4 @@ export {
   createTestRegistry,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/plugin-test-runtime";
-export type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";

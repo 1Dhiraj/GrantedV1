@@ -7,7 +7,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { resolveStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isSecretRef } from "../../config/types.secrets.js";
 import { isSqliteLockError } from "../../infra/sqlite-transaction.js";
 import { isRecord } from "../../utils.js";
@@ -107,7 +107,7 @@ import type { AuthProfileStore, RuntimeAuthProfileStore } from "./types.js";
 
 type LoadAuthProfileStoreOptions = {
   allowKeychainPrompt?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   database?: AuthProfileDatabase;
   externalCli?: ExternalCliAuthDiscovery;
   inheritedAuthDir?: string;
@@ -265,7 +265,7 @@ function preserveLegacyOAuthRefsOnSave(params: {
 
 type ResolvedExternalCliOverlayOptions = {
   allowKeychainPrompt?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   externalCliProviderIds?: Iterable<string>;
   externalCliProfileIds?: Iterable<string>;
 };
@@ -1183,7 +1183,7 @@ export function ensureAuthProfileStore(
   agentDir?: string,
   options?: {
     allowKeychainPrompt?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     externalCli?: ExternalCliAuthDiscovery;
     externalCliProviderIds?: Iterable<string>;
     externalCliProfileIds?: Iterable<string>;

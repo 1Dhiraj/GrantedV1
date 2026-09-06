@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveConversationRouteEligibilityForAgent } from "./conversation-route-ownership.js";
 
 const baseConversation = {
@@ -10,7 +10,7 @@ const baseConversation = {
   target: "group:topic-42",
 };
 
-function configWithBindings(bindings: NonNullable<OpenClawConfig["bindings"]>): OpenClawConfig {
+function configWithBindings(bindings: NonNullable<GrantedConfig["bindings"]>): GrantedConfig {
   return {
     agents: { entries: { main: { default: true }, finance: {} } },
     bindings,

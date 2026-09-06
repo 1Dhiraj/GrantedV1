@@ -3,7 +3,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-support.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
@@ -195,7 +195,7 @@ beforeAll(async () => {
   ]);
   await buildPreparedModelsProviderData({
     agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
-  } as OpenClawConfig);
+  } as GrantedConfig);
 });
 
 beforeEach(() => {
@@ -257,7 +257,7 @@ afterEach(() => {
 
 function buildParams(
   commandBodyNormalized: string,
-  cfgOverrides: Partial<OpenClawConfig> = {},
+  cfgOverrides: Partial<GrantedConfig> = {},
 ): HandleCommandsParams {
   return {
     cfg: {
@@ -270,7 +270,7 @@ function buildParams(
         text: true,
       },
       ...cfgOverrides,
-    } as OpenClawConfig,
+    } as GrantedConfig,
     ctx: {
       Surface: "discord",
     },
@@ -391,7 +391,7 @@ describe("handleModelsCommand", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await buildPreparedModelsProviderData(cfg, "worker");
 
@@ -435,7 +435,7 @@ describe("handleModelsCommand", () => {
 
     const data = await buildPreparedModelsProviderData({
       agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.byProvider.has("openai")).toBe(false);
     const checker = modelProviderAuthMocks.createProviderAuthChecker.mock.results.at(-1)?.value;
@@ -486,7 +486,7 @@ describe("handleModelsCommand", () => {
       const data = await buildPreparedModelsProviderData(
         {
           agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         undefined,
         { view },
       );
@@ -523,7 +523,7 @@ describe("handleModelsCommand", () => {
           models: { "custom/legacy": {} },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.byProvider.get("custom")).toEqual(new Set(["modern"]));
     expect(pluginMetadataMocks.getCurrent).toHaveBeenCalledTimes(1);
@@ -616,7 +616,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect([...(data.byProvider.get("claude-cli") ?? [])].toSorted()).toEqual([
       "claude-haiku-4-5",
@@ -666,7 +666,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.byProvider.has("acme-cli")).toBe(false);
   });
@@ -695,7 +695,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     expect([...(minimaxData.byProvider.get("minimax") ?? [])]).toEqual(["abab-7"]);
   });
 
@@ -749,7 +749,7 @@ describe("handleModelsCommand", () => {
           model: { primary: "openai/gpt-5.5" },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.runtimeChoicesByProvider?.get("openai")?.[0]).toEqual({
       id: "codex",
@@ -778,7 +778,7 @@ describe("handleModelsCommand", () => {
           model: { primary: "openai/gpt-5.5" },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.runtimeChoicesByProvider?.get("openai")?.[0]).toEqual({
       id: "openclaw",
@@ -806,7 +806,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.runtimeChoicesByProvider?.get("openai")?.[0]).toEqual({
       id: "codex",
@@ -836,7 +836,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.runtimeChoicesByProvider?.get("anthropic")?.[0]).toEqual({
       id: "openclaw",
@@ -861,7 +861,7 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.runtimeChoicesByProvider?.get("anthropic")?.[0]).toEqual({
       id: "claude-cli",
@@ -885,7 +885,7 @@ describe("handleModelsCommand", () => {
 
     const data = await buildPreparedModelsProviderData({
       agents: { defaults: { modelPolicy: { allow: ["clawrouter/anthropic/*"] } } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(data.providers).toEqual(["clawrouter"]);
     expect([...expectDefined(data.byProvider.get("clawrouter"), "clawrouter models")]).toEqual([
@@ -1001,9 +1001,9 @@ describe("handleModelsCommand", () => {
           },
         },
       },
-    } satisfies Partial<OpenClawConfig>;
+    } satisfies Partial<GrantedConfig>;
 
-    const data = await buildPreparedModelsProviderData(cfg as OpenClawConfig);
+    const data = await buildPreparedModelsProviderData(cfg as GrantedConfig);
 
     expect([...(data.byProvider.get("openai") ?? [])]).toEqual(["gpt-5.4"]);
     expect([...(data.byProvider.get("deepseek") ?? [])].toSorted()).toEqual([

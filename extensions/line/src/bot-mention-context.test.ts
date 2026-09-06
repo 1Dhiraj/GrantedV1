@@ -1,5 +1,5 @@
 import type { webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { ResolvedLineAccount } from "./types.js";
@@ -197,7 +197,7 @@ describe("LINE admission facts on the dispatched turn", () => {
           groups: { "*": { requireMention: testCase.requireMention ?? true } },
         },
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         channels: {
           line: account.config,
           defaults: { implicitMentions: { quotedBot: testCase.quotedBot } },

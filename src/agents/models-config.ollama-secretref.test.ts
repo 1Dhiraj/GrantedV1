@@ -2,12 +2,12 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createTestPluginApi } from "../plugin-sdk/plugin-test-api.js";
 import { clearLiveCatalogCacheForTests } from "../plugin-sdk/provider-catalog-shared.js";
 import { loadBundledPluginPublicSurface } from "../plugin-sdk/test-helpers/public-surface-loader.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
-import type { OpenClawPluginDefinition, ProviderPlugin } from "../plugins/types.js";
+import type { GrantedPluginDefinition, ProviderPlugin } from "../plugins/types.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { withFetchPreconnect } from "../test-utils/fetch-mock.js";
 import {
@@ -28,7 +28,7 @@ describe("registered Ollama catalog SecretRef ownership", () => {
   const tempDirs = useAutoCleanupTempDirTracker(afterEach);
   beforeAll(async () => {
     const { default: plugin } = await loadBundledPluginPublicSurface<{
-      default: OpenClawPluginDefinition;
+      default: GrantedPluginDefinition;
     }>({ pluginId: "ollama", artifactBasename: "index.js" });
     expectDefined(
       plugin.register,
@@ -103,14 +103,14 @@ describe("registered Ollama catalog SecretRef ownership", () => {
           maxTokens: 2048,
         };
         const provider = { baseUrl, models: explicitModels ? [model] : [] };
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           models: {
             providers: {
               ollama: { ...provider, ...(owner === "config" ? { apiKey: ref } : {}) },
             },
           },
         };
-        const discoveryAuthConfig: OpenClawConfig =
+        const discoveryAuthConfig: GrantedConfig =
           owner === "config"
             ? { models: { providers: { ollama: { ...provider, apiKey: runtimeKey } } } }
             : cfg;

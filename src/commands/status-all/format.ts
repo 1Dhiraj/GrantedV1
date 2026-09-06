@@ -3,7 +3,7 @@
 
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveGatewayPort } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import type { GatewayServiceLoadState } from "../../daemon/service-types.js";
 import { projectGatewayUrlForDiagnostics } from "../../gateway/connection-details.js";
 import { resolveControlUiLinks } from "../../gateway/control-ui-links.js";
@@ -186,9 +186,7 @@ function formatStatusServiceValue(params: StatusManagedService): string {
 }
 
 /** Returns the dashboard URL when the Control UI is enabled for the current gateway binding. */
-function resolveStatusDashboardUrl(params: {
-  cfg: Pick<OpenClawConfig, "gateway">;
-}): string | null {
+function resolveStatusDashboardUrl(params: { cfg: Pick<GrantedConfig, "gateway"> }): string | null {
   if (!(params.cfg.gateway?.controlUi?.enabled ?? true)) {
     return null;
   }
@@ -252,7 +250,7 @@ function buildStatusOverviewRows(params: {
 
 /** Builds overview rows directly from raw scan/update/gateway inputs. */
 export function buildStatusOverviewSurfaceRows(params: {
-  cfg: Pick<OpenClawConfig, "update" | "gateway" | "telemetry">;
+  cfg: Pick<GrantedConfig, "update" | "gateway" | "telemetry">;
   update: StatusUpdateLike;
   tailscaleMode: string;
   tailscaleDns?: string | null;
@@ -418,7 +416,7 @@ function buildGatewayStatusSummaryParts(params: {
 
 /** Builds gateway/dashboard/service values for overview rows. */
 function buildStatusGatewaySurfaceValues(params: {
-  cfg: Pick<OpenClawConfig, "gateway">;
+  cfg: Pick<GrantedConfig, "gateway">;
   advertisedControlUiLinks?: { httpUrl: string; wsUrl: string };
   gatewayMode: "local" | "remote";
   remoteUrlMissing: boolean;

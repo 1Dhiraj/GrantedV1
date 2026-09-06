@@ -1,5 +1,5 @@
 // Ollama tests cover web search provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
 import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -22,11 +22,11 @@ type OllamaProviderConfigOverride = Partial<{
   baseUrl: string;
   baseURL: string;
   models: NonNullable<
-    NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>[string]
+    NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>[string]
   >["models"];
 }>;
 
-function createOllamaConfig(provider: OllamaProviderConfigOverride = {}): OpenClawConfig {
+function createOllamaConfig(provider: OllamaProviderConfigOverride = {}): GrantedConfig {
   return {
     models: {
       providers: {
@@ -42,7 +42,7 @@ function createOllamaConfig(provider: OllamaProviderConfigOverride = {}): OpenCl
 }
 
 async function runOllamaWebSearchSetup(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider = createOllamaWebSearchProvider(),
 ) {
   if (!provider.runSetup) {
@@ -101,7 +101,7 @@ function mockSuccessfulSearchResponse() {
 }
 
 async function runOllamaWebSearch(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   query = "openclaw",
   count?: number,
 ): Promise<Record<string, unknown>> {
@@ -196,7 +196,7 @@ async function expectConfiguredRefFailure(input: SecretInput, message: string) {
   expect(fetchWithSsrFGuardMock).not.toHaveBeenCalled();
 }
 
-async function expectSetupNote(config: OpenClawConfig, message: string) {
+async function expectSetupNote(config: GrantedConfig, message: string) {
   const { next, notes } = await runOllamaWebSearchSetup(config);
   expect(next).toBe(config);
   expect(notes).toEqual([{ title: "Ollama Web Search", message }]);
@@ -260,7 +260,7 @@ describe("ollama web search provider", () => {
     expect(fetchWithSsrFGuardMock).not.toHaveBeenCalled();
   });
 
-  it.each<[string, () => OpenClawConfig, string]>([
+  it.each<[string, () => GrantedConfig, string]>([
     [
       "prefers the plugin web search base URL over the model provider host",
       () => ({

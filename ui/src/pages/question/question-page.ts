@@ -23,7 +23,7 @@ import {
   type QuestionPrompt,
 } from "../../app/question-prompt.ts";
 import { t } from "../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import {
   createGatewayQuestionPanelProps,
   renderChatQuestionSummary,
@@ -31,7 +31,7 @@ import {
 
 type QuestionPageRequestError = "connection" | "unavailable" | null;
 
-export class QuestionPage extends OpenClawLightDomElement {
+export class QuestionPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: false })
   context!: ApplicationContext<RouteId>;
 

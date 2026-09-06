@@ -4,8 +4,8 @@
 export type {
   ChannelAccountSnapshot,
   ChannelPlugin,
-  OpenClawConfig,
-  OpenClawPluginApi,
+  GrantedConfig,
+  GrantedPluginApi,
   PluginRuntime,
 } from "openclaw/plugin-sdk/core";
 export type {

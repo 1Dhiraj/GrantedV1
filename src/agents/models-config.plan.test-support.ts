@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import "./models-config.plan.js";
 import type { SourceModelFields } from "./models-config.merge.js";
@@ -7,8 +7,8 @@ import type { ProviderConfig } from "./models-config.providers.secrets.js";
 
 type ResolveImplicitProvidersForModelsJson = (params: {
   agentDir: string;
-  config: OpenClawConfig;
-  discoveryAuthConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  discoveryAuthConfig?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
   explicitProviders: Record<string, ProviderConfig>;
@@ -26,8 +26,8 @@ type FlatPreparedContext = Omit<
   PreparedModelsConfigContext,
   "discoveryAuthConfig" | "sourceConfigForSecrets" | "envFingerprint"
 > & {
-  discoveryAuthConfig?: OpenClawConfig;
-  sourceConfigForSecrets?: OpenClawConfig;
+  discoveryAuthConfig?: GrantedConfig;
+  sourceConfigForSecrets?: GrantedConfig;
 };
 type PlanParams = Omit<PreparedPlanParams, "context"> & FlatPreparedContext;
 type PlanResult = Awaited<

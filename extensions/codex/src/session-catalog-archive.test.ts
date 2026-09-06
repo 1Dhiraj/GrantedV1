@@ -18,7 +18,7 @@ import {
   withEnvAsync,
   createCodexTestBindingStore,
   CODEX_LOCAL_SESSION_HOST_ID,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./session-catalog.test-helpers.js";
 
 describe("Codex supervision actions", () => {
@@ -86,7 +86,7 @@ describe("Codex supervision actions", () => {
           };
           runtimeConfig = {
             agents: { defaults: { workspace: "/workspace/b" } },
-          } as OpenClawConfig;
+          } as GrantedConfig;
           return {
             data: [idleThread({ source: "cli" })],
           };

@@ -10,7 +10,7 @@ import {
 import { stripLeadingInboundMetadata } from "../../auto-reply/reply/strip-inbound-meta.js";
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import { formatLocationText } from "../../channels/location.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   hasLegacyInteractiveReplyBlocks,
   hasMessagePresentationBlocks,
@@ -67,7 +67,7 @@ export type OutboundPayloadPlan = {
 };
 
 type OutboundPayloadPlanContext = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   sessionKey?: string;
   surface?: string;
   conversationType?: SilentReplyConversationType;

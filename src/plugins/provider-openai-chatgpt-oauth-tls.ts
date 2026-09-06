@@ -5,7 +5,7 @@ import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coerc
 import { asNullableObjectRecord } from "@openclaw/normalization-core/record-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { cancelUnreadResponseBody } from "../infra/http-body.js";
 
 const OPENAI_AUTH_PROBE_URL =
@@ -70,7 +70,7 @@ function resolveCertBundlePath(): string | null {
   return path.join(prefix, "etc", "openssl@3", "cert.pem");
 }
 
-function hasOpenAICodexOAuthProfile(cfg: OpenClawConfig): boolean {
+function hasOpenAICodexOAuthProfile(cfg: GrantedConfig): boolean {
   const profiles = cfg.auth?.profiles;
   if (!profiles) {
     return false;
@@ -81,7 +81,7 @@ function hasOpenAICodexOAuthProfile(cfg: OpenClawConfig): boolean {
 }
 
 export function shouldRunOpenAIOAuthTlsPrerequisites(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deep?: boolean;
 }): boolean {
   if (params.deep === true) {
@@ -144,7 +144,7 @@ export function formatOpenAIOAuthTlsPreflightFix(
 }
 
 export async function noteOpenAIOAuthTlsPrerequisites(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deep?: boolean;
 }): Promise<void> {
   if (!shouldRunOpenAIOAuthTlsPrerequisites(params)) {

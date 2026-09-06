@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { resolveUserPath } from "../utils.js";
@@ -24,7 +24,7 @@ import {
   type PluginSideEffectGuard,
 } from "./registry-state.js";
 import type { PluginRecord } from "./registry-types.js";
-import type { OpenClawPluginApi, PluginLogger, PluginRegistrationMode } from "./types.js";
+import type { GrantedPluginApi, PluginLogger, PluginRegistrationMode } from "./types.js";
 
 // Registration exposes these async operations without loading session storage or delivery.
 const loadAttachments = createLazyRuntimeModule(() => import("./host-hook-attachments.js"));
@@ -137,12 +137,12 @@ export function createPluginApiFactory(
   const createApi = (
     record: PluginRecord,
     params: {
-      config: OpenClawPluginApi["config"];
+      config: GrantedPluginApi["config"];
       pluginConfig?: Record<string, unknown>;
       hookPolicy?: PluginTypedHookPolicy;
       registrationMode?: PluginRegistrationMode;
     },
-  ): OpenClawPluginApi => {
+  ): GrantedPluginApi => {
     const registrationMode = params.registrationMode ?? "full";
     const registrationCapabilities = resolvePluginRegistrationCapabilities(registrationMode);
     setPluginRuntimeRecord(record);
@@ -262,7 +262,7 @@ export function createPluginApiFactory(
                 }
                 const { enqueuePluginNextTurnInjection } = await loadHookState();
                 return enqueuePluginNextTurnInjection({
-                  cfg: registryParams.runtime.config.current() as OpenClawConfig,
+                  cfg: registryParams.runtime.config.current() as GrantedConfig,
                   pluginId: record.id,
                   pluginName: record.name,
                   injection,
@@ -326,7 +326,7 @@ export function createPluginApiFactory(
                     return { ok: false, error: "plugin is not loaded" };
                   }
                   const runtimeConfig =
-                    (registryParams.runtime.config?.current?.() as OpenClawConfig | undefined) ??
+                    (registryParams.runtime.config?.current?.() as GrantedConfig | undefined) ??
                     params.config;
                   return await sendPluginSessionAttachment({
                     ...attachment,

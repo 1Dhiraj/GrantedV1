@@ -2,7 +2,7 @@
 // agent config, session keys, and environment fallback.
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveRunWorkspaceDir } from "./workspace-run.js";
 
 vi.unmock("./agent-scope-config.js");
@@ -26,7 +26,7 @@ describe("resolveRunWorkspaceDir", () => {
     const workspaceDir = path.join(process.cwd(), "tmp", "workspace-run-canonical");
     const cfg = {
       agents: { defaults: { workspace: workspaceDir }, list: [{ id: "main", default: true }] },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveRunWorkspaceDir({
       workspaceDir,
@@ -46,7 +46,7 @@ describe("resolveRunWorkspaceDir", () => {
         defaults: { workspace: defaultWorkspace },
         list: [{ id: "research", workspace: researchWorkspace, default: true }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveRunWorkspaceDir({
       workspaceDir: undefined,
@@ -68,7 +68,7 @@ describe("resolveRunWorkspaceDir", () => {
         defaults: { workspace: defaultWorkspace },
         list: [{ id: "main", default: true }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveRunWorkspaceDir({
       workspaceDir: "   ",
@@ -159,7 +159,7 @@ describe("resolveRunWorkspaceDir", () => {
           { id: "research", workspace: researchWorkspace, default: true },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(() =>
       resolveRunWorkspaceDir({
@@ -177,7 +177,7 @@ describe("resolveRunWorkspaceDir", () => {
         defaults: { workspace: fallbackWorkspace },
         list: [{ id: "main", default: true }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveRunWorkspaceDir({
       workspaceDir: undefined,
@@ -202,7 +202,7 @@ describe("resolveRunWorkspaceDir", () => {
         },
       },
       session: { scope: "global", store: "/tmp/openclaw-shared-sessions.sqlite" },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveRunWorkspaceDir({
       workspaceDir: undefined,

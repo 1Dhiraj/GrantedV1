@@ -1,7 +1,7 @@
 /** Tests inbound auto-reply handling across channel message contexts. */
 import path from "node:path";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { GroupKeyResolution } from "../config/sessions.js";
 import { channelRouteDedupeKey } from "../plugin-sdk/channel-route.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
@@ -26,7 +26,7 @@ import { initSessionState } from "./reply/session.js";
 import { applyTemplate, type MsgContext, type TemplateContext } from "./templating.js";
 
 type TestChannelGroupContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   groupId?: string | null;
   groupChannel?: string | null;
   groupSpace?: string | null;
@@ -1267,7 +1267,7 @@ describe("initSessionState BodyStripped", () => {
   it("prefers BodyForAgent over Body for group chats", async () => {
     const root = await senderMetaTempDirs.make("group");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: finalizeInboundContext({
@@ -1289,7 +1289,7 @@ describe("initSessionState BodyStripped", () => {
   it("prefers BodyForAgent over Body for direct chats", async () => {
     const root = await senderMetaTempDirs.make("direct");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: finalizeInboundContext({
@@ -1378,7 +1378,7 @@ describe("mention helpers", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const allowed = buildMentionRegexes(cfg, undefined, {
       provider: "slack",
@@ -1419,7 +1419,7 @@ describe("mention helpers", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       buildMentionRegexes(cfg, undefined, {
@@ -1460,7 +1460,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("respects Discord guild/channel requireMention settings", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         discord: {
           guilds: {
@@ -1490,7 +1490,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("respects Slack channel requireMention settings", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         slack: {
           channels: {
@@ -1515,7 +1515,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("uses Slack fallback resolver semantics for default-account wildcard channels", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         slack: {
           defaultAccount: "work",
@@ -1545,7 +1545,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("uses Discord fallback resolver semantics for guild slug matches", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         discord: {
           guilds: {
@@ -1574,7 +1574,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("keeps core reply-stage resolution aligned for Discord slug + wildcard guild fallbacks", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         discord: {
           guilds: {
@@ -1605,7 +1605,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("respects LINE prefixed group keys in reply-stage requireMention resolution", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         line: {
           groups: {
@@ -1629,7 +1629,7 @@ describe("resolveGroupRequireMention", () => {
   });
 
   it("preserves plugin-backed channel requireMention resolution", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         imessage: {
           groups: {

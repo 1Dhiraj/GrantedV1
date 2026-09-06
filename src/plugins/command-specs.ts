@@ -2,7 +2,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { getLoadedChannelPlugin } from "../channels/plugins/index.js";
 import { resolveReadOnlyChannelCommandDefaults } from "../channels/plugins/read-only-command-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   pluginCommandSupportsChannel,
   projectPluginCommandNativeMetadata,
@@ -10,13 +10,13 @@ import {
 import { listRegisteredPluginCommands } from "./plugin-command-registry.js";
 import type { PluginCommandRegistration } from "./registry-types.js";
 import { requireActivePluginRegistry } from "./runtime.js";
-import type { OpenClawPluginCommandDefinition } from "./types.js";
+import type { GrantedPluginCommandDefinition } from "./types.js";
 
 type PluginCommandSpecOptions = {
   env?: NodeJS.ProcessEnv;
   stateDir?: string;
   workspaceDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 
 type PluginCommandEntrySpec = {
@@ -24,10 +24,10 @@ type PluginCommandEntrySpec = {
   description: string;
   acceptsArgs: boolean;
   nativeName?: string;
-  clientPresentation?: NonNullable<OpenClawPluginCommandDefinition["clientPresentation"]>;
+  clientPresentation?: NonNullable<GrantedPluginCommandDefinition["clientPresentation"]>;
 };
 
-function resolvePluginTextName(command: OpenClawPluginCommandDefinition): string {
+function resolvePluginTextName(command: GrantedPluginCommandDefinition): string {
   const name = command.name.trim();
   return name || command.name;
 }
@@ -105,7 +105,7 @@ export function listProviderPluginCommandSpecs(provider?: string): Array<{
 }
 
 function serializePluginCommandSpec(
-  cmd: OpenClawPluginCommandDefinition,
+  cmd: GrantedPluginCommandDefinition,
   provider?: string,
 ): {
   name: string;
@@ -131,7 +131,7 @@ function serializePluginCommandSpec(
 }
 
 function serializePluginCommandEntrySpec(
-  cmd: OpenClawPluginCommandDefinition,
+  cmd: GrantedPluginCommandDefinition,
   provider: string | undefined,
   nativeCommandsEnabled: boolean,
 ): PluginCommandEntrySpec | null {

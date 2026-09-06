@@ -1,7 +1,7 @@
 // Covers heartbeat handling of queued reminder system events.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveMainSessionKey } from "../config/sessions/main-session.js";
 import { clearCronJobActive, markCronJobActive, resetCronActiveJobs } from "../cron/active-jobs.js";
 import { enqueueCommandInLane, type CommandLaneTaskMarker } from "../process/command-queue.js";
@@ -54,8 +54,8 @@ describe("Ghost reminder bug (issue #13317)", () => {
     target?: "telegram" | "none";
     isolatedSession?: boolean;
     activeHours?: boolean;
-  }): Promise<{ cfg: OpenClawConfig; sessionKey: string }> => {
-    const cfg: OpenClawConfig = {
+  }): Promise<{ cfg: GrantedConfig; sessionKey: string }> => {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           workspace: params.tmpDir,
@@ -85,7 +85,7 @@ describe("Ghost reminder bug (issue #13317)", () => {
     tmpDir: string;
     storePath: string;
     isolatedSession?: boolean;
-  }): OpenClawConfig => ({
+  }): GrantedConfig => ({
     agents: {
       defaults: {
         workspace: params.tmpDir,
@@ -811,7 +811,7 @@ describe("Ghost reminder bug (issue #13317)", () => {
 
   it("routes wake-triggered heartbeat replies using queued system-event delivery context", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath, replySpy }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -904,7 +904,7 @@ describe("Ghost reminder bug (issue #13317)", () => {
   });
   it("keeps output-bearing exec-event delivery pinned to the original Telegram topic when session route drifts", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -961,7 +961,7 @@ describe("Ghost reminder bug (issue #13317)", () => {
 
   it("suppresses metadata-only successful exec completions", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,

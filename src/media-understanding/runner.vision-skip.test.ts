@@ -3,7 +3,7 @@
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { resolvePluginRegistryLoadCacheKey } from "../plugins/loader.js";
 import { loadPluginManifestRegistryCore } from "../plugins/manifest-registry.js";
 import { createEmptyPluginRegistry } from "../plugins/registry.js";
@@ -71,7 +71,7 @@ let runCapability: typeof import("./runner.js").runCapability;
 
 function setCompatibleActiveMediaUnderstandingRegistry(
   pluginRegistry: ReturnType<typeof createEmptyPluginRegistry>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ) {
   const pluginIds = loadPluginManifestRegistryCore({
     config: cfg,
@@ -141,7 +141,7 @@ describe("runCapability image skip", () => {
     const cache = createMediaAttachmentCache(media);
     const cfg = {
       tools: { media: { image: { preferredModel: "missing/model" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     try {
       const result = await runCapability({
@@ -197,7 +197,7 @@ describe("runCapability image skip", () => {
               imageModel: { primary: "minimax/MiniMax-M3" },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await applyMediaUnderstanding({
           ctx: msgCtx,
@@ -328,7 +328,7 @@ describe("runCapability image skip", () => {
               ],
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         await loadModelCatalog.withImplementation(
           async () => {
@@ -447,7 +447,7 @@ describe("runCapability image skip", () => {
               imageModel: { primary: "minimax/MiniMax-M3" },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await applyMediaUnderstanding({
           ctx: msgCtx,
@@ -507,7 +507,7 @@ describe("runCapability image skip", () => {
               ],
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await applyMediaUnderstanding({
           ctx: msgCtx,
@@ -566,7 +566,7 @@ describe("runCapability image skip", () => {
               ],
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",
@@ -623,7 +623,7 @@ describe("runCapability image skip", () => {
               ],
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",
@@ -664,7 +664,7 @@ describe("runCapability image skip", () => {
           imageModel: { primary: "openrouter/google/gemini-2.5-flash" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(
       resolveAutoImageModel({
@@ -687,7 +687,7 @@ describe("runCapability image skip", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(resolveAutoImageModel({ cfg })).resolves.toEqual({
       provider: "openrouter",
@@ -709,7 +709,7 @@ describe("runCapability image skip", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(resolveAutoImageModel({ cfg })).resolves.toEqual({
       provider: "ollama",
@@ -751,7 +751,7 @@ describe("runCapability image skip", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",
@@ -833,7 +833,7 @@ describe("runCapability image skip", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     pluginRegistry.mediaUnderstandingProviders.push({
       pluginId: "minimax",
@@ -887,7 +887,7 @@ describe("runCapability image skip", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     pluginRegistry.mediaUnderstandingProviders.push({
       pluginId: "minimax",
@@ -950,7 +950,7 @@ describe("runCapability image skip", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     pluginRegistry.mediaUnderstandingProviders.push({
       pluginId: "minimax",
@@ -1034,7 +1034,7 @@ describe("runCapability image skip", () => {
               },
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",
@@ -1083,7 +1083,7 @@ describe("runCapability image skip", () => {
           ],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const providerRegistry = new Map<string, MediaUnderstandingProvider>([
       [
         "google",
@@ -1131,7 +1131,7 @@ describe("runCapability image skip", () => {
 
   it("canonicalizes non-MiniMax active media aliases for auto image resolution", async () => {
     vi.stubEnv("GEMINI_API_KEY", "test-gemini-key");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     pluginRegistry.mediaUnderstandingProviders.push({
       pluginId: "google",
@@ -1164,7 +1164,7 @@ describe("runCapability image skip", () => {
 
   it("uses active OpenRouter image models for auto image resolution", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "test-openrouter-key");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     pluginRegistry.mediaUnderstandingProviders.push({
       pluginId: "openrouter",
@@ -1221,7 +1221,7 @@ describe("runCapability image skip", () => {
         async ({ ctx, media, cache }) => {
           const result = await runCapability({
             capability: "image",
-            cfg: {} as OpenClawConfig,
+            cfg: {} as GrantedConfig,
             ctx,
             attachments: cache,
             media,
@@ -1282,7 +1282,7 @@ describe("runCapability image skip", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",
@@ -1334,7 +1334,7 @@ describe("runCapability image skip", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "image",

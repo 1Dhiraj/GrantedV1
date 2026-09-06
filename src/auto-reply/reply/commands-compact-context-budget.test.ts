@@ -1,6 +1,6 @@
 // Tests compact command context-budget resolution separately from command lifecycle behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import {
   resolveAgentDirMock,
@@ -34,7 +34,7 @@ const {
 } = await import("./commands-compact.runtime.js");
 const { handleCompactCommand } = await import("./commands-compact.js");
 
-function buildCompactParams(cfg: OpenClawConfig): HandleCommandsParams {
+function buildCompactParams(cfg: GrantedConfig): HandleCommandsParams {
   return {
     cfg,
     ctx: {
@@ -113,7 +113,7 @@ describe("handleCompactCommand context budget", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig),
+        } as unknown as GrantedConfig),
         provider: "openai",
         model: "openai/gpt-5.5",
         contextTokens: 0,
@@ -147,7 +147,7 @@ describe("handleCompactCommand context budget", () => {
           },
           commands: { text: true },
           channels: { whatsapp: { allowFrom: ["*"] } },
-        } as OpenClawConfig),
+        } as GrantedConfig),
         provider: "custom",
         model: "actual-model",
         contextTokens: 0,

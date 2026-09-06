@@ -1,7 +1,7 @@
 /** Builds embedded-agent settings snapshots from global, bundle, and project settings. */
 import path from "node:path";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { readBundleJsonObject } from "../plugins/bundle-config-shared.js";
 import type { BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
@@ -66,7 +66,7 @@ function loadBundleSettingsFile(params: {
  */
 export function loadEnabledBundleAgentSettingsSnapshot(params: {
   cwd: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
 }): AgentSettingsSnapshot {
@@ -142,7 +142,7 @@ export function loadEnabledBundleAgentSettingsSnapshot(params: {
 
 /** Resolves the configured project-settings trust policy for embedded agents. */
 export function resolveEmbeddedAgentProjectSettingsPolicy(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): EmbeddedAgentProjectSettingsPolicy {
   const raw = cfg?.agents?.defaults?.embeddedAgent?.projectSettingsPolicy;
   if (raw === "trusted" || raw === "sanitize" || raw === "ignore") {

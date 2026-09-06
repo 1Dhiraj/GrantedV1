@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ChannelConfigSchema } from "./types.config.js";
 
 type ManifestChannelAccount = {
@@ -24,11 +24,11 @@ export type ManifestChannelPlugin = {
   };
   configSchema?: ChannelConfigSchema;
   config: {
-    listAccountIds: (cfg: OpenClawConfig) => string[];
-    defaultAccountId: (cfg: OpenClawConfig) => string;
-    resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ManifestChannelAccount;
-    isEnabled: (account: ManifestChannelAccount, cfg: OpenClawConfig) => boolean;
-    isConfigured: (account: ManifestChannelAccount, cfg: OpenClawConfig) => boolean;
-    hasConfiguredState: (params: { cfg: OpenClawConfig; env?: NodeJS.ProcessEnv }) => boolean;
+    listAccountIds: (cfg: GrantedConfig) => string[];
+    defaultAccountId: (cfg: GrantedConfig) => string;
+    resolveAccount: (cfg: GrantedConfig, accountId?: string | null) => ManifestChannelAccount;
+    isEnabled: (account: ManifestChannelAccount, cfg: GrantedConfig) => boolean;
+    isConfigured: (account: ManifestChannelAccount, cfg: GrantedConfig) => boolean;
+    hasConfiguredState: (params: { cfg: GrantedConfig; env?: NodeJS.ProcessEnv }) => boolean;
   };
 };

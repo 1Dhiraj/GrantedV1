@@ -9,8 +9,8 @@ import {
 } from "openclaw/plugin-sdk/gateway-runtime";
 import {
   definePluginEntry,
-  type OpenClawPluginApi,
-  type OpenClawPluginNodeHostCommand,
+  type GrantedPluginApi,
+  type GrantedPluginNodeHostCommand,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { resolveLogbookConfig } from "./src/config.js";
 import { LogbookService } from "./src/service.js";
@@ -43,7 +43,7 @@ function readNumberParam(params: unknown, key: string): number {
   return value;
 }
 
-const logbookNodeHostCommands: OpenClawPluginNodeHostCommand[] = [
+const logbookNodeHostCommands: GrantedPluginNodeHostCommand[] = [
   {
     command: "logbook.snapshot",
     cap: "screen",
@@ -67,7 +67,7 @@ export default definePluginEntry({
   description: "Automatic work journal built from periodic screen snapshots",
   configSchema: logbookConfigSchema,
   nodeHostCommands: logbookNodeHostCommands,
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     const config = logbookConfigSchema.parse(api.pluginConfig);
     let service: LogbookService | null = null;
 

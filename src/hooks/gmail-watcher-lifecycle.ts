@@ -1,5 +1,5 @@
 // Gmail watcher lifecycle helpers manage watcher process state from config.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { startGmailWatcher } from "./gmail-watcher.js";
 
@@ -12,7 +12,7 @@ type GMailWatcherLog = {
 
 /** Start the Gmail watcher with startup logs and env-based skip handling. */
 export async function startGmailWatcherWithLogs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   log: GMailWatcherLog;
   onSkipped?: () => void;
   signal?: AbortSignal;

@@ -73,8 +73,8 @@ async function uploadToSharePoint(params: {
 }): Promise<DriveUploadResult> {
   const fetchFn = params.fetchFn ?? fetch;
 
-  // Use "OpenClawShared" folder to organize bot-uploaded files
-  const uploadPath = `/OpenClawShared/${encodeURIComponent(params.filename)}`;
+  // Use "GrantedShared" folder to organize bot-uploaded files
+  const uploadPath = `/GrantedShared/${encodeURIComponent(params.filename)}`;
   // Graph's default conflictBehavior=replace overwrites a same-named file in place. Bot assets
   // reuse names (image-1.png each generation) and Teams caches file cards by driveItem URL, so
   // replace clobbers history and shows stale images; "rename" mints a unique driveItem instead.

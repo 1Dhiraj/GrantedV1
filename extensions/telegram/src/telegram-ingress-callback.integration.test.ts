@@ -6,7 +6,7 @@ import type { AddressInfo } from "node:net";
 import os from "node:os";
 import path from "node:path";
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
@@ -133,7 +133,7 @@ it.each(["none", "middleware", "handler"] as const)(
       server.listen(0, "127.0.0.1");
       await once(server, "listening");
       const apiRoot = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         commands: { native: true, nativeSkills: false },
         channels: { telegram: { apiRoot, dmPolicy: "open", allowFrom: ["*"] } },
         session: { store: path.join(stateDir, "sessions.json") },

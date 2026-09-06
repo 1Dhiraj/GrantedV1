@@ -5,7 +5,7 @@ import type { MemorySearchResponse } from "../../../../src/gateway/server-method
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import { t } from "../../i18n/index.ts";
 import { formatUiError } from "../../lib/format-error.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import "../../styles/memory-memories.css";
 
 type SearchResult = MemorySearchResponse["results"][number];
@@ -49,7 +49,7 @@ function renderFileContent(content: string, result: SearchResult) {
     ><span>${after.length ? `\n${after.join("\n")}` : ""}</span></pre>`;
 }
 
-class MemoryMemoriesElement extends OpenClawLightDomElement {
+class MemoryMemoriesElement extends GrantedLightDomElement {
   @property({ attribute: false }) client: GatewayBrowserClient | null = null;
   @property({ type: Boolean }) connected = false;
   @property({ type: Boolean }) methodAdvertised = true;

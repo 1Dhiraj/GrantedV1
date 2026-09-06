@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { tryReadJson } from "../infra/json-files.js";
 import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
@@ -698,7 +698,7 @@ function shouldBypassOpenClawInstallFriction(params: {
 }
 
 async function runOperatorInstallPolicy(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dangerouslyForceUnsafeInstall?: boolean;
   logger: InstallScanLogger;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
@@ -893,7 +893,7 @@ async function runOperatorInstallPolicy(params: {
 
 export async function scanBundleInstallSourceRuntime(
   params: InstallSafetyOverrides & {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     logger: InstallScanLogger;
     pluginId: string;
     sourceDir: string;
@@ -962,7 +962,7 @@ export async function scanBundleInstallSourceRuntime(
 
 export async function scanPackageInstallSourceRuntime(
   params: InstallSafetyOverrides & {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     extensions: string[];
     logger: InstallScanLogger;
     packageDir: string;
@@ -1049,7 +1049,7 @@ export async function scanPackageInstallSourceRuntime(
 export async function scanInstalledPackageDependencyTreeRuntime(params: {
   additionalPackageDirs?: string[];
   allowManagedNpmRootPackagePeerSymlinks?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dependencyScanRootDir?: string;
   logger: InstallScanLogger;
   mode?: "install" | "update";
@@ -1102,7 +1102,7 @@ export async function scanInstalledPackageDependencyTreeRuntime(params: {
 
 export async function scanFileInstallSourceRuntime(
   params: InstallSafetyOverrides & {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     filePath: string;
     logger: InstallScanLogger;
     mode?: "install" | "update";
@@ -1156,7 +1156,7 @@ export async function scanFileInstallSourceRuntime(
 }
 
 export async function preflightPluginNpmInstallPolicyRuntime(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dangerouslyForceUnsafeInstall?: boolean;
   logger: InstallScanLogger;
   mode?: "install" | "update";
@@ -1192,7 +1192,7 @@ export async function preflightPluginNpmInstallPolicyRuntime(params: {
 }
 
 export async function preflightPluginGitInstallPolicyRuntime(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dangerouslyForceUnsafeInstall?: boolean;
   logger: InstallScanLogger;
   mode?: "install" | "update";
@@ -1224,7 +1224,7 @@ export async function preflightPluginGitInstallPolicyRuntime(params: {
 }
 
 export async function evaluateSkillInstallPolicyRuntime(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   installId: string;
   installSpec?: SkillInstallSpecMetadata;
   logger: InstallScanLogger;

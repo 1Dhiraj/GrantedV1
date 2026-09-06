@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -134,7 +134,7 @@ function createHandler(debounceMs: number) {
       cfg: {
         messages: { inbound: { debounceMs } },
         channels: { signal: { dmPolicy, allowFrom } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dmPolicy,
       allowFrom,
       historyLimit: 0,

@@ -1,6 +1,6 @@
 // Telegram plugin module implements thread bindings behavior.
 import { readAcpSessionEntry } from "openclaw/plugin-sdk/acp-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   formatThreadBindingDurationLabel,
   registerSessionBindingAdapter,
@@ -304,7 +304,7 @@ function normalizeTimestampMs(raw: unknown): number {
 }
 
 export function createTelegramThreadBindingManager(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   persist?: boolean;
   idleTimeoutMs?: number;

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/setup";
+import type { GrantedConfig } from "openclaw/plugin-sdk/setup";
 // Guards the shipped `--token` alias: released CLIs configured LINE through the
 // shared token envelope switch, which must keep writing channelAccessToken.
 import { describe, expect, it } from "vitest";
@@ -13,15 +13,12 @@ type LineChannelConfig = {
 
 function applyLineSetup(
   input: Record<string, unknown>,
-  cfg: OpenClawConfig = {} as OpenClawConfig,
-): OpenClawConfig {
+  cfg: GrantedConfig = {} as GrantedConfig,
+): GrantedConfig {
   return lineSetupAdapter.applyAccountConfig({ cfg, accountId: "default", input });
 }
 
-function appliedLineConfig(
-  input: Record<string, unknown>,
-  cfg?: OpenClawConfig,
-): LineChannelConfig {
+function appliedLineConfig(input: Record<string, unknown>, cfg?: GrantedConfig): LineChannelConfig {
   return (applyLineSetup(input, cfg).channels?.line ?? {}) as LineChannelConfig;
 }
 

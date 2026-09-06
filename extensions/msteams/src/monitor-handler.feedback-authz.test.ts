@@ -1,6 +1,6 @@
 // Msteams tests cover monitor handler.feedback authz plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, PluginRuntime, RuntimeEnv } from "../runtime-api.js";
+import type { GrantedConfig, PluginRuntime, RuntimeEnv } from "../runtime-api.js";
 import { runMSTeamsFeedbackInvokeHandler } from "./feedback-invoke.js";
 import { createMSTeamsMessageHandlerDeps } from "./monitor-handler.test-helpers.js";
 import type { MSTeamsMessageHandlerDeps } from "./monitor-handler.types.js";
@@ -70,7 +70,7 @@ function createRuntimeStub(readAllowFromStore: ReturnType<typeof vi.fn>): Plugin
 }
 
 function createDeps(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   readAllowFromStore?: ReturnType<typeof vi.fn>;
 }): MSTeamsMessageHandlerDeps {
   const readAllowFromStore = params.readAllowFromStore ?? vi.fn(async () => []);
@@ -133,7 +133,7 @@ function createFeedbackInvokeContext(params: {
 }
 
 async function withFeedbackHandler(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   context: Parameters<typeof createFeedbackInvokeContext>[0];
   assertResult: () => Promise<void>;
 }) {
@@ -158,7 +158,7 @@ describe("msteams feedback invoke authz", () => {
             allowFrom: ["owner-aad"],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       context: {
         reaction: "like",
         conversationId: "a:personal-chat;messageid=bot-msg-1",
@@ -204,7 +204,7 @@ describe("msteams feedback invoke authz", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       context: {
         reaction: "like",
         conversationId: "a:personal-chat;messageid=bot-msg-1",
@@ -234,7 +234,7 @@ describe("msteams feedback invoke authz", () => {
             allowFrom: ["owner-aad"],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       context: {
         reaction: "like",
         conversationId: "a:personal-chat;messageid=bot-msg-1",
@@ -260,7 +260,7 @@ describe("msteams feedback invoke authz", () => {
             feedbackReflection: true,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     await runMSTeamsFeedbackInvokeHandler(

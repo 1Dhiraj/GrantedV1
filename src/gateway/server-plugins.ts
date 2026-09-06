@@ -7,7 +7,7 @@ import type { AgentWaitResult } from "../agents/run-wait.types.js";
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
 import { allowsProcessHomeSessionScan } from "../config/paths.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizePluginsConfig } from "../plugins/config-state.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
 import { extractPluginInstallRecordsFromInstalledPluginIndex } from "../plugins/installed-plugin-index-install-records.js";
@@ -82,9 +82,7 @@ type PluginSubagentOverridePolicy = {
 
 type PluginSubagentOverridePolicies = Record<string, PluginSubagentOverridePolicy>;
 
-function resolvePluginSubagentOverridePolicies(
-  cfg: OpenClawConfig,
-): PluginSubagentOverridePolicies {
+function resolvePluginSubagentOverridePolicies(cfg: GrantedConfig): PluginSubagentOverridePolicies {
   const normalized = normalizePluginsConfig(cfg.plugins);
   const policies: PluginSubagentOverridePolicies = {};
   for (const [pluginId, entry] of Object.entries(normalized.entries)) {
@@ -555,8 +553,8 @@ function createGatewayPluginRegistrationLogger(params?: {
 }
 
 export function loadGatewayPlugins(params: {
-  cfg: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   autoEnabledReasons?: Readonly<Record<string, string[]>>;
   workspaceDir?: string;
   log: {

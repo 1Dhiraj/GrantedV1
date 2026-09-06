@@ -1,7 +1,7 @@
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withTempHome } from "../plugin-sdk/test-env.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { createPluginRecord } from "./loader-records.js";
@@ -33,7 +33,7 @@ describe("plugin registry SQLite session ownership", () => {
     await withTempHome(async () => {
       const config = {
         agents: { list: [{ id: "researcher", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const subagent = {
         run: vi.fn(async () => ({ runId: "workboard-run" })),
         waitForRun: vi.fn(async () => ({ status: "ok" as const })),
@@ -160,9 +160,9 @@ describe("plugin registry SQLite session ownership", () => {
           enabled: true,
           configSchema: false,
         });
-        const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as OpenClawConfig });
+        const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as GrantedConfig });
         const callerApi = pluginRegistry.createApi(callerRecord, {
-          config: {} as OpenClawConfig,
+          config: {} as GrantedConfig,
         });
         ownerApi.registerAgentHarness({
           id: "test-harness",

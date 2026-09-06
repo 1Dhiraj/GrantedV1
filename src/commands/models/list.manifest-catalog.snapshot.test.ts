@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { loadPluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
 import {
@@ -78,7 +78,7 @@ function prepareFixture() {
       },
     });
   });
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     models: { catalogRefresh: { enabled: false } },
     plugins: {
       entries: Object.fromEntries(
@@ -286,7 +286,7 @@ describe("model-list prepared manifest snapshot", () => {
     },
   );
 
-  it.each<[string, NonNullable<OpenClawConfig["plugins"]>, string, boolean]>([
+  it.each<[string, NonNullable<GrantedConfig["plugins"]>, string, boolean]>([
     ["global disable", { enabled: false }, "fixture-alias", false],
     ["denylist", { deny: ["catalog-owner"] }, "fixture-alias", false],
     ["restrictive allowlist", { allow: ["fixture-direct"] }, "fixture-alias", false],

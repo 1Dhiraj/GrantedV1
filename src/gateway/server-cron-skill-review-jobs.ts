@@ -1,5 +1,5 @@
 // Converges the system-owned skill collection review jobs at startup and reload.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveSkillCollectionReviewMonitorSpecs,
   skillCollectionReviewMonitorAgentId,
@@ -11,7 +11,7 @@ type SkillReviewJobCron = Pick<GatewayCronServiceContract, "add" | "list" | "rem
 
 export async function reconcileSkillCollectionReviewJobs(params: {
   cron: SkillReviewJobCron;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   logger: { warn: (obj: unknown, msg?: string) => void };
   commitGuard?: () => void;
 }): Promise<{ ok: boolean }> {

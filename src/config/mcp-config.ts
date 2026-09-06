@@ -12,7 +12,7 @@ import { redactSensitiveArgv } from "./redact-argv.js";
 import { REDACTED_SENTINEL, restoreRedactedValues } from "./redact-snapshot.js";
 import { buildConfigSchemaCore } from "./schema.js";
 import type { McpServerToolFilterConfig } from "./types.mcp.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
 type ConfigMcpServers = ReturnType<typeof normalizeConfiguredMcpServers>;
@@ -23,7 +23,7 @@ type McpArgvRestoreResult =
 
 type ConfigMcpSuccess = {
   path: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   mcpServers: ConfigMcpServers;
 };
 type ConfigMcpFailure = { ok: false; path: string; error: string };

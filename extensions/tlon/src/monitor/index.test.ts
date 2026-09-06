@@ -4,7 +4,7 @@ import type { AddressInfo } from "node:net";
 import { join } from "node:path";
 import { setImmediate } from "node:timers/promises";
 import { createChannelMessageReplyPipeline } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
 import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -52,7 +52,7 @@ const {
       dmScope: "main",
       sessionKey: "agent:main:main",
     })),
-    resolveEffectiveMessagesConfig: vi.fn((_cfg: OpenClawConfig, _agentId: string) => ({
+    resolveEffectiveMessagesConfig: vi.fn((_cfg: GrantedConfig, _agentId: string) => ({
       responsePrefix: undefined as string | undefined,
     })),
     shouldComputeCommandAuthorized: vi.fn(() => false),
@@ -63,7 +63,7 @@ const {
     startSubscription: vi.fn().mockResolvedValue(undefined),
   },
   realUrbitFixture: {
-    config: undefined as OpenClawConfig | undefined,
+    config: undefined as GrantedConfig | undefined,
     enabled: false,
     url: "https://urbit.example.com",
     client: null as {

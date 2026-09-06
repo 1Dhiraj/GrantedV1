@@ -4,7 +4,7 @@ import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import {
   resolveSessionTranscriptsDirForAgent,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ResolvedMemorySearchConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import type { SessionTranscriptCorpusEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
@@ -105,7 +105,7 @@ function createDbMock(): DatabaseSync {
 }
 
 class SessionSyncYieldHarness extends MemoryManagerSyncOps {
-  protected readonly cfg = {} as OpenClawConfig;
+  protected readonly cfg = {} as GrantedConfig;
   protected readonly agentId = "main";
   protected readonly workspaceDir = "/tmp/openclaw-test-workspace";
   protected readonly settings = {

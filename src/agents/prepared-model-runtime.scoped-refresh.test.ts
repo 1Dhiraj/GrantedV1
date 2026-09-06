@@ -6,12 +6,12 @@ import {
   resetPreparedModelRuntimeHarness,
 } from "./prepared-model-runtime.test-harness.js";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadPreparedGatewayModelCatalogSnapshot } from "../gateway/server-model-catalog.js";
 import { refreshModelRuntimeAfterHotReload } from "../gateway/server-reload-model-runtime-scope.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   getPreparedModelRuntimeAuthStore,
@@ -24,7 +24,7 @@ import {
 } from "./prepared-model-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared model runtime scoped refresh", () => {
   beforeEach(async () => {
@@ -36,7 +36,7 @@ describe("prepared model runtime scoped refresh", () => {
     "carries completed discovery across hot reload without rediscovery (scope: %j)",
     async (agentIds) => {
       mocks.configuredAgentIds = ["pro"];
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { entries: { pro: {} } },
         plugins: { entries: { fixture: { enabled: true } } },
       };
@@ -70,7 +70,7 @@ describe("prepared model runtime scoped refresh", () => {
       let currentConfig = config;
       for (const alias of ["First alias", "Second alias"]) {
         mocks.mutationListener?.({ affectsInheritedStores: true, profileSetChanged: false });
-        const nextConfig: OpenClawConfig = {
+        const nextConfig: GrantedConfig = {
           meta: { lastTouchedVersion: alias },
           plugins: { entries: { fixture: { enabled: true, config: {} } } },
           agents: {
@@ -129,7 +129,7 @@ describe("prepared model runtime scoped refresh", () => {
             free: {},
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const buildCounts: number[] = [];
       const options = {
         gatewayLifecycle: true,
@@ -170,7 +170,7 @@ describe("prepared model runtime scoped refresh", () => {
               pro: { tools: { exec: { security: "full", ask } } },
             },
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         await refreshPreparedModelRuntimeSnapshots(nextConfig, {
           ...options,
           agentIds: new Set(["pro"]),
@@ -228,7 +228,7 @@ describe("prepared model runtime scoped refresh", () => {
     mocks.runPreparedModelCatalogWorker.mockResolvedValueOnce(catalog);
     const input = { agentId: "pro", agentDir: state.agentDir("pro"), config: {} };
     for (const runtime of ["openclaw", "fixture-runtime", "openclaw"]) {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           defaults: {
             model: "custom/discovered-model",
@@ -273,13 +273,13 @@ describe("prepared model runtime scoped refresh", () => {
         defaults: { model: "openai/gpt-5.6" },
         entries: { pro: {}, free: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const nextConfig = {
       agents: {
         defaults: { model: "openai/gpt-5.5" },
         entries: { pro: {}, free: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const buildCounts: number[] = [];
 
     await refreshPreparedModelRuntimeSnapshots(initialConfig, {
@@ -299,7 +299,7 @@ describe("prepared model runtime scoped refresh", () => {
     mocks.configuredAgentIds = ["free"];
     const initialConfig = {
       agents: { entries: { free: { model: "openai/gpt-5.5" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const nextConfig = {
       agents: {
         entries: {
@@ -307,7 +307,7 @@ describe("prepared model runtime scoped refresh", () => {
           pro: { model: "openai/gpt-5.6" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const buildCounts: number[] = [];
 
     await refreshPreparedModelRuntimeSnapshots(initialConfig, {

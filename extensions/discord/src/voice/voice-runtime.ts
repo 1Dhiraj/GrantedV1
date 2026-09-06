@@ -1,4 +1,4 @@
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 import type { APIVoiceState, Client } from "../internal/discord.js";
@@ -93,7 +93,7 @@ export class DiscordVoiceManager {
 
   constructor(params: {
     client: Client;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     discordConfig: DiscordAccountConfig;
     accountId: string;
     runtime: RuntimeEnv;

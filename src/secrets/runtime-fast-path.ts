@@ -11,7 +11,7 @@ import { resolveAuthProfileDatabasePath } from "../agents/auth-profiles/sqlite.j
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 import { resolveLegacyInheritedAuthAgentDir } from "../agents/legacy-inherited-auth-dir.js";
 import { cloneConfigWithResolutionFacts } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import type { PluginOrigin } from "../plugins/plugin-origin.types.js";
 import { resolveUserPath } from "../utils.js";
@@ -58,7 +58,7 @@ export function mergeSecretsRuntimeEnv(
  * Collects default and named agent directories that may contain auth profile stores.
  */
 export function collectCandidateAgentDirs(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
 ): string[] {
   const dirs = new Set<string>();
@@ -74,7 +74,7 @@ export function collectCandidateAgentDirs(
  * Combines explicit refresh agent dirs with config-derived dirs for runtime refresh.
  */
 export function resolveRefreshAgentDirs(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   context: SecretsRuntimeRefreshContext,
 ): string[] {
   const configDerived = collectCandidateAgentDirs(config, context.env);
@@ -85,7 +85,7 @@ export function resolveRefreshAgentDirs(
 }
 
 function resolveCandidateAgentDirs(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv | Record<string, string | undefined>;
   agentDirs?: string[];
 }): string[] {
@@ -102,7 +102,7 @@ function hasCandidateAuthProfileStoreSource(agentDir: string): boolean {
  * Returns whether canonical auth-profile databases exist for candidate agent dirs.
  */
 function hasCandidateAuthProfileStoreSources(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv | Record<string, string | undefined>;
   agentDirs?: string[];
 }): boolean {
@@ -147,7 +147,7 @@ function hasActiveRuntimeWebFetchProviderSurface(
   return hasCredentialBearingObjectValue(fetchConfig, defaults);
 }
 
-function hasRuntimeWebToolConfigSurface(config: OpenClawConfig): boolean {
+function hasRuntimeWebToolConfigSurface(config: GrantedConfig): boolean {
   const web = config.tools?.web;
   const defaults = config.secrets?.defaults;
   const fetchExplicitlyDisabled =
@@ -191,7 +191,7 @@ function hasRuntimeWebToolConfigSurface(config: OpenClawConfig): boolean {
  */
 /** Returns whether current config/auth/plugin state allows skipping full secret preparation. */
 export function canUseSecretsRuntimeFastPath(params: {
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   authStores: Array<{ agentDir: string; store: AuthProfileStore }>;
 }): boolean {
   if (hasRuntimeWebToolConfigSurface(params.sourceConfig)) {
@@ -208,7 +208,7 @@ export function canUseSecretsRuntimeFastPath(params: {
  * Prepares a runtime snapshot without resolving refs when config and auth stores contain none.
  */
 export function prepareSecretsRuntimeFastPathSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDirs?: string[];
   includeAuthStoreRefs?: boolean;

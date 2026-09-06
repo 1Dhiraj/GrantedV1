@@ -8,7 +8,7 @@ import {
 import { resolveConfigWidePluginMetadataSnapshot } from "../config/io.plugin-metadata.js";
 import { createConfigFileSnapshot } from "../config/io.snapshot-shared.js";
 import { hashRuntimeConfigValue } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   acquireStartupMigrationLease,
   needsStateMigrationCheckpoint,
@@ -103,7 +103,7 @@ describe("persisted plugin registry Doctor contract freshness", () => {
       GRANTED_VERSION: "2026.7.1",
       VITEST: "true",
     };
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: {

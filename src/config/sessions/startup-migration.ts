@@ -7,10 +7,10 @@ import {
   isOpenClawAgentDatabaseOpen,
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import { resolveStateDir } from "../paths.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { migrateLegacyMainSessionKeys } from "./legacy-main-session-migration.js";
 import { resolveSqliteReadScope, toDatabaseOptions } from "./session-accessor.sqlite-scope.js";
 import {
@@ -23,7 +23,7 @@ import { migrateManagedWorktreeCanonicalWorkspaces } from "./worktree-workspace-
 export type SessionStartupMigrationLogger = Record<"info" | "warn", (message: string) => void>;
 
 export function assertSessionStoreMigrationComplete(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   targets?: readonly { storePath: string }[];
 }): void {
@@ -42,7 +42,7 @@ export function assertSessionStoreMigrationComplete(params: {
 
 /** Maintains existing SQLite stores and returns their physical owners for startup reconciliation. */
 export async function runSessionStartupMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   log: SessionStartupMigrationLogger;
   deps?: {
@@ -50,7 +50,7 @@ export async function runSessionStartupMigration(params: {
     migrateManagedWorktreeCanonicalWorkspaces?: typeof migrateManagedWorktreeCanonicalWorkspaces;
     resolveAllAgentSessionStoreTargetsSync?: typeof resolveAllAgentSessionStoreTargetsSync;
   };
-}): Promise<OpenClawAgentDatabaseOptions[]> {
+}): Promise<GrantedAgentDatabaseOptions[]> {
   const env = params.env ?? process.env;
   const resolveTargets =
     params.deps?.resolveAllAgentSessionStoreTargetsSync ?? resolveAllAgentSessionStoreTargetsSync;
@@ -76,7 +76,7 @@ export async function runSessionStartupMigration(params: {
     targets = resolveTargets(params.cfg, { env });
   }
 
-  const databases = new Map<string, OpenClawAgentDatabaseOptions>();
+  const databases = new Map<string, GrantedAgentDatabaseOptions>();
   const migrateWorktreeSessions =
     params.deps?.migrateManagedWorktreeCanonicalWorkspaces ??
     migrateManagedWorktreeCanonicalWorkspaces;

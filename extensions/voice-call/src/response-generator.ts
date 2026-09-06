@@ -6,7 +6,7 @@
 import crypto from "node:crypto";
 import { resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
 import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   applyModelOverrideWithAuthProfileCompatibility,
   ModelSelectionLockedError,
@@ -19,7 +19,7 @@ import {
   normalizeStringEntries,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import { resolveVoiceCallSessionKey, type VoiceCallConfig } from "./config.js";
 import { resolveCallAgentId } from "./resolve-call-agent-id.js";
 import { resolveVoiceResponseModel } from "./response-model.js";
@@ -28,9 +28,9 @@ type VoiceResponseParams = {
   /** Voice call config */
   voiceConfig: VoiceCallConfig;
   /** Core OpenClaw config */
-  coreConfig: OpenClawConfig;
+  coreConfig: GrantedConfig;
   /** Injected host agent runtime */
-  agentRuntime: OpenClawPluginApi["runtime"]["agent"];
+  agentRuntime: GrantedPluginApi["runtime"]["agent"];
   /** Call ID for session tracking */
   callId: string;
   /** Persisted call session key */
@@ -75,10 +75,7 @@ function readExplicitToolsAllow(value: unknown): string[] | undefined {
   return filterStringEntries(allow);
 }
 
-function resolveVoiceAgentToolsAllow(
-  config: OpenClawConfig,
-  agentId: string,
-): string[] | undefined {
+function resolveVoiceAgentToolsAllow(config: GrantedConfig, agentId: string): string[] | undefined {
   return readExplicitToolsAllow(resolveAgentConfig(config, agentId)?.tools);
 }
 

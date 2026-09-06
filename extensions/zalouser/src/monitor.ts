@@ -16,7 +16,7 @@ import {
   listMessageReceiptPlatformIds,
 } from "openclaw/plugin-sdk/channel-outbound";
 import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import type { MarkdownTableMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
 // Zalouser plugin module implements monitor behavior.
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
@@ -69,7 +69,7 @@ import {
 
 type ZalouserMonitorOptions = {
   account: ResolvedZalouserAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: RuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: Omit<ChannelAccountSnapshot, "accountId">) => void;
@@ -223,7 +223,7 @@ async function sendZalouserDeliveryAcks(params: {
 async function processMessage(
   message: ZaloInboundMessage,
   account: ResolvedZalouserAccount,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   core: ZalouserCoreRuntime,
   runtime: RuntimeEnv,
   historyState: ZalouserGroupHistoryState,
@@ -729,7 +729,7 @@ async function deliverZalouserReply(params: {
   isGroup: boolean;
   runtime: RuntimeEnv;
   core: ZalouserCoreRuntime;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   accountId?: string;
   tableMode?: MarkdownTableMode;
 }): Promise<{ visibleReplySent: boolean }> {

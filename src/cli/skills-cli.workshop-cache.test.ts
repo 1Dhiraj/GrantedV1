@@ -5,12 +5,12 @@ import { GatewayClientRequestError } from "../../packages/gateway-client/src/req
 import { GatewayTransportError } from "../gateway/transport-error.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../test-utils/tracked-temp-dirs.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let gatewaySnapshots: typeof import("../skills/runtime/session-snapshot.js");
 let gatewayRefreshState: typeof import("../skills/runtime/refresh-state.js");
 let gatewayWorkshop: typeof import("../skills/workshop/service.js");

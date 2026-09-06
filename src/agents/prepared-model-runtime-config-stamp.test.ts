@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resolvePublishedModelCatalogOwner } from "./prepared-model-catalog-owner.js";
 import {
@@ -26,7 +26,7 @@ import {
 } from "./prepared-model-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared model runtime config stamps", () => {
   beforeEach(async () => {

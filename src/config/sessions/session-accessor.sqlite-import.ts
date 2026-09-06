@@ -5,7 +5,7 @@ import {
 import {
   runOpenClawAgentWriteTransaction,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { readExactSessionEntryRowForCanonicalRepair } from "./session-accessor.sqlite-canonical-repair.js";
 import type { SessionAccessScope, TranscriptEvent } from "./session-accessor.sqlite-contract.js";
@@ -75,7 +75,7 @@ function resolveSqliteSessionImport(params: SqliteSessionImportRowsParams) {
 }
 
 function importSqliteSessionRowsInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   prepared: ReturnType<typeof resolveSqliteSessionImport>,
   stage: SqliteSessionImportStage,
   source: number,

@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { WebSocketServer } from "ws";
 import { TEST_TLS_CERT_PEM, TEST_TLS_KEY_PEM } from "../../test/helpers/tls-fixture.js";
 import { waitForGatewayReachable } from "../commands/onboard-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetSecretRedactionRegistryForTest } from "../logging/secret-redaction-registry.test-support.js";
 import { createSuiteTempRootTracker, withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -102,7 +102,7 @@ describe("probeGateway TLS", () => {
       const gateway = await startTlsProbeGateway();
       try {
         const env = { GRANTED_STATE_DIR: stateDir };
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           gateway: {
             mode: "remote",
             remote: {

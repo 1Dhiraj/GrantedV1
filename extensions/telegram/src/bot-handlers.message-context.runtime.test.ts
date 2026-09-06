@@ -1,6 +1,6 @@
 // Telegram tests cover forum topic recovery from the real message cache.
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createTelegramMessageContextRuntime,
@@ -20,7 +20,7 @@ let storeScopeId = 0;
  */
 function createRuntime() {
   storeScopeId += 1;
-  const cfg: OpenClawConfig = {};
+  const cfg: GrantedConfig = {};
   return createTelegramMessageContextRuntime({
     cfg,
     accountId: "default",
@@ -60,7 +60,7 @@ describe("resolveCachedMessageThreadSpec", () => {
         entries: { main: {}, ops: {}, research: {} },
       },
       bindings: [{ agentId: "main", match: { channel: "telegram", accountId: "*" } }],
-    } as OpenClawConfig;
+    } as GrantedConfig;
     createTelegramMessageContextRuntime({
       cfg,
       accountId: "primary",

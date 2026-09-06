@@ -52,7 +52,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { resolveSessionStorePathForScope } from "../../config/sessions/session-store-path.js";
 import { selectSessionTranscriptLeafControlledPath } from "../../config/sessions/transcript-tree.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { readSessionMessagesAsync } from "../../gateway/session-transcript-readers.js";
 import { logVerbose } from "../../globals.js";
 import { isAbortError } from "../../infra/abort-signal.js";
@@ -290,7 +290,7 @@ function resolveMemoryFlushModelFallbackOptions(
 }
 
 type FollowupRuntimeParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   followupRun: FollowupRun;
   sessionEntry?: Pick<
     SessionEntry,
@@ -563,7 +563,7 @@ type SessionLogSnapshot = {
 };
 
 async function appendPostCompactionRefreshPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   followupRun: FollowupRun;
 }): Promise<void> {
   const refreshPrompt = await readPostCompactionContext(params.followupRun.run.workspaceDir, {
@@ -735,7 +735,7 @@ async function estimatePromptTokensFromSessionTranscript(params: {
 
 /** Compacts session context before a reply or after a completed direct command. */
 export async function runSessionCompactionIfNeeded(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   followupRun: FollowupRun;
   promptForEstimate?: string;
   defaultModel: string;
@@ -1219,7 +1219,7 @@ type MemoryFlushRunParams = Parameters<typeof runMemoryFlushIfNeeded>[0];
 
 /** Runs pre-compaction memory flush when transcript state warrants it. */
 export async function runMemoryFlushIfNeeded(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   followupRun: FollowupRun;
   promptForEstimate?: string;
   sessionCtx: TemplateContext;

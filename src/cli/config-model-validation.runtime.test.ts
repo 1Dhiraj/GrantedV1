@@ -8,17 +8,14 @@ import {
   PreparedModelRuntimeOwnerNotPublishedError,
 } from "../agents/prepared-model-runtime.js";
 import { resetPreparedModelRuntimeSnapshotsForTest } from "../agents/prepared-model-runtime.test-support.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   cleanupPluginLoaderFixturesForTest,
   clearPluginLoaderCache,
   loadOpenClawPlugins,
   writePlugin,
 } from "../plugins/loader.test-fixtures.js";
-import {
-  withOpenClawTestState,
-  type OpenClawTestState,
-} from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import { checkTouchedTextModelRefs } from "./config-model-validation.js";
 
 const primary = "pin-alpha/exact-supported";
@@ -32,8 +29,8 @@ function clearRuntimeState() {
 
 async function withProviderFixtures(
   run: (fixture: {
-    config: OpenClawConfig;
-    state: OpenClawTestState;
+    config: GrantedConfig;
+    state: GrantedTestState;
     imported: (provider: string) => boolean;
   }) => Promise<void>,
 ) {
@@ -94,7 +91,7 @@ module.exports = {
         );
         return plugin;
       });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           defaults: { workspace: state.workspaceDir, model: { primary } },
           entries: { main: { default: true } },

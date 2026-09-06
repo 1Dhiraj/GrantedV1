@@ -4,7 +4,7 @@ import {
   loadCodexBundleMcpThreadConfig,
   type EmbeddedRunAttemptParamsV2,
 } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { createCapturedPluginRegistration } from "openclaw/plugin-sdk/plugin-test-runtime";
@@ -53,7 +53,7 @@ export async function createCanonicalForkFixture(params: {
   runtime: PluginRuntime;
   workspaceDir: string;
   agentDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   loading?: "searchable" | "direct";
   codexPlugins?: CodexPluginConfig["codexPlugins"];
   desktopGenerationFingerprint?: string;

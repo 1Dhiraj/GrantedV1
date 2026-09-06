@@ -15,7 +15,7 @@ import {
   assertOpenClawStateDatabaseForMaintenance,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { hashWorkerCredential } from "./credential.js";
 import {
@@ -68,7 +68,7 @@ const PRUNE_NOW_MS = 10 * DAY_MS;
 
 describe("worker environment store", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerEnvironmentStore;
   let nowMs: number;
 

@@ -18,7 +18,7 @@ import {
   isMissingOperatorReadScopeError,
 } from "../../lib/gateway-errors.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { StreamAutoFollowController } from "../../lit/stream-auto-follow-controller.ts";
 import {
@@ -32,7 +32,7 @@ import { renderLogs } from "./view.ts";
 const LOG_BUFFER_LIMIT = 2000;
 const LOGS_POLL_INTERVAL_MS = 2000;
 
-class LogsPage extends OpenClawLightDomElement {
+class LogsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

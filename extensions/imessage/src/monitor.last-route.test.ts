@@ -6,7 +6,7 @@ import { DatabaseSync } from "node:sqlite";
 import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
 import * as channelInbound from "openclaw/plugin-sdk/channel-inbound";
 import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   recordInboundSession,
   type ensureConfiguredBindingRouteReady,
@@ -18,7 +18,7 @@ import {
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-runtime";
 import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient } from "./client.js";
@@ -62,7 +62,7 @@ type MonitorRunParams = {
   session?: Record<string, unknown>;
   messages?: Record<string, unknown>;
   agents?: Record<string, unknown>;
-  bindings?: OpenClawConfig["bindings"];
+  bindings?: GrantedConfig["bindings"];
   runtime?: MonitorIMessageOpts["runtime"];
   allowlist?: boolean;
 };
@@ -278,7 +278,7 @@ async function runChannelInboundEventForLastRouteTest(params: RunChannelInboundE
 
 describe("iMessage monitor last-route updates", () => {
   const tempDirs: string[] = [];
-  const openClawStates: OpenClawTestState[] = [];
+  const openClawStates: GrantedTestState[] = [];
 
   beforeEach(() => {
     vi.spyOn(channelInbound, "runChannelInboundEvent").mockImplementation(

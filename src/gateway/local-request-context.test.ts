@@ -14,7 +14,7 @@ import {
   hasInProcessGatewayToolContext,
 } from "../agents/tools/in-process-gateway.js";
 import type { CliDeps } from "../cli/deps.types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { makeCronJob } from "../cron/delivery.test-helpers.js";
 import { loadCronStore, resolveCronJobsStorePath, saveCronStore } from "../cron/store.js";
 import {
@@ -50,7 +50,7 @@ describe("local gateway request context", () => {
       agents: {
         defaults: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     response = await withLocalGatewayRequestScope(
       {
@@ -167,7 +167,7 @@ describe("local gateway request context", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loadOwner = vi
       .spyOn(preparedModelCatalog, "loadPublishedPreparedModelCatalogOwnerSnapshot")
       .mockResolvedValue(
@@ -218,7 +218,7 @@ describe("local gateway request context", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const model = {
       provider: "local-auth-provider",
       id: "local-auth-model",
@@ -307,7 +307,7 @@ describe("local gateway request context", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const candidate = {
       catalogOwner: { agentId: "main", workspaceDir: "/tmp/local-model-timeout-workspace" },
       agentId: "main",
@@ -348,7 +348,7 @@ describe("local gateway request context", () => {
         defaults: { systemAgent: { agentId: "main" } },
         entries: { main: {}, worker: {} },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     try {
       const now = Date.now();
       const storePath = resolveCronJobsStorePath();

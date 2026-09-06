@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createSessionCatalogAdoptionCoordinator } from "openclaw/plugin-sdk/session-catalog";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_DEFAULT_MODEL_REF } from "./cli-constants.js";
 import {
@@ -35,7 +35,7 @@ const continueClaudeAdoption =
   createSessionCatalogAdoptionCoordinator<Awaited<ReturnType<typeof upstream.linkContinued>>>();
 
 export async function continueClaudeSession(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   agentId: string,
   hostId: string,
   threadId: string,

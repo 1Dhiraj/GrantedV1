@@ -10,7 +10,7 @@ import {
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import type { Static } from "typebox";
-import type { AnyAgentTool, OpenClawPluginApi, OpenClawPluginToolContext } from "../api.js";
+import type { AnyAgentTool, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import type { DiffScreenshotter } from "./browser.runtime.js";
 import { resolveDiffImageRenderOptions } from "./config.js";
 import { DiffRenderInputError, renderDiffDocument } from "./render.js";
@@ -119,13 +119,13 @@ const DiffsToolSchema = Type.Object(
 type DiffsToolParams = Static<typeof DiffsToolSchema>;
 
 export function createDiffsTool(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   store: DiffArtifactStore;
   defaults: DiffToolDefaults;
   viewerBaseUrl?: string;
   languagePackAvailable?: boolean;
   screenshotter?: DiffScreenshotter;
-  context?: OpenClawPluginToolContext;
+  context?: GrantedPluginToolContext;
 }): AnyAgentTool {
   const loadScreenshotter = async () =>
     params.screenshotter ??
@@ -424,7 +424,7 @@ async function renderDiffArtifactFile(params: {
 }
 
 function buildArtifactContext(
-  context: OpenClawPluginToolContext | undefined,
+  context: GrantedPluginToolContext | undefined,
 ): DiffArtifactContext | undefined {
   if (!context) {
     return undefined;

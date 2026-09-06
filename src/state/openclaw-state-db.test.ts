@@ -44,9 +44,9 @@ import {
 import { ensureGitHubPublicationSchema } from "./openclaw-state-db-schema-additive.js";
 import {
   findOpenClawStateDatabaseSchemaMigrationRequiredError,
-  OpenClawStateDatabaseSchemaMigrationRequiredError,
+  GrantedStateDatabaseSchemaMigrationRequiredError,
 } from "./openclaw-state-db-schema-migration-required.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   clearOpenClawStateDatabaseOpenFailure,
@@ -89,7 +89,7 @@ vi.mock("../logging/subsystem.js", async (importOriginal) => {
 });
 
 type StateDbTestDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "diagnostic_events" | "schema_meta" | "skill_usage"
 >;
 
@@ -176,7 +176,7 @@ function createOlderV6StateSchemaWithoutWorkerSshFallbackPorts(): string {
 function expectStateSchemaMigrationRequired(
   run: () => unknown,
   expected: {
-    kind: OpenClawStateDatabaseSchemaMigrationRequiredError["kind"];
+    kind: GrantedStateDatabaseSchemaMigrationRequiredError["kind"];
     pathname: string;
   },
 ): void {
@@ -186,7 +186,7 @@ function expectStateSchemaMigrationRequired(
   } catch (error) {
     caught = error;
   }
-  expect(caught).toBeInstanceOf(OpenClawStateDatabaseSchemaMigrationRequiredError);
+  expect(caught).toBeInstanceOf(GrantedStateDatabaseSchemaMigrationRequiredError);
   expect(findOpenClawStateDatabaseSchemaMigrationRequiredError(caught)).toMatchObject(expected);
 }
 

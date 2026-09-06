@@ -7,7 +7,7 @@ import {
 } from "openclaw/plugin-sdk/json-schema-runtime";
 import { withEnv } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { memoryWikiConfigSchema } from "./config-schema.js";
 import { resolveMemoryWikiAgentConfig, resolveMemoryWikiConfig } from "./config.js";
 
@@ -110,7 +110,7 @@ describe("resolveMemoryWikiConfig", () => {
       agents: {
         list: [{ id: "Support Team", default: true }, { id: "Marketing" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const support = resolveMemoryWikiAgentConfig({
       config: base,
@@ -155,7 +155,7 @@ describe("resolveMemoryWikiConfig", () => {
     const config = resolveMemoryWikiConfig({ vault: { scope: "agent" } });
     const appConfig = {
       agents: { list: [{ id: "support", default: true }, { id: "marketing" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(() => resolveMemoryWikiAgentConfig({ config, appConfig })).toThrow(
       "agentId is required",
@@ -166,7 +166,7 @@ describe("resolveMemoryWikiConfig", () => {
     const config = resolveMemoryWikiConfig({ vault: { scope: "agent" } });
     const appConfig = {
       agents: { list: [{ id: "support", default: true }, { id: "marketing" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(() => resolveMemoryWikiAgentConfig({ config, appConfig, agentId: "finance" })).toThrow(
       "Unknown memory-wiki agentId: finance",

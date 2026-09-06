@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { runWithGatewayIndependentRootWorkContinuation } from "../../process/gateway-work-admission.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
@@ -39,7 +39,7 @@ export function resolveWebchatPromptCacheKey(params: {
 export function scheduleChatDashboardSessionTitle(params: {
   admittedSessionId: string;
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   context: GatewayRequestContext;
   request: Pick<NormalizedChatSendRequest, "normalizedAttachments" | "rawMessage">;
   sessionKey: string;

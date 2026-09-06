@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { Model } from "../../llm/types.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import { withPluginRuntimeGenerationScope } from "../../plugins/runtime/generation-scope.js";
@@ -75,7 +75,7 @@ export function createEmptyAgentDiscoveryStores(): {
 
 function resolvePreparedAgentSnapshot(
   resolvedAgentDir: string,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   explicitWorkspaceDir: string | undefined,
   derivedWorkspaceDir: string | undefined,
   agentId: string | undefined,
@@ -102,7 +102,7 @@ export async function resolveModelAsync(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   options?: AsyncModelResolutionOptions,
 ): Promise<{
   model?: Model;
@@ -408,7 +408,7 @@ export async function resolveModelAsync(
 function buildUnknownModelError(params: {
   provider: string;
   modelId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   runtimeHooks?: ProviderRuntimeHooks;
@@ -452,7 +452,7 @@ function buildUnknownModelError(params: {
 function buildMissingProviderModelRegistrationHint(params: {
   provider: string;
   modelId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): string | undefined {
   // Legacy openai-codex refs can come from model selections, provider config,
   // or persisted routes. All of them should be repaired by doctor rather than

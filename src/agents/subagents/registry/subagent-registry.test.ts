@@ -16,7 +16,7 @@ import {
   runWithOwnedSessionTranscriptWrite,
   withOwnedSessionTranscriptWrites,
 } from "../../../config/sessions/transcript-write-context.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { GatewayRecoveryRuntime } from "../../../gateway/server-instance-runtime.types.js";
 import type { AgentEventPayload } from "../../../infra/agent-events.js";
 import { createEmptyPluginRegistry } from "../../../plugins/registry-empty.js";
@@ -114,7 +114,7 @@ const mocks = vi.hoisted(() => ({
     >(),
   onAgentEvent: vi.fn<(_handler: (event: AgentEventPayload) => void) => typeof noop>(() => noop),
   getAgentRunContext: vi.fn<(_runId: string) => unknown>(() => undefined),
-  getRuntimeConfig: vi.fn<() => OpenClawConfig>(() => ({
+  getRuntimeConfig: vi.fn<() => GrantedConfig>(() => ({
     agents: { defaults: { subagents: { archiveAfterMinutes: 0 } } },
     session: { mainKey: "main", scope: "per-sender" as const },
   })),

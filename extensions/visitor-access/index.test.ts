@@ -4,9 +4,9 @@ import path from "node:path";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  GrantedPluginApi,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
@@ -87,8 +87,8 @@ describe("visitor-access plugin lifecycle", () => {
 
   function registerPlugin() {
     const tools = new Map<string, AnyAgentTool>();
-    const services: OpenClawPluginService[] = [];
-    const on = vi.fn<OpenClawPluginApi["on"]>();
+    const services: GrantedPluginService[] = [];
+    const on = vi.fn<GrantedPluginApi["on"]>();
     const logger = { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() };
     const api = createTestPluginApi({
       id: "visitor-access",
@@ -116,7 +116,7 @@ describe("visitor-access plugin lifecycle", () => {
     if (!service) {
       throw new Error("Plugin did not register its expiry service");
     }
-    const context: OpenClawPluginServiceContext = { config: {}, stateDir, logger };
+    const context: GrantedPluginServiceContext = { config: {}, stateDir, logger };
     cleanups.push(() => service.stop?.(context));
     const store = createPluginStateKeyedStoreForTests<VisitorGrant>("visitor-access", {
       namespace: "visitor-grants",

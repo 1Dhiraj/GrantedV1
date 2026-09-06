@@ -1,10 +1,10 @@
 // Codex catalog terminal ownership: validated resume commands and terminal plans.
 import { resolveAgentDir, resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { decodeNodePtyResumeParams } from "openclaw/plugin-sdk/node-host";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeHostCommand,
+  GrantedPluginApi,
+  GrantedPluginNodeHostCommand,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import type { SessionCatalogTerminalPlan } from "openclaw/plugin-sdk/session-catalog";
@@ -33,7 +33,7 @@ export const CODEX_TERMINAL_RESUME_COMMAND = "codex.terminal.resume.v1";
 
 export type CodexTerminalConfigSources = {
   getPluginConfig: () => unknown;
-  getRuntimeConfig: () => OpenClawConfig | undefined;
+  getRuntimeConfig: () => GrantedConfig | undefined;
 };
 
 function resolveCodexCatalogTerminalHome(
@@ -88,7 +88,7 @@ export function createCodexTerminalNodeHostCommand(
     paramsJSON: string;
   },
   configSources: CodexTerminalConfigSources,
-): OpenClawPluginNodeHostCommand {
+): GrantedPluginNodeHostCommand {
   return {
     command: CODEX_TERMINAL_RESUME_COMMAND,
     cap: CODEX_APP_SERVER_THREADS_CAPABILITY,
@@ -189,7 +189,7 @@ async function resolveNodeCatalogEligibleThread(params: {
 export async function openCodexCatalogTerminal(
   params: {
     agentId: string;
-    api: OpenClawPluginApi;
+    api: GrantedPluginApi;
     control: CodexSessionCatalogControl;
     hostId: string;
     threadId: string;

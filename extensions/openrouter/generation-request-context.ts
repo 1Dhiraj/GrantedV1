@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import {
   resolveProviderHttpRequestConfig,
@@ -9,7 +9,7 @@ import { OPENROUTER_BASE_URL } from "./provider-catalog.js";
 type OpenRouterAuthStore = Parameters<typeof resolveApiKeyForProvider>[0]["store"];
 
 export async function resolveOpenRouterGenerationRequestContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   authStore?: OpenRouterAuthStore;
   capability: "audio" | "image" | "video";

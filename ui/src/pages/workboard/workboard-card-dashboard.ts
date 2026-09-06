@@ -14,7 +14,7 @@ import {
   type BoardProviderLease,
   type BoardViewCallbacks,
 } from "../../lib/board/provider.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 
 function ensureBoardViewElement(): Promise<void> {
   return ensureCustomElementDefined(
@@ -23,7 +23,7 @@ function ensureBoardViewElement(): Promise<void> {
   );
 }
 
-class WorkboardCardDashboard extends OpenClawLightDomElement {
+class WorkboardCardDashboard extends GrantedLightDomElement {
   @property({ attribute: false }) session: BoardGetParams | null = null;
   @property({ attribute: false }) client: GatewayBrowserClient | null = null;
   @property({ attribute: false }) connected = false;

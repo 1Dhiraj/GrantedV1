@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginCandidate } from "../plugins/discovery.js";
 import { resolvePluginNpmProjectDir } from "../plugins/install-paths.js";
 import { writePersistedInstalledPluginIndex } from "../plugins/installed-plugin-index-store-write.js";
@@ -540,7 +540,7 @@ describe("maybeRepairPluginRegistryState", () => {
     });
     const config = JSON.parse(
       '{"plugins":{"installs":{"__proto__":{"source":"bogus"}}}}',
-    ) as OpenClawConfig;
+    ) as GrantedConfig;
 
     await expect(
       maybeRepairPluginRegistryState({
@@ -569,7 +569,7 @@ describe("maybeRepairPluginRegistryState", () => {
 
   it("reports the supported manual recovery for invalid persisted records", async () => {
     const stateDir = makeTempDir();
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const installRecordsJson = '{"__proto__":{"source":"bogus"}}';
     runOpenClawStateWriteTransaction(
       ({ db }) => {

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { createOpenClawTools } from "../../../../src/agents/openclaw-tools.js";
 import type { PreparedModelRuntimeSnapshot } from "../../../../src/agents/prepared-model-runtime.js";
 import { createPluginMetadataSnapshot } from "../../../../src/config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import type {
   MusicGenerationProvider,
   MusicGenerationRequest,
@@ -99,7 +99,7 @@ function createMusicFixture() {
       };
     },
   };
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     plugins: {
       allow: [PLUGIN_ID],
       entries: { [PLUGIN_ID]: { enabled: true } },

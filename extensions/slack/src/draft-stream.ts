@@ -2,7 +2,7 @@
 import type { MessageMetadata } from "@slack/types";
 import type { Block, KnownBlock } from "@slack/web-api";
 import { createFinalizableDraftStreamControlsForState } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { deleteSlackMessage, editSlackMessage } from "./actions.js";
 import { trackSlackDraftMessage } from "./draft-message-boundaries.js";
 import { formatSlackError } from "./errors.js";
@@ -37,7 +37,7 @@ type SlackDraftMessage = { channelId: string; messageId: string };
 
 export function createSlackDraftStream(params: {
   target: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   token: string;
   accountId?: string;
   conversationChannelId?: string;

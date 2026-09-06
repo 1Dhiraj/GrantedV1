@@ -5,7 +5,7 @@ import { resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import { runIsolatedCompletion } from "../../agents/isolated-completion.js";
 import { splitTrailingAuthProfile } from "../../agents/model-ref-profile.js";
 import { resolveSimpleCompletionSelectionForAgent } from "../../agents/simple-completion-runtime.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const DEFAULT_MAX_LABEL_LENGTH = 128;
 // Reasoning models spend output tokens before emitting the short visible label.
@@ -23,7 +23,7 @@ type ConversationLabelAttempt = {
 export type ConversationLabelParams = {
   userMessage: string;
   prompt: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   agentHarnessRuntimeOverride?: string;

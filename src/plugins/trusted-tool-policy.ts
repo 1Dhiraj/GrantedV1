@@ -1,6 +1,6 @@
 // Resolves trusted tool policy for plugins from runtime config.
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isPlainObject } from "../utils.js";
 import type {
   PluginHookBeforeToolCallEvent,
@@ -213,7 +213,7 @@ export async function runTrustedToolPolicies(
   event: PluginHookBeforeToolCallEvent,
   ctx: PluginHookToolContext,
   options?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     deriveEvent?: (
       params: Record<string, unknown>,
     ) =>
@@ -237,9 +237,9 @@ export async function runTrustedToolPolicies(
   let hasAdjustedParams = false;
   let approval: PluginHookBeforeToolCallResult["requireApproval"];
   const sessionExtensionStateCache = new Map<string, Record<string, PluginJsonValue> | undefined>();
-  let resolvedSessionConfig: OpenClawConfig | undefined = options?.config;
+  let resolvedSessionConfig: GrantedConfig | undefined = options?.config;
   let didResolveSessionConfig = Boolean(options?.config);
-  const resolveSessionConfig = (): OpenClawConfig | undefined => {
+  const resolveSessionConfig = (): GrantedConfig | undefined => {
     if (!didResolveSessionConfig) {
       didResolveSessionConfig = true;
       try {

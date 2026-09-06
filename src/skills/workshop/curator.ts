@@ -8,11 +8,11 @@ import {
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { readConfigMachineState } from "../../state/config-machine-state.js";
-import type { DB as OpenClawStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { normalizeSkillIndexName } from "../discovery/skill-index.js";
 import {
@@ -28,7 +28,7 @@ export const SKILL_LIFECYCLE_CURATION_RETIRED_MESSAGE =
   "Skill lifecycle curation is retired. The weekly collection review manages the skill collection; pin, unpin, and restore no longer exist.";
 
 type SkillLifecycleState = "active" | "archived" | "stale";
-type CuratorDatabase = Pick<OpenClawStateDatabase, "skill_usage" | "skill_workshop_proposals">;
+type CuratorDatabase = Pick<GrantedStateDatabase, "skill_usage" | "skill_workshop_proposals">;
 type SkillOverlapCandidate = { left: string; right: string; score: number };
 
 export type SkillCuratorStatus = {
@@ -53,7 +53,7 @@ export type SkillCuratorStatus = {
   overlaps: SkillOverlapCandidate[];
 };
 
-function curatorDb(options: OpenClawStateDatabaseOptions = {}) {
+function curatorDb(options: GrantedStateDatabaseOptions = {}) {
   const database = openOpenClawStateDatabase(options);
   return { database, kysely: getNodeSqliteKysely<CuratorDatabase>(database.db) };
 }
@@ -71,7 +71,7 @@ export type SkillUsageFacts = { lastUsedAtMs: number; useCount: number };
 /** Single reader for recorded usage; callers pass canonical skill files. */
 export function readSkillUsageByFile(
   skillFiles: readonly string[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Map<string, SkillUsageFacts> {
   if (skillFiles.length === 0) {
     return new Map();
@@ -93,7 +93,7 @@ export function readSkillUsageByFile(
 }
 
 export function getSkillCuratorStatus(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): SkillCuratorStatus {
   const { database, kysely } = curatorDb(options);
   const state = readConfigMachineState<{
@@ -177,7 +177,7 @@ function recordSkillUsage(
   event: Pick<DiagnosticSkillUsedEvent, "agentId" | "skillName" | "skillSource" | "ts"> & {
     skillFile?: string;
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const rawSkillFile = event.skillFile?.trim();
   // File identity prevents a same-named skill in another workspace from inheriting usage.
@@ -224,7 +224,7 @@ function recordSkillUsage(
 }
 
 /** Listener failures must never propagate into the tool execution that emitted usage. */
-export function registerSkillUsageTracking(options: OpenClawStateDatabaseOptions = {}): () => void {
+export function registerSkillUsageTracking(options: GrantedStateDatabaseOptions = {}): () => void {
   return onTrustedInternalDiagnosticEvent((event, metadata, privateData) => {
     if (!metadata.trusted || event.type !== "skill.used") {
       return;
@@ -239,7 +239,7 @@ export function registerSkillUsageTracking(options: OpenClawStateDatabaseOptions
 
 export function clearSkillUsageForRemovedSkills(
   skillFiles: readonly string[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   if (skillFiles.length === 0) {
     return;

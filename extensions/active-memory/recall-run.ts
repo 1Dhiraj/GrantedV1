@@ -3,8 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { resolveAgentDir, resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import {
   cleanupSessionLifecycleArtifacts,
@@ -140,8 +140,8 @@ async function cleanupActiveMemoryRecallSession(params: {
 }
 
 async function runRecallSubagent(params: {
-  api: OpenClawPluginApi;
-  runtimeConfig: OpenClawConfig;
+  api: GrantedPluginApi;
+  runtimeConfig: GrantedConfig;
   config: ResolvedActiveRecallPluginConfig;
   agentId: string;
   parentSessionKey?: string;

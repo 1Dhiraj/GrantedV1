@@ -1,6 +1,6 @@
 import type { ChatCommandDefinition } from "openclaw/plugin-sdk/command-auth-native";
 // Slack tests cover slash plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
 import {
@@ -265,7 +265,7 @@ function findFirstActionsBlock(payload: { blocks?: Array<{ type: string }> }) {
 }
 
 function createArgMenusHarness(
-  cfg: OpenClawConfig = { commands: { native: true, nativeSkills: false } },
+  cfg: GrantedConfig = { commands: { native: true, nativeSkills: false } },
   scope?: {
     installationIdentity?:
       | { kind: "workspace"; teamId: string }
@@ -996,7 +996,7 @@ describe("Slack native command argument menus", () => {
       return { counts: { final: 1, tool: 0, block: 0 } };
     });
     const skillHarness = createArgMenusHarness({ commands: { native: true, nativeSkills: true } });
-    (skillHarness.account as { config: OpenClawConfig }).config = {
+    (skillHarness.account as { config: GrantedConfig }).config = {
       commands: { native: true, nativeSkills: true },
     };
     await registerCommands(skillHarness.ctx, skillHarness.account);
@@ -1017,9 +1017,9 @@ describe("Slack native command argument menus", () => {
         description: "Skill agent status",
       },
     ];
-    const config: OpenClawConfig = { commands: { native: true, nativeSkills: true } };
+    const config: GrantedConfig = { commands: { native: true, nativeSkills: true } };
     const testHarness = createArgMenusHarness(config);
-    (testHarness.account as { config: OpenClawConfig }).config = config;
+    (testHarness.account as { config: GrantedConfig }).config = config;
 
     await registerCommands(testHarness.ctx, testHarness.account);
 
@@ -1970,12 +1970,12 @@ describe("slack slash command session metadata", () => {
       channelName: "directmessage",
       resolveChannelName: async () => ({ name: "directmessage", type: "im" }),
     });
-    const sourceCfg = (harness.ctx as { cfg: OpenClawConfig }).cfg;
+    const sourceCfg = (harness.ctx as { cfg: GrantedConfig }).cfg;
     const runtimeCfg = {
       ...sourceCfg,
       session: { dmScope: "per-channel-peer" },
-    } as OpenClawConfig;
-    resolveAgentRouteMock.mockImplementation((params: { cfg: OpenClawConfig }) => ({
+    } as GrantedConfig;
+    resolveAgentRouteMock.mockImplementation((params: { cfg: GrantedConfig }) => ({
       agentId: "main",
       accountId: "acct",
       sessionKey:

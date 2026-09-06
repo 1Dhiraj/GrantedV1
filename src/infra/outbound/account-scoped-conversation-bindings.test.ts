@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -21,9 +21,9 @@ const stateKey = Symbol("openclaw.accountScopedConversationBindingExpiry.test");
 const startedAt = 1_700_000_000_000;
 const baseCfg = {
   session: { threadBindings: { idleHours: 1, maxAgeHours: 0 } },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
-function createManager(params: { accountId?: string; cfg?: OpenClawConfig } = {}) {
+function createManager(params: { accountId?: string; cfg?: GrantedConfig } = {}) {
   return createAccountScopedConversationBindingManager<TestBindingKind>({
     channel: "imessage",
     cfg: params.cfg ?? baseCfg,
@@ -112,7 +112,7 @@ describe("account-scoped conversation binding expiry", () => {
       const cfg = {
         ...baseCfg,
         agents: { entries: { alpha: {}, beta: {} } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const manager = createManager({ cfg });
       const metadata = {
         ...(ownerKind === "agent" ? { agentId: "alpha" } : {}),

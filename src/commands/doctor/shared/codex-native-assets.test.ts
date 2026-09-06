@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { collectCodexNativeAssetInfoNotes } from "./codex-native-assets.js";
 import { scanCodexNativeAssets } from "./codex-native-assets.test-support.js";
 
@@ -14,7 +14,7 @@ async function writeFile(filePath: string, content = ""): Promise<void> {
   await fs.writeFile(filePath, content, "utf8");
 }
 
-function codexConfig(): OpenClawConfig {
+function codexConfig(): GrantedConfig {
   return {
     plugins: {
       entries: {
@@ -28,7 +28,7 @@ function codexConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function hasAsset(hits: Array<{ kind: string; path: string }>, kind: string, assetPath: string) {
@@ -89,7 +89,7 @@ describe("scanCodexNativeAssets", () => {
 
     await expect(
       scanCodexNativeAssets({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         env: { CODEX_HOME: codexHome, HOME: root },
       }),
     ).resolves.toStrictEqual([]);

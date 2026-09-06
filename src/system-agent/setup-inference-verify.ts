@@ -7,7 +7,7 @@ import { resolveAgentEffectiveModelPrimary } from "../agents/agent-scope.js";
 import { loadAuthProfileStoreForRuntime } from "../agents/auth-profiles/store.js";
 import type { AgentExecutionAuthBinding } from "../agents/execution-auth-binding.js";
 import { normalizeProviderId } from "../agents/model-selection.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import {
@@ -82,7 +82,7 @@ export async function verifySetupInference(
       error: invalidSetupConfigError(snapshot),
     };
   }
-  const cfg: OpenClawConfig = snapshot.runtimeConfig ?? snapshot.config;
+  const cfg: GrantedConfig = snapshot.runtimeConfig ?? snapshot.config;
   const baselineRoute = await projectInferenceRoute(cfg, params.agentId);
   let verifiedBinding: SystemAgentVerifiedInferenceBinding | undefined;
   const verification = await verifySetupInferenceConfig({
@@ -213,7 +213,7 @@ export async function resolvePersistentApplyInference(params: {
 
 /** Live-test a staged default-agent route before any caller persists it. */
 export async function verifySetupInferenceConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Candidate profiles staged in the isolated probe store, never the real agent store. */
   authProfiles?: ProviderAuthResult["profiles"];
   agentId?: string;
@@ -491,7 +491,7 @@ export async function completeSetupInference(params: {
 
 /** Config-injected variant used by setup clients and live provider tests. */
 export async function completeSetupInferenceConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   prompt: string;
   agentId?: string;
   runtime: RuntimeEnv;

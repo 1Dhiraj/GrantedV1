@@ -223,11 +223,7 @@ export const PLUGIN_COMPAT_RECORDS = [
     owner: "plugin-execution",
     introduced: "2026-04-29",
     docsPath: "/plugins/architecture-internals",
-    surfaces: [
-      "createCapturedPluginRegistration",
-      "capturePluginRegistration",
-      "OpenClawPluginApi",
-    ],
+    surfaces: ["createCapturedPluginRegistration", "capturePluginRegistration", "GrantedPluginApi"],
     diagnostics: ["runtime registration capture contract probe"],
     tests: ["src/plugins/captured-registration.test.ts"],
   },

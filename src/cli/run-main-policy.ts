@@ -3,7 +3,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
 } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { consumeRootOptionToken, FLAG_TERMINATOR } from "../infra/cli-root-options.js";
 import {
   resolveManifestCommandAliasOwnerInRegistry,
@@ -127,22 +127,22 @@ export function shouldStartProxyForCli(argv: string[]): boolean {
 
 export function resolveMissingPluginCommandMessage(
   pluginId: string,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   options?: {
     registry?: PluginManifestCommandAliasRegistry;
     resolveCommandAliasOwner?: (params: {
       command: string | undefined;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       registry?: PluginManifestCommandAliasRegistry;
     }) => PluginManifestCommandAliasRecord | undefined;
     resolveToolOwner?: (params: {
       toolName: string | undefined;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       registry?: PluginManifestCommandAliasRegistry;
     }) => PluginManifestToolOwnerRecord | undefined;
     resolveCliCommandSurfaceOwner?: (params: {
       command: string | undefined;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       registry?: PluginManifestCommandAliasRegistry;
     }) => string | undefined;
   },

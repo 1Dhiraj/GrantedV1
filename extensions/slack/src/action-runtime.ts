@@ -12,7 +12,7 @@ import {
   withNormalizedTimestamp,
 } from "openclaw/plugin-sdk/channel-actions";
 import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
 import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
@@ -89,7 +89,7 @@ export const slackActionRuntime = {
   removeSlackReaction: createLazySlackAction("removeSlackReaction"),
   resolveSlackConversationName: createLazySlackAction("resolveSlackConversationName"),
   resolveSlackConversationInfo: async (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     channelId: string;
     teamId?: string;
@@ -97,7 +97,7 @@ export const slackActionRuntime = {
     requireFreshName?: boolean;
   }) => (await loadSlackChannelTypeRuntime()).resolveSlackConversationInfo(params),
   resolveSlackChannelType: async (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     channelId: string;
   }) => (await loadSlackChannelTypeRuntime()).resolveSlackChannelType(params),
@@ -192,7 +192,7 @@ function normalizeConfiguredSlackDmUserId(value: unknown): string | undefined {
 
 async function isSlackDmTargetConfigured(params: {
   account: ResolvedSlackAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   userId?: string;
 }): Promise<boolean> {
@@ -259,7 +259,7 @@ function assertSlackMemberInfoAllowed(params: {
 
 function resolveSlackChannelReadPolicy(params: {
   account: ResolvedSlackAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   teamId?: string;
   channelName?: string;
@@ -333,7 +333,7 @@ function resolveSlackChannelReadPolicy(params: {
 
 async function assertSlackReadTargetAllowed(params: {
   account: ResolvedSlackAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   teamId?: string;
   conversationReadOrigin?: ConversationReadInvocationOrigin;
@@ -542,7 +542,7 @@ function resolveSlackActionChannelTarget(
 
 export async function handleSlackAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   context?: SlackActionContext,
 ): Promise<AgentToolResult<unknown>> {
   const action = readStringParam(params, "action", { required: true });

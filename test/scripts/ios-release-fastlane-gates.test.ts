@@ -23,7 +23,7 @@ const snapshotUITestPath = path.join(
   "apps",
   "ios",
   "UITests",
-  "OpenClawSnapshotUITests.swift",
+  "GrantedSnapshotUITests.swift",
 );
 const rootTabsPath = path.join(process.cwd(), "apps", "ios", "Sources", "RootTabs.swift");
 const ciWorkflowPath = path.join(process.cwd(), ".github", "workflows", "ci.yml");
@@ -467,7 +467,7 @@ describe("iOS Fastlane release upload gates", () => {
       "result_bundle_archive_directory: result_bundle_archive_directory",
     );
     expect(capture).toContain(
-      'only_testing: ["OpenClawUITests/OpenClawSnapshotUITests/#{test_name}"]',
+      'only_testing: ["GrantedUITests/GrantedSnapshotUITests/#{test_name}"]',
     );
     expect(capture).toContain("test_without_building: true");
     expect(capture).toContain("result_bundle: true");

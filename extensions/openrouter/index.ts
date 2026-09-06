@@ -1,6 +1,6 @@
 // Openrouter plugin entrypoint registers its OpenClaw integration.
 import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   ProviderReplayPolicy,
   ProviderReplayPolicyContext,
@@ -53,7 +53,7 @@ const OPENROUTER_CACHE_TTL_MODEL_FAMILY = /^(?:anthropic|deepseek|moonshot(?:ai)
 const MAX_PROMPT_MODEL_ID_DISPLAY_CHARS = 256;
 
 type OpenRouterFusionPromptContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   modelId: string;
 };

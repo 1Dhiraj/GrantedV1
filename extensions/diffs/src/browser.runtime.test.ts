@@ -12,7 +12,7 @@ import type {
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { createMockServerResponse } from "openclaw/plugin-sdk/test-env";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, OpenClawPluginApi, OpenClawPluginToolContext } from "../api.js";
+import type { GrantedConfig, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import { registerDiffsPlugin } from "./plugin.js";
 import { createTempDiffRoot } from "./test-helpers.js";
 
@@ -403,13 +403,13 @@ describe("diffs plugin registration", () => {
       req: IncomingMessage,
       res: ServerResponse,
     ) => boolean | Promise<boolean>;
-    type RegisteredHttpRouteParams = Parameters<OpenClawPluginApi["registerHttpRoute"]>[0];
+    type RegisteredHttpRouteParams = Parameters<GrantedPluginApi["registerHttpRoute"]>[0];
 
     let registeredToolFactory:
-      | ((ctx: OpenClawPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
+      | ((ctx: GrantedPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
       | undefined;
     let registeredHttpRouteHandler: HttpRouteHandler | undefined;
-    let configFile: OpenClawConfig = {
+    let configFile: GrantedConfig = {
       gateway: {
         port: 18789,
         bind: "loopback",
@@ -432,7 +432,7 @@ describe("diffs plugin registration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const blobStore = createMemoryBlobStore();
 
     const api = createTestPluginApi({
@@ -464,7 +464,7 @@ describe("diffs plugin registration", () => {
         },
         state: { openBlobStore: () => blobStore },
       } as never,
-      registerTool(tool: Parameters<OpenClawPluginApi["registerTool"]>[0]) {
+      registerTool(tool: Parameters<GrantedPluginApi["registerTool"]>[0]) {
         registeredToolFactory = typeof tool === "function" ? tool : () => tool;
       },
       registerHttpRoute(params: RegisteredHttpRouteParams) {
@@ -473,7 +473,7 @@ describe("diffs plugin registration", () => {
       on: vi.fn(),
     });
 
-    registerDiffsPlugin(api as unknown as OpenClawPluginApi);
+    registerDiffsPlugin(api as unknown as GrantedPluginApi);
 
     configFile = {
       ...configFile,
@@ -495,7 +495,7 @@ describe("diffs plugin registration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const registeredTool = registeredToolFactory?.({
       agentId: "main",
@@ -537,14 +537,14 @@ describe("diffs plugin registration", () => {
       req: IncomingMessage,
       res: ServerResponse,
     ) => boolean | Promise<boolean>;
-    type RegisteredHttpRouteParams = Parameters<OpenClawPluginApi["registerHttpRoute"]>[0];
+    type RegisteredHttpRouteParams = Parameters<GrantedPluginApi["registerHttpRoute"]>[0];
 
     let registeredToolFactory:
-      | ((ctx: OpenClawPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
+      | ((ctx: GrantedPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
       | undefined;
     let registeredHttpRouteHandler: HttpRouteHandler | undefined;
     const on = vi.fn();
-    let configFile: OpenClawConfig = {
+    let configFile: GrantedConfig = {
       gateway: {
         port: 18789,
         bind: "loopback",
@@ -560,7 +560,7 @@ describe("diffs plugin registration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const blobStore = createMemoryBlobStore();
 
     const api = createTestPluginApi({
@@ -594,7 +594,7 @@ describe("diffs plugin registration", () => {
         },
         state: { openBlobStore: () => blobStore },
       } as never,
-      registerTool(tool: Parameters<OpenClawPluginApi["registerTool"]>[0]) {
+      registerTool(tool: Parameters<GrantedPluginApi["registerTool"]>[0]) {
         registeredToolFactory = typeof tool === "function" ? tool : () => tool;
       },
       registerHttpRoute(params: RegisteredHttpRouteParams) {
@@ -603,7 +603,7 @@ describe("diffs plugin registration", () => {
       on,
     });
 
-    registerDiffsPlugin(api as unknown as OpenClawPluginApi);
+    registerDiffsPlugin(api as unknown as GrantedPluginApi);
 
     expect(on).toHaveBeenCalledTimes(1);
     const [hookName, beforePromptBuild] = firstMockCall(on, "plugin hook registration");
@@ -674,7 +674,7 @@ describe("diffs plugin registration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const proxiedRes = createMockServerResponse();
     const proxiedHandled = await registeredHttpRouteHandler?.(
@@ -700,13 +700,13 @@ describe("diffs plugin registration", () => {
       req: IncomingMessage,
       res: ServerResponse,
     ) => boolean | Promise<boolean>;
-    type RegisteredHttpRouteParams = Parameters<OpenClawPluginApi["registerHttpRoute"]>[0];
+    type RegisteredHttpRouteParams = Parameters<GrantedPluginApi["registerHttpRoute"]>[0];
 
     let registeredToolFactory:
-      | ((ctx: OpenClawPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
+      | ((ctx: GrantedPluginToolContext) => RegisteredTool | RegisteredTool[] | null | undefined)
       | undefined;
     let registeredHttpRouteHandler: HttpRouteHandler | undefined;
-    let configFile: OpenClawConfig = {
+    let configFile: GrantedConfig = {
       gateway: {
         port: 18789,
         bind: "loopback",
@@ -722,7 +722,7 @@ describe("diffs plugin registration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const blobStore = createMemoryBlobStore();
 
     const api = createTestPluginApi({
@@ -747,7 +747,7 @@ describe("diffs plugin registration", () => {
         },
         state: { openBlobStore: () => blobStore },
       } as never,
-      registerTool(tool: Parameters<OpenClawPluginApi["registerTool"]>[0]) {
+      registerTool(tool: Parameters<GrantedPluginApi["registerTool"]>[0]) {
         registeredToolFactory = typeof tool === "function" ? tool : () => tool;
       },
       registerHttpRoute(params: RegisteredHttpRouteParams) {
@@ -756,7 +756,7 @@ describe("diffs plugin registration", () => {
       on: vi.fn(),
     });
 
-    registerDiffsPlugin(api as unknown as OpenClawPluginApi);
+    registerDiffsPlugin(api as unknown as GrantedPluginApi);
 
     const registeredTool = registeredToolFactory?.({
       agentId: "main",
@@ -777,7 +777,7 @@ describe("diffs plugin registration", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const proxiedRes = createMockServerResponse();
     const proxiedHandled = await registeredHttpRouteHandler?.(
@@ -895,12 +895,12 @@ function createMemoryBlobStore<TMetadata>(): PluginBlobStore<TMetadata> {
   };
 }
 
-function createConfig(): OpenClawConfig {
+function createConfig(): GrantedConfig {
   return {
     browser: {
       executablePath: process.execPath,
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function localReq(input: {

@@ -1,15 +1,15 @@
 // Covers config scanning for agent harness runtime requirements.
 import { describe, expect, it } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { collectConfiguredAgentHarnessRuntimes as collectConfiguredAgentHarnessRuntimesBase } from "./harness-runtimes.js";
 
 function collectConfiguredAgentHarnessRuntimes(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options?: Parameters<typeof collectConfiguredAgentHarnessRuntimesBase>[1],
 ) {
   return collectConfiguredAgentHarnessRuntimesBase(
-    migratePersistedImplicitMainRoster(config).config as OpenClawConfig,
+    migratePersistedImplicitMainRoster(config).config as GrantedConfig,
     options,
   );
 }
@@ -25,7 +25,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual(["codex"]);
   });
@@ -37,7 +37,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           model: { fallbacks: ["openai/gpt-5.5"] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual(["codex"]);
   });
@@ -55,7 +55,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       collectConfiguredAgentHarnessRuntimes(config, {
@@ -79,7 +79,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual(["codex"]);
   });
@@ -94,7 +94,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual([]);
   });
@@ -118,7 +118,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual([]);
   });
@@ -143,7 +143,7 @@ describe("collectConfiguredAgentHarnessRuntimes", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(collectConfiguredAgentHarnessRuntimes(config)).toEqual(["claude"]);
   });

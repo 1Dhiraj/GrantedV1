@@ -18,7 +18,7 @@ import type {
   ChannelPlugin,
 } from "../channels/plugins/types.public.js";
 import { formatGatewayChannelsStatusLines } from "../commands/channels/status.runtime.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayNativeApprovalRuntime } from "../infra/approval-gateway-runtime.types.js";
 import { tryReadSecretFileSync } from "../infra/secret-file.js";
 import {
@@ -3196,7 +3196,7 @@ describe("server-channels auto restart", () => {
   it.each(["channel", "account"] as const)(
     "inspects and skips accounts disabled at %s scope without resolving inactive credentials",
     async (scope) => {
-      const resolveAccount = vi.fn((_cfg: OpenClawConfig, accountId?: string | null) => {
+      const resolveAccount = vi.fn((_cfg: GrantedConfig, accountId?: string | null) => {
         if (accountId === "missing") {
           throw new Error("unknown account");
         }
@@ -3254,7 +3254,7 @@ describe("server-channels auto restart", () => {
   it("keeps only the degraded channel account cold", async () => {
     const discordStart = vi.fn(async (_context: ChannelGatewayContext<TestAccount>) => {});
     const slackStart = vi.fn(async () => {});
-    const discordResolve = vi.fn((_cfg: OpenClawConfig, accountId?: string | null) => {
+    const discordResolve = vi.fn((_cfg: GrantedConfig, accountId?: string | null) => {
       if (accountId === "broken") {
         throw new Error("unresolved operational credential");
       }
@@ -3835,7 +3835,7 @@ describe("server-channels auto restart", () => {
   });
 
   it("monitors a healthy sibling without resolving disabled or blocked credentials", async () => {
-    const resolveAccount = vi.fn((_cfg: OpenClawConfig, accountId?: string | null) => {
+    const resolveAccount = vi.fn((_cfg: GrantedConfig, accountId?: string | null) => {
       if (accountId !== "healthy") {
         throw new Error("unresolved SecretRef");
       }

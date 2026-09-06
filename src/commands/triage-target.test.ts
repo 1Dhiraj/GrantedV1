@@ -17,7 +17,7 @@ import {
 } from "../config/io.js";
 import { pinRuntimePaths, resolveStateDir } from "../config/paths.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { sanitizeHostExecEnv } from "../infra/host-env-security.js";
 import {
   getInstallationTarget,
@@ -104,7 +104,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
     { name: "explicit sandbox", agent: { tools: { exec: { host: "sandbox" as const } } } },
   ])("refuses $name before the fixing turn, without changing ordinary exec", async ({ agent }) => {
     await withOpenClawTestState({ layout: "split" }, async (state) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           ownership: "explicit",
           defaults: { systemAgent: { agentId: "diagnostic" } },

@@ -7,7 +7,7 @@ import {
   appendExactAssistantMessageToSessionTranscript,
   type SessionTranscriptAssistantMessage,
 } from "../config/sessions/transcript.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   GRANTED_TRANSCRIPT_ARTIFACT_API,
   GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
@@ -40,7 +40,7 @@ export async function commitBackgroundResultToSession(params: {
   text: string;
   idempotencyKey: string;
   provenance: BackgroundSessionResultProvenance;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   signal?: AbortSignal;
 }): Promise<BackgroundSessionResultCommit> {
   const sessionKey = normalizeOptionalString(params.sessionKey);

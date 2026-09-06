@@ -1,6 +1,6 @@
 import type { AgentHarness, AgentHarnessRegistrationOptions } from "../agents/harness/types.js";
 import type { AnyAgentTool } from "../agents/tools/common.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { OperatorScope } from "../gateway/operator-scopes.js";
 import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
 import type { InternalHookHandler } from "../hooks/internal-hook-types.js";
@@ -58,19 +58,19 @@ import type {
   PluginConfigMigration,
   PluginSetupAutoEnableProbe,
 } from "./migration-provider.types.js";
-import type { OpenClawPluginCommandDefinition } from "./plugin-command.types.js";
+import type { GrantedPluginCommandDefinition } from "./plugin-command.types.js";
 import type {
-  OpenClawPluginChannelRegistration,
-  OpenClawPluginCliRegistrationOptions,
-  OpenClawPluginCliRegistrar,
-  OpenClawGatewayDiscoveryService,
-  OpenClawPluginHostedMediaResolver,
-  OpenClawPluginHttpRouteParams,
-  OpenClawPluginNodeCliFeatureOptions,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginService,
+  GrantedPluginChannelRegistration,
+  GrantedPluginCliRegistrationOptions,
+  GrantedPluginCliRegistrar,
+  GrantedGatewayDiscoveryService,
+  GrantedPluginHostedMediaResolver,
+  GrantedPluginHttpRouteParams,
+  GrantedPluginNodeCliFeatureOptions,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginReloadRegistration,
+  GrantedPluginSecurityAuditCollector,
+  GrantedPluginService,
   PluginInteractiveHandlerRegistration,
   PluginRegistrationMode,
   WidgetPresenter,
@@ -87,23 +87,23 @@ import type {
 import type { PluginRuntime } from "./runtime/types.js";
 import type { SessionCatalogProvider } from "./session-catalog.js";
 import type {
-  OpenClawPluginHookOptions,
-  OpenClawPluginToolFactory,
-  OpenClawPluginToolOptions,
+  GrantedPluginHookOptions,
+  GrantedPluginToolFactory,
+  GrantedPluginToolOptions,
 } from "./tool-types.js";
-import type { OpenClawPluginNodeHostCommand } from "./types.node-host.js";
+import type { GrantedPluginNodeHostCommand } from "./types.node-host.js";
 import type { WebFetchProviderPlugin, WebSearchProviderPlugin } from "./web-provider-types.js";
 
 type ChannelPlugin = import("../channels/plugins/types.plugin.js").ChannelPlugin;
 
 export type PluginTextTransformRegistration = PluginTextTransforms;
 
-type OpenClawPluginSessionStateApi = {
+type GrantedPluginSessionStateApi = {
   /** Register plugin-owned session state projected into Gateway session rows. */
   registerSessionExtension: (extension: PluginSessionExtensionRegistration) => void;
 };
 
-type OpenClawPluginSessionWorkflowApi = {
+type GrantedPluginSessionWorkflowApi = {
   /** Queue one plugin-owned context injection for the next agent turn in a session. */
   enqueueNextTurnInjection: (
     injection: PluginNextTurnInjection,
@@ -133,31 +133,31 @@ type OpenClawPluginSessionWorkflowApi = {
   ) => Promise<PluginSessionTurnUnscheduleByTagResult>;
 };
 
-type OpenClawPluginSessionControlsApi = {
+type GrantedPluginSessionControlsApi = {
   /** Register a typed session action that clients can dispatch through the Gateway. */
   registerSessionAction: (action: PluginSessionActionRegistration) => void;
   /** Register a generic Control UI contribution descriptor. */
   registerControlUiDescriptor: (descriptor: PluginControlUiDescriptor) => void;
 };
 
-type OpenClawPluginSessionApi = {
-  state: OpenClawPluginSessionStateApi;
-  workflow: OpenClawPluginSessionWorkflowApi;
-  controls: OpenClawPluginSessionControlsApi;
+type GrantedPluginSessionApi = {
+  state: GrantedPluginSessionStateApi;
+  workflow: GrantedPluginSessionWorkflowApi;
+  controls: GrantedPluginSessionControlsApi;
 };
 
-type OpenClawPluginAgentEventsApi = {
+type GrantedPluginAgentEventsApi = {
   /** Subscribe to sanitized agent events through the host-owned plugin lifecycle. */
   registerAgentEventSubscription: (subscription: PluginAgentEventSubscriptionRegistration) => void;
   /** Emit a host-routed, plugin-attributed event for workflow/UI subscribers. */
   emitAgentEvent: (params: PluginAgentEventEmitParams) => PluginAgentEventEmitResult;
 };
 
-type OpenClawPluginAgentApi = {
-  events: OpenClawPluginAgentEventsApi;
+type GrantedPluginAgentApi = {
+  events: GrantedPluginAgentEventsApi;
 };
 
-type OpenClawPluginRunContextApi = {
+type GrantedPluginRunContextApi = {
   /** Store namespaced, JSON-compatible data for the active run. Cleared on run end/error. */
   setRunContext: (patch: PluginRunContextPatch) => boolean;
   /** Read namespaced plugin data for a run. */
@@ -166,13 +166,13 @@ type OpenClawPluginRunContextApi = {
   clearRunContext: (params: { runId: string; namespace?: string }) => void;
 };
 
-type OpenClawPluginLifecycleApi = {
+type GrantedPluginLifecycleApi = {
   /** Register cleanup hooks for plugin-owned host state and background work. */
   registerRuntimeLifecycle: (lifecycle: PluginRuntimeLifecycleRegistration) => void;
 };
 
 /** Main registration API injected into native plugin entry files. */
-export type OpenClawPluginApi = {
+export type GrantedPluginApi = {
   id: string;
   name: string;
   version?: string;
@@ -180,7 +180,7 @@ export type OpenClawPluginApi = {
   source: string;
   rootDir?: string;
   registrationMode: PluginRegistrationMode;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginConfig?: Record<string, unknown>;
   /**
    * In-process runtime helpers for trusted native plugins.
@@ -194,32 +194,32 @@ export type OpenClawPluginApi = {
    * Grouped facade over the existing flat session-related plugin API.
    * Flat methods remain supported for compatibility.
    */
-  session: OpenClawPluginSessionApi;
+  session: GrantedPluginSessionApi;
   /** Grouped facade for agent-event workflow seams. */
-  agent: OpenClawPluginAgentApi;
+  agent: GrantedPluginAgentApi;
   /** Grouped facade for run-scoped plugin scratch state. */
-  runContext: OpenClawPluginRunContextApi;
+  runContext: GrantedPluginRunContextApi;
   /** Grouped facade for plugin-owned lifecycle cleanup hooks. */
-  lifecycle: OpenClawPluginLifecycleApi;
+  lifecycle: GrantedPluginLifecycleApi;
   registerTool: (
-    tool: AnyAgentTool | OpenClawPluginToolFactory,
-    opts?: OpenClawPluginToolOptions,
+    tool: AnyAgentTool | GrantedPluginToolFactory,
+    opts?: GrantedPluginToolOptions,
   ) => void;
   registerHook: (
     events: string | string[],
     handler: InternalHookHandler,
-    opts?: OpenClawPluginHookOptions,
+    opts?: GrantedPluginHookOptions,
   ) => void;
-  registerHttpRoute: (params: OpenClawPluginHttpRouteParams) => void;
+  registerHttpRoute: (params: GrantedPluginHttpRouteParams) => void;
   /** Register a plugin-owned resolver for browser-style hosted media URLs. */
-  registerHostedMediaResolver: (resolver: OpenClawPluginHostedMediaResolver) => void;
+  registerHostedMediaResolver: (resolver: GrantedPluginHostedMediaResolver) => void;
   /** Register a plugin-owned destination for presenting hosted widget documents. */
   registerWidgetPresenter: (presenter: WidgetPresenter) => void;
   /** Bind a declared MCP server's transport to the trusted message requester. */ registerMcpServerConnectionResolver: (
-    resolver: import("./types.mcp-connection.js").OpenClawPluginMcpServerConnectionResolver,
+    resolver: import("./types.mcp-connection.js").GrantedPluginMcpServerConnectionResolver,
   ) => void;
   /** Register a native messaging channel plugin (channel capability). */
-  registerChannel: (registration: OpenClawPluginChannelRegistration | ChannelPlugin) => void;
+  registerChannel: (registration: GrantedPluginChannelRegistration | ChannelPlugin) => void;
   /**
    * Register a gateway RPC method for this plugin.
    *
@@ -240,8 +240,8 @@ export type OpenClawPluginApi = {
   /** Register a read-only external-session catalog with optional native adoption actions. */
   registerSessionCatalog: (provider: SessionCatalogProvider) => void;
   registerCli: (
-    registrar: OpenClawPluginCliRegistrar,
-    opts?: OpenClawPluginCliRegistrationOptions,
+    registrar: GrantedPluginCliRegistrar,
+    opts?: GrantedPluginCliRegistrationOptions,
   ) => void;
   /**
    * Register a plugin-owned node feature command group under `openclaw nodes`.
@@ -250,16 +250,16 @@ export type OpenClawPluginApi = {
    * and is intended for paired-node capabilities such as camera, screen, or Canvas.
    */
   registerNodeCliFeature: (
-    registrar: OpenClawPluginCliRegistrar,
-    opts?: OpenClawPluginNodeCliFeatureOptions,
+    registrar: GrantedPluginCliRegistrar,
+    opts?: GrantedPluginNodeCliFeatureOptions,
   ) => void;
-  registerReload: (registration: OpenClawPluginReloadRegistration) => void;
-  registerNodeHostCommand: (command: OpenClawPluginNodeHostCommand) => void;
-  registerNodeInvokePolicy: (policy: OpenClawPluginNodeInvokePolicy) => void;
-  registerSecurityAuditCollector: (collector: OpenClawPluginSecurityAuditCollector) => void;
-  registerService: (service: OpenClawPluginService) => void;
+  registerReload: (registration: GrantedPluginReloadRegistration) => void;
+  registerNodeHostCommand: (command: GrantedPluginNodeHostCommand) => void;
+  registerNodeInvokePolicy: (policy: GrantedPluginNodeInvokePolicy) => void;
+  registerSecurityAuditCollector: (collector: GrantedPluginSecurityAuditCollector) => void;
+  registerService: (service: GrantedPluginService) => void;
   /** Register a local gateway discovery advertiser such as mDNS/Bonjour. */
-  registerGatewayDiscoveryService: (service: OpenClawGatewayDiscoveryService) => void;
+  registerGatewayDiscoveryService: (service: GrantedGatewayDiscoveryService) => void;
   /** Register a text-only CLI backend used by the local CLI runner. */
   registerCliBackend: (backend: CliBackendPlugin) => void;
   /** Register plugin-owned prompt/message compatibility text transforms. */
@@ -309,7 +309,7 @@ export type OpenClawPluginApi = {
    * Plugin commands are processed before built-in commands and before agent invocation.
    * Use this for simple state-toggling or status commands that don't need AI reasoning.
    */
-  registerCommand: (command: OpenClawPluginCommandDefinition) => void;
+  registerCommand: (command: GrantedPluginCommandDefinition) => void;
   /** Register a context engine implementation (exclusive slot - only one active at a time). */
   registerContextEngine: (id: string, factory: ContextEngineFactory) => void;
   /** Register a compaction provider (pluggable summarization backend). */

@@ -1,5 +1,5 @@
 import type {
-  OpenClawPluginApi,
+  GrantedPluginApi,
   ProviderAuthMethodNonInteractiveContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { CUSTOM_LOCAL_AUTH_MARKER } from "openclaw/plugin-sdk/provider-auth";
@@ -34,7 +34,7 @@ import { wrapLlamaServerStream } from "./external-server/stream.js";
 import { ensureManagedLlamaServerForChat } from "./managed-server.js";
 import { detectLlamaCppSetup, prepareLlamaCppSetup, runLlamaCppSetup } from "./setup.js";
 
-export function registerLlamaCppProvider(api: OpenClawPluginApi): void {
+export function registerLlamaCppProvider(api: GrantedPluginApi): void {
   api.registerProvider({
     id: LLAMA_CPP_PROVIDER_ID,
     label: LLAMA_CPP_PROVIDER_LABEL,

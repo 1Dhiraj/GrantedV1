@@ -1,11 +1,11 @@
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
 import {
   parseStrictPositiveInteger,
   resolveIntegerOption,
 } from "openclaw/plugin-sdk/number-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   asOptionalRecord,
   normalizeLowercaseStringOrEmpty,
@@ -121,13 +121,13 @@ function isReservedActiveMemoryToolsAllowEntry(value: string): boolean {
   return normalized.startsWith("group:") || ACTIVE_MEMORY_RESERVED_TOOLS_ALLOW.has(normalized);
 }
 
-function resolveDefaultToolsAllow(cfg: OpenClawConfig | undefined): string[] {
+function resolveDefaultToolsAllow(cfg: GrantedConfig | undefined): string[] {
   return cfg?.plugins?.slots?.memory === "memory-lancedb"
     ? [...LANCEDB_ACTIVE_MEMORY_TOOLS_ALLOW]
     : [...DEFAULT_ACTIVE_MEMORY_TOOLS_ALLOW];
 }
 
-function resolveToolsAllow(params: { pluginToolsAllow: unknown; cfg?: OpenClawConfig }): string[] {
+function resolveToolsAllow(params: { pluginToolsAllow: unknown; cfg?: GrantedConfig }): string[] {
   return (
     normalizeConfiguredToolsAllow(params.pluginToolsAllow) ?? resolveDefaultToolsAllow(params.cfg)
   );
@@ -156,7 +156,7 @@ function toSafeTranscriptAgentDirName(agentId: string): string {
   return encoded ? encoded : "unknown-agent";
 }
 
-function resolvePersistentTranscriptBaseDir(api: OpenClawPluginApi, agentId: string): string {
+function resolvePersistentTranscriptBaseDir(api: GrantedPluginApi, agentId: string): string {
   return path.join(
     api.runtime.state.resolveStateDir(),
     "plugins",
@@ -203,7 +203,7 @@ function isMissingRegisteredMemoryToolsError(
 
 function normalizePluginConfig(
   pluginConfig: unknown,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): ResolvedActiveRecallPluginConfig {
   const raw = (
     pluginConfig && typeof pluginConfig === "object" ? pluginConfig : {}
@@ -283,14 +283,14 @@ function normalizePluginConfig(
   };
 }
 
-function resolveActiveMemoryCleanupConfig(api: OpenClawPluginApi): OpenClawConfig | undefined {
+function resolveActiveMemoryCleanupConfig(api: GrantedPluginApi): GrantedConfig | undefined {
   try {
     return (
-      (api.runtime.config?.current?.() as OpenClawConfig | undefined) ??
-      (api.config as OpenClawConfig | undefined)
+      (api.runtime.config?.current?.() as GrantedConfig | undefined) ??
+      (api.config as GrantedConfig | undefined)
     );
   } catch {
-    return api.config as OpenClawConfig | undefined;
+    return api.config as GrantedConfig | undefined;
   }
 }
 

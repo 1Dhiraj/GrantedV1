@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
@@ -12,7 +12,7 @@ import {
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
-  OpenClawStateOwnershipError,
+  GrantedStateOwnershipError,
   STATE_SUPERVISION_KEY,
 } from "../state/openclaw-state-ownership.js";
 import {
@@ -41,7 +41,7 @@ afterEach(() => {
 const startupMigrationTempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 type StartupMigrationLeaseTestDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "schema_meta" | "state_leases"
 >;
 
@@ -449,7 +449,7 @@ describe("startup migration checkpoint", () => {
 
     try {
       expect(() => acquireStartupMigrationLease({ env, owner: "unmarked", nowMs: 1 })).toThrow(
-        OpenClawStateOwnershipError,
+        GrantedStateOwnershipError,
       );
     } finally {
       exec.mockRestore();

@@ -1,5 +1,5 @@
 // Legacy auth-choice alias handling for CLI/onboarding compatibility.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveManifestDeprecatedProviderAuthChoice } from "../plugins/provider-auth-choices.js";
 import type { AuthChoice } from "./onboard-types.js";
 
@@ -8,7 +8,7 @@ const LEGACY_REPLACEMENT_AUTH_CHOICES = new Set(["claude-cli"]);
 function resolveLegacyCliBackendChoice(
   choice: string,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },
@@ -27,7 +27,7 @@ function resolveReplacementLabel(choiceLabel: string): string {
 export function normalizeLegacyOnboardAuthChoice(
   authChoice: AuthChoice | undefined,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },
@@ -51,7 +51,7 @@ export function normalizeLegacyOnboardAuthChoice(
 export function isDeprecatedAuthChoice(
   authChoice: AuthChoice | undefined,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },
@@ -65,7 +65,7 @@ export function isDeprecatedAuthChoice(
 export function resolveDeprecatedAuthChoiceReplacement(
   authChoice: AuthChoice,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },
@@ -93,7 +93,7 @@ export function resolveDeprecatedAuthChoiceReplacement(
 export function formatDeprecatedNonInteractiveAuthChoiceError(
   authChoice: AuthChoice,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },

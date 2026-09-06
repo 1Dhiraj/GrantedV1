@@ -11,7 +11,7 @@ import {
   createModelVisibilityPolicy,
   type ModelVisibilityPolicy,
 } from "../../agents/model-visibility-policy.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 export { modelKey };
 export type { ModelAliasIndex };
 
@@ -225,7 +225,7 @@ export function resolveModelDirectiveSelection(params: {
   aliasIndex: ModelAliasIndex;
   allowedModelKeys: Set<string>;
   modelPolicy?: ModelVisibilityPolicy;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   rawRuntime?: string | undefined;
 }): { selection?: ModelDirectiveSelection; error?: string } {

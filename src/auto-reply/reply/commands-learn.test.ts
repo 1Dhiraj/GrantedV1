@@ -1,14 +1,14 @@
 // Tests /learn prompt rewriting, defaults, standards, and availability gating.
 import { describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { DEFAULT_LEARN_REQUEST } from "../../skills/workshop/learn-prompt.js";
 import { SKILL_AUTHORING_STANDARDS_PROMPT } from "../../skills/workshop/skill-authoring-standards.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";
 import { handleLearnCommand } from "./commands-learn.js";
 import type { HandleCommandsParams } from "./commands-types.js";
 
-const DEFAULT_TEST_MODELS: NonNullable<OpenClawConfig["models"]> = {
+const DEFAULT_TEST_MODELS: NonNullable<GrantedConfig["models"]> = {
   providers: {
     openai: {
       baseUrl: "https://api.openai.com/v1",
@@ -30,9 +30,9 @@ const DEFAULT_TEST_MODELS: NonNullable<OpenClawConfig["models"]> = {
 
 function buildLearnParams(
   commandBodyNormalized: string,
-  cfg: OpenClawConfig = {},
+  cfg: GrantedConfig = {},
 ): HandleCommandsParams {
-  const loadedConfig = migratePersistedImplicitMainRoster(cfg).config as OpenClawConfig;
+  const loadedConfig = migratePersistedImplicitMainRoster(cfg).config as GrantedConfig;
   return {
     cfg: { ...loadedConfig, models: loadedConfig.models ?? DEFAULT_TEST_MODELS },
     ctx: {

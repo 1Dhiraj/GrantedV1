@@ -1,6 +1,6 @@
 import { isIP } from "node:net";
 import { generateSecretKey, nip19 } from "nostr-tools";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   patchTopLevelChannelConfigSection,
   promptAccountId,
@@ -104,7 +104,7 @@ async function resolveRelayUrl(params: {
 }
 
 async function resolveSetupCredential(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   field: "privateKey" | "authTag";
 }): Promise<string | undefined> {
@@ -133,14 +133,14 @@ async function resolveSetupCredential(params: {
 }
 
 async function resolvePrivateKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   prompter: BuzzSetupPrompter;
   secretInputMode?: "plaintext" | "ref";
   generate: typeof generateSecretKey;
   generatedPrivateKeys: WeakMap<BuzzSetupPrompter, Map<string, string>>;
   runSecretStep: typeof runSingleChannelSecretStep;
-}): Promise<{ cfg: OpenClawConfig; resolvedPrivateKey: string }> {
+}): Promise<{ cfg: GrantedConfig; resolvedPrivateKey: string }> {
   const { allowEnv } = resolveBuzzAccountConfig(params);
   const currentPrivateKey = await resolveSetupCredential({ ...params, field: "privateKey" });
   if (currentPrivateKey) {

@@ -11,7 +11,7 @@ import {
   resolveStateDir,
 } from "../../config/paths.js";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ConfigFileSnapshot,
   GatewayBindMode,
   GatewayControlUiConfig,
@@ -105,8 +105,8 @@ type PortStatusSummary = {
 
 type DaemonConfigContext = {
   mergedDaemonEnv: Record<string, string | undefined>;
-  cliCfg: OpenClawConfig;
-  daemonCfg: OpenClawConfig;
+  cliCfg: GrantedConfig;
+  daemonCfg: GrantedConfig;
   cliConfigSummary: ConfigSummary;
   daemonConfigSummary: ConfigSummary;
   configMismatch: boolean;
@@ -114,7 +114,7 @@ type DaemonConfigContext = {
 
 type StatusConfigRead = {
   summary: ConfigSummary;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   mode: "fast" | "full";
 };
 
@@ -142,15 +142,15 @@ const loadGatewayTlsModule = createLazyPromise(() => import("../../infra/tls/gat
 const loadDaemonProbeModule = createLazyPromise(() => import("./probe.js"));
 const loadRestartHealthModule = createLazyPromise(() => import("./restart-health.js"));
 
-function resolveSnapshotRuntimeConfig(snapshot: ConfigFileSnapshot | null): OpenClawConfig | null {
+function resolveSnapshotRuntimeConfig(snapshot: ConfigFileSnapshot | null): GrantedConfig | null {
   if (!snapshot?.valid || !snapshot.runtimeConfig) {
     return null;
   }
   return snapshot.runtimeConfig;
 }
 
-function coerceStatusConfig(value: unknown): OpenClawConfig {
-  return asNonArrayRecord(value) as OpenClawConfig;
+function coerceStatusConfig(value: unknown): GrantedConfig {
+  return asNonArrayRecord(value) as GrantedConfig;
 }
 
 function hasOwnKey(value: unknown, key: string): boolean {
@@ -407,8 +407,8 @@ async function loadDaemonConfigContext(
 }
 
 async function resolveGatewayStatusSummary(params: {
-  daemonCfg: OpenClawConfig;
-  cliCfg: OpenClawConfig;
+  daemonCfg: GrantedConfig;
+  cliCfg: GrantedConfig;
   mergedDaemonEnv: Record<string, string | undefined>;
   commandProgramArguments?: string[];
   rpcUrlOverride?: string;
@@ -538,7 +538,7 @@ async function inspectEstablishedGatewayClients(params: {
 }
 
 function hasActiveGatewayExecProbeCredential(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   explicitAuth: { token?: string; password?: string };
   mode: "local" | "remote";

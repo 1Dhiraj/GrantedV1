@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { RequestScopedSubagentRuntimeError } from "openclaw/plugin-sdk/error-runtime";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import {
@@ -53,7 +53,7 @@ const originalDreamingTestFast = process.env.GRANTED_TEST_FAST;
 const originalDreamingStateDir = process.env.GRANTED_STATE_DIR;
 const memoryArtifactProvenanceMock = vi.mocked(listMemoryArtifactProvenance);
 memoryArtifactProvenanceMock.mockResolvedValue([]);
-const LIGHT_DREAMING_TEST_CONFIG: OpenClawConfig = {
+const LIGHT_DREAMING_TEST_CONFIG: GrantedConfig = {
   plugins: {
     entries: {
       "memory-core": {
@@ -242,7 +242,7 @@ async function seedDreamingSessionTranscript(params: {
 }
 
 function createHarness(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   workspaceDir?: string,
   subagent?: Parameters<typeof runDreamingSweepPhases>[0]["subagent"],
 ) {
@@ -433,7 +433,7 @@ function createDefaultStorageLightDreamingHarness(
   );
 }
 
-function createNarrativeDreamingSweepConfig(workspaceDir: string): OpenClawConfig {
+function createNarrativeDreamingSweepConfig(workspaceDir: string): GrantedConfig {
   return {
     ...LIGHT_DREAMING_TEST_CONFIG,
     agents: { defaults: { workspace: workspaceDir, userTimezone: "UTC" } },
@@ -808,7 +808,7 @@ describe("memory-core dreaming phases", () => {
       "utf-8",
     );
     const subagent = createMockNarrativeSubagent("A later routing note finally took the page.");
-    const testConfig: OpenClawConfig = {
+    const testConfig: GrantedConfig = {
       agents: {
         defaults: {
           workspace: workspaceDir,
@@ -1337,7 +1337,7 @@ describe("memory-core dreaming phases", () => {
       ],
     });
 
-    const excludedConfig: OpenClawConfig = {
+    const excludedConfig: GrantedConfig = {
       agents: { list: [{ id: "main", workspace: workspaceDir }] },
       plugins: {
         entries: {
@@ -1454,7 +1454,7 @@ describe("memory-core dreaming phases", () => {
       expect(await readCandidateSnippets(workspaceDir, new Date(nowMs).toISOString())).toContain(
         `User: ${claim}`,
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", workspace: workspaceDir }] },
         plugins: {
           entries: {
@@ -3034,7 +3034,7 @@ describe("memory-core dreaming phases", () => {
       "utf-8",
     );
 
-    const configForTest: OpenClawConfig = {
+    const configForTest: GrantedConfig = {
       plugins: {
         entries: {
           "memory-core": {

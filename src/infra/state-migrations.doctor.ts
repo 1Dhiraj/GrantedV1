@@ -16,7 +16,7 @@ import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
 import { migrateLegacyMainSessionKeys } from "../config/sessions/legacy-main-session-migration.js";
 import { isPerAgentSessionStoreConfig } from "../config/sessions/session-store-config.js";
 import { resolveConfiguredAgentDatabaseTargets } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   collectRelevantDoctorPluginIds,
@@ -37,7 +37,7 @@ import {
   detectOpenClawStateDatabaseSchemaMigrations,
   repairOpenClawStateDatabaseSchema,
   repairOpenClawStateDatabaseSchemaIfNeeded,
-  type OpenClawStateDatabaseSchemaMigration,
+  type GrantedStateDatabaseSchemaMigration,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
@@ -176,7 +176,7 @@ import {
   migrateLegacyWorkspaceState,
 } from "./state-migrations.workspace-setup.js";
 
-function describeStateSchemaMigration(migration: OpenClawStateDatabaseSchemaMigration): string {
+function describeStateSchemaMigration(migration: GrantedStateDatabaseSchemaMigration): string {
   switch (migration.kind) {
     case "agent-databases-composite-primary-key":
       return "agent database registry primary key → agent_id,path";
@@ -215,12 +215,12 @@ const autoMigrateChecked = new Set<string>();
 const DEFERRED_LEGACY_OWNER_MESSAGE =
   "Deferred legacy agent/session migration: select an agent owner";
 
-function tryResolveDoctorStateMigrationAgentId(cfg: OpenClawConfig): string | undefined {
+function tryResolveDoctorStateMigrationAgentId(cfg: GrantedConfig): string | undefined {
   const agentId = tryResolveAmbientOwnerAgentId(cfg);
   return agentId && listAgentIds(cfg).includes(agentId) ? agentId : undefined;
 }
 
-function tryResolveDoctorSessionMigrationAgentId(cfg: OpenClawConfig): string | undefined {
+function tryResolveDoctorSessionMigrationAgentId(cfg: GrantedConfig): string | undefined {
   return (
     tryResolveDoctorStateMigrationAgentId(cfg) ??
     (!isPerAgentSessionStoreConfig(cfg.session?.store)
@@ -240,7 +240,7 @@ function resolveConcreteBindingAccountId(value: unknown): string | undefined {
 async function detectManagedWorktreeStateMigration(params: {
   env: NodeJS.ProcessEnv;
   stateDir: string;
-  stateSchemaMigrations: readonly OpenClawStateDatabaseSchemaMigration[];
+  stateSchemaMigrations: readonly GrantedStateDatabaseSchemaMigration[];
   doctorOnlyStateMigrations?: boolean;
 }): Promise<LegacyStateDetection["worktrees"]> {
   const rawRoot = path.join(params.stateDir, "worktrees");
@@ -289,10 +289,10 @@ async function detectManagedWorktreeStateMigration(params: {
 }
 
 export async function detectLegacyStateMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   /** Legacy session file inspection belongs to Doctor, including its read-only preview. */
   mode?: "automatic" | "doctor";
-  pluginDoctorConfig?: OpenClawConfig;
+  pluginDoctorConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   homedir?: () => string;
   pluginSessionStoreAgentIds?: readonly string[];
@@ -874,8 +874,8 @@ type LegacyStateMigrationStep = {
 type LegacyStateMigrationPlan = {
   mode: "doctor" | "automatic";
   detected: LegacyStateDetection;
-  config: OpenClawConfig;
-  sessionConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  sessionConfig?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   now?: () => number;
   pluginSessionStoreAgentIds?: readonly string[];
@@ -1107,7 +1107,7 @@ async function runLegacyStateMigrationSteps(steps: readonly LegacyStateMigration
 
 export async function runLegacyStateMigrations(params: {
   detected: LegacyStateDetection;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   now?: () => number;
   recoverCorruptTargetStore?: boolean;
@@ -1116,7 +1116,7 @@ export async function runLegacyStateMigrations(params: {
 }): Promise<MigrationMessages> {
   const detected = params.detected;
   const env = params.env ?? process.env;
-  const config = params.config ?? ({} as OpenClawConfig);
+  const config = params.config ?? ({} as GrantedConfig);
   const legacySessionSurfaces = params.legacySessionSurfaces;
   const stateSchema = migrateLegacyStateSchema(detected, env);
   if (detected.stateSchema.hasLegacy && stateSchema.warnings.length > 0) {
@@ -1154,8 +1154,8 @@ export async function runLegacyStateMigrations(params: {
 
 /** Run canonical startup migrations and explicit Doctor-owned file repairs. */
 export async function autoMigrateLegacyState(params: {
-  cfg: OpenClawConfig;
-  pluginDoctorConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  pluginDoctorConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   homedir?: () => string;
   log?: MigrationLogger;

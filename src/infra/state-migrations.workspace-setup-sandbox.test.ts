@@ -13,7 +13,7 @@ import {
   listSessionEntryKeysReadOnly,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import {
   closeOpenClawAgentDatabasesForTest,
@@ -119,7 +119,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const sandboxLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "agent", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "agent:main:main",
@@ -186,7 +186,7 @@ describe("sandbox workspace Doctor migration", () => {
           },
           entries: { main: { default: true } },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const sandboxLayout = resolveSandboxWorkspaceLayoutPaths({
         cfg: { scope, workspaceAccess: "ro", workspaceRoot: sandboxRoot },
         rawSessionKey: "agent:main:telegram:direct:doctor-proof",
@@ -258,7 +258,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const layout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: sessionKey,
@@ -323,7 +323,7 @@ describe("sandbox workspace Doctor migration", () => {
           },
           entries: { main: { default: true } },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const sandboxLayout = resolveSandboxWorkspaceLayoutPaths({
         cfg: { scope: "agent", workspaceAccess, workspaceRoot: sandboxRoot },
         rawSessionKey: "agent:main:main",
@@ -369,7 +369,7 @@ describe("sandbox workspace Doctor migration", () => {
           writer: { sandbox: { workspaceAccess: "rw" } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const activeLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "agent:main:telegram:direct:doctor-proof",
@@ -471,7 +471,7 @@ describe("sandbox workspace Doctor migration", () => {
           "main-telegram": {},
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const resolveSetupPath = (rawSessionKey: string) => {
       const layout = resolveSandboxWorkspaceLayoutPaths({
         cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
@@ -533,7 +533,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const workspaceFor = (stateDir: string) =>
       resolveSandboxWorkspaceLayoutPaths({
         cfg: {
@@ -605,7 +605,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const requestedSession = "agent:main:telegram:direct:requested-profile";
     const ambientSession = "agent:main:slack:direct:ambient-profile";
     const workspaceFor = (sessionKey: string) =>
@@ -678,7 +678,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const activeLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "agent:main:telegram:direct:doctor-proof",
@@ -743,7 +743,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const sandboxLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "global",
@@ -800,7 +800,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const mainLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "session", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "agent:main:main",
@@ -873,7 +873,7 @@ describe("sandbox workspace Doctor migration", () => {
         },
         entries: { main: { default: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const sandboxLayout = resolveSandboxWorkspaceLayoutPaths({
       cfg: { scope: "agent", workspaceAccess: "ro", workspaceRoot: sandboxRoot },
       rawSessionKey: "agent:main:main",

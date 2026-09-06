@@ -2,7 +2,7 @@
 import { ChannelType } from "discord-api-types/v10";
 import type { dispatchChannelInboundTurn } from "openclaw/plugin-sdk/channel-inbound";
 import type { NativeCommandSpec } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { matchPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
 import * as dispatcherModule from "openclaw/plugin-sdk/reply-dispatch-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -30,7 +30,7 @@ function createInteraction(params?: { userId?: string }): MockCommandInteraction
   });
 }
 
-function createConfig(): OpenClawConfig {
+function createConfig(): GrantedConfig {
   return {
     commands: {
       allowFrom: {
@@ -52,11 +52,11 @@ function createConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createCommand(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   discordConfig?: DiscordAccountConfig,
   commandSpec: NativeCommandSpec = {
     name: "ping",
@@ -124,7 +124,7 @@ function firstDispatchReplyCall(): Parameters<
 
 async function runGuildSlashCommand(params?: {
   userId?: string;
-  mutateConfig?: (cfg: OpenClawConfig) => void;
+  mutateConfig?: (cfg: GrantedConfig) => void;
   runtimeDiscordConfig?: DiscordAccountConfig;
   commandSpec?: NativeCommandSpec;
   optionValues?: Record<string, string>;

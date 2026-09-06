@@ -53,10 +53,10 @@ function responseFromReader(params: {
 
 describe("web cache keys", () => {
   it("keeps case-sensitive request components distinct in cache keys", () => {
-    const upper = normalizeCacheKey(" fetch:https://example.com/get?marker=OpenClawCase ");
+    const upper = normalizeCacheKey(" fetch:https://example.com/get?marker=GrantedCase ");
     const lower = normalizeCacheKey("fetch:https://example.com/get?marker=openclawcase");
 
-    expect(upper).toBe("fetch:https://example.com/get?marker=OpenClawCase");
+    expect(upper).toBe("fetch:https://example.com/get?marker=GrantedCase");
     expect(lower).toBe("fetch:https://example.com/get?marker=openclawcase");
     expect(upper).not.toBe(lower);
   });

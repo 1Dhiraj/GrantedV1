@@ -12,7 +12,7 @@ import {
   formatUnknownChannelMessage,
   formatUnsupportedChannelActionMessage,
 } from "../../cli/error-format.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { callGateway } from "../../gateway/call.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
@@ -31,7 +31,7 @@ export type ChannelsRemoveOptions = {
 };
 
 function listAccountIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel: ChatChannel,
   pluginInput?: ChannelAccountMutationPlugin,
 ): string[] {
@@ -44,7 +44,7 @@ function listAccountIds(
 }
 
 async function stopGatewayRuntimeBeforeRemove(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: ChatChannel;
   accountId: string;
   shouldStopRuntime: boolean;
@@ -83,7 +83,7 @@ export async function channelsRemoveCommand(
     return;
   }
   const baseHash = configSnapshot.hash;
-  const cfg: OpenClawConfig = configSnapshot.sourceConfig;
+  const cfg: GrantedConfig = configSnapshot.sourceConfig;
 
   const useWizard = shouldUseWizard(params);
   const prompter = useWizard ? createClackPrompter() : null;

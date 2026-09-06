@@ -14,7 +14,7 @@ import {
   listSessionEntriesCore,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { GatewayTransportError } from "../gateway/transport-error.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
@@ -104,7 +104,7 @@ function gatewayTransportError(kind: "closed" | "timeout", code?: number): Gatew
   });
 }
 
-function resolveFixtureStoreAgentId(cfg: OpenClawConfig, deletedAgentId: string): string {
+function resolveFixtureStoreAgentId(cfg: GrantedConfig, deletedAgentId: string): string {
   const storeConfig = cfg.session?.store;
   if (typeof storeConfig === "string" && !storeConfig.includes("{agentId}")) {
     return (
@@ -119,7 +119,7 @@ function resolveFixtureStoreAgentId(cfg: OpenClawConfig, deletedAgentId: string)
 
 async function arrangeAgentsDeleteTest(params: {
   stateDir: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deletedAgentId?: string;
   sessions: Record<string, { sessionId: string; updatedAt: number }>;
 }) {
@@ -135,7 +135,7 @@ async function arrangeAgentsDeleteTest(params: {
     }
   }
   const { list: _legacyList, ...agents } = authored.agents ?? {};
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     ...authored,
     agents: { ...agents, entries: toAgentEntriesRecord(roster) },
   };
@@ -162,7 +162,7 @@ async function arrangeAgentsDeleteTest(params: {
 }
 
 function expectSessionStore(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   sessions: Record<string, { sessionId: string; updatedAt: number }>,
   agentId = "ops",
 ) {
@@ -225,14 +225,14 @@ describe("agents delete workspace lifecycle", () => {
   it("deletes workspace state after local workspace removal", async () => {
     await withStateDirEnv("openclaw-agents-delete-workspace-state-", async ({ stateDir }) => {
       const opsWorkspace = path.join(stateDir, "workspace-ops");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: path.join(stateDir, "workspace-main") },
             { id: "ops", workspace: opsWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({
         stateDir,
         cfg,
@@ -254,14 +254,14 @@ describe("agents delete workspace lifecycle", () => {
     await withStateDirEnv("openclaw-agents-delete-state-failure-", async ({ stateDir }) => {
       const opsWorkspace = path.join(stateDir, "workspace-ops");
       const opsAgentDir = path.join(stateDir, "agents", "ops", "agent");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: path.join(stateDir, "workspace-main") },
             { id: "ops", workspace: opsWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({ stateDir, cfg, deletedAgentId: "ops", sessions: {} });
       workspaceStateMocks.deleteWorkspaceState.mockImplementationOnce(() => {
         throw new Error("state database unavailable");
@@ -283,7 +283,7 @@ describe("agents delete workspace lifecycle", () => {
   it("refuses deleting the sole configured agent", async () => {
     await withStateDirEnv("openclaw-agents-delete-main-alias-", async ({ stateDir }) => {
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [{ id: "ops", default: true, workspace: path.join(stateDir, "workspace-ops") }],
         },
@@ -330,7 +330,7 @@ describe("agents delete workspace lifecycle", () => {
   it("preserves canonical main-agent keys when deleting another agent", async () => {
     await withStateDirEnv("openclaw-agents-delete-shared-store-", async ({ stateDir }) => {
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: path.join(stateDir, "shared-sessions.sqlite") },
         agents: {
           list: [
@@ -376,14 +376,14 @@ describe("agents delete workspace lifecycle", () => {
       await fs.mkdir(sharedWorkspace, { recursive: true });
 
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: sharedWorkspace },
             { id: "ops", workspace: sharedWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({
         stateDir,
         cfg,
@@ -419,14 +419,14 @@ describe("agents delete workspace lifecycle", () => {
       await fs.mkdir(childWorkspace, { recursive: true });
 
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: sharedWorkspace },
             { id: "ops", workspace: childWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({
         stateDir,
         cfg,
@@ -454,14 +454,14 @@ describe("agents delete workspace lifecycle", () => {
       await fs.mkdir(childWorkspace, { recursive: true });
 
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: childWorkspace },
             { id: "ops", workspace: sharedWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({
         stateDir,
         cfg,
@@ -492,14 +492,14 @@ describe("agents delete workspace lifecycle", () => {
         await fs.symlink(realWorkspace, aliasWorkspace, "dir");
 
         const now = Date.now();
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             list: [
               { id: "main", workspace: realWorkspace },
               { id: "ops", workspace: aliasWorkspace },
             ],
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         await arrangeAgentsDeleteTest({
           stateDir,
           cfg,
@@ -531,14 +531,14 @@ describe("agents delete workspace lifecycle", () => {
       await fs.mkdir(mainWorkspace, { recursive: true });
 
       const now = Date.now();
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: mainWorkspace },
             { id: "ops", workspace: opsWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({
         stateDir,
         cfg,
@@ -571,14 +571,14 @@ describe("agents delete workspace lifecycle", () => {
       const opsWorkspace = path.join(stateDir, "workspace-ops");
       const opsAgentDir = path.join(stateDir, "agents", "ops", "agent");
       const opsSessionsDir = path.join(stateDir, "agents", "ops", "sessions");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: path.join(stateDir, "workspace-main") },
             { id: "ops", workspace: opsWorkspace },
           ],
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await arrangeAgentsDeleteTest({ stateDir, cfg, sessions: {} });
       fsSafeMocks.movePathToTrash.mockRejectedValueOnce(new Error("trash unavailable"));
 

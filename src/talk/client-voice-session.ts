@@ -7,7 +7,7 @@ import {
 } from "../config/sessions/session-accessor.js";
 import { buildSessionCreationStamp } from "../config/sessions/session-entry-provenance.js";
 import { mergeSessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   onTrustedInternalDiagnosticEvent,
   onTrustedToolExecutionEvent,
@@ -282,7 +282,7 @@ export function registerClientVoiceConsultRun(params: {
   sessionKey: string;
   voiceSessionId: string;
   runId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): void {
   let recordClosed = false;
   runOpenClawAgentWriteTransaction(
@@ -453,7 +453,7 @@ function appendVoiceTranscript(params: {
   role: "user" | "assistant";
   text: string;
   timestamp?: number;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<void> {
   // Normalize before admission so the queued task retains only bounded text.
   const normalized = { ...params, text: normalizeVoiceTranscriptText(params.text) };
@@ -578,7 +578,7 @@ export function appendRelayVoiceTranscript(
   return appendVoiceTranscript({ ...params, origin: "relay" });
 }
 
-const mutationDigestDeliveryOwner = new ClientVoiceMutationDigestOwner<OpenClawConfig>({
+const mutationDigestDeliveryOwner = new ClientVoiceMutationDigestOwner<GrantedConfig>({
   attempt: async ({ agentId, voiceSessionId, context: config, signal }) => {
     const record = readRecord(agentId, voiceSessionId);
     if (!record) {
@@ -597,7 +597,7 @@ async function closeClientVoiceSessionInternal(params: {
   agentId: string;
   sessionKey: string;
   voiceSessionId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   transcriptFailurePolicy: "require-success" | "retain-and-close";
   now?: number;
 }): Promise<void> {
@@ -657,7 +657,7 @@ export async function closeClientVoiceSession(params: {
   agentId: string;
   sessionKey: string;
   voiceSessionId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   now?: number;
 }): Promise<void> {
   await closeVoiceSessionOperationOwner({
@@ -674,7 +674,7 @@ export async function closeRelayVoiceSessionRecord(params: {
   agentId: string;
   sessionKey: string;
   voiceSessionId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   now?: number;
 }): Promise<void> {
   await closeVoiceSessionOperationOwner({
@@ -686,7 +686,7 @@ export async function closeRelayVoiceSessionRecord(params: {
 /** Close abandoned open calls idle for the fixed six-hour recovery window. */
 export async function closeStaleClientVoiceSessions(params: {
   agentId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   excludeVoiceSessionId?: string;
   now?: number;
   warn?: (message: string) => void;

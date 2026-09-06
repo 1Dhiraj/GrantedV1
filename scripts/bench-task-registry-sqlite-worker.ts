@@ -2,7 +2,7 @@ import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { pathToFileURL } from "node:url";
 import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
-import type { DB as OpenClawStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
 import {
   WORKER_RESULT_SENTINEL,
   type MemorySample,
@@ -29,10 +29,7 @@ type TimingSample = {
   teardown: RegistrySnapshot;
 };
 
-type BenchmarkStateDatabase = Pick<
-  OpenClawStateKyselyDatabase,
-  "task_delivery_state" | "task_runs"
->;
+type BenchmarkStateDatabase = Pick<GrantedStateKyselyDatabase, "task_delivery_state" | "task_runs">;
 
 type TaskRecordApi = Pick<
   typeof import("../src/tasks/task-registry-record-api.js"),

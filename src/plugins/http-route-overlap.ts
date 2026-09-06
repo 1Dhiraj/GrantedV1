@@ -1,10 +1,10 @@
 /** Detects conflicting plugin HTTP routes before Gateway registration accepts them. */
 import { canonicalizePathVariant } from "../gateway/security-path.js";
-import type { OpenClawPluginHttpRouteMatch } from "./types.js";
+import type { GrantedPluginHttpRouteMatch } from "./types.js";
 
 type PluginHttpRouteLike = {
   path: string;
-  match: OpenClawPluginHttpRouteMatch;
+  match: GrantedPluginHttpRouteMatch;
 };
 
 type PluginHttpRouteRegistrationLike = PluginHttpRouteLike & {

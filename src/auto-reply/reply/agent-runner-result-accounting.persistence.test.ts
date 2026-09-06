@@ -11,7 +11,7 @@ import {
   replaceSessionEntry,
 } from "../../config/sessions/session-accessor.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   AgentTurnCompaction,
   AgentTurnExecutionResult,
@@ -77,7 +77,7 @@ async function createFixture() {
     estimatedCostUsd: 2,
   };
   await replaceSessionEntry({ storePath, sessionKey }, entry);
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     session: { store: storePath },
     models: {
       providers: {

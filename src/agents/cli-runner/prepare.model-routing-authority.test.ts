@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { configureExecutionDecisionWorkSink } from "../../audit/execution-decision-work.js";
 import type { ExecutionDecisionWork } from "../../audit/execution-decision-work.js";
 import { configureExecutionIdentityAdmissionSink } from "../../audit/execution-identity-admission.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createOperationalRunInstanceRef,
   prepareAgentRunAdmission,
@@ -25,7 +25,7 @@ import {
 
 const auditConfig = {
   logging: { audit: { executionIdentity: true } },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 type AuthorityLoss = "close" | "replace";
 type Producer = "normal" | "side-question";

@@ -6,7 +6,7 @@ import type {
   TextChunkMode,
 } from "openclaw/plugin-sdk/channel-outbound";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ReplyToMode,
   TelegramAccountConfig,
 } from "openclaw/plugin-sdk/config-contracts";
@@ -28,7 +28,7 @@ import type {
 export type DispatchTelegramMessageParams = {
   context: TelegramMessageContext;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   replyToMode: ReplyToMode;
   streamMode: TelegramStreamMode;

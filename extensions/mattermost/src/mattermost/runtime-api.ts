@@ -5,8 +5,8 @@ export type {
   ChannelDirectoryEntry,
   ChatType,
   HistoryEntry,
-  OpenClawConfig,
-  OpenClawPluginApi,
+  GrantedConfig,
+  GrantedPluginApi,
   ReplyPayload,
 } from "openclaw/plugin-sdk/core";
 export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";

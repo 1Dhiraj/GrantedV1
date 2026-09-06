@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isSqliteSchemaVersionError } from "../../../infra/sqlite-user-version.js";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../../../state/openclaw-state-db-contract.js";
 import { closeOpenClawStateDatabaseForTest } from "../../../state/openclaw-state-db.js";
@@ -19,7 +19,7 @@ import {
 } from "./legacy-repair.js";
 
 type FutureSchemaFixture = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   databasePath: string;
   storePath: string;
 };
@@ -65,7 +65,7 @@ async function createFixture(options: { futureSchema: boolean }): Promise<Future
   }
 
   return {
-    cfg: { cron: { store: storePath } } as OpenClawConfig,
+    cfg: { cron: { store: storePath } } as GrantedConfig,
     databasePath,
     storePath,
   };

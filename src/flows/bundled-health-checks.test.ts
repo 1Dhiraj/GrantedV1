@@ -3,7 +3,7 @@ import { linkSync, mkdirSync, realpathSync, rmSync, writeFileSync } from "node:f
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { MissingPublicSurfaceError } from "../plugin-sdk/facade-loader.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { loadPluginManifest } from "../plugins/manifest.js";
@@ -376,7 +376,7 @@ describe("registerBundledHealthChecks", () => {
     expect(mocks.registerWorkerProviderDoctorChecks).not.toHaveBeenCalled();
   });
 
-  const codexConfig: OpenClawConfig = {
+  const codexConfig: GrantedConfig = {
     agents: {
       defaults: {
         model: { primary: "openai/gpt-5.6-sol" },

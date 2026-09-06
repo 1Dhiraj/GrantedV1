@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getTaskById,
   listTaskRecordPage,
@@ -123,7 +123,7 @@ describe("listTaskRecordPage", () => {
         defaults: { sessionStore: { agentId: "ops" } },
         entries: { ops: {}, research: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       (

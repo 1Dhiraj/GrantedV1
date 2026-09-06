@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { ExecApprovalsFile } from "../infra/exec-approvals-core.js";
 import { saveExecApprovals } from "../infra/exec-approvals-store.js";
 import { testing as execApprovalsStoreTesting } from "../infra/exec-approvals-store.test-support.js";
@@ -163,7 +163,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
               },
             },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -176,7 +176,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
   }
 
   it("warns when exposed without auth", async () => {
-    const cfg = { gateway: { bind: "lan" } } as OpenClawConfig;
+    const cfg = { gateway: { bind: "lan" } } as GrantedConfig;
     const findings = await collectSecurityWarnings(cfg, {});
     expect(findings).toEqual([
       expect.objectContaining({
@@ -207,7 +207,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
 
   it("uses env token to avoid critical warning", async () => {
     process.env.GRANTED_GATEWAY_TOKEN = "token-123";
-    const cfg = { gateway: { bind: "lan" } } as OpenClawConfig;
+    const cfg = { gateway: { bind: "lan" } } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("WARNING");
@@ -223,7 +223,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           token: { source: "env", provider: "default", id: "GRANTED_GATEWAY_TOKEN" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("WARNING");
@@ -238,7 +238,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           token: "config-token-456",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("GRANTED_GATEWAY_TOKEN conflicts with gateway.auth.token");
@@ -248,7 +248,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
 
   it("does not warn when only env token is set without config token", async () => {
     process.env.GRANTED_GATEWAY_TOKEN = "env-token-only";
-    const cfg = { gateway: { bind: "lan" } } as OpenClawConfig;
+    const cfg = { gateway: { bind: "lan" } } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).not.toContain("GRANTED_GATEWAY_TOKEN overrides");
@@ -263,7 +263,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           token: "config-token-456",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).not.toContain("GRANTED_GATEWAY_TOKEN conflicts");
@@ -274,7 +274,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
     const cfg = {
       gateway: { auth: { token: "${GRANTED_GATEWAY_TOKEN}" } },
       secrets: { providers: { default: { source: "env" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).not.toContain("GRANTED_GATEWAY_TOKEN overrides");
@@ -288,7 +288,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         remote: { token: "remote-token" },
         auth: { token: "local-token" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).not.toContain("GRANTED_GATEWAY_TOKEN overrides");
@@ -297,20 +297,20 @@ describe("noteSecurityWarnings gateway exposure", () => {
   it("treats whitespace token as missing", async () => {
     const cfg = {
       gateway: { bind: "lan", auth: { mode: "token", token: "   " } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("CRITICAL");
   });
 
   it("skips warning for loopback bind", async () => {
-    const cfg = { gateway: { bind: "loopback" } } as OpenClawConfig;
+    const cfg = { gateway: { bind: "loopback" } } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     expect(note).not.toHaveBeenCalled();
   });
 
   it("treats unset bind as loopback for host-side doctor checks", async () => {
-    const cfg = { gateway: {} } as OpenClawConfig;
+    const cfg = { gateway: {} } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     expect(note).not.toHaveBeenCalled();
   });
@@ -323,12 +323,12 @@ describe("noteSecurityWarnings gateway exposure", () => {
         config: {
           listAccountIds: () => ["default", "secondary"],
           defaultAccountId: () => "default",
-          inspectAccount: (_cfg: OpenClawConfig, accountId: string) => ({
+          inspectAccount: (_cfg: GrantedConfig, accountId: string) => ({
             accountId,
             enabled: true,
             configured: true,
           }),
-          resolveAccount: (_cfg: OpenClawConfig, accountId: string) => ({ accountId }),
+          resolveAccount: (_cfg: GrantedConfig, accountId: string) => ({ accountId }),
           isEnabled: () => true,
           isConfigured: () => true,
         },
@@ -351,7 +351,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         },
       },
     ];
-    const cfg = { session: { dmScope: "main" } } as OpenClawConfig;
+    const cfg = { session: { dmScope: "main" } } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     expect(listReadOnlyChannelPluginsForConfigMock).toHaveBeenCalledWith(cfg, {
       includePersistedAuthState: true,
@@ -371,7 +371,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           enabled: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("disables approval forwarding only");
@@ -397,7 +397,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         },
       },
       async () => {
-        const findings = await collectSecurityWarnings({} as OpenClawConfig, {});
+        const findings = await collectSecurityWarnings({} as GrantedConfig, {});
         const finding = findings.find(
           (candidate) => candidate.checkId === "doctor.exec_approvals_require_cwd_renewal",
         );
@@ -415,7 +415,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         allow: ["read", "exec", "process"],
         deny: ["write", "edit", "apply_patch"],
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     const message = lastMessage();
     expect(message).toContain("filesystem write tools are disabled, but exec is still available");
@@ -438,7 +438,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         allow: ["read", "exec", "process"],
         deny: ["write", "edit", "apply_patch"],
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     const message = lastMessage();
     expect(message).not.toContain(
@@ -455,7 +455,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const findings = await collectSecurityWarnings(cfg, {});
     expect(findings).toEqual([
       expect.objectContaining({
@@ -486,7 +486,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const message = lastMessage();
     expect(message).toContain("plaintext secret-bearing config fields");
@@ -504,7 +504,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const message = lastMessage();
     expect(message).not.toContain("plaintext secret-bearing config fields");
@@ -524,7 +524,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const message = lastMessage();
     expect(message).toContain("plaintext secret-bearing config fields");
@@ -545,7 +545,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     const message = lastMessage();
     expect(message).not.toContain("plaintext secret-bearing config fields");
@@ -567,7 +567,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
               mode: "full",
             },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -594,7 +594,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
               mode: "full",
             },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -622,7 +622,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
               mode: "ask",
             },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -654,7 +654,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           agents: {
             entries: { runner: {} },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -690,7 +690,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           agents: {
             entries: { runner: {} },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -728,7 +728,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
               mode: "ask",
             },
           },
-        } as OpenClawConfig);
+        } as GrantedConfig);
       },
     );
 
@@ -745,7 +745,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain("Heartbeat defaults");
@@ -765,7 +765,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).toContain('Heartbeat agent "ops"');
@@ -792,7 +792,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
       },
     ];
 
-    await noteSecurityWarnings({} as OpenClawConfig);
+    await noteSecurityWarnings({} as GrantedConfig);
     expect(listReadOnlyChannelPluginsForConfigMock).toHaveBeenCalledWith(
       {},
       {
@@ -824,7 +824,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
     expect(message).not.toContain("Heartbeat defaults");

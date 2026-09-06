@@ -6,7 +6,7 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 
 export type ReservedKeyRename = { from: string; to: string };
 
@@ -27,7 +27,7 @@ type DynamicSharedStateDatabase = Record<string, Record<string, unknown>>;
 
 function listTuiLastSessionStateRows(database: DatabaseSync) {
   const db =
-    getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "config_machine_state">>(database);
+    getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "config_machine_state">>(database);
   return executeSqliteQuerySync(
     database,
     db
@@ -151,7 +151,7 @@ export function rewriteSharedStateSessionKeys(
     }
   }
   const stateDb =
-    getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "config_machine_state">>(database);
+    getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "config_machine_state">>(database);
   for (const row of listTuiLastSessionStateRows(database)) {
     const sessionKey: unknown = JSON.parse(row.value_json);
     const renamedKey = typeof sessionKey === "string" ? renames.get(sessionKey) : undefined;
@@ -187,7 +187,7 @@ function collectJsonStringValues(value: unknown, values: Set<string>): void {
 }
 
 export function readRepairJournal(database: DatabaseSync): ReservedKeyRename[] {
-  const db = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "state_leases">>(database);
+  const db = getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "state_leases">>(database);
   const row = executeSqliteQueryTakeFirstSync(
     database,
     db
@@ -230,7 +230,7 @@ export function writeRepairJournal(
   renames: readonly ReservedKeyRename[],
 ): void {
   const now = Date.now();
-  const db = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "state_leases">>(database);
+  const db = getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "state_leases">>(database);
   executeSqliteQuerySync(
     database,
     db
@@ -256,7 +256,7 @@ export function writeRepairJournal(
 }
 
 export function deleteRepairJournal(database: DatabaseSync): void {
-  const db = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "state_leases">>(database);
+  const db = getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "state_leases">>(database);
   executeSqliteQuerySync(
     database,
     db

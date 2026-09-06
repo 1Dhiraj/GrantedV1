@@ -16,7 +16,7 @@ import { buildReplyPromptEnvelope } from "../../../src/auto-reply/reply/prompt-p
 import type { TemplateContext } from "../../../src/auto-reply/templating.js";
 import { SILENT_REPLY_TOKEN } from "../../../src/auto-reply/tokens.js";
 import { normalizeChatType } from "../../../src/channels/chat-type.js";
-import type { OpenClawConfig } from "../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../src/config/types.openclaw.js";
 import type {
   AnyAgentTool,
   EmbeddedRunAttemptParams,
@@ -290,7 +290,7 @@ const CODEX_PROMPT_SNAPSHOT_THREAD_CONFIG = {
   "features.code_mode_only": false,
 };
 
-const baseConfig: OpenClawConfig = {
+const baseConfig: GrantedConfig = {
   messages: {
     groupChat: {
       visibleReplies: "message_tool",
@@ -306,7 +306,7 @@ const baseConfig: OpenClawConfig = {
   },
 };
 
-const dynamicToolsConfig: OpenClawConfig = {
+const dynamicToolsConfig: GrantedConfig = {
   ...baseConfig,
   plugins: {
     enabled: true,

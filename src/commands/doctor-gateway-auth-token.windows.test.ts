@@ -1,6 +1,6 @@
 // Windows Doctor service-token tests cover detailed SecretRef diagnostic rendering.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   resolveGatewayAuthToken: vi.fn(),
@@ -21,7 +21,7 @@ describe("resolveGatewayAuthTokenForService Windows diagnostics", () => {
     const privateCommand = String.raw`C:\private\gateway-token-provider.cmd`;
     const recovery =
       "Windows path security could not be verified. Restore Windows path security verification, or use an existing provider command whose owner and ACLs OpenClaw can verify.";
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         auth: {
           token: {

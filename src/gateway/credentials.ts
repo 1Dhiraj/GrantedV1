@@ -1,6 +1,6 @@
 // Gateway credential resolution.
 // Selects token/password credentials from explicit, env, local, and remote config inputs.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createGatewayCredentialPlan,
   type GatewayCredentialPlan,
@@ -271,7 +271,7 @@ function resolveRemoteGatewayCredentials(params: {
 
 /** Resolve Gateway credentials from config, explicit auth, URL overrides, and mode policy. */
 export function resolveGatewayCredentialsFromConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   explicitAuth?: ExplicitGatewayAuth;
   urlOverride?: string;
@@ -334,7 +334,7 @@ export function resolveGatewayCredentialsFromConfig(params: {
 
 /** Resolve the stricter credential view used by Gateway probe paths. */
 export function resolveGatewayProbeCredentialsFromConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   mode: GatewayCredentialMode;
   env?: NodeJS.ProcessEnv;
   explicitAuth?: ExplicitGatewayAuth;

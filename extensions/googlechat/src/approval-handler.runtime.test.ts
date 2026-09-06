@@ -2,7 +2,7 @@ import type {
   ExecApprovalPendingView,
   ResolvedApprovalView,
 } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
@@ -41,7 +41,7 @@ const account = {
   },
 } as ResolvedGoogleChatAccount;
 
-const cfg: OpenClawConfig = {
+const cfg: GrantedConfig = {
   channels: {
     googlechat: {
       serviceAccount: {

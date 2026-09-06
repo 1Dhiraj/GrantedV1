@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { formatSqliteSessionFileMarker } from "../config/sessions/legacy-sqlite-marker.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveUserPath } from "../utils.js";
 import { createPluginRecord } from "./loader-records.js";
 import { createPluginRegistry } from "./registry.js";
@@ -35,7 +35,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     api.registerAgentHarness({
       id: "openclaw",
@@ -80,7 +80,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
     const nativeCompaction = vi.fn(async () => ({ ok: true, compacted: true }));
 
     api.registerAgentHarness(
@@ -111,7 +111,7 @@ describe("plugin registry runtime config scope", () => {
         enabled: true,
         configSchema: false,
       });
-      const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+      const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
       api.registerAgentHarness(
         {
@@ -146,7 +146,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     api.registerAgentHarness(
       {
@@ -183,7 +183,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
     const absolute = path.resolve(pluginRoot, "..", "outside.txt");
 
     expect(api.resolvePath("data/cache.json")).toBe(path.join(pluginRoot, "data", "cache.json"));
@@ -207,7 +207,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     let thrown: unknown;
     try {
@@ -228,7 +228,7 @@ describe("plugin registry runtime config scope", () => {
     let currentScope = getPluginRuntimeGatewayRequestScope();
     let mutateScope = getPluginRuntimeGatewayRequestScope();
     let replaceScope = getPluginRuntimeGatewayRequestScope();
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const replaceResult = {
       path: "/tmp/openclaw.json",
       previousHash: null,
@@ -311,7 +311,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     await api.runtime.llm.acquireLocalService({
       providerId: "gpu-host",
@@ -354,7 +354,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     await api.runtime.nodes.list({ connected: true });
     await api.runtime.nodes.invoke({
@@ -398,7 +398,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
 
     await api.runtime.gateway.request("voicecall.start", { to: "+15550001234" });
 
@@ -444,8 +444,8 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as OpenClawConfig });
-    const otherApi = pluginRegistry.createApi(otherRecord, { config: {} as OpenClawConfig });
+    const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as GrantedConfig });
+    const otherApi = pluginRegistry.createApi(otherRecord, { config: {} as GrantedConfig });
     ownerApi.registerAgentHarness({
       id: "codex",
       label: "Codex",
@@ -506,7 +506,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
     api.registerCliBackend({ id: "claude-cli", config: { command: "claude" } });
     api.registerAgentHarness({
       id: "anthropic-harness",
@@ -571,7 +571,7 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const api = pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+    const api = pluginRegistry.createApi(record, { config: {} as GrantedConfig });
     const initialEntry = {
       acpBackendId: "acpx",
       acpSessionBinding: {
@@ -728,9 +728,9 @@ describe("plugin registry runtime config scope", () => {
       enabled: true,
       configSchema: false,
     });
-    const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as OpenClawConfig });
-    const otherApi = pluginRegistry.createApi(otherRecord, { config: {} as OpenClawConfig });
-    const voiceApi = pluginRegistry.createApi(voiceRecord, { config: {} as OpenClawConfig });
+    const ownerApi = pluginRegistry.createApi(ownerRecord, { config: {} as GrantedConfig });
+    const otherApi = pluginRegistry.createApi(otherRecord, { config: {} as GrantedConfig });
+    const voiceApi = pluginRegistry.createApi(voiceRecord, { config: {} as GrantedConfig });
     ownerApi.registerAgentHarness({
       id: "codex",
       label: "Codex",

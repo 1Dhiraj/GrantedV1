@@ -11,7 +11,7 @@
 //   - and accidental loss of the perf intent (re-introducing eager imports
 //     without updating the seam).
 
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { slackPlugin } from "./channel.js";
 import { setSlackRuntime } from "./runtime.js";
@@ -60,7 +60,7 @@ beforeEach(() => {
 
 function makeMinimalSlackConfig(
   opts: { botToken?: string; userToken?: string } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const slack: Record<string, unknown> = {};
   if (opts.botToken !== undefined) {
     slack.botToken = opts.botToken;
@@ -68,7 +68,7 @@ function makeMinimalSlackConfig(
   if (opts.userToken !== undefined) {
     slack.userToken = opts.userToken;
   }
-  return { channels: { slack } } as OpenClawConfig;
+  return { channels: { slack } } as GrantedConfig;
 }
 
 type MockWithCalls = {

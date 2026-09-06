@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openRootFileSync, readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { resolveRealpathOrAbsolute } from "../infra/boundary-path.js";
 import { isRenderableAvatarImageDataUrl } from "../shared/avatar-limits.js";
@@ -117,7 +117,7 @@ function openResolvedLocalAgentAvatarFile(
  * A successful caller owns `file.fd` and must close it exactly once.
  */
 export function openLocalAgentAvatarFile(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   source: string;
 }):
@@ -152,7 +152,7 @@ export function readOpenedLocalAgentAvatarDataUrl(
 
 /** Resolve one configured avatar source for agent-list projections. */
 export function resolveAgentAvatarUrlFromSource(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   source: string | null | undefined,
 ): string | undefined {

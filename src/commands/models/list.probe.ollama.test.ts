@@ -1,7 +1,7 @@
 // Ollama probe planning tests cover keyless runtime auth and provider-scoped catalog reads.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildProbeCandidateMap, selectProbeModel } from "./list.probe.models.js";
 
 const loadPreparedModelCatalog = vi.fn(
@@ -23,7 +23,7 @@ vi.mock("../../agents/model-auth.js", () => ({
     cfg,
     provider,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     provider: string;
   }) => {
     const configured = cfg.models?.providers?.[provider];
@@ -34,7 +34,7 @@ vi.mock("../../agents/model-auth.js", () => ({
       configured.baseUrl === "http://127.0.0.1:11434"
     );
   },
-  hasUsableCustomProviderApiKey: (cfg: OpenClawConfig, provider: string) =>
+  hasUsableCustomProviderApiKey: (cfg: GrantedConfig, provider: string) =>
     cfg.models?.providers?.[provider]?.apiKey === "ollama-local",
   resolveEnvApiKey: () => null,
   resolveProviderEntryApiKeyBinding: vi.fn(),
@@ -42,7 +42,7 @@ vi.mock("../../agents/model-auth.js", () => ({
     cfg,
     provider,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     provider: string;
   }) =>
     cfg.models?.providers?.[provider]?.apiKey === "ollama-local"
@@ -52,7 +52,7 @@ vi.mock("../../agents/model-auth.js", () => ({
     cfg,
     provider,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     provider: string;
   }) =>
     cfg.models?.providers?.[provider]?.apiKey === "ollama-local"
@@ -86,7 +86,7 @@ describe("Ollama probe targets", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const plan = await buildProbeTargets({
       cfg,
@@ -126,7 +126,7 @@ describe("Ollama probe targets", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const plan = await buildProbeTargets({
       cfg,

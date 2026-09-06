@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import {
   createManagedPluginArtifactConsentHandler,
@@ -7,7 +7,7 @@ import {
 import type { PluginInstallArtifactConsentHandler } from "./install-types.js";
 
 export function preparePluginUpdateCapabilityConsent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   record: PluginInstallRecord;
   installPath: string;

@@ -3,7 +3,7 @@ import { afterEach, describe, it } from "vitest";
 import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/openclaw-agent-db.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 import {
   type CodexAuthMigrationShape,
@@ -26,7 +26,7 @@ const cells: MigrationCell[] = [
   },
 ];
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 
 afterEach(async () => {
   closeOpenClawAgentDatabasesForTest();

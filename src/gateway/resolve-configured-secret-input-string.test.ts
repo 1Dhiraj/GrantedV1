@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withMockedWindowsAclVerificationUnavailable } from "../test-utils/vitest-spies.js";
 import {
   resolveConfiguredSecretInputWithFallback,
@@ -22,7 +22,7 @@ afterAll(async () => {
   await fs.rm(fixtureRoot, { recursive: true, force: true });
 });
 
-function createConfig(value: unknown): OpenClawConfig {
+function createConfig(value: unknown): GrantedConfig {
   return {
     gateway: {
       auth: {
@@ -34,7 +34,7 @@ function createConfig(value: unknown): OpenClawConfig {
         default: { source: "env" },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function createWindowsAclUnavailableConfig() {
@@ -53,7 +53,7 @@ async function createWindowsAclUnavailableConfig() {
           filemain: { source: "file", path: filePath, mode: "singleValue" },
         },
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
   };
 }
 

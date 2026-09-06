@@ -17,7 +17,7 @@ import { describeBinding } from "../commands/agents.binding-format.js";
 import { mergeAccountConfig } from "../config/channel-account-config.js";
 import { hasUnresolvedConfigPath } from "../config/resolution-facts.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { AgentToolsConfig } from "../config/types.tools.js";
 import { resolveGatewayAuthForConfig, type ResolvedGatewayAuth } from "../gateway/auth-resolve.js";
 import { resolveAllowedAgentIds } from "../gateway/hooks-policy.js";
@@ -77,7 +77,7 @@ function isProbablySyncedPath(p: string): boolean {
   );
 }
 
-function isGatewayRemotelyExposed(cfg: OpenClawConfig): boolean {
+function isGatewayRemotelyExposed(cfg: GrantedConfig): boolean {
   const bind = typeof cfg.gateway?.bind === "string" ? cfg.gateway.bind : "loopback";
   if (bind !== "loopback") {
     return true;
@@ -210,8 +210,8 @@ function isWildcardEntry(value: unknown): boolean {
   return normalizeStringifiedOptionalString(value) === "*";
 }
 
-function listKnownNodeCommands(cfg: OpenClawConfig): Set<string> {
-  const baseCfg: OpenClawConfig = {
+function listKnownNodeCommands(cfg: GrantedConfig): Set<string> {
+  const baseCfg: GrantedConfig = {
     ...cfg,
     gateway: {
       ...cfg.gateway,
@@ -363,7 +363,7 @@ function suggestKnownNodeCommands(unknown: string, known: Set<string>): string[]
     .map((r) => r.cmd);
 }
 
-function listOpenInboundPolicies(cfg: OpenClawConfig): string[] {
+function listOpenInboundPolicies(cfg: GrantedConfig): string[] {
   const out: string[] = [];
   const channels = cfg.channels as Record<string, unknown> | undefined;
   if (!channels || typeof channels !== "object") {
@@ -413,7 +413,7 @@ function hasConfiguredGroupTargets(section: Record<string, unknown>): boolean {
   });
 }
 
-function listPotentialMultiUserSignals(cfg: OpenClawConfig): string[] {
+function listPotentialMultiUserSignals(cfg: GrantedConfig): string[] {
   const out = new Set<string>();
   const channels = cfg.channels as Record<string, unknown> | undefined;
   if (!channels || typeof channels !== "object") {
@@ -490,7 +490,7 @@ type AuditAgentToolContext = {
   tools?: AgentToolsConfig;
 };
 
-function listAuditAgentToolContexts(cfg: OpenClawConfig): AuditAgentToolContext[] {
+function listAuditAgentToolContexts(cfg: GrantedConfig): AuditAgentToolContext[] {
   const contexts: AuditAgentToolContext[] = [{ label: "agents.defaults" }];
   for (const agent of listAgentEntries(cfg)) {
     if (!agent || typeof agent !== "object" || typeof agent.id !== "string") {
@@ -505,7 +505,7 @@ function listAuditAgentToolContexts(cfg: OpenClawConfig): AuditAgentToolContext[
   return contexts;
 }
 
-function collectRiskyToolExposureContexts(cfg: OpenClawConfig): {
+function collectRiskyToolExposureContexts(cfg: GrantedConfig): {
   riskyContexts: string[];
   hasRuntimeRisk: boolean;
 } {
@@ -544,7 +544,7 @@ function collectRiskyToolExposureContexts(cfg: OpenClawConfig): {
   return { riskyContexts, hasRuntimeRisk };
 }
 
-function collectControlPlaneToolExposureContexts(cfg: OpenClawConfig): string[] {
+function collectControlPlaneToolExposureContexts(cfg: GrantedConfig): string[] {
   const exposedContexts: string[] = [];
   for (const context of listAuditAgentToolContexts(cfg)) {
     const sandboxMode = resolveSandboxConfigForAgent(cfg, context.agentId).mode;
@@ -589,7 +589,7 @@ export function collectSyncedFolderFindings(params: {
   return findings;
 }
 
-export function collectSecretsInConfigFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectSecretsInConfigFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const password = normalizeOptionalString(cfg.gateway?.auth?.password) ?? "";
   if (password && !hasUnresolvedConfigPath(cfg, "gateway.auth.password")) {
@@ -619,7 +619,7 @@ export function collectSecretsInConfigFindings(cfg: OpenClawConfig): SecurityAud
 }
 
 export function collectHooksHardeningFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
   options: HooksHardeningAuditOptions = {},
 ): SecurityAuditFinding[] {
@@ -738,7 +738,7 @@ export function collectHooksHardeningFindings(
 }
 
 export function collectGatewayHttpSessionKeyOverrideFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const chatCompletionsEnabled = cfg.gateway?.http?.endpoints?.chatCompletions?.enabled === true;
@@ -765,7 +765,7 @@ export function collectGatewayHttpSessionKeyOverrideFindings(
 }
 
 export function collectGatewayHttpNoAuthFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
   options: GatewayHttpNoAuthAuditOptions = {},
 ): SecurityAuditFinding[] {
@@ -806,7 +806,7 @@ export function collectGatewayHttpNoAuthFindings(
   return findings;
 }
 
-export function collectSandboxDockerNoopFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectSandboxDockerNoopFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const configuredPaths: string[] = [];
   const agents = listAgentEntries(cfg);
@@ -856,7 +856,7 @@ export function collectSandboxDockerNoopFindings(cfg: OpenClawConfig): SecurityA
   return findings;
 }
 
-export function collectSandboxDangerousConfigFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectSandboxDangerousConfigFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const agents = listAgentEntries(cfg);
 
@@ -968,7 +968,7 @@ export function collectSandboxDangerousConfigFindings(cfg: OpenClawConfig): Secu
   return findings;
 }
 
-export function collectNodeDenyCommandPatternFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectNodeDenyCommandPatternFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const denyListRaw = cfg.gateway?.nodes?.commands?.deny;
   if (!Array.isArray(denyListRaw) || denyListRaw.length === 0) {
@@ -1028,7 +1028,7 @@ export function collectNodeDenyCommandPatternFindings(cfg: OpenClawConfig): Secu
 }
 
 export function collectNodeDangerousAllowCommandFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const allowRaw = cfg.gateway?.nodes?.commands?.allow;
@@ -1065,7 +1065,7 @@ export function collectNodeDangerousAllowCommandFindings(
   return findings;
 }
 
-export function collectMinimalProfileOverrideFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectMinimalProfileOverrideFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   if (cfg.tools?.profile !== "minimal") {
     return findings;
@@ -1101,7 +1101,7 @@ export function collectMinimalProfileOverrideFindings(cfg: OpenClawConfig): Secu
   return findings;
 }
 
-export function collectModelHygieneFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectModelHygieneFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const models = collectAuditModelRefs(cfg);
   if (models.length === 0) {
@@ -1186,7 +1186,7 @@ export function collectModelHygieneFindings(cfg: OpenClawConfig): SecurityAuditF
   return findings;
 }
 
-export function collectExposureMatrixFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectExposureMatrixFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const openInboundPolicies = listOpenInboundPolicies(cfg);
   if (openInboundPolicies.length === 0) {
@@ -1241,7 +1241,7 @@ export function collectExposureMatrixFindings(cfg: OpenClawConfig): SecurityAudi
   return findings;
 }
 
-export function collectLikelyMultiUserSetupFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+export function collectLikelyMultiUserSetupFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const mainGroupScopes = listEffectiveGroupRouteBindings(cfg)
     .filter((binding) => binding.session?.groupScope === "main")

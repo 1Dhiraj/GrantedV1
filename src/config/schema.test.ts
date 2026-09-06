@@ -7,7 +7,7 @@ import { applyDerivedTags } from "./schema.tags.js";
 import { applyResolvedConfigTierHints } from "./schema.tiers.js";
 import { validateConfigObjectRaw } from "./validation.js";
 import { ToolsSchema } from "./zod-schema.agent-runtime.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
 describe("config schema", () => {
   type SchemaInput = NonNullable<Parameters<typeof buildConfigSchemaCore>[0]>;
@@ -175,7 +175,7 @@ describe("config schema", () => {
   });
 
   it("rejects retired status reaction emoji overrides", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       messages: {
         statusReactions: {
           emojis: {
@@ -217,7 +217,7 @@ describe("config schema", () => {
   });
 
   it("accepts node-host MCP servers with the shared MCP server schema", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       nodeHost: {
         mcp: {
           servers: {
@@ -231,7 +231,7 @@ describe("config schema", () => {
       },
     });
     expect(result.success).toBe(true);
-    const invalid = OpenClawSchema.safeParse({
+    const invalid = GrantedSchema.safeParse({
       nodeHost: { mcp: { servers: { broken: { transport: "stdio" } } } },
     });
     expect(invalid.success).toBe(false);
@@ -245,7 +245,7 @@ describe("config schema", () => {
   it("rejects blank or whitespace-padded node-host MCP server names", () => {
     for (const serverName of ["", "  ", " docs "]) {
       expect(() =>
-        OpenClawSchema.parse({
+        GrantedSchema.parse({
           nodeHost: { mcp: { servers: { [serverName]: { command: "server" } } } },
         }),
       ).toThrow(/MCP server name must be non-empty and must not have surrounding whitespace/);
@@ -257,7 +257,7 @@ describe("config schema", () => {
       '{"mcp":{"servers":{"__proto__":{"command":"server"}}}}',
       '{"nodeHost":{"mcp":{"servers":{"__proto__":{"command":"server"}}}}}',
     ]) {
-      const result = OpenClawSchema.safeParse(JSON.parse(raw));
+      const result = GrantedSchema.safeParse(JSON.parse(raw));
       expect(result.success).toBe(false);
       if (!result.success) {
         expect(result.error.issues).toContainEqual(
@@ -270,7 +270,7 @@ describe("config schema", () => {
 
     for (const serverName of ["docs", "_internal"]) {
       expect(
-        OpenClawSchema.safeParse({
+        GrantedSchema.safeParse({
           mcp: { servers: { [serverName]: { command: "server" } } },
           nodeHost: { mcp: { servers: { [serverName]: { command: "server" } } } },
         }).success,
@@ -303,7 +303,7 @@ describe("config schema", () => {
 
   it("rejects empty Codex MCP agent scopes", () => {
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             scoped: {
@@ -316,7 +316,7 @@ describe("config schema", () => {
       }),
     ).toThrow();
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             scoped: {
@@ -329,7 +329,7 @@ describe("config schema", () => {
       }),
     ).toThrow();
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             scoped: {
@@ -345,7 +345,7 @@ describe("config schema", () => {
 
   it("validates MCP OAuth client metadata URLs against the SDK contract", () => {
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             docs: {
@@ -365,7 +365,7 @@ describe("config schema", () => {
       "https://client.example.com/",
     ]) {
       expect(() =>
-        OpenClawSchema.parse({
+        GrantedSchema.parse({
           mcp: {
             servers: {
               docs: {
@@ -383,7 +383,7 @@ describe("config schema", () => {
 
   it("accepts MCP OAuth auth profile bindings for refreshable bearer projection", () => {
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             ducktape: {
@@ -399,7 +399,7 @@ describe("config schema", () => {
       }),
     ).not.toThrow();
     expect(() =>
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         mcp: {
           servers: {
             ducktape: {
@@ -419,7 +419,7 @@ describe("config schema", () => {
   it("validates MCP OAuth credential identity", () => {
     for (const identity of ["shared", "per-requester"] as const) {
       expect(
-        OpenClawSchema.safeParse({
+        GrantedSchema.safeParse({
           mcp: {
             servers: {
               docs: {
@@ -433,7 +433,7 @@ describe("config schema", () => {
       ).toBe(true);
     }
 
-    const missingAuth = OpenClawSchema.safeParse({
+    const missingAuth = GrantedSchema.safeParse({
       mcp: {
         servers: {
           docs: {
@@ -455,7 +455,7 @@ describe("config schema", () => {
     );
 
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         mcp: {
           servers: {
             docs: {
@@ -468,7 +468,7 @@ describe("config schema", () => {
       }).success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         mcp: {
           servers: {
             docs: {
@@ -482,7 +482,7 @@ describe("config schema", () => {
     ).toBe(false);
     // URL plus command resolves stdio and would strand the server silently.
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         mcp: {
           servers: {
             docs: {
@@ -496,7 +496,7 @@ describe("config schema", () => {
       }).success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         mcp: {
           servers: {
             docs: {
@@ -520,7 +520,7 @@ describe("config schema", () => {
       "http://127.0.0.1:18789",
       "http://[::1]:18789",
     ]) {
-      expect(OpenClawSchema.safeParse({ gateway: { publicOrigin } }).success).toBe(true);
+      expect(GrantedSchema.safeParse({ gateway: { publicOrigin } }).success).toBe(true);
     }
     // Built via URL so no credential-shaped literal lands in source (secret scanners).
     const userinfoOrigin = new URL("https://gateway.example.com");
@@ -533,12 +533,12 @@ describe("config schema", () => {
       userinfoOrigin.href,
       "data:text/html,hello",
     ]) {
-      expect(OpenClawSchema.safeParse({ gateway: { publicOrigin } }).success).toBe(false);
+      expect(GrantedSchema.safeParse({ gateway: { publicOrigin } }).success).toBe(false);
     }
   });
 
   it("accepts stdio transport for command-bearing MCP servers", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       mcp: {
         servers: {
           myTool: {
@@ -555,7 +555,7 @@ describe("config schema", () => {
   it("rejects unsupported transport values for MCP servers", () => {
     for (const transport of ["tcp", "websocket", "grpc", ""]) {
       expect(() =>
-        OpenClawSchema.parse({
+        GrantedSchema.parse({
           mcp: {
             servers: {
               bad: {
@@ -570,7 +570,7 @@ describe("config schema", () => {
   });
 
   it("rejects stdio transport for URL-only MCP servers (command required)", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       mcp: {
         servers: {
           bad: {
@@ -584,7 +584,7 @@ describe("config schema", () => {
   });
 
   it("rejects stdio transport with whitespace-only command", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       mcp: {
         servers: {
           bad: {
@@ -925,7 +925,7 @@ describe("config schema", () => {
   });
 
   it("keeps per-agent model overrides limited to model selection", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       agents: {
         entries: {
           main: {
@@ -942,7 +942,7 @@ describe("config schema", () => {
   });
 
   it("rejects per-agent subagent model timeout config", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       agents: {
         entries: {
           main: {
@@ -968,7 +968,7 @@ describe("config schema", () => {
     });
     expect(tools?.exec?.commandHighlighting).toBe(false);
 
-    const config = OpenClawSchema.parse({
+    const config = GrantedSchema.parse({
       agents: {
         entries: {
           main: {
@@ -1000,7 +1000,7 @@ describe("config schema", () => {
       primary: "openrouter/anthropic/claude-sonnet-4-6",
     });
 
-    const config = OpenClawSchema.parse({
+    const config = GrantedSchema.parse({
       agents: {
         entries: {
           main: {
@@ -1030,7 +1030,7 @@ describe("config schema", () => {
     ).toBe(false);
 
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         agents: {
           list: [
             {
@@ -1087,7 +1087,7 @@ describe("config schema", () => {
   });
 
   it("accepts install policy exec config in the runtime zod schema", () => {
-    const parsed = OpenClawSchema.parse({
+    const parsed = GrantedSchema.parse({
       security: {
         installPolicy: {
           enabled: true,

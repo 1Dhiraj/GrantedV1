@@ -4,7 +4,7 @@
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { getRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderSyntheticAuthWithPlugin } from "../plugins/provider-runtime.js";
 import { resolveRuntimeSyntheticAuthProviderRefState } from "../plugins/synthetic-auth.runtime.js";
 import { mintSecretSentinel } from "../secrets/sentinel.js";
@@ -30,7 +30,7 @@ export type RuntimeProviderAuthLookup = {
 
 /** Builds stable env/synthetic auth lookup data for repeated provider checks. */
 export function createRuntimeProviderAuthLookup(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   includePluginSyntheticAuth?: boolean;
@@ -98,7 +98,7 @@ function resolveRuntimeEnvApiKeyLookupOptions(params: {
 }
 
 function listProviderSyntheticAuthRefs(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   modelApi?: string;
 }): string[] {
@@ -114,7 +114,7 @@ function listProviderSyntheticAuthRefs(params: {
 }
 
 function shouldResolvePluginSyntheticAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   modelApi?: string;
   runtimeLookup?: RuntimeProviderAuthLookup;
@@ -135,7 +135,7 @@ function shouldResolvePluginSyntheticAuth(params: {
 /** Fast auth-availability check for runtime provider/model selection. */
 export function hasRuntimeAvailableProviderAuth(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   allowPluginSyntheticAuth?: boolean;
@@ -236,7 +236,7 @@ type SyntheticProviderAuthResolution = {
 };
 
 function resolveProviderSyntheticRuntimeAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   modelApi?: string;
   secretSentinels?: boolean;
@@ -250,7 +250,7 @@ function resolveProviderSyntheticRuntimeAuth(params: {
   }
 
   const resolveFromConfig = (
-    config: OpenClawConfig | undefined,
+    config: GrantedConfig | undefined,
   ): ResolvedProviderAuth | undefined => {
     const providerConfig = authConfig.resolveProviderConfig(config, params.provider);
     return (
@@ -298,7 +298,7 @@ function resolveProviderSyntheticRuntimeAuth(params: {
 }
 
 export function resolveSyntheticLocalProviderAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   modelApi?: string;
   secretSentinels?: boolean;

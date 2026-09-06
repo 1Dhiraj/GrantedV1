@@ -4,7 +4,7 @@ import {
   resolveChannelGroupPolicy,
   resolveScopeRequireMention,
 } from "openclaw/plugin-sdk/channel-policy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
@@ -328,7 +328,7 @@ export function createTelegramBotCore(
   });
   const mediaMaxBytes = (opts.mediaMaxMb ?? telegramCfg.mediaMaxMb ?? 100) * 1024 * 1024;
   const logger = getChildLogger({ module: "telegram-auto-reply" });
-  const resolveGroupPolicy = (chatId: string | number, turnCfg: OpenClawConfig) =>
+  const resolveGroupPolicy = (chatId: string | number, turnCfg: GrantedConfig) =>
     resolveChannelGroupPolicy({
       cfg: turnCfg,
       channel: "telegram",
@@ -338,7 +338,7 @@ export function createTelegramBotCore(
   const resolveGroupActivation = (params: {
     agentId?: string;
     sessionKey: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
   }) => {
     const agentId = params.agentId ?? ownerAgentId;
     const storePath = telegramDeps.resolveStorePath(params.cfg.session?.store, { agentId });
@@ -366,7 +366,7 @@ export function createTelegramBotCore(
     }
     return undefined;
   };
-  const resolveGroupRequireMention = (chatId: string | number, turnCfg: OpenClawConfig) =>
+  const resolveGroupRequireMention = (chatId: string | number, turnCfg: GrantedConfig) =>
     resolveScopeRequireMention({
       tree: buildChannelGroupsScopeTree(turnCfg, "telegram", account.accountId),
       path: [String(chatId)],
@@ -376,7 +376,7 @@ export function createTelegramBotCore(
   const resolveTelegramGroupConfig = (
     chatId: string | number,
     messageThreadId: number | undefined,
-    turnCfg: OpenClawConfig,
+    turnCfg: GrantedConfig,
   ) => {
     const turnTelegramCfg = resolveTelegramAccount({
       cfg: turnCfg,

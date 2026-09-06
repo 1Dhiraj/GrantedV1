@@ -24,7 +24,7 @@ import { parseSessionDiffPatch, type ParsedFilePatch } from "../../../lib/chat/s
 import type { DiffLine } from "../../../lib/chat/tool-call-diff.ts";
 import { openEditor } from "../../../lib/editor-links.ts";
 import { formatUiError } from "../../../lib/format-error.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 import { getSafeLocalStorage } from "../../../local-storage.ts";
 import { renderDiffBlock, renderDiffStatChips } from "./chat-diff-render.ts";
 import type {
@@ -149,7 +149,7 @@ function taskResult(result: SessionsDiffResult): SessionDiffTaskResult {
   };
 }
 
-class SessionDiffPanel extends OpenClawLightDomElement {
+class SessionDiffPanel extends GrantedLightDomElement {
   @property({ attribute: false }) execNode: string | null = null;
   @property({ attribute: false }) loader: SessionDiffLoader | null = null;
   @property({ attribute: false }) loadFileText: SessionDiffFileTextLoader | null = null;

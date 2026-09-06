@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   buildReplyUsageState,
   consumeReplyUsageState,
@@ -53,7 +53,7 @@ describe("reply usage state handoff", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       agentDir: "/tmp/openclaw-main-agent",
       provider: "fixture",
       model: "priced",

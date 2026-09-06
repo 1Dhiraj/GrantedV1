@@ -1,6 +1,6 @@
 // Verifies OpenAI model selections route between OpenClaw and Codex runtimes.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   listOpenAIAuthProfileProvidersForAgentRuntime,
   modelSelectionShouldEnsureCodexPlugin,
@@ -31,7 +31,7 @@ describe("OpenAI runtime routing policy", () => {
     expect(
       modelSelectionShouldEnsureCodexPlugin({
         model: "openai/gpt-5.5",
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
       }),
     ).toBe(true);
   });
@@ -55,7 +55,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveOpenAIImplicitAgentRuntime({
@@ -80,7 +80,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveOpenAIImplicitAgentRuntime({
@@ -159,7 +159,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveOpenAIImplicitAgentRuntime({ provider: "openai", config })).toBe("openclaw");
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(false);
@@ -183,7 +183,7 @@ describe("OpenAI runtime routing policy", () => {
           research: { params: { store: false } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       resolveOpenAIImplicitAgentRuntime({
@@ -223,7 +223,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const officialOpenClawConfig = {
       agents: {
         defaults: {
@@ -232,7 +232,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       modelSelectionShouldEnsureCodexPlugin({
@@ -254,7 +254,7 @@ describe("OpenAI runtime routing policy", () => {
         defaults: { agentRuntime: { id: "openclaw" } },
         list: [{ id: "worker", agentRuntime: { id: "openclaw" } }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(false);
     expect(
@@ -276,7 +276,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(true);
   });
@@ -291,7 +291,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(true);
   });
@@ -306,7 +306,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveOpenAIImplicitAgentRuntime({ provider: "openai", config })).toBe("openclaw");
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(false);
@@ -331,7 +331,7 @@ describe("OpenAI runtime routing policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       resolveContextConfigProviderForRuntime({
@@ -367,7 +367,7 @@ describe("OpenAI runtime routing policy", () => {
           openai: ["openai:work", "openai:backup"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       listOpenAIAuthProfileProvidersForAgentRuntime({
@@ -399,7 +399,7 @@ describe("OpenAI runtime routing policy", () => {
           openai: ["openai:work", "openai:backup"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       listOpenAIAuthProfileProvidersForAgentRuntime({
@@ -417,7 +417,7 @@ describe("OpenAI runtime routing policy", () => {
           openai: ["openai:backup", "openai:work"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       listOpenAIAuthProfileProvidersForAgentRuntime({
@@ -450,7 +450,7 @@ describe("OpenAI runtime routing policy", () => {
           openai: ["openai:work", "openai:backup"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       listOpenAIAuthProfileProvidersForAgentRuntime({

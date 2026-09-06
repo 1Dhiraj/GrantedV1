@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { parseSqliteSessionFileMarker } from "../../config/sessions/legacy-sqlite-marker.js";
 import {
   deleteSessionEntryLifecycle,
@@ -61,7 +61,7 @@ function firstCommandContext(handler: ReturnType<typeof registerTestCommand>) {
 
 function buildPluginParams(
   commandBodyNormalized: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): HandleCommandsParams {
   return {
     cfg,
@@ -98,7 +98,7 @@ function buildPluginParams(
 
 async function withDeclaredCommandPlugin(
   options: { enabled?: boolean; fails?: boolean; alias?: string },
-  run: (cfg: OpenClawConfig) => Promise<void>,
+  run: (cfg: GrantedConfig) => Promise<void>,
 ) {
   const tempDir = await fs.realpath(
     await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-availability-")),
@@ -106,7 +106,7 @@ async function withDeclaredCommandPlugin(
   const pluginId = "recovery-controls";
   const alias = options.alias ?? "recover";
   const pluginFile = path.join(tempDir, "index.cjs");
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { defaults: { workspace: tempDir } },
     commands: { text: true },
     plugins: {
@@ -257,7 +257,7 @@ describe("handlePluginCommand", () => {
       buildPluginParams("/card", {
         commands: { text: true },
         channels: { whatsapp: { allowFrom: ["*"] } },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       true,
     );
 
@@ -294,7 +294,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.storePath = storePath;
     const entry = { sessionId: "session-plugin-command", updatedAt: Date.now() };
     params.sessionStore = { [sessionKey]: entry };
@@ -324,7 +324,7 @@ describe("handlePluginCommand", () => {
 
   it("omits session compaction when no bound session exists", async () => {
     const handler = registerTestCommand();
-    const params = buildPluginParams("/card", { commands: { text: true } } as OpenClawConfig);
+    const params = buildPluginParams("/card", { commands: { text: true } } as GrantedConfig);
     params.sessionEntry = undefined;
 
     await handlePluginCommand(params, true);
@@ -340,7 +340,7 @@ describe("handlePluginCommand", () => {
       requireAuth: false,
       handler,
     });
-    const params = buildPluginParams("/card", { commands: { text: true } } as OpenClawConfig);
+    const params = buildPluginParams("/card", { commands: { text: true } } as GrantedConfig);
     params.command = { ...params.command, isAuthorizedSender: false };
 
     const result = await handlePluginCommand(params, true);
@@ -365,7 +365,7 @@ describe("handlePluginCommand", () => {
     });
 
     await handlePluginCommand(
-      buildPluginParams("/card", { commands: { text: true } } as OpenClawConfig),
+      buildPluginParams("/card", { commands: { text: true } } as GrantedConfig),
       true,
     );
 
@@ -401,7 +401,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.storePath = storePath;
     params.sessionStore = { [sessionKey]: entry };
     params.resolveDefaultThinkingLevel = async () => {
@@ -442,7 +442,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.storePath = storePath;
     params.sessionStore = { [sessionKey]: entry };
 
@@ -475,7 +475,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.storePath = storePath;
     params.sessionStore = { [sessionKey]: entry };
     params.resolveDefaultThinkingLevel = async () => {
@@ -515,7 +515,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.storePath = storePath;
     params.sessionStore = { [sessionKey]: entry };
     registerTestCommand(undefined, {
@@ -550,7 +550,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       channels: { whatsapp: { allowFrom: ["*"] } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.agentId = "target";
     params.sessionKey = "agent:target:whatsapp:direct:test-user";
     params.sessionEntry = {
@@ -590,7 +590,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: "/tmp/durable/{agentId}/sessions.json" },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.agentId = "main";
     params.sessionKey = "agent:main:dashboard:incognito-plugin-command";
     params.storePath = "/tmp/durable/main/sessions.json";
@@ -618,7 +618,7 @@ describe("handlePluginCommand", () => {
     const params = buildPluginParams("/card", {
       commands: { text: true },
       session: { store: "/tmp/durable/{agentId}/sessions.json" },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     params.agentId = "other";
     params.sessionKey = "global";
 
@@ -641,7 +641,7 @@ describe("handlePluginCommand", () => {
       buildPluginParams("/card", {
         commands: { text: true },
         channels: { whatsapp: { allowFrom: ["*"] } },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       true,
     );
 
@@ -669,7 +669,7 @@ describe("handlePluginCommand", () => {
       buildPluginParams("/approve-deploy", {
         commands: { text: true },
         channels: { whatsapp: { allowFrom: ["*"] } },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       true,
     );
 
@@ -682,7 +682,7 @@ describe("handlePluginCommand", () => {
     const allowedParams = buildPluginParams("/approve-deploy", {
       commands: { text: true },
       channels: { whatsapp: { allowFrom: ["*"] } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     allowedParams.ctx.GatewayClientScopes = ["operator.approvals"];
 
     const allowed = await handlePluginCommand(allowedParams, true);
@@ -712,7 +712,7 @@ describe("handlePluginCommand", () => {
     const cfg = {
       commands: { text: true },
       channels: { whatsapp: { allowFrom: ["*"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const commandBody = "/card";
     const ctx = finalizeInboundContext({
       Provider: route.Provider,
@@ -759,7 +759,7 @@ describe("handlePluginCommand", () => {
     const originalHandler = registerTestCommand();
     const replyOptions: NonNullable<HandleCommandsParams["opts"]> &
       PluginCommandExecutionReplyOptions = {};
-    const cfg = { commands: { text: true } } as OpenClawConfig;
+    const cfg = { commands: { text: true } } as GrantedConfig;
     expect(
       shouldBypassPluginOwnedBindingForCommand(
         {
@@ -797,7 +797,7 @@ describe("handlePluginCommand", () => {
 
   it("treats an explicit non-plugin catalog winner as terminal for plugin matching", async () => {
     const handler = registerTestCommand();
-    const params = buildPluginParams("/card", { commands: { text: true } } as OpenClawConfig);
+    const params = buildPluginParams("/card", { commands: { text: true } } as GrantedConfig);
     params.opts = {
       [PLUGIN_COMMAND_DISPATCH]: { kind: "non-plugin" },
     } as NonNullable<HandleCommandsParams["opts"]> & PluginCommandExecutionReplyOptions;

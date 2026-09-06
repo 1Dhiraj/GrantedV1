@@ -6,7 +6,7 @@ import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import chokidar, { type FSWatcher } from "chokidar";
 import { isDefaultStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
@@ -106,7 +106,7 @@ const DEFAULT_SKILLS_WATCH_IGNORED: RegExp[] = [
 
 function resolveWatchTargets(
   workspaceDir: string,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   executionSkillsDir: string | undefined,
   watcherKey: string,
   pluginMetadataSnapshot: PluginMetadataSnapshot | undefined,
@@ -681,7 +681,7 @@ function evictIdleWorkspaceWatchStates(now: number): void {
 export function ensureSkillsWatcher(params: {
   workspaceDir: string;
   executionSkillsDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
 }) {
   const workspaceDir = params.workspaceDir.trim();

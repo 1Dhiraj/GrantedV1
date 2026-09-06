@@ -1,5 +1,5 @@
 import { setTimeout as sleep } from "node:timers/promises";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -21,7 +21,7 @@ type TelegramGatewayClient = {
 const TELEGRAM_QA_DEFAULT_READY_TIMEOUT_MS = 45_000;
 
 export function buildTelegramQaConfig(
-  baseCfg: OpenClawConfig,
+  baseCfg: GrantedConfig,
   params: {
     apiRoot: string;
     groupId: string;
@@ -29,7 +29,7 @@ export function buildTelegramQaConfig(
     sutToken: string;
     testerUserId: string;
   },
-): OpenClawConfig {
+): GrantedConfig {
   return {
     ...baseCfg,
     agents: {

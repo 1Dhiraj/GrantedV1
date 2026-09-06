@@ -1,6 +1,6 @@
 // Stale-while-revalidate cache for models.authStatus provider usage enrichment.
 import type { AuthProfileStore } from "../../agents/auth-profiles.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadProviderUsageSummary } from "../../infra/provider-usage.load.js";
 import { PROVIDER_USAGE_TIMEOUT_MS } from "../../infra/provider-usage.shared.js";
 import type {
@@ -25,7 +25,7 @@ export type ProviderUsageStatus = Pick<
 
 type ProviderUsageCacheEntry = {
   agentDir: string;
-  configRef: OpenClawConfig;
+  configRef: GrantedConfig;
   credentialKey: string;
   providerKey: string;
   refreshedAt: number;
@@ -35,7 +35,7 @@ type ProviderUsageCacheEntry = {
 
 type ProviderUsageRefresh = {
   agentDir: string;
-  configRef: OpenClawConfig;
+  configRef: GrantedConfig;
   credentialKey: string;
   providerKey: string;
   promise: Promise<UsageSummary>;
@@ -129,7 +129,7 @@ function scheduleProviderUsageRefresh(params: {
   agentId: string;
   agentDir: string;
   authStore?: AuthProfileStore;
-  configRef: OpenClawConfig;
+  configRef: GrantedConfig;
   credentialKey: string;
   providerIds: UsageProviderId[];
   providerKey: string;
@@ -199,7 +199,7 @@ type ProviderUsageCacheParams = {
   agentId: string;
   agentDir: string;
   authStore?: AuthProfileStore;
-  configRef: OpenClawConfig;
+  configRef: GrantedConfig;
   credentialKey: string;
   coldRead?: "refresh-marker";
   forceRefresh?: boolean;
@@ -288,7 +288,7 @@ async function loadProviderUsageSummaryStaleWhileRevalidate(
 
 /** Shares the models.authStatus cache contract with the unscoped usage.status RPC. */
 export async function loadUsageStatusStaleWhileRevalidate(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   coldRead?: "refresh-marker";
   now?: number;
 }): Promise<UsageSummary> {

@@ -9,7 +9,7 @@ import type { SessionEntry } from "../config/sessions/types.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { getPluginRegistryState } from "../plugins/runtime-state.js";
 import type { SessionCatalogProvider, SessionUpstreamProbe } from "../plugins/session-catalog.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import {
   recordSessionHumanDirectMessage,
   recordSessionStateEvent,
@@ -28,7 +28,7 @@ const SESSION_UPSTREAM_MISSING_THRESHOLD = 3;
 
 const log = createSubsystemLogger("sessions/upstream-monitor");
 
-type SessionUpstreamMonitorOptions = OpenClawStateDatabaseOptions & {
+type SessionUpstreamMonitorOptions = GrantedStateDatabaseOptions & {
   providers?: readonly SessionCatalogProvider[];
   now?: () => number;
   signal?: AbortSignal;
@@ -53,7 +53,7 @@ function currentProviders(): SessionCatalogProvider[] {
   );
 }
 
-function databaseOptions(options: SessionUpstreamMonitorOptions): OpenClawStateDatabaseOptions {
+function databaseOptions(options: SessionUpstreamMonitorOptions): GrantedStateDatabaseOptions {
   return {
     ...(options.env ? { env: options.env } : {}),
     ...(options.path ? { path: options.path } : {}),
@@ -124,7 +124,7 @@ function loadIdleProbeSession(
 function readMatchingProbeLink(
   probe: SessionUpstreamProbe,
   expectedUpdatedAt: number | undefined,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ) {
   const currentLink = readSessionUpstreamLink(probe.sessionKey, probe.agentId, options);
   return currentLink &&

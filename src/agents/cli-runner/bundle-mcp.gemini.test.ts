@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { prepareCliBundleMcpCaptureAttempt, prepareCliBundleMcpConfig } from "./bundle-mcp.js";
 import {
   cliBundleMcpHarness,
@@ -90,7 +90,7 @@ describe("prepareCliBundleMcpConfig gemini", () => {
 
   it("projects canonical allow and deny sets into Gemini settings", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { allow: ["docs__read_docs"], deny: ["docs__delete_docs"] },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
@@ -115,7 +115,7 @@ describe("prepareCliBundleMcpConfig gemini", () => {
 
   it("hides non-model MCP tools from Gemini without an explicit policy", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
     };

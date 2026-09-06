@@ -8,7 +8,7 @@ import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { assertSandboxPath } from "../../agents/sandbox-paths.js";
 import { ensureSandboxWorkspaceForSession } from "../../agents/sandbox.js";
 import { slugifySessionKey } from "../../agents/sandbox/shared.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { root as fsRoot, FsSafeError, readLocalFileSafely } from "../../infra/fs-safe.js";
 import { safeFileURLToPath } from "../../infra/local-file-access.js";
@@ -47,7 +47,7 @@ type StageableMediaSource = {
 export async function stageSandboxMedia(params: {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   workspaceDir: string;

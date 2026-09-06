@@ -3,7 +3,7 @@
  */
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import { sha256Hex, sha256HexPrefixCore } from "../infra/crypto-digest.js";
 import { syncDirectoryIfSupported } from "../infra/directory-durability.js";
@@ -509,7 +509,7 @@ async function listMemoryWorkspacePublicArtifacts(params: {
 
 /** Lists public memory artifacts across all configured memory workspaces. */
 export async function listMemoryHostPublicArtifacts(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<MemoryPluginPublicArtifact[]> {
   const workspaces = resolveMemoryDreamingWorkspaces(params.cfg);
   const artifacts: MemoryPluginPublicArtifact[] = [];

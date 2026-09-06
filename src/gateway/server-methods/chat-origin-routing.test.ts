@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveRequestedChatAgentId, validateChatSelectedAgent } from "./chat-origin-routing.js";
 
 describe("chat session owner resolution", () => {
   it("uses configured fixed-store ownership for bare keys", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: "/tmp/shared.sqlite" },
       agents: {
         ownership: "explicit",
@@ -20,7 +20,7 @@ describe("chat session owner resolution", () => {
   });
 
   it("returns the typed selection error for ownerless bare keys", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { ownership: "explicit", entries: { ops: {}, research: {} } },
     };
 
@@ -31,7 +31,7 @@ describe("chat session owner resolution", () => {
   });
 
   it("preserves an inferred ACP runtime owner through chat session validation", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
     };
     const requestedSessionKey = "agent:codex:acp:11111111-1111-4111-8111-111111111111";
@@ -51,7 +51,7 @@ describe("chat session owner resolution", () => {
   });
 
   it("still rejects an explicitly selected unconfigured ACP runtime owner", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
     };
 
@@ -78,7 +78,7 @@ describe("chat session owner resolution", () => {
     ["ordinary configured owner", "agent:main:main"],
     ["configured ACP binding owner", "agent:main:acp:binding:slack:default:thread"],
   ])("preserves %s across chat session validation", (_name, requestedSessionKey) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
     };
     const requestedAgent = resolveRequestedChatAgentId({

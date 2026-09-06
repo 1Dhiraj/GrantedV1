@@ -1,7 +1,7 @@
 // Deepgram tests cover realtime transcription provider plugin behavior.
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type WebSocket from "ws";
@@ -86,7 +86,7 @@ describe("buildDeepgramRealtimeTranscriptionProvider", () => {
   it("normalizes nested provider config", () => {
     const provider = buildDeepgramRealtimeTranscriptionProvider();
     const resolved = provider.resolveConfig?.({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       rawConfig: {
         providers: {
           deepgram: {

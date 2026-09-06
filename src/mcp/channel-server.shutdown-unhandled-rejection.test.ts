@@ -53,7 +53,7 @@ vi.mock("../version.js", async () => ({
 }));
 
 vi.mock("./channel-bridge.js", () => ({
-  OpenClawChannelBridge: class MockOpenClawChannelBridge {
+  GrantedChannelBridge: class MockOpenClawChannelBridge {
     setServer(server: unknown) {
       bridgeState.setServer(server);
     }

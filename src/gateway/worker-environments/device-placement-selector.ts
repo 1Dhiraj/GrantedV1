@@ -1,6 +1,6 @@
 import type { EnvironmentSummary } from "../../../packages/gateway-protocol/src/index.js";
 import type { DevicePlacementRequirement } from "../../agents/harness/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { NodeRegistry } from "../node-registry.js";
 import { resolveDevicePlacementEligibility } from "./device-placement-eligibility.js";
 import { deviceUnavailableText } from "./device-provider.js";
@@ -15,7 +15,7 @@ export async function selectDevicePlacementCandidates(params: {
   environmentService: object | undefined;
   requirement: DevicePlacementRequirement | undefined;
   runtimeId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<DevicePlacementSelection> {
   const { requirement } = params;
   if (!requirement) {

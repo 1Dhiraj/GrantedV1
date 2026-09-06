@@ -15,7 +15,7 @@ import {
   loadGatewayDiagnostics,
 } from "../../lib/gateway-diagnostics.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import "../../styles/debug.css";
@@ -24,7 +24,7 @@ import { renderDebug } from "./view.ts";
 
 const DEBUG_POLL_INTERVAL_MS = 3000;
 
-class DebugPage extends OpenClawLightDomElement {
+class DebugPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

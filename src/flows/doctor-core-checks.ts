@@ -30,7 +30,7 @@ import {
   resolveKnownModelRefMigrationTarget,
 } from "../commands/doctor/shared/codex-route-warnings.js";
 import { isDefaultInstallIdentity } from "../config/paths.js";
-import type { ConfigValidationIssue, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef, type SecretRef } from "../config/types.secrets.js";
 import type { CronListPageResult } from "../cron/service/list-page-types.js";
 import type { CronJob } from "../cron/types.js";
@@ -81,7 +81,7 @@ const loadDoctorWorkspaceModule = async () => await import("../commands/doctor-w
 export type CoreHealthCheckDeps = {
   readonly detectUnavailableSkills: typeof detectUnavailableSkillsWithRuntime;
   readonly collectSecurityWarnings: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
   ) => Promise<readonly SecurityAuditFinding[]>;
   readonly collectWorkspaceSuggestionNotes: (workspaceDir: string) => Promise<readonly string[]>;
   readonly collectRuntimeToolSchemaFindings: (
@@ -108,7 +108,7 @@ async function detectUnavailableSkillsWithRuntime(
 }
 
 async function collectSecurityWarningsWithRuntime(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<readonly SecurityAuditFinding[]> {
   const { collectSecurityWarnings } = await import("../commands/doctor-security.js");
   return collectSecurityWarnings(cfg);
@@ -352,12 +352,12 @@ const skillWorkshopToolPolicyCheck: HealthCheck = {
   },
 };
 
-function resolveDoctorMode(cfg: OpenClawConfig): "local" | "remote" {
+function resolveDoctorMode(cfg: GrantedConfig): "local" | "remote" {
   return cfg.gateway?.mode === "remote" ? "remote" : "local";
 }
 
 export function buildGatewayTokenSecretRefUnavailableMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ref: SecretRef;
   unresolvedRefReason?: string;
 }): string {

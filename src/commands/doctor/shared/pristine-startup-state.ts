@@ -7,7 +7,7 @@ import {
   resolveLegacyStateDirs,
   resolveStateDir,
 } from "../../../config/paths.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveEffectiveHomeDir } from "../../../infra/home-dir.js";
 import { tryReadJsonSync } from "../../../infra/json-files.js";
 import {
@@ -139,7 +139,7 @@ function hasOnlyMigrationSafePluginEntries(
       // Discovery alone cannot prove host compatibility or rule out a fallback
       // doctor owner; use the same candidate acceptance as normal plugin startup.
       const registry = loadPluginManifestRegistryCore({
-        config: config as OpenClawConfig,
+        config: config as GrantedConfig,
         discovery,
         env,
         installRecords: {},
@@ -224,7 +224,7 @@ function configIsPristineStateSafe(
     return false;
   }
   return !configMayRequireStartupPluginConvergence({
-    config: config as OpenClawConfig,
+    config: config as GrantedConfig,
     env,
   });
 }

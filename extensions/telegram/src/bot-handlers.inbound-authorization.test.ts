@@ -6,7 +6,7 @@ import {
   readChannelContextAdmissionEvidence,
   registerChannelIngressHostOwner,
 } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
 import { describe, expect, it, vi } from "vitest";
 import { defaultTelegramBotDeps } from "./bot-deps.js";
@@ -28,7 +28,7 @@ describe("Telegram inbound admission authorization", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = {
       accountId: "default",
       ownerAgentId: "main",

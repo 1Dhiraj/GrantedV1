@@ -15,7 +15,7 @@ import {
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { sessionTranscriptIndexNeedsReconcile } from "../config/sessions/session-transcript-index.js";
 import { waitForSessionTranscriptIndexReconcile } from "../config/sessions/session-transcript-reconcile.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -65,7 +65,7 @@ describe("runStartupSessionMigration", () => {
           layout === "default"
             ? undefined
             : path.join(root, "custom", layout === "shared" ? "shared.sqlite" : "sessions.json");
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: { ownership: "explicit", entries: { qa: {} } },
           ...(storePath ? { session: { store: storePath } } : {}),
         };
@@ -123,7 +123,7 @@ describe("runStartupSessionMigration", () => {
         layout === "configured"
           ? path.join(stateDir, "custom", "sessions.json")
           : path.join(stateDir, "sessions", "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { entries: { main: {} } },
         ...(layout === "configured" ? { session: { store: storePath } } : {}),
       };

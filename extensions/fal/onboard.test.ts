@@ -1,12 +1,12 @@
 // Fal tests cover onboard plugin behavior.
 import {
-  type OpenClawConfig,
+  type GrantedConfig,
   resolveAgentModelPrimaryValue,
 } from "openclaw/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { applyFalConfig } from "./onboard.js";
 
-const emptyCfg: OpenClawConfig = {};
+const emptyCfg: GrantedConfig = {};
 
 describe("applyFalConfig", () => {
   it("writes the default image model to mediaModels.image (the key the runtime reads)", () => {
@@ -26,7 +26,7 @@ describe("applyFalConfig", () => {
           mediaModels: { image: { primary: "other-provider/custom-model" } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = applyFalConfig(cfg);
 

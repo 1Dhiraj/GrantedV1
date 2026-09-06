@@ -7,7 +7,7 @@
  */
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { loadExactSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { deriveSessionTitle } from "../gateway/session-utils.js";
 import { resolveSandboxSessionToolsVisibility } from "../plugin-sdk/session-visibility.js";
 import { buildAgentMainSessionKey, parseAgentSessionKey } from "../routing/session-key.js";
@@ -35,7 +35,7 @@ const WATCHED_SESSION_READ_TOOLS = ["sessions_history", "sessions_search"];
 /** Resolve watched same-agent group sessions for the current session's prompt. */
 export function prepareWatchedSessionsPrompt(params: {
   enabled: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sandboxed?: boolean;
   toolNames: Iterable<string>;

@@ -5,12 +5,12 @@ import {
   collectPluginSchemaMetadataCore,
 } from "./channel-config-metadata.js";
 import { getRuntimeConfig, readConfigFileSnapshot } from "./config.js";
-import type { OpenClawConfig } from "./config.js";
+import type { GrantedConfig } from "./config.js";
 import { resolveConfigWidePluginManifestRegistry } from "./io.plugin-metadata.js";
 import { buildConfigSchemaCore, type ConfigSchemaResponse } from "./schema.js";
 
 // Runtime schemas include currently loaded plugin/channel metadata for accurate UI fields.
-function loadManifestRegistry(config: OpenClawConfig, env?: NodeJS.ProcessEnv) {
+function loadManifestRegistry(config: GrantedConfig, env?: NodeJS.ProcessEnv) {
   return resolveConfigWidePluginManifestRegistry({
     config,
     env: env ?? process.env,

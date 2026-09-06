@@ -2,7 +2,7 @@
 import { tryResolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 import type { AgentExecutionAuthBinding } from "../agents/execution-auth-binding.js";
 import type { ConfigSetOptions } from "../cli/config-set-input.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -564,7 +564,7 @@ export async function executeSetDefaultModel(
       // Route projection and the live probes below all take the same optional
       // agent scope, so a per-agent selection is verified against that agent's
       // route with the exact rigor the default route gets.
-      const projectRoute = (config: OpenClawConfig) => projectInferenceRoute(config, targetAgentId);
+      const projectRoute = (config: GrantedConfig) => projectInferenceRoute(config, targetAgentId);
       const stagedConfig = await applySystemAgentModelSelection({
         config: snapshot.sourceConfig,
         model: operation.model,

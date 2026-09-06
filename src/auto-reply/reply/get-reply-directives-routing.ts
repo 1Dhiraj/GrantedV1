@@ -1,5 +1,5 @@
 // Resolves directive interpretation and prompt projection at the text-command boundary.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { FinalizedRuntimeMsgContext } from "../templating.js";
 import { type InlineDirectives, parseInlineSessionDirectives } from "./directive-handling.parse.js";
 import { clearExecInlineDirectives, clearInlineDirectives } from "./get-reply-directives-utils.js";
@@ -61,7 +61,7 @@ export function resolveReplyDirectiveRouting(params: {
   isGroup: boolean;
   wasMentioned: boolean;
   ctx: FinalizedRuntimeMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   resetTriggered: boolean;
 }): {

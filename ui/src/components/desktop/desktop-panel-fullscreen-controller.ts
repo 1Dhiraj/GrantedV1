@@ -1,6 +1,6 @@
 import { t } from "../../i18n/index.ts";
 import { formatUiError } from "../../lib/format-error.ts";
-import type { OpenClawLitElement } from "../../lit/openclaw-element.ts";
+import type { GrantedLitElement } from "../../lit/openclaw-element.ts";
 import { FullscreenController } from "../fullscreen-controller.ts";
 
 type DesktopPanelFullscreenOptions = {
@@ -9,7 +9,7 @@ type DesktopPanelFullscreenOptions = {
 };
 
 export class DesktopPanelFullscreenController extends FullscreenController {
-  constructor(host: OpenClawLitElement, options: DesktopPanelFullscreenOptions) {
+  constructor(host: GrantedLitElement, options: DesktopPanelFullscreenOptions) {
     super(host, {
       ...options,
       buttonClass: "bp-icon desktop-fullscreen-button",

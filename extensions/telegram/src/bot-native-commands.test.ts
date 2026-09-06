@@ -4,7 +4,7 @@ import {
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
 // Telegram tests cover bot native commands plugin behavior.
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { listNativeCommandSpecsForConfig } from "openclaw/plugin-sdk/native-command-registry";
 import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
@@ -83,7 +83,7 @@ describe("registerTelegramNativeCommands", () => {
   });
 
   it("scopes skill commands when account binding exists", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true }, { id: "butler" }],
       },
@@ -104,7 +104,7 @@ describe("registerTelegramNativeCommands", () => {
   });
 
   it("scopes skill commands to default agent without a matching binding (#15599)", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true }, { id: "butler" }],
       },
@@ -156,7 +156,7 @@ describe("registerTelegramNativeCommands", () => {
         description: "Demo skill unchanged",
       },
     ];
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       commands: { native: true, nativeSkills: true },
       agents: { list: [{ id: "main", default: true }] },
     };
@@ -205,7 +205,7 @@ describe("registerTelegramNativeCommands", () => {
   it("promotes /skill when direct skills are omitted by local menu pressure", async () => {
     const { bot, commandHandlers, setMyCommands } = createCommandBot();
     const runtimeLog = vi.fn();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       commands: { native: true, nativeSkills: true },
       agents: { list: [{ id: "main", default: true }] },
     };
@@ -278,7 +278,7 @@ describe("registerTelegramNativeCommands", () => {
   });
 
   it("resolves plugin commands from one registry-bound runtime", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       commands: { native: true },
       channels: {
         telegram: {
@@ -344,7 +344,7 @@ describe("registerTelegramNativeCommands", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     registerTelegramNativeCommands({
       ...createNativeCommandTestParams(cfg, { bot, allowFrom: [200] }),

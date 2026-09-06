@@ -8,7 +8,7 @@ import { isDeepStrictEqual } from "node:util";
 import type { SessionUpdate } from "@agentclientprotocol/sdk";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { z } from "zod";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import { withFileLock } from "./file-lock.js";
 import {
@@ -60,7 +60,7 @@ type LegacySourceIdentity = {
 };
 
 type AcpReplayMigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "acp_replay_events" | "acp_replay_sessions"
 >;
 

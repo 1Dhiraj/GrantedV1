@@ -17,7 +17,7 @@ import {
 import { hasControlCommand } from "openclaw/plugin-sdk/command-detection";
 import { isAbortRequestText } from "openclaw/plugin-sdk/command-primitives-runtime";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
@@ -123,7 +123,7 @@ function resolveTelegramMentionFacts(params: {
 }
 
 async function resolveStickerVisionSupport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
 }): Promise<boolean> {
   try {
@@ -135,7 +135,7 @@ async function resolveStickerVisionSupport(params: {
 }
 
 export async function resolveTelegramInboundBody(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   primaryCtx: TelegramContext;
   msg: TelegramContext["message"];
   allMedia: TelegramMediaRef[];

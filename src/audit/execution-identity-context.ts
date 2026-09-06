@@ -12,11 +12,11 @@ import {
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { clearAuditIdentityKeyCacheForDatabase } from "./audit-identity.js";
 import { hasExecutionDecisionFactsForRun } from "./execution-decision-facts.js";
@@ -36,10 +36,10 @@ import {
 } from "./execution-identity-context-build.js";
 
 type ExecutionIdentityDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "audit_events" | "execution_identity_contexts"
 >;
-type ExecutionIdentityRow = Selectable<OpenClawStateKyselyDatabase["execution_identity_contexts"]>;
+type ExecutionIdentityRow = Selectable<GrantedStateKyselyDatabase["execution_identity_contexts"]>;
 
 const EXECUTION_IDENTITY_CONTEXT_MAX_BYTES = 16 * 1024;
 const EXECUTION_IDENTITY_CONTEXT_RETENTION_MS = 30 * 24 * 60 * 60_000;
@@ -67,7 +67,7 @@ CREATE INDEX IF NOT EXISTS execution_identity_contexts_run_created_idx
   ON execution_identity_contexts (run_id, created_at, execution_id);
 `;
 
-type ExecutionIdentityStoreOptions = OpenClawStateDatabaseOptions & {
+type ExecutionIdentityStoreOptions = GrantedStateDatabaseOptions & {
   now?: number;
   limits?: {
     maxRows: number;
@@ -75,7 +75,7 @@ type ExecutionIdentityStoreOptions = OpenClawStateDatabaseOptions & {
   };
 };
 
-type ExecutionIdentityReadOptions = OpenClawStateDatabaseOptions & {
+type ExecutionIdentityReadOptions = GrantedStateDatabaseOptions & {
   now?: number;
 };
 
@@ -89,7 +89,7 @@ function executionIdentityDb(db: DatabaseSync) {
   return getNodeSqliteKysely<ExecutionIdentityDatabase>(db);
 }
 
-function ensureExecutionIdentityContextSchema(options: OpenClawStateDatabaseOptions = {}): void {
+function ensureExecutionIdentityContextSchema(options: GrantedStateDatabaseOptions = {}): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;
@@ -217,7 +217,7 @@ function pruneExecutionIdentityContextsAfterInsert(
 export function pruneExpiredExecutionIdentityContexts(
   params: {
     now?: number;
-    database?: OpenClawStateDatabaseOptions;
+    database?: GrantedStateDatabaseOptions;
   } = {},
 ): number {
   const databaseOptions = params.database ?? {};

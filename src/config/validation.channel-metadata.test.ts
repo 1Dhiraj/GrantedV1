@@ -279,7 +279,7 @@ vi.mock("../channels/plugins/legacy-config.js", () => ({
 }));
 
 vi.mock("./zod-schema.js", () => ({
-  OpenClawSchema: {
+  GrantedSchema: {
     safeParse: (raw: unknown) => ({ success: true, data: raw }),
   },
 }));

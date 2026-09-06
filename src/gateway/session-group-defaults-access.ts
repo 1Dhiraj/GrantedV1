@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayClient } from "./server-methods/types.js";
 import { resolveSessionGroupMutationTargetsByName } from "./session-groups.js";
 import { authorizeSessionSharing, isGatewayAdmin } from "./session-sharing.js";
@@ -9,7 +9,7 @@ import type {
 
 /** Keep shared group settings visible only where every member session is mutable. */
 export function filterMutableSessionGroupRecords<T extends { name: string }>(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   records: readonly T[];
 }): T[] {

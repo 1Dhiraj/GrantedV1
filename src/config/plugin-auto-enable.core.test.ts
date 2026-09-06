@@ -17,7 +17,7 @@ import {
   makeRegistry,
   resetPluginAutoEnableTestState,
 } from "./plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 import { validateConfigObject } from "./validation.js";
 
 vi.mock("../channels/plugins/package-state-probes.js", async (importOriginal) => {
@@ -49,7 +49,7 @@ vi.mock("../channels/plugins/package-state-probes.js", async (importOriginal) =>
 
 const setupRegistryMock = vi.hoisted(() => ({
   resolvePluginSetupAutoEnableReasons: vi.fn(
-    (params: { config?: OpenClawConfig; pluginIds?: readonly string[] }) => {
+    (params: { config?: GrantedConfig; pluginIds?: readonly string[] }) => {
       const pluginIds = new Set(params.pluginIds ?? []);
       const browserEntry = params.config?.plugins?.entries?.browser;
       const hasBrowserEntry =
@@ -161,7 +161,7 @@ describe("applyPluginAutoEnable core", () => {
 
   it("reuses policy-compatible current manifest registry when runtime config differs", () => {
     const manifestRegistry = makeRegistry([{ id: "custom-chat", channels: ["custom-chat"] }]);
-    const snapshotConfig: OpenClawConfig = { plugins: { allow: ["existing"] } };
+    const snapshotConfig: GrantedConfig = { plugins: { allow: ["existing"] } };
     setCurrentPluginMetadataSnapshot(
       createPluginMetadataSnapshot({
         config: snapshotConfig,
@@ -195,7 +195,7 @@ describe("applyPluginAutoEnable core", () => {
 
   it("does not reuse an unscoped current manifest registry when plugin load paths change", () => {
     const manifestRegistry = makeRegistry([{ id: "load-path-chat", channels: ["load-path-chat"] }]);
-    const snapshotConfig: OpenClawConfig = { plugins: { allow: ["existing"] } };
+    const snapshotConfig: GrantedConfig = { plugins: { allow: ["existing"] } };
     setCurrentPluginMetadataSnapshot(
       createPluginMetadataSnapshot({
         config: snapshotConfig,
@@ -230,7 +230,7 @@ describe("applyPluginAutoEnable core", () => {
 
   it("does not reuse a load-path current manifest registry for a config with default load paths", () => {
     const manifestRegistry = makeRegistry([{ id: "load-path-chat", channels: ["load-path-chat"] }]);
-    const snapshotConfig: OpenClawConfig = {
+    const snapshotConfig: GrantedConfig = {
       plugins: {
         allow: ["existing"],
         load: { paths: ["/tmp/custom-plugin-root"] },
@@ -1065,7 +1065,7 @@ describe("applyPluginAutoEnable core", () => {
   it("reuses same-turn auto-enable results for identical fanout inputs", async () => {
     setupRegistryMock.resolvePluginSetupAutoEnableReasons.mockClear();
     const manifestRegistry = makeRegistry([{ id: "browser", channels: [] }]);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         entries: {
           browser: {
@@ -1108,7 +1108,7 @@ describe("applyPluginAutoEnable core", () => {
 
   it("fingerprints identical snapshots once per plugin metadata lifecycle", () => {
     const traversals = { candidates: 0, config: 0, env: 0, plugins: 0 };
-    const config = new Proxy<OpenClawConfig>(
+    const config = new Proxy<GrantedConfig>(
       {},
       {
         ownKeys: (target) => {
@@ -1169,7 +1169,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("does not reuse same-turn results for omitted metadata after current snapshot replacement", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       channels: { apn: { someKey: "value" } },
     };
     const firstRegistry = makeRegistry([{ id: "apn-one", channels: ["apn"] }]);
@@ -1193,7 +1193,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("does not reuse same-turn auto-enable results across registry or env inputs", () => {
-    const channelConfig: OpenClawConfig = {
+    const channelConfig: GrantedConfig = {
       channels: { apn: { someKey: "value" } },
     };
     const discovery = emptyDiscovery;
@@ -1215,7 +1215,7 @@ describe("applyPluginAutoEnable core", () => {
     expect(secondRegistry.config.plugins?.entries?.["apn-two"]?.enabled).toBe(true);
     expect(secondRegistry).not.toBe(firstRegistry);
 
-    const envConfig: OpenClawConfig = {
+    const envConfig: GrantedConfig = {
       plugins: {
         entries: {
           browser: {
@@ -1246,7 +1246,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("refreshes auto-enable results after config mutates at a lifecycle boundary", () => {
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const manifestRegistry = makeRegistry([{ id: "apn-channel", channels: ["apn"] }]);
 
     const first = applyPluginAutoEnable({
@@ -1270,7 +1270,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("refreshes auto-enable results after registry mutates at a lifecycle boundary", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       channels: { apn: { someKey: "value" } },
     };
     const registry = makeRegistry([{ id: "other-channel", channels: ["other"] }]);
@@ -1300,7 +1300,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("refreshes auto-enable results after discovery mutates at a lifecycle boundary", () => {
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const mutableDiscovery: PluginDiscoveryResult = { candidates: [], diagnostics: [] };
     const manifestRegistry = makeRegistry([
       { id: "cache-channel-plugin", channels: ["cache-channel"] },
@@ -1335,7 +1335,7 @@ describe("applyPluginAutoEnable core", () => {
   });
 
   it("refreshes auto-enable results after env mutates at a lifecycle boundary", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         entries: {
           browser: {

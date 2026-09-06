@@ -1,5 +1,5 @@
 // Msteams tests cover channel.actions plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { msteamsPlugin } from "./channel.js";
 
@@ -597,7 +597,7 @@ describe("msteamsPlugin message actions", () => {
               tenantId: "tenant-id",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       })?.actions,
     ).toContain("upload-file");
   });
@@ -613,7 +613,7 @@ describe("msteamsPlugin message actions", () => {
             certificatePath: "/private/openclaw-msteams-unavailable-actions.pem",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(discovery).toEqual({ actions: [], capabilities: [], schema: null });
@@ -632,7 +632,7 @@ describe("msteamsPlugin message actions", () => {
               useManagedIdentity: true,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       })?.actions,
     ).toContain("upload-file");
   });
@@ -1082,7 +1082,7 @@ describe("msteamsPlugin message actions", () => {
             tenantId: "tenant-id",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const schema = discovery?.schema;
     if (!schema) {
@@ -1444,7 +1444,7 @@ describe("msteamsPlugin.threading.buildToolContext", () => {
       throw new Error("msteams threading.buildToolContext unavailable");
     }
     return build({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountId: undefined,
       context,
     });
@@ -1645,7 +1645,7 @@ describe("msteamsPlugin.actions.extractToolSendResult", () => {
 
 describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
   function resolveAutoThreadId(params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     to?: string;
     currentGraphChannelId?: string;
   }) {
@@ -1654,7 +1654,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
       throw new Error("msteams threading.resolveAutoThreadId unavailable");
     }
     return resolve({
-      cfg: params.cfg ?? ({} as OpenClawConfig),
+      cfg: params.cfg ?? ({} as GrantedConfig),
       to: params.to ?? "conversation:19:channel@thread.tacv2",
       toolContext: {
         currentChannelId: "conversation:19:channel@thread.tacv2",
@@ -1679,7 +1679,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
               replyStyle: "top-level",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       }),
     ).toBeUndefined();
   });
@@ -1693,7 +1693,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
               requireMention: false,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       }),
     ).toBeUndefined();
   });
@@ -1715,7 +1715,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveAutoThreadId({
@@ -1740,7 +1740,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
               replyStyle: "top-level",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         to: "conversation:19:channel@thread.tacv2;messageid=explicit-root",
       }),
     ).toBe("explicit-root");
@@ -1753,7 +1753,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
     }
     expect(
       resolve({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:other@thread.tacv2",
         toolContext: {
           currentChannelId: "conversation:19:channel@thread.tacv2",
@@ -1771,7 +1771,7 @@ describe("msteamsPlugin.threading.resolveAutoThreadId", () => {
     }
     expect(
       resolve({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "user:aad-user-1",
         toolContext: {
           currentChannelId: "user:aad-user-1",

@@ -6,7 +6,7 @@ import {
   type MessageReceiptPartKind,
   type MessageReceiptSourceResult,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import {
   kindFromMime,
@@ -26,7 +26,7 @@ import { registerSignalReplyContext } from "./reply-authors.js";
 import { resolveSignalRpcContext } from "./rpc-context.js";
 
 export type SignalSendOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   baseUrl?: string;
   transportKind?: SignalTransportKind;
   account?: string;

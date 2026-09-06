@@ -7,14 +7,14 @@ import {
 } from "../../packages/gateway-protocol/src/schema/users.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 
-type UserPreferencesDatabase = Pick<OpenClawStateKyselyDatabase, "user_preferences">;
+type UserPreferencesDatabase = Pick<GrantedStateKyselyDatabase, "user_preferences">;
 
 const ensuredDatabases = new WeakSet<DatabaseSync>();
 const USER_PREFERENCES_SCHEMA_SQL = `
@@ -36,7 +36,7 @@ type UserPreferenceError =
       currentCount: number;
     };
 
-export function ensureUserPreferencesSchema(options: OpenClawStateDatabaseOptions = {}): void {
+export function ensureUserPreferencesSchema(options: GrantedStateDatabaseOptions = {}): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;
@@ -113,7 +113,7 @@ export function selectUserPreferenceValues(
   );
 }
 
-function openUserPreferencesDatabase(options: OpenClawStateDatabaseOptions = {}) {
+function openUserPreferencesDatabase(options: GrantedStateDatabaseOptions = {}) {
   ensureUserPreferencesSchema(options);
   const state = openOpenClawStateDatabase(options);
   return { sqlite: state.db, kysely: getNodeSqliteKysely<UserPreferencesDatabase>(state.db) };
@@ -173,7 +173,7 @@ export function mergeUserPreferences(
 export function getUserPreferences(
   profileId: string,
   keys?: readonly string[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Record<string, unknown> {
   if (keys?.length === 0) {
     return {};
@@ -198,7 +198,7 @@ export function getUserPreferences(
 export function setUserPreferences(
   profileId: string,
   entries: Record<string, unknown>,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Result<void, UserPreferenceError> {
   const rawEntries = Object.entries(entries);
   if (rawEntries.length > USER_PREFS_ENTRY_LIMIT) {

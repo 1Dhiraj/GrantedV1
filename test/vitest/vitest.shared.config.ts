@@ -25,7 +25,7 @@ import { shouldPrintVitestThrottle } from "./vitest.system-load.ts";
 import { DEFAULT_VITEST_TEST_TIMEOUT_MS } from "./vitest.timeouts.ts";
 import { compiledSubprocessesPlugin } from "./vitest.worker-artifacts.ts";
 
-export type OpenClawVitestPool = "forks" | "threads";
+export type GrantedVitestPool = "forks" | "threads";
 
 export type { LocalVitestScheduling };
 
@@ -45,7 +45,7 @@ function detectVitestHostInfo(): Required<VitestHostInfo> {
 export function resolveLocalVitestMaxWorkers(
   env: Record<string, string | undefined> = process.env,
   system: VitestHostInfo = detectVitestHostInfo(),
-  pool: OpenClawVitestPool = resolveDefaultVitestPool(env),
+  pool: GrantedVitestPool = resolveDefaultVitestPool(env),
 ): number {
   return resolveLocalVitestSchedulingImpl(env, system, pool).maxWorkers;
 }
@@ -53,14 +53,14 @@ export function resolveLocalVitestMaxWorkers(
 export function resolveLocalVitestScheduling(
   env: Record<string, string | undefined> = process.env,
   system: VitestHostInfo = detectVitestHostInfo(),
-  pool: OpenClawVitestPool = resolveDefaultVitestPool(env),
+  pool: GrantedVitestPool = resolveDefaultVitestPool(env),
 ): LocalVitestScheduling {
   return resolveLocalVitestSchedulingImpl(env, system, pool);
 }
 
 export function resolveDefaultVitestPool(
   _env: Record<string, string | undefined> = process.env,
-): OpenClawVitestPool {
+): GrantedVitestPool {
   return "threads";
 }
 

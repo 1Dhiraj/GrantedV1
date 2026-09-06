@@ -14,7 +14,7 @@ import {
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, PluginRuntime } from "../runtime-api.js";
+import type { GrantedConfig, PluginRuntime } from "../runtime-api.js";
 import type { ResolvedZaloAccount } from "./accounts.js";
 
 const getWebhookInfoMock = vi.fn(async () => ({ ok: true, result: { url: "" } }));
@@ -43,7 +43,7 @@ const TEST_ACCOUNT = {
   config: {},
 } as unknown as ResolvedZaloAccount;
 
-const TEST_CONFIG = {} as OpenClawConfig;
+const TEST_CONFIG = {} as GrantedConfig;
 let testStateDir: string | undefined;
 let previousStateDir: string | undefined;
 

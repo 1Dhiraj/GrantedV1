@@ -9,7 +9,7 @@ import {
 import type { SessionEntry } from "../../config/sessions.js";
 import { isInternalSessionEffectsKey } from "../../config/sessions/internal-session-key.js";
 import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";
 import { createLazyRuntimeModule } from "../../shared/lazy-runtime.js";
@@ -40,7 +40,7 @@ export function respondSessionWorkerPlacementMutationError(
 
 export function resolveSessionWorkerPlacementPatchError(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   context: GatewayRequestContext;
   entry: SessionEntry | undefined;
   key: string;
@@ -118,7 +118,7 @@ export function requireSessionKey(key: unknown, respond: RespondFn): string | nu
 
 export function resolveGatewaySessionTargetFromKey(
   key: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts?: { agentId?: string },
 ) {
   const target = resolveGatewaySessionStoreTarget({
@@ -131,7 +131,7 @@ export function resolveGatewaySessionTargetFromKey(
 
 export function loadAccessorSessionEntryForGatewayTarget(params: {
   key: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
 }) {
   const target = resolveGatewaySessionStoreTargetWithStore({
@@ -154,7 +154,7 @@ export function loadAccessorSessionEntryForGatewayTarget(params: {
 
 export function loadSessionEntriesForTarget(params: {
   key: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
 }) {
   const target = resolveGatewaySessionStoreTargetWithStore({
@@ -195,7 +195,7 @@ export function isWorkerDispatchInputError(error: unknown): boolean {
   return code === "invalid_profile" || code === "profile_not_found" || code === "invalid_state";
 }
 
-export function isAgentMainSessionKey(cfg: OpenClawConfig, sessionKey: string): boolean {
+export function isAgentMainSessionKey(cfg: GrantedConfig, sessionKey: string): boolean {
   const parsed = parseAgentSessionKey(sessionKey);
   if (!parsed) {
     return false;

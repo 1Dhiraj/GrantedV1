@@ -4,16 +4,16 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { resolveSqliteScope, toDatabaseOptions } from "./session-accessor.sqlite-scope.js";
 
-type SessionMemberDatabase = Pick<OpenClawAgentKyselyDatabase, "session_members">;
+type SessionMemberDatabase = Pick<GrantedAgentKyselyDatabase, "session_members">;
 
 type SessionMember = {
   identityId: string;
@@ -23,18 +23,18 @@ type SessionMember = {
 
 const SESSION_MEMBERSHIP_QUERY_CHUNK_SIZE = 400;
 
-function resolveDatabaseOptions(scope: SessionAccessScope): OpenClawAgentDatabaseOptions {
+function resolveDatabaseOptions(scope: SessionAccessScope): GrantedAgentDatabaseOptions {
   return toDatabaseOptions(resolveSqliteScope(scope));
 }
 
-function getSessionMemberKysely(database: Pick<OpenClawAgentDatabase, "db">) {
+function getSessionMemberKysely(database: Pick<GrantedAgentDatabase, "db">) {
   return getNodeSqliteKysely<SessionMemberDatabase>(database.db);
 }
 
 function readSessionMembers<T>(
   scope: SessionAccessScope,
   fallback: T,
-  operation: (database: Pick<OpenClawAgentDatabase, "db">) => T,
+  operation: (database: Pick<GrantedAgentDatabase, "db">) => T,
 ): T {
   const result = withOpenClawAgentDatabaseReadOnly(operation, resolveDatabaseOptions(scope), {
     throwOnMissingTable: true,
@@ -123,7 +123,7 @@ export function isSessionMember(scope: SessionAccessScope, identityId: string): 
 // can replace the row under the same key in between; the optional expected id
 // adds a caller snapshot check after the canonical node/entry check.
 function assertAuthorizedSessionInstance(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   expectedSessionId: string | undefined,
 ): void {

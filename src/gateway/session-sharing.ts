@@ -6,7 +6,7 @@ import {
 } from "../../packages/gateway-protocol/src/index.js";
 import { AgentSelectionRequiredError } from "../agents/agent-scope.js";
 import type { SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isIncognitoSessionKey } from "../routing/session-key.js";
 import {
   authorizeGatewaySessionCreation,
@@ -128,8 +128,8 @@ export function resolveSessionMutationAuthorization(params: {
   // getter reloads/resolves gateway config, so non-session requests (the vast majority) must not
   // pay it. Group discovery and the authorization loop then share one snapshot, so a mid-request
   // config change cannot split target discovery from authorization.
-  let cachedCfg: OpenClawConfig | undefined;
-  const getCfg = (): OpenClawConfig => (cachedCfg ??= params.context.getRuntimeConfig());
+  let cachedCfg: GrantedConfig | undefined;
+  const getCfg = (): GrantedConfig => (cachedCfg ??= params.context.getRuntimeConfig());
   // Each cache pair defines one synchronous freshness epoch: initial authorization shares one,
   // while commit-time guards start fresh after handler work.
   const createLookupCaches = (): {
@@ -307,7 +307,7 @@ export function resolveSessionMutationAuthorization(params: {
             },
           ),
         );
-      const assertTalkTargetCurrent = (cfg: OpenClawConfig) => {
+      const assertTalkTargetCurrent = (cfg: GrantedConfig) => {
         if (!talkInput || !talkSessionTarget) {
           return;
         }
@@ -343,7 +343,7 @@ export function resolveSessionMutationAuthorization(params: {
       const assertTargetCurrent = (
         targetRef: SessionMutationTarget,
         expected: AuthorizedSessionMutationTarget | undefined,
-        currentCfg: OpenClawConfig,
+        currentCfg: GrantedConfig,
         currentLookupCaches?: ReturnType<typeof createLookupCaches>,
         ensuredSessionId?: string,
       ) => {
@@ -467,7 +467,7 @@ function loadSharingSnapshot(params: Parameters<typeof resolveSessionSharingTarg
 }
 
 export function canReceiveSessionEvent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayWsClient;
   sessionKeys: readonly string[];
   agentId?: string;

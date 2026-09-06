@@ -1,6 +1,6 @@
 // Resolves heartbeat visibility toggles across config precedence levels.
 import type { ChannelHeartbeatVisibilityConfig } from "../config/types.channels.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /** Resolved heartbeat presentation toggles after defaults/channel/account precedence. */
 export type ResolvedHeartbeatVisibility = {
@@ -20,7 +20,7 @@ const DEFAULT_VISIBILITY: ResolvedHeartbeatVisibility = {
 
 /** Resolves heartbeat visibility for a channel, applying account > channel > defaults precedence. */
 export function resolveHeartbeatVisibility(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   accountId?: string;
 }): ResolvedHeartbeatVisibility {

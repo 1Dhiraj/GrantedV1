@@ -54,7 +54,7 @@ import {
   type SessionEntry,
   type SessionScope,
 } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   forgetActiveSessionForShutdown,
   noteActiveSessionForShutdown,
@@ -157,7 +157,7 @@ function resolveExplicitSessionEndReason(
 }
 
 function resolveSessionDefaultAccountId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelRaw?: string;
   accountIdRaw?: string;
   persistedLastAccountId?: string;
@@ -215,7 +215,7 @@ export type SessionInitResult = {
 };
 
 type InitSessionStateParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   commandAuthorized: boolean;
   ctx: FinalizedRuntimeMsgContext;
   expectedExistingSessionId?: string;
@@ -240,7 +240,7 @@ type InitSessionStateAttemptOutcome =
   | { kind: "lifecycle-mutation"; sessionId: string; sessionKey: string };
 
 function resolveSessionConversationBindingContext(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   ctx: MsgContext,
 ): {
   channel: string;
@@ -266,7 +266,7 @@ function resolveSessionConversationBindingContext(
 }
 
 function resolveBoundConversationSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: MsgContext;
   touch?: boolean;
   bindingContext?: {

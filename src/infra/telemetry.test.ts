@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import * as pluginRuntime from "../plugins/runtime.js";
 import { createPluginRecord } from "../plugins/status.test-helpers.js";
@@ -9,7 +9,7 @@ import { setTestEnvValue } from "../test-utils/env.js";
 import { useMockHttp } from "../test-utils/mock-http.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { VERSION } from "../version.js";
 import {
@@ -30,7 +30,7 @@ function installPluginRegistry(...plugins: Parameters<typeof createPluginRecord>
   pluginRuntime.setActivePluginRegistry(registry);
 }
 
-function createFeatureConfig(enabled = true): OpenClawConfig {
+function createFeatureConfig(enabled = true): GrantedConfig {
   return {
     telemetry: { enabled },
     auth: {
@@ -83,7 +83,7 @@ function createFeatureConfig(enabled = true): OpenClawConfig {
 }
 
 describe("anonymous telemetry", () => {
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
 
   beforeEach(async () => {
     testState = await createOpenClawTestState({
@@ -271,7 +271,7 @@ describe("anonymous telemetry", () => {
   });
 
   it.each([
-    { name: "never opted in", config: {} satisfies OpenClawConfig },
+    { name: "never opted in", config: {} satisfies GrantedConfig },
     { name: "explicitly opted out", config: createFeatureConfig(false) },
   ])("sends only an anonymous GET when $name", async ({ config }) => {
     mockHttp.intercept({

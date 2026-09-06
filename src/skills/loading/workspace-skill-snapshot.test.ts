@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withEnv, withPathResolutionEnv } from "../../test-utils/env.js";
 import { createFixtureSuite } from "../../test-utils/fixture-suite.js";
 import { createTempHomeEnv, type TempHomeEnv } from "../../test-utils/temp-home.js";
@@ -89,7 +89,7 @@ async function writeCustodianSkillFixture(workspaceDir: string): Promise<void> {
 
 function buildAgentSnapshot(params: {
   workspaceDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
 }) {
   return buildSnapshot(params.workspaceDir, {
@@ -155,7 +155,7 @@ describe("buildSkillSnapshot", () => {
   it("keeps custodian skills absent from every non-custodian discovery surface", async () => {
     const workspaceDir = await fixtureSuite.createCaseDir("custodian-gate");
     await writeCustodianSkillFixture(workspaceDir);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: { systemAgent: { agentId: "ops" } },
         entries: { ops: {}, writer: {} },
@@ -198,10 +198,10 @@ describe("buildSkillSnapshot", () => {
     const workspaceDir = await fixtureSuite.createCaseDir("custodian-owner-fallback");
     await writeCustodianSkillFixture(workspaceDir);
 
-    const soleAgentConfig: OpenClawConfig = {
+    const soleAgentConfig: GrantedConfig = {
       agents: { entries: { caretaker: {} } },
     };
-    const ambiguousConfig: OpenClawConfig = {
+    const ambiguousConfig: GrantedConfig = {
       agents: { entries: { ops: {}, writer: {} } },
     };
     const soleSnapshot = buildAgentSnapshot({
@@ -225,7 +225,7 @@ describe("buildSkillSnapshot", () => {
   it("applies per-skill disabled overrides to custodian skills", async () => {
     const workspaceDir = await fixtureSuite.createCaseDir("custodian-disabled");
     await writeCustodianSkillFixture(workspaceDir);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: { systemAgent: { agentId: "ops" } },
         entries: { ops: {} },

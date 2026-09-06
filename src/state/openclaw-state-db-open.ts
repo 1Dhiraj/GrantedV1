@@ -19,7 +19,7 @@ import {
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   GRANTED_STATE_SCHEMA_VERSION,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "./openclaw-state-db-contract.js";
 import { assertSupportedSchemaVersion } from "./openclaw-state-db-maintenance.js";
 import { ensureOpenClawStatePermissions } from "./openclaw-state-db-permissions.js";
@@ -57,7 +57,7 @@ export function openUnpublishedStateDatabase(params: {
   lockFailureReporting: SqliteLockFailureReporting;
   ensureSchema: (database: DatabaseSync) => void;
   recordOpenFailure: (pathname: string, error: Error) => void;
-}): OpenClawStateDatabase {
+}): GrantedStateDatabase {
   const { busyTimeoutMs, lockFailureReporting } = params;
   ensureOpenClawStatePermissions(params.pathname, params.env);
   const db = openNodeSqliteDatabase(params.pathname);

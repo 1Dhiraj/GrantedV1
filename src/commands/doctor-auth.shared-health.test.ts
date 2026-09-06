@@ -11,7 +11,7 @@ import {
   loadAuthProfileStoreWithoutExternalProfiles,
   resolvePersistedAuthProfileOwnerAgentDir,
 } from "../agents/auth-profiles/store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { collectAuthProfileHealthFindings, noteAuthProfileHealth } from "./doctor-auth.js";
@@ -37,7 +37,7 @@ afterEach(() => {
 describe("Doctor shared auth health", () => {
   it("reports shared OAuth expiry for an explicit fleet without local profiles", async () => {
     await withOpenClawTestState({ prefix: "openclaw-doctor-shared-health-" }, async (state) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
         plugins: { enabled: false },
       };
@@ -82,7 +82,7 @@ describe("Doctor shared auth health", () => {
 
   it("keeps inherited-profile recovery guidance local without duplicating shared expiry", async () => {
     await withOpenClawTestState({ prefix: "openclaw-doctor-auth-owners-" }, async (state) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
         plugins: { enabled: false },
       };
@@ -147,7 +147,7 @@ describe("Doctor shared auth health", () => {
 
   it("preserves external CLI overlays when checking an agent-local auth store", async () => {
     await withOpenClawTestState({ prefix: "openclaw-doctor-cli-auth-" }, async (state) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
         plugins: { enabled: false },
       };
@@ -181,7 +181,7 @@ describe("Doctor shared auth health", () => {
     { name: "distinct local account", sharedExpired: false, sameAccount: false, owner: "local" },
   ])("respects canonical OAuth ownership for $name credentials", async (scenario) => {
     await withOpenClawTestState({ prefix: "openclaw-doctor-oauth-owner-" }, async (state) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
         plugins: { enabled: false },
       };

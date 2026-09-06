@@ -31,7 +31,7 @@ import {
 } from "../../packages/gateway-protocol/src/index.js";
 import { isRetryableGatewayStartupUnavailableError } from "../../packages/gateway-protocol/src/startup-unavailable.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { assertExplicitGatewayAuthModeWhenBothConfigured } from "../gateway/auth-mode-policy.js";
 import { buildGatewayConnectionDetails } from "../gateway/call.js";
 import {
@@ -263,7 +263,7 @@ export class GatewayChatClient implements TuiBackend {
 
   /** Connect to a target already selected and authenticated by a preceding Gateway probe. */
   static async connectBound(
-    opts: GatewayConnectionOptions & { config: OpenClawConfig; url: string },
+    opts: GatewayConnectionOptions & { config: GrantedConfig; url: string },
   ): Promise<GatewayChatClient> {
     return new GatewayChatClient(await resolveBoundGatewayConnection(opts));
   }
@@ -551,7 +551,7 @@ export class GatewayChatClient implements TuiBackend {
  * credentials, while still applying the normal remote URL safety policy.
  */
 async function resolveBoundGatewayConnection(
-  opts: GatewayConnectionOptions & { config: OpenClawConfig; url: string },
+  opts: GatewayConnectionOptions & { config: GrantedConfig; url: string },
 ): Promise<ResolvedGatewayConnection> {
   const url = buildGatewayConnectionDetails({
     config: opts.config,

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import type { UpdateChannel } from "../infra/update-channels.js";
 import type { PluginCapabilityConsentHandler } from "./capability-consent.js";
@@ -16,7 +16,7 @@ import type {
 import { syncPluginsForUpdateChannel, updateNpmInstalledPlugins } from "./update.js";
 
 export type PluginCohortConvergenceResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changed: boolean;
   npmChanged: boolean;
   sync: PluginChannelSyncResult;
@@ -29,7 +29,7 @@ export type PluginCohortConvergenceResult = {
 
 /** Aligns managed plugin install sources and official packages with one core release cohort. */
 export async function convergePluginReleaseCohort(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   installRecords: Record<string, PluginInstallRecord>;
   channel: UpdateChannel;
   coreVersion?: string;

@@ -1,6 +1,6 @@
 // Verifies sessions_spawn model, thinking, timeout, and accepted-note planning.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "./defaults.js";
 import { resolveConfiguredSubagentSpawnModelSelection } from "./model-selection.js";
 import { resolveSubagentSpawnAcceptedNote } from "./subagents/spawn/subagent-spawn-accepted-note.js";
@@ -14,11 +14,11 @@ import { resolveSubagentThinkingOverride } from "./subagents/spawn/subagent-spaw
 type SubagentModelPlan = ReturnType<typeof resolveSubagentModelAndThinkingPlan>;
 type OkSubagentModelPlan = Extract<SubagentModelPlan, { status: "ok" }>;
 
-function createConfig(overrides?: Record<string, unknown>): OpenClawConfig {
+function createConfig(overrides?: Record<string, unknown>): GrantedConfig {
   return {
     session: { mainKey: "main", scope: "per-sender" },
     ...overrides,
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function expectOkPlan(plan: SubagentModelPlan): OkSubagentModelPlan {
@@ -242,11 +242,11 @@ function expectResolvedThinkingPlan(input: {
   callerThinkingRaw?: string;
   requesterAgentConfig?: unknown;
   targetAgentConfig?: unknown;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }) {
   const cfg =
     input.cfg ??
-    (createConfig({ agents: { defaults: { subagents: { thinking: "high" } } } }) as OpenClawConfig);
+    (createConfig({ agents: { defaults: { subagents: { thinking: "high" } } } }) as GrantedConfig);
   const plan = resolveSubagentThinkingOverride({
     cfg,
     requesterAgentConfig: input.requesterAgentConfig,

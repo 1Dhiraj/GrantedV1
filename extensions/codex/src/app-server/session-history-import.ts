@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
 import type { CodexThread } from "./protocol.js";
@@ -15,7 +15,7 @@ export async function createImportedCodexSession(params: {
   runtime: PluginRuntime;
   bindingStore: CodexAppServerBindingStore;
   prepareCleanup?: () => (assertCurrent: () => void) => Promise<void>;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   key: string;
   agentId: string;
   // Adoption explicitly snapshots a title; native forks must not inherit one.

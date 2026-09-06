@@ -5,13 +5,13 @@ import { beginNativeWindowDrag } from "../app/native-window-drag.ts";
 import { controlUiPublicAssetPath } from "../app/public-assets.ts";
 import { t } from "../i18n/index.ts";
 import { PRODUCT_DISPLAY_NAME } from "../lib/product-name.js";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import "./tooltip.ts";
 import { icons } from "./icons.ts";
 
 /** Narrow-viewport header: drawer toggle, brand, and command-palette search.
  * Desktop hides it entirely (layout.css) — the sidebar owns navigation there. */
-class AppTopbar extends OpenClawLightDomContentsElement {
+class AppTopbar extends GrantedLightDomContentsElement {
   @property({ attribute: false }) navDrawerOpen = false;
   @property({ attribute: false }) resourceBasePath = "";
   @property({ attribute: false }) environment: ControlUiEnvironment | null = null;

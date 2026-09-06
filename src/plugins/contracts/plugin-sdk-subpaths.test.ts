@@ -18,7 +18,7 @@ import type {
 } from "openclaw/plugin-sdk/channel-contract";
 import type {
   ChannelMessageActionContext as CoreChannelMessageActionContext,
-  OpenClawPluginApi as CoreOpenClawPluginApi,
+  GrantedPluginApi as CoreOpenClawPluginApi,
   PluginRuntime as CorePluginRuntime,
 } from "openclaw/plugin-sdk/core";
 import type {
@@ -54,7 +54,7 @@ import * as channelActionsDirectSdk from "../../plugin-sdk/channel-actions.js";
 import * as channelLifecycleDirectSdk from "../../plugin-sdk/channel-lifecycle.js";
 import type {
   ChannelMessageActionContext as SharedChannelMessageActionContext,
-  OpenClawPluginApi as SharedOpenClawPluginApi,
+  GrantedPluginApi as SharedOpenClawPluginApi,
   PluginRuntime as SharedPluginRuntime,
 } from "../../plugin-sdk/channel-plugin-common.js";
 import * as channelReplyPipelineDirectSdk from "../../plugin-sdk/channel-reply-pipeline.js";
@@ -62,7 +62,7 @@ import * as coreDirectSdk from "../../plugin-sdk/core.js";
 import { expectNoReaddirSyncDuring } from "../../test-utils/fs-scan-assertions.js";
 import { listGitTrackedFiles, toRepoRelativePath } from "../../test-utils/repo-files.js";
 import type { PluginRuntime } from "../runtime/types.js";
-import type { OpenClawPluginApi } from "../types.js";
+import type { GrantedPluginApi } from "../types.js";
 
 const SRC_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const REPO_ROOT = resolve(SRC_ROOT, "..");
@@ -1335,7 +1335,7 @@ describe("plugin-sdk subpath exports", () => {
     expectTypeOf<ContractChannelStatusIssue>().toMatchTypeOf<ChannelStatusIssue>();
     expectTypeOf<ContractChannelThreadingContext>().toMatchTypeOf<ChannelThreadingContext>();
     expectTypeOf<ContractChannelThreadingToolContext>().toMatchTypeOf<ChannelThreadingToolContext>();
-    expectTypeOf<CoreOpenClawPluginApi>().toMatchTypeOf<OpenClawPluginApi>();
+    expectTypeOf<CoreOpenClawPluginApi>().toMatchTypeOf<GrantedPluginApi>();
     expectTypeOf<CorePluginRuntime>().toMatchTypeOf<PluginRuntime>();
     expectTypeOf<CoreChannelMessageActionContext>().toMatchTypeOf<ChannelMessageActionContext>();
     expectTypeOf<CoreOpenClawPluginApi>().toMatchTypeOf<SharedOpenClawPluginApi>();

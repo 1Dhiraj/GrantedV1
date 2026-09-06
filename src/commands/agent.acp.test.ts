@@ -10,7 +10,7 @@ import { deliverAgentCommandResult } from "../agents/command/delivery.runtime.js
 import * as embeddedModule from "../agents/embedded-agent.js";
 import { readAgentRunTerminalOutcome } from "../channels/turn/agent-run-terminal-outcome.js";
 import * as configIoModule from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { agentCommand } from "./agent.js";
@@ -149,7 +149,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   return withTempHomeBase(fn, { prefix: "openclaw-agent-acp-" });
 }
 
-function createAcpEnabledConfig(home: string, storePath: string): OpenClawConfig {
+function createAcpEnabledConfig(home: string, storePath: string): GrantedConfig {
   return {
     acp: {
       enabled: true,
@@ -177,7 +177,7 @@ function mockConfig(home: string, storePath: string) {
 function mockConfigWithAcpOverrides(
   home: string,
   storePath: string,
-  acpOverrides: Partial<NonNullable<OpenClawConfig["acp"]>>,
+  acpOverrides: Partial<NonNullable<GrantedConfig["acp"]>>,
 ) {
   const cfg = createAcpEnabledConfig(home, storePath);
   cfg.acp = {
@@ -236,7 +236,7 @@ function resolveReadySession(
 function mockAcpManager(params: {
   runTurn: (params: unknown) => Promise<void>;
   resolveSession?: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
   }) => ReturnType<ReturnType<typeof acpManagerModule.getAcpSessionManager>["resolveSession"]>;
 }) {
@@ -346,7 +346,7 @@ function firstRunTurnInput(runTurn: { mock: { calls: unknown[][] } }) {
 }
 
 async function runAcpSessionWithPolicyOverridesAndExpectBlocked(params: {
-  acpOverrides: Partial<NonNullable<OpenClawConfig["acp"]>>;
+  acpOverrides: Partial<NonNullable<GrantedConfig["acp"]>>;
   resolveSession?: Parameters<typeof mockAcpManager>[0]["resolveSession"];
 }) {
   await withTempHome(async (home) => {
@@ -538,7 +538,7 @@ describe("agentCommand ACP runtime routing", () => {
     for (const acpOverrides of [
       { enabled: false },
       { dispatch: { enabled: false } },
-    ] satisfies Array<Partial<NonNullable<OpenClawConfig["acp"]>>>) {
+    ] satisfies Array<Partial<NonNullable<GrantedConfig["acp"]>>>) {
       await runAcpSessionWithPolicyOverridesAndExpectBlocked({ acpOverrides });
     }
   });

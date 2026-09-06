@@ -3,7 +3,7 @@ import { normalizeStringEntries } from "@openclaw/normalization-core/string-norm
 import { normalizeAnyChannelId } from "../channels/registry.js";
 import { resolveAccountEntry } from "../routing/account-lookup.js";
 import { normalizeAccountId } from "../routing/session-key.js";
-import type { OpenClawConfig } from "./config.js";
+import type { GrantedConfig } from "./config.js";
 import type { SlackCapabilitiesConfig } from "./types.slack.js";
 import type { TelegramCapabilitiesConfig } from "./types.telegram.js";
 
@@ -24,7 +24,7 @@ function normalizeCapabilities(capabilities: CapabilitiesConfig | undefined): st
 
 /** Resolves normalized string capabilities for a channel/account config pair. */
 export function resolveChannelCapabilities(params: {
-  cfg?: Partial<OpenClawConfig>;
+  cfg?: Partial<GrantedConfig>;
   channel?: string | null;
   accountId?: string | null;
 }): string[] | undefined {

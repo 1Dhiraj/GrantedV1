@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import type { HealthFinding, HealthRepairEffect } from "../../../flows/health-checks.js";
 import { resolveCompatibilityHostVersion } from "../../../version.js";
@@ -83,7 +83,7 @@ function missingRecordedPluginIssueKind(params: {
 
 /** Detect configured plugin installs that Doctor can repair without mutating package state. */
 export async function detectConfiguredPluginInstallHealthIssues(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   baselineRecords?: Record<string, PluginInstallRecord>;
 }): Promise<ConfiguredPluginInstallHealthIssue[]> {

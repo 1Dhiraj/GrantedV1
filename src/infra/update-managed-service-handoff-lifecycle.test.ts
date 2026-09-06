@@ -10,7 +10,7 @@ import { PassThrough } from "node:stream";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { writeTriageUpdateFailure } from "../commands/triage-update.js";
 import { getFileLockProcessStartTime } from "../shared/pid-alive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -82,7 +82,7 @@ vi.mock("../process/child-process-tree.js", async () => {
 });
 
 const tempDirs = new Set<string>();
-type GatewayRestartSentinelDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_sentinel">;
+type GatewayRestartSentinelDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_sentinel">;
 
 beforeEach(() => {
   forceKillChildProcessTreeMock.mockReset();

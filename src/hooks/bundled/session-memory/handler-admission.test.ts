@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import { replaceTranscriptEvents } from "../../../config/sessions/session-accessor.js";
 import {
   isGatewaySubordinateWorkAdmissionClosed,
@@ -40,7 +40,7 @@ describe("session-memory gateway admission", () => {
         },
       },
       session: { store: storePath },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     await replaceTranscriptEvents({ agentId: "main", sessionId, sessionKey, storePath }, [
       {
         type: "message",

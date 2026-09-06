@@ -7,7 +7,7 @@ import {
   validateNodePendingAckParams,
   type ConnectParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   captureNodePairingGeneration,
   isNodePairingGenerationCurrent,
@@ -29,7 +29,7 @@ function resolveAllowedPendingNodeActions(params: {
   nodeId: string;
   pairingGeneration: string;
   client: { connect?: ConnectParams | null } | null;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): PendingNodeAction[] {
   const pending = listPendingNodeActions({
     nodeId: params.nodeId,

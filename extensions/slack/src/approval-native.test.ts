@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
@@ -15,8 +15,8 @@ import { registerSlackInstallationState } from "./installation-identity-state.js
 type SlackInstallationStateRegistration = ReturnType<typeof registerSlackInstallationState>;
 
 function buildConfig(
-  overrides?: Partial<NonNullable<NonNullable<OpenClawConfig["channels"]>["slack"]>>,
-): OpenClawConfig {
+  overrides?: Partial<NonNullable<NonNullable<GrantedConfig["channels"]>["slack"]>>,
+): GrantedConfig {
   return {
     channels: {
       slack: {
@@ -30,7 +30,7 @@ function buildConfig(
         ...overrides,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 const tempDirs: string[] = [];
@@ -125,7 +125,7 @@ describe("slack native approval adapter", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const request = {
       id: "req-unbound",
       request: { command: "echo hi", turnSourceChannel: "slack" },
@@ -506,7 +506,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", to: "U123OWNER" }],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const request = {
       id: "plugin:req-1",
       request: {
@@ -576,7 +576,7 @@ describe("slack native approval adapter", () => {
           sessionFilter: ["slack:"],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const request = {
       id: "plugin:req-open-session",
       request: {
@@ -656,7 +656,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", accountId: "work", to: "user:U123OWNER" }],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const request = {
       id: "plugin:req-transport",
       request: {
@@ -717,7 +717,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", accountId: "work", to: "user:U123OWNER" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const request = {
       id: "plugin:req-http",
       request: {
@@ -781,7 +781,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", accountId: "work", to: "user:U123OWNER" }],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const request = {
       id: "plugin:req-http-secret-ref",
       request: {
@@ -831,7 +831,7 @@ describe("slack native approval adapter", () => {
           mode: "session",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const request = {
       id: "plugin:req-account-bound",
       request: {
@@ -1215,7 +1215,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", to: "user:U123OWNER" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       shouldSuppress({
@@ -1257,7 +1257,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", to: "U123OWNER" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       shouldSuppress({
@@ -1303,7 +1303,7 @@ describe("slack native approval adapter", () => {
           targets: [{ channel: "slack", to: "channel:CAPPROVALS" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       shouldSuppress({

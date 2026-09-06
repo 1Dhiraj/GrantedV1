@@ -1,7 +1,7 @@
 // Configure wizard tests keep workspace-owned effects on the configured default agent.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 
 type SetupChannels = typeof import("./onboard-channels.js").setupChannels;
@@ -36,12 +36,12 @@ vi.mock("../config/logging.js", () => ({ logConfigUpdated: vi.fn() }));
 vi.mock("../plugins/install-record-commit.js", () => ({
   commitConfigWithPendingPluginInstalls: mocks.commitConfig,
   transformConfigWithPendingPluginInstalls: async (params: {
-    transform: (config: OpenClawConfig) => { nextConfig: OpenClawConfig };
+    transform: (config: GrantedConfig) => { nextConfig: GrantedConfig };
     writeOptions?: Record<string, unknown>;
   }) => {
     const snapshot = mocks.state.snapshot as {
-      sourceConfig?: OpenClawConfig;
-      config: OpenClawConfig;
+      sourceConfig?: GrantedConfig;
+      config: GrantedConfig;
     };
     const nextConfig = params.transform(snapshot.sourceConfig ?? snapshot.config).nextConfig;
     const committed = await mocks.commitConfig({ nextConfig, writeOptions: params.writeOptions });
@@ -77,7 +77,7 @@ vi.mock("./configure.shared.js", () => ({
 
 vi.mock("./onboard-helpers.js", () => ({
   DEFAULT_WORKSPACE: "/tmp/default-workspace",
-  applyWizardMetadata: (config: OpenClawConfig) => config,
+  applyWizardMetadata: (config: GrantedConfig) => config,
   ensureWorkspaceAndSessions: mocks.ensureWorkspaceAndSessions,
   guardCancel: (value: unknown) => value,
   probeGatewayReachable: vi.fn(),
@@ -115,7 +115,7 @@ describe("runConfigureWizard default-agent ownership", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.state.snapshot = {
       exists: true,
       valid: true,
@@ -127,11 +127,11 @@ describe("runConfigureWizard default-agent ownership", () => {
     mocks.text.mockResolvedValue("/tmp/new-ops-workspace");
     mocks.select.mockResolvedValue("configure");
     mocks.setupPluginConfig.mockImplementation(
-      async ({ config }: { config: OpenClawConfig }) => config,
+      async ({ config }: { config: GrantedConfig }) => config,
     );
-    mocks.setupSkills.mockImplementation(async (config: OpenClawConfig) => config);
+    mocks.setupSkills.mockImplementation(async (config: GrantedConfig) => config);
     mocks.commitConfig.mockImplementation(
-      async ({ nextConfig }: { nextConfig: OpenClawConfig }) => ({ config: nextConfig }),
+      async ({ nextConfig }: { nextConfig: GrantedConfig }) => ({ config: nextConfig }),
     );
   });
 
@@ -187,7 +187,7 @@ describe("runConfigureWizard default-agent ownership", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.state.snapshot = {
       exists: true,
       valid: true,
@@ -239,7 +239,7 @@ describe("runConfigureWizard default-agent ownership", () => {
   });
 
   it("selects one explicit owner for workspace, plugins, skills, and channel setup", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: {
@@ -264,7 +264,7 @@ describe("runConfigureWizard default-agent ownership", () => {
       runtime,
     );
 
-    const committed = mocks.commitConfig.mock.calls[0]?.[0].nextConfig as OpenClawConfig;
+    const committed = mocks.commitConfig.mock.calls[0]?.[0].nextConfig as GrantedConfig;
     expect(committed.agents).toEqual({
       ownership: "explicit",
       entries: {
@@ -315,7 +315,7 @@ describe("runConfigureWizard default-agent ownership", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.state.snapshot = {
       exists: true,
       valid: true,
@@ -373,7 +373,7 @@ describe("runConfigureWizard default-agent ownership", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     retainLegacyDefaultAgentId(baseConfig, "ops");
     mocks.state.snapshot = {
       exists: true,
@@ -451,7 +451,7 @@ describe("runConfigureWizard default-agent ownership", () => {
   });
 
   it("can remove channel configuration without selecting an agent", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
     };
     mocks.state.snapshot = {

@@ -5,7 +5,7 @@ import { createNestedToolActivity } from "../../sessions/nested-tool-activity.js
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import { appendTranscriptEvent, persistSessionTranscriptTurn } from "./session-accessor.js";
@@ -28,7 +28,7 @@ function historyEventId(entry: { event: unknown } | undefined): unknown {
 }
 
 function enforceSqliteVariableLimit(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   limit = REGRESSION_SQLITE_VARIABLE_LIMIT,
 ): void {
   const prepare = database.db.prepare.bind(database.db);
@@ -42,7 +42,7 @@ function enforceSqliteVariableLimit(
 }
 
 function insertSyntheticHistory(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   count: number,
   boundaries = false,

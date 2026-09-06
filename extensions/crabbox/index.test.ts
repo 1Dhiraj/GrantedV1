@@ -2,9 +2,9 @@ import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  GrantedPluginApi,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
   WorkerProvider,
 } from "openclaw/plugin-sdk/plugin-entry";
 import {
@@ -60,7 +60,7 @@ function inspectResult(leaseId: string): SpawnResult {
 
 function registerCrabboxGeneration() {
   const providers: WorkerProvider[] = [];
-  const services: OpenClawPluginService[] = [];
+  const services: GrantedPluginService[] = [];
   plugin.register(
     createTestPluginApi({
       id: "crabbox",
@@ -72,8 +72,8 @@ function registerCrabboxGeneration() {
   return { provider: providers[0]!, services };
 }
 
-function stopGeneration(services: OpenClawPluginService[]): void | Promise<void> {
-  return services[0]?.stop?.({} as OpenClawPluginServiceContext);
+function stopGeneration(services: GrantedPluginService[]): void | Promise<void> {
+  return services[0]?.stop?.({} as GrantedPluginServiceContext);
 }
 
 describe("Crabbox plugin generation lifecycle", () => {
@@ -85,7 +85,7 @@ describe("Crabbox plugin generation lifecycle", () => {
   });
 
   it("lazily exposes warm-image inspection and acknowledged recovery through the plugin CLI", async () => {
-    const registrars: Parameters<OpenClawPluginApi["registerCli"]>[0][] = [];
+    const registrars: Parameters<GrantedPluginApi["registerCli"]>[0][] = [];
     const api = createTestPluginApi({
       id: "crabbox",
       rootDir: fileURLToPath(new URL(".", import.meta.url)),

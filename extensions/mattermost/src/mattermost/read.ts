@@ -13,7 +13,7 @@ import {
   type MattermostFetch,
   type MattermostPost,
 } from "./client.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { GrantedConfig } from "./runtime-api.js";
 
 type ReadContext = Pick<
   ChannelMessageActionContext,
@@ -58,7 +58,7 @@ function isCurrentMattermostReadTarget(params: {
 }
 
 function isConfiguredMattermostReadTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ReturnType<typeof resolveMattermostAccount>;
   channelId: string;
 }): boolean {
@@ -80,7 +80,7 @@ function isConfiguredMattermostReadTarget(params: {
 }
 
 export async function readMattermostMessages(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   limit?: number;
   before?: string;

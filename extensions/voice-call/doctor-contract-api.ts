@@ -4,8 +4,8 @@ import os from "node:os";
 import path from "node:path";
 // Doctor enumeration cold-loads this closure; the state-DB helpers stay behind a
 // lazy doctor-repair-runtime import so enumeration never pulls the kysely/state-db graph.
-import type { OpenClawStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
 import {
   archiveLegacyStateSource,
@@ -90,7 +90,7 @@ type PluginDoctorStateMigrationParams = Parameters<
 >[0];
 
 /** Return Voice Call agents whose templated core session stores need migration. */
-export function resolveSessionStoreAgentIds(params: { cfg: OpenClawConfig }): string[] {
+export function resolveSessionStoreAgentIds(params: { cfg: GrantedConfig }): string[] {
   const agentIds = new Set<string>();
   for (const pluginId of ["voice-call", "@openclaw/voice-call"]) {
     const entry = params.cfg.plugins?.entries?.[pluginId];
@@ -134,7 +134,7 @@ function resolveVoiceCallStateDatabaseEnv(
   };
 }
 
-function describeVoiceCallSchemaMigration(migration: OpenClawStateDatabaseSchemaMigration): string {
+function describeVoiceCallSchemaMigration(migration: GrantedStateDatabaseSchemaMigration): string {
   switch (migration.kind) {
     case "agent-databases-composite-primary-key":
       return "agent database registry primary key -> agent_id,path";

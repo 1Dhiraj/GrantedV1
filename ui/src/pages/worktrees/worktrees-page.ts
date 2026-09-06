@@ -32,7 +32,7 @@ import {
 } from "../../lib/sessions/route-navigation.ts";
 import { createManagedWorktree } from "../../lib/worktrees/create-worktree.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 
 const WORKTREES_DOCS_URL = "https://docs.openclaw.ai/concepts/managed-worktrees";
 
@@ -43,7 +43,7 @@ type WorktreeBranchesResult = {
   headBranch?: string;
 };
 
-class WorktreesPage extends OpenClawLightDomElement {
+class WorktreesPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

@@ -7,8 +7,8 @@ import {
   iterateSqliteQuerySync,
 } from "../../infra/kysely-sync.js";
 import { getChildLogger } from "../../logging/logger.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type { ConversationRouteContext } from "./conversation-route-context.js";
 import {
   linkSessionConversation,
@@ -66,8 +66,8 @@ import {
 import type { InternalSessionEntry as SessionEntry } from "./types.js";
 export { collectSessionEntryLookupKeys } from "./store-entry.js";
 
-type OpenClawAgentDatabaseReader = Pick<OpenClawAgentDatabase, "agentId" | "db">;
-type SessionEntryRow = Selectable<OpenClawAgentKyselyDatabase["session_nodes"]>;
+type GrantedAgentDatabaseReader = Pick<GrantedAgentDatabase, "agentId" | "db">;
+type SessionEntryRow = Selectable<GrantedAgentKyselyDatabase["session_nodes"]>;
 export type ResolvedSessionEntryRow = {
   entry: SessionEntry;
   row: SessionEntryRow;
@@ -75,7 +75,7 @@ export type ResolvedSessionEntryRow = {
 
 /** Decodes a fresh owned entry, including its nested JSON, owner and participant values. */
 export function parseReadableSqliteSessionEntryRow(
-  database: Pick<OpenClawAgentDatabase, "db">,
+  database: Pick<GrantedAgentDatabase, "db">,
   row: Pick<SessionEntryRow, "current_session_id" | "entry_json" | "session_key" | "updated_at"> &
     SqliteSessionOwnerRow,
 ): SessionEntry | null {
@@ -114,7 +114,7 @@ export function parseReadableSqliteSessionEntryRow(
 
 /** Exact reads already own nested values; retain them through identity publication. */
 export function readSessionIdentitySnapshot(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKeys: Iterable<string>,
 ): Map<string, SessionEntry> {
   const snapshot = new Map<string, SessionEntry>();
@@ -128,7 +128,7 @@ export function readSessionIdentitySnapshot(
 }
 
 export function readSessionEntryRow(
-  database: OpenClawAgentDatabaseReader,
+  database: GrantedAgentDatabaseReader,
   sessionKey: string,
 ): ResolvedSessionEntryRow | undefined {
   assertCanonicalSqliteSessionKeysCurrent(database);
@@ -136,7 +136,7 @@ export function readSessionEntryRow(
 }
 
 function readSessionEntryRowUnchecked(
-  database: OpenClawAgentDatabaseReader,
+  database: GrantedAgentDatabaseReader,
   sessionKey: string,
 ): ResolvedSessionEntryRow | undefined {
   const db = getSessionKysely(database.db);
@@ -166,7 +166,7 @@ function readSessionEntryRowUnchecked(
 // Runtime patches own only the exact canonical row. Folded lookup candidates
 // can be distinct case-sensitive rooms and must not join its mutation snapshot.
 export function readSessionEntrySelectionSnapshot(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   exact: boolean,
 ): SqliteLifecycleTargetSnapshot {
@@ -177,7 +177,7 @@ export function readSessionEntrySelectionSnapshot(
 }
 
 export function readExactSessionEntryRow(
-  database: OpenClawAgentDatabaseReader,
+  database: GrantedAgentDatabaseReader,
   sessionKey: string,
 ): ResolvedSessionEntryRow | undefined {
   const db = getSessionKysely(database.db);
@@ -193,7 +193,7 @@ export function readExactSessionEntryRow(
 }
 
 export function readExactSessionEntryJson(
-  database: Pick<OpenClawAgentDatabase, "db">,
+  database: Pick<GrantedAgentDatabase, "db">,
   sessionKey: string,
 ): string | undefined {
   const db = getSessionKysely(database.db);
@@ -204,7 +204,7 @@ export function readExactSessionEntryJson(
 }
 
 export function readExactSessionEntryRowValidated(
-  database: OpenClawAgentDatabaseReader,
+  database: GrantedAgentDatabaseReader,
   sessionKey: string,
 ): ResolvedSessionEntryRow | undefined {
   assertCanonicalSqliteSessionKeysCurrent(database);
@@ -212,7 +212,7 @@ export function readExactSessionEntryRowValidated(
 }
 
 export function readSessionEntryStore(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   options: { allowCanonicalRepair?: boolean; sessionKeys?: readonly string[] } = {},
 ): Record<string, SessionEntry> {
   if (options.allowCanonicalRepair !== true) {
@@ -239,7 +239,7 @@ export function readSessionEntryStore(
   return store;
 }
 
-export function readSessionEntryCount(database: OpenClawAgentDatabase): number {
+export function readSessionEntryCount(database: GrantedAgentDatabase): number {
   const db = getSessionKysely(database.db);
   const rows = iterateSqliteQuerySync(
     database.db,
@@ -252,7 +252,7 @@ export function readSessionEntryCount(database: OpenClawAgentDatabase): number {
   return count;
 }
 
-export function readSessionEntryKeys(database: OpenClawAgentDatabaseReader): string[] {
+export function readSessionEntryKeys(database: GrantedAgentDatabaseReader): string[] {
   const db = getSessionKysely(database.db);
   const keys: string[] = [];
   for (const row of iterateSqliteQuerySync(
@@ -270,7 +270,7 @@ export function readSessionEntryKeys(database: OpenClawAgentDatabaseReader): str
 }
 
 export function resolveLifecyclePrimaryEntry(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   target: { canonicalKey: string; storeKeys: string[] },
   options: { allowCanonicalMove?: boolean } = {},
 ): SqliteLifecycleTargetSnapshot[number] | undefined {
@@ -294,7 +294,7 @@ export function resolveLifecyclePrimaryEntry(
 }
 
 export function readLifecycleTargetSnapshot(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   target: { canonicalKey: string; storeKeys: string[] },
   options: { allowCanonicalMove?: boolean } = {},
 ): SqliteLifecycleTargetSnapshot {
@@ -316,7 +316,7 @@ export function normalizeLifecycleTarget(target: { canonicalKey: string; storeKe
 }
 
 export function deleteSessionEntryRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   options: {
     deleteOwnedWindows?: boolean;
@@ -405,7 +405,7 @@ export function deleteSessionEntryRows(
 
 /** Remove the logical entry while retaining its node-owned transcript windows. */
 function clearSqliteSessionEntryPreservingWindows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   params: { sessionId: string; sessionKey: string; updatedAt: number },
 ): void {
   const db = getSessionKysely(database.db);
@@ -461,7 +461,7 @@ function clearSqliteSessionEntryPreservingWindows(
 }
 
 export function deleteLifecycleTargetRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   target: { canonicalKey: string; storeKeys: string[] },
 ): void {
   for (const sessionKey of uniqueStrings([target.canonicalKey, ...target.storeKeys])) {
@@ -473,7 +473,7 @@ export function deleteLifecycleTargetRows(
 }
 
 function sqliteLifecycleTargetMatchesExpectedEntry(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   target: { canonicalKey: string; storeKeys: string[] },
   expectedEntry: SessionEntry | undefined,
 ): boolean {
@@ -485,7 +485,7 @@ function sqliteLifecycleTargetMatchesExpectedEntry(
 }
 
 export function assertLifecycleTargetUnchanged(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   target: { canonicalKey: string; storeKeys: string[] },
   expectedEntry: SessionEntry | undefined,
   operation: "deleted" | "reset",
@@ -497,7 +497,7 @@ export function assertLifecycleTargetUnchanged(
 }
 
 export function deleteLegacySessionEntryRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   legacyKeys: string[],
   sessionKey: string,
   options: { rehomeMembers?: boolean; validatedEntries?: ReadonlyMap<string, SessionEntry> } = {},
@@ -530,7 +530,7 @@ export function deleteLegacySessionEntryRows(
 
 /** Move retained generations to the canonical node before removing key aliases. */
 export function rehomeSessionWindows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   canonicalKey: string,
   previousKeys: Iterable<string>,
 ): void {
@@ -551,7 +551,7 @@ export function rehomeSessionWindows(
 }
 
 export function writeSessionEntry(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   entry: SessionEntry,
   options: {

@@ -8,7 +8,7 @@ import {
   resolveAgentMainSessionKey,
 } from "../../config/sessions/main-session.js";
 import { resolveMirroredTranscriptText } from "../../config/sessions/transcript-mirror.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type { NormalizedOutboundPayload } from "../../infra/outbound/deliver.js";
 import type { OutboundSessionRoute } from "../../infra/outbound/outbound-session.js";
@@ -46,7 +46,7 @@ export type DirectCronTranscriptMirror = {
   storePath?: string;
   idempotencyKey: string;
   deliveryMirror?: { kind: typeof CRON_DIRECT_DELIVERY_CONTEXT_KIND };
-  config: OpenClawConfig;
+  config: GrantedConfig;
 };
 
 const deliveryOutboundRuntimeLoader = createLazyImportLoader(
@@ -73,7 +73,7 @@ export function shouldQueueCronAwareness(params: {
 }
 
 export function resolveCronAwarenessMainSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
 }): string {
   return params.cfg.session?.scope === "global"
@@ -165,7 +165,7 @@ export function formatTargetCronDeliveryFailureAwarenessText(params: {
 }
 
 export async function queueCronAwarenessSystemEvent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   jobId: string;
   agentId: string;
   deliveryIdempotencyKey: string;
@@ -293,7 +293,7 @@ export function projectDeliveredDirectCronPayloadsForMirror(
 }
 
 function canonicalizeDirectCronRouteSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }): string {
@@ -326,7 +326,7 @@ function canonicalizeDirectCronRouteSessionKey(params: {
 // platform delivery, matching the post-success invariant in message-action-send
 // and gateway server-methods/send.
 async function resolveCronDeliveryRouteSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   job: CronJob;
   agentId: string;
   agentSessionKey: string;
@@ -386,7 +386,7 @@ async function resolveCronDeliveryRouteSessionKey(params: {
 // route — this matches the post-success invariant in message-action-send.ts
 // and gateway server-methods/send.ts.
 export async function commitDirectCronOutboundRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runSessionKey: string;
   delivery: SuccessfulDeliveryTarget;
   route: OutboundSessionRoute | null;
@@ -415,7 +415,7 @@ export async function commitDirectCronOutboundRoute(params: {
  *  The route must be persisted by the caller after successful platform delivery
  *  via `commitDirectCronOutboundRoute`. */
 export async function resolveDirectCronDeliverySessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   job: CronJob;
   agentId: string;
   agentSessionKey: string;
@@ -487,7 +487,7 @@ function resolveCronMessageToolAwarenessTarget(params: {
 
 /** Queues target-session context awareness for cron deliveries made via message tool. */
 export async function queueCronMessageToolDeliveryAwareness(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runSessionKey: string;
   job: CronJob;
   agentId: string;

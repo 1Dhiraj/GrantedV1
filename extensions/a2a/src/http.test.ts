@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import type { ServerResponse } from "node:http";
 import { VERSION } from "openclaw/plugin-sdk/cli-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createMockIncomingRequest, createMockServerResponse } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createA2aHttpHandler } from "./http.js";
@@ -19,7 +19,7 @@ afterEach(() => {
 });
 
 async function startHttpHarness(options?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   a2aConfig?: Partial<A2aChannelConfig>;
   onDispatch?: (message: {
     taskId: string;

@@ -4,7 +4,7 @@ import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
 import { extractToolSend } from "openclaw/plugin-sdk/tool-send";
 import { inspectZaloAccount, listZaloAccountIds } from "./accounts.js";
@@ -17,7 +17,7 @@ const loadZaloActionsRuntime = createLazyRuntimeNamedExport(
 const providerId = "zalo";
 const ZALO_ACTIONS = new Set<ChannelMessageActionName>(["send"]);
 
-function listEnabledAccounts(cfg: OpenClawConfig, accountId?: string | null) {
+function listEnabledAccounts(cfg: GrantedConfig, accountId?: string | null) {
   return (
     accountId
       ? [inspectZaloAccount({ cfg, accountId })]

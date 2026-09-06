@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSuiteLogPathTracker } from "../logging/log-test-helpers.js";
 import { resetLogger } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
@@ -49,7 +49,7 @@ vi.mock("../state/local-onboarding-state.js", () => ({
   completeLocalOnboarding: localOnboarding.complete,
 }));
 vi.mock("./onboard-agent.js", () => ({
-  ensureOnboardingAgent: async ({ config }: { config: OpenClawConfig }) => ({ config }),
+  ensureOnboardingAgent: async ({ config }: { config: GrantedConfig }) => ({ config }),
   validateFirstOnboardingAgentName: () => undefined,
 }));
 vi.mock("./onboard-helpers.js", () => ({
@@ -169,10 +169,10 @@ describe("guided onboarding post-inference steps", () => {
   });
 
   it("auto-connects one credentialed candidate before any workspace prompt", async () => {
-    const persistedConfig: OpenClawConfig = {
+    const persistedConfig: GrantedConfig = {
       agents: { defaults: { model: { primary: "claude-cli/opus" } } },
     };
-    const appliedConfig: OpenClawConfig = {
+    const appliedConfig: GrantedConfig = {
       ...persistedConfig,
       gateway: { mode: "local" },
     };
@@ -247,10 +247,10 @@ describe("guided onboarding post-inference steps", () => {
   });
 
   it("imports memories only after setup persists the selected agent workspace", async () => {
-    const inferenceConfig: OpenClawConfig = {
+    const inferenceConfig: GrantedConfig = {
       agents: { defaults: { model: { primary: "claude-cli/opus" } } },
     };
-    const appliedConfig: OpenClawConfig = {
+    const appliedConfig: GrantedConfig = {
       agents: {
         defaults: {
           model: { primary: "claude-cli/opus" },

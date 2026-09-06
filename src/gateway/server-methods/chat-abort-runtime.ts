@@ -15,7 +15,7 @@ import {
   isSubagentRunQueued,
   listSubagentRunsForController,
 } from "../../agents/subagents/registry/subagent-registry-read.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isAgentEventLifecycleGenerationCurrent } from "../../infra/agent-events.js";
 import { SUBAGENT_KILL_TASK_ERROR } from "../../tasks/detached-task-runtime-contract.js";
 import {
@@ -54,7 +54,7 @@ import { emitSessionsChanged } from "./session-change-event.js";
 import type { GatewayRequestContext } from "./types.js";
 
 export async function abortControlledSubagents(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
   requesterTurnRunId?: string;

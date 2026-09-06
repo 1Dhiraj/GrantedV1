@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { encodePngRgba, fillPixel } from "../../media/png-encode.js";
 import type { AgentMessage } from "../runtime/index.js";
 import { castAgentMessage } from "../test-helpers/agent-message-fixtures.js";
@@ -18,7 +18,7 @@ import { installToolResultContextGuard } from "./tool-result-context-guard.js";
 type ContentBlock = { type: string; text?: string; data?: string; mimeType?: string };
 
 function createRequiredImageTool() {
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: { defaults: { imageMaxDimensionPx: 32 } },
   };
   return expectDefined(

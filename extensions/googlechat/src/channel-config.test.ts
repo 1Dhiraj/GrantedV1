@@ -1,6 +1,6 @@
 // Googlechat tests cover channel config plugin behavior.
 import type { ChannelOutboundPayloadHint } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { inspectGoogleChatAccount } from "./accounts.js";
@@ -39,7 +39,7 @@ describe("googlechatPlugin config adapter", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const account = inspectGoogleChatAccount({ cfg, accountId: "work" });
     expect(await googlechatPlugin.config.isConfigured?.(account, cfg)).toBe(entry.configured);
     expect(account).toMatchObject({
@@ -81,7 +81,7 @@ describe("googlechatPlugin config adapter", () => {
           serviceAccount: { client_email: "bot@example.com" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(googlechatPlugin.actions?.describeMessageTool?.({ cfg })).toEqual({
       actions: ["send"],
@@ -116,7 +116,7 @@ describe("googlechatPlugin config adapter", () => {
           defaultTo: "spaces/AAA",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(googlechatPlugin.config.resolveAllowFrom?.({ cfg, accountId: "default" })).toEqual([
       "users/123",
@@ -142,7 +142,7 @@ describe("googlechatPlugin config adapter", () => {
           allowFrom: ["users/123"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const payload: ReplyPayload = {
       channelData: {
         execApproval: {
@@ -188,7 +188,7 @@ describe("googlechatPlugin config adapter", () => {
 
     expect(
       googlechatPlugin.outbound?.normalizePayload?.({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         payload,
       }),
     ).toBeNull();
@@ -219,19 +219,19 @@ describe("googlechatPlugin config adapter", () => {
 
     expect(
       googlechatPlugin.outbound?.normalizePayload?.({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         payload: unrelatedPayload,
       }),
     ).toBe(unrelatedPayload);
     expect(
       googlechatPlugin.outbound?.normalizePayload?.({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         payload: metadataPayload,
       }),
     ).toBeNull();
     expect(
       googlechatPlugin.outbound?.normalizePayload?.({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         payload: structuredPayload,
       }),
     ).toBe(structuredPayload);

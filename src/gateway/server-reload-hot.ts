@@ -7,7 +7,7 @@ import {
   type PreparedModelRuntimeReplacementGateId,
 } from "../agents/prepared-model-runtime.js";
 import { isRestartEnabled } from "../config/commands.flags.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resetDirectoryCache } from "../infra/outbound/target-resolver.js";
@@ -94,7 +94,7 @@ export function createGatewayReloadHandlers(params: GatewayReloadHandlerParams) 
 
   const applyHotReload = async (
     plan: GatewayReloadPlan,
-    nextConfig: OpenClawConfig,
+    nextConfig: GrantedConfig,
     publication?: GatewayHotReloadPublication,
   ) => {
     assertIrreversibleReloadPlanHasRecoveryOwner(plan, restartRecoveryAvailable);

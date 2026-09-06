@@ -5,7 +5,7 @@ import { resolveAgentDir } from "../agents/agent-scope-config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { clearRuntimeAuthProfileStoreSnapshot } from "../agents/auth-profiles/store.js";
 import { resolveGatewayLockDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isNotFoundPathError } from "../infra/path-guards.js";
 import { summarizeMigrationItems } from "../plugin-sdk/migration.js";
 import type {
@@ -62,23 +62,23 @@ type SetupMigrationStage = {
   staged: SetupMigrationStagePaths;
   final: SetupMigrationStagePaths;
   configRuntime: MigrationConfigRuntime;
-  getFinalConfig: () => OpenClawConfig;
-  getStagedConfig: () => OpenClawConfig;
-  replaceStagedConfig: (config: OpenClawConfig) => void;
+  getFinalConfig: () => GrantedConfig;
+  getStagedConfig: () => GrantedConfig;
+  replaceStagedConfig: (config: GrantedConfig) => void;
   projectPlanToStage: (plan: MigrationPlan) => MigrationPlan;
   projectResultToFinal: (result: MigrationApplyResult) => MigrationApplyResult;
   promote: (params: {
-    expectedConfig: OpenClawConfig;
+    expectedConfig: GrantedConfig;
     continuation: Omit<
       SetupMigrationPromotionContinuation,
       "stagedReportDir" | "stagedRoots" | "workspaceDir"
     >;
-    readConfigFile: () => Promise<OpenClawConfig>;
+    readConfigFile: () => Promise<GrantedConfig>;
     commitConfigFile: (
-      config: OpenClawConfig,
-      expectedConfig: OpenClawConfig,
-    ) => Promise<OpenClawConfig>;
-  }) => Promise<{ config: OpenClawConfig; resume: SetupMigrationPromotionResume }>;
+      config: GrantedConfig,
+      expectedConfig: GrantedConfig,
+    ) => Promise<GrantedConfig>;
+  }) => Promise<{ config: GrantedConfig; resume: SetupMigrationPromotionResume }>;
   cleanup: () => Promise<void>;
 };
 
@@ -149,14 +149,14 @@ function projectPlanTargets(
 }
 
 function createInMemoryConfigRuntime(params: {
-  finalConfig: OpenClawConfig;
-  stagedConfig: OpenClawConfig;
-  projectToFinal: (config: OpenClawConfig) => OpenClawConfig;
+  finalConfig: GrantedConfig;
+  stagedConfig: GrantedConfig;
+  projectToFinal: (config: GrantedConfig) => GrantedConfig;
 }): {
   runtime: MigrationConfigRuntime;
-  getFinalConfig: () => OpenClawConfig;
-  getStagedConfig: () => OpenClawConfig;
-  replaceConfigs: (next: { finalConfig: OpenClawConfig; stagedConfig: OpenClawConfig }) => void;
+  getFinalConfig: () => GrantedConfig;
+  getStagedConfig: () => GrantedConfig;
+  replaceConfigs: (next: { finalConfig: GrantedConfig; stagedConfig: GrantedConfig }) => void;
 } {
   let finalConfig = structuredClone(params.finalConfig);
   let stagedConfig = structuredClone(params.stagedConfig);
@@ -259,7 +259,7 @@ export async function createSetupMigrationStage(params: {
   stateDir: string;
   workspaceDir: string;
   reportDir: string;
-  targetConfig: OpenClawConfig;
+  targetConfig: GrantedConfig;
 }): Promise<SetupMigrationStage> {
   const agentId = resolveDefaultAgentId(params.targetConfig);
   const finalEnv = { ...process.env, GRANTED_STATE_DIR: params.stateDir };
@@ -274,7 +274,7 @@ export async function createSetupMigrationStage(params: {
     path.basename(params.reportDir),
   );
   const stageEnv = { ...process.env, GRANTED_STATE_DIR: stagedStateDir };
-  const stagedConfig: OpenClawConfig = {
+  const stagedConfig: GrantedConfig = {
     ...structuredClone(params.targetConfig),
     agents: {
       ...structuredClone(params.targetConfig.agents),
@@ -303,8 +303,8 @@ export async function createSetupMigrationStage(params: {
     [finalPaths.reportDir, stagedPaths.reportDir],
   ] as const;
   const toFinal = toStage.map(([finalPath, stagedPath]) => [stagedPath, finalPath] as const);
-  const projectConfigToFinal = (config: OpenClawConfig) =>
-    projectValue(config, toFinal) as OpenClawConfig;
+  const projectConfigToFinal = (config: GrantedConfig) =>
+    projectValue(config, toFinal) as GrantedConfig;
   const configs = createInMemoryConfigRuntime({
     finalConfig: params.targetConfig,
     stagedConfig,
@@ -438,7 +438,7 @@ export async function createSetupMigrationStage(params: {
           component.status = "promoted";
           await writePromotionJournal(journalPath, journal);
         }
-        let committed: OpenClawConfig;
+        let committed: GrantedConfig;
         try {
           committed = await commitConfigFile(configTarget, expectedConfig);
         } catch (error) {

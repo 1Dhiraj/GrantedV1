@@ -42,7 +42,7 @@ import type { PreparedModelRuntimeSnapshot } from "../../agents/prepared-model-r
 import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.js";
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveAgentRuntimeLabel } from "../../status/agent-runtime-label.js";
 import type { ReplyPayload } from "../types.js";
 import { rejectUnauthorizedCommand } from "./command-gates.js";
@@ -111,7 +111,7 @@ function normalizeRuntimeChoiceId(runtime: string | undefined): string {
 }
 
 function buildRuntimeChoice(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   runtime: string;
   cli?: boolean;
@@ -131,7 +131,7 @@ function buildRuntimeChoice(params: {
 }
 
 function buildDefaultRuntimeChoice(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   provider: string;
   modelId?: string;
@@ -160,7 +160,7 @@ function addRuntimeChoice(
 }
 
 export async function buildPreparedModelsProviderData(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
   options: { view?: "default" | "all"; workspaceDir?: string } = {},
 ): Promise<PreparedModelsProviderData> {
@@ -180,7 +180,7 @@ export async function buildPreparedModelsProviderData(
 }
 
 async function buildPreparedDataForConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string | undefined,
   options: { view?: "default" | "all"; workspaceDir?: string },
 ): Promise<PreparedModelsProviderData> {
@@ -528,7 +528,7 @@ function parseModelsArgs(raw: string): ParsedModelsCommand {
 
 function resolveProviderLabel(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -561,7 +561,7 @@ function resolveProviderLabel(params: {
 export function formatModelsAvailableHeader(params: {
   provider: string;
   total: number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -607,7 +607,7 @@ function buildProviderInfos(params: {
 }
 
 export async function resolveModelsCommandReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   commandBodyNormalized: string;
   surface?: string;
   currentModel?: string;

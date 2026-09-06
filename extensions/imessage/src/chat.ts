@@ -1,5 +1,5 @@
 // Imessage plugin module implements chat behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { resolveIMessageAccount, type ResolvedIMessageAccount } from "./accounts.js";
 import { createIMessageRpcClient, type IMessageRpcClient } from "./client.js";
@@ -7,7 +7,7 @@ import { resolveIMessageRemoteHost } from "./remote-host.js";
 import { formatIMessageChatTarget, type IMessageService, parseIMessageTarget } from "./targets.js";
 
 type ChatActionOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   account?: ResolvedIMessageAccount;
   client?: IMessageRpcClient;

@@ -43,7 +43,7 @@ import { createDefaultDeps } from "../cli/deps.js";
 import { getRuntimeConfig, registerConfigWriteListener } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { applySessionPatchProjection } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isChatStopCommandText } from "../gateway/chat-abort.js";
 import { resolveEffectiveChatHistoryMaxChars } from "../gateway/chat-display-projection.js";
 import {
@@ -176,7 +176,7 @@ const embeddedSessionStartupMigrationLog = {
   warn: (message: string) => logWarn(message, silentRuntime),
 };
 
-function hasProviderWildcardModelAllowlist(cfg: OpenClawConfig) {
+function hasProviderWildcardModelAllowlist(cfg: GrantedConfig) {
   const modelMaps = [
     cfg.agents?.defaults?.models,
     ...listAgentEntries(cfg).map((agent) => agent.models),
@@ -186,7 +186,7 @@ function hasProviderWildcardModelAllowlist(cfg: OpenClawConfig) {
   );
 }
 
-function resolveConfiguredReplaceModeCatalog(cfg: OpenClawConfig) {
+function resolveConfiguredReplaceModeCatalog(cfg: GrantedConfig) {
   if (cfg.models?.mode !== "replace") {
     return undefined;
   }
@@ -196,12 +196,12 @@ function resolveConfiguredReplaceModeCatalog(cfg: OpenClawConfig) {
   return buildConfiguredModelCatalog({ cfg });
 }
 
-function shouldLoadFullGatewayCatalogForReplaceMode(cfg: OpenClawConfig) {
+function shouldLoadFullGatewayCatalogForReplaceMode(cfg: GrantedConfig) {
   return cfg.models?.mode === "replace" && hasProviderWildcardModelAllowlist(cfg);
 }
 
 function ensureEmbeddedHistoryRuntimePluginsLoaded(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionAgentId: string;
 }): { status: "warmed"; registry?: PluginRegistry } | { status: "failed"; error: string } {
   try {
@@ -216,7 +216,7 @@ function ensureEmbeddedHistoryRuntimePluginsLoaded(params: {
   }
 }
 
-async function loadEmbeddedTuiModelCatalog(cfg: OpenClawConfig) {
+async function loadEmbeddedTuiModelCatalog(cfg: GrantedConfig) {
   const configuredCatalog = resolveConfiguredReplaceModeCatalog(cfg);
   if (configuredCatalog !== undefined) {
     return configuredCatalog;

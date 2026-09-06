@@ -9,8 +9,8 @@ import { saveExecApprovals, type ExecApprovalsSnapshot } from "../infra/exec-app
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandContext,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandContext,
 } from "../plugins/types.node-host.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -211,9 +211,9 @@ describe("node host invoke", () => {
       sessionKey: "agent:main:managed",
     };
     let retainedAcquire:
-      | NonNullable<OpenClawPluginNodeHostCommandContext["acquireManagedWorkspace"]>
+      | NonNullable<GrantedPluginNodeHostCommandContext["acquireManagedWorkspace"]>
       | undefined;
-    const handle = vi.fn<OpenClawPluginNodeHostCommand["handle"]>(
+    const handle = vi.fn<GrantedPluginNodeHostCommand["handle"]>(
       async (paramsJSON, _io, context) => {
         expect(JSON.parse(paramsJSON ?? "{}")).toEqual({ sessionKey: "agent:main:other" });
         expect(context?.sessionKey).toBe(workspaceRequest.sessionKey);

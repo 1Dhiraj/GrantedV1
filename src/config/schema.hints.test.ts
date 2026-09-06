@@ -7,8 +7,8 @@ import { z } from "zod";
 import { buildSecretInputSchema } from "../plugin-sdk/secret-input-schema.js";
 import { buildBaseHints, testApi } from "./schema.hints.js";
 import { isSensitiveConfigPath } from "./sensitive-paths.js";
-import { OpenClawSchema } from "./zod-schema.js";
-import { OpenClawSchemaShape } from "./zod-schema.root-shape.js";
+import { GrantedSchema } from "./zod-schema.js";
+import { GrantedSchemaShape } from "./zod-schema.root-shape.js";
 import { sensitive } from "./zod-schema.sensitive.js";
 
 const { collectMatchingSchemaPaths, mapSensitivePaths, SECTION_DOCS_URLS, SECTIONS_WITHOUT_DOCS } =
@@ -30,7 +30,7 @@ describe("section docs URLs", () => {
       ...Object.keys(SECTION_DOCS_URLS),
       ...SECTIONS_WITHOUT_DOCS,
     ]);
-    const undecidedSections = Object.keys(OpenClawSchemaShape).filter(
+    const undecidedSections = Object.keys(GrantedSchemaShape).filter(
       (section) => !sectionsWithDocsDecisions.has(section),
     );
 
@@ -212,12 +212,12 @@ describe("mapSensitivePaths", () => {
   });
 
   it("main schema yields correct hints (samples)", () => {
-    const schema = OpenClawSchema.toJSONSchema({
+    const schema = GrantedSchema.toJSONSchema({
       target: "draft-07",
       unrepresentable: "any",
     });
-    schema.title = "OpenClawConfig";
-    const hints = mapSensitivePaths(OpenClawSchema, "", {});
+    schema.title = "GrantedConfig";
+    const hints = mapSensitivePaths(GrantedSchema, "", {});
 
     expect(hints["memory.search.remote.apiKey"]?.sensitive).toBe(true);
     expect(hints["agents.entries.*.memory.search.remote.apiKey"]?.sensitive).toBe(true);
@@ -249,7 +249,7 @@ describe("mapSensitivePaths", () => {
 
 describe("collectMatchingSchemaPaths", () => {
   it("finds base-config URL fields that may embed secrets", () => {
-    const paths = collectMatchingSchemaPaths(OpenClawSchema, "", isSensitiveUrlConfigPath);
+    const paths = collectMatchingSchemaPaths(GrantedSchema, "", isSensitiveUrlConfigPath);
 
     expect(paths.has("mcp.servers.*.url")).toBe(true);
     expect(paths.has("models.providers.*.baseUrl")).toBe(true);

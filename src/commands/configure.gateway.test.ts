@@ -2,7 +2,7 @@
 import { IncomingMessage } from "node:http";
 import { Socket } from "node:net";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { authorizeHttpGatewayConnect, resolveGatewayAuth } from "../gateway/auth.js";
 import { isTrustedProxyAddress } from "../gateway/net.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -63,7 +63,7 @@ function makeRuntime(): RuntimeEnv {
 async function runGatewayPrompt(params: {
   selectQueue: string[];
   textQueue: Array<string | undefined>;
-  baseConfig?: OpenClawConfig;
+  baseConfig?: GrantedConfig;
   randomToken?: string;
   confirmResult?: boolean;
 }) {
@@ -86,7 +86,7 @@ async function runGatewayPrompt(params: {
 async function runTrustedProxyPrompt(params: {
   textQueue: Array<string | undefined>;
   tailscaleMode?: "off" | "serve";
-  baseConfig?: OpenClawConfig;
+  baseConfig?: GrantedConfig;
   confirmResult?: boolean;
 }) {
   return runGatewayPrompt({
@@ -97,7 +97,7 @@ async function runTrustedProxyPrompt(params: {
 
 afterEach(() => vi.unstubAllEnvs());
 
-async function authorizeConfiguredProxy(config: OpenClawConfig, remoteAddress = "127.0.0.1") {
+async function authorizeConfiguredProxy(config: GrantedConfig, remoteAddress = "127.0.0.1") {
   const req = new IncomingMessage(new Socket());
   Object.defineProperty(req.socket, "remoteAddress", { value: remoteAddress });
   req.headers = {
@@ -332,7 +332,7 @@ describe("promptGatewayConfig", () => {
   ])(
     "preserves or explicitly revokes loopback consent on rerun: $proxies/$answer",
     async ({ proxies, answer, expected }) => {
-      const baseConfig: OpenClawConfig = {
+      const baseConfig: GrantedConfig = {
         gateway: {
           auth: {
             mode: "trusted-proxy",

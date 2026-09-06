@@ -21,7 +21,7 @@ import {
   type PluginSdkResolutionPreference,
   resolvePluginRuntimeModulePathWithDiagnostics,
 } from "./sdk-alias.js";
-import type { OpenClawPluginApi, OpenClawPluginDefinition } from "./types.js";
+import type { GrantedPluginApi, GrantedPluginDefinition } from "./types.js";
 
 const LAZY_RUNTIME_REFLECTION_KEYS = [
   "version",
@@ -44,8 +44,8 @@ const LAZY_RUNTIME_REFLECTION_KEYS = [
   "llm",
 ] as const satisfies readonly (keyof PluginRuntime)[];
 
-function createGuardedPluginRegistrationApi(api: OpenClawPluginApi): {
-  api: OpenClawPluginApi;
+function createGuardedPluginRegistrationApi(api: GrantedPluginApi): {
+  api: GrantedPluginApi;
   close: () => void;
 } {
   let closed = false;
@@ -77,8 +77,8 @@ function createGuardedPluginRegistrationApi(api: OpenClawPluginApi): {
 }
 
 function runPluginRegisterSync(
-  register: NonNullable<OpenClawPluginDefinition["register"]>,
-  api: Parameters<NonNullable<OpenClawPluginDefinition["register"]>>[0],
+  register: NonNullable<GrantedPluginDefinition["register"]>,
+  api: Parameters<NonNullable<GrantedPluginDefinition["register"]>>[0],
 ): void {
   const guarded = createGuardedPluginRegistrationApi(api);
   try {
@@ -93,8 +93,8 @@ function runPluginRegisterSync(
 }
 
 export function runPluginRegisterSyncInRegistry(
-  register: NonNullable<OpenClawPluginDefinition["register"]>,
-  api: Parameters<NonNullable<OpenClawPluginDefinition["register"]>>[0],
+  register: NonNullable<GrantedPluginDefinition["register"]>,
+  api: Parameters<NonNullable<GrantedPluginDefinition["register"]>>[0],
   registry: PluginRegistry,
   pluginId: string,
 ): void {
@@ -267,8 +267,8 @@ export function createLazyPluginRuntime(params: {
 }
 
 export function resolvePluginModuleExport(moduleExport: unknown): {
-  definition?: OpenClawPluginDefinition;
-  register?: OpenClawPluginDefinition["register"];
+  definition?: GrantedPluginDefinition;
+  register?: GrantedPluginDefinition["register"];
 } {
   const seen = new Set<unknown>();
   const candidates: unknown[] = [unwrapDefaultModuleExport(moduleExport), moduleExport];
@@ -279,10 +279,10 @@ export function resolvePluginModuleExport(moduleExport: unknown): {
     }
     seen.add(resolved);
     if (typeof resolved === "function") {
-      return { register: resolved as OpenClawPluginDefinition["register"] };
+      return { register: resolved as GrantedPluginDefinition["register"] };
     }
     if (resolved && typeof resolved === "object") {
-      const definition = resolved as OpenClawPluginDefinition;
+      const definition = resolved as GrantedPluginDefinition;
       const register = definition.register;
       if (typeof register === "function") {
         return { definition, register };
@@ -296,7 +296,7 @@ export function resolvePluginModuleExport(moduleExport: unknown): {
   }
   const resolved = candidates[0];
   if (resolved && typeof resolved === "object") {
-    const definition = resolved as OpenClawPluginDefinition;
+    const definition = resolved as GrantedPluginDefinition;
     return { definition, register: definition.register };
   }
   return {};

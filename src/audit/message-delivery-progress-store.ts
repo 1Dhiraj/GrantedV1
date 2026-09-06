@@ -10,11 +10,11 @@ import {
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { ensureColumn, tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import type {
@@ -34,8 +34,8 @@ import {
   type MessageExecutionBinding,
 } from "./message-execution-binding.js";
 
-type ProgressTable = OpenClawStateKyselyDatabase["outbound_message_progress"];
-type ProgressDatabase = Pick<OpenClawStateKyselyDatabase, "outbound_message_progress">;
+type ProgressTable = GrantedStateKyselyDatabase["outbound_message_progress"];
+type ProgressDatabase = Pick<GrantedStateKyselyDatabase, "outbound_message_progress">;
 type ProgressRow = Selectable<ProgressTable>;
 
 const OUTBOUND_MESSAGE_PROGRESS_RETENTION_MS = 30 * 24 * 60 * 60_000;
@@ -64,7 +64,7 @@ function progressDb(db: DatabaseSync) {
   return getNodeSqliteKysely<ProgressDatabase>(db);
 }
 
-function ensureProgressSchema(options: OpenClawStateDatabaseOptions): void {
+function ensureProgressSchema(options: GrantedStateDatabaseOptions): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;
@@ -294,7 +294,7 @@ function pruneProgressAfterInsert(db: DatabaseSync, now: number): void {
 /** Persist one progress fact idempotently; first use installs only this owner table. */
 export function recordOutboundMessageProgress(
   input: OutboundMessageProgressInput,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): OutboundMessageAuditEventRecord | undefined {
   const executionToken = planMessageExecutionBinding(input.executionIdentityToken, input.runId);
   ensureProgressSchema(options);
@@ -341,7 +341,7 @@ export function countOutboundMessageProgressForRun(params: {
   contextId?: string;
   executionId?: string;
   now?: number;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): number {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -380,7 +380,7 @@ export function readOutboundMessageProgressForRun(params: {
   after?: { occurredAt: number; sequence: number };
   limit: number;
   now?: number;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): OutboundMessageAuditEventRecord[] {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -433,7 +433,7 @@ export function hasOutboundMessageProgressCursor(params: {
   occurredAt: number;
   sequence: number;
   action: OutboundMessageProgressInput["action"];
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): boolean {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -463,7 +463,7 @@ export function hasOutboundMessageProgressCursor(params: {
 
 /** Prune existing progress without creating its lazy table. */
 export function pruneExpiredOutboundMessageProgress(
-  params: { now?: number; database?: OpenClawStateDatabaseOptions } = {},
+  params: { now?: number; database?: GrantedStateDatabaseOptions } = {},
 ): number {
   const database = openOpenClawStateDatabase(params.database);
   if (!tableExists(database.db, "outbound_message_progress")) {

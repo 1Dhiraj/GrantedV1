@@ -2,7 +2,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { mutateConfigFileWithRetry } from "../config/config.js";
 import { resolveIsNixMode } from "../config/paths.js";
 import type { ModelSelectionScope } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { normalizeAgentId } from "../routing/session-key.js";
@@ -24,7 +24,7 @@ export type StickyModelSelectionPolicy = {
 
 /** Resolve preference only; callers must separately authorize config writes. */
 export function resolveStickyModelSelectionScope(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   scope?: ModelSelectionScope;
 }): ModelSelectionScope | "effective" {
   // Omission preserves the existing effective-config write target, not a new default.
@@ -35,7 +35,7 @@ export function resolveStickyModelSelectionScope(params: {
 export function resolveStickyModelSelectionPolicy(params: {
   agentId: string;
   canPersistConfig: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   scope?: ModelSelectionScope;
 }): StickyModelSelectionPolicy {
   const scope = resolveStickyModelSelectionScope(params);

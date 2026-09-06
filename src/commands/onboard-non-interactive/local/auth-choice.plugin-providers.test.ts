@@ -1,15 +1,15 @@
 // Non-interactive plugin provider auth tests cover provider choice setup and runtime plugin install requirements.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import * as pluginEnable from "../../../plugins/enable.js";
 import { applyNonInteractivePluginProviderChoice } from "./auth-choice.plugin-providers.js";
 
 type ModelSelectionRuntimePluginsResult =
-  | { ok: true; cfg: OpenClawConfig; codexInstalled: boolean }
+  | { ok: true; cfg: GrantedConfig; codexInstalled: boolean }
   | { ok: false; message: string };
 const ensureModelSelectionRuntimePlugins = vi.hoisted(() =>
   vi.fn(
-    async ({ cfg }: { cfg: OpenClawConfig }): Promise<ModelSelectionRuntimePluginsResult> => ({
+    async ({ cfg }: { cfg: GrantedConfig }): Promise<ModelSelectionRuntimePluginsResult> => ({
       ok: true,
       cfg,
       codexInstalled: false,
@@ -122,7 +122,7 @@ function expectRuntimeErrorIncludes(runtime: ReturnType<typeof createRuntime>, t
 async function applyProviderModelChoice(params: {
   providerId: string;
   modelRef: string;
-  nextConfig?: OpenClawConfig;
+  nextConfig?: GrantedConfig;
   target?: typeof target;
 }) {
   const runtime = createRuntime();
@@ -132,7 +132,7 @@ async function applyProviderModelChoice(params: {
     pluginId: params.providerId,
     label: params.providerId,
   };
-  const runNonInteractive = vi.fn(async ({ config }: { config: OpenClawConfig }) => ({
+  const runNonInteractive = vi.fn(async ({ config }: { config: GrantedConfig }) => ({
     ...config,
     agents: {
       ...config.agents,
@@ -162,7 +162,7 @@ async function applyProviderModelChoice(params: {
 
 describe("applyNonInteractivePluginProviderChoice", () => {
   it("requires capability consent before loading a disabled provider in noninteractive setup", async () => {
-    const config: OpenClawConfig = { plugins: { entries: { example: { enabled: false } } } };
+    const config: GrantedConfig = { plugins: { entries: { example: { enabled: false } } } };
     resolveManifestProviderAuthChoice.mockReturnValue({ pluginId: "example" } as never);
     const enable = vi
       .spyOn(pluginEnable, "enablePluginWithCapabilityConsent")
@@ -319,11 +319,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "provider-plugin:vllm:custom",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -351,7 +351,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     async (explicitFleet) => {
       const runtime = createRuntime();
       const provider = { id: "pixverse", pluginId: "pixverse", label: "PixVerse" };
-      const initialConfig: OpenClawConfig = {
+      const initialConfig: GrantedConfig = {
         agents: {
           defaults: { model: { primary: "openai/gpt-5.6" } },
           ...(explicitFleet
@@ -359,7 +359,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
             : {}),
         },
       };
-      const runNonInteractive = vi.fn(async ({ config }: { config: OpenClawConfig }) => ({
+      const runNonInteractive = vi.fn(async ({ config }: { config: GrantedConfig }) => ({
         ...config,
         agents: {
           ...config.agents,
@@ -405,7 +405,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
 
   it("installs an official catalog provider before applying a cold auth choice", async () => {
     const runtime = createRuntime();
-    const runNonInteractive = vi.fn(async ({ config }: { config: OpenClawConfig }) => ({
+    const runNonInteractive = vi.fn(async ({ config }: { config: GrantedConfig }) => ({
       ...config,
       agents: {
         defaults: {
@@ -443,11 +443,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "groq-api-key",
       opts: { groqApiKey: "groq-key" } as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -498,11 +498,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     } as never);
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "modelstudio-api-key",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -524,11 +524,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
       const runtime = createRuntime();
 
       const result = await applyNonInteractivePluginProviderChoice({
-        nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+        nextConfig: { agents: { defaults: {} } } as GrantedConfig,
         authChoice: "provider-plugin:workspace-provider:api-key",
         opts: { json } as never,
         runtime: runtime as never,
-        baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+        baseConfig: { agents: { defaults: {} } } as GrantedConfig,
         target,
         resolveApiKey: vi.fn(),
         toApiKeyCredential: vi.fn(),
@@ -563,7 +563,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     "rejects a missing provider id before provider discovery (%j)",
     async ({ authChoice, json }) => {
       const runtime = createRuntime();
-      const nextConfig = { agents: { defaults: {} } } as OpenClawConfig;
+      const nextConfig = { agents: { defaults: {} } } as GrantedConfig;
 
       const result = await applyNonInteractivePluginProviderChoice({
         nextConfig,
@@ -604,11 +604,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     } as never);
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "workspace-provider-api-key",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -646,11 +646,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "provider-plugin:demo-provider:custom",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -669,11 +669,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     resolvePreferredProviderForAuthChoice.mockResolvedValue(undefined);
 
     await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "openai-api-key",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -689,11 +689,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     const runtime = createRuntime();
     const selectedConfig = {
       agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const installedConfig = {
       ...selectedConfig,
       plugins: { entries: { codex: { enabled: true } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runNonInteractive = vi.fn(async () => selectedConfig);
     ensureModelSelectionRuntimePlugins.mockResolvedValue({
       ok: true,
@@ -707,11 +707,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "openai-api-key",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -737,7 +737,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
       const runtime = createRuntime();
       const selectedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const runNonInteractive = vi.fn(async () => selectedConfig);
       const message = `Codex runtime is required but unavailable (status: ${status}). Retry setup after checking npm and the configured registry.`;
       ensureModelSelectionRuntimePlugins.mockResolvedValue({ ok: false, message });
@@ -748,11 +748,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
       });
 
       const result = await applyNonInteractivePluginProviderChoice({
-        nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+        nextConfig: { agents: { defaults: {} } } as GrantedConfig,
         authChoice: "openai-api-key",
         opts: { json: true } as never,
         runtime: runtime as never,
-        baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+        baseConfig: { agents: { defaults: {} } } as GrantedConfig,
         target,
         resolveApiKey: vi.fn(),
         toApiKeyCredential: vi.fn(),
@@ -780,11 +780,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
           "github-copilot": { agentRuntime: { id: "copilot" } },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const installedConfig = {
       ...selectedConfig,
       plugins: { entries: { copilot: { enabled: true } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runNonInteractive = vi.fn(async () => selectedConfig);
     ensureModelSelectionRuntimePlugins.mockResolvedValue({
       ok: true,
@@ -800,11 +800,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "github-copilot",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -822,7 +822,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     const runtime = createRuntime();
     const selectedConfig = {
       agents: { defaults: { model: { primary: "github-copilot/gpt-5.5" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runNonInteractive = vi.fn(async () => selectedConfig);
     const message =
       "GitHub Copilot agent runtime is required but unavailable (status: failed). Retry setup after checking npm and the configured registry.";
@@ -836,11 +836,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     const result = await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "github-copilot",
       opts: { json: true } as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),
@@ -856,7 +856,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     const runtime = createRuntime();
     const selectedConfig = {
       agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runNonInteractive = vi.fn(async () => selectedConfig);
     ensureModelSelectionRuntimePlugins.mockResolvedValue({
       ok: true,
@@ -870,11 +870,11 @@ describe("applyNonInteractivePluginProviderChoice", () => {
     });
 
     await applyNonInteractivePluginProviderChoice({
-      nextConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      nextConfig: { agents: { defaults: {} } } as GrantedConfig,
       authChoice: "openai-api-key",
       opts: {} as never,
       runtime: runtime as never,
-      baseConfig: { agents: { defaults: {} } } as OpenClawConfig,
+      baseConfig: { agents: { defaults: {} } } as GrantedConfig,
       target,
       resolveApiKey: vi.fn(),
       toApiKeyCredential: vi.fn(),

@@ -13,7 +13,7 @@ import {
   type SessionStoreTarget,
 } from "../config/sessions.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { type RuntimeEnv, writeRuntimeJson } from "../runtime.js";
@@ -134,7 +134,7 @@ function exitSessionStoreError(
 
 /** Resolves session store targets or exits the current command on validation errors. */
 export function resolveSessionStoreTargetsOrExit(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   opts: SessionStoreSelectionOptions;
   runtime: RuntimeEnv;
   json?: boolean;

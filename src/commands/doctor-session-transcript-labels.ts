@@ -9,7 +9,7 @@ import {
 } from "../config/sessions/session-accessor.sqlite-read.js";
 import { updateSqliteTranscriptEventJsonInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
 import { resolveAllAgentSessionStoreTargetsSync } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import {
@@ -188,7 +188,7 @@ function formatCount(count: number, singular: string): string {
 
 /** Reports or repairs legacy inbound-context labels in canonical SQLite transcripts. */
 export async function noteSessionTranscriptLabelHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   shouldRepair: boolean;
 }): Promise<void> {

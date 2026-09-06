@@ -3,11 +3,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { GatewayChatClient } from "../src/tui/gateway-chat.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 import { createDeferred } from "./helpers/promise.js";
 
@@ -25,7 +25,7 @@ type MockModelServer = {
 const TEST_TIMEOUT_MS = 150_000;
 const WAIT_OPTS = { timeout: 30_000, interval: 20 } as const;
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const cleanupDirs: string[] = [];
 const modelServers: MockModelServer[] = [];
 
@@ -248,7 +248,7 @@ describe("Gateway queued session rotation", () => {
           },
         },
         messages: { queue: { mode: "followup" } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const instance = await createOpenClawTestInstance({
         name: "queued-session-rotation",
         gatewayToken: "secret-token",

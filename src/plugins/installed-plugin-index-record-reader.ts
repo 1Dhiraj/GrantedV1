@@ -240,7 +240,7 @@ function emitManagedNpmRecoveryFallbackWarning(params: {
     `Managed npm recovery found ${params.candidates.length} installs for plugin "${params.pluginId}" without an authoritative active path; selected the most recently installed candidate. Run \`openclaw doctor --fix\` to persist and retire stale generations.`,
     {
       code: "GRANTED_PLUGIN_INSTALL_RECOVERY_FALLBACK",
-      type: "OpenClawPluginRecoveryWarning",
+      type: "GrantedPluginRecoveryWarning",
       detail: JSON.stringify({
         pluginId: params.pluginId,
         selectedInstallPath: params.selected.installRecord.installPath,

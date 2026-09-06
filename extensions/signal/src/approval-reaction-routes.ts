@@ -1,6 +1,6 @@
 import { matchesApprovalRequestFilters } from "openclaw/plugin-sdk/approval-client-runtime";
 import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
 import {
   normalizeLowercaseStringOrEmpty,
@@ -9,7 +9,7 @@ import {
 import { resolveSignalTarget } from "./aliases.js";
 import { normalizeSignalMessagingTarget } from "./normalize.js";
 
-type ApprovalForwardingConfig = NonNullable<NonNullable<OpenClawConfig["approvals"]>["exec"]>;
+type ApprovalForwardingConfig = NonNullable<NonNullable<GrantedConfig["approvals"]>["exec"]>;
 type ApprovalForwardingMode = NonNullable<ApprovalForwardingConfig["mode"]>;
 
 export type SignalApprovalReactionRoute =
@@ -27,7 +27,7 @@ export type SignalApprovalReactionRoute =
     };
 
 function resolveApprovalForwardingConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   approvalKind: ChannelApprovalKind;
 }): ApprovalForwardingConfig | undefined {
   return params.approvalKind === "plugin"
@@ -80,7 +80,7 @@ function targetAccountMatches(params: {
 }
 
 function resolveSignalApprovalRouteTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
 }): string | null {
@@ -100,7 +100,7 @@ function resolveSignalApprovalRouteTarget(params: {
 }
 
 function hasMatchingSignalApprovalReactionTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config: ApprovalForwardingConfig;
   route: Extract<SignalApprovalReactionRoute, { deliveryMode: "target" }>;
 }): boolean {
@@ -124,7 +124,7 @@ function hasMatchingSignalApprovalReactionTarget(params: {
 }
 
 export function isSignalApprovalReactionRouteStillEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: {
     approvalKind: ChannelApprovalKind;
     route: SignalApprovalReactionRoute;
@@ -156,7 +156,7 @@ export function isSignalApprovalReactionRouteStillEnabled(params: {
 }
 
 export function buildTargetRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
   approvalKind: ChannelApprovalKind;

@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { markInboundContextLabel } from "../auto-reply/reply/inbound-context-marker.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { encodeSessionArchiveContent } from "../config/sessions/archive-compression.js";
 import {
   appendTranscriptMessage,
@@ -375,7 +375,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await withStateDir(root, async () => {
       const summary = await loadCostUsageSummary({ config });
@@ -454,7 +454,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await withStateDir(root, async () => {
       const alpha = await loadCostUsageSummary({ agentId: "alpha", config });
@@ -652,7 +652,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const costSpy = vi.spyOn(usageFormat, "resolveModelCostConfig");
     try {
@@ -726,7 +726,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     try {
       await withStateDir(root, async () => {
@@ -842,7 +842,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await withStateDir(root, async () => {
       const summary = await loadCostUsageSummary({ config });
@@ -935,7 +935,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const expectedCost = 0.0028;
 
     await withStateDir(root, async () => {

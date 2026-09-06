@@ -23,7 +23,7 @@ import {
   isSilentReplyPayloadText,
   SILENT_REPLY_TOKEN,
 } from "../../../auto-reply/tokens.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { hasReplyPayloadContent } from "../../../interactive/payload.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
@@ -164,7 +164,7 @@ export function buildEmbeddedRunPayloads(params: {
   lastAssistant: AssistantMessage | undefined;
   currentAssistant?: AssistantMessage | null;
   lastToolError?: ToolErrorSummary;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   isCronTrigger?: boolean;
   isHeartbeatTrigger?: boolean;
   sessionKey: string;

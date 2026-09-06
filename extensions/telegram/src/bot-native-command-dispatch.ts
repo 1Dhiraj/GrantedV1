@@ -7,7 +7,7 @@ import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel
 import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/command-auth-native";
 import type {
   ChannelGroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
@@ -85,11 +85,11 @@ export type TelegramCommandExecutorParams = {
   runtime: RuntimeEnv;
   accountId: string;
   mediaMaxBytes?: number;
-  resolveGroupPolicy: (chatId: string | number, cfg: OpenClawConfig) => ChannelGroupPolicy;
+  resolveGroupPolicy: (chatId: string | number, cfg: GrantedConfig) => ChannelGroupPolicy;
   resolveTelegramGroupConfig: (
     chatId: string | number,
     messageThreadId: number | undefined,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
   ) => TelegramResolvedGroupConfig;
   telegramDeps?: TelegramNativeCommandDeps;
   opts: Pick<
@@ -112,7 +112,7 @@ type TelegramCommandAuthResult = NonNullable<
 export type TelegramCommandDispatch = TelegramCommandExecutorParams &
   TelegramCommandAuthResult & {
     telegramDeps: TelegramNativeCommandDeps;
-    runtimeCfg: OpenClawConfig;
+    runtimeCfg: GrantedConfig;
     runtimeTelegramCfg: TelegramAccountConfig;
     turnSettings: ReturnType<typeof resolveTelegramMessageTurnSettings>;
     threadSpec: ReturnType<typeof resolveTelegramThreadSpec>;
@@ -163,7 +163,7 @@ async function resolveTelegramNativeCommandThreadContext(params: {
 async function resolveTelegramCommandAuth(params: {
   msg: NonNullable<Context["message"]>;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   telegramCfg: TelegramAccountConfig;
   readChannelAllowFromStore: TelegramBotDeps["readChannelAllowFromStore"];

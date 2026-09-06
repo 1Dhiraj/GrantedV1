@@ -33,9 +33,9 @@ import {
 import { createLazyRuntimeMethod, createLazyRuntimeModule } from "./lazy-runtime.js";
 import { definePluginEntry } from "./plugin-entry.js";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginConfigSchema,
-  OpenClawPluginDefinition,
+  GrantedPluginApi,
+  GrantedPluginConfigSchema,
+  GrantedPluginDefinition,
 } from "./plugin-entry.js";
 import type { OpenAICompatibleModelDiscoveryOptions } from "./provider-catalog-live-runtime.js";
 
@@ -218,22 +218,22 @@ export type SingleProviderPluginOptions = {
    * manifest `kind`. Runtime-entry `kind` remains only as a compatibility
    * fallback for older plugins.
    */
-  kind?: OpenClawPluginDefinition["kind"];
+  kind?: GrantedPluginDefinition["kind"];
   /**
    * Optional plugin configuration schema or lazy schema factory.
    */
-  configSchema?: OpenClawPluginConfigSchema | (() => OpenClawPluginConfigSchema);
+  configSchema?: GrantedPluginConfigSchema | (() => GrantedPluginConfigSchema);
   /**
    * Primary provider registration. Extra provider fields are forwarded after
    * the helper-owned id/auth/catalog fields are normalized.
    */
   provider?:
     | SingleProviderPluginDefinition
-    | ((api: OpenClawPluginApi) => SingleProviderPluginDefinition);
+    | ((api: GrantedPluginApi) => SingleProviderPluginDefinition);
   /**
    * Optional hook for registering companion capabilities with the same plugin entry.
    */
-  register?: (api: OpenClawPluginApi) => void;
+  register?: (api: GrantedPluginApi) => void;
 };
 
 function resolveManifestProviderAuth(params: {

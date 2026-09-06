@@ -11,7 +11,7 @@ import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.j
 import type { CliDeps } from "../../cli/deps.types.js";
 import { getRuntimeConfig } from "../../config/io.js";
 import { canonicalizeMainSessionAlias, resolveAgentMainSessionKey } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   CronAgentAdmissionDisposition,
   RunCronAgentTurnResult,
@@ -69,7 +69,7 @@ type HookEventTarget = {
 };
 
 function resolveHookEventTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   resolvedAgentId: string;
   sessionKey?: string;
 }): HookEventTarget {
@@ -191,7 +191,7 @@ function createSessionKeyedHookDispatchQueue() {
 }
 
 function validateHookAgentDeliveryAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   value: HookAgentDispatchPayload;
 }): HookAgentDispatchPayload {
   // Mapped hooks can defer partial/last targets to cron and cannot select an account.
@@ -408,7 +408,7 @@ export function createGatewayHookDispatcher(params: {
         });
       }
     };
-    let dispatchCfg: OpenClawConfig;
+    let dispatchCfg: GrantedConfig;
     try {
       dispatchCfg = getRuntimeConfig();
     } catch (err) {

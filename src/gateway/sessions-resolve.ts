@@ -16,7 +16,7 @@ import {
 } from "../../packages/session-url-contract/src/index.js";
 import { listAgentIds } from "../agents/agent-scope.js";
 import type { SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveSessionIdMatchSelection } from "../sessions/session-id-resolution.js";
 import { parseSessionLabel } from "../sessions/session-label.js";
@@ -62,7 +62,7 @@ function noSessionFoundResult(params: { p: SessionsResolveParams; message: strin
 
 /** Rejects sessions whose owning agent no longer exists in config (#65524). */
 function validateSessionAgentExists(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string,
   entry?: SessionEntry | null,
   options?: { acpMetadataSessionKey?: string | null },
@@ -81,7 +81,7 @@ function validateSessionAgentExists(
 }
 
 function isResolvedSessionKeyVisible(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   p: SessionsResolveParams;
   store: Record<string, SessionEntry>;
   key: string;
@@ -98,7 +98,7 @@ function isResolvedSessionKeyVisible(params: {
 }
 
 function findVisibleSessionIdMatches(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: Record<string, SessionEntry>;
   p: SessionsResolveParams;
   sessionId: string;
@@ -121,7 +121,7 @@ function normalizeShortSessionId(shortId: string): string | null {
 }
 
 function findVisibleShortIdMatches(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
   p: SessionsResolveParams;
@@ -169,7 +169,7 @@ function findVisibleShortIdMatches(params: {
 }
 
 export async function resolveSessionKeyFromResolveParams(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   p: SessionsResolveParams;
 }): Promise<SessionsResolveResult> {

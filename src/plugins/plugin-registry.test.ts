@@ -5,7 +5,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 // Covers plugin registry assembly, contribution lookup, and reset behavior.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import type { PluginCandidate } from "./discovery.js";
@@ -381,7 +381,7 @@ describe("plugin registry facade", () => {
       ).toEqual([]);
     }
 
-    const policies: Array<[OpenClawConfig["plugins"], boolean]> = [
+    const policies: Array<[GrantedConfig["plugins"], boolean]> = [
       [undefined, true],
       [{ enabled: false }, false],
       [{ deny: ["demo"] }, false],

@@ -2,7 +2,7 @@
 import { mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
@@ -136,7 +136,7 @@ const throttlerSpy = vi.fn(() => "throttler");
 const defaultRuntimeConfig = (() =>
   ({
     channels: { telegram: { dmPolicy: "open", allowFrom: ["*"] } },
-  }) as OpenClawConfig) as TelegramBotDeps["getRuntimeConfig"];
+  }) as GrantedConfig) as TelegramBotDeps["getRuntimeConfig"];
 
 function installTopicNameRuntimeForTest(): void {
   setTelegramRuntime({

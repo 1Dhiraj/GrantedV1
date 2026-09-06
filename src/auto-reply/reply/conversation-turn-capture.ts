@@ -13,7 +13,7 @@ import {
   appendTranscriptEventSync,
   loadSessionEntryReadOnly,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { buildConversationRef } from "../../routing/conversation-ref.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
@@ -61,7 +61,7 @@ function normalizeTimestamp(value: unknown): number | undefined {
 }
 
 async function capturePendingConversationTurnReplyUnsafe(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: FinalizedRuntimeMsgContext;
 }): Promise<boolean> {
   // Only channel owners can attest ingress admission. Raw/plugin-constructed
@@ -250,7 +250,7 @@ async function capturePendingConversationTurnReplyUnsafe(params: {
 
 /** Consumes a correlated channel reply before it can start a second local agent turn. */
 export async function capturePendingConversationTurnReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: FinalizedRuntimeMsgContext;
 }): Promise<boolean> {
   try {

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { ChannelType, type GatewayThreadDeleteDispatchData } from "discord-api-types/v10";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   getSessionEntry,
   resolveStorePath,
@@ -27,7 +27,7 @@ describe("DiscordThreadDeleteListener session-store integration", () => {
         const cfg = {
           session: { store: sharedStorePath },
           agents: { list: [{ id: "main", default: true }, { id: "work" }] },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         const mainStorePath = resolveStorePath(cfg.session.store, { agentId: "main" });
         const workStorePath = resolveStorePath(cfg.session.store, { agentId: "work" });
         const mainMatchKey = `agent:main:discord:channel:${THREAD_ID}`;

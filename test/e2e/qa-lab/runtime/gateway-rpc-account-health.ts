@@ -6,7 +6,7 @@ import {
   createQaGatewayChild,
   type QaGatewayChild,
 } from "../../../../extensions/qa-lab/api.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 
@@ -39,7 +39,7 @@ function sleep(ms: number) {
   });
 }
 
-export function withSiblingAccount(config: OpenClawConfig, baseUrl?: string): OpenClawConfig {
+export function withSiblingAccount(config: GrantedConfig, baseUrl?: string): GrantedConfig {
   const channel = config.channels?.[CHANNEL_ID] as Record<string, unknown> | undefined;
   return {
     ...config,

@@ -1,7 +1,7 @@
 /** Discovers agent models and auth storage with provider/plugin normalization hooks. */
 import path from "node:path";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { Model } from "../llm/types.js";
 import type { PluginMetadataSnapshotOwnerMaps } from "../plugins/plugin-metadata-snapshot.types.js";
 import { normalizeModelCompat } from "../plugins/provider-model-compat.js";
@@ -37,7 +37,7 @@ type DiscoveredProviderRuntimeModelLike = Omit<ProviderRuntimeModelLike, "api"> 
 const CAPTURED_MODELS_JSON_SOURCE_PATH = "captured:models.json";
 
 type DiscoverModelsOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   includePluginCatalogs?: boolean;
   modelsJsonContents?: string | null;
   pluginCatalogs?: readonly PersistedPluginModelCatalog[];

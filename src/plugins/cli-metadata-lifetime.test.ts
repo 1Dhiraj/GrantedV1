@@ -9,7 +9,7 @@ import {
   setRuntimeConfigSnapshot,
   setRuntimeConfigSourceSnapshotIfCurrent,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setTestEnvValue, withEnvAsync } from "../test-utils/env.js";
 import {
   createPluginCliLoadSession,
@@ -113,7 +113,7 @@ describe("CLI prepared metadata lifetime", () => {
           body: `module.exports = { id: ${JSON.stringify(id)}, register(api) { require("node:fs").writeFileSync(${JSON.stringify(path.join(root, `${id}-registered`))}, api.registrationMode); api.registerCli(({program}) => program.command(${JSON.stringify(id)}), { descriptors: [{ name: ${JSON.stringify(id)}, description: "Workspace", hasSubcommands: false }] }); } };`,
         });
       }
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           ownership: "explicit",
           entries: Object.fromEntries(
@@ -219,7 +219,7 @@ describe("CLI prepared metadata lifetime", () => {
           CLI_INPUTS_TOKEN: undefined,
         },
         async () => {
-          const cfg: OpenClawConfig = {
+          const cfg: GrantedConfig = {
             agents: { defaults: { workspace: path.join(root, "workspace") } },
             plugins: { enabled: true },
             auth: { profiles: {} },
@@ -284,7 +284,7 @@ describe("CLI prepared metadata lifetime", () => {
 
   it("does not borrow another environment's Gateway graph through config identity", async () => {
     const root = fs.realpathSync(makePluginLoaderTempDir());
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { defaults: { workspace: path.join(root, "workspace") } },
       plugins: { allow: ["environment-cli"], entries: { "environment-cli": { enabled: true } } },
     };
@@ -358,7 +358,7 @@ describe("CLI prepared metadata lifetime", () => {
         GRANTED_STATE_DIR: path.join(root, "state"),
         GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         plugins: {
           load: { paths: [plugin.dir] },
           allow: [plugin.id],
@@ -425,7 +425,7 @@ describe("CLI prepared metadata lifetime", () => {
       };
       const firstWorkspace = createWorkspace("first");
       const secondWorkspace = createWorkspace("second");
-      const config = (workspace: string, enabled = true): OpenClawConfig => ({
+      const config = (workspace: string, enabled = true): GrantedConfig => ({
         agents: { defaults: { workspace } },
         plugins: { allow: ["workspace-cli"], entries: { "workspace-cli": { enabled } } },
       });
@@ -490,7 +490,7 @@ describe("CLI prepared metadata lifetime", () => {
         GRANTED_STATE_DIR: path.join(root, "state"),
         GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         plugins: {
           load: { paths: [plugin.dir] },
           allow: [plugin.id],

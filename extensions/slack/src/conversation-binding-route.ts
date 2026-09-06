@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
@@ -7,12 +7,12 @@ import {
 import type { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import { parseSlackTarget, type SlackTargetKind } from "./targets.js";
 
-type SlackRouteBinding = NonNullable<OpenClawConfig["bindings"]>[number];
+type SlackRouteBinding = NonNullable<GrantedConfig["bindings"]>[number];
 type SlackRouteBindingPeer = NonNullable<SlackRouteBinding["match"]["peer"]>;
 
 const slackRouteBindingConfigCache = new WeakMap<
-  OpenClawConfig,
-  { bindingsRef: OpenClawConfig["bindings"]; normalizedCfg: OpenClawConfig }
+  GrantedConfig,
+  { bindingsRef: GrantedConfig["bindings"]; normalizedCfg: GrantedConfig }
 >();
 
 function slackTargetDefaultKindForPeer(kind: SlackRouteBindingPeer["kind"]): SlackTargetKind {
@@ -53,7 +53,7 @@ function normalizeSlackRouteBindingPeer(peer: SlackRouteBindingPeer): SlackRoute
   return normalizedId === peer.id ? peer : { ...peer, id: normalizedId };
 }
 
-export function normalizeSlackRouteBindingConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function normalizeSlackRouteBindingConfig(cfg: GrantedConfig): GrantedConfig {
   const bindings = cfg.bindings;
   const cached = slackRouteBindingConfigCache.get(cfg);
   if (cached && cached.bindingsRef === bindings) {
@@ -64,7 +64,7 @@ export function normalizeSlackRouteBindingConfig(cfg: OpenClawConfig): OpenClawC
   }
 
   let changed = false;
-  const normalizedBindings: NonNullable<OpenClawConfig["bindings"]> = bindings.map((binding) => {
+  const normalizedBindings: NonNullable<GrantedConfig["bindings"]> = bindings.map((binding) => {
     if (binding.type === "acp" || binding.match.channel.trim().toLowerCase() !== "slack") {
       return binding;
     }
@@ -86,13 +86,13 @@ export function normalizeSlackRouteBindingConfig(cfg: OpenClawConfig): OpenClawC
     };
   });
 
-  const normalizedCfg: OpenClawConfig = changed ? { ...cfg, bindings: normalizedBindings } : cfg;
+  const normalizedCfg: GrantedConfig = changed ? { ...cfg, bindings: normalizedBindings } : cfg;
   slackRouteBindingConfigCache.set(cfg, { bindingsRef: bindings, normalizedCfg });
   return normalizedCfg;
 }
 
 export function resolveSlackConversationBindingRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   route: ReturnType<typeof resolveAgentRoute>;
   accountId: string;
   baseConversationId: string;

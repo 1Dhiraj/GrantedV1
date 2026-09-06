@@ -7,7 +7,7 @@ import {
 } from "openclaw/plugin-sdk/channel-inbound";
 import { hasControlCommand } from "openclaw/plugin-sdk/command-detection";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
 } from "openclaw/plugin-sdk/config-contracts";
@@ -45,7 +45,7 @@ import { resolveTelegramCommandIngressAuthorization } from "./ingress.js";
 import type { TelegramMessageDispatchReplayClaim } from "./message-dispatch-dedupe.js";
 
 type MediaAuthorization = {
-  authorizationCfg: OpenClawConfig;
+  authorizationCfg: GrantedConfig;
   chatId: number;
   isGroup: boolean;
   isForum: boolean;

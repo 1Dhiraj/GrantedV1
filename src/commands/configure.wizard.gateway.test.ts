@@ -1,7 +1,7 @@
 // Configure wizard Gateway tests cover run-mode probes, auth routing, and cancellation.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { ExitError, type RuntimeEnv } from "../runtime.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { withMockedPlatform } from "../test-utils/vitest-spies.js";
@@ -52,15 +52,15 @@ describe("runConfigureWizard", () => {
     setupBaseWizardState();
     queueWizardPrompts({ select: ["local", "configure"], confirm: [] });
     const events: string[] = [];
-    mocks.promptAuthConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.promptAuthConfig.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("model");
       return cfg;
     });
-    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("gateway");
       return { config: cfg, port: 18789 };
     });
-    mocks.setupChannels.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.setupChannels.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("channels");
       return cfg;
     });
@@ -84,15 +84,15 @@ describe("runConfigureWizard", () => {
       confirm: [],
     });
     const events: string[] = [];
-    mocks.promptAuthConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.promptAuthConfig.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("model");
       return cfg;
     });
-    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("gateway");
       return { config: cfg, port: 18789 };
     });
-    mocks.setupChannels.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.setupChannels.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("channels");
       return cfg;
     });
@@ -112,7 +112,7 @@ describe("runConfigureWizard", () => {
     setupBaseWizardState();
     queueWizardPrompts({ select: ["local"], confirm: [] });
     const events: string[] = [];
-    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => {
+    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: GrantedConfig) => {
       events.push("gateway");
       return { config: cfg, port: 18991 };
     });
@@ -226,7 +226,7 @@ describe("runConfigureWizard", () => {
 
   it("keeps remote password health when the configured token ref is unresolved", async () => {
     const remotePassword = "remote-password"; // pragma: allowlist secret
-    const remoteConfig: OpenClawConfig = {
+    const remoteConfig: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {
@@ -282,7 +282,7 @@ describe("runConfigureWizard", () => {
   });
 
   it("skips remote health when a configured SecretRef is unresolved", async () => {
-    const unresolvedConfig: OpenClawConfig = {
+    const unresolvedConfig: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {
@@ -330,7 +330,7 @@ describe("runConfigureWizard", () => {
   });
 
   it("persists edge auth returned by the shared remote Gateway prompt", async () => {
-    const remoteConfig: OpenClawConfig = {
+    const remoteConfig: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {
@@ -499,7 +499,7 @@ describe("runConfigureWizard", () => {
       gateway: { mode: "local", auth: { mode: "password", password: "previous-password" } },
     });
     queueWizardPrompts({ select: ["local"], confirm: [] });
-    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: OpenClawConfig) => ({
+    mocks.promptGatewayConfig.mockImplementationOnce(async (cfg: GrantedConfig) => ({
       config: {
         ...cfg,
         gateway: {

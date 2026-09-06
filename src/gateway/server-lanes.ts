@@ -3,7 +3,7 @@ import { enableSessionSuspensionWritesForGatewayStart } from "../agents/session-
 // Pushes config-derived agent/cron limits into the process command queue.
 import { resolveAgentMaxConcurrent, resolveSubagentMaxConcurrent } from "../config/agent-limits.js";
 import { resolveCronMaxConcurrentRuns } from "../config/cron-limits.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getCommandLaneSnapshot,
   publishLaneConfiguration,
@@ -31,7 +31,7 @@ const HOOK_DISPATCH_LANE_RESERVATION = 1;
 /** Group bounding cron inner work and hook dispatch to one shared budget. */
 const CRON_HOOK_LANE_GROUP = "cron-hooks";
 
-export function resolveGatewayLaneConcurrency(cfg: OpenClawConfig): GatewayLaneConcurrency {
+export function resolveGatewayLaneConcurrency(cfg: GrantedConfig): GatewayLaneConcurrency {
   const cron = resolveCronMaxConcurrentRuns();
   return {
     cron,

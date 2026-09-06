@@ -8,7 +8,7 @@ import { validateDottedDecimalIPv4Input } from "@openclaw/net-policy/ipv4";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { formatCliCommand } from "../../../cli/command-format.js";
 import { formatInvalidPortOption } from "../../../cli/error-format.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   isValidEnvSecretRefId,
   resolveSecretInputRef,
@@ -23,7 +23,7 @@ import type { OnboardOptions } from "../../onboard-types.js";
 
 /** Resolves what `gateway.auth.token` should hold once setup owns the token value. */
 function resolveGeneratedTokenInput(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   secretInputMode: OnboardOptions["secretInputMode"];
   token: string | undefined;
   ambientEnvOnly: boolean;
@@ -42,12 +42,12 @@ function resolveGeneratedTokenInput(params: {
 
 /** Applies gateway CLI options to the pending config and returns normalized runtime settings. */
 export function applyNonInteractiveGatewayConfig(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   defaultPort: number;
 }): {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   port: number;
   bind: string;
   authMode: string;

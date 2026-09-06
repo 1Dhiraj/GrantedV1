@@ -9,7 +9,7 @@ type PluginConfigValidation = { ok: true; value?: unknown } | { ok: false; error
  * Plugins can provide a Zod-like parser, a lightweight `validate(...)`
  * function, or both. `jsonSchema` is optional runtime schema metadata.
  */
-export type OpenClawPluginConfigSchema = {
+export type GrantedPluginConfigSchema = {
   safeParse?: (value: unknown) => {
     success: boolean;
     data?: unknown;

@@ -22,7 +22,7 @@ type ClawHubDispatchTarget = {
   inputs: ClawHubDispatchInputs;
 };
 
-type OpenClawReleaseClawHubPlanArgs = {
+type GrantedReleaseClawHubPlanArgs = {
   bootstrapWorkflowRef: string;
   bootstrapWorkflowSha: string;
   releaseTag: string;
@@ -35,7 +35,7 @@ type OpenClawReleaseClawHubPlanArgs = {
   plugins: string[];
 };
 
-type OpenClawReleaseClawHubPlan = {
+type GrantedReleaseClawHubPlan = {
   bootstrapWorkflowSha: string;
   clawHubWorkflowRef: string;
   releasePublishBranch: string;
@@ -54,7 +54,7 @@ type OpenClawReleaseClawHubPlan = {
   };
 };
 
-type OpenClawReleaseClawHubRuntimeStateArgs = {
+type GrantedReleaseClawHubRuntimeStateArgs = {
   repository: string;
   waitForClawHub: boolean;
   forceSkipClawHub: boolean;
@@ -64,7 +64,7 @@ type OpenClawReleaseClawHubRuntimeStateArgs = {
   bootstrapCompleted: boolean;
 };
 
-type OpenClawReleaseClawHubRuntimeState = {
+type GrantedReleaseClawHubRuntimeState = {
   verifierArgs: string[];
   proofLines: {
     normal: string;
@@ -188,8 +188,8 @@ function createDispatchTarget(params: {
 }
 
 export function buildOpenClawReleaseClawHubRuntimeState(
-  args: OpenClawReleaseClawHubRuntimeStateArgs,
-): OpenClawReleaseClawHubRuntimeState {
+  args: GrantedReleaseClawHubRuntimeStateArgs,
+): GrantedReleaseClawHubRuntimeState {
   const repository = requireArg(args.repository, "repository");
   const normalRunId = optionalArg(args.normalRunId);
   const bootstrapRunId = optionalArg(args.bootstrapRunId);
@@ -244,9 +244,7 @@ export function buildOpenClawReleaseClawHubRuntimeState(
   };
 }
 
-export function parseOpenClawReleaseClawHubPlanArgs(
-  argv: string[],
-): OpenClawReleaseClawHubPlanArgs {
+export function parseOpenClawReleaseClawHubPlanArgs(argv: string[]): GrantedReleaseClawHubPlanArgs {
   const values = [...argv];
   if (values[0] === "--") {
     values.shift();
@@ -341,13 +339,13 @@ export function parseOpenClawReleaseClawHubPlanArgs(
 }
 
 export async function buildOpenClawReleaseClawHubPlan(
-  args: OpenClawReleaseClawHubPlanArgs,
+  args: GrantedReleaseClawHubPlanArgs,
   options: {
     rootDir?: string;
     fetchImpl?: typeof fetch;
     registryBaseUrl?: string;
   } = {},
-): Promise<OpenClawReleaseClawHubPlan> {
+): Promise<GrantedReleaseClawHubPlan> {
   const bootstrapWorkflowRef = requireBootstrapWorkflowRef(args.bootstrapWorkflowRef);
   const bootstrapWorkflowSha = requireCommitSha(args.bootstrapWorkflowSha, "bootstrapWorkflowSha");
   const releaseTag = requireArg(args.releaseTag, "releaseTag");

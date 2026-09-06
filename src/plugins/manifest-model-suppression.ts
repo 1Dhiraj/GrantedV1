@@ -1,7 +1,7 @@
 // Resolves model suppression metadata declared by plugin manifests.
 import { buildModelCatalogMergeKey } from "@openclaw/model-catalog-core/model-catalog-refs";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   planManifestModelCatalogSuppressions,
   type ManifestModelCatalogSuppressionEntry,
@@ -15,7 +15,7 @@ import { getPluginMetadataSnapshotCache } from "./plugin-cache.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.types.js";
 
 function listManifestModelCatalogSuppressions(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   snapshot: PluginMetadataSnapshot;
 }): readonly ManifestModelCatalogSuppressionEntry[] {
   const snapshot = params.snapshot;
@@ -60,7 +60,7 @@ function normalizeSuppressionHost(host: string): string {
 
 function resolveConfiguredProviderValue(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): { api?: string; baseUrl?: string } | undefined {
   const providers = params.config?.models?.providers;
   if (!providers) {
@@ -82,7 +82,7 @@ function manifestSuppressionMatchesConditions(params: {
   suppression: ManifestModelCatalogSuppressionEntry;
   provider: string;
   baseUrl?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): boolean {
   const when = params.suppression.when;
   if (!when) {
@@ -118,7 +118,7 @@ function manifestSuppressionMatchesConditions(params: {
 }
 
 export function buildManifestBuiltInModelSuppressionResolver(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
 }): ManifestModelSuppressionResolver {

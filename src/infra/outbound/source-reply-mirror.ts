@@ -22,7 +22,7 @@ import {
   type RestartRecoveryTerminalDeliveryScope,
 } from "../../config/sessions/restart-recovery-receipt.js";
 import { getOwnedSessionTranscriptWriterFence } from "../../config/sessions/transcript-write-context.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAccountId, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { readTrimmedStringAlias } from "../../utils/string-readers.js";
 import { createOutboundPayloadPlan, projectOutboundPayloadPlanForMirror } from "./payloads.js";
@@ -31,7 +31,7 @@ type SourceReplyTranscriptMirrorParams = {
   action: string;
   channel: string;
   actionParams: Record<string, unknown>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   currentAccountId?: string | null;
   sessionKey?: string;

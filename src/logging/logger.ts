@@ -4,7 +4,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { Logger as TsLogger } from "tslog";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { hasInternalDiagnosticEventInterest } from "../infra/diagnostic-event-listener-presence.js";
 import {
   areDiagnosticsEnabledForProcess,
@@ -68,7 +68,7 @@ type ResolvedSettings = {
 type ResolvedRuntimeSettings = ResolvedSettings & { rolling: boolean };
 export type LoggerResolvedSettings = ResolvedSettings;
 type TsLogRecord = Record<string, unknown>;
-type LoggerConfigLoader = () => OpenClawConfig["logging"] | undefined;
+type LoggerConfigLoader = () => GrantedConfig["logging"] | undefined;
 
 type DiagnosticLogCode = {
   line?: number;
@@ -89,7 +89,7 @@ function invalidateLoggerSettings(): void {
 }
 
 /** Publishes authoritative config-derived logging state for the active runtime. */
-export function applyLoggingConfig(config: OpenClawConfig["logging"] | undefined): void {
+export function applyLoggingConfig(config: GrantedConfig["logging"] | undefined): void {
   loggingState.appliedConfig = config;
   invalidateLoggingConfigCache();
   invalidateLoggerSettings();
@@ -100,7 +100,7 @@ export function setLoggerConfigLoaderForTests(loader?: LoggerConfigLoader): void
   invalidateLoggerSettings();
 }
 
-export function readLoggerConfig(): OpenClawConfig["logging"] | undefined {
+export function readLoggerConfig(): GrantedConfig["logging"] | undefined {
   return loadLoggerConfig();
 }
 const MAX_DIAGNOSTIC_LOG_ATTRIBUTE_COUNT = 32;
@@ -557,7 +557,7 @@ function resolveSettings(): ResolvedRuntimeSettings {
     };
   }
 
-  const cfg: OpenClawConfig["logging"] | LoggerSettings | undefined =
+  const cfg: GrantedConfig["logging"] | LoggerSettings | undefined =
     (loggingState.overrideSettings as LoggerSettings | null) ?? loadLoggerConfig();
   const defaultLevel =
     process.env.VITEST === "true" && process.env.GRANTED_TEST_FILE_LOG !== "1" ? "silent" : "info";

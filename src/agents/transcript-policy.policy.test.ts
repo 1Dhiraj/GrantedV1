@@ -3,7 +3,7 @@
  * Verifies plugin policy hooks override generic transport fallback choices.
  */
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveTranscriptPolicy } from "./transcript-policy.js";
 
 vi.mock("../plugins/provider-hook-runtime.js", () => ({
@@ -33,7 +33,7 @@ const MISTRAL_PLUGIN_CONFIG = {
       mistral: { enabled: true },
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 const MOONSHOT_PLUGIN_CONFIG = {
   plugins: {
@@ -41,10 +41,10 @@ const MOONSHOT_PLUGIN_CONFIG = {
       moonshot: { enabled: true },
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function createProviderRuntimeSmokeContext(): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir: string;
 } {

@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GatewayClientRequestError } from "../../packages/gateway-client/src/request-error.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { GatewayTransportError } from "../gateway/transport-error.js";
 import { resolveConfiguredInternalHookNames } from "../hooks/configured.js";
 import type { HookStatusEntry, HookStatusReport } from "../hooks/hooks-status.js";
@@ -51,7 +51,7 @@ vi.mock("../gateway/call.js", () => ({
     error instanceof Error && error.name === "GatewayClientRequestError",
   isGatewayCredentialsRequiredError: (error: unknown) =>
     error instanceof Error && error.name === "GatewayCredentialsRequiredError",
-  isImplicitLocalGatewayTarget: async ({ config }: { config?: OpenClawConfig }) =>
+  isImplicitLocalGatewayTarget: async ({ config }: { config?: GrantedConfig }) =>
     !process.env.GRANTED_GATEWAY_URL && config?.gateway?.mode !== "remote",
 }));
 
@@ -188,14 +188,12 @@ describe("hooks CLI metadata config keys", () => {
     mocks.buildWorkspaceHookStatus.mockReturnValue(report);
     mocks.getRuntimeConfig.mockReturnValue(sourceConfig);
     mocks.listAgentIds.mockReturnValue(["main"]);
-    mocks.resolveConfiguredAgentId.mockImplementation(
-      (_config: OpenClawConfig, agentId: string) => {
-        if (!mocks.listAgentIds().includes(agentId)) {
-          throw new Error(`Unknown agent id "${agentId}"`);
-        }
-        return agentId;
-      },
-    );
+    mocks.resolveConfiguredAgentId.mockImplementation((_config: GrantedConfig, agentId: string) => {
+      if (!mocks.listAgentIds().includes(agentId)) {
+        throw new Error(`Unknown agent id "${agentId}"`);
+      }
+      return agentId;
+    });
     mocks.resolveAgentWorkspaceDir.mockReturnValue("/tmp/openclaw-hook-workspace");
     mocks.resolveDefaultAgentId.mockReturnValue("main");
     mocks.tryResolveLegacyCompatibilityAgentId.mockReturnValue("main");
@@ -230,7 +228,7 @@ describe("hooks CLI metadata config keys", () => {
       },
       baseHash: "config-hash",
     });
-    const writtenConfig = mocks.replaceConfigFile.mock.calls[0]?.[0]?.nextConfig as OpenClawConfig;
+    const writtenConfig = mocks.replaceConfigFile.mock.calls[0]?.[0]?.nextConfig as GrantedConfig;
     expect(resolveConfiguredInternalHookNames(writtenConfig)).toEqual(
       new Set(testCase.enabled ? ["metadata-key"] : []),
     );

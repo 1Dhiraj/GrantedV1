@@ -10,10 +10,10 @@ import {
 } from "../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../state/openclaw-agent-progress-card-schema.js";
 
-type ProgressCardDatabase = Pick<OpenClawAgentKyselyDatabase, "session_progress_cards">;
+type ProgressCardDatabase = Pick<GrantedAgentKyselyDatabase, "session_progress_cards">;
 type ProgressCardDatabaseInput = string | DatabaseSync;
 type StoredProgressCardRow = Selectable<ProgressCardDatabase["session_progress_cards"]>;
 

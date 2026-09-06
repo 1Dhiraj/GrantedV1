@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { AuthProfileStore } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
 import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -98,7 +98,7 @@ class CodexBoundedTurnTimeoutError extends Error {
 }
 
 type CodexBoundedTurnParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   model: CodexBoundedTurnModelSelection;
   modelProvider?: string;
   profile?: string;

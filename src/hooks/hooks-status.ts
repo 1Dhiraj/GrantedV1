@@ -1,6 +1,6 @@
 // Hook status helpers summarize configured, installed, and plugin-provided hooks.
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { evaluateEntryRequirementsForCurrentPlatform } from "../shared/entry-status.js";
 import type { RequirementConfigCheck, Requirements } from "../shared/requirements.js";
 import { CONFIG_DIR } from "../utils.js";
@@ -90,7 +90,7 @@ function normalizeInstallOptions(entry: HookEntry): HookInstallOption[] {
 
 function buildHookStatus(
   entry: HookEntry,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   eligibility?: HookEligibilityContext,
 ): HookStatusEntry {
   const hookKey = resolveHookKey(entry);
@@ -149,7 +149,7 @@ function buildHookStatus(
 export function buildWorkspaceHookStatus(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     managedHooksDir?: string;
     entries?: HookEntry[];
     eligibility?: HookEligibilityContext;

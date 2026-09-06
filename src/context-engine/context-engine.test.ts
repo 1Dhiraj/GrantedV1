@@ -7,7 +7,7 @@ import {
 } from "../agents/harness/context-engine-logical-turn.js";
 import { SessionTranscriptReadFenceError } from "../config/sessions/session-transcript-read-fence.js";
 import type { MemoryCitationsMode } from "../config/types.memory.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   clearMemoryPluginState,
   registerMemoryPromptPreparation,
@@ -103,7 +103,7 @@ function requireCompactRuntimeParams(callIndex: number): Record<string, unknown>
 // ---------------------------------------------------------------------------
 
 /** Build a config object with a contextEngine slot for testing. */
-function configWithSlot(engineId: string): OpenClawConfig {
+function configWithSlot(engineId: string): GrantedConfig {
   return { plugins: { slots: { contextEngine: engineId } } };
 }
 

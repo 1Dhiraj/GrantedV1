@@ -7,7 +7,7 @@ import {
   setRuntimeConfigSnapshot,
 } from "./io.js";
 import { createProviderConfigFixture } from "./runtime-snapshot.test-fixtures.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 function resetRuntimeConfigState(): void {
   setRuntimeConfigSnapshotRefreshHandler(null);
@@ -24,7 +24,7 @@ describe("runtime config snapshot writes", () => {
   });
 
   it("skips source projection for non-runtime-derived configs", () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       ...createProviderConfigFixture(),
       gateway: {
         auth: {
@@ -32,7 +32,7 @@ describe("runtime config snapshot writes", () => {
         },
       },
     };
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       ...createProviderConfigFixture("sk-runtime-resolved"), // pragma: allowlist secret
       gateway: {
         auth: {

@@ -6,7 +6,7 @@ import { collectUniqueCommandDescriptors } from "../cli/program/command-descript
 import { cloneEnvWithPlatformSemantics } from "../config/config-env-vars.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveManifestActivationPluginIds } from "./activation-planner.js";
 import { resolvePluginActivationSourceConfig } from "./activation-source-config.js";
@@ -29,8 +29,8 @@ import {
 } from "./runtime/load-context.js";
 import { resolvePluginRuntimeLoadContext } from "./runtime/load-context.resolve.js";
 import type {
-  OpenClawPluginCliContext,
-  OpenClawPluginCliRootCommandDescriptor,
+  GrantedPluginCliContext,
+  GrantedPluginCliRootCommandDescriptor,
   PluginLogger,
 } from "./types.js";
 
@@ -38,7 +38,7 @@ export type PluginCliLoaderOptions = Pick<PluginLoadOptions, "pluginSdkResolutio
 
 /** Public CLI loader options passed from command bootstrap surfaces. */
 export type PluginCliPublicLoadParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   loaderOptions?: PluginCliLoaderOptions;
   logger?: PluginLogger;
@@ -49,9 +49,9 @@ export type PluginCliPublicLoadParams = {
 export type PluginCliCommandGroupEntry = {
   pluginId: string;
   parentPath: readonly string[];
-  placeholders: readonly OpenClawPluginCliRootCommandDescriptor[];
+  placeholders: readonly GrantedPluginCliRootCommandDescriptor[];
   names: readonly string[];
-  register: (program: OpenClawPluginCliContext["program"]) => Promise<void>;
+  register: (program: GrantedPluginCliContext["program"]) => Promise<void>;
 };
 
 const log = createSubsystemLogger("plugins/cli-registry-loader");
@@ -320,7 +320,7 @@ async function loadPluginCliCommandRegistryWithContext(params: {
 
 function buildPluginCliCommandGroupEntries(params: {
   registry: PluginRegistry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string | undefined;
   logger: PluginLogger;
   assertCurrent: () => void;
@@ -349,7 +349,7 @@ function buildPluginCliCommandGroupEntries(params: {
 
 export async function loadPluginCliDescriptors(
   params: PluginCliPublicLoadParams,
-): Promise<OpenClawPluginCliRootCommandDescriptor[]> {
+): Promise<GrantedPluginCliRootCommandDescriptor[]> {
   try {
     const prepared = resolvePreparedPluginCliLoad(params);
     const registry = await loadPluginCliMetadataRegistryWithContext(

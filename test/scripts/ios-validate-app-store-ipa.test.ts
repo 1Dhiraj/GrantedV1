@@ -241,9 +241,9 @@ async function writeValidFixture(
     plistString("CFBundleIdentifier", "ai.openclawfoundation.app"),
     plistString("CFBundleDisplayName", options.displayName ?? "OpenClaw"),
     plistString("OpenClawGitCommit", options.buildCommit ?? BUILD_COMMIT),
-    plistString("OpenClawBuildTimestamp", options.buildTimestamp ?? BUILD_TIMESTAMP),
-    plistString("OpenClawPushMode", options.pushMode ?? "appStore"),
-    plistString("OpenClawPushRelayBaseURL", ""),
+    plistString("GrantedBuildTimestamp", options.buildTimestamp ?? BUILD_TIMESTAMP),
+    plistString("GrantedPushMode", options.pushMode ?? "appStore"),
+    plistString("GrantedPushRelayBaseURL", ""),
     plistString(
       "NSHealthShareUsageDescription",
       "OpenClaw reads Health data for Health Summaries.",
@@ -256,7 +256,7 @@ async function writeValidFixture(
             "NSHealthUpdateUsageDescription",
             options.healthUpdateUsage ?? "OpenClaw reads Health data for Health Summaries.",
           ),
-    options.legacyKey ? plistString("OpenClawPushRelayProfile", "production") : "",
+    options.legacyKey ? plistString("GrantedPushRelayProfile", "production") : "",
   ].join("");
   writeFileSync(path.join(appDir, "Info.plist"), plist(infoBody), "utf8");
   const localizedDir = path.join(appDir, "de.lproj");

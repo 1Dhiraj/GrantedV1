@@ -1,5 +1,5 @@
 /** Prepares embedded-agent SettingsManager instances from project and plugin settings. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import {
   buildEmbeddedAgentSettingsSnapshot,
@@ -13,7 +13,7 @@ import { SettingsManager } from "./sessions/index.js";
 export function createPreparedEmbeddedAgentSettingsManager(params: {
   cwd: string;
   agentDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   /** Resolved context window budget so reserve-token floor can be capped for small models. */
   contextTokenBudget?: number;

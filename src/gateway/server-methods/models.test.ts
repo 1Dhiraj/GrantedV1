@@ -15,14 +15,14 @@ import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-su
 import type { PreparedModelRuntimeAuth } from "../../agents/prepared-model-runtime-auth.js";
 import { materializeRuntimeCapabilities } from "../../agents/prepared-model-runtime.configured-catalog.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadManifestMetadataSnapshot } from "../../plugins/manifest-contract-eligibility.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import type { GatewayAgentRuntime } from "../../shared/session-types.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { assertPluginMetadataSnapshotConsistency } from "../plugin-metadata.test-helpers.js";
 import {
@@ -216,7 +216,7 @@ const withoutAnthropicEnvAuth = async <T>(run: () => Promise<T>): Promise<T> =>
     run,
   );
 
-let modelsTestState: OpenClawTestState;
+let modelsTestState: GrantedTestState;
 
 beforeAll(async () => {
   assertPluginMetadataSnapshotConsistency(modelPluginMetadataSnapshot as PluginMetadataSnapshot);
@@ -234,7 +234,7 @@ afterAll(async () => {
 
 async function withModelsTestState<T>(
   options: NonNullable<Parameters<typeof createOpenClawTestState>[0]>,
-  run: (state: OpenClawTestState) => Promise<T>,
+  run: (state: GrantedTestState) => Promise<T>,
 ): Promise<T> {
   clearRuntimeAuthProfileStoreSnapshots();
   await modelsTestState.writeAuthProfiles({ version: 1, profiles: {} });
@@ -264,8 +264,8 @@ function requestModelsList(params: {
   view: "default" | "configured" | "provider-config" | "all";
   agentId?: string;
   respond?: ReturnType<typeof vi.fn>;
-  runtimeConfig?: OpenClawConfig;
-  getRuntimeConfig?: () => OpenClawConfig;
+  runtimeConfig?: GrantedConfig;
+  getRuntimeConfig?: () => GrantedConfig;
   loadGatewayModelCatalog: (params?: {
     agentId?: string;
     agentDir?: string;
@@ -278,7 +278,7 @@ function requestModelsList(params: {
   preparedAuthModes?: PreparedModelRuntimeAuth["authModes"];
 }) {
   const respond = params.respond ?? vi.fn();
-  const runtimeConfig = params.runtimeConfig ?? ({} as OpenClawConfig);
+  const runtimeConfig = params.runtimeConfig ?? ({} as GrantedConfig);
   const getRuntimeConfig = params.getRuntimeConfig ?? (() => runtimeConfig);
   const resolveOwnerFacts = () => {
     const config = getRuntimeConfig();
@@ -428,10 +428,10 @@ describe("models.list", () => {
   it("uses the replacement owner config for the whole catalog projection", async () => {
     const initialConfig = {
       agents: { defaults: { models: { "test/old": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const latestConfig = {
       agents: { defaults: { models: { "test/demo": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let currentConfig = initialConfig;
     const loadGatewayModelCatalog = vi.fn(async () => {
       if (currentConfig === initialConfig) {
@@ -459,10 +459,10 @@ describe("models.list", () => {
   it("escalates to the full owner when replacement config adds a provider wildcard", async () => {
     const initialConfig = {
       agents: { defaults: { models: { "test/demo": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const latestConfig = {
       agents: { defaults: { models: { "test/*": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let currentConfig = initialConfig;
     let firstLoad = true;
     const loadGatewayModelCatalog = vi.fn(async (_params?: { readOnly?: boolean }) => {
@@ -531,7 +531,7 @@ describe("models.list", () => {
       "claude-fable-5",
       "claude-sonnet-4-6",
     ];
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       agents: {
         defaults: {
           models: Object.fromEntries(
@@ -596,7 +596,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const loadGatewayModelCatalog = vi.fn(async () => [
       { id: modelId, name: modelId, provider: "anthropic", reasoning: false },
       {
@@ -643,7 +643,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const materializedCatalog = materializeRuntimeCapabilities(
       [{ id: modelId, name: modelId, provider: "anthropic", reasoning: false }],
       [
@@ -707,7 +707,7 @@ describe("models.list", () => {
           anthropic: { models: modelIds.map((id) => ({ id, name: id })) },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const { request, respond } = requestModelsList({
       view: "configured",
       runtimeConfig,
@@ -754,7 +754,7 @@ describe("models.list", () => {
           anthropic: { models: [{ id: modelId, name: "Claude Mythos 5" }] },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const materializedCatalog = materializeRuntimeCapabilities(
       [{ id: modelId, name: "Claude Mythos 5", provider: "anthropic" }],
       [
@@ -836,7 +836,7 @@ describe("models.list", () => {
           vllm: sourceProvider,
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeConfig = {
       ...sourceConfig,
       models: {
@@ -848,7 +848,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const loadGatewayModelCatalog = vi.fn(() =>
       Promise.resolve([
         {
@@ -936,7 +936,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     setRuntimeConfigSnapshot(config, config);
     try {
       const { request, respond } = requestModelsList({
@@ -980,7 +980,7 @@ describe("models.list", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
       try {
@@ -1040,7 +1040,7 @@ describe("models.list", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
       try {
@@ -1099,7 +1099,7 @@ describe("models.list", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const { request, respond } = requestModelsList({
         view: "configured",
         runtimeConfig,
@@ -1151,7 +1151,7 @@ describe("models.list", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const { request, respond } = requestModelsList({
         view: "configured",
         runtimeConfig,
@@ -1205,7 +1205,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
     try {
@@ -1268,7 +1268,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
     try {
@@ -1414,7 +1414,7 @@ describe("models.list", () => {
             vllm: { apiKey: "test-key" },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const loadConfiguredCatalog = vi.fn(() => Promise.resolve(catalog));
       const { request: configuredRequest, respond: configuredRespond } = requestModelsList({
@@ -1552,7 +1552,7 @@ describe("models.list", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
           const expected = {
             models: [
               {
@@ -1679,7 +1679,7 @@ describe("models.list", () => {
                     },
                   },
                 },
-              } as unknown as OpenClawConfig;
+              } as unknown as GrantedConfig;
               const { request, respond } = requestModelsList({
                 view: "all",
                 runtimeConfig,
@@ -1758,7 +1758,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const { request, respond } = requestModelsList({
       view: "all",
@@ -1794,7 +1794,7 @@ describe("models.list", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const { request, respond } = requestModelsList({
       view: "all",
@@ -1825,7 +1825,7 @@ describe("models.list", () => {
     "${UNRELATED_KEY}",
     "$malformed-template",
   ])("uses an exact hydrated runtime snapshot with opaque key %s", async (apiKey) => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       secrets: {
         providers: {
           "mounted-json": {
@@ -1853,7 +1853,7 @@ describe("models.list", () => {
       sourceConfig.models?.providers?.vllm,
       "source vLLM provider",
     );
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       ...sourceConfig,
       models: {
         providers: {
@@ -2082,7 +2082,7 @@ describe("models.list", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           loadGatewayModelCatalog: vi.fn(() =>
             Promise.resolve([{ id: "demo-model", name: "Demo Model", provider: "demo-provider" }]),
           ),
@@ -2130,7 +2130,7 @@ describe("models.list", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         const catalog = [{ id: "qwen-remote", name: "Qwen Remote", provider: "cliproxyapi" }];
         const writeCooldown = (disabledUntil: number) =>
           state.writeAuthProfiles({
@@ -2245,7 +2245,7 @@ describe("models.list", () => {
                   },
                 },
               },
-            } as OpenClawConfig,
+            } as GrantedConfig,
             loadGatewayModelCatalog: vi.fn(() =>
               Promise.resolve([
                 { id: "demo-model", name: "Demo Model", provider: "demo-provider" },
@@ -2329,7 +2329,7 @@ describe("models.list", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
 
           const { request, respond } = requestModelsList({
             view: "all",

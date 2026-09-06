@@ -33,7 +33,7 @@ import {
   type SkillMessageMap,
 } from "../../lib/skills/index.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { renderPluginsHubHeader } from "../plugins/plugins-hub-header.ts";
 import { PLUGINS_HUB_PANEL_ID, type PluginsHubTab } from "../plugins/plugins-hub.ts";
@@ -51,7 +51,7 @@ export type SkillsRouteData = {
   error: string | null;
 };
 
-class SkillsPage extends OpenClawLightDomElement {
+class SkillsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

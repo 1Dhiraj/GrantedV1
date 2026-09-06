@@ -16,7 +16,7 @@ import type {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 
 type InferenceDb = Pick<StateDatabase, "worker_inference_turns">;
@@ -239,7 +239,7 @@ function pruneTerminalTurns(params: {
 
 export function createWorkerInferenceStore(
   options: {
-    database?: OpenClawStateDatabase;
+    database?: GrantedStateDatabase;
     now?: () => number;
     retention?: Partial<WorkerInferenceRetentionPolicy>;
   } = {},

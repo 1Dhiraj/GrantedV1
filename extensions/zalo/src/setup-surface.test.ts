@@ -8,7 +8,7 @@ import {
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { listZaloAccountIds, resolveDefaultZaloAccountId, resolveZaloAccount } from "./accounts.js";
 import { zaloDmPolicy } from "./setup-core.js";
 import { zaloSetupAdapter, zaloSetupWizard } from "./setup-surface.js";
@@ -56,7 +56,7 @@ describe("zalo setup wizard", () => {
 
     const result = await runSetupWizardConfigure({
       configure: zaloConfigure,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       prompter,
       options: { secretInputMode: "plaintext" as const },
     });
@@ -102,7 +102,7 @@ describe("zalo setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(configured).toBe(false);

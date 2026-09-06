@@ -12,7 +12,7 @@ import {
   type TempWorkspace,
 } from "openclaw/plugin-sdk/temp-path";
 import { afterEach, vi } from "vitest";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import {
   configureMemoryWikiCompiledCacheStore,
   createMemoryWikiCompiledCacheStore,
@@ -32,7 +32,7 @@ type MemoryWikiTestVault = {
 };
 
 type MemoryWikiPluginApiHarness = {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   registerCli: ReturnType<typeof vi.fn>;
   registerGatewayMethod: ReturnType<typeof vi.fn>;
   registerMemoryCorpusSupplement: ReturnType<typeof vi.fn>;
@@ -219,7 +219,7 @@ export function createMemoryWikiTestHarness() {
           openKeyedStore: vi.fn(<T>() => createMemoryKeyedStore<T>()),
           openBlobStore: vi.fn(<T>() => createMemoryBlobStore<T>()),
         },
-      } as unknown as OpenClawPluginApi["runtime"],
+      } as unknown as GrantedPluginApi["runtime"],
       registerCli,
       registerGatewayMethod,
       registerMemoryCorpusSupplement,

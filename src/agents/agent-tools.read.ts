@@ -82,7 +82,7 @@ const MAX_ADAPTIVE_READ_PAGES = 4;
 // `.env` files are credential stores; `.envrc` and general config files remain source-shaped.
 const ENV_FILE_PATH_RE = /(?:^|[/\\])(?:\.env(?:\.[^/\\]+)?|[^/\\]+\.env)$/i;
 
-type OpenClawReadToolOptions = {
+type GrantedReadToolOptions = {
   modelContextWindowTokens?: number;
   imageSanitization?: ImageSanitizationLimits;
   cwd?: string;
@@ -131,7 +131,7 @@ type ReadTruncationDetails = {
 const READ_CONTINUATION_NOTICE_RE =
   /\n\n\[(?:Showing (?:lines|part of line) [^\]]*|Read output capped [^\]]*|\d+ more lines? in file\. [^\]]*)\]\s*$/;
 
-export function resolveAdaptiveReadMaxBytes(options?: OpenClawReadToolOptions): number {
+export function resolveAdaptiveReadMaxBytes(options?: GrantedReadToolOptions): number {
   const contextWindowTokens = options?.modelContextWindowTokens;
   if (
     typeof contextWindowTokens !== "number" ||
@@ -1046,7 +1046,7 @@ export function createHostWorkspaceEditTool(
 /** Wrap the base read tool with OpenClaw paging, MIME, and image handling. */
 export function createOpenClawReadTool(
   base: AnyAgentTool,
-  options?: OpenClawReadToolOptions,
+  options?: GrantedReadToolOptions,
 ): AnyAgentTool {
   const modelBudget = resolveToolResultBudget(options?.modelContextWindowTokens);
   return {
@@ -1094,7 +1094,7 @@ export function createOpenClawReadTool(
 export function wrapReadToolWithSkillContent(
   tool: AnyAgentTool,
   skills: readonly SkillReadContent[] | undefined,
-  options?: OpenClawReadToolOptions & {
+  options?: GrantedReadToolOptions & {
     cwd?: string;
     containerWorkdir?: string;
     instructionPaths?: readonly string[];

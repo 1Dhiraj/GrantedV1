@@ -14,7 +14,7 @@ import type { GatewayServer } from "../../../src/gateway/server.js";
 import { getActiveGatewayRootWorkCount } from "../../../src/process/gateway-work-admission.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../src/test-utils/openclaw-test-state.js";
 import type { ApplicationRuntime } from "../app/bootstrap.ts";
 import {
@@ -93,7 +93,7 @@ type RealGateway = {
   httpUrl: string;
   port: number;
   server: GatewayServer;
-  state: OpenClawTestState;
+  state: GrantedTestState;
   url: string;
 };
 

@@ -14,7 +14,7 @@ import {
   resolvePersistedSessionStoreOwnerForKey,
 } from "../config/sessions/session-store-owner.js";
 import type { HookSessionMode } from "../config/types.hooks.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readJsonBodyWithLimit, requestBodyErrorToText } from "../infra/http-body.js";
 import {
   normalizeAgentId,
@@ -65,7 +65,7 @@ type HookSessionPolicyResolved = {
 export type HookSessionKeySource = "request" | "mapping-static" | "mapping-templated";
 
 /** Resolve and validate hook config, returning null when hooks are disabled. */
-export function resolveHooksConfig(cfg: OpenClawConfig): HooksConfigResolved | null {
+export function resolveHooksConfig(cfg: GrantedConfig): HooksConfigResolved | null {
   if (cfg.hooks?.enabled !== true) {
     return null;
   }
@@ -162,7 +162,7 @@ export function resolveHookPathBodyLimit(
   return hooksConfig.maxBodyBytesByPath.get(normalized) ?? hooksConfig.maxBodyBytes;
 }
 
-function resolveKnownAgentIds(cfg: OpenClawConfig, defaultAgentId?: string): Set<string> {
+function resolveKnownAgentIds(cfg: GrantedConfig, defaultAgentId?: string): Set<string> {
   const known = new Set(listAgentIds(cfg));
   if (defaultAgentId) {
     known.add(defaultAgentId);

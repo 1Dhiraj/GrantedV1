@@ -6,14 +6,14 @@
  */
 import path from "node:path";
 import { isDefaultStateDir, resolveStateDir } from "../../../config/paths.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveUserPath } from "../../../utils.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 
 /** Resolves the workspace directory used by local non-interactive setup. */
 export function resolveNonInteractiveWorkspaceDir(params: {
   opts: OnboardOptions;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   defaultWorkspaceDir: string;
   env?: NodeJS.ProcessEnv;
 }) {

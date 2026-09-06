@@ -26,10 +26,10 @@ import {
 } from "../../test/helpers/openai-long-context-live.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../test/helpers/openclaw-test-instance.js";
 import { isLiveTestEnabled } from "../agents/live-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
 import { extractFirstTextBlock } from "../shared/chat-message-content.js";
 import { loadSqliteTrajectoryRuntimeEvents } from "../trajectory/runtime-store.sqlite.js";
@@ -91,7 +91,7 @@ type SessionRow = {
   agentRuntime?: { id?: string };
 };
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const clients: GatewayClient[] = [];
 
 afterEach(async () => {
@@ -190,7 +190,7 @@ function emitMetric(params: {
 }
 
 async function waitForTransportEvidence(params: {
-  instance: OpenClawTestInstance;
+  instance: GrantedTestInstance;
   modelId: string;
   requestId: string;
 }): Promise<OpenAITransportReplayEvidence> {
@@ -213,7 +213,7 @@ async function waitForTransportEvidence(params: {
 
 async function requestTurn(params: {
   client: GatewayClient;
-  instance: OpenClawTestInstance;
+  instance: GrantedTestInstance;
   allEvents: OpenAILongContextAgentEvent[];
   profile: OpenAILongContextProfile;
   phase: string;
@@ -450,7 +450,7 @@ describeLive("Gateway OpenAI long-context compaction (live)", () => {
         agentId: AGENT_ID,
       });
       assertOpenAILongContextConfig(modelConfig, profile);
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         ...modelConfig,
         gateway: {
           mode: "local",

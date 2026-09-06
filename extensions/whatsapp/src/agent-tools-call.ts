@@ -6,8 +6,8 @@ import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
 import { createActionGate, stringEnum } from "openclaw/plugin-sdk/channel-actions";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginToolContext,
+  GrantedPluginApi,
+  GrantedPluginToolContext,
 } from "openclaw/plugin-sdk/core";
 import { mulawToPcm } from "openclaw/plugin-sdk/realtime-voice";
 import { detectBinary } from "openclaw/plugin-sdk/setup-tools";
@@ -143,7 +143,7 @@ function resolveCallWindowMs(pcmBytes: number, sampleRate: number): number {
 
 async function resolveRequesterE164(params: {
   accountId: string;
-  cfg: NonNullable<OpenClawPluginToolContext["config"]>;
+  cfg: NonNullable<GrantedPluginToolContext["config"]>;
   requesterSenderId: string;
 }): Promise<string | null> {
   const senderId = params.requesterSenderId.trim();
@@ -163,7 +163,7 @@ async function resolveRequesterE164(params: {
 
 async function resolveLinkedWhatsAppSelfE164(params: {
   accountId: string;
-  cfg: NonNullable<OpenClawPluginToolContext["config"]>;
+  cfg: NonNullable<GrantedPluginToolContext["config"]>;
 }): Promise<string | null> {
   const controller = getWhatsAppConnectionController(params.accountId);
   if (!controller) {
@@ -184,13 +184,13 @@ async function resolveLinkedWhatsAppSelfE164(params: {
   });
 }
 
-function resolveRuntimeConfig(api: OpenClawPluginApi, context: OpenClawPluginToolContext) {
+function resolveRuntimeConfig(api: GrantedPluginApi, context: GrantedPluginToolContext) {
   return context.getRuntimeConfig?.() ?? context.runtimeConfig ?? context.config ?? api.config;
 }
 
 function createWhatsAppCallToolWithDependencies(
-  api: OpenClawPluginApi,
-  context: OpenClawPluginToolContext,
+  api: GrantedPluginApi,
+  context: GrantedPluginToolContext,
   dependencies: WhatsAppCallToolDependencies,
 ): AnyAgentTool | null {
   const cfg = resolveRuntimeConfig(api, context);
@@ -333,13 +333,13 @@ function createWhatsAppCallToolWithDependencies(
 }
 
 function createWhatsAppCallTool(
-  api: OpenClawPluginApi,
-  context: OpenClawPluginToolContext,
+  api: GrantedPluginApi,
+  context: GrantedPluginToolContext,
 ): AnyAgentTool | null {
   return createWhatsAppCallToolWithDependencies(api, context, defaultDependencies);
 }
 
-export function registerWhatsAppCallTool(api: OpenClawPluginApi): void {
+export function registerWhatsAppCallTool(api: GrantedPluginApi): void {
   api.registerTool((context) => createWhatsAppCallTool(api, context), {
     name: "whatsapp_call",
   });

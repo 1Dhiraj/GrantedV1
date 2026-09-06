@@ -4,7 +4,7 @@ import {
   type PluginInstallRuntime,
 } from "./install-shared.js";
 import { PLUGIN_INSTALL_ERROR_CODE } from "./install-types.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { checkMinHostVersion } from "./min-host-version.js";
 
 function createCompatibilityRuntime(
@@ -71,7 +71,7 @@ describe("plugin package install compatibility", () => {
     const result = validateOpenClawPackageInstallCompatibility({
       runtime: createCompatibilityRuntime("2026.5.21"),
       pluginId: "example-plugin",
-      packageMetadata: packageMetadata as OpenClawPackageManifest,
+      packageMetadata: packageMetadata as GrantedPackageManifest,
     });
 
     expect(result).toMatchObject({ ok: false, code });

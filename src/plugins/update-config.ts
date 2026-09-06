@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { resolveUserPath } from "../utils.js";
 import { normalizePluginsConfig, resolveEffectiveEnableState } from "./config-state.js";
@@ -188,7 +188,7 @@ export function resolveBridgeInstallRecord(params: {
 }
 
 function isBridgeChannelEnabledByConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   bridge: ExternalizedBundledPluginBridge;
 }): boolean {
   const channels = params.config.channels;
@@ -208,7 +208,7 @@ function isBridgeChannelEnabledByConfig(params: {
 }
 
 export function isExternalizedBundledPluginEnabled(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   bridge: ExternalizedBundledPluginBridge;
 }): boolean {
   const normalized = normalizePluginsConfig(params.config.plugins);
@@ -263,10 +263,10 @@ function replacePluginIdInList(
 }
 
 export function migratePluginConfigId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   fromId: string,
   toId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const plugins = cfg.plugins;
   if (fromId === toId || !plugins) {
     return cfg;
@@ -341,9 +341,9 @@ export function migratePluginConfigId(
 }
 
 export function disablePluginAfterUpdateFailure(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const disabled = setPluginEnabledInConfig(config, pluginId, false, {
     updateChannelConfig: false,
   });
@@ -374,7 +374,7 @@ export async function repairRegisteredOpenClawHostLink(params: {
 }
 
 export async function repairOpenClawPeerLinksForNpmInstalls(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   logger: PluginUpdateLogger;
 }): Promise<boolean> {
   const result = await reconcileRegisteredOpenClawHostLinks({

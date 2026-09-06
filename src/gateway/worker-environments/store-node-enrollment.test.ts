@@ -12,7 +12,7 @@ import { CLOUD_WORKER_PAIRING_SETUP_BOOTSTRAP_PROFILE } from "../../shared/devic
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { hashWorkerCredential } from "./credential.js";
 import { createWorkerEnvironmentStore, type WorkerEnvironmentStore } from "./store.js";
@@ -25,7 +25,7 @@ const BOOTSTRAP_RECEIPT = {
 
 describe("worker environment node enrollment store", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerEnvironmentStore;
 
   beforeEach(async () => {

@@ -8,7 +8,7 @@ import type { PublishedModelCatalogOwnerCandidate } from "../agents/prepared-mod
 import { setPreparedModelRuntimeAuthLoader } from "../agents/prepared-model-runtime-auth.js";
 import { PreparedModelRuntimePublicationSupersededError } from "../agents/prepared-model-runtime.errors.js";
 import { markPreparedModelCatalogFull } from "../agents/prepared-model-runtime.full-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   loadDeferredCatalog,
   registerGatewayModelCatalogPrivateAccess,
@@ -25,7 +25,7 @@ const snapshot: ModelCatalogSnapshot = {
   routeVariants: [],
 };
 
-function ownerConfig(agentId = "main", extra: OpenClawConfig = {}): OpenClawConfig {
+function ownerConfig(agentId = "main", extra: GrantedConfig = {}): GrantedConfig {
   return {
     ...extra,
     agents: {
@@ -43,7 +43,7 @@ function ownerConfig(agentId = "main", extra: OpenClawConfig = {}): OpenClawConf
 }
 
 function ownerSnapshot(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   modelCatalog: ModelCatalogSnapshot = snapshot,
   agentId?: string,
 ): PublishedModelCatalogOwnerCandidate {
@@ -420,7 +420,7 @@ describe("gateway prepared model catalog", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loadPublishedPreparedModelCatalogOwnerSnapshot = vi.fn(async () => ownerSnapshot(config));
 
     await expect(

@@ -7,7 +7,7 @@ import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
   hasConfiguredAccountValue,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import { resolveDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
 import { parseStrictInteger } from "openclaw/plugin-sdk/number-runtime";
@@ -22,7 +22,7 @@ import type {
 } from "./types.js";
 
 /** Extract the channel config from the full OpenClaw config object. */
-function getChannelConfig(cfg: OpenClawConfig): SynologyChatChannelConfig | undefined {
+function getChannelConfig(cfg: GrantedConfig): SynologyChatChannelConfig | undefined {
   return cfg?.channels?.["synology-chat"] as SynologyChatChannelConfig | undefined;
 }
 
@@ -104,7 +104,7 @@ function parseRateLimitPerMinute(raw: string | undefined): number {
  * Falls back to env vars for the "default" account.
  */
 export function resolveAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): ResolvedSynologyChatAccount {
   const channelCfg = getChannelConfig(cfg) ?? {};

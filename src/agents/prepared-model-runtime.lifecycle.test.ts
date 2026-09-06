@@ -11,7 +11,7 @@ import { createDeferred } from "../../test/helpers/promise.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   acquireAgentRunPreparedModelRuntime,
@@ -28,7 +28,7 @@ import {
 } from "./prepared-model-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared model runtime snapshots", () => {
   beforeEach(async () => {

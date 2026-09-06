@@ -12,12 +12,12 @@ import {
 } from "../../routing/session-key.js";
 import { runQueuedStoreWrite } from "../../shared/store-writer-queue.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   resolveIncognitoOpenClawAgentSqlitePath,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import { formatSqliteSessionFileMarker } from "./legacy-sqlite-marker.js";
 import type {
@@ -31,7 +31,7 @@ import { SQLITE_SESSION_WRITER_QUEUES } from "./store-writer-state.js";
 import type { SessionEntry } from "./types.js";
 
 type SessionSqliteDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   | "acp_parent_stream_events"
   | "board_tabs"
   | "board_widgets"
@@ -344,14 +344,14 @@ export function resolveSqliteTranscriptReadScope(
 export function readSqliteTranscriptStoreBatches<T>(
   scopes: readonly SessionTranscriptReadScope[],
   readChunk: (
-    database: Pick<OpenClawAgentDatabase, "db" | "path">,
+    database: Pick<GrantedAgentDatabase, "db" | "path">,
     sessionIds: readonly string[],
   ) => Map<string, T>,
 ): Array<T | undefined> {
   const results: Array<T | undefined> = Array.from({ length: scopes.length });
   const groups = new Map<
     string,
-    { indexes: Map<string, number[]>; options: OpenClawAgentDatabaseOptions }
+    { indexes: Map<string, number[]>; options: GrantedAgentDatabaseOptions }
   >();
   const targetCache: SessionSqliteTargetResolutionCache = new Map();
   for (const [index, scope] of scopes.entries()) {
@@ -390,7 +390,7 @@ export function readSqliteTranscriptStoreBatches<T>(
 
 export function toDatabaseOptions(
   scope: Pick<ResolvedSqliteReadScope, "agentId" | "databaseAgentId" | "env" | "path">,
-): OpenClawAgentDatabaseOptions {
+): GrantedAgentDatabaseOptions {
   return {
     agentId: scope.databaseAgentId ?? scope.agentId,
     ...(scope.env ? { env: scope.env } : {}),

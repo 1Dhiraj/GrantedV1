@@ -1,7 +1,7 @@
 // LongCat doctor contract repairs the historical stock model price persisted
 // by onboarding. Match the complete stock row so operator-customized models
 // and prices are never rewritten when the vendor catalog changes.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 
 const MODELS_PATH = ["models", "providers", "longcat", "models"];
@@ -65,8 +65,8 @@ export const legacyConfigRules = [
   },
 ];
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const models = cfg.models;

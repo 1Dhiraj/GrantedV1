@@ -1,7 +1,7 @@
 /** Tests primitive cache-key helpers used by plugin descriptor and metadata caches. */
 import { describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   PluginLruCache,
   createConfigScopedPromiseLoader,
@@ -39,7 +39,7 @@ describe("PluginLruCache", () => {
 describe("resolveConfigScopedRuntimeCacheValue", () => {
   it("caches values by config object and key", () => {
     const cache: ConfigScopedRuntimeCache<string[]> = new WeakMap();
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const load = vi.fn(() => ["loaded"]);
 
     expect(resolveConfigScopedRuntimeCacheValue({ cache, config, key: "demo", load })).toEqual([
@@ -62,7 +62,7 @@ describe("resolveConfigScopedRuntimeCacheValue", () => {
 
   it("caches undefined values by key", () => {
     const cache: ConfigScopedRuntimeCache<string | undefined> = new WeakMap();
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const load = vi.fn(() => undefined);
 
     expect(resolveConfigScopedRuntimeCacheValue({ cache, config, key: "missing", load })).toBe(
@@ -89,9 +89,9 @@ describe("createConfigScopedPromiseLoader", () => {
   });
 
   it("caches loads by config object", async () => {
-    const firstConfig = { plugins: { load: { disabled: true } } } as OpenClawConfig;
-    const secondConfig = { plugins: { load: { disabled: false } } } as OpenClawConfig;
-    const load = vi.fn(async (config?: OpenClawConfig) =>
+    const firstConfig = { plugins: { load: { disabled: true } } } as GrantedConfig;
+    const secondConfig = { plugins: { load: { disabled: false } } } as GrantedConfig;
+    const load = vi.fn(async (config?: GrantedConfig) =>
       config === firstConfig ? "first" : "second",
     );
     const loader = createConfigScopedPromiseLoader(load);
@@ -104,7 +104,7 @@ describe("createConfigScopedPromiseLoader", () => {
   });
 
   it("evicts rejected loads so retries can recover", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     let calls = 0;
     const loader = createConfigScopedPromiseLoader(async () => {
       calls += 1;
@@ -120,7 +120,7 @@ describe("createConfigScopedPromiseLoader", () => {
   });
 
   it.each([
-    { name: "config-scoped", config: {} as OpenClawConfig },
+    { name: "config-scoped", config: {} as GrantedConfig },
     { name: "default", config: undefined },
   ])("keeps the refreshed $name promise when a retired generation rejects", async ({ config }) => {
     const retired = createDeferred<string>();
@@ -145,10 +145,10 @@ describe("createConfigScopedPromiseLoader", () => {
   });
 
   it("clears default and config-scoped entries", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     let calls = 0;
     const loader = createConfigScopedPromiseLoader(
-      async (owner?: OpenClawConfig) => `${owner ? "config" : "default"}-${++calls}`,
+      async (owner?: GrantedConfig) => `${owner ? "config" : "default"}-${++calls}`,
     );
 
     await expect(loader.load()).resolves.toBe("default-1");
@@ -161,10 +161,10 @@ describe("createConfigScopedPromiseLoader", () => {
   });
 
   it("drops default and config-scoped executable promises when plugin metadata changes", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     let calls = 0;
     const loader = createConfigScopedPromiseLoader(
-      async (owner?: OpenClawConfig) => `${owner ? "config" : "default"}-${++calls}`,
+      async (owner?: GrantedConfig) => `${owner ? "config" : "default"}-${++calls}`,
     );
 
     await expect(loader.load()).resolves.toBe("default-1");

@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import type {
-  OpenClawPluginCommandDefinition,
+  GrantedPluginCommandDefinition,
   PluginCommandContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
@@ -21,8 +21,8 @@ const { registerTelegramMiniAppCommand } = await import("./command.js");
 
 function registerDashboardCommand(
   api: Parameters<typeof registerTelegramMiniAppCommand>[0],
-): OpenClawPluginCommandDefinition {
-  const commands: OpenClawPluginCommandDefinition[] = [];
+): GrantedPluginCommandDefinition {
+  const commands: GrantedPluginCommandDefinition[] = [];
   registerTelegramMiniAppCommand(
     {
       ...api,

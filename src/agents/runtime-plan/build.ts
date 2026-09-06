@@ -6,7 +6,7 @@ import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
  */
 import type { TSchema } from "typebox";
 import { isSilentReplyPayloadText, SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { hasReplyPayloadContent } from "../../interactive/payload.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import {
@@ -41,8 +41,8 @@ function formatResolvedRef(params: { provider: string; modelId: string }): strin
   return `${params.provider}/${params.modelId}`;
 }
 
-function asOpenClawConfig(value: unknown): OpenClawConfig | undefined {
-  return asOptionalRecord(value) as OpenClawConfig | undefined;
+function asOpenClawConfig(value: unknown): GrantedConfig | undefined {
+  return asOptionalRecord(value) as GrantedConfig | undefined;
 }
 
 function asProviderRuntimeModel(

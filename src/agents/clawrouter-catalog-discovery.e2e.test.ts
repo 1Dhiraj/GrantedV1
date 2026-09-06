@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildModelsListResult,
   createGatewayAgentModelCatalogProjector,
@@ -7,7 +7,7 @@ import {
 import type { GatewayRequestContext } from "../gateway/server-methods/types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createPreparedModelCatalogWorkerInput } from "./prepared-model-catalog-worker.js";
 import { runPreparedModelCatalogWorkerRequest } from "./prepared-model-catalog.worker.js";
@@ -20,7 +20,7 @@ vi.mock("node:worker_threads", async (importOriginal) => ({
 }));
 
 describe("ClawRouter cold prepared catalog", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({
@@ -44,7 +44,7 @@ describe("ClawRouter cold prepared catalog", () => {
     // Distinct catalog URLs keep each scenario cold across plugin module loaders.
     const baseUrl = `https://${sibling ? "mixed" : "single"}.example.test/private`;
     const agentId = "private-openclaw";
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         slots: { memory: "none" },
         allow: sibling ? ["clawrouter", "openai"] : ["clawrouter"],

@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type {
   ConfigFileSnapshot,
   ConfigValidationIssue,
-  OpenClawConfig,
+  GrantedConfig,
 } from "../config/types.openclaw.js";
 import { createCompatibilityNotice, createPluginRecord } from "../plugins/status.test-fixtures.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -28,7 +28,7 @@ const cleanDoctorMessage =
 const originalExitCode = process.exitCode;
 
 async function mockPluginDoctorValidationWarnings(warnings: ConfigValidationIssue[]) {
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     plugins: {
       allow: ["imessage", "memory-core"],
       entries: { google: { config: { apiKey: "test-google-key" } } },

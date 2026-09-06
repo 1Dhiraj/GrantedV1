@@ -41,7 +41,7 @@ import { parseCatalogSessionKey } from "../../lib/sessions/catalog-key.ts";
 import { areUiSessionKeysEquivalent } from "../../lib/sessions/session-key.ts";
 import type { SwarmRosterHydrator } from "../../lib/sessions/swarm-roster.ts";
 import { SessionUnreadPatchGuard } from "../../lib/sessions/unread.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import type { BoardChatDockSize } from "./board-session-surface.ts";
@@ -75,7 +75,7 @@ import type { SessionSnapshotStore } from "./session-snapshot-store.ts";
 import type { SidebarLayout } from "./sidebar-layout-types.ts";
 import { closeSlot, isSidebarSlotVisible, openSlot, setSidebarOpen } from "./sidebar-layout.ts";
 
-export abstract class ChatPaneBase extends OpenClawLightDomElement {
+export abstract class ChatPaneBase extends GrantedLightDomElement {
   // The first Lit update must render even while hidden; later hidden work parks.
   // Disconnect releases the waiter so reconnect can schedule in its new lifecycle.
   private hiddenUpdateResume: (() => void) | undefined;

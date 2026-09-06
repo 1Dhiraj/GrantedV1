@@ -1,5 +1,5 @@
 import { normalizeOptionalString as readLogString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeLogger } from "../plugins/runtime/types.js";
 import type {
   RealtimeTranscriptionProviderPlugin,
@@ -66,7 +66,7 @@ export function meetingOutputBytesPerMs(audioFormat: MeetingRealtimeAudioFormat)
 
 export function resolveMeetingRealtimeProvider(params: {
   config: MeetingRealtimeProviderSelectionConfig;
-  fullConfig: OpenClawConfig;
+  fullConfig: GrantedConfig;
   providers?: RealtimeVoiceProviderPlugin[];
 }): ResolvedRealtimeProvider {
   const providerId = params.config.realtime.voiceProvider ?? params.config.realtime.provider;
@@ -83,7 +83,7 @@ export function resolveMeetingRealtimeProvider(params: {
 
 export function resolveMeetingRealtimeTranscriptionProvider(params: {
   config: MeetingRealtimeProviderSelectionConfig;
-  fullConfig: OpenClawConfig;
+  fullConfig: GrantedConfig;
   providers?: RealtimeTranscriptionProviderPlugin[];
 }): ResolvedRealtimeTranscriptionProvider {
   const providers = params.providers ?? listRealtimeTranscriptionProviders(params.fullConfig);

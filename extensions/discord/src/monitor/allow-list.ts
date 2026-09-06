@@ -9,7 +9,7 @@ import {
   resolveChannelMatchConfig,
   type ChannelMatchSource,
 } from "openclaw/plugin-sdk/channel-targets";
-import type { DiscordGuildEntry, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordGuildEntry, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
@@ -311,7 +311,7 @@ export function resolveDiscordOwnerAccess(params: {
   return { ownerAllowList, ownerAllowed };
 }
 
-export function resolveDiscordCommandOwnerAllowFrom(cfg: OpenClawConfig): string[] | undefined {
+export function resolveDiscordCommandOwnerAllowFrom(cfg: GrantedConfig): string[] | undefined {
   const raw = cfg.commands?.ownerAllowFrom;
   if (!Array.isArray(raw) || raw.length === 0) {
     return undefined;

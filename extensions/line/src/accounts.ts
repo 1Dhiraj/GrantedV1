@@ -8,7 +8,7 @@ import {
 import {
   resolveAccountEntry,
   resolveListedDefaultAccountId,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
 import type {
@@ -78,7 +78,7 @@ function resolveLineCredential(params: {
 }
 
 export function resolveLineAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
 }): ResolvedLineAccount {
   const cfg = params.cfg;
@@ -138,7 +138,7 @@ export function resolveLineAccount(params: {
   };
 }
 
-export function listLineAccountIds(cfg: OpenClawConfig): string[] {
+export function listLineAccountIds(cfg: GrantedConfig): string[] {
   const lineConfig = cfg.channels?.line as LineConfig | undefined;
   const accounts = lineConfig?.accounts;
   const ids = new Set<string>();
@@ -160,7 +160,7 @@ export function listLineAccountIds(cfg: OpenClawConfig): string[] {
   return Array.from(ids);
 }
 
-export function resolveDefaultLineAccountId(cfg: OpenClawConfig): string {
+export function resolveDefaultLineAccountId(cfg: GrantedConfig): string {
   return resolveListedDefaultAccountId({
     accountIds: listLineAccountIds(cfg),
     configuredDefaultAccountId: normalizeOptionalAccountId(

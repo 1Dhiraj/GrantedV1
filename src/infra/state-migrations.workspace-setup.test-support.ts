@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import {
@@ -31,7 +31,7 @@ export function useWorkspaceMigrationTestFixture() {
     setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const cfg = {
       agents: { defaults: { workspace: workspaceDir } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     return {
       cfg,
       env: { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir },

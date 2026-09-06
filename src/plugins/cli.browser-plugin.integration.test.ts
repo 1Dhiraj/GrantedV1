@@ -2,7 +2,7 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createBundledBrowserPluginFixture } from "../../test/helpers/browser-bundled-plugin-fixture.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { clearPluginLoaderCache, loadOpenClawPlugins } from "./loader.test-fixtures.js";
 import { resetPluginRuntimeStateForTest } from "./runtime.js";
 
@@ -33,7 +33,7 @@ describe("registerPluginCliCommands browser plugin integration", () => {
         plugins: {
           allow: ["browser"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       cache: false,
       env: {
         ...process.env,
@@ -57,7 +57,7 @@ describe("registerPluginCliCommands browser plugin integration", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       cache: false,
       env: {
         ...process.env,

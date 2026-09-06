@@ -2,7 +2,7 @@
 // envelope fields consumed by inbound-meta reply context blocks.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   applyChatSendReplyContextFields,
   resolveChatSendReplyContext,
@@ -22,7 +22,7 @@ vi.mock("../assistant-identity.js", () => ({
   resolveAssistantIdentity: (...args: unknown[]) => resolveAssistantIdentityMock(...args),
 }));
 
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 
 function baseParams(overrides: Partial<Parameters<typeof resolveChatSendReplyContext>[0]> = {}) {
   return {

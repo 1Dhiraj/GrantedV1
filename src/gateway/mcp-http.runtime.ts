@@ -3,7 +3,7 @@ import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 // Resolves Gateway-visible tools for MCP clients with short-lived schema caching.
 import { applyEmbeddedAttemptToolsAllow } from "../agents/embedded-agent-runner/run/attempt-tool-construction-plan.js";
 import { normalizeToolPolicyName } from "../agents/tool-policy.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { DirectoryCache } from "../infra/outbound/directory-cache.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import type { SkillWorkshopRunOptions } from "../skills/workshop/types.js";
@@ -35,7 +35,7 @@ type CachedScopedTools = {
 
 type McpLoopbackScopeParams = Omit<McpLoopbackRequestContext, "senderIsOwner" | "skillWorkshop"> & {
   skillWorkshop?: SkillWorkshopRunOptions;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   authProfileStore?: AuthProfileStore;
   authProfileStoreAgentDir?: string;
   grantToken?: string;
@@ -174,7 +174,7 @@ function applyPolicyToolsAllow(
 export class McpLoopbackToolCache {
   #entries = new DirectoryCache<CachedScopedTools>(TOOL_CACHE_TTL_MS, TOOL_CACHE_MAX_ENTRIES);
   // Revocation needs the config scopes where one grant may have cached tools.
-  #grantConfigScopes = new Map<string, Set<OpenClawConfig>>();
+  #grantConfigScopes = new Map<string, Set<GrantedConfig>>();
 
   resolve(params: McpLoopbackScopeParams): CachedScopedTools {
     // Callers differing only in capabilities must not share cached tool lists.
@@ -264,7 +264,7 @@ export class McpLoopbackToolCache {
     };
     this.#entries.set(cacheKey, nextEntry, params.cfg);
     if (params.grantToken) {
-      const scopes = this.#grantConfigScopes.get(params.grantToken) ?? new Set<OpenClawConfig>();
+      const scopes = this.#grantConfigScopes.get(params.grantToken) ?? new Set<GrantedConfig>();
       scopes.add(params.cfg);
       this.#grantConfigScopes.set(params.grantToken, scopes);
     }

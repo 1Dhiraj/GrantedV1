@@ -6,7 +6,7 @@ import type { ContextEngine } from "../../context-engine/types.js";
 import type { ToolResultMessage } from "../../llm/types.js";
 import {
   withOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { PreparedAgentRunAdmission } from "../admitted-run-context.js";
 import type { EmbeddedRunCompactionRecoveryInput } from "./run/compaction-runtime.js";
@@ -21,7 +21,7 @@ export type RecoveryFixture = Awaited<ReturnType<typeof createRecoveryFixture>>;
 
 // The engine is synthetic; admission, writer claims, safety timeout, recovery,
 // hooks, session state, transcript writes, and reopen reads are composed for real.
-async function createRecoveryFixture(state: OpenClawTestState, options: FixtureOptions) {
+async function createRecoveryFixture(state: GrantedTestState, options: FixtureOptions) {
   const { appendTranscriptMessage, loadTranscriptEvents, loadSessionEntry, replaceSessionEntry } =
     await import("../../config/sessions/session-accessor.js");
   const { resolveSessionTranscriptDatabasePath, resolveSessionTranscriptRuntimeTarget } =

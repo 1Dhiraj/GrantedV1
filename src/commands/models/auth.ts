@@ -32,7 +32,7 @@ import { formatCliCommand } from "../../cli/command-format.js";
 import { parseDurationMs } from "../../cli/parse-duration.js";
 import { logConfigUpdated } from "../../config/logging.js";
 import { normalizeAgentModelRefForConfig } from "../../config/model-input.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isRemoteEnvironment } from "../../infra/remote-env.js";
 import {
   applyProviderAuthConfigPatch,
@@ -191,7 +191,7 @@ function validateOpenAICodexApiKeyInput(value: string): string | undefined {
 }
 
 type ResolvedModelsAuthContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -234,7 +234,7 @@ function mergeSetupProviders(
 
 function preferSetupAuthProviders(params: {
   providers: readonly ProviderPlugin[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   requestedProvider?: string;
 }): ProviderPlugin[] {
@@ -260,7 +260,7 @@ function preferSetupAuthProviders(params: {
 async function resolveModelsAuthContext(params?: {
   requestedProvider?: string;
   rawAgentId?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<ResolvedModelsAuthContext> {
   const config = params?.config ?? (await loadValidConfigOrThrow());
   const { agentId, agentDir } = await resolveModelsAuthAgent(params?.rawAgentId, config);
@@ -297,7 +297,7 @@ async function resolveModelsAuthContext(params?: {
   };
 }
 
-async function resolveModelsAuthAgent(rawAgentId?: string | null, config?: OpenClawConfig) {
+async function resolveModelsAuthAgent(rawAgentId?: string | null, config?: GrantedConfig) {
   const cfg = config ?? (await loadValidConfigOrThrow());
   return resolveModelsTargetAgent(cfg, rawAgentId ?? undefined, { kind: "mutation" });
 }
@@ -405,7 +405,7 @@ async function pickProviderTokenMethod(params: {
 async function persistProviderAuthResult(params: {
   result: ProviderAuthResult;
   profiles?: ProviderAuthResult["profiles"];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   agentDir: string;
   runtime: RuntimeEnv;
@@ -520,7 +520,7 @@ async function persistProviderAuthResult(params: {
 }
 
 function resolveConfiguredAuthSelectionForProvider(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   provider: string,
 ): { createIfMissing: boolean; order?: string[] } {
   const providerAuthKey = resolveProviderIdForAuth(provider, { config: cfg });
@@ -544,7 +544,7 @@ function resolveConfiguredAuthSelectionForProvider(
 }
 
 async function runProviderAuthMethod(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -917,7 +917,7 @@ export type ModelsAuthLoginFlowResult = {
 };
 
 export type ModelsAuthLoginFlowOptions = LoginOptions & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
   env?: NodeJS.ProcessEnv;

@@ -3,7 +3,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as pluginEnable from "../plugins/enable.js";
 import { createNonExitingRuntime } from "../runtime.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -199,7 +199,7 @@ describe("runSearchSetupFlow", () => {
   });
 
   it("keeps search config unchanged when plugin capability consent is declined", async () => {
-    const config: OpenClawConfig = { plugins: { entries: { xai: { enabled: false } } } };
+    const config: GrantedConfig = { plugins: { entries: { xai: { enabled: false } } } };
     const reason = "Plugin requires capability consent.";
     const enable = vi
       .spyOn(pluginEnable, "enablePluginWithCapabilityConsent")
@@ -237,8 +237,8 @@ describe("runSearchSetupFlow", () => {
 
   it("names no-provider and user-skip outcomes as kept-current", async () => {
     webSearchProviderMocks.resolvePluginWebSearchProviders.mockReturnValue([]);
-    const original: OpenClawConfig = { gateway: { mode: "local" } };
-    const noProviderConfig: OpenClawConfig = {
+    const original: GrantedConfig = { gateway: { mode: "local" } };
+    const noProviderConfig: GrantedConfig = {
       ...original,
       plugins: { enabled: false },
     };
@@ -653,7 +653,7 @@ describe("runSearchSetupFlow", () => {
       pluginId: "brave",
       status: "failed",
     });
-    const original: OpenClawConfig = { gateway: { mode: "local" } };
+    const original: GrantedConfig = { gateway: { mode: "local" } };
     const select = vi.fn().mockResolvedValueOnce("brave");
     const text = vi.fn().mockResolvedValue("brave-test-key");
     const prompter = createWizardPrompter({

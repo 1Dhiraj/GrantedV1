@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createMessageReceiptFromOutboundResults } from "../../channels/message/receipt.js";
 import type { ChannelMessageSendTextContext } from "../../channels/message/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -73,7 +73,7 @@ describe("exact Matrix delivery queue reconciliation", () => {
         ]),
       );
       const params = {
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix" as const,
         to: "!room:example",
         payloads: [{ text: "send exactly once with durable platform identity" }],

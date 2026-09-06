@@ -4,7 +4,7 @@
  * preserved secrets before touching models.json.
  */
 import { mergeModelCost } from "../config/model-cost.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import type { ProviderCatalogOutcome } from "../plugins/provider-catalog.types.js";
 import type { PreparedProviderStaticCatalog } from "../plugins/provider-discovery.js";
@@ -35,12 +35,12 @@ import {
   resolvePluginModelCatalogOwnerPluginId,
 } from "./plugin-model-catalog.js";
 
-type ModelsConfig = NonNullable<OpenClawConfig["models"]>;
+type ModelsConfig = NonNullable<GrantedConfig["models"]>;
 
 export type PreparedModelsConfigContext = Readonly<{
-  cfg: OpenClawConfig;
-  discoveryAuthConfig: OpenClawConfig;
-  sourceConfigForSecrets: OpenClawConfig;
+  cfg: GrantedConfig;
+  discoveryAuthConfig: GrantedConfig;
+  sourceConfigForSecrets: GrantedConfig;
   agentDir: string;
   env: NodeJS.ProcessEnv;
   envFingerprint: NodeJS.ProcessEnv | string;
@@ -60,9 +60,9 @@ export type PreparedModelsConfigContext = Readonly<{
 type ResolveImplicitProvidersForModelsJson = (params: {
   agentDir: string;
   authStore?: AuthProfileStore;
-  config: OpenClawConfig;
-  discoveryAuthConfig?: OpenClawConfig;
-  sourceConfigForSecrets?: OpenClawConfig;
+  config: GrantedConfig;
+  discoveryAuthConfig?: GrantedConfig;
+  sourceConfigForSecrets?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
   explicitProviders: Record<string, ProviderConfig>;

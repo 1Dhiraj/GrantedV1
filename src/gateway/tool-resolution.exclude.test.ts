@@ -7,7 +7,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 type CreateOpenClawToolsArg = {
   agentAccountId?: string;
@@ -131,7 +131,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("passes gateway client capabilities into tool construction", () => {
     resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       clientCaps: ["tool-events", "inline-widgets"],
@@ -142,7 +142,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("passes immutable source-reply authority into message-tool construction", () => {
     resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:telegram:group:chat123",
       messageProvider: "telegram",
       currentChannelId: "telegram:chat123",
@@ -156,7 +156,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("does not restrict ordinary message-tool-only turns", () => {
     resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:telegram:group:chat123",
       messageProvider: "telegram",
       currentChannelId: "telegram:chat123",
@@ -169,7 +169,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("filters loopback dedup exclusions without inheriting policy denies", () => {
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       excludeToolNames: ["read", "apply_patch"],
@@ -190,7 +190,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     hoisted.createOpenClawCodingToolsMock.mockReturnValueOnce([hoisted.makeTool("write")]);
 
     const result = resolveGatewayScopedTools({
-      cfg: { tools: { exec: { host: "node" } } } as OpenClawConfig,
+      cfg: { tools: { exec: { host: "node" } } } as GrantedConfig,
       sessionKey: "agent:main:cron:run-1",
       runtimePolicySessionKey: "agent:main:qa-channel:group:ops",
       runId: "run-1",
@@ -241,7 +241,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     const resolveToolPolicy = vi.fn(() => ({ allow: ["read"] }));
     hoisted.getLoadedChannelPluginMock.mockReturnValue({
       config: {
-        listAccountIds: (cfg: OpenClawConfig) => Object.keys(cfg.channels?.discord?.accounts ?? {}),
+        listAccountIds: (cfg: GrantedConfig) => Object.keys(cfg.channels?.discord?.accounts ?? {}),
       },
       groups: { resolveToolPolicy },
     });
@@ -261,7 +261,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:cron:run-1",
       runtimePolicySessionKey: "agent:main:cron:run-1",
       accountId: "delivery",
@@ -277,7 +277,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:cron:run-1",
       runtimePolicySessionKey: "agent:main:cron:run-1",
       accountId: "delivery",
@@ -302,7 +302,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     ]);
 
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:cron:run-1",
       surface: "loopback",
       mediatedToolNames: ["write"],
@@ -316,7 +316,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     const ownerResult = resolveGatewayScopedTools({
       cfg: {
         gateway: { tools: { allow: ["gateway"] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -324,7 +324,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     const nonOwnerResult = resolveGatewayScopedTools({
       cfg: {
         gateway: { tools: { allow: ["gateway"] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: false,
@@ -375,7 +375,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     resolveGatewayScopedTools({
       cfg: {
         gateway: { tools: { deny: ["exec"] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       excludeToolNames: ["read", "apply_patch"],
@@ -393,7 +393,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("nodes"),
     ]);
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -443,7 +443,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("nodes"),
     ]);
     const gatewayOnly = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -456,7 +456,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("nodes"),
     ]);
     const turnOverrideGateway = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -470,7 +470,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("nodes"),
     ]);
     const sandboxAuto = resolveGatewayScopedTools({
-      cfg: { agents: { defaults: { sandbox: { mode: "all" } } } } as OpenClawConfig,
+      cfg: { agents: { defaults: { sandbox: { mode: "all" } } } } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -487,7 +487,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     const result = resolveGatewayScopedTools({
       cfg: {
         agents: { defaults: { sandbox: { mode: "non-main" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:main",
       runtimePolicySessionKey: "agent:main:discord:default:direct:peer-42",
       agentId: "main",
@@ -508,7 +508,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
           { id: "worker", tools: { deny: ["exec"] } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const defaultAgent = resolveGatewayScopedTools({
       cfg,
       sessionKey: "main",
@@ -537,7 +537,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("nodes"),
     ]);
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "http",
       senderIsOwner: true,
@@ -550,7 +550,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("filters node exec through the existing gateway deny policy", () => {
     const result = resolveGatewayScopedTools({
-      cfg: { gateway: { tools: { deny: ["exec"] } } } as OpenClawConfig,
+      cfg: { gateway: { tools: { deny: ["exec"] } } } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -568,7 +568,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       hoisted.makeTool("exec"),
     ]);
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:node:request:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -588,7 +588,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             "id:blocked-sender": { deny: ["exec"] },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:discord:channel:dev",
       surface: "loopback",
       senderIsOwner: false,
@@ -625,7 +625,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
               "id:alice": {},
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sessionKey,
         surface: "loopback",
         senderIsOwner: false,
@@ -656,7 +656,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     });
 
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:child",
       spawnedBy: "agent:main:discord:channel:bound",
       groupId: "bound",
@@ -692,7 +692,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             "*": {},
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:discord:channel:dev",
       surface: "loopback",
       senderIsOwner: false,
@@ -718,7 +718,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
               "*": { deny: ["exec"] },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sessionKey: "agent:main:discord:channel:dev",
         surface: "loopback",
         senderIsOwner,
@@ -739,7 +739,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             "*": { deny: ["exec"] },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:main",
       surface: "loopback",
       senderIsOwner: true,
@@ -758,7 +758,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
           anthropic: { deny: ["exec"] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const blocked = resolveGatewayScopedTools({
       cfg,
       sessionKey: "agent:main:direct:test",
@@ -796,7 +796,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const blocked = resolveGatewayScopedTools({
       cfg,
       sessionKey: "agent:main:direct:test",
@@ -834,7 +834,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:telegram:group:dev",
       surface: "loopback",
       senderIsOwner: false,
@@ -849,7 +849,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
 
   it("does not inherit node-only exec as a generic child or cron capability", () => {
     const result = resolveGatewayScopedTools({
-      cfg: { tools: { allow: ["exec", "sessions_spawn", "automations"] } } as OpenClawConfig,
+      cfg: { tools: { allow: ["exec", "sessions_spawn", "automations"] } } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,
@@ -866,7 +866,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
       cfg: {
         agents: { defaults: { sandbox: { mode: "all" } } },
         tools: { sandbox: { tools: { deny: ["automations"] } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
     });
@@ -888,7 +888,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     const result = resolveGatewayScopedTools({
       cfg: {
         tools: { allow: ["read", "automations"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
     });
@@ -908,7 +908,7 @@ describe("resolveGatewayScopedTools excludeToolNames", () => {
     ]);
 
     const result = resolveGatewayScopedTools({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,

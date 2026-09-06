@@ -5,14 +5,14 @@
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { normalizeLowercaseStringOrEmpty } from "../../packages/normalization-core/src/string-coerce.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildManifestBuiltInModelSuppressionResolver } from "../plugins/manifest-model-suppression.js";
 
 function resolveBuiltInModelSuppressionFromManifest(params: {
   provider?: string | null;
   id?: string | null;
   baseUrl?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   unconditionalOnly?: boolean;
   workspaceDir?: string;
 }) {
@@ -40,7 +40,7 @@ export function shouldSuppressBuiltInModelCore(params: {
   provider?: string | null;
   id?: string | null;
   baseUrl?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }) {
   return resolveBuiltInModelSuppressionFromManifest(params)?.suppress ?? false;
@@ -54,7 +54,7 @@ export function shouldSuppressBuiltInModelCore(params: {
 export function shouldUnconditionallySuppress(params: {
   provider?: string | null;
   id?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): boolean {
   return (
@@ -68,7 +68,7 @@ export function buildSuppressedBuiltInModelError(params: {
   provider?: string | null;
   id?: string | null;
   baseUrl?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): string | undefined {
   return resolveBuiltInModelSuppressionFromManifest(params)?.errorMessage;
@@ -76,7 +76,7 @@ export function buildSuppressedBuiltInModelError(params: {
 
 /** Build a reusable suppression predicate for repeated catalog filtering. */
 export function buildShouldSuppressBuiltInModelCore(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): (input: { provider?: string | null; id?: string | null; baseUrl?: string | null }) => boolean {
   const resolver = buildManifestBuiltInModelSuppressionResolver({

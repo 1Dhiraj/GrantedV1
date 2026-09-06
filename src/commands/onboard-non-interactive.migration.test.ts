@@ -3,13 +3,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { summarizeMigrationItems } from "../plugin-sdk/migration.js";
 import type { MigrationApplyResult, MigrationPlan } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 
 const tempRoots = useAutoCleanupTempDirTracker(afterEach);
-const configStore = new Map<string, OpenClawConfig>();
+const configStore = new Map<string, GrantedConfig>();
 const ensureWorkspaceAndSessions = vi.hoisted(() => vi.fn(async () => {}));
 const provider = vi.hoisted(() => ({
   id: "hermes",
@@ -53,16 +53,16 @@ vi.mock("../config/io.js", () => ({
 
 vi.mock("../config/config.js", () => ({
   ConfigMutationConflictError: class ConfigMutationConflictError extends Error {},
-  replaceConfigFile: async ({ nextConfig }: { nextConfig: OpenClawConfig }) => {
+  replaceConfigFile: async ({ nextConfig }: { nextConfig: GrantedConfig }) => {
     configStore.set(configPath(), structuredClone(nextConfig));
     return { nextConfig };
   },
-  resolveGatewayPort: (config: OpenClawConfig) => config.gateway?.port ?? 18789,
+  resolveGatewayPort: (config: GrantedConfig) => config.gateway?.port ?? 18789,
 }));
 
 vi.mock("./onboard-helpers.js", () => ({
   DEFAULT_WORKSPACE: "/tmp/openclaw-workspace",
-  applyWizardMetadata: (config: OpenClawConfig) => config,
+  applyWizardMetadata: (config: GrantedConfig) => config,
   ensureWorkspaceAndSessions,
 }));
 

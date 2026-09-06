@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
 import type { SkillLibraryEntry } from "../../../packages/gateway-protocol/src/schema/skill-library.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { authorizeOperatorScopesForRequiredScope } from "../../gateway/method-scopes.js";
 import { resolveOperatorRolePolicyForAssignment } from "../../gateway/operator-role-policy.js";
 import {
@@ -15,7 +15,7 @@ import type { DB as StateDatabase } from "../../state/openclaw-state-db.generate
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { selectResolvedUserProfileById } from "../../state/user-profiles-internal.js";
@@ -27,7 +27,7 @@ export type SkillLibraryAuthority = {
   profileId?: string;
   namespace?: "personal";
   scopes: readonly string[];
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   /** Must revalidate the admitted run/placement and request owner, synchronously at commit. */
   assertCurrent: () => void;
 };
@@ -43,7 +43,7 @@ export type SkillLibraryDatabase = Pick<
 export const skillLibraryDb = (db: DatabaseSync) => getNodeSqliteKysely<SkillLibraryDatabase>(db);
 const ensured = new WeakSet<DatabaseSync>();
 
-export function ensureSkillLibrarySchema(options: OpenClawStateDatabaseOptions): void {
+export function ensureSkillLibrarySchema(options: GrantedStateDatabaseOptions): void {
   const { db } = openOpenClawStateDatabase(options);
   if (ensured.has(db)) {
     return;
@@ -67,7 +67,7 @@ export function ensureSkillLibrarySchema(options: OpenClawStateDatabaseOptions):
 
 export function readSkillLibraryStore<T>(
   read: (db: DatabaseSync) => T,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): T | undefined {
   if (options.database) {
     return tableExists(options.database.db, "skill_library_entries")

@@ -9,7 +9,7 @@ import {
   normalizeDeviceAuthScopes,
 } from "../shared/device-auth.js";
 import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -21,7 +21,7 @@ import {
 } from "./kysely-sync.js";
 
 type DeviceAuthDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "device_auth_tokens" | "gateway_origin_device_tokens"
 >;
 type DeviceAuthRow = {

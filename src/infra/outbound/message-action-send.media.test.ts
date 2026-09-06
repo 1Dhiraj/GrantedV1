@@ -6,7 +6,7 @@ import path from "node:path";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { MEDIA_MAX_BYTES } from "../../media/store.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
@@ -24,7 +24,7 @@ const workspaceConfig = {
       appToken: "xapp-test",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function firstMockArg(
   mock: { mock: { calls: readonly unknown[][] } },
@@ -55,7 +55,7 @@ async function withTempOpenClawStateDir<T>(test: (stateDir: string) => Promise<T
 }
 
 const runDrySend = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   actionParams: Record<string, unknown>;
   sandboxRoot?: string;
   sandboxContainerWorkdir?: string;

@@ -3,9 +3,9 @@ import path from "node:path";
 import process from "node:process";
 import { resolveAcpSessionAvailability } from "openclaw/plugin-sdk/acp-runtime";
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveNodeHostExecutable } from "openclaw/plugin-sdk/node-host";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   createSessionCatalogFamily,
   createSessionCatalogNodeHostBindings,
@@ -113,12 +113,12 @@ function assertOpenCodeLocalAccess(hostId: string, allowProcessHomeFallback?: bo
   }
 }
 
-function currentOpenCodeCatalogConfig(api: OpenClawPluginApi): OpenClawConfig {
-  return (api.runtime.config?.current?.() ?? api.config ?? {}) as OpenClawConfig;
+function currentOpenCodeCatalogConfig(api: GrantedPluginApi): GrantedConfig {
+  return (api.runtime.config?.current?.() ?? api.config ?? {}) as GrantedConfig;
 }
 
 function listAdoptedOpenCodeSessions(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   agentId?: string,
   sessionEntries?: SessionCatalogEntrySnapshot,
 ): Map<string, string> {
@@ -142,7 +142,7 @@ function listAdoptedOpenCodeSessions(
 }
 
 async function loadContinuableOpenCodeSession(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   threadId: string,
 ): Promise<SessionCatalogSession> {
   const page = await listLocalOpenCodeSessionPage(
@@ -157,7 +157,7 @@ async function loadContinuableOpenCodeSession(
 }
 
 async function createAdoptedOpenCodeSession(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   agentId: string;
   threadId: string;
   session: SessionCatalogSession;
@@ -201,7 +201,7 @@ async function createAdoptedOpenCodeSession(params: {
   return { sessionKey: created.key };
 }
 
-function createOpenCodeNodeHostBindings(api: OpenClawPluginApi) {
+function createOpenCodeNodeHostBindings(api: GrantedPluginApi) {
   const available = ({ config, env }: { config: unknown; env: NodeJS.ProcessEnv }) =>
     fullConfigCatalogEnabled(config) && executableOnPath("opencode", env);
   return createSessionCatalogNodeHostBindings({
@@ -227,7 +227,7 @@ function createOpenCodeNodeHostBindings(api: OpenClawPluginApi) {
   });
 }
 
-export function registerOpenCodeSessionCatalog(api: OpenClawPluginApi): void {
+export function registerOpenCodeSessionCatalog(api: GrantedPluginApi): void {
   if (!isOpenCodeSessionCatalogEnabled(api.pluginConfig)) {
     return;
   }

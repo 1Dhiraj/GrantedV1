@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildInboundMediaNoteProjection } from "../../../../src/auto-reply/media-note.js";
 import { resolveCurrentTurnImages } from "../../../../src/auto-reply/reply/current-turn-images.js";
 import type { MsgContext } from "../../../../src/auto-reply/templating.js";
-import type { OpenClawConfig } from "../../../../src/config/types.js";
+import type { GrantedConfig } from "../../../../src/config/types.js";
 import { applyMediaUnderstanding } from "../../../../src/media-understanding/apply.js";
 import type { MediaUnderstandingProvider } from "../../../../src/media-understanding/types.js";
 import { createSolidPngBuffer } from "../../../helpers/image-fixtures.js";
@@ -107,7 +107,7 @@ describe("core vision routing product proof", () => {
           [FALLBACK_PROVIDER]: configuredProvider(FALLBACK_MODEL),
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const providers = {
       [FALLBACK_PROVIDER]: {
         id: FALLBACK_PROVIDER,
@@ -203,7 +203,7 @@ describe("core vision routing product proof", () => {
           [FALLBACK_PROVIDER]: configuredProvider(FALLBACK_MODEL),
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const providers = {
       [PRIMARY_PROVIDER]: {
         id: PRIMARY_PROVIDER,

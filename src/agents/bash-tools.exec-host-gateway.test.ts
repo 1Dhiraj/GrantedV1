@@ -57,7 +57,7 @@ import {
 } from "../process/gateway-work-admission.js";
 import { createProcessSupervisor } from "../process/supervisor/supervisor.js";
 import type { ProcessSupervisor } from "../process/supervisor/types.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -3990,7 +3990,7 @@ EOF`,
     function readGrantUseCounts(): number[] {
       const database = openOpenClawStateDatabase(databaseOptions());
       const stateDb = getNodeSqliteKysely<
-        Pick<OpenClawStateKyselyDatabase, "operator_approval_standing_grants">
+        Pick<GrantedStateKyselyDatabase, "operator_approval_standing_grants">
       >(database.db);
       return executeSqliteQuerySync(
         database.db,

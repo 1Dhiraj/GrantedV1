@@ -1,7 +1,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDefaultDeps } from "../../cli/deps.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -84,7 +84,7 @@ describe("queued lazy outbound adapter availability", () => {
     };
     const deliveryIntentId = "cron-direct-delivery:v1:lazy-adapter-recovery";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "recover after adapter registration" }],
@@ -122,7 +122,7 @@ describe("queued lazy outbound adapter availability", () => {
     );
 
     await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver: recoveryDeliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,
@@ -156,7 +156,7 @@ describe("queued lazy outbound adapter availability", () => {
     });
 
     const result = await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver: recoveryDeliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,
@@ -192,7 +192,7 @@ describe("queued lazy outbound adapter availability", () => {
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "ambiguous send" }],
@@ -210,7 +210,7 @@ describe("queued lazy outbound adapter availability", () => {
 
     const recoveryDeliver = vi.fn<DeliverFn>(async () => []);
     await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver: recoveryDeliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,

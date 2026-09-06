@@ -33,7 +33,7 @@ import {
   deliveryContextFromSession,
   sessionDeliveryRoute,
 } from "../../utils/delivery-context.shared.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import {
   applySessionEntryReplacements,
   applySessionPatchProjections,
@@ -1257,7 +1257,7 @@ describe("session accessor seam", () => {
   it.each(["global", "main", "agent:main:main"])(
     "keeps explicit logical owner reads and updates isolated for %s",
     async (sessionKey) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: {
           store: path.join(tempDir, "{agentId}.json"),
           scope: sessionKey === "global" ? "global" : undefined,
@@ -1306,7 +1306,7 @@ describe("session accessor seam", () => {
   ])(
     "rejects conflicting logical owner for $sessionKey and $storeOwner",
     ({ sessionKey, storeOwner, message }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath, scope: "global" },
         agents: {
           entries: { research: {}, ops: {} },
@@ -1338,7 +1338,7 @@ describe("session accessor seam", () => {
         updatedAt: 1,
         label: "original owner label",
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: sharedStorePath, scope: "global" },
         agents: {
           entries: { research: {}, ops: {} },

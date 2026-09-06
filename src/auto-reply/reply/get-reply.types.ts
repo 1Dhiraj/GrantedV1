@@ -3,7 +3,7 @@ import type { CronCreatorAuthorityCapability } from "../../agents/cron-creator-a
 import type { PrepareAssistantTranscriptMessage } from "../../config/sessions/transcript-assistant-delivery.js";
 import type { SessionEntry, SessionToolOverrides } from "../../config/sessions/types.js";
 // Shared get-reply type contracts for command, directive, and runtime layers.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginCommandReplyOptions } from "../../plugins/plugin-command-dispatch-contract.js";
 import type { SkillWorkshopProposalRevisionConstraint } from "../../skills/workshop/types.js";
 import type { GetReplyOptions } from "../get-reply-options.types.js";
@@ -71,11 +71,11 @@ export function shouldBridgeCliPreambleEvents(opts: InternalGetReplyOptions | un
 export type GetReplyFromConfig = (
   ctx: MsgContext,
   opts?: GetReplyOptions,
-  configOverride?: OpenClawConfig,
+  configOverride?: GrantedConfig,
 ) => Promise<ReplyPayload | ReplyPayload[] | undefined>;
 
 export type InternalGetReplyFromConfig = (
   ctx: MsgContext,
   opts?: InternalGetReplyOptions,
-  configOverride?: OpenClawConfig,
+  configOverride?: GrantedConfig,
 ) => Promise<ReplyPayload | ReplyPayload[] | undefined>;

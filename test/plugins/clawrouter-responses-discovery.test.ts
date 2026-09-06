@@ -7,10 +7,10 @@ import {
   resolveModelAsync,
 } from "../../src/agents/embedded-agent-runner/model.js";
 import type { ProviderRuntimeHooks } from "../../src/agents/embedded-agent-runner/model.provider-hooks.js";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../src/test-utils/openclaw-test-state.js";
 import { registerSingleProviderPlugin } from "../../src/test-utils/plugin-registration.js";
 
@@ -18,7 +18,7 @@ const auth = vi.hoisted(() => ({ resolveApiKeyForProvider: vi.fn() }));
 vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => auth);
 
 describe("ClawRouter Responses discovery to dispatch", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({ label: "clawrouter-responses" });
@@ -40,7 +40,7 @@ describe("ClawRouter Responses discovery to dispatch", () => {
     "uses $role for a discovered reasoning=$reasoning model",
     async ({ efforts, reasoning, role }) => {
       const baseUrl = "https://broker.example.test/private";
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         models: {
           providers: { clawrouter: { baseUrl, agentRuntime: { id: "openclaw" }, models: [] } },
         },

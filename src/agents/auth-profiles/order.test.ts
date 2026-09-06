@@ -7,7 +7,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { isAmbientCredentialAllowedByProviderAuthPin } from "./ambient-auth.js";
 import { saveAuthProfileStore } from "./store.js";
@@ -91,7 +91,7 @@ describe("resolveAuthProfileOrder", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const store: AuthProfileStore = {
       version: 1,
       profiles: {
@@ -127,7 +127,7 @@ describe("resolveAuthProfileOrder", () => {
           "fixture-provider-plan": { baseUrl: "https://example.invalid", models: [] },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       isAmbientCredentialAllowedByProviderAuthPin({
@@ -154,7 +154,7 @@ describe("resolveAuthProfileOrder", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const store: AuthProfileStore = { version: 1, profiles: {} };
 
     expect(
@@ -514,7 +514,7 @@ describe("resolveAuthProfileOrder", () => {
           "fixture-provider": ["fixture-provider:primary", "fixture-provider:backup"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       resolveAuthProfileOrder({
@@ -564,7 +564,7 @@ describe("resolveAuthProfileOrder", () => {
           "fixture-provider": ["fixture-provider:primary", "fixture-provider:backup"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       resolveAuthProfileOrder({

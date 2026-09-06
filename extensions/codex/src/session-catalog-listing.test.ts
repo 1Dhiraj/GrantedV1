@@ -36,7 +36,7 @@ import {
   CODEX_LOCAL_SESSION_HOST_ID,
   createCodexSessionCatalogControlFactory,
   type CodexCatalogHome,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./session-catalog.test-helpers.js";
 
 describe("Codex session catalog errors", () => {
@@ -164,7 +164,7 @@ describe("Codex supervision catalog", () => {
         _pluginConfig: unknown,
         _method: string,
         _params: unknown,
-        options: { agentDir?: string; config?: OpenClawConfig },
+        options: { agentDir?: string; config?: GrantedConfig },
       ) => {
         if (!options.agentDir) {
           try {
@@ -190,7 +190,7 @@ describe("Codex supervision catalog", () => {
   it("uses the Gateway-selected owner directory for an explicit multi-agent catalog", async () => {
     const runtimeConfig = {
       agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     commandRpcMocks.codexControlRequest.mockResolvedValue({ data: [] });
     const control = createCodexSessionCatalogControlFactory({
       getPluginConfig: () => ({ supervision: { enabled: true } }),
@@ -244,7 +244,7 @@ describe("Codex supervision catalog", () => {
           { id: "file", agentDir: fileAgentDir },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const env = { ...process.env, CODEX_HOME: processCodexHome };
 
     const control = createCodexSessionCatalogControlFactory({
@@ -344,7 +344,7 @@ describe("Codex supervision catalog", () => {
     );
     const configA = {
       agents: { ownership: "explicit", list: [{ id: "alpha", agentDir: alphaAgentDir }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configB = {
       agents: {
         ownership: "explicit",
@@ -353,7 +353,7 @@ describe("Codex supervision catalog", () => {
           { id: "beta", agentDir: betaAgentDir },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let runtimeConfig = configA;
     const statSync = vi.spyOn(fsSync, "statSync");
     try {
@@ -410,7 +410,7 @@ describe("Codex supervision catalog", () => {
           { id: "beta", agentDir: betaAgentDir },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { runtime } = createRuntime();
     const { api, getProvider } = createGatewayApi(runtime, runtimeConfig);
     const listPage = vi.fn(async (source?: { agentDir: string; sourceHomeId: string }) => ({

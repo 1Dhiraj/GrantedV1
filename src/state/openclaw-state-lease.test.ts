@@ -4,14 +4,14 @@ import { pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
 } from "./openclaw-state-db.js";
 import { withOpenClawStateLease } from "./openclaw-state-lease.js";
 
-type LeaseDatabase = Pick<OpenClawStateKyselyDatabase, "state_leases">;
+type LeaseDatabase = Pick<GrantedStateKyselyDatabase, "state_leases">;
 
 afterEach(() => {
   closeOpenClawStateDatabaseForTest();

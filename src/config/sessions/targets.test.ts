@@ -8,7 +8,7 @@ import {
   unregisterOpenClawAgentDatabase,
 } from "../../state/openclaw-agent-db-registry.js";
 import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
-import type { OpenClawConfig } from "../config.js";
+import type { GrantedConfig } from "../config.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { listSessionEntriesReadOnly, replaceSessionEntry } from "./session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";
@@ -21,7 +21,7 @@ import { createAgentSessionStores, EXPLICIT_MAIN_CONFIG } from "./targets.test-s
 describe("resolveSessionStoreTargets", () => {
   it("resolves all configured agent stores", async () => {
     await withTempHome(async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: {
           store: "~/.openclaw/agents/{agentId}/sessions/sessions.json",
         },
@@ -47,7 +47,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("includes configured ACP harness stores for all-agent session views", async () => {
     await withTempHome(async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: {
           store: "~/.openclaw/agents/{agentId}/sessions/sessions.json",
         },
@@ -91,7 +91,7 @@ describe("resolveSessionStoreTargets", () => {
   });
 
   it("keeps shared store paths distinct by SQLite owner for --all-agents", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: {
         store: "/tmp/shared-sessions.json",
       },
@@ -111,7 +111,7 @@ describe("resolveSessionStoreTargets", () => {
       const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "ops.json");
       const diagnostics: string[] = [];
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -295,7 +295,7 @@ describe("resolveSessionStoreTargets", () => {
         },
         { sessionId: "ops-session", updatedAt: 2 },
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { ops: { default: true }, other: {} } },
       };
@@ -317,7 +317,7 @@ describe("resolveSessionStoreTargets", () => {
       const stateDir = path.join(home, ".openclaw");
       const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(home, "ops.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -384,7 +384,7 @@ describe("resolveSessionStoreTargets", () => {
       ).toBe(path.join(home, "ops.main.sqlite"));
 
       const diagnostics: string[] = [];
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -406,7 +406,7 @@ describe("resolveSessionStoreTargets", () => {
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath, {
         agentId: "main",
       }).path;
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -431,7 +431,7 @@ describe("resolveSessionStoreTargets", () => {
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath).path;
       registerOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });
       registerOpenClawAgentDatabase({ agentId: "main", env, path: databasePath });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -454,7 +454,7 @@ describe("resolveSessionStoreTargets", () => {
       const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath).path;
       registerOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -472,7 +472,7 @@ describe("resolveSessionStoreTargets", () => {
       const registryPath = resolveOpenClawStateSqlitePath(env);
       await fs.mkdir(path.dirname(registryPath), { recursive: true });
       await fs.writeFile(registryPath, "not a sqlite database", "utf-8");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: path.join(home, "ops.json") },
         agents: { entries: { main: { default: true }, ops: {} } },
       };
@@ -517,7 +517,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("uses the persisted owner when --store targets the configured fixed store", () => {
     const storePath = path.resolve("/tmp/restart-shaped-shared.sqlite");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         ownership: "explicit",
@@ -536,7 +536,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("rejects a path-inferred agent that conflicts with the persisted fixed-store owner", () => {
     const storePath = path.resolve("/tmp/agents/research/sessions/sessions.json");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         ownership: "explicit",
@@ -552,7 +552,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("allows an explicit store path with an explicit fleet agent", () => {
     const storePath = path.resolve("/tmp/explicit-fleet-sessions.json");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { ownership: "explicit", entries: { Ops: {}, research: {} } },
     };
 
@@ -568,7 +568,7 @@ describe("resolveSessionStoreTargets", () => {
   });
 
   it("accepts case-insensitive legacy main paths but rejects aliases", () => {
-    const cfg: OpenClawConfig = { agents: { list: [{ id: "ops", default: true }] } };
+    const cfg: GrantedConfig = { agents: { list: [{ id: "ops", default: true }] } };
     const mainPath = path.resolve("/tmp/agents/Main/sessions/sessions.json");
 
     expect(resolveSessionStoreTargets(cfg, { store: mainPath })).toEqual([
@@ -583,7 +583,7 @@ describe("resolveSessionStoreTargets", () => {
   });
 
   it("rejects unknown agent ids", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true }, { id: "work" }],
       },

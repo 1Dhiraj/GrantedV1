@@ -3,7 +3,7 @@
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CliDeps } from "../cli/deps.types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayCronServiceContract } from "./server-cron-contract.js";
 import type { GatewayCronState } from "./server-cron.js";
 
@@ -53,7 +53,7 @@ describe("createLazyGatewayCronState", () => {
     const params = createParams();
     const lazy = createLazyGatewayCronState({
       ...params,
-      cfg: { ...params.cfg, cron: { store: customStore } } as unknown as OpenClawConfig,
+      cfg: { ...params.cfg, cron: { store: customStore } } as unknown as GrantedConfig,
     });
 
     expect(lazy.storePath).toBe(customStore);
@@ -389,7 +389,7 @@ describe("createLazyGatewayCronState", () => {
     hoisted.setState(state);
 
     const lazy = createLazyGatewayCronState(createParams());
-    const cfg = { agents: { defaults: { heartbeat: { every: "5m" } } } } as OpenClawConfig;
+    const cfg = { agents: { defaults: { heartbeat: { every: "5m" } } } } as GrantedConfig;
     await lazy.reconcileHeartbeatJobs(cfg);
 
     expect(hoisted.buildGatewayCronService).toHaveBeenCalledTimes(1);
@@ -433,11 +433,11 @@ describe("createLazyGatewayCronState", () => {
   });
 });
 
-function createParams(overrides: Partial<OpenClawConfig> = {}) {
+function createParams(overrides: Partial<GrantedConfig> = {}) {
   return {
     cfg: {
       ...overrides,
-    } as OpenClawConfig,
+    } as GrantedConfig,
     deps: {} as CliDeps,
     broadcast: vi.fn(),
   };

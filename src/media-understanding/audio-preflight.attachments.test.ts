@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { formatAudioTranscriptForAgent } from "../plugin-sdk/media-understanding-runtime.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { applyMediaUnderstanding } from "./apply.js";
@@ -59,7 +59,7 @@ describe("audio preflight attachment handoff", () => {
             return { path: filePath, contentType: "audio/wav", workspaceDir: dir };
           }),
         );
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           plugins: { enabled: false },
           tools: {
             media: {

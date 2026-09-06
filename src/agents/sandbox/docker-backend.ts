@@ -63,7 +63,7 @@ function buildContainerExecArgs(params: {
 }
 
 function resolveConfiguredDockerRuntimeImage(params: {
-  config: CreateSandboxBackendParams["cfg"] | import("../../config/config.js").OpenClawConfig;
+  config: CreateSandboxBackendParams["cfg"] | import("../../config/config.js").GrantedConfig;
   agentId?: string;
   configLabelKind?: string;
 }): string {

@@ -1,6 +1,6 @@
 import type { MsgContext } from "../auto-reply/templating.js";
 import { applyTemplate } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { LinkModelConfig, LinkToolsConfig } from "../config/types.tools.js";
 import { logVerbose, shouldLogVerbose } from "../globals.js";
 // Link-understanding runner fetches allowed URLs and invokes configured commands with bounded content.
@@ -210,7 +210,7 @@ async function runLinkEntries(params: {
  * Returns detected URLs even when processors are absent so callers can report discovery.
  */
 export async function runLinkUnderstanding(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: MsgContext;
   message?: string;
   signal?: AbortSignal;

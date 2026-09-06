@@ -17,7 +17,7 @@ import {
   resolveDefaultAgentId,
 } from "../agents/agent-scope.js";
 import { resolveWorkspaceStateIdentity } from "../agents/workspace-state-identity.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const DEFAULT_MEMORY_DREAMING_ENABLED = true;
 const DEFAULT_MEMORY_DREAMING_TIMEZONE = undefined;
@@ -297,7 +297,7 @@ function formatLocalIsoDay(epochMs: number): string {
 }
 
 export function resolveMemoryDreamingPluginId(
-  cfg: OpenClawConfig | Record<string, unknown> | undefined,
+  cfg: GrantedConfig | Record<string, unknown> | undefined,
 ): string {
   const root = asNullableRecord(cfg);
   const plugins = asNullableRecord(root?.plugins);
@@ -310,7 +310,7 @@ export function resolveMemoryDreamingPluginId(
 }
 
 export function resolveMemoryDreamingPluginConfig(
-  cfg: OpenClawConfig | Record<string, unknown> | undefined,
+  cfg: GrantedConfig | Record<string, unknown> | undefined,
 ): Record<string, unknown> | undefined {
   const root = asNullableRecord(cfg);
   const plugins = asNullableRecord(root?.plugins);
@@ -322,7 +322,7 @@ export function resolveMemoryDreamingPluginConfig(
 
 export function resolveMemoryDreamingConfig(params: {
   pluginConfig?: Record<string, unknown>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): MemoryDreamingConfig {
   const dreaming = asNullableRecord(params.pluginConfig?.dreaming);
   const frequency =
@@ -489,7 +489,7 @@ export function resolveMemoryDreamingConfig(params: {
 
 export function resolveMemoryDeepDreamingConfig(params: {
   pluginConfig?: Record<string, unknown>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): MemoryDeepDreamingConfig & {
   timezone?: string;
   verboseLogging: boolean;
@@ -507,7 +507,7 @@ export function resolveMemoryDeepDreamingConfig(params: {
 
 export function resolveMemoryLightDreamingConfig(params: {
   pluginConfig?: Record<string, unknown>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): MemoryLightDreamingConfig & {
   timezone?: string;
   verboseLogging: boolean;
@@ -525,7 +525,7 @@ export function resolveMemoryLightDreamingConfig(params: {
 
 export function resolveMemoryRemDreamingConfig(params: {
   pluginConfig?: Record<string, unknown>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): MemoryRemDreamingConfig & {
   timezone?: string;
   verboseLogging: boolean;
@@ -577,7 +577,7 @@ export function isSameMemoryDreamingDay(
 }
 
 export function resolveMemoryDreamingWorkspaces(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: MemoryDreamingWorkspaceOptions = {},
 ): MemoryDreamingWorkspace[] {
   const agentIds = listAgentIds(cfg);

@@ -1,5 +1,5 @@
 import type {
-  OpenClawPluginApi,
+  GrantedPluginApi,
   PluginRuntimeLifecycleRegistration,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
@@ -73,7 +73,7 @@ const nonFullRegistrationModes = [
   "setup-only",
   "setup-runtime",
   "cli-metadata",
-] as const satisfies readonly OpenClawPluginApi["registrationMode"][];
+] as const satisfies readonly GrantedPluginApi["registrationMode"][];
 
 function setProcessPlatformForTest(platform: NodeJS.Platform): void {
   Object.defineProperty(process, "platform", {
@@ -91,7 +91,7 @@ function restoreProcessPlatformForTest(): void {
 
 function createApi(
   pluginConfig: Record<string, unknown> | undefined = {},
-  registrationMode: OpenClawPluginApi["registrationMode"] = "full",
+  registrationMode: GrantedPluginApi["registrationMode"] = "full",
 ) {
   const lifecycles: PluginRuntimeLifecycleRegistration[] = [];
   const registerService = vi.fn();

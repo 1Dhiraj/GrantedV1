@@ -16,7 +16,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupWizard,
   type ChannelSetupWizardTextInput,
-  type OpenClawConfig,
+  type GrantedConfig,
   createSetupTranslator,
   type WizardPrompter,
 } from "openclaw/plugin-sdk/setup-runtime";
@@ -157,7 +157,7 @@ export function buildSignalSetupPatch(input: SignalSetupInput) {
 }
 
 async function prepareSignalSetupInput(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   input: SignalSetupInput;
 }): Promise<SignalSetupInput> {
@@ -203,7 +203,7 @@ function managedTransportOverridesFromSetupInput(
 }
 
 function resolveSignalSetupAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
 }): string | undefined {
   const accountId = normalizeAccountId(
@@ -215,10 +215,10 @@ function resolveSignalSetupAccount(params: {
 }
 
 async function promptSignalAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   return promptParsedAllowFromForAccount({
     cfg: params.cfg,
     accountId: params.accountId,
@@ -259,7 +259,7 @@ export const signalDmPolicy = createChannelDmPolicy({
 });
 
 function resolveSignalCliPath(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   credentialValues: Record<string, unknown>;
 }) {
@@ -358,7 +358,7 @@ const signalSetupAdapterBase = createPatchedAccountSetupAdapter<SignalSetupInput
   buildPatch: (input) => buildSignalSetupPatch(input),
 });
 
-function restorePromotedSignalDefaultAccount(cfg: OpenClawConfig): OpenClawConfig {
+function restorePromotedSignalDefaultAccount(cfg: GrantedConfig): GrantedConfig {
   const signal = cfg.channels?.signal;
   const promoted = signal?.accounts?.[DEFAULT_ACCOUNT_ID];
   if (!signal?.transport || signal.account || !promoted?.account) {
@@ -460,6 +460,6 @@ export function createSignalSetupWizardProxy(loadWizard: () => Promise<ChannelSe
     ],
     completionNote: signalCompletionNote,
     dmPolicy: signalDmPolicy,
-    disable: (cfg: OpenClawConfig) => setSetupChannelEnabled(cfg, channel, false),
+    disable: (cfg: GrantedConfig) => setSetupChannelEnabled(cfg, channel, false),
   });
 }

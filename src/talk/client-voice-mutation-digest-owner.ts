@@ -1,5 +1,5 @@
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildOutboundSessionContext } from "../infra/outbound/session-context.js";
 import { resolveSessionDeliveryTarget } from "../infra/outbound/targets-session.js";
 import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
@@ -37,7 +37,7 @@ function formatMutationDigest(effects: ClientVoiceToolEffect[]): string | undefi
 /** Deliver one point-in-time summary and mark the durable voice record after success. */
 export async function deliverClientVoiceMutationDigest(
   record: ClientVoiceSessionRecord,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   signal: AbortSignal,
 ): Promise<void> {
   if (record.digestDeliveredAt) {

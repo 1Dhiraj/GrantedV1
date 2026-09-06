@@ -5,7 +5,7 @@
  */
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SandboxSshSettings } from "../../config/types.sandbox.js";
 import { normalizeSecretInputString } from "../../config/types.secrets.js";
 import { resolveAgentConfig } from "../agent-scope.js";
@@ -219,10 +219,7 @@ export function resolveSandboxSshConfig(params: {
   };
 }
 
-export function resolveSandboxConfigForAgent(
-  cfg?: OpenClawConfig,
-  agentId?: string,
-): SandboxConfig {
+export function resolveSandboxConfigForAgent(cfg?: GrantedConfig, agentId?: string): SandboxConfig {
   const agent = cfg?.agents?.defaults?.sandbox;
 
   // Agent-specific sandbox config overrides global

@@ -4,7 +4,7 @@ import type {
   ChannelPlugin,
 } from "../../channels/plugins/types.public.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   resolveAgentDeliveryPlanWithSessionRoute,
   resolveAgentOutboundTarget,
@@ -39,7 +39,7 @@ type PreparedCurrentRunDelivery = {
 };
 
 export async function prepareCurrentRunDelivery(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   opts: AgentCommandOpts;
   agentId: string;
   currentSessionKey?: string;

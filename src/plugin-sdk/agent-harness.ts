@@ -16,7 +16,7 @@ export type {
   AnyAgentTool,
   EmbeddedRunAttemptParams,
   EmbeddedRunAttemptParamsV2,
-  OpenClawAgentToolResult,
+  GrantedAgentToolResult,
 } from "./agent-harness-runtime.js";
 export { createOpenClawCodingTools } from "../agents/agent-tools.js";
 export { createCodexAppServerToolResultExtensionRunner } from "../agents/harness/codex-app-server-extensions.js";

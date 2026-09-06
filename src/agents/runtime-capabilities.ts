@@ -11,7 +11,7 @@ import {
   supportsAutomaticThreadBindingSpawn,
 } from "../channels/thread-bindings-policy.js";
 import { resolveChannelCapabilities } from "../config/channel-capabilities.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "../utils/message-channel-constants.js";
 import { resolveChannelPromptCapabilities } from "./channel-tools.js";
 
@@ -39,7 +39,7 @@ function mergeRuntimeCapabilities(
 
 /** Collects the effective runtime capabilities for a channel/account pair. */
 export function collectRuntimeChannelCapabilities(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   channel?: string | null;
   accountId?: string | null;
 }): string[] | undefined {

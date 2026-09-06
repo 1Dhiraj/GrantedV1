@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openOpenClawAgentDatabase } from "../state/openclaw-agent-db.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { createPluginDoctorStateMigrationContext } from "./state-migrations.plugin-doctor-context.js";
@@ -38,7 +38,7 @@ describe("plugin doctor session identity evidence", () => {
         { label: `plugin-doctor-empty-${kind}`, applyEnv: false },
         async ({ env, root }) => {
           const fixedStorePath = path.join(root, "fixed.sqlite");
-          const config: OpenClawConfig =
+          const config: GrantedConfig =
             kind === "fixed" ? { session: { store: fixedStorePath } } : {};
           openOpenClawAgentDatabase({
             agentId: "main",

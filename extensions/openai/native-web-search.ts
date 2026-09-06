@@ -1,6 +1,6 @@
 // Openai plugin module implements native web search behavior.
 import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
 import { createPayloadPatchStreamWrapper } from "openclaw/plugin-sdk/provider-stream-shared";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -26,7 +26,7 @@ function isOpenAINativeWebSearchEligibleModel(model: {
   return !baseUrl || isOpenAIApiBaseUrl(baseUrl);
 }
 
-function shouldUseOpenAINativeWebSearchProvider(config: OpenClawConfig | undefined): boolean {
+function shouldUseOpenAINativeWebSearchProvider(config: GrantedConfig | undefined): boolean {
   const provider = config?.tools?.web?.search?.provider;
   if (typeof provider !== "string") {
     return true;
@@ -36,7 +36,7 @@ function shouldUseOpenAINativeWebSearchProvider(config: OpenClawConfig | undefin
 }
 
 function shouldEnableOpenAINativeWebSearch(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   model: { api?: unknown; provider?: unknown; baseUrl?: unknown };
 }): boolean {
   return (
@@ -85,7 +85,7 @@ function patchOpenAINativeWebSearchPayload(payload: unknown): OpenAINativeWebSea
 export function createOpenAINativeWebSearchWrapper(
   baseStreamFn: StreamFn | undefined,
   params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     agentId?: string;
     nativeWebSearchAllowedByToolPolicy?: boolean;
   },

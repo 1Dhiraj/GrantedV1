@@ -10,7 +10,7 @@ import {
   applySessionStoreProjection,
   replaceSessionEntrySync,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { callGateway as gatewayCall } from "../../gateway/call.js";
 import { createSessionVisibilityChecker } from "../../plugin-sdk/session-visibility.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
@@ -587,7 +587,7 @@ describe("sessions_history redaction", () => {
       config: {
         session: { store: storePath },
         tools: { sessions: { visibility: "tree" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       callGateway: async <T = Record<string, unknown>>(request: CallGatewayRequest): Promise<T> => {
         requests.push(request);
         if (request.method === "sessions.resolve") {
@@ -641,7 +641,7 @@ describe("sessions_history redaction", () => {
       config: {
         session: { store: storePath },
         tools: { sessions: { visibility: "tree" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       callGateway: async <T = Record<string, unknown>>(request: CallGatewayRequest): Promise<T> => {
         requests.push(request);
         if (request.method === "sessions.resolve") {
@@ -693,7 +693,7 @@ describe("sessions_history redaction", () => {
           session: { store: storePath },
           tools: { sessions: { visibility: "self" } },
           agents: { defaults: { sandbox: { sessionToolsVisibility: "spawned" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         callGateway: async <T = Record<string, unknown>>(
           request: CallGatewayRequest,
         ): Promise<T> => {
@@ -750,7 +750,7 @@ describe("sessions_history redaction", () => {
           session: { store: storePath },
           tools: { sessions: { visibility: "self" } },
           agents: { defaults: { sandbox: { sessionToolsVisibility: "spawned" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         callGateway: async <T = Record<string, unknown>>(
           request: CallGatewayRequest,
         ): Promise<T> => {
@@ -804,7 +804,7 @@ describe("sessions_history redaction", () => {
           session: { store: storePath },
           tools: { sessions: { visibility: "self" } },
           agents: { defaults: { sandbox: { sessionToolsVisibility: "spawned" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         callGateway: async <T = Record<string, unknown>>(
           request: CallGatewayRequest,
         ): Promise<T> => {

@@ -5,7 +5,7 @@ import {
   loadExactSessionEntryReadOnly,
   loadTranscriptEvents,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import type { ChatAbortControllerEntry } from "./chat-abort.js";
 import * as subscriptions from "./server-runtime-subscriptions.js";
@@ -89,7 +89,7 @@ it("binds a first native chat.send before streaming and persists its stopped par
       plugins: { slots: { memory: "none" } },
       tools: { profile: "minimal" },
       gateway: { auth: { mode: "token", token: "first-turn-test" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     gateway = await startGatewayWithClient({
       cfg,
       configPath: state.configPath,

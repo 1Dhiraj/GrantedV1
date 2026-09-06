@@ -1,6 +1,6 @@
 // Voice Call plugin module implements gateway continue operation behavior.
 import { randomUUID } from "node:crypto";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
 import type { VoiceCallConfig } from "./config.js";
@@ -75,7 +75,7 @@ type VoiceCallContinueOperationRequest = {
 /** Create a process-local operation store for gateway continue-call polling. */
 export function createVoiceCallContinueOperationStore(params: {
   config: VoiceCallConfig;
-  coreConfig: OpenClawConfig;
+  coreConfig: GrantedConfig;
 }) {
   const operations = new Map<string, VoiceCallContinueOperation>();
 

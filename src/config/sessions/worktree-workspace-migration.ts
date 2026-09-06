@@ -6,7 +6,7 @@ import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { resolveProjectRegistry } from "../../projects/project-registry.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { patchSessionEntryCore } from "./session-accessor.js";
 import { parseReadableSqliteSessionEntryRow } from "./session-accessor.sqlite-entry-store.js";
 import {
@@ -23,7 +23,7 @@ function isInside(root: string, target: string): boolean {
 
 function resolveLegacyCanonicalWorkspace(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: SessionEntry;
   env: NodeJS.ProcessEnv;
   sessionKey: string;
@@ -94,7 +94,7 @@ function listLegacyWorktreeSessionEntries(params: {
 
 export async function migrateManagedWorktreeCanonicalWorkspaces(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   storePath: string;
 }): Promise<number> {

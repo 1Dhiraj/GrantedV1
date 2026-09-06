@@ -12,7 +12,7 @@ import {
 } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { GatewayRequestHandlers } from "./types.js";
 
@@ -65,7 +65,7 @@ vi.mock("../../infra/replace-file.js", async (importOriginal) => {
 });
 
 let tempDirs: string[] = [];
-let testStates: OpenClawTestState[] = [];
+let testStates: GrantedTestState[] = [];
 
 type CallResult = {
   ok: boolean;

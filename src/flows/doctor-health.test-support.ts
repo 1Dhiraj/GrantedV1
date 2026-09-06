@@ -1,10 +1,10 @@
 import { vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contributions.js";
 
 const mocks = vi.hoisted(() => ({
   outro: vi.fn(),
-  config: vi.fn<() => OpenClawConfig>(),
+  config: vi.fn<() => GrantedConfig>(),
   runContributions: vi.fn<(ctx: DoctorHealthFlowContext) => Promise<void>>(),
   writeUpdatePostInstallDoctorResult: vi.fn(),
   service: vi.fn(),

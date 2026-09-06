@@ -9,7 +9,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { recordExecutionDecisionWork } from "../../audit/execution-decision-work.js";
 import { SESSION_LIFECYCLE_CHANGED_ERROR_REASON } from "../../config/sessions/lifecycle.js";
 import { resolveCanonicalMainSessionKey } from "../../config/sessions/main-session-key.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isGatewayClientRequestError } from "../../gateway/call.js";
 import {
   createSessionVisibilityDecisionChecker,
@@ -328,7 +328,7 @@ export async function resolveSessionToolAccess(params: {
 
 /** Resolves the requester context used to filter sandboxed session-tool access. */
 export function resolveSandboxedSessionToolContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentSessionKey?: string;
   requesterAgentId?: string;
   sandboxed?: boolean;

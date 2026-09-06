@@ -4,18 +4,18 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import { SessionWorkStartInvalidatedError } from "./lifecycle.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { resolveSqliteScope, toDatabaseOptions } from "./session-accessor.sqlite-scope.js";
 
-type SuggestionDatabase = Pick<OpenClawAgentKyselyDatabase, "session_suggestions">;
+type SuggestionDatabase = Pick<GrantedAgentKyselyDatabase, "session_suggestions">;
 
 type StoredSessionSuggestionState = "pending" | "accepted" | "dismissed";
 type StoredSessionSuggestionResolution = "send" | "queue" | "edit" | "dismiss";
@@ -34,11 +34,11 @@ const MAX_PENDING_SESSION_SUGGESTIONS_PER_SESSION = 100;
 const MAX_RETAINED_RESOLVED_SESSION_SUGGESTIONS = 200;
 export const SESSION_SUGGESTION_DISPATCH_CLAIM_TTL_MS = 30_000;
 
-function resolveDatabaseOptions(scope: SessionAccessScope): OpenClawAgentDatabaseOptions {
+function resolveDatabaseOptions(scope: SessionAccessScope): GrantedAgentDatabaseOptions {
   return toDatabaseOptions(resolveSqliteScope(scope));
 }
 
-function suggestionDb(database: OpenClawAgentDatabase) {
+function suggestionDb(database: GrantedAgentDatabase) {
   return getNodeSqliteKysely<SuggestionDatabase>(database.db);
 }
 
@@ -61,7 +61,7 @@ function toSuggestion(row: {
 }
 
 function assertSessionInstance(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   expectedSessionId: string | undefined,
 ): void {
@@ -93,10 +93,7 @@ function assertSessionInstance(
   }
 }
 
-function pruneResolvedSessionSuggestions(
-  database: OpenClawAgentDatabase,
-  sessionKey: string,
-): void {
+function pruneResolvedSessionSuggestions(database: GrantedAgentDatabase, sessionKey: string): void {
   const db = suggestionDb(database);
   const resolvedRows = executeSqliteQuerySync(
     database.db,

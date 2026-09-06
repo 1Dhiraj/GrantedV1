@@ -3,7 +3,7 @@
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { resolveSandboxConfigForAgent as resolveSandboxConfigForAgentBase } from "./config.js";
@@ -18,15 +18,15 @@ import {
 
 const sandboxStoreDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function loadedConfig(config: OpenClawConfig | undefined): OpenClawConfig {
-  return migratePersistedImplicitMainRoster(config ?? {}).config as OpenClawConfig;
+function loadedConfig(config: GrantedConfig | undefined): GrantedConfig {
+  return migratePersistedImplicitMainRoster(config ?? {}).config as GrantedConfig;
 }
 
-function resolveSandboxConfigForAgent(config: OpenClawConfig, agentId: string) {
+function resolveSandboxConfigForAgent(config: GrantedConfig, agentId: string) {
   return resolveSandboxConfigForAgentBase(loadedConfig(config), agentId);
 }
 
-function resolveSandboxToolPolicyForAgent(config: OpenClawConfig, agentId: string) {
+function resolveSandboxToolPolicyForAgent(config: GrantedConfig, agentId: string) {
   return resolveSandboxToolPolicyForAgentBase(loadedConfig(config), agentId);
 }
 
@@ -50,7 +50,7 @@ function formatSandboxToolPolicyBlockedMessage(
 
 describe("sandbox/tool-policy", () => {
   it("merges sandbox alsoAllow into the default sandbox allowlist", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -80,7 +80,7 @@ describe("sandbox/tool-policy", () => {
   });
 
   it("lets explicit sandbox allow remove entries from the default sandbox denylist", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -112,7 +112,7 @@ describe("sandbox/tool-policy", () => {
   it.each([["image"], ["image*"]] as const)(
     "keeps legacy %s denies fail-closed for view_image until Doctor migrates them",
     (legacyDeny) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { sandbox: { mode: "all", scope: "agent" } } },
         tools: { sandbox: { tools: { allow: ["read"], deny: [legacyDeny] } } },
       };
@@ -126,7 +126,7 @@ describe("sandbox/tool-policy", () => {
   it("preserves allow-all semantics for allow: [] plus alsoAllow", () => {
     // An empty allowlist means allow all except denies; alsoAllow should only
     // remove matching default denies, not turn allow-all into allow-some.
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -176,7 +176,7 @@ describe("sandbox/tool-policy", () => {
   });
 
   it("keeps canonical sandbox config and runtime status aligned with the effective resolver", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -220,7 +220,7 @@ describe("sandbox/tool-policy", () => {
   });
 
   it("treats channel direct sessions as sandboxed in non-main mode", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "non-main", scope: "agent" },
@@ -259,7 +259,7 @@ describe("sandbox/tool-policy", () => {
       createdActor: { type: "human" as const, source: "unknown" as const, id: "guest-principal" },
     };
     await replaceSessionEntry({ sessionKey, storePath }, entry);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         defaults: { sandbox: { mode: "off", scope: "session", workspaceAccess: "rw" } },
@@ -299,7 +299,7 @@ describe("sandbox/tool-policy", () => {
         createdActor: { type: "human", source: "profile", id: "maintainer-principal" },
       },
     );
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         defaults: { sandbox: { mode: "all", scope: "agent", workspaceAccess: "rw" } },
@@ -326,7 +326,7 @@ describe("sandbox/tool-policy", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const runtime = resolveSandboxRuntimeStatus({
       cfg,
@@ -355,7 +355,7 @@ describe("sandbox/tool-policy", () => {
           worker: { sandbox: { mode: "non-main", scope: "agent" } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const runtime = resolveSandboxRuntimeStatus({
       cfg,
@@ -381,7 +381,7 @@ describe("sandbox/tool-policy", () => {
           ownership: "explicit",
           entries: { main: {}, worker: {} },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       expect(() =>
         resolveSandboxRuntimeStatus({
@@ -412,7 +412,7 @@ describe("sandbox/tool-policy", () => {
             work: { sandbox: { mode: "all", scope: "agent" } },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const runtime = resolveSandboxRuntimeStatus({
         cfg,
@@ -439,7 +439,7 @@ describe("sandbox/tool-policy", () => {
   );
 
   it("keeps the agent main session sandboxed in all mode", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -457,7 +457,7 @@ describe("sandbox/tool-policy", () => {
   });
 
   it("keeps explicit sandbox deny precedence over allow and alsoAllow", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -498,7 +498,7 @@ describe("sandbox/tool-policy", () => {
   });
 
   it("uses the effective sandbox policy when formatting blocked-tool guidance", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -533,7 +533,7 @@ describe("sandbox/tool-policy", () => {
     // The guidance embeds a copy-paste command; quote the real session key while
     // keeping the displayed session line compact and terminal-safe.
     const sessionKey = "agent:main:weird session;rm -rf /";
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },
@@ -582,7 +582,7 @@ describe("sandbox/tool-policy", () => {
   ])(
     "keeps redacted session keys UTF-16 safe at the $boundary boundary",
     ({ sessionKey, expectedLabel }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: { mode: "all", scope: "agent" },
@@ -616,7 +616,7 @@ describe("sandbox/tool-policy", () => {
 
   it("avoids terminal injection for control-character session keys", () => {
     const sessionKey = "agent:main:abcde\n12345";
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: { mode: "all", scope: "agent" },

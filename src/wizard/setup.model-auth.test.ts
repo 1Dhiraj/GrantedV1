@@ -5,7 +5,7 @@ import {
   applySkipBootstrapConfig,
 } from "../commands/onboard-config.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { WizardCancelledError, type WizardPrompter } from "./prompts.js";
 import { runSetupModelAuthStep } from "./setup.model-auth.js";
@@ -91,7 +91,7 @@ function createRuntime(): RuntimeEnv {
   return { log: vi.fn(), error: vi.fn(), exit: vi.fn() } as unknown as RuntimeEnv;
 }
 
-function createDefaultAgentConfig(): OpenClawConfig {
+function createDefaultAgentConfig(): GrantedConfig {
   return {
     agents: {
       defaults: { workspace: "/tmp/global-workspace" },
@@ -121,7 +121,7 @@ describe("runSetupModelAuthStep", () => {
       const prompter = createPrompter();
       if (migrated) {
         config.agents!.entries = { alpha: {}, ...config.agents!.entries };
-        config = migratePersistedImplicitMainRoster(config).config as OpenClawConfig;
+        config = migratePersistedImplicitMainRoster(config).config as GrantedConfig;
         config = await requireRiskAcknowledgement({ config, opts: { acceptRisk: true }, prompter });
         vi.mocked(prompter.select).mockResolvedValueOnce(false);
         config = await requestTelemetryConsent({ config, opts: {}, prompter });
@@ -175,7 +175,7 @@ describe("runSetupModelAuthStep", () => {
 
   it("stages provider auth on the pending named agent without nesting its workspace", async () => {
     const workspaceDir = "/tmp/robby-workspace";
-    const config: OpenClawConfig = { agents: { defaults: { workspace: workspaceDir } } };
+    const config: GrantedConfig = { agents: { defaults: { workspace: workspaceDir } } };
     promptAuthChoiceGrouped.mockResolvedValueOnce("anthropic-cli");
     applyAuthChoice.mockResolvedValueOnce({
       config,
@@ -211,7 +211,7 @@ describe("runSetupModelAuthStep", () => {
   });
 
   it("targets the system agent when an explicit fleet selects Claude CLI", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: { systemAgent: { agentId: "main" } },
@@ -256,7 +256,7 @@ describe("runSetupModelAuthStep", () => {
   });
 
   it("keeps provider model defaults owned by the selected explicit-fleet agent", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: {
@@ -277,7 +277,7 @@ describe("runSetupModelAuthStep", () => {
     };
     const persistAuthProfiles = vi.fn(async () => {});
     applyAuthChoice.mockImplementationOnce(
-      async ({ config: authConfig }: { config: OpenClawConfig }) => ({
+      async ({ config: authConfig }: { config: GrantedConfig }) => ({
         config: {
           ...authConfig,
           agents: {
@@ -332,7 +332,7 @@ describe("runSetupModelAuthStep", () => {
   });
 
   it("passes the explicit system agent to custom setup while preserving its existing model", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: { systemAgent: { agentId: "ops" }, model: { primary: "global/current" } },

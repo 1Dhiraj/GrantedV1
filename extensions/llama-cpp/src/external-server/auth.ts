@@ -3,7 +3,7 @@ import {
   hasConfiguredSecretInput,
   isNonSecretApiKeyMarker,
   normalizeOptionalSecretInput,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
@@ -34,7 +34,7 @@ export function shouldUseLlamaServerSyntheticAuth(
 }
 
 export async function resolveLlamaServerProviderHeaders(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   headers?: unknown;
 }): Promise<Record<string, string> | undefined> {
@@ -69,7 +69,7 @@ export async function resolveLlamaServerProviderHeaders(params: {
 }
 
 export async function resolveLlamaServerRuntimeApiKey(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   profileId?: string;
 }): Promise<string | undefined> {

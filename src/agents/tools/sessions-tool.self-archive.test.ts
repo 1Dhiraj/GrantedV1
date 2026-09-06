@@ -4,7 +4,7 @@ import {
   loadSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { createSessionsTool } from "./sessions-tool.js";
@@ -15,7 +15,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:detached-self-archive";
       const sessionId = "session-detached-self-archive";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -90,7 +90,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:self-archive";
       const sessionId = "session-self-archive";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -147,7 +147,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:archive-patch";
       const sessionId = "session-archive-patch";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -210,7 +210,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:archive-replacement";
       const sessionId = "session-before-reset";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -268,7 +268,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:archive-competing";
       const sessionId = "session-archive-competing";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -328,7 +328,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:archive-retry";
       const sessionId = "session-archive-retry";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -395,7 +395,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:archive-release-race";
       const sessionId = "session-archive-release-race";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },
@@ -510,7 +510,7 @@ describe("sessions tool self-archive", () => {
         const storePath = path.join(dir, "sessions.json");
         const sessionKey = "agent:main:archive-projected";
         const sessionId = "session-archive-projected";
-        const config: OpenClawConfig = { session: { store: storePath } };
+        const config: GrantedConfig = { session: { store: storePath } };
         await upsertSessionEntryCore(
           { agentId: "main", sessionKey, storePath },
           { sessionId, updatedAt: 1 },
@@ -570,7 +570,7 @@ describe("sessions tool self-archive", () => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:main";
       const sessionId = "session-main-archive";
-      const config: OpenClawConfig = { session: { store: storePath } };
+      const config: GrantedConfig = { session: { store: storePath } };
       await upsertSessionEntryCore(
         { agentId: "main", sessionKey, storePath },
         { sessionId, updatedAt: 1 },

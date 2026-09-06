@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   classifyEmbeddedAgentRunResultForModelFallback,
   mergeEmbeddedAgentRunResultForModelFallbackExhaustion,
@@ -101,7 +101,7 @@ beforeEach(() => {
   sleepWithAbortMock.mockClear();
 });
 
-function makeProviderConfig(fallbacks: string[]): OpenClawConfig {
+function makeProviderConfig(fallbacks: string[]): GrantedConfig {
   const provider = (modelIds: string[]) => ({
     api: "openai-responses" as const,
     apiKey: "test-key",
@@ -260,7 +260,7 @@ function installFaultScript(faults: ProviderFault[], observations: AttemptObserv
 async function runScenario(params: {
   agentDir: string;
   workspaceDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runId: string;
 }): Promise<ScenarioOutcome> {
   const { replaceSessionEntry } = await import("../config/sessions/session-accessor.js");

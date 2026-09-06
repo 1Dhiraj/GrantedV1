@@ -8,7 +8,7 @@ import {
 } from "../agents/cli-credentials.js";
 import { applyAutoLocalModelLean } from "../config/local-model-lean-auto.js";
 import { createMergePatch } from "../config/merge-patch.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { normalizePluginTargetConfig } from "../plugins/config-state.js";
@@ -141,10 +141,10 @@ async function activateSetupInferenceUnredacted(
   }
   // Missing-file snapshots still carry the load-time implicit-main roster.
   // Setup must probe against that runtime view without treating it as authored config.
-  const cfg: OpenClawConfig = snapshot.runtimeConfig ?? snapshot.config;
+  const cfg: GrantedConfig = snapshot.runtimeConfig ?? snapshot.config;
   // The source snapshot includes raw compatibility migrations for comparison,
   // while the writer still projects changes back onto the untouched authored bytes.
-  const sourceCfg: OpenClawConfig = snapshot.sourceConfig ?? snapshot.config;
+  const sourceCfg: GrantedConfig = snapshot.sourceConfig ?? snapshot.config;
   const routeAgentId = resolveAmbientOwnerAgentId(cfg, params.agentId);
   const workspace = params.workspace?.trim()
     ? resolveUserPath(params.workspace)
@@ -543,7 +543,7 @@ async function activateSetupInferenceUnredacted(
         };
       }
     }
-    let committedConfig: OpenClawConfig | undefined;
+    let committedConfig: GrantedConfig | undefined;
     let autoLocalModelLeanApplied = false;
     let gatewayRestartRequired = false;
     if (!needsPersistence) {

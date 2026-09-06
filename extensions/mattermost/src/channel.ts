@@ -25,7 +25,7 @@ import {
   createAttachedChannelResultAdapter,
   type ChannelOutboundAdapter,
 } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
 import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
 import {
@@ -287,7 +287,7 @@ function normalizeMattermostThreadId(value: string | number | undefined): string
 }
 
 function buildMattermostThreadingToolContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   context: ChannelThreadingContext;
   hasRepliedRef?: { value: boolean };

@@ -20,9 +20,9 @@ import {
   type SessionCatalogProvider,
 } from "./session-catalog.js";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeInvokePolicy,
 } from "./types.js";
 
 type SessionCatalogPage = {
@@ -549,8 +549,8 @@ export type SessionCatalogNodeHostBindingsOptions = {
   sessionIdPattern: RegExp;
   executable: string;
   args: (threadId: string) => string[];
-  listAvailable: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => boolean;
-  terminalAvailable: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => boolean;
+  listAvailable: (context: GrantedPluginNodeHostCommandAvailabilityContext) => boolean;
+  terminalAvailable: (context: GrantedPluginNodeHostCommandAvailabilityContext) => boolean;
   parseParams: (paramsJSON?: string | null) => unknown;
   list: (params: unknown) => Promise<SessionCatalogPage>;
   read: (params: unknown) => Promise<SessionsCatalogReadResult>;
@@ -564,10 +564,10 @@ export type SessionCatalogNodeHostBindingsOptions = {
 export function createSessionCatalogNodeHostBindings(
   options: SessionCatalogNodeHostBindingsOptions,
 ): {
-  commands: OpenClawPluginNodeHostCommand[];
-  policies: OpenClawPluginNodeInvokePolicy[];
+  commands: GrantedPluginNodeHostCommand[];
+  policies: GrantedPluginNodeInvokePolicy[];
 } {
-  const terminal: OpenClawPluginNodeHostCommand = {
+  const terminal: GrantedPluginNodeHostCommand = {
     command: options.terminalCommand,
     cap: options.capability,
     dangerous: false,

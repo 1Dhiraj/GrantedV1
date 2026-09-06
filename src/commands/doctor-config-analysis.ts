@@ -7,8 +7,8 @@ import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { CONFIG_PATH } from "../config/config.js";
 import { INCLUDE_KEY } from "../config/includes.js";
 import { resolveAgentModelFallbackValues } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
-import { OpenClawSchema } from "../config/zod-schema.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
+import { GrantedSchema } from "../config/zod-schema.js";
 import { isRecord } from "../utils.js";
 
 type UnrecognizedKeysIssue = ZodIssue & {
@@ -81,15 +81,15 @@ const STRIP_PROTECTED_KEYS: Record<string, Set<string>> = {
  * Doctor skips this while an update is in progress so partially written upgrade state is not
  * stripped before its migration can finish.
  */
-export function stripUnknownConfigKeys(config: OpenClawConfig): {
-  config: OpenClawConfig;
+export function stripUnknownConfigKeys(config: GrantedConfig): {
+  config: GrantedConfig;
   removed: string[];
 } {
   if (isUpdateInProgress()) {
     return { config, removed: [] };
   }
 
-  const parsed = OpenClawSchema.safeParse(config);
+  const parsed = GrantedSchema.safeParse(config);
   if (parsed.success) {
     return { config, removed: [] };
   }
@@ -132,7 +132,7 @@ export function stripUnknownConfigKeys(config: OpenClawConfig): {
 
 /** Warns when legacy OpenCode overrides shadow an active plugin-provided catalog. */
 export function noteOpencodeProviderOverrides(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: { opencodePluginActive?: boolean; opencodeGoPluginActive?: boolean } = {},
 ): void {
   const providers = cfg.models?.providers;
@@ -190,7 +190,7 @@ function isImplicitFallbackClobber(model: unknown): boolean {
 }
 
 /** Collects warnings for agent model shapes that unintentionally drop default fallbacks. */
-function collectImplicitFallbackClobberWarnings(cfg: OpenClawConfig): string[] {
+function collectImplicitFallbackClobberWarnings(cfg: GrantedConfig): string[] {
   const defaultFallbacks = resolveAgentModelFallbackValues(cfg.agents?.defaults?.model);
   if (defaultFallbacks.length === 0) {
     return [];
@@ -219,7 +219,7 @@ function collectImplicitFallbackClobberWarnings(cfg: OpenClawConfig): string[] {
 }
 
 /** Emits doctor notes for model fallback clobber warnings. */
-export function noteImplicitFallbackClobberWarnings(cfg: OpenClawConfig): void {
+export function noteImplicitFallbackClobberWarnings(cfg: GrantedConfig): void {
   const warnings = collectImplicitFallbackClobberWarnings(cfg);
   if (warnings.length === 0) {
     return;
@@ -253,7 +253,7 @@ export function noteIncludeConfinementWarning(snapshot: {
 }
 
 /** Warns when a trusted-proxy gateway has no public sandbox origin for widget/MCP-app frames. */
-export function noteSandboxOriginProxyWarning(cfg: OpenClawConfig): void {
+export function noteSandboxOriginProxyWarning(cfg: GrantedConfig): void {
   // trusted-proxy auth means the Control UI is reached through a reverse proxy
   // or tunnel. Widget and MCP-app frames load from a separate sandbox listener
   // (gateway port + 1); without mcp.apps.sandboxOrigin the browser derives that
@@ -273,7 +273,7 @@ export function noteSandboxOriginProxyWarning(cfg: OpenClawConfig): void {
 }
 
 /** Warns when per-requester MCP OAuth cannot build a public callback URL. */
-export function noteMcpOriginWarning(cfg: OpenClawConfig): void {
+export function noteMcpOriginWarning(cfg: GrantedConfig): void {
   const hasPerRequesterOAuth = Object.values(cfg.mcp?.servers ?? {}).some(
     (server) => server.oauth?.identity === "per-requester",
   );

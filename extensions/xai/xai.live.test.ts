@@ -2,9 +2,9 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { encodePngRgba, fillPixel } from "openclaw/plugin-sdk/media-runtime";
-import type { OpenClawPluginToolFactory } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolFactory } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import {
   createCapturedPluginRegistration,
@@ -32,7 +32,7 @@ const liveEnabled = XAI_API_KEY.trim().length > 0 && process.env.GRANTED_LIVE_TE
 const describeLive = liveEnabled ? describe : describe.skip;
 const EMPTY_AUTH_STORE = { version: 1, profiles: {} } as const;
 
-function createLiveConfig(): OpenClawConfig {
+function createLiveConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -108,8 +108,8 @@ function registerXaiRealtimeVoiceProvider() {
   return requireRegisteredProvider(captured.realtimeVoiceProviders, "xai");
 }
 
-function registerXaiToolFactories(): Map<string, OpenClawPluginToolFactory> {
-  const factories = new Map<string, OpenClawPluginToolFactory>();
+function registerXaiToolFactories(): Map<string, GrantedPluginToolFactory> {
+  const factories = new Map<string, GrantedPluginToolFactory>();
   plugin.register(
     createTestPluginApi({
       registerTool(tool, options) {
@@ -174,7 +174,7 @@ describeLive("xai plugin live", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const explicitConfig = {
         plugins: {
           entries: {
@@ -186,7 +186,7 @@ describeLive("xai plugin live", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       expect(
         codeExecutionFactory({

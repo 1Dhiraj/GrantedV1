@@ -18,7 +18,7 @@ vi.mock("../config/sessions/session-accessor.js", () => ({
 vi.mock("./session-transcript-title-reader.js", () => ({ readSessionTitleFieldsFromTranscript }));
 
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import type { ChatAttachment } from "./chat-attachments.js";
 import {
@@ -29,7 +29,7 @@ import {
 
 const cfg = {
   agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-} as OpenClawConfig;
+} as GrantedConfig;
 const baseEntry: SessionEntry = {
   sessionId: "session-1",
   updatedAt: 1,
@@ -175,7 +175,7 @@ describe("maybeGenerateDashboardSessionTitle", () => {
           utilityModel: "openai/gpt-5.6-luna",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     resolveUtilityModelRefForAgent.mockReturnValue("openai/gpt-5.6-luna");
 
     await expect(

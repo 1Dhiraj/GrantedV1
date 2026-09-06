@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { __setFsSafeTestHooksForTest } from "@openclaw/fs-safe/test-hooks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -10,7 +10,7 @@ import {
 } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { writeSkill, writeWorkspaceSkills } from "../test-support/e2e-test-helpers.js";
@@ -55,7 +55,7 @@ vi.mock("../lifecycle/skill-change-hook.js", () => ({
 }));
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let workspaceDir: string;
 
 beforeEach(async () => {
@@ -796,7 +796,7 @@ describe("skill collection reconciliation", () => {
   }, 15_000);
 });
 
-async function readCollectionReceipt(config?: OpenClawConfig) {
+async function readCollectionReceipt(config?: GrantedConfig) {
   const skills = listWritableSkillCollection(workspaceDir, { config, env: testState.env });
   return {
     readSkillHashes: new Map(

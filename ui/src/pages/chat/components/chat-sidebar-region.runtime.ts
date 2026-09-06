@@ -12,7 +12,7 @@ import {
 } from "../../../components/panel-toggle-contract.ts";
 import "../../../components/tooltip.ts";
 import { t } from "../../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 import { sidebarPanelDefinitions } from "../chat-pane-embedded-panels.ts";
 import {
   SIDEBAR_GEOMETRY_COMMIT_EVENT,
@@ -60,7 +60,7 @@ function panelsOf(layout: SidebarLayout): SidebarPanel[] {
   return layout.columns[0]?.panels ?? [];
 }
 
-class ChatSidebarRegion extends OpenClawLightDomElement {
+class ChatSidebarRegion extends GrantedLightDomElement {
   @property({ attribute: false }) layout: SidebarLayout = { columns: [] };
   @property({ attribute: false }) panelDefinitions = sidebarPanelDefinitions();
   @property({ attribute: false }) panelTemplates: SidebarPanelTemplates = {};

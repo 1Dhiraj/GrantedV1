@@ -1,5 +1,5 @@
 import type { Server } from "node:http";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginHookToolRequesterContext } from "../../plugins/hook-types.js";
 import type {
   BeforeToolCallFailureDisposition,
@@ -75,7 +75,7 @@ export type NativeHookRelayRegistration = {
   agentId?: string;
   sessionId: string;
   sessionKey?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runId: string;
   channelId?: string;
   requester?: PluginHookToolRequesterContext;
@@ -115,7 +115,7 @@ export type RegisterNativeHookRelayParams = {
   agentId?: string;
   sessionId: string;
   sessionKey?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runId: string;
   channelId?: string;
   requester?: PluginHookToolRequesterContext;

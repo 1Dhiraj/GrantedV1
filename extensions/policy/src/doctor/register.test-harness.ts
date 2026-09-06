@@ -8,7 +8,7 @@ import {
   type HealthCheckContext,
   type HealthFinding,
   type HealthRepairContext,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/health";
 import { clearHealthChecksForTest } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { registerPolicyDoctorChecks } from "./register.js";
@@ -19,7 +19,7 @@ let originalOpenClawHome: string | undefined;
 
 let originalOpenClawStateDir: string | undefined;
 
-export function cfgWithPolicy(settings: Record<string, unknown> = {}): OpenClawConfig {
+export function cfgWithPolicy(settings: Record<string, unknown> = {}): GrantedConfig {
   return {
     plugins: {
       entries: {
@@ -32,10 +32,10 @@ export function cfgWithPolicy(settings: Record<string, unknown> = {}): OpenClawC
   };
 }
 
-type PolicyConfigFixture = OpenClawConfig & Record<string, unknown>;
+type PolicyConfigFixture = GrantedConfig & Record<string, unknown>;
 
 export function cfgWithPolicyOverrides(
-  overrides: Partial<OpenClawConfig> = {},
+  overrides: Partial<GrantedConfig> = {},
 ): PolicyConfigFixture {
   return { ...cfgWithPolicy(), ...overrides };
 }
@@ -58,7 +58,7 @@ export async function writePolicyFixture(
   return configPath;
 }
 
-export function ctx(configPath: string, cfg: OpenClawConfig = {}): HealthCheckContext {
+export function ctx(configPath: string, cfg: GrantedConfig = {}): HealthCheckContext {
   return {
     mode: "lint",
     runtime: {
@@ -72,7 +72,7 @@ export function ctx(configPath: string, cfg: OpenClawConfig = {}): HealthCheckCo
   };
 }
 
-export function repairCtx(configPath: string, cfg: OpenClawConfig = {}): HealthRepairContext {
+export function repairCtx(configPath: string, cfg: GrantedConfig = {}): HealthRepairContext {
   return {
     ...ctx(configPath, cfg),
     mode: "fix",
@@ -102,7 +102,7 @@ export async function runPolicyChecks(checkCtx: HealthCheckContext): Promise<{
 
 export async function runPolicyChecksFixture(
   policy: unknown,
-  cfg: OpenClawConfig = cfgWithPolicy(),
+  cfg: GrantedConfig = cfgWithPolicy(),
 ) {
   return runPolicyChecks(ctx(await writePolicyFixture(policy), cfg));
 }

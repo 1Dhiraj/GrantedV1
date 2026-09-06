@@ -15,6 +15,6 @@ export {
 export {
   getRuntimeConfig,
   resolveDefaultAgentId,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 export { getMemorySearchManager } from "./memory/index.js";

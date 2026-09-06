@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { performance } from "node:perf_hooks";
 import { expect, test, vi } from "vitest";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as sqliteWal from "../infra/sqlite-wal.js";
 import * as agentDatabaseLeases from "../state/openclaw-agent-db-lease.js";
 import * as agentDatabaseSchema from "../state/openclaw-agent-db-schema.js";
@@ -29,7 +29,7 @@ test("discovers groups across more than the handle cap without writable database
       agents: {
         list: agentIds.map((id, index) => ({ id, ...(index === 0 ? { default: true } : {}) })),
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     for (const [index, agentId] of agentIds.entries()) {
       await upsertSessionEntryCore(

@@ -2,7 +2,7 @@
  * Resolves memory-search source, sync, and ranking configuration.
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig, MemorySearchConfig } from "../config/config.js";
+import type { GrantedConfig, MemorySearchConfig } from "../config/config.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import {
   normalizeConfiguredMemoryExtraPaths,
@@ -166,7 +166,7 @@ function normalizeSources(
 
 function getConfiguredMemoryEmbeddingProvider(
   providerId: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): ConfiguredMemoryEmbeddingProvider | undefined {
   // `none` is the built-in FTS-only sentinel, never a plugin capability.
   // Avoid cold plugin discovery when semantic memory is intentionally disabled.
@@ -177,7 +177,7 @@ function getConfiguredMemoryEmbeddingProvider(
 }
 
 /** Resolves indexing eligibility without loading an embedding provider runtime. */
-export function resolveMemorySearchIndexConfig(cfg: OpenClawConfig, agentId: string) {
+export function resolveMemorySearchIndexConfig(cfg: GrantedConfig, agentId: string) {
   const defaults = cfg.memory?.search;
   const overrides = resolveAgentConfig(cfg, agentId)?.memory?.search;
   const enabled = overrides?.enabled ?? defaults?.enabled ?? true;
@@ -210,7 +210,7 @@ export function resolveMemorySearchIndexConfig(cfg: OpenClawConfig, agentId: str
 }
 
 function mergeConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   defaults: MemorySearchConfig | undefined,
   overrides: MemorySearchConfig | undefined,
   agentId: string,
@@ -363,7 +363,7 @@ function resolveSyncConfig(): ResolvedMemorySearchSyncConfig {
 }
 
 export function resolveMemorySearchConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
 ): ResolvedMemorySearchConfig | null {
   const defaults = cfg.memory?.search;
@@ -398,7 +398,7 @@ export function resolveMemorySearchConfig(
 }
 
 export function resolveMemorySearchSyncConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
 ): ResolvedMemorySearchSyncConfig | null {
   const defaults = cfg.memory?.search;

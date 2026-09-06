@@ -6,7 +6,7 @@ import { ensureAbsoluteDirectory } from "../infra/fs-safe.js";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import type { TranscriptSessionDescriptor } from "./provider-types.js";
 import { ensureMeetingTranscriptsSchema } from "./sqlite-schema.js";
@@ -21,10 +21,10 @@ import { meetingTranscriptDb, type MeetingTranscriptSessionRow } from "./store-s
 type ExportOwnershipParams = {
   session: TranscriptSessionDescriptor;
   exportRootDir: string;
-  databaseOptions: OpenClawStateDatabaseOptions;
+  databaseOptions: GrantedStateDatabaseOptions;
 };
 
-function database(options: OpenClawStateDatabaseOptions) {
+function database(options: GrantedStateDatabaseOptions) {
   ensureMeetingTranscriptsSchema(options);
   return openOpenClawStateDatabase(options);
 }

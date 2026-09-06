@@ -2,13 +2,13 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { writeWorkspaceSkills } from "../../skills/test-support/e2e-test-helpers.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { createConfiguredSkillWorkshopTool } from "./skill-workshop-tool-factory.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

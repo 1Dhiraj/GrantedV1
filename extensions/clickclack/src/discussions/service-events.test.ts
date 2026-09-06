@@ -1,6 +1,6 @@
 import type {
-  OpenClawPluginGatewayEvents,
-  OpenClawPluginSessionsChangedEvent,
+  GrantedPluginGatewayEvents,
+  GrantedPluginSessionsChangedEvent,
 } from "openclaw/plugin-sdk/core";
 import { describe, expect, it, vi } from "vitest";
 import type { ClickClackDiscussionBinding } from "./binding-store.js";
@@ -8,7 +8,7 @@ import { resolveClickClackDiscussionRoute } from "./routing.js";
 import { createHarness } from "./service-test-support.js";
 
 function createGatewayEventsHarness() {
-  const handlers = new Set<(event: OpenClawPluginSessionsChangedEvent) => void>();
+  const handlers = new Set<(event: GrantedPluginSessionsChangedEvent) => void>();
   const unsubscribe = vi.fn();
   const gatewayEvents = {
     emit: vi.fn(),
@@ -24,11 +24,11 @@ function createGatewayEventsHarness() {
         unsubscribe();
       };
     }),
-  } satisfies OpenClawPluginGatewayEvents;
+  } satisfies GrantedPluginGatewayEvents;
   return {
     gatewayEvents,
     unsubscribe,
-    emit(event: OpenClawPluginSessionsChangedEvent) {
+    emit(event: GrantedPluginSessionsChangedEvent) {
       for (const handler of handlers) {
         handler(event);
       }

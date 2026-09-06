@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import type { QaLabServerHandle } from "./lab-server.types.js";
@@ -151,7 +151,7 @@ describe("runtime parity Control UI ownership", () => {
 
   it("forwards config mutation to both runtime cells", async () => {
     const lab = createControlUiTestLab();
-    const mutateConfig = vi.fn((config: OpenClawConfig) => config);
+    const mutateConfig = vi.fn((config: GrantedConfig) => config);
 
     await runQaFlowSuiteFromRuntime({
       repoRoot: "/qa-repo",

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { inspectEmbeddingProviderSetup } from "./provider-policy-api.js";
 import { buildLlamaCppProviderConfig } from "./src/defaults.js";
@@ -25,7 +25,7 @@ describe("llama.cpp embedding setup policy", () => {
         args: ["--models-preset", "/managed/models.ini"],
       },
     });
-    const config: OpenClawConfig = { models: { providers: { "llama-cpp": provider } } };
+    const config: GrantedConfig = { models: { providers: { "llama-cpp": provider } } };
     const configBefore = JSON.stringify(config);
 
     expect(

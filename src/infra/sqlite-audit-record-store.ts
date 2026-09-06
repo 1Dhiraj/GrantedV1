@@ -1,11 +1,11 @@
 // Shared SQLite storage for bounded diagnostic audit records.
 import type { DatabaseSync } from "node:sqlite";
 import type { Selectable } from "kysely";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -13,8 +13,8 @@ import {
   getNodeSqliteKysely,
 } from "./kysely-sync.js";
 
-type DiagnosticEventsTable = OpenClawStateKyselyDatabase["diagnostic_events"];
-type AuditRecordDatabase = Pick<OpenClawStateKyselyDatabase, "diagnostic_events">;
+type DiagnosticEventsTable = GrantedStateKyselyDatabase["diagnostic_events"];
+type AuditRecordDatabase = Pick<GrantedStateKyselyDatabase, "diagnostic_events">;
 type DiagnosticEventRow = Pick<
   Selectable<DiagnosticEventsTable>,
   "event_key" | "payload_json" | "created_at" | "sequence"
@@ -114,7 +114,7 @@ function pruneAuditRecords(params: {
 
 /** Opens one bounded audit-record scope in the shared state database. */
 export function createSqliteAuditRecordStore<T>(
-  options: OpenClawStateDatabaseOptions & { scope: string; maxEntries: number },
+  options: GrantedStateDatabaseOptions & { scope: string; maxEntries: number },
 ) {
   const scope = options.scope;
   const maxEntries = Math.max(1, Math.floor(options.maxEntries));

@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 
@@ -124,7 +124,7 @@ const TEST_RUNTIME_CONFIG = {
 
 async function runSessionsUsage(
   params: Record<string, unknown>,
-  config: OpenClawConfig = TEST_RUNTIME_CONFIG,
+  config: GrantedConfig = TEST_RUNTIME_CONFIG,
 ) {
   const respond = vi.fn();
   await expectDefined(
@@ -140,7 +140,7 @@ async function runSessionsUsage(
 
 async function runSessionsUsageTimeseries(
   params: Record<string, unknown>,
-  config: OpenClawConfig = TEST_RUNTIME_CONFIG,
+  config: GrantedConfig = TEST_RUNTIME_CONFIG,
 ) {
   const respond = vi.fn();
   await expectDefined(
@@ -156,7 +156,7 @@ async function runSessionsUsageTimeseries(
 
 async function runSessionsUsageLogs(
   params: Record<string, unknown>,
-  config: OpenClawConfig = TEST_RUNTIME_CONFIG,
+  config: GrantedConfig = TEST_RUNTIME_CONFIG,
 ) {
   const respond = vi.fn();
   await expectDefined(
@@ -580,7 +580,7 @@ describe("sessions.usage", () => {
   });
 
   it("keeps legacy global session entries in explicitly scoped agent usage lookups", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         list: [{ id: "main" }, { id: "opus" }],
@@ -936,7 +936,7 @@ describe("sessions.usage", () => {
   it("loads bare-key usage details through the persisted fixed-store owner", async () => {
     await withOpenClawTestState({ label: "usage-fixed-store-owner" }, async (state) => {
       const storePath = state.statePath("shared-sessions.sqlite");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         session: { store: storePath, scope: "global" },
         agents: {
           ownership: "explicit",

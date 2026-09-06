@@ -1,7 +1,7 @@
 // Log file path helpers resolve log output paths for local runtime logs.
 import { createHash } from "node:crypto";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import {
   DEFAULT_POSIX_TMP_ROOT,
   resolvePreferredOpenClawTmpDir,
@@ -58,7 +58,7 @@ export function resolveDefaultRollingLogFile(options?: {
 
 /** Resolves the configured log file or today's rolling default log path. */
 export function resolveConfiguredLogFilePath(
-  config?: OpenClawConfig | null,
+  config?: GrantedConfig | null,
   options?: { date?: Date; env?: NodeJS.ProcessEnv; logDir?: string },
 ): string {
   return config?.logging?.file ?? resolveDefaultRollingLogFile(options);

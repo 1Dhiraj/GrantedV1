@@ -3,7 +3,7 @@ import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withEnv } from "../../test-utils/env.js";
 import {
   restoreMockSkillsHomeEnv,
@@ -59,7 +59,7 @@ function buildPrompt(
           ...(limits.maxCount !== undefined && { maxSkillsInPrompt: limits.maxCount }),
         },
       },
-    } satisfies OpenClawConfig,
+    } satisfies GrantedConfig,
   });
 }
 
@@ -101,7 +101,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
             maxSkillsPromptChars: 4_000,
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     });
 
     expect(prompt).toContain("visible");
@@ -213,7 +213,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
         skills: {
           limits: { maxSkillsPromptChars: maxChars },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       eligibility: {
         remote: {
           platforms: [],
@@ -239,7 +239,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
       entries: [makeEntry(skill)],
       config: {
         skills: { limits: { maxSkillsPromptChars: expected.length } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       eligibility: {
         remote: {
           platforms: ["linux"],
@@ -329,7 +329,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
     );
     const prompt = buildWorkspaceSkillsPrompt("/fake", {
       entries,
-      config: { skills: { limits: { maxSkillsPromptChars: 50_000 } } } satisfies OpenClawConfig,
+      config: { skills: { limits: { maxSkillsPromptChars: 50_000 } } } satisfies GrantedConfig,
     });
     const nameMatches = [...prompt.matchAll(/<name>(\w+)<\/name>/g)].map((m) => m[1]);
     expect(nameMatches).toEqual(["apple", "banana", "mango", "zoo"]);

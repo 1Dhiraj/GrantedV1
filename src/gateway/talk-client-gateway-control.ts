@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { normalizeTalkSection } from "../config/talk.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginRuntime } from "../plugins/runtime/index.js";
 import {
   GatewayDrainingError,
@@ -111,7 +111,7 @@ function createRealtimeControlQueue(): BoundedSerialQueue {
 }
 
 function createTalkClientAgentRuntime(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   rawSourceRef?: string;
 }) {
@@ -245,7 +245,7 @@ export function boundTalkClientRealtimeInitialItems(
 }
 
 export function createTalkClientAgentConsultRunner(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   context: Pick<GatewayRequestContext, "chatAbortControllers" | "logGateway">;
   sessionTarget: PreparedTalkSessionTarget;
   ownerConnId?: string;

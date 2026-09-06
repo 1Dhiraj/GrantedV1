@@ -17,7 +17,7 @@ import {
 import { resolveConfigWidePluginMetadataSnapshot } from "../config/io.plugin-metadata.js";
 import { resolveIsNixMode } from "../config/paths.js";
 import { ensurePluginAllowlisted } from "../config/plugins-allowlist.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -271,7 +271,7 @@ type ManagedPluginSourceInstallResult =
   | {
       ok: true;
       pluginId: string;
-      config: OpenClawConfig;
+      config: GrantedConfig;
       warnings?: string[];
       targetDir?: string;
       version?: string;
@@ -326,7 +326,7 @@ function getManagedPluginCache(metadata?: PluginMetadataSnapshot) {
 }
 
 function withManagedPluginCache<
-  TParams extends { config: OpenClawConfig; metadata?: PluginMetadataSnapshot },
+  TParams extends { config: GrantedConfig; metadata?: PluginMetadataSnapshot },
   TResult,
 >(run: (params: TParams) => Promise<TResult>): (params: TParams) => Promise<TResult> {
   return (params) => withPluginCache(getManagedPluginCache(params.metadata), () => run(params));
@@ -334,7 +334,7 @@ function withManagedPluginCache<
 
 function resolveManagedPluginDiagnostics(
   snapshot: PluginMetadataSnapshot,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): PluginDiagnostic[] {
   const dependencies = getManagedPluginCache().dependencyStatus;
   const { diagnostics } = projectPluginDependencyHealth({
@@ -747,7 +747,7 @@ function resolveInstalledHostedOfficialEntry(params: {
   };
 }
 
-function resolveManagedPluginMetadataParams(config: OpenClawConfig, env: NodeJS.ProcessEnv) {
+function resolveManagedPluginMetadataParams(config: GrantedConfig, env: NodeJS.ProcessEnv) {
   const workspace = resolvePluginControlPlaneWorkspace({ config, env });
   return {
     config,
@@ -756,7 +756,7 @@ function resolveManagedPluginMetadataParams(config: OpenClawConfig, env: NodeJS.
   };
 }
 
-function resolveManagedPluginMetadata(config: OpenClawConfig, env: NodeJS.ProcessEnv) {
+function resolveManagedPluginMetadata(config: GrantedConfig, env: NodeJS.ProcessEnv) {
   const boot = getProcessGatewayPluginMetadataSnapshot();
   const candidate = getProcessPluginCache().desiredMetadata;
   return candidate && candidate.boot === boot
@@ -764,7 +764,7 @@ function resolveManagedPluginMetadata(config: OpenClawConfig, env: NodeJS.Proces
     : resolvePluginMetadataSnapshot(resolveManagedPluginMetadataParams(config, env));
 }
 
-function loadFreshManagedPluginMetadata(config: OpenClawConfig, env: NodeJS.ProcessEnv) {
+function loadFreshManagedPluginMetadata(config: GrantedConfig, env: NodeJS.ProcessEnv) {
   // Gateway actions must cover every workspace shown in its management inventory.
   return getProcessGatewayPluginMetadataSnapshot()
     ? resolveConfigWidePluginMetadataSnapshot({ config, env, allowCurrent: false })
@@ -776,7 +776,7 @@ function loadFreshManagedPluginMetadata(config: OpenClawConfig, env: NodeJS.Proc
 
 /** Publish desired install state for management without replacing the Gateway's boot facts. */
 export function refreshManagedPluginMetadata(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): PluginMetadataSnapshot {
   const env = params.env ?? process.env;
@@ -794,7 +794,7 @@ export function refreshManagedPluginMetadata(params: {
 /** Resolve the current manifest/catalog icon URL without accepting a caller-provided URL. */
 export const resolveManagedPluginIconUrl = withManagedPluginCache(
   async (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     pluginId: string;
     env?: NodeJS.ProcessEnv;
     officialCatalog?: OfficialCatalogResult;
@@ -846,7 +846,7 @@ function normalizeManagedCatalogIconUrl(value: unknown): string | undefined {
 
 /** Resolve only URLs currently owned by a manifest or bundled presentation catalog. */
 export function resolveManagedSetupCatalogIconUrl(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   iconUrl: string;
   env?: NodeJS.ProcessEnv;
 }): string | undefined {
@@ -872,7 +872,7 @@ export function resolveManagedSetupCatalogIconUrl(params: {
 /** Build cold installed state merged with the hosted official catalog and bundled curation. */
 export const listManagedPlugins = withManagedPluginCache(
   async (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     env?: NodeJS.ProcessEnv;
     officialCatalog?: OfficialCatalogResult;
     metadata?: PluginMetadataSnapshot;
@@ -1092,7 +1092,7 @@ export const listManagedPlugins = withManagedPluginCache(
 /** Inspect one plugin's manifest, operator grants, and recorded install provenance. */
 export const inspectManagedPlugin = withManagedPluginCache(
   async (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     pluginId: string;
     env?: NodeJS.ProcessEnv;
   }): Promise<ManagedPluginInspection> => {
@@ -1365,7 +1365,7 @@ async function persistManagedSourceInstall(params: {
   runtime?: RuntimeEnv;
   successMessage?: string;
   beforePersistentApply?: () => void;
-}): Promise<{ config: OpenClawConfig; warnings: string[] }> {
+}): Promise<{ config: GrantedConfig; warnings: string[] }> {
   const warnings: string[] = [];
   let committed = false;
   try {
@@ -1424,7 +1424,7 @@ async function persistManagedSourceInstall(params: {
  */
 function resolveOfficialManagedInstallSpec(params: {
   request: Extract<ManagedPluginSourceInstallRequest, { source: "official" | "npm" | "clawhub" }>;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): string | null {
   const { request } = params;
   const trustedSourceLinkedOfficialInstall =

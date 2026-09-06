@@ -5,7 +5,7 @@ import { createSubscribedSessionHarness } from "../../agents/embedded-agent-subs
 import { claimPendingAgentQuestionAnswer } from "../../agents/harness/gateway-question.js";
 import { resetPendingAskUserQuestionsForTest } from "../../agents/tools/ask-user-tool.test-support.js";
 import { createSecretsTool } from "../../agents/tools/secrets-tool.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ReplyPayload } from "../types.js";
 import { askUserMocks, hookMocks, mocks } from "./dispatch-from-config.shared.test-harness.js";
 import {
@@ -144,7 +144,7 @@ describe("credential prompt dispatch boundary", () => {
           ? { ok: false, delivered: false, error: "not delivered" }
           : { ok: true, delivered: true };
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: link ? { publicOrigin: "https://console.example.test" } : {},
         ...(deny ? { session: { sendPolicy: { default: "deny" } } } : {}),
       };

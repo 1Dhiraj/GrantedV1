@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 import { resolveAgentEntry } from "../agents/agent-scope-config.js";
 import * as configModule from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 
 type ConfigSnapshot = {
@@ -10,31 +10,31 @@ type ConfigSnapshot = {
   path: string;
   hash: string | null;
   parsed: unknown;
-  sourceConfigBeforeMigrations?: OpenClawConfig;
-  config: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
-  runtimeConfig?: OpenClawConfig;
+  sourceConfigBeforeMigrations?: GrantedConfig;
+  config: GrantedConfig;
+  sourceConfig: GrantedConfig;
+  runtimeConfig?: GrantedConfig;
   issues: Array<{ path?: string; message: string }>;
 };
 
 export type CommitTransform = (
-  currentConfig: OpenClawConfig,
+  currentConfig: GrantedConfig,
   context: {
     previousHash: string | null;
     snapshot: ConfigSnapshot;
     attempt: number;
   },
 ) =>
-  | { nextConfig: OpenClawConfig; result?: unknown }
-  | Promise<{ nextConfig: OpenClawConfig; result?: unknown }>;
+  | { nextConfig: GrantedConfig; result?: unknown }
+  | Promise<{ nextConfig: GrantedConfig; result?: unknown }>;
 
 const mocks = vi.hoisted(() => ({
   state: {
     initialSnapshot: {} as ConfigSnapshot,
-    commitConfig: {} as OpenClawConfig,
+    commitConfig: {} as GrantedConfig,
     commitSnapshot: {} as ConfigSnapshot,
     commitPreviousHash: "probe" as string | null,
-    persistedConfig: undefined as OpenClawConfig | undefined,
+    persistedConfig: undefined as GrantedConfig | undefined,
   },
   events: [] as string[],
   readSnapshot: vi.fn<() => Promise<ConfigSnapshot>>(),
@@ -72,7 +72,7 @@ vi.mock("../wizard/setup.shared.js", async (importOriginal) => ({
 }));
 
 vi.mock("../commands/onboard-helpers.js", () => ({
-  applyWizardMetadata: (config: OpenClawConfig) => ({
+  applyWizardMetadata: (config: GrantedConfig) => ({
     ...config,
     wizard: {
       ...config.wizard,
@@ -112,7 +112,7 @@ vi.mock("../infra/exec-approvals.js", () => ({
 
 vi.mock("../agents/agent-scope.js", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../agents/agent-scope.js")>()),
-  resolveAgentDir: (config: OpenClawConfig, agentId: string) =>
+  resolveAgentDir: (config: GrantedConfig, agentId: string) =>
     resolveAgentEntry(config, agentId)?.agentDir ?? `/agents/${agentId}`,
 }));
 
@@ -128,8 +128,8 @@ export const runtime: RuntimeEnv = {
 
 export function snapshot(
   hash: string | null,
-  sourceConfig: OpenClawConfig,
-  runtimeConfig: OpenClawConfig = sourceConfig,
+  sourceConfig: GrantedConfig,
+  runtimeConfig: GrantedConfig = sourceConfig,
 ): ConfigSnapshot {
   return {
     exists: hash !== null,
@@ -185,9 +185,9 @@ export function codexPluginMetadataSnapshot(homeScope: "agent" | "user") {
 }
 
 export function materializePluginDefaults(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginMetadataSnapshot: ReturnType<typeof codexPluginMetadataSnapshot>,
-): OpenClawConfig {
+): GrantedConfig {
   const result = configModule.validateConfigObjectWithPlugins(config, { pluginMetadataSnapshot });
   if (!result.ok) {
     throw new Error(result.issues[0]?.message ?? "test config failed validation");
@@ -206,11 +206,11 @@ export function baseParams(
   };
 }
 
-export function mainAgentModelConfig(model = "openai/gpt-5.5"): OpenClawConfig {
+export function mainAgentModelConfig(model = "openai/gpt-5.5"): GrantedConfig {
   return { agents: { defaults: { model }, entries: { main: { default: true } } } };
 }
 
-export function setSetupCommitState(config: OpenClawConfig, initialSnapshot: ConfigSnapshot): void {
+export function setSetupCommitState(config: GrantedConfig, initialSnapshot: ConfigSnapshot): void {
   mocks.state.initialSnapshot = initialSnapshot;
   mocks.state.commitConfig = config;
   mocks.state.commitSnapshot = initialSnapshot;

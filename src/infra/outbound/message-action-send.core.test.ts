@@ -6,7 +6,7 @@ import {
   GATEWAY_CLIENT_NAMES,
 } from "../../../packages/gateway-protocol/src/client-info.js";
 import { getReplyPayloadMetadata } from "../../auto-reply/reply-payload.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
 import { OutboundDeliveryError } from "./deliver-types.js";
@@ -41,7 +41,7 @@ const slackConfig = {
       enabled: true,
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function registerSlackTextPlugin(
   accountIds: string[] = ["default"],
@@ -125,7 +125,7 @@ describe("runMessageAction core send routing", () => {
       const result = await runMessageAction({
         cfg: {
           channels: { testchat: { enabled: true } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "send",
         params: {
           channel: "testchat",
@@ -172,7 +172,7 @@ describe("runMessageAction core send routing", () => {
       runMessageAction({
         cfg: {
           channels: { testchat: { enabled: true } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "send",
         params: {
           channel: "testchat",
@@ -217,7 +217,7 @@ describe("runMessageAction core send routing", () => {
           enabled: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await runMessageAction({
       cfg,
@@ -301,7 +301,7 @@ describe("runMessageAction core send routing", () => {
             enabled: true,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "testchat",
@@ -377,7 +377,7 @@ describe("runMessageAction core send routing", () => {
       );
 
       await runMessageAction({
-        cfg: { channels: { testchat: { enabled: true } } } as OpenClawConfig,
+        cfg: { channels: { testchat: { enabled: true } } } as GrantedConfig,
         action: "send",
         params: {
           channel: "testchat",
@@ -446,7 +446,7 @@ describe("runMessageAction core send routing", () => {
     );
 
     const result = await runMessageAction({
-      cfg: { channels: { testchat: { enabled: true } } } as OpenClawConfig,
+      cfg: { channels: { testchat: { enabled: true } } } as GrantedConfig,
       action: "send",
       params: {
         channel: "testchat",
@@ -510,7 +510,7 @@ describe("runMessageAction core send routing", () => {
               ],
             }
           : {}),
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       agentId: "main",
       defaultAccountId: testCase.defaultAccountId,
@@ -536,7 +536,7 @@ describe("runMessageAction core send routing", () => {
     await runMessageAction({
       cfg: {
         channels: { slack: { enabled: true, responsePrefix: "[Nexus]" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "slack",
@@ -556,7 +556,7 @@ describe("runMessageAction core send routing", () => {
     await runMessageAction({
       cfg: {
         channels: { slack: { enabled: true, responsePrefix: "[Nexus]" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "slack",
@@ -607,7 +607,7 @@ describe("runMessageAction core send routing", () => {
     await runMessageAction({
       cfg: {
         channels: { slack: { enabled: true, responsePrefix: "[Nexus]" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "slack",
@@ -628,7 +628,7 @@ describe("runMessageAction core send routing", () => {
       cfg: {
         channels: { slack: { enabled: true, responsePrefix: "[{identity.name}]" } },
         agents: { list: [{ id: "main", identity: { name: "Nexus" } }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "slack",
@@ -649,7 +649,7 @@ describe("runMessageAction core send routing", () => {
     await runMessageAction({
       cfg: {
         channels: { slack: { enabled: true, responsePrefix: "[{provider}/{model}]" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "slack",
@@ -704,7 +704,7 @@ describe("runMessageAction core send routing", () => {
         tts: {
           auto: "off",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "testchat",
@@ -780,7 +780,7 @@ describe("runMessageAction core send routing", () => {
         tts: {
           auto: "inbound",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       action: "send",
       params: {
         channel: "testchat",

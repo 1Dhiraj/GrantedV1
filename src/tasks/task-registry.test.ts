@@ -40,7 +40,7 @@ import {
   tryBeginGatewaySuspendAdmission,
 } from "../process/gateway-work-admission.js";
 import type { ParsedAgentSessionKey } from "../routing/session-key.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -679,7 +679,7 @@ describe("task-registry", () => {
           const database = openOpenClawStateDatabase();
           const row = executeSqliteQueryTakeFirstSync(
             database.db,
-            getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "plugin_state_entries">>(
+            getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "plugin_state_entries">>(
               database.db,
             )
               .selectFrom("plugin_state_entries")

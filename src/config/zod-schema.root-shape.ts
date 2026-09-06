@@ -43,7 +43,7 @@ const MetricNamePrefixSchema = z
   .max(128)
   .regex(/^(?:[A-Za-z][A-Za-z0-9_./-]*)?$/);
 
-export const OpenClawSchemaShape = {
+export const GrantedSchemaShape = {
   $schema: z.string().optional(),
   meta: z
     .strictObject({

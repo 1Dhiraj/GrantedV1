@@ -1,8 +1,8 @@
-import type { OpenClawLeasedExecServer } from "./sandbox-exec-server/types.js";
+import type { GrantedLeasedExecServer } from "./sandbox-exec-server/types.js";
 
 export const sandboxExecServerRegistry = {
-  servers: new Map<string, Promise<OpenClawLeasedExecServer>>(),
-  async close(server: OpenClawLeasedExecServer): Promise<void> {
+  servers: new Map<string, Promise<GrantedLeasedExecServer>>(),
+  async close(server: GrantedLeasedExecServer): Promise<void> {
     if (server.closed) {
       return;
     }

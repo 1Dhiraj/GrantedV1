@@ -1,5 +1,5 @@
 // Qa Lab tests cover live gateway plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { startQaGatewayChild, startQaProviderServer, gatewayStop } = vi.hoisted(() => ({
@@ -26,7 +26,7 @@ type GatewayOptions = {
   providerBaseUrl?: string;
   providerMode?: string;
   transportBaseUrl?: string;
-  mutateConfig?: (cfg: OpenClawConfig) => OpenClawConfig;
+  mutateConfig?: (cfg: GrantedConfig) => GrantedConfig;
 };
 
 function createStubTransport(baseUrl = "http://127.0.0.1:43123") {

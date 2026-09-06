@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
 import {
@@ -134,7 +134,7 @@ export async function createDiscordQaTransportAdapter(
     },
     resetTransport: () => undefined,
     createGatewayConfig: () =>
-      discordQaScenarioSupport.testing.buildDiscordQaConfig({} as OpenClawConfig, {
+      discordQaScenarioSupport.testing.buildDiscordQaConfig({} as GrantedConfig, {
         guildId: runtimeEnv.guildId,
         channelId: runtimeEnv.channelId,
         driverBotId: driverIdentity.id,

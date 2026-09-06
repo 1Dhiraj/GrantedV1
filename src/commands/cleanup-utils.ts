@@ -14,7 +14,7 @@ import {
   deleteWorkspaceState,
   prepareWorkspaceStateDeletion,
 } from "../agents/workspace-state-store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage, isMissingPathError } from "../infra/errors.js";
 import { movePathToTrash } from "../infra/fs-safe.js";
 import { acquireGatewayLock, GatewayLockError } from "../infra/gateway-lock.js";
@@ -109,7 +109,7 @@ async function resolveMoveToTrashAllowedRoots(targetPath: string): Promise<strin
   return uniqueStrings(allowedRoots);
 }
 
-function collectWorkspaceDirs(cfg: OpenClawConfig | undefined): string[] {
+function collectWorkspaceDirs(cfg: GrantedConfig | undefined): string[] {
   const dirs = new Set<string>();
   if (!cfg) {
     dirs.add(resolveDefaultAgentWorkspaceDir());
@@ -123,7 +123,7 @@ function collectWorkspaceDirs(cfg: OpenClawConfig | undefined): string[] {
 
 /** Determine which config, credential, and workspace paths cleanup should consider. */
 export function buildCleanupPlan(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   stateDir: string;
   configPath: string;
   oauthDir: string;

@@ -5,11 +5,11 @@ import {
 // Canonical shared-SQLite store for APNs device and relay registrations.
 import type { Insertable, Selectable } from "kysely";
 import { z } from "zod";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { loadPairedDevicePairingStoreRecordFromDatabase } from "./device-pairing-store.js";
 import { resolveNodePairingGeneration } from "./device-pairing.js";
@@ -87,7 +87,7 @@ type RegisterRelayApnsParams = {
 type RegisterApnsParams = RegisterDirectApnsParams | RegisterRelayApnsParams;
 
 type ApnsRegistrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "apns_registrations" | "apns_registration_tombstones"
 >;
 type ApnsRegistrationRow = Selectable<ApnsRegistrationDatabase["apns_registrations"]>;
@@ -100,7 +100,7 @@ const MAX_RELAY_IDENTIFIER_LENGTH = 256;
 const MAX_SEND_GRANT_LENGTH = 1024;
 const APNS_REGISTRATION_LOOKUP_CHUNK_SIZE = 500;
 
-function apnsStateDatabaseOptions(stateDir?: string): OpenClawStateDatabaseOptions {
+function apnsStateDatabaseOptions(stateDir?: string): GrantedStateDatabaseOptions {
   return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 

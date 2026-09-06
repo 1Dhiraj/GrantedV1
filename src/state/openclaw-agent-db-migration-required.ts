@@ -1,7 +1,7 @@
 export const GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON =
   "gateway.agent_media_migration_required";
 
-export class OpenClawAgentDatabaseMediaMigrationRequiredError extends Error {
+export class GrantedAgentDatabaseMediaMigrationRequiredError extends Error {
   readonly code = GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON;
 
   constructor(
@@ -11,7 +11,7 @@ export class OpenClawAgentDatabaseMediaMigrationRequiredError extends Error {
     super(
       `OpenClaw agent database ${pathname} uses schema version ${schemaVersion}; run openclaw doctor --fix to migrate persisted media before using it.`,
     );
-    this.name = "OpenClawAgentDatabaseMediaMigrationRequiredError";
+    this.name = "GrantedAgentDatabaseMediaMigrationRequiredError";
   }
 }
 
@@ -20,7 +20,7 @@ const AGENT_MEDIA_MIGRATION_REQUIRED_MESSAGE =
 
 function parseAgentMediaMigrationRequiredMessage(
   message: unknown,
-): OpenClawAgentDatabaseMediaMigrationRequiredError | undefined {
+): GrantedAgentDatabaseMediaMigrationRequiredError | undefined {
   if (typeof message !== "string") {
     return undefined;
   }
@@ -34,16 +34,16 @@ function parseAgentMediaMigrationRequiredMessage(
   if (!Number.isSafeInteger(schemaVersion)) {
     return undefined;
   }
-  return new OpenClawAgentDatabaseMediaMigrationRequiredError(pathname, schemaVersion);
+  return new GrantedAgentDatabaseMediaMigrationRequiredError(pathname, schemaVersion);
 }
 
 export function findOpenClawAgentDatabaseMediaMigrationRequiredError(
   error: unknown,
-): OpenClawAgentDatabaseMediaMigrationRequiredError | undefined {
+): GrantedAgentDatabaseMediaMigrationRequiredError | undefined {
   let current = error;
   const seen = new Set<unknown>();
   while (current && typeof current === "object" && !seen.has(current)) {
-    if (current instanceof OpenClawAgentDatabaseMediaMigrationRequiredError) {
+    if (current instanceof GrantedAgentDatabaseMediaMigrationRequiredError) {
       return current;
     }
     const errorLike = current as { cause?: unknown; message?: unknown };
@@ -61,5 +61,5 @@ export function formatLegacyAgentMediaMigrationRequiredMessage(
   pathname: string,
   schemaVersion: number,
 ): string {
-  return new OpenClawAgentDatabaseMediaMigrationRequiredError(pathname, schemaVersion).message;
+  return new GrantedAgentDatabaseMediaMigrationRequiredError(pathname, schemaVersion).message;
 }

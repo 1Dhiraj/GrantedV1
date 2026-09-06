@@ -8,16 +8,16 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 
-const getRuntimeConfig = vi.hoisted(() => vi.fn(() => ({}) as OpenClawConfig));
+const getRuntimeConfig = vi.hoisted(() => vi.fn(() => ({}) as GrantedConfig));
 const listAgentIds = vi.hoisted(() => vi.fn(() => ["main", "research-analyst", "alpha"]));
 const resolveDefaultAgentId = vi.hoisted(() => vi.fn(() => "main"));
 const resolveAgentWorkspaceDir = vi.hoisted(() =>
-  vi.fn((_cfg: OpenClawConfig, _agentId: string) => "/tmp/openclaw"),
+  vi.fn((_cfg: GrantedConfig, _agentId: string) => "/tmp/openclaw"),
 );
 const resolveMemorySearchConfig = vi.hoisted(() =>
-  vi.fn<(_cfg: OpenClawConfig, _agentId: string) => { enabled: boolean } | null>(() => ({
+  vi.fn<(_cfg: GrantedConfig, _agentId: string) => { enabled: boolean } | null>(() => ({
     enabled: true,
   })),
 );
@@ -36,7 +36,7 @@ vi.mock("../../config/config.js", () => ({
 
 vi.mock("../../agents/agent-scope.js", () => ({
   listAgentIds,
-  listAgentEntries: (cfg: OpenClawConfig) =>
+  listAgentEntries: (cfg: GrantedConfig) =>
     cfg.agents?.entries
       ? Object.entries(cfg.agents.entries).map(([id, entry]) => {
           const copy = structuredClone(entry) as Record<string, unknown>;
@@ -731,8 +731,8 @@ describe("doctor.memory.status", () => {
           },
         },
       },
-    } as OpenClawConfig);
-    resolveAgentWorkspaceDir.mockImplementation((cfg: OpenClawConfig, agentId: string) => {
+    } as GrantedConfig);
+    resolveAgentWorkspaceDir.mockImplementation((cfg: GrantedConfig, agentId: string) => {
       if (agentId === "alpha") {
         return alphaWorkspaceDir;
       }
@@ -946,8 +946,8 @@ describe("doctor.memory.status", () => {
           },
         },
       },
-    } as OpenClawConfig);
-    resolveAgentWorkspaceDir.mockImplementation((_cfg: OpenClawConfig, agentId: string) => {
+    } as GrantedConfig);
+    resolveAgentWorkspaceDir.mockImplementation((_cfg: GrantedConfig, agentId: string) => {
       if (agentId === "alpha") {
         return alphaWorkspaceDir;
       }
@@ -1023,7 +1023,7 @@ describe("doctor.memory.status", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     useMemoryManagerFixture({
       status: () => ({ provider: "gemini", workspaceDir }),
@@ -1070,7 +1070,7 @@ describe("doctor.memory.status", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     const { close } = useMemoryManagerFixture({
       status: () => ({ provider: "gemini" }),
@@ -1139,8 +1139,8 @@ describe("doctor.memory.status", () => {
           },
         },
       },
-    } as OpenClawConfig);
-    resolveAgentWorkspaceDir.mockImplementation((_cfg: OpenClawConfig, agentId: string) =>
+    } as GrantedConfig);
+    resolveAgentWorkspaceDir.mockImplementation((_cfg: GrantedConfig, agentId: string) =>
       agentId === "alpha" ? alphaWorkspaceDir : mainWorkspaceDir,
     );
 

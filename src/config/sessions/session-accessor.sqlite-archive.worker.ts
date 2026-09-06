@@ -2,7 +2,7 @@
 import { parentPort, workerData } from "node:worker_threads";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   encodeMaterializedSessionTranscriptArchive,
   hashSessionArchiveBytes,
@@ -23,7 +23,7 @@ import type { SessionStateDeleteSnapshot } from "./session-accessor.sqlite-delet
 import { serializeJsonlLines } from "./transcript-jsonl.js";
 
 type TranscriptArchiveDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "session_transcript_archives" | "transcript_events"
 >;
 

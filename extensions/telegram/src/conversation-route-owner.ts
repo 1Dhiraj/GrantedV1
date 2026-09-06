@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveThreadBindingSpawnPolicy } from "openclaw/plugin-sdk/conversation-runtime";
 import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
 import { resolveTelegramAccount } from "./accounts.js";
@@ -38,7 +38,7 @@ function resolveInspectionThread(params: {
 }
 
 export function inspectTelegramConversationRouteOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   conversation: {
     kind: "direct" | "group" | "channel";

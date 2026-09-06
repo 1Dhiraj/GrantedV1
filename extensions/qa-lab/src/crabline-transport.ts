@@ -8,7 +8,7 @@ import {
   type StartedOpenClawCrablineAdapter,
   type StartedOpenClawCrablineCorrelatedAdapter,
 } from "@openclaw/crabline";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
 import {
   isRecord,
@@ -51,7 +51,7 @@ type QaCrablineTransportState = QaTransportState & {
   rememberProviderTarget: (providerTargetKey: string, qaTarget: string) => void;
 };
 
-function normalizeCrablineSignalGatewayConfig(config: OpenClawConfig): OpenClawConfig {
+function normalizeCrablineSignalGatewayConfig(config: GrantedConfig): GrantedConfig {
   const signal = config.channels?.signal as unknown;
   if (!isRecord(signal)) {
     return config;
@@ -79,7 +79,7 @@ function normalizeCrablineSignalGatewayConfig(config: OpenClawConfig): OpenClawC
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function resolveLogicalQaTarget(
@@ -349,7 +349,7 @@ class QaCrablineTransport extends QaStateBackedTransportAdapter {
   }
 
   createGatewayConfig = (params: { baseUrl: string }): QaTransportGatewayConfig => {
-    const rawConfig = this.#adapter.createGatewayConfig(params) as OpenClawConfig;
+    const rawConfig = this.#adapter.createGatewayConfig(params) as GrantedConfig;
     const config =
       this.#selection.channel === "signal"
         ? normalizeCrablineSignalGatewayConfig(rawConfig)
@@ -404,7 +404,7 @@ class QaCrablineTransport extends QaStateBackedTransportAdapter {
   handleAction = async (_params: {
     action: QaTransportActionName;
     args: Record<string, unknown>;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
   }) => {
     throw new Error(`Crabline channel-driver transport does not support ${_params.action} yet.`);

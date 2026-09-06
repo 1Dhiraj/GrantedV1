@@ -7,7 +7,7 @@ import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createModelAuthAvailabilityResolver } from "./model-auth-availability.js";
 import {
   authStore,
@@ -51,7 +51,7 @@ describe("model auth unavailability reasons", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       if (pending) {
         setConfigResolutionFacts(
           sourceConfig,
@@ -71,7 +71,7 @@ describe("model auth unavailability reasons", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const store = authStore({
         bound: { type: "api_key", provider: "other", key: "profile-key" },
       });
@@ -260,9 +260,9 @@ describe("model auth unavailability reasons", () => {
               },
             },
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         if (source === "hydrated-inline") {
-          const sourceConfig: OpenClawConfig = {
+          const sourceConfig: GrantedConfig = {
             models: {
               providers: {
                 anthropic: {

@@ -9,7 +9,7 @@ import {
   resolveAgentModelPrimaryValue,
 } from "../../config/model-input.js";
 import type { AgentModelConfig } from "../../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { listAgentEntries } from "../agent-scope-config.js";
 
 /** Provider/profile ids that may need external CLI auth discovery. */
@@ -83,7 +83,7 @@ function addExternalCliRuntimeScopeFromModelMap(
 
 /** Resolves external CLI auth discovery scope from configured auth/model surfaces. */
 export function resolveExternalCliAuthScopeFromConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): ExternalCliAuthScope | undefined {
   const providerIds = new Set<string>();
   const profileIds = new Set<string>();

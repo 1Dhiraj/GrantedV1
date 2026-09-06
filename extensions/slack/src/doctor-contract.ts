@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
@@ -199,7 +199,7 @@ function normalizeSlackEntry(params: {
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const changes: string[] = [];
   const retired = stripRetiredChannelKeys({

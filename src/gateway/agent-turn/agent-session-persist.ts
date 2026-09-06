@@ -20,7 +20,7 @@ import {
   type SessionEntryPatchOptions,
 } from "../../config/sessions/session-accessor.js";
 import { buildSessionCreationStamp } from "../../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   normalizeCronScheduledToolCallerOrigin,
   normalizeCronScheduledToolPolicy,
@@ -84,7 +84,7 @@ type AgentSessionPersistResult = {
 
 export async function persistAgentSessionPhase(params: {
   request: AgentRunRequest;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   storeKeys?: string[];
   entry?: SessionEntry;

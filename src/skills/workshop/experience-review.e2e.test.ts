@@ -13,7 +13,7 @@ import { withServer } from "../../plugin-sdk/test-helpers/http-test-server.js";
 import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { readSkillReviewOutcomes } from "./collection-review-state.js";
@@ -33,7 +33,7 @@ import {
 const modelId = "gpt-5.6-luna";
 const { positiveMessages, interruptedMessages } = createExperienceReviewMessages(modelId);
 const tempDirs = createTrackedTempDirs();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 const proposalBody = [
   "# Manifest Deployment",
   "",

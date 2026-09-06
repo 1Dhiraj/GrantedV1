@@ -7,7 +7,7 @@ import {
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { MemoryEmbeddingProvider } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "./api.js";
+import type { GrantedPluginApi } from "./api.js";
 import type { MemoryConfig } from "./config.js";
 
 const providerMocks = vi.hoisted(() => ({
@@ -42,7 +42,7 @@ vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", async (importO
 
 import { createEmbeddings, type Embeddings } from "./embeddings.js";
 
-function createApi(): OpenClawPluginApi {
+function createApi(): GrantedPluginApi {
   const config = {};
   return {
     config,
@@ -50,7 +50,7 @@ function createApi(): OpenClawPluginApi {
       config: { current: () => config },
       agent: { resolveAgentDir: () => "/tmp/openclaw-agent" },
     },
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
 }
 
 const embeddingConfig = {
@@ -112,7 +112,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => config },
         agent: { resolveAgentDir },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     await expect(embed(embeddings, "private", "private account memory")).resolves.toEqual([
@@ -153,7 +153,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => config },
         agent: { resolveAgentDir: (_config: unknown, agentId: string) => `/tmp/agent-${agentId}` },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     await Promise.all([
@@ -198,7 +198,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => config },
         agent: { resolveAgentDir: (_config: unknown, agentId: string) => `/tmp/agent-${agentId}` },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     await Promise.all([
@@ -280,7 +280,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => config },
         agent: { resolveAgentDir: () => agentDir },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     try {
@@ -365,7 +365,7 @@ describe("memory-lancedb provider lifecycle", () => {
             agentDirs[agentId as keyof typeof agentDirs],
         },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     try {
@@ -449,7 +449,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => currentConfig },
         agent: { resolveAgentDir: (_config: unknown, agentId: string) => `/tmp/agent-${agentId}` },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     await embed(embeddings, "private", "before revocation");
@@ -605,7 +605,7 @@ describe("memory-lancedb provider lifecycle", () => {
         config: { current: () => config },
         agent: { resolveAgentDir: () => agentDir },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     const embeddings = createEmbeddings(api);
 
     try {

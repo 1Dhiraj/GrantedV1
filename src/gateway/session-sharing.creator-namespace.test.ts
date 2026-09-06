@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { assignSessionOwner, upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import { ensureProfileForEmail, linkEmail } from "../state/user-profiles.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -49,7 +49,7 @@ describe("creator namespace authorization", () => {
         connect: { scopes: ["operator.read", "operator.write"] },
         authenticatedUserProfile: { profileId: profile.id },
       } as GatewayClient;
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "reader",

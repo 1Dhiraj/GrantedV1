@@ -3,7 +3,7 @@ import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveConfigEnvVars } from "../config/env-substitution.js";
 import { createConfigRuntimeEnv } from "../config/env-vars.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { resolveUserPath } from "../utils.js";
 import { resolvePluginActivationSourceConfig } from "./activation-source-config.js";
@@ -302,14 +302,14 @@ export function resolvePluginLoadCacheContext(options: PluginLoadOptions = {}) {
     shouldResolveRawConfigEnvVars
       ? (resolveConfigEnvVars(rawConfig, env, {
           onMissing: () => undefined,
-        }) as OpenClawConfig)
+        }) as GrantedConfig)
       : rawConfig,
     env,
   );
   const activationSourceConfig = shouldResolveRawConfigEnvVars
     ? (resolveConfigEnvVars(rawActivationSourceConfig, env, {
         onMissing: () => undefined,
-      }) as OpenClawConfig)
+      }) as GrantedConfig)
     : rawActivationSourceConfig;
   const normalized = normalizePluginsConfig(cfg.plugins);
   const activationSource = createPluginActivationSource({ config: activationSourceConfig });

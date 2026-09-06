@@ -1,11 +1,11 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 import path from "node:path";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
-  OpenClawStateLeaseError,
+  GrantedStateLeaseError,
   withOpenClawStateLease,
-  type OpenClawStateLeaseContext,
+  type GrantedStateLeaseContext,
 } from "../state/openclaw-state-lease.js";
 import { createPluginCache, withPluginCache } from "./plugin-cache.js";
 
@@ -14,7 +14,7 @@ const PLUGIN_LIFECYCLE_LEASE_KEY = "global";
 const DEFAULT_PLUGIN_LIFECYCLE_LEASE_MS = 5 * 60_000;
 const DEFAULT_PLUGIN_LIFECYCLE_WAIT_MS = 10 * 60_000;
 
-type PluginLifecycleLeaseContext = OpenClawStateLeaseContext & {
+type PluginLifecycleLeaseContext = GrantedStateLeaseContext & {
   databasePath: string;
 };
 
@@ -24,7 +24,7 @@ type ActivePluginLifecycleLease = {
 };
 
 type PluginLifecycleLeaseOptions = Pick<
-  OpenClawStateDatabaseOptions,
+  GrantedStateDatabaseOptions,
   "env" | "path" | "database"
 > & {
   signal?: AbortSignal;
@@ -70,7 +70,7 @@ export async function withPluginLifecycleLease<T>(
   );
   if (active) {
     if (active.databasePath !== databasePath) {
-      throw new OpenClawStateLeaseError(
+      throw new GrantedStateLeaseError(
         "nested plugin lifecycle lease cannot switch the shared state database",
         { code: "GRANTED_STATE_LEASE_INVALID_INPUT" },
       );

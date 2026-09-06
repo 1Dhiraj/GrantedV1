@@ -1,5 +1,5 @@
 import { ErrorCodes } from "openclaw/plugin-sdk/gateway-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import type { TranscriptSourceProvider } from "openclaw/plugin-sdk/transcripts";
 import { describe, expect, it, vi } from "vitest";
@@ -72,7 +72,7 @@ function authorizationHarness(options?: { browserError?: Error }) {
     pluginConfig: { defaultMode: "transcribe", chrome: { waitForInCallMs: 1 } },
     runtime: {
       gateway: { isAvailable: vi.fn(async () => true), request: gatewayRequest },
-    } as unknown as OpenClawPluginApi["runtime"],
+    } as unknown as GrantedPluginApi["runtime"],
     logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },
     registerGatewayMethod: (method: string, handler: unknown) =>
       methods.set(method, handler as GatewayHandler),
@@ -116,7 +116,7 @@ describe("Microsoft Teams meetings plugin surface", () => {
   it("registers the bounded gateway, tool, CLI, and node surfaces", () => {
     const methods = new Map<string, unknown>();
     const tools: Array<Record<string, unknown>> = [];
-    const cli: Array<Parameters<OpenClawPluginApi["registerCli"]>[1]> = [];
+    const cli: Array<Parameters<GrantedPluginApi["registerCli"]>[1]> = [];
     const nodeCommands: unknown[] = [];
     const policies: unknown[] = [];
     const transcriptProviders: TranscriptSourceProvider[] = [];
@@ -130,7 +130,7 @@ describe("Microsoft Teams meetings plugin surface", () => {
       pluginConfig: {},
       runtime: {
         gateway: { isAvailable: vi.fn(async () => false), request: vi.fn() },
-      } as unknown as OpenClawPluginApi["runtime"],
+      } as unknown as GrantedPluginApi["runtime"],
       logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },
       registerGatewayMethod: (method: string, handler: unknown) => methods.set(method, handler),
       registerTool: (tool: unknown) => {

@@ -1,5 +1,5 @@
 // Enforces the configured spend ceilings immediately before each model call.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   checkSpendLimit,
   describeSpendLimitVerdict,
@@ -23,7 +23,7 @@ import type { StreamFn } from "./runtime/index.js";
  */
 export function wrapStreamFnSpendLimit(params: {
   streamFn: StreamFn;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId: string;
   provider?: string;
 }): StreamFn {

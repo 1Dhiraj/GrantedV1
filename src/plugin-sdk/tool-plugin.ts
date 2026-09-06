@@ -8,8 +8,8 @@ import {
   buildJsonPluginConfigSchema,
   definePluginEntry,
   type AnyAgentTool,
-  type OpenClawPluginApi,
-  type OpenClawPluginToolContext,
+  type GrantedPluginApi,
+  type GrantedPluginToolContext,
 } from "./plugin-entry.js";
 
 const EMPTY_TOOL_PLUGIN_CONFIG_SCHEMA = Type.Object({}, { additionalProperties: false });
@@ -20,7 +20,7 @@ export const toolPluginMetadataSymbol = Symbol.for("openclaw.plugin-sdk.tool-plu
 /** Runtime context supplied to a concrete tool plugin execution handler. */
 export type ToolPluginExecutionContext = {
   /** Plugin runtime API for tool implementations that need OpenClaw services. */
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   /** Abort signal for the current tool call. */
   signal?: AbortSignal;
   /** Stable id of the current model tool call. */
@@ -40,11 +40,11 @@ type ToolPluginToolFactory<TConfig> = <TParamsSchema extends TSchema>(
 /** Context passed to a tool factory that builds runtime-specific tool definitions. */
 export type ToolPluginFactoryContext<TConfig> = {
   /** Plugin runtime API passed to context-sensitive tool factories. */
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   /** Resolved plugin config typed from the declared config schema. */
   config: TConfig;
   /** Runtime tool context, including sandbox/capability information. */
-  toolContext: OpenClawPluginToolContext;
+  toolContext: GrantedPluginToolContext;
 };
 
 type ToolPluginToolDefinitionBase<TParamsSchema extends TSchema> = {

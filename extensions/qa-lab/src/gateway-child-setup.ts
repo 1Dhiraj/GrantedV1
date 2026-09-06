@@ -3,7 +3,7 @@ import { createWriteStream, existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import net from "node:net";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
 import {
@@ -84,7 +84,7 @@ export type QaGatewayChildParams = {
   forwardHostHome?: boolean;
   mockAuthAgentIds?: readonly string[];
   onListening?: (context: QaGatewayChildListeningContext) => Promise<void> | void;
-  mutateConfig?: (cfg: OpenClawConfig) => OpenClawConfig;
+  mutateConfig?: (cfg: GrantedConfig) => GrantedConfig;
   runtimeEnvPatch?: NodeJS.ProcessEnv;
 };
 
@@ -290,7 +290,7 @@ export async function prepareQaGatewayChild(
   let gatewayPort = 0;
   let baseUrl = "";
   let wsUrl = "";
-  let cfg!: OpenClawConfig;
+  let cfg!: GrantedConfig;
   let env: NodeJS.ProcessEnv | null = null;
   let packagedMockAuthStaged = false;
 

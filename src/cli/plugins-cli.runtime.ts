@@ -14,7 +14,7 @@ import {
   replaceConfigFile,
 } from "../config/config.js";
 import { formatConfigIssueLines } from "../config/issue-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { emitDiagnosticsTimelineEvent } from "../infra/diagnostics-timeline.js";
 import { resolvePluginInstallSources } from "../plugins/install-channel-specs.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";
@@ -108,7 +108,7 @@ function pluginIdListIncludes(list: readonly string[] | undefined, pluginId: str
 }
 
 function formatBlockedRuntimePluginGuidance(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginId: string;
 }): string | undefined {
   const pluginId = params.pluginId;
@@ -129,7 +129,7 @@ function formatBlockedRuntimePluginGuidance(params: {
 }
 
 function formatDisabledRuntimePluginGuidance(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginId: string;
 }): string {
   const allow = params.cfg.plugins?.allow;
@@ -144,7 +144,7 @@ function formatDisabledRuntimePluginGuidance(params: {
 }
 
 function collectConfiguredRuntimePluginWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   plugins: readonly { enabled?: boolean; id: string; status?: string }[];
 }): string[] {
   const enabledPluginIds = new Set(
@@ -204,7 +204,7 @@ async function runPluginsEnableCommandUnlocked(
   const { normalizePluginId } = await loadPluginsConfigState();
   const { buildPluginRegistrySnapshotReport } = await loadPluginsStatus();
   const snapshot = await readConfigFileSnapshot();
-  const cfg = (snapshot.sourceConfig ?? snapshot.config) as OpenClawConfig;
+  const cfg = (snapshot.sourceConfig ?? snapshot.config) as GrantedConfig;
   const report = buildPluginRegistrySnapshotReport({ config: cfg });
   id = normalizePluginId(id);
   const plugin = report.plugins.find((entry) => entry.id === id);
@@ -247,7 +247,7 @@ async function runPluginsEnableCommandUnlocked(
   const { applySlotSelectionForPlugin } = await loadPluginSlotSelection();
   const { logSlotWarnings } = await loadPluginsCommandHelpers();
   const { refreshPluginRegistryAfterConfigMutation } = await loadPluginsRegistryRefresh();
-  let next: OpenClawConfig = enableResult.config;
+  let next: GrantedConfig = enableResult.config;
   const slotResult = applySlotSelectionForPlugin(next, id);
   next = slotResult.config;
   await replaceConfigFile({
@@ -290,7 +290,7 @@ async function runPluginsDisableCommandUnlocked(idInput: string): Promise<void> 
   const { setPluginEnabledInConfig } = await import("./plugins-config.js");
   const { refreshPluginRegistryAfterConfigMutation } = await loadPluginsRegistryRefresh();
   const snapshot = await readConfigFileSnapshot();
-  const cfg = (snapshot.sourceConfig ?? snapshot.config) as OpenClawConfig;
+  const cfg = (snapshot.sourceConfig ?? snapshot.config) as GrantedConfig;
   const report = buildPluginRegistrySnapshotReport({ config: cfg });
   id = normalizePluginId(id);
   if (!report.plugins.some((plugin) => plugin.id === id)) {
@@ -671,7 +671,7 @@ function emitMarketplaceFeedTelemetry(params: {
   entryCount?: number;
   failedPinnedRefresh?: boolean;
   opts: MarketplaceFeedTelemetryOptions;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   payload: MarketplaceRefreshPayload;
 }): void {
   const attributes: Record<string, string | number | boolean | null> = {

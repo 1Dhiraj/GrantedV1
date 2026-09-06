@@ -183,7 +183,7 @@ async function setupCronTestRun(params: {
 }
 
 type DirectCronState = GatewayCronState & {
-  getRuntimeConfig: () => import("../config/types.openclaw.js").OpenClawConfig;
+  getRuntimeConfig: () => import("../config/types.openclaw.js").GrantedConfig;
 };
 
 type CronBroadcast = (event: string, payload: unknown) => void;

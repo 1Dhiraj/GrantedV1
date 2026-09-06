@@ -5,7 +5,7 @@ import type {
 } from "../../../packages/gateway-protocol/src/schema/agents-models-skills.js";
 import { resolveAgentHarnessPolicy } from "../../agents/harness/policy.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderCatalogOutcome } from "../../plugins/provider-catalog.types.js";
 import type { GatewayAgentRuntime } from "../../shared/session-types.js";
 import { projectWorkerPlacementAgentRuntime } from "../worker-environments/placement-session-runtime.js";
@@ -53,7 +53,7 @@ export function projectProviderCatalogOutcomes(
 }
 
 export function resolveModelChoiceAgentRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   entry: ModelCatalogEntry;
 }): GatewayAgentRuntime | undefined {

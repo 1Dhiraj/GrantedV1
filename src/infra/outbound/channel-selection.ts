@@ -4,7 +4,7 @@ import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 // tool context fallback, or configured plugin accounts.
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import { formatUnknownChannelMessage } from "../../cli/error-format.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   type OfficialExternalPluginRepairHint,
   resolveMissingOfficialExternalChannelPluginRepairHint,
@@ -28,7 +28,7 @@ import { listRuntimeVisibleChannelPlugins } from "./runtime-visible-channels.js"
 type MessageChannelSelectionSource = "explicit" | "tool-context-fallback" | "single-configured";
 
 function resolveAvailableKnownChannel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   value?: string | null;
   agentId?: string;
 }): { channel: string; plugin: ChannelPlugin } | undefined {
@@ -55,7 +55,7 @@ function resolveAvailableKnownChannel(params: {
 }
 
 /** Checks whether a channel has a non-disabled config entry. */
-export function isConfiguredChannel(cfg: OpenClawConfig, channelId: string): boolean {
+export function isConfiguredChannel(cfg: GrantedConfig, channelId: string): boolean {
   const channels = cfg.channels;
   if (!channels || typeof channels !== "object" || Array.isArray(channels)) {
     return false;
@@ -68,7 +68,7 @@ export function isConfiguredChannel(cfg: OpenClawConfig, channelId: string): boo
 }
 
 function listConfiguredOfficialExternalRepairHints(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): OfficialExternalPluginRepairHint[] {
   const channels = cfg.channels;
   if (!channels || typeof channels !== "object" || Array.isArray(channels)) {
@@ -137,7 +137,7 @@ type AccountResolutionMode = "strict" | "read_only";
 
 async function isPluginConfigured(
   plugin: ChannelPlugin,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountResolution: AccountResolutionMode,
 ): Promise<boolean> {
   const accountIds = plugin.config.listAccountIds(cfg);
@@ -191,7 +191,7 @@ async function isPluginConfigured(
 }
 
 async function listConfiguredMessageChannelPlugins(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountResolution: AccountResolutionMode = "strict",
 ): Promise<ChannelPlugin[]> {
   const plugins: ChannelPlugin[] = [];
@@ -207,13 +207,13 @@ async function listConfiguredMessageChannelPlugins(
 }
 
 /** Lists deliverable channels with at least one enabled, configured account. */
-export async function listConfiguredMessageChannels(cfg: OpenClawConfig): Promise<string[]> {
+export async function listConfiguredMessageChannels(cfg: GrantedConfig): Promise<string[]> {
   return (await listConfiguredMessageChannelPlugins(cfg)).map((plugin) => plugin.id);
 }
 
 /** Resolves the message action channel from explicit input, context fallback, or config. */
 export async function resolveMessageChannelSelection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel?: string | null;
   fallbackChannel?: string | null;
   agentId?: string;

@@ -1,6 +1,6 @@
 // Microsoft Foundry tests cover index plugin behavior.
 import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ProviderAuthMethod } from "openclaw/plugin-sdk/core";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
@@ -192,7 +192,7 @@ function buildFoundryConfig(params?: {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
 function buildEntraProfileStore(
@@ -348,7 +348,7 @@ describe("microsoft-foundry plugin", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await provider.onModelSelected?.({
       config,
@@ -730,7 +730,7 @@ describe("microsoft-foundry plugin", () => {
 
   it("keeps other configured Foundry models when switching the selected model", async () => {
     const provider = registerProvider();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       auth: {
         profiles: {
           "microsoft-foundry:default": {
@@ -861,7 +861,7 @@ describe("microsoft-foundry plugin", () => {
 
   it("infers OpenAI routing when adding a GPT deployment from a Claude-configured provider", async () => {
     const provider = registerProvider();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       models: {
         providers: {
           "microsoft-foundry": {
@@ -1808,7 +1808,7 @@ describe("microsoft-foundry plugin", () => {
 
   it("keeps persisted response-mode routing for custom deployment aliases", async () => {
     const provider = registerProvider();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       auth: {
         profiles: {
           "microsoft-foundry:entra": {
@@ -1953,7 +1953,7 @@ describe("microsoft-foundry plugin", () => {
 
   it("keeps Foundry profile selection compatible with unrelated AWS SDK profile modes", async () => {
     const provider = registerProvider();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       ...buildFoundryConfig({
         profileIds: ["microsoft-foundry:entra"],
         orderedProfileIds: ["microsoft-foundry:entra"],

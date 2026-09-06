@@ -15,7 +15,7 @@ type ResumeTagRecord = {
 };
 type ResumeJobRecord = Partial<Record<"conclusion" | "name", unknown>>;
 
-export interface OpenClawNpmResumeValidationInput {
+export interface GrantedNpmResumeValidationInput {
   canonicalWorkflowId: unknown;
   compareStatus: unknown;
   jobs: ResumeJobRecord[];
@@ -90,7 +90,7 @@ export function validateOpenClawNpmResumeRun({
   tagRef,
   trustedWorkflowFullRef,
   trustedWorkflowRef,
-}: OpenClawNpmResumeValidationInput) {
+}: GrantedNpmResumeValidationInput) {
   const url = requiredString(run?.html_url, "html_url");
   const workflowRef = requiredString(trustedWorkflowRef, "trusted workflow ref");
   const workflowFullRef = requiredString(trustedWorkflowFullRef, "trusted workflow full ref");

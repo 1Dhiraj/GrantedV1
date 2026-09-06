@@ -1,8 +1,8 @@
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type {
   SessionTranscriptTurnWriteContext,
@@ -27,7 +27,7 @@ export function readCommittedTranscriptMessageSequence(
 
 /** Captures atomic turn cursors from the final projection before SQLite commits. */
 export function rememberCommittedTranscriptMessageSequencesInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   messages: readonly TranscriptMessageAppendResult<unknown>[],
 ): void {
@@ -40,7 +40,7 @@ export function rememberCommittedTranscriptMessageSequencesInTransaction(
   }
   const db = getNodeSqliteKysely<
     Pick<
-      OpenClawAgentKyselyDatabase,
+      GrantedAgentKyselyDatabase,
       "session_transcript_active_events" | "session_transcript_index_state"
     >
   >(database.db);

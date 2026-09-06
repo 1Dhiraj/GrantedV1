@@ -5,7 +5,7 @@ import {
   isChannelPartialDeliveryError,
 } from "openclaw/plugin-sdk/channel-inbound";
 import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
 import {
   PLUGIN_COMMAND_DISPATCH,
@@ -44,7 +44,7 @@ type DispatchDiscordNativeAgentReplyResult = {
 };
 
 export async function dispatchDiscordNativeAgentReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordConfig;
   accountId: string;
   interaction: CommandInteraction | ButtonInteraction | StringSelectMenuInteraction;

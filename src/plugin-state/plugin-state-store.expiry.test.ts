@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   countPluginStateLiveEntries,
@@ -16,7 +16,7 @@ import {
   setMaxPluginStateEntriesPerPluginForTests,
 } from "./plugin-state-store.test-helpers.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeAll(async () => {
   testState = await createOpenClawTestState({ label: "plugin-state-expiry" });

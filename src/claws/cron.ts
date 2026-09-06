@@ -7,7 +7,7 @@ import type { CronJob } from "../cron/types.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import type { ClawAddPlan, ClawCronJob } from "./types.js";
 
@@ -76,7 +76,7 @@ function rowToRef(row: CronRefRow): PersistedClawCronRef {
 function persistPendingRef(
   plan: ClawAddPlan,
   job: ClawCronJob,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number },
+  options: GrantedStateDatabaseOptions & { nowMs?: number },
 ): PersistedClawCronRef {
   const nowMs = options.nowMs ?? Date.now();
   const declarationKey = `claw:${plan.agent.finalId}:${job.id}`;
@@ -142,7 +142,7 @@ function persistPendingRef(
 function updateRef(
   ref: PersistedClawCronRef,
   update: { schedulerJobId?: string; status: PersistedClawCronRef["status"]; error?: string },
-  options: OpenClawStateDatabaseOptions & { nowMs?: number },
+  options: GrantedStateDatabaseOptions & { nowMs?: number },
 ): PersistedClawCronRef {
   const updated = {
     ...ref,
@@ -290,7 +290,7 @@ export function clawCronGatewayJobMatchesRef(
 
 export async function installClawCronJobs(
   plan: ClawAddPlan,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     gateway?: Pick<ClawCronGateway, "add" | "list" | "waitUntilAgentAvailable">;
     nowMs?: number;
   } = {},
@@ -406,7 +406,7 @@ export async function installClawCronJobs(
 
 export function readClawCronRefs(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawCronRef[] {
   const database = openOpenClawStateDatabase(options);
   if (
@@ -432,7 +432,7 @@ export function readClawCronRefs(
 export function deleteClawCronRef(
   agentId: string,
   manifestId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: delete one Claw cron ownership row after scheduler cleanup. */
@@ -444,7 +444,7 @@ export function deleteClawCronRef(
 export function markClawCronRefRemoved(
   agentId: string,
   manifestId: string,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): PersistedClawCronRef | undefined {
   const ref = readClawCronRefs(agentId, options).find(
     (candidate) => candidate.manifestId === manifestId,
@@ -454,7 +454,7 @@ export function markClawCronRefRemoved(
 
 export function upsertClawCronRef(
   ref: PersistedClawCronRef,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: Claw cron lifecycle provenance write. */

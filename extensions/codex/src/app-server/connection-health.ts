@@ -1,6 +1,6 @@
 import type {
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { isUnsupportedCodexAppServerVersionError, type CodexAppServerClient } from "./client.js";
 import { resolveCodexAppServerRuntimeOptions } from "./config.js";
@@ -14,12 +14,12 @@ const MAX_RECONNECT_DELAY_MS = 30_000;
 
 type CodexAppServerConnectionHealthServiceOptions = {
   getPluginConfig: () => unknown;
-  getRuntimeConfig: () => OpenClawPluginServiceContext["config"] | undefined;
+  getRuntimeConfig: () => GrantedPluginServiceContext["config"] | undefined;
 };
 
 export function createCodexAppServerConnectionHealthService(
   options: CodexAppServerConnectionHealthServiceOptions,
-): OpenClawPluginService {
+): GrantedPluginService {
   let abortController: AbortController | undefined;
   let monitor: Promise<void> | undefined;
   let leasedClient: CodexAppServerClient | undefined;
@@ -33,7 +33,7 @@ export function createCodexAppServerConnectionHealthService(
     releaseLeasedSharedCodexAppServerClient(client);
   };
 
-  const run = async (ctx: OpenClawPluginServiceContext, signal: AbortSignal) => {
+  const run = async (ctx: GrantedPluginServiceContext, signal: AbortSignal) => {
     let consecutiveFailures = 0;
 
     while (!signal.aborted) {

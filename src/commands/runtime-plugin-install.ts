@@ -3,7 +3,7 @@ import path from "node:path";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { modelSelectionShouldEnsureCopilotRuntimePlugin } from "../agents/copilot-routing.js";
 import { modelSelectionShouldEnsureCodexPlugin } from "../agents/openai-routing.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 import type { PluginCapabilityConsentHandler } from "../plugins/capability-consent.js";
@@ -25,21 +25,21 @@ type RuntimePluginInstallDescriptor = {
 };
 
 type RuntimePluginInstallResult =
-  | { ok: true; cfg: OpenClawConfig; required: boolean }
+  | { ok: true; cfg: GrantedConfig; required: boolean }
   | { ok: false; status: "skipped" | "failed" | "timed_out"; message: string };
 
 type ModelSelectionRuntimePluginsResult =
-  | { ok: true; cfg: OpenClawConfig; codexInstalled: boolean }
+  | { ok: true; cfg: GrantedConfig; codexInstalled: boolean }
   | { ok: false; message: string };
 
 type RuntimePluginSelection = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model?: string;
   agentId?: string;
 }) => boolean;
 
 type RuntimePluginEnsureParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model?: string;
   agentId?: string;
   prompter: WizardPrompter;
@@ -50,7 +50,7 @@ type RuntimePluginEnsureParams = {
 };
 
 type RuntimePluginRepairParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model?: string;
   agentId?: string;
   env?: NodeJS.ProcessEnv;
@@ -86,7 +86,7 @@ function isInstalledRecordPresentOnDisk(
 function finalizeRequiredRuntimePluginInstall(
   descriptor: RuntimePluginInstallDescriptor,
   result: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     installed: boolean;
     status: "installed" | "skipped" | "failed" | "timed_out";
     reason?: string;
@@ -221,7 +221,7 @@ async function ensureRuntimePluginForModelSelection(
 
 /** Repairs missing install records for runtime plugins required by model selection. */
 async function repairRuntimePluginInstallForModelSelection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model?: string;
   agentId?: string;
   env?: NodeJS.ProcessEnv;

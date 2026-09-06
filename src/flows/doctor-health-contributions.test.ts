@@ -4,7 +4,7 @@ import nodePath from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDoctorConfigSnapshot } from "../commands/doctor-config-snapshot.test-helpers.js";
 import type { DoctorPrompter } from "../commands/doctor-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { LEGACY_SECRETREF_ENV_MARKER_PREFIX } from "../config/types.secrets.js";
 import { fetchNpmPackageTargetStatus } from "../infra/update-check-package-target.js";
 import { migrateLegacySecretRefEnvMarkers } from "../secrets/legacy-secretref-env-marker.js";
@@ -128,15 +128,15 @@ const mocks = vi.hoisted(() => ({
     changes: [],
     warnings: [],
   }),
-  listAgentIds: vi.fn<(_cfg: OpenClawConfig) => string[]>(() => ["default"]),
+  listAgentIds: vi.fn<(_cfg: GrantedConfig) => string[]>(() => ["default"]),
   listAgentEntries: vi.fn(() => [{ id: "default" }]),
-  tryResolveSoleAgentId: vi.fn<(_cfg: OpenClawConfig) => string | undefined>(() => "default"),
-  resolveAgentWorkspaceDir: vi.fn<(_cfg: OpenClawConfig, agentId: string) => string>(
+  tryResolveSoleAgentId: vi.fn<(_cfg: GrantedConfig) => string | undefined>(() => "default"),
+  resolveAgentWorkspaceDir: vi.fn<(_cfg: GrantedConfig, agentId: string) => string>(
     () => "/tmp/openclaw-workspace",
   ),
   tryResolveConfiguredAgentWorkspaceDir: vi.fn(() => "/tmp/openclaw-workspace"),
   tryResolveSystemAgentWorkspaceDir: vi.fn(() => "/tmp/openclaw-workspace"),
-  resolveDefaultAgentId: vi.fn<(_cfg: OpenClawConfig) => string>(() => "default"),
+  resolveDefaultAgentId: vi.fn<(_cfg: GrantedConfig) => string>(() => "default"),
   resolveAgentContextLimits: vi.fn(
     (cfg: { agents?: { defaults?: { contextLimits?: unknown } } }) =>
       cfg.agents?.defaults?.contextLimits ?? {},
@@ -493,7 +493,7 @@ vi.mock("../version.js", async () => ({
 }));
 
 vi.mock("../commands/doctor/shared/config-flow-steps.js", () => ({
-  restoreDoctorConfigEnvRefs: (cfg: OpenClawConfig) => cfg,
+  restoreDoctorConfigEnvRefs: (cfg: GrantedConfig) => cfg,
 }));
 
 vi.mock("../config/config.js", () => ({
@@ -667,11 +667,11 @@ function createDoctorContext({
 }
 
 function createDoctorLintFixture(
-  cfg: OpenClawConfig | Record<string, unknown> = {},
+  cfg: GrantedConfig | Record<string, unknown> = {},
   overrides: Omit<Parameters<typeof createDoctorLintContext>[0], "cfg"> = {},
 ) {
   return createDoctorLintContext({
-    cfg: cfg as OpenClawConfig,
+    cfg: cfg as GrantedConfig,
     mode: "lint",
     runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
     ...overrides,
@@ -932,7 +932,7 @@ describe("doctor health contributions", () => {
 
   it("rejects a failed initial config write before later work runs", async () => {
     const laterRun = vi.fn(async () => undefined);
-    const cfg = { gateway: { mode: "invalid" } } as unknown as OpenClawConfig;
+    const cfg = { gateway: { mode: "invalid" } } as unknown as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1062,7 +1062,7 @@ describe("doctor health contributions", () => {
   });
 
   it("keeps a late runtime publication failure after committing config migrations", async () => {
-    const cfg = { hooks: { gmail: { model: "openai/gpt-5.5" } } } as OpenClawConfig;
+    const cfg = { hooks: { gmail: { model: "openai/gpt-5.5" } } } as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1093,7 +1093,7 @@ describe("doctor health contributions", () => {
   it("persists migrated Discord config once across both write phases", async () => {
     const cfg = {
       channels: { discord: { streaming: { mode: "partial" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1114,7 +1114,7 @@ describe("doctor health contributions", () => {
   });
 
   it("does not mark an invalid migration durable when validation rejects the write", async () => {
-    const cfg = { gateway: { mode: "invalid" } } as unknown as OpenClawConfig;
+    const cfg = { gateway: { mode: "invalid" } } as unknown as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1143,7 +1143,7 @@ describe("doctor health contributions", () => {
     // print "Doctor changes — gatway", then crash with a raw Error and persist nothing.
     const cfg = {
       agents: { defaults: { heartbeat: { every: 5 } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1233,7 +1233,7 @@ describe("doctor health contributions", () => {
   it("describes only the failed later write after an earlier pass committed", async () => {
     // First write pass commits; a later health repair then produces a candidate the
     // writer refuses. The warning must not claim the whole run wrote nothing.
-    const cfg = { gateway: { mode: "local" } } as OpenClawConfig;
+    const cfg = { gateway: { mode: "local" } } as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1249,7 +1249,7 @@ describe("doctor health contributions", () => {
     ctx.cfg = {
       ...ctx.cfg,
       agents: { defaults: { heartbeat: { every: 5 } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.note.mockClear();
     mocks.replaceConfigFile.mockRejectedValueOnce(
       Object.assign(new Error("Config validation failed: agents.defaults.heartbeat.every"), {
@@ -1276,7 +1276,7 @@ describe("doctor health contributions", () => {
   });
 
   it("prints held change panels as Doctor changes only after the write commits", async () => {
-    const cfg = { gateway: { mode: "local" } } as OpenClawConfig;
+    const cfg = { gateway: { mode: "local" } } as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -1304,7 +1304,7 @@ describe("doctor health contributions", () => {
     const laterRun = vi.fn(async () => undefined);
     const cfg = {
       agents: { ownership: "explicit", entries: { ops: {}, research: {} } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const ctx = createDoctorContext({
       cfg,
       cfgForPersistence: structuredClone(cfg),
@@ -2989,7 +2989,7 @@ describe("doctor health contributions", () => {
 
   it("labels normal workspace suggestions for secondary agents", async () => {
     const contribution = requireDoctorContribution("doctor:workspace-suggestions");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const ctx = createDoctorContext({ cfg, env: {} });
     mocks.listAgentIds.mockReturnValue(["default", "secondary"]);
     mocks.resolveAgentWorkspaceDir.mockImplementation((_cfg, agentId) => `/tmp/${agentId}`);
@@ -3015,7 +3015,7 @@ describe("doctor health contributions", () => {
 
   it("keeps single-agent workspace suggestion wording unchanged", async () => {
     const contribution = requireDoctorContribution("doctor:workspace-suggestions");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const ctx = createDoctorContext({ cfg, env: {} });
     mocks.collectWorkspaceBackupTip.mockReturnValue("- Back up this workspace.");
     mocks.shouldSuggestMemorySystem.mockResolvedValue(true);
@@ -4180,7 +4180,7 @@ describe("doctor health contributions", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const migrated = migrateLegacySecretRefEnvMarkers(legacyConfig);
     expect(migrated.changes).toEqual([
       `Moved models.providers.clawrouter.apiKey ${legacyMarker} marker → structured env SecretRef.`,
@@ -4215,7 +4215,7 @@ describe("doctor health contributions", () => {
   });
 
   it("does not commit deferred cron migration when the config write fails", async () => {
-    const cfg = { agents: { defaults: { models: {} } } } as OpenClawConfig;
+    const cfg = { agents: { defaults: { models: {} } } } as GrantedConfig;
     mocks.replaceConfigFile.mockRejectedValueOnce(new Error("config write failed"));
     const ctx = {
       cfg,
@@ -4241,7 +4241,7 @@ describe("doctor health contributions", () => {
   });
 
   it("keeps deferred cron migration in the final phase after the early config write", async () => {
-    const cfg = { agents: { defaults: { models: {} } } } as OpenClawConfig;
+    const cfg = { agents: { defaults: { models: {} } } } as GrantedConfig;
     const ctx = {
       cfg,
       cfgForPersistence: cfg,
@@ -4307,7 +4307,7 @@ describe("doctor health contributions", () => {
     });
 
     function buildWriteConfigCtx(env: Record<string, string | undefined>) {
-      const cfg: OpenClawConfig = { gateway: { mode: "local" } };
+      const cfg: GrantedConfig = { gateway: { mode: "local" } };
       return createDoctorContext({
         cfg,
         cfgForPersistence: { gateway: { mode: "remote" } },

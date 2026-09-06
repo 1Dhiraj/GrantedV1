@@ -12,7 +12,7 @@ import {
   resolveThinkingDefaultForModelCore,
   type ThinkLevel,
 } from "../auto-reply/thinking.shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderThinkingPolicySource } from "../plugins/provider-thinking.types.js";
 import type { ModelCatalogEntry } from "./model-catalog.types.js";
 import { legacyModelKey, modelKey, normalizeProviderId } from "./model-ref-shared.js";
@@ -20,7 +20,7 @@ import { normalizeModelSelection } from "./model-selection-resolve.js";
 import { buildConfiguredModelCatalog } from "./model-selection-shared.js";
 
 type ThinkingDefaultParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
   catalog?: ModelCatalogEntry[];
@@ -28,7 +28,7 @@ type ThinkingDefaultParams = {
 };
 
 export function resolveConfiguredThinkingDefaultCore(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
 }): ThinkLevel | undefined {

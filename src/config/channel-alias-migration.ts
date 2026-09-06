@@ -11,7 +11,7 @@ import {
 } from "./channel-compat-normalization.js";
 import { materializeInheritedAccountStreaming } from "./channel-doctor-helpers.js";
 import type { LegacyConfigRule } from "./legacy.shared.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 export type StreamingAliasMode = "off" | "partial" | "block" | "progress";
 
@@ -117,8 +117,8 @@ export function defineChannelAliasMigration<TMode extends string = StreamingAlia
 ): {
   legacyConfigRules: LegacyConfigRule[];
   hasLegacyAliases: (value: unknown) => boolean;
-  normalizeChannelConfig: (params: { cfg: OpenClawConfig; changes?: string[] }) => {
-    config: OpenClawConfig;
+  normalizeChannelConfig: (params: { cfg: GrantedConfig; changes?: string[] }) => {
+    config: GrantedConfig;
     changes: string[];
   };
 } {
@@ -152,7 +152,7 @@ export function defineChannelAliasMigration<TMode extends string = StreamingAlia
     resolvedNativeTransport: streaming.resolveNativeTransport?.(entry),
   });
 
-  const normalizeChannelConfig = (params: { cfg: OpenClawConfig; changes?: string[] }) => {
+  const normalizeChannelConfig = (params: { cfg: GrantedConfig; changes?: string[] }) => {
     const changes = params.changes ?? [];
     const channels = params.cfg.channels as Record<string, unknown> | undefined;
     const entry = asObjectRecord(channels?.[spec.channelId]);
@@ -188,7 +188,7 @@ export function defineChannelAliasMigration<TMode extends string = StreamingAlia
     const config = {
       ...params.cfg,
       channels: { ...channels, [spec.channelId]: result.entry },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     return {
       config: spec.accountStreamingInheritsDefaultAccount
         ? materializeInheritedAccountStreaming({

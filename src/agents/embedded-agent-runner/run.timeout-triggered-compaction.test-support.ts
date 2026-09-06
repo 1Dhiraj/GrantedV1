@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import type { AgentHarness } from "../harness/types.js";
 import { makeAttemptResult, makeCompactionSuccess } from "./run.overflow-compaction.fixture.js";
 import {
@@ -34,7 +34,7 @@ type CompactParams = {
 };
 
 describe("runEmbeddedAgent timeout recovery composition", () => {
-  let fixture: Pick<OpenClawTestState, "cleanup"> | undefined;
+  let fixture: Pick<GrantedTestState, "cleanup"> | undefined;
 
   beforeAll(async () => {
     runEmbeddedAgent = await loadSharedRunIntegrationHarness();

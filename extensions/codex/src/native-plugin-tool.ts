@@ -1,6 +1,6 @@
 /** Owner-scoped, read-only discovery of plugins already known to Codex. */
 import { jsonResult, type AnyAgentTool } from "openclaw/plugin-sdk/core";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { asOptionalRecord as readRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
@@ -27,7 +27,7 @@ const CodexPluginsParamsSchema = Type.Object(
 
 type CodexPluginsToolOptions = {
   bindingStore: CodexAppServerBindingStore;
-  context: OpenClawPluginToolContext;
+  context: GrantedPluginToolContext;
   getPluginConfig: () => unknown;
   request?: typeof codexControlRequest;
 };

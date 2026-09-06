@@ -12,7 +12,7 @@ import {
   replaceSessionEntry,
   replaceSessionEntrySync,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { RealtimeVoiceProviderPlugin } from "../../plugins/types.js";
@@ -28,7 +28,7 @@ import type {
 } from "../../talk/provider-types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { registerChatAbortController } from "../chat-abort.js";
 import { handleGatewayRequest } from "../server-methods.js";
@@ -75,8 +75,8 @@ vi.mock("../../talk/provider-resolver.js", () => ({
 }));
 vi.mock("../../talk/provider-registry.js", () => ({ listRealtimeVoiceProviders: () => [] }));
 
-let state: OpenClawTestState;
-let config: OpenClawConfig;
+let state: GrantedTestState;
+let config: GrantedConfig;
 let client: ReturnType<typeof sharingPolicyClient> & { connId: string };
 let callback: RealtimeVoiceAgentConsultRunner | undefined;
 let browserVoiceSessionId: string | undefined;

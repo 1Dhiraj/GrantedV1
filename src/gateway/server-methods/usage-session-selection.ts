@@ -8,7 +8,7 @@ import {
   resolveSessionFilePathOptions,
 } from "../../config/sessions/paths.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveExistingUsageSessionFile } from "../../infra/session-cost-usage.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";
 import { resolvePreferredSessionKeyForSessionIdMatches } from "../../sessions/session-id-resolution.js";
@@ -33,7 +33,7 @@ type ResolvedSessionUsageTarget = {
 
 export function resolveSessionUsageTarget(
   key: string,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentIdHint?: string,
 ): ResolvedSessionUsageTarget | undefined {
   const { canonicalKey, entry, storePath } = loadGatewaySessionEntryReadOnly(
@@ -183,7 +183,7 @@ function withUsageGrouping(
 }
 
 export async function selectUsageSessions(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId?: string;
   specificKey: string | null;
   groupingMode: UsageGroupingMode;

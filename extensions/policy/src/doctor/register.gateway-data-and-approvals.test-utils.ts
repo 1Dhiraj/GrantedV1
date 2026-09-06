@@ -1,7 +1,7 @@
 // Imported by register.test.ts to keep its mocked suite in one Vitest module graph.
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import { runDoctorLintChecks, type OpenClawConfig } from "openclaw/plugin-sdk/health";
+import { runDoctorLintChecks, type GrantedConfig } from "openclaw/plugin-sdk/health";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { collectPolicyEvidence } from "../policy-state.js";
 import { registerPolicyDoctorChecks } from "./register.js";
@@ -24,7 +24,7 @@ function writeDataHandlingPolicyFixture(dataHandling: object): Promise<string> {
   return writePolicyFixture({ dataHandling });
 }
 
-function runRegisteredPolicyDoctor(configPath: string, cfg: OpenClawConfig) {
+function runRegisteredPolicyDoctor(configPath: string, cfg: GrantedConfig) {
   registerPolicyDoctorChecks();
   return runDoctorLintChecks(ctx(configPath, cfg));
 }
@@ -48,7 +48,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       gateway: {
         http: {
@@ -71,7 +71,7 @@ describe("registerPolicyDoctorChecks", () => {
           oauth: { provider: "github", mode: "oauth" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       auth: {
         profiles: { requireMetadata: ["provider", "mode"], allowModes: ["api_key", "token"] },
@@ -102,7 +102,7 @@ describe("registerPolicyDoctorChecks", () => {
       diagnostics: { otel: { enabled: true, captureContent: true } },
       session: { maintenance: { mode: "warn" } },
       memory: { search: { rememberAcrossConversations: true, sources: ["sessions"] } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       sensitiveLogging: { requireRedaction: true },
       telemetry: { denyContentCapture: true },
@@ -162,7 +162,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       session: {},
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       retention: { requireSessionMaintenance: true },
     });
@@ -187,7 +187,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       diagnostics: { otel: { captureContent: false } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       telemetry: { denyContentCapture: true },
     });
@@ -204,7 +204,7 @@ describe("registerPolicyDoctorChecks", () => {
         enabled: false,
         otel: { enabled: true, captureContent: true },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       telemetry: { denyContentCapture: true },
     });
@@ -220,7 +220,7 @@ describe("registerPolicyDoctorChecks", () => {
       diagnostics: {
         otel: { enabled: true, traces: false, logs: true, captureContent: true },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       telemetry: { denyContentCapture: true },
     });
@@ -248,7 +248,7 @@ describe("registerPolicyDoctorChecks", () => {
           buddy: { memory: { search: { rememberAcrossConversations: false } } },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         restricted: {
@@ -276,7 +276,7 @@ describe("registerPolicyDoctorChecks", () => {
       memory: {
         search: { rememberAcrossConversations: true, sources: ["sessions"] },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         restricted: {
@@ -308,7 +308,7 @@ describe("registerPolicyDoctorChecks", () => {
           sources: ["sessions"],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeDataHandlingPolicyFixture({
       memory: { denySessionTranscriptIndexing: true },
     });
@@ -1044,7 +1044,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       secrets: {
         requireManagedProviders: true,
@@ -1132,7 +1132,7 @@ describe("registerPolicyDoctorChecks", () => {
           allowPrivateNetwork: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({
       network: {
         privateNetwork: { allow: true },
@@ -1152,7 +1152,7 @@ describe("registerPolicyDoctorChecks", () => {
           openrouter: {},
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       network: {
         privateNetwork: { allow: false },

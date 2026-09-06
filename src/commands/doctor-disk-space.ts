@@ -2,7 +2,7 @@
 import os from "node:os";
 import { expectDefined, formatByteSize } from "@openclaw/normalization-core";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { tryReadDiskSpace } from "../infra/disk-space.js";
@@ -97,7 +97,7 @@ function collectDiskSpaceWarnings(params: {
 
 /** Collects read-only structured findings for low disk space around the state directory. */
 export function collectDiskSpaceHealthFindings(
-  _cfg: OpenClawConfig, // reserved for API consistency with other Doctor contributions
+  _cfg: GrantedConfig, // reserved for API consistency with other Doctor contributions
   deps?: {
     env?: NodeJS.ProcessEnv;
     readDiskSpace?: (targetPath: string) => { availableBytes: number } | null;
@@ -140,7 +140,7 @@ export function collectDiskSpaceHealthFindings(
  * are specific to this health contribution.
  */
 export function noteDiskSpace(
-  _cfg: OpenClawConfig, // reserved for API consistency with other Doctor contributions
+  _cfg: GrantedConfig, // reserved for API consistency with other Doctor contributions
   deps?: {
     env?: NodeJS.ProcessEnv;
     readDiskSpace?: (targetPath: string) => { availableBytes: number } | null;

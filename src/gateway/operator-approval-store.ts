@@ -25,13 +25,13 @@ import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
 import type {
-  DB as OpenClawStateKyselyDatabase,
+  DB as GrantedStateKyselyDatabase,
   OperatorApprovals,
 } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   mintCronStandingGrantLocked,
@@ -159,7 +159,7 @@ type TerminalizeOperatorApprovalsResult = {
 };
 
 type OperatorApprovalDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "operator_approvals" | "operator_approval_execution_identities"
 >;
 type OperatorApprovalRow = Selectable<OperatorApprovals>;
@@ -1027,7 +1027,7 @@ function operatorApprovalExecutionLinkState(
 export function hasOperatorApprovalReceiptsForRun(params: {
   runId: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): boolean {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -1052,7 +1052,7 @@ export function hasOperatorApprovalReceiptsForRun(params: {
 export function summarizeOperatorApprovalReceiptsForRun(params: {
   context: OperatorApprovalReceiptContext;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   exactCount?: boolean;
 }): {
   count: number;
@@ -1133,7 +1133,7 @@ export function pageOperatorApprovalReceiptsForRun(params: {
   offset?: number;
   limit: number;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): OperatorApprovalReceiptPage {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -1336,7 +1336,7 @@ function inputMatchesExistingRow(
 
 export function insertOperatorApproval(params: {
   approval: NewOperatorApproval;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): InsertOperatorApprovalResult {
   const input = params.approval;
   const id = requireApprovalId(input.id);
@@ -1479,7 +1479,7 @@ export function getOperatorApprovalDetailed(params: {
   id: string;
   allowTransportRef?: boolean;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): GetOperatorApprovalResult {
   const locator = requireApprovalId(params.id);
   return runOpenClawStateWriteTransaction((database) => {
@@ -1514,7 +1514,7 @@ export function listPendingOperatorApprovals(
     recordFilter?: (record: OperatorApprovalRecord) => boolean;
     limit?: number;
     nowMs?: number;
-    databaseOptions?: OpenClawStateDatabaseOptions;
+    databaseOptions?: GrantedStateDatabaseOptions;
   } = {},
 ): OperatorApprovalRecord[] {
   expireDueOperatorApprovals({ nowMs: params.nowMs, databaseOptions: params.databaseOptions });
@@ -1599,7 +1599,7 @@ export function listTerminalOperatorApprovals(
     limit?: number;
     kind?: OperatorApprovalKind;
     nowMs?: number;
-    databaseOptions?: OpenClawStateDatabaseOptions;
+    databaseOptions?: GrantedStateDatabaseOptions;
   } = {},
 ): ListTerminalOperatorApprovalsResult {
   const requestedLimit = Number.isSafeInteger(params.limit)
@@ -1681,7 +1681,7 @@ export function resolveOperatorApproval(params: {
   expectedKind?: OperatorApprovalKind;
   runtimeEpoch?: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   /** Cron-context allow-always mints this scoped grant in the same transaction. */
   standingGrant?: { kind: "cron" } & CronStandingGrantMintSpec & {
       expiresAtMs: number | null;
@@ -1795,7 +1795,7 @@ export function forceDenyOperatorApproval(params: {
   expectedKind?: OperatorApprovalKind;
   runtimeEpoch?: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): ForceDenyOperatorApprovalResult {
   const id = requireApprovalId(params.id);
   const runtimeEpoch =
@@ -1867,7 +1867,7 @@ export function forceDenyOperatorApproval(params: {
 
 export function expireDueOperatorApprovals(params: {
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): TerminalizeOperatorApprovalsResult {
   return runOpenClawStateWriteTransaction((database) => {
     const nowMs = params.nowMs ?? Date.now();
@@ -1926,7 +1926,7 @@ export function expireDueOperatorApprovals(params: {
 export function closeOrphanedOperatorApprovals(params: {
   runtimeEpoch: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): TerminalizeOperatorApprovalsResult {
   const runtimeEpoch = requireString(params.runtimeEpoch, "operator approval runtime epoch");
   return runOpenClawStateWriteTransaction((database) => {
@@ -1996,7 +1996,7 @@ export function consumeOperatorApprovalAllowOnce(params: {
   runtimeEpoch?: string;
   redemptionWindowMs?: number;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): ConsumeOperatorApprovalResult {
   const id = requireApprovalId(params.id);
   const consumerId = requireString(params.consumerId, "operator approval consumer id");
@@ -2091,7 +2091,7 @@ export function consumeOperatorApprovalAllowOnce(params: {
 export function pruneTerminalOperatorApprovals(params: {
   nowMs?: number;
   retentionMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): number {
   const retentionMs = params.retentionMs ?? OPERATOR_APPROVAL_TERMINAL_RETENTION_MS;
   if (!Number.isSafeInteger(retentionMs) || retentionMs < 0) {

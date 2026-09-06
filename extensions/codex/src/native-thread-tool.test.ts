@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { MODEL_SELECTION_LOCKED_MESSAGE } from "openclaw/plugin-sdk/model-session-runtime";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { withTempDir } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
@@ -51,7 +51,7 @@ describe("native Codex thread tool", () => {
     modelSelectionLocked?: boolean;
     bindingStore?: CodexAppServerBindingStore;
   }) {
-    const context: OpenClawPluginToolContext = {
+    const context: GrantedPluginToolContext = {
       config: {},
       agentId: "main",
       agentDir: path.join(root, "agent"),

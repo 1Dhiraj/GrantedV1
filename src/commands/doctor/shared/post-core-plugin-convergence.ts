@@ -1,6 +1,6 @@
 // Reconciles configured plugin installs after the core package update has completed.
 import path from "node:path";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import {
   filterRecordsToActive,
@@ -152,7 +152,7 @@ function formatPeerLinkPackageReadWarning(failure: { error: unknown }): PostCore
  * then boots with those plugins marked configured-unavailable.
  */
 export async function runPostCorePluginConvergence(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   compatibilityHostVersion?: string;
   /**

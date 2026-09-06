@@ -1,14 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { createConfiguredSkillWorkshopTool } from "./skill-workshop-tool-factory.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

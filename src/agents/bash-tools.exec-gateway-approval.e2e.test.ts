@@ -11,7 +11,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { GATEWAY_CLIENT_CAPS } from "../../packages/gateway-protocol/src/client-info.js";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.js";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ADMIN_SCOPE } from "../gateway/method-scopes.js";
 import { startGatewayServer } from "../gateway/server.js";
 import {
@@ -95,7 +95,7 @@ describe("gateway-hosted exec approvals", () => {
             ask: "off",
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await fs.writeFile(configPath, `${JSON.stringify(config, null, 2)}\n`, "utf8");
 
       setTestEnvValue("HOME", tempHome);

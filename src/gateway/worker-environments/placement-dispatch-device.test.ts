@@ -12,7 +12,7 @@ import {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type { NodeWorkerSupervisorNodeProof } from "../node-registry-private.js";
 import { resolveDevicePlacementEligibility } from "./device-placement-eligibility.js";
@@ -105,7 +105,7 @@ function prepareCloudNodeDispatch(
 
 describe("device worker placement dispatch", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let placementStore: PlacementStore;
 
   beforeEach(() => {

@@ -11,7 +11,7 @@ import type { RuntimeEnv } from "../runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import * as taskRegistryMaintenance from "../tasks/task-registry.maintenance.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import type { OpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import { runSessionRegistryMaintenance } from "./tasks-session-registry-maintenance.js";
 import { tasksMaintenanceCommand } from "./tasks.js";
 
@@ -34,7 +34,7 @@ vi.mock("../cron/store.js", async (importOriginal) => {
 });
 
 function writeAgentDeletion(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   agentId: string,
   cleanupCompleted: boolean,
 ): void {
@@ -59,7 +59,7 @@ async function writeStaleCronSession(storePath: string, agentId: string): Promis
   return sessionKey;
 }
 
-async function withMaintenanceState(run: (state: OpenClawTestState) => Promise<void>) {
+async function withMaintenanceState(run: (state: GrantedTestState) => Promise<void>) {
   await withOpenClawTestState(
     { layout: "state-only", prefix: "openclaw-session-registry-maintenance-" },
     async (state) => {

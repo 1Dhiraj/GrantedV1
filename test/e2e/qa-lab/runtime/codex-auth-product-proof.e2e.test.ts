@@ -13,7 +13,7 @@ import {
 import { connectGatewayStatusClient, postJson } from "../../../helpers/gateway-e2e-harness.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 import { runCodexAuthDoctorMigrationProof } from "./codex-auth-product-proof.test-support.js";
 
@@ -28,7 +28,7 @@ const SELECTED_AUTH_PROFILE_UNAVAILABLE_USER_TEXT =
 const PRODUCT_OUTPUT = "QA_CODEX_AUTH_PRODUCT_PROOF_OK";
 const REQUEST_TIMEOUT_MS = 60_000;
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 
 type AppServerLogEntry = {
   id?: number | string;
@@ -100,7 +100,7 @@ function chatgptAccessToken(accountId: string): string {
   ].join(".");
 }
 
-async function waitForAssistantHistory(testInstance: OpenClawTestInstance, expected: string) {
+async function waitForAssistantHistory(testInstance: GrantedTestInstance, expected: string) {
   const client = await connectGatewayStatusClient(testInstance);
   try {
     return await vi.waitFor(
@@ -151,7 +151,7 @@ async function waitForAssistantHistory(testInstance: OpenClawTestInstance, expec
 }
 
 async function connectGatewayEventClient(
-  testInstance: OpenClawTestInstance,
+  testInstance: GrantedTestInstance,
   events: GatewayEvent[],
 ) {
   return await new Promise<GatewayClient>((resolve, reject) => {

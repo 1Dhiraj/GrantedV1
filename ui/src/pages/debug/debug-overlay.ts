@@ -3,7 +3,7 @@ import { html, nothing } from "lit";
 import { state as litState } from "lit/decorators.js";
 import { applicationContext, type ApplicationContext } from "../../app/context.ts";
 import { t } from "../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import "../../styles/debug.css";
 import {
@@ -21,7 +21,7 @@ type SectionState =
   | { status: "ready"; value: unknown }
   | { status: "unavailable" };
 
-export class DebugOverlay extends OpenClawLightDomElement {
+export class DebugOverlay extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: ApplicationContext;
 

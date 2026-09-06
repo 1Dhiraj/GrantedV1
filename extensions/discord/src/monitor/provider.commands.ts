@@ -3,7 +3,7 @@ import {
   listNativeCommandSpecsForConfig,
   listSkillCommandsForAgents,
 } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import {
   mergeNativeCommandSpecs,
@@ -24,7 +24,7 @@ const loadPluginCommandRuntime = createLazyRuntimeModule(
 );
 
 export async function resolveDiscordProviderCommandSpecs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   nativeEnabled: boolean;
   nativeSkillsEnabled: boolean;

@@ -1,5 +1,5 @@
 // Synology Chat tests cover core plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
 import {
   createPluginSetupWizardConfigure,
@@ -26,7 +26,7 @@ const synologyChatSetupPlugin = {
   config: {
     listAccountIds,
     defaultAccountId: () => "default",
-    resolveAllowFrom: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId?: string }) =>
+    resolveAllowFrom: ({ cfg, accountId }: { cfg: GrantedConfig; accountId?: string }) =>
       resolveAccount(cfg, accountId).allowedUserIds,
   },
 };
@@ -157,7 +157,7 @@ describe("synology-chat core", () => {
 
     const result = await runSetupWizardConfigure({
       configure: synologyChatConfigure,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       prompter,
       options: {},
     });
@@ -211,7 +211,7 @@ describe("synology-chat core", () => {
             incomingUrl: existingIncomingUrl,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       prompter,
       options: { secretInputMode: "plaintext" as const },
     });
@@ -234,7 +234,7 @@ describe("synology-chat core", () => {
 
     const result = await runSetupWizardConfigure({
       configure: synologyChatConfigure,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       prompter,
       options: {},
       forceAllowFrom: true,

@@ -23,7 +23,7 @@ import type {
   BoardViewCallbacks,
   BoardWidgetFrameUrl,
 } from "../../lib/board/view-types.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import "../../styles/board.css";
 import "../web-awesome-tabs.ts";
 import "../web-awesome.ts";
@@ -69,7 +69,7 @@ function itemsForWidgets(
   }));
 }
 
-class OpenClawBoardView extends OpenClawLightDomElement {
+class GrantedBoardView extends GrantedLightDomElement {
   @property({ attribute: false }) snapshot?: BoardSnapshot;
   @property({ attribute: false }) activeTabId = "";
   @property({ attribute: false }) widgetFrameUrl?: BoardWidgetFrameUrl;
@@ -720,11 +720,11 @@ class OpenClawBoardView extends OpenClawLightDomElement {
 }
 
 if (!customElements.get("openclaw-board-view")) {
-  customElements.define("openclaw-board-view", OpenClawBoardView);
+  customElements.define("openclaw-board-view", GrantedBoardView);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-board-view": OpenClawBoardView;
+    "openclaw-board-view": GrantedBoardView;
   }
 }

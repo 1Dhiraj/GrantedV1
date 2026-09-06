@@ -29,7 +29,7 @@ import type {
   CodexSandboxExecSessionNotifications,
   JsonRpcRequest,
   ManagedProcess,
-  OpenClawExecServer,
+  GrantedExecServer,
 } from "./types.js";
 
 /** Connection-local execution state; closing it never enables session resumption. */
@@ -41,7 +41,7 @@ export class CodexSandboxExecSession {
   private cleanup?: Promise<void>;
 
   constructor(
-    private readonly execServer: OpenClawExecServer,
+    private readonly execServer: GrantedExecServer,
     private readonly transport: CodexSandboxExecMessageTransport,
   ) {
     this.notifications = {

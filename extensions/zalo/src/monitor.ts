@@ -14,7 +14,7 @@ import {
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
 import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
 import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import type { MarkdownTableMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
 import {
   createLazyRuntimeModule,
@@ -69,7 +69,7 @@ const ZALO_MEDIA_RESPONSE_HEADER_TIMEOUT_MS = 120_000;
 type ZaloMonitorOptions = {
   token: string;
   account: ResolvedZaloAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: ZaloRuntimeEnv;
   abortSignal: AbortSignal;
   useWebhook?: boolean;
@@ -99,7 +99,7 @@ type ZaloStatusSink = (patch: {
 type ZaloProcessingContext = {
   token: string;
   account: ResolvedZaloAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: ZaloRuntimeEnv;
   core: ZaloCoreRuntime;
   mediaMaxMb: number;
@@ -759,7 +759,7 @@ async function deliverZaloReply(params: {
   token: string;
   chatId: string;
   core: ZaloCoreRuntime;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   webhookUrl?: string;
   webhookPath?: string;
   proxyUrl?: string;

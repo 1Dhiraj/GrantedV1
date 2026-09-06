@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { MemoryPluginPublicArtifact } from "openclaw/plugin-sdk/memory-host-core";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { resolveMemoryWikiConfig } from "./config.js";
 import { renderWikiMarkdown } from "./markdown.js";
 import {
@@ -33,7 +33,7 @@ async function resolveBridgeMissingArtifactsStatus() {
       agents: {
         list: [{ id: "main", default: true, workspace: "/tmp/workspace" }],
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     listPublicArtifacts: async () => [],
     pathExists: async () => true,
     resolveCommand: async () => null,
@@ -113,7 +113,7 @@ describe("resolveMemoryWikiStatus", () => {
         agents: {
           list: [{ id: "main", default: true, workspace: "/tmp/workspace" }],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       listPublicArtifacts: async () => {
         listCalls += 1;
         return [];
@@ -231,7 +231,7 @@ describe("resolveMemoryWikiStatus", () => {
       },
     ];
     const deps = {
-      appConfig: {} as OpenClawConfig,
+      appConfig: {} as GrantedConfig,
       listPublicArtifacts: async () => artifacts,
       pathExists: async () => true,
       resolveCommand: async () => null,

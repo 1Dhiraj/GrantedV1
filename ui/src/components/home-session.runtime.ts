@@ -5,14 +5,14 @@ import { property, state } from "lit/decorators.js";
 import { keyed } from "lit/directives/keyed.js";
 import { applicationContext, type ApplicationContext } from "../app/context.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { formatChatWorkContext, type ChatWorkContext } from "../pages/chat/chat-work-context.ts";
 import "../pages/chat/chat-pane.ts";
 import "../styles/chat.css";
 import { icons } from "./icons.ts";
 
 /** The real Home conversation; its surrounding dock owns placement and focus. */
-export class OpenClawHomeSession extends OpenClawLightDomElement {
+export class GrantedHomeSession extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
   @property({ attribute: false }) sessionKey = "";
@@ -158,10 +158,10 @@ export class OpenClawHomeSession extends OpenClawLightDomElement {
   }
 }
 
-customElements.define("openclaw-home-session", OpenClawHomeSession);
+customElements.define("openclaw-home-session", GrantedHomeSession);
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-home-session": OpenClawHomeSession;
+    "openclaw-home-session": GrantedHomeSession;
   }
 }

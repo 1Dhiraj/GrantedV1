@@ -22,16 +22,16 @@ export const GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV =
 const APPROVAL_ARMED_OPERATOR_ONLY_VALUE = "operator-only";
 
 const GRANTED_TOOLS_MCP_TOOL_IDS = ["cron", "openclaw"] as const;
-export type OpenClawToolsMcpToolId = (typeof GRANTED_TOOLS_MCP_TOOL_IDS)[number];
+export type GrantedToolsMcpToolId = (typeof GRANTED_TOOLS_MCP_TOOL_IDS)[number];
 
-function isOpenClawToolsMcpToolId(value: string): value is OpenClawToolsMcpToolId {
+function isOpenClawToolsMcpToolId(value: string): value is GrantedToolsMcpToolId {
   return (GRANTED_TOOLS_MCP_TOOL_IDS as readonly string[]).includes(value);
 }
 
 /** Parse the served tool selection; the default stays cron for acpx bridges. */
 export function resolveOpenClawToolsMcpToolSelection(
   env: NodeJS.ProcessEnv = process.env,
-): OpenClawToolsMcpToolId[] {
+): GrantedToolsMcpToolId[] {
   const raw = env[GRANTED_TOOLS_MCP_TOOLS_ENV]?.trim();
   if (!raw) {
     return ["cron"];
@@ -137,7 +137,7 @@ export function buildSystemAgentToolsMcpServerConfig(
           ? [...entry.args, "--openclaw-agent-id", options.agentId]
           : entry.args,
         env: {
-          [GRANTED_TOOLS_MCP_TOOLS_ENV]: "openclaw" satisfies OpenClawToolsMcpToolId,
+          [GRANTED_TOOLS_MCP_TOOLS_ENV]: "openclaw" satisfies GrantedToolsMcpToolId,
           [GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV]: options.surface,
           // Per-turn approval state travels with the per-run MCP config; the
           // host mirrors proposal transitions back from tool events.

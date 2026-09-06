@@ -6,7 +6,7 @@ import path from "node:path";
 import JSON5 from "json5";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -22,7 +22,7 @@ import {
 import type { ConfigFileSnapshot } from "./types.js";
 
 const CONFIG_CLOBBER_SNAPSHOT_LIMIT = 32;
-type ConfigHealthDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type ConfigHealthDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 type ObserveRecoveryDeps = Parameters<typeof maybeRecoverSuspiciousConfigRead>[0]["deps"];
 const approveRecoveryCandidate = <T extends { raw: string; parsed: unknown }>(candidate: T) => ({
   ok: true as const,

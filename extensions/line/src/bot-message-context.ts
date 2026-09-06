@@ -16,7 +16,7 @@ import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   ensureConfiguredBindingRouteReady,
   resolvePinnedMainDmOwnerFromAllowlist,
@@ -53,7 +53,7 @@ interface BuildLineMessageContextParams {
   event: MessageEvent;
   allMedia: MediaRef[];
   mediaUnavailable?: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedLineAccount;
   commandAuthorized: boolean;
   resolveChannelIngress?: (
@@ -108,7 +108,7 @@ function buildPeerId(source: EventSource): string {
 
 async function resolveLineInboundRoute(params: {
   source: EventSource;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedLineAccount;
 }): Promise<{
   userId?: string;
@@ -257,7 +257,7 @@ type LineRouteInfo = ReturnType<typeof resolveAgentRoute>;
 type LineSourceInfoWithPeerId = LineSourceInfo & { peerId: string };
 
 async function finalizeLineInboundContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedLineAccount;
   event: MessageEvent | PostbackEvent;
   route: LineRouteInfo;
@@ -538,7 +538,7 @@ export async function buildLineMessageContext(params: BuildLineMessageContextPar
 
 export async function buildLinePostbackContext(params: {
   event: PostbackEvent;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedLineAccount;
   commandAuthorized: boolean;
   resolveChannelIngress?: (

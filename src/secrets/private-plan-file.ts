@@ -24,7 +24,7 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
-public sealed class OpenClawPrivatePlanFile : IDisposable
+public sealed class GrantedPrivatePlanFile : IDisposable
 {
     [StructLayout(LayoutKind.Sequential)]
     private struct SecurityAttributes
@@ -92,7 +92,7 @@ public sealed class OpenClawPrivatePlanFile : IDisposable
     private readonly string finalPath;
     private SafeFileHandle handle;
 
-    private OpenClawPrivatePlanFile(
+    private GrantedPrivatePlanFile(
         string stagingPath,
         string finalPath,
         SafeFileHandle handle)
@@ -112,7 +112,7 @@ public sealed class OpenClawPrivatePlanFile : IDisposable
             (uint)Marshal.SizeOf(typeof(FileDispositionInfo)));
     }
 
-    public static OpenClawPrivatePlanFile Open(
+    public static GrantedPrivatePlanFile Open(
         string stagingPath,
         string finalPath,
         string securityDescriptor,
@@ -146,7 +146,7 @@ public sealed class OpenClawPrivatePlanFile : IDisposable
                 handle.Dispose();
                 return null;
             }
-            return new OpenClawPrivatePlanFile(stagingPath, finalPath, handle);
+            return new GrantedPrivatePlanFile(stagingPath, finalPath, handle);
         }
         finally
         {
@@ -281,7 +281,7 @@ export async function createPrivateWindowsPlanFile(
     "$sddl = $security.GetSecurityDescriptorSddlForm($sections)",
     "$content = [Convert]::FromBase64String($payload.content)",
     "$openError = 0",
-    "$native = [OpenClawPrivatePlanFile]::Open($stagingPath, $finalPath, $sddl, [ref]$openError)",
+    "$native = [GrantedPrivatePlanFile]::Open($stagingPath, $finalPath, $sddl, [ref]$openError)",
     "$errorCode = $openError",
     "if ($null -ne $native) { try { $actual = Get-Acl -LiteralPath $stagingPath; $rules = @($actual.GetAccessRules($true, $true, [System.Security.Principal.SecurityIdentifier])); if (!$actual.AreAccessRulesProtected -or $rules.Count -ne $expected.Count) { throw 'private plan ACL verification failed' }; foreach ($rule in $rules) { if ($rule.AccessControlType -ne [System.Security.AccessControl.AccessControlType]::Allow -or $expected -notcontains $rule.IdentityReference.Value -or ($rule.FileSystemRights -band [System.Security.AccessControl.FileSystemRights]::FullControl) -ne [System.Security.AccessControl.FileSystemRights]::FullControl) { throw 'private plan ACL verification failed' } }; $errorCode = $native.ArmDeleteOnClose(); if ($errorCode -eq 0) { $errorCode = $native.WriteAndPublish($content) } } finally { $native.Dispose() } }",
     `if ($errorCode -eq 80 -or $errorCode -eq 183) { throw '${WINDOWS_PLAN_FILE_EXISTS_MARKER}' }`,

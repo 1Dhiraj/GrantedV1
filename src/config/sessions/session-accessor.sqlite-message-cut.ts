@@ -9,7 +9,7 @@ import { isIncognitoSessionKey } from "../../shared/incognito-session-key.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type { TranscriptEvent } from "./session-accessor.sqlite-contract.js";
 import {
@@ -96,7 +96,7 @@ function cloneSessionBranchSummaries(branches: readonly SessionBranchSummary[]) 
 }
 
 function readSessionBranchWatermark(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): Pick<SessionBranchCacheEntry, "generation" | "maxSeq"> {
   const db = getSessionKysely(database.db);
@@ -118,7 +118,7 @@ function readSessionBranchWatermark(
 }
 
 function loadSessionBranchSummaries(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): SessionBranchSummary[] {
   const cacheKey = sessionBranchCacheKey(database.path, sessionId);
@@ -276,7 +276,7 @@ async function mutateSqliteSessionAtMessage(
 }
 
 function mutateSqliteSessionAtMessageInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedSqliteScope,
   params: {
     canonicalSourceKey: string;

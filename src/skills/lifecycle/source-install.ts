@@ -4,7 +4,7 @@ import path from "node:path";
 import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sanitizeHostExecEnv } from "../../infra/host-env-security.js";
 import { withInstallWorkspace } from "../../infra/install-source-utils.js";
 import { writeJson } from "../../infra/json-files.js";
@@ -203,7 +203,7 @@ async function installLocalSkillDir(params: {
   force?: boolean;
   timeoutMs?: number;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
   git?: SkillSourceOrigin["git"];
 }): Promise<SkillSourceInstallResult> {
@@ -272,7 +272,7 @@ async function installGitSkill(params: {
   force?: boolean;
   timeoutMs?: number;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
 }): Promise<SkillSourceInstallResult> {
   const parsed = parseGitPluginSpec(params.spec);
@@ -367,7 +367,7 @@ async function installPathSkill(params: {
   force?: boolean;
   timeoutMs?: number;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
 }): Promise<SkillSourceInstallResult> {
   const sourceDir = resolveUserPath(params.spec);
@@ -413,7 +413,7 @@ export async function installSkillFromSource(params: {
   force?: boolean;
   timeoutMs?: number;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
 }): Promise<SkillSourceInstallResult> {
   const spec = params.spec.trim();

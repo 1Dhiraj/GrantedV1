@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { clearBundledDiscoveryModeMemo } from "./bundled-discovery-state.js";
@@ -264,7 +264,7 @@ function requireManifestRegistryLoadParams(index = 0): Record<string, unknown> {
 
 function expectManifestRegistryLoad(
   index: number,
-  config: OpenClawConfig | Record<string, never> | undefined,
+  config: GrantedConfig | Record<string, never> | undefined,
 ) {
   const params = requireManifestRegistryLoadParams(index);
   expect(params.config).toEqual(config);
@@ -307,7 +307,7 @@ function collectActiveRegistryLookups() {
 }
 
 function expectBundledCompatLoadPath(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   enablementCompat: {
     plugins: {
       allow?: string[];
@@ -325,7 +325,7 @@ function expectBundledCompatLoadPath(params: {
 
 function createCompatChainConfig() {
   setBundledDiscoveryCompat();
-  const cfg = { plugins: { allow: ["custom-plugin"] } } as OpenClawConfig;
+  const cfg = { plugins: { allow: ["custom-plugin"] } } as GrantedConfig;
   const enablementCompat = {
     plugins: {
       allow: ["custom-plugin"],
@@ -368,7 +368,7 @@ function expectCompatChainApplied(params: {
     | "videoGenerationProviders"
     | "musicGenerationProviders";
   contractKey: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   enablementCompat: {
     plugins: {
       allow?: string[];
@@ -556,7 +556,7 @@ describe("resolvePluginCapabilityProviders", () => {
       provider: { generateImage },
     });
     const prepared = prepareMediaCapabilityProviders({
-      cfg: { plugins } as OpenClawConfig,
+      cfg: { plugins } as GrantedConfig,
       registry,
       pluginMetadataSnapshot: {
         index: { plugins: [{ pluginId: "blocked", origin: "bundled", enabled: false }] },
@@ -601,7 +601,7 @@ describe("resolvePluginCapabilityProviders", () => {
         },
       },
     ]);
-    const cfg = { plugins } as OpenClawConfig;
+    const cfg = { plugins } as GrantedConfig;
 
     expect(
       resolvePluginCapabilityProvider({
@@ -627,7 +627,7 @@ describe("resolvePluginCapabilityProviders", () => {
     mocks.resolveRuntimePluginRegistry.mockImplementation((params?: unknown) =>
       params === undefined ? active : createEmptyPluginRegistry(),
     );
-    const cfg = { plugins: { allow: ["allowed-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["allowed-plugin"] } } as GrantedConfig;
 
     expect(
       resolvePluginCapabilityProvider({
@@ -659,7 +659,7 @@ describe("resolvePluginCapabilityProviders", () => {
       setCapabilityManifestPlugins([
         { id: "blocked", contracts: { speechProviders: ["blocked"] } },
       ]);
-      const cfg = { plugins: { enabled: false, ...plugins } } as OpenClawConfig;
+      const cfg = { plugins: { enabled: false, ...plugins } } as GrantedConfig;
 
       expect(
         resolvePluginCapabilityProvider({ key: "speechProviders", providerId: "blocked", cfg }),
@@ -690,7 +690,7 @@ describe("resolvePluginCapabilityProviders", () => {
       expect(
         resolvePluginCapabilityProviders({
           key: "imageGenerationProviders",
-          cfg: { plugins } as OpenClawConfig,
+          cfg: { plugins } as GrantedConfig,
         }),
       ).toEqual([]);
       expect(mocks.loadBundledCapabilityRuntimeRegistry).not.toHaveBeenCalled();
@@ -957,7 +957,7 @@ describe("resolvePluginCapabilityProviders", () => {
       params === undefined ? active : loaded,
     );
 
-    const cfg: OpenClawConfig = { plugins: { allow: ["fal", "xai", "unconfigured-image"] } };
+    const cfg: GrantedConfig = { plugins: { allow: ["fal", "xai", "unconfigured-image"] } };
     const providers = resolvePluginCapabilityProviders({
       key: "imageGenerationProviders",
       cfg,
@@ -1066,7 +1066,7 @@ describe("resolvePluginCapabilityProviders", () => {
           voiceModel: { primary: "openai/gpt-4o-mini-tts" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.loadPluginManifestRegistryCore.mockReturnValue({
       plugins: [
         {
@@ -1113,7 +1113,7 @@ describe("resolvePluginCapabilityProviders", () => {
       params === undefined ? active : loaded,
     );
 
-    const providers = resolvePluginCapabilityProviders({ key, cfg: cfg as OpenClawConfig });
+    const providers = resolvePluginCapabilityProviders({ key, cfg: cfg as GrantedConfig });
 
     expectResolvedCapabilityProviderIds(providers, ["google", "openai"]);
     expectActiveRegistryLookup(["openai"]);
@@ -1171,7 +1171,7 @@ describe("resolvePluginCapabilityProviders", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       mocks.loadPluginManifestRegistryCore.mockReturnValue({
         plugins: [
           { id: "openai", origin: "bundled", contracts: { [key]: ["openai"] } },
@@ -1268,7 +1268,7 @@ describe("resolvePluginCapabilityProviders", () => {
             models: [{ provider: "deepgram" }],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["deepgram"]);
@@ -1337,7 +1337,7 @@ describe("resolvePluginCapabilityProviders", () => {
             audio: { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["openai", "deepgram"]);
@@ -1355,7 +1355,7 @@ describe("resolvePluginCapabilityProviders", () => {
       cfg: {
         plugins: { entries: { microsoft: { enabled: true } } },
         tts: { provider: "edge" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["microsoft"]);
@@ -1380,7 +1380,7 @@ describe("resolvePluginCapabilityProviders", () => {
 
     const providers = resolvePluginCapabilityProviders({
       key: "speechProviders",
-      cfg: { tts: { provider: "acme" } } as OpenClawConfig,
+      cfg: { tts: { provider: "acme" } } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["acme"]);
@@ -1412,7 +1412,7 @@ describe("resolvePluginCapabilityProviders", () => {
       cfg: {
         plugins: { allow: ["openai", "microsoft"] },
         tts: { provider: "edge" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["openai", "microsoft"]);
@@ -1438,7 +1438,7 @@ describe("resolvePluginCapabilityProviders", () => {
       key: "speechProviders",
       cfg: {
         tts: { provider: "google" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["openai", "google"]);
@@ -1471,7 +1471,7 @@ describe("resolvePluginCapabilityProviders", () => {
       key: "speechProviders",
       cfg: {
         tts: { provider: "google" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["openai", "google"]);
@@ -1515,7 +1515,7 @@ describe("resolvePluginCapabilityProviders", () => {
     const provider = resolvePluginCapabilityProvider({
       key: "realtimeVoiceProviders",
       providerId: "google",
-      cfg: { plugins: { allow: ["openai", "google"] } } as OpenClawConfig,
+      cfg: { plugins: { allow: ["openai", "google"] } } as GrantedConfig,
     });
 
     expect(provider?.id).toBe("google");
@@ -1615,7 +1615,7 @@ describe("resolvePluginCapabilityProviders", () => {
       cfg: {
         plugins: { allow: ["openai", "microsoft", "elevenlabs"] },
         tts: { provider: "edge" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["openai", "microsoft"]);
@@ -1640,7 +1640,7 @@ describe("resolvePluginCapabilityProviders", () => {
           provider: "google",
           providers: { microsoft: {} },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectResolvedCapabilityProviderIds(providers, ["google", "microsoft"]);
@@ -1706,7 +1706,7 @@ describe("resolvePluginCapabilityProviders", () => {
 
     const providers = resolvePluginCapabilityProviders({
       key: "mediaUnderstandingProviders",
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
     });
 
     expectNoResolvedCapabilityProviders(providers);
@@ -1720,7 +1720,7 @@ describe("resolvePluginCapabilityProviders", () => {
         allow: ["google"],
         entries: { google: { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loaded = createEmptyPluginRegistry();
     loaded.mediaUnderstandingProviders.push({
       pluginId: "google",
@@ -1751,7 +1751,7 @@ describe("resolvePluginCapabilityProviders", () => {
 
   it("loads fallback snapshots without startup dependency repair", () => {
     setBundledDiscoveryCompat();
-    const cfg = { plugins: { allow: ["custom-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["custom-plugin"] } } as GrantedConfig;
     const enablementCompat = {
       plugins: {
         allow: ["custom-plugin", "openai"],
@@ -1772,7 +1772,7 @@ describe("resolvePluginCapabilityProviders", () => {
   });
 
   it("does not resolve non-speech capability providers when plugins are globally disabled", () => {
-    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as GrantedConfig;
     const active = createEmptyPluginRegistry();
     active.mediaUnderstandingProviders.push({
       pluginId: "openai",
@@ -1800,7 +1800,7 @@ describe("resolvePluginCapabilityProviders", () => {
     const cfg = {
       plugins: { enabled: false },
       tts: { provider: "mistral" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const compatConfig = {
       ...cfg,
       plugins: {
@@ -1808,7 +1808,7 @@ describe("resolvePluginCapabilityProviders", () => {
         allow: ["microsoft"],
         entries: { microsoft: { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loaded = createEmptyPluginRegistry();
     addSpeechProvider(loaded, "microsoft", { aliases: ["edge"] });
     setCapabilityManifestPlugins([
@@ -1842,7 +1842,7 @@ describe("resolvePluginCapabilityProviders", () => {
   ] as const)("uses an explicit empty plugin scope for %s when no bundled owner exists", (key) => {
     const providers = resolvePluginCapabilityProviders({
       key,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
     });
 
     expectNoResolvedCapabilityProviders(providers as Array<{ id: string }>);
@@ -1852,7 +1852,7 @@ describe("resolvePluginCapabilityProviders", () => {
   });
 
   it("scopes media capability snapshot loads to manifest-derived bundled owners", () => {
-    const cfg = { plugins: { allow: ["openai", "minimax"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["openai", "minimax"] } } as GrantedConfig;
     mocks.loadPluginManifestRegistryCore.mockReturnValue({
       plugins: [
         {
@@ -1889,7 +1889,7 @@ describe("resolvePluginCapabilityProviders", () => {
   });
 
   it("does not unscoped-load media generation capabilities without bundled owners", () => {
-    const cfg = { plugins: { allow: ["openai"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["openai"] } } as GrantedConfig;
     mocks.loadPluginManifestRegistryCore.mockReturnValue({
       plugins: [
         {
@@ -1916,7 +1916,7 @@ describe("resolvePluginCapabilityProviders", () => {
 
   it("loads only the bundled owner plugin for a targeted provider lookup", () => {
     setBundledDiscoveryCompat();
-    const cfg = { plugins: { allow: ["custom-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["custom-plugin"] } } as GrantedConfig;
     const enablementCompat = {
       plugins: {
         allow: ["custom-plugin", "google"],
@@ -1968,7 +1968,7 @@ describe("resolvePluginCapabilityProviders", () => {
   });
 
   it("does not load targeted non-speech capability providers when plugins are globally disabled", () => {
-    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as GrantedConfig;
     const loaded = createEmptyPluginRegistry();
     loaded.embeddingProviders.push({
       pluginId: "google",
@@ -2011,7 +2011,7 @@ describe("resolvePluginCapabilityProviders", () => {
   });
 
   it("loads targeted bundled speech providers through compat when plugins are globally disabled", () => {
-    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as OpenClawConfig;
+    const cfg = { plugins: { enabled: false, allow: ["custom-plugin"] } } as GrantedConfig;
     const enablementCompat = {
       plugins: {
         enabled: true,

@@ -38,7 +38,7 @@ import {
   resolveAgentModelPrimaryValue,
 } from "../config/model-input.js";
 import { computeModelPolicyAllowlist } from "../config/model-policy-allowlist-migration.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveOwningPluginIdsForProviderRef } from "../plugins/providers.js";
 import type { ProviderPlugin } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -90,7 +90,7 @@ function formatModelRefLabel(params: {
 }
 
 function resolvePickerAgentDir(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   env?: NodeJS.ProcessEnv;
 }): string {
@@ -98,7 +98,7 @@ function resolvePickerAgentDir(params: {
 }
 
 type PromptDefaultModelParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   prompter: WizardPrompter;
   allowKeep?: boolean;
   includeManual?: boolean;
@@ -115,7 +115,7 @@ type PromptDefaultModelParams = {
   message?: string;
 };
 
-type PromptDefaultModelResult = { model?: string; config?: OpenClawConfig };
+type PromptDefaultModelResult = { model?: string; config?: GrantedConfig };
 type PromptModelAllowlistResult = { models?: string[]; scopeKeys?: string[] };
 
 async function loadModelPickerRuntime() {
@@ -127,18 +127,18 @@ const loadResolvedModelPickerRuntime = createLazyRuntimeSurface(
   ({ modelPickerRuntime }) => modelPickerRuntime,
 );
 
-function resolveConfiguredModelRaw(cfg: OpenClawConfig): string {
+function resolveConfiguredModelRaw(cfg: GrantedConfig): string {
   return resolveAgentModelPrimaryValue(cfg.agents?.defaults?.model) ?? "";
 }
 
-function resolveConfiguredModelKeys(cfg: OpenClawConfig): string[] {
+function resolveConfiguredModelKeys(cfg: GrantedConfig): string[] {
   const models = cfg.agents?.defaults?.models ?? {};
   return Object.keys(models)
     .map((key) => key.trim())
     .filter((key) => key.length > 0);
 }
 
-function resolveModelPickerConfig(cfg: OpenClawConfig, agentId?: string): OpenClawConfig {
+function resolveModelPickerConfig(cfg: GrantedConfig, agentId?: string): GrantedConfig {
   const agent = agentId ? resolveAgentConfig(cfg, agentId) : undefined;
   if (agent?.model === undefined && agent?.models === undefined) {
     return cfg;
@@ -174,7 +174,7 @@ function toPickerCatalogEntry(
 }
 
 function loadPickerModelCatalog(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: {
     preferredProvider?: string;
     preferLiveProviderCatalog?: boolean;
@@ -239,7 +239,7 @@ function loadPickerModelCatalog(
 }
 
 async function resolvePickerLogicalCatalog(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   catalog: ModelCatalogEntry[];
   routeVariants: readonly ModelCatalogEntry[];
   defaultProvider: string;
@@ -312,7 +312,7 @@ function normalizeModelKeys(values: string[]): string[] {
 }
 
 function resolveFallbackModelKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   raw: string;
   defaultProvider: string;
   aliasIndex: ModelAliasIndex;
@@ -334,7 +334,7 @@ function resolveFallbackModelKey(params: {
 }
 
 function resolveFallbackModelKeys(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   rawFallbacks: string[];
   defaultProvider: string;
   aliasIndex: ModelAliasIndex;
@@ -354,7 +354,7 @@ function resolveFallbackModelKeys(params: {
 }
 
 function createModelRouteRuntimeResolver(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): ModelRouteRuntimeResolver {
   const cache = new Map<string, "codex" | "openclaw" | undefined>();
@@ -408,7 +408,7 @@ function resolveModelRouteHint(params: {
 }
 
 async function resolveLiteralPrefixProviderIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   providerRefs?: readonly string[];
@@ -568,7 +568,7 @@ async function addModelKeySelectOption(params: {
 
 function createPreferredProviderMatcher(params: {
   preferredProvider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
 }): (entryProvider: string) => boolean {
@@ -654,7 +654,7 @@ async function maybeFilterModelsByProvider(params: {
   }>;
   preferredProvider?: string;
   prompter: WizardPrompter;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   isVisibleProvider: (provider: string) => boolean;
@@ -695,7 +695,7 @@ async function maybeFilterModelsByProvider(params: {
 }
 
 async function resolveProviderPluginSetupOptions(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
 }): Promise<WizardSelectOption[]> {
@@ -725,7 +725,7 @@ async function resolveProviderPluginSetupOptions(params: {
 
 async function maybeHandleProviderPluginSelection(params: {
   selection: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   agentDir?: string;
   workspaceDir?: string;
@@ -1161,7 +1161,7 @@ export async function promptDefaultModel(
 }
 
 export async function promptModelAllowlist(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   prompter: WizardPrompter;
   message?: string;
   agentId?: string;
@@ -1517,10 +1517,10 @@ export async function promptModelAllowlist(params: {
 }
 
 export function applyModelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   models: string[],
   opts: { scopeKeys?: string[] } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const defaults = cfg.agents?.defaults;
   const normalized = normalizeModelKeys(models);
   const scopeKeys = opts.scopeKeys ? normalizeModelKeys(opts.scopeKeys) : [];
@@ -1636,10 +1636,10 @@ export function applyModelAllowlist(
 }
 
 export function applyModelFallbacksFromSelection(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   selection: string[],
   opts: { scopeKeys?: string[] } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const normalized = normalizeModelKeys(selection);
   const scopeKeys = opts.scopeKeys ? normalizeModelKeys(opts.scopeKeys) : [];
   const scopeKeySet = scopeKeys.length > 0 ? new Set(scopeKeys) : null;

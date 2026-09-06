@@ -2,7 +2,7 @@
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { resolveMergedModelProviderConfig } from "../config/model-provider-config.js";
 import type { ModelApi } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   ProviderModelRouteResolution,
   ProviderModelRouteSource,
@@ -18,7 +18,7 @@ import { createProviderModelCatalogRoutePolicy } from "./provider-model-route.js
 const OPENAI_PROVIDER_ID = "openai";
 
 export function createOpenAIModelRoutesResolver(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: Readonly<Record<string, string | undefined>>;
   requestTransportOverrides?: ProviderRouteOverridePresence;
 }) {
@@ -50,7 +50,7 @@ export function createOpenAIModelRoutesResolver(params: {
 }
 
 /** Returns the authored OpenAI provider auth mode, if one exists. */
-export function resolveConfiguredOpenAIAuthMode(config?: OpenClawConfig): string | undefined {
+export function resolveConfiguredOpenAIAuthMode(config?: GrantedConfig): string | undefined {
   return resolveMergedModelProviderConfig(config, OPENAI_PROVIDER_ID)?.auth;
 }
 
@@ -83,7 +83,7 @@ export function resolveOpenAIModelRoutes(params: {
   modelId?: string;
   api?: string | null;
   baseUrl?: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: Readonly<Record<string, string | undefined>>;
   requestTransportOverrides?: ProviderRouteOverridePresence;
 }): ProviderModelRouteResolution | null {

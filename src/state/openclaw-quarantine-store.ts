@@ -19,10 +19,10 @@ const GRANTED_QUARANTINE_BUSY_TIMEOUT_MS = 5_000;
 const GRANTED_QUARANTINE_DIR_MODE = 0o700;
 const GRANTED_QUARANTINE_FILE_MODE = 0o600;
 
-type OpenClawDatabaseKind = "agent" | "state";
+type GrantedDatabaseKind = "agent" | "state";
 
-type OpenClawDatabaseQuarantine = {
-  kind: OpenClawDatabaseKind;
+type GrantedDatabaseQuarantine = {
+  kind: GrantedDatabaseKind;
   quarantinedAt: number;
   reason: string;
 };
@@ -113,7 +113,7 @@ function withQuarantineWriter<T>(env: NodeJS.ProcessEnv, operation: (db: Databas
 export function readOpenClawDatabaseQuarantine(
   pathname: string,
   options: { env?: NodeJS.ProcessEnv } = {},
-): OpenClawDatabaseQuarantine | undefined {
+): GrantedDatabaseQuarantine | undefined {
   const storePath = resolveQuarantineStorePath(options.env ?? process.env);
   // Clean installs pay one existence check. No directory or SQLite work.
   if (!existsSync(storePath)) {
@@ -184,7 +184,7 @@ export function readOpenClawDatabaseQuarantine(
 export function recordOpenClawDatabaseQuarantine(options: {
   env?: NodeJS.ProcessEnv;
   generation?: SqliteFileGeneration;
-  kind: OpenClawDatabaseKind;
+  kind: GrantedDatabaseKind;
   path: string;
   reason: string;
 }): boolean {

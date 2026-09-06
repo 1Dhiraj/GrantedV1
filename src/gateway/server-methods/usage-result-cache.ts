@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   addCostUsageTotals,
   createEmptyCostUsageTotals,
@@ -163,7 +163,7 @@ export async function loadCostUsageSummaryCached(params: {
   startMs: number;
   endMs: number;
   dayBucket?: UsageDailyBucket;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId?: string;
   agentScope?: "all";
 }): Promise<CostUsageSummary> {
@@ -201,7 +201,7 @@ async function loadAllAgentCostUsageSummary(params: {
   startMs: number;
   endMs: number;
   dayBucket?: UsageDailyBucket;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<CostUsageSummary> {
   // Same agent universe as discoverAllSessionsForUsage: enumerating configured
   // ids only would list system-agent sessions whose cost never reaches totals.

@@ -18,7 +18,7 @@ import { resolveCommandSecretRefsViaGateway } from "../../cli/command-secret-gat
 import { getScopedChannelsCommandSecretTargets } from "../../cli/command-secret-targets.js";
 import { resolveMessageSecretScope } from "../../cli/message-secret-scope.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import * as messageActionTurnCapability from "../../gateway/message-action-turn-capability.js";
 import { createAbortError } from "../../infra/abort-signal.js";
 import { resolveMessageChannelSelection } from "../../infra/outbound/channel-selection.js";
@@ -154,9 +154,9 @@ type MessageToolOptions = {
   runId?: string;
   sessionId?: string;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   preparedMessageToolCatalog?: PreparedMessageToolCatalog;
-  getRuntimeConfig?: () => OpenClawConfig;
+  getRuntimeConfig?: () => GrantedConfig;
   getScopedChannelsCommandSecretTargets?: typeof getScopedChannelsCommandSecretTargets;
   resolveCommandSecretRefsViaGateway?: typeof resolveCommandSecretRefsViaGateway;
   runMessageAction?: typeof runMessageAction;

@@ -5,7 +5,7 @@ import {
   type SessionBindingAdapter,
   type SessionBindingRecord,
 } from "openclaw/plugin-sdk/conversation-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import type { GrantedConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveDiscordChannelId } from "../target-parsing.js";
 import { resolveChannelIdForBinding } from "./thread-bindings.discord-api.js";
@@ -112,7 +112,7 @@ export function createThreadBindingSessionAdapter(params: {
   accountId: string;
   manager: ThreadBindingManager;
   defaults: ThreadBindingDefaults;
-  resolveCurrentCfg: () => OpenClawConfig;
+  resolveCurrentCfg: () => GrantedConfig;
   resolveCurrentToken: () => string | undefined;
 }): SessionBindingAdapter {
   const serializeBinding = (entry: ThreadBindingRecord) =>

@@ -11,7 +11,7 @@ import type {
 } from "../../packages/gateway-protocol/src/index.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   refreshRemoteModelCatalog,
   REMOTE_MODEL_CATALOG_TTL_MS,
@@ -159,7 +159,7 @@ function shouldSkipCheck(allowInTests: boolean): boolean {
   return !allowInTests && Boolean(process.env.VITEST || process.env.NODE_ENV === "test");
 }
 
-function resolveAutoUpdatePolicy(cfg: OpenClawConfig): AutoUpdatePolicy {
+function resolveAutoUpdatePolicy(cfg: GrantedConfig): AutoUpdatePolicy {
   const auto = cfg.update?.auto;
   return {
     enabled: Boolean(auto?.enabled),
@@ -170,7 +170,7 @@ function resolveAutoUpdatePolicy(cfg: OpenClawConfig): AutoUpdatePolicy {
 }
 
 function resolveCheckIntervalMs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   installKind?: "package" | "git" | "unknown",
 ): number {
   const channel = normalizeUpdateChannel(cfg.update?.channel) ?? DEFAULT_PACKAGE_CHANNEL;
@@ -618,7 +618,7 @@ function withInstallStatus(
 }
 
 /** Refreshes the read-only Dev checkout comparison used by update.status. */
-export async function refreshGatewayUpdateStatus(cfg: OpenClawConfig): Promise<void> {
+export async function refreshGatewayUpdateStatus(cfg: GrantedConfig): Promise<void> {
   const lifecycle = updateCheckLifecycle;
   const scheduleAtStart = updateScheduleCache;
   const channel =
@@ -788,7 +788,7 @@ async function runCampaignUpdate(params: {
 }
 
 export async function runGatewayUpdateCheck(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   log: { info: (msg: string, meta?: Record<string, unknown>) => void };
   isNixMode: boolean;
   allowInTests?: boolean;
@@ -1284,7 +1284,7 @@ export async function runGatewayUpdateCheck(params: {
 }
 
 export function scheduleGatewayUpdateCheck(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   log: { info: (msg: string, meta?: Record<string, unknown>) => void };
   isNixMode: boolean;
   onUpdateAvailableChange?: (updateAvailable: UpdateAvailable | null) => void;
@@ -1334,7 +1334,7 @@ export function scheduleGatewayUpdateCheck(params: {
 }
 
 function scheduleRemoteModelCatalogRefresh(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   log: { info: (msg: string, meta?: Record<string, unknown>) => void };
 }): () => void {
   let stopped = false;

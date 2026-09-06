@@ -23,7 +23,7 @@ import {
   runOpenClawStateWriteTransaction,
 } from "../../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { migrateLegacyMainSessionKeys } from "./legacy-main-session-migration.js";
 import { assignSessionOwner } from "./session-accessor.js";
 import { readExactSessionEntryRowForCanonicalRepair } from "./session-accessor.sqlite-canonical-repair.js";
@@ -40,7 +40,7 @@ const humanOwner = {
 } as const;
 
 type Fixture = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
 };
@@ -49,7 +49,7 @@ type LegacyMainSessionMigrationOutcomeKind = Awaited<
   ReturnType<typeof migrateLegacyMainSessionKeys>
 >["outcomes"][number]["kind"];
 
-function createFixture(cfg: OpenClawConfig = { agents: { entries: { ops: {} } } }): Fixture {
+function createFixture(cfg: GrantedConfig = { agents: { entries: { ops: {} } } }): Fixture {
   const rawRoot = tempDirs.make("openclaw-legacy-main-session-");
   const root = fs.realpathSync.native(rawRoot);
   const stateDir = path.join(root, "state");
@@ -809,7 +809,7 @@ describe("legacy main session migration", () => {
       env: fixture.env,
       mode: "detect",
     });
-    const changedMainKey: OpenClawConfig = {
+    const changedMainKey: GrantedConfig = {
       ...fixture.cfg,
       session: { ...fixture.cfg.session, mainKey: "primary" },
     };

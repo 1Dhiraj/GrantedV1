@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withTempDirSync } from "../test-helpers/temp-dir.js";
 import { withEnv } from "../test-utils/env.js";
 import { shouldIncludeHook } from "./config.js";
@@ -27,7 +27,7 @@ const entry: HookEntry = {
   },
 };
 
-function configWithEnv(value: string): OpenClawConfig {
+function configWithEnv(value: string): GrantedConfig {
   return {
     hooks: {
       internal: {
@@ -39,7 +39,7 @@ function configWithEnv(value: string): OpenClawConfig {
   };
 }
 
-function evaluate(config?: OpenClawConfig) {
+function evaluate(config?: GrantedConfig) {
   const runtimeIncluded = shouldIncludeHook({ entry, config });
   const status = buildWorkspaceHookStatus("/tmp", { entries: [entry], config }).hooks[0];
   return { runtimeIncluded, status };

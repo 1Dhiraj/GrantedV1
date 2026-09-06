@@ -10,7 +10,7 @@ import {
   resolveRestartRecoveryChannelAuthority,
 } from "../../config/sessions/restart-recovery-state.js";
 import { applySessionEntryReplacements } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isTrustedMessageActionTurnIngress } from "../../gateway/message-action-turn-capability.js";
 import type { GatewayRecoveryRuntime } from "../../gateway/server-instance-runtime.types.js";
 import type { AgentRunRequest } from "../../gateway/server-methods/agent-request-types.js";
@@ -81,7 +81,7 @@ function buildResumeMessage(pendingFinalDeliveryText?: string | null): string {
 }
 
 export function resolveRestartRecoveryDeliveryContext(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   entry: SessionEntry;
   includeSessionDeliveryFallback?: boolean;
   sessionKey: string;
@@ -331,7 +331,7 @@ function scheduleRestartRecoveryReservationRollback(
 export async function resumeMainSession(params: {
   agentId: string;
   canonicalSessionKey?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   entry: SessionEntry;
   observation: MainSessionRecoveryObservation;
   recoveryAttempt: number;

@@ -4,7 +4,7 @@ import path from "node:path";
 import { root } from "@openclaw/fs-safe";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeDeviceAuthRole, normalizeDeviceAuthScopes } from "../shared/device-auth.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import { resetLegacyDeviceAuthPresenceCache } from "./device-auth-store.js";
 import {
@@ -16,7 +16,7 @@ import { withLegacyMigrationStateLock } from "./state-migrations.lock.js";
 import type { MigrationMessages } from "./state-migrations.types.js";
 
 const LEGACY_PATH = "identity/device-auth.json";
-type DeviceAuthMigrationDatabase = Pick<OpenClawStateKyselyDatabase, "device_auth_tokens">;
+type DeviceAuthMigrationDatabase = Pick<GrantedStateKyselyDatabase, "device_auth_tokens">;
 type LegacyDeviceAuthDetection = {
   sourcePath: string;
   sourcePresent: boolean;

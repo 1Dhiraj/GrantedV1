@@ -17,14 +17,14 @@ import {
 } from "../agents/tool-policy.js";
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import { ensureStandalonePluginToolRegistryLoaded, resolvePluginTools } from "../plugins/tools.js";
 import { resolveToolsMcpAgentId, resolveToolsMcpSessionContext } from "./agent-session-env.js";
 import { connectToolsMcpServerToStdio, createToolsMcpServer } from "./tools-stdio-server.js";
 
-function resolvePluginToolPolicy(config: OpenClawConfig): {
+function resolvePluginToolPolicy(config: GrantedConfig): {
   toolAllowlist?: string[];
   toolDenylist?: string[];
 } {
@@ -42,7 +42,7 @@ function resolvePluginToolPolicy(config: OpenClawConfig): {
 }
 
 export function resolvePluginToolsForMcp(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentSessionKey?: string;
   agentId?: string;
 }): AnyAgentTool[] {
@@ -62,7 +62,7 @@ export function resolvePluginToolsForMcp(params: {
 
 export function createPluginToolsMcpServer(
   params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     tools?: AnyAgentTool[];
     agentSessionKey?: string;
     agentId?: string;

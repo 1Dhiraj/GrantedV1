@@ -12,7 +12,7 @@ import type {
   PluginApprovalRequest,
 } from "openclaw/plugin-sdk/approval-runtime";
 import type { ChannelApprovalCapability } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   listWhatsAppAccountIds,
   resolveDefaultWhatsAppAccountId,
@@ -22,7 +22,7 @@ import { getWhatsAppApprovalApprovers, whatsappApprovalAuth } from "./approval-a
 import { isWhatsAppGroupJid, normalizeWhatsAppMessagingTarget } from "./normalize.js";
 
 function isWhatsAppApprovalTransportEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   return resolveWhatsAppAccount({ cfg: params.cfg, accountId: params.accountId }).enabled;

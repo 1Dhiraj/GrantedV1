@@ -56,7 +56,7 @@ import {
   resolveConfigSecretRef,
 } from "../../config/resolution-facts.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   hasConfiguredSecretInput,
   normalizeSecretInputString,
@@ -235,7 +235,7 @@ function formatMissingCredentialProbeError(reasonCode: AuthProbeReasonCode): str
   return `${legacyLine}\n↳ Auth reason [ineligible_profile]: profile is incompatible with provider config.`;
 }
 
-function resolveProbeSecretRef(profile: ProfileEntry, cfg: OpenClawConfig) {
+function resolveProbeSecretRef(profile: ProfileEntry, cfg: GrantedConfig) {
   const defaults = cfg.secrets?.defaults;
   if (profile.type === "api_key") {
     return resolveSecretInputRef({ value: profile.key, refValue: profile.keyRef, defaults }).ref;
@@ -253,11 +253,11 @@ function formatUnresolvedRefProbeError(refLabel: string): string {
 }
 
 function withDirectCredential(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   provider: string,
   value: string,
   mode: string | undefined,
-): OpenClawConfig {
+): GrantedConfig {
   const providers = cfg.models?.providers ?? {};
   const configuredEntry = resolveMergedModelProviderEntry(cfg, provider);
   const configKey = configuredEntry?.providerKey ?? provider;
@@ -266,7 +266,7 @@ function withDirectCredential(
     return withoutProfileFallback(cfg, provider);
   }
   const auth = mode === "oauth" || mode === "token" ? mode : "api-key";
-  const next: OpenClawConfig = {
+  const next: GrantedConfig = {
     ...cfg,
     models: {
       ...cfg.models,
@@ -291,8 +291,8 @@ function withDirectCredential(
   return next;
 }
 
-function withoutProfileFallback(cfg: OpenClawConfig, provider: string): OpenClawConfig {
-  const next: OpenClawConfig = {
+function withoutProfileFallback(cfg: GrantedConfig, provider: string): GrantedConfig {
+  const next: GrantedConfig = {
     ...cfg,
     auth: {
       ...cfg.auth,
@@ -307,7 +307,7 @@ function withoutProfileFallback(cfg: OpenClawConfig, provider: string): OpenClaw
 }
 
 async function resolveConfiguredProbeCredential(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   input: unknown;
   path: string;
   cache: SecretRefResolveCache;
@@ -333,7 +333,7 @@ async function resolveConfiguredProbeCredential(params: {
 }
 
 async function maybeResolveUnresolvedRefIssue(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   profile?: ProfileEntry;
   cache: SecretRefResolveCache;
 }): Promise<{ reasonCode: "unresolved_ref"; error: string } | null> {
@@ -361,7 +361,7 @@ async function maybeResolveUnresolvedRefIssue(params: {
 
 /** Builds probe targets plus preflight failures for missing/invalid credentials. */
 export async function buildProbeTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -779,7 +779,7 @@ export async function buildProbeTargets(params: {
 }
 
 async function probeTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -948,7 +948,7 @@ async function probeTarget(params: {
 }
 
 async function runTargetsWithConcurrency(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -1041,7 +1041,7 @@ export async function withAuthProbeStateOwnership<T>(
 
 /** Runs all auth probes with bounded concurrency and returns a summary. */
 export async function runAuthProbes(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import type { PreparedAgentCredentialModes } from "./agent-auth-credential-modes.js";
 import type { AuthProfileStore } from "./auth-profiles/types.js";
@@ -10,7 +10,7 @@ export type PublishedModelCatalogOwnerCandidate = Readonly<{
   agentId?: string;
   agentDir: string;
   workspaceDir?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   authModes: PreparedAgentCredentialModes;
   authStore?: AuthProfileStore;
   metadataSnapshot: PluginMetadataSnapshot;
@@ -22,7 +22,7 @@ export type ResolvedPublishedModelCatalogOwner = Readonly<{
   agentId: string;
   agentDir: string;
   workspaceDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   authModes: PreparedAgentCredentialModes;
   authStore: AuthProfileStore;
   metadataSnapshot: PluginMetadataSnapshot;

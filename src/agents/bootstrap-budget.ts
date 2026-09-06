@@ -4,7 +4,7 @@
  */
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildBootstrapPromptWarning,
   normalizeBootstrapWarningSignatures,
@@ -185,7 +185,7 @@ export function analyzeBootstrapBudget(params: {
 
 /** Builds the canonical bootstrap budget diagnosis after caller-owned routing. */
 export function buildBootstrapBudgetState(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string | null;
   files: BootstrapInjectionStat[];
   previousSignature?: string;

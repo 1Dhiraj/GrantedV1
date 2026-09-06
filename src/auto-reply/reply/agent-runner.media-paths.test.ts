@@ -9,7 +9,7 @@ import {
   type TestModelFallbackRunnerParams,
 } from "../../agents/test-helpers/model-fallback-runner.test-support.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { TemplateContext } from "../templating.js";
 import type { AgentTurnParams } from "./agent-runner-execution.types.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";
@@ -83,7 +83,7 @@ vi.mock("../../agents/model-selection.js", async () => {
   );
   return {
     ...actual,
-    isCliProvider: (provider: string, _cfg?: OpenClawConfig) => {
+    isCliProvider: (provider: string, _cfg?: GrantedConfig) => {
       const normalized = provider.trim().toLowerCase();
       return (
         normalized === "claude-cli" ||
@@ -392,7 +392,7 @@ describe("runReplyAgent media path normalization", () => {
   it.each(["agent:qa:main", "global"])(
     "normalizes final MEDIA replies for the prepared %s owner",
     async (sessionKey) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { ownership: "explicit", entries: { qa: {}, beta: {} } },
       };
       setRuntimeConfigSnapshot(config, config);

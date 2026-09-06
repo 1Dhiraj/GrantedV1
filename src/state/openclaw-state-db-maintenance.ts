@@ -13,7 +13,7 @@ import {
   GRANTED_DATABASE_SCHEMA_DOCS_URL,
   LAZY_ADDITIVE_STATE_TABLES,
   GRANTED_STATE_SCHEMA_VERSION,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import { tableExists, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
@@ -58,7 +58,7 @@ const STATE_MIGRATION_ALLOWED_MISSING_TABLES = {
   13: LAZY_ADDITIVE_STATE_TABLES,
   14: LAZY_ADDITIVE_STATE_TABLES,
 } as const satisfies Record<number, readonly string[]>;
-type OpenClawStateMigrationVersion = keyof typeof STATE_MIGRATION_ALLOWED_MISSING_TABLES;
+type GrantedStateMigrationVersion = keyof typeof STATE_MIGRATION_ALLOWED_MISSING_TABLES;
 
 /** Open shared SQLite database handle plus WAL maintenance lifecycle. */
 
@@ -152,7 +152,7 @@ export function assertOpenClawStateDatabaseForMaintenance(
 
 function assertOpenClawStateDatabaseVersionForMigration(
   database: DatabaseSync,
-  options: { pathname: string; version: OpenClawStateMigrationVersion },
+  options: { pathname: string; version: GrantedStateMigrationVersion },
 ): void {
   const userVersion = readSqliteUserVersion(database);
   if (userVersion !== options.version) {
@@ -299,7 +299,7 @@ export function markCurrentStateSchemaVersion(
   }
 }
 
-export function resolveDatabasePath(options: OpenClawStateDatabaseOptions = {}): string {
+export function resolveDatabasePath(options: GrantedStateDatabaseOptions = {}): string {
   return path.resolve(options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env));
 }
 

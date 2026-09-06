@@ -7,18 +7,18 @@ import { asFiniteNumber as normalizeFiniteNumber } from "@openclaw/normalization
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { sql, type Insertable, type Selectable, type Updateable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../../state/openclaw-state-db.js";
 import { normalizeDeliveryContext } from "../../../utils/delivery-context.shared.js";
 import { normalizeSubagentRunState } from "./subagent-delivery-state.js";
 import type { SubagentRunReadRecord, SubagentRunRecord } from "./subagent-registry.types.js";
 
-type SubagentRunsTable = OpenClawStateKyselyDatabase["subagent_runs"];
-type SubagentRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "subagent_runs">;
+type SubagentRunsTable = GrantedStateKyselyDatabase["subagent_runs"];
+type SubagentRegistryDatabase = Pick<GrantedStateKyselyDatabase, "subagent_runs">;
 type SubagentRunSqliteRow = Selectable<SubagentRunsTable>;
 type BoundSubagentRunRecord = Insertable<SubagentRunsTable>;
 type SubagentRunSqliteInsert = BoundSubagentRunRecord;
@@ -120,7 +120,7 @@ export function bindSubagentRunRecord(entry: SubagentRunRecord): BoundSubagentRu
 
 /** Upserts a prebound run on the exact supplied shared-state handle. */
 export function upsertSubagentRunRowInDatabase(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   row: BoundSubagentRunRecord,
 ): void {
   const stateDb = getNodeSqliteKysely<SubagentRegistryDatabase>(database.db);
@@ -136,7 +136,7 @@ export function upsertSubagentRunRowInDatabase(
 }
 
 export function readSubagentRun(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   runId: string,
 ): SubagentRunRecord | null {
   const row = executeSqliteQuerySync(

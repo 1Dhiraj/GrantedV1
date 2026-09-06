@@ -1,7 +1,7 @@
 // Configure wizard tests cover guided setup routing across gateway, auth, channels, skills, and search.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { ConfigMutationConflictError } from "../config/mutate.js";
 import {
   createEnabledWebSearchConfig,
@@ -60,7 +60,7 @@ describe("runConfigureWizard", () => {
   it.each(["gateway", "daemon", "health", "web"] as const)(
     "configures %s without requiring an agent owner",
     async (section) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { ownership: "explicit", entries: { alpha: {}, beta: {} } },
         gateway: { mode: "local" },
       };
@@ -87,7 +87,7 @@ describe("runConfigureWizard", () => {
 
   it("persists provider-owned web search config changes returned by setupSearch", async () => {
     setupBaseWizardState();
-    mocks.setupSearch.mockImplementation(async (cfg: OpenClawConfig) => {
+    mocks.setupSearch.mockImplementation(async (cfg: GrantedConfig) => {
       const configured = createEnabledWebSearchConfig("firecrawl", {
         enabled: true,
         config: { webSearch: { apiKey: "fc-entered-key" } },
@@ -145,7 +145,7 @@ describe("runConfigureWizard", () => {
 
   it("keeps web_search disabled when provider setup has no credential", async () => {
     setupBaseWizardState();
-    mocks.setupSearch.mockImplementation(async (cfg: OpenClawConfig) => ({
+    mocks.setupSearch.mockImplementation(async (cfg: GrantedConfig) => ({
       outcome: "completed",
       config: {
         ...cfg,
@@ -251,7 +251,7 @@ describe("runConfigureWizard", () => {
         credentialPath: "",
       },
     ]);
-    mocks.setupSearch.mockImplementation(async (cfg: OpenClawConfig) => ({
+    mocks.setupSearch.mockImplementation(async (cfg: GrantedConfig) => ({
       outcome: "completed",
       config: createEnabledWebSearchConfig("duckduckgo", {
         enabled: true,
@@ -375,7 +375,7 @@ describe("runConfigureWizard", () => {
   });
 
   it("retries without dropping nested plugin config written during wizard flow (issue #64188)", async () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       plugins: {
         entries: {
           "github-copilot": {

@@ -2,7 +2,7 @@
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import type { SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
@@ -79,7 +79,7 @@ function resolveInspectedSlackToken(
 }
 
 export function inspectSlackAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   envBotToken?: string | null;
   envAppToken?: string | null;

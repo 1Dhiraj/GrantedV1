@@ -11,12 +11,12 @@ import {
   terminalOpenResult,
   type CreateGhosttyTerminalMock,
 } from "./terminal-panel.test-support.ts";
-import { OpenClawTerminalPanel } from "./terminal-panel.ts";
+import { GrantedTerminalPanel } from "./terminal-panel.ts";
 
 const createGhosttyTerminalMock: CreateGhosttyTerminalMock = vi.fn();
 const TERMINAL_PANEL_ELEMENT_NAME = defineTestTerminalPanelElement(createGhosttyTerminalMock);
 
-describe("OpenClawTerminalPanel dock suppression", () => {
+describe("GrantedTerminalPanel dock suppression", () => {
   beforeEach(async () => {
     vi.stubGlobal("localStorage", createStorageMock());
     vi.stubGlobal("sessionStorage", createStorageMock());
@@ -37,7 +37,7 @@ describe("OpenClawTerminalPanel dock suppression", () => {
       "openclaw.terminal.panel.v1",
       JSON.stringify({ open: true, dock: "bottom", height: 320, width: 520 }),
     );
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.available = true;
     document.body.append(panel);
     await panel.updateComplete;
@@ -64,7 +64,7 @@ describe("OpenClawTerminalPanel dock suppression", () => {
       "openclaw.terminal.panel.v1",
       JSON.stringify({ open: true, dock: "main", height: 320, width: 520 }),
     );
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.available = true;
     document.body.append(panel);
     await panel.updateComplete;
@@ -96,7 +96,7 @@ describe("OpenClawTerminalPanel dock suppression", () => {
       },
       addEventListener: () => () => {},
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.suppressed = true;
     document.body.append(panel);
@@ -131,7 +131,7 @@ describe("OpenClawTerminalPanel dock suppression", () => {
       },
       addEventListener: () => () => {},
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.available = true;
     panel.suppressed = true;

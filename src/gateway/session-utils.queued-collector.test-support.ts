@@ -20,7 +20,7 @@ import { resetGatewayWorkAdmission } from "../process/gateway-work-admission.js"
 import { onSessionLifecycleEvent } from "../sessions/session-lifecycle-events.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { registerChatAbortController } from "./chat-abort.js";
 import { buildAgentSessionPatch } from "./server-methods/agent-session-patch.js";
@@ -36,7 +36,7 @@ import type { SessionsListResult } from "./session-utils.types.js";
 
 export function useQueuedCollectorFixture() {
   const parentKey = "agent:main:dashboard:queued-projection";
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let stopLifecycleListener: (() => void) | undefined;
   const launchedRunIds: string[] = [];
 

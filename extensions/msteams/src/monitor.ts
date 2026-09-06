@@ -8,7 +8,7 @@ import {
   mergeAllowlist,
   resolveChannelMediaMaxBytes,
   summarizeMapping,
-  type OpenClawConfig,
+  type GrantedConfig,
   type RuntimeEnv,
 } from "../runtime-api.js";
 import { resolveMSTeamsSdkCloudOptions } from "./cloud.js";
@@ -62,7 +62,7 @@ import { resolveMSTeamsCredentials } from "./token.js";
 import { applyMSTeamsWebhookTimeouts } from "./webhook-timeouts.js";
 
 type MonitorMSTeamsOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   conversationStore?: MSTeamsConversationStore;

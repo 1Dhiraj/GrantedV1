@@ -9,7 +9,7 @@ import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js"
 import type { PluginCandidate } from "./discovery.js";
 import { resolvePluginManifestInstallOwner } from "./manifest-install-owner.js";
 import { loadPluginManifestRegistryCore } from "./manifest-registry.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { createPluginCache, withPluginCache } from "./plugin-cache.js";
 import { cleanupTrackedTempDirs, makeTrackedTempDir } from "./test-helpers/fs-fixtures.js";
 
@@ -77,7 +77,7 @@ function createPluginCandidate(params: {
   bundleFormat?: "codex" | "claude" | "cursor";
   packageName?: string;
   packageVersion?: string;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
   packageDir?: string;
   bundledManifest?: PluginCandidate["bundledManifest"];
   bundledManifestPath?: string;

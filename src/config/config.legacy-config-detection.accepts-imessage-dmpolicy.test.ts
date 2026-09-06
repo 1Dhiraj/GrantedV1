@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { expectSchemaConfigValue } from "./legacy-config-detection.test-support.js";
 import { BindingsSchema } from "./zod-schema.agents.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
 function expectOpenClawSchemaInvalidPreservesField(params: {
   config: unknown;
@@ -12,7 +12,7 @@ function expectOpenClawSchemaInvalidPreservesField(params: {
   expectedMessageIncludes?: string;
 }) {
   const before = JSON.stringify(params.config);
-  const res = OpenClawSchema.safeParse(params.config);
+  const res = GrantedSchema.safeParse(params.config);
   expect(res.success).toBe(false);
   if (!res.success) {
     if (params.expectedPath !== undefined) {
@@ -28,7 +28,7 @@ function expectOpenClawSchemaInvalidPreservesField(params: {
 
 describe("legacy config detection", () => {
   it("rejects legacy agent.model string", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = GrantedSchema.safeParse({
       agent: { model: "anthropic/claude-opus-4-6" },
     });
     expect(res.success).toBe(false);
@@ -55,7 +55,7 @@ describe("legacy config detection", () => {
         },
       },
     };
-    const res = OpenClawSchema.safeParse(config);
+    const res = GrantedSchema.safeParse(config);
     expect(res.success).toBe(true);
     if (res.success) {
       expect(res.data.auth?.profiles?.["anthropic:claude-cli"]?.mode).toBe("token");

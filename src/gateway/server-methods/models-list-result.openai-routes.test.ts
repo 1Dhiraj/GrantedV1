@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadManifestMetadataSnapshot } from "../../plugins/manifest-contract-eligibility.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
@@ -30,13 +30,13 @@ const IMPLICIT_GRANTED_RUNTIME = {
 } as const;
 const MODEL_CODEX_RUNTIME = { ...IMPLICIT_CODEX_RUNTIME, source: "model" } as const;
 
-const preparedOwnerFacts = (config: OpenClawConfig) =>
+const preparedOwnerFacts = (config: GrantedConfig) =>
   ({
     authStore: { version: 1, profiles: {} },
     metadataSnapshot: loadManifestMetadataSnapshot({ config, env: process.env }),
   }) as const;
 
-function emptyPreparedOwner(config: OpenClawConfig) {
+function emptyPreparedOwner(config: GrantedConfig) {
   return {
     agentId: "main",
     agentDir: "/tmp/models-list-openai-agent",
@@ -54,7 +54,7 @@ describe("models.list OpenAI routes", () => {
         defaults: {},
         list: [{ id: "main", default: true }, { id: "worker" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loadGatewayModelCatalogSnapshot = vi.fn(() =>
       Promise.resolve({
         agentDir: "/tmp/models-list-openai-agent",
@@ -89,7 +89,7 @@ describe("models.list OpenAI routes", () => {
   });
 
   it("does not reuse a preloaded catalog from another config generation", async () => {
-    const config = { agents: { defaults: { model: "openai/current" } } } as OpenClawConfig;
+    const config = { agents: { defaults: { model: "openai/current" } } } as GrantedConfig;
     const loadGatewayModelCatalogSnapshot = vi.fn(() =>
       Promise.resolve({
         agentDir: "/tmp/models-list-openai-agent",
@@ -112,7 +112,7 @@ describe("models.list OpenAI routes", () => {
         params: { view: "default" },
         preloadedCatalog: {
           agentId: "main",
-          config: { agents: { defaults: { model: "openai/stale" } } } as OpenClawConfig,
+          config: { agents: { defaults: { model: "openai/stale" } } } as GrantedConfig,
           snapshot: { entries: [catalogEntry("stale", "openai-responses")], routeVariants: [] },
         },
       }),
@@ -121,8 +121,8 @@ describe("models.list OpenAI routes", () => {
   });
 
   it("does not reuse a preloaded projector after a full replacement-owner load", async () => {
-    const config = {} as OpenClawConfig;
-    const replacementConfig = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
+    const replacementConfig = {} as GrantedConfig;
     const loadGatewayModelCatalogSnapshot = vi.fn(() =>
       Promise.resolve({
         agentDir: "/tmp/models-list-openai-agent",
@@ -159,7 +159,7 @@ describe("models.list OpenAI routes", () => {
   });
 
   it("does not start full discovery when restricted to a preloaded catalog", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const loadGatewayModelCatalogSnapshot = vi.fn();
     const context = {
       getRuntimeConfig: () => config,
@@ -199,7 +199,7 @@ describe("models.list OpenAI routes", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const ownerEntry = catalogEntry("gpt-owner", "openai-responses");
     const context = {
       getRuntimeConfig: () => config,
@@ -239,13 +239,13 @@ describe("models.list OpenAI routes", () => {
   it("escalates full discovery using the replacement owner's agent", async () => {
     const initialConfig = {
       agents: { defaults: {}, list: [{ id: "main" }, { id: "worker", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const replacementConfig = {
       agents: {
         defaults: { models: { "openai/*": {} } },
         list: [{ id: "main", default: true }, { id: "worker" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const entry = catalogEntry("gpt-owner", "openai-responses");
     const loadGatewayModelCatalogSnapshot = vi
       .fn<GatewayRequestContext["loadGatewayModelCatalogSnapshot"]>()
@@ -287,13 +287,13 @@ describe("models.list OpenAI routes", () => {
   it("rejects a full-discovery snapshot from a different owner", async () => {
     const initialConfig = {
       agents: { defaults: {}, list: [{ id: "main" }, { id: "worker", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const replacementConfig = {
       agents: {
         defaults: { models: { "openai/*": {} } },
         list: [{ id: "main", default: true }, { id: "worker" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const entry = catalogEntry("gpt-owner", "openai-responses");
     const loadGatewayModelCatalogSnapshot = vi
       .fn<GatewayRequestContext["loadGatewayModelCatalogSnapshot"]>()
@@ -332,7 +332,7 @@ describe("models.list OpenAI routes", () => {
   it("passes the resolved default agent to catalog loads", async () => {
     const config = {
       agents: { defaults: {}, list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const loadGatewayModelCatalogSnapshot = vi.fn(
       (params: { agentId?: string; readOnly?: boolean }) =>
         Promise.resolve({
@@ -372,7 +372,7 @@ describe("models.list OpenAI routes", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const ownerlessEntry = catalogEntry("gpt-ownerless", "openai-responses");
     const context = {
       getRuntimeConfig: () => config,
@@ -404,7 +404,7 @@ describe("models.list OpenAI routes", () => {
         defaults: {},
         list: [{ id: "main", default: true }, { id: "worker" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const mainEntry = catalogEntry("gpt-main", "openai-responses");
     const context = {
       getRuntimeConfig: () => config,
@@ -443,7 +443,7 @@ describe("models.list OpenAI routes", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const workerEntry = catalogEntry("gpt-worker", "openai-responses");
     const context = {
       getRuntimeConfig: () => config,
@@ -611,7 +611,7 @@ describe("models.list OpenAI routes", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const row = {
       ...catalogEntry("gpt-5.4-nano", "openai-completions"),
       baseUrl: "https://api.openai.com",
@@ -652,7 +652,7 @@ describe("models.list OpenAI routes", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const incompatibleRow = {
       ...catalogEntry("chat-latest", "openai-chatgpt-responses"),
@@ -731,7 +731,7 @@ describe("models.list OpenAI routes", () => {
           });
           const cfg = {
             auth: { order: { openai: ["openai:chatgpt", "openai:key"] } },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
           const row = {
             ...catalogEntry("gpt-5.5", "openai-responses"),
             baseUrl: "https://api.openai.com/v1",
@@ -789,7 +789,7 @@ describe("models.list OpenAI routes", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
           await expect(
             listModels({
               catalog: [
@@ -820,7 +820,7 @@ describe("models.list OpenAI routes", () => {
 
           const apiKeyFirst = {
             auth: { order: { openai: ["openai:key", "openai:chatgpt"] } },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
           await expect(listModels({ catalog: [row], cfg: apiKeyFirst })).resolves.toEqual({
             models: [
               expect.objectContaining({
@@ -850,7 +850,7 @@ describe("models.list OpenAI routes", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       await expect(
         listModels({
@@ -884,7 +884,7 @@ describe("models.list OpenAI routes", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       await expect(
         listModels({
@@ -916,7 +916,7 @@ describe("models.list OpenAI routes", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       await expect(
         listModels({
@@ -956,7 +956,7 @@ describe("models.list OpenAI routes", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
           const result = await listModels({
             cfg,
             view: "configured",
@@ -999,7 +999,7 @@ describe("models.list OpenAI routes", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       await expect(
         listModels({
@@ -1034,7 +1034,7 @@ describe("models.list OpenAI routes", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await withEnvAsync(
       { ...WITHOUT_OPENAI_ENV_AUTH, OPENAI_API_KEY: "test-token-placeholder" },

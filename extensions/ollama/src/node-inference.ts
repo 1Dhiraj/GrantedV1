@@ -9,9 +9,9 @@ import {
 } from "openclaw/plugin-sdk/param-readers";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginApi,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import {
   readProviderJsonResponse,
@@ -80,7 +80,7 @@ type OllamaChatPayload = {
 };
 
 type NodeSummary = Awaited<
-  ReturnType<OpenClawPluginApi["runtime"]["nodes"]["list"]>
+  ReturnType<GrantedPluginApi["runtime"]["nodes"]["list"]>
 >["nodes"][number];
 
 function readNodeCommandParams(paramsJSON?: string | null): Record<string, unknown> {
@@ -310,7 +310,7 @@ async function runOllamaNodeChat(params: {
 
 export function createOllamaNodeHostCommands(options?: {
   baseUrl?: string;
-}): OpenClawPluginNodeHostCommand[] {
+}): GrantedPluginNodeHostCommand[] {
   const baseUrl = options?.baseUrl ?? OLLAMA_DEFAULT_BASE_URL;
   return [
     {
@@ -365,7 +365,7 @@ export function createOllamaNodeHostCommands(options?: {
   ];
 }
 
-export function createOllamaNodeInvokePolicy(): OpenClawPluginNodeInvokePolicy {
+export function createOllamaNodeInvokePolicy(): GrantedPluginNodeInvokePolicy {
   return {
     commands: [...OLLAMA_NODE_INFERENCE_COMMANDS],
     defaultPlatforms: [...OLLAMA_NODE_INFERENCE_DEFAULT_PLATFORMS],
@@ -401,7 +401,7 @@ function parseInvokePayload(raw: unknown): Record<string, unknown> {
 }
 
 async function invokeNode(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   nodeId: string,
   command: string,
   params: Record<string, unknown>,
@@ -420,7 +420,7 @@ async function invokeNode(
   return parseInvokePayload(raw);
 }
 
-export function createOllamaNodeInferenceTool(api: OpenClawPluginApi): AnyAgentTool {
+export function createOllamaNodeInferenceTool(api: GrantedPluginApi): AnyAgentTool {
   return {
     ...ollamaNodeInferenceToolDefinition,
     execute: async (_toolCallId, args, signal) => {

@@ -1,6 +1,6 @@
 // Loads provider usage snapshots from built-in and plugin providers.
 import { ensureAuthProfileStore, type AuthProfileStore } from "../agents/auth-profiles.js";
-import { getRuntimeConfig, type OpenClawConfig } from "../config/config.js";
+import { getRuntimeConfig, type GrantedConfig } from "../config/config.js";
 import {
   listProviderUsagePluginDescriptors,
   resolveProviderUsageSnapshotWithPlugin,
@@ -46,14 +46,14 @@ type UsageSummaryOptions = {
   authStore?: AuthProfileStore;
   agentDir?: string;
   workspaceDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   fetch?: typeof fetch;
 };
 
 async function fetchProviderUsageSnapshot(params: {
   auth: ProviderAuth;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   agentDir?: string;
   workspaceDir?: string;

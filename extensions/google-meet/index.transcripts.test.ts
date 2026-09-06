@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import type { TranscriptSourceProvider } from "openclaw/plugin-sdk/transcripts";
 import { describe, expect, it } from "vitest";
@@ -15,7 +15,7 @@ describe("Google Meet transcript source registration", () => {
       source: "test",
       config: {},
       pluginConfig: {},
-      runtime: {} as OpenClawPluginApi["runtime"],
+      runtime: {} as GrantedPluginApi["runtime"],
       registerTranscriptSourceProvider: (provider) => providers.push(provider),
     });
 

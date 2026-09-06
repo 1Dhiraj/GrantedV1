@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 import { SessionManager } from "../../src/agents/sessions/session-manager.js";
-import type { OpenClawConfig } from "../../src/config/config.js";
+import type { GrantedConfig } from "../../src/config/config.js";
 import { resolveAgentModelPrimaryValue } from "../../src/config/model-input.js";
 
 export const OPENAI_LONG_CONTEXT_LIVE_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT";
@@ -170,7 +170,7 @@ export function buildOpenAILongContextConfig(params: {
   profile: OpenAILongContextProfile;
   workspace: string;
   agentId: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   const { profile } = params;
   return {
     secrets: { providers: { default: { source: "env" } } },
@@ -243,7 +243,7 @@ function expectConfigValue(path: string, actual: unknown, expected: unknown): vo
 }
 
 export function assertOpenAILongContextConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   profile: OpenAILongContextProfile,
 ): void {
   const providers = cfg.models?.providers ?? {};

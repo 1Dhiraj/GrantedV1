@@ -1,7 +1,7 @@
 // Covers direct-message policy audit findings for channels.
 import { describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { collectChannelSecurityFindingsCore } from "./audit-channel.js";
 import { runSecurityAuditCore } from "./audit.js";
 
@@ -124,7 +124,7 @@ describe("security audit channel dm policy", () => {
             session: { dmScope: "per-channel-peer" },
           },
         ],
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedCollisions: 0,
     },
     {
@@ -138,7 +138,7 @@ describe("security audit channel dm policy", () => {
             session: { dmScope: "main" },
           },
         ],
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedCollisions: 1,
       remediation: "matching binding or session.dmScope",
     },
@@ -163,7 +163,7 @@ describe("security audit channel dm policy", () => {
             session: { dmScope: "per-channel-peer" },
           },
         ],
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedCollisions: 0,
     },
     {
@@ -181,7 +181,7 @@ describe("security audit channel dm policy", () => {
             match: { channel: "whatsapp", peer: { kind: "direct", id: "user-b" } },
           },
         ],
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expectedCollisions: 0,
     },
   ])("$name", async ({ cfg, expectedCollisions, remediation }) => {
@@ -236,7 +236,7 @@ describe("security audit channel dm policy", () => {
   });
 
   it("counts identity-linked aliases as one logical principal", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: {
         dmScope: "main",
         identityLinks: { alice: ["whatsapp:user-a", "whatsapp:user-b"] },

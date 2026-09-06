@@ -1,7 +1,7 @@
 import {
   definePluginEntry,
-  type OpenClawPluginApi,
-  type OpenClawPluginServiceContext,
+  type GrantedPluginApi,
+  type GrantedPluginServiceContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { resolveImapConfig } from "./src/config.js";
 import { createImapState } from "./src/state.js";
@@ -14,7 +14,7 @@ export default definePluginEntry({
   name: "IMAP email trigger",
   description: "Dispatch authenticated incoming IMAP email to isolated agent sessions.",
   configSchema: imapConfigSchema,
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     if (api.registrationMode !== "full") {
       return;
     }
@@ -22,7 +22,7 @@ export default definePluginEntry({
     let watchers: ImapAccountWatcher[] = [];
     api.registerService({
       id: "imap-watch",
-      start(context: OpenClawPluginServiceContext) {
+      start(context: GrantedPluginServiceContext) {
         const previous = watchers;
         const activeGeneration = ++generation;
         watchers = [];

@@ -1,6 +1,6 @@
 // Doctor WhatsApp responsiveness tests cover warning heuristics and note output for stale connections.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const noteMock = vi.hoisted(() => vi.fn());
 const spawnSyncMock = vi.hoisted(() => vi.fn());
@@ -95,7 +95,7 @@ describe("doctor WhatsApp responsiveness", () => {
 
   it("warns and repairs local TUI pressure when WhatsApp is enabled and the gateway is degraded", async () => {
     const terminate = vi.fn().mockResolvedValue({ stopped: [101], failed: [] });
-    const cfg = { channels: { whatsapp: { enabled: true } } } as OpenClawConfig;
+    const cfg = { channels: { whatsapp: { enabled: true } } } as GrantedConfig;
 
     await noteWhatsappResponsivenessHealth({
       cfg,
@@ -132,7 +132,7 @@ describe("doctor WhatsApp responsiveness", () => {
   });
 
   it("collects a warning finding for local TUI pressure when WhatsApp is enabled", () => {
-    const cfg = { channels: { whatsapp: { enabled: true } } } as OpenClawConfig;
+    const cfg = { channels: { whatsapp: { enabled: true } } } as GrantedConfig;
 
     const findings = collectWhatsappResponsivenessHealthFindings({
       cfg,
@@ -164,7 +164,7 @@ describe("doctor WhatsApp responsiveness", () => {
   });
 
   it("keeps WhatsApp responsiveness findings quiet without the exact pressure signal", () => {
-    const cfg = { channels: { whatsapp: { enabled: true } } } as OpenClawConfig;
+    const cfg = { channels: { whatsapp: { enabled: true } } } as GrantedConfig;
 
     expect(
       collectWhatsappResponsivenessHealthFindings({
@@ -204,7 +204,7 @@ describe("doctor WhatsApp responsiveness", () => {
     ).toEqual([]);
     expect(
       collectWhatsappResponsivenessHealthFindings({
-        cfg: { channels: { whatsapp: { enabled: false } } } as OpenClawConfig,
+        cfg: { channels: { whatsapp: { enabled: false } } } as GrantedConfig,
         status: {
           eventLoop: {
             degraded: true,
@@ -226,7 +226,7 @@ describe("doctor WhatsApp responsiveness", () => {
     const cfg = {
       channels: { whatsapp: { enabled: true } },
       agents: { defaults: { model: { primary: "openai-codex/gpt-5.5" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteWhatsappResponsivenessHealth({
       cfg,

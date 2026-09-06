@@ -2,7 +2,7 @@
 import { css, html, type PropertyValues, type TemplateResult } from "lit";
 import { property, query } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 import { renderCopyButton } from "./copy-button.ts";
 import { type FileKind, fileKindForPath } from "./file-kind.ts";
 import { icons } from "./icons.ts";
@@ -14,7 +14,7 @@ type FilePreviewModalFile = {
   contents: string;
 };
 
-export class OpenClawFilePreviewModal extends OpenClawLitElement {
+export class GrantedFilePreviewModal extends GrantedLitElement {
   @property({ attribute: false }) files: FilePreviewModalFile[] = [];
   @property() activePath = "";
   @property() query = "";
@@ -751,6 +751,6 @@ function iconForFile(path: string) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-file-preview-modal": OpenClawFilePreviewModal;
+    "openclaw-file-preview-modal": GrantedFilePreviewModal;
   }
 }

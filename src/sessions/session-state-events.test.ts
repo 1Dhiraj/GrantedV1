@@ -2,7 +2,7 @@ import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { cleanupTempDirs, makeTempDir } from "../../test/helpers/temp-dir.js";
 import { drainFormattedSystemEvents } from "../auto-reply/reply/session-system-events.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setHeartbeatWakeHandler } from "../infra/heartbeat-wake.js";
 import {
   enqueueSystemEvent,
@@ -40,7 +40,7 @@ const watcher = "agent:main:main";
 const nestedWatcher = "agent:main:subagent:parent";
 const child = "agent:main:subagent:child";
 const group = "agent:main:telegram:group:room-1";
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 let disposeHeartbeatWakeHandler: (() => void) | undefined;
 
 function createDatabaseOptions() {

@@ -1,7 +1,7 @@
 /** Builds web-tool secret metadata from config, plugins, and provider contracts. */
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { loadInstalledPluginIndexInstallRecordsSync } from "../plugins/installed-plugin-index-records.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
@@ -70,7 +70,7 @@ const loadRuntimeWebToolsManifest = createLazyRuntimeSurface(
   (mod) => mod,
 );
 
-type FetchConfig = NonNullable<OpenClawConfig["tools"]>["web"] extends infer Web
+type FetchConfig = NonNullable<GrantedConfig["tools"]>["web"] extends infer Web
   ? Web extends { fetch?: infer Fetch }
     ? Fetch
     : undefined
@@ -139,7 +139,7 @@ function collectUnavailableWebProviders(params: {
   kind: "search" | "fetch";
   result: RuntimeWebProviderSelectionResult;
   context: ResolverContext;
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   metadata: RuntimeWebSearchMetadata | RuntimeWebFetchMetadata;
   degradedOwners: DegradedSecretOwner[];
   forceColdRefKeys?: ReadonlySet<string>;
@@ -216,7 +216,7 @@ function toWebSecretOwnerRefState(
 
 function associateWebProviderResolutionError(params: {
   kind: "search" | "fetch";
-  config: OpenClawConfig;
+  config: GrantedConfig;
   error: unknown;
   unavailableProviders: RuntimeWebProviderFailure[];
   forceColdRefKeys?: ReadonlySet<string>;
@@ -308,7 +308,7 @@ function needsRuntimeWebFetchProviderDiscovery(params: {
 }
 
 function hasPluginScopedWebToolConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   key: "webSearch" | "webFetch",
 ): boolean {
   const entries = config.plugins?.entries;
@@ -325,7 +325,7 @@ function hasPluginScopedWebToolConfig(
 }
 
 function inferSingleBundledPluginScopedWebToolConfigOwner(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   key: "webSearch" | "webFetch",
 ): string | undefined {
   const entries = config.plugins?.entries;
@@ -350,7 +350,7 @@ function inferSingleBundledPluginScopedWebToolConfigOwner(
 }
 
 function inferExactBundledPluginScopedWebToolConfigOwner(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   key: "webSearch" | "webFetch";
   pluginId: string;
 }): string | undefined {
@@ -366,7 +366,7 @@ type WebProviderContract = "webSearchProviders" | "webFetchProviders";
 
 async function hasCustomWebProviderPluginRisk(params: {
   contract: WebProviderContract;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   manifestRecords?: readonly PluginManifestRecord[];
 }): Promise<boolean> {
@@ -424,7 +424,7 @@ function readNonEmptyEnvValue(
 async function resolveSecretInputWithEnvFallback(params: {
   kind: "search" | "fetch";
   providerId: string;
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   context: ResolverContext;
   defaults: SecretDefaults | undefined;
   value: unknown;
@@ -558,7 +558,7 @@ async function resolveSecretInputWithEnvFallback(params: {
 }
 
 function setResolvedWebSearchApiKey(params: {
-  resolvedConfig: OpenClawConfig;
+  resolvedConfig: GrantedConfig;
   provider: PluginWebSearchProviderEntry;
   value: string;
 }): void {
@@ -573,7 +573,7 @@ function setResolvedWebSearchApiKey(params: {
 }
 
 async function resolveBundledWebSearchProviders(params: {
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   context: ResolverContext;
   configuredBundledPluginId?: string;
   onlyPluginIds?: readonly string[];
@@ -630,7 +630,7 @@ async function resolveBundledWebSearchProviders(params: {
 }
 
 async function resolveBundledWebFetchProviders(params: {
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   context: ResolverContext;
   configuredBundledPluginId?: string;
   hasCustomWebFetchPluginRisk: boolean;
@@ -686,7 +686,7 @@ async function resolveBundledWebFetchProviders(params: {
 
 function readConfiguredProviderCredential(params: {
   provider: PluginWebSearchProviderEntry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   search: Record<string, unknown> | undefined;
 }): unknown {
   return (
@@ -697,7 +697,7 @@ function readConfiguredProviderCredential(params: {
 
 function readConfiguredProviderCredentialFallback(params: {
   provider: PluginWebSearchProviderEntry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   search: Record<string, unknown> | undefined;
 }): { path: string; value: unknown } | undefined {
   return params.provider.getConfiguredCredentialFallback?.(params.config);
@@ -713,7 +713,7 @@ function inactivePathsForProvider(provider: PluginWebSearchProviderEntry): strin
 }
 
 function setResolvedWebFetchApiKey(params: {
-  resolvedConfig: OpenClawConfig;
+  resolvedConfig: GrantedConfig;
   provider: PluginWebFetchProviderEntry;
   value: string;
 }): void {
@@ -729,7 +729,7 @@ function setResolvedWebFetchApiKey(params: {
 
 function readConfiguredFetchProviderCredential(params: {
   provider: PluginWebFetchProviderEntry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   fetch: Record<string, unknown> | undefined;
 }): unknown {
   return (
@@ -740,7 +740,7 @@ function readConfiguredFetchProviderCredential(params: {
 
 function readConfiguredFetchProviderCredentialFallback(params: {
   provider: PluginWebFetchProviderEntry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   fetch: Record<string, unknown> | undefined;
 }): { path: string; value: unknown } | undefined {
   return params.provider.getConfiguredCredentialFallback?.(params.config);
@@ -760,8 +760,8 @@ function inactivePathsForFetchProvider(provider: PluginWebFetchProviderEntry): s
  */
 /** Resolves web search/fetch secret metadata from config, plugins, and fallback runtime providers. */
 export async function resolveRuntimeWebTools(params: {
-  sourceConfig: OpenClawConfig;
-  resolvedConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  resolvedConfig: GrantedConfig;
   context: ResolverContext;
   allowUnavailableSecretOwners?: boolean;
   forceColdRefKeys?: ReadonlySet<string>;

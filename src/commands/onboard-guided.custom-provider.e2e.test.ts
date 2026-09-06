@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { captureFullEnv, setTestEnvValue } from "../test-utils/env.js";
 
 const cleanupTasks: Array<() => Promise<void>> = [];
@@ -33,7 +33,7 @@ async function runCustomSetup(scenario: Scenario) {
   const requests: Array<{ stream: boolean; pathname: string; authorized: boolean }> = [];
   const serverErrors: unknown[] = [];
   const controller = new AbortController();
-  const initialConfig: OpenClawConfig = {
+  const initialConfig: GrantedConfig = {
     gateway: { mode: "local" },
     plugins: { slots: { memory: "none" } },
     agents: {
@@ -196,7 +196,7 @@ async function runCustomSetup(scenario: Scenario) {
     initialConfig,
     activationResults,
     textPrompts: vi.mocked(prompter.text).mock.calls,
-    config: JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig,
+    config: JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig,
     output: JSON.stringify([
       runtime.log.mock.calls,
       runtime.error.mock.calls,

@@ -3,7 +3,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import type { MessageMetadata } from "@slack/types";
 import type { ChatPostMessageArguments, WebClient } from "@slack/web-api";
 import type { ChannelMessageUnknownSendContext } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerSlackInstallationState } from "./installation-identity-state.js";
 import { reconcileSlackUnknownSend, sendMessageSlack } from "./send.js";
@@ -47,7 +47,7 @@ const cfg = {
       botToken: "xoxb-test",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function createSlackReconcileTestClient(): SlackReconcileTestClient {
   return {
@@ -133,7 +133,7 @@ describe("reconcileSlackUnknownSend", () => {
               botToken: "xoxb-org",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         to: "team:T123:channel:C123",
       }),
     );
@@ -381,7 +381,7 @@ describe("reconcileSlackUnknownSend", () => {
           userToken: "test-user-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await sendMessageSlack("user:U123", "final answer", {
       cfg: userIdentityCfg,
@@ -424,7 +424,7 @@ describe("reconcileSlackUnknownSend", () => {
           userToken: "xoxp-read",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       reconcileSlackUnknownSend(createUnknownSendContext({ cfg: tokenCfg })),
@@ -457,7 +457,7 @@ describe("reconcileSlackUnknownSend", () => {
           userToken: "xoxp-read",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       reconcileSlackUnknownSend(createUnknownSendContext({ cfg: tokenCfg, to: "U123" })),
@@ -485,7 +485,7 @@ describe("reconcileSlackUnknownSend", () => {
           userToken: "xoxp-read",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       reconcileSlackUnknownSend(createUnknownSendContext({ cfg: tokenCfg })),
@@ -612,7 +612,7 @@ describe("reconcileSlackUnknownSend", () => {
     const client = createSlackReconcileTestClient();
     const chunkedCfg = {
       channels: { slack: { botToken: "xoxb-test", textChunkLimit: 5 } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let postedPart = 0;
     client.chat.postMessage.mockImplementation(async () => ({
       ok: true,

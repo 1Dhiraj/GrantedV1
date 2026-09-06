@@ -1,7 +1,7 @@
 // Canvas doctor contract migrates documents from configured host roots into core storage.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { pathExists } from "openclaw/plugin-sdk/text-utility-runtime";
 import {
@@ -26,8 +26,8 @@ export const legacyConfigRules = [
 ];
 
 /** Removes retired file-host config while preserving the surviving enablement switch. */
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   return migrateCanvasHostConfig(cfg) ?? { config: cfg, changes: [] };

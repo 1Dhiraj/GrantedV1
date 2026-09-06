@@ -5,11 +5,11 @@ import { afterEach, describe, expect, it } from "vitest";
 import type { CronJob } from "../src/cron/types.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const TEST_TIMEOUT_MS = 180_000;
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 
 afterEach(async () => {
   await Promise.allSettled(instances.splice(0).map((instance) => instance.cleanup()));

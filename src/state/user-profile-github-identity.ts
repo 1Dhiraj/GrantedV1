@@ -8,7 +8,7 @@ import { executeSqliteQuerySync, executeSqliteQueryTakeFirstSync } from "../infr
 import { normalizeGitHubLogin } from "../utils/github-login.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { mutateUserPreference, selectUserPreferenceValues } from "./user-preferences.js";
 import { selectResolvedUserProfileById, userProfilesDb } from "./user-profiles-internal.js";
@@ -65,7 +65,7 @@ function selectStoredGitHubIdentities(
 
 export function resolveCachedGitHubIdentity(
   params: { accountId: number; email: string },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): { profileId: string; updatedAt: number } | undefined {
   const email = params.email.trim().toLowerCase();
   if (!email || !Number.isSafeInteger(params.accountId) || params.accountId <= 0) {
@@ -134,7 +134,7 @@ export function selectUserProfileGitHubIdentities(
 /** Resolves bounded participants for verified identities that have not opted out of public credit. */
 export function resolveUserProfileGitHubAttribution(
   profileIds: readonly string[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Map<string, StoredGitHubIdentity | null> {
   if (profileIds.length === 0) {
     return new Map();

@@ -27,7 +27,7 @@ import {
   synthesizeSpeech,
   textToSpeechTelephony,
   transcodeAudioBufferMock,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ReplyPayload,
   type SpeechTelephonySynthesisRequest,
 } from "./tts-runtime.test-support.js";
@@ -45,7 +45,7 @@ describe("TTS runtime persona behavior", () => {
   });
 
   it("selects persona preferred provider before config fallback", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tts: {
         enabled: true,
         provider: "other",
@@ -84,7 +84,7 @@ describe("TTS runtime persona behavior", () => {
       tts: {
         providers: { broken: {} },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const config = resolveTtsConfig(cfg);
 
     expect(isTtsProviderConfigured(config, "broken", cfg)).toBe(false);
@@ -93,7 +93,7 @@ describe("TTS runtime persona behavior", () => {
 
   it("merges active persona provider binding into synthesis config", async () => {
     setTtsMachinePrefsPathResolver(() => "/tmp/openclaw-speech-core-persona-merge.json");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tts: {
         enabled: true,
         provider: "mock",
@@ -168,7 +168,7 @@ describe("TTS runtime persona behavior", () => {
             },
           },
         };
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           plugins: { enabled: false },
           tts: {
             auto: "off",
@@ -241,7 +241,7 @@ describe("TTS runtime persona behavior", () => {
         provider: "default",
         id: "TEST_TTS_MISSING_PERSONA_KEY",
       } as const;
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         plugins: { enabled: false },
         tts: {
           provider: "mock",
@@ -512,7 +512,7 @@ describe("TTS runtime per-agent config", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const resolved = resolveTtsConfig(cfg, "reader");
 
@@ -572,7 +572,7 @@ describe("TTS runtime per-agent config", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     let mediaDir: string | undefined;
     try {
@@ -619,7 +619,7 @@ describe("TTS runtime per-agent config", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const resolved = resolveTtsConfig(cfg, "reader");
 

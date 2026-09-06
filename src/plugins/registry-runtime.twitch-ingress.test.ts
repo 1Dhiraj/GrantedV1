@@ -6,7 +6,7 @@ import {
 } from "../channels/message-access/admission-evidence.js";
 import { importBundledChannelContractSourceArtifact } from "../channels/plugins/contracts/test-helpers/runtime-artifacts.js";
 import type { ChannelPlugin } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runChannelInboundEvent } from "../plugin-sdk/channel-inbound.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { createRuntimeEnv } from "../test-utils/plugin-runtime-env.js";
@@ -106,7 +106,7 @@ async function withTwitchMonitor(
       channel: "testchannel",
       ...policy,
     };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: { twitch: { accounts: { [accountId]: accountConfig } } },
     };
     const account = twitchPlugin.config.resolveAccount(cfg, accountId);

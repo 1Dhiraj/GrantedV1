@@ -1,5 +1,5 @@
 // Slack tests cover prepare.thread session key plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   registerSessionBindingAdapter,
   unregisterSessionBindingAdapter,
@@ -37,7 +37,7 @@ function buildCtx(overrides?: {
       channels: {
         slack: { enabled: true, replyToMode },
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     teamId: "T1",
     threadInheritParent: false,
     threadHistoryScope: "thread",

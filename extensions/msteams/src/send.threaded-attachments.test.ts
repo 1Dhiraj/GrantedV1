@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Client as TeamsApiClient } from "@microsoft/teams.api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { sendAdaptiveCardMSTeams, sendMessageMSTeams, sendPollMSTeams } from "./send.js";
 
 const serviceUrl = "https://smba.trafficmanager.net/amer";
@@ -251,7 +251,7 @@ const structuredRoutingCases: StructuredRoutingCase[] = [
 
 type StructuredSender = {
   label: string;
-  send: (cfg: OpenClawConfig) => Promise<unknown>;
+  send: (cfg: GrantedConfig) => Promise<unknown>;
 };
 
 const structuredSenders: StructuredSender[] = [
@@ -316,7 +316,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
         });
 
         const result = await sendMessageMSTeams({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           to: conversationId,
           text: "Here is the report",
           mediaUrl: "https://media.example.com/report.pdf",
@@ -384,7 +384,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
         });
 
         await sendMessageMSTeams({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           to: conversationId,
           text: "Workspace report",
           mediaUrl: "report.pdf",
@@ -444,7 +444,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
       });
 
       const result = await sendMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: conversationId,
         text: "Here is the image",
         mediaUrl: "https://media.example.com/image.png",
@@ -493,7 +493,7 @@ describe.each(structuredSenders)("Microsoft Teams $label thread routing", ({ sen
           log: { debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn() },
         });
 
-        await send({} as OpenClawConfig);
+        await send({} as GrantedConfig);
 
         expect(requests).toHaveLength(1);
         expect(requests[0]).toMatchObject({

@@ -3,18 +3,18 @@ import type { Selectable } from "kysely";
 import { tryResolveLegacyCompatibilityAgentId } from "../../config/legacy.default-agent-owner.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
 
-export type AcpSessionsTable = OpenClawStateKyselyDatabase["acp_sessions"];
-type AcpSessionMetaDatabase = Pick<OpenClawStateKyselyDatabase, "acp_sessions">;
+export type AcpSessionsTable = GrantedStateKyselyDatabase["acp_sessions"];
+type AcpSessionMetaDatabase = Pick<GrantedStateKyselyDatabase, "acp_sessions">;
 export type AcpSessionRow = Selectable<AcpSessionsTable>;
 export type AcpSessionEntryBinding = Pick<SessionEntry, "lifecycleRevision"> &
   Partial<Pick<SessionEntry, "sessionId" | "sessionStartedAt">>;
@@ -95,7 +95,7 @@ export function parseAcpDatabaseSessionKeyCandidates(sessionKey: string): Array<
 }
 
 function resolveAcpLegacyUnscopedOwner(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   storeSessionKey: string,
 ): string | undefined {
   if (!cfg) {
@@ -112,7 +112,7 @@ function resolveAcpLegacyUnscopedOwner(
 export function legacyAcpDatabaseSessionKeys(
   storeSessionKey: string,
   agentId?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): string[] {
   const normalizedKey = storeSessionKey.trim();
   const keys: string[] = [];
@@ -148,7 +148,7 @@ export function selectAcpSessionRowForStoreEntry(
   db: DatabaseSync,
   storeSessionKey: string,
   agentId?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   entry?: AcpSessionEntryBinding,
 ): AcpSessionRow | undefined {
   const databaseKey = buildAcpDatabaseSessionKey(storeSessionKey, agentId);

@@ -492,11 +492,11 @@ declare const generatedMcpResourceReadResponse: McpResourceReadResponse;
 const openClawMcpResourceReadResponse: CodexAppServerRequestResult<"mcpServer/resource/read"> =
   generatedMcpResourceReadResponse;
 declare const generatedStrictReviewRequiredNotification: StrictReviewRequiredNotification;
-type OpenClawStrictReviewRequiredNotification = Extract<
+type GrantedStrictReviewRequiredNotification = Extract<
   CodexServerNotification,
   { method: "autoApprovalReview/strictReviewRequired" }
 >;
-const openClawStrictReviewRequiredNotification: OpenClawStrictReviewRequiredNotification = {
+const openClawStrictReviewRequiredNotification: GrantedStrictReviewRequiredNotification = {
   method: "autoApprovalReview/strictReviewRequired",
   params: generatedStrictReviewRequiredNotification,
 };

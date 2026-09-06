@@ -1,5 +1,5 @@
 // Searxng tests cover searxng search provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   resolveSearxngBaseUrl,
@@ -190,7 +190,7 @@ describe("searxng web search provider", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveSearxngBaseUrl(config)).toBeUndefined();
   });
@@ -224,7 +224,7 @@ describe("searxng web search provider", () => {
 
   it("persists base URL to plugin config via setConfiguredCredentialValue", () => {
     const provider = createSearxngWebSearchProvider();
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const setConfiguredCredentialValue = provider.setConfiguredCredentialValue;
     if (!setConfiguredCredentialValue) {
       throw new Error("Expected SearXNG provider setConfiguredCredentialValue");

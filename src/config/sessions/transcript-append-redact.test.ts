@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   onInternalSessionTranscriptUpdate,
   onSessionTranscriptUpdate,
@@ -65,7 +65,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
 
   it("masks secrets in message content before writing to disk", async () => {
     const sessionFile = resolveSessionTranscriptPathInDir("redact-on", fixture.sessionsDir());
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -96,7 +96,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "redact-image-base64",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -138,7 +138,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
 
   it("redacts content regardless of the retired off switch", async () => {
     const sessionFile = resolveSessionTranscriptPathInDir("redact-off", fixture.sessionsDir());
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -174,7 +174,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "redact-string-payload",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -196,7 +196,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "redact-structured-no-role",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -269,7 +269,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "redact-tool-call-args",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -348,7 +348,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "redact-tool-result-details",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await appendSessionTranscriptMessage({
       transcriptPath: sessionFile,
@@ -409,7 +409,7 @@ describe("appendSessionTranscriptMessage - redaction", () => {
       "issue-80379-tool-result-env-placeholders",
       fixture.sessionsDir(),
     );
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const toolOutput =
       'DISCORD_BOT_TOKEN="${DISCORD_BOT_TOKEN:-}"\nTELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"';
 
@@ -537,7 +537,7 @@ describe("appendExactAssistantMessageToSessionTranscript - redaction", () => {
     await seedSessionEntry({ sessionId, sessionKey, storePath });
 
     const fakeApiKey = "sk-proj-FAKEKEYFORTESTINGONLY1234567890";
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     const result = await appendExactAssistantMessageToSessionTranscript({
       sessionKey,
@@ -579,7 +579,7 @@ describe("appendExactAssistantMessageToSessionTranscript - redaction", () => {
     await seedSessionEntry({ sessionId, sessionKey, storePath });
 
     const fakeApiKey = "sk-proj-FAKEKEYFORTESTINGONLY1234567890";
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const updates: Array<{ message?: unknown }> = [];
     const unsubscribe = onSessionTranscriptUpdate((update) => updates.push(update));
 
@@ -630,7 +630,7 @@ describe("appendExactAssistantMessageToSessionTranscript - redaction", () => {
     await seedSessionEntry({ sessionId, sessionKey, storePath });
 
     const fakeApiKey = "sk-proj-FAKEKEYFORTESTINGONLY1234567890";
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     const first = await appendAssistantMessageToSessionTranscript({
       sessionKey,

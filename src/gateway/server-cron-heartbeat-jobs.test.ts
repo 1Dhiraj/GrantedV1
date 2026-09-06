@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { reconcileHeartbeatMonitorJobs } from "../cron/heartbeat-monitor.js";
 import type { CronJob } from "../cron/types.js";
 
@@ -50,7 +50,7 @@ describe("reconcileHeartbeatMonitorJobs", () => {
         defaults: { heartbeat: { every: "15m" } },
         list: [{ id: "main" }, { id: "ops" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await reconcileHeartbeatMonitorJobs({
       cron: { add, list, remove } as never,
@@ -109,7 +109,7 @@ describe("reconcileHeartbeatMonitorJobs", () => {
     const list = vi.fn(async () => [monitorJob("main")]);
     const cfg = {
       agents: { defaults: { heartbeat: { every: "0m" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await reconcileHeartbeatMonitorJobs({
       cron: { add, list, remove } as never,
@@ -137,7 +137,7 @@ describe("reconcileHeartbeatMonitorJobs", () => {
         defaults: { heartbeat: { every: "30m" } },
         list: [{ id: "a" }, { id: "b" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await reconcileHeartbeatMonitorJobs({
       cron: { add, list, remove } as never,
@@ -162,7 +162,7 @@ describe("reconcileHeartbeatMonitorJobs", () => {
     const cleanupLogger = { warn: vi.fn() };
     const cfg = {
       agents: { defaults: { heartbeat: { every: "30m" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       reconcileHeartbeatMonitorJobs({

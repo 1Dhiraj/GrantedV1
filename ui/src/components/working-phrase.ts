@@ -6,7 +6,7 @@ import { html, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
 import { fnv1aUtf16 } from "../lib/fnv1a.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { PollController } from "../lit/poll-controller.ts";
 
 const PHRASE_KEYS = [
@@ -49,7 +49,7 @@ function displayedPhraseIndex(seed: string, bucket: number): number {
   return (offset + bucket * stride) % length;
 }
 
-class WorkingPhrase extends OpenClawLightDomContentsElement {
+class WorkingPhrase extends GrantedLightDomContentsElement {
   @property({ type: Number }) startMs: number | null = null;
   @property() seed = "";
 

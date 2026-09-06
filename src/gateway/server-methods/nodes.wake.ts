@@ -1,6 +1,6 @@
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { getRuntimeConfig } from "../../config/io.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { NodePairingGeneration } from "../../infra/device-pairing-node-state.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import {
@@ -36,7 +36,7 @@ async function resolveDirectNodePushConfig() {
 }
 
 function resolveRelayNodePushConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   registration: Extract<
     NonNullable<Awaited<ReturnType<typeof loadApnsRegistration>>>,
     { transport: "relay" }
@@ -80,7 +80,7 @@ export async function maybeWakeNodeWithApns(
   opts?: {
     force?: boolean;
     wakeReason?: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     lifecycle?: NodeWakeLifecycle;
     generation?: NodePairingGeneration;
   },
@@ -215,7 +215,7 @@ export async function maybeWakeNodeWithApns(
 export async function maybeSendNodeWakeNudge(
   nodeId: string,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     lifecycle?: NodeWakeLifecycle;
     generation?: NodePairingGeneration;
   },

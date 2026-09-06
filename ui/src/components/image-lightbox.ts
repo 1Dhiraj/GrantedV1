@@ -2,7 +2,7 @@ import Panzoom, { type PanzoomObject } from "@panzoom/panzoom";
 import { css, html, nothing, type PropertyValues } from "lit";
 import { property, query, queryAll, state } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 import "./modal-dialog.ts";
 
@@ -34,7 +34,7 @@ function dataUrlMimeType(source: string): string | undefined {
   return mediaType === undefined ? undefined : mimeTypeEssence(mediaType);
 }
 
-class OpenClawImageLightbox extends OpenClawLitElement {
+class GrantedImageLightbox extends GrantedLitElement {
   @property() mediaKind: "image" | "video" = "image";
   @property() src = "";
   @property() originalSrc = "";
@@ -670,11 +670,11 @@ class OpenClawImageLightbox extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-image-lightbox")) {
-  customElements.define("openclaw-image-lightbox", OpenClawImageLightbox);
+  customElements.define("openclaw-image-lightbox", GrantedImageLightbox);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-image-lightbox": OpenClawImageLightbox;
+    "openclaw-image-lightbox": GrantedImageLightbox;
   }
 }

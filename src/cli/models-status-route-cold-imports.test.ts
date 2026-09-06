@@ -3,14 +3,14 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createColdPluginFixture,
   isColdPluginRuntimeLoaded,
 } from "../plugins/test-helpers/cold-plugin-fixtures.js";
 
 const testState = vi.hoisted(() => ({
-  config: {} as OpenClawConfig,
+  config: {} as GrantedConfig,
   logs: [] as string[],
 }));
 

@@ -1,15 +1,15 @@
 import { afterEach, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { prepareAgentContentPhase } from "./agent-content-phase.js";
 import type { AgentTurnContext } from "./types.js";
 
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 afterEach(async () => {
   await state?.cleanup();
 });
@@ -19,7 +19,7 @@ it.each(["main", "work"])(
   async (agentId) => {
     state = await createOpenClawTestState({ label: "agent-content-owner" });
     const { stateDir, workspaceDir } = state;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: {

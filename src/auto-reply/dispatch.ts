@@ -1,7 +1,7 @@
 /** Auto-reply dispatch orchestration, hook composition, and foreground delivery fencing. */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { normalizeChatType } from "../channels/chat-type.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isDiagnosticsEnabled } from "../infra/diagnostic-events.js";
 import {
   measureDiagnosticsTimelineSpan,
@@ -115,7 +115,7 @@ async function runOrderedForegroundReplySettledDeliveries(
 
 function resolveDispatcherSilentReplyContext(
   ctx: MsgContext | FinalizedMsgContext,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ) {
   const finalized = finalizeInboundContext(ctx);
   const commandTargetSessionKey = resolveCommandTurnTargetSessionKey(finalized);
@@ -198,7 +198,7 @@ export { settleReplyDispatcher, withReplyDispatcher } from "./dispatch-dispatche
 /** Dispatches one finalized inbound message through reply resolution and queued delivery. */
 export async function dispatchInboundMessage(params: {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcher: ReplyDispatcher;
   toolsAllow?: string[];
   replyOptions?: InternalDispatchReplyOptions;
@@ -268,7 +268,7 @@ export async function dispatchInboundMessage(params: {
 
 type BufferedInboundDispatcherParams = {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ReplyDispatcherWithTypingOptions;
   toolsAllow?: string[];
   replyOptions?: InternalDispatchReplyOptions;
@@ -399,7 +399,7 @@ export async function dispatchInboundMessageWithRoutedChannelDispatcher(
 
 type PlainInboundDispatcherParams = {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ReplyDispatcherOptions;
   toolsAllow?: string[];
   replyOptions?: InternalDispatchReplyOptions;
@@ -457,7 +457,7 @@ async function dispatchInboundMessageWithPlainDispatcherCore(
 /** Creates a plain dispatcher, installs global send hooks, and dispatches the inbound message. */
 export async function dispatchInboundMessageWithDispatcher(params: {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ReplyDispatcherOptions;
   toolsAllow?: string[];
   replyOptions?: InternalDispatchReplyOptions;
@@ -471,7 +471,7 @@ type ProjectedOptions = Omit<ReplyDispatcherOptions, "beforeDeliver" | "beforeDe
 /** Creates a core-owned dispatcher whose modifiers fence projected output capture. */
 export async function dispatchInboundMessageWithProjectedDispatcher(params: {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ProjectedOptions;
   toolsAllow?: string[];
   replyOptions?: InternalDispatchReplyOptions;

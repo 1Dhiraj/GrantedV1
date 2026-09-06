@@ -6,7 +6,7 @@ import {
   attachRuntimeConfigWriteApplication,
   createRuntimeConfigWriteApplication,
 } from "../config/runtime-write-application.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { normalizePluginTargetConfig } from "../plugins/config-state.js";
 import { enablePluginInConfig } from "../plugins/enable.js";
@@ -50,7 +50,7 @@ import type { SystemAgentOwnerPluginArtifactSnapshot } from "./verified-inferenc
 type ProjectedInferenceRoute = Awaited<ReturnType<typeof projectInferenceRoute>>;
 
 export type SetupInferenceActivationPersistenceState = {
-  committedConfig: OpenClawConfig | undefined;
+  committedConfig: GrantedConfig | undefined;
   autoLocalModelLeanApplied: boolean;
   codexInstallOwnership: "unknown" | "owned" | "unowned";
   gatewayRestartRequired: boolean;
@@ -64,8 +64,8 @@ export async function persistActivatedSetupInference(input: {
   test: Extract<Awaited<ReturnType<typeof runSetupInferenceTest>>, { ok: true }>;
   codexPluginPatch: unknown;
   pendingCodexInstall: PluginInstallRecord | undefined;
-  cfg: OpenClawConfig;
-  sourceCfg: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceCfg: GrantedConfig;
   verifiedRoute: ProjectedInferenceRoute;
   baselineRoute: ProjectedInferenceRoute;
   stagedRoute: NonNullable<ProjectedInferenceRoute["route"]>;
@@ -105,12 +105,12 @@ export async function persistActivatedSetupInference(input: {
     state,
     revalidateOwner,
   } = input;
-  let committedConfig: OpenClawConfig | undefined;
+  let committedConfig: GrantedConfig | undefined;
   let { codexInstallOwnership } = state;
   const requestedAgentId = params.agentId ? testPlan.routeAgentId : undefined;
-  const projectRoute = (config: OpenClawConfig) =>
+  const projectRoute = (config: GrantedConfig) =>
     projectInferenceRoute(config, requestedAgentId, routeDeps);
-  const resolveRoute = (config: OpenClawConfig) =>
+  const resolveRoute = (config: GrantedConfig) =>
     resolveSystemAgentConfiguredRouteFromConfig(config, requestedAgentId, routeDeps);
 
   const { stripPendingPluginInstallRecords } = await import("../plugins/install-record-commit.js");
@@ -124,9 +124,9 @@ export async function persistActivatedSetupInference(input: {
       })
     : undefined;
   const stageCandidate = (
-    current: OpenClawConfig,
+    current: GrantedConfig,
     configKind: "runtime" | "source",
-  ): OpenClawConfig => {
+  ): GrantedConfig => {
     let next = codexPluginPatch === undefined ? current : stripPendingPluginInstallRecords(current);
     if (plan.manualAuth) {
       next = applyManualAuthConfig(
@@ -137,7 +137,7 @@ export async function persistActivatedSetupInference(input: {
       );
     }
     if (codexPluginPatch !== undefined) {
-      const patched = applyMergePatch(next, codexPluginPatch) as OpenClawConfig;
+      const patched = applyMergePatch(next, codexPluginPatch) as GrantedConfig;
       const enabledCodex = enablePluginInConfig(
         normalizePluginTargetConfig(patched, "codex"),
         "codex",

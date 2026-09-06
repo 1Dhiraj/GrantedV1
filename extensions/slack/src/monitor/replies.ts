@@ -3,7 +3,7 @@ import type { MessageMetadata } from "@slack/types";
 import type { Block, KnownBlock } from "@slack/web-api";
 import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
 import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   chunkMarkdownTextWithMode,
@@ -130,7 +130,7 @@ export function resolveDeliveredSlackReplyThreadTs(params: {
 }
 
 export async function deliverReplies(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   replies: ReplyPayload[];
   target: string;
   token: string;

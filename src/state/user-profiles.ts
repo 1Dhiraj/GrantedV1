@@ -10,8 +10,8 @@ import { deferSqlitePostCommitPublication } from "../infra/sqlite-post-commit.js
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabaseOptions,
+  type GrantedStateDatabase,
 } from "./openclaw-state-db.js";
 import { mergeUserGitHubConnection } from "./user-github-connections.js";
 import { ensureUserPreferencesSchema, mergeUserPreferences } from "./user-preferences.js";
@@ -93,8 +93,8 @@ type UserProfileListRow = Pick<
 const MAX_USER_PROFILE_DISPLAY_NAME_LENGTH = 256;
 
 function runUserProfileWriteTransaction<T>(
-  operation: (database: OpenClawStateDatabase) => T,
-  options: OpenClawStateDatabaseOptions,
+  operation: (database: GrantedStateDatabase) => T,
+  options: GrantedStateDatabaseOptions,
   transactionOptions: Parameters<typeof runOpenClawStateWriteTransaction>[2],
 ): T {
   return runOpenClawStateWriteTransaction(
@@ -210,7 +210,7 @@ function selectUserProfileListItemById(db: DatabaseSync, profileId: string): Use
 /** Resolves a durable profile reference to its current one-hop merge head. */
 export function resolveUserProfileId(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): string | undefined {
   ensureUserProfilesSchema(options);
   const { db } = openOpenClawStateDatabase(options);
@@ -220,7 +220,7 @@ export function resolveUserProfileId(
 /** Reads a profile's protocol-facing representation through its merge head. */
 export function getUserProfileListItem(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileListItem {
   ensureUserProfilesSchema(options);
   const { db } = openOpenClawStateDatabase(options);
@@ -230,7 +230,7 @@ export function getUserProfileListItem(
 /** Reads the role assigned to an existing profile's current merge head. */
 export function getUserProfileRole(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): string | null {
   ensureUserProfileRoleSchema(options);
   const { db } = openOpenClawStateDatabase(options);
@@ -241,7 +241,7 @@ export function getUserProfileRole(
 export function setUserProfileRole(
   profileId: string,
   role: string | null,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileListItem {
   ensureUserProfileRoleSchema(options);
   const now = Date.now();
@@ -265,7 +265,7 @@ export function setUserProfileRole(
 function ensureProfileForEmailWithInitialName(
   email: string,
   initialDisplayName: string | null,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): UserProfile {
   const normalizedEmail = normalizeEmail(email);
   const now = Date.now();
@@ -308,7 +308,7 @@ function ensureProfileForEmailWithInitialName(
 /** Resolves an email alias or atomically creates its first durable profile. */
 export function ensureProfileForEmail(
   email: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfile {
   return ensureProfileForEmailWithInitialName(email, null, options);
 }
@@ -317,7 +317,7 @@ function ensureProfileForProviderIdentity(params: {
   provider: string;
   subject: string;
   initialDisplayName: string | null;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
 }): UserProfile {
   const now = Date.now();
   const subject =
@@ -425,7 +425,7 @@ function mergeUserProfiles(
 function adoptDisplayNameIfEmpty(
   profileId: string,
   displayName: string | null,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): UserProfile {
   if (!displayName) {
     const { db } = openOpenClawStateDatabase(options);
@@ -455,7 +455,7 @@ function adoptDisplayNameIfEmpty(
 async function adoptAvatarIfEmpty(params: {
   profileId: string;
   profilePic: string | undefined;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
   fetchOptions: TailscaleAvatarFetchOptions;
 }): Promise<UserProfile> {
   const { db } = openOpenClawStateDatabase(params.options);
@@ -503,7 +503,7 @@ async function adoptAvatarIfEmpty(params: {
 /** Resolves a verified Tailscale login and adopts its display name into an empty field. */
 export function ensureProfileForTailscaleIdentity(
   identity: TailscaleProfileIdentity,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfile {
   const classified = classifyTailscaleLogin(identity.login);
   if (classified.kind === "invalid") {
@@ -526,7 +526,7 @@ export function ensureProfileForTailscaleIdentity(
 export async function adoptTailscaleProfileAvatar(
   profileId: string,
   profilePic: string | undefined,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
   fetchOptions: TailscaleAvatarFetchOptions = {},
 ): Promise<UserProfile> {
   return await adoptAvatarIfEmpty({
@@ -541,7 +541,7 @@ export async function adoptTailscaleProfileAvatar(
 export function linkEmail(
   email: string,
   targetProfileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileListItem {
   const normalizedEmail = normalizeEmail(email);
   const now = Date.now();
@@ -614,7 +614,7 @@ export function linkEmail(
 export function setDisplayName(
   profileId: string,
   name: string | null,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileListItem {
   const now = Date.now();
   ensureUserProfilesSchema(options);
@@ -649,7 +649,7 @@ export function syncGitHubIdentity(
     authenticationAlias: GitHubAuthenticationAlias;
     initialDisplayName?: string;
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileListItem {
   const alias = normalizeGitHubAuthenticationAlias(params.authenticationAlias);
   const githubDisplayName = normalizeInitialDisplayName(params.identity.name);
@@ -695,7 +695,7 @@ export function setAvatar(
   profileId: string,
   bytes: Uint8Array,
   mime: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Result<UserProfileListItem, UserProfileAvatarError> {
   if (bytes.byteLength > MAX_USER_PROFILE_AVATAR_BYTES) {
     return err({ code: "avatar_too_large", maxBytes: MAX_USER_PROFILE_AVATAR_BYTES });

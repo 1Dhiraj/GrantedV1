@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { findOverlappingWorkspaceAgentIds, isSharedAuthStoreOwner } from "./agent-delete-safety.js";
 
 describe("shared auth store deletion safety", () => {
@@ -44,7 +44,7 @@ describe("shared workspace deletion safety", () => {
         workspaceAliasDir,
         process.platform === "win32" ? "junction" : "dir",
       );
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           list: [
             { id: "alpha", workspace: workspaceAliasDir },

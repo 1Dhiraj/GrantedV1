@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { createAccountListHelpers } from "../channels/plugins/account-helpers.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createAccountCronScheduledToolPolicy } from "../cron/scheduled-tool-policy.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createTestRegistry } from "../test-utils/channel-plugins.js";
@@ -82,7 +82,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("prepares a direct conversation profile with sender tool restrictions", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "id:guest": { deny: ["exec", "process"] },
@@ -126,7 +126,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("exempts owner WebChat from wildcard sender tool restrictions", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec", "process"] },
@@ -146,7 +146,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("exempts owner WebChat identified through the message channel", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec", "process"] },
@@ -166,7 +166,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("keeps wildcard sender tool restrictions for non-owner WebChat", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec", "process"] },
@@ -186,7 +186,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("keeps wildcard sender tool restrictions for owners on external channels", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec", "process"] },
@@ -206,7 +206,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("prepares a shared conversation profile with group per-sender restrictions", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -241,7 +241,7 @@ describe("resolveConversationCapabilityProfile", () => {
   });
 
   it("uses a scheduled owner group without reapplying sender wildcard policy", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         deny: ["exec"],
         toolsBySender: { "*": { deny: ["write"] } },
@@ -476,7 +476,7 @@ describe("resolveConversationCapabilityProfile scheduled account authority", () 
             groups: { "safe-room": { tools: { allow: ["read"] } } },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       sessionKey: ownerSessionKey,
       agentId: "main",
       messageProvider: "whatsapp",

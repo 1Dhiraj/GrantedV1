@@ -13,7 +13,7 @@ import {
   VOICE_NODE_PAIRING_SETUP_BOOTSTRAP_PROFILE,
 } from "../shared/device-bootstrap-profile.js";
 import { tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -535,7 +535,7 @@ describe("device bootstrap tokens", () => {
         });
         const row = executeSqliteQueryTakeFirstSync(
           db,
-          getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db)
+          getNodeSqliteKysely<GrantedStateKyselyDatabase>(db)
             .selectFrom("device_pair_setup_completions")
             .select("setup_id")
             .where("setup_id", "=", issued.setupId),

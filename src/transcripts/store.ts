@@ -13,8 +13,8 @@ import {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
 import type { TranscriptSessionDescriptor, TranscriptUtterance } from "./provider-types.js";
@@ -56,7 +56,7 @@ export { safeTranscriptPathSegment, transcriptSessionExportKey, transcriptSessio
 export class TranscriptsStore {
   constructor(
     private readonly exportRootDir: string,
-    private readonly databaseOptions: OpenClawStateDatabaseOptions = {},
+    private readonly databaseOptions: GrantedStateDatabaseOptions = {},
   ) {}
 
   private database() {
@@ -66,7 +66,7 @@ export class TranscriptsStore {
 
   private transaction(
     operationLabel: string,
-    operation: (database: OpenClawStateDatabase) => void,
+    operation: (database: GrantedStateDatabase) => void,
   ): void {
     runOpenClawStateWriteTransaction(operation, this.databaseOptions, { operationLabel });
   }
@@ -90,7 +90,7 @@ export class TranscriptsStore {
     };
   }
 
-  private readSummaryKeys(database: OpenClawStateDatabase): Set<string> {
+  private readSummaryKeys(database: GrantedStateDatabase): Set<string> {
     const rows = executeSqliteQuerySync(
       database.db,
       meetingTranscriptDb(database.db)
@@ -100,7 +100,7 @@ export class TranscriptsStore {
     return new Set(rows.map((row) => `${row.session_id}\0${row.session_started_at}`));
   }
 
-  private hasSummary(database: OpenClawStateDatabase, row: MeetingTranscriptSessionRow): boolean {
+  private hasSummary(database: GrantedStateDatabase, row: MeetingTranscriptSessionRow): boolean {
     return Boolean(
       executeSqliteQueryTakeFirstSync(
         database.db,

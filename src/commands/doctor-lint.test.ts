@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as bundledHealthChecks from "../flows/bundled-health-checks.js";
 import { CORE_HEALTH_CHECKS } from "../flows/doctor-core-checks.js";
 import { clearHealthChecksForTest, registerHealthCheck } from "../flows/health-check-registry.js";
@@ -356,7 +356,7 @@ describe("runDoctorLintCli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       path: "/tmp/openclaw.json",
     });
 
@@ -578,7 +578,7 @@ describe("runDoctorLintCli", () => {
       gateway: { mode: "local" },
       agents: { defaults: { workspace: "${GRANTED_STATE_DIR}/workspace" } },
       memory: { search: { provider: "local", fallback: "none" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, `${JSON.stringify(config)}\n`);
     const env = {
@@ -613,7 +613,7 @@ describe("runDoctorLintCli", () => {
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
-    const inspectSourceConfig = vi.fn(async (ctx: { cfg: OpenClawConfig }) => {
+    const inspectSourceConfig = vi.fn(async (ctx: { cfg: GrantedConfig }) => {
       expect(ctx.cfg.agents?.defaults?.workspace).toBe(path.join(stateDir, "workspace"));
       return [];
     });
@@ -659,7 +659,7 @@ describe("runDoctorLintCli", () => {
     const config = {
       gateway: { mode: "local" },
       memory: { search: { provider: "local", fallback: "none" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, `${JSON.stringify(config)}\n`);
     const env = {
@@ -722,7 +722,7 @@ describe("runDoctorLintCli", () => {
       gateway: { mode: "local" },
       agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
       memory: { search: { provider: "local", fallback: "none" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, `${JSON.stringify(config)}\n`);
     const env = {
@@ -797,7 +797,7 @@ describe("runDoctorLintCli", () => {
     const config = {
       gateway: { mode: "local" },
       memory: { search: { provider: "local", fallback: "none" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, `${JSON.stringify(config)}\n`);
     const env = {
@@ -869,7 +869,7 @@ describe("runDoctorLintCli", () => {
     const config = {
       gateway: { mode: "local" },
       memory: { search: { provider: "local", fallback: "none" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, `${JSON.stringify(config)}\n`);
     const env = {

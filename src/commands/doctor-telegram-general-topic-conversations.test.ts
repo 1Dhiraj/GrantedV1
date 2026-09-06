@@ -11,7 +11,7 @@ import {
   resolveSqliteReadScope,
   toDatabaseOptions,
 } from "../config/sessions/session-accessor.sqlite-scope.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveDoctorContributionHealthChecks } from "../flows/doctor-health-contributions.js";
 import { runDoctorHealthRepairs } from "../flows/doctor-repair-flow.js";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
@@ -26,7 +26,7 @@ const CHECK_ID = "core/doctor/telegram-general-topic-conversations";
 
 describe("doctor Telegram General-topic conversation repair", () => {
   const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   let env: NodeJS.ProcessEnv;
   let storePath: string;
 

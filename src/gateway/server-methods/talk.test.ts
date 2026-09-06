@@ -6,7 +6,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorCodes } from "../../../packages/gateway-protocol/src/index.js";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { normalizeResolvedSecretInputString } from "../../config/types.secrets.js";
 import { getAgentEventLifecycleGeneration } from "../../infra/agent-events.js";
 import { setActiveDegradedSecretOwners } from "../../secrets/runtime-degraded-state.js";
@@ -24,7 +24,7 @@ import { talkHandlers } from "./talk.js";
 import type { GatewayClient, GatewayRequestContext, RespondFn } from "./types.js";
 
 const mocks = vi.hoisted(() => ({
-  getRuntimeConfig: vi.fn<() => OpenClawConfig>(),
+  getRuntimeConfig: vi.fn<() => GrantedConfig>(),
   getUserPreferences: vi.fn<() => Record<string, unknown>>(() => ({})),
   readConfigFileSnapshot: vi.fn(),
   resolveUserProfileId: vi.fn((profileId: string) => profileId),
@@ -254,7 +254,7 @@ vi.mock("../talk-transcription-relay.js", async (importOriginal) => {
   };
 });
 
-function createTalkConfig(apiKey: unknown): OpenClawConfig {
+function createTalkConfig(apiKey: unknown): GrantedConfig {
   return {
     talk: {
       provider: "acme",
@@ -265,7 +265,7 @@ function createTalkConfig(apiKey: unknown): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 type TalkHandlerCallOptions = {
@@ -524,7 +524,7 @@ describe("talk.catalog handler", () => {
                   },
                 },
               },
-            }) as OpenClawConfig,
+            }) as GrantedConfig,
         },
       });
 
@@ -649,7 +649,7 @@ describe("talk.catalog handler", () => {
                 model: "gpt-live-1-codex",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -712,7 +712,7 @@ describe("talk.catalog handler", () => {
                 transport: "gateway-relay",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -806,7 +806,7 @@ describe("talk.catalog handler", () => {
                   },
                 },
               },
-            }) as OpenClawConfig,
+            }) as GrantedConfig,
         },
       });
 
@@ -867,7 +867,7 @@ describe("talk.catalog handler", () => {
                 },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -946,7 +946,7 @@ describe("talk.catalog handler", () => {
                 },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -981,7 +981,7 @@ describe("talk.catalog handler", () => {
       params: {},
       client: { connect: { scopes: ["operator.read"] } },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     const catalog = mockCallArg(respond, 0, 1) as Record<string, Record<string, unknown>>;
@@ -1025,7 +1025,7 @@ describe("talk.catalog handler", () => {
                 "voice-call": { config: { streaming: { provider: "transcription" } } },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -1109,7 +1109,7 @@ describe("talk.speak handler", () => {
         },
       });
       mocks.synthesizeSpeech.mockImplementation(
-        async ({ cfg }: { cfg: OpenClawConfig; text: string; disableFallback: boolean }) => {
+        async ({ cfg }: { cfg: GrantedConfig; text: string; disableFallback: boolean }) => {
           expect(cfg.tts?.provider).toBe("acme");
           expect(cfg.tts?.providers?.acme?.apiKey).toBe("env-acme-key");
           return {
@@ -1252,7 +1252,7 @@ describe("talk.config handler", () => {
             talk: {
               realtime: { transport: "provider-websocket" },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -1315,7 +1315,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       ...sourceConfig,
       plugins: {
@@ -1335,7 +1335,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       path: "/tmp/openclaw.json",
       hash: "test-hash",
@@ -1395,7 +1395,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       ...sourceConfig,
       tts: {
@@ -1407,7 +1407,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     mocks.readConfigFileSnapshot.mockResolvedValue({
       path: "/tmp/openclaw.json",
@@ -1528,7 +1528,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       talk: {
         provider: "acme",
@@ -1552,7 +1552,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     mocks.getSpeechProvider.mockReturnValue(undefined);
     mocks.readConfigFileSnapshot.mockResolvedValue({
@@ -1675,7 +1675,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       talk: {
         provider: "acme",
@@ -1700,7 +1700,7 @@ describe("talk.config handler", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     mocks.getSpeechProvider.mockReturnValue(undefined);
     mocks.readConfigFileSnapshot.mockResolvedValue({
@@ -1807,7 +1807,7 @@ describe("talk.session unified handlers", () => {
         transcriptionSessionId: "model-transcription",
       });
       mocks.createTalkRealtimeRelaySession.mockReturnValue({ relaySessionId: "model-realtime" });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { defaults: { voiceModel: { primary: "acme/voice-default" } } },
         plugins: {
           entries: {
@@ -1942,7 +1942,7 @@ describe("talk.session unified handlers", () => {
                 consultRouting: "force-agent-consult",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -2175,7 +2175,7 @@ describe("talk.session unified handlers", () => {
       voice: "alloy",
       expiresAt: 1_797_986_400,
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: { ops: {}, research: {} },
@@ -2285,7 +2285,7 @@ describe("talk.session unified handlers", () => {
                 providers: { openai: {} },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
         logGateway: { warn: vi.fn() },
       },
     });
@@ -2349,7 +2349,7 @@ describe("talk.session unified handlers", () => {
                 consultRouting: "force-agent-consult",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -2403,7 +2403,7 @@ describe("talk.session unified handlers", () => {
                 providers: { openai: { apiKey: "bad-key" } },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -2472,7 +2472,7 @@ describe("talk.session unified handlers", () => {
                   },
                 },
               },
-            }) as OpenClawConfig,
+            }) as GrantedConfig,
         },
       });
 
@@ -2561,7 +2561,7 @@ describe("talk.session unified handlers", () => {
                 },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -2577,7 +2577,7 @@ describe("talk.session unified handlers", () => {
 
   it("passes managed-room spawnedBy visibility scope to session resolution", async () => {
     const createRespond = vi.fn();
-    const config: OpenClawConfig = { agents: { entries: { worker: {} } } };
+    const config: GrantedConfig = { agents: { entries: { worker: {} } } };
     await callTalkHandler("talk.session.create", {
       params: {
         mode: "stt-tts",
@@ -2611,7 +2611,7 @@ describe("talk.session unified handlers", () => {
 
   it("resolves a bare managed-room session through the persisted fixed-store owner", async () => {
     const createRespond = vi.fn();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       session: { store: "/tmp/shared-sessions.sqlite", scope: "global" },
       agents: {
         ownership: "explicit",
@@ -2671,7 +2671,7 @@ describe("talk.session unified handlers", () => {
       client: { connId: "conn-1", connect: { scopes: ["operator.write"] } },
       respond: rejectedRespond,
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
       },
     });
 
@@ -2693,7 +2693,7 @@ describe("talk.session unified handlers", () => {
       client: { connId: "conn-1", connect: { scopes: ["operator.admin"] } },
       respond: createRespond,
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
       },
     });
 
@@ -2718,7 +2718,7 @@ describe("talk.session unified handlers", () => {
     await callTalkHandler("talk.session.create", {
       params: { mode: "realtime", transport: "webrtc" },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     const error = expectRespondError(respond, { code: ErrorCodes.INVALID_REQUEST });
@@ -2751,7 +2751,7 @@ describe("talk.client.toolCall handler", () => {
         args: { question: "Do something" },
       },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.createOrResumeClientVoiceSession).toHaveBeenCalledWith({
@@ -2780,7 +2780,7 @@ describe("talk.client.toolCall handler", () => {
       id: "legacy",
       client: { connId: "conn-legacy" },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.assertClientVoiceSessionOpen).toHaveBeenCalledWith({
@@ -2806,7 +2806,7 @@ describe("talk.client.toolCall handler", () => {
       id: "relay-owner",
       client: { connId: "other-conn" },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.chatSend).not.toHaveBeenCalled();
@@ -2830,7 +2830,7 @@ describe("talk.client.toolCall handler", () => {
       respond,
       client: { connId: "conn-1", connect: { scopes: ["operator.talk"] } },
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
       },
     });
 
@@ -2871,7 +2871,7 @@ describe("talk.client.toolCall handler", () => {
       },
       respond,
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
         logGateway: { warn: vi.fn() },
       },
     });
@@ -2929,7 +2929,7 @@ describe("talk.client.toolCall handler", () => {
         args: { question: "Do it", confirmationId },
       },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.registerClientVoiceConsultRun).toHaveBeenCalledWith(
@@ -2961,7 +2961,7 @@ describe("talk.client.toolCall handler", () => {
               consultThinkingLevel: "low",
               consultFastMode: true,
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -2991,7 +2991,7 @@ describe("talk.client.toolCall handler", () => {
       },
       respond,
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
       },
     });
 
@@ -3034,7 +3034,7 @@ describe("talk.client.toolCall handler", () => {
         },
         respond,
         context: {
-          getRuntimeConfig: () => ({}) as OpenClawConfig,
+          getRuntimeConfig: () => ({}) as GrantedConfig,
         },
       });
 
@@ -3057,7 +3057,7 @@ describe("talk.client.toolCall handler", () => {
       },
       respond,
       context: {
-        getRuntimeConfig: () => ({}) as OpenClawConfig,
+        getRuntimeConfig: () => ({}) as GrantedConfig,
       },
     });
 
@@ -3266,7 +3266,7 @@ describe("talk.client.create handler", () => {
                 instructions: "Speak warmly.",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -3394,7 +3394,7 @@ describe("talk.client.create handler", () => {
                 model: "gpt-realtime-2.1",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -3457,7 +3457,7 @@ describe("talk.client.create handler", () => {
       },
       respond,
       context: {
-        getRuntimeConfig: () => ({ talk: { realtime: { provider: "openai" } } }) as OpenClawConfig,
+        getRuntimeConfig: () => ({ talk: { realtime: { provider: "openai" } } }) as GrantedConfig,
         logGateway: { warn: vi.fn() },
       },
     });
@@ -3504,7 +3504,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", capabilities: ["gateway-control-v1"] },
       respond,
       context: {
-        getRuntimeConfig: () => ({ talk: { realtime: { provider: "openai" } } }) as OpenClawConfig,
+        getRuntimeConfig: () => ({ talk: { realtime: { provider: "openai" } } }) as GrantedConfig,
       },
     });
 
@@ -3524,7 +3524,7 @@ describe("talk.client.create handler", () => {
     await callTalkHandler("talk.client.close", {
       params: { sessionKey: "main", voiceSessionId: "voice-gateway" },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.closeTalkClientGatewayControlSession).toHaveBeenCalledWith({
@@ -3541,7 +3541,7 @@ describe("talk.client.create handler", () => {
     const chatAbortControllers = new Map();
     const config = {
       talk: { realtime: { provider: "openai", model: "gpt-live-1" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const context = {
       chatAbortControllers,
       getRuntimeConfig: () => config,
@@ -3701,7 +3701,7 @@ describe("talk.client.create handler", () => {
                 instructions: "Speak warmly.",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -3734,7 +3734,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", transport: "webrtc" },
       id: "startup-failure",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(createBrowserSession).toHaveBeenCalledWith(
@@ -3770,7 +3770,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", transport: "webrtc" },
       id: "persist-failure",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.cancelInternalRealtimeVoiceBrowserSession).toHaveBeenCalledWith({
@@ -3806,7 +3806,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", transport: "webrtc" },
       id: "expired-startup",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.cancelInternalRealtimeVoiceBrowserSession).toHaveBeenCalledWith({
@@ -3844,7 +3844,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", transport: "provider-websocket" },
       id: "transport-mismatch",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(mocks.cancelInternalRealtimeVoiceBrowserSession).toHaveBeenCalledWith({
@@ -3887,7 +3887,7 @@ describe("talk.client.create handler", () => {
         capabilities: ["camera-frame"],
       },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     const createInput = mockCallArg(createBrowserSession) as Record<string, unknown>;
@@ -3902,7 +3902,7 @@ describe("talk.client.create handler", () => {
       params: { sessionKey: "main", transport: "webrtc" },
       id: "audio",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
     expect((mockCallArg(createBrowserSession) as Record<string, unknown>).tools).not.toContainEqual(
       expect.objectContaining({ name: REALTIME_VOICE_DESCRIBE_VIEW_TOOL_NAME }),
@@ -3919,7 +3919,7 @@ describe("talk.client.create handler", () => {
       },
       id: "2",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
     expect((mockCallArg(createBrowserSession) as Record<string, unknown>).tools).toContainEqual(
       expect.objectContaining({ name: REALTIME_VOICE_DESCRIBE_VIEW_TOOL_NAME }),
@@ -3936,7 +3936,7 @@ describe("talk.client.create handler", () => {
       },
       id: "3",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
     expect(createBrowserSession).not.toHaveBeenCalled();
     expect(respond).toHaveBeenCalledWith(
@@ -3987,7 +3987,7 @@ describe("talk.client.create handler", () => {
                 speakerVoiceId: "voice-123",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4043,7 +4043,7 @@ describe("talk.client.create handler", () => {
                 providers: { openai: { apiKey: "openai-key" } },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4108,7 +4108,7 @@ describe("talk.client.create handler", () => {
                 providers: { openai: { apiKey: "openai-key" } },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4157,7 +4157,7 @@ describe("talk.client.create handler", () => {
                 },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4213,7 +4213,7 @@ describe("talk.client.create handler", () => {
                 },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4262,7 +4262,7 @@ describe("talk.client.create handler", () => {
                 providers: { custom: { apiKey: "custom-key" } },
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4279,7 +4279,7 @@ describe("talk.client.create handler", () => {
     await callTalkHandler("talk.client.create", {
       params: { sessionKey: "main", mode: "realtime", transport: "gateway-relay" },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expectRespondError(respond, {
@@ -4297,7 +4297,7 @@ describe("talk.client.create handler", () => {
       },
       id: "2",
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expectRespondError(respond, {
@@ -4340,7 +4340,7 @@ describe("talk.client.create handler", () => {
     await callTalkHandler("talk.client.create", {
       params: { sessionKey: "main", mode: "realtime", capabilities: ["camera-frame"] },
       respond,
-      context: { getRuntimeConfig: () => ({}) as OpenClawConfig },
+      context: { getRuntimeConfig: () => ({}) as GrantedConfig },
     });
 
     expect(createBrowserSession).toHaveBeenCalledOnce();
@@ -4363,7 +4363,7 @@ describe("talk.client.create handler", () => {
                 brain: "direct-tools",
               },
             },
-          }) as OpenClawConfig,
+          }) as GrantedConfig,
       },
     });
 
@@ -4412,7 +4412,7 @@ describe("role-required Talk session creation", () => {
         transport: "gateway-relay",
         relaySessionId: "relay-required",
       });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         gateway: {
           roles: {
             default: "guest",

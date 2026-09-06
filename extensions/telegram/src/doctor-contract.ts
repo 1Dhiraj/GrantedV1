@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
 import {
   asObjectRecord,
@@ -233,7 +233,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const changes: string[] = [];
   const aliases = streamingAliasMigration.normalizeChannelConfig({ cfg, changes });
@@ -351,8 +351,8 @@ export function normalizeCompatibilityConfig({
       ...tuningKnobs.config,
       channels: {
         ...tuningKnobs.config.channels,
-        telegram: updated as unknown as NonNullable<OpenClawConfig["channels"]>["telegram"],
-      } as OpenClawConfig["channels"],
+        telegram: updated as unknown as NonNullable<GrantedConfig["channels"]>["telegram"],
+      } as GrantedConfig["channels"],
     },
     changes,
   };

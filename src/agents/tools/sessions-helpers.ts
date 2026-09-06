@@ -4,7 +4,7 @@ import type {
   SessionRunStatus,
 } from "../../../packages/gateway-protocol/src/schema/sessions-row.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { parseRawSessionConversationRef } from "../../sessions/session-key-utils.js";
 import type { FastModeSource } from "../../shared/fast-mode.js";
 /**
@@ -146,7 +146,7 @@ export function resolveSessionToolContext(opts?: {
   agentSessionKey?: string;
   requesterAgentIdOverride?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   const cfg = opts?.config ?? getRuntimeConfig();
   return {

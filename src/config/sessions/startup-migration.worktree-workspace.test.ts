@@ -5,7 +5,7 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import { insertRegistryWorktree } from "../../agents/worktrees/registry.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import {
   loadSessionEntry,
   replaceSessionEntry,
@@ -38,7 +38,7 @@ it("backfills a nested requested workspace once instead of using the agent defau
   const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
   const sessionKey = "agent:main:dashboard:legacy-worktree";
   const ordinarySessionKey = "agent:main:dashboard:ordinary";
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { list: [{ id: "main", default: true, workspace: agentWorkspace }] },
     session: { store: storePath },
   };
@@ -101,7 +101,7 @@ it("repairs a foreign logical row in its source partition without changing a sam
   const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const storePath = path.join(stateDir, "shared.json");
   const workspace = path.join(root, "ops-workspace");
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: {
       ownership: "explicit",
       entries: { main: {}, ops: { workspace } },
@@ -162,7 +162,7 @@ it.each(["main", "ops"])(
     const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const storePath = path.join(stateDir, "shared.sqlite");
     const agents = ["main", "ops"].map((id) => ({ id, workspace: path.join(root, id) }));
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: Object.fromEntries(agents.map(({ id, workspace }) => [id, { workspace }])),

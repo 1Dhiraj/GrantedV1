@@ -1,6 +1,6 @@
 // Covers safe-bin audit decisions for exec commands.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { collectSecurityAuditFindings } from "./audit.test-support.js";
 import type { SecurityAuditFinding } from "./audit.types.js";
 
@@ -47,7 +47,7 @@ describe("security audit exec safe-bin findings", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: true,
     },
     {
@@ -80,7 +80,7 @@ describe("security audit exec safe-bin findings", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: false,
     },
   ])(
@@ -105,7 +105,7 @@ describe("security audit exec safe-bin findings", () => {
             safeBins: ["jq"],
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: true,
     },
     {
@@ -117,7 +117,7 @@ describe("security audit exec safe-bin findings", () => {
             safeBins: ["cut"],
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: false,
     },
   ])(
@@ -152,7 +152,7 @@ describe("security audit exec safe-bin findings", () => {
           },
         },
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     const riskyFinding = requireFinding("tools.exec.safe_bin_trusted_dirs_risky", findings);
     expect(riskyFinding.severity).toBe("warn");
@@ -172,7 +172,7 @@ describe("security audit exec safe-bin findings", () => {
               safeBinTrustedDirs: ["/usr/libexec"],
             },
           },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ),
     ).toBe(false);
   });

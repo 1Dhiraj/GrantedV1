@@ -6,7 +6,7 @@
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
@@ -34,7 +34,7 @@ vi.mock("../channels/plugins/session-conversation.js", () => ({
 vi.mock("../channels/plugins/index.js", () => ({
   getLoadedChannelPlugin: () => ({
     config: {
-      listAccountIds: (config: OpenClawConfig) => [
+      listAccountIds: (config: GrantedConfig) => [
         "default",
         ...Object.keys(
           (config.channels?.whatsapp as { accounts?: Record<string, unknown> } | undefined)
@@ -89,7 +89,7 @@ describe("agent-tools.policy", () => {
 });
 
 describe("resolveGroupToolPolicy group context validation", () => {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     channels: {
       whatsapp: {
         groups: {
@@ -167,7 +167,7 @@ describe("resolveGroupToolPolicy group context validation", () => {
   });
 
   it("keeps specific session group policy ahead of trusted parent caller groupId", () => {
-    const scopedCfg: OpenClawConfig = {
+    const scopedCfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -206,7 +206,7 @@ describe("resolveGroupToolPolicy group context validation", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const policy = resolveGroupToolPolicy({
       config: channelCfg,
@@ -267,7 +267,7 @@ describe("resolveGroupToolPolicy group context validation", () => {
           accounts: { work: {} },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveGroupToolPolicy({
@@ -283,7 +283,7 @@ describe("resolveGroupToolPolicy group context validation", () => {
 describe("resolveSubagentToolPolicyForSession", () => {
   const baseCfg = {
     agents: { defaults: { subagents: { maxSpawnDepth: 2 } } },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 
   it("uses stored leaf role for flat depth-1 session keys", async () => {
     const storePath = createSessionStorePath("openclaw-subagent-policy");
@@ -301,7 +301,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
       session: {
         store: storePath,
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const policy = resolveSubagentToolPolicyForSession(cfg, "agent:main:subagent:flat-leaf");
     expect(isToolAllowedByPolicyName("sessions_spawn", policy)).toBe(false);
@@ -357,7 +357,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       for (const sessionKey of Object.values(sessionKeys)) {
         const policy = resolveSubagentToolPolicyForSession(cfg, sessionKey);
@@ -386,7 +386,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
       session: {
         store: storePath,
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const policy = resolveInheritedToolPolicyForSession(cfg, "agent:main:subagent:limited");
     expect(isToolAllowedByPolicyName("exec", policy)).toBe(false);
@@ -411,7 +411,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
       session: {
         store: storePath,
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const policy = resolveInheritedToolPolicyForSession(cfg, "agent:main:subagent:limited");
     expect(isToolAllowedByPolicyName("sessions_spawn", policy)).toBe(true);
@@ -444,7 +444,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
       session: {
         store: storePath,
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const subagentPolicy = resolveSubagentToolPolicyForSession(cfg, "agent:main:subagent:limited");
     const inheritedPolicy = resolveInheritedToolPolicyForSession(
@@ -470,7 +470,7 @@ describe("resolveSubagentToolPolicyForSession", () => {
       session: {
         store: storePath,
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const policy = resolveInheritedToolPolicyForSession(cfg, "agent:main:acp:limited");
     expect(isToolAllowedByPolicyName("custom_plugin_tool", policy)).toBe(true);
@@ -483,7 +483,7 @@ describe("resolveEffectiveToolPolicy", () => {
   it("applies implicit-main defaults tool restrictions to a pre-roster config", () => {
     const cfg = {
       agents: { defaults: { tools: { deny: ["exec"] } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = resolveEffectiveToolPolicy({ config: cfg });
 
@@ -498,7 +498,7 @@ describe("resolveEffectiveToolPolicy", () => {
           ops: { default: true, tools: { deny: ["exec"] } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveEffectiveToolPolicy({ config: cfg, sessionKey: "main" });
 
@@ -537,7 +537,7 @@ describe("resolveEffectiveToolPolicy", () => {
           research: { tools: { deny: ["exec"] } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = resolveEffectiveToolPolicy({ config: cfg, sessionKey: "global" });
 
@@ -556,7 +556,7 @@ describe("resolveEffectiveToolPolicy", () => {
           "openrouter/anthropic/claude-sonnet": { deny: ["read"] },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       resolveEffectiveToolPolicy({
@@ -574,7 +574,7 @@ describe("resolveEffectiveToolPolicy", () => {
           "anthropic/claude-sonnet": { deny: ["exec"] },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       resolveEffectiveToolPolicy({
@@ -591,7 +591,7 @@ describe("resolveEffectiveToolPolicy", () => {
         profile: "messaging",
         exec: { host: "sandbox" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg });
     expect(result.profileAlsoAllow).toBeUndefined();
   });
@@ -602,7 +602,7 @@ describe("resolveEffectiveToolPolicy", () => {
         profile: "messaging",
         fs: { workspaceOnly: false },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg });
     expect(result.profileAlsoAllow).toBeUndefined();
   });
@@ -614,7 +614,7 @@ describe("resolveEffectiveToolPolicy", () => {
         alsoAllow: ["web_search"],
         exec: { host: "sandbox" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg });
     expect(result.profileAlsoAllow).toEqual(["web_search"]);
   });
@@ -634,7 +634,7 @@ describe("resolveEffectiveToolPolicy", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg, agentId: "coder" });
     expect(result.profileAlsoAllow).toBeUndefined();
   });
@@ -655,7 +655,7 @@ describe("resolveEffectiveToolPolicy", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg, agentId: "messenger" });
     expect(result.profileAlsoAllow).toEqual(["view_image"]);
     expect(result.profileAlsoAllow).not.toContain("exec");
@@ -681,7 +681,7 @@ describe("resolveEffectiveToolPolicy", () => {
             },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       resolveEffectiveToolPolicy({ config: cfg, agentId: "sage" });
 
@@ -706,7 +706,7 @@ describe("resolveEffectiveToolPolicy", () => {
             },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       resolveEffectiveToolPolicy({ config: cfg, agentId: "sage" });
 
@@ -721,7 +721,7 @@ describe("resolveEffectiveToolPolicy", () => {
 
   it.each<{
     name: string;
-    tools?: OpenClawConfig["tools"];
+    tools?: GrantedConfig["tools"];
     agentTools?: AgentToolsConfig;
     warning?: string;
   }>([
@@ -750,7 +750,7 @@ describe("resolveEffectiveToolPolicy", () => {
   ])("warns only about actionable grants with $name", async ({ tools, agentTools, warning }) => {
     const warnLogs = createWarnLogCapture("openclaw-agent-tools-policy-test");
     try {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         tools,
         agents: {
           entries: {
@@ -799,7 +799,7 @@ describe("resolveEffectiveToolPolicy", () => {
             },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       resolveEffectiveToolPolicy({ config: cfg, agentId: "echo" });
 
@@ -823,7 +823,7 @@ describe("resolveEffectiveToolPolicy", () => {
         alsoAllow: ["exec", "process"],
         exec: { host: "sandbox" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = resolveEffectiveToolPolicy({ config: cfg });
     expect(result.profileAlsoAllow).toEqual(["exec", "process"]);
   });

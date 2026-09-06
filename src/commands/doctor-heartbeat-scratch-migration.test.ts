@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readCronJobScratchState, writeCronJobScratch } from "../cron/scratch-store.js";
 import {
   loadCronJobsStore,
@@ -57,11 +57,11 @@ async function createFixture() {
       defaults: { heartbeat: { every: "30m" } },
       list: [{ id: "main", workspace }],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return { root, stateDir, workspace, cfg, heartbeatPath: path.join(workspace, "HEARTBEAT.md") };
 }
 
-async function loadMonitor(cfg?: OpenClawConfig) {
+async function loadMonitor(cfg?: GrantedConfig) {
   const storePath = cfg ? resolveCronJobsStorePathFromConfig(cfg) : resolveCronJobsStorePath();
   const store = await loadCronJobsStore(storePath);
   const monitor = store.jobs.find(
@@ -82,7 +82,7 @@ function sharedHeartbeatConfig(workspace: string, ollamaEvery = "0m") {
         { id: "ollama", workspace, heartbeat: { every: ollamaEvery } },
       ],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("HEARTBEAT.md cron scratch migration", () => {
@@ -172,7 +172,7 @@ describe("HEARTBEAT.md cron scratch migration", () => {
             { id: "ops", workspace: fixture.workspace },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       "main",
     );
     await fs.writeFile(fixture.heartbeatPath, "shared checklist\n", "utf8");
@@ -205,7 +205,7 @@ describe("HEARTBEAT.md cron scratch migration", () => {
           { id: "ollama", workspace: fixture.workspace, heartbeat: { every: "0m" } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await fs.writeFile(fixture.heartbeatPath, "shared checklist\n", "utf8");
 
     await expect(collectHeartbeatScratchMigrationFindings(cfg)).resolves.toEqual([]);
@@ -377,7 +377,7 @@ describe("HEARTBEAT.md cron scratch migration", () => {
   it("respects a configured cron store partition", async () => {
     const fixture = await createFixture();
     const customStore = path.join(fixture.root, "custom-cron", "jobs.json");
-    const cfg = { ...fixture.cfg, cron: { store: customStore } } as unknown as OpenClawConfig;
+    const cfg = { ...fixture.cfg, cron: { store: customStore } } as unknown as GrantedConfig;
     await fs.writeFile(fixture.heartbeatPath, "custom store scratch\n", "utf8");
 
     const result = await maybeMigrateHeartbeatFilesToScratch({ cfg, shouldRepair: true });

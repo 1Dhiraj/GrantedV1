@@ -3,14 +3,14 @@ import {
   type ExecutionDecisionWork,
 } from "../../audit/execution-decision-work.js";
 import { configureExecutionIdentityAdmissionSink } from "../../audit/execution-identity-admission.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createOperationalRunInstanceRef,
   prepareAgentRunAdmission,
 } from "../admitted-run-context.js";
 
 export function createModelRoutingTestAdmission(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runId: string;
   agentId?: string;
   boundary: string;

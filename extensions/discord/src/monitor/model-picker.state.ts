@@ -1,6 +1,6 @@
 // Discord plugin module implements model picker.state behavior.
 import { createHash } from "node:crypto";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type { ModelsProviderData } from "openclaw/plugin-sdk/models-provider-runtime";
@@ -192,7 +192,7 @@ function paginateItems<T>(params: {
 }
 
 export async function loadDiscordModelPickerData(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
 ): Promise<ModelsProviderData> {
   const { buildPreparedModelsProviderData } = await loadModelsProviderRuntime();

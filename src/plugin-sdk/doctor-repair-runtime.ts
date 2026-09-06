@@ -18,4 +18,4 @@ export {
   detectOpenClawStateDatabaseSchemaMigrations,
   repairOpenClawStateDatabaseSchema,
 } from "../state/openclaw-state-db.js";
-export type { OpenClawStateDatabaseSchemaMigration } from "../state/openclaw-state-db.js";
+export type { GrantedStateDatabaseSchemaMigration } from "../state/openclaw-state-db.js";

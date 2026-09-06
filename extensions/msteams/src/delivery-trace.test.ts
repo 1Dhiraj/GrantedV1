@@ -25,7 +25,7 @@ import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-run
 import { chunkMarkdownTextWithMode, resolveChunkMode } from "openclaw/plugin-sdk/reply-chunking";
 import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
 import { describe, it } from "vitest";
-import type { OpenClawConfig, ReplyPayload } from "../runtime-api.js";
+import type { GrantedConfig, ReplyPayload } from "../runtime-api.js";
 import { createMSTeamsReplyDispatcher } from "./reply-dispatcher.js";
 import { setMSTeamsRuntime } from "./runtime.js";
 import type { MSTeamsTurnContext } from "./sdk-types.js";
@@ -238,7 +238,7 @@ function setupMSTeamsTrace(recorder: WireRecorder, traceCase: MSTeamsTraceCase) 
     stream,
   });
   const created = createMSTeamsReplyDispatcher({
-    cfg: { channels: { msteams: {} } } as OpenClawConfig,
+    cfg: { channels: { msteams: {} } } as GrantedConfig,
     agentId: "agent",
     sessionKey: "agent:msteams:trace",
     runtime: { error: () => {} } as never,

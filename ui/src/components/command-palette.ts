@@ -18,7 +18,7 @@ import {
   resolveUiSelectedGlobalAgentId,
 } from "../lib/sessions/session-key.ts";
 import { searchVisibleSessionTranscripts } from "../lib/sessions/transcript-search.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../lit/subscriptions-controller.ts";
 import {
   commandPaletteCategoryLabel,
@@ -282,7 +282,7 @@ function renderCommandPalette(props: CommandPaletteProps) {
   `;
 }
 
-export class CommandPalette extends OpenClawLightDomContentsElement {
+export class CommandPalette extends GrantedLightDomContentsElement {
   @property({ attribute: false }) onNavigate?: ApplicationContext<RouteId>["navigate"];
   @property({ attribute: false }) onSelectSession?: (sessionKey: string) => void;
   @property({ attribute: false }) onSlashCommand?: (command: string) => void;

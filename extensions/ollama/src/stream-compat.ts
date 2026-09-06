@@ -1,6 +1,6 @@
 import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ProviderRuntimeModel,
   ProviderWrapStreamFnContext,
 } from "openclaw/plugin-sdk/plugin-entry";
@@ -20,7 +20,7 @@ import { supportsOllamaCloudFullThinkingEffort } from "./model-reasoning.js";
 export type OllamaThinkValue = boolean | "low" | "medium" | "high" | "max";
 
 export function resolveConfiguredOllamaProviderConfig(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   providerId?: string;
 }) {
   const providerId = params.providerId?.trim();
@@ -74,7 +74,7 @@ export function isOllamaCompatProvider(model: {
 }
 
 export function resolveOllamaCompatNumCtxEnabled(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   providerId?: string;
 }): boolean {
   return resolveConfiguredOllamaProviderConfig(params)?.injectNumCtxForOpenAICompat ?? true;
@@ -82,7 +82,7 @@ export function resolveOllamaCompatNumCtxEnabled(params: {
 
 export function shouldInjectOllamaCompatNumCtx(params: {
   model: { api?: string; provider?: string; baseUrl?: string };
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   providerId?: string;
 }): boolean {
   if (params.model.api !== "openai-completions") {

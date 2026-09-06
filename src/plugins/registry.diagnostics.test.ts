@@ -10,7 +10,7 @@ import { runPluginRegisterSyncInRegistry } from "./loader-module-runtime.js";
 import { createPluginRecord } from "./loader-records.js";
 import { createPluginRegistry } from "./registry.js";
 import type { PluginRuntime } from "./runtime/types.js";
-import type { OpenClawPluginApi } from "./types.js";
+import type { GrantedPluginApi } from "./types.js";
 
 function createDiagnosticFixture() {
   const builder = createPluginRegistry({
@@ -112,7 +112,7 @@ describe("plugin registration diagnostics", () => {
       synthesize: async () => {
         throw new Error("registration must not synthesize audio");
       },
-    } satisfies Parameters<OpenClawPluginApi["registerSpeechProvider"]>[0];
+    } satisfies Parameters<GrantedPluginApi["registerSpeechProvider"]>[0];
     const media = { id: "shared-media" };
     alphaApi.registerSpeechProvider(speech);
     alphaApi.registerMediaUnderstandingProvider(media);
@@ -227,7 +227,7 @@ describe("plugin registration diagnostics", () => {
     (throws) => {
       const { builder, createRecord } = createDiagnosticFixture();
       const record = createRecord("owner");
-      let captured: OpenClawPluginApi | undefined;
+      let captured: GrantedPluginApi | undefined;
       let coercions = 0;
       // Exercise the existing unknown-hook path for untyped plugin input, not host-record accessors.
       const hookName = {

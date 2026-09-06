@@ -7,7 +7,7 @@ import { listConfiguredMcpServers } from "../config/mcp-config.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import type { ClawReferencedCleanup } from "./package-remove.js";
 import type { ClawAddPlan, ClawMcpServer } from "./types.js";
@@ -84,7 +84,7 @@ function persistPendingRef(
   name: string,
   server: ClawMcpServer,
   ownership: Pick<PersistedClawMcpServerRef, "relationship" | "origin" | "independentOwner">,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number },
+  options: GrantedStateDatabaseOptions & { nowMs?: number },
 ): { ref: PersistedClawMcpServerRef; existing: boolean } {
   const nowMs = options.nowMs ?? Date.now();
   const configDigest = digestClawMcpServer(server);
@@ -151,7 +151,7 @@ function persistPendingRef(
 function updateRef(
   ref: PersistedClawMcpServerRef,
   update: { status: PersistedClawMcpServerRef["status"]; error?: string },
-  options: OpenClawStateDatabaseOptions & { nowMs?: number },
+  options: GrantedStateDatabaseOptions & { nowMs?: number },
 ): PersistedClawMcpServerRef {
   const updated = { ...ref, ...update, updatedAtMs: options.nowMs ?? Date.now() };
   runOpenClawStateWriteTransaction(({ db }) => {
@@ -174,7 +174,7 @@ function updateRef(
 
 export async function installClawMcpServers(
   plan: ClawAddPlan,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     setMcpServer?: (params: {
       name: string;
       server: ClawMcpServer;
@@ -304,7 +304,7 @@ export async function installClawMcpServers(
 
 export function readClawMcpServerRefs(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawMcpServerRef[] {
   const database = openOpenClawStateDatabase(options);
   if (
@@ -330,7 +330,7 @@ export function readClawMcpServerRefs(
 
 export function readClawMcpServerRefsByName(
   name: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawMcpServerRef[] {
   const database = openOpenClawStateDatabase(options);
   if (
@@ -368,7 +368,7 @@ type ClawMcpServerRemovalDecision = {
 
 export function planClawMcpServerRemoval(
   ref: PersistedClawMcpServerRef,
-  options: OpenClawStateDatabaseOptions & { referencedCleanup?: ClawReferencedCleanup } = {},
+  options: GrantedStateDatabaseOptions & { referencedCleanup?: ClawReferencedCleanup } = {},
 ): ClawMcpServerRemovalDecision {
   const otherRefs = readClawMcpServerRefsByName(ref.name, options).filter(
     (candidate) => candidate.agentId !== ref.agentId,
@@ -425,7 +425,7 @@ export function planClawMcpServerRemoval(
 export function reconcileClawMcpServerRefs(
   agentId: string,
   configuredServers: Record<string, Record<string, unknown>>,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): PersistedClawMcpServerRef[] {
   return readClawMcpServerRefs(agentId, options).map((ref) => {
     if (ref.status !== "pending") {
@@ -441,7 +441,7 @@ export function reconcileClawMcpServerRefs(
 export function deleteClawMcpServerRef(
   agentId: string,
   name: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: delete one released Claw MCP ownership row. */
@@ -452,7 +452,7 @@ export function deleteClawMcpServerRef(
 
 export function upsertClawMcpServerRef(
   ref: PersistedClawMcpServerRef,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: Claw MCP lifecycle provenance write. */

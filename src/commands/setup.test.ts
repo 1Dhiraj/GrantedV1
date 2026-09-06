@@ -6,7 +6,7 @@ import { describe, expect, it, vi } from "vitest";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { createConfigIO } from "../config/io.js";
 import { replaceConfigFile } from "../config/mutate.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { setupCommand } from "./setup.js";
 
 function createSetupDeps(home: string) {
@@ -152,7 +152,7 @@ describe("setupCommand", () => {
 
       const config = JSON.parse(
         await fs.readFile(path.join(home, ".openclaw", "openclaw.json"), "utf8"),
-      ) as OpenClawConfig;
+      ) as GrantedConfig;
       expect(resolveAgentWorkspaceDir(config, "main")).toBe(nextWorkspace);
       expect(config.agents?.defaults?.workspace).toBe(nextWorkspace);
       expect(config.agents?.entries?.main?.workspace).toBe(nextWorkspace);
@@ -181,7 +181,7 @@ describe("setupCommand", () => {
 
       const nextWorkspace = path.join(home, "next-ops-workspace");
       await setupCommand({ workspace: nextWorkspace }, runtime, deps);
-      const updated = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+      const updated = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
       expect(resolveAgentWorkspaceDir(updated, "ops")).toBe(nextWorkspace);
       expect(updated.agents?.entries?.ops?.workspace).toBe(nextWorkspace);
     });
@@ -209,7 +209,7 @@ describe("setupCommand", () => {
 
       await setupCommand(undefined, runtime, deps);
 
-      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
       expect(config.agents?.defaults?.workspace).toBeUndefined();
       expect(config.agents?.entries?.ops?.workspace).toBe(workspace);
       expect(config.gateway?.mode).toBe("local");
@@ -315,7 +315,7 @@ describe("setupCommand", () => {
 
       await setupCommand({ workspace: nextWorkspace }, runtime, deps);
 
-      const root = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig & {
+      const root = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig & {
         $include?: string;
       };
       expect(root.$include).toBe("./agents.json");
@@ -390,7 +390,7 @@ describe("setupCommand", () => {
 
       await setupCommand(undefined, runtime, deps);
 
-      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
       expect(config.agents?.entries).toEqual({ main: {} });
     });
   });

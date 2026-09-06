@@ -1,7 +1,7 @@
 // Imported by a dispatch-from-config entrypoint to keep its mocked suite in one Vitest module graph.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { readAgentRunTerminalOutcome } from "../../channels/turn/agent-run-terminal-outcome.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { racePromiseWithAbortSignal } from "../../infra/abort-signal.js";
 import { createApprovalNativeRouteReporter } from "../../infra/approval-native-route-coordinator.js";
 import type { SessionBindingRecord } from "../../infra/outbound/session-binding-service.js";
@@ -99,7 +99,7 @@ function setupResolvedAcpSessionNotice(params: { bound: boolean; messageThreadId
     ]);
   }
   return {
-    cfg: { acp: { enabled: true, dispatch: { enabled: true } } } as OpenClawConfig,
+    cfg: { acp: { enabled: true, dispatch: { enabled: true } } } as GrantedConfig,
     dispatcher: createDispatcher(),
     ctx: buildTestCtx({
       Provider: "discord",
@@ -114,7 +114,7 @@ function setupResolvedAcpSessionNotice(params: { bound: boolean; messageThreadId
 
 type NativeApprovalTestChannel = "discord" | "signal";
 
-function createNativeApprovalTestConfig(channel: NativeApprovalTestChannel): OpenClawConfig {
+function createNativeApprovalTestConfig(channel: NativeApprovalTestChannel): GrantedConfig {
   return channel === "discord"
     ? ({
         channels: {
@@ -123,11 +123,11 @@ function createNativeApprovalTestConfig(channel: NativeApprovalTestChannel): Ope
             execApprovals: { enabled: true, approvers: ["123"] },
           },
         },
-      } as OpenClawConfig)
+      } as GrantedConfig)
     : ({
         channels: { signal: { enabled: true } },
         approvals: { exec: { enabled: true } },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 }
 
 function createNativeApprovalReplyResolver(channel: NativeApprovalTestChannel) {
@@ -239,7 +239,7 @@ describe("dispatchReplyFromConfig", () => {
     const replyResolver = async (
       _ctx: MsgContext,
       opts?: GetReplyOptions,
-      _cfg?: OpenClawConfig,
+      _cfg?: GrantedConfig,
     ) => {
       await opts?.onPlanUpdate?.({
         phase: "update",
@@ -389,7 +389,7 @@ describe("dispatchReplyFromConfig", () => {
     const replyResolver = async (
       _ctx: MsgContext,
       opts?: GetReplyOptions,
-      _cfg?: OpenClawConfig,
+      _cfg?: GrantedConfig,
     ) => {
       await opts?.onToolResult?.({ mediaUrl: "https://example.com/tts-preview.opus" });
       return { text: "done" } satisfies ReplyPayload;
@@ -422,7 +422,7 @@ describe("dispatchReplyFromConfig", () => {
     const replyResolver = async (
       _ctx: MsgContext,
       opts?: GetReplyOptions,
-      _cfg?: OpenClawConfig,
+      _cfg?: GrantedConfig,
     ) => {
       await opts?.onToolResult?.({
         text: "Approval required.\n\n```txt\n/approve 117ba06d allow-once\n```",
@@ -729,7 +729,7 @@ describe("dispatchReplyFromConfig", () => {
         dispatch: { enabled: true },
         stream: { deliveryMode: "live", coalesceIdleMs: 0, maxChunkChars: 128 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "discord",
@@ -796,7 +796,7 @@ describe("dispatchReplyFromConfig", () => {
           dispatch: { enabled: true },
           stream: { coalesceIdleMs: 0, maxChunkChars: 128 },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyOptions: {
         runId: "run-acp-lifecycle-end",
@@ -862,7 +862,7 @@ describe("dispatchReplyFromConfig", () => {
           dispatch: { enabled: true },
           stream: { coalesceIdleMs: 0, maxChunkChars: 128 },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyOptions: {
         runId: "run-acp-lifecycle-error",
@@ -950,7 +950,7 @@ describe("dispatchReplyFromConfig", () => {
           dispatch: { enabled: true },
           stream: { coalesceIdleMs: 0, maxChunkChars: 128 },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher: createDispatcher(),
     });
 
@@ -1039,7 +1039,7 @@ describe("dispatchReplyFromConfig", () => {
           defaultAccount: "work",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const replyResolver = vi.fn(async () => undefined);
     const ctx = buildTestCtx({
@@ -1096,7 +1096,7 @@ describe("dispatchReplyFromConfig", () => {
       { type: "done" },
     ]);
     acpMocks.readAcpSessionEntry.mockImplementation(
-      (params: { sessionKey: string; cfg?: OpenClawConfig }) =>
+      (params: { sessionKey: string; cfg?: GrantedConfig }) =>
         params.sessionKey === boundSessionKey
           ? {
               sessionKey: boundSessionKey,
@@ -1142,7 +1142,7 @@ describe("dispatchReplyFromConfig", () => {
         dispatch: { enabled: true },
         stream: { deliveryMode: "live", coalesceIdleMs: 0, maxChunkChars: 256 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const replyResolver = vi.fn(async () => ({ text: "fallback reply" }) satisfies ReplyPayload);
     const ctx = buildTestCtx({
@@ -1264,7 +1264,7 @@ describe("dispatchReplyFromConfig", () => {
         dispatch: { enabled: true },
         stream: { deliveryMode: "live", coalesceIdleMs: 0, maxChunkChars: 256 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "discord",
@@ -1320,7 +1320,7 @@ describe("dispatchReplyFromConfig", () => {
         dispatch: { enabled: true },
         stream: { deliveryMode: "live", coalesceIdleMs: 0, maxChunkChars: 256 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "discord",
@@ -1402,7 +1402,7 @@ describe("dispatchReplyFromConfig", () => {
         enabled: true,
         dispatch: { enabled: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "discord",
@@ -1585,7 +1585,7 @@ describe("dispatchReplyFromConfig", () => {
       messages: {
         groupChat: { visibleReplies: "message_tool" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const ctx = buildTestCtx({
       Provider: "telegram",
       Surface: "telegram",
@@ -1614,7 +1614,7 @@ describe("dispatchReplyFromConfig", () => {
         groupChat: { visibleReplies: "message_tool" },
       },
       tools: { allow: ["read"] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const ctx = buildTestCtx({
       Provider: "telegram",
       Surface: "telegram",
@@ -1709,7 +1709,7 @@ describe("dispatchReplyFromConfig", () => {
           enabled: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const reporter = createApprovalNativeRouteReporter({
       handledKinds: new Set(["exec"]),
       channel: "signal",

@@ -32,7 +32,7 @@ import {
 } from "../../../channels/message-access/admission-evidence.js";
 import { updateSessionEntry } from "../../../config/sessions/session-accessor.js";
 import type { SessionAcpMeta } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { getSessionBindingService } from "../../../infra/outbound/session-binding-service.js";
 import { consumeChannelRunAdmission } from "../channel-run-admission.js";
@@ -53,7 +53,7 @@ import {
 } from "./shared.js";
 import { resolveAcpTargetSessionKey } from "./targets.js";
 async function cleanupFailedSpawn(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   shouldDeleteSession: boolean;
@@ -285,7 +285,7 @@ export async function handleAcpSpawnAction(
 
 function resolveAcpSessionForCommandOrStop(params: {
   acpManager: ReturnType<typeof getAcpSessionManager>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
 }): CommandHandlerResult | null {
@@ -377,7 +377,7 @@ export async function handleAcpCancelAction(
 }
 
 async function runAcpSteer(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   instruction: string;

@@ -12,11 +12,11 @@ import {
 } from "../../scripts/lib/local-build-metadata.mts";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../test/helpers/openclaw-test-instance.js";
 import { createDeferred, withTestTimeout } from "../../test/helpers/promise.js";
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { generateStoredDeviceIdentity } from "../infra/device-identity-store.js";
 import {
   publicKeyRawBase64UrlFromEd25519Pem,
@@ -75,7 +75,7 @@ describe("Gateway Active Memory", () => {
       const providerErrors: unknown[] = [];
       let recallRequests = 0;
       let memoryToolIssued = false;
-      let instance: OpenClawTestInstance | undefined;
+      let instance: GrantedTestInstance | undefined;
       let phase = "preparing fixture";
       let statusLines: string[] | undefined;
       let sessionFound = false;
@@ -208,7 +208,7 @@ describe("Gateway Active Memory", () => {
             },
           },
           tools: { profile: "full" },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         phase = "starting Gateway";
         instance = await createOpenClawTestInstance({
           name: "active-memory-gateway",
@@ -224,7 +224,7 @@ describe("Gateway Active Memory", () => {
         });
         const preparedConfig = JSON.parse(
           await fs.readFile(instance.configPath, "utf8"),
-        ) as OpenClawConfig;
+        ) as GrantedConfig;
         const preparedPlugin = preparedConfig.plugins?.entries?.["active-memory"];
         preparedRecallConfig = {
           pluginAllowed: preparedConfig.plugins?.allow?.includes("active-memory") === true,

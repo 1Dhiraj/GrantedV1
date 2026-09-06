@@ -6,7 +6,7 @@ import {
   readProviderJsonResponse,
   sanitizeConfiguredModelProviderRequest,
 } from "openclaw/plugin-sdk/provider-http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-onboard";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
 import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
 import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
 import type {
@@ -167,7 +167,7 @@ function resolveGoogleTtsEnvApiKey(): string | undefined {
   );
 }
 
-function resolveGoogleTtsModelProviderApiKey(cfg?: OpenClawConfig): string | undefined {
+function resolveGoogleTtsModelProviderApiKey(cfg?: GrantedConfig): string | undefined {
   return normalizeResolvedSecretInputString({
     value: cfg?.models?.providers?.google?.apiKey,
     path: "models.providers.google.apiKey",
@@ -175,7 +175,7 @@ function resolveGoogleTtsModelProviderApiKey(cfg?: OpenClawConfig): string | und
 }
 
 function resolveGoogleTtsApiKey(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: SpeechProviderConfig;
 }): string | undefined {
   return (
@@ -186,7 +186,7 @@ function resolveGoogleTtsApiKey(params: {
 }
 
 function resolveGoogleTtsBaseUrl(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: GoogleTtsProviderConfig;
 }): string | undefined {
   return (

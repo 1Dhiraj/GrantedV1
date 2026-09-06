@@ -1,5 +1,5 @@
 import { buildExecApprovalPendingReplyPayload } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -37,12 +37,12 @@ const cfg = {
       targets: [{ channel: "signal", to: approver }],
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 async function deliverReplyPayload(
   payload: ReplyPayload,
   options: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     account?: string;
     accountUuid?: string;
     accountId?: string;
@@ -241,7 +241,7 @@ describe("Signal monitor reply delivery", () => {
         },
       },
       approvals: cfg.approvals,
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await deliverReplyPayload(payload, {
       config: uuidOnlyConfig,

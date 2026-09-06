@@ -13,7 +13,7 @@ import {
   synthesizeSpeech,
   textToSpeechStream,
   transcodeAudioBufferMock,
-  type OpenClawConfig,
+  type GrantedConfig,
   type SpeechSynthesisRequest,
 } from "./tts-runtime.test-support.js";
 
@@ -45,7 +45,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           enabled: true,
           provider: "mock",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -83,7 +83,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           enabled: true,
           prefsPath: "/tmp/openclaw-speech-core-voice-model-default-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -127,7 +127,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -169,7 +169,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           enabled: true,
           prefsPath: "/tmp/openclaw-speech-core-voice-model-fallback-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.success).toBe(true);
@@ -213,7 +213,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           enabled: true,
           prefsPath: "/tmp/openclaw-speech-core-same-provider-voice-model-fallback-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.success).toBe(true);
@@ -255,7 +255,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           provider: "buffered",
           prefsPath: "/tmp/openclaw-speech-core-streaming-fallback-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.success).toBe(true);
@@ -321,7 +321,7 @@ describe("TTS runtime voice model and streaming behavior", () => {
           provider: "primary",
           prefsPath: "/tmp/openclaw-speech-core-streaming-timeout-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.success).toBe(true);

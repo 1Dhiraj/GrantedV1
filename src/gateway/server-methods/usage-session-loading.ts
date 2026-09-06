@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { mergeSessionCostSummaryInto } from "../../infra/session-cost-usage-rollup.js";
 import { createEmptyCostUsageTotals } from "../../infra/session-cost-usage-totals.js";
 import {
@@ -41,7 +41,7 @@ export async function runUsageAgentTasks<T>(tasks: Array<() => Promise<T>>): Pro
 }
 
 export async function discoverAllSessionsForUsage(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId?: string;
   startMs: number;
   endMs: number;
@@ -89,7 +89,7 @@ export function mergeUsageCacheStatus(
 
 export async function loadUsageSessionSummaries(params: {
   entries: UsageSessionSummaryTarget[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   startMs: number;
   endMs: number;
   includeUntimestamped?: boolean;

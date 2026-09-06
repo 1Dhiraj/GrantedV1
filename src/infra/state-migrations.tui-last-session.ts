@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord as isObjectRecord } from "@openclaw/normalization-core/record-coerce";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -21,7 +21,7 @@ import {
 } from "./state-migrations.source-snapshot.js";
 import type { LegacyStateDetection, MigrationMessages } from "./state-migrations.types.js";
 
-type TuiLastSessionMigrationDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type TuiLastSessionMigrationDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 type LegacyTuiLastSession = {
   scopeKey: string;

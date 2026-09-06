@@ -6,7 +6,7 @@ import {
   resolveConfiguredTalkRealtimeProviderId,
   resolveConfiguredTalkSpeechProviderId,
 } from "../config/talk.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { MediaUnderstandingModelConfig } from "../config/types.tools.js";
 import {
   resolveConfiguredMediaEntryCapabilities,
@@ -152,7 +152,7 @@ function findTalkProviderConfig(providers: unknown, providerId: string) {
 }
 
 function collectTalkAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -277,7 +277,7 @@ function collectTalkAssignments(params: {
 }
 
 function collectGatewayAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -472,7 +472,7 @@ function collectProviderRequestAssignments(params: {
 }
 
 function collectMediaRequestAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -581,7 +581,7 @@ function collectMediaRequestAssignments(params: {
 }
 
 function collectMessagesTtsAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -598,7 +598,7 @@ function collectMessagesTtsAssignments(params: {
 }
 
 function collectAgentTtsAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -619,7 +619,7 @@ function collectAgentTtsAssignments(params: {
 }
 
 function collectCronAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
 }): void {
@@ -648,7 +648,7 @@ function collectCronAssignments(params: {
 
 /** Collects SecretRef assignments from core non-plugin config surfaces. */
 export function collectCoreConfigAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
   agentId?: string;

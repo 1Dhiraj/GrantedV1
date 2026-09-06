@@ -2,7 +2,7 @@
 import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
 import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
 import { hasFinalInboundReplyDispatch } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { channelReadyPatch, channelStoppedPatch } from "openclaw/plugin-sdk/gateway-runtime";
 import { chunkMarkdownText } from "openclaw/plugin-sdk/reply-runtime";
@@ -50,7 +50,7 @@ interface MonitorLineProviderOptions {
   channelAccessToken: string;
   channelSecret: string;
   accountId?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: RuntimeEnv;
   buildContext?: typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
   abortSignal?: AbortSignal;
@@ -92,7 +92,7 @@ async function registerLineWebhookTarget(
 const lineWebhookTargets = new Map<string, LineWebhookTarget[]>();
 
 function startLineLoadingKeepalive(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   userId: string;
   accountId?: string;
   intervalMs?: number;

@@ -6,7 +6,7 @@ import {
   replaceRuntimeAuthProfileStoreSnapshots,
   type AuthProfileStore,
 } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   getActivePluginRegistry,
@@ -34,7 +34,7 @@ vi.mock("./app-server/request.js", async (importOriginal) => ({
 describe("Codex command RPC helpers", () => {
   let tempDir: string;
   let agentDir: string;
-  let config: OpenClawConfig;
+  let config: GrantedConfig;
   let harness: ReturnType<typeof createClientHarness>;
   let previousPluginRegistry: ReturnType<typeof getActivePluginRegistry>;
   const sessionKey = "agent:main:control";

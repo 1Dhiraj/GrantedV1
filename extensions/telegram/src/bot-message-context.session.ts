@@ -13,7 +13,7 @@ import {
 } from "openclaw/plugin-sdk/channel-inbound";
 import { normalizeCommandBody } from "openclaw/plugin-sdk/command-surface";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
@@ -119,7 +119,7 @@ async function loadTelegramMessageContextSessionRuntime(
 }
 
 export async function resolveTelegramMessageContextStorePath(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionRuntime?: TelegramMessageContextSessionRuntimeOverrides;
 }): Promise<string> {
@@ -218,7 +218,7 @@ function isTelegramMediaKind(value: string): value is TelegramMediaKind {
 }
 
 export async function buildTelegramInboundContextPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   primaryCtx: TelegramContext;
   msg: TelegramContext["message"];
   allMedia: TelegramMediaRef[];

@@ -1,5 +1,5 @@
 import { getRootOptionAwareCommandPath } from "openclaw/plugin-sdk/cli-argv";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 
 // Metadata discovery for unrelated commands must not load the meeting runtime.
 const descriptor = {
@@ -15,7 +15,7 @@ export const TEAMS_MEETINGS_CLI_METADATA = {
   name: "Microsoft Teams meetings",
   description: "Microsoft Teams meetings CLI metadata",
   descriptor,
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     api.registerCli(() => {}, { descriptors: [descriptor] });
   },
 };

@@ -10,7 +10,7 @@ import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/s
 import { normalizeConversationText } from "../../acp/conversation-id.js";
 import { normalizeAnyChannelId } from "../../channels/registry.js";
 import { getActivePluginChannelRegistryFromState } from "../../plugins/runtime-channel-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -38,7 +38,7 @@ const CURRENT_BINDINGS_ID_PREFIX = "generic:";
 const CURRENT_BINDING_CONVERSATION_KIND = "current";
 
 type CurrentConversationBindingDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "current_conversation_bindings"
 >;
 

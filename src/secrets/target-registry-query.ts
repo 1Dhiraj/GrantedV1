@@ -1,5 +1,5 @@
 /** Query helpers for discovering secret target registry entries. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { formatConcreteConfigPath, type ConcreteConfigPathSegment } from "../shared/dot-path.js";
 import { loadChannelSecretContractApi } from "./channel-contract-api.js";
@@ -112,7 +112,7 @@ function getCompiledSecretTargetRegistryState() {
 }
 
 function getConfiguredSecretTargetRegistryState(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
   manifestRegistry?: Pick<PluginManifestRegistry, "plugins">,
 ) {
@@ -172,7 +172,7 @@ function getCompiledChannelOpenClawTargets(
   const compiledEntries =
     loadChannelSecretContractApi({
       channelId: normalizedChannelId,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       env: process.env,
     })
       ?.secretTargetRegistryEntries?.filter((entry) => entry.configFile === "openclaw.json")
@@ -192,12 +192,12 @@ function normalizeAllowedTargetIds(targetIds?: Iterable<string>): Set<string> | 
   );
 }
 
-function configHasPluginEntries(config: OpenClawConfig): boolean {
+function configHasPluginEntries(config: GrantedConfig): boolean {
   return Boolean(config.plugins?.entries && Object.keys(config.plugins.entries).length > 0);
 }
 
 function getConfiguredChannelOpenClawTargets(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): CompiledTargetRegistryEntry[] | null {
   const entries: CompiledTargetRegistryEntry[] = [];
@@ -528,7 +528,7 @@ export function resolveConfigSecretTargetByPath(
 
 /** Discovers configured secret-bearing values in openclaw.json. */
 export function discoverConfigSecretTargets(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: {
     env?: NodeJS.ProcessEnv;
     manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
@@ -541,7 +541,7 @@ export function discoverConfigSecretTargets(
  * Discovers configured openclaw.json targets, optionally limited to selected registry ids.
  */
 export function discoverConfigSecretTargetsByIds(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   targetIds?: Iterable<string>,
   options: {
     env?: NodeJS.ProcessEnv;

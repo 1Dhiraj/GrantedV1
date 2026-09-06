@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 type DeadlineAccount = {
   accountId: string;
@@ -10,7 +10,7 @@ type DeadlineAccount = {
   configured: boolean;
 };
 
-let testConfig: OpenClawConfig = {};
+let testConfig: GrantedConfig = {};
 let healthPluginsForTest: ChannelPlugin[] = [];
 const tempDirs = createTempDirTracker();
 let sessionStorePath: string;
@@ -26,7 +26,7 @@ function createDeadlinePlugin(params: {
   accountIds: string[];
   probe: (account: DeadlineAccount) => Promise<Record<string, unknown>>;
 }): ChannelPlugin {
-  const resolveAccount = (_cfg: OpenClawConfig, accountId?: string | null): DeadlineAccount => ({
+  const resolveAccount = (_cfg: GrantedConfig, accountId?: string | null): DeadlineAccount => ({
     accountId: accountId?.trim() || "default",
     enabled: true,
     configured: true,

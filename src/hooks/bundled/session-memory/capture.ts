@@ -5,7 +5,7 @@ import {
   type TranscriptEvent,
 } from "../../../config/sessions/session-accessor.js";
 import { selectVisibleTranscriptEvents } from "../../../config/sessions/transcript-visible-events.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveHookConfig } from "../../config.js";
 import { formatHookErrorForLog } from "../../fire-and-forget.js";
 import {
@@ -124,7 +124,7 @@ function captureAuthoritativeMemoryEvents(
 /** Capture while the caller still owns the departing session's active window. */
 export function captureSessionMemoryTranscript(
   scope: Parameters<typeof captureRecentSessionMemoryEvents>[0],
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): SessionMemoryTranscript {
   const hookConfig = resolveHookConfig(cfg, "session-memory");
   const messageCount =

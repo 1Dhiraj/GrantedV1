@@ -5,7 +5,7 @@ import path from "node:path";
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { NodeHostConfig } from "../node-host/config.js";
 import { encodePairingSetupCode } from "../pairing/setup-code.js";
 import { registerConnectCli } from "./connect-cli.js";
@@ -298,9 +298,9 @@ describe("connect cli", () => {
       mutate: expect.any(Function),
     });
     const mutation = mocks.mutateConfigFileWithRetry.mock.calls[0]?.[0] as {
-      mutate: (draft: OpenClawConfig) => void;
+      mutate: (draft: GrantedConfig) => void;
     };
-    const draft: OpenClawConfig = {
+    const draft: GrantedConfig = {
       gateway: { port: 28443 },
       nodeHost: { skills: { enabled: false }, workerRuns: { enabled: false } },
     };

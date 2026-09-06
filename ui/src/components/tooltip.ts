@@ -4,7 +4,7 @@ import "@awesome.me/webawesome/dist/components/tooltip/tooltip.js";
 import type WaTooltip from "@awesome.me/webawesome/dist/components/tooltip/tooltip.js";
 import { css, html } from "lit";
 import { property, query } from "lit/decorators.js";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 import {
   isTooltipTextRedundant,
   isTooltipTriggerElement,
@@ -23,7 +23,7 @@ function createTooltipId() {
   return `openclaw-tooltip-${++nextTooltipId}`;
 }
 
-class TooltipProvider extends OpenClawLitElement {
+class TooltipProvider extends GrantedLitElement {
   @property({ type: Number }) delay = HOVER_DELAY;
   @property({ type: Number }) skipDelay = SKIP_DELAY;
 
@@ -93,7 +93,7 @@ class TooltipProvider extends OpenClawLitElement {
   }
 }
 
-class Tooltip extends OpenClawLitElement {
+class Tooltip extends GrantedLitElement {
   private static readonly activeByDocument = new WeakMap<Document, Tooltip>();
 
   static readonly consumeEscape = (event: KeyboardEvent, ownerDocument: Document): boolean => {

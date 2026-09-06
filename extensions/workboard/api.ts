@@ -1,6 +1,6 @@
 // Workboard API module exposes the plugin public contract.
 export {
   definePluginEntry,
-  type OpenClawPluginApi,
-  type OpenClawPluginService,
+  type GrantedPluginApi,
+  type GrantedPluginService,
 } from "openclaw/plugin-sdk/plugin-entry";

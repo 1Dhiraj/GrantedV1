@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   resolveAutoMediaKeyProviders,
   resolveDefaultMediaModel,
@@ -44,7 +44,7 @@ type ImageWebMediaRuntime = {
 };
 
 type ResolveImageCompressionPolicy = (params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   imageModelConfig?: ImageModelConfig | null;
   modelOverride?: string;
   imageCount: number;
@@ -63,7 +63,7 @@ type ImageToolProviderDeps = {
   resolveModelAsync: ResolveModelAsync;
   resolveRegisteredMediaUnderstandingProvider(params: {
     providerId: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
   }): MediaUnderstandingProvider | undefined;
   resolveImageCompressionPolicy: ResolveImageCompressionPolicy;
   loadImageWebMediaRuntime: () => Promise<ImageWebMediaRuntime>;
@@ -80,7 +80,7 @@ type ImageToolTestApi = {
   resolveImageCompressionPolicy: ResolveImageCompressionPolicy;
   setProviderDepsForTest(overrides?: Partial<ImageToolProviderDeps>): void;
   resolveImageModelConfigForTool(params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     agentDir: string;
     workspaceDir?: string;
     authStore?: AuthProfileStore;

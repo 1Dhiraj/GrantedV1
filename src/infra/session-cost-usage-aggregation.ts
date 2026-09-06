@@ -12,7 +12,7 @@ import {
   scanSessionTranscriptTree,
 } from "../config/sessions/transcript-tree.js";
 import { selectVisibleTranscriptEvents } from "../config/sessions/transcript-visible-events.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
 import { resolveModelCostConfigFingerprint } from "../utils/usage-format.js";
@@ -92,14 +92,14 @@ export function resolveUsageCostCacheDatabasePath(agentId: string): string {
 }
 
 export function resolveUsageCostAgentDir(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   agentId: string,
 ): string {
   return resolveAgentDir(config ?? {}, agentId);
 }
 
 export function resolveUsageCostPricingFingerprint(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDir?: string,
 ): string {
   return resolveModelCostConfigFingerprint(config, agentDir);
@@ -586,7 +586,7 @@ async function scanUsageFileForRollup(params: {
 }
 
 export async function refreshCostUsageCacheForAgent(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId: string;
   agentDir?: string;
   databasePath?: string;

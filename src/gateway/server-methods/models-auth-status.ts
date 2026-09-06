@@ -35,7 +35,7 @@ import {
   type ProviderAuthAliasLookupParams,
   resolveProviderIdForAuth,
 } from "../../agents/provider-auth-aliases.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { hasConfiguredSecretInput } from "../../config/types.secrets.js";
 import { providerUsageLabel, resolveUsageProviderId } from "../../infra/provider-usage.shared.js";
 import type { UsageProviderId } from "../../infra/provider-usage.types.js";
@@ -81,7 +81,7 @@ type PreparedAuthMetadataLookupParams = ProviderAuthAliasLookupParams & {
 };
 
 function buildProviderCapabilities(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   metadataSnapshot: NonNullable<
     Awaited<ReturnType<typeof readPreparedCatalog>>
@@ -90,7 +90,7 @@ function buildProviderCapabilities(params: {
   return resolveModelProviderCapabilities(params).capabilities;
 }
 
-function resolveAuthRefreshScope(cfg: OpenClawConfig): {
+function resolveAuthRefreshScope(cfg: GrantedConfig): {
   providerIds: string[];
   profileIds?: string[];
 } {
@@ -350,7 +350,7 @@ function mapProvider(
 }
 
 function resolveConfigBoundProfileIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   store: AuthProfileStore,
   authAliasLookupParams?: ProviderAuthAliasLookupParams,
 ): Set<string> {
@@ -370,7 +370,7 @@ function resolveConfigBoundProfileIds(
 }
 
 function resolveConfiguredProviders(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   apiKeys: ReadonlyMap<string, ModelAuthStatusProvider["apiKey"]>,
 ): {
   providers: string[];
@@ -531,7 +531,7 @@ export const modelsAuthStatusHandlers: GatewayRequestHandlers = {
   "models.authStatus": async ({ params, respond, context }) => {
     const now = Date.now();
     const refreshRequested = Boolean(params.refresh);
-    const resolveScope = (cfg: OpenClawConfig) =>
+    const resolveScope = (cfg: GrantedConfig) =>
       resolveModelAuthAgentScope(
         cfg,
         params.agentId === undefined || params.agentId === ""

@@ -2,7 +2,7 @@
 import { resolveInboundReplyDispatchCounts } from "openclaw/plugin-sdk/channel-inbound";
 import { bindIngressLifecycleToReplyOptions } from "openclaw/plugin-sdk/channel-outbound";
 import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import type { OpenClawConfig as ClawdbotConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig as ClawdbotConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
 import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";

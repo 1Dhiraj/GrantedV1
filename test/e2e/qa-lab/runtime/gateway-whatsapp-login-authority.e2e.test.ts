@@ -9,7 +9,7 @@ import {
 } from "../../../../src/gateway/test-helpers.e2e.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 
 type ToolsInvokeResult = {
@@ -20,7 +20,7 @@ type ToolsInvokeResult = {
   error?: { code?: string; message?: string };
 };
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 
 afterEach(async () => {
   await instance?.cleanup();

@@ -40,7 +40,7 @@ import {
   isRequestBodyLimitError,
   logTypingFailure,
   readRequestBodyWithLimit,
-  type OpenClawConfig,
+  type GrantedConfig,
   type RuntimeEnv,
 } from "./runtime-api.js";
 import { sendMessageMattermost } from "./send.js";
@@ -59,7 +59,7 @@ import {
 
 type SlashHttpHandlerParams = {
   account: ResolvedMattermostAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   /** Commands registered or reconciled during monitor startup. */
   registeredCommands: readonly MattermostRegisteredCommand[];
@@ -458,7 +458,7 @@ type SlashInvocationAuth = {
 
 async function authorizeSlashInvocation(params: {
   account: ResolvedMattermostAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: ReturnType<typeof createMattermostClient>;
   commandText: string;
   channelId: string;
@@ -730,7 +730,7 @@ export function createSlashCommandHttpHandler(params: SlashHttpHandlerParams) {
 
 async function handleSlashCommandAsync(params: {
   account: ResolvedMattermostAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   client: ReturnType<typeof createMattermostClient>;
   commandText: string;

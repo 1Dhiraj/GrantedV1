@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { slugifyWorktreeTitle } from "../agents/worktrees/name.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { sha256HexPrefixCore } from "../infra/crypto-digest.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
 import { cloneProjectCheckout, ProjectCloneError } from "./project-clone-runtime.js";
 import { parseProjectGitUrl } from "./project-git-url.js";
@@ -20,9 +20,9 @@ const PROJECT_CLONE_LEASE_MS = 30_000;
 const PROJECT_CLONE_WAIT_MS = 30_000;
 
 function existingCanonicalProject(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   canonicalUrl: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): ProjectRegistryRecord | undefined {
   return listProjectRegistry(cfg, options).find((project) => {
     const origin = project.originUrl ? parseProjectGitUrl(project.originUrl) : null;
@@ -32,8 +32,8 @@ function existingCanonicalProject(
 
 /** Materializes and registers a project from an accepted GitHub remote. */
 export async function materializeProjectClone(
-  input: { cfg: OpenClawConfig; gitUrl: string; name?: string },
-  options: OpenClawStateDatabaseOptions & {
+  input: { cfg: GrantedConfig; gitUrl: string; name?: string },
+  options: GrantedStateDatabaseOptions & {
     signal?: AbortSignal;
     timeoutMs?: number;
     token?: string;
@@ -143,7 +143,7 @@ async function resolveClonedProjectCheckout(
 export async function removeClonedProjectCheckout(
   project: ProjectRegistryRecord,
   assertUnreferenced: () => void | Promise<void>,
-  options: OpenClawStateDatabaseOptions & { env?: NodeJS.ProcessEnv } = {},
+  options: GrantedStateDatabaseOptions & { env?: NodeJS.ProcessEnv } = {},
 ): Promise<boolean> {
   return await withProjectCheckoutLifecycle(project.repoRoot, options, async (lease) => {
     const checkout = await resolveClonedProjectCheckout(project, options);

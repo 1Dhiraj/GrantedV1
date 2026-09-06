@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type { MediaUnderstandingConfig } from "../config/types.tools.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { runCapability } from "./runner.js";
@@ -42,7 +42,7 @@ function createOpenAiAudioProvider(
   });
 }
 
-function createOpenAiAudioCfg(extra?: Partial<OpenClawConfig>): OpenClawConfig {
+function createOpenAiAudioCfg(extra?: Partial<GrantedConfig>): GrantedConfig {
   return {
     models: {
       providers: {
@@ -53,7 +53,7 @@ function createOpenAiAudioCfg(extra?: Partial<OpenClawConfig>): OpenClawConfig {
       },
     },
     ...extra,
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 async function createMockExecutable(dir: string, name: string) {
@@ -64,7 +64,7 @@ async function createMockExecutable(dir: string, name: string) {
 
 async function runAutoAudioCase(params: {
   transcribeAudio: (req: AudioTranscriptionRequest) => Promise<{ text: string; model: string }>;
-  cfgExtra?: Partial<OpenClawConfig>;
+  cfgExtra?: Partial<GrantedConfig>;
 }) {
   let runResult: Awaited<ReturnType<typeof runCapability>> | undefined;
   await withAudioFixture("openclaw-auto-audio", async ({ ctx, media, cache }) => {
@@ -149,7 +149,7 @@ describe("runCapability auto audio entries", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           ctx,
           attachments: cache,
           media,
@@ -215,7 +215,7 @@ describe("runCapability auto audio entries", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         ctx,
         attachments: cache,
         media,
@@ -265,7 +265,7 @@ describe("runCapability auto audio entries", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       runResult = await runCapability({
         capability: "audio",
@@ -315,7 +315,7 @@ describe("runCapability auto audio entries", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       runResult = await runCapability({
         capability: "audio",
@@ -451,7 +451,7 @@ describe("runCapability auto audio entries", () => {
             },
           },
         },
-      } as Partial<OpenClawConfig>,
+      } as Partial<GrantedConfig>,
     });
 
     expect(requireCapabilityOutput(result, 0).text).toBe("ok");
@@ -478,7 +478,7 @@ describe("runCapability auto audio entries", () => {
             },
           },
         },
-      } as Partial<OpenClawConfig>,
+      } as Partial<GrantedConfig>,
     });
 
     expect(requireCapabilityOutput(result, 0).text).toBe("ok");
@@ -500,7 +500,7 @@ describe("runCapability auto audio entries", () => {
               audio,
             },
           },
-        } as Partial<OpenClawConfig>,
+        } as Partial<GrantedConfig>,
       });
     };
 
@@ -609,7 +609,7 @@ describe("runCapability auto audio entries", () => {
                   },
                 },
               },
-            } as unknown as OpenClawConfig;
+            } as unknown as GrantedConfig;
 
             runResult = await runCapability({
               capability: "audio",

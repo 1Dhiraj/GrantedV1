@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 export function canonicalizeSetupMigrationValue(value: unknown): unknown {
   if (Array.isArray(value)) {
@@ -17,7 +17,7 @@ export function canonicalizeSetupMigrationValue(value: unknown): unknown {
   );
 }
 
-export function hashSetupMigrationConfig(config: OpenClawConfig): string {
+export function hashSetupMigrationConfig(config: GrantedConfig): string {
   return crypto
     .createHash("sha256")
     .update(JSON.stringify(canonicalizeSetupMigrationValue(config)))

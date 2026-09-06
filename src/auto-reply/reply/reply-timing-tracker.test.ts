@@ -1,6 +1,6 @@
 // Tests reply profiler flag detection and timing tracker output.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createAgentTurnTimingTracker } from "./agent-runner-turn-timing.js";
 import { createReplyHotPathTimingTracker } from "./dispatch-from-config.timing.js";
 import { createReplyTimingTracker, isReplyProfilerEnabled } from "./reply-timing-tracker.js";
@@ -15,7 +15,7 @@ afterEach(() => vi.restoreAllMocks());
 
 describe("isReplyProfilerEnabled", () => {
   it("matches global and reply profiler diagnostic flags", () => {
-    const cfg = { diagnostics: { flags: ["reply.profiler"] } } as OpenClawConfig;
+    const cfg = { diagnostics: { flags: ["reply.profiler"] } } as GrantedConfig;
     expect(isReplyProfilerEnabled({ config: cfg, env: {} as NodeJS.ProcessEnv })).toBe(true);
     expect(
       isReplyProfilerEnabled({

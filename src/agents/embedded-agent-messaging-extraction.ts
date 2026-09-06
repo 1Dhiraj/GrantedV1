@@ -9,7 +9,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { getChannelPlugin, normalizeChannelId } from "../channels/plugins/index.js";
 import type { ChannelMessageActionName } from "../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isDeliveredCurrentSourceReply } from "../infra/outbound/source-reply-mirror.js";
 import { normalizeTargetForProvider } from "../infra/outbound/target-normalization.js";
 import {
@@ -158,7 +158,7 @@ function resolveMessagingToolThreadEvidence(params: {
   allowImplicitThread: boolean;
   threadSuppressed: boolean;
   options?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     currentChannelId?: string;
     currentMessagingTarget?: string;
     currentThreadId?: string;
@@ -227,7 +227,7 @@ export function extractMessagingToolSend(
   toolName: string,
   args: Record<string, unknown>,
   options?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     currentChannelId?: string;
     currentMessagingTarget?: string;
     currentThreadId?: string;
@@ -391,7 +391,7 @@ export function extractMessagingToolSendResult(
 
 export function isDeliveredMessagingToolSendToCurrentSource(params: {
   send: MessagingToolSend | undefined;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   currentProvider?: string;
   currentAccountId?: string;
   currentChannelId?: string;

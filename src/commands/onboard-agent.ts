@@ -10,7 +10,7 @@ import { readConfigFileSnapshot, resolveConfigSnapshotHash } from "../config/con
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { createMergePatch, applyMergePatch } from "../config/merge-patch.js";
 import { migrateLegacyMainSessionKeys } from "../config/sessions/legacy-main-session-migration.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 
 export type FirstOnboardingAgent = { name: string };
@@ -24,7 +24,7 @@ export function validateFirstOnboardingAgentName(value: string | undefined): str
   return validation.ok ? undefined : `${validation.message}. Choose another name.`;
 }
 
-function isInjectedMainRoster(config: OpenClawConfig): boolean {
+function isInjectedMainRoster(config: GrantedConfig): boolean {
   const roster = listAgentEntries(config);
   const entry = roster[0];
   // Authored bare main entries are distinguished by snapshot provenance below.
@@ -34,14 +34,14 @@ function isInjectedMainRoster(config: OpenClawConfig): boolean {
 }
 
 function mergeOnboardingCandidate(params: {
-  base: OpenClawConfig;
-  candidate: OpenClawConfig;
-  currentRuntime: OpenClawConfig;
-}): OpenClawConfig {
+  base: GrantedConfig;
+  candidate: GrantedConfig;
+  currentRuntime: GrantedConfig;
+}): GrantedConfig {
   const proposalPatch = createMergePatch(params.base, params.candidate);
   // Keep this runtime-shaped. The canonical config writer projects only this
   // patch onto snapshot.parsed, preserving include ownership and env refs.
-  const merged = applyMergePatch(params.currentRuntime, proposalPatch) as OpenClawConfig;
+  const merged = applyMergePatch(params.currentRuntime, proposalPatch) as GrantedConfig;
   const { list: _legacyList, ...agents } = merged.agents ?? {};
   return inheritLegacyDefaultAgentId(params.currentRuntime, {
     ...merged,
@@ -53,14 +53,14 @@ function mergeOnboardingCandidate(params: {
 }
 
 export async function ensureOnboardingAgent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspace: string;
   firstAgent?: FirstOnboardingAgent;
   preserveCandidateRoster?: boolean;
-  baseConfig?: OpenClawConfig;
+  baseConfig?: GrantedConfig;
   expectedConfigHash?: string | null;
 }): Promise<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   bootstrapPending: boolean;
   createdAgent: boolean;

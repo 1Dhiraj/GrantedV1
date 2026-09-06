@@ -6,7 +6,7 @@ import {
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type {
   ForkSessionEntryFromParentTargetParams,
@@ -312,7 +312,7 @@ export async function resolveSessionParentForkDecision(params: {
 }
 
 function forkSqliteParentTranscriptInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedSqliteScope,
   params: {
     enforceTokenLimit?: boolean;
@@ -385,7 +385,7 @@ function resolveParentForkLimitDecision(
 }
 
 function writeSqliteForkedChildTranscriptInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   targetScope: ResolvedTranscriptScope,
   params: {
     parentSessionFile: string;

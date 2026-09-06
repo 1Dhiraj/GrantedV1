@@ -174,7 +174,7 @@ export async function projectScreenshotResult(params: {
   // >= referenceWidth, so it is a no-op and the node maps coordinates
   // against this same width for both portrait and landscape captures. A
   // portrait frame (height > referenceWidth) is uniformly scaled down here,
-  // matching OpenClawComputerInputGeometry.capturedWidth on the node.
+  // matching GrantedComputerInputGeometry.capturedWidth on the node.
   // media.outbound=false keeps desktop pixels model-only (#44759).
   const result = await sanitizeToolResultImages(
     {

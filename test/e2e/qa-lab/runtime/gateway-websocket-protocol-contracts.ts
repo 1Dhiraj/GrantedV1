@@ -22,7 +22,7 @@ import {
   MIN_CLIENT_PROTOCOL_VERSION,
   PROTOCOL_VERSION,
 } from "../../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import {
   MAX_BUFFERED_BYTES,
   MAX_PAYLOAD_BYTES,
@@ -493,7 +493,7 @@ async function createFixturePlugin() {
   };
 }
 
-function withFixturePlugin(config: OpenClawConfig, pluginDir: string): OpenClawConfig {
+function withFixturePlugin(config: GrantedConfig, pluginDir: string): GrantedConfig {
   return {
     ...config,
     plugins: {

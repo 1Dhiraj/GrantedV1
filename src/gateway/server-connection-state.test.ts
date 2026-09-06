@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createGatewayConnectionState } from "./server-connection-state.js";
 import type { GatewayWsClient } from "./server/ws-types.js";
 
@@ -42,7 +42,7 @@ function makeClient(
 
 describe("gateway connection state", () => {
   it("bounds targeted delivery and connection lookups to the requested connection", () => {
-    const state = createGatewayConnectionState({ cfg: {} as OpenClawConfig });
+    const state = createGatewayConnectionState({ cfg: {} as GrantedConfig });
     const reads = { count: 0 };
     for (let index = 0; index < 256; index += 1) {
       state.clients.add(makeClient(`other-${index}`, reads).client);
@@ -85,7 +85,7 @@ describe("gateway connection state", () => {
   });
 
   it("preserves connection insertion order for targeted fanout", () => {
-    const state = createGatewayConnectionState({ cfg: {} as OpenClawConfig });
+    const state = createGatewayConnectionState({ cfg: {} as GrantedConfig });
     const reads = { count: 0 };
     const sendOrder: string[] = [];
     state.clients.add(makeClient("first", reads, sendOrder).client);

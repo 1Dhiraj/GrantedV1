@@ -4,7 +4,7 @@ import path from "node:path";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { controlNextRecoverySleep } from "../../../test/helpers/infra/delivery-recovery.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { beginConversationDeliveryOperation } from "../../config/sessions/conversation-delivery-store.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { drainPendingDeliveries as drainPluginPendingDeliveries } from "../../plugin-sdk/delivery-queue-runtime.js";
@@ -37,7 +37,7 @@ import {
 
 const RECOVERY_REPLAY_SPACING_MS = 250;
 const MAX_RETRIES = 5;
-const stubCfg = {} as OpenClawConfig;
+const stubCfg = {} as GrantedConfig;
 const NO_LISTENER_ERROR = "No active DirectChat listener";
 const sleepMock = vi.hoisted(() => vi.fn<(ms: number) => Promise<void>>());
 const resolveOutboundChannelMessageAdapterMock = vi.hoisted(() => vi.fn());
@@ -406,8 +406,8 @@ describe("drainPendingDeliveriesCore for reconnect", () => {
       retryCount: 1,
       lastAttemptAt: Date.now() - 5_000,
     });
-    const cfg: OpenClawConfig = { channels: { discord: { enabled: false } } };
-    const admitDeferredDelivery = vi.fn(({ cfg: currentConfig }: { cfg: OpenClawConfig }) =>
+    const cfg: GrantedConfig = { channels: { discord: { enabled: false } } };
+    const admitDeferredDelivery = vi.fn(({ cfg: currentConfig }: { cfg: GrantedConfig }) =>
       currentConfig.channels?.discord?.enabled === false
         ? { status: "permanent_rejection" as const, reason: "Discord account disabled" }
         : { status: "allowed" as const },

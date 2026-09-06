@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { pathExists } from "../../infra/fs-safe.js";
 import type { PluginHookSkillArtifact } from "../../plugins/hook-types.js";
 import { buildWorkspaceSkillStatus } from "../discovery/status.js";
@@ -75,7 +75,7 @@ export function listWritableSkillCollection(
   options: {
     agentId?: string;
     agentIds?: readonly string[];
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     env?: NodeJS.ProcessEnv;
   } = {},
 ): WritableSkillCollectionEntry[] {
@@ -122,7 +122,7 @@ export async function reconcileSkillCollection(params: {
   plan: readonly SkillCollectionPlanEntry[];
   readSkillHashes: ReadonlyMap<string, string>;
   readSkillTreeHashes: ReadonlyMap<string, string>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   agentIds?: readonly string[];
   approvedSkillNamesByAgent?: readonly ReadonlySet<string>[];
@@ -509,7 +509,7 @@ async function prepareWrites(params: {
   workspaceDir: string;
   current: readonly WritableSkillCollectionEntry[];
   plan: readonly SkillCollectionPlanEntry[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<PreparedWorkspaceSkillMutation[]> {
   const workshop = resolveSkillWorkshopConfig(params.config);
   const currentByName = new Map(params.current.map((skill) => [skill.name, skill]));

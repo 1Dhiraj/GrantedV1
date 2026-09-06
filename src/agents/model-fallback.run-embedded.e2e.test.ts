@@ -1,6 +1,6 @@
 // Exercises model fallback through the embedded runner integration surface.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { wrapRunWithTestPreparedAdmission } from "./admitted-run-context.test-support.js";
 import type { ModelFallbackAvailability } from "./agent-scope.js";
 import { classifyEmbeddedAgentRunResultForModelFallback } from "./embedded-agent-runner/result-fallback-classifier.js";
@@ -133,7 +133,7 @@ async function runEmbeddedFallback(params: {
   sessionId?: string;
   lane?: string;
   abortSignal?: AbortSignal;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   // Runs the same embedded-agent entrypoint that production fallback uses while
   // keeping provider/model attempts deterministic through mocks.
@@ -175,7 +175,7 @@ async function runEmbeddedEntryFallback(params: {
   workspaceDir: string;
   sessionKey: string;
   runId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   fallbacksOverride?: string[];
   modelFallbackAvailability?: ModelFallbackAvailability;
   onFallbackStep?: (step: ModelFallbackStepFields) => void;

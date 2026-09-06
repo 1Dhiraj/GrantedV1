@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { createQaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import type { NodePluginToolDescriptor } from "../../../../packages/gateway-protocol/src/schema/nodes.js";
 import { createSessionMcpRuntime } from "../../../../src/agents/agent-bundle-mcp-runtime.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import {
@@ -101,7 +101,7 @@ describe("Gateway/node MCP real-process stress", () => {
           fixturePath,
           repoRoot,
         });
-        const nodeConfig: OpenClawConfig = {
+        const nodeConfig: GrantedConfig = {
           gateway: { mode: "local" },
           plugins: { enabled: false },
           nodeHost: { mcp: { servers: nodeServers }, skills: { enabled: false } },

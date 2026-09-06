@@ -13,7 +13,7 @@ import {
 } from "../../channels/message/runtime.js";
 import type { DurableMessageSendIntent, OutboundReplyFacts } from "../../channels/message/types.js";
 import type { ChannelPlugin, ChannelPollResult } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { OutboundMediaAccess } from "../../media/load-options.js";
 import type { PollInput } from "../../polls.js";
 import { normalizePollInput } from "../../polls.js";
@@ -100,7 +100,7 @@ type MessageSendParams = {
   payloads?: ReplyPayload[];
   mediaAccess?: OutboundMediaAccess;
   deps?: OutboundSendDeps;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   gateway?: OutboundMessageGatewayOptionsInput;
   idempotencyKey?: string;
   /** @internal Channel-valid id reserved before a correlated conversation turn is sent. */
@@ -169,7 +169,7 @@ type MessagePollParams = {
   silent?: boolean;
   isAnonymous?: boolean;
   dryRun?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   gateway?: OutboundMessageGatewayOptionsInput;
   idempotencyKey?: string;
   sessionKey?: string;
@@ -252,7 +252,7 @@ function assertPollOptionSupport(params: {
 }
 
 async function resolveRequiredChannel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel?: string;
 }): Promise<{ channel: string; plugin: ChannelPlugin }> {
   return await resolveMessageChannelSelection({
@@ -274,7 +274,7 @@ function deriveRequiredMessageSendCapabilities(params: {
 }
 
 async function assertRequiredMessageSendDurability(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   channel: Exclude<string, "none">;
   payloads: ReplyPayload[];
@@ -330,7 +330,7 @@ async function callMessageGateway<T>(params: {
   });
 }
 
-async function resolveMessageConfig(cfg?: OpenClawConfig): Promise<OpenClawConfig> {
+async function resolveMessageConfig(cfg?: GrantedConfig): Promise<GrantedConfig> {
   if (cfg) {
     return cfg;
   }

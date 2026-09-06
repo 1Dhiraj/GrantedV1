@@ -5,7 +5,7 @@ import {
   listMemoryMigrationProviders,
   planProviderMemoryImport,
 } from "../commands/migrate/memory-import.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import type { MigrationPlan, MigrationProviderPlugin } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -50,7 +50,7 @@ async function showSkipHint(prompter: WizardPrompter): Promise<void> {
 }
 
 export async function runSetupMemoryImportStep(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId?: string;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;

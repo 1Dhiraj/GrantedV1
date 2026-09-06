@@ -7,7 +7,7 @@ import {
 } from "../config/model-provider-config.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../config/runtime-source-projection.js";
 import type { ModelApi, ModelDefinitionConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   ProviderModelRouteResolution,
   ProviderModelRouteSource,
@@ -68,7 +68,7 @@ function projectConfiguredModelRoute(model: ModelDefinitionConfig): ProviderMode
 /** Captures one provider artifact and config view for repeated row resolution. */
 export function createProviderModelRoutesResolver(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: Readonly<Record<string, string | undefined>>;
   requestTransportOverrides?: ProviderRouteOverridePresence;
   surface?: BundledProviderPolicySurface | null;
@@ -163,7 +163,7 @@ export function resolveProviderModelRoutes(params: {
   modelId?: string;
   api?: ModelApi | null;
   baseUrl?: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: Readonly<Record<string, string | undefined>>;
   requestTransportOverrides?: ProviderRouteOverridePresence;
   surface?: BundledProviderPolicySurface | null;

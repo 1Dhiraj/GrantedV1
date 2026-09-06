@@ -21,7 +21,7 @@ import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
 import { resolveEffectiveToolFsRootExpansionAllowed } from "../../agents/tool-fs-policy.js";
 import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../../agents/workspace.js";
 import { resolveChannelModelOverride } from "../../channels/model-overrides.js";
-import { type OpenClawConfig, getRuntimeConfig } from "../../config/config.js";
+import { type GrantedConfig, getRuntimeConfig } from "../../config/config.js";
 import { resolveGroupSessionKey } from "../../config/sessions/group.js";
 import { isSessionWorkStartInvalidatedError } from "../../config/sessions/lifecycle.js";
 import { logVerbose } from "../../globals.js";
@@ -160,7 +160,7 @@ function hasLinkCandidate(ctx: MsgContext): boolean {
 
 async function applyMediaUnderstandingIfNeeded(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -183,14 +183,14 @@ async function applyMediaUnderstandingIfNeeded(params: {
   }
 }
 
-function hasExplicitAudioUnderstandingConfig(cfg: OpenClawConfig): boolean {
+function hasExplicitAudioUnderstandingConfig(cfg: GrantedConfig): boolean {
   const audio = cfg.tools?.media?.audio;
   return audio !== undefined && audio.enabled !== false;
 }
 
 function canSelfServeLocalPaths(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir?: string;
   sessionKey?: string;
@@ -289,7 +289,7 @@ function withExtractedFileImages(
 
 async function applyLinkUnderstandingIfNeeded(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   signal?: AbortSignal;
 }): Promise<boolean> {
   if (!hasLinkCandidate(params.ctx)) {
@@ -314,7 +314,7 @@ async function applyLinkUnderstandingIfNeeded(params: {
 export async function getReplyFromConfig(
   ctx: MsgContext,
   opts?: GetReplyOptions,
-  configOverride?: OpenClawConfig,
+  configOverride?: GrantedConfig,
 ): Promise<ReplyPayload | ReplyPayload[] | undefined> {
   const isFastTestEnv = isFastTestRuntimeEnv();
   const preparedReplyDispatchRuntime = configOverride

@@ -1,11 +1,11 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   MANAGED_LLAMA_CPP_CONFIG_REQUIRED_MESSAGE,
   resolveManagedLlamaCppProviderConfig,
 } from "./src/managed-provider-config.js";
 
 export function inspectEmbeddingProviderSetup(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   agentId: string;
   provider: string;

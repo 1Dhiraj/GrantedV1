@@ -17,7 +17,7 @@ import type { prepareSimpleCompletionModel } from "../../agents/simple-completio
 import { createEmptyPluginMetadataSnapshot } from "../../agents/test-helpers/embedded-agent-runner-e2e-mocks.js";
 import { makeZeroUsageSnapshot } from "../../agents/usage.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { onTrustedInternalDiagnosticEvent } from "../../infra/diagnostic-events.js";
 import { bindModelLlmRuntime } from "../../llm/model-runtime-binding.js";
 import type { AssistantMessage, Model, StreamFn, Usage } from "../../llm/types.js";
@@ -83,7 +83,7 @@ const config = {
       },
     ],
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 const sessionEntry: SessionEntry = {
   sessionId: SESSION_ID,
   updatedAt: 1,
@@ -336,7 +336,7 @@ function setup(
 function params(
   inferenceRequest: WorkerInferenceStartParams,
   emit: Execution["emit"],
-  runtimeConfig: OpenClawConfig = config,
+  runtimeConfig: GrantedConfig = config,
 ): Execution {
   return {
     identity,

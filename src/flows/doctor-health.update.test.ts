@@ -1,6 +1,6 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { UpdateRunResult } from "../infra/update-runner.js";
 import { ExitError } from "../runtime.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -12,7 +12,7 @@ const mocks = vi.hoisted(() => ({
   runGatewayUpdate: vi.fn<typeof import("../infra/update-runner.js").runGatewayUpdate>(),
   triageCommand: vi.fn(async () => undefined),
   outro: vi.fn(),
-  config: vi.fn<() => OpenClawConfig>(),
+  config: vi.fn<() => GrantedConfig>(),
   runContributions: vi.fn<(ctx: DoctorHealthFlowContext) => Promise<void>>(),
   service: vi.fn(),
   packageRoot: vi.fn<() => string | undefined>(),
@@ -155,7 +155,7 @@ describe("runDoctorHealthFlow update outcomes", () => {
           const skipped = outcome === "dirty" || outcome === "already-current";
           const noop = outcome === "already-current";
           const recovered = outcome === "recovered-update-error";
-          const cfg: OpenClawConfig = { gateway: { mode: "local" } };
+          const cfg: GrantedConfig = { gateway: { mode: "local" } };
           await state.writeConfig(cfg);
           mocks.config.mockReturnValue(cfg);
           const packageRoot = process.cwd();

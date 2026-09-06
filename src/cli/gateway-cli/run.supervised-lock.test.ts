@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 import { describe, expect, it, vi } from "vitest";
 import { GatewayLockError } from "../../infra/gateway-lock.js";
 import { TailscaleRouteOwnershipConflictError } from "../../infra/tailscale-route-ownership-error.js";
-import { OpenClawAgentDatabaseMediaMigrationRequiredError } from "../../state/openclaw-agent-db-migration-required.js";
+import { GrantedAgentDatabaseMediaMigrationRequiredError } from "../../state/openclaw-agent-db-migration-required.js";
 import { testing } from "./run.test-support.js";
 
 const loadGatewayTlsServerRuntimeMock = vi.hoisted(() =>
@@ -31,7 +31,7 @@ describe("supervised gateway lock recovery", () => {
   it("uses exit 78 for offline agent database migration requirements", () => {
     expect(
       testing.resolveGatewayStartupFailureExitCode(
-        new OpenClawAgentDatabaseMediaMigrationRequiredError("/tmp/openclaw-agent.sqlite", 14),
+        new GrantedAgentDatabaseMediaMigrationRequiredError("/tmp/openclaw-agent.sqlite", 14),
       ),
     ).toBe(78);
   });

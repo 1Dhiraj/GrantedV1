@@ -2,7 +2,7 @@ import { html } from "lit";
 import { property } from "lit/decorators.js";
 import type { ThemeMode } from "../app/theme.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 import "./tooltip.ts";
 
@@ -11,7 +11,7 @@ export type ThemeModeChangeDetail = {
   element: HTMLElement;
 };
 
-class ThemeModeToggle extends OpenClawLightDomContentsElement {
+class ThemeModeToggle extends GrantedLightDomContentsElement {
   @property({ attribute: false }) mode: ThemeMode = "system";
 
   private readonly handleModeChange = (event: Event) => {

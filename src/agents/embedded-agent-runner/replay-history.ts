@@ -7,7 +7,7 @@ import { asFiniteNumber as toFiniteCostNumber } from "@openclaw/normalization-co
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import { stripInternalMetadataForDisplay } from "../../auto-reply/reply/display-text-sanitize.js";
 import { isSilentReplyPayloadText, SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import {
   sanitizeProviderReplayHistoryWithPlugin,
@@ -96,7 +96,7 @@ type ModelSnapshotState = {
 type AssistantReplayMessage = Extract<AgentMessage, { role: "assistant" }>;
 
 type ProviderReplayHookParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   provider: string;
@@ -778,7 +778,7 @@ export async function sanitizeSessionHistory(params: {
   modelId?: string;
   provider?: string;
   allowedToolNames?: Iterable<string>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   model?: ProviderRuntimeModel;
@@ -968,7 +968,7 @@ export async function validateReplayTurns(params: {
   modelApi?: string | null;
   modelId?: string;
   provider?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   model?: ProviderRuntimeModel;

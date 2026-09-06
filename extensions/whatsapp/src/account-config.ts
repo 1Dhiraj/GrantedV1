@@ -3,12 +3,12 @@ import {
   DEFAULT_ACCOUNT_ID,
   resolveAccountEntry,
   resolveMergedAccountConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-core";
 import type { WhatsAppAccountConfig } from "./account-types.js";
 
 function resolveWhatsAppDefaultAccountSharedConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Partial<WhatsAppAccountConfig> | undefined {
   const defaultAccount = resolveAccountEntry(cfg.channels?.whatsapp?.accounts, DEFAULT_ACCOUNT_ID);
   if (!defaultAccount) {
@@ -25,7 +25,7 @@ function resolveWhatsAppDefaultAccountSharedConfig(
 }
 
 export function resolveMergedWhatsAppAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): WhatsAppAccountConfig & { accountId: string } {
   const rootCfg = params.cfg.channels?.whatsapp;

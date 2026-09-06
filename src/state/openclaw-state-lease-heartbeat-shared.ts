@@ -1,4 +1,4 @@
-import type { OpenClawStateLeaseIdentity } from "./openclaw-state-lease-store.js";
+import type { GrantedStateLeaseIdentity } from "./openclaw-state-lease-store.js";
 
 export const leaseHeartbeatState = {
   status: 0,
@@ -12,7 +12,7 @@ export const leaseHeartbeatState = {
 
 export type LeaseHeartbeatWorkerData = {
   path: string;
-  identity: OpenClawStateLeaseIdentity;
+  identity: GrantedStateLeaseIdentity;
   leaseMs: number;
   heartbeatMs: number;
   shared: SharedArrayBuffer;

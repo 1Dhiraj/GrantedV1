@@ -4,11 +4,11 @@ import type { Insertable, Selectable } from "kysely";
 import type { WebPushDevicePreferences } from "../../packages/gateway-protocol/src/schema/push.js";
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
 import { ensureColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { sha256HexPrefixCore } from "./crypto-digest.js";
 import {
@@ -53,7 +53,7 @@ export function createWebPushVapidKeyPair(
 }
 
 export type WebPushDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   | "config_machine_state"
   | "operator_approvals"
   | "web_push_approval_deliveries"
@@ -81,7 +81,7 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   ON web_push_approval_deliveries(subscription_id, approval_id);
 `;
 
-function webPushStateDatabaseOptions(stateDir?: string): OpenClawStateDatabaseOptions {
+function webPushStateDatabaseOptions(stateDir?: string): GrantedStateDatabaseOptions {
   return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 

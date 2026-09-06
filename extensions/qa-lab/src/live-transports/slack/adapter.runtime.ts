@@ -6,7 +6,7 @@ import {
   createSlackWriteClient,
   resolveSlackWebClientOptions,
 } from "@openclaw/slack/api.js";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
 import { acquireDebugProxyCaptureStore } from "openclaw/plugin-sdk/proxy-capture";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
@@ -302,7 +302,7 @@ export async function createSlackQaTransportAdapter(
       activeThreadRoots.clear();
     },
     createGatewayConfig: () =>
-      buildSlackQaConfig({} as OpenClawConfig, {
+      buildSlackQaConfig({} as GrantedConfig, {
         channelId: runtimeEnv.channelId,
         driverBotUserId: driverIdentity.userId,
         sutAccountId: accountId,

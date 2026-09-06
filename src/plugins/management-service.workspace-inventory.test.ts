@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { resolveConfigWidePluginMetadataSnapshot } from "../config/io.plugin-metadata.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
@@ -66,7 +66,7 @@ it("refreshes an externally changed install ledger before publishing management 
   vi.stubEnv("GRANTED_HOME", path.join(root, "home"));
   vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
   vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
-  const config: OpenClawConfig = { plugins: { load: { paths: [loadPath] } } };
+  const config: GrantedConfig = { plugins: { load: { paths: [loadPath] } } };
   await writePersistedInstalledPluginIndex(
     loadInstalledPluginIndex({ config, env: process.env, candidates: [], installRecords: {} }),
   );
@@ -113,7 +113,7 @@ it("removes an npm-pack plugin from management inventory without replacing Gatew
   });
   vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
-  let config: OpenClawConfig = {
+  let config: GrantedConfig = {
     plugins: { entries: { [fixture.pluginId]: { enabled: true } } },
   };
   const installRecord = {
@@ -134,7 +134,7 @@ it("removes an npm-pack plugin from management inventory without replacing Gatew
     },
     writeOptions: { expectedConfigPath: path.join(stateDir, "openclaw.json") },
   }));
-  configIo.write.mockImplementation(async ({ nextConfig }: { nextConfig: OpenClawConfig }) => {
+  configIo.write.mockImplementation(async ({ nextConfig }: { nextConfig: GrantedConfig }) => {
     config = nextConfig;
   });
   await writePersistedInstalledPluginIndex(
@@ -191,7 +191,7 @@ it.each([undefined, "main"])(
     vi.stubEnv("GRANTED_HOME", path.join(root, "home"));
     vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
     vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         ...(systemAgentId ? { defaults: { systemAgent: { agentId: systemAgentId } } } : {}),
@@ -212,7 +212,7 @@ it.each([undefined, "main"])(
       },
       writeOptions: { expectedConfigPath: path.join(root, "openclaw.json") },
     }));
-    configIo.write.mockImplementation(async ({ nextConfig }: { nextConfig: OpenClawConfig }) => {
+    configIo.write.mockImplementation(async ({ nextConfig }: { nextConfig: GrantedConfig }) => {
       config = nextConfig;
     });
     const boot = resolveConfigWidePluginMetadataSnapshot({

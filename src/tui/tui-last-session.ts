@@ -9,12 +9,12 @@ import {
   updateConfigMachineState,
 } from "../state/config-machine-state.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import type { TuiSessionList } from "./tui-backend.js";
 import type { SessionScope } from "./tui-types.js";
 
-type TuiLastSessionDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type TuiLastSessionDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 const TUI_LAST_SESSION_STATE_KEY_PREFIX = "tui.lastSession.";
 
@@ -152,7 +152,7 @@ export function clearTuiLastSessionPointers(params: {
 function clearTuiPointerIfRetired(
   stateKey: string,
   retiredSessionKeys: ReadonlySet<string>,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): boolean {
   let cleared = false;
   updateConfigMachineState<string>(

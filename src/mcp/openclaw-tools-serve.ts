@@ -12,7 +12,7 @@ import { createCronTool } from "../agents/tools/cron-tool.js";
 import { createSystemAgentTool } from "../agents/tools/system-agent-tool.js";
 import type { SystemAgentToolOptions } from "../agents/tools/system-agent-tool.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV,
@@ -24,7 +24,7 @@ import {
   resolveOpenClawToolsMcpSystemAgentApproval,
   resolveOpenClawToolsMcpSystemAgentSurface,
   resolveOpenClawToolsMcpToolSelection,
-  type OpenClawToolsMcpToolId,
+  type GrantedToolsMcpToolId,
 } from "./openclaw-tools-serve-config.js";
 import { connectToolsMcpServerToStdio, createToolsMcpServer } from "./tools-stdio-server.js";
 
@@ -45,9 +45,9 @@ export function resolveOpenClawToolsForMcp(
   params: {
     agentSessionKey?: string;
     agentId?: string;
-    tools?: OpenClawToolsMcpToolId[];
+    tools?: GrantedToolsMcpToolId[];
     systemAgentSurface?: SystemAgentToolOptions["surface"];
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
   } = {},
 ): AnyAgentTool[] {
   const selection = params.tools ?? resolveOpenClawToolsMcpToolSelection();

@@ -1,6 +1,6 @@
 // Sms plugin module implements channel behavior.
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
 import {
   createHybridChannelConfigAdapter,
   createScopedDmSecurityResolver,
@@ -141,10 +141,10 @@ function smsSetupPatch(input: SmsSetupInput): Record<string, unknown> {
 }
 
 function applySmsAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   input: SmsSetupInput;
-}): OpenClawConfig {
+}): GrantedConfig {
   const patch = smsSetupPatch(params.input);
   const channels = { ...params.cfg.channels };
   const current = { ...(channels[CHANNEL_ID] as Record<string, unknown> | undefined) };
@@ -224,7 +224,7 @@ function createSmsReceipt(params: {
 }
 
 function resolveSmsTextChunkLimit(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   fallbackLimit?: number;
 }): number {
@@ -234,7 +234,7 @@ function resolveSmsTextChunkLimit(params: {
 }
 
 async function sendSmsText(ctx: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
   text: string;
@@ -257,7 +257,7 @@ async function sendSmsText(ctx: {
 }
 
 type SmsAttachmentContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
   text: string;

@@ -459,7 +459,7 @@ export async function drainMockerResolveMocks(
   }
 }
 
-export default class OpenClawNonIsolatedRunner extends TestRunner {
+export default class GrantedNonIsolatedRunner extends TestRunner {
   override onCollectStart(file: RunnerTestFile) {
     super.onCollectStart(file);
     if (!this.config.isolate) {

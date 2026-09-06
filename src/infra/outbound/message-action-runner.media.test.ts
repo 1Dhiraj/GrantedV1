@@ -5,7 +5,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import {
@@ -24,7 +24,7 @@ const workspaceConfig = {
       appToken: "xapp-test",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 async function withTempOpenClawStateDir<T>(test: (stateDir: string) => Promise<T>): Promise<T> {
   return await withOpenClawTestState(
@@ -102,7 +102,7 @@ describe("runMessageAction media behavior", () => {
 
     await expect(
       runMessageAction({
-        cfg: { channels: { textonly: { enabled: true } } } as OpenClawConfig,
+        cfg: { channels: { textonly: { enabled: true } } } as GrantedConfig,
         action: "upload-file",
         params: {
           channel: "textonly",

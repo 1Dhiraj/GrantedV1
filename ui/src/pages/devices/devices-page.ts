@@ -43,7 +43,7 @@ import {
   GatewayPageController,
   type GatewayPageChange,
 } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { renderDevices } from "./view.ts";
@@ -76,7 +76,7 @@ function presenceConnectivitySignature(entries: PresenceEntry[]): string {
   return JSON.stringify([...states].toSorted(([left], [right]) => left.localeCompare(right)));
 }
 
-class DevicesPage extends OpenClawLightDomElement {
+class DevicesPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

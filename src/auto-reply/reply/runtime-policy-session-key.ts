@@ -5,7 +5,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { normalizeChatType } from "../../channels/chat-type.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   buildAgentMainSessionKey,
   buildAgentPeerSessionKey,
@@ -57,7 +57,7 @@ function resolvePolicyDirectPeerId(ctx?: RuntimePolicyContext): string | undefin
 }
 
 function isMainSessionAlias(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }): boolean {
@@ -89,7 +89,7 @@ function isMainSessionAlias(params: {
 /** Resolves the session key used for sandbox/tool/runtime policy lookups. */
 export function resolveRuntimePolicySessionKey(params: {
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   ctx?: RuntimePolicyContext;
   sessionKey?: string | null;
 }): string | undefined {

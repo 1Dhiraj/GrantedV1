@@ -2,13 +2,13 @@
  * Active Memory plugin entry. Runtime behavior lives in focused sibling modules.
  */
 import { resolveAgentDir, resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getMemoryCapabilityRegistration } from "openclaw/plugin-sdk/memory-host-core";
 import {
   normalizePluginsConfig,
   resolveLivePluginConfigObject,
 } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { definePluginEntry, type OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   applyCliRuntimeRecallTimeoutDefault,
   hasDeprecatedModelFallbackPolicy,
@@ -86,15 +86,15 @@ export default definePluginEntry({
   id: "active-memory",
   name: "Active Memory",
   description: "Proactively surfaces relevant memory before eligible conversational replies.",
-  register(api: OpenClawPluginApi) {
-    const readCurrentConfig = (): OpenClawConfig | undefined => {
+  register(api: GrantedPluginApi) {
+    const readCurrentConfig = (): GrantedConfig | undefined => {
       try {
         return (
-          (api.runtime.config?.current?.() as OpenClawConfig | undefined) ??
-          (api.config as OpenClawConfig | undefined)
+          (api.runtime.config?.current?.() as GrantedConfig | undefined) ??
+          (api.config as GrantedConfig | undefined)
         );
       } catch {
-        return api.config as OpenClawConfig | undefined;
+        return api.config as GrantedConfig | undefined;
       }
     };
     let config = normalizePluginConfig(api.pluginConfig, readCurrentConfig());
@@ -120,7 +120,7 @@ export default definePluginEntry({
     const refreshLiveConfigFromRuntime = () => {
       const livePluginConfig = resolveLivePluginConfigObject(
         api.runtime.config?.current
-          ? () => api.runtime.config.current() as OpenClawConfig
+          ? () => api.runtime.config.current() as GrantedConfig
           : undefined,
         "active-memory",
         api.pluginConfig as Record<string, unknown>,
@@ -150,7 +150,7 @@ export default definePluginEntry({
         }
         refreshLiveConfigFromRuntime();
         if (isGlobal) {
-          const currentConfig = api.runtime.config.current() as OpenClawConfig;
+          const currentConfig = api.runtime.config.current() as GrantedConfig;
           if (action === "status") {
             return {
               text: `Active Memory: ${isActiveMemoryGloballyEnabled(currentConfig) ? "on" : "off"} globally.`,

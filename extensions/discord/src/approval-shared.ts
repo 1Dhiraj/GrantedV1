@@ -7,7 +7,7 @@ import type {
 } from "openclaw/plugin-sdk/approval-runtime";
 import type {
   DiscordExecApprovalConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { resolveDefaultDiscordAccountId, resolveDiscordAccount } from "./accounts.js";
 import {
@@ -19,7 +19,7 @@ import { getDiscordExecApprovalApprovers } from "./exec-approvals.js";
 type ApprovalRequest = ExecApprovalRequest | PluginApprovalRequest | SystemAgentApprovalRequest;
 
 function isDiscordApprovalAccountEligible(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   request: ApprovalRequest;
   configOverride?: DiscordExecApprovalConfig | null;
@@ -41,7 +41,7 @@ function isDiscordApprovalAccountEligible(params: {
 }
 
 export function shouldHandleDiscordApprovalRequest(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   request: ApprovalRequest;
   configOverride?: DiscordExecApprovalConfig | null;

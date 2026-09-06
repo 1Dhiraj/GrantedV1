@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
@@ -50,7 +50,7 @@ describe("inspectTelegramConversationRouteOwner", () => {
   });
 
   it("replays topic config and runtime precedence without touching liveness", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           groups: { "-100123": { topics: { "42": { agentId: "configured" } } } },

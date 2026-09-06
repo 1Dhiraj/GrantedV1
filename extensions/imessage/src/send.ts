@@ -14,7 +14,7 @@ import {
   type MessageReceiptPartKind,
   type MessageReceiptSourceResult,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import {
@@ -100,7 +100,7 @@ type IMessageSendOpts = {
   timeoutMs?: number;
   chatId?: number;
   client?: IMessageRpcClient;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   account?: ResolvedIMessageAccount;
   approvalPrompt?: IMessageApprovalPromptBinding;
   resolveAttachmentImpl?: (

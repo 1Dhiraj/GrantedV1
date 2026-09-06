@@ -4,7 +4,7 @@ import { property, state } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
 import { copyToClipboard } from "../lib/clipboard.ts";
 import { resolveThemeColor } from "../lib/theme-color.ts";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 import "./image-lightbox.ts";
 import "./web-awesome.ts";
@@ -46,7 +46,7 @@ function cachedDiagram(key: string, source: string, theme: MermaidTheme): Promis
   return result;
 }
 
-class OpenClawMermaid extends OpenClawLitElement {
+class GrantedMermaid extends GrantedLitElement {
   @property({ attribute: false }) source = "";
   @state() private imageUrl = "";
   @state() private showSource = false;
@@ -359,7 +359,7 @@ class OpenClawMermaid extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-mermaid")) {
-  customElements.define("openclaw-mermaid", OpenClawMermaid);
+  customElements.define("openclaw-mermaid", GrantedMermaid);
 }
 
 export function mountMermaidBlocks(root: Element): boolean {
@@ -379,6 +379,6 @@ export function mountMermaidBlocks(root: Element): boolean {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-mermaid": OpenClawMermaid;
+    "openclaw-mermaid": GrantedMermaid;
   }
 }

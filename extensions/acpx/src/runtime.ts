@@ -57,7 +57,7 @@ type AcpSessionStore = AcpRuntimeOptions["sessionStore"];
 type AcpSessionRecord = Parameters<AcpSessionStore["save"]>[0];
 type AcpLoadedSessionRecord = Awaited<ReturnType<AcpSessionStore["load"]>>;
 type BaseAcpxRuntimeTestOptions = ConstructorParameters<typeof BaseAcpxRuntime>[1];
-type OpenClawAcpxRuntimeOptions = AcpRuntimeOptions & {
+type GrantedAcpxRuntimeOptions = AcpRuntimeOptions & {
   openclawLegacyBareSessionKeys?: ReadonlySet<string>;
   openclawWrapperRoot?: string;
   openclawGatewayInstanceId?: string;
@@ -68,9 +68,9 @@ type OpenClawAcpxRuntimeOptions = AcpRuntimeOptions & {
 type AcpxRuntimeTestOptions = Record<string, unknown> & {
   openclawProcessCleanup?: AcpxProcessCleanupDeps;
 };
-type OpenClawRuntimeTurnInput = Parameters<NonNullable<AcpRuntime["startTurn"]>>[0];
-type OpenClawRuntimeEnsureInput = Parameters<AcpRuntime["ensureSession"]>[0];
-type OpenClawRuntimeHandle = Awaited<ReturnType<AcpRuntime["ensureSession"]>>;
+type GrantedRuntimeTurnInput = Parameters<NonNullable<AcpRuntime["startTurn"]>>[0];
+type GrantedRuntimeEnsureInput = Parameters<AcpRuntime["ensureSession"]>[0];
+type GrantedRuntimeHandle = Awaited<ReturnType<AcpRuntime["ensureSession"]>>;
 type AcpxDelegateEnsureInput = Parameters<BaseAcpxRuntime["ensureSession"]>[0];
 type AcpxMcpServer = NonNullable<AcpRuntimeOptions["mcpServers"]>[number];
 
@@ -81,7 +81,7 @@ type ResetAwareSessionStore = AcpSessionStore & {
   markFresh: (sessionKey: string) => void;
 };
 
-type OpenClawLeaseSessionMetadata = {
+type GrantedLeaseSessionMetadata = {
   openclawLeaseId: string;
   openclawGatewayInstanceId: string;
 };
@@ -97,8 +97,8 @@ function withOpenClawManagedTurnTimeout<T extends object>(input: T): T & { timeo
 
 function withOpenClawLeaseSessionMetadata<T extends object>(
   record: T,
-  metadata: OpenClawLeaseSessionMetadata,
-): T & OpenClawLeaseSessionMetadata {
+  metadata: GrantedLeaseSessionMetadata,
+): T & GrantedLeaseSessionMetadata {
   return {
     ...record,
     openclawLeaseId: metadata.openclawLeaseId,
@@ -427,7 +427,7 @@ function readAgentFromSessionKey(sessionKey: string | undefined): string | undef
   return normalizeAgentName(match?.groups?.agent);
 }
 
-function readAgentFromHandle(handle: OpenClawRuntimeHandle): string | undefined {
+function readAgentFromHandle(handle: GrantedRuntimeHandle): string | undefined {
   const decoded = decodeAcpxRuntimeHandleState(handle.runtimeSessionName);
   if (typeof decoded === "object" && decoded !== null) {
     const { agent } = decoded as { agent?: unknown };
@@ -664,7 +664,7 @@ function normalizeClaudeAcpModelOverride(rawModel: string | undefined): string |
   return raw.slice(prefix[0].length).trim() || undefined;
 }
 
-function withAcpxSessionOptions(input: OpenClawRuntimeEnsureInput): AcpxDelegateEnsureInput {
+function withAcpxSessionOptions(input: GrantedRuntimeEnsureInput): AcpxDelegateEnsureInput {
   const existingOptions = (input as { sessionOptions?: SessionAgentOptions }).sessionOptions;
   const model = input.model?.trim() || existingOptions?.model;
   const sessionOptions = model ? { ...existingOptions, model } : existingOptions;
@@ -683,7 +683,7 @@ function isAcpModelCapabilityMissingError(error: unknown): boolean {
 // Retry only the former so explicit model mistakes remain visible to the caller.
 async function ensureDelegateSessionWithModelFallback(
   delegate: BaseAcpxRuntime,
-  input: OpenClawRuntimeEnsureInput,
+  input: GrantedRuntimeEnsureInput,
 ): Promise<AcpRuntimeHandle> {
   try {
     return await delegate.ensureSession(withAcpxSessionOptions(input));
@@ -836,7 +836,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   private readonly uncertainProcessLeaseIds = new Set<string>();
   private readonly cwd: string;
 
-  constructor(options: OpenClawAcpxRuntimeOptions, testOptions?: AcpxRuntimeTestOptions) {
+  constructor(options: GrantedAcpxRuntimeOptions, testOptions?: AcpxRuntimeTestOptions) {
     this.legacyBareSessionKeys = new Set(options.openclawLegacyBareSessionKeys);
     const { openclawProcessCleanup, ...delegateTestOptions } = testOptions ?? {};
     this.processCleanupDeps = openclawProcessCleanup;
@@ -942,7 +942,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async loadOperationSnapshotForHandle(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
   ): Promise<AcpxHandleOperationSnapshot> {
     assertAcpxSessionOwnerLocator(
       { ...handle, persistedHandle: handle },
@@ -964,7 +964,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private resolveDelegateForOperationSnapshot(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     snapshot: AcpxHandleOperationSnapshot,
   ): BaseAcpxRuntime {
     // Lease-owning callers project only after validation so a rejected record
@@ -1133,7 +1133,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async prepareProcessLeaseForOperation(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     record: AcpLoadedSessionRecord,
   ): Promise<AcpxProcessLeaseIdentity | undefined> {
     if (!this.processLeaseStore || !this.gatewayInstanceId || !this.wrapperRoot) {
@@ -1253,7 +1253,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async finalizeProcessLeaseForOperation(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     identity: AcpxProcessLeaseIdentity | undefined,
   ): Promise<void> {
     await this.finalizeProcessLeaseForSession(
@@ -1343,7 +1343,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async runWithProcessLeaseForHandle<T>(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     record: AcpLoadedSessionRecord,
     run: () => Promise<T>,
   ): Promise<T> {
@@ -1356,7 +1356,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async finalizeProcessLeaseAfter<T>(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     identityPromise: Promise<AcpxProcessLeaseIdentity | undefined>,
     resultPromise: Promise<T>,
   ): Promise<T> {
@@ -1415,7 +1415,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async readCodexTurnFailureStderr(params: {
-    handle: OpenClawRuntimeHandle;
+    handle: GrantedRuntimeHandle;
   }): Promise<string> {
     const record = await this.sessionStore.load(
       params.handle.acpxRecordId ?? resolveAcpxSessionResource(params.handle),
@@ -1427,7 +1427,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
   }
 
   private async cleanupProcessTreeForRecord(
-    handle: OpenClawRuntimeHandle,
+    handle: GrantedRuntimeHandle,
     record: AcpLoadedSessionRecord,
   ): Promise<void> {
     const leaseId = readOpenClawLeaseIdFromRecord(record);
@@ -1517,14 +1517,14 @@ export class AcpxRuntime implements CompleteAcpRuntime {
 
   async ensureSession(
     input: Parameters<AcpRuntime["ensureSession"]>[0],
-  ): Promise<OpenClawRuntimeHandle> {
+  ): Promise<GrantedRuntimeHandle> {
     const resource = assertAcpxSessionOwnerLocator(input, this.legacyBareSessionKeys);
     return await this.runSerializedSessionEnsure(resource, () => this.ensureSessionUnlocked(input));
   }
 
   private async ensureSessionUnlocked(
     logicalInput: Parameters<AcpRuntime["ensureSession"]>[0],
-  ): Promise<OpenClawRuntimeHandle> {
+  ): Promise<GrantedRuntimeHandle> {
     assertSupportedRuntimeSessionMode(logicalInput.mode);
     const command = resolveAgentCommand({
       agentName: logicalInput.agent,
@@ -1557,7 +1557,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
         ? classifiedCodexOverride
         : undefined;
     const requestedModel = input.model?.trim();
-    const appliedModel: OpenClawRuntimeHandle["appliedModel"] =
+    const appliedModel: GrantedRuntimeHandle["appliedModel"] =
       isCodexAcp && requestedModel
         ? codexModelOverride?.model
           ? { kind: "applied", model: requestedModel }
@@ -1664,7 +1664,7 @@ export class AcpxRuntime implements CompleteAcpRuntime {
     }
   }
 
-  startTurn(input: OpenClawRuntimeTurnInput): CompleteAcpRuntimeTurn {
+  startTurn(input: GrantedRuntimeTurnInput): CompleteAcpRuntimeTurn {
     const readCodexTurnFailureStderr = () =>
       this.readCodexTurnFailureStderr({
         handle: input.handle,

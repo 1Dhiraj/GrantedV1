@@ -7,7 +7,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   saveLegacySessionStore as saveSessionStore,
   updateLegacySessionStore as updateSessionStore,
@@ -551,7 +551,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
     });
 
     await noteSessionSnapshotHealth({
-      cfg: { session: { store: configuredStorePath } } as OpenClawConfig,
+      cfg: { session: { store: configuredStorePath } } as GrantedConfig,
       bundledSkillsDir,
       env: { GRANTED_STATE_DIR: stateDir },
     });
@@ -588,7 +588,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
       cfg: {
         session: { store: templatedStore },
         agents: { list: [{ id: "main" }, { id: "ops" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       bundledSkillsDir,
       env: { GRANTED_STATE_DIR: path.join(root, "state") },
     });

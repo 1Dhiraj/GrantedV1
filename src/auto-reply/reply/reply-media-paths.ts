@@ -14,7 +14,7 @@ import {
   resolveSandboxedMediaSource,
 } from "../../agents/sandbox-paths.js";
 import { ensureSandboxWorkspaceForSession } from "../../agents/sandbox.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { sanitizeUntrustedFileName } from "../../infra/fs-safe-advanced.js";
 import { FsSafeError } from "../../infra/fs-safe.js";
@@ -111,7 +111,7 @@ function getPayloadMediaList(payload: ReplyPayload): string[] {
 }
 
 export function createReplyMediaPathNormalizer(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey?: string;
   agentId?: string;
   workspaceDir: string;

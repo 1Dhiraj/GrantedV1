@@ -42,7 +42,7 @@ import {
   type SessionCreatedVia,
 } from "../config/sessions/session-entry-provenance.js";
 import { projectCanonicalSessionEntryShape } from "../config/sessions/store-entry-shape.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeExecTarget } from "../infra/exec-approvals.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import {
@@ -87,7 +87,7 @@ function invalid(message: string): { ok: false; error: ErrorShape } {
 }
 
 export function resolveSessionPatchModelSelection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   catalog: ModelCatalogEntry[];
   raw: string;
@@ -122,7 +122,7 @@ export function resolveSessionPatchModelSelection(params: {
 
 /** Project a validated gateway session patch for one session entry. */
 export async function projectSessionsPatchEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   creation?: { via: SessionCreatedVia; actor?: SessionEntry["createdActor"] };
   existingEntry?: SessionEntry;
   isLabelInUse: (label: string) => boolean;

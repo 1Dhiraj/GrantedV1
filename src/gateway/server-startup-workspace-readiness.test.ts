@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { writeConfigFile, type OpenClawConfig } from "../config/config.js";
+import { writeConfigFile, type GrantedConfig } from "../config/config.js";
 import {
   detectLegacyWorkspaceState,
   migrateLegacyWorkspaceState,
@@ -25,7 +25,7 @@ describe("Gateway workspace migration readiness", () => {
   it("refuses startup for a secondary workspace until Doctor removes its legacy state", async () => {
     const stateDir = process.env.GRANTED_STATE_DIR!;
     const workspaceDir = path.join(stateDir, "workspace-secondary");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: { mode: "local", bind: "loopback", auth: { mode: "none" } },
       agents: {
         ownership: "explicit",

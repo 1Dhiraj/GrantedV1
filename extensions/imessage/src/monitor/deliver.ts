@@ -7,7 +7,7 @@ import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   deliverTextOrMediaReply,
   resolveSendableOutboundReplyParts,
@@ -25,7 +25,7 @@ import type { SentMessageCache } from "./echo-cache.js";
 import { sanitizeOutboundText } from "./sanitize-outbound.js";
 
 export async function deliverIMessageReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   payload: ReplyPayload;
   target: string;
   accountId?: string;

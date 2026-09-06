@@ -22,7 +22,7 @@ import {
   type PluginInstallLogger,
   type PluginInstallPolicyRequest,
 } from "./install-types.js";
-import { resolvePackageExtensionEntries, type OpenClawPackageManifest } from "./manifest.js";
+import { resolvePackageExtensionEntries, type GrantedPackageManifest } from "./manifest.js";
 import { satisfiesPluginApiRange, resolvePackagePluginApiRange } from "./package-compat.js";
 import {
   emitPluginAuditSecurityEvent,
@@ -54,7 +54,7 @@ const MISSING_EXTENSIONS_ERROR =
 function validateOpenClawPackageCompatibility(params: {
   pluginId: string;
   currentHostVersion: string;
-  packageMetadata?: OpenClawPackageManifest;
+  packageMetadata?: GrantedPackageManifest;
 }): PluginInstallFailureResult | null {
   const pluginApiRangeCheck = resolvePackagePluginApiRange(params.packageMetadata);
   if (!pluginApiRangeCheck.ok) {
@@ -79,7 +79,7 @@ function validateOpenClawPackageCompatibility(params: {
 export function validateOpenClawPackageInstallCompatibility(params: {
   runtime: PluginCompatibilityRuntime;
   pluginId: string;
-  packageMetadata?: OpenClawPackageManifest;
+  packageMetadata?: GrantedPackageManifest;
 }): PluginInstallFailureResult | null {
   const currentHostVersion = params.runtime.resolveCompatibilityHostVersion();
   const minHostVersionCheck = params.runtime.checkMinHostVersion({

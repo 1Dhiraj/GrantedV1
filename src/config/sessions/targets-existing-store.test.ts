@@ -4,7 +4,7 @@ import { syncBuiltinESMExports } from "node:module";
 import path from "node:path";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config.js";
+import type { GrantedConfig } from "../config.js";
 import { resolveExistingAgentSessionStoreTargetsSync } from "./targets.js";
 import { countMatching, createAgentSessionStores } from "./targets.test-support.js";
 
@@ -15,7 +15,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
       const storePaths = await createAgentSessionStores(stateDir, ["main"]);
       const agentsRoot = path.join(stateDir, "agents");
       const sqlitePath = path.join(agentsRoot, "main", "agent", "openclaw-agent.sqlite");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
       };
       const lstat = vi.spyOn(nodeFs, "lstatSync");
@@ -53,7 +53,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
         "retired",
         ...unrelatedAgentIds,
       ]);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
       };
       const lstat = vi.spyOn(nodeFs, "lstatSync");
@@ -85,7 +85,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
     await withTempHome(async (home) => {
       const storesRoot = path.join(home, "stores");
       const storePaths = await createAgentSessionStores(path.join(storesRoot, "work"), ["old"]);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: {
           store: path.join(
             storesRoot,

@@ -1,8 +1,8 @@
 // Minimax provider module implements model/runtime integration.
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type {
-  OpenClawPluginApi,
-  OpenClawConfig,
+  GrantedPluginApi,
+  GrantedConfig,
   ProviderAuthContext,
   ProviderAuthResult,
   ProviderCatalogContext,
@@ -89,11 +89,11 @@ function portalModelRef(modelId: string): string {
   return `${PORTAL_PROVIDER_ID}/${modelId}`;
 }
 
-function getProviderBaseUrl(cfg: OpenClawConfig, providerId: string): string | undefined {
+function getProviderBaseUrl(cfg: GrantedConfig, providerId: string): string | undefined {
   return normalizeOptionalString(cfg.models?.providers?.[providerId]?.baseUrl);
 }
 
-function resolveMinimaxUsageBaseUrl(cfg: OpenClawConfig): string | undefined {
+function resolveMinimaxUsageBaseUrl(cfg: GrantedConfig): string | undefined {
   return getProviderBaseUrl(cfg, PORTAL_PROVIDER_ID) ?? getProviderBaseUrl(cfg, API_PROVIDER_ID);
 }
 
@@ -364,7 +364,7 @@ function buildMinimaxPortalProviderPlugin(): ProviderPlugin {
   };
 }
 
-export function registerMinimaxProviders(api: OpenClawPluginApi) {
+export function registerMinimaxProviders(api: GrantedPluginApi) {
   api.registerProvider(buildMinimaxApiProviderPlugin());
   api.registerProvider(buildMinimaxPortalProviderPlugin());
 }

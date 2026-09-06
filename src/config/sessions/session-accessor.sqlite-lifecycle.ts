@@ -10,10 +10,10 @@ import {
 import { emitSessionIdentityMutation } from "../../sessions/session-lifecycle-events.js";
 import { deletePersonalGitHubSessionReceipts } from "../../state/github-personal-publication-lifecycle.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type { ResetSessionEntryLifecycleMutation } from "./session-accessor.lifecycle-types.js";
 import { publishSessionStateArchives } from "./session-accessor.sqlite-archive-store.js";
@@ -77,7 +77,7 @@ import type { InternalSessionEntry as SessionEntry } from "./types.js";
 // Single-target lifecycle owner: cleanup, reset, guarded delete, and trusted rollback.
 
 type SessionBoardCleanupDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "board_tabs" | "board_widgets"
 > & {
   sqlite_schema: {
@@ -87,7 +87,7 @@ type SessionBoardCleanupDatabase = Pick<
 };
 
 function deleteSessionBoardRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKeys: readonly string[],
 ): void {
   const keys = [...new Set(sessionKeys)];
@@ -629,7 +629,7 @@ export async function rollbackPluginOwnedSessionEntryLifecycle(
 }
 
 function shouldDeleteSqliteSessionEntryLifecycle(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   entry: SessionEntry | undefined,
   params: DeleteSessionEntryLifecycleParams,
 ): entry is SessionEntry {

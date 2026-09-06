@@ -7,7 +7,7 @@ import {
   resolveStateDir,
 } from "../config/config.js";
 import { formatConfigIssueSummary } from "../config/issue-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { buildCleanupPlan } from "./cleanup-utils.js";
 
@@ -18,7 +18,7 @@ function affectsWorkspaceDiscovery(path: string): boolean {
   );
 }
 
-function buildCleanupPlanForConfig(cfg: OpenClawConfig) {
+function buildCleanupPlanForConfig(cfg: GrantedConfig) {
   const stateDir = resolveStateDir();
   const configPath = resolveConfigPath();
   const oauthDir = resolveOAuthDir();

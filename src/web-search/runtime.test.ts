@@ -10,7 +10,7 @@ import {
   replaceRuntimeAuthProfileStoreSnapshots,
 } from "../agents/auth-profiles/runtime-snapshots.js";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { PluginWebSearchProviderEntry } from "../plugins/web-provider-types.js";
 import {
   createWebSearchTestProvider,
@@ -24,13 +24,13 @@ type TestPluginWebSearchConfig = {
 };
 
 type WebSearchProviderResolverParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onlyPluginIds?: readonly string[];
   origin?: string;
 };
 
 type ManifestContractOwnerParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   contract?: string;
   origin?: string;
   value?: string;
@@ -69,7 +69,7 @@ function createCustomSearchTool() {
   };
 }
 
-function getCustomSearchApiKey(config?: OpenClawConfig): unknown {
+function getCustomSearchApiKey(config?: GrantedConfig): unknown {
   const pluginConfig = config?.plugins?.entries?.["custom-search"]?.config as
     | TestPluginWebSearchConfig
     | undefined;
@@ -90,7 +90,7 @@ function createCustomSearchProvider(
   });
 }
 
-function createCustomSearchConfig(apiKey: unknown): OpenClawConfig {
+function createCustomSearchConfig(apiKey: unknown): GrantedConfig {
   return {
     plugins: {
       entries: {
@@ -499,7 +499,7 @@ describe("web search runtime", () => {
           { id: "side", agentDir: activeAgentDir },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       hasUsableWebSearchProvider({

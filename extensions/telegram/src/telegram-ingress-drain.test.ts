@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { GrammyError } from "grammy";
 import { createChannelIngressQueueForTests } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import {
   createTelegramSpooledReplayDeferredParticipant,
@@ -35,7 +35,7 @@ const cfg = {
       dmPolicy: "allowlist",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function updatePayload(updateId: number): TelegramSpooledUpdatePayload {
   return {

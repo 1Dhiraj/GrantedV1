@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 
 const tempDirs = useAutoCleanupTempDirTracker((cleanup) =>
@@ -43,7 +43,7 @@ vi.mock("./direct-compaction.js", () => ({
 vi.mock("../prepared-model-runtime.js", () => ({
   acquireAgentRunPreparedModelRuntime: vi.fn(
     async (input: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       agentId?: string;
       agentDir: string;
       workspaceDir?: string;
@@ -92,7 +92,7 @@ function baseParams() {
   };
 }
 
-function configWithFallbacks(fallbacks: string[]): OpenClawConfig {
+function configWithFallbacks(fallbacks: string[]): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -102,7 +102,7 @@ function configWithFallbacks(fallbacks: string[]): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("compactEmbeddedAgentSessionDirect abortSignal threading", () => {

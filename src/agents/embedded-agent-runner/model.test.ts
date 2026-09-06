@@ -7,7 +7,7 @@ import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metada
 import type { ProviderPlugin } from "../../plugins/types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { discoverAuthStorage, discoverModels } from "../agent-model-discovery.js";
 import {
@@ -24,7 +24,7 @@ import type { PreparedModelRuntimeSnapshot } from "../prepared-model-runtime.own
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
 import { createProviderRuntimeTestMock } from "./model.provider-runtime.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let auth: ReturnType<typeof guardModelFixtureAuth>;
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "model-resolution" });
@@ -194,7 +194,7 @@ vi.mock("../prepared-model-runtime.js", async () => {
   const createSnapshot = (input: {
     agentId?: string;
     agentDir: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
   }) => {
     const workspaceDir = discoveryContext.resolveModelWorkspaceDir(
@@ -279,7 +279,7 @@ vi.mock("./openrouter-model-capabilities.js", () => ({
     mockLoadOpenRouterModelCapabilities(modelId),
 }));
 
-import type { OpenClawConfig, OpenClawConfigInput } from "../../config/config.js";
+import type { GrantedConfig, GrantedConfigInput } from "../../config/config.js";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../../config/types.models.js";
 import type { Model } from "../../llm/types.js";
 import { getModelProviderLocalService } from "../provider-local-service.js";
@@ -358,7 +358,7 @@ async function resolveModelForTest(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ) {
   // Most tests use fixed auth storage to keep assertions focused on model
   // resolution rather than auth discovery.
@@ -394,7 +394,7 @@ function resolveModelAsyncForTest(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   options?: {
     allowBundledStaticCatalogFallback?: boolean;
     preferBundledStaticCatalogTransport?: boolean;
@@ -493,7 +493,7 @@ function mockMinimalModelDiscovery(
 function makeProviderConfig(
   provider: string,
   overrides: Record<string, unknown> = {},
-): OpenClawConfig {
+): GrantedConfig {
   return makeOpenClawConfigFixture({
     models: {
       providers: {
@@ -563,7 +563,7 @@ function makeConfiguredDeepSeekModel(
 function makeDeepSeekConfig(
   modelOverrides: Partial<ModelDefinitionConfig> = {},
   providerOverrides: Partial<ModelProviderConfig> = {},
-): OpenClawConfig {
+): GrantedConfig {
   return makeProviderConfig("deepseek", {
     models: [makeConfiguredDeepSeekModel(modelOverrides)],
     ...providerOverrides,
@@ -573,7 +573,7 @@ function makeDeepSeekConfig(
 function makeVllmQwenConfig(
   modelOverrides: Record<string, unknown> = {},
   providerOverrides: Record<string, unknown> = {},
-): OpenClawConfig {
+): GrantedConfig {
   return makeProviderConfig("vllm", {
     baseUrl: "http://localhost:9000",
     api: "openai-completions",
@@ -741,7 +741,7 @@ describe("resolveModel", () => {
     mockModelDiscovery();
     const cfg = {
       agents: { defaults: { workspace: state.path("config-derived-workspace") } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await resolveModelAsync("openai", "gpt-5.5", state.agentDir(), cfg, {
       agentId: "main",
@@ -786,7 +786,7 @@ describe("resolveModel", () => {
             },
           },
         },
-      }) as OpenClawConfig;
+      }) as GrantedConfig;
 
     const first = await resolveModelAsync(
       "openai",
@@ -915,7 +915,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mockModelDiscovery();
 
     const options = {
@@ -1743,7 +1743,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     expect((expectResolvedModel(result) as { mediaInput?: unknown }).mediaInput).toEqual({
       image: { maxBytes: 1, maxSidePx: 2048, preferredSidePx: 1536, tokenMode: "provider" },
@@ -1799,13 +1799,13 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     expect(expectResolvedModel(result).input).toEqual(["text"]);
   });
 
   it("defaults missing model cost before handing models to OpenClaw", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           openai: {
@@ -2260,7 +2260,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } satisfies OpenClawConfigInput;
+    } satisfies GrantedConfigInput;
 
     const result = await resolveModelForTest(
       "typoProvider",
@@ -2282,7 +2282,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } satisfies OpenClawConfigInput;
+    } satisfies GrantedConfigInput;
 
     const result = await resolveModelForTest(
       "openai",
@@ -2322,7 +2322,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const claude = await resolveModelForTest(
       "my-router",
@@ -2436,7 +2436,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("qwen", "qwen3.6-plus", state.agentDir(), cfg);
 
@@ -2483,7 +2483,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.4-mini", state.agentDir(), cfg);
 
@@ -2731,7 +2731,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } satisfies OpenClawConfigInput;
+    } satisfies GrantedConfigInput;
 
     const result = await resolveModelForTest(
       "openai",
@@ -2756,7 +2756,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } satisfies OpenClawConfigInput;
+    } satisfies GrantedConfigInput;
 
     const result = await resolveModelForTest(
       "openai",
@@ -3014,7 +3014,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -3388,7 +3388,7 @@ describe("resolveModel", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelAsync(
       "microsoft-foundry",
@@ -3436,7 +3436,7 @@ describe("resolveModel", () => {
       "openai-codex",
       "gpt-5.4",
       state.agentDir(),
-      cfg as unknown as OpenClawConfig,
+      cfg as unknown as GrantedConfig,
       {
         runtimeHooks: createRuntimeHooks(),
         skipAgentDiscovery: true,
@@ -4436,7 +4436,7 @@ describe("resolveModel", () => {
           workspace: state.workspaceDir,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await resolveModelAsync("openai", "gpt-5.4", state.agentDir("state"), cfg, {
       authStorage: { mocked: true } as never,
@@ -4498,7 +4498,7 @@ describe("resolveModel", () => {
           workspace: state.workspaceDir,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = resolveModelWithRegistry({
       provider: "openai",

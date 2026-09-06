@@ -15,7 +15,7 @@ import {
 } from "../infra/plugin-approvals.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
-import type { OpenClawPluginNodeInvokePolicyContext } from "../plugins/types.js";
+import type { GrantedPluginNodeInvokePolicyContext } from "../plugins/types.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import { applyPluginNodeInvokePolicy } from "./node-invoke-plugin-policy.js";
@@ -81,7 +81,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("uses a matching plugin policy when one is registered", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const { context, invoke } = createContext();
 
@@ -104,7 +104,7 @@ describe("applyPluginNodeInvokePolicy", () => {
   });
 
   it("recovers a preexecution node-not-ready rejection without rerunning plugin policy", async () => {
-    const policy = vi.fn((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode());
+    const policy = vi.fn((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode());
     setDangerousDemoCommandRegistry([createDemoPolicy(policy)]);
     const { context, invoke } = createContext();
     const execute = vi.fn(() => ({ completed: true }));
@@ -247,7 +247,7 @@ describe("applyPluginNodeInvokePolicy", () => {
   });
 
   it("classifies exact arguments before the policy handler and transport", async () => {
-    const policy = createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => {
+    const policy = createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => {
       expect(ctx.risk).toEqual({ level: "high", family: "fixture_mutation" });
       return ctx.invokeNode();
     });
@@ -269,7 +269,7 @@ describe("applyPluginNodeInvokePolicy", () => {
       },
       () => ({ level: "high" as const, family: "contains spaces" }),
     ]) {
-      const policy = createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) =>
+      const policy = createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) =>
         ctx.invokeNode(),
       );
       policy.policy.classifyRisk = classifyRisk;
@@ -291,7 +291,7 @@ describe("applyPluginNodeInvokePolicy", () => {
     "bounds plugin timeout override %i by the remaining invocation deadline",
     async (overrideTimeoutMs) => {
       setDangerousDemoCommandRegistry([
-        createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) =>
+        createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) =>
           ctx.invokeNode({ timeoutMs: overrideTimeoutMs }),
         ),
       ]);
@@ -321,7 +321,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("marks plugin-owned work dispatched only after the node transport accepts it", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const { context, invoke } = createContext();
     const dispatchOrder: string[] = [];
@@ -351,7 +351,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("keeps plugin-owned work pre-dispatch when the node transport rejects the send", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const { context, invoke } = createContext();
     const onNodeCommandDispatched = vi.fn();
@@ -387,7 +387,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("rejects expired plugin-owned work without dispatching it", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const { context, invoke } = createContext();
 
@@ -438,7 +438,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("rejects plugin transport dispatch after invocation ownership changes", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const { context, invoke } = createContext();
 
@@ -461,7 +461,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("rejects plugin transport dispatch when runtime authority closes during pairing recheck", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     let authorityActive = true;
     let releasePairingCheck: (() => void) | undefined;
@@ -514,7 +514,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("rejects bridged approval dispatch when its record closes during pairing recheck", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     let approvalActive = true;
     let releasePairingCheck: (() => void) | undefined;
@@ -549,7 +549,7 @@ describe("applyPluginNodeInvokePolicy", () => {
 
   it("rejects plugin transport dispatch through an invalidated node session", async () => {
     setDangerousDemoCommandRegistry([
-      createDemoPolicy((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode()),
+      createDemoPolicy((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode()),
     ]);
     const nodeSession = createNodeSession();
     nodeSession.client.invalidated = true;

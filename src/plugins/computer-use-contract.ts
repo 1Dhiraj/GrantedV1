@@ -2,9 +2,9 @@ import { randomUUID } from "node:crypto";
 import { type Static, type TSchema, Type } from "typebox";
 import { Compile } from "typebox/compile";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
-  OpenClawPluginNodeHostCommandContext,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeHostCommandContext,
 } from "./types.node-host.js";
 
 export const COMPUTER_USE_V2_ACTION_NAMES = [
@@ -545,9 +545,9 @@ export type ComputerUseProvider = {
   label: string;
   capabilities(): ComputerUseCapabilityDescriptor;
   isAvailable(): boolean;
-  prepare?: (context: OpenClawPluginNodeHostCommandAvailabilityContext) => Promise<void> | void;
+  prepare?: (context: GrantedPluginNodeHostCommandAvailabilityContext) => Promise<void> | void;
   watchAvailability?: (
-    context: OpenClawPluginNodeHostCommandAvailabilityContext,
+    context: GrantedPluginNodeHostCommandAvailabilityContext,
     onChange: () => void,
   ) => (() => void) | void;
   openExecution(context: {
@@ -560,7 +560,7 @@ export type ComputerUseProvider = {
 // the full plugin API type here creates an import cycle through the gateway
 // server-method types that consume this contract.
 type ComputerUseRegistrationApi = {
-  registerNodeHostCommand(command: OpenClawPluginNodeHostCommand): void;
+  registerNodeHostCommand(command: GrantedPluginNodeHostCommand): void;
 };
 
 /** Register the canonical node-host command pair for one node-local provider. */
@@ -595,7 +595,7 @@ export function registerComputerUseProvider(
   };
   const getExecution = async (
     paramsJSON: string | null | undefined,
-    context?: OpenClawPluginNodeHostCommandContext,
+    context?: GrantedPluginNodeHostCommandContext,
   ) => {
     const { executionId } = executionEnvelopeFromParams(paramsJSON);
     if (!executionId) {

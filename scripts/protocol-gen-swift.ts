@@ -35,7 +35,7 @@ const outPaths = [
     "shared",
     "OpenClawKit",
     "Sources",
-    "OpenClawProtocol",
+    "GrantedProtocol",
     "GatewayModels.swift",
   ),
 ];

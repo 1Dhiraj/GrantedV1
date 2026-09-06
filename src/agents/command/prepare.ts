@@ -9,7 +9,7 @@ import {
 } from "../../auto-reply/thinking.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveAgentExplicitRecipientSession } from "../../infra/outbound/agent-delivery.js";
 import { buildOutboundSessionContext } from "../../infra/outbound/session-context.js";
 import { resolvePluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
@@ -84,7 +84,7 @@ export function normalizeExplicitOverrideInput(raw: string, kind: "provider" | "
 }
 
 export type PreparedAgentCommandRuntimeContext = Readonly<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginGeneration: PreparedModelRuntimePluginGeneration;
 }>;
 

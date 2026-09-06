@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import type { WizardPrompter } from "./prompts.js";
 
 const mocks = vi.hoisted(() => ({
-  currentConfig: {} as OpenClawConfig,
+  currentConfig: {} as GrantedConfig,
   transformConfigWithPendingPluginInstalls: vi.fn(),
 }));
 
@@ -46,7 +46,7 @@ describe("requestTelemetryConsent", () => {
 
   it("leaves telemetry unset without prompting during non-interactive onboarding", async () => {
     const prompter = createWizardPrompter();
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
 
     await expect(
       requestTelemetryConsent({ opts: { nonInteractive: true }, prompter, config }),
@@ -58,7 +58,7 @@ describe("requestTelemetryConsent", () => {
 });
 
 describe("resolveQuickstartGatewayDefaults", () => {
-  const storedConfig: OpenClawConfig = {
+  const storedConfig: GrantedConfig = {
     gateway: {
       port: 19111,
       bind: "custom",
@@ -156,14 +156,14 @@ describe("writeWizardConfigFile", () => {
     vi.clearAllMocks();
     mocks.currentConfig = {};
     mocks.transformConfigWithPendingPluginInstalls.mockImplementation(
-      async (params: {
-        transform: (current: OpenClawConfig) => { nextConfig: OpenClawConfig };
-      }) => ({ nextConfig: params.transform(mocks.currentConfig).nextConfig }),
+      async (params: { transform: (current: GrantedConfig) => { nextConfig: GrantedConfig } }) => ({
+        nextConfig: params.transform(mocks.currentConfig).nextConfig,
+      }),
     );
   });
 
   it("delegates CAS and pending-install ownership to the canonical transform", async () => {
-    const config: OpenClawConfig = { gateway: { port: 18789 } };
+    const config: GrantedConfig = { gateway: { port: 18789 } };
     const baseSnapshot = { path: "/tmp/openclaw.json", exists: false } as ConfigFileSnapshot;
     const afterWrite = { mode: "none" as const, reason: "restart after setup" };
 
@@ -184,7 +184,7 @@ describe("writeWizardConfigFile", () => {
   });
 
   it("replaces config directly when no merge base is supplied", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { installs: { fresh: { source: "npm", spec: "fresh@1.0.0" } } },
     };
     mocks.currentConfig = { gateway: { port: 19001 } };
@@ -193,11 +193,11 @@ describe("writeWizardConfigFile", () => {
   });
 
   it("applies only the wizard delta to a fresh concurrent config", async () => {
-    const base: OpenClawConfig = {
+    const base: GrantedConfig = {
       agents: { defaults: { workspace: "/old" } },
       gateway: { port: 18789 },
     };
-    const next: OpenClawConfig = {
+    const next: GrantedConfig = {
       agents: { defaults: { workspace: "/old" } },
       gateway: { port: 19001 },
     };

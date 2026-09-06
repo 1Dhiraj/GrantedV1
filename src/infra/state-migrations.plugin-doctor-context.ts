@@ -14,7 +14,7 @@ import {
   type SessionStoreTargetsReadCache,
 } from "../config/sessions/targets-read-availability.js";
 import { dedupeSessionStoreTargetsBySqliteTarget } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   MAX_PLUGIN_STATE_BULK_DELETE_ENTRIES,
   createPluginStateKeyedStore,
@@ -39,7 +39,7 @@ type DoctorSessionStoreTarget = { agentId: string; storePath: string };
 
 function resolveDoctorSessionIdentityEvidence(params: {
   cache: SessionStoreTargetsReadCache;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   requests: readonly { agentId: string; sessionId: string }[];
   targetsByAgent: Map<string, readonly DoctorSessionStoreTarget[] | null>;
@@ -264,7 +264,7 @@ export type PluginDoctorChannelIngressAccessOptions = {
 export function createPluginDoctorStateMigrationContext(params: {
   pluginId: string;
   env: NodeJS.ProcessEnv;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   repairAuthority?: PluginDoctorRepairAuthority;
   channelIngress?: PluginDoctorChannelIngressAccessOptions;
 }): PluginDoctorStateMigrationContext {

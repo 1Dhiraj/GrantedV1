@@ -33,7 +33,7 @@ import {
 import { createRequesterYieldCallback } from "./openclaw-tools.requester-yield.js";
 import { createOpenClawSwarmToolGroups } from "./openclaw-tools.swarm.js";
 import { resolveTranscriptsTool } from "./openclaw-tools.transcripts.js";
-import type { OpenClawToolsOptions } from "./openclaw-tools.types.js";
+import type { GrantedToolsOptions } from "./openclaw-tools.types.js";
 import { resolveWidgetPresentationForRun } from "./openclaw-tools.widget-presentation.js";
 import { resolveToolLoopDetectionConfig } from "./tool-loop-detection-config.js";
 import { createAgentsListTool } from "./tools/agents-list-tool.js";
@@ -89,7 +89,7 @@ import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
 import { resolveWorkspaceRoot } from "./workspace-dir.js";
 
 export { filterToolsByClientCaps } from "./openclaw-tools.client-caps.js";
-export function createOpenClawTools(options?: OpenClawToolsOptions): AnyAgentTool[] {
+export function createOpenClawTools(options?: GrantedToolsOptions): AnyAgentTool[] {
   const resolvedConfig = options?.config;
   const sessionConfig = options?.sessionConfigSource === "runtime" ? undefined : resolvedConfig;
   const activeProjectKeys = options?.preparedModelRuntime?.activeProjectKeys ?? [];

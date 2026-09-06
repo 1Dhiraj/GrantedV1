@@ -9,7 +9,7 @@ import { prepareContextWindowCaches } from "../agents/context-cache-projection.j
 import { getContextWindowCaches, replaceContextWindowCaches } from "../agents/context-cache.js";
 import { resetContextWindowCacheForTest } from "../agents/context-runtime-state.js";
 import { resetPreparedModelRuntimeSnapshotsForTest } from "../agents/prepared-model-runtime.test-support.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "./test-helpers.e2e.js";
 import {
   getGatewayTestPort,
@@ -78,7 +78,7 @@ describe("Gateway context cache remote proof", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const { refreshPreparedModelRuntimeSnapshots } =
         await import("../agents/prepared-model-runtime.js");
       await refreshPreparedModelRuntimeSnapshots(warmConfig, {

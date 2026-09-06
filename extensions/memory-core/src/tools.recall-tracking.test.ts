@@ -1,7 +1,7 @@
 // Memory Core tests cover tools.recall tracking plugin behavior.
 import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { resetMemoryToolMockState, setMemorySearchImpl } from "./memory-tool-manager.test-mocks.js";
 import { createMemorySearchTool } from "./tools.js";
 import { asOpenClawConfig } from "./tools.test-helpers.js";
@@ -22,7 +22,7 @@ vi.mock("./short-term-promotion.js", () => ({
   recordShortTermRecalls: recallTrackingMock.recordShortTermRecalls,
 }));
 
-function createSearchTool(config: OpenClawConfig) {
+function createSearchTool(config: GrantedConfig) {
   const tool = createMemorySearchTool({ config });
   if (!tool) {
     throw new Error("memory_search tool missing");

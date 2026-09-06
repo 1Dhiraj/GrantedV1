@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { WhatsAppQaDriverSession } from "@openclaw/whatsapp/api.js";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
 import { buildQaTarget } from "openclaw/plugin-sdk/qa-channel-protocol";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
@@ -186,7 +186,7 @@ export async function createWhatsAppQaTransportAdapter(
       busMessageIds.clear();
     },
     createGatewayConfig: () =>
-      buildWhatsAppQaConfig({} as OpenClawConfig, {
+      buildWhatsAppQaConfig({} as GrantedConfig, {
         allowFrom: [runtimeEnv.driverPhoneE164],
         authDir: sutAuthDir,
         dmPolicy: "allowlist",

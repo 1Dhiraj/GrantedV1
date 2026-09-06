@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { ChannelPlugin } from "../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { fixSecurityFootguns } from "./fix.js";
 
 const isWindows = process.platform === "win32";
@@ -36,7 +36,7 @@ describe("security fix", () => {
 
   const runConfigFixScenario = async (params: {
     prefix: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     channelPlugins?: ChannelPlugin[];
   }) => {
     const stateDir = await createStateDir(params.prefix);
@@ -48,7 +48,7 @@ describe("security fix", () => {
       configPath,
       channelPlugins: params.channelPlugins,
     });
-    const cfg = JSON.parse(await fs.readFile(configPath, "utf-8")) as OpenClawConfig;
+    const cfg = JSON.parse(await fs.readFile(configPath, "utf-8")) as GrantedConfig;
     return { res, cfg };
   };
 
@@ -158,7 +158,7 @@ describe("security fix", () => {
         channels: {
           whatsapp: params.whatsapp,
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       channelPlugins: [createWhatsAppConfigFixTestPlugin(params.allowFromStore)],
     });
     return {
@@ -186,7 +186,7 @@ describe("security fix", () => {
         signal: { groupPolicy: "open" },
         imessage: { groupPolicy: "open" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const fixed = await runConfigFixScenario({
       prefix: "group-policy",
       cfg,

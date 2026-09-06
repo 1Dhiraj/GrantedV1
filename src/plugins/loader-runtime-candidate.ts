@@ -62,7 +62,7 @@ import {
 } from "./runtime-degraded-state.js";
 import { recordImportedPluginId } from "./runtime.js";
 import { hasKind, kindsEqual } from "./slots.js";
-import type { OpenClawPluginModule, PluginLogger } from "./types.js";
+import type { GrantedPluginModule, PluginLogger } from "./types.js";
 
 type PluginRegistryBuilder = ReturnType<typeof createPluginRegistry>;
 
@@ -388,7 +388,7 @@ export function loadRuntimePluginCandidate(params: {
   const safeSource = opened.path;
   fs.closeSync(opened.fd);
 
-  let mod: OpenClawPluginModule | null = null;
+  let mod: GrantedPluginModule | null = null;
   let moduleLoadMs: number;
   let moduleLoadFailed = false;
   const beforeModuleLoad = performance.now();
@@ -401,7 +401,7 @@ export function loadRuntimePluginCandidate(params: {
     mod = withProfile(
       { pluginId: record.id, source: safeSource },
       registrationPlan.mode,
-      () => params.loadPluginModule(safeSource) as OpenClawPluginModule,
+      () => params.loadPluginModule(safeSource) as GrantedPluginModule,
     );
   } catch (error) {
     recordPluginError({

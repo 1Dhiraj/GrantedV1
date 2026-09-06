@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { withTempDir } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MSTeamsConfigSchema } from "../config-api.js";
@@ -12,7 +12,7 @@ import { msTeamsApprovalCapability } from "./approval-native.js";
 import { msteamsPlugin } from "./channel.js";
 import { msteamsSetupPlugin } from "./channel.setup.js";
 
-function createConfiguredMSTeamsCfg(): OpenClawConfig {
+function createConfiguredMSTeamsCfg(): GrantedConfig {
   return {
     channels: {
       msteams: {
@@ -76,7 +76,7 @@ describe("msteamsPlugin", () => {
   });
 
   it("preserves the default account and allowlist across runtime and setup", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         msteams: {
           ...createConfiguredMSTeamsCfg().channels?.msteams,
@@ -128,7 +128,7 @@ describe("msteamsPlugin", () => {
     if (selection.envPath) {
       vi.stubEnv("MSTEAMS_CERTIFICATE_PATH", selection.envPath);
     }
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         msteams: {
           appId: "app-id",
@@ -174,7 +174,7 @@ describe("msteamsPlugin", () => {
       const envCertificate = path.join(tempDir, "env-cert.pem");
       fs.writeFileSync(envCertificate, "available-certificate", "utf8");
       vi.stubEnv("MSTEAMS_CERTIFICATE_PATH", envCertificate);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         channels: {
           msteams: {
             appId: "app-id",
@@ -196,7 +196,7 @@ describe("msteamsPlugin", () => {
   });
 
   it("does not inspect an unavailable certificate when managed identity is selected", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         msteams: {
           appId: "app-id",
@@ -224,7 +224,7 @@ describe("msteamsPlugin", () => {
         const symlink = path.join(tempDir, "certificate-link.pem");
         fs.writeFileSync(certificate, "available-certificate", "utf8");
         fs.symlinkSync(certificate, symlink);
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           channels: {
             msteams: {
               appId: "app-id",
@@ -296,7 +296,7 @@ describe("msteamsPlugin", () => {
     });
     const register = vi.fn(() => ({ dispose: vi.fn() }));
     const controller = new AbortController();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       ...createConfiguredMSTeamsCfg(),
       approvals: { exec: { enabled: true } },
       channels: {
@@ -306,7 +306,7 @@ describe("msteamsPlugin", () => {
         },
       },
     };
-    const startAccount = async (config: OpenClawConfig) =>
+    const startAccount = async (config: GrantedConfig) =>
       await msteamsPlugin.gateway?.startAccount?.({
         cfg: config,
         accountId: "default",

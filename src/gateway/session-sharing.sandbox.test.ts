@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
 import { addSessionMember } from "../config/sessions/session-sharing-store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../state/user-profiles.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -40,7 +40,7 @@ function sandboxRoleClient(role: "view" | "write"): GatewayClient {
 describe("session sharing sandbox requirements", () => {
   it("denies sandbox-required members host execution without changing session provenance", async () => {
     await withOpenClawTestState({ scenario: "minimal" }, async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "view",

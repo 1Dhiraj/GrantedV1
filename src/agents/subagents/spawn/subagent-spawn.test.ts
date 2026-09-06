@@ -5,7 +5,7 @@ import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ThinkLevel } from "../../../auto-reply/thinking.shared.js";
 import { upsertSessionEntryCore } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveIncognitoOpenClawAgentSqlitePath } from "../../../state/openclaw-agent-db.paths.js";
 import { withOpenClawTestState } from "../../../test-utils/openclaw-test-state.js";
 import { resolveUserPath } from "../../../utils.js";
@@ -1271,7 +1271,7 @@ describe("spawnSubagentDirect seam flow", () => {
       options: {
         agentSessionKey: controllerSessionKey,
         completionOwnerKey: "agent:main:main",
-        config: hoisted.configOverride as OpenClawConfig,
+        config: hoisted.configOverride as GrantedConfig,
         callGateway: visibleGateway,
         countActiveRuns: hoisted.countActiveRunsForSessionMock,
       },

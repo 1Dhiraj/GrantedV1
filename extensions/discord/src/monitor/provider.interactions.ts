@@ -2,7 +2,7 @@
 import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
 import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
 import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 import { createDiscordActivityButton } from "../activities/interaction.js";
 import {
@@ -37,7 +37,7 @@ import type { ThreadBindingManager } from "./thread-bindings.types.js";
 type DiscordVoiceManager = import("../voice/voice-runtime.js").DiscordVoiceManager;
 
 export function createDiscordProviderInteractionSurface(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordAccountConfig;
   accountId: string;
   applicationId?: string;

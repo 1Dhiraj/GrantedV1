@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   loadRunOverflowCompactionHarness,
@@ -9,7 +9,7 @@ import {
   createOverflowRunParams,
 } from "./run.overflow-compaction.harness.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared plugin harness credentials", () => {
   let runEmbeddedAgent: Awaited<

@@ -1,11 +1,7 @@
 // Imported by register.test.ts to keep its mocked suite in one Vitest module graph.
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import {
-  listHealthChecks,
-  type HealthCheck,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/health";
+import { listHealthChecks, type HealthCheck, type GrantedConfig } from "openclaw/plugin-sdk/health";
 import { clearHealthChecksForTest } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
@@ -883,7 +879,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ expectedHash: "sha256:not-the-policy", workspaceRepairs: true }),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({
       channels: {
         denyRules: [{ id: "no-telegram", when: { provider: "telegram" } }],
@@ -943,7 +939,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ expectedAttestationHash: "sha256:not-current", workspaceRepairs: true }),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({
       channels: {
         denyRules: [{ id: "no-telegram", when: { provider: "telegram" } }],
@@ -1068,7 +1064,7 @@ describe("registerPolicyDoctorChecks", () => {
           changed: { provider: "github", mode: "oauth" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture(policy);
 
     const result = await runPolicyChecks(ctx(configPath, cfg));
@@ -1125,7 +1121,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture(policy);
 
     const result = await runPolicyChecks(ctx(configPath, cfg));
@@ -1160,7 +1156,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture(
       {
         channels: {
@@ -1200,7 +1196,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture(
       {
         channels: {
@@ -1222,7 +1218,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: false }),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture(
       {
         channels: {
@@ -1246,7 +1242,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       channels: { telegram: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture(
       {
         workspaceRepairs: true,
@@ -1271,7 +1267,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       tools: { elevated: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({ tools: { elevated: { allow: false } } });
 
     const result = await runPolicyRepairCheck("policy/tools-elevated-enabled", {
@@ -1289,7 +1285,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       tools: { elevated: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({ tools: { elevated: { allow: false } } });
 
     const result = await runPolicyRepairCheck(
@@ -1317,7 +1313,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         reviewer: {
@@ -1348,7 +1344,7 @@ describe("registerPolicyDoctorChecks", () => {
       agents: {
         list: [{ id: "reviewer" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         reviewer: {
@@ -1384,7 +1380,7 @@ describe("registerPolicyDoctorChecks", () => {
         },
       },
       diagnostics: { otel: { enabled: true, captureContent: true } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       tools: { elevated: { allow: false } },
       gateway: {
@@ -1456,7 +1452,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       gateway: {
         http: {
@@ -1494,7 +1490,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       gateway: { bind: "lan" },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       gateway: { exposure: { allowNonLoopbackBind: false } },
     });
@@ -1528,7 +1524,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       gateway: { bind: "custom", customBindHost: "10.0.0.4" },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       gateway: { exposure: { allowNonLoopbackBind: false } },
     });
@@ -1569,7 +1565,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       gateway: { nodes: { commands: { deny: ["mcp.help"] } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       gateway: { nodes: { denyCommands: ["mcp.help", "system.run"] } },
     });
@@ -1615,7 +1611,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       ingress: {
         channels: {
@@ -1665,7 +1661,7 @@ describe("registerPolicyDoctorChecks", () => {
           requireMention: false,
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       ingress: {
         channels: {
@@ -1700,7 +1696,7 @@ describe("registerPolicyDoctorChecks", () => {
         defaults: { groupPolicy: "open" },
         telegram: {},
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         telegram: {
@@ -1740,7 +1736,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       channels: { telegram: { groupPolicy: "open" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       ingress: {
         channels: {
@@ -1767,7 +1763,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy({ workspaceRepairs: true }),
       tools: { deny: ["read"] },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({ tools: { denyTools: ["exec", "write"] } });
 
     const result = await runPolicyRepairCheck("policy/tools-required-deny-missing", {

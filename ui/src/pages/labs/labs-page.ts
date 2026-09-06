@@ -17,7 +17,7 @@ import { resolveEditableSnapshotConfig } from "../../lib/config/config-state-mod
 import { buildExternalLinkRel, EXTERNAL_LINK_TARGET } from "../../lib/external-link.ts";
 import { formatUiError } from "../../lib/format-error.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   labFeatureMergePatch,
@@ -27,7 +27,7 @@ import {
   type LabFeature,
 } from "./labs-registry.ts";
 
-class LabsPage extends OpenClawLightDomElement {
+class LabsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

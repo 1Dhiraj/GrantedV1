@@ -1,6 +1,6 @@
 // Plugins CLI policy tests cover plugin command policy checks and warnings.
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createColdPluginFixture } from "../plugins/test-helpers/cold-plugin-fixtures.js";
 import { withTempDir } from "../test-utils/temp-dir.js";
 import {
@@ -49,7 +49,7 @@ describe("plugins cli policy mutations", () => {
     });
   }
 
-  function requireFirstWrittenConfig(): OpenClawConfig {
+  function requireFirstWrittenConfig(): GrantedConfig {
     const call = configWriteMock.mock.calls[0];
     if (!call) {
       throw new Error("expected configWriteMock to be called");
@@ -62,8 +62,8 @@ describe("plugins cli policy mutations", () => {
   }
 
   function requirePluginEntries(
-    config: OpenClawConfig,
-  ): NonNullable<NonNullable<OpenClawConfig["plugins"]>["entries"]> {
+    config: GrantedConfig,
+  ): NonNullable<NonNullable<GrantedConfig["plugins"]>["entries"]> {
     if (!config.plugins?.entries) {
       throw new Error("expected plugin entries in config");
     }
@@ -71,14 +71,14 @@ describe("plugins cli policy mutations", () => {
   }
 
   it("refreshes the persisted plugin registry after enabling a plugin", async () => {
-    const sourceConfig = {} as OpenClawConfig;
+    const sourceConfig = {} as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(sourceConfig);
     enablePluginInConfigMock.mockReturnValue({
       config: enabledConfig,
@@ -113,7 +113,7 @@ describe("plugins cli policy mutations", () => {
       createColdPluginFixture({ rootDir, pluginId: "alpha" });
       const sourceConfig = {
         plugins: { entries: { alpha: { enabled: false } } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       pluginCliConfigMock.mockReturnValue(sourceConfig);
       setInstalledPluginIndexInstallRecords({
         alpha: { source: "npm", spec: "@acme/alpha", installPath: rootDir },
@@ -173,7 +173,7 @@ describe("plugins cli policy mutations", () => {
       });
       const sourceConfig = {
         plugins: { entries: { alpha: { enabled } } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       pluginCliConfigMock.mockReturnValue(sourceConfig);
       setInstalledPluginIndexInstallRecords({
         alpha: { source: "npm", spec: "@acme/alpha", installPath: rootDir },
@@ -223,7 +223,7 @@ describe("plugins cli policy mutations", () => {
       reason: "blocked by allowlist",
     },
   ])("fails without mutations when $policy blocks enablement", async ({ plugins, reason }) => {
-    const sourceConfig = { plugins } as OpenClawConfig;
+    const sourceConfig = { plugins } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(sourceConfig);
     enablePluginInConfigMock.mockReturnValue({
       config: sourceConfig,
@@ -268,7 +268,7 @@ describe("plugins cli policy mutations", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     mockPluginRegistry(["alpha"]);
 
     await runPluginsCommand(["plugins", "disable", "alpha"]);
@@ -294,14 +294,14 @@ describe("plugins cli policy mutations", () => {
   it.each(compatibilityPluginIds)(
     "enables compatibility id $alias through canonical plugin $pluginId",
     async ({ alias, pluginId }) => {
-      const sourceConfig = {} as OpenClawConfig;
+      const sourceConfig = {} as GrantedConfig;
       const enabledConfig = {
         plugins: {
           entries: {
             [pluginId]: { enabled: true },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       pluginCliConfigMock.mockReturnValue(sourceConfig);
       enablePluginInConfigMock.mockReturnValue({
         config: enabledConfig,
@@ -335,7 +335,7 @@ describe("plugins cli policy mutations", () => {
             [pluginId]: { enabled: true },
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
       mockPluginRegistry([pluginId]);
 
       await runPluginsCommand(["plugins", "disable", alias]);
@@ -373,7 +373,7 @@ describe("plugins cli policy mutations", () => {
   );
 
   it("does not create a channel config when disabling a channel plugin by policy", async () => {
-    pluginCliConfigMock.mockReturnValue({} as OpenClawConfig);
+    pluginCliConfigMock.mockReturnValue({} as GrantedConfig);
     mockPluginRegistry(["twitch"]);
 
     await runPluginsCommand(["plugins", "disable", "twitch"]);

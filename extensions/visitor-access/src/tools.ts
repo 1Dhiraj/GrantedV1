@@ -1,5 +1,5 @@
 import { Type } from "typebox";
-import type { AnyAgentTool, OpenClawPluginToolContext } from "../api.js";
+import type { AnyAgentTool, GrantedPluginToolContext } from "../api.js";
 import { visitorRuntimeStore } from "./runtime.js";
 import type { VisitorAccessService } from "./visitors.js";
 
@@ -16,7 +16,7 @@ const identityFields = {
   ),
 };
 
-export function createVisitorTools(context: OpenClawPluginToolContext): AnyAgentTool[] {
+export function createVisitorTools(context: GrantedPluginToolContext): AnyAgentTool[] {
   let runtime = visitorRuntimeStore.tryGetRuntime();
   const definitions = [
     {

@@ -10,7 +10,7 @@ import {
   isIncognitoOpenClawAgentSqlitePath,
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type { DeliveryContext } from "../../utils/delivery-context.types.js";
 import { isInternalSessionEffectsKey } from "./internal-session-key.js";
@@ -108,7 +108,7 @@ export function resolveSessionEntry(
 ): ResolvedSqliteSessionEntry {
   const resolved = resolveSqliteScope(scope);
   const read = (
-    database: Pick<OpenClawAgentDatabase, "agentId" | "db" | "path">,
+    database: Pick<GrantedAgentDatabase, "agentId" | "db" | "path">,
   ): ResolvedSqliteSessionEntry => {
     const selected = readSessionEntryRow(database, resolved.sessionKey);
     return {
@@ -304,7 +304,7 @@ export function hasSessionEntriesByStatusReadOnly(
 }
 
 function listSqliteSessionEntriesFromDatabase(
-  database: Pick<OpenClawAgentDatabase, "agentId" | "db" | "path">,
+  database: Pick<GrantedAgentDatabase, "agentId" | "db" | "path">,
   resolved: ResolvedSqliteScope,
   scope: SessionEntryListScope,
 ): SessionEntrySummary[] {
@@ -480,7 +480,7 @@ export async function patchSessionEntryTarget(
 type SqliteSessionEntrySnapshotPatchParams = {
   operationLabel: string;
   options: SqliteSessionEntryPatchOptions;
-  readSnapshot: (database: OpenClawAgentDatabase) => SqliteLifecycleTargetSnapshot;
+  readSnapshot: (database: GrantedAgentDatabase) => SqliteLifecycleTargetSnapshot;
   resolved: ResolvedSqliteScope;
   sessionKey: string;
   storePath: string;

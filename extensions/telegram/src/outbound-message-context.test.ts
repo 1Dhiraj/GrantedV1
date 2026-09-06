@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
@@ -26,7 +26,7 @@ import type { TelegramRuntime } from "./runtime.types.js";
 
 const cfg = {
   session: { store: "/tmp/openclaw-telegram-outbound-context-test.json" },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function installTelegramStateRuntimeForTest(): void {
   setTelegramRuntime({

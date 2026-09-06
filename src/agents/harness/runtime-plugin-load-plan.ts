@@ -1,5 +1,5 @@
 /** Builds deterministic plugin load plans for selected harness, memory, and context-engine owners. */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withActivatedPluginIds } from "../../plugins/activation-context.js";
 import { resolveManifestActivationPlan } from "../../plugins/activation-planner.js";
 import { normalizePluginsConfigWithResolverCore } from "../../plugins/config-normalization-shared.js";
@@ -56,13 +56,13 @@ function dedupePluginIds(values: readonly string[]): string[] {
   return result;
 }
 
-function restrictiveAllowlistOmitsPlugin(config: OpenClawConfig | undefined, pluginId: string) {
+function restrictiveAllowlistOmitsPlugin(config: GrantedConfig | undefined, pluginId: string) {
   const allow = config?.plugins?.allow ?? [];
   return allow.length > 0 && !allow.includes(pluginId);
 }
 
 function resolveSelectedMemoryPluginIds(params: {
-  config: OpenClawConfig | undefined;
+  config: GrantedConfig | undefined;
   workspaceDir: string;
   metadataSnapshot?: PluginMetadataSnapshot;
 }): string[] {
@@ -103,7 +103,7 @@ function resolveSelectedMemoryPluginIds(params: {
 }
 
 export function resolveAgentRuntimePluginSelections(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   selections: readonly AgentHarnessPluginSelection[],
 ): AgentHarnessPluginSelection[] {
   return [
@@ -117,7 +117,7 @@ export function resolveAgentRuntimePluginSelections(
 }
 
 function resolveAgentRuntimeMetadataPluginIds(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   selections: readonly AgentHarnessPluginSelection[];
   shorthandModelIds?: readonly string[];
   index: InstalledPluginIndex;
@@ -168,7 +168,7 @@ function resolveAgentRuntimeMetadataPluginIds(params: {
 
 /** Narrows cold manifest preparation to candidates needed by one selected runtime generation. */
 export function createAgentRuntimeMetadataPluginIdScope(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   selections: readonly AgentHarnessPluginSelection[];
   shorthandModelIds?: readonly string[];
@@ -195,7 +195,7 @@ export function createAgentRuntimeMetadataPluginIdScope(params: {
 // request-time hooks resolve; late provider loading is intentionally forbidden.
 function resolveSelectedProviderOwnerPluginIds(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   metadataSnapshot?: PluginMetadataSnapshot;
 }): string[] {
@@ -231,7 +231,7 @@ function resolveSelectedProviderOwnerPluginIds(params: {
 export function resolveAgentHarnessOwnerPluginIds(params: {
   runtime: string;
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   providerOwnerPluginIds?: readonly string[];
   metadataSnapshot?: PluginMetadataSnapshot;
@@ -263,10 +263,10 @@ export function resolveAgentHarnessOwnerPluginIds(params: {
 }
 
 function withRuntimePluginIdsAllowed(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   pluginIds: readonly string[],
   materializeAllowlist: boolean,
-): OpenClawConfig | undefined {
+): GrantedConfig | undefined {
   const existingAllowlist = config?.plugins?.allow ?? [];
   if (pluginIds.length === 0 || (!materializeAllowlist && existingAllowlist.length === 0)) {
     return config;
@@ -282,7 +282,7 @@ function withRuntimePluginIdsAllowed(
 
 export function resolveSelectedAgentHarnessRuntime(
   selection: AgentHarnessPluginSelection,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ) {
   const requestedRuntime = normalizeOptionalAgentRuntimeId(selection.runtime);
   return requestedRuntime && !isDefaultAgentRuntimeId(requestedRuntime)
@@ -298,7 +298,7 @@ export function resolveSelectedAgentHarnessRuntime(
 // Returns whether a selection needs a plugin-owned harness in its prepared generation.
 export function requiresAgentHarnessPluginSelection(
   selection: AgentHarnessPluginSelection,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): boolean {
   const runtime = resolveSelectedAgentHarnessRuntime(selection, config);
   if (isDefaultAgentRuntimeId(runtime) || runtime === GRANTED_AGENT_RUNTIME_ID) {
@@ -314,12 +314,12 @@ export function requiresAgentHarnessPluginSelection(
 
 /** Folds selected harness, memory, and context-engine owners into one deterministic load plan. */
 export function resolveAgentRuntimePluginLoadPlan(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   basePluginIds?: readonly string[];
   selections: readonly AgentHarnessPluginSelection[];
   metadataSnapshot?: PluginMetadataSnapshot;
-}): { config?: OpenClawConfig; pluginIds?: string[] } {
+}): { config?: GrantedConfig; pluginIds?: string[] } {
   let config = params.config;
   const memoryPluginIds = resolveSelectedMemoryPluginIds({
     config: params.config,

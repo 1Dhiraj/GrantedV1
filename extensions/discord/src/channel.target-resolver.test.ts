@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Discord channel target-resolver tests cover normalized and directory-backed routing.
 import { describe, expect, it, vi } from "vitest";
 import { discordPlugin } from "./channel.js";
 import * as directoryLive from "./directory-live.js";
 
-function createCfg(): OpenClawConfig {
+function createCfg(): GrantedConfig {
   return {
     channels: {
       discord: {
@@ -12,7 +12,7 @@ function createCfg(): OpenClawConfig {
         token: "test-token-placeholder",
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function requireResolveTarget() {

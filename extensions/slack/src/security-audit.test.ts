@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Slack tests cover security audit plugin behavior.
 import { describe, expect, it, vi } from "vitest";
 import type { ResolvedSlackAccount } from "./accounts.js";
@@ -12,7 +12,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", () => ({
   readChannelAllowFromStore: readChannelAllowFromStoreMock,
 }));
 
-function createSlackAccount(config: NonNullable<OpenClawConfig["channels"]>["slack"]) {
+function createSlackAccount(config: NonNullable<GrantedConfig["channels"]>["slack"]) {
   return {
     accountId: "default",
     enabled: true,
@@ -23,7 +23,7 @@ function createSlackAccount(config: NonNullable<OpenClawConfig["channels"]>["sla
   } as ResolvedSlackAccount;
 }
 
-function createSlashCommandSlackConfig(): OpenClawConfig {
+function createSlashCommandSlackConfig(): GrantedConfig {
   return {
     channels: {
       slack: {
@@ -37,7 +37,7 @@ function createSlashCommandSlackConfig(): OpenClawConfig {
   };
 }
 
-async function collectSlackFindingsForConfig(cfg: OpenClawConfig) {
+async function collectSlackFindingsForConfig(cfg: GrantedConfig) {
   readChannelAllowFromStoreMock.mockResolvedValue([]);
   return await collectSlackSecurityAuditFindings({
     cfg,

@@ -2,10 +2,10 @@
 import { html, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { formatDurationCompact, formatDurationHuman } from "../lib/format.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { PollController } from "../lit/poll-controller.ts";
 
-class ElapsedTime extends OpenClawLightDomContentsElement {
+class ElapsedTime extends GrantedLightDomContentsElement {
   @property({ type: Number }) startMs: number | null = null;
   @property({ type: Number }) endMs: number | null = null;
   @property({ type: String }) minimumUnit: "second" | "minute" = "second";

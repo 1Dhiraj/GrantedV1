@@ -6,7 +6,7 @@ import type { PluginDoctorStateMigration } from "../plugins/doctor-contract-modu
 import { EMPTY_LEGACY_SESSION_SURFACES } from "../plugins/legacy-session-surfaces.types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { detectLegacyStateMigrations } from "./state-migrations.doctor.js";
 import { autoMigrateLegacyPluginDoctorState } from "./state-migrations.plugin-doctor.js";
@@ -25,7 +25,7 @@ vi.mock("../plugins/doctor-contract-registry.js", async (importOriginal) => {
 });
 
 describe("legacy JSON plugin migration diagnostics", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let sourcePath: string;
 
   beforeEach(async () => {

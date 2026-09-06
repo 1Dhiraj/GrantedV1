@@ -1,7 +1,7 @@
 import { html } from "lit";
 import { property } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { DropdownMenuController } from "./dropdown-menu-controller.ts";
 import { icons } from "./icons.ts";
 import { activateMenuShortcut, menuShortcutHint } from "./menu-shortcuts.ts";
@@ -9,7 +9,7 @@ import "./web-awesome.ts";
 
 export type NativeLinkMenuAction = "inline" | "external" | "copy";
 
-export class NativeLinkMenu extends OpenClawLightDomElement {
+export class NativeLinkMenu extends GrantedLightDomElement {
   @property({ attribute: false }) x = 0;
   @property({ attribute: false }) y = 0;
   @property({ attribute: false }) trigger: HTMLAnchorElement | null = null;

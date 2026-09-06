@@ -9,7 +9,7 @@ import { listRegisteredMemoryEmbeddingProviderAdapters } from "openclaw/plugin-s
 import {
   createSubsystemLogger,
   resolveAgentDir,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ResolvedMemorySearchConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import type {
@@ -78,7 +78,7 @@ export function resolveEffectiveMemorySearchSettings(
 }
 
 function resolveConfiguredMemoryEmbeddingProvider(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
 }): string | undefined {
   const agentEntry = resolveAgentConfig(params.cfg, normalizeAgentId(params.agentId));
@@ -86,7 +86,7 @@ function resolveConfiguredMemoryEmbeddingProvider(params: {
 }
 
 export function resolveMemoryEmbeddingProviderRequirement(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   settings: ResolvedMemorySearchConfig;
 }): MemoryEmbeddingProviderRequirement {

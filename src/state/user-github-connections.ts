@@ -23,7 +23,7 @@ import type { DB } from "./openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { selectResolvedUserProfileById } from "./user-profiles-internal.js";
 import type { UserProfilesDatabase } from "./user-profiles-schema.js";
@@ -179,7 +179,7 @@ function readConnection(db: DatabaseSync, owner: string): UserGitHubConnection |
 
 export function readUserGitHubConnection(
   owner: string,
-  database?: OpenClawStateDatabaseOptions,
+  database?: GrantedStateDatabaseOptions,
 ): UserGitHubConnection | undefined {
   const db = openOpenClawStateDatabase(database).db;
   requireOwner(db, owner);
@@ -190,7 +190,7 @@ export function updateUserGitHubConnection(
   owner: string,
   update: (current: UserGitHubConnection | undefined) => UserGitHubConnection,
   assertCurrent: () => void,
-  database?: OpenClawStateDatabaseOptions,
+  database?: GrantedStateDatabaseOptions,
 ): UserGitHubConnection {
   return runOpenClawStateWriteTransaction(
     ({ db }) => {

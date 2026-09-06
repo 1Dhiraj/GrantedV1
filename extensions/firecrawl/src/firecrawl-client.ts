@@ -1,5 +1,5 @@
 // Firecrawl plugin module implements firecrawl client behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
 import { readProviderJsonObjectResponse } from "openclaw/plugin-sdk/provider-http";
 import {
@@ -73,7 +73,7 @@ type FirecrawlSearchItem = {
 };
 
 type FirecrawlSearchParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   query: string;
   count?: number;
   timeoutSeconds?: number;
@@ -90,7 +90,7 @@ type FirecrawlSearchParams = {
 };
 
 type FirecrawlScrapeParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   url: string;
   extractMode: "markdown" | "text";
   access?: "credential" | "keyless";

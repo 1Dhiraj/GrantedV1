@@ -7,7 +7,7 @@ import {
   normalizeMattermostBaseUrl,
   type MattermostClient,
 } from "./client.js";
-import { listSkillCommandsForAgents, type OpenClawConfig, type RuntimeEnv } from "./runtime-api.js";
+import { listSkillCommandsForAgents, type GrantedConfig, type RuntimeEnv } from "./runtime-api.js";
 import {
   DEFAULT_COMMAND_SPECS,
   isSlashCommandsEnabled,
@@ -21,7 +21,7 @@ import {
 import { activateSlashCommands } from "./slash-state.js";
 
 function buildSlashCommands(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   nativeSkills: boolean;
 }): MattermostCommandSpec[] {
@@ -130,7 +130,7 @@ async function registerSlashCommandsAcrossTeams(params: {
 
 export async function registerMattermostMonitorSlashCommands(params: {
   client: MattermostClient;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   account: ResolvedMattermostAccount;
   baseUrl: string;

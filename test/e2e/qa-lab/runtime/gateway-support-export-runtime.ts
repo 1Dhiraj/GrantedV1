@@ -7,7 +7,7 @@ import JSZip from "jszip";
 import { formatErrorMessage } from "../../../../src/infra/errors.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 
@@ -66,7 +66,7 @@ function parseOptions(
 
 function parseCliJson<T>(
   label: string,
-  result: Awaited<ReturnType<OpenClawTestInstance["cli"]>>,
+  result: Awaited<ReturnType<GrantedTestInstance["cli"]>>,
   parse: (value: unknown) => T = (value) => value as T,
 ): T {
   if (result.code !== 0) {
@@ -133,7 +133,7 @@ export async function runGatewaySupportExportRuntime(options: GatewaySupportExpo
   await fs.mkdir(options.artifactBase, { recursive: true });
   const writer = createWriter(options);
   const startedAt = Date.now();
-  let instance: OpenClawTestInstance | undefined;
+  let instance: GrantedTestInstance | undefined;
   try {
     instance = await createOpenClawTestInstance({
       name: "qa-gateway-support-export",

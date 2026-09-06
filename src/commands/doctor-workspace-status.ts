@@ -6,7 +6,7 @@ import {
   tryResolveDefaultAgentId,
 } from "../agents/agent-scope.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import type { PluginMetadataSnapshotScopeRunner } from "../plugins/current-plugin-metadata-snapshot.js";
 import {
@@ -165,7 +165,7 @@ function taskFlowRecoveryToHealthFinding(finding: TaskFlowRecoveryFinding): Heal
 }
 
 export function collectWorkspaceStatusHealthFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: NoteWorkspaceStatusOptions = {},
 ): HealthFinding[] {
   const agentIds = listAgentIds(cfg);
@@ -254,7 +254,7 @@ function notePluginVersionDrift(drift: PluginVersionDriftReport | undefined) {
 }
 
 /** Emits plugin and TaskFlow recovery problem notes for doctor. */
-export function noteWorkspaceStatus(cfg: OpenClawConfig, options: NoteWorkspaceStatusOptions = {}) {
+export function noteWorkspaceStatus(cfg: GrantedConfig, options: NoteWorkspaceStatusOptions = {}) {
   const defaultAgentId = tryResolveDefaultAgentId(cfg);
   const agentIds = listAgentIds(cfg);
   const scopes = agentIds.map((agentId) => ({

@@ -25,10 +25,10 @@ import { resolveAgentHarnessOwnerPluginIds } from "../agents/harness/runtime-plu
 import type { AgentHarnessAuthBindingFingerprintParams } from "../agents/harness/types.js";
 import type { ResolvedProviderAuth } from "../agents/model-auth-runtime-shared.js";
 import { resolveApiKeyForProviderCore } from "../agents/model-auth.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizePluginsConfig } from "../plugins/config-state.js";
 import { passesManifestOwnerBasePolicy } from "../plugins/manifest-owner-policy.js";
-import type { OpenClawPackageBuild } from "../plugins/manifest.js";
+import type { GrantedPackageBuild } from "../plugins/manifest.js";
 import type { PluginOrigin } from "../plugins/plugin-origin.types.js";
 import { loadPluginRegistrySnapshot } from "../plugins/plugin-registry.js";
 import {
@@ -57,7 +57,7 @@ type SystemAgentVerifiedExecutionRoute =
     });
 
 type SystemAgentVerifiedInferenceState = Readonly<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   route: SystemAgentVerifiedExecutionRoute;
 }>;
 
@@ -106,11 +106,11 @@ type SystemAgentOwnerPluginRegistryRecord = {
   packageVersion?: string;
   installRecordHash?: string;
   packageJson?: { path: string; hash: string };
-  packageBuild?: OpenClawPackageBuild;
+  packageBuild?: GrantedPackageBuild;
 };
 
 type SystemAgentOwnerPluginRegistryLoader = (params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   env: NodeJS.ProcessEnv;
 }) => { plugins: readonly SystemAgentOwnerPluginRegistryRecord[] };
@@ -200,7 +200,7 @@ async function resolveAgentHarnessAuthBindingFingerprint(params: {
   authProfileId: string;
   authProfileStore: AgentHarnessAuthBindingFingerprintParams["authProfileStore"];
   agentDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   deps: SystemAgentVerifiedInferenceDeps;
 }): Promise<string | undefined> {
   const input = {
@@ -313,7 +313,7 @@ async function resolveCurrentRuntimeOwnerFingerprint(params: {
 }
 
 function projectRelevantPlugins(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   route: SystemAgentConfiguredRouteIdentity | null,
   ownerPluginIds: readonly string[],
 ): unknown {
@@ -357,7 +357,7 @@ function projectOwnerPluginRuntime(
 // Plugin ids alone survive an in-place runtime replacement. Bind the selected
 // installed source and package identity so a stale inference proof cannot write.
 function projectOwnerPluginRuntimes(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   route: SystemAgentConfiguredRoute;
   ownerPluginIds: readonly string[];
   deps: SystemAgentVerifiedInferenceDeps;
@@ -379,7 +379,7 @@ function projectOwnerPluginRuntimes(params: {
 }
 
 function projectOwnerPluginArtifacts(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   route: SystemAgentConfiguredRoute;
   ownerPluginIds: readonly string[];
   deps: SystemAgentVerifiedInferenceDeps;
@@ -411,7 +411,7 @@ function projectOwnerPluginArtifacts(params: {
   });
 }
 async function projectVerifiedExecutionFingerprint(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   route: SystemAgentVerifiedExecutionRoute,
   ownerPluginIds: readonly string[],
   deps: SystemAgentVerifiedInferenceDeps,
@@ -440,7 +440,7 @@ async function projectVerifiedExecutionFingerprint(
 }
 
 function resolveRouteHarnessOwnerPluginIds(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   route: SystemAgentConfiguredRoute,
 ): string[] {
   if (
@@ -460,7 +460,7 @@ function resolveRouteHarnessOwnerPluginIds(
 }
 
 function resolveRouteOwnerPluginIds(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   route: SystemAgentConfiguredRoute,
 ): string[] {
   const workspaceDir = resolveAgentWorkspaceDir(config, route.agentId, process.env);
@@ -485,7 +485,7 @@ function resolveRouteOwnerPluginIds(
 
 /** Capture once immediately before a live setup turn. */
 export function captureSystemAgentOwnerPluginArtifacts(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   executionRoute: SystemAgentConfiguredRoute;
   deps?: SystemAgentVerifiedInferenceDeps;
 }): SystemAgentOwnerPluginArtifactSnapshot {

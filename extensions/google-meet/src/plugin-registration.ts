@@ -2,8 +2,8 @@ import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type { GatewayRequestHandlerOptions } from "openclaw/plugin-sdk/gateway-runtime";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginApi,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import {
   asNonArrayRecord as asParamRecord,
@@ -44,7 +44,7 @@ type GoogleMeetGatewayErrorCode = GoogleMeetGatewayError["code"];
 
 type LoadGoogleMeetNodeInvokePolicy = (
   config: GoogleMeetConfig,
-) => Promise<OpenClawPluginNodeInvokePolicy>;
+) => Promise<GrantedPluginNodeInvokePolicy>;
 
 const loadGoogleMeetNodeInvokePolicy: LoadGoogleMeetNodeInvokePolicy = async (config) =>
   (await loadGoogleMeetNodeInvokePolicyModule()).createGoogleMeetChromeNodeInvokePolicy(config);
@@ -157,7 +157,7 @@ export async function callGoogleMeetGatewayFromTool(params: {
   config: GoogleMeetConfig;
   action: GoogleMeetGatewayToolAction;
   raw: Record<string, unknown>;
-  runtime?: OpenClawPluginApi["runtime"];
+  runtime?: GrantedPluginApi["runtime"];
 }): Promise<unknown> {
   try {
     if (params.runtime) {
@@ -206,7 +206,7 @@ export function keepTrustedToolAgentId(
 }
 
 export function createGoogleMeetRuntimeAccessor(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   config: GoogleMeetConfig;
 }): () => Promise<GoogleMeetRuntime> {
   let runtimePromise: Promise<GoogleMeetRuntime> | undefined;
@@ -232,13 +232,13 @@ export function createGoogleMeetRuntimeAccessor(params: {
 export function createLazyGoogleMeetNodeInvokePolicy(
   config: GoogleMeetConfig,
   loadPolicy: LoadGoogleMeetNodeInvokePolicy = loadGoogleMeetNodeInvokePolicy,
-): OpenClawPluginNodeInvokePolicy {
-  let policyPromise: Promise<OpenClawPluginNodeInvokePolicy> | undefined;
+): GrantedPluginNodeInvokePolicy {
+  let policyPromise: Promise<GrantedPluginNodeInvokePolicy> | undefined;
   return {
     commands: [GOOGLE_MEET_NODE_COMMAND],
     dangerous: true,
     async handle(ctx) {
-      let policy: OpenClawPluginNodeInvokePolicy;
+      let policy: GrantedPluginNodeInvokePolicy;
       try {
         policyPromise ??= loadPolicy(config);
         policy = await policyPromise;

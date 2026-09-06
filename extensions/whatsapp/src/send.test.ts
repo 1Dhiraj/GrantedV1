@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import { redactIdentifier } from "openclaw/plugin-sdk/logging-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -24,7 +24,7 @@ let sendTypingWhatsApp: typeof import("./send.js").sendTypingWhatsApp;
 let resetLogger: typeof import("openclaw/plugin-sdk/runtime-env").resetLogger;
 let setLoggerOverride: typeof import("openclaw/plugin-sdk/runtime-env").setLoggerOverride;
 
-const WHATSAPP_TEST_CFG: OpenClawConfig = {
+const WHATSAPP_TEST_CFG: GrantedConfig = {
   channels: { whatsapp: {} },
 };
 
@@ -345,7 +345,7 @@ describe("web outbound", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result).toEqual({
@@ -941,7 +941,7 @@ describe("web outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await sendMessageWhatsApp("+1555", "pic", {
       verbose: false,

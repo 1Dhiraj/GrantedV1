@@ -1,7 +1,7 @@
 // Matrix tests cover exec approvals plugin behavior.
 import path from "node:path";
 import type { ExecApprovalRequest } from "openclaw/plugin-sdk/approval-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
@@ -29,7 +29,7 @@ type MatrixExecApprovalConfig = NonNullable<MatrixAccountConfig["execApprovals"]
 type MatrixExecApprovalRequest = ExecApprovalRequest;
 
 function shouldHandleMatrixExecApprovalRequest(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   request: ExecApprovalRequest;
 }): boolean {
@@ -47,9 +47,9 @@ afterEach(() => {
 });
 
 function buildConfig(
-  execApprovals?: NonNullable<NonNullable<OpenClawConfig["channels"]>["matrix"]>["execApprovals"],
-  channelOverrides?: Partial<NonNullable<NonNullable<OpenClawConfig["channels"]>["matrix"]>>,
-): OpenClawConfig {
+  execApprovals?: NonNullable<NonNullable<GrantedConfig["channels"]>["matrix"]>["execApprovals"],
+  channelOverrides?: Partial<NonNullable<NonNullable<GrantedConfig["channels"]>["matrix"]>>,
+): GrantedConfig {
   return {
     channels: {
       matrix: {
@@ -60,7 +60,7 @@ function buildConfig(
         execApprovals,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function matrixAccount(
@@ -83,7 +83,7 @@ function buildMultiAccountMatrixConfig(params: {
   opsExecApprovals?: MatrixExecApprovalConfig;
   defaultOverrides?: Partial<MatrixAccountConfig>;
   opsOverrides?: Partial<MatrixAccountConfig>;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     ...(params.sessionStorePath ? { session: { store: params.sessionStorePath } } : {}),
     channels: {
@@ -108,7 +108,7 @@ function buildMultiAccountMatrixConfig(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function makeChannelApprovalRequest(params: {
@@ -226,7 +226,7 @@ describe("matrix exec approvals", () => {
           ],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(isMatrixExecApprovalAuthorizedSender({ cfg, senderId: "@target:example.org" })).toBe(
       true,
@@ -252,7 +252,7 @@ describe("matrix exec approvals", () => {
           targets: [{ channel: "matrix", to: "user:@\u212A:example.org" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(isMatrixExecApprovalAuthorizedSender({ cfg, senderId: "@\u212A:example.org" })).toBe(
       true,

@@ -2,7 +2,7 @@
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { readAgentRosterProperty } from "../../../agents/agent-scope-config.js";
 import { migrateLegacyContextBudgetConfig } from "../../../config/legacy.context-budget.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { HeartbeatSchema } from "../../../config/zod-schema.agent-runtime.js";
 import { runPluginSetupConfigMigrations } from "../../../plugins/setup-registry.js";
 import { migrateLegacySecretRefEnvMarkers } from "../../../secrets/legacy-secretref-env-marker.js";
@@ -15,9 +15,9 @@ import { stripRetiredTuningKnobs } from "./legacy-config-migrations.runtime.reti
 import { migrateReservedMcpServerNames } from "./reserved-mcp-server-name-migrate.js";
 
 function repairAgentRoster(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   repair: (agent: Record<string, unknown>, path: string) => Record<string, unknown>,
-): OpenClawConfig {
+): GrantedConfig {
   // Snapshot/legacy migration normally converts lists first; blocked include migrations
   // can still leave a legacy list in doctor's best-effort candidate.
   const roster = readAgentRosterProperty(cfg);
@@ -49,7 +49,7 @@ function repairAgentRoster(
     : cfg;
 }
 
-function repairInvalidHeartbeatActiveHours(cfg: OpenClawConfig, changes: string[]): OpenClawConfig {
+function repairInvalidHeartbeatActiveHours(cfg: GrantedConfig, changes: string[]): GrantedConfig {
   const repairHeartbeat = (heartbeat: unknown, path: string): unknown => {
     if (!isRecord(heartbeat) || !Object.hasOwn(heartbeat, "activeHours")) {
       return heartbeat;
@@ -84,10 +84,10 @@ function repairInvalidHeartbeatActiveHours(cfg: OpenClawConfig, changes: string[
       ...next.agents,
       defaults: { ...next.agents?.defaults, heartbeat: defaultsHeartbeat },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function repairNullAgentWorkspaces(cfg: OpenClawConfig, changes: string[]): OpenClawConfig {
+function repairNullAgentWorkspaces(cfg: GrantedConfig, changes: string[]): GrantedConfig {
   let repaired = 0;
   const next = repairAgentRoster(cfg, (agent) => {
     if (agent.workspace === null) {
@@ -112,14 +112,14 @@ function repairNullAgentWorkspaces(cfg: OpenClawConfig, changes: string[]): Open
 
 /** Normalize current config through core, plugin setup, channel, and secret-ref migrations. */
 export function normalizeCompatibilityConfigValues(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: {
     blockedModelIdentities?: ReadonlySet<LegacyCodexModelIdentity>;
     sourceRaw?: unknown;
     sourceConfigBeforeMigrations?: unknown;
   } = {},
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   warnings?: string[];
 } {

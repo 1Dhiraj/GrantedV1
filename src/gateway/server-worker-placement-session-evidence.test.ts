@@ -20,7 +20,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/config.js";
 import * as sessionAccessor from "../config/sessions/session-accessor.js";
 import * as sessionTargetsReadAvailability from "../config/sessions/targets-read-availability.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -136,7 +136,7 @@ describe("worker placement session evidence", () => {
     const stateDir = tempDirs.make("openclaw-placement-session-canonical-main-");
     await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storeTemplate },
         agents: { list: [{ id: "ops", default: true }] },
       };
@@ -165,7 +165,7 @@ describe("worker placement session evidence", () => {
   it("keeps a listed deleted-main placement current after default-agent migration", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-legacy-main-");
     await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },

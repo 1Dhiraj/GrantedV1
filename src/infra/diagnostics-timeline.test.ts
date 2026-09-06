@@ -7,7 +7,7 @@ import { dirname, join } from "node:path";
 import { setImmediate as yieldToEventLoop } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   emitDiagnosticsTimelineEvent,
   flushDiagnosticsTimeline,
@@ -200,9 +200,9 @@ describe("diagnostics timeline", () => {
     const { env } = await createTimelineEnv();
     const envWithoutFlag = { ...env };
     delete envWithoutFlag.GRANTED_DIAGNOSTICS;
-    const configWithTimeline = { diagnostics: { flags: ["timeline"] } } as OpenClawConfig;
-    const configWithWildcard = { diagnostics: { flags: ["*"] } } as OpenClawConfig;
-    const configWithoutTimeline = { diagnostics: { flags: ["telegram.http"] } } as OpenClawConfig;
+    const configWithTimeline = { diagnostics: { flags: ["timeline"] } } as GrantedConfig;
+    const configWithWildcard = { diagnostics: { flags: ["*"] } } as GrantedConfig;
+    const configWithoutTimeline = { diagnostics: { flags: ["telegram.http"] } } as GrantedConfig;
 
     expect(isDiagnosticsTimelineEnabled({ config: configWithTimeline, env: envWithoutFlag })).toBe(
       true,
@@ -217,7 +217,7 @@ describe("diagnostics timeline", () => {
 
   it("lets false-like env diagnostics disable config-enabled timeline output", async () => {
     const { env } = await createTimelineEnv();
-    const configWithTimeline = { diagnostics: { flags: ["timeline"] } } as OpenClawConfig;
+    const configWithTimeline = { diagnostics: { flags: ["timeline"] } } as GrantedConfig;
 
     expect(
       isDiagnosticsTimelineEnabled({
@@ -339,7 +339,7 @@ describe("diagnostics timeline", () => {
       measureDiagnosticsTimelineSpan("runtimeDeps.stage", () => "ok", {
         phase: "startup",
         attributes: { pluginCount: 3 },
-        config: { diagnostics: { flags: ["timeline"] } } as OpenClawConfig,
+        config: { diagnostics: { flags: ["timeline"] } } as GrantedConfig,
         env: configOnlyEnv,
       }),
     ).resolves.toBe("ok");

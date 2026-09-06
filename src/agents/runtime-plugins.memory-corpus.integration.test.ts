@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, expect, it } from "vitest";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadAndActivateRootPluginRegistry } from "../plugins/loader.js";
 import {
   cleanupPluginLoaderFixturesForTest,
@@ -60,7 +60,7 @@ it("keeps root-owned memory sidecars in a direct agent registry", async () => {
       entries: { [pluginId]: { config: { source: "runtime" } } },
       load: { paths: [plugin.dir] },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const workspaceDir = makePluginLoaderTempDir();
   const rootConfig = applyPluginAutoEnable({ config, env: process.env }).config;
   expect(rootConfig.plugins?.entries?.[pluginId]?.enabled).toBe(true);

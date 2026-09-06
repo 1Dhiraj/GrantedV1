@@ -9,7 +9,7 @@ import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { startOpenClawCrablineAdapter } from "@openclaw/crabline";
 import { asRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createQaGatewayChild,
@@ -282,10 +282,10 @@ async function startPresentationApi(
 }
 
 function progressConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   channel: "discord" | "slack",
   native: boolean,
-): OpenClawConfig {
+): GrantedConfig {
   const streaming = {
     mode: "progress" as const,
     progress: { label: HEADLINE },
@@ -405,7 +405,7 @@ describe("channel progress presentation through an isolated Gateway", () => {
         transportBaseUrl: api.baseUrl,
         transport: {
           requiredPluginIds: adapter.requiredPluginIds,
-          createGatewayConfig: () => adapter.createGatewayConfig() as OpenClawConfig,
+          createGatewayConfig: () => adapter.createGatewayConfig() as GrantedConfig,
         },
         runtimeEnvPatch: environment,
         mutateConfig: (config) => {

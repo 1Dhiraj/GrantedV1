@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { getRuntimeAuthProfileStoreCredentialsRevision } from "../agents/auth-profiles/runtime-snapshots.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveCommandSecretsFromActiveRuntimeSnapshot } from "./runtime-command-secrets.js";
 import { createEmptyRuntimeWebToolsMetadata } from "./runtime-fast-path.js";
 import { activateSecretsRuntimeSnapshotState } from "./runtime-state.js";
@@ -36,7 +36,7 @@ const forcedFallbackConfig = {
       },
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 const forcedWebProviderConfig = {
   tools: {
     web: {
@@ -59,13 +59,13 @@ const forcedWebProviderConfig = {
       },
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 discoverConfigSecretTargetsByIds(forcedFallbackConfig, new Set([firecrawlPath]));
 
 function activateMinimalSecretsRuntimeSnapshot(params: {
-  config: OpenClawConfig;
-  resolvedConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  resolvedConfig?: GrantedConfig;
   env: Record<string, string | undefined>;
 }) {
   const snapshot = {

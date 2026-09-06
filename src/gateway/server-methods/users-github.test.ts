@@ -13,7 +13,7 @@ import {
   resolveManagedGitHubProfileDir,
 } from "../../agents/github-tool-identity.js";
 import { cleanupRetiredManagedGitHubProfiles } from "../../agents/github-tool-profile-cleanup.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   listSecretStoreEntries,
   readSecretStoreExecEnvironment,
@@ -35,7 +35,7 @@ import {
 } from "../../state/user-profiles.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createGitHubOAuthLifecycle } from "../github-oauth-lifecycle.js";
 import { invalidateOperatorRolePolicy } from "../operator-role-policy.js";
@@ -65,9 +65,9 @@ const tokens = {
   refreshToken: "synthetic-refresh",
   refreshTokenExpiresInSeconds: 15552000,
 };
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let lifecycle: ReturnType<typeof createGitHubOAuthLifecycle>;
-let config: OpenClawConfig;
+let config: GrantedConfig;
 let clients: Set<GatewayClient>;
 let context: GatewayRequestContext;
 let alice: GatewayClient;
@@ -325,7 +325,7 @@ describe("personal GitHub through authenticated Gateway RPC", () => {
         const polled = await rpc(alice, "tools.github.authorize.poll", { requestId });
         expect(polled.mock.calls[0]?.[1]).toMatchObject({ status: "success" });
       }
-      config = JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+      config = JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
       const identity =
         scope === "system" ? config.tools?.github : config.agents?.entries?.main?.tools?.github;
       if (!identity) {

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveConfigForRead } from "../config/io.read-helpers.js";
 import {
   getAuthoredConfigSecretRef,
@@ -61,7 +61,7 @@ afterEach(async () => {
 });
 
 describe("resolveCommandSecretRefsViaGateway", () => {
-  function makeTalkProviderApiKeySecretRefConfig(envKey: string): OpenClawConfig {
+  function makeTalkProviderApiKeySecretRefConfig(envKey: string): GrantedConfig {
     return buildTalkTestProviderConfig({ source: "env", provider: "default", id: envKey });
   }
 
@@ -109,7 +109,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
   }
 
   async function createExecProviderConfig(refId: string): Promise<{
-    config: OpenClawConfig;
+    config: GrantedConfig;
     markerPath: string;
   }> {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-secret-exec-"));
@@ -147,7 +147,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     };
   }
 
@@ -269,7 +269,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
   it("returns config unchanged when no target SecretRefs are configured", async () => {
     const config = {
       ...buildTalkTestProviderConfig("plain"), // pragma: allowlist secret
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await resolveCommandSecretRefsViaGateway({
       config,
       commandName: "memory status",
@@ -295,7 +295,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveCommandSecretRefsViaGateway({
       config,
@@ -346,7 +346,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
     "preserves source provenance while gateway assignments materialize literal %s",
     async (resolvedLiteral) => {
       const read = resolveConfigForRead(buildTalkTestProviderConfig("$SOURCE"), {});
-      const config = read.resolvedConfigRaw as OpenClawConfig;
+      const config = read.resolvedConfigRaw as GrantedConfig;
       setConfigResolutionFacts(config, read.resolutionFacts);
       callGateway.mockResolvedValueOnce({
         assignments: [
@@ -402,7 +402,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           botToken: { source: "env", provider: "default", id: "TELEGRAM_BOT_TOKEN" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const restoreDeps = setSingleSecretTargetDeps({
       path: channelPath,
       pathSegments: channelPathSegments,
@@ -506,7 +506,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "message",
         targetIds: new Set(["channels.discord.accounts.*.token"]),
         allowedPaths: new Set(["channels.discord.accounts.ops.token"]),
@@ -608,7 +608,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "message",
         targetIds: new Set(["channels.discord.accounts.*.token"]),
         allowedPaths: new Set(["channels.discord.accounts.ops.token"]),
@@ -670,7 +670,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                   },
                 },
               },
-            } as unknown as OpenClawConfig,
+            } as unknown as GrantedConfig,
             commandName: "infer web search",
             targetIds: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
             allowedPaths: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
@@ -717,7 +717,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               default: { source: "env" },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         commandName: "memory status",
         targetIds: new Set(["talk.providers.*.apiKey"]),
       });
@@ -844,7 +844,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           commandName: "doctor preview",
           targetIds: new Set(["talk.providers.*.apiKey"]),
           mode: "read_only_status",
@@ -891,7 +891,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           commandName: "agent",
           targetIds: new Set(["plugins.entries.google.config.webSearch.apiKey"]),
         });
@@ -936,7 +936,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           commandName: "agent",
           targetIds: new Set(["plugins.entries.firecrawl.config.webFetch.apiKey"]),
         });
@@ -986,7 +986,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           commandName: "infer web fetch",
           targetIds: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
           allowedPaths: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
@@ -1044,7 +1044,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           commandName: "infer web fetch",
           targetIds: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
           allowedPaths: new Set(["plugins.entries.firecrawl.config.webSearch.apiKey"]),
@@ -1087,7 +1087,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         commandName: "infer web search",
         targetIds: new Set(["models.providers.*.apiKey"]),
         allowedPaths: new Set(["models.providers.google.apiKey"]),
@@ -1131,7 +1131,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "agent",
         targetIds: new Set(["plugins.entries.google.config.webSearch.apiKey"]),
       });
@@ -1287,7 +1287,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveCommandSecretRefsViaGateway({
       config,
@@ -1403,7 +1403,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "agent",
         targetIds: new Set([webPath]),
       });
@@ -1447,7 +1447,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "reply",
         targetIds: new Set([webPath]),
         optionalActivePaths: new Set([webPath]),
@@ -1482,7 +1482,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     },
     {
       label: "fetch",
@@ -1505,7 +1505,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     },
   ])("fails closed when a configured web $label provider owner cannot be proven", async (test) => {
     const restoreDeps = test.setupDeps();
@@ -1590,7 +1590,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         commandName: "reply",
         targetIds: new Set(["talk.providers.*.apiKey", "talk.realtime.providers.*.apiKey"]),
       });
@@ -1626,7 +1626,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               password: { source: "env", provider: "default", id: gatewayEnvKey },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         commandName: "status",
         targetIds: new Set(["talk.providers.*.apiKey"]),
         mode: "read_only_status",

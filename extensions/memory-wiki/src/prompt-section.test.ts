@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import {
   activateMemoryWikiCompiledCacheOwner,
   configureMemoryWikiCompiledCacheStore,
@@ -335,7 +335,7 @@ describe("Memory Wiki prompt section", () => {
     const rootDir = path.join(suiteRoot, "agent-digests");
     const appConfig = {
       agents: { list: [{ id: "support", default: true }, { id: "marketing" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const config = resolveMemoryWikiConfig({
       vault: { scope: "agent", path: rootDir },
       context: { includeCompiledDigestPrompt: true },

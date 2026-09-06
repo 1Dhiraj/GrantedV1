@@ -1,5 +1,5 @@
 // Shared harness for extra-params wrapper tests.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { Context, Model, SimpleStreamOptions } from "../../llm/types.js";
 import type {
   prepareProviderExtraParams,
@@ -62,7 +62,7 @@ type RunExtraParamsCaseParams<
   applyModelId?: string;
   applyProvider?: string;
   callerHeaders?: Record<string, string>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   model: Model<TApi>;
   mockProviderRuntime?: boolean;
   options?: SimpleStreamOptions;

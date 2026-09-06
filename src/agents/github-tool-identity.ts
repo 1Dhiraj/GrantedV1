@@ -10,7 +10,7 @@ import type {
 } from "../../packages/gateway-protocol/src/index.js";
 import { isManagedGitHubProfileId } from "../config/github-identity-profile-id.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isSecretRef, isValidEnvSecretRefId } from "../config/types.secrets.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 import { hasErrnoCode } from "../infra/errno.js";
@@ -63,7 +63,7 @@ export function resolveManagedGitHubAgentKey(agentId: string): string {
 }
 
 export function resolveConfiguredGitHubToolIdentity(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   scope: "system" | "agent";
 }): GitHubToolIdentityConfig | undefined {
@@ -73,7 +73,7 @@ export function resolveConfiguredGitHubToolIdentity(params: {
 }
 
 function resolveGitHubToolIdentity(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   env?: NodeJS.ProcessEnv;
 }) {
@@ -98,7 +98,7 @@ function resolveGitHubToolIdentity(params: {
 }
 
 function resolveScopedGitHubToolIdentity(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   scope: "system" | "agent";
   env?: NodeJS.ProcessEnv;
@@ -159,9 +159,9 @@ function localIdentityEnvironmentForIdentity(
 
 /** Prepares the non-secret child overlay and store exclusions once per agent run. */
 export function prepareGitHubToolEnvironment(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
-  sourceConfig?: OpenClawConfig;
+  sourceConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): PreparedGitHubToolEnvironment {
   const identity = resolveGitHubToolIdentity(params);
@@ -309,7 +309,7 @@ async function isPrivateManagedGitHubProfile(profileDir: string): Promise<boolea
 }
 
 export async function resolveGitHubToolIdentityStatus(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   selectedScope: "system" | "agent";
   env?: NodeJS.ProcessEnv;
@@ -343,7 +343,7 @@ export async function resolveGitHubToolIdentityStatus(params: {
 }
 
 async function resolveGitHubIdentityFacts(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   identity: ResolvedGitHubToolIdentity;
   env?: NodeJS.ProcessEnv;
@@ -457,7 +457,7 @@ export async function preparePersonalGitHubPublicationIdentity(params: {
 
 /** Confirms the current config still selects the prepared publication profile. */
 export function matchesPreparedGitHubPublicationIdentity(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   identity: PreparedGitHubPublicationIdentity;
 }): boolean {
@@ -470,8 +470,8 @@ export function matchesPreparedGitHubPublicationIdentity(params: {
 
 /** Resolves a Gateway-owned publication identity without exposing its child environment. */
 export async function prepareGitHubPublicationIdentity(params: {
-  config: OpenClawConfig;
-  sourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  sourceConfig?: GrantedConfig;
   agentId: string;
   env?: NodeJS.ProcessEnv;
 }): Promise<PreparedGitHubPublicationIdentity> {

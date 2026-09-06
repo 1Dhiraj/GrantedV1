@@ -1,14 +1,14 @@
 // Ollama plugin entrypoint registers its OpenClaw integration.
 import { collectConfiguredModelRefValues } from "@openclaw/model-catalog-core/configured-model-refs";
 import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
 import type { MemoryEmbeddingProviderAdapter } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
 import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import {
   definePluginEntry,
-  type OpenClawPluginApi,
+  type GrantedPluginApi,
   type ProviderAppGuidedSetupContext,
   type ProviderAuthContext,
   type ProviderAuthMethodNonInteractiveContext,
@@ -104,7 +104,7 @@ const ollamaMediaUnderstandingProvider: MediaUnderstandingProvider = {
   describeImages: undefined,
 };
 
-async function checkWsl2CrashLoopRiskLazily(api: OpenClawPluginApi): Promise<void> {
+async function checkWsl2CrashLoopRiskLazily(api: GrantedPluginApi): Promise<void> {
   try {
     const { isWSL2Sync } = await import("openclaw/plugin-sdk/runtime-env");
     if (!isWSL2Sync()) {
@@ -488,7 +488,7 @@ function readUsableOllamaShowApiKey(params: {
 }
 
 function collectConfiguredOllamaModelIds(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   entries?: ProviderAugmentModelCatalogContext["entries"];
 }): Array<{
@@ -626,7 +626,7 @@ async function resolveRequestedDynamicOllamaModel(params: {
 }
 
 async function augmentConfiguredOllamaCatalogModels(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   defaultBaseUrl: string;
   env: NodeJS.ProcessEnv;
   provider: string;
@@ -701,7 +701,7 @@ async function augmentConfiguredOllamaCatalogModels(params: {
 }
 
 // Local and cloud own distinct auth/catalog policy but share native transport and replay rules.
-const createOllamaSharedProviderHooks = (api: OpenClawPluginApi) =>
+const createOllamaSharedProviderHooks = (api: GrantedPluginApi) =>
   ({
     ...buildProviderToolCompatFamilyHooks("llamacpp-gbnf"),
     createStreamFn: ({ config, model, provider }) => {
@@ -747,7 +747,7 @@ export default definePluginEntry({
   id: "ollama",
   name: "Ollama Provider",
   description: "Bundled Ollama provider plugin",
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     const startupPluginConfig = (api.pluginConfig ?? {}) as OllamaPluginConfig;
     const providerHooks = createOllamaSharedProviderHooks(api);
     if (api.registrationMode === "full") {
@@ -762,7 +762,7 @@ export default definePluginEntry({
     }
     api.registerNodeInvokePolicy(createOllamaNodeInvokePolicy());
     api.registerTool(createLazyOllamaNodeInferenceTool(api));
-    const resolveCurrentPluginConfig = (config?: OpenClawConfig): OllamaPluginConfig => {
+    const resolveCurrentPluginConfig = (config?: GrantedConfig): OllamaPluginConfig => {
       const runtimePluginConfig = resolvePluginConfigObject(config, "ollama");
       if (runtimePluginConfig) {
         return runtimePluginConfig as OllamaPluginConfig;

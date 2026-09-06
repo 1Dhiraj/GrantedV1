@@ -3,7 +3,7 @@ import {
   resolveApiKeyForProvider,
   resolveDefaultAgentDir,
 } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
@@ -81,7 +81,7 @@ const CASES: LiveProviderCase[] = [
   .filter((entry) => (providerFilter ? providerFilter.has(entry.providerId) : true))
   .toSorted((left, right) => left.providerId.localeCompare(right.providerId));
 
-function withPluginsEnabled(cfg: OpenClawConfig): OpenClawConfig {
+function withPluginsEnabled(cfg: GrantedConfig): GrantedConfig {
   return {
     ...cfg,
     plugins: {

@@ -14,7 +14,7 @@ import {
   resolveOpenClawManifestRequires,
 } from "../../shared/frontmatter.js";
 import type {
-  OpenClawSkillMetadata,
+  GrantedSkillMetadata,
   ParsedSkillFrontmatter,
   SkillEntry,
   SkillInstallSpec,
@@ -202,7 +202,7 @@ function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
 
 export function resolveSkillManifestMetadata(
   frontmatter: ParsedSkillFrontmatter,
-): OpenClawSkillMetadata | undefined {
+): GrantedSkillMetadata | undefined {
   const metadataObj = resolveOpenClawManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;

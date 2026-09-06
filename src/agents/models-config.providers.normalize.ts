@@ -3,7 +3,7 @@
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { mergeModelCost } from "../config/model-cost.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { ensureAuthProfileStore } from "./auth-profiles/store.js";
 import {
@@ -27,7 +27,7 @@ import {
   normalizeSourceProviderLookup,
 } from "./models-config.providers.source-managed.js";
 
-type ModelsConfig = NonNullable<OpenClawConfig["models"]>;
+type ModelsConfig = NonNullable<GrantedConfig["models"]>;
 type ProviderModelConfig = NonNullable<
   NonNullable<ModelsConfig["providers"]>[string]["models"]
 >[number];
@@ -143,7 +143,7 @@ export function normalizeProviders(params: {
   agentDir: string;
   env?: NodeJS.ProcessEnv;
   secretDefaults?: SecretDefaults;
-  sourceConfigForSecrets?: OpenClawConfig;
+  sourceConfigForSecrets?: GrantedConfig;
   secretRefManagedProviders?: Set<string>;
   manifestPlugins?: ModelManifestNormalizationContext["manifestPlugins"];
   manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;

@@ -3,7 +3,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withEnv } from "../test-utils/env.js";
 import {
   appendLocalMediaParentRoots,
@@ -12,11 +12,11 @@ import {
   getDefaultMediaLocalRoots,
 } from "./local-roots.js";
 
-function loadedConfig(config: OpenClawConfig): OpenClawConfig {
-  return migratePersistedImplicitMainRoster(config).config as OpenClawConfig;
+function loadedConfig(config: GrantedConfig): GrantedConfig {
+  return migratePersistedImplicitMainRoster(config).config as GrantedConfig;
 }
 
-function getAgentScopedMediaLocalRoots(config: OpenClawConfig, agentId: string) {
+function getAgentScopedMediaLocalRoots(config: GrantedConfig, agentId: string) {
   return getAgentScopedMediaLocalRootsBase(loadedConfig(config), agentId);
 }
 

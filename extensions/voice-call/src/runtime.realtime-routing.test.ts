@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
@@ -137,7 +137,7 @@ describe("voice-call realtime route ownership", () => {
         agents: {
           list: [{ id: "main", default: true }, { id: "sales" }, { id: "support" }],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       runtime = await createVoiceCallRuntime({
         config,

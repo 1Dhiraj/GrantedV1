@@ -1,7 +1,7 @@
 // Xiaomi setup module handles plugin onboarding behavior.
 import {
   createDefaultModelsPresetAppliers,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 import {
   buildXiaomiProvider,
@@ -59,10 +59,10 @@ const xiaomiTokenPlanPresetAppliers = createDefaultModelsPresetAppliers<[]>({
 });
 
 function withProviderBaseUrl(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   providerId: string,
   baseUrl: string,
-): OpenClawConfig {
+): GrantedConfig {
   const providers: Record<string, unknown> = {
     ...cfg.models?.providers,
     [providerId]: {
@@ -76,13 +76,13 @@ function withProviderBaseUrl(
       ...cfg.models,
       providers,
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 export function applyXiaomiTokenPlanConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   region: XiaomiTokenPlanRegion,
-): OpenClawConfig {
+): GrantedConfig {
   return withProviderBaseUrl(
     xiaomiTokenPlanPresetAppliers.applyConfig(cfg),
     XIAOMI_TOKEN_PLAN_PROVIDER_ID,

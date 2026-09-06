@@ -3,9 +3,9 @@ import {
   resolveScopeRequireMention,
   type ScopeTree,
 } from "openclaw/plugin-sdk/channel-policy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "openclaw/plugin-sdk/core";
 
-type GroupContext = { cfg: OpenClawConfig; accountId?: string | null; groupId?: string | null };
+type GroupContext = { cfg: GrantedConfig; accountId?: string | null; groupId?: string | null };
 
 export function buildGoogleChatGroupPolicyScope(params: {
   tree: ScopeTree;

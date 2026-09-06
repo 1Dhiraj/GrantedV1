@@ -13,7 +13,7 @@ import {
   createChannelPairingController,
   isDangerousNameMatchingEnabled,
   resolveDefaultGroupPolicy,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../../runtime-api.js";
 import type {
   StoredConversationReference,
@@ -116,7 +116,7 @@ function formatMSTeamsSenderReason(params: {
 }
 
 export async function resolveMSTeamsSenderAccess(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   activity: MSTeamsTurnContext["activity"];
   hasControlCommand?: boolean;
   conversationThreadId?: string;
@@ -241,7 +241,7 @@ export async function resolveMSTeamsSenderAccess(params: {
 }
 
 export async function admitMSTeamsMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   activity: MSTeamsTurnContext["activity"];
   text: string;
   conversationId: string;

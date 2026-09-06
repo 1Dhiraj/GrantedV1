@@ -1,7 +1,7 @@
 import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
 import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { HeartbeatRunOptions } from "../../infra/heartbeat-runner-execution.js";
 import { resolveHeartbeatRunPrompt } from "../../infra/heartbeat-runner-prompt.js";
 import { startHeartbeatRunner } from "../../infra/heartbeat-runner-scheduler.js";
@@ -105,7 +105,7 @@ describe("startup run repair auto-disable", () => {
     vi.useFakeTimers();
     const nowMs = Date.parse("2026-08-01T16:00:00.000Z");
     vi.setSystemTime(nowMs);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { heartbeat: { every: "0m" } },
         list: [{ id: "main" }, { id: "other" }],

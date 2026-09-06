@@ -1,6 +1,6 @@
 /** Lifecycle-owned auth/model discovery snapshots for agent runs. */
 import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import { registerRuntimeAuthProfileStoreMutationListener } from "./auth-profiles/runtime-snapshots.js";
@@ -100,7 +100,7 @@ const replyDispatchPublication = new PreparedReplyDispatchPublicationOwner({
 export const loadPublishedGatewayReplyDispatchRuntime = replyDispatchPublication.load;
 
 /** Advances model-neutral config identity without rebuilding prepared generation artifacts. */
-export function advancePreparedModelRuntimeConfig(config: OpenClawConfig): void {
+export function advancePreparedModelRuntimeConfig(config: GrantedConfig): void {
   for (const owner of owners.values()) {
     // Read-only owners include the config hash in their map key and remain bound to their lease.
     if (owner.input.readOnly) {
@@ -451,7 +451,7 @@ export function rejectPendingPreparedModelRuntimeReplacement(
 
 /** Rebuilds active owners after config/plugin runtime publication. */
 async function refreshPreparedModelRuntimeSnapshotsNow(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: PreparedModelRuntimeRefreshOptions,
   isPublicationCurrent: () => boolean,
 ): Promise<void> {
@@ -521,7 +521,7 @@ async function refreshPreparedModelRuntimeSnapshotsNow(
 
 /** Serializes config/plugin publications so only the latest completed refresh retires owners. */
 export function refreshPreparedModelRuntimeSnapshots(
-  config: OpenClawConfig | (() => OpenClawConfig | Promise<OpenClawConfig>),
+  config: GrantedConfig | (() => GrantedConfig | Promise<GrantedConfig>),
   options: PreparedModelRuntimeRefreshOptions = {},
 ): Promise<void> {
   if (options.isPublicationCurrent?.() === false) {

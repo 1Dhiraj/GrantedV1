@@ -1,7 +1,7 @@
 import { isIP } from "node:net";
 import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
 // Litellm provider module implements model/runtime integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createOpenAiCompatibleImageGenerationProvider,
   imageSourceUploadFileName,
@@ -27,17 +27,15 @@ const LITELLM_SUPPORTED_SIZES = [
 ] as const;
 const LITELLM_MAX_INPUT_IMAGES = 5;
 
-type LitellmProviderConfig = NonNullable<
-  NonNullable<OpenClawConfig["models"]>["providers"]
->[string];
+type LitellmProviderConfig = NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>[string];
 
 function resolveLitellmProviderConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): LitellmProviderConfig | undefined {
   return cfg?.models?.providers?.litellm;
 }
 
-function resolveConfiguredLitellmBaseUrl(cfg: OpenClawConfig | undefined): string {
+function resolveConfiguredLitellmBaseUrl(cfg: GrantedConfig | undefined): string {
   return normalizeOptionalString(resolveLitellmProviderConfig(cfg)?.baseUrl) ?? LITELLM_BASE_URL;
 }
 

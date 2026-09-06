@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   createQaGatewayChild,
@@ -21,7 +21,7 @@ function omitMemoryCoreEntry<T extends Record<string, unknown> | undefined>(entr
   return rest as T;
 }
 
-function prepareLiveTransportGatewayConfig(cfg: OpenClawConfig): OpenClawConfig {
+function prepareLiveTransportGatewayConfig(cfg: GrantedConfig): GrantedConfig {
   return {
     ...cfg,
     plugins: cfg.plugins
@@ -56,7 +56,7 @@ type QaLiveGatewayParams = {
     requiredPluginIds: readonly string[];
     createGatewayConfig: (params: {
       baseUrl: string;
-    }) => Pick<OpenClawConfig, "channels" | "messages">;
+    }) => Pick<GrantedConfig, "channels" | "messages">;
   };
   transportBaseUrl: string;
   controlUiAllowedOrigins?: string[];
@@ -69,7 +69,7 @@ type QaLiveGatewayParams = {
   claudeCliAuthMode?: QaCliBackendAuthMode;
   controlUiEnabled?: boolean;
   mockAuthAgentIds?: readonly string[];
-  mutateConfig?: (cfg: OpenClawConfig) => OpenClawConfig;
+  mutateConfig?: (cfg: GrantedConfig) => GrantedConfig;
 };
 
 type QaLiveGateway = {

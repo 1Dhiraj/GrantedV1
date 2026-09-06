@@ -25,11 +25,11 @@ import {
   prepareSimpleCompletionModelForAgent,
 } from "../agents/simple-completion-runtime.js";
 import { resolveUtilityModelRefForAgent } from "../agents/utility-model.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { logVerbose } from "../globals.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { redactToolPayloadText } from "../logging/redact.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
@@ -54,7 +54,7 @@ const TOOL_TITLES_SYSTEM_PROMPT = [
 
 type ToolTitleRequestItem = { id: string; name: string; input: string };
 
-type AgentCacheDatabase = Pick<OpenClawAgentKyselyDatabase, "cache_entries">;
+type AgentCacheDatabase = Pick<GrantedAgentKyselyDatabase, "cache_entries">;
 
 function cacheKeyFor(item: ToolTitleRequestItem): string {
   return createHash("sha256").update(`${item.name}\0${item.input}`).digest("hex");
@@ -201,7 +201,7 @@ function writeCachedTitles(agentId: string, entries: Map<string, string>): void 
 }
 
 async function generateMissingTitles(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   modelRef: string;
   sessionAuthProfile?: string;
@@ -291,7 +291,7 @@ async function generateMissingTitles(params: {
 
 /** Resolve purpose titles for tool calls: cache first, one batched cheap-model call for misses. */
 export async function generateToolCallTitles(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   /** Provider of the session's effective model (honors per-session overrides). */
   sessionPrimaryProvider?: string;

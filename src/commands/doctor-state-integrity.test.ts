@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   resolveSessionStorePathCore,
   resolveSessionTranscriptsDirForAgent,
@@ -95,7 +95,7 @@ function createAgentDir(agentId: string, includeNestedAgentDir = true) {
   fs.mkdirSync(targetDir, { recursive: true });
 }
 
-async function runStateIntegrity(cfg: OpenClawConfig) {
+async function runStateIntegrity(cfg: GrantedConfig) {
   const effectiveConfig = withMainAgentRoster(cfg);
   setupSessionState(effectiveConfig, process.env, process.env.HOME ?? "");
   const confirmRuntimeRepair = vi.fn(async () => false);
@@ -323,7 +323,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("does not prompt for oauth dir when no whatsapp/pairing config is active", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const confirmRuntimeRepair = await runStateIntegrity(cfg);
     expect(hasRepairPromptMessage(confirmRuntimeRepair, "Create OAuth dir at")).toBe(false);
     const text = stateIntegrityText();
@@ -332,7 +332,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("does not prompt for oauth dir when whatsapp is configured without persisted auth state", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {},
       },
@@ -344,7 +344,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("prompts for oauth dir when a channel dmPolicy is pairing", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           dmPolicy: "pairing",
@@ -357,7 +357,7 @@ describe("doctor state integrity oauth dir checks", () => {
 
   it("prompts for oauth dir when GRANTED_OAUTH_DIR is explicitly configured", async () => {
     process.env.GRANTED_OAUTH_DIR = path.join(tempHome, ".oauth");
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const confirmRuntimeRepair = await runStateIntegrity(cfg);
     expect(hasRepairPromptMessage(confirmRuntimeRepair, "Create OAuth dir at")).toBe(true);
     expect(stateIntegrityText()).toContain("CRITICAL: OAuth dir missing");
@@ -455,7 +455,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("warns about tombstoned subagent restart recovery sessions", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     writeSessionStore(cfg, {
       "agent:main:subagent:wedged-child": {
         sessionId: "session-wedged-child",
@@ -484,7 +484,7 @@ describe("doctor state integrity oauth dir checks", () => {
   });
 
   it("clears stale aborted recovery flags for tombstoned subagent sessions when approved", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const sessionKey = "agent:main:subagent:wedged-child";
     writeSessionStore(cfg, {
       [sessionKey]: {

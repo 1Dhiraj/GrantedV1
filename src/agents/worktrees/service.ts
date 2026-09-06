@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import { getRuntimeConfig, type OpenClawConfig } from "../../config/config.js";
+import { getRuntimeConfig, type GrantedConfig } from "../../config/config.js";
 import { resolveStateDir } from "../../config/paths.js";
 import { isMissingPathError, formatErrorMessage } from "../../infra/errors.js";
 import { root as fsRoot } from "../../infra/fs-safe.js";
@@ -132,7 +132,7 @@ const log = createSubsystemLogger("agents/worktrees");
 type ServiceOptions = {
   env?: NodeJS.ProcessEnv;
   now?: () => number;
-  getConfig?: () => Pick<OpenClawConfig, "worktreeRoot">;
+  getConfig?: () => Pick<GrantedConfig, "worktreeRoot">;
 };
 
 export type WorktreeCleanupLimits = {

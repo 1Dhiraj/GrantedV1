@@ -22,7 +22,7 @@ import { reloadSharedAuthStoreOwnership } from "../agents/auth-profiles/path-res
 import { clearRuntimeAuthProfileStoreSnapshots } from "../agents/auth-profiles/runtime-snapshots.js";
 import { normalizeThinkLevel } from "../auto-reply/thinking.shared.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import { getRuntimeConfig, type OpenClawConfig } from "../config/config.js";
+import { getRuntimeConfig, type GrantedConfig } from "../config/config.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveCanonicalMainSessionKey } from "../config/sessions/main-session-key.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/session-store-owner.js";
@@ -122,7 +122,7 @@ type RunTuiOptions = TuiOptions & {
     password?: string;
     tlsFingerprint?: string;
   };
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   title?: string;
 };
 
@@ -229,7 +229,7 @@ export function resolveTuiSessionKey(params: {
 
 export function resolveTuiSessionSelection(params: {
   raw?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionScope: SessionScope;
   currentAgentId: string;
   sessionMainKey: string;
@@ -272,7 +272,7 @@ export function resolveTuiSessionSelection(params: {
 }
 
 export function resolveInitialTuiAgentId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   fallbackAgentId?: string;
   initialSessionInput?: string;
   agentId?: string;
@@ -741,7 +741,7 @@ export function createTuiConnectionLineage() {
   };
 }
 
-function resolveEmptySessionInfoDefaults(config: OpenClawConfig): SessionInfo {
+function resolveEmptySessionInfoDefaults(config: GrantedConfig): SessionInfo {
   return {
     verboseLevel: config.agents?.defaults?.verboseDefault,
   };

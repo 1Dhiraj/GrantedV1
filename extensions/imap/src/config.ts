@@ -1,5 +1,5 @@
 import type { IdentifierAuthentication } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 
 const SENDER_STRENGTHS = [
@@ -8,7 +8,7 @@ const SENDER_STRENGTHS = [
   "asserted",
   "verified",
 ] as const satisfies readonly IdentifierAuthentication[];
-type HookDispatch = OpenClawPluginApi["runtime"]["hooks"]["dispatchHookAgentTurn"];
+type HookDispatch = GrantedPluginApi["runtime"]["hooks"]["dispatchHookAgentTurn"];
 
 export type ImapAccountConfig = {
   host: string;

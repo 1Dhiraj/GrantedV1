@@ -2,7 +2,7 @@
 import { existsSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
 import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { MockFn } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { GetReplyOptions, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
 import { beforeEach, vi } from "vitest";
@@ -239,7 +239,7 @@ function normalizeLowercaseStringOrEmptyForTest(value: string | undefined): stri
   return value?.trim().toLowerCase() ?? "";
 }
 
-function resolveDefaultModelForAgentForTest(params: { cfg: OpenClawConfig }): {
+function resolveDefaultModelForAgentForTest(params: { cfg: GrantedConfig }): {
   provider: string;
   model: string;
 } {
@@ -255,7 +255,7 @@ function resolveDefaultModelForAgentForTest(params: { cfg: OpenClawConfig }): {
 }
 
 function createModelsProviderDataFromConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Awaited<ReturnType<TelegramBotDeps["buildModelsProviderData"]>> {
   const byProvider = new Map<string, Set<string>>();
   const add = (providerRaw: string | undefined, modelRaw: string | undefined) => {
@@ -539,7 +539,7 @@ export const getOnHandler = (event: string) => {
   return handler as (ctx: Record<string, unknown>) => Promise<void>;
 };
 
-const DEFAULT_TELEGRAM_TEST_CONFIG: OpenClawConfig = {
+const DEFAULT_TELEGRAM_TEST_CONFIG: GrantedConfig = {
   agents: {
     defaults: {
       userTimezone: "UTC",
@@ -715,7 +715,7 @@ beforeEach(() => {
   listSkillCommandsForAgents.mockReset();
   listSkillCommandsForAgents.mockReturnValue([]);
   buildModelsProviderData.mockReset();
-  buildModelsProviderData.mockImplementation(async (cfg: OpenClawConfig) => {
+  buildModelsProviderData.mockImplementation(async (cfg: GrantedConfig) => {
     return createModelsProviderDataFromConfig(cfg);
   });
   middlewareUseSpy.mockReset();

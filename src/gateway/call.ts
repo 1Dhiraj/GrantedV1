@@ -29,7 +29,7 @@ import {
   resolveStateDir as resolveStateDirFromPaths,
 } from "../config/paths.js";
 import { getRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createAbortError } from "../infra/abort-signal.js";
 import {
   loadDeviceAuthToken,
@@ -119,7 +119,7 @@ type CallGatewayBaseOptions = {
   password?: string;
   tlsFingerprint?: string;
   preauthHandshakeTimeoutMs?: number;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   method: string;
   params?: unknown;
   expectFinal?: boolean;
@@ -383,7 +383,7 @@ export function isGatewayExplicitAuthRequiredError(
 
 // Gateway dispatch owns only connection, auth, TLS, and shell-env resolution.
 // Loading the full runtime config here makes every RPC pay unrelated plugin/state startup costs.
-const defaultGetRuntimeConfig = async (): Promise<OpenClawConfig> =>
+const defaultGetRuntimeConfig = async (): Promise<GrantedConfig> =>
   getRuntimeConfigSnapshot() ?? (await readGatewayDispatchConfigWithShellEnvFallback());
 
 async function stopGatewayClient(client: GatewayClient): Promise<void> {
@@ -407,7 +407,7 @@ function resolveGatewayClientDisplayName(opts: CallGatewayBaseOptions): string |
   return method ? `gateway:${method}` : "gateway:request";
 }
 
-async function loadGatewayConfig(): Promise<OpenClawConfig> {
+async function loadGatewayConfig(): Promise<GrantedConfig> {
   return await defaultGetRuntimeConfig();
 }
 
@@ -416,7 +416,7 @@ async function loadGatewayConfig(): Promise<OpenClawConfig> {
  * gateway.remote.edgeAuth here, so an unreadable or invalid config degrades to
  * empty rather than blocking a connection the flags already describe.
  */
-async function loadGatewayConfigForExplicitConnection(): Promise<OpenClawConfig> {
+async function loadGatewayConfigForExplicitConnection(): Promise<GrantedConfig> {
   try {
     return await loadGatewayConfig();
   } catch {
@@ -424,7 +424,7 @@ async function loadGatewayConfigForExplicitConnection(): Promise<OpenClawConfig>
   }
 }
 
-function loadGatewayConfigForConnectionDetails(): OpenClawConfig {
+function loadGatewayConfigForConnectionDetails(): GrantedConfig {
   return readGatewayDispatchConfig();
 }
 
@@ -436,13 +436,13 @@ function resolveGatewayConfigPath(env: NodeJS.ProcessEnv): string {
   return resolveConfigPathFromPaths(env, resolveGatewayStateDir(env));
 }
 
-function resolveGatewayPortValue(config?: OpenClawConfig, env?: NodeJS.ProcessEnv): number {
+function resolveGatewayPortValue(config?: GrantedConfig, env?: NodeJS.ProcessEnv): number {
   return resolveGatewayPortFromPaths(config, env);
 }
 
 export function buildGatewayConnectionDetails(
   options: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     url?: string;
     configPath?: string;
     urlSource?: "cli" | "env";
@@ -531,7 +531,7 @@ function loadStoredOperatorDeviceAuthToken(
   }
 }
 
-function resolveGatewayCallAuth(config: OpenClawConfig) {
+function resolveGatewayCallAuth(config: GrantedConfig) {
   return resolveGatewayAuth({
     authConfig: config.gateway?.auth,
     env: process.env,
@@ -583,7 +583,7 @@ export type { ExplicitGatewayAuth } from "./credentials.js";
 export { ensureExplicitGatewayAuth, resolveExplicitGatewayAuth };
 
 type ResolvedGatewayCallContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   configPath: string;
   isRemoteMode: boolean;
   explicitAuth: ExplicitGatewayAuth;
@@ -640,7 +640,7 @@ async function resolveGatewayCallContext(
   const config =
     opts.config ??
     (canSkipConfigLoad
-      ? ({} as OpenClawConfig)
+      ? ({} as GrantedConfig)
       : explicitConnection
         ? await loadGatewayConfigForExplicitConnection()
         : await loadGatewayConfig());

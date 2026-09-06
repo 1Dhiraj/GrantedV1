@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter as buildWizardPrompter } from "../../test/helpers/wizard-prompter.js";
 import { PreparedModelCatalogConfigReplacedError } from "../agents/prepared-model-catalog.errors.js";
 import type * as AuthChoiceModelCheck from "../commands/auth-choice.model-check.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { GatewayTlsConfig } from "../config/types.gateway.js";
 import type { PluginWebSearchProviderEntry } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -29,7 +29,7 @@ const waitForGatewayReachable = vi.hoisted(() =>
   vi.fn<() => Promise<{ ok: boolean; detail?: string }>>(async () => ({ ok: true })),
 );
 const resolveControlUiHandoffTarget = vi.hoisted(() =>
-  vi.fn(async (params: { config: OpenClawConfig }) => ({
+  vi.fn(async (params: { config: GrantedConfig }) => ({
     documentUrl: "http://127.0.0.1:18789/",
     tlsConfig: params.config.gateway?.tls,
   })),
@@ -107,16 +107,16 @@ const resolveSetupSecretInputString = vi.hoisted(() =>
   vi.fn<() => Promise<string | undefined>>(async () => undefined),
 );
 const resolveExistingKey = vi.hoisted(() =>
-  vi.fn<(config: OpenClawConfig, provider: string) => string | undefined>(() => undefined),
+  vi.fn<(config: GrantedConfig, provider: string) => string | undefined>(() => undefined),
 );
 const hasExistingKey = vi.hoisted(() =>
-  vi.fn<(config: OpenClawConfig, provider: string) => boolean>(() => false),
+  vi.fn<(config: GrantedConfig, provider: string) => boolean>(() => false),
 );
 const hasKeyInEnv = vi.hoisted(() =>
   vi.fn<(entry: Pick<PluginWebSearchProviderEntry, "envVars">) => boolean>(() => false),
 );
 const listConfiguredWebSearchProviders = vi.hoisted(() =>
-  vi.fn<(params?: { config?: OpenClawConfig }) => PluginWebSearchProviderEntry[]>(() => []),
+  vi.fn<(params?: { config?: GrantedConfig }) => PluginWebSearchProviderEntry[]>(() => []),
 );
 const hasAuthProfileForProvider = vi.hoisted(() =>
   vi.fn<
@@ -342,7 +342,7 @@ function createLaterPrompter() {
   });
 }
 
-function createEnabledFirecrawlSearchConfig(): OpenClawConfig {
+function createEnabledFirecrawlSearchConfig(): GrantedConfig {
   return {
     tools: {
       web: {
@@ -682,7 +682,7 @@ describe("finalizeSetupWizard", () => {
       documentUrl: "https://127.0.0.1:19876/dashboard/",
       tlsConfig,
     });
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       gateway: {
         port: 18789,
         bind: "loopback",
@@ -849,7 +849,7 @@ describe("finalizeSetupWizard", () => {
         defaults: { model: "openai/gpt-5.4-nano" },
         list: [{ id: "main", agentDir: "/tmp/custom-agent" }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await finalizeSetupWizard(createFinalizeArgs("quickstart", { prompter, nextConfig }));
 
@@ -1901,7 +1901,7 @@ describe("finalizeSetupWizard", () => {
       json?: boolean;
       timeoutMs?: number;
       token?: string;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
     };
     expect(healthArgs.json).toBe(false);
     expect(healthArgs.timeoutMs).toBe(10_000);
@@ -2112,7 +2112,7 @@ describe("finalizeSetupWizard", () => {
       timeoutMs?: number;
       token?: string;
       password?: string;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
     };
     expect(healthArgs.json).toBe(false);
     expect(healthArgs.timeoutMs).toBe(10_000);

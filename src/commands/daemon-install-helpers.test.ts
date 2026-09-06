@@ -5,7 +5,7 @@ import path from "node:path";
 import { Writable } from "node:stream";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { writeStateDirDotEnv } from "../config/test-helpers.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import {
   buildLaunchAgentPlist,
   readLaunchAgentProgramArgumentsFromFile,
@@ -703,7 +703,7 @@ describe("buildGatewayInstallPlan", () => {
       OPENAI_API_KEY: "bundled-openai",
       THIRD_PARTY_API_KEY: "ambient-third-party",
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         enabled: true,
         load: { paths: [pluginRoot] },
@@ -1650,7 +1650,7 @@ describe("buildGatewayInstallPlan — dotenv merge", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(plan.environment.TELEGRAM_DEFAULT_BOTTOKEN).toBe("telegram-shell-token");
@@ -1712,7 +1712,7 @@ describe("buildGatewayInstallPlan — dotenv merge", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(plan.environment.TELEGRAM_DEFAULT_BOTTOKEN).toBe("telegram-existing-env-file-token");
@@ -1780,7 +1780,7 @@ describe("buildGatewayInstallPlan — dotenv merge", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(plan.environment.GRANTED_GATEWAY_AUTH_TOKEN).toBe("gateway-existing-env-file-token");
@@ -2001,7 +2001,7 @@ describe("buildGatewayInstallPlan — dotenv merge", () => {
       platform: "darwin",
       existingEnvironment,
       existingEnvironmentValueSources,
-      config: { gateway: { auth } } as unknown as OpenClawConfig,
+      config: { gateway: { auth } } as unknown as GrantedConfig,
     });
 
     if (existingKey) {

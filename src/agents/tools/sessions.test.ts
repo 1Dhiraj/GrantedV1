@@ -14,7 +14,7 @@ import {
   getOwnedSessionTranscriptWriterFence,
   withOwnedSessionTranscriptWrites,
 } from "../../config/sessions/transcript-write-context.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { GatewayClientRequestError } from "../../gateway/client.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -78,8 +78,8 @@ vi.mock("../../plugin-sdk/facade-runtime.js", async () => {
 });
 
 type SessionsToolTestConfig = {
-  agents?: OpenClawConfig["agents"];
-  bindings?: OpenClawConfig["bindings"];
+  agents?: GrantedConfig["agents"];
+  bindings?: GrantedConfig["bindings"];
   session: {
     scope: "per-sender";
     mainKey: string;

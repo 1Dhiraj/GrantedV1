@@ -38,7 +38,7 @@ import {
   type MattermostWebSocketFactory,
 } from "./monitor-websocket.js";
 import { runWithReconnect } from "./reconnect.js";
-import type { ChannelAccountSnapshot, OpenClawConfig, RuntimeEnv } from "./runtime-api.js";
+import type { ChannelAccountSnapshot, GrantedConfig, RuntimeEnv } from "./runtime-api.js";
 import {
   createChannelPairingController,
   resolveAllowlistProviderRuntimeGroupPolicy,
@@ -53,7 +53,7 @@ type MonitorMattermostOpts = {
   botToken?: string;
   baseUrl?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   statusSink?: (patch: Partial<ChannelAccountSnapshot>) => void;
@@ -82,7 +82,7 @@ export async function monitorMattermostProvider(opts: MonitorMattermostOpts = {}
         throw new Error(`exit ${code}`);
       },
     } satisfies RuntimeEnv);
-  const cfg = (opts.config ?? core.config.current()) as OpenClawConfig;
+  const cfg = (opts.config ?? core.config.current()) as GrantedConfig;
   const account = resolveMattermostAccount({ cfg, accountId: opts.accountId });
   const pairing = createChannelPairingController({
     core,

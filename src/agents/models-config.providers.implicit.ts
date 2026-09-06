@@ -8,7 +8,7 @@ import {
   normalizeProviderId,
 } from "@openclaw/model-catalog-core/provider-id";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { ManifestModelIdNormalizationSource } from "../plugins/manifest-model-id-normalization.js";
@@ -61,9 +61,9 @@ const PLUGIN_DISCOVERY_ORDERS = ["simple", "profile", "paired", "late"] as const
 type ImplicitProviderParams = {
   agentDir: string;
   authStore?: AuthProfileStore;
-  config?: OpenClawConfig;
-  discoveryAuthConfig?: OpenClawConfig;
-  sourceConfigForSecrets?: OpenClawConfig;
+  config?: GrantedConfig;
+  discoveryAuthConfig?: GrantedConfig;
+  sourceConfigForSecrets?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   explicitProviders?: Record<string, ProviderConfig> | null;
@@ -102,7 +102,7 @@ function resolveLiveProviderCatalogTimeoutMs(env: NodeJS.ProcessEnv): number | n
 }
 
 function resolveProviderDiscoveryScope(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
   resolveOwners?: (provider: string) => readonly string[] | undefined;
@@ -153,7 +153,7 @@ function resolveProviderDiscoveryScope(params: {
 
 function buildProviderDiscoveryScope(params: {
   providerIds: readonly string[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
   resolveOwners?: (provider: string) => readonly string[] | undefined;
@@ -334,7 +334,7 @@ function resolveExistingImplicitProviderFromContext(params: {
 }
 
 function hasProviderWildcardVisibility(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   providerId: string;
 }): boolean {
   return parseConfiguredModelVisibilityEntries({ cfg: params.config }).providerWildcards.has(
@@ -496,7 +496,7 @@ async function resolvePluginImplicitProviders(
   return Object.keys(discovered).length > 0 ? discovered : undefined;
 }
 
-function buildPluginCatalogConfig(ctx: ImplicitProviderContext): OpenClawConfig {
+function buildPluginCatalogConfig(ctx: ImplicitProviderContext): GrantedConfig {
   if (!ctx.explicitProviders || Object.keys(ctx.explicitProviders).length === 0) {
     return ctx.config ?? {};
   }
@@ -626,7 +626,7 @@ export async function prepareImplicitProviderStaticCatalog(
 /** Resolve all implicit provider configs contributed by runtime plugin discovery. */
 export async function resolveImplicitProviders(
   params: ImplicitProviderParams,
-): Promise<NonNullable<OpenClawConfig["models"]>["providers"]> {
+): Promise<NonNullable<GrantedConfig["models"]>["providers"]> {
   const providers: Record<string, ProviderConfig> = {};
   const env = params.env ?? process.env;
   let authStore = params.authStore;

@@ -73,7 +73,7 @@ const CORE_TOOL_FACTORY_FAMILY_BY_NAME = new Map<string, CoreToolFactoryFamily>(
   CORE_TOOL_FACTORY_DESCRIPTORS.map(({ name, family }) => [name, family]),
 );
 
-export type OpenClawCodingToolConstructionPlan = {
+export type GrantedCodingToolConstructionPlan = {
   includeBaseCodingTools: boolean;
   includeShellTools: boolean;
   includeChannelTools: boolean;

@@ -1,6 +1,6 @@
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { noteCronJobsStoreCommit } from "../store.js";
 import { cronStoreKey } from "../store/key.js";
@@ -66,7 +66,7 @@ function exactReceiptMatches(
 
 function repairInDatabase(params: {
   state: CronServiceState;
-  database: OpenClawStateDatabase;
+  database: GrantedStateDatabase;
   proposal: CronRunRecoveryProposal;
   proposedReceiptIsStale: boolean;
   mode: "startup" | "reclaim";

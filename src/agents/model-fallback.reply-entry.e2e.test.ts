@@ -5,7 +5,7 @@ import type { MsgContext } from "../auto-reply/templating.js";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../config/config.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
@@ -113,7 +113,7 @@ describe("getReplyFromConfig fallback availability", () => {
       }
       const sessionKey = "agent:test:telegram:111";
       const storePath = path.join(path.dirname(agentDir), "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...baseConfig,
         agents: {
           ...baseConfig.agents,

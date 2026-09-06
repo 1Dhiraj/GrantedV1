@@ -1,9 +1,9 @@
-export type OpenClawSchemaVersions = {
+export type GrantedSchemaVersions = {
   state: number;
   agent: number;
 };
 
-export function parseOpenClawSchemaVersions(value: unknown): OpenClawSchemaVersions | undefined {
+export function parseOpenClawSchemaVersions(value: unknown): GrantedSchemaVersions | undefined {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return undefined;
   }
@@ -21,7 +21,7 @@ export function parseOpenClawSchemaVersions(value: unknown): OpenClawSchemaVersi
 
 export function parsePackageOpenClawSchemaVersions(
   packageJson: unknown,
-): OpenClawSchemaVersions | undefined {
+): GrantedSchemaVersions | undefined {
   if (!packageJson || typeof packageJson !== "object" || Array.isArray(packageJson)) {
     return undefined;
   }

@@ -9,7 +9,7 @@ import { createReadTool } from "openclaw/plugin-sdk/agent-sessions";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
 import "./test-helpers/fast-openclaw-tools.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createCanonicalFixtureSkill } from "../skills/test-support/test-helpers.js";
 import { createOpenClawCodingTools } from "./agent-tools.js";
 import {
@@ -142,7 +142,7 @@ describe("workspace path resolution", () => {
     "preserves mixed-case and Unicode names for workspace-only writes on Windows",
     async () => {
       await withTempDir("openclaw-windows-case-", async (workspaceDir) => {
-        const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+        const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
         const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
         const { writeTool } = expectReadWriteEditTools(tools);
 
@@ -193,7 +193,7 @@ describe("workspace path resolution", () => {
 
   it("rejects @-prefixed absolute paths outside workspace when workspaceOnly is enabled", async () => {
     await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
       const { readTool } = expectReadWriteEditTools(tools);
 
@@ -209,7 +209,7 @@ describe("workspace path resolution", () => {
       return;
     }
     await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
       const { readTool, writeTool } = expectReadWriteEditTools(tools);
       const outsidePath = path.join(
@@ -253,7 +253,7 @@ describe("workspace path resolution", () => {
         await fs.mkdir(realDir, { recursive: true });
         await fs.symlink(realDir, aliasDir);
 
-        const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+        const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
         const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
         const { writeTool } = expectReadWriteEditTools(tools);
 
@@ -280,7 +280,7 @@ describe("workspace path resolution", () => {
         await fs.symlink(realDir, aliasDir);
         await fs.writeFile(targetPath, "old memory\n", "utf8");
 
-        const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+        const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
         const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
         const { editTool } = expectReadWriteEditTools(tools);
 
@@ -305,7 +305,7 @@ describe("workspace path resolution", () => {
         await fs.mkdir(outsideDir, { recursive: true });
         await fs.symlink(outsideDir, aliasDir);
 
-        const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+        const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
         const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
         const { writeTool } = expectReadWriteEditTools(tools);
 
@@ -331,7 +331,7 @@ describe("workspace path resolution", () => {
         await fs.writeFile(targetPath, "original\n", "utf8");
         await fs.symlink(targetPath, linkPath);
 
-        const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+        const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
         const tools = createOpenClawCodingTools({ workspaceDir, config: cfg });
         const { writeTool } = expectReadWriteEditTools(tools);
 
@@ -363,7 +363,7 @@ describe("workspace path resolution", () => {
       await fs.writeFile(siblingFile, "sibling skill", "utf8");
       await fs.writeFile(outsideFile, "outside secret", "utf8");
 
-      const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({
         workspaceDir,
         config: cfg,
@@ -424,7 +424,7 @@ describe("workspace path resolution", () => {
       await fs.writeFile(outsideFile, "outside secret", "utf8");
       await fs.symlink(outsideFile, linkPath);
 
-      const cfg: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const cfg: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({
         workspaceDir,
         config: cfg,
@@ -500,7 +500,7 @@ const APPLY_PATCH_PAYLOAD = `*** Begin Patch
 +owned-by-apply-patch
 *** End Patch`;
 
-function resolveApplyPatchTool(params: { sandbox: UnsafeMountedSandbox; config: OpenClawConfig }) {
+function resolveApplyPatchTool(params: { sandbox: UnsafeMountedSandbox; config: GrantedConfig }) {
   return createApplyPatchTool({
     cwd: params.sandbox.workspaceDir,
     sandbox: { root: params.sandbox.workspaceDir, bridge: params.sandbox.fsBridge! },
@@ -779,7 +779,7 @@ describe("tools.fs.workspaceOnly", () => {
             allow: ["read", "write", "exec"],
             exec: { applyPatch: {} },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       await expect(applyPatchTool.execute("t1", { input: APPLY_PATCH_PAYLOAD })).rejects.toThrow(
@@ -801,7 +801,7 @@ describe("tools.fs.workspaceOnly", () => {
             allow: ["read", "write", "exec"],
             exec: { applyPatch: { workspaceOnly: false } },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       await applyPatchTool.execute("t2", { input: APPLY_PATCH_PAYLOAD });

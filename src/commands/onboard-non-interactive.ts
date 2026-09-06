@@ -10,7 +10,7 @@ import { ConfigMutationConflictError, replaceConfigFile } from "../config/config
 import { readConfigFileSnapshot } from "../config/io.js";
 import { logConfigUpdated } from "../config/logging.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { defaultRuntime } from "../runtime.js";
@@ -32,7 +32,7 @@ function isMigrationImport(opts: OnboardOptions): boolean {
 async function runNonInteractiveMigrationImport(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
 }) {
   const providerId = params.opts.importFrom?.trim();
   if (!providerId) {
@@ -106,7 +106,7 @@ async function runNonInteractiveSetupExclusive(opts: OnboardOptions, runtime: Ru
     return;
   }
 
-  const baseConfig: OpenClawConfig = snapshot.valid
+  const baseConfig: GrantedConfig = snapshot.valid
     ? snapshot.exists
       ? (snapshot.sourceConfig ?? snapshot.config)
       : {}

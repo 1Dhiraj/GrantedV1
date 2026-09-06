@@ -17,7 +17,7 @@ import {
   toDatabaseOptions,
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { resolveConfiguredAgentDatabaseTargets } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { migrateLegacyMediaPersistence } from "../infra/state-migrations.media-persistence.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
@@ -52,7 +52,7 @@ async function createStore(layout: "shared" | "custom") {
     "custom",
     layout === "shared" ? "shared.sqlite" : "sessions.json",
   );
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { ownership: "explicit", entries: { qa: {} } },
     session: { store: storePath },
   };
@@ -454,7 +454,7 @@ describe("Doctor canonical session SQLite targets", () => {
   it("includes the default SQLite target after its legacy file has been retired", async () => {
     const stateDir = fs.realpathSync.native(tempDirs.make("openclaw-doctor-default-store-"));
     const env = { GRANTED_STATE_DIR: stateDir };
-    const cfg: OpenClawConfig = { agents: { entries: { main: {} } } };
+    const cfg: GrantedConfig = { agents: { entries: { main: {} } } };
     await upsertSessionEntryCore(
       { agentId: "main", env, sessionKey: "agent:main:doctor" },
       { sessionId: "default-session", updatedAt: 1 },

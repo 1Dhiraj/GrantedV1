@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SlackMessageEvent } from "../../types.js";
 import type { SlackMediaResult } from "../media-types.js";
@@ -85,7 +85,7 @@ describe("Slack captionless audio preflight", () => {
 
   it("transcribes the first audio attachment and returns its ordered media index", async () => {
     transcribeFirstAudioMock.mockResolvedValue("Bill please review this");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const media: SlackMediaResult[] = [
       { path: "/tmp/image.png", contentType: "image/png", placeholder: "[image]" },
       { path: "/tmp/voice.mp4", contentType: "audio/mp4", placeholder: "[voice]" },

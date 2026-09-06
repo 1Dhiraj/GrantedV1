@@ -1,7 +1,7 @@
 /** Registry-bound plugin command selection and execution for native/channel surfaces. */
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { redactToolPayloadTextWithConfig } from "../logging/redact.js";
 import type { RegisteredPluginCommand } from "./command-registry-state.js";
 import { resolveManifestCommandAliasOwnerInRegistry } from "./manifest-command-aliases.js";
@@ -42,7 +42,7 @@ export type PluginCommandDispatchContext = Readonly<{
   sessionFile?: PluginCommandContext["sessionFile"];
   authProfileId?: string;
   commandBody: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   from?: PluginCommandContext["from"];
   to?: PluginCommandContext["to"];
   originatingTo?: string;

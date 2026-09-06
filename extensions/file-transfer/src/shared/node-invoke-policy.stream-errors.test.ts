@@ -1,6 +1,6 @@
 // File Transfer tests cover archive-policy failures through the node invoke policy.
 import crypto from "node:crypto";
-import type { OpenClawPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { projectBoundedTextTail } from "./append-bounded-text-tail.js";
 
@@ -49,10 +49,10 @@ function mockCommandResult(overrides: Record<string, unknown> = {}) {
   );
 }
 
-function createDirFetchContext(): OpenClawPluginNodeInvokePolicyContext {
+function createDirFetchContext(): GrantedPluginNodeInvokePolicyContext {
   const archive = Buffer.from("archive");
   const invokeNode = vi
-    .fn<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>()
+    .fn<GrantedPluginNodeInvokePolicyContext["invokeNode"]>()
     .mockResolvedValueOnce({
       ok: true,
       payload: {

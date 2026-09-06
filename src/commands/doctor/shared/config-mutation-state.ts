@@ -1,12 +1,12 @@
 // Shared doctor state helpers for previewing or applying config mutations.
 import { inheritLegacyDefaultAgentId } from "../../../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 
 export type DoctorConfigMutationState = {
   /** Config currently used for command execution. */
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   /** Best candidate config after pending doctor mutations. */
-  candidate: OpenClawConfig;
+  candidate: GrantedConfig;
   /** True when candidate differs from the persisted/effective config path. */
   pendingChanges: boolean;
   /** User-facing fix hints printed when preview mode leaves changes unapplied. */
@@ -15,7 +15,7 @@ export type DoctorConfigMutationState = {
 
 export type DoctorConfigMutationResult = {
   /** Candidate config after the mutation. */
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** User-facing change lines; empty means no mutation should be applied. */
   changes: string[];
 };

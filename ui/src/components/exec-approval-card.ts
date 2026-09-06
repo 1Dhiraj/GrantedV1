@@ -11,7 +11,7 @@ import type {
 import { t } from "../i18n/index.ts";
 import { formatCountdown } from "../lib/format.ts";
 import { resolveSessionDisplayName } from "../lib/session-display.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { PollController } from "../lit/poll-controller.ts";
 import { icons } from "./icons.ts";
 
@@ -48,7 +48,7 @@ export function approvalRemainingLabel(expiresAtMs: number, nowMs: number): stri
     : t("execApproval.expired");
 }
 
-class ApprovalCountdown extends OpenClawLightDomContentsElement {
+class ApprovalCountdown extends GrantedLightDomContentsElement {
   @property({ type: Number }) expiresAtMs = 0;
   @property({ type: Boolean }) compact = false;
 

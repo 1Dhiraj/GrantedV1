@@ -11,11 +11,11 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   closeOrphanedOperatorApprovals,
@@ -32,7 +32,7 @@ import {
   resolveOperatorApproval,
 } from "./operator-approval-store.js";
 
-type OperatorApprovalDatabase = Pick<OpenClawStateKyselyDatabase, "operator_approvals">;
+type OperatorApprovalDatabase = Pick<GrantedStateKyselyDatabase, "operator_approvals">;
 type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approval"];
 const OPERATOR_APPROVAL_TERMINAL_RETENTION_MS = 30 * 24 * 60 * 60_000;
 
@@ -43,7 +43,7 @@ function getOperatorApproval(params: Parameters<typeof getOperatorApprovalDetail
 
 const tempDirs: string[] = [];
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-operator-approval-")),
   );
@@ -102,7 +102,7 @@ function approval(id: string, overrides: Partial<NewOperatorApproval> = {}): New
   };
 }
 
-function rawApprovalRow(options: OpenClawStateDatabaseOptions, id: string) {
+function rawApprovalRow(options: GrantedStateDatabaseOptions, id: string) {
   const database = openOpenClawStateDatabase(options);
   const stateDb = getNodeSqliteKysely<OperatorApprovalDatabase>(database.db);
   return executeSqliteQueryTakeFirstSync(

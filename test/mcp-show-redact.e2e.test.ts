@@ -8,7 +8,7 @@ import { extractFirstTextBlock } from "../src/shared/chat-message-content.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../src/utils/message-channel.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const E2E_TIMEOUT_MS = 180_000;
@@ -72,7 +72,7 @@ async function waitForChatFinal(
 }
 
 describe("mcp show redaction e2e", () => {
-  const instances: OpenClawTestInstance[] = [];
+  const instances: GrantedTestInstance[] = [];
 
   afterAll(async () => {
     for (const instance of instances) {

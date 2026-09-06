@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import type {
   WorkerDesktopEndpoint,
   WorkerNodeEnrollment,
@@ -13,7 +13,7 @@ import type {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type { WorkerInstallationArtifact } from "./bundle.js";
 import type { WorkerConnectionIdentity } from "./connection-identity.js";
@@ -105,10 +105,10 @@ type LiveOpts = Partial<Pick<LiveEventRequest, "lastAckedSeq" | "runEpoch" | "ru
 
 export const testState = {} as {
   root: string;
-  stateDb: OpenClawStateDatabase;
+  stateDb: GrantedStateDatabase;
   store: WorkerEnvironmentStore;
   service: WorkerEnvironmentService | undefined;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   nowMs: number;
   providersEnabled: boolean;
   prepareInstallation: WorkerEnvironmentServiceOptions["prepareInstallation"];

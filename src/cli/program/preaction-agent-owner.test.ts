@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { tryResolveLegacyCompatibilityAgentId } from "../../agents/agent-scope-config.js";
 import { createDoctorConfigSnapshot } from "../../commands/doctor-config-snapshot.test-helpers.js";
 import type { ConfigFileSnapshot } from "../../config/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   ensureConfigReady:
@@ -66,7 +66,7 @@ describe("preaction migration agent owner", () => {
     async (_label, argv, expected) => {
       const config = {
         agents: { ownership: "explicit", entries: { main: {}, work: {} } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       mocks.ensureConfigReady.mockImplementationOnce(async (options) => {
         await options.beforeStateMigrations?.(createDoctorConfigSnapshot({ config }));
       });

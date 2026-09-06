@@ -17,7 +17,7 @@ import { validatePluginSchemaValue } from "../plugins/schema-validator.js";
 import { hasKind } from "../plugins/slots.js";
 import { isRecord, resolveUserPath } from "../utils.js";
 import { shouldSuppressMissingCodexPluginDiagnostics } from "./codex-plugin-diagnostics.js";
-import type { ConfigValidationIssue, OpenClawConfig } from "./types.js";
+import type { ConfigValidationIssue, GrantedConfig } from "./types.js";
 
 const LEGACY_REMOVED_PLUGIN_IDS = new Set([
   "google-antigravity-auth",
@@ -131,7 +131,7 @@ function formatMissingOfficialExternalPluginWarning(
 
 export function validateExplicitPluginConfig(params: {
   raw: unknown;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   applyDefaults: boolean;
   registry: PluginManifestRegistry;
@@ -260,7 +260,7 @@ export function validateExplicitPluginConfig(params: {
       shouldSuppressMissingCodexPluginDiagnostics(
         config,
         env ?? process.env,
-        isRecord(raw) ? (raw as OpenClawConfig) : undefined,
+        isRecord(raw) ? (raw as GrantedConfig) : undefined,
       )
     ) {
       return;

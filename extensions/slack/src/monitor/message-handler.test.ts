@@ -1,6 +1,6 @@
 // Slack tests cover message handler plugin behavior.
 import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
@@ -79,7 +79,7 @@ vi.mock("./message-handler/pipeline.runtime.js", () => ({
 }));
 
 function createContext(overrides?: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   rememberSlackChannelType?: (
     channel: string | null | undefined,
     channelType: string | null | undefined,
@@ -144,8 +144,8 @@ describe("createSlackMessageHandler", () => {
   });
 
   it("uses the latest runtime config for messages without restarting the monitor", async () => {
-    const startupConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "max" } } };
-    const updatedConfig: OpenClawConfig = {
+    const startupConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "max" } } };
+    const updatedConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "ultra", fastModeDefault: true } },
     };
     const context = createContext({ cfg: startupConfig });
@@ -179,8 +179,8 @@ describe("createSlackMessageHandler", () => {
   });
 
   it("keeps cached runtime contexts synchronized with mutable monitor state", async () => {
-    const startupConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "max" } } };
-    const runtimeConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "ultra" } } };
+    const startupConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "max" } } };
+    const runtimeConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "ultra" } } };
     const initialChannels = { C_OLD: { enabled: true } };
     const resolvedChannels = { C_RESOLVED: { enabled: true } };
     const context = createContext({ cfg: startupConfig });
@@ -243,11 +243,11 @@ describe("createSlackMessageHandler", () => {
       messageTs: "1709000000.009005",
     },
   ])("preserves explicit monitor config $label", async ({ includeSourceSnapshot, messageTs }) => {
-    const explicitConfig: OpenClawConfig = {
+    const explicitConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "ultra" } },
       messages: { responsePrefix: "scoped" },
     };
-    const unrelatedRuntimeConfig: OpenClawConfig = {
+    const unrelatedRuntimeConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "low" } },
     };
     setRuntimeConfigSnapshot(
@@ -281,13 +281,13 @@ describe("createSlackMessageHandler", () => {
   });
 
   it("follows runtime updates when the monitor config matches the runtime source", async () => {
-    const startupSourceConfig: OpenClawConfig = {
+    const startupSourceConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "max" } },
     };
-    const startupRuntimeConfig: OpenClawConfig = {
+    const startupRuntimeConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "max", fastModeDefault: false } },
     };
-    const updatedRuntimeConfig: OpenClawConfig = {
+    const updatedRuntimeConfig: GrantedConfig = {
       agents: { defaults: { thinkingDefault: "ultra", fastModeDefault: true } },
     };
     setRuntimeConfigSnapshot(startupRuntimeConfig, startupSourceConfig);
@@ -322,9 +322,9 @@ describe("createSlackMessageHandler", () => {
   });
 
   it("keeps each in-flight message on its captured config snapshot", async () => {
-    const startupConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "max" } } };
-    const firstConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "high" } } };
-    const secondConfig: OpenClawConfig = { agents: { defaults: { thinkingDefault: "ultra" } } };
+    const startupConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "max" } } };
+    const firstConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "high" } } };
+    const secondConfig: GrantedConfig = { agents: { defaults: { thinkingDefault: "ultra" } } };
     const context = createContext({ cfg: startupConfig });
     const handler = createSlackMessageHandler({
       ctx: context,

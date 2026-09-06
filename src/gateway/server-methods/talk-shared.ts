@@ -8,7 +8,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { resolveRealtimeBootstrapContextInstructions } from "../../agents/realtime-bootstrap-context.js";
 import type { TalkRealtimeConfig } from "../../config/types.gateway.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import type { RealtimeVoiceProviderPlugin } from "../../plugins/types.js";
 import {
   getRealtimeTranscriptionProvider,
@@ -62,7 +62,7 @@ export function normalizeTalkSessionBrain(params: { mode: TalkMode; brain?: stri
 }
 
 export async function resolveTalkRealtimeProviderInstructions(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   configuredInstructions?: string;
   sessionKey: string;
@@ -124,7 +124,7 @@ function normalizeRealtimeTransport(value: unknown): TalkRealtimeConfig["transpo
 }
 
 function getVoiceCallProviderConfig<TConfig extends Record<string, unknown>>(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   sectionName: "realtime" | "streaming",
 ): {
   provider?: string;
@@ -151,14 +151,14 @@ function getVoiceCallProviderConfig<TConfig extends Record<string, unknown>>(
   };
 }
 
-function getVoiceCallRealtimeConfig(config: OpenClawConfig): {
+function getVoiceCallRealtimeConfig(config: GrantedConfig): {
   provider?: string;
   providers?: Record<string, RealtimeVoiceProviderConfig>;
 } {
   return getVoiceCallProviderConfig(config, "realtime");
 }
 
-function getVoiceCallStreamingConfig(config: OpenClawConfig): {
+function getVoiceCallStreamingConfig(config: GrantedConfig): {
   provider?: string;
   providers?: Record<string, RealtimeTranscriptionProviderConfig>;
 } {
@@ -166,7 +166,7 @@ function getVoiceCallStreamingConfig(config: OpenClawConfig): {
 }
 
 export function listTalkTranscriptionProviders(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   configuredProviderIds: Iterable<string | undefined>,
 ) {
   const providers = listRealtimeTranscriptionProviders(config);
@@ -187,12 +187,12 @@ export function listTalkTranscriptionProviders(
 }
 
 type RealtimeProviderWithConfig<TConfig extends Record<string, unknown>> = VoiceModelProvider & {
-  resolveConfig?: (ctx: { cfg: OpenClawConfig; rawConfig: TConfig }) => TConfig;
-  isConfigured: (ctx: { cfg: OpenClawConfig; providerConfig: TConfig }) => boolean;
+  resolveConfig?: (ctx: { cfg: GrantedConfig; rawConfig: TConfig }) => TConfig;
+  isConfigured: (ctx: { cfg: GrantedConfig; providerConfig: TConfig }) => boolean;
 };
 
 function resolveConfiguredVoiceModelDefaultRef<TConfig extends Record<string, unknown>>(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   provider: string | undefined;
   providerConfigs: Record<string, TConfig>;
   providers: readonly RealtimeProviderWithConfig<TConfig>[];
@@ -234,7 +234,7 @@ function resolveConfiguredVoiceModelDefaultRef<TConfig extends Record<string, un
 }
 
 export function buildTalkRealtimeConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   requestedProvider?: string,
   requestedModel?: string,
 ) {
@@ -300,7 +300,7 @@ export function buildTalkRealtimeConfig(
 }
 
 export function buildTalkTranscriptionConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   requestedProvider?: string,
   requestedModel?: string,
 ) {
@@ -331,7 +331,7 @@ export function configuredOrFalse(callback: () => boolean): boolean {
 }
 
 export function resolveConfiguredRealtimeTranscriptionProvider(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   configuredProviderId?: string;
   providerConfigs: Record<string, RealtimeTranscriptionProviderConfig>;
   requestedModel?: string;
@@ -454,7 +454,7 @@ function withRealtimeBrowserOverrides(
 export function resolveTalkRealtimeGatewayRelayLaunch(params: {
   provider: RealtimeVoiceProviderPlugin;
   providerConfig: RealtimeVoiceProviderConfig;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   launchOptions: RealtimeVoiceLaunchOptions;
   consultRouting?: string;
 }) {

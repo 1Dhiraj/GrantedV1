@@ -1,7 +1,7 @@
 // The spend guard must block the call itself, and must fail over per provider
 // rather than ending the whole fallback chain.
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetSpendLimitReadingsForTests } from "../infra/spend-limit.js";
 import type { StreamFn } from "./runtime/index.js";
 import { wrapStreamFnSpendLimit } from "./spend-limit-stream.js";
@@ -16,8 +16,8 @@ vi.mock("../infra/session-cost-usage-cache-runtime.js", () => ({
   })),
 }));
 
-const cfg = (defaults: Record<string, unknown>): OpenClawConfig =>
-  ({ agents: { defaults } }) as unknown as OpenClawConfig;
+const cfg = (defaults: Record<string, unknown>): GrantedConfig =>
+  ({ agents: { defaults } }) as unknown as GrantedConfig;
 
 const inner = (() => Promise.resolve("streamed")) as unknown as StreamFn;
 

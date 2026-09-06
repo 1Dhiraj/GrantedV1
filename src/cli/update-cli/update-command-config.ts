@@ -14,7 +14,7 @@ import { resolveConfigIncludes } from "../../config/includes.js";
 import { asResolvedSourceConfig, asRuntimeConfig } from "../../config/materialize.js";
 import { resolveConfigPath, resolveIncludeRoots } from "../../config/paths.js";
 import { parsePluginInstallRecordMap } from "../../config/plugin-install-record-map.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import { shouldWarnOnTouchedVersion } from "../../config/version.js";
 import { normalizeUpdateChannel, type UpdateChannel } from "../../infra/update-channels.js";
@@ -147,7 +147,7 @@ export function restoreDroppedPreUpdateChannels(
   const authoredChannels = resolveRestoredAuthoredChannels({
     currentChannels: snapshot.sourceConfig.channels,
     currentAuthoredChannels: isRecord(snapshot.parsed)
-      ? (snapshot.parsed as OpenClawConfig).channels
+      ? (snapshot.parsed as GrantedConfig).channels
       : snapshot.sourceConfig.channels,
     preUpdateAuthoredChannels: preUpdateConfig.authoredConfig.channels,
     restoredChannelIds,
@@ -155,7 +155,7 @@ export function restoreDroppedPreUpdateChannels(
   const nextConfig = {
     ...snapshot.sourceConfig,
     channels: restoredChannels,
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return {
     snapshot: {
       ...createUpdatedConfigSnapshot(snapshot, nextConfig),
@@ -285,7 +285,7 @@ export async function persistRequestedUpdateChannel(params: {
 
 function createUpdatedConfigSnapshot(
   snapshot: Awaited<ReturnType<typeof readConfigFileSnapshot>>,
-  next: OpenClawConfig,
+  next: GrantedConfig,
 ): Awaited<ReturnType<typeof readConfigFileSnapshot>> {
   if (!snapshot.valid) {
     return snapshot;
@@ -354,11 +354,11 @@ function normalizePreUpdateConfigRestoreInput(
   const authoredConfig = parsed.authoredConfig;
   if (isRecord(sourceConfig) && isRecord(authoredConfig)) {
     return {
-      sourceConfig: sourceConfig as OpenClawConfig,
-      authoredConfig: authoredConfig as OpenClawConfig,
+      sourceConfig: sourceConfig as GrantedConfig,
+      authoredConfig: authoredConfig as GrantedConfig,
     };
   }
-  const authored = parsed as OpenClawConfig;
+  const authored = parsed as GrantedConfig;
   return {
     sourceConfig: options?.configPath
       ? resolvePreUpdateSourceConfigFromAuthored(authored, options.configPath)
@@ -368,9 +368,9 @@ function normalizePreUpdateConfigRestoreInput(
 }
 
 function resolvePreUpdateSourceConfigFromAuthored(
-  authoredConfig: OpenClawConfig,
+  authoredConfig: GrantedConfig,
   configPath: string,
-): OpenClawConfig {
+): GrantedConfig {
   try {
     const withIncludes = resolveConfigIncludes(authoredConfig, configPath, undefined, {
       allowedRoots: resolveIncludeRoots(process.env),
@@ -378,7 +378,7 @@ function resolvePreUpdateSourceConfigFromAuthored(
     const resolved = resolveConfigEnvVars(withIncludes, process.env, {
       onMissing: () => undefined,
     });
-    return isRecord(resolved) ? (resolved as OpenClawConfig) : authoredConfig;
+    return isRecord(resolved) ? (resolved as GrantedConfig) : authoredConfig;
   } catch {
     return authoredConfig;
   }

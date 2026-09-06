@@ -3,7 +3,7 @@ import { isDeepStrictEqual } from "node:util";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
 import { isSameOpenClawAgentDatabasePath } from "../../state/openclaw-agent-db-registry.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type {
   LegacyMainSessionMigrationMode,
   LegacyMainSessionMigrationOutcome,
@@ -61,7 +61,7 @@ export function claimsMatch(left: SessionClaim, right: SessionClaim): boolean {
 }
 
 export function readClaim(
-  database: Pick<OpenClawAgentDatabase, "agentId" | "db" | "path">,
+  database: Pick<GrantedAgentDatabase, "agentId" | "db" | "path">,
   store: PhysicalStore,
   key: string,
   canonicalKey: string,
@@ -113,7 +113,7 @@ export function warningForDivergence(
 }
 
 function writeMigratedSessionClaim(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   entry: SessionEntry,
 ): void {
@@ -131,7 +131,7 @@ function mutateLegacySessionClaims<T>(
     claims: readonly SessionClaim[];
     operationLabel: string;
   },
-  commit: (database: OpenClawAgentDatabase) => T,
+  commit: (database: GrantedAgentDatabase) => T,
 ): Promise<T> {
   const scope = {
     agentId: params.store.databaseAgentId,

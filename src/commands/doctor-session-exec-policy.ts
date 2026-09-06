@@ -3,7 +3,7 @@ import { resolveAgentConfig, resolveSessionAgentId } from "../agents/agent-scope
 import { resolveExecTarget } from "../agents/bash-tools.exec-runtime.js";
 import { SESSION_PERMISSION_BY_EXEC_MODE } from "../agents/session-permission-exec-mode.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   normalizeExecAsk,
   normalizeExecSecurity,
@@ -18,7 +18,7 @@ type LegacySessionEntry = SessionEntry & { execSecurity?: unknown; execAsk?: unk
 /** Retires session exec overrides without granting the full-mode approval-floor bypass. */
 export function repairLegacySessionExecPolicy(params: {
   apply: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): void {
   const messages: string[] = [];

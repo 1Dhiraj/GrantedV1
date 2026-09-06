@@ -10,7 +10,7 @@ import {
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import {
   createPluginSessionStateDoctorScanner,
@@ -53,7 +53,7 @@ vi.mock("../plugins/doctor-contract-registry.js", async () => {
 
 async function runDoctor(params: {
   agentId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: Record<string, SessionEntry>;
   confirm?: boolean;
   env?: NodeJS.ProcessEnv;
@@ -154,7 +154,7 @@ describe("doctor session state provider routes", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
 
@@ -187,7 +187,7 @@ describe("doctor session state provider routes", () => {
         },
       },
       session: { scope: "global" },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ agentId: "ops", cfg, store });
 
@@ -218,7 +218,7 @@ describe("doctor session state provider routes", () => {
     };
     const cfg = {
       agents: { defaults: { model: { primary: "github-copilot/gpt-5-mini" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
     const repaired = result.store[sessionKey] as unknown as Record<string, unknown>;
@@ -259,7 +259,7 @@ describe("doctor session state provider routes", () => {
     };
     const cfg = {
       agents: { defaults: { model: { primary: "anthropic/claude-sonnet-4-6" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
     const repaired = result.store[sessionKey];
@@ -308,7 +308,7 @@ describe("doctor session state provider routes", () => {
         defaults: { model: { primary: "github-copilot/gpt-5-mini" } },
         entries: { main: {}, ops: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     try {
       await upsertSessionEntryCore(
         {
@@ -359,7 +359,7 @@ describe("doctor session state provider routes", () => {
     };
     const cfg = {
       agents: { defaults: { model: { primary: "github-copilot/gpt-5-mini" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
 
@@ -389,7 +389,7 @@ describe("doctor session state provider routes", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
     const repaired = result.store[sessionKey] as unknown as Record<string, unknown>;
@@ -434,7 +434,7 @@ describe("doctor session state provider routes", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await runDoctor({ cfg, store });
 

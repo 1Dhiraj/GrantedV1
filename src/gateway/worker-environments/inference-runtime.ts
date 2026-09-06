@@ -45,7 +45,7 @@ import {
 } from "../../agents/simple-completion-runtime.js";
 import { normalizeUsage, hasObservedModelUsage } from "../../agents/usage.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { emitTrustedDiagnosticEvent, isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
 import { resolveDiagnosticModelContentCapturePolicy } from "../../infra/diagnostic-llm-content.js";
 import {
@@ -85,7 +85,7 @@ type WorkerInferenceSessionTarget = Pick<
 > & { agentId: string };
 
 type WorkerInferenceUsageParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   target: WorkerInferenceSessionTarget;
   request: WorkerInferenceStartParams;
   model: Model;
@@ -97,7 +97,7 @@ type WorkerInferenceUsageParams = {
 type WorkerInferenceRuntimeDependencies = {
   now: () => number;
   resolveSessionTarget: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     sessionId: string,
   ) => WorkerInferenceSessionTarget | undefined;
   acquireRuntimeLease: typeof acquireAgentRunPreparedModelRuntime;
@@ -341,7 +341,7 @@ const DEFAULT_DEPENDENCIES: WorkerInferenceRuntimeDependencies = {
 };
 
 async function resolveApprovedModel(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   target: WorkerInferenceSessionTarget;
   request: WorkerInferenceStartParams;
   dependencies: WorkerInferenceRuntimeDependencies;
@@ -349,7 +349,7 @@ async function resolveApprovedModel(params: {
   | {
       provider: string;
       model: string;
-      config: OpenClawConfig;
+      config: GrantedConfig;
       agentDir: string;
       workspaceDir: string;
       prepared: PreparedSimpleCompletionModel;

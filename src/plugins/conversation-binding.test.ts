@@ -8,7 +8,7 @@ import type {
   SessionBindingRecord,
 } from "../infra/outbound/session-binding-service.js";
 import { drainGlobalSingletonLifecycleState } from "../shared/global-singleton.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import * as openClawStateDb from "../state/openclaw-state-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -24,7 +24,7 @@ const tempDirs: string[] = [];
 const tempRoot = makeTrackedTempDir("openclaw-plugin-binding", tempDirs);
 const previousStateDir = process.env.GRANTED_STATE_DIR;
 
-type PluginBindingApprovalsDatabase = Pick<OpenClawStateKyselyDatabase, "plugin_binding_approvals">;
+type PluginBindingApprovalsDatabase = Pick<GrantedStateKyselyDatabase, "plugin_binding_approvals">;
 
 const sessionBindingState = vi.hoisted(() => {
   const records = new Map<string, SessionBindingRecord>();

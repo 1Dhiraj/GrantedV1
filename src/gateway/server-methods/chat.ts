@@ -7,7 +7,7 @@ import {
 } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { resolveSessionWorkStartError } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
 import {
   projectChatDisplayMessage,
@@ -112,7 +112,7 @@ export const chatHandlers: GatewayRequestHandlers = {
     const rawSessionKey = p.sessionKey;
     const agentIdOverride = normalizeOptionalText(p.agentId);
     const requestedAgent = resolveRequestedChatAgentId({
-      cfg: (context as { getRuntimeConfig?: () => OpenClawConfig }).getRuntimeConfig?.(),
+      cfg: (context as { getRuntimeConfig?: () => GrantedConfig }).getRuntimeConfig?.(),
       requestedSessionKey: rawSessionKey,
       agentId: agentIdOverride,
     });

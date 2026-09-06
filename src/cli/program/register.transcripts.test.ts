@@ -5,7 +5,7 @@ import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -110,7 +110,7 @@ describe("transcripts CLI", () => {
       env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const db = getNodeSqliteKysely<
-      Pick<OpenClawStateKyselyDatabase, "meeting_transcript_summaries">
+      Pick<GrantedStateKyselyDatabase, "meeting_transcript_summaries">
     >(database.db);
     executeSqliteQuerySync(
       database.db,
@@ -163,7 +163,7 @@ describe("transcripts CLI", () => {
       env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const db = getNodeSqliteKysely<
-      Pick<OpenClawStateKyselyDatabase, "meeting_transcript_summaries">
+      Pick<GrantedStateKyselyDatabase, "meeting_transcript_summaries">
     >(database.db);
     executeSqliteQuerySync(
       database.db,

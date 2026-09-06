@@ -1,7 +1,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import { resolveThinkingProfile } from "../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderModelRouteCandidate } from "../plugin-sdk/provider-model-types.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
 import * as activeThinkingPolicy from "../plugins/provider-thinking-active.js";
@@ -274,7 +274,7 @@ describe("projectModelCatalogEntryForRoute", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const overrides = resolveConfiguredModelCatalogOverrides({ cfg, entry: platformEntry });
 
     expect(
@@ -304,7 +304,7 @@ describe("projectModelCatalogEntryForRoute", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(resolveConfiguredModelCatalogOverrides({ cfg, entry: platformEntry })).toEqual({
       reasoning: false,
@@ -324,7 +324,7 @@ describe("projectModelCatalogEntryForRoute", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const canonicalPolicy: ModelCatalogRoutePolicy = {
       ...routePolicy,
       resolveIdentity: (entry) => {
@@ -351,7 +351,7 @@ describe("projectModelCatalogEntryForRoute", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const literalEntry = { ...platformEntry, id: "openai/acme-model" };
 
     expect(

@@ -11,7 +11,7 @@ import {
   type AuthProfileStore,
 } from "../../agents/auth-profiles.js";
 import { NON_ENV_SECRETREF_MARKER } from "../../agents/model-auth-markers.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   resetConfigRuntimeState,
   setRuntimeConfigSnapshot,
@@ -1140,14 +1140,14 @@ describe("models.authStatus", () => {
       models: sourceProvider.models,
       apiKey: "runtime-secret-value",
     };
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       models: {
         providers: {
           openai: sourceProvider,
         },
       },
     };
-    const runtimeConfig: OpenClawConfig = { models: { providers: { openai: runtimeProvider } } };
+    const runtimeConfig: GrantedConfig = { models: { providers: { openai: runtimeProvider } } };
     setRuntimeConfigSnapshot(runtimeConfig, sourceConfig);
     mocks.getRuntimeConfig.mockReturnValue(runtimeConfig);
     mocks.buildAuthHealthSummary.mockReturnValue({

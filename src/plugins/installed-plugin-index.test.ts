@@ -20,7 +20,7 @@ import {
 } from "./installed-plugin-index.js";
 import { recordPluginInstall } from "./installs.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { createPluginCache, withPluginCache } from "./plugin-cache.js";
 import { cleanupTrackedTempDirs, makeTrackedTempDir } from "./test-helpers/fs-fixtures.js";
 
@@ -96,7 +96,7 @@ function createPluginCandidate(params: {
   packageName?: string;
   packageVersion?: string;
   packageDir?: string;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
   format?: PluginCandidate["format"];
   bundleFormat?: PluginCandidate["bundleFormat"];
   installOwner?: string;

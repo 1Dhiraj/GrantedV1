@@ -7,7 +7,7 @@
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { z } from "zod";
 import type { AgentModelConfig } from "../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildExecAutoReviewFailureDecision,
   defaultExecAutoReviewer,
@@ -353,7 +353,7 @@ async function raceWithReviewerTimeout<T>(
 
 /** Creates an exec auto-reviewer that uses a configured model when available. */
 export function createModelExecAutoReviewer(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   reviewer?: ExecReviewerConfig;
   deps?: ExecReviewerDeps;

@@ -25,7 +25,7 @@ import { runPluginRegisterSyncInRegistry } from "../loader-module-runtime.js";
 import { createEmptyPluginRegistry } from "../registry-empty.js";
 import { setActivePluginRegistry } from "../runtime.js";
 import { createPluginRecord } from "../status.test-helpers.js";
-import type { OpenClawPluginApi } from "../types.js";
+import type { GrantedPluginApi } from "../types.js";
 
 const PLUGIN_HOST_CLEANUP_TIMEOUT_MS = 5_000;
 
@@ -60,7 +60,7 @@ describe("plugin run context lifecycle", () => {
 
   it("keeps run-context APIs callable after registration closes", () => {
     const { config, registry } = createPluginRegistryFixture();
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,
@@ -110,7 +110,7 @@ describe("plugin run context lifecycle", () => {
 
   it("blocks stale plugin API run-context access after registry replacement", () => {
     const { config, registry } = createPluginRegistryFixture();
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,
@@ -160,7 +160,7 @@ describe("plugin run context lifecycle", () => {
 
   it("allows run-context mutations after a previous registry is restored active", () => {
     const { config, registry } = createPluginRegistryFixture();
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,
@@ -227,7 +227,7 @@ describe("plugin run context lifecycle", () => {
   it("keeps restored active registry state after stale async cleanup finishes", async () => {
     let releaseCleanup: (() => void) | undefined;
     let markCleanupStarted: (() => void) | undefined;
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     const cleanupStarted = new Promise<void>((resolve) => {
       markCleanupStarted = resolve;
     });

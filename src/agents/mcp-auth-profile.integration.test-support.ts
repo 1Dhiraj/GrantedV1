@@ -5,7 +5,7 @@ import { createServer, type IncomingHttpHeaders } from "node:http";
 import { registerHooks } from "node:module";
 import path from "node:path";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { AuthProfileStore, OAuthCredential } from "./auth-profiles/types.js";
 
 const PLUGIN_ID = "mcp-proof-owner";
@@ -13,7 +13,7 @@ const PROVIDER_ID = "mcp-proof-provider";
 const EXTERNAL_PROFILE = `${PROVIDER_ID}:external`;
 const STORED_PROFILE = `${PROVIDER_ID}:stored`;
 const OBSERVER_KEY: unique symbol = Symbol.for("openclaw.mcpAuthIntegrationObserver");
-type HookContext = { config?: OpenClawConfig; agentDir?: string };
+type HookContext = { config?: GrantedConfig; agentDir?: string };
 type ProviderEvent = { kind: string; owner: string };
 type FixtureGlobal = typeof globalThis & {
   [OBSERVER_KEY]?: (kind: string, owner: string, context?: HookContext) => void;
@@ -101,7 +101,7 @@ module.exports = {
 };
 `,
   );
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     plugins: {
       allow: [PLUGIN_ID],
       load: { paths: [source] },

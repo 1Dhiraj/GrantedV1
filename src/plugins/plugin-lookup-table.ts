@@ -1,6 +1,6 @@
 /** Builds plugin lookup tables keyed by manifest ids, channels, providers, and commands. */
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createGatewayStartupMetadataPluginIdScope,
   resolveGatewayStartupPluginPlanFromRegistry,
@@ -25,8 +25,8 @@ export type PluginLookUpTable = PluginMetadataSnapshot & {
 };
 
 type LoadPluginLookUpTableParams = {
-  config: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
   index?: PluginRegistrySnapshot;

@@ -1,6 +1,6 @@
 // Full-entry coverage for before_agent_reply hook handling before embedded attempts.
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedGlobalHookRunner,
@@ -10,7 +10,7 @@ import {
 } from "./run.overflow-compaction.harness.js";
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 
 function firstBeforeAgentReplyCall() {

@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ActivateSetupInferenceDeps } from "../system-agent/setup-inference-core.js";
 import { verifySetupInferenceConfig } from "../system-agent/setup-inference-verify.js";
 import type { WizardPrompter } from "./prompts.js";
@@ -50,7 +50,7 @@ describe("offerLiveModelVerification", () => {
 
   it.each<{
     label: string;
-    roster: NonNullable<OpenClawConfig["agents"]>;
+    roster: NonNullable<GrantedConfig["agents"]>;
     owner: string | undefined;
     harness: "codex" | "openclaw" | undefined;
   }>([
@@ -76,7 +76,7 @@ describe("offerLiveModelVerification", () => {
     },
   ])("keeps $label runtime-only during verification", async ({ roster, owner, harness }) => {
     const root = await fs.realpath(tempRoots.make("openclaw-staged-verification-"));
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ...roster,
         defaults: {
@@ -108,7 +108,7 @@ describe("offerLiveModelVerification", () => {
     mocks.verify.mockImplementation((params: Parameters<typeof verifySetupInferenceConfig>[0]) =>
       verifySetupInferenceConfig({ ...params, deps: { ...params.deps, runEmbeddedAgent } }),
     );
-    const writeConfig = vi.fn(async (next: OpenClawConfig) => next);
+    const writeConfig = vi.fn(async (next: GrantedConfig) => next);
     const persistAuthProfiles = vi.fn(async () => {});
     const verification = offerLiveModelVerification({
       config,
@@ -193,7 +193,7 @@ describe("offerLiveModelVerification", () => {
   });
 
   it("reports when a repair candidate persisted its verified config", async () => {
-    const repairedConfig: OpenClawConfig = {
+    const repairedConfig: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
       models: {
         providers: {

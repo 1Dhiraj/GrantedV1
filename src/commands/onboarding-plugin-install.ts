@@ -13,7 +13,7 @@ import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { resolveBundledInstallPlanForCatalogEntry } from "../cli/plugin-install-plan.js";
 import { assertConfigWriteAllowedInCurrentMode } from "../config/nix-mode-write-guard.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
 import { parseRegistryNpmSpec } from "../infra/npm-registry-spec.js";
 import { isPathInside } from "../infra/path-guards.js";
@@ -102,7 +102,7 @@ export type OnboardingPluginInstallStatus = "installed" | "skipped" | "failed" |
 
 /** Config and status returned after attempting an onboarding plugin install. */
 type OnboardingPluginInstallResult = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   installed: boolean;
   pluginId: string;
   status: OnboardingPluginInstallStatus;
@@ -111,7 +111,7 @@ type OnboardingPluginInstallResult = {
 };
 
 function incompletePluginInstall(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   pluginId: string,
   status: Exclude<OnboardingPluginInstallStatus, "installed">,
   error?: string,
@@ -120,7 +120,7 @@ function incompletePluginInstall(
 }
 
 async function markOnboardingPluginInstalled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginId: string;
   runtime: RuntimeEnv;
 }): Promise<OnboardingPluginInstallResult & { installed: true }> {
@@ -204,7 +204,7 @@ function hasGitWorkspace(workspaceDir?: string): boolean {
   return roots.some((root) => hasTrustedGitWorkspace(root));
 }
 
-function addPluginLoadPath(cfg: OpenClawConfig, pluginPath: string): OpenClawConfig {
+function addPluginLoadPath(cfg: GrantedConfig, pluginPath: string): GrantedConfig {
   const existing = cfg.plugins?.load?.paths ?? [];
   const merged = uniqueStrings([...existing, pluginPath]);
   return {
@@ -343,7 +343,7 @@ function resolveClawHubSpecForOnboarding(install: PluginPackageInstall): string 
 }
 
 function resolveInstallDefaultChoice(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   localPath?: string | null;
   bundledLocalPath?: string | null;
@@ -556,7 +556,7 @@ function isTimeoutError(error: unknown): boolean {
 }
 
 async function applyPluginEnablement(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginId: string;
   label: string;
   prompter: WizardPrompter;
@@ -579,13 +579,13 @@ async function applyPluginEnablement(params: {
 }
 
 async function finishOnboardingPluginInstall(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginId: string;
   label: string;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;
   install?: Parameters<typeof recordPluginInstall>[1];
-  prepareConfig?: (cfg: OpenClawConfig) => OpenClawConfig | Promise<OpenClawConfig>;
+  prepareConfig?: (cfg: GrantedConfig) => GrantedConfig | Promise<GrantedConfig>;
 }): Promise<OnboardingPluginInstallResult> {
   const enableResult = await applyPluginEnablement(params);
   if (!enableResult.enabled) {
@@ -601,7 +601,7 @@ async function finishOnboardingPluginInstall(params: {
 }
 
 async function installLocalOnboardingPlugin(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   localPath: string;
   bundledLocalPath: string | null;
@@ -799,7 +799,7 @@ async function runInstallWatchdog<T>(install: (signal: AbortSignal) => Promise<T
 }
 
 async function runOnboardingPluginInstallWithProgress(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;
@@ -883,7 +883,7 @@ async function runOnboardingPluginInstallWithProgress(params: {
 }
 
 async function installPluginFromNpmSpecWithProgress(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   npmSpec: string;
   prompter: WizardPrompter;
@@ -916,7 +916,7 @@ async function installPluginFromNpmSpecWithProgress(params: {
 }
 
 async function installPluginFromNpmPackArchiveWithProgress(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   archivePath: string;
   prompter: WizardPrompter;
@@ -945,7 +945,7 @@ async function installPluginFromNpmPackArchiveWithProgress(params: {
 }
 
 async function installPluginFromOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   override: PluginInstallOverride;
   prompter: WizardPrompter;
@@ -1045,7 +1045,7 @@ async function installPluginFromOverride(params: {
 }
 
 async function installPluginFromClawHubSpecWithProgress(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   clawhubSpec: string;
   prompter: WizardPrompter;
@@ -1138,7 +1138,7 @@ async function installPluginFromClawHubSpecWithProgress(params: {
 
 /** Ensures an onboarding plugin is installed, enabled, and recorded in config. */
 export async function ensureOnboardingPluginInstalled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: OnboardingPluginInstallEntry;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;

@@ -52,7 +52,7 @@ import {
   hasSessionAutoModelFallbackProvenance,
   hasUserPinnedModelSelection,
 } from "../config/sessions/model-override-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readRecentSessionUsageFromTranscript } from "../gateway/session-transcript-readers.js";
 import { formatDurationCompact } from "../infra/format-time/format-duration.ts";
 import { formatTimeAgo } from "../infra/format-time/format-relative.ts";
@@ -80,7 +80,7 @@ import { resolveRuntimeServiceCommit, VERSION } from "../version.js";
 import { resolveAgentRuntimeLabel } from "./agent-runtime-label.js";
 import { resolveActiveFallbackState } from "./fallback-notice-state.js";
 
-type AgentDefaults = NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>;
+type AgentDefaults = NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>;
 type AgentConfig = Partial<AgentDefaults> & {
   model?: AgentDefaults["model"] | string;
 };
@@ -95,7 +95,7 @@ type QueueStatus = {
 };
 
 type StatusArgs = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agent: AgentConfig;
   agentId?: string;
   configuredDefaultModelLabel?: string;
@@ -170,7 +170,7 @@ function normalizeAuthMode(value?: string): NormalizedAuthMode | undefined {
 }
 
 function resolveConfiguredTextVerbosity(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   provider?: string | null;
   model?: string | null;
@@ -469,7 +469,7 @@ const formatMediaUnderstandingLine = (decisions?: ReadonlyArray<MediaUnderstandi
 };
 
 const formatVoiceModeLine = (
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   sessionEntry?: SessionEntry,
   agentId?: string,
 ): string | null => {
@@ -509,7 +509,7 @@ const formatVoiceModeLine = (
 };
 
 function resolveChannelModelNote(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   entry?: SessionEntry;
   selectedProvider: string;
   selectedModel: string;
@@ -586,7 +586,7 @@ export function buildStatusMessageParts(args: StatusArgs): StatusMessageParts {
     agents: {
       defaults: args.agent ?? {},
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const contextConfig = args.config
     ? ({
         ...args.config,
@@ -597,12 +597,12 @@ export function buildStatusMessageParts(args: StatusArgs): StatusMessageParts {
             ...args.agent,
           },
         },
-      } as OpenClawConfig)
+      } as GrantedConfig)
     : ({
         agents: {
           defaults: args.agent ?? {},
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
   const resolved = resolveConfiguredModelRef({
     cfg: selectionConfig,
     defaultProvider: DEFAULT_PROVIDER,

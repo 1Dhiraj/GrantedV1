@@ -7,7 +7,7 @@ import {
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
 import { replaceSessionEntrySync } from "../../config/sessions/session-accessor.sqlite-entry.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { finalizeInboundContext } from "./inbound-context.js";
 import {
   ReplySessionInitConflictError,
@@ -268,7 +268,7 @@ describe("initSessionState conflict retry wiring", () => {
       );
 
       const result = await initSessionState({
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
         commandAuthorized: true,
         ctx: {
           Body: "hello",
@@ -308,7 +308,7 @@ describe("initSessionState conflict retry wiring", () => {
 
     try {
       const initializing = initSessionState({
-        cfg: { session: { store: path.join(root, "sessions.json") } } as OpenClawConfig,
+        cfg: { session: { store: path.join(root, "sessions.json") } } as GrantedConfig,
         commandAuthorized: true,
         ctx: {
           Body: "hello",

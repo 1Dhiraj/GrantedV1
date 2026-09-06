@@ -2,7 +2,7 @@
 // caching, and id-like lookup heuristics.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   buildTargetResolverSignature,
   looksLikeTargetId,
@@ -193,7 +193,7 @@ describe("looksLikeTargetId", () => {
 });
 
 describe("maybeResolvePluginMessagingTarget", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   it("returns undefined when requireIdLike is set and the target is not id-like", async () => {
     getLoadedChannelPluginMock.mockReturnValueOnce({

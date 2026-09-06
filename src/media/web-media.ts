@@ -28,7 +28,7 @@ import type { PinnedDispatcherPolicy, SsrFPolicy } from "../infra/net/ssrf.js";
 import { isNotFoundPathError, isPathInside } from "../infra/path-guards.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import { getActivePluginHttpRouteRegistry } from "../plugins/runtime.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -319,7 +319,7 @@ type HostReadHtmlTrust =
 
 const TRUSTED_GENERATED_HTML_MARKER_VERSION = 1;
 const TRUSTED_GENERATED_HTML_MARKER_KIND = "trusted-generated-html";
-type OutboundProvenanceDatabase = Pick<OpenClawStateKyselyDatabase, "outbound_media_provenance">;
+type OutboundProvenanceDatabase = Pick<GrantedStateKyselyDatabase, "outbound_media_provenance">;
 
 async function getTrustedGeneratedHtmlMarker(
   resolvedFilePath: string,

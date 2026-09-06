@@ -92,7 +92,7 @@ export { handleBrowserGatewayRequest } from "./src/gateway/browser-request.js";
 export { browserHandlers } from "./src/gateway/browser-request.js";
 export {
   definePluginEntry,
-  type OpenClawPluginApi,
-  type OpenClawPluginToolContext,
-  type OpenClawPluginToolFactory,
+  type GrantedPluginApi,
+  type GrantedPluginToolContext,
+  type GrantedPluginToolFactory,
 } from "openclaw/plugin-sdk/plugin-entry";

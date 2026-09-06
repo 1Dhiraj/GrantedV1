@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import * as preparedModelCatalog from "../../agents/prepared-model-catalog.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -61,7 +61,7 @@ async function seedFixture(
 function createConfig(
   storePath: string,
   modelByChannel: TurnModelDifferentialFixture["modelByChannel"],
-): OpenClawConfig {
+): GrantedConfig {
   return markCompleteReplyConfig({
     session: { store: storePath },
     agents: {
@@ -71,7 +71,7 @@ function createConfig(
       },
     },
     channels: modelByChannel ? { modelByChannel } : undefined,
-  } as OpenClawConfig);
+  } as GrantedConfig);
 }
 
 async function observeStatusSelection(

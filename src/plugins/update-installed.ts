@@ -1,5 +1,5 @@
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../packages/gateway-protocol/src/capability-consent-error-details.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveNpmSpecMetadata } from "../infra/install-source-utils.js";
 import { parseRegistryNpmSpec } from "../infra/npm-registry-spec.js";
 import {
@@ -87,7 +87,7 @@ import {
 import { reconcileUnchangedUpdate } from "./update-unchanged.js";
 
 export async function updateNpmInstalledPlugins(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   logger?: PluginUpdateLogger;
   pluginIds?: string[];
   skipIds?: Set<string>;

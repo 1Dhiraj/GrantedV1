@@ -15,7 +15,7 @@ import type { ConfigWriteOptions } from "../config/io.js";
 import { containsConfigIncludeDirective } from "../config/io.read-helpers.js";
 import { createMergePatch, applyMergePatch } from "../config/merge-patch.js";
 import { ConfigMutationConflictError } from "../config/mutate.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { readHookInstalls } from "../hooks/installs.js";
 import { updateNpmInstalledHookPacks } from "../hooks/update.js";
@@ -118,12 +118,12 @@ function shouldPreserveEmptyPlugins(params: {
 }
 
 function projectUpdaterResultOntoSourceConfig(params: {
-  runtimeBase: OpenClawConfig;
-  sourceBase: OpenClawConfig;
-  updatedConfig: OpenClawConfig;
-}): OpenClawConfig {
+  runtimeBase: GrantedConfig;
+  sourceBase: GrantedConfig;
+  updatedConfig: GrantedConfig;
+}): GrantedConfig {
   const updatePatch = createMergePatch(params.runtimeBase, params.updatedConfig);
-  return applyMergePatch(params.sourceBase, updatePatch) as OpenClawConfig;
+  return applyMergePatch(params.sourceBase, updatePatch) as GrantedConfig;
 }
 
 function assertWriteOptionRecordFresh(params: {

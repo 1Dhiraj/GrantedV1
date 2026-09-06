@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { listSessionTranscriptCorpusEntriesForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
@@ -15,7 +15,7 @@ import {
   resolveMemoryLightDreamingConfig,
   resolveMemoryRemDreamingConfig,
 } from "openclaw/plugin-sdk/memory-core-host-status";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { normalizeConceptToken } from "./concept-vocabulary.js";
 import { isPromotionOriginBlocked } from "./dreaming-consolidation-candidates.js";
@@ -76,7 +76,7 @@ import {
   type ShortTermRecallEntry,
 } from "./short-term-promotion.js";
 
-type Logger = Pick<OpenClawPluginApi["logger"], "info" | "warn" | "error">;
+type Logger = Pick<GrantedPluginApi["logger"], "info" | "warn" | "error">;
 type DreamingPhaseStorageConfig = {
   timezone?: string;
   storage: { mode: "inline" | "separate" | "both"; separateReports: boolean };
@@ -97,7 +97,7 @@ type RemDreamingConfig = DreamingPhaseStorageConfig & {
 type DreamingPhaseRunParams<TConfig extends LightDreamingConfig | RemDreamingConfig> = {
   agentId?: string;
   workspaceDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   primaryWorkspaceDir?: string;
   config: TConfig;
   logger: Logger;
@@ -578,7 +578,7 @@ function isCheckpointSessionTranscriptPath(absolutePath: string): boolean {
 }
 
 function resolveSessionAgentsForWorkspace(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir: string;
   primaryWorkspaceDir?: string;
 }): string[] {
@@ -599,7 +599,7 @@ function resolveSessionAgentsForWorkspace(params: {
 
 async function collectSessionIngestionBatches(params: {
   workspaceDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   primaryWorkspaceDir?: string;
   lookbackDays: number;
   nowMs: number;
@@ -756,7 +756,7 @@ async function collectSessionIngestionBatches(params: {
 
 async function ingestSessionTranscriptSignals(params: {
   workspaceDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   primaryWorkspaceDir?: string;
   lookbackDays: number;
   nowMs: number;
@@ -1552,7 +1552,7 @@ export async function runDreamingSweepPhases(params: {
   agentId?: string;
   workspaceDir: string;
   pluginConfig?: Record<string, unknown>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   logger: Logger;
   subagent?: DreamNarrativeRequest["subagent"];
   detachNarratives?: boolean;

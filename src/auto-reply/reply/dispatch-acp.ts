@@ -35,7 +35,7 @@ import type { ChatType } from "../../channels/chat-type.js";
 import { readChannelContextAdmissionEvidence } from "../../channels/message-access/admission-evidence.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import type { PrepareAssistantTranscriptMessage } from "../../config/sessions/transcript-assistant-delivery.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { TtsAutoMode } from "../../config/types.tts.js";
 import { logVerbose } from "../../globals.js";
 import { isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
@@ -192,7 +192,7 @@ function isRestrictiveRuntimeToolsAllow(toolsAllow: string[] | undefined): boole
 }
 
 async function hasBoundConversationForSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   channelRaw: string | undefined;
   accountIdRaw: string | undefined;
@@ -304,7 +304,7 @@ async function maybeUnbindStaleBoundConversations(params: {
 }
 
 async function finalizeAcpTurnOutput(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   delivery: AcpDispatchDeliveryCoordinator;
@@ -446,7 +446,7 @@ async function finalizeAcpTurnOutput(params: {
 
 export async function tryDispatchAcpReplyCore(params: {
   ctx: FinalizedRuntimeMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcher: ReplyDispatcher;
   runId?: string;
   sessionKey?: string;

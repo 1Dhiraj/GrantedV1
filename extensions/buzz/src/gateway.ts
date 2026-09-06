@@ -1,7 +1,7 @@
 import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
 import { waitUntilAbort } from "openclaw/plugin-sdk/channel-outbound";
 import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
 import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
 import { computeBackoff, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
@@ -33,7 +33,7 @@ export function getActiveBuzzBus(accountId: string): BuzzBus | undefined {
 }
 
 function resolveBuzzProfileName(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedBuzzAccount;
   channelIds: string[];
 }): string {
@@ -240,7 +240,7 @@ export const buzzOutboundAdapter = {
     threadId,
     replyToId,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     to: string;
     text: string;
     accountId?: string | null;
@@ -284,7 +284,7 @@ export const buzzOutboundAdapter = {
 };
 
 export async function sendBuzzTyping(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   to: string;
   accountId?: string | null;
   threadId?: string | number | null;

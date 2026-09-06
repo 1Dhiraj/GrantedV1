@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HEARTBEAT_TRANSCRIPT_PROMPT } from "../auto-reply/heartbeat.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   resolveSessionStorePathCore,
   resolveSessionTranscriptsDirForAgent,
@@ -92,7 +92,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("leaves legacy transcript diagnostics to the SQLite migration owner", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     writeSessionStore(cfg, {
       "agent:main:main:heartbeat": {
         heartbeatIsolatedBaseSessionKey: "agent:main:main",
@@ -118,7 +118,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   it.each(["default", "explicit"] as const)(
     "does not require JSONL files for %s SQLite session stores",
     async (location) => {
-      const cfg: OpenClawConfig =
+      const cfg: GrantedConfig =
         location === "explicit"
           ? { session: { store: path.join(fs.realpathSync(tempHome), "sessions.sqlite") } }
           : {};
@@ -150,7 +150,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   );
 
   it("moves a non-default SQLite heartbeat main session without recreating sessions.json", async () => {
-    const cfg: OpenClawConfig = { agents: { entries: { main: {}, ops: {} } } };
+    const cfg: GrantedConfig = { agents: { entries: { main: {}, ops: {} } } };
     setupSessionState(cfg, process.env, tempHome, "ops");
     const storePath = resolveSessionStorePathCore(cfg.session?.store, { agentId: "ops" });
     const mainKey = "agent:ops:main";
@@ -181,7 +181,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("does not create a recovery row when the SQLite main entry changes during confirmation", async () => {
-    const cfg: OpenClawConfig = { agents: { entries: { main: {}, ops: {} } } };
+    const cfg: GrantedConfig = { agents: { entries: { main: {}, ops: {} } } };
     setupSessionState(cfg, process.env, tempHome, "ops");
     const storePath = resolveSessionStorePathCore(cfg.session?.store, { agentId: "ops" });
     const mainKey = "agent:ops:main";
@@ -229,7 +229,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
         runtimeIds: ["codex-cli"],
       },
     ];
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { model: { primary: "github-copilot/gpt-5.4-mini" } },
         entries: { main: {}, ops: {} },
@@ -280,7 +280,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("moves a heartbeat-poisoned main session and clears stale TUI restore pointers", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     setupSessionState(cfg, process.env, tempHome);
     const sessionsDir = resolveSessionTranscriptsDirForAgent("main", process.env, () => tempHome);
     fs.writeFileSync(
@@ -334,7 +334,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("does not move a mixed main transcript that has real user activity", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     setupSessionState(cfg, process.env, tempHome);
     const sessionsDir = resolveSessionTranscriptsDirForAgent("main", process.env, () => tempHome);
     fs.writeFileSync(
@@ -366,7 +366,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("repairs a multi-chunk heartbeat transcript without loading it via readFileSync", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     setupSessionState(cfg, process.env, tempHome);
     const sessionsDir = resolveSessionTranscriptsDirForAgent("main", process.env, () => tempHome);
     const transcriptPath = path.join(sessionsDir, "large-heartbeat-session.jsonl");
@@ -417,7 +417,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
   });
 
   it("declines repair when a single JSONL record exceeds the scanner record cap", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     setupSessionState(cfg, process.env, tempHome);
     const sessionsDir = resolveSessionTranscriptsDirForAgent("main", process.env, () => tempHome);
     const transcriptPath = path.join(sessionsDir, "oversized-record-session.jsonl");

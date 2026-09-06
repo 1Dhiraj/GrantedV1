@@ -1,5 +1,5 @@
 // Vydra plugin module implements shared behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
 import { extensionForMime, type MediaKind } from "openclaw/plugin-sdk/media-mime";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
@@ -99,7 +99,7 @@ function resolveVydraBaseUrlFromConfig(cfg: unknown): string {
 }
 
 async function resolveVydraRequestContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   authStore?: VydraAuthStore;
   capability: "image" | "video";
@@ -398,7 +398,7 @@ async function resolveCompletedVydraPayload(params: {
 }
 
 export async function runVydraGeneration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   authStore?: VydraAuthStore;
   body: unknown;

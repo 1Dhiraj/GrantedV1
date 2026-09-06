@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   loadRunOverflowCompactionHarness,
@@ -25,7 +25,7 @@ function requestPermissionChange(
 // The mocked harness only supports the OpenAI route, so these params keep the
 // plugin harness selected. Falling back to the built-in host harness would drag
 // the whole OpenClaw tool graph into this shard and prove the wrong owner.
-function createPluginHarnessRunParams(state: OpenClawTestState) {
+function createPluginHarnessRunParams(state: GrantedTestState) {
   return {
     ...createOverflowRunParams(state),
     provider: "openai",
@@ -34,7 +34,7 @@ function createPluginHarnessRunParams(state: OpenClawTestState) {
   } as const;
 }
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("embedded run session permissions", () => {
   let runEmbeddedAgent: TestRunEmbeddedAgent;

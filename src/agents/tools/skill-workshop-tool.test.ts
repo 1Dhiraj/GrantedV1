@@ -16,7 +16,7 @@ import { withSkillCollectionLock } from "../../skills/workshop/target-lock.js";
 import type { SkillWorkshopProposalMutationBudget } from "../../skills/workshop/types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { createOpenClawTools } from "../openclaw-tools.js";
@@ -24,7 +24,7 @@ import { listCoreToolSections } from "../tool-catalog.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let stateDir = "";
 
 async function proposalArtifactPath(

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { packageNameMatchesId } from "../infra/install-safe-path.js";
 import type { InstallPolicySource } from "../security/install-policy.js";
 import { matchesExpectedPluginId, validatePluginId } from "./install-paths.js";
@@ -52,7 +52,7 @@ export async function validatePackagePluginInstallSource(params: {
   dangerouslyForceUnsafeInstall?: boolean;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
   trustedSourceLinkedOfficialInstall?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   installPolicyRequest?: PluginInstallPolicyRequest;
   logger: PluginInstallLogger;
   mode: "install" | "update";
@@ -215,7 +215,7 @@ export async function scanAndLinkInstalledPackage(params: {
   mode?: "install" | "update";
   requestKind?: PluginInstallPolicyRequest["kind"];
   requestedSpecifier?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   source?: InstallPolicySource;
   logger: PluginInstallLogger;
 }): Promise<Extract<InstallPluginResult, { ok: false }> | null> {

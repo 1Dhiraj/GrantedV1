@@ -1,10 +1,10 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { AuthStorage, ModelRegistry } from "../sessions/index.js";
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
@@ -15,7 +15,7 @@ import {
 } from "./model.generation-scope.test-support.js";
 import { resolveModelAsync } from "./model.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let auth: ReturnType<typeof guardModelFixtureAuth>;
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "model-generation" });
@@ -105,7 +105,7 @@ describe("model runtime generation scope", () => {
   });
 
   it("keeps alias, suppression, static metadata, and runtime hooks on the prepared generation", async () => {
-    const config = {} satisfies OpenClawConfig;
+    const config = {} satisfies GrantedConfig;
     const generationA = createModelGenerationFixture({
       agentDir: state.agentDir(),
       workspaceDir: state.workspaceDir,
@@ -134,7 +134,7 @@ describe("model runtime generation scope", () => {
   });
 
   it("keeps concurrent prepared generations isolated across awaited runtime hooks", async () => {
-    const config = {} satisfies OpenClawConfig;
+    const config = {} satisfies GrantedConfig;
     let arrivals = 0;
     let release!: () => void;
     const gate = new Promise<void>((resolve) => {
@@ -185,7 +185,7 @@ describe("model runtime generation scope", () => {
   });
 
   it("keeps metadata-only prepared generations from borrowing current runtime hooks", async () => {
-    const config = {} satisfies OpenClawConfig;
+    const config = {} satisfies GrantedConfig;
     const generationA = createModelGenerationFixture({
       agentDir: state.agentDir(),
       workspaceDir: state.workspaceDir,

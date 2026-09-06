@@ -9,7 +9,7 @@ import {
   enqueueExecutionIdentityContextAtAdmission,
 } from "../../audit/execution-identity-admission.js";
 import { startAgentLocalAuditWriter } from "../../commands/agent-local-audit.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { GatewayCredentialsRequiredError } from "../../gateway/call.js";
 import { GatewayClientRequestError } from "../../gateway/client.js";
 import {
@@ -46,7 +46,7 @@ beforeEach(() => {
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 const AUDIT_REF_RE = /^hmac-sha256:v1:[a-f0-9]{32}:[a-f0-9]{64}$/u;
 
-function makeConfig(overrides: Partial<OpenClawConfig> = {}): OpenClawConfig {
+function makeConfig(overrides: Partial<GrantedConfig> = {}): GrantedConfig {
   return overrides;
 }
 
@@ -56,7 +56,7 @@ describe("resolveSessionToolsVisibility", () => {
     expect(
       resolveSessionToolsVisibility({
         tools: { sessions: { visibility: "invalid" } },
-      } as unknown as OpenClawConfig),
+      } as unknown as GrantedConfig),
     ).toBe("agent");
   });
 
@@ -64,7 +64,7 @@ describe("resolveSessionToolsVisibility", () => {
     expect(
       resolveSessionToolsVisibility({
         tools: { sessions: { visibility: "ALL" } },
-      } as unknown as OpenClawConfig),
+      } as unknown as GrantedConfig),
     ).toBe("all");
   });
 });

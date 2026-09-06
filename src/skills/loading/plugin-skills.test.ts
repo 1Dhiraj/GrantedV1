@@ -7,7 +7,7 @@ import {
   testing as acpRuntimeTesting,
   registerAcpRuntimeBackend,
 } from "../../acp/runtime/registry.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginManifestRegistry } from "../../plugins/manifest-registry.js";
 import { createPluginCache, withPluginCache } from "../../plugins/plugin-cache.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
@@ -214,7 +214,7 @@ describe("resolvePluginSkillRoots", () => {
       config: {
         acp: { enabled: true },
         plugins: { entries: { acpx: { enabled: true }, helper: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       metadataSnapshot: {
         manifestRegistry,
         normalizePluginId: (pluginId: string) => pluginId,
@@ -252,7 +252,7 @@ describe("resolvePluginSkillRoots", () => {
     hoisted.loadPluginManifestRegistryForInstalledIndex.mockReturnValue(
       createSinglePluginRegistry({ pluginRoot, skills: ["./skills"] }),
     );
-    const config: OpenClawConfig = { plugins: { entries: { helper: { enabled: true } } } };
+    const config: GrantedConfig = { plugins: { entries: { helper: { enabled: true } } } };
     const resolve = (nextConfig = config) =>
       resolvePluginSkillRoots({ workspaceDir, config: nextConfig, pluginSkillsDir });
     resolve();
@@ -293,7 +293,7 @@ describe("resolvePluginSkillRoots", () => {
           workspaceDir,
           config: {
             plugins: { entries: { helper: { enabled: true } } },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual([{ dir: skillDir, rejectHardlinks }]);
     },
@@ -341,7 +341,7 @@ describe("resolvePluginSkillRoots", () => {
             helper: { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots.map((root) => root.dir)).toEqual(expectedDirs({ acpxRoot, helperRoot }));
@@ -362,7 +362,7 @@ describe("resolvePluginSkillRoots", () => {
       config: {
         acp: { enabled: true },
         plugins: { entries: { acpx: { enabled: true }, helper: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots.map((root) => root.dir)).toEqual([
@@ -382,7 +382,7 @@ describe("resolvePluginSkillRoots", () => {
       normalizePluginId: (pluginId: string) => pluginId,
     };
     hoisted.resolvePluginMetadataSnapshot.mockImplementationOnce((params: unknown) =>
-      (params as { config?: OpenClawConfig }).config === undefined
+      (params as { config?: GrantedConfig }).config === undefined
         ? metadataSnapshot
         : hoisted.loadPluginMetadataSnapshot(params),
     );
@@ -418,7 +418,7 @@ describe("resolvePluginSkillRoots", () => {
             helper: { enabled: true },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       if (initiallyAvailable) {
         registerHealthyAcpBackend();
       }
@@ -463,7 +463,7 @@ describe("resolvePluginSkillRoots", () => {
             helper: { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots).toEqual([{ dir: path.resolve(pluginRoot, "skills"), rejectHardlinks: true }]);
@@ -490,7 +490,7 @@ describe("resolvePluginSkillRoots", () => {
             helper: { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots).toStrictEqual([]);
@@ -511,7 +511,7 @@ describe("resolvePluginSkillRoots", () => {
 
     const roots = resolvePluginSkillRoots({
       workspaceDir,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginSkillsDir,
     });
 
@@ -528,7 +528,7 @@ describe("resolvePluginSkillRoots", () => {
 
     const roots = resolvePluginSkillRoots({
       workspaceDir: undefined,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginSkillsDir,
     });
 
@@ -558,7 +558,7 @@ describe("resolvePluginSkillRoots", () => {
             helper: { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots.map((root) => root.dir)).toEqual([
@@ -595,7 +595,7 @@ describe("resolvePluginSkillRoots", () => {
       pluginSkillsDir,
       config: {
         plugins: { entries: { helper: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots).toEqual([{ dir: validSkill, rejectHardlinks: true }]);
@@ -625,7 +625,7 @@ describe("resolvePluginSkillRoots", () => {
             "helper-legacy": { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(roots).toEqual([{ dir: path.resolve(pluginRoot, "skills"), rejectHardlinks: true }]);

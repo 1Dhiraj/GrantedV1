@@ -4,7 +4,7 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createPluginMetadataSnapshot } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   buildManifestBuiltInModelSuppressionResolver: vi.fn(),
@@ -151,7 +151,7 @@ describe("model suppression", () => {
   });
 
   it("reads each concurrent generation's suppression rules across A/B/A interleaving", async () => {
-    const config = {} satisfies OpenClawConfig;
+    const config = {} satisfies GrantedConfig;
     const snapshotA = createPluginMetadataSnapshot({
       config,
       manifestRegistry: { plugins: [], diagnostics: [] },
@@ -210,15 +210,15 @@ describe("model suppression", () => {
   });
 
   it("passes config identity and workspace to the manifest owner", () => {
-    const configA = {} satisfies OpenClawConfig;
-    const configB = {} satisfies OpenClawConfig;
+    const configA = {} satisfies GrantedConfig;
+    const configB = {} satisfies GrantedConfig;
     const snapshot = createPluginMetadataSnapshot({
       config: configA,
       manifestRegistry: { plugins: [], diagnostics: [] },
     });
     mocks.buildManifestBuiltInModelSuppressionResolver.mockReturnValue(() => undefined);
 
-    const check = (config: OpenClawConfig, workspaceDir: string) =>
+    const check = (config: GrantedConfig, workspaceDir: string) =>
       withPluginRuntimeGenerationScope({ metadataSnapshot: snapshot }, () =>
         shouldSuppressBuiltInModelCore({
           provider: "openai",
@@ -236,7 +236,7 @@ describe("model suppression", () => {
   });
 
   it("does not fingerprint metadata while delegating prepared generation reads", () => {
-    const config = {} satisfies OpenClawConfig;
+    const config = {} satisfies GrantedConfig;
     const snapshot = createPluginMetadataSnapshot({
       config,
       manifestRegistry: { plugins: [], diagnostics: [] },

@@ -1,5 +1,5 @@
 import type { SessionsListParams } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { readAgentRunIndexVersion } from "../../infra/agent-run-registry.js";
 import {
   readSessionIdentityMutationVersion,
@@ -42,7 +42,7 @@ type SessionListOperation = SessionListFence & { promise: Promise<SessionsListRe
 type SessionListCompleted = SessionListFence & { expiresAt?: number; result: SessionsListResult };
 type SessionListState = {
   completed: Map<string, SessionListCompleted>;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   inFlight: Map<string, SessionListOperation>;
 };
 
@@ -134,7 +134,7 @@ function matchesSessionListFence(value: SessionListFence, fence: SessionListFenc
 function sessionListWorkKey(
   params: SessionsListParams,
   client: GatewayClient | null,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): string {
   return JSON.stringify([
     // Admin visibility is global, but owner-first and involving-me rows remain viewer-specific.
@@ -144,10 +144,7 @@ function sessionListWorkKey(
   ]);
 }
 
-function sessionListState(
-  context: GatewayRequestContext,
-  config: OpenClawConfig,
-): SessionListState {
+function sessionListState(context: GatewayRequestContext, config: GrantedConfig): SessionListState {
   let state = sessionListsByContext.get(context);
   if (!state || state.config !== config) {
     state = { completed: new Map(), config, inFlight: new Map() };
@@ -193,7 +190,7 @@ function resolveSessionListExpiration(result: SessionsListResult): number | null
 
 export async function respondWithCachedSessionList(params: {
   client: GatewayClient | null;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   context: GatewayRequestContext;
   modelCatalog?: SessionListModelCatalog;
   request: SessionsListParams;

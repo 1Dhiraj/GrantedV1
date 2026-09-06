@@ -3,7 +3,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { isUnconfiguredConfigSource } from "../cli/fresh-install-config.js";
 import { hasResolvedRosterBeforeMigrations } from "../config/agent-roster-provenance.js";
 import { formatConfigIssueLines } from "../config/issue-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withConsoleSubsystemsSuppressed } from "../logging/console.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { LocalOnboardingState } from "../state/local-onboarding-state.js";
@@ -47,7 +47,7 @@ export type GuidedOnboardingDeps = {
     agentName?: string,
   ) => Promise<void>;
   createPrompter?: () => WizardPrompter | Promise<WizardPrompter>;
-  persistRiskAcknowledgement?: (config: OpenClawConfig) => Promise<string | void>;
+  persistRiskAcknowledgement?: (config: GrantedConfig) => Promise<string | void>;
   persistAccessMode?: (mode: GuidedAccessMode) => Promise<void>;
   listManualOptions?: typeof import("../system-agent/setup-inference.js").listManualSetupInferenceOptions;
   /**
@@ -199,7 +199,7 @@ async function runGuidedOnboardingFlow(
       "Another onboarding run owns a different workspace. Retry onboarding with its approved workspace.",
     );
   }
-  const assertLocalSetupOwner = (config: OpenClawConfig) => {
+  const assertLocalSetupOwner = (config: GrantedConfig) => {
     if (
       localSetup?.status === "pending" &&
       localOnboarding?.readLocalOnboardingStateForConfig(snapshot.path, config)?.runId !==

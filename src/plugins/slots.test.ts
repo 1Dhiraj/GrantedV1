@@ -1,6 +1,6 @@
 /** Tests plugin slot normalization and exclusive slot selection behavior. */
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   applyExclusiveSlotSelection,
   hasKind,
@@ -27,7 +27,7 @@ describe("resetPluginSlotsToDefaults", () => {
 });
 
 describe("applyExclusiveSlotSelection", () => {
-  const createMemoryConfig = (plugins?: OpenClawConfig["plugins"]): OpenClawConfig => ({
+  const createMemoryConfig = (plugins?: GrantedConfig["plugins"]): GrantedConfig => ({
     plugins: {
       ...plugins,
       entries: {
@@ -41,7 +41,7 @@ describe("applyExclusiveSlotSelection", () => {
   });
 
   it("keeps the default memory selection implicit", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { entries: { "memory-core": { enabled: true } } },
     };
 
@@ -58,7 +58,7 @@ describe("applyExclusiveSlotSelection", () => {
   });
 
   it("removes an explicit override when selecting the default memory plugin", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         slots: { memory: "memory" },
         entries: { memory: { enabled: true }, "memory-core": { enabled: true } },
@@ -146,7 +146,7 @@ describe("applyExclusiveSlotSelection", () => {
     },
     {
       name: "skips changes when no exclusive slot applies",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       selectedId: "custom",
     },
   ] as const)("$name", ({ config, selectedId, selectedKind, registry }) => {
@@ -163,7 +163,7 @@ describe("applyExclusiveSlotSelection", () => {
   });
 
   it("applies slot selection for each kind in a multi-kind array", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         slots: { memory: "memory-core", contextEngine: "legacy" },
         entries: {
@@ -192,7 +192,7 @@ describe("applyExclusiveSlotSelection", () => {
   });
 
   it("does not disable a dual-kind plugin that still owns another slot", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         slots: { memory: "dual-plugin", contextEngine: "dual-plugin" },
         entries: {
@@ -219,7 +219,7 @@ describe("applyExclusiveSlotSelection", () => {
 
   it("does not disable a dual-kind plugin that owns another slot via default", () => {
     // contextEngine is NOT explicitly set — defaults to "legacy"
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         slots: { memory: "legacy" },
         entries: {

@@ -3,12 +3,12 @@ import { createServer } from "node:http";
 import { Command } from "commander";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { CONFIG_AUDIT_STORE_LABEL } from "../../config/io.audit.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../config/types.js";
 import { GATEWAY_SERVICE_RUNTIME_PID_ENV } from "../../daemon/constants.js";
 import { createNewerSqliteSchemaVersionError } from "../../infra/sqlite-user-version.js";
 import { SUPERVISOR_HINT_ENV_VARS } from "../../infra/supervisor-markers.js";
-import { OpenClawDatabaseSchemaPreflightError } from "../../state/openclaw-database-preflight.js";
-import { OpenClawStateDatabaseSchemaMigrationRequiredError } from "../../state/openclaw-state-db-schema-migration-required.js";
+import { GrantedDatabaseSchemaPreflightError } from "../../state/openclaw-database-preflight.js";
+import { GrantedStateDatabaseSchemaMigrationRequiredError } from "../../state/openclaw-state-db-schema-migration-required.js";
 import {
   captureEnv,
   deleteTestEnvValue,
@@ -76,7 +76,7 @@ const loadShellEnvFallback = vi.fn((_opts?: unknown) => {
   callOrder.push("shell-env");
 });
 const clearShellEnvAppliedKeys = vi.fn((_keys: readonly string[]) => undefined);
-const resolveShellEnvExpectedKeys = vi.fn((_env?: NodeJS.ProcessEnv, _config?: OpenClawConfig) => [
+const resolveShellEnvExpectedKeys = vi.fn((_env?: NodeJS.ProcessEnv, _config?: GrantedConfig) => [
   "GRANTED_GATEWAY_TOKEN",
 ]);
 const resolveShellEnvFallbackTimeoutMs = vi.fn((_env?: NodeJS.ProcessEnv) => 15_000);
@@ -1936,7 +1936,7 @@ describe("gateway run option collisions", () => {
       }
     });
     startGatewayServer.mockRejectedValueOnce(
-      new OpenClawStateDatabaseSchemaMigrationRequiredError(
+      new GrantedStateDatabaseSchemaMigrationRequiredError(
         "agent-databases-composite-primary-key",
         "/tmp/openclaw.sqlite",
       ),
@@ -1986,7 +1986,7 @@ describe("gateway run option collisions", () => {
     );
     const error =
       kind === "state" || kind === "agent"
-        ? new OpenClawDatabaseSchemaPreflightError([
+        ? new GrantedDatabaseSchemaPreflightError([
             { kind, path: "/tmp/newer.sqlite", foundVersion: 999, supportedVersion: 998 },
           ])
         : kind === "reader"

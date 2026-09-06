@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
@@ -116,7 +116,7 @@ describe("memory manager self-heal missing identity with FTS-only chunks", () =>
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     const result = await getMemorySearchManager({
       cfg,
       agentId: "main",

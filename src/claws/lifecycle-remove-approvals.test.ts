@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { createAgent } from "../agents/agent-create.js";
 import { beginAgentDeletion } from "../agents/agent-lifecycle-registry.js";
 import { withTempHomeConfig, writeOpenClawConfig } from "../config/test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadExecApprovals, saveExecApprovals } from "../infra/exec-approvals.js";
 import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
 import {
@@ -67,7 +67,7 @@ describe("Claw exec approvals removal", () => {
     await withTempHomeConfig({}, async ({ home }) => {
       const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
       setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
-      let config: OpenClawConfig = {};
+      let config: GrantedConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
         env,
@@ -133,7 +133,7 @@ describe("Claw exec approvals removal", () => {
     await withTempHomeConfig({}, async ({ home }) => {
       const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
       setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
-      let config: OpenClawConfig = {};
+      let config: GrantedConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
         env,
@@ -171,7 +171,7 @@ describe("Claw exec approvals removal", () => {
     await withTempHomeConfig({}, async ({ home }) => {
       const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
       setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
-      let config: OpenClawConfig = {};
+      let config: GrantedConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
         env,

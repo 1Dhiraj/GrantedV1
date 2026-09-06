@@ -7,7 +7,7 @@ import { afterAll, afterEach, beforeAll, expect, vi } from "vitest";
 import { clearRuntimeAuthProfileStoreSnapshots } from "../../../src/agents/auth-profiles.js";
 import type { EmbeddedAgentQueueMessageOutcome } from "../../../src/agents/embedded-agent-runner/runs.js";
 import { withFastReplyConfig } from "../../../src/auto-reply/reply/get-reply-fast-path.test-support.js";
-import type { OpenClawConfig } from "../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../src/config/types.openclaw.js";
 
 // Avoid exporting vitest mock types (TS2742 under pnpm + d.ts emit).
 type AnyMock = any;
@@ -305,7 +305,7 @@ export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise
   }
 }
 
-export function makeCfg(home: string): OpenClawConfig {
+export function makeCfg(home: string): GrantedConfig {
   return withFastReplyConfig({
     agents: {
       defaults: {
@@ -335,7 +335,7 @@ export function makeCfg(home: string): OpenClawConfig {
       },
     },
     session: { store: join(home, "sessions.json") },
-  } as OpenClawConfig);
+  } as GrantedConfig);
 }
 
 async function loadGetReplyFromConfig() {

@@ -15,7 +15,7 @@ import {
   createRuntimeConfigWriteApplication,
   getRuntimeConfigWriteApplication,
 } from "../config/runtime-write-application.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { listRecoveredManagedNpmInstallCandidates } from "./installed-plugin-index-record-reader.js";
@@ -118,7 +118,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.loadInstalledPluginIndexInstallRecords.mockResolvedValue({});
-    mocks.replaceConfigFile.mockImplementation(async (params: { nextConfig: OpenClawConfig }) => ({
+    mocks.replaceConfigFile.mockImplementation(async (params: { nextConfig: GrantedConfig }) => ({
       path: "/tmp/openclaw.json",
       previousHash: null,
       snapshot: {} as never,
@@ -148,7 +148,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
       },
     };
     mocks.loadInstalledPluginIndexInstallRecords.mockResolvedValue(existingRecords);
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       plugins: {
         entries: {
           demo: { enabled: true },
@@ -211,7 +211,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   });
 
   it("uses the effective config for records-only index commits", async () => {
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       plugins: {
         entries: {
           demo: { enabled: false },
@@ -245,7 +245,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   });
 
   it("migrates source records below the canonical index and explicit pending records", async () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       plugins: {
         installs: {
           stale: { source: "npm", spec: "stale@1.0.0" },
@@ -258,7 +258,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
       stale: { source: "npm", spec: "stale@2.0.0" },
       codex: { source: "npm", spec: "codex@2.0.0" },
     };
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       plugins: {
         installs: {
           ...sourceConfig.plugins?.installs,
@@ -308,7 +308,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   it.each([undefined, { mode: "auto" }, { mode: "restart", reason: "test restart" }] as const)(
     "preserves source records and the runtime application receipt with intent %j",
     async (afterWrite) => {
-      const sourceConfig: OpenClawConfig = {
+      const sourceConfig: GrantedConfig = {
         plugins: {
           installs: {
             other: { source: "npm", spec: "other@1.0.0" },
@@ -319,7 +319,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
       const snapshot = { sourceConfig };
       const application = createRuntimeConfigWriteApplication();
       mocks.replaceConfigFile.mockImplementationOnce(
-        async (params: { nextConfig: OpenClawConfig; writeOptions: ConfigWriteOptions }) => {
+        async (params: { nextConfig: GrantedConfig; writeOptions: ConfigWriteOptions }) => {
           getRuntimeConfigWriteApplication(params.writeOptions)?.claim()?.settle("applied");
           return { nextConfig: params.nextConfig, persistedHash: "test-config-hash" };
         },
@@ -328,9 +328,9 @@ describe("commitConfigWithPendingPluginInstalls", () => {
         const transformParams = params as {
           writeOptions?: ConfigWriteOptions;
           transform: (
-            config: OpenClawConfig,
+            config: GrantedConfig,
             context: { snapshot: typeof snapshot },
-          ) => { nextConfig: OpenClawConfig };
+          ) => { nextConfig: GrantedConfig };
           commit: (input: unknown) => Promise<unknown>;
         };
         const transformed = transformParams.transform(sourceConfig, { snapshot });
@@ -367,7 +367,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   );
 
   it("strips only selected pending plugin install records", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         installs: {
           legacy: { source: "npm", spec: "legacy@1.0.0" },
@@ -386,7 +386,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   });
 
   it("selects only unchanged pending plugin install records for migration stripping", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       plugins: {
         installs: {
           legacy: { source: "npm", spec: "legacy@1.0.0" },
@@ -394,7 +394,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
         },
       },
     };
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       plugins: {
         installs: {
           legacy: { source: "npm", spec: "legacy@1.0.0" },
@@ -419,8 +419,8 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     for (const [pluginId, record] of Object.entries(baseInstalls)) {
       setPluginInstallRecordMapEntry(nextInstalls, pluginId, record);
     }
-    const baseConfig = { plugins: { installs: baseInstalls } } satisfies OpenClawConfig;
-    const nextConfig = { plugins: { installs: nextInstalls } } satisfies OpenClawConfig;
+    const baseConfig = { plugins: { installs: baseInstalls } } satisfies GrantedConfig;
+    const nextConfig = { plugins: { installs: nextInstalls } } satisfies GrantedConfig;
 
     expect(unchangedPendingPluginInstallRecordIds(nextConfig, baseConfig)).toEqual([
       "constructor",
@@ -1003,7 +1003,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
   });
 
   it("uses a plain config write when no pending plugin install records exist", async () => {
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       gateway: {
         mode: "local",
       },
@@ -1025,7 +1025,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
 
   it("supports non-replace config writers without adding an undefined write options argument", async () => {
     const writeConfigFile = vi.fn(async () => undefined);
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       gateway: {
         mode: "local",
       },

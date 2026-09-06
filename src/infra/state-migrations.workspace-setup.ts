@@ -16,7 +16,7 @@ import {
 import { listWorkspaceStateDirs } from "../agents/workspace-state-dirs.js";
 import { resolveWorkspaceStateIdentity } from "../agents/workspace-state-identity.js";
 import { resolveLegacyStateDirs } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "./errors.js";
 import { pathMayExistSync } from "./path-existence.js";
 import { withLegacyMigrationStateLock } from "./state-migrations.lock.js";
@@ -271,7 +271,7 @@ function addLegacyWorkspaceSources(params: {
 
 /** Detect retired workspace files only when an explicit Doctor flow opts in. */
 export function detectLegacyWorkspaceState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
   env?: NodeJS.ProcessEnv;
   homedir?: () => string;

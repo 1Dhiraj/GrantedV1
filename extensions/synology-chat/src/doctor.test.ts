@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { synologyChatDoctor } from "./doctor.js";
 
-async function collectWarnings(cfg: OpenClawConfig): Promise<string[]> {
+async function collectWarnings(cfg: GrantedConfig): Promise<string[]> {
   return (
     (await synologyChatDoctor.collectPreviewWarnings?.({
       cfg,

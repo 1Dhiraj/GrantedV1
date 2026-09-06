@@ -8,7 +8,7 @@ import {
   loadExactSessionEntryReadOnly,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createPluginStateKeyedStore,
   getPluginStateCapacity,
@@ -68,7 +68,7 @@ describe("doctor incident-scale Codex binding repair", () => {
     );
     vi.stubEnv("GRANTED_STATE_DIR", incidentStateDir);
     const env = process.env;
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
       plugins: { entries: { codex: { enabled: true } } },
     };

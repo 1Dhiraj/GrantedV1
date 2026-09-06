@@ -1,6 +1,6 @@
 // QA Lab WhatsApp credential, config, and channel setup.
 import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import type { WhatsAppQaConfigOverrides, WhatsAppQaRuntimeEnv } from "./whatsapp-live.contracts.js";
@@ -89,7 +89,7 @@ function buildNonMatchingWhatsAppQaAllowFrom(existingAllowFrom: string[]) {
   throw new Error("Unable to derive a WhatsApp QA groupAllowFrom entry outside allowFrom.");
 }
 
-type WhatsAppQaAgentConfig = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type WhatsAppQaAgentConfig = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number];
 
 function buildWhatsAppQaScenarioAgent(agentId: string): WhatsAppQaAgentConfig {
   const identityName =
@@ -107,9 +107,9 @@ function buildWhatsAppQaScenarioAgent(agentId: string): WhatsAppQaAgentConfig {
 }
 
 function appendWhatsAppQaAgents(
-  agents: OpenClawConfig["agents"],
+  agents: GrantedConfig["agents"],
   agentIds: readonly string[],
-): OpenClawConfig["agents"] {
+): GrantedConfig["agents"] {
   if (agentIds.length === 0) {
     return agents;
   }
@@ -128,12 +128,12 @@ function appendWhatsAppQaAgents(
 }
 
 function buildWhatsAppQaBroadcastConfig(
-  baseCfg: OpenClawConfig,
+  baseCfg: GrantedConfig,
   params: {
     broadcast?: WhatsAppQaConfigOverrides["broadcast"];
     groupJid?: string;
   },
-): Pick<OpenClawConfig, "agents" | "broadcast"> {
+): Pick<GrantedConfig, "agents" | "broadcast"> {
   if (!params.broadcast) {
     return {};
   }
@@ -157,7 +157,7 @@ function buildWhatsAppQaBroadcastConfig(
 }
 
 export function buildWhatsAppQaConfig(
-  baseCfg: OpenClawConfig,
+  baseCfg: GrantedConfig,
   params: {
     allowFrom: string[];
     authDir: string;
@@ -167,7 +167,7 @@ export function buildWhatsAppQaConfig(
     overrides?: WhatsAppQaConfigOverrides;
     sutAccountId: string;
   },
-): OpenClawConfig {
+): GrantedConfig {
   const pluginAllow = uniqueStrings([...(baseCfg.plugins?.allow ?? []), "whatsapp"]);
   const approvalOverrides = params.overrides?.approvals;
   const groupPolicy = params.overrides?.groupPolicy ?? "open";

@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -15,7 +15,7 @@ describe("Teams meetings CLI output mode", () => {
       throw new Error("CLI metadata must not load the meeting runtime");
     });
     const { default: metadata } = await import("../cli-metadata.js");
-    const registerCli = vi.fn<OpenClawPluginApi["registerCli"]>();
+    const registerCli = vi.fn<GrantedPluginApi["registerCli"]>();
     const api = createTestPluginApi({ registerCli });
     metadata.register(api);
 

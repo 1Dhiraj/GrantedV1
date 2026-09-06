@@ -1,5 +1,5 @@
 // Slack plugin module implements prepare routing behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   ConfiguredBindingRouteResult,
   RuntimeConversationBindingRouteResult,
@@ -22,7 +22,7 @@ import {
 } from "../workspace-routing.js";
 
 type SlackRoutingContextDeps = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   teamId: string;
   threadInheritParent: boolean;
   threadHistoryScope: "thread" | "channel";

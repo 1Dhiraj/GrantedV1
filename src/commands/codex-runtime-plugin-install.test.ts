@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   emptyMetadataSnapshot,
   metadataSnapshot,
@@ -100,7 +100,7 @@ describe("Codex runtime plugin install repair", () => {
         manifest.contracts = { tools: ["runtime.write"] };
         metadata.index.plugins[0]!.rootDir = artifactDir;
         mocks.metadata.mockReturnValue(metadata);
-        const cfg: OpenClawConfig = { plugins: { entries: { codex: { enabled } } } };
+        const cfg: GrantedConfig = { plugins: { entries: { codex: { enabled } } } };
         const beforePersistentEffect = vi.fn();
         const confirm = vi.fn(async () => {
           expect(beforePersistentEffect).not.toHaveBeenCalled();
@@ -258,7 +258,7 @@ describe("Codex runtime plugin install repair", () => {
     mocks.loadInstalledPluginIndexInstallRecords.mockResolvedValue({
       codex: { source: "npm", installPath: process.cwd() },
     });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         allow: ["codex"],
         entries: { codex: { enabled: false } },

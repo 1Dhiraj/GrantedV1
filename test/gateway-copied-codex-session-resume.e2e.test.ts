@@ -2,28 +2,28 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import { upsertSessionEntry } from "../src/plugin-sdk/session-store-runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../src/plugin-sdk/sqlite-runtime-testing.js";
 import { writePersistedInstalledPluginIndexInstallRecords } from "../src/plugins/installed-plugin-index-records.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const PLUGIN_ID = "codex";
 const SESSION_KEY = "agent:main:copied-codex-session";
 const VISIBLE_REPLY = "COPIED_CODEX_SESSION_RESUMED";
 const TEST_TIMEOUT_MS = 120_000;
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 
 afterEach(async () => {
   await Promise.all(instances.splice(0).map(async (instance) => await instance.cleanup()));
   closeOpenClawAgentDatabasesForTest();
 });
 
-function buildCopiedStateConfig(enabled: boolean | undefined): OpenClawConfig {
+function buildCopiedStateConfig(enabled: boolean | undefined): GrantedConfig {
   return {
     plugins: {
       enabled: true,
@@ -53,7 +53,7 @@ function buildCopiedStateConfig(enabled: boolean | undefined): OpenClawConfig {
   };
 }
 
-async function installCodexHarnessFixture(stateDir: string, config: OpenClawConfig): Promise<void> {
+async function installCodexHarnessFixture(stateDir: string, config: GrantedConfig): Promise<void> {
   const pluginDir = path.join(stateDir, "extensions", PLUGIN_ID);
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(

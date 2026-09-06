@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
@@ -28,7 +28,7 @@ import { configureMemoryCoreDreamingStateForTests } from "./test-helpers.js";
 describe("memory forget", () => {
   let stateDir: string;
   let workspaceDir: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
 
   beforeEach(async () => {
     stateDir = await fs.realpath(
@@ -40,7 +40,7 @@ describe("memory forget", () => {
     await configureMemoryCoreDreamingStateForTests();
     cfg = {
       agents: { defaults: { workspace: workspaceDir }, list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   });
 
   afterEach(async () => {
@@ -75,7 +75,7 @@ describe("memory forget", () => {
             { id: "vacant", workspace: workspaceDir },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       await upsertSessionEntry({
         agentId: "gamma",
         sessionKey: "agent:gamma:private-session",

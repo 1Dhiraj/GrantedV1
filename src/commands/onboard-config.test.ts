@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   applyLocalSetupWorkspaceConfig,
   ONBOARDING_DEFAULT_SPEND_LIMIT_USD,
@@ -13,7 +13,7 @@ import {
 
 describe("applyLocalSetupWorkspaceConfig", () => {
   it("leaves dmScope unset when not configured", () => {
-    const baseConfig: OpenClawConfig = {};
+    const baseConfig: GrantedConfig = {};
     const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
 
     expect(result.session?.dmScope).toBeUndefined();
@@ -24,7 +24,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("preserves existing dmScope when already configured", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       session: {
         dmScope: "main",
       },
@@ -35,7 +35,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("preserves explicit non-main dmScope values", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       session: {
         dmScope: "per-account-channel-peer",
       },
@@ -46,7 +46,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("preserves an explicit tools.profile when already configured", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       tools: {
         profile: "full",
       },
@@ -57,7 +57,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("preserves agents.list and bindings on onboard rerun (openclaw#84692)", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       agents: {
         list: [
           { id: "alpha", model: "anthropic/claude-3-5-sonnet" },
@@ -71,7 +71,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
           match: { channel: "discord", peer: { kind: "direct", id: "user-1" } },
         },
       ],
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
 
@@ -88,7 +88,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("preserves the current workspace when an agent roster exists", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       agents: {
         defaults: { workspace: "/tmp/current-workspace" },
         list: [{ id: "main" }, { id: "ops" }],
@@ -107,7 +107,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
 
   it("does not materialize a fleet default for an existing roster", () => {
     const env = { HOME: "/tmp/fleet-home", GRANTED_STATE_DIR: "/tmp/fleet-state" };
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       agents: { list: [{ id: "main" }, { id: "ops" }] },
     };
 
@@ -161,7 +161,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("allows an explicitly confirmed workspace move", () => {
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       agents: {
         defaults: { workspace: "/tmp/current-workspace" },
         list: [{ id: "main" }],
@@ -186,7 +186,7 @@ describe("applyLocalSetupWorkspaceConfig spend ceiling", () => {
   });
 
   it("keeps an existing ceiling instead of resetting it on re-run", () => {
-    const baseConfig: OpenClawConfig = { agents: { defaults: { spendLimitUsd: 250 } } };
+    const baseConfig: GrantedConfig = { agents: { defaults: { spendLimitUsd: 250 } } };
 
     const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
 
@@ -196,7 +196,7 @@ describe("applyLocalSetupWorkspaceConfig spend ceiling", () => {
   it("respects a deliberate 0 as 'no ceiling'", () => {
     // 0 is the documented opt-out. Re-running setup must not silently re-cap a
     // user who turned the ceiling off on purpose.
-    const baseConfig: OpenClawConfig = { agents: { defaults: { spendLimitUsd: 0 } } };
+    const baseConfig: GrantedConfig = { agents: { defaults: { spendLimitUsd: 0 } } };
 
     const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
 
@@ -206,7 +206,7 @@ describe("applyLocalSetupWorkspaceConfig spend ceiling", () => {
   it("still applies the ceiling when the workspace is preserved", () => {
     // The ceiling lives outside the workspace branch on purpose: an install
     // that keeps its workspace still needs a cap.
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       agents: { defaults: { workspace: "/tmp/current-workspace" }, list: [{ id: "main" }] },
     };
 

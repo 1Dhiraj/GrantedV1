@@ -5,7 +5,7 @@ import type {
   DmPolicy,
   GroupPolicy,
   MentionPatternsPolicyConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
 
@@ -238,15 +238,15 @@ export type CoreConfig = {
       botLoopProtection?: ChannelBotLoopProtectionConfig;
     };
   };
-  commands?: OpenClawConfig["commands"];
+  commands?: GrantedConfig["commands"];
   session?: {
     store?: string;
-    dmScope?: NonNullable<OpenClawConfig["session"]>["dmScope"];
+    dmScope?: NonNullable<GrantedConfig["session"]>["dmScope"];
   };
   messages?: {
     ackReaction?: string;
     ackReactionScope?: "group-mentions" | "group-all" | "direct" | "all" | "none" | "off";
   };
-  secrets?: OpenClawConfig["secrets"];
+  secrets?: GrantedConfig["secrets"];
   [key: string]: unknown;
 };

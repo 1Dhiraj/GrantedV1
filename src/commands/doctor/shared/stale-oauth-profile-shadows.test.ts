@@ -11,7 +11,7 @@ import { clearRuntimeAuthProfileStoreSnapshots } from "../../../agents/auth-prof
 import { writePersistedAuthProfileStoreRaw } from "../../../agents/auth-profiles/sqlite.js";
 import { saveAuthProfileStore } from "../../../agents/auth-profiles/store.js";
 import type { AuthProfileStore, OAuthCredential } from "../../../agents/auth-profiles/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { captureEnv } from "../../../test-utils/env.js";
 import { resolveLegacyAuthProfilesPath as resolveAuthStorePath } from "../../doctor-auth-legacy-paths.js";
 import {
@@ -109,7 +109,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const hits = await scanStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
     const warnings = collectStaleOAuthProfileShadowWarnings({
@@ -152,7 +152,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const hits = await scanStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
 
@@ -213,7 +213,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const hits = await scanStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       env: injectedEnv,
       now,
     });
@@ -262,7 +262,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const result = await repairStaleOAuthProfileShadows({
-      cfg: { agents: { entries: { telegram: { default: true } } } } satisfies OpenClawConfig,
+      cfg: { agents: { entries: { telegram: { default: true } } } } satisfies GrantedConfig,
       env,
       now,
     });
@@ -306,11 +306,11 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const hits = await scanStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
     const repair = await repairStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
 
@@ -362,7 +362,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const result = await repairStaleOAuthProfileShadows({
-      cfg: { agents: { list: [{ id: "telegram" }] } } satisfies OpenClawConfig,
+      cfg: { agents: { list: [{ id: "telegram" }] } } satisfies GrantedConfig,
       now,
     });
 
@@ -403,7 +403,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const result = await repairStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
 
@@ -436,7 +436,7 @@ describe("stale OAuth profile shadow doctor repair", () => {
     );
 
     const result = await repairStaleOAuthProfileShadows({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       now,
     });
 

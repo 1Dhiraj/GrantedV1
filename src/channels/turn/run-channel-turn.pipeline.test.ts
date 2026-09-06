@@ -8,7 +8,7 @@ import type { DispatchReplyWithBufferedBlockDispatcher } from "../../auto-reply/
 import { createReplyDispatcher } from "../../auto-reply/reply/reply-dispatcher.js";
 import { getReplySystemEventSessionKey } from "../../auto-reply/reply/system-event-session-key.js";
 import type { FinalizedMsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   emitTrustedDiagnosticEvent,
   onInternalDiagnosticEvent,
@@ -116,7 +116,7 @@ vi.mock("../../config/sessions/transcript.js", () => ({
   readRecentUserAssistantTextForSession,
 }));
 
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 let storePath: string;
 const visibleFinalReceipt = {

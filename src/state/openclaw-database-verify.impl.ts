@@ -12,8 +12,8 @@ import {
   recordOpenClawAgentDatabaseOpenFailure,
 } from "./openclaw-agent-db.js";
 import type {
-  OpenClawDatabaseVerifyResult,
-  OpenClawDatabaseVerifyTarget,
+  GrantedDatabaseVerifyResult,
+  GrantedDatabaseVerifyTarget,
 } from "./openclaw-database-verify.worker.js";
 import { recordOpenClawDatabaseQuarantine } from "./openclaw-quarantine-store.js";
 import {
@@ -28,7 +28,7 @@ export const GRANTED_DATABASE_VERIFY_INTERVAL_MS = 24 * 60 * 60_000;
 const log = createSubsystemLogger("state/database-verify");
 const DATABASE_VERIFY_CHILD_ARG = "--openclaw-database-verify-child";
 
-function isVerifyResult(value: unknown): value is OpenClawDatabaseVerifyResult {
+function isVerifyResult(value: unknown): value is GrantedDatabaseVerifyResult {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return false;
   }
@@ -42,9 +42,9 @@ function isVerifyResult(value: unknown): value is OpenClawDatabaseVerifyResult {
 }
 
 export function runDatabaseVerifyWorker(
-  targets: readonly OpenClawDatabaseVerifyTarget[],
+  targets: readonly GrantedDatabaseVerifyTarget[],
   options: { onWorker?: (worker: ChildProcess | undefined) => void; workerUrl?: URL } = {},
-): Promise<OpenClawDatabaseVerifyResult[]> {
+): Promise<GrantedDatabaseVerifyResult[]> {
   const workerUrl =
     options.workerUrl ?? resolveRuntimeWorkerUrl(runtimeProcessEntrypoints.databaseVerify);
   const execArgv = workerUrl.pathname.endsWith(".ts") ? ["--import", "tsx"] : undefined;
@@ -63,7 +63,7 @@ export function runDatabaseVerifyWorker(
 
   return new Promise((resolve, reject) => {
     let settled = false;
-    let result: OpenClawDatabaseVerifyResult[] | undefined;
+    let result: GrantedDatabaseVerifyResult[] | undefined;
     let protocolError: Error | undefined;
     let exit: { code: number | null; signal: NodeJS.Signals | null } | undefined;
     let disconnected = !worker.connected;
@@ -144,8 +144,8 @@ export async function terminateDatabaseVerifyWorker(worker: ChildProcess): Promi
 /** Resolve the state database and current registered agent database paths. */
 export function collectOpenClawDatabaseVerifyTargets(options: {
   env: NodeJS.ProcessEnv;
-}): OpenClawDatabaseVerifyTarget[] {
-  const targets = new Map<string, OpenClawDatabaseVerifyTarget>();
+}): GrantedDatabaseVerifyTarget[] {
+  const targets = new Map<string, GrantedDatabaseVerifyTarget>();
   const statePath = path.resolve(resolveOpenClawStateSqlitePath(options.env));
   if (existsSync(statePath)) {
     targets.set(statePath, { kind: "state", label: "OpenClaw state database", path: statePath });
@@ -175,8 +175,8 @@ export function collectOpenClawDatabaseVerifyTargets(options: {
 /** Reconfirm worker failures on live owners before quarantine and latching. */
 export function applyOpenClawDatabaseVerificationResults(options: {
   env: NodeJS.ProcessEnv;
-  results: readonly OpenClawDatabaseVerifyResult[];
-  targets: readonly OpenClawDatabaseVerifyTarget[];
+  results: readonly GrantedDatabaseVerifyResult[];
+  targets: readonly GrantedDatabaseVerifyTarget[];
 }): void {
   const targetByPath = new Map(options.targets.map((target) => [target.path, target]));
 

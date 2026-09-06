@@ -2,7 +2,7 @@
 // Collects URL, auth, and handshake settings before constructing a GatewayClient.
 import { gatewayOriginScope } from "../../packages/gateway-client/src/gateway-origin-scope.js";
 import { resolveGatewayPublicOrigin } from "../config/gateway-public-origin.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveGatewayInteractiveSurfaceAuth,
   resolveGatewayProbeSurfaceAuth,
@@ -95,11 +95,11 @@ function appendControlUiBasePath(url: string, basePath: string): string {
 
 function resolveExactConfiguredGatewayTarget(params: {
   buildConnectionDetails: (options: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     ignoreEnvUrlOverride?: boolean;
     localPortOverride?: number;
   }) => GatewayConnectionDetails;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   explicitUrl: string;
   localPortOverride?: number;
 }): ConfiguredGatewayTargetIdentity | undefined {
@@ -170,7 +170,7 @@ export function resolveGatewayUrlOverride(params: {
  * Resolves the URL, auth material, and handshake tuning needed to start a GatewayClient.
  */
 export async function resolveGatewayClientBootstrap(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   gatewayUrl?: string;
   explicitAuth?: ExplicitGatewayAuth;
   env?: NodeJS.ProcessEnv;
@@ -188,7 +188,7 @@ export async function resolveGatewayClientBootstrap(params: {
   allowStoredOriginAuth?: (scope: string) => boolean;
   overrideAuthErrorHint?: string;
   buildConnectionDetails?: (options: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     url?: string;
     configPath?: string;
     urlSource?: "cli" | "env";

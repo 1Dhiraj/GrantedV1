@@ -1,7 +1,7 @@
 /** Keeps automatic auth profiles stable within sessions while rotating at lifecycle boundaries. */
 import { resolveSessionAuthProfileOverrideSource } from "../../config/sessions/auth-profile-override-provenance.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderModelRouteAuthRequirement } from "../../plugin-sdk/provider-model-types.js";
 import { resolveProviderModelRoutes } from "../../plugins/provider-model-routes.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
@@ -42,7 +42,7 @@ type SessionAuthProfileOverrideResult = {
 };
 
 function profileAuthRequirement(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: ReturnType<typeof ensureAuthProfileStore> | undefined;
   profileId: string;
 }): ProviderModelRouteAuthRequirement | undefined {
@@ -159,7 +159,7 @@ async function persistSessionAuthProfileOverrideState(params: {
 // Current session overrides are only valid when the selected provider can use
 // that profile, including configured aws-sdk profiles without stored secrets.
 function isProfileForProvider(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providers: readonly string[];
   profileId: string;
   store: ReturnType<typeof ensureAuthProfileStore>;
@@ -243,7 +243,7 @@ export async function clearSessionAuthProfileOverride(params: {
 }
 
 async function resolveSessionAuthProfileOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
   agentDir: string;
@@ -436,7 +436,7 @@ type SessionAuthSelection = {
 
 /** Resolves the session credential and its prepared route facts. */
 export async function resolveSessionAuthSelection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
   configuredProfileId?: string;

@@ -3,7 +3,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, it, expect } from "vitest";
 import { createModelVisibilityPolicy } from "../../../agents/model-visibility-policy.js";
-import type { AgentModelEntryConfig, OpenClawConfig } from "../../../config/types.js";
+import type { AgentModelEntryConfig, GrantedConfig } from "../../../config/types.js";
 import { validateConfigObjectRaw } from "../../../config/validation-core.js";
 import { legacyCodexProviderIdentityKey } from "./codex-route-model-ref.js";
 import {
@@ -124,7 +124,7 @@ describe("explicit model allow policy migration", () => {
   it.each(deferredCases)(
     "defers the entire $name legacy restriction without invalidating config",
     ({ models }) => {
-      const raw: OpenClawConfig = {
+      const raw: GrantedConfig = {
         agents: {
           defaults: { models },
           ownership: "explicit",
@@ -225,7 +225,7 @@ describe("explicit model allow policy migration", () => {
       },
     };
     const changes: string[] = [];
-    const createPolicy = (cfg: OpenClawConfig) =>
+    const createPolicy = (cfg: GrantedConfig) =>
       createModelVisibilityPolicy({
         cfg,
         catalog: [

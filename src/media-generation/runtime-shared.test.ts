@@ -1,7 +1,7 @@
 // Covers shared media-generation runtime polling and timeout helpers.
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import {
   normalizeDurationToClosestMax,
   resolveCapabilityModelCandidates,
@@ -60,7 +60,7 @@ describe("media-generation runtime shared candidates", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const candidates = resolveCapabilityModelCandidates({
       cfg,
@@ -98,7 +98,7 @@ describe("media-generation runtime shared candidates", () => {
 
   it("auto-detects auth-backed provider defaults when no explicit media model is configured", () => {
     const candidates = resolveCapabilityModelCandidates({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       modelConfig: undefined,
       parseModelRef,
       listProviders: () => [
@@ -133,7 +133,7 @@ describe("media-generation runtime shared candidates", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       modelConfig: undefined,
       parseModelRef,
       listProviders: () => [
@@ -159,7 +159,7 @@ describe("media-generation runtime shared candidates", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       modelConfig: undefined,
       parseModelRef,
       listProviders: () => [
@@ -184,7 +184,7 @@ describe("media-generation runtime shared candidates", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       modelConfig: undefined,
       parseModelRef,
       listProviders: () => [
@@ -217,7 +217,7 @@ describe("media-generation runtime shared candidates", () => {
             mediaGenerationAutoProviderFallback: false,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       modelConfig: {
         primary: "google/gemini-3.1-flash-image-preview",
       },
@@ -249,7 +249,7 @@ describe("media-generation runtime shared candidates", () => {
             mediaGenerationAutoProviderFallback: false,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       modelConfig: {
         primary: "google/gemini-3.1-flash-image-preview",
         fallbacks: ["fal/fal-ai/flux/dev"],
@@ -270,7 +270,7 @@ describe("media-generation runtime shared candidates", () => {
 
   it("resolves slash-containing provider model IDs from registered provider models", () => {
     const candidates = resolveCapabilityModelCandidates({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       modelConfig: {
         primary: "openai/gpt-image-2",
       },
@@ -291,7 +291,7 @@ describe("media-generation runtime shared candidates", () => {
 
   it("prefers explicit provider refs over colliding slash-containing model IDs", () => {
     const candidates = resolveCapabilityModelCandidates({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       modelConfig: {
         primary: "google/lyria-3-pro-preview",
       },

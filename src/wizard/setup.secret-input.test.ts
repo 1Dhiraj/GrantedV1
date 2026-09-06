@@ -1,16 +1,16 @@
 // Secret input tests cover provider credential prompt normalization.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveSetupSecretInputString } from "./setup.secret-input.js";
 
-function makeConfig(): OpenClawConfig {
+function makeConfig(): GrantedConfig {
   return {
     secrets: {
       providers: {
         default: { source: "env" },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("resolveSetupSecretInputString", () => {

@@ -6,7 +6,7 @@ import type { AgentsListResult } from "../../../packages/gateway-protocol/src/in
 import { resolveSessionStorePathCore as resolveStorePath } from "../../config/sessions.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { recordAgentProvenance } from "../../state/agent-provenance.js";
 import {
   closeOpenClawAgentDatabasesForTest,
@@ -351,7 +351,7 @@ test("a hidden-foreign role cannot discover sessions through search, batch previ
       storePath,
     });
   }
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { list: [{ id: "main", default: true }] },
     gateway: {
       roles: {

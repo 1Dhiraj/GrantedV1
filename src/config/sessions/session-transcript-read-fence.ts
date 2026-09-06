@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import { sql } from "kysely";
 import { executeSqliteQueryTakeFirstSync } from "../../infra/kysely-sync.js";
 import type { UserTurnTranscriptAdmissionReceipt } from "../../sessions/user-turn-transcript.types.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import { getSessionKysely } from "./session-accessor.sqlite-scope.js";
 
 const transcriptReadFenceStorage = new AsyncLocalStorage<UserTurnTranscriptAdmissionReceipt>();
@@ -38,7 +38,7 @@ function resolveSessionTranscriptReadFence(session: {
 }
 
 export function resolveSqliteSessionTranscriptReadFence(params: {
-  database: Pick<OpenClawAgentDatabase, "db" | "path">;
+  database: Pick<GrantedAgentDatabase, "db" | "path">;
   agentId: string;
   sessionId: string;
   sessionKey?: string;

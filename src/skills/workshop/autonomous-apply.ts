@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isWorkshopOwnedSkillDir } from "./ownership.js";
 import { applySkillProposal } from "./service.js";
 import { readSkillProposalRecord, updateSkillProposalRecord } from "./store.js";
@@ -16,7 +16,7 @@ type AutonomousSkillProposalResult =
 export async function applyAutonomousSkillProposal(params: {
   workspaceDir: string;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   eventActor?: Parameters<typeof applySkillProposal>[0]["eventActor"];
   proposal: AutonomousSkillProposal;

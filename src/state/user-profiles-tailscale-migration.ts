@@ -8,7 +8,7 @@ import { tableExists } from "./openclaw-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { githubAuthenticationSubject } from "./user-profile-github-identity.js";
 import { ensureUserProfilesSchema, type UserProfilesDatabase } from "./user-profiles-schema.js";
@@ -20,7 +20,7 @@ type UserProfileIdentityMigrationResult = {
 };
 
 export function migrateLegacyTailscaleProfileIdentities(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileIdentityMigrationResult {
   const database = openOpenClawStateDatabase(options);
   if (!tableExists(database.db, "user_profile_emails")) {

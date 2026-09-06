@@ -1,7 +1,7 @@
 // Local embedded Gateway request context.
 // Lets local agent paths reuse Gateway server methods without starting a server.
 import type { CliDeps } from "../cli/deps.types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withLocalAgentCronJobsRemoved } from "../cron/local-service.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
@@ -28,7 +28,7 @@ import {
 // so local command paths do not silently enqueue cron/channel work.
 type LocalGatewayRequestContextParams = {
   deps: CliDeps;
-  getRuntimeConfig: () => OpenClawConfig;
+  getRuntimeConfig: () => GrantedConfig;
 };
 
 function cronUnavailable(): never {

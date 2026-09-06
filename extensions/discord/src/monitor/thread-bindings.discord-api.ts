@@ -1,5 +1,5 @@
 // Discord API module exposes the plugin public contract.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -127,7 +127,7 @@ export function isDiscordThreadGoneError(err: unknown): boolean {
 }
 
 export async function maybeSendBindingMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   record: ThreadBindingRecord;
   text: string;
   preferWebhook?: boolean;
@@ -163,7 +163,7 @@ export async function maybeSendBindingMessage(params: {
 }
 
 export async function createWebhookForChannel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token?: string;
   channelId: string;
@@ -228,7 +228,7 @@ export function findReusableWebhook(params: { accountId: string; channelId: stri
 }
 
 export async function resolveChannelIdForBinding(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token?: string;
   threadId: string;
@@ -268,7 +268,7 @@ export async function resolveChannelIdForBinding(params: {
 }
 
 export async function createThreadForBinding(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token?: string;
   channelId: string;

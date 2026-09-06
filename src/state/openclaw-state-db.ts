@@ -52,8 +52,8 @@ import {
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   GRANTED_STATE_SCHEMA_VERSION,
   GRANTED_STATE_STRICT_SCHEMA_VERSION,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import {
   assertCurrentStateRuntimeSchema,
@@ -95,12 +95,12 @@ import {
   withOpenClawStateStartupCheckpointConnection,
 } from "./openclaw-state-db-startup-checkpoint.js";
 import * as retirements from "./openclaw-state-db-table-retirements.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import { describeAgentPathMigration, warnAgentPathMigration } from "./openclaw-state-db.paths.js";
 import {
   assertOpenClawStateWriteAllowed,
   isOpenClawStateWriteContentionError,
-  OpenClawStateOwnershipError,
+  GrantedStateOwnershipError,
   runWithOpenClawStateWriteAccess,
 } from "./openclaw-state-ownership.js";
 import { getOpenClawStateRuntimeSchema } from "./openclaw-state-schema-compatibility.js";
@@ -109,9 +109,9 @@ export { registerOpenClawStateDatabaseLifecycleListener } from "./openclaw-state
 
 export { GRANTED_DATABASE_SCHEMA_DOCS_URL, GRANTED_SQLITE_BUSY_TIMEOUT_MS };
 export type {
-  OpenClawStateDatabase,
-  OpenClawStateDatabaseOptions,
-  OpenClawStateDatabaseSchemaMigration,
+  GrantedStateDatabase,
+  GrantedStateDatabaseOptions,
+  GrantedStateDatabaseSchemaMigration,
 } from "./openclaw-state-db-contract.js";
 export {
   assertOpenClawStateDatabaseForMaintenance,
@@ -131,13 +131,13 @@ export function confirmOpenClawStateDatabaseIntegrity(
 
 /** Reject a fresh shared-state open after known corruption until repair clears it. */
 function assertOpenClawStateDatabaseFreshOpenAllowed(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const env = options.env ?? process.env;
   stateDbCache.assertOpenClawStateDatabaseFreshOpenAllowedAtPath(resolveDatabasePath(options), env);
 }
 
-type OpenClawStateMetadataDatabase = Pick<OpenClawStateKyselyDatabase, "schema_meta">;
+type GrantedStateMetadataDatabase = Pick<GrantedStateKyselyDatabase, "schema_meta">;
 const stateDbLog = createSubsystemLogger("state/db");
 
 function executeCanonicalStateSchema(
@@ -278,7 +278,7 @@ function repairStateSchema(
           ],
     };
   } catch (err) {
-    if (err instanceof OpenClawStateOwnershipError) {
+    if (err instanceof GrantedStateOwnershipError) {
       ownershipRefused = true;
       throw err;
     }
@@ -304,7 +304,7 @@ function repairStateSchema(
   }
 }
 
-export function repairOpenClawStateDatabaseSchema(options: OpenClawStateDatabaseOptions = {}): {
+export function repairOpenClawStateDatabaseSchema(options: GrantedStateDatabaseOptions = {}): {
   changes: string[];
   warnings: string[];
 } {
@@ -342,7 +342,7 @@ function needsOpenClawStateDatabaseSchemaRepair(pathname: string): boolean {
 
 /** Skip the exclusive doctor repair when automatic migration sees a canonical current schema. */
 export function repairOpenClawStateDatabaseSchemaIfNeeded(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): {
   changes: string[];
   warnings: string[];
@@ -382,7 +382,7 @@ function ensureSchema(
 
   withStateSchemaFence({ databasePath: pathname }, () => {
     const now = Date.now();
-    const kysely = getNodeSqliteKysely<OpenClawStateMetadataDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateMetadataDatabase>(db);
     db.exec("PRAGMA foreign_keys = OFF;"); // Rebuilding referenced tables requires this before BEGIN.
     try {
       runSqliteImmediateTransactionSync(
@@ -493,14 +493,14 @@ function ensureSchema(
 /** Bootstrap fresh/native-only state canonically before startup checkpoint access. */
 export function withOpenClawStateStartupMigrationCheckpointDatabase<T>(
   callback: (db: DatabaseSync) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): T {
   return withOpenClawStateStartupCheckpointConnection(callback, options, ensureSchema);
 }
 
 /** Complete native bootstrap without migrating mature shared state. */
 export function initializeNativeOpenClawStateDatabase(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   initializeNativeOpenClawStateConnection(options, (db, pathname, env) =>
     ensureSchema(db, pathname, env, GRANTED_SQLITE_BUSY_TIMEOUT_MS, true),
@@ -509,8 +509,8 @@ export function initializeNativeOpenClawStateDatabase(
 
 /** Open existing shared state without creating, migrating, chmodding, or configuring it. */
 export async function openExistingOpenClawStateDatabaseReadOnly(
-  options: OpenClawStateDatabaseOptions = {},
-): Promise<OpenClawStateDatabase | undefined> {
+  options: GrantedStateDatabaseOptions = {},
+): Promise<GrantedStateDatabase | undefined> {
   const pathname = resolveDatabasePath(options);
   if (!existsSync(pathname)) {
     return undefined;
@@ -573,10 +573,10 @@ export async function openExistingOpenClawStateDatabaseReadOnly(
 /** Open or return a cached shared state database after schema and migration checks. */
 
 function openOpenClawStateDatabaseWithBusyTimeout(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
   busyTimeoutMs = GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   lockFailureReporting: SqliteLockFailureReporting = "report",
-): OpenClawStateDatabase {
+): GrantedStateDatabase {
   const env = options.env ?? process.env;
   if (options.database) {
     assertOpenClawStateWriteAllowed({
@@ -611,7 +611,7 @@ function openOpenClawStateDatabaseWithBusyTimeout(
     stateDbCache.recordOpenClawStateDatabaseLifecycleOpenError(pathname, error);
     throw error;
   }
-  let unpublished: OpenClawStateDatabase | undefined;
+  let unpublished: GrantedStateDatabase | undefined;
   try {
     unpublished = runWithOpenClawStateWriteAccess(
       { databasePath: pathname, busyTimeoutMs, env },
@@ -653,15 +653,15 @@ function openOpenClawStateDatabaseWithBusyTimeout(
 
 /** Open or return a cached shared state database after schema and migration checks. */
 export function openOpenClawStateDatabase(
-  options: OpenClawStateDatabaseOptions = {},
-): OpenClawStateDatabase {
+  options: GrantedStateDatabaseOptions = {},
+): GrantedStateDatabase {
   return openOpenClawStateDatabaseWithBusyTimeout(options);
 }
 
 /** Run one operation through the shared owner without waiting synchronously on SQLite locks. */
 export function runWithOpenClawStateBusyTimeout<T>(
-  operation: (database: OpenClawStateDatabase) => T,
-  options: OpenClawStateDatabaseOptions,
+  operation: (database: GrantedStateDatabase) => T,
+  options: GrantedStateDatabaseOptions,
   busyTimeoutMs: number,
 ): T {
   const normalizedTimeoutMs = normalizeSqliteNonNegativeInteger(busyTimeoutMs, "busyTimeoutMs");
@@ -685,8 +685,8 @@ export function runWithOpenClawStateBusyTimeout<T>(
 
 /** Run a synchronous immediate transaction against the shared state database. */
 export function runOpenClawStateWriteTransaction<T>(
-  operation: (database: OpenClawStateDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  operation: (database: GrantedStateDatabase) => T,
+  options: GrantedStateDatabaseOptions = {},
   transactionOptions: Pick<
     SqliteTransactionOptions,
     "busyTimeoutMs" | "operationLabel" | "slowTransactionHoldMs"
@@ -741,8 +741,8 @@ export function runOpenClawStateWriteTransaction<T>(
  * creates, repairs, or registers a handle.
  */
 function getOpenClawStateDatabaseIfOpen(
-  options: OpenClawStateDatabaseOptions = {},
-): OpenClawStateDatabase | undefined {
+  options: GrantedStateDatabaseOptions = {},
+): GrantedStateDatabase | undefined {
   return stateDbCache.getOpenClawStateDatabaseIfOpenAtPath(resolveDatabasePath(options));
 }
 

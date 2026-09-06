@@ -3,7 +3,7 @@ import {
   hasConfiguredAccountValue,
   mergeAccountConfig,
 } from "openclaw/plugin-sdk/account-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { CoreConfig } from "./src/types.js";
 
 type NextcloudAccount = NonNullable<NonNullable<CoreConfig["channels"]>["nextcloud-talk"]>;
@@ -22,7 +22,7 @@ function hasConfiguredNextcloudAccount(
 
 /** Require a Nextcloud server plus its account-owned bot credential. */
 export function hasConfiguredNextcloudTalkChannelState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): boolean {
   // SAFETY: Nextcloud Talk's registered channel schema owns its account-config shape.

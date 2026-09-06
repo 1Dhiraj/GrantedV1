@@ -4,11 +4,11 @@ import path from "node:path";
 import { asSafeIntegerInRange } from "@openclaw/normalization-core/number-coercion";
 import type { Insertable, Selectable } from "kysely";
 import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
@@ -34,11 +34,11 @@ export type StoredDeviceIdentity = DeviceIdentity & {
   createdAtMs: number;
 };
 
-export type DeviceIdentityStoreOptions = OpenClawStateDatabaseOptions & {
+export type DeviceIdentityStoreOptions = GrantedStateDatabaseOptions & {
   identityKey?: string;
 };
 
-type DeviceIdentityDatabase = Pick<OpenClawStateKyselyDatabase, "device_identities">;
+type DeviceIdentityDatabase = Pick<GrantedStateKyselyDatabase, "device_identities">;
 type DeviceIdentityRow = Selectable<DeviceIdentityDatabase["device_identities"]>;
 type DeviceIdentityInsert = Insertable<DeviceIdentityDatabase["device_identities"]>;
 type SqliteMasterDatabase = { sqlite_master: { name: string } };

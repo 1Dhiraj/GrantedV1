@@ -8,7 +8,7 @@ import {
   replaceSessionEntrySync,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256HexPrefixCore } from "../../infra/crypto-digest.js";
 import {
   registerClonedProjectRegistry,
@@ -74,7 +74,7 @@ async function invokeProjectMethod(
     respond: (ok, payload, error) => {
       capture.result = { ok, payload, error };
     },
-    context: { getRuntimeConfig: () => cfg as OpenClawConfig } as never,
+    context: { getRuntimeConfig: () => cfg as GrantedConfig } as never,
     client: {
       connect: { scopes },
       ...(profileId ? { authenticatedUserProfile: { profileId } } : {}),
@@ -491,7 +491,7 @@ test("projects.remove refuses to delete a cloned checkout configured as an agent
     });
     const cfg = {
       agents: { list: [{ id: "main", default: true, workspace: repo }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       await invokeProjectMethod("projects.remove", { id: project.id, deleteCheckout: true }, cfg),
@@ -526,7 +526,7 @@ test("projects.remove refuses to delete a cloned checkout used by a live direct 
     );
     const cfg = {
       agents: { list: [{ id: "main", default: true, workspace: state.workspaceDir }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       await invokeProjectMethod("projects.remove", { id: project.id, deleteCheckout: true }, cfg),

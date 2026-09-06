@@ -2,11 +2,11 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getFreePort } from "../browser/test-port.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 
 const mocks = vi.hoisted(() => ({
-  runtimeConfig: {} as OpenClawConfig,
-  runtimeSourceConfig: null as OpenClawConfig | null,
+  runtimeConfig: {} as GrantedConfig,
+  runtimeSourceConfig: null as GrantedConfig | null,
   ensureBrowserControlAuth: vi.fn(async () => ({ auth: {} })),
   resolveBrowserControlAuth: vi.fn(() => ({})),
   shouldAutoGenerateBrowserAuth: vi.fn(() => false),
@@ -58,7 +58,7 @@ function browserConfig(params: {
   executablePath?: string;
   headless?: boolean;
   noSandbox?: boolean;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     gateway: {
       port: params.gatewayPort,

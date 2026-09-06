@@ -1,7 +1,7 @@
 // Config path diff helper used by gateway mutation diagnostics.
 import { isDeepStrictEqual } from "node:util";
 import * as talk from "../config/talk.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isPlainObject } from "../utils.js";
 
 /** Return dotted config paths whose values differ between two config snapshots. */
@@ -36,7 +36,7 @@ export function diffConfigPaths(prev: unknown, next: unknown, prefix = ""): stri
   return [prefix || "<root>"];
 }
 
-function projectGatewayReloadBoundaries(config: OpenClawConfig) {
+function projectGatewayReloadBoundaries(config: GrantedConfig) {
   return {
     mcp: { apps: config.mcp?.apps },
     agents: {
@@ -60,8 +60,8 @@ function projectGatewayReloadBoundaries(config: OpenClawConfig) {
 
 /** Preserve startup-only restart boundaries hidden by whole-object config changes. */
 export function diffGatewayReloadPaths(
-  prevConfig: OpenClawConfig,
-  nextConfig: OpenClawConfig,
+  prevConfig: GrantedConfig,
+  nextConfig: GrantedConfig,
 ): string[] {
   const changedPaths = diffConfigPaths(prevConfig, nextConfig);
   const boundaryPaths = diffConfigPaths(

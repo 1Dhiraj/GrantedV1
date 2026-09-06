@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { closeOpenClawStateDatabaseForTest } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createTestRegistry,
   setActivePluginRegistry,
@@ -26,7 +26,7 @@ const CONVERSATION = {
 };
 
 describe("Slack runtime conversation bindings", () => {
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   let previousStateDir: string | undefined;
   let testStateDir = "";
   let installationState: SlackInstallationStateRegistration;

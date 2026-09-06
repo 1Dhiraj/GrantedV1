@@ -1,11 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import { registerPiSessionCatalog } from "./pi-session-catalog-plugin.js";
 
-type RegisteredSessionCatalogProvider = Parameters<OpenClawPluginApi["registerSessionCatalog"]>[0];
+type RegisteredSessionCatalogProvider = Parameters<GrantedPluginApi["registerSessionCatalog"]>[0];
 type OptionalCatalogAgent<T extends { agentId?: string }> = Omit<T, "agentId"> & {
   agentId?: string;
 };
@@ -158,17 +158,17 @@ export async function installFakePiFixture(
 }
 
 export function registerPiNodeHostCommands(): Parameters<
-  OpenClawPluginApi["registerNodeHostCommand"]
+  GrantedPluginApi["registerNodeHostCommand"]
 >[0][] {
-  const commands: Parameters<OpenClawPluginApi["registerNodeHostCommand"]>[0][] = [];
+  const commands: Parameters<GrantedPluginApi["registerNodeHostCommand"]>[0][] = [];
   registerPiSessionCatalog({
     pluginConfig: {},
     registerSessionCatalog: vi.fn(),
     registerNodeHostCommand: (
-      command: Parameters<OpenClawPluginApi["registerNodeHostCommand"]>[0],
+      command: Parameters<GrantedPluginApi["registerNodeHostCommand"]>[0],
     ) => commands.push(command),
     registerNodeInvokePolicy: vi.fn(),
-  } as unknown as OpenClawPluginApi);
+  } as unknown as GrantedPluginApi);
   return commands;
 }
 
@@ -177,7 +177,7 @@ export function capturePiContinuationCatalog() {
   const entries: Array<{ sessionKey: string; entry: Record<string, unknown> }> = [];
   const createSessionEntry = vi.fn(
     async (
-      params: Parameters<OpenClawPluginApi["runtime"]["agent"]["session"]["createSessionEntry"]>[0],
+      params: Parameters<GrantedPluginApi["runtime"]["agent"]["session"]["createSessionEntry"]>[0],
     ) => {
       const sessionKey = `agent:${params.agentId ?? "main"}:${params.key}`;
       const entry = {
@@ -230,6 +230,6 @@ export function capturePiContinuationCatalog() {
     },
     registerNodeHostCommand: vi.fn(),
     registerNodeInvokePolicy: vi.fn(),
-  } as unknown as OpenClawPluginApi);
+  } as unknown as GrantedPluginApi);
   return { createSessionEntry, entries, provider: provider! };
 }

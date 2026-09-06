@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import { afterEach, vi } from "vitest";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   ProviderModelRouteAuthRequirement,
   ProviderModelRouteCandidate,
   ProviderModelRouteResolution,
 } from "../../plugin-sdk/provider-model-types.js";
 import {
-  type OpenClawTestState,
+  type GrantedTestState,
   withOpenClawTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { AuthProfileStore } from "./types.js";
@@ -79,7 +79,7 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-export async function withAuthState<T>(run: (state: OpenClawTestState) => Promise<T>): Promise<T> {
+export async function withAuthState<T>(run: (state: GrantedTestState) => Promise<T>): Promise<T> {
   return await withOpenClawTestState(
     {
       layout: "state-only",
@@ -134,7 +134,7 @@ export function configureProviderRoutes(params: {
 }
 
 export async function prepareCooldownAuthState(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   options: {
     profileIds?: string[];
     usageStats?: AuthProfileStore["usageStats"];
@@ -164,7 +164,7 @@ export async function resolveSession(params: {
   agentDir: string;
   sessionEntry: SessionEntry;
   sessionStore: Record<string, SessionEntry>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   sessionKey?: string;
   storePath?: string;
@@ -172,7 +172,7 @@ export async function resolveSession(params: {
 }): Promise<string | undefined> {
   return (
     await resolveSessionAuthSelection({
-      cfg: params.cfg ?? ({} as OpenClawConfig),
+      cfg: params.cfg ?? ({} as GrantedConfig),
       provider: params.provider ?? "openai",
       modelId: params.sessionEntry.model ?? "model-x",
       agentDir: params.agentDir,

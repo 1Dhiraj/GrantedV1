@@ -4,11 +4,11 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const PLUGIN_ID = "session-end-shutdown-proof";
@@ -17,7 +17,7 @@ const HOOK_DELAY_MS = 10_000;
 const TEST_TIMEOUT_MS = 120_000;
 const WAIT_OPTIONS = { timeout: 10_000, interval: 25 } as const;
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const fixtureDirs: string[] = [];
 
 afterEach(async () => {
@@ -87,7 +87,7 @@ describe("Gateway session-end shutdown", () => {
           entries: { [PLUGIN_ID]: { enabled: true } },
           slots: { memory: "none" },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const instance = await createOpenClawTestInstance({
         name: "session-end-shutdown",
         config,

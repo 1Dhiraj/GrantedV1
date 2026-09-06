@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { makeTempWorkspace } from "../test-helpers/workspace.js";
 import { setTestEnvValue, withEnv, withEnvAsync } from "../test-utils/env.js";
@@ -404,7 +404,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
           auth: { mode: "password", password: passwordRef },
           tailscale: { mode: "serve" },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {
@@ -445,7 +445,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
             },
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {
@@ -476,7 +476,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       const workspace = path.join(stateDir, "openclaw");
       testConfigStore.set(resolveTestConfigPath(), {
         gateway: { mode: "local", bind: "lan" },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {
@@ -550,7 +550,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
             tlsFingerprint: "sha256:test-fingerprint",
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
       await runNonInteractiveSetup(
         {
           nonInteractive: true,
@@ -616,7 +616,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
             tlsFingerprint: "sha256:test-fingerprint",
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {
@@ -662,7 +662,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
           mode: "remote",
           remote: { url: `ws://127.0.0.1:${port}`, token },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {

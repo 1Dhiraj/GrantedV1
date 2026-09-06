@@ -3,9 +3,9 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
 import { retainLegacyDefaultAgentId } from "../../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
-let testConfig: OpenClawConfig = {};
+let testConfig: GrantedConfig = {};
 let healthPluginsForTest: ChannelPlugin[] = [];
 const tempDirs = createTempDirTracker();
 let sessionStorePath: string;
@@ -14,7 +14,7 @@ let collectGatewayHealthSnapshot: typeof import("./collector.js").collectGateway
 let createChannelTestPluginBase: typeof import("../../test-utils/channel-plugins.js").createChannelTestPluginBase;
 
 function createHealthPlugin(): ChannelPlugin {
-  const resolveAccount = (_cfg: OpenClawConfig, accountId?: string | null) => ({
+  const resolveAccount = (_cfg: GrantedConfig, accountId?: string | null) => ({
     accountId: accountId?.trim() || "default",
     enabled: true,
     configured: true,
@@ -94,7 +94,7 @@ describe("collectGatewayHealthSnapshot legacy owner projection", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     testConfig = retainLegacyDefaultAgentId(migratedConfig, "ops");
 
     const migrated = await collectGatewayHealthSnapshot({ audience: "admin", probe: false });

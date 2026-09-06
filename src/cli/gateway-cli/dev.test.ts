@@ -3,7 +3,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { OpenClawSchema } from "../../config/zod-schema.js";
+import { GrantedSchema } from "../../config/zod-schema.js";
 
 const mocks = vi.hoisted(() => ({
   configPath: "",
@@ -79,7 +79,7 @@ describe("ensureDevGatewayConfig", () => {
         },
       },
     });
-    expect(OpenClawSchema.safeParse(mocks.nextConfig).success).toBe(true);
+    expect(GrantedSchema.safeParse(mocks.nextConfig).success).toBe(true);
     expect(mocks.writeOptions).toEqual({ allowedAgentRosterRemovals: ["main"] });
   });
 });

@@ -5,7 +5,7 @@ import path from "node:path";
 import { createInterface } from "node:readline/promises";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginIntegrationSecretProviderConfig } from "../config/types.secrets.js";
 import { sameFileIdentity } from "../infra/fs-safe-advanced.js";
 import {
@@ -192,7 +192,7 @@ function renderSecretRefApplyCommands(
 }
 
 function readSecretRefProviderStatus(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   providerAlias: string,
 ): SecretRefProviderStatus {
   const provider = config.secrets?.providers?.[providerAlias];
@@ -231,7 +231,7 @@ export function createPluginSecretRefSetupCli(params: PluginSecretRefSetupCliPar
     value.pluginIntegration.pluginId === params.pluginIntegration.pluginId &&
     value.pluginIntegration.integrationId === params.pluginIntegration.integrationId;
 
-  const inspectProvider = (config: OpenClawConfig, requestedAlias?: string) => {
+  const inspectProvider = (config: GrantedConfig, requestedAlias?: string) => {
     const explicitAlias = normalizeOptionalString(requestedAlias);
     let providerAlias: string;
     if (explicitAlias) {

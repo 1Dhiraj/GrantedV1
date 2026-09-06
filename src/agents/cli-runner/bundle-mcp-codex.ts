@@ -3,7 +3,7 @@
  */
 import { normalizeConfiguredMcpServers } from "../../config/mcp-config-normalize.js";
 import type { SessionToolOverrides } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { BundleMcpConfig, BundleMcpServerConfig } from "../../plugins/bundle-mcp.js";
 import { isValidAgentId, normalizeAgentId } from "../../routing/session-key.js";
 import { getOrCreateSessionMcpRuntime } from "../agent-bundle-mcp-manager-api.js";
@@ -82,7 +82,7 @@ function isCodexMcpServerAllowedForAgent(
  * Session overrides may narrow this result, but cannot widen `codex.agents`.
  */
 export function resolveCodexMcpToolOverridesForAgent(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   options: Pick<CodexUserMcpServersProjectionOptions, "agentId" | "toolOverrides">,
 ): Pick<SessionToolOverrides, "mcpServers" | "mcpToolsDeny"> | undefined {
   const deniedServerNames = Object.entries(normalizeConfiguredMcpServers(cfg?.mcp?.servers))
@@ -107,7 +107,7 @@ function readSessionMcpServerOverride(
 }
 
 function selectCodexProjectableMcpServers(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   options: CodexUserMcpServersProjectionOptions | undefined,
 ): BundleMcpConfig["mcpServers"] {
   const userServers = normalizeConfiguredMcpServers(cfg?.mcp?.servers);
@@ -161,7 +161,7 @@ export function injectCodexMcpConfigArgs(
  * plugin thread-config `apps` patch, so they must not be re-projected here.
  */
 export function buildCodexUserMcpServersThreadConfigPatch(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   options?: CodexUserMcpServersProjectionOptions,
 ): { mcp_servers: CodexThreadConfigObject } | undefined {
   const entries = Object.entries(selectCodexProjectableMcpServers(cfg, options));
@@ -189,7 +189,7 @@ export function buildCodexUserMcpServersThreadConfigPatch(
 
 /** Async runtime projection that resolves OpenClaw-managed MCP bearer tokens. */
 export async function buildCodexUserMcpServersThreadConfigPatchForRuntime(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   options?: CodexUserMcpServersProjectionOptions,
 ): Promise<{ mcp_servers: CodexThreadConfigObject } | undefined> {
   let allowedServers = selectCodexProjectableMcpServers(cfg, options);
@@ -308,7 +308,7 @@ export async function buildCodexUserMcpServersThreadConfigPatchForRun(params: {
   if (Object.keys(configuredMcpServers).length === 0) {
     return undefined;
   }
-  const projectionConfig: OpenClawConfig = {
+  const projectionConfig: GrantedConfig = {
     ...run.config,
     mcp: { ...run.config?.mcp, servers: configuredMcpServers },
   };

@@ -10,7 +10,7 @@ import {
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
 import { tryResolveConfiguredAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { resolveConfigWidePluginManifestRegistry } from "../../config/io.plugin-metadata.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { isBlockedObjectKey } from "../../infra/prototype-keys.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
@@ -52,7 +52,7 @@ type ReadOnlyChannelPluginOptions = {
   env?: NodeJS.ProcessEnv;
   stateDir?: string;
   workspaceDir?: string;
-  activationSourceConfig?: OpenClawConfig;
+  activationSourceConfig?: GrantedConfig;
   includePersistedAuthState?: boolean;
   includeSetupFallbackPlugins?: boolean;
   metadataSnapshot?: PluginMetadataSnapshot;
@@ -115,10 +115,10 @@ function normalizeManifestText(value: string | undefined, fallback: string): str
 }
 
 function rebindChannelConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   sourceChannelId: string,
   targetChannelId: string,
-): OpenClawConfig {
+): GrantedConfig {
   if (sourceChannelId === targetChannelId || !cfg.channels) {
     return cfg;
   }
@@ -132,11 +132,11 @@ function rebindChannelConfig(
 }
 
 function restoreReboundChannelConfig(params: {
-  original: OpenClawConfig;
-  updated: OpenClawConfig;
+  original: GrantedConfig;
+  updated: GrantedConfig;
   sourceChannelId: string;
   targetChannelId: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   if (params.sourceChannelId === params.targetChannelId || !params.updated.channels) {
     return params.updated;
   }
@@ -157,7 +157,7 @@ function restoreReboundChannelConfig(params: {
   };
 }
 
-function getChannelConfigRecord(cfg: OpenClawConfig, channelId: string): Record<string, unknown> {
+function getChannelConfigRecord(cfg: GrantedConfig, channelId: string): Record<string, unknown> {
   if (!isSafeManifestChannelId(channelId)) {
     return {};
   }
@@ -175,7 +175,7 @@ function normalizeManifestAccountConfigKey(accountId: string): string {
   return normalizeOptionalAccountId(accountId) ?? "";
 }
 
-function listManifestChannelAccountIds(cfg: OpenClawConfig, channelId: string): string[] {
+function listManifestChannelAccountIds(cfg: GrantedConfig, channelId: string): string[] {
   const channelConfig = getChannelConfigRecord(cfg, channelId);
   const accounts = channelConfig.accounts;
   if (accounts && typeof accounts === "object" && !Array.isArray(accounts)) {
@@ -189,7 +189,7 @@ function listManifestChannelAccountIds(cfg: OpenClawConfig, channelId: string): 
   return hasExplicitChannelConfig({ config: cfg, channelId }) ? [DEFAULT_ACCOUNT_ID] : [];
 }
 
-function resolveManifestChannelDefaultAccountId(cfg: OpenClawConfig, channelId: string): string {
+function resolveManifestChannelDefaultAccountId(cfg: GrantedConfig, channelId: string): string {
   const channelConfig = getChannelConfigRecord(cfg, channelId);
   const configuredDefaultAccountId = normalizeOptionalAccountId(
     typeof channelConfig.defaultAccount === "string" ? channelConfig.defaultAccount : undefined,
@@ -201,7 +201,7 @@ function resolveManifestChannelDefaultAccountId(cfg: OpenClawConfig, channelId: 
 }
 
 function resolveManifestChannelAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   accountId?: string | null;
 }): Record<string, unknown> {
@@ -403,8 +403,7 @@ function rebindChannelPluginConfig(
   sourceChannelId: string,
   targetChannelId: string,
 ): ChannelPlugin["config"] {
-  const rebind = (cfg: OpenClawConfig) =>
-    rebindChannelConfig(cfg, sourceChannelId, targetChannelId);
+  const rebind = (cfg: GrantedConfig) => rebindChannelConfig(cfg, sourceChannelId, targetChannelId);
   return {
     ...config,
     listAccountIds: (cfg) => config.listAccountIds(rebind(cfg)),
@@ -562,7 +561,7 @@ function addManifestChannelPlugins(
 }
 
 function resolveReadOnlyWorkspaceDir(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: ReadOnlyChannelPluginOptions,
 ): string | undefined {
   return options.workspaceDir ?? tryResolveConfiguredAgentWorkspaceDir(cfg, options.env);
@@ -581,8 +580,8 @@ function listBundledChannelManifestRecords(
 }
 
 function resolveExternalReadOnlyChannelPluginIds(params: {
-  cfg: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   channelIds: readonly string[];
   records: readonly PluginManifestRecord[];
   workspaceDir?: string;
@@ -616,14 +615,14 @@ function resolveExternalReadOnlyChannelPluginIds(params: {
 }
 
 export function listReadOnlyChannelPluginsForConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options?: ReadOnlyChannelPluginOptions,
 ): ChannelPlugin[] {
   return resolveReadOnlyChannelPluginsForConfig(cfg, options).plugins;
 }
 
 export function resolveReadOnlyChannelPluginsForConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: ReadOnlyChannelPluginOptions = {},
 ): ReadOnlyChannelPluginResolution {
   const env = options.env ?? process.env;

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { listAgentIds } from "../agent-scope-config.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -16,7 +16,7 @@ import {
 
 const { runEmbeddedAgent } = await loadRunOverflowCompactionHarness();
 
-function projectSetupExecutionConfig(source: OpenClawConfig): OpenClawConfig {
+function projectSetupExecutionConfig(source: GrantedConfig): GrantedConfig {
   return {
     ...source,
     agents: {
@@ -29,7 +29,7 @@ function projectSetupExecutionConfig(source: OpenClawConfig): OpenClawConfig {
   };
 }
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("embedded setup inference inherited auth owner", () => {
   // Provider-pinned runs stay on the mocked plugin harness, so no host-route
@@ -48,7 +48,7 @@ describe("embedded setup inference inherited auth owner", () => {
   it.each([
     { name: "a pre-roster config", source: {} },
     { name: "a sole-agent config", source: { agents: { entries: { main: {} } } } },
-  ] satisfies Array<{ name: string; source: OpenClawConfig }>)(
+  ] satisfies Array<{ name: string; source: GrantedConfig }>)(
     "prepares the explicit main agent from $name",
     async ({ name, source }) => {
       const config = projectSetupExecutionConfig(source);

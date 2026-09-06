@@ -12,20 +12,20 @@ export type CodexAppServerHomeScope = "agent" | "user";
 export type CodexAppServerPolicyMode = "yolo" | "guardian";
 export type CodexAppServerConnectionClass = "local-loopback" | "remote";
 export type CodexAppServerRemoteAppsSubstrate = "preconfigured";
-export type OpenClawExecMode = "deny" | "allowlist" | "ask" | "auto" | "full";
-export type OpenClawExecSecurity = "deny" | "allowlist" | "full";
-export type OpenClawExecAsk = "off" | "on-miss" | "always";
-export type OpenClawExecApprovalFloorsForCodexAppServer = {
-  security?: OpenClawExecSecurity;
-  ask?: OpenClawExecAsk;
+export type GrantedExecMode = "deny" | "allowlist" | "ask" | "auto" | "full";
+export type GrantedExecSecurity = "deny" | "allowlist" | "full";
+export type GrantedExecAsk = "off" | "on-miss" | "always";
+export type GrantedExecApprovalFloorsForCodexAppServer = {
+  security?: GrantedExecSecurity;
+  ask?: GrantedExecAsk;
 };
-export type OpenClawExecPolicyForCodexAppServer = {
-  mode: OpenClawExecMode;
-  security: OpenClawExecSecurity;
-  ask: OpenClawExecAsk;
+export type GrantedExecPolicyForCodexAppServer = {
+  mode: GrantedExecMode;
+  security: GrantedExecSecurity;
+  ask: GrantedExecAsk;
   touched: boolean;
 };
-export type OpenClawExecPolicy = OpenClawExecPolicyForCodexAppServer;
+export type GrantedExecPolicy = GrantedExecPolicyForCodexAppServer;
 export type ProviderAuthAliasConfig = NonNullable<ProviderAuthAliasLookupParams>["config"];
 export type CodexAppServerDefaultPolicy = {
   mode: CodexAppServerPolicyMode;

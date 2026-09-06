@@ -14,7 +14,7 @@ import {
 } from "../state/openclaw-agent-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { canonicalMemoryTestSupportModuleUrl } from "./doctor-session-canonical-keys.memory.test-support.js";
 import { insertLegacySession } from "./doctor-session-canonical-keys.test-support.js";
@@ -23,7 +23,7 @@ const execFileAsync = promisify(execFile);
 const ROW_COUNT = 48;
 const ENTRY_PAYLOAD_BYTES = 512 * 1024;
 const CHILD_HEAP_MIB = 160;
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 let bundleDir: string | undefined;
 
 afterEach(async () => {

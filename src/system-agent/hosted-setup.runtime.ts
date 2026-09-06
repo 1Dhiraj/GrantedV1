@@ -1,5 +1,5 @@
 import { stat } from "node:fs/promises";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import type {
@@ -26,7 +26,7 @@ export type HostedMemoryImportOutcome =
   | SetupMemoryImportOutcome
   | { status: "workspace-missing"; providers: []; workspace: string };
 
-export function requireLocalGateway(config: OpenClawConfig): void {
+export function requireLocalGateway(config: GrantedConfig): void {
   if (config.gateway?.mode === "local") {
     return;
   }
@@ -49,10 +49,10 @@ export async function runHostedSetup(params: {
   runtime?: RuntimeEnv;
   beforePersistentApply: (runtime: RuntimeEnv) => Promise<void>;
   afterWrite?: import("../config/runtime-snapshot.js").ConfigWriteAfterWrite;
-  run: (context: { baseConfig: OpenClawConfig; runtime: RuntimeEnv }) => Promise<
+  run: (context: { baseConfig: GrantedConfig; runtime: RuntimeEnv }) => Promise<
     | {
-        nextConfig: OpenClawConfig;
-        afterWrite?: (committedConfig: OpenClawConfig) => Promise<void>;
+        nextConfig: GrantedConfig;
+        afterWrite?: (committedConfig: GrantedConfig) => Promise<void>;
       }
     | { keptCurrent: true }
   >;

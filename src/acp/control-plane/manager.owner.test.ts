@@ -5,7 +5,7 @@ import {
   loadSessionEntryReadOnly,
   replaceSessionEntrySync,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
@@ -34,7 +34,7 @@ describe("ACP manager with real owner-scoped metadata", () => {
         const cfg = {
           agents: { ownership: "explicit", entries: { main: {}, work: {} } },
           session: { scope: "global", store: path.join(dir, "{agentId}", "sessions.json") },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         const databasePath = path.join(dir, "state", "openclaw.sqlite");
         const ensureSession = vi.fn(async (input: { sessionKey: string; agentId?: string }) => ({
           ...input,

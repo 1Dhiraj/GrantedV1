@@ -5,7 +5,7 @@ import { timestampMsToIsoFileStamp } from "@openclaw/normalization-core/number-c
 import { resolveConfiguredAgentId } from "../../agents/agent-scope-config.js";
 import { getRuntimeConfig } from "../../config/config.js";
 import { resolveStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { MigrationProviderContext } from "../../plugins/types.js";
 import type { RuntimeEnv } from "../../runtime.js";
 
@@ -36,7 +36,7 @@ export function buildMigrationReportDir(
 
 /** Resolves an explicit migration owner without allowing typo-created agent stores. */
 export function resolveMigrationTargetAgentId(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   rawAgentId: string | undefined,
 ): string | undefined {
   const raw = rawAgentId?.trim();
@@ -62,7 +62,7 @@ export function buildMigrationContext(params: {
   overwrite?: boolean;
   providerOptions?: Record<string, unknown>;
   backupPath?: string;
-  configOverride?: OpenClawConfig;
+  configOverride?: GrantedConfig;
   runtime: RuntimeEnv;
   reportDir?: string;
   json?: boolean;

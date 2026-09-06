@@ -54,8 +54,8 @@ import { buildEmbeddedAttemptToolRunContext } from "./attempt-tool-run-context.j
 import { TOOL_SEARCH_CONTROL_ALLOWLIST_NAMES } from "./attempt-tool-search-run-plan.js";
 import type { EmbeddedRunAttemptParams } from "./types.js";
 
-type OpenClawCodingToolsOptions = NonNullable<Parameters<typeof createOpenClawCodingTools>[0]>;
-type SkillUsagePaths = OpenClawCodingToolsOptions["skillUsagePaths"];
+type GrantedCodingToolsOptions = NonNullable<Parameters<typeof createOpenClawCodingTools>[0]>;
+type SkillUsagePaths = GrantedCodingToolsOptions["skillUsagePaths"];
 
 export function prepareEmbeddedAttemptToolBase(params: {
   agentDir: string;
@@ -63,7 +63,7 @@ export function prepareEmbeddedAttemptToolBase(params: {
   effectiveCwd: string;
   effectiveWorkspace: string;
   markCoreToolStage: (name: string) => void;
-  onYield: NonNullable<OpenClawCodingToolsOptions["onYield"]>;
+  onYield: NonNullable<GrantedCodingToolsOptions["onYield"]>;
   resolvedWorkspace: string;
   runAbortController: AbortController;
   runTrace: DiagnosticTraceContext;

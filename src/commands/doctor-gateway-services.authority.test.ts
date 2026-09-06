@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { isDefaultInstallIdentity } from "../config/paths.js";
 import * as gatewayService from "../daemon/service.js";
 import {
@@ -15,7 +15,7 @@ import type { RuntimeEnv } from "../runtime.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 
@@ -57,7 +57,7 @@ const existingToken = "doctor-fixture-config-token";
 const inspectionCanary = "doctor-fixture-private-inspection-detail";
 
 describe.skipIf(process.platform === "win32")("Doctor native repair authority ordering", () => {
-  let state: OpenClawTestState | undefined;
+  let state: GrantedTestState | undefined;
 
   afterEach(async () => {
     vi.restoreAllMocks();
@@ -86,7 +86,7 @@ describe.skipIf(process.platform === "win32")("Doctor native repair authority or
     await fs.mkdir(path.dirname(unitPath), { recursive: true, mode: 0o755 });
     await fs.mkdir(systemUnits, { mode: 0o755 });
     await fs.writeFile(wrapperPath, "#!/bin/sh\nexit 99\n", { mode: 0o700 });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "local",
         auth: { mode: "token", ...(tokenPresent ? { token: existingToken } : {}) },
@@ -286,7 +286,7 @@ describe.skipIf(process.platform === "win32")("Doctor native repair authority or
         }
         const result = await maybeRepairGatewayServiceConfig(cfg, "local", runtime, prompter);
         const configBytes = await fs.readFile(configPath, "utf8");
-        const persisted: OpenClawConfig = JSON.parse(configBytes);
+        const persisted: GrantedConfig = JSON.parse(configBytes);
         const diagnostics = [...edges.note.mock.calls.map(([message]) => message), ...errors].join(
           "\n",
         );

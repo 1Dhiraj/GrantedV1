@@ -11,7 +11,7 @@ import {
   resolveCapabilityModelRefForProviders,
 } from "../../../packages/media-generation-core/src/capability-model-ref.js";
 import type { AgentModelConfig } from "../../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { safeFileURLToPath } from "../../infra/local-file-access.js";
 import type { SsrFPolicy } from "../../infra/net/ssrf.js";
 import type { Model } from "../../llm/types.js";
@@ -88,7 +88,7 @@ type TaskRunDetailHandle = {
 
 type MediaToolLocalRootOptions = {
   workspaceOnly?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   channelId?: string | null;
   accountId?: string | null;
 };
@@ -99,9 +99,9 @@ export const REMOTE_MEDIA_READ_IDLE_TIMEOUT_MS = 120_000;
  * Applies an image-editing model as the agent default without mutating the loaded config.
  */
 export function applyImageModelConfigDefaults(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   imageModelConfig: ImageModelConfig,
-): OpenClawConfig | undefined {
+): GrantedConfig | undefined {
   return applyAgentDefaultModelConfig(cfg, "imageModel", imageModelConfig);
 }
 
@@ -118,16 +118,16 @@ export function readGenerationTimeoutMs(args: Record<string, unknown>): number |
  * Resolves the shared remote-media SSRF policy used by media tools that fetch URLs.
  */
 export function resolveRemoteMediaSsrfPolicy(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): SsrFPolicy | undefined {
   return cfg?.tools?.web?.fetch?.ssrfPolicy;
 }
 
 export function applyAgentDefaultModelConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   key: "imageModel" | "image" | "video" | "music",
   modelConfig: ToolModelConfig,
-): OpenClawConfig | undefined {
+): GrantedConfig | undefined {
   if (!cfg) {
     return undefined;
   }
@@ -150,7 +150,7 @@ type CapabilityProvider = {
   aliases?: string[];
   defaultModel?: string;
   models?: readonly string[];
-  isConfigured?: (ctx: { cfg?: OpenClawConfig; agentDir?: string }) => boolean;
+  isConfigured?: (ctx: { cfg?: GrantedConfig; agentDir?: string }) => boolean;
 };
 
 type CapabilityProviderSource = CapabilityProvider[] | (() => CapabilityProvider[]);
@@ -181,7 +181,7 @@ export function isCapabilityProviderConfigured<T extends CapabilityProvider>(par
   providers: T[];
   provider?: T;
   providerId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   agentDir?: string;
   authStore?: AuthProfileStore;
@@ -263,7 +263,7 @@ export function resolveSelectedCapabilityProvider<T extends CapabilityProvider>(
 }
 
 function resolveCapabilityModelCandidatesForTool(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   agentDir?: string;
   authStore?: AuthProfileStore;
@@ -327,7 +327,7 @@ function resolveCapabilityModelCandidatesForTool(params: {
  * provider defaults ordered around the agent's primary provider.
  */
 export function resolveCapabilityModelConfigForTool(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   agentDir?: string;
   authStore?: AuthProfileStore;
@@ -380,7 +380,7 @@ export function hasExplicitMediaModel(modelConfig?: AgentModelConfig): boolean {
  * Reports whether a generation tool should be offered for the current config and auth state.
  */
 export function hasGenerationToolAvailability(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   authStore?: AuthProfileStore;
@@ -711,7 +711,7 @@ export async function loadMediaToolReferences<T>(params: {
  */
 export function resolveMediaToolInboundRoots(options?: {
   workspaceOnly?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   channelId?: string | null;
   accountId?: string | null;
 }): string[] {
@@ -769,7 +769,7 @@ export function buildTextToolResult(
  */
 export async function resolveModelRuntimeApiKey(params: {
   model: Model;
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   agentDir: string;
   authStorage: {
     setRuntimeApiKey: (provider: string, apiKey: string) => void;

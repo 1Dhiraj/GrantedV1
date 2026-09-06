@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { CronService } from "../cron/service.js";
 import type { CronJob } from "../cron/types.js";
 import { reconcileSkillCollectionReviewJobs } from "./server-cron-skill-review-jobs.js";
@@ -59,7 +59,7 @@ describe("reconcileSkillCollectionReviewJobs", () => {
         ],
       },
       skills: { workshop: { autonomous: { mode: "propose" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await reconcileSkillCollectionReviewJobs({
       cron: { add, list, remove } as never,
@@ -120,7 +120,7 @@ describe("reconcileSkillCollectionReviewJobs", () => {
           list: [{ id: "main", default: true, workspace: workspaceDir }],
         },
         skills: { workshop: { autonomous: { mode } } },
-      }) satisfies OpenClawConfig;
+      }) satisfies GrantedConfig;
     let activeRun: Promise<unknown> | undefined;
 
     try {

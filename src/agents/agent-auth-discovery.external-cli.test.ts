@@ -1,6 +1,6 @@
 /** Tests external CLI scoping during agent auth-profile credential discovery. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const storeMocks = vi.hoisted(() => ({
   ensureAuthProfileStore: vi.fn(() => ({ version: 1, profiles: {} })),
@@ -48,7 +48,7 @@ describe("resolveAgentDiscoveryAuthFacts external CLI scoping", () => {
   });
 
   it("threads scoped external CLI discovery into writable auth store loading", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const externalCli = externalCliDiscoveryForProviders({
       cfg,
       providers: ["fireworks"],
@@ -68,7 +68,7 @@ describe("resolveAgentDiscoveryAuthFacts external CLI scoping", () => {
   });
 
   it("reuses the active runtime generation for read-only auth discovery", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const externalCli = externalCliDiscoveryForProviders({
       cfg,
       providers: ["fireworks"],
@@ -169,7 +169,7 @@ describe("resolveAgentDiscoveryAuthFacts external CLI scoping", () => {
             fireworks: { auth, baseUrl: "https://example.invalid", models: [] },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const { credentials } = resolveAgentDiscoveryAuthFacts("/tmp/openclaw-agent", {
         config: cfg,

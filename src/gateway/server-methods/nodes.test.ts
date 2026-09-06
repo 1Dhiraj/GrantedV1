@@ -29,7 +29,7 @@ import { resetRemoteNodeSkillsForTests } from "../../skills/runtime/remote-skill
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { drainNodePendingWork, enqueueNodePendingWork } from "../node-pending-work.js";
 import { createNodeRegistryRuntime } from "../node-registry-private.js";
@@ -48,7 +48,7 @@ import { nodeHandlers } from "./nodes.js";
 import { createWorkerSupervisorNodeClient } from "./nodes.runner-inventory.test-support.js";
 import type { GatewayRequestHandlerOptions } from "./types.js";
 
-const createdStates: OpenClawTestState[] = [];
+const createdStates: GrantedTestState[] = [];
 const pairingGenerationHooks = vi.hoisted(() => ({
   beforeCapture: vi.fn<(nodeId: string) => Promise<void> | void>(),
 }));
@@ -68,7 +68,7 @@ vi.mock("../../infra/device-pairing-node-state.js", async (importOriginal) => {
   };
 });
 
-async function createState(label: string): Promise<OpenClawTestState> {
+async function createState(label: string): Promise<GrantedTestState> {
   const state = await createOpenClawTestState({ label, layout: "state-only" });
   createdStates.push(state);
   return state;

@@ -2,7 +2,7 @@
 import tls from "node:tls";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayService, type GatewayService } from "../daemon/service.js";
 import { hasEnvHttpProxyConfigured } from "../infra/net/proxy-env.js";
 import { shouldManageGatewayService } from "./doctor-service-repair-policy.js";
@@ -67,7 +67,7 @@ async function resolveProxyEnvSources(params: {
 
 /** Builds a read-only diagnostic when proxy env exists but web_fetch remains direct. */
 async function collectWebFetchProxyDiagnostic(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   service?: Pick<GatewayService, "readCommand">;
   probeDirectConnectivity?: () => Promise<DirectConnectivity>;
@@ -111,7 +111,7 @@ async function collectWebFetchProxyDiagnostic(params: {
 
 /** Emits the web_fetch proxy diagnostic when relevant. */
 export async function noteWebFetchProxyDiagnostic(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   service?: Pick<GatewayService, "readCommand">;
   probeDirectConnectivity?: () => Promise<DirectConnectivity>;

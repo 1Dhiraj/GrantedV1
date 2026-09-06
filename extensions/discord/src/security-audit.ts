@@ -3,7 +3,7 @@ import { coerceNativeSetting, normalizeAllowFromList } from "openclaw/plugin-sdk
 import type {
   DiscordGuildChannelConfig,
   DiscordGuildEntry,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { readChannelAllowFromStore } from "openclaw/plugin-sdk/conversation-runtime";
 import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
@@ -72,7 +72,7 @@ function addDiscordNameBasedEntries(params: {
 }
 
 export async function collectDiscordSecurityAuditFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   account: ResolvedDiscordAccount;
   orderedAccountIds: string[];

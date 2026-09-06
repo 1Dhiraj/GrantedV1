@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { runIsolatedCompletion } from "../agents/isolated-completion.js";
 import { generateConversationLabel } from "../auto-reply/reply/conversation-label-generator.js";
 import { loadSessionEntry, replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withServer } from "../plugin-sdk/test-helpers/http-test-server.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { maybeGenerateDashboardSessionTitle } from "./dashboard-session-title.js";
@@ -21,7 +21,7 @@ type TitleRequest = {
 async function withTitleProvider(
   raw: string,
   run: (fixture: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     agentDir: string;
     storePath: string;
     requests: TitleRequest[];
@@ -53,7 +53,7 @@ async function withTitleProvider(
         });
       },
       async (baseUrl) => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           plugins: { enabled: false },
           agents: {
             defaults: {

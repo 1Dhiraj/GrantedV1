@@ -5,18 +5,18 @@ import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import {
   GRANTED_AGENT_SCHEMA_VERSION,
-  type OpenClawRegisteredAgentDatabase,
+  type GrantedRegisteredAgentDatabase,
 } from "./openclaw-agent-db-contract.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
 import { detectOpenClawStateDatabaseSchemaMigrationsFromDatabase } from "./openclaw-state-db-schema-repair.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
-import type { OpenClawStateDatabaseOptions } from "./openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { GrantedStateDatabaseOptions } from "./openclaw-state-db.js";
 import {
   resolveOpenClawRegisteredAgentDatabasePath,
   resolveOpenClawStateSqlitePath,
 } from "./openclaw-state-db.paths.js";
 
-type OpenClawAgentRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "agent_databases">;
+type GrantedAgentRegistryDatabase = Pick<GrantedStateKyselyDatabase, "agent_databases">;
 
 // Registry metadata is process-stable: registry writes invalidate after each commit;
 // other-process changes take effect on restart. Polling here puts schema probes back on hot reads.
@@ -24,16 +24,16 @@ let registeredAgentDatabasesMemo:
   | {
       pathname: string;
       token: symbol;
-      entries?: readonly OpenClawRegisteredAgentDatabase[];
+      entries?: readonly GrantedRegisteredAgentDatabase[];
     }
   | undefined;
 
-function resolveAgentDatabaseRegistryPath(options: OpenClawStateDatabaseOptions): string {
+function resolveAgentDatabaseRegistryPath(options: GrantedStateDatabaseOptions): string {
   return path.resolve(options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env));
 }
 
 function activateRegisteredAgentDatabasesMemo(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): NonNullable<typeof registeredAgentDatabasesMemo> {
   const pathname = resolveAgentDatabaseRegistryPath(options);
   if (registeredAgentDatabasesMemo?.pathname !== pathname) {
@@ -46,14 +46,12 @@ function activateRegisteredAgentDatabasesMemo(
 
 /** Return the process-stable generation for the active agent database registry. */
 export function readOpenClawAgentDatabaseRegistryToken(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): symbol {
   return activateRegisteredAgentDatabasesMemo(options).token;
 }
 
-export function invalidateRegisteredAgentDatabasesMemo(
-  options: OpenClawStateDatabaseOptions,
-): void {
+export function invalidateRegisteredAgentDatabasesMemo(options: GrantedStateDatabaseOptions): void {
   const pathname = resolveAgentDatabaseRegistryPath(options);
   if (registeredAgentDatabasesMemo?.pathname === pathname) {
     registeredAgentDatabasesMemo = { pathname, token: Symbol(pathname) };
@@ -61,8 +59,8 @@ export function invalidateRegisteredAgentDatabasesMemo(
 }
 
 function cloneRegisteredAgentDatabases(
-  entries: readonly OpenClawRegisteredAgentDatabase[],
-): OpenClawRegisteredAgentDatabase[] {
+  entries: readonly GrantedRegisteredAgentDatabase[],
+): GrantedRegisteredAgentDatabase[] {
   return entries.map((entry) => ({ ...entry }));
 }
 
@@ -105,10 +103,10 @@ function hasUnavailableMissingSqlitePath(pathname: string): boolean {
 
 /** List agent databases recorded in the shared OpenClaw state registry. */
 export function listOpenClawRegisteredAgentDatabases(
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     includeIncompatibleSchemaVersions?: boolean;
   } = {},
-): OpenClawRegisteredAgentDatabase[] {
+): GrantedRegisteredAgentDatabase[] {
   const memo = activateRegisteredAgentDatabasesMemo(options);
   const { pathname } = memo;
   if (memo.entries) {
@@ -134,7 +132,7 @@ export function listOpenClawRegisteredAgentDatabases(
     if (registryTable.type !== "table") {
       throw new Error(`OpenClaw state database ${pathname} has an invalid agent registry.`);
     }
-    const db = getNodeSqliteKysely<OpenClawAgentRegistryDatabase>(database);
+    const db = getNodeSqliteKysely<GrantedAgentRegistryDatabase>(database);
     const rows = executeSqliteQuerySync(
       database,
       db

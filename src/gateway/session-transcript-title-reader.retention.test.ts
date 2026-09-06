@@ -8,12 +8,12 @@ import {
 import { resolveRuntimeWorkerArgv, resolveRuntimeWorkerUrl } from "../infra/runtime-worker-url.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { cleanupSessionStateForTest } from "../test-utils/session-state-cleanup.js";
 import { sessionTitleRetentionEntrypoints } from "./session-title-retention.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let storePath: string;
 
 beforeAll(async () => {

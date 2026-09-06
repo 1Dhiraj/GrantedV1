@@ -1,7 +1,7 @@
 // PDF model config tests cover provider precedence and fallback model selection
 // for PDF understanding tools.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { resolvePdfModelConfigForTool } from "./pdf-tool.model-config.js";
 import { resetPdfToolAuthEnv } from "./pdf-tool.test-support.js";
 
@@ -20,7 +20,7 @@ vi.mock("./model-config.helpers.js", () => ({
       ...(objectModel?.fallbacks?.length ? { fallbacks: objectModel.fallbacks } : {}),
     };
   },
-  hasProviderAuthForTool: ({ provider, cfg }: { provider: string; cfg?: OpenClawConfig }) => {
+  hasProviderAuthForTool: ({ provider, cfg }: { provider: string; cfg?: GrantedConfig }) => {
     const providerCfg = cfg?.models?.providers?.[provider] as { apiKey?: string } | undefined;
     if (providerCfg?.apiKey?.trim()) {
       return true;
@@ -44,7 +44,7 @@ vi.mock("./model-config.helpers.js", () => ({
     }
     return false;
   },
-  resolveDefaultModelRef: (cfg?: OpenClawConfig) => {
+  resolveDefaultModelRef: (cfg?: GrantedConfig) => {
     const modelCfg = cfg?.agents?.defaults?.model;
     const primary =
       (typeof modelCfg === "string"
@@ -55,10 +55,10 @@ vi.mock("./model-config.helpers.js", () => ({
   },
 }));
 
-function withDefaultModel(primary: string): OpenClawConfig {
+function withDefaultModel(primary: string): GrantedConfig {
   return {
     agents: { defaults: { model: { primary } } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("resolvePdfModelConfigForTool", () => {
@@ -83,7 +83,7 @@ describe("resolvePdfModelConfigForTool", () => {
           pdfModel: { primary: ANTHROPIC_PDF_MODEL },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: ANTHROPIC_PDF_MODEL,
     });
@@ -97,7 +97,7 @@ describe("resolvePdfModelConfigForTool", () => {
           imageModel: { primary: "openai/gpt-5.4-mini" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "openai/gpt-5.4-mini",
     });
@@ -144,7 +144,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "minimax/MiniMax-M2.7",
@@ -177,7 +177,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "openai/gpt-5.6-sol",
@@ -207,7 +207,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "minimax/MiniMax-M2.7-highspeed",
@@ -237,7 +237,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "minimax/MiniMax-M2.7-highspeed",
@@ -268,7 +268,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "minimax-portal/MiniMax-M2.7",
@@ -298,7 +298,7 @@ describe("resolvePdfModelConfigForTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolvePdfModelConfigForTool({ cfg, agentDir: TEST_AGENT_DIR })).toEqual({
       primary: "hatchery/vision-1",

@@ -3,14 +3,14 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   withOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../test-utils/openclaw-test-state.js";
 import type {
   CompactionAccountingFact,
   RunEmbeddedAgentParamsWithSessionFile,
 } from "./internal-params.js";
 
-async function createSettlementFixture(state: OpenClawTestState) {
+async function createSettlementFixture(state: GrantedTestState) {
   const { loadSessionEntry, replaceSessionEntry } =
     await import("../../../config/sessions/session-accessor.js");
   const {

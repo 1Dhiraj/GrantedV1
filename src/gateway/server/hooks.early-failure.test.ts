@@ -7,7 +7,7 @@ import { createDeferred } from "../../../test/helpers/promise.js";
 import { consumeAcpTurnStream } from "../../acp/control-plane/manager.turn-stream.js";
 import { DEFAULT_CRON_MAX_CONCURRENT_RUNS } from "../../config/cron-limits.js";
 import type { HookMappingConfig } from "../../config/types.hooks.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RunCronAgentTurnResult } from "../../cron/isolated-agent/run.types.js";
 import { resolveSystemEventOptionsOwnerAgentId } from "../../infra/system-event-ownership.js";
 import { createSuiteLogPathTracker } from "../../logging/log-test-helpers.js";
@@ -32,7 +32,7 @@ import { applyGatewayLaneConcurrency, resolveGatewayLaneConcurrency } from "../s
 
 const mocks = vi.hoisted(() => ({
   enqueueSystemEvent: vi.fn(),
-  getRuntimeConfig: vi.fn<() => OpenClawConfig>(),
+  getRuntimeConfig: vi.fn<() => GrantedConfig>(),
   requestHeartbeat: vi.fn(),
   runCronIsolatedAgentTurn: vi.fn(),
 }));
@@ -84,7 +84,7 @@ function queueHookRunner(onStart = vi.fn()) {
   return onStart;
 }
 
-function createConfig(global: boolean): OpenClawConfig {
+function createConfig(global: boolean): GrantedConfig {
   return {
     agents: { entries: { main: { default: true }, hooks: {} } },
     hooks: { enabled: true, token: "hook-secret" },
@@ -604,7 +604,7 @@ describe("gateway hook early-failure recovery", () => {
   it.each([undefined, false, true])(
     "contains plugin email turns with HTTP hooks enabled=%s",
     async (enabled) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { entries: { main: { default: true }, hooks: {} } },
         hooks: {
           enabled,

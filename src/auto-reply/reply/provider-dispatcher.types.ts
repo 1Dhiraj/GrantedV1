@@ -1,5 +1,5 @@
 // Shared provider dispatch type contracts for reply runtime execution.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginCommandReplyOptions } from "../../plugins/plugin-command-dispatch-contract.js";
 import type { GetReplyOptions } from "../get-reply-options.types.js";
 import type { FinalizedMsgContext, MsgContext } from "../templating.js";
@@ -19,7 +19,7 @@ type DispatchReplyOptions = Omit<GetReplyOptions, "onBlockReply"> & PluginComman
 /** Buffered block dispatcher entry point used by provider reply flows. */
 export type DispatchReplyWithBufferedBlockDispatcher = (params: {
   ctx: DispatchReplyContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ReplyDispatcherWithTypingOptions;
   toolsAllow?: string[];
   replyOptions?: DispatchReplyOptions;
@@ -30,7 +30,7 @@ export type DispatchReplyWithBufferedBlockDispatcher = (params: {
 /** Plain dispatcher entry point used when block buffering is not needed. */
 export type DispatchReplyWithDispatcher = (params: {
   ctx: DispatchReplyContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcherOptions: ReplyDispatcherOptions;
   toolsAllow?: string[];
   replyOptions?: DispatchReplyOptions;

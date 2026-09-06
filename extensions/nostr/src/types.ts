@@ -5,7 +5,7 @@ import {
   normalizeAccountId,
   normalizeOptionalAccountId,
 } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { NostrProfile } from "./config-schema.js";
@@ -55,7 +55,7 @@ export { listNostrAccountIds, resolveDefaultNostrAccountId };
  * Resolve a Nostr account from config
  */
 export function resolveNostrAccount(opts: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedNostrAccount {
   const accountId = normalizeAccountId(opts.accountId ?? resolveDefaultNostrAccountId(opts.cfg));

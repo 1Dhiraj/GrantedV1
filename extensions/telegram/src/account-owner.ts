@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 
 /** Resolves the agent that owns account-scoped Telegram runtime state. */
 export function resolveTelegramAccountOwnerAgentId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): string {
   return resolveAgentRoute({

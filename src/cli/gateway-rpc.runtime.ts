@@ -3,7 +3,7 @@ import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { callGateway, isImplicitLocalGatewayTarget } from "../gateway/call.js";
 import { resolveGatewayLocalPortOverride } from "./gateway-port-option.js";
 import type { GatewayRpcOpts } from "./gateway-rpc.types.js";
@@ -30,7 +30,7 @@ type CallGatewayFromCliRuntimeExtra = {
 };
 
 type GatewayCliTransportRpcOpts = Omit<GatewayRpcOpts, "timeout"> & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   timeout?: string | null;
   localPortOverride?: number;
 };

@@ -11,7 +11,7 @@ import type {
 import type { FinalizedMsgContext } from "../auto-reply/templating.js";
 import type { ChatType } from "../channels/chat-type.js";
 import type { PrepareAssistantTranscriptMessage } from "../config/sessions/transcript-assistant-delivery.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { TtsAutoMode } from "../config/types.tts.js";
 import type { DiagnosticTraceContext } from "../infra/diagnostic-trace-context.js";
 import type {
@@ -566,7 +566,7 @@ export type PluginHookReplyDispatchEvent = {
 export type PluginHookReplyDispatchContext = {
   /** Host-resolved dispatch path; omitted when the caller cannot establish it. */
   dispatchKind?: PluginHookReplyDispatchKind;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatcher: ReplyDispatcher;
   abortSignal?: AbortSignal;
   onReplyStart?: () => Promise<void> | void;
@@ -911,7 +911,7 @@ type PluginHookSubagentEndedEvent = {
 
 export type PluginHookGatewayContext = {
   port?: number;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   getCron?: () => PluginHookGatewayCronService | undefined;
 };

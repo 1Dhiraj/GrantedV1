@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionOrigin } from "../config/sessions/types.js";
@@ -92,7 +92,7 @@ describe("native approval account selection", () => {
 
   it("rejects foreign-channel fallback but preserves explicit forwarding", () => {
     const request = buildRequest({ turnSourceChannel: "whatsapp" });
-    const explicitTargetConfig: OpenClawConfig = {
+    const explicitTargetConfig: GrantedConfig = {
       approvals: {
         exec: {
           enabled: true,
@@ -162,7 +162,7 @@ describe("native approval account selection", () => {
           ],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     for (const [accountId, selected] of [
       ["default", true],
       ["ops", true],
@@ -190,7 +190,7 @@ describe("native approval account selection", () => {
           targets: [{ channel: "telegram", accountId: "audit" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const request = buildRequest({
       turnSourceChannel: "telegram",
       turnSourceAccountId: "ops",
@@ -226,7 +226,7 @@ type SessionEntryFixture = Partial<SessionEntry> & {
 async function writeStoreFile(
   storePath: string,
   entries: Record<string, SessionEntryFixture>,
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   fs.mkdirSync(path.dirname(storePath), { recursive: true });
   await Promise.all(
     Object.entries(entries).map(([sessionKey, entry]) =>
@@ -245,11 +245,11 @@ async function writeStoreFile(
   );
   return {
     session: { store: storePath },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function expectResolvedSessionTarget(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   request: ExecApprovalRequest,
 ): ReturnType<typeof resolveExecApprovalSessionTarget> {
   return resolveExecApprovalSessionTarget({ cfg, request });
@@ -283,7 +283,7 @@ function buildPluginRequest(
   };
 }
 
-function resolveSlackPluginOriginTarget(params: { cfg: OpenClawConfig; turnSourceTo: string }) {
+function resolveSlackPluginOriginTarget(params: { cfg: GrantedConfig; turnSourceTo: string }) {
   return resolveApprovalRequestOriginTarget({
     cfg: params.cfg,
     request: buildPluginRequest({
@@ -481,7 +481,7 @@ describe("exec approval session target", () => {
   });
 
   it("prefers explicit turn-source account bindings when session store is missing", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const request = buildRequest({
       turnSourceChannel: "slack",
       turnSourceAccountId: "Work",
@@ -508,7 +508,7 @@ describe("exec approval session target", () => {
   });
 
   it("rejects mismatched channel bindings before account checks", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const request = buildRequest({
       turnSourceChannel: "discord",
       turnSourceAccountId: "work",
@@ -655,7 +655,7 @@ describe("exec approval session target", () => {
 
   it("falls back to a legacy origin target when no turn-source or session target exists", () => {
     const target = resolveApprovalRequestOriginTarget({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       request: buildPluginRequest({ sessionKey: "agent:main:missing" }),
       channel: "discord",
       accountId: "default",

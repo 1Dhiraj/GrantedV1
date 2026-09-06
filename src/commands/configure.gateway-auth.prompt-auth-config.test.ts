@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveAgentEffectiveModelPrimary } from "../agents/agent-scope.js";
 import { testing as cliBackendsTesting } from "../agents/cli-backends.test-support.js";
 import type { AgentModelConfig } from "../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
@@ -404,7 +404,7 @@ describe("promptAuthConfig", () => {
           ops: { model: { primary: "codex/gpt-5.5" } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.applyAuthChoice.mockResolvedValue({ config });
     mocks.promptModelAllowlist.mockResolvedValue({
       models: ["openai/gpt-5.5"],
@@ -442,7 +442,7 @@ describe("promptAuthConfig", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.applyAuthChoice.mockResolvedValue({ config: existingConfig });
     mocks.promptModelAllowlist.mockResolvedValue({ models: undefined });
     mocks.resolveProviderPluginChoiceCore.mockReturnValue(null);
@@ -468,7 +468,7 @@ describe("promptAuthConfig", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.applyAuthChoice.mockResolvedValue({
       config: {
         ...existingConfig,
@@ -800,7 +800,7 @@ describe("promptAuthConfig", () => {
         models: [recommended],
         scopeKeys: [recommended],
       });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           ...(explicit ? { ownership: "explicit" } : {}),
           defaults: {
@@ -933,7 +933,7 @@ describe("promptAuthConfig", () => {
         progress: vi.fn(() => ({ update: vi.fn(), stop: vi.fn() })),
       };
 
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           ...(explicit ? { ownership: "explicit" } : {}),
           defaults: { systemAgent: { agentId: "ops" }, model: defaultModel },

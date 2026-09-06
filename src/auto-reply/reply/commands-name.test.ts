@@ -6,7 +6,7 @@ import {
   loadSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildBuiltinChatCommands } from "../commands-registry.shared.js";
 import { takeCommandSessionMetadataChanges } from "./command-session-metadata.js";
 import { handleNameCommand } from "./commands-name.js";
@@ -33,7 +33,7 @@ function buildNameParams(
 ): HandleCommandsParams {
   const activeSessionKey = overrides.sessionKey ?? sessionKey;
   return {
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     ctx: {
       Provider: "web",
       Surface: "web",

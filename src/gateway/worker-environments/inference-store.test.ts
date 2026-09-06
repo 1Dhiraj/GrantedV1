@@ -11,7 +11,7 @@ import type {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type { WorkerConnectionIdentity } from "./connection-identity.js";
 import {
@@ -93,7 +93,7 @@ function createSink() {
 
 describe("worker inference SQLite store", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let nowMs: number;
   let store: WorkerInferenceStore;
 

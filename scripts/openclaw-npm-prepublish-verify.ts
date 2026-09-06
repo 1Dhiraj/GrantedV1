@@ -28,7 +28,7 @@ type PackedPackageJson = {
   version?: string;
 };
 
-type OpenClawNpmPrepublishVerifyArgs =
+type GrantedNpmPrepublishVerifyArgs =
   | {
       expectedVersion?: string;
       dependencyTarballPaths: string[];
@@ -48,7 +48,7 @@ export function openClawNpmPrepublishVerifyUsage(): string {
 
 export function parseOpenClawNpmPrepublishVerifyArgs(
   argv: readonly string[],
-): OpenClawNpmPrepublishVerifyArgs {
+): GrantedNpmPrepublishVerifyArgs {
   const args = argv[0] === "--" ? argv.slice(1) : argv;
   const tarballPath = args[0]?.trim() ?? "";
   if (tarballPath === "--help" || tarballPath === "-h") {

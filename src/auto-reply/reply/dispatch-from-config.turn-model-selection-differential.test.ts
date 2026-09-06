@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import type { AgentHarness } from "../../agents/harness/types.js";
 import { replaceSessionEntrySync } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createSessionConversationTestRegistry } from "../../test-utils/session-conversation-registry.js";
 import {
@@ -39,12 +39,12 @@ const recorderHarness = {
 function createConfig(
   storePath: string,
   modelByChannel: TurnModelDifferentialFixture["modelByChannel"],
-): OpenClawConfig {
+): GrantedConfig {
   return {
     session: { store: storePath },
     agents: { defaults: { model: { primary: turnModelRefLabel(TURN_MODEL_DEFAULT_REF) } } },
     channels: modelByChannel ? { modelByChannel } : undefined,
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function observeHarnessSelection(fixture: TurnModelDifferentialFixture): TurnModelSelectionVerdict {
@@ -118,7 +118,7 @@ describe("turn model selection harness-path differential", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     selectAgentHarnessMock.mockClear();
     resolveVisibleRepliesPolicy({

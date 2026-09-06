@@ -1,7 +1,7 @@
 /** Tests plugin version drift detection between package, manifest, and install records. */
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { fetchNpmPackageTargetStatus } from "../infra/update-check-package-target.js";
 import {
@@ -246,14 +246,14 @@ describe("detectPluginVersionDrift", () => {
   });
 
   it("skips plugins that are explicitly disabled in config", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         entries: {
           whatsapp: { enabled: false },
           discord: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = detectPluginVersionDrift({
       gatewayVersion: "2026.5.4",
@@ -268,11 +268,11 @@ describe("detectPluginVersionDrift", () => {
   });
 
   it("skips plugins disabled by the global plugin activation policy", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         enabled: false,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = detectPluginVersionDrift({
       gatewayVersion: "2026.5.4",
@@ -295,7 +295,7 @@ describe("detectPluginVersionDrift", () => {
         plugins: {
           deny: ["whatsapp"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const notAllowed = detectPluginVersionDrift({
       gatewayVersion: "2026.5.4",
@@ -306,7 +306,7 @@ describe("detectPluginVersionDrift", () => {
         plugins: {
           allow: ["discord"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(denied.drifts).toEqual([]);
@@ -314,7 +314,7 @@ describe("detectPluginVersionDrift", () => {
   });
 
   it("includes plugins with no entry in config (default-enabled)", () => {
-    const config: OpenClawConfig = { plugins: { entries: {} } } as OpenClawConfig;
+    const config: GrantedConfig = { plugins: { entries: {} } } as GrantedConfig;
     const result = detectPluginVersionDrift({
       gatewayVersion: "2026.5.4",
       installRecords: {

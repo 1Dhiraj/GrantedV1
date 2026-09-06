@@ -7,7 +7,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import type { ChatType } from "../channels/chat-type.js";
 import { readRecentSessionTranscriptActiveEvents } from "../config/sessions/session-accessor.js";
 import type { AgentContextInjection } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isMemoryOriginEligibleForAutomaticInjection } from "../memory-host-sdk/host/types.js";
 import { classifyActiveMemoryWorkspacePaths } from "../plugins/memory-runtime.js";
 import { resolveUserPath } from "../utils.js";
@@ -60,7 +60,7 @@ function rememberBootstrapWarning(key: string): boolean {
 
 /** Resolves the effective bootstrap injection mode for a session agent. */
 export function resolveContextInjectionMode(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentId?: string | null,
 ): AgentContextInjection {
   const agentMode =
@@ -237,7 +237,7 @@ function filterBootstrapFilesAfterHooks(params: {
 async function resolveIneligibleAutomaticMemoryFiles(params: {
   files: WorkspaceBootstrapFile[];
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   warn?: (message: string) => void;
 }): Promise<WorkspaceBootstrapFile[]> {
@@ -292,7 +292,7 @@ async function resolveIneligibleAutomaticMemoryFiles(params: {
 /** Resolves hook-adjusted, session-filtered bootstrap files for a run. */
 type BootstrapFileResolutionParams = {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   chatType?: ChatType;
@@ -394,7 +394,7 @@ async function resolveBootstrapFiles(
 /** Resolves both raw bootstrap metadata and bounded context files for a run. */
 export async function resolveBootstrapContextForRun(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   chatType?: ChatType;
@@ -416,7 +416,7 @@ export async function resolveBootstrapContextForRun(params: {
 export function buildBootstrapContextForFiles(
   bootstrapFiles: WorkspaceBootstrapFile[],
   params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     agentId?: string | null;
     warn?: (message: string) => void;
   },

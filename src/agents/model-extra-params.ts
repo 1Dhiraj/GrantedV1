@@ -1,6 +1,6 @@
 import { normalizeFastMode } from "@openclaw/normalization-core/string-coerce";
 import { normalizeThinkLevel } from "../auto-reply/thinking.shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { modelKey } from "../shared/model-key.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 
@@ -47,7 +47,7 @@ function legacyModelKey(provider: string, modelId: string): string | undefined {
 
 /** Resolves the config records merged into one model request. */
 export function resolveModelExtraParamSources(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   modelId?: string;
   agentId?: string;

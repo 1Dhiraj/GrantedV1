@@ -30,7 +30,7 @@ import {
   sessionBindingIdentity,
   createCodexTestBindingStore,
   type CodexThread,
-  type OpenClawConfig,
+  type GrantedConfig,
   type PluginRuntime,
 } from "./session-catalog.test-helpers.js";
 
@@ -449,7 +449,7 @@ describe("Codex supervision actions", () => {
   it("does not join concurrent local continues across explicit agent owners", async () => {
     const runtimeConfig = {
       agents: { ownership: "explicit", list: [{ id: "alpha" }, { id: "beta" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { runtime, createSessionEntry } = createRuntime();
     const { api } = createGatewayApi(runtime, runtimeConfig);
     const bindingStore = createCodexTestBindingStore();
@@ -543,10 +543,10 @@ describe("Codex supervision actions", () => {
   it("keeps adopted sessions discoverable when the configured default agent changes", async () => {
     const originalConfig = {
       agents: { list: [{ id: "alpha", default: true }, { id: "beta" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const changedConfig = {
       agents: { list: [{ id: "alpha" }, { id: "beta", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { runtime, createSessionEntry } = createRuntime();
     const { api } = createGatewayApi(runtime);
     const bindingStore = createCodexTestBindingStore();

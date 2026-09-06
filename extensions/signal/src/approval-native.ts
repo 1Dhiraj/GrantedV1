@@ -8,7 +8,7 @@ import type {
   ChannelApprovalCapability,
   ChannelOutboundPayloadHint,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import {
@@ -24,7 +24,7 @@ import { getSignalApprovalApprovers, signalApprovalAuth } from "./approval-auth.
 import { normalizeSignalMessagingTarget } from "./normalize.js";
 
 function isSignalApprovalTransportEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   return resolveSignalAccount({ cfg: params.cfg, accountId: params.accountId }).enabled;
@@ -80,7 +80,7 @@ const signalApproval = createApproverRestrictedNativeApprovalCapabilityFromForwa
 const signalApprovalRouting = signalApproval.routing;
 
 export function isSignalNativeApprovalHandlerConfigured(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   return signalApprovalRouting.isNativeApprovalHandlerConfigured(params);
@@ -96,7 +96,7 @@ function resolveSignalSessionTargetFromSessionKey(sessionKey?: string | null): s
 }
 
 export function shouldSuppressLocalSignalExecApprovalPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   payload: ReplyPayload;
   hint?: ChannelOutboundPayloadHint;

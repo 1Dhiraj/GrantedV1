@@ -1,5 +1,5 @@
 /** Safety checks for deleting agents whose workspaces may overlap other agents. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { isSameOpenClawAgentDatabasePath } from "../state/openclaw-agent-db-registry.js";
@@ -27,7 +27,7 @@ export function formatSharedAuthStoreOwnerDeleteError(agentId: string): string {
   return `Agent "${agentId}" owns the legacy shared auth store and cannot be deleted. Run openclaw doctor --fix to migrate shared auth, then retry.`;
 }
 
-export function isInheritedAuthStoreOwner(cfg: OpenClawConfig, agentId: string): boolean {
+export function isInheritedAuthStoreOwner(cfg: GrantedConfig, agentId: string): boolean {
   // Relocation retires the implicit agent owner, but explicit bindings must be re-pointed.
   const explicitOwner = cfg.agents?.defaults?.authInheritance?.agentId?.trim();
   if (!explicitOwner && resolveSharedAuthStoreOwnership().location !== "legacy-main") {
@@ -45,7 +45,7 @@ function workspacePathsOverlap(left: string, right: string): boolean {
 
 /** Lists other agents whose workspaces overlap a candidate delete target. */
 export function findOverlappingWorkspaceAgentIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   workspaceDir: string,
 ): string[] {

@@ -6,7 +6,7 @@ import path from "node:path";
 import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { AgentRunResultView } from "../../agents/agent-run-result.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { acquireGatewayLock, type GatewayLockOptions } from "../../infra/gateway-lock.js";
 
 let probeModule: typeof import("./list.probe.js");
@@ -178,7 +178,7 @@ describe("runAuthProbes", () => {
         agentHarnessRuntimeOverride?: string;
         authProfileId?: string;
         authProfileIdSource?: string;
-        config?: OpenClawConfig;
+        config?: GrantedConfig;
         preparedModelRuntimeMode?: string;
       }): Promise<AgentRunResultView> => {
         if (params.agentHarnessRuntimeOverride !== "openclaw") {
@@ -237,7 +237,7 @@ describe("runAuthProbes", () => {
               },
             },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         agentId: "probe-agent",
         agentDir: "/tmp/openclaw-probe-agent",
         workspaceDir: "/tmp/openclaw-probe-workspace",
@@ -282,7 +282,7 @@ describe("runAuthProbes", () => {
               },
             },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         agentId: "probe-agent",
         agentDir: "/tmp/openclaw-probe-agent",
         workspaceDir: "/tmp/openclaw-probe-workspace",
@@ -311,7 +311,7 @@ describe("runAuthProbes", () => {
         agentDir?: string;
         authProfileId?: string;
         authProfileIdSource?: string;
-        config?: OpenClawConfig;
+        config?: GrantedConfig;
         preparedModelRuntimeMode?: string;
       }) => ({ payloads: [{ text: "OK" }] }),
     );
@@ -430,7 +430,7 @@ describe("runAuthProbes", () => {
       async (_params: {
         agentDir?: string;
         authProfileId?: string;
-        config?: OpenClawConfig;
+        config?: GrantedConfig;
         preparedModelRuntimeMode?: string;
       }) => ({
         payloads: [{ text: "OK" }],

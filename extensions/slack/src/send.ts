@@ -10,7 +10,7 @@ import {
   type MessageReceiptPartKind,
   type MessageReceiptSourceResult,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
@@ -107,7 +107,7 @@ type SlackResolvedDelivery = Readonly<{
 const slackDefaultSendIdentities = new Map<string, SlackSendIdentity>();
 
 type SlackSendOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   token?: string;
   accountId?: string;
   mediaUrl?: string;
@@ -276,7 +276,7 @@ export type SlackSendResult = {
 };
 
 export async function updateMessageSlack(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   channelId: string;
   teamId?: string;
@@ -463,7 +463,7 @@ function resolveSlackDelivery(params: {
 }
 
 function resolveSlackTextChunkLimit(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   textLimit?: number;
 }): number {
@@ -476,7 +476,7 @@ function resolveSlackTextChunkLimit(params: {
 }
 
 function resolveSlackTextChunks(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   text: string;
   textLimit?: number;
@@ -1107,7 +1107,7 @@ export async function sendMessageSlack(
 async function sendMessageSlackQueued(params: {
   trimmedMessage: string;
   opts: SlackSendOpts;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ReturnType<typeof resolveSlackAccount>;
   blocks?: (Block | KnownBlock)[];
   delivery: SlackResolvedDelivery;
@@ -1122,7 +1122,7 @@ async function sendMessageSlackQueued(params: {
 async function sendMessageSlackQueuedInner(params: {
   trimmedMessage: string;
   opts: SlackSendOpts;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ReturnType<typeof resolveSlackAccount>;
   blocks?: (Block | KnownBlock)[];
   delivery: SlackResolvedDelivery;

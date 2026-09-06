@@ -12,7 +12,7 @@ import {
 import { isMalformedApiKeyInput } from "../../agents/auth-profiles/credential-state.js";
 import { resolveEnvApiKey } from "../../agents/model-auth.js";
 import { formatCliCommand } from "../../cli/command-format.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { normalizeOptionalSecretInput } from "../../utils/normalize-secret-input.js";
 import { rejectOnboardingOption } from "../onboard-options.js";
@@ -31,7 +31,7 @@ function parseEnvVarNameFromSourceLabel(source: string | undefined): string | un
 
 async function resolveApiKeyFromProfiles(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
 }): Promise<string | null> {
   const store = ensureAuthProfileStore(params.agentDir);
@@ -63,7 +63,7 @@ async function resolveApiKeyFromProfiles(params: {
 /** Resolves an API key for non-interactive setup without prompting the user. */
 export async function resolveNonInteractiveApiKey(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   flagValue?: string;
   flagName: string;
   envVar: string;

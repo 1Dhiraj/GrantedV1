@@ -3,12 +3,12 @@ import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-cor
 import { unsetConfiguredMcpServer } from "../agents/mcp-config-mutation.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   resolveOpenClawAgentSqlitePath,
 } from "../state/openclaw-agent-db.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import {
   clawCronGatewayJobMatchesRef,
   deleteClawCronRef,
@@ -81,8 +81,8 @@ type ClawRemoveResult = {
 
 export async function buildClawRemovePlan(
   target: string,
-  options: OpenClawStateDatabaseOptions & {
-    config?: OpenClawConfig;
+  options: GrantedStateDatabaseOptions & {
+    config?: GrantedConfig;
     sourceMcpServers?: Record<string, Record<string, unknown>>;
     listMcpServers?: typeof listConfiguredMcpServers;
     packageDeps?: PackageRemovalDeps;
@@ -415,11 +415,11 @@ export async function buildClawRemovePlan(
   };
 }
 
-type PurgeSessions = (config: OpenClawConfig, agentId: string) => Promise<void>;
+type PurgeSessions = (config: GrantedConfig, agentId: string) => Promise<void>;
 export async function applyClawRemovePlan(
   plan: ClawRemovePlan,
-  options: OpenClawStateDatabaseOptions & {
-    config?: OpenClawConfig;
+  options: GrantedStateDatabaseOptions & {
+    config?: GrantedConfig;
     sourceMcpServers?: Record<string, Record<string, unknown>>;
     listMcpServers?: typeof listConfiguredMcpServers;
     commitConfig?: ConfigCommit;

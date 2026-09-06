@@ -1,7 +1,7 @@
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { describe, expect, it } from "vitest";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveSystemAgentConfiguredRouteFromConfig } from "./inference-route.js";
@@ -15,7 +15,7 @@ const LIVE = process.env.GRANTED_LIVE_TEST === "1" && Boolean(process.env.OPENAI
 const describeLive = LIVE ? describe : describe.skip;
 const modelId = process.env.GRANTED_LIVE_APP_RECOMMENDATIONS_MODEL ?? "gpt-5.6-luna";
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   models: {
     providers: {
       openai: {

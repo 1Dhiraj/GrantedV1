@@ -4,9 +4,9 @@ import { tryParsePersistedExecApprovals } from "../infra/exec-approvals-config.j
 import type { ExecApprovalsFile } from "../infra/exec-approvals-core.js";
 import { projectionValues } from "../infra/exec-approvals-sqlite.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 
-type SnapshotSanitizerDatabase = Pick<OpenClawStateKyselyDatabase, "exec_approvals_config">;
+type SnapshotSanitizerDatabase = Pick<GrantedStateKyselyDatabase, "exec_approvals_config">;
 
 const FAIL_CLOSED_EXEC_APPROVALS: ExecApprovalsFile = {
   version: 1,

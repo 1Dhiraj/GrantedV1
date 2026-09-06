@@ -4,7 +4,7 @@ import {
   normalizeProviderModelIdWithPolicies,
   type ManifestModelIdNormalizationProvider,
 } from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 // Snapshot reads go through the registration-slot bridge so this module stays
 // off the control-plane/kysely graph; doctor closures cold-load it via
@@ -22,7 +22,7 @@ export type ManifestModelIdNormalizationSource =
   | { owners: Pick<PluginMetadataSnapshot["owners"], "modelIdNormalizationPolicies"> };
 
 type ManifestModelIdNormalizationLookupParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   plugins?: ManifestModelIdNormalizationSource;
@@ -62,7 +62,7 @@ export function resolveManifestModelIdNormalizationPolicies(
 /** Normalizes a provider model id using plugin manifest-declared model-id policies. */
 export function normalizeProviderModelIdWithManifest(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   plugins?: ManifestModelIdNormalizationSource;

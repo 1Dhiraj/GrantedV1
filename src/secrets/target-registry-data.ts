@@ -1,5 +1,5 @@
 /** Builds the static and plugin-derived registry of secret migration targets. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { formatConcreteConfigPath } from "../shared/dot-path.js";
@@ -442,7 +442,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
 let cachedSecretTargetRegistry: SecretTargetRegistryEntry[] | null = null;
 
 function loadSecretTargetRegistryFromPluginMetadata(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   preferPersisted?: boolean;
   throwOnLoadError?: boolean;
@@ -501,7 +501,7 @@ export function getCoreSecretTargetRegistry(): SecretTargetRegistryEntry[] {
 /** Returns the process-cached registry including bundled plugin/channel metadata. */
 /** Returns core plus plugin/channel secret target registry entries for the current metadata view. */
 export function getSecretTargetRegistry(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   sourceTree?: boolean;
 }): SecretTargetRegistryEntry[] {

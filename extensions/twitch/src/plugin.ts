@@ -21,7 +21,7 @@ import {
   createLoggedPairingApprovalNotifier,
   createPairingPrefixStripper,
 } from "openclaw/plugin-sdk/channel-pairing";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
 import {
   createComputedAccountStatusAdapter,
@@ -158,7 +158,7 @@ export const twitchPlugin: ChannelPlugin<ResolvedTwitchAccount> =
           kind,
           runtime,
         }: {
-          cfg: OpenClawConfig;
+          cfg: GrantedConfig;
           accountId?: string | null;
           inputs: string[];
           kind: ChannelResolveKind;

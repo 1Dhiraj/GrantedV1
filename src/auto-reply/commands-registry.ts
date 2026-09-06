@@ -7,7 +7,7 @@ import {
   resolveConfiguredModelRef,
 } from "../agents/model-selection.js";
 import { getChannelPlugin, getLoadedChannelPlugin } from "../channels/plugins/index.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type { SkillCommandSpec } from "../skills/types.js";
 import type { CommandTurnContext } from "./command-turn-context.js";
 import { listChatCommands, listChatCommandsForConfig } from "./commands-registry-list.js";
@@ -142,7 +142,7 @@ export function listNativeCommandSpecs(
 
 /** Lists native command specs that are enabled for the provided config. */
 export function listNativeCommandSpecsForConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params?: {
     skillCommands?: SkillCommandSpec[];
     provider?: string;
@@ -207,7 +207,7 @@ export function findCommandByNativeName(
 /** Returns true only when the command owner permits handler work beside an active run. */
 export function isActiveRunSafeCommandTurn(params: {
   commandTurn: CommandTurnContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider?: string;
 }): boolean {
   const { commandTurn } = params;
@@ -337,12 +337,12 @@ export function buildCommandTextFromArgs(
   return buildCommandText(commandName, serializeCommandArgs(command, args));
 }
 
-function resolveDefaultCommandContext(cfg?: OpenClawConfig): {
+function resolveDefaultCommandContext(cfg?: GrantedConfig): {
   provider: string;
   model: string;
 } {
   const resolved = resolveConfiguredModelRef({
-    cfg: cfg ?? ({} as OpenClawConfig),
+    cfg: cfg ?? ({} as GrantedConfig),
     defaultProvider: DEFAULT_PROVIDER,
     defaultModel: DEFAULT_MODEL,
   });
@@ -358,7 +358,7 @@ export type ResolvedCommandArgChoice = { value: string; label: string };
 export function resolveCommandArgChoices(params: {
   command: ChatCommandDefinition;
   arg: CommandArgDefinition;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   model?: string;
   agentRuntime?: string;
@@ -393,7 +393,7 @@ export function resolveCommandArgChoices(params: {
 export function resolveCommandArgMenu(params: {
   command: ChatCommandDefinition;
   args?: CommandArgs;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   model?: string;
   agentRuntime?: string;

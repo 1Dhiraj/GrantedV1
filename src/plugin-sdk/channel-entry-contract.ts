@@ -28,9 +28,9 @@ import type {
 import { createCachedLazyValueGetter } from "./lazy-value.js";
 
 export type AnyAgentTool = import("../plugins/types.js").AnyAgentTool;
-export type OpenClawPluginApi = import("../plugins/types.js").OpenClawPluginApi;
-export type OpenClawPluginCommandDefinition =
-  import("../plugins/types.js").OpenClawPluginCommandDefinition;
+export type GrantedPluginApi = import("../plugins/types.js").GrantedPluginApi;
+export type GrantedPluginCommandDefinition =
+  import("../plugins/types.js").GrantedPluginCommandDefinition;
 export type PluginCommandContext = import("../plugins/types.js").PluginCommandContext;
 
 export type {
@@ -63,9 +63,9 @@ type DefineBundledChannelEntryOptions<TPlugin = ChannelPlugin> = {
   runtime?: BundledEntryModuleRef;
   accountInspect?: BundledEntryModuleRef;
   features?: BundledChannelEntryFeatures;
-  registerCliMetadata?: (api: OpenClawPluginApi) => void;
-  registerFull?: (api: OpenClawPluginApi) => void;
-  registerCapabilities?: (api: OpenClawPluginApi) => void;
+  registerCliMetadata?: (api: GrantedPluginApi) => void;
+  registerFull?: (api: GrantedPluginApi) => void;
+  registerCapabilities?: (api: GrantedPluginApi) => void;
 };
 
 type DefineBundledChannelSetupEntryOptions = {
@@ -79,7 +79,7 @@ type DefineBundledChannelSetupEntryOptions = {
    */
   legacyStateMigrations?: BundledEntryModuleRef;
   legacySessionSurface?: BundledEntryModuleRef;
-  registerSetupRuntime?: (api: OpenClawPluginApi) => void;
+  registerSetupRuntime?: (api: GrantedPluginApi) => void;
   features?: BundledChannelSetupEntryFeatures;
 };
 
@@ -106,7 +106,7 @@ export type BundledChannelEntryContract<TPlugin = ChannelPlugin> = {
   description: string;
   configSchema: ChannelConfigSchema;
   features?: BundledChannelEntryFeatures;
-  register: (api: OpenClawPluginApi) => void;
+  register: (api: GrantedPluginApi) => void;
   loadChannelPlugin: (options?: BundledEntryModuleLoadOptions) => TPlugin;
   loadChannelOutbound?: (
     options?: BundledEntryModuleLoadOptions,
@@ -134,7 +134,7 @@ export type BundledChannelSetupEntryContract<TPlugin = ChannelPlugin> = {
     options?: BundledEntryModuleLoadOptions,
   ) => BundledChannelLegacySessionSurface;
   setChannelRuntime?: (runtime: BundledChannelRuntime) => void;
-  registerSetupRuntime?: (api: OpenClawPluginApi) => void;
+  registerSetupRuntime?: (api: GrantedPluginApi) => void;
   features?: BundledChannelSetupEntryFeatures;
 };
 
@@ -560,7 +560,7 @@ export function defineBundledChannelEntry<TPlugin = ChannelPlugin>({
     ...(features || accountInspect
       ? { features: { ...features, ...(accountInspect ? { accountInspect: true } : {}) } }
       : {}),
-    register(api: OpenClawPluginApi) {
+    register(api: GrantedPluginApi) {
       if (api.registrationMode === "cli-metadata") {
         registerCliMetadata?.(api);
         return;

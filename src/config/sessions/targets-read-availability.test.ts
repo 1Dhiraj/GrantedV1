@@ -1,7 +1,7 @@
 import path from "node:path";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config.js";
+import type { GrantedConfig } from "../config.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import {
   resolveExistingAgentSessionStoreTargetsReadOnlyResult,
@@ -13,7 +13,7 @@ describe("session store availability", () => {
     await withTempHome(async (home) => {
       const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.sqlite");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: {
           ownership: "explicit",
@@ -51,7 +51,7 @@ describe("session store availability", () => {
       );
       // ...while the configured per-agent template points at a path that has
       // not been created yet (fresh config / store migration window).
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: path.join(home, "custom", "{agentId}", "sessions.sqlite") },
       };
 
@@ -70,7 +70,7 @@ describe("session store availability", () => {
   it("reports database-missing only when no candidate store exists", async () => {
     await withTempHome(async (home) => {
       const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: path.join(home, "custom", "{agentId}", "sessions.sqlite") },
       };
 
@@ -85,7 +85,7 @@ describe("session store availability", () => {
     await withTempHome(async (home) => {
       const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "ownerless-shared.sqlite");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: {
           ownership: "explicit",

@@ -4,7 +4,7 @@
  * to provider plugin doctor copy.
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildProviderAuthDoctorHintWithPlugin } from "../../plugins/provider-runtime.runtime.js";
 import type { AuthProfileStore } from "./types.js";
 
@@ -22,7 +22,7 @@ function hasLegacyQwenPortalOAuthProfile(store: AuthProfileStore, profileId?: st
 }
 
 type FormatAuthDoctorHintParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   store: AuthProfileStore;
   provider: string;
   profileId?: string;

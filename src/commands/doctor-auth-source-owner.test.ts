@@ -14,11 +14,11 @@ import {
 } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { maybeMigrateAuthProfileJsonStoresToSqlite } from "./doctor-auth-flat-profiles.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 const sourceNames = ["auth-profiles.json", "auth-state.json", "auth.json"] as const;
 const profileId = "owner-test:default";
 

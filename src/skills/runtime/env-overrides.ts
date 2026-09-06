@@ -1,6 +1,6 @@
 // Skill environment override helpers expose safe env vars requested by active skills.
 import { sanitizeEnvVars, validateEnvVarValue } from "../../agents/sandbox/sanitize-env-vars.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeResolvedSecretInputString } from "../../config/types.secrets.js";
 import {
   isDangerousHostEnvOverrideVarName,
@@ -221,7 +221,7 @@ function createEnvReverter(updates: EnvUpdate[]) {
   };
 }
 
-export function applySkillEnvOverrides(params: { skills: SkillEntry[]; config?: OpenClawConfig }) {
+export function applySkillEnvOverrides(params: { skills: SkillEntry[]; config?: GrantedConfig }) {
   const { skills } = params;
   const config = resolveSkillRuntimeConfig(params.config);
   const updates: EnvUpdate[] = [];
@@ -253,7 +253,7 @@ export function applySkillEnvOverrides(params: { skills: SkillEntry[]; config?: 
 
 export function applySkillEnvOverridesFromSnapshot(params: {
   snapshot?: SkillSnapshot;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   const { snapshot } = params;
   const config = resolveSkillRuntimeConfig(params.config);

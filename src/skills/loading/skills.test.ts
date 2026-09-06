@@ -6,7 +6,7 @@ import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { setActiveDegradedSecretOwners } from "../../secrets/runtime-degraded-state.js";
 import { captureEnv, withPathResolutionEnv } from "../../test-utils/env.js";
@@ -126,7 +126,7 @@ function envSkillSnapshot(name: string, metadata: SkillEntry["metadata"]): Skill
   };
 }
 
-function rawSkillApiKeyRefConfig(skillName: string): OpenClawConfig {
+function rawSkillApiKeyRefConfig(skillName: string): GrantedConfig {
   return {
     skills: {
       entries: {
@@ -142,7 +142,7 @@ function rawSkillApiKeyRefConfig(skillName: string): OpenClawConfig {
   };
 }
 
-function resolvedSkillApiKeyConfig(skillName: string, apiKey: string): OpenClawConfig {
+function resolvedSkillApiKeyConfig(skillName: string, apiKey: string): GrantedConfig {
   return {
     skills: {
       entries: {
@@ -295,7 +295,7 @@ describe("buildWorkspaceSkillCommandSpecs", () => {
           "compound-bundle": { enabled: true },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     // Prime plugin discovery before the bundle exists; clear the lifecycle cache
     // below to model the install/reload boundary that exposes new plugin files.
@@ -518,7 +518,7 @@ describe("shouldIncludeSkill", () => {
     requires: { env: [envName] },
   });
 
-  function shouldInclude(config?: OpenClawConfig): boolean {
+  function shouldInclude(config?: GrantedConfig): boolean {
     return shouldIncludeSkill({ entry, config, bundledAllowlist: undefined });
   }
 
@@ -709,7 +709,7 @@ describe("applySkillEnvOverrides", () => {
       primaryEnv: "ENV_KEY",
       requires: { env: ["ENV_KEY"] },
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       skills: {
         entries: {
           [skillName]: {

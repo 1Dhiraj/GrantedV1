@@ -1,6 +1,6 @@
 // Telegram plugin module implements outbound message context behavior.
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
@@ -127,7 +127,7 @@ function buildOutboundCacheMessage(params: {
 }
 
 export async function recordOutboundMessageForPromptContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: TelegramOutboundPromptContextAccount;
   chatId: string | number;
   message: TelegramOutboundPromptContextMessage;

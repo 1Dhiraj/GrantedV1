@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { validateSupportedA2UIJsonl } from "./a2ui-jsonl.js";
 
 const A2UI_V08_BUNDLE_PATH = "/__openclaw__/a2ui/a2ui.bundle.js";
@@ -30,7 +30,7 @@ function resourceScript(path: string, url: string): string {
 
 /** Canvas-owned A2UI source validation and document composition for boards. */
 export const canvasA2UIBoardWidgetKind: Parameters<
-  OpenClawPluginApi["registerBoardWidgetContentKind"]
+  GrantedPluginApi["registerBoardWidgetContentKind"]
 >[0] = {
   kind: "a2ui",
   label: "A2UI",

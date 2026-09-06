@@ -36,7 +36,7 @@ import { isAgentHarnessPreflightError } from "../../agents/harness/errors.js";
 import { isProviderAuthError } from "../../agents/model-auth-runtime-shared.js";
 import { buildProviderAuthRecoveryHint } from "../../agents/provider-auth-recovery-hint.js";
 import { resolveSilentReplyPolicy } from "../../config/silent-reply.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { extractErrorHttpStatus } from "../../shared/assistant-error-format.js";
 import { buildCodexLoginRecovery } from "../codex-login-recovery.js";
@@ -126,7 +126,7 @@ export function resolveExternalRunFailureTextForConversation(params: {
   text: string;
   sessionCtx: ExternalFailureConversationContext;
   isGenericRunnerFailure: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   visibleReplyDelivered?: boolean;
 }): string {
   // Group silence must not strand an already-visible partial without its terminal failure.
@@ -382,7 +382,7 @@ export function buildTerminalAgentRunFailureReplyPayload(params: {
   isHeartbeat?: boolean;
   visibleReplyDelivered: boolean;
   sessionCtx: ExternalFailureConversationContext;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): ReplyPayload {
   const text = params.isHeartbeat
     ? HEARTBEAT_EXTERNAL_RUN_FAILURE_TEXT
@@ -406,7 +406,7 @@ export function buildEmptyInteractiveReplyPayload(params: {
   hasCommittedDelivery: boolean;
   hasIntentionalTerminalCompletion: boolean;
   sessionCtx: ExternalFailureConversationContext;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): ReplyPayload | undefined {
   if (
     !params.isInteractive ||
@@ -435,7 +435,7 @@ export function buildKnownAgentRunFailureReplyPayload(params: {
   err: unknown;
   sessionCtx: TemplateContext;
   resolvedVerboseLevel: VerboseLevel | undefined;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): ReplyPayload | undefined {
   // Direct preflight diagnostics are not provider failures; preserve their
   // identity for the caller's generic settlement and disclosure policy.

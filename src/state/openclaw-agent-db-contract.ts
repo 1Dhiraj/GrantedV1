@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 import type { SqliteWalMaintenance } from "../infra/sqlite-wal.js";
-import type { OpenClawStateDatabaseOptions } from "./openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "./openclaw-state-db.js";
 
 // v19 qualifies immutable creator namespaces without deriving authority from sandbox policy.
 // v18 separates participant identity namespaces and preserves unknown historical times.
@@ -25,7 +25,7 @@ export const GRANTED_AGENT_SCHEMA_VERSION = 19;
 export const AGENT_MEDIA_SCHEMA_VERSION = 17;
 
 /** Open per-agent SQLite database handle plus lifecycle maintenance. */
-export type OpenClawAgentDatabase = {
+export type GrantedAgentDatabase = {
   agentId: string;
   db: DatabaseSync;
   path: string;
@@ -33,12 +33,12 @@ export type OpenClawAgentDatabase = {
 };
 
 /** Options for resolving and opening one agent database. */
-export type OpenClawAgentDatabaseOptions = OpenClawStateDatabaseOptions & {
+export type GrantedAgentDatabaseOptions = GrantedStateDatabaseOptions & {
   agentId: string;
 };
 
 /** Shared-state registry row describing an agent database seen by this process. */
-export type OpenClawRegisteredAgentDatabase = {
+export type GrantedRegisteredAgentDatabase = {
   agentId: string;
   path: string;
   schemaVersion: number;
@@ -46,7 +46,7 @@ export type OpenClawRegisteredAgentDatabase = {
   sizeBytes: number | null;
 };
 
-export type OpenClawAgentDatabaseOwnerInspection =
+export type GrantedAgentDatabaseOwnerInspection =
   | { status: "owned"; agentId: string }
   | { status: "unowned" }
   | { status: "unreadable" };

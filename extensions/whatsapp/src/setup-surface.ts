@@ -4,7 +4,7 @@ import {
   setSetupChannelEnabled,
   createSetupTranslator,
   type ChannelSetupWizard,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/setup";
 import { listWhatsAppAccountIds, resolveWhatsAppAuthDir } from "./accounts.js";
 import { formatWhatsAppWebAuthStatusState, readWebAuthState } from "./auth-store.js";
@@ -16,7 +16,7 @@ const channel = "whatsapp" as const;
 type WhatsAppSetupLinkState = "linked" | "not-linked" | "unstable";
 
 async function readWhatsAppSetupLinkState(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): Promise<WhatsAppSetupLinkState> {
   const { authDir } = resolveWhatsAppAuthDir({ cfg, accountId });

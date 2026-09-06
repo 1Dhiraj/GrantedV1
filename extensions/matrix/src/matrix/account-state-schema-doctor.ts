@@ -2,7 +2,7 @@
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
+import type { GrantedStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
 import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { resolveMatrixSqliteStateEnv } from "./sqlite-state.js";
 
@@ -48,7 +48,7 @@ async function collectMatrixAccountStateRoots(stateDir: string): Promise<string[
 
 function describeMatrixAccountStateMigration(
   storageRootDir: string,
-  migration: OpenClawStateDatabaseSchemaMigration,
+  migration: GrantedStateDatabaseSchemaMigration,
 ): string {
   return `Matrix account SQLite schema migration (${migration.kind}): ${storageRootDir}`;
 }

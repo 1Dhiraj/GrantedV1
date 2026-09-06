@@ -1,5 +1,5 @@
 /** Resolves gateway service auth tokens without leaking exec-backed secrets during install. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { resolveGatewayAuthToken } from "../gateway/auth-token-resolution.js";
 
@@ -10,7 +10,7 @@ import { resolveGatewayAuthToken } from "../gateway/auth-token-resolution.js";
  * arbitrary commands. Configured SecretRefs never fall back to ambient credentials.
  */
 export async function resolveGatewayAuthTokenForService(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
   options: { allowExecSecretRefs?: boolean } = {},
 ): Promise<{ token?: string; unavailableReason?: string }> {

@@ -13,11 +13,11 @@ import { resetAgentEventsForTest } from "../../infra/agent-events.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { WorkerComputerLaunchDescriptor } from "../../worker/launch-descriptor.js";
 import type { MintedWorkerCredential } from "./credential.js";
@@ -54,8 +54,8 @@ export const measureLaunchTurn: WorkerTurnTunnelHandle["measureLaunchTurn"] = (p
     descriptor: plan,
   });
 
-let testState: OpenClawTestState;
-let database: OpenClawStateDatabase;
+let testState: GrantedTestState;
+let database: GrantedStateDatabase;
 let cleanupAdmissionSink: (() => void) | undefined;
 
 export let root: string;

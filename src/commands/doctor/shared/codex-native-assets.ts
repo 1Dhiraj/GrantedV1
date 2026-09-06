@@ -6,7 +6,7 @@ import path from "node:path";
 import { isRecord as hasRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString as normalizeString } from "@openclaw/normalization-core/string-coerce";
 import { collectConfiguredAgentHarnessRuntimes } from "../../../agents/harness-runtimes.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 
 type CodexNativeAssetHit = {
   /** Native Codex asset category discovered under Codex or personal agent homes. */
@@ -111,11 +111,11 @@ async function discoverPluginHits(root: string): Promise<CodexNativeAssetHit[]> 
   return [...hits.values()];
 }
 
-function isCodexRuntimeConfigured(cfg: OpenClawConfig, _env: NodeJS.ProcessEnv): boolean {
+function isCodexRuntimeConfigured(cfg: GrantedConfig, _env: NodeJS.ProcessEnv): boolean {
   return collectConfiguredAgentHarnessRuntimes(cfg).includes("codex");
 }
 
-function isCodexPluginConfigured(cfg: OpenClawConfig): boolean {
+function isCodexPluginConfigured(cfg: GrantedConfig): boolean {
   const plugins = cfg.plugins;
   if (plugins?.enabled === false) {
     return false;
@@ -131,13 +131,13 @@ function isCodexPluginConfigured(cfg: OpenClawConfig): boolean {
   return hasRecord(plugins?.entries?.codex) && plugins.entries.codex.enabled !== false;
 }
 
-function shouldScanCodexNativeAssets(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boolean {
+function shouldScanCodexNativeAssets(cfg: GrantedConfig, env: NodeJS.ProcessEnv): boolean {
   return isCodexRuntimeConfigured(cfg, env) || isCodexPluginConfigured(cfg);
 }
 
 /** Discover personal Codex skills, plugins, config, and hooks relevant to Codex-mode agents. */
 async function scanCodexNativeAssets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<CodexNativeAssetHit[]> {
   const env = params.env ?? process.env;
@@ -182,7 +182,7 @@ function plural(count: number, singular: string): string {
 
 /** Build an informational doctor note when personal Codex CLI assets need migration review. */
 export async function collectCodexNativeAssetInfoNotes(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<string[]> {
   const env = params.env ?? process.env;

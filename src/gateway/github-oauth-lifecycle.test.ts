@@ -18,7 +18,7 @@ import {
   GitHubAccountMismatchError,
   resolveConfiguredGitHubToolIdentity,
 } from "../agents/github-tool-identity.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 import { writeHiddenGitHubSecretRecord } from "../secrets/store/secret-store.js";
 import { recordAgentProvenance } from "../state/agent-provenance.js";
@@ -97,7 +97,7 @@ const TOKENS = {
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-let currentConfig: OpenClawConfig;
+let currentConfig: GrantedConfig;
 let stateDir: string;
 let installedTokens: string[];
 let refreshedTokens: string[];
@@ -126,7 +126,7 @@ function identity(profileId: string, options: { oauth?: boolean; author?: boolea
 function configForScope(
   scope: GitHubIdentityScope,
   selected?: GitHubToolIdentityConfig,
-): OpenClawConfig {
+): GrantedConfig {
   return scope === "system"
     ? { tools: selected ? { github: selected } : {}, agents: { entries: { main: {} } } }
     : {
@@ -182,7 +182,7 @@ function statusResult(scope: GitHubIdentityScope): ToolsGitHubStatusResult {
 }
 
 function createLifecycle(
-  options: { getPersistedConfig?: () => OpenClawConfig } = {},
+  options: { getPersistedConfig?: () => GrantedConfig } = {},
 ): GitHubOAuthLifecycle {
   const lifecycle = createGitHubOAuthLifecycle({
     getConfig: () => currentConfig,

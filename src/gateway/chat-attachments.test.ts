@@ -32,7 +32,7 @@ vi.mock("../media/media-probe.js", () => ({
 }));
 
 import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveChatAttachmentMaxBytes,
   resolveChatAttachmentPolicy,
@@ -434,7 +434,7 @@ describe("parseMessageWithAttachments", () => {
       parseMessageWithAttachments(
         "x",
         [{ type: "image", mimeType: "image/png", fileName: "huge.png", content: big }],
-        { maxBytes: resolveChatAttachmentMaxBytes({} as OpenClawConfig), log: { warn: () => {} } },
+        { maxBytes: resolveChatAttachmentMaxBytes({} as GrantedConfig), log: { warn: () => {} } },
       ),
     ).rejects.toThrow(/image exceeds size limit/i);
     expect(saveMediaBufferMock).not.toHaveBeenCalled();
@@ -766,10 +766,10 @@ describe("parseMessageWithAttachments validation errors", () => {
 describe("advertised attachment policy matches enforcement", () => {
   const MB = 1024 * 1024;
 
-  const cfgWithMediaMaxMb = (value: number): OpenClawConfig =>
-    ({ agents: { defaults: { mediaMaxMb: value } } }) as unknown as OpenClawConfig;
+  const cfgWithMediaMaxMb = (value: number): GrantedConfig =>
+    ({ agents: { defaults: { mediaMaxMb: value } } }) as unknown as GrantedConfig;
 
-  async function parseImageWithPolicy(cfg: OpenClawConfig, imageBytes: number) {
+  async function parseImageWithPolicy(cfg: GrantedConfig, imageBytes: number) {
     const policy = resolveChatAttachmentPolicy(cfg);
     const parse = parseMessageWithAttachments(
       "x",

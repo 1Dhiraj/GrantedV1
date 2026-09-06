@@ -16,7 +16,7 @@ import {
 import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
 import { buildAgentRuntimeAuthPlan } from "../agents/runtime-plan/auth.js";
 import { GEMINI_CLI_DEFAULT_MODEL_REF } from "../commands/onboard-inference.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import {
@@ -32,9 +32,9 @@ export type SetupInferenceTestPlan = {
   model: string;
   modelRef: string;
   /** Authored/staged config used for route, auth, and persistence decisions. */
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Execution-only projection that admits the reserved OpenClaw agent. */
-  executionConfig?: OpenClawConfig;
+  executionConfig?: GrantedConfig;
   /** Execution identity used by the real OpenClaw turn. */
   agentId?: string;
   /** Default-agent owner whose model/runtime config is being selected. */
@@ -47,17 +47,17 @@ export type SetupInferenceTestPlan = {
   persistModelRef?: string;
   manualAuth?: {
     profiles: ProviderAuthResult["profiles"];
-    runtimeConfigBase: OpenClawConfig;
-    sourceConfigBase: OpenClawConfig;
+    runtimeConfigBase: GrantedConfig;
+    sourceConfigBase: GrantedConfig;
     configPatch: unknown;
     pluginId?: string;
   };
 };
 
 export function configureCodexCliPreparedAuth(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   homeScope: "agent" | "user",
-): Result<OpenClawConfig, string> {
+): Result<GrantedConfig, string> {
   const entry = cfg.plugins?.entries?.codex;
   const pluginConfig = entry?.config ?? {};
   const appServer =
@@ -202,7 +202,7 @@ export function parseRef(modelRef: string): { provider: string; model: string } 
 }
 
 export function projectSetupTargetModelMetadata(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   modelRef: string,
   agentId?: string,
 ): unknown {
@@ -284,8 +284,8 @@ export function mapFailoverReasonToSetupStatus(
 }
 
 export function prepareManualAuthForActivation(params: {
-  baseConfig: OpenClawConfig;
-  preparedConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
+  preparedConfig: GrantedConfig;
   profiles: ProviderAuthResult["profiles"];
   selectedProfileId: string;
   modelRef: string;
@@ -293,7 +293,7 @@ export function prepareManualAuthForActivation(params: {
   pluginId?: string;
   agentId?: string;
 }): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   profiles: ProviderAuthResult["profiles"];
   selectedProfileId: string;
 } {
@@ -319,8 +319,8 @@ export function prepareManualAuthForActivation(params: {
 }
 
 function copySelectedModelMetadata(params: {
-  target: OpenClawConfig;
-  prepared: OpenClawConfig;
+  target: GrantedConfig;
+  prepared: GrantedConfig;
   modelRef: string;
   agentId?: string;
 }): void {
@@ -368,7 +368,7 @@ function copySelectedModelMetadata(params: {
 }
 
 function findSelectedProviderConfigKey(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   providerId: string,
 ): string | undefined {
   const providers = config.models?.providers;
@@ -390,15 +390,15 @@ function findSelectedProviderConfigKey(
  * surface after intelligence exists.
  */
 export function projectManualInferenceConfig(params: {
-  baseConfig: OpenClawConfig;
-  preparedConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
+  preparedConfig: GrantedConfig;
   selectedProfile?: ProviderAuthResult["profiles"][number];
   selectedProfileId?: string;
   modelRef: string;
   providerId: string;
   pluginId?: string;
   agentId?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   const config = structuredClone(params.baseConfig);
   if (params.selectedProfile && params.selectedProfileId) {
     const metadata = params.preparedConfig.auth?.profiles?.[params.selectedProfile.profileId] ?? {
@@ -451,7 +451,7 @@ export function projectManualInferenceConfig(params: {
 }
 
 export function canonicalizeSetupModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   raw: string;
   defaultProvider: string;
 }): string {

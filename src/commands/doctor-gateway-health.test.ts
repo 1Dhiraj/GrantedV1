@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GatewayClientRequestError } from "../../packages/gateway-client/src/index.js";
 import { retainGatewayResponsePayload } from "../../packages/gateway-client/src/protocol-request.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { GatewayTransportError } from "../gateway/transport-error.js";
 import {
   GATEWAY_HEALTH_CREDENTIALS_REQUIRED_MESSAGE,
@@ -53,7 +53,7 @@ vi.mock("./health.js", () => ({
 import { checkGatewayHealth, probeGatewayMemoryStatus } from "./doctor-gateway-health.js";
 
 describe("checkGatewayHealth", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   beforeEach(() => {
     callGateway.mockReset();
@@ -91,7 +91,7 @@ describe("checkGatewayHealth", () => {
     const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
 
     await expect(
-      checkGatewayHealth({ runtime: runtime as never, cfg: {} as OpenClawConfig }),
+      checkGatewayHealth({ runtime: runtime as never, cfg: {} as GrantedConfig }),
     ).resolves.toMatchObject({ authenticated: true, healthOk: true });
 
     expect(note).toHaveBeenCalledWith(
@@ -495,7 +495,7 @@ describe("checkGatewayHealth", () => {
 });
 
 describe("probeGatewayMemoryStatus", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   beforeEach(() => {
     callGateway.mockReset();

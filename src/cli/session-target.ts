@@ -11,7 +11,7 @@ import { visibleWidth } from "../../packages/terminal-core/src/ansi.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { formatTextCell } from "../commands/text-format.js";
 import { resolveCanonicalMainSessionKey } from "../config/sessions/main-session-key.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   callGateway,
   GatewayStoredDeviceAuthUnavailableError,
@@ -26,7 +26,7 @@ import {
 } from "./session-ref.js";
 
 export type SessionTargetGateway = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   url?: string;
   token?: string;
   password?: string;

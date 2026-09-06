@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import net from "node:net";
-import type { OpenClawConfig } from "../sdk-config.js";
+import type { GrantedConfig } from "../sdk-config.js";
 import { resolveBrowserConfig, resolveProfile } from "./config.js";
 import type { BrowserNativeRelayEnsureStatus } from "./extension-native-protocol.js";
 import { readExtensionRelayToken } from "./extension-relay/relay-auth.js";
@@ -28,7 +28,7 @@ async function isRelayPortServed(port: number): Promise<boolean> {
  */
 export async function ensureExtensionRelayDaemonProcess(params: {
   port: number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entryPath: string;
   execPath?: string;
   readToken?: () => string | null;

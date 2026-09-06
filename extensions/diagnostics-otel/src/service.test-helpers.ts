@@ -13,7 +13,7 @@ import {
   registerDiagnosticTracePropagationBridge,
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { vi } from "vitest";
-import type { OpenClawPluginServiceContext } from "../api.js";
+import type { GrantedPluginServiceContext } from "../api.js";
 import type { ExporterHealthUpdate } from "./service-exporter-health.js";
 import { createDiagnosticsOtelService } from "./service.js";
 
@@ -76,7 +76,7 @@ export async function emitRealSdkSignals(generation = "1") {
   return traceContext;
 }
 type OtelConfig = NonNullable<
-  NonNullable<OpenClawPluginServiceContext["config"]["diagnostics"]>["otel"]
+  NonNullable<GrantedPluginServiceContext["config"]["diagnostics"]>["otel"]
 >;
 export type OtelContextFlags = Pick<
   OtelConfig,
@@ -85,14 +85,14 @@ export type OtelContextFlags = Pick<
 
 type StartOtelServiceOptions = OtelContextFlags & {
   endpoint?: string;
-  configure?: (ctx: OpenClawPluginServiceContext) => void;
+  configure?: (ctx: GrantedPluginServiceContext) => void;
 };
 type InternalDiagnosticListener = Parameters<
-  NonNullable<OpenClawPluginServiceContext["internalDiagnostics"]>["onEvent"]
+  NonNullable<GrantedPluginServiceContext["internalDiagnostics"]>["onEvent"]
 >[0];
 export type ReportedExporterHealth = Omit<ExporterHealthUpdate, "exporter">;
 type TrustedExporterInternalDiagnostics = NonNullable<
-  OpenClawPluginServiceContext["internalDiagnostics"]
+  GrantedPluginServiceContext["internalDiagnostics"]
 > & {
   reportExporterHealth?: (update: ReportedExporterHealth) => void;
 };
@@ -103,11 +103,11 @@ type ModelUsageEventInput = Omit<
 
 type StartedService = {
   service: ReturnType<typeof createDiagnosticsOtelService>;
-  ctx: OpenClawPluginServiceContext;
+  ctx: GrantedPluginServiceContext;
 };
 
 const startedServices = new Set<StartedService>();
-const exporterHealthReports = new WeakMap<OpenClawPluginServiceContext, ReportedExporterHealth[]>();
+const exporterHealthReports = new WeakMap<GrantedPluginServiceContext, ReportedExporterHealth[]>();
 
 export function createOtelContext(
   endpoint: string,
@@ -119,7 +119,7 @@ export function createOtelContext(
     logsExporter,
     captureContent,
   }: OtelContextFlags = {},
-): OpenClawPluginServiceContext {
+): GrantedPluginServiceContext {
   const reports: ReportedExporterHealth[] = [];
   const internalDiagnostics: TrustedExporterInternalDiagnostics = {
     emit: emitTrustedDiagnosticEventWithPrivateData,
@@ -127,7 +127,7 @@ export function createOtelContext(
     registerTracePropagationBridge: registerDiagnosticTracePropagationBridge,
     reportExporterHealth: (update) => reports.push(update),
   };
-  const ctx: OpenClawPluginServiceContext = {
+  const ctx: GrantedPluginServiceContext = {
     config: {
       diagnostics: {
         enabled: true,
@@ -157,7 +157,7 @@ export function createOtelContext(
 }
 
 export function getReportedExporterHealth(
-  ctx: OpenClawPluginServiceContext,
+  ctx: GrantedPluginServiceContext,
 ): ReportedExporterHealth[] {
   return exporterHealthReports.get(ctx) ?? [];
 }

@@ -1,6 +1,6 @@
 // Codex tests cover index plugin behavior.
 import fs from "node:fs";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import openAIPlugin from "../openai/index.js";
@@ -23,7 +23,7 @@ const explicitAgentConfig = {
     ownership: "explicit",
     entries: { main: {}, clawblocker: {}, blockdigest: {} },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function createCodexTestRuntime(
   current?: () => unknown,

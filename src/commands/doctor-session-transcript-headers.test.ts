@@ -9,17 +9,17 @@ import {
 import { readTranscriptStorageRows } from "../config/sessions/session-accessor.sqlite-read.js";
 import { waitForSessionTranscriptIndexReconcile } from "../config/sessions/session-transcript-reconcile.js";
 import { CURRENT_SESSION_VERSION } from "../config/sessions/version.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as agentDatabase from "../state/openclaw-agent-db.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 
 const note = vi.hoisted(() => vi.fn());
@@ -35,9 +35,9 @@ const SESSION_KEY = "agent:main:headerless-session";
 const SPAWNED_CWD = "/workspace/headerless-child";
 
 describe("doctor SQLite session transcript header repair", () => {
-  let state: OpenClawTestState;
-  let cfg: OpenClawConfig;
-  let transcriptDatabaseOptions: OpenClawAgentDatabaseOptions;
+  let state: GrantedTestState;
+  let cfg: GrantedConfig;
+  let transcriptDatabaseOptions: GrantedAgentDatabaseOptions;
   let scope: {
     agentId: string;
     env: NodeJS.ProcessEnv;

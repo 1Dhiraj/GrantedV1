@@ -4,7 +4,7 @@ import type {
   ChannelMessageActionContext,
   ChannelThreadingToolContext,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
@@ -69,7 +69,7 @@ function resolveCurrentTelegramConversation(
 }
 
 function resolveMatchingTelegramRequesterAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   context?: TelegramMessageMutationContext;
 }): string | undefined {
@@ -86,7 +86,7 @@ function resolveMatchingTelegramRequesterAccount(params: {
 
 export function resolveTelegramConversationReadChatId(params: {
   chatId?: string | number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   context?: TelegramMessageMutationContext;
 }): string {
@@ -119,7 +119,7 @@ export function resolveTelegramConversationReadChatId(params: {
 export async function resolveTelegramMessageMutationChatId(params: {
   chatId: string | number;
   messageId: number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   context?: TelegramMessageMutationContext;
 }): Promise<string | number> {

@@ -22,7 +22,7 @@ import {
   GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
   isTranscriptOnlyOpenClawAssistantMessage,
 } from "../../shared/transcript-only-openclaw-assistant.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import {
   parseSqliteSessionFileMarker,
   type SqliteSessionFileMarker,
@@ -415,7 +415,7 @@ export async function appendAssistantMessageToSessionTranscript(params: {
   /** Optional override for store path (mostly for tests). */
   storePath?: string;
   updateMode?: SessionTranscriptUpdateMode;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   beforeMessageWrite?: AssistantBeforeMessageWrite;
   onMessageCommitted?: SessionTranscriptTurnPersistOptions["onMessageCommitted"];
 }): Promise<SessionTranscriptAppendResult> {
@@ -499,7 +499,7 @@ export async function appendExactAssistantMessageToSessionTranscript(params: {
   runId?: string;
   storePath?: string;
   updateMode?: SessionTranscriptUpdateMode;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   beforeMessageWrite?: AssistantBeforeMessageWrite;
   onMessageCommitted?: SessionTranscriptTurnPersistOptions["onMessageCommitted"];
 }): Promise<SessionTranscriptAppendResult> {
@@ -800,7 +800,7 @@ function extractAssistantMessageText(message: AgentMessage): string | null {
 async function findLatestEquivalentAssistantMessageId(
   target: SessionTranscriptTurnWriteContext,
   message: SessionTranscriptAssistantMessage,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): Promise<string | undefined> {
   const expectedText = extractAssistantMessageText(redactTranscriptMessage(message, config));
   if (!expectedText) {

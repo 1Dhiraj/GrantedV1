@@ -5,11 +5,11 @@ import {
   RUNTIME_MODEL_VISIBILITY_NORMALIZATION,
 } from "../../agents/model-visibility-policy.js";
 import { resolveModelCatalogIdentityKey } from "../../agents/openai-model-routes.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 
 export function includeConfiguredStaticCatalogEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   snapshot: ModelCatalogSnapshot;
   defaultModel?: string;

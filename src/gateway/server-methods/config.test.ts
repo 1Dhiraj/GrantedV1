@@ -5,7 +5,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConfigMutationConflictError } from "../../config/mutation-conflict.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -35,12 +35,12 @@ vi.mock("../../config/validation.js", async () => {
   );
   return {
     ...actual,
-    validateConfigObjectRawWithPlugins: vi.fn((config: OpenClawConfig) => ({
+    validateConfigObjectRawWithPlugins: vi.fn((config: GrantedConfig) => ({
       ok: true,
       config,
       warnings: [],
     })),
-    validateConfigObjectWithPlugins: vi.fn((config: OpenClawConfig) => ({
+    validateConfigObjectWithPlugins: vi.fn((config: GrantedConfig) => ({
       ok: true,
       config,
       warnings: [],
@@ -51,7 +51,7 @@ vi.mock("../../config/validation.js", async () => {
 // Secret materialization has dedicated runtime suites; keep these handler tests on
 // their config-write boundary instead of loading every provider and plugin artifact.
 vi.mock("../../secrets/runtime.js", () => ({
-  prepareSecretsRuntimeSnapshot: vi.fn(async ({ config }: { config: OpenClawConfig }) => ({
+  prepareSecretsRuntimeSnapshot: vi.fn(async ({ config }: { config: GrantedConfig }) => ({
     config,
   })),
 }));
@@ -92,7 +92,7 @@ function mockOpenPathError(error: Error) {
   execOpenPathMock.mockRejectedValue(error);
 }
 
-let storedConfig: OpenClawConfig;
+let storedConfig: GrantedConfig;
 let storedHash: string;
 let nextHash: number;
 let modelNormalizationPluginMetadata: PluginMetadataSnapshot | undefined;
@@ -170,7 +170,7 @@ beforeEach(() => {
       nextConfig,
     }: {
       snapshot: { hash?: string };
-      nextConfig: OpenClawConfig;
+      nextConfig: GrantedConfig;
     }) => {
       if (snapshot.hash !== storedHash) {
         throw new ConfigMutationConflictError("config changed since last load");
@@ -650,7 +650,7 @@ describe("config.patch ID-keyed arrays", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const { respond } = await invokeConfigPatch({
       raw: {
@@ -686,7 +686,7 @@ describe("config.patch ID-keyed arrays", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const { respond } = await invokeConfigPatch({
       raw: {

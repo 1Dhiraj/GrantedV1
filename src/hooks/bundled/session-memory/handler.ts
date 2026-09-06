@@ -17,7 +17,7 @@ import { resolveUserTimezone } from "../../../agents/date-time.js";
 import { createMemoryWriteProvenanceObserver } from "../../../agents/memory-write-provenance.js";
 import { resolveStateDir } from "../../../config/paths.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isVitestRuntimeEnv } from "../../../infra/env.js";
 import { root } from "../../../infra/fs-safe.js";
 import { createSubsystemLogger } from "../../../logging/subsystem.js";
@@ -94,7 +94,7 @@ async function resolveAvailableMemoryFilename(params: {
 }
 
 function resolveDisplaySessionKey(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   sessionKey: string;
 }): string {
@@ -135,7 +135,7 @@ async function saveSessionMemoryNow(
     log.debug("Session memory hook triggered", { action: event.action, type: event.type });
 
     const context = event.context || {};
-    const cfg = context.cfg as OpenClawConfig | undefined;
+    const cfg = context.cfg as GrantedConfig | undefined;
     const contextWorkspaceDir =
       typeof context.workspaceDir === "string" && context.workspaceDir.trim().length > 0
         ? context.workspaceDir
@@ -307,7 +307,7 @@ const saveSessionToMemory: HookHandler = (event) => {
       ? (context.previousSessionEntry ?? context.sessionEntry)
       : context.sessionEntry
   ) as { sessionId?: string } | undefined;
-  const cfg = context.cfg as OpenClawConfig | undefined;
+  const cfg = context.cfg as GrantedConfig | undefined;
   // Gateway and soft-reset hooks already run before mutation; chat resets carry
   // the snapshot captured by session initialization before closing the window.
   const transcript =

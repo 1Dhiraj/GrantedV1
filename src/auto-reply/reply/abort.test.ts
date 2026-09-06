@@ -10,7 +10,7 @@ import {
   resetSubagentRegistryForTests,
   testing as subagentRegistryTesting,
 } from "../../agents/subagents/registry/subagent-registry.test-helpers.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   loadSessionEntry,
   markSessionAbortTarget,
@@ -146,7 +146,7 @@ describe("abort detection", () => {
       ...(typeof params?.commandsTextEnabled === "boolean"
         ? { commands: { text: params.commandsTextEnabled } }
         : {}),
-    } as OpenClawConfig;
+    } as GrantedConfig;
     if (params?.sessionIdsByKey) {
       for (const sessionKey of Object.keys(params.sessionIdsByKey)) {
         trackedAbortMemoryKeys.add(sessionKey);
@@ -157,7 +157,7 @@ describe("abort detection", () => {
   }
 
   async function runStopCommand(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey?: string;
     parentSessionKey?: string;
     from: string;
@@ -202,7 +202,7 @@ describe("abort detection", () => {
 
   function enqueueQueuedFollowupRun(params: {
     root: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionId: string;
     sessionKey: string;
   }) {
@@ -1279,7 +1279,7 @@ describe("abort detection", () => {
 
     await expect(
       stopSubagentsForRequester({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         requesterSessionKey: sessionKey,
       }),
     ).resolves.toEqual({ stopped: 1, failed: 1 });
@@ -1353,7 +1353,7 @@ describe("abort detection", () => {
     });
 
     const result = await stopSubagentsForRequester({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       requesterSessionKey: sessionKey,
     });
 
@@ -1518,7 +1518,7 @@ describe("abort detection", () => {
     });
 
     const result = await stopSubagentsForRequester({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       requesterSessionKey: oldParentKey,
     });
 

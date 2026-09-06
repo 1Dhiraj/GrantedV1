@@ -2,7 +2,7 @@
 import { randomBytes } from "node:crypto";
 import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
 import {
-  type OpenClawConfig,
+  type GrantedConfig,
   DEFAULT_GATEWAY_PORT,
   type HooksGmailTailscaleMode,
   resolveGatewayPort,
@@ -117,7 +117,7 @@ export function buildDefaultHookUrl(
 }
 
 export function resolveGmailHookRuntimeConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   overrides: GmailHookOverrides,
 ): { ok: true; value: GmailHookRuntimeConfig } | { ok: false; error: string } {
   const hooks = cfg.hooks;

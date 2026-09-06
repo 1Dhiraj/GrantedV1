@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { heartbeatRunnerTelegramPlugin } from "../../test/helpers/infra/heartbeat-runner-channel-plugins.js";
 import { createHeartbeatToolResponsePayload } from "../auto-reply/heartbeat-tool-response.js";
 import { setReplyPayloadMetadata } from "../auto-reply/reply-payload.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import {
@@ -39,7 +39,7 @@ describe("runHeartbeatOnce structured heartbeat delivery", () => {
     resetSystemEventsForTest();
   });
 
-  function createConfig(tmpDir: string, storePath: string): OpenClawConfig {
+  function createConfig(tmpDir: string, storePath: string): GrantedConfig {
     return {
       agents: {
         defaults: {
@@ -56,12 +56,12 @@ describe("runHeartbeatOnce structured heartbeat delivery", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   function seedTelegramSession(
     storePath: string,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     entry: Partial<Parameters<typeof seedMainSessionStore>[2]> = {},
   ) {
     return seedMainSessionStore(storePath, cfg, {
@@ -73,7 +73,7 @@ describe("runHeartbeatOnce structured heartbeat delivery", () => {
   }
 
   function runHeartbeat(
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     replySpy: HeartbeatDeps["getReplyFromConfig"],
     sendTelegram: ReturnType<typeof vi.fn>,
     overrides: Omit<Parameters<typeof runHeartbeatOnce>[0], "cfg" | "deps"> = {},

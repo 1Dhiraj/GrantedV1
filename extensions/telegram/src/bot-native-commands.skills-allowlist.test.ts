@@ -6,7 +6,7 @@ import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { listSkillCommandsForAgents as listActualSkillCommandsForAgents } from "openclaw/plugin-sdk/skill-commands-runtime";
 import { writeSkill } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -47,7 +47,7 @@ describe("registerTelegramNativeCommands skill allowlist integration", () => {
     });
 
     const setMyCommands = vi.fn().mockResolvedValue(undefined);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           { id: "alpha", workspace: workspaceDir, skills: ["alpha-skill"] },
@@ -62,7 +62,7 @@ describe("registerTelegramNativeCommands skill allowlist integration", () => {
       ],
     };
     listSkillCommandsForAgents.mockImplementation(
-      ({ cfg: cfgLocal, agentIds }: { cfg: OpenClawConfig; agentIds?: string[] }) =>
+      ({ cfg: cfgLocal, agentIds }: { cfg: GrantedConfig; agentIds?: string[] }) =>
         listActualSkillCommandsForAgents({ cfg: cfgLocal, agentIds }),
     );
 

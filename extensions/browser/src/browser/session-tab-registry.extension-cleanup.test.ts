@@ -1,5 +1,5 @@
 // Browser tests cover extension-tab cleanup through live runtime-owned credentials.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   OpenKeyedStoreOptions,
   PluginStateSyncKeyedStore,
@@ -16,7 +16,7 @@ import {
 } from "openclaw/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerBrowserPlugin } from "../../plugin-registration.js";
-import type { OpenClawPluginApi } from "../../runtime-api.js";
+import type { GrantedPluginApi } from "../../runtime-api.js";
 import { useAutoCleanupTempDirTracker } from "../../test-support.js";
 import type { CloseTrackedCdpTargetResult } from "./cdp.helpers.js";
 import { resolveBrowserConfig, type ResolvedBrowserConfig } from "./config.js";
@@ -50,7 +50,7 @@ const config = {
       },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function clearProcessLocalTabState(): void {
   const state = globalThis as Record<symbol, unknown>;
@@ -83,7 +83,7 @@ function installRuntime(): void {
           openSyncKeyedStore: (options: OpenKeyedStoreOptions) =>
             createPluginStateSyncKeyedStoreForTests("browser", options),
         },
-      } as unknown as OpenClawPluginApi["runtime"],
+      } as unknown as GrantedPluginApi["runtime"],
     }),
   );
 }

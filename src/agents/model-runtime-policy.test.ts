@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import type { ModelDefinitionConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { resolveModelRuntimePolicy as resolveModelRuntimePolicyBase } from "./model-runtime-policy.js";
 
@@ -14,7 +14,7 @@ function resolveModelRuntimePolicy(
 ): ReturnType<typeof resolveModelRuntimePolicyBase> {
   return resolveModelRuntimePolicyBase({
     ...params,
-    config: migratePersistedImplicitMainRoster(params.config).config as OpenClawConfig,
+    config: migratePersistedImplicitMainRoster(params.config).config as GrantedConfig,
   });
 }
 
@@ -49,7 +49,7 @@ function restoreEnv(
   setTestEnvValue(name, value);
 }
 
-function makeProviderRuntimeConfig(runtime: string): OpenClawConfig {
+function makeProviderRuntimeConfig(runtime: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -60,7 +60,7 @@ function makeProviderRuntimeConfig(runtime: string): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 afterEach(() => {
@@ -131,7 +131,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -155,7 +155,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -181,7 +181,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -213,7 +213,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -259,7 +259,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -306,7 +306,7 @@ describe("resolveModelRuntimePolicy", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       expect(resolveModelRuntimePolicy({ config, provider, modelId })).toEqual({
         policy: { id: "openclaw" },
@@ -326,7 +326,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -352,7 +352,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -377,7 +377,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -410,7 +410,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -434,7 +434,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -458,7 +458,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -478,7 +478,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -510,7 +510,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -547,7 +547,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({
@@ -583,7 +583,7 @@ describe("resolveModelRuntimePolicy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveModelRuntimePolicy({

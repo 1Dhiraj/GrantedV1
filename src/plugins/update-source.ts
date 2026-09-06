@@ -1,5 +1,5 @@
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import type { ClawHubTrustErrorCode } from "../infra/clawhub-install-trust.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
@@ -73,7 +73,7 @@ export type PluginUpdateOutcome =
     });
 
 export type PluginUpdateSummary = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changed: boolean;
   outcomes: PluginUpdateOutcome[];
 };

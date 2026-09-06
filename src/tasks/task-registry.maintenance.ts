@@ -20,7 +20,7 @@ import {
   listSessionEntriesReadOnly,
   type SessionEntrySummary,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isCronJobActive } from "../cron/active-jobs.js";
 import { resolveCronTaskRecordTimestamp } from "../cron/task-run-detail.js";
 import { getAgentRunContext } from "../infra/agent-run-registry.js";
@@ -97,7 +97,7 @@ type TaskRegistryMaintenanceRuntime = {
   listAcpSessionEntries: typeof listAcpSessionEntries;
   readAcpSessionEntry: typeof readAcpSessionEntry;
   closeAcpSession?: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     reason: string;

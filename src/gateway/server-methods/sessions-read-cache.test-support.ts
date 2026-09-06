@@ -1,6 +1,6 @@
 import { expect, vi } from "vitest";
 import type { SessionsListParams } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { GatewaySessionRow } from "../session-utils.types.js";
 import { sessionReadHandlers } from "./sessions-read.js";
 import type { GatewayClient, GatewayRequestContext, RespondFn } from "./types.js";
@@ -25,7 +25,7 @@ export function identifiedClient(profileId: string): GatewayClient {
   };
 }
 
-export function requestContext(config: OpenClawConfig): GatewayRequestContext {
+export function requestContext(config: GrantedConfig): GatewayRequestContext {
   return {
     chatAbortControllers: new Map(),
     getRuntimeConfig: () => config,

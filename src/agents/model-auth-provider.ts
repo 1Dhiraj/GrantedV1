@@ -2,7 +2,7 @@
  * Ordered credential resolution for one provider request.
  */
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
@@ -52,7 +52,7 @@ function assertAuthProfileNotRetired(params: {
 }
 
 function shouldDeferSyntheticProfileAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   resolvedApiKey: string | undefined;
   modelApi?: string;
@@ -75,7 +75,7 @@ function shouldDeferSyntheticProfileAuth(params: {
 
 export function resolveScopedAuthProfileStore(params: {
   agentDir?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   profileId?: string;
   preferredProfile?: string;
@@ -87,7 +87,7 @@ export function resolveScopedAuthProfileStore(params: {
 
 function assertProviderAuthReady(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 }): void {
   // Pending credential files own this agent's auth route until Doctor commits
@@ -101,7 +101,7 @@ function assertProviderAuthReady(params: {
 /** Resolves a stored provider-entry binding without general credential discovery. */
 export async function resolveProviderEntryApiKeyAuth(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   store: AuthProfileStore;
   agentDir?: string;
   modelApi?: string;
@@ -158,7 +158,7 @@ export async function resolveProviderEntryApiKeyAuth(params: {
 /** Resolves the credential that should be used for one provider request. */
 export async function resolveApiKeyForProviderCore(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   profileId?: string;
   preferredProfile?: string;
   store?: AuthProfileStore;

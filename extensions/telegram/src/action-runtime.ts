@@ -18,7 +18,7 @@ import {
   sendDurableMessageBatch,
   type DurableMessageBatchSendResult,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeMessagePresentation,
   renderMessagePresentationFallbackText,
@@ -162,7 +162,7 @@ function readTelegramThreadId(params: Record<string, unknown>) {
   );
 }
 
-function resolveActionTopicNameCacheScope(cfg: OpenClawConfig, accountId?: string | null): string {
+function resolveActionTopicNameCacheScope(cfg: GrantedConfig, accountId?: string | null): string {
   const resolvedAccountId = accountId ?? resolveDefaultTelegramAccountId(cfg);
   const storePath = resolveStorePath(cfg.session?.store, {
     agentId: resolveTelegramAccountOwnerAgentId({ cfg, accountId: resolvedAccountId }),
@@ -393,7 +393,7 @@ function getLastDurableTelegramActionResult(
 
 async function describeTelegramAllowedReactionSample(params: {
   chatId: string | number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   token: string;
   accountId?: string;
 }): Promise<string> {
@@ -413,7 +413,7 @@ async function describeTelegramAllowedReactionSample(params: {
 
 export async function handleTelegramAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options?: {
     mediaAccess?: ChannelMessageActionContext["mediaAccess"];
     mediaLocalRoots?: readonly string[];

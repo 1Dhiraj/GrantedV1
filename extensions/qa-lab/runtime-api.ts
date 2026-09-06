@@ -11,7 +11,7 @@ export {
   getQaBusState,
   injectQaBusInboundMessage,
   normalizeQaTarget,
-  type OpenClawConfig,
+  type GrantedConfig,
   parseQaTarget,
   type PluginRuntime,
   pollQaBus,

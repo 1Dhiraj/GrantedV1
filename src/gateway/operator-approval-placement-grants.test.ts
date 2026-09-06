@@ -8,11 +8,11 @@ import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js"
 import { resetPluginRuntimeStateForTest } from "../plugins/runtime.js";
 import { withPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import { applyPluginNodeInvokePolicy } from "./node-invoke-plugin-policy.js";
@@ -34,7 +34,7 @@ import {
 import { insertOperatorApproval, resolveOperatorApproval } from "./operator-approval-store.js";
 
 type PlacementTestDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "operator_approvals" | "worker_environments" | "worker_session_placements"
 >;
 type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approval"];
@@ -48,7 +48,7 @@ const PAIRING_GENERATION = "pairing-1";
 const CWD = "/worker/workspace";
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = tempDirs.make("openclaw-placement-grant-");
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
@@ -60,7 +60,7 @@ afterEach(() => {
   closeOpenClawStateDatabaseForTest();
 });
 
-function seedActivePlacement(databaseOptions: OpenClawStateDatabaseOptions): void {
+function seedActivePlacement(databaseOptions: GrantedStateDatabaseOptions): void {
   const database = openOpenClawStateDatabase(databaseOptions);
   const stateDb = getNodeSqliteKysely<PlacementTestDatabase>(database.db);
   executeSqliteQuerySync(
@@ -160,7 +160,7 @@ function approval(id: string): NewOperatorApproval {
 }
 
 function resolveBinding(
-  databaseOptions: OpenClawStateDatabaseOptions,
+  databaseOptions: GrantedStateDatabaseOptions,
   runtime = createPlacementStandingGrantRuntime({
     runtimeEpoch: "runtime-1",
     databaseOptions,
@@ -181,7 +181,7 @@ function resolveBinding(
 }
 
 function mintGrant(
-  databaseOptions: OpenClawStateDatabaseOptions,
+  databaseOptions: GrantedStateDatabaseOptions,
   now: () => number = () => NOW_MS + 2_000,
 ): {
   binding: PlacementStandingGrantMintSpec;

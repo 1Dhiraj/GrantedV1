@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildWorkspaceSkillStatus } from "../../skills/discovery/status.js";
 import { loadWorkspaceSkills } from "../../skills/loading/workspace-skill-loader.js";
 import { buildSkillSnapshot } from "../../skills/loading/workspace-skill-prompt.js";
@@ -76,7 +76,7 @@ describe("bundled channel-provider skill contracts", () => {
   it.each<{
     label: string;
     pluginId: "discord" | "slack";
-    config: OpenClawConfig;
+    config: GrantedConfig;
     eligible: boolean;
     disabled?: boolean;
   }>([

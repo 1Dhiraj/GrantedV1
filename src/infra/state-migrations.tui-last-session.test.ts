@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { readConfigMachineStateWithMetadata } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
@@ -16,7 +16,7 @@ import {
   migrateLegacyTuiLastSessions,
 } from "./state-migrations.tui-last-session.js";
 
-type TuiLastSessionTestDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type TuiLastSessionTestDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 const tempDirs = createTempDirTracker();
 

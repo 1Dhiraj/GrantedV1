@@ -19,7 +19,7 @@ import type {
   ChannelApprovalCapability,
   ChannelOutboundPayloadHint,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
@@ -165,7 +165,7 @@ export function shouldHandleGoogleChatNativeApprovalRequest(params: {
 }
 
 export function shouldSuppressLocalGoogleChatExecApprovalPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   payload: ReplyPayload;
   hint?: ChannelOutboundPayloadHint;

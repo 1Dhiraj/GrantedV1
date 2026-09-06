@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveSystemEventOptionsOwnerAgentId } from "../../infra/system-event-ownership.js";
 import { resetGatewayWorkAdmission } from "../../process/gateway-work-admission.js";
 
 const enqueueSystemEventMock = vi.fn();
 const requestHeartbeatMock = vi.fn();
 const runCronIsolatedAgentTurnMock = vi.fn();
-const loadConfigMock = vi.fn<() => OpenClawConfig>();
+const loadConfigMock = vi.fn<() => GrantedConfig>();
 const logHooksWarnMock = vi.fn();
 
 vi.mock("../../infra/system-events.js", () => ({
@@ -61,7 +61,7 @@ function payload(overrides: Partial<HookPayload> = {}): HookPayload {
   };
 }
 
-function globalConfig(defaultAgentId: "main" | "work", includeMain = true): OpenClawConfig {
+function globalConfig(defaultAgentId: "main" | "work", includeMain = true): GrantedConfig {
   return {
     agents: {
       entries: {

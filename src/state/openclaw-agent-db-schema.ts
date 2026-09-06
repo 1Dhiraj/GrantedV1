@@ -26,7 +26,7 @@ import { ensureOpenClawAgentBoardSchemaInTransaction } from "./openclaw-agent-bo
 import {
   AGENT_MEDIA_SCHEMA_VERSION,
   GRANTED_AGENT_SCHEMA_VERSION,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
 } from "./openclaw-agent-db-contract.js";
 import * as maintenanceAuthority from "./openclaw-agent-db-lease.js";
 import { ensureOpenClawAgentDatabasePermissions } from "./openclaw-agent-db-permissions.js";
@@ -61,7 +61,7 @@ import {
   backfillSessionEntryProvenance,
   backfillTranscriptMutationWatermarks,
 } from "./openclaw-agent-db-session-provenance.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "./openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "./openclaw-agent-db.generated.js";
 import { resolveOpenClawAgentSqlitePath } from "./openclaw-agent-db.paths.js";
 import {
   migrateSessionParticipantsSchema,
@@ -71,7 +71,7 @@ import { hasPendingInputConsumptionColumnMigration } from "./openclaw-agent-pend
 import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db.js";
 
-type OpenClawAgentMetadataDatabase = Pick<OpenClawAgentKyselyDatabase, "schema_meta">;
+type GrantedAgentMetadataDatabase = Pick<GrantedAgentKyselyDatabase, "schema_meta">;
 type MigratedSessionEntry = Record<string, unknown>;
 
 const agentDbLog = createSubsystemLogger("state/agent-db");
@@ -558,7 +558,7 @@ function persistAgentSchemaMetadata(
   };
   executeSqliteQuerySync(
     db,
-    getNodeSqliteKysely<OpenClawAgentMetadataDatabase>(db)
+    getNodeSqliteKysely<GrantedAgentMetadataDatabase>(db)
       .insertInto("schema_meta")
       .values({ meta_key: "primary", ...metadata, created_at: now, updated_at: now })
       .onConflict((conflict) =>
@@ -714,7 +714,7 @@ function ensureAgentSchema(
 /** Initialize agent schema/ownership metadata on an independently managed connection. */
 export function ensureOpenClawAgentDatabaseSchema(
   db: DatabaseSync,
-  options: OpenClawAgentDatabaseOptions & { register?: boolean },
+  options: GrantedAgentDatabaseOptions & { register?: boolean },
 ): void {
   const agentId = normalizeAgentId(options.agentId);
   const databaseOptions = { ...options, agentId };
@@ -739,7 +739,7 @@ export function ensureOpenClawAgentDatabaseSchema(
 /** Upgrade older owned databases to the structural schema required by the media cutover. */
 export function migrateOpenClawAgentDatabaseToMediaPrerequisiteSchema(
   db: DatabaseSync,
-  options: OpenClawAgentDatabaseOptions,
+  options: GrantedAgentDatabaseOptions,
 ): void {
   const targetVersion = AGENT_MEDIA_SCHEMA_VERSION - 1;
   const userVersion = readSqliteUserVersion(db);

@@ -15,8 +15,8 @@ import type {
 } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type {
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
   PluginLogger,
 } from "../runtime-api.js";
 import { prepareAcpxCodexAuthConfig } from "./codex-auth-bridge.js";
@@ -187,7 +187,7 @@ function formatDoctorFailureMessage(report: { message: string; details?: unknown
   return detailText ? `${report.message} (${detailText})` : report.message;
 }
 
-function resolveAllowedAgentsProbeAgent(ctx: OpenClawPluginServiceContext): string | undefined {
+function resolveAllowedAgentsProbeAgent(ctx: GrantedPluginServiceContext): string | undefined {
   for (const agent of ctx.config.acp?.allowedAgents ?? []) {
     const normalized = normalizeLowercaseStringOrEmpty(agent);
     if (normalized) {
@@ -198,7 +198,7 @@ function resolveAllowedAgentsProbeAgent(ctx: OpenClawPluginServiceContext): stri
 }
 
 async function measureAcpxStartup<T>(
-  ctx: OpenClawPluginServiceContext,
+  ctx: GrantedPluginServiceContext,
   name: string,
   run: () => T | Promise<T>,
 ): Promise<T> {
@@ -206,7 +206,7 @@ async function measureAcpxStartup<T>(
 }
 
 function detailAcpxStartup(
-  ctx: OpenClawPluginServiceContext,
+  ctx: GrantedPluginServiceContext,
   name: string,
   metrics: ReadonlyArray<readonly [string, number | string]>,
 ): void {
@@ -349,13 +349,13 @@ async function reapOpenAcpxProcessLeases(params: {
 /** Create the ACPX plugin service that owns runtime registration and cleanup. */
 export function createAcpxRuntimeService(
   params: CreateAcpxRuntimeServiceParams,
-): OpenClawPluginService {
+): GrantedPluginService {
   let runtime: AcpxRuntimeLike | null = null;
   let lifecycleRevision = 0;
 
   return {
     id: "acpx-runtime",
-    async start(ctx: OpenClawPluginServiceContext): Promise<void> {
+    async start(ctx: GrantedPluginServiceContext): Promise<void> {
       if (process.env.GRANTED_SKIP_ACPX_RUNTIME === "1") {
         ctx.logger.info("skipping embedded acpx runtime backend (GRANTED_SKIP_ACPX_RUNTIME=1)");
         return;
@@ -477,7 +477,7 @@ export function createAcpxRuntimeService(
         ctx.logger.warn(`embedded acpx runtime setup failed: ${formatErrorMessage(err)}`);
       }
     },
-    async stop(_ctx: OpenClawPluginServiceContext): Promise<void> {
+    async stop(_ctx: GrantedPluginServiceContext): Promise<void> {
       lifecycleRevision += 1;
       if (runtime) {
         params.backendLifecycle.retract(runtime);

@@ -8,7 +8,7 @@ import {
 import { resolveProviderEntryApiKeyProfileReference } from "../../agents/model-auth-provider-config.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { logConfigUpdated } from "../../config/logging.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   configReferencesAuthProfile,
   removeAuthProfileConfig,
@@ -23,7 +23,7 @@ import { resolveModelsTargetAgent, updateConfig } from "./shared.js";
 // profile would leave that config key pointing at nothing and silently degrade
 // the provider to an unresolvable literal key, so refuse instead.
 function findProviderEntryBoundToProfile(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: AuthProfileStore;
   profileId: string;
 }): string | undefined {

@@ -3,7 +3,7 @@ import { auth } from "@modelcontextprotocol/sdk/client/auth.js";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import {
-  type OpenClawStateLeaseContext,
+  type GrantedStateLeaseContext,
   withOpenClawStateLease,
 } from "../state/openclaw-state-lease.js";
 import {
@@ -61,7 +61,7 @@ function isMcpOAuthRedirectRegistrationError(error: unknown): boolean {
 
 async function withMcpOAuthLease<T>(
   storeKey: string,
-  run: (lease: OpenClawStateLeaseContext) => Promise<T>,
+  run: (lease: GrantedStateLeaseContext) => Promise<T>,
   signal?: AbortSignal,
 ): Promise<T> {
   return await withOpenClawStateLease(
@@ -378,7 +378,7 @@ async function runMcpOAuthAuthorizationAttempt(
     scope?: string;
     suppressStoredTokens?: boolean;
   },
-  lease: OpenClawStateLeaseContext,
+  lease: GrantedStateLeaseContext,
 ): Promise<"authorized" | "redirect"> {
   const provider = createMcpOAuthClientProvider({
     identity: params.identity,
@@ -485,7 +485,7 @@ async function completeMcpOAuthAuthorizationUnderLease(
   identity: McpOAuthIdentity,
   config: ResolvedHttpMcpTransportConfig,
   input: { code: string },
-  lease: OpenClawStateLeaseContext,
+  lease: GrantedStateLeaseContext,
 ): Promise<"authorized"> {
   const storeKey = identity.storeKey;
   const store = readMcpOAuthStore(storeKey);

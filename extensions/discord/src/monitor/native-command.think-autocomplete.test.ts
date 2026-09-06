@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   setActivePluginRegistry,
@@ -99,9 +99,9 @@ vi.mock("openclaw/plugin-sdk/agent-runtime", () => ({
   getPreparedModelCatalogSnapshot: vi.fn(() => ({ entries: [], routeVariants: [] })),
   loadPreparedModelCatalog: vi.fn(async () => []),
   normalizeProviderId: (value: string) => value.trim().toLowerCase(),
-  resolveAgentDir: (_cfg: OpenClawConfig, agentId: string) => `/tmp/agents/${agentId}/agent`,
-  resolveAgentWorkspaceDir: (_cfg: OpenClawConfig, agentId: string) => `/tmp/workspaces/${agentId}`,
-  resolveDefaultModelForAgent: (params: { cfg: OpenClawConfig }) => {
+  resolveAgentDir: (_cfg: GrantedConfig, agentId: string) => `/tmp/agents/${agentId}/agent`,
+  resolveAgentWorkspaceDir: (_cfg: GrantedConfig, agentId: string) => `/tmp/workspaces/${agentId}`,
+  resolveDefaultModelForAgent: (params: { cfg: GrantedConfig }) => {
     const configuredModel = params.cfg.agents?.defaults?.model;
     const primary =
       typeof configuredModel === "string"
@@ -264,7 +264,7 @@ describe("discord native /think autocomplete", () => {
       session: {
         store: STORE_PATH,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   function requireThinkLevelCommand() {

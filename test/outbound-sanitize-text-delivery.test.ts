@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { telegramOutbound } from "../extensions/telegram/api.js";
 import { createDirectTextMediaOutbound } from "../src/channels/plugins/outbound/direct-text-media.js";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { deliverOutboundPayloadsCore } from "../src/infra/outbound/deliver-core.js";
 import { prepareOutboundPayloadBatch } from "../src/infra/outbound/deliver-prepare.js";
 import { createEmptyPluginRegistry } from "../src/plugins/registry.js";
@@ -39,7 +39,7 @@ describe("HTML sanitization through outbound delivery", () => {
         chatId: "12345",
       }));
       const channel = mode === "direct text/media" ? "imessage" : "telegram";
-      const cfg: OpenClawConfig =
+      const cfg: GrantedConfig =
         mode === "rich Telegram" ? { channels: { telegram: { richMessages: true } } } : {};
       const outbound =
         channel === "telegram"

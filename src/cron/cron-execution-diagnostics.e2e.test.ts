@@ -6,7 +6,7 @@ import {
   createAgentRunRestartAbortError,
   createAgentRunSupersededAbortError,
 } from "../agents/run-termination.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createAgentRunStaleLifecycleError } from "../infra/agent-lifecycle-error.js";
 import { resetTaskRegistryForTests } from "../tasks/task-runtime.test-helpers.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -58,7 +58,7 @@ async function closeServer(server: Server): Promise<void> {
   });
 }
 
-function configFor(modelRef: ModelRef, localBaseUrl?: string): OpenClawConfig {
+function configFor(modelRef: ModelRef, localBaseUrl?: string): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -82,7 +82,7 @@ function configFor(modelRef: ModelRef, localBaseUrl?: string): OpenClawConfig {
 }
 
 async function runPersistedDiagnosticCase(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: ModelRef;
   name: string;
 }) {

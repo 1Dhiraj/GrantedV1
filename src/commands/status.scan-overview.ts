@@ -2,7 +2,7 @@
 // It collects config, update, gateway, channel, and local agent state before specialized callers add details.
 
 import type { BestEffortConfigSnapshot } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { resolveGatewayAuthTokenSourceConflict } from "../gateway/auth-token-source-conflict.js";
 import type { collectChannelStatusIssues as collectChannelStatusIssuesFn } from "../infra/channels-status-issues.js";
 import { resolveOsSummary } from "../infra/os-summary.js";
@@ -19,7 +19,7 @@ import {
 } from "./status.scan.bootstrap-shared.js";
 import type { GatewayProbeSnapshot } from "./status.scan.shared.js";
 
-type StatusGatewayProbeTimeoutResolver = (cfg: OpenClawConfig) => number | undefined;
+type StatusGatewayProbeTimeoutResolver = (cfg: GrantedConfig) => number | undefined;
 
 const statusScanDepsRuntimeModuleLoader = createLazyImportLoader(
   () => import("./status.scan.deps.runtime.js"),
@@ -48,7 +48,7 @@ const commandSecretTargetsModuleLoader = createLazyImportLoader(
 );
 
 async function resolveStatusChannelsStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   configPath: string;
   gatewayReachable: boolean;
   opts: { timeoutMs?: number; all?: boolean };
@@ -78,8 +78,8 @@ export type StatusScanOverviewResult = {
   coldStart: boolean;
   hasConfiguredChannels: boolean;
   skipColdStartNetworkChecks: boolean;
-  cfg: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceConfig: GrantedConfig;
   configDiagnostics: BestEffortConfigSnapshot["configDiagnostics"];
   secretDiagnostics: string[];
   osSummary: ReturnType<typeof resolveOsSummary>;
@@ -119,8 +119,8 @@ export async function collectStatusScanOverview(params: {
   fetchGitUpdate?: boolean;
   includeRegistryUpdate?: boolean;
   resolveHasConfiguredChannels?: (
-    cfg: OpenClawConfig,
-    sourceConfig: OpenClawConfig,
+    cfg: GrantedConfig,
+    sourceConfig: GrantedConfig,
   ) => boolean | Promise<boolean>;
   includeChannelsData?: boolean;
   includeLiveChannelStatus?: boolean;

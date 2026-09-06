@@ -1,6 +1,6 @@
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import {
   buildWorkspaceSkillStatus,
@@ -52,7 +52,7 @@ type WritableWorkspaceSkillSummary = {
  */
 export function listWritableWorkspaceSkillSummaries(
   workspaceDir: string,
-  opts?: { config?: OpenClawConfig; agentId?: string; env?: NodeJS.ProcessEnv },
+  opts?: { config?: GrantedConfig; agentId?: string; env?: NodeJS.ProcessEnv },
 ): WritableWorkspaceSkillSummary[] {
   const status = buildWorkspaceSkillStatus(workspaceDir, {
     config: opts?.config,
@@ -83,7 +83,7 @@ export function listWritableWorkspaceSkillSummaries(
 export async function readWritableWorkspaceSkill(
   workspaceDir: string,
   skillName: string,
-  opts?: { config?: OpenClawConfig; agentId?: string },
+  opts?: { config?: GrantedConfig; agentId?: string },
 ): Promise<{ skillKey: string; skillFile: string; content: string }> {
   const name = normalizeOptionalString(skillName);
   if (!name) {

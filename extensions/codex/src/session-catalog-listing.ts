@@ -1,7 +1,7 @@
 import { listAgentIds } from "openclaw/plugin-sdk/agent-runtime";
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import {
   sessionCatalogAdoptedSourceKey,
@@ -118,7 +118,7 @@ async function listVisiblePage(params: {
 async function listGatewayHost(params: {
   agentId: string;
   bindingStore: CodexAppServerBindingStore;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   control: CodexSessionCatalogControl;
   query: ReturnType<typeof readGatewayParams>;
   runtime: PluginRuntime;
@@ -182,7 +182,7 @@ async function listGatewayHost(params: {
 export async function listCodexSessionCatalog(params: {
   agentId?: string;
   bindingStore: CodexAppServerBindingStore;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runtime: PluginRuntime;
   control: CodexSessionCatalogControlFactory;
   query?: CodexSessionCatalogParams;
@@ -300,7 +300,7 @@ export function createCodexSessionCatalogNodeHostCommands(
   controlFactory: CodexSessionCatalogControlFactory,
   configSources: CodexTerminalConfigSources,
   bindingStore?: CodexAppServerBindingStore,
-): OpenClawPluginNodeHostCommand[] {
+): GrantedPluginNodeHostCommand[] {
   // Node commands register before an agent request exists. Bind from the invoke payload so
   // explicit multi-agent Codex homes never collapse to an ambient default.
   const bindRequest = (paramsJSON?: string | null) => {

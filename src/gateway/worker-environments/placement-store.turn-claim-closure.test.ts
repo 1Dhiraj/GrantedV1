@@ -19,7 +19,7 @@ import { onSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { projectSessionMessagePayload } from "../session-transcript-message.js";
 import type { WorkerConnectionIdentity } from "./connection-identity.js";
@@ -43,7 +43,7 @@ const SESSION: WorkerSessionPlacementIdentity = {
 };
 
 let root: string;
-let database: OpenClawStateDatabase;
+let database: GrantedStateDatabase;
 let store: WorkerSessionPlacementStore;
 
 beforeEach(async () => {

@@ -79,7 +79,7 @@ export type SurfaceConfigEntry = {
 };
 
 /** Top-level OpenClaw config as read from user/project config files. */
-export type OpenClawConfig = {
+export type GrantedConfig = {
   /** @deprecated Doctor-only legacy input. */
   audit?: AuditConfig;
   /** JSON schema URL used by editors and generated config files. */
@@ -252,13 +252,13 @@ export type OpenClawConfig = {
 };
 
 /** Config input shape accepted before model provider defaults are fully materialized. */
-export type OpenClawConfigInput = Omit<OpenClawConfig, "models"> & {
+export type GrantedConfigInput = Omit<GrantedConfig, "models"> & {
   models?: ModelsConfigInput;
 };
 
 declare const openClawConfigStateBrand: unique symbol;
 
-type BrandedConfigState<TState extends string> = OpenClawConfig & {
+type BrandedConfigState<TState extends string> = GrantedConfig & {
   readonly [openClawConfigStateBrand]?: TState;
 };
 

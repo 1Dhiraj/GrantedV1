@@ -11,10 +11,10 @@ import {
 import { normalizeAgentId, normalizeMainKey } from "../../routing/session-key.js";
 import { isSameOpenClawAgentDatabasePath } from "../../state/openclaw-agent-db-registry.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
 import { resolveStateDir } from "../paths.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import {
   readClaimsFromStore,
   storeHasLegacyAgentSessionKey,
@@ -45,7 +45,7 @@ const SOURCE_KEY = "legacy-main-session-keys";
 const MIGRATION_KIND = "legacy-main-session-keys-v1";
 const REPORT_VERSION = 1;
 
-type LedgerDatabase = Pick<OpenClawStateKyselyDatabase, "migration_runs" | "migration_sources">;
+type LedgerDatabase = Pick<GrantedStateKyselyDatabase, "migration_runs" | "migration_sources">;
 
 type ArmingDecision =
   | { armed: false; reason: "legacy-agent-present" | "owner-unresolved" }
@@ -61,7 +61,7 @@ type LedgerReport = {
   status: "complete";
 };
 
-function resolveArmingDecision(cfg: OpenClawConfig, legacyAgentId: string): ArmingDecision {
+function resolveArmingDecision(cfg: GrantedConfig, legacyAgentId: string): ArmingDecision {
   const roster = new Set(listAgentIds(cfg).map(normalizeAgentId));
   if (roster.has(legacyAgentId)) {
     return { armed: false, reason: "legacy-agent-present" };
@@ -145,7 +145,7 @@ type ResolvedPhysicalStores = {
 };
 
 function resolvePhysicalStores(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   legacyAgentId: string;
   mode: LegacyMainSessionMigrationMode;
@@ -354,7 +354,7 @@ function writeLedger(params: {
 
 /** Migrates retired agent-owned session keys without adding runtime read aliases. */
 async function migrateLegacyMainSessionKeysInternal(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   forceScan?: boolean;
   legacyAgentId?: string;
@@ -659,7 +659,7 @@ async function migrateLegacyMainSessionKeysInternal(params: {
 }
 
 export async function migrateLegacyMainSessionKeys(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   /** Bypass the startup ledger shortcut and verify the physical legacy stores. */
   forceScan?: boolean;

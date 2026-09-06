@@ -570,7 +570,7 @@ function shouldScanUiLiterals(repoPath: string): boolean {
   if (repoPath.endsWith("/ui/design/ClawComponents.kt")) {
     return false;
   }
-  if (repoPath.endsWith("/ui/design/OpenClawMascot.kt")) {
+  if (repoPath.endsWith("/ui/design/GrantedMascot.kt")) {
     return false;
   }
   return (

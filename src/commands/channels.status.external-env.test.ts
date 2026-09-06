@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   cleanupPluginLoaderFixturesForTest,
   EMPTY_PLUGIN_SCHEMA,
@@ -115,7 +115,7 @@ describe("channelsStatusCommand external env-only channel fallback", () => {
         load: { paths: [pluginDir] },
         allow: ["external-env-channel-plugin"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.requireValidConfig.mockResolvedValue(config);
     mocks.resolveCommandConfigWithSecrets.mockResolvedValue({
       resolvedConfig: config,

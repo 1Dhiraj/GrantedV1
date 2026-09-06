@@ -19,7 +19,7 @@ import {
 import { buildAccountScopedDmSecurityPolicy } from "../channels/plugins/helpers.js";
 import type { ChannelConfigAdapter } from "../channels/plugins/types.adapters.js";
 import type { ChannelSecurityDmPolicy } from "../channels/plugins/types.core.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 
 export { clearAccountFieldsFromConfigSection } from "../channels/plugins/config-helpers.js";
@@ -70,7 +70,7 @@ type ChannelConfigAdapterWithAccessors<ResolvedAccount> = Pick<
 
 /** Returns whether config writes are enabled for a channel/account target. */
 export function resolveChannelConfigWrites(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId?: string | null;
   accountId?: string | null;
 }): boolean {
@@ -83,7 +83,7 @@ export {
   formatConfigWriteDeniedMessage,
 } from "../channels/plugins/config-writes.js";
 
-type ChannelConfigAccessorParams<Config extends OpenClawConfig = OpenClawConfig> = {
+type ChannelConfigAccessorParams<Config extends GrantedConfig = GrantedConfig> = {
   cfg: Config;
   accountId?: string | null;
 };
@@ -91,7 +91,7 @@ type ChannelConfigAccessorParams<Config extends OpenClawConfig = OpenClawConfig>
 type MultiAccountChannelConfigAdapterParams<
   ResolvedAccount,
   AccessorAccount = ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 > = {
   sectionKey: string;
   listAccountIds: (cfg: Config) => string[];
@@ -107,7 +107,7 @@ type MultiAccountChannelConfigAdapterParams<
 
 type NamedAccountChannelConfigBaseParams<
   ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 > = {
   sectionKey: string;
   listAccountIds: (cfg: Config) => string[];
@@ -141,7 +141,7 @@ export function resolveOptionalConfigString(
 }
 
 /** Adapt `{ cfg, accountId }` accessors to callback sites that pass positional args. */
-export function adaptScopedAccountAccessor<Result, Config extends OpenClawConfig = OpenClawConfig>(
+export function adaptScopedAccountAccessor<Result, Config extends GrantedConfig = GrantedConfig>(
   accessor: (params: { cfg: Config; accountId?: string | null }) => Result,
 ): (cfg: Config, accountId?: string | null) => Result {
   return (cfg, accountId) => accessor({ cfg, accountId });
@@ -151,7 +151,7 @@ export function adaptScopedAccountAccessor<Result, Config extends OpenClawConfig
 export function createScopedAccountConfigAccessors<
   ResolvedAccount,
   // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Config preserves caller-specific config subtype for account resolvers.
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(params: {
   /** Resolves the account used by read-only config accessors from `{ cfg, accountId }`. */
   resolveAccount: (params: { cfg: Config; accountId?: string | null }) => ResolvedAccount;
@@ -166,7 +166,7 @@ export function createScopedAccountConfigAccessors<
   "resolveAllowFrom" | "formatAllowFrom" | "resolveDefaultTo"
 > {
   const base = {
-    resolveAllowFrom({ cfg, accountId }: { cfg: OpenClawConfig; accountId?: string | null }) {
+    resolveAllowFrom({ cfg, accountId }: { cfg: GrantedConfig; accountId?: string | null }) {
       return mapAllowFromEntries(
         params.resolveAllowFrom(params.resolveAccount({ cfg: cfg as Config, accountId })),
       );
@@ -192,18 +192,18 @@ export function createScopedAccountConfigAccessors<
 
 function createNamedAccountConfigBase<
   ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(params: {
   listAccountIds: (cfg: Config) => string[];
   resolveAccount: (cfg: Config, accountId?: string | null) => ResolvedAccount;
   inspectAccount?: (cfg: Config, accountId?: string | null) => unknown;
   defaultAccountId: (cfg: Config) => string;
   setAccountEnabled: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId: string;
     enabled: boolean;
-  }) => OpenClawConfig;
-  deleteAccount: (params: { cfg: OpenClawConfig; accountId: string }) => OpenClawConfig;
+  }) => GrantedConfig;
+  deleteAccount: (params: { cfg: GrantedConfig; accountId: string }) => GrantedConfig;
 }): ChannelCrudConfigAdapter<ResolvedAccount> {
   return {
     listAccountIds(cfg) {
@@ -237,7 +237,7 @@ function createNamedAccountConfigBase<
 function createChannelConfigAdapterFromBase<
   ResolvedAccount,
   AccessorAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(params: {
   base: ChannelCrudConfigAdapter<ResolvedAccount>;
   resolveAccessorAccount?: (params: ChannelConfigAccessorParams<Config>) => AccessorAccount;
@@ -261,7 +261,7 @@ function createChannelConfigAdapterFromBase<
 /** Build the common CRUD/config helpers for channels that store multiple named accounts. */
 export function createScopedChannelConfigBase<
   ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(
   params: NamedAccountChannelConfigBaseParams<ResolvedAccount, Config> & {
     allowTopLevel?: boolean;
@@ -296,7 +296,7 @@ export function createScopedChannelConfigBase<
 export function createScopedChannelConfigAdapter<
   ResolvedAccount,
   AccessorAccount = ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(
   params: MultiAccountChannelConfigAdapterParams<ResolvedAccount, AccessorAccount, Config> & {
     allowTopLevel?: boolean;
@@ -322,7 +322,7 @@ export function createScopedChannelConfigAdapter<
   });
 }
 
-function setTopLevelChannelEnabledInConfigSection<Config extends OpenClawConfig>(params: {
+function setTopLevelChannelEnabledInConfigSection<Config extends GrantedConfig>(params: {
   cfg: Config;
   sectionKey: string;
   enabled: boolean;
@@ -340,7 +340,7 @@ function setTopLevelChannelEnabledInConfigSection<Config extends OpenClawConfig>
   } as Config;
 }
 
-function removeTopLevelChannelConfigSection<Config extends OpenClawConfig>(params: {
+function removeTopLevelChannelConfigSection<Config extends GrantedConfig>(params: {
   cfg: Config;
   sectionKey: string;
 }): Config {
@@ -355,7 +355,7 @@ function removeTopLevelChannelConfigSection<Config extends OpenClawConfig>(param
   return nextCfg;
 }
 
-function clearTopLevelChannelConfigFields<Config extends OpenClawConfig>(params: {
+function clearTopLevelChannelConfigFields<Config extends GrantedConfig>(params: {
   cfg: Config;
   sectionKey: string;
   clearBaseFields: string[];
@@ -380,7 +380,7 @@ function clearTopLevelChannelConfigFields<Config extends OpenClawConfig>(params:
 /** Build CRUD/config helpers for top-level single-account channels. */
 export function createTopLevelChannelConfigBase<
   ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(params: {
   sectionKey: string;
   resolveAccount: (cfg: Config) => ResolvedAccount;
@@ -437,7 +437,7 @@ export function createTopLevelChannelConfigBase<
 export function createTopLevelChannelConfigAdapter<
   ResolvedAccount,
   AccessorAccount = ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(params: {
   sectionKey: string;
   resolveAccount: (cfg: Config) => ResolvedAccount;
@@ -474,7 +474,7 @@ export function createTopLevelChannelConfigAdapter<
 /** Build CRUD/config helpers for channels where the default account lives at channel root and named accounts live under `accounts`. */
 export function createHybridChannelConfigBase<
   ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(
   params: NamedAccountChannelConfigBaseParams<ResolvedAccount, Config> & {
     preserveSectionOnDefaultDelete?: boolean;
@@ -527,7 +527,7 @@ export function createHybridChannelConfigBase<
 export function createHybridChannelConfigAdapter<
   ResolvedAccount,
   AccessorAccount = ResolvedAccount,
-  Config extends OpenClawConfig = OpenClawConfig,
+  Config extends GrantedConfig = GrantedConfig,
 >(
   params: MultiAccountChannelConfigAdapterParams<ResolvedAccount, AccessorAccount, Config> & {
     preserveSectionOnDefaultDelete?: boolean;
@@ -561,7 +561,7 @@ export function createScopedDmSecurityResolver<
   resolvePolicy: (account: ResolvedAccount) => string | null | undefined;
   resolveAllowFrom: (account: ResolvedAccount) => Array<string | number> | null | undefined;
   resolveAccess?: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     account: ResolvedAccount;
   }) => {
@@ -583,7 +583,7 @@ export function createScopedDmSecurityResolver<
     accountId,
     account,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     account: ResolvedAccount;
   }) => {

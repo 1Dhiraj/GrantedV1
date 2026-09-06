@@ -5,7 +5,7 @@ import { vi } from "vitest";
 import { stringify as stringifyYaml } from "yaml";
 import { resolveManagedGitHubProfileDir } from "../agents/github-tool-identity.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import { updateUserGitHubConnection } from "../state/user-github-connections.js";
 import { ensureProfileForEmail } from "../state/user-profiles.js";
@@ -101,7 +101,7 @@ export async function createPersonalPublicationFixture() {
     },
   };
   const runtime = { live: true, verifiedAccount: account, client };
-  const config: OpenClawConfig = {};
+  const config: GrantedConfig = {};
   const context = {
     getRuntimeConfig: () => config,
     getClientConnIds: (filter?: (candidate: GatewayClient) => boolean) =>

@@ -6,7 +6,7 @@ import { resolveTimestampMsToIsoString } from "@openclaw/normalization-core/numb
 import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
 import type { AgentMessage } from "../../agents/runtime/index.js";
 import { redactTranscriptMessage } from "../../agents/transcript-redact.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { redactSecrets } from "../../logging/redact.js";
 import { KeyedAsyncQueue } from "../../plugin-sdk/keyed-async-queue.js";
 import { isTranscriptOnlyOpenClawAssistantMessage } from "../../shared/transcript-only-openclaw-assistant.js";
@@ -453,7 +453,7 @@ type AppendSessionTranscriptMessageParams<TMessage = unknown> = {
   idempotencyLookup?: "scan" | "caller-checked";
   /** Runs in the transcript append queue after idempotency replay checks and before append. */
   prepareMessageAfterIdempotencyCheck?: (message: TMessage) => TMessage | undefined;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   /** Internal owned-batch hook for publishing a newly created transcript header. */
   onHeaderCreated?: (serializedHeader: string) => void;
 };
@@ -490,7 +490,7 @@ export async function appendSessionTranscriptMessage<TMessage>(
 }
 
 type AppendSessionTranscriptEventParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   event: unknown;
   transcriptPath: string;
 };

@@ -3,7 +3,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { createMockIncomingRequest, withServer } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedMattermostAccount } from "./accounts.js";
-import type { OpenClawConfig, RuntimeEnv } from "./runtime-api.js";
+import type { GrantedConfig, RuntimeEnv } from "./runtime-api.js";
 import type { MattermostRegisteredCommand } from "./slash-commands.js";
 import {
   activateSlashCommands,
@@ -45,7 +45,7 @@ const slashApi = {
     exit: () => {},
   },
 } satisfies {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
 };
 

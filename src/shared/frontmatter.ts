@@ -57,7 +57,7 @@ export function resolveOpenClawManifestBlock(params: {
   }
 }
 
-type OpenClawManifestRequires = {
+type GrantedManifestRequires = {
   /** All binaries that must be available. */
   bins: string[];
   /** Alternative binaries where any one match is enough. */
@@ -71,7 +71,7 @@ type OpenClawManifestRequires = {
 /** Extracts normalized runtime requirement lists from an OpenClaw manifest block. */
 export function resolveOpenClawManifestRequires(
   metadataObj: Record<string, unknown>,
-): OpenClawManifestRequires | undefined {
+): GrantedManifestRequires | undefined {
   const requiresRaw =
     typeof metadataObj.requires === "object" && metadataObj.requires !== null
       ? (metadataObj.requires as Record<string, unknown>)

@@ -18,7 +18,7 @@ import type {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 
 type TranscriptCommitDb = Pick<
@@ -224,7 +224,7 @@ function insertPendingCommit(db: DatabaseSync, input: NormalizedCommitInput): vo
 }
 
 export function createWorkerTranscriptCommitStore(
-  options: { database?: OpenClawStateDatabase; now?: () => number } = {},
+  options: { database?: GrantedStateDatabase; now?: () => number } = {},
 ) {
   const path = (options.database ?? openOpenClawStateDatabase()).path;
   const now = options.now ?? Date.now;

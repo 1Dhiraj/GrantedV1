@@ -2,7 +2,7 @@ import path from "node:path";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { unregisterOpenClawAgentDatabase } from "../../state/openclaw-agent-db-registry.js";
-import type { OpenClawConfig } from "../config.js";
+import type { GrantedConfig } from "../config.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";
 import { listKnownSessionStoreAgentIds } from "./targets.js";
@@ -13,7 +13,7 @@ describe("known session store owners", () => {
       const stateDir = path.join(home, ".openclaw");
       const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { ops: { default: true } } },
       };
@@ -37,7 +37,7 @@ describe("known session store owners", () => {
       const stateDir = path.join(home, ".openclaw");
       const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { ops: { default: true } } },
       };
@@ -68,7 +68,7 @@ describe("known session store owners", () => {
       const stateDir = path.join(home, ".openclaw");
       const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { entries: { ops: { default: true } } },
       };

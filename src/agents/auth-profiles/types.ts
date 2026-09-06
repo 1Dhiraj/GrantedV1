@@ -3,7 +3,7 @@
  * These types describe credential payloads, runtime selection state, and repair
  * results consumed by providers, sessions, doctor, and plugin-facing seams.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SecretRef } from "../../config/types.secrets.js";
 import type { LegacyOAuthRef } from "./legacy-oauth-ref.js";
 
@@ -167,7 +167,7 @@ export type RuntimeAuthProfileStore = AuthProfileStore & {
 
 /** Result returned by config/store auth profile id repair. */
 export type AuthProfileIdRepairResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   migrated: boolean;
   fromProfileId?: string;

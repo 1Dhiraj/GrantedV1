@@ -7,12 +7,12 @@ import {
 } from "../plugin-state/plugin-state-store.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { runLegacyMigrationPlans } from "./state-migrations.plugin-state.js";
 
 describe("legacy migration plan failure isolation", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({ label: "migration-plan-isolation" });

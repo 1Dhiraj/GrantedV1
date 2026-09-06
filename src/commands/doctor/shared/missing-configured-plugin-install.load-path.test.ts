@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   loadInstalledPluginIndexInstallRecords,
   writePersistedInstalledPluginIndexInstallRecords,
@@ -51,7 +51,7 @@ function writeProviderPlugin(rootDir: string): void {
 }
 
 async function writeStalePathInstallRecord(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   pluginId: string;
   stalePath: string;
@@ -113,7 +113,7 @@ describe("configured plugin install health for explicit load paths", () => {
     const pluginDir = path.join(rootDir, "configured-plugin");
     const stalePath = path.join(rootDir, "removed-plugin");
     writeProviderPlugin(pluginDir);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         load: { paths: [pluginDir] },
         entries: { kilocode: { enabled: true } },
@@ -156,7 +156,7 @@ describe("configured plugin install health for explicit load paths", () => {
     const pluginDir = path.join(bundledPluginsDir, "opencode-go");
     const stalePath = path.join(rootDir, "removed-plugin");
     writeBundledOpenCodeGoPlugin(bundledPluginsDir);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         load: { paths: [pluginDir] },
         entries: { "opencode-go": { enabled: true } },
@@ -199,7 +199,7 @@ describe("configured plugin install health for explicit load paths", () => {
     const stalePath = path.join(rootDir, "removed-install");
     writeProviderPlugin(pluginDir);
     fs.symlinkSync(pluginDir, sourceAlias, "dir");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         load: { paths: [pluginDir] },
         entries: { kilocode: { enabled: true } },

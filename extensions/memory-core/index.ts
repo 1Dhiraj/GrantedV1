@@ -4,13 +4,13 @@ import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import {
   jsonResult,
   type MemoryPluginRuntime,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { resolveMemoryBackendConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
 import {
   definePluginEntry,
   type AnyAgentTool,
-  type OpenClawPluginToolContext,
+  type GrantedPluginToolContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { configureMemoryCoreDreamingState } from "./src/dreaming-state.js";
@@ -96,7 +96,7 @@ function createLazyMemoryGetTool(options: MemoryToolOptions): AnyAgentTool | nul
 }
 
 function createLazyStandingIntentTool(
-  ctx: OpenClawPluginToolContext,
+  ctx: GrantedPluginToolContext,
   reportUnavailable: (reason: string) => void,
 ): AnyAgentTool | null {
   if (ctx.senderIsOwner !== true) {
@@ -169,7 +169,7 @@ function createLazyStandingIntentTool(
 }
 
 function resolveMemoryToolOptions(
-  ctx: OpenClawPluginToolContext,
+  ctx: GrantedPluginToolContext,
   host: MemoryCoreRuntimeHost,
 ): MemoryToolOptions {
   const getConfig = ctx.getRuntimeConfig
@@ -254,7 +254,7 @@ export default definePluginEntry({
         const liveConfig = api.runtime.config?.current ? api.runtime.config.current() : api.config;
         const context = resolveMemoryToolContext({
           // SAFETY: Runtime config is host-validated and this resolver only reads the snapshot.
-          config: liveConfig as OpenClawConfig,
+          config: liveConfig as GrantedConfig,
           agentId: params.agentId,
           agentSessionKey: params.agentSessionKey,
         });
@@ -295,7 +295,7 @@ export default definePluginEntry({
         if (!module.isEligibleStandingIntentTurn(ctx)) {
           return undefined;
         }
-        const config = (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+        const config = (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
         const { sessionAgentId: agentId } = resolveSessionAgentIdsStrict({
           sessionKey: ctx.sessionKey,
           config,
@@ -331,7 +331,7 @@ export default definePluginEntry({
         }
         try {
           const module = await loadStandingIntentsModule();
-          const config = (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+          const config = (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
           const { sessionAgentId: agentId } = resolveSessionAgentIdsStrict({
             sessionKey: ctx.sessionKey,
             config,

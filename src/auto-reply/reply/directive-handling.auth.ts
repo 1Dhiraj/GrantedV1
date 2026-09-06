@@ -16,7 +16,7 @@ import {
   resolveUsableCustomProviderApiKey,
 } from "../../agents/model-auth.js";
 import { findNormalizedProviderValue, normalizeProviderId } from "../../agents/model-selection.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { coerceSecretRef } from "../../config/types.secrets.js";
 import { maskApiKey } from "../../security/secret-mask.js";
 import { shortenHomePath } from "../../utils.js";
@@ -63,7 +63,7 @@ function isStoredAuthProfileType(value: unknown): value is AuthProfileCredential
 /** Resolves the displayed auth source for a provider without exposing secrets. */
 export const resolveAuthLabel = async (
   provider: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelsPath: string,
   agentDir?: string,
   mode: ModelAuthDetailMode = "compact",

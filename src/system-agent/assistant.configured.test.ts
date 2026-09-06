@@ -4,7 +4,7 @@ import type { RunCliAgentParams } from "../agents/cli-runner/types.js";
 import type { RunEmbeddedAgentParams } from "../agents/embedded-agent-runner/run/params.js";
 import { resolveRequestStreamTransportOverrides } from "../agents/embedded-agent-runner/run/runtime-resolution.js";
 import { fingerprintResolvedProviderAuth } from "../agents/execution-auth-binding.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { planSystemAgentCommandWithConfiguredModel } from "./assistant.js";
 import { SystemAgentInferenceUnavailableError } from "./inference-error.js";
 import { resolveSystemAgentConfiguredRouteFromConfig } from "./inference-route.js";
@@ -95,7 +95,7 @@ function overview(defaultModel?: string): SystemAgentOverview {
   };
 }
 
-function snapshot(config: OpenClawConfig) {
+function snapshot(config: GrantedConfig) {
   return {
     path: "/tmp/openclaw.json",
     exists: true,
@@ -139,7 +139,7 @@ describe("OpenClaw configured-model planner", () => {
       auth: {
         profiles: { "openai:p2": { provider: "openai", mode: "api_key" } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configuredRoute = await resolveSystemAgentConfiguredRouteFromConfig(config);
     if (!configuredRoute) {
       throw new Error("missing test route");
@@ -221,7 +221,7 @@ describe("OpenClaw configured-model planner", () => {
   it("fails closed before planning when the verified route loses its config", async () => {
     const config = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const { binding, deps } = await createSystemAgentVerifiedInferenceTestFixture(config);
     const runCliAgent = vi.fn();
     const runEmbeddedAgent = vi.fn();
@@ -252,12 +252,12 @@ describe("OpenClaw configured-model planner", () => {
   it("rejects a model result when its owner changes during planner cleanup", async () => {
     const config = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const { binding, deps } = await createSystemAgentVerifiedInferenceTestFixture(config);
-    let currentConfig: OpenClawConfig = config;
+    let currentConfig: GrantedConfig = config;
     const runEmbeddedAgent = vi.fn(async () => ({
       payloads: [{ text: '{"reply":"Ready."}' }],
     }));
@@ -282,7 +282,7 @@ describe("OpenClaw configured-model planner", () => {
   });
 
   it("plans through the configured default agent CLI route with native tools disabled", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {},
         list: [
@@ -343,7 +343,7 @@ describe("OpenClaw configured-model planner", () => {
   });
 
   it("plans through the configured default agent embedded runtime without tools", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         list: [
           {
@@ -419,7 +419,7 @@ describe("OpenClaw configured-model planner", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const { binding, deps } = await createSystemAgentVerifiedInferenceTestFixture(config);
     useFastVerifiedInference(binding);
     const runEmbeddedAgent = vi.fn(async (_params: RunEmbeddedAgentParams) => ({

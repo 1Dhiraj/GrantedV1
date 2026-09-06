@@ -40,12 +40,12 @@ import {
 } from "../lib/sessions/session-key.ts";
 import { isTerminalAvailable } from "../lib/terminal-availability.ts";
 import { showToast } from "../lib/toast.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../lit/subscriptions-controller.ts";
 import type { ChatPage } from "../pages/chat/chat-page.ts";
 import type { NewSessionTarget } from "../pages/new-session/location.ts";
 import { selectShellRouteState, type ShellRouteState } from "./app-host-route-state.ts";
-import { OpenClawApp } from "./app-root.ts";
+import { GrantedApp } from "./app-root.ts";
 import { ShellChromeOwner, type ShellChromeHost } from "./app-shell-chrome.ts";
 import {
   ShellGatewayOwner,
@@ -119,8 +119,8 @@ function equalShellRouteState(previous: ShellRouteState, next: ShellRouteState):
   );
 }
 
-class OpenClawShell
-  extends OpenClawLightDomElement
+class GrantedShell
+  extends GrantedLightDomElement
   implements
     ShellChromeHost,
     ShellGatewayHost,
@@ -777,8 +777,8 @@ class OpenClawShell
   }
 }
 if (!customElements.get("openclaw-app")) {
-  customElements.define("openclaw-app", OpenClawApp);
+  customElements.define("openclaw-app", GrantedApp);
 }
 if (!customElements.get("openclaw-app-shell")) {
-  customElements.define("openclaw-app-shell", OpenClawShell);
+  customElements.define("openclaw-app-shell", GrantedShell);
 }

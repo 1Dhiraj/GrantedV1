@@ -5,7 +5,7 @@
  * public Plugin SDK. External providers continue to implement only the stable
  * RealtimeVoiceProviderPlugin contract.
  */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RealtimeVoiceProviderPlugin } from "../plugins/types.js";
 import type {
   RealtimeVoiceBrowserSession,
@@ -38,29 +38,29 @@ export type InternalRealtimeVoiceBrowserSessionCreateRequest =
 
 type InternalRealtimeVoiceProviderApi = {
   isBrowserSessionConfigured: (ctx: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     providerConfig: RealtimeVoiceProviderConfig;
     agentId?: string;
   }) => boolean;
   resolveBrowserSessionCapabilities?: (ctx: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     providerConfig: RealtimeVoiceProviderConfig;
     agentId?: string;
     /** Effective per-session model after request overrides. */
     model?: string;
   }) => InternalRealtimeVoiceProviderCapabilities;
   isGatewayRelayConfigured?: (ctx: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     providerConfig: RealtimeVoiceProviderConfig;
     agentId?: string;
   }) => boolean | undefined;
   resolveGatewayRelayCapabilities?: (ctx: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     providerConfig: RealtimeVoiceProviderConfig;
     model?: string;
   }) => InternalRealtimeVoiceProviderCapabilities;
   validateGatewayRelayLaunch?: (ctx: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     providerConfig: RealtimeVoiceProviderConfig;
     model?: string;
     autoRespondToAudio?: boolean;
@@ -86,7 +86,7 @@ function readInternalRealtimeVoiceProviderApi(
 
 export function isInternalRealtimeVoiceBrowserSessionConfigured(params: {
   provider: RealtimeVoiceProviderPlugin;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: RealtimeVoiceProviderConfig;
   agentId?: string;
 }): boolean | undefined {
@@ -99,7 +99,7 @@ export function isInternalRealtimeVoiceBrowserSessionConfigured(params: {
 
 export function resolveInternalRealtimeVoiceBrowserSessionCapabilities(params: {
   provider: RealtimeVoiceProviderPlugin;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: RealtimeVoiceProviderConfig;
   agentId?: string;
   model?: string;
@@ -116,7 +116,7 @@ export function resolveInternalRealtimeVoiceBrowserSessionCapabilities(params: {
 
 export function isInternalRealtimeVoiceGatewayRelayConfigured(params: {
   provider: RealtimeVoiceProviderPlugin;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: RealtimeVoiceProviderConfig;
   agentId?: string;
 }): boolean | undefined {
@@ -129,7 +129,7 @@ export function isInternalRealtimeVoiceGatewayRelayConfigured(params: {
 
 export function resolveInternalRealtimeVoiceGatewayRelayCapabilities(params: {
   provider: RealtimeVoiceProviderPlugin;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: RealtimeVoiceProviderConfig;
   model?: string;
 }): InternalRealtimeVoiceProviderCapabilities | undefined {
@@ -142,7 +142,7 @@ export function resolveInternalRealtimeVoiceGatewayRelayCapabilities(params: {
 
 export function resolveInternalRealtimeVoiceGatewayRelayLaunchError(params: {
   provider: RealtimeVoiceProviderPlugin;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   providerConfig: RealtimeVoiceProviderConfig;
   model?: string;
   autoRespondToAudio?: boolean;

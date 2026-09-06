@@ -12,7 +12,7 @@ import {
   type ReasoningLevel,
   type VerboseLevel,
 } from "../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 
 const VERBOSE_LEVELS = ["on", "off", "full"] satisfies VerboseLevel[];
 const TRACE_LEVELS = ["on", "off"];
@@ -37,7 +37,7 @@ type ParsedCommand = {
 };
 
 type SlashCommandOptions = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   model?: string;
   agentRuntime?: string;

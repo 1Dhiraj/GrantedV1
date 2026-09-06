@@ -4,7 +4,7 @@ import type {
 } from "@openclaw/model-catalog-core/model-catalog-types";
 import type { ModelCatalogEntry } from "../agents/model-catalog.types.js";
 import type { ModelProviderConfig } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderCatalogOutcome } from "./provider-catalog-outcome.js";
 
 export type { ProviderCatalogOutcome } from "./provider-catalog-outcome.js";
@@ -12,7 +12,7 @@ export type { ProviderCatalogOutcome } from "./provider-catalog-outcome.js";
 export type ProviderCatalogOrder = "simple" | "profile" | "paired" | "late";
 
 export type ProviderCatalogContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
@@ -85,7 +85,7 @@ export type UnifiedModelCatalogProviderPlugin = {
  * hooks are no longer called by model resolution.
  */
 export type ProviderBuiltInModelSuppressionContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
@@ -119,7 +119,7 @@ export type ProviderModernModelPolicyContext = {
  * upstream registry has not caught up yet.
  */
 export type ProviderAugmentModelCatalogContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;

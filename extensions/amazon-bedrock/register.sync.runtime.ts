@@ -4,10 +4,10 @@
  */
 import type { BedrockClient } from "@aws-sdk/client-bedrock";
 import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import type {
-  OpenClawPluginApi,
+  GrantedPluginApi,
   ProviderNormalizeResolvedModelContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import {
@@ -369,7 +369,7 @@ function patchMaxThinkingEffort(payload: Record<string, unknown>): void {
 }
 
 /** Register Amazon Bedrock provider, discovery catalog, stream wrappers, and embeddings. */
-export function registerAmazonBedrockPlugin(api: OpenClawPluginApi): void {
+export function registerAmazonBedrockPlugin(api: GrantedPluginApi): void {
   // Keep registration-local constants inside the function so partial module
   // initialization during test bootstrap cannot trip TDZ reads.
   const providerId = "amazon-bedrock";
@@ -389,7 +389,7 @@ export function registerAmazonBedrockPlugin(api: OpenClawPluginApi): void {
   const startupPluginConfig = (api.pluginConfig ?? {}) as AmazonBedrockPluginConfig;
 
   function resolveCurrentPluginConfig(
-    config: OpenClawConfig | undefined,
+    config: GrantedConfig | undefined,
   ): AmazonBedrockPluginConfig | undefined {
     const runtimePluginConfig = resolvePluginConfigObject(config, providerId);
     return (

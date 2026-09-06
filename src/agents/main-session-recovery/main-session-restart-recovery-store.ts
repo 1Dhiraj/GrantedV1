@@ -11,7 +11,7 @@ import {
   loadExactSessionEntry,
   updateSessionEntry,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { GatewayRecoveryRuntime } from "../../gateway/server-instance-runtime.types.js";
 import { readSessionMessagesAsync } from "../../gateway/session-transcript-readers.js";
 import { resolveGatewaySessionStoreTarget } from "../../gateway/session-utils.js";
@@ -191,7 +191,7 @@ export function loadExpectedRestartRecoveryTarget(params: {
 }
 
 function resolveRestartRecoveryDispatchTarget(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   sessionKey: string;
   storePath: string;
 }): { agentId: string; sessionKey: string } | undefined {
@@ -219,7 +219,7 @@ function resolveRestartRecoveryDispatchTarget(params: {
 }
 
 export async function recoverStore(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   observationOnly?: boolean;
   onExhaustedTarget?: (target: ExhaustedRestartRecoveryTarget) => void;
   storePath: string;

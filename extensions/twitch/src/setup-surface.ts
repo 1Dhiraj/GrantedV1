@@ -10,7 +10,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupDmPolicy,
   type ChannelSetupWizard,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
   normalizeAccountId,
   createSetupTranslator,
@@ -40,7 +40,7 @@ function normalizeRequestedSetupAccountId(accountId: string): string {
   return normalized;
 }
 
-function resolveSetupAccountId(cfg: OpenClawConfig, requestedAccountId?: string): string {
+function resolveSetupAccountId(cfg: GrantedConfig, requestedAccountId?: string): string {
   const requested = requestedAccountId?.trim();
   if (requested) {
     return normalizeRequestedSetupAccountId(requested);
@@ -51,10 +51,10 @@ function resolveSetupAccountId(cfg: OpenClawConfig, requestedAccountId?: string)
 }
 
 export function setTwitchAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   account: Partial<TwitchAccountConfig>,
   accountId: string = resolveSetupAccountId(cfg),
-): OpenClawConfig {
+): GrantedConfig {
   const resolvedAccountId = accountId.trim()
     ? normalizeRequestedSetupAccountId(accountId)
     : resolveSetupAccountId(cfg);
@@ -244,14 +244,14 @@ export async function promptRefreshTokenSetup(
 }
 
 export async function configureWithEnvToken(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   prompter: WizardPrompter,
   account: TwitchAccountConfig | null,
   envToken: string,
   forceAllowFrom: boolean,
   dmPolicy: ChannelSetupDmPolicy,
   accountId: string = resolveSetupAccountId(cfg),
-): Promise<{ cfg: OpenClawConfig } | null> {
+): Promise<{ cfg: GrantedConfig } | null> {
   const resolvedAccountId = accountId.trim()
     ? normalizeRequestedSetupAccountId(accountId)
     : resolveSetupAccountId(cfg);
@@ -295,11 +295,11 @@ export async function configureWithEnvToken(
 }
 
 function setTwitchAccessControl(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   allowedRoles: TwitchRole[],
   requireMention: boolean,
   accountId?: string,
-): OpenClawConfig {
+): GrantedConfig {
   const resolvedAccountId = resolveSetupAccountId(cfg, accountId);
   const account = getAccountConfig(cfg, resolvedAccountId);
   if (!account) {
@@ -318,7 +318,7 @@ function setTwitchAccessControl(
 }
 
 function resolveTwitchGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string,
 ): "open" | "allowlist" | "disabled" {
   const account = getAccountConfig(cfg, resolveSetupAccountId(cfg, accountId));
@@ -332,10 +332,10 @@ function resolveTwitchGroupPolicy(
 }
 
 function setTwitchGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   policy: "open" | "allowlist" | "disabled",
   accountId?: string,
-): OpenClawConfig {
+): GrantedConfig {
   const allowedRoles: TwitchRole[] =
     policy === "open" ? ["all"] : policy === "allowlist" ? ["moderator", "vip"] : [];
   return setTwitchAccessControl(cfg, allowedRoles, true, accountId);

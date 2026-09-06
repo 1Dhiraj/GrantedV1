@@ -22,7 +22,7 @@ import {
   GatewayPageController,
   type GatewayPageChange,
 } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { importNostrProfile, parseValidationErrors, putNostrProfile } from "./nostr-profile-ops.ts";
@@ -52,7 +52,7 @@ function formatNostrProfileOperationError(error: unknown, prefix: string): strin
     : t("channels.nostr.notices.operationFailed", { prefix, error: formatUiError(error) });
 }
 
-class ChannelsPage extends OpenClawLightDomElement {
+class ChannelsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

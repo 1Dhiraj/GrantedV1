@@ -12,7 +12,7 @@ import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   backupSqliteCreateCommand,
@@ -30,7 +30,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
   return { ...actual, getRuntimeConfig: configMocks.getRuntimeConfig };
 });
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 beforeEach(async () => {
   // Rejected requests can record outcomes too; every case must own its state.

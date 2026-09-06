@@ -18,7 +18,7 @@ import { coerceConfig } from "../config/io.read-helpers.js";
 import { createConfigFileSnapshot } from "../config/io.snapshot-shared.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import { materializeRuntimeConfig } from "../config/materialize.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginCompatibilityNotice } from "../plugins/status.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -171,7 +171,7 @@ function providerPluginStub(
 const healthCommand = vi.hoisted(() => vi.fn(async () => {}));
 const ensureWorkspaceAndSessions = vi.hoisted(() => vi.fn(async () => {}));
 const ensureOnboardingConfig = vi.hoisted(() =>
-  vi.fn(async ({ config }: { config: OpenClawConfig }) => ({
+  vi.fn(async ({ config }: { config: GrantedConfig }) => ({
     config,
     agentId: "main",
     bootstrapPending: true,
@@ -180,7 +180,7 @@ const ensureOnboardingConfig = vi.hoisted(() =>
 const replaceConfigFile = vi.hoisted(() =>
   vi.fn(
     async (params: {
-      nextConfig: OpenClawConfig;
+      nextConfig: GrantedConfig;
       snapshot?: { hash?: string };
       baseHash?: string;
     }) => ({ config: params.nextConfig }),
@@ -218,7 +218,7 @@ function getWizardNoteCalls(note: WizardPrompter["note"]) {
   return (note as unknown as { mock: { calls: unknown[][] } }).mock.calls;
 }
 
-function modelConfigWithApiKey(apiKey: string): OpenClawConfig {
+function modelConfigWithApiKey(apiKey: string): GrantedConfig {
   return {
     agents: {
       defaults: { model: { primary: "openai/gpt-5.5" } },
@@ -279,9 +279,9 @@ function prepareMockAuthProfilesIn(
   return persistCalls;
 }
 
-function persistedWizardConfigs(): OpenClawConfig[] {
+function persistedWizardConfigs(): GrantedConfig[] {
   return (replaceConfigFile.mock.calls as unknown[][]).map(
-    ([params]) => (params as { nextConfig: OpenClawConfig }).nextConfig,
+    ([params]) => (params as { nextConfig: GrantedConfig }).nextConfig,
   );
 }
 
@@ -424,14 +424,14 @@ vi.mock("../config/config.js", async (importActual) => {
       maxAttempts?: number;
       writeOptions?: Record<string, unknown>;
       transform: (
-        config: OpenClawConfig,
+        config: GrantedConfig,
         context: {
           snapshot: Record<string, unknown>;
           previousHash: string | null;
           attempt: number;
         },
-      ) => Promise<{ nextConfig: OpenClawConfig }> | { nextConfig: OpenClawConfig };
-      commit: (params: Record<string, unknown>) => Promise<{ config: OpenClawConfig }>;
+      ) => Promise<{ nextConfig: GrantedConfig }> | { nextConfig: GrantedConfig };
+      commit: (params: Record<string, unknown>) => Promise<{ config: GrantedConfig }>;
     }) => {
       const maxAttempts = params.maxAttempts ?? 5;
       for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
@@ -595,7 +595,7 @@ describe("runSetupWizard", () => {
     return dir;
   }
 
-  function configSnapshot(config: OpenClawConfig, exists = true): ConfigFileSnapshot {
+  function configSnapshot(config: GrantedConfig, exists = true): ConfigFileSnapshot {
     const sourceConfig = coerceConfig(migratePersistedImplicitMainRoster(config).config);
     return createConfigFileSnapshot({
       path: "/tmp/.openclaw/openclaw.json",
@@ -629,7 +629,7 @@ describe("runSetupWizard", () => {
     setupSkills.mockReset();
     setupSkills.mockImplementation(async (cfg) => cfg);
     runSearchSetupFlow.mockReset();
-    runSearchSetupFlow.mockImplementation(async (config: OpenClawConfig) => ({
+    runSearchSetupFlow.mockImplementation(async (config: GrantedConfig) => ({
       outcome: "completed",
       config,
     }));
@@ -648,7 +648,7 @@ describe("runSetupWizard", () => {
         tailscaleMode: "off",
       },
     }));
-    let authoredConfig: OpenClawConfig | undefined;
+    let authoredConfig: GrantedConfig | undefined;
     readConfigFileSnapshot.mockReset();
     readConfigFileSnapshot.mockImplementation(async () =>
       configSnapshot(authoredConfig ?? {}, authoredConfig !== undefined),
@@ -890,7 +890,7 @@ describe("runSetupWizard", () => {
   });
 
   it("preserves an unrelated config edit made during classic onboarding", async () => {
-    const initialConfig: OpenClawConfig = { ui: { seamColor: "blue" } };
+    const initialConfig: GrantedConfig = { ui: { seamColor: "blue" } };
     let diskConfig = structuredClone(initialConfig);
     let diskHash = "hash-1";
     const snapshotFromDisk = () => ({
@@ -925,7 +925,7 @@ describe("runSetupWizard", () => {
   });
 
   it("re-reads and merges the latest config after a write conflict", async () => {
-    let diskConfig: OpenClawConfig = { ui: { seamColor: "blue" } };
+    let diskConfig: GrantedConfig = { ui: { seamColor: "blue" } };
     let diskHash = "hash-1";
     let writeAttempts = 0;
     readConfigFileSnapshot.mockImplementation(async () => ({
@@ -1064,7 +1064,7 @@ describe("runSetupWizard", () => {
   it.each([{ edgeAuth: { "X-Edge-Auth": "test-secret" } }, { tlsFingerprint: "ab".repeat(32) }])(
     "passes remote trust settings to the setup reachability probe: %j",
     async (trust) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         gateway: {
           mode: "remote",
           remote: {
@@ -1721,7 +1721,7 @@ describe("runSetupWizard", () => {
   it("preserves imported fleet workspace ownership until the user confirms a move", async () => {
     const currentWorkspace = await makeCaseDir("imported-fleet-current-");
     const requestedWorkspace = await makeCaseDir("imported-fleet-requested-");
-    const importedConfig: OpenClawConfig = {
+    const importedConfig: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: { workspace: currentWorkspace, systemAgent: { agentId: "main" } },
@@ -1786,7 +1786,7 @@ describe("runSetupWizard", () => {
   });
 
   it("preserves concurrent edits while migrating pending plugin install records", async () => {
-    let diskConfig: OpenClawConfig = {
+    let diskConfig: GrantedConfig = {
       agents: { entries: { main: { default: true } } },
       plugins: {
         installs: {
@@ -2081,7 +2081,7 @@ describe("runSetupWizard", () => {
   });
 
   it("continues onboarding when search-provider installation fails", async () => {
-    const config: OpenClawConfig = { agents: { defaults: { workspace: "/tmp/workspace" } } };
+    const config: GrantedConfig = { agents: { defaults: { workspace: "/tmp/workspace" } } };
     runSearchSetupFlow.mockResolvedValueOnce({
       outcome: "install-failed",
       config,
@@ -2136,9 +2136,9 @@ describe("runSetupWizard", () => {
     const configured = {
       ...beforeConfig,
       channels: { matrix: { accounts: { ops: { enabled: true } } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const hook = vi.fn();
-    const isConfiguredWrite = (value: OpenClawConfig) =>
+    const isConfiguredWrite = (value: GrantedConfig) =>
       value.channels?.matrix?.accounts?.ops?.enabled === true;
     setupChannels.mockImplementationOnce(async (_cfg, _runtime, _prompter, options) => {
       const setupOptions = options as {
@@ -2236,7 +2236,7 @@ describe("runSetupWizard", () => {
         wizard: { modelSelection },
       });
     }
-    const existingConfig: OpenClawConfig = {
+    const existingConfig: GrantedConfig = {
       agents: {
         defaults: { model: { primary: "anthropic/sonnet-4.6" } },
         entries: { main: { default: true } },
@@ -2306,7 +2306,7 @@ describe("runSetupWizard", () => {
           description: "Provider credential",
         },
       ]);
-      const existingConfig: OpenClawConfig = {
+      const existingConfig: GrantedConfig = {
         agents: {
           defaults: { model: { primary: "anthropic/sonnet-4.6" } },
           entries: { main: { default: true } },

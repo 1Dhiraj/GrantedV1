@@ -2,7 +2,7 @@
 // Kept under commands because many command tests need the same mock runtime shapes.
 
 import { vi } from "vitest";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { MockFn } from "../test-utils/vitest-mock-fn.js";
 
@@ -19,8 +19,8 @@ export const baseConfigSnapshot = {
 
 /** Builds a complete config snapshot while preserving distinct authored and runtime fixtures. */
 export function createTestConfigSnapshot(
-  sourceConfig: OpenClawConfig,
-  runtimeConfig: OpenClawConfig = sourceConfig,
+  sourceConfig: GrantedConfig,
+  runtimeConfig: GrantedConfig = sourceConfig,
 ): ConfigFileSnapshot {
   // SAFETY: Snapshot source branding preserves the exact caller-owned authored config object.
   const resolvedSourceConfig = sourceConfig as ConfigFileSnapshot["sourceConfig"];

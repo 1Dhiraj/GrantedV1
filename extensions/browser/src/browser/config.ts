@@ -10,7 +10,7 @@ import { parseBrowserHttpUrl, redactCdpUrl } from "openclaw/plugin-sdk/browser-c
 import type {
   BrowserConfig,
   BrowserProfileConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
 import { mergeSsrFPolicies } from "openclaw/plugin-sdk/ssrf-policy";
@@ -375,7 +375,7 @@ function applyLegacyCdpUrlToExistingSessionDefaultProfile(
 /** Resolve raw browser config into runtime browser defaults. */
 export function resolveBrowserConfig(
   cfg: BrowserConfig | undefined,
-  rootConfig?: OpenClawConfig,
+  rootConfig?: GrantedConfig,
 ): ResolvedBrowserConfig {
   const enabled = cfg?.enabled ?? DEFAULT_GRANTED_BROWSER_ENABLED;
   const evaluateEnabled = cfg?.evaluateEnabled ?? DEFAULT_BROWSER_EVALUATE_ENABLED;

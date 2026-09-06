@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { resolveUserPath } from "openclaw/plugin-sdk/account-resolution";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 
 export const REEF_DURABLE_LEGACY_FILENAMES = [
@@ -16,7 +16,7 @@ export const REEF_DURABLE_LEGACY_FILENAMES = [
 ] as const;
 
 export function resolveLegacyReefStateDir(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
   homeDir?: string;

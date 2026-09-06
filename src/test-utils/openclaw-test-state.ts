@@ -18,9 +18,9 @@ type ConfigRuntimeResettable = typeof configRuntime & {
   resetConfigRuntimeState?: () => void;
 };
 
-type OpenClawTestStateLayout = "home" | "state-only" | "split";
+type GrantedTestStateLayout = "home" | "state-only" | "split";
 
-type OpenClawTestStateScenario =
+type GrantedTestStateScenario =
   | "empty"
   | "minimal"
   | "update-stable"
@@ -28,11 +28,11 @@ type OpenClawTestStateScenario =
   | "gateway-loopback"
   | "external-service";
 
-type OpenClawTestStateOptions = {
+type GrantedTestStateOptions = {
   prefix?: string;
   label?: string;
-  layout?: OpenClawTestStateLayout;
-  scenario?: OpenClawTestStateScenario;
+  layout?: GrantedTestStateLayout;
+  scenario?: GrantedTestStateScenario;
   agentEnv?: "clear" | "main";
   applyEnv?: boolean;
   env?: Record<string, string | undefined>;
@@ -42,7 +42,7 @@ type OpenClawTestStateOptions = {
   };
 };
 
-export type OpenClawTestState = {
+export type GrantedTestState = {
   root: string;
   home: string;
   stateDir: string;
@@ -113,7 +113,7 @@ function resolveWindowsHomeEnv(
 
 function resolveLayout(
   root: string,
-  layout: OpenClawTestStateLayout,
+  layout: GrantedTestStateLayout,
 ): {
   home: string;
   stateDir: string;
@@ -149,7 +149,7 @@ function resolveLayout(
   };
 }
 
-function scenarioConfig(options: OpenClawTestStateOptions): Record<string, unknown> | undefined {
+function scenarioConfig(options: GrantedTestStateOptions): Record<string, unknown> | undefined {
   const scenario = options.scenario ?? "empty";
   if (scenario === "minimal" || scenario === "external-service") {
     return {};
@@ -206,7 +206,7 @@ function scenarioConfig(options: OpenClawTestStateOptions): Record<string, unkno
   return undefined;
 }
 
-function scenarioEnv(options: OpenClawTestStateOptions): Record<string, string | undefined> {
+function scenarioEnv(options: GrantedTestStateOptions): Record<string, string | undefined> {
   if ((options.scenario ?? "empty") === "external-service") {
     return {
       GRANTED_SERVICE_REPAIR_POLICY: "external",
@@ -216,7 +216,7 @@ function scenarioEnv(options: OpenClawTestStateOptions): Record<string, string |
 }
 
 function buildEnvVars(params: {
-  layout: OpenClawTestStateLayout;
+  layout: GrantedTestStateLayout;
   home: string;
   stateDir: string;
   configPath: string;
@@ -271,8 +271,8 @@ async function writeJsonFile(filePath: string, value: unknown): Promise<string> 
 }
 
 export async function createOpenClawTestState(
-  options: OpenClawTestStateOptions = {},
-): Promise<OpenClawTestState> {
+  options: GrantedTestStateOptions = {},
+): Promise<GrantedTestState> {
   const label = normalizeLabel(options.label ?? options.scenario);
   const prefix = options.prefix ?? `${DEFAULT_PREFIX}${label}-`;
   const layout = options.layout ?? "home";
@@ -311,7 +311,7 @@ export async function createOpenClawTestState(
     const sessionsDir = (agentId = "main") =>
       path.join(paths.stateDir, "agents", agentId, "sessions");
 
-    const state: OpenClawTestState = {
+    const state: GrantedTestState = {
       root,
       ...paths,
       env,
@@ -393,8 +393,8 @@ export async function createOpenClawTestState(
 }
 
 export async function withOpenClawTestState<T>(
-  options: OpenClawTestStateOptions,
-  fn: (state: OpenClawTestState) => Promise<T>,
+  options: GrantedTestStateOptions,
+  fn: (state: GrantedTestState) => Promise<T>,
 ): Promise<T> {
   const state = await createOpenClawTestState(options);
   try {

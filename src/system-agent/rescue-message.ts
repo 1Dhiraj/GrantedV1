@@ -6,7 +6,7 @@ import {
 } from "@openclaw/normalization-core/number-coercion";
 import { hasNonEmptyString as isNonEmptyString } from "@openclaw/normalization-core/string-coerce";
 import type { CommandContext } from "../auto-reply/reply/commands-types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createCorePluginStateSyncKeyedStore } from "../plugin-state/plugin-state-store.js";
 import type { RuntimeEnv } from "../runtime.js";
 import {
@@ -34,7 +34,7 @@ type RescuePendingOperation = {
 
 /** Input required to process one possible `/openclaw` rescue message. */
 type SystemAgentRescueMessageInput = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   command: CommandContext;
   commandBody: string;
   agentId?: string;

@@ -13,7 +13,7 @@ import type { RestartSentinelPayload } from "../infra/restart-sentinel.js";
 import { resolveSystemEventOptionsOwnerAgentId } from "../infra/system-event-ownership.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { normalizeSessionDeliveryState } from "../utils/delivery-context.shared.js";
 
@@ -611,7 +611,7 @@ function mockRestartContinuation(
   } as Awaited<ReturnType<typeof mocks.readRestartSentinel>>);
 }
 
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 describe("scheduleRestartSentinelWake", () => {
   afterEach(async () => {

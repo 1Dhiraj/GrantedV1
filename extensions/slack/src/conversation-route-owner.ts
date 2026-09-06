@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import {
   normalizeSlackRouteBindingConfig,
@@ -12,7 +12,7 @@ import {
 import { parseSlackTarget } from "./targets.js";
 
 export function inspectSlackConversationRouteOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   conversation: {
     kind: "direct" | "group" | "channel";

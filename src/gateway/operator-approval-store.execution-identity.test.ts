@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   consumeOperatorApprovalAllowOnce,
@@ -16,7 +16,7 @@ import {
 type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approval"];
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function databaseOptions(): OpenClawStateDatabaseOptions {
+function databaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(tempDirs.make("openclaw-approval-id-"));
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }

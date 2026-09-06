@@ -4,7 +4,7 @@ import type {
   LocalTurnPlacementClaim,
   SessionPlacementAdmissionProvider,
 } from "../../agents/session-placement-admission.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { emitAgentRunStatusEvent } from "../../infra/agent-run-status-events.js";
 import { StaleWorkerBuildError } from "./admission.js";
 import { placementTurnOwner, sameWorkerSessionTurnClaim } from "./placement-record.js";
@@ -55,7 +55,7 @@ export function createWorkerSessionTurnPlacementProvider(options: WorkerTurnLaun
   const provider: SessionPlacementAdmissionProvider & {
     resolveSandbox(params: {
       agentId: string;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       sessionId: string;
       sessionKey?: string;
       workspaceDir: string;

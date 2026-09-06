@@ -5,7 +5,7 @@ import { GRANTED_AGENT_RUNTIME_ID } from "../agents/agent-runtime-id.js";
 import { listAgentIds } from "../agents/agent-scope-config.js";
 import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
 import { resolveEffectiveAgentRuntime } from "../agents/thinking-runtime.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { hasConfiguredGatewayAuthSecretInput } from "../gateway/auth-config-utils.js";
 import { normalizePluginsConfig, resolveEffectiveEnableState } from "../plugins/config-state.js";
@@ -15,7 +15,7 @@ const CHECK_ID = "core/doctor/node-hosting-preconditions";
 const LOOPBACK_JOIN_CODE_MESSAGE =
   "Gateway is only bound to loopback. Set gateway.bind=lan, enable tailscale serve, or configure plugins.entries.device-pair.config.publicUrl.";
 
-function usesIdentityHeadersWithoutMachineCredentials(cfg: OpenClawConfig): boolean {
+function usesIdentityHeadersWithoutMachineCredentials(cfg: GrantedConfig): boolean {
   const hasToken = hasConfiguredGatewayAuthSecretInput(cfg, "gateway.auth.token");
   const hasPassword = hasConfiguredGatewayAuthSecretInput(cfg, "gateway.auth.password");
   if (hasToken || hasPassword) {
@@ -32,7 +32,7 @@ function usesIdentityHeadersWithoutMachineCredentials(cfg: OpenClawConfig): bool
   );
 }
 
-function lacksNodeOnboardingUrl(cfg: OpenClawConfig): boolean {
+function lacksNodeOnboardingUrl(cfg: GrantedConfig): boolean {
   const bind = cfg.gateway?.bind ?? "loopback";
   if (bind !== "loopback" && bind !== "auto") {
     return false;
@@ -48,7 +48,7 @@ function lacksNodeOnboardingUrl(cfg: OpenClawConfig): boolean {
   );
 }
 
-function lacksNodeOnboardingPlugin(cfg: OpenClawConfig): boolean {
+function lacksNodeOnboardingPlugin(cfg: GrantedConfig): boolean {
   return !resolveEffectiveEnableState({
     id: "device-pair",
     origin: "bundled",
@@ -58,7 +58,7 @@ function lacksNodeOnboardingPlugin(cfg: OpenClawConfig): boolean {
   }).enabled;
 }
 
-function lacksDeviceCapableRuntimeRoute(cfg: OpenClawConfig): boolean {
+function lacksDeviceCapableRuntimeRoute(cfg: GrantedConfig): boolean {
   const registry = getActivePluginRegistry();
   return listAgentIds(cfg).every((agentId) => {
     const model = resolveDefaultModelForAgent({ cfg, agentId });
@@ -79,7 +79,7 @@ function lacksDeviceCapableRuntimeRoute(cfg: OpenClawConfig): boolean {
 
 /** Collects config-only warnings for node authentication, onboarding, and worker ingress. */
 export function collectNodeHostingPreconditionFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): readonly HealthFinding[] {
   const findings: HealthFinding[] = [];
   if (lacksNodeOnboardingPlugin(cfg)) {

@@ -8,7 +8,7 @@ import {
   SystemAgentChatEngine,
   RuntimeSystemAgentChatEngine,
   SystemAgentInferenceUnavailableError,
-  type OpenClawConfig,
+  type GrantedConfig,
   type SystemAgentChatEngineOptions,
 } from "./chat-engine.test-support.js";
 import { loadSystemAgentOverview } from "./overview.js";
@@ -16,7 +16,7 @@ import { loadSystemAgentOverview } from "./overview.js";
 describe("SystemAgentChatEngine facade", () => {
   it("uses the verified inference owner for a delegated fleet overview", async () => {
     useTempStateDir();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: { main: { model: "openai/gpt-5.6-luna" }, work: {} },
@@ -62,12 +62,12 @@ describe("SystemAgentChatEngine facade", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
-    let currentConfig = baseConfig as OpenClawConfig;
+    let currentConfig = baseConfig as GrantedConfig;
     const runConfigSet = vi.fn(async () => {});
     const engine = new SystemAgentChatEngine({
       verifiedInference,
@@ -125,12 +125,12 @@ describe("SystemAgentChatEngine facade", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
-    let currentConfig: OpenClawConfig = baseConfig;
+    let currentConfig: GrantedConfig = baseConfig;
     const planner = vi.fn(async () => {
       currentConfig = changedConfig;
       return { reply: "stale reply" };

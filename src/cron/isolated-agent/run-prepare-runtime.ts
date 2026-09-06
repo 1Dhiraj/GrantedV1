@@ -4,7 +4,7 @@ import { retireSessionMcpRuntime } from "../../agents/agent-bundle-mcp-tools.js"
 import { hasAnyAuthProfileStoreSource } from "../../agents/auth-profiles/source-check.js";
 import { SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
 import type { CliDeps } from "../../cli/outbound-send-deps.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
 import type {
   CronAgentExecutionPhaseUpdate,
@@ -17,7 +17,7 @@ import { logWarn } from "./run.runtime.js";
 import type { RunCronAgentTurnResult } from "./run.types.js";
 
 export type RunCronAgentTurnParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deps: CliDeps;
   job: CronStoredJob;
   message: string;
@@ -63,7 +63,7 @@ async function loadCronAuthProfileRuntime() {
   return await cronAuthProfileRuntimeLoader.load();
 }
 
-function hasConfiguredAuthProfiles(cfg: OpenClawConfig): boolean {
+function hasConfiguredAuthProfiles(cfg: GrantedConfig): boolean {
   return (
     Boolean(cfg.auth?.profiles && Object.keys(cfg.auth.profiles).length > 0) ||
     Boolean(cfg.auth?.order && Object.keys(cfg.auth.order).length > 0)
@@ -77,7 +77,7 @@ function hasConfiguredAuthProfiles(cfg: OpenClawConfig): boolean {
  * persistence will write.
  */
 export async function resolveCronAuthSelection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
   configuredProfileId?: string;

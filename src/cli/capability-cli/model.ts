@@ -27,7 +27,7 @@ import {
 } from "../../agents/simple-completion-runtime.js";
 import { normalizeThinkLevel, type ThinkLevel } from "../../auto-reply/thinking.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { callGateway, randomIdempotencyKey } from "../../gateway/call.js";
 import { ADMIN_SCOPE } from "../../gateway/operator-scopes.js";
 import { convertHeicToJpeg } from "../../media/media-services.js";
@@ -60,7 +60,7 @@ const HEIC_MODEL_RUN_MIMES = new Set([
   "image/heif-sequence",
 ]);
 
-async function loadModelCatalogForInspection(cfg: OpenClawConfig, agentId?: string) {
+async function loadModelCatalogForInspection(cfg: GrantedConfig, agentId?: string) {
   const prepared = await loadPreparedModelCatalog({ config: cfg, agentId, readOnly: true });
   const metadataSnapshot = loadManifestMetadataSnapshot({ config: cfg, env: process.env });
   const manifest = planEffectiveModelCatalogRows({
@@ -81,7 +81,7 @@ async function loadModelCatalogForInspection(cfg: OpenClawConfig, agentId?: stri
 
 async function canonicalizeModelRunRef(params: {
   raw: string | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   preserveAuthProfile: boolean;
 }): Promise<string | undefined> {
   return await canonicalizeCaseOnlyCatalogModelRef({

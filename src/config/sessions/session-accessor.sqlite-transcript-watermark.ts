@@ -8,8 +8,8 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type { SessionTranscriptReadScope } from "./session-accessor.sqlite-contract.js";
 import {
   readSqliteTranscriptStoreBatches,
@@ -18,7 +18,7 @@ import {
 } from "./session-accessor.sqlite-scope.js";
 
 type WatermarkDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "session_windows" | "transcript_events" | "transcript_rewrite_watermarks"
 >;
 
@@ -58,7 +58,7 @@ export function readSessionTranscriptWatermark(
 }
 
 function readSessionTranscriptWatermarkChunk(
-  database: Pick<OpenClawAgentDatabase, "db">,
+  database: Pick<GrantedAgentDatabase, "db">,
   sessionIds: readonly string[],
 ): Map<string, SessionTranscriptWatermark> {
   const db = getNodeSqliteKysely<WatermarkDatabase>(database.db);

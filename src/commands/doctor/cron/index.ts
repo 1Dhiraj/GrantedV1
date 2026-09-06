@@ -8,7 +8,7 @@ import {
 } from "../../../agents/agent-scope.js";
 import { resolveCodexMcpToolOverridesForAgent } from "../../../agents/cli-runner/bundle-mcp-codex.js";
 import { formatCliCommand } from "../../../cli/command-format.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { loadCronQuarantinedJobs, resolveCronJobsStorePath } from "../../../cron/store.js";
 import type { HealthFinding } from "../../../flows/health-checks.js";
 import { formatErrorMessage as errorMessage } from "../../../infra/errors.js";
@@ -43,9 +43,8 @@ function pluralize(count: number, noun: string) {
   return `${count} ${noun}${count === 1 ? "" : "s"}`;
 }
 
-function readLegacyCronStorePath(cfg: OpenClawConfig): string | undefined {
-  return (cfg.cron as (NonNullable<OpenClawConfig["cron"]> & { store?: string }) | undefined)
-    ?.store;
+function readLegacyCronStorePath(cfg: GrantedConfig): string | undefined {
+  return (cfg.cron as (NonNullable<GrantedConfig["cron"]> & { store?: string }) | undefined)?.store;
 }
 
 // Count jobs the store still marks in-flight (`state.runningAtMs` is a number).
@@ -154,7 +153,7 @@ function legacyCronStoreFinding(params: {
 }
 
 export async function collectLegacyCronStoreHealthFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<readonly HealthFinding[]> {
   let state: LegacyCronRepairState | null;
   try {
@@ -353,7 +352,7 @@ function noteLegacyCronRepairResult(result: LegacyCronRepairResult): void {
 
 /** Inspect cron storage and optionally repair legacy JSON/SQLite/payload shapes. */
 export async function maybeRepairLegacyCronStore(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   options: DoctorOptions;
   prompter: Pick<DoctorPrompter, "confirm">;
 }) {

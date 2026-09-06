@@ -9,7 +9,7 @@ import {
 import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import type { SessionAccessScope } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { resolveMissingAgentHarnessSessionError } from "../../sessions/agent-harness-session-key.js";
 import {
@@ -78,7 +78,7 @@ function archiveUnavailableError(key: string, message: "active" | "stopping"): E
   );
 }
 
-function protectedArchiveError(cfg: OpenClawConfig, canonicalKey: string): ErrorShape | undefined {
+function protectedArchiveError(cfg: GrantedConfig, canonicalKey: string): ErrorShape | undefined {
   if (canonicalKey === "unknown") {
     return errorShape(ErrorCodes.INVALID_REQUEST, "Cannot archive the unknown session sentinel.");
   }
@@ -114,7 +114,7 @@ function archiveTargetChanged(params: {
 
 export async function prepareSessionPatchArchive(params: {
   commitGuard: () => ErrorShape | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   context: GatewayRequestContext;
   loadGatewayModelCatalog: () => Promise<ModelCatalogEntry[]>;
   pluginOwnerId?: string;
@@ -275,7 +275,7 @@ export async function prepareSessionPatchArchive(params: {
 }
 
 export function validateSessionPatchArchiveProjection(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   existingEntry: SessionEntry | undefined;
   fullPatch: SessionsPatchParams;
   key: string;

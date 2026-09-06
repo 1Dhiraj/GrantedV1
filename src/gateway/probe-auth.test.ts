@@ -1,7 +1,7 @@
 // Probe auth tests cover safe credential resolution, unresolved-secret warnings,
 // local/remote target selection, and redacted auth payload handling.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveConfigForRead } from "../config/io.read-helpers.js";
 import { setConfigResolutionFacts } from "../config/resolution-facts.js";
 import {
@@ -27,7 +27,7 @@ function tokenAuthConfig(id: string) {
   } as const;
 }
 
-function configWithDefaultEnvProvider(gateway: NonNullable<OpenClawConfig["gateway"]>) {
+function configWithDefaultEnvProvider(gateway: NonNullable<GrantedConfig["gateway"]>) {
   return {
     gateway,
     secrets: {
@@ -35,17 +35,17 @@ function configWithDefaultEnvProvider(gateway: NonNullable<OpenClawConfig["gatew
         default: { source: "env" },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function configFromAuthoredToken(token: string, env: NodeJS.ProcessEnv): OpenClawConfig {
+function configFromAuthoredToken(token: string, env: NodeJS.ProcessEnv): GrantedConfig {
   const read = resolveConfigForRead({ gateway: { auth: { mode: "token", token } } }, env);
-  const config = read.resolvedConfigRaw as OpenClawConfig;
+  const config = read.resolvedConfigRaw as GrantedConfig;
   setConfigResolutionFacts(config, read.resolutionFacts);
   return config;
 }
 
-function resolveSafeProbeAuth(cfg: OpenClawConfig, mode: "local" | "remote" = "local") {
+function resolveSafeProbeAuth(cfg: GrantedConfig, mode: "local" | "remote" = "local") {
   return resolveGatewayProbeAuthSafe({
     cfg,
     mode,
@@ -53,7 +53,7 @@ function resolveSafeProbeAuth(cfg: OpenClawConfig, mode: "local" | "remote" = "l
   });
 }
 
-function expectUnresolvedProbeTokenWarning(cfg: OpenClawConfig) {
+function expectUnresolvedProbeTokenWarning(cfg: GrantedConfig) {
   const result = resolveSafeProbeAuth(cfg);
 
   expect(result.auth).toStrictEqual({});
@@ -69,7 +69,7 @@ describe("resolveGatewayProbeAuthSafe", () => {
           token: "token-value",
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(result).toEqual({
       auth: {
@@ -109,7 +109,7 @@ describe("resolveGatewayProbeAuthSafe", () => {
           password: "remote-password", // pragma: allowlist secret
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(result).toEqual({
       auth: EMPTY_PROBE_AUTH,
@@ -141,7 +141,7 @@ describe("resolveGatewayProbeTarget", () => {
         gateway: {
           mode: "remote",
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       gatewayMode: "remote",
       mode: "local",
@@ -158,7 +158,7 @@ describe("resolveGatewayProbeTarget", () => {
             url: "wss://gateway.example",
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       gatewayMode: "remote",
       mode: "remote",
@@ -442,7 +442,7 @@ describe("resolveGatewayProbeAuthSafeWithSecretInputs", () => {
           mode: "remote",
           remote: { url: "wss://configured.example" },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       mode: "remote",
       env: {
         GRANTED_GATEWAY_PASSWORD: "ambient-password", // pragma: allowlist secret

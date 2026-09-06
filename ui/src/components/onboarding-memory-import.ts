@@ -12,7 +12,7 @@ import { hasOperatorAdminAccess } from "../app/operator-access.ts";
 import { t } from "../i18n/index.ts";
 import { formatUiError, formatUiExternalText } from "../lib/format-error.ts";
 import { generateUUID } from "../lib/uuid.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../lit/subscriptions-controller.ts";
 import "../styles/onboarding-memory-import.css";
 import "./modal-dialog.ts";
@@ -56,7 +56,7 @@ function setGuardDone() {
   }
 }
 
-class OnboardingMemoryImport extends OpenClawLightDomElement {
+class OnboardingMemoryImport extends GrantedLightDomElement {
   @property({ attribute: false }) context?: ApplicationContext<RouteId>;
   @property({ type: Boolean }) active = false;
 

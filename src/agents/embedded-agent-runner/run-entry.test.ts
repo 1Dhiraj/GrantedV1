@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { FailoverReason } from "../failover/signal.js";
 import type { ContextEngineTurnAttemptFacts } from "../harness/context-engine-turn-attempt.js";
 import type { ModelFallbackRunOptions } from "../model-fallback-attempt.js";
@@ -252,7 +252,7 @@ describe("runEmbeddedAgentEntry", () => {
 
   it("keeps shared fallback and terminal behavior aligned across entry modes", async () => {
     const { runEmbeddedAgentEntry } = await import("./run-entry.js");
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const runMode = async (behavior: "channel-delivery" | "command-rpc") => {
       const candidateCalls: Array<{
         provider: string;

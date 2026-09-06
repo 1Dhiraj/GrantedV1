@@ -1,5 +1,5 @@
 // Xai provider module implements model/runtime integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import {
   createRealtimeTranscriptionWebSocketSession,
@@ -199,7 +199,7 @@ export function buildXaiRealtimeTranscriptionProvider(): RealtimeTranscriptionPr
 // 3. xAI OAuth auth profile (cfg-scoped)
 async function resolveXaiRealtimeApiKey(
   configApiKey: string | undefined,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): Promise<string> {
   const direct =
     normalizeOptionalString(configApiKey) ?? normalizeOptionalString(process.env.XAI_API_KEY);

@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   deliveryContextFromSession,
   sessionDeliveryOrigin,
@@ -14,7 +14,7 @@ import {
 } from "./types.js";
 
 function resolveCanonicalSessionKeyFromSessionId(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   agentId: string;
   sessionId?: string;
 }): string | undefined {
@@ -58,7 +58,7 @@ function resolveCanonicalSessionKeyFromSessionId(params: {
 }
 
 function resolveRecallRunChannelContext(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   agentId: string;
   sessionKey?: string;
   sessionId?: string;
@@ -274,7 +274,7 @@ function sanitizeDebugText(text: string): string {
 }
 
 async function persistPluginStatusLines(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   agentId: string;
   sessionKey?: string;
   statusLine?: string;

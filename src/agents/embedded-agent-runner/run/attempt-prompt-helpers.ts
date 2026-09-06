@@ -2,7 +2,7 @@ import { prependSystemPromptAdditionAfterCacheBoundary } from "@openclaw/ai/inte
 /**
  * Builds and repairs prompt inputs for embedded-agent attempts.
  */
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type {
   ContextEnginePromptCacheInfo,
   ContextEngineRuntimeContext,
@@ -94,7 +94,7 @@ export function forgetPromptBuildDrainCacheForRun(runId: string | undefined): vo
  * session-store reads do not lose plugin context after a failed first attempt.
  */
 export async function resolvePromptBuildHookResult(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   prompt: string;
   messages: unknown[];
   hookCtx: PluginHookAgentContext;
@@ -428,7 +428,7 @@ export function mergeOrphanedTrailingUserPrompt(params: {
 }
 
 export function resolveAttemptFsWorkspaceOnly(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionAgentId: string;
 }): boolean {
   return resolveEffectiveToolFsWorkspaceOnly({

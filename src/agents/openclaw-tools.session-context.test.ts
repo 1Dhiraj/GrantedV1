@@ -5,7 +5,7 @@ import { setEmbeddedMode } from "../infra/embedded-mode.js";
 import { createOpenClawTools } from "./openclaw-tools.js";
 
 type GatewayRequest = { method: string; params?: Record<string, unknown> };
-type OpenClawToolsOptions = NonNullable<Parameters<typeof createOpenClawTools>[0]>;
+type GrantedToolsOptions = NonNullable<Parameters<typeof createOpenClawTools>[0]>;
 
 const embeddedGatewayCalls = vi.hoisted(() => vi.fn());
 const embeddedGatewayResponseMock = vi.hoisted(() => vi.fn());
@@ -38,7 +38,7 @@ vi.mock("./openclaw-plugin-tools.js", () => ({
 }));
 
 function createTools(
-  config: OpenClawToolsOptions["config"],
+  config: GrantedToolsOptions["config"],
   options: { sandboxed?: boolean; sessionConfigSource?: "runtime" | "pinned" } = {},
 ) {
   return createOpenClawTools({

@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
 import "./test-helpers/fast-openclaw-tools.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createOpenClawCodingTools } from "./agent-tools.js";
 import { expectReadWriteEditTools, getTextContent } from "./test-helpers/agent-tools-fs-helpers.js";
 
@@ -40,7 +40,7 @@ describe("workspace-only Unicode read fallback", () => {
       }
       await fs.writeFile(path.join(outsideDir, "secret.txt"), "outside secret", "utf8");
 
-      const config: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const config: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({ workspaceDir, config });
       const { readTool } = expectReadWriteEditTools(tools);
 
@@ -54,7 +54,7 @@ describe("workspace-only Unicode read fallback", () => {
     await withTempDir("openclaw-unicode-leaf-", async (workspaceDir) => {
       await fs.writeFile(path.join(workspaceDir, "d\u2019accord.txt"), "allowed fallback", "utf8");
 
-      const config: OpenClawConfig = { tools: { fs: { workspaceOnly: true } } };
+      const config: GrantedConfig = { tools: { fs: { workspaceOnly: true } } };
       const tools = createOpenClawCodingTools({ workspaceDir, config });
       const { readTool } = expectReadWriteEditTools(tools);
 

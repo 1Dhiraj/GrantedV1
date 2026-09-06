@@ -1,7 +1,7 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { buildConversationIdentity } from "../../config/sessions/conversation-identity.js";
 import {
   listConversations,
@@ -62,7 +62,7 @@ describe("outbound session persistence", () => {
     ).not.toMatchObject({ sessionId: expect.any(String) });
 
     await bindOutboundSessionEntry({
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       channel: "reef",
       accountId: "default",
       route: {
@@ -131,7 +131,7 @@ describe("outbound session persistence", () => {
     expect(discovered[0]).not.toMatchObject({ sessionId: expect.any(String) });
 
     await bindOutboundSessionEntry({
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       channel: "reef",
       accountId: "default",
       route: {
@@ -174,7 +174,7 @@ describe("outbound session persistence", () => {
     ).not.toMatchObject({ sessionId: expect.any(String) });
 
     await bindOutboundSessionEntry({
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       channel: "reef",
       accountId: "default",
       route: {
@@ -214,7 +214,7 @@ describe("outbound session persistence", () => {
     registerConversationAddresses({ agentId: "main", storePath }, [identity!], 200);
 
     await bindOutboundSessionEntry({
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       channel: "reef",
       accountId: "default",
       route: {

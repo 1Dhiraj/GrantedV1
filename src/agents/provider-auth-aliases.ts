@@ -4,7 +4,7 @@
  * providers, with trusted workspace plugin handling and snapshot-owned metadata.
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizePluginsConfig } from "../plugins/config-state.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
@@ -21,7 +21,7 @@ import type {
 
 /** Inputs that control plugin metadata and trust scope for auth alias lookup. */
 export type ProviderAuthAliasLookupParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   includeUntrustedWorkspacePlugins?: boolean;

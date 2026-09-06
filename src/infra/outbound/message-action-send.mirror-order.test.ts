@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   loadExactSessionEntry,
   upsertSessionEntryCore,
@@ -33,7 +33,7 @@ const MAIN_SESSION_KEY = "agent:main:main";
 describe("outbound mirror route ordering", () => {
   const tempDirs = useAutoCleanupTempDirTracker(afterEach);
   let storePath: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   const handleAction = vi.fn();
 
   function registerTestChannel() {
@@ -89,7 +89,7 @@ describe("outbound mirror route ordering", () => {
     cfg = {
       session: { store: storePath },
       channels: { testchat: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     handleAction.mockReset();
     registerTestChannel();
     await seedMainSessionWithDiscordOrigin();

@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
@@ -121,10 +121,7 @@ function normalizeLegacyWebhookPath(params: {
   return { entry: { ...params.entry, webhookPath: canonical }, changed: true };
 }
 
-function normalizeFeishuLegacyConfigEntries(
-  cfg: OpenClawConfig,
-  changes: string[],
-): OpenClawConfig {
+function normalizeFeishuLegacyConfigEntries(cfg: GrantedConfig, changes: string[]): GrantedConfig {
   return normalizeChannelConfigEntries({
     cfg,
     channelId: "feishu",
@@ -182,7 +179,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const aliases = streamingAliasMigration.normalizeChannelConfig({ cfg });
   const entries = normalizeFeishuLegacyConfigEntries(aliases.config, aliases.changes);

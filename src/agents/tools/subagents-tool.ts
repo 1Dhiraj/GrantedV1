@@ -5,7 +5,7 @@
  */
 import { Type } from "typebox";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { listTaskRecordsUnsorted } from "../../tasks/runtime-internal.js";
 import { cancelDetachedTaskRunById } from "../../tasks/task-executor.js";
 import type { TaskRecord, TaskStatus } from "../../tasks/task-registry.types.js";
@@ -49,7 +49,7 @@ const STATUS_MAP: Record<TaskStatus, string> = {
 type SubagentsToolOptions = {
   agentSessionKey?: string;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   listTasks?: typeof listTaskRecordsUnsorted;
   cancelTask?: typeof cancelDetachedTaskRunById;
 };
@@ -62,7 +62,7 @@ function taskOwnerMatches(
   task: TaskRecord,
   sessionKey: string,
   agentId: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): boolean {
   return (
     task.ownerKey === sessionKey &&
@@ -74,7 +74,7 @@ function listTreeTasks(
   tasks: TaskRecord[],
   rootSessionKey: string,
   rootAgentId: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): TaskRecord[] {
   const visibleSessions = new Set([`${rootAgentId}\0${rootSessionKey}`]);
   const visibleTasks = new Set<string>();

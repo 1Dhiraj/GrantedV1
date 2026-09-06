@@ -81,7 +81,7 @@ function createDeferredPathSuccessFixture(source: string): string {
     "function Check-ExistingOpenClaw { return $false }",
     "function Add-ToPath { param([string]$Path) }",
     "function Install-OpenClaw { return $true }",
-    "function Ensure-OpenClawOnPath { return $false }",
+    "function Ensure-GrantedOnPath { return $false }",
     "$NoOnboard = $true",
     "",
     ...entrypointLines,
@@ -193,10 +193,10 @@ try {
         source: [
           scriptWithoutEntryPoint,
           "",
-          "function Get-OpenClawCommandPath { return (Get-Process -Id $PID).Path }",
+          "function Get-GrantedCommandPath { return (Get-Process -Id $PID).Path }",
           "$caught = $false",
           "try {",
-          "  Invoke-OpenClawCommand -NoLogo -NoProfile -Command 'exit 17'",
+          "  Invoke-GrantedCommand -NoLogo -NoProfile -Command 'exit 17'",
           "} catch {",
           "  if ($_.Exception.Message -notmatch 'failed with exit code 17') { throw }",
           "  $caught = $true",
@@ -210,7 +210,7 @@ try {
         source: [
           scriptWithoutEntryPoint,
           "",
-          "function Invoke-OpenClawCommand { throw 'doctor failed' }",
+          "function Invoke-GrantedCommand { throw 'doctor failed' }",
           "$output = @(Run-Doctor *>&1 | ForEach-Object { $_.ToString() })",
           '$text = $output -join "`n"',
           "if ($text -match 'Migration complete') { throw 'doctor failure reported success' }",
@@ -324,7 +324,7 @@ try {
           "  if ($Arguments[0] -eq 'install') { return }",
           "  throw \"unexpected npm command: $($Arguments -join ' ')\"",
           "}",
-          "function Ensure-OpenClawOnPath { throw 'old PATH command was accepted after missing candidate' }",
+          "function Ensure-GrantedOnPath { throw 'old PATH command was accepted after missing candidate' }",
           "$InstallMethod = 'npm'",
           "$NoOnboard = $true",
           "$Tag = 'latest'",
@@ -352,7 +352,7 @@ try {
           "  if ($Arguments[0] -eq 'uninstall') { $script:OldOwnerRemoved = $true; $global:LASTEXITCODE = 0; return }",
           "  throw 'unexpected npm command'",
           "}",
-          "function Install-OpenClawFromGit { return $false }",
+          "function Install-GrantedFromGit { return $false }",
           "$InstallMethod = 'git'",
           "$NoOnboard = $true",
           "$null = Main",
@@ -744,11 +744,11 @@ try {
           "function Check-Node { return $true }",
           "function Check-ExistingOpenClaw { return $false }",
           "function Get-NpmCommandPath { return $null }",
-          "function Install-OpenClawFromGit {",
+          "function Install-GrantedFromGit {",
           "  Write-Output 'pnpm stdout before failure'",
           "  return $false",
           "}",
-          "function Ensure-OpenClawOnPath { throw 'should not continue after failed git install' }",
+          "function Ensure-GrantedOnPath { throw 'should not continue after failed git install' }",
           "$InstallMethod = 'git'",
           "$GitDir = 'C:\\\\openclaw-test'",
           "$NoOnboard = $true",
@@ -768,9 +768,9 @@ try {
           "function Check-ExistingOpenClaw { return $false }",
           "function Add-ToPath { param([string]$Path) }",
           "function Install-OpenClaw { Write-Output 'npm stdout'; return $true }",
-          "function Ensure-OpenClawOnPath { return $true }",
+          "function Ensure-GrantedOnPath { return $true }",
           "function Refresh-GatewayServiceIfLoaded { }",
-          "function Invoke-OpenClawCommand { return 'OpenClaw test-version' }",
+          "function Invoke-GrantedCommand { return 'OpenClaw test-version' }",
           "$NoOnboard = $true",
           "$result = Main",
           "if ($result -is [array]) { throw 'Main returned an array' }",
@@ -792,9 +792,9 @@ try {
           "  Write-Output 'native chatter'",
           "  return $true",
           "}",
-          "function Ensure-OpenClawOnPath { return $true }",
+          "function Ensure-GrantedOnPath { return $true }",
           "function Refresh-GatewayServiceIfLoaded { }",
-          "function Invoke-OpenClawCommand { return 'OpenClaw test-version' }",
+          "function Invoke-GrantedCommand { return 'OpenClaw test-version' }",
           "$NoOnboard = $true",
           ...entrypointLines,
           "",
@@ -905,7 +905,7 @@ function New-TransactionalGitCheckout { throw 'unexpected clone' }
 function Main { throw 'unexpected installer entrypoint' }
 function Run-Doctor { throw 'unexpected doctor' }
 function Refresh-GatewayServiceIfLoaded { throw 'unexpected gateway refresh' }
-function Invoke-OpenClawCommand { throw 'unexpected live CLI' }
+function Invoke-GrantedCommand { throw 'unexpected live CLI' }
 function Publish-TextFileAtomically {
     param([string]$Path, [string]$Contents)
     $expectedPath = Join-Path $env:USERPROFILE '.local\bin\openclaw.cmd'
@@ -1072,7 +1072,7 @@ try {
         if (-not $outsideRejected -or $script:Published -ne 0) { throw 'outside publication was accepted' }
         $caught = $null
         $ownerOutput = @()
-        try { $ownerOutput = @(Install-OpenClawFromGit -RepoDir $target -SkipUpdate) } catch { $caught = $_ }
+        try { $ownerOutput = @(Install-GrantedFromGit -RepoDir $target -SkipUpdate) } catch { $caught = $_ }
         $success = Test-BooleanSuccessResult -Results $ownerOutput
         if ($scenario.Failure -in @('bootstrap', 'version')) {
             if (-not $caught -or $caught.Exception.Message -notmatch 'Could not (install|provision)') { throw "missing bootstrap failure: $caught" }
@@ -1392,7 +1392,7 @@ try {
   it("does not force npm or pnpm lifecycle scripts through cmd.exe", () => {
     const ensurePnpmBody = extractFunctionBody(source, "Ensure-Pnpm");
     const npmInstallBody = extractFunctionBody(source, "Install-OpenClaw");
-    const gitInstallBody = extractFunctionBody(source, "Install-OpenClawFromGit");
+    const gitInstallBody = extractFunctionBody(source, "Install-GrantedFromGit");
 
     expect(ensurePnpmBody).not.toContain("NPM_CONFIG_SCRIPT_SHELL");
     expect(npmInstallBody).not.toContain("NPM_CONFIG_SCRIPT_SHELL");
@@ -1401,7 +1401,7 @@ try {
 
   it("rejects a git checkout without a commit before updating it", () => {
     const guardBody = extractFunctionBody(source, "Assert-GitCheckoutHasCommit");
-    const gitInstallBody = extractFunctionBody(source, "Install-OpenClawFromGit");
+    const gitInstallBody = extractFunctionBody(source, "Install-GrantedFromGit");
 
     expect(guardBody).toContain('"--git-dir=$gitDir"');
     expect(guardBody).toContain('"--work-tree=$RepoDir"');
@@ -1419,7 +1419,7 @@ try {
   it("runs Windows command shims from a Windows-local cwd", () => {
     const commandSafeBody = extractFunctionBody(source, "Invoke-CommandFromWindowsSafeDirectory");
     const npmCommandBody = extractFunctionBody(source, "Invoke-NpmCommand");
-    const openClawPathBody = extractFunctionBody(source, "Ensure-OpenClawOnPath");
+    const openClawPathBody = extractFunctionBody(source, "Ensure-GrantedOnPath");
     const ensurePnpmBody = extractFunctionBody(source, "Ensure-Pnpm");
     const mainBody = extractFunctionBody(source, "Main");
 
@@ -1472,10 +1472,10 @@ try {
 
   it("rejects OpenClaw GitHub source targets for npm installs", () => {
     const npmInstallBody = extractFunctionBody(source, "Install-OpenClaw");
-    const sourceTargetBody = extractFunctionBody(source, "Test-OpenClawSourcePackageInstallSpec");
+    const sourceTargetBody = extractFunctionBody(source, "Test-GrantedSourcePackageInstallSpec");
     expect(sourceTargetBody).toContain('$normalizedTag -eq "main"');
     expect(sourceTargetBody).toContain("^github:openclaw/openclaw");
-    expect(npmInstallBody).toContain("Test-OpenClawSourcePackageInstallSpec -RequestedTag $Tag");
+    expect(npmInstallBody).toContain("Test-GrantedSourcePackageInstallSpec -RequestedTag $Tag");
     expect(npmInstallBody).toContain("npm installs do not support OpenClaw GitHub source targets");
     expect(npmInstallBody).toContain("-InstallMethod git -Tag main");
   });
@@ -1527,7 +1527,7 @@ try {
     const portableNodeRootBody = extractFunctionBody(source, "Get-PortableNodeRoot");
     const portableNodePathBody = extractFunctionBody(source, "Ensure-PortableNodeOnUserPath");
     const userPathBody = extractFunctionBody(source, "Add-ToUserPath");
-    const depsRootBody = extractFunctionBody(source, "Get-OpenClawDepsRoot");
+    const depsRootBody = extractFunctionBody(source, "Get-GrantedDepsRoot");
     const resolveNodeBody = extractFunctionBody(source, "Resolve-PortableNodeDownload");
     const expandNodeBody = extractFunctionBody(source, "Expand-PortableNodeArchive");
     const timeoutParametersBody = extractFunctionBody(source, "Get-WebRequestTimeoutParameters");
@@ -1583,7 +1583,7 @@ try {
     const usePortableGitBody = extractFunctionBody(source, "Use-PortableGitIfPresent");
     const ensureGitBody = extractFunctionBody(source, "Ensure-Git");
 
-    expect(portableGitRootBody).toContain("Get-OpenClawDepsRoot");
+    expect(portableGitRootBody).toContain("Get-GrantedDepsRoot");
     expect(portableGitPathEntriesBody).toContain("mingw64\\bin");
     expect(portableGitPathEntriesBody).toContain("usr\\bin");
     expect(portableGitPathEntriesBody).toContain("Split-Path -Parent $gitExe");
@@ -1634,7 +1634,7 @@ try {
     const ensurePnpmBody = extractFunctionBody(source, "Ensure-Pnpm");
     const gitFilterSupportBody = extractFunctionBody(source, "Test-GitFilterSupport");
     const transactionalCloneBody = extractFunctionBody(source, "New-TransactionalGitCheckout");
-    const gitInstallBody = extractFunctionBody(source, "Install-OpenClawFromGit");
+    const gitInstallBody = extractFunctionBody(source, "Install-GrantedFromGit");
     const nodeOptionsBody = extractFunctionBody(source, "Resolve-NodeOptionsWithMinOldSpace");
     const mainBody = extractFunctionBody(source, "Main");
 
@@ -1667,7 +1667,7 @@ try {
     expect(gitInstallBody.indexOf("git -C $RepoDir pull --rebase")).toBeLessThan(
       gitInstallBody.indexOf("Ensure-Pnpm -RepoDir $RepoDir"),
     );
-    expect(mainBody).toContain("$gitInstallResults = @(Install-OpenClawFromGit");
+    expect(mainBody).toContain("$gitInstallResults = @(Install-GrantedFromGit");
     expect(mainBody).toContain("Test-BooleanSuccessResult -Results $gitInstallResults");
     expect(mainBody).toContain("$npmInstallResults = @(Install-OpenClaw)");
     expect(mainBody).toContain("Test-BooleanSuccessResult -Results $npmInstallResults");
@@ -1723,12 +1723,12 @@ try {
     expect(gitInstallBody).toContain("Test-Path $entryPath");
     expect(gitInstallBody).toContain('Write-Host "[!] OpenClaw build did not produce $entryPath"');
     expect(gitInstallBody).toContain("node $entryPath --version");
-    expect(gitInstallBody).toContain("Format-OpenClawGitWrapper -EntryPath $entryPath");
+    expect(gitInstallBody).toContain("Format-GrantedGitWrapper -EntryPath $entryPath");
     expect(gitInstallBody).not.toContain("& $pnpmCommand -C $RepoDir install");
   });
 
   it("cleans legacy git submodules only from the selected git checkout", () => {
-    const gitInstallBody = extractFunctionBody(source, "Install-OpenClawFromGit");
+    const gitInstallBody = extractFunctionBody(source, "Install-GrantedFromGit");
     const mainBody = extractFunctionBody(source, "Main");
     expect(gitInstallBody).toContain("Remove-LegacySubmodule -RepoDir $RepoDir");
     expect(mainBody).not.toContain("Remove-LegacySubmodule");
@@ -1770,9 +1770,9 @@ try {
             "  throw 'unexpected npm command'",
             "}",
             "function Install-OpenClaw { return $true }",
-            "function Ensure-OpenClawOnPath { return $true }",
+            "function Ensure-GrantedOnPath { return $true }",
             "function Add-ToUserPath { param([string]$Path) }",
-            "function Get-OpenClawCommandPath { return 'cmd.exe' }",
+            "function Get-GrantedCommandPath { return 'cmd.exe' }",
             "function Start-Process {",
             "  param([string]$FilePath, [string[]]$ArgumentList, [switch]$NoNewWindow, [switch]$Wait, [switch]$PassThru)",
             "  [pscustomobject]@{ ExitCode = 17 }",

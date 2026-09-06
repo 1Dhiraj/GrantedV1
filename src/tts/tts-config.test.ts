@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { captureEnv } from "../test-utils/env.js";
 import {
   resolveConfiguredTtsMode,
@@ -43,13 +43,13 @@ describe("shouldAttemptTtsPayload", () => {
   });
 
   it("skips TTS when config, prefs, and session state leave auto mode off", () => {
-    expect(shouldAttemptTtsPayload({ cfg: {} as OpenClawConfig })).toBe(false);
+    expect(shouldAttemptTtsPayload({ cfg: {} as GrantedConfig })).toBe(false);
   });
 
   it("does not infer automatic TTS from a dashboard text turn without opt-in state", () => {
     expect(
       shouldAttemptTtsPayload({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         channelId: "webchat",
         accountId: "dashboard",
@@ -59,20 +59,20 @@ describe("shouldAttemptTtsPayload", () => {
 
   it("honors session auto state before prefs and config", () => {
     writeFileSync(prefsPath, JSON.stringify({ tts: { auto: "off" } }));
-    const cfg = { tts: { auto: "off" } } as OpenClawConfig;
+    const cfg = { tts: { auto: "off" } } as GrantedConfig;
 
     expect(shouldAttemptTtsPayload({ cfg, ttsAuto: "always" })).toBe(true);
     expect(shouldAttemptTtsPayload({ cfg, ttsAuto: "off" })).toBe(false);
   });
 
   it("uses local prefs before config auto mode", () => {
-    const cfg = { tts: { auto: "off" } } as OpenClawConfig;
+    const cfg = { tts: { auto: "off" } } as GrantedConfig;
 
     writeFileSync(prefsPath, JSON.stringify({ tts: { enabled: true } }));
     expect(shouldAttemptTtsPayload({ cfg })).toBe(true);
 
     writeFileSync(prefsPath, JSON.stringify({ tts: { auto: "off" } }));
-    expect(shouldAttemptTtsPayload({ cfg: { tts: { enabled: true } } as OpenClawConfig })).toBe(
+    expect(shouldAttemptTtsPayload({ cfg: { tts: { enabled: true } } as GrantedConfig })).toBe(
       false,
     );
   });
@@ -86,7 +86,7 @@ describe("shouldAttemptTtsPayload", () => {
           reader: { provider: "google" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveTtsSettingsSnapshot({ cfg }).providerPreference).toEqual({
       provider: "google",
@@ -122,7 +122,7 @@ describe("shouldAttemptTtsPayload", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(shouldAttemptTtsPayload({ cfg, agentId: "voice" })).toBe(true);
     expect(resolveConfiguredTtsMode(cfg, "voice")).toBe("all");
@@ -138,7 +138,7 @@ describe("shouldAttemptTtsPayload", () => {
       agents: {
         list: [{ id: "voice", tts: { prefsPath: voicePrefsPath } }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(shouldAttemptTtsPayload({ cfg, agentId: "voice" })).toBe(true);
     expect(shouldAttemptTtsPayload({ cfg, agentId: "main" })).toBe(false);
@@ -190,7 +190,7 @@ describe("shouldAttemptTtsPayload", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const resolved = resolveEffectiveTtsConfig(cfg, {
       agentId: "reader",
@@ -220,7 +220,7 @@ describe("shouldAttemptTtsPayload", () => {
         },
       },
       agents: { list: [{ id: "reader", tts: agentTts }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveEffectiveTtsConfig(cfg, "reader").providers?.custom).toEqual({
       model: "base",

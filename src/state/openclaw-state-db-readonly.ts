@@ -15,18 +15,18 @@ import { openClawStateDatabaseCache } from "./openclaw-state-db-cache.js";
 import {
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   GRANTED_STATE_SCHEMA_VERSION,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 
-type OpenClawStateReadOnlyDatabase = {
+type GrantedStateReadOnlyDatabase = {
   db: DatabaseSync;
   path: string;
 };
 
 type ReusedOpenClawStateReadOnlyDatabase<T> = { reused: false } | { reused: true; value: T };
 
-function resolveReadOnlyPath(options: OpenClawStateDatabaseOptions): string {
+function resolveReadOnlyPath(options: GrantedStateDatabaseOptions): string {
   return path.resolve(options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env));
 }
 
@@ -55,8 +55,8 @@ function assertSupportedSchemaVersion(db: DatabaseSync, pathname: string): void 
 }
 
 function withOpenClawStateDatabaseReadOnlyIfOpen<T>(
-  operation: (database: OpenClawStateReadOnlyDatabase) => T,
-  options: OpenClawStateDatabaseOptions,
+  operation: (database: GrantedStateReadOnlyDatabase) => T,
+  options: GrantedStateDatabaseOptions,
   pathname: string,
 ): ReusedOpenClawStateReadOnlyDatabase<T> {
   const opened = openClawStateDatabaseCache.getOpenClawStateDatabaseIfOpenAtPath(
@@ -79,8 +79,8 @@ function withOpenClawStateDatabaseReadOnlyIfOpen<T>(
 }
 
 function withFreshOpenClawStateDatabaseReadOnly<T>(
-  operation: (database: OpenClawStateReadOnlyDatabase) => T,
-  options: OpenClawStateDatabaseOptions,
+  operation: (database: GrantedStateReadOnlyDatabase) => T,
+  options: GrantedStateDatabaseOptions,
   pathname: string,
   location = pathname,
 ): T {
@@ -107,8 +107,8 @@ function withFreshOpenClawStateDatabaseReadOnly<T>(
  * journal-mode setup, checkpoints, and permission mutation owned by writers.
  */
 export function withOpenClawStateDatabaseReadOnly<T>(
-  operation: (database: OpenClawStateReadOnlyDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  operation: (database: GrantedStateReadOnlyDatabase) => T,
+  options: GrantedStateDatabaseOptions = {},
 ): T {
   const pathname = resolveReadOnlyPath(options);
   // Reusing a handle this process already holds keeps row loops cheap: opening
@@ -124,8 +124,8 @@ export function withOpenClawStateDatabaseReadOnly<T>(
 
 /** Read existing shared state while preserving non-missing filesystem failures. */
 export function withExistingOpenClawStateDatabaseReadOnly<T>(
-  operation: (database: OpenClawStateReadOnlyDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  operation: (database: GrantedStateReadOnlyDatabase) => T,
+  options: GrantedStateDatabaseOptions = {},
 ): T | undefined {
   const pathname = resolveReadOnlyPath(options);
   const reused = withOpenClawStateDatabaseReadOnlyIfOpen(operation, options, pathname);
@@ -144,8 +144,8 @@ export function withExistingOpenClawStateDatabaseReadOnly<T>(
 
 /** Read existing shared state without creating or updating its SQLite sidecars. */
 export function withExistingOpenClawStateDatabaseArtifactPreservingReadOnly<T>(
-  operation: (database: OpenClawStateReadOnlyDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  operation: (database: GrantedStateReadOnlyDatabase) => T,
+  options: GrantedStateDatabaseOptions = {},
 ): T | undefined {
   const pathname = resolveReadOnlyPath(options);
   const reused = withOpenClawStateDatabaseReadOnlyIfOpen(operation, options, pathname);

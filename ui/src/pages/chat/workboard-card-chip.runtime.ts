@@ -9,9 +9,9 @@ import {
   type WorkboardSessionCardLookupLease,
   type WorkboardSessionCardMatch,
 } from "../../lib/workboard/session-card-lookup.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 
-class WorkboardCardChip extends OpenClawLightDomElement {
+class WorkboardCardChip extends GrantedLightDomElement {
   @property({ type: Boolean }) active = true;
   @property({ attribute: false }) basePath = "";
   @property({ attribute: false }) client: GatewayBrowserClient | null = null;

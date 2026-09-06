@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { createSuiteTempRootTracker } from "../test-helpers/temp-dir.js";
 import {
@@ -18,7 +18,7 @@ const suiteTempDirs = createSuiteTempRootTracker({
   parentDir: fixturesRoot,
 });
 
-function configWithPluginLoadPath(pluginRoot: string): OpenClawConfig {
+function configWithPluginLoadPath(pluginRoot: string): GrantedConfig {
   return {
     plugins: {
       load: {

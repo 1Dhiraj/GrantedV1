@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import { startQaBusServer } from "./bus-server.js";
 import { createQaBusState } from "./bus-state.js";
@@ -22,7 +22,7 @@ const VERDICT_PATH = path.join(
   ".artifacts/qa-e2e/handoff-adoption/channel-handoff-verdict.json",
 );
 
-function withFixturePlugin(config: OpenClawConfig): OpenClawConfig {
+function withFixturePlugin(config: GrantedConfig): GrantedConfig {
   return {
     ...config,
     plugins: {

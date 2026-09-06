@@ -4,7 +4,7 @@ import { asOptionalRecord as readModelParams } from "@openclaw/normalization-cor
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { mergeModelCost } from "../../config/model-cost.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../../config/runtime-source-projection.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { Api, Model } from "../../llm/types.js";
 import type { PluginMetadataSnapshotOwnerMaps } from "../../plugins/plugin-metadata-snapshot.types.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
@@ -48,7 +48,7 @@ export type StaticCatalogFallbackModel = ProviderRuntimeModel;
 export function shouldSuppressConfiguredModel(params: {
   provider: string;
   modelId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   baseUrl?: string;
 }): boolean {
@@ -80,7 +80,7 @@ export function shouldSuppressConfiguredModel(params: {
 export function resolveConfiguredProviderDefaultApi(params: {
   provider: string;
   providerConfig: InlineProviderConfig | undefined;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   runtimeHooks?: ProviderRuntimeHooks;
 }): Api | undefined {
@@ -151,7 +151,7 @@ export function findInlineModelMatch(params: {
 }
 
 export function resolveConfiguredProviderConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   provider: string,
 ): InlineProviderConfig | undefined {
   const configuredProviders = cfg?.models?.providers;
@@ -184,7 +184,7 @@ export function findConfiguredProviderModel(
 /** Merge authored rates after discovery; runtime defaults must not become price pins. */
 export function mergeConfiguredModelCost(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   configuredModel?: NonNullable<InlineProviderConfig["models"]>[number];
   catalogCost?: Model["cost"];
 }): Model["cost"] {
@@ -272,7 +272,7 @@ function mergeModelParams(
 }
 
 function findConfiguredAgentModelParams(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   modelId: string;
 }): Record<string, unknown> | undefined {
@@ -314,7 +314,7 @@ function findConfiguredAgentModelParams(params: {
 }
 
 export function mergeConfiguredRuntimeModelParams(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   modelId: string;
   discoveredParams?: unknown;
@@ -357,7 +357,7 @@ export function applyConfiguredProviderOverrides(params: {
   discoveredModel: ProviderRuntimeModel;
   providerConfig?: InlineProviderConfig;
   modelId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   manifestAlias: ManifestModelCatalogProviderAliasMetadata;
   providerMetadataOwners?: PluginMetadataSnapshotOwnerMaps;
   runtimeHooks?: ProviderRuntimeHooks;

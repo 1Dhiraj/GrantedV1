@@ -9,7 +9,7 @@ import { normalizeConfiguredProviderCatalogModelId } from "../../../agents/model
 import { configuredModelRouteNeedsCodex } from "../../../config/codex-plugin-diagnostics.js";
 import { isLegacyCodexProviderId } from "../../../config/legacy-codex-provider.js";
 import type { AgentRuntimePolicyConfig } from "../../../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { normalizeAgentId } from "../../../routing/session-key.js";
 import { listMutableCodexRouteAgentEntries } from "./codex-route-agent-entries.js";
 import type { MutableRecord } from "./codex-route-types.js";
@@ -172,7 +172,7 @@ export function readAgentPrimaryModelRef(agent: unknown, fallback?: string): str
 }
 
 export function modelRefUsesCodexRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: string | undefined;
   agentId?: string;
   env?: NodeJS.ProcessEnv;
@@ -194,7 +194,7 @@ export function modelRefUsesCodexRuntime(params: {
 }
 
 export function resolveRuntimeModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: string;
   agentId?: string;
 }): string {
@@ -241,7 +241,7 @@ function resolveKnownCompatModelAliasRef(modelRef: string): string | undefined {
 }
 
 function resolveConfiguredModelAliasRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: string;
   agentId?: string;
 }): string | undefined {
@@ -261,7 +261,7 @@ function resolveConfiguredModelAliasRef(params: {
 }
 
 function resolveDefaultProviderForAliasContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
 }): string {
   const primaryModelRef =
@@ -294,10 +294,7 @@ function resolveDefaultProviderForAliasContext(params: {
   return normalizeProviderId(implicit?.provider ?? DEFAULT_PROVIDER) || DEFAULT_PROVIDER;
 }
 
-function findAgentById(
-  cfg: OpenClawConfig,
-  agentId: string | undefined,
-): MutableRecord | undefined {
+function findAgentById(cfg: GrantedConfig, agentId: string | undefined): MutableRecord | undefined {
   if (!agentId) {
     return undefined;
   }
@@ -327,7 +324,7 @@ function resolveAliasFromModelsMap(
 }
 
 function resolveConfiguredBareModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: string;
   agentId?: string;
 }): string | undefined {
@@ -392,7 +389,7 @@ function normalizeProviderModelRef(provider: string, modelId: string): string {
   return `${normalizedProvider}/${normalizedModelId}`;
 }
 
-export function resolveImplicitDefaultAgentModelRef(cfg: OpenClawConfig): string {
+export function resolveImplicitDefaultAgentModelRef(cfg: GrantedConfig): string {
   const fallbackProvider = resolveConfiguredProviderFallback({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,
@@ -404,7 +401,7 @@ export function resolveImplicitDefaultAgentModelRef(cfg: OpenClawConfig): string
 }
 
 export function agentUsesCodexRuntimeForCompaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agent: unknown;
   agentId?: string;
   currentRuntime?: string;
@@ -441,7 +438,7 @@ export function parseCodexRouteModelRef(
 }
 
 export function canonicalOpenAIModelUsesCodexRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelRef: string;
   agentId?: string;
   env?: NodeJS.ProcessEnv;

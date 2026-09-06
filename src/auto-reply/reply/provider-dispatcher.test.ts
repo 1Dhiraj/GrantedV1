@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { DispatchReplyFromConfig } from "./dispatch-from-config.types.js";
 import type {
   ReplyDispatcherOptions,
@@ -45,7 +45,7 @@ describe("provider dispatcher wrappers", () => {
 
     await dispatchReplyWithBufferedBlockDispatcherCore({
       ctx: { Body: "hello" },
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       dispatcherOptions,
       toolsAllow: ["message"],
       dispatchReplyFromConfig,
@@ -68,7 +68,7 @@ describe("provider dispatcher wrappers", () => {
 
     await dispatchReplyWithDispatcherCore({
       ctx: { Body: "hello" },
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       dispatcherOptions,
       toolsAllow: ["message"],
     });

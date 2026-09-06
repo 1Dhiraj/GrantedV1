@@ -5,7 +5,7 @@ import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { promisify } from "node:util";
 import { saveMediaBuffer } from "openclaw/plugin-sdk/media-store";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CodexCommandExecParams, CodexCommandExecResponse } from "./command-exec-protocol.js";
 import {
@@ -17,7 +17,7 @@ import {
 const remoteWorkspaceRoot = "/remote/codex-workspace";
 const execFileAsync = promisify(execFile);
 let localWorkspaceRoot: string;
-let openClawState: OpenClawTestState;
+let openClawState: GrantedTestState;
 
 beforeEach(async () => {
   openClawState = await createOpenClawTestState({

@@ -5,7 +5,7 @@ import {
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ChannelGroupPolicy,
   TelegramAccountConfig,
   TelegramGroupConfig,
@@ -148,7 +148,7 @@ vi.mock("./bot/delivery.js", () => ({ deliverReplies: deliveryMocks.deliverRepli
 vi.mock("./bot/delivery.replies.js", () => ({ deliverReplies: deliveryMocks.deliverReplies }));
 
 export function createNativeCommandsHarness(params?: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   runtime?: RuntimeEnv;
   telegramCfg?: TelegramAccountConfig;
   allowFrom?: string[];
@@ -166,7 +166,7 @@ export function createNativeCommandsHarness(params?: {
   const sendMessage: AnyAsyncMock = vi.fn(async () => undefined);
   const setMyCommands: AnyAsyncMock = vi.fn(async () => undefined);
   const log: AnyMock = vi.fn();
-  const baseCfg = params?.cfg ?? ({} as OpenClawConfig);
+  const baseCfg = params?.cfg ?? ({} as GrantedConfig);
   const cfg =
     params?.useAccessGroups === undefined
       ? baseCfg

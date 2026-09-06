@@ -1,5 +1,5 @@
 // Defines bounded caches for plugin runtime results and schema validation.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { registerPluginMetadataProcessMemoLifecycleClear } from "./plugin-metadata-lifecycle.js";
 
@@ -59,18 +59,18 @@ export class PluginLruCache<T> {
 }
 
 /** Runtime cache partitioned by config object identity so request-scoped configs do not collide. */
-export type ConfigScopedRuntimeCache<T> = WeakMap<OpenClawConfig, Map<string, T>>;
+export type ConfigScopedRuntimeCache<T> = WeakMap<GrantedConfig, Map<string, T>>;
 
 /** Promise loader that coalesces concurrent loads per config object and for the default scope. */
 type ConfigScopedPromiseLoader<T> = {
-  load(config?: OpenClawConfig): Promise<T>;
+  load(config?: GrantedConfig): Promise<T>;
   clear(): void;
 };
 
 /** Resolves a config-scoped cached value; calls without config intentionally bypass caching. */
 export function resolveConfigScopedRuntimeCacheValue<T>(params: {
   cache: ConfigScopedRuntimeCache<T>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   key: string;
   load: () => T;
 }): T {
@@ -97,12 +97,12 @@ export function createPluginCacheKey(parts: readonly unknown[]): string {
 
 /** Creates a config-scoped promise cache that drops rejected loads so callers can retry. */
 export function createConfigScopedPromiseLoader<T>(
-  load: (config?: OpenClawConfig) => T | Promise<T>,
+  load: (config?: GrantedConfig) => T | Promise<T>,
 ): ConfigScopedPromiseLoader<T> {
   let defaultPromise: Promise<T> | undefined;
-  let promisesByConfig = new WeakMap<OpenClawConfig, Promise<T>>();
+  let promisesByConfig = new WeakMap<GrantedConfig, Promise<T>>();
 
-  const createPromise = (config?: OpenClawConfig): Promise<T> => {
+  const createPromise = (config?: GrantedConfig): Promise<T> => {
     const promise = Promise.resolve().then(() => load(config));
     void promise.catch(() => {
       if (config) {
@@ -117,7 +117,7 @@ export function createConfigScopedPromiseLoader<T>(
   };
 
   const loader: ConfigScopedPromiseLoader<T> = {
-    async load(config?: OpenClawConfig): Promise<T> {
+    async load(config?: GrantedConfig): Promise<T> {
       if (!config) {
         defaultPromise ??= createPromise();
         return await defaultPromise;
@@ -132,7 +132,7 @@ export function createConfigScopedPromiseLoader<T>(
     },
     clear(): void {
       defaultPromise = undefined;
-      promisesByConfig = new WeakMap<OpenClawConfig, Promise<T>>();
+      promisesByConfig = new WeakMap<GrantedConfig, Promise<T>>();
     },
   };
   // Resolved values can retain executable plugin callbacks past install, replacement, or removal.

@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { saveResponseMedia } from "openclaw/plugin-sdk/media-runtime";
 import { createPluginStateKeyedStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import {
   createPluginRuntimeMediaMock,
   createPluginRuntimeMock,
 } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { resolveSmsAccount } from "./accounts.js";
 import { materializeSmsInboundMedia, tryHandleHostedSmsMediaRequest } from "./media.js";
@@ -27,7 +27,7 @@ const baseAccount = {
 
 describe("SMS configured media limits", () => {
   let stateDir: string;
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let server: Server | undefined;
 
   beforeEach(async () => {
@@ -81,7 +81,7 @@ describe("SMS configured media limits", () => {
   ])(
     "rejects a local attachment above the $name cap before staging",
     async ({ sms, accountId, agentLimit }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { mediaMaxMb: agentLimit } },
         channels: { sms: { ...baseAccount, ...sms } },
       };

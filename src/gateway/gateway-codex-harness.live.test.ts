@@ -29,7 +29,7 @@ import {
   type LongOutputMarkers,
 } from "../../test/helpers/openai-long-context-live.js";
 import { isLiveTestEnabled } from "../agents/live-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { AgentEventPayload } from "../infra/agent-events.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { pluginStateEntriesInKeyRange } from "../plugin-state/plugin-state-store.js";
@@ -575,7 +575,7 @@ async function writeLiveGatewayConfig(params: {
 }): Promise<void> {
   const parsedModel = parseModelKey(params.modelKey);
   const appServerArgs = buildCodexCompactionAppServerArgs(params.compactionMode);
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     gateway: {
       mode: "local",
       port: params.port,

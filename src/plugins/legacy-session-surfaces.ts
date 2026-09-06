@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { shouldIncludeChannelSetupFeatureForConfig } from "../channels/plugins/bundled-setup-policy.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { describeRootFileOpenFailure, openRootFileSync } from "../infra/boundary-file-read.js";
 import type { BundledChannelLegacySessionSurface } from "../plugin-sdk/channel-entry-contract.types.js";
 import { resolveConfiguredChannelPluginIds } from "./channel-plugin-ids.js";
@@ -74,7 +74,7 @@ function resolveLegacySessionSurface(moduleExport: unknown): BundledChannelLegac
 
 function isEnabledLegacySurfaceOwner(params: {
   record: LegacySurfaceManifestRecord;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   normalizedConfig: ReturnType<typeof normalizePluginsConfig>;
 }): boolean {
   if (
@@ -153,7 +153,7 @@ function loadLegacySessionSurface(params: {
 
 /** Resolves immutable session surfaces from the exact configured channel-owner snapshot. */
 export function prepareLegacySessionSurfaces(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   context?: PluginRuntimeLoadContext;
 }): PreparedLegacySessionSurfaces {

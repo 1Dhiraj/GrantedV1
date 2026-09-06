@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import { capturePluginRegistration } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
@@ -13,7 +13,7 @@ function augmentConfiguredLmstudioCompat(compat: Record<string, unknown>) {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 
   expect(provider?.id).toBe("lmstudio");
   return provider?.augmentModelCatalog?.({
@@ -49,7 +49,7 @@ describe("LM Studio configured model tool capabilities", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(provider?.id).toBe("lmstudio");
     expect(

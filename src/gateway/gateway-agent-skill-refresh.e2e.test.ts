@@ -11,7 +11,7 @@ import { resetConfigOverrides } from "../config/runtime-overrides.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { loadSessionEntry } from "../config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetAgentEventsForTest } from "../infra/agent-events.js";
 import { registerSkillsChangeListener } from "../skills/runtime/refresh.js";
 import { captureEnv, deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
@@ -154,7 +154,7 @@ describe("Gateway agent skill refresh", () => {
           models: { mode: "replace", providers: { [provider.providerId]: provider.config } },
           plugins: { slots: { memory: "none" } },
           tools: { profile: "coding" },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         gateway = await startGatewayWithClient({
           cfg,
           configPath,

@@ -1,5 +1,5 @@
 // Firecrawl tests cover firecrawl tools plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { mockPinnedHostnameResolution } from "openclaw/plugin-sdk/test-env";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createStreamingResponse } from "../../test-support/streaming-error-response.js";
@@ -119,7 +119,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     expect(preservedFetchProvider.tools?.web?.fetch?.provider).toBe("other");
   });
 
@@ -185,7 +185,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webSearch: { apiKey: "firecrawl-owner-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "hostile successful HTTP error",
     }).catch((error: unknown) => error);
 
@@ -212,7 +212,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webFetch: { apiKey: "firecrawl-owner-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       url: "https://example.com/hostile-firecrawl-error",
       extractMode: "markdown",
     }).catch((error: unknown) => error);
@@ -243,7 +243,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webFetch: { apiKey: "firecrawl-owner-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       url: "https://example.com/firecrawl-target-recovery",
       extractMode: "markdown" as const,
     };
@@ -289,7 +289,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const request =
         operation === "search"
           ? runActualFirecrawlSearch({
@@ -350,7 +350,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const searchParams = { cfg, query: "Firecrawl cancelled search must not populate cache" };
       const scrapeParams = {
         cfg,
@@ -399,7 +399,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webSearch: { apiKey: "firecrawl-budget-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "bounded successful Firecrawl search",
       count: 2,
       scrapeResults: true,
@@ -429,7 +429,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webSearch: { apiKey: "firecrawl-sanitized-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "sanitized Firecrawl search",
     });
 
@@ -474,7 +474,7 @@ describe("firecrawl tools", () => {
         plugins: {
           entries: { firecrawl: { config: { webFetch: { apiKey: "firecrawl-cap-test" } } } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       url: "https://example.com/firecrawl-hard-cap",
       extractMode: "markdown",
       maxChars: 1_000_000,
@@ -545,7 +545,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       url: "https://example.com/keyless-firecrawl",
       extractMode: "markdown",
       access: "keyless",
@@ -569,7 +569,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         url: "https://example.com/direct-scrape",
         extractMode: "markdown",
       }),
@@ -605,7 +605,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "keyless firecrawl search",
       access: "keyless",
     });
@@ -637,7 +637,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "keyless ignores configured key",
       access: "keyless",
     });
@@ -666,7 +666,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "keyed search identity",
     });
 
@@ -688,7 +688,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         query: "direct firecrawl search",
       }),
     ).rejects.toThrow("web_search (firecrawl) needs a Firecrawl API key");
@@ -710,7 +710,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         query: "conflicting domain filters",
         includeDomains: ["firecrawl.dev"],
         excludeDomains: ["example.com"],
@@ -743,7 +743,7 @@ describe("firecrawl tools", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       query: "openclaw",
       count: 25,
       excludeDomains: ["example.com"],
@@ -809,7 +809,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         url: "http://169.254.169.254/latest/meta-data/",
         extractMode: "markdown",
       }),
@@ -1269,7 +1269,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBe("plugin-key");
     expect(resolveFirecrawlBaseUrl(cfg)).toBe("https://plugin.firecrawl.test");
@@ -1285,7 +1285,7 @@ describe("firecrawl tools", () => {
     expect(resolveFirecrawlMaxAgeMs()).toBe(172_800_000);
     expect(resolveFirecrawlScrapeTimeoutSeconds()).toBe(60);
     expect(resolveFirecrawlSearchTimeoutSeconds()).toBe(30);
-    expect(resolveFirecrawlBaseUrl({} as OpenClawConfig)).not.toBe(DEFAULT_FIRECRAWL_BASE_URL);
+    expect(resolveFirecrawlBaseUrl({} as GrantedConfig)).not.toBe(DEFAULT_FIRECRAWL_BASE_URL);
   });
 
   it("resolves env SecretRefs for Firecrawl API key without requiring a runtime snapshot", () => {
@@ -1306,7 +1306,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBe("firecrawl-env-ref-key");
   });
@@ -1329,7 +1329,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBeUndefined();
   });
@@ -1352,7 +1352,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBeUndefined();
   });
@@ -1383,7 +1383,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBeUndefined();
   });
@@ -1414,7 +1414,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlApiKey(cfg)).toBeUndefined();
   });
@@ -1503,7 +1503,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         query: "openclaw malformed search",
       }),
     ).rejects.toThrow("Firecrawl Search API error: malformed JSON response");
@@ -1535,7 +1535,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         query: `openclaw malformed ${kind} search`,
         access: "keyless",
       }),
@@ -1588,7 +1588,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         url: "https://example.com/firecrawl-malformed-scrape",
         extractMode: "markdown",
       }),
@@ -1621,7 +1621,7 @@ describe("firecrawl tools", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         url: `https://example.com/firecrawl-malformed-${kind}-scrape`,
         extractMode: "markdown",
         access: "keyless",
@@ -1644,7 +1644,7 @@ describe("firecrawl tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveFirecrawlOnlyMainContent(cfg)).toBe(false);
     expect(resolveFirecrawlMaxAgeMs(cfg)).toBe(1234);

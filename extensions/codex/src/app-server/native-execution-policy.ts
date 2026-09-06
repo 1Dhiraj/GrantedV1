@@ -6,7 +6,7 @@ import {
  * Resolves whether Codex app-server native execution can own shell/file work,
  * or whether OpenClaw must keep exec/process on a configured node host.
  */
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAgentId, parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import { resolveSandboxRuntimeStatus } from "openclaw/plugin-sdk/sandbox";
 import { getSessionEntry, type SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
@@ -41,7 +41,7 @@ export function resolveCodexNodeExecToolOverrides(
 
 /** Resolves node/gateway/sandbox execution ownership from overrides, session, agent, and config. */
 export function resolveCodexNativeExecutionPolicy(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionEntry?: SessionEntry;
   sessionKey?: string;
   sessionId?: string;
@@ -119,7 +119,7 @@ export function formatCodexNativeNodeExecBlock(params: {
 }
 
 function resolvePolicyAgentId(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   sessionKey?: string;
   agentId?: string;
 }): string | undefined {
@@ -135,7 +135,7 @@ function resolvePolicyAgentId(params: {
 }
 
 function resolvePolicyAgentExec(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
 }): ExecHostOverride | undefined {
   return resolveAgentConfig(params.config, params.agentId)?.tools?.exec;
@@ -154,7 +154,7 @@ function parseAgentIdFromSessionKey(sessionKey?: string): string | undefined {
 }
 
 function shouldReadRuntimeSessionEntry(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   sessionKey?: string;
   agentId?: string;
 }): boolean {
@@ -173,7 +173,7 @@ function shouldReadRuntimeSessionEntry(params: {
 }
 
 function isDefaultAgentSessionKeyForAgent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
 }): boolean {
   return normalizeAgentId(params.agentId) === tryResolveDefaultAgentId(params.config);

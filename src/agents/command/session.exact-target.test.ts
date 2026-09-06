@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { expect, it, vi } from "vitest";
 import { resolveInternalSessionEffectsIdentity } from "../../config/sessions/internal-session-key.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   isOpenClawAgentDatabaseOpen,
   resolveIncognitoOpenClawAgentSqlitePath,
@@ -20,7 +20,7 @@ it.each(["work", "dashboard:incognito-work"])(
       const cfg = {
         agents: { defaults: {} },
         session: { store: storePath, reset: { mode: "idle", idleMinutes: 60 } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const entry = {
         sessionId: "selected-session",
         updatedAt: Date.now(),

@@ -13,7 +13,7 @@ import type { Message } from "../../llm/types.js";
 import { closeOpenClawStateDatabaseByPath } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import {
@@ -37,7 +37,7 @@ const modelId = process.env.GRANTED_LIVE_SKILL_EXPERIENCE_MODEL ?? "gpt-5.6-luna
 const { positiveMessages, negativeMessages, interruptedMessages } =
   createExperienceReviewMessages(modelId);
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let workspaceDir = "";
 const reviewDiagnostics = new Map<string, unknown>();
 const unsubscribeDiagnostics = LIVE

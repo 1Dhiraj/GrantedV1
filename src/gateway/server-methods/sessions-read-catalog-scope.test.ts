@@ -8,7 +8,7 @@ import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model
 import * as preparedRuntime from "../../agents/prepared-model-runtime.js";
 import type { PreparedModelRuntimeSnapshot } from "../../agents/prepared-model-runtime.types.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetAgentEventsForTest } from "../../infra/agent-events.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { resolveProviderPolicySurface } from "../../plugins/provider-public-artifacts.js";
@@ -42,7 +42,7 @@ function identifiedClient(profileId: string): GatewayClient {
   };
 }
 
-function requestContext(config: OpenClawConfig): GatewayRequestContext {
+function requestContext(config: GrantedConfig): GatewayRequestContext {
   return {
     chatAbortControllers: new Map(),
     getRuntimeConfig: () => config,
@@ -75,8 +75,8 @@ async function listSessions(params: {
   };
 }
 
-async function seedSessions(): Promise<OpenClawConfig> {
-  const config: OpenClawConfig = {
+async function seedSessions(): Promise<GrantedConfig> {
+  const config: GrantedConfig = {
     agents: { list: [{ id: "main", default: true }, { id: "work" }] },
   };
   await upsertSessionEntryCore(
@@ -116,7 +116,7 @@ function thinkingRegistry(
 }
 
 function preparedOwner(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   entries: ModelCatalogEntry[];
   pluginRegistry: PluginRegistry;
@@ -148,7 +148,7 @@ function preparedOwner(params: {
 }
 
 function publishedCatalogContext(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   owners: ReadonlyMap<string, PreparedModelRuntimeSnapshot>,
 ): GatewayRequestContext {
   vi.spyOn(preparedRuntime, "getPreparedModelRuntimeSnapshot").mockImplementation((input) =>

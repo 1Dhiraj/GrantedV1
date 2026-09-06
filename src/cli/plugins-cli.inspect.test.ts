@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { recordInstalledPluginIndexInstallOwner } from "../plugins/installed-plugin-index-install-owner.js";
 import {
@@ -341,7 +341,7 @@ describe("plugins cli inspect", () => {
       entries: { main: {}, venus: {} },
     },
   ])("explains policy-hidden Skill Workshop for $label", async ({ agentIds, entries }) => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { profile: "messaging" },
       ...(entries ? { agents: { ownership: "explicit" as const, entries } } : {}),
     };

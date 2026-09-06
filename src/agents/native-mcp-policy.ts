@@ -1,5 +1,5 @@
 /** Projects the canonical conversation tool policy into raw native MCP identities. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { BundleMcpConfig } from "../plugins/bundle-mcp.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import { buildBundleMcpToolsFromCatalog } from "./agent-bundle-mcp-materialize.js";
@@ -47,7 +47,7 @@ function buildPolicyProjectionTools(catalog: McpToolCatalog) {
 
 export async function prepareNativeMcpPolicy(params: {
   runtime: SessionMcpRuntime;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   capabilityProfile: ResolvedConversationCapabilityProfile;
   runtimeToolsAllow?: string[];

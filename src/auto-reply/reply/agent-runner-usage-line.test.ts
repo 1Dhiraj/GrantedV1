@@ -1,7 +1,7 @@
 // Tests usage-line formatting for agent runner completion summaries.
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { getReplyPayloadMetadata, setReplyPayloadMetadata } from "../reply-payload.js";
 import { appendUsageLine, resolveResponseUsageLine } from "./agent-runner-usage-line.js";
 
@@ -110,7 +110,7 @@ describe("appendUsageLine", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       agentDir: "/tmp/openclaw-main-agent",
       usage,
       provider: "fixture",

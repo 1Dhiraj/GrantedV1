@@ -33,7 +33,7 @@ import type {
   SessionTranscriptDeliveryMirror,
   SessionTranscriptUpdateMode,
 } from "../config/sessions/transcript.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { extractAssistantPhaseText } from "../shared/chat-message-content.js";
 import type { AgentMessage } from "./agent-core.js";
@@ -152,7 +152,7 @@ export type SessionTranscriptStrictMessageAppendResult<TMessage> =
   | { kind: "rejected"; reason: "session-rebound" };
 
 export type SessionTranscriptAssistantMirrorAppendParams = SessionTranscriptReadParams & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   deliveryMirror?: SessionTranscriptDeliveryMirror;
   expectedLifecycleRevision?: string;
   expectedWriterRunId?: string;
@@ -492,7 +492,7 @@ function createAssistantMirrorMessage(params: {
 function findLatestEquivalentAssistantMessageId(
   events: readonly SessionTranscriptEvent[],
   message: SessionTranscriptAssistantMessage,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): string | undefined {
   const expectedText = extractAssistantMirrorComparableText(message, config);
   if (!expectedText) {
@@ -522,7 +522,7 @@ function findLatestEquivalentAssistantMessageId(
 
 function extractAssistantMirrorComparableText(
   message: SessionTranscriptAssistantMessage,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): string | undefined {
   const redacted = redactTranscriptMessage(
     message as Parameters<typeof redactTranscriptMessage>[0],

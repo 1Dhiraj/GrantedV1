@@ -30,7 +30,7 @@ import {
   replaceTranscriptEvents,
 } from "../src/config/sessions/session-accessor.js";
 import { writeSessionEntry } from "../src/config/sessions/session-accessor.sqlite-entry-store.js";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { sessionRewindHandlers } from "../src/gateway/server-methods/sessions-rewind.js";
 import type { GatewayRequestContext } from "../src/gateway/server-methods/types.js";
 import { createWorkerSessionPlacementStore } from "../src/gateway/worker-environments/placement-store.js";
@@ -50,7 +50,7 @@ import { setPluginRuntimeLoadContext } from "../src/plugins/runtime/load-context
 import { resolvePluginRuntimeLoadContext } from "../src/plugins/runtime/load-context.resolve.js";
 import { createRuntimeAgent } from "../src/plugins/runtime/runtime-agent.js";
 import { createPluginRecord } from "../src/plugins/status.test-helpers.js";
-import type { OpenClawPluginMcpServerConnectionResolver } from "../src/plugins/types.js";
+import type { GrantedPluginMcpServerConnectionResolver } from "../src/plugins/types.js";
 import {
   listSessionStateEventsSince,
   registerSessionStateWatch,
@@ -114,11 +114,11 @@ async function withFixture(
     codexPlugins?: Parameters<typeof createCanonicalForkFixtureForTest>[0]["codexPlugins"];
     desktopGenerationFingerprint?: string;
     senderIsOwner?: boolean;
-    mcpResolver?: OpenClawPluginMcpServerConnectionResolver;
+    mcpResolver?: GrantedPluginMcpServerConnectionResolver;
   } = {},
 ) {
   await withOpenClawTestState({ label: "canonical-descendant" }, async (state) => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: { model: { primary: "openai/gpt-5.5" } },

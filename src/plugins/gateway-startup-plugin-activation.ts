@@ -1,6 +1,6 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { collectConfiguredAgentHarnessRuntimes } from "../agents/harness-runtimes.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withBundledPluginEnablementCompat } from "./bundled-compat.js";
 import { isBundledProviderCompatPlugin } from "./bundled-provider-compat.js";
 import { hasExplicitChannelConfig } from "./channel-presence-policy.js";
@@ -29,9 +29,9 @@ import { manifestOwnsWorkerProvider } from "./worker-provider-manifest.js";
 
 type PluginStartupActivationParams = {
   plugin: InstalledPluginIndexRecord;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginsConfig: NormalizedPluginsConfig;
-  activationSource: { plugins: NormalizedPluginsConfig; rootConfig?: OpenClawConfig };
+  activationSource: { plugins: NormalizedPluginsConfig; rootConfig?: GrantedConfig };
   platform?: NodeJS.Platform;
   env?: NodeJS.ProcessEnv;
 };
@@ -65,13 +65,13 @@ type StartupContractKey =
 export function addRequiredAgentHarnessPluginIds(
   target: Set<string>,
   params: {
-    activationSourceConfig: OpenClawConfig;
-    config: OpenClawConfig;
+    activationSourceConfig: GrantedConfig;
+    config: GrantedConfig;
     index: InstalledPluginIndex;
     pluginsConfig: ReturnType<typeof normalizePluginsConfigForInstalledIndex>;
     activationSource: {
       plugins: ReturnType<typeof normalizePluginsConfigForInstalledIndex>;
-      rootConfig?: OpenClawConfig;
+      rootConfig?: GrantedConfig;
     };
     env: NodeJS.ProcessEnv;
     platform?: NodeJS.Platform;

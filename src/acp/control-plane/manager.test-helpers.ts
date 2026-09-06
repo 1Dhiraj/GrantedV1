@@ -3,12 +3,12 @@ import type { AcpRuntime, AcpRuntimeCapabilities } from "@openclaw/acp-core/runt
 import { afterEach, beforeEach, expect, vi } from "vitest";
 import { resetAcpManagerTaskStateForTests } from "../../../test/helpers/acp-manager-task-state.js";
 import { createTestAdmittedRunContext } from "../../agents/admitted-run-context.test-support.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { AcpSessionRuntimeOptions, SessionAcpMeta } from "../../config/sessions/types.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
 import { resetAcpActiveTurnsForTests } from "./active-turns.test-support.js";
 
-export type { AcpRuntime, OpenClawConfig, SessionAcpMeta };
+export type { AcpRuntime, GrantedConfig, SessionAcpMeta };
 
 const hoistedMocks = vi.hoisted(() => {
   const listAcpSessionEntriesMock = vi.fn();

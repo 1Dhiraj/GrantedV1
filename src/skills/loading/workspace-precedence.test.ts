@@ -8,7 +8,7 @@ import { withEnv } from "../../test-utils/env.js";
 import { createFixtureSuite } from "../../test-utils/fixture-suite.js";
 import { bumpSkillsSnapshotVersion } from "../runtime/refresh-state.js";
 import { writeSkill } from "../test-support/e2e-test-helpers.js";
-import type { OpenClawSkillMetadata, SkillEntry } from "../types.js";
+import type { GrantedSkillMetadata, SkillEntry } from "../types.js";
 import { createSyntheticSourceInfo } from "./skill-contract.js";
 import { loadMergedWorkspaceSkills } from "./workspace-skill-loader.js";
 import { buildSkillSnapshot } from "./workspace-skill-prompt.js";
@@ -65,7 +65,7 @@ function captureJsonWarningLogger() {
 function createSkillEntry(params: {
   name: string;
   description?: string;
-  metadata?: OpenClawSkillMetadata;
+  metadata?: GrantedSkillMetadata;
 }): SkillEntry {
   const filePath = `/skills/${params.name}/SKILL.md`;
   return {

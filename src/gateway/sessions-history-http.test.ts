@@ -17,7 +17,7 @@ import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-syn
 import { emitSessionTranscriptUpdate } from "../sessions/transcript-events.js";
 import { persistUserTurnTranscript } from "../sessions/user-turn-transcript.test-support.js";
 import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-openclaw-assistant.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
 import { ensureProfileForEmail, setAvatar, setDisplayName } from "../state/user-profiles.js";
 import { resolveCurrentUserProfileDisplay } from "./current-user-profile-display.js";
@@ -42,7 +42,7 @@ const requireRecord = createRequireRecord("object", "expected-label");
 
 const AGENT_ID = "main";
 type SessionHistoryTestDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "session_nodes" | "session_windows"
 >;
 
@@ -1086,7 +1086,7 @@ describe("session history HTTP endpoints", () => {
       }
       runOpenClawAgentWriteTransaction(
         (database) => {
-          const db = getNodeSqliteKysely<Pick<OpenClawAgentKyselyDatabase, "transcript_events">>(
+          const db = getNodeSqliteKysely<Pick<GrantedAgentKyselyDatabase, "transcript_events">>(
             database.db,
           );
           executeSqliteQuerySync(

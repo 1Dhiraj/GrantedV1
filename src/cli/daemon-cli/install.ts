@@ -13,7 +13,7 @@ import { readConfigFileSnapshotForWrite } from "../../config/io.js";
 import { replaceConfigFile } from "../../config/mutate.js";
 import { resolveGatewayPort } from "../../config/paths.js";
 import type { GatewayBindMode } from "../../config/types.gateway.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import { GRANTED_WRAPPER_ENV_KEY, resolveOpenClawWrapperPath } from "../../daemon/program-args.js";
 import { readEmbeddedGatewayToken } from "../../daemon/service-audit.js";
 import { mergeGatewayServiceEnv } from "../../daemon/service-env-merge.js";
@@ -50,14 +50,14 @@ import {
 } from "./shared.js";
 import type { DaemonInstallOptions } from "./types.js";
 
-function resolveGatewayInstallBindMode(cfg: OpenClawConfig): GatewayBindMode {
+function resolveGatewayInstallBindMode(cfg: GrantedConfig): GatewayBindMode {
   return cfg.gateway?.bind ?? defaultGatewayBindMode(cfg.gateway?.tailscale?.mode ?? "off");
 }
 
 function formatNoAuthNonLoopbackInstallBlock(params: {
   bind: GatewayBindMode;
   bindHost: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): string | undefined {
   const auth = resolveGatewayAuth({
@@ -400,7 +400,7 @@ async function getGatewayServiceAutoRefreshMessage(params: {
   wrapperPath?: string;
   existingEnvironment?: Record<string, string | undefined>;
   existingEnvironmentValueSources?: GatewayServiceCommandConfig["environmentValueSources"];
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<string | undefined> {
   try {
     const currentCommand = resolveManagedGatewayServiceCommand(params.currentCommand);

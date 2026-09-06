@@ -12,7 +12,7 @@ import {
 } from "../commands/onboard-inference.js";
 import { createMergePatch } from "../config/merge-patch.js";
 import { normalizeAgentModelRefForConfig } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { enablePluginInConfig, enablePluginWithCapabilityConsent } from "../plugins/enable.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";
@@ -54,9 +54,9 @@ import {
 import { runProviderManualSecretMethod } from "./setup-inference-plan-provider-auth.js";
 
 function buildPreparedProviderTestPlan(params: {
-  cfg: OpenClawConfig;
-  sourceCfg: OpenClawConfig;
-  preparedConfig: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceCfg: GrantedConfig;
+  preparedConfig: GrantedConfig;
   profiles: ProviderAuthResult["profiles"];
   selectedProfileId?: string;
   modelRef: string;
@@ -150,8 +150,8 @@ export async function buildTestPlan(params: {
   modelRef?: string;
   authChoice?: string;
   apiKey?: string;
-  cfg: OpenClawConfig;
-  sourceCfg: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceCfg: GrantedConfig;
   workspaceDir: string;
   pluginWorkspaceDir: string;
   agentDir: string;
@@ -519,7 +519,7 @@ export async function buildTestPlan(params: {
         };
       }
       let result: ProviderAuthResult;
-      let preparedConfig: OpenClawConfig;
+      let preparedConfig: GrantedConfig;
       try {
         if (interactive) {
           if (!params.prompter) {

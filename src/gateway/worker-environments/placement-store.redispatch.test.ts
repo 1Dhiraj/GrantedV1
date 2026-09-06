@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type { WorkerSessionPlacementIdentity } from "./placement-record.js";
 import {
@@ -21,7 +21,7 @@ const SESSION: WorkerSessionPlacementIdentity = {
 
 describe("failed worker placement redispatch", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerSessionPlacementStore;
 
   beforeEach(async () => {

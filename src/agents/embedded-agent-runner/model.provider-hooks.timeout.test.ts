@@ -2,11 +2,11 @@ import { createServer, type Server } from "node:http";
 import { withFirstStreamEventTimeout } from "@openclaw/ai/internal/runtime";
 import { beforeEach, describe, expect, it } from "vitest";
 import { withTestTimeout } from "../../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { StreamFn } from "../runtime/index.js";
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
@@ -29,7 +29,7 @@ const SHORT_CONTROL_TIMEOUT_MS = 20;
 
 type RebuildingHookStage = "model" | "transport";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "provider-timeout" });
@@ -75,7 +75,7 @@ function createRebuildingRuntimeHooks(
   };
 }
 
-function createProviderConfig(baseUrl: string, timeoutSeconds?: number): OpenClawConfig {
+function createProviderConfig(baseUrl: string, timeoutSeconds?: number): GrantedConfig {
   return {
     models: {
       providers: {

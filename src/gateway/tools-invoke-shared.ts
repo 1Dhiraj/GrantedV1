@@ -17,7 +17,7 @@ import {
   normalizeConversationReadInvocationOrigin,
   type ConversationReadInvocationOrigin,
 } from "../channels/plugins/conversation-read-origin.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { logWarn } from "../logger.js";
 import { isTestDefaultMemorySlotDisabled } from "../plugins/config-state.js";
@@ -77,7 +77,7 @@ type ToolsInvokeOutcome =
       };
     };
 
-function resolveSessionTarget(params: { cfg: OpenClawConfig; input: ToolsInvokeInput }) {
+function resolveSessionTarget(params: { cfg: GrantedConfig; input: ToolsInvokeInput }) {
   const rawSessionKey = normalizeOptionalString(params.input.sessionKey) ?? "main";
   const resolved = resolveRequestedSessionAgentId(
     params.cfg,
@@ -98,7 +98,7 @@ function resolveSessionTarget(params: { cfg: OpenClawConfig; input: ToolsInvokeI
   };
 }
 
-function resolveMemoryToolDisableReasons(cfg: OpenClawConfig): string[] {
+function resolveMemoryToolDisableReasons(cfg: GrantedConfig): string[] {
   if (!process.env.VITEST) {
     return [];
   }
@@ -170,7 +170,7 @@ function resolveToolSource(tool: AnyAgentTool): "core" | "plugin" | "channel" {
 }
 
 type InvokeGatewayToolParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   input: ToolsInvokeInput;
   messageChannel?: string;
   accountId?: string;

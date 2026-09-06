@@ -5,7 +5,7 @@ import type {
 import type { ChatType } from "../channels/chat-type.js";
 import type { InboundEventKind } from "../channels/inbound-event/kind.js";
 import type { ConversationReadInvocationOrigin } from "../channels/plugins/conversation-read-origin.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ExecMode } from "../infra/exec-approvals.js";
 import type { SkillWorkshopRunOptions } from "../skills/workshop/types.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
@@ -17,7 +17,7 @@ import type { SpawnedToolContext } from "./spawned-context.js";
 import type { ToolFsPolicy } from "./tool-fs-policy.js";
 import type { CronToolOptions } from "./tools/cron-tool.types.js";
 
-export type OpenClawToolsOptions = {
+export type GrantedToolsOptions = {
   sandboxBrowserBridgeUrl?: string;
   allowHostBrowserControl?: boolean;
   agentSessionKey?: string;
@@ -57,7 +57,7 @@ export type OpenClawToolsOptions = {
   sandboxWorkspaceMediaReadAllowed?: boolean;
   fsPolicy?: ToolFsPolicy;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   /** Gateway-owned session policy follows runtime updates; explicit overrides stay pinned. */
   sessionConfigSource?: "runtime" | "pinned";
   webFetchHostnameAllowlistRef?: { value?: string[] };

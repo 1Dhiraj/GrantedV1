@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import type { TaskRecord } from "../tasks/task-registry.types.js";
 import { hasOperatorBoundary } from "./operator-role-policy.js";
@@ -28,7 +28,7 @@ export function resolveTaskRequesterSessionTarget(
 
 export function canAccessTaskRequesterSession(params: {
   access?: "read" | "write";
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   task: Pick<TaskRecord, "ownerKey" | "requesterAgentId" | "requesterSessionKey">;
 }): boolean {

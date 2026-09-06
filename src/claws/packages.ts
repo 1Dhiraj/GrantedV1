@@ -19,7 +19,7 @@ import {
   maintainClawPackageLifecycleLease,
   type MaintainedClawPackageLifecycleLease,
 } from "../state/claw-package-lifecycle-lease.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { findResumableIntroducedPluginRequirement } from "./package-resume.js";
 import { resolveClawPluginSetupRequirements } from "./package-setup-requirements.js";
 import {
@@ -277,7 +277,7 @@ export async function preflightClawPackage(
   };
 }
 
-type InstallClawPackagesOptions = OpenClawStateDatabaseOptions & {
+type InstallClawPackagesOptions = GrantedStateDatabaseOptions & {
   deps?: PackageInstallerDeps;
   runtime?: RuntimeEnv;
   nowMs?: number;

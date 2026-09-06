@@ -3,7 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coer
 import {
   resolveChannelMediaMaxBytes,
   type MSTeamsConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
   type PluginRuntime,
 } from "../runtime-api.js";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
@@ -160,7 +160,7 @@ async function findConversationReference(recipient: {
 }
 
 export async function resolveMSTeamsSendContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   to: string;
 }): Promise<MSTeamsProactiveContext> {
   const msteamsCfg = params.cfg.channels?.msteams;

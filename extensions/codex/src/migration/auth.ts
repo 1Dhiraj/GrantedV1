@@ -20,7 +20,7 @@ import {
   updateAuthProfileStoreWithLock,
   type AuthProfileStore,
   type OAuthCredential,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ProviderAuthResult,
 } from "openclaw/plugin-sdk/provider-auth";
 import {
@@ -112,7 +112,7 @@ async function buildCodexOAuthCredential(
         models: Object.fromEntries(modelRefs.map((modelRef) => [modelRef, {}])),
       },
     },
-  } satisfies Partial<OpenClawConfig>;
+  } satisfies Partial<GrantedConfig>;
   const result = buildOauthProviderAuthResult({
     providerId: OPENAI_PROVIDER_ID,
     defaultModel: OPENAI_CODEX_DEFAULT_MODEL,
@@ -210,15 +210,15 @@ function itemProfileTarget(
   return { profileId: matched ?? credential.profileId, matchedExisting: Boolean(matched) };
 }
 
-function replaceConfigDraft(draft: OpenClawConfig, next: OpenClawConfig): void {
-  for (const key of Object.keys(draft) as Array<keyof OpenClawConfig>) {
+function replaceConfigDraft(draft: GrantedConfig, next: GrantedConfig): void {
+  for (const key of Object.keys(draft) as Array<keyof GrantedConfig>) {
     delete draft[key];
   }
   Object.assign(draft, next);
 }
 
 function existingAuthProfileConfigIsCompatible(
-  existing: NonNullable<NonNullable<OpenClawConfig["auth"]>["profiles"]>[string],
+  existing: NonNullable<NonNullable<GrantedConfig["auth"]>["profiles"]>[string],
   profile: CodexAuthProfileConfig,
 ): boolean {
   if (existing.provider !== profile.provider || existing.mode !== profile.mode) {
@@ -231,7 +231,7 @@ function existingAuthProfileConfigIsCompatible(
 }
 
 function hasAuthProfileConfigConflict(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   profile: CodexAuthProfileConfig,
   overwrite: boolean,
 ): boolean {
@@ -249,14 +249,14 @@ function hasCurrentAuthProfileConfigConflict(
   let config = ctx.config;
   try {
     config =
-      (resolveMigrationConfigRuntime(ctx)?.current?.() as OpenClawConfig | undefined) ?? config;
+      (resolveMigrationConfigRuntime(ctx)?.current?.() as GrantedConfig | undefined) ?? config;
   } catch {
     // Fall back to the planning snapshot; direct config writes recheck inside mutate.
   }
   return hasAuthProfileConfigConflict(config, profile, Boolean(ctx.overwrite));
 }
 
-function applyDefaultModelIfMissing(cfg: OpenClawConfig): OpenClawConfig {
+function applyDefaultModelIfMissing(cfg: GrantedConfig): GrantedConfig {
   const currentModel = cfg.agents?.defaults?.model;
   const primary =
     typeof currentModel === "string"
@@ -283,11 +283,11 @@ function applyDefaultModelIfMissing(cfg: OpenClawConfig): OpenClawConfig {
 }
 
 function applyOAuthConfigToConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   credential: Extract<CodexAuthCredential, { kind: "oauth" }>,
   profileId: string,
-): OpenClawConfig {
-  let next = mergeMigrationConfigValue(cfg, credential.result.configPatch) as OpenClawConfig;
+): GrantedConfig {
+  let next = mergeMigrationConfigValue(cfg, credential.result.configPatch) as GrantedConfig;
   const profile = credential.result.profiles[0];
   if (profile) {
     next = applyAuthProfileConfig(next, {
@@ -307,10 +307,10 @@ function applyOAuthConfigToConfig(
 }
 
 function applyApiKeyConfigToConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   credential: Extract<CodexAuthCredential, { kind: "api_key" }>,
   profileId: string,
-): OpenClawConfig {
+): GrantedConfig {
   return applyAuthProfileConfig(cfg, {
     profileId,
     provider: credential.provider,
@@ -352,7 +352,7 @@ function authProfileConfigForCredential(
 async function applyCodexAuthProfileConfig(
   ctx: MigrationProviderContext,
   profile: CodexAuthProfileConfig,
-  applyConfig: (config: OpenClawConfig) => OpenClawConfig,
+  applyConfig: (config: GrantedConfig) => GrantedConfig,
 ): Promise<CodexAuthConfigApplyResult> {
   const configApi = resolveMigrationConfigRuntime(ctx);
   if (!configApi?.current || !configApi.mutateConfigFile) {
@@ -392,10 +392,10 @@ async function applyCodexAuthConfig(
 }
 
 function applyCredentialConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   credential: CodexAuthCredential,
   profileId: string,
-): OpenClawConfig {
+): GrantedConfig {
   return credential.kind === "oauth"
     ? applyOAuthConfigToConfig(config, credential, profileId)
     : applyApiKeyConfigToConfig(config, credential, profileId);

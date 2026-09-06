@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 type ResolveAcpSessionAvailability =
@@ -189,13 +189,13 @@ describe("Pi session catalog", () => {
       pluginConfig: {},
       runtime: { nodes: { list: vi.fn().mockResolvedValue({ nodes: [] }) } },
       registerSessionCatalog: (
-        value: Parameters<OpenClawPluginApi["registerSessionCatalog"]>[0],
+        value: Parameters<GrantedPluginApi["registerSessionCatalog"]>[0],
       ) => {
         provider = bindTestCatalogOwner(value);
       },
       registerNodeHostCommand: vi.fn(),
       registerNodeInvokePolicy: vi.fn(),
-    } as unknown as OpenClawPluginApi);
+    } as unknown as GrantedPluginApi);
     await expect(
       provider!.read({
         allowProcessHomeFallback: false,
@@ -691,20 +691,20 @@ describe("Pi session catalog", () => {
     const binDirectory = await installFakePi();
     const executable = path.join(binDirectory, process.platform === "win32" ? "pi.cmd" : "pi");
     let provider: TestSessionCatalogProvider | undefined;
-    const commands: Parameters<OpenClawPluginApi["registerNodeHostCommand"]>[0][] = [];
+    const commands: Parameters<GrantedPluginApi["registerNodeHostCommand"]>[0][] = [];
     registerPiSessionCatalog({
       pluginConfig: {},
       runtime: { nodes: { list: vi.fn().mockResolvedValue({ nodes: [] }) } },
       registerSessionCatalog: (
-        value: Parameters<OpenClawPluginApi["registerSessionCatalog"]>[0],
+        value: Parameters<GrantedPluginApi["registerSessionCatalog"]>[0],
       ) => {
         provider = bindTestCatalogOwner(value);
       },
       registerNodeHostCommand: (
-        command: Parameters<OpenClawPluginApi["registerNodeHostCommand"]>[0],
+        command: Parameters<GrantedPluginApi["registerNodeHostCommand"]>[0],
       ) => commands.push(command),
       registerNodeInvokePolicy: vi.fn(),
-    } as unknown as OpenClawPluginApi);
+    } as unknown as GrantedPluginApi);
 
     await expect(provider!.list({ hostIds: ["gateway"] })).resolves.toEqual([
       expect.objectContaining({
@@ -834,13 +834,13 @@ describe("Pi session catalog", () => {
         },
       },
       registerSessionCatalog: (
-        value: Parameters<OpenClawPluginApi["registerSessionCatalog"]>[0],
+        value: Parameters<GrantedPluginApi["registerSessionCatalog"]>[0],
       ) => {
         provider = bindTestCatalogOwner(value);
       },
       registerNodeHostCommand: vi.fn(),
       registerNodeInvokePolicy: vi.fn(),
-    } as unknown as OpenClawPluginApi);
+    } as unknown as GrantedPluginApi);
 
     await expect(
       provider!.list({
@@ -892,7 +892,7 @@ describe("Pi session catalog", () => {
     const api = {
       pluginConfig: { piSessionCatalog: { enabled: false } },
       registerSessionCatalog,
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     registerPiSessionCatalog(api);
     expect(registerSessionCatalog).not.toHaveBeenCalled();
   });

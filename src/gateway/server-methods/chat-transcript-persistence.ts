@@ -16,7 +16,7 @@ import {
 import type { SessionLifecycleRevisionExpectation } from "../../config/sessions/session-transcript-turn-lifecycle.types.js";
 import { applyAssistantDeliveryDirectives } from "../../config/sessions/transcript-assistant-delivery.js";
 import { resolveMirroredTranscriptText } from "../../config/sessions/transcript-mirror.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeMediaReferenceForComparison } from "../../media/media-reference-comparison.js";
 import { splitMediaFromOutput } from "../../media/parse.js";
 import { ASSISTANT_DISPLAY_CONTENT_FIELD } from "../../shared/assistant-display-content.js";
@@ -348,7 +348,7 @@ export async function appendAssistantTranscriptMessage(params: {
     runId: string;
   };
   ttsSupplement?: GatewayInjectedTtsSupplementMarker;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): Promise<TranscriptAppendResult> {
   const scope = assistantTranscriptScope(params);
   if (!scope) {

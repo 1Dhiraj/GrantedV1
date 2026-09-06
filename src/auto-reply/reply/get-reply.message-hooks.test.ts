@@ -2,7 +2,7 @@
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import type { ApplyMediaUnderstandingResult } from "../../media-understanding/apply.js";
@@ -206,7 +206,7 @@ async function resetMessageHookTestState() {
 
 async function runLocalPathSelfServeCase(params: {
   ctx: Partial<MsgContext>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   opts?: Parameters<typeof getReplyFromConfig>[1];
   provider?: string;
   model?: string;

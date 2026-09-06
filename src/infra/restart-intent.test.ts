@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -20,7 +20,7 @@ import {
 } from "./restart-intent.js";
 
 const tempDirs: string[] = [];
-type GatewayRestartIntentDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_intent">;
+type GatewayRestartIntentDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_intent">;
 
 function createIntentEnv(): NodeJS.ProcessEnv {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-restart-intent-"));

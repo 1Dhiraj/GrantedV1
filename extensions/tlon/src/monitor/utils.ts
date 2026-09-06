@@ -11,7 +11,7 @@ import {
   type ChannelIngressContextBinding,
   type StableChannelIngressIdentityParams,
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Tlon helper module supports utils behavior.
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import { asNullableRecord, readStringField } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -205,7 +205,7 @@ export async function resolveTlonCommandAuthorizationWithIngress(params: {
 }
 
 export function resolveTlonGroupMentionDecision(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   wasMentioned: boolean;
   botParticipatedInThread: boolean;
@@ -453,7 +453,7 @@ export function isSummarizationRequest(messageText: string): boolean {
  */
 export function formatSummarizationHistoryText(
   history: ReadonlyArray<{ author: string; content: string; timestamp: number }>,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): string {
   const envelopeOptions = resolveEnvelopeFormatOptions(cfg);
   return history

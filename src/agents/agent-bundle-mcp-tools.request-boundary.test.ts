@@ -1,6 +1,6 @@
 /** Tests configured MCP tools survive policy/splitting to the outbound request boundary. */
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createBundleMcpToolRuntime,
   materializeBundleMcpToolsForRun,
@@ -78,7 +78,7 @@ function makeConfiguredRuntime(
 }
 
 async function buildConfiguredMcpToolNamesAtRequestBoundary(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<string[]> {
   const runtime = await createBundleMcpToolRuntime({
     workspaceDir: "/workspace",
@@ -174,7 +174,7 @@ describe("configured MCP tools reach the request boundary (#76063)", () => {
         toolNames: ["zeta_tool", "alpha_tool", "mu_tool"],
       }),
     });
-    const cfg: OpenClawConfig = { tools: { profile: "coding" } };
+    const cfg: GrantedConfig = { tools: { profile: "coding" } };
     const filtered = applyFinalEffectiveToolPolicy({
       bundledTools: runtime.tools,
       config: cfg,

@@ -21,7 +21,7 @@ import {
 import { renderLearnMoreLink } from "../../components/settings-ui.ts";
 import { renderSettingsWorkspace } from "../../components/settings-workspace.ts";
 import { isMissingOperatorReadScopeError } from "../../lib/gateway-errors.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PollController } from "../../lit/poll-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { isUnknownSystemInfoMethodError, supportsSystemInfo } from "./system-info.ts";
@@ -32,7 +32,7 @@ const CONNECTION_DOCS_URL = "https://docs.openclaw.ai/gateway/remote";
 
 export { supportsSystemInfo } from "./system-info.ts";
 
-export class ConnectionPage extends OpenClawLightDomElement {
+export class ConnectionPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

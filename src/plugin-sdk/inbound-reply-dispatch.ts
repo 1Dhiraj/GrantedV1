@@ -12,7 +12,7 @@ import {
   throwIfDurableInboundReplyDeliveryFailed,
   type DurableInboundReplyDeliveryOptions,
 } from "../channels/turn/durable-delivery.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   normalizeOutboundReplyPayloadCore,
   type OutboundReplyPayload,
@@ -50,7 +50,7 @@ function withLegacyDispatchCounts(
 }
 
 function buildInboundReplyDispatchBase(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   accountId?: string;
   route: { agentId: string; sessionKey: string };
@@ -82,7 +82,7 @@ function buildInboundReplyDispatchBase(params: {
 
 type BuildInboundReplyDispatchBaseParams = Parameters<typeof buildInboundReplyDispatchBase>[0];
 type RecordInboundSessionAndDispatchReplyParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   accountId?: string;
   agentId: string;

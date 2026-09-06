@@ -10,7 +10,7 @@ import {
 } from "../channels/plugins/index.js";
 import { resolveInstallableChannelPlugin } from "../commands/channel-setup/channel-plugin-resolution.js";
 import { requireValidConfigFileSnapshot } from "../commands/config-validation.js";
-import { getRuntimeConfig, type OpenClawConfig } from "../config/config.js";
+import { getRuntimeConfig, type GrantedConfig } from "../config/config.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
 import { callGateway } from "../gateway/call.js";
 import type { ChannelAccountStartOutcome } from "../gateway/server-channel-runtime.types.js";
@@ -37,7 +37,7 @@ function supportsChannelAuthMode(plugin: ChannelPlugin, mode: ChannelAuthMode): 
   return mode === "login" ? Boolean(plugin.auth?.login) : Boolean(plugin.gateway?.logoutAccount);
 }
 
-function isConfiguredAuthPlugin(plugin: ChannelPlugin, cfg: OpenClawConfig): boolean {
+function isConfiguredAuthPlugin(plugin: ChannelPlugin, cfg: GrantedConfig): boolean {
   const key = plugin.id;
   if (isBlockedObjectKey(key)) {
     return false;
@@ -98,7 +98,7 @@ async function resolveChannelPluginForMode(
   mode: ChannelAuthMode,
   runtime: RuntimeEnv,
 ): Promise<{
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelInput: string;
   channelId: string;
   plugin: ChannelPlugin;
@@ -157,7 +157,7 @@ async function resolveChannelPluginForMode(
 function resolveAccountContext(
   plugin: ChannelPlugin,
   opts: ChannelAuthOptions,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ) {
   const accountId =
     normalizeOptionalString(opts.account) || resolveChannelDefaultAccountId({ plugin, cfg });
@@ -175,7 +175,7 @@ function isChannelMissingFromGatewayRegistry(error: unknown): error is Error {
 }
 
 async function reconcileGatewayRuntimeAfterLocalLogin(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   plugin: ChannelPlugin;
   channelId: string;
   accountId: string;
@@ -237,7 +237,7 @@ async function reconcileGatewayRuntimeAfterLocalLogin(params: {
 }
 
 async function logoutViaGatewayRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
   accountId: string;
   runtime: RuntimeEnv;

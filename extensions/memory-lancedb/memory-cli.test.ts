@@ -1,7 +1,7 @@
 import { tableFromArrays } from "apache-arrow";
 import { Command } from "commander";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "./api.js";
+import type { GrantedPluginApi } from "./api.js";
 import type { Embeddings } from "./embeddings.js";
 import type { MemoryDB } from "./lancedb-store.js";
 import { registerMemoryCli } from "./memory-cli.js";
@@ -31,7 +31,7 @@ function createHarness(params?: {
   const search = vi.fn(async () => []);
   const query = vi.fn(async () => params?.queryRows ?? []);
   registerMemoryCli(
-    { registerCli } as unknown as OpenClawPluginApi,
+    { registerCli } as unknown as GrantedPluginApi,
     { search, query } as unknown as MemoryDB,
     embeddings,
     (rawAgentId) => (typeof rawAgentId === "string" ? rawAgentId : "main"),

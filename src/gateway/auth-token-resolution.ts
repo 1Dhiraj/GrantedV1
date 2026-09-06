@@ -1,6 +1,6 @@
 // Gateway auth token resolution applies explicit/config/SecretRef/env
 // precedence with caller-controlled env fallback behavior.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { trimToUndefined } from "./credentials.js";
 import {
   resolveConfiguredSecretInputWithFallback,
@@ -14,7 +14,7 @@ type GatewayAuthTokenEnvFallback = "never" | "no-secret-ref";
 
 /** Resolves gateway.auth.token with configurable env fallback and SecretRef diagnostics. */
 export async function resolveGatewayAuthToken(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   explicitToken?: string;
   envFallback?: GatewayAuthTokenEnvFallback;

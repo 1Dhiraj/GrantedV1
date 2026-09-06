@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetPluginStateStoreForTests } from "../plugin-state/plugin-state-store.js";
 import type { LocalOnboardingState } from "../state/local-onboarding-state.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
@@ -20,7 +20,7 @@ const localOnboarding = vi.hoisted(() => {
   return {
     states,
     read: vi.fn((configPath: string) => states.get(configPath)),
-    readForConfig: vi.fn((configPath: string, config: OpenClawConfig) => {
+    readForConfig: vi.fn((configPath: string, config: GrantedConfig) => {
       const state = states.get(configPath);
       return state?.securityAcknowledgedAt === config.wizard?.securityAcknowledgedAt
         ? state
@@ -45,9 +45,9 @@ const mockConfig = vi.hoisted(() => {
   const state = {
     path: "/tmp/openclaw.json",
     exists: true,
-    config: { agents: { entries: { main: { default: true } } } } as OpenClawConfig,
+    config: { agents: { entries: { main: { default: true } } } } as GrantedConfig,
   };
-  let bindPluginMetadata = (_config: OpenClawConfig) => {};
+  let bindPluginMetadata = (_config: GrantedConfig) => {};
   const snapshot = () => {
     const config = structuredClone(state.config);
     bindPluginMetadata(config);
@@ -64,7 +64,7 @@ const mockConfig = vi.hoisted(() => {
   };
   const readConfigFileSnapshot = vi.fn(async () => snapshot());
   const withConfigMutationExclusive = vi.fn(
-    async (effect: (config: OpenClawConfig) => Promise<unknown>) =>
+    async (effect: (config: GrantedConfig) => Promise<unknown>) =>
       await effect(snapshot().sourceConfig),
   );
   return {
@@ -83,14 +83,14 @@ const mockConfig = vi.hoisted(() => {
       state.exists = false;
       bindPluginMetadata(state.config);
     },
-    setConfig(config: OpenClawConfig) {
+    setConfig(config: GrantedConfig) {
       state.config = structuredClone(config);
       bindPluginMetadata(state.config);
     },
-    bindPluginMetadata(config: OpenClawConfig) {
+    bindPluginMetadata(config: GrantedConfig) {
       bindPluginMetadata(config);
     },
-    setPluginMetadataBinder(binder: (config: OpenClawConfig) => void) {
+    setPluginMetadataBinder(binder: (config: GrantedConfig) => void) {
       bindPluginMetadata = binder;
     },
     readConfigFileSnapshot,
@@ -216,7 +216,7 @@ describe("system-agent setup transaction", () => {
         defaults: { model: { primary: "openai/gpt-5.5" } },
         list: [{ id: "main", default: true }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mockConfig.bindPluginMetadata(config);
     mockConfig.readConfigFileSnapshot.mockResolvedValue({
       exists: true,

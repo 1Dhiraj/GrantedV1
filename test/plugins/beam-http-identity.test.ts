@@ -2,7 +2,7 @@ import { once } from "node:events";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import beamPlugin from "../../extensions/beam/index.js";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import type { ResolvedGatewayAuth } from "../../src/gateway/auth.js";
 import { createTestGatewayServer } from "../../src/gateway/server-http.test-harness.js";
 import {
@@ -35,7 +35,7 @@ const tokenAuth: ResolvedGatewayAuth = {
   token: "synthetic-beam-operator-token",
 };
 
-function registerBeam(config: OpenClawConfig) {
+function registerBeam(config: GrantedConfig) {
   const builder = createPluginRegistry({
     runtime: createPluginRuntime(),
     logger: log,
@@ -62,7 +62,7 @@ async function withBeamHttpServer(
   auth: ResolvedGatewayAuth,
   run: (origin: string, registration: ReturnType<typeof registerBeam>) => Promise<void>,
 ) {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { entries: { main: { default: true } } },
     gateway: { auth, trustedProxies: ["127.0.0.1", "::1"] },
     plugins: { entries: { beam: { enabled: true } } },

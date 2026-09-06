@@ -4,7 +4,7 @@ import { property } from "lit/decorators.js";
 import { applicationContext, type ApplicationContext } from "../../../app/context.ts";
 import { renderSessionProgressCard } from "../../../components/session-progress-card.ts";
 import { t } from "../../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 import {
   sessionProgressCardsForGateway,
   type SessionProgressCardStore,
@@ -17,7 +17,7 @@ function readSessionKeyProp(widget: BoardWidget | undefined): string | undefined
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
-class OpenClawSessionProgressWidget extends OpenClawLightDomElement {
+class GrantedSessionProgressWidget extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: ApplicationContext;
 
@@ -127,7 +127,7 @@ class OpenClawSessionProgressWidget extends OpenClawLightDomElement {
 }
 
 if (!customElements.get("openclaw-session-progress-widget")) {
-  customElements.define("openclaw-session-progress-widget", OpenClawSessionProgressWidget);
+  customElements.define("openclaw-session-progress-widget", GrantedSessionProgressWidget);
 }
 
 export const renderSessionProgressWidget: PluginBoardWidgetRenderer = ({
@@ -144,6 +144,6 @@ export const renderSessionProgressWidget: PluginBoardWidgetRenderer = ({
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-session-progress-widget": OpenClawSessionProgressWidget;
+    "openclaw-session-progress-widget": GrantedSessionProgressWidget;
   }
 }

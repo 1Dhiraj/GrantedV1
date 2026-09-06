@@ -26,7 +26,7 @@ import {
   setRuntimeAuthProfileStoreSnapshot,
 } from "../agents/auth-profiles/runtime-snapshots.js";
 import { resetPreparedModelRuntimeSnapshotsForTest } from "../agents/prepared-model-runtime.test-support.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   setActiveCredentialDegradedOwner,
   type DegradedSecretOwner,
@@ -59,8 +59,8 @@ function publishSharedGatewayGeneration(
   });
 }
 
-function asConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function asConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
 function createReloadPlan(overrides?: Partial<GatewayReloadPlan>): GatewayReloadPlan {
@@ -82,7 +82,7 @@ function createReloadPlan(overrides?: Partial<GatewayReloadPlan>): GatewayReload
   };
 }
 
-function createSnapshot(config: OpenClawConfig): PreparedSecretsRuntimeSnapshot {
+function createSnapshot(config: GrantedConfig): PreparedSecretsRuntimeSnapshot {
   return {
     sourceConfig: asConfig({}),
     config,
@@ -97,7 +97,7 @@ function createSnapshot(config: OpenClawConfig): PreparedSecretsRuntimeSnapshot 
   };
 }
 
-function createSourceSnapshot(config: OpenClawConfig): PreparedSecretsRuntimeSnapshot {
+function createSourceSnapshot(config: GrantedConfig): PreparedSecretsRuntimeSnapshot {
   return { ...createSnapshot(config), sourceConfig: config };
 }
 
@@ -141,11 +141,11 @@ function gatewayTokenSlackConfig(token: string, signingSecret: string) {
   });
 }
 
-function activateSnapshot(config: OpenClawConfig) {
+function activateSnapshot(config: GrantedConfig) {
   activateSecretsRuntimeSnapshot(createSnapshot(config));
 }
 
-function mockResolvedSecrets(config: OpenClawConfig) {
+function mockResolvedSecrets(config: GrantedConfig) {
   return vi.fn().mockResolvedValue(createSnapshot(config));
 }
 
@@ -545,7 +545,7 @@ describe("gateway aux handlers", () => {
     const activateRuntimeSecrets = Object.assign(
       vi.fn(
         async (
-          config: OpenClawConfig,
+          config: GrantedConfig,
           _activationParams: Parameters<GatewayAuxHandlerParams["activateRuntimeSecrets"]>[1],
         ) => {
           if (activateRuntimeSecrets.mock.calls.length === 1) {

@@ -4,7 +4,7 @@ import type { PreparedModelRuntimeLease } from "../../agents/prepared-model-runt
 import { createAgentRunRestartAbortError } from "../../agents/run-termination.js";
 import { cleanupBrowserSessionsForLifecycleEnd } from "../../browser-lifecycle-cleanup.js";
 import type { CliDeps } from "../../cli/outbound-send-deps.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   assertAgentRunLifecycleGenerationCurrent,
   getAgentEventLifecycleGeneration,
@@ -81,7 +81,7 @@ async function disposeCronRunContext(params: {
 
 /** Runs one isolated cron agent turn, including setup, execution, delivery, and persistence. */
 export async function runCronIsolatedAgentTurn(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deps: CliDeps;
   job: CronStoredJob;
   message: string;

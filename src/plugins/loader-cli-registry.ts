@@ -44,7 +44,7 @@ import { createPluginIdScopeSet } from "./plugin-scope.js";
 import { pluginLoaderCacheState } from "./registry-lifecycle.js";
 import { createPluginRegistry, type PluginRecord, type PluginRegistry } from "./registry.js";
 import { hasKind, kindsEqual } from "./slots.js";
-import type { OpenClawPluginModule } from "./types.js";
+import type { GrantedPluginModule } from "./types.js";
 
 export async function loadOpenClawPluginCliRegistry(
   options: PluginLoadOptions = {},
@@ -246,12 +246,12 @@ export async function loadOpenClawPluginCliRegistry(
     }
     const safeSource = opened.path;
     fs.closeSync(opened.fd);
-    let mod: OpenClawPluginModule | null;
+    let mod: GrantedPluginModule | null;
     try {
       mod = withProfile(
         { pluginId: record.id, source: safeSource },
         "cli-metadata",
-        () => loadPluginModule(safeSource) as OpenClawPluginModule,
+        () => loadPluginModule(safeSource) as GrantedPluginModule,
       );
     } catch (error) {
       recordPluginError({

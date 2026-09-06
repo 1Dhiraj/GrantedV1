@@ -6,7 +6,7 @@ import path from "node:path";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { parseCodeModeScriptSyntax } from "../../../agents/code-mode-script-syntax.js";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import {
   loadCronJobsStoreWithConfigJobs,
   loadCronQuarantinedJobs,
@@ -62,13 +62,13 @@ function makePrompter(confirmResult = true) {
 function createCronConfig(
   storePath: string,
   webhook = "https://example.invalid/cron-finished",
-): OpenClawConfig {
+): GrantedConfig {
   return {
     cron: {
       store: storePath,
       webhook,
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 function createLegacyCronJob(overrides: Record<string, unknown> = {}) {
@@ -698,7 +698,7 @@ describe("maybeRepairLegacyCronStore", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await maybeRepairLegacyCronStore({
       cfg,
@@ -751,7 +751,7 @@ describe("maybeRepairLegacyCronStore", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       maybeRepairLegacyCronStore({ cfg, options: {}, prompter: makePrompter(true) }),
@@ -970,7 +970,7 @@ describe("maybeRepairLegacyCronStore", () => {
             model: { primary: "openai/gpt-5.5", fallbacks: [] },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       options: {},
       prompter,
     });
@@ -1048,7 +1048,7 @@ describe("maybeRepairLegacyCronStore", () => {
             model: { primary: "test:opus", fallbacks: [] },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       options: {},
       prompter: makePrompter(true),
     });
@@ -2376,7 +2376,7 @@ describe("maybeRepairLegacyCronStore", () => {
       }),
     ]);
 
-    const cfg = { cron: { store: storePath } } as unknown as OpenClawConfig;
+    const cfg = { cron: { store: storePath } } as unknown as GrantedConfig;
     await maybeRepairLegacyCronStore({
       cfg,
       options: {},
@@ -2414,7 +2414,7 @@ describe("maybeRepairLegacyCronStore", () => {
       }),
     ]);
 
-    const cfg = { cron: { store: storePath } } as unknown as OpenClawConfig;
+    const cfg = { cron: { store: storePath } } as unknown as GrantedConfig;
     await maybeRepairLegacyCronStore({
       cfg,
       options: {},
@@ -2591,7 +2591,7 @@ describe("maybeRepairLegacyCronStore", () => {
 
     await expect(
       maybeRepairLegacyCronStore({
-        cfg: { cron: { store: storePath } } as unknown as OpenClawConfig,
+        cfg: { cron: { store: storePath } } as unknown as GrantedConfig,
         options: {},
         prompter,
       }),

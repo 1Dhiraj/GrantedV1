@@ -7,7 +7,7 @@ import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
 } from "./openclaw-state-db.js";
-import { withOpenClawStateLease, type OpenClawStateLeaseContext } from "./openclaw-state-lease.js";
+import { withOpenClawStateLease, type GrantedStateLeaseContext } from "./openclaw-state-lease.js";
 
 function block(ms: number) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
@@ -146,7 +146,7 @@ describe("maintenance lease heartbeat", () => {
       await withOpenClawTestState({ label: `maintenance-lease-${ending}` }, async (state) => {
         const controller = new AbortController();
         const spawned = once(process, "worker") as Promise<[Worker]>;
-        let retained: OpenClawStateLeaseContext | undefined;
+        let retained: GrantedStateLeaseContext | undefined;
         const operation = withOpenClawStateLease(
           options(state.env, controller.signal),
           async (lease) => {

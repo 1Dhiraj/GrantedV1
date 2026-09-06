@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   clearAgentHarnesses,
   listRegisteredAgentHarnesses,
@@ -37,7 +37,7 @@ describe("hasResolvedThinkingCatalogEntry", () => {
   });
 });
 
-function openAIConfig(runtime: string): OpenClawConfig {
+function openAIConfig(runtime: string): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -232,7 +232,7 @@ describe("resolveEffectiveAgentRuntime", () => {
   });
 
   it("re-evaluates every candidate from the immutable request so later support can upgrade", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           models: {

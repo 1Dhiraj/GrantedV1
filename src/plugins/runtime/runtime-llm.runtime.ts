@@ -10,7 +10,7 @@ import { splitTrailingAuthProfile } from "../../agents/model-ref-profile.js";
 import { normalizeModelRef } from "../../agents/model-ref-shared.js";
 import type { UsageLike } from "../../agents/usage.js";
 import { normalizeUsage } from "../../agents/usage.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { emitTrustedDiagnosticEvent, isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
 import { markHostPluginUsageDiagnosticEvent } from "../../infra/diagnostic-plugin-usage-provenance.js";
 import type { Api, Message } from "../../llm/types.js";
@@ -57,7 +57,7 @@ export type RuntimeLlmAuthority = {
 };
 
 export type CreateRuntimeLlmOptions = {
-  getConfig?: () => OpenClawConfig | undefined;
+  getConfig?: () => GrantedConfig | undefined;
   authority?: RuntimeLlmAuthority;
   logger?: RuntimeLogger;
 };
@@ -114,7 +114,7 @@ function resolveTrustedCaller(authority?: RuntimeLlmAuthority): LlmCompleteCalle
   return normalizeCaller(authority?.caller);
 }
 
-function resolveRuntimeConfig(options: CreateRuntimeLlmOptions): OpenClawConfig {
+function resolveRuntimeConfig(options: CreateRuntimeLlmOptions): GrantedConfig {
   const cfg = options.getConfig?.();
   if (!cfg) {
     throw new Error("Plugin LLM completion requires an injected runtime config scope.");
@@ -124,7 +124,7 @@ function resolveRuntimeConfig(options: CreateRuntimeLlmOptions): OpenClawConfig 
 
 async function resolveAgentId(params: {
   request: LlmCompleteParams;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   authority?: RuntimeLlmAuthority;
   allowAgentIdOverride: boolean;
 }): Promise<string> {
@@ -224,7 +224,7 @@ function readExplicitCostUsd(raw: unknown): number | undefined {
 }
 
 function finalizeCompletion(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   hostPluginId?: string;
   suppressUsage?: boolean;
   rawUsage: unknown;
@@ -379,7 +379,7 @@ function resolvePluginPolicyId(
 }
 
 function resolvePluginLlmPolicy(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   pluginId: string | undefined,
 ): RuntimeLlmPolicy | undefined {
   if (!pluginId) {

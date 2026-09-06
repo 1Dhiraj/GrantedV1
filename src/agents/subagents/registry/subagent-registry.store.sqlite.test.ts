@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -20,7 +20,7 @@ import {
 } from "./subagent-registry.store.sqlite.js";
 import type { SubagentRunRecord } from "./subagent-registry.types.js";
 
-type SubagentRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "subagent_runs">;
+type SubagentRegistryDatabase = Pick<GrantedStateKyselyDatabase, "subagent_runs">;
 
 function createRun(overrides: Partial<SubagentRunRecord> = {}): SubagentRunRecord {
   return {

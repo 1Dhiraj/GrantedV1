@@ -23,13 +23,13 @@ import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contrac
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../test-utils/tracked-temp-dirs.js";
 import { migrateLegacySkillWorkshopProposals } from "./doctor-skill-workshop-sqlite.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

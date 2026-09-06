@@ -2,7 +2,7 @@ import {
   resolveAgentConfig,
   resolveDefaultAgentId as resolveConfiguredDefaultAgentId,
 } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { enqueueKeyedTask } from "openclaw/plugin-sdk/keyed-async-queue";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
@@ -13,7 +13,7 @@ import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
 import { textResult } from "openclaw/plugin-sdk/tool-results";
 import { Type } from "typebox";
-import { definePluginEntry, type OpenClawPluginApi } from "./api.js";
+import { definePluginEntry, type GrantedPluginApi } from "./api.js";
 import { createAutoRecallHook } from "./auto-recall.js";
 import {
   MEMORY_CATEGORIES,
@@ -99,7 +99,7 @@ export default definePluginEntry({
   kind: "memory" as const,
   configSchema: memoryConfigSchema,
 
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     let cfg: MemoryConfig;
     try {
       cfg = memoryConfigSchema.parse(api.pluginConfig);
@@ -124,8 +124,8 @@ export default definePluginEntry({
     const autoCaptureTasks = new Map<string, Promise<void>>();
     let captureStopped = false;
     const memoryRecallCooldowns = new Map<string, { until: number; error: string }>();
-    const resolveRuntimeConfig = (): OpenClawConfig =>
-      (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+    const resolveRuntimeConfig = (): GrantedConfig =>
+      (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
     const resolveEnabledAgentId = (
       rawAgentId: string | undefined,
       runtimeConfig = resolveRuntimeConfig(),
@@ -141,7 +141,7 @@ export default definePluginEntry({
     };
     const assertRetainedToolEnabled = (
       agentId: string,
-      getRuntimeConfig: (() => OpenClawConfig | undefined) | undefined,
+      getRuntimeConfig: (() => GrantedConfig | undefined) | undefined,
     ): void => {
       if (!getRuntimeConfig) {
         return;
@@ -162,7 +162,7 @@ export default definePluginEntry({
     const resolveCurrentHookConfig = () => {
       const runtimePluginConfig = resolveLivePluginConfigObject(
         api.runtime.config?.current
-          ? () => api.runtime.config.current() as OpenClawConfig
+          ? () => api.runtime.config.current() as GrantedConfig
           : undefined,
         "memory-lancedb",
         api.pluginConfig as Record<string, unknown>,

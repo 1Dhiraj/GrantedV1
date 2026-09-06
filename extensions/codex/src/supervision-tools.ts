@@ -1,5 +1,5 @@
 import { resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { jsonResult, readStringParam, type AnyAgentTool } from "openclaw/plugin-sdk/core";
 /**
  * Compatibility tools for the retired Codex Supervisor plugin.
@@ -147,7 +147,7 @@ type EndpointRequest = <T = unknown>(
 
 type CodexSupervisionToolsOptions = {
   getPluginConfig: () => unknown;
-  getRuntimeConfig?: () => OpenClawConfig | undefined;
+  getRuntimeConfig?: () => GrantedConfig | undefined;
   /** Trusted owner bit supplied by the plugin tool context. */
   senderIsOwner: boolean;
   env?: NodeJS.ProcessEnv;
@@ -352,7 +352,7 @@ function readLegacyEnvEndpoints(env: NodeJS.ProcessEnv): CodexSupervisionEndpoin
 function resolveEndpoints(
   pluginConfig: unknown,
   env: NodeJS.ProcessEnv,
-  runtimeConfig: OpenClawConfig | undefined,
+  runtimeConfig: GrantedConfig | undefined,
 ): ResolvedSupervisionEndpoint[] {
   const configured = readCodexPluginConfig(pluginConfig).supervision?.endpoints;
   const endpoints = configured?.length ? configured : readLegacyEnvEndpoints(env);
@@ -429,7 +429,7 @@ function supervisionEndpointConnectionKey(params: {
   endpoint: NormalizedSupervisionEndpoint;
   pluginConfig: unknown;
   env: NodeJS.ProcessEnv;
-  runtimeConfig: OpenClawConfig | undefined;
+  runtimeConfig: GrantedConfig | undefined;
 }): string {
   // Endpoint probes report unsafe connections as unhealthy; the actual request path still
   // validates security before connecting, while this path only fingerprints live ownership.

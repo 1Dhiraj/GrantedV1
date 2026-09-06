@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginRuntime, RuntimeLogger } from "../plugins/runtime/types.js";
 import type { createMeetingRealtimeEngineBindings } from "./agent-consult.js";
 import type { startMeetingAgentRealtimeEngine } from "./realtime-agent-engine.js";
@@ -194,7 +194,7 @@ describe.each(cases)("$name Chrome transport parity", (testCase) => {
     await expect(
       transport.launchInChrome({
         config,
-        fullConfig: { transcripts: { enabled: false } } as OpenClawConfig,
+        fullConfig: { transcripts: { enabled: false } } as GrantedConfig,
         logger,
         meetingSessionId: "session-1",
         mode: "agent",
@@ -274,7 +274,7 @@ describe.each(cases)("$name Chrome transport parity", (testCase) => {
 
     const result = await transport.launchOnNode({
       config,
-      fullConfig: { transcripts: { enabled: false } } as OpenClawConfig,
+      fullConfig: { transcripts: { enabled: false } } as GrantedConfig,
       logger,
       meetingSessionId: "session-1",
       mode: "agent",

@@ -17,7 +17,7 @@ import {
 } from "../config/sessions/session-accessor.js";
 import { runExclusiveSessionStoreWrite } from "../config/sessions/store-writer.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { initializeGlobalHookRunner } from "../plugins/hook-runner-global.js";
 import {
   getSessionWorkAdmissionRelease,
@@ -364,7 +364,7 @@ describe("Goal chat admission and continuation", () => {
         },
       };
       const initialConfig = context.getRuntimeConfig();
-      const nextConfig: OpenClawConfig = {
+      const nextConfig: GrantedConfig = {
         ...initialConfig,
         gateway: {
           ...initialConfig.gateway,

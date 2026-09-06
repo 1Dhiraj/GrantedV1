@@ -1,7 +1,7 @@
 // Onboarding Gateway probe tests cover reachability and configured-model classification.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ConnectErrorDetailCodes } from "../../packages/gateway-protocol/src/connect-error-details.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   probeGatewayConfiguredModel,
   probeGatewayReachable,
@@ -53,7 +53,7 @@ describe("probeGatewayReachable", () => {
     ["polling", waitForGatewayReachable],
   ] as const)("forwards remote trust through %s", async (_name, probe) => {
     mocks.probeGateway.mockResolvedValueOnce({ ok: true, configSnapshot: null });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {

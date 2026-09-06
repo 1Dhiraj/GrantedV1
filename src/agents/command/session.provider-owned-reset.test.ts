@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { InternalSessionEntry as SessionEntry } from "../../config/sessions/types.js";
 
 const hoisted = vi.hoisted(() => ({
@@ -62,7 +62,7 @@ describe("command resolveSession provider-owned daily reset", () => {
     seedProviderOwned(sessionKey);
 
     const result = resolveSession({
-      cfg: { session: {} } as OpenClawConfig,
+      cfg: { session: {} } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });
@@ -88,7 +88,7 @@ describe("command resolveSession provider-owned daily reset", () => {
     };
 
     const result = resolveSession({
-      cfg: { session: { reset: { mode: "daily" } } } as OpenClawConfig,
+      cfg: { session: { reset: { mode: "daily" } } } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });
@@ -115,7 +115,7 @@ describe("command resolveSession provider-owned daily reset", () => {
     hoisted.terminalTranscriptNewer = true;
 
     const result = resolveSession({
-      cfg: { session: {} } as OpenClawConfig,
+      cfg: { session: {} } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });
@@ -140,7 +140,7 @@ describe("command resolveSession provider-owned daily reset", () => {
     hoisted.terminalTranscriptNewer = true;
 
     const result = resolveSession({
-      cfg: { session: {} } as OpenClawConfig,
+      cfg: { session: {} } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });
@@ -165,7 +165,7 @@ describe("command resolveSession provider-owned daily reset", () => {
       },
     };
     const result = resolveSession({
-      cfg: { session: { reset: { mode: "daily" } } } as OpenClawConfig,
+      cfg: { session: { reset: { mode: "daily" } } } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });
@@ -197,7 +197,7 @@ describe("command resolveSession provider-owned daily reset", () => {
         session: {
           reset: { mode: "idle", idleMinutes: 30 },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey,
       agentId: "main",
     });

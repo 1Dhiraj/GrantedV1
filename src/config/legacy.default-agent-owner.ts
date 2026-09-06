@@ -4,29 +4,29 @@ import {
   getRetainedLegacyDefaultAgentId,
   setRetainedLegacyDefaultAgentId,
 } from "./legacy.default-agent-owner-state.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 export function retainLegacyDefaultAgentId(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string | undefined,
-): OpenClawConfig {
+): GrantedConfig {
   setRetainedLegacyDefaultAgentId(config, agentId ? normalizeAgentId(agentId) : undefined);
   return config;
 }
 
 export function inheritLegacyDefaultAgentId(
-  source: OpenClawConfig,
-  target: OpenClawConfig,
-): OpenClawConfig {
+  source: GrantedConfig,
+  target: GrantedConfig,
+): GrantedConfig {
   return retainLegacyDefaultAgentId(target, tryGetLegacyDefaultAgentId(source));
 }
 
-export function tryGetLegacyDefaultAgentId(config: OpenClawConfig): string | undefined {
+export function tryGetLegacyDefaultAgentId(config: GrantedConfig): string | undefined {
   return getRetainedLegacyDefaultAgentId(config);
 }
 export { tryResolveLegacyCompatibilityAgentId } from "../agents/agent-scope-config.js";
 
-export function resolveSessionStoreCompatibilityAgentId(config: OpenClawConfig): string {
+export function resolveSessionStoreCompatibilityAgentId(config: GrantedConfig): string {
   const persistedAgentId = config.agents?.defaults?.sessionStore?.agentId?.trim();
   return persistedAgentId
     ? normalizeAgentId(persistedAgentId)

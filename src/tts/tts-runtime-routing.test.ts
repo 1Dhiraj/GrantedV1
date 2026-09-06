@@ -28,7 +28,7 @@ import {
   textToSpeech,
   textToSpeechCore,
   transcodeAudioBufferMock,
-  type OpenClawConfig,
+  type GrantedConfig,
   type SpeechListVoicesRequest,
   type TtsConfig,
 } from "./tts-runtime.test-support.js";
@@ -94,7 +94,7 @@ describe("TTS runtime native voice-note routing", () => {
   });
 
   it("prepares deep-merged surface config and directive inputs", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tts: {
         provider: "mock",
         modelOverrides: { allowProvider: false },
@@ -269,7 +269,7 @@ describe("TTS runtime native voice-note routing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeConfig = {
       tts: {
         enabled: true,
@@ -280,7 +280,7 @@ describe("TTS runtime native voice-note routing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     installSpeechProviders([
       createMockSpeechProvider("mock", {
         isConfigured: ({ providerConfig }) => providerConfig.apiKey === "test-key",
@@ -316,7 +316,7 @@ describe("TTS runtime native voice-note routing", () => {
           enabled: true,
           provider: "mock",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -392,7 +392,7 @@ describe("TTS runtime native voice-note routing", () => {
           provider: "mock",
           timeoutMs: 45_000,
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(listVoicesMock).toHaveBeenCalledWith(expect.objectContaining({ timeoutMs: 45_000 }));
@@ -410,7 +410,7 @@ describe("TTS runtime native voice-note routing", () => {
           enabled: true,
           provider: "mock",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -429,7 +429,7 @@ describe("TTS runtime native voice-note routing", () => {
           enabled: true,
           provider: "mock",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -449,7 +449,7 @@ describe("TTS runtime native voice-note routing", () => {
           provider: "mock",
           timeoutMs: 45_000,
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 

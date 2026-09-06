@@ -3,7 +3,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
 import type { AuthProbeSummary } from "../../commands/models/list.probe.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { GatewayRequestHandlerOptions } from "./types.js";
 
 const mocks = vi.hoisted(() => ({
@@ -46,7 +46,7 @@ function summary(results: AuthProbeSummary["results"]): AuthProbeSummary {
   };
 }
 
-function createOptions(params: Record<string, unknown>, cfg: OpenClawConfig = {}) {
+function createOptions(params: Record<string, unknown>, cfg: GrantedConfig = {}) {
   const respond = vi.fn();
   const warn = vi.fn();
   return {
@@ -115,7 +115,7 @@ describe("models.probe", () => {
   });
 
   it("normalizes providers, trims profiles, and clamps the timeout", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: { primary: "openai/gpt-5.6", fallbacks: ["openai/gpt-5.5"] },
@@ -149,7 +149,7 @@ describe("models.probe", () => {
     { name: "omitted", params: {} },
     { name: "empty", params: { agentId: "" } },
   ])("probes the default agent when agentId is $name", async ({ params }) => {
-    const cfg: OpenClawConfig = { agents: { list: [{ id: "main", default: true }] } };
+    const cfg: GrantedConfig = { agents: { list: [{ id: "main", default: true }] } };
     const { options } = createOptions({ provider: "openai", ...params }, cfg);
 
     await handler(options);
@@ -164,7 +164,7 @@ describe("models.probe", () => {
   });
 
   it("probes an explicit configured agent", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { list: [{ id: "main", default: true }, { id: "writer" }] },
     };
     const { options } = createOptions({ provider: "openai", agentId: "Writer" }, cfg);
@@ -181,7 +181,7 @@ describe("models.probe", () => {
   });
 
   it.each(["retired", "   "])("rejects explicit unknown agentId %j", async (agentId) => {
-    const cfg: OpenClawConfig = { agents: { list: [{ id: "main", default: true }] } };
+    const cfg: GrantedConfig = { agents: { list: [{ id: "main", default: true }] } };
     mocks.listAgentIds.mockReturnValue(["main"]);
     const { options, respond } = createOptions({ provider: "openai", agentId }, cfg);
 
@@ -197,7 +197,7 @@ describe("models.probe", () => {
   });
 
   it("probes the requested provider so overrides and model selection resolve", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           "byteplus-plan": {
@@ -233,7 +233,7 @@ describe("models.probe", () => {
   });
 
   it("does not require a configured default before probing provider credentials", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const { options } = createOptions({ provider: "openai" }, cfg);
 
     await handler(options);
@@ -324,7 +324,7 @@ describe("models.probe", () => {
     );
     const cfg = {
       agents: { defaults: { model: { primary: "ollama/gemma4:latest" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const { options, respond } = createOptions({ provider: "ollama" }, cfg);
 
     await handler(options);

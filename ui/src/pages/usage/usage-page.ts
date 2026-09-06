@@ -16,7 +16,7 @@ import {
   GatewayPageController,
   type GatewayPageChange,
 } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { isUsageCacheIncomplete } from "./cache-status.ts";
 import type { ProviderUsageSummary } from "./data-types.ts";
@@ -46,7 +46,7 @@ import { renderUsage } from "./view.ts";
 
 export type { UsageRouteData } from "./types.ts";
 
-class UsagePage extends OpenClawLightDomElement {
+class UsagePage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

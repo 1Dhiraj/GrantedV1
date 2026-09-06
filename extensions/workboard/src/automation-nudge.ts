@@ -2,7 +2,7 @@ import type { WorkboardCard } from "@openclaw/workboard-contract";
 import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
 import { isCronSessionKey } from "openclaw/plugin-sdk/routing";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { OpenClawPluginApi, OpenClawPluginService } from "../api.js";
+import type { GrantedPluginApi, GrantedPluginService } from "../api.js";
 import { cardBoardId } from "./store-card-helpers.js";
 import { MAX_CARDS } from "./store-constants.js";
 import type { WorkboardStore } from "./store.js";
@@ -14,7 +14,7 @@ type WorkboardAutomationNudgeInput = {
   sessionKey?: string;
 };
 
-type WorkboardAutomationNudgeService = OpenClawPluginService & {
+type WorkboardAutomationNudgeService = GrantedPluginService & {
   nudge: (input: WorkboardAutomationNudgeInput) => Promise<void>;
 };
 
@@ -24,7 +24,7 @@ type PendingBoardNudge = {
 
 type WorkboardAutomationNudgeState = {
   owner?: object;
-  logger?: Parameters<OpenClawPluginService["start"]>[0]["logger"];
+  logger?: Parameters<GrantedPluginService["start"]>[0]["logger"];
   pendingByBoard: Map<string, PendingBoardNudge>;
 };
 
@@ -62,7 +62,7 @@ function isCronOriginSession(sessionKey: string | undefined): boolean {
 
 export function createWorkboardAutomationNudgeService(params: {
   store: WorkboardStore;
-  gateway: Pick<OpenClawPluginApi["runtime"]["gateway"], "request">;
+  gateway: Pick<GrantedPluginApi["runtime"]["gateway"], "request">;
 }): WorkboardAutomationNudgeService {
   const serviceOwner = {};
 

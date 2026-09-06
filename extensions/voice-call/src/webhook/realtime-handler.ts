@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import http from "node:http";
 import type { Duplex } from "node:stream";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   isFutureDateTimestampMs,
@@ -387,7 +387,7 @@ export class RealtimeCallHandler {
     private readonly resolveCallRegistration: ResolveRealtimeCallRegistration,
     private readonly servePath: string,
     private readonly streamDisconnectLifecycle: StreamDisconnectLifecycle,
-    private readonly coreConfig?: OpenClawConfig,
+    private readonly coreConfig?: GrantedConfig,
   ) {}
 
   setPublicUrl(url: string): void {

@@ -1,6 +1,6 @@
 /** Selects built plugin artifacts without importing active runtime state. */
 import path from "node:path";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import {
   isTypeScriptPackageEntry,
   listBuiltRuntimeEntryCandidates,
@@ -43,7 +43,7 @@ function resolvePackageLocalDistRuntimeArtifact(params: {
 function resolvePreferredBundledRootArtifactFromCanonicalPaths(params: {
   source: string;
   rootDir: string;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
 }): { source: string; rootDir: string } {
   const { rootDir, source } = params;
   const sourceExternal = params.packageManifest?.build?.bundledDist === false;
@@ -84,7 +84,7 @@ function resolvePreferredBundledRootArtifactFromCanonicalPaths(params: {
 export function resolvePreferredBundledRootArtifact(params: {
   source: string;
   rootDir: string;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
 }): { source: string; rootDir: string } {
   const artifacts = getPluginCacheRoot(params.rootDir).runtimeArtifacts;
   const key = JSON.stringify([
@@ -111,7 +111,7 @@ export function resolvePreferredBuiltRuntimeArtifact(params: {
   rootDir: string;
   origin: PluginOrigin;
   preferBuiltPluginArtifacts: boolean;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
 }): { source: string; rootDir: string } {
   // The stateful resolver canonicalizes both paths before memo-key construction.
   const { rootDir, source } = params;

@@ -12,10 +12,10 @@ import {
 } from "../../routing/session-key.js";
 import {
   GRANTED_AGENT_SCHEMA_VERSION,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db-contract.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import { parseSqliteSessionEntryRecord } from "./session-entry-json.js";
 import { projectCanonicalSessionEntryShape } from "./store-entry-shape.js";
 import {
@@ -26,7 +26,7 @@ import type { SessionEntry } from "./types.js";
 
 const SESSION_CANONICAL_KEY_REPAIR_COMMAND = "openclaw doctor --fix";
 type CanonicalSessionDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "schema_meta" | "session_key_contract" | "session_nodes" | "session_windows"
 >;
 const validatedDatabases = new WeakSet<DatabaseSync>();
@@ -269,7 +269,7 @@ export function setCanonicalSqliteSessionMainKey(
 
 /** Checks the startup contract without joining the writable database lifecycle. */
 export function isCanonicalSqliteSessionMainKeyCurrent(
-  options: OpenClawAgentDatabaseOptions,
+  options: GrantedAgentDatabaseOptions,
   mainKey: string | undefined,
 ): boolean {
   const canonicalMainKey = normalizeMainKey(mainKey);

@@ -1,9 +1,9 @@
 /** Secret-surface projection coverage loaded by the startup SecretRef suite. */
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayStartupSourceConfig } from "./server-startup-secret-surfaces.js";
 
-function channelConfig(): OpenClawConfig {
+function channelConfig(): GrantedConfig {
   return {
     channels: {
       telegram: {

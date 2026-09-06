@@ -4,7 +4,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getLoadedRuntimePluginRegistry,
   registryContainsRuntimePluginIds,
@@ -46,7 +46,7 @@ type ProviderRuntimePluginLookupParams = {
   provider: string;
   providerOwner?: string;
   modelId?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   applyAutoEnable?: boolean;
@@ -213,17 +213,14 @@ function listProviderRuntimePluginsInRegistry(
   );
 }
 
-function hasConfiguredModelProvider(params: {
-  provider: string;
-  config?: OpenClawConfig;
-}): boolean {
+function hasConfiguredModelProvider(params: { provider: string; config?: GrantedConfig }): boolean {
   return (
     findNormalizedProviderValue(params.config?.models?.providers, params.provider) !== undefined
   );
 }
 
 export function resolveLoadedProviderPluginsForHooks(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   onlyPluginIds?: string[];
@@ -378,7 +375,7 @@ export function resolveLoadedProviderRuntimePlugin(
 export function resolveProviderHookPlugin(params: {
   provider: string;
   modelId?: string | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
 }): ProviderPlugin | undefined {
@@ -439,7 +436,7 @@ export function ensureProviderRuntimePluginHandle(
 
 export function prepareProviderExtraParams(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;
@@ -453,7 +450,7 @@ export function prepareProviderExtraParams(params: {
 
 export function resolveProviderExtraParamsForTransport(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;
@@ -467,7 +464,7 @@ export function resolveProviderExtraParamsForTransport(params: {
 
 export function resolveProviderAuthProfileId(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;
@@ -481,7 +478,7 @@ export function resolveProviderAuthProfileId(params: {
 
 export function resolveProviderFollowupFallbackRoute(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;
@@ -495,7 +492,7 @@ export function resolveProviderFollowupFallbackRoute(params: {
 
 export function wrapProviderStreamFn(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;
@@ -508,7 +505,7 @@ export function wrapProviderStreamFn(params: {
 
 export function wrapProviderSimpleCompletionStreamFn(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   runtimeHandle?: ProviderRuntimePluginHandle;

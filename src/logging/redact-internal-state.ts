@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
-type LoggingConfig = OpenClawConfig["logging"];
+type LoggingConfig = GrantedConfig["logging"];
 type InternalLoggingConfig = NonNullable<LoggingConfig> & {
   [fullContextToolPayloadRedaction]: true;
 };

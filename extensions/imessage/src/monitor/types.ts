@@ -3,7 +3,7 @@ import type {
   ChannelAccountSnapshot,
   ChannelRuntimeSurface,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 
 export type IMessageAttachment = {
@@ -74,7 +74,7 @@ export type MonitorIMessageOpts = {
   cliPath?: string;
   dbPath?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   allowFrom?: Array<string | number>;
   groupAllowFrom?: Array<string | number>;
   includeAttachments?: boolean;

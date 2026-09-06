@@ -8,7 +8,7 @@ import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
 import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
-import type { OpenClawPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
 import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import { createOllamaNodeHostCommands } from "./node-inference.js";
@@ -494,7 +494,7 @@ async function waitForPairedInferenceNode(
 async function respondToNodeInvocation(
   node: GatewayClient | undefined,
   payload: unknown,
-  commands: ReadonlyMap<string, OpenClawPluginNodeHostCommand>,
+  commands: ReadonlyMap<string, GrantedPluginNodeHostCommand>,
 ): Promise<void> {
   const frame = payload as NodeInvokeFrame;
   const command = typeof frame.command === "string" ? commands.get(frame.command) : undefined;

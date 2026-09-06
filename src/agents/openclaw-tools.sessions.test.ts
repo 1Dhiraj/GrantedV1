@@ -12,7 +12,7 @@ import {
 } from "../audit/execution-decision-work.js";
 import { createExecutionIdentityAdmissionToken } from "../audit/execution-identity-admission.js";
 import type { ChannelMessagingAdapter } from "../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   appendTranscriptMessage,
   listSessionParticipantsReadOnly,
@@ -89,7 +89,7 @@ const TEST_CONFIG = {
     sessions: { visibility: "all" },
     agentToAgent: { enabled: true },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function countMatching<T>(items: readonly T[], predicate: (item: T) => boolean) {
   let count = 0;
@@ -171,7 +171,7 @@ function createOpenClawTools(options?: {
   agentSessionKey?: string;
   agentChannel?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   // Sessions tests exercise the related tools as a small local bundle.
   const config = options?.config ?? TEST_CONFIG;
@@ -666,7 +666,7 @@ describe("sessions tools", () => {
             sessions: { visibility: "agent" },
             agentToAgent: { enabled: false },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       const result = await tool.execute("call-preview", {
@@ -1241,7 +1241,7 @@ describe("sessions tools", () => {
           session: { store: storePath, mainKey: "main", scope: "per-sender" },
           tools: { sessions: { visibility: "self" }, agentToAgent: { enabled: false } },
           agents: { defaults: { sandbox: { sessionToolsVisibility: "spawned" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       const token = createExecutionIdentityAdmissionToken("scoped-session-send", {

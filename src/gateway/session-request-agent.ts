@@ -6,7 +6,7 @@ import {
 import { AgentSelectionRequiredError, listAgentIds } from "../agents/agent-scope.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/session-store-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   normalizeAgentId,
   normalizeAgentIdStrict,
@@ -28,7 +28,7 @@ export type SessionEventAgentScope = readonly [
 
 /** Resolves public event identity separately from private session routing ownership. */
 export function resolveSessionEventAgentScope(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string,
   explicitAgentId?: string,
   publishQualifiedAgent = false,
@@ -78,7 +78,7 @@ export function resolvePrivateSessionEventBroadcastScope(
 
 /** Resolves only stable implicit ownership for unscoped session rows and active runs. */
 export function tryResolveSessionCompatibilityOwnerAgentId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string,
 ): string | undefined {
   const persistedStoreOwner = resolvePersistedSessionStoreOwnerForKey(cfg, key);
@@ -91,7 +91,7 @@ export function tryResolveSessionCompatibilityOwnerAgentId(
 }
 
 export function resolveRequestedSessionAgentId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string,
   explicitAgentId?: string,
 ): RequestedSessionAgentIdResolution {

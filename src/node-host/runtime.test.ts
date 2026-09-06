@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { NODE_DEVICE_APPS_COMMAND } from "../infra/node-commands.js";
-import type { OpenClawPluginNodeHostCommandIo } from "../plugins/types.js";
+import type { GrantedPluginNodeHostCommandIo } from "../plugins/types.js";
 import { NODE_DESKTOP_STREAM_COMMAND } from "../shared/node-desktop-stream.js";
 import type { NodeHostClient } from "./client.js";
 import { listRegisteredNodeHostCapsAndCommands } from "./plugin-node-host.js";
@@ -99,8 +99,8 @@ async function startRuntime() {
   });
 }
 
-function holdInvoke(onCommand?: (io: OpenClawPluginNodeHostCommandIo) => void) {
-  let io: OpenClawPluginNodeHostCommandIo | undefined;
+function holdInvoke(onCommand?: (io: GrantedPluginNodeHostCommandIo) => void) {
+  let io: GrantedPluginNodeHostCommandIo | undefined;
   let signal: AbortSignal | undefined;
   let release: (() => void) | undefined;
   const held = new Promise<void>((resolve) => {
@@ -108,7 +108,7 @@ function holdInvoke(onCommand?: (io: OpenClawPluginNodeHostCommandIo) => void) {
   });
   mocks.handleInvoke.mockImplementationOnce(async (...args: unknown[]) => {
     const runtime = args[4] as {
-      pluginCommandIo?: OpenClawPluginNodeHostCommandIo;
+      pluginCommandIo?: GrantedPluginNodeHostCommandIo;
       signal?: AbortSignal;
     };
     io = runtime.pluginCommandIo;
@@ -361,7 +361,7 @@ describe("node-host invoke input dispatch", () => {
     const pluginCommand = {
       command: "test.duplex",
       duplex: true,
-      handle: (_paramsJSON: string | null, io: OpenClawPluginNodeHostCommandIo) => {
+      handle: (_paramsJSON: string | null, io: GrantedPluginNodeHostCommandIo) => {
         io.frames?.onMessage((message) => {
           received(message);
           void io.frames?.send(message);

@@ -4,14 +4,14 @@ import { registerPluginInteractiveHandlerInRegistry } from "./interactive-regist
 import type { PluginRegistryState } from "./registry-state.js";
 import type { PluginRecord } from "./registry-types.js";
 import { defaultSlotIdForKey } from "./slots.js";
-import type { OpenClawPluginApi, PluginRegistrationMode } from "./types.js";
+import type { GrantedPluginApi, PluginRegistrationMode } from "./types.js";
 
 export function createCapabilityRegistrars(state: PluginRegistryState) {
   const { registry, reportRegistrationError, reportRegistrationWarning } = state;
 
   const registerDetachedTaskRuntime = (
     record: PluginRecord,
-    runtime: Parameters<OpenClawPluginApi["registerDetachedTaskRuntime"]>[0],
+    runtime: Parameters<GrantedPluginApi["registerDetachedTaskRuntime"]>[0],
   ) => {
     const existing = registry.detachedTaskRuntimes[0];
     if (existing && existing.pluginId !== record.id) {
@@ -31,7 +31,7 @@ export function createCapabilityRegistrars(state: PluginRegistryState) {
 
   const registerInteractiveHandler = (
     record: PluginRecord,
-    registration: Parameters<OpenClawPluginApi["registerInteractiveHandler"]>[0],
+    registration: Parameters<GrantedPluginApi["registerInteractiveHandler"]>[0],
   ) => {
     const result = registerPluginInteractiveHandlerInRegistry(registry, record.id, registration, {
       pluginName: record.name,
@@ -44,8 +44,8 @@ export function createCapabilityRegistrars(state: PluginRegistryState) {
 
   const registerContextEngine = (
     record: PluginRecord,
-    id: Parameters<OpenClawPluginApi["registerContextEngine"]>[0],
-    factory: Parameters<OpenClawPluginApi["registerContextEngine"]>[1],
+    id: Parameters<GrantedPluginApi["registerContextEngine"]>[0],
+    factory: Parameters<GrantedPluginApi["registerContextEngine"]>[1],
     registrationMode: PluginRegistrationMode,
   ) => {
     const normalizedId = normalizeOptionalString(id) ?? "";
@@ -88,10 +88,10 @@ export function createCapabilityRegistrars(state: PluginRegistryState) {
 
   const registerCompactionProvider = (
     record: PluginRecord,
-    provider: Parameters<OpenClawPluginApi["registerCompactionProvider"]>[0],
+    provider: Parameters<GrantedPluginApi["registerCompactionProvider"]>[0],
   ) => {
     const id = normalizeOptionalString(
-      (provider as Partial<Parameters<OpenClawPluginApi["registerCompactionProvider"]>[0]> | null)
+      (provider as Partial<Parameters<GrantedPluginApi["registerCompactionProvider"]>[0]> | null)
         ?.id,
     );
     if (!id) {

@@ -4,7 +4,7 @@ import { ErrorCode, type CallToolResult, type Tool } from "@modelcontextprotocol
 import { expectDefined } from "@openclaw/normalization-core";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
-import { OpenClawSchema } from "../config/zod-schema.js";
+import { GrantedSchema } from "../config/zod-schema.js";
 import { useFrozenTime, useRealTime } from "../test-utils/frozen-time.js";
 import { startNodeHostMcpManager } from "./mcp.js";
 
@@ -175,7 +175,7 @@ describe("node host MCP manager", () => {
   });
 
   it("parses nodeHost.mcp config, isolates failures, filters tools, and shuts down", async () => {
-    const parsed = OpenClawSchema.parse({
+    const parsed = GrantedSchema.parse({
       nodeHost: {
         mcp: {
           servers: {

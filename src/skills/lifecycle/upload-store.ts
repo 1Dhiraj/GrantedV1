@@ -21,7 +21,7 @@ import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js"
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { validateRequestedSkillSlug } from "./archive-install.js";
 import {
@@ -52,7 +52,7 @@ const SHA256_PATTERN = /^[a-f0-9]{64}$/i;
 const UPLOAD_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-type SkillUploadStoreOptions = OpenClawStateDatabaseOptions & {
+type SkillUploadStoreOptions = GrantedStateDatabaseOptions & {
   installLeaseHeartbeatMs?: number;
   installLeaseMs?: number;
   now?: () => number;
@@ -217,7 +217,7 @@ function decodeBase64Chunk(dataBase64: string): Buffer {
   return decoded;
 }
 
-function requireUploadRow(uploadId: string, options: OpenClawStateDatabaseOptions): SkillUploadRow {
+function requireUploadRow(uploadId: string, options: GrantedStateDatabaseOptions): SkillUploadRow {
   const row = readSkillUploadRow(uploadId, options);
   if (!row) {
     throw new SkillUploadRequestError(`upload not found: ${uploadId}`);
@@ -228,7 +228,7 @@ function requireUploadRow(uploadId: string, options: OpenClawStateDatabaseOption
 function assertNotExpired(
   row: SkillUploadRow,
   nowMs: number,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): void {
   const validNow = asDateTimestampMs(nowMs);
   if (validNow === undefined) {
@@ -260,7 +260,7 @@ function matchesBegin(
 }
 
 async function cleanupExpiredUploads(params: {
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
   nowMs: number;
   lockRoot: string;
   excludeUploadId?: string;

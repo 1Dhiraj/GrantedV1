@@ -1,4 +1,4 @@
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Discord helper module supports runtime config behavior.
 import {
   getRuntimeConfigSourceSnapshot,
@@ -6,7 +6,7 @@ import {
   selectApplicableRuntimeConfig,
 } from "openclaw/plugin-sdk/runtime-config-snapshot";
 
-export function selectDiscordRuntimeConfig(inputConfig: OpenClawConfig): OpenClawConfig {
+export function selectDiscordRuntimeConfig(inputConfig: GrantedConfig): GrantedConfig {
   return (
     selectApplicableRuntimeConfig({
       inputConfig,
@@ -28,7 +28,7 @@ function withSourceActivities(
 }
 
 /** Restores plugin-owned sensitive Activity config onto the resolved runtime shape. */
-export function selectDiscordActivitiesRuntimeConfig(inputConfig: OpenClawConfig): OpenClawConfig {
+export function selectDiscordActivitiesRuntimeConfig(inputConfig: GrantedConfig): GrantedConfig {
   const runtimeConfig = selectDiscordRuntimeConfig(inputConfig);
   const sourceDiscord = getRuntimeConfigSourceSnapshot()?.channels?.discord;
   if (!sourceDiscord) {

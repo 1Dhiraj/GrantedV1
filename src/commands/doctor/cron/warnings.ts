@@ -6,7 +6,7 @@ import { normalizeChatChannelId } from "../../../channels/ids.js";
 import { listReadOnlyChannelPluginsForConfig } from "../../../channels/plugins/read-only.js";
 import { formatCliCommand } from "../../../cli/command-format.js";
 import { resolveAgentModelPrimaryValue } from "../../../config/model-input.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveCronDeliveryPlan } from "../../../cron/delivery-plan.js";
 import type { CronJob } from "../../../cron/types.js";
 import { runExec } from "../../../process/exec.js";
@@ -62,7 +62,7 @@ function formatSortedCounts(counts: Map<string, number>): string {
 
 /** Emit a note when cron jobs pin models instead of inheriting the default model. */
 export function noteCronModelOverrides(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   jobs: Array<Record<string, unknown>>;
 }) {
   const defaultModel = resolveAgentModelPrimaryValue(params.cfg.agents?.defaults?.model);
@@ -211,7 +211,7 @@ function collectCronDeliveryTargetAdvisory(params: {
 
 /** Emit a note when cron jobs announce to a concrete channel whose plugin is not active. */
 export function noteCronDeliveryTargetAdvisory(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   jobs: Array<Record<string, unknown>>;
 }): void {
   let advisory: string | null;

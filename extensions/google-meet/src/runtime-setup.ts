@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -30,7 +30,7 @@ async function commandExists(runtime: PluginRuntime, command: string): Promise<b
 
 export async function getGoogleMeetRuntimeSetupStatus(params: {
   config: GoogleMeetConfig;
-  fullConfig: OpenClawConfig;
+  fullConfig: GrantedConfig;
   runtime: PluginRuntime;
   options?: {
     transport?: GoogleMeetTransport;

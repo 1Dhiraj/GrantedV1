@@ -10,7 +10,7 @@ import {
 import { childRecord } from "./helpers.js";
 import { normalizeHermesCustomProviderId, normalizeHermesProviderId } from "./model.js";
 
-type OpenClawModelApi =
+type GrantedModelApi =
   | "anthropic-messages"
   | "openai-completions"
   | "openai-responses"
@@ -26,14 +26,14 @@ type HermesModelConfig = {
 export type HermesProviderConfig = {
   id: string;
   baseUrl: string;
-  api: OpenClawModelApi;
+  api: GrantedModelApi;
   apiKeyEnv?: string;
   headers?: Record<string, unknown>;
   models: HermesModelConfig[];
   sensitive?: boolean;
 };
 
-export const HERMES_TRANSPORTS: Record<string, OpenClawModelApi> = {
+export const HERMES_TRANSPORTS: Record<string, GrantedModelApi> = {
   anthropic_messages: "anthropic-messages",
   chat_completions: "openai-completions",
   codex_responses: "openai-responses",
@@ -191,7 +191,7 @@ export { readPositiveNumber };
 export function resolveProviderApi(
   raw: Record<string, unknown>,
   providerId?: string,
-): OpenClawModelApi | undefined {
+): GrantedModelApi | undefined {
   const transport = readProviderTransport(raw);
   const sourceProvider = providerId?.trim().toLowerCase() ?? "";
   if (sourceProvider === "openai-codex") {
@@ -244,7 +244,7 @@ export function resolveProviderApi(
   return "openai-completions";
 }
 
-function normalizeProviderBaseUrl(baseUrl: string, api: OpenClawModelApi): string {
+function normalizeProviderBaseUrl(baseUrl: string, api: GrantedModelApi): string {
   if (api !== "anthropic-messages") {
     return baseUrl;
   }

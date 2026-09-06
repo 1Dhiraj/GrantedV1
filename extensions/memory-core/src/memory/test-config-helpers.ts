@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 
-export function isolateMemoryManagerTestConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function isolateMemoryManagerTestConfig(cfg: GrantedConfig): GrantedConfig {
   return {
     ...cfg,
     plugins: {

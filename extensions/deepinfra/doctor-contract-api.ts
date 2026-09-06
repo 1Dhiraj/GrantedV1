@@ -2,7 +2,7 @@
 // canonical `models.providers.deepinfra.baseUrl`. Runtime reads only the
 // canonical key; `openclaw doctor --fix` repairs shipped `nativeBaseUrl` and
 // `/v1/inference` values here so no request-time compat remap is needed.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
@@ -43,8 +43,8 @@ function normalizeBaseUrlValue(value: unknown): string | undefined {
   return trimmed ? trimmed : undefined;
 }
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const models = cfg.models;

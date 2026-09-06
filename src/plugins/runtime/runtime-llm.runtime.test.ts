@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveContextEngineCapabilities } from "../../agents/embedded-agent-runner/context-engine-capabilities.js";
 import { runContextEngineMaintenance } from "../../agents/embedded-agent-runner/context-engine-maintenance.js";
 import { buildAfterTurnRuntimeContext } from "../../agents/embedded-agent-runner/run/attempt-prompt-helpers.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withPluginRuntimePluginIdScope } from "./gateway-request-scope.js";
 import { createRuntimeLlm } from "./runtime-llm.runtime.js";
 import type { RuntimeLogger } from "./types-core.js";
@@ -27,7 +27,7 @@ const cfg = {
       model: "openai/gpt-5.5",
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function createPreparedModel(modelId = "gpt-5.5") {
   return {

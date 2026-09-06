@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAcceptedBrowserOrigin } from "openclaw/plugin-sdk/webhook-request-guards";
 
 type ResponseDeliveryWaiter = {
@@ -10,7 +10,7 @@ type ResponseDeliveryWaiter = {
 export function applyRealtimeOfferCorsHeaders(
   req: IncomingMessage,
   res: ServerResponse,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): boolean {
   if (!req.headers.origin) {
     return true;

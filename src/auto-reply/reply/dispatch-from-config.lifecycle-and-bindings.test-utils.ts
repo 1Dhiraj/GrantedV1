@@ -2,7 +2,7 @@
 import { AsyncResource } from "node:async_hooks";
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionBindingRecord } from "../../infra/outbound/session-binding-service.js";
 import { registerPluginCommand } from "../../plugins/commands.js";
 import type { PluginTargetedInboundClaimOutcome } from "../../plugins/hooks.test-fixtures.js";
@@ -526,7 +526,7 @@ describe("dispatchReplyFromConfig", () => {
 
   it("emits diagnostics when enabled", async () => {
     setNoAbort();
-    const cfg = { diagnostics: { enabled: true } } as OpenClawConfig;
+    const cfg = { diagnostics: { enabled: true } } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "slack",
@@ -572,7 +572,7 @@ describe("dispatchReplyFromConfig", () => {
     sessionStoreMocks.currentEntry = {
       sessionId: "test-uuid-1234",
     };
-    const cfg = { diagnostics: { enabled: true } } as OpenClawConfig;
+    const cfg = { diagnostics: { enabled: true } } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "slack",
@@ -610,7 +610,7 @@ describe("dispatchReplyFromConfig", () => {
     sessionStoreMocks.currentEntry = {
       sessionId: "target-session-uuid-9999",
     };
-    const cfg = { diagnostics: { enabled: true } } as OpenClawConfig;
+    const cfg = { diagnostics: { enabled: true } } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "slack",
@@ -635,7 +635,7 @@ describe("dispatchReplyFromConfig", () => {
 
   it("marks diagnostic progress for real reply events but not reply start callbacks", async () => {
     setNoAbort();
-    const cfg = { diagnostics: { enabled: true } } as OpenClawConfig;
+    const cfg = { diagnostics: { enabled: true } } as GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "slack",
@@ -677,7 +677,7 @@ describe("dispatchReplyFromConfig", () => {
           verboseDefault: "on",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const dispatcher = createDispatcher();
     const ctx = buildTestCtx({
       Provider: "discord",

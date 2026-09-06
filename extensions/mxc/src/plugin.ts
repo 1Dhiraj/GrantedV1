@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { registerSandboxBackend } from "openclaw/plugin-sdk/sandbox";
 import { resolveMxcBinaryPath } from "./binary-resolver.js";
 import { resolveConfig } from "./config.js";
@@ -6,7 +6,7 @@ import { createMxcSandboxBackendFactory } from "./mxc-backend-factory.js";
 import { mxcSandboxBackendManager } from "./mxc-backend.js";
 import { assertMxcReadiness, warnMxcHostPrepIfNeeded } from "./readiness.js";
 
-export function registerMxcPlugin(api: OpenClawPluginApi): void {
+export function registerMxcPlugin(api: GrantedPluginApi): void {
   if (api.registrationMode !== "full") {
     return;
   }

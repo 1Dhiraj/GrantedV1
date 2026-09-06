@@ -7,11 +7,11 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "./openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 
-type BackupRunDatabase = Pick<OpenClawStateDatabase, "backup_runs">;
+type BackupRunDatabase = Pick<GrantedStateDatabase, "backup_runs">;
 
 type BackupRunKind = "archive" | "sqlite-snapshot" | "git";
 

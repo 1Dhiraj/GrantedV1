@@ -4,7 +4,7 @@
  * Custom OpenAI-compatible base URLs intentionally bypass Codex-runtime defaults.
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderRouteOverridePresence } from "../plugin-sdk/provider-model-types.js";
 import {
   isDefaultAgentRuntimeId,
@@ -40,7 +40,7 @@ export function resolveOpenAIImplicitAgentRuntime(params: {
   modelId?: string;
   api?: string | null;
   baseUrl?: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   env?: Readonly<Record<string, string | undefined>>;
@@ -102,7 +102,7 @@ export function parseModelRefProvider(value: unknown): string | undefined {
 /** Returns true when selected model config should ensure the Codex plugin exists. */
 export function modelSelectionShouldEnsureCodexPlugin(params: {
   model?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
 }): boolean {
   const provider = parseModelRefProvider(params.model);
@@ -148,7 +148,7 @@ export function listOpenAIAuthProfileProvidersForAgentRuntime(params: {
   provider: string;
   harnessRuntime?: string;
   agentHarnessId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): string[] {
   if (!isOpenAIProvider(params.provider)) {
     return [params.provider];
@@ -163,7 +163,7 @@ export function resolveOpenAIRuntimeProvider(params: {
   agentHarnessId?: string;
   authProfileProvider?: string;
   authProfileId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): string {
   return isOpenAIProvider(params.provider) ? OPENAI_PROVIDER_ID : params.provider;
@@ -176,7 +176,7 @@ export function resolveSelectedOpenAIRuntimeProvider(params: {
   agentHarnessId?: string;
   authProfileProvider?: string;
   authProfileId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
 }): string {
   return isOpenAIProvider(params.provider) ? OPENAI_PROVIDER_ID : params.provider;
@@ -186,7 +186,7 @@ export function resolveSelectedOpenAIRuntimeProvider(params: {
 export function resolveContextConfigProviderForRuntime(params: {
   provider: string;
   runtimeId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): string {
   return isOpenAIProvider(params.provider) ? OPENAI_PROVIDER_ID : params.provider;
 }

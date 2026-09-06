@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createQaGatewayChild, type QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import type { HealthSummary } from "../../../../src/gateway/health/types.js";
 import { healthHandlers } from "../../../../src/gateway/server-methods/health.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
@@ -230,7 +230,7 @@ export async function createFixturePlugin() {
   return { pluginDir, cleanup: () => fs.rm(root, { recursive: true, force: true }) };
 }
 
-export function withFixturePlugin(config: OpenClawConfig, pluginDir: string): OpenClawConfig {
+export function withFixturePlugin(config: GrantedConfig, pluginDir: string): GrantedConfig {
   return {
     ...config,
     plugins: {

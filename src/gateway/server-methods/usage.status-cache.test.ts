@@ -8,7 +8,7 @@ import {
   saveAuthProfileStore,
   type AuthProfileStore,
 } from "../../agents/auth-profiles.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { UsageSummary } from "../../infra/provider-usage.types.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -55,7 +55,7 @@ import { usageHandlers } from "./usage.js";
 
 const config = {
   agents: { list: [{ id: "main", default: true }] },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 const refreshingCapableClient = { connect: { caps: ["usage-refreshing"] } };
 
@@ -76,7 +76,7 @@ function createStore(access = "access-one"): AuthProfileStore {
   };
 }
 
-async function runUsageStatus(params: { runtimeConfig?: OpenClawConfig; client?: unknown } = {}) {
+async function runUsageStatus(params: { runtimeConfig?: GrantedConfig; client?: unknown } = {}) {
   const runtimeConfig = params.runtimeConfig ?? config;
   const respond = vi.fn();
   await expectDefined(
@@ -388,7 +388,7 @@ describe("usage.status provider usage cache", () => {
 
   it("invalidates cached usage when the runtime config changes", async () => {
     const configFor = (baseUrl: string) =>
-      ({ ...config, models: { providers: { openai: { baseUrl, models: [] } } } }) as OpenClawConfig;
+      ({ ...config, models: { providers: { openai: { baseUrl, models: [] } } } }) as GrantedConfig;
     const first = configFor("https://one.example/v1");
     await expect(runCapableUsageStatus(first)).resolves.toMatchObject({ refreshing: true });
     await vi.waitFor(async () => {

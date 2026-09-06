@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, expect, test } from "vitest";
 import { createOpenClawCodingTools } from "../../../../src/agents/agent-tools.js";
 import type { AnyAgentTool } from "../../../../src/agents/agent-tools.types.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 
 const ARTIFACT = "mutation-receipt.md";
@@ -30,7 +30,7 @@ test("OpenClaw applies and edits exact workspace bytes while rejecting escapes",
   await fs.mkdir(workspace);
   await fs.writeFile(sentinel, "OUTSIDE\n", "utf8");
 
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     tools: {
       fs: { workspaceOnly: true },
       exec: { applyPatch: { enabled: true, workspaceOnly: true } },

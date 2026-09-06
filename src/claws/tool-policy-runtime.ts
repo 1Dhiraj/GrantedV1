@@ -1,7 +1,7 @@
 import { listAgentEntries } from "../agents/agent-scope.js";
 import { registerRuntimeConfigSnapshotPreparer } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
   initializeCachedClawInstallSchemaVersions,
@@ -18,7 +18,7 @@ type PreparedClawToolPolicy =
 const preparedClawToolPolicies = new WeakMap<object, PreparedClawToolPolicy>();
 type ClawToolPolicyCandidate = { agentId: string; agentConfigDigest: string; tools: object };
 let preparedCandidates: ClawToolPolicyCandidate[] = [];
-let preparedStateOptions: OpenClawStateDatabaseOptions = {};
+let preparedStateOptions: GrantedStateDatabaseOptions = {};
 let readPreparedSchemaVersions = readCachedClawInstallSchemaVersions;
 const uninitializedStateError = new Error(
   "OpenClaw state database has not initialized Claw consent provenance.",
@@ -87,8 +87,8 @@ function applyPreparedClawToolPolicyConsent(): void {
 }
 
 function prepareClawToolPolicyConsent(
-  config: OpenClawConfig,
-  options: OpenClawStateDatabaseOptions & {
+  config: GrantedConfig,
+  options: GrantedStateDatabaseOptions & {
     readSchemaVersions?: typeof readCachedClawInstallSchemaVersions;
   } = {},
 ): void {

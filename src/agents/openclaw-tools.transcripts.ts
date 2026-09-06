@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { TranscriptToolCaller } from "../transcripts/provider-types.js";
 import { bindActiveOperatorTurnAuthority } from "./cron-creator-authority-context.js";
 import type { AnyAgentTool } from "./tools/common.js";
@@ -55,7 +55,7 @@ function resolveTranscriptCaller(options: {
 }
 
 export function resolveTranscriptsTool(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   agentId: string,
   options:
     | {

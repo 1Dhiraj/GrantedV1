@@ -1,7 +1,7 @@
 // Cold plugin fixture helpers create plugin packages for cold import and loader tests.
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 type ColdPluginFixture = {
   authChoiceId: string;
@@ -109,7 +109,7 @@ export function createColdPluginFixture(options: ColdPluginFixtureOptions): Cold
   };
 }
 
-export function createColdPluginConfig(pluginDir: string, pluginId: string): OpenClawConfig {
+export function createColdPluginConfig(pluginDir: string, pluginId: string): GrantedConfig {
   return {
     plugins: {
       load: { paths: [pluginDir] },

@@ -1,11 +1,11 @@
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
 
 const MCP_LIFECYCLE_LEASE_SCOPE = "core:claw-mcp-lifecycle";
 const MCP_LIFECYCLE_LEASE_MS = 5 * 60_000;
 const MCP_LIFECYCLE_WAIT_MS = 10 * 60_000;
 
-type McpLifecycleLeaseOptions = Pick<OpenClawStateDatabaseOptions, "env" | "path" | "database"> & {
+type McpLifecycleLeaseOptions = Pick<GrantedStateDatabaseOptions, "env" | "path" | "database"> & {
   signal?: AbortSignal;
 };
 

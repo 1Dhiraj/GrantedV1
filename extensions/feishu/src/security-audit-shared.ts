@@ -4,9 +4,9 @@ import {
   asOptionalRecord as asRecord,
   hasNonEmptyString,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 
-function isFeishuDocToolEnabled(cfg: OpenClawConfig): boolean {
+function isFeishuDocToolEnabled(cfg: GrantedConfig): boolean {
   const channels = asRecord(cfg.channels);
   const feishu = asRecord(channels?.feishu);
   if (!feishu || feishu.enabled === false) {
@@ -46,7 +46,7 @@ function isFeishuDocToolEnabled(cfg: OpenClawConfig): boolean {
   return false;
 }
 
-export function collectFeishuSecurityAuditFindings(params: { cfg: OpenClawConfig }) {
+export function collectFeishuSecurityAuditFindings(params: { cfg: GrantedConfig }) {
   if (!isFeishuDocToolEnabled(params.cfg)) {
     return [];
   }

@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { finalizeEvent, getPublicKey, type Event, type Filter } from "nostr-tools";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
@@ -197,7 +197,7 @@ function publishRoomMembership(channelId: string): void {
   });
 }
 
-function buildConfig(channelIds: string[]): OpenClawConfig {
+function buildConfig(channelIds: string[]): GrantedConfig {
   return {
     channels: {
       buzz: {
@@ -206,7 +206,7 @@ function buildConfig(channelIds: string[]): OpenClawConfig {
         groups: Object.fromEntries(channelIds.map((channelId) => [channelId, {}])),
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function startGatewayProcess(channelIds: string[] = [CHANNEL_ID]): {

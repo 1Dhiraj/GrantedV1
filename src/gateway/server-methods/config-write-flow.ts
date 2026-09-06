@@ -13,7 +13,7 @@ import {
   type RuntimeConfigWriteApplicationStatus,
 } from "../../config/runtime-write-application.js";
 import { extractDeliveryInfo } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
@@ -60,7 +60,7 @@ function normalizeTrustedProxyAuthForCompare(auth: ReturnType<typeof resolveGate
 }
 
 /** Compares the effective shared Gateway auth surface that active clients use. */
-export function didSharedGatewayAuthChange(prev: OpenClawConfig, next: OpenClawConfig): boolean {
+export function didSharedGatewayAuthChange(prev: GrantedConfig, next: GrantedConfig): boolean {
   const prevResolvedAuth = resolveGatewayAuth({
     authConfig: prev.gateway?.auth,
     env: process.env,
@@ -139,9 +139,9 @@ function projectAuthoredValuesOntoRuntimeOverlay(params: {
 
 /** Compares against the active secrets-expanded config when one is available. */
 export function didActiveSharedGatewayAuthChange(params: {
-  fallbackPrev: OpenClawConfig;
-  fallbackSource?: OpenClawConfig;
-  next: OpenClawConfig;
+  fallbackPrev: GrantedConfig;
+  fallbackSource?: GrantedConfig;
+  next: GrantedConfig;
 }): boolean {
   const active = getActiveSecretsRuntimeSnapshotState();
   if (!active) {
@@ -153,16 +153,16 @@ export function didActiveSharedGatewayAuthChange(params: {
   const fallbackGateway = params.fallbackPrev.gateway;
   const selectOwnedGatewayValue = <Key extends "auth" | "tailscale" | "trustedProxies">(
     key: Key,
-  ): NonNullable<OpenClawConfig["gateway"]>[Key] =>
+  ): NonNullable<GrantedConfig["gateway"]>[Key] =>
     currentSourceGateway && Object.hasOwn(currentSourceGateway, key)
       ? (projectAuthoredValuesOntoRuntimeOverlay({
           source: currentSourceGateway[key],
           activeSource: activeSourceGateway?.[key],
           active: activeGateway?.[key],
           fallback: fallbackGateway?.[key],
-        }) as NonNullable<OpenClawConfig["gateway"]>[Key])
+        }) as NonNullable<GrantedConfig["gateway"]>[Key])
       : fallbackGateway?.[key];
-  const activeSharedAuthConfig: OpenClawConfig = {
+  const activeSharedAuthConfig: GrantedConfig = {
     ...params.fallbackPrev,
     gateway: {
       ...fallbackGateway,
@@ -189,7 +189,7 @@ function queueSharedGatewayAuthDisconnect(
 
 function queueSharedGatewayAuthGenerationRefresh(
   shouldRefresh: boolean,
-  nextConfig: OpenClawConfig,
+  nextConfig: GrantedConfig,
   context?: GatewayRequestContext,
 ): void {
   if (!shouldRefresh) {
@@ -202,7 +202,7 @@ function queueSharedGatewayAuthGenerationRefresh(
 
 function resolveConfigRestartRequirement(params: {
   changedPaths: string[];
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
 }): { requiresRestart: boolean; scheduleDirectRestart: boolean } {
   const reloadSettings = resolveGatewayReloadSettings(params.nextConfig);
   const plan = buildGatewayReloadPlan(params.changedPaths, { candidateConfig: params.nextConfig });
@@ -221,7 +221,7 @@ function resolveConfigRestartRequirement(params: {
 /** Returns whether a managed config write can settle without restarting the Gateway. */
 export function shouldAwaitGatewayConfigApplication(params: {
   changedPaths: string[];
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
 }): boolean {
   return !resolveConfigRestartRequirement(params).requiresRestart;
 }
@@ -295,13 +295,13 @@ async function tryWriteRestartSentinelPayload(payload: RestartSentinelPayload): 
 export async function commitGatewayConfigWrite(params: {
   snapshot: ConfigWriteSnapshot;
   writeOptions: ConfigWriteOptions;
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   context?: GatewayRequestContext;
   disconnectSharedAuthClients?: boolean;
   awaitRuntimeApplication?: boolean;
 }): Promise<{
   path: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   hash: string | null;
   application?: Promise<RuntimeConfigWriteApplicationStatus>;
   queueFollowUp: () => void;
@@ -359,7 +359,7 @@ export async function resolveGatewayConfigRestartWriteResult(params: {
   mode: "config.patch" | "config.apply";
   configPath: string;
   changedPaths: string[];
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   actor: ControlPlaneActor;
   context?: GatewayRequestContext;
 }): Promise<{

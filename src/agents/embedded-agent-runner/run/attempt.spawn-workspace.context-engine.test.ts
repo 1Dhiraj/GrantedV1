@@ -10,7 +10,7 @@ import {
   appendTranscriptMessage,
   createSessionEntryWithTranscript,
 } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.js";
+import type { GrantedConfig } from "../../../config/types.js";
 import { clearMemoryPluginState } from "../../../plugins/memory-state.test-fixtures.js";
 import { createUserTurnTranscriptRecorder } from "../../../sessions/user-turn-transcript.js";
 import { projectAgentRunAttemptTerminal } from "../../agent-run-terminal-outcome.js";
@@ -165,7 +165,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
             tools: {
               toolSearch: true,
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         },
       });
 
@@ -229,7 +229,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
           tools: {
             toolSearch: { enabled: true, mode: "directory" },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         clientTools: [
           {
             type: "function",
@@ -269,7 +269,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       },
     });
 
@@ -328,7 +328,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       },
     });
 
@@ -383,7 +383,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
             codeMode: { enabled: false },
             toolSearch: false,
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       },
       createSession: () => {
         const session = createDefaultEmbeddedSession();
@@ -440,7 +440,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
           agents: {
             list: [{ id: "ops", tools: { codeMode: true } }],
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         model: {
           api: "openai-chatgpt-responses",
           provider: "gateway",
@@ -1600,7 +1600,7 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
               bootstrapTotalMaxChars: 50,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         prompt: "visible ask",
         transcriptPrompt: "visible ask",
       },
@@ -2802,7 +2802,7 @@ describe("runEmbeddedAttempt context engine mid-turn precheck integration", () =
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       },
     });
 
@@ -2850,7 +2850,7 @@ describe("runEmbeddedAttempt context engine mid-turn precheck integration", () =
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       },
       sessionMessages: [seedMessage],
       sessionPrompt: async (session) => {

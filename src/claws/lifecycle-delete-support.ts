@@ -22,15 +22,15 @@ import {
 import { pruneAgentConfig } from "../commands/agents.config.js";
 import { moveToTrash } from "../commands/cleanup-utils.js";
 import { resolveSessionTranscriptsDirForAgent } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { root as fsSafeRoot, FsSafeError } from "../infra/fs-safe.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { unregisterOpenClawAgentDatabases } from "../state/openclaw-agent-db-registry.js";
-import type { OpenClawStateDatabase } from "../state/openclaw-state-db-contract.js";
+import type { GrantedStateDatabase } from "../state/openclaw-state-db-contract.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { deleteCachedClawInstallSchemaVersion } from "./provenance-runtime-read.js";
 import type { PersistedClawInstall } from "./provenance.js";
@@ -81,7 +81,7 @@ function rowToWorkspaceFile(row: WorkspaceFileRow): PersistedClawWorkspaceFile {
 }
 
 export function readAllClawWorkspaceFiles(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): PersistedClawWorkspaceFile[] {
   const database = openOpenClawStateDatabase(options);
   if (!clawStateTableExists(database.db, "claw_workspace_files")) {
@@ -129,7 +129,7 @@ export function synthesizeOrphanInstall(params: {
   };
 }
 
-export function deletionEffects(config: OpenClawConfig, agentId: string, fallbackWorkspace = "") {
+export function deletionEffects(config: GrantedConfig, agentId: string, fallbackWorkspace = "") {
   const agent = listAgentEntries(config).find((candidate) => candidate.id === agentId);
   const pruned = pruneAgentConfig(config, agentId);
   const workspace = agent?.workspace ?? fallbackWorkspace;
@@ -159,7 +159,7 @@ type AttachedCronJob = {
 /** Inventories cron jobs that would retain a reference to a removed agent. */
 export function readAttachedCronJobs(
   agentId: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): AttachedCronJob[] {
   const database = openOpenClawStateDatabase(options);
   if (!clawStateTableExists(database.db, "cron_jobs")) {
@@ -245,7 +245,7 @@ export async function workspaceContainsUntrackedEntries(
 /** Applies canonical post-config filesystem cleanup and reports every failed effect. */
 export async function cleanupClawAgentFilesystem(params: {
   agentId: string;
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   targets: ClawCleanupTargets;
   runtime: RuntimeEnv;
   trashPath?: ClawTrashPath;
@@ -364,7 +364,7 @@ export async function inspectClawWorkspaceFile(
 
 export async function inspectClawBootstrap(
   install: PersistedClawInstall,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): Promise<ClawBootstrapStatus> {
   const nativeState = await resolveWorkspaceBootstrapStatus(install.workspace, options);
   const setupState = readWorkspaceStateSnapshot(install.workspace, options).setup;
@@ -461,8 +461,8 @@ export function releaseClawRemoveRows(
   agentId: string,
   files: RemovedWorkspaceFile[],
   complete: boolean,
-  completeDeletion: (database: OpenClawStateDatabase) => void,
-  options: OpenClawStateDatabaseOptions,
+  completeDeletion: (database: GrantedStateDatabase) => void,
+  options: GrantedStateDatabaseOptions,
 ): void {
   if (complete) {
     // Keep the install record as the retry owner until database discovery is released.

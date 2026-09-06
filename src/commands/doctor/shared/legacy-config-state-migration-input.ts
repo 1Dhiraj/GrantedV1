@@ -1,19 +1,19 @@
 import type { ConfigFileSnapshot } from "../../../config/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { migrateLegacyConfig } from "./legacy-config-migrate.js";
 
 type StateMigrationConfigInput = {
-  cfg?: OpenClawConfig;
-  pluginDoctorConfig?: OpenClawConfig;
+  cfg?: GrantedConfig;
+  pluginDoctorConfig?: GrantedConfig;
 };
 
 export function resolveStateMigrationConfigInput(params: {
   snapshot: ConfigFileSnapshot;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
 }): StateMigrationConfigInput | null {
   const pluginDoctorConfig = (params.snapshot.sourceConfig ??
     params.snapshot.config ??
-    params.snapshot.parsed) as OpenClawConfig | undefined;
+    params.snapshot.parsed) as GrantedConfig | undefined;
   if (params.snapshot.valid) {
     return params.snapshot.legacyIssues.length > 0 && pluginDoctorConfig !== undefined
       ? { cfg: params.baseConfig, pluginDoctorConfig }
@@ -28,7 +28,7 @@ export function resolveStateMigrationConfigInput(params: {
   // completes. No config mutation must not prevent that owner from retrying.
   if (!migrated.config || migrated.partiallyValid) {
     return {
-      pluginDoctorConfig: (pluginDoctorConfig ?? migrationSource) as OpenClawConfig,
+      pluginDoctorConfig: (pluginDoctorConfig ?? migrationSource) as GrantedConfig,
     };
   }
   return {

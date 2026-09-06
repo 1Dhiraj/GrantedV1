@@ -2,7 +2,7 @@ import { WORKBOARD_STATUSES, type WorkboardCard } from "@openclaw/workboard-cont
 // Workboard plugin module implements shared gateway request helpers.
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import {
   dispatchAndStartWorkboardCards,
   type WorkboardDispatchStartOptions,
@@ -16,12 +16,12 @@ import {
 } from "./workspace-access.js";
 
 export type GatewayMethodContext = Parameters<
-  Parameters<OpenClawPluginApi["registerGatewayMethod"]>[1]
+  Parameters<GrantedPluginApi["registerGatewayMethod"]>[1]
 >[0];
 type GatewayRespond = GatewayMethodContext["respond"];
 type WorkboardGatewayResultHandler = (context: GatewayMethodContext) => unknown;
 type WorkboardGatewayScope = NonNullable<
-  NonNullable<Parameters<OpenClawPluginApi["registerGatewayMethod"]>[2]>["scope"]
+  NonNullable<Parameters<GrantedPluginApi["registerGatewayMethod"]>[2]>["scope"]
 >;
 
 export function respondError(respond: GatewayRespond, error: unknown) {
@@ -32,7 +32,7 @@ export function respondError(respond: GatewayRespond, error: unknown) {
 }
 
 export function registerWorkboardResultMethods(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   methods: ReadonlyArray<
     readonly [method: string, scope: WorkboardGatewayScope, handler: WorkboardGatewayResultHandler]
   >,
@@ -114,7 +114,7 @@ export function resolveGatewayWorkboardWorkspaceAccess(params: {
 }
 
 function gatewayDispatchOptions(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   request: Pick<GatewayMethodContext, "client" | "context">;
   input: Pick<
     WorkboardDispatchStartOptions,
@@ -144,7 +144,7 @@ function gatewayDispatchOptions(params: {
 }
 
 export function createWorkboardDispatchHandler(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   store: WorkboardStore;
   redactCard: (card: WorkboardCard) => WorkboardCard;
 }) {

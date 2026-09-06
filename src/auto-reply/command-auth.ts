@@ -11,7 +11,7 @@ import {
 import type { ChannelPlugin } from "../channels/plugins/types.plugin.js";
 import type { ChannelId } from "../channels/plugins/types.public.js";
 import { normalizeAnyChannelId } from "../channels/registry.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAccountEntry } from "../routing/account-lookup.js";
 import {
   INTERNAL_MESSAGE_CHANNEL,
@@ -33,7 +33,7 @@ export type CommandAuthorization = {
 
 type CommandAuthorizationParams = {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   commandAuthorized: boolean;
 };
 
@@ -46,7 +46,7 @@ type ProviderResolution = {
 
 type AllowFromParams = {
   plugin?: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 };
 
@@ -73,7 +73,7 @@ type OwnerAuthorizationState = {
 
 function resolveProviderFromContext(
   ctx: MsgContext,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): { providerId: ChannelId | undefined; hadResolutionError: boolean } {
   const explicitMessageChannels = [ctx.Surface, ctx.OriginatingChannel, ctx.Provider]
     .map((value) => normalizeMessageChannel(value))
@@ -122,7 +122,7 @@ function resolveProviderFromContext(
   };
 }
 
-function probeInferredProviders(ctx: MsgContext, cfg: OpenClawConfig) {
+function probeInferredProviders(ctx: MsgContext, cfg: GrantedConfig) {
   let droppedResolutionError = false;
   const candidates: ProviderResolution[] = [];
   for (const plugin of listLoadedChannelPlugins()) {
@@ -417,7 +417,7 @@ function resolveSenderCandidates(
 }
 
 function resolveFallbackAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerId?: ChannelId;
   accountId?: string | null;
 }): Array<string | number> {

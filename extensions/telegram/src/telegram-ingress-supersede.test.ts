@@ -1,13 +1,13 @@
 // Telegram supersede policy for durable ingress (authorization-gated).
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   addChannelAllowFromStoreEntry,
   closeOpenClawStateDatabaseForTest,
 } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, describe, expect, it } from "vitest";
 
-let openClawState: OpenClawTestState | undefined;
+let openClawState: GrantedTestState | undefined;
 
 afterEach(async () => {
   closeOpenClawStateDatabaseForTest();
@@ -24,7 +24,7 @@ import { createShouldSupersedeTelegramSpooledPending } from "./telegram-ingress-
 const OWNER_ID = "111";
 const STRANGER_ID = "999";
 
-function cfgWithOwner(ownerId = OWNER_ID): OpenClawConfig {
+function cfgWithOwner(ownerId = OWNER_ID): GrantedConfig {
   return {
     channels: {
       telegram: {
@@ -32,7 +32,7 @@ function cfgWithOwner(ownerId = OWNER_ID): OpenClawConfig {
         dmPolicy: "allowlist",
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function messageUpdate(params: {
@@ -356,7 +356,7 @@ describe("telegram ingress supersede policy", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "default",
     };
     const shouldSupersedeTopic = createShouldSupersedeTelegramSpooledPending(topicRestrictedAuth);
@@ -430,7 +430,7 @@ describe("telegram ingress supersede policy", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "default",
     };
     const update = messageUpdate({
@@ -491,7 +491,7 @@ describe("telegram ingress supersede policy", () => {
             dmPolicy: "pairing",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "default",
     };
     const shouldSupersedePaired = createShouldSupersedeTelegramSpooledPending(pairingAuth);
@@ -530,7 +530,7 @@ describe("telegram ingress supersede policy", () => {
         commands: {
           ownerAllowFrom: [ownerId],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "default",
     };
     const shouldSupersedeOwner = createShouldSupersedeTelegramSpooledPending(ownerAuth);

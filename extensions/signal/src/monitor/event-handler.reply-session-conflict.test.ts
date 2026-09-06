@@ -7,7 +7,7 @@ import {
   createChannelIngressQueueForTests,
 } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
 import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startSignalIngressMonitor } from "../signal-ingress.js";
 import type { SignalEventHandlerDeps } from "./event-handler.types.js";
@@ -490,7 +490,7 @@ describe("signal reply session init conflict retry", () => {
       createBaseSignalEventHandlerDeps({
         cfg: {
           messages: { inbound: { debounceMs: 10 } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       }),
     );
 

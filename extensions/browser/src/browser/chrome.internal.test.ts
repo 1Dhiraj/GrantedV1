@@ -367,7 +367,7 @@ async function withMockChromeCdpServer(params: {
               id: message.id,
               result: {
                 product: "Chrome/Mock",
-                userAgent: "OpenClawTest",
+                userAgent: "GrantedTest",
               },
             }),
           );

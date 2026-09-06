@@ -3,7 +3,7 @@ import {
   defineBundledChannelEntry,
   loadBundledEntryExportSync,
 } from "openclaw/plugin-sdk/channel-entry-contract";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/channel-entry-contract";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-entry-contract";
 import { registerFeishuSubagentHooks } from "./subagent-hooks-api.js";
 
 export default defineBundledChannelEntry({
@@ -33,7 +33,7 @@ export default defineBundledChannelEntry({
       "registerFeishuPermTools",
       "registerFeishuBitableTools",
     ]) {
-      const register = loadBundledEntryExportSync<(api: OpenClawPluginApi) => void>(
+      const register = loadBundledEntryExportSync<(api: GrantedPluginApi) => void>(
         import.meta.url,
         { specifier: "./api.js", exportName },
       );

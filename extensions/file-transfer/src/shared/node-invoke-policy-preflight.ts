@@ -1,6 +1,6 @@
 import type {
-  OpenClawPluginNodeInvokePolicyContext,
-  OpenClawPluginNodeInvokePolicyResult,
+  GrantedPluginNodeInvokePolicyContext,
+  GrantedPluginNodeInvokePolicyResult,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { appendFileTransferAudit, type FileTransferAuditOp } from "./audit.js";
@@ -49,7 +49,7 @@ function validateDirFetchPreflightEntry(
 }
 
 export async function validateDirFetchEntries(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   authorization: GrantedAuthorization;
   requestedPath: string;
@@ -57,7 +57,7 @@ export async function validateDirFetchEntries(input: {
   entries: unknown;
   startedAt: number;
   phase: "preflight" | "archive";
-}): Promise<OpenClawPluginNodeInvokePolicyResult | null> {
+}): Promise<GrantedPluginNodeInvokePolicyResult | null> {
   const nodeDisplayName = input.ctx.node?.displayName;
   const missingCode =
     input.phase === "preflight" ? "PREFLIGHT_ENTRIES_MISSING" : "ARCHIVE_ENTRIES_MISSING";
@@ -197,7 +197,7 @@ export function policyDeniedResult(input: {
   code: string;
   message: string;
   details?: Record<string, unknown>;
-}): OpenClawPluginNodeInvokePolicyResult {
+}): GrantedPluginNodeInvokePolicyResult {
   return {
     ok: false,
     code: input.code,
@@ -215,18 +215,18 @@ type PreflightResult =
     }
   | {
       ok: false;
-      result: OpenClawPluginNodeInvokePolicyResult;
+      result: GrantedPluginNodeInvokePolicyResult;
       canonicalChanged?: false;
     }
   | {
       ok: false;
-      result: OpenClawPluginNodeInvokePolicyResult;
+      result: GrantedPluginNodeInvokePolicyResult;
       canonicalChanged: true;
       canonicalPath: string;
     };
 
 async function invokePreflight(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   params: Record<string, unknown>;
   requestedPath: string;
@@ -318,14 +318,14 @@ async function invokePreflight(input: {
 }
 
 export async function validateCanonicalAuthorization(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   kind: FilePolicyKind;
   authorization: GrantedAuthorization;
   requestedPath: string;
   canonicalPath: string;
   startedAt: number;
-}): Promise<OpenClawPluginNodeInvokePolicyResult | null> {
+}): Promise<GrantedPluginNodeInvokePolicyResult | null> {
   const nodeDisplayName = input.ctx.node?.displayName;
   if (
     input.authorization.source === "literal" &&
@@ -395,7 +395,7 @@ export async function validateCanonicalAuthorization(input: {
 }
 
 async function invokeAuthorizedPreflight(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   kind: FilePolicyKind;
   authorization: GrantedAuthorization;
@@ -457,7 +457,7 @@ async function invokeAuthorizedPreflight(input: {
 }
 
 export async function runPathPreflight(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   kind: FilePolicyKind;
   authorization: GrantedAuthorization;
@@ -466,7 +466,7 @@ export async function runPathPreflight(input: {
   startedAt: number;
 }): Promise<
   | { ok: true; canonicalPath: string; binding: PathBinding }
-  | { ok: false; result: OpenClawPluginNodeInvokePolicyResult }
+  | { ok: false; result: GrantedPluginNodeInvokePolicyResult }
 > {
   const preflight = await invokeAuthorizedPreflight(input);
   if (!preflight.ok) {
@@ -487,7 +487,7 @@ export async function runPathPreflight(input: {
 }
 
 export async function runDirFetchPreflight(input: {
-  ctx: OpenClawPluginNodeInvokePolicyContext;
+  ctx: GrantedPluginNodeInvokePolicyContext;
   op: FileTransferAuditOp;
   authorization: GrantedAuthorization;
   params: Record<string, unknown>;
@@ -495,7 +495,7 @@ export async function runDirFetchPreflight(input: {
   startedAt: number;
 }): Promise<
   | { ok: true; canonicalPath: string; binding: PathBinding }
-  | { ok: false; result: OpenClawPluginNodeInvokePolicyResult }
+  | { ok: false; result: GrantedPluginNodeInvokePolicyResult }
 > {
   const preflight = await invokeAuthorizedPreflight({ ...input, kind: "read" });
   if (!preflight.ok) {

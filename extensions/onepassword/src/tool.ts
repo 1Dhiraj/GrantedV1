@@ -1,5 +1,5 @@
 import { isRecord } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import type { AnyAgentTool, OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { AnyAgentTool, GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { jsonResult } from "openclaw/plugin-sdk/tool-results";
 import type {
@@ -90,7 +90,7 @@ export function redactPersistedOnePasswordResult(
 
 export function createOnePasswordTool(
   broker: OnePasswordBroker,
-  invocation: OpenClawPluginToolContext,
+  invocation: GrantedPluginToolContext,
 ): AnyAgentTool {
   return {
     name: "onepassword",

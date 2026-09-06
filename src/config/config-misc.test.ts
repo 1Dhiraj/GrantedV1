@@ -10,7 +10,7 @@ import { readConfigFileSnapshot } from "./config.js";
 import { findLegacyConfigIssues } from "./legacy.js";
 import { buildWebSearchProviderConfig, withTempHome, writeOpenClawConfig } from "./test-helpers.js";
 import { validateConfigObject, validateConfigObjectRaw } from "./validation.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
 const nonBooleanConfigCases = [
   {
@@ -64,7 +64,7 @@ function expectSomeIssueMessageContains(issues: Array<{ message: string }>, text
 
 describe("boolean config validation", () => {
   it.each(nonBooleanConfigCases)("rejects non-boolean values for $name", ({ config }) => {
-    const result = OpenClawSchema.safeParse(config);
+    const result = GrantedSchema.safeParse(config);
     expect(result.success).toBe(false);
   });
 
@@ -100,7 +100,7 @@ describe("agent timeoutSeconds config", () => {
     ["negative", -1, false],
     ["fractional", 1.5, false],
   ])("agents.defaults.timeoutSeconds %s", (_label, timeoutSeconds, ok) => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       agents: { defaults: { timeoutSeconds }, entries: { main: { default: true } } },
     });
     expect(result.success).toBe(ok);
@@ -109,7 +109,7 @@ describe("agent timeoutSeconds config", () => {
 
 describe("model provider localService config", () => {
   it("accepts standalone timeout overlays for bundled model providers", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       models: {
         providers: {
           openai: {
@@ -171,7 +171,7 @@ describe("model provider localService config", () => {
   });
 
   it("rejects standalone timeout overlays for unknown model providers", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       models: {
         providers: {
           anyManifestProvider: {
@@ -194,7 +194,7 @@ describe("model provider localService config", () => {
   });
 
   it("requires models when a model provider declaration sets baseUrl", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       models: {
         providers: {
           custom: {
@@ -212,7 +212,7 @@ describe("model provider localService config", () => {
   });
 
   it("requires baseUrl when a model provider declaration sets models", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       models: {
         providers: {
           custom: {
@@ -230,7 +230,7 @@ describe("model provider localService config", () => {
   });
 
   it("accepts on-demand local provider service settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       models: {
         providers: {
           ds4: {
@@ -299,7 +299,7 @@ describe("model provider localService config", () => {
 
 describe("$schema key in config (#14998)", () => {
   it("accepts config with $schema string", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       $schema: "https://openclaw.ai/config.json",
     });
     expect(result.success).toBe(true);
@@ -309,12 +309,12 @@ describe("$schema key in config (#14998)", () => {
   });
 
   it("accepts config without $schema", () => {
-    const result = OpenClawSchema.safeParse({});
+    const result = GrantedSchema.safeParse({});
     expect(result.success).toBe(true);
   });
 
   it("rejects non-string $schema", () => {
-    const result = OpenClawSchema.safeParse({ $schema: 123 });
+    const result = GrantedSchema.safeParse({ $schema: 123 });
     expect(result.success).toBe(false);
   });
 
@@ -339,7 +339,7 @@ describe("$schema key in config (#14998)", () => {
 
 describe("accessGroups config", () => {
   it("accepts Discord channel audience access groups", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       accessGroups: {
         maintainers: {
           type: "discord.channelAudience",
@@ -360,7 +360,7 @@ describe("accessGroups config", () => {
   });
 
   it("rejects unknown access group membership modes", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       accessGroups: {
         maintainers: {
           type: "discord.channelAudience",
@@ -375,7 +375,7 @@ describe("accessGroups config", () => {
   });
 
   it("accepts message sender access groups for any channel", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       accessGroups: {
         owners: {
           type: "message.senders",
@@ -400,7 +400,7 @@ describe("accessGroups config", () => {
 
 describe("plugins.slots.contextEngine", () => {
   it("accepts a contextEngine slot id", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         slots: {
           contextEngine: "my-context-engine",
@@ -414,12 +414,12 @@ describe("plugins.slots.contextEngine", () => {
 describe("models.catalogRefresh", () => {
   it("accepts the refresh toggle and an http(s) override", () => {
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         models: { catalogRefresh: { enabled: false, url: "https://catalog.example.test/v1.json" } },
       }).success,
     ).toBe(true);
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         models: { catalogRefresh: { url: "http://localhost:8080/catalog.json" } },
       }).success,
     ).toBe(true);
@@ -427,17 +427,17 @@ describe("models.catalogRefresh", () => {
 
   it("rejects invalid refresh values", () => {
     expect(
-      OpenClawSchema.safeParse({ models: { catalogRefresh: { enabled: "false" } } }).success,
+      GrantedSchema.safeParse({ models: { catalogRefresh: { enabled: "false" } } }).success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({ models: { catalogRefresh: { url: "file:///tmp/catalog.json" } } })
+      GrantedSchema.safeParse({ models: { catalogRefresh: { url: "file:///tmp/catalog.json" } } })
         .success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({ models: { catalogRefresh: { url: "not a url" } } }).success,
+      GrantedSchema.safeParse({ models: { catalogRefresh: { url: "not a url" } } }).success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         models: { catalogRefresh: { url: "http://catalog.internal.example/catalog.json" } },
       }).success,
     ).toBe(false);
@@ -447,7 +447,7 @@ describe("models.catalogRefresh", () => {
 describe("diagnostics.otel.captureContent", () => {
   it("accepts supported OTEL log exporters and rejects unknown values", () => {
     for (const logsExporter of ["otlp", "stdout", "both"]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         diagnostics: {
           otel: {
             logs: true,
@@ -458,7 +458,7 @@ describe("diagnostics.otel.captureContent", () => {
       expect(result.success).toBe(true);
     }
 
-    const invalid = OpenClawSchema.safeParse({
+    const invalid = GrantedSchema.safeParse({
       diagnostics: {
         otel: {
           logs: true,
@@ -471,7 +471,7 @@ describe("diagnostics.otel.captureContent", () => {
 
   it("accepts boolean OTEL content capture config", () => {
     for (const captureContent of [true, false]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         diagnostics: {
           otel: {
             captureContent,
@@ -486,14 +486,14 @@ describe("diagnostics.otel.captureContent", () => {
 describe("diagnostics.otel.metricNamePrefix", () => {
   it("accepts valid metric name fragments and rejects invalid values", () => {
     for (const metricNamePrefix of ["", "acme.", "Acme/team-1_"]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         diagnostics: { otel: { metricNamePrefix } },
       });
       expect(result.success).toBe(true);
     }
 
     for (const metricNamePrefix of [42, " ", ".acme", "acme metrics.", "é.", "a".repeat(129)]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         diagnostics: { otel: { metricNamePrefix } },
       });
       expect(result.success).toBe(false);
@@ -559,7 +559,7 @@ describe("ui.prefs.sidebarEntries", () => {
 describe("gateway.controlUi.embedSandbox", () => {
   it("accepts strict, scripts, and trusted modes", () => {
     for (const mode of ["strict", "scripts", "trusted"] as const) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         gateway: {
           controlUi: {
             embedSandbox: mode,
@@ -571,7 +571,7 @@ describe("gateway.controlUi.embedSandbox", () => {
   });
 
   it("rejects unsupported values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       gateway: {
         controlUi: {
           embedSandbox: "yolo",
@@ -595,7 +595,7 @@ describe("gateway.controlUi.environment", () => {
       "red",
       "gray",
     ]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         gateway: { controlUi: { environment: { label: " edge ", color } } },
       });
       expect(result.success).toBe(true);
@@ -612,7 +612,7 @@ describe("gateway.controlUi.environment", () => {
     { label: "edge" },
     { color: "amber" },
   ])("rejects invalid environment configuration %#", (environment) => {
-    expect(OpenClawSchema.safeParse({ gateway: { controlUi: { environment } } }).success).toBe(
+    expect(GrantedSchema.safeParse({ gateway: { controlUi: { environment } } }).success).toBe(
       false,
     );
   });
@@ -621,7 +621,7 @@ describe("gateway.controlUi.environment", () => {
 describe("gateway.controlUi.allowExternalEmbedUrls", () => {
   it("accepts boolean values", () => {
     for (const value of [true, false]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         gateway: {
           controlUi: {
             allowExternalEmbedUrls: value,
@@ -636,7 +636,7 @@ describe("gateway.controlUi.allowExternalEmbedUrls", () => {
 describe("gateway.controlUi.sessionObserver", () => {
   it("accepts boolean values", () => {
     for (const value of [true, false]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         gateway: { controlUi: { sessionObserver: value } },
       });
       expect(result.success).toBe(true);
@@ -646,7 +646,7 @@ describe("gateway.controlUi.sessionObserver", () => {
 
 describe("plugins.entries.*.hooks", () => {
   it.each([true, false])("accepts allowConversationAccess=%s", (allowConversationAccess) => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -662,7 +662,7 @@ describe("plugins.entries.*.hooks", () => {
   });
 
   it("accepts allowPromptInjection=false alongside allowConversationAccess=true", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -678,7 +678,7 @@ describe("plugins.entries.*.hooks", () => {
   });
 
   it("accepts bounded typed hook timeout overrides", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "memory-recall": {
@@ -697,7 +697,7 @@ describe("plugins.entries.*.hooks", () => {
   });
 
   it("rejects non-boolean conversation access values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -719,7 +719,7 @@ describe("plugins.entries.*.hooks", () => {
       { timeouts: { before_prompt_build: -1 } },
       { timeouts: { before_prompt_build: 1.5 } },
     ]) {
-      const result = OpenClawSchema.safeParse({
+      const result = GrantedSchema.safeParse({
         plugins: {
           entries: {
             "memory-recall": { hooks },
@@ -733,16 +733,16 @@ describe("plugins.entries.*.hooks", () => {
 
 describe("mcp.apps.enabled", () => {
   it.each([true, false])("accepts %s", (enabled) => {
-    expect(OpenClawSchema.safeParse({ mcp: { apps: { enabled } } }).success).toBe(true);
+    expect(GrantedSchema.safeParse({ mcp: { apps: { enabled } } }).success).toBe(true);
   });
 
   it("rejects non-boolean values", () => {
-    expect(OpenClawSchema.safeParse({ mcp: { apps: { enabled: "yes" } } }).success).toBe(false);
+    expect(GrantedSchema.safeParse({ mcp: { apps: { enabled: "yes" } } }).success).toBe(false);
   });
 
   it("accepts only a bare HTTP(S) sandbox origin", () => {
     expect(
-      OpenClawSchema.safeParse({
+      GrantedSchema.safeParse({
         mcp: {
           apps: {
             enabled: true,
@@ -752,21 +752,21 @@ describe("mcp.apps.enabled", () => {
         },
       }).success,
     ).toBe(true);
-    expect(OpenClawSchema.safeParse({ mcp: { apps: { sandboxPort: 65536 } } }).success).toBe(false);
+    expect(GrantedSchema.safeParse({ mcp: { apps: { sandboxPort: 65536 } } }).success).toBe(false);
     for (const sandboxOrigin of [
       "https://mcp-apps.example.com/path",
       "https://mcp-apps.example.com?query=1",
       "https://user:pass@mcp-apps.example.com",
       "data:text/html,hello",
     ]) {
-      expect(OpenClawSchema.safeParse({ mcp: { apps: { sandboxOrigin } } }).success).toBe(false);
+      expect(GrantedSchema.safeParse({ mcp: { apps: { sandboxOrigin } } }).success).toBe(false);
     }
   });
 });
 
 describe("plugins.entries.*.subagent", () => {
   it("accepts trusted subagent override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -782,7 +782,7 @@ describe("plugins.entries.*.subagent", () => {
   });
 
   it("rejects invalid trusted subagent override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -800,7 +800,7 @@ describe("plugins.entries.*.subagent", () => {
 
 describe("plugins.entries.*.llm", () => {
   it("accepts trusted llm override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -819,7 +819,7 @@ describe("plugins.entries.*.llm", () => {
   });
 
   it("rejects invalid trusted llm override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = GrantedSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -1096,7 +1096,7 @@ describe("config identity/materialization regressions", () => {
 
 describe("cron webhook schema", () => {
   it("accepts cron.webhookToken SecretRef values", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = GrantedSchema.safeParse({
       cron: {
         webhookToken: {
           source: "env",
@@ -1110,7 +1110,7 @@ describe("cron webhook schema", () => {
   });
 
   it("accepts the shared cron webhook SSRF policy", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = GrantedSchema.safeParse({
       cron: {
         webhookSsrfPolicy: {
           dangerouslyAllowPrivateNetwork: true,
@@ -1133,7 +1133,7 @@ describe("cron webhook schema", () => {
   });
 
   it("rejects unknown cron webhook SSRF policy fields", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = GrantedSchema.safeParse({
       cron: { webhookSsrfPolicy: { allowEverything: true } },
     });
 
@@ -1175,7 +1175,7 @@ describe("model compat config schema", () => {
   it.each(["together", "zai", "qwen", "qwen-chat-template"] as const)(
     "accepts full openai-completions compat fields with %s thinking format",
     (thinkingFormat) => {
-      const res = OpenClawSchema.safeParse({
+      const res = GrantedSchema.safeParse({
         models: {
           providers: {
             local: {

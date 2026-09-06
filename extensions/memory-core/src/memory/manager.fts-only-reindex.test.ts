@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
@@ -144,7 +144,7 @@ describe("memory manager FTS-only reindex", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await getMemorySearchManager({ cfg, agentId: "main", purpose: params.purpose });
     if (!result.manager) {
       throw new Error(result.error ?? "manager missing");

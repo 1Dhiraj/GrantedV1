@@ -3,7 +3,7 @@ import {
   defineChannelSetupContract,
   type ChannelSetupAdapter,
 } from "openclaw/plugin-sdk/channel-setup";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
 import {
   createSetupTranslator,
@@ -48,7 +48,7 @@ export function parseRelayUrls(raw: string): { relays: string[]; error?: string 
 }
 
 export function createNostrSetupAdapter(params: {
-  resolveAccountId: (cfg: OpenClawConfig, accountId?: string | null) => string;
+  resolveAccountId: (cfg: GrantedConfig, accountId?: string | null) => string;
 }): ChannelSetupAdapter<NostrSetupInput> {
   return {
     resolveAccountId: ({ cfg, accountId }) => params.resolveAccountId(cfg, accountId),
@@ -116,7 +116,7 @@ export function createNostrSetupContract(adapter: ChannelSetupAdapter<NostrSetup
 }
 
 export function createNostrSetupStatus(
-  resolveAccount: (params: { cfg: OpenClawConfig; accountId?: string | null }) => {
+  resolveAccount: (params: { cfg: GrantedConfig; accountId?: string | null }) => {
     configured: boolean;
     relays: string[];
   },

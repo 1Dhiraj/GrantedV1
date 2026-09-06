@@ -241,7 +241,7 @@ describe("native app i18n inventory", () => {
         <string>OpenClaw Fixture</string>
         <key>NSCameraUsageDescription</key>
         <string>OpenClaw uses the camera to scan setup codes &amp; documents.</string>
-        <key>OpenClawFixtureValue</key>
+        <key>GrantedFixtureValue</key>
         <string>Runtime configuration value</string>
       </dict></plist>`,
     );

@@ -21,20 +21,20 @@ import { isPathInside } from "../../infra/path-guards.js";
 import { resolveSqliteDatabaseFilePaths } from "../../infra/sqlite-files.js";
 import { readSqliteUserVersion } from "../../infra/sqlite-user-version.js";
 import { registerSqliteCacheExitClose } from "../../infra/sqlite-wal.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   deferOpenClawAgentPostCommitPublication,
   GRANTED_AGENT_SCHEMA_VERSION,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { resolveUserPath } from "../../utils.js";
 import { resolveRegisteredAgentIdForDir } from "../agent-dir-registry.js";
@@ -46,11 +46,11 @@ import {
 import { prepareFreshSharedAuthStoreWrite } from "./shared-store-bootstrap.js";
 
 type AgentAuthProfileDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "auth_profile_store" | "auth_profile_state"
 >;
-type SharedAuthProfileDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
-export type AuthProfileDatabase = OpenClawAgentDatabase | OpenClawStateDatabase;
+type SharedAuthProfileDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
+export type AuthProfileDatabase = GrantedAgentDatabase | GrantedStateDatabase;
 
 /** Internal prepared ownership, carried through commit publication and compensation. */
 export type AuthProfileStoreOwner = {

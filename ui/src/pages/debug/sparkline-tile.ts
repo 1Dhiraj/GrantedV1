@@ -1,7 +1,7 @@
 import { html, nothing, svg } from "lit";
 import { property, state as litState } from "lit/decorators.js";
 import { formatDurationCompact } from "../../lib/format.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 
 export type SparklineSample = { value: number; at: number };
 
@@ -21,7 +21,7 @@ function nextGradientId(): string {
 }
 
 /** Stat tile with an embedded area sparkline and pointer scrubbing. */
-class DebugSparklineTile extends OpenClawLightDomElement {
+class DebugSparklineTile extends GrantedLightDomElement {
   @property() label = "";
   @property() sub = "";
   @property({ attribute: false }) samples: readonly SparklineSample[] = [];

@@ -20,7 +20,7 @@ vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal
 
 import { resolveDiscordPreflightAudioMentionContext } from "./preflight-audio.js";
 
-const cfg = {} as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig;
+const cfg = {} as import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
 
 describe("resolveDiscordPreflightAudioMentionContext", () => {
   beforeEach(() => {

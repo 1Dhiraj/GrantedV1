@@ -9,7 +9,7 @@ import {
 } from "openclaw/plugin-sdk/channel-outbound";
 import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
 import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
 import {
   chunkTextForOutbound,
@@ -334,7 +334,7 @@ export const nostrPairingTextAdapter = {
     message,
     accountId,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     id: string;
     message: string;
     accountId?: string;

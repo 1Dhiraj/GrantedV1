@@ -4,7 +4,7 @@ import { stripAnsi } from "../../../packages/terminal-core/src/ansi.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { runPostCorePluginConvergence } from "../../commands/doctor/shared/post-core-plugin-convergence.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import { resolveRegistryUpdateChannel, type UpdateChannel } from "../../infra/update-channels.js";
 import type { PluginCapabilityConsentHandler } from "../../plugins/capability-consent.js";
@@ -312,7 +312,7 @@ export async function updatePluginsAfterCoreUpdate(params: {
     if (params.restoredAuthoredChannels !== undefined) {
       nextConfig = {
         ...nextConfig,
-        channels: structuredClone(params.restoredAuthoredChannels) as OpenClawConfig["channels"],
+        channels: structuredClone(params.restoredAuthoredChannels) as GrantedConfig["channels"],
       };
     }
     // Installed plugin metadata can own migrations that this process has not loaded yet.

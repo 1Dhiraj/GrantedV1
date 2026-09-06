@@ -28,7 +28,7 @@ import {
   mockCallArg,
   mockParentedAcpSessionEntries,
   readySessionMeta,
-  type OpenClawConfig,
+  type GrantedConfig,
   resetAcpSessionManagerForTests,
   type SessionAcpMeta,
 } from "./manager.test-helpers.js";
@@ -84,7 +84,7 @@ describe("AcpSessionManager", () => {
       ...baseCfg,
       session: { mainKey: "main" },
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await manager.runTurn({
       provenance: "system",
@@ -773,7 +773,7 @@ describe("AcpSessionManager", () => {
               timeoutSeconds: 1,
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const first = manager.runTurn({
           provenance: "system",
@@ -963,7 +963,7 @@ describe("AcpSessionManager", () => {
         enabled: true,
         dispatch: { enabled: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const manager = new AcpSessionManager();
     await expect(

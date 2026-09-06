@@ -1,6 +1,6 @@
 import { note } from "../../packages/terminal-core/src/note.js";
 import type { ConfigSnapshotReadMeasure } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizePluginsConfig, resolveEffectiveEnableState } from "../plugins/config-state.js";
 import type { PluginPayloadSmokeFailure } from "../plugins/payload-verification.js";
 import {
@@ -22,7 +22,7 @@ type StartupPluginConvergenceResult = {
 };
 
 async function planStartupPluginVerification(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   measure?: ConfigSnapshotReadMeasure;
 }) {
@@ -43,7 +43,7 @@ async function planStartupPluginVerification(params: {
 }
 
 function isStartupPluginVerificationFailureActive(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   failure: PluginPayloadSmokeFailure;
 }): boolean {
   return resolveEffectiveEnableState({
@@ -55,7 +55,7 @@ function isStartupPluginVerificationFailureActive(params: {
 }
 
 function buildStartupPluginQuarantine(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   failures: readonly PluginPayloadSmokeFailure[];
 }): DegradedPlugin[] {
   return buildDegradedPluginsFromVerificationFailures(
@@ -77,7 +77,7 @@ function formatStartupPluginSmokeFailure(failure: PluginPayloadSmokeFailure): st
 }
 
 export async function runStartupUpgradeConvergence(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   measure?: ConfigSnapshotReadMeasure;
 }): Promise<StartupPluginConvergenceResult> {
@@ -146,7 +146,7 @@ export async function runStartupUpgradeConvergence(params: {
 }
 
 export async function refreshStartupPluginQuarantine(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   measure?: ConfigSnapshotReadMeasure;
 }): Promise<StartupPluginConvergenceResult> {
@@ -195,7 +195,7 @@ export async function refreshStartupPluginQuarantine(params: {
 }
 
 function mapStartupPluginQuarantineRefresh(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   failures: readonly PluginPayloadSmokeFailure[];
 }): StartupPluginConvergenceResult {
   const quarantinedPlugins = buildStartupPluginQuarantine(params);

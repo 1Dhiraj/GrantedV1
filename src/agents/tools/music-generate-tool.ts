@@ -2,7 +2,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { Type } from "typebox";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SsrFPolicy } from "../../infra/net/ssrf.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { parseMusicGenerationModelRef } from "../../media-generation/model-ref.js";
@@ -128,7 +128,7 @@ const MusicGenerateToolSchema = Type.Object({
 });
 
 function resolveSelectedMusicGenerationProvider(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   providers?: MusicGenerationProvider[];
   musicGenerationModelConfig: ToolModelConfig;
   modelOverride?: string;
@@ -290,7 +290,7 @@ type ExecutedMusicGeneration = {
 };
 
 async function executeMusicGenerationJob(params: {
-  effectiveCfg: OpenClawConfig;
+  effectiveCfg: GrantedConfig;
   prompt: string;
   agentDir?: string;
   model?: string;
@@ -487,7 +487,7 @@ async function executeMusicGenerationJob(params: {
 }
 
 export function createMusicGenerateTool(options?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   authProfileStore?: AuthProfileStore;
   agentSessionKey?: string;
@@ -500,7 +500,7 @@ export function createMusicGenerateTool(options?: {
   scheduleBackgroundWork?: MediaGenerateBackgroundScheduler;
   onAsyncTaskStarted?: MediaGenerateAsyncStartCallback;
 }): AnyAgentTool | null {
-  const cfg: OpenClawConfig = options?.config ?? getRuntimeConfig();
+  const cfg: GrantedConfig = options?.config ?? getRuntimeConfig();
   const preparedProviders = options?.preparedModelRuntime?.mediaCapabilityProviders
     ?.musicGenerationProviders
     ? [...options.preparedModelRuntime.mediaCapabilityProviders.musicGenerationProviders]

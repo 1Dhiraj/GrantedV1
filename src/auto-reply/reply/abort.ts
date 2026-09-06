@@ -22,7 +22,7 @@ import {
   type SessionAbortTargetIdentity,
   type SessionAbortTargetResult,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { isAcpSessionKey, isSubagentSessionKey } from "../../routing/session-key.js";
@@ -93,7 +93,7 @@ export function formatAbortReplyText(
 }
 
 function resolveStoredSessionId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
 }): string | undefined {
   const agentId = resolveSessionAgentId({
@@ -115,7 +115,7 @@ function resolveStoredSessionId(params: {
 
 function resolveBoundAcpAbortTargetSessionKey(params: {
   ctx: FinalizedRuntimeMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   activeSessionKey: string;
 }): string | undefined {
   const bindingContext = resolveConversationBindingContextFromMessage({
@@ -138,7 +138,7 @@ function resolveBoundAcpAbortTargetSessionKey(params: {
 }
 
 function normalizeRequesterSessionKey(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   key: string | undefined,
 ): string | undefined {
   const cleaned = normalizeOptionalString(key);
@@ -150,7 +150,7 @@ function normalizeRequesterSessionKey(
 }
 
 export async function stopSubagentsForRequester(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requesterSessionKey?: string;
   requesterAgentId?: string;
   beforeKill?: Parameters<typeof killAllControlledSubagentRuns>[0]["beforeKill"];
@@ -189,7 +189,7 @@ export async function stopSubagentsForRequester(params: {
 
 export async function tryFastAbortFromMessage(params: {
   ctx: FinalizedRuntimeMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<{
   handled: boolean;
   aborted: boolean;

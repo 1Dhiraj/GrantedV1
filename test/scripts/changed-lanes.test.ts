@@ -2499,7 +2499,7 @@ describe("scripts/changed-lanes", () => {
   it.each([
     "apps/macos/Tests/OpenClawIPCTests/MacNodeHostWorkerTests.swift",
     "./apps/macos/Tests/OpenClawIPCTests/RemovedTests.swift",
-    "apps\\macos\\Tests\\OpenClawIPCTests\\Nested\\WorkerTests.swift",
+    "apps\\macos\\Tests\\GrantedIPCTests\\Nested\\WorkerTests.swift",
   ])("keeps Swift test-only changes out of local packaging tests: %s", (changedPath) => {
     const plan = createChangedCheckPlan(detectChangedLanes([changedPath]), {
       env: { PATH: "/usr/bin" },

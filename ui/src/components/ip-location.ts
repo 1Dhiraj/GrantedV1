@@ -1,7 +1,7 @@
 import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { lookupClientGeolocation, type ClientGeolocation } from "../lib/geolocation-lookup.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 
 // The first lookup on a fresh Gateway waits on a database download that can take
@@ -14,7 +14,7 @@ const RETRY_DELAYS_MS = [5_000, 15_000, 45_000];
  * a normal outcome — no plugin installed, or an address the database cannot
  * place — so this never shows a spinner or an error state.
  */
-class OpenClawIpLocation extends OpenClawLightDomContentsElement {
+class GrantedIpLocation extends GrantedLightDomContentsElement {
   @property({ attribute: false }) ip: string | undefined;
   @state() private location: ClientGeolocation | null = null;
 
@@ -101,12 +101,12 @@ if (globalThis.customElements) {
   // Guarded define matches the other presence components: the module is
   // imported from more than one view and must not re-register.
   if (!customElements.get("openclaw-ip-location")) {
-    customElements.define("openclaw-ip-location", OpenClawIpLocation);
+    customElements.define("openclaw-ip-location", GrantedIpLocation);
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-ip-location": OpenClawIpLocation;
+    "openclaw-ip-location": GrantedIpLocation;
   }
 }

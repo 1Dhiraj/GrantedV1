@@ -1,7 +1,7 @@
 // Verifies generated models.json preserves source secret markers from runtime snapshots.
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createFixtureSuite } from "../test-utils/fixture-suite.js";
 import { NON_ENV_SECRETREF_MARKER } from "./model-auth-markers.js";
 import {
@@ -72,7 +72,7 @@ afterAll(async () => {
   await fixtureSuite.cleanup();
 });
 
-function createOpenAiApiKeySourceConfig(): OpenClawConfig {
+function createOpenAiApiKeySourceConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -87,7 +87,7 @@ function createOpenAiApiKeySourceConfig(): OpenClawConfig {
   };
 }
 
-function createOpenAiApiKeyRuntimeConfig(): OpenClawConfig {
+function createOpenAiApiKeyRuntimeConfig(): GrantedConfig {
   // Runtime config simulates already-resolved secrets that must not be persisted.
   return {
     models: {
@@ -103,7 +103,7 @@ function createOpenAiApiKeyRuntimeConfig(): OpenClawConfig {
   };
 }
 
-function createCustomProviderApiKeySourceConfig(): OpenClawConfig {
+function createCustomProviderApiKeySourceConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -122,7 +122,7 @@ function createCustomProviderApiKeySourceConfig(): OpenClawConfig {
   };
 }
 
-function createCustomProviderApiKeyRuntimeConfig(): OpenClawConfig {
+function createCustomProviderApiKeyRuntimeConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -137,7 +137,7 @@ function createCustomProviderApiKeyRuntimeConfig(): OpenClawConfig {
   };
 }
 
-function createOpenAiHeaderSourceConfig(): OpenClawConfig {
+function createOpenAiHeaderSourceConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -163,7 +163,7 @@ function createOpenAiHeaderSourceConfig(): OpenClawConfig {
   };
 }
 
-function createOpenAiHeaderRuntimeConfig(): OpenClawConfig {
+function createOpenAiHeaderRuntimeConfig(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -181,11 +181,11 @@ function createOpenAiHeaderRuntimeConfig(): OpenClawConfig {
   };
 }
 
-function getOpenAiProvider(config: OpenClawConfig) {
+function getOpenAiProvider(config: GrantedConfig) {
   return expectDefined(config.models?.providers?.openai, "OpenAI provider config");
 }
 
-function createOpenAiSourceConfigWithHeadersAndApiKey(): OpenClawConfig {
+function createOpenAiSourceConfigWithHeadersAndApiKey(): GrantedConfig {
   const config = createOpenAiHeaderSourceConfig();
   getOpenAiProvider(config).apiKey = {
     source: "env",
@@ -195,13 +195,13 @@ function createOpenAiSourceConfigWithHeadersAndApiKey(): OpenClawConfig {
   return config;
 }
 
-function createOpenAiRuntimeConfigWithHeadersAndApiKey(): OpenClawConfig {
+function createOpenAiRuntimeConfigWithHeadersAndApiKey(): GrantedConfig {
   const config = createOpenAiHeaderRuntimeConfig();
   getOpenAiProvider(config).apiKey = "sk-runtime-resolved"; // pragma: allowlist secret
   return config;
 }
 
-function withGatewayTokenMode(config: OpenClawConfig): OpenClawConfig {
+function withGatewayTokenMode(config: GrantedConfig): GrantedConfig {
   return {
     ...config,
     gateway: {
@@ -224,8 +224,8 @@ async function expectGeneratedProviderApiKey(
 }
 
 async function planGeneratedProviders(params: {
-  config: OpenClawConfig;
-  sourceConfigForSecrets: OpenClawConfig;
+  config: GrantedConfig;
+  sourceConfigForSecrets: GrantedConfig;
 }) {
   // Planner assertions avoid filesystem noise for marker-projection cases.
   const plan = await planOpenClawModelsJsonWithDeps(
@@ -263,7 +263,7 @@ function expectOpenAiHeaderMarkers(
 
 describe("models-config runtime source snapshot", () => {
   it("uses runtime source snapshot markers when passed the active runtime config", () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       models: {
         providers: {
           openai: getOpenAiProvider(createOpenAiApiKeySourceConfig()),
@@ -276,7 +276,7 @@ describe("models-config runtime source snapshot", () => {
         },
       },
     };
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       models: {
         providers: {
           openai: getOpenAiProvider(createOpenAiApiKeyRuntimeConfig()),
@@ -303,7 +303,7 @@ describe("models-config runtime source snapshot", () => {
       unsetEnv(MODELS_CONFIG_IMPLICIT_ENV_VARS);
       const sourceConfig = createOpenAiApiKeySourceConfig();
       const runtimeConfig = createOpenAiApiKeyRuntimeConfig();
-      const clonedRuntimeConfig: OpenClawConfig = {
+      const clonedRuntimeConfig: GrantedConfig = {
         ...runtimeConfig,
         agents: {
           defaults: {
@@ -347,7 +347,7 @@ describe("models-config runtime source snapshot", () => {
       unsetEnv(MODELS_CONFIG_IMPLICIT_ENV_VARS);
       const sourceConfig = createOpenAiApiKeySourceConfig();
       const runtimeConfig = createOpenAiApiKeyRuntimeConfig();
-      const firstCandidate: OpenClawConfig = {
+      const firstCandidate: GrantedConfig = {
         ...runtimeConfig,
         models: {
           providers: {
@@ -361,7 +361,7 @@ describe("models-config runtime source snapshot", () => {
           },
         },
       };
-      const secondCandidate: OpenClawConfig = {
+      const secondCandidate: GrantedConfig = {
         ...runtimeConfig,
         models: {
           providers: {
@@ -428,7 +428,7 @@ describe("models-config runtime source snapshot", () => {
     // Regression: provider keys in sourceConfigForSecrets may arrive as "OpenAI" while the
     // merge boundary canonicalizes to "openai". The source-managed marker lookup must use the
     // same provider-id normalizer, otherwise the resolved runtime apiKey leaks into models.json.
-    const mixedCaseSourceConfig: OpenClawConfig = {
+    const mixedCaseSourceConfig: GrantedConfig = {
       models: {
         providers: {
           OpenAI: {
@@ -450,7 +450,7 @@ describe("models-config runtime source snapshot", () => {
   });
 
   it("reapplies source header markers when sourceConfigForSecrets uses mixed-case provider keys", async () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       models: {
         providers: {
           " OpenAI ": {
@@ -517,7 +517,7 @@ describe("models-config runtime source snapshot", () => {
     const sourceProviders = {
       openai: null,
       OpenAI: getOpenAiProvider(createOpenAiApiKeySourceConfig()),
-    } as unknown as NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>;
+    } as unknown as NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>;
 
     const providers = enforceSourceManagedProviderSecrets({
       providers: runtimeConfig.models!.providers!,

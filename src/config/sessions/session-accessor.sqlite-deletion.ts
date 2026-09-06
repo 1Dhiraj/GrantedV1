@@ -19,7 +19,7 @@ import {
 import {
   deferOpenClawAgentPostCommitPublication,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import {
@@ -179,7 +179,7 @@ export function commitSqliteSessionDeletion(sessionKey: string, entry: SessionEn
 
 /** Roll back companion state only if SQLite failed before COMMIT, never after publication. */
 export function runSqliteSessionDeletionTransaction<T>(
-  operation: (database: OpenClawAgentDatabase) => T,
+  operation: (database: GrantedAgentDatabase) => T,
   options: Parameters<typeof runOpenClawAgentWriteTransaction>[1],
   transactionOptions?: Parameters<typeof runOpenClawAgentWriteTransaction>[2],
 ): T {

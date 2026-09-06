@@ -22,13 +22,13 @@ import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { parseModelRef, resolvePersistedSelectedModelRef } from "../agents/model-selection.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { resolveStoredSessionKeyForAgentStore } from "../gateway/session-store-key.js";
 import { classifySessionKind } from "../sessions/classify-session-kind.js";
 import { resolveAgentRuntimeLabel } from "./agent-runtime-label.js";
 
 function resolveStatusModelRefFromRaw(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   rawModel: string;
   defaultProvider: string;
 }): { provider: string; model: string } | null {
@@ -63,7 +63,7 @@ function resolveStatusModelRefFromRaw(params: {
 }
 
 function resolveConfiguredStatusModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   defaultProvider: string;
   defaultModel: string;
   agentId?: string;
@@ -157,7 +157,7 @@ function resolveStatusModelComparisonLabel(params: {
 }
 
 function resolveSessionModelRef(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   entry?:
     | SessionEntry
     | Pick<SessionEntry, "model" | "modelProvider" | "modelOverride" | "providerOverride">,
@@ -199,7 +199,7 @@ function resolveSessionModelRef(
 }
 
 function resolveSessionRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry?: SessionEntry;
   provider: string;
   model: string;

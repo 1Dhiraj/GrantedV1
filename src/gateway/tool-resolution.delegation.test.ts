@@ -6,7 +6,7 @@
  * does on the embedded attempt path.
  */
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const hoisted = vi.hoisted(() => {
   function makeTool(name: string, execute = vi.fn(async () => ({ content: [], details: {} }))) {
@@ -55,7 +55,7 @@ import { resolveGatewayScopedTools } from "./tool-resolution.js";
 
 function resolveLoopbackTools(delegationCapability?: "full" | "report_only") {
   return resolveGatewayScopedTools({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     sessionKey: "agent:main:direct:test",
     surface: "loopback",
     senderIsOwner: true,
@@ -87,7 +87,7 @@ describe("resolveGatewayScopedTools delegationCapability", () => {
         tools: {
           allow: ["read", "sessions_spawn", "sessions_send", "cron", "gateway", "nodes"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionKey: "agent:main:direct:test",
       surface: "loopback",
       senderIsOwner: true,

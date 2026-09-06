@@ -18,7 +18,7 @@ import { describeFailoverError } from "../agents/failover-error.js";
 import { splitTrailingAuthProfile } from "../agents/model-ref-profile.js";
 import { SessionManager } from "../agents/sessions/index.js";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { enablePluginInConfig } from "../plugins/enable.js";
@@ -206,11 +206,11 @@ function mergePatchConflicts(base: unknown, current: unknown, patch: unknown): b
 }
 
 export function applyManualAuthConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   manualAuth: NonNullable<SetupInferenceTestPlan["manualAuth"]>,
   configKind: "runtime" | "source",
   enablePlugin: typeof enablePluginInConfig = enablePluginInConfig,
-): OpenClawConfig {
+): GrantedConfig {
   let enabledConfig = config;
   if (manualAuth.pluginId) {
     const enableResult = enablePlugin(config, manualAuth.pluginId);
@@ -228,7 +228,7 @@ export function applyManualAuthConfig(
       "Provider configuration changed during the live inference test, so the verified credential was not saved. Review the current provider settings and retry.",
     );
   }
-  return applyMergePatch(enabledConfig, manualAuth.configPatch) as OpenClawConfig;
+  return applyMergePatch(enabledConfig, manualAuth.configPatch) as GrantedConfig;
 }
 
 export type ManualAuthPersistenceReceipt = {
@@ -267,7 +267,7 @@ function modelSelectionReferencesProfile(value: unknown, profileIds: ReadonlySet
 }
 
 export function configReferencesManualAuthProfiles(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   receipt: ManualAuthPersistenceReceipt,
 ): boolean {
   const profileIds = new Set(receipt.profiles.map((profile) => profile.profileId));
@@ -326,7 +326,7 @@ export async function persistManualAuthProfiles(params: {
   profiles: ProviderAuthResult["profiles"];
   agentDir: string;
   deps: ActivateSetupInferenceDeps;
-  secretStorage?: { config: OpenClawConfig; env?: NodeJS.ProcessEnv };
+  secretStorage?: { config: GrantedConfig; env?: NodeJS.ProcessEnv };
 }): Promise<ManualAuthPersistenceResult> {
   const prepared = params.secretStorage
     ? prepareProviderAuthProfilesForPersistence({

@@ -15,7 +15,7 @@ import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/opencl
 import { loadBundledPluginFacade } from "../../../../src/test-utils/bundled-plugin-public-surface.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 
 const MODEL = "openai/gpt-5.6-luna";
@@ -24,7 +24,7 @@ const PRIVATE_COMMAND = "printf PRIVATE_CODEX_NATIVE_APPROVAL_COMMAND";
 const PRIVATE_THREAD_ID = "thread-private-native-approval";
 const PRIVATE_ITEM_ID = "item-private-native-approval";
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 
 type AppServerLogEntry = {
   id?: number | string;
@@ -72,7 +72,7 @@ function readJsonLines(filePath: string): AppServerLogEntry[] {
   }
 }
 
-function readApprovalIdentity(testInstance: OpenClawTestInstance, approvalId: string) {
+function readApprovalIdentity(testInstance: GrantedTestInstance, approvalId: string) {
   const database = new DatabaseSync(path.join(testInstance.stateDir, "state", "openclaw.sqlite"), {
     readOnly: true,
   });
@@ -97,7 +97,7 @@ function readApprovalIdentity(testInstance: OpenClawTestInstance, approvalId: st
   }
 }
 
-function assertNoGenericDuplicate(testInstance: OpenClawTestInstance, approvalId: string) {
+function assertNoGenericDuplicate(testInstance: GrantedTestInstance, approvalId: string) {
   const database = new DatabaseSync(path.join(testInstance.stateDir, "state", "openclaw.sqlite"), {
     readOnly: true,
   });
@@ -156,7 +156,7 @@ function summarizeAppServerLog(filePath: string) {
   );
 }
 
-async function connectApprovalReviewer(testInstance: OpenClawTestInstance) {
+async function connectApprovalReviewer(testInstance: GrantedTestInstance) {
   let resolveConnected!: () => void;
   let rejectConnected!: (error: Error) => void;
   const connected = new Promise<void>((resolve, reject) => {

@@ -1,7 +1,7 @@
 /**
  * Doctor contract hooks for Codex plugin config and state migrations.
  */
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { codexOrphanedSessionBindingMigration } from "./src/migration/session-binding-orphans.js";
@@ -61,8 +61,8 @@ export const legacyConfigRules: LegacyConfigRule[] = [
 /**
  * Removes retired Codex plugin config keys while preserving unrelated config.
  */
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const rawEntry = asNullableRecord(cfg.plugins?.entries?.codex);
@@ -82,7 +82,7 @@ export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): 
     return { config: cfg, changes: [] };
   }
 
-  const nextConfig = structuredClone(cfg) as OpenClawConfig & {
+  const nextConfig = structuredClone(cfg) as GrantedConfig & {
     plugins?: Record<string, unknown>;
   };
   const nextPlugins = asNullableRecord(nextConfig.plugins);

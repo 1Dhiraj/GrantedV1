@@ -9,7 +9,7 @@ import type { Deferred } from "../shared/deferred.js";
 import { withEnv, withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { executeNodeHostCommand } from "./bash-tools.exec-host-node.js";
 import type { ExecuteNodeHostCommandParams } from "./bash-tools.exec-host-node.types.js";
@@ -29,7 +29,7 @@ vi.mock("./tools/nodes-utils.js", () => ({
   resolveNodeIdFromList: () => "node-1",
 }));
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let invokeCount: number;
 let afterPrepare: () => Promise<void>;
 let request: ExecuteNodeHostCommandParams & { workdir: string };

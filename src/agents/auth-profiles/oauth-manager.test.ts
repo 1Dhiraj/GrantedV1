@@ -8,7 +8,7 @@ import os from "node:os";
 import path from "node:path";
 import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { testing as externalAuthTesting } from "./external-auth.test-support.js";
@@ -275,7 +275,7 @@ describe("createOAuthManager", () => {
           openai: { auth: "oauth", baseUrl: "", models: [] },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const buildApiKey = vi.fn(async (_provider, value: OAuthCredential) => value.access);
     const manager = createOAuthManager({
       buildApiKey,

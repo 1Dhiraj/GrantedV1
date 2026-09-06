@@ -1,6 +1,6 @@
 // Resolves filesystem paths for installed plugin index storage.
 import path from "node:path";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   hasActivePluginInstallRoots,
@@ -40,7 +40,7 @@ export function resolveInstalledPluginIndexStorePath(
 /** Resolves state database options for the installed plugin index store. */
 export function resolveInstalledPluginIndexStateDatabaseOptions(
   options: InstalledPluginIndexStoreOptions = {},
-): OpenClawStateDatabaseOptions {
+): GrantedStateDatabaseOptions {
   if (options.filePath) {
     return {
       ...(options.env ? { env: options.env } : {}),

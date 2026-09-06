@@ -9,7 +9,7 @@ import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import { writeTextAtomic } from "./json-files.js";
 import {
   resolveCurrentOpenClawCliInvocation,
-  type OpenClawCliInvocation,
+  type GrantedCliInvocation,
 } from "./openclaw-cli-invocation.js";
 
 const AGENT_CLI_BIN_DIR = path.join("tmp", "agent-cli");
@@ -26,7 +26,7 @@ function quotePosixArgument(value: string): string {
   return /^[A-Za-z0-9_@%+=:,./-]+$/u.test(value) ? value : `'${value.replaceAll("'", "'\\''")}'`;
 }
 
-function renderPosixShim(invocation: OpenClawCliInvocation, profile: string | null): string {
+function renderPosixShim(invocation: GrantedCliInvocation, profile: string | null): string {
   const args = [...invocation.args, ...(profile ? ["--profile", profile] : [])];
   const environment = Object.entries(invocation.env ?? {}).map(
     ([key, value]) => `export ${key}=${quotePosixArgument(value)}`,
@@ -38,7 +38,7 @@ exec ${[invocation.command, ...args].map(quotePosixArgument).join(" ")} "$@"
 `;
 }
 
-function renderWindowsShim(invocation: OpenClawCliInvocation, profile: string | null): string {
+function renderWindowsShim(invocation: GrantedCliInvocation, profile: string | null): string {
   const args = [...invocation.args, ...(profile ? ["--profile", profile] : [])];
   const context = { delayedExpansion: false };
   const environment = Object.entries(invocation.env ?? {}).map(([key, value]) =>
@@ -62,7 +62,7 @@ function renderWindowsShim(invocation: OpenClawCliInvocation, profile: string | 
 export async function prepareGatewayAgentCliShim(
   options: {
     env?: NodeJS.ProcessEnv;
-    invocation?: OpenClawCliInvocation;
+    invocation?: GrantedCliInvocation;
     platform?: NodeJS.Platform;
     stateDir?: string;
   } = {},

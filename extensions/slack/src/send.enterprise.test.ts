@@ -1,6 +1,6 @@
 // Slack tests cover listener-scoped Enterprise Grid delivery through the canonical sender.
 import type { WebClient } from "@slack/web-api";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerSlackInstallationState } from "./installation-identity-state.js";
 import {
@@ -44,7 +44,7 @@ type EnterpriseTestClient = WebClient & {
   };
 };
 
-const ENTERPRISE_CFG: OpenClawConfig = {
+const ENTERPRISE_CFG: GrantedConfig = {
   channels: {
     slack: {},
   },

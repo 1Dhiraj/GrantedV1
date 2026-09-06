@@ -1,7 +1,7 @@
 // Verifies owner display secrets stay redacted in config IO paths.
 import { describe, expect, it } from "vitest";
 import { retainGeneratedOwnerDisplaySecret } from "./io.owner-display-secret.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 type OwnerDisplaySecretRuntimeState = Parameters<
   typeof retainGeneratedOwnerDisplaySecret
@@ -22,7 +22,7 @@ describe("retainGeneratedOwnerDisplaySecret", () => {
         ownerDisplay: "hash",
         ownerDisplaySecret: "generated-owner-secret",
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = retainGeneratedOwnerDisplaySecret({
       config,
@@ -44,7 +44,7 @@ describe("retainGeneratedOwnerDisplaySecret", () => {
         ownerDisplay: "hash",
         ownerDisplaySecret: "existing-secret",
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = retainGeneratedOwnerDisplaySecret({
       config,

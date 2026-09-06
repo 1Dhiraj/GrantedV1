@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord as PersistedPluginInstallRecord } from "../config/types.plugins.js";
 import type { PluginEnableResult } from "../plugins/enable.js";
 import { installPluginDirectoryIntoExtensions } from "../plugins/install-shared.js";
@@ -65,7 +65,7 @@ vi.mock("../plugins/clawhub.js", () => ({
 }));
 
 const enablePluginInConfig = vi.hoisted(() =>
-  vi.fn<(cfg: OpenClawConfig, pluginId: string) => PluginEnableResult>((cfg, pluginId) => ({
+  vi.fn<(cfg: GrantedConfig, pluginId: string) => PluginEnableResult>((cfg, pluginId) => ({
     config: cfg,
     enabled: true,
     pluginId,
@@ -77,7 +77,7 @@ vi.mock("../plugins/enable.js", () => ({
 }));
 
 const recordPluginInstall = vi.hoisted(() =>
-  vi.fn((cfg: OpenClawConfig, update: { pluginId: string }) => ({
+  vi.fn((cfg: GrantedConfig, update: { pluginId: string }) => ({
     ...cfg,
     plugins: {
       ...cfg.plugins,
@@ -170,13 +170,13 @@ function readFirstMockCall(mock: unknown, label: string): unknown[] {
 
 type NpmPackInstallCall = {
   archivePath?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   expectedPluginId?: string;
   trustedSourceLinkedOfficialInstall?: boolean;
 };
 
 type NpmSpecInstallCall = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   expectedIntegrity?: string;
   expectedPluginId?: string;
   mode?: string;
@@ -186,7 +186,7 @@ type NpmSpecInstallCall = {
 };
 
 type ClawHubInstallCall = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   expectedPluginId?: string;
   logger?: {
     info?: (message: string) => void;
@@ -288,7 +288,7 @@ describe("ensureOnboardingPluginInstalled", () => {
             actualEnable.enableExplicitlySelectedPluginInConfig,
           );
         }
-        const cfg: OpenClawConfig = { plugins: { entries: { "demo-plugin": { enabled: false } } } };
+        const cfg: GrantedConfig = { plugins: { entries: { "demo-plugin": { enabled: false } } } };
         const pending = ensureOnboardingPluginInstalled({
           cfg,
           entry: {
@@ -604,7 +604,7 @@ describe("ensureOnboardingPluginInstalled", () => {
 
   it("uses a guarded npm-pack install override for the matching plugin id", async () => {
     const archivePath = path.resolve("tmp/demo-plugin.tgz");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       security: {
         installPolicy: {
           enabled: true,
@@ -669,7 +669,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     expect(packCall.expectedPluginId).toBe("demo-plugin");
     expect(packCall).not.toHaveProperty("trustedSourceLinkedOfficialInstall");
     const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-      OpenClawConfig,
+      GrantedConfig,
       PluginInstallRecord,
     ];
     expect(recordUpdate).toEqual({
@@ -847,7 +847,7 @@ describe("ensureOnboardingPluginInstalled", () => {
   );
 
   it("installs and records ClawHub provider plugins with source facts", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       security: {
         installPolicy: {
           enabled: true,
@@ -917,7 +917,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     expect(update).toHaveBeenCalledWith("Downloading");
     expect(stop).toHaveBeenCalledWith("Installed Demo Provider plugin");
     const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-      OpenClawConfig,
+      GrantedConfig,
       PluginInstallRecord,
     ];
     expect(recordUpdate.pluginId).toBe("demo-plugin");
@@ -939,7 +939,7 @@ describe("ensureOnboardingPluginInstalled", () => {
   });
 
   it("passes npm specs and optional expected integrity to npm installs with progress", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       security: {
         installPolicy: {
           enabled: true,
@@ -1013,7 +1013,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     expect(stop).toHaveBeenCalledWith("Installed WeCom plugin");
     expect(buildNpmResolutionInstallFields).toHaveBeenCalledWith(npmResolution);
     const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-      OpenClawConfig,
+      GrantedConfig,
       PluginInstallRecord,
     ];
     expect(recordUpdate.pluginId).toBe("demo-plugin");
@@ -1081,7 +1081,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       ];
       expect(npmCall.spec).toBe(`@openclaw/discord@${VERSION}`);
       const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-        OpenClawConfig,
+        GrantedConfig,
         PluginInstallRecord,
       ];
       expect(recordUpdate.spec).toBe(spec);
@@ -1118,7 +1118,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     });
 
     const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-      OpenClawConfig,
+      GrantedConfig,
       PluginInstallRecord,
     ];
     expect(recordUpdate.spec).toBe("@openclaw/discord");
@@ -1181,7 +1181,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       ];
       expect(npmCall.spec).toBe(`@openclaw/codex@${installVersion}`);
       const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-        OpenClawConfig,
+        GrantedConfig,
         PluginInstallRecord,
       ];
       expect(recordUpdate.spec).toBe(spec);
@@ -1511,7 +1511,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       expect(clawhubCall.spec).toBe(expectedClawHubSpec);
       expect(clawhubCall.expectedPluginId).toBe("demo-plugin");
       const [, record] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
-        OpenClawConfig,
+        GrantedConfig,
         PluginInstallRecord,
       ];
       expect(record.source).toBe("clawhub");
@@ -1895,7 +1895,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       const [recordCfg, recordUpdate] = readFirstMockCall(
         recordPluginInstall,
         "recordPluginInstall",
-      ) as [OpenClawConfig, PluginInstallRecord];
+      ) as [GrantedConfig, PluginInstallRecord];
       expect(recordCfg.plugins?.load?.paths).toEqual([realPluginDir]);
       expect(recordUpdate).toEqual({
         pluginId: "demo-plugin",
@@ -2077,7 +2077,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         const [recordCfg, recordUpdate] = readFirstMockCall(
           recordPluginInstall,
           "recordPluginInstall",
-        ) as [OpenClawConfig, PluginInstallRecord];
+        ) as [GrantedConfig, PluginInstallRecord];
         expect(recordCfg.plugins?.load?.paths).toEqual([realPluginDir]);
         expect(recordUpdate).toEqual({
           pluginId: "demo-plugin",
@@ -2128,7 +2128,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       const [recordCfg, recordUpdate] = readFirstMockCall(
         recordPluginInstall,
         "recordPluginInstall",
-      ) as [OpenClawConfig, PluginInstallRecord];
+      ) as [GrantedConfig, PluginInstallRecord];
       expect(recordCfg).toEqual({
         plugins: {
           load: {

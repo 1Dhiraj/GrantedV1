@@ -13,7 +13,7 @@ import type { AgentHarnessV2 } from "../agents/harness/types.js";
 import { getPreparedModelCatalogOwnerSnapshot } from "../agents/prepared-model-catalog.js";
 import { getPreparedModelRuntimeAuthMaterializations } from "../agents/prepared-model-runtime-auth.js";
 import { refreshPreparedModelRuntimeSnapshots } from "../agents/prepared-model-runtime.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import {
   captureActivePluginRegistrySnapshot,
@@ -23,7 +23,7 @@ import {
 import { createDeferredCore } from "../shared/deferred.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createGatewayChatMetadataLifecycle } from "./server-chat-metadata-lifecycle.js";
 import {
@@ -41,7 +41,7 @@ import {
 import type { GatewayPostReadySidecarHandle } from "./server-startup-post-attach.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 const config = {
   agents: {
     defaults: {
@@ -51,7 +51,7 @@ const config = {
     },
     list: [{ id: "main", default: true }],
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 const model = {
   id: "gpt-5.4",
   name: "GPT-5.4",
@@ -149,7 +149,7 @@ afterEach(async ({ task }) => {
   vi.unstubAllEnvs();
 });
 
-async function createLifecycle(getConfig: () => OpenClawConfig = () => config) {
+async function createLifecycle(getConfig: () => GrantedConfig = () => config) {
   return await createGatewayChatMetadataLifecycle({
     getConfig,
     minimalTestGateway: false,
@@ -157,7 +157,7 @@ async function createLifecycle(getConfig: () => OpenClawConfig = () => config) {
   });
 }
 
-async function publishOwner(ownerConfig: OpenClawConfig = config): Promise<void> {
+async function publishOwner(ownerConfig: GrantedConfig = config): Promise<void> {
   await refreshPreparedModelRuntimeSnapshots(ownerConfig, {
     gatewayLifecycle: true,
     catalogMode: "live",
@@ -168,7 +168,7 @@ async function publishOwner(ownerConfig: OpenClawConfig = config): Promise<void>
 async function expectAvailable(
   lifecycle: Awaited<ReturnType<typeof createGatewayChatMetadataLifecycle>>,
   expectedAvailable = true,
-  activeConfig: OpenClawConfig = config,
+  activeConfig: GrantedConfig = config,
   activeContext: GatewayRequestContext = context,
 ): Promise<void> {
   const owner = getPreparedModelCatalogOwnerSnapshot({
@@ -226,7 +226,7 @@ describe("gateway chat metadata lifecycle composition", () => {
   it.each([false, true])(
     "publishes coherent native membership when readiness changes from %s during preparation",
     async (initialReady) => {
-      const nativeConfig: OpenClawConfig = {
+      const nativeConfig: GrantedConfig = {
         agents: {
           defaults: {
             model: "openai/gpt-5.6-luna",
@@ -355,7 +355,7 @@ describe("gateway chat metadata lifecycle composition", () => {
     "revalidates native observations (wildcard=$wildcard, $invalidate) without rediscovery",
     async ({ wildcard, invalidate }) => {
       const modelRef = wildcard ? "openai/*" : "openai/codex-latest";
-      const nativeConfig: OpenClawConfig = {
+      const nativeConfig: GrantedConfig = {
         agents: {
           defaults: {
             ...(wildcard ? {} : { model: "openai/codex-latest" }),
@@ -576,11 +576,11 @@ describe("gateway chat metadata lifecycle composition", () => {
     const publishedConfig = {
       ...config,
       ui: { prefs: { chatShowThinking: true } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const currentConfig = {
       ...config,
       ui: { prefs: { chatShowThinking: false } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     await publishOwner(publishedConfig);
     const lifecycle = await createLifecycle(() => currentConfig);
     const loadCatalogSnapshot: GatewayRequestContext["loadGatewayModelCatalogSnapshot"] = (
@@ -676,7 +676,7 @@ describe("gateway chat metadata lifecycle composition", () => {
     const orderedConfig = {
       ...config,
       auth: { order: { openai: ["openai:default"] } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const orderedContext = {
       ...context,
       getRuntimeConfig: () => orderedConfig,

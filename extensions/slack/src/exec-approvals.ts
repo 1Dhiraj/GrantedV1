@@ -4,7 +4,7 @@ import {
   createChannelExecApprovalProfile,
   isChannelExecApprovalTargetRecipient,
 } from "openclaw/plugin-sdk/approval-client-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeStringifiedOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveSlackAccount } from "./accounts.js";
 import { formatSlackTarget, parseSlackTarget } from "./target-parsing.js";
@@ -35,7 +35,7 @@ export function normalizeSlackApproverId(value: string | number): string | undef
   return target?.startsWith("team:") ? undefined : target;
 }
 
-function resolveSlackOwnerApprovers(cfg: OpenClawConfig): string[] {
+function resolveSlackOwnerApprovers(cfg: GrantedConfig): string[] {
   const ownerAllowFrom = cfg.commands?.ownerAllowFrom;
   if (!Array.isArray(ownerAllowFrom) || ownerAllowFrom.length === 0) {
     return [];
@@ -46,7 +46,7 @@ function resolveSlackOwnerApprovers(cfg: OpenClawConfig): string[] {
   });
 }
 export function getSlackExecApprovalApprovers(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): string[] {
   const account = resolveSlackAccount(params).config;
@@ -57,7 +57,7 @@ export function getSlackExecApprovalApprovers(params: {
 }
 
 function isSlackExecApprovalTargetRecipient(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   senderId?: string | null;
   accountId?: string | null;
 }): boolean {

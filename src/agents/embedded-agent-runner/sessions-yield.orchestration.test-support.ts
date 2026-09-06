@@ -1,7 +1,7 @@
 /** Full-entry coverage for sessions_yield terminal projection. */
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedGlobalHookRunner,
@@ -11,7 +11,7 @@ import {
 } from "./run.overflow-compaction.harness.js";
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 
 describe("sessions_yield orchestration", () => {

@@ -33,7 +33,7 @@ import { buildRuntimeCompatibleMcpToolInventory } from "../../agents/tools-effec
 import { resolveReplyToMode } from "../../auto-reply/reply/reply-threading.js";
 import { resolveRuntimeConfigCacheKey } from "../../config/config.js";
 import type { SessionToolOverrides } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { toErrorObject } from "../../infra/errors.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import { logDebug, logWarn } from "../../logger.js";
@@ -96,7 +96,7 @@ const MCP_CONFIG_SUMMARY_CACHE_LIMIT = 128;
 let nowForToolsEffectiveCache = () => Date.now();
 
 type TrustedToolsEffectiveContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
   sessionId: string;
@@ -282,7 +282,7 @@ async function resolveCachedBaseToolsEffective(params: {
 
 function resolveRequestedAgentIdOrRespondError(params: {
   rawAgentId: unknown;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   respond: RespondFn;
   dependencies: ToolsEffectiveDependencies;
 }) {

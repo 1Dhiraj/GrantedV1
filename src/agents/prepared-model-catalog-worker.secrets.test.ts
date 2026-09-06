@@ -12,10 +12,10 @@ import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { clearRuntimeAuthProfileStoreSnapshots } from "./auth-profiles/runtime-snapshots.js";
 import type { AuthProfileStore } from "./auth-profiles/types.js";
@@ -36,7 +36,7 @@ vi.mock("node:worker_threads", async (importOriginal) => ({
 }));
 
 const provider = "worker-secret-fixture";
-let state: OpenClawTestState;
+let state: GrantedTestState;
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "catalog-worker-secrets" });
   await state.writeAuthProfiles({ version: 1, profiles: {} });
@@ -172,8 +172,8 @@ module.exports = {
               },
             },
           },
-        } satisfies OpenClawConfig;
-        let runtime: OpenClawConfig = {
+        } satisfies GrantedConfig;
+        let runtime: GrantedConfig = {
           ...source,
           models: {
             providers: {
@@ -191,7 +191,7 @@ module.exports = {
           PENDING_KEY: undefined,
           ...loader?.env,
         };
-        let runtimeSource: OpenClawConfig = source;
+        let runtimeSource: GrantedConfig = source;
         if (loader) {
           await state.writeConfig(source);
           const snapshot = await readConfigFileSnapshotFromContext(
@@ -256,7 +256,7 @@ module.exports = {
         const serialized = structuredClone(createPreparedModelCatalogWorkerInput(params));
         let alternativeFingerprint: string | undefined;
         if (owner === "config" && !loader?.pending) {
-          const alternativeSource: OpenClawConfig = {
+          const alternativeSource: GrantedConfig = {
             ...source,
             models: {
               providers: {

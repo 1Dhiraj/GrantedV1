@@ -7,7 +7,7 @@ import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db
 import {
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { publishSessionStateArchives } from "./session-accessor.sqlite-archive-store.js";
 import {
@@ -292,7 +292,7 @@ function collectSqliteSessionMaintenanceBaseKeys(
 }
 
 function hasStaleSqliteSessionEntryCandidate(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   maxAgeMs: number,
   isCandidate: (key: string, entry: SessionEntry) => boolean,
 ): boolean {
@@ -358,7 +358,7 @@ async function readSessionTranscriptJsonlBytes(
 }
 
 export function applySessionEntryMaintenance(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   params: {
     activeSessionKey: string;
     archiveDirectory: string;

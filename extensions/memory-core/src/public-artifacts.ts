@@ -3,10 +3,10 @@ import {
   listMemoryHostPublicArtifacts,
   type MemoryPluginPublicArtifact,
 } from "openclaw/plugin-sdk/memory-host-core";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 
 export async function listMemoryCorePublicArtifacts(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<MemoryPluginPublicArtifact[]> {
   return await listMemoryHostPublicArtifacts(params);
 }

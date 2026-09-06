@@ -26,7 +26,7 @@ import {
   theme,
   withProgress,
   withProgressTotals,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./cli.host.runtime.js";
 import type { MemoryCommandOptions } from "./cli.types.js";
 import {
@@ -75,7 +75,7 @@ function formatMemoryIndexIdentityWarning(
     fix: `Run: openclaw memory status --index --agent ${agentId}`,
   };
 }
-function formatDreamingSummary(cfg: OpenClawConfig): string {
+function formatDreamingSummary(cfg: GrantedConfig): string {
   const pluginConfig = resolveMemoryPluginConfig(cfg);
   const light = resolveMemoryLightDreamingConfig({ pluginConfig, cfg });
   const deep = resolveShortTermPromotionDreamingConfig({ pluginConfig, cfg });

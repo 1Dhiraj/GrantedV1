@@ -1,7 +1,7 @@
 import { html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import { t } from "../../../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../../../lit/openclaw-element.ts";
 import { renderCompactAttachmentCard } from "./chat-attachment-card.ts";
 import { observeChatAttachmentViewport } from "./chat-attachment-viewport.ts";
 import { readResponseBytesWithinLimit } from "./chat-response-bytes.ts";
@@ -26,7 +26,7 @@ function isCrossOriginHttpSource(source: string): boolean {
   }
 }
 
-class ChatSvgAttachment extends OpenClawLightDomContentsElement {
+class ChatSvgAttachment extends GrantedLightDomContentsElement {
   @property() src = "";
   @property() sourceIdentity = "";
   @property() label = "";

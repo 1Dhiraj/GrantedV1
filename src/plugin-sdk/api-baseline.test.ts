@@ -551,11 +551,11 @@ describe("Plugin SDK API baseline", () => {
       renderSourceFixture({
         "fixture.ts": [
           'import "./ambient.js";',
-          "export declare function createFixture(value: OpenClawBaselineFixtureGlobal): void;",
+          "export declare function createFixture(value: GrantedBaselineFixtureGlobal): void;",
         ].join("\n"),
         "ambient.ts": [
           "declare global {",
-          `  interface OpenClawBaselineFixtureGlobal { value${optionalValue ? "?" : ""}: string }`,
+          `  interface GrantedBaselineFixtureGlobal { value${optionalValue ? "?" : ""}: string }`,
           "}",
           "export {};",
         ].join("\n"),

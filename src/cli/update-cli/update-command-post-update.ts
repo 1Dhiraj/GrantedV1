@@ -2,7 +2,7 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
 import { resolveStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveManagedGatewayServiceProcessEnv } from "../../daemon/service-types.js";
 import { readGatewayServiceState, resolveGatewayService } from "../../daemon/service.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -318,7 +318,7 @@ export async function finishUpdate(params: {
               ? {
                   sourceConfig: params.configSnapshot.sourceConfig,
                   authoredConfig: isRecord(params.configSnapshot.parsed)
-                    ? (params.configSnapshot.parsed as OpenClawConfig)
+                    ? (params.configSnapshot.parsed as GrantedConfig)
                     : params.configSnapshot.sourceConfig,
                 }
               : undefined,
@@ -362,7 +362,7 @@ export async function finishUpdate(params: {
                 ? {
                     sourceConfig: params.configSnapshot.sourceConfig,
                     authoredConfig: isRecord(params.configSnapshot.parsed)
-                      ? (params.configSnapshot.parsed as OpenClawConfig)
+                      ? (params.configSnapshot.parsed as GrantedConfig)
                       : params.configSnapshot.sourceConfig,
                   }
                 : undefined,

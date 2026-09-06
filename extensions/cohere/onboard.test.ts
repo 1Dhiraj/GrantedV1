@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { buildCohereCatalogModels, COHERE_BASE_URL } from "./models.js";
@@ -33,7 +33,7 @@ describe("Cohere onboarding", () => {
   });
 
   it("sets Cohere only when there is no primary model", () => {
-    const existing: OpenClawConfig = {
+    const existing: GrantedConfig = {
       agents: {
         defaults: {
           model: { primary: "openai/gpt-5.5" },

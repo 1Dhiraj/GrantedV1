@@ -54,7 +54,7 @@ import { resolveLegacyInheritedAuthAgentDir } from "../agents/legacy-inherited-a
 import { splitTrailingAuthProfile } from "../agents/model-ref-profile.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import type { AuthProfileConfig } from "../config/types.auth.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { loadJsonFileThroughSymlink } from "../infra/json-file.js";
 import { readLegacyMigrationReceipt } from "../infra/state-migrations.receipts.js";
@@ -149,7 +149,7 @@ function extractProviderFromModelRef(modelRef: string): string | undefined {
 }
 
 function collectLegacyConfigAuthProfileProviderHints(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): ReadonlyMap<string, string> {
   const hints = new Map<string, string>();
   const conflicted = new Set<string>();
@@ -290,7 +290,7 @@ function coerceLegacyFlatAuthProfileStore(raw: unknown): AuthProfileStore | null
 }
 
 function listAuthProfileSqliteMigrationCandidates(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): AuthProfileSqliteMigrationCandidate[] {
   return listAuthProfileRepairCandidates(cfg, env).map((candidate) => ({
@@ -373,7 +373,7 @@ function inferLegacyConfigAuthProfileMode(
   return undefined;
 }
 
-function coerceLegacyConfigAuthProfileStore(cfg: OpenClawConfig): AuthProfileStore | null {
+function coerceLegacyConfigAuthProfileStore(cfg: GrantedConfig): AuthProfileStore | null {
   const cfgRecord: Record<string, unknown> = cfg;
   const auth = isRecord(cfgRecord.auth) ? cfgRecord.auth : null;
   const profiles = auth && isRecord(auth.profiles) ? auth.profiles : null;
@@ -446,7 +446,7 @@ function coerceLegacyConfigAuthProfileStore(cfg: OpenClawConfig): AuthProfileSto
 
 function isDefaultAgentCandidate(
   candidate: AuthProfileSqliteMigrationCandidate,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): boolean {
   return (
@@ -456,7 +456,7 @@ function isDefaultAgentCandidate(
 }
 
 function stripImportedConfigAuthProfileCredentials(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   store: AuthProfileStore,
 ): boolean {
   const profiles = ensureConfigAuthProfiles(cfg);
@@ -863,7 +863,7 @@ function migrateLockedLegacyOAuthFile(params: {
  * OAuth profiles that still depend on missing sidecar secrets migrate as unavailable ref-only rows.
  */
 export async function maybeMigrateAuthProfileJsonStoresToSqlite(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: Pick<DoctorPrompter, "confirmAutoFix">;
   now?: () => number;
   env?: NodeJS.ProcessEnv;
@@ -1393,7 +1393,7 @@ function resolveAwsSdkAuthProfileMarkerStore(
     : null;
 }
 
-function ensureConfigAuthProfiles(config: OpenClawConfig): Record<string, AuthProfileConfig> {
+function ensureConfigAuthProfiles(config: GrantedConfig): Record<string, AuthProfileConfig> {
   const root = config as Record<string, unknown>;
   const auth = isRecord(root.auth) ? root.auth : {};
   if (root.auth !== auth) {
@@ -1684,10 +1684,10 @@ function canonicalizeOpenAILastGood(
  * contain the same legacy profile.
  */
 export function maybeRepairOpenAICodexAuthConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options?: { profileIdMap?: ReadonlyMap<string, string> },
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   warnings: string[];
 } {
@@ -1865,7 +1865,7 @@ function recoverArchivedOpenAICodexAuthProfileIdMap(params: {
 
 /** Collects collision-safe OpenAI profile ids across config, SQLite, and legacy agent stores. */
 export function collectOpenAICodexAuthProfileStoreIdMap(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Map<string, string> {
   const env = params.env ?? process.env;

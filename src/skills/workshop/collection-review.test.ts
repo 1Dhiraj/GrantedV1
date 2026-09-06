@@ -12,7 +12,7 @@ import { sha256Hex } from "../../infra/crypto-digest.js";
 import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { writeWorkspaceSkills } from "../test-support/e2e-test-helpers.js";
@@ -34,7 +34,7 @@ vi.mock("../../agents/auth-profiles/store.js", () => ({
 }));
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 async function runReview(params: {
   config: Parameters<typeof runSkillCollectionReviewForAgent>[0]["config"];
@@ -467,7 +467,7 @@ describe("skill collection review", () => {
       });
 
       const expectedError =
-        `Skill collection review failed for ${workspaceDir}: OpenClawStateLeaseError: ` +
+        `Skill collection review failed for ${workspaceDir}: GrantedStateLeaseError: ` +
         `timed out waiting for skill collection review claim skill-collection-review/${sha256Hex(workspaceDir)}`;
       expect(secondResult).toEqual({
         status: "error",

@@ -1,7 +1,7 @@
 /** Integration coverage for breaker-safe startup SecretRef activation. */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import "../secrets/runtime-telegram.test-support.ts";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.js";
 import {
   asConfig,
   beginSecretsRuntimeIsolationForTest,
@@ -26,7 +26,7 @@ import { buildTestConfigSnapshot } from "./test-helpers.config-snapshots.js";
 const GATEWAY_TOKEN_ENV = "BREAKER_GATEWAY_AUTH_TOKEN";
 const CHANNEL_TOKEN_ENV = "BREAKER_TELEGRAM_BOT_TOKEN";
 
-function buildSnapshot(config: OpenClawConfig): ConfigFileSnapshot {
+function buildSnapshot(config: GrantedConfig): ConfigFileSnapshot {
   const raw = `${JSON.stringify(config, null, 2)}\n`;
   return buildTestConfigSnapshot({
     path: "/tmp/openclaw-breaker-secrets-integration.json",

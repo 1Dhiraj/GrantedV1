@@ -8,7 +8,7 @@ import {
   installDialogPolyfill,
   nextFrame,
 } from "../test-helpers/modal-dialog.ts";
-import { OpenClawModalDialog } from "./modal-dialog.ts";
+import { GrantedModalDialog } from "./modal-dialog.ts";
 
 let container: HTMLDivElement;
 let restoreDialogPolyfill: () => void;
@@ -143,7 +143,7 @@ describe("openclaw-modal-dialog", () => {
   });
 
   it("assigns overlay motion by interaction type", () => {
-    const styles = OpenClawModalDialog.styles.cssText;
+    const styles = GrantedModalDialog.styles.cssText;
 
     expect(styles).toMatch(
       /:host\(\.palette\)\s+wa-dialog\s*\{[^}]*--show-duration:\s*0ms;[^}]*--hide-duration:\s*0ms;/u,

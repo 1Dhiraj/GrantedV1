@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import type { GatewayRequestContext } from "./server-methods/types.js";
 import { TerminalSessionManager } from "./terminal/session-manager.js";
@@ -35,7 +35,7 @@ describe("resolveGatewayScopedTools terminal ownership", () => {
         { context, isWebchatConnect: () => false },
         () =>
           resolveGatewayScopedTools({
-            cfg: { tools: { allow: ["terminal"], exec: { mode: "deny" } } } as OpenClawConfig,
+            cfg: { tools: { allow: ["terminal"], exec: { mode: "deny" } } } as GrantedConfig,
             sessionKey: childSessionKey,
             sessionId: "loopback-session-id",
             execSession: { permissionMode: "read-only" },

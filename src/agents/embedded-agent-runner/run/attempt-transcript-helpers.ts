@@ -8,7 +8,7 @@ import {
 } from "../../../config/sessions/session-accessor.js";
 import { resolveQuotaSuspensionEntryMaintenance } from "../../../config/sessions/store-maintenance.js";
 import type { SessionEntry as ConfigSessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isTranscriptOnlyOpenClawAssistantMessage } from "../../../shared/transcript-only-openclaw-assistant.js";
 import { sanitizeCompactionReplayMessages } from "../../compaction-replay.js";
 import type { AgentMessage } from "../../runtime/index.js";
@@ -127,7 +127,7 @@ export async function loadAttemptSessionEntryAfterQuotaMaintenance(params: {
 
 export async function resolveAttemptTrajectorySessionFile(params: {
   agentId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionFile: string;
   sessionId: string;
   sessionKey?: string;
@@ -164,7 +164,7 @@ function isTranscriptMessageEvent(event: unknown): boolean {
 
 export async function resolveExistingAttemptTranscriptState(params: {
   agentId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionFile: string;
   sessionManager?: EmbeddedRunAttemptParams["sessionManager"];
   sessionId: string;

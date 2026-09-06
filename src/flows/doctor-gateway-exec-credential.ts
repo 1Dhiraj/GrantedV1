@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 export async function hasActiveGatewayExecCredential(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   targetUrl?: string;
 }): Promise<boolean> {

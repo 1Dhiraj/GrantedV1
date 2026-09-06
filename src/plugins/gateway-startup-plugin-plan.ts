@@ -5,7 +5,7 @@ import {
   listExplicitlyDisabledChannelIdsForConfig,
   type AmbientEnvTriggerPolicy,
 } from "../channels/config-presence.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { listGatewayActivatedChannelIds } from "./channel-presence-policy.js";
 import {
   normalizePluginsConfigWithResolverCore,
@@ -52,8 +52,8 @@ export function resolveChannelPluginIdsFromRegistry(params: {
 }
 
 export function resolveGatewayStartupPluginPlanFromRegistry(params: {
-  config: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   index: PluginRegistrySnapshot;
   manifestRegistry: PluginManifestRegistry;

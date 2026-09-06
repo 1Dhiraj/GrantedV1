@@ -4,7 +4,7 @@ import path from "node:path";
 // Covers plugin install flows, manifests, and install records.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   onInternalDiagnosticEvent,
   resetDiagnosticEventsForTest,
@@ -298,7 +298,7 @@ function setupInstallPluginFromDirFixture(params?: {
 async function installFromDirWithWarnings(params: {
   pluginDir: string;
   extensionsDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dangerouslyForceUnsafeInstall?: boolean;
   onInstallPolicyWarning?: InstallPluginFromDirParams["onInstallPolicyWarning"];
   trustedSourceLinkedOfficialInstall?: boolean;
@@ -459,7 +459,7 @@ process.stdin.on("end", () => {
   return { scriptPath, logPath };
 }
 
-function configWithInstallPolicy(scriptPath: string, logPath: string): OpenClawConfig {
+function configWithInstallPolicy(scriptPath: string, logPath: string): GrantedConfig {
   return {
     security: {
       installPolicy: {
@@ -579,7 +579,7 @@ function mockSuccessfulManagedNpmInstall(params: { packageName: string; version?
 async function installFromArchiveWithWarnings(params: {
   archivePath: string;
   extensionsDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   dangerouslyForceUnsafeInstall?: boolean;
   trustedSourceLinkedOfficialInstall?: boolean;
 }) {

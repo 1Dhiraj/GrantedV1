@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   formatMemoryDreamingDay,
   isSameMemoryDreamingDay,
@@ -155,7 +155,7 @@ describe("memory dreaming host helpers", () => {
           userTimezone: "America/Los_Angeles",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const resolved = resolveMemoryDreamingConfig({
       pluginConfig: {},
@@ -222,7 +222,7 @@ describe("memory dreaming host helpers", () => {
           { id: "gamma", workspace: "/workspace/shared" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveMemoryDreamingWorkspaces(cfg)).toEqual([
       {
@@ -244,7 +244,7 @@ describe("memory dreaming host helpers", () => {
           { id: "team-alpha", workspace: "/workspace/shared" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveMemoryDreamingWorkspaces(cfg)).toEqual([
       { workspaceDir: "/workspace/shared", agentIds: ["team-alpha"] },
@@ -260,7 +260,7 @@ describe("memory dreaming host helpers", () => {
           { id: "beta", workspace: "/workspace/beta" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveMemoryDreamingWorkspaces(cfg)).toEqual([
       {
@@ -291,7 +291,7 @@ describe("memory dreaming host helpers", () => {
           { id: "beta", workspace: workspaceAliasDir },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveMemoryDreamingWorkspaces(cfg)).toEqual([
       { workspaceDir, agentIds: ["alpha", "beta"] },
@@ -306,7 +306,7 @@ describe("memory dreaming host helpers", () => {
           { id: "agi-cdo", workspace: "/workspace/agi-cdo" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveMemoryDreamingWorkspaces(cfg, {
@@ -337,7 +337,7 @@ describe("memory dreaming host helpers", () => {
         },
         entries: { main: { default: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveMemoryDreamingWorkspaces(cfg)).toEqual([
       {
@@ -366,7 +366,7 @@ describe("memory dreaming host helpers", () => {
             memory: "memos-local-openclaw-plugin",
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toBe("memos-local-openclaw-plugin");
   });
 
@@ -387,7 +387,7 @@ describe("memory dreaming host helpers", () => {
             },
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       dreaming: {
         enabled: true,
@@ -413,7 +413,7 @@ describe("memory dreaming host helpers", () => {
             },
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       dreaming: {
         enabled: true,
@@ -436,7 +436,7 @@ describe("memory dreaming host helpers", () => {
             },
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       dreaming: {
         enabled: true,
@@ -452,7 +452,7 @@ describe("memory dreaming host helpers", () => {
             memory: "none",
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toBe("memory-core");
 
     expect(
@@ -471,7 +471,7 @@ describe("memory dreaming host helpers", () => {
             },
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).toEqual({
       dreaming: {
         enabled: true,

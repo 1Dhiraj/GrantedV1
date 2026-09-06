@@ -8,7 +8,7 @@ import { isChannelConfigMetadataKey } from "../channels/config-metadata.js";
 import { shouldIncludeChannelSetupFeatureForConfig } from "../channels/plugins/bundled-setup-policy.js";
 import { GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA } from "../config/bundled-channel-config-metadata.generated.js";
 import type { LegacyConfigRule } from "../config/legacy.shared.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { BundledChannelSetupEntryContract } from "../plugin-sdk/channel-entry-contract.js";
@@ -322,7 +322,7 @@ function loadPluginDoctorContractEntry(
 }
 
 function resolvePluginDoctorManifestRecords(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -359,7 +359,7 @@ function resolvePluginDoctorManifestRecords(params: {
 
 function resolvePluginDoctorContracts(params: {
   surface: PluginDoctorContractSurface;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -419,7 +419,7 @@ function loadPluginDoctorContractEntries(params: {
   return entries;
 }
 export function listPluginDoctorLegacyConfigRules(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -431,7 +431,7 @@ export function listPluginDoctorLegacyConfigRules(params?: {
 }
 
 export function listPluginDoctorSessionRouteStateOwners(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -453,7 +453,7 @@ export function listPluginDoctorSessionRouteStateOwners(params?: {
 
 /** Resolve plugin-owned agent IDs whose core session stores need migration. */
 export function listPluginDoctorSessionStoreAgentIds(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -518,7 +518,7 @@ function loadLegacyChannelStateMigrationDetector(
 }
 
 export function listPluginDoctorStateMigrationEntries(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];
@@ -588,15 +588,15 @@ export function listPluginDoctorStateMigrationEntries(params?: {
 }
 
 export function applyPluginDoctorCompatibilityMigrations(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
     pluginIds?: readonly string[];
   },
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
 } {
   let nextCfg = cfg;

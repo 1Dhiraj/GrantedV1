@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   archiveLegacyStateSource,
   type PluginDoctorStateMigration,
@@ -100,7 +100,7 @@ type ConfiguredReefIdentityBinding =
   | { status: "invalid" }
   | { status: "valid"; binding: ReefIdentityBinding };
 
-function configuredReefIdentityBinding(cfg: OpenClawConfig): ConfiguredReefIdentityBinding {
+function configuredReefIdentityBinding(cfg: GrantedConfig): ConfiguredReefIdentityBinding {
   const reef = cfg.channels?.reef;
   if (!isRecord(reef) || !Object.hasOwn(reef, "handle") || reef.handle === undefined) {
     return { status: "absent" };
@@ -121,7 +121,7 @@ function configuredReefIdentityBinding(cfg: OpenClawConfig): ConfiguredReefIdent
   };
 }
 
-function inspectLegacyReefFriends(cfg: OpenClawConfig) {
+function inspectLegacyReefFriends(cfg: GrantedConfig) {
   const reef = cfg.channels?.reef;
   if (!isRecord(reef) || !Object.hasOwn(reef, "friends")) {
     return null;

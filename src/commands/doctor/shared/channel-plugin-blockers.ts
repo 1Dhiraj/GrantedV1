@@ -3,7 +3,7 @@ import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/s
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { listExplicitlyDisabledChannelIdsForConfig } from "../../../channels/config-presence.js";
 import type { AmbientEnvTriggerPolicy } from "../../../channels/config-presence.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { HealthFinding } from "../../../flows/health-checks.js";
 import {
   hasExplicitChannelConfig,
@@ -49,9 +49,9 @@ type ScanConfiguredChannelPluginBlockerOptions = {
 
 /** Find configured channel ids whose backing plugins cannot activate. */
 export function scanConfiguredChannelPluginBlockers(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
-  activationSourceConfig: OpenClawConfig = cfg,
+  activationSourceConfig: GrantedConfig = cfg,
   options: ScanConfiguredChannelPluginBlockerOptions = {},
 ): ChannelPluginBlockerHit[] {
   const explicitChannelIds = listExplicitConfiguredChannelIdsForConfig(cfg)
@@ -244,9 +244,9 @@ type ChannelOwnerState = {
 function resolveConfiguredChannelOwnerState(params: {
   plugin: PluginManifestRecord;
   channelId: string;
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   sourcePluginsConfig: ReturnType<typeof normalizePluginsConfig>;
-  effectiveConfig: OpenClawConfig;
+  effectiveConfig: GrantedConfig;
   effectivePluginsConfig: ReturnType<typeof normalizePluginsConfig>;
 }): ChannelOwnerState {
   const bundledChannelConfigured =

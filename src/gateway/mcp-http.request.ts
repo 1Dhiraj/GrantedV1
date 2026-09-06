@@ -8,7 +8,7 @@ import type {
 } from "../auto-reply/get-reply-options.types.js";
 import type { InboundEventKind } from "../channels/inbound-event/kind.js";
 import { resolveMainSessionKey } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { safeEqualSecret } from "../security/secret-equal.js";
 import { normalizeMessageChannel } from "../utils/message-channel.js";
@@ -67,7 +67,7 @@ type McpLoopbackRequestAuth = {
   boundGrantToken?: string;
 };
 
-function resolveScopedSessionKey(cfg: OpenClawConfig, rawSessionKey: string | undefined): string {
+function resolveScopedSessionKey(cfg: GrantedConfig, rawSessionKey: string | undefined): string {
   const trimmed = normalizeOptionalString(rawSessionKey);
   return !trimmed || trimmed === "main" ? resolveMainSessionKey(cfg) : trimmed;
 }
@@ -404,7 +404,7 @@ function normalizeMcpClientCapsHeader(value: string | undefined): string[] | und
 
 export function resolveMcpRequestContext(
   req: IncomingMessage,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   auth: McpLoopbackRequestAuth,
 ): McpRequestContext {
   if (auth.boundClientGrant) {

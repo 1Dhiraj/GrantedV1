@@ -9,7 +9,7 @@ import {
   readStringArrayParam,
   readStringParam,
 } from "openclaw/plugin-sdk/channel-actions";
-import type { DiscordActionConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordActionConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveDefaultDiscordAccountId } from "../accounts.js";
 import { isDiscordThreadChannelType } from "../channel-type.js";
 import { getGateway } from "../monitor/gateway-registry.js";
@@ -26,7 +26,7 @@ import {
   readDiscordChannelMoveParams,
 } from "./runtime.shared.js";
 
-type DiscordRoleMutationOpts = { cfg: OpenClawConfig; accountId?: string };
+type DiscordRoleMutationOpts = { cfg: GrantedConfig; accountId?: string };
 type DiscordRoleMutation = (
   params: {
     guildId: string;
@@ -127,7 +127,7 @@ function assertGuildAdminActionEnabled(
 async function resolveGuildIdForGuildAdminAction(params: {
   values: Record<string, unknown>;
   accountId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<string | undefined> {
   const guildId = readStringParam(params.values, "guildId");
   if (guildId) {
@@ -161,7 +161,7 @@ async function resolveGuildAdminActionPermissions(params: {
   action: string;
   values: Record<string, unknown>;
   accountId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   guard: GuildAdminActionGuard;
 }) {
   if (params.action !== "channelEdit") {
@@ -203,7 +203,7 @@ async function verifySenderGuildAdminPermission(params: {
   action: string;
   values: Record<string, unknown>;
   accountId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) {
   const guard = guildAdminActionGuards[params.action];
   const senderUserId = readStringParam(params.values, "senderUserId");
@@ -278,7 +278,7 @@ async function verifySenderGuildAdminPermission(params: {
 }
 
 async function runRoleMutation(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   values: Record<string, unknown>;
   mutate: DiscordRoleMutation;
@@ -303,7 +303,7 @@ export async function handleDiscordGuildAction(
   action: string,
   params: Record<string, unknown>,
   isActionEnabled: ActionGate<DiscordActionConfig>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options?: DiscordMessagingActionOptions,
 ): Promise<AgentToolResult<unknown>> {
   const accountId = readStringParam(params, "accountId");

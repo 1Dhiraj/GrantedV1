@@ -8,7 +8,7 @@ import {
   readSessionUpdatedAt,
   resolveLivePluginConfigObject,
   resolvePluginConfigObject,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./config-runtime.js";
 import {
   getSessionEntry as getSessionStoreEntry,
@@ -38,7 +38,7 @@ describe("resolvePluginConfigObject", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(resolvePluginConfigObject(config, "demo-plugin")).toEqual({
       enabled: false,
@@ -56,7 +56,7 @@ describe("resolvePluginConfigObject", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(resolvePluginConfigObject(config, "codex")).toEqual({
       supervision: { enabled: true },
@@ -77,7 +77,7 @@ describe("resolvePluginConfigObject", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(resolvePluginConfigObject(config, "missing-plugin")).toBeUndefined();
     expect(resolvePluginConfigObject(config, "demo-plugin")).toBeUndefined();
@@ -102,7 +102,7 @@ describe("resolveLivePluginConfigObject", () => {
       plugins: {
         entries: {},
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       resolveLivePluginConfigObject(() => config, "demo-plugin", {

@@ -6,7 +6,7 @@ import type { BlockReplyChunking } from "../../agents/embedded-agent-block-chunk
 import type { ExecPolicyOverrides } from "../../agents/exec-defaults.js";
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import type { SessionMemoryTranscript } from "../../hooks/bundled/session-memory/capture.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -181,7 +181,7 @@ function extractBlockedToolReason(result: unknown): string | null {
 export async function handleInlineActions(params: {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir?: string;
   sessionEntry?: SessionEntry;

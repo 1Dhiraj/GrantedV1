@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const PLUGIN_PACKAGE_UNINSTALL_PLAN = Symbol.for("openclaw.pluginPackageUninstallPlan");
 
@@ -28,9 +28,9 @@ export function resolvePluginPackageUninstallPlan(
 }
 
 export function prepareConfigForPendingPluginDirectoryRemovalSet(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginIds: readonly string[],
-): OpenClawConfig {
+): GrantedConfig {
   const entries = { ...config.plugins?.entries };
   for (const entryId of new Set(pluginIds)) {
     entries[entryId] = {

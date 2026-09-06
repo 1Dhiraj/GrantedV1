@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 type DiagnosticsTimelineModule = typeof import("../infra/diagnostics-timeline.js");
 
 type CliCommandStartupTimingOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 };
 

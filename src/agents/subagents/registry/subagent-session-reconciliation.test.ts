@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { resolveSessionStorePathCore, type SessionEntry } from "../../../config/sessions.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   resolveSubagentSessionCompletion,
   type SubagentSessionStoreCache,
@@ -9,7 +9,7 @@ import {
 const configuredStorePath = "/virtual/openclaw-subagent-reconciliation-sessions.json";
 const cfg = {
   session: { store: configuredStorePath },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 const storePath = resolveSessionStorePathCore(configuredStorePath, { agentId: "main" });
 
 const terminalSession: SessionEntry = {

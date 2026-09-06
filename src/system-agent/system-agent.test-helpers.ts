@@ -11,7 +11,7 @@ import {
 } from "../agents/execution-auth-binding.js";
 import { resolveCliRuntimeExecutionProvider } from "../agents/model-runtime-aliases.js";
 import { resolveSimpleCompletionSelectionForAgent } from "../agents/simple-completion-runtime.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { installTemporaryCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
 import { resolveInstalledPluginIndexPolicyHash } from "../plugins/installed-plugin-index-policy.js";
 import { resolvePluginControlPlaneFingerprint } from "../plugins/plugin-control-plane-context.js";
@@ -35,7 +35,7 @@ export type SystemAgentPluginMetadataTestSnapshot = {
     params: Parameters<typeof resolvePluginMetadataSnapshot>[0],
   ) => ReturnType<typeof resolvePluginMetadataSnapshot>;
   bindForConfig: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     workspaceDir?: string,
   ) => ReturnType<typeof resolvePluginMetadataSnapshot>;
   /** Rebind after a test redirects to another empty state root with the same plugin inventory. */
@@ -74,7 +74,7 @@ export function installSystemAgentClaudeCliBackendTestFixture(): () => void {
 
 /** Install the process-stable plugin metadata snapshot that the real Gateway owns. */
 export function installSystemAgentPluginMetadataTestSnapshot(
-  config: OpenClawConfig = {},
+  config: GrantedConfig = {},
 ): SystemAgentPluginMetadataTestSnapshot {
   const prepared = resolvePluginMetadataSnapshot({ config, env: process.env });
   let releaseCurrentSnapshot: () => boolean = () => false;
@@ -150,7 +150,7 @@ export function expectSystemAgentAuditRecord(
 
 /** Build exact, revalidatable proof for a test config without reading host credentials. */
 export async function createSystemAgentVerifiedInferenceTestFixture(
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<SystemAgentVerifiedInferenceTestFixture> {
   const routeAgentId = resolveAmbientOwnerAgentId(config);
   const selection = resolveSimpleCompletionSelectionForAgent({
@@ -243,7 +243,7 @@ export async function createSystemAgentVerifiedInferenceTestFixture(
     const authProfileOwnerFingerprint = profileId
       ? fingerprintAuthProfileOwnerShape({ profileId, credential })
       : undefined;
-    const resolveRuntimeOwnerFingerprint = (currentConfig: OpenClawConfig) => {
+    const resolveRuntimeOwnerFingerprint = (currentConfig: GrantedConfig) => {
       const backend = resolveCliBackendConfig(configuredRoute.provider, currentConfig, {
         agentId: "openclaw",
       });

@@ -2,7 +2,7 @@
 import { html, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import "./modal-dialog.ts";
 
 type GatewayUrlConfirmationProps = {
@@ -46,7 +46,7 @@ function renderGatewayUrlConfirmation(props: GatewayUrlConfirmationProps) {
   `;
 }
 
-class GatewayUrlConfirmation extends OpenClawLightDomContentsElement {
+class GatewayUrlConfirmation extends GrantedLightDomContentsElement {
   @property({ attribute: false }) props?: GatewayUrlConfirmationProps;
 
   override render() {

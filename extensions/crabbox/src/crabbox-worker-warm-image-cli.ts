@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   crabboxWarmImageRecoveryHint,
   isCrabboxWarmImageCapturePaused,
@@ -7,7 +7,7 @@ import {
   recoverCrabboxWarmImageCapture,
 } from "./crabbox-worker-warm-image-store.js";
 
-type CliProgram = Parameters<Parameters<OpenClawPluginApi["registerCli"]>[0]>[0]["program"];
+type CliProgram = Parameters<Parameters<GrantedPluginApi["registerCli"]>[0]>[0]["program"];
 
 export function registerCrabboxWarmImageCommands(program: CliProgram): void {
   program

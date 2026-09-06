@@ -23,16 +23,16 @@ import type { WidgetPresenter } from "./plugin-registration.types.js";
 import type { PluginRegistryState } from "./registry-state.js";
 import type { PluginRecord } from "./registry-types.js";
 import type {
-  OpenClawGatewayDiscoveryService,
-  OpenClawPluginCliRegistrationOptions,
-  OpenClawPluginCliRegistrar,
-  OpenClawPluginCliRootCommandDescriptor,
-  OpenClawPluginCommandDefinition,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginService,
+  GrantedGatewayDiscoveryService,
+  GrantedPluginCliRegistrationOptions,
+  GrantedPluginCliRegistrar,
+  GrantedPluginCliRootCommandDescriptor,
+  GrantedPluginCommandDefinition,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginReloadRegistration,
+  GrantedPluginSecurityAuditCollector,
+  GrantedPluginService,
 } from "./types.js";
 
 function isOfficialCodexPluginRecord(
@@ -110,8 +110,8 @@ export function createOperationRegistrars(state: PluginRegistryState) {
 
   const registerCli = (
     record: PluginRecord,
-    registrar: OpenClawPluginCliRegistrar,
-    opts?: OpenClawPluginCliRegistrationOptions,
+    registrar: GrantedPluginCliRegistrar,
+    opts?: GrantedPluginCliRegistrationOptions,
   ) => {
     const normalizeCommandRoot = (raw: string, source: "command" | "descriptor") => {
       const normalized = normalizeCommandDescriptorName(raw);
@@ -136,12 +136,12 @@ export function createOperationRegistrars(state: PluginRegistryState) {
         const name = normalizeCommandRoot(descriptor.name, "descriptor");
         const description = sanitizeCommandDescriptorDescription(descriptor.description);
         const machineOutput = rootRegistration
-          ? (descriptor as OpenClawPluginCliRootCommandDescriptor).machineOutput
+          ? (descriptor as GrantedPluginCliRootCommandDescriptor).machineOutput
           : undefined;
         if (!name || !description) {
           return null;
         }
-        const normalized: OpenClawPluginCliRootCommandDescriptor = {
+        const normalized: GrantedPluginCliRootCommandDescriptor = {
           name,
           description,
           hasSubcommands: descriptor.hasSubcommands,
@@ -152,7 +152,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
         return normalized;
       })
       .filter(
-        (descriptor): descriptor is OpenClawPluginCliRootCommandDescriptor => descriptor !== null,
+        (descriptor): descriptor is GrantedPluginCliRootCommandDescriptor => descriptor !== null,
       );
     const commands = normalizeUniqueStringEntries(
       [...(opts?.commands ?? []), ...descriptors.map((descriptor) => descriptor.name)]
@@ -195,8 +195,8 @@ export function createOperationRegistrars(state: PluginRegistryState) {
     });
   };
 
-  const registerReload = (record: PluginRecord, registration: OpenClawPluginReloadRegistration) => {
-    const normalized: OpenClawPluginReloadRegistration = {
+  const registerReload = (record: PluginRecord, registration: GrantedPluginReloadRegistration) => {
+    const normalized: GrantedPluginReloadRegistration = {
       restartPrefixes: normalizeStringEntries(registration.restartPrefixes),
       hotPrefixes: normalizeStringEntries(registration.hotPrefixes),
       noopPrefixes: normalizeStringEntries(registration.noopPrefixes),
@@ -227,7 +227,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
 
   const registerNodeHostCommand = (
     record: PluginRecord,
-    nodeCommand: OpenClawPluginNodeHostCommand,
+    nodeCommand: GrantedPluginNodeHostCommand,
   ) => {
     const command = nodeCommand.command.trim();
     if (!command) {
@@ -261,7 +261,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
 
   const registerNodeInvokePolicy = (
     record: PluginRecord,
-    policy: OpenClawPluginNodeInvokePolicy,
+    policy: GrantedPluginNodeInvokePolicy,
     pluginConfig?: Record<string, unknown>,
   ) => {
     const commands = normalizeUniqueStringEntries(
@@ -310,7 +310,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
 
   const registerSecurityAuditCollector = (
     record: PluginRecord,
-    collector: OpenClawPluginSecurityAuditCollector,
+    collector: GrantedPluginSecurityAuditCollector,
   ) => {
     registry.securityAuditCollectors.push({
       pluginId: record.id,
@@ -345,7 +345,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
     return undefined;
   };
 
-  const registerService = (record: PluginRecord, service: OpenClawPluginService) => {
+  const registerService = (record: PluginRecord, service: GrantedPluginService) => {
     const id = resolveServiceRegistrationId(record, service, "service");
     if (!id) {
       return;
@@ -364,7 +364,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
 
   const registerGatewayDiscoveryService = (
     record: PluginRecord,
-    service: OpenClawGatewayDiscoveryService,
+    service: GrantedGatewayDiscoveryService,
   ) => {
     const id = resolveServiceRegistrationId(record, service, "gateway discovery service");
     if (!id) {
@@ -380,7 +380,7 @@ export function createOperationRegistrars(state: PluginRegistryState) {
     });
   };
 
-  const registerCommand = (record: PluginRecord, command: OpenClawPluginCommandDefinition) => {
+  const registerCommand = (record: PluginRecord, command: GrantedPluginCommandDefinition) => {
     const name = command.name.trim();
     if (!name) {
       reportRegistrationError(record, "command registration missing name");

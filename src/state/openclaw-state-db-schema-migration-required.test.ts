@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   findOpenClawStateDatabaseSchemaMigrationRequiredError,
-  OpenClawStateDatabaseSchemaMigrationRequiredError,
+  GrantedStateDatabaseSchemaMigrationRequiredError,
 } from "./openclaw-state-db-schema-migration-required.js";
 
 describe("state database schema migration error classification", () => {
   it("recognizes a rehydrated exact migration error through its cause chain", () => {
-    const original = new OpenClawStateDatabaseSchemaMigrationRequiredError(
+    const original = new GrantedStateDatabaseSchemaMigrationRequiredError(
       "agent-databases-composite-primary-key",
       "/tmp/openclaw.sqlite",
     );
@@ -21,7 +21,7 @@ describe("state database schema migration error classification", () => {
   });
 
   it("recognizes an exact instance of the typed error", () => {
-    const original = new OpenClawStateDatabaseSchemaMigrationRequiredError(
+    const original = new GrantedStateDatabaseSchemaMigrationRequiredError(
       "audit-events-v2",
       "/tmp/openclaw.sqlite",
     );

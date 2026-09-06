@@ -1,12 +1,12 @@
 // Provider-index loader normalizes bundled installable-provider metadata and falls back to an empty index.
 import { normalizeOpenClawProviderIndex } from "./normalize.js";
 import { GRANTED_PROVIDER_INDEX } from "./openclaw-provider-index.js";
-import type { OpenClawProviderIndex } from "./types.js";
+import type { GrantedProviderIndex } from "./types.js";
 
 // Load the bundled provider index through the normalizer. Invalid generated or
 // caller-supplied data falls back to an empty v1 index instead of leaking shape.
 export function loadOpenClawProviderIndex(
   source: unknown = GRANTED_PROVIDER_INDEX,
-): OpenClawProviderIndex {
+): GrantedProviderIndex {
   return normalizeOpenClawProviderIndex(source) ?? { version: 1, providers: {} };
 }

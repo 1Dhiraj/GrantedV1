@@ -14,7 +14,7 @@ import {
   type AuthProfileStore,
 } from "openclaw/plugin-sdk/agent-runtime";
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -62,7 +62,7 @@ export function sessionBindingIdentity(params: {
   sessionId: string;
   sessionKey?: string;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Extract<CodexAppServerBindingIdentity, { kind: "session" }> {
   const { sessionAgentId } = resolveSessionAgentIdsStrict(params);
   const sessionKey = params.sessionKey?.trim();
@@ -79,7 +79,7 @@ export type CodexRunSessionBindingAuthority = "current" | "ephemeral" | "superse
 /** Decides whether a run may share the durable stable-key binding owner. */
 export function resolveCodexRunSessionBindingAuthority(params: {
   identity: Extract<CodexAppServerBindingIdentity, { kind: "session" }>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   storePath?: string;
 }): CodexRunSessionBindingAuthority {
   const sessionKey = params.identity.sessionKey?.trim();
@@ -654,7 +654,7 @@ export async function reclaimCurrentCodexSessionGeneration(params: {
   assertCurrent?: () => void;
   bindingStore: CodexAppServerBindingStore;
   identity: Extract<CodexAppServerBindingIdentity, { kind: "session" }>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   storePath?: string;
 }): Promise<boolean> {
   params.assertCurrent?.();

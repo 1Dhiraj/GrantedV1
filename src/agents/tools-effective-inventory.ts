@@ -11,7 +11,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { extractModelCompat } from "../plugins/provider-model-compat.js";
 import type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
 import { normalizeProviderTransportWithPlugin } from "../plugins/provider-runtime.js";
@@ -48,12 +48,12 @@ function policyDeniesTool(policy: { deny?: string[] } | undefined, toolName: str
   );
 }
 
-function hasExplicitBrowserIntent(cfg: OpenClawConfig): boolean {
+function hasExplicitBrowserIntent(cfg: GrantedConfig): boolean {
   return cfg.browser?.enabled !== false && Boolean(cfg.browser || cfg.plugins?.entries?.browser);
 }
 
 function buildToolInventoryNotices(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   profile: string;
   entries: EffectiveToolInventoryEntry[];
   effectivePolicy: ReturnType<typeof resolveEffectiveToolPolicy>;
@@ -112,7 +112,7 @@ function buildToolInventoryNotices(params: {
 }
 
 function applyProviderTransportNormalization(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   workspaceDir?: string;
   runtimeModel: ProviderRuntimeModel;
@@ -155,7 +155,7 @@ function resolveConfiguredFallbackApi(
 
 /** Resolves configured or bundled metadata without starting provider discovery. */
 function resolveStaticToolInventoryRuntimeModelContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -279,7 +279,7 @@ export async function resolveEffectiveToolInventoryRuntimeModelContextAsync(
 
 /** Resolves compatibility metadata explicitly configured for a provider/model pair. */
 export function resolveConfiguredModelCompat(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   modelProvider?: string;
   modelId?: string;
 }) {

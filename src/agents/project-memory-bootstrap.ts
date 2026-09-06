@@ -4,7 +4,7 @@ import {
   splitCuratedMarkdownEntries,
   stripMemoryAnnotationCarriers,
 } from "../../packages/memory-host-sdk/src/engine-storage.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   isAutomaticMemoryEntryEligible,
   type MemorySearchResult,
@@ -120,7 +120,7 @@ function buildProjectMemoryBootstrap(params: {
 }
 
 export async function prepareProjectMemoryBootstrap(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   activeProjectKeys: readonly string[];
 }): Promise<string[]> {

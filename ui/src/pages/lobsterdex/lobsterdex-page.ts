@@ -6,10 +6,10 @@ import type { LobsterPetPaletteId } from "../../components/lobster-pet-contract.
 import { LOBSTER_PET_PALETTES } from "../../components/lobster-pet-palettes.ts";
 import { renderSettingsWorkspace } from "../../components/settings-workspace.ts";
 import { copyToClipboard } from "../../lib/clipboard.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { renderLobsterdex, type LobsterdexCopyFeedback } from "./view.ts";
 
-class LobsterdexPage extends OpenClawLightDomElement {
+class LobsterdexPage extends GrantedLightDomElement {
   @state() private copyFeedback: LobsterdexCopyFeedback | null = null;
   private copyAttempt = 0;
   private copyResetTimer: number | null = null;

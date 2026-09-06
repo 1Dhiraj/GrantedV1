@@ -7,7 +7,7 @@ import {
 } from "openclaw/plugin-sdk/channel-outbound";
 import { chunkMarkdownText as chunkMarkdownTextForLine } from "openclaw/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { linePlugin } from "./channel.js";
 import { createRuntime, lineResult } from "./channel.sendPayload.test-support.js";
 import { lineConfigAdapter } from "./config-adapter.js";
@@ -72,7 +72,7 @@ describe("line outbound sendPayload", () => {
         ...(quickReplies.length > 0 ? { channelData: { line: { quickReplies } } } : {}),
       },
       accountId: "default",
-      cfg: { channels: { line: {} } } as OpenClawConfig,
+      cfg: { channels: { line: {} } } as GrantedConfig,
     });
 
     const messages = [
@@ -122,7 +122,7 @@ describe("line outbound sendPayload", () => {
         text,
         payload: { text },
         accountId: "default",
-        cfg: { channels: { line: {} } } as OpenClawConfig,
+        cfg: { channels: { line: {} } } as GrantedConfig,
       }),
     ).rejects.toThrow("Message must be non-empty for LINE sends");
     expect(mocks.pushMessageLine).not.toHaveBeenCalled();
@@ -148,7 +148,7 @@ describe("line outbound sendPayload", () => {
         },
       },
       accountId: "default",
-      cfg: { channels: { line: {} } } as OpenClawConfig,
+      cfg: { channels: { line: {} } } as GrantedConfig,
     });
 
     // The pin LINE will not render still reaches the chat as the text it was
@@ -187,7 +187,7 @@ describe("line outbound sendPayload", () => {
         },
       },
       accountId: "default",
-      cfg: { channels: { line: {} } } as OpenClawConfig,
+      cfg: { channels: { line: {} } } as GrantedConfig,
     });
 
     expect(mocks.pushMessagesLine).toHaveBeenCalledWith(
@@ -223,7 +223,7 @@ describe("line outbound sendPayload", () => {
         text: "Hello",
         payload: { text: "Hello" },
         accountId: "default",
-        cfg: { channels: { line: {} } } as OpenClawConfig,
+        cfg: { channels: { line: {} } } as GrantedConfig,
         onDeliveryResult,
       });
     } catch (error) {
@@ -247,7 +247,7 @@ describe("line outbound sendPayload", () => {
     setLineRuntime(runtime);
     const cfg = {
       channels: { line: { channelAccessToken: "line-fixture-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const providerResponse = new Response(JSON.stringify({ sentMessages: [{ id: "m-flex" }] }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -278,7 +278,7 @@ describe("line outbound sendPayload", () => {
     setLineRuntime(runtime);
     const cfg = {
       channels: { line: { channelAccessToken: "line-fixture-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const laterFailure = new Error("second LINE Flex send failed");
     const fetch = vi
       .fn()
@@ -318,7 +318,7 @@ describe("line outbound sendPayload", () => {
   it("sends flex message without dropping text", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "Now playing:",
@@ -351,7 +351,7 @@ describe("line outbound sendPayload", () => {
   it("reports each platform result for text and media payloads", async () => {
     const { runtime } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
     const onDeliveryResult = vi.fn();
 
     await lineOutboundAdapter.sendPayload!({
@@ -376,7 +376,7 @@ describe("line outbound sendPayload", () => {
   it("preserves every provider receipt and conversation for an inline LINE batch", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
     const providerMessageIds = ["line-provider-first", "line-provider-second"] as const;
     mocks.pushMessagesLine.mockResolvedValueOnce({
       messageId: providerMessageIds[0],
@@ -432,7 +432,7 @@ describe("line outbound sendPayload", () => {
   it("sends template message without dropping text", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "Choose one:",
@@ -470,7 +470,7 @@ describe("line outbound sendPayload", () => {
   it("attaches quick replies while preserving the provider's full Flex alternative-text limit", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
     const altText = "a".repeat(1600);
 
     const payload = {
@@ -512,7 +512,7 @@ describe("line outbound sendPayload", () => {
   it("sends quick-reply-only payloads with fallback text", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const result = await lineOutboundAdapter.sendPayload!({
       to: "line:user:quick",
@@ -574,7 +574,7 @@ describe("line outbound sendPayload", () => {
   it("sends media before quick-reply text so buttons stay visible", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "Hello",
@@ -620,7 +620,7 @@ describe("line outbound sendPayload", () => {
   it("forwards generic media payloads to the shared send path unresolved", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     await lineOutboundAdapter.sendPayload!({
       to: "line:user:4",
@@ -643,7 +643,7 @@ describe("line outbound sendPayload", () => {
   it("uses LINE-specific media options for rich media payloads", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     await lineOutboundAdapter.sendPayload!({
       to: "line:user:5",
@@ -677,7 +677,7 @@ describe("line outbound sendPayload", () => {
   it("uses configured text chunk limit for payloads", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: { textChunkLimit: 123 } } } as OpenClawConfig;
+    const cfg = { channels: { line: { textChunkLimit: 123 } } } as GrantedConfig;
 
     const payload = {
       text: "Hello world",
@@ -708,7 +708,7 @@ describe("line outbound sendPayload", () => {
   it("omits trackingId for non-user quick-reply inline video media", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "",
@@ -748,7 +748,7 @@ describe("line outbound sendPayload", () => {
   it("keeps generic quick-reply media on the validated media route", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     await lineOutboundAdapter.sendPayload!({
       to: "line:user:U123",
@@ -783,7 +783,7 @@ describe("line outbound sendPayload", () => {
     // route, so an audio clip arrived as an empty image bubble.
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     await lineOutboundAdapter.sendPayload!({
       to: "line:user:U123",
@@ -813,7 +813,7 @@ describe("line outbound sendPayload", () => {
   it("rejects insecure generic media before quick-reply batch sends", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     await expect(
       lineOutboundAdapter.sendPayload!({
@@ -834,7 +834,7 @@ describe("line outbound sendPayload", () => {
   it("keeps trackingId for user quick-reply inline video media", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "",
@@ -875,7 +875,7 @@ describe("line outbound sendPayload", () => {
   it("rejects quick-reply inline video media without previewImageUrl", async () => {
     const { runtime } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const payload = {
       text: "",
@@ -902,7 +902,7 @@ describe("line outbound sendPayload", () => {
   it("declares message adapter durable text and media with receipt proofs", async () => {
     const { runtime, mocks } = createRuntime();
     setLineRuntime(runtime);
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
 
     const proofResults = await verifyChannelMessageAdapterCapabilityProofs({
       adapterName: "line",
@@ -977,7 +977,7 @@ describe("line outbound sendPayload", () => {
 describe("linePlugin config.formatAllowFrom", () => {
   it("strips line:user: prefixes without lowercasing", () => {
     const formatted = lineConfigAdapter.formatAllowFrom!({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       allowFrom: ["line:user:UABC", "line:UDEF"],
     });
     expect(formatted).toEqual(["UABC", "UDEF"]);
@@ -1004,7 +1004,7 @@ describe("linePlugin groups.resolveRequireMention", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const requireMention = resolveLineGroupRequireMention({
       cfg,

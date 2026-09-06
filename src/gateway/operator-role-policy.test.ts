@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../state/user-profiles.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -18,7 +18,7 @@ const guestRole = {
   scopes: ["operator.read", "operator.write"],
 } as const;
 
-function roleConfig(defaultRole = true): OpenClawConfig {
+function roleConfig(defaultRole = true): GrantedConfig {
   return {
     gateway: {
       roles: {

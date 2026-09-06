@@ -24,7 +24,7 @@ import {
   type PluginInstallSourceInfo,
 } from "../../plugins/install-source-info.js";
 import type {
-  OpenClawPackageManifest,
+  GrantedPackageManifest,
   PluginPackageChannel,
   PluginPackageInstall,
 } from "../../plugins/manifest.js";
@@ -112,7 +112,7 @@ type ExternalCatalogEntry = {
   name?: string;
   version?: string;
   description?: string;
-} & Partial<Record<ManifestKey, OpenClawPackageManifest>>;
+} & Partial<Record<ManifestKey, GrantedPackageManifest>>;
 
 const ENV_CATALOG_PATHS = ["GRANTED_PLUGIN_CATALOG_PATHS", "GRANTED_MPM_CATALOG_PATHS"];
 const OFFICIAL_CHANNEL_CATALOG_RELATIVE_PATH = path.join("dist", "channel-catalog.json");

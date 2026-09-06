@@ -8,7 +8,7 @@ import {
 } from "../config/sessions/session-entry-provenance.js";
 import { parseSessionThreadInfoFast } from "../config/sessions/thread-info.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeLogger, PluginRuntimeCore } from "../plugins/runtime/types-core.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { isModelSelectionLocked, ModelSelectionLockedError } from "../sessions/model-overrides.js";
@@ -57,7 +57,7 @@ type RealtimeVoiceAgentConsultRunRegistration = {
  * Fails closed when a realtime consult would cross a model-selection lock.
  */
 export function assertRealtimeVoiceAgentConsultModelSelectionUnlocked(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentRuntime: RealtimeVoiceAgentConsultRuntime;
   agentId: string;
   sessionKey: string;
@@ -126,7 +126,7 @@ function resolveDeliverySessionFields(context?: DeliveryContext): Partial<Sessio
 }
 
 function resolveRealtimeVoiceAgentDeliveryContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentRuntime: RealtimeVoiceAgentConsultRuntime;
   agentId: string;
   storePath: string;
@@ -170,7 +170,7 @@ function resolveRealtimeVoiceAgentDeliveryContext(params: {
 
 async function resolveRealtimeVoiceAgentConsultSessionEntry(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   spawnedBy?: string | null;
   contextMode?: RealtimeVoiceAgentConsultContextMode;
@@ -272,7 +272,7 @@ async function resolveRealtimeVoiceAgentConsultSessionEntry(params: {
  * Runs an embedded agent consult and returns concise speakable text for realtime voice playback.
  */
 export async function consultRealtimeVoiceAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentRuntime: RealtimeVoiceAgentConsultRuntime;
   logger: Pick<RuntimeLogger, "warn">;
   sessionKey: string;

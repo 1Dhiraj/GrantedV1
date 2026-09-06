@@ -1,6 +1,6 @@
 // OpenClaw tests cover main rescue and audit command behavior.
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { SystemAgentInferenceUnavailableError } from "./inference-error.js";
 import type { SystemAgentCommandDeps } from "./operations.js";
 import type { SystemAgentOverview } from "./overview.js";
@@ -81,9 +81,9 @@ const verifiedConfig = {
       },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
-function configSnapshot(config: OpenClawConfig) {
+function configSnapshot(config: GrantedConfig) {
   return {
     exists: true,
     valid: true,
@@ -229,7 +229,7 @@ describe("runSystemAgent", () => {
     const { runtime } = createSystemAgentTestRuntime();
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const readConfigFileSnapshot = vi
       .fn()
       .mockResolvedValueOnce(configSnapshot(verifiedConfig))
@@ -262,7 +262,7 @@ describe("runSystemAgent", () => {
     const { runtime } = createSystemAgentTestRuntime();
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const readConfigFileSnapshot = vi
       .fn()
       .mockResolvedValueOnce(configSnapshot(verifiedConfig))
@@ -380,8 +380,8 @@ describe("runSystemAgent", () => {
     const { runtime, lines } = createSystemAgentTestRuntime();
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
-    let currentConfig: OpenClawConfig = verifiedConfig;
+    } satisfies GrantedConfig;
+    let currentConfig: GrantedConfig = verifiedConfig;
     const verified = createVerifiedRunOptions(
       {
         readConfigFileSnapshot: vi.fn(async () => configSnapshot(currentConfig)) as never,

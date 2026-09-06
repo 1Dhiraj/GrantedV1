@@ -5,7 +5,7 @@ import { pathToFileURL } from "node:url";
 import { afterAll, afterEach, describe, expect, it } from "vitest";
 import {
   defineBundledChannelEntry,
-  type OpenClawPluginApi,
+  type GrantedPluginApi,
 } from "../plugin-sdk/channel-entry-contract.js";
 import { loadOpenClawPluginCliRegistry, loadOpenClawPlugins } from "./loader.js";
 import {
@@ -880,7 +880,7 @@ module.exports = {
 
     entry.register({
       registrationMode: "discovery",
-      runtime: {} as OpenClawPluginApi["runtime"],
+      runtime: {} as GrantedPluginApi["runtime"],
       registerChannel: (registration) => {
         const plugin = "plugin" in registration ? registration.plugin : registration;
         channels.push(plugin.id);
@@ -888,7 +888,7 @@ module.exports = {
       registerCli: (_register, options) => {
         commands.push(...(options?.descriptors ?? []).map((descriptor) => descriptor.name));
       },
-    } as OpenClawPluginApi);
+    } as GrantedPluginApi);
 
     expect(channels).toEqual(["bundled-discovery-cli"]);
     expect(fs.existsSync(runtimeMarker)).toBe(true);

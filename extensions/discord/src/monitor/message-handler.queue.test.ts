@@ -13,7 +13,7 @@ import {
   type ChannelIngressQueue,
   DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildDiscordInboundJob } from "./inbound-job.js";
@@ -148,7 +148,7 @@ function createPreflightContext(channelId = "ch-1") {
     token: "test-token",
     groupPolicy: "allowlist" as const,
   };
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     channels: {
       discord: discordConfig,
     },

@@ -2,7 +2,7 @@ import os from "node:os";
 import { tryResolveConfiguredAgentWorkspaceDir } from "../agents/agent-scope-config.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js";
 import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   listPluginDoctorStateMigrationEntries,
   type PluginDoctorStateMigration,
@@ -95,7 +95,7 @@ export async function collectPluginDoctorStateMigrationPlans(
 
 export async function runPluginDoctorStateMigrationPlans(params: {
   detected: LegacyStateDetection;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): Promise<MigrationMessages> {
   const input: PluginDoctorInput = {
@@ -229,7 +229,7 @@ async function migratePluginDoctorStatePlans(
 
 /** Detect after canonical inspection; destructive repair also requires offline maintenance ownership. */
 export async function runPostSessionPluginDoctorStateRepairs(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   maintenanceAuthority?: { assertCurrent(): void };
 }): Promise<MigrationMessages> {
@@ -309,7 +309,7 @@ export async function runPostSessionPluginDoctorStateRepairs(params: {
 }
 
 export async function autoMigrateLegacyPluginDoctorState(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   homedir?: () => string;
   log?: MigrationLogger;

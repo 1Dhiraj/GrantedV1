@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
@@ -8,7 +8,7 @@ import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 import { shouldIgnoreStaleDiscordRouteBinding } from "./route-resolution.js";
 
 export function resolveDiscordConversationBindingRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   route: ResolvedAgentRoute;
   accountId: string;
   runtimeConversationId: string;

@@ -13,7 +13,7 @@ import { resolvePreferredOpenClawTmpDir } from "../../../infra/tmp-openclaw-dir.
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../../state/openclaw-state-db.js";
 import { ensureTaskRegistryReady, getTaskById } from "../../../tasks/runtime-internal.js";
 import { publishTaskRecordAfterAtomicStore } from "../../../tasks/task-registry.js";
@@ -48,7 +48,7 @@ vi.mock("../registry/subagent-registry.js", () => ({ resumeSubagentRun }));
 
 describe("atomic subagent completion admission store", () => {
   let tempDir: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
 
   beforeEach(() => {
     tempDir = tempDirs.make("openclaw-subagent-admission-", resolvePreferredOpenClawTmpDir());

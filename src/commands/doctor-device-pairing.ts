@@ -4,7 +4,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { quoteCliArg } from "../cli/quote-cli-arg.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { callGateway } from "../gateway/call.js";
 import { loadDeviceAuthTokens } from "../infra/device-auth-store.js";
@@ -120,7 +120,7 @@ function normalizeLocalPairedDevice(device: PairedDevice): DoctorPairedDevice {
 }
 
 async function loadDoctorPairingSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   healthOk: boolean;
 }): Promise<DoctorPairingSnapshot | null> {
   if (params.healthOk) {
@@ -478,7 +478,7 @@ function formatLegacyPairingStoreIssue(filePath: string): string {
 }
 
 /** Warn about legacy devices/*.json files the startup SQLite import has not archived. */
-async function collectLegacyPairingStoreIssues(cfg: OpenClawConfig): Promise<string[]> {
+async function collectLegacyPairingStoreIssues(cfg: GrantedConfig): Promise<string[]> {
   if (cfg.gateway?.mode === "remote") {
     return [];
   }
@@ -545,7 +545,7 @@ function legacyPairingStoreIssueToHealthFinding(message: string): HealthFinding 
 }
 
 export async function collectDevicePairingHealthFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   healthOk?: boolean;
 }): Promise<HealthFinding[]> {
   const legacyStoreFindings = (await collectLegacyPairingStoreIssues(params.cfg)).map(
@@ -573,7 +573,7 @@ export async function collectDevicePairingHealthFindings(params: {
  * local SQLite pairing state when the gateway is down.
  */
 export async function noteDevicePairingHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   healthOk: boolean;
 }): Promise<void> {
   const legacyStoreLines = await collectLegacyPairingStoreIssues(params.cfg);

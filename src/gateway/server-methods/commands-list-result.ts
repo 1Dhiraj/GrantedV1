@@ -26,7 +26,7 @@ import type {
 } from "../../auto-reply/commands-registry.types.js";
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   getPluginCommandEntrySpecs,
   getPluginCommandEntrySpecsFromRegistrations,
@@ -173,7 +173,7 @@ function mapCommand(
 function buildPluginCommandEntries(params: {
   provider?: string;
   nameSurface: CommandNameSurface;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): CommandEntry[] {
   const gatewayRegistry = getActivePluginGatewayCommandRegistry();
   const pluginSpecs = gatewayRegistry
@@ -211,7 +211,7 @@ function buildPluginCommandEntries(params: {
 export function buildCommandsListResult(params: {
   sessionEntry?: SessionEntry;
   sessionKey?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider?: string;
   scope?: "native" | "text" | "both";

@@ -75,16 +75,16 @@ export type {
   ProviderThinkingProfile,
 } from "./provider-thinking.types.js";
 export type {
-  OpenClawPluginActiveModelContext,
-  OpenClawPluginHookOptions,
-  OpenClawPluginToolContext,
-  OpenClawPluginToolFactory,
-  OpenClawPluginToolOptions,
+  GrantedPluginActiveModelContext,
+  GrantedPluginHookOptions,
+  GrantedPluginToolContext,
+  GrantedPluginToolFactory,
+  GrantedPluginToolOptions,
 } from "./tool-types.js";
 export type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
-  OpenClawPluginNodeHostCommandIo,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeHostCommandIo,
 } from "./types.node-host.js";
 export type {
   PluginWebFetchProviderEntry,
@@ -144,26 +144,26 @@ export type {
   MigrationProviderPlugin,
   MigrationSummary,
 } from "./migration-provider.types.js";
-export type { OpenClawPluginApi } from "./plugin-api.types.js";
+export type { GrantedPluginApi } from "./plugin-api.types.js";
 export type {
   AgentPromptGuidance,
   AgentPromptGuidanceEntry,
   AgentPromptSurfaceKind,
-  OpenClawPluginCommandDefinition,
+  GrantedPluginCommandDefinition,
   PluginCommandContext,
   PluginCommandResult,
 } from "./plugin-command.types.js";
-export type { OpenClawPluginConfigSchema } from "./plugin-config-schema.types.js";
-export type { OpenClawPluginDefinition } from "./plugin-definition.types.js";
+export type { GrantedPluginConfigSchema } from "./plugin-config-schema.types.js";
+export type { GrantedPluginDefinition } from "./plugin-definition.types.js";
 export type {
-  OpenClawGatewayDiscoveryService,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginNodeInvokePolicyContext,
-  OpenClawPluginNodeInvokePolicyResult,
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  GrantedGatewayDiscoveryService,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginNodeInvokePolicyContext,
+  GrantedPluginNodeInvokePolicyResult,
+  GrantedPluginReloadRegistration,
+  GrantedPluginSecurityAuditCollector,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
 } from "./plugin-registration.types.js";
 export type {
   ProviderAuthContext,
@@ -220,9 +220,9 @@ export type {
   ProviderWrapStreamFnContext,
 } from "./provider-transport.types.js";
 export type {
-  OpenClawGatewayDiscoveryAdvertiseContext,
-  OpenClawPluginHttpRouteHandler,
-  OpenClawPluginSecurityAuditContext,
+  GrantedGatewayDiscoveryAdvertiseContext,
+  GrantedPluginHttpRouteHandler,
+  GrantedPluginSecurityAuditContext,
 } from "./plugin-registration.types.js";
 export type { ProviderUsageAuthToken } from "./provider-runtime.types.js";
 export type { WorkerSshIdentityRequest } from "./capability-provider.types.js";
@@ -233,14 +233,14 @@ export type {
   VideoGenerationProviderPlugin,
 } from "./capability-provider.types.js";
 export type {
-  OpenClawPluginCliRegistrationOptions,
-  OpenClawPluginCliRegistrar,
-  OpenClawPluginCliRootCommandDescriptor,
-  OpenClawPluginGatewayRuntimeScopeSurface,
-  OpenClawPluginHostedMediaResolver,
-  OpenClawPluginHttpRouteAuth,
-  OpenClawPluginHttpRouteMatch,
-  OpenClawPluginHttpRouteUpgradeHandler,
+  GrantedPluginCliRegistrationOptions,
+  GrantedPluginCliRegistrar,
+  GrantedPluginCliRootCommandDescriptor,
+  GrantedPluginGatewayRuntimeScopeSurface,
+  GrantedPluginHostedMediaResolver,
+  GrantedPluginHttpRouteAuth,
+  GrantedPluginHttpRouteMatch,
+  GrantedPluginHttpRouteUpgradeHandler,
   PluginInteractiveHandlerRegistration,
   PluginRegistrationMode,
 } from "./plugin-registration.types.js";

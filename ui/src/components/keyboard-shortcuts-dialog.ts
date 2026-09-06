@@ -6,10 +6,10 @@ import {
   formatKeyboardShortcutParts,
   resolveKeyboardShortcutSections,
 } from "../lib/keyboard-shortcut-catalog.ts";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 import "./modal-dialog.ts";
 
-class KeyboardShortcutsDialog extends OpenClawLitElement {
+class KeyboardShortcutsDialog extends GrantedLitElement {
   @property({ attribute: false }) sendShortcut: ChatSendShortcut = "enter";
   @state() private open = false;
 

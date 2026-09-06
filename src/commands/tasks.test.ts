@@ -30,7 +30,7 @@ import type {
   TaskSystemAuditSeverity,
 } from "../tasks/task-system-audit.types.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import type { OpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import {
   tasksAuditCommand,
   tasksCancelCommand,
@@ -136,7 +136,7 @@ function resetTaskCommandRuntime() {
 }
 
 async function withTaskCommandStateDir(
-  run: (state: OpenClawTestState) => Promise<void>,
+  run: (state: GrantedTestState) => Promise<void>,
 ): Promise<void> {
   await withOpenClawTestState(
     { layout: "state-only", prefix: "openclaw-tasks-command-" },

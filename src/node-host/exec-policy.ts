@@ -1,6 +1,6 @@
 /** Evaluates node-host exec policy from security, approval, and allowlist context. */
 import { resolveAgentConfig } from "../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   requiresExecApproval,
   resolveExecModePolicy,
@@ -11,7 +11,7 @@ import { applyExecPolicyLayer } from "../infra/exec-policy.js";
 
 /** One config owner for system.run and plugin-hosted execution. */
 export function resolveNodeExecConfigPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string | undefined;
   defaultSecurity: ExecSecurity;
   defaultAsk: ExecAsk;

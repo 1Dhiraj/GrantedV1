@@ -4,7 +4,7 @@ import { resolvePreferredOpenClawTmpDir } from "../../../infra/tmp-openclaw-dir.
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../../state/openclaw-state-db.js";
 import { getTaskById } from "../../../tasks/runtime-internal.js";
 import type { TaskRecord } from "../../../tasks/task-registry.types.js";
@@ -24,7 +24,7 @@ vi.mock("../registry/subagent-registry.js", () => ({ resumeSubagentRun }));
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("subagent completion recovery identity", () => {
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
 
   beforeEach(() => {
     const tempDir = tempDirs.make(

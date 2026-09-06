@@ -22,13 +22,13 @@ import {
 } from "./io.warnings.js";
 import { migrateLegacyContextBudgetConfig, migratePersistedImplicitMainRoster } from "./legacy.js";
 import { materializeRuntimeConfig } from "./materialize.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
 export function loadConfigFromContext(
   context: ConfigIoContext,
   options: { skipSuspiciousRecovery?: boolean } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const { deps, configPath } = context;
   let envBeforeRead: Record<string, string | undefined> | undefined;
   try {
@@ -89,7 +89,7 @@ export function loadConfigFromContext(
     // below like any invalid config — never load as an empty config marked
     // valid, which would run with defaults and poison lastKnownGood.
     if (typeof validationConfigRaw === "object" && validationConfigRaw !== null) {
-      const duplicates = findDuplicateAgentDirs(validationConfigRaw as OpenClawConfig, {
+      const duplicates = findDuplicateAgentDirs(validationConfigRaw as GrantedConfig, {
         env: deps.env,
         homedir: deps.homedir,
       });

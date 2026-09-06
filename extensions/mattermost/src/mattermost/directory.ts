@@ -10,10 +10,10 @@ import {
   type MattermostUser,
 } from "./client.js";
 import { resolveMattermostTrustedChatKind } from "./monitor-auth.js";
-import type { ChannelDirectoryEntry, OpenClawConfig, RuntimeEnv } from "./runtime-api.js";
+import type { ChannelDirectoryEntry, GrantedConfig, RuntimeEnv } from "./runtime-api.js";
 
 type MattermostDirectoryParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;
@@ -21,7 +21,7 @@ type MattermostDirectoryParams = {
 };
 
 function buildClient(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): MattermostClient | null {
   const account = inspectMattermostAccount({ cfg: params.cfg, accountId: params.accountId });

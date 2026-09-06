@@ -16,7 +16,7 @@ import {
 } from "../../../components/session-menu-compact.ts";
 import type { SessionOwnerOption } from "../../../components/session-owner-chip.ts";
 import { t } from "../../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 import {
   canManageChatSessionSharing,
   renderChatSessionSharing,
@@ -58,7 +58,7 @@ const COMPACT_MENU_VIEW_BY_VALUE: Record<string, CompactMenuView> = {
   "compact:open-view": "view",
 };
 
-class ChatHeaderSessionMenu extends OpenClawLightDomElement {
+class ChatHeaderSessionMenu extends GrantedLightDomElement {
   @property({ attribute: false }) session: SessionMenuData = EMPTY_SESSION_MENU_DATA;
   @property({ attribute: false }) worktreePath: string | null = null;
   @property({ attribute: false }) onboarding = false;

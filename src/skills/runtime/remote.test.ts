@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { NodeRegistry } from "../../gateway/node-registry.js";
 import { getSkillsSnapshotVersion } from "./refresh-state.js";
 import { resetSkillsRefreshForTest } from "./refresh.test-support.js";
@@ -55,7 +55,7 @@ function setTestSkillsRemoteRegistry(
   } as unknown as NodeRegistry);
 }
 
-function createRemoteSkillWorkspace(bin: string): { cfg: OpenClawConfig; workspaceDir: string } {
+function createRemoteSkillWorkspace(bin: string): { cfg: GrantedConfig; workspaceDir: string } {
   const workspaceDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-remote-skills-"));
   const skillDir = path.join(workspaceDir, "skills", "remote-skill");
   fs.mkdirSync(skillDir, { recursive: true });
@@ -79,7 +79,7 @@ function createRemoteSkillWorkspace(bin: string): { cfg: OpenClawConfig; workspa
           workspace: workspaceDir,
         },
       },
-    } satisfies OpenClawConfig,
+    } satisfies GrantedConfig,
   };
 }
 
@@ -386,7 +386,7 @@ describe("skills-remote", () => {
             workspace: workspaceDir,
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const invokeCalls: string[] = [];
       setTestSkillsRemoteRegistry(nodeId, {
         get: () => testRemoteSession(nodeId),
@@ -454,7 +454,7 @@ describe("skills-remote", () => {
             workspace: workspaceDir,
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       let connId = "conn-old";
       const connectivityCalls: string[] = [];
       const invokeCalls: string[] = [];
@@ -562,7 +562,7 @@ describe("skills-remote", () => {
             workspace: workspaceDir,
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       recordRemoteNodeInfo({
         nodeId,
         pairingGeneration: TEST_PAIRING_GENERATION,

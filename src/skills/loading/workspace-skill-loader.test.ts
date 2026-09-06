@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetLogger, setLoggerOverride } from "../../logging/logger.js";
 import { loggingState } from "../../logging/state.js";
 import { resolveInstalledPluginIndexPolicyHash } from "../../plugins/installed-plugin-index-policy.js";
@@ -98,7 +98,7 @@ function createWorkspacePluginRegistry(workspaceDir: string): PluginManifestRegi
 
 function createWorkspacePluginMetadataSnapshot(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   manifestRegistry: PluginManifestRegistry;
 }): PluginMetadataSnapshot {
   const policyHash = resolveInstalledPluginIndexPolicyHash(params.config);
@@ -237,7 +237,7 @@ describe("loadWorkspaceSkills", () => {
       name: "cached-skill",
       description: "Cached skill",
     });
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const options = {
       config,
       managedSkillsDir: path.join(workspaceDir, ".managed"),

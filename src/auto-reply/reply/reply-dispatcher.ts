@@ -2,7 +2,7 @@
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import type { TypingCallbacks } from "../../channels/typing.js";
 import type { HumanDelayConfig } from "../../config/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   findPlatformMessageRejectedError,
   isProvenDeliveryNotSentError,
@@ -161,7 +161,7 @@ function buildReplyDispatchRuntimeInfo(
 export type ReplyDispatcherOptions = {
   deliver: ReplyDispatchDeliverer;
   silentReplyContext?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     sessionKey?: string;
     surface?: string;
     conversationType?: SilentReplyConversationType;

@@ -8,8 +8,8 @@
 // xcodebuild test -project apps/ios/OpenClaw.xcodeproj -scheme OpenClawUITests \
 //   -destination 'platform=iOS Simulator,id=<owned-simulator-udid>' \
 //   -derivedDataPath /tmp/openclaw-ios-navigation-proof -jobs 4 -parallel-testing-enabled NO \
-//   -only-testing:OpenClawUITests/OpenClawSnapshotUITests/testLiveGatewayApprovalNotificationsFromOverview \
-//   -only-testing:OpenClawUITests/OpenClawSnapshotUITests/testLiveGatewayApprovalNotificationsFromSettings
+//   -only-testing:GrantedUITests/GrantedSnapshotUITests/testLiveGatewayApprovalNotificationsFromOverview \
+//   -only-testing:GrantedUITests/GrantedSnapshotUITests/testLiveGatewayApprovalNotificationsFromSettings
 // TEST_RUNNER_ forwards these opt-in settings to XCTest; no real Gateway credentials are used.
 import { createServer } from "node:http";
 import { WebSocketServer, WebSocket } from "ws";

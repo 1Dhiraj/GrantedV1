@@ -1,7 +1,7 @@
 // Discord tests cover native command.options plugin behavior.
 import { ApplicationCommandType, ChannelType, InteractionContextType } from "discord-api-types/v10";
 import type { ChatCommandDefinition } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
@@ -36,8 +36,8 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", () => ({
   getPreparedModelCatalogSnapshot: loadModelCatalogMock,
-  resolveAgentDir: (_cfg: OpenClawConfig, agentId: string) => `/tmp/agents/${agentId}/agent`,
-  resolveAgentWorkspaceDir: (_cfg: OpenClawConfig, agentId: string) => `/tmp/workspaces/${agentId}`,
+  resolveAgentDir: (_cfg: GrantedConfig, agentId: string) => `/tmp/agents/${agentId}/agent`,
+  resolveAgentWorkspaceDir: (_cfg: GrantedConfig, agentId: string) => `/tmp/workspaces/${agentId}`,
   resolveHumanDelayConfig: () => undefined,
 }));
 
@@ -50,8 +50,8 @@ let createNoopThreadBindingManager: typeof import("./thread-bindings.js").create
 function createNativeCommand(
   name: string,
   opts?: {
-    cfg?: OpenClawConfig;
-    discordConfig?: NonNullable<OpenClawConfig["channels"]>["discord"];
+    cfg?: GrantedConfig;
+    discordConfig?: NonNullable<GrantedConfig["channels"]>["discord"];
   },
 ): ReturnType<typeof import("./native-command.js").createDiscordNativeCommand> {
   const command = listNativeCommandSpecs({ provider: "discord" }).find(
@@ -60,8 +60,8 @@ function createNativeCommand(
   if (!command) {
     throw new Error(`missing native command: ${name}`);
   }
-  const baseCfg: OpenClawConfig = opts?.cfg ?? {};
-  const discordConfig: NonNullable<OpenClawConfig["channels"]>["discord"] =
+  const baseCfg: GrantedConfig = opts?.cfg ?? {};
+  const discordConfig: NonNullable<GrantedConfig["channels"]>["discord"] =
     opts?.discordConfig ?? baseCfg.channels?.discord ?? {};
   const cfg =
     opts?.discordConfig === undefined
@@ -130,8 +130,8 @@ function requireAutocomplete(option: CommandOption, errorMessage: string) {
 }
 
 function createAllowedGuildAutocompleteConfig(
-  commands: NonNullable<OpenClawConfig["commands"]>,
-): OpenClawConfig {
+  commands: NonNullable<GrantedConfig["commands"]>,
+): GrantedConfig {
   return {
     commands,
     channels: {
@@ -149,7 +149,7 @@ function createAllowedGuildAutocompleteConfig(
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function runAutocomplete(
@@ -193,7 +193,7 @@ async function runAutocomplete(
 }
 
 async function resolveAutocompleteAuthorized(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   userId: string;
   username?: string;
   globalName?: string;
@@ -274,7 +274,7 @@ describe("createDiscordNativeCommand option wiring", () => {
           allowFrom: ["*"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const command = createNativeCommand("think", { cfg });
     const level = requireOption(command, "level");
     const autocomplete = requireAutocomplete(level, "think level option did not wire autocomplete");
@@ -375,7 +375,7 @@ describe("createDiscordNativeCommand option wiring", () => {
             discord: ["user:allowed-user"],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const level = requireOption(command, "level");
     const autocomplete = requireAutocomplete(level, "think level option did not wire autocomplete");
@@ -511,7 +511,7 @@ describe("createDiscordNativeCommand option wiring", () => {
           dmPolicy: "disabled",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeCfg = {
       session: { dmScope: "per-channel-peer" },
       channels: {
@@ -521,7 +521,7 @@ describe("createDiscordNativeCommand option wiring", () => {
           allowFrom: ["*"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const command = createDiscordNativeCommand({
       command: {
         name: "scope",
@@ -533,7 +533,7 @@ describe("createDiscordNativeCommand option wiring", () => {
             description: "Scope value",
             type: "string",
             preferAutocomplete: true,
-            choices: ({ cfg }: { cfg?: OpenClawConfig }) => {
+            choices: ({ cfg }: { cfg?: GrantedConfig }) => {
               const dmScope = cfg?.session?.dmScope ?? "missing";
               return [{ label: dmScope, value: dmScope }];
             },
@@ -596,7 +596,7 @@ describe("createDiscordNativeCommand option wiring", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const level = requireOption(command, "level");
     const autocomplete = requireAutocomplete(level, "think level option did not wire autocomplete");
@@ -622,7 +622,7 @@ describe("createDiscordNativeCommand option wiring", () => {
         groupEnabled: true,
         groupChannels: ["allowed-group"],
       },
-    } satisfies NonNullable<OpenClawConfig["channels"]>["discord"];
+    } satisfies NonNullable<GrantedConfig["channels"]>["discord"];
     const command = createNativeCommand("think", {
       cfg: {
         commands: {
@@ -630,7 +630,7 @@ describe("createDiscordNativeCommand option wiring", () => {
             discord: ["user:allowed-user"],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       discordConfig,
     });
     const level = requireOption(command, "level");
@@ -650,8 +650,8 @@ describe("createDiscordNativeCommand option wiring", () => {
 
   it("truncates Discord command and option descriptions on a UTF-16 boundary", () => {
     const longDescription = `${"x".repeat(99)}😀 trailing`;
-    const cfg = {} as OpenClawConfig;
-    const discordConfig = {} as NonNullable<OpenClawConfig["channels"]>["discord"];
+    const cfg = {} as GrantedConfig;
+    const discordConfig = {} as NonNullable<GrantedConfig["channels"]>["discord"];
     const command = createDiscordNativeCommand({
       command: {
         name: "longdesc",
@@ -699,7 +699,7 @@ describe("createDiscordNativeCommand option wiring", () => {
         },
         acceptsArgs: false,
       },
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       discordConfig: {},
       accountId: "default",
       sessionPrefix: "discord:slash",

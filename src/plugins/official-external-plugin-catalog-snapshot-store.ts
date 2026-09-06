@@ -6,11 +6,11 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
@@ -46,7 +46,7 @@ type HostedCatalogSnapshotRow = {
 };
 
 type HostedCatalogSnapshotDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "official_external_plugin_catalog_snapshots"
 >;
 
@@ -70,7 +70,7 @@ function resolveStoreEnv(
 
 function resolveStateDatabaseOptions(
   options: HostedOfficialExternalPluginCatalogSnapshotStoreOptions,
-): OpenClawStateDatabaseOptions {
+): GrantedStateDatabaseOptions {
   const env = resolveStoreEnv(options);
   return {
     ...(env ? { env } : {}),

@@ -82,7 +82,7 @@ import {
 import { purgeAgentSessionStoreEntries } from "../../config/sessions.js";
 import { resolveSessionTranscriptsDirForAgent } from "../../config/sessions/paths.js";
 import type { IdentityConfig } from "../../config/types.base.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isMissingPathError } from "../../infra/errors.js";
 import { withAgentExecApprovalsRemoved } from "../../infra/exec-approvals.js";
 import { root, FsSafeError, type ReadResult } from "../../infra/fs-safe.js";
@@ -158,9 +158,9 @@ const ALLOWED_FILE_NAMES = new Set<string>(WORKSPACE_BOOTSTRAP_FILENAMES);
 function resolveAgentWorkspaceFileOrRespondError(
   params: Record<string, unknown>,
   respond: RespondFn,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   workspaceDir: string;
   name: string;
@@ -299,7 +299,7 @@ async function listAgentFiles(workspaceDir: string, options?: { hideBootstrap?: 
   return files;
 }
 
-function resolveAgentIdOrError(agentIdRaw: string, cfg: OpenClawConfig) {
+function resolveAgentIdOrError(agentIdRaw: string, cfg: GrantedConfig) {
   const normalized = normalizeAgentIdStrict(agentIdRaw);
   if (!normalized.ok) {
     return null;
@@ -342,7 +342,7 @@ type AgentDeletePathOutcome =
 class AgentCleanupIdentityMismatchError extends Error {}
 class AgentSharedAuthStoreOwnerError extends Error {}
 
-function agentOwnsSharedAuthStore(cfg: OpenClawConfig, agentId: string): boolean {
+function agentOwnsSharedAuthStore(cfg: GrantedConfig, agentId: string): boolean {
   const agentDir = resolveAgentDir(cfg, agentId);
   return isSharedAuthStoreOwner({
     ownership: resolveSharedAuthStoreOwnership(),
@@ -682,7 +682,7 @@ function resolveSurvivingDatabaseFilePaths(
 }
 
 function isPathOwnedBySurvivingAgent(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   pathname: string,
   survivingDatabaseFilePaths: readonly string[] = [],
@@ -701,7 +701,7 @@ function isPathOwnedBySurvivingAgent(
 }
 
 function prepareAgentDeleteDatabases(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   agentDir: string,
 ): AgentDeleteDatabasePlan {
@@ -749,7 +749,7 @@ function unregisterAgentDeleteDatabases(agentId: string, databasePaths: string[]
 }
 
 function prepareJournaledAgentDirOwnership(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   agentDir: string,
 ): void {

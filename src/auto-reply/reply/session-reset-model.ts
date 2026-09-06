@@ -12,7 +12,7 @@ import {
   SESSION_MODEL_OVERRIDE_TRANSACTION_FIELDS,
   sessionModelOverrideChangesApplied,
 } from "../../config/sessions/session-snapshot-merge.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { applyModelOverrideWithAuthProfileCompatibility } from "../../sessions/auth-profile-preservation.js";
 import { ModelSelectionLockedError } from "../../sessions/model-overrides.js";
 import type { MsgContext, TemplateContext } from "../templating.js";
@@ -32,7 +32,7 @@ type ResetModelResult = {
 };
 
 async function loadResetModelCatalog(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;
@@ -48,7 +48,7 @@ async function loadResetModelCatalog(params: {
 }
 
 async function applySelectionToSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir: string;
   defaultProvider: string;
   selection: ModelDirectiveSelection;
@@ -112,7 +112,7 @@ async function applySelectionToSession(params: {
 
 /** Applies a valid reset model override to session state and returns the cleaned body. */
 export async function applyResetModelOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   workspaceDir?: string;

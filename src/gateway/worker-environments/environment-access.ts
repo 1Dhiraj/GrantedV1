@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import { withTimeout } from "../../infra/fs-safe.js";
 import type { WorkerProvider } from "../../plugins/types.js";
 import {
@@ -19,7 +19,7 @@ const TUNNEL_START_TIMEOUT_MS = 3 * 60_000;
 
 type WorkerEnvironmentAccessOptions = {
   store: WorkerEnvironmentStore;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   prepareCurrentBundle: () => Promise<ExpectedWorkerBuild>;
   tunnelManager?: WorkerTunnelManager;
   nodeTunnelManager?: NodeWorkerTunnelManager;

@@ -2,7 +2,7 @@
 import {
   createDefaultModelsPresetAppliers,
   type ModelApi,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 import {
   buildQianfanProvider,
@@ -12,7 +12,7 @@ import {
 
 export const QIANFAN_DEFAULT_MODEL_REF = `qianfan/${QIANFAN_DEFAULT_MODEL_ID}`;
 
-function resolveQianfanPreset(cfg: OpenClawConfig): {
+function resolveQianfanPreset(cfg: GrantedConfig): {
   api: ModelApi;
   baseUrl: string;
   defaultModels: NonNullable<ReturnType<typeof buildQianfanProvider>["models"]>;
@@ -40,7 +40,7 @@ function resolveQianfanPreset(cfg: OpenClawConfig): {
 
 export const { applyConfig: applyQianfanConfig } = createDefaultModelsPresetAppliers<[]>({
   primaryModelRef: QIANFAN_DEFAULT_MODEL_REF,
-  resolveParams: (cfg: OpenClawConfig) => {
+  resolveParams: (cfg: GrantedConfig) => {
     const preset = resolveQianfanPreset(cfg);
     return {
       providerId: "qianfan",

@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { createExecutionIdentityAdmissionToken } from "../../audit/execution-identity-admission.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -70,7 +70,7 @@ describe("resolveBackgroundTaskContext", () => {
     // normalized length 164 puts the pair astride the 159-char cut point.
     const context = resolveBackgroundTaskContext({
       deps: fakeDeps(),
-      cfg: {} as unknown as OpenClawConfig,
+      cfg: {} as unknown as GrantedConfig,
       sessionKey: "child-session",
       agentId: "qa",
       requestId: "run-1",
@@ -83,7 +83,7 @@ describe("resolveBackgroundTaskContext", () => {
   it("passes short task text through unchanged", () => {
     const context = resolveBackgroundTaskContext({
       deps: fakeDeps(),
-      cfg: {} as unknown as OpenClawConfig,
+      cfg: {} as unknown as GrantedConfig,
       sessionKey: "child-session",
       agentId: "qa",
       requestId: "run-2",

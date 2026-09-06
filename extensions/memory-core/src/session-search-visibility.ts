@@ -3,10 +3,10 @@ import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-run
 import { buildSessionEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
 import {
   resolveCanonicalMainSessionKey,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { sessionDeliveryOrigin } from "openclaw/plugin-sdk/session-store-runtime";
 import {
   extractTranscriptIdentityFromSessionsMemoryHit,
@@ -29,11 +29,11 @@ function normalizeAgentIdForCompare(value: string | undefined): string | undefin
   return value?.trim().toLowerCase() || undefined;
 }
 
-function isGlobalSessionKeyForSharedScope(cfg: OpenClawConfig, key: string): boolean {
+function isGlobalSessionKeyForSharedScope(cfg: GrantedConfig, key: string): boolean {
   return cfg.session?.scope === "global" && key.trim().toLowerCase() === "global";
 }
 
-type ConversationRecallContext = NonNullable<OpenClawPluginToolContext["conversationRecall"]>;
+type ConversationRecallContext = NonNullable<GrantedPluginToolContext["conversationRecall"]>;
 
 type SessionStore = ReturnType<typeof loadCombinedSessionStoreForGateway>["store"];
 
@@ -145,7 +145,7 @@ function isTrustedRecallRequester(params: {
 }
 
 function filterSessionKeysByScopedAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   keys: string[];
   scopedAgentId: string | undefined;
 }): string[] {
@@ -166,7 +166,7 @@ function filterSessionKeysByScopedAgent(params: {
 }
 
 export async function filterMemorySearchHitsBySessionVisibility(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   requesterSessionKey: string | undefined;
   sandboxed: boolean;

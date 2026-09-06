@@ -1,6 +1,6 @@
 // Migrate Hermes tests cover model.apply plugin behavior.
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
@@ -61,8 +61,8 @@ describe("Hermes migration model apply", () => {
           },
         },
       },
-    } as OpenClawConfig;
-    let writtenConfig: OpenClawConfig | undefined;
+    } as GrantedConfig;
+    let writtenConfig: GrantedConfig | undefined;
     const provider = buildHermesMigrationProvider({
       runtime: makeConfigRuntime(existingConfig, (next) => {
         writtenConfig = next;
@@ -118,8 +118,8 @@ describe("Hermes migration model apply", () => {
           },
         ],
       },
-    } as OpenClawConfig;
-    let writtenConfig: OpenClawConfig | undefined;
+    } as GrantedConfig;
+    let writtenConfig: GrantedConfig | undefined;
     const provider = buildHermesMigrationProvider({
       runtime: makeConfigRuntime(existingConfig, (next) => {
         writtenConfig = next;
@@ -162,7 +162,7 @@ describe("Hermes migration model apply", () => {
           model: "anthropic/claude-sonnet-4.6",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const provider = buildHermesMigrationProvider({
       runtime: makeConfigRuntime(lateConfig),
     });
@@ -183,7 +183,7 @@ describe("Hermes migration model apply", () => {
       const source = path.join(root, "hermes");
       const workspaceDir = path.join(root, "workspace");
       await writeFile(path.join(source, "config.yaml"), "model: imported/model\n");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           defaults: { workspace: workspaceDir, model: "shared/model" },
           entries: {
@@ -245,7 +245,7 @@ describe("Hermes migration model apply", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const provider = buildHermesMigrationProvider({ runtime: makeConfigRuntime(lateConfig) });
     const ctx = makeContext({ source, stateDir, workspaceDir, reportDir });
     const plan = await provider.plan(ctx);

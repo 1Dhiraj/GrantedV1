@@ -42,7 +42,7 @@ type HostContext = NonNullable<
 type ScheduleFrame = (callback: FrameRequestCallback) => number;
 type ScheduleFallback = (callback: () => void, delayMs: number) => number;
 type McpAppResources = {
-  bridge: OpenClawAppBridge | null;
+  bridge: GrantedAppBridge | null;
   cleanups: Set<() => void>;
   frameHeight: number;
   iframe: HTMLIFrameElement;
@@ -105,7 +105,7 @@ function hostContext(element: Element | undefined, height: number): HostContext 
   };
 }
 
-class OpenClawAppBridge extends AppBridge {
+class GrantedAppBridge extends AppBridge {
   setMessageHandler(handler: NonNullable<AppBridge["onmessage"]>) {
     Reflect.set(this, "onmessage", handler);
   }
@@ -362,7 +362,7 @@ export class McpAppView extends LitElement {
         throw new Error(t("mcpApp.errors.sandboxUnavailable"));
       }
 
-      const bridge = new OpenClawAppBridge(
+      const bridge = new GrantedAppBridge(
         null,
         { name: "OpenClaw", version: "1.0.0" },
         buildMcpAppHostCapabilities(

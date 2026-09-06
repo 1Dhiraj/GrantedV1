@@ -9,7 +9,7 @@ import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createChatMetadataHarness,
   createChatMetadataOwner,
@@ -558,8 +558,8 @@ describe("gateway chat metadata runtime", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
-    const runtimeConfig: OpenClawConfig = {
+    } satisfies GrantedConfig;
+    const runtimeConfig: GrantedConfig = {
       ...sourceConfig,
       models: {
         providers: {
@@ -589,7 +589,7 @@ describe("gateway chat metadata runtime", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const harness = createChatMetadataHarness(config, { useDefaultProjection: true });
     const credentials: AgentCredentialMap = {
       openai: {
@@ -691,7 +691,7 @@ describe("gateway chat metadata runtime", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const credentials: AgentCredentialMap = {
       openai: {
         type: "oauth",

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withStateDirEnv } from "../../test-helpers/state-dir-env.js";
 import { resolveRequestedSessionAgentId } from "../session-request-agent.js";
 import { healthHandlers } from "./health.js";
@@ -10,7 +10,7 @@ afterEach(() => {
   resetConfigRuntimeState();
 });
 
-async function callStatus(config: OpenClawConfig) {
+async function callStatus(config: GrantedConfig) {
   setRuntimeConfigSnapshot(config, config);
   const respond = vi.fn();
   await healthHandlers.status!({
@@ -34,7 +34,7 @@ describe("Gateway status owner routing", () => {
           entries: { main: {}, molty: {} },
         },
         session: { store: path.join(stateDir, "agents", "{agentId}", "sessions.json") },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const respond = await callStatus(config);
 

@@ -7,7 +7,7 @@ import type {
   GatewayTailscaleMode,
   GatewayTrustedProxyConfig,
 } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { createGatewayCredentialPlan } from "./credential-planner.js";
 import { resolveGatewayCredentialsFromValues } from "./credentials.js";
@@ -130,7 +130,7 @@ export function resolveGatewayAuth(params: {
 
 /** Resolve auth from an env-substituted config while retaining its resolution facts. */
 export function resolveGatewayAuthForConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   authOverride?: GatewayAuthConfig | null;
   env?: NodeJS.ProcessEnv;
   tailscaleMode?: GatewayTailscaleMode;

@@ -9,7 +9,7 @@
 
 import type { IncomingMessage } from "node:http";
 import type { Duplex } from "node:stream";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
 import type {
   RealtimeTranscriptionProviderConfig,
@@ -36,7 +36,7 @@ export interface MediaStreamConfig {
   /** Provider-owned config blob passed into the transcription session. */
   providerConfig: RealtimeTranscriptionProviderConfig;
   /** Full runtime config, used by providers that can resolve OAuth profiles. */
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   /** Close sockets that never send a valid `start` frame within this window. */
   preStartTimeoutMs?: number;
   /** Max concurrent pre-start sockets. */

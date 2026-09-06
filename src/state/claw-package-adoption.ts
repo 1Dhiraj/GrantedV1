@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 
@@ -16,7 +16,7 @@ type ClawPackageAdoption = {
 /** Records an explicit non-Claw claim through the canonical package owner. */
 export function markClawPackageIndependentlyOwned(
   artifact: ClawPackageAdoption,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): number {
   const databasePath = options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env);
   if (!existsSync(databasePath)) {

@@ -1,7 +1,7 @@
 // Gateway auth-token source conflict detector.
 // Warns when local env auth can diverge from managed gateway config auth.
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
 
 const GATEWAY_ENV_TOKEN = "GRANTED_GATEWAY_TOKEN";
@@ -20,7 +20,7 @@ type GatewayAuthTokenSourceConflict = {
 
 /** Returns a warning when env token precedence can diverge from configured gateway auth. */
 export function resolveGatewayAuthTokenSourceConflict(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): GatewayAuthTokenSourceConflict | null {
   const envToken = normalizeOptionalString(params.env.GRANTED_GATEWAY_TOKEN);

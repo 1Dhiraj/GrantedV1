@@ -4,7 +4,7 @@
  */
 import { afterEach, beforeEach } from "vitest";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withTempHomeCore as withTempHomeBase } from "../plugin-sdk/test-helpers/temp-home.js";
 import { resetPluginLoaderTestStateForTest } from "../plugins/loader.test-fixtures.js";
 import { resetModelsJsonReadyCacheForTest } from "./models-config-state.test-support.js";
@@ -148,7 +148,7 @@ export const MODELS_CONFIG_IMPLICIT_ENV_VARS = [
 ];
 
 /** Canonical custom proxy provider config used by models-config tests. */
-export const CUSTOM_PROXY_MODELS_CONFIG: OpenClawConfig = {
+export const CUSTOM_PROXY_MODELS_CONFIG: GrantedConfig = {
   models: {
     providers: {
       "custom-proxy": {

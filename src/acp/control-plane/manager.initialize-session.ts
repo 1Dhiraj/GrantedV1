@@ -5,7 +5,7 @@ import {
 } from "@openclaw/acp-core/runtime/session-identity";
 import type { AcpRuntime, AcpRuntimeHandle } from "@openclaw/acp-core/runtime/types";
 import { resolveRuntimeConfigCacheKey } from "../../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 import { AcpRuntimeError, withAcpRuntimeErrorBoundary } from "../runtime/errors.js";
@@ -157,7 +157,7 @@ function resolveEffectiveSessionModel(params: {
 }
 
 async function persistInitializedSessionMeta(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   meta: SessionAcpMeta;

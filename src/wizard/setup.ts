@@ -8,7 +8,7 @@ import { hasResolvedRosterBeforeMigrations } from "../config/agent-roster-proven
 import { ConfigMutationConflictError } from "../config/config.js";
 import { createMergePatch, applyMergePatch } from "../config/merge-patch.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayProbeAuthSafeWithSecretInputs } from "../gateway/probe-auth.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
@@ -79,16 +79,14 @@ async function runSetupWizardOnce(
 
   const snapshot = await readSetupConfigFileSnapshot();
   let currentSetupSnapshot = snapshot;
-  let baseConfig: OpenClawConfig = snapshot.valid
-    ? (snapshot.runtimeConfig ?? snapshot.config)
-    : {};
+  let baseConfig: GrantedConfig = snapshot.valid ? (snapshot.runtimeConfig ?? snapshot.config) : {};
   let setupConfigMergeBase = structuredClone(baseConfig);
   baseConfig = await requireRiskAcknowledgement({ opts, prompter, config: baseConfig });
   // Ordinary onboard reruns must preserve existing agents.list / bindings. Only
   // explicit reset or import flows are allowed to shrink the config — see issue
   // openclaw#84692.
   const writeSetupConfigFile = async (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     optsLocal: { allowConfigSizeDrop?: boolean } = {},
   ) => {
     const committed = await writeWizardConfigFile(config, {
@@ -369,7 +367,7 @@ async function runSetupWizardOnce(
   const optionRemoteToken = normalizeOptionalString(opts.remoteToken);
   const optionRemotePassword = normalizeOptionalString(opts.remotePassword);
   const remoteUrlChanged = opts.remoteUrl !== undefined && optionRemoteUrl !== storedRemoteUrl;
-  const remoteSeedConfig: OpenClawConfig =
+  const remoteSeedConfig: GrantedConfig =
     opts.remoteUrl === undefined &&
     opts.remoteToken === undefined &&
     opts.remotePassword === undefined
@@ -514,7 +512,7 @@ async function runSetupWizardOnce(
     prompter,
     opts.nonInteractive,
   );
-  let nextConfig: OpenClawConfig = applyLocalSetupWorkspaceConfig(
+  let nextConfig: GrantedConfig = applyLocalSetupWorkspaceConfig(
     baseConfig,
     requestedWorkspaceDir,
     { allowWorkspaceChange: allowWorkspaceChange || !hasAuthoredRoster },
@@ -595,7 +593,7 @@ async function runSetupWizardOnce(
       nextConfig = applyMergePatch(
         nextConfig,
         createMergePatch(stagedModelAuth.config, preModelAuthConfig),
-      ) as OpenClawConfig;
+      ) as GrantedConfig;
     } else if (!verification.verified && stagedModelAuth) {
       // Declining an optional probe is not a failed verification; keep the
       // provider/model choice the user just made and persist it once here.

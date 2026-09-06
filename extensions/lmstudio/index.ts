@@ -1,8 +1,8 @@
 // Lmstudio plugin entrypoint registers its OpenClaw integration.
 import {
   definePluginEntry,
-  type OpenClawConfig,
-  type OpenClawPluginApi,
+  type GrantedConfig,
+  type GrantedPluginApi,
   type ProviderAuthContext,
   type ProviderAuthMethodNonInteractiveContext,
   type ProviderAuthResult,
@@ -24,7 +24,7 @@ import { wrapLmstudioInferencePreload } from "./src/stream.js";
 
 const PROVIDER_ID = "lmstudio";
 
-function resolveLmstudioAugmentedCatalogEntries(config: OpenClawConfig | undefined) {
+function resolveLmstudioAugmentedCatalogEntries(config: GrantedConfig | undefined) {
   if (!config) {
     return [];
   }
@@ -51,7 +51,7 @@ export default definePluginEntry({
   id: PROVIDER_ID,
   name: "LM Studio Provider",
   description: "Bundled LM Studio provider plugin",
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     api.registerEmbeddingProvider(lmstudioMemoryEmbeddingProviderAdapter);
     api.registerProvider({
       id: PROVIDER_ID,

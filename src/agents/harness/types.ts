@@ -1,5 +1,5 @@
 import type { SessionToolOverrides } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 /**
  * Public native agent harness contracts and capability shapes.
  */
@@ -152,7 +152,7 @@ type AgentHarnessIsolatedCompletionParams = {
   auth: import("../model-auth-runtime-shared.js").ResolvedProviderAuth;
   /** Non-reversible proof of the prepared credential owner when available. */
   sourceAuthFingerprint?: string;
-  config: import("../../config/types.openclaw.js").OpenClawConfig;
+  config: import("../../config/types.openclaw.js").GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -198,7 +198,7 @@ export type AgentHarnessAuthBindingFingerprintParams = {
   authProfileId: string;
   authProfileStore: import("../auth-profiles/types.js").AuthProfileStore;
   agentDir: string;
-  config?: import("../../config/types.openclaw.js").OpenClawConfig;
+  config?: import("../../config/types.openclaw.js").GrantedConfig;
 };
 /**
  * @deprecated Use {@link AgentHarnessSideQuestionParamsV2}. This compatibility
@@ -211,7 +211,7 @@ export type AgentHarnessSideQuestionParams = {
   sandbox?: import("../sandbox/types.js").SandboxContext | null;
   /** Prepared plugin/model generation that owns this side execution. */
   preparedModelRuntime?: import("../prepared-model-runtime.types.js").PreparedModelRuntimeSnapshot;
-  cfg: import("../../config/types.openclaw.js").OpenClawConfig;
+  cfg: import("../../config/types.openclaw.js").GrantedConfig;
   agentDir: string;
   provider: string;
   model: string;
@@ -496,7 +496,7 @@ type AgentHarnessProviderUsageCapability = {
 };
 
 type AgentHarnessMcpCatalogParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   sessionId: string;
   sessionKey: string;
@@ -512,7 +512,7 @@ type AgentHarnessMcpCatalogCapability = {
 };
 
 export type AgentHarnessModelCatalogParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;

@@ -7,7 +7,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { DEFAULT_AGENTS_FILENAME, DEFAULT_TOOLS_FILENAME } from "../agents/workspace.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { publishFileNoClobber, syncDirectoryIfSupported } from "../infra/directory-durability.js";
 import { formatErrorMessage as errorMessage } from "../infra/errors.js";
@@ -375,7 +375,7 @@ function migrationFinding(params: {
 }
 
 export async function collectToolsMdMigrationFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<readonly HealthFinding[]> {
   const findings: HealthFinding[] = [];
   for (const target of resolveToolsMdMigrationWorkspaceTargets(cfg)) {
@@ -432,7 +432,7 @@ export async function collectToolsMdMigrationFindings(
 }
 
 export async function maybeMigrateToolsMd(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   shouldRepair: boolean;
   env?: NodeJS.ProcessEnv;
 }): Promise<ToolsMdMigrationResult> {

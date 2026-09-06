@@ -3,10 +3,10 @@ import {
   hasConfiguredAccountValue,
   mergeAccountConfig,
 } from "openclaw/plugin-sdk/account-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { hasSlackAccountCredentials } from "./src/account-configured.js";
 
-type SlackAccount = NonNullable<NonNullable<OpenClawConfig["channels"]>["slack"]>;
+type SlackAccount = NonNullable<NonNullable<GrantedConfig["channels"]>["slack"]>;
 
 function hasConfiguredSlackAccount(account: SlackAccount | undefined, env: NodeJS.ProcessEnv) {
   const userIdentity = account?.postAs === "user";
@@ -23,7 +23,7 @@ function hasConfiguredSlackAccount(account: SlackAccount | undefined, env: NodeJ
 
 /** Resolve Slack activation through its account owner's real transport credential contract. */
 export function hasConfiguredSlackChannelState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): boolean {
   const channel = params.cfg.channels?.slack;

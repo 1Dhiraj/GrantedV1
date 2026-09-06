@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import type { GatewayClient } from "./types.js";
@@ -35,7 +35,7 @@ import { testApi, usageHandlers } from "./usage.js";
 const config = {
   agents: { list: [{ id: "main", default: true }, { id: "opus" }] },
   session: {},
-} as OpenClawConfig;
+} as GrantedConfig;
 
 const baseParams = {
   startDate: "2026-02-01",
@@ -61,7 +61,7 @@ function sessionSummary(totalTokens: number) {
 
 async function runSessionsUsage(
   params: Record<string, unknown>,
-  runtimeConfig: OpenClawConfig = config,
+  runtimeConfig: GrantedConfig = config,
   client?: GatewayClient,
   method: "sessions.usage" | "usage.cost" = "sessions.usage",
 ) {
@@ -214,7 +214,7 @@ describe("sessions.usage result cache", () => {
     await withOpenClawTestState({ scenario: "minimal" }, async () => {
       const firstProfile = ensureProfileForEmail("first@example.com");
       const secondProfile = ensureProfileForEmail("second@example.com");
-      const roleConfig: OpenClawConfig = {
+      const roleConfig: GrantedConfig = {
         ...config,
         gateway: {
           roles: {

@@ -32,7 +32,7 @@ import {
   PAIRING_APPROVED_MESSAGE,
   resolveGoogleChatAccount,
   resolveGoogleChatOutboundSpace,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./channel.deps.runtime.js";
 import {
   formatGoogleChatTextChunks,
@@ -89,7 +89,7 @@ const collectGoogleChatOpenGroupFindings = createConditionalWarningCollector.fin
 });
 
 const collectGoogleChatSecurityWarnings = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedGoogleChatAccount;
 }) => [
   ...collectGoogleChatOpenGroupFindings(params),
@@ -134,7 +134,7 @@ export const googlechatSecurityAdapter = {
 
 export const googlechatThreadingAdapter = {
   scopedAccountReplyToMode: {
-    resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) =>
+    resolveAccount: (cfg: GrantedConfig, accountId?: string | null) =>
       resolveGoogleChatAccount({ cfg, accountId }),
     resolveReplyToMode: (account: ResolvedGoogleChatAccount, _chatType?: string | null) =>
       account.config.replyToMode,
@@ -146,7 +146,7 @@ export const googlechatThreadingAdapter = {
     context,
     hasRepliedRef,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     context: ChannelThreadingContext;
     hasRepliedRef?: { value: boolean };
@@ -175,7 +175,7 @@ export const googlechatPairingTextAdapter = {
     message,
     accountId,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     id: string;
     message: string;
     accountId?: string | null;
@@ -235,7 +235,7 @@ export const googlechatOutboundAdapter = {
       replyToId,
       threadId,
     }: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       to: string;
       text: string;
       accountId?: string | null;

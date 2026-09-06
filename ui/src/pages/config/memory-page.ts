@@ -22,7 +22,7 @@ import {
   runPluginConfigMutation,
   setPluginEnabled,
 } from "../../lib/plugins/index.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   resolveConfiguredDreaming,
@@ -82,7 +82,7 @@ type MemoryPageProps = {
   buildEditor: (keys: readonly string[]) => TemplateResult;
 };
 
-class MemorySettingsPage extends OpenClawLightDomElement {
+class MemorySettingsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

@@ -1,5 +1,5 @@
 import type { ReplyPayload } from "../auto-reply/reply-payload.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { OperatorScope } from "../gateway/operator-scopes.js";
 import type {
   PluginConversationBinding,
@@ -90,7 +90,7 @@ export type PluginCommandContext = {
   /** The full normalized command body */
   commandBody: string;
   /** Current OpenClaw configuration */
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Raw "From" value (channel-scoped id) */
   from?: string;
   /** Raw "To" value (channel-scoped id) */
@@ -165,7 +165,7 @@ export type AgentPromptGuidanceEntry = {
 
 export type AgentPromptGuidance = string | AgentPromptGuidanceEntry;
 
-export type OpenClawPluginCommandDefinition = {
+export type GrantedPluginCommandDefinition = {
   /** Command name without leading slash (e.g., "tts") */
   name: string;
   /**

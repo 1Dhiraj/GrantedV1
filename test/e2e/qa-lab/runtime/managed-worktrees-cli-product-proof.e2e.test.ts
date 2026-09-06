@@ -13,16 +13,16 @@ import type {
 import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/openclaw-state-db.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 
 const execFileAsync = promisify(execFile);
 const WORKTREE_NAME = "qa-managed-worktree";
 
-type CommandResult = Awaited<ReturnType<OpenClawTestInstance["cli"]>>;
+type CommandResult = Awaited<ReturnType<GrantedTestInstance["cli"]>>;
 type WorktreeListJson = { worktrees: ManagedWorktreeRecord[] };
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 let tempRoot: string | undefined;
 
 afterEach(async () => {

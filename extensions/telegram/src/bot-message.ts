@@ -1,5 +1,5 @@
 // Telegram plugin module implements bot message behavior.
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
 import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
 import {
@@ -84,7 +84,7 @@ type TelegramMessageProcessorDeps = Omit<
 export function resolveTelegramMessageTurnSettings(params: {
   accountId: string;
   senderId?: string | number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramCfg: TelegramAccountConfig;
   opts: Pick<TelegramBotOptions, "allowFrom" | "groupAllowFrom" | "replyToMode">;
 }) {

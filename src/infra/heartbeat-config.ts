@@ -8,7 +8,7 @@ import {
 import { DEFAULT_HEARTBEAT_EVERY } from "../auto-reply/heartbeat.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
 import type { AgentDefaultsConfig } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { tryResolveAmbientHeartbeatAgentId } from "./heartbeat-agent-resolution.js";
 
@@ -20,7 +20,7 @@ type HeartbeatAgent = {
 };
 
 export function resolveHeartbeatConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
 ): HeartbeatConfig | undefined {
   const defaults = cfg.agents?.defaults?.heartbeat;
@@ -33,7 +33,7 @@ export function resolveHeartbeatConfig(
 
 /** Resolve the cadence owned by the effective heartbeat configuration. */
 export function resolveHeartbeatIntervalMs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   overrideEvery?: string,
   heartbeat?: HeartbeatConfig,
 ) {
@@ -54,7 +54,7 @@ export function resolveHeartbeatIntervalMs(
   }
 }
 
-export function resolveHeartbeatAgents(cfg: OpenClawConfig): HeartbeatAgent[] {
+export function resolveHeartbeatAgents(cfg: GrantedConfig): HeartbeatAgent[] {
   const explicitAgents = listAgentEntries(cfg).filter((entry) => entry.heartbeat);
   if (explicitAgents.length > 0) {
     return explicitAgents
@@ -79,6 +79,6 @@ export function resolveHeartbeatAgents(cfg: OpenClawConfig): HeartbeatAgent[] {
   return agentId ? [{ agentId, heartbeat: resolveHeartbeatConfig(cfg, agentId) }] : [];
 }
 
-export function isHeartbeatOwnerUnresolved(cfg: OpenClawConfig): boolean {
+export function isHeartbeatOwnerUnresolved(cfg: GrantedConfig): boolean {
   return listAgentIds(cfg).length > 1 && resolveHeartbeatAgents(cfg).length === 0;
 }

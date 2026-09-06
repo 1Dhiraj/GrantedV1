@@ -16,7 +16,7 @@ import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js"
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { selectResolvedUserProfileById } from "../../state/user-profiles-internal.js";
 import { installSkillFromClawHub } from "../lifecycle/clawhub.js";
@@ -44,7 +44,7 @@ async function publishDirectory(
   authority: SkillLibraryAuthority,
   slug: string,
   directory: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   uploadId?: string,
 ) {
   const files = await readSkillLibraryTree(directory);
@@ -69,7 +69,7 @@ async function publishDirectory(
 export async function importSkillLibrary(
   authority: SkillLibraryAuthority,
   params: SkillsLibraryImportParams,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ) {
   requireSkillLibraryProfile(openOpenClawStateDatabase(options).db, authority);
   return withTempWorkspace(
@@ -94,7 +94,7 @@ export async function importSkillLibrary(
 export async function uploadSkillLibrary(
   authority: SkillLibraryAuthority,
   params: SkillsLibraryUploadParams,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<SkillsLibraryUploadResult> {
   if (!validateSkillsLibraryUploadParams(params)) {
     throw new SkillLibraryError("INVALID_BUNDLE", "Invalid library upload parameters.");

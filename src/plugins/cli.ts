@@ -1,7 +1,7 @@
 // Registers plugin-related CLI commands.
 import type { Command } from "commander";
 import { getRuntimeConfigSnapshot, readConfigFileSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createPluginCliLogger,
   createPluginCliLoadSession,
@@ -27,7 +27,7 @@ const logger = createPluginCliLogger();
 export const loadValidatedConfigForPluginRegistration = async (options?: {
   skipPluginValidation?: boolean;
   session?: PluginCliLoadSession;
-}): Promise<OpenClawConfig | null> => {
+}): Promise<GrantedConfig | null> => {
   const read = () =>
     readConfigFileSnapshot({ skipPluginValidation: options?.skipPluginValidation });
   const snapshot = await (options?.session ? options.session.readConfig(read) : read());
@@ -39,7 +39,7 @@ export const loadValidatedConfigForPluginRegistration = async (options?: {
 
 export async function registerPluginCliCommands(
   program: Command,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   env?: NodeJS.ProcessEnv,
   loaderOptions?: PluginCliLoaderOptions,
   options?: RegisterPluginCliOptions,
@@ -117,7 +117,7 @@ export async function registerPluginCliCommandsFromValidatedConfig(
   env?: NodeJS.ProcessEnv,
   loaderOptions?: PluginCliLoaderOptions,
   options?: RegisterPluginCliOptions,
-): Promise<OpenClawConfig | null> {
+): Promise<GrantedConfig | null> {
   const session = options?.session ?? createPluginCliLoadSession(getPluginCache());
   try {
     const config = await loadValidatedConfigForPluginRegistration({

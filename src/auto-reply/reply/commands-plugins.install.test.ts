@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { withTempHome } from "../../config/home-env.test-harness.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { invokePluginArtifactInstallMock } from "../../plugins/test-helpers/install-fixtures.js";
 import { expectObjectFields, mockFirstObjectArg } from "../../test-utils/mock-call-assertions.js";
 import { createCommandWorkspaceHarness } from "./commands-filesystem.test-support.js";
@@ -87,7 +87,7 @@ function buildPluginsParams(
   commandBodyNormalized: string,
   workspaceDir: string,
   options: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     gatewayClientScopes?: string[];
     omitGatewayClientScopes?: boolean;
     senderIsOwner?: boolean;
@@ -175,7 +175,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("installs an arbitrary npm package after a trailing --force acknowledgement", async () => {
-    const policyConfig: OpenClawConfig = {
+    const policyConfig: GrantedConfig = {
       commands: { text: true, plugins: true },
       plugins: { enabled: true },
       security: {
@@ -237,7 +237,7 @@ describe("handleCommands /plugins install", () => {
     { version: "2026.8.1-beta.4", installSpec: "@openclaw/brave-plugin@2026.8.1-beta.4" },
   ])("allows official catalog npm installs on core $version", async ({ version, installSpec }) => {
     coreVersion.value = version;
-    const policyConfig: OpenClawConfig = {
+    const policyConfig: GrantedConfig = {
       commands: { text: true, plugins: true },
       plugins: { enabled: true },
       security: {

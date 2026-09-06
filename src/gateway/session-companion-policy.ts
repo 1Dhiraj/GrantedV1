@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 export const SESSION_COMPANION_TOOLS = ["read", "sessions_history", "sessions_search"] as const;
 
-export function buildSessionCompanionRunConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function buildSessionCompanionRunConfig(cfg: GrantedConfig): GrantedConfig {
   const toolSearch = cfg.tools?.toolSearch;
   return {
     ...cfg,

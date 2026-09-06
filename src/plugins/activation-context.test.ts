@@ -4,20 +4,20 @@ import {
   createPluginMetadataSnapshot,
   makeRegistry,
 } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setCurrentPluginMetadataSnapshot } from "./current-plugin-metadata.test-support.js";
 import type { PluginDiscoveryResult } from "./discovery.js";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
 
 const applyPluginAutoEnableMock = vi.hoisted(() =>
-  vi.fn((params: { config?: OpenClawConfig }) => ({
+  vi.fn((params: { config?: GrantedConfig }) => ({
     config: params.config,
     changes: [],
     autoEnabledReasons: {},
   })),
 );
 const withBundledPluginEnablementCompatMock = vi.hoisted(() =>
-  vi.fn((params: { config?: OpenClawConfig }) => params.config),
+  vi.fn((params: { config?: GrantedConfig }) => params.config),
 );
 
 vi.mock("../config/plugin-auto-enable.js", () => ({
@@ -133,16 +133,16 @@ describe("plugin activation inputs", () => {
   });
 
   it("applies bundled enablement once after canonical auto-enable", () => {
-    const rawConfig = { plugins: { allow: ["openai"] } } satisfies OpenClawConfig;
+    const rawConfig = { plugins: { allow: ["openai"] } } satisfies GrantedConfig;
     const autoEnabledConfig = {
       plugins: { allow: ["openai"], entries: { openai: { enabled: true } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const compatConfig = {
       plugins: {
         allow: ["openai", "anthropic"],
         entries: { openai: { enabled: true }, anthropic: { enabled: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const resolveBundledPluginIds = vi.fn(() => ["anthropic"]);
     applyPluginAutoEnableMock.mockReturnValueOnce({
       config: autoEnabledConfig,

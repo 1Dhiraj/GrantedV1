@@ -2,7 +2,7 @@
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { isRetainedExecutionOwnerBinding } from "../../audit/execution-owner-binding.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import {
   createRunningTaskRun,
@@ -115,7 +115,7 @@ export function resolveBackgroundTaskTerminalResult(completionText: string): {
 /** Resolves the requester task context for a spawned child ACP session. */
 export function resolveBackgroundTaskContext(params: {
   deps: AcpSessionManagerDeps;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   requestId: string;

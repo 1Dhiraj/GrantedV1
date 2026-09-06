@@ -1,7 +1,7 @@
 // Slack plugin module implements actions behavior.
 import type { Block, KnownBlock, WebClient } from "@slack/web-api";
 import { normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
@@ -38,7 +38,7 @@ import { countSlackTextUtf8Bytes, truncateSlackTextByUtf8Bytes } from "./truncat
 import type { SlackAttachment } from "./types.js";
 
 export type SlackActionClientOpts = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   accountId?: string;
   token?: string;
   teamId?: string;
@@ -80,7 +80,7 @@ export type SlackPin = {
   file?: { id?: string; name?: string };
 };
 
-function resolveToken(explicit?: string, accountId?: string, cfg?: OpenClawConfig): string {
+function resolveToken(explicit?: string, accountId?: string, cfg?: GrantedConfig): string {
   if (explicit?.trim()) {
     const token = resolveSlackBotToken(explicit);
     if (token) {
@@ -339,7 +339,7 @@ export async function sendSlackMessage(
   to: string,
   content: string,
   opts: Omit<SlackActionClientOpts, "cfg"> & {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     mediaUrl?: string;
     forceDocument?: boolean;
     mediaAccess?: {

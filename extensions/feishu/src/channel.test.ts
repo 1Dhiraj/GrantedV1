@@ -1,7 +1,7 @@
 // Feishu tests cover channel plugin behavior.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { feishuPlugin } from "./channel.js";
 import { FEISHU_PROPAGATE_MEDIA_UPLOAD_FAILURE_MARKER } from "./outbound.js";
 import { looksLikeFeishuId, normalizeFeishuTarget, resolveReceiveIdType } from "./targets.js";
@@ -90,16 +90,16 @@ vi.mock("./channel.runtime.js", () => ({
   },
 }));
 
-function describeFeishuMessageTool(cfg: OpenClawConfig, accountId?: string) {
+function describeFeishuMessageTool(cfg: GrantedConfig, accountId?: string) {
   return feishuPlugin.actions?.describeMessageTool?.({ cfg, accountId });
 }
 
-function getDescribedActions(cfg: OpenClawConfig, accountId?: string): string[] {
+function getDescribedActions(cfg: GrantedConfig, accountId?: string): string[] {
   return [...(describeFeishuMessageTool(cfg, accountId)?.actions ?? [])];
 }
 
 type FeishuSecretProviderConfig = NonNullable<
-  NonNullable<OpenClawConfig["secrets"]>["providers"]
+  NonNullable<GrantedConfig["secrets"]>["providers"]
 >[string];
 
 const requireRecord = createRequireRecord("record", "expected-label-capitalized");
@@ -188,7 +188,7 @@ describe("feishuPlugin.status.probeAccount", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const account = feishuPlugin.config.resolveAccount(cfg, "main");
     probeFeishuMock.mockResolvedValueOnce({ ok: true, appId: "cli_main" });
@@ -232,7 +232,7 @@ describe("feishuPlugin.pairing.notifyApproval", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await feishuPlugin.pairing?.notifyApproval?.({
       cfg,
@@ -300,7 +300,7 @@ describe("feishuPlugin actions", () => {
         groupPolicy: "open",
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -408,7 +408,7 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(getDescribedActions(disabledCfg)).toEqual([
       "send",
@@ -446,7 +446,7 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(getDescribedActions(cfgLocal, "default")).toEqual([
       "send",
@@ -514,7 +514,7 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     expect(getDescribedActions(cfg)).not.toContain("sticker");
     expect(getDescribedActions(stickerCfg)).toContain("sticker");
     expect(getDescribedActions(stickerCfg, "work")).toContain("sticker");
@@ -567,12 +567,12 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const search = (
       params: Record<string, unknown>,
       accountId?: string,
-      config: OpenClawConfig = stickerCfg,
+      config: GrantedConfig = stickerCfg,
     ) =>
       feishuPlugin.actions!.handleAction!({
         channel: "feishu",
@@ -814,7 +814,7 @@ describe("feishuPlugin actions", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       sendStickerFeishuMock.mockResolvedValueOnce({
         messageId: "om_sticker",
         chatId: "oc_group_1",
@@ -855,7 +855,7 @@ describe("feishuPlugin actions", () => {
             actions: { sticker: true },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await expect(
         feishuPlugin.actions!.handleAction!({
           channel: "feishu",
@@ -894,7 +894,7 @@ describe("feishuPlugin actions", () => {
         ...cfg.channels,
         feishu: { ...cfg.channels?.feishu, renderMode: scenario.renderMode },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     feishuOutboundSendTextMock.mockResolvedValueOnce({
       channel: "feishu",
       messageId: "om_outbound",
@@ -2470,7 +2470,7 @@ describe("feishuPlugin actions", () => {
               groupAllowFrom: ["oc_group_allow_from"],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       } as never),
     ).resolves.toMatchObject({
       details: {
@@ -2521,7 +2521,7 @@ describe("feishuPlugin actions", () => {
               ...policy,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       } as never),
     ).resolves.toMatchObject({
       details: {
@@ -2556,7 +2556,7 @@ describe("feishuPlugin actions", () => {
               dmPolicy: "pairing",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "default",
         requesterAccountId: "default",
         toolContext: {
@@ -2597,7 +2597,7 @@ describe("feishuPlugin actions", () => {
               allowFrom: ["*"],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "default",
         requesterAccountId: "default",
         toolContext: {
@@ -2746,7 +2746,7 @@ describe("feishuPlugin actions", () => {
           actions: { sticker: true },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     for (const action of ["send", "sticker"] as const) {
       if (action === "send") {
         mockFeishuOutboundTextDelivery("om_sent");
@@ -3480,7 +3480,7 @@ describe("feishuPlugin actions", () => {
               actions: { reactions: true },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "default",
         requesterAccountId: "default",
         toolContext: {
@@ -3574,7 +3574,7 @@ describe("feishuPlugin actions", () => {
               actions: { reactions: true },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       } as never),
     ).rejects.toThrow("Feishu read target is not allowed.");
     expect(getChatInfoMock).not.toHaveBeenCalled();
@@ -3626,7 +3626,7 @@ describe("feishuPlugin actions", () => {
                 dmPolicy: "pairing",
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         } as never),
       ).rejects.toThrow("Feishu read target is not allowed.");
 
@@ -3662,7 +3662,7 @@ describe("feishuPlugin actions", () => {
               actions: { reactions: true },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       } as never),
     ).rejects.toThrow("Feishu message target is not allowed.");
     expect(getMessageFeishuMock).toHaveBeenCalledTimes(1);
@@ -3808,7 +3808,7 @@ describe("feishuPlugin.threading.buildToolContext", () => {
 
     expect(
       build({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         context: {
           To: "user:ou_sender",
           NativeChannelId: "oc_direct_chat",

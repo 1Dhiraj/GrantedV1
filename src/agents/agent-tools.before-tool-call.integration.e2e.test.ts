@@ -9,7 +9,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import {
@@ -1441,7 +1441,7 @@ describe("before_tool_call hook deduplication (#15502)", () => {
       setActivePluginRegistry(registry);
       initializeGlobalHookRunner(registry);
       try {
-        const codeModeConfig: OpenClawConfig = { tools: { codeMode: true } };
+        const codeModeConfig: GrantedConfig = { tools: { codeMode: true } };
         const catalogRef = createToolSearchCatalogRef();
         registerHeadlessToolSearchCatalog({ catalogRef, tools: [] });
         const execTool = createCodeModeTools({

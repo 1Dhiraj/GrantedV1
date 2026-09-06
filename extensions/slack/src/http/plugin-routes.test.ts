@@ -1,13 +1,13 @@
 // Slack tests cover plugin routes plugin behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/core";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import { registerSlackPluginHttpRoutes } from "./plugin-routes.js";
 import { registerSlackHttpHandler } from "./registry.js";
 
-function createApi(config: OpenClawConfig, registerHttpRoute = vi.fn()): OpenClawPluginApi {
+function createApi(config: GrantedConfig, registerHttpRoute = vi.fn()): GrantedPluginApi {
   return createTestPluginApi({
     id: "slack",
     config,
@@ -28,7 +28,7 @@ function registeredRouteAt(registerHttpRoute: ReturnType<typeof vi.fn>, index: n
 describe("registerSlackPluginHttpRoutes", () => {
   it("registers account webhook paths without resolving unresolved token refs", () => {
     const registerHttpRoute = vi.fn();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         slack: {
           accounts: {

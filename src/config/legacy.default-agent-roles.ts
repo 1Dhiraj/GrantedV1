@@ -7,7 +7,7 @@ import { normalizeAgentId } from "../routing/session-key.js";
 import { isRecord } from "../utils.js";
 import { isPerAgentSessionStoreConfig } from "./sessions/session-store-config.js";
 import type { AgentRouteBinding } from "./types.agents.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 function isChannelWideBinding(binding: AgentRouteBinding, channelId: string): boolean {
   const match = binding.match;
@@ -25,7 +25,7 @@ function isChannelWideBinding(binding: AgentRouteBinding, channelId: string): bo
 }
 
 function listUnboundAmbientChannelIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   ambientChannelIds: readonly string[],
 ): string[] {
   if (cfg.bindings && !Array.isArray(cfg.bindings)) {
@@ -88,7 +88,7 @@ export function resolveLegacyFirstAgentWorkspacePin(
 }
 
 export function materializeLegacyDefaultAgentRoles(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   legacyDefaultAgentId: string,
   options: {
     ambientChannelIds?: readonly string[];

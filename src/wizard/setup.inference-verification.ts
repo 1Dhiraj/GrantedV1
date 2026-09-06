@@ -1,7 +1,7 @@
 // Setup inference verification owns the shared verify/repair loop used by onboarding imports.
 import type { OnboardOptions } from "../commands/onboard-types.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withConsoleSubsystemsSuppressed } from "../logging/console.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { t } from "./i18n/index.js";
@@ -9,7 +9,7 @@ import type { WizardPrompter } from "./prompts.js";
 import { runSetupModelAuthStep, type SetupModelAuthCandidate } from "./setup.model-auth.js";
 
 export async function offerLiveModelVerification(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   initialCandidate?: SetupModelAuthCandidate;
   opts: OnboardOptions;
   prompter: WizardPrompter;
@@ -17,10 +17,10 @@ export async function offerLiveModelVerification(params: {
   workspaceDir: string;
   agentDir?: string;
   stateDir?: string;
-  writeConfig: (config: OpenClawConfig) => Promise<OpenClawConfig>;
+  writeConfig: (config: GrantedConfig) => Promise<GrantedConfig>;
   required?: boolean;
 }): Promise<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   attempted: boolean;
   persisted: boolean;
   verified: boolean;
@@ -48,7 +48,7 @@ export async function offerLiveModelVerification(params: {
     const verification = withConsoleSubsystemsSuppressed(() =>
       inference.verifySetupInferenceConfig({
         // SAFETY: Canonical roster migration preserves typed config; this runtime view is never persisted.
-        config: migratePersistedImplicitMainRoster(candidate.config).config as OpenClawConfig,
+        config: migratePersistedImplicitMainRoster(candidate.config).config as GrantedConfig,
         runtime: params.runtime,
         authProfiles: candidate.authProfiles,
         ...(params.agentDir ? { agentDir: params.agentDir } : {}),

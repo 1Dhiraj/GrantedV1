@@ -2,7 +2,7 @@
  * Claude CLI setup migration helpers. They rewrite legacy Claude CLI model refs
  * to Anthropic refs while preserving runtime allowlist entries for CLI execution.
  */
-import type { OpenClawConfig, ProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig, ProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
@@ -10,8 +10,8 @@ import {
 import { resolveClaudeCliAnthropicModelRefs } from "./claude-model-refs.js";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_DEFAULT_ALLOWLIST_REFS } from "./cli-shared.js";
 
-type AgentDefaultsModel = NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["model"];
-type AgentDefaultsModels = NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["models"];
+type AgentDefaultsModel = NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["model"];
+type AgentDefaultsModels = NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["models"];
 
 function toAnthropicModelRef(raw: string): string | null {
   return resolveClaudeCliAnthropicModelRefs(raw)?.rewriteRef ?? null;
@@ -175,7 +175,7 @@ function modelEntryWithClaudeCliRuntime(entry: unknown): Record<string, unknown>
 }
 
 /** Build the config migration result for adopting Claude CLI-backed Anthropic defaults. */
-export function buildAnthropicCliMigrationResult(config: OpenClawConfig): ProviderAuthResult {
+export function buildAnthropicCliMigrationResult(config: GrantedConfig): ProviderAuthResult {
   const defaults = config.agents?.defaults;
   const rewrittenModel = rewriteModelSelection(defaults?.model);
   const rewrittenModels = rewriteModelEntryMap(defaults?.models);

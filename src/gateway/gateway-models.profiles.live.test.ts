@@ -82,7 +82,7 @@ import {
   getOwnedSessionTranscriptWriterFence,
   withOwnedSessionTranscriptWrites,
 } from "../config/sessions/transcript-write-context.js";
-import type { ModelsConfig, ModelProviderConfig, OpenClawConfig } from "../config/types.js";
+import type { ModelsConfig, ModelProviderConfig, GrantedConfig } from "../config/types.js";
 import {
   captureAgentRunLifecycleGeneration,
   withAgentRunLifecycleGeneration,
@@ -1397,7 +1397,7 @@ function resolveExplicitLiveFallbackApi(provider: string): Api {
 
 function resolveDefaultBedrockLiveBaseUrl(
   params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     env?: NodeJS.ProcessEnv;
   } = {},
 ): string {
@@ -1411,7 +1411,7 @@ function resolveDefaultBedrockLiveBaseUrl(
   return `https://bedrock-runtime.${region}.amazonaws.com`;
 }
 
-function resolveBedrockDiscoveryRegion(cfg: OpenClawConfig | undefined): string | undefined {
+function resolveBedrockDiscoveryRegion(cfg: GrantedConfig | undefined): string | undefined {
   const pluginConfig = cfg?.plugins?.entries?.["amazon-bedrock"]?.config;
   if (!isRecord(pluginConfig)) {
     return undefined;
@@ -3100,7 +3100,7 @@ function resolveGatewayLivePreparedProfileId(
 }
 
 async function enterIsolatedGatewayLiveDiscoveryState(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providers?: Iterable<string>;
 }): Promise<() => Promise<void>> {
   const previousStateDir = process.env.GRANTED_STATE_DIR;
@@ -4330,7 +4330,7 @@ async function requestGatewayAgentText(params: {
 
 type GatewayModelSuiteParams = {
   label: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   candidates: PreparedGatewayLiveModelCandidate[];
   authProfileStore: AuthProfileStore;
   allowNotFoundSkip: boolean;
@@ -4985,7 +4985,7 @@ const OPENAI_LIVE_DEFAULT_BASE_URL = "https://api.openai.com/v1";
 
 function resolveOpenAIUltraUpstreamBaseUrl(params: {
   candidate: Model;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): string {
   const providerConfig = params.cfg.models?.providers?.openai;
   const configuredModel = providerConfig?.models?.find((model) => model.id === params.candidate.id);
@@ -5166,7 +5166,7 @@ function createStaticLiveModelRegistry(models: Array<Model>): LiveModelRegistry 
 
 async function loadAuthBackedLiveModelRegistry(params: {
   agentDir: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerList: string[] | undefined;
 }): Promise<{
   authProfileStore: AuthProfileStore;
@@ -5261,7 +5261,7 @@ function mergeLiveProviderConfig(params: {
 
 function buildLiveProviderConfigs(params: {
   candidates: Array<Model>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Record<string, ModelProviderConfig> {
   const providers: Record<string, ModelProviderConfig> = {};
   for (const model of params.candidates) {
@@ -5278,7 +5278,7 @@ function buildLiveProviderConfigs(params: {
 
 function buildLiveProviderConfig(params: {
   model: Model;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ModelProviderConfig {
   const { model } = params;
   const provider = normalizeProviderId(model.provider);
@@ -5497,12 +5497,12 @@ function isGatewayLiveThinkingLevel(value: string): value is GatewayLiveThinking
 }
 
 function buildLiveGatewayConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   candidates: Array<Model>;
   liveAgentDir: string;
   liveAgentWorkspaceDir: string;
   providerOverrides?: Record<string, ModelProviderConfig>;
-}): OpenClawConfig {
+}): GrantedConfig {
   const providerOverrides = params.providerOverrides ?? {};
   const lmstudioProvider = params.cfg.models?.providers?.lmstudio;
   const baseProviders = params.cfg.models?.providers ?? {};
@@ -5536,7 +5536,7 @@ function buildLiveGatewayConfig(params: {
       workspace: params.liveAgentWorkspaceDir,
       sandbox: { mode: "off" },
     },
-  } satisfies NonNullable<OpenClawConfig["agents"]>["entries"];
+  } satisfies NonNullable<GrantedConfig["agents"]>["entries"];
   const baseModels = params.cfg.models;
   return {
     ...params.cfg,
@@ -5569,15 +5569,15 @@ function buildLiveGatewayConfig(params: {
 }
 
 function sanitizeAuthConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: AuthProfileStore;
-}): OpenClawConfig["auth"] | undefined {
+}): GrantedConfig["auth"] | undefined {
   const auth = params.cfg.auth;
   if (!auth) {
     return auth;
   }
 
-  let profiles: NonNullable<OpenClawConfig["auth"]>["profiles"] | undefined;
+  let profiles: NonNullable<GrantedConfig["auth"]>["profiles"] | undefined;
   if (auth.profiles) {
     profiles = {};
     for (const [profileId, profile] of Object.entries(auth.profiles)) {
@@ -5617,7 +5617,7 @@ function sanitizeAuthConfig(params: {
 }
 
 function buildMinimaxProviderOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   api: "openai-completions" | "anthropic-messages";
   baseUrl: string;
 }): ModelProviderConfig | null {
@@ -5712,7 +5712,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
     cleanupToolProbePath = toolProbePath;
     await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-    const sanitizedCfg: OpenClawConfig = {
+    const sanitizedCfg: GrantedConfig = {
       ...params.cfg,
       auth: sanitizeAuthConfig({ cfg: params.cfg, store: isolatedStore }),
       ...(ultraCandidates.length > 0
@@ -6970,7 +6970,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
       saveAuthProfileStore(isolatedStore, tempAgentDir);
       setTestEnvValue("GRANTED_AGENT_DIR", tempAgentDir);
 
-      const sanitizedCfg: OpenClawConfig = {
+      const sanitizedCfg: GrantedConfig = {
         ...cfg,
         auth: sanitizeAuthConfig({ cfg, store: isolatedStore }),
       };

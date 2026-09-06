@@ -2,7 +2,7 @@ import type { EmbeddingProviderAdapter } from "openclaw/plugin-sdk/embedding-pro
 import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
 import type {
   AnyAgentTool,
-  OpenClawPluginNodeHostCommand,
+  GrantedPluginNodeHostCommand,
   ProviderPlugin,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
@@ -120,7 +120,7 @@ describe("ollama lazy imports", () => {
     const { default: ollamaPlugin } = await import("./index.js");
     let embeddingAdapter: EmbeddingProviderAdapter | undefined;
     let mediaProvider: MediaUnderstandingProvider | undefined;
-    const nodeCommands: OpenClawPluginNodeHostCommand[] = [];
+    const nodeCommands: GrantedPluginNodeHostCommand[] = [];
     const providers: ProviderPlugin[] = [];
     let nodeInferenceTool: AnyAgentTool | undefined;
     let webSearchProvider: WebSearchProviderPlugin | undefined;

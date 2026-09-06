@@ -6,7 +6,7 @@ import {
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { normalizeAgentId, normalizeAgentIdStrict } from "../routing/session-key.js";
 import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db-contract.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db-contract.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import {
   openOpenClawStateDatabase,
@@ -74,7 +74,7 @@ function snapshotFromExecApprovalsDatabase(
 }
 
 function readExecApprovalsSnapshotFromDatabase(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ExecApprovalsSnapshot {
   assertNoPendingLegacyExecApprovals();
   return snapshotFromExecApprovalsDatabase(openOpenClawStateDatabase(options).db);
@@ -92,7 +92,7 @@ function readExecApprovalsSnapshotFromDatabaseReadOnly(): ExecApprovalsSnapshot 
 }
 
 function readExecApprovalsSnapshotWithOptions(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ExecApprovalsSnapshot {
   try {
     return readExecApprovalsSnapshotFromDatabase(options);
@@ -171,7 +171,7 @@ type InternalExecApprovalsUpdate = ExecApprovalsUpdate & {
 
 function updateExecApprovalsInTransaction(
   params: InternalExecApprovalsUpdate,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ExecApprovalsSnapshot | null {
   assertNoPendingLegacyExecApprovals();
   return runOpenClawStateWriteTransaction(
@@ -228,7 +228,7 @@ export async function updateExecApprovals(
 export async function withAgentExecApprovalsRemoved<T>(
   agentId: string,
   commit: () => Promise<T>,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<T> {
   const key = normalizeAgentId(agentId);
   const snapshot = readExecApprovalsSnapshotWithOptions(options);

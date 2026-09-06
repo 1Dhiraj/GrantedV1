@@ -1,7 +1,7 @@
 // Doctor launchctl environment tests cover macOS gateway platform warnings for env overrides.
 import fs from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 
 const processMocks = vi.hoisted(() => ({
   runExec: vi.fn(),
@@ -41,7 +41,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
           token: "config-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "darwin", getenv, noteFn });
     const [warning] = requireNoteCall(noteFn);
@@ -63,7 +63,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
           token: "config-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "darwin", getenv, noteFn });
 
@@ -82,7 +82,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
   it("does nothing when config has no gateway credentials", async () => {
     const noteFn = vi.fn();
     const getenv = vi.fn(async () => "launchctl-token");
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "darwin", getenv, noteFn });
 
@@ -106,7 +106,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
           default: { source: "env" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "darwin", getenv, noteFn });
 
@@ -124,7 +124,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
           token: "config-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "linux", getenv, noteFn });
 
@@ -141,7 +141,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
           token: "config-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await noteMacLaunchctlGatewayEnvOverrides(cfg, { platform: "darwin", noteFn });
 
@@ -175,7 +175,7 @@ describe("noteMacStaleOpenClawUpdateLaunchdJobs", () => {
     };
     const findJobs = vi.fn(async () => []);
 
-    await collectMacGatewayPlatformWarnings({} as OpenClawConfig, {
+    await collectMacGatewayPlatformWarnings({} as GrantedConfig, {
       platform: "darwin",
       service,
       findJobs,
@@ -275,7 +275,7 @@ describe("collectMacGatewayPlatformWarnings", () => {
       .spyOn(fs, "existsSync")
       .mockImplementation((candidate) => String(candidate).includes("disable-launchagent"));
     try {
-      const warnings = await collectMacGatewayPlatformWarnings({} as OpenClawConfig, {
+      const warnings = await collectMacGatewayPlatformWarnings({} as GrantedConfig, {
         platform: "darwin",
         service: { readCommand: vi.fn(async () => null) },
         findJobs: vi.fn(async () => []),
@@ -292,7 +292,7 @@ describe("collectMacGatewayPlatformWarnings", () => {
     const exists = vi.spyOn(fs, "existsSync").mockReturnValue(false);
     try {
       await expect(
-        collectMacGatewayPlatformWarnings({} as OpenClawConfig, {
+        collectMacGatewayPlatformWarnings({} as GrantedConfig, {
           platform: "darwin",
           service: { readCommand: vi.fn(async () => null) },
           findJobs: vi.fn(async () => []),

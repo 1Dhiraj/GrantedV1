@@ -14,7 +14,7 @@ import {
 } from "../infra/outbound/session-binding-service.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveGlobalMap, resolveGlobalSingleton } from "../shared/global-singleton.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -59,7 +59,7 @@ type PluginBindingApprovalEntry = {
 };
 
 type PluginBindingApprovalsState = { approvals: PluginBindingApprovalEntry[] };
-type PluginBindingApprovalsDatabase = Pick<OpenClawStateKyselyDatabase, "plugin_binding_approvals">;
+type PluginBindingApprovalsDatabase = Pick<GrantedStateKyselyDatabase, "plugin_binding_approvals">;
 
 type PluginBindingConversation = {
   channel: string;

@@ -6,7 +6,7 @@ import {
   registerAgentHarness,
 } from "../agents/harness/registry.js";
 import { restoreRegisteredAgentHarnesses } from "../agents/harness/registry.test-support.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const { readAcpSessionMeta, readAcpSessionMetaForEntry } = vi.hoisted(() => ({
   readAcpSessionMeta: vi.fn<typeof import("../acp/runtime/session-meta.js").readAcpSessionMeta>(),
@@ -44,7 +44,7 @@ describe("resolveGatewaySessionThinkingProjectionInternal", () => {
           throw new Error("projection must not execute");
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: { models: { "openai/gpt-5.6-sol": { agentRuntime: { id: "codex" } } } },
         },
@@ -92,7 +92,7 @@ describe("resolveGatewaySessionThinkingProjectionInternal", () => {
   );
 
   it("reads bare-key ACP metadata under the resolved row owner", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { scope: "global", store: "/tmp/shared.sqlite" },
       agents: {
         ownership: "explicit",
@@ -113,7 +113,7 @@ describe("resolveGatewaySessionThinkingProjectionInternal", () => {
   });
 
   it("keeps a prepared row from adopting a replacement session's ACP runtime", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         entries: { ops: {} },
         defaults: { models: { "openai/gpt-5.6-sol": { agentRuntime: { id: "openclaw" } } } },

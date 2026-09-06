@@ -12,7 +12,7 @@ import {
   resolveExistingAgentSessionStoreTargetsSync,
 } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { isCronRunSessionKey } from "../sessions/session-key-utils.js";
 import { beginSessionWorkAdmission } from "../sessions/session-lifecycle-admission.js";
 import {
@@ -230,7 +230,7 @@ describe("sweepCronRunSessions", () => {
   it("discovers, accesses, and reaps a logical owner in one shared exact store", async () => {
     const now = Date.now();
     const exactStorePath = path.join(tmpDir, "shared.sqlite");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: exactStorePath },
       agents: { entries: { main: { default: true } } },
     };

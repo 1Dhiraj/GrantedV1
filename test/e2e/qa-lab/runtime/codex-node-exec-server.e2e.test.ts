@@ -15,7 +15,7 @@ import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
 } from "../../../../packages/gateway-protocol/src/client-info.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { runQaGatewayFixture, stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import {
@@ -509,7 +509,7 @@ describe("Codex paired-device exec-server carrier", () => {
         requester = await connectApprovalReviewer(gateway);
         reviewer = await connectApprovalReviewer(gateway);
 
-        const nodeConfig: OpenClawConfig = {
+        const nodeConfig: GrantedConfig = {
           gateway: { mode: "local" },
           plugins: { allow: ["codex"], entries: { codex: { enabled: false } } },
           nodeHost: { workerRuns: { enabled: true }, skills: { enabled: false } },

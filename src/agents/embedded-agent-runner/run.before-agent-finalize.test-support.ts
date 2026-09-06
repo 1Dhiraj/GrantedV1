@@ -1,6 +1,6 @@
 // Full-entry coverage for before_agent_finalize revision handling in embedded runs.
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedGlobalHookRunner,
@@ -15,7 +15,7 @@ import type { EmbeddedRunAttemptResult } from "./run/types.js";
 const REASONING_ONLY_RETRY_INSTRUCTION =
   "The previous assistant turn recorded reasoning but did not produce a user-visible answer. Continue from that partial turn and produce the visible answer now. Do not restate the reasoning or restart from scratch.";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 
 function finalAnswerAttempt(

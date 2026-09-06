@@ -7,18 +7,18 @@ import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-syn
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { SessionUpstreamJsonValue, SessionUpstreamKind } from "../plugins/session-catalog.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 
 type SessionUpstreamDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "session_upstream_links" | "session_watch_cursors"
 >;
-type SessionUpstreamLinkRow = Selectable<OpenClawStateKyselyDatabase["session_upstream_links"]>;
+type SessionUpstreamLinkRow = Selectable<GrantedStateKyselyDatabase["session_upstream_links"]>;
 
 export type SessionUpstreamLink = {
   sessionKey: string;
@@ -76,7 +76,7 @@ export function upsertSessionUpstreamLink(
     upstreamRef: SessionUpstreamJsonValue;
     marker: SessionUpstreamJsonValue;
   },
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     now?: number;
     ifAbsent?: true;
     assertCommitAllowed?: () => void;
@@ -166,7 +166,7 @@ export function upsertSessionUpstreamLink(
 export function readSessionUpstreamLink(
   sessionKey: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): SessionUpstreamLink | undefined {
   try {
     const { db } = openOpenClawStateDatabase(options);
@@ -189,7 +189,7 @@ export function updateSessionUpstreamLinkMarker(
   sessionKey: string,
   agentId: string,
   marker: SessionUpstreamJsonValue,
-  options: OpenClawStateDatabaseOptions & { now?: number; expectedUpdatedAt?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number; expectedUpdatedAt?: number } = {},
 ): boolean {
   const now = options.now ?? Date.now();
   try {
@@ -221,7 +221,7 @@ export function updateSessionUpstreamLinkMarker(
 export function deleteSessionUpstreamLink(
   sessionKey: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     expected?: SessionUpstreamLink;
     assertCommitAllowed?: () => void;
   } = {},
@@ -267,7 +267,7 @@ export function deleteSessionUpstreamLink(
 }
 
 export function listWatchedSessionUpstreamLinks(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Map<string, SessionUpstreamLink[]> {
   const grouped = new Map<string, SessionUpstreamLink[]>();
   try {

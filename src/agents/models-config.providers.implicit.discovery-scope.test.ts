@@ -7,7 +7,7 @@ import type { ProviderPlugin } from "../plugins/types.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { MODELS_CONFIG_IMPLICIT_ENV_VARS } from "./models-config.e2e-harness.js";
 
@@ -128,7 +128,7 @@ function firstMockArg(mock: { mock: { calls: unknown[][] } }, label: string): un
 }
 
 describe("resolveImplicitProviders startup discovery scope", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let ambientHome: MockInstance<typeof os.homedir>;
 
   beforeEach(async () => {

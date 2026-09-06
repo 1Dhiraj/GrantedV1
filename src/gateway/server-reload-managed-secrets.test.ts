@@ -5,7 +5,7 @@ import {
   getRuntimeConfigSourceSnapshot,
 } from "../config/runtime-snapshot.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../config/runtime-source-projection.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   activateSecretsRuntimeSnapshot,
   activateSecretsRuntimeSnapshotWithSource,
@@ -47,21 +47,21 @@ function configPair(runtime: "openclaw" | "codex") {
         },
       },
     },
-  } satisfies OpenClawConfig;
-  const config: OpenClawConfig = structuredClone(source);
+  } satisfies GrantedConfig;
+  const config: GrantedConfig = structuredClone(source);
   // The loader may seed catalog compatibility; this is not authored request policy.
   config.models!.providers!.openai!.models[0]!.compat = { supportsStore: false };
   return { source, config };
 }
 
-const prepare = (config: OpenClawConfig) =>
+const prepare = (config: GrantedConfig) =>
   prepareSecretsRuntimeSnapshot({
     config,
     includeAuthStoreRefs: false,
     env: {},
   });
 
-function expectAuthoredSource(source: OpenClawConfig) {
+function expectAuthoredSource(source: GrantedConfig) {
   const config = getRuntimeConfigSnapshot();
   expect(config).not.toBeNull();
   expect(getRuntimeConfigSourceSnapshot()).toEqual(source);

@@ -2,7 +2,7 @@
 import path from "node:path";
 import { root, type Root } from "@openclaw/fs-safe";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -66,7 +66,7 @@ const RELAY_REGISTRATION_KEYS = new Set([
 ]);
 
 type ApnsMigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "apns_registrations" | "apns_registration_tombstones"
 >;
 

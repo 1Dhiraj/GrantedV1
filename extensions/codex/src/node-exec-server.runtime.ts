@@ -3,7 +3,7 @@ import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { once } from "node:events";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
+import type { GrantedPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
 import { killProcessTree } from "openclaw/plugin-sdk/process-runtime";
 import { sanitizeEnvVars } from "openclaw/plugin-sdk/sandbox";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -154,7 +154,7 @@ function createNodeExecServerProcessOwner(
 export async function runCodexNodeExecServer(params: {
   assertExecAuthorized: () => void;
   workspaceDir: string;
-  io: OpenClawPluginNodeHostCommandIo;
+  io: GrantedPluginNodeHostCommandIo;
   activeProcesses: Set<() => Promise<void>>;
   onFrameReceiver: (receiver: (message: Uint8Array) => Promise<void> | void) => void;
 }): Promise<string> {

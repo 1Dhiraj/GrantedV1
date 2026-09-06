@@ -5,7 +5,7 @@ import { PassThrough } from "node:stream";
 import { describe, expect, it } from "vitest";
 import { WebSocketServer } from "ws";
 import type { GatewayOperatorRoleDefinition } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { getPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../state/user-profiles.js";
@@ -100,7 +100,7 @@ describe.each(["write-default", "trusted-operator"] as const)(
         const email = "plugin-role@example.test";
         const profile = ensureProfileForEmail(email);
         setUserProfileRole(profile.id, roleCase.role);
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {
             trustedProxies: [proxyAddress],
             auth: proxyAuth,

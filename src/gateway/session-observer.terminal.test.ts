@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SessionObserverDigest } from "../../packages/gateway-protocol/src/schema/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { SessionObserverDeps } from "./session-observer-model.js";
 import {
   createHarness as createBaseHarness,
@@ -308,7 +308,7 @@ describe("session observer terminal, persistence, synthesis, and races", () => {
     const runtimeCfg = {
       gateway: { controlUi: { sessionObserver: true as boolean } },
       agents: { defaults: { utilityModel: "openai/gpt-test" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const { storedDigest, harness } = createPersistedHarness({ config: runtimeCfg });
     harness.observer.handleEvent(lifecycleEvent({ phase: "start" }));
     runtimeCfg.gateway.controlUi.sessionObserver = false;

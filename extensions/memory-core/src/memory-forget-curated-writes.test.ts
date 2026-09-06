@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { zstdCompressSync } from "node:zlib";
 import { createOpenClawCodingTools } from "openclaw/plugin-sdk/agent-harness";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { listSessionTranscriptCorpusEntriesForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
 import { listMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
@@ -23,7 +23,7 @@ describe("memory forget curated writes", () => {
   const { createTempWorkspace } = createMemoryCoreTestHarness();
   let stateDir: string;
   let workspaceDir: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
 
   beforeEach(async () => {
     stateDir = await fs.realpath(await createTempWorkspace("memory-forget-curated-writes-"));
@@ -33,7 +33,7 @@ describe("memory forget curated writes", () => {
     await configureMemoryCoreDreamingStateForTests();
     cfg = {
       agents: { defaults: { workspace: workspaceDir }, list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   });
 
   afterEach(() => {

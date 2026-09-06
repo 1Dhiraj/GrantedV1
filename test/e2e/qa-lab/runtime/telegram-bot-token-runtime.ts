@@ -6,7 +6,7 @@ import { formatErrorMessage } from "../../../../src/infra/errors.js";
 import { loadQaRuntimeModule } from "../../../../src/plugin-sdk/qa-runtime.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 
@@ -23,7 +23,7 @@ type TelegramRuntimeOptions = {
 };
 
 type TelegramProductStartupInstance = Pick<
-  OpenClawTestInstance,
+  GrantedTestInstance,
   "child" | "cleanup" | "logs" | "startGateway"
 >;
 

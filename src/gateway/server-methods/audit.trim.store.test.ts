@@ -4,13 +4,13 @@ import { cleanupTempDirs, makeTempDir } from "../../../test/helpers/temp-dir.js"
 import { listAuditEvents, recordAuditEvent } from "../../audit/audit-event-store.js";
 import {
   closeOpenClawStateDatabaseForTest,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { auditHandlers } from "./audit.js";
 
 const tempDirs: string[] = [];
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   return { env: { GRANTED_STATE_DIR: makeTempDir(tempDirs, "openclaw-audit-trim-") } };
 }
 

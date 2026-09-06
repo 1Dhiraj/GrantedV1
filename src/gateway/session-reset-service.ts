@@ -64,7 +64,7 @@ import {
   type SessionCreatedVia,
 } from "../config/sessions/session-entry-provenance.js";
 import type { SessionAcpMeta } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { logVerbose } from "../globals.js";
 import { createInternalHookEvent, triggerInternalHook } from "../hooks/internal-hooks.js";
 import {
@@ -134,7 +134,7 @@ import {
   retireSessionWorkerPlacementBeforeMutation,
 } from "./worker-environments/session-placement-lifecycle.js";
 
-function resolveLifecycleAgentId(cfg: OpenClawConfig, agentId?: string): string {
+function resolveLifecycleAgentId(cfg: GrantedConfig, agentId?: string): string {
   return normalizeAgentId(agentId ?? resolveAmbientOwnerAgentId(cfg));
 }
 
@@ -184,7 +184,7 @@ export function archiveSessionTranscriptsForSessionDetailed(params: {
 }
 
 export function emitGatewaySessionEndPluginHook(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   sessionId?: string;
   storePath: string;
@@ -265,7 +265,7 @@ export function emitGatewaySessionEndPluginHook(params: {
 }
 
 export function emitGatewaySessionStartPluginHook(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   sessionId?: string;
   resumedFrom?: string;
@@ -343,7 +343,7 @@ export async function emitSessionUnboundLifecycleEvent(params: {
 }
 
 async function ensureSessionRuntimeCleanup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   target: ReturnType<typeof resolveGatewaySessionStoreTarget>;
   sessionId?: string;
@@ -519,7 +519,7 @@ async function runAcpCleanupStep(params: {
 }
 
 async function closeAcpRuntimeForSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
   fallbackSessionKeys?: Array<string | undefined>;
@@ -677,7 +677,7 @@ function buildPendingAcpMeta(base: SessionAcpMeta, now: number): SessionAcpMeta 
 }
 
 async function ensureFreshAcpResetState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
   reason: "session-reset" | "session-delete";
@@ -742,7 +742,7 @@ async function ensureFreshAcpResetState(params: {
 }
 
 async function closeChildAcpRuntimesForParent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   parentKey: string;
   parentAgentId?: string;
   reason: "session-reset" | "session-delete";
@@ -832,7 +832,7 @@ async function closeChildAcpRuntimesForParent(params: {
 }
 
 export async function cleanupSessionBeforeMutation(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   target: ReturnType<typeof resolveGatewaySessionStoreTarget>;
   entry: SessionEntry | undefined;
@@ -907,7 +907,7 @@ export async function cleanupSessionBeforeMutation(params: {
 }
 
 export async function emitGatewayBeforeResetPluginHook(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   messages?: unknown[];
   target: ReturnType<typeof resolveGatewaySessionStoreTarget>;

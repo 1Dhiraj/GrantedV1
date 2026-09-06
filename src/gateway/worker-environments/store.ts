@@ -32,7 +32,7 @@ import type {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type { WorkerCredentialRecord } from "./credential.js";
 import {
@@ -805,7 +805,7 @@ function reconcileAttachedSessionOwners(db: DatabaseSync, nowMs: number): void {
 }
 
 export function createWorkerEnvironmentStore(
-  options: { database?: OpenClawStateDatabase; now?: () => number } = {},
+  options: { database?: GrantedStateDatabase; now?: () => number } = {},
 ) {
   const database = options.database ?? openOpenClawStateDatabase();
   if (!ensuredWorkerEnvironmentDatabases.has(database.db)) {

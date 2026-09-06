@@ -11,7 +11,7 @@ import {
   patchSessionEntryCore,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { GatewayClientRequestError } from "../../gateway/client.js";
 import { isAgentSessionModelPatchOrigin } from "../../gateway/session-model-patch-origin.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
@@ -603,7 +603,7 @@ describe("sessions tool", () => {
     await withTestDir({ prefix: "openclaw-sessions-tool-" }, async (dir) => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:main";
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         session: { store: storePath },
         agents: { defaults: { model: { primary: "openai/good" } } },
       };
@@ -854,7 +854,7 @@ describe("sessions tool", () => {
     await withTestDir({ prefix: "openclaw-sessions-tool-overlap-" }, async (dir) => {
       const storePath = path.join(dir, "sessions.json");
       const sessionKey = "agent:main:main";
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/a" } } },
       };
       await upsertSessionEntryCore(

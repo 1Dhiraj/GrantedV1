@@ -4,7 +4,7 @@ import {
 } from "@openclaw/ai/transports";
 import { describe, expect, it } from "vitest";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../../config/types.models.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { modelKey } from "../../shared/model-key.js";
 import { resolveResponsesServerCompactionThreshold } from "./memory-flush.js";
 
@@ -40,7 +40,7 @@ function buildHostConfig(params: {
   contextTokens?: number;
   contextWindow?: number;
   extraParams?: Record<string, unknown>;
-}): OpenClawConfig {
+}): GrantedConfig {
   const modelEntry = {
     [modelKey(params.provider, TEST_MODEL_ID)]: { params: params.extraParams },
   };
@@ -247,7 +247,7 @@ describe("Anthropic server compaction host threshold", () => {
       expected: 80_000,
     },
   ])("$name", ({ params, contextWindowTokens, expected }) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           anthropic: {

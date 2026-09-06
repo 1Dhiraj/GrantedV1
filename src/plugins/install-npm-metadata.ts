@@ -20,7 +20,7 @@ import {
   type PluginInstallFailureResult,
   type PluginInstallLogger,
 } from "./install-types.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 
 export function isNpmPackageNotFoundMessage(error: string): boolean {
   const normalized = error.trim();
@@ -184,7 +184,7 @@ export function validateNpmResolutionCompatibility(params: {
   return validateOpenClawPackageInstallCompatibility({
     runtime: params.runtime,
     pluginId: params.expectedPluginId ?? params.resolution.name ?? params.parsedSpec.name,
-    packageMetadata: params.resolution.packageOpenClaw as OpenClawPackageManifest | undefined,
+    packageMetadata: params.resolution.packageOpenClaw as GrantedPackageManifest | undefined,
   });
 }
 

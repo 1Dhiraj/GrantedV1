@@ -4,7 +4,7 @@ import {
   listAgentEntries,
   tryResolveLegacyCompatibilityAgentId,
 } from "../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   DEFAULT_EXEC_APPROVAL_ASK_FALLBACK,
   resolveExecApprovalAllowedDecisions,
@@ -299,7 +299,7 @@ function resolveAskNote(params: {
 }
 
 export function collectExecPolicyScopeSnapshots(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   approvals: ExecApprovalsFile;
   hostPath?: string;
   hostDefaults?: ExecPolicyHostDefaults;

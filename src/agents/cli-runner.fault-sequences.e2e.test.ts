@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { onAgentEvent } from "../infra/agent-events.js";
 import type { RunExit } from "../process/supervisor/types.js";
 import { createTestAdmittedRunContext } from "./admitted-run-context.test-support.js";
@@ -121,7 +121,7 @@ afterEach(async () => {
   await fs.rm(scenarioRoot, { recursive: true, force: true });
 });
 
-function fallbackConfig(fallbacks: string[] = []): OpenClawConfig {
+function fallbackConfig(fallbacks: string[] = []): GrantedConfig {
   return {
     agents: {
       defaults: {

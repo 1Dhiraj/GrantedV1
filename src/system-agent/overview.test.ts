@@ -1,6 +1,6 @@
 // OpenClaw overview tests cover summary output for rescue diagnostics.
 import { describe, expect, it } from "vitest";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/config.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/config.js";
 import {
   formatSystemAgentOverview,
   formatSystemAgentOnboardingWelcome,
@@ -41,7 +41,7 @@ function createOverview(defaultModel?: string): SystemAgentOverview {
 
 describe("loadSystemAgentOverview", () => {
   it("summarizes config, agents, model, tools, and gateway", async () => {
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: {

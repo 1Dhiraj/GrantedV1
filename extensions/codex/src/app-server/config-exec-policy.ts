@@ -1,7 +1,7 @@
 import { AgentHarnessPreflightError } from "openclaw/plugin-sdk/agent-harness-runtime";
 import type { EmbeddedRunAttemptParamsV2 } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveExecApprovalsFromFile,
   type ExecApprovalsFile,
@@ -12,12 +12,12 @@ import type {
   CodexAppServerDefaultPolicy,
   CodexAppServerPolicyMode,
   CodexAppServerSandboxMode,
-  OpenClawExecApprovalFloorsForCodexAppServer,
-  OpenClawExecAsk,
-  OpenClawExecMode,
-  OpenClawExecPolicy,
-  OpenClawExecPolicyForCodexAppServer,
-  OpenClawExecSecurity,
+  GrantedExecApprovalFloorsForCodexAppServer,
+  GrantedExecAsk,
+  GrantedExecMode,
+  GrantedExecPolicy,
+  GrantedExecPolicyForCodexAppServer,
+  GrantedExecSecurity,
 } from "./config-contracts.js";
 import { readExecAsk, readExecSecurity, readRecord } from "./config-utils.js";
 
@@ -92,9 +92,9 @@ export function resolveApprovalsReviewer(
 }
 
 function resolveOpenClawExecPolicyFromConfig(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
-}): OpenClawExecPolicy {
+}): GrantedExecPolicy {
   const globalExec = readRecord(params.config?.tools?.exec);
   const globalPolicy = applyOpenClawExecPolicyLayer(createDefaultOpenClawExecPolicy(), globalExec);
   const agentId = params.agentId?.trim();
@@ -112,9 +112,9 @@ export function resolveOpenClawExecPolicyForCodexAppServer(params: {
     ask?: unknown;
   };
   approvals?: ExecApprovalsFile;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
-}): OpenClawExecPolicyForCodexAppServer {
+}): GrantedExecPolicyForCodexAppServer {
   if (params.permissionMode === "full") {
     return { ...resolveOpenClawExecPolicyForMode("full"), touched: true };
   }
@@ -132,9 +132,9 @@ export function resolveOpenClawExecPolicyForCodexAppServer(params: {
 }
 
 export function resolveEffectiveOpenClawExecModeForCodexAppServer(params: {
-  execMode?: OpenClawExecMode;
-  execPolicy?: OpenClawExecPolicyForCodexAppServer;
-}): OpenClawExecMode | undefined {
+  execMode?: GrantedExecMode;
+  execPolicy?: GrantedExecPolicyForCodexAppServer;
+}): GrantedExecMode | undefined {
   if (params.execPolicy?.touched === true) {
     return params.execPolicy.mode;
   }
@@ -142,7 +142,7 @@ export function resolveEffectiveOpenClawExecModeForCodexAppServer(params: {
 }
 
 export function resolveCodexPolicyModeForOpenClawExecMode(
-  mode: OpenClawExecMode | undefined,
+  mode: GrantedExecMode | undefined,
 ): CodexAppServerPolicyMode | undefined {
   if (!mode || mode === "full") {
     return undefined;
@@ -151,7 +151,7 @@ export function resolveCodexPolicyModeForOpenClawExecMode(
 }
 
 export function assertCodexAppServerAllowedForOpenClawExecMode(
-  mode: OpenClawExecMode | undefined,
+  mode: GrantedExecMode | undefined,
 ): void {
   if (mode === "deny" || mode === "allowlist") {
     throw new AgentHarnessPreflightError(
@@ -162,7 +162,7 @@ export function assertCodexAppServerAllowedForOpenClawExecMode(
   }
 }
 
-function createDefaultOpenClawExecPolicy(): OpenClawExecPolicy {
+function createDefaultOpenClawExecPolicy(): GrantedExecPolicy {
   return {
     ...resolveOpenClawExecPolicyForMode("full"),
     touched: false,
@@ -170,9 +170,9 @@ function createDefaultOpenClawExecPolicy(): OpenClawExecPolicy {
 }
 
 function applyOpenClawExecPolicyLayer(
-  base: OpenClawExecPolicy,
+  base: GrantedExecPolicy,
   exec?: { mode?: unknown; security?: unknown; ask?: unknown },
-): OpenClawExecPolicy {
+): GrantedExecPolicy {
   if (!exec) {
     return base;
   }
@@ -201,8 +201,8 @@ function applyOpenClawExecPolicyLayer(
 function resolveOpenClawExecApprovalFloorsForCodexAppServer(params: {
   approvals?: ExecApprovalsFile;
   agentId?: string;
-  policy: OpenClawExecPolicy;
-}): OpenClawExecApprovalFloorsForCodexAppServer | undefined {
+  policy: GrantedExecPolicy;
+}): GrantedExecApprovalFloorsForCodexAppServer | undefined {
   if (!params.approvals) {
     return undefined;
   }
@@ -217,9 +217,9 @@ function resolveOpenClawExecApprovalFloorsForCodexAppServer(params: {
 }
 
 function applyOpenClawExecApprovalFloors(
-  base: OpenClawExecPolicy,
-  approvalFloors?: OpenClawExecApprovalFloorsForCodexAppServer,
-): OpenClawExecPolicy {
+  base: GrantedExecPolicy,
+  approvalFloors?: GrantedExecApprovalFloorsForCodexAppServer,
+): GrantedExecPolicy {
   if (!approvalFloors) {
     return base;
   }
@@ -239,8 +239,8 @@ function applyOpenClawExecApprovalFloors(
 }
 
 function resolveOpenClawExecPolicyForMode(
-  mode: OpenClawExecMode,
-): Omit<OpenClawExecPolicy, "touched"> {
+  mode: GrantedExecMode,
+): Omit<GrantedExecPolicy, "touched"> {
   switch (mode) {
     case "deny":
       return { mode, security: "deny", ask: "off" };
@@ -257,9 +257,9 @@ function resolveOpenClawExecPolicyForMode(
 }
 
 function resolveOpenClawExecModeFromPolicy(params: {
-  security: OpenClawExecSecurity;
-  ask: OpenClawExecAsk;
-}): OpenClawExecMode {
+  security: GrantedExecSecurity;
+  ask: GrantedExecAsk;
+}): GrantedExecMode {
   if (params.security === "deny") {
     return "deny";
   }
@@ -273,19 +273,19 @@ function resolveOpenClawExecModeFromPolicy(params: {
 }
 
 function minOpenClawExecSecurity(
-  left: OpenClawExecSecurity,
-  right: OpenClawExecSecurity,
-): OpenClawExecSecurity {
-  const order: Record<OpenClawExecSecurity, number> = { deny: 0, allowlist: 1, full: 2 };
+  left: GrantedExecSecurity,
+  right: GrantedExecSecurity,
+): GrantedExecSecurity {
+  const order: Record<GrantedExecSecurity, number> = { deny: 0, allowlist: 1, full: 2 };
   return order[left] <= order[right] ? left : right;
 }
 
-function maxOpenClawExecAsk(left: OpenClawExecAsk, right: OpenClawExecAsk): OpenClawExecAsk {
-  const order: Record<OpenClawExecAsk, number> = { off: 0, "on-miss": 1, always: 2 };
+function maxOpenClawExecAsk(left: GrantedExecAsk, right: GrantedExecAsk): GrantedExecAsk {
+  const order: Record<GrantedExecAsk, number> = { off: 0, "on-miss": 1, always: 2 };
   return order[left] >= order[right] ? left : right;
 }
 
-function readExecMode(value: unknown): OpenClawExecMode | undefined {
+function readExecMode(value: unknown): GrantedExecMode | undefined {
   return value === "deny" ||
     value === "allowlist" ||
     value === "ask" ||

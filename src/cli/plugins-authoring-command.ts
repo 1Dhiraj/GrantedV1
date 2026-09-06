@@ -713,7 +713,7 @@ export default definePluginEntry({
 });
 `;
   const testSource = `import { describe, expect, it } from "vitest";
-import type { OpenClawPluginApi, ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi, ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
 import entry from "./index.js";
 
 describe(${idLiteral}, () => {
@@ -723,9 +723,9 @@ describe(${idLiteral}, () => {
       registerProvider(provider: ProviderPlugin) {
         providers.push(provider);
       },
-    } as Partial<OpenClawPluginApi>;
+    } as Partial<GrantedPluginApi>;
 
-    entry.register(api as OpenClawPluginApi);
+    entry.register(api as GrantedPluginApi);
 
     expect(providers.map((provider) => provider.id)).toEqual([${idLiteral}]);
     expect(providers[0]?.label).toBe(${nameLiteral});

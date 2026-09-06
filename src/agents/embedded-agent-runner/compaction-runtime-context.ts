@@ -4,7 +4,7 @@
 import type { ThinkLevel, ThinkingCatalogEntry } from "../../auto-reply/thinking.js";
 import type { ChatType } from "../../channels/chat-type.js";
 import { resolveEconomyModelRef } from "../../config/economy-model.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import { isDefaultAgentRuntimeId, normalizeOptionalAgentRuntimeId } from "../agent-runtime-id.js";
 import {
@@ -64,7 +64,7 @@ type EmbeddedCompactionRuntimeContextParams = Omit<
 
 /** Resolve the configured compaction override against the actual model/runtime candidate. */
 export function resolveEmbeddedCompactionThinkingLevel(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   modelId: string;
   inheritedLevel?: ThinkLevel;
@@ -101,7 +101,7 @@ export function resolveEmbeddedCompactionThinkingLevel(params: {
  * caller-supplied provider/model and optionally applying runtime defaults.
  */
 export function resolveEmbeddedCompactionTarget(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider?: string | null;
   modelId?: string | null;
   authProfileId?: string | null;
@@ -215,7 +215,7 @@ function normalizeCompactionConfigKey(value: string): string {
 }
 
 function hasBareConfiguredModelForProvider(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
 }): boolean {
@@ -278,7 +278,7 @@ export function resolveCompactionHarnessRuntime(params: {
 
 /** Resolves the shared policy, target, and harness ownership for either compaction entry point. */
 export function resolveCompactionContextTokenBudget(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   modelId: string;
   model?: ProviderRuntimeModel;

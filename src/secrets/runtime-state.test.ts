@@ -28,7 +28,7 @@ import {
   getRuntimeConfigSourceSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { SecretRef } from "../config/types.secrets.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { captureEnv } from "../test-utils/env.js";
@@ -63,7 +63,7 @@ describe("secret store references", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(
       collectSecretStoreRefKeysInSnapshot({ sourceConfig: config, authStores: [] }, "TEAM_API_KEY"),
     ).toEqual(new Set(["store:default:TEAM_API_KEY"]));
@@ -187,7 +187,7 @@ describe("secrets runtime state", () => {
   });
 
   it("includes env shorthand SecretRefs in the reload contract", () => {
-    const configWithRef = (apiKey: string): OpenClawConfig => ({
+    const configWithRef = (apiKey: string): GrantedConfig => ({
       models: {
         providers: {
           openai: {
@@ -284,11 +284,11 @@ describe("secrets runtime state", () => {
       authStores: [],
     });
     activateSnapshot(snapshot);
-    const rawSourceConfig = { gateway: { port: 19_030 } } satisfies OpenClawConfig;
+    const rawSourceConfig = { gateway: { port: 19_030 } } satisfies GrantedConfig;
     const secretsSourceConfig = {
       ...rawSourceConfig,
       gateway: { ...rawSourceConfig.gateway, auth: { mode: "token" as const, token: secretRef } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       activateSnapshotIfCurrent(
@@ -305,8 +305,8 @@ describe("secrets runtime state", () => {
   });
 
   it("rejects a source-only secrets write after runtime config ownership changes", () => {
-    const initialConfig = { gateway: { port: 19_030 } } satisfies OpenClawConfig;
-    const concurrentConfig = { gateway: { port: 19_031 } } satisfies OpenClawConfig;
+    const initialConfig = { gateway: { port: 19_030 } } satisfies GrantedConfig;
+    const concurrentConfig = { gateway: { port: 19_031 } } satisfies GrantedConfig;
     activateSnapshot(
       preparedSnapshot({
         sourceConfig: initialConfig,
@@ -349,7 +349,7 @@ describe("secrets runtime state", () => {
           openai: { baseUrl: "https://initial.example.invalid/v1", models: [] },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     activateSnapshot(
       preparedSnapshot({
         sourceConfig: initialSource,
@@ -1486,12 +1486,12 @@ describe("secrets runtime state", () => {
         secrets: {
           providers: { vault: { source: "file", path: "/tmp/old-secrets.json" } },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       candidateSourceConfig: {
         secrets: {
           providers: { vault: { source: "file", path: "/tmp/rejected-secrets.json" } },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
     {
       evictLineage: false,
@@ -1507,7 +1507,7 @@ describe("secrets runtime state", () => {
           },
         },
         plugins: { entries: { "secret-plugin": { enabled: true } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       candidateSourceConfig: {
         secrets: {
           providers: {
@@ -1518,19 +1518,19 @@ describe("secrets runtime state", () => {
           },
         },
         plugins: { entries: { "secret-plugin": { enabled: false } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     },
   ] as Array<{
     evictLineage: boolean;
     label: string;
     keyRef: SecretRef;
-    previousSourceConfig: OpenClawConfig;
-    candidateSourceConfig: OpenClawConfig;
+    previousSourceConfig: GrantedConfig;
+    candidateSourceConfig: GrantedConfig;
   }>)(
     "restores resolved values when a same-ref $label was rejected",
     ({ keyRef, previousSourceConfig, candidateSourceConfig, evictLineage }) => {
       const agentDir = `/tmp/openclaw-auth-provider-dependency-${keyRef.provider}`;
-      const snapshot = (params: { sourceConfig: OpenClawConfig; apiKey: string; port: number }) =>
+      const snapshot = (params: { sourceConfig: GrantedConfig; apiKey: string; port: number }) =>
         preparedSnapshot({
           sourceConfig: {
             ...params.sourceConfig,
@@ -1746,7 +1746,7 @@ describe("secrets runtime state", () => {
         key: string;
         keyRef: SecretRef;
         port: number;
-        sourceConfig: OpenClawConfig;
+        sourceConfig: GrantedConfig;
       }) =>
         preparedSnapshot({
           sourceConfig: { ...params.sourceConfig, gateway: { port: params.port } },

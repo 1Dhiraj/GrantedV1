@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createConfigIO, resetConfigRuntimeState } from "../../../config/io.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../../../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { makeCronJob } from "../../../cron/delivery.test-helpers.js";
 import { cronStoreKey } from "../../../cron/store/key.js";
 import { loadCronRows, replaceCronRows } from "../../../cron/store/row-codec.js";
@@ -78,7 +78,7 @@ describe("default role materialization authored writes", () => {
       explicitSetValueSource: doctorCandidate,
     });
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf-8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf-8")) as GrantedConfig;
     expect(persisted.agents?.defaults?.model).toBe("${DEFAULT_MODEL}");
     expect(persisted.agents?.entries?.ops?.workspace).toBe("/srv/ops");
     expect(persisted.agents?.ownership).toBe("explicit");
@@ -184,7 +184,7 @@ describe("default role materialization authored writes", () => {
       { baseSnapshot: snapshot },
     );
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents?.defaults?.sessionStore?.agentId).toBeUndefined();
   });
 
@@ -211,7 +211,7 @@ describe("default role materialization authored writes", () => {
       logger: { warn: () => {}, error: () => {} },
     });
     const snapshot = await io.readConfigFileSnapshot();
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       ...snapshot.config,
       agents: {
         ...snapshot.config.agents,
@@ -229,7 +229,7 @@ describe("default role materialization authored writes", () => {
       explicitSetValueSource: nextConfig,
     });
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents?.defaults?.sessionStore?.agentId).toBe("research");
   });
 
@@ -268,7 +268,7 @@ describe("default role materialization authored writes", () => {
       { baseSnapshot: snapshot, allowedAgentRosterRemovals: ["ops"] },
     );
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents?.entries?.research?.workspace).toBe("/srv/fleet/research");
   });
 
@@ -291,7 +291,7 @@ describe("default role materialization authored writes", () => {
         logger: { warn: () => {}, error: () => {} },
       });
       const snapshot = await io.readConfigFileSnapshot();
-      const nextConfig: OpenClawConfig = {
+      const nextConfig: GrantedConfig = {
         ...snapshot.config,
         agents: {
           ownership: "explicit",
@@ -309,7 +309,7 @@ describe("default role materialization authored writes", () => {
         explicitSetValueSource: nextConfig,
       });
 
-      const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+      const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
       expect(persisted.agents?.defaults?.authInheritance?.agentId).toBe(expected);
     },
   );
@@ -369,7 +369,7 @@ describe("default role materialization authored writes", () => {
       logger: { warn: () => {}, error: () => {} },
     });
     const snapshot = await io.readConfigFileSnapshot();
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       ...snapshot.config,
       agents: { ...snapshot.config.agents, ownership: "explicit" },
     };
@@ -380,7 +380,7 @@ describe("default role materialization authored writes", () => {
       explicitSetValueSource: nextConfig,
     });
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents).toEqual({
       ownership: "explicit",
       defaults: {
@@ -438,7 +438,7 @@ describe("default role materialization authored writes", () => {
       logger: { warn: () => {}, error: () => {} },
     });
     const snapshot = await io.readConfigFileSnapshot();
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       ...snapshot.config,
       agents: { ...snapshot.config.agents, ownership: "explicit" },
     };
@@ -449,7 +449,7 @@ describe("default role materialization authored writes", () => {
       explicitSetValueSource: nextConfig,
     });
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents?.ownership).toBe("explicit");
     expect(persisted.agents?.entries?.ops).not.toHaveProperty("default");
     expect(loadCronRows(openOpenClawStateDatabase({ env }).db, storeKey)).toMatchObject([
@@ -501,7 +501,7 @@ describe("default role materialization authored writes", () => {
       logger: { warn: () => {}, error: () => {} },
     });
     const snapshot = await io.readConfigFileSnapshot();
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       ...snapshot.config,
       agents: { ...snapshot.config.agents, ownership: "explicit" },
     };
@@ -557,7 +557,7 @@ describe("default role materialization authored writes", () => {
       logger: { warn: () => {}, error: () => {} },
     });
     const snapshot = await io.readConfigFileSnapshot();
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       ...snapshot.config,
       agents: { ...snapshot.config.agents, ownership: "explicit" },
     };
@@ -603,7 +603,7 @@ describe("default role materialization authored writes", () => {
       { baseSnapshot: snapshot, explicitSetPaths: [["gateway", "port"]] },
     );
 
-    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
     expect(persisted.agents?.ownership).toBeUndefined();
     expect(persisted.agents?.entries?.research?.default).toBe(true);
     const reread = await io.readConfigFileSnapshot();

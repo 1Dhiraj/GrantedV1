@@ -13,14 +13,14 @@ import type {
   ReadConfigFileSnapshotWithPluginMetadataResult,
 } from "./io.types.js";
 import { migratePersistedImplicitMainRoster } from "./legacy.roster.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 import { materializeLegacyAgentOwnershipForActiveChannelsResult } from "./validation.js";
 
 // Validation and commits share ownership preparation. Cron migration, runtime refresh,
 // and persistence remain in the committing writer.
 export function prepareConfigWriteTopology(
   params: ReadConfigFileSnapshotWithPluginMetadataResult & {
-    nextConfig: OpenClawConfig;
+    nextConfig: GrantedConfig;
     options: Pick<ConfigWriteOptions, "explicitSetPaths" | "explicitSetValueSource">;
     unsetPaths: readonly (readonly string[])[];
     env: NodeJS.ProcessEnv;

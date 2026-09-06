@@ -9,7 +9,7 @@ import {
 import { getRuntimeConfig } from "../../config/config.js";
 import { resolveControlUiSessionUrl } from "../../config/control-ui-link-base.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ADMIN_SCOPE } from "../../gateway/method-scopes.js";
 import { resolveWorkspacePathContainment } from "../../gateway/server-methods/workspace-path-containment.js";
 import { isPathInside } from "../../infra/path-guards.js";
@@ -75,7 +75,7 @@ type VisibleSessionsSpawnOptions = VisibleSessionsSpawnDeps &
     currentChannelId?: string;
     currentThreadTs?: string;
     sandboxed?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     requesterAgentIdOverride?: string;
   };
 

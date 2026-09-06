@@ -3,7 +3,7 @@
 
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { REDACTED_SENTINEL } from "../../config/redact-snapshot.js";
 
 let writtenConfig: unknown = null;
@@ -25,11 +25,11 @@ vi.mock("../../config/config.js", () => {
     },
     mutateConfigFileWithRetry: async (params: {
       mutate: (
-        draft: OpenClawConfig,
+        draft: GrantedConfig,
         context: { snapshot: { path: string }; previousHash: string; attempt: number },
       ) => unknown;
     }) => {
-      const draft = structuredClone(loadedConfig) as OpenClawConfig;
+      const draft = structuredClone(loadedConfig) as GrantedConfig;
       const snapshot = { path: "/tmp/openclaw/config.json" };
       const result = await params.mutate(draft, {
         snapshot,

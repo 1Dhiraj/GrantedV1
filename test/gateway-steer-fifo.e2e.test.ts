@@ -4,14 +4,14 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GATEWAY_CLIENT_CAPS } from "../packages/gateway-protocol/src/client-info.js";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { GatewayClient, type GatewayClientOptions } from "../src/gateway/client.js";
 import { buildMockOpenAiResponsesProvider } from "../src/gateway/test-openai-responses-model.js";
 import { GatewayChatClient } from "../src/tui/gateway-chat.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../src/utils/message-channel.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 import { createDeferred } from "./helpers/promise.js";
 
@@ -31,7 +31,7 @@ type AgentEvent = {
 type GatewayFixture = {
   client: GatewayChatClient;
   diagnosticsClient: GatewayClient;
-  instance: OpenClawTestInstance;
+  instance: GrantedTestInstance;
   modelServer: MockModelServer;
   events: AgentEvent[];
   chatErrors: Array<{ errorMessage?: string; runId?: string; state: "error" }>;
@@ -52,7 +52,7 @@ const WAIT_OPTS = { timeout: 30_000, interval: 20 } as const;
 const STEERING_PLUGIN_ID = "gateway-steering-tools";
 const STEERING_GATE_TOOL = "steering_gate";
 const STEERING_TAIL_TOOL = "steering_tail";
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const clients: GatewayChatClient[] = [];
 const diagnosticsClients: GatewayClient[] = [];
 const cleanupDirs: string[] = [];
@@ -416,7 +416,7 @@ function createConfig(params: {
   fixtureDir: string;
   modelServer: MockModelServer;
   steeringTools?: SteeringToolsFixture;
-}): OpenClawConfig {
+}): GrantedConfig {
   const provider = buildMockOpenAiResponsesProvider(
     `${params.modelServer.baseUrl}/v1`,
     "steer-fifo",
@@ -468,7 +468,7 @@ function createConfig(params: {
   };
 }
 
-async function connectDiagnosticsClient(instance: OpenClawTestInstance): Promise<GatewayClient> {
+async function connectDiagnosticsClient(instance: GrantedTestInstance): Promise<GatewayClient> {
   let resolveHello!: () => void;
   let rejectHello!: (error: Error) => void;
   const hello = new Promise<void>((resolve, reject) => {
@@ -586,7 +586,7 @@ async function sendChat(params: {
   });
 }
 
-function redactedFixtureLogs(instance: OpenClawTestInstance): string {
+function redactedFixtureLogs(instance: GrantedTestInstance): string {
   return instance
     .logs()
     .replaceAll("steer-fifo-token", "[REDACTED]")

@@ -13,7 +13,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { DEFAULT_SUBAGENT_MAX_SPAWN_DEPTH } from "../../../config/agent-limits.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   isAcpSessionKey,
   isSubagentSessionKey,
@@ -118,7 +118,7 @@ function isSameAgentSessionStore(leftSessionKey: string, rightSessionKey: string
 
 function resolveSessionCapabilityEntry(params: {
   sessionKey: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   store?: SessionCapabilityStore;
 }): SessionCapabilityEntry | undefined {
   if (params.store) {
@@ -145,7 +145,7 @@ function resolveSessionCapabilityEntry(params: {
 export function resolveSubagentCapabilityStore(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
     agentId?: string;
   },
@@ -214,7 +214,7 @@ export function resolveSubagentCapabilities(params: { depth: number; maxSpawnDep
 function isStoredSubagentEnvelopeSession(
   params: {
     sessionKey: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
     entry?: SessionCapabilityEntry;
   },
@@ -279,7 +279,7 @@ function isStoredSubagentEnvelopeSession(
 export function isSubagentEnvelopeSession(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
     entry?: SessionCapabilityEntry;
   },
@@ -314,7 +314,7 @@ export function isSubagentEnvelopeSession(
 export function resolvePersistedSubagentToolPolicyEnvelope(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
     agentId?: string;
   },
@@ -365,7 +365,7 @@ export function resolvePersistedSubagentToolPolicyEnvelope(
 export function resolveStoredSubagentCapabilities(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
     agentId?: string;
   },
@@ -421,7 +421,7 @@ export function resolveStoredSubagentCapabilities(
 export function resolveStoredSubagentInheritedToolDenylist(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
   },
 ): string[] {
@@ -445,7 +445,7 @@ export function resolveStoredSubagentInheritedToolDenylist(
 export function resolveStoredSubagentInheritedToolAllowlist(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store?: SessionCapabilityStore;
   },
 ): string[] {

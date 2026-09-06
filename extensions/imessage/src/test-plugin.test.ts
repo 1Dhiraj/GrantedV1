@@ -13,7 +13,7 @@ import {
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
 import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -118,7 +118,7 @@ describe("imessagePlugin contracts", () => {
 
     await expect(
       resolveTarget({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         input: "C0AG22RN7L3",
         normalized: "+02273",
       }),
@@ -126,7 +126,7 @@ describe("imessagePlugin contracts", () => {
 
     await expect(
       resolveTarget({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         input: "auto:Alice Smith",
         normalized: "auto:AliceSmith",
       }),
@@ -184,7 +184,7 @@ describe("imessagePlugin contracts", () => {
               enabled: true,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "default",
         payload: {
           text: "Approval required.",
@@ -214,7 +214,7 @@ describe("imessagePlugin contracts", () => {
     }
     const cfg = {
       channels: { imessage: { enabled: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const payload = buildTypedExecApprovalPendingReplyPayload({
       approvalId: "exec-shared-hook",
       approvalSlug: "shared-hook",
@@ -572,7 +572,7 @@ describe("imessagePlugin contracts", () => {
   it("preserves provider-accepted attachment progress through actual durable core without replay", async () => {
     const cfg = {
       channels: { imessage: { accounts: { default: {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const captionError = new Error("caption failed after native attachment acceptance");
     const captionClient = {
       request: vi.fn(async () => {
@@ -662,7 +662,7 @@ describe("imessagePlugin contracts", () => {
   it("halts native caption delivery when actual durable progress custody rejects", async () => {
     const cfg = {
       channels: { imessage: { accounts: { default: {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const custodyError = new Error("durable accepted-attachment custody rejected");
     const captionRequest = vi.fn(async () => ({ guid: "p:0/caption-must-not-send" }));
     const captionClient = {

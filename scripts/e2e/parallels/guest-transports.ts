@@ -362,20 +362,20 @@ $logPath = Join-Path $runDir 'run.log'
 $donePath = Join-Path $runDir 'done'
 $exitPath = Join-Path $runDir 'exit'
 $pidPath = Join-Path $runDir 'pid'
-function Write-OpenClawUtf8File([string]$Path, [string]$Value) {
+function Write-GrantedUtf8File([string]$Path, [string]$Value) {
   [System.IO.File]::WriteAllText($Path, $Value, [System.Text.UTF8Encoding]::new($false))
 }`;
   const payload = `$ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
 ${pathsScript}
-Write-OpenClawUtf8File $pidPath ([string]$PID)
-$script:OpenClawBackgroundLogBytes = 0
-function Add-OpenClawBackgroundLog {
+Write-GrantedUtf8File $pidPath ([string]$PID)
+$script:GrantedBackgroundLogBytes = 0
+function Add-GrantedBackgroundLog {
   param([Parameter(ValueFromPipeline=$true)]$InputObject)
   process {
     $text = $InputObject | Out-String
     $bytes = [System.Text.Encoding]::UTF8.GetBytes($text)
-    $remaining = [int64]${WINDOWS_BACKGROUND_LOG_MAX_BYTES} - $script:OpenClawBackgroundLogBytes
+    $remaining = [int64]${WINDOWS_BACKGROUND_LOG_MAX_BYTES} - $script:GrantedBackgroundLogBytes
     if ($remaining -le 0) {
       return
     }
@@ -388,11 +388,11 @@ function Add-OpenClawBackgroundLog {
     try {
       if ($count -gt 0) {
         $stream.Write($bytes, 0, $count)
-        $script:OpenClawBackgroundLogBytes += $count
+        $script:GrantedBackgroundLogBytes += $count
       }
       if ($needsBoundaryNewline) {
         $stream.WriteByte(10)
-        $script:OpenClawBackgroundLogBytes++
+        $script:GrantedBackgroundLogBytes++
       }
     } finally {
       $stream.Dispose()
@@ -403,13 +403,13 @@ try {
   & {
 ${windowsProcessEnvScript(options.env)}
 ${options.script}
-  } *>&1 | Add-OpenClawBackgroundLog
-  Write-OpenClawUtf8File $exitPath '0'
+  } *>&1 | Add-GrantedBackgroundLog
+  Write-GrantedUtf8File $exitPath '0'
 } catch {
-  $_ | Add-OpenClawBackgroundLog
-  Write-OpenClawUtf8File $exitPath '1'
+  $_ | Add-GrantedBackgroundLog
+  Write-GrantedUtf8File $exitPath '1'
 } finally {
-  Write-OpenClawUtf8File $donePath 'done'
+  Write-GrantedUtf8File $donePath 'done'
 }`;
   const writeArgs = [
     "exec",
@@ -658,16 +658,16 @@ function cleanupWindowsBackground(
   },
 ): void {
   const stopProcessTree = options.stopProcessTree
-    ? `function Stop-OpenClawBackgroundProcessTree([int]$ProcessId) {
+    ? `function Stop-GrantedBackgroundProcessTree([int]$ProcessId) {
   Get-CimInstance Win32_Process -Filter "ParentProcessId=$ProcessId" -ErrorAction SilentlyContinue | ForEach-Object {
-    Stop-OpenClawBackgroundProcessTree ([int]$_.ProcessId)
+    Stop-GrantedBackgroundProcessTree ([int]$_.ProcessId)
   }
   Stop-Process -Id $ProcessId -Force -ErrorAction SilentlyContinue
 }
 if (Test-Path $pidPath) {
   $backgroundPid = (Get-Content -Path $pidPath -Raw).Trim()
   if ($backgroundPid) {
-    Stop-OpenClawBackgroundProcessTree ([int]$backgroundPid)
+    Stop-GrantedBackgroundProcessTree ([int]$backgroundPid)
   }
 }
 `

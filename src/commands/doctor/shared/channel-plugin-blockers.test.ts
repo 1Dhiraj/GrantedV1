@@ -2,7 +2,7 @@
 
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import * as manifestRegistry from "../../../plugins/manifest-registry.js";
 import { clearPluginMetadataLifecycleCaches } from "../../../plugins/plugin-metadata-lifecycle.js";
 import {
@@ -194,7 +194,7 @@ describe("channel plugin blockers", () => {
           enabled: true,
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(hits).toEqual([
       {
@@ -732,7 +732,7 @@ describe("channel plugin blockers", () => {
   it("preserves explicit external trust across an auto-materialized allowlist", () => {
     mockManifestPlugins([plugin("discord")]);
 
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       channels: {
         discord: {
           enabled: true,
@@ -765,7 +765,7 @@ describe("channel plugin blockers", () => {
       plugin("workspace-chat", { origin: "workspace", channelId: "workspace-chat" }),
     ]);
 
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       channels: {
         "workspace-chat": {
           enabled: true,

@@ -18,7 +18,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../../config/sessions/store-writer-state.js";
 import { applyAssistantDeliveryDirectives } from "../../config/sessions/transcript-assistant-delivery.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createUserTurnTranscriptRecorder } from "../../sessions/user-turn-transcript.js";
 import { createTestUserTurnTranscriptTarget } from "../../sessions/user-turn-transcript.test-support.js";
 import {
@@ -119,7 +119,7 @@ type SubagentAnnounceDeliveryCase = {
   inheritedToolAllow?: readonly string[];
   inheritedToolDeny?: readonly string[];
   runtimeToolsAllow?: string[];
-  operatorTools?: OpenClawConfig["tools"];
+  operatorTools?: GrantedConfig["tools"];
   sandboxMode?: "off" | "non-main" | "all";
   trustedInternalHandoff?: boolean;
   expectedDisableTools: boolean;
@@ -321,7 +321,7 @@ function makeRunAgentAttemptParams(overrides: RunAgentAttemptOverrides): RunAgen
     providerOverride: provider,
     originalProvider: provider,
     modelOverride: model,
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     sessionId: overrides.sessionEntry.sessionId,
     sessionAgentId: "main",
     sessionFile: path.join(overrides.workspaceDir, "session.jsonl"),
@@ -382,7 +382,7 @@ vi.mock("../cli-runner/cli-live-session-registry.js", () => ({
 }));
 
 vi.mock("../model-selection.js", () => ({
-  isCliProvider: (provider: string, _cfg?: OpenClawConfig) => {
+  isCliProvider: (provider: string, _cfg?: GrantedConfig) => {
     const normalized = provider.trim().toLowerCase();
     return (
       normalized === "claude-cli" ||
@@ -410,7 +410,7 @@ vi.mock("../model-runtime-aliases.js", async () => {
       modelId,
     }: {
       provider?: string;
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
       modelId?: string;
     }) => {
       const key = provider && modelId ? `${provider}/${modelId}` : undefined;
@@ -583,7 +583,7 @@ describe("CLI attempt execution", () => {
 
   async function runOpenClawEmbeddedAttemptForTest(overrides?: {
     opts?: Partial<RunAgentAttemptParams["opts"]>;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     subagentAnnounceEnvelope?: Pick<
       SubagentAnnounceDeliveryCase,
       "inheritedToolAllow" | "inheritedToolDeny"
@@ -637,7 +637,7 @@ describe("CLI attempt execution", () => {
       originalProvider: "openai",
       modelOverride: overrides?.modelOverride ?? "gpt-5.4",
       configuredAuthProfileId: overrides?.configuredAuthProfileId,
-      cfg: overrides?.config ?? ({ session: { store: storePath } } as OpenClawConfig),
+      cfg: overrides?.config ?? ({ session: { store: storePath } } as GrantedConfig),
       sessionEntry,
       sessionKey,
       sessionFile: path.join(tmpDir, `${runId}.jsonl`),
@@ -1766,7 +1766,7 @@ describe("CLI attempt execution", () => {
     const sessionKey = "agent:main:direct:codex-cli-owned-transport";
     const sessionEntry = makeSessionEntry("openclaw-session-codex-owned");
     const sessionStore: Record<string, SessionEntry> = { [sessionKey]: sessionEntry };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           agentRuntime: { id: "codex" },
@@ -1832,7 +1832,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       runId: "run-gemini-cli-auth-bridge",
@@ -1880,7 +1880,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       runId: "run-gemini-cli-google-api-key",
@@ -1927,7 +1927,7 @@ describe("CLI attempt execution", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sessionEntry,
         sessionKey,
         runId: "run-gemini-cli-incompatible-auth",
@@ -1986,7 +1986,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       runId: "run-gemini-cli-stale-auto-auth",
@@ -2036,7 +2036,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       runId: "run-gemini-cli-google-api-key-order",
@@ -2592,7 +2592,7 @@ describe("CLI attempt execution", () => {
             "claude-cli": ["claude-cli:work"],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "use ambient cli auth",
@@ -2640,7 +2640,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "use ambient cli auth",
@@ -2855,7 +2855,7 @@ describe("CLI attempt execution", () => {
     await runStoredAttempt({
       providerOverride: "claude-cli",
       modelOverride: "opus",
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "A background task finished. Process the completion update now.",
@@ -2931,7 +2931,7 @@ describe("CLI attempt execution", () => {
     await runStoredAttempt({
       providerOverride: "claude-cli",
       modelOverride: "opus",
-      cfg: { agents: { defaults: { userTimezone: "UTC" } } } as OpenClawConfig,
+      cfg: { agents: { defaults: { userTimezone: "UTC" } } } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "what time is it?",
@@ -2990,7 +2990,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       await writeSessionStoreSeed({ [sessionKey]: sessionEntry });
       runCliAgentMock.mockResolvedValueOnce(makeCliResult("delegation gate"));
 
@@ -3065,7 +3065,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "route this",
@@ -3123,7 +3123,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "continue after overload",
@@ -3159,7 +3159,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "route this",
@@ -3198,7 +3198,7 @@ describe("CLI attempt execution", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "route this",
@@ -3779,7 +3779,7 @@ describe("CLI attempt execution", () => {
             agentRuntime: { id: "claude-cli" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       sessionKey,
       body: "raw prompt",
@@ -4038,7 +4038,7 @@ describe("embedded attempt harness pinning", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       agentHarnessRuntimeOverride: "codex",
       body: "switch to minimax",
@@ -4136,7 +4136,7 @@ describe("embedded attempt harness pinning", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       runId: "run-codex-no-runtime-pin",
       sessionHasHistory: true,
@@ -4295,7 +4295,7 @@ describe("embedded attempt harness pinning", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       runId: "run-openai-agent-codex-oauth",
     });
@@ -4329,7 +4329,7 @@ describe("embedded attempt harness pinning", () => {
             agentRuntime: { id: "claude-cli" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       sessionEntry,
       body: "fallback",
       isFallbackRetry: true,

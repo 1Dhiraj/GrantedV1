@@ -6,7 +6,7 @@ import {
   createScopedChannelConfigAdapter,
 } from "openclaw/plugin-sdk/channel-config-helpers";
 import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { inspectTelegramAccount } from "./account-inspect.js";
 import {
   listTelegramAccountIds,
@@ -23,7 +23,7 @@ type TelegramConfigAccessorAccount = {
 };
 
 export function resolveTelegramConfigAccessorAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): TelegramConfigAccessorAccount {
   const accountId = normalizeAccountId(

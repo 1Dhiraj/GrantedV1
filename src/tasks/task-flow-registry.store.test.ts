@@ -6,7 +6,7 @@ import type { AdmittedRunContext } from "../agents/admitted-run-context.js";
 import { createExecutionIdentityAdmissionToken } from "../audit/execution-identity-admission.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -43,7 +43,7 @@ function createManagedTaskFlow(
   return flow;
 }
 
-type TaskFlowRegistryTestDatabase = Pick<OpenClawStateKyselyDatabase, "flow_runs">;
+type TaskFlowRegistryTestDatabase = Pick<GrantedStateKyselyDatabase, "flow_runs">;
 
 function createStoredFlow(): TaskFlowRecord {
   return {

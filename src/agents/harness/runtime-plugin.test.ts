@@ -4,7 +4,7 @@ import {
   createPluginMetadataSnapshot,
   makeRegistry,
 } from "../../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatForLog } from "../../gateway/ws-log.js";
 import * as installedManifests from "../../plugins/manifest-registry-installed.js";
 import { restorePluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
@@ -55,7 +55,7 @@ function installedProviderRecord(
 
 function attachPreparedPluginFacts(
   pluginRegistry: ReturnType<typeof createEmptyPluginRegistry>,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   manifestRegistry: ReturnType<typeof makeRegistry>,
 ) {
   prepareOwnedPluginLoadContext(
@@ -142,7 +142,7 @@ describe("harness runtime plugins", () => {
 
   it("reports a manifest owner's restrictive allowlist blocker", async () => {
     const pluginRegistry = createEmptyPluginRegistry();
-    const config = { plugins: { allow: ["telegram"] } } satisfies OpenClawConfig;
+    const config = { plugins: { allow: ["telegram"] } } satisfies GrantedConfig;
     attachPreparedPluginFacts(
       pluginRegistry,
       config,
@@ -172,7 +172,7 @@ describe("harness runtime plugins", () => {
 
   it("reports global plugin disablement before a selected Codex owner's absence", async () => {
     const pluginRegistry = createEmptyPluginRegistry();
-    const config = { plugins: { enabled: false } } satisfies OpenClawConfig;
+    const config = { plugins: { enabled: false } } satisfies GrantedConfig;
     attachPreparedPluginFacts(pluginRegistry, config, makeRegistry([]));
 
     const error = await ensureSelectedAgentHarnessPlugin({
@@ -216,7 +216,7 @@ describe("harness runtime plugins", () => {
     },
   ] satisfies Array<{
     name: string;
-    plugins: NonNullable<OpenClawConfig["plugins"]>;
+    plugins: NonNullable<GrantedConfig["plugins"]>;
     expectedReason: string;
   }>)("reports $name without a prepared registry context", async ({ plugins, expectedReason }) => {
     const error = await ensureSelectedAgentHarnessPlugin({
@@ -238,7 +238,7 @@ describe("harness runtime plugins", () => {
     async (blockedCount) => {
       const config = {
         plugins: { allow: ["ready-owner"], entries: { "ready-owner": { enabled: true } } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const pluginRegistry = createEmptyPluginRegistry();
       attachPreparedPluginFacts(
         pluginRegistry,
@@ -276,7 +276,7 @@ describe("harness runtime plugins", () => {
 
   it("reports the prepared owner's loader failure before activation policy", async () => {
     const pluginRegistry = createEmptyPluginRegistry();
-    const config = { plugins: { allow: ["telegram"] } } satisfies OpenClawConfig;
+    const config = { plugins: { allow: ["telegram"] } } satisfies GrantedConfig;
     attachPreparedPluginFacts(
       pluginRegistry,
       config,
@@ -324,7 +324,7 @@ describe("harness runtime plugins", () => {
 
   it("reports a loaded owner that omitted the selected harness registration", async () => {
     const pluginRegistry = createEmptyPluginRegistry();
-    const config = { plugins: { allow: ["telegram"] } } satisfies OpenClawConfig;
+    const config = { plugins: { allow: ["telegram"] } } satisfies GrantedConfig;
     attachPreparedPluginFacts(
       pluginRegistry,
       config,
@@ -561,7 +561,7 @@ describe("harness runtime plugins", () => {
 
   const memorySelectionCases: Array<{
     name: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     expectedPluginIds: string[];
   }> = [
     {
@@ -623,7 +623,7 @@ describe("harness runtime plugins", () => {
   );
 
   it("reuses prepared memory aliases while applying current activation policy", () => {
-    const config: OpenClawConfig = { plugins: { slots: { memory: "fixture-memory" } } };
+    const config: GrantedConfig = { plugins: { slots: { memory: "fixture-memory" } } };
     const snapshot = createPluginMetadataSnapshot({
       config,
       manifestRegistry: makeRegistry([
@@ -819,7 +819,7 @@ describe("harness runtime plugins", () => {
   });
 
   it("keeps a restrictive allowlist authoritative", () => {
-    const config = { plugins: { allow: ["telegram"] } } as OpenClawConfig;
+    const config = { plugins: { allow: ["telegram"] } } as GrantedConfig;
     mocks.resolveManifestActivationPlan.mockReturnValueOnce({ entries: [] });
     expect(
       resolveAgentHarnessRuntimeAvailability({

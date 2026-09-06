@@ -2,16 +2,16 @@ import { html } from "lit";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { i18n, t } from "../i18n/index.ts";
 import {
-  OpenClawLightDomContentsElement,
-  OpenClawLightDomElement,
-  OpenClawLitElement,
+  GrantedLightDomContentsElement,
+  GrantedLightDomElement,
+  GrantedLitElement,
 } from "./openclaw-element.ts";
 
 const LIGHT_ELEMENT_NAME = "test-openclaw-light-dom-element";
 const LIGHT_CONTENTS_ELEMENT_NAME = "test-openclaw-light-dom-contents-element";
 const SHADOW_ELEMENT_NAME = "test-openclaw-shadow-dom-element";
 
-class TestLightDomElement extends OpenClawLightDomElement {
+class TestLightDomElement extends GrantedLightDomElement {
   renderCount = 0;
 
   override render() {
@@ -20,13 +20,13 @@ class TestLightDomElement extends OpenClawLightDomElement {
   }
 }
 
-class TestShadowDomElement extends OpenClawLitElement {
+class TestShadowDomElement extends GrantedLitElement {
   override render() {
     return html`<span>shadow content</span>`;
   }
 }
 
-class TestLightDomContentsElement extends OpenClawLightDomContentsElement {
+class TestLightDomContentsElement extends GrantedLightDomContentsElement {
   override render() {
     return html`<span>contents</span>`;
   }

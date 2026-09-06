@@ -1,7 +1,7 @@
 /**
  * Auth-profile forwarding shared by normal and narrow CLI-backed agent runs.
  */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAuthProfileOrder } from "./auth-profiles/order.js";
 import { loadAuthProfileStoreForRuntime } from "./auth-profiles/store.js";
 import { resolveCliBackendConfig } from "./cli-backends.js";
@@ -22,7 +22,7 @@ export class CliExecutionAuthProfileError extends Error {
 
 export function cliBackendAcceptsAuthProfileForwarding(params: {
   provider: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId?: string;
 }): boolean {
   const backend = resolveCliBackendConfig(params.provider, params.config, {
@@ -40,7 +40,7 @@ export function cliBackendAcceptsAuthProfileForwarding(params: {
 export function resolveCliExecutionAuthProfileId(params: {
   cliExecutionProvider: string;
   authProfileProvider: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir: string;
   selected?: CliExecutionAuthProfileSelection;
   loadAuthProfileStoreForRuntime?: typeof loadAuthProfileStoreForRuntime;

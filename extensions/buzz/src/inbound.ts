@@ -4,7 +4,7 @@ import {
   resolveChannelInboundRouteEnvelope,
 } from "openclaw/plugin-sdk/channel-inbound";
 import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/logging-core";
 import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
 import type { BuzzBus } from "./buzz-bus.js";
@@ -22,7 +22,7 @@ const log = createSubsystemLogger("buzz/inbound");
 
 export async function handleBuzzInbound(params: {
   account: ResolvedBuzzAccount;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   bus: BuzzBus;
   message: BuzzInboundMessage;
   signal: AbortSignal;

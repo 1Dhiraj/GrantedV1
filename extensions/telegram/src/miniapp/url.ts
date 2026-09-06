@@ -1,5 +1,5 @@
 // Telegram Mini App published URL resolution.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveTailnetHostWithRunner,
   resolveTailscalePublishedHost,
@@ -18,7 +18,7 @@ type TelegramMiniAppUrls = {
 };
 
 export async function resolveTelegramMiniAppUrls(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runCommand?: TailscaleStatusCommandRunner;
 }): Promise<TelegramMiniAppUrls> {
   const mode = params.cfg.gateway?.tailscale?.mode ?? "off";

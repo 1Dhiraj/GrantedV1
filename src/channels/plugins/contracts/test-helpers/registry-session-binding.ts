@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { expect } from "vitest";
-import type { OpenClawConfig } from "../../../../config/config.js";
+import type { GrantedConfig } from "../../../../config/config.js";
 import {
   getSessionBindingService,
   type SessionBindingRecord,
@@ -44,7 +44,7 @@ const contractApiPromises = new Map<string, Promise<Record<string, unknown>>>();
 
 async function createContractChannelConversationBindingManager(params: {
   channelId: Parameters<typeof getChannelPlugin>[0];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): Promise<{ stop: () => void | Promise<void> } | null> {
   const createManager = getChannelPlugin(params.channelId)?.conversationBindings?.createManager;
@@ -155,7 +155,7 @@ async function createContractMatrixThreadBindingManager() {
 
 const baseSessionBindingCfg = {
   session: { mainKey: "main", scope: "per-sender" },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 type ChannelConversationBindingManagerFactory = NonNullable<
   NonNullable<ChannelPlugin["conversationBindings"]>["createManager"]
@@ -176,7 +176,7 @@ type DiscordContractApi = {
 type FeishuContractApi = {
   createFeishuThreadBindingManager: (params: {
     accountId?: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
   }) => ChannelConversationBindingManager;
 };
 

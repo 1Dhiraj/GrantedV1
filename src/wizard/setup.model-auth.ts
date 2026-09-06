@@ -7,7 +7,7 @@ import {
   resolveOnboardingSetupTarget,
 } from "../commands/onboard-agent-target.js";
 import type { AuthChoice, OnboardOptions } from "../commands/onboard-types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
@@ -19,7 +19,7 @@ type PreparedAuthChoiceResult = Awaited<
 >;
 
 export type SetupModelAuthCandidate = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   authProfiles: PreparedAuthChoiceResult["authProfiles"];
   persistAuthProfiles: PreparedAuthChoiceResult["persistAuthProfiles"];
 };
@@ -30,12 +30,12 @@ const loadModelPickerModule = createLazyRuntimeModule(() => import("../commands/
 
 async function resolveAuthChoiceModelSelectionPolicy(params: {
   authChoice: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   resolvePreferredProviderForAuthChoice: (params: {
     choice: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   }) => Promise<string | undefined>;
@@ -121,7 +121,7 @@ async function resolveAuthChoiceModelSelectionPolicy(params: {
  * (public onboarding automation contract).
  */
 export async function runSetupModelAuthStep(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   stagedCandidate?: SetupModelAuthCandidate;
   opts: OnboardOptions;
   prompter: WizardPrompter;

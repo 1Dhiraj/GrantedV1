@@ -2,7 +2,7 @@
 import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import {
   deleteGoogleChatMessage,
@@ -53,7 +53,7 @@ export async function deliverGoogleChatReply(params: {
   spaceId: string;
   runtime: GoogleChatRuntimeEnv;
   core: GoogleChatCoreRuntime;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
   typingMessage?: GoogleChatTypingMessage;
 }): Promise<void> {

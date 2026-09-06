@@ -63,7 +63,7 @@ export const CHAINED_ASSERTION_EXCLUDED_ROOTS = [
   "extensions/discord/src/monitor/message-handler.hydration.ts", // hydrated Discord messages bridge SDK constructor-private fields
   "extensions/discord/src/monitor/provider.startup-log.ts", // reconnect attempts are private Discord gateway diagnostics
   "extensions/discord/src/monitor/threading.starter.ts", // Discord thread channels narrow a dependency union after runtime checks
-  "extensions/github-copilot/index.ts", // config merge patches are intentionally deeper than Partial<OpenClawConfig>
+  "extensions/github-copilot/index.ts", // config merge patches are intentionally deeper than Partial<GrantedConfig>
   "extensions/google/realtime-voice-provider.ts", // provider tool schemas and lifecycle fields bridge Google SDK versions
   "extensions/googlechat/src/approval-native.ts", // approval runtime dynamically implements the public channel adapter seam
   "extensions/imessage/src/approval-native.ts", // approval runtime dynamically implements the public channel adapter seam

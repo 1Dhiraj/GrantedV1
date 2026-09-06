@@ -6,7 +6,7 @@ import {
 import { resolveUserTimezone } from "../agents/date-time.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import { resolveSenderLabel, type SenderLabelParams } from "../channels/sender-label.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveTimezone,
   formatUtcTimestamp,
@@ -69,7 +69,7 @@ function sanitizeEnvelopeHeaderPart(value: string): string {
 }
 
 /** Resolves envelope formatting defaults from agent config. */
-export function resolveEnvelopeFormatOptions(cfg?: OpenClawConfig): EnvelopeFormatOptions {
+export function resolveEnvelopeFormatOptions(cfg?: GrantedConfig): EnvelopeFormatOptions {
   const defaults = cfg?.agents?.defaults;
   const configuredTimezone = normalizeOptionalString(defaults?.userTimezone);
   return {

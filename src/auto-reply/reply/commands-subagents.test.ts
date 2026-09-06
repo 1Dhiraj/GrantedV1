@@ -18,7 +18,7 @@ import {
   resetSubagentRegistryForTests,
 } from "../../agents/subagents/registry/subagent-registry.test-helpers.js";
 import type { SubagentRunRecord } from "../../agents/subagents/registry/subagent-registry.types.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { failTaskRunByRunIdCore } from "../../tasks/task-executor.js";
 import { createTaskRecord } from "../../tasks/task-registry.js";
 import { resetTaskRegistryForTests } from "../../tasks/task-runtime.test-helpers.js";
@@ -265,7 +265,7 @@ describe("subagents global-session inspection", () => {
   it.each(["/subagents list", "/subagents info 1", "/subagents log 1", "/agents"])(
     "keeps the selected agent's global children visible through %s",
     async (command) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...baseCommandTestConfig,
         agents: { ownership: "explicit", entries: { research: {}, ops: {} } },
         session: { scope: "global" },
@@ -295,7 +295,7 @@ describe("subagents info", () => {
     `openclaw-commands-subagents-info-${process.pid}.json`,
   );
 
-  function buildCommandTestConfig(): OpenClawConfig {
+  function buildCommandTestConfig(): GrantedConfig {
     return {
       ...baseCommandTestConfig,
       session: {
@@ -305,7 +305,7 @@ describe("subagents info", () => {
     };
   }
 
-  function buildInfoContext(params: { cfg: OpenClawConfig; runs: object[]; restTokens: string[] }) {
+  function buildInfoContext(params: { cfg: GrantedConfig; runs: object[]; restTokens: string[] }) {
     return {
       params: {
         cfg: params.cfg,
@@ -327,7 +327,7 @@ describe("subagents info", () => {
     const cfg = {
       commands: { text: true },
       channels: { quietchat: { allowFrom: ["*"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = handleSubagentsInfoAction(buildInfoContext({ cfg, runs: [], restTokens: [] }));
     expect(result.shouldContinue).toBe(false);
     expect(result.reply?.text).toContain("/subagents info <id|#>");
@@ -616,7 +616,7 @@ describe("subagents info", () => {
       commands: { text: true },
       channels: { quietchat: { allowFrom: ["*"] } },
       session: { mainKey: "main", scope: "per-sender", store: TEST_SESSION_STORE_PATH },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = handleSubagentsInfoAction({
       params: {
         cfg,
@@ -654,7 +654,7 @@ describe("subagents log", () => {
   function buildLogContext(restTokens: string[], runs: SubagentRunRecord[]) {
     return {
       params: {
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionKey: "agent:main:main",
       },
       requesterKey: "agent:main:main",

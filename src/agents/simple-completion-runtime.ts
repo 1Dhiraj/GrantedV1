@@ -14,7 +14,7 @@ import {
  * Resolves agent model selection, auth, runtime policy, and missing-auth errors before simple completions run.
  */
 import type { ThinkLevel } from "../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   bindModelLlmRuntime,
@@ -125,7 +125,7 @@ type PreparedSimpleCompletionModelForAgent =
     });
 
 type SimpleCompletionSelectionParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir?: string;
   modelRef?: string;
@@ -215,7 +215,7 @@ export function resolveSimpleCompletionSelectionForAgent(
 }
 
 export async function prepareSimpleCompletionModel(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   agentId?: string;
   provider: string;
   modelId: string;
@@ -480,7 +480,7 @@ async function prepareSimpleCompletionModelCore(
 
 async function withPreparedSimpleCompletionRuntime<T>(
   params: {
-    cfg: OpenClawConfig | undefined;
+    cfg: GrantedConfig | undefined;
     agentId?: string;
     agentDir?: string;
     modelResolver?: typeof resolveModelAsync;
@@ -537,7 +537,7 @@ async function withPreparedSimpleCompletionRuntime<T>(
 }
 
 export async function prepareSimpleCompletionModelForAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir?: string;
   modelRef?: string;
@@ -659,7 +659,7 @@ export async function completeWithPreparedSimpleCompletionModel(params: {
   model: Model;
   auth: ResolvedProviderAuth;
   context: Parameters<typeof completeSimple>[1];
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   options?: SimpleCompletionModelOptions;
 }): Promise<AssistantMessage> {
   const runtime = getModelLlmRuntime(params.model);

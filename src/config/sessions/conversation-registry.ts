@@ -1,7 +1,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import type { ConversationIdentity, ConversationKind } from "./conversation-identity.js";
 import {
   parseStoredConversationRouteContext,
@@ -51,7 +51,7 @@ export type ConversationRegistryScope = {
 
 export function resolveConversationRegistryScope(params: {
   agentId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): ConversationRegistryScope {
   const configuredStore = params.config.session?.store;
   return {

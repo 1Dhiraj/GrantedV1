@@ -28,7 +28,7 @@ import {
   sessionModelOverrideChangesApplied,
 } from "../config/sessions/session-snapshot-merge.js";
 import type { InternalSessionEntry as SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { triggerSessionPatchHook } from "../gateway/session-patch-hooks.js";
 import { enqueueSystemEvent } from "../infra/system-events.js";
 import { applyModelOverrideWithAuthProfileCompatibility } from "../sessions/auth-profile-preservation.js";
@@ -48,7 +48,7 @@ export type SessionModelSelectionRequest = {
 };
 
 export type ApplySessionModelSelectionParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
   storePath?: string;
@@ -107,7 +107,7 @@ type ApplySessionModelSelectionToEntryResult = {
 
 /** Applies the model transaction field family to one caller-owned snapshot. */
 function applySessionModelSelectionToEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir: string;
   entry: SessionEntry;
   currentProvider: string;

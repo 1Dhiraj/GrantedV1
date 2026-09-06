@@ -8,11 +8,11 @@ import {
   applySessionEntryReplacements,
   listSessionEntriesReadOnly,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
 import { ensureColumn, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -38,7 +38,7 @@ type SessionGroupDefaultsRecord = {
 };
 
 type SessionGroupsDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "session_groups" | "config_machine_state"
 >;
 
@@ -208,7 +208,7 @@ export function listSidebarSectionOrder(env: NodeJS.ProcessEnv = process.env): s
  * so a put can never leave dangling categories that resurrect the group.
  */
 export function putSessionGroups(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   names: readonly string[];
   sectionOrder?: readonly string[];
   env?: NodeJS.ProcessEnv;
@@ -434,7 +434,7 @@ export function updateSessionGroupDefaults(
 }
 
 export function resolveSessionGroupMutationTargetsByName(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): Map<string, SessionMutationTarget[]> {
   const targetsByName = new Map<string, SessionMutationTarget[]>();
@@ -460,7 +460,7 @@ export function resolveSessionGroupMutationTargetsByName(
  * bumping updatedAt: group maintenance must not reshuffle recency ordering.
  */
 async function updateMemberCategories(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   from: string,
   to: string | undefined,
   env: NodeJS.ProcessEnv,
@@ -501,7 +501,7 @@ async function updateMemberCategories(
 }
 
 export async function renameSessionGroup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   name: string;
   to: string;
   env?: NodeJS.ProcessEnv;
@@ -530,7 +530,7 @@ export async function renameSessionGroup(params: {
 }
 
 export async function deleteSessionGroup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   name: string;
   env?: NodeJS.ProcessEnv;
   assertCurrent?: () => void;

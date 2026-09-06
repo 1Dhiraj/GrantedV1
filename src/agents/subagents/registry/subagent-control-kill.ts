@@ -1,7 +1,7 @@
 /** Authorized tree and admin subagent kill orchestration. */
 import { resolveSubagentLabel } from "../../../auto-reply/reply/subagents-utils.js";
 import { loadExactSessionEntryReadOnly } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   getAgentEventLifecycleGeneration,
   isAgentEventLifecycleGenerationCurrent,
@@ -50,7 +50,7 @@ type KillTree = KillBinding & {
 };
 
 type KillSelection = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runs: Iterable<SubagentRunRecord>;
   assertCurrent?: () => void;
   controller?: Pick<ResolvedSubagentController, "controllerSessionKey" | "controllerAgentId">;
@@ -248,7 +248,7 @@ async function withSubagentKillScope<T>(
 }
 
 async function killLatestSubagentRun(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   tree: KillTree;
   scope: KillScope;
   suppressTaskDelivery?: boolean;
@@ -343,7 +343,7 @@ function collectKillErrors(trees: KillTree[], unlabeledRoot?: KillTree) {
 }
 
 type KillTraversal = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   scope: KillScope;
   suppressTaskDelivery?: boolean;
 };
@@ -419,7 +419,7 @@ async function killSubagentRoot(params: Parameters<typeof killLatestSubagentRun>
 
 /** Kills every currently controlled child run and its descendants. */
 export async function killAllControlledSubagentRuns(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   controller: ResolvedSubagentController;
   runs: SubagentRunRecord[];
   suppressTaskDelivery?: boolean;

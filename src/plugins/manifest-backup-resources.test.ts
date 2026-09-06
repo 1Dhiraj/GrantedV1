@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveActivatedPluginBackupInventory } from "./manifest-backup-resources.js";
 import { loadPluginManifest } from "./manifest.js";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
@@ -141,7 +141,7 @@ describe("plugin manifest backup resources", () => {
       id: "disabled-owner",
       backupResources: [{ ...regenerable, relativePath: "disabled-owner/cache" }],
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         load: { paths: [enabled.pluginRoot, disabled.pluginRoot] },
         entries: {
@@ -171,7 +171,7 @@ describe("plugin manifest backup resources", () => {
     const fixture = createPluginFixture({
       backupResources: [{ disposition: "include", scope: "state", relativePath: "../outside" }],
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         load: { paths: [fixture.pluginRoot] },
         entries: { [fixture.id]: { enabled: true } },
@@ -197,7 +197,7 @@ describe("plugin manifest backup resources", () => {
         workspace: true,
         backupResources: [{ disposition: "include", scope: "state", relativePath: "../outside" }],
       });
-      const config: OpenClawConfig = activated
+      const config: GrantedConfig = activated
         ? { plugins: { entries: { [fixture.id]: { enabled: true } } } }
         : {};
       const resolveInventory = () =>

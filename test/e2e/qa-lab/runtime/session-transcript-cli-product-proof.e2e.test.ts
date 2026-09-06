@@ -13,7 +13,7 @@ import { TranscriptsStore } from "../../../../src/transcripts/store.js";
 import { summarizeTranscripts } from "../../../../src/transcripts/summary.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 
 const SESSION_KEY = "agent:main:qa:missing-transcript";
@@ -22,7 +22,7 @@ const TRANSCRIPT_ID = "qa-cli-transcript";
 const TRANSCRIPT_STARTED_AT = "2026-08-03T12:00:00.000Z";
 const TRANSCRIPT_TEXT = "Action item: preserve the CLI transcript artifact.";
 
-type CommandResult = Awaited<ReturnType<OpenClawTestInstance["cli"]>>;
+type CommandResult = Awaited<ReturnType<GrantedTestInstance["cli"]>>;
 
 type SessionsJson = {
   count: number;
@@ -57,7 +57,7 @@ type TranscriptPathJson = {
   sessionId: string;
 };
 
-let instance: OpenClawTestInstance | undefined;
+let instance: GrantedTestInstance | undefined;
 
 afterEach(async () => {
   closeOpenClawAgentDatabasesForTest();

@@ -14,7 +14,7 @@ import {
 } from "../audit/execution-identity-admission.js";
 import { recordAgentRunTerminalOutcome } from "../channels/turn/agent-run-terminal-outcome.js";
 import { formatCliFailureLines, formatCliJsonFailure } from "../cli/failure-output.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { acquireGatewayLock, type GatewayLockOptions } from "../infra/gateway-lock.js";
 import { loggingState } from "../logging/state.js";
@@ -70,7 +70,7 @@ const jsonRuntime = {
   exit: vi.fn(),
 };
 
-function mockConfig(storePath: string, overrides?: Partial<OpenClawConfig>) {
+function mockConfig(storePath: string, overrides?: Partial<GrantedConfig>) {
   const config = {
     agents: {
       defaults: {
@@ -95,7 +95,7 @@ function mockConfig(storePath: string, overrides?: Partial<OpenClawConfig>) {
 
 async function withTempStore(
   fn: (ctx: { dir: string; store: string }) => Promise<void>,
-  overrides?: Partial<OpenClawConfig>,
+  overrides?: Partial<GrantedConfig>,
 ) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-agent-cli-"));
   const store = path.join(dir, "sessions.json");

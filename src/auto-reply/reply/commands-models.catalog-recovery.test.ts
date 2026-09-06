@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { AuthProfileStore } from "../../agents/auth-profiles/types.js";
 import { PreparedModelCatalogConfigReplacedError } from "../../agents/prepared-model-catalog.errors.js";
 import { setPreparedModelRuntimeAuthStore } from "../../agents/prepared-model-runtime-auth.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const catalogMocks = vi.hoisted(() => ({
   loadSnapshot: vi.fn(),
@@ -27,11 +27,11 @@ const { buildPreparedModelsProviderData } = await import("./commands-models.js")
 
 const staleCfg = {
   agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 const replacementCfg = {
   agents: { defaults: { model: { primary: "openai/gpt-5.6-luna" } } },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 afterEach(() => {
   vi.clearAllMocks();

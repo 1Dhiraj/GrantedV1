@@ -7,7 +7,7 @@ import {
   validateSessionsCatalogStartTerminalParams,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { allowsProcessHomeSessionScan } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SessionCatalogProvider } from "../../plugins/session-catalog.js";
 import { authorizeGatewaySessionCreation } from "../operator-role-policy.js";
 import type { GatewayRequestHandlers } from "./types.js";
@@ -17,7 +17,7 @@ type SessionCatalogProviderResolver = (catalogId: string) => SessionCatalogProvi
 type SessionCatalogCreateTargetResolver = (
   catalogId: string,
   agentId: string,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ) => { ok: true } | { ok: false; message: string };
 
 /** Builds the catalog terminal-start handler around the active provider registry. */

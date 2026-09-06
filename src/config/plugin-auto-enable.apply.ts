@@ -13,7 +13,7 @@ import type {
   PluginAutoEnableResult,
 } from "./plugin-auto-enable.types.js";
 import { hashRuntimeConfigValue } from "./runtime-snapshot.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 type PluginAutoEnableCacheEntry = {
   configFingerprint: string;
@@ -90,7 +90,7 @@ function stableFingerprintValue(value: unknown): string {
 }
 
 /** Fingerprints config snapshots used by plugin auto-enable detection. */
-function fingerprintPluginAutoEnableConfig(config: OpenClawConfig): string {
+function fingerprintPluginAutoEnableConfig(config: GrantedConfig): string {
   const cached = configFingerprintMemo.get(config);
   if (cached !== undefined) {
     return cached;
@@ -106,7 +106,7 @@ function fingerprintPluginAutoEnableEnv(env: NodeJS.ProcessEnv): string {
 }
 
 function createPluginAutoEnableCacheEntry(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   discovery: PluginDiscoveryResult;
   env: NodeJS.ProcessEnv;
   manifestRegistry: PluginManifestRegistry;
@@ -125,7 +125,7 @@ function createPluginAutoEnableCacheEntry(params: {
 
 function isPluginAutoEnableCacheEntryFresh(params: {
   entry: PluginAutoEnableCacheEntry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   discovery: PluginDiscoveryResult;
   env: NodeJS.ProcessEnv;
   manifestRegistry: PluginManifestRegistry;
@@ -142,7 +142,7 @@ function isPluginAutoEnableCacheEntryFresh(params: {
 
 /** Applies already detected plugin auto-enable candidates to config. */
 export function materializePluginAutoEnableCandidates(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   candidates: readonly PluginAutoEnableCandidate[];
   env?: NodeJS.ProcessEnv;
   manifestRegistry?: PluginManifestRegistry;
@@ -172,7 +172,7 @@ export function materializePluginAutoEnableCandidates(params: {
 }
 
 export function applyPluginAutoEnable(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   manifestRegistry?: PluginManifestRegistry;
   discovery?: PluginDiscoveryResult;

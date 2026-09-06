@@ -18,7 +18,7 @@ import {
   executeSqliteQuerySync,
   getNodeSqliteKysely,
   openOpenClawStateDatabase,
-  type OpenClawStateKyselyDatabaseForTests,
+  type GrantedStateKyselyDatabaseForTests,
 } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { commitTelegramMessageDispatchReplay } from "./message-dispatch-dedupe.js";
@@ -226,7 +226,7 @@ type TestWorkerMessage =
 type AsyncVoidFn = () => Promise<void>;
 type MockCallSource = { mock: { calls: Array<Array<unknown>> } };
 type TelegramPollingTestDatabase = Pick<
-  OpenClawStateKyselyDatabaseForTests,
+  GrantedStateKyselyDatabaseForTests,
   "channel_ingress_events"
 >;
 type IsolatedIngressOptions = NonNullable<

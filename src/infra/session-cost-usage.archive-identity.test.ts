@@ -14,7 +14,7 @@ import {
 import type { AssistantMessage } from "../llm/types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   readUsageCostRollups,
@@ -89,7 +89,7 @@ function serialize(manager: SessionManager): string {
 }
 
 async function writeArchive(params: {
-  state: OpenClawTestState;
+  state: GrantedTestState;
   manager: SessionManager;
   encoding: Encoding;
   reason?: "reset" | "deleted";
@@ -125,7 +125,7 @@ async function cachedTotal(agentId: string) {
 }
 
 describe("usage archive identity", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({ label: "usage-archive-identity" });

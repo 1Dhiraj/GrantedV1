@@ -14,7 +14,7 @@ import { t } from "../../i18n/index.ts";
 import { isGatewayMethodAdvertised } from "../../lib/gateway-methods.ts";
 import { resolveScrollBehavior } from "../../lib/scroll-behavior.ts";
 import { readSessionDefaults } from "../../lib/sessions/session-key.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   FirstRunSetup,
@@ -50,7 +50,7 @@ export { resumeFirstRunActivation } from "./first-run-activation-receipt.ts";
 
 type Candidate = SystemAgentSetupDetectResult["candidates"][number];
 
-export class ModelSetupPage extends OpenClawLightDomElement {
+export class ModelSetupPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

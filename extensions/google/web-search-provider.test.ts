@@ -1,11 +1,11 @@
 // Google tests cover web search provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { withEnvAsync, withFetchPreconnect } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createGeminiWebSearchProvider } from "./src/gemini-web-search-provider.js";
 
 type TestModelProviderConfig = NonNullable<
-  NonNullable<OpenClawConfig["models"]>["providers"]
+  NonNullable<GrantedConfig["models"]>["providers"]
 >[string];
 
 function installGeminiFetch() {
@@ -126,7 +126,7 @@ describe("google web search provider", () => {
 
   it("stores configured credentials at the canonical plugin config path", () => {
     const provider = createGeminiWebSearchProvider();
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
 
     provider.setConfiguredCredentialValue?.(config, "AIza-plugin-test");
 

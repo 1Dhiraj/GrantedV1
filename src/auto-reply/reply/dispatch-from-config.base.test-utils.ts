@@ -6,7 +6,7 @@ import {
   clearActiveEmbeddedRun,
   setActiveEmbeddedRun,
 } from "../../agents/embedded-agent-runner/runs.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
   interruptSessionWorkAdmissions,
@@ -108,7 +108,7 @@ describe("dispatchReplyFromConfig", () => {
       async (
         _ctx: MsgContext,
         _opts?: GetReplyOptions,
-        _cfg?: OpenClawConfig,
+        _cfg?: GrantedConfig,
         _preparedRuntime?: unknown,
       ) => ({ text: "hi" }) satisfies ReplyPayload,
     );
@@ -171,7 +171,7 @@ describe("dispatchReplyFromConfig", () => {
         }),
       );
     const replyResolver = vi.fn(
-      async (_ctx: MsgContext, _opts?: GetReplyOptions, configOverride?: OpenClawConfig) => {
+      async (_ctx: MsgContext, _opts?: GetReplyOptions, configOverride?: GrantedConfig) => {
         expect(configOverride).toBeUndefined();
         receivedPreparedRuntime = getPreparedReplyDispatchRuntime();
         replacementPreparedRuntime = await preparedLookup({ agentId: "main" });
@@ -511,11 +511,8 @@ describe("dispatchReplyFromConfig", () => {
       OriginatingTo: "channel:C123",
     });
 
-    const replyResolver = async (
-      _ctx: MsgContext,
-      _opts?: GetReplyOptions,
-      _cfg?: OpenClawConfig,
-    ) => ({ text: "hi" }) satisfies ReplyPayload;
+    const replyResolver = async (_ctx: MsgContext, _opts?: GetReplyOptions, _cfg?: GrantedConfig) =>
+      ({ text: "hi" }) satisfies ReplyPayload;
     await dispatchReplyFromConfig({ ctx, cfg, dispatcher, replyResolver });
 
     expect(mocks.routeReply).not.toHaveBeenCalled();
@@ -761,7 +758,7 @@ describe("dispatchReplyFromConfig", () => {
       ChatType: "channel",
       SessionKey: "agent:main:slack:channel:C123",
     });
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const replyResolver = async (
       _ctx: MsgContext,
       opts?: GetReplyOptions,
@@ -1902,11 +1899,8 @@ describe("dispatchReplyFromConfig", () => {
       OriginatingTo: "telegram:999",
     });
 
-    const replyResolver = async (
-      _ctx: MsgContext,
-      _opts?: GetReplyOptions,
-      _cfg?: OpenClawConfig,
-    ) => ({ text: "hi" }) satisfies ReplyPayload;
+    const replyResolver = async (_ctx: MsgContext, _opts?: GetReplyOptions, _cfg?: GrantedConfig) =>
+      ({ text: "hi" }) satisfies ReplyPayload;
     await dispatchReplyFromConfig({ ctx, cfg, dispatcher, replyResolver });
 
     expect(dispatcher.sendFinalReply).not.toHaveBeenCalled();

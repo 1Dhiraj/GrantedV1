@@ -22,7 +22,7 @@ import {
 import { captureConfigOverrideApplier } from "../config/runtime-overrides.js";
 import { resolveSystemMainSessionTarget } from "../config/sessions.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isSecretRef } from "../config/types.secrets.js";
 import { getActiveCronJobCount } from "../cron/active-jobs.js";
 import {
@@ -67,8 +67,8 @@ type WorkerEnvironmentStartupLoader = () => Promise<
 >;
 
 function publishGatewayPluginRuntimeConfigAtStartup(params: {
-  runtimeConfig: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  runtimeConfig: GrantedConfig;
+  sourceConfig: GrantedConfig;
 }): void {
   setAppliedRuntimeConfigSnapshot(params.runtimeConfig, params.sourceConfig);
 }
@@ -100,7 +100,7 @@ export async function prepareGatewayServerBootstrap(input: {
   const [
     {
       GRANTED_DATABASE_SCHEMA_DOCS_URL,
-      OpenClawDatabaseSchemaPreflightError,
+      GrantedDatabaseSchemaPreflightError,
       preflightOpenClawDatabaseSchemas,
     },
     agentDatabase,
@@ -133,7 +133,7 @@ export async function prepareGatewayServerBootstrap(input: {
         docsUrl: GRANTED_DATABASE_SCHEMA_DOCS_URL,
       });
     }
-    throw new OpenClawDatabaseSchemaPreflightError(databaseSchemas.incompatible);
+    throw new GrantedDatabaseSchemaPreflightError(databaseSchemas.incompatible);
   }
   for (const database of databaseSchemas.indeterminate) {
     log.warn("database schema preflight could not inspect database; continuing to real open", {
@@ -223,7 +223,7 @@ export async function prepareGatewayServerBootstrap(input: {
   const emitSecretsStateEvent = (
     code: "SECRETS_RELOADER_DEGRADED" | "SECRETS_RELOADER_RECOVERED",
     message: string,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
   ) => {
     const text = `[${code}] ${message}`;
     try {
@@ -348,7 +348,7 @@ export async function prepareGatewayServerBootstrap(input: {
   const seededControlUiAllowedOrigins = controlUiSeed.seededAllowedOrigins
     ? cfgAtStart.gateway?.controlUi?.allowedOrigins
     : undefined;
-  const applyFixedGatewayOverlays = (config: OpenClawConfig): OpenClawConfig => {
+  const applyFixedGatewayOverlays = (config: GrantedConfig): GrantedConfig => {
     let runtimeConfig = config;
     if (reloadAuthOverride || startupTailscaleOverride) {
       runtimeConfig = {
@@ -390,7 +390,7 @@ export async function prepareGatewayServerBootstrap(input: {
     ]);
     return runtimeConfig;
   };
-  const applyReloadableGatewayAuthRefs = (config: OpenClawConfig): OpenClawConfig => {
+  const applyReloadableGatewayAuthRefs = (config: GrantedConfig): GrantedConfig => {
     if (!startupAuthSecretRefOverride?.token && !startupAuthSecretRefOverride?.password) {
       return config;
     }
@@ -408,9 +408,9 @@ export async function prepareGatewayServerBootstrap(input: {
     return next;
   };
   const prepareReloadCandidate = (params: {
-    runtimeConfig: OpenClawConfig;
-    sourceConfig: OpenClawConfig;
-    previousSourceConfig?: OpenClawConfig;
+    runtimeConfig: GrantedConfig;
+    sourceConfig: GrantedConfig;
+    previousSourceConfig?: GrantedConfig;
   }) => {
     const previousSourceConfig =
       params.previousSourceConfig ??
@@ -432,7 +432,7 @@ export async function prepareGatewayServerBootstrap(input: {
           ambientEnvTriggers,
         });
     const applyCandidateOverrides = captureConfigOverrideApplier();
-    const reapplyCompareOverlays = (config: OpenClawConfig): OpenClawConfig => {
+    const reapplyCompareOverlays = (config: GrantedConfig): GrantedConfig => {
       const applied = applyCandidateOverrides(
         mergeActivationSectionsIntoRuntimeConfig({
           runtimeConfig: config,
@@ -442,7 +442,7 @@ export async function prepareGatewayServerBootstrap(input: {
       copyConfigResolutionFacts(config, applied);
       return applied;
     };
-    const reapplyRuntimeOverlays = (config: OpenClawConfig): OpenClawConfig =>
+    const reapplyRuntimeOverlays = (config: GrantedConfig): GrantedConfig =>
       applyFixedGatewayOverlays(applyReloadableGatewayAuthRefs(reapplyCompareOverlays(config)));
     return {
       runtimeConfig: reapplyRuntimeOverlays(params.runtimeConfig),

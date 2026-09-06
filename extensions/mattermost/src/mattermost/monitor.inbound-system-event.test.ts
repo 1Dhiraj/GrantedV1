@@ -20,7 +20,7 @@ import { WebSocketServer } from "ws";
 import type { MattermostPost } from "./client.js";
 import type { MattermostEventPayload } from "./monitor-websocket.js";
 import { monitorMattermostProvider } from "./monitor.js";
-import type { OpenClawConfig, ReplyPayload, RuntimeEnv } from "./runtime-api.js";
+import type { GrantedConfig, ReplyPayload, RuntimeEnv } from "./runtime-api.js";
 
 class FakeWebSocket {
   public readonly sent: string[] = [];
@@ -246,7 +246,7 @@ vi.mock("./runtime-api.js", async () => {
       readStoreForDmPolicy: vi.fn(async () => []),
       upsertPairingRequest: vi.fn(async () => ({ code: "123456", created: true })),
     })),
-    createChannelMessageReplyPipeline: vi.fn((params: { cfg: OpenClawConfig }) => ({
+    createChannelMessageReplyPipeline: vi.fn((params: { cfg: GrantedConfig }) => ({
       onModelSelected: vi.fn(),
       typingCallbacks: {},
       resolveResponsePrefix: () => params.cfg.channels?.mattermost?.responsePrefix,
@@ -266,7 +266,7 @@ vi.mock("./send.js", async () => {
 });
 
 function createRuntimeCore(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   routeOverride?: {
     accountId?: string;
     agentId?: string;
@@ -325,7 +325,7 @@ function createRuntimeCore(
   const recordInboundSession = vi.fn(async (_params: RecordInboundSessionInput) => {});
   const dispatchPlanForTest = vi.fn(
     async (turn: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       channel: string;
       route: { agentId: string; sessionKey: string };
       ctxPayload: { SessionKey?: string };
@@ -492,7 +492,7 @@ function createRuntimeCore(
   };
 }
 
-const testConfig: OpenClawConfig = {
+const testConfig: GrantedConfig = {
   channels: {
     mattermost: {
       enabled: true,
@@ -910,7 +910,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           envelopeTimezone: "user",
@@ -995,7 +995,7 @@ describe("mattermost inbound user posts", () => {
       const socket = new FakeWebSocket();
       const abortController = new AbortController();
       mockState.abortController = abortController;
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         messages: { groupChat: { historyLimit: 2 } },
         channels: {
           ...(contextVisibility ? { defaults: { contextVisibility } } : {}),
@@ -1123,7 +1123,7 @@ describe("mattermost inbound user posts", () => {
       mockState.abortController = abortController;
       const verboseDebug = vi.fn();
       const baseUrl = `http://127.0.0.1:${address.port}`;
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         messages: { groupChat: { historyLimit: 2 } },
         channels: {
           ...(contextVisibility ? { defaults: { contextVisibility } } : {}),
@@ -1354,7 +1354,7 @@ describe("mattermost inbound user posts", () => {
       const abortController = new AbortController();
       mockState.abortController = abortController;
       const verboseDebug = vi.fn();
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         channels: {
           mattermost: {
             enabled: true,
@@ -1416,7 +1416,7 @@ describe("mattermost inbound user posts", () => {
       stop: vi.fn(async () => {}),
     };
     mockState.createMattermostDraftStream.mockReturnValue(draftStream);
-    const progressConfig: OpenClawConfig = {
+    const progressConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -1520,7 +1520,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const inlineCommandConfig: OpenClawConfig = {
+    const inlineCommandConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -1595,7 +1595,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const directConfig: OpenClawConfig = {
+    const directConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -1722,7 +1722,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const channelTypeConfig: OpenClawConfig = {
+    const channelTypeConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -1780,7 +1780,7 @@ describe("mattermost inbound user posts", () => {
   it("does not debounce denied senders or system posts into an allowed turn", async () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       channels: {
         defaults: { contextVisibility: "allowlist" },
         mattermost: {
@@ -1849,7 +1849,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const mentionConfig: OpenClawConfig = {
+    const mentionConfig: GrantedConfig = {
       messages: { inbound: { debounceMs: 60_000 } },
       channels: {
         mattermost: {
@@ -1941,7 +1941,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const directConfig: OpenClawConfig = {
+    const directConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2017,7 +2017,7 @@ describe("mattermost inbound user posts", () => {
     const socket = new FakeWebSocket();
     const abortController = new AbortController();
     mockState.abortController = abortController;
-    const directConfig: OpenClawConfig = {
+    const directConfig: GrantedConfig = {
       session: { dmScope: "per-channel-peer" },
       channels: {
         mattermost: {
@@ -2093,7 +2093,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("keeps core block streaming enabled when preview streaming is off", async () => {
-    const offConfig: OpenClawConfig = {
+    const offConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2214,7 +2214,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("preserves text-tool-text boundaries while grouping interleaved tool updates", async () => {
-    const blockConfig: OpenClawConfig = {
+    const blockConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2441,7 +2441,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("finalizes only the current block when the terminal reply is cumulative", async () => {
-    const blockConfig: OpenClawConfig = {
+    const blockConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2530,7 +2530,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("records participation when the confirmed preview already contains the final", async () => {
-    const blockConfig: OpenClawConfig = {
+    const blockConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2604,7 +2604,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("records participation when confirmed-preview cleanup fails", async () => {
-    const blockConfig: OpenClawConfig = {
+    const blockConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,
@@ -2683,7 +2683,7 @@ describe("mattermost inbound user posts", () => {
   });
 
   it("records participation when a later send step fails after a visible thread post", async () => {
-    const progressConfig: OpenClawConfig = {
+    const progressConfig: GrantedConfig = {
       channels: {
         mattermost: {
           enabled: true,

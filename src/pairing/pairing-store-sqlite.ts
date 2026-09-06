@@ -4,12 +4,12 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   dedupePreserveOrder,
@@ -21,7 +21,7 @@ import type { PairingChannel, PairingRequestRecord } from "./pairing-store.types
 type PairingRequest = PairingRequestRecord;
 
 type PairingDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "channel_pairing_allow_entries" | "channel_pairing_requests"
 >;
 
@@ -75,12 +75,12 @@ export function resolvePairingRequestAccountId(entry: PairingRequest): string {
   return resolveAllowFromAccountId(entry.meta?.accountId) || DEFAULT_ACCOUNT_ID;
 }
 
-export function sqliteOptionsForEnv(env: NodeJS.ProcessEnv): OpenClawStateDatabaseOptions {
+export function sqliteOptionsForEnv(env: NodeJS.ProcessEnv): GrantedStateDatabaseOptions {
   return { env };
 }
 
 export function readChannelPairingStateFromDatabase(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   channel: PairingChannel,
 ): ChannelPairingState {
   const db = getNodeSqliteKysely<PairingDatabase>(database.db);
@@ -145,7 +145,7 @@ export function readChannelPairingState(
 }
 
 export function writeChannelPairingStateToDatabase(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   channel: PairingChannel,
   state: ChannelPairingState,
 ): void {

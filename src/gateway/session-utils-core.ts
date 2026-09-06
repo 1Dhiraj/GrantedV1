@@ -14,7 +14,7 @@ import {
 } from "../agents/subagents/registry/subagent-run-liveness.js";
 import { stripInboundMetadata } from "../auto-reply/reply/strip-inbound-meta.js";
 import { isTerminalSessionStatus, type SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { truncateUtf16Safe } from "../utils.js";
 import {
@@ -175,7 +175,7 @@ export function buildCompactionCheckpointPreview(
 function resolveModelCostConfigCached(
   provider: string | undefined,
   model: string | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   rowContext?: SessionListRowContext,
 ): ModelCostConfig | undefined {
   if (!rowContext) {
@@ -191,7 +191,7 @@ function resolveModelCostConfigCached(
 }
 
 export function resolveEstimatedSessionCostUsd(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider?: string;
   model?: string;
   entry?: Pick<

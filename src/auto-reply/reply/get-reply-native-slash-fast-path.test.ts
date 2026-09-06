@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-support.js";
 import type { ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
 import * as preparedModelCatalog from "../../agents/prepared-model-catalog.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   loadExactSessionEntry,
   loadSessionEntry,
@@ -112,7 +112,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
 
   async function resolveNativeDirectiveCommand(
     body: string,
-    config?: OpenClawConfig,
+    config?: GrantedConfig,
     response: { shouldContinue: boolean; reply?: { text: string } } = { shouldContinue: true },
     preparedCatalog?: ModelCatalogSnapshot,
   ) {
@@ -125,7 +125,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
         session: {
           store: path.join(tempDirs.make("openclaw-native-directive-"), "sessions.json"),
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
     const result = await runTestNativeSlashFastReply({
       ctx: buildTestCtx({
         Body: body,
@@ -357,7 +357,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
       cfg: markCompleteReplyConfig(
         {
           session: { store: storePath },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         { runtimeMode: "full" },
       ),
       agentId: "main",
@@ -564,7 +564,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
                   },
                 }
               : {}),
-          } as OpenClawConfig,
+          } as GrantedConfig,
           { runtimeMode: "full" },
         ),
         agentId: targetAgentId,
@@ -667,7 +667,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
           },
         },
         channels: { modelByChannel: { telegram: { "123": "openai/gpt-5.5" } } },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       agentId: "main",
       commandAuthorized: true,
       typing: createTypingController(),
@@ -691,7 +691,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
   it("keeps model-independent /status plugins available under an invalid model policy", async () => {
     const { result } = await resolveNativeDirectiveCommand(
       "/status plugins",
-      { agents: { defaults: { modelPolicy: { allow: ["anthropic/*"] } } } } as OpenClawConfig,
+      { agents: { defaults: { modelPolicy: { allow: ["anthropic/*"] } } } } as GrantedConfig,
       { shouldContinue: false, reply: { text: "plugin status" } },
     );
 
@@ -713,7 +713,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
               modelPolicy: { allow: ["anthropic/*"] },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         { shouldContinue: false, reply: { text: "recovery available" } },
       );
 
@@ -755,7 +755,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
         session: {
           store: path.join(tempDirs.make("openclaw-text-slash-"), "sessions.json"),
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       agentId: "dev",
       commandAuthorized: true,
       typing,
@@ -802,7 +802,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
         session: {
           store: path.join(tempDirs.make("openclaw-external-text-slash-"), "sessions.json"),
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
       agentId: "dev",
       commandAuthorized: true,
       typing,
@@ -853,7 +853,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
         ...("deniedByPolicy" in testCase
           ? { commands: { allowFrom: { "*": ["approved-sender"] } } }
           : {}),
-      } as OpenClawConfig),
+      } as GrantedConfig),
       agentId: "main",
       commandAuthorized: authorized,
       typing: createTypingController(),
@@ -929,7 +929,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
           body: "/compact",
         },
       }),
-      cfg: markCompleteReplyConfig({ session: { store: storePath } } as OpenClawConfig),
+      cfg: markCompleteReplyConfig({ session: { store: storePath } } as GrantedConfig),
       agentId: "main",
       commandAuthorized: true,
       typing: createTypingController(),
@@ -971,7 +971,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
           body: "/compact",
         },
       }),
-      cfg: markCompleteReplyConfig({ session: { store: storePath } } as OpenClawConfig),
+      cfg: markCompleteReplyConfig({ session: { store: storePath } } as GrantedConfig),
       agentId: "main",
       commandAuthorized: true,
       typing: createTypingController(),
@@ -1026,7 +1026,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
             body: "/compact",
           },
         }),
-        cfg: markCompleteReplyConfig({ session: { store: storePath } } as OpenClawConfig),
+        cfg: markCompleteReplyConfig({ session: { store: storePath } } as GrantedConfig),
         agentId: "main",
         commandAuthorized: true,
         typing: createTypingController(),

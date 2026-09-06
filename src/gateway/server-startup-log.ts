@@ -14,7 +14,7 @@ import {
 } from "../agents/model-selection-shared.js";
 import { resolveThinkingDefault } from "../agents/model-thinking-default.js";
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getResolvedLoggerSettings } from "../logging.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { collectEnabledInsecureOrDangerousFlagsFromCurrentSnapshot } from "../security/dangerous-config-flags-current.js";
@@ -32,8 +32,8 @@ type StartupThinkLevel =
 
 /** Emit startup summary lines after Gateway bind and plugin loading complete. */
 export async function logGatewayStartup(params: {
-  cfg: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   manifestRecords: readonly PluginManifestRecord[];
   bindHost: string;
@@ -96,7 +96,7 @@ export async function logGatewayStartup(params: {
 
 /** Format the startup model line from the model ref already selected by the caller. */
 export function formatAgentModelStartupLogLine(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
 }): { message: string; consoleMessage: string } {
@@ -125,7 +125,7 @@ function normalizeStartupThinkLevel(value: unknown): StartupThinkLevel | undefin
 
 /** Resolve explicit thinking overrides from agent defaults and per-model config. */
 function resolveExplicitStartupThinking(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
   defaultAgentThinking: unknown;
@@ -155,7 +155,7 @@ function isConfiguredReasoningDisabled(params: {
 
 /** Format model thinking and fast-mode details for the Gateway startup banner. */
 export function formatAgentModelStartupDetails(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
 }): string {
@@ -201,8 +201,8 @@ export function formatAgentModelStartupDetails(params: {
 }
 
 async function collectConfiguredChannelStartupWarnings(params: {
-  cfg: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   ambientEnvTriggers?: AmbientEnvTriggerPolicy;
   env: NodeJS.ProcessEnv;
   manifestRecords: readonly PluginManifestRecord[];

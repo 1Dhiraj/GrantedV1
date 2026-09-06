@@ -24,7 +24,7 @@ import {
 } from "../../packages/terminal-core/src/table.js";
 import { isRich, theme } from "../../packages/terminal-core/src/theme.js";
 import { resolveConfiguredAgentId } from "../agents/agent-scope-config.js";
-import { readBestEffortConfig, type OpenClawConfig } from "../config/config.js";
+import { readBestEffortConfig, type GrantedConfig } from "../config/config.js";
 import { ADMIN_SCOPE, APPROVALS_SCOPE, type OperatorScope } from "../gateway/method-scopes.js";
 import { readFileDescriptorBounded } from "../infra/boundary-file-read.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -84,10 +84,10 @@ type NativeExecApprovalsSnapshot =
 type ExecApprovalsSnapshot = FileExecApprovalsSnapshot | NativeExecApprovalsSnapshot;
 
 type ConfigSnapshotLike = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 type ConfigLoadResult = {
-  config: OpenClawConfig | null;
+  config: GrantedConfig | null;
   timedOut: boolean;
 };
 type ApprovalsTargetSource = "gateway" | "node" | "local";

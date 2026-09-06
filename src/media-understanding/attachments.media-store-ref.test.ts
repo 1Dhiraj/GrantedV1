@@ -8,7 +8,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { MsgContext } from "../auto-reply/templating.js";
 import { toInboundMediaFacts } from "../channels/inbound-event/media.js";
 import type { ChannelInboundMediaInput } from "../channels/inbound-event/media.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { saveMediaBuffer } from "../media/store.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { applyMediaUnderstanding } from "./apply.js";
@@ -31,7 +31,7 @@ vi.mock("../plugins/capability-provider-runtime.js", async () => {
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function createOpenAiAudioCfg(): OpenClawConfig {
+function createOpenAiAudioCfg(): GrantedConfig {
   return {
     models: {
       providers: {
@@ -41,10 +41,10 @@ function createOpenAiAudioCfg(): OpenClawConfig {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
-function createUrlDisabledFileCfg(): OpenClawConfig {
+function createUrlDisabledFileCfg(): GrantedConfig {
   return {
     tools: {
       media: {

@@ -1,7 +1,7 @@
 import { rm } from "node:fs/promises";
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../../../packages/gateway-protocol/src/capability-consent-error-details.js";
 import { stripAnsi } from "../../../../packages/terminal-core/src/ansi.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import type { PluginCapabilityConsentHandler } from "../../../plugins/capability-consent.js";
 import {
@@ -74,7 +74,7 @@ type RepairMissingPluginInstallsResult = {
 
 /** Repair missing installs inferred from the current OpenClaw config. */
 export async function repairMissingConfiguredPluginInstalls(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   onCapabilityConsent?: PluginCapabilityConsentHandler;
   /**
@@ -99,7 +99,7 @@ export async function repairMissingConfiguredPluginInstalls(params: {
 
 /** Repair missing installs for an explicit plugin/channel id set. */
 export async function repairMissingPluginInstallsForIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginIds: Iterable<string>;
   channelIds?: Iterable<string>;
   blockedPluginIds?: Iterable<string>;
@@ -131,7 +131,7 @@ export async function repairMissingPluginInstallsForIds(params: {
 }
 
 async function repairMissingPluginInstalls(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginIds: ReadonlySet<string>;
   channelIds: ReadonlySet<string>;
   blockedPluginIds?: ReadonlySet<string>;

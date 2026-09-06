@@ -2,7 +2,7 @@ import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQuerySync, iterateSqliteQuerySync } from "../../infra/kysely-sync.js";
 import {
   deferOpenClawAgentPostCommitPublication,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { hasSqliteSessionOwnerColumns } from "./session-accessor.sqlite-owner-projection.js";
 import {
@@ -16,7 +16,7 @@ import {
 } from "./session-accessor.sqlite-status.js";
 import type { SessionEntry } from "./types.js";
 
-type SessionEntryCacheDatabase = Pick<OpenClawAgentDatabase, "agentId" | "db">;
+type SessionEntryCacheDatabase = Pick<GrantedAgentDatabase, "agentId" | "db">;
 
 export type SessionEntryCacheSnapshot = {
   entries: Map<string, SessionEntry>;
@@ -121,7 +121,7 @@ function cacheValidityTokensEqual(
 
 /** Bracket one accessor-owned row write so its publication cannot hide earlier raw DML. */
 export function trackSessionEntryCacheWrite(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   write: () => void,
 ): SqliteSessionEntryCacheWriteGeneration | undefined {
   const before = sessionEntryCaches.has(database.db)
@@ -297,7 +297,7 @@ export function readSessionEntryCache(
   return next;
 }
 
-function invalidateTrackedCache(database: OpenClawAgentDatabase): void {
+function invalidateTrackedCache(database: GrantedAgentDatabase): void {
   const invalidate = () => {
     sessionEntryCaches.delete(database.db);
   };
@@ -312,7 +312,7 @@ function invalidateTrackedCache(database: OpenClawAgentDatabase): void {
   invalidate();
 }
 
-function publishTrackedCacheUpdate(database: OpenClawAgentDatabase, publish: () => void): void {
+function publishTrackedCacheUpdate(database: GrantedAgentDatabase, publish: () => void): void {
   if (deferOpenClawAgentPostCommitPublication(database, publish)) {
     return;
   }
@@ -325,7 +325,7 @@ function publishTrackedCacheUpdate(database: OpenClawAgentDatabase, publish: () 
 }
 
 function publishSqliteSessionEntryCacheUpsert(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   row: {
     current_session_id: string;
     entry_json: string;
@@ -392,7 +392,7 @@ function publishSqliteSessionEntryCacheUpsert(
 }
 
 export function publishSessionEntryCacheInvalidation(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   row?: {
     current_session_id: string;
     entry_json: string;

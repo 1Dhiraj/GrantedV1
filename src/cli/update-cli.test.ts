@@ -14,7 +14,7 @@ import { LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH } from "../../scripts/lib/pa
 import { createDeferred } from "../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { sanitizeTriageUpdateFailure } from "../commands/triage-update.js";
-import type { OpenClawConfig, ConfigFileSnapshot } from "../config/types.openclaw.js";
+import type { GrantedConfig, ConfigFileSnapshot } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import {
   GATEWAY_SERVICE_RUNTIME_PID_ENV,
@@ -75,7 +75,7 @@ const pathExists = vi.fn();
 const syncPluginsForUpdateChannel = vi.fn();
 const updateNpmInstalledPlugins = vi.fn();
 const loadInstalledPluginIndexInstallRecords = vi.fn(
-  async (params: { config?: OpenClawConfig; env?: NodeJS.ProcessEnv } = {}) =>
+  async (params: { config?: GrantedConfig; env?: NodeJS.ProcessEnv } = {}) =>
     params.config?.plugins?.installs ?? {},
 );
 const readPersistedInstalledPluginIndex = vi.fn(async () => null);
@@ -635,7 +635,7 @@ describe("update-cli", () => {
     return dir;
   };
 
-  const baseConfig = {} as OpenClawConfig;
+  const baseConfig = {} as GrantedConfig;
   const baseSnapshot: ConfigFileSnapshot = {
     path: "/tmp/openclaw-config.json",
     exists: true,
@@ -825,14 +825,14 @@ describe("update-cli", () => {
 
   const syncPluginCall = (index = 0) => {
     const calls = syncPluginsForUpdateChannel.mock.calls as unknown as Array<
-      [Record<string, unknown> & { channel?: string; config?: OpenClawConfig }]
+      [Record<string, unknown> & { channel?: string; config?: GrantedConfig }]
     >;
     return calls[index]?.[0];
   };
 
   const npmPluginUpdateCall = (index = 0) => {
     const calls = updateNpmInstalledPlugins.mock.calls as unknown as Array<
-      [Record<string, unknown> & { config?: OpenClawConfig; timeoutMs?: number }]
+      [Record<string, unknown> & { config?: GrantedConfig; timeoutMs?: number }]
     >;
     return calls[index]?.[0];
   };
@@ -845,7 +845,7 @@ describe("update-cli", () => {
   const setupConfigMutationWithRetryMock = () => {
     vi.mocked(mutateConfigFileWithRetry).mockImplementation(async (params) => {
       const snapshot = await readConfigFileSnapshot();
-      const nextConfig = structuredClone(snapshot.sourceConfig) as OpenClawConfig;
+      const nextConfig = structuredClone(snapshot.sourceConfig) as GrantedConfig;
       await params.mutate(nextConfig, {
         snapshot,
         previousHash: snapshot.hash ?? null,
@@ -1200,7 +1200,7 @@ describe("update-cli", () => {
   };
 
   const pluginSyncResult = (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     changed = false,
     overrides: {
       warnings?: string[];
@@ -1219,7 +1219,7 @@ describe("update-cli", () => {
     },
   });
 
-  const npmPluginUpdateResult = (config: OpenClawConfig) => ({
+  const npmPluginUpdateResult = (config: GrantedConfig) => ({
     changed: false,
     config,
     outcomes: [],
@@ -1253,7 +1253,7 @@ describe("update-cli", () => {
 
   const mockPostDoctorSnapshot = (
     configPath: string,
-    config: OpenClawConfig,
+    config: GrantedConfig,
     options: { preserveParsed?: boolean } = {},
   ) => {
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
@@ -1268,7 +1268,7 @@ describe("update-cli", () => {
   };
 
   const configSnapshot = (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     overrides: Partial<ConfigFileSnapshot> = {},
   ): ConfigFileSnapshot => ({
     ...baseSnapshot,
@@ -1280,12 +1280,12 @@ describe("update-cli", () => {
     ...overrides,
   });
 
-  const stableConfig = (overrides: Omit<OpenClawConfig, "update"> = {}): OpenClawConfig => ({
+  const stableConfig = (overrides: Omit<GrantedConfig, "update"> = {}): GrantedConfig => ({
     update: { channel: "stable" },
     ...overrides,
   });
 
-  const stableWhatsAppConfig = (): OpenClawConfig =>
+  const stableWhatsAppConfig = (): GrantedConfig =>
     stableConfig({
       channels: {
         whatsapp: { enabled: true, dmPolicy: "pairing" },
@@ -1378,9 +1378,9 @@ describe("update-cli", () => {
   };
 
   const setupPostCoreConfigFixture = async (params: {
-    backupConfig?: OpenClawConfig;
-    postDoctorConfig: OpenClawConfig;
-    preUpdateConfig?: OpenClawConfig;
+    backupConfig?: GrantedConfig;
+    postDoctorConfig: GrantedConfig;
+    preUpdateConfig?: GrantedConfig;
     snapshotSuffix?: ".bak" | ".pre-update";
     preserveParsed?: boolean;
   }) => {
@@ -2826,7 +2826,7 @@ describe("update-cli", () => {
           dmPolicy: "pairing",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let capturedRecords: unknown;
     let capturedSourceConfig: unknown;
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(
@@ -2875,7 +2875,7 @@ describe("update-cli", () => {
           msteams: { enabled: false },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(configSnapshot(preUpdateConfig));
     const pluginInstallRecords = {
       msteams: {
@@ -4083,7 +4083,7 @@ describe("update-cli", () => {
   it("keeps json update output successful when post-core plugin updates warn", async () => {
     updateNpmInstalledPlugins.mockImplementationOnce(
       async (params: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         onIntegrityDrift?: (drift: {
           pluginId: string;
           spec: string;
@@ -4162,7 +4162,7 @@ describe("update-cli", () => {
       "╰────────────────────────────────────────────────────────────────────────╯";
     updateNpmInstalledPlugins.mockImplementationOnce(
       async (params: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         logger?: { terminalLinks?: boolean; warn?: (message: string) => void };
       }) => {
         expect(params.logger?.terminalLinks).toBe(false);
@@ -4199,7 +4199,7 @@ describe("update-cli", () => {
     const coloredTrustWarning = `\u001b[33m${trustWarning}\u001b[39m`;
     updateNpmInstalledPlugins.mockImplementationOnce(
       async (params: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         logger?: { terminalLinks?: boolean; warn?: (message: string) => void };
       }) => {
         expect(params.logger?.terminalLinks).toBe(false);
@@ -4251,7 +4251,7 @@ describe("update-cli", () => {
   it("does not print duplicate failed ClawHub sync trust warnings in human post-core output", async () => {
     const trustWarning = clawHubSuspiciousPayloadWarning;
     syncPluginsForUpdateChannel.mockImplementationOnce(
-      async (params: { config: OpenClawConfig; logger?: { warn?: (message: string) => void } }) => {
+      async (params: { config: GrantedConfig; logger?: { warn?: (message: string) => void } }) => {
         params.logger?.warn?.(trustWarning);
         return pluginSyncResult(params.config, false, {
           warnings: [trustWarning],
@@ -4269,7 +4269,7 @@ describe("update-cli", () => {
   it("does not print duplicate ClawHub update trust warnings in human post-core output", async () => {
     const trustWarning = clawHubSuspiciousPayloadWarning;
     updateNpmInstalledPlugins.mockImplementationOnce(
-      async (params: { config: OpenClawConfig; logger?: { warn?: (message: string) => void } }) => {
+      async (params: { config: GrantedConfig; logger?: { warn?: (message: string) => void } }) => {
         params.logger?.warn?.(trustWarning);
         return {
           changed: false,
@@ -4307,7 +4307,7 @@ describe("update-cli", () => {
           demo: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(configSnapshot(config));
     loadInstalledPluginIndexInstallRecords.mockResolvedValue({
       demo: {
@@ -5055,11 +5055,11 @@ describe("update-cli", () => {
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
       ...baseSnapshot,
       valid: false,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
     vi.mocked(readSourceConfigBestEffort).mockResolvedValue({
       update: { channel: "dev" },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await updateStatusCommand({ json: true });
 
@@ -5165,7 +5165,7 @@ describe("update-cli", () => {
       if (storedChannel) {
         vi.mocked(readConfigFileSnapshot).mockResolvedValue({
           ...baseSnapshot,
-          config: { update: { channel: storedChannel } } as OpenClawConfig,
+          config: { update: { channel: storedChannel } } as GrantedConfig,
         });
       }
 
@@ -5219,7 +5219,7 @@ describe("update-cli", () => {
     await mockPackageInstallAtCaseDir();
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
       ...baseSnapshot,
-      config: { update: { channel: "beta" } } as OpenClawConfig,
+      config: { update: { channel: "beta" } } as GrantedConfig,
     });
     primeNpmChannelTag("latest", "1.2.3-1");
     await updateCommand({});
@@ -5249,7 +5249,7 @@ describe("update-cli", () => {
   it("uses the same exact resolver for a bare update with stored extended-stable", async () => {
     await mockPackageInstallAtCaseDir();
     readPackageVersion.mockResolvedValue("2026.6.33");
-    const config = { update: { channel: "extended-stable" } } as OpenClawConfig;
+    const config = { update: { channel: "extended-stable" } } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(configSnapshot(config));
 
     await updateCommand({ yes: true, restart: false });
@@ -5286,7 +5286,7 @@ describe("update-cli", () => {
 
   it("fails a stored extended-stable update before launchd cleanup when resolution fails", async () => {
     await mockPackageInstallAtCaseDir();
-    const config = { update: { channel: "extended-stable" } } as OpenClawConfig;
+    const config = { update: { channel: "extended-stable" } } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(configSnapshot(config));
     vi.mocked(resolveExtendedStablePackage).mockResolvedValueOnce({
       status: "failed",
@@ -5309,7 +5309,7 @@ describe("update-cli", () => {
   ])("rejects --tag for an $name extended-stable channel", async ({ explicit }) => {
     await mockPackageInstallAtCaseDir();
     if (!explicit) {
-      const config = { update: { channel: "extended-stable" } } as OpenClawConfig;
+      const config = { update: { channel: "extended-stable" } } as GrantedConfig;
       vi.mocked(readConfigFileSnapshot).mockResolvedValue(configSnapshot(config));
     }
 
@@ -8195,7 +8195,7 @@ describe("update-cli", () => {
           streaming: "block",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const migratedConfig = {
       channels: {
         slack: {
@@ -8210,7 +8210,7 @@ describe("update-cli", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot)
       .mockResolvedValueOnce(
         configSnapshot(legacyConfig, {
@@ -8293,7 +8293,7 @@ describe("update-cli", () => {
           nativeStreaming: false,
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValueOnce(
       configSnapshot(legacyConfigWithInclude, {
         valid: false,
@@ -8328,7 +8328,7 @@ describe("update-cli", () => {
           nativeStreaming: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot).mockResolvedValueOnce(
       configSnapshot(legacyConfig, {
         valid: false,
@@ -8394,11 +8394,11 @@ describe("update-cli", () => {
 
   it("refreshes post-doctor config before post-update plugin sync", async () => {
     await mockPackageInstallAtCaseDir();
-    const preUpdateConfig = { update: { channel: "stable" } } as OpenClawConfig;
+    const preUpdateConfig = { update: { channel: "stable" } } as GrantedConfig;
     const postDoctorConfig = {
       update: { channel: "stable" },
       meta: { lastTouchedVersion: "2026.5.14" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.mocked(readConfigFileSnapshot)
       .mockResolvedValueOnce({
         ...baseSnapshot,
@@ -8431,12 +8431,12 @@ describe("update-cli", () => {
     await updateCommand({ yes: true });
 
     const syncConfig = syncPluginCall()?.config as
-      | (OpenClawConfig & { meta?: { lastTouchedVersion?: string } })
+      | (GrantedConfig & { meta?: { lastTouchedVersion?: string } })
       | undefined;
     const lastWrite = lastReplaceConfigCall() as
       | {
           baseHash?: string;
-          nextConfig?: OpenClawConfig & { meta?: { lastTouchedVersion?: string } };
+          nextConfig?: GrantedConfig & { meta?: { lastTouchedVersion?: string } };
         }
       | undefined;
     expect(syncConfig?.meta?.lastTouchedVersion).toBe("2026.5.14");
@@ -8456,12 +8456,12 @@ describe("update-cli", () => {
     await runPostCoreUpdate();
 
     const syncConfig = syncPluginCall()?.config as
-      | (OpenClawConfig & { meta?: { lastTouchedVersion?: string } })
+      | (GrantedConfig & { meta?: { lastTouchedVersion?: string } })
       | undefined;
     const lastWrite = lastReplaceConfigCall() as
       | {
           baseHash?: string;
-          nextConfig?: OpenClawConfig & {
+          nextConfig?: GrantedConfig & {
             meta?: { lastTouchedVersion?: string };
             channels?: { whatsapp?: { enabled?: boolean; dmPolicy?: string } };
           };
@@ -8492,7 +8492,7 @@ describe("update-cli", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorConfig = {
       update: { channel: "stable" },
       channels: {
@@ -8505,13 +8505,13 @@ describe("update-cli", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await setupPostCoreConfigFixture({ preUpdateConfig, postDoctorConfig });
 
     await runPostCoreUpdate();
 
     const syncConfig = syncPluginCall()?.config as
-      | (OpenClawConfig & {
+      | (GrantedConfig & {
           channels?: {
             modelByChannel?: Record<string, Record<string, string>>;
           };
@@ -8519,7 +8519,7 @@ describe("update-cli", () => {
       | undefined;
     const lastWrite = lastReplaceConfigCall() as
       | {
-          nextConfig?: OpenClawConfig & {
+          nextConfig?: GrantedConfig & {
             channels?: {
               modelByChannel?: Record<string, Record<string, string>>;
             };
@@ -8539,7 +8539,7 @@ describe("update-cli", () => {
   it.each([
     {
       name: "does not restore stale backup channels when current pre-update snapshot has none",
-      prepare: async (configPath: string, preUpdateConfig: OpenClawConfig) => {
+      prepare: async (configPath: string, preUpdateConfig: GrantedConfig) => {
         await writeJsonFixture(`${configPath}.pre-update`, stableConfig());
         await writeJsonFixture(`${configPath}.bak`, preUpdateConfig);
         return {};
@@ -8547,7 +8547,7 @@ describe("update-cli", () => {
     },
     {
       name: "ignores pre-update channel snapshots older than the current update attempt",
-      prepare: async (configPath: string, preUpdateConfig: OpenClawConfig) => {
+      prepare: async (configPath: string, preUpdateConfig: GrantedConfig) => {
         const updateStartedAtMs = Date.now();
         const staleTime = new Date(updateStartedAtMs - 60_000);
         for (const suffix of [".pre-update", ".bak"]) {
@@ -8560,7 +8560,7 @@ describe("update-cli", () => {
     },
     {
       name: "ignores disk fallback snapshots when the update attempt start is unknown",
-      prepare: async (configPath: string, preUpdateConfig: OpenClawConfig) => {
+      prepare: async (configPath: string, preUpdateConfig: GrantedConfig) => {
         for (const suffix of [".pre-update", ".bak"]) {
           await writeJsonFixture(`${configPath}${suffix}`, preUpdateConfig);
         }
@@ -8574,7 +8574,7 @@ describe("update-cli", () => {
       prepare: async (configPath: string) => {
         const staleConfig = {
           channels: { whatsapp: { enabled: true } },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const snapshotPath = `${configPath}.pre-update`;
         await writeJsonFixture(snapshotPath, staleConfig);
         const staleTime = new Date(Date.now() - 7 * 60 * 60 * 1000);
@@ -8642,7 +8642,7 @@ describe("update-cli", () => {
           token: "resolved-secret",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const authoredPreUpdateConfig = {
       update: { channel: "stable" },
       channels: {
@@ -8651,11 +8651,11 @@ describe("update-cli", () => {
           token: "${WHATSAPP_TOKEN}",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorConfig = {
       update: { channel: "stable" },
       meta: { lastTouchedVersion: "2026.5.14" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await fs.mkdir(tempDir, { recursive: true });
     await writeJsonFixture(sourceConfigPath, {
       sourceConfig: resolvedPreUpdateConfig,
@@ -8673,11 +8673,11 @@ describe("update-cli", () => {
     await runPostCoreUpdate({ GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: sourceConfigPath });
 
     const syncConfig = syncPluginCall()?.config as
-      | (OpenClawConfig & { channels?: { whatsapp?: { token?: string } } })
+      | (GrantedConfig & { channels?: { whatsapp?: { token?: string } } })
       | undefined;
     const lastWrite = lastReplaceConfigCall() as
       | {
-          nextConfig?: OpenClawConfig & {
+          nextConfig?: GrantedConfig & {
             channels?: { whatsapp?: { token?: string } };
           };
         }
@@ -8699,11 +8699,11 @@ describe("update-cli", () => {
     const preUpdateConfig = {
       update: { channel: "stable" },
       channels: { $include: "./channels.json5" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorConfig = {
       update: { channel: "stable" },
       channels: {},
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await fs.mkdir(tempDir, { recursive: true });
     await writeJsonFixture(channelsPath, includedChannels);
     await writeJsonFixture(`${configPath}.bak`, preUpdateConfig);
@@ -8714,11 +8714,11 @@ describe("update-cli", () => {
     await runPostCoreUpdate({ WHATSAPP_TOKEN: "resolved-token" });
 
     const syncConfig = syncPluginCall()?.config as
-      | (OpenClawConfig & { channels?: { whatsapp?: { token?: string } } })
+      | (GrantedConfig & { channels?: { whatsapp?: { token?: string } } })
       | undefined;
     const lastWrite = lastReplaceConfigCall() as
       | {
-          nextConfig?: OpenClawConfig & {
+          nextConfig?: GrantedConfig & {
             channels?: { $include?: string };
           };
         }
@@ -8738,7 +8738,7 @@ describe("update-cli", () => {
     } as const;
     const sourceConfig = {
       plugins: {},
-    } as OpenClawConfig;
+    } as GrantedConfig;
     loadInstalledPluginIndexInstallRecords.mockResolvedValue(pluginInstallRecords);
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
       ...baseSnapshot,
@@ -8756,7 +8756,7 @@ describe("update-cli", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     syncPluginsForUpdateChannel.mockResolvedValue(pluginSyncResult(sourceConfig));
     updateNpmInstalledPlugins.mockResolvedValue(npmPluginUpdateResult(sourceConfig));
@@ -8794,10 +8794,10 @@ describe("update-cli", () => {
       vi.mocked(readConfigFileSnapshot).mockResolvedValue({
         ...baseSnapshot,
         parsed: { update: { channel: "stable" } },
-        resolved: { update: { channel: "stable" } } as OpenClawConfig,
-        sourceConfig: { update: { channel: "stable" } } as OpenClawConfig,
-        runtimeConfig: { update: { channel: "stable" } } as OpenClawConfig,
-        config: { update: { channel: "stable" } } as OpenClawConfig,
+        resolved: { update: { channel: "stable" } } as GrantedConfig,
+        sourceConfig: { update: { channel: "stable" } } as GrantedConfig,
+        runtimeConfig: { update: { channel: "stable" } } as GrantedConfig,
+        config: { update: { channel: "stable" } } as GrantedConfig,
       });
       vi.mocked(runGatewayUpdate).mockResolvedValue(
         makeOkUpdateResult({
@@ -9907,11 +9907,11 @@ describe("update-cli", () => {
     const preDoctorConfig = {
       update: { channel: "stable" },
       plugins: { entries: { pre: { enabled: true } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorConfig = {
       update: { channel: "beta" },
       plugins: { entries: { post: { enabled: true } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const preDoctorSnapshot = configSnapshot(preDoctorConfig, {
       parsed: baseSnapshot.parsed,
       hash: "pre-doctor",
@@ -9933,9 +9933,8 @@ describe("update-cli", () => {
       return { stdout: "", stderr: "" };
     });
     loadInstalledPluginIndexInstallRecords.mockResolvedValueOnce(postDoctorRecords);
-    syncPluginsForUpdateChannel.mockImplementationOnce(
-      async (params: { config?: OpenClawConfig }) =>
-        pluginSyncResult(params.config ?? baseConfig, true),
+    syncPluginsForUpdateChannel.mockImplementationOnce(async (params: { config?: GrantedConfig }) =>
+      pluginSyncResult(params.config ?? baseConfig, true),
     );
 
     await updateFinalizeCommand({ json: true, timeout: "9", restart: false });
@@ -9992,10 +9991,10 @@ describe("update-cli", () => {
           dmPolicy: "pairing",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorConfig = {
       meta: { lastTouchedVersion: "2026.6.18" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const postDoctorSnapshot = configSnapshot(postDoctorConfig, {
       parsed: baseSnapshot.parsed,
       hash: "post-doctor",
@@ -10038,8 +10037,8 @@ describe("update-cli", () => {
 
   it("updateFinalizeCommand reapplies requested channel against post-doctor config", async () => {
     vi.mocked(resolveGatewayInstallEntrypoint).mockResolvedValueOnce(FRESH_POST_UPDATE_ENTRYPOINT);
-    const preDoctorConfig = { update: { channel: "stable" } } as OpenClawConfig;
-    const postDoctorConfig = { update: { channel: "beta" } } as OpenClawConfig;
+    const preDoctorConfig = { update: { channel: "stable" } } as GrantedConfig;
+    const postDoctorConfig = { update: { channel: "beta" } } as GrantedConfig;
     const preDoctorSnapshot = configSnapshot(preDoctorConfig, {
       parsed: baseSnapshot.parsed,
       hash: "pre-doctor",
@@ -10068,7 +10067,7 @@ describe("update-cli", () => {
 
   it("updateFinalizeCommand converges on the effective channel from env without persisting update.channel", async () => {
     vi.mocked(resolveGatewayInstallEntrypoint).mockResolvedValueOnce(FRESH_POST_UPDATE_ENTRYPOINT);
-    const noChannelConfig = {} as OpenClawConfig;
+    const noChannelConfig = {} as GrantedConfig;
     const noChannelSnapshot = configSnapshot(noChannelConfig, {
       parsed: baseSnapshot.parsed,
       hash: "no-channel",

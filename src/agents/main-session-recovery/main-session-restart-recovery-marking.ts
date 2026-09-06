@@ -5,7 +5,7 @@ import type {
   RestartRecoveryRun,
 } from "../../config/sessions.js";
 import { applySessionEntryReplacements } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RestartRecoveryCandidate } from "../../gateway/chat-abort.js";
 import { getAgentEventLifecycleGeneration } from "../../infra/agent-events.js";
 import { listAgentRunsForSession } from "../../infra/agent-run-registry.js";
@@ -97,8 +97,8 @@ async function markRecoveryStore(params: {
 }
 
 export async function markRestartAbortedMainSessions(params: {
-  cfg?: OpenClawConfig;
-  additionalCfgs?: Iterable<OpenClawConfig | undefined>;
+  cfg?: GrantedConfig;
+  additionalCfgs?: Iterable<GrantedConfig | undefined>;
   stateDir?: string;
   activeRuns: Iterable<RestartRecoveryCandidate>;
   isActiveRun?: (run: RestartRecoveryCandidate) => boolean;
@@ -195,7 +195,7 @@ export async function markRestartAbortedMainSessions(params: {
 }
 
 export async function markStartupOrphanedMainSessionsForRecovery(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   stateDir?: string;
   activeSessionIds?: Iterable<string>;
   activeSessionKeys?: Iterable<string>;

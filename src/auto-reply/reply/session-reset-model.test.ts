@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
 import { buildModelAliasIndex } from "../../agents/model-selection-shared.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../../config/sessions/store-writer-state.js";
@@ -28,7 +28,7 @@ const modelCatalog: ModelCatalogEntry[] = [
 ];
 
 function createResetFixture(entry: Partial<SessionEntry> = {}) {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
   const aliasIndex: ModelAliasIndex = { byAlias: new Map(), byKey: new Map() };
   const sessionEntry: SessionEntry = {
     sessionId: "s1",

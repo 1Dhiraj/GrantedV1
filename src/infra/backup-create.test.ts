@@ -23,10 +23,7 @@ import {
   sanitizeOpenClawGlobalStateSnapshot,
   sanitizeOpenClawStateLeaseRows,
 } from "../state/openclaw-state-snapshot-sanitizer.js";
-import {
-  type OpenClawTestState,
-  withOpenClawTestState,
-} from "../test-utils/openclaw-test-state.js";
+import { type GrantedTestState, withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import {
   createBackupArchive,
   formatBackupCreateSummary,
@@ -162,10 +159,7 @@ function createOwnedSqliteDatabase(params: {
   }
 }
 
-function resolveCanonicalTestSqlitePath(
-  state: OpenClawTestState,
-  kind: "agent" | "global",
-): string {
+function resolveCanonicalTestSqlitePath(state: GrantedTestState, kind: "agent" | "global"): string {
   return kind === "global"
     ? resolveOpenClawStateSqlitePath(state.env)
     : state.statePath("agents", "main", "agent", "openclaw-agent.sqlite");

@@ -2,7 +2,7 @@ import type {
   AgentHarnessSessionForkParams,
   AgentHarnessSessionForkResult,
 } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { CodexSessionCatalogControlFactory } from "../session-catalog-types.js";
@@ -34,7 +34,7 @@ export async function forkCodexUpstreamSession(
     bindingStore: CodexAppServerBindingStore;
     controlFactory: CodexSessionCatalogControlFactory;
     harnessRuntimeId: string;
-    resolveConfig?: () => OpenClawConfig | undefined;
+    resolveConfig?: () => GrantedConfig | undefined;
     runtime: PluginRuntime;
   },
 ): Promise<AgentHarnessSessionForkResult> {

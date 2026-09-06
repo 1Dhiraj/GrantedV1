@@ -4,7 +4,7 @@
 
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetCommandQueueStateForTest } from "../../process/command-queue.test-support.js";
 import { closeOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
 import { SystemAgentChatEngine } from "../../system-agent/chat-engine.js";
@@ -44,7 +44,7 @@ const PRE_RESET_TURNS = [
   { role: "assistant" as const, text: "pre-reset answer", at: 2 },
 ];
 
-const verifiedConfig: OpenClawConfig = {
+const verifiedConfig: GrantedConfig = {
   agents: { defaults: { model: "openai/gpt-5.5@openai:verified" } },
   auth: { profiles: { "openai:verified": { provider: "openai", mode: "api_key" } } },
 };

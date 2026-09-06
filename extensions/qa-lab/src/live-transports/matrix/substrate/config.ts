@@ -1,5 +1,5 @@
 // Qa Lab Matrix helper module supports config behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   isRecord,
   normalizeStringEntries,
@@ -44,10 +44,10 @@ type MatrixQaToolConfigOverrides = {
   deny?: string[];
 };
 type MatrixQaAudioConfigOverrides = NonNullable<
-  NonNullable<NonNullable<OpenClawConfig["tools"]>["media"]>["audio"]
+  NonNullable<NonNullable<GrantedConfig["tools"]>["media"]>["audio"]
 >;
 type MatrixQaMediaModelsOverrides = NonNullable<
-  NonNullable<NonNullable<OpenClawConfig["tools"]>["media"]>["models"]
+  NonNullable<NonNullable<GrantedConfig["tools"]>["media"]>["models"]
 >;
 type MatrixQaGroupConfigOverrides = {
   allowBots?: MatrixQaAllowBotsMode;
@@ -555,9 +555,9 @@ function buildMatrixQaConfigSnapshot(params: {
 }
 
 export function buildMatrixQaConfig(
-  baselineCfg: OpenClawConfig,
+  baselineCfg: GrantedConfig,
   params: {
-    currentConfig?: OpenClawConfig;
+    currentConfig?: GrantedConfig;
     driverAccessToken?: string;
     driverUserId: string;
     homeserver: string;
@@ -570,7 +570,7 @@ export function buildMatrixQaConfig(
     sutUserId: string;
     topology: MatrixQaProvisionedTopology;
   },
-): OpenClawConfig {
+): GrantedConfig {
   const currentCfg = params.currentConfig ?? baselineCfg;
   const pluginAllow = uniqueStrings([...(currentCfg.plugins?.allow ?? []), "matrix"]);
   const snapshot = buildMatrixQaConfigSnapshot({
@@ -690,12 +690,12 @@ export function buildMatrixQaConfig(
   Object.assign(matrixAccounts, configuredBotAccounts);
 
   const config = structuredClone(currentCfg);
-  config.approvals = approvals as OpenClawConfig["approvals"];
+  config.approvals = approvals as GrantedConfig["approvals"];
   config.agents = {
     ...currentCfg.agents,
-    defaults: agentDefaults as NonNullable<OpenClawConfig["agents"]>["defaults"],
+    defaults: agentDefaults as NonNullable<GrantedConfig["agents"]>["defaults"],
   };
-  config.tools = tools as OpenClawConfig["tools"];
+  config.tools = tools as GrantedConfig["tools"];
   config.plugins = {
     ...currentCfg.plugins,
     allow: pluginAllow,
@@ -706,7 +706,7 @@ export function buildMatrixQaConfig(
   };
   config.messages = {
     ...currentCfg.messages,
-    groupChat: groupChat as NonNullable<OpenClawConfig["messages"]>["groupChat"],
+    groupChat: groupChat as NonNullable<GrantedConfig["messages"]>["groupChat"],
   };
   config.channels = {
     ...currentCfg.channels,

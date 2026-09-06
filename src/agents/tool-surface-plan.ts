@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getActiveAgentRingZeroTools } from "./agent-tools.ring-zero-context.js";
 import {
   applyCodeModeCatalog,
@@ -15,7 +15,7 @@ import {
 } from "./tool-search.js";
 
 type AgentToolSurfacePlanParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   forceDirectMessageTool: boolean;
@@ -85,7 +85,7 @@ type ApplyAgentToolSurfaceCatalogParams = Omit<CodeModeCatalogParams, "directToo
   /** Required key (may be undefined for a config-less run): the tool-search
    * branches resolve their mode from this, so omitting it would silently
    * downgrade the run to schema defaults. */
-  toolSearchRuntimeConfig: OpenClawConfig | undefined;
+  toolSearchRuntimeConfig: GrantedConfig | undefined;
   codeModeControlsEnabled: boolean;
   toolSearchConfig: ToolSearchConfig;
   forceDirectMessageTool: boolean;

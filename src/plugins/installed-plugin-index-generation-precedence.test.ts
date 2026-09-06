@@ -237,7 +237,7 @@ describe("managed npm generation-dir loader precedence", () => {
       expect.stringContaining("without an authoritative active path"),
       expect.objectContaining({
         code: "GRANTED_PLUGIN_INSTALL_RECOVERY_FALLBACK",
-        type: "OpenClawPluginRecoveryWarning",
+        type: "GrantedPluginRecoveryWarning",
       }),
     );
   });

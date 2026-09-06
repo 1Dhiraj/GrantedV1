@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { resolveDefaultAgentWorkspaceDir } from "../../src/agents/workspace-default.js";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import { hasActiveStartupMigrationLease } from "../../src/infra/startup-migration-checkpoint.js";
 import { writePersistedInstalledPluginIndexSync } from "../../src/plugins/installed-plugin-index-store-write.js";
 import { readPersistedInstalledPluginIndexSync } from "../../src/plugins/installed-plugin-index-store.js";
@@ -13,10 +13,10 @@ import { writeManagedNpmPlugin } from "../../src/plugins/test-helpers/managed-np
 import { closeOpenClawStateDatabaseForTest } from "../../src/state/openclaw-state-db.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../helpers/openclaw-test-instance.js";
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 
 afterEach(async () => {
   await Promise.all(instances.splice(0).map((instance) => instance.cleanup()));
@@ -60,7 +60,7 @@ describe("Doctor plugin index persistence built CLI proof", () => {
     instances.push(instance);
     const workspaceDir = resolveDefaultAgentWorkspaceDir(instance.env);
 
-    const config = JSON.parse(fs.readFileSync(instance.configPath, "utf8")) as OpenClawConfig;
+    const config = JSON.parse(fs.readFileSync(instance.configPath, "utf8")) as GrantedConfig;
     const pluginId = "legacy-doctor-index";
     const pluginDir = writeManagedNpmPlugin({
       stateDir: instance.stateDir,

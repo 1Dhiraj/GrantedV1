@@ -5,7 +5,7 @@
  */
 
 import type { PrepareAssistantTranscriptMessage } from "../config/sessions/transcript-assistant-delivery.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
 import {
   applyInputProvenanceToUserMessage,
@@ -61,7 +61,7 @@ export function guardSessionManager(
     runId?: string;
     prepareAssistantTranscriptMessage?: PrepareAssistantTranscriptMessage;
     sessionKey?: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     contextWindowTokens?: number;
     inputProvenance?: InputProvenance;
     allowSyntheticToolResults?: boolean;

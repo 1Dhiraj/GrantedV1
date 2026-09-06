@@ -1,4 +1,4 @@
-import type { OpenClawPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { createCuaComputerNodeInvokePolicy } from "./node-invoke-policy.js";
 
@@ -92,7 +92,7 @@ describe("cua-computer node invoke policy", () => {
 
     const invokeNode = vi.fn(async () => ({ ok: true as const }));
     await expect(
-      policy.handle({ invokeNode } as unknown as OpenClawPluginNodeInvokePolicyContext),
+      policy.handle({ invokeNode } as unknown as GrantedPluginNodeInvokePolicyContext),
     ).resolves.toMatchObject({ ok: false, code: "COMPUTER_RISK_UNCLASSIFIED" });
     expect(invokeNode).not.toHaveBeenCalled();
   });

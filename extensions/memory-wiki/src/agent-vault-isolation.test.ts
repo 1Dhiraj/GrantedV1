@@ -6,11 +6,11 @@ import {
   clearMemoryPluginState,
   registerMemoryCorpusSupplement,
 } from "openclaw/plugin-sdk/memory-host-core";
-import type { AnyAgentTool, OpenClawPluginToolFactory } from "openclaw/plugin-sdk/plugin-entry";
+import type { AnyAgentTool, GrantedPluginToolFactory } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { describe, expect, it } from "vitest";
 import memoryCorePlugin from "../../memory-core/index.js";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import {
   resolveMemoryWikiAgentConfig,
   resolveMemoryWikiConfig,
@@ -34,9 +34,9 @@ function textContent(result: { content: Array<{ type: string; text?: string }> }
 }
 
 function registerMemoryCoreToolFactories(
-  appConfig: OpenClawConfig,
-): Map<string, OpenClawPluginToolFactory> {
-  const factories = new Map<string, OpenClawPluginToolFactory>();
+  appConfig: GrantedConfig,
+): Map<string, GrantedPluginToolFactory> {
+  const factories = new Map<string, GrantedPluginToolFactory>();
   memoryCorePlugin.register(
     createTestPluginApi({
       id: "memory-core",
@@ -56,9 +56,9 @@ function registerMemoryCoreToolFactories(
 }
 
 function createMemoryCoreTool(params: {
-  factories: Map<string, OpenClawPluginToolFactory>;
+  factories: Map<string, GrantedPluginToolFactory>;
   name: "memory_search" | "memory_get";
-  appConfig: OpenClawConfig;
+  appConfig: GrantedConfig;
   agentId: string;
 }): AnyAgentTool {
   const factory = params.factories.get(params.name);
@@ -87,7 +87,7 @@ describe("agent-scoped memory-wiki tools", () => {
       agents: {
         list: [{ id: "support", default: true }, { id: "marketing" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const baseConfig = resolveMemoryWikiConfig({
       vault: { scope: "agent", path: vaultParent },
       search: { backend: "local", corpus: "wiki" },

@@ -9,7 +9,7 @@ import {
   resolveSessionRuntimeOverrideForProvider,
 } from "../../agents/session-runtime-compat.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 type ModelRuntimeDirectiveResolution =
   | { kind: "unchanged" }
@@ -21,7 +21,7 @@ type ModelRuntimeDirectiveResolution =
 export function resolveModelRuntimeDirective(params: {
   rawRuntime?: string;
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionEntry?: Pick<SessionEntry, "agentRuntimeOverride">;
 }): ModelRuntimeDirectiveResolution {
   const rawRuntime = params.rawRuntime?.trim();

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -24,7 +24,7 @@ const tempDirs = createTrackedTempDirs();
 const APNS_DEVICE_FIELD = "token";
 const APNS_DEVICE_IDENTIFIER = "ABCD1234ABCD1234ABCD1234ABCD1234";
 
-type TestDatabase = Pick<OpenClawStateKyselyDatabase, "apns_registrations">;
+type TestDatabase = Pick<GrantedStateKyselyDatabase, "apns_registrations">;
 
 async function makeTempDir(): Promise<string> {
   return await tempDirs.make("openclaw-push-apns-store-test-");

@@ -7,7 +7,7 @@ import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import type { Command as CommanderCommand, Option as CommanderOption } from "commander";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { resolveGatewayPort, resolveStateDir } from "../config/paths.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import { isLoopbackAddress, isSecureWebSocketUrl } from "../gateway/net.js";
 import { normalizeWebSocketProtocol } from "../gateway/websocket-protocol.js";
 import {
@@ -308,7 +308,7 @@ type BareRootLaunchTarget =
   | {
       kind: "remote-gateway-inference";
       target: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         gatewayUrl: string;
         token?: string;
         password?: string;
@@ -319,7 +319,7 @@ type BareRootLaunchTarget =
   | {
       kind: "tui";
       local: false;
-      config: OpenClawConfig;
+      config: GrantedConfig;
       gatewayUrl: string;
       token?: string;
       password?: string;
@@ -344,7 +344,7 @@ async function resolveBareRootLaunchTarget(argv: string[]): Promise<BareRootLaun
 }
 
 async function resolveConfiguredTuiLaunchTarget(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: { hasConfiguredGateway: boolean },
 ): Promise<BareRootLaunchTarget> {
   const gatewayResolution = await resolveReachableGateway(config, options);
@@ -439,7 +439,7 @@ function toReachableGateway(target: GatewayProbeTarget, auth: GatewayProbeAuth):
 }
 
 async function resolveReachableGateway(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: { hasConfiguredGateway: boolean },
 ): Promise<GatewayResolution> {
   const { targets, auth } = await resolveGatewayProbePlan(config);
@@ -504,7 +504,7 @@ async function resolveReachableGateway(
 }
 
 async function resolveGatewayProbePlan(
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<{ targets: GatewayProbeTarget[]; auth: GatewayProbeAuth }> {
   const remoteUrl = normalizeOptionalString(config.gateway?.remote?.url);
   if (normalizeOptionalString(config.gateway?.mode) === "remote" && remoteUrl) {
@@ -576,7 +576,7 @@ function isLoopbackGatewayHost(hostname: string): boolean {
 }
 
 async function resolveLocalGatewayProbeTargets(
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<{ targets: GatewayProbeTarget[]; auth: GatewayProbeAuth }> {
   const [
     { resolveControlUiLinks },
@@ -845,7 +845,7 @@ function resolveBuiltInMachineOutput(argv: string[]): boolean {
 
 async function resolvePluginMachineOutput(params: {
   argv: string[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   session?: PluginCliLoadSession;
 }): Promise<boolean> {
   const { primary } = resolveCliArgvInvocation(params.argv);
@@ -866,7 +866,7 @@ async function resolvePluginMachineOutput(params: {
 
 async function isPluginCliRoot(params: {
   primary: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   session?: PluginCliLoadSession;
 }): Promise<boolean | null> {
   try {
@@ -883,7 +883,7 @@ async function isPluginCliRoot(params: {
   }
 }
 
-function createAllowlistAgnosticCliLookupConfig(config: OpenClawConfig): OpenClawConfig {
+function createAllowlistAgnosticCliLookupConfig(config: GrantedConfig): GrantedConfig {
   if (!Array.isArray(config.plugins?.allow) || config.plugins.allow.length === 0) {
     return config;
   }
@@ -898,7 +898,7 @@ function createAllowlistAgnosticCliLookupConfig(config: OpenClawConfig): OpenCla
 
 async function resolveCliCommandSurfaceOwner(params: {
   primary: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<string | undefined> {
   const { resolveManifestCliCommandSurfaceOwner } = await loadManifestCommandAliasesRuntimeModule();
   const manifestOwner = resolveManifestCliCommandSurfaceOwner({
@@ -939,7 +939,7 @@ function resolveUnownedCliPrimaryCandidate(argv: string[]): string | null {
 
 async function resolveUnownedCliPrimary(params: {
   argv: string[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   session?: PluginCliLoadSession;
 }): Promise<string | null> {
   const primary = resolveUnownedCliPrimaryCandidate(params.argv);
@@ -960,7 +960,7 @@ async function resolveUnownedCliPrimary(params: {
 async function resolveUnownedCliPrimaryError(params: {
   argv: string[];
   primary: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<Error> {
   const { resolveManifestCommandAliasOwner, resolveManifestToolOwner } =
     await loadManifestCommandAliasesRuntimeModule();
@@ -1202,7 +1202,7 @@ async function runCliWithPreparedOutputMode(
   let onSigint: (() => void) | null = null;
   let onExit: (() => void) | null = null;
   let unregisterProxySignalExitBarrier: (() => void) | null = null;
-  let bestEffortConfigPromise: Promise<OpenClawConfig> | null = null;
+  let bestEffortConfigPromise: Promise<GrantedConfig> | null = null;
   let pluginCliSession: PluginCliLoadSession | undefined;
   const getPluginCliSession = async () => {
     pluginCliSession ??= (await loadCliRegistryLoaderModule()).createPluginCliLoadSession(
@@ -1220,7 +1220,7 @@ async function runCliWithPreparedOutputMode(
   const useSourceOnlyBestEffortConfig =
     normalizedInvocation.primary === "update" ||
     (normalizedInvocation.primary === "doctor" && hasFlag(normalizedArgv, "--lint"));
-  const readBestEffortCliConfig = async (): Promise<OpenClawConfig> => {
+  const readBestEffortCliConfig = async (): Promise<GrantedConfig> => {
     if (!bestEffortConfigPromise) {
       bestEffortConfigPromise = import("../config/io.js").then(async (configIo) => {
         if (useSourceOnlyBestEffortConfig) {
@@ -1291,7 +1291,7 @@ async function runCliWithPreparedOutputMode(
     process.once("SIGINT", onSigint);
     process.once("exit", onExit);
   };
-  const replaceStartedProxy = async (config: OpenClawConfig["proxy"]) => {
+  const replaceStartedProxy = async (config: GrantedConfig["proxy"]) => {
     await stopStartedProxy();
     const { startProxy } = await loadProxyLifecycleModule();
     proxyHandle = await startProxy(config);

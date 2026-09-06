@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildCopilotIdeHeaders } from "openclaw/plugin-sdk/provider-auth";
 import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
 
@@ -8,7 +8,7 @@ const COPILOT_RUNTIME_INTEGRATION_ID = "copilot-developer-cli";
 
 /** Keep catalog and inference identity aligned without forwarding unrelated configured secrets. */
 export function buildCopilotRuntimeHeaders(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   headers?: Record<string, string>;
 }): Record<string, string> {
   const provider = params?.config?.models?.providers?.["github-copilot"];

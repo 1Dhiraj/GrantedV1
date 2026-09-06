@@ -12,7 +12,7 @@ import { createSubsystemLogger } from "../logging/subsystem.js";
 import { collectConfigServiceEnvVars } from "./config-env-vars.js";
 import { ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS_ENV } from "./future-version-guard.js";
 import { resolveStateDir } from "./paths.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 /** Maximum bytes to read from the state-directory .env file. */
 const MAX_STATE_DIR_DOTENV_BYTES = 1024 * 1024;
@@ -143,7 +143,7 @@ type DurableServiceEnvVarSources = {
 /** Collects durable service env vars from state-dir `.env` and config, preserving each source. */
 export function collectDurableServiceEnvVarSources(params: {
   env: Record<string, string | undefined>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): DurableServiceEnvVarSources {
   const stateDirDotEnvEnvironment = readStateDirDotEnvVars(params.env);
   const configEnvironment = collectConfigServiceEnvVars(params.config);
@@ -167,7 +167,7 @@ export function collectDurableServiceEnvVarSources(params: {
  */
 export function collectDurableServiceEnvVars(params: {
   env: Record<string, string | undefined>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Record<string, string> {
   return collectDurableServiceEnvVarSources(params).durableEnvironment;
 }

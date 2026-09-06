@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import type { AnyMessageContent, MiscMessageGenerationOptions, WAMessage, WASocket } from "baileys";
 import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getChildLogger } from "openclaw/plugin-sdk/logging-core";
 import { parseStrictFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
 import { defaultRuntime, createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
@@ -75,8 +75,8 @@ export type WhatsAppAppendReplyWindow = {
 };
 
 type WhatsAppMessageDeliveryOptions = {
-  cfg: OpenClawConfig;
-  loadConfig?: () => OpenClawConfig;
+  cfg: GrantedConfig;
+  loadConfig?: () => GrantedConfig;
   verbose: boolean;
   accountId: string;
   sock: WASocket;

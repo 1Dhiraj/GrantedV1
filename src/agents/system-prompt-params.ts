@@ -9,7 +9,7 @@ import { normalizeStringEntries } from "@openclaw/normalization-core/string-norm
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import type { ChatType } from "../channels/chat-type.js";
 import { resolveControlUiSessionUrl } from "../config/control-ui-link-base.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   formatActiveNodeContextLabel,
   getCurrentActiveNodeContext,
@@ -54,7 +54,7 @@ type SystemPromptRuntimeParams = {
 };
 
 export function buildSystemPromptParams(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   runtime: Omit<RuntimeInfoInput, "agentId" | "agentName" | "sessionUrl">;
   workspaceDir?: string;
@@ -99,14 +99,14 @@ export function buildSystemPromptParams(params: {
   };
 }
 
-export function resolveRuntimeAgentName(config: OpenClawConfig, agentId: string) {
+export function resolveRuntimeAgentName(config: GrantedConfig, agentId: string) {
   const name = sanitizeForPromptLiteral(resolveAgentIdentity(config, agentId)?.name ?? "").trim();
   const bounded = truncateUtf16Safe(name, MAX_RUNTIME_AGENT_NAME_CHARS).trimEnd();
   return bounded && bounded !== agentId ? bounded : undefined;
 }
 
 export function resolveSystemPromptRepoRoot(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   cwd?: string;
 }): string | undefined {

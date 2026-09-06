@@ -10,7 +10,7 @@ import {
   persistSessionTranscriptTurn,
   upsertSessionEntryCore,
 } from "../../../../src/config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { READ_SCOPE } from "../../../../src/gateway/method-scopes.js";
 import { clearModelAuthStatusUsageCache } from "../../../../src/gateway/server-methods/models-auth-status-usage-cache.js";
 import { testApi as usageTestApi } from "../../../../src/gateway/server-methods/usage.js";
@@ -30,7 +30,7 @@ import type { SessionsUsageResult } from "../../../../src/shared/usage-types.js"
 import { resolveOpenClawAgentSqlitePath } from "../../../../src/state/openclaw-agent-db.paths.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../../src/test-utils/openclaw-test-state.js";
 
 const TEST_TIMEOUT_MS = 90_000;
@@ -73,7 +73,7 @@ type DoctorMemoryStatus = {
   };
 };
 
-async function seedCompletedUsageSession(state: OpenClawTestState): Promise<{
+async function seedCompletedUsageSession(state: GrantedTestState): Promise<{
   databasePath: string;
 }> {
   const agentId = "main";
@@ -182,7 +182,7 @@ describe("gateway usage and memory APIs", () => {
         session: {
           store: path.join(state.stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
       let client: Awaited<ReturnType<typeof connectGatewayClient>> | undefined;
 

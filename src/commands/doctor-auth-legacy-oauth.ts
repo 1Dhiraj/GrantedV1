@@ -5,7 +5,7 @@ import { loadPersistedAuthProfileStore } from "../agents/auth-profiles/persisted
 import { repairOAuthProfileIdMismatch } from "../agents/auth-profiles/repair.js";
 import { ensureAuthProfileStoreWithoutExternalProfiles } from "../agents/auth-profiles/store.js";
 import { applyProviderConfigDefaultsForConfig } from "../config/provider-policy.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   configReferencesAuthProfile,
   removeAuthProfileConfig,
@@ -25,7 +25,7 @@ function sanitizePromptLabel(label: string | undefined): string | undefined {
  * before writing config so stale provider-specific ids do not silently shadow current profiles.
  */
 export async function maybeRepairLegacyOAuthProfileIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   prompter: DoctorPrompter,
 ): Promise<LegacyOAuthProfileRepairResult> {
   let nextCfg = cfg;
@@ -151,6 +151,6 @@ export type RetiredAuthProfileCleanupPlan = {
 };
 
 export type LegacyOAuthProfileRepairResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   retiredProfileCleanupPlans: readonly RetiredAuthProfileCleanupPlan[];
 };

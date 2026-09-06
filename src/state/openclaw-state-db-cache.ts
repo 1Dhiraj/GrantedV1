@@ -9,25 +9,25 @@ import { createSqliteTerminalOpenLatch } from "../infra/sqlite-terminal-open-lat
 import { isSqliteCorruptionError } from "../infra/sqlite-transaction.js";
 import { isSqliteSchemaVersionError } from "../infra/sqlite-user-version.js";
 import { readOpenClawDatabaseQuarantine } from "./openclaw-quarantine-store.js";
-import type { OpenClawStateDatabase } from "./openclaw-state-db-contract.js";
+import type { GrantedStateDatabase } from "./openclaw-state-db-contract.js";
 import {
   assertSupportedSchemaVersion,
   createOpenClawDatabaseVerificationError,
 } from "./openclaw-state-db-maintenance.js";
 
-const cachedDatabases = new Map<string, OpenClawStateDatabase>();
+const cachedDatabases = new Map<string, GrantedStateDatabase>();
 const cachedDataVersionStatements = new WeakMap<
   DatabaseSync,
   ReturnType<DatabaseSync["prepare"]>
 >();
 const cachedDataVersions = new WeakMap<DatabaseSync, number>();
-type OpenClawStateDatabaseLifecycleEvent =
-  | { kind: "opened"; database: OpenClawStateDatabase }
+type GrantedStateDatabaseLifecycleEvent =
+  | { kind: "opened"; database: GrantedStateDatabase }
   | { kind: "closed"; path: string }
   | { kind: "open-error"; path: string; error: unknown };
-const databaseLifecycleListeners = new Set<(event: OpenClawStateDatabaseLifecycleEvent) => void>();
+const databaseLifecycleListeners = new Set<(event: GrantedStateDatabaseLifecycleEvent) => void>();
 
-function notifyOpenClawStateDatabaseLifecycle(event: OpenClawStateDatabaseLifecycleEvent): void {
+function notifyOpenClawStateDatabaseLifecycle(event: GrantedStateDatabaseLifecycleEvent): void {
   for (const listener of databaseLifecycleListeners) {
     listener(event);
   }
@@ -49,7 +49,7 @@ function readSqliteDataVersion(database: DatabaseSync): number {
 }
 
 export function registerOpenClawStateDatabaseLifecycleListener(
-  listener: (event: OpenClawStateDatabaseLifecycleEvent) => void,
+  listener: (event: GrantedStateDatabaseLifecycleEvent) => void,
 ): () => void {
   databaseLifecycleListeners.add(listener);
   for (const database of cachedDatabases.values()) {
@@ -60,16 +60,16 @@ export function registerOpenClawStateDatabaseLifecycleListener(
   return () => databaseLifecycleListeners.delete(listener);
 }
 
-type OpenClawStateDatabaseCloseResult = {
+type GrantedStateDatabaseCloseResult = {
   caught: boolean;
   errors: unknown[];
 };
 
 /** Close both physical-handle owners while retaining every cleanup failure. */
 function closeOpenClawStateDatabaseHandle(
-  database: OpenClawStateDatabase,
-  options?: Parameters<OpenClawStateDatabase["walMaintenance"]["close"]>[0],
-): OpenClawStateDatabaseCloseResult {
+  database: GrantedStateDatabase,
+  options?: Parameters<GrantedStateDatabase["walMaintenance"]["close"]>[0],
+): GrantedStateDatabaseCloseResult {
   let caught = false;
   const errors: unknown[] = [];
   try {
@@ -90,7 +90,7 @@ function closeOpenClawStateDatabaseHandle(
   return { caught, errors };
 }
 
-function evictCachedOpenClawStateDatabase(database: OpenClawStateDatabase): boolean {
+function evictCachedOpenClawStateDatabase(database: GrantedStateDatabase): boolean {
   if (cachedDatabases.get(database.path) !== database) {
     return false;
   }
@@ -106,7 +106,7 @@ function evictCachedOpenClawStateDatabase(database: OpenClawStateDatabase): bool
 
 /** Evict an exact cached shared-state owner after a proven corruption read. */
 function evictOpenClawStateDatabaseAfterCorruption(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   error: unknown,
 ): boolean {
   return isSqliteCorruptionError(error) && evictCachedOpenClawStateDatabase(database);
@@ -122,7 +122,7 @@ const terminalOpenLatch = createSqliteTerminalOpenLatch({
 });
 
 /** Publish a fully opened handle and bind query corruption to its exact cache owner. */
-function publishOpenClawStateDatabase(database: OpenClawStateDatabase): OpenClawStateDatabase {
+function publishOpenClawStateDatabase(database: GrantedStateDatabase): GrantedStateDatabase {
   const { db, path: pathname } = database;
   cachedDataVersions.set(db, readSqliteDataVersion(db));
   cachedDatabases.set(pathname, database);
@@ -176,7 +176,7 @@ function getOpenClawStateDatabaseRuntimeFailure(pathname: string): Error | undef
   }
 }
 
-function getCachedOpenClawStateDatabase(pathname: string): OpenClawStateDatabase | undefined {
+function getCachedOpenClawStateDatabase(pathname: string): GrantedStateDatabase | undefined {
   const runtimeFailure = getOpenClawStateDatabaseRuntimeFailure(pathname);
   if (runtimeFailure) {
     throw runtimeFailure;
@@ -184,13 +184,13 @@ function getCachedOpenClawStateDatabase(pathname: string): OpenClawStateDatabase
   return cachedDatabases.get(path.resolve(pathname));
 }
 
-function getOpenClawStateDatabaseIfOpenAtPath(pathname: string): OpenClawStateDatabase | undefined {
+function getOpenClawStateDatabaseIfOpenAtPath(pathname: string): GrantedStateDatabase | undefined {
   const cached = getCachedOpenClawStateDatabase(pathname);
   return cached?.db.isOpen ? cached : undefined;
 }
 
 /** Remove a closed cached owner while fresh-open access is held. */
-function closeStaleCachedOpenClawStateDatabase(database: OpenClawStateDatabase): void {
+function closeStaleCachedOpenClawStateDatabase(database: GrantedStateDatabase): void {
   if (cachedDatabases.get(database.path) !== database) {
     return;
   }
@@ -269,7 +269,7 @@ export function closeOpenClawStateDatabaseByPath(pathname: string): boolean {
 
 /** Close all cached shared state database handles. */
 export function closeOpenClawStateDatabase(
-  options?: Parameters<OpenClawStateDatabase["walMaintenance"]["close"]>[0],
+  options?: Parameters<GrantedStateDatabase["walMaintenance"]["close"]>[0],
 ): void {
   for (const database of cachedDatabases.values()) {
     database.walMaintenance.close(options);

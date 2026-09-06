@@ -5,7 +5,7 @@ import { err, ok, type Result } from "@openclaw/normalization-core/result";
 // Doctor gateway service tests cover service audit diagnostics and duplicate gateway service reporting.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { LaunchctlResult } from "../daemon/launchd-exec.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { withTempDir } from "../test-utils/temp-dir.js";
@@ -257,12 +257,12 @@ function mockConfirmedUnloaded(stderr = "Could not find service") {
     .mockResolvedValueOnce(launchctlResult({ code: 113, stderr }));
 }
 
-async function runRepair(cfg: OpenClawConfig, options: { allowExecSecretRefs?: boolean } = {}) {
+async function runRepair(cfg: GrantedConfig, options: { allowExecSecretRefs?: boolean } = {}) {
   await maybeRepairGatewayServiceConfig(cfg, "local", makeDoctorIo(), makeDoctorPrompts(), options);
 }
 
 async function runNonInteractiveRepair(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   updateInProgress?: boolean;
   lastTouchedVersionOverride?: string;
 }) {
@@ -439,7 +439,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     mocks.resolveSystemNodeInfo.mockResolvedValue(null);
     mocks.isSystemdUnitActive.mockResolvedValue(ok(false));
     mocks.readWindowsProcessArgsSync.mockReturnValue(["node", "openclaw.mjs", "update"]);
-    mocks.resolveGatewayAuthTokenForService.mockImplementation(async (cfg: OpenClawConfig, env) => {
+    mocks.resolveGatewayAuthTokenForService.mockImplementation(async (cfg: GrantedConfig, env) => {
       const configToken =
         typeof cfg.gateway?.auth?.token === "string" ? cfg.gateway.auth.token.trim() : undefined;
       const envToken = env.GRANTED_GATEWAY_TOKEN?.trim() || undefined;
@@ -528,7 +528,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
   it("treats gateway.auth.token as source of truth for service token repairs", async () => {
     setupGatewayTokenRepairScenario();
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         auth: {
           mode: "token",
@@ -549,7 +549,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
   it("passes exec SecretRef policy into service token resolution", async () => {
     setupGatewayTokenRepairScenario();
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         auth: {
           mode: "token",
@@ -872,7 +872,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     await withEnvAsync({ GRANTED_GATEWAY_TOKEN: "env-token" }, async () => {
       setupGatewayTokenRepairScenario();
 
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {},
       };
 
@@ -1370,7 +1370,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     });
     mocks.install.mockResolvedValue(undefined);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         auth: {
           mode: "token",
@@ -1404,7 +1404,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
           environment: { GRANTED_GATEWAY_TOKEN: "stale-token" },
         });
 
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {},
         };
 
@@ -1441,7 +1441,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
       async () => {
         setupGatewayTokenRepairScenario();
 
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {},
         };
 
@@ -1856,7 +1856,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
         });
         mocks.install.mockResolvedValue(undefined);
 
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {},
         };
 

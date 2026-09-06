@@ -1,7 +1,7 @@
 // Verifies current plugin registry contribution snapshots.
 import fs from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setCurrentPluginMetadataSnapshot } from "./current-plugin-metadata.test-support.js";
 import { resolveInstalledPluginIndexPolicyHash } from "./installed-plugin-index-policy.js";
 import type { InstalledPluginIndex } from "./installed-plugin-index.js";
@@ -51,7 +51,7 @@ function createManifest(id: string): PluginManifestRecord {
 }
 
 function createSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   registryDiagnostics?: PluginMetadataSnapshot["registryDiagnostics"];
 }): PluginMetadataSnapshot {
@@ -104,7 +104,7 @@ function createSnapshot(params: {
 
 describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
   it("reuses an allowlisted published snapshot for configless manifest reads", () => {
-    const config: OpenClawConfig = { plugins: { allow: ["enabled"] } };
+    const config: GrantedConfig = { plugins: { allow: ["enabled"] } };
     const env = {
       HOME: "/tmp/openclaw-test-home",
       GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
@@ -121,7 +121,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
   });
 
   it("projects supplied contract manifests without dropping disabled owners", () => {
-    const config: OpenClawConfig = { plugins: { allow: ["enabled"] } };
+    const config: GrantedConfig = { plugins: { allow: ["enabled"] } };
     const env = {
       HOME: "/tmp/openclaw-test-home",
       GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
@@ -172,7 +172,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
   });
 
   it("reuses compatible current manifest metadata", () => {
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const env = {
       HOME: "/tmp/openclaw-test-home",
       GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
@@ -219,7 +219,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
   });
 
   it("keeps explicit registry inputs authoritative and reuses current diagnostics", () => {
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const env = {
       HOME: "/tmp/openclaw-test-home",
       GRANTED_DISABLE_BUNDLED_PLUGINS: "1",

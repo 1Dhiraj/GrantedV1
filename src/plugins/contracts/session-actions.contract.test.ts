@@ -26,7 +26,7 @@ import { createEmptyPluginRegistry } from "../registry-empty.js";
 import { createPluginRegistry } from "../registry.js";
 import { setActivePluginRegistry } from "../runtime.js";
 import { createPluginRecord } from "../status.test-fixtures.js";
-import type { OpenClawPluginApi } from "../types.js";
+import type { GrantedPluginApi } from "../types.js";
 
 const MAIN_SESSION_KEY = "agent:main:main";
 
@@ -147,7 +147,7 @@ function requireObservedEvent(
 function registerActionFixture(params: {
   id: string;
   name?: string;
-  register: (api: OpenClawPluginApi) => void;
+  register: (api: GrantedPluginApi) => void;
 }) {
   const { config, registry } = createPluginRegistryFixture();
   registerTestPlugin({
@@ -744,8 +744,8 @@ describe("plugin session actions", () => {
     const observed: unknown[] = [];
     const unsubscribe = onAgentEvent((event) => observed.push(event));
     const { config, registry } = createPluginRegistryFixture();
-    let bundledApi: OpenClawPluginApi | undefined;
-    let workspaceApi: OpenClawPluginApi | undefined;
+    let bundledApi: GrantedPluginApi | undefined;
+    let workspaceApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,
@@ -873,7 +873,7 @@ describe("plugin session actions", () => {
     const observed: unknown[] = [];
     const unsubscribe = onAgentEvent((event) => observed.push(event));
     const { config, registry } = createPluginRegistryFixture();
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,
@@ -907,7 +907,7 @@ describe("plugin session actions", () => {
         },
         runtime: {} as never,
       });
-      let neverActiveApi: OpenClawPluginApi | undefined;
+      let neverActiveApi: GrantedPluginApi | undefined;
       registerTestPlugin({
         registry: neverActiveRegistry,
         config,
@@ -938,7 +938,7 @@ describe("plugin session actions", () => {
         runtime: {} as never,
         activateGlobalSideEffects: false,
       });
-      let inactiveApi: OpenClawPluginApi | undefined;
+      let inactiveApi: GrantedPluginApi | undefined;
       registerTestPlugin({
         registry: inactiveRegistry,
         config,
@@ -969,7 +969,7 @@ describe("plugin session actions", () => {
     const observed: unknown[] = [];
     const unsubscribe = onAgentEvent((event) => observed.push(event));
     const { config, registry } = createPluginRegistryFixture();
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,

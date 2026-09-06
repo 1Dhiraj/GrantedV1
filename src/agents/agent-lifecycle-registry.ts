@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveGlobalMap } from "../shared/global-singleton.js";
 import {
@@ -16,7 +16,7 @@ import {
   type AgentDeletionJournalEntry,
 } from "../state/agent-deletion-journal.js";
 import { readAgentProvenance, type AgentProvenance } from "../state/agent-provenance.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db-contract.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 
@@ -39,7 +39,7 @@ export type AgentLifecycleBinding = Readonly<{
   provenance: AgentProvenance | null;
 }>;
 
-function lifecycleKey(agentId: string, options: OpenClawStateDatabaseOptions): string {
+function lifecycleKey(agentId: string, options: GrantedStateDatabaseOptions): string {
   const databasePath = path.resolve(
     options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env),
   );
@@ -61,7 +61,7 @@ export function beginAgentDeletion(
     cleanupPaths?: AgentDeletionJournalCleanupPath[];
     deleteFiles?: boolean;
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): {
   entry: AgentDeletionJournalEntry;
   commit: () => void;
@@ -110,7 +110,7 @@ export function beginAgentDeletion(
 export function claimCompletedAgentDeletion(
   agentId: string,
   operationId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   const removed = claimCompletedAgentDeletionJournal(id, operationId, options);
@@ -123,7 +123,7 @@ export function claimCompletedAgentDeletion(
 /** Return whether this process must refuse new authority for an agent id. */
 export function isAgentDeletionBlocked(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   const key = lifecycleKey(id, options);
@@ -136,9 +136,9 @@ export function isAgentDeletionBlocked(
 
 /** Captures the exact durable incarnation of an existing, deletion-safe agent. */
 export function captureAgentLifecycleBinding(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AgentLifecycleBinding | undefined {
   const id = normalizeAgentId(agentId);
   if (!resolveAgentConfig(config, id) || isAgentDeletionBlocked(id, options)) {
@@ -152,9 +152,9 @@ export function captureAgentLifecycleBinding(
 
 /** Revalidates an agent binding against both the roster and lifecycle owner. */
 export function matchesAgentLifecycleBinding(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   binding: AgentLifecycleBinding,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(binding.agentId);
   return (

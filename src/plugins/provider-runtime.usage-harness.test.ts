@@ -8,7 +8,7 @@ import {
   makeTempDir,
   resetPluginAutoEnableTestState,
 } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderUsageSnapshotWithPlugin } from "./provider-runtime.js";
 import { createEmptyPluginRegistry } from "./registry-empty.js";
 import { withPluginRuntimeRegistryScope } from "./runtime/gateway-request-scope.js";
@@ -120,12 +120,12 @@ describe("provider runtime harness usage", () => {
   it.each([
     {
       name: "globally disabled plugins",
-      config: { plugins: { enabled: false } } satisfies OpenClawConfig,
+      config: { plugins: { enabled: false } } satisfies GrantedConfig,
       expectedReason: "plugins disabled",
     },
     {
       name: "a restrictive allowlist",
-      config: { plugins: { allow: ["openai", "memory-core"] } } satisfies OpenClawConfig,
+      config: { plugins: { allow: ["openai", "memory-core"] } } satisfies GrantedConfig,
       expectedReason: "not in allowlist",
     },
   ])("preserves $name in cold usage diagnostics", async ({ config, expectedReason }) => {

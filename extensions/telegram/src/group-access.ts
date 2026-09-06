@@ -1,7 +1,7 @@
 // Telegram plugin module implements group access behavior.
 import type {
   ChannelGroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -117,7 +117,7 @@ export const resolveTelegramRuntimeGroupPolicy = (params: {
   });
 
 export const resolveTelegramEffectiveGroupPolicy = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramCfg: TelegramAccountConfig;
   groupConfig?: TelegramGroupConfig;
   topicConfig?: TelegramTopicConfig;
@@ -140,14 +140,14 @@ export const resolveTelegramEffectiveGroupPolicy = (params: {
 export const evaluateTelegramGroupPolicyAccess = (params: {
   isGroup: boolean;
   chatId: string | number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramCfg: TelegramAccountConfig;
   topicConfig?: TelegramTopicConfig;
   groupConfig?: TelegramGroupConfig;
   effectiveGroupAllow: NormalizedAllowFrom;
   senderId?: string;
   senderUsername?: string;
-  resolveGroupPolicy: (chatId: string | number, cfg: OpenClawConfig) => ChannelGroupPolicy;
+  resolveGroupPolicy: (chatId: string | number, cfg: GrantedConfig) => ChannelGroupPolicy;
   enforcePolicy: boolean;
   enforceAllowlistAuthorization: boolean;
   allowEmptyAllowlistEntries: boolean;

@@ -6,7 +6,7 @@ import { renderLazyViewError } from "../components/lazy-view-error.ts";
 import { renderLoadingState } from "../components/loading-state.ts";
 import { McpAppUnmountGate } from "../components/mcp-app-unmount.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import {
   RouterOutletController,
   selectRenderedRouteMatch,
@@ -208,12 +208,12 @@ class LitRouterOutletController<
   }
 }
 
-class OpenClawRouterOutlet<
+class GrantedRouterOutlet<
   TRouteId extends string = string,
   TLoadContext = unknown,
   TModule = unknown,
   TData = unknown,
-> extends OpenClawLightDomElement {
+> extends GrantedLightDomElement {
   @property({ attribute: false }) router?: Router<TRouteId, TLoadContext, TModule, TData>;
   @property({ attribute: false }) retryContext?: TLoadContext;
   @property({ attribute: false }) onNotFound?: () => boolean | void;
@@ -256,5 +256,5 @@ class OpenClawRouterOutlet<
 }
 
 if (!customElements.get("openclaw-router-outlet")) {
-  customElements.define("openclaw-router-outlet", OpenClawRouterOutlet);
+  customElements.define("openclaw-router-outlet", GrantedRouterOutlet);
 }

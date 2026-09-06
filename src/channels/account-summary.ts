@@ -6,7 +6,7 @@
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildRuntimeAccountStatusSnapshot } from "../plugin-sdk/status-helpers.js";
 import { isRecord } from "../utils.js";
 import { asBoolean } from "../utils/boolean.js";
@@ -70,7 +70,7 @@ export function buildChannelAccountSnapshotFromInspection(params: {
 export function buildChannelAccountSummary(params: {
   plugin: ChannelPlugin;
   account: unknown;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   enabled: boolean;
   configured: boolean;
@@ -90,7 +90,7 @@ export function buildChannelAccountSummary(params: {
  */
 export function formatChannelAllowFrom(params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   allowFrom: Array<string | number>;
 }): string[] {
@@ -110,7 +110,7 @@ export function formatChannelAllowFrom(params: {
 export function resolveChannelAccountEnabled(params: {
   plugin: ChannelPlugin;
   account: unknown;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): boolean {
   if (params.plugin.config.isEnabled) {
     return params.plugin.config.isEnabled(params.account, params.cfg);
@@ -125,7 +125,7 @@ export function resolveChannelAccountEnabled(params: {
 export async function resolveChannelAccountConfigured(params: {
   plugin: ChannelPlugin;
   account: unknown;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   readAccountConfiguredField?: boolean;
 }): Promise<boolean> {
   if (params.plugin.config.isConfigured) {

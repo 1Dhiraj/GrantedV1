@@ -30,7 +30,7 @@ import {
   loadSessionEntry,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   detectSharedAuthStoreMigration,
   migrateSharedAuthStore,
@@ -44,7 +44,7 @@ import {
 import { buildStatusText } from "../status/status-text.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   collectOpenAICodexAuthProfileStoreIdMap,
@@ -66,7 +66,7 @@ const { recordAuthProfileMigrationImported } = (globalThis as Record<PropertyKey
   Symbol.for("openclaw.authProfileMigrationReceiptsTestApi")
 ] as MigrationReceiptTestApi;
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 
 function makePrompter(shouldRepair: boolean): DoctorPrompter {
   return {
@@ -87,7 +87,7 @@ function makePrompter(shouldRepair: boolean): DoctorPrompter {
   };
 }
 
-async function makeTestState(): Promise<OpenClawTestState> {
+async function makeTestState(): Promise<GrantedTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-flat-auth-",
@@ -111,8 +111,8 @@ function requireMappedProfileId(
 }
 
 async function expectSelectedCodexAccountStatus(params: {
-  cfg: OpenClawConfig;
-  state: OpenClawTestState;
+  cfg: GrantedConfig;
+  state: GrantedTestState;
   sessionKey: string;
   storePath: string;
 }): Promise<void> {
@@ -179,7 +179,7 @@ async function expectSelectedCodexAccountStatus(params: {
 }
 
 async function writeLegacyAuthProfilesJson(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   value: unknown,
   agentId = "main",
 ): Promise<string> {
@@ -1065,7 +1065,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
         },
         order: { openai: ["openai:default"] },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await maybeMigrateAuthProfileJsonStoresToSqlite({
       cfg,
@@ -1106,7 +1106,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const profileIdMap = collectOpenAICodexAuthProfileStoreIdMap({
       cfg: legacyConfig,
       env: state.env,
@@ -1607,7 +1607,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
           "openai-codex:default": { provider: "openai-codex", mode: "oauth" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
       cfg,
@@ -1749,7 +1749,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
           anthropic: ["anthropic:default"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
       cfg,
@@ -1824,7 +1824,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
       cfg,
@@ -1858,12 +1858,12 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
   });
 
   it("infers config credential provider and mode before stripping config", async () => {
-    const cases: Array<{ profileId: string; cfg: OpenClawConfig; now: number }> = [
+    const cases: Array<{ profileId: string; cfg: GrantedConfig; now: number }> = [
       {
         profileId: "openai:default",
         cfg: {
           auth: { profiles: { "openai:default": { key: "sk-config" } } },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         now: 468,
       },
       {
@@ -1871,7 +1871,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
         cfg: {
           auth: { profiles: { work: { key: "sk-config" } } },
           agents: { defaults: { model: { primary: "openai/gpt-5.5@work" } } },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         now: 470,
       },
       {
@@ -1881,7 +1881,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
             profiles: { ordered: { key: "sk-config" } },
             order: { openai: ["ordered"] },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         now: 474,
       },
     ];
@@ -1950,7 +1950,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
           openai: ["openai:default"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
       cfg,
@@ -2037,7 +2037,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
             [entry.profileId]: entry.profile,
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
         cfg,
@@ -2104,7 +2104,7 @@ describe("maybeMigrateAuthProfileJsonStoresToSqlite", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await maybeMigrateAuthProfileJsonStoresToSqlite({
         cfg,
@@ -2313,10 +2313,10 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg);
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           models?: Record<string, { agentRuntime?: { authProfileId?: string } }>;
@@ -2364,10 +2364,10 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg);
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           models?: Record<string, { agentRuntime?: { authProfileId?: string } }>;
@@ -2404,12 +2404,12 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg, {
       profileIdMap: new Map([["openai-codex:default", "openai:chatgpt-default"]]),
     });
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           models?: Record<string, { agentRuntime?: { authProfileId?: string } }>;
@@ -2438,12 +2438,12 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg, {
       profileIdMap: new Map([["openai-codex:default", "openai:chatgpt-default"]]),
     });
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           models?: Record<string, { agentRuntime?: { authProfileId?: string } }>;
@@ -2479,12 +2479,12 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg, {
       profileIdMap: new Map([["openai-codex:default", "openai:chatgpt-default"]]),
     });
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           systemPrompt?: string;
@@ -2514,7 +2514,7 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           "openai-codex": ["openai-codex:default"],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg, {
       profileIdMap: new Map([["openai-codex:default", "openai:chatgpt-default"]]),
@@ -2561,12 +2561,12 @@ describe("maybeRepairOpenAICodexAuthConfig", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = maybeRepairOpenAICodexAuthConfig(cfg, {
       profileIdMap: new Map([["openai-codex:default", "openai:default"]]),
     });
-    const migrated = result.config as OpenClawConfig & {
+    const migrated = result.config as GrantedConfig & {
       agents?: {
         defaults?: {
           models?: Record<string, { agentRuntime?: { authProfileId?: string } }>;
@@ -2690,7 +2690,7 @@ describe("legacy OpenAI auth profiles through the canonical migration owner", ()
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await replaceSessionEntry(
       { storePath, sessionKey, env: state.env },
       {
@@ -2946,7 +2946,7 @@ describe("legacy OpenAI auth profiles through the canonical migration owner", ()
 
   it("keeps failed agent accounts separate while repairing verified and inherited main accounts", async () => {
     const state = await makeTestState();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           { id: "main", default: true },
@@ -3229,7 +3229,7 @@ describe("legacy OpenAI auth profiles through the canonical migration owner", ()
         },
       },
       agents: { defaults: { agentRuntime: { id: "codex" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await writeLegacyAuthProfilesJson(state, {
       version: 1,
       profiles: {

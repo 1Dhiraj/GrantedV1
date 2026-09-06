@@ -13,7 +13,7 @@ import {
   addSubagentRunForTests,
   resetSubagentRegistryForTests,
 } from "../../agents/subagents/registry/subagent-registry.test-helpers.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   persistSessionTranscriptTurn,
   replaceSessionEntry,
@@ -126,7 +126,7 @@ const codexStatusModel: ModelDefinitionConfig = {
 async function buildStatusReplyForTest(params: {
   sessionKey?: string;
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   verbose?: boolean;
 }) {
   const cfg = params.cfg ?? baseCfg;
@@ -2624,7 +2624,7 @@ describe("buildStatusReply error handling", () => {
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */
 
-async function buildKiraStatusReply(cfg: OpenClawConfig) {
+async function buildKiraStatusReply(cfg: GrantedConfig) {
   return await buildStatusReply({
     cfg,
     command: {
@@ -2655,7 +2655,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
   });
 
   it("shows per-agent thinkingDefault in the status card", async () => {
@@ -2676,7 +2676,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const reply = await buildKiraStatusReply(cfg);
 
@@ -2706,7 +2706,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const reply = await buildKiraStatusReply(cfg);
 
@@ -2733,7 +2733,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const reply = await buildKiraStatusReply(cfg);
 
@@ -2762,7 +2762,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const reply = await buildKiraStatusReply(cfg);
 
@@ -2792,7 +2792,7 @@ describe("buildStatusReply", () => {
       channels: {
         whatsapp: { allowFrom: ["*"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const reply = await buildKiraStatusReply(cfg);
 

@@ -2,7 +2,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { OAuthCredential } from "../../auth-profiles.js";
 import { testing as externalAuthTesting } from "../../auth-profiles/external-auth.test-support.js";
 import { prepareAgentRuntimeAuth } from "../../runtime-plan/prepare-auth.js";
@@ -45,7 +45,7 @@ describe("embedded run auth plan provider pin", () => {
           openai: { auth: "api-key", baseUrl: "", models: [] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.stubEnv("OPENAI_API_KEY", "platform-api-key");
 
     const authProfileStore = authPlanTesting.loadEmbeddedRunAuthProfileStore({

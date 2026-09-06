@@ -12,7 +12,7 @@ import {
 import { isRestartEnabled } from "../../config/commands.flags.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
 import { extractDeliveryInfo } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   EXTERNAL_SUPERVISOR_UPDATE_REQUIRED_REASON,
   isGatewayExternallySupervised,
@@ -83,9 +83,9 @@ function formatUpdateRunErrorMessage(err: unknown): string {
 
 // Explicit callers share only active checkout work for the exact config snapshot.
 // Reloaded config must never join work started under an older snapshot.
-const updateStatusCheckoutRefreshes = new WeakMap<OpenClawConfig, Promise<void>>();
+const updateStatusCheckoutRefreshes = new WeakMap<GrantedConfig, Promise<void>>();
 
-function refreshUpdateStatusCheckout(config: OpenClawConfig): Promise<void> {
+function refreshUpdateStatusCheckout(config: GrantedConfig): Promise<void> {
   const current = updateStatusCheckoutRefreshes.get(config);
   if (current) {
     return current;
@@ -109,7 +109,7 @@ async function readPreUpdateConfigForPostCoreFinalize(): Promise<
   return {
     sourceConfig: snapshot.sourceConfig,
     authoredConfig: isRecord(snapshot.parsed)
-      ? (snapshot.parsed as OpenClawConfig)
+      ? (snapshot.parsed as GrantedConfig)
       : snapshot.sourceConfig,
   };
 }

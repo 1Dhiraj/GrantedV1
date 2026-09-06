@@ -21,7 +21,7 @@ import {
 } from "../../lib/board/widgets/index.ts";
 import { formatUiError } from "../../lib/format-error.ts";
 import { showToast } from "../../lib/toast.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { renderBoardMcpAppContent } from "./board-mcp-app-content.ts";
 import { BoardMcpAppLifecycle } from "./board-mcp-app-lifecycle.ts";
 import { renderBoardGrantedCapabilities } from "./board-widget-capabilities.ts";
@@ -59,7 +59,7 @@ export type BoardWidgetCellCallbacks = {
   refreshWidgetAppView: (name: string, revision: number) => Promise<BoardWidgetAppViewState>;
 };
 
-class OpenClawBoardWidgetCell extends OpenClawLightDomElement {
+class GrantedBoardWidgetCell extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: ApplicationContext;
 
@@ -491,11 +491,11 @@ class OpenClawBoardWidgetCell extends OpenClawLightDomElement {
 }
 
 if (!customElements.get("openclaw-board-widget-cell")) {
-  customElements.define("openclaw-board-widget-cell", OpenClawBoardWidgetCell);
+  customElements.define("openclaw-board-widget-cell", GrantedBoardWidgetCell);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-board-widget-cell": OpenClawBoardWidgetCell;
+    "openclaw-board-widget-cell": GrantedBoardWidgetCell;
   }
 }

@@ -1,5 +1,5 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { providerContextTokenCacheKey } from "./context-cache.js";
 import { type ModelsConfig, resolveAnthropicFixedContextWindow } from "./context-resolution.js";
 import { normalizeProviderId } from "./model-selection.js";
@@ -180,7 +180,7 @@ async function projectModels(params: {
 }
 
 export async function prepareContextWindowCaches(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   modelCatalog: ContextWindowCatalog;
   assertCurrent?: () => void;
 }): Promise<PreparedContextWindowCaches> {

@@ -3,7 +3,7 @@ import { readProviderJsonResponse } from "../agents/provider-http-errors.js";
 import { runCommandWithTimeout } from "../process/exec.js";
 import {
   parseOpenClawSchemaVersions,
-  type OpenClawSchemaVersions,
+  type GrantedSchemaVersions,
 } from "../state/openclaw-schema-versions.js";
 import { buildTimeoutAbortSignal } from "../utils/fetch-timeout.js";
 import { cancelUnreadResponseBody } from "./http-body.js";
@@ -12,7 +12,7 @@ type NpmPackageTargetStatus = {
   target: string;
   version: string | null;
   nodeEngine: string | null;
-  schemaVersions?: OpenClawSchemaVersions;
+  schemaVersions?: GrantedSchemaVersions;
   error?: string;
 };
 
@@ -33,7 +33,7 @@ export type NpmMetadataCommandRunner = (
 function parseNpmPackageTargetMetadata(raw: string): {
   version: string | null;
   nodeEngine: string | null;
-  schemaVersions?: OpenClawSchemaVersions;
+  schemaVersions?: GrantedSchemaVersions;
 } {
   let parsed: unknown;
   try {

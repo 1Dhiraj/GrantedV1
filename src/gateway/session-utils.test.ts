@@ -10,7 +10,7 @@ import { resolveLegacyInheritedAuthAgentId } from "../agents/legacy-inherited-au
 import * as sessionModelRefs from "../agents/session-model-ref.js";
 import { SESSION_PERMISSION_BY_EXEC_MODE } from "../agents/session-permission-exec-mode.js";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import type { InternalSessionEntry, SessionEntry } from "../config/sessions.js";
 import {
@@ -103,7 +103,7 @@ test("projects a channel avatar route without exposing its media-store reference
   const localReference = "/private/state/media/inbound/avatar.png";
   const cfg = {
     gateway: { controlUi: { basePath: "/control" } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const entry = {
     sessionId: "avatar-session",
     updatedAt: 1,
@@ -213,20 +213,20 @@ function createSymlinkOrSkip(targetPath: string, linkPath: string): boolean {
   }
 }
 
-function createSingleAgentAvatarConfig(workspace: string): OpenClawConfig {
+function createSingleAgentAvatarConfig(workspace: string): GrantedConfig {
   return {
     session: { mainKey: "main" },
     agents: {
       list: [{ id: "main", default: true, workspace, identity: { avatar: "avatar-link.png" } }],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createModelDefaultsConfig(params: {
   primary: string;
   models?: Record<string, { agentRuntime?: { id: string } }>;
   agentRuntime?: { id: string };
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -239,7 +239,7 @@ function createModelDefaultsConfig(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function requireString(value: string | undefined, label: string): string {
@@ -291,7 +291,7 @@ describe("gateway session utils", () => {
         list: [{ id: "roboclaw", identity: { name: "Roboclaw", avatar: "avatar.png" } }],
       },
       gateway: { controlUi: { basePath: "/control" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(projectSessionActor({ type: "agent", id: "roboclaw" }, new Map(), cfg)).toEqual({
       type: "agent",
@@ -681,7 +681,7 @@ describe("gateway session utils", () => {
   });
 
   test("session list search includes the session group name", async () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const store: Record<string, SessionEntry> = {
       "agent:main:roadmap": {
         sessionId: "roadmap",
@@ -708,7 +708,7 @@ describe("gateway session utils", () => {
   });
 
   test("session list search includes direct-session origin display labels", async () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const store: Record<string, SessionEntry> = {
       "agent:main:telegram:direct:42": {
         sessionId: "direct-42",
@@ -994,7 +994,7 @@ describe("gateway session utils", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(getSessionDefaults(capped, catalog).contextTokens).toBe(128_000);
     expect(
       buildGatewaySessionRow({
@@ -1354,7 +1354,7 @@ describe("gateway session utils", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const row = (
       entry: SessionEntry,
       catalog?: { reasoning?: boolean; compat?: { supportedReasoningEfforts: string[] } },
@@ -1413,7 +1413,7 @@ describe("gateway session utils", () => {
       canonicalKey: "agent:main:main",
       cfg: {
         agents: { defaults: { model: { primary: "openai/gpt-5.6-sol" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       entry,
       modelCatalogByAgent: new Map([
         [
@@ -1451,7 +1451,7 @@ describe("gateway session utils", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const row = buildGatewaySessionRow({
       cfg,
@@ -1490,7 +1490,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1530,7 +1530,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1568,7 +1568,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1607,7 +1607,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1653,7 +1653,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1690,7 +1690,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const row = buildGatewaySessionRow({
         cfg,
@@ -1750,7 +1750,7 @@ describe("gateway session utils", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const row = buildGatewaySessionRow({
       cfg,
@@ -1815,7 +1815,7 @@ describe("gateway session utils", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const row = buildGatewaySessionRow({
           cfg,
@@ -1850,7 +1850,7 @@ describe("gateway session utils", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       for (const lightweightListRow of [true, false]) {
         const row = buildGatewaySessionRow({
@@ -1884,7 +1884,7 @@ describe("gateway session utils", () => {
             models: { "openai/gpt-5.6-sol": { agentRuntime: { id: "codex" } } },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const entry = {
         sessionId: "matching-resolved-cap",
         modelProvider: "openai",
@@ -1918,7 +1918,7 @@ describe("gateway session utils", () => {
             models: { "openai/gpt-5.6-sol": { agentRuntime: { id: "codex" } } },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const entry = {
         sessionId: "unresolved-fallback",
         modelProvider: "openai",
@@ -1965,7 +1965,7 @@ describe("gateway session utils", () => {
           thinkingDefault: "high",
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expectFields(defaults, {
       modelProvider: "openai",
@@ -2018,7 +2018,7 @@ describe("gateway session utils", () => {
 
   test("session rows preserve fresh zero-token usage", () => {
     const row = buildGatewaySessionRow({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       storePath: "",
       store: {},
       key: "agent:main:main",
@@ -2064,7 +2064,7 @@ describe("gateway session utils", () => {
       const row = buildGatewaySessionRow({
         cfg: {
           agents: { list: [{ id: "main", default: true }, { id: "work" }] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         storePath: "",
         store: {},
         key: "global",
@@ -2203,7 +2203,7 @@ describe("gateway session utils", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const row = buildGatewaySessionRow({
       cfg,
@@ -2232,7 +2232,7 @@ describe("gateway session utils", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const row = buildGatewaySessionRow({
       cfg,
@@ -2266,7 +2266,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow displayName falls through to origin label for direct sessions", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const entry: SessionEntry = {
       sessionId: "direct-42",
       updatedAt: 1,
@@ -2287,7 +2287,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow keeps dashboard sender identity out of the session title", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const entry: SessionEntry = {
       sessionId: "dashboard-1",
       updatedAt: 1,
@@ -2315,7 +2315,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow displayName prefers the human chat title for group sessions", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const entry: SessionEntry = {
       sessionId: "group-99",
       updatedAt: 1,
@@ -2375,7 +2375,7 @@ describe("gateway session utils", () => {
       });
       expect(entry?.groupChannel).toBeUndefined();
       const row = buildGatewaySessionRow({
-        cfg: { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig,
+        cfg: { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig,
         storePath,
         store: { [key]: entry as SessionEntry },
         key,
@@ -2439,7 +2439,7 @@ describe("gateway session utils", () => {
       });
       expect(entry?.groupChannel).toBeUndefined();
       const row = buildGatewaySessionRow({
-        cfg: { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig,
+        cfg: { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig,
         storePath,
         store: { [key]: entry as SessionEntry },
         key,
@@ -2454,7 +2454,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow group displayName prefers #channel and falls back to the token", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const channelEntry: SessionEntry = {
       sessionId: "channel-C1",
       updatedAt: 1,
@@ -2499,7 +2499,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow projects flat classification facts without group tokens", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const subagentEntry = {
       displayName: "Research",
     } as SessionEntry;
@@ -2544,7 +2544,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow projects worktree and execNode bindings", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const entry: SessionEntry = {
       sessionId: "s1",
       updatedAt: 1,
@@ -2566,7 +2566,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow projects the session root only for an explicit permission mode", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const ordinaryEntry: SessionEntry = {
       sessionId: "ordinary",
       sessionRoot: "/workspace/private",
@@ -2600,7 +2600,7 @@ describe("gateway session utils", () => {
   });
 
   test("buildGatewaySessionRow prefers entry.label over origin.label for direct sessions", () => {
-    const cfg = { agents: { list: [{ id: "main", default: true }] } } as OpenClawConfig;
+    const cfg = { agents: { list: [{ id: "main", default: true }] } } as GrantedConfig;
     const entry: SessionEntry = {
       sessionId: "direct-labeled",
       updatedAt: 1,
@@ -2625,7 +2625,7 @@ describe("gateway session utils", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
       messages: { responseUsage: "tokens" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const entry = { sessionId: "s1", updatedAt: 1 } as SessionEntry;
     const row = buildGatewaySessionRow({
       cfg,
@@ -2645,7 +2645,7 @@ describe("gateway session utils", () => {
       messages: {
         responseUsage: { default: "off", discord: "full", telegram: "tokens" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const discordEntry: SessionEntry = {
       sessionId: "d1",
       updatedAt: 1,
@@ -2694,7 +2694,7 @@ describe("gateway session utils", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
       messages: { responseUsage: { default: "full", discord: "full" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const entry = {
       sessionId: "d1",
       updatedAt: 1,
@@ -2717,7 +2717,7 @@ describe("gateway session utils", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
       messages: { queue: { mode: "interrupt", byChannel: { webchat: "collect" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const inheritedEntry = { sessionId: "s1", updatedAt: 1 } as SessionEntry;
     const inheritedRow = buildGatewaySessionRow({
       cfg,
@@ -2749,7 +2749,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "main" })).toBe("agent:ops:work");
     expect(resolveSessionStoreKey({ cfg, sessionKey: "work" })).toBe("agent:ops:work");
     expect(resolveSessionStoreKey({ cfg, sessionKey: "agent:ops:main" })).toBe("agent:ops:work");
@@ -2763,7 +2763,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "agent:main:discord:direct:u1" })).toBe(
       "agent:main:discord:direct:u1",
     );
@@ -2773,7 +2773,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work" },
       agents: { ownership: "explicit", entries: { ops: {}, research: {} } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveSessionStoreKey({
@@ -2788,7 +2788,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const legacyMainAlias = resolveSessionStoreKey({ cfg, sessionKey: "agent:main:main" });
 
     expect(legacyMainAlias).toBe("agent:ops:work");
@@ -2802,7 +2802,7 @@ describe("gateway session utils", () => {
   test("resolveDeletedAgentIdFromSessionKey ignores confirmed ACP runtime session keys", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const acpEntry = (agent: string, runtimeSessionName: string) =>
       ({
         acp: {
@@ -2827,7 +2827,7 @@ describe("gateway session utils", () => {
   test("resolveDeletedAgentIdFromSessionKey rejects ACP-shaped bridge keys without ACP metadata", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveDeletedAgentIdFromSessionKey(cfg, "agent:main:acp:configured-bridge-without-meta", {
@@ -2875,7 +2875,7 @@ describe("gateway session utils", () => {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       expect(
         resolveDeletedAgentIdFromSessionKey(cfg, acpKey, entry, {
@@ -2888,7 +2888,7 @@ describe("gateway session utils", () => {
   test("resolveDeletedAgentIdFromSessionKey rejects deleted configured ACP binding owners", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveDeletedAgentIdFromSessionKey(
@@ -2905,7 +2905,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "main" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "discord:group:123" })).toBe(
       "agent:ops:discord:group:123",
     );
@@ -2918,7 +2918,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "main" },
       agents: { list: [{ id: "ops" }, { id: "review" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(() => resolveSessionStoreKey({ cfg, sessionKey: "main" })).toThrowError(
       expect.objectContaining({ code: "AGENT_SELECTION_REQUIRED" }),
     );
@@ -2935,7 +2935,7 @@ describe("gateway session utils", () => {
         defaults: { sessionStore: { agentId: "ops" } },
         entries: { ops: {}, research: {} },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "main" })).toBe("agent:ops:main");
     expect(resolveSessionStoreKey({ cfg, sessionKey: "thread-1" })).toBe("agent:ops:thread-1");
     expect(resolveSessionStoreAgentId(cfg, "global")).toBe("ops");
@@ -2949,7 +2949,7 @@ describe("gateway session utils", () => {
         defaults: { sessionStore: { agentId: "retired" } },
         entries: { ops: {}, research: {} },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(() => resolveSessionStoreKey({ cfg, sessionKey: "thread-1" })).toThrowError(
       expect.objectContaining({ code: "AGENT_SELECTION_REQUIRED" }),
     );
@@ -2961,7 +2961,7 @@ describe("gateway session utils", () => {
   test("resolveSessionStoreKey falls back to main when agents.list is missing", () => {
     const cfg = {
       session: { mainKey: "work" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "main" })).toBe("agent:main:work");
     expect(resolveSessionStoreKey({ cfg, sessionKey: "thread-1" })).toBe("agent:main:thread-1");
   });
@@ -2970,7 +2970,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "main" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "CoP" })).toBe(
       resolveSessionStoreKey({ cfg, sessionKey: "cop" }),
     );
@@ -2985,7 +2985,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "main" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const mixedGroupId = "VWATodkf2hc8zdOS76q9Tb0+5Bi522E03qLdaQ/9ypg=";
     expect(resolveSessionStoreKey({ cfg, sessionKey: `Signal:Group:${mixedGroupId}` })).toBe(
       `agent:ops:signal:group:${mixedGroupId}`,
@@ -2999,7 +2999,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { scope: "global", mainKey: "work" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(resolveSessionStoreKey({ cfg, sessionKey: "main" })).toBe("global");
     const target = resolveGatewaySessionStoreTarget({ cfg, key: "main" });
     expect(target.canonicalKey).toBe("global");
@@ -3016,7 +3016,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "main", store: storeTemplate },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const target = resolveGatewaySessionStoreTarget({ cfg, key: "main" });
     expect(target.canonicalKey).toBe("agent:ops:main");
     expect(target.storeKeys).toContain("agent:ops:main");
@@ -3035,7 +3035,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work", store: storePath },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const target = resolveGatewaySessionStoreTarget({ cfg, key: "agent:ops:main" });
     expect(target.canonicalKey).toBe("agent:ops:work");
     expect(target.storeKeys).toContain("agent:ops:main");
@@ -3054,7 +3054,7 @@ describe("gateway session utils", () => {
       const cfg = {
         session: { mainKey: "main", store: fixedStorePath },
         agents: { list: [{ id: "ops", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const target = resolveGatewaySessionStoreTargetWithStore({
         cfg,
@@ -3081,7 +3081,7 @@ describe("gateway session utils", () => {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const target = resolveGatewaySessionStoreTarget({ cfg, key: "agent:retired-agent:main" });
 
@@ -3103,7 +3103,7 @@ describe("gateway session utils", () => {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const fallbackStore = {
         "agent:retired-agent:main": { sessionId: "sess-fallback", updatedAt: 99 },
       };
@@ -3147,7 +3147,7 @@ describe("gateway session utils", () => {
           ),
         },
         agents: { list: [{ id: "ops", default: true }, { id: "work" }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const target = resolveGatewaySessionStoreTargetWithStore({
         cfg,
@@ -3177,7 +3177,7 @@ describe("gateway session utils", () => {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const target = resolveGatewaySessionStoreTargetWithStore({
         cfg,
@@ -3211,7 +3211,7 @@ describe("gateway session utils", () => {
             store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
           },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         const loaded = loadSessionEntry("agent:retired-agent:main");
@@ -3240,7 +3240,7 @@ describe("gateway session utils", () => {
             store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
           },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         const loaded = loadSessionEntry("agent:main:main", { clone: false });
@@ -3266,7 +3266,7 @@ describe("gateway session utils", () => {
             store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
           },
           agents: { list: [{ id: "main", default: true }, { id: "missing" }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         const loaded = loadGatewaySessionEntryReadOnly("agent:missing:main");
@@ -3287,7 +3287,7 @@ describe("gateway session utils", () => {
         const cfg = {
           session: { mainKey: "main", store: storePath },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const parentKey = "agent:main:main";
         const childKey = "agent:main:child";
         const now = Date.now();
@@ -3372,7 +3372,7 @@ describe("gateway session utils", () => {
         const cfg = {
           session: { mainKey: "work", store: storePath },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const legacyParentKey = "agent:main:main";
         const childKey = "agent:main:child";
         const now = Date.now();
@@ -3408,7 +3408,7 @@ describe("gateway session utils", () => {
             store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
           },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const store: Record<string, SessionEntry> = {
           "agent:main:main": { sessionId: "sess-main", updatedAt: 7 },
         };
@@ -3453,7 +3453,7 @@ describe("gateway session utils", () => {
         const cfg = {
           session: { mainKey: "main", store: storeTemplate },
           agents: { list: [{ id: "ops", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         const target = resolveGatewaySessionStoreTarget({ cfg, key: "agent:main:main" });
@@ -3496,7 +3496,7 @@ describe("gateway session utils", () => {
         const cfg = {
           session: { mainKey: "work", store: storeTemplate },
           agents: { list: [{ id: "ops", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         expect(() => loadSessionEntry("agent:main:work")).toThrow("openclaw doctor --fix");
@@ -3528,7 +3528,7 @@ describe("gateway session utils", () => {
             store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
           },
           agents: { list: [{ id: "main", default: true }] },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         setRuntimeConfigSnapshot(cfg, cfg);
 
         const loaded = loadSessionEntry("agent:main:main");
@@ -3544,7 +3544,7 @@ describe("gateway session utils", () => {
     const cfg = {
       session: { mainKey: "work" },
       agents: { list: [{ id: "ops", default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const store: Record<string, SessionEntry> = {
       "agent:ops:work": {
         sessionId: "sess-stale",
@@ -3607,7 +3607,7 @@ describe("gateway session utils", () => {
       agents: {
         list: [{ id: "main", default: true, identity: { name: "开发助手" } }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
 
@@ -3631,7 +3631,7 @@ describe("gateway session utils", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
 
@@ -3648,7 +3648,7 @@ describe("gateway session utils", () => {
       agents: {
         list: [{ id: "main", default: true, identity: {} }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
 
@@ -3667,7 +3667,7 @@ describe("gateway session utils", () => {
       const cfg = {
         session: { mainKey: "main" },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const { agents } = listAgentsForGateway(cfg);
       expect(agents.map((agent) => agent.id)).toEqual(["main"]);
@@ -3727,7 +3727,7 @@ describe("gateway session utils", () => {
     "listAgentsForGateway labels global %j plus agent %j as %s",
     async (globalExec, agentExec, expected) => {
       await withStateDirEnv("openclaw-agent-permission-label-", async () => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           tools: { exec: globalExec },
           agents: { entries: { main: { tools: { exec: agentExec } } } },
         };
@@ -3747,7 +3747,7 @@ describe("gateway session utils", () => {
 
   test.each<{
     name: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     approvals: ExecApprovalsFile;
     expected: SessionEntry["permissionMode"];
   }>([
@@ -3822,7 +3822,7 @@ describe("gateway session utils", () => {
 
   test("listAgentsForGateway shares one approvals read across agent permission labels", async () => {
     await withStateDirEnv("openclaw-agent-permission-roster-", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         tools: { exec: { mode: "ask" } },
         agents: {
           entries: {
@@ -3861,7 +3861,7 @@ describe("gateway session utils", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
     expectFields(result.agents[0], {
@@ -3891,7 +3891,7 @@ describe("gateway session utils", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const catalog = [
       {
         provider: "openai",
@@ -3926,7 +3926,7 @@ describe("gateway session utils", () => {
         defaults: { model: { primary } },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(listAgentsForGateway(cfg).agents[0]?.model?.primary).toBe(expected);
   });
@@ -3944,7 +3944,7 @@ describe("gateway session utils", () => {
           { id: "plain", workspace: plainWorkspace },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     try {
       const result = listAgentsForGateway(cfg);
 
@@ -3975,7 +3975,7 @@ describe("gateway session utils", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
     expectFields(result.agents[0], {
@@ -4010,7 +4010,7 @@ describe("gateway session utils", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
     const ops = result.agents.find((agent) => agent.id === "ops");
@@ -4073,7 +4073,7 @@ describe("gateway session utils", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listAgentsForGateway(cfg);
     const agent = result.agents.find((row) => row.id === "investment-master");
@@ -4101,7 +4101,7 @@ describe("gateway session utils", () => {
         },
         list: [{ id: "main", default: true }, { id: "work" }, { id: "missing" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const catalogEntry = {
       provider: "local",
       id: "custom-reasoner",
@@ -4143,7 +4143,7 @@ describe("gateway session utils", () => {
           },
           list: [{ id: "main", default: true }],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const catalog = [
         {
           provider: "openai",
@@ -4344,7 +4344,7 @@ describe("session list selected model display", () => {
             { id: "work", model: { primary: "anthropic/claude-opus-4-6" } },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       storePath: "/tmp/sessions.json",
       store: {
         global: { sessionId: "global", updatedAt: now } as SessionEntry,
@@ -4373,7 +4373,7 @@ describe("session list selected model display", () => {
             work: { model: { primary: "anthropic/claude-opus-4-6" } },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       storePath: "/tmp/sessions.json",
       store: {
         global: { sessionId: "global", updatedAt: now } as SessionEntry,
@@ -4505,7 +4505,7 @@ describe("session list selected model display", () => {
           { id: "alias", model: { primary: "anthropic/sonnet-4.6" } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await listSessionsFromStoreAsync({
       cfg,
@@ -4542,7 +4542,7 @@ describe("session list selected model display", () => {
         defaults: { model: { primary: "openai/gpt-5.4" } },
         list: [{ id: "main", model: { primary: "anthropic/claude-sonnet-4-6" } }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await listSessionsFromStoreAsync({
       cfg,
@@ -4568,7 +4568,7 @@ describe("session list selected model display", () => {
         defaults: { model: { primary: "openai/gpt-5.4" } },
         list: [{ id: "main", model: { primary: "anthropic/claude-sonnet-4-6" } }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await listSessionsFromStoreAsync({
       cfg,
@@ -4712,7 +4712,7 @@ describe("resolveGatewayModelSupportsImages", () => {
   const createModelCatalogSnapshot = (params: {
     agentId?: string;
     catalogComplete?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     entries?: GatewayModelCatalogSnapshot["entries"];
     staticEntries?: GatewayModelCatalogSnapshot["staticEntries"];
   }): GatewayModelCatalogSnapshot => ({

@@ -3,7 +3,7 @@ import { tryResolveConfiguredAgentWorkspaceDir } from "../agents/agent-scope.js"
 import { initSubagentRegistry } from "../agents/subagents/registry/subagent-registry.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js";
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   collectRegisteredEmbeddingProviderIds,
   collectUnregisteredConfiguredMemoryEmbeddingProviders,
@@ -32,9 +32,9 @@ type GatewayStartupTrace = {
 
 /** Returns the config snapshot used by channel/plugin startup maintenance. */
 export function resolveGatewayStartupMaintenanceConfig(params: {
-  cfgAtStart: OpenClawConfig;
-  startupRuntimeConfig: OpenClawConfig;
-}): OpenClawConfig {
+  cfgAtStart: GrantedConfig;
+  startupRuntimeConfig: GrantedConfig;
+}): GrantedConfig {
   // Early config recovery may supply channel blocks after the start snapshot; startup
   // maintenance needs those owner configs even when the original snapshot was sparse.
   return params.cfgAtStart.channels === undefined &&
@@ -48,8 +48,8 @@ export function resolveGatewayStartupMaintenanceConfig(params: {
 
 /** Runs channel, session, and pairing maintenance before plugin bootstrap. */
 export async function runGatewayStartupMaintenance(params: {
-  cfgAtStart: OpenClawConfig;
-  startupRuntimeConfig: OpenClawConfig;
+  cfgAtStart: GrantedConfig;
+  startupRuntimeConfig: GrantedConfig;
   minimalTestGateway: boolean;
   log: GatewayPluginBootstrapLog;
 }): Promise<void> {
@@ -110,8 +110,8 @@ export async function runGatewayStartupMaintenance(params: {
 
 /** Builds plugin startup state and gateway method lists before the server binds. */
 export async function prepareGatewayPluginBootstrap(params: {
-  cfgAtStart: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfgAtStart: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   workerProviderIds?: readonly string[];
   minimalTestGateway: boolean;
@@ -201,7 +201,7 @@ export async function prepareGatewayPluginBootstrap(params: {
  * cannot embed and silently falls back to keyword/FTS-only recall.
  */
 export function warnUnregisteredConfiguredMemoryEmbeddingProviders(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginRegistry: Partial<Pick<PluginRegistry, "embeddingProviders">>;
   log: Pick<GatewayPluginBootstrapLog, "warn">;
 }): void {
@@ -219,8 +219,8 @@ export function warnUnregisteredConfiguredMemoryEmbeddingProviders(params: {
 
 /** Loads startup plugin runtimes after the gateway listener binds. */
 export async function loadGatewayStartupPluginRuntime(params: {
-  cfg: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  cfg: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   workspaceDir?: string;
   log: GatewayPluginBootstrapLog;
   baseMethods: string[];

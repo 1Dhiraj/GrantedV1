@@ -12,7 +12,7 @@ import {
 } from "../agents/auth-profiles.js";
 import type { AuthProfileCredential, AuthProfileStore } from "../agents/auth-profiles/types.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   COPILOT_INTEGRATION_ID,
   deriveCopilotApiBaseUrlFromToken,
@@ -463,7 +463,7 @@ describe("provider API-key readiness", () => {
     vi.unstubAllEnvs();
   });
 
-  function configuredProvider(apiKey: unknown, providerId = provider): OpenClawConfig {
+  function configuredProvider(apiKey: unknown, providerId = provider): GrantedConfig {
     return {
       models: {
         providers: {
@@ -474,7 +474,7 @@ describe("provider API-key readiness", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   it.each([provider, ` ${provider.toUpperCase()} `])(

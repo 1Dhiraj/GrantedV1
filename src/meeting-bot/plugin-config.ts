@@ -8,7 +8,7 @@ import {
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
 import { normalizeOptionalTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawPluginConfigSchema } from "../plugins/plugin-config-schema.types.js";
+import type { GrantedPluginConfigSchema } from "../plugins/plugin-config-schema.types.js";
 import {
   resolveRealtimeVoiceAgentConsultToolPolicy,
   type RealtimeVoiceAgentConsultToolPolicy,
@@ -255,7 +255,7 @@ export function createMeetingPluginConfigSchema(options: MeetingPluginConfigOpti
       "realtime.agentId": { label: "Realtime Consult Agent", advanced: true },
       "realtime.toolPolicy": { label: "Realtime Tool Policy", advanced: true },
     },
-  } satisfies OpenClawPluginConfigSchema;
+  } satisfies GrantedPluginConfigSchema;
   return {
     configSchema,
     defaultAudioInputCommand: defaultAudioRuntime.inputCommand,

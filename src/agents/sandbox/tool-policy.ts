@@ -5,7 +5,7 @@
  */
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveAgentConfig } from "../agent-scope.js";
 import { compileGlobPatterns, matchesAnyGlobPattern } from "../glob-pattern.js";
 import { expandToolGroups, normalizeToolPolicyName } from "../tool-policy.js";
@@ -237,7 +237,7 @@ export function isToolAllowed(policy: SandboxToolPolicy, name: string) {
 }
 
 export function resolveSandboxToolPolicyForAgent(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   agentId?: string,
   options?: { containedToolNames?: readonly string[] },
 ): SandboxToolPolicyResolved {

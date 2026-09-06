@@ -4,7 +4,7 @@ import { pathForRoute } from "../app-route-paths.ts";
 import { CONTROL_UI_BUILD_INFO } from "../build-info.ts";
 import { t } from "../i18n/index.ts";
 import { shouldHandleNavigationClick } from "../lib/navigation-click.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import {
   formatBuildChipText,
   formatSettingsBuildLabel,
@@ -13,7 +13,7 @@ import {
 } from "./sidebar-build-chip-format.ts";
 import "./tooltip.ts";
 
-class SidebarBuildChip extends OpenClawLightDomContentsElement {
+class SidebarBuildChip extends GrantedLightDomContentsElement {
   @property({ attribute: false }) basePath = "";
   @property({ attribute: false }) gatewayVersion: string | null = null;
   @property({ attribute: false }) updateAttentionDismissed = false;

@@ -4,7 +4,7 @@ import {
   rewriteDoctorSessionEntries,
 } from "../config/sessions/session-accessor.js";
 import { publishSessionEntryCacheInvalidation } from "../config/sessions/session-accessor.sqlite-entry-cache.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   executeSqliteQuerySync,
   getNodeSqliteKysely,
@@ -12,11 +12,11 @@ import {
 } from "../infra/kysely-sync.js";
 import { isIncognitoSessionKey, parseAgentSessionKey } from "../routing/session-key.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   isOpenClawAgentDatabaseOpen,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
   runOpenClawAgentWriteTransaction,
 } from "../state/openclaw-agent-db.js";
 import {
@@ -45,7 +45,7 @@ export type ReservedIncognitoKeyRepairReport = {
 
 export function repairReservedIncognitoSessionKeys(params: {
   apply: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): ReservedIncognitoKeyRepairReport {
   const targets = listExistingAgentDatabaseTargets(params.cfg, params.env).map((target) => ({
@@ -179,7 +179,7 @@ function planReservedIncognitoKeyRenames(
 }
 
 function applyReservedIncognitoKeyRenameColumns(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   renames: readonly ReservedKeyRename[],
 ): void {
   if (renames.length === 0) {
@@ -203,7 +203,7 @@ function legacyIncognitoSessionKey(sessionKey: string): string {
 }
 
 function listReservedIncognitoKeys(database: DatabaseSync): string[] {
-  const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database);
+  const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database);
   const keys = new Set<string>();
   for (const row of executeSqliteQuerySync(
     database,
@@ -221,7 +221,7 @@ function listReservedIncognitoKeys(database: DatabaseSync): string[] {
 }
 
 function collectOccupiedSessionKeys(database: DatabaseSync): Set<string> {
-  const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database);
+  const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database);
   const keys = new Set<string>();
   const collect = (values: Array<string | null>) => {
     for (const value of values) {
@@ -285,7 +285,7 @@ function collectOccupiedSessionKeys(database: DatabaseSync): Set<string> {
 }
 
 function updateSessionKeyColumns(database: DatabaseSync, rename: ReservedKeyRename): void {
-  const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database);
+  const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database);
   const update = (query: Parameters<typeof executeSqliteQuerySync>[1]) =>
     executeSqliteQuerySync(database, query);
   update(

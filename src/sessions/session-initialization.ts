@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { capturePluginLifecycleAuthority } from "../plugins/registry-lifecycle.js";
 import { getPluginRegistryState } from "../plugins/runtime-state.js";
 import {
@@ -100,7 +100,7 @@ export function captureSessionInitializationOwner(harnessId: string | undefined)
 export function createSessionInitialization(
   target: Target,
   assertOwner: (deleted: boolean) => void,
-  preparation: { config: OpenClawConfig; agentId: string; entry: SessionEntry },
+  preparation: { config: GrantedConfig; agentId: string; entry: SessionEntry },
 ) {
   const registry =
     getPluginRuntimeGenerationRegistry() ??

@@ -1,7 +1,7 @@
 // Memory Wiki doctor contract owns legacy state cleanup and migrations.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import {
   archiveLegacyStateSource,
   legacyStateFileExists,
@@ -78,7 +78,7 @@ async function openExistingVaultRoot(vaultRoot: string) {
   }
 }
 
-function readConfiguredPluginConfig(config: OpenClawConfig): MemoryWikiPluginConfig | undefined {
+function readConfiguredPluginConfig(config: GrantedConfig): MemoryWikiPluginConfig | undefined {
   const entries = config.plugins?.entries;
   const pluginEntry = isRecord(entries) ? entries["memory-wiki"] : undefined;
   if (!isRecord(pluginEntry) || !isRecord(pluginEntry.config)) {
@@ -88,7 +88,7 @@ function readConfiguredPluginConfig(config: OpenClawConfig): MemoryWikiPluginCon
 }
 
 function resolveConfiguredVaultRoots(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): string[] {
   const homeDir = resolveHomeDir(params.env);

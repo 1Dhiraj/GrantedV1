@@ -1,6 +1,6 @@
 // Whatsapp plugin module composes the inbound socket, metadata, and delivery owners.
 import type { WAMessageKey, WASocket } from "baileys";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getChildLogger } from "openclaw/plugin-sdk/logging-core";
 import { createSubsystemLogger, defaultRuntime } from "openclaw/plugin-sdk/runtime-env";
 import { createWaSocket, waitForWaConnection } from "../session.js";
@@ -34,8 +34,8 @@ function logWhatsAppVerbose(enabled: boolean | undefined, message: string) {
 }
 
 type MonitorWebInboxOptions = {
-  cfg: OpenClawConfig;
-  loadConfig?: () => OpenClawConfig;
+  cfg: GrantedConfig;
+  loadConfig?: () => GrantedConfig;
   socketTiming?: Required<WhatsAppSocketTimingOptions>;
   verbose: boolean;
   accountId: string;

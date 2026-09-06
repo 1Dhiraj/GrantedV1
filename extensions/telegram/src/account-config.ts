@@ -3,12 +3,12 @@ import {
   mergeAccountConfig,
   normalizeAccountId,
   resolveNormalizedAccountEntry,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-core";
 import type { TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 
 export function resolveTelegramAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): TelegramAccountConfig | undefined {
   const normalized = normalizeAccountId(accountId);
@@ -20,7 +20,7 @@ export function resolveTelegramAccountConfig(
 }
 
 export function mergeTelegramAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): TelegramAccountConfig {
   const channelConfig = cfg.channels?.telegram;

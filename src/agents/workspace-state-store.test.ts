@@ -11,7 +11,7 @@ import {
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resolveWorkspaceStateIdentity } from "./workspace-state-identity.js";
 import {
@@ -24,7 +24,7 @@ import {
   WORKSPACE_LEGACY_STATE_MIGRATION_KIND,
 } from "./workspace-state-store.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

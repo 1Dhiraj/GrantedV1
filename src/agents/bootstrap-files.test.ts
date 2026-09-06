@@ -19,7 +19,7 @@ import { makeTempWorkspace } from "../test-helpers/workspace.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   FULL_BOOTSTRAP_COMPLETED_CUSTOM_TYPE,
@@ -46,7 +46,7 @@ vi.mock("../plugins/memory-runtime.js", () => ({
     memoryRuntimeMocks.classifyWorkspacePaths(...args),
 }));
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 function registerExtraBootstrapFileHook() {
   registerInternalHook("agent:bootstrap", (event) => {

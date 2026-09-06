@@ -1,5 +1,5 @@
 // Microsoft Foundry image provider tests cover MAI request construction.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildMicrosoftFoundryImageGenerationProvider } from "./image-generation-provider.js";
 import { PROVIDER_ID } from "./shared.js";
@@ -77,7 +77,7 @@ function buildConfig(
     includeModel?: boolean;
     mediaMaxMb?: number;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const baseUrl = params.baseUrl ?? "https://example.services.ai.azure.com/openai/v1";
   const modelId = params.modelId ?? "image-deployment";
   const modelName = params.modelName ?? "MAI-Image-2.5";

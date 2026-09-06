@@ -5,7 +5,7 @@ import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
 import { withEnvAsync } from "../../test-utils/env.js";
@@ -93,7 +93,7 @@ describe("runMessageAction plugin dispatch", () => {
               enabled: true,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "pin",
         params: {
           channel: "actionhub",
@@ -115,7 +115,7 @@ describe("runMessageAction plugin dispatch", () => {
               enabled: true,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "list-pins",
         params: {
           channel: "actionhub",
@@ -153,7 +153,7 @@ describe("runMessageAction plugin dispatch", () => {
             enabled: true,
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await runMessageAction({
         cfg,
@@ -230,7 +230,7 @@ describe("runMessageAction plugin dispatch", () => {
                 enabled: true,
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           action: "pin",
           params: {
             channel: "actionhub",
@@ -288,7 +288,7 @@ describe("runMessageAction plugin dispatch", () => {
     const handleAction = vi.fn(async ({ params }: { params: Record<string, unknown> }) =>
       jsonResult({ ok: true, params }),
     );
-    const cfg = { channels: { forumchat: { enabled: true } } } as OpenClawConfig;
+    const cfg = { channels: { forumchat: { enabled: true } } } as GrantedConfig;
     const threading: ChannelPlugin["threading"] = {
       resolveAutoThreadId: ({ toolContext, to }) =>
         toolContext?.currentChannelId === to ? toolContext.currentThreadTs : undefined,
@@ -471,7 +471,7 @@ describe("runMessageAction plugin dispatch", () => {
               botToken: "tok",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "poll",
         params: {
           channel: "pollchat",
@@ -564,7 +564,7 @@ describe("runMessageAction plugin dispatch", () => {
               token: "tok",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         action: "poll",
         params: {
           channel: "guildchat",

@@ -53,7 +53,7 @@ type StartupRefusalEvidence = Awaited<ReturnType<typeof requireLegacyStartupRefu
 
 type ProofContext = ReturnType<typeof buildProofContext>;
 type GatewayClient = Awaited<ReturnType<typeof connectGatewayClient>>;
-type OpenClawTestInstance = Awaited<ReturnType<typeof createOpenClawTestInstance>>;
+type GrantedTestInstance = Awaited<ReturnType<typeof createOpenClawTestInstance>>;
 
 type RunOptions = {
   print?: boolean;
@@ -487,7 +487,7 @@ async function getFreeTcpPort(): Promise<number> {
 }
 
 async function connectProofClient(
-  inst: OpenClawTestInstance,
+  inst: GrantedTestInstance,
   clientDisplayName: string,
 ): Promise<GatewayClient> {
   return await connectGatewayClient({
@@ -753,7 +753,7 @@ async function importProofSession(
   }
 }
 
-async function requireLegacyStartupRefusal(inst: OpenClawTestInstance, context: ProofContext) {
+async function requireLegacyStartupRefusal(inst: GrantedTestInstance, context: ProofContext) {
   const sources = new Map<string, Buffer>();
   for (const directory of [context.activeSessionsDir, context.legacySessionsDir]) {
     await walkFiles(directory, async (filePath) => {
@@ -792,7 +792,7 @@ async function requireLegacyStartupRefusal(inst: OpenClawTestInstance, context: 
   };
 }
 
-async function runDoctor(inst: OpenClawTestInstance, mode: DoctorMode, storePath: string) {
+async function runDoctor(inst: GrantedTestInstance, mode: DoctorMode, storePath: string) {
   const result = await inst.cli(
     mode === "fix"
       ? ["doctor", "--fix", "--non-interactive"]
@@ -852,7 +852,7 @@ function parseDoctorRestore(parsed: Record<string, unknown>) {
   };
 }
 
-async function runRollbackRestoreProof(inst: OpenClawTestInstance, context: ProofContext) {
+async function runRollbackRestoreProof(inst: GrantedTestInstance, context: ProofContext) {
   const drillDir = path.join(context.stateDir, "rollback-drill");
   const storePath = path.join(drillDir, "sessions.json");
   const sessionId = "sqlite-rollback-restore";
@@ -1034,7 +1034,7 @@ function sessionArtifactPaths(sessionsDir: string, sessionId: string) {
 }
 
 async function runDoctorIdempotenceProof(
-  inst: OpenClawTestInstance,
+  inst: GrantedTestInstance,
   context: ProofContext,
 ): Promise<DoctorCommandEvidence> {
   const before = readSqliteEvidence(context.agentDbPath, context.trackedSessionKeys);
@@ -1086,7 +1086,7 @@ function requireScaleMigrationProof(context: ProofContext, doctorImportElapsedMs
   };
 }
 
-async function runDowngradeReupgradeProof(inst: OpenClawTestInstance, context: ProofContext) {
+async function runDowngradeReupgradeProof(inst: GrantedTestInstance, context: ProofContext) {
   await fs.mkdir(context.activeSessionsDir, { recursive: true });
   await writeJsonFile(
     context.storePath,
@@ -1278,7 +1278,7 @@ async function runSecondStartupAfterResetProof(
 }
 
 async function runConcurrentMultiClientLifecycle(
-  inst: OpenClawTestInstance,
+  inst: GrantedTestInstance,
   context: ProofContext,
   primaryClient: GatewayClient,
 ): Promise<void> {

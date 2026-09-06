@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getRuntimeConfigWriteApplication } from "../../config/runtime-write-application.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const configMocks = vi.hoisted(() => ({
   replaceConfigFile: vi.fn(),
@@ -8,8 +8,8 @@ const configMocks = vi.hoisted(() => ({
 }));
 const secretsMocks = vi.hoisted(() => ({
   activeSnapshot: null as {
-    sourceConfig: OpenClawConfig;
-    config: OpenClawConfig;
+    sourceConfig: GrantedConfig;
+    config: GrantedConfig;
   } | null,
 }));
 
@@ -54,7 +54,7 @@ describe("commitGatewayConfigWrite", () => {
     await commitGatewayConfigWrite({
       snapshot: snapshot as never,
       writeOptions: {},
-      nextConfig: {} satisfies OpenClawConfig,
+      nextConfig: {} satisfies GrantedConfig,
     });
 
     expect(configMocks.replaceConfigFile).toHaveBeenCalledWith(
@@ -114,7 +114,7 @@ describe("didActiveSharedGatewayAuthChange", () => {
   });
 
   it("preserves runtime-only auth fields absent from the active secrets source", () => {
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       gateway: { auth: { mode: "token", token: "runtime-token" } },
     };
     secretsMocks.activeSnapshot = {
@@ -132,7 +132,7 @@ describe("didActiveSharedGatewayAuthChange", () => {
       sourceConfig: { gateway: { auth: { mode: "token", token: "token-a" } } },
       config: { gateway: { auth: { mode: "token", token: "token-a" } } },
     };
-    const current: OpenClawConfig = {
+    const current: GrantedConfig = {
       gateway: { auth: { mode: "token", token: "token-b" } },
     };
 
@@ -150,7 +150,7 @@ describe("didActiveSharedGatewayAuthChange", () => {
       sourceConfig: { gateway: { auth: { mode: "token" } } },
       config: { gateway: { auth: { mode: "token" } } },
     };
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       gateway: { auth: { mode: "token", token: "runtime-token" } },
     };
 

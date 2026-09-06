@@ -1,7 +1,7 @@
 import { Type } from "typebox";
 import { tryResolveLegacyCompatibilityAgentId } from "../../config/legacy.default-agent-owner.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createAbortError } from "../../infra/abort-signal.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";
 import { resolveSubagentCompletionResultText } from "../subagents/completion/subagent-completion-result.js";
@@ -27,7 +27,7 @@ function ownsRun(
   entry: SubagentRunRecord,
   currentSessionKeys: ReadonlySet<string>,
   currentAgentId?: string,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): boolean {
   const owner = entry.swarmRequesterSessionKey?.trim();
   if (!owner) {
@@ -49,7 +49,7 @@ function ownsRun(
   });
 }
 
-function paramsOwner(config: OpenClawConfig | undefined, sessionKey: string): string | undefined {
+function paramsOwner(config: GrantedConfig | undefined, sessionKey: string): string | undefined {
   if (!config) {
     return undefined;
   }
@@ -88,7 +88,7 @@ export async function waitForCollectorCompletion(params: {
   runId: string;
   currentSessionKeys: ReadonlySet<string>;
   currentAgentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   signal?: AbortSignal;
 }): Promise<CollectorCompletionResult> {
   const readCompletion = (): CollectorCompletionResult | undefined => {
@@ -152,7 +152,7 @@ function resolveWaitTargets(
   ids: readonly string[],
   currentSessionKeys: ReadonlySet<string>,
   currentAgentId?: string,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ) {
   const targets: WaitTarget[] = [];
   const errors: WaitError[] = [];
@@ -204,7 +204,7 @@ function readWaitState(
   ids: readonly string[],
   currentSessionKeys: ReadonlySet<string>,
   currentAgentId?: string,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ) {
   const resolved = resolveWaitTargets(ids, currentSessionKeys, currentAgentId, config);
   return readResolvedWaitState(resolved.targets, resolved.errors);
@@ -214,7 +214,7 @@ async function waitForCollector(params: {
   ids: readonly string[];
   currentSessionKeys: ReadonlySet<string>;
   currentAgentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   timeoutMs: number;
   signal?: AbortSignal;
 }) {
@@ -259,7 +259,7 @@ export function createAgentsWaitTool(opts: {
   agentSessionKey?: string;
   runSessionKey?: string;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): AnyAgentTool {
   const swarm = resolveSwarmConfig(opts.config, opts.agentId);
   return {

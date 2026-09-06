@@ -34,7 +34,7 @@ import {
 } from "../../lib/tasks/data.ts";
 import type { TaskSummary } from "../../lib/tasks/task-summary.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { renderTasks } from "./view.ts";
 
@@ -96,7 +96,7 @@ async function loadActiveTaskPages(params: {
   }
 }
 
-class TasksPage extends OpenClawLightDomElement {
+class TasksPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

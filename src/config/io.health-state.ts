@@ -1,13 +1,13 @@
 import { formatErrorMessage } from "../infra/errors.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 // Stores config health fingerprints in shared SQLite state.
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
-import { OpenClawStateOwnershipError } from "../state/openclaw-state-ownership.js";
+import { GrantedStateOwnershipError } from "../state/openclaw-state-ownership.js";
 import { setBoundedConfigIoWarningEntry } from "./io.state.js";
 
 // Fresh config snapshots share a database; retain failures until a write recovers.
@@ -39,7 +39,7 @@ export type ConfigHealthState = {
   entries?: Record<string, ConfigHealthEntry>;
 };
 
-type ConfigHealthDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type ConfigHealthDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 
 type ConfigHealthStateDeps = {
   env: NodeJS.ProcessEnv;
@@ -101,7 +101,7 @@ export function readConfigHealthStateFromStore(deps: ConfigHealthStateDeps): Con
       ),
     };
   } catch (error) {
-    if (error instanceof OpenClawStateOwnershipError) {
+    if (error instanceof GrantedStateOwnershipError) {
       throw error;
     }
     return {};
@@ -151,7 +151,7 @@ export function writeConfigHealthStateToStore(
     );
     loggedHealthWriteFailures.delete(databasePath);
   } catch (error) {
-    if (error instanceof OpenClawStateOwnershipError) {
+    if (error instanceof GrantedStateOwnershipError) {
       throw error;
     }
     const message = formatErrorMessage(error);

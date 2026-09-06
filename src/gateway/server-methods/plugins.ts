@@ -17,7 +17,7 @@ import {
   INSTALL_POLICY_WARNING_ACKNOWLEDGEMENT_REQUIRED,
   readInstallPolicyWarningErrorDetails,
 } from "../../../packages/gateway-protocol/src/install-policy-warning-error-details.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { searchInstallablePluginPackages } from "../../plugins/catalog-search.js";
 import { ManagedPluginLifecycleError } from "../../plugins/management-lifecycle-error.js";
@@ -35,7 +35,7 @@ import type { GatewayRequestHandlers } from "./types.js";
 import { assertValidParams } from "./validation.js";
 
 function pluginPolicyRestartRequired(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changedPaths: readonly string[];
 }): boolean {
   const plan = buildGatewayReloadPlan([...params.changedPaths]);

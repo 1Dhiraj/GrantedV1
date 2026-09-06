@@ -15,7 +15,7 @@ import {
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
 } from "../../agents/agent-scope.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   resolveMemoryDeepDreamingConfig,
   resolveMemoryLightDreamingConfig,
@@ -213,7 +213,7 @@ async function listWorkspaceDailyFiles(memoryDir: string): Promise<string[]> {
 }
 
 function resolveDreamingConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Omit<
   DoctorMemoryDreamingPayload,
   | "shortTermCount"
@@ -641,7 +641,7 @@ function resolveDoctorMemoryAgent(
   respond: RespondFn,
   omittedAgentId?: string,
 ): {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   requestedAgentId?: string;
 } | null {
@@ -686,7 +686,7 @@ function resolveDoctorMemoryTarget(
   params: unknown,
   respond: RespondFn,
 ): {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   workspaceDir: string;
 } | null {

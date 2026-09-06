@@ -6,7 +6,7 @@ import type {
   AcpRuntimeStatus,
 } from "@openclaw/acp-core/runtime/types";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { toErrorObject } from "../../infra/errors.js";
 import { isAcpSessionKey } from "../../sessions/session-key-utils.js";
@@ -95,7 +95,7 @@ export class AcpSessionManager {
   }
 
   resolveSession(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
   }): AcpSessionResolution {
@@ -152,7 +152,7 @@ export class AcpSessionManager {
   }
 
   async reconcilePendingSessionIdentities(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
   }): Promise<AcpStartupIdentityReconcileResult> {
     return await runManagerStartupIdentityReconcile({
       cfg: params.cfg,
@@ -182,7 +182,7 @@ export class AcpSessionManager {
   }
 
   async getSessionStatus(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     signal?: AbortSignal;
@@ -207,7 +207,7 @@ export class AcpSessionManager {
   }
 
   async setSessionRuntimeMode(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     runtimeMode: string;
@@ -226,7 +226,7 @@ export class AcpSessionManager {
   }
 
   async setSessionConfigOption(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     key: string;
@@ -249,7 +249,7 @@ export class AcpSessionManager {
   }
 
   async updateSessionRuntimeOptions(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     patch: Partial<AcpSessionRuntimeOptions>;
@@ -268,7 +268,7 @@ export class AcpSessionManager {
   }
 
   async resetSessionRuntimeOptions(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
   }): Promise<AcpSessionRuntimeOptions> {
@@ -305,7 +305,7 @@ export class AcpSessionManager {
   }
 
   async cancelSession(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     reason?: string;
@@ -347,7 +347,7 @@ export class AcpSessionManager {
   }
 
   private async ensureRuntimeHandle(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId: string;
     meta: SessionAcpMeta;
@@ -397,7 +397,7 @@ export class AcpSessionManager {
   }
 
   private async setSessionState(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId: string;
     state: SessionAcpMeta["state"];
@@ -442,7 +442,7 @@ export class AcpSessionManager {
   }
 
   private async reconcileRuntimeSessionIdentifiers(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId: string;
     runtime: AcpRuntime;
@@ -468,7 +468,7 @@ export class AcpSessionManager {
   }
 
   private async writeSessionMeta(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId: string;
     mutate: (

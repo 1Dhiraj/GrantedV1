@@ -5,7 +5,7 @@ import {
   clampTimerTimeoutMs,
   resolveTimerTimeoutMs,
 } from "@openclaw/normalization-core/number-coercion";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "./model-catalog.types.js";
 import {
   buildConfiguredModelCatalog,
@@ -24,7 +24,7 @@ export type ModelCatalogBrowseView = "default" | "configured" | "provider-config
 
 /** Source-authored provider rows for inventory UIs, independent of picker allowlists. */
 export function buildProviderConfigModelCatalogForBrowse(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
 }): ModelCatalogEntry[] {
   return buildConfiguredModelCatalog(params).toSorted(
@@ -37,7 +37,7 @@ export function buildProviderConfigModelCatalogForBrowse(params: {
 
 /** True when a browse view requires the full published catalog generation. */
 export function modelCatalogBrowseRequiresFullDiscovery(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   view?: ModelCatalogBrowseView;
 }): boolean {
@@ -73,7 +73,7 @@ function resolveModelCatalogBrowseTimeoutMs(value: number | undefined): number {
 
 /** Loads an explicit logical/physical catalog snapshot for route-aware browse surfaces. */
 export async function loadPreparedModelCatalogSnapshotForBrowse(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   view?: ModelCatalogBrowseView;
   /** Never starts provider discovery; a completed generation cache may still be reused. */

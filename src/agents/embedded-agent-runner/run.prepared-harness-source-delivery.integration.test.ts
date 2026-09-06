@@ -32,7 +32,7 @@ import { buildTestCtx } from "../../auto-reply/reply/test-ctx.js";
 import type { MsgContext } from "../../auto-reply/templating.js";
 import type { GetReplyOptions, ReplyPayload } from "../../auto-reply/types.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import type { FailoverReason } from "../failover/signal.js";
 import type { AgentHarnessHostCapabilities } from "../harness/host-capability-types.js";
 import { registerAgentHarness } from "../harness/registry.js";
@@ -77,7 +77,7 @@ function runAdmittedAttempt(
 beforeAll(globalBeforeAll0);
 
 describe("prepared harness source delivery", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let restoreSynthesis: (() => void) | undefined;
   async function loadSourceDeliveryHarness() {
     // The runner resets modules; keep its private payload metadata shared with dispatch.

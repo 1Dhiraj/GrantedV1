@@ -1,6 +1,6 @@
 // Doctor Tailscale tests cover safe migration of shipped external Serve routes.
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { TailscaleStatusCommandRunner } from "../shared/tailscale-status.js";
 import { prepareTailscaleConfigMigration } from "./doctor-tailscale.js";
 
@@ -37,7 +37,7 @@ function runner(stdout: string): TailscaleStatusCommandRunner {
 
 describe("prepareTailscaleConfigMigration", () => {
   it("moves the shipped LAN Serve shape to managed ingress", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "local",
         bind: "lan",
@@ -76,7 +76,7 @@ describe("prepareTailscaleConfigMigration", () => {
     ["managed mode", { tailscale: { mode: "serve" as const } }, serveStatus()],
     ["remote Gateway", { mode: "remote" as const }, serveStatus()],
   ])("does not migrate a %s", async (_label, gatewayOverrides, stdout) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "local",
         bind: "lan",
@@ -105,7 +105,7 @@ describe("prepareTailscaleConfigMigration", () => {
     ],
     ["authentication disabled", { auth: { mode: "none" as const } }, serveStatus()],
   ])("warns instead of guessing how to migrate %s", async (_label, gatewayOverrides, stdout) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "local",
         bind: "lan",
@@ -128,7 +128,7 @@ describe("prepareTailscaleConfigMigration", () => {
   });
 
   it("warns on malformed status but stays quiet when Tailscale is unavailable", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         bind: "lan",
         auth: { mode: "token", token: "secret" },

@@ -21,7 +21,7 @@ import {
 } from "../config/env-substitution.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { formatCliCommand } from "./command-format.js";
 
@@ -35,7 +35,7 @@ type TouchedModelRef = {
 };
 
 type ConfigModelRefResolver = (params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   ref: TouchedModelRef;
 }) => Promise<string | undefined>;
 
@@ -95,7 +95,7 @@ function collectTextModelConfigRefs(params: {
   return refs;
 }
 
-function collectTextModelRefs(config: OpenClawConfig): TouchedModelRef[] {
+function collectTextModelRefs(config: GrantedConfig): TouchedModelRef[] {
   const refs = collectTextModelConfigRefs({
     model: config.agents?.defaults?.model,
     path: "agents.defaults.model",
@@ -136,8 +136,8 @@ function modelRefComparisonKey(ref: TouchedModelRef): string {
 }
 
 function collectTouchedTextModelRefs(params: {
-  config: OpenClawConfig;
-  previousConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  previousConfig?: GrantedConfig;
   touchedPaths: readonly (readonly string[])[];
 }): TouchedModelRef[] {
   const listedAgentEntries = listAgentEntriesWithSource(params.config);
@@ -242,10 +242,10 @@ function collectTouchedTextModelRefs(params: {
 }
 
 function resolveCanonicalPrimaryRef(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   value: string,
 ): { provider: string; model: string } | undefined {
-  const validationConfig: OpenClawConfig = {
+  const validationConfig: GrantedConfig = {
     ...config,
     agents: {
       ...config.agents,
@@ -264,7 +264,7 @@ function resolveCanonicalPrimaryRef(
   return resolved.model ? resolved : undefined;
 }
 
-function resolveFallbackRef(config: OpenClawConfig, value: string) {
+function resolveFallbackRef(config: GrantedConfig, value: string) {
   const defaultProvider = resolveDefaultModelForAgent({ cfg: config }).provider;
   return resolveModelRefFromString({
     cfg: config,
@@ -280,14 +280,14 @@ function resolveFallbackRef(config: OpenClawConfig, value: string) {
 }
 
 function resolveCanonicalFallbackRef(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   value: string,
 ): { provider: string; model: string } | undefined {
   return resolveFallbackRef(config, value)?.ref;
 }
 
 function hasUnresolvedInheritedFallbackProvider(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   ref: TouchedModelRef,
   unresolvedPaths: ReadonlySet<string>,
 ): boolean {
@@ -311,7 +311,7 @@ function hasUnresolvedInheritedFallbackProvider(
 }
 
 function expandInheritedDefaultRefs(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   refs: TouchedModelRef[],
 ): TouchedModelRef[] {
   const agentEntries = listAgentEntries(config);
@@ -365,7 +365,7 @@ function modelRefEnvSourcePath(path: string): string {
 }
 
 function validateModelRefSyntax(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   ref: TouchedModelRef,
   unresolvedPaths: ReadonlySet<string>,
 ): string | undefined {
@@ -463,8 +463,8 @@ function formatModelRefError(
 }
 
 export async function checkTouchedTextModelRefs(params: {
-  config: OpenClawConfig;
-  previousConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  previousConfig?: GrantedConfig;
   touchedPaths: readonly (readonly string[])[];
   env?: NodeJS.ProcessEnv;
   resolveModelRef?: ConfigModelRefResolver;
@@ -476,10 +476,10 @@ export async function checkTouchedTextModelRefs(params: {
   // explicit empty or malformed rosters must remain visible to schema repair.
   const config = hasAgentRosterProperty(params.config)
     ? params.config
-    : (migratePersistedImplicitMainRoster(params.config).config as OpenClawConfig);
+    : (migratePersistedImplicitMainRoster(params.config).config as GrantedConfig);
   const previousConfig =
     params.previousConfig && !hasAgentRosterProperty(params.previousConfig)
-      ? (migratePersistedImplicitMainRoster(params.previousConfig).config as OpenClawConfig)
+      ? (migratePersistedImplicitMainRoster(params.previousConfig).config as GrantedConfig)
       : params.previousConfig;
   const validationParams = { ...params, config, previousConfig };
   const authoredRefs = collectTouchedTextModelRefs(validationParams);
@@ -489,18 +489,18 @@ export async function checkTouchedTextModelRefs(params: {
   const previousAuthoredValuesByPath = new Map(
     collectTextModelRefs(params.previousConfig ?? {}).map((ref) => [ref.path, ref.value]),
   );
-  let validationConfig: OpenClawConfig;
-  let validationPreviousConfig: OpenClawConfig | undefined;
+  let validationConfig: GrantedConfig;
+  let validationPreviousConfig: GrantedConfig | undefined;
   const unresolvedPaths = new Set<string>();
   try {
     const env = params.env ?? process.env;
     validationConfig = resolveConfigEnvVars(params.config, env, {
       onMissing: ({ configPath }: EnvSubstitutionWarning) => unresolvedPaths.add(configPath),
-    }) as OpenClawConfig;
+    }) as GrantedConfig;
     validationPreviousConfig = params.previousConfig
       ? (resolveConfigEnvVars(params.previousConfig, env, {
           onMissing: () => {},
-        }) as OpenClawConfig)
+        }) as GrantedConfig)
       : undefined;
   } catch (cause) {
     const detail = cause instanceof Error ? cause.message : String(cause);
@@ -530,10 +530,10 @@ export async function checkTouchedTextModelRefs(params: {
   );
   const validationRosterConfig = hasAgentRosterProperty(validationConfig)
     ? validationConfig
-    : (migratePersistedImplicitMainRoster(validationConfig).config as OpenClawConfig);
+    : (migratePersistedImplicitMainRoster(validationConfig).config as GrantedConfig);
   const validationPreviousRosterConfig =
     validationPreviousConfig && !hasAgentRosterProperty(validationPreviousConfig)
-      ? (migratePersistedImplicitMainRoster(validationPreviousConfig).config as OpenClawConfig)
+      ? (migratePersistedImplicitMainRoster(validationPreviousConfig).config as GrantedConfig)
       : validationPreviousConfig;
   const refsByKey = new Map(
     collectTouchedTextModelRefs({

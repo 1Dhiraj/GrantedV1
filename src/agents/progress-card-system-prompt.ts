@@ -2,7 +2,7 @@ import {
   canonicalizeMainSessionAlias,
   resolveAgentMainSessionKey,
 } from "../config/sessions/main-session.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasPairedCardRenderer } from "../infra/device-pairing.js";
 import { shouldIncludeProgressCardToolForOpenClawTools } from "./openclaw-tools.registration.js";
 import { resolveUtilityModelRefForAgent } from "./utility-model.js";
@@ -12,7 +12,7 @@ const PROGRESS_CARD_SYSTEM_PROMPT =
 
 function isAgentMainSession(params: {
   agentId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
 }): boolean {
   if (!params.sessionKey) {
@@ -39,7 +39,7 @@ function isAgentMainSession(params: {
 export async function appendProgressCardSystemPrompt(params: {
   agentId: string;
   authProfileId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   extraSystemPrompt?: string;
   modelId: string;
   provider: string;

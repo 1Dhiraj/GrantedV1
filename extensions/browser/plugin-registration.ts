@@ -7,12 +7,12 @@ import type { Duplex } from "node:stream";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginService,
-  OpenClawPluginToolContext,
-  OpenClawPluginToolFactory,
+  GrantedPluginApi,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginSecurityAuditCollector,
+  GrantedPluginService,
+  GrantedPluginToolContext,
+  GrantedPluginToolFactory,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createSubsystemLogger, isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
 import { isBrowserMachineOutput } from "./cli-output-mode.js";
@@ -91,7 +91,7 @@ function createLazyBrowserTool(
     };
     runToolBinding?: unknown;
   },
-  config?: OpenClawPluginToolContext["runtimeConfig"],
+  config?: GrantedPluginToolContext["runtimeConfig"],
 ): AnyAgentTool {
   const bindingResult =
     opts?.runToolBinding === undefined
@@ -135,7 +135,7 @@ function createLazyBrowserTool(
   };
 }
 
-function createBrowserToolOptions(ctx: OpenClawPluginToolContext): {
+function createBrowserToolOptions(ctx: GrantedPluginToolContext): {
   sandboxBridgeUrl?: string;
   allowHostControl?: boolean;
   agentSessionKey?: string;
@@ -194,7 +194,7 @@ export const browserPluginReload = {
 };
 
 /** Node-host command descriptors exposed by the Browser plugin. */
-function createBrowserProxyNodeHostCommand(command: string): OpenClawPluginNodeHostCommand {
+function createBrowserProxyNodeHostCommand(command: string): GrantedPluginNodeHostCommand {
   return {
     command,
     cap: "browser",
@@ -218,21 +218,21 @@ function createBrowserProxyNodeHostCommand(command: string): OpenClawPluginNodeH
   };
 }
 
-export const browserPluginNodeHostCommands: OpenClawPluginNodeHostCommand[] = [
+export const browserPluginNodeHostCommands: GrantedPluginNodeHostCommand[] = [
   createBrowserProxyNodeHostCommand(BROWSER_PROXY_COMMAND),
   createBrowserProxyNodeHostCommand(BROWSER_PROXY_UPLOAD_COMMAND),
 ];
 
 /** Security audit collectors contributed by the Browser plugin. */
-export const browserSecurityAuditCollectors: OpenClawPluginSecurityAuditCollector[] = [
+export const browserSecurityAuditCollectors: GrantedPluginSecurityAuditCollector[] = [
   async (ctx) => {
     const { collectBrowserSecurityAuditFindings } = await loadBrowserRegistrationRuntimeModule();
     return collectBrowserSecurityAuditFindings(ctx);
   },
 ];
 
-function createLazyBrowserPluginService(): OpenClawPluginService {
-  let service: OpenClawPluginService | null = null;
+function createLazyBrowserPluginService(): GrantedPluginService {
+  let service: GrantedPluginService | null = null;
   const loadService = async () => {
     if (!service) {
       const { createBrowserPluginService, stopBrowserControlService } =
@@ -266,7 +266,7 @@ function createLazyBrowserPluginService(): OpenClawPluginService {
 }
 
 /** Register Browser tool factories, CLI, gateway methods, services, and audits. */
-export function registerBrowserPlugin(api: OpenClawPluginApi) {
+export function registerBrowserPlugin(api: GrantedPluginApi) {
   initializeBrowserSessionTabStore(api.runtime);
   configureSystemProfileImportStateStore(
     api.runtime.state.openKeyedStore<SystemProfileImportState>({
@@ -274,10 +274,10 @@ export function registerBrowserPlugin(api: OpenClawPluginApi) {
       maxEntries: 1,
     }),
   );
-  api.registerTool(((ctx: OpenClawPluginToolContext) => {
+  api.registerTool(((ctx: GrantedPluginToolContext) => {
     const config = ctx.getRuntimeConfig?.() ?? ctx.runtimeConfig ?? ctx.config;
     return createLazyBrowserTool(createBrowserToolOptions(ctx), config);
-  }) as OpenClawPluginToolFactory);
+  }) as GrantedPluginToolFactory);
   api.registerCli(
     async ({ program }) => {
       const { registerBrowserCli } = await import("./src/cli/browser-cli.js");

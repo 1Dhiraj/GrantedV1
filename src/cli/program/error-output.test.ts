@@ -22,7 +22,7 @@ import {
   formatCliParseErrorOutput,
 } from "./error-output.js";
 import { setCommandJsonMode } from "./json-mode.js";
-import { OpenClawCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./openclaw-command.js";
 import { registerLazyCommand } from "./register-lazy-command.js";
 
 async function parseLazyGroupError(params: {
@@ -35,7 +35,7 @@ async function parseLazyGroupError(params: {
   let output = "";
   let stdout = "";
   try {
-    const program = new OpenClawCommand().name("openclaw").exitOverride();
+    const program = new GrantedCommand().name("openclaw").exitOverride();
     program.configureOutput({
       writeOut: (value) => {
         stdout += value;
@@ -163,7 +163,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = ["node", "openclaw", ...testCase.args];
     try {
-      const program = new OpenClawCommand()
+      const program = new GrantedCommand()
         .name("openclaw")
         .enablePositionalOptions()
         .option("--profile <name>")
@@ -216,7 +216,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = ["node", "openclaw", "cron", "status", "--limit", "--json"];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new GrantedCommand().name("openclaw").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       const cron = program.command("cron");
       setCommandJsonMode(cron, "output", ({ argv }) => isCronMachineOutput(argv));
@@ -262,7 +262,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = ["node", "openclaw", ...testCase.args];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new GrantedCommand().name("openclaw").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       const root = program.command(testCase.root);
       if (testCase.root === "cron") {
@@ -300,7 +300,7 @@ describe("formatCliParseErrorOutput", () => {
     process.argv = ["node", "openclaw", "cron", "get", "--help"];
     let stdout = "";
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new GrantedCommand().name("openclaw").exitOverride();
       program.configureOutput({
         writeOut: (output) => {
           stdout += output;
@@ -363,7 +363,7 @@ describe("formatCliParseErrorOutput", () => {
     ];
     let stderr = "";
     try {
-      const program = new OpenClawCommand()
+      const program = new GrantedCommand()
         .name("openclaw")
         .enablePositionalOptions()
         .option("--profile <name>")
@@ -413,7 +413,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = ["node", "openclaw", "plugins", "search", ...args];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new GrantedCommand().name("openclaw").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       program
         .command("plugins")
@@ -436,7 +436,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = ["node", "openclaw", "fleet", "logs", "--json"];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new GrantedCommand().name("openclaw").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       program
         .command("fleet")

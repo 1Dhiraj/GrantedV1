@@ -2,7 +2,7 @@
 import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
 import type { ActionGate } from "openclaw/plugin-sdk/channel-actions";
 import { jsonResult, readStringParam } from "openclaw/plugin-sdk/channel-actions";
-import type { DiscordActionConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordActionConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultDiscordAccountId } from "../accounts.js";
 import type { Activity, UpdatePresenceData } from "../internal/gateway.js";
@@ -23,7 +23,7 @@ export async function handleDiscordPresenceAction(
   action: string,
   params: Record<string, unknown>,
   isActionEnabled: ActionGate<DiscordActionConfig>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<AgentToolResult<unknown>> {
   if (action !== "setPresence") {
     throw new Error(`Unknown presence action: ${action}`);

@@ -3,7 +3,7 @@ import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
 } from "../../infra/kysely-sync.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../../state/openclaw-agent-progress-card-schema.js";
 import { ensureSessionParticipantsSchema } from "../../state/openclaw-agent-session-participants-schema.js";
 import {
@@ -15,7 +15,7 @@ import { mergeParticipantAggregate } from "./session-participant-identity.js";
 import { normalizeStoreSessionKey } from "./store-entry.js";
 
 export function clearSessionCollaborationForKey(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   options: { clearSuggestions?: boolean } = {},
 ): void {
@@ -37,8 +37,8 @@ export function clearSessionCollaborationForKey(
 
 /** Copy logical-session artifacts into their canonical node within one agent store or across two. */
 export function copySessionNodeArtifactsForRepair(
-  source: OpenClawAgentDatabase,
-  destination: OpenClawAgentDatabase,
+  source: GrantedAgentDatabase,
+  destination: GrantedAgentDatabase,
   sourceKeys: readonly string[],
   canonicalKey: string,
   options: { includeMembers?: boolean; includeParticipants?: boolean } = {},
@@ -278,7 +278,7 @@ export function copySessionNodeArtifactsForRepair(
 
 /** Membership is authorization state; canonical repair replaces it from the selected winner. */
 export function deleteSessionMembersForRepair(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
 ): void {
   if (!readSessionNodeArtifactTables(database).has("session_members")) {
@@ -292,7 +292,7 @@ export function deleteSessionMembersForRepair(
 }
 
 export function deleteSessionDeliveryArtifacts(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   additionalKeys: readonly string[] = [],
 ): void {
@@ -322,7 +322,7 @@ export function deleteSessionDeliveryArtifacts(
 }
 
 export function deleteSessionNodeArtifacts(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
 ): void {
   deleteSessionPendingInputs(database, sessionKey);
@@ -351,7 +351,7 @@ export function deleteSessionNodeArtifacts(
   clearSessionCollaborationForKey(database, sessionKey);
 }
 
-function readSessionNodeArtifactTables(database: OpenClawAgentDatabase): Set<string> {
+function readSessionNodeArtifactTables(database: GrantedAgentDatabase): Set<string> {
   const db = getSessionKysely(database.db);
   return new Set(
     executeSqliteQuerySync(

@@ -1,7 +1,7 @@
 // System prompt config tests cover config-to-prompt parameter resolution through
 // the canonical agent prompt facade.
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildConfiguredAgentSystemPrompt } from "./system-prompt-config.js";
 
 vi.mock("../tts/tts-settings.js", () => ({
@@ -10,7 +10,7 @@ vi.mock("../tts/tts-settings.js", () => ({
   setTtsMachinePrefsPathResolver: vi.fn(),
 }));
 
-function buildPrompt(config: OpenClawConfig, agentId = "main", sessionKey?: string): string {
+function buildPrompt(config: GrantedConfig, agentId = "main", sessionKey?: string): string {
   return buildConfiguredAgentSystemPrompt({
     config,
     agentId,
@@ -24,31 +24,31 @@ describe("buildConfiguredAgentSystemPrompt", () => {
   it.each([
     {
       name: "prefers delegation in the canonical main session",
-      config: {} satisfies OpenClawConfig,
+      config: {} satisfies GrantedConfig,
       sessionKey: "agent:main:main",
       expected: true,
     },
     {
       name: "suggests delegation outside the canonical main session",
-      config: {} satisfies OpenClawConfig,
+      config: {} satisfies GrantedConfig,
       sessionKey: "agent:main:slack:channel:C01234567",
       expected: false,
     },
     {
       name: "recognizes a custom canonical main key",
-      config: { session: { mainKey: "inbox" } } satisfies OpenClawConfig,
+      config: { session: { mainKey: "inbox" } } satisfies GrantedConfig,
       sessionKey: "agent:main:inbox",
       expected: true,
     },
     {
       name: "recognizes the global-scope canonical main key",
-      config: { session: { scope: "global" } } satisfies OpenClawConfig,
+      config: { session: { scope: "global" } } satisfies GrantedConfig,
       sessionKey: "global",
       expected: true,
     },
     {
       name: "suggests delegation without a render session key",
-      config: {} satisfies OpenClawConfig,
+      config: {} satisfies GrantedConfig,
       sessionKey: undefined,
       expected: false,
     },
@@ -56,7 +56,7 @@ describe("buildConfiguredAgentSystemPrompt", () => {
       name: "honors explicit prefer outside the canonical main session",
       config: {
         agents: { defaults: { subagents: { delegationMode: "prefer" } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       sessionKey: "agent:main:dashboard:project",
       expected: true,
     },
@@ -64,7 +64,7 @@ describe("buildConfiguredAgentSystemPrompt", () => {
       name: "honors explicit suggest in the canonical main session",
       config: {
         agents: { defaults: { subagents: { delegationMode: "suggest" } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       sessionKey: "agent:main:main",
       expected: false,
     },
@@ -83,7 +83,7 @@ describe("buildConfiguredAgentSystemPrompt", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(buildPrompt(config)).toContain("## Delegation");
   });
@@ -105,7 +105,7 @@ describe("buildConfiguredAgentSystemPrompt", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(buildPrompt(config, "coordinator")).toContain("## Delegation");
   });

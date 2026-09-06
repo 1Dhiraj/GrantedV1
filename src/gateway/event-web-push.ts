@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import type { WebPushNotificationCategory } from "../../packages/gateway-protocol/src/schema/push.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   WEB_PUSH_USER_PREFERENCES_KEY,
   isWebPushQuietHours,
@@ -111,7 +111,7 @@ function preferenceFor(subscription: BoundWebPushSubscription, stateDir?: string
 
 /** Routes attention events to offline browsers without expanding live session visibility. */
 export function createEventWebPushDelivery(params: {
-  getRuntimeConfig: () => OpenClawConfig;
+  getRuntimeConfig: () => GrantedConfig;
   log?: { warn?: (message: string) => void };
   stateDir?: string;
 }) {

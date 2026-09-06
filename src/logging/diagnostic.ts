@@ -2,7 +2,7 @@
 import { monitorEventLoopDelay, performance } from "node:perf_hooks";
 import { resolveCompactionTimeoutMs } from "../agents/embedded-agent-runner/compaction-safety-timeout.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   areDiagnosticsEnabledForProcess,
   emitInternalDiagnosticEvent as emitDiagnosticEvent,
@@ -136,7 +136,7 @@ type SampleDiagnosticLiveness = (
 ) => DiagnosticLivenessSample | null;
 
 type StartDiagnosticHeartbeatOptions = {
-  getConfig?: () => OpenClawConfig;
+  getConfig?: () => GrantedConfig;
   emitMemorySample?: EmitDiagnosticMemorySample;
   sampleLiveness?: SampleDiagnosticLiveness;
   recoverStuckSession?: RecoverStuckSession;
@@ -1150,7 +1150,7 @@ let heartbeatInterval: NodeJS.Timeout | null = null;
 let lastDiagnosticHeartbeatTickAt: number | undefined;
 
 export function startDiagnosticHeartbeat(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   opts?: StartDiagnosticHeartbeatOptions,
 ) {
   if (!areDiagnosticsEnabledForProcess() || !isDiagnosticsEnabled(config)) {

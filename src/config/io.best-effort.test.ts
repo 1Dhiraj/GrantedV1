@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -17,7 +17,7 @@ import {
 import { resetConfigOverrides, setConfigOverride } from "./runtime-overrides.js";
 import { withTempHome, writeOpenClawConfig } from "./test-helpers.js";
 
-type ConfigHealthDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type ConfigHealthDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 
 function readConfigHealthRow(env: NodeJS.ProcessEnv, configPath: string) {
   const { db } = openOpenClawStateDatabase({ env });

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   EMPTY_PLUGIN_SCHEMA,
   makePluginLoaderTempDir,
@@ -8,7 +8,7 @@ import {
   writePlugin,
 } from "../plugins/loader.test-fixtures.js";
 
-export function createVoiceProviderFixture(policy: OpenClawConfig["plugins"] = {}) {
+export function createVoiceProviderFixture(policy: GrantedConfig["plugins"] = {}) {
   const root = fs.realpathSync(makePluginLoaderTempDir());
   const workspace = path.join(root, "workspace");
   mkdirSafe(workspace);
@@ -43,7 +43,7 @@ export function createVoiceProviderFixture(policy: OpenClawConfig["plugins"] = {
       JSON.stringify({ openclaw: { extensions: ["./index.cjs"] } }),
     );
   }
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { defaults: { workspace } },
     plugins: {
       allow: ["active-voice", "configured-voice"],

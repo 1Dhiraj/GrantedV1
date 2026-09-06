@@ -150,12 +150,12 @@ function windowsUpdateWithScopedEnv(input: NpmUpdateScriptInput): string {
   const registryScript = input.npmRegistry
     ? `$env:NPM_CONFIG_REGISTRY = ${psSingleQuote(input.npmRegistry)}\n`
     : "";
-  return `${registryScript}$script:OpenClawUpdateExit = 0
+  return `${registryScript}$script:GrantedUpdateExit = 0
 $updateOutput = Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1' } {
   Invoke-OpenClaw update --tag ${psSingleQuote(input.updateTarget)} --yes --json --no-restart 2>&1
-  $script:OpenClawUpdateExit = $LASTEXITCODE
+  $script:GrantedUpdateExit = $LASTEXITCODE
 }
-$updateExit = $script:OpenClawUpdateExit
+$updateExit = $script:GrantedUpdateExit
 $updateOutput`;
 }
 
@@ -163,11 +163,11 @@ function windowsGatewayReadyScript(input: NpmUpdateScriptInput): string {
   return `$gatewayLogRoot = Join-Path ([System.IO.Path]::GetTempPath()) 'openclaw-parallels-windows-gateway'
 $gatewayLaunch = 0
 $gatewayRestartCount = 0
-function Start-OpenClawGateway {
+function Start-GrantedGateway {
   $script:gatewayLaunch += 1
   $script:gatewayLogPath = "$gatewayLogRoot-$($script:gatewayLaunch).log"
   Remove-Item $script:gatewayLogPath -Force -ErrorAction SilentlyContinue
-  $gatewayCommand = Resolve-OpenClawCommand
+  $gatewayCommand = Resolve-GrantedCommand
   $gatewayCommandPath = $gatewayCommand.Path.Replace("'", "''")
   $gatewayInvocation = if ($gatewayCommand.Kind -eq 'node') {
     "& node.exe '$gatewayCommandPath' gateway run --bind loopback --port 18789 --force"
@@ -196,7 +196,7 @@ function Test-CurrentGatewayStartupMigrationRefusal {
   if (-not (Test-Path $script:gatewayLogPath)) { return $false }
   return Select-String -Path $script:gatewayLogPath -SimpleMatch ${psSingleQuote(startupMigrationRestartPrefix)} -Quiet
 }
-function Wait-OpenClawGateway {
+function Wait-GrantedGateway {
   $deadline = (Get-Date).AddSeconds(180)
   while ((Get-Date) -lt $deadline) {
     Invoke-OpenClaw gateway status --deep --require-rpc --timeout 15000
@@ -206,7 +206,7 @@ function Wait-OpenClawGateway {
       if ($script:gatewayRestartCount -eq 0 -and (Test-CurrentGatewayStartupMigrationRefusal)) {
         $script:gatewayRestartCount = 1
         Write-Host 'gateway exited after startup migration convergence refusal; restarting once'
-        Start-OpenClawGateway
+        Start-GrantedGateway
         continue
       }
       Write-CurrentGatewayLog
@@ -217,8 +217,8 @@ function Wait-OpenClawGateway {
   Write-CurrentGatewayLog
   throw "gateway did not become ready after update"
 }
-Start-OpenClawGateway
-Wait-OpenClawGateway`;
+Start-GrantedGateway
+Wait-GrantedGateway`;
 }
 
 function windowsAssertAgentOkScript(input: NpmUpdateScriptInput): string {
@@ -410,7 +410,7 @@ if (changed) {
     Remove-Item $nodeScriptPath -Force -ErrorAction SilentlyContinue
   }
 }
-function Stop-OpenClawGatewayProcesses {
+function Stop-GrantedGatewayProcesses {
   Invoke-OpenClaw gateway stop *>&1 | Out-Host
   Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
     Where-Object { $_.CommandLine -match 'openclaw.*gateway' } |
@@ -421,7 +421,7 @@ function Stop-OpenClawGatewayProcesses {
   Start-Sleep -Seconds 2
 }
 Remove-FuturePluginEntries
-Stop-OpenClawGatewayProcesses
+Stop-GrantedGatewayProcesses
 ${windowsUpdateWithScopedEnv(input)}
 if ($updateExit -ne 0) {
   $updateText = $updateOutput | Out-String
@@ -431,7 +431,7 @@ if ($updateExit -ne 0) {
 }
 ${windowsVersionCheck(input.expectedNeedle)}
 ${windowsGatewayReadyScript(input)}
-Stop-OpenClawGatewayProcesses
+Stop-GrantedGatewayProcesses
 ${windowsAssertAgentOkScript(input)}`;
 }
 

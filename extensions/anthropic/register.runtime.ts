@@ -4,7 +4,7 @@
  */
 import { createLazyRuntimeMethod, createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type {
-  OpenClawPluginApi,
+  GrantedPluginApi,
   ProviderAuthContext,
   ProviderResolveDynamicModelContext,
   ProviderNormalizeResolvedModelContext,
@@ -909,7 +909,7 @@ export function buildAnthropicProvider(): ProviderPlugin {
 }
 
 /** Register Anthropic provider, Claude CLI backend, and media understanding provider. */
-export function registerAnthropicPlugin(api: OpenClawPluginApi): void {
+export function registerAnthropicPlugin(api: GrantedPluginApi): void {
   let supportsDynamicSystemPromptSections = false;
   // Catalog discovery must not materialize the runtime for a CLI-only capability probe.
   // First CLI executions share and await it before resolving immutable process argv.

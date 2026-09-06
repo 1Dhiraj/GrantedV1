@@ -16,7 +16,7 @@ import type { LegacyMainSessionMigrationOutcome } from "../config/sessions/legac
 import { migrateLegacyMainSessionKeys } from "../config/sessions/legacy-main-session-migration.js";
 import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
 import type { OptionalBootstrapFileName } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { FsSafeError, root } from "../infra/fs-safe.js";
 import { normalizeAgentId, normalizeAgentIdStrict } from "../routing/session-key.js";
 import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
@@ -63,8 +63,8 @@ type CreateError = {
   message: string;
 };
 
-type CreateAgentResult = (CreateAgentSuccess & { config: OpenClawConfig }) | CreateError;
-type AgentEntryConfig = NonNullable<NonNullable<OpenClawConfig["agents"]>["entries"]>[string];
+type CreateAgentResult = (CreateAgentSuccess & { config: GrantedConfig }) | CreateError;
+type AgentEntryConfig = NonNullable<NonNullable<GrantedConfig["agents"]>["entries"]>[string];
 type CreateAgentEntry = AgentEntryConfig & { id: string };
 type ConfigCommitRollback = () => void | Promise<void>;
 
@@ -78,7 +78,7 @@ type CreateAgentParams = {
   /** Config revision that must still own first-agent creation under the write lock. */
   expectedConfigHash?: string | null;
   /** Full guided-flow staging based on expectedConfigHash; creation still publishes it once. */
-  stagedConfig?: OpenClawConfig;
+  stagedConfig?: GrantedConfig;
   workspace?: string;
   model?: string;
   emoji?: unknown;
@@ -158,7 +158,7 @@ function describeLegacySessionOutcome(outcome: LegacyMainSessionMigrationOutcome
 }
 
 async function evaluateMainCreationGate(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
 ): Promise<CreateError | undefined> {
   const roster = listAgentEntries(config).map((entry) => normalizeAgentId(entry.id));

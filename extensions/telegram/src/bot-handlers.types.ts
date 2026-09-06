@@ -1,7 +1,7 @@
 import type { Bot, Context } from "grammy";
 import type {
   ChannelGroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -25,7 +25,7 @@ import type { TelegramTransport } from "./fetch.js";
 import type { TelegramReplyChainEntry } from "./message-cache.js";
 
 export type TelegramMessageProcessorTurnContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramCfg: TelegramAccountConfig;
   onDispatchStart?: () => Promise<void> | void;
   spooledReplayAbortSignal?: AbortSignal;
@@ -71,7 +71,7 @@ type TelegramHandlerLogger = {
 };
 
 export type RegisterTelegramHandlerParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   ownerAgentId: string;
   bot: Bot;
@@ -81,17 +81,17 @@ export type RegisterTelegramHandlerParams = {
   runtime: RuntimeEnv;
   telegramCfg: TelegramAccountConfig;
   telegramDeps: TelegramBotDeps;
-  resolveGroupPolicy: (chatId: string | number, cfg: OpenClawConfig) => ChannelGroupPolicy;
+  resolveGroupPolicy: (chatId: string | number, cfg: GrantedConfig) => ChannelGroupPolicy;
   resolveGroupActivation: (params: {
     agentId?: string;
     sessionKey: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
   }) => boolean | undefined;
-  resolveGroupRequireMention: (chatId: string | number, cfg: OpenClawConfig) => boolean;
+  resolveGroupRequireMention: (chatId: string | number, cfg: GrantedConfig) => boolean;
   resolveTelegramGroupConfig: (
     chatId: string | number,
     messageThreadId: number | undefined,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
   ) => TelegramResolvedGroupConfig;
   shouldSkipUpdate: (ctx: TelegramUpdateKeyContext) => boolean;
   processMessage: ProcessTelegramMessage;

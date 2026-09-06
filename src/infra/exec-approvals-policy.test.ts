@@ -1,7 +1,7 @@
 // Tests execution approval policy matching and persistence.
 import path from "node:path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { LEGACY_IMPLICIT_AGENT_ID as DEFAULT_AGENT_ID } from "../routing/session-key.js";
 import {
   makeMockCommandResolution,
@@ -832,7 +832,7 @@ describe("exec approvals policy helpers", () => {
         agents: {
           entries: { runner: { default: true } },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       approvals: {
         version: 1,
         agents: {
@@ -871,7 +871,7 @@ describe("exec approvals policy helpers", () => {
           },
         },
         agents: { entries: { [DEFAULT_AGENT_ID]: { default: true } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       approvals: {
         version: 1,
         agents: {
@@ -915,7 +915,7 @@ describe("exec approvals policy helpers", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       approvals: {
         version: 1,
       },
@@ -937,7 +937,7 @@ describe("exec approvals policy helpers", () => {
             runner: { tools: { exec: { ask: "always" } } },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       approvals: { version: 1 },
     });
 

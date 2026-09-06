@@ -7,7 +7,7 @@ import {
 import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope-config.js";
 import { isMalformedApiKeyInput } from "../agents/auth-profiles/credential-state.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { normalizeSecretInput } from "../utils/normalize-secret-input.js";
@@ -136,7 +136,7 @@ export async function ensureApiKeyFromOptionEnvOrPrompt(params: {
   token: string | undefined;
   tokenProvider: string | undefined;
   secretInputMode?: SecretInputMode;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   expectedProviders: string[];
@@ -184,7 +184,7 @@ export async function ensureApiKeyFromOptionEnvOrPrompt(params: {
 
 /** Resolves an API key from environment or interactive prompt and records the chosen secret mode. */
 export async function ensureApiKeyFromEnvOrPrompt(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   provider: string;

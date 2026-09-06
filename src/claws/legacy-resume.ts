@@ -1,17 +1,17 @@
-import type { AgentConfig, OpenClawConfig } from "../config/config.js";
+import type { AgentConfig, GrantedConfig } from "../config/config.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type { PersistedClawInstall } from "./provenance.js";
 import type { ClawAddPlan } from "./types.js";
 
 export function replaceLegacyCommittedAgent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agents: AgentConfig[];
   normalizedAgentId: string;
   plan: ClawAddPlan;
   resumePlan?: ClawAddPlan;
   resumeRecord?: PersistedClawInstall;
   matchesPlan: (agent: AgentConfig, plan: ClawAddPlan) => boolean;
-}): OpenClawConfig | undefined {
+}): GrantedConfig | undefined {
   if (
     !params.resumePlan ||
     params.resumeRecord?.schemaVersion !== "openclaw.clawInstallRecord.v1" ||

@@ -3,7 +3,7 @@ import path from "node:path";
 import { isVitestRuntimeEnv } from "../infra/env.js";
 import { resolveBundledPluginGeneratedPath } from "./bundled-plugin-metadata.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { pluginCacheExistsSync } from "./plugin-cache-files.js";
 import { resolvePluginMetadataSnapshot } from "./plugin-metadata-snapshot.js";
 
@@ -26,7 +26,7 @@ export type BundledChannelPluginMetadata = {
     id: string;
     channels?: readonly string[];
   };
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
   rootDir: string;
 };
 

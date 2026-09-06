@@ -13,7 +13,7 @@ import { materializeBundleMcpToolsForRun } from "../../../../dist/agents/agent-b
 import { resolveConversationCapabilityProfile } from "../../../../dist/agents/conversation-capability-profile.js";
 import { applyFinalEffectiveToolPolicy } from "../../../../dist/agents/embedded-agent-runner/effective-tool-policy.js";
 import { splitSdkTools } from "../../../../dist/agents/embedded-agent-runner/tool-split.js";
-import type { OpenClawConfig } from "../../../../dist/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../dist/config/types.openclaw.js";
 import { getPluginToolMeta } from "../../../../dist/plugins/tool-metadata.js";
 import { createE2eStateDir } from "../../../../scripts/e2e/lib/temp-state-dir.ts";
 
@@ -66,7 +66,7 @@ await server.connect(new StdioServerTransport());
 
 function applyPolicy(params: {
   tools: Awaited<ReturnType<typeof materializeBundleMcpToolsForRun>>["tools"];
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }) {
   const warnings: string[] = [];
   return {
@@ -95,7 +95,7 @@ async function main() {
   await fs.mkdir(probeDir, { recursive: true });
   await writeProbeServer(serverPath);
 
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     tools: {
       profile: "coding",
     },

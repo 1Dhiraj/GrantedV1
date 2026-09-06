@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { OpenClawPluginService, WorkerProvider } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginService, WorkerProvider } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import * as processRuntime from "openclaw/plugin-sdk/process-runtime";
 import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
@@ -34,7 +34,7 @@ function commandResult(overrides: Partial<SpawnResult> = {}): SpawnResult {
 
 describe("Crabbox runtime preflight cleanup", () => {
   support.setupWorkerEnvironmentServiceSuite();
-  const pluginServices: OpenClawPluginService[] = [];
+  const pluginServices: GrantedPluginService[] = [];
   async function registerProvider(): Promise<WorkerProvider> {
     let registered: WorkerProvider | undefined;
     const { register } = resolvePluginModuleExport(

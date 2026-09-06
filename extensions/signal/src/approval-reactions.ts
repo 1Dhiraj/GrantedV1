@@ -14,7 +14,7 @@ import {
   getExecApprovalReplyMetadata,
   type ExecApprovalReplyDecision,
 } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
 import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
 import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
@@ -93,7 +93,7 @@ export function resolveSignalApprovalConversationKey(to: string): string | null 
 }
 
 function resolveSignalApprovalConversationKeyForDeliveredTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
 }): string | null {
@@ -211,7 +211,7 @@ function readPersistedTarget(target: unknown): SignalApprovalReactionTarget | nu
 }
 
 export function hasSignalApprovalReactionApprovers(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   return getSignalApprovalApprovers(params).length > 0;
@@ -294,7 +294,7 @@ function formatSignalApprovalTerminalTruth(approval: ApprovalResolveResult["appr
 }
 
 export function addSignalApprovalReactionHintToStructuredPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
   payload: ReplyPayload;
@@ -362,7 +362,7 @@ function listDeliveredSignalMessageIdsWithVisibleHint(params: {
 }
 
 export function registerSignalApprovalReactionTargetForDeliveredPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: SignalApprovalDeliveryTarget;
   payload: ReplyPayload;
   results: readonly SignalApprovalDeliveryResult[];
@@ -498,7 +498,7 @@ export async function resolveSignalApprovalReactionTargetWithPersistence(params:
 }
 
 export async function maybeResolveSignalApprovalReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   conversationKey: string;
   messageId: string;

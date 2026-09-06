@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import {
@@ -106,7 +106,7 @@ function readNodeSessionMarker(entry: CatalogSessionEntry): CodexNodeSessionMark
 
 export function listNodeAdoptedSessionEntries(params: {
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runtime: PluginRuntime;
   includeInitializing?: boolean;
   sessionEntries?: SessionCatalogEntrySnapshot;
@@ -151,7 +151,7 @@ export function listNodeAdoptedSessionEntries(params: {
 
 export function findNodeAdoptedSessionEntry(params: {
   agentId?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: PluginRuntime;
   hostId: string;
   threadId: string;
@@ -177,7 +177,7 @@ export function nodeSessionMarker(params: {
 }
 
 export async function finalizeNodeAdoptedSession(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   adopted: AdoptedSessionEntry;
   marker: CodexNodeSessionMarker;
 }): Promise<void> {
@@ -240,8 +240,8 @@ export async function finalizeNodeAdoptedSession(params: {
 
 export async function createOrReuseNodeAdoptedSession(params: {
   agentId: string;
-  api: OpenClawPluginApi;
-  config: OpenClawConfig;
+  api: GrantedPluginApi;
+  config: GrantedConfig;
   hostId: string;
   nodeId: string;
   record: CodexSessionCatalogSession;

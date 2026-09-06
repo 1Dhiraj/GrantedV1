@@ -1,6 +1,6 @@
 // Discord plugin module implements account inspect behavior.
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeSecretInputString } from "openclaw/plugin-sdk/secret-input";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
@@ -28,7 +28,7 @@ export type InspectedDiscordAccount = {
 };
 
 function inspectDiscordAccountPrimary(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   envToken?: string | null;
 }): InspectedDiscordAccount {

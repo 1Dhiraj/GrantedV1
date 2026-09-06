@@ -1,5 +1,5 @@
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { BundledPluginSource } from "./bundled-sources.js";
 import {
@@ -42,9 +42,9 @@ function resolveBundledPluginConfigEnablement(params: {
 }
 
 function prepareConfigForDisabledBundledInstall(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const entry = config.plugins?.entries?.[pluginId];
   const policy = isRecord(entry) ? { ...entry } : {};
   delete policy.config;

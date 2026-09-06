@@ -1,11 +1,11 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { MemoryProviderStatus, MemorySearchResult } from "../../memory-host-sdk/host/types.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { GatewayRequestContext, RespondFn } from "./types.js";
 
@@ -20,9 +20,9 @@ vi.mock("../../agents/agent-scope.js", async (importOriginal) => ({
 
 import { memorySearchHandlers } from "./memory-search.js";
 
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
-function createConfig(workspaceDir: string): OpenClawConfig {
+function createConfig(workspaceDir: string): GrantedConfig {
   return {
     memory: {
       search: {
@@ -37,7 +37,7 @@ function createConfig(workspaceDir: string): OpenClawConfig {
   };
 }
 
-async function invokeMemorySearch(params: unknown, cfg: OpenClawConfig) {
+async function invokeMemorySearch(params: unknown, cfg: GrantedConfig) {
   const respond = vi.fn();
   await expectDefined(
     memorySearchHandlers["memory.search"],
@@ -237,7 +237,7 @@ describe("memory.search gateway method", () => {
   });
 
   it("returns unavailable when no memory manager is configured", async () => {
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     getActiveMemorySearchManagerCore.mockResolvedValue({
       manager: null,
       error: "memory plugin unavailable",

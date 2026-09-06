@@ -3,7 +3,7 @@ import { setCurrentManifestModelIdNormalizationPolicies } from "@openclaw/model-
 import { describe, expect, it, vi } from "vitest";
 import { CONTEXT_WINDOW_HARD_MIN_TOKENS } from "../agents/context-window-guard.js";
 import * as providerModelNormalizationRuntime from "../agents/provider-model-normalization.runtime.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import * as currentPluginMetadataSnapshot from "../plugins/current-plugin-metadata-snapshot.js";
 import * as manifestContractEligibility from "../plugins/manifest-contract-eligibility.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
@@ -33,7 +33,7 @@ const manifestPlugins = [
 
 function buildCustomProviderConfig(contextWindow?: number) {
   if (contextWindow === undefined) {
-    return {} as OpenClawConfig;
+    return {} as GrantedConfig;
   }
   return {
     models: {
@@ -55,7 +55,7 @@ function buildCustomProviderConfig(contextWindow?: number) {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function applyCustomModelConfigWithContextWindow(contextWindow?: number) {
@@ -167,7 +167,7 @@ it("validates authored and inherited aliases without discovering plugin metadata
       },
       entries: { ops: { models: { "openai/ops": { alias: "Operations" } } } },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   try {
     expect(
@@ -674,7 +674,7 @@ describe("applyCustomApiConfig", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       baseUrl: "https://llm.example.com/v1",
       modelId: "foo-large",
       compatibility: "openai",
@@ -704,7 +704,7 @@ describe("applyCustomApiConfig", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       baseUrl: "https://my-resource.openai.azure.com",
       modelId: "o3-mini",
       compatibility: "openai",

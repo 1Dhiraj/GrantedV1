@@ -1,11 +1,11 @@
 // Install download test utilities provide isolated state and workspace paths.
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 
 /** Creates isolated OpenClaw state for install download tests. */
-export async function createInstallDownloadTestState(): Promise<OpenClawTestState> {
+export async function createInstallDownloadTestState(): Promise<GrantedTestState> {
   return await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-skills-install-",

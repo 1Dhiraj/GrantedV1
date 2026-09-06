@@ -23,7 +23,7 @@ import {
   runExclusiveSqliteSessionWrite,
 } from "../../config/sessions/session-accessor.sqlite-scope.js";
 import { markSessionTranscriptIndexDirtyInTransaction } from "../../config/sessions/session-transcript-index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import { createWorkerSessionPlacementStore } from "../../gateway/worker-environments/placement-store.js";
 import { readCodexSessionTranscriptEventsBeforeAdmission } from "../../plugin-sdk/codex-session-transcript-runtime.js";
@@ -77,7 +77,7 @@ async function withAdmission(
       "input" | "message" | "resolveInput" | "beforeMessageWrite"
     >
   > & {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     persist?: boolean;
     suppress?: boolean;
   } = {},

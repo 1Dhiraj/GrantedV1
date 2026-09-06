@@ -6,7 +6,7 @@ import {
   readConfigMachineState,
   updateConfigMachineState,
 } from "./config-machine-state.js";
-import type { OpenClawStateDatabaseOptions } from "./openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "./openclaw-state-db.js";
 
 const OnboardingRecommendationMatchSchema = z.object({
   appLabel: z.string(),
@@ -99,7 +99,7 @@ function hashOnboardingRecommendationInventory(
 
 function readOnboardingRecommendations(
   configKey: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): OnboardingRecommendationsRecord | null {
   // CLI reads must not join the Gateway's writable SQLite lifecycle (#101290).
   const record = readConfigMachineState<OnboardingRecommendationsRecord>(configKey, options);
@@ -124,7 +124,7 @@ function matchesExpectedOnboardingRecommendations(
 function writeOnboardingRecommendationsOffer(
   configKey: string,
   params: WriteOnboardingRecommendationsOfferParams,
-  databaseOptions: OpenClawStateDatabaseOptions = {},
+  databaseOptions: GrantedStateDatabaseOptions = {},
 ): OnboardingRecommendationsRecord {
   const nowMs = params.nowMs ?? Date.now();
   const inventoryHash = hashOnboardingRecommendationInventory(params.inventory);
@@ -153,7 +153,7 @@ function writeOnboardingRecommendationsOffer(
 function acknowledgeOnboardingRecommendations(
   configKey: string,
   params: AcknowledgeOnboardingRecommendationsParams = {},
-  databaseOptions: OpenClawStateDatabaseOptions = {},
+  databaseOptions: GrantedStateDatabaseOptions = {},
 ): OnboardingRecommendationsRecord | null {
   const nowMs = params.nowMs ?? Date.now();
   let acknowledged: OnboardingRecommendationsRecord | null = null;
@@ -180,7 +180,7 @@ function acknowledgeOnboardingRecommendations(
 function updatePendingOnboardingRecommendations(
   configKey: string,
   params: UpdatePendingOnboardingRecommendationsParams,
-  databaseOptions: OpenClawStateDatabaseOptions = {},
+  databaseOptions: GrantedStateDatabaseOptions = {},
 ): OnboardingRecommendationsRecord | null {
   const nowMs = params.nowMs ?? Date.now();
   const matches = OnboardingRecommendationMatchesSchema.parse(params.matches);
@@ -206,7 +206,7 @@ function updatePendingOnboardingRecommendations(
 function clearPendingOnboardingRecommendations(
   configKey: string,
   params: ClearPendingOnboardingRecommendationsParams,
-  databaseOptions: OpenClawStateDatabaseOptions = {},
+  databaseOptions: GrantedStateDatabaseOptions = {},
 ): boolean {
   let cleared = false;
   updateConfigMachineState<OnboardingRecommendationsRecord>(
@@ -229,14 +229,14 @@ function clearPendingOnboardingRecommendations(
 
 function clearOnboardingRecommendations(
   configKey: string,
-  databaseOptions: OpenClawStateDatabaseOptions = {},
+  databaseOptions: GrantedStateDatabaseOptions = {},
 ): boolean {
   return deleteConfigMachineState(configKey, databaseOptions);
 }
 
 export function createOnboardingRecommendationsStore(params: {
   workspaceDir: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): OnboardingRecommendationsStore {
   // Doctor owns the one-time `primary` migration; a runtime fallback would recreate
   // cross-workspace reads. Every operation stays bound to one canonical workspace key.

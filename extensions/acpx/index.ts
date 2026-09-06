@@ -6,7 +6,7 @@ import { tryDispatchAcpReplyHook } from "openclaw/plugin-sdk/acp-runtime-backend
 import { finiteSecondsToTimerSafeMilliseconds } from "openclaw/plugin-sdk/number-runtime";
 import { createAcpxRuntimeService } from "./register.runtime.js";
 import type {
-  OpenClawPluginApi,
+  GrantedPluginApi,
   PluginHookReplyDispatchContext,
   PluginHookReplyDispatchEvent,
   PluginHookReplyDispatchResult,
@@ -48,7 +48,7 @@ const plugin = {
   id: "acpx",
   name: "ACPX Runtime",
   description: "Embedded ACP runtime backend with plugin-owned session and transport management.",
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     const replyDispatchTimeoutMs = resolveReplyDispatchTimeoutMs(api.pluginConfig);
     registerPiSessionCatalog(api);
     api.registerService(

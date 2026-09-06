@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { createWarnLogCapture } from "../logging/test-helpers/warn-log-capture.js";
 import type { SkillUsagePath } from "../skills/types.js";
@@ -92,7 +92,7 @@ describe("resolveSandboxContext", () => {
     it.each(["per-sender", "global"] as const)(
       "bypasses the selected main session in %s scope",
       async (scope) => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           session: { scope },
           agents: {
             ownership: "explicit",
@@ -136,7 +136,7 @@ describe("resolveSandboxContext", () => {
     }));
     const restore = registerSandboxBackend("test-off-backend", backendFactory);
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -236,7 +236,7 @@ describe("resolveSandboxContext", () => {
   }, 15_000);
 
   it("treats main session aliases as main in non-main mode", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { mainKey: "work" },
       agents: {
         defaults: {
@@ -304,7 +304,7 @@ describe("resolveSandboxContext", () => {
       resolveWorkdir: () => "/runtime/workspace",
     });
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -385,7 +385,7 @@ describe("resolveSandboxContext", () => {
       };
     });
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -432,7 +432,7 @@ describe("resolveSandboxContext", () => {
       throw backendFailure;
     });
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -533,7 +533,7 @@ describe("resolveSandboxContext", () => {
       }),
     }));
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -585,7 +585,7 @@ describe("resolveSandboxContext", () => {
       }),
     }));
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -639,7 +639,7 @@ describe("resolveSandboxContext", () => {
       },
     }));
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -690,7 +690,7 @@ describe("resolveSandboxContext", () => {
     }));
     const restore = registerSandboxBackend("docker", backendFactory);
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -746,7 +746,7 @@ describe("resolveSandboxContext", () => {
     }));
     const restore = registerSandboxBackend("podman", backendFactory);
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -807,7 +807,7 @@ describe("resolveSandboxContext", () => {
       }),
     }));
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         browser: {
           ssrfPolicy: { dangerouslyAllowPrivateNetwork: true },
         },
@@ -855,7 +855,7 @@ describe("resolveSandboxContext", () => {
     ];
     syncSkillsToWorkspaceMock.mockResolvedValueOnce(skillUsagePaths);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -883,7 +883,7 @@ describe("resolveSandboxContext", () => {
         {
           sourceWorkspaceDir?: string;
           targetWorkspaceDir?: string;
-          config?: OpenClawConfig;
+          config?: GrantedConfig;
           agentId?: string;
           eligibility?: unknown;
         },
@@ -914,7 +914,7 @@ describe("resolveSandboxContext", () => {
     await fs.mkdir(userOwnedSandboxSkillsDir, { recursive: true });
     await fs.writeFile(path.join(userOwnedSandboxSkillsDir, "SKILL.md"), "# User owned\n");
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -939,7 +939,7 @@ describe("resolveSandboxContext", () => {
         {
           sourceWorkspaceDir?: string;
           targetWorkspaceDir?: string;
-          config?: OpenClawConfig;
+          config?: GrantedConfig;
           agentId?: string;
           eligibility?: unknown;
         },
@@ -979,7 +979,7 @@ describe("resolveSandboxContext", () => {
   it("uses the SSH backend remote workspace for sandbox workspace info", async () => {
     syncSkillsToWorkspaceMock.mockClear();
     const workspaceDir = await createSandboxFixtureDir("ssh-workspace");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -1025,7 +1025,7 @@ describe("resolveSandboxContext", () => {
     await fs.mkdir(userOwnedSandboxSkillsDir, { recursive: true });
     await fs.writeFile(path.join(userOwnedSandboxSkillsDir, "SKILL.md"), "# User owned\n");
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           sandbox: {

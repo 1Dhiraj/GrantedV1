@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import type { AgentHarnessSessionForkParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
 import { appendSessionTranscriptMessagesByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
@@ -47,7 +47,7 @@ export async function forkCanonicalCodexSession(params: {
   bindingStore: CodexAppServerBindingStore;
   runtime: PluginRuntime;
   harnessRuntimeId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }) {
   const { fork, resolved, control, bindingStore, sourceBinding, config } = params;
   const context = control.forkContext;

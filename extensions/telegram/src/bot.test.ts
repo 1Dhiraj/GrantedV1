@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearPluginInteractiveHandlers,
   registerPluginInteractiveHandler,
@@ -20,7 +20,7 @@ import {
 import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { mockPinnedHostnameResolution } from "openclaw/plugin-sdk/test-env";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import {
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
@@ -133,18 +133,18 @@ const THUMBS_UP_EMOJI = "\u{1F44D}";
 const FIRE_EMOJI = "\u{1F525}";
 const PARTY_EMOJI = "\u{1F389}";
 const HEART_EMOJI = "\u{2764}\u{FE0F}";
-type TelegramChannelConfig = NonNullable<NonNullable<OpenClawConfig["channels"]>["telegram"]>;
+type TelegramChannelConfig = NonNullable<NonNullable<GrantedConfig["channels"]>["telegram"]>;
 
 function makeTelegramConfig(
   telegram: TelegramChannelConfig,
-  config: Omit<OpenClawConfig, "channels"> = {},
-): OpenClawConfig {
+  config: Omit<GrantedConfig, "channels"> = {},
+): GrantedConfig {
   return { ...config, channels: { telegram } };
 }
 
 function mockTelegramConfig(
   telegram: TelegramChannelConfig,
-  config: Omit<OpenClawConfig, "channels"> = {},
+  config: Omit<GrantedConfig, "channels"> = {},
 ) {
   loadConfig.mockReturnValue(makeTelegramConfig(telegram, config));
 }
@@ -316,7 +316,7 @@ function makeExecApprovalTelegramConfig(
 function makeDirectTelegramConfig(
   storePath: string,
   telegramOverrides: TelegramChannelConfig = {},
-): OpenClawConfig {
+): GrantedConfig {
   return {
     channels: {
       telegram: {
@@ -332,13 +332,13 @@ function makeDirectTelegramConfig(
 function makeModelPickerConfig(
   storePath: string,
   overrides: {
-    config?: Omit<OpenClawConfig, "agents" | "channels" | "session">;
+    config?: Omit<GrantedConfig, "agents" | "channels" | "session">;
     defaultModel?: string;
     models?: Record<string, { agentRuntime?: { id: string } }>;
     omitModels?: boolean;
     telegram?: TelegramChannelConfig;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   return {
     ...overrides.config,
     agents: {
@@ -528,7 +528,7 @@ function readOnlySessionEntry(storePath: string) {
 }
 
 async function writeDirectTelegramTranscriptMessages(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   chatId: number;
   senderId: number;
@@ -577,7 +577,7 @@ async function writeDirectTelegramTranscriptMessages(params: {
 }
 
 async function writeDirectTelegramTranscriptContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   chatId: number;
   role?: "assistant" | "user";
@@ -686,7 +686,7 @@ function systemEventOptions(index = 0) {
 type TelegramDispatch = typeof import("./bot-message-dispatch.js").dispatchTelegramMessage;
 type TelegramDispatchParams = Parameters<TelegramDispatch>[0];
 
-function createDirectDispatchContext(cfg: OpenClawConfig): TelegramDispatchParams["context"] {
+function createDirectDispatchContext(cfg: GrantedConfig): TelegramDispatchParams["context"] {
   const msg = {
     chat: { id: 123, type: "private" },
     date: 1_736_380_800,
@@ -739,7 +739,7 @@ function createDirectDispatchContext(cfg: OpenClawConfig): TelegramDispatchParam
 }
 
 async function dispatchDirectTelegramTurn(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   deliverReplies: NonNullable<TelegramBotDeps["deliverReplies"]>;
   telegramCfg?: TelegramDispatchParams["telegramCfg"];
 }) {
@@ -796,7 +796,7 @@ describe("dispatchTelegramMessage reply settlement", () => {
   });
 
   it("settles a buffered final before a later empty final resets reasoning state", async () => {
-    const cfg: OpenClawConfig = { agents: { defaults: { reasoningDefault: "on" } } };
+    const cfg: GrantedConfig = { agents: { defaults: { reasoningDefault: "on" } } };
     const deliverReplies = vi
       .fn<NonNullable<TelegramBotDeps["deliverReplies"]>>()
       .mockResolvedValueOnce({ delivered: false })
@@ -829,7 +829,7 @@ describe("dispatchTelegramMessage reply settlement", () => {
   });
 
   it("keeps buffered-final failure separate from a visible reasoning payload", async () => {
-    const cfg: OpenClawConfig = { agents: { defaults: { reasoningDefault: "on" } } };
+    const cfg: GrantedConfig = { agents: { defaults: { reasoningDefault: "on" } } };
     const error = new Error("buffered final failed");
     const deliverReplies = vi
       .fn<NonNullable<TelegramBotDeps["deliverReplies"]>>()
@@ -875,7 +875,7 @@ describe("dispatchTelegramMessage reply settlement", () => {
     const telegramCfg = {
       execApprovals: { enabled: true, approvers: ["123"], target: "dm" as const },
     };
-    const cfg: OpenClawConfig = { channels: { telegram: telegramCfg } };
+    const cfg: GrantedConfig = { channels: { telegram: telegramCfg } };
     const deliverReplies = vi
       .fn<NonNullable<TelegramBotDeps["deliverReplies"]>>()
       .mockResolvedValue({ delivered: true });
@@ -911,7 +911,7 @@ describe("dispatchTelegramMessage reply settlement", () => {
 });
 
 const ORIGINAL_TZ = process.env.TZ;
-let telegramTestState: OpenClawTestState;
+let telegramTestState: GrantedTestState;
 
 describe("createTelegramBot", () => {
   beforeAll(async () => {
@@ -1353,7 +1353,7 @@ describe("createTelegramBot", () => {
           groups: { "*": { requireMention: false } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     loadConfig.mockReturnValue(cfg);
     createTelegramBot({
       token: "tok",
@@ -3084,7 +3084,7 @@ describe("createTelegramBot", () => {
       0,
       0,
       "buffered dispatch",
-    ) as { cfg?: OpenClawConfig };
+    ) as { cfg?: GrantedConfig };
     expect(dispatchParams.cfg).toBe(freshConfig);
 
     const afterTurn = readOnlySessionEntry(storePath);

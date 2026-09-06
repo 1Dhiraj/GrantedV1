@@ -1,5 +1,5 @@
 // Imported by register.test.ts to keep its mocked suite in one Vitest module graph.
-import { runDoctorLintChecks, type OpenClawConfig } from "openclaw/plugin-sdk/health";
+import { runDoctorLintChecks, type GrantedConfig } from "openclaw/plugin-sdk/health";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { collectPolicyEvidence } from "../policy-state.js";
 import { registerPolicyDoctorChecks } from "./register.js";
@@ -29,7 +29,7 @@ const INGRESS_POLICY = {
   },
 };
 
-async function runPolicyScenario(cfg: OpenClawConfig, policy: object, mode: PolicyScenarioMode) {
+async function runPolicyScenario(cfg: GrantedConfig, policy: object, mode: PolicyScenarioMode) {
   const configPath = await writePolicyFixture(policy);
   const checkContext = ctx(configPath, cfg);
   if (mode === "doctor") {
@@ -53,15 +53,15 @@ async function runIngressPolicyScenario(channels: Record<string, unknown>) {
   };
 }
 
-function configWithPolicy(overrides: object): OpenClawConfig {
-  return { ...cfgWithPolicy(), ...overrides } as unknown as OpenClawConfig;
+function configWithPolicy(overrides: object): GrantedConfig {
+  return { ...cfgWithPolicy(), ...overrides } as unknown as GrantedConfig;
 }
 
-function configWithAgents(agents: object): OpenClawConfig {
+function configWithAgents(agents: object): GrantedConfig {
   return configWithPolicy({ agents });
 }
 
-function configWithSandbox(sandbox: object): OpenClawConfig {
+function configWithSandbox(sandbox: object): GrantedConfig {
   return configWithAgents({ defaults: { sandbox } });
 }
 
@@ -779,7 +779,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const policy = managedSecretsPolicy(["exec"]);
 
     const result = await runPolicyScenario(cfg, policy, "global-doctor");

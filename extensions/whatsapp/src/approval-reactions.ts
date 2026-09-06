@@ -15,7 +15,7 @@ import {
 } from "openclaw/plugin-sdk/approval-reaction-runtime";
 import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
 import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
 import type { MessagePresentation } from "openclaw/plugin-sdk/interactive-runtime";
 import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
@@ -291,7 +291,7 @@ function listWhatsAppDeliveredMessageIdentities(
 
 /** Bind generic forwarded approvals to the exact WhatsApp messages accepted by Baileys. */
 export function registerWhatsAppApprovalReactionTargetForDeliveredPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: { channel: string; to: string; accountId?: string | null };
   payload: ReplyPayload;
   results: readonly OutboundDeliveryResult[];
@@ -443,7 +443,7 @@ function readWhatsAppApprovalReactionEvent(params: {
 }
 
 export async function maybeResolveWhatsAppApprovalReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   msg: WAMessage;
   gatewayUrl?: string;

@@ -10,7 +10,7 @@ import {
   copyPluginInstallRecordMap,
   setPluginInstallRecordMapEntry,
 } from "../../../config/plugin-install-record-map.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { inspectPersistedInstalledPluginIndexInstallRecordsSync } from "../../../plugins/installed-plugin-index-record-state.js";
 import { loadInstalledPluginIndexInstallRecords } from "../../../plugins/installed-plugin-index-records.js";
 import { writePersistedInstalledPluginIndex } from "../../../plugins/installed-plugin-index-store-write.js";
@@ -75,7 +75,7 @@ export type PluginRegistryDoctorMigrationParams = LoadInstalledPluginIndexParams
   InstalledPluginIndexStoreOptions & {
     dryRun?: boolean;
     existsSync?: (path: string) => boolean;
-    readConfig?: () => Promise<OpenClawConfig> | OpenClawConfig;
+    readConfig?: () => Promise<GrantedConfig> | GrantedConfig;
   };
 
 /** Decide whether Doctor should migrate the plugin registry in this environment. */
@@ -121,7 +121,7 @@ export function preflightPluginRegistryDoctorMigration(
 
 async function readMigrationConfig(
   params: PluginRegistryDoctorMigrationParams,
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   if (params.config) {
     return params.config;
   }
@@ -194,7 +194,7 @@ function addPluginReference(
   }
 }
 
-function listConfiguredChannelIds(config: OpenClawConfig): Set<string> {
+function listConfiguredChannelIds(config: GrantedConfig): Set<string> {
   const channels = config.channels;
   if (!channels || typeof channels !== "object" || Array.isArray(channels)) {
     return new Set();
@@ -206,7 +206,7 @@ function listConfiguredChannelIds(config: OpenClawConfig): Set<string> {
   );
 }
 
-function listConfiguredModelProviderIds(config: OpenClawConfig): Set<string> {
+function listConfiguredModelProviderIds(config: GrantedConfig): Set<string> {
   const providers = config.models?.providers;
   if (!providers || typeof providers !== "object" || Array.isArray(providers)) {
     return new Set();
@@ -220,7 +220,7 @@ function listConfiguredModelProviderIds(config: OpenClawConfig): Set<string> {
 
 function listMigrationRelevantPluginRecords(params: {
   index: InstalledPluginIndex;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   installRecords: Record<string, unknown>;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
@@ -313,7 +313,7 @@ export async function migratePluginRegistryForDoctor(
   if (inspectShippedPluginInstallConfigRecords(rawConfig).status === "invalid") {
     throw new InvalidPluginInstallRecordStateError(INVALID_CONFIG_INSTALL_RECORD_MESSAGE);
   }
-  const config = stripShippedPluginInstallConfigRecords(rawConfig) as OpenClawConfig;
+  const config = stripShippedPluginInstallConfigRecords(rawConfig) as GrantedConfig;
   const durableInstallRecords =
     params.installRecords ?? (await loadInstalledPluginIndexInstallRecords(params));
   const installRecords = copyPluginInstallRecordMap(

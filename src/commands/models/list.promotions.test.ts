@@ -6,7 +6,7 @@ import type { RuntimeEnv } from "../../runtime.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import {
   applyPromotionClaimTags,
@@ -75,7 +75,7 @@ async function seedFeedCache(entries: unknown[]) {
 }
 
 describe("models list promotion decorations", () => {
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
 
   beforeEach(async () => {
     testState = await createOpenClawTestState({

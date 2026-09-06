@@ -13,12 +13,12 @@ import { getPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-
 import type {
   McpServerConnectionResolved,
   McpServerConnectionResolveContext,
-  OpenClawPluginMcpServerConnectionResolver,
+  GrantedPluginMcpServerConnectionResolver,
 } from "../plugins/types.js";
 
 export type { McpServerConnectionResolved };
 
-type McpServerConnectionResolverEntry = OpenClawPluginMcpServerConnectionResolver & {
+type McpServerConnectionResolverEntry = GrantedPluginMcpServerConnectionResolver & {
   pluginId: string;
 };
 
@@ -391,7 +391,7 @@ export function buildMcpRequesterRuntimeCacheKey(params: {
 
 export const testing = {
   setMcpServerConnectionResolversForTest(
-    resolvers?: Iterable<OpenClawPluginMcpServerConnectionResolver & { pluginId?: string }> | null,
+    resolvers?: Iterable<GrantedPluginMcpServerConnectionResolver & { pluginId?: string }> | null,
   ): void {
     if (!resolvers) {
       getTestState().resolversByServerName = undefined;

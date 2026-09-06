@@ -16,7 +16,7 @@ import {
   getRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import {
   buildExecRunConfig,
@@ -946,7 +946,7 @@ describe("agent exec base config resolution", () => {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 
   async function writeSeed(body: string): Promise<string> {
     const dir = tempDirs.make("openclaw-agent-exec-seed-");

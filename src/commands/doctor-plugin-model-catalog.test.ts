@@ -9,7 +9,7 @@ import {
   PLUGIN_MODEL_CATALOG_GENERATED_BY,
   replacePersistedPluginModelCatalogs,
 } from "../agents/plugin-model-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -62,7 +62,7 @@ function prompter(shouldRepair: boolean): DoctorPrompter {
 
 function migrationParams(agentDirs: string[], shouldRepair = true) {
   return {
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     agentDirs,
     prompter: prompter(shouldRepair),
     runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() } as unknown as RuntimeEnv,
@@ -211,7 +211,7 @@ describe("doctor generated plugin model catalog migration", () => {
             third: { agentDir: thirdDir },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     };
 
     await expect(maybeMigrateLegacyPluginModelCatalogs(params)).resolves.toEqual({

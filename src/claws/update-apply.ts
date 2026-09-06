@@ -3,9 +3,9 @@ import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-cor
 import { listAgentEntries } from "../agents/agent-scope.js";
 import { transformConfigFileWithRetry } from "../config/config.js";
 import type { AgentConfig } from "../config/types.agents.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { clawTargetPackages } from "./application-provenance.js";
 import {
   applyClawCronUpdate,
@@ -46,7 +46,7 @@ import {
 
 export const CLAW_UPDATE_RESULT_SCHEMA_VERSION = "openclaw.clawUpdateResult.v1" as const;
 
-type ConfigCommit = (transform: (config: OpenClawConfig) => OpenClawConfig) => Promise<void>;
+type ConfigCommit = (transform: (config: GrantedConfig) => GrantedConfig) => Promise<void>;
 
 function digest(value: unknown): string {
   return `sha256:${createHash("sha256").update(stableStringify(value)).digest("hex")}`;
@@ -111,8 +111,8 @@ export async function applyClawUpdatePlan(
     targetOpenClawProfile?: ClawOpenClawProfile;
     targetSource: ClawSourceIdentity;
   },
-  options: OpenClawStateDatabaseOptions & {
-    config: OpenClawConfig;
+  options: GrantedStateDatabaseOptions & {
+    config: GrantedConfig;
     sourceMcpServers: Record<string, Record<string, unknown>>;
     consentPlanIntegrity: string | undefined;
     packagePreflight?: ClawAddPlanContext["packagePreflight"];

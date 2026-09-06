@@ -8,7 +8,7 @@ import type {
   DmConfig,
   DmPolicy,
   GroupPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   SecretInput,
 } from "../runtime-api.js";
 
@@ -95,7 +95,7 @@ export type CoreConfig = {
   channels?: {
     "nextcloud-talk"?: NextcloudTalkConfig;
   };
-  gateway?: OpenClawConfig["gateway"];
+  gateway?: GrantedConfig["gateway"];
   [key: string]: unknown;
 };
 

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { DEFAULT_PROVIDER, resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveDefaultAgentId } from "openclaw/plugin-sdk/config-runtime";
 import { parseModelRef } from "openclaw/plugin-sdk/model-ref-parse";
 import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
@@ -70,21 +70,21 @@ export default definePluginEntry({
   register(api) {
     // Hooks are long-lived; read config through the live runtime loader on
     // every event so edits in the Control UI apply without a gateway restart.
-    const readCurrentConfig = (): OpenClawConfig => {
+    const readCurrentConfig = (): GrantedConfig => {
       try {
         return (
-          (api.runtime.config?.current?.() as OpenClawConfig | undefined) ??
-          (api.config as OpenClawConfig)
+          (api.runtime.config?.current?.() as GrantedConfig | undefined) ??
+          (api.config as GrantedConfig)
         );
       } catch {
-        return api.config as OpenClawConfig;
+        return api.config as GrantedConfig;
       }
     };
     const readLiveRouterConfig = (): TaskRouterConfig =>
       readTaskRouterConfig(
         resolveLivePluginConfigObject(
           api.runtime.config?.current
-            ? () => api.runtime.config.current() as OpenClawConfig
+            ? () => api.runtime.config.current() as GrantedConfig
             : undefined,
           "task-router",
           api.pluginConfig as Record<string, unknown> | undefined,
@@ -98,11 +98,11 @@ export default definePluginEntry({
       );
     }
 
-    const resolveAgentId = (cfg: OpenClawConfig, agentId: string | undefined): string =>
+    const resolveAgentId = (cfg: GrantedConfig, agentId: string | undefined): string =>
       agentId?.trim() || resolveDefaultAgentId(cfg);
 
     const resolveModelSelection = (
-      cfg: OpenClawConfig,
+      cfg: GrantedConfig,
       agentId: string | undefined,
       modelRef?: string,
     ): ModelSelection | undefined => {
@@ -173,7 +173,7 @@ export default definePluginEntry({
     });
 
     const classifyWithLlm = async (
-      cfg: OpenClawConfig,
+      cfg: GrantedConfig,
       classifierModel: string,
       prompt: string,
     ): Promise<TaskKind | null> => {
@@ -238,7 +238,7 @@ export default definePluginEntry({
     // The router is rebuilt whenever the live config changes; sticky state
     // reloads from disk so a config edit never drops an in-flight automation.
     let cachedRouter: { key: string; router: TaskRouter } | undefined;
-    const resolveRouter = (cfg: OpenClawConfig, routerConfig: TaskRouterConfig): TaskRouter => {
+    const resolveRouter = (cfg: GrantedConfig, routerConfig: TaskRouterConfig): TaskRouter => {
       const key = JSON.stringify(routerConfig);
       if (cachedRouter?.key === key) {
         return cachedRouter.router;

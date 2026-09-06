@@ -12,18 +12,18 @@ import {
 } from "openclaw/plugin-sdk/file-access-runtime";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginToolContext,
+  GrantedPluginApi,
+  GrantedPluginToolContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 
 export type { WorkboardWorkspaceAccess } from "@openclaw/workboard-contract";
 
-type WorkboardConfig = NonNullable<OpenClawPluginToolContext["config"]>;
+type WorkboardConfig = NonNullable<GrantedPluginToolContext["config"]>;
 type ResolveSandboxWorkspaceAuthority =
-  OpenClawPluginApi["runtime"]["sandbox"]["resolveWorkspaceAuthority"];
+  GrantedPluginApi["runtime"]["sandbox"]["resolveWorkspaceAuthority"];
 type PrepareSandboxWorkspaceAuthority =
-  OpenClawPluginApi["runtime"]["sandbox"]["prepareWorkspaceAuthority"];
+  GrantedPluginApi["runtime"]["sandbox"]["prepareWorkspaceAuthority"];
 
 export const WORKBOARD_TOOL_NAMES = [
   "workboard_list",
@@ -172,7 +172,7 @@ export function resolveCommandWorkboardWorkspaceAccess(params: {
 }
 
 function resolveToolWorkboardWorkspaceAccess(
-  context: OpenClawPluginToolContext | undefined,
+  context: GrantedPluginToolContext | undefined,
   resolveSandboxWorkspaceAuthority?: ResolveSandboxWorkspaceAuthority,
 ): WorkboardWorkspaceAccess {
   if (!context?.sandboxed && context?.fsPolicy?.workspaceOnly !== true) {
@@ -388,7 +388,7 @@ export async function assertWorkboardWorkspaceSourceAccess(
 
 export function guardWorkboardToolsForWorkspaceAccess(
   tools: AnyAgentTool[],
-  context: OpenClawPluginToolContext | undefined,
+  context: GrantedPluginToolContext | undefined,
   resolveSandboxWorkspaceAuthority?: ResolveSandboxWorkspaceAuthority,
 ): AnyAgentTool[] {
   const workspaceAccess = resolveToolWorkboardWorkspaceAccess(

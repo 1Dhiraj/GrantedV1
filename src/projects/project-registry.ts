@@ -5,20 +5,20 @@ import type { Selectable } from "kysely";
 import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { insideGitCheckout, runGit } from "../agents/worktrees/git.js";
 import { slugifyWorktreeTitle } from "../agents/worktrees/name.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
-  type OpenClawStateLeaseContext,
+  type GrantedStateLeaseContext,
   withOpenClawStateLease,
 } from "../state/openclaw-state-lease.js";
 
@@ -31,8 +31,8 @@ export type ProjectRegistryRecord = {
   agentId?: string;
 };
 
-type ProjectsDatabase = Pick<OpenClawStateKyselyDatabase, "projects">;
-type ProjectRow = Selectable<OpenClawStateKyselyDatabase["projects"]>;
+type ProjectsDatabase = Pick<GrantedStateKyselyDatabase, "projects">;
+type ProjectRow = Selectable<GrantedStateKyselyDatabase["projects"]>;
 
 const ensuredDatabases = new WeakSet<DatabaseSync>();
 const PROJECT_ID_MAX_LENGTH = 64;
@@ -57,7 +57,7 @@ export class ProjectCheckoutError extends Error {
   }
 }
 
-function ensureProjectRegistrySchema(options: OpenClawStateDatabaseOptions = {}): void {
+function ensureProjectRegistrySchema(options: GrantedStateDatabaseOptions = {}): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;
@@ -73,7 +73,7 @@ function ensureProjectRegistrySchema(options: OpenClawStateDatabaseOptions = {})
   ensuredDatabases.add(database.db);
 }
 
-function openProjectsDatabase(options: OpenClawStateDatabaseOptions = {}) {
+function openProjectsDatabase(options: GrantedStateDatabaseOptions = {}) {
   ensureProjectRegistrySchema(options);
   const state = openOpenClawStateDatabase(options);
   return { sqlite: state.db, kysely: getNodeSqliteKysely<ProjectsDatabase>(state.db) };
@@ -96,8 +96,8 @@ function insertProjectRegistry(
     originUrl?: string;
     source: "registered" | "cloned";
   },
-  options: OpenClawStateDatabaseOptions,
-  lease: OpenClawStateLeaseContext,
+  options: GrantedStateDatabaseOptions,
+  lease: GrantedStateLeaseContext,
 ): ProjectRegistryRecord {
   ensureProjectRegistrySchema(options);
   return runOpenClawStateWriteTransaction(
@@ -147,8 +147,8 @@ function insertProjectRegistry(
 
 export async function withProjectCheckoutLifecycle<T>(
   repoRoot: string,
-  options: OpenClawStateDatabaseOptions,
-  run: (lease: OpenClawStateLeaseContext) => Promise<T>,
+  options: GrantedStateDatabaseOptions,
+  run: (lease: GrantedStateLeaseContext) => Promise<T>,
 ): Promise<T> {
   return await withOpenClawStateLease(
     {
@@ -164,7 +164,7 @@ export async function withProjectCheckoutLifecycle<T>(
   );
 }
 
-function workspaceProject(cfg: OpenClawConfig, agentId: string): ProjectRegistryRecord {
+function workspaceProject(cfg: GrantedConfig, agentId: string): ProjectRegistryRecord {
   const repoRoot = resolveAgentWorkspaceDir(cfg, agentId);
   return {
     id: `workspace:${agentId}`,
@@ -240,7 +240,7 @@ async function registerResolvedProject(
     originUrl?: string;
     source: "registered" | "cloned";
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<ProjectRegistryRecord> {
   const checkout = await resolveProjectCheckout(input.path);
   const displayName = input.name?.trim() || path.basename(checkout.repoRoot) || "Project";
@@ -266,21 +266,21 @@ async function registerResolvedProject(
 
 export async function registerProjectRegistry(
   input: { path: string; name?: string },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<ProjectRegistryRecord> {
   return await registerResolvedProject({ ...input, source: "registered" }, options);
 }
 
 export async function registerClonedProjectRegistry(
   input: { path: string; name: string; originUrl: string },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<ProjectRegistryRecord> {
   return await registerResolvedProject({ ...input, source: "cloned" }, options);
 }
 
 export function listProjectRegistry(
-  cfg: OpenClawConfig,
-  options: OpenClawStateDatabaseOptions = {},
+  cfg: GrantedConfig,
+  options: GrantedStateDatabaseOptions = {},
 ): ProjectRegistryRecord[] {
   const { sqlite, kysely } = openProjectsDatabase(options);
   const stored = executeSqliteQuerySync(sqlite, kysely.selectFrom("projects").selectAll()).rows.map(
@@ -291,9 +291,9 @@ export function listProjectRegistry(
 }
 
 export function resolveProjectRegistry(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   id: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ProjectRegistryRecord | undefined {
   if (id.startsWith("workspace:")) {
     const agentId = id.slice("workspace:".length);
@@ -309,8 +309,8 @@ export function resolveProjectRegistry(
 
 export function removeProjectCheckoutReference(
   project: ProjectRegistryRecord,
-  lease: OpenClawStateLeaseContext,
-  options: OpenClawStateDatabaseOptions = {},
+  lease: GrantedStateLeaseContext,
+  options: GrantedStateDatabaseOptions = {},
 ): "missing" | "changed" | "remaining" | "final" {
   ensureProjectRegistrySchema(options);
   return runOpenClawStateWriteTransaction(
@@ -361,7 +361,7 @@ export function removeProjectCheckoutReference(
 
 export async function resolveRecordedProjectRoot(
   projectPath: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<string | undefined> {
   const repoRoot = await fs.realpath(projectPath).catch(() => undefined);
   if (!repoRoot) {
@@ -377,7 +377,7 @@ export async function resolveRecordedProjectRoot(
 
 export function removeProjectRegistry(
   id: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   ensureProjectRegistrySchema(options);
   return runOpenClawStateWriteTransaction(

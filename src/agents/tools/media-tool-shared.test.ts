@@ -5,7 +5,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { createHostSandboxFsBridge } from "../test-helpers/host-sandbox-fs-bridge.js";
 import {
@@ -25,7 +25,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 // tests cover the real bundled contract loader.
 vi.mock("../../media/channel-inbound-roots.js", () => ({
   resolveChannelInboundAttachmentRootsForChannel: (params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     channelId?: string | null;
     accountId?: string | null;
   }) => {

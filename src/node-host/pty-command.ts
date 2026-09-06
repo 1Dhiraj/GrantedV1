@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { mergeProcessEnv } from "../infra/process-env.js";
-import type { OpenClawPluginNodeHostCommandIo } from "../plugins/types.js";
+import type { GrantedPluginNodeHostCommandIo } from "../plugins/types.js";
 import { spawnTerminalPty } from "../process/terminal-pty.js";
 
 export type NodePtyCommandResult = { exitCode: number; signal?: number };
@@ -105,7 +105,7 @@ export async function runNodePtyCommand(
     cols: number;
     rows: number;
   },
-  io: OpenClawPluginNodeHostCommandIo,
+  io: GrantedPluginNodeHostCommandIo,
   spawn: typeof spawnTerminalPty = spawnTerminalPty,
 ): Promise<NodePtyCommandResult> {
   if (io.signal.aborted) {

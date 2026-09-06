@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ChannelOutboundContext } from "../../channels/plugins/outbound.types.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { runMessageAction } from "../../infra/outbound/message-action-runner.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
@@ -21,7 +21,7 @@ import { createMessageTool } from "./message-tool-execution.js";
 const channel = "sandboxchat" as ChannelPlugin["id"];
 const cfg = {
   channels: { sandboxchat: { enabled: true } },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function createSandboxContext(workspaceDir: string) {
   return createSandboxTestContext({
@@ -158,7 +158,7 @@ describe("message tool sandbox attachments", () => {
       const deniedCfg = {
         channels: { sandboxchat: { enabled: true } },
         tools: { allow: ["message"], deny: ["read"] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const tool = createMessageTool({
         config: deniedCfg,
         getRuntimeConfig: () => deniedCfg,

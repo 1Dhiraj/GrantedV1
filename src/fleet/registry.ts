@@ -8,7 +8,7 @@ import {
 } from "../infra/kysely-sync.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import { allocateHostPort } from "./cell-profile.js";
 
@@ -26,9 +26,9 @@ type ReserveFleetCellParams = Omit<FleetCellRecord, "hostPort"> & {
   requestedPort?: number;
 };
 
-type FleetCellsTable = OpenClawStateKyselyDatabase["fleet_cells"];
+type FleetCellsTable = GrantedStateKyselyDatabase["fleet_cells"];
 type FleetCellRow = Selectable<FleetCellsTable>;
-type FleetRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "fleet_cells" | "state_leases">;
+type FleetRegistryDatabase = Pick<GrantedStateKyselyDatabase, "fleet_cells" | "state_leases">;
 
 const FLEET_OPERATION_LEASE_SCOPE = "fleet-cell-operation";
 const FLEET_OPERATION_LEASE_TTL_MS = 5 * 60_000;

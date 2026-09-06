@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import {
   formatSqliteSessionFileMarker,
   parseSqliteSessionFileMarker,
@@ -187,7 +187,7 @@ function sessionMemoryRecord(role: "user" | "assistant", text: string): string {
 async function runNewWithPreviousSessionEntry(params: {
   tempDir: string;
   previousSessionEntry: { sessionId: string; sessionFile?: string };
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   action?: "new" | "reset";
   agentId?: string;
   sessionKey?: string;
@@ -198,7 +198,7 @@ async function runNewWithPreviousSessionEntry(params: {
     params.cfg ??
     ({
       agents: { defaults: { workspace: params.tempDir } },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
   const legacySessionFile = params.previousSessionEntry.sessionFile;
   const marker = parseSqliteSessionFileMarker(legacySessionFile);
   const sessionKey = params.sessionKey ?? "agent:main:main";
@@ -244,7 +244,7 @@ async function runNewWithPreviousSessionEntry(params: {
   const cfg = {
     ...baseConfig,
     session: { ...baseConfig.session, store: storePath },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const event = createHookEvent("command", params.action ?? "new", sessionKey, {
     agentId,
     cfg,
@@ -272,7 +272,7 @@ async function runNewWithPreviousSessionEntry(params: {
 
 async function runNewWithPreviousSession(params: {
   sessionContent: string;
-  cfg?: (tempDir: string) => OpenClawConfig;
+  cfg?: (tempDir: string) => GrantedConfig;
   action?: "new" | "reset";
 }): Promise<{ tempDir: string; files: string[]; memoryContent: string }> {
   const tempDir = await createCaseWorkspace("workspace");
@@ -289,7 +289,7 @@ async function runNewWithPreviousSession(params: {
     params.cfg?.(tempDir) ??
     ({
       agents: { defaults: { workspace: tempDir } },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
   const { files, memoryContent } = await runNewWithPreviousSessionEntry({
     tempDir,
@@ -809,7 +809,7 @@ describe("session-memory hook", () => {
           defaults: { workspace: mainWorkspace },
           list: [{ id: "navi", workspace: naviWorkspace }],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       sessionKey: "agent:main:main",
       workspaceDirOverride: naviWorkspace,
       previousSessionEntry: {
@@ -1046,7 +1046,7 @@ describe("session-memory hook", () => {
           defaults: { workspace: defaultWorkspace },
           list: [{ id: "custom-agent", workspace: customAgentWorkspace }],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       sessionKey: "agent:main:main",
       workspaceDirOverride: customAgentWorkspace,
       previousSessionEntry: {

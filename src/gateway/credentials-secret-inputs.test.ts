@@ -1,7 +1,7 @@
 // Gateway credential resolver tests document token/password precedence for local,
 // remote, CLI override, env override, and config-secret connection flows.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveConfigForRead } from "../config/io.read-helpers.js";
 import { setConfigResolutionFacts } from "../config/resolution-facts.js";
 import { resolveGatewayCredentialsWithSecretInputs } from "./credentials-secret-inputs.js";
@@ -11,14 +11,14 @@ type GatewayConnectionAuthOptions = Parameters<typeof resolveGatewayCredentialsW
 
 type ConnectionAuthCase = {
   name: string;
-  cfgLocal: OpenClawConfig;
+  cfgLocal: GrantedConfig;
   env: NodeJS.ProcessEnv;
   options?: Partial<Omit<GatewayConnectionAuthOptions, "config" | "env">>;
   expected: ResolvedAuth;
 };
 
-function cfg(input: Partial<OpenClawConfig>): OpenClawConfig {
-  return input as OpenClawConfig;
+function cfg(input: Partial<GrantedConfig>): GrantedConfig {
+  return input as GrantedConfig;
 }
 
 function createRemoteModeConfig() {
@@ -233,7 +233,7 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
         { gateway: { mode: "local", auth: { mode: "token", token: authored } } },
         readEnv,
       );
-      const config = cfg(read.resolvedConfigRaw as OpenClawConfig);
+      const config = cfg(read.resolvedConfigRaw as GrantedConfig);
       setConfigResolutionFacts(config, read.resolutionFacts);
 
       await expect(

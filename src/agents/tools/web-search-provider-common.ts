@@ -4,7 +4,7 @@
  * Handles provider config, credential normalization, guarded endpoint calls, caching, and filters.
  */
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeResolvedSecretInputString } from "../../config/types.secrets.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
 import { normalizeSecretInput } from "../../utils/normalize-secret-input.js";
@@ -37,7 +37,7 @@ type WebSearchEndpointOptions = {
   signal?: AbortSignal;
 };
 
-export type SearchConfigRecord = (NonNullable<OpenClawConfig["tools"]>["web"] extends infer Web
+export type SearchConfigRecord = (NonNullable<GrantedConfig["tools"]>["web"] extends infer Web
   ? Web extends { search?: infer Search }
     ? Search
     : never

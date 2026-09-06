@@ -10,7 +10,7 @@ import {
   getMcpAppViewLease,
   type McpAppViewLease,
 } from "../agents/mcp-ui-resource.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
 import { getOrCreatePromise } from "../shared/lazy-promise.js";
 import { visitSessionMessagesAsync } from "./session-transcript-readers.js";
@@ -243,7 +243,7 @@ function getRestoreInFlight(): Map<string, Promise<ReconstructionResult | undefi
 }
 
 async function reconstructMcpAppView(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   lookup: TranscriptLookup;
@@ -302,7 +302,7 @@ async function reconstructMcpAppView(params: {
 }
 
 async function restoreMcpAppViewOnce(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   viewId: string;
@@ -321,7 +321,7 @@ async function restoreMcpAppViewOnce(params: {
 }
 
 export async function mintMcpAppViewFromTranscript(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   descriptor: BoardMcpAppDescriptor;
@@ -343,7 +343,7 @@ export async function mintMcpAppViewFromTranscript(params: {
 }
 
 export async function restoreMcpAppView(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   viewId: string;

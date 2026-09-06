@@ -1,6 +1,6 @@
 // Discord plugin module implements access behavior.
 import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
 import type { Guild } from "../internal/discord.js";
 import {
@@ -14,7 +14,7 @@ import {
 } from "../monitor/allow-list.js";
 
 export async function authorizeDiscordVoiceIngress(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordAccountConfig;
   accountId?: string;
   groupPolicy?: "open" | "disabled" | "allowlist";

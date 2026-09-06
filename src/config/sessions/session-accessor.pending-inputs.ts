@@ -18,7 +18,7 @@ import {
   hasPendingInputConsumptionColumn,
   hasSessionPendingInputsSchema,
 } from "../../state/openclaw-agent-pending-inputs-schema.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { readSessionEntryRow } from "./session-accessor.sqlite-entry-store.js";
 import {
@@ -152,7 +152,7 @@ export async function stageSessionPendingInput(
     prepareMessageAfterIdempotencyCheck?: (
       message: PersistedUserTurnMessage,
     ) => PersistedUserTurnMessage | undefined;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     assertCurrent: () => void;
   },
 ): Promise<SessionPendingInputReceipt | undefined> {

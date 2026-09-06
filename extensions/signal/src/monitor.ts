@@ -4,7 +4,7 @@ import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
 import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-outbound";
 import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ReplyToMode,
   SignalReactionNotificationMode,
 } from "openclaw/plugin-sdk/config-contracts";
@@ -79,7 +79,7 @@ export type MonitorSignalOpts = {
   abortSignal?: AbortSignal;
   account?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   baseUrl?: string;
   channelRuntime?: PluginRuntime["channel"];
   autoStart?: boolean;
@@ -279,7 +279,7 @@ async function fetchAttachment(params: {
 }
 
 export async function deliverReplies(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   replies: ReplyPayload[];
   target: string;
   baseUrl: string;

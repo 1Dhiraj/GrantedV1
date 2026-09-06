@@ -3,9 +3,9 @@ import crypto from "node:crypto";
 import { StringDecoder } from "node:string_decoder";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type {
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginNodeInvokePolicyContext,
-  OpenClawPluginNodeInvokePolicyResult,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginNodeInvokePolicyContext,
+  GrantedPluginNodeInvokePolicyResult,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -180,8 +180,8 @@ async function listDirFetchArchiveEntries(
 }
 
 async function handleFileTransferInvoke(
-  ctx: OpenClawPluginNodeInvokePolicyContext,
-): Promise<OpenClawPluginNodeInvokePolicyResult> {
+  ctx: GrantedPluginNodeInvokePolicyContext,
+): Promise<GrantedPluginNodeInvokePolicyResult> {
   if (!FILE_TRANSFER_NODE_INVOKE_COMMANDS.includes(ctx.command as FileTransferCommand)) {
     return { ok: false, code: "UNSUPPORTED_COMMAND", message: "unsupported file-transfer command" };
   }
@@ -455,7 +455,7 @@ async function handleFileTransferInvoke(
     : result;
 }
 
-export function createFileTransferNodeInvokePolicy(): OpenClawPluginNodeInvokePolicy {
+export function createFileTransferNodeInvokePolicy(): GrantedPluginNodeInvokePolicy {
   return {
     commands: [...FILE_TRANSFER_NODE_INVOKE_COMMANDS],
     handle: handleFileTransferInvoke,

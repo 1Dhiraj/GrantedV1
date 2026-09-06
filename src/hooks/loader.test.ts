@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setLoggerOverride } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
 import { captureEnv } from "../test-utils/env.js";
@@ -86,7 +86,7 @@ describe("loader", () => {
     return hookDir;
   }
 
-  function createEnabledHooksConfig(): OpenClawConfig {
+  function createEnabledHooksConfig(): GrantedConfig {
     return { hooks: { internal: { enabled: true } } };
   }
 
@@ -107,35 +107,35 @@ describe("loader", () => {
 
   describe("loadInternalHooks", () => {
     it("detects configured internal hook surfaces", () => {
-      expect(hasConfiguredInternalHooks({} satisfies OpenClawConfig)).toBe(false);
+      expect(hasConfiguredInternalHooks({} satisfies GrantedConfig)).toBe(false);
       expect(
         hasConfiguredInternalHooks({
           hooks: { internal: { entries: { "session-memory": { enabled: true } } } },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ).toBe(true);
       expect(
         hasConfiguredInternalHooks({
           hooks: { internal: { entries: { "session-memory": { enabled: false } } } },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ).toBe(false);
       expect(
         hasConfiguredInternalHooks({
           hooks: { internal: { load: { extraDirs: ["/tmp/hooks"] } } },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ).toBe(true);
       expect(
         resolveConfiguredInternalHookNames({
           hooks: { internal: { entries: { "session-memory": { enabled: true } } } },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ).toEqual(new Set(["session-memory"]));
       expect(
         resolveConfiguredInternalHookNames({
           hooks: { internal: { enabled: true } },
-        } satisfies OpenClawConfig),
+        } satisfies GrantedConfig),
       ).toBeNull();
     });
 
-    const expectNoCommandHookRegistration = async (cfg: OpenClawConfig) => {
+    const expectNoCommandHookRegistration = async (cfg: GrantedConfig) => {
       const count = await loadInternalHooks(cfg, tmpDir);
       expect(count).toBe(0);
       expect(getRegisteredEventKeys()).not.toContain("command:new");
@@ -143,7 +143,7 @@ describe("loader", () => {
 
     it("should return 0 when hooks are explicitly disabled", async () => {
       const count = await loadInternalHooks(
-        { hooks: { internal: { enabled: false } } } satisfies OpenClawConfig,
+        { hooks: { internal: { enabled: false } } } satisfies GrantedConfig,
         tmpDir,
       );
       expect(count).toBe(0);
@@ -151,9 +151,9 @@ describe("loader", () => {
 
     it("skips hook discovery until internal hooks are configured", async () => {
       for (const cfg of [
-        {} satisfies OpenClawConfig,
-        { hooks: {} } satisfies OpenClawConfig,
-        { hooks: { internal: {} } } satisfies OpenClawConfig,
+        {} satisfies GrantedConfig,
+        { hooks: {} } satisfies GrantedConfig,
+        { hooks: { internal: {} } } satisfies GrantedConfig,
       ]) {
         const count = await loadInternalHooks(cfg, tmpDir);
         expect(count).toBe(0);
@@ -175,7 +175,7 @@ describe("loader", () => {
               },
             },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         tmpDir,
         { managedHooksDir: hooksDir, bundledHooksDir: "/nonexistent/bundled/hooks" },
       );
@@ -231,7 +231,7 @@ describe("loader", () => {
               },
             },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         tmpDir,
         { managedHooksDir: hooksDir, bundledHooksDir: "/nonexistent/bundled/hooks" },
       );
@@ -273,7 +273,7 @@ describe("loader", () => {
             entries: { "reloadable-hook": { enabled: true } },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const options = { managedHooksDir: hooksDir, bundledHooksDir: "/nonexistent/bundled/hooks" };
 
       expect(await loadInternalHooks(cfg, tmpDir, options)).toBe(1);
@@ -304,7 +304,7 @@ describe("loader", () => {
             entries: { "named-export": { enabled: true } },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const count = await loadInternalHooks(cfg, tmpDir, {
         managedHooksDir: hooksDir,

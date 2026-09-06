@@ -3,7 +3,7 @@ import path from "node:path";
 import { normalizeOptionalString as normalizeStringField } from "@openclaw/normalization-core/string-coerce";
 import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { getPluginInstallRecordMapEntry } from "../config/plugin-install-record-map.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import {
   isPluginCandidateInstallOwnerAmbiguous,
   resolvePluginCandidateInstallOwner,
@@ -234,7 +234,7 @@ function buildCandidateLookup(
 export function buildInstalledPluginIndexRecords(params: {
   candidates: readonly PluginCandidate[];
   registry: PluginManifestRegistry;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   diagnostics: PluginDiagnostic[];
   installRecords: Record<string, InstalledPluginInstallRecordInfo>;
   /** Index builds scoped to an explicit env stamp that env's compat decisions. */

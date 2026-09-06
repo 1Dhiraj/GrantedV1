@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { tryAcquireExclusiveSqliteCoordinator } from "../infra/node-sqlite.js";
 import { acquireGatewayLifecycleCoordinator } from "../infra/state-database-coordinator.js";
 import { autoMigrateLegacyState } from "../infra/state-migrations.doctor.js";
@@ -100,7 +100,7 @@ module.exports = {
   }],
 };`,
   );
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: {
       ownership: "explicit",
       entries: { main: { workspace: path.join(root, "workspace") } },

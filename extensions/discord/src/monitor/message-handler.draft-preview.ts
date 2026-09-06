@@ -6,7 +6,7 @@ import {
   resolveChannelStreamingPreviewCommandText,
   resolveChannelStreamingProgressNarration,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
 import {
@@ -24,10 +24,10 @@ type DraftReplyReference = {
   peek: () => string | undefined;
 };
 
-type DiscordConfig = NonNullable<OpenClawConfig["channels"]>["discord"];
+type DiscordConfig = NonNullable<GrantedConfig["channels"]>["discord"];
 
 export function createDiscordDraftPreviewController(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordConfig;
   accountId: string;
   sourceRepliesAreToolOnly: boolean;

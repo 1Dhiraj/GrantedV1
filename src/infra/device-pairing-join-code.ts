@@ -3,10 +3,10 @@ import type { DatabaseSync } from "node:sqlite";
 import { DEVICE_PAIRING_JOIN_CODE_BYTES, isDevicePairingJoinCode } from "../pairing/join-code.js";
 import { decodePairingSetupCode, encodePairingSetupCode } from "../pairing/setup-code.js";
 import { ensureDevicePairingJoinCodeSchema } from "../state/openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -15,7 +15,7 @@ import {
 } from "./kysely-sync.js";
 import { generateSecureToken } from "./secure-random.js";
 
-type DevicePairingJoinCodeDatabase = Pick<OpenClawStateKyselyDatabase, "device_pairing_join_codes">;
+type DevicePairingJoinCodeDatabase = Pick<GrantedStateKyselyDatabase, "device_pairing_join_codes">;
 type PairingSetupPayload = ReturnType<typeof decodePairingSetupCode>;
 
 const initializedDatabases = new WeakSet<DatabaseSync>();
@@ -36,7 +36,7 @@ function validatePairingSetupPayload(payload: PairingSetupPayload): PairingSetup
 export function registerDevicePairingJoinCode(params: {
   payload: PairingSetupPayload;
   expiresAtMs: number;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): string {
   const createdAtMs = Date.now();
   if (!Number.isSafeInteger(params.expiresAtMs) || params.expiresAtMs <= createdAtMs) {
@@ -68,7 +68,7 @@ export function registerDevicePairingJoinCode(params: {
 /** Atomically burn one live shortcode and return its validated setup payload. */
 export function redeemDevicePairingJoinCode(params: {
   shortcode: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): PairingSetupPayload | null {
   const shortcode = params.shortcode.trim();
   if (!isDevicePairingJoinCode(shortcode)) {

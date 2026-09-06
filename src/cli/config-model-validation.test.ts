@@ -1,22 +1,22 @@
 import { describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { checkTouchedTextModelRefs as checkTouchedTextModelRefsRaw } from "./config-model-validation.js";
 
 const checkTouchedTextModelRefs: typeof checkTouchedTextModelRefsRaw = (params) =>
   checkTouchedTextModelRefsRaw({
     ...params,
-    config: migratePersistedImplicitMainRoster(params.config).config as OpenClawConfig,
+    config: migratePersistedImplicitMainRoster(params.config).config as GrantedConfig,
     ...(params.previousConfig
       ? {
           previousConfig: migratePersistedImplicitMainRoster(params.previousConfig)
-            .config as OpenClawConfig,
+            .config as GrantedConfig,
         }
       : {}),
   });
 
 type ResolverInput = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   ref: {
     path: string;
     value: string;
@@ -460,7 +460,7 @@ describe("config model validation", () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
 
     const result = await checkTouchedTextModelRefs({
-      config: config as unknown as OpenClawConfig,
+      config: config as unknown as GrantedConfig,
       touchedPaths: [["agents", "entries"]],
       resolveModelRef,
     });
@@ -521,7 +521,7 @@ describe("config model validation", () => {
 
   it("revalidates default and per-agent fallbacks when the default provider changes", async () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -570,7 +570,7 @@ describe("config model validation", () => {
 
   it("revalidates a slash-shaped alias whose bare target changes provider", async () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -612,7 +612,7 @@ describe("config model validation", () => {
 
   it("does not revalidate bare fallbacks when only the default model changes", async () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -717,7 +717,7 @@ describe("config model validation", () => {
 
   it("validates touched fallback and per-agent model refs", async () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -805,7 +805,7 @@ describe("config model validation", () => {
 
   it("does not revalidate unchanged refs under an ancestor merge", async () => {
     const resolveModelRef = vi.fn(async (_params: ResolverInput) => undefined);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           model: { primary: "openai/gpt-5.4-mini" },

@@ -1,5 +1,5 @@
 // Matrix plugin module implements auth presence behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-store-runtime";
 import {
   MATRIX_CREDENTIALS_MAX_ENTRIES,
@@ -10,10 +10,10 @@ import {
 
 type MatrixAuthPresenceParams =
   | {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       env?: NodeJS.ProcessEnv;
     }
-  | OpenClawConfig;
+  | GrantedConfig;
 
 export function hasAnyMatrixAuth(
   params: MatrixAuthPresenceParams,

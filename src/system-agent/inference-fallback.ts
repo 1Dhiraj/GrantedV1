@@ -3,7 +3,7 @@ import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { resolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 import { listAgentIds } from "../agents/agent-scope.js";
 import { hasAvailableAuthForProvider } from "../agents/model-auth.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type { RuntimeEnv } from "../runtime.js";
 import {
@@ -27,9 +27,9 @@ const RETRYABLE_INFERENCE_STATUSES = new Set([
 const PROVIDER_WIDE_FAILURE_STATUSES = new Set(["timeout", "unavailable"]);
 
 type InferenceFallbackDeps = {
-  readConfig?: () => Promise<OpenClawConfig>;
+  readConfig?: () => Promise<GrantedConfig>;
   resolveRoute?: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     agentId: string,
   ) => Promise<SystemAgentConfiguredRoute | null>;
   hasAuth?: typeof hasAvailableAuthForProvider;
@@ -40,7 +40,7 @@ type InferenceFallbackDeps = {
   }) => Promise<BoundVerifySetupInferenceResult>;
 };
 
-async function readCurrentConfig(): Promise<OpenClawConfig> {
+async function readCurrentConfig(): Promise<GrantedConfig> {
   const { readConfigFileSnapshot } = await import("../config/config.js");
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.exists || !snapshot.valid) {

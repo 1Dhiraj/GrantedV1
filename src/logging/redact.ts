@@ -6,7 +6,7 @@ import {
   findStructuredAuthParamRanges,
   redactStructuredAuthHeaders,
 } from "../../packages/acp-core/src/structured-auth-redaction.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compileConfigRegex } from "../security/config-regex.js";
 import { readLoggingConfig } from "./config.js";
 import { replacePatternBounded } from "./redact-bounded.js";
@@ -32,7 +32,7 @@ import { redactRegisteredSecretValues } from "./secret-redaction-registry.js";
 
 type RedactSensitiveMode = "off" | "tools";
 type RedactPattern = string | RegExp;
-type LoggingConfig = OpenClawConfig["logging"];
+type LoggingConfig = GrantedConfig["logging"];
 
 const DEFAULT_REDACT_MODE: RedactSensitiveMode = "tools";
 const DEFAULT_REDACT_MIN_LENGTH = 18;

@@ -6,7 +6,7 @@ import {
   createChannelIngressQueueForTests,
 } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/core";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import {
@@ -191,7 +191,7 @@ export async function loadCachedLifecycleMonitorModule(cacheKey: string): Promis
 
 export async function startWebhookLifecycleMonitor(params: {
   account: ResolvedZaloAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   token?: string;
   webhookUrl?: string;
   webhookSecret?: string;

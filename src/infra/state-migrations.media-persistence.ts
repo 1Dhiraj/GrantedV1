@@ -24,11 +24,11 @@ import {
   ensureOpenClawAgentDatabaseSchema,
   migrateOpenClawAgentDatabaseToMediaPrerequisiteSchema,
 } from "../state/openclaw-agent-db-schema.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   GRANTED_AGENT_SCHEMA_VERSION,
   withAgentDatabaseMaintenanceLease,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { withLegacySessionParticipantsSchema } from "../state/openclaw-agent-participants-migration.js";
 import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
@@ -59,7 +59,7 @@ const ARCHIVE_TEMP_MARKER = ".media-retirement";
 const MEDIA_MIGRATION_ROW_BATCH_SIZE = 64;
 
 type MediaMigrationDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "schema_meta" | "session_windows" | "trajectory_runtime_events" | "transcript_events"
 >;
 
@@ -159,7 +159,7 @@ function forEachMediaEventBatch(params: {
 function scanTranscriptRows(params: {
   database: DatabaseSync;
   pathname: string;
-  writer?: OpenClawAgentDatabase;
+  writer?: GrantedAgentDatabase;
 }): number {
   const { database, pathname, writer } = params;
   const db = getNodeSqliteKysely<MediaMigrationDatabase>(database);
@@ -347,7 +347,7 @@ function createMigrationDatabaseHandle(
   database: DatabaseSync,
   agentId: string,
   pathname: string,
-): OpenClawAgentDatabase {
+): GrantedAgentDatabase {
   return {
     agentId,
     db: database,

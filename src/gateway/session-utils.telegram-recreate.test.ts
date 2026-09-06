@@ -12,7 +12,7 @@ import {
   replaceSessionEntry,
   updateSessionLastRoute,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSuiteTempRootTracker } from "../test-helpers/temp-dir.js";
 import {
   deliveryContextFromSession,
@@ -32,7 +32,7 @@ const cfg = {
   session: {
     dmScope: "per-channel-peer",
   },
-} satisfies Partial<OpenClawConfig> as OpenClawConfig;
+} satisfies Partial<GrantedConfig> as GrantedConfig;
 
 function createTelegramDirectContext(): MsgContext {
   return {
@@ -105,7 +105,7 @@ describe("Telegram direct session recreation after delete", () => {
     const runtimeCfg = {
       ...cfg,
       session: { ...cfg.session, store: storePath },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const loaded = loadCombinedSessionStoreForGatewayCore(runtimeCfg, { agentId: "main" });
     const listed = await listSessionsFromStoreAsync({
       cfg: runtimeCfg,

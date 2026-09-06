@@ -5,7 +5,7 @@ import {
 } from "../config/sessions/main-session.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { loadSessionEntry, patchSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   isSubagentSessionKey,
   normalizeAgentId,
@@ -16,7 +16,7 @@ import { resolveMainScopedEventSessionKey } from "./event-session-routing.js";
 import type { HeartbeatConfig } from "./heartbeat-runner-config.js";
 
 export function resolveHeartbeatSessionKey(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   heartbeat?: HeartbeatConfig,
   forcedSessionKey?: string,
@@ -118,7 +118,7 @@ export function resolveHeartbeatSessionKey(
 }
 
 export function resolveHeartbeatSession(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   heartbeat?: HeartbeatConfig,
   forcedSessionKey?: string,

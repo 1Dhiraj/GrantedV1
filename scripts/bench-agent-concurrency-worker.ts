@@ -5,7 +5,7 @@ import { performance } from "node:perf_hooks";
 import { pathToFileURL } from "node:url";
 import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
 import type { SubagentRunRecord } from "../src/agents/subagents/registry/subagent-registry.types.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
 import {
   WORKER_RESULT_SENTINEL,
   type WorkerResult,
@@ -252,7 +252,7 @@ async function configureSpawnRuntime(
   subagents.testing.setDepsForTest(sharedDeps);
 }
 
-type BenchmarkStateDatabase = Pick<OpenClawStateKyselyDatabase, "subagent_runs" | "task_runs">;
+type BenchmarkStateDatabase = Pick<GrantedStateKyselyDatabase, "subagent_runs" | "task_runs">;
 
 async function readDurableRows() {
   const [{ executeSqliteQuerySync, getNodeSqliteKysely }, stateDb] = await Promise.all([

@@ -5,7 +5,7 @@ import {
   resolveAgentModelFallbackValues,
   resolveAgentModelPrimaryValue,
 } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
@@ -79,7 +79,7 @@ function createModelCandidateCollector(): {
 
 export function resolveImageFallbackCandidates(
   params: {
-    cfg: OpenClawConfig | undefined;
+    cfg: GrantedConfig | undefined;
     defaultProvider: string;
     modelOverride?: string;
   } & ModelManifestNormalizationContext,
@@ -126,7 +126,7 @@ export function resolveImageFallbackCandidates(
   return candidates;
 }
 
-export function resolveImageFallbackDefaultProvider(cfg: OpenClawConfig | undefined): string {
+export function resolveImageFallbackDefaultProvider(cfg: GrantedConfig | undefined): string {
   const configuredPrimary = resolveAgentModelPrimaryValue(cfg?.agents?.defaults?.imageModel);
   if (configuredPrimary?.trim()) {
     const aliasIndex = buildModelAliasIndex({
@@ -148,7 +148,7 @@ export function resolveImageFallbackDefaultProvider(cfg: OpenClawConfig | undefi
 
 export function resolveModelCandidateChain(
   params: {
-    cfg: OpenClawConfig | undefined;
+    cfg: GrantedConfig | undefined;
     agentId?: string;
     provider: string;
     model: string;
@@ -183,7 +183,7 @@ function cloneModelCandidate(candidate: ModelFallbackCandidate): ModelFallbackCa
 
 function resolveFallbackCandidateCacheKey(
   params: {
-    cfg: OpenClawConfig | undefined;
+    cfg: GrantedConfig | undefined;
     agentId?: string;
     provider: string;
     model: string;
@@ -244,7 +244,7 @@ function resolveFallbackCandidateCacheKey(
   });
 }
 
-function resolveFallbackCandidateModelProviderCacheParts(cfg: OpenClawConfig | undefined): unknown {
+function resolveFallbackCandidateModelProviderCacheParts(cfg: GrantedConfig | undefined): unknown {
   const providers = cfg?.models?.providers;
   if (!providers) {
     return undefined;
@@ -262,7 +262,7 @@ function resolveFallbackCandidateModelProviderCacheParts(cfg: OpenClawConfig | u
 
 function resolveFallbackCandidatesUncached(
   params: {
-    cfg: OpenClawConfig | undefined;
+    cfg: GrantedConfig | undefined;
     agentId?: string;
     provider: string;
     model: string;

@@ -15,7 +15,7 @@ import {
 } from "../config/sessions/session-accessor.sqlite-read.js";
 import { sessionMatchesExpectedTranscriptTurn } from "../config/sessions/session-transcript-turn-state.js";
 import { getOwnedSessionTranscriptWriterFence } from "../config/sessions/transcript-write-context.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getAgentScopedMediaLocalRootsForSources } from "../media/local-roots.js";
 import {
   readAssistantDisplayContent,
@@ -35,7 +35,7 @@ const internalSourceReplyPersistenceLeases = createKeyedFifoLeaseRegistry(
 );
 
 async function completePersistedInternalSourceReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   expectedSessionId?: string;
   agentId?: string;
@@ -127,7 +127,7 @@ function attachSourceReplyMedia(result: TranscriptMessageAppendResult<unknown>):
 
 /** Persist the private WebChat source reply before its successful tool result becomes visible. */
 export async function persistInternalSourceReply(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   expectedSessionId?: string;
   agentId?: string;

@@ -12,12 +12,12 @@ import { isTerminalSqliteIntegrityError } from "../infra/sqlite-integrity.js";
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { isSqliteSchemaVersionError } from "../infra/sqlite-user-version.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabase,
   isOpenClawStateDatabaseOpen,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
   runOpenClawStateWriteTransaction,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
@@ -38,8 +38,8 @@ export const MAX_PLUGIN_STATE_BULK_DELETE_ENTRIES = 512;
 const PLUGIN_STATE_EXPIRY_BATCH_ROWS = 1_024;
 let maxPluginStateEntriesPerPluginForTests: number | undefined;
 
-type PluginStateEntriesTable = OpenClawStateKyselyDatabase["plugin_state_entries"];
-type PluginStateStoreDatabase = Pick<OpenClawStateKyselyDatabase, "plugin_state_entries">;
+type PluginStateEntriesTable = GrantedStateKyselyDatabase["plugin_state_entries"];
+type PluginStateStoreDatabase = Pick<GrantedStateKyselyDatabase, "plugin_state_entries">;
 
 type PluginStateRow = Selectable<PluginStateEntriesTable>;
 
@@ -401,7 +401,7 @@ function deleteOldestPluginStateNamespaceEntries(
 
 function openPluginStateDatabase(
   operation: PluginStateStoreOperation = "open",
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PluginStateDatabase {
   const env = options.env ?? process.env;
   const pathname = resolveOpenClawStateSqlitePath(env);
@@ -452,7 +452,7 @@ function hasStateTablesBeyondStartupCheckpoint(db: DatabaseSync): boolean {
 function withPluginStateDatabaseReadOnly<T>(
   operationName: PluginStateStoreOperation,
   operation: (store: PluginStateDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): T | undefined {
   const pathname = resolveOpenClawStateSqlitePath(options.env ?? process.env);
   let operationStarted = false;
@@ -491,14 +491,14 @@ function countRow(row: CountRow | undefined): number {
   return typeof raw === "bigint" ? Number(raw) : raw;
 }
 
-function envOptions(env?: NodeJS.ProcessEnv): OpenClawStateDatabaseOptions {
+function envOptions(env?: NodeJS.ProcessEnv): GrantedStateDatabaseOptions {
   return env ? { env } : {};
 }
 
 function runWriteTransaction<T>(
   operation: PluginStateStoreOperation,
   write: (store: PluginStateDatabase) => T,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): T {
   const store = openPluginStateDatabase(operation, options);
   return runOpenClawStateWriteTransaction(() => {

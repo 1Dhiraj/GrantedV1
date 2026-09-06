@@ -2,7 +2,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { normalizeChatType } from "../../channels/chat-type.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { getSessionBindingService } from "../../infra/outbound/session-binding-service.js";
 import { isPluginOwnedSessionBindingRecord } from "../../plugins/conversation-binding-metadata.js";
 import { isAcpSessionKey } from "../../routing/session-key.js";
@@ -56,7 +56,7 @@ export function resolveRoutedPolicyConversationType(
 
 export function resolveSessionStoreLookup(
   ctx: FinalizedMsgContext,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): {
   agentId?: string;
   sessionKey?: string;
@@ -90,7 +90,7 @@ export function resolveSessionStoreLookup(
 
 export function resolveBoundAcpDispatchSessionKey(params: {
   ctx: FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): string | undefined {
   const bindingContext = resolveConversationBindingContextFromMessage({
     cfg: params.cfg,

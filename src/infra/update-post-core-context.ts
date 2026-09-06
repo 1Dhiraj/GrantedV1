@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { mergeProcessEnv } from "./process-env.js";
 import type { UpdateChannel } from "./update-channels.js";
 
@@ -29,6 +29,6 @@ export function buildPostCoreHandoffEnv(params: {
 }
 
 export type PreUpdateConfigRestoreInput = {
-  sourceConfig: OpenClawConfig;
-  authoredConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  authoredConfig: GrantedConfig;
 };

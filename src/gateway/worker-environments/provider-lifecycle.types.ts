@@ -1,5 +1,5 @@
 import type { WorkerAdmissionHandshake } from "../../../packages/gateway-protocol/src/schema/worker-admission.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import type { SecretRef } from "../../config/types.secrets.js";
 import type {
   WorkerNodeEnrollment,
@@ -22,7 +22,7 @@ import type { WorkerTunnelStopReason } from "./tunnel-contract.js";
 
 export type WorkerProviderLifecycleInputOptions = {
   store: WorkerEnvironmentStore;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   resolveProvider: (providerId: string) => WorkerProvider | undefined;
   prepareInstallation: (
     install: WorkerInstallationArtifact["install"],

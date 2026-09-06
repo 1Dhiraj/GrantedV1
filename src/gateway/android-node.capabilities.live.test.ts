@@ -11,7 +11,7 @@ import {
   findMissingRequiredAndroidNodeCommands,
 } from "../../test/helpers/gateway/android-node-capabilities-required-commands.js";
 import { isLiveTestEnabled, readLiveTestConfig } from "../agents/live-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { parseNodeList, parsePairingList } from "../shared/node-list-parse.js";
 import type { NodeListNode } from "../shared/node-list-types.js";
@@ -295,8 +295,8 @@ async function resolveGatewayConnection() {
 async function resolvePolicyConfigForRun(params: {
   client: GatewayClient;
   connectionDetails: ReturnType<typeof buildGatewayConnectionDetails>;
-  loadLocalConfig?: () => OpenClawConfig | Promise<OpenClawConfig>;
-}): Promise<OpenClawConfig> {
+  loadLocalConfig?: () => GrantedConfig | Promise<GrantedConfig>;
+}): Promise<GrantedConfig> {
   if (shouldFetchRemotePolicyConfig(params.connectionDetails)) {
     const raw = await params.client.request("config.get", {});
     return unwrapRemoteConfigSnapshot(raw);
@@ -329,7 +329,7 @@ describe("resolvePolicyConfigForRun", () => {
   });
 
   it("still uses local config loading for local loopback runs", async () => {
-    const localConfig = { gateway: { bind: "127.0.0.1" } } as unknown as OpenClawConfig;
+    const localConfig = { gateway: { bind: "127.0.0.1" } } as unknown as GrantedConfig;
     const loadLocalConfig = vi.fn(() => localConfig);
 
     const result = await resolvePolicyConfigForRun({

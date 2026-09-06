@@ -5,10 +5,10 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeEach, expect, it, vi } from "vitest";
 import type { ChannelPluginCatalogEntry } from "../channels/plugins/catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const testState = vi.hoisted(() => ({
-  config: {} as OpenClawConfig,
+  config: {} as GrantedConfig,
   json: [] as unknown[],
   catalogEntries: [] as ChannelPluginCatalogEntry[],
   manifestRegistryRebuilds: 0,
@@ -89,7 +89,7 @@ async function runChannelsListJson(channelIds: readonly string[]): Promise<{
   testState.catalogEntries = channelIds.map(officialExternalCatalogEntry);
   testState.config = {
     channels: Object.fromEntries(channelIds.map((channelId) => [channelId, { enabled: true }])),
-  } as OpenClawConfig;
+  } as GrantedConfig;
   testState.json = [];
   testState.manifestRegistryRebuilds = 0;
   await expect(tryRouteCli(["node", "openclaw", "channels", "list", "--json"])).resolves.toBe(true);

@@ -5,7 +5,7 @@ import { normalizeResolvedPricing } from "@openclaw/llm-core";
 import type { NormalizedModelCatalogRow } from "@openclaw/model-catalog-core/model-catalog-types";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../../config/types.models.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { planEffectiveModelCatalogRows } from "../../model-catalog/index.js";
 import { normalizePluginsConfig } from "../../plugins/config-state.js";
 import { getCurrentPluginMetadataSnapshot } from "../../plugins/current-plugin-metadata-snapshot.js";
@@ -113,13 +113,13 @@ type StaticCatalogPlugin = Parameters<
 >[0]["registry"]["plugins"][number];
 
 type BundledStaticCatalogParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   metadataSnapshot?: PluginMetadataSnapshot;
   workspaceDir?: string;
 };
 
-const defaultBundledStaticCatalogConfig: OpenClawConfig = {};
+const defaultBundledStaticCatalogConfig: GrantedConfig = {};
 
 function resolveBundledStaticCatalogMetadataSnapshot(
   params: BundledStaticCatalogParams,
@@ -218,7 +218,7 @@ type BundledStaticCatalogScopedLookup = {
 };
 
 type BundledProviderStaticCatalogResolverParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   metadataSnapshot?: PluginMetadataSnapshot;
@@ -231,7 +231,7 @@ type BundledProviderStaticCatalogResolverParams = {
  * Manifest discovery runs once; provider-specific plans are cached on demand.
  */
 export function createBundledStaticCatalogModelResolver(params?: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   includeRuntimeDiscovery?: boolean;
   metadataSnapshot?: PluginMetadataSnapshot;
@@ -294,7 +294,7 @@ export function createBundledStaticCatalogModelResolver(params?: {
 /** Resolves one bundled static-catalog model row for provider/model lookup. */
 export function resolveBundledStaticCatalogModel(
   params: BundledStaticCatalogLookup & {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
     includeRuntimeDiscovery?: boolean;
@@ -314,7 +314,7 @@ export function resolveBundledStaticCatalogModel(
 
 function resolveBundledProviderStaticCatalogPluginIds(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
   metadataSnapshot?: PluginMetadataSnapshot;
@@ -359,7 +359,7 @@ function resolveBundledProviderStaticCatalogPluginIds(params: {
 
 async function loadBundledProviderStaticCatalogModels(params: {
   pluginIds: string[];
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env: NodeJS.ProcessEnv;
   preparedStaticProviderCatalog?: PreparedProviderStaticCatalog;
@@ -649,7 +649,7 @@ export function createBundledProviderStaticCatalogContextResolver(
 export async function resolveBundledProviderStaticCatalogModel(params: {
   provider: string;
   modelId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   metadataSnapshot?: PluginMetadataSnapshot;

@@ -1,6 +1,6 @@
 // Telegram tests cover provider-observed forum-topic message bindings.
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
@@ -22,7 +22,7 @@ const cfg = {
   agents: { entries: { main: { default: true } } },
   channels: { telegram: { botToken: "tok" } },
   session: { store: "/tmp/openclaw-telegram-topic-binding-test.json" },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function installRuntimeStore() {
   setTelegramRuntime({
@@ -265,7 +265,7 @@ describe("Telegram message topic binding", () => {
       },
       bindings: [{ agentId: "ops", match: { channel: "telegram", accountId: "alerts" } }],
       session: { store: "/tmp/openclaw-telegram-topic-owner/{agentId}/sessions.json" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await recordOutboundMessageForPromptContext({
       cfg: multiAgentCfg,
       account: { accountId: "alerts", name: "Alerts" },

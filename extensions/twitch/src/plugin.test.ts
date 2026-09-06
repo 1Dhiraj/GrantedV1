@@ -1,6 +1,6 @@
 // Twitch tests cover plugin plugin behavior.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { twitchPlugin } from "./plugin.js";
 import { twitchSetupPlugin } from "./setup-surface.js";
 
@@ -76,7 +76,7 @@ describe("twitchPlugin.status.buildAccountSnapshot", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const snapshot = await twitchPlugin.status?.buildAccountSnapshot?.({
       account: twitchPlugin.config.resolveAccount(cfg, "secondary"),
@@ -111,7 +111,7 @@ describe("twitchPlugin.config", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(twitchPlugin.config.defaultAccountId?.(cfg)).toBe("secondary");
     expect(twitchPlugin.config.resolveAccount(cfg).accountId).toBe("secondary");
@@ -150,7 +150,7 @@ describe("twitchPlugin.config", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     for (const config of [twitchPlugin.config, twitchSetupPlugin.config]) {
       const account = config.resolveAccount(cfg, "secondary");
@@ -173,7 +173,7 @@ describe("twitchPlugin.config", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     for (const config of [twitchPlugin.config, twitchSetupPlugin.config]) {
       const account = config.resolveAccount(cfg, "SECONDARY\r\n");

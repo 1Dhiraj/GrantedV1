@@ -1,6 +1,6 @@
 import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
 import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig, SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { slackPlugin } from "./channel.js";
 import { registerSlackInstallationState } from "./installation-identity-state.js";
@@ -20,7 +20,7 @@ function createContext(
     userToken: "test-user-token",
   },
 ) {
-  const cfg: OpenClawConfig = { channels: { slack: { accounts: { work: account } } } };
+  const cfg: GrantedConfig = { channels: { slack: { accounts: { work: account } } } };
   return { cfg, accountId: "work", to: "channel:C123", text: "hello", payload: { text: "hello" } };
 }
 

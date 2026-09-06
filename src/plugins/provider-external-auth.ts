@@ -1,5 +1,5 @@
 /** Resolves external auth overlays through metadata and synchronous provider hooks. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getCurrentPluginMetadataSnapshot } from "./current-plugin-metadata-snapshot.js";
 import { resolvePluginMetadataSnapshot } from "./plugin-metadata-snapshot.js";
 import { resolveProviderPluginsForHooks } from "./provider-hook-runtime.js";
@@ -11,7 +11,7 @@ import type {
 } from "./types.js";
 
 export function resolveExternalAuthProfilesWithPlugins(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   context: ProviderResolveExternalAuthProfilesContext;

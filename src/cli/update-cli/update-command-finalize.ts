@@ -4,7 +4,7 @@ import {
   assertConfigWriteAllowedInCurrentMode,
   readConfigFileSnapshot,
 } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   DEFAULT_PACKAGE_CHANNEL,
   normalizeUpdateChannel,
@@ -166,7 +166,7 @@ async function updateFinalizeCommandInternal(
       ? {
           sourceConfig: configSnapshot.sourceConfig,
           authoredConfig: isRecord(configSnapshot.parsed)
-            ? (configSnapshot.parsed as OpenClawConfig) // SAFETY: snapshot parser validated this config record.
+            ? (configSnapshot.parsed as GrantedConfig) // SAFETY: snapshot parser validated this config record.
             : configSnapshot.sourceConfig,
         }
       : undefined);

@@ -12,7 +12,7 @@ import {
 import type { runBeforeToolCallHook as runBeforeToolCallHookType } from "../agents/agent-tools.before-tool-call.js";
 import type { ExecSessionDefaults } from "../agents/exec-defaults.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import { ensureProfileForEmail } from "../state/user-profiles.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -251,7 +251,7 @@ vi.mock("../agents/openclaw-tools.js", async () => {
           agentSessionKey:
             typeof ctx.agentSessionKey === "string" ? ctx.agentSessionKey : undefined,
           sessionId: typeof ctx.sessionId === "string" ? ctx.sessionId : undefined,
-          config: ctx.config as OpenClawConfig | undefined,
+          config: ctx.config as GrantedConfig | undefined,
           execSession: (ctx.execSession as ExecSessionDefaults | undefined) ?? {},
         }),
       ];

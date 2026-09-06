@@ -1,6 +1,6 @@
 // Migrate Hermes tests cover model.plan plugin behavior.
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
@@ -225,7 +225,7 @@ describe("Hermes migration model planning", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const provider = buildHermesMigrationProvider();
     const plan = await provider.plan(makeContext({ source, stateDir, workspaceDir, config }));
@@ -248,7 +248,7 @@ describe("Hermes migration model planning", () => {
       const source = path.join(root, "hermes");
       const workspaceDir = path.join(root, "workspace");
       await writeFile(path.join(source, "config.yaml"), "model: imported/model\n");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           defaults: { workspace: workspaceDir },
           entries: {

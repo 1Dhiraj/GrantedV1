@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isMissingPathError } from "../infra/errors.js";
 import { createPluginStateKeyedStore } from "../plugin-state/plugin-state-store.js";
 import { archiveLegacyStateSource } from "../plugins/doctor-state-migration-fs.js";
@@ -36,7 +36,7 @@ type RetiredArmState = {
 };
 
 type RetiredPhoneControlCleanupPlan = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   configChanges: string[];
   cleanupPending: boolean;
   cleanupSafe: boolean;
@@ -225,9 +225,9 @@ function isExactSeededDenyList(values: readonly string[]): boolean {
 }
 
 function withCommandLists(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { allow?: string[]; deny?: string[] },
-): OpenClawConfig {
+): GrantedConfig {
   const commands = { ...cfg.gateway?.nodes?.commands };
   if (params.allow === undefined || params.allow.length === 0) {
     delete commands.allow;
@@ -255,7 +255,7 @@ function withCommandLists(
 
 /** Plans canonical config cleanup while retaining the journal until the config write succeeds. */
 export async function prepareRetiredPhoneControlCleanup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<RetiredPhoneControlCleanupPlan> {
   const env = params.env ?? process.env;

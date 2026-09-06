@@ -13,7 +13,7 @@ import {
   resolveChannelAccountState,
 } from "../channels/status/account-state.js";
 import type { AgentBinding } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { listExplicitConfiguredChannelIdsForConfig } from "../plugins/channel-plugin-ids.js";
 import { resolveMissingOfficialExternalChannelPluginRepairHints } from "../plugins/official-external-plugin-repair-hints.js";
 import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
@@ -64,7 +64,7 @@ function resolveProviderChannelId(params: {
 
 /** Build stable provider labels/default accounts without resolving live account state. */
 export function buildProviderSummaryMetadataIndex(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Map<ChannelId, ProviderSummaryMetadata> {
   const metadata = new Map<ChannelId, ProviderSummaryMetadata>(
     listReadOnlyChannelPluginsForConfig(cfg, {
@@ -131,7 +131,7 @@ function formatProviderState(entry: ProviderAccountStatus): string {
 
 async function resolveReadOnlyAccount(params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
 }): Promise<unknown> {
   if (params.plugin.config.inspectAccount) {
@@ -142,7 +142,7 @@ async function resolveReadOnlyAccount(params: {
 
 /** Inspect configured provider accounts and classify their display state. */
 export async function buildProviderStatusIndex(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<Map<string, ProviderAccountStatus>> {
   const map = new Map<string, ProviderAccountStatus>();
 
@@ -241,7 +241,7 @@ function resolveDefaultAccountId(
 
 function shouldShowProviderEntry(params: {
   entry: ProviderAccountStatus;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   metadataByProvider: ReadonlyMap<ChannelId, ProviderSummaryMetadata>;
 }): boolean {
   const visibleInConfiguredLists =
@@ -282,7 +282,7 @@ function formatMissingProviderEntry(params: {
 
 /** Render the provider/account routes implied by an agent's route bindings. */
 export function summarizeBindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   bindings: AgentBinding[],
   metadataByProvider = buildProviderSummaryMetadataIndex(cfg),
 ): string[] {
@@ -316,7 +316,7 @@ export function summarizeBindings(
 /** Render provider status lines relevant to a specific agent summary. */
 export function listProvidersForAgent(params: {
   summaryIsDefault: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   bindings: AgentBinding[];
   providerStatus: Map<string, ProviderAccountStatus>;
   providerMetadata?: ReadonlyMap<ChannelId, ProviderSummaryMetadata>;

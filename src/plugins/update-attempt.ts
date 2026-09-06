@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ClawHubTrustErrorCode } from "../infra/clawhub-install-trust.js";
 import { isPackageVersionDowngrade } from "../infra/package-update-utils.js";
 import type { UpdateChannel } from "../infra/update-channels.js";
@@ -338,7 +338,7 @@ export async function buildDryRunPluginUpdateOutcome(params: {
 export async function runPluginUpdateAttempt(params: {
   pluginId: string;
   record: UpdatablePluginInstallRecord;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   dryRun: boolean;
   effectiveSpec?: string;
   extensionsDir?: string;

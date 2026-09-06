@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { isRecord } from "../utils.js";
 import { loadEnabledBundleLspConfig } from "./bundle-lsp.js";
 import { loadBundleManifest } from "./bundle-manifest.js";
@@ -53,7 +53,7 @@ afterEach(async () => {
   await tempHarness.cleanup();
 });
 
-function createEnabledBundleConfig(pluginIds: string[]): OpenClawConfig {
+function createEnabledBundleConfig(pluginIds: string[]): GrantedConfig {
   return {
     plugins: {
       entries: createEnabledPluginEntries(pluginIds),
@@ -122,7 +122,7 @@ describe("loadEnabledBundleMcpConfig", () => {
       async ({ homeDir, workspaceDir }) => {
         const { pluginRoot, serverPath } = await createBundleProbePlugin(homeDir);
 
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           plugins: {
             entries: {
               "bundle-probe": { enabled: true },

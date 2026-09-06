@@ -2,7 +2,7 @@
 import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -17,7 +17,7 @@ const GATEWAY_RESTART_INTENT_KEY = "gateway-restart";
 const GATEWAY_RESTART_INTENT_TTL_MS = 60_000;
 
 const restartLog = createSubsystemLogger("restart");
-type GatewayRestartIntentDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_intent">;
+type GatewayRestartIntentDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_intent">;
 
 type GatewayRestartIntentPayload = {
   kind: "gateway-restart";

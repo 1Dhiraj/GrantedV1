@@ -10,7 +10,7 @@ import {
   resolveChannelSetupFieldCliAttributeName,
   type ChannelSetupFieldMetadata,
 } from "../channels/plugins/setup-contract.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import type { PluginCandidate } from "./discovery.js";
 import { shouldRejectHardlinkedPluginFiles } from "./hardlink-policy.js";
@@ -31,7 +31,7 @@ import {
   DEFAULT_PLUGIN_ENTRY_CANDIDATES,
   getPackageManifestMetadata,
   normalizeManifestChannelCommandDefaults,
-  type OpenClawPackageManifest,
+  type GrantedPackageManifest,
   type PluginPackageChannel,
   type PluginPackageChannelCliOption,
 } from "./manifest.js";
@@ -48,7 +48,7 @@ import {
 } from "./status-dependencies-core.js";
 
 type InstalledPackageMetadata = {
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
   packageDependencies?: PluginDependencySpecMap;
   packageOptionalDependencies?: PluginDependencySpecMap;
 };
@@ -497,7 +497,7 @@ function toPluginCandidate(
 export function loadPluginManifestRegistryForInstalledIndex(params: {
   index: InstalledPluginIndex;
   manifestRegistry?: PluginManifestRegistry;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   pluginIds?: readonly string[];

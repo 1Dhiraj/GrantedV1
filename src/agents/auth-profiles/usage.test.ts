@@ -5,7 +5,7 @@ import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coerc
  * persistence hooks without contacting real providers.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setLoggerOverride } from "../../logging/logger.js";
 import type { AuthProfileStore, ProfileUsageStats } from "./types.js";
 import { resolveProfileUnusableUntil } from "./usage-state.js";
@@ -869,7 +869,7 @@ describe("markAuthProfileFailure — active windows do not extend on retry", () 
     store: ReturnType<typeof makeStore>;
     now: number;
     reason: "rate_limit" | "billing" | "auth_permanent";
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
   }): Promise<void> {
     const dateNowSpy = vi.spyOn(Date, "now").mockReturnValue(params.now);
     mockLockedUpdateForStore(params.store);

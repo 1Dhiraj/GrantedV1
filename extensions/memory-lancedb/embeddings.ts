@@ -1,6 +1,6 @@
 import { Buffer } from "node:buffer";
 import { resolve as resolveFilePath } from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
 import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
@@ -11,7 +11,7 @@ import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
 import { ensureGlobalUndiciEnvProxyDispatcher } from "openclaw/plugin-sdk/runtime-env";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { textResult, type AgentToolResult } from "openclaw/plugin-sdk/tool-results";
-import type { OpenClawPluginApi } from "./api.js";
+import type { GrantedPluginApi } from "./api.js";
 import type { MemoryConfig } from "./config.js";
 
 type OpenAiEmbeddingClient = {
@@ -38,7 +38,7 @@ export type Embeddings = {
 };
 
 type AgentEmbeddingProvider = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir: string;
   promise: Promise<MemoryEmbeddingProvider>;
   activeUses: number;
@@ -220,10 +220,10 @@ class ProviderAdapterEmbeddings implements Embeddings {
   private closePromise: Promise<void> | null = null;
   private closed = false;
 
-  constructor(private api: OpenClawPluginApi) {}
+  constructor(private api: GrantedPluginApi) {}
 
   private getProvider(agentId: string, embedding: EmbeddingConfig): AgentEmbeddingProvider {
-    const config = (this.api.runtime.config?.current?.() ?? this.api.config) as OpenClawConfig;
+    const config = (this.api.runtime.config?.current?.() ?? this.api.config) as GrantedConfig;
     const agentDir = this.api.runtime.agent.resolveAgentDir(config, agentId);
     const existing = this.providers.get(agentId);
     if (existing?.config === config && existing.agentDir === agentDir) {
@@ -304,7 +304,7 @@ class ProviderAdapterEmbeddings implements Embeddings {
   }
 
   private async createProvider(
-    config: OpenClawConfig,
+    config: GrantedConfig,
     agentDir: string,
     embedding: EmbeddingConfig,
   ): Promise<MemoryEmbeddingProvider> {
@@ -315,7 +315,7 @@ class ProviderAdapterEmbeddings implements Embeddings {
   }
 
   private async createProviderAfterRetirement(
-    config: OpenClawConfig,
+    config: GrantedConfig,
     agentDir: string,
     embedding: EmbeddingConfig,
   ): Promise<MemoryEmbeddingProvider> {
@@ -519,7 +519,7 @@ export const testing = {
   truncateEmbeddingVector,
 } as const;
 
-export function createEmbeddings(api: OpenClawPluginApi): Embeddings {
+export function createEmbeddings(api: GrantedPluginApi): Embeddings {
   const provider = new ProviderAdapterEmbeddings(api);
   let direct: { fingerprint: string; client: OpenAiCompatibleEmbeddings } | undefined;
   let closed = false;

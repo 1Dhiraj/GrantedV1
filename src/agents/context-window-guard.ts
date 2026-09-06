@@ -5,7 +5,7 @@
  * more actionable remediation text.
  */
 import { findNormalizedProviderValue } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderEndpoint } from "./provider-attribution.js";
 
 export const CONTEXT_WINDOW_HARD_MIN_TOKENS = 4_000;
@@ -52,7 +52,7 @@ function modelIdMatchesProviderScope(params: {
 
 /** Resolve the effective context window and source for one provider/model. */
 export function resolveContextWindowInfo(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   modelId: string;
   modelContextTokens?: number;

@@ -3,7 +3,7 @@ import os from "node:os";
 import { join } from "node:path";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, OpenClawPluginApi, OpenClawPluginToolContext } from "../api.js";
+import type { GrantedConfig, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import { registerDiffsPlugin } from "./plugin.js";
 
 const { createDiffsToolMock } = vi.hoisted(() => ({
@@ -51,11 +51,11 @@ describe("diffs plugin language-pack discovery", () => {
           join(languagePackRoot, "openclaw.plugin.json"),
           '{"id":"diffs-language-pack"}\n',
         );
-        const config = { plugins: {} } as OpenClawConfig;
+        const config = { plugins: {} } as GrantedConfig;
         const openBlobStore = vi.fn(() => createBlobStoreStub());
         let registeredToolFactory:
           | ((
-              ctx: OpenClawPluginToolContext,
+              ctx: GrantedPluginToolContext,
             ) => RegisteredTool | RegisteredTool[] | null | undefined)
           | undefined;
         const api = createTestPluginApi({
@@ -65,7 +65,7 @@ describe("diffs plugin language-pack discovery", () => {
             config: { current: () => config },
             state: { openBlobStore },
           } as never,
-          registerTool(tool: Parameters<OpenClawPluginApi["registerTool"]>[0]) {
+          registerTool(tool: Parameters<GrantedPluginApi["registerTool"]>[0]) {
             registeredToolFactory = typeof tool === "function" ? tool : () => tool;
           },
         });
@@ -83,7 +83,7 @@ describe("diffs plugin language-pack discovery", () => {
           sessionId: "session-1",
           messageChannel: "test",
           agentAccountId: "default",
-        } satisfies OpenClawPluginToolContext;
+        } satisfies GrantedPluginToolContext;
 
         registeredToolFactory?.(context);
         expect(createDiffsToolMock).toHaveBeenLastCalledWith(

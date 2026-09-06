@@ -4,7 +4,7 @@ import type {
   HealthFinding,
   HealthRepairContext,
   HealthRepairResult,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/health";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { CHECK_IDS, type POLICY_CHECK_IDS } from "./check-ids.js";
@@ -13,7 +13,7 @@ import { POLICY_FIX_METADATA_BY_CHECK_ID } from "./fix-metadata.js";
 type PolicyCheckId = (typeof POLICY_CHECK_IDS)[number];
 type ConfigRecord = Record<string, unknown>;
 type RepairPatch = {
-  readonly config: OpenClawConfig;
+  readonly config: GrantedConfig;
   readonly changes: readonly string[];
   readonly warnings?: readonly string[];
 };
@@ -78,7 +78,7 @@ export function repairPolicyAutomaticNarrower(
 }
 
 function applyAutomaticPatch(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   findings: readonly HealthFinding[],
   checkId: PolicyCheckId,
 ): RepairPatch {
@@ -119,7 +119,7 @@ function applyAutomaticPatch(
 }
 
 function mergeRequiredDenyTools(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   findings: readonly HealthFinding[],
 ): RepairPatch {
   const next = cloneConfig(cfg);
@@ -144,14 +144,11 @@ function mergeRequiredDenyTools(
     }
   }
   return changes.length > 0
-    ? { config: next as OpenClawConfig, changes: uniqueStrings(changes), warnings }
+    ? { config: next as GrantedConfig, changes: uniqueStrings(changes), warnings }
     : { config: cfg, changes, warnings: uniqueStrings(warnings) };
 }
 
-function disableElevatedTools(
-  cfg: OpenClawConfig,
-  findings: readonly HealthFinding[],
-): RepairPatch {
+function disableElevatedTools(cfg: GrantedConfig, findings: readonly HealthFinding[]): RepairPatch {
   if (
     !findings.some((finding) => finding.ocPath === "oc://openclaw.config/tools/elevated/enabled")
   ) {
@@ -165,13 +162,13 @@ function disableElevatedTools(
   }
   elevated.enabled = false;
   return {
-    config: next as OpenClawConfig,
+    config: next as GrantedConfig,
     changes: ["Set tools.elevated.enabled=false for policy conformance."],
   };
 }
 
 function disableInsecureControlUi(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   findings: readonly HealthFinding[],
 ): RepairPatch {
   const next = cloneConfig(cfg);
@@ -195,13 +192,11 @@ function disableInsecureControlUi(
       changes.push(`Set gateway.controlUi.${field}=false for policy conformance.`);
     }
   }
-  return changes.length > 0
-    ? { config: next as OpenClawConfig, changes }
-    : { config: cfg, changes };
+  return changes.length > 0 ? { config: next as GrantedConfig, changes } : { config: cfg, changes };
 }
 
 function disableRemoteGatewayMode(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   findings: readonly HealthFinding[],
 ): RepairPatch {
   if (!findings.some((finding) => finding.ocPath === "oc://openclaw.config/gateway/mode")) {
@@ -214,12 +209,10 @@ function disableRemoteGatewayMode(
     gateway.mode = "local";
     changes.push("Set gateway.mode=local for policy conformance.");
   }
-  return changes.length > 0
-    ? { config: next as OpenClawConfig, changes }
-    : { config: cfg, changes };
+  return changes.length > 0 ? { config: next as GrantedConfig, changes } : { config: cfg, changes };
 }
 
-function disableTelemetryContentCapture(cfg: OpenClawConfig): RepairPatch {
+function disableTelemetryContentCapture(cfg: GrantedConfig): RepairPatch {
   const next = cloneConfig(cfg);
   const diagnostics = ensureRecord(next, "diagnostics");
   const otel = ensureRecord(diagnostics, "otel");
@@ -228,13 +221,13 @@ function disableTelemetryContentCapture(cfg: OpenClawConfig): RepairPatch {
   }
   otel.captureContent = false;
   return {
-    config: next as OpenClawConfig,
+    config: next as GrantedConfig,
     changes: ["Set diagnostics.otel.captureContent=false for policy conformance."],
   };
 }
 
 function setFindingConfigValues(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   findings: readonly HealthFinding[],
   fieldName: string,
   value: unknown,
@@ -259,11 +252,11 @@ function setFindingConfigValues(
     changes.push(`Set ${configPathLabel(finding.ocPath)}=${String(value)} for policy conformance.`);
   }
   return changes.length > 0
-    ? { config: next as OpenClawConfig, changes: uniqueStrings(changes), warnings }
+    ? { config: next as GrantedConfig, changes: uniqueStrings(changes), warnings }
     : { config: cfg, changes, warnings: uniqueStrings(warnings) };
 }
 
-function cloneConfig(cfg: OpenClawConfig): ConfigRecord {
+function cloneConfig(cfg: GrantedConfig): ConfigRecord {
   return structuredClone(cfg) as ConfigRecord;
 }
 
@@ -426,7 +419,7 @@ function hasScopedPolicyRequirement(findings: readonly HealthFinding[]): boolean
   return findings.some((finding) => finding.requirement?.includes("/scopes/") === true);
 }
 
-function skippedUnsafeScopedRepair(cfg: OpenClawConfig, warning: string): RepairPatch {
+function skippedUnsafeScopedRepair(cfg: GrantedConfig, warning: string): RepairPatch {
   return { config: cfg, changes: [], warnings: [warning] };
 }
 

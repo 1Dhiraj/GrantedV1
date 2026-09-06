@@ -1,6 +1,6 @@
 /** Coordinates subagent registration, lifecycle, delivery, steering, recovery, and persistence. */
 import type { AgentWaitParams } from "../../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { callGateway } from "../../../gateway/call.js";
 import { fenceScheduledGatewayContextResolver } from "../../../gateway/scheduled-run-gateway-context.js";
 import type { GatewayContextResolver } from "../../../gateway/server-methods/types.js";
@@ -364,7 +364,7 @@ const subagentRestorer = createSubagentRegistryRestorer({
   warn: (message, meta) => log.warn(message, meta),
 });
 
-function resolveSubagentWaitTimeoutMs(cfg: OpenClawConfig, runTimeoutSeconds?: number) {
+function resolveSubagentWaitTimeoutMs(cfg: GrantedConfig, runTimeoutSeconds?: number) {
   return subagentRegistryDeps.resolveAgentTimeoutMs({
     cfg,
     overrideSeconds: runTimeoutSeconds ?? 0,

@@ -32,7 +32,7 @@ import { isInboundPathAllowed, kindFromMime } from "openclaw/plugin-sdk/media-ru
 import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
 import { resolveTextChunkLimit, type GetReplyOptions } from "openclaw/plugin-sdk/reply-runtime";
 import { resolveInboundLastRouteSessionKey } from "openclaw/plugin-sdk/routing";
-import { getRuntimeConfig, type OpenClawConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { getRuntimeConfig, type GrantedConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
 import { danger, logVerbose, shouldLogVerbose, warn } from "openclaw/plugin-sdk/runtime-env";
 import {
   resolveOpenProviderRuntimeGroupPolicy,
@@ -130,7 +130,7 @@ const IMESSAGE_TYPING_KEEPALIVE_INTERVAL_MS = 8_000;
 const IMESSAGE_TYPING_KEEPALIVE_MAX_DURATION_MS = 10 * 60_000;
 type IMessageTypingController = Parameters<NonNullable<GetReplyOptions["onTypingController"]>>[0];
 
-function resolveConfiguredIMessageTypingMode(cfg: OpenClawConfig, agentId: string) {
+function resolveConfiguredIMessageTypingMode(cfg: GrantedConfig, agentId: string) {
   return resolveAgentConfig(cfg, agentId)?.typingMode ?? cfg.agents?.defaults?.typingMode;
 }
 

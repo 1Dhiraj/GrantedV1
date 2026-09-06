@@ -3,8 +3,8 @@ import type { WorkboardCard } from "@openclaw/workboard-contract";
 import { jsonResult, readStringParam } from "openclaw/plugin-sdk/core";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginToolContext,
+  GrantedPluginApi,
+  GrantedPluginToolContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
 import { Type } from "typebox";
@@ -18,7 +18,7 @@ import {
 } from "./tools-card-mutations.js";
 import { createWorkboardOrchestrationTools } from "./tools-orchestration.js";
 
-function contextOwner(ctx: OpenClawPluginToolContext | undefined): string {
+function contextOwner(ctx: GrantedPluginToolContext | undefined): string {
   const record = (ctx ?? {}) as Record<string, unknown>;
   return (
     (typeof record.agentId === "string" && record.agentId) ||
@@ -172,8 +172,8 @@ const CardIdSchema = strictObject({
 });
 
 export function createWorkboardTools(params: {
-  api: OpenClawPluginApi;
-  context?: OpenClawPluginToolContext;
+  api: GrantedPluginApi;
+  context?: GrantedPluginToolContext;
   store?: WorkboardStore;
 }): AnyAgentTool[] {
   const store = params.store ?? WorkboardStore.openSqlite();

@@ -6,7 +6,7 @@ import type { ChannelThreadingAdapter } from "../../channels/plugins/types.core.
 import { normalizeAnyChannelId } from "../../channels/registry.js";
 import { getLoadedChannelThreadingAdapter } from "../../channels/thread-addressing.js";
 import type { ReplyToMode } from "../../config/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/account-id.js";
 import { resolveNormalizedAccountEntry } from "../../routing/account-lookup.js";
 import {
@@ -34,7 +34,7 @@ function normalizeReplyToModeChatType(
 
 /** Resolve configured reply-to mode from channel and chat-type config. */
 function resolveConfiguredReplyToMode(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel?: OriginatingChannelType,
   chatType?: string | null,
   accountId?: string | null,
@@ -72,7 +72,7 @@ function resolveConfiguredReplyToMode(
 
 /** Resolve reply-to mode using channel threading adapter override when present. */
 function resolveReplyToModeWithThreading(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   threading: ChannelThreadingAdapter | undefined,
   params: {
     channel?: OriginatingChannelType;
@@ -92,7 +92,7 @@ function resolveReplyToModeWithThreading(
 
 /** Resolve effective reply-to mode for a channel/account/chat tuple. */
 export function resolveReplyToMode(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel?: OriginatingChannelType,
   accountId?: string | null,
   chatType?: string | null,
@@ -112,7 +112,7 @@ export function resolveReplyToMode(
 
 /** Resolve the account that routed reply delivery will use when none is explicit. */
 export function resolveReplyDeliveryAccountId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel?: OriginatingChannelType,
   accountId?: string | null,
 ): string | undefined {

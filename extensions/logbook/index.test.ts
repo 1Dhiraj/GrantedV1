@@ -1,21 +1,21 @@
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginApi,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 
-type PolicyContext = Parameters<OpenClawPluginNodeInvokePolicy["handle"]>[0];
+type PolicyContext = Parameters<GrantedPluginNodeInvokePolicy["handle"]>[0];
 
-function registerLogbookPolicies(): OpenClawPluginNodeInvokePolicy[] {
-  const policies: OpenClawPluginNodeInvokePolicy[] = [];
+function registerLogbookPolicies(): GrantedPluginNodeInvokePolicy[] {
+  const policies: GrantedPluginNodeInvokePolicy[] = [];
   plugin.register({
     pluginConfig: {},
     session: { controls: { registerControlUiDescriptor: () => {} } },
-    registerNodeInvokePolicy: (policy: OpenClawPluginNodeInvokePolicy) => policies.push(policy),
+    registerNodeInvokePolicy: (policy: GrantedPluginNodeInvokePolicy) => policies.push(policy),
     registerService: () => {},
     registerGatewayMethod: () => {},
-  } as unknown as OpenClawPluginApi);
+  } as unknown as GrantedPluginApi);
   return policies;
 }
 
@@ -30,7 +30,7 @@ describe("logbook gateway methods", () => {
       registerGatewayMethod: (method: string, _handler: unknown, options: unknown) => {
         registrations.push({ method, options });
       },
-    } as unknown as OpenClawPluginApi);
+    } as unknown as GrantedPluginApi);
 
     expect(registrations.find((entry) => entry.method === "logbook.status")?.options).toEqual({
       scope: "operator.read",

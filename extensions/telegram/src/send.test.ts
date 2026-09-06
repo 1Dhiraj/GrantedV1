@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import type { Bot } from "grammy";
 import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
@@ -678,7 +678,7 @@ describe("sent-message-cache", () => {
       session: {
         store: "/tmp/openclaw-telegram-sent-owner/{agentId}/sessions.json",
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     recordSentMessage(123, 1, multiAgentCfg, { accountId: "primary" });
 

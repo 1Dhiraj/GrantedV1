@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 
 export function resolveGatewayStartupSourceConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
-): OpenClawConfig {
+): GrantedConfig {
   const skipChannels =
     isTruthyEnvValue(env.GRANTED_SKIP_CHANNELS) || isTruthyEnvValue(env.GRANTED_SKIP_PROVIDERS);
   if (!skipChannels || !config.channels) {

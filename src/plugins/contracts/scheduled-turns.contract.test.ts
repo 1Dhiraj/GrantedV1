@@ -30,7 +30,7 @@ import {
 } from "../loader.test-fixtures.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../runtime.js";
 import { createPluginRecord } from "../status.test-helpers.js";
-import type { OpenClawPluginApi } from "../types.js";
+import type { GrantedPluginApi } from "../types.js";
 
 const workflowMocks = vi.hoisted(() => ({
   cronAdd: vi.fn(),
@@ -1239,7 +1239,7 @@ describe("plugin scheduled turns", () => {
       },
     };
     const { config, registry } = createPluginRegistryFixture({}, { hostServices });
-    let capturedApi: OpenClawPluginApi | undefined;
+    let capturedApi: GrantedPluginApi | undefined;
     registerTestPlugin({
       registry,
       config,

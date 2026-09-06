@@ -5,7 +5,7 @@ import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text
 import { getTerminalTableWidth, renderTable } from "../../packages/terminal-core/src/table.js";
 import { isRich, theme } from "../../packages/terminal-core/src/theme.js";
 import { readConfigFileSnapshot, replaceConfigFile } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { sanitizeExecApprovalDisplayText } from "../infra/exec-approval-text-sanitize.js";
 import {
   collectExecPolicyScopeSnapshots,
@@ -259,9 +259,9 @@ function buildExecPolicyApprovalsRollback(params: {
 }
 
 function buildNextExecPolicyConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   policy: ExecPolicyResolved,
-): OpenClawConfig {
+): GrantedConfig {
   const draft = structuredClone(config);
   applyConfigExecPolicy(draft as Record<string, unknown>, policy);
   return draft;

@@ -7,7 +7,7 @@ import {
   type SessionStoreTarget,
   type SessionsCleanupOptions,
 } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withActivatedPluginIds } from "../plugins/activation-context.js";
 import { resolveManifestActivationPluginIds } from "../plugins/activation-planner.js";
 import { extractPluginInstallRecordsFromInstalledPluginIndex } from "../plugins/installed-plugin-index-install-records.js";
@@ -18,7 +18,7 @@ import type { RuntimeEnv } from "../runtime.js";
 
 type CleanupRunResult = Awaited<ReturnType<typeof runSessionsCleanup>>;
 
-function prepareCleanupHarnessOwners(config: OpenClawConfig, workspaceDir: string) {
+function prepareCleanupHarnessOwners(config: GrantedConfig, workspaceDir: string) {
   const metadata = loadPluginMetadataSnapshot({ config, workspaceDir });
   const harnessOwners = metadata.plugins.flatMap((plugin) => {
     const runtime = plugin.activation?.onAgentHarnesses?.[0];
@@ -106,7 +106,7 @@ function warnUnavailableCleanupOwners(
 
 /** Owns plugin preparation only for the local destructive CLI path. */
 export async function runLocalSessionsCleanup(
-  params: { cfg: OpenClawConfig; opts: SessionsCleanupOptions; targets: SessionStoreTarget[] },
+  params: { cfg: GrantedConfig; opts: SessionsCleanupOptions; targets: SessionStoreTarget[] },
   runtime: RuntimeEnv,
 ): Promise<CleanupRunResult> {
   const ownersByWorkspace = new Map<string, ReturnType<typeof prepareCleanupHarnessOwners>>();

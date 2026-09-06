@@ -6,7 +6,7 @@ import {
   resolveOpenAIResponsesCompactEndpointPlan,
 } from "@openclaw/ai/transports";
 import type { Message } from "@openclaw/llm-core";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type { AgentMessage } from "../runtime/index.js";
 import { redactTranscriptMessage } from "../transcript-redact.js";
@@ -32,7 +32,7 @@ export async function attemptServerEndpointCompaction(params: {
   extraParams: Record<string, unknown>;
   requestOptions: Parameters<typeof requestPreparedOpenAIResponsesCompaction>[3];
   customInstructions?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onUsage?: (usage: ServerEndpointCompactionResult["usage"]) => void;
   onCompactionCommitted?: () => void;
   assertActive?: () => void;

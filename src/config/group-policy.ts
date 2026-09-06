@@ -8,7 +8,7 @@ import { resolveAccountEntry } from "../routing/account-lookup.js";
 import { normalizeAccountId } from "../routing/session-key.js";
 import { normalizeMessageChannel } from "../utils/message-channel-core.js";
 import { resolveMergedAccountConfig } from "./channel-account-config.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 import {
   parseToolsBySenderTypedKey,
   type GroupToolPolicyBySenderConfig,
@@ -333,7 +333,7 @@ export function resolveToolsBySender(
 }
 
 export function resolveChannelGroups(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel: GroupPolicyChannel,
   accountId?: string | null,
 ): ChannelGroups | undefined {
@@ -360,7 +360,7 @@ export function resolveChannelGroups(
 type ChannelGroupPolicyMode = "open" | "allowlist" | "disabled";
 
 function resolveChannelGroupPolicyMode(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel: GroupPolicyChannel,
   accountId?: string | null,
 ): ChannelGroupPolicyMode | undefined {
@@ -382,7 +382,7 @@ function resolveChannelGroupPolicyMode(
 }
 
 export function resolveChannelGroupPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: GroupPolicyChannel;
   groupId?: string | null;
   accountId?: string | null;
@@ -418,7 +418,7 @@ export function resolveChannelGroupPolicy(params: {
 }
 
 export function resolveChannelGroupRequireMention(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: GroupPolicyChannel;
   groupId?: string | null;
   accountId?: string | null;
@@ -453,7 +453,7 @@ export function resolveChannelGroupRequireMention(params: {
 
 export function resolveChannelGroupToolsPolicy(
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     channel: GroupPolicyChannel;
     groupId?: string | null;
     groupIdCandidates?: Array<string | null | undefined>;

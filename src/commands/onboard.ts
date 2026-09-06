@@ -8,7 +8,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { formatInvalidPortOption } from "../cli/error-format.js";
 import { readConfigFileSnapshot, resolveGatewayPort } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isValidEnvSecretRefId } from "../config/types.secrets.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { assertSupportedRuntime } from "../infra/runtime-guard.js";
@@ -230,7 +230,7 @@ function validatePreflightOptions(opts: OnboardOptions, runtime: RuntimeEnv): bo
 async function validateResetAuthChoice(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   workspaceDir: string;
   resetScope: ResetScope;
 }): Promise<boolean> {
@@ -481,7 +481,7 @@ function validateResetMigrationImport(params: {
 function validateResetNonInteractiveGateway(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
 }): boolean {
   if (!params.opts.nonInteractive || (params.opts.mode ?? "local") === "remote") {
     return true;
@@ -672,7 +672,7 @@ export async function setupWizardCommand(
       const resetScope: ResetScope = normalizedOpts.resetScope ?? "config+creds+sessions";
       // Every reset scope removes the config file. Validate setup against the
       // empty config and requested/default workspace that dispatch will see.
-      const setupBaseConfig: OpenClawConfig = {};
+      const setupBaseConfig: GrantedConfig = {};
       const setupWorkspaceDir = resolveUserPath(normalizedOpts.workspace ?? DEFAULT_WORKSPACE);
       const configuredWorkspace: unknown =
         normalizedOpts.workspace ?? baseConfig.agents?.defaults?.workspace;

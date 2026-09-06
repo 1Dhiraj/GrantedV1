@@ -14,7 +14,7 @@ import {
 } from "../lib/connection-hints.ts";
 import { buildExternalLinkRel, EXTERNAL_LINK_TARGET } from "../lib/external-link.ts";
 import { PRODUCT_DISPLAY_NAME } from "../lib/product-name.js";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { renderConnectCommand } from "./connect-command.ts";
 import { icons } from "./icons.ts";
 
@@ -512,7 +512,7 @@ function renderLoginGate(props: LoginGateProps) {
   `;
 }
 
-class LoginGate extends OpenClawLightDomContentsElement {
+class LoginGate extends GrantedLightDomContentsElement {
   @property({ attribute: false }) props?: LoginGateProps;
 
   override render() {

@@ -1,6 +1,6 @@
 // Shared harness for dispatch-from-config tests and mocked runtimes.
 import { vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { TtsAutoMode } from "../../config/types.tts.js";
 import type { WorkerSessionPlacementRecord } from "../../gateway/worker-environments/placement-record.js";
 import type { SessionWorkerPlacementContext } from "../../gateway/worker-environments/session-placement-lifecycle.js";
@@ -121,16 +121,16 @@ const internalHookMocks = vi.hoisted(() => ({
 const acpMocks = vi.hoisted(() => ({
   listAcpSessionEntries: vi.fn(async () => []),
   readAcpSessionEntry: vi.fn<
-    (params: { sessionKey: string; agentId?: string; cfg?: OpenClawConfig }) => unknown
+    (params: { sessionKey: string; agentId?: string; cfg?: GrantedConfig }) => unknown
   >(() => null),
   readAcpSessionMeta: vi.fn<
-    (params: { sessionKey: string; agentId?: string; cfg?: OpenClawConfig }) => unknown
+    (params: { sessionKey: string; agentId?: string; cfg?: GrantedConfig }) => unknown
   >(() => null),
   getAcpRuntimeBackend: vi.fn<() => unknown>(() => null),
   upsertAcpSessionMeta: vi.fn<
     (params: {
       sessionKey: string;
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
       mutate: (
         current: Record<string, unknown> | undefined,
         entry: { acp?: Record<string, unknown> } | undefined,
@@ -282,7 +282,7 @@ const ttsMocks = vi.hoisted(() => {
     normalizeTtsAutoMode: vi.fn((value: unknown) =>
       typeof value === "string" ? value : undefined,
     ),
-    resolveTtsConfig: vi.fn((_cfg: OpenClawConfig) => ({ mode: "final" })),
+    resolveTtsConfig: vi.fn((_cfg: GrantedConfig) => ({ mode: "final" })),
   };
 });
 const transcriptMocks = vi.hoisted(() => ({
@@ -647,7 +647,7 @@ vi.mock("../../plugins/conversation-binding.js", () => ({
 }));
 vi.mock("./dispatch-acp-manager.runtime.js", () => ({
   getAcpSessionManager: () => acpManagerRuntimeMocks.getAcpSessionManager(),
-  readAcpSessionEntry: (params: { sessionKey: string; agentId?: string; cfg?: OpenClawConfig }) =>
+  readAcpSessionEntry: (params: { sessionKey: string; agentId?: string; cfg?: GrantedConfig }) =>
     acpMocks.readAcpSessionEntry(params),
   getSessionBindingService: () => ({
     listBySession: (targetSessionKey: string) =>
@@ -658,7 +658,7 @@ vi.mock("./dispatch-acp-manager.runtime.js", () => ({
 vi.mock("../../tts/tts.js", () => ({
   maybeApplyTtsToPayload: (params: unknown) => ttsMocks.maybeApplyTtsToPayload(params),
   normalizeTtsAutoMode: (value: unknown) => ttsMocks.normalizeTtsAutoMode(value),
-  resolveTtsConfig: (cfg: OpenClawConfig) => ttsMocks.resolveTtsConfig(cfg),
+  resolveTtsConfig: (cfg: GrantedConfig) => ttsMocks.resolveTtsConfig(cfg),
 }));
 vi.mock("../../tts/tts.runtime.js", () => ({
   maybeApplyTtsToPayload: (params: unknown) => ttsMocks.maybeApplyTtsToPayload(params),
@@ -701,14 +701,14 @@ vi.mock("../../config/sessions/transcript.js", () => ({
 }));
 vi.mock("../../tts/tts-config.js", () => ({
   normalizeTtsAutoMode: (value: unknown) => ttsMocks.normalizeTtsAutoMode(value),
-  resolveConfiguredTtsMode: (cfg: OpenClawConfig) => ttsMocks.resolveTtsConfig(cfg).mode,
-  resolveEffectiveTtsConfig: (cfg: OpenClawConfig) => cfg.tts ?? {},
+  resolveConfiguredTtsMode: (cfg: GrantedConfig) => ttsMocks.resolveTtsConfig(cfg).mode,
+  resolveEffectiveTtsConfig: (cfg: GrantedConfig) => cfg.tts ?? {},
   shouldCleanTtsDirectiveText: () => true,
   shouldAttemptTtsPayload: () => true,
 }));
 
 export const noAbortResult = { handled: false, aborted: false } as const;
-export const emptyConfig = {} as OpenClawConfig;
+export const emptyConfig = {} as GrantedConfig;
 
 export function createDispatcher(): ReplyDispatcher {
   let beforeDeliver: ReplyDispatchBeforeDeliver | undefined;

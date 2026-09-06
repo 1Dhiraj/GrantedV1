@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   resolveBundlePluginRoot,
   writeBundleTextFiles,
@@ -234,7 +234,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("projects durable policy into the first Claude process config and argv", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { allow: ["docs__*"], deny: ["docs__delete_docs"] },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
@@ -267,7 +267,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("hides non-model MCP tools from Claude without an explicit policy", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
     };
@@ -290,7 +290,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("projects configured MCP filters into Claude denials without a global tool policy", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       mcp: {
         servers: {
@@ -321,7 +321,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("projects an exact runtime cap into Claude before spawn", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
     };
@@ -347,7 +347,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("omits a fully excluded server while retaining an allowed sibling server", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { allow: ["docs__read_docs"] },
       mcp: {
@@ -375,7 +375,7 @@ describe("prepareCliBundleMcpConfig", () => {
 
   it("omits every configured MCP server removed by durable policy", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { allow: ["missing__tool"] },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
@@ -396,7 +396,7 @@ describe("prepareCliBundleMcpConfig", () => {
   });
 
   it("omits a server whose restrictive policy catalog cannot be established", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { deny: ["docs__delete_docs"] },
       mcp: {

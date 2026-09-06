@@ -24,7 +24,7 @@ import type {
 import type { SessionTranscriptRuntimeTarget } from "../../config/sessions/session-accessor.js";
 import type { PrepareAssistantTranscriptMessage } from "../../config/sessions/transcript-assistant-delivery.js";
 import type { SessionSystemPromptReport } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import type { CronScheduledToolCallerOrigin } from "../../cron/scheduled-tool-policy.js";
 import type { ExecMode } from "../../infra/exec-approvals.js";
@@ -105,7 +105,7 @@ export type RunCliAgentParams = {
   cwd?: string;
   /** Start a fresh CLI process so per-turn MCP authority is reloaded from this run. */
   disableCliLiveSession?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   toolOverrides?: SessionToolOverrides;
   prompt: string;
   transcriptPrompt?: string;
@@ -367,7 +367,7 @@ export type PreparedCliRunContext = {
   /** Resume is safe only while the exact managed Claude stdio child still exists. */
   requiredClaudeLiveSessionGeneration?: string;
   hadSessionFile: boolean;
-  contextEngineConfig: OpenClawConfig;
+  contextEngineConfig: GrantedConfig;
   contextEngine?: ContextEngine;
   contextEngineTurnPrompt?: string;
   promptContext?: CliBackendPromptContext;

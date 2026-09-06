@@ -1,6 +1,6 @@
 // Plugins list command tests cover plugin list command execution and output.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { OutputRuntimeEnv } from "../runtime.js";
 
 function createJsonRuntime(writes: unknown[]): OutputRuntimeEnv {
@@ -24,7 +24,7 @@ type SnapshotPlugin = {
 
 function mockPluginListSnapshot(
   plugins: SnapshotPlugin[],
-  config: OpenClawConfig = {},
+  config: GrantedConfig = {},
   scope?: {
     workspaceDir?: string;
     workspaceScope: "selected" | "omitted";

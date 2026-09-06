@@ -6,7 +6,7 @@ import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
 import { loadProviderScopedThinkingCatalog } from "../../agents/model-catalog.runtime.js";
 import type { ModelAliasIndex } from "../../agents/model-selection.js";
 import { persistStickyModelSelectionBestEffort } from "../../agents/sticky-model-selection.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { triggerSessionPatchHook } from "../../gateway/session-patch-hooks.js";
 import { enqueueSystemEvent } from "../../infra/system-events.js";
@@ -334,7 +334,7 @@ describe("mixed inline directives", () => {
       agents: {
         defaults: { models: { "openai/gpt-5.6-luna": { agentRuntime: { id: "codex" } } } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { result, sessionEntry } = await applyMixedDirectives({
       body: "please reply /model openai/gpt-5.6-luna",
       cfg,
@@ -375,7 +375,7 @@ describe("mixed inline directives", () => {
     { label: "list", body: "please reply /model list" },
     { label: "status", body: "please reply /model status" },
   ])("does not acknowledge or mutate a mixed $label model info directive", async ({ body }) => {
-    const cfg = { commands: { text: true }, agents: { defaults: {} } } as OpenClawConfig;
+    const cfg = { commands: { text: true }, agents: { defaults: {} } } as GrantedConfig;
     const directives = resolveReplyDirectiveRouting({
       commandText: body,
       agentText: body,
@@ -512,7 +512,7 @@ describe("mixed inline directives", () => {
 
   it("preserves a mixed alias named list as a model selection", async () => {
     const body = "please reply /list -s";
-    const cfg = { commands: { text: true }, agents: { defaults: {} } } as OpenClawConfig;
+    const cfg = { commands: { text: true }, agents: { defaults: {} } } as GrantedConfig;
     const aliasIndex: ModelAliasIndex = {
       byAlias: new Map([
         [
@@ -784,7 +784,7 @@ describe("mixed inline directives", () => {
   });
 
   it("keeps routed exec policy on its message without changing session placement", async () => {
-    const cfg = { commands: { text: true }, agents: { defaults: {} } } as OpenClawConfig;
+    const cfg = { commands: { text: true }, agents: { defaults: {} } } as GrantedConfig;
     const sessionEntry = createSessionEntry({ execHost: "node", execNode: "worker-1" });
     const initialEntry = { ...sessionEntry };
     for (const [body, security, ask] of [

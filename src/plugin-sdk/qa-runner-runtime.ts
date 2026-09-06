@@ -5,7 +5,7 @@ import {
   loadBundledPluginManifestRegistry,
   loadPluginManifestRegistryCore,
 } from "../plugins/manifest-registry.js";
-import type { OpenClawConfig } from "./config-contracts.js";
+import type { GrantedConfig } from "./config-contracts.js";
 import {
   loadBundledPluginPublicSurfaceModuleSync,
   tryLoadActivatedBundledPluginPublicSurfaceModuleSync,
@@ -142,7 +142,7 @@ type QaRunnerTransportAdapterDefinition = {
   }>;
   createGatewayConfig: (params: {
     baseUrl: string;
-  }) => Pick<OpenClawConfig, "channels" | "messages">;
+  }) => Pick<GrantedConfig, "channels" | "messages">;
   waitReady: (params: {
     gateway: {
       call: (
@@ -167,7 +167,7 @@ type QaRunnerTransportAdapterDefinition = {
   handleAction: (params: {
     action: "delete" | "edit" | "react" | "thread-create";
     args: Record<string, unknown>;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
   }) => Promise<unknown>;
   createReportNotes: (params: {

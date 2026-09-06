@@ -2,7 +2,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
 import { resolveAgentHarnessPolicy } from "../../../agents/harness/policy.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { legacyCodexProviderIdentityKey } from "../shared/codex-route-model-ref.js";
 import {
   IMAGE_INSPECTION_TOOL_NAME_MIGRATION,
@@ -455,7 +455,7 @@ describe("normalizeStoredCronJobs", () => {
 
   it.each<{
     name: string;
-    agents: NonNullable<OpenClawConfig["agents"]>;
+    agents: NonNullable<GrantedConfig["agents"]>;
     agentId?: string;
     expectedAgentId: string;
   }>([

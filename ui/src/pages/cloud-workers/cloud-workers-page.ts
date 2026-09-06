@@ -23,7 +23,7 @@ import { resolveEditableSnapshotConfig } from "../../lib/config/config-state-mod
 import { formatUiError } from "../../lib/format-error.ts";
 import { canCallGatewayMethod } from "../../lib/gateway-methods.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   buildCloudWorkerDeletePatch,
@@ -47,7 +47,7 @@ function formControlValue(event: Event): string {
     : "";
 }
 
-class CloudWorkersPage extends OpenClawLightDomElement {
+class CloudWorkersPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

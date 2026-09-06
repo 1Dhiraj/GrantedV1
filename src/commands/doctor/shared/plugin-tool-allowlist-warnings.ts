@@ -14,7 +14,7 @@ import {
   resolveToolProfilePolicy,
 } from "../../../agents/tool-policy.js";
 import type { AgentModelConfig } from "../../../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { normalizePluginId } from "../../../plugins/config-state.js";
 import { loadManifestMetadataSnapshot } from "../../../plugins/manifest-contract-eligibility.js";
 import type { PluginManifestRegistry } from "../../../plugins/manifest-registry.js";
@@ -83,7 +83,7 @@ function collectToolPolicySources(policy: unknown, label: string, out: ToolAllow
   collectToolPolicySources(subagentTools, `${label}.subagents.tools`, out);
 }
 
-function collectToolAllowlistSources(cfg: OpenClawConfig): ToolAllowlistSource[] {
+function collectToolAllowlistSources(cfg: GrantedConfig): ToolAllowlistSource[] {
   const sources: ToolAllowlistSource[] = [];
   collectToolPolicySources(cfg.tools, "tools", sources);
   for (const { entry: agent, source } of listAgentEntriesWithSource(cfg)) {
@@ -136,7 +136,7 @@ function collectKnownPluginIds(registry: PluginManifestRegistry): Set<string> {
   return new Set(registry.plugins.map((plugin) => normalizePluginId(plugin.id)));
 }
 
-function collectConfiguredMcpServerNames(cfg: OpenClawConfig): string[] {
+function collectConfiguredMcpServerNames(cfg: GrantedConfig): string[] {
   const servers = cfg.mcp?.servers;
   if (!hasRecord(servers)) {
     return [];
@@ -251,7 +251,7 @@ function buildEffectiveSandboxToolPolicy(params: {
 }
 
 function collectActiveSandboxToolPolicies(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   serverNames: readonly string[],
 ): ActiveSandboxToolPolicy[] {
   const out = new Map<string, ActiveSandboxToolPolicy>();
@@ -420,7 +420,7 @@ function profileToolPolicyBlocksMcp(policy: unknown, serverNames: readonly strin
 }
 
 function nonSandboxToolPoliciesBlockMcp(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   serverNames: readonly string[];
   agent?: Record<string, unknown>;
 }): boolean {
@@ -469,7 +469,7 @@ function formatMcpServerSummary(serverNames: readonly string[]): string {
   return `${serverNames.length} MCP ${noun}${listed ? ` (${listed}${suffix})` : ""}`;
 }
 
-function collectSandboxMcpAllowlistWarnings(cfg: OpenClawConfig): string[] {
+function collectSandboxMcpAllowlistWarnings(cfg: GrantedConfig): string[] {
   const serverNames = collectConfiguredMcpServerNames(cfg);
   if (serverNames.length === 0) {
     return [];
@@ -513,7 +513,7 @@ function addIssue(issues: Map<string, Set<string>>, key: string, sourceLabel: st
 
 /** Collect warnings when plugin allowlists block tools referenced by active tool policies. */
 export function collectPluginToolAllowlistWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   manifestRegistry?: PluginManifestRegistry;
 }): string[] {

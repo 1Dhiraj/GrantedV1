@@ -4,7 +4,7 @@ import {
   resolveInboundSupplementalSenderAllowed,
 } from "openclaw/plugin-sdk/channel-inbound";
 import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import type { ContextVisibilityMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ContextVisibilityMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 import {
@@ -62,7 +62,7 @@ type SlackSessionFreshnessRuntime = {
       agentId: string;
       storePath?: string;
       sessionKey: string;
-      sessionCfg?: OpenClawConfig["session"];
+      sessionCfg?: GrantedConfig["session"];
       resetType: "thread";
       resetOverride?: ReturnType<typeof resolveChannelResetConfig>;
     }) => SlackSessionResetFreshness;

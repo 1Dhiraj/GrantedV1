@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import path from "node:path";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import type { StatusSummary } from "../status/types.js";
 import { sleep } from "../utils/sleep.js";
@@ -82,7 +82,7 @@ function listLocalTuiProcesses(): LocalTuiProcess[] {
   return processes;
 }
 
-function hasWhatsappEnabled(cfg: OpenClawConfig): boolean {
+function hasWhatsappEnabled(cfg: GrantedConfig): boolean {
   const whatsapp = cfg.channels?.whatsapp;
   if (!whatsapp || whatsapp.enabled === false) {
     return false;
@@ -100,7 +100,7 @@ function formatPidList(processes: LocalTuiProcess[]): string {
 
 /** Collects read-only structured findings for WhatsApp responsiveness pressure. */
 export function collectWhatsappResponsivenessHealthFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   status?: Pick<StatusSummary, "eventLoop"> | null;
   listLocalTuiProcesses?: () => LocalTuiProcess[];
 }): readonly HealthFinding[] {
@@ -195,7 +195,7 @@ if (process.env.VITEST || process.env.NODE_ENV === "test") {
 
 /** Emits WhatsApp responsiveness warnings and optionally stops contending local TUI clients. */
 export async function noteWhatsappResponsivenessHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   status?: Pick<StatusSummary, "eventLoop"> | null;
   shouldRepair: boolean;
   listLocalTuiProcesses?: () => LocalTuiProcess[];

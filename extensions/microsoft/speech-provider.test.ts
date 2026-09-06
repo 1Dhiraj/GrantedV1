@@ -1,13 +1,13 @@
 // Microsoft tests cover speech provider plugin behavior.
 import { writeFileSync } from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   finalizeDebugProxyCapture,
   getDebugProxyCaptureStore,
   initializeDebugProxyCapture,
 } from "openclaw/plugin-sdk/proxy-capture";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { installDebugProxyTestResetHooks } from "../test-support/debug-proxy-env-test-helpers.js";
 
@@ -33,7 +33,7 @@ vi.mock("node-edge-tts", () => ({
 import { buildMicrosoftSpeechProvider } from "./speech-provider.js";
 import * as ttsModule from "./tts.js";
 
-const TEST_CFG = {} as OpenClawConfig;
+const TEST_CFG = {} as GrantedConfig;
 
 async function listVoicesThroughProvider() {
   const listVoices = buildMicrosoftSpeechProvider().listVoices;
@@ -66,7 +66,7 @@ function requireFirstEdgeTtsCall(edgeSpy: ReturnType<typeof vi.spyOn>): {
 }
 
 describe("listMicrosoftVoices", () => {
-  let openClawState: OpenClawTestState;
+  let openClawState: GrantedTestState;
 
   beforeEach(async () => {
     openClawState = await createOpenClawTestState({

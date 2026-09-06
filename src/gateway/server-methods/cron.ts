@@ -18,7 +18,7 @@ import {
   validateCronUpdateParams,
   validateWakeParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveCronJobConfigRevision } from "../../cron/config-revision.js";
 import {
   assertValidCronAnnounceDelivery,
@@ -286,7 +286,7 @@ function compactCronListJob(job: CronJob) {
 }
 
 async function assertValidCronUpdatePatch(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   defaultAgentId?: string;
   currentJob: CronJob;
   patch: CronJobPatch;
@@ -450,7 +450,7 @@ type CronSessionVisibility = (sessionKey: string, agentId?: string) => boolean;
 
 function resolveCronSessionVisibility(
   client: GatewayClient | null,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): CronSessionVisibility | undefined {
   if (operatorSessionCap(client, cfg) !== "none") {
     return undefined;

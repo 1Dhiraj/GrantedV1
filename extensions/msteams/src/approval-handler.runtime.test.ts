@@ -9,7 +9,7 @@ import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
 } from "openclaw/plugin-sdk/approval-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getMSTeamsApprovalCardBinding,
@@ -29,7 +29,7 @@ vi.mock("./send.js", async () => ({
 
 const { msTeamsApprovalNativeRuntime } = await import("./approval-handler.runtime.js");
 
-const cfg: OpenClawConfig = {
+const cfg: GrantedConfig = {
   channels: {
     msteams: {
       enabled: true,

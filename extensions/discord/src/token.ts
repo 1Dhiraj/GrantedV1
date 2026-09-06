@@ -1,6 +1,6 @@
 // Discord plugin module implements token behavior.
 import type { BaseTokenResolution } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
@@ -38,7 +38,7 @@ export function normalizeDiscordToken(raw: unknown, path: string): string | unde
 }
 
 function resolveDiscordTokenValue(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   value: unknown;
   path: string;
 }): DiscordTokenValueResolution {
@@ -61,7 +61,7 @@ function resolveDiscordTokenValue(params: {
 }
 
 export function resolveDiscordToken(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: { accountId?: string | null; envToken?: string | null } = {},
 ): DiscordTokenResolution {
   const selectedCfg = selectDiscordRuntimeConfig(cfg);

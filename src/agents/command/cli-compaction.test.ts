@@ -7,7 +7,7 @@ import { CURRENT_SESSION_VERSION } from "openclaw/plugin-sdk/agent-sessions";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { SESSION_TOTAL_TOKENS_VERSION, type SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import { resolveRuntimeWorkerUrl } from "../../infra/runtime-worker-url.js";
 import { withEnv } from "../../test-utils/env.js";
@@ -118,7 +118,7 @@ const defaultPreemptiveCompaction = () => ({
 });
 
 function createPreparedRuntimeLease(input: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir: string;
   agentId?: string;
   workspaceDir?: string;
@@ -152,7 +152,7 @@ async function prepareCompactionScenario(params: {
   sessionKey?: string;
   sessionId?: string;
   sessionEntry?: Partial<SessionEntry>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   cwd?: string;
   contextEngine?: (compactCalls: CompactParams[]) => ContextEngine;
   maintenance?: CliCompactionTestDeps["runContextEngineMaintenance"];
@@ -198,7 +198,7 @@ async function prepareCompactionScenario(params: {
   });
 
   const runParams: CliCompactionParams = {
-    cfg: params.cfg ?? ({} as OpenClawConfig),
+    cfg: params.cfg ?? ({} as GrantedConfig),
     sessionId,
     sessionKey,
     sessionEntry,
@@ -1153,7 +1153,7 @@ describe("runCliTurnCompactionLifecycle", () => {
       suffix: "cli-timeout",
       tmpDir,
       sessionKey: "agent:main:cli",
-      cfg: { agents: { defaults: { compaction: { timeoutSeconds: 1 } } } } as OpenClawConfig,
+      cfg: { agents: { defaults: { compaction: { timeoutSeconds: 1 } } } } as GrantedConfig,
       sessionEntry: {
         cliSessionBindings: { "claude-cli": { sessionId: "claude-session" } },
         cliSessionIds: { "claude-cli": "claude-session" },
@@ -1384,7 +1384,7 @@ describe("runCliTurnCompactionLifecycle", () => {
       recordCliCompactionInStore,
     });
     const result = await runCliTurnCompactionLifecycle({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionId,
       sessionKey,
       sessionEntry,

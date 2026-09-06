@@ -1,5 +1,5 @@
 // Discord tests cover upload-file caption text resolution.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const runtimeModule = await import("./runtime.js");
@@ -8,10 +8,10 @@ const handleDiscordActionMock = vi
   .mockResolvedValue({ content: [], details: { ok: true } });
 const { handleDiscordMessageAction } = await import("./handle-action.js");
 
-function discordConfig(): OpenClawConfig {
+function discordConfig(): GrantedConfig {
   return {
     channels: { discord: { token: "tok" } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function expectUploadedContent(expected: string) {

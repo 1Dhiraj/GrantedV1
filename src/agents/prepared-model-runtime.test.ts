@@ -7,13 +7,13 @@ import {
 } from "./prepared-model-runtime.test-harness.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { requireActivePluginRegistry } from "../plugins/runtime.js";
 import { getPluginRuntimeLoadContext } from "../plugins/runtime/load-context.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { getPreparedModelRuntimeAuthStore } from "./prepared-model-runtime-auth.js";
 import { prepareWorkspacePluginRegistries } from "./prepared-model-runtime.inbound-registry.js";
@@ -31,7 +31,7 @@ import {
 } from "./prepared-model-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared model runtime snapshots", () => {
   beforeEach(async () => {
@@ -91,7 +91,7 @@ describe("prepared model runtime snapshots", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const snapshot = await publishPreparedModelRuntimeSnapshot({
       agentId: "main",
       config,
@@ -357,7 +357,7 @@ describe("prepared model runtime snapshots", () => {
           vllm: { baseUrl: "https://vllm.example/v1", models: [] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.runtimeSyntheticAuthProviderRefs = ["selected-runtime", "sibling-runtime"];
 
     await publishPreparedModelRuntimeSnapshot({

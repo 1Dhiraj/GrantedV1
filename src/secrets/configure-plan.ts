@@ -1,7 +1,7 @@
 /** Builds the interactive `openclaw secrets configure` target list and apply plan. */
 import { isDeepStrictEqual } from "node:util";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveSecretInputRef,
   type SecretProviderConfig,
@@ -42,7 +42,7 @@ type ConfigureProviderChanges = {
   deletes: string[];
 };
 
-function getSecretProviders(config: OpenClawConfig): Record<string, SecretProviderConfig> {
+function getSecretProviders(config: GrantedConfig): Record<string, SecretProviderConfig> {
   if (!isRecord(config.secrets?.providers)) {
     return {};
   }
@@ -75,8 +75,8 @@ function resolveAuthProfileProvider(
 
 /** Builds configure candidates for OpenClaw config plus an optional auth-profile scope. */
 export function buildConfigureCandidatesForScope(params: {
-  config: OpenClawConfig;
-  authoredOpenClawConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  authoredOpenClawConfig?: GrantedConfig;
   authProfiles?: {
     agentId: string;
     store: AuthProfileStore;
@@ -191,8 +191,8 @@ function hasPath(root: unknown, segments: string[]): boolean {
 
 /** Computes provider upserts/deletes between original and edited config. */
 export function collectConfigureProviderChanges(params: {
-  original: OpenClawConfig;
-  next: OpenClawConfig;
+  original: GrantedConfig;
+  next: GrantedConfig;
 }): ConfigureProviderChanges {
   const originalProviders = getSecretProviders(params.original);
   const nextProviders = getSecretProviders(params.next);

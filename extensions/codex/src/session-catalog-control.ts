@@ -1,6 +1,6 @@
 import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
 import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";
 import { resolveCodexAppServerClientInstanceId } from "./app-server/client.js";
 import {
@@ -57,7 +57,7 @@ const CODEX_SESSION_CATALOG_LIST_CACHE_MAX_ENTRIES = 32;
 
 type CodexCatalogRequestOptions = {
   agentDir: string;
-  config: OpenClawConfig | undefined;
+  config: GrantedConfig | undefined;
   startOptions: CodexAppServerStartOptions;
 };
 
@@ -344,10 +344,10 @@ function createCodexSessionCatalogControlFromRequests(params: {
 
 /** Builds the passive catalog over the Codex plugin's canonical shared client. */
 export function createCodexSessionCatalogControl(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   getPluginConfig: () => unknown;
-  getRuntimeConfig: () => OpenClawConfig | undefined;
+  getRuntimeConfig: () => GrantedConfig | undefined;
   now?: () => number;
   managedThreads?: CodexManagedThreadStore;
 }): CodexSessionCatalogControlFactory {
@@ -360,11 +360,11 @@ export function createCodexSessionCatalogControl(params: {
     ...(params.env ? { env: params.env } : {}),
   });
   const requestOptionsByConfig = new WeakMap<
-    OpenClawConfig,
+    GrantedConfig,
     Map<string, CodexCatalogRequestOptions>
   >();
   const catalogPagesByConfig = new WeakMap<
-    OpenClawConfig,
+    GrantedConfig,
     Map<string, CodexCatalogPageCacheEntry>
   >();
   const resolveRequestOptions = (

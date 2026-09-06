@@ -2,7 +2,7 @@
 import { formatCliCommand } from "../cli/command-format.js";
 import {
   getRuntimeConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
   CONFIG_PATH,
   readConfigFileSnapshot,
   replaceConfigFile,
@@ -192,7 +192,7 @@ export async function runGmailSetup(opts: GmailSetupOptions) {
 
   await startGmailWatch({ account: opts.account, label, topic: topicPath });
 
-  const nextConfig: OpenClawConfig = {
+  const nextConfig: GrantedConfig = {
     ...baseConfig,
     hooks: {
       ...baseConfig.hooks,

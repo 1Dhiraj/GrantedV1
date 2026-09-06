@@ -8,11 +8,11 @@ import {
   readConfigMachineState,
   updateConfigMachineState,
 } from "../../state/config-machine-state.js";
-import type { DB as OpenClawStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { withOpenClawStateLease } from "../../state/openclaw-state-lease.js";
 import type { SkillCollectionReconcileResult } from "./collection-contracts.js";
@@ -26,7 +26,7 @@ const REVIEW_CLAIM_MS = 11 * 60_000;
 // Bound per-workspace history so unattended weekly maintenance cannot grow state forever.
 const SKILL_COLLECTION_REVIEW_RETENTION_COUNT = 90;
 const SKILL_COLLECTION_REVIEW_HISTORY_LIMIT = 20;
-type CollectionReviewDatabase = Pick<OpenClawStateDatabase, "skill_workshop_collection_reviews">;
+type CollectionReviewDatabase = Pick<GrantedStateDatabase, "skill_workshop_collection_reviews">;
 type SkillCuratorState = {
   lastAttemptAtMs: number;
   lastSuccessAtMs: number | null;
@@ -63,7 +63,7 @@ function workspaceKey(workspaceDir: string): string {
 export async function withSkillCollectionReviewClaim<T>(
   workspaceDir: string,
   run: () => Promise<T>,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<T> {
   return await withOpenClawStateLease(
     {
@@ -84,7 +84,7 @@ function reviewMap<T>(state: Record<string, unknown>, field: string): Record<str
   return (asNullableRecord(state[field]) ?? {}) as Record<string, T>;
 }
 
-function readReviewState(options: OpenClawStateDatabaseOptions): Record<string, unknown> {
+function readReviewState(options: GrantedStateDatabaseOptions): Record<string, unknown> {
   return (
     asNullableRecord(
       readConfigMachineState<SkillCuratorState>("skills.curatorState", options)?.lastResult,
@@ -92,7 +92,7 @@ function readReviewState(options: OpenClawStateDatabaseOptions): Record<string, 
   );
 }
 
-export function readSkillReviewOutcomes(options: OpenClawStateDatabaseOptions = {}) {
+export function readSkillReviewOutcomes(options: GrantedStateDatabaseOptions = {}) {
   const state = readReviewState(options);
   return {
     collectionReviews: reviewMap<SkillCollectionReviewStatus>(state, "collectionReviews"),
@@ -103,7 +103,7 @@ export function readSkillReviewOutcomes(options: OpenClawStateDatabaseOptions = 
 export function recordSkillCollectionReviewStatus(
   workspaceDir: string,
   review: { attemptedAtMs: number; succeededAtMs?: number; error?: unknown },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const status: SkillCollectionReviewStatus =
     review.error !== undefined
@@ -131,7 +131,7 @@ export function recordSkillCollectionReviewStatus(
 export function recordSkillExperienceReviewOutcome(
   workspaceDir: string,
   review: SkillExperienceReviewStatus,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   recordWorkspaceReview("experienceReviews", workspaceDir, review, {}, options);
 }
@@ -141,7 +141,7 @@ function recordWorkspaceReview(
   workspaceDir: string,
   review: SkillCollectionReviewStatus | SkillExperienceReviewStatus,
   columns: Partial<Omit<SkillCuratorState, "lastResult">>,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): void {
   updateConfigMachineState<SkillCuratorState>(
     "skills.curatorState",

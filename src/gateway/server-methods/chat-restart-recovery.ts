@@ -20,7 +20,7 @@ import {
   type SessionTranscriptTurnLifecyclePatch,
 } from "../../config/sessions/session-accessor.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadOrCreateProcessDeviceIdentity } from "../../infra/device-identity.js";
 import { findRestartRecoveryUnsafeChatAdmissionHook } from "../../plugins/restart-recovery-hook-safety.js";
 import { isCronSessionKey, isSubagentSessionKey } from "../../routing/session-key.js";
@@ -69,7 +69,7 @@ type DurableChatClaimResolution =
   | { kind: "pending"; message: string }
   | { kind: "rejected"; message: string; unavailable?: true };
 
-function hasRestartUnsafeMessageSemantics(rawMessage: string, cfg: OpenClawConfig): boolean {
+function hasRestartUnsafeMessageSemantics(rawMessage: string, cfg: GrantedConfig): boolean {
   if (
     shouldComputeCommandAuthorized(rawMessage, cfg) ||
     rawMessage.startsWith("/") ||
@@ -108,7 +108,7 @@ export function createRestartSafeChatRequest(params: {
   eligible: boolean;
   message: string;
   senderIsOwner: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): RestartSafeChatRequest | undefined {
   if (params.goalRequestFingerprint) {
     // Goal admission owns literal intent; slash-looking objectives are not commands.
@@ -157,7 +157,7 @@ function isAdoptedRestartRecoveryClaim(
 
 export async function resolveDurableChatClaim(params: {
   canonicalSessionKey: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   clientRunId: string;
   entry?: SessionEntry;
   persistedSessionKey: string;
@@ -307,7 +307,7 @@ function hasRestartUnsafeChatWork(params: {
 
 export function resolveRestartSafeChatAdmission(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   clientRunId: string;
   context: Pick<GatewayRequestContext, "chatAbortControllers" | "chatQueuedTurns">;
   entry?: SessionEntry;

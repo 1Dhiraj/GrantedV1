@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveAgentMainSessionKey } from "../config/sessions.js";
 import { runHeartbeatOnce } from "../infra/heartbeat-runner.js";
 import {
@@ -54,7 +54,7 @@ async function runMainCronCase(mode: WakeNowRunMode, wakeMode: "now" | "next-hea
     resolveFinished = resolve;
   });
 
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: {
       defaults: {
         workspace: sandbox.dir,

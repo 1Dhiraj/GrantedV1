@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createConfiguredAcpTopicBinding,
@@ -53,7 +53,7 @@ describe("Telegram native command dispatch routing", () => {
         handler: shadowHandler,
       },
     });
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const { handler } = registerAndResolveStatusHandler({ cfg });
     await handler(createTelegramPrivateCommandContext());
 
@@ -108,8 +108,8 @@ describe("Telegram native command dispatch routing", () => {
   });
 
   it("keeps one live config snapshot through native command execution", async () => {
-    const startupCfg: OpenClawConfig = { session: { store: "/tmp/startup-sessions.json" } };
-    const runtimeCfg: OpenClawConfig = { session: { store: "/tmp/runtime-sessions.json" } };
+    const startupCfg: GrantedConfig = { session: { store: "/tmp/startup-sessions.json" } };
+    const runtimeCfg: GrantedConfig = { session: { store: "/tmp/runtime-sessions.json" } };
     const { handler } = registerAndResolveStatusHandler({ cfg: startupCfg, runtimeCfg });
 
     await handler(createTelegramPrivateCommandContext());
@@ -136,7 +136,7 @@ describe("Telegram native command dispatch routing", () => {
             streaming: { block: { enabled: blockStreamingEnabled } },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const { handler } = registerAndResolveStatusHandler({ cfg });
 
       await handler(createTelegramPrivateCommandContext());

@@ -1,6 +1,6 @@
 // Memory Core tests cover dreaming plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_LIMIT,
   DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS,
@@ -110,7 +110,7 @@ type CronHarnessOptions = {
 };
 type DreamingPluginApi = Parameters<typeof registerShortTermPromotionDreaming>[0];
 type DreamingPluginApiTestDouble = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginConfig: Record<string, unknown>;
   logger: ReturnType<typeof createLogger>;
   runtime: unknown;
@@ -241,8 +241,8 @@ function createDreamingConfig(
     frequency: "15 4 * * *",
     timezone: "UTC",
   },
-  config: Partial<OpenClawConfig> = {},
-): OpenClawConfig {
+  config: Partial<GrantedConfig> = {},
+): GrantedConfig {
   return {
     ...config,
     plugins: {
@@ -250,12 +250,12 @@ function createDreamingConfig(
         "memory-core": { config: { dreaming } },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createDreamingTestContext(
   params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     runtime?: unknown;
     initialJobs?: CronJobLike[];
     cronOptions?: CronHarnessOptions;
@@ -347,7 +347,7 @@ function getGatewayStartHandler(
   onMock: ReturnType<typeof vi.fn>,
 ): (
   event: { port: number },
-  ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown },
+  ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown },
 ) => Promise<unknown> {
   const call = onMock.mock.calls.find(([eventName]) => eventName === "gateway_start");
   if (!call) {
@@ -355,7 +355,7 @@ function getGatewayStartHandler(
   }
   return call[1] as (
     event: { port: number },
-    ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown },
+    ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown },
   ) => Promise<unknown>;
 }
 
@@ -363,7 +363,7 @@ function getGatewayStopHandler(
   onMock: ReturnType<typeof vi.fn>,
 ): (
   event: { reason?: string },
-  ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown },
+  ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown },
 ) => Promise<unknown> | void {
   const call = onMock.mock.calls.find(([eventName]) => eventName === "gateway_stop");
   if (!call) {
@@ -371,20 +371,20 @@ function getGatewayStopHandler(
   }
   return call[1] as (
     event: { reason?: string },
-    ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown },
+    ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown },
   ) => Promise<unknown> | void;
 }
 
 async function triggerGatewayStart(
   onMock: ReturnType<typeof vi.fn>,
-  ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown },
+  ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown },
 ): Promise<void> {
   await getGatewayStartHandler(onMock)({ port: 18789 }, ctx);
 }
 
 async function triggerGatewayStop(
   onMock: ReturnType<typeof vi.fn>,
-  ctx: { config?: OpenClawConfig; workspaceDir?: string; getCron?: () => unknown } = {},
+  ctx: { config?: GrantedConfig; workspaceDir?: string; getCron?: () => unknown } = {},
 ): Promise<void> {
   await getGatewayStopHandler(onMock)({ reason: "test" }, ctx);
 }
@@ -401,7 +401,7 @@ describe("short-term dreaming config", () => {
           userTimezone: "America/Los_Angeles",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const resolved = resolveShortTermPromotionDreamingConfig({
       pluginConfig: {},
       cfg,
@@ -708,7 +708,7 @@ describe("gateway startup reconciliation", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         getCron: () => harness.cron,
       });
 
@@ -1503,7 +1503,7 @@ describe("gateway startup reconciliation", () => {
           plugins: {
             entries: {},
           },
-        }) as OpenClawConfig,
+        }) as GrantedConfig,
     );
     const { api, harness, logger, onMock } = createDreamingTestContext({
       runtime: { config: { current: runtimeCurrentConfig } },
@@ -1614,7 +1614,7 @@ describe("gateway startup reconciliation", () => {
             defaults: { workspace: workspaceDir },
             list: [{ id: "main", default: true, workspace: workspaceDir }],
           },
-        }) as OpenClawConfig,
+        }) as GrantedConfig,
     );
     const { api, harness, onMock } = createDreamingTestContext({
       runtime: { config: { current: runtimeCurrentConfig } },

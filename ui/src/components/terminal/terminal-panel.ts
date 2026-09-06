@@ -10,7 +10,7 @@ import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { t } from "../../i18n/index.ts";
 import { openExternalUrlSafe } from "../../lib/open-external-url.ts";
-import { OpenClawLitElement } from "../../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../../lit/openclaw-element.ts";
 import { scrollbarShadowStyles } from "../../lit/scrollbar-styles.ts";
 import { DockLayoutController, dockPanelStyles } from "../dock-layout-controller.ts";
 import { createDockPanelLayout, type DockPanelPlacement } from "../dock-panel-layout.ts";
@@ -56,7 +56,7 @@ const panelLayout = createDockPanelLayout({
 const CATALOG_TERMINAL_READY_TIMEOUT_MS = 30_000;
 
 /** `<openclaw-terminal-panel>` — the dockable Control UI shell surface. */
-export class OpenClawTerminalPanel extends OpenClawLitElement {
+export class GrantedTerminalPanel extends GrantedLitElement {
   /** Gateway client used for terminal.* RPCs; null until connected. */
   @property({ attribute: false }) client: TerminalGatewayClient | null = null;
   /** Agent whose workspace and sandbox policy own newly opened sessions. */
@@ -499,6 +499,6 @@ export class OpenClawTerminalPanel extends OpenClawLitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-terminal-panel": OpenClawTerminalPanel;
+    "openclaw-terminal-panel": GrantedTerminalPanel;
   }
 }

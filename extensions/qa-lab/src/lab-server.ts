@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   acquireDebugProxyCaptureStore,
@@ -218,7 +218,7 @@ function sanitizeControlUiPublicUrl(url: string | null): string | null {
   return stripSensitiveQueryParams(withoutFragment);
 }
 
-function createQaLabConfig(baseUrl: string): OpenClawConfig {
+function createQaLabConfig(baseUrl: string): GrantedConfig {
   return createQaChannelGatewayConfig({ baseUrl });
 }
 
@@ -366,7 +366,7 @@ export async function startQaLabServer(
   let controlUiUrl = sanitizeControlUiPublicUrl(params?.controlUiUrl?.trim() || null);
   let gateway:
     | {
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         stop: () => Promise<void>;
       }
     | undefined;

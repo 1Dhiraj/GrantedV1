@@ -5,7 +5,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 import { z } from "zod";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { loadPluginManifestRegistryCore } from "../plugins/manifest-registry.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -95,7 +95,7 @@ function buildLegacyManifestContractMigration(params: {
 
 /** Collects manifest rewrites needed to move legacy top-level capability keys under contracts. */
 export function collectLegacyPluginManifestContractMigrations(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   manifestRoots?: string[];
   workspaceDir?: string;
@@ -175,7 +175,7 @@ function migrationToManifestJson(migration: LegacyManifestContractMigration): st
 
 /** Prompts and rewrites legacy plugin manifest contract fields when doctor repair is enabled. */
 export async function maybeRepairLegacyPluginManifestContracts(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   manifestRoots?: string[];
   workspaceDir?: string;

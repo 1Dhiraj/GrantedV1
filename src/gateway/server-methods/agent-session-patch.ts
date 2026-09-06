@@ -12,7 +12,7 @@ import { hasProviderOwnedSession } from "../../config/sessions/entry-freshness.j
 import { resolveSessionEntryAccessTarget } from "../../config/sessions/session-accessor.js";
 import { isRecoverableTerminalSessionStatus } from "../../config/sessions/terminal-status.js";
 import type { InternalSessionEntry as SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   isAcpSessionKey,
   isCronSessionKey,
@@ -51,7 +51,7 @@ export type AgentSessionPatchBuild = {
 export function buildAgentSessionPatch(params: {
   freshEntry: SessionEntry | undefined;
   initialEntry: SessionEntry | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionAgentId: string;
   canonicalSessionKey: string;
   storePath: string;

@@ -29,7 +29,7 @@ import {
 import type { RuntimeMsgContext as MsgContext, TemplateContext } from "../auto-reply/templating.js";
 import { applyTemplate } from "../auto-reply/templating.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { ModelProviderConfig, OpenClawConfig } from "../config/types.js";
+import type { ModelProviderConfig, GrantedConfig } from "../config/types.js";
 import type {
   MediaUnderstandingConfig,
   MediaUnderstandingModelConfig,
@@ -78,7 +78,7 @@ type ProviderRegistry = Map<string, MediaUnderstandingProvider>;
 const loadModelAuth = createLazyRuntimeModule(async () => await import("../agents/model-auth.js"));
 
 function resolveLiteralProviderApiKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerId: string;
 }): string | null {
   return normalizeNullableString(params.cfg.models?.providers?.[params.providerId]?.apiKey);
@@ -403,7 +403,7 @@ export function buildModelDecision(params: {
 function resolveEntryRunOptions(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config?: MediaUnderstandingConfig;
 }): {
   maxBytes: number;
@@ -492,7 +492,7 @@ async function resolveProviderExecutionAuth(params: {
   capability: MediaUnderstandingCapability;
   providerId: string;
   provider?: MediaUnderstandingProvider;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: MediaUnderstandingModelConfig;
   agentDir?: string;
   workspaceDir?: string;
@@ -602,7 +602,7 @@ async function resolveProviderExecutionContext(params: {
   capability: MediaUnderstandingCapability;
   providerId: string;
   provider?: MediaUnderstandingProvider;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: MediaUnderstandingModelConfig;
   config?: MediaUnderstandingConfig;
   agentDir?: string;
@@ -760,7 +760,7 @@ function formatMissingProviderHint(providerId: string): string {
 export async function runProviderEntry(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: MsgContext;
   attachmentIndex: number;
   cache: MediaAttachmentCache;
@@ -1006,7 +1006,7 @@ export async function runProviderEntry(params: {
 export async function runCliEntry(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: MsgContext;
   attachment: MediaAttachment;
   cache: MediaAttachmentCache;

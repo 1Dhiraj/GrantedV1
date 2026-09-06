@@ -1,6 +1,6 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   classifyOtelGrpcMigrationOwnership,
   isSingleTopLevelIncludeMigration,
@@ -8,10 +8,10 @@ import {
 
 const sourceConfig = {
   mcp: { servers: { local: { command: "node", disabled: true } } },
-} as unknown as OpenClawConfig;
+} as unknown as GrantedConfig;
 const candidate = {
   mcp: { servers: { local: { command: "node", enabled: false } } },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 describe("include migration ownership", () => {
   const configDir = path.resolve("/tmp/openclaw-config");

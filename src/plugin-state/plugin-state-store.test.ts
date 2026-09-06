@@ -11,7 +11,7 @@ import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths
 import {
   createOpenClawTestState,
   withOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   closePluginStateDatabase,
@@ -32,7 +32,7 @@ import {
 } from "./plugin-state-store.test-helpers.js";
 import { PluginStateStoreError } from "./plugin-state-store.types.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeAll(async () => {
   testState = await createOpenClawTestState({ label: "plugin-state-store" });

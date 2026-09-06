@@ -3038,7 +3038,7 @@ printf 'core_failed=%s\n' "$failed"
       '--require-complete-platform-assets "$ALLOW_FAILED_PUBLISH_RECOVERY"',
     );
     expect(workflow).toContain("verify_checksum_manifest OpenClaw-Android-SHA256SUMS.txt");
-    expect(workflow).toContain("verify_checksum_manifest OpenClawCompanion-SHA256SUMS.txt");
+    expect(workflow).toContain("verify_checksum_manifest GrantedCompanion-SHA256SUMS.txt");
     expect(workflow).toContain("actual=\"$(awk 'NF { name=$2;");
     expect(workflow).toContain('sub(/^\\*/, "", name)');
     expect(workflow).not.toContain('sub(/^\\\\*/, "", name)');
@@ -8732,9 +8732,9 @@ printf '%s\\n' "$DEEPSEEK_API_KEY" "$DEEPINFRA_API_KEY"`,
     expect(releaseWorkflow).toContain("missing prevalidated Windows installer digests");
     expect(releaseWorkflow).toContain("does not match its pinned digest");
     expect(releaseWorkflow).toContain(
-      "Stable release OpenClawCompanion asset names do not exactly match the current contract",
+      "Stable release GrantedCompanion asset names do not exactly match the current contract",
     );
-    expect(releaseWorkflow).toContain('select(.name | startswith("OpenClawCompanion-"))');
+    expect(releaseWorkflow).toContain('select(.name | startswith("GrantedCompanion-"))');
     expect(releaseWorkflow).toContain(
       "Windows checksum manifest does not exactly match the installer asset contract",
     );
@@ -8773,10 +8773,10 @@ printf '%s\\n' "$DEEPSEEK_API_KEY" "$DEEPINFRA_API_KEY"`,
       "CN=OpenClaw Foundation, O=OpenClaw Foundation, L=Mill Valley, S=California, C=US",
     );
     expect(windowsWorkflow).toContain("has unexpected signer subject");
-    expect(windowsWorkflow).toContain("OpenClawCompanion-SHA256SUMS.txt");
+    expect(windowsWorkflow).toContain("GrantedCompanion-SHA256SUMS.txt");
     expect(windowsWorkflow).toContain("Verify promoted release asset contract");
     expect(windowsWorkflow).toContain(
-      "Promoted OpenClawCompanion asset names do not exactly match the current contract",
+      "Promoted GrantedCompanion asset names do not exactly match the current contract",
     );
     expect(windowsWorkflow).toContain(
       "$targetRelease = gh release view $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --json assets",
@@ -8921,7 +8921,7 @@ printf '%s\\n' "$DEEPSEEK_API_KEY" "$DEEPINFRA_API_KEY"`,
       "if ($stableRelease -and $sourceRelease.isPrerelease)",
     );
     const rejectUnexpectedTargetAssetsIndex = windowsWorkflow.indexOf(
-      "Target OpenClaw release contains unexpected OpenClawCompanion assets before upload",
+      "Target OpenClaw release contains unexpected GrantedCompanion assets before upload",
     );
     const uploadAssetsIndex = windowsWorkflow.indexOf("gh release upload $env:RELEASE_TAG");
 

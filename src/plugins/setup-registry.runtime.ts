@@ -1,6 +1,6 @@
 /** Metadata lookup helpers for plugin setup CLI backend descriptors. */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isInstalledPluginEnabled } from "./installed-plugin-index.js";
 import { resolvePluginMetadataSnapshot } from "./plugin-metadata-snapshot.js";
 import { getActivePluginRegistryWorkspaceDirFromState } from "./runtime-state.js";
@@ -14,7 +14,7 @@ type SetupCliBackendDescriptorEntry = {
 
 type SetupCliBackendDescriptorLookupParams = {
   backend: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
 };

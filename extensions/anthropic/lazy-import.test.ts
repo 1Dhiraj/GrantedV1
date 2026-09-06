@@ -1,6 +1,6 @@
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
   ProviderPlugin,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
@@ -43,8 +43,8 @@ describe("anthropic session catalog lazy imports", () => {
 
     const { default: anthropicPlugin } = await import("./index.js");
     const catalogs: SessionCatalogProvider[] = [];
-    const nodeCommands: OpenClawPluginNodeHostCommand[] = [];
-    const nodePolicies: OpenClawPluginNodeInvokePolicy[] = [];
+    const nodeCommands: GrantedPluginNodeHostCommand[] = [];
+    const nodePolicies: GrantedPluginNodeInvokePolicy[] = [];
     anthropicPlugin.register(
       createTestPluginApi({
         id: "anthropic",

@@ -30,7 +30,7 @@ import {
 import { materializeLegacyDefaultAgentRoles } from "./legacy.default-agent-roles.js";
 import { migratePersistedImplicitMainRoster } from "./legacy.roster.js";
 import { materializeRuntimeConfig } from "./materialize.js";
-import type { ConfigValidationIssue, OpenClawConfig } from "./types.js";
+import type { ConfigValidationIssue, GrantedConfig } from "./types.js";
 import { resolveSecretInputRef } from "./types.secrets.js";
 import {
   bundledChannelIds,
@@ -51,7 +51,7 @@ export { validateConfigObject, validateConfigObjectRaw } from "./validation-core
 export { collectUnsupportedSecretRefPolicyIssues } from "./validation-issues.js";
 
 type ValidateConfigWithPluginsResult =
-  | { ok: true; config: OpenClawConfig; warnings: ConfigValidationIssue[] }
+  | { ok: true; config: GrantedConfig; warnings: ConfigValidationIssue[] }
   | { ok: false; issues: ConfigValidationIssue[]; warnings: ConfigValidationIssue[] };
 
 type ValidateConfigWithPluginsParams = {
@@ -61,7 +61,7 @@ type ValidateConfigWithPluginsParams = {
   semanticValidation?: "runtime" | "strict";
   pluginMetadataSnapshot?: Pick<PluginMetadataSnapshot, "manifestRegistry">;
   loadPluginMetadataSnapshot?: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
   ) => Pick<PluginMetadataSnapshot, "manifestRegistry">;
   sourceRaw?: unknown;
   preservedLegacyRootKeys?: readonly string[];
@@ -80,7 +80,7 @@ type RegistryInfo = {
 };
 
 function collectSecretRefProviderSourceIssues(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   manifestRegistry: PluginManifestRegistry;
 }): ConfigValidationIssue[] {
@@ -138,7 +138,7 @@ function validateConfigObjectWithPluginMode(
   const contextBudgetConfig = migrateLegacyContextBudgetConfig(raw).config;
   const migrated = migratePersistedImplicitMainRoster(contextBudgetConfig, {
     env: params?.env,
-  }).config as OpenClawConfig;
+  }).config as GrantedConfig;
   let manifestRegistry = params?.pluginMetadataSnapshot?.manifestRegistry;
   const result = validateConfigObjectWithPluginsBase(migrated, {
     applyDefaults,
@@ -171,7 +171,7 @@ function validateConfigObjectWithPluginMode(
 }
 
 export function materializeLegacyAgentOwnershipForActiveChannelsResult(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   legacyDefaultAgentId: string,
   env?: NodeJS.ProcessEnv,
   manifestRecords?: PluginManifestRegistry["plugins"],
@@ -214,7 +214,7 @@ function validateConfigObjectWithPluginsBase(
   }
   // Zod returns a fresh object. Preserve the migration-only owner before
   // workspace-scoped plugin discovery, or legacy-root plugins disappear here.
-  const parsedConfig = inheritLegacyDefaultAgentId(raw as OpenClawConfig, base.config);
+  const parsedConfig = inheritLegacyDefaultAgentId(raw as GrantedConfig, base.config);
 
   const rememberRegistry = (registry: PluginManifestRegistry): RegistryInfo => {
     opts.onManifestRegistryResolved?.(registry);

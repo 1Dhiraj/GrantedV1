@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withSecureTestNodeCommand } from "../secrets/test-node-command.test-support.js";
 import type { SkillStatusEntry } from "../skills/discovery/status.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -146,7 +146,7 @@ describe("CORE_HEALTH_CHECKS", () => {
     clearHealthChecksForTest();
     mocks.loadModelCatalog.mockClear();
     mocks.loadModelCatalog.mockResolvedValue([]);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       hooks: {
         gmail: {
           model: "openai/gpt-5.5",
@@ -455,7 +455,7 @@ describe("CORE_HEALTH_CHECKS", () => {
   it("converts unavailable skills into repair-capable health findings", async () => {
     const unavailableSkill = createSkill();
     const detectUnavailableSkills = vi.fn(async () => [unavailableSkill]);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           workspace: "/tmp/openclaw-test-workspace",
@@ -612,7 +612,7 @@ describe("CORE_HEALTH_CHECKS", () => {
             params: { temperature: 0.7 },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
     expect(findings.map((finding) => finding.message)).toEqual(
       expect.arrayContaining([
@@ -632,7 +632,7 @@ describe("CORE_HEALTH_CHECKS", () => {
   });
 
   it("uses the read-only model catalog for hooks.gmail.model checks", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       hooks: {
         gmail: {
           model: "openai/gpt-5.5",

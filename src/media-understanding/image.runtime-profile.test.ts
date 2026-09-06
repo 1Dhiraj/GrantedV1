@@ -2,7 +2,7 @@
 // provider payload transforms, and MiniMax/Copilot special paths.
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   looksLikeSecretSentinel,
   mintSecretSentinel,
@@ -791,8 +791,8 @@ describe("describeImageWithModelCore", () => {
   });
 
   it("uses one committed prepared generation for image setup and streaming", async () => {
-    const requestedCfg: OpenClawConfig = { logging: { level: "info" } };
-    const committedCfg: OpenClawConfig = { logging: { level: "debug" } };
+    const requestedCfg: GrantedConfig = { logging: { level: "info" } };
+    const committedCfg: GrantedConfig = { logging: { level: "debug" } };
     acquireAgentRunPreparedModelRuntimeMock.mockResolvedValueOnce({
       snapshot: {
         agentDir: "/tmp/committed-agent",
@@ -852,7 +852,7 @@ describe("describeImageWithModelCore", () => {
   });
 
   it("reuses a parent run generation without acquiring another image lease", async () => {
-    const cfg: OpenClawConfig = { logging: { level: "info" } };
+    const cfg: GrantedConfig = { logging: { level: "info" } };
     discoverModelsMock.mockReturnValue({
       find: vi.fn(() => ({
         provider: "google",

@@ -1,5 +1,5 @@
 // Whatsapp tests cover ack reaction plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createTestWebInboundMessage } from "../../inbound/test-message.test-helper.js";
 import type { AdmittedWebInboundMessage } from "../../inbound/types.js";
@@ -23,7 +23,7 @@ vi.mock("./group-activation.js", () => ({
 type TestMsgOverrides = NonNullable<Parameters<typeof createTestWebInboundMessage>[0]>;
 
 type AckReactionConfig = NonNullable<
-  NonNullable<NonNullable<OpenClawConfig["channels"]>["whatsapp"]>["ackReaction"]
+  NonNullable<NonNullable<GrantedConfig["channels"]>["whatsapp"]>["ackReaction"]
 >;
 
 function createMessage(overrides: TestMsgOverrides = {}): AdmittedWebInboundMessage {
@@ -50,8 +50,8 @@ function createMessage(overrides: TestMsgOverrides = {}): AdmittedWebInboundMess
 
 function createConfig(
   reactionLevel: "off" | "ack" | "minimal" | "extensive",
-  extras?: Partial<NonNullable<OpenClawConfig["channels"]>["whatsapp"]>,
-): OpenClawConfig {
+  extras?: Partial<NonNullable<GrantedConfig["channels"]>["whatsapp"]>,
+): GrantedConfig {
   return {
     messages: { ackReaction: "👀", ackReactionScope: "all" },
     channels: {
@@ -60,10 +60,10 @@ function createConfig(
         ...extras,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function createAckEmojiConfig(ackReaction?: AckReactionConfig): OpenClawConfig {
+function createAckEmojiConfig(ackReaction?: AckReactionConfig): GrantedConfig {
   const cfg = {
     agents: {
       list: [{ id: "agent", identity: { emoji: "🔥" } }],
@@ -71,14 +71,14 @@ function createAckEmojiConfig(ackReaction?: AckReactionConfig): OpenClawConfig {
     channels: {
       whatsapp: {},
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   if (ackReaction !== undefined) {
     cfg.channels!.whatsapp!.ackReaction = ackReaction;
   }
   return cfg;
 }
 
-function resolveAckEmoji(cfg: OpenClawConfig, agentId = "agent") {
+function resolveAckEmoji(cfg: GrantedConfig, agentId = "agent") {
   return resolveWhatsAppAckEmoji({
     cfg,
     agentId,
@@ -93,7 +93,7 @@ function createStatusConfig(
     reactionLevel?: "off" | "ack";
     workReactionLevel?: "off" | "ack";
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   return {
     ...(overrides.agentEmoji
       ? { agents: { entries: { agent: { identity: { emoji: overrides.agentEmoji } } } } }
@@ -111,7 +111,7 @@ function createStatusConfig(
           : {}),
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 type AckReactionParams = Parameters<typeof maybeSendAckReaction>[0];
@@ -128,7 +128,7 @@ const runAckReaction = (overrides: Partial<AckReactionParams> = {}) =>
     ...overrides,
   });
 
-const expectAckReactionSent = (accountId: string, cfg: OpenClawConfig = createConfig("ack")) => {
+const expectAckReactionSent = (accountId: string, cfg: GrantedConfig = createConfig("ack")) => {
   expect(hoisted.sendReactionWhatsApp).toHaveBeenCalledWith(
     "15551234567@s.whatsapp.net",
     "msg-1",
@@ -169,14 +169,14 @@ describe("resolveWhatsAppAckEmoji", () => {
       cfg: {
         agents: { list: [{ id: "Agent", identity: { emoji: "🔥" } }] },
         channels: { whatsapp: { ackReaction: { direct: true, group: "mentions" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       expected: "🔥",
     },
     {
       name: "uses the default ack emoji when configured without an emoji or agent identity",
       cfg: {
         channels: { whatsapp: { ackReaction: { direct: true, group: "mentions" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       expected: "👀",
     },
   ])("$name", ({ cfg, expected }) => {
@@ -304,7 +304,7 @@ describe("maybeSendAckReaction", () => {
           reactionLevel: "ack",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const ackReaction = await runAckReaction({ cfg });
 

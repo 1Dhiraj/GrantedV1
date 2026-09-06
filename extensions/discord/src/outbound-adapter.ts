@@ -8,7 +8,7 @@ import {
   type ChannelOutboundAdapter,
   createAttachedChannelResultAdapter,
 } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import { questionGatewayRuntime } from "openclaw/plugin-sdk/question-gateway-runtime";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
@@ -68,7 +68,7 @@ function resolveDiscordWebhookIdentity(params: {
 }
 
 async function maybeSendDiscordWebhookText(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   text: string;
   threadId?: string | number | null;
   accountId?: string | null;

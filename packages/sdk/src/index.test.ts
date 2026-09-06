@@ -4,8 +4,8 @@ import { EventHub, OpenClaw, normalizeGatewayEvent } from "./index.js";
 import type {
   GatewayEvent,
   GatewayRequestOptions,
-  OpenClawEvent,
-  OpenClawTransport,
+  GrantedEvent,
+  GrantedTransport,
 } from "./types.js";
 
 type RequestCall = {
@@ -22,7 +22,7 @@ type FakeResponseHandler = (
 ) => Promise<FakeResponseValue> | FakeResponseValue;
 type FakeResponse = FakeResponseValue | FakeResponseHandler;
 
-class FakeTransport implements OpenClawTransport {
+class FakeTransport implements GrantedTransport {
   readonly calls: RequestCall[] = [];
   private readonly eventHub = new EventHub<GatewayEvent>({ replayLimit: 100 });
 
@@ -99,7 +99,7 @@ class ClosingEventPumpTransport extends FakeTransport {
   }
 }
 
-class EventsOnlyTransport implements OpenClawTransport {
+class EventsOnlyTransport implements GrantedTransport {
   constructor(private readonly eventSource: AsyncIterable<GatewayEvent>) {}
 
   async request<T = unknown>(): Promise<T> {
@@ -874,7 +874,7 @@ describe("OpenClaw SDK", () => {
     });
     const oc = new OpenClaw({ transport });
     const iterator = oc.events()[Symbol.asyncIterator]();
-    let futureIterator: AsyncIterator<OpenClawEvent> | undefined;
+    let futureIterator: AsyncIterator<GrantedEvent> | undefined;
 
     try {
       await expect(iterator.next()).rejects.toThrow("synthetic transport event failure");
@@ -902,7 +902,7 @@ describe("OpenClaw SDK", () => {
     const oc = new OpenClaw({ transport });
     const run = await oc.runs.get("run_pump_failure");
     const iterator = run.events()[Symbol.asyncIterator]();
-    let futureIterator: AsyncIterator<OpenClawEvent> | undefined;
+    let futureIterator: AsyncIterator<GrantedEvent> | undefined;
 
     try {
       const first = await iterator.next();
@@ -949,7 +949,7 @@ describe("OpenClaw SDK", () => {
       idempotencyKey: "chat-projection-events",
       sessionKey: "chat-projection",
     });
-    const seen: OpenClawEvent[] = [];
+    const seen: GrantedEvent[] = [];
 
     for await (const event of run.events()) {
       seen.push(event);
@@ -1078,7 +1078,7 @@ describe("OpenClaw SDK", () => {
     const { transport, oc } = createClientFixture();
     const runId = "run_chat_delta_text_replay";
     let text = "";
-    let iterator: AsyncIterator<OpenClawEvent> | undefined;
+    let iterator: AsyncIterator<GrantedEvent> | undefined;
 
     try {
       await oc.connect();

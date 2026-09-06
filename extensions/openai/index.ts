@@ -1,5 +1,5 @@
 // Openai plugin entrypoint registers its OpenClaw integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
@@ -29,7 +29,7 @@ export default definePluginEntry({
     const quicksilverSession =
       api.registrationMode === "full"
         ? acquireOpenAIQuicksilverBrowserSessionBroker({
-            getConfig: () => api.runtime.config.current() as OpenClawConfig,
+            getConfig: () => api.runtime.config.current() as GrantedConfig,
             logger: api.logger,
           })
         : undefined;

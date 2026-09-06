@@ -4,7 +4,7 @@ import {
   buildSessionCreationStamp,
   inheritSessionCreationPolicy,
 } from "../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayClient } from "./server-methods/types.js";
 import { createSessionListEntryFilter } from "./session-sharing.js";
 
@@ -64,7 +64,7 @@ it("lets configured agents win id-only owner facet collisions", async () => {
     const result = await listSessionsFromStoreAsync({
       cfg: {
         agents: { list: [{ id: "shared-id", identity: { name: "Shared agent" } }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       storePath: "/tmp/openclaw-session-owner-order",
       store,
       opts: { archived: "all" },
@@ -100,7 +100,7 @@ it("returns the complete deterministic owner facet independently of pagination",
   };
 
   const result = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owners",
     store,
     opts: { archived: "all", limit: 1 },
@@ -139,7 +139,7 @@ it("returns the complete deterministic owner facet independently of pagination",
   expect(getUserProfileDisplay).toHaveBeenCalledTimes(2);
 
   const filtered = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owners",
     store,
     opts: { archived: "all", ownerId: "profile-bob", limit: 1 },
@@ -165,7 +165,7 @@ it("prepends an owner window without advancing shared-page pagination", async ()
   };
 
   const result = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owner-first",
     store,
     opts: { archived: "all", limit: 1 },
@@ -230,7 +230,7 @@ it("projects only durable profiles and configured agents as effective owners", a
           { id: "research", identity: { name: "Research" } },
         ],
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     storePath: "/tmp/openclaw-session-owner-candidates",
     store,
     opts: { archived: "all" },
@@ -306,7 +306,7 @@ it("filters immutable creator and effective owner separately while preserving pr
     },
   } satisfies Record<string, SessionEntry>;
   const result = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owners",
     store,
     opts: { archived: "all" },
@@ -340,7 +340,7 @@ it("filters immutable creator and effective owner separately while preserving pr
     },
   ]);
   const creatorFiltered = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owners",
     store,
     opts: { archived: "all", creatorId: "profile-ada" },
@@ -356,7 +356,7 @@ it("filters immutable creator and effective owner separately while preserving pr
     },
   );
   const ownerFiltered = await listSessionsFromStoreAsync({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     storePath: "/tmp/openclaw-session-owners",
     store,
     opts: { archived: "all", ownerId: "profile-bob" },
@@ -477,7 +477,7 @@ it("deduplicates participants in order, excludes the owner, and filters sessions
       updatedAt: 1,
     },
   };
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { list: [{ id: "research", identity: { name: "Research" } }] },
   };
   const result = await listSessionsFromStoreAsync({
@@ -735,7 +735,7 @@ it("preserves list output across visibility, scope, owner, and search filters", 
     agents: {
       list: [{ id: "main", default: true }, { id: "work" }],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const store: Record<string, SessionEntry> = {
     global: {
       createdActor: { type: "human", source: "profile", id: "profile-bob" },
@@ -906,7 +906,7 @@ it("keeps the serialized list response deterministic for the current filter path
         defaults: { model: { primary: "openai/gpt-5.4" } },
         list: [{ id: "main", default: true, model: { primary: "openai/gpt-5.4" } }],
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     opts: { archived: "all", includeGlobal: true, search: "needle" },
     store: {
       global: {

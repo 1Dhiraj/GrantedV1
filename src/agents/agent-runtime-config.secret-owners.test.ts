@@ -14,7 +14,7 @@ import {
   getRuntimeConfigSnapshotMetadata,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ModelsConfigSchema } from "../config/zod-schema.core.js";
 import { getPath, setPathCreateStrict } from "../secrets/path-utils.js";
 import * as secretResolver from "../secrets/resolve.js";
@@ -33,7 +33,7 @@ import {
 } from "../secrets/runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resolveAgentRuntimeConfig } from "./agent-runtime-config.js";
 import { resolveApiKeyForProviderCore } from "./model-auth-provider.js";
@@ -42,9 +42,9 @@ const { callGatewayMock } = vi.hoisted(() => ({ callGatewayMock: vi.fn() }));
 vi.mock("../gateway/call.js", () => ({ callGateway: callGatewayMock }));
 
 const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
-function providerConfig(): OpenClawConfig {
+function providerConfig(): GrantedConfig {
   return {
     plugins: { enabled: false },
     models: {
@@ -114,7 +114,7 @@ afterEach(async () => {
 
 describe("agent execution respects prepared secret owners", () => {
   it("reuses active config without copying source or reload-only plugin metadata", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       agents: { defaults: { workspace: "/fixture/workspace" } },
     };
@@ -491,7 +491,7 @@ describe("agent execution respects prepared secret owners", () => {
   ] as const)(
     "resolves a persona-only %s SecretRef for local %s commands",
     async (scope, command) => {
-      const config: OpenClawConfig = { plugins: { enabled: false } };
+      const config: GrantedConfig = { plugins: { enabled: false } };
       const keyPath = [
         ...(scope === "agent" ? ["agents", "entries", "reader", "tts"] : ["tts"]),
         "personas",

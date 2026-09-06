@@ -1,6 +1,6 @@
 // Memory Core tests cover manager.mistral provider plugin behavior.
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ResolvedMemorySearchConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { describe, expect, it, vi } from "vitest";
@@ -188,7 +188,7 @@ describe("memory manager mistral provider wiring", () => {
 
       const fallbackRequest = expectMemoryFallbackRequest(
         resolveMemoryFallbackProviderRequest({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           settings,
           currentProviderId: "openai",
         }),
@@ -242,7 +242,7 @@ describe("memory manager mistral provider wiring", () => {
   it("does not activate a fallback that is already the current provider", () => {
     expect(
       resolveMemoryFallbackProviderRequest({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         settings: createSettings({ provider: "openai", fallback: "lmstudio" }),
         currentProviderId: "lmstudio",
       }),

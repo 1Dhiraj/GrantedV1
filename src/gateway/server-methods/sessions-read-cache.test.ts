@@ -15,7 +15,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
 import { waitForSessionTranscriptIndexReconcile } from "../../config/sessions/session-transcript-reconcile.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetAgentEventsForTest } from "../../infra/agent-events.js";
 import { clearAgentRunContext, registerAgentRunContext } from "../../infra/agent-run-registry.js";
 import {
@@ -76,8 +76,8 @@ vi.mock("../session-utils.js", async (importOriginal) => {
 const { emitSessionsChanged } = await import("./session-change-event.js");
 const { emitSessionTranscriptUpdate } = await import("../../sessions/transcript-events.js");
 
-async function seedSessions(): Promise<OpenClawConfig> {
-  const config: OpenClawConfig = {
+async function seedSessions(): Promise<GrantedConfig> {
+  const config: GrantedConfig = {
     agents: { list: [{ id: "main", default: true }, { id: "work" }] },
   };
   for (const [agentId, name, updatedAt, owner, overrides] of [
@@ -896,7 +896,7 @@ describe("sessions.list single-flight", () => {
     "keeps administrator %s projections scoped to their authenticated profiles",
     async (projection) => {
       await withOpenClawTestState({ scenario: "minimal" }, async () => {
-        const config: OpenClawConfig = { agents: { list: [{ id: "main", default: true }] } };
+        const config: GrantedConfig = { agents: { list: [{ id: "main", default: true }] } };
         const context = requestContext(config);
         const clients = ["ada@example.com", "bob@example.com"].map((email) => {
           const client = identifiedClient(ensureProfileForEmail(email).id);

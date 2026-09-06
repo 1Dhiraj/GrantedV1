@@ -5,7 +5,7 @@ import {
   formatAudioTranscripts,
   formatMediaUnderstandingBody,
 } from "../../packages/media-understanding-common/src/format.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { runCapability } from "./runner.js";
@@ -74,7 +74,7 @@ describe("runCapability video provider wiring", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         ctx,
         attachments: cache,
         media,
@@ -135,7 +135,7 @@ describe("runCapability video provider wiring", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "video",
@@ -201,7 +201,7 @@ describe("runCapability video provider wiring", () => {
                   },
                 },
               },
-            } as unknown as OpenClawConfig;
+            } as unknown as GrantedConfig;
 
             const result = await runCapability({
               capability: "video",
@@ -263,7 +263,7 @@ describe("runCapability video provider wiring", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "video",
@@ -322,7 +322,7 @@ describe("runCapability video provider wiring", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig;
+          } as unknown as GrantedConfig;
 
           const result = await runCapability({
             capability: "video",
@@ -376,7 +376,7 @@ describe("runCapability video provider wiring", () => {
               models: [{ provider: "moonshot", capabilities: ["video"] }],
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "video",
@@ -435,7 +435,7 @@ describe("runCapability video provider wiring", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const result = await runCapability({
           capability: "video",
@@ -533,7 +533,7 @@ describe("runCapability provider output decisions", () => {
             [capability]: { enabled: true },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       const result = await runCapability({
         capability,

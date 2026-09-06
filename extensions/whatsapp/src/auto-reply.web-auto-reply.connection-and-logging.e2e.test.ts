@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { escapeRegExp, formatEnvelopeTimestamp } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
 import { getChildLogger, setLoggerOverride } from "openclaw/plugin-sdk/runtime-env";
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -843,7 +843,7 @@ describe("web auto-reply connection", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     await monitorWebChannel(
       false,
       capture.listenerFactory as never,
@@ -878,7 +878,7 @@ describe("web auto-reply connection", () => {
   });
 
   it("builds separate timestamped inbound envelopes without batching", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const buildLine = (body: string, id: string, timestamp: number) =>
       buildInboundLine({
         cfg,

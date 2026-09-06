@@ -2,7 +2,7 @@
  * Signal reactions via signal-cli JSON-RPC API
  */
 
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { resolveSignalAccount } from "./accounts.js";
 import { signalRpcRequest, type SignalTransportKind } from "./client-adapter.js";
@@ -10,7 +10,7 @@ import { normalizeSignalReactionRecipient } from "./normalize.js";
 import { resolveSignalRpcContext } from "./rpc-context.js";
 
 export type SignalReactionOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   baseUrl?: string;
   transportKind?: SignalTransportKind;
   account?: string;

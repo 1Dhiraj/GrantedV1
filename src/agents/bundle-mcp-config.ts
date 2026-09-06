@@ -5,7 +5,7 @@
 import fs from "node:fs";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
 import type { SessionToolOverrides } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   loadEnabledBundleMcpConfig,
@@ -81,7 +81,7 @@ export function toCliBundleMcpServerConfig(server: BundleMcpServerConfig): Bundl
 /** Loads enabled bundled MCP servers and overlays user config by server name. */
 export function loadMergedBundleMcpConfig(params: {
   workspaceDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
   mapConfiguredServer?: BundleMcpServerMapper;
   toolOverrides?: Pick<SessionToolOverrides, "mcpServers">;

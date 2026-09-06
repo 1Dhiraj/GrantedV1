@@ -79,7 +79,7 @@ import { applyMergePatch, createMergePatch } from "./merge-patch.js";
 import { assertConfigWriteAllowedInCurrentMode } from "./nix-mode-write-guard.js";
 import { resolveIncludeRoots } from "./paths.js";
 import { preflightRuntimeSnapshotWrite } from "./runtime-snapshot.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 import { validateConfigObjectRawWithPlugins } from "./validation.js";
 
 function hasOwnIncludeDirective(value: unknown): value is Record<string, unknown> {
@@ -97,7 +97,7 @@ function hasIncludedGatewayModeOwner(value: unknown): boolean {
 
 export async function writeConfigFileFromContext(
   context: ConfigIoContext,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: ConfigWriteOptions,
   readSnapshot: () => Promise<ReadConfigFileSnapshotInternalResult>,
 ): Promise<InternalConfigWriteResult> {
@@ -204,12 +204,12 @@ export async function writeConfigFileFromContext(
     }
   }
 
-  persistCandidate = applyUnsetPathsForWrite(persistCandidate as OpenClawConfig, unsetPaths);
+  persistCandidate = applyUnsetPathsForWrite(persistCandidate as GrantedConfig, unsetPaths);
   const envForRestore = options.envSnapshotForRestore ?? deps.env;
   const resolveValidationCandidate = (candidate: unknown) =>
     containsConfigIncludeDirective(candidate)
       ? context.resolveRuntimePreflightSourceConfig(
-          restoreEnvVarRefs(candidate, snapshot.parsed, envForRestore) as OpenClawConfig,
+          restoreEnvVarRefs(candidate, snapshot.parsed, envForRestore) as GrantedConfig,
         )
       : candidate;
   const validationCandidate = resolveValidationCandidate(persistCandidate);
@@ -229,7 +229,7 @@ export async function writeConfigFileFromContext(
   validateCandidate(validationCandidate);
   const materialized = stampConfigVersion(
     // SAFETY: the original resolved input was just validated; retain raw values, not parser defaults.
-    validationCandidate as OpenClawConfig,
+    validationCandidate as GrantedConfig,
     options.lastTouchedVersionOverride,
     snapshot.exists ? (snapshot.sourceConfigBeforeMigrations ?? snapshot.sourceConfig) : null,
   );
@@ -246,14 +246,14 @@ export async function writeConfigFileFromContext(
     homedir: deps.homedir,
   });
 
-  let cfgToWrite = persistCandidate as OpenClawConfig;
+  let cfgToWrite = persistCandidate as GrantedConfig;
   try {
     if (deps.fs.existsSync(configPath)) {
       const currentRaw = await deps.fs.promises.readFile(configPath, "utf-8");
       const parsed = parseConfigJson5(currentRaw, deps.json5);
       if (parsed.ok) {
         const beforeIdentityRestore = cfgToWrite;
-        cfgToWrite = restoreEnvVarRefs(cfgToWrite, parsed.parsed, envForRestore) as OpenClawConfig;
+        cfgToWrite = restoreEnvVarRefs(cfgToWrite, parsed.parsed, envForRestore) as GrantedConfig;
         collectChangedPaths(beforeIdentityRestore, cfgToWrite, "", identityRestoredPaths);
       }
     }
@@ -278,14 +278,14 @@ export async function writeConfigFileFromContext(
         envRefMap,
         changedPaths,
         identityRestoredPaths,
-      ) as OpenClawConfig)
+      ) as GrantedConfig)
     : cfgToWrite;
   const tildeRestoredOutputConfig = restoreAuthoredTildePathsForWrite(
     outputConfigBase,
     snapshot.parsed,
     undefined,
     deps.homedir(),
-  ) as OpenClawConfig;
+  ) as GrantedConfig;
   const outputConfig = applyUnsetPathsForWrite(tildeRestoredOutputConfig, unsetPaths);
   const stampedOutputConfig = stampConfigVersion(outputConfig, options.lastTouchedVersionOverride);
   rejectConfigNonFiniteNumbers(stampedOutputConfig);
@@ -426,7 +426,7 @@ export async function writeConfigFileFromContext(
 
   const preCommitRuntimePreflight =
     options.preCommitRuntimePreflight ??
-    (async (sourceConfig: OpenClawConfig) => {
+    (async (sourceConfig: GrantedConfig) => {
       await preflightRuntimeSnapshotWrite({
         nextSourceConfig: sourceConfig,
         refreshOptions: options.runtimeRefresh,

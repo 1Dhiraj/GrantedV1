@@ -1,6 +1,6 @@
 // Covers hook routing security audit findings.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { collectHooksHardeningFindings } from "./audit-extra.sync.js";
 import { runSecurityAuditCore } from "./audit.js";
 
@@ -22,17 +22,17 @@ describe("security audit hooks ingress findings", () => {
       enabled: true,
       token: "shared-gateway-token-1234567890",
       defaultSessionKey: "hook:ingress",
-    } satisfies NonNullable<OpenClawConfig["hooks"]>;
+    } satisfies NonNullable<GrantedConfig["hooks"]>;
     const requestSessionKeyHooks = {
       ...unrestrictedBaseHooks,
       allowRequestSessionKey: true,
-    } satisfies NonNullable<OpenClawConfig["hooks"]>;
+    } satisfies NonNullable<GrantedConfig["hooks"]>;
     const cases = [
       {
         name: "warns when hooks token looks short",
         cfg: {
           hooks: { enabled: true, token: "short" },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedFinding: "hooks.token_too_short",
         expectedSeverity: "warn" as const,
       },
@@ -40,7 +40,7 @@ describe("security audit hooks ingress findings", () => {
         name: "flags hooks token reuse of the gateway env token as critical",
         cfg: {
           hooks: { enabled: true, token: "shared-gateway-token-1234567890" },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         env: {
           GRANTED_GATEWAY_TOKEN: "shared-gateway-token-1234567890",
         } as NodeJS.ProcessEnv,
@@ -51,7 +51,7 @@ describe("security audit hooks ingress findings", () => {
         name: "warns when hooks.defaultSessionKey is unset",
         cfg: {
           hooks: { enabled: true, token: "shared-gateway-token-1234567890" },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedFinding: "hooks.default_session_key_unset",
         expectedSeverity: "warn" as const,
       },
@@ -64,25 +64,25 @@ describe("security audit hooks ingress findings", () => {
             defaultSessionKey: "hook:ingress",
             allowedAgentIds: ["*"],
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedFinding: "hooks.allowed_agent_ids_unrestricted",
         expectedSeverity: "warn" as const,
       },
       {
         name: "scores unrestricted hooks.allowedAgentIds by local exposure",
-        cfg: { hooks: unrestrictedBaseHooks } satisfies OpenClawConfig,
+        cfg: { hooks: unrestrictedBaseHooks } satisfies GrantedConfig,
         expectedFinding: "hooks.allowed_agent_ids_unrestricted",
         expectedSeverity: "warn" as const,
       },
       {
         name: "scores unrestricted hooks.allowedAgentIds by remote exposure",
-        cfg: { gateway: { bind: "lan" }, hooks: unrestrictedBaseHooks } satisfies OpenClawConfig,
+        cfg: { gateway: { bind: "lan" }, hooks: unrestrictedBaseHooks } satisfies GrantedConfig,
         expectedFinding: "hooks.allowed_agent_ids_unrestricted",
         expectedSeverity: "critical" as const,
       },
       {
         name: "scores hooks request sessionKey override by local exposure",
-        cfg: { hooks: requestSessionKeyHooks } satisfies OpenClawConfig,
+        cfg: { hooks: requestSessionKeyHooks } satisfies GrantedConfig,
         expectedFinding: "hooks.request_session_key_enabled",
         expectedSeverity: "warn" as const,
         expectedExtraFinding: {
@@ -95,7 +95,7 @@ describe("security audit hooks ingress findings", () => {
         cfg: {
           gateway: { bind: "lan" },
           hooks: requestSessionKeyHooks,
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedFinding: "hooks.request_session_key_enabled",
         expectedSeverity: "critical" as const,
       },

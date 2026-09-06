@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   QA_EVIDENCE_FILENAME,
@@ -164,7 +164,7 @@ module.exports = {
   return { pluginDir, realtimeCallsPath, speechCallsPath };
 }
 
-function withFixturePlugin(config: OpenClawConfig, pluginDir: string): OpenClawConfig {
+function withFixturePlugin(config: GrantedConfig, pluginDir: string): GrantedConfig {
   return {
     ...config,
     plugins: {

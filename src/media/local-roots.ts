@@ -8,7 +8,7 @@ import {
   resolveEffectiveToolFsWorkspaceOnly,
 } from "../agents/tool-fs-policy.js";
 import { resolveDeliveryQueueMediaDir, resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import { resolveConfigDir } from "../utils.js";
 import { resolveLocalMediaPath } from "./local-media-path.js";
@@ -60,7 +60,7 @@ export function getDefaultMediaLocalRoots(): readonly string[] {
 
 /** Adds the active agent workspace to the default media roots without exposing all agent state. */
 export function getAgentScopedMediaLocalRoots(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
 ): readonly string[] {
   const roots = buildMediaLocalRoots(resolveStateDir(), resolveConfigDir());
@@ -104,7 +104,7 @@ export function appendLocalMediaParentRoots(
 
 /** Resolves outbound media roots, expanding for local sources only when filesystem policy allows it. */
 export function getAgentScopedMediaLocalRootsForSources(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   mediaSources?: readonly string[];
 }): readonly string[] {

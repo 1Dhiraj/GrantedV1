@@ -3,7 +3,7 @@ import { ensureColumn, tableHasColumn } from "./openclaw-state-db-schema-helpers
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 
 // Canonical additive schema for durable user profiles. Kept feature-local so
@@ -76,7 +76,7 @@ const ensuredDatabases = new WeakSet<DatabaseSync>();
 const roleEnsuredDatabases = new WeakSet<DatabaseSync>();
 
 export function ensureUserProfilesSchema(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   database = openOpenClawStateDatabase(options),
 ): void {
   if (ensuredDatabases.has(database.db)) {
@@ -100,7 +100,7 @@ export function ensureUserProfilesSchema(
 }
 
 export function ensureUserProfileRoleSchema(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   database = openOpenClawStateDatabase(options),
 ): void {
   if (roleEnsuredDatabases.has(database.db)) {

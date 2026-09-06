@@ -6,7 +6,7 @@ import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { resolveEnvelopeFormatOptions } from "../../auto-reply/envelope.js";
 import { buildInboundUserContextPrefix } from "../../auto-reply/reply/inbound-meta.js";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sanitizeAssistantVisibleTextWithProfile } from "../../shared/text/assistant-visible-text.js";
 import { resolveAssistantIdentity } from "../assistant-identity.js";
 import { projectChatDisplayMessage } from "../chat-display-projection.js";
@@ -25,7 +25,7 @@ export type ChatSendReplyContextFields = Partial<
 
 type ChatSendReplyContextParams = {
   replyToId: string | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   sessionEntry?: SessionTranscriptReadScope["sessionEntry"];
@@ -37,7 +37,7 @@ type ChatSendReplyContextParams = {
 /** Adds hydrated reply metadata to the direct-injection user prompt. */
 export function buildChatSendReplyInjectionText(params: {
   body: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: MsgContext;
   sessionEntry?: Parameters<typeof buildInboundUserContextPrefix>[2];
 }): string {
@@ -74,7 +74,7 @@ function extractReplyTargetText(message: unknown): string | undefined {
 
 function resolveReplyTargetSenderLabel(params: {
   message: unknown;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   userSenderLabel?: string;
 }): string {

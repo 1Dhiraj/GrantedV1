@@ -3,7 +3,7 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import type { ChannelDirectoryEntry } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
 type TargetResolverModule = typeof import("./target-resolver.js");
 
@@ -88,7 +88,7 @@ function firstMockArg(
 }
 
 describe("resolveMessagingTarget (directory fallback)", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   beforeEach(() => {
     resetDirectoryCache();
@@ -690,7 +690,7 @@ describe("resolveMessagingTarget (directory fallback)", () => {
 });
 
 describe("resolveMessagingTarget (registry-scoped channel plugins)", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
   const scopedPlugin = {
     id: "zephyrchat",
     meta: { label: "ZephyrChat" },

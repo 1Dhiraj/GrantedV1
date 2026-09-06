@@ -8,7 +8,7 @@ import {
 // Qa Channel plugin module implements inbound behavior.
 import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
 import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-local-roots";
 import { saveMediaBuffer, saveMediaSource } from "openclaw/plugin-sdk/media-store";
@@ -304,7 +304,7 @@ export async function handleQaInbound(params: {
   });
   const toolCalls: QaBusToolCall[] = [];
   const { route, buildEnvelope } = resolveChannelInboundRouteEnvelope({
-    cfg: params.config as OpenClawConfig,
+    cfg: params.config as GrantedConfig,
     channel: params.channelId,
     accountId: params.account.accountId,
     peer: {
@@ -323,13 +323,13 @@ export async function handleQaInbound(params: {
     inbound,
     target,
     toolCalls,
-    mediaLocalRoots: getAgentScopedMediaLocalRoots(params.config as OpenClawConfig, route.agentId),
+    mediaLocalRoots: getAgentScopedMediaLocalRoots(params.config as GrantedConfig, route.agentId),
   });
   const isGroup = inbound.conversation.kind !== "direct";
   const wasMentioned = isGroup
     ? channelRuntime.mentions.matchesMentionPatterns(
         inbound.text,
-        channelRuntime.mentions.buildMentionRegexes(params.config as OpenClawConfig, route.agentId),
+        channelRuntime.mentions.buildMentionRegexes(params.config as GrantedConfig, route.agentId),
       )
     : undefined;
   const groupConfig = isGroup
@@ -459,7 +459,7 @@ export async function handleQaInbound(params: {
   });
 
   await channelRuntime.inbound.dispatch({
-    cfg: params.config as OpenClawConfig,
+    cfg: params.config as GrantedConfig,
     channel: params.channelId,
     accountId: params.account.accountId,
     route: { agentId: route.agentId, dmScope: route.dmScope, sessionKey: route.sessionKey },

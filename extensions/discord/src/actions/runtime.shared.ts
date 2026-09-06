@@ -5,7 +5,7 @@ import {
   readPositiveIntegerParam,
   readStringParam,
 } from "openclaw/plugin-sdk/channel-actions";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { asBoolean } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type {
   DiscordChannelCreate,
@@ -49,10 +49,10 @@ export function readDiscordAutoArchiveDurationParam(
 export function createDiscordActionOptions<
   T extends Record<string, unknown> = Record<string, never>,
 >(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   extra?: T;
-}): { cfg: OpenClawConfig; accountId?: string } & T {
+}): { cfg: GrantedConfig; accountId?: string } & T {
   return {
     cfg: params.cfg,
     ...(params.accountId ? { accountId: params.accountId } : {}),

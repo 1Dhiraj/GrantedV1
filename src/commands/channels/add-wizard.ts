@@ -9,7 +9,7 @@ import {
 import { getLoadedChannelPlugin } from "../../channels/plugins/index.js";
 import type { ChannelSetupPlugin } from "../../channels/plugins/setup-wizard-types.js";
 import { formatUnknownChannelMessage } from "../../cli/error-format.js";
-import { readConfigFileSnapshot, type OpenClawConfig } from "../../config/config.js";
+import { readConfigFileSnapshot, type GrantedConfig } from "../../config/config.js";
 import { commitConfigWithPendingPluginInstalls } from "../../plugins/install-record-commit.js";
 import { refreshPluginRegistryAfterConfigMutation } from "../../plugins/registry-refresh.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
@@ -32,7 +32,7 @@ function unresolvedInitialWizardChannelTarget(channel: string): InitialWizardCha
 /** Resolve omitted, matched, and unmatched channel targets without collapsing caller intent. */
 export async function resolveInitialWizardChannelTarget(
   raw: string | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   workspaceDir?: string,
 ): Promise<InitialWizardChannelTarget> {
   if (raw === undefined) {
@@ -66,7 +66,7 @@ export async function resolveInitialWizardChannelTarget(
 }
 
 type ChannelsAddWizardFlowParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   baseHash?: string;
   runtime: RuntimeEnv;
@@ -125,7 +125,7 @@ export async function runChannelsAddWizardFlow(params: ChannelsAddWizardFlowPara
       resolvedPlugins.set(channel, plugin);
     },
   });
-  const commitWizardConfig = async (config: OpenClawConfig) => {
+  const commitWizardConfig = async (config: GrantedConfig) => {
     return await channelSetup.commit(config, async (configToCommit) => {
       const committed = await commitConfigWithPendingPluginInstalls({
         nextConfig: configToCommit,
@@ -286,7 +286,7 @@ export async function runChannelsSetupWizard(
       "OpenClaw config is invalid; run `openclaw doctor --fix`, then retry channel setup.",
     );
   }
-  const cfg = (snapshot.sourceConfig ?? snapshot.config) as OpenClawConfig;
+  const cfg = (snapshot.sourceConfig ?? snapshot.config) as GrantedConfig;
   const target = await resolveInitialWizardChannelTarget(opts.channel, cfg);
   if (target.kind === "unresolved") {
     throw new Error(target.message);

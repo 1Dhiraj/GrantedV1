@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { EMPTY_LEGACY_SESSION_SURFACES } from "../plugins/legacy-session-surfaces.types.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import {
@@ -53,22 +53,22 @@ async function withStateFixture(
 const OPS_WORK_CONFIG = {
   session: { mainKey: "work" },
   agents: { list: [{ id: "ops", default: true }] },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function opsSessionStorePath(stateDir: string): string {
   return path.join(stateDir, "agents", "ops", "sessions", "sessions.json");
 }
 
-function sharedMainOpsConfig(sharedStorePath: string): OpenClawConfig {
+function sharedMainOpsConfig(sharedStorePath: string): GrantedConfig {
   return {
     session: { mainKey: "work", store: sharedStorePath },
     agents: { list: [{ id: "main" }, { id: "ops", default: true }] },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function migrateFixtureState(
   stateDir: string,
-  cfg: OpenClawConfig = OPS_WORK_CONFIG,
+  cfg: GrantedConfig = OPS_WORK_CONFIG,
   additionalAgentIds?: readonly string[],
 ) {
   return migrateOrphanedSessionKeys({
@@ -109,7 +109,7 @@ describe("migrateOrphanedSessionKeys", () => {
         "agent:main:voice:15550001111": { sessionId: "stale-canonical", updatedAt: 1_000 },
       });
 
-      await migrateFixtureState(stateDir, {} as OpenClawConfig);
+      await migrateFixtureState(stateDir, {} as GrantedConfig);
 
       const store = readStore(storePath);
       expect(requireStoreEntry(store, "agent:main:voice:15550001111").sessionId).toBe(
@@ -129,7 +129,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const result = await migrateFixtureState(stateDir, {
         session: { store: "" },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       const store = readStore(storePath);
       expect(requireStoreEntry(store, "agent:main:voice:15550001111").sessionId).toBe(
@@ -156,7 +156,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateOrphanedSessionKeys({
         cfg,
@@ -189,7 +189,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { store: configuredStorePath },
         agents: { list: [{ id: "ops", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const realStatSync = fs.statSync.bind(fs);
       const largeInodes = new Map([
         [configuredStorePath, 72057594037932382n],
@@ -264,7 +264,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -305,7 +305,7 @@ describe("migrateOrphanedSessionKeys", () => {
               "voice-call": { config: { agentId: "voice" } },
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const result = await migrateFixtureState(stateDir, cfg, ["voice"]);
 
@@ -337,7 +337,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg, ["voice"]);
 
@@ -363,7 +363,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg, ["voice"]);
 
@@ -397,7 +397,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg, ["voice"]);
       const rerun = await migrateFixtureState(stateDir, cfg, ["voice"]);
@@ -434,7 +434,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { store: configuredStorePath },
         agents: { list: [{ id: "ops", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const realStatSync = fs.statSync.bind(fs);
       const statSpy = vi.spyOn(fs, "statSync").mockImplementation((candidate) => {
         if (path.resolve(candidate.toString()) === configuredStorePath) {
@@ -485,7 +485,7 @@ describe("migrateOrphanedSessionKeys", () => {
             "voice-call": { config: { agentId: "voice" } },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg, ["voice"]);
 
@@ -513,7 +513,7 @@ describe("migrateOrphanedSessionKeys", () => {
       fs.mkdirSync(path.dirname(storePath), { recursive: true });
       fs.symlinkSync(outsideStorePath, storePath);
 
-      const result = await migrateFixtureState(stateDir, {} as OpenClawConfig);
+      const result = await migrateFixtureState(stateDir, {} as GrantedConfig);
 
       expect(result.changes).toHaveLength(0);
       expect(result.warnings).toEqual([
@@ -535,7 +535,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
       fs.mkdirSync(path.dirname(storePath), { recursive: true });
       fs.symlinkSync(outsideStorePath, storePath);
-      const cfg = { session: { scope: "global" } } as OpenClawConfig;
+      const cfg = { session: { scope: "global" } } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -561,7 +561,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { scope: "global", store: configuredStorePath },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -587,7 +587,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { mainKey: "work", store: storePath },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -735,7 +735,7 @@ describe("migrateOrphanedSessionKeys", () => {
         agents: {
           list: Array.from({ length: agentCount }, (_, index) => ({ id: `agent-${index}` })),
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const statSpy = vi.spyOn(fs, "statSync");
 
       try {
@@ -822,7 +822,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { scope: "global", mainKey: "work", store: sharedStorePath },
         agents: { list: [{ id: "main" }, { id: "ops", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -845,7 +845,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { mainKey: "work", store: sharedStorePath },
         agents: { list: [{ id: "ops", default: true }, { id: "research" }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -868,7 +868,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { mainKey: "work", store: sharedStorePath },
         agents: { list: [{ id: "ops", default: true }, { id: "research" }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -891,7 +891,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { mainKey: "work", store: sharedStorePath },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -954,7 +954,7 @@ describe("migrateOrphanedSessionKeys", () => {
           defaults: { sessionStore: { agentId: "ops" } },
           entries: { main: {}, ops: {} },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await migrateFixtureState(stateDir, cfg);
 
@@ -1018,7 +1018,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { store: sharedStorePath },
         agents: { list: [{ id: "main", default: true }, { id: "ops" }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const first = await migrateFixtureState(stateDir, cfg);
       const second = await migrateFixtureState(stateDir, cfg);
@@ -1045,7 +1045,7 @@ describe("migrateOrphanedSessionKeys", () => {
       const cfg = {
         session: { store: fixedStorePath },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const first = await migrateFixtureState(stateDir, cfg);
       const second = await migrateFixtureState(stateDir, cfg);
@@ -1091,7 +1091,7 @@ describe("migrateOrphanedSessionKeys", () => {
         "agent:main:main": { sessionId: "abc-123", updatedAt: 1000 },
       });
 
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
 
       const result = await migrateOrphanedSessionKeys({
         cfg,

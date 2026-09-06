@@ -14,7 +14,7 @@ import {
 } from "../../../config/sessions/session-accessor.js";
 import { buildSessionCreationStamp } from "../../../config/sessions/session-entry-provenance.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { resolveEventSessionRoutingPolicy } from "../../../infra/event-session-routing.js";
 import {
@@ -150,7 +150,7 @@ const ACP_SPAWN_SESSION_ACCEPTED_NOTE =
   "thread-bound ACP session stays active after this task; continue in-thread for follow-ups.";
 
 export function resolveAcpSpawnRuntimePolicyError(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requesterAgentId: string;
   requesterSessionKey?: string;
   requesterSandboxed?: boolean;

@@ -1,7 +1,7 @@
 // Twitch plugin module implements twitch client behavior.
 import { RefreshingAuthProvider, StaticAuthProvider } from "@twurple/auth";
 import { ChatClient, LogLevel } from "@twurple/chat";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
 import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
@@ -111,7 +111,7 @@ export class TwitchClientManager {
    */
   async getClient(
     account: TwitchAccountConfig,
-    cfg?: OpenClawConfig,
+    cfg?: GrantedConfig,
     accountId?: string,
   ): Promise<ChatClient> {
     const key = this.getAccountKey(account);
@@ -146,7 +146,7 @@ export class TwitchClientManager {
     key: string,
     account: TwitchAccountConfig,
     ownsConnection: () => boolean,
-    cfg?: OpenClawConfig,
+    cfg?: GrantedConfig,
     accountId?: string,
   ): Promise<ChatClient> {
     const tokenResolution = resolveTwitchToken(cfg, {
@@ -422,7 +422,7 @@ export class TwitchClientManager {
     account: TwitchAccountConfig,
     channel: string,
     message: string,
-    cfg?: OpenClawConfig,
+    cfg?: GrantedConfig,
     accountId?: string,
   ): Promise<{ ok: true; messageId: string } | { ok: false; error: string }> {
     try {

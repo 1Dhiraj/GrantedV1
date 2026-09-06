@@ -12,16 +12,16 @@ import {
 import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateDatabase } from "../state/openclaw-state-db.generated.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { EXECUTION_OWNER_LIFECYCLE_BINDING_TABLE } from "./execution-owner-lifecycle-binding-store.js";
 
 type WithSqliteRowId<Row> = Row & { rowid: number };
 type OwnerLifecycleDatabase = {
-  cron_run_receipts: WithSqliteRowId<OpenClawStateDatabase["cron_run_receipts"]>;
-  execution_owner_lifecycle_bindings: OpenClawStateDatabase["execution_owner_lifecycle_bindings"];
-  flow_runs: WithSqliteRowId<OpenClawStateDatabase["flow_runs"]>;
-  task_runs: WithSqliteRowId<OpenClawStateDatabase["task_runs"]>;
+  cron_run_receipts: WithSqliteRowId<GrantedStateDatabase["cron_run_receipts"]>;
+  execution_owner_lifecycle_bindings: GrantedStateDatabase["execution_owner_lifecycle_bindings"];
+  flow_runs: WithSqliteRowId<GrantedStateDatabase["flow_runs"]>;
+  task_runs: WithSqliteRowId<GrantedStateDatabase["task_runs"]>;
 };
 export type OwnerLifecycleStage = "cron" | "task" | "flow";
 export type OwnerLifecycleCursor = { occurredAt: number; rowId: number };
@@ -378,7 +378,7 @@ function projectReceipt(
 export function summarizeOwnerLifecycleReceipts(params: {
   stage: OwnerLifecycleStage;
   context: ExecutionIdentityContextV1;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
 }): { count: number; coverageState?: "attribution-only" | "unknown"; missingEvidence: string[] } {
   return (
     withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
@@ -407,7 +407,7 @@ export function pageOwnerLifecycleReceipts(params: {
   after?: OwnerLifecycleCursor;
   offset?: number;
   limit: number;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
 }): { entries: OwnerLifecycleReceiptEntry[]; nextCursor?: OwnerLifecycleCursor } {
   const retainedRows = withExistingOpenClawStateDatabaseReadOnly(
     ({ db }) =>

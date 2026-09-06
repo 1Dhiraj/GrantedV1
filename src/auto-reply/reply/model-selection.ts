@@ -34,7 +34,7 @@ import {
   sessionModelOverrideChangesApplied,
 } from "../../config/sessions/session-snapshot-merge.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isDiagnosticFlagEnabled } from "../../infra/diagnostic-flags.js";
 import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
 import * as storedModelOverrides from "../../sessions/stored-model-overrides.js";
@@ -98,7 +98,7 @@ function resolveConfiguredModelThinkingDefault(raw: unknown): ThinkLevel | undef
 
 /** Creates minimal model-selection state for fast test mode. */
 export function createFastTestModelSelectionState(params: {
-  agentCfg: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]> | undefined;
+  agentCfg: NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]> | undefined;
   provider: string;
   model: string;
 }): ModelSelectionState {
@@ -147,9 +147,9 @@ function loadSessionPersistenceRuntime() {
 
 /** Resolves provider/model, allowlist, catalog, and thinking defaults for a reply run. */
 export async function createModelSelectionState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
-  agentCfg: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]> | undefined;
+  agentCfg: NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]> | undefined;
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
   sessionKey?: string;

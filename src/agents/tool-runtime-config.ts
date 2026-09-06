@@ -4,11 +4,11 @@ import {
   getRuntimeConfigSourceSnapshot,
   selectApplicableRuntimeConfig,
 } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 export function resolveAgentRuntimeToolConfig(
-  inputConfig?: OpenClawConfig,
-): OpenClawConfig | undefined {
+  inputConfig?: GrantedConfig,
+): GrantedConfig | undefined {
   const runtimeConfig = getRuntimeConfigSnapshot() ?? undefined;
   if (!runtimeConfig) {
     return inputConfig;

@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import { startQaBusServer } from "./bus-server.js";
 import { createQaBusState } from "./bus-state.js";
@@ -31,7 +31,7 @@ type HookCaptures = {
   afterCompaction: CapturedContext[];
 };
 
-function withFixturePlugin(config: OpenClawConfig): OpenClawConfig {
+function withFixturePlugin(config: GrantedConfig): GrantedConfig {
   return {
     ...config,
     plugins: {

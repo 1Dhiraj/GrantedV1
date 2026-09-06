@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveAgentRoute,
   type ResolvedAgentRoute,
@@ -77,7 +77,7 @@ export function resolvePolicyRoutingProbe(
   probe: PolicyRoutingProbe,
 ): ResolvedAgentRoute {
   return resolveAgentRoute({
-    cfg: cfg as OpenClawConfig,
+    cfg: cfg as GrantedConfig,
     channel: probe.route.channel,
     accountId: probe.route.accountId,
     peer: probe.route.peer,

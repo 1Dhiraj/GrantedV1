@@ -6,7 +6,7 @@ import {
   resolveEffectiveCompactionReserveTokens,
   SILENT_REPLY_TOKEN,
   type MemoryFlushPlan,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { resolveMemoryCoreNowMs } from "./time.js";
 
@@ -97,7 +97,7 @@ function appendCurrentTimeLine(text: string, timeLine: string): string {
 
 export function buildMemoryFlushPlan(
   params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     nowMs?: number;
     contextWindowTokens?: number;
   } = {},

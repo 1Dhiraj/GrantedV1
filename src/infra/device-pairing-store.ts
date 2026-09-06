@@ -11,7 +11,7 @@ import {
 } from "../state/openclaw-state-db-schema-additive.js";
 import { tableExists, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
 import type {
-  DB as OpenClawStateKyselyDatabase,
+  DB as GrantedStateKyselyDatabase,
   DevicePairingPaired,
   DevicePairingPending,
   DeviceBootstrapTokens,
@@ -19,8 +19,8 @@ import type {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { bindCloudWorkerSetupCompletion } from "./device-pairing-cloud-worker.js";
 import type {
@@ -96,7 +96,7 @@ type PairedDevicePresenceUpdate<T> =
 let devicePairingStoreCache: DevicePairingStoreCache | undefined;
 
 /** Route an explicit pairing base dir (tests, alternate state roots) to that dir's DB. */
-function resolveDevicePairingStateDbOptions(baseDir?: string): OpenClawStateDatabaseOptions {
+function resolveDevicePairingStateDbOptions(baseDir?: string): GrantedStateDatabaseOptions {
   return baseDir ? { env: { ...process.env, GRANTED_STATE_DIR: baseDir } } : {};
 }
 
@@ -132,7 +132,7 @@ function devicePairingStoreValidityTokensEqual(
   return left.dataVersion === right.dataVersion && left.totalChanges === right.totalChanges;
 }
 
-function invalidateDevicePairingStoreCache(database: OpenClawStateDatabase): void {
+function invalidateDevicePairingStoreCache(database: GrantedStateDatabase): void {
   if (
     devicePairingStoreCache?.connection === database.db &&
     devicePairingStoreCache.path === database.path
@@ -143,7 +143,7 @@ function invalidateDevicePairingStoreCache(database: OpenClawStateDatabase): voi
 
 function runDevicePairingStoreMutation<T>(
   baseDir: string | undefined,
-  mutate: (database: OpenClawStateDatabase) => DevicePairingStoreMutation<T>,
+  mutate: (database: GrantedStateDatabase) => DevicePairingStoreMutation<T>,
 ): T {
   const databaseOptions = resolveDevicePairingStateDbOptions(baseDir);
   const database = openOpenClawStateDatabase(databaseOptions);
@@ -362,7 +362,7 @@ function fromBootstrapRow(row: DeviceBootstrapTokens): DeviceBootstrapTokenRecor
 }
 
 export function readDevicePairingStoreStateFromDatabase(db: DatabaseSync): DevicePairingStoreState {
-  const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+  const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
   const pendingById: Record<string, DevicePairingPendingRecord> = {};
   for (const row of executeSqliteQuerySync(
     db,
@@ -413,14 +413,14 @@ export function loadPairedDevicePairingStoreRecord(
 
 /** Load one paired-device row from an existing shared-state transaction. */
 export function loadPairedDevicePairingStoreRecordFromDatabase(
-  db: OpenClawStateDatabase["db"],
+  db: GrantedStateDatabase["db"],
   deviceId: string,
 ): PairedDevice | null {
   const normalizedDeviceId = deviceId.trim();
   if (!normalizedDeviceId) {
     return null;
   }
-  const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+  const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
   const row = executeSqliteQueryTakeFirstSync(
     db,
     kysely
@@ -449,7 +449,7 @@ export function updatePairedDeviceNodeSurfaceInTransaction<T>(
     if (!device) {
       throw new Error("cannot update a missing paired-device node surface");
     }
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     executeSqliteQuerySync(
       db,
       kysely
@@ -479,7 +479,7 @@ export function updatePairedDevicePresenceInTransaction<T>(
     if (!device) {
       throw new Error("cannot update presence for a missing paired device");
     }
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     executeSqliteQuerySync(
       db,
       kysely
@@ -502,7 +502,7 @@ export function persistDevicePairingStoreState(
   options?: { clearApnsNodeIds?: readonly string[] },
 ): void {
   runDevicePairingStoreMutation(baseDir, ({ db }) => {
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     if (target !== "paired") {
       executeSqliteQuerySync(db, kysely.deleteFrom("device_pairing_pending"));
       const rows = Object.values(state.pendingById).map(toPendingRow);
@@ -529,7 +529,7 @@ export function loadDeviceBootstrapTokenRecords(
   baseDir?: string,
 ): Record<string, DeviceBootstrapTokenRecord> {
   const { db } = openOpenClawStateDatabase(resolveDevicePairingStateDbOptions(baseDir));
-  const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+  const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
   const state: Record<string, DeviceBootstrapTokenRecord> = {};
   const hasSetupId = tableHasColumn(db, "device_bootstrap_tokens", "setup_id");
   const rows: DeviceBootstrapTokens[] = hasSetupId
@@ -558,7 +558,7 @@ export function persistDeviceBootstrapTokenRecords(
     if (rows.some((row) => row.setup_id !== null)) {
       ensureDevicePairSetupBootstrapSchema(db);
     }
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     executeSqliteQuerySync(db, kysely.deleteFrom("device_bootstrap_tokens"));
     if (rows.length > 0) {
       if (tableHasColumn(db, "device_bootstrap_tokens", "setup_id")) {
@@ -593,7 +593,7 @@ export function consumeDeviceBootstrapTokenWithSetupCompletionInTransaction(para
   return runOpenClawStateWriteTransaction(({ db }) => {
     ensureDevicePairSetupBootstrapSchema(db);
     ensureDevicePairSetupCompletionSchema(db);
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     // Verification precedes async pairing work, so expiry must be checked again
     // against the authoritative row before consumption becomes terminal.
     const tokenRow = executeSqliteQueryTakeFirstSync(
@@ -682,7 +682,7 @@ export function confirmDevicePairSetupCompletionDeliveryInTransaction(params: {
   }
   return runOpenClawStateWriteTransaction(({ db }) => {
     ensureDevicePairSetupCompletionSchema(db);
-    const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+    const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
     const row = executeSqliteQueryTakeFirstSync(
       db,
       kysely
@@ -727,7 +727,7 @@ export function pruneExpiredDevicePairSetupCompletionRecords(
   }
   return runOpenClawStateWriteTransaction(
     ({ db }) => {
-      const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+      const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
       const result = executeSqliteQuerySync(
         db,
         kysely.deleteFrom("device_pair_setup_completions").where("retain_until_ms", "<=", nowMs),
@@ -749,7 +749,7 @@ export function loadDevicePairSetupCompletionRecord(
   ensureDevicePairSetupCompletionSchema(database.db);
   return runOpenClawStateWriteTransaction(
     ({ db }) => {
-      const kysely = getNodeSqliteKysely<OpenClawStateKyselyDatabase>(db);
+      const kysely = getNodeSqliteKysely<GrantedStateKyselyDatabase>(db);
       executeSqliteQuerySync(
         db,
         kysely.deleteFrom("device_pair_setup_completions").where("retain_until_ms", "<=", nowMs),

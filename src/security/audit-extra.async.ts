@@ -17,7 +17,7 @@ import {
 import { resolveAuthProfileDatabaseFilePaths } from "../agents/auth-profiles/sqlite.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { MANIFEST_KEY } from "../compat/legacy-names.js";
-import type { OpenClawConfig, ConfigFileSnapshot } from "../config/config.js";
+import type { GrantedConfig, ConfigFileSnapshot } from "../config/config.js";
 import { collectIncludePathsRecursive } from "../config/includes-scan.js";
 import { resolveOAuthDir } from "../config/paths.js";
 import { readRegularFile, statRegularFile } from "../infra/fs-safe.js";
@@ -594,7 +594,7 @@ export async function collectIncludeFilePermFindings(params: {
 }
 
 export async function collectStateDeepFilesystemFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
   platform?: NodeJS.Platform;
@@ -897,7 +897,7 @@ export async function collectPluginsCodeSafetyFindings(params: {
 }
 
 export async function collectInstalledSkillsCodeSafetyFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
   workspaceDir?: string;
   summaryCache?: CodeSafetySummaryCache;

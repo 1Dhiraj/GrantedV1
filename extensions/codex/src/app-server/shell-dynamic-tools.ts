@@ -5,9 +5,9 @@ import {
 import type { CodexPluginConfig } from "./config.js";
 import { normalizeCodexDynamicToolName } from "./dynamic-tool-profile.js";
 
-type OpenClawCodingToolsFactory =
+type GrantedCodingToolsFactory =
   (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
-type OpenClawDynamicTool = ReturnType<OpenClawCodingToolsFactory>[number];
+type GrantedDynamicTool = ReturnType<GrantedCodingToolsFactory>[number];
 
 export const CODEX_NODE_EXEC_DYNAMIC_TOOL_NAME = "node_exec";
 export const CODEX_GATEWAY_EXEC_DYNAMIC_TOOL_NAME = "gateway_exec";
@@ -27,15 +27,15 @@ export function isCodexDynamicToolExcluded(
 }
 
 export function createNodeExecAliasDynamicTool(
-  execTool: OpenClawDynamicTool,
+  execTool: GrantedDynamicTool,
   node?: string,
-): OpenClawDynamicTool {
+): GrantedDynamicTool {
   const pinnedNode = node?.trim();
   const pinnedTool = pinExecToolTarget(execTool, {
     host: "node",
     ...(pinnedNode ? { node: pinnedNode } : {}),
   });
-  const execute: OpenClawDynamicTool["execute"] = async (toolCallId, args, signal, onUpdate) => {
+  const execute: GrantedDynamicTool["execute"] = async (toolCallId, args, signal, onUpdate) => {
     const result = await pinnedTool.execute(toolCallId, args, signal, onUpdate);
     return {
       ...result,
@@ -63,9 +63,9 @@ export function createNodeExecAliasDynamicTool(
 
 export function createGatewayExecProjection(
   createProjection: CodexScheduledToolProjectionFactory,
-  execTool: OpenClawDynamicTool,
+  execTool: GrantedDynamicTool,
   params: { processAliasAvailable: boolean; ask?: "always" },
-): OpenClawDynamicTool {
+): GrantedDynamicTool {
   return createProjection(execTool, {
     kind: "exec",
     name: CODEX_GATEWAY_EXEC_DYNAMIC_TOOL_NAME,
@@ -80,8 +80,8 @@ export function createGatewayExecProjection(
 
 export function createGatewayProcessProjection(
   createProjection: CodexScheduledToolProjectionFactory,
-  processTool: OpenClawDynamicTool,
-): OpenClawDynamicTool {
+  processTool: GrantedDynamicTool,
+): GrantedDynamicTool {
   return createProjection(processTool, {
     kind: "process",
     name: CODEX_GATEWAY_PROCESS_DYNAMIC_TOOL_NAME,

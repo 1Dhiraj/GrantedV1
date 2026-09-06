@@ -6,7 +6,7 @@ import {
 } from "../../../../packages/normalization-core/src/string-coerce.js";
 import { tryResolveAmbientOwnerAgentId } from "../../../agents/agent-scope-config.js";
 import { formatCliCommand } from "../../../cli/command-format.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   assertCronJobsStoreUnchanged,
   CronJobsStoreChangedError,
@@ -99,9 +99,8 @@ function formatRunLogMigrationNote(importedFiles: number): string {
     : "";
 }
 
-function readLegacyCronStorePath(cfg: OpenClawConfig): string | undefined {
-  return (cfg.cron as (NonNullable<OpenClawConfig["cron"]> & { store?: string }) | undefined)
-    ?.store;
+function readLegacyCronStorePath(cfg: GrantedConfig): string | undefined {
+  return (cfg.cron as (NonNullable<GrantedConfig["cron"]> & { store?: string }) | undefined)?.store;
 }
 
 function projectCronOwner(
@@ -120,7 +119,7 @@ function projectCronOwner(
 }
 
 export async function loadLegacyCronRepairState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath?: string;
   env?: NodeJS.ProcessEnv;
   onlyIfLegacyDetected?: boolean;
@@ -205,7 +204,7 @@ export async function loadLegacyCronRepairState(params: {
 }
 
 export async function applyLegacyCronStoreRepair(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   state: LegacyCronRepairState;
   normalized?: ReturnType<typeof normalizeStoredCronJobs>;
   migrateCodexModelRefs?: boolean;
@@ -444,7 +443,7 @@ export async function applyLegacyCronStoreRepair(params: {
 }
 
 export async function repairLegacyCronStoreWithoutPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   migrateCodexModelRefs?: boolean;
   blockedModelIdentities?: ReadonlySet<LegacyCodexModelIdentity>;
 }): Promise<LegacyCronRepairResult> {
@@ -474,7 +473,7 @@ export async function repairLegacyCronStoreWithoutPrompt(params: {
 
 /** Read legacy Codex cron targets without changing either cron storage or config. */
 export async function collectCronCodexRuntimePolicyTargetsReadOnly(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<{ targets: CronCodexRuntimePolicyTarget[]; warnings: string[] }> {
   const storePath = resolveCronJobsStorePath(
     normalizeOptionalString(readLegacyCronStorePath(params.cfg)),
@@ -498,7 +497,7 @@ export async function collectCronCodexRuntimePolicyTargetsReadOnly(params: {
 
 /** Commit Codex cron refs only after their model-scoped config policy is durable. */
 export async function repairCronCodexModelRefsAfterConfigWrite(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   blockedModelIdentities?: ReadonlySet<LegacyCodexModelIdentity>;
 }): Promise<LegacyCronRepairResult> {
   const storePath = resolveCronJobsStorePath(

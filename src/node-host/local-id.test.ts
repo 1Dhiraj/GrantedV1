@@ -3,12 +3,12 @@ import { afterEach, describe, expect, it } from "vitest";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { configureNodeHost } from "./config.js";
 import { resolveLocalNodeId } from "./local-id.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 
 afterEach(async () => {
   closeOpenClawStateDatabaseForTest();

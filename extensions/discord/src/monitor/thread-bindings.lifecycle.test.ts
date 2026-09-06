@@ -13,7 +13,7 @@ import {
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/runtime-config-snapshot";
 // Discord tests cover thread bindings.lifecycle plugin behavior.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
@@ -85,7 +85,7 @@ const acpRuntime = await import("openclaw/plugin-sdk/acp-runtime");
 
 function createTestThreadBindingManager(
   params: Omit<Parameters<typeof createThreadBindingManager>[0], "cfg"> & {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
   },
 ) {
   return createThreadBindingManager({
@@ -958,7 +958,7 @@ describe("thread binding lifecycle", () => {
   it("passes manager token when resolving parent channels for auto-bind", async () => {
     const cfg = {
       channels: { discord: { token: "tok" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     createTestThreadBindingManager({
       accountId: "runtime",
       token: "runtime-token",
@@ -1017,10 +1017,10 @@ describe("thread binding lifecycle", () => {
   it("uses the active runtime snapshot cfg for manager operations", async () => {
     const startupCfg = {
       channels: { discord: { token: "startup-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const refreshedCfg = {
       channels: { discord: { token: "refreshed-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const manager = createTestThreadBindingManager({
       accountId: "runtime",
       token: "runtime-token",

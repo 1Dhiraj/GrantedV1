@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
 import type { MsgContext } from "../templating.js";
@@ -75,7 +75,7 @@ describe("resolveCurrentTurnImages", () => {
           Body: "caption",
           media: [{ path: relativePath, contentType: "image/jpeg" }],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result).toStrictEqual({
@@ -143,7 +143,7 @@ describe("resolveCurrentTurnImages", () => {
             },
           ],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result).toEqual({
@@ -171,7 +171,7 @@ describe("resolveCurrentTurnImages", () => {
             Body: "summarize this document",
             media: [{ path: documentPath, contentType, kind: "document", workspaceDir: base }],
           } satisfies MsgContext,
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
         });
 
         expect(result.images).toBeUndefined();
@@ -191,7 +191,7 @@ describe("resolveCurrentTurnImages", () => {
             Body: "describe this upload",
             media: [{ path: imagePath, contentType, kind: "unknown", workspaceDir: base }],
           } satisfies MsgContext,
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
         });
 
         expect(result.images).toEqual([
@@ -217,7 +217,7 @@ describe("resolveCurrentTurnImages", () => {
             Body: "summarize this upload",
             media: [{ path: documentPath, contentType, kind: "unknown", workspaceDir: base }],
           } satisfies MsgContext,
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
         });
 
         expect(result.images).toBeUndefined();
@@ -245,7 +245,7 @@ describe("resolveCurrentTurnImages", () => {
             },
           ],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result.images).toBeUndefined();
@@ -263,7 +263,7 @@ describe("resolveCurrentTurnImages", () => {
           Body: "caption",
           media: [{ path: imagePath, contentType: "application/octet-stream", workspaceDir: base }],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result.images).toEqual([
@@ -294,11 +294,11 @@ describe("resolveCurrentTurnImages", () => {
           ...sharedContext,
           media: [{ path: imagePath, contentType: "image/png", workspaceDir: stagingRoot }],
         },
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
       const runner = await resolveCurrentTurnImages({
         ctx: sharedContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         images: prepared.images,
         imageOrder: prepared.imageOrder,
       });
@@ -321,7 +321,7 @@ describe("resolveCurrentTurnImages", () => {
           Body: "caption",
           media: [{ path: rejectedPath, contentType: "image/png", workspaceDir: stagingRoot }],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result.images).toBeUndefined();
@@ -337,7 +337,7 @@ describe("resolveCurrentTurnImages", () => {
 
     const result = await resolveCurrentTurnImages({
       ctx: { Body: "compare these" } satisfies MsgContext,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       images: [inlineImage],
       imageOrder: ["offloaded", "inline", "offloaded"],
     });
@@ -351,7 +351,7 @@ describe("resolveCurrentTurnImages", () => {
   it("preserves all-offloaded image order without inline payloads", async () => {
     const result = await resolveCurrentTurnImages({
       ctx: { Body: "compare these" } satisfies MsgContext,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       images: [],
       imageOrder: ["offloaded", "offloaded"],
     });
@@ -370,7 +370,7 @@ describe("resolveCurrentTurnImages", () => {
 
     const result = await resolveCurrentTurnImages({
       ctx: { Body: "compare these" } satisfies MsgContext,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       images: inlineImages,
       imageOrder: ["inline", "offloaded", "inline"],
     });
@@ -386,7 +386,7 @@ describe("resolveCurrentTurnImages", () => {
 
     const result = await resolveCurrentTurnImages({
       ctx: createDescribedImageContext([0, 1]),
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
     });
 
     expect(result).toEqual({});
@@ -403,7 +403,7 @@ describe("resolveCurrentTurnImages", () => {
 
     const result = await resolveCurrentTurnImages({
       ctx: createDescribedImageContext([0]),
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
     });
 
     expect(resolveAgentTurnAttachments).toHaveBeenCalledWith({
@@ -442,7 +442,7 @@ describe("resolveCurrentTurnImages", () => {
             },
           ],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         extractedFileImages: [pdfPage],
       });
 
@@ -485,7 +485,7 @@ describe("resolveCurrentTurnImages", () => {
             { path: imagePath, contentType: "image/png", workspaceDir: base },
           ],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         extractedFileImages: [pdfPage],
       });
 
@@ -528,7 +528,7 @@ describe("resolveCurrentTurnImages", () => {
             },
           ],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result.images).toEqual([
@@ -555,7 +555,7 @@ describe("resolveCurrentTurnImages", () => {
           Body: "describe this image",
           media: [{ path: imagePath, contentType: "image/png", workspaceDir: base }],
         } satisfies MsgContext,
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
       });
 
       expect(result.images).toBeUndefined();

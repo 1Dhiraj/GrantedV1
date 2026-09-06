@@ -3,12 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { collectEnabledInsecureOrDangerousFlagsFromContracts } from "./dangerous-config-flags-core.js";
 import { collectEnabledInsecureOrDangerousFlags } from "./dangerous-config-flags.js";
 
-function asConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function asConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
 describe("collectEnabledInsecureOrDangerousFlags", () => {

@@ -3,7 +3,7 @@
 import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const taskRuntimeInternalMocks = vi.hoisted(() => {
   const mocks = {
@@ -788,7 +788,7 @@ describe("createImageGenerateTool", () => {
       size: 7,
       contentType: "image/png",
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           mediaModels: {

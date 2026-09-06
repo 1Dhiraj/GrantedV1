@@ -40,7 +40,7 @@ import {
 } from "../config/legacy.default-agent-owner.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/session-store-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   callGateway,
   isGatewayCredentialsRequiredError,
@@ -130,7 +130,7 @@ type RemoteGatewayRoster = {
 };
 type AgentDispatchOpts = Omit<AgentCliOpts, "messageFile"> & {
   message: string;
-  gatewayDispatchConfig?: OpenClawConfig;
+  gatewayDispatchConfig?: GrantedConfig;
   remoteGatewayRoster?: RemoteGatewayRoster;
   localGatewayCompatibilityAgentId?: string;
 };
@@ -157,10 +157,10 @@ function usesImplicitRemoteCompatibilityDefault(roster: RemoteGatewayRoster): bo
   );
 }
 
-function resolveImplicitCliAgentId(cfg: OpenClawConfig, remote?: RemoteGatewayRoster): string {
+function resolveImplicitCliAgentId(cfg: GrantedConfig, remote?: RemoteGatewayRoster): string {
   const migratedConfig = remote
     ? cfg
-    : (migratePersistedImplicitMainRoster(cfg).config as OpenClawConfig);
+    : (migratePersistedImplicitMainRoster(cfg).config as GrantedConfig);
   const selectionCfg = remote
     ? cfg
     : inheritLegacyDefaultAgentId(
@@ -232,7 +232,7 @@ type EmbeddedRunDiagnosticsOptions = {
 async function startEmbeddedRunDiagnosticsExporters(
   runtime: RuntimeEnv,
   options: EmbeddedRunDiagnosticsOptions,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<OneShotDiagnosticsHandle | null> {
   try {
     return await startOneShotDiagnosticsExporters({
@@ -282,18 +282,18 @@ async function runEmbeddedAgentCommand(
   }
 }
 
-async function loadRuntimeConfig(): Promise<OpenClawConfig> {
+async function loadRuntimeConfig(): Promise<GrantedConfig> {
   const { getRuntimeConfig } = await runtimeConfigModuleLoader.load();
   return getRuntimeConfig();
 }
 
-function usesRemoteGateway(cfg: OpenClawConfig): boolean {
+function usesRemoteGateway(cfg: GrantedConfig): boolean {
   return Boolean(
     cfg.gateway?.mode === "remote" || normalizeOptionalString(process.env.GRANTED_GATEWAY_URL),
   );
 }
 
-async function loadRemoteGatewayRoster(cfg: OpenClawConfig): Promise<RemoteGatewayRoster> {
+async function loadRemoteGatewayRoster(cfg: GrantedConfig): Promise<RemoteGatewayRoster> {
   const result = await callGateway<AgentsListResult>({
     method: "agents.list",
     params: {},
@@ -316,8 +316,8 @@ async function loadRemoteGatewayRoster(cfg: OpenClawConfig): Promise<RemoteGatew
 }
 
 async function loadRemoteGatewayRosterWithShellEnvFallback(
-  cfg: OpenClawConfig,
-): Promise<{ config: OpenClawConfig; roster: RemoteGatewayRoster }> {
+  cfg: GrantedConfig,
+): Promise<{ config: GrantedConfig; roster: RemoteGatewayRoster }> {
   try {
     return { config: cfg, roster: await loadRemoteGatewayRoster(cfg) };
   } catch (error) {
@@ -458,7 +458,7 @@ async function resolveAgentMessageOpts(opts: AgentCliOpts): Promise<AgentDispatc
   return { ...rest, message };
 }
 
-function parseTimeoutSeconds(opts: { cfg: OpenClawConfig; timeout?: string }) {
+function parseTimeoutSeconds(opts: { cfg: GrantedConfig; timeout?: string }) {
   const raw =
     opts.timeout !== undefined
       ? parseStrictNonNegativeInteger(opts.timeout)
@@ -578,7 +578,7 @@ async function normalizeSessionKeyOptsForDispatch(
   const hasExplicitSessionTarget =
     Boolean(opts.sessionId?.trim()) ||
     [rawSessionKey, rawTo].some((value) => classifySessionKeyShape(value) === "agent");
-  let selectionCfg: OpenClawConfig | undefined;
+  let selectionCfg: GrantedConfig | undefined;
   let remoteGatewayRoster: RemoteGatewayRoster | undefined;
   if (opts.local !== true) {
     const cfg = readGatewayDispatchConfig();
@@ -829,7 +829,7 @@ async function abortAcceptedGatewayAgentRunWithGatewayCall(params: {
   signal: AgentCliSignal | undefined;
   runtime: RuntimeEnv;
   gatewayIdentity: AgentGatewayCallIdentity;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<void> {
   const request: GatewayRequestFunction = async <T = Record<string, unknown>>(
     method: string,
@@ -960,7 +960,7 @@ async function agentViaGatewayCommand(
 ) {
   const body = opts.message;
   const explicitSessionKey = opts.sessionKey?.trim();
-  let cfg: OpenClawConfig = opts.gatewayDispatchConfig ?? readGatewayDispatchConfig();
+  let cfg: GrantedConfig = opts.gatewayDispatchConfig ?? readGatewayDispatchConfig();
   const remoteGateway = usesRemoteGateway(cfg);
   const remoteRosterIsSole =
     opts.remoteGatewayRoster?.ownership === "sole" ||
@@ -1068,7 +1068,7 @@ async function agentViaGatewayCommand(
   let activeConnectionAbortAttempted = false;
   let activeConnectionAbortSucceeded = false;
   let response: GatewayAgentResponse | undefined;
-  const dispatchGatewayAgentCall = async (activeCfg: OpenClawConfig) =>
+  const dispatchGatewayAgentCall = async (activeCfg: GrantedConfig) =>
     await withProgress(
       {
         label: "Waiting for agent reply…",

@@ -15,7 +15,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { normalizeTlsFingerprint } from "../../packages/gateway-client/src/client-address-utils.js";
 import { resolveGatewayPort } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
 import { materializeGatewayAuthSecretRefs } from "../gateway/auth-config-utils.js";
 import { assertExplicitGatewayAuthModeWhenBothConfigured } from "../gateway/auth-mode-policy.js";
@@ -75,7 +75,7 @@ type ResolvePairingSetupOptions = {
   loadLocalTlsFingerprint?: () => Promise<string | undefined>;
 };
 
-export function resolveConfiguredPairingPublicUrl(config: OpenClawConfig): string | undefined {
+export function resolveConfiguredPairingPublicUrl(config: GrantedConfig): string | undefined {
   const value = config.plugins?.entries?.["device-pair"]?.config?.["publicUrl"];
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
@@ -249,7 +249,7 @@ function parseNormalizedGatewayUrl(raw: string): string | null {
 }
 
 function resolveScheme(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts?: {
     forceSecure?: boolean;
   },
@@ -283,7 +283,7 @@ function pickTailnetIPv4(
 }
 
 function resolvePairingSetupAuthLabel(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): ResolveAuthLabelResult {
   const mode = cfg.gateway?.auth?.mode;
@@ -326,7 +326,7 @@ function resolvePairingSetupAuthLabel(
 }
 
 export async function resolvePairingGatewayUrl(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: {
     env: NodeJS.ProcessEnv;
     publicUrl?: string;
@@ -482,7 +482,7 @@ export function decodePairingSetupCode(
 }
 
 export async function resolvePairingSetupFromConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: ResolvePairingSetupOptions = {},
 ): Promise<PairingSetupResolution> {
   assertExplicitGatewayAuthModeWhenBothConfigured(cfg);

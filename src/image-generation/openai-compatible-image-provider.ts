@@ -1,5 +1,5 @@
 /** Factory for image providers with OpenAI-compatible generation/edit endpoints. */
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveGeneratedMediaMaxBytes } from "../media/configured-max-bytes.js";
@@ -28,7 +28,7 @@ import type {
 
 // Factory for providers that expose OpenAI-style /images/generations and
 // /images/edits endpoints while still allowing provider-specific bodies.
-type ModelProviderConfig = NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>[string];
+type ModelProviderConfig = NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>[string];
 
 /** OpenAI-compatible image endpoint mode. */
 export type OpenAiCompatibleImageRequestMode = "generate" | "edit";
@@ -92,7 +92,7 @@ export type OpenAiCompatibleImageProviderOptions = {
 };
 
 function readProviderConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   providerConfigKey: string,
 ): ModelProviderConfig | undefined {
   return cfg?.models?.providers?.[providerConfigKey];

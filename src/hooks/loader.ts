@@ -7,7 +7,7 @@
 
 import fs from "node:fs";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openRootFile } from "../infra/boundary-file-read.js";
 import { safeRealpathSync } from "../infra/boundary-path.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -82,7 +82,7 @@ function resetLoadedInternalHooks(): void {
  * ```
  */
 export async function loadInternalHooks(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   workspaceDir: string,
   opts?: {
     managedHooksDir?: string;

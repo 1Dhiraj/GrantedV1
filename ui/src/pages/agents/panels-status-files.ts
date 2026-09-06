@@ -14,7 +14,7 @@ import { renderHubTabs } from "../../components/hub-tabs.ts";
 import { icons } from "../../components/icons.ts";
 import { toSanitizedMarkdownHtml } from "../../components/markdown.ts";
 import "../../components/modal-dialog.ts";
-import type { OpenClawModalDialog } from "../../components/modal-dialog.ts";
+import type { GrantedModalDialog } from "../../components/modal-dialog.ts";
 import "../../components/tooltip.ts";
 import {
   renderSettingsEmpty,
@@ -544,7 +544,7 @@ export function renderAgentFiles(params: {
                                 const btn = e.currentTarget as HTMLElement;
                                 btn
                                   .closest(".settings-group")
-                                  ?.querySelector<OpenClawModalDialog>("openclaw-modal-dialog")
+                                  ?.querySelector<GrantedModalDialog>("openclaw-modal-dialog")
                                   ?.show();
                               }}
                             >
@@ -649,7 +649,7 @@ export function renderAgentFiles(params: {
                                     @click=${(e: Event) => {
                                       const modal = (e.currentTarget as HTMLElement).closest(
                                         "openclaw-modal-dialog",
-                                      ) as OpenClawModalDialog | null;
+                                      ) as GrantedModalDialog | null;
                                       modal?.hide();
                                       if (modal) {
                                         resetAgentFilePreview(modal);
@@ -670,7 +670,7 @@ export function renderAgentFiles(params: {
                                     @click=${(e: Event) => {
                                       const modal = (e.currentTarget as HTMLElement).closest(
                                         "openclaw-modal-dialog",
-                                      ) as OpenClawModalDialog | null;
+                                      ) as GrantedModalDialog | null;
                                       modal?.hide();
                                       if (modal) {
                                         resetAgentFilePreview(modal);

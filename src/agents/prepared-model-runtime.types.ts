@@ -1,5 +1,5 @@
 import type { PreparedMessageToolCatalog } from "../channels/plugins/message-action-discovery.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { prepareMediaCapabilityProviders } from "../plugins/capability-provider-runtime.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import type { PreparedProviderStaticCatalog } from "../plugins/provider-discovery.js";
@@ -43,7 +43,7 @@ export type PreparedModelRuntimeSnapshot = Readonly<{
   projectKey?: string | null;
   /** Session active project set, ordered most-recent first; empty before run binding. */
   activeProjectKeys: readonly string[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Secret-free usable auth modes captured by this exact lifecycle generation. */
   authModes: PreparedAgentCredentialModes;
   metadataSnapshot: PluginMetadataSnapshot;
@@ -73,7 +73,7 @@ export type PreparedReplyDispatchRuntime = Readonly<{
   agentId: string;
   agentDir: string;
   workspaceDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   modelCatalog: ModelCatalogSnapshot;
   inboundPluginRegistry: PluginRegistry;
   pluginGeneration: PreparedModelRuntimePluginGeneration;
@@ -97,7 +97,7 @@ export type PreparedModelRuntimeInput = {
   env?: NodeJS.ProcessEnv;
   allowGatewaySubagentBinding?: boolean;
   runtimePluginSelections?: readonly AgentHarnessPluginSelection[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
 };
 
 export type PreparedModelRuntimeLease = Readonly<{

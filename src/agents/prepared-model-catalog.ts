@@ -1,6 +1,6 @@
 /** Lifecycle-owned model catalog access. */
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   listAgentIds,
   resolveAgentDir,
@@ -48,7 +48,7 @@ import { resolveDefaultAgentWorkspaceDir } from "./workspace.js";
 export type LoadPreparedModelCatalogParams = {
   agentId?: string;
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   readOnly?: boolean;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
@@ -348,7 +348,7 @@ async function loadScopedReadOnlyModelCatalog(
  * then scoped live discovery only for providers whose models exist solely at runtime.
  */
 export async function loadProviderScopedThinkingCatalog(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   provider: string;
   model: string;
   agentId?: string;

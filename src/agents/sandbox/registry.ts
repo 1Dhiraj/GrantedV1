@@ -7,7 +7,7 @@ import type { Insertable, Selectable, Updateable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
 import type { SandboxContainerEngineTarget } from "./container-engine.js";
 
@@ -45,8 +45,8 @@ type SandboxBrowserRegistry = {
 
 type RegistryEntryPayload = { containerName: string } & Record<string, unknown>;
 type SandboxRegistryKind = "container" | "browser";
-type SandboxRegistryTable = OpenClawStateKyselyDatabase["sandbox_registry_entries"];
-type SandboxRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "sandbox_registry_entries">;
+type SandboxRegistryTable = GrantedStateKyselyDatabase["sandbox_registry_entries"];
+type SandboxRegistryDatabase = Pick<GrantedStateKyselyDatabase, "sandbox_registry_entries">;
 type SandboxRegistryRow = Selectable<SandboxRegistryTable>;
 type SandboxRegistryInsert = Insertable<SandboxRegistryTable>;
 type SandboxRegistryUpdate = Updateable<SandboxRegistryTable>;

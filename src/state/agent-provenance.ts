@@ -5,11 +5,11 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 
 export type AgentCreatedVia = "operator" | "agent" | "claw";
@@ -21,8 +21,8 @@ export type AgentProvenance = {
   createdAtMs: number;
 };
 
-type AgentProvenanceDatabase = Pick<OpenClawStateKyselyDatabase, "agent_provenance">;
-type AgentProvenanceOptions = OpenClawStateDatabaseOptions & { nowMs?: number };
+type AgentProvenanceDatabase = Pick<GrantedStateKyselyDatabase, "agent_provenance">;
+type AgentProvenanceOptions = GrantedStateDatabaseOptions & { nowMs?: number };
 
 const ensuredDatabases = new WeakSet<DatabaseSync>();
 const AGENT_PROVENANCE_SCHEMA_SQL = `
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS agent_provenance (
 ) STRICT;
 `;
 
-export function ensureAgentProvenanceSchema(options: OpenClawStateDatabaseOptions = {}): void {
+export function ensureAgentProvenanceSchema(options: GrantedStateDatabaseOptions = {}): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;
@@ -114,7 +114,7 @@ export function recordAgentProvenance(
 
 export function readAgentProvenance(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AgentProvenance | undefined {
   ensureAgentProvenanceSchema(options);
   const database = openOpenClawStateDatabase(options);
@@ -126,7 +126,7 @@ export function readAgentProvenance(
   return row ? fromRow(row) : undefined;
 }
 
-export function listAgentProvenance(options: OpenClawStateDatabaseOptions = {}): AgentProvenance[] {
+export function listAgentProvenance(options: GrantedStateDatabaseOptions = {}): AgentProvenance[] {
   ensureAgentProvenanceSchema(options);
   const database = openOpenClawStateDatabase(options);
   const db = getNodeSqliteKysely<AgentProvenanceDatabase>(database.db);

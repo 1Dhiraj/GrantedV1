@@ -1,6 +1,6 @@
 /** Tests configured ACP binding lifecycle behavior. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { AcpSessionResolution } from "./control-plane/manager.types.js";
 import {
   buildConfiguredAcpSessionKey,
@@ -28,7 +28,7 @@ const baseCfg = {
   agents: {
     list: [{ id: "codex" }, { id: "claude" }],
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 let ensureConfiguredAcpBindingSession: typeof import("./persistent-bindings.lifecycle.js").ensureConfiguredAcpBindingSession;
 

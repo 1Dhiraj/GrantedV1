@@ -3,7 +3,7 @@ import type {
   SessionCatalogSession,
 } from "../../../packages/gateway-protocol/src/index.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   SessionCatalogListProviderParams,
   SessionCatalogProvider,
@@ -31,7 +31,7 @@ type SessionCatalogVisibility = { cacheKey: string } & (
 
 export function resolveSessionCatalogVisibility(
   client: GatewayClient | null,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): SessionCatalogVisibility {
   const scopes = Array.isArray(client?.connect?.scopes) ? client.connect.scopes : [];
   const admin = authorizeOperatorScopesForRequiredScope(ADMIN_SCOPE, scopes).allowed;
@@ -106,7 +106,7 @@ export async function isSessionCatalogThreadVisible(params: {
   access: "read" | "mutate";
   allowProcessHomeFallback: boolean;
   client: GatewayClient | null;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   fallbackAgentId: string;
   hostId: string;
   list: SessionCatalogProvider["list"];

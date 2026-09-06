@@ -16,7 +16,7 @@ import { normalizeAgentLabel } from "../../lib/agents/display.ts";
 import { isGatewayMethodAdvertised } from "../../lib/gateway-methods.ts";
 import { normalizeAgentId } from "../../lib/sessions/session-key.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { UsageRefreshPolicy } from "../usage/refresh-policy.ts";
 import {
@@ -54,7 +54,7 @@ const MODEL_PROVIDERS_DOCS_URL = "https://docs.openclaw.ai/concepts/model-provid
 
 type DefaultsDraft = DefaultModelSelection & ModelBehaviorConfig;
 
-export class ModelProvidersPage extends OpenClawLightDomElement {
+export class ModelProvidersPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

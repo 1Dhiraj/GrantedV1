@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import "./local.js";
 
 type GatewayHealthProbeAuth = {
@@ -8,7 +8,7 @@ type GatewayHealthProbeAuth = {
 };
 
 type TestApi = {
-  resolveGatewayHealthProbeToken(nextConfig: OpenClawConfig): Promise<GatewayHealthProbeAuth>;
+  resolveGatewayHealthProbeToken(nextConfig: GrantedConfig): Promise<GatewayHealthProbeAuth>;
 };
 
 function getTestApi(): TestApi {

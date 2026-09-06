@@ -13,10 +13,10 @@ import { t } from "../../../i18n/index.ts";
 import { loadBrowserTabThumbnail } from "../../../lib/chat/browser-tab-preview.ts";
 import type { ToolPreview } from "../../../lib/chat/tool-cards.ts";
 import { openExternalUrlSafe } from "../../../lib/open-external-url.ts";
-import { OpenClawLitElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../../lit/subscriptions-controller.ts";
 
-class OpenClawBrowserTabCard extends OpenClawLitElement {
+class GrantedBrowserTabCard extends GrantedLitElement {
   @consume({ context: applicationContext, subscribe: true })
   @property({ attribute: false })
   context?: ApplicationContext<RouteId>;
@@ -283,11 +283,11 @@ class OpenClawBrowserTabCard extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-browser-tab-card")) {
-  customElements.define("openclaw-browser-tab-card", OpenClawBrowserTabCard);
+  customElements.define("openclaw-browser-tab-card", GrantedBrowserTabCard);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-browser-tab-card": OpenClawBrowserTabCard;
+    "openclaw-browser-tab-card": GrantedBrowserTabCard;
   }
 }

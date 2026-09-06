@@ -1,5 +1,5 @@
 // Telegram plugin module implements conversation route behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
@@ -47,7 +47,7 @@ type TelegramConversationRouteResult = {
 };
 
 type ResolveTelegramConversationRouteParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   chatId: number | string;
   isGroup: boolean;
@@ -212,7 +212,7 @@ export function resolveTelegramConversationBaseSessionKey(
 }
 
 export function resolveTelegramTargetSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   route: TelegramResolvedRoute;
   chatId: number | string;
   isGroup: boolean;

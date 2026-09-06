@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { readVisibleSessionTranscriptMessageEntries } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";
@@ -52,7 +52,7 @@ describe("persistent upstream fork continuation", () => {
       supervision: { enabled: true },
       appServer: { approvalsReviewer: "user" },
     };
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         list: [

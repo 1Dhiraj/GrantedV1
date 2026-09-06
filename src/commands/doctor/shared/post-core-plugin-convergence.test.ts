@@ -38,7 +38,7 @@ vi.mock("../../../plugins/payload-verification.js", () => ({
   runPluginPayloadSmokeCheck: mocks.runPluginPayloadSmokeCheck,
 }));
 
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import {
   filterRecordsToActive,
@@ -100,7 +100,7 @@ describe("runPostCorePluginConvergence", () => {
   }
 
   it("calls repair with GRANTED_UPDATE_POST_CORE_CONVERGENCE=1 set", async () => {
-    const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
+    const cfg = { plugins: { entries: {} } } as unknown as GrantedConfig;
     await runPostCorePluginConvergence({
       cfg,
       env: { GRANTED_UPDATE_IN_PROGRESS: "1" },
@@ -142,7 +142,7 @@ describe("runPostCorePluginConvergence", () => {
         deny: ["disabled"],
         entries: { active: { enabled: true }, disabled: { enabled: true } },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const records = {
       active: { source: "npm" as const, installPath: "/p/active" },
       disabled: { source: "npm" as const, installPath: "/p/disabled" },
@@ -159,7 +159,7 @@ describe("runPostCorePluginConvergence", () => {
   });
 
   it("uses the candidate runtime version over a stale inherited host version", async () => {
-    const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
+    const cfg = { plugins: { entries: {} } } as unknown as GrantedConfig;
     await runPostCorePluginConvergence({
       cfg,
       env: { GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
@@ -174,7 +174,7 @@ describe("runPostCorePluginConvergence", () => {
   });
 
   it("uses an explicit compatibility host version for startup convergence", async () => {
-    const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
+    const cfg = { plugins: { entries: {} } } as unknown as GrantedConfig;
     await runPostCorePluginConvergence({
       cfg,
       env: { GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
@@ -198,7 +198,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { discord: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(false);
@@ -213,7 +213,7 @@ describe("runPostCorePluginConvergence", () => {
       records: { discord: { source: "npm", installPath: "/p/discord" } },
     });
     const result = await runPostCorePluginConvergence({
-      cfg: { plugins: { entries: { discord: { enabled: true } } } } as unknown as OpenClawConfig,
+      cfg: { plugins: { entries: { discord: { enabled: true } } } } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.installRecords).toEqual({
@@ -246,7 +246,7 @@ describe("runPostCorePluginConvergence", () => {
       });
 
     const result = await runPostCorePluginConvergence({
-      cfg: { plugins: { entries: { codex: { enabled: true } } } } as unknown as OpenClawConfig,
+      cfg: { plugins: { entries: { codex: { enabled: true } } } } as unknown as GrantedConfig,
       env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
@@ -326,7 +326,7 @@ describe("runPostCorePluginConvergence", () => {
     const baseline = { matrix: { source: "npm" as const, installPath: "/p/matrix" } };
     const cfg = {
       plugins: { entries: { matrix: { enabled: true } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.repairMissingConfiguredPluginInstalls.mockResolvedValue({
       changes: [],
       warnings: [],
@@ -380,7 +380,7 @@ describe("runPostCorePluginConvergence", () => {
     });
     const cfg = {
       plugins: { entries: { discord: { enabled: true }, brave: { enabled: true } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await runPostCorePluginConvergence({
       cfg,
@@ -422,7 +422,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { discord: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(false);
@@ -449,7 +449,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { matrix: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(false);
@@ -512,7 +512,7 @@ describe("runPostCorePluginConvergence", () => {
           deny: ["discord"],
           entries: { discord: { enabled: true } },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(false);
@@ -534,7 +534,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { discord: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(false);
@@ -570,7 +570,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(true);
@@ -608,7 +608,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(result.errored).toBe(true);
@@ -647,7 +647,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
 
@@ -700,7 +700,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
@@ -753,7 +753,7 @@ describe("runPostCorePluginConvergence", () => {
     );
 
     const result = await runPostCorePluginConvergence({
-      cfg: { plugins: { enabled: true } } as unknown as OpenClawConfig,
+      cfg: { plugins: { enabled: true } } as unknown as GrantedConfig,
       env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
@@ -785,7 +785,7 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: false } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
@@ -807,7 +807,7 @@ describe("runPostCorePluginConvergence", () => {
     );
 
     const result = await runPostCorePluginConvergence({
-      cfg: { plugins: { entries: {} } } as unknown as OpenClawConfig,
+      cfg: { plugins: { entries: {} } } as unknown as GrantedConfig,
       env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
@@ -831,7 +831,7 @@ describe("runPostCorePluginConvergence", () => {
     await runPostCorePluginConvergence({
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       env: {},
     });
     expect(mocks.runPluginPayloadSmokeCheck).toHaveBeenCalledTimes(1);
@@ -859,7 +859,7 @@ describe("filterRecordsToActive", () => {
       });
 
       const filtered = filterRecordsToActive({
-        cfg: { plugins: { enabled: true } } as unknown as OpenClawConfig,
+        cfg: { plugins: { enabled: true } } as unknown as GrantedConfig,
         records,
       });
 
@@ -881,7 +881,7 @@ describe("filterRecordsToActive", () => {
     const filtered = filterRecordsToActive({
       cfg: {
         plugins: { enabled: true, entries: { enabled: { enabled: true } } },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       records,
     });
     expect(filtered).toEqual(records);
@@ -901,7 +901,7 @@ describe("filterRecordsToActive", () => {
             "active-plugin": { enabled: true },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       records,
     });
     expect(filtered).toEqual({
@@ -919,7 +919,7 @@ describe("filterRecordsToActive", () => {
           enabled: true,
           deny: ["denied"],
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       records,
     });
     expect(filtered).toEqual({});
@@ -943,7 +943,7 @@ describe("filterRecordsToActive", () => {
           enabled: true,
           entries: { codex: { enabled: false } },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       records,
     });
     expect(filtered).toEqual(records);

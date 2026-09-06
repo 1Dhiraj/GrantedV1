@@ -1,7 +1,7 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveAgentIdFromSessionKey, type SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   resolveAgentDeliveryPlanWithSessionRoute,
   resolveAgentOutboundTarget,
@@ -38,8 +38,8 @@ export type AgentDeliveryPhaseResult = {
 
 export async function resolveAgentDeliveryPhase(params: {
   request: AgentRunRequest;
-  cfg: OpenClawConfig;
-  cfgForAgent?: OpenClawConfig;
+  cfg: GrantedConfig;
+  cfgForAgent?: GrantedConfig;
   sessionEntry?: SessionEntry;
   resolvedSessionKey?: string;
   resolvedSessionAgentId?: string;

@@ -8,9 +8,9 @@ import type { PluginRegistry } from "../plugins/registry-types.js";
 import { getActivePluginGatewayNodePolicyRegistry } from "../plugins/runtime.js";
 import { getPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import type {
-  OpenClawPluginNodeInvokePolicyContext,
-  OpenClawPluginNodeInvokePolicyResult,
-  OpenClawPluginNodeInvokeTransportResult,
+  GrantedPluginNodeInvokePolicyContext,
+  GrantedPluginNodeInvokePolicyResult,
+  GrantedPluginNodeInvokeTransportResult,
 } from "../plugins/types.js";
 import type { AgentRuntimeIdentity } from "./agent-runtime-identity-token.js";
 import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "./node-command-policy.js";
@@ -59,8 +59,8 @@ function findDangerousPluginNodeCommand(registry: PluginRegistry | null, command
 }
 
 function validateRiskClassification(
-  value: NonNullable<OpenClawPluginNodeInvokePolicyContext["risk"]>,
-): NonNullable<OpenClawPluginNodeInvokePolicyContext["risk"]> | null {
+  value: NonNullable<GrantedPluginNodeInvokePolicyContext["risk"]>,
+): NonNullable<GrantedPluginNodeInvokePolicyContext["risk"]> | null {
   const family = normalizeOptionalString(value?.family);
   if (
     (value?.level !== "ordinary" && value?.level !== "high") ||
@@ -119,7 +119,7 @@ export async function applyPluginNodeInvokePolicy(params: {
   privateTransport?: PluginNodeInvokePrivateTransport;
   /** Internal callers carry an admitted run without inventing a client connection. */
   agentRuntimeIdentity?: AgentRuntimeIdentity;
-}): Promise<OpenClawPluginNodeInvokePolicyResult | null> {
+}): Promise<GrantedPluginNodeInvokePolicyResult | null> {
   const registry = getActivePluginGatewayNodePolicyRegistry();
   const callerIdentity =
     params.agentRuntimeIdentity ?? params.client?.internal?.agentRuntimeIdentity;
@@ -186,7 +186,7 @@ export async function applyPluginNodeInvokePolicy(params: {
     return null;
   }
 
-  let risk: OpenClawPluginNodeInvokePolicyContext["risk"];
+  let risk: GrantedPluginNodeInvokePolicyContext["risk"];
   if (entry.policy.classifyRisk) {
     try {
       risk =
@@ -230,13 +230,13 @@ export async function applyPluginNodeInvokePolicy(params: {
         pluginRecord.enabled &&
         pluginRecord.status === "loaded"));
   const dispatchNode = async (
-    override: Parameters<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>[0] = {},
+    override: Parameters<GrantedPluginNodeInvokePolicyContext["invokeNode"]>[0] = {},
     sessionAuthority?: { assertCurrent: () => void; signal: AbortSignal },
-  ): Promise<OpenClawPluginNodeInvokeTransportResult> => {
+  ): Promise<GrantedPluginNodeInvokeTransportResult> => {
     const deny = (
       reasonCode: string,
-      result: OpenClawPluginNodeInvokeTransportResult,
-    ): OpenClawPluginNodeInvokeTransportResult => {
+      result: GrantedPluginNodeInvokeTransportResult,
+    ): GrantedPluginNodeInvokeTransportResult => {
       nodeGateDecisionRecorded = true;
       recordNodeDecision({
         pluginId: entry.pluginId,
@@ -478,7 +478,7 @@ export async function applyPluginNodeInvokePolicy(params: {
       : undefined;
   const invokeOwned = (
     source: "human-approved" | "session-full",
-    override: NonNullable<Parameters<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>[0]>,
+    override: NonNullable<Parameters<GrantedPluginNodeInvokePolicyContext["invokeNode"]>[0]>,
     createParams?: () => unknown,
   ) =>
     ownedInvocation && override.workspace
@@ -501,7 +501,7 @@ export async function applyPluginNodeInvokePolicy(params: {
           },
         )
       : undefined;
-  const invokeNode: OpenClawPluginNodeInvokePolicyContext["invokeNode"] = async (override = {}) => {
+  const invokeNode: GrantedPluginNodeInvokePolicyContext["invokeNode"] = async (override = {}) => {
     if (!ownedInvocation || !override.workspace) {
       return await dispatchNode(override);
     }
@@ -512,7 +512,7 @@ export async function applyPluginNodeInvokePolicy(params: {
     return result;
   };
 
-  let result: OpenClawPluginNodeInvokePolicyResult;
+  let result: GrantedPluginNodeInvokePolicyResult;
   try {
     result = await entry.policy.handle({
       nodeId: params.nodeSession.nodeId,

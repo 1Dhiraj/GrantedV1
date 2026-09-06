@@ -120,7 +120,7 @@ describe.skipIf(process.platform === "win32")("Watch simulator workflow", () => 
           "platform=watchOS Simulator,id=watch-fixture",
           "-parallel-testing-enabled",
           "NO",
-          "-only-testing:OpenClawWatchTests/WatchInboxStoreOperationTests",
+          "-only-testing:GrantedWatchTests/WatchInboxStoreOperationTests",
           "CODE_SIGNING_ALLOWED=NO",
         ]),
       );

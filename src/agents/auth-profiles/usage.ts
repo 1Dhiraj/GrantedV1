@@ -11,7 +11,7 @@ import {
   resolveExpiresAtMsFromDurationMs,
   resolveExpiresAtMsFromEpochSeconds,
 } from "@openclaw/normalization-core/number-coercion";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { cancelUnreadResponseBody } from "../../infra/http-body.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { readProviderJsonResponse } from "../provider-http-errors.js";
@@ -1016,7 +1016,7 @@ export async function markAuthProfileFailure(params: {
   store: AuthProfileStore;
   profileId: string;
   reason: AuthProfileFailureReason;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   runId?: string;
   modelId?: string;
@@ -1211,7 +1211,7 @@ export async function markInlineProviderApiKeyFailure(params: {
   store: AuthProfileStore;
   provider: string;
   reason: AuthProfileFailureReason;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   runId?: string;
   modelId?: string;

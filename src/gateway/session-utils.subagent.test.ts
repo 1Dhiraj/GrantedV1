@@ -14,7 +14,7 @@ import {
   addSubagentRunForTests,
   resetSubagentRegistryForTests,
 } from "../agents/subagents/registry/subagent-registry.test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { canPrewarmCombinedSessionStoresForGateway } from "../config/sessions/combined-store-gateway.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
@@ -61,7 +61,7 @@ describe("session list subagent metadata", () => {
   const cfg = {
     session: { mainKey: "main" },
     agents: { list: [{ id: "main", default: true }] },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   test("searches channel-derived display names before row enrichment", async () => {
     const result = await listSessionsFromStoreAsync({
@@ -1406,7 +1406,7 @@ describe("loadCombinedSessionStoreForGatewayCore includes disk-only agents (#328
             ops: {},
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await seedSessionEntry(
         storePath,
@@ -1444,7 +1444,7 @@ describe("loadCombinedSessionStoreForGatewayCore includes disk-only agents (#328
             ops: {},
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await seedSessionEntry(
         storePath,
@@ -1475,7 +1475,7 @@ describe("loadCombinedSessionStoreForGatewayCore includes disk-only agents (#328
             worker: {},
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await seedSessionEntry(
         storePath,
@@ -1583,7 +1583,7 @@ describe("loadCombinedSessionStoreForGatewayCore includes disk-only agents (#328
         agents: {
           list: [{ id: "main", default: true }],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const { store } = loadCombinedSessionStoreForGatewayCore(cfg);
       expect(store["agent:main:main"]?.sessionId).toBe("s-main");
@@ -1619,7 +1619,7 @@ describe("loadCombinedSessionStoreForGatewayCore includes disk-only agents (#328
         agents: {
           list: [{ id: "main", default: true }],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const { store, storePath } = loadCombinedSessionStoreForGatewayCore(cfg, {
         agentId: "codex",

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import {
@@ -114,7 +114,7 @@ describe("artifact session authorization", () => {
         ownerKey: sessionKey,
       });
       mocks.resolveRunSession.mockReturnValue(sessionKey);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
         gateway: {
           roles: {

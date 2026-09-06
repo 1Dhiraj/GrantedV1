@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import { collectDoctorPreviewNotes } from "./preview-warnings.js";
 
 async function collectDoctorPreviewWarnings(
@@ -14,7 +14,7 @@ async function collectDoctorPreviewWarnings(
 }
 
 async function collectProfileConfiguredToolSectionWarningsThroughDoctor(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
@@ -24,7 +24,7 @@ async function collectProfileConfiguredToolSectionWarningsThroughDoctor(
 }
 
 async function collectVisibleReplyToolPolicyWarningsThroughDoctor(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
@@ -34,7 +34,7 @@ async function collectVisibleReplyToolPolicyWarningsThroughDoctor(
 }
 
 async function collectChannelBoundMessageToolPolicyWarningsThroughDoctor(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
@@ -75,14 +75,14 @@ const activeToolSchemaState = vi.hoisted(() => ({
 
 const commandSecretState = vi.hoisted(() => ({
   targetIds: new Set<string>(),
-  resolvedConfig: undefined as OpenClawConfig | undefined,
+  resolvedConfig: undefined as GrantedConfig | undefined,
   diagnostics: [] as string[],
 }));
 
 const tempRoots = new Set<string>();
 
 vi.mock("../../../cli/command-secret-gateway.js", () => ({
-  resolveCommandSecretRefsViaGateway: vi.fn(async (params: { config: OpenClawConfig }) => ({
+  resolveCommandSecretRefsViaGateway: vi.fn(async (params: { config: GrantedConfig }) => ({
     resolvedConfig: commandSecretState.resolvedConfig ?? params.config,
     diagnostics: commandSecretState.diagnostics,
     targetStatesByPath: {},
@@ -433,7 +433,7 @@ describe("doctor preview warnings", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       doctorFixCommand: "openclaw doctor --fix",
       env: { CODEX_HOME: codexHome, HOME: root },
     });
@@ -475,7 +475,7 @@ describe("doctor preview warnings", () => {
           botToken: { source: "env", provider: "default", id: "TELEGRAM_BOT_TOKEN" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const resolvedConfig = {
       channels: {
         telegram: {
@@ -483,7 +483,7 @@ describe("doctor preview warnings", () => {
           allowFrom: ["@alice"],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     commandSecretState.targetIds = new Set(["channels.telegram.botToken"]);
     commandSecretState.resolvedConfig = resolvedConfig;
     commandSecretState.diagnostics = [
@@ -527,7 +527,7 @@ describe("doctor preview warnings", () => {
             botToken: { source: "exec", provider: "default", id: "telegram/bot-token" },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       doctorFixCommand: "openclaw doctor --fix",
       env: {},
       allowExec: true,
@@ -560,7 +560,7 @@ describe("doctor preview warnings", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       doctorFixCommand: "openclaw doctor --fix",
     });
 
@@ -707,7 +707,7 @@ describe("doctor preview warnings", () => {
 
   it("scopes active tool schema preview checks to the Doctor metadata lifecycle", async () => {
     const runWithPluginMetadataSnapshot = <T>(
-      _scope: { config: OpenClawConfig; workspaceDir?: string },
+      _scope: { config: GrantedConfig; workspaceDir?: string },
       run: () => T,
     ): T => run();
 
@@ -1160,7 +1160,7 @@ describe("doctor preview warnings", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const warnings =
       await collectProfileConfiguredToolSectionWarningsThroughDoctor(malformedConfig);
@@ -1227,7 +1227,7 @@ describe("doctor preview warnings", () => {
       tools: {
         profile: "coding" as const,
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(await collectVisibleReplyToolPolicyWarningsThroughDoctor(cfg)).toStrictEqual([]);
     expect(await collectChannelBoundMessageToolPolicyWarningsThroughDoctor(cfg)).toStrictEqual([]);
@@ -1263,7 +1263,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expectWarningsContaining(await collectVisibleReplyToolPolicyWarningsThroughDoctor(cfg), [
       'messages.groupChat.visibleReplies is set to "message_tool"',
@@ -1303,7 +1303,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(await collectVisibleReplyToolPolicyWarningsThroughDoctor(cfg)).toStrictEqual([]);
     expect(await collectChannelBoundMessageToolPolicyWarningsThroughDoctor(cfg)).toStrictEqual([]);

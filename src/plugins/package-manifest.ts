@@ -2,7 +2,7 @@ import { normalizeOptionalString } from "../../packages/normalization-core/src/s
 import { readManifestSection } from "../compat/legacy-names.js";
 import { isRecord } from "../utils.js";
 import type {
-  OpenClawPackageManifest,
+  GrantedPackageManifest,
   PackageExtensionResolution,
   PackageManifest,
 } from "./package-manifest.types.js";
@@ -18,11 +18,11 @@ export const DEFAULT_PLUGIN_ENTRY_CANDIDATES = [
 
 export function getPackageManifestMetadata(
   manifest: PackageManifest | undefined,
-): OpenClawPackageManifest | undefined {
+): GrantedPackageManifest | undefined {
   if (!manifest) {
     return undefined;
   }
-  return readManifestSection(manifest) as OpenClawPackageManifest | undefined;
+  return readManifestSection(manifest) as GrantedPackageManifest | undefined;
 }
 
 export function resolvePackageExtensionEntries(

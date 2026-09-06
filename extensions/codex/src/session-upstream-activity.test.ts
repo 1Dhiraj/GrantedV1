@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { SessionUpstreamProbe } from "openclaw/plugin-sdk/session-catalog";
 import { describe, expect, it, vi } from "vitest";
 import { CodexAppServerRpcError } from "./app-server/client.js";
@@ -70,7 +70,7 @@ function createActivityChecker(params: {
         },
       },
     },
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
   const bindingStore = {
     read: vi.fn(async () => params.binding),
   } as unknown as CodexAppServerBindingStore;

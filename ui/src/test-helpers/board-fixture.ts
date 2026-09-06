@@ -1,7 +1,7 @@
 import { html } from "lit";
 import { state } from "lit/decorators.js";
 import type { BoardOp, BoardSnapshot } from "../lib/board/types.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 // The fixture page renders outside the app shell, so it must load the app
 // stylesheet itself (Web Awesome theme included) or dropdown menus render
 // theme-less: dark item text on the fixture's dark panels.
@@ -250,7 +250,7 @@ export function applyBoardFixtureOps(
   return { ...next, revision: next.revision + 1 };
 }
 
-class BoardFixture extends OpenClawLightDomElement {
+class BoardFixture extends GrantedLightDomElement {
   @state() private snapshot = structuredClone(initialSnapshot);
   @state() private activeTabId = "overview";
 

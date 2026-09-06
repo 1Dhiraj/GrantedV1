@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { setReplyPayloadMetadata, type ReplyPayload } from "../../auto-reply/reply-payload.js";
 import type { DispatchReplyWithDispatcher } from "../../auto-reply/reply/provider-dispatcher.types.js";
 import type { FinalizedMsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { PlatformMessageNotDispatchedError } from "../../infra/outbound/deliver-types.js";
 import { createDirectPendingFinalCustody } from "./direct-delivery-custody.js";
 import { dispatchRoutedChannelTurn } from "./lifecycle.js";
@@ -42,7 +42,7 @@ vi.mock("../../infra/outbound/delivery-completion.js", async (importOriginal) =>
   return { ...actual, settlePendingFinalDelivery };
 });
 
-const cfg: OpenClawConfig = {};
+const cfg: GrantedConfig = {};
 
 function createCtx(overrides: Partial<FinalizedMsgContext> = {}): FinalizedMsgContext {
   return {

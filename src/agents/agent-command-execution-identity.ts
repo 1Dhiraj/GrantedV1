@@ -2,7 +2,7 @@ import type { ExecutionIdentityAdmissionFacts } from "../audit/execution-identit
 import { executionIdentitySpawnAdmission } from "../audit/execution-identity-spawn-admission.js";
 import { withPostAdmissionExecutionOwnerBinding } from "../audit/execution-owner-binding.js";
 import type { InternalSessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
@@ -46,7 +46,7 @@ function systemIngress(boundary: string): AgentCommandAdmissionIngress {
 function prepareAgentCommandRunAdmission(params: {
   admission?: AgentCommandOpts["executionIdentityAdmission"];
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ingress: AgentCommandAdmissionIngress;
   operationalRunInstance: OperationalRunInstanceRef;
   runId: string;
@@ -116,7 +116,7 @@ async function commitAgentCommandRecoveryState(params: {
 export function prepareAgentCommandExecutionIdentity(params: {
   opts: AgentCommandOpts;
   prepared: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     runId: string;
     sessionAgentId: string;
     sessionId: string;

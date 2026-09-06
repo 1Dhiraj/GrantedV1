@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { saveAuthProfileStore } from "../agents/auth-profiles/store.js";
 import type { SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import {
@@ -40,7 +40,7 @@ describe("shouldPreserveSessionAuthProfileOverride", () => {
   it("uses config trust when resolving workspace provider aliases", () => {
     const allowedConfig = {
       plugins: { entries: { "fixture-provider": { enabled: true } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(
       shouldPreserveSessionAuthProfileOverride({

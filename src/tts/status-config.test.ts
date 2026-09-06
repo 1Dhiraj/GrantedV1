@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { resolveStatusTtsSnapshot } from "./status-config.js";
 
@@ -49,7 +49,7 @@ describe("resolveStatusTtsSnapshot", () => {
               provider: "edge",
               prefsPath,
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -82,7 +82,7 @@ describe("resolveStatusTtsSnapshot", () => {
             tts: {
               prefsPath,
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -101,7 +101,7 @@ describe("resolveStatusTtsSnapshot", () => {
             tts: {
               auto: "always",
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -132,7 +132,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               ],
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           agentId: "reader",
         }),
       ).toEqual({
@@ -167,7 +167,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               ],
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           agentId: "reader",
         }),
       ).toEqual({
@@ -197,7 +197,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -231,7 +231,7 @@ describe("resolveStatusTtsSnapshot", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       expect(snapshot?.displayName).toBe(`${"d".repeat(92)}...`);
@@ -256,7 +256,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -283,7 +283,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -325,7 +325,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               ],
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           agentId: "reader",
         }),
       ).toEqual({
@@ -369,7 +369,7 @@ describe("resolveStatusTtsSnapshot", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).toEqual({
         autoMode: "always",
@@ -406,7 +406,7 @@ describe("resolveStatusTtsSnapshot", () => {
             resolveStatusTtsSnapshot({
               cfg: {
                 tts: {},
-              } as OpenClawConfig,
+              } as GrantedConfig,
             }),
           ).toEqual({
             autoMode: "always",

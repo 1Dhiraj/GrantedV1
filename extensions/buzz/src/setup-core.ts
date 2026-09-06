@@ -3,7 +3,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupInput,
 } from "openclaw/plugin-sdk/channel-setup";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { patchScopedAccountConfig } from "openclaw/plugin-sdk/setup";
 import { decodeBuzzPrivateKey, resolveBuzzAccountConfig, resolveBuzzPublicKey } from "./types.js";
 
@@ -22,11 +22,11 @@ function validRelayUrl(value: string | undefined): boolean {
 }
 
 export function patchBuzzAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   patch: Record<string, unknown>;
   clearFields?: readonly string[];
-}): OpenClawConfig {
+}): GrantedConfig {
   const { accountId, allowEnv } = resolveBuzzAccountConfig(params);
   return patchScopedAccountConfig({
     ...params,
@@ -38,7 +38,7 @@ export function patchBuzzAccountConfig(params: {
   });
 }
 
-function resolveComparableCurrentKey(cfg: OpenClawConfig, accountId: string): string | undefined {
+function resolveComparableCurrentKey(cfg: GrantedConfig, accountId: string): string | undefined {
   const { config, allowEnv } = resolveBuzzAccountConfig({ cfg, accountId });
   const configured = config.privateKey;
   if (configured !== undefined) {

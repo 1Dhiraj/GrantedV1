@@ -1,7 +1,7 @@
 // Gateway credentials tests cover config/env/secret-ref resolution for local and
 // remote gateway auth values.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveConfigForRead } from "../config/io.read-helpers.js";
 import { setConfigResolutionFacts } from "../config/resolution-facts.js";
 import {
@@ -9,12 +9,12 @@ import {
   resolveGatewayCredentialsFromValues,
 } from "./credentials.js";
 
-function cfg(input: Partial<OpenClawConfig>): OpenClawConfig {
-  return input as OpenClawConfig;
+function cfg(input: Partial<GrantedConfig>): GrantedConfig {
+  return input as GrantedConfig;
 }
 
 type ResolveFromConfigInput = Parameters<typeof resolveGatewayCredentialsFromConfig>[0];
-type GatewayConfig = NonNullable<OpenClawConfig["gateway"]>;
+type GatewayConfig = NonNullable<GrantedConfig["gateway"]>;
 type ResolveFromConfigOverrides = Partial<Omit<ResolveFromConfigInput, "cfg" | "env">>;
 
 const DEFAULT_GATEWAY_AUTH = { token: "config-token", password: "config-password" }; // pragma: allowlist secret
@@ -29,7 +29,7 @@ function envSecretRef(id: string) {
   return { source: "env", provider: "default", id } as const;
 }
 
-function cfgWithDefaultEnvSecretProvider(gateway: GatewayConfig): OpenClawConfig {
+function cfgWithDefaultEnvSecretProvider(gateway: GatewayConfig): GrantedConfig {
   return {
     gateway,
     secrets: {
@@ -37,11 +37,11 @@ function cfgWithDefaultEnvSecretProvider(gateway: GatewayConfig): OpenClawConfig
         default: { source: "env" },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 function resolveGatewayCredentialsWithEmptyEnv(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   overrides: ResolveFromConfigOverrides = {},
 ) {
   return resolveGatewayCredentialsFromConfig({
@@ -451,7 +451,7 @@ describe("resolveGatewayCredentialsFromConfig", () => {
           default: { source: "env" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
   }
 
   it("ignores unresolved local token ref in remote-only mode when local auth mode is token", () => {
@@ -540,7 +540,7 @@ describe("resolveGatewayCredentialsFromConfig", () => {
         { gateway: { auth: { mode: "token", token: authored } } },
         env,
       );
-      const config = read.resolvedConfigRaw as OpenClawConfig;
+      const config = read.resolvedConfigRaw as GrantedConfig;
       setConfigResolutionFacts(config, read.resolutionFacts);
 
       if (expected === null) {

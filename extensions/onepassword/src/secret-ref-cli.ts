@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import {
   DEFAULT_SECRET_FILE_MAX_BYTES,
   tryReadSecretFileSync,
@@ -45,7 +45,7 @@ type CommandLike = Parameters<typeof onePasswordSecretRefSetupCli.registerSetupC
 
 type RegisterOnePasswordSecretRefCommandsParams = {
   command: CommandLike;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   tokenFile: string;
   env?: NodeJS.ProcessEnv;
 };

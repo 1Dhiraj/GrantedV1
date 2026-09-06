@@ -3,7 +3,7 @@ import path from "node:path";
 import { Command } from "commander";
 import { afterAll, afterEach, expect, it } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createPluginCliLoadSession,
   loadPluginCliDescriptors,
@@ -33,7 +33,7 @@ it.each(["retained-agent", "install-roots", "install-state"] as const)(
         body: `module.exports = { id: ${JSON.stringify(id)}, register(api) { api.registerCli(({ program }) => program.command(${JSON.stringify(id)}), { descriptors: [{ name: ${JSON.stringify(id)}, description: "Scope", hasSubcommands: false }] }); } };`,
       });
     }
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: {

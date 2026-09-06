@@ -1,7 +1,7 @@
 // Remote skill runtime helpers send skill refresh and snapshot state across remotes.
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { listAgentWorkspaceDirs } from "../../agents/workspace-dirs.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { NodeRegistry, NodeSession } from "../../gateway/node-registry.js";
 import { updatePairedNodeBins } from "../../infra/device-pairing-node-facts.js";
 import { listNodePairing } from "../../infra/device-pairing-node.js";
@@ -417,7 +417,7 @@ export async function refreshRemoteNodeBins(params: {
   platform?: string;
   deviceFamily?: string;
   commands?: string[];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs?: number;
   readinessDelayMs?: number;
 }) {
@@ -455,7 +455,7 @@ async function refreshRemoteNodeBinsUncoalesced(params: {
   platform?: string;
   deviceFamily?: string;
   commands?: string[];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs?: number;
   readinessDelayMs?: number;
 }) {
@@ -720,7 +720,7 @@ export function getRemoteSkillEligibility(options?: {
   };
 }
 
-export async function refreshRemoteBinsForConnectedNodes(cfg: OpenClawConfig) {
+export async function refreshRemoteBinsForConnectedNodes(cfg: GrantedConfig) {
   if (!remoteRegistry) {
     return;
   }

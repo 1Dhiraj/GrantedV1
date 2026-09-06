@@ -13,7 +13,7 @@ import { logConfigWarningsOnce } from "../config/io.warnings.js";
 import { formatConfigIssueLines } from "../config/issue-format.js";
 import { resolveStateDir } from "../config/paths.js";
 import type { ConfigFileSnapshot } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import type {
   MigrationCheckpointIdentity,
@@ -62,7 +62,7 @@ const configLog = createSubsystemLogger("config");
 
 export type DoctorConfigPreflightResult = {
   snapshot: Awaited<ReturnType<typeof readConfigFileSnapshot>>;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   cronCodexRuntimePolicyTargets?: CronCodexRuntimePolicyTarget[];
 };

@@ -1,6 +1,6 @@
 // TTS local CLI tests cover the canonical process-wrapper contract.
 import { writeFileSync } from "node:fs";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { runCommandBufferedMock } = vi.hoisted(() => ({ runCommandBufferedMock: vi.fn() }));
@@ -15,7 +15,7 @@ vi.mock("openclaw/plugin-sdk/media-runtime", () => ({
 
 import { buildCliSpeechProvider } from "./speech-provider.js";
 
-const TEST_CFG = {} as OpenClawConfig;
+const TEST_CFG = {} as GrantedConfig;
 const MIB = 1024 * 1024;
 const WAV_AUDIO = Buffer.concat([Buffer.from("RIFF"), Buffer.alloc(4), Buffer.from("WAVEaudio")]);
 

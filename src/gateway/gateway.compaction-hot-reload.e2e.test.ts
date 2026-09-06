@@ -18,7 +18,7 @@ import {
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetAgentEventsForTest } from "../infra/agent-events.js";
 import { captureEnv, deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { disconnectGatewayClient, startGatewayWithClient } from "./test-helpers.e2e.js";
@@ -201,7 +201,7 @@ describe("gateway compaction hot reload", () => {
             },
           },
           gateway: { auth: { mode: "token", token } },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
 
         gateway = await startGatewayWithClient({
           cfg: initialConfig,

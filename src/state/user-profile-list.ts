@@ -6,7 +6,7 @@ import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-r
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 import { readUserProfileVersion } from "./user-profile-events.js";
@@ -24,7 +24,7 @@ import {
   hasEnsuredUserProfileRoleSchema,
 } from "./user-profiles-schema.js";
 
-export function listProfiles(options: OpenClawStateDatabaseOptions = {}) {
+export function listProfiles(options: GrantedStateDatabaseOptions = {}) {
   ensureUserProfilesSchema(options);
   const database = openOpenClawStateDatabase(options);
   return runSqliteDeferredTransactionSync(
@@ -85,7 +85,7 @@ export function listProfiles(options: OpenClawStateDatabaseOptions = {}) {
 
 /** True when session-sharing policy can distinguish at least two durable people. */
 export function hasMultipleSessionSharingIdentities(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   ensureUserProfilesSchema(options);
   const { db } = openOpenClawStateDatabase(options);
@@ -120,7 +120,7 @@ const profileAliasSnapshots = new WeakMap<
 /** Existing one-hop aliases are identity facts; this read never creates profile storage. */
 export function readUserProfileAliases(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ReadonlySet<string> {
   const opened = openClawStateDatabaseCache.getOpenClawStateDatabaseIfOpenAtPath(
     options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env),
@@ -184,7 +184,7 @@ const userProfileDisplaySelection = [
 /** Reads merge-aware display data without loading avatar bytes. */
 export function getUserProfileDisplay(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileDisplay {
   const profile = withExistingOpenClawStateDatabaseReadOnly(({ db }) => {
     if (!tableExists(db, "user_profiles")) {

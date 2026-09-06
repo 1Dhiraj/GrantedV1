@@ -17,7 +17,7 @@ import {
   validateArtifactsListParams,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { parseAgentSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { readAssistantDisplayContent } from "../../shared/assistant-display-content.js";
 import {
@@ -59,7 +59,7 @@ type ArtifactCollectionOptions = {
 
 function admitArtifactQuery<T extends ArtifactQuery>(
   query: T,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   respond: RespondFn,
 ): T | undefined {
   const sessionKey = asNonEmptyString(query.sessionKey);
@@ -311,7 +311,7 @@ function collectArtifactsFromMessage(params: {
 /** Loads artifacts from the transcript selected by sessionKey, runId, or taskId. */
 async function loadArtifacts(
   query: ArtifactQuery,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   opts: ArtifactCollectionOptions = {},
   client: GatewayClient | null = null,
 ): Promise<{ artifacts: ArtifactRecord[]; sessionKey?: string }> {
@@ -402,7 +402,7 @@ async function runArtifactSessionOperation<T>(
 
 async function findArtifact(
   params: ArtifactsGetParams,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   opts: ArtifactCollectionOptions = {},
   client: GatewayClient | null = null,
 ): Promise<{

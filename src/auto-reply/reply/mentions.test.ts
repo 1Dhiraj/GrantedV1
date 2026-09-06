@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // Tests mention detection and command trigger matching.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { MsgContext } from "../templating.js";
 import {
   buildMentionRegexes,
@@ -129,7 +129,7 @@ describe("derived Unicode mention matching", () => {
 });
 
 describe("derived mention matching with decorated identity names", () => {
-  function configForName(name: string): OpenClawConfig {
+  function configForName(name: string): GrantedConfig {
     return {
       agents: {
         list: [{ id: "decorated-agent", identity: { name } }],
@@ -350,7 +350,7 @@ describe("derived mention matching with decorated identity names", () => {
       agents: {
         list: [{ id: "decorated-agent", identity: { name: "Clawd", emoji: "👩‍👧" } }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const regexes = buildMentionRegexes(cfg, "decorated-agent");
 
     expect(matchesMentionPatterns("👩‍👧 status", regexes)).toBe(true);
@@ -558,7 +558,7 @@ describe("derived mention matching with decorated identity names", () => {
       agents: {
         list: [{ id: "decorated-agent", identity: { name: "Clawd", emoji: "\u200D" } }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const regexes = buildMentionRegexes(cfg, "decorated-agent");
 
     expect(regexes).toHaveLength(1);

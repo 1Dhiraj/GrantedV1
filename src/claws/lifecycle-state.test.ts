@@ -2,7 +2,7 @@ import { link, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeCronJobCreate } from "../cron/normalize.js";
 import { upsertCronJobRow } from "../cron/store/row-codec.js";
 import type { CronStoredJob } from "../cron/types.js";
@@ -154,7 +154,7 @@ async function addFixture(
   params: { withFile?: boolean; withCron?: boolean; withMcp?: boolean } = {},
 ) {
   const current = await fixture(params);
-  let config: OpenClawConfig = {};
+  let config: GrantedConfig = {};
   await applyClawAddPlan(current.plan, {
     consentPlanIntegrity: current.plan.planIntegrity,
     env: current.env,
@@ -167,7 +167,7 @@ async function addFixture(
   return {
     ...current,
     getConfig: () => config,
-    commitConfig: async (transform: (current: OpenClawConfig) => OpenClawConfig) => {
+    commitConfig: async (transform: (current: GrantedConfig) => GrantedConfig) => {
       config = transform(config);
     },
   };
@@ -383,11 +383,11 @@ describe("Claw status and remove", () => {
 
   it("previews all canonical agent config deletion effects", async () => {
     const current = await addFixture();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       ...current.getConfig(),
       bindings: [{ match: { channel: "telegram", accountId: "*" }, agentId: "worker" }],
       tools: { agentToAgent: { allow: ["worker"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const plan = await buildClawRemovePlan("worker", { env: current.env, config });
 
@@ -406,15 +406,15 @@ describe("Claw status and remove", () => {
 
   it("rejects consent when a binding changes without changing the binding count", async () => {
     const current = await addFixture();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       ...current.getConfig(),
       bindings: [{ match: { channel: "telegram", accountId: "first" }, agentId: "worker" }],
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const plan = await buildClawRemovePlan("worker", { env: current.env, config });
-    const changedConfig: OpenClawConfig = {
+    const changedConfig: GrantedConfig = {
       ...config,
       bindings: [{ match: { channel: "telegram", accountId: "second" }, agentId: "worker" }],
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       applyClawRemovePlan(plan, {
@@ -1032,7 +1032,7 @@ describe("Claw status and remove", () => {
     });
     const { id: firstId, ...firstConfig } = first.plan.agent.config;
     const { id: secondId, ...secondConfig } = second.plan.agent.config;
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       agents: { entries: { [firstId]: firstConfig, [secondId]: secondConfig } },
     };
     const remove = await buildClawRemovePlan("worker-a", { env: first.env, config });

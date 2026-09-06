@@ -14,23 +14,23 @@ import {
   assertOpenClawStateDatabaseForMaintenance,
   resolveDatabasePath,
 } from "./openclaw-state-db-maintenance.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import {
   inspectOpenClawStateOwnershipFromDatabase,
   normalizeOpenClawStateManagerId,
-  OpenClawStateOwnershipMetadataError,
+  GrantedStateOwnershipMetadataError,
   STATE_SUPERVISION_KEY,
-  type OpenClawExternalStateOwnership,
+  type GrantedExternalStateOwnership,
   runWithOpenClawStateOwnershipCoordinator,
 } from "./openclaw-state-ownership.js";
 
-type OpenClawStateOwnershipOptions = Omit<OpenClawStateDatabaseOptions, "database" | "readOnly">;
-type OwnershipDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type GrantedStateOwnershipOptions = Omit<GrantedStateDatabaseOptions, "database" | "readOnly">;
+type OwnershipDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 function requireOwnershipCheckpoint(
   walMaintenance: SqliteWalMaintenance,
@@ -48,12 +48,12 @@ function claimOwnershipRow(
   databasePath: string,
   managerId: string,
   repairMalformed: boolean,
-): OpenClawExternalStateOwnership {
-  let current: OpenClawExternalStateOwnership | null = null;
+): GrantedExternalStateOwnership {
+  let current: GrantedExternalStateOwnership | null = null;
   try {
     current = inspectOpenClawStateOwnershipFromDatabase(database, databasePath);
   } catch (error) {
-    if (!repairMalformed || !(error instanceof OpenClawStateOwnershipMetadataError)) {
+    if (!repairMalformed || !(error instanceof GrantedStateOwnershipMetadataError)) {
       throw error;
     }
   }
@@ -66,7 +66,7 @@ function claimOwnershipRow(
     }
     return current;
   }
-  const ownership: OpenClawExternalStateOwnership = {
+  const ownership: GrantedExternalStateOwnership = {
     version: 1,
     mode: "external",
     managerId,
@@ -96,7 +96,7 @@ function claimOwnershipRow(
 function repairMalformedOwnershipClaim(
   databasePath: string,
   managerId: string,
-): OpenClawExternalStateOwnership {
+): GrantedExternalStateOwnership {
   return runWithOpenClawStateOwnershipCoordinator(
     databasePath,
     "malformed state ownership repair/checkpoint",
@@ -140,8 +140,8 @@ function repairMalformedOwnershipClaim(
 /** Claim durable shared-state write ownership for the active external supervisor. */
 export function claimOpenClawStateOwnership(
   managerId: string,
-  options: OpenClawStateOwnershipOptions = {},
-): OpenClawExternalStateOwnership {
+  options: GrantedStateOwnershipOptions = {},
+): GrantedExternalStateOwnership {
   const env = options.env ?? process.env;
   if (!isGatewayExternallySupervised(env)) {
     throw new Error(
@@ -166,7 +166,7 @@ export function claimOpenClawStateOwnership(
       },
     );
   } catch (error) {
-    if (!(error instanceof OpenClawStateOwnershipMetadataError)) {
+    if (!(error instanceof GrantedStateOwnershipMetadataError)) {
       throw error;
     }
     const ownership = repairMalformedOwnershipClaim(

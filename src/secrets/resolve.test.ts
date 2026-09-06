@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   killPidIfAlive,
   waitForPidFile,
@@ -213,7 +213,7 @@ describe("secret ref resolver", () => {
   });
 
   it("resolves env refs via implicit default env provider", async () => {
-    const config: OpenClawConfig = {};
+    const config: GrantedConfig = {};
     const value = await resolveSecretRefString(
       { source: "env", provider: "default", id: "OPENAI_API_KEY" },
       {
@@ -351,7 +351,7 @@ describe("secret ref resolver", () => {
     "classifies omitted and NOT_FOUND exec ids as missing but keeps other errors fail-closed",
     async () => {
       const ref = { source: "exec", provider: "execmain", id: "openai/api-key" } as const;
-      const configFor = (command: string): OpenClawConfig => ({
+      const configFor = (command: string): GrantedConfig => ({
         secrets: {
           providers: {
             execmain: createExecProviderConfig(command),

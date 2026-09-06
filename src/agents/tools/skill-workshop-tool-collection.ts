@@ -2,7 +2,7 @@ import path from "node:path";
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import {
   MAX_RECONCILED_SKILLS,
@@ -91,7 +91,7 @@ export async function executeSkillCollectionReconcile(params: {
   workspaceDir: string;
   readSkillHashes: ReadonlyMap<string, string>;
   context?: SkillCollectionReconcileContext;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   env?: NodeJS.ProcessEnv;
 }) {

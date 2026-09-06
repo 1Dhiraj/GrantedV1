@@ -1,5 +1,5 @@
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
 import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { vi } from "vitest";
 import type { ClickClackClient } from "../http-client.js";
@@ -79,7 +79,7 @@ export function createHarness(
     | undefined,
   options: {
     bindingGenerationFactory?: () => string;
-    gatewayEvents?: Pick<OpenClawPluginGatewayEvents, "onSessionsChanged">;
+    gatewayEvents?: Pick<GrantedPluginGatewayEvents, "onSessionsChanged">;
     startTimer?: boolean;
     maxRetainedDetachedBindings?: number;
     openSyncKeyedStore?: PluginRuntime["state"]["openSyncKeyedStore"];

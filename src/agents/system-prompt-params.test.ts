@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setActiveNodeContext } from "../infra/active-node-context.js";
 import { buildSystemPromptParams, resolveSystemPromptRepoRoot } from "./system-prompt-params.js";
 
@@ -14,7 +14,7 @@ async function makeRepoRoot(root: string): Promise<void> {
   await fs.mkdir(path.join(root, ".git"), { recursive: true });
 }
 
-function buildParams(params: { config?: OpenClawConfig; workspaceDir?: string; cwd?: string }) {
+function buildParams(params: { config?: GrantedConfig; workspaceDir?: string; cwd?: string }) {
   const preparedRepoRoot = resolveSystemPromptRepoRoot(params);
   return buildSystemPromptParams({
     config: params.config,
@@ -103,7 +103,7 @@ describe("buildSystemPromptParams", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await makeRepoRoot(workspaceDir);
 
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           repoRoot,
@@ -125,7 +125,7 @@ describe("buildSystemPromptParams", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await makeRepoRoot(repoRoot);
 
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           repoRoot: path.join(temp, "missing"),

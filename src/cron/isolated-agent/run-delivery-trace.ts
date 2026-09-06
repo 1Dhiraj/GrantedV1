@@ -1,7 +1,7 @@
 import { resolveStaticSessionMcpServerNames } from "../../agents/agent-bundle-mcp-runtime-config.js";
 import { resolveCodexMcpToolOverridesForAgent } from "../../agents/cli-runner/bundle-mcp-codex.js";
 /** Delivery planning, prompt policy, and delivery trace construction for cron runs. */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   SourceDeliveryOutcome,
   SourceDeliveryVisibleDelivery,
@@ -150,7 +150,7 @@ export function buildCronDeliveryTrace(params: {
 }
 
 export async function createCronToolsAllowPreflightDiagnostics(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   jobId: string;
   provider: string;
   model: string;
@@ -233,7 +233,7 @@ export async function createCronToolsAllowPreflightDiagnostics(params: {
 
 /** Resolves the delivery plan and concrete target for one isolated cron run. */
 export async function resolveCronDeliveryContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   job: CronJob;
   agentId: string;
 }) {

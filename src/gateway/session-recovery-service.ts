@@ -15,7 +15,7 @@ import {
   type SessionCreatedActor,
 } from "../config/sessions/session-entry-provenance.js";
 import type { InternalSessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   closeSessionWorkAdmissions,
@@ -75,7 +75,7 @@ export async function recoverGatewaySession(params: {
   actor?: SessionCreatedActor;
   agentId?: string;
   authorizedPluginId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   commitGuard?: () => void;
   key: string;
   requestingOperatorProfileId?: string;

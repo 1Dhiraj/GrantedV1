@@ -14,7 +14,7 @@ import {
   loadSessionEntryReadOnly,
   loadTranscriptEventsSync,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { registerContextEngineForOwner } from "../../context-engine/registry.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import { CliBackendAuthProfilePreparationError } from "../../plugins/cli-backend-errors.js";
@@ -166,7 +166,7 @@ const mockBuildActiveMusicGenerationTaskPromptContextForSession = vi.mocked(
 
 let defaultTestCliBackend = buildDefaultTestCliBackend();
 
-function createCliBackendConfig(params: TestCliBackendParams = {}): OpenClawConfig {
+function createCliBackendConfig(params: TestCliBackendParams = {}): GrantedConfig {
   defaultTestCliBackend = buildDefaultTestCliBackend(params);
   return {};
 }
@@ -174,7 +174,7 @@ function createCliBackendConfig(params: TestCliBackendParams = {}): OpenClawConf
 const SHARED_CHAT_MESSAGE_TOOL_ETIQUETTE =
   "- Group/channel: stale/joke/light ack/low-value chatter => reaction or silence. Needed reply => `message(action=send)`; final text private.";
 
-function createBundledMessageToolConfig(): OpenClawConfig {
+function createBundledMessageToolConfig(): GrantedConfig {
   setCliRunnerPrepareTestDeps({
     getActiveMcpLoopbackRuntime: vi.fn(() => ({
       port: 31783,
@@ -269,7 +269,7 @@ describe("prepareCliRunContext", () => {
 
   it("preserves outer fallback route provenance through CLI admission", async () => {
     const runId = "run-cli-model-fallback-receipt";
-    const cfg = { logging: { audit: { executionIdentity: true } } } satisfies OpenClawConfig;
+    const cfg = { logging: { audit: { executionIdentity: true } } } satisfies GrantedConfig;
     const preparedRunAdmission = createModelRoutingTestAdmission({
       cfg,
       runId,
@@ -417,7 +417,7 @@ describe("prepareCliRunContext", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
     });
 
     expect(context.backendResolved.modelProvider).toBe("fixture-anthropic");
@@ -548,7 +548,7 @@ describe("prepareCliRunContext", () => {
           { id: "arthur", workspace: arthurWorkspace },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const context = await fixture.prepare({
       sessionKey: "agent:arthur:main",
       workspaceDir: arthurWorkspace,
@@ -864,7 +864,7 @@ describe("prepareCliRunContext", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(resolveApiKeyForProfile).not.toHaveBeenCalled();
@@ -1706,7 +1706,7 @@ describe("prepareCliRunContext", () => {
     const bootstrapPath = path.join(dir, "BOOTSTRAP.md");
     const config = {
       agents: { defaults: { workspace: dir } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     setRawCliBackendForPrepareTest({
       id: "test-cli",
       pluginId: "test",
@@ -2391,7 +2391,7 @@ describe("prepareCliRunContext", () => {
         list: [{ id: "main", default: true, agentDir: runtimeAgentDir }],
       },
       plugins: { slots: { contextEngine: engineId } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const factory = vi.fn((_ctx: unknown): ContextEngine => {
       return {
         info: { id: engineId, name: "CLI runtime config engine" },
@@ -4783,7 +4783,7 @@ describe("prepareCliRunContext", () => {
         workspaceAccess: "rw",
       });
 
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { ownership: "explicit", entries: { main: {}, worker: {} } },
       };
       const skillsSnapshot: SkillSnapshot = {

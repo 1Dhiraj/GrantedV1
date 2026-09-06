@@ -4,7 +4,7 @@ import {
   registerHookHandlersForTest,
 } from "openclaw/plugin-sdk/channel-test-helpers";
 import { afterEach, describe, expect, it } from "vitest";
-import type { ClawdbotConfig, OpenClawPluginApi } from "../runtime-api.js";
+import type { ClawdbotConfig, GrantedPluginApi } from "../runtime-api.js";
 import { registerFeishuSubagentHooks } from "../subagent-hooks-api.js";
 import { createFeishuThreadBindingManager as createFeishuThreadBindingManagerImpl } from "./thread-bindings.js";
 
@@ -22,7 +22,7 @@ function createFeishuThreadBindingManager(): FeishuThreadBindingManager {
 }
 
 function registerHandlersForTest() {
-  return registerHookHandlersForTest<OpenClawPluginApi>({
+  return registerHookHandlersForTest<GrantedPluginApi>({
     config: baseConfig,
     register: registerFeishuSubagentHooks,
   });

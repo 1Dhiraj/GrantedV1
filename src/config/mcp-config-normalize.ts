@@ -3,9 +3,9 @@ import { normalizeLowercaseStringOrEmpty as normalizeMcpString } from "@openclaw
 import { isRecord } from "../utils.js";
 
 type ConfigMcpServers = Record<string, Record<string, unknown>>;
-type OpenClawMcpHttpTransport = "sse" | "streamable-http";
+type GrantedMcpHttpTransport = "sse" | "streamable-http";
 
-const CLI_MCP_TYPE_TO_GRANTED_TRANSPORT: Record<string, OpenClawMcpHttpTransport | "stdio"> = {
+const CLI_MCP_TYPE_TO_GRANTED_TRANSPORT: Record<string, GrantedMcpHttpTransport | "stdio"> = {
   http: "streamable-http",
   "streamable-http": "streamable-http",
   sse: "sse",
@@ -15,7 +15,7 @@ const CLI_MCP_TYPE_TO_GRANTED_TRANSPORT: Record<string, OpenClawMcpHttpTransport
 /** Maps CLI-native MCP type aliases to OpenClaw HTTP transport names. */
 export function resolveOpenClawMcpTransportAlias(
   value: unknown,
-): OpenClawMcpHttpTransport | undefined {
+): GrantedMcpHttpTransport | undefined {
   const mapped = CLI_MCP_TYPE_TO_GRANTED_TRANSPORT[normalizeMcpString(value)];
   return mapped === "sse" || mapped === "streamable-http" ? mapped : undefined;
 }

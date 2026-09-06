@@ -11,7 +11,7 @@ import {
 } from "../agents/auth-profiles/profiles.js";
 import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   coerceSecretRef,
   DEFAULT_SECRET_PROVIDER_ALIAS,
@@ -26,12 +26,12 @@ import { isValidSecretRef } from "../secrets/ref-contract.js";
 import { normalizeSecretInput } from "../utils/normalize-secret-input.js";
 import type { SecretInputMode } from "./provider-auth-types.js";
 
-const resolveAuthAgentDir = (agentDir?: string, config?: OpenClawConfig) =>
+const resolveAuthAgentDir = (agentDir?: string, config?: GrantedConfig) =>
   agentDir ?? resolveDefaultAgentDir(config ?? {});
 
 export type ApiKeyStorageOptions = {
   secretInputMode?: SecretInputMode;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 
 export type WriteOAuthCredentialsOptions = {
@@ -44,7 +44,7 @@ function buildEnvSecretRef(id: string): SecretRef {
   return { source: "env", provider: DEFAULT_SECRET_PROVIDER_ALIAS, id };
 }
 
-function resolveProviderDefaultEnvSecretRef(provider: string, config?: OpenClawConfig): SecretRef {
+function resolveProviderDefaultEnvSecretRef(provider: string, config?: GrantedConfig): SecretRef {
   const envVars = getProviderEnvVars(provider, {
     ...(config ? { config } : {}),
     includeUntrustedWorkspacePlugins: false,
@@ -143,7 +143,7 @@ export function upsertApiKeyProfile(params: {
 }
 
 export function applyAuthProfileConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: {
     profileId: string;
     provider: string;
@@ -152,7 +152,7 @@ export function applyAuthProfileConfig(
     displayName?: string;
     preferProfileFirst?: boolean;
   },
-): OpenClawConfig {
+): GrantedConfig {
   const profiles = {
     ...cfg.auth?.profiles,
     [params.profileId]: {
@@ -216,7 +216,7 @@ export function applyAuthProfileConfig(
 }
 
 /** Returns true when config still names a removed auth profile. */
-export function configReferencesAuthProfile(cfg: OpenClawConfig, profileId: string): boolean {
+export function configReferencesAuthProfile(cfg: GrantedConfig, profileId: string): boolean {
   return (
     Boolean(cfg.auth?.profiles?.[profileId]) ||
     Object.values(cfg.auth?.order ?? {}).some((order) => order.includes(profileId)) ||
@@ -229,7 +229,7 @@ export function configReferencesAuthProfile(cfg: OpenClawConfig, profileId: stri
  * `apiKey` references. An emptied provider order is deleted rather than left as
  * `[]`, because an authored empty order is a hard "select no profiles" instruction.
  */
-export function removeAuthProfileConfig(cfg: OpenClawConfig, profileId: string): OpenClawConfig {
+export function removeAuthProfileConfig(cfg: GrantedConfig, profileId: string): GrantedConfig {
   if (!configReferencesAuthProfile(cfg, profileId)) {
     return cfg;
   }

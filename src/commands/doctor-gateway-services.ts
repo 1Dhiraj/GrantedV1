@@ -8,7 +8,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { SUPPORTED_NODE_VERSIONS } from "../../node-version.mjs";
 import { note } from "../../packages/terminal-core/src/note.js";
-import { replaceConfigFile, type OpenClawConfig } from "../config/config.js";
+import { replaceConfigFile, type GrantedConfig } from "../config/config.js";
 import { isDefaultInstallIdentity, resolveGatewayPort, resolveIsNixMode } from "../config/paths.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { formatGatewayHeapLimitReport, inspectGatewayHeapLimit } from "../daemon/gateway-heap.js";
@@ -165,7 +165,7 @@ function findGatewayEntrypoint(programArguments?: string[]): string | null {
 }
 
 async function buildExpectedGatewayServicePlan(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   command: GatewayServiceCommandConfig;
   serviceInstallEnv: NodeJS.ProcessEnv;
   port: number;
@@ -497,12 +497,12 @@ async function cleanupLegacyLinuxUserServices(
  * stay staged except for running Windows services, which must be activated to replace a fallback.
  */
 export async function maybeRepairGatewayServiceConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   mode: "local" | "remote",
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
   options: GatewayServiceConfigRepairOptions = {},
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   if (!isDefaultInstallIdentity(process.env)) {
     note(NON_DEFAULT_INSTALL_SERVICE_SKIP_REASON, "Gateway");
     return cfg;
@@ -863,7 +863,7 @@ export async function maybeRepairGatewayServiceConfig(
       );
       return cfg;
     }
-    const nextCfg: OpenClawConfig = {
+    const nextCfg: GrantedConfig = {
       ...cfg,
       gateway: {
         ...cfg.gateway,

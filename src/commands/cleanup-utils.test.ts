@@ -9,7 +9,7 @@ import { pathToFileURL } from "node:url";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveGatewayLockDir } from "../config/paths.js";
 import { acquireGatewayLock, GatewayLockError } from "../infra/gateway-lock.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -215,7 +215,7 @@ describe("buildCleanupPlan", () => {
       },
     };
     const plan = buildCleanupPlan({
-      cfg: cfg as unknown as OpenClawConfig,
+      cfg: cfg as unknown as GrantedConfig,
       stateDir: path.join(tmpRoot, "openclaw-state"),
       configPath: path.join(tmpRoot, "openclaw-state", "openclaw.json"),
       oauthDir: path.join(tmpRoot, "openclaw-oauth"),
@@ -246,7 +246,7 @@ describe("buildCleanupPlan", () => {
       },
       async () => {
         const plan = buildCleanupPlan({
-          cfg: cfg as unknown as OpenClawConfig,
+          cfg: cfg as unknown as GrantedConfig,
           stateDir,
           configPath: path.join(stateDir, "openclaw.json"),
           oauthDir: path.join(stateDir, "credentials"),

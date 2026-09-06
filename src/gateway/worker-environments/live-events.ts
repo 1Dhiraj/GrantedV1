@@ -5,7 +5,7 @@ import type {
   WorkerLiveEventResult,
 } from "../../../packages/gateway-protocol/src/schema/worker-admission.js";
 import { onSessionIdentityMutation } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   emitAgentEventIfCurrent,
   emitAgentEventForOwner,
@@ -88,7 +88,7 @@ export type WorkerLiveEventApplicationResult =
 type WorkerLiveEventFailure = Extract<WorkerLiveEventApplicationResult, { ok: false }>;
 
 type WorkerLiveEventReceiverOptions = {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   maxActiveRuns?: number;
   maxPendingBytes?: number;
   maxSessions?: number;
@@ -229,7 +229,7 @@ export function createWorkerLiveEventReceiver(options: WorkerLiveEventReceiverOp
 
   const bindSessionWithConfig = (
     binding: WorkerLiveSessionBinding,
-    config: OpenClawConfig,
+    config: GrantedConfig,
   ): boolean => {
     if (!isValidLiveSessionBinding(binding)) {
       return false;
@@ -294,7 +294,7 @@ export function createWorkerLiveEventReceiver(options: WorkerLiveEventReceiverOp
   const bindSession = (binding: WorkerLiveSessionBinding): boolean =>
     bindSessionWithConfig(binding, committedConfig);
 
-  const rebindAll = (config: OpenClawConfig): void => {
+  const rebindAll = (config: GrantedConfig): void => {
     committedConfig = config;
     for (const binding of sessionBindings.values()) {
       bindSessionWithConfig(binding, committedConfig);

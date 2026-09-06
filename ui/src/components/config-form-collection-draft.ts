@@ -1,7 +1,7 @@
 import { html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { configValuesEqual, isSupportedConfigValueValid } from "./config-form.constraints.ts";
 import { coerceConfigFormNumberString } from "./config-form.numeric.ts";
 import { schemaMayAcceptString, schemaType, type JsonSchema } from "./config-form.shared.ts";
@@ -23,7 +23,7 @@ export type ConfigFormCollectionDraftCommit = {
   value: unknown;
 };
 
-export class ConfigFormCollectionDraft extends OpenClawLightDomElement {
+export class ConfigFormCollectionDraft extends GrantedLightDomElement {
   @property({ attribute: false }) props?: ConfigFormCollectionDraftProps;
 
   @state() private draftOpen = false;

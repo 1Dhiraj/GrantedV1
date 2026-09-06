@@ -13,7 +13,7 @@ import {
   setInstalledPluginIndexInstallRecords,
   writePersistedInstalledPluginIndexInstallRecordsWithLeaseMock,
 } from "../cli/plugins-cli-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { recordPluginManifestInstallOwner } from "./manifest-install-owner.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
@@ -77,7 +77,7 @@ describe("persistPluginInstall enablement", () => {
         allow: ["memory-core"],
         deny: ["demo-plugin-npm", "other"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     setInstalledPluginIndexInstallRecords({
       "demo-package": { source: "npm", spec: "@openclaw/demo-package@0.0.1" },
     });
@@ -113,7 +113,7 @@ describe("persistPluginInstall enablement", () => {
           "legacy-memory-a": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
@@ -121,7 +121,7 @@ describe("persistPluginInstall enablement", () => {
           "legacy-memory": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [createManifestRecord("legacy-memory")],
@@ -132,7 +132,7 @@ describe("persistPluginInstall enablement", () => {
       diagnostics: [],
     });
     applyExclusiveSlotSelectionMock.mockImplementation(((params: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       selectedId: string;
       selectedKind?: string;
       registry?: { plugins: Array<{ id: string; kind?: string }> };
@@ -193,7 +193,7 @@ describe("persistPluginInstall enablement", () => {
           "legacy-memory-a": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
@@ -201,14 +201,14 @@ describe("persistPluginInstall enablement", () => {
           "memory-b": { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [createManifestRecord("memory-b", { kind: "memory" })],
       diagnostics: [],
     });
     applyExclusiveSlotSelectionMock.mockImplementation(((params: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       selectedId: string;
       selectedKind?: string;
       registry?: { plugins: Array<{ id: string; kind?: string }> };
@@ -261,14 +261,14 @@ describe("persistPluginInstall enablement", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           plain: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [createManifestRecord("plain")],
@@ -322,7 +322,7 @@ describe("persistPluginInstall enablement", () => {
           "needs-config": { hooks: { timeoutMs: 5_000 } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [
         recordPluginManifestInstallOwner(
@@ -383,7 +383,7 @@ describe("persistPluginInstall enablement", () => {
     const { persistPluginInstall } = await import("./install-persistence.js");
     const baseConfig = {
       plugins: { allow: ["memory-core"], deny: ["broken-schema"], entries: {} },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [
         createManifestRecord("broken-schema", {
@@ -430,7 +430,7 @@ describe("persistPluginInstall enablement", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [
         recordPluginManifestInstallOwner(
@@ -481,7 +481,7 @@ describe("persistPluginInstall enablement", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const next = await persistPluginInstall({
       snapshot: {
@@ -523,7 +523,7 @@ describe("persistPluginInstall enablement", () => {
         allow: ["memory-core"],
         deny: ["memory-lancedb"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const next = await persistPluginInstall({
       snapshot: {

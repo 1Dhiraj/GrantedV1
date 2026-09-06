@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests as createChannelIngressQueue,
@@ -79,7 +79,7 @@ async function withStateDir<T>(fn: (stateDir: string) => Promise<T>): Promise<T>
   }
 }
 
-function migrationParams(stateDir: string, config: OpenClawConfig) {
+function migrationParams(stateDir: string, config: GrantedConfig) {
   return {
     config,
     env: process.env,
@@ -143,7 +143,7 @@ describe("LINE doctor state migration", () => {
   it("detects and migrates pre-drain rows for a configured account", async () => {
     await withStateDir(async (stateDir) => {
       await seedLegacyRow(stateDir, "work", "legacy-doctor-1");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         channels: { line: { accounts: { work: {} } } },
       };
 

@@ -1,13 +1,13 @@
 import { CommanderError } from "commander";
 import { describe, expect, it, vi } from "vitest";
-import { OpenClawCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./openclaw-command.js";
 import { registerLazyCommand } from "./register-lazy-command.js";
 
 describe("lazy command help", () => {
   it.each(["--help", "-h"])("loads nested leaf options without executing for %s", async (flag) => {
     const action = vi.fn();
     let stdout = "";
-    const program = new OpenClawCommand().name("openclaw").exitOverride();
+    const program = new GrantedCommand().name("openclaw").exitOverride();
     program.configureOutput({
       writeOut: (text) => {
         stdout += text;

@@ -26,7 +26,7 @@ function currentSeconds(): number {
   return performance.now() / 1_000;
 }
 
-class OpenClawMascot extends LitElement {
+class GrantedMascot extends LitElement {
   static override styles = css`
     :host {
       display: inline-block;
@@ -231,5 +231,5 @@ class OpenClawMascot extends LitElement {
 }
 
 if (!customElements.get("openclaw-mascot")) {
-  customElements.define("openclaw-mascot", OpenClawMascot);
+  customElements.define("openclaw-mascot", GrantedMascot);
 }

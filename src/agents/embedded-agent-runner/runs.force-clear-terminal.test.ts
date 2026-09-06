@@ -13,7 +13,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createDeferredEmbeddedRunLifecycleManager } from "./run/deferred-lifecycle-owner.js";
 import {
@@ -41,7 +41,7 @@ function createRunHandle(
 }
 
 describe("force-clear terminal state persistence", () => {
-  let testState: OpenClawTestState | undefined;
+  let testState: GrantedTestState | undefined;
   let storePath: string;
 
   beforeEach(async () => {

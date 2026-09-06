@@ -20,7 +20,7 @@ import {
   resolveSessionTotalTokens,
   type SessionEntry,
 } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { listGatewayAgentsBasic } from "../gateway/agent-list.js";
 import { resolveHeartbeatSessionKey } from "../infra/heartbeat-runner-session.js";
 import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-summary.js";
@@ -155,7 +155,7 @@ function selectRecentSessionCandidates(
   return selected;
 }
 
-async function prepareSessionStatusDetails(cfg: OpenClawConfig, now: number) {
+async function prepareSessionStatusDetails(cfg: GrantedConfig, now: number) {
   const {
     classifySessionKey,
     resolveConfiguredStatusModelRef,
@@ -374,8 +374,8 @@ export async function getStatusSummary(
   options: {
     includeSensitive?: boolean;
     includeChannelSummary?: boolean;
-    config?: OpenClawConfig;
-    sourceConfig?: OpenClawConfig;
+    config?: GrantedConfig;
+    sourceConfig?: GrantedConfig;
     hostDesktopStatus?: import("../gateway/desktop/host-source.js").HostDesktopStatus;
   } = {},
 ): Promise<StatusSummary> {

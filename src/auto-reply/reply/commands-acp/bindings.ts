@@ -18,7 +18,7 @@ import {
   resolveThreadBindingSpawnPolicy,
 } from "../../../channels/thread-bindings-policy.js";
 import type { SessionAcpMeta } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { normalizeConversationRef } from "../../../infra/outbound/session-binding-normalization.js";
 import {
@@ -65,7 +65,7 @@ export async function resolveBoundReplyPayload(params: {
 }
 
 function buildSpawnedAcpBindingMetadata(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   accountId: string;
   sessionKey: string;

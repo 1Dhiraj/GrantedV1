@@ -1,7 +1,7 @@
 // Defines and sanitizes runtime diagnostic event payloads.
 import { randomUUID } from "node:crypto";
 import type { EmbeddedAgentExecutionPhase } from "../agents/embedded-agent-runner/execution-phase.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { TalkBrain, TalkEventType, TalkMode, TalkTransport } from "../talk/talk-events.js";
 import {
   resetInternalDiagnosticEventListenerPresence,
@@ -1065,7 +1065,7 @@ function getDiagnosticEventsState(): DiagnosticEventsGlobalState {
 }
 
 /** Returns whether diagnostics are enabled for a loaded config; missing config defaults enabled. */
-export function isDiagnosticsEnabled(config?: OpenClawConfig): boolean {
+export function isDiagnosticsEnabled(config?: GrantedConfig): boolean {
   return config?.diagnostics?.enabled !== false;
 }
 

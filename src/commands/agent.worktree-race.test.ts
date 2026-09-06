@@ -12,7 +12,7 @@ import { getRegistryWorktree } from "../agents/worktrees/registry.js";
 import { managedWorktrees } from "../agents/worktrees/service.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.sqlite-entry.js";
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { createThrowingTestRuntime } from "./test-runtime-config-helpers.js";
 
@@ -54,7 +54,7 @@ async function initializeRepository(root: string): Promise<string> {
   return await fs.realpath(repo);
 }
 
-function mockConfig(home: string, storePath: string): OpenClawConfig {
+function mockConfig(home: string, storePath: string): GrantedConfig {
   const cfg = {
     agents: {
       defaults: {
@@ -64,7 +64,7 @@ function mockConfig(home: string, storePath: string): OpenClawConfig {
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   configIoMocks.loadConfig.mockReturnValue(cfg);
   return cfg;
 }

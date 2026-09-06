@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   dispatchCommittedSkillChangeBestEffort,
   hasCommittedSkillChangeHooks,
@@ -82,7 +82,7 @@ export type SkillProposalApplyTransitionDependencies = {
     env?: NodeJS.ProcessEnv,
     agentId?: string,
     readOptions?: {
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       reconcile?: boolean;
     },
   ) => Promise<SkillProposalReadResult>;

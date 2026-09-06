@@ -1,7 +1,7 @@
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
 import { createTopLevelChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
 import { resolveMSTeamsCredentials } from "./token.js";
 
@@ -27,7 +27,7 @@ export const msteamsMeta = {
   order: 60,
 } as const;
 
-export function resolveMSTeamsAccount(cfg: OpenClawConfig): ResolvedMSTeamsAccount {
+export function resolveMSTeamsAccount(cfg: GrantedConfig): ResolvedMSTeamsAccount {
   const config = cfg.channels?.msteams;
   const credentials = resolveMSTeamsCredentials(config);
   const certificatePath =

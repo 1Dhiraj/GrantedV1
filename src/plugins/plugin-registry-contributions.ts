@@ -1,6 +1,6 @@
 /** Loads manifest and installed-index contributions used to build plugin registry snapshots. */
 import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   normalizePluginsConfigWithResolverCore,
   type NormalizedPluginsConfig,
@@ -175,7 +175,7 @@ function listManifestContributionIds(
 function resolveContributionPluginIds(params: {
   index: PluginRegistrySnapshot;
   includeDisabled?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): readonly string[] {
   if (params.includeDisabled) {
@@ -251,7 +251,7 @@ export function loadPluginManifestRegistryForPluginRegistry(
 }
 
 export function normalizePluginsConfigWithRegistry(
-  config: OpenClawConfig["plugins"] | undefined,
+  config: GrantedConfig["plugins"] | undefined,
   index: PluginRegistrySnapshot,
   options: PluginRegistryIdNormalizerOptions = {},
 ): NormalizedPluginsConfig {

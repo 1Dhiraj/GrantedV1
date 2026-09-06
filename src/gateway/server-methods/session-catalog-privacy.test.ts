@@ -9,7 +9,7 @@ import {
   loadSessionEntryReadOnly,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { getActivePluginRegistry, setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
@@ -44,7 +44,7 @@ async function withCatalog(
 async function createCatalog() {
   const caller = ensureProfileForEmail("catalog-caller@example.test");
   const other = ensureProfileForEmail("catalog-other@example.test");
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     gateway: {
       roles: {
         default: "writer",

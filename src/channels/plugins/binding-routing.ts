@@ -4,7 +4,7 @@
  * Applies configured and runtime conversation bindings to agent route resolution.
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import {
   getSessionBindingService,
@@ -79,7 +79,7 @@ function resolveConfiguredBindingConversationRef(
  */
 export function resolveConfiguredBindingRoute(
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     route: ResolvedAgentRoute;
   } & ConfiguredBindingRouteConversationInput,
 ): ConfiguredBindingRouteResult {
@@ -217,7 +217,7 @@ export function resolveRuntimeConversationBindingRoute(
  * Ensures a configured binding target is ready without blocking route resolution indefinitely.
  */
 export async function ensureConfiguredBindingRouteReady(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   bindingResolution: ConfiguredBindingResolution | null;
 }): Promise<{ ok: true } | { ok: false; error: string }> {
   const readyPromise = ensureConfiguredBindingTargetReady(params);

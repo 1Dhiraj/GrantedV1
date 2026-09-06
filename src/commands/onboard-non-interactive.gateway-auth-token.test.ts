@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { makeTempWorkspace } from "../test-helpers/workspace.js";
 import { setTestEnvValue } from "../test-utils/env.js";
 import {
@@ -60,7 +60,7 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
           auth: { mode: "password", password: "test-password" },
           tailscale: { mode: "serve" },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       await runNonInteractiveSetup(
         {

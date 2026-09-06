@@ -40,7 +40,7 @@ const tempDirs: string[] = [];
 const mocks = getRegistryJitiMocks();
 
 type SetupRegistryApi = Pick<
-  import("./types.js").OpenClawPluginApi,
+  import("./types.js").GrantedPluginApi,
   "registerProvider" | "registerCliBackend" | "registerConfigMigration" | "registerAutoEnableProbe"
 >;
 
@@ -990,7 +990,7 @@ describe("setup-registry module loader", () => {
     mockSinglePlugin({ id: "runtime-dependent-setup", rootDir: pluginRoot });
     mocks.createJiti.mockImplementation(() => () => ({
       default: {
-        register(api: import("./types.js").OpenClawPluginApi) {
+        register(api: import("./types.js").GrantedPluginApi) {
           api.runtime.state.openSyncKeyedStore({ namespace: "example", maxEntries: 1 });
         },
       },

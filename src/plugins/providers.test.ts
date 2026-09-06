@@ -1,10 +1,10 @@
 // Covers provider plugin registration and runtime composition.
 import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { PluginAutoEnableResult } from "../config/plugin-auto-enable.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.types.js";
 import type { PluginRegistrySnapshot } from "./plugin-registry.js";
 import { createEmptyPluginRegistry } from "./registry-empty.js";
@@ -63,7 +63,7 @@ type ManifestProviderPluginFixture = {
   contracts?: PluginManifestRecord["contracts"];
   modelCatalog?: PluginManifestRecord["modelCatalog"];
   providerAuthAliases?: PluginManifestRecord["providerAuthAliases"];
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
 };
 
 function createManifestProviderPlugin(params: ManifestProviderPluginFixture): PluginManifestRecord {
@@ -414,10 +414,10 @@ function getLastSetupLoadedPluginConfig() {
 }
 
 function createAutoEnabledProviderConfig() {
-  const rawConfig: OpenClawConfig = {
+  const rawConfig: GrantedConfig = {
     plugins: {},
   };
-  const autoEnabledConfig: OpenClawConfig = {
+  const autoEnabledConfig: GrantedConfig = {
     ...rawConfig,
     plugins: {
       entries: {
@@ -778,7 +778,7 @@ describe("resolvePluginProviders", () => {
     applyPluginAutoEnableMock.mockReset();
     applyPluginAutoEnableMock.mockImplementation(
       (params): PluginAutoEnableResult => ({
-        config: params.config ?? ({} as OpenClawConfig),
+        config: params.config ?? ({} as GrantedConfig),
         changes: [],
         autoEnabledReasons: {},
       }),
@@ -1195,7 +1195,7 @@ describe("resolvePluginProviders", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       providerRefs: ["ollama-spark"],
       activate: true,
     });

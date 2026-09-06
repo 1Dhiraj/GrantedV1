@@ -8,11 +8,11 @@ import { listAgentEntries, resolveAgentWorkspaceDir } from "../agents/agent-scop
 import { openLocalAgentAvatarFile } from "../agents/identity-avatar-file.js";
 import { MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES } from "../agents/workspace-bootstrap-read.js";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { FsSafeError, root as fsSafeRoot } from "../infra/fs-safe.js";
 import { AVATAR_MAX_BYTES, isAvatarDataUrl, isAvatarHttpUrl } from "../shared/avatar-policy.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { resolveUserPath } from "../utils.js";
 import { readClawStatus } from "./lifecycle-state.js";
 import type { PackageRemovalDeps } from "./package-remove.js";
@@ -35,7 +35,7 @@ import {
 export const CLAW_EXPORT_RESULT_SCHEMA_VERSION = "openclaw.clawExportResult.v1" as const;
 const MAX_EXPORT_FILE_BYTES = 1024 * 1024;
 
-type AgentConfig = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentConfig = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number];
 type ClawBootstrapFileName = (typeof CLAW_BOOTSTRAP_FILE_NAMES)[number];
 
 function decodeUtf8(content: Buffer): string | undefined {
@@ -198,7 +198,7 @@ function isClawBootstrapFileName(value: string): value is ClawBootstrapFileName 
   return (CLAW_BOOTSTRAP_FILE_NAMES as readonly string[]).includes(value);
 }
 function readPortableAvatar(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agent: AgentConfig;
   workspace: string;
 }): { source?: string; sidecar?: { path: string; content: Buffer } } {
@@ -311,8 +311,8 @@ function portableMcpServer(server: Record<string, unknown>): ClawMcpServer {
 export async function exportClawAgent(
   agentId: string,
   outputDirectory: string,
-  options: OpenClawStateDatabaseOptions & {
-    config: OpenClawConfig;
+  options: GrantedStateDatabaseOptions & {
+    config: GrantedConfig;
     packageDeps?: PackageRemovalDeps;
     packagePreflight?: ClawPackagePreflight;
     sourceMcpServers?: Record<string, Record<string, unknown>>;

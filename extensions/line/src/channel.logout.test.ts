@@ -5,7 +5,7 @@ import path from "node:path";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
 import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { resolveLineAccount } from "./accounts.js";
 import { lineGatewayAdapter } from "./gateway.js";
 import { setLineRuntime } from "./runtime.js";
@@ -13,7 +13,7 @@ import { setLineRuntime } from "./runtime.js";
 const DEFAULT_ACCOUNT_ID = "default";
 let tempDir: string;
 
-async function runLogoutScenario(params: { cfg: OpenClawConfig; accountId: string }) {
+async function runLogoutScenario(params: { cfg: GrantedConfig; accountId: string }) {
   const original = structuredClone(params.cfg);
   const runtime = createPluginRuntimeMock();
   setLineRuntime(runtime);
@@ -40,7 +40,7 @@ describe("linePlugin gateway.logoutAccount", () => {
   });
 
   it("clears tokenFile/secretFile on default account logout", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         line: {
           channelAccessToken: "",
@@ -64,7 +64,7 @@ describe("linePlugin gateway.logoutAccount", () => {
   });
 
   it("clears tokenFile/secretFile on account logout", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         line: {
           accounts: {
@@ -90,7 +90,7 @@ describe("linePlugin gateway.logoutAccount", () => {
   });
 
   it("does not write config when account has no token/secret fields", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         line: {
           accounts: {
@@ -113,7 +113,7 @@ describe("linePlugin gateway.logoutAccount", () => {
 
   it("counts empty named credential fields as cleared and preserves sibling config", async () => {
     const sibling = { channelAccessToken: "keep-token", name: "Other" };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         line: {
           name: "LINE",

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isPathInside } from "../../infra/path-safety.js";
 import { normalizeSkillIndexName } from "../discovery/skill-index.js";
 import {
@@ -28,7 +28,7 @@ type SkillProposalScopeOptions = {
 };
 
 type RequiredProposalReadOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   reconcile?: boolean;
 };
 

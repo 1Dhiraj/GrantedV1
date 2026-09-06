@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
 import { findLegacyConfigIssues } from "../../../config/legacy.js";
 import type { LegacyConfigMigrationContext } from "../../../config/legacy.shared.js";
-import type { OpenClawConfig } from "../../../config/types.js";
+import type { GrantedConfig } from "../../../config/types.js";
 import { validateConfigObjectRaw } from "../../../config/validation.js";
 import { legacyCodexProviderIdentityKey } from "./codex-route-model-ref.js";
 import { pruneBindingsForMissingAgents } from "./legacy-config-binding-repair.js";
@@ -12,7 +12,7 @@ import { migrateLegacyConfig } from "./legacy-config-migrate.js";
 import { LEGACY_CONFIG_MIGRATIONS } from "./legacy-config-migrations.js";
 import { collectBlockedLegacyOpenAICodexProviderPlan } from "./legacy-config-migrations.runtime.models.js";
 
-function repairBindingsForTest(config: OpenClawConfig) {
+function repairBindingsForTest(config: GrantedConfig) {
   const changes: string[] = [];
   return { config: pruneBindingsForMissingAgents(config, changes), changes };
 }
@@ -21,7 +21,7 @@ function migrateLegacyConfigForTest(
   raw: unknown,
   context?: LegacyConfigMigrationContext,
 ): {
-  config: OpenClawConfig | null;
+  config: GrantedConfig | null;
   changes: string[];
 } {
   if (!raw || typeof raw !== "object") {
@@ -46,7 +46,7 @@ function migrateLegacyConfigForTest(
   }
   return visibleChanges.length === 0
     ? { config: null, changes: visibleChanges }
-    : { config: next as OpenClawConfig, changes: visibleChanges };
+    : { config: next as GrantedConfig, changes: visibleChanges };
 }
 
 function expectMigrationChangesToIncludeFragments(changes: string[], fragments: string[]): void {
@@ -184,7 +184,7 @@ describe("compatibility binding repair migrate", () => {
         { agentId: "alpha", match: { channel: "discord" } },
         { agentId: "ghost", match: { channel: "discord" } },
       ],
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(res.config.bindings).toEqual([{ agentId: "alpha", match: { channel: "discord" } }]);
     expect(res.changes).toContain("Removed 1 binding that referenced missing agents.list ids.");
@@ -200,7 +200,7 @@ describe("compatibility binding repair migrate", () => {
         { agentId: "MAIN", match: { channel: "discord" } },
         { agentId: "ghost", match: { channel: "discord" } },
       ],
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(res.config.bindings).toEqual([{ agentId: "main", match: { channel: "discord" } }]);
     expect(res.changes).toContain("Removed 2 bindings that referenced missing agents.list ids.");
@@ -215,7 +215,7 @@ describe("compatibility binding repair migrate", () => {
         { agentId: "MAIN", match: { channel: "discord" } },
         { agentId: "ghost", match: { channel: "discord" } },
       ],
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(res.config.bindings).toEqual([{ agentId: "MAIN", match: { channel: "discord" } }]);
     expect(res.changes).toContain("Removed 1 binding that referenced missing agents.list ids.");
@@ -230,7 +230,7 @@ describe("compatibility binding repair migrate", () => {
         { agentId: "ghost", match: { channel: "discord" } },
         { agentId: "alpha", match: { channel: "discord" } },
       ],
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const res = repairBindingsForTest(cfg);
 

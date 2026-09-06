@@ -13,8 +13,8 @@ import { deferSqlitePostCommitPublication } from "../../../infra/sqlite-post-com
 import { resolveEventSessionKey } from "../../../routing/session-key.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../../../state/openclaw-state-db.js";
 import { publishTaskRecordAfterAtomicStore } from "../../../tasks/runtime-internal.js";
 import { resolveRequiredCompletionDeliveryFailureTerminalResult } from "../../../tasks/task-completion-contract.js";
@@ -42,10 +42,7 @@ export const SUSPENDED_RETENTION_MS = 7 * 24 * 60 * 60_000;
 
 type AdmissionTestHooks = {
   afterBind?: () => unknown;
-  afterMutation?: (
-    phase: "queue" | "subagent" | "task",
-    database: OpenClawStateDatabase,
-  ) => unknown;
+  afterMutation?: (phase: "queue" | "subagent" | "task", database: GrantedStateDatabase) => unknown;
 };
 
 function invokeSynchronousHook(hook: (() => unknown) | undefined): void {
@@ -97,7 +94,7 @@ export function admitSubagentCompletionDelivery(params: {
   queueEntry: QueuedSessionDelivery;
   subagent: SubagentRunRecord;
   task: TaskRecord;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   /** Transaction cut points used by the real-store crash-consistency tests. */
   testHooks?: AdmissionTestHooks;
 }): { claimed: boolean } {
@@ -151,7 +148,7 @@ export function admitSubagentCompletionDelivery(params: {
 export function settleSubagentCompletionDelivery(params: {
   subagent: SubagentRunRecord;
   task: TaskRecord;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   mutateSubagent?: (entry: SubagentRunRecord) => unknown;
 }): void {
   const boundTask = bindTaskRecord(params.task);
@@ -172,7 +169,7 @@ export function blockSubagentCompletionDelivery(params: {
   reason: string;
   suspendedReason?: "expiry" | "permanent_failure";
   disposition?: NonNullable<SubagentRunRecord["delivery"]>["disposition"];
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): boolean {
   const generation = params.subagent.delivery?.generation ?? 1;
   const now = Date.now();

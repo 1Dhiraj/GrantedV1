@@ -1,7 +1,7 @@
 // Removes installed plugins and updates plugin index records.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { readOpenClawManagedNpmRootOverrides } from "../infra/npm-managed-root.js";
@@ -93,7 +93,7 @@ export type PluginUninstallDirectoryRemoval = {
 type PluginUninstallPlanResult =
   | {
       ok: true;
-      config: OpenClawConfig;
+      config: GrantedConfig;
       pluginId: string;
       actions: UninstallActions;
       directoryRemoval: PluginUninstallDirectoryRemoval | null;
@@ -335,7 +335,7 @@ function isLinkedPathInstallRecord(installRecord: PluginInstallRecord | undefine
 }
 
 type UninstallPluginParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Package install-record key whose record and shared directory are removed once. */
   pluginId: string;
   channelIds?: string[];

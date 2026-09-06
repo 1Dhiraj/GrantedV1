@@ -5,7 +5,7 @@ import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { normalizeChatType, type ChatType } from "../../channels/chat-type.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAccountId } from "../../routing/account-id.js";
 import { resolveNormalizedAccountEntry } from "../../routing/account-lookup.js";
 import { resolveLinkedDirectPeerId } from "../../routing/session-key.js";
@@ -105,7 +105,7 @@ type HistoryLimitChannelConfig = {
  */
 export function getHistoryLimitFromSessionKey(
   sessionKey: string | undefined,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   route?: { accountId?: string | null; peerId?: string; chatType?: ChatType },
 ): number | undefined {
   if (!sessionKey || !config) {

@@ -1,8 +1,8 @@
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginApi,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogHost,
@@ -49,7 +49,7 @@ export {
 } from "./session-catalog-parsing.js";
 
 /** Allows read-only catalog and transcript commands on supported paired-node platforms. */
-export function createCodexSessionCatalogNodeInvokePolicies(): OpenClawPluginNodeInvokePolicy[] {
+export function createCodexSessionCatalogNodeInvokePolicies(): GrantedPluginNodeInvokePolicy[] {
   return [
     {
       commands: [
@@ -136,11 +136,11 @@ function resolveLocalCatalogHomeForThread(params: {
 }
 
 function registerCodexSessionCatalog(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   bindingStore: CodexAppServerBindingStore;
   control: CodexSessionCatalogControlFactory;
   getPluginConfig: () => unknown;
-  getRuntimeConfig: () => OpenClawConfig | undefined;
+  getRuntimeConfig: () => GrantedConfig | undefined;
 }): void {
   const catalogHomes = (agentId: string, allowProcessHomeFallback?: boolean) => {
     const homes = params.control.homesForAgent(agentId);
@@ -150,7 +150,7 @@ function registerCodexSessionCatalog(params: {
   };
   const resolveRequestAgentId = (agentId?: string) =>
     resolveSessionAgentIdsStrict({
-      config: params.getRuntimeConfig() ?? (params.api.config as OpenClawConfig),
+      config: params.getRuntimeConfig() ?? (params.api.config as GrantedConfig),
       agentId,
     }).sessionAgentId;
   const bindRequest = (request: {
@@ -183,7 +183,7 @@ function registerCodexSessionCatalog(params: {
     supportsProcessHomeIsolation: true,
     resolveCreateSession: ({ agentId }) =>
       resolveCodexCatalogCreateSession(
-        params.getRuntimeConfig() ?? (params.api.config as OpenClawConfig),
+        params.getRuntimeConfig() ?? (params.api.config as GrantedConfig),
         agentId,
       ),
     list: async (query) => {

@@ -2,7 +2,7 @@ import type { PreparedAgentCredentialModes } from "../../agents/agent-auth-crede
 import { loadAuthProfileStoreWithoutExternalProfiles } from "../../agents/auth-profiles.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
 import type { createOpenAIModelRoutesResolver } from "../../agents/openai-model-routes.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadManifestMetadataSnapshot } from "../../plugins/manifest-contract-eligibility.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import {
@@ -53,7 +53,7 @@ export async function listModels(params: {
   publishedCatalog?: ModelCatalogEntry[];
   refresh?: boolean;
   staticEntries?: ModelCatalogEntry[];
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   discoveryModes?: Record<string, "refreshable" | "runtime" | "static">;
   catalogComplete?: boolean;
   preparedAuthModes?: PreparedAgentCredentialModes;
@@ -62,7 +62,7 @@ export async function listModels(params: {
   view?: "all" | "configured" | "provider-config" | "default";
 }) {
   const agentId = params.agentId ?? "main";
-  const config = params.cfg ?? ({} as OpenClawConfig);
+  const config = params.cfg ?? ({} as GrantedConfig);
   const createCatalogSnapshot = (entries: ModelCatalogEntry[]) =>
     ({
       agentId,

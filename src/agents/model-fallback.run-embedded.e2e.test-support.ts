@@ -2,11 +2,11 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { AuthProfileFailureReason } from "./auth-profiles.js";
 import { ensureAuthProfileStore, saveAuthProfileStore } from "./auth-profiles/store.js";
 
-export function makeModelFallbackConfig(primaryProvider = "openai"): OpenClawConfig {
+export function makeModelFallbackConfig(primaryProvider = "openai"): GrantedConfig {
   const apiKeyField = ["api", "Key"].join("");
   return {
     agents: {
@@ -54,7 +54,7 @@ export function makeModelFallbackConfig(primaryProvider = "openai"): OpenClawCon
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
 export async function withModelFallbackWorkspace<T>(

@@ -13,7 +13,7 @@ import {
 } from "../../infra/kysely-sync.js";
 import type {
   ChannelIngressEvents,
-  DB as OpenClawStateKyselyDatabase,
+  DB as GrantedStateKyselyDatabase,
 } from "../../state/openclaw-state-db.generated.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
@@ -261,7 +261,7 @@ export type CreateChannelIngressQueueOptions = {
   access?: "read-write" | "read-only";
 };
 
-type ChannelIngressDatabase = Pick<OpenClawStateKyselyDatabase, "channel_ingress_events">;
+type ChannelIngressDatabase = Pick<GrantedStateKyselyDatabase, "channel_ingress_events">;
 type ChannelIngressRow = Selectable<ChannelIngressEvents>;
 
 // Failed rows need to distinguish a retained JSON null payload from the "null"

@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import { setRuntimeConfigSnapshot } from "../config/config.js";
 import { applySessionEntryLifecycleMutation } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createToolsEffectiveHandlers,
   testing,
@@ -26,10 +26,7 @@ import {
   isColdPluginRuntimeLoaded,
 } from "../plugins/test-helpers/cold-plugin-fixtures.js";
 import { withEnvAsync } from "../test-utils/env.js";
-import {
-  withOpenClawTestState,
-  type OpenClawTestState,
-} from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import { resolveModelAsync } from "./embedded-agent-runner/model.js";
 import { acquireReadOnlyPreparedModelRuntime } from "./prepared-model-runtime.js";
 import { resetPreparedModelRuntimeSnapshotsForTest } from "./prepared-model-runtime.test-support.js";
@@ -113,7 +110,7 @@ async function withColdFixture(run: (fixture: ReturnType<typeof createFixture>) 
   );
 }
 
-function createFixture(state: OpenClawTestState) {
+function createFixture(state: GrantedTestState) {
   const root = state.root;
   const selectedRoot = path.join(root, "selected");
   const unrelatedRoot = path.join(root, "unrelated");
@@ -180,7 +177,7 @@ module.exports = {
 `,
     "utf8",
   );
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: {
       defaults: { model: { primary: `${provider}/${pinnedId}` }, workspace: workspaceDir },
     },
@@ -316,7 +313,7 @@ describe("cold dynamic-model effective inventory", () => {
     { policy: "restrictive allow omission", plugins: { allow: ["unrelated-inventory-plugin"] } },
   ])("honors $policy despite an ambient competing provider", async ({ plugins }) => {
     await withColdFixture(async (fixture) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         ...fixture.config,
         plugins: { ...fixture.config.plugins, ...plugins },
       };

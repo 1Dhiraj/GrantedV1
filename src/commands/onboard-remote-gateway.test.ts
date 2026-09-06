@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { HelloOk } from "../../packages/gateway-protocol/src/schema/frames.js";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { CallGatewayCliOptions } from "../gateway/call.js";
 import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -34,7 +34,7 @@ function makeRuntime(): RuntimeEnv {
   };
 }
 
-function makeLocalConfig(): OpenClawConfig {
+function makeLocalConfig(): GrantedConfig {
   return {
     wizard: { securityAcknowledgedAt: "2026-07-11T00:00:00.000Z" },
     agents: {
@@ -51,7 +51,7 @@ function makeLocalConfig(): OpenClawConfig {
 }
 
 function makeTarget(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   auth: { token?: string; password?: string },
 ): RemoteGatewayInferenceTarget {
   return {

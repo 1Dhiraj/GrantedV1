@@ -6,7 +6,7 @@ import {
   formatLegacyAgentMediaMigrationRequiredMessage,
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
 } from "../state/openclaw-agent-db-migration-required.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -24,7 +24,7 @@ import {
 } from "./gateway-boot-lifecycle.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "./kysely-sync.js";
 
-type GatewayBootLifecycleTestDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_boot_lifecycle">;
+type GatewayBootLifecycleTestDatabase = Pick<GrantedStateKyselyDatabase, "gateway_boot_lifecycle">;
 type GatewayBootLifecycleOutcome = Parameters<typeof completeGatewayBootLifecycle>[1]["outcome"];
 
 const GATEWAY_BOOT_LOOP_UNCLEAN_THRESHOLD = 3;

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { GatewayRecoveryRuntime } from "../../gateway/server-instance-runtime.types.js";
 import {
   getAgentEventLifecycleGeneration,
@@ -66,7 +66,7 @@ async function runRecoveryRetries(params: {
 }
 
 export async function recoverRestartAbortedMainSessions(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   onExhaustedTarget?: (target: ExhaustedRestartRecoveryTarget) => void;
   stateDir?: string;
   handledSessionKeys?: Set<string>;
@@ -112,7 +112,7 @@ export async function recoverRestartAbortedMainSessions(params: {
 /** Retries one exact durable Control UI row from its owning per-agent SQLite store. */
 export async function retryRestartAbortedMainSessionRecovery(params: {
   canonicalSessionKey?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   expectedRecoveryRunId?: string;
   expectedRecoverySourceRunId?: string;
   expectedSessionId: string;
@@ -141,7 +141,7 @@ export async function retryRestartAbortedMainSessionRecovery(params: {
 }
 
 async function recoverExpectedRestartRecovery(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   expectedClaim?: ExpectedRestartRecoveryClaim;
   expectedTarget?: ExpectedRestartRecoveryTarget;
   lifecycleGeneration?: string;
@@ -207,7 +207,7 @@ async function recoverExpectedRestartRecovery(params: {
 
 export function scheduleRestartAbortedMainSessionRecoveryAfterOwnerRelease(params: {
   delayMs?: number;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   getGatewayRuntime: () => GatewayRecoveryRuntime | undefined;
   maxRetries?: number;
   expectedSessionId: string;
@@ -269,7 +269,7 @@ export function scheduleRestartAbortedMainSessionRecoveryAfterOwnerRelease(param
 
 export function scheduleRestartAbortedMainSessionRecovery(params: {
   delayMs?: number;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   maxRetries?: number;
   shouldContinue?: () => boolean;
   stateDir?: string;

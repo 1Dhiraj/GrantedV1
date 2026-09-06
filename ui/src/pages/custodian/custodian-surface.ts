@@ -16,7 +16,7 @@ import {
 import { renderPanelRefreshStatus } from "../../components/panel-refresh-status.ts";
 import "../../components/openclaw-mascot.ts";
 import { t } from "../../i18n/index.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import "../../styles/chat/grouped.css";
 import "../../styles/chat/layout.css";
 import "../../styles/chat/text.css";
@@ -28,7 +28,7 @@ import * as eventNudgeState from "./event-nudge.ts";
 import { sessionVariant } from "./session-lifecycle.ts";
 import { renderCustodianTranscriptEntry } from "./transcript.ts";
 
-class CustodianSurface extends OpenClawLightDomElement {
+class CustodianSurface extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

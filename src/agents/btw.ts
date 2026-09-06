@@ -10,7 +10,7 @@ import type { ReasoningLevel, ThinkLevel } from "../auto-reply/thinking.js";
 import type { ChatType } from "../channels/chat-type.js";
 import type { SessionEntry as StoredSessionEntry } from "../config/sessions.js";
 import { resolveSessionAuthProfileOverrideSource } from "../config/sessions/auth-profile-override-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { streamWithPayloadPatch } from "../llm/providers/stream-wrappers/stream-payload-utils.js";
 import type {
   AssistantMessageEvent,
@@ -135,7 +135,7 @@ function resolveReturnedAuthProfileSource(
 // Planning and immediate resolution share one scoped snapshot so provider
 // bindings and cooldown decisions cannot diverge inside a side question.
 function resolveBtwAuthProfileStore(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
   agentId?: string;
@@ -471,7 +471,7 @@ async function resolveBtwPreparedRuntimeAuth(
 }
 
 async function resolveRuntimeModel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
   agentId?: string;
@@ -576,7 +576,7 @@ async function resolveRuntimeModel(params: {
 }
 
 type RunBtwSideQuestionParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir: string;
   provider: string;
@@ -623,7 +623,7 @@ type RunBtwSideQuestionParams = {
 };
 
 async function runCliBtwSideQuestion(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model: string;
   question: string;
   sessionId: string;

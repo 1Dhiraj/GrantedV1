@@ -16,7 +16,7 @@ import {
 } from "../secrets/sentinel.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { guardModelFixtureWorkspace } from "./embedded-agent-runner/model.fixture.test-support.js";
 import {
@@ -28,7 +28,7 @@ import type { AgentHarnessHostCapabilities } from "./harness/host-capability-typ
 import type { AgentHarness } from "./harness/types.js";
 import type { AgentRuntimeAuthPlan } from "./runtime-plan/types.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let workspaceGuard: ReturnType<typeof guardModelFixtureWorkspace>;
 beforeAll(async () => {
   state = await createOpenClawTestState({ label: "btw-model" });

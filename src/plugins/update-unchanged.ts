@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { NpmSpecResolution } from "../infra/install-source-utils.js";
 import type { UpdateChannel } from "../infra/update-channels.js";
 import { buildNpmResolutionInstallFields, resolveNpmInstallRecordSpec } from "./installs.js";
@@ -10,7 +10,7 @@ import {
 } from "./update-source.js";
 
 export async function reconcileUnchangedUpdate(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   record: UpdatablePluginInstallRecord;
   currentVersion: string;
@@ -22,7 +22,7 @@ export async function reconcileUnchangedUpdate(params: {
   hasOfficialNpmSpec: boolean;
   syncOfficialInstall: boolean;
   preserveRecordIntent: boolean;
-}): Promise<{ config: OpenClawConfig; changed: boolean; outcome: PluginUpdateOutcome }> {
+}): Promise<{ config: GrantedConfig; changed: boolean; outcome: PluginUpdateOutcome }> {
   const newerExactPinnedDefaultLine =
     !params.hasSpecOverride && !params.hasOfficialNpmSpec
       ? await resolveNewerExactPinnedNpmDefaultLine({

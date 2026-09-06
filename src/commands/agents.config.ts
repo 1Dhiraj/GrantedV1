@@ -18,7 +18,7 @@ import { pinLegacyInheritedAuthOwnerForRosterTransition } from "../agents/legacy
 import { pinSurvivorWorkspaceForRosterCollapse } from "../config/agent-workspace-roster-transition.js";
 import { listRouteBindings } from "../config/bindings.js";
 import type { IdentityConfig } from "../config/types.base.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId, normalizeAgentIdStrict } from "../routing/session-key.js";
 
 export type AgentSummary = {
@@ -41,7 +41,7 @@ export type AgentSummary = {
   isDefault: boolean;
 };
 
-type AgentEntry = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number];
 
 export type AgentIdentity = AgentIdentityFile;
 export { listAgentEntries };
@@ -52,7 +52,7 @@ export function findAgentEntryIndex(list: AgentEntry[], agentId: string): number
   return list.findIndex((entry) => normalizeAgentId(entry.id) === id);
 }
 
-function resolveAgentModel(cfg: OpenClawConfig, agentId: string) {
+function resolveAgentModel(cfg: GrantedConfig, agentId: string) {
   const entry = listAgentEntries(cfg).find(
     (agent) => normalizeAgentId(agent.id) === normalizeAgentId(agentId),
   );
@@ -73,7 +73,7 @@ export function loadAgentIdentity(workspace: string): AgentIdentity | null {
 }
 
 /** Build config-derived summaries for text/JSON agent listing. */
-export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
+export function buildAgentSummaries(cfg: GrantedConfig): AgentSummary[] {
   const defaultAgentId = tryResolveLegacyCompatibilityAgentId(cfg);
   const configuredAgents = listAgentEntries(cfg);
   const orderedIds =
@@ -130,7 +130,7 @@ export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
 }
 
 export function applyAgentConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: {
     agentId: string;
     name?: string;
@@ -139,7 +139,7 @@ export function applyAgentConfig(
     model?: string | null;
     identity?: IdentityConfig;
   },
-): OpenClawConfig {
+): GrantedConfig {
   const agentId = normalizeAgentId(params.agentId);
   const name = params.name?.trim();
   const list = listAgentEntries(cfg);
@@ -166,7 +166,7 @@ export function applyAgentConfig(
     nextList.push(nextEntry);
   }
   const { list: _legacyList, ownership: _ownership, ...agentsConfig } = cfg.agents ?? {};
-  const nextConfig: OpenClawConfig = {
+  const nextConfig: GrantedConfig = {
     ...cfg,
     agents: {
       ...agentsConfig,
@@ -197,10 +197,10 @@ export function applyAgentConfig(
 
 /** Remove an agent and any config references that route or allow traffic to it. */
 export function pruneAgentConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   removedBindings: number;
   removedAllow: number;
   clearedOwnerRefs: string[];
@@ -322,7 +322,7 @@ export function pruneAgentConfig(
       }
     : cfg.tools;
 
-  const preliminaryConfig: OpenClawConfig = {
+  const preliminaryConfig: GrantedConfig = {
     ...cfg,
     agents: nextAgentsConfig,
     bindings: filteredBindings.length > 0 ? filteredBindings : undefined,

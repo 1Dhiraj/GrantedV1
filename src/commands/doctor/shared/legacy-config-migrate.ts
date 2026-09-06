@@ -1,6 +1,6 @@
 // Validating legacy config migration wrapper used by doctor config flow.
 import type { LegacyConfigMigrationContext } from "../../../config/legacy.shared.js";
-import type { OpenClawConfig } from "../../../config/types.js";
+import type { GrantedConfig } from "../../../config/types.js";
 import { validateConfigObjectWithPlugins } from "../../../config/validation.js";
 import { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 
@@ -9,8 +9,8 @@ export function migrateLegacyConfig(
   raw: unknown,
   context?: LegacyConfigMigrationContext,
 ): {
-  config: OpenClawConfig | null;
-  sourceConfig?: OpenClawConfig;
+  config: GrantedConfig | null;
+  sourceConfig?: GrantedConfig;
   changes: string[];
   partiallyValid?: boolean;
 } {
@@ -24,7 +24,7 @@ export function migrateLegacyConfig(
   const validated = validateConfigObjectWithPlugins(resolvedCandidate);
   if (!validated.ok) {
     changes.push("Migration applied; other validation issues remain — run doctor to review.");
-    return { config: next as OpenClawConfig, changes, partiallyValid: true };
+    return { config: next as GrantedConfig, changes, partiallyValid: true };
   }
-  return { config: validated.config, sourceConfig: next as OpenClawConfig, changes };
+  return { config: validated.config, sourceConfig: next as GrantedConfig, changes };
 }

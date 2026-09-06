@@ -1,7 +1,7 @@
 // Discord plugin module implements send.components behavior.
 import { ChannelType } from "discord-api-types/v10";
 import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { MarkdownTableMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
 import type { OutboundMediaAccess } from "openclaw/plugin-sdk/media-runtime";
 import { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
@@ -150,7 +150,7 @@ function collapseClassicComponentText(spec: DiscordComponentMessageSpec): string
 }
 
 type DiscordComponentSendOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   token?: string;
   rest?: RequestClient;

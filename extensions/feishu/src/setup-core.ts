@@ -3,16 +3,16 @@ import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
 import {
   DEFAULT_ACCOUNT_ID,
   type ChannelSetupAdapter,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/setup";
 import { resolveDefaultFeishuAccountId } from "./accounts.js";
 import type { FeishuConfig } from "./types.js";
 
 export function setFeishuNamedAccountEnabled(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
   enabled: boolean,
-): OpenClawConfig {
+): GrantedConfig {
   const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
   return {
     ...cfg,

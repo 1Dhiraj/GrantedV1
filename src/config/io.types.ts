@@ -6,13 +6,13 @@ import type {
   RuntimeConfigSnapshotRefreshOptions,
   RuntimeConfigWriteNotification,
 } from "./runtime-snapshot.js";
-import type { ConfigFileSnapshot, ConfigValidationIssue, OpenClawConfig } from "./types.js";
+import type { ConfigFileSnapshot, ConfigValidationIssue, GrantedConfig } from "./types.js";
 
 export type ParseConfigJson5Result = { ok: true; parsed: unknown } | { ok: false; error: string };
 
 export type ConfigWriteResult = {
   persistedHash: string;
-  persistedConfig: OpenClawConfig;
+  persistedConfig: GrantedConfig;
 };
 
 export const configWritePostCommitRollback = Symbol("configWritePostCommitRollback");
@@ -44,7 +44,7 @@ export type ConfigWriteOptions = {
   /** Caller-authored paths that stay persisted even when equal to defaults. */
   explicitSetPaths?: readonly (readonly string[])[];
   /** Source-shaped values paired with explicitSetPaths. */
-  explicitSetValueSource?: OpenClawConfig;
+  explicitSetValueSource?: GrantedConfig;
   /** Agent ids that this write intentionally removes from the canonical roster. */
   allowedAgentRosterRemovals?: readonly string[];
   /** Permit explicit local overrides below an ancestor $include without flattening it. */
@@ -72,7 +72,7 @@ export type ConfigWriteOptions = {
   /** Preserve an older writer version during update handoff writes. */
   lastTouchedVersionOverride?: string;
   /** Final async authority gate after runtime preflight and before commit. */
-  preCommitRuntimePreflight?: (sourceConfig: OpenClawConfig) => Promise<unknown>;
+  preCommitRuntimePreflight?: (sourceConfig: GrantedConfig) => Promise<unknown>;
   /** Snapshot-time hashes for include files that mutation writers may update. */
   includeFileHashesForWrite?: Record<string, string>;
   /** Snapshot-time canonical include targets that writers may update. */
@@ -123,8 +123,8 @@ export type ConfigSnapshotReadOptions = {
   allowCurrentPluginMetadata?: boolean;
   recoverSuspicious?: boolean;
   allowSuspiciousRecovery?: (
-    candidate: OpenClawConfig,
-    current: OpenClawConfig,
+    candidate: GrantedConfig,
+    current: GrantedConfig,
   ) => boolean | Promise<boolean>;
   /** Controls whether snapshot validation resolves plugin metadata and defaults. */
   pluginValidation?: "full" | "skip" | "core-only";
@@ -147,15 +147,15 @@ export type ReadConfigFileSnapshotWithPluginMetadataResult = {
 };
 
 export type BestEffortConfigSnapshot = {
-  config: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  config: GrantedConfig;
+  sourceConfig: GrantedConfig;
   configDiagnostics: { path: string; issues: ConfigValidationIssue[] } | null;
 };
 
 export type ConfigRecoveryCandidate = {
   raw: string;
   parsed: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 
 export type ConfigRecoveryCandidatePreparation =

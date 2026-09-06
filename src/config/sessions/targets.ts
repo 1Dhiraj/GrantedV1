@@ -15,7 +15,7 @@ import {
   tryResolveLegacyCompatibilityAgentId,
 } from "../legacy.default-agent-owner.js";
 import { resolveStateDir } from "../paths.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { resolveAgentsDirFromSessionStorePath, resolveSessionStorePathCore } from "./paths.js";
 import { readSessionEntryKeys } from "./session-accessor.sqlite-entry-store.js";
 import {
@@ -53,7 +53,7 @@ export type SessionStoreSelectionOptions = {
 };
 
 /** Lists agent ids whose session stores should be considered configured. */
-export function listConfiguredSessionStoreAgentIds(cfg: OpenClawConfig): string[] {
+export function listConfiguredSessionStoreAgentIds(cfg: GrantedConfig): string[] {
   const ids = new Set(listAgentIds(cfg).map((agentId) => normalizeAgentId(agentId)));
   const addAcpAgentId = (agentId: string | undefined) => {
     const raw = agentId?.trim() ?? "";
@@ -79,7 +79,7 @@ export function listConfiguredSessionStoreAgentIds(cfg: OpenClawConfig): string[
 
 /** Lists configured owners plus persisted owners whose registered DB still matches this store. */
 export function listKnownSessionStoreAgentIds(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { env?: NodeJS.ProcessEnv } = {},
 ): string[] {
   const env = params.env ?? process.env;
@@ -146,7 +146,7 @@ export function listKnownSessionStoreAgentIds(
 }
 
 /** Checks whether an agent is configured to own a session store. */
-export function isConfiguredSessionStoreAgentId(cfg: OpenClawConfig, agentId: string): boolean {
+export function isConfiguredSessionStoreAgentId(cfg: GrantedConfig, agentId: string): boolean {
   const normalizedAgentId = normalizeAgentId(agentId);
   return listConfiguredSessionStoreAgentIds(cfg).includes(normalizedAgentId);
 }
@@ -217,7 +217,7 @@ function isValidatedRecoveryCandidateSessionsDir(params: {
 }
 
 function resolveSessionStoreDiscoveryState(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): {
   configuredTargets: SessionStoreTarget[];
@@ -274,7 +274,7 @@ function resolveExplicitSessionStoreTarget(params: {
 
 /** Resolves all configured and discoverable agent session stores synchronously. */
 export function resolveAllAgentSessionStoreTargetsSync(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { env?: NodeJS.ProcessEnv } = {},
 ): SessionStoreTarget[] {
   const env = params.env ?? process.env;
@@ -346,7 +346,7 @@ export function resolveAllAgentSessionStoreTargetsSync(
 
 /** Resolves only already-existing stores for one configured, retired, or manual agent. */
 export function resolveExistingAgentSessionStoreTargetsSync(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   params: { env?: NodeJS.ProcessEnv } = {},
 ): SessionStoreTarget[] {
@@ -423,7 +423,7 @@ export function resolveExistingAgentSessionStoreTargetsSync(
  * Callers must validate the selected artifact before performing filesystem mutations.
  */
 export function resolveAllAgentSessionStoreCandidateTargetsSync(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { env?: NodeJS.ProcessEnv } = {},
 ): SessionStoreTarget[] {
   const env = params.env ?? process.env;
@@ -499,7 +499,7 @@ export function resolveAllAgentSessionStoreCandidateTargetsSync(
 
 /** Resolves session store targets for one agent, including retired/manual stores. */
 export function resolveAgentSessionStoreTargetsSync(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   params: { env?: NodeJS.ProcessEnv } = {},
 ): SessionStoreTarget[] {
@@ -507,7 +507,7 @@ export function resolveAgentSessionStoreTargetsSync(
 }
 
 function resolveAgentSessionStoreTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   params: { env?: NodeJS.ProcessEnv; sqliteOnly?: boolean },
 ): SessionStoreTarget[] {
@@ -612,7 +612,7 @@ function resolveAgentSessionStoreTargets(
 
 /** Candidate files for version inspection only; this does not assign migration ownership. */
 export function resolveConfiguredAgentDatabaseCandidatePaths(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { env: NodeJS.ProcessEnv },
 ): string[] {
   return [
@@ -628,7 +628,7 @@ export function resolveConfiguredAgentDatabaseCandidatePaths(
 
 /** Project configured session-store selection to the exact database migration owners. */
 export function resolveConfiguredAgentDatabaseTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: {
     env: NodeJS.ProcessEnv;
     registeredDatabases?: readonly { agentId: string; path: string }[];
@@ -650,7 +650,7 @@ export function resolveConfiguredAgentDatabaseTargets(
 
 /** Resolves session store targets from explicit CLI-style selection options. */
 export function resolveSessionStoreTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: SessionStoreSelectionOptions,
   params: {
     env?: NodeJS.ProcessEnv;

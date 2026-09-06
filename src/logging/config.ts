@@ -4,13 +4,13 @@ import { isRecord as isObjectRecord } from "@openclaw/normalization-core/record-
 import { resolveConfigEnvVars } from "../config/env-substitution.js";
 import { resolveConfigIncludes, resolveConfigIncludesForTopLevelKey } from "../config/includes.js";
 import { resolveConfigPath, resolveIncludeRoots } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { tryProcessCwd } from "../infra/safe-cwd.js";
 import { parseJsonWithJson5Fallback } from "../utils/parse-json-compat.js";
 import { APPLIED_LOGGING_CONFIG_UNOWNED, loggingState } from "./state.js";
 
 // Lightweight logging-config reader used before the full config runtime is safe to load.
-type LoggingConfig = NonNullable<OpenClawConfig["logging"]>;
+type LoggingConfig = NonNullable<GrantedConfig["logging"]>;
 
 let cachedLoggingConfig:
   | {

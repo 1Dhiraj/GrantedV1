@@ -32,7 +32,7 @@ import {
   loadExactSessionEntry,
   type SessionEntryLifecycleRemoval,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   hasActiveCronJobs,
   hasActiveCronJobsExceptMarkers,
@@ -141,7 +141,7 @@ function skippedHeartbeatStage<T extends string>(reason: T, startedAt: number) {
 }
 
 export type HeartbeatRunOptions = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   heartbeat?: HeartbeatConfig;

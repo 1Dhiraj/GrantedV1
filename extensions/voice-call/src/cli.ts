@@ -1,7 +1,7 @@
 // Voice Call plugin module implements cli behavior.
 import path from "node:path";
 import type { Command } from "commander";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { MAX_TCP_PORT } from "openclaw/plugin-sdk/number-runtime";
 import {
@@ -69,7 +69,7 @@ function resolveDefaultStorePath(config: VoiceCallConfig): string {
   return path.join(base, "calls.jsonl");
 }
 
-function buildSetupStatus(config: VoiceCallConfig, coreConfig: OpenClawConfig): SetupStatus {
+function buildSetupStatus(config: VoiceCallConfig, coreConfig: GrantedConfig): SetupStatus {
   const validation = validateProviderConfig(config);
   const webhookExposure = resolveWebhookExposureStatus(config);
   const checks: SetupCheck[] = [
@@ -134,7 +134,7 @@ function writeSetupStatus(status: SetupStatus): void {
 export function registerVoiceCallCli(params: {
   program: Command;
   config: VoiceCallConfig;
-  coreConfig: OpenClawConfig;
+  coreConfig: GrantedConfig;
   ensureRuntime: () => Promise<VoiceCallRuntime>;
   stateRuntime?: VoiceCallStateRuntime["state"];
   logger: Logger;

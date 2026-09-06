@@ -43,7 +43,7 @@ import {
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import { resolveSessionStoreTargets, type SessionStoreTarget } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding, HealthRepairEffect } from "../flows/health-checks.js";
 import { safeRealpathSync } from "../infra/boundary-path.js";
 import { findGitRoot } from "../infra/git-root.js";
@@ -194,7 +194,7 @@ function formatOrphanAgentDirPreview(entries: OrphanAgentDir[], limit = 3): stri
   return labels.join(", ");
 }
 
-function listOrphanAgentDirs(cfg: OpenClawConfig, stateDir: string): OrphanAgentDir[] {
+function listOrphanAgentDirs(cfg: GrantedConfig, stateDir: string): OrphanAgentDir[] {
   const configuredIds = new Set(listAgentIds(cfg));
   const sharedAuthOwnership = resolveSharedAuthStoreOwnership();
   const sharedAuthDbPath = resolveSharedAuthStorePath();
@@ -696,7 +696,7 @@ function hasPairingPolicy(value: unknown): boolean {
   return false;
 }
 
-function shouldRequireOAuthDir(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boolean {
+function shouldRequireOAuthDir(cfg: GrantedConfig, env: NodeJS.ProcessEnv): boolean {
   if (env.GRANTED_OAUTH_DIR?.trim()) {
     return true;
   }
@@ -733,7 +733,7 @@ function shouldRequireOAuthDir(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boo
 }
 
 export function detectStateIntegrityHealthIssues(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params?: {
     configPath?: string;
     env?: NodeJS.ProcessEnv;
@@ -1012,7 +1012,7 @@ function assertNeverStateIntegrityIssue(issue: never): never {
 
 /** Emits state integrity warnings and applies selected runtime repairs. */
 export async function noteStateIntegrity(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   prompter: DoctorPrompterLike,
   configPath?: string,
   options?: { stateDirExistedAtStart?: boolean },

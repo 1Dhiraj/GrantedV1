@@ -9,8 +9,8 @@ import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
 import type {
   DiagnosticEventMetadata,
   DiagnosticEventPayload,
-  OpenClawPluginHttpRouteHandler,
-  OpenClawPluginService,
+  GrantedPluginHttpRouteHandler,
+  GrantedPluginService,
 } from "../api.js";
 import { isInternalDiagnosticEventMetadata, redactSensitiveText } from "../api.js";
 
@@ -976,7 +976,7 @@ function recordDiagnosticEvent(
   }
 }
 
-function createMetricsHandler(store: PrometheusMetricStore): OpenClawPluginHttpRouteHandler {
+function createMetricsHandler(store: PrometheusMetricStore): GrantedPluginHttpRouteHandler {
   return (req: IncomingMessage, res: ServerResponse) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.statusCode = 405;
@@ -1077,7 +1077,7 @@ export function createDiagnosticsPrometheusExporter() {
       internalDiagnostics = undefined;
       store.reset();
     },
-  } satisfies OpenClawPluginService;
+  } satisfies GrantedPluginService;
 
   return {
     handler: createMetricsHandler(store),

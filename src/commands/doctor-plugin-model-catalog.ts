@@ -10,7 +10,7 @@ import {
   isPluginModelCatalogMigrationFile,
   migrateLegacyPluginModelCatalogs,
 } from "../agents/plugin-model-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { privateFileStore } from "../infra/private-file-store.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { shortenHomePath } from "../utils.js";
@@ -24,7 +24,7 @@ type LegacyPluginModelCatalogMigration = {
 };
 
 function resolveMigrationAgentDirs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDirs?: readonly string[];
 }): string[] {
@@ -50,7 +50,7 @@ async function readLegacyPluginCatalogContents(params: {
 
 /** Detects only marker-backed catalogs produced by tagged OpenClaw releases. */
 async function collectLegacyPluginModelCatalogMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDirs?: readonly string[];
   warnings?: string[];
@@ -152,7 +152,7 @@ async function collectLegacyPluginModelCatalogMigrations(params: {
 
 /** Imports and verifies released sidecars before Doctor removes any legacy bytes. */
 export async function maybeMigrateLegacyPluginModelCatalogs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDirs?: readonly string[];
   prompter: DoctorPrompter;

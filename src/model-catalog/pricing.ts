@@ -7,7 +7,7 @@ import {
   createStaticProviderModelIdNormalizer,
   normalizeProviderId,
 } from "../agents/model-ref-shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isInstalledPluginEnabled } from "../plugins/installed-plugin-index.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import {
@@ -23,7 +23,7 @@ type ExternalPricingPolicy = {
   authoritative: boolean;
 };
 type PricingContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   normalizeKey: (provider: string, model: string) => string;
   catalog: ReadonlyMap<string, PricingValue>;
   hosted: Readonly<Record<string, RemoteModelCatalogPricing>>;
@@ -32,12 +32,12 @@ type PricingContext = {
   fingerprint: string;
 };
 
-const EMPTY_CONFIG: OpenClawConfig = {};
-const pricingContextByConfig = new WeakMap<OpenClawConfig, PricingContext>();
+const EMPTY_CONFIG: GrantedConfig = {};
+const pricingContextByConfig = new WeakMap<GrantedConfig, PricingContext>();
 
 function activeManifestRegistry(
   snapshot: PluginMetadataSnapshot,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): PluginManifestRegistry {
   if (config.plugins?.enabled === false) {
     return { plugins: [], diagnostics: [] };
@@ -61,7 +61,7 @@ function normalizedHostedKey(
   return normalizeKey(key.slice(0, slash), key.slice(slash + 1));
 }
 
-function buildPricingContext(config: OpenClawConfig): PricingContext {
+function buildPricingContext(config: GrantedConfig): PricingContext {
   let snapshot: PluginMetadataSnapshot | undefined;
   try {
     snapshot = resolvePluginMetadataSnapshot({
@@ -123,7 +123,7 @@ function buildPricingContext(config: OpenClawConfig): PricingContext {
 }
 
 /** Reuses the static pricing policy captured for this config. */
-export function resolveModelPricingContext(config: OpenClawConfig = EMPTY_CONFIG): PricingContext {
+export function resolveModelPricingContext(config: GrantedConfig = EMPTY_CONFIG): PricingContext {
   const existing = pricingContextByConfig.get(config);
   if (existing) {
     return existing;

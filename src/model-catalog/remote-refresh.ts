@@ -3,14 +3,14 @@ import {
   validateAndSanitizeRemoteModelCatalogBundle,
   type RemoteModelCatalogBundle,
 } from "@openclaw/model-catalog-core";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import {
   fetchConfiguredLocalOriginWithSsrFGuard,
   fetchWithSsrFGuard,
 } from "../infra/net/fetch-guard.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { VERSION } from "../version.js";
 import { bundledCatalogGeneratedAt } from "./bundled-catalog-stamp.js";
 import { isRemoteModelCatalogRefreshEnabled, resolveRemoteCatalogUrl } from "./remote-config.js";
@@ -59,7 +59,7 @@ function assertCompatibleMinVersion(bundle: RemoteModelCatalogBundle): void {
   }
 }
 
-function isExplicitLocalHttpUrl(config: OpenClawConfig, url: string): boolean {
+function isExplicitLocalHttpUrl(config: GrantedConfig, url: string): boolean {
   if (!config.models?.catalogRefresh?.url) {
     return false;
   }
@@ -73,11 +73,11 @@ function isExplicitLocalHttpUrl(config: OpenClawConfig, url: string): boolean {
 }
 
 export async function refreshRemoteModelCatalog(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   force?: boolean;
   signal?: AbortSignal;
   fetchImpl?: typeof fetch;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   now?: () => number;
   bundledGeneratedAt?: () => number | undefined;
 }): Promise<RemoteModelCatalogRefreshResult> {

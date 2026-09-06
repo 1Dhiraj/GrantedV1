@@ -3,7 +3,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { formatPluginPackagingRuntimeOutputRecoveryHint } from "../cli/config-recovery-hints.js";
 import {
   type ConfigFileSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
   readConfigFileSnapshot,
 } from "../config/config.js";
 import { renderConfigValidationIssueLines } from "../config/issue-location.js";
@@ -78,6 +78,6 @@ export async function requireValidConfig(
     skipPluginValidation?: boolean;
     adoptPluginMetadata?: boolean;
   },
-): Promise<OpenClawConfig | null> {
+): Promise<GrantedConfig | null> {
   return (await requireValidConfigFileSnapshot(runtime, opts))?.config ?? null;
 }

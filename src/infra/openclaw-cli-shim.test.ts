@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { createExecTool } from "../agents/bash-tools.js";
 import { resolveExecToolConfig } from "../agents/lazy-exec-tool.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { captureEnv } from "../test-utils/env.js";
 import { withTempDir } from "../test-utils/temp-dir.js";
 import { resolveCurrentOpenClawCliInvocation } from "./openclaw-cli-invocation.js";
@@ -104,7 +104,7 @@ describe.skipIf(process.platform === "win32")("Gateway agent CLI shim", () => {
       const shimBinDir = path.join(stateDir, "tmp", "agent-cli");
       const config = {
         tools: { exec: { pathPrepend: [staleBinDir] } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const execConfig = resolveExecToolConfig({ cfg: config });
       expect(execConfig.pathPrepend?.slice(0, 2)).toEqual([shimBinDir, staleBinDir]);
 

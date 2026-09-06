@@ -1,5 +1,5 @@
 // Evaluates plugin config policy without activating plugin runtime code.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolvePluginActivationDecisionShared,
   toPluginActivationState,
@@ -19,7 +19,7 @@ type PluginActivationState = PluginActivationStateLike;
 type NormalizedPluginsConfig = SharedNormalizedPluginsConfig;
 
 export function normalizePluginsConfigWithResolver(
-  config?: OpenClawConfig["plugins"],
+  config?: GrantedConfig["plugins"],
   normalizePluginId: NormalizePluginId = identityNormalizePluginId,
 ): NormalizedPluginsConfig {
   return normalizePluginsConfigWithResolverShared(config, normalizePluginId);
@@ -29,10 +29,10 @@ type PolicyEffectiveActivationParams = {
   id: string;
   origin: PluginOrigin;
   config: NormalizedPluginsConfig;
-  rootConfig?: OpenClawConfig;
+  rootConfig?: GrantedConfig;
   enabledByDefault?: boolean;
   sourceConfig?: NormalizedPluginsConfig;
-  sourceRootConfig?: OpenClawConfig;
+  sourceRootConfig?: GrantedConfig;
   autoEnabledReason?: string;
 };
 

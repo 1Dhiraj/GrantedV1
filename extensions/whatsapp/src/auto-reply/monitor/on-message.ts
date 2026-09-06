@@ -1,7 +1,7 @@
 // Whatsapp plugin module implements on message behavior.
 import type { AckReactionHandle } from "openclaw/plugin-sdk/channel-feedback";
 import type { ChannelInboundTurnPlan } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   ensureConfiguredBindingRouteReady,
   resolveConfiguredBindingRoute,
@@ -30,8 +30,8 @@ import {
 } from "./status-reaction.js";
 
 export function createWebOnMessageHandler(params: {
-  cfg: OpenClawConfig;
-  loadConfig?: () => OpenClawConfig;
+  cfg: GrantedConfig;
+  loadConfig?: () => GrantedConfig;
   verbose: boolean;
   connectionId: string;
   maxMediaBytes: number;
@@ -77,7 +77,7 @@ export function createWebOnMessageHandler(params: {
   };
 
   const processForRoute = async (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     msg: AdmittedWebInboundMessage,
     route: ReturnType<typeof resolveAgentRoute>,
     groupHistoryKey: string,

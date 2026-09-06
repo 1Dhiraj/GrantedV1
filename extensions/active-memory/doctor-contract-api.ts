@@ -4,7 +4,7 @@
  */
 import crypto from "node:crypto";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineLegacyJsonStateMigration,
@@ -32,8 +32,8 @@ export const legacyConfigRules = [
 ];
 
 /** Removes the retired plugin-owned QMD override. */
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const entry = asObjectRecord(cfg.plugins?.entries?.["active-memory"]);

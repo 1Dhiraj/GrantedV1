@@ -3,7 +3,7 @@ import "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import type WaDialog from "@awesome.me/webawesome/dist/components/dialog/dialog.js";
 import { css, html, type PropertyValues } from "lit";
 import { property, query } from "lit/decorators.js";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 
 const modalLayers = (document.openClawModalLayers ??= new Set<HTMLElement>());
 
@@ -14,7 +14,7 @@ function setModalLayer(modal: HTMLElement, open: boolean) {
   }
 }
 
-export class OpenClawModalDialog extends OpenClawLitElement {
+export class GrantedModalDialog extends GrantedLitElement {
   @property({ type: Boolean }) open = true;
   @property({ type: Boolean, reflect: true }) manual = false;
   @property() label = "";
@@ -344,7 +344,7 @@ export class OpenClawModalDialog extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-modal-dialog")) {
-  customElements.define("openclaw-modal-dialog", OpenClawModalDialog);
+  customElements.define("openclaw-modal-dialog", GrantedModalDialog);
 }
 
 declare global {
@@ -353,6 +353,6 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    "openclaw-modal-dialog": OpenClawModalDialog;
+    "openclaw-modal-dialog": GrantedModalDialog;
   }
 }

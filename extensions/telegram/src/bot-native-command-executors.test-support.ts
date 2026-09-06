@@ -3,7 +3,7 @@ import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 export { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
 import { registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
@@ -280,9 +280,9 @@ type TelegramPluginCommandSpecs = Array<{
 type TelegramLoginFlow = NonNullable<TelegramNativeCommandDeps["runModelsAuthLoginFlow"]>;
 
 export function registerAndResolveStatusHandler(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatchReplyFromConfig?: NativeCommandTestParams["opts"]["dispatchReplyFromConfig"];
-  runtimeCfg?: OpenClawConfig;
+  runtimeCfg?: GrantedConfig;
   allowFrom?: string[];
   groupAllowFrom?: string[];
   storeAllowFrom?: string[];
@@ -317,9 +317,9 @@ export function registerAndResolveStatusHandler(params: {
 
 function registerAndResolveCommandHandlerBase(params: {
   commandName: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   dispatchReplyFromConfig?: NativeCommandTestParams["opts"]["dispatchReplyFromConfig"];
-  runtimeCfg?: OpenClawConfig;
+  runtimeCfg?: GrantedConfig;
   allowFrom: string[];
   groupAllowFrom: string[];
   storeAllowFrom?: string[];
@@ -403,7 +403,7 @@ function registerAndResolveCommandHandlerBase(params: {
 
 export function registerAndResolveCommandHandler(params: {
   commandName: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   allowFrom?: string[];
   groupAllowFrom?: string[];
   storeAllowFrom?: string[];

@@ -4,12 +4,12 @@ import {
   createPluginRuntimeMock,
   createStartAccountContext,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
 } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readCachedTelegramBotInfo, writeCachedTelegramBotInfo } from "./bot-info-cache.js";
 import type { TelegramBotInfo } from "./bot-info.js";
@@ -27,7 +27,7 @@ import { withTelegramStartupProbeSlot } from "./startup-probe-limiter.js";
 const probeTelegram = vi.fn();
 const monitorTelegramProvider = vi.fn();
 const sendMessageTelegram = vi.fn();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 const startupBotInfo: TelegramBotInfo = {
   id: 123456,
@@ -80,7 +80,7 @@ function createRuntimeEnvMock() {
 function createTelegramConfig(
   accountId = "default",
   telegramOverrides: Record<string, unknown> = {},
-): OpenClawConfig {
+): GrantedConfig {
   if (accountId === "default") {
     return {
       channels: {
@@ -89,7 +89,7 @@ function createTelegramConfig(
           ...telegramOverrides,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   return {
@@ -103,7 +103,7 @@ function createTelegramConfig(
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function startTelegramAccount(
@@ -259,7 +259,7 @@ describe("telegramPlugin gateway startup", () => {
       },
       channels: { telegram: { botToken: "123456:bad-token" } },
       bindings: [{ agentId: "main", match: { channel: "telegram", accountId: "*" } }],
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const account = telegramPlugin.config.resolveAccount(cfg, "default");
     const startAccount = telegramPlugin.gateway?.startAccount;
     if (!startAccount) {
@@ -282,7 +282,7 @@ describe("telegramPlugin gateway startup", () => {
         entries: { main: {}, ops: {}, research: {} },
       },
       channels: { telegram: { botToken: "123456:bad-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const account = telegramPlugin.config.resolveAccount(cfg, "default");
     const startAccount = telegramPlugin.gateway?.startAccount;
     if (!startAccount) {
@@ -533,7 +533,7 @@ describe("telegramPlugin gateway startup", () => {
     const stateDir = testState.stateDir;
     const runtime = installTelegramRuntime();
     const remaining = { tokenFile: path.join(stateDir, "missing-token"), name: "Ops" };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           botToken: "root-token",

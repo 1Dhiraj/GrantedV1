@@ -7,7 +7,7 @@ import {
   resolveStableChannelMessageIngress,
   type StableChannelIngressIdentityParams,
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseDateStringTimestampMs } from "openclaw/plugin-sdk/number-runtime";
 import {
   normalizeAgentId,
@@ -67,7 +67,7 @@ function resolveClickClackBotLoopConversationId(params: {
 }
 
 function resolveAccountAgentRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedClickClackAccount;
   target: string;
   isDirect: boolean;
@@ -129,7 +129,7 @@ function resolvePreparedInboundRoute(params: {
       : { chatType: "group", kind: "channel", id: params.message.channel_id ?? "" },
   );
   const accountRoute = resolveAccountAgentRoute({
-    cfg: params.config as OpenClawConfig,
+    cfg: params.config as GrantedConfig,
     account: params.account,
     target,
     isDirect,
@@ -193,7 +193,7 @@ export async function resolveClickClackInboundAccess(params: {
   message: ClickClackMessage;
 }): Promise<ClickClackInboundAccess> {
   const runtime = getClickClackRuntime();
-  const cfg = params.config as OpenClawConfig;
+  const cfg = params.config as GrantedConfig;
   const preparedRoute = resolvePreparedInboundRoute(params);
   const shouldCheckCommand = runtime.channel.commands.shouldComputeCommandAuthorized(
     params.message.body,

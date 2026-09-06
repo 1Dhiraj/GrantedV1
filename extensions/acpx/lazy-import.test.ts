@@ -1,6 +1,6 @@
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
@@ -33,8 +33,8 @@ describe("acpx Pi session catalog lazy imports", () => {
 
     const { default: acpxPlugin } = await import("./index.js");
     const catalogs: SessionCatalogProvider[] = [];
-    const nodeCommands: OpenClawPluginNodeHostCommand[] = [];
-    const nodePolicies: OpenClawPluginNodeInvokePolicy[] = [];
+    const nodeCommands: GrantedPluginNodeHostCommand[] = [];
+    const nodePolicies: GrantedPluginNodeInvokePolicy[] = [];
     acpxPlugin.register(
       createTestPluginApi({
         id: "acpx",

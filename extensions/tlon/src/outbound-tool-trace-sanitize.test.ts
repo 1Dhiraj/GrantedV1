@@ -10,7 +10,7 @@ import {
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { tlonPlugin } from "./channel.js";
 
 const uploadImageFromUrl = vi.hoisted(() => vi.fn(async () => "https://media.example/image.png"));
@@ -101,7 +101,7 @@ describe("tlon outbound assistant-visible sanitization", () => {
           network: { dangerouslyAllowPrivateNetwork: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await sendDurableMessageBatch({
       cfg,

@@ -13,7 +13,7 @@ import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtim
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createFileBackedSessionManagerForTest } from "../../test/helpers/session-manager-file-fixture.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { attachRuntimeUserTurnTranscriptContext } from "../sessions/user-turn-transcript-runtime-context.js";
 import {
   createUserTurnTranscriptRecorder,
@@ -502,7 +502,7 @@ describe("guardSessionManager integration", () => {
       logging: {
         redactPatterns: [String.raw`([\w]|[-.])+@([\w]|[-.])+\.\w+`],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const sm = guardSessionManager(SessionManager.inMemory(), { config: cfg });
     const appendMessage = sm.appendMessage.bind(sm) as unknown as (message: AgentMessage) => void;
 

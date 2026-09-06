@@ -3,7 +3,7 @@ import { access, mkdir, rmdir, symlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readAgentProvenance } from "../state/agent-provenance.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { applyClawAddPlan, ClawAddMutationError } from "./add.js";
@@ -639,7 +639,7 @@ describe("applyClawAddPlan", () => {
         },
       },
     );
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       agents: {
         defaults: { workspace: "/operator/default" },
         entries: { main: { default: true } },
@@ -678,7 +678,7 @@ describe("applyClawAddPlan", () => {
 
   it("materializes the implicit main agent before appending the first configured agent", async () => {
     const { root, plan } = await makePlan();
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     await applyClawAddPlan(plan, {
       consentPlanIntegrity: plan.planIntegrity,
@@ -898,7 +898,7 @@ describe("applyClawAddPlan", () => {
 
   it("resumes a matching partial add with an existing non-empty workspace", async () => {
     const { root, plan } = await makePlan();
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     let attempts = 0;
 
     const first = await applyClawAddPlan(plan, {
@@ -950,7 +950,7 @@ describe("applyClawAddPlan", () => {
       status: "workspace_ready",
       nowMs: 1,
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     const result = await applyClawAddPlan(plan, {
       consentPlanIntegrity: plan.planIntegrity,
@@ -973,7 +973,7 @@ describe("applyClawAddPlan", () => {
       nowMs: 1,
     });
     await writeFile(plan.agent.workspace, "not a directory", "utf8");
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     await expect(
       applyClawAddPlan(plan, {
@@ -1015,7 +1015,7 @@ describe("applyClawAddPlan", () => {
 
   it("fails before mutation when the pending provenance record cannot be persisted", async () => {
     const { plan } = await makePlan();
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     await expect(
       applyClawAddPlan(plan, {

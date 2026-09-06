@@ -14,7 +14,7 @@ vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   };
 });
 
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   registerSessionBindingAdapter,
@@ -46,7 +46,7 @@ const baseCfg = {
     },
     backend: "acpx",
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function createDmClient(channelId: string): DiscordClient {
   return {

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import { createPluginSecretRefSetupCli } from "openclaw/plugin-sdk/secret-ref-runtime";
 import { pathExists } from "openclaw/plugin-sdk/security-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -37,7 +37,7 @@ type CommandLike = Parameters<typeof vaultSecretRefSetupCli.registerSetupCommand
 
 type RegisterVaultCommandsParams = {
   program: CommandLike;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 };
 
 type StatusOptions = {
@@ -73,7 +73,7 @@ async function resolveResolverScriptPath(
   return candidates[0];
 }
 
-async function runStatus(config: OpenClawConfig, options: StatusOptions): Promise<void> {
+async function runStatus(config: GrantedConfig, options: StatusOptions): Promise<void> {
   const { providerAlias, provider } = vaultSecretRefSetupCli.inspectProvider(
     config,
     options.providerAlias,

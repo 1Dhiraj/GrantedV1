@@ -1,6 +1,6 @@
 /** Tests Codex CLI bundle-MCP config override generation. */
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { retireSessionMcpRuntime } from "../agent-bundle-mcp-manager-api.js";
 import { AuthStorage } from "../sessions/auth-storage.js";
@@ -26,7 +26,7 @@ describe("prepareCliBundleMcpConfig codex", () => {
       const serverPath = await writeCliMcpPolicyProbeServer();
       const workspaceDir = cliBundleMcpHarness.bundleProbeWorkspaceDir;
       const sessionId = "codex-independent-policy-owner";
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         plugins: { enabled: false },
         agents: {
           entries: { main: {}, worker: { tools: { deny: ["docs__delete_docs"] } } },
@@ -126,7 +126,7 @@ describe("prepareCliBundleMcpConfig codex", () => {
 
   it("projects configured wildcard filters as exact Codex CLI overrides", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       tools: { allow: ["docs__*"] },
       mcp: {
@@ -155,7 +155,7 @@ describe("prepareCliBundleMcpConfig codex", () => {
 
   it("hides non-model MCP tools from Codex without an explicit policy", async () => {
     const serverPath = await writeCliMcpPolicyProbeServer();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { enabled: false },
       mcp: { servers: { docs: { command: process.execPath, args: [serverPath] } } },
     };

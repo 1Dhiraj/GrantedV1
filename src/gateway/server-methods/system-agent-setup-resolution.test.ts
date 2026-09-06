@@ -7,7 +7,7 @@ import type {
   WizardNextResult,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { WizardNextResultSchema } from "../../../packages/gateway-protocol/src/schema/wizard.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildPluginCapabilityConsentReview } from "../../plugins/capability-summary.js";
 import { resetCommandQueueStateForTest } from "../../process/command-queue.test-support.js";
 import { createPluginCapabilityConsentPrompter } from "../../wizard/plugin-capability-consent.js";
@@ -37,7 +37,7 @@ vi.mock("../../wizard/setup.shared.js", () => ({
   writeWizardConfigFile: setupSharedMocks.writeWizardConfigFile,
 }));
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   agents: { defaults: { model: "openai/gpt-5.6-luna" } },
 };
 const validateWizardResult = Compile(WizardNextResultSchema);
@@ -416,7 +416,7 @@ describe("openclaw.setup provider resolution", () => {
     },
   );
   it("runs the selected provider method in a shared wizard session and commits its config", async () => {
-    const preparedConfig: OpenClawConfig = {
+    const preparedConfig: GrantedConfig = {
       ...config,
       models: { providers: { ollama: { baseUrl: "http://127.0.0.1:11434", models: [] } } },
     };

@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { describeHeartbeatSessionTargetIssues } from "./doctor-heartbeat-session-target.js";
 
@@ -22,7 +22,7 @@ describe("describeHeartbeatSessionTargetIssues", () => {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 
-  function cfgWithSession(session: string, target: string | null = "slack"): OpenClawConfig {
+  function cfgWithSession(session: string, target: string | null = "slack"): GrantedConfig {
     const heartbeat = target === null ? { session } : { session, target };
     return {
       session: {
@@ -37,13 +37,13 @@ describe("describeHeartbeatSessionTargetIssues", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   function cfgWithDefaultHeartbeat(
     session: string,
     target: string | null = "slack",
-  ): OpenClawConfig {
+  ): GrantedConfig {
     const heartbeat = target === null ? { session } : { session, target };
     return {
       session: {
@@ -60,10 +60,10 @@ describe("describeHeartbeatSessionTargetIssues", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
-  function writeStore(cfg: OpenClawConfig, entries: Record<string, unknown>) {
+  function writeStore(cfg: GrantedConfig, entries: Record<string, unknown>) {
     const storePath = resolveSessionStorePathCore(cfg.session?.store, { agentId: "ops" });
     fs.mkdirSync(path.dirname(storePath), { recursive: true });
     fs.writeFileSync(storePath, JSON.stringify(entries, null, 2));

@@ -1,7 +1,7 @@
 /** Applies agent compaction settings and small-context overflow guards. */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import type { AgentCompactionMode } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ContextEngineInfo } from "../context-engine/types.js";
 import { resolveEffectiveCompactionReserveTokens } from "./agent-compaction-constants.js";
 import { resolveProviderEndpoint } from "./provider-attribution.js";
@@ -31,7 +31,7 @@ function toPositiveInt(value: unknown): number | undefined {
 /** Applies configured compaction reserve/keep-recent settings to an agent settings manager. */
 export function applyAgentCompactionSettingsFromConfig(params: {
   settingsManager: AgentSettingsManagerLike;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   /** When known, the resolved context window budget for the current model. */
   contextTokenBudget?: number;
 }): {
@@ -92,7 +92,7 @@ export function applyAgentCompactionSettingsFromConfig(params: {
 }
 
 /** Resolve the compaction mode after provider-backed safeguard promotion. */
-export function resolveEffectiveCompactionMode(cfg?: OpenClawConfig): AgentCompactionMode {
+export function resolveEffectiveCompactionMode(cfg?: GrantedConfig): AgentCompactionMode {
   const compaction = cfg?.agents?.defaults?.compaction;
   if (compaction?.provider) {
     return "safeguard";

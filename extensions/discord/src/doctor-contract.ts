@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // The narrow activation subpath avoids realtime-voice's agent-consult/session
 // graph, which doctor enumeration must not cold-load.
 import {
@@ -27,7 +27,7 @@ const RETIRED_TUNING_KEYS = new Set([
   "eventQueue",
   "retry",
 ]);
-type AgentBindingConfig = NonNullable<OpenClawConfig["bindings"]>[number];
+type AgentBindingConfig = NonNullable<GrantedConfig["bindings"]>[number];
 
 const streamingAliasMigration = defineChannelAliasMigration({
   channelId: "discord",
@@ -283,7 +283,7 @@ function isDiscordChannelAgentBinding(
 }
 
 function normalizeDiscordGuildChannelAgentIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: Record<string, unknown>;
   pathPrefix: string;
   accountId?: string;
@@ -425,7 +425,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const changes: string[] = [];
   const bindingsToAdd: AgentBindingConfig[] = [];
@@ -524,7 +524,7 @@ export function normalizeCompatibilityConfig({
       channels: {
         ...tuningKnobs.config.channels,
         discord: updated,
-      } as OpenClawConfig["channels"],
+      } as GrantedConfig["channels"],
       bindings:
         bindingsToAdd.length > 0 ? [...(cfg.bindings ?? []), ...bindingsToAdd] : cfg.bindings,
     },

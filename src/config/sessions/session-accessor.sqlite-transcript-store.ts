@@ -11,7 +11,7 @@ import { redactSecrets } from "../../logging/redact.js";
 import { canonicalizePersistedUserMessageMedia } from "../../media/media-facts.js";
 import {
   deferOpenClawAgentPostCommitPublication,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type {
   TranscriptEvent,
@@ -64,7 +64,7 @@ type TranscriptAppendCursor = {
   insertIdentity?: ReturnType<typeof createTranscriptIdentityInserter>;
 };
 
-export function createTranscriptEventInserter(database: OpenClawAgentDatabase, sessionId: string) {
+export function createTranscriptEventInserter(database: GrantedAgentDatabase, sessionId: string) {
   return prepareSqliteQuerySync<{ seq: number; eventJson: string; createdAt: number }>(
     database.db,
     (parameter) =>
@@ -80,7 +80,7 @@ export function createTranscriptEventInserter(database: OpenClawAgentDatabase, s
 }
 
 function createTranscriptIdentityInserter(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   ignoreConflicts: boolean,
 ) {
@@ -106,7 +106,7 @@ function createTranscriptIdentityInserter(
 }
 
 export function appendTranscriptEventInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   event: TranscriptEvent,
   options: TranscriptAppendOptions = {},
@@ -115,7 +115,7 @@ export function appendTranscriptEventInTransaction(
 }
 
 function appendTranscriptEvent(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   event: TranscriptEvent,
   options: TranscriptAppendOptions,
@@ -197,7 +197,7 @@ function appendTranscriptEvent(
 }
 
 function scheduleTranscriptProjectionReconcile(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   projectionNeedsRebuild: boolean,
   options: { scheduleProjectionReconcile?: boolean },
@@ -216,7 +216,7 @@ function scheduleTranscriptProjectionReconcile(
 }
 
 export function appendTranscriptEventsInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   events: Iterable<TranscriptEvent, unknown, boolean>,
   options: Omit<TranscriptAppendOptions, "onProjectionReconcileNeeded"> = {},
@@ -309,7 +309,7 @@ function appendTranscriptEventRowInTransaction(
 }
 
 export function ensureTranscriptHeader(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   cwd: string | undefined,
 ): void {
@@ -333,7 +333,7 @@ export function ensureTranscriptHeader(
 }
 
 export function replaceSqliteTranscriptEventsInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedTranscriptScope,
   events: readonly TranscriptEvent[],
   options: {
@@ -409,7 +409,7 @@ export function replaceSqliteTranscriptEventsInTransaction(
 }
 
 function recordTranscriptReplacementMutation(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   preservedUpdatedAt: number | null | undefined,
 ): void {
@@ -426,7 +426,7 @@ function recordTranscriptReplacementMutation(
 
 /** Rewrite existing transcript rows exactly, without append-time deduplication. */
 export function rewriteSqliteTranscriptEventRowsInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedTranscriptScope,
   rows: readonly {
     event: TranscriptEvent;
@@ -474,7 +474,7 @@ export function rewriteSqliteTranscriptEventRowsInTransaction(
 // Preserves seq, created_at, session_key, and session activity recency; rotates the transcript
 // generation and rebuilds bounded projections immediately or defers large projections.
 export function updateSqliteTranscriptEventJsonInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   updates: ReadonlyArray<{ seq: number; eventJson: string }>,
 ): void {
@@ -522,7 +522,7 @@ export function updateSqliteTranscriptEventJsonInTransaction(
 }
 
 function readIdempotencyKeyOwner(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   idempotencyKey: string,
 ): { eventId: string; seq: number } | undefined {
@@ -541,7 +541,7 @@ function readIdempotencyKeyOwner(
 }
 
 function readTranscriptMessageByIdempotencyKey(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   idempotencyKey: string,
 ): { messageId: string; message: unknown } | undefined {
@@ -550,7 +550,7 @@ function readTranscriptMessageByIdempotencyKey(
 }
 
 export function readTranscriptMessageByScopedIdempotencyKey(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   idempotencyKey: string,
   lookup: TranscriptMessageAppendOptions<unknown>["idempotencyLookup"],
@@ -572,7 +572,7 @@ export function readTranscriptMessageByScopedIdempotencyKey(
 }
 
 export function readTranscriptMessageByEventId(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   eventId: string,
 ): { messageId: string; message: unknown } | undefined {
@@ -581,7 +581,7 @@ export function readTranscriptMessageByEventId(
 }
 
 function readTranscriptMessageByIdentity(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   scope: ResolvedTranscriptScope,
   identity: { eventId: string; seq: number },
 ): { messageId: string; message: unknown } | undefined {

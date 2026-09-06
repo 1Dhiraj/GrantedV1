@@ -1,6 +1,6 @@
 // Configured hook tests cover the closed allowlist and open discovery decisions.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveConfiguredInternalHookNames } from "./configured.js";
 
 const readConfigMachineStateMock = vi.hoisted(() => vi.fn());
@@ -90,7 +90,7 @@ describe("resolveConfiguredInternalHookNames", () => {
           load: { extraDirs: ["/opt/openclaw/hooks"] },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveConfiguredInternalHookNames(config)).toEqual(new Set());
   });

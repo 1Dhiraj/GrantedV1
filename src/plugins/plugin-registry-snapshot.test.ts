@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setCurrentPluginMetadataSnapshot } from "./current-plugin-metadata.test-support.js";
 import type { PluginCandidate } from "./discovery.js";
 import { loadInstalledPluginIndexInstallRecordsSync } from "./installed-plugin-index-records.js";
@@ -45,7 +45,7 @@ function createHermeticEnv(rootDir: string): NodeJS.ProcessEnv {
 }
 
 function createCurrentMetadataSnapshot(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   workspaceDir: string,
 ): PluginMetadataSnapshot {
   const snapshot = createPluginMetadataSnapshotFixture();
@@ -637,7 +637,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
       plugins: {
         load: { paths: "not-an-array" },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(() => loadPluginRegistrySnapshotWithMetadata({ config, env })).not.toThrow();
   });

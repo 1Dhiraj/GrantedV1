@@ -30,7 +30,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import type { PrepareAssistantTranscriptMessage } from "../../config/sessions/transcript-assistant-delivery.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   injectTimestamp,
   timestampOptsFromConfig,
@@ -224,7 +224,7 @@ type PersistTextTurnTranscriptParams = {
   sessionAgentId: string;
   threadId?: string | number;
   sessionCwd: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   skipAssistantTurn?: boolean;
   assistant: {
     api: string;
@@ -265,7 +265,7 @@ function resolveProfileAuthFromStore(params: { agentDir: string; profileId: stri
 }
 
 function resolveHarnessAuthProfileSelection(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir: string;
   workspaceDir: string;
   provider: string;
@@ -489,7 +489,7 @@ export async function persistAcpTurnTranscript(params: {
   sessionAgentId: string;
   threadId?: string | number;
   sessionCwd: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<PersistTextTurnTranscriptResult> {
   return await persistTextTurnTranscript({
     ...params,
@@ -516,7 +516,7 @@ export async function persistCliTurnTranscript(params: {
   sessionAgentId: string;
   threadId?: string | number;
   sessionCwd: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   skipUserTurn?: boolean;
   skipAssistantTurn?: boolean;
 }): Promise<PersistTextTurnTranscriptResult> {
@@ -551,7 +551,7 @@ export function runAgentAttempt(params: {
   modelThinkingCapability?: RunEmbeddedAgentInternalParams["modelThinkingCapability"];
   configuredAuthProfileId?: string;
   originalProvider: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionEntry: SessionEntry | undefined;
   agentHarnessRuntimeOverride?: string;
   sessionId: string;

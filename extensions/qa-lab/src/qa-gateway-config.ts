@@ -1,6 +1,6 @@
 // Qa Lab helper module supports qa gateway config behavior.
 import { GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
@@ -68,7 +68,7 @@ export function buildQaGatewayConfig(params: {
   fastMode?: boolean;
   thinkingDefault?: QaThinkingLevel;
   forcedRuntime?: RuntimeId;
-}): OpenClawConfig {
+}): GrantedConfig {
   const providerBaseUrl = params.providerBaseUrl ?? "http://127.0.0.1:44080/v1";
   const providerMode = normalizeQaProviderMode(params.providerMode ?? DEFAULT_QA_PROVIDER_MODE);
   const provider = getQaProvider(providerMode);
@@ -324,5 +324,5 @@ export function buildQaGatewayConfig(params: {
     },
     ...(params.transportConfig?.channels ? { channels: params.transportConfig.channels } : {}),
     ...(params.transportConfig?.messages ? { messages: params.transportConfig.messages } : {}),
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }

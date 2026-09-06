@@ -12,7 +12,7 @@ import {
   type PluginMetadataSnapshot,
 } from "../plugins/plugin-metadata-snapshot.js";
 import { normalizePluginPolicyId } from "../plugins/plugin-policy-id.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 function mergeRegistries(registries: readonly PluginManifestRegistry[]): PluginManifestRegistry {
   const grouped = new Map<
@@ -46,7 +46,7 @@ function mergeRegistries(registries: readonly PluginManifestRegistry[]): PluginM
 }
 
 type ResolveConfigWidePluginMetadataParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   stateDir?: string;
   allowCurrent?: boolean;

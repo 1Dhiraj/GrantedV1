@@ -123,7 +123,7 @@ vi.mock("./process-reaper.js", () => ({
 }));
 
 import { getAcpRuntimeBackend } from "../runtime-api.js";
-import type { OpenClawPluginServiceContext } from "../runtime-api.js";
+import type { GrantedPluginServiceContext } from "../runtime-api.js";
 import {
   ACPX_PROBE_LEASE_SESSION_KEY,
   openAcpxProcessLeaseStateStore,
@@ -179,7 +179,7 @@ afterEach(async () => {
   await testWorkspace.cleanup();
 });
 
-function createServiceContext(workspaceDir: string): OpenClawPluginServiceContext {
+function createServiceContext(workspaceDir: string): GrantedPluginServiceContext {
   return {
     workspaceDir,
     stateDir: path.join(workspaceDir, ".openclaw-plugin-state"),
@@ -193,7 +193,7 @@ function createServiceContext(workspaceDir: string): OpenClawPluginServiceContex
   };
 }
 
-function createOpenKeyedStore(ctx: OpenClawPluginServiceContext) {
+function createOpenKeyedStore(ctx: GrantedPluginServiceContext) {
   const env = { ...process.env, GRANTED_STATE_DIR: ctx.stateDir };
   return <T>(options: OpenKeyedStoreOptions) =>
     createPluginStateKeyedStoreForTests<T>("acpx", {
@@ -203,7 +203,7 @@ function createOpenKeyedStore(ctx: OpenClawPluginServiceContext) {
 }
 
 function createAcpxRuntimeService(
-  ctx: OpenClawPluginServiceContext,
+  ctx: GrantedPluginServiceContext,
   params: Omit<Parameters<typeof createRealAcpxRuntimeService>[0], "backendLifecycle"> & {
     backendLifecycle?: Parameters<typeof createRealAcpxRuntimeService>[0]["backendLifecycle"];
   } = {},
@@ -225,14 +225,14 @@ function createAcpxRuntimeService(
   });
 }
 
-function openGatewayInstanceStore(ctx: OpenClawPluginServiceContext) {
+function openGatewayInstanceStore(ctx: GrantedPluginServiceContext) {
   return createOpenKeyedStore(ctx)<AcpxGatewayInstanceRecord>({
     namespace: ACPX_GATEWAY_INSTANCE_NAMESPACE,
     maxEntries: ACPX_GATEWAY_INSTANCE_MAX_ENTRIES,
   });
 }
 
-function openProcessLeaseStore(ctx: OpenClawPluginServiceContext) {
+function openProcessLeaseStore(ctx: GrantedPluginServiceContext) {
   return openAcpxProcessLeaseStateStore(createOpenKeyedStore(ctx));
 }
 

@@ -5,7 +5,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -18,7 +18,7 @@ import {
 } from "./runtime-store.sqlite.js";
 import type { TrajectoryEvent } from "./types.js";
 
-type TrajectoryRuntimeTestDatabase = Pick<OpenClawAgentKyselyDatabase, "trajectory_runtime_events">;
+type TrajectoryRuntimeTestDatabase = Pick<GrantedAgentKyselyDatabase, "trajectory_runtime_events">;
 
 describe("SQLite trajectory runtime store", () => {
   let tempDir: string;

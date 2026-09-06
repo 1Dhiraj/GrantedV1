@@ -3,9 +3,9 @@ import {
   normalizeControlUiBasePath,
 } from "@openclaw/session-url-contract";
 import { resolveGatewayPublicOrigin } from "./gateway-public-origin.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
-type ControlUiLinkConfig = Pick<OpenClawConfig, "gateway"> | null | undefined;
+type ControlUiLinkConfig = Pick<GrantedConfig, "gateway"> | null | undefined;
 
 function resolveControlUiLinkLocation(
   cfg: ControlUiLinkConfig,

@@ -1,7 +1,7 @@
 // Matrix tests cover plugin-wide capacity during inbound dedupe migration.
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPersistentDedupeImportEntry,
   type PersistentDedupeEntry,
@@ -37,7 +37,7 @@ function createMigrationParams(stateDir: string) {
     },
   };
   return {
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
     env,
     stateDir,
     oauthDir: path.join(stateDir, "oauth"),

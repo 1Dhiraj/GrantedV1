@@ -4,7 +4,7 @@ import {
   createSubsystemLogger,
   resolveAgentWorkspaceDir,
   resolveMemorySearchConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ResolvedMemorySearchConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import {
@@ -82,7 +82,7 @@ export class MemoryIndexManager extends MemorySearchOrchestration implements Mem
   protected readonly cacheKey: string;
   protected readonly purpose: MemoryIndexManagerPurpose;
   protected override readonly acquireLocalService?: MemoryCoreAcquireLocalService;
-  protected readonly cfg: OpenClawConfig;
+  protected readonly cfg: GrantedConfig;
   protected readonly agentId: string;
   protected readonly workspaceDir: string;
   protected readonly settings: ResolvedMemorySearchConfig;
@@ -128,7 +128,7 @@ export class MemoryIndexManager extends MemorySearchOrchestration implements Mem
   };
 
   static async get(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     agentId: string;
     purpose?: MemoryIndexManagerPurpose;
     inspectSources?: boolean;
@@ -187,7 +187,7 @@ export class MemoryIndexManager extends MemorySearchOrchestration implements Mem
 
   private constructor(params: {
     cacheKey: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     agentId: string;
     workspaceDir: string;
     settings: ResolvedMemorySearchConfig;

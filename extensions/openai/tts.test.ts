@@ -4,7 +4,7 @@ import {
   getDebugProxyCaptureStore,
   initializeDebugProxyCapture,
 } from "openclaw/plugin-sdk/proxy-capture";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { installDebugProxyTestResetHooks } from "../test-support/debug-proxy-env-test-helpers.js";
 import { createStreamingErrorResponse } from "../test-support/streaming-error-response.js";
@@ -59,7 +59,7 @@ function firstFetchInit(fetchMock: ReturnType<typeof vi.fn>): RequestInit {
 
 describe("openai tts", () => {
   const originalFetch = globalThis.fetch;
-  let openClawState: OpenClawTestState;
+  let openClawState: GrantedTestState;
 
   beforeEach(async () => {
     openClawState = await createOpenClawTestState({

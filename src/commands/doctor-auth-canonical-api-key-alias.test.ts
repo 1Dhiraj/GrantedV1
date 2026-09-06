@@ -8,14 +8,14 @@ import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.j
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { maybeMigrateAuthProfileJsonStoresToSqlite } from "./doctor-auth-flat-profiles.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 const secretRef = { source: "env", provider: "default", id: "MY_PROVIDER_API_KEY" } as const;
 
-async function makeTestState(): Promise<OpenClawTestState> {
+async function makeTestState(): Promise<GrantedTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-canonical-api-key-",
@@ -26,7 +26,7 @@ async function makeTestState(): Promise<OpenClawTestState> {
 }
 
 async function writeProfiles(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   profile: Record<string, unknown>,
   options: { agentDir?: string; order?: boolean } = {},
 ): Promise<string> {

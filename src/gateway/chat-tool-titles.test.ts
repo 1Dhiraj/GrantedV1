@@ -17,7 +17,7 @@ vi.mock("../agents/utility-model.js", () => ({
   resolveUtilityModelRefForAgent,
 }));
 
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabases } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { generateToolCallTitles } from "./chat-tool-titles.js";
@@ -71,7 +71,7 @@ describe("generateToolCallTitles", () => {
     mockCompletionTitles({ "0": "Checked repo status", "1": "Listed source files" });
 
     const result = await generateToolCallTitles({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [
         { id: "item-1", name: "bash", input: "git status --short" },
@@ -93,7 +93,7 @@ describe("generateToolCallTitles", () => {
     const token = ["ghp", "a1b2c3d4e5f6a1b2c3d4e5f6"].join("_");
 
     await generateToolCallTitles({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [
         {
@@ -120,7 +120,7 @@ describe("generateToolCallTitles", () => {
     const input = `${padding} Authorization: Bearer ${token}`;
 
     await generateToolCallTitles({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [{ id: "item-1", name: "bash", input }],
     });
@@ -138,7 +138,7 @@ describe("generateToolCallTitles", () => {
     mockCompletionTitles({ "0": "Inspected boundary input" });
 
     await generateToolCallTitles({
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [{ id: "item-1", name: "bash", input: `${"a".repeat(1_999)}😀tail` }],
     });
@@ -156,7 +156,7 @@ describe("generateToolCallTitles", () => {
     mockPreparedModel();
     mockCompletionTitles({ "0": "Checked repo status" });
     const params = {
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [{ id: "item-1", name: "bash", input: "git status --short" }],
     };
@@ -176,7 +176,7 @@ describe("generateToolCallTitles", () => {
 
     await expect(
       generateToolCallTitles({
-        cfg: {} satisfies OpenClawConfig,
+        cfg: {} satisfies GrantedConfig,
         agentId: AGENT_ID,
         items: [{ id: "item-1", name: "bash", input: "git status --short" }],
       }),
@@ -187,7 +187,7 @@ describe("generateToolCallTitles", () => {
   it("prepares the canonical utility model ref", async () => {
     mockPreparedModel();
     mockCompletionTitles({ "0": "Checked repo status" });
-    const cfg = {} satisfies OpenClawConfig;
+    const cfg = {} satisfies GrantedConfig;
 
     await generateToolCallTitles({
       cfg,
@@ -215,7 +215,7 @@ describe("generateToolCallTitles", () => {
     // The resolver may append the agent primary's profile; the session's
     // profile must replace it so preparation cannot pick the wrong credential.
     resolveUtilityModelRefForAgent.mockReturnValue("openai/gpt-test@default");
-    const cfg = {} satisfies OpenClawConfig;
+    const cfg = {} satisfies GrantedConfig;
 
     await generateToolCallTitles({
       cfg,
@@ -232,7 +232,7 @@ describe("generateToolCallTitles", () => {
   it("derives utility routing from the session's effective provider", async () => {
     mockPreparedModel();
     mockCompletionTitles({ "0": "Checked repo status" });
-    const cfg = {} satisfies OpenClawConfig;
+    const cfg = {} satisfies GrantedConfig;
 
     await generateToolCallTitles({
       cfg,
@@ -254,7 +254,7 @@ describe("generateToolCallTitles", () => {
     mockPreparedModel();
     mockCompletionTitles({ "0": "Checked repo status" });
     const params = {
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies GrantedConfig,
       agentId: AGENT_ID,
       items: [{ id: "item-1", name: "bash", input: "git status --short" }],
     };
@@ -275,7 +275,7 @@ describe("generateToolCallTitles", () => {
 
     await expect(
       generateToolCallTitles({
-        cfg: {} satisfies OpenClawConfig,
+        cfg: {} satisfies GrantedConfig,
         agentId: AGENT_ID,
         items: [{ id: "item-1", name: "bash", input: "git status --short" }],
       }),
@@ -291,7 +291,7 @@ describe("generateToolCallTitles", () => {
 
     await expect(
       generateToolCallTitles({
-        cfg: {} satisfies OpenClawConfig,
+        cfg: {} satisfies GrantedConfig,
         agentId: AGENT_ID,
         items: [{ id: "item-1", name: "bash", input: "git status --short" }],
       }),

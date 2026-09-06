@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import { createPluginMetadataSnapshot } from "../../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setCurrentPluginMetadataSnapshot } from "../../plugins/current-plugin-metadata.test-support.js";
 import type { PluginManifestRecord } from "../../plugins/manifest-registry.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
@@ -18,7 +18,7 @@ type ImagePolicy = NonNullable<NonNullable<ProviderRuntimeModel["mediaInput"]>["
 export function createModelGenerationFixture(params: {
   agentDir: string;
   workspaceDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   createStores?: PreparedModelRuntimeSnapshot["createStores"];
   label: string;
   modelId?: string;

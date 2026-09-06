@@ -15,7 +15,7 @@ import { splitTrailingAuthProfile } from "../../agents/model-ref-profile.js";
 import { resolveDefaultModelForAgent } from "../../agents/model-selection-config.js";
 import { SessionManager } from "../../agents/sessions/index.js";
 import { canonicalizePath } from "../../agents/utils/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { CommandLane } from "../../process/lanes.js";
 import {
@@ -38,7 +38,7 @@ const COLLECTION_REVIEW_TIMEOUT_MS = 10 * 60_000;
 async function runSkillCollectionReview(params: {
   agentId: string;
   agentIds?: readonly string[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   env?: NodeJS.ProcessEnv;
   abortSignal?: AbortSignal;
@@ -140,7 +140,7 @@ async function runSkillCollectionReview(params: {
 }
 
 export async function runSkillCollectionReviewForAgent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   env?: NodeJS.ProcessEnv;
   abortSignal?: AbortSignal;
@@ -225,7 +225,7 @@ export async function runSkillCollectionReviewForAgent(params: {
   }
 }
 
-function resolveCollectionReviewModel(config: OpenClawConfig, agentId: string) {
+function resolveCollectionReviewModel(config: GrantedConfig, agentId: string) {
   const model = resolveDefaultModelForAgent({ cfg: config, agentId });
   const authProfileId = splitTrailingAuthProfile(
     resolveAgentEffectiveModelPrimary(config, agentId) ?? "",
@@ -234,7 +234,7 @@ function resolveCollectionReviewModel(config: OpenClawConfig, agentId: string) {
 }
 
 function resolveCollectionReviewIdentity(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
   env?: NodeJS.ProcessEnv,
 ) {

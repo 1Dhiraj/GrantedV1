@@ -1,7 +1,7 @@
 // Shared music generation request, response, and provider type contracts.
 import type { MediaNormalizationEntry } from "../../packages/media-generation-core/src/normalization.js";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /**
  * Public music generation provider contracts.
@@ -30,7 +30,7 @@ export type MusicGenerationSourceImage = {
 };
 
 type MusicGenerationProviderConfiguredContext = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 };
 
@@ -39,7 +39,7 @@ export type MusicGenerationRequest = {
   provider: string;
   model: string;
   prompt: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   authStore?: AuthProfileStore;
   timeoutMs?: number;

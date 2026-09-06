@@ -10,7 +10,7 @@ import {
 import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite-contract.js";
 import { resolveSqliteTranscriptArchiveDirectory } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { assertAgentDatabaseMaintenanceAuthority } from "../state/openclaw-agent-db-lease.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import { SESSION_TRANSCRIPT_ARCHIVES_TABLE } from "../state/openclaw-agent-session-transcript-archive-schema.js";
 import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
 import {
@@ -25,7 +25,7 @@ import { transformHistoricalTranscriptEvent } from "./state-migrations.transcrip
 export const TRANSCRIPT_DIRECTIVE_MIGRATION_BATCH_SIZE = 32;
 
 type TranscriptArchiveMigrationDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "session_transcript_archives"
 >;
 

@@ -19,7 +19,7 @@ import {
 } from "../../agents/test-helpers/model-fallback-runner.test-support.js";
 import type { InboundEventKind } from "../../channels/inbound-event/kind.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { replaceTranscriptEvents } from "../../config/sessions/session-accessor.sqlite-transcript-write.js";
@@ -147,7 +147,7 @@ vi.mock("../../agents/model-selection.js", async () => {
   );
   return {
     ...actual,
-    isCliProvider: (provider: string, _cfg?: OpenClawConfig) => {
+    isCliProvider: (provider: string, _cfg?: GrantedConfig) => {
       const normalized = provider.trim().toLowerCase();
       return (
         normalized === "claude-cli" ||
@@ -459,7 +459,7 @@ describe("runReplyAgent auto-compaction token update", () => {
     agentResult: Record<string, unknown>,
     options?: {
       agentEvents?: Array<{ stream: string; data: Record<string, unknown> }>;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       onBlockReply?: (payload: unknown) => Promise<void> | void;
     },
   ) {
@@ -512,7 +512,7 @@ describe("runReplyAgent auto-compaction token update", () => {
   async function runBaseReplyWithAgentMeta(params: {
     agentMeta: Record<string, unknown>;
     collectDiagnostics?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     tmpPrefix: string;
     workspaceDir?: string;
   }) {
@@ -625,7 +625,7 @@ describe("runReplyAgent auto-compaction token update", () => {
       compactionCount: 0,
     };
     const prompt = "What is two plus two? Answer in one short sentence without tools.";
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       models: {
         providers: {
           anthropic: {
@@ -671,7 +671,7 @@ describe("runReplyAgent auto-compaction token update", () => {
       },
     });
     runEmbeddedAgentMock.mockImplementation(
-      async (params: { trigger?: string; prompt?: string; config?: OpenClawConfig }) => {
+      async (params: { trigger?: string; prompt?: string; config?: GrantedConfig }) => {
         expect(params.config?.models?.providers?.anthropic?.models).toEqual(
           config.models?.providers?.anthropic?.models,
         );

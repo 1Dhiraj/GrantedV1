@@ -1,14 +1,14 @@
 // Signal integration coverage for durable ingress after a partially visible final reply.
 import { buildExecApprovalPendingReplyPayload } from "openclaw/plugin-sdk/approval-reply-runtime";
 import { createChannelIngressQueueForTests } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   clearSignalApprovalReactionTargetsForTest,
@@ -86,7 +86,7 @@ type SignalIngressQueue = ReturnType<typeof createChannelIngressQueueForTests<un
 type SignalIngressPayload = Parameters<SignalIngressQueue["enqueue"]>[1];
 
 describe("Signal partial final delivery ingress boundary", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let queue: ReturnType<typeof createChannelIngressQueueForTests<SignalIngressPayload>>;
 
   beforeEach(async () => {
@@ -139,7 +139,7 @@ describe("Signal partial final delivery ingress boundary", () => {
           targets: [{ channel: "signal", to: "+15550001111" }],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const payload = {
       ...buildExecApprovalPendingReplyPayload({
         approvalId: "exec-partial",
@@ -260,7 +260,7 @@ describe("Signal partial final delivery ingress boundary", () => {
           allowFrom: ["+15550001111"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const handler = eventHandlerModule.createSignalEventHandler(
       harnessModule.createBaseSignalEventHandlerDeps({
         cfg,
@@ -328,7 +328,7 @@ describe("Signal partial final delivery ingress boundary", () => {
     const cfg = {
       session: { store: state.statePath("sessions") },
       channels: { signal: { dmPolicy: "open", allowFrom: ["*"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const createMonitor = async () => {
       const handler = eventHandlerModule.createSignalEventHandler(
         harnessModule.createBaseSignalEventHandlerDeps({ cfg }),

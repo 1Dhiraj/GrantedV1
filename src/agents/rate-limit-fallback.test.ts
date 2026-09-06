@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { allowsRateLimitModelFallback } from "./rate-limit-fallback.js";
 
-const cfg = (cooldowns: Record<string, unknown>): OpenClawConfig =>
-  ({ auth: { cooldowns } }) as unknown as OpenClawConfig;
+const cfg = (cooldowns: Record<string, unknown>): GrantedConfig =>
+  ({ auth: { cooldowns } }) as unknown as GrantedConfig;
 
 describe("allowsRateLimitModelFallback", () => {
   it("keeps the historical behaviour when nothing is configured", () => {
     // Silence must not change how existing installs fail over.
     expect(allowsRateLimitModelFallback({})).toBe(true);
-    expect(allowsRateLimitModelFallback({ cfg: {} as OpenClawConfig })).toBe(true);
+    expect(allowsRateLimitModelFallback({ cfg: {} as GrantedConfig })).toBe(true);
     expect(allowsRateLimitModelFallback({ cfg: cfg({}), provider: "google" })).toBe(true);
   });
 

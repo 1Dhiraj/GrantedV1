@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
 import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { registerDiscordActivities } from "./register.js";
@@ -15,8 +15,8 @@ function createApi(
   config: Record<string, unknown>,
   runtimeConfig: Record<string, unknown> = config,
 ) {
-  const routes: Array<Parameters<OpenClawPluginApi["registerHttpRoute"]>[0]> = [];
-  const widgetPresenters: Array<Parameters<OpenClawPluginApi["registerWidgetPresenter"]>[0]> = [];
+  const routes: Array<Parameters<GrantedPluginApi["registerHttpRoute"]>[0]> = [];
+  const widgetPresenters: Array<Parameters<GrantedPluginApi["registerWidgetPresenter"]>[0]> = [];
   const resolvePath = vi.fn((input: string) => `/plugin-root/${input}`);
   const api = {
     config,
@@ -28,7 +28,7 @@ function createApi(
     registerHttpRoute: vi.fn((route) => routes.push(route)),
     registerWidgetPresenter: vi.fn((presenter) => widgetPresenters.push(presenter)),
     resolvePath,
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
   return { api, routes, widgetPresenters, resolvePath };
 }
 

@@ -13,7 +13,7 @@ import { createDeferred } from "../../test/helpers/promise.js";
 import * as agentDatabase from "../state/openclaw-agent-db-readonly.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resolveAgentDir } from "./agent-scope.js";
 import { loadPersistedPluginModelCatalogsReadOnly } from "./plugin-model-catalog.js";
@@ -34,7 +34,7 @@ import {
 
 const mocks = getPreparedModelRuntimeMocks();
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "prepared-model-runtime" });
   resetPreparedModelRuntimeHarness(state);

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 
 const mocks = vi.hoisted(() => ({
   listChannelsForTeamWithPageInfo: vi.fn(),
@@ -54,7 +54,7 @@ describe("Microsoft Teams read policy", () => {
       channels: {
         msteams: testCase.groupPolicy ? { groupPolicy: testCase.groupPolicy } : {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const target = "11111111-1111-1111-1111-111111111111/19:roadmap@thread.tacv2";
     const result = assertMSTeamsReadTargetAllowed({ cfg, ctx, target });
 
@@ -85,7 +85,7 @@ describe("Microsoft Teams read policy", () => {
             : {}),
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     mocks.listChannelsForTeamWithPageInfo.mockResolvedValue({
       items: [{ id: teamId }, { id: channelId }],
@@ -109,7 +109,7 @@ describe("Microsoft Teams read policy", () => {
       channels: {
         msteams: { groupAllowFrom: ["aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"] },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       assertMSTeamsReadTargetAllowed({ cfg, ctx, target: "Product/Roadmap" }),
@@ -131,7 +131,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.resolveMSTeamsTeamsConfig.mockResolvedValue({
       teams: {
         Product: {
@@ -177,7 +177,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.listChannelsForTeamWithPageInfo.mockResolvedValue({
       items: [
         { id: "19:general@thread.tacv2", displayName: "Allgemein" },
@@ -218,7 +218,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.listChannelsForTeamWithPageInfo.mockResolvedValue({
       items: [
         { id: "19:general@thread.tacv2", displayName: "General" },
@@ -251,7 +251,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.listChannelsForTeamWithPageInfo.mockResolvedValue({
       items: [{ id: "19:general@thread.tacv2", displayName: "General" }],
       truncated: true,
@@ -275,7 +275,7 @@ describe("Microsoft Teams read policy", () => {
           dangerouslyAllowNameMatching: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.resolveMSTeamsUserAllowlist.mockResolvedValue([
       {
         input: "alice@example.com",
@@ -310,7 +310,7 @@ describe("Microsoft Teams read policy", () => {
             dmPolicy: "open",
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await expect(assertMSTeamsReadTargetAllowed({ cfg, ctx, target })).resolves.toBe(target);
     },
@@ -324,7 +324,7 @@ describe("Microsoft Teams read policy", () => {
           dmPolicy: "open",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       assertMSTeamsReadTargetAllowed({ cfg, ctx, target: "29:user-id" }),
@@ -339,7 +339,7 @@ describe("Microsoft Teams read policy", () => {
           allowFrom: ["alice@example.com"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       assertMSTeamsReadTargetAllowed({
@@ -366,7 +366,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.resolveMSTeamsChannelAllowlist.mockResolvedValue([
       {
         input: "Product/Roadmap",
@@ -399,7 +399,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.resolveMSTeamsTeamsConfig.mockResolvedValue({
       teams: {
         "11111111-1111-1111-1111-111111111111": {
@@ -439,7 +439,7 @@ describe("Microsoft Teams read policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.listChannelsForTeamWithPageInfo.mockResolvedValue({
       items: [
         { id: "19:general@thread.tacv2", displayName: "General" },
@@ -464,7 +464,7 @@ describe("Microsoft Teams read policy", () => {
           dmPolicy: "pairing",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const directCtx = {
       ...ctx,
       conversationReadOrigin: "direct-operator" as const,
@@ -501,7 +501,7 @@ describe("Microsoft Teams read policy", () => {
               dmPolicy: "open",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         ctx: directCtx,
         target: "11111111-1111-1111-1111-111111111111/19:roadmap@thread.tacv2",
       }),
@@ -515,7 +515,7 @@ describe("Microsoft Teams read policy", () => {
               dmPolicy: "disabled",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         ctx: directCtx,
         target: "user:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
       }),
@@ -529,7 +529,7 @@ describe("Microsoft Teams read policy", () => {
           groupPolicy: "allowlist",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       assertMSTeamsTeamEnumerationAllowed({

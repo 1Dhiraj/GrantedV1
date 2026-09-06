@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
 import { requestBodyText, requestUrl } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -343,7 +343,7 @@ describe("Ollama onboarding model selection", () => {
           }),
         );
         const expectedDefault = `ollama/${useRemote ? remoteName : localName}`;
-        let config: OpenClawConfig;
+        let config: GrantedConfig;
         if (mode === "interactive") {
           const result = await promptAndConfigureOllama({
             cfg: {},

@@ -35,7 +35,7 @@ vi.mock("../version.js", async (importOriginal) => {
   return { ...actual, resolveRuntimeServiceCommit: () => "aaaaaaa" };
 });
 
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -85,7 +85,7 @@ async function withRestartSentinelStateDir(run: () => Promise<void>): Promise<vo
   });
 }
 
-type GatewayRestartSentinelDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_sentinel">;
+type GatewayRestartSentinelDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_sentinel">;
 
 function readSentinelRow() {
   const { db } = openOpenClawStateDatabase();

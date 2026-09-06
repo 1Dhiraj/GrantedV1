@@ -10,7 +10,7 @@ import {
   uniqueStrings,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { applyMemoryWikiMutation } from "./apply.js";
 import {
   importChatGptConversations,
@@ -173,7 +173,7 @@ type WikiCommandOptions = {
 type MemoryWikiCliRegistration = {
   config: ResolvedMemoryWikiConfig;
   resolveConfig?: MemoryWikiConfigResolver;
-  getAppConfig?: () => OpenClawConfig | undefined;
+  getAppConfig?: () => GrantedConfig | undefined;
 };
 
 function sanitizeGatewayStringForTerminal(value: string): string {
@@ -426,7 +426,7 @@ async function runWikiCommandWithSummary<T>(params: {
 
 async function runSyncedWikiCommandWithSummary<T>(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
   run: () => Promise<T>;
@@ -487,7 +487,7 @@ function addWikiApplyMutationOptions<T extends Command>(command: T): T {
 
 async function runWikiStatus(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
@@ -512,7 +512,7 @@ async function runWikiStatus(params: {
 
 async function runWikiDoctor(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
@@ -556,7 +556,7 @@ async function runWikiInit(params: {
 
 async function runWikiCompile(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
 }) {
@@ -573,7 +573,7 @@ async function runWikiCompile(params: {
 
 async function runWikiLint(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
 }) {
@@ -629,7 +629,7 @@ async function runWikiOkfImport(params: {
 
 async function runWikiSearch(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   query: string;
   maxResults?: number;
@@ -669,7 +669,7 @@ async function runWikiSearch(params: {
 
 async function runWikiGet(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   lookup: string;
   fromLine?: number;
@@ -699,7 +699,7 @@ async function runWikiGet(params: {
 
 async function runWikiApplySynthesis(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   title: string;
   body?: string;
   bodyFile?: string;
@@ -740,7 +740,7 @@ async function runWikiApplySynthesis(params: {
 
 async function runWikiApplyMetadata(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   lookup: string;
   sourceIds?: string[];
   contradictions?: string[];
@@ -780,7 +780,7 @@ async function runWikiApplyMetadata(params: {
 
 async function runWikiBridgeImport(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   agentId?: string;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
@@ -806,7 +806,7 @@ async function runWikiBridgeImport(params: {
 
 async function runWikiUnsafeLocalImport(params: {
   config: ResolvedMemoryWikiConfig;
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   json?: boolean;
   stdout?: Pick<NodeJS.WriteStream, "write">;
 }) {
@@ -974,7 +974,7 @@ export function registerWikiCli(program: Command, registration: MemoryWikiCliReg
         ...(agentId ? { agentId } : {}),
       }));
   let commandContext:
-    | { agentId?: string; appConfig?: OpenClawConfig; config: ResolvedMemoryWikiConfig }
+    | { agentId?: string; appConfig?: GrantedConfig; config: ResolvedMemoryWikiConfig }
     | undefined;
   const requireCommandContext = () => {
     if (!commandContext) {

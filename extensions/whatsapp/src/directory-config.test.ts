@@ -1,6 +1,6 @@
 // Whatsapp tests cover directory config plugin behavior.
 import { createDirectoryTestRuntime } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readWebAuthExistsForDecision } from "./auth-store.js";
 import { getWhatsAppConnectionController } from "./connection-controller-runtime-context.js";
@@ -90,7 +90,7 @@ describe("whatsapp directory", () => {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 
   const makeParams = (overrides: { query?: string; limit?: number } = {}) =>
     ({
@@ -257,7 +257,7 @@ describe("whatsapp directory", () => {
     readAuthMock.mockResolvedValueOnce({ outcome: "stable", exists: false });
     const namedCfg = {
       channels: { whatsapp: { accounts: { secondary: { enabled: true } } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(
       listWhatsAppDirectoryGroupsLive({

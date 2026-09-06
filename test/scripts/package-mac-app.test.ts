@@ -233,7 +233,7 @@ function runPeekabooSourceCommitHarness(packageResolved: string, expectedRevisio
 function getSourceProvenanceStampBlock(): string {
   const script = readFileSync(scriptPath, "utf8");
   const start = script.indexOf(
-    'plist_set_string_required "$APP_ROOT/Contents/Info.plist" OpenClawBuildTimestamp',
+    'plist_set_string_required "$APP_ROOT/Contents/Info.plist" GrantedBuildTimestamp',
   );
   const end = script.indexOf(
     'plist_set_or_add_string "$APP_ROOT/Contents/Info.plist" SUFeedURL',
@@ -1028,7 +1028,7 @@ describe("package-mac-app plist stamping", () => {
       const primary = path.join(root, "Primary.framework");
       const secondary = path.join(root, "Secondary.framework");
       const destination = path.join(root, "Destination.framework");
-      const relativeBinary = path.join("Versions", "A", "OpenClawFixture");
+      const relativeBinary = path.join("Versions", "A", "GrantedFixture");
 
       for (const framework of [primary, secondary, destination]) {
         mkdirSync(path.dirname(path.join(framework, relativeBinary)), { recursive: true });
@@ -1774,7 +1774,7 @@ describe("package-mac-app plist stamping", () => {
         "-srcfolder",
         checkout,
         "-volname",
-        "OpenClawPeekabooSnapshot",
+        "GrantedPeekabooSnapshot",
         image,
       ]);
       if (operation !== "create") {

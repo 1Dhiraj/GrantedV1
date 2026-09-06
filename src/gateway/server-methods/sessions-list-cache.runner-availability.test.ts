@@ -4,7 +4,7 @@ import {
   recordSessionParticipant,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
 import {
   ensureProfileForEmail,
@@ -53,7 +53,7 @@ it("invalidates completed sessions.list identity after a worker environment inve
     inventoryVersion: () => inventoryVersion,
   };
   const context = { workerEnvironmentService } as unknown as GatewayRequestContext;
-  const config: OpenClawConfig = {};
+  const config: GrantedConfig = {};
   const run = vi.fn(async () => {
     const value = result("available");
     Object.assign(value.sessions[0]!.placement!, workerEnvironmentService.get());
@@ -88,7 +88,7 @@ it("invalidates completed sessions.list identity after a worker environment inve
 });
 
 it("does not publish old in-flight runner availability across a version transition", async () => {
-  const config: OpenClawConfig = {};
+  const config: GrantedConfig = {};
   let runnerAvailabilityVersion = 0;
   const context = {
     workerPlacementRunnerAvailabilityReader: {

@@ -21,7 +21,7 @@ import {
   patchSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { AgentEventPayload } from "../infra/agent-events.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { redactToolPayloadText } from "../logging/redact.js";
@@ -184,7 +184,7 @@ export function createDormantSessionObserverRun(
 }
 
 export type SessionObserverDeps = {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   subscribers: SessionMessageSubscriberRegistry;
   sessionEventSubscribers?: SessionEventSubscriberRegistry;
   broadcastToConnIds: (

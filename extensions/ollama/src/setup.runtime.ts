@@ -2,7 +2,7 @@
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import type { ProviderAuthMethod } from "openclaw/plugin-sdk/plugin-entry";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   SecretInput,
   SecretInputMode,
 } from "openclaw/plugin-sdk/provider-auth";
@@ -68,7 +68,7 @@ type OllamaSetupOptions = {
 };
 
 type OllamaSetupResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   credential?: SecretInput;
   credentialMode?: SecretInputMode;
   defaultModel?: string;
@@ -148,7 +148,7 @@ export async function checkOllamaCloudAuth(
 }
 
 async function promptForOllamaCloudCredential(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   opts?: Record<string, unknown>;
@@ -203,13 +203,13 @@ async function promptForOllamaCloudCredential(params: {
 }
 
 function applyOllamaProviderConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   baseUrl: string,
   modelNames: string[],
   discoveredModelsByName?: Map<string, OllamaModelWithContext>,
   apiKey: SecretInput = OLLAMA_DEFAULT_API_KEY,
   defaultModels: readonly OllamaCloudDefaultModel[] = [],
-): OpenClawConfig {
+): GrantedConfig {
   return {
     ...cfg,
     models: {
@@ -268,7 +268,7 @@ async function resolveHostBackedSuggestedModelNames(params: {
 }
 
 async function promptAndConfigureHostBackedOllama(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   mode: HostBackedOllamaInteractiveMode;
   prompter: WizardPrompter;
   env?: NodeJS.ProcessEnv;
@@ -388,7 +388,7 @@ async function promptAndConfigureHostBackedOllama(params: {
 }
 
 export async function promptAndConfigureOllama(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   opts?: Record<string, unknown>;
@@ -509,11 +509,11 @@ export async function validateOllamaNonInteractive(
 }
 
 export async function configureOllamaNonInteractive(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   opts: OllamaSetupOptions;
   runtime: RuntimeEnv;
   agentDir?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const baseUrl = resolveOllamaApiBase(
     (params.opts.customBaseUrl?.trim() || resolveOllamaSetupDefaultBaseUrl()).replace(/\/+$/, ""),
   );
@@ -632,7 +632,7 @@ export async function configureOllamaNonInteractive(params: {
 }
 
 export async function ensureOllamaModelPulled(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   model: string;
   prompter: WizardPrompter;
 }): Promise<void> {

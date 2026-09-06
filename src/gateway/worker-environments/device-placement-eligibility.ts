@@ -1,5 +1,5 @@
 import type { DevicePlacementRequirement } from "../../agents/harness/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
 import type { NodeWorkerSupervisorNodeProof } from "../node-registry-private.js";
 import { deviceUnavailableText, resolveDeviceWorkerAvailability } from "./device-provider.js";
@@ -13,7 +13,7 @@ export async function resolveDevicePlacementEligibility(params: {
   deviceId: string;
   runtimeId?: string;
   requirement: DevicePlacementRequirement | undefined;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   currentNode?: {
     nodeId: string;
     connId?: string;

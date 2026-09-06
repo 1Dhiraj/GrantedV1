@@ -4,7 +4,7 @@
 import { existsSync } from "node:fs";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveSessionStorePathCore, type SessionEntry } from "../config/sessions.js";
 import { resolveInternalSessionEffectsIdentity } from "../config/sessions/internal-session-key.js";
 import {
@@ -105,7 +105,7 @@ async function withSingleRowCacheStore(
   run: (context: SingleRowCacheContext) => Promise<void>,
 ): Promise<void> {
   await withStateDirEnv(statePrefix, async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -116,7 +116,7 @@ async function withSingleRowCacheStore(
         ],
         defaults: { model: { primary: TEST_MODEL } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     setRuntimeConfigSnapshot(cfg, cfg);
     await run({
       now: Math.floor(Date.now() / 1_000) * 1_000 + 100,
@@ -432,7 +432,7 @@ describe("single gateway session row child projections", () => {
         const store: Record<string, SessionEntry> = {
           "agent:main:discord:channel:parent": parentSession("parent", now),
         };
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             list: [
               {
@@ -443,7 +443,7 @@ describe("single gateway session row child projections", () => {
             ],
             defaults: { model: { primary: TEST_MODEL } },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const asyncListed = await listSessionsFromStoreAsync({
           cfg,

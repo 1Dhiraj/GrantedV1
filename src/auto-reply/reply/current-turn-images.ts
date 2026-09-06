@@ -1,7 +1,7 @@
 // Tracks image attachments that belong to the current reply turn.
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { MediaImageLayout } from "../../agents/embedded-agent-runner/run/prompt-image-metadata.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type { ImageContent } from "../../llm/types.js";
@@ -112,7 +112,7 @@ function resolveMergedTurnImages(entries: OrderedTurnImage[]): {
 /** Resolves current-turn image attachments that were not already described by media understanding. */
 export async function resolveCurrentTurnImages(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   images?: ImageContent[];
   imageOrder?: PromptImageOrderEntry[];
   extractedFileImages?: ExtractedFileImage[];

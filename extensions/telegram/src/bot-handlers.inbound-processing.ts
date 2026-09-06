@@ -2,7 +2,7 @@ import type { Message } from "grammy/types";
 import { isAbortRequestText } from "openclaw/plugin-sdk/command-primitives-runtime";
 import type {
   DmPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
 } from "openclaw/plugin-sdk/config-contracts";
@@ -52,7 +52,7 @@ export interface TelegramInboundProcessing {
 }
 
 type TelegramInboundMessage = {
-  authorizationCfg: OpenClawConfig;
+  authorizationCfg: GrantedConfig;
   ctx: TelegramContext;
   msg: Message;
   chatId: number;

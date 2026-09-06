@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { OpenClawStdioClientTransport } from "./mcp-stdio-transport.js";
+import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 import { resolveStdioMcpServerLaunchConfig } from "./mcp-stdio.js";
 
-describe.runIf(process.platform === "win32")("OpenClawStdioClientTransport on Windows", () => {
+describe.runIf(process.platform === "win32")("GrantedStdioClientTransport on Windows", () => {
   it("applies configured environment overrides regardless of key case", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mcp-env-case-"));
     const inheritedTemp = path.join(root, "inherited");
@@ -15,7 +15,7 @@ describe.runIf(process.platform === "win32")("OpenClawStdioClientTransport on Wi
     await fs.mkdir(configuredTemp);
     const previousTemp = process.env.TEMP;
     process.env.TEMP = inheritedTemp;
-    let transport: OpenClawStdioClientTransport | undefined;
+    let transport: GrantedStdioClientTransport | undefined;
 
     try {
       const resolved = resolveStdioMcpServerLaunchConfig({
@@ -34,7 +34,7 @@ describe.runIf(process.platform === "win32")("OpenClawStdioClientTransport on Wi
         return;
       }
 
-      transport = new OpenClawStdioClientTransport(resolved.config);
+      transport = new GrantedStdioClientTransport(resolved.config);
       const closed = new Promise<void>((resolve, reject) => {
         // oxlint-disable-next-line unicorn/prefer-add-event-listener -- MCP Transport uses callback properties, not EventTarget.
         transport!.onclose = resolve;

@@ -1,6 +1,6 @@
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 // Memory Core integration tests exercise the real SQLite search manager through tools.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import {
   clearMemoryPluginState,
   registerMemoryCorpusSupplement,
@@ -181,7 +181,7 @@ describe("memory_search real manager", () => {
       ...baseConfig,
       memory: { ...baseConfig.memory, citations: "off" },
       tools: { ...baseConfig.tools, sessions: { visibility: "self" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const anchorSessionKey = "agent:main:telegram:direct:owner";
 
     await fixture.seedSessionTranscript({
@@ -271,7 +271,7 @@ describe("memory_search real manager", () => {
     const cfg = {
       ...baseConfig,
       memory: { ...baseConfig.memory, citations: "off" },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const initializedManager = await fixture.getFreshManager(cfg);
     await initializedManager.sync({ reason: "test", force: true });
     await initializedManager.close();

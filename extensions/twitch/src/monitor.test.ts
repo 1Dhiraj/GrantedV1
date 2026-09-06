@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
 import type { ChannelInboundEventRunnerParams } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
@@ -155,7 +155,7 @@ describe("monitorTwitchProvider", () => {
           value: channelConfig,
         }),
       ).toMatchObject({ ok: true });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         session: { store: join(tempDirs.make("twitch-prefix-"), "sessions.json") },
         messages: { responsePrefix: "[global]" },
         channels: { twitch: channelConfig },

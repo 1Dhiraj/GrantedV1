@@ -1,5 +1,5 @@
 // Github Copilot plugin module implements auth behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ProviderPrepareDynamicModelContext } from "openclaw/plugin-sdk/plugin-entry";
 import {
   coerceSecretRef,
@@ -19,7 +19,7 @@ import { formatGithubCopilotApiKey, parseGithubCopilotApiKey } from "./oauth.js"
 
 export async function resolveFirstGithubToken(params: {
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   profileId?: string;
   authProfileMode?: ProviderPrepareDynamicModelContext["authProfileMode"];

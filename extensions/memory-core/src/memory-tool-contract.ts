@@ -2,20 +2,20 @@ import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-ru
 import {
   resolveMemorySearchConfig,
   type MemoryPromptSectionBuilder,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import type { TSchema } from "typebox";
 import type { MemoryCoreAcquireLocalService } from "./memory/embedding-local-service.js";
 
 export type MemoryToolOptions = {
-  config?: OpenClawConfig;
-  getConfig?: () => OpenClawConfig | undefined;
+  config?: GrantedConfig;
+  getConfig?: () => GrantedConfig | undefined;
   agentId?: string;
   agentSessionKey?: string;
   sandboxed?: boolean;
   oneShotCliRun?: boolean;
-  conversationRecall?: OpenClawPluginToolContext["conversationRecall"];
+  conversationRecall?: GrantedPluginToolContext["conversationRecall"];
   activeProjectKeys?: readonly string[];
   acquireLocalService?: MemoryCoreAcquireLocalService;
 };

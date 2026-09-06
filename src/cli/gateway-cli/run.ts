@@ -20,7 +20,7 @@ import {
   isInvalidConfigError,
 } from "../../config/io.invalid-config.js";
 import { CONFIG_PATH, normalizeStateDirEnv, resolveGatewayPort } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { hasConfiguredSecretInput } from "../../config/types.secrets.js";
 import { GATEWAY_SERVICE_RUNTIME_PID_ENV } from "../../daemon/constants.js";
 import {
@@ -281,12 +281,12 @@ async function readGatewayStartupConfig(params: {
   opts: GatewayRunOpts;
   startupTrace: ReturnType<typeof createGatewayCliStartupTrace>;
 }): Promise<{
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   snapshot: ConfigFileSnapshot | null;
   startupConfigSnapshotRead?: ReadConfigFileSnapshotWithPluginMetadataResult;
 }> {
   const { readConfigFileSnapshotWithPluginMetadata } = await import("../../config/config.js");
-  let blockedRecoveryConfig: OpenClawConfig | null = null;
+  let blockedRecoveryConfig: GrantedConfig | null = null;
   const snapshotRead: ReadConfigFileSnapshotWithPluginMetadataResult | null =
     await params.startupTrace.measure("cli.config-snapshot", () =>
       readConfigFileSnapshotWithPluginMetadata({
@@ -333,7 +333,7 @@ type GatewayRunShellEnvFallbackPlan =
     };
 
 async function resolveGatewayRunShellEnvFallbackPlan(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<GatewayRunShellEnvFallbackPlan> {
   const { createConfigRuntimeEnv } = await import("../../config/env-vars.js");
   const {
@@ -513,7 +513,7 @@ async function probeGatewayHealthz(params: {
   return isGatewayHealthzResponse(result?.statusCode, result?.body ?? "");
 }
 
-function createConfiguredGatewayHealthProbe(cfg: OpenClawConfig) {
+function createConfiguredGatewayHealthProbe(cfg: GrantedConfig) {
   const probe = createConfiguredGatewayLocalProbe(cfg);
   return async (params: { host: string; port: number }): Promise<boolean> => {
     const result = await probe.requestHttp({

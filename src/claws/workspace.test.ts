@@ -3,7 +3,7 @@ import { mkdir, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -407,7 +407,7 @@ describe("createClawWorkspaceFiles", () => {
 describe("workspace files in the consented add lifecycle", () => {
   it("marks the root install complete after every declared file is created", async () => {
     const { root, plan } = await makePlan({ createWorkspace: false });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     const result = await applyClawAddPlan(plan, {
       consentPlanIntegrity: plan.planIntegrity,
@@ -437,7 +437,7 @@ describe("workspace files in the consented add lifecycle", () => {
         await writeFile(join(packageRoot, "content", "policy.md"), "changed\n", "utf8");
       },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     const result = await applyClawAddPlan(plan, {
       consentPlanIntegrity: plan.planIntegrity,

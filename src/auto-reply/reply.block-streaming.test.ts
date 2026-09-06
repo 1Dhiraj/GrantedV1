@@ -2,13 +2,10 @@
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import { isPathInside } from "../infra/path-guards.js";
-import {
-  withOpenClawTestState,
-  type OpenClawTestState,
-} from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import { withFastReplyConfig } from "./reply/get-reply-fast-path.test-support.js";
 import { loadGetReplyModuleForTest } from "./reply/get-reply.test-loader.js";
 import { createMockTypingController } from "./reply/reply.test-helpers.js";
@@ -97,7 +94,7 @@ function createTelegramMessage(messageSid: string): MsgContext {
   };
 }
 
-function createReplyConfig(state: OpenClawTestState, streamMode?: "block"): OpenClawConfig {
+function createReplyConfig(state: GrantedTestState, streamMode?: "block"): GrantedConfig {
   return withFastReplyConfig({
     agents: {
       defaults: {
@@ -112,7 +109,7 @@ function createReplyConfig(state: OpenClawTestState, streamMode?: "block"): Open
       },
     },
     session: { store: path.join(state.sessionsDir("main"), "sessions.json") },
-  } satisfies OpenClawConfig);
+  } satisfies GrantedConfig);
 }
 
 describe("block streaming", () => {

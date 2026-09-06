@@ -1,7 +1,7 @@
 /** Tests diagnostic cache-trace event writing, redaction, and stream wrapping. */
 import crypto from "node:crypto";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createCacheTrace } from "./cache-trace.js";
 
 describe("createCacheTrace", () => {
@@ -35,7 +35,7 @@ describe("createCacheTrace", () => {
 
   it("returns null when diagnostics cache tracing is disabled", () => {
     const trace = createCacheTrace({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       env: {},
     });
 

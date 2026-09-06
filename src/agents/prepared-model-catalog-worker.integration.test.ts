@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildModelsListResult } from "../gateway/server-methods/models-list-result.js";
 import type { GatewayRequestContext } from "../gateway/server-methods/types.js";
 import { registerGatewayModelCatalogPrivateAccess } from "../gateway/server-model-catalog-auth.js";
@@ -111,7 +111,7 @@ function createCatalogFixture(
       load: { paths: [pluginFile] },
       entries: { [PLUGIN_ID]: { enabled: true } },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   replaceRuntimeAuthProfileStoreSnapshots([
     {
       agentDir,
@@ -305,7 +305,7 @@ describe("prepared model catalog worker boundary", () => {
     const config = {
       ...fixture.config,
       agents: { ...fixture.config.agents, entries: { main: {} } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const agentDir = resolveAgentDir(config, "main", fixture.env);
     const workspaceDir = resolveAgentWorkspaceDir(config, "main", fixture.env);
     expect(agentDir).toBe(fixture.agentDir);
@@ -403,7 +403,7 @@ describe("prepared model catalog worker boundary", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const buildCounts: number[] = [];
     const options = {
       gatewayLifecycle: true,
@@ -441,7 +441,7 @@ describe("prepared model catalog worker boundary", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await refreshPreparedModelRuntimeSnapshots(nextConfig, {
         ...options,
         agentIds: new Set(["sibling"]),
@@ -650,7 +650,7 @@ describe("prepared model catalog worker boundary", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const owner = Object.freeze({
       ...fixture.snapshot,
       config,
@@ -833,7 +833,7 @@ describe("prepared model catalog worker boundary", () => {
           codex: { config: { discovery: { enabled: false } } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const owner = Object.freeze({
       ...fixture.snapshot,
       config,

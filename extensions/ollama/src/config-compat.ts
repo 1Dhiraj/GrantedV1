@@ -1,5 +1,5 @@
 // Ollama helper module supports config compat behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import {
   OLLAMA_CLOUD_BASE_URL,
@@ -71,10 +71,10 @@ export const legacyConfigRules: LegacyConfigRule[] = [
   },
 ];
 
-function cloneProviderConfig(config: OpenClawConfig, providerId: string) {
+function cloneProviderConfig(config: GrantedConfig, providerId: string) {
   const nextConfig = structuredClone(config);
   const nextModels = asObjectRecord(nextConfig.models) ?? {};
-  nextConfig.models = nextModels as OpenClawConfig["models"];
+  nextConfig.models = nextModels as GrantedConfig["models"];
   const nextProviders = asObjectRecord(nextModels.providers) ?? {};
   nextModels.providers = nextProviders;
   const nextProvider = asObjectRecord(nextProviders[providerId]) ?? {};
@@ -82,8 +82,8 @@ function cloneProviderConfig(config: OpenClawConfig, providerId: string) {
   return { nextConfig, nextProvider };
 }
 
-function migrateLegacyOllamaLocalConfig(config: OpenClawConfig): {
-  config: OpenClawConfig;
+function migrateLegacyOllamaLocalConfig(config: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
 } | null {
   const provider = config.models?.providers?.[OLLAMA_PROVIDER_ID];
@@ -112,8 +112,8 @@ function migrateLegacyOllamaLocalConfig(config: OpenClawConfig): {
   };
 }
 
-function migrateOllamaCloudRetiredBaseUrl(config: OpenClawConfig): {
-  config: OpenClawConfig;
+function migrateOllamaCloudRetiredBaseUrl(config: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
 } | null {
   const provider = config.models?.providers?.[OLLAMA_CLOUD_PROVIDER_ID];
@@ -153,8 +153,8 @@ function migrateOllamaCloudRetiredBaseUrl(config: OpenClawConfig): {
   };
 }
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   let config = cfg;

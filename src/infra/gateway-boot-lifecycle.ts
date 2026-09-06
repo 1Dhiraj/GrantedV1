@@ -8,7 +8,7 @@ import {
   formatLegacyAgentMediaMigrationRequiredMessage,
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
 } from "../state/openclaw-agent-db-migration-required.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -49,7 +49,7 @@ export function formatGatewayCrashLoopManualChannelStartHint(target?: {
 
 const gatewayLifecycleLog = createSubsystemLogger("gateway/lifecycle");
 
-type GatewayBootLifecycleDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_boot_lifecycle">;
+type GatewayBootLifecycleDatabase = Pick<GrantedStateKyselyDatabase, "gateway_boot_lifecycle">;
 
 type GatewayBootLifecycleOutcome =
   | "clean_stop"

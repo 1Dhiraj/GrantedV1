@@ -6,7 +6,7 @@ import { resolvePluginInstallPreflight } from "../cli/plugins-install-preflight.
 import { runCommandWithTimeout } from "../process/exec.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { installPluginFromGitSpec } from "./git-install.js";
 import {
@@ -15,7 +15,7 @@ import {
 } from "./install-transaction.js";
 
 describe("git install target ownership", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let sourceDir: string;
   let spec: string;
 

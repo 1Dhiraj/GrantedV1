@@ -5,7 +5,7 @@
  */
 
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
 import {
   createHybridChannelConfigAdapter,
   createScopedDmSecurityResolver,
@@ -86,7 +86,7 @@ const resolveSynologyChatDmPolicy = createScopedDmSecurityResolver<ResolvedSynol
 });
 
 type SynologyChannelGatewayContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   abortSignal: AbortSignal;
   setStatus?: (patch: ChannelAccountSnapshot) => void;
@@ -97,7 +97,7 @@ type SynologyChannelGatewayContext = {
   };
 };
 type SynologyChannelOutboundContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   to: string;
   text?: string;
   mediaUrl?: string;
@@ -189,16 +189,16 @@ type SynologyChatPlugin = Omit<
   pairing: {
     idLabel: string;
     normalizeAllowEntry?: (entry: string) => string;
-    notifyApproval: (params: { cfg: OpenClawConfig; id: string }) => Promise<void>;
+    notifyApproval: (params: { cfg: GrantedConfig; id: string }) => Promise<void>;
   };
   security: {
-    resolveDmPolicy: (params: { cfg: OpenClawConfig; account: ResolvedSynologyChatAccount }) => {
+    resolveDmPolicy: (params: { cfg: GrantedConfig; account: ResolvedSynologyChatAccount }) => {
       policy: string | null | undefined;
       allowFrom?: Array<string | number>;
       normalizeEntry?: (raw: string) => string;
     } | null;
     collectWarnings: (params: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       account: ResolvedSynologyChatAccount;
     }) => Array<string | ReturnType<typeof collectSynologyGatewayRoutingFindings>[number]>;
   };
@@ -241,7 +241,7 @@ type SynologyChatPlugin = Omit<
 };
 
 function resolveOutboundAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): ResolvedSynologyChatAccount {
   return resolveAccount(cfg ?? {}, accountId);

@@ -7,7 +7,7 @@ import {
   registerAcpRuntimeBackend,
   unregisterAcpRuntimeBackend,
 } from "openclaw/plugin-sdk/acp-runtime-backend";
-import type { OpenClawPluginService, OpenClawPluginServiceContext } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginService, GrantedPluginServiceContext } from "openclaw/plugin-sdk/core";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import { createLazyAcpRuntimeProxy, type CompleteAcpRuntime } from "./src/runtime-proxy.js";
 
@@ -20,12 +20,12 @@ type InnerAcpxRuntimeServiceParams = NonNullable<
 type CreateAcpxRuntimeServiceParams = Omit<InnerAcpxRuntimeServiceParams, "backendLifecycle">;
 
 type DeferredServiceState = {
-  ctx: OpenClawPluginServiceContext | null;
+  ctx: GrantedPluginServiceContext | null;
   lifecycleRevision: number;
   ownedRuntime: CompleteAcpRuntime | null;
   params: CreateAcpxRuntimeServiceParams;
   realRuntime: CompleteAcpRuntime | null;
-  realService: OpenClawPluginService | null;
+  realService: GrantedPluginService | null;
   startPromise: Promise<CompleteAcpRuntime> | null;
   stopPromise: Promise<void> | null;
 };
@@ -117,7 +117,7 @@ function createDeferredRuntime(
 /** Creates the plugin service that registers ACPX as an ACP runtime backend. */
 export function createAcpxRuntimeService(
   params: CreateAcpxRuntimeServiceParams = {},
-): OpenClawPluginService {
+): GrantedPluginService {
   const state: DeferredServiceState = {
     ctx: null,
     lifecycleRevision: 0,

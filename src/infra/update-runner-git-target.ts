@@ -1,14 +1,14 @@
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import {
   parsePackageOpenClawSchemaVersions,
-  type OpenClawSchemaVersions,
+  type GrantedSchemaVersions,
 } from "../state/openclaw-schema-versions.js";
 import { isBetaTag, isStableTag, type UpdateChannel } from "./update-channels.js";
 import { compareSemverStrings } from "./update-check.js";
 import type { CommandRunner, UpdateRunnerOptions } from "./update-runner-types.js";
 
 type GitTargetSchemaMetadata =
-  | { status: "ok"; schemaVersions?: OpenClawSchemaVersions }
+  | { status: "ok"; schemaVersions?: GrantedSchemaVersions }
   | { status: "unreadable"; reason: string };
 
 async function readGitTargetSchemaVersions(params: {

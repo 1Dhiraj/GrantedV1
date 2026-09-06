@@ -2,7 +2,7 @@ import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { Value } from "typebox/value";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { SecretRefSchema } from "../../config/zod-schema.core.js";
 import { isBuiltInDefaultSecretProviderRef } from "../../secrets/ref-contract.js";
 import { claimPendingAgentQuestionAnswer } from "../harness/gateway-question.js";
@@ -140,7 +140,7 @@ describe("secrets request normalization", () => {
 });
 
 describe("secrets tool", () => {
-  it.each<{ label: string; config: OpenClawConfig }>([
+  it.each<{ label: string; config: GrantedConfig }>([
     { label: "built-in store", config: {} },
     { label: "renamed store default", config: { secrets: { defaults: { store: "teamstore" } } } },
     {

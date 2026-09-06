@@ -1,7 +1,7 @@
 // Line tests cover push retry and retry-key deduplication behavior.
 import { HTTPFetchError } from "@line/bot-sdk";
 import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveLineNonDispatchRetryable, runLinePushWithRetries } from "./send-retry.js";
 
@@ -46,7 +46,7 @@ let sendModule: typeof import("./send.js");
 
 const LINE_TEST_CFG = {
   channels: { line: { accounts: { default: {} } } },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 const LINE_TARGET = "line:user:U0123456789abcdef0123456789abcdef";
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 

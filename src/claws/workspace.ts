@@ -7,7 +7,7 @@ import { root as fsSafeRoot, FsSafeError, type Root } from "../infra/fs-safe.js"
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { clawContainedRelativePath } from "./path-containment.js";
 import { parseClawMarkdown } from "./reader.js";
@@ -117,7 +117,7 @@ export async function readClawWorkspaceActionSource(params: {
 
 function persistWorkspaceFile(
   record: PersistedClawWorkspaceFile,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     // sqlite-allow-raw: this Claw prototype state-table write is scoped to one owned row.
@@ -160,7 +160,7 @@ type PersistedClawWorkspaceFileRow = {
 function readWorkspaceFile(
   agentId: string,
   targetPath: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): PersistedClawWorkspaceFile | undefined {
   return runOpenClawStateWriteTransaction(({ db }) => {
     const statement = db /* sqlite-allow-raw: one owned Claw state-table row */
@@ -213,7 +213,7 @@ function sameWorkspaceFileOwner(
 function updateWorkspaceFileStatus(
   record: PersistedClawWorkspaceFile,
   expectedStatuses: PersistedClawWorkspaceFile["status"][],
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     const expectedPlaceholders = expectedStatuses.map(() => "?").join(", ");
@@ -241,7 +241,7 @@ function updateWorkspaceFileStatus(
 
 export function upsertClawWorkspaceFile(
   record: PersistedClawWorkspaceFile,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: Claw workspace-file provenance write. */
@@ -279,7 +279,7 @@ export function upsertClawWorkspaceFile(
 export function deleteClawWorkspaceFileRecord(
   agentId: string,
   path: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     db /* sqlite-allow-raw: Claw workspace-file provenance write. */
@@ -294,7 +294,7 @@ function workspaceFileActions(plan: ClawAddPlan): ClawAddPlanAction[] {
 
 export function readClawWorkspaceFiles(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawWorkspaceFile[] {
   const database = openOpenClawStateDatabase(options);
   if (
@@ -321,7 +321,7 @@ export function readClawWorkspaceFiles(
 
 export async function createClawWorkspaceFiles(
   plan: ClawAddPlan,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): Promise<PersistedClawWorkspaceFile[]> {
   const actions = workspaceFileActions(plan);
   if (actions.length === 0) {

@@ -24,7 +24,7 @@ import {
 } from "./browser/extension-install.js";
 import { listSystemProfiles } from "./browser/system-profiles.js";
 import { movePathToTrash } from "./browser/trash.js";
-import type { OpenClawConfig } from "./config/config.js";
+import type { GrantedConfig } from "./config/config.js";
 import { formatCliCommand, note } from "./sdk-setup-tools.js";
 import { CONFIG_DIR, resolveUserPath } from "./utils.js";
 
@@ -63,7 +63,7 @@ type BrowserDoctorFilesystemDeps = {
   movePathToTrash?: (targetPath: string) => Promise<string>;
 };
 
-function collectChromeMcpProfiles(cfg: OpenClawConfig): ExistingSessionProfile[] {
+function collectChromeMcpProfiles(cfg: GrantedConfig): ExistingSessionProfile[] {
   const browser = asNullableRecord(cfg.browser);
   if (!browser) {
     return [];
@@ -94,7 +94,7 @@ function collectChromeMcpProfiles(cfg: OpenClawConfig): ExistingSessionProfile[]
   return [...profiles.values()].toSorted((a, b) => a.name.localeCompare(b.name));
 }
 
-function collectManagedProfiles(cfg: OpenClawConfig): ManagedProfile[] {
+function collectManagedProfiles(cfg: GrantedConfig): ManagedProfile[] {
   const browser = asNullableRecord(cfg.browser);
   if (!browser) {
     return [];
@@ -130,7 +130,7 @@ function resolveManagedBrowserUserDataDir(configDir: string, profileName: string
   return path.join(resolveManagedBrowserProfileDir(configDir, profileName), "user-data");
 }
 
-function isLegacyClawdProfileConfigured(cfg: OpenClawConfig, legacyProfileDir: string): boolean {
+function isLegacyClawdProfileConfigured(cfg: GrantedConfig, legacyProfileDir: string): boolean {
   const browser = asNullableRecord(cfg.browser);
   if (!browser) {
     return false;
@@ -159,7 +159,7 @@ function isLegacyClawdProfileConfigured(cfg: OpenClawConfig, legacyProfileDir: s
 
 /** Detects unmanaged legacy clawd browser profile residue on disk. */
 export function detectLegacyClawdBrowserProfileResidue(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: BrowserDoctorFilesystemDeps,
 ): LegacyClawdBrowserProfileResidue | null {
   const configDir = deps?.configDir ?? CONFIG_DIR;
@@ -211,7 +211,7 @@ function formatLegacyClawdBrowserProfileResidueNote(
 
 /** Emits Browser doctor notes for Chrome MCP, managed Chrome, and legacy residue readiness. */
 export async function noteChromeMcpBrowserReadiness(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: {
     platform?: NodeJS.Platform;
     noteFn?: typeof note;
@@ -436,7 +436,7 @@ export async function maybeRepairOwnedChromeExtensionNativeHosts(): Promise<{
 
 /** Archives legacy clawd browser profile residue when doctor --fix is requested. */
 export async function maybeArchiveLegacyClawdBrowserProfileResidue(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: BrowserDoctorFilesystemDeps,
 ): Promise<{ changes: string[]; warnings: string[] }> {
   const residue = detectLegacyClawdBrowserProfileResidue(cfg, deps);

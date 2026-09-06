@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { type Mock, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import * as webMedia from "../../media/web-media.js";
 import * as modelAuth from "../model-auth.js";
 import * as modelsConfig from "../models-config.js";
@@ -17,7 +17,7 @@ import { createEmptyPluginMetadataSnapshot } from "../test-helpers/embedded-agen
 
 type StubPreparedRuntimeSnapshot = {
   agentDir: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir?: string;
   createStores: () => { authStorage: unknown; modelRegistry: unknown };
 };

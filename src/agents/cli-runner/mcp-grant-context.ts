@@ -1,6 +1,6 @@
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import { canonicalizeMainSessionAlias } from "../../config/sessions/main-session.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { McpLoopbackRequestContext } from "../../gateway/mcp-grant-store.js";
 import { resolveGatewayMessageChannel } from "../../utils/message-channel.js";
 import type { DelegationCapability } from "../delegation-capability.js";
@@ -96,7 +96,7 @@ function buildCliMcpChannelContext(
 
 function resolveCliMcpSessionKey(
   run: Pick<RunCliAgentParams, "sessionKey">,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
 ): string {
   return canonicalizeMainSessionAlias({
@@ -108,7 +108,7 @@ function resolveCliMcpSessionKey(
 
 export function buildCliMcpGrantContext(params: {
   run: RunCliAgentParams;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   requireExplicitMessageTarget: boolean;
   agentId: string;
   runtimePolicyAgentId?: string;

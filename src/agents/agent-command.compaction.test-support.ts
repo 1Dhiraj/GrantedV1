@@ -16,7 +16,7 @@ import {
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
 import { createSessionDiffBaselineCaptureClaim } from "../config/sessions/session-diff-baseline-capture.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { rotateAgentEventLifecycleGeneration } from "../infra/agent-events.js";
 import { defaultRuntime } from "../runtime.js";
 import type { runAgentAttempt } from "./command/attempt-execution.runtime.js";
@@ -38,7 +38,7 @@ type CaptureSessionDiffBaseline =
 type CliCompaction = typeof import("./command/cli-compaction.js").runCliTurnCompactionLifecycle;
 
 const compactionTestState = vi.hoisted(() => ({
-  cfg: undefined as OpenClawConfig | undefined,
+  cfg: undefined as GrantedConfig | undefined,
   workspaceDir: undefined as string | undefined,
   agentDir: undefined as string | undefined,
   runAgentAttemptMock: vi.fn<RunAgentAttempt>(),
@@ -290,7 +290,7 @@ export function registerAgentCommandCompactionTestHooks(): void {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   });
 
   afterEach(async () => {

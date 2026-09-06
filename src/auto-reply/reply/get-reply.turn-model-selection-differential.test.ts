@@ -4,11 +4,11 @@ import type { ModelRef } from "../../agents/model-ref-shared.js";
 import { replaceSessionEntrySync } from "../../config/sessions/session-accessor.js";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import {
   TURN_MODEL_CHANNEL_REF,
@@ -46,7 +46,7 @@ const mocks = vi.hoisted(() => ({
 registerGetReplyBaselineBypass();
 registerGetReplyRuntimeOverrides(mocks);
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 let getReplyFromConfig: typeof import("./get-reply.js").getReplyFromConfig;
 let resolveAgentWorkspaceDirMock: typeof import("../../agents/agent-scope.js").resolveAgentWorkspaceDir;
@@ -59,7 +59,7 @@ function createConfig(params: {
   storePath: string;
   workspaceDir: string;
   modelByChannel?: Record<string, Record<string, string>>;
-}): OpenClawConfig {
+}): GrantedConfig {
   return markCompleteReplyConfig({
     session: { store: params.storePath },
     agents: {
@@ -70,7 +70,7 @@ function createConfig(params: {
       },
     },
     channels: params.modelByChannel ? { modelByChannel: params.modelByChannel } : undefined,
-  } as OpenClawConfig);
+  } as GrantedConfig);
 }
 
 async function seedFixtureStore(
@@ -91,7 +91,7 @@ async function seedFixtureStore(
 
 async function observeReplySelection(params: {
   fixture: TurnModelDifferentialFixture;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   sessionStore: Record<string, SessionEntry>;
 }): Promise<TurnModelSelectionVerdict> {

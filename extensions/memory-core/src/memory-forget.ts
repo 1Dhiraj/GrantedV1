@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {
   resolveAgentWorkspaceDir,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildSessionEntry,
@@ -313,7 +313,7 @@ async function planMemoryIndex(params: {
 }
 
 type MemoryForgetParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionIds?: string[];
   hookSources?: string[];

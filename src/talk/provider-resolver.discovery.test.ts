@@ -1,5 +1,5 @@
 import { afterAll, afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   cleanupPluginLoaderFixturesForTest,
   loadOpenClawPlugins,
@@ -11,8 +11,8 @@ import { listRealtimeVoiceProviders } from "./provider-registry.js";
 import { resolveConfiguredRealtimeVoiceProvider } from "./provider-resolver.js";
 
 function withVoiceProviders(
-  run: (cfg: OpenClawConfig) => void,
-  policy: OpenClawConfig["plugins"] = {},
+  run: (cfg: GrantedConfig) => void,
+  policy: GrantedConfig["plugins"] = {},
 ) {
   const { cfg, env } = createVoiceProviderFixture(policy);
   return withEnv(env, () => run(cfg));

@@ -1,6 +1,6 @@
 import { getRuntimeConfig } from "../config/config.js";
 import type { SessionStoreTargetsReadCache } from "../config/sessions/targets-read-availability.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   isIncognitoSessionKey,
@@ -37,7 +37,7 @@ type PlacementSessionIdentity = {
 };
 
 function resolvePlacementSessionIdentities(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   placement: WorkerSessionPlacementRecord,
 ): PlacementSessionIdentity[] {
   const requestedAgentId = normalizeAgentId(placement.agentId);

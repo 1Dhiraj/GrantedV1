@@ -37,7 +37,7 @@ import {
   registerOpenClawAgentDatabase,
   unregisterOpenClawAgentDatabase,
 } from "./openclaw-agent-db-registry.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "./openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "./openclaw-agent-db.generated.js";
 import {
   assertOpenClawAgentDatabaseForMaintenance,
   clearOpenClawAgentDatabaseOpenFailure,
@@ -71,10 +71,7 @@ import {
   replaceNamedIndexesWithNoncanonicalIndexes,
 } from "./sqlite-schema-shape.test-support.js";
 
-type AgentDbTestDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
-  "memory_index_sources" | "schema_meta"
->;
+type AgentDbTestDatabase = Pick<GrantedAgentKyselyDatabase, "memory_index_sources" | "schema_meta">;
 
 const agentDbTempDirs: string[] = [];
 let sharedStateDatabaseTemplatePath: string | undefined;
@@ -1100,7 +1097,7 @@ describe("openclaw agent database", () => {
     {
       version: AGENT_MEDIA_SCHEMA_VERSION - 1,
       expectedError: {
-        name: "OpenClawAgentDatabaseMediaMigrationRequiredError",
+        name: "GrantedAgentDatabaseMediaMigrationRequiredError",
         message: expect.stringContaining("run openclaw doctor --fix to migrate persisted media"),
       },
     },

@@ -14,7 +14,7 @@ import { createExecutionIdentityAdmissionToken } from "../../../audit/execution-
 import type { ThinkLevel } from "../../../auto-reply/thinking.shared.js";
 import { getLoadedChannelPluginForRead } from "../../../channels/plugins/registry-loaded.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { readAgentRuntimeExecutionLineage } from "../../../gateway/agent-runtime-execution-lineage.js";
 import type { AgentRuntimeIdentity } from "../../../gateway/agent-runtime-identity-token.js";
 import { readInProcessAgentRuntimeIdentity } from "../../../gateway/in-process-agent-runtime-identity.js";
@@ -44,7 +44,7 @@ import { setSubagentSpawnDepsForTest } from "./subagent-spawn-deps.js";
 
 type SessionBindingAdapterCapabilities = NonNullable<SessionBindingAdapter["capabilities"]>;
 
-function createDefaultSpawnConfig(): OpenClawConfig {
+function createDefaultSpawnConfig(): GrantedConfig {
   return {
     acp: {
       enabled: true,
@@ -281,7 +281,7 @@ type CrossAgentWorkspaceFixture = {
   targetWorkspace: string;
 };
 
-function replaceSpawnConfig(next: OpenClawConfig): void {
+function replaceSpawnConfig(next: GrantedConfig): void {
   const current = hoisted.state.cfg as Record<string, unknown>;
   for (const key of Object.keys(current)) {
     delete current[key];

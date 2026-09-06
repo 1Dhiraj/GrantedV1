@@ -1,7 +1,7 @@
 // Checks install policy constraints for package and plugin operations.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig, SecurityConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig, SecurityConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { normalizePositiveInt, normalizePositiveTimerMs } from "../secrets/shared.js";
@@ -349,7 +349,7 @@ function isTargetEnabled(params: {
 }
 
 function resolvePolicy(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   targetType: InstallPolicyTarget,
 ):
   | { kind: "disabled" }
@@ -381,7 +381,7 @@ function resolveConfiguredTargets(
 }
 
 export async function validateInstallPolicyStatic(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): Promise<InstallPolicyStaticValidation> {
   const policy = config?.security?.installPolicy;
   if (!policy || policy.enabled !== true) {
@@ -432,7 +432,7 @@ export async function validateInstallPolicyStatic(
 }
 
 export async function runInstallPolicy(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   logger?: {
     debug?: (message: string) => void;
@@ -576,7 +576,7 @@ function formatDecisionContext(request: InstallPolicyRequest): string {
 }
 
 export async function probeInstallPolicy(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   logger?: {
     debug?: (message: string) => void;

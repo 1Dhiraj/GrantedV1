@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { registerTelemetryCli } from "./telemetry-cli.js";
 
 const mocks = await vi.hoisted(async () => {
@@ -26,7 +26,7 @@ vi.mock("../infra/telemetry.js", () => ({
 }));
 vi.mock("../runtime.js", () => ({ defaultRuntime: mocks.defaultRuntime }));
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   telemetry: { enabled: true, consentedAt: "2026-08-23T00:00:00.000Z" },
 };
 const payload = {
@@ -152,14 +152,13 @@ describe("telemetry cli", () => {
   ])(
     "records operator consent when turning feature statistics $command",
     async ({ command, enabled }) => {
-      const originalConfig: OpenClawConfig = {
+      const originalConfig: GrantedConfig = {
         update: { checkOnStart: false },
         telemetry: { enabled: !enabled, consentedAt: "2025-01-01T00:00:00.000Z" },
       };
       mocks.transformConfigFileWithRetry.mockImplementationOnce(
-        async (options: {
-          transform: (current: OpenClawConfig) => { nextConfig: OpenClawConfig };
-        }) => options.transform(originalConfig),
+        async (options: { transform: (current: GrantedConfig) => { nextConfig: GrantedConfig } }) =>
+          options.transform(originalConfig),
       );
 
       await runTelemetryCli([command]);

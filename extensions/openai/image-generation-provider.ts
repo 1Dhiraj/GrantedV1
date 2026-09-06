@@ -1,7 +1,7 @@
 // Openai provider module implements model/runtime integration.
 import path from "node:path";
 import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   ImageGenerationOutputFormat,
   ImageGenerationProvider,
@@ -290,7 +290,7 @@ function isValidFlexibleOpenAIImageSize(model: string, size: string | undefined)
   );
 }
 
-function resolveConfiguredOpenAIImageBaseUrl(cfg: OpenClawConfig | undefined, model: string) {
+function resolveConfiguredOpenAIImageBaseUrl(cfg: GrantedConfig | undefined, model: string) {
   const modelId = model.trim().replace(/^openai\//u, "");
   const modelBaseUrl = cfg?.models?.providers?.openai?.models
     ?.find((candidate) => candidate.id.trim().replace(/^openai\//u, "") === modelId)
@@ -331,7 +331,7 @@ function resolveOpenAIImageRequestSize(params: {
 function shouldAllowPrivateImageEndpoint(req: {
   provider: string;
   model: string;
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
 }) {
   if (req.provider === MOCK_OPENAI_PROVIDER_ID) {
     return true;
@@ -363,7 +363,7 @@ function resolveRequestAuthStore(req: {
 }
 
 function hasDirectOpenAIImageApiKeyAuth(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 }): boolean {
   if (hasExplicitOpenAIImageApiKeyConfig(params.cfg)) {
@@ -401,12 +401,12 @@ function hasCodexResponseTransportProfileConfigured(req: {
   );
 }
 
-function hasExplicitOpenAIImageApiKeyConfig(cfg: OpenClawConfig | undefined): boolean {
+function hasExplicitOpenAIImageApiKeyConfig(cfg: GrantedConfig | undefined): boolean {
   const providerConfig = cfg?.models?.providers?.openai;
   return providerConfig?.apiKey !== undefined || providerConfig?.auth === "api-key";
 }
 
-function hasExplicitDirectOpenAIImageConfig(cfg: OpenClawConfig | undefined): boolean {
+function hasExplicitDirectOpenAIImageConfig(cfg: GrantedConfig | undefined): boolean {
   const providerConfig = cfg?.models?.providers?.openai;
   if (!providerConfig) {
     return false;
@@ -420,7 +420,7 @@ function hasExplicitDirectOpenAIImageConfig(cfg: OpenClawConfig | undefined): bo
   );
 }
 
-function hasChatGPTImageRouteConfig(cfg: OpenClawConfig | undefined): boolean {
+function hasChatGPTImageRouteConfig(cfg: GrantedConfig | undefined): boolean {
   const providerConfig = cfg?.models?.providers?.openai;
   return (
     isOpenAICodexBaseUrl(resolveConfiguredOpenAIBaseUrl(cfg)) ||
@@ -429,12 +429,12 @@ function hasChatGPTImageRouteConfig(cfg: OpenClawConfig | undefined): boolean {
 }
 
 function resolveConfiguredOpenAIImageHeaders(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): Record<string, string> | undefined {
   return filterStringRecord(cfg?.models?.providers?.openai?.headers);
 }
 
-function forceOpenAIImageApiKeyAuth(cfg: OpenClawConfig | undefined): OpenClawConfig | undefined {
+function forceOpenAIImageApiKeyAuth(cfg: GrantedConfig | undefined): GrantedConfig | undefined {
   if (!hasExplicitOpenAIImageApiKeyConfig(cfg)) {
     return cfg;
   }

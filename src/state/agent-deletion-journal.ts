@@ -11,11 +11,11 @@ import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { deleteAgentProvenanceForAgent, ensureAgentProvenanceSchema } from "./agent-provenance.js";
 import type {
-  OpenClawStateDatabase,
-  OpenClawStateDatabaseOptions,
+  GrantedStateDatabase,
+  GrantedStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import { ensureAgentDeletionJournalSchema } from "./openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
 import {
   resolveOpenClawRegisteredAgentDatabasePath,
@@ -23,7 +23,7 @@ import {
 } from "./openclaw-state-db.paths.js";
 
 type AgentDeletionDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "agent_databases" | "agent_deletion_journal"
 >;
 
@@ -83,7 +83,7 @@ export type AgentDeletionJournalEntry = {
 
 export function prepareAgentDeletionPathFence(
   claim: { agentId: string; path: string; fenceAgentId?: string },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AgentDeletionPathFenceSnapshot {
   let rows: Array<{
     agent_id: string;
@@ -150,7 +150,7 @@ export function prepareAgentDeletionPathFence(
 
 /** Refuse database claims beneath paths still owned by an unfinished deletion. */
 export function assertAgentDeletionPathFence(
-  database: OpenClawStateDatabase["db"],
+  database: GrantedStateDatabase["db"],
   snapshot: AgentDeletionPathFenceSnapshot,
 ): void {
   ensureAgentDeletionJournalSchema(database);
@@ -329,7 +329,7 @@ function parseCleanupPaths(value: string): AgentDeletionJournalCleanupPath[] {
 
 export function readAgentDeletionJournal(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AgentDeletionJournalEntry | undefined {
   const id = normalizeAgentId(agentId);
   const databasePath = path.resolve(
@@ -359,7 +359,7 @@ export function beginAgentDeletionJournal(
     databasePaths?: string[];
     cleanupPaths?: AgentDeletionJournalCleanupPath[];
   },
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AgentDeletionJournalEntry {
   const normalized = {
     ...entry,
@@ -453,7 +453,7 @@ export function updateAgentDeletionJournalCleanupPaths(
   agentId: string,
   operationId: string,
   cleanupPaths: readonly AgentDeletionJournalCleanupPath[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   let updated = false;
@@ -478,7 +478,7 @@ export function updateAgentDeletionJournalDatabasePaths(
   agentId: string,
   operationId: string,
   databasePaths: readonly string[],
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   const normalizedPaths = [...new Set(databasePaths.map((entryPath) => path.resolve(entryPath)))];
@@ -503,7 +503,7 @@ export function updateAgentDeletionJournalDatabasePaths(
 export function completeAgentDeletionJournal(
   agentId: string,
   operationId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   return runOpenClawStateWriteTransaction(
     (database) => completeAgentDeletionJournalInDatabase(database, agentId, operationId),
@@ -513,7 +513,7 @@ export function completeAgentDeletionJournal(
 
 /** Complete a deletion journal inside a caller-owned shared-state transaction. */
 export function completeAgentDeletionJournalInDatabase(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   agentId: string,
   operationId: string,
 ): boolean {
@@ -534,7 +534,7 @@ export function completeAgentDeletionJournalInDatabase(
 export function removeAgentDeletionJournal(
   agentId: string,
   operationId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   let removed = false;
@@ -556,7 +556,7 @@ export function removeAgentDeletionJournal(
 export function claimCompletedAgentDeletionJournal(
   agentId: string,
   operationId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const id = normalizeAgentId(agentId);
   let removed = false;

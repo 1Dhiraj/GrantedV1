@@ -9,7 +9,7 @@ import {
   resetGlobalHookRunner,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import {
@@ -112,7 +112,7 @@ describe("Telegram permanent rejection over real Bot API transport", () => {
             apiRoot: loopback.apiRoot,
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       setActivePluginRegistry(
         createTestRegistry([{ pluginId: "telegram", plugin: telegramPlugin, source: "test" }]),
       );

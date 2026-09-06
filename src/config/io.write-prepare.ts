@@ -24,7 +24,7 @@ import {
   hasUnresolvedConfigPathInSubtree,
 } from "./resolution-facts.js";
 import { projectSourceOntoRuntimeShape } from "./runtime-source-projection.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 const AGENT_ROSTER_PATHS = [
   ["agents", "entries"],
@@ -849,12 +849,10 @@ function shouldPersistCanonicalAgentRoster(params: {
     return true;
   }
   const runtimeRoster = toAgentEntriesRecord(
-    listAgentEntries(params.runtimeConfig as OpenClawConfig),
+    listAgentEntries(params.runtimeConfig as GrantedConfig),
   );
-  const sourceRoster = toAgentEntriesRecord(
-    listAgentEntries(params.sourceConfig as OpenClawConfig),
-  );
-  const nextRoster = toAgentEntriesRecord(listAgentEntries(params.nextConfig as OpenClawConfig));
+  const sourceRoster = toAgentEntriesRecord(listAgentEntries(params.sourceConfig as GrantedConfig));
+  const nextRoster = toAgentEntriesRecord(listAgentEntries(params.nextConfig as GrantedConfig));
   return (
     !isDeepStrictEqual(runtimeRoster, nextRoster) && !isDeepStrictEqual(sourceRoster, nextRoster)
   );
@@ -869,11 +867,11 @@ function assertCanonicalAgentRosterRetainsEntries(params: {
     (params.allowedRemovals ?? []).map((agentId) => normalizeAgentId(agentId)),
   );
   const canonicalIds = new Set(
-    listAgentEntries(params.canonicalConfig as OpenClawConfig).map((entry) =>
+    listAgentEntries(params.canonicalConfig as GrantedConfig).map((entry) =>
       normalizeAgentId(entry.id),
     ),
   );
-  const droppedIds = listAgentEntries(params.currentConfig as OpenClawConfig)
+  const droppedIds = listAgentEntries(params.currentConfig as GrantedConfig)
     .filter((entry) => {
       const agentId = normalizeAgentId(entry.id);
       return !canonicalIds.has(agentId) && !allowedRemovals.has(agentId);
@@ -906,7 +904,7 @@ function containsAuthoredRosterReference(value: unknown, includeEnvStrings: bool
   );
 }
 
-function indexAgentRosterSourcePaths(config: OpenClawConfig): Map<string, string> {
+function indexAgentRosterSourcePaths(config: GrantedConfig): Map<string, string> {
   return new Map(
     listAgentEntriesWithSource(config).map(({ entry, source }) => [
       normalizeAgentId(entry.id),
@@ -1085,16 +1083,16 @@ function canonicalizeAgentRosterForExplicitWrite(params: {
           }),
         )
       : (toAgentEntriesRecord(
-          listAgentEntries(params.rootAuthoredConfig as OpenClawConfig),
+          listAgentEntries(params.rootAuthoredConfig as GrantedConfig),
         ) as Record<string, unknown>);
   const runtimeEntries = toAgentEntriesRecord(
-    listAgentEntries(params.runtimeConfig as OpenClawConfig),
+    listAgentEntries(params.runtimeConfig as GrantedConfig),
   ) as Record<string, unknown>;
   const sourceEntries = toAgentEntriesRecord(
-    listAgentEntries(params.sourceConfig as OpenClawConfig),
+    listAgentEntries(params.sourceConfig as GrantedConfig),
   ) as Record<string, unknown>;
   const nextEntries = toAgentEntriesRecord(
-    listAgentEntries(params.nextConfig as OpenClawConfig),
+    listAgentEntries(params.nextConfig as GrantedConfig),
   ) as Record<string, unknown>;
   const explicitRoster = readAgentRosterProperty(params.valueSource);
   const rosterFactOwner = coerceConfig(
@@ -1212,7 +1210,7 @@ function canonicalizeAgentRosterForExplicitWrite(params: {
             return [[id, config]];
           }),
         )
-      : (toAgentEntriesRecord(listAgentEntries(params.valueSource as OpenClawConfig)) as Record<
+      : (toAgentEntriesRecord(listAgentEntries(params.valueSource as GrantedConfig)) as Record<
           string,
           unknown
         >);
@@ -1546,7 +1544,7 @@ export function resolvePersistCandidateForWrite(params: {
       ? setPathValueCreatingParents(
           projectedAuthoredRoster,
           ["agents", "entries"],
-          toAgentEntriesRecord(listAgentEntries(params.sourceConfig as OpenClawConfig)),
+          toAgentEntriesRecord(listAgentEntries(params.sourceConfig as GrantedConfig)),
         )
       : projectedAuthoredRoster;
   let persistedBase = preserveUntouchedIncludes({

@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
 import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -23,13 +23,13 @@ async function createRealDirFetchContext(input: {
   const approvals = {
     request: vi.fn(async () => ({ id: "approval-1", decision: "deny" as const })),
   };
-  const invokeNode = vi.fn<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>(
+  const invokeNode = vi.fn<GrantedPluginNodeInvokePolicyContext["invokeNode"]>(
     async ({ params } = {}) => ({
       ok: true,
       payload: await handleDirFetch((params ?? {}) as Parameters<typeof handleDirFetch>[0]),
     }),
   );
-  const ctx: OpenClawPluginNodeInvokePolicyContext = {
+  const ctx: GrantedPluginNodeInvokePolicyContext = {
     nodeId: "node-1",
     command: "dir.fetch",
     params: { path: input.requested, maxBytes: input.maxBytes },
@@ -56,7 +56,7 @@ async function createRealDirFetchContext(input: {
 }
 
 function firstInvokeParams(
-  invokeNode: ReturnType<typeof vi.fn<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>>,
+  invokeNode: ReturnType<typeof vi.fn<GrantedPluginNodeInvokePolicyContext["invokeNode"]>>,
 ) {
   const request = requireRecord(invokeNode.mock.calls[0]?.[0], "invoke request");
   return requireRecord(request.params, "invoke params");

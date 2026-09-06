@@ -3,7 +3,7 @@ import { DEFAULT_HEARTBEAT_EVERY } from "../../../auto-reply/heartbeat.js";
 import { parseDurationMs } from "../../../cli/parse-duration.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { loadSessionEntryReadOnly } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isHeartbeatEnabledForAgent } from "../../../infra/heartbeat-summary.js";
 import { areHeartbeatsEnabled } from "../../../infra/heartbeat-wake.js";
 import {
@@ -13,7 +13,7 @@ import {
 import { resolveAgentConfig, resolveSessionAgentIds } from "../../agent-scope.js";
 
 export function isHeartbeatEnabledForSessionAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requesterAgentId?: string;
   sessionKey?: string;
 }): boolean {
@@ -49,9 +49,9 @@ export function isHeartbeatEnabledForSessionAgent(params: {
 }
 
 function resolveHeartbeatConfigForAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
-}): NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["heartbeat"] {
+}): NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["heartbeat"] {
   const defaults = params.cfg.agents?.defaults?.heartbeat;
   const overrides = resolveAgentConfig(params.cfg, params.agentId)?.heartbeat;
   if (!defaults && !overrides) {
@@ -64,7 +64,7 @@ function resolveHeartbeatConfigForAgent(params: {
 }
 
 export function hasSessionLocalHeartbeatRelayRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   parentSessionKey: string;
   requesterAgentId: string;
 }): boolean {

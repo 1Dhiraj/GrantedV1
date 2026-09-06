@@ -8,7 +8,7 @@ import { Type } from "typebox";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
   createChannelTestPluginBase,
@@ -33,7 +33,7 @@ const workspaceConfig = {
       appToken: "xapp-test",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 async function withSandbox(test: (sandboxDir: string) => Promise<void>) {
   const sandboxDir = await fs.mkdtemp(path.join(os.tmpdir(), "msg-sandbox-"));
@@ -45,7 +45,7 @@ async function withSandbox(test: (sandboxDir: string) => Promise<void>) {
 }
 
 const runDrySend = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   actionParams: Record<string, unknown>;
   sandboxRoot?: string;
 }) =>
@@ -188,7 +188,7 @@ describe("runMessageAction media behavior", () => {
     it("rewrites plugin-owned sandbox media params and preserves mxc URLs", async () => {
       await withSandbox(async (sandboxDir) => {
         const result = await runMessageAction({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           action: "set-profile",
           params: {
             channel: "profile-demo",
@@ -214,7 +214,7 @@ describe("runMessageAction media behavior", () => {
         const result = await runMessageAction({
           cfg: {
             tools: { fs: { workspaceOnly: false } },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           action: "set-profile",
           params: {
             channel: "profile-demo",
@@ -235,7 +235,7 @@ describe("runMessageAction media behavior", () => {
       await withSandbox(async (sandboxDir) => {
         const avatarUrl = "data:text/plain;base64,SGVsbG8=";
         const result = await runMessageAction({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           action: "send",
           dryRun: true,
           params: {

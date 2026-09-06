@@ -21,7 +21,7 @@ import { resolveSharedMainAuthAgentDir } from "../../../agents/auth-profiles/sha
 import { updateAuthProfileStoreWithLock } from "../../../agents/auth-profiles/store.js";
 import type { AuthProfileStore, OAuthCredential } from "../../../agents/auth-profiles/types.js";
 import { resolveStateDir } from "../../../config/paths.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { shortenHomePath } from "../../../utils.js";
 import { resolveLegacyAuthProfilesPath as resolveAuthStorePath } from "../../doctor-auth-legacy-paths.js";
 
@@ -66,7 +66,7 @@ async function collectStateAgentDirs(env: NodeJS.ProcessEnv): Promise<string[]> 
 }
 
 async function collectCandidateAgentDirs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): Promise<string[]> {
   const dirs = new Set<string>();
@@ -110,7 +110,7 @@ function shouldRemoveLocalOAuthShadow(params: {
 
 /** Find local OAuth profiles that safely inherit fresher main-agent credentials instead. */
 export async function scanStaleOAuthProfileShadows(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   now?: number;
 }): Promise<StaleOAuthProfileShadow[]> {
@@ -280,7 +280,7 @@ export function collectStaleOAuthProfileShadowWarnings(params: {
 
 /** Remove stale per-agent OAuth profile shadows after rechecking each locked store. */
 export async function repairStaleOAuthProfileShadows(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   now?: number;
 }): Promise<{ changes: string[]; warnings: string[] }> {

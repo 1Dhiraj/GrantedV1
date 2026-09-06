@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import {
@@ -69,7 +69,7 @@ describe("models.list plugin metadata handoff", () => {
               },
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const snapshot: ModelCatalogSnapshot = {
           entries: [catalogEntry("modern"), catalogEntry("another")],
           routeVariants: [],
@@ -106,7 +106,7 @@ describe("models.list plugin metadata handoff", () => {
   it("keeps prepared owner facts when preloaded-only browse requires full discovery", async () => {
     const cfg = {
       agents: { defaults: { models: { "custom/*": {} } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const snapshot: ModelCatalogSnapshot = { entries: [], routeVariants: [] };
     const loadGatewayModelCatalogSnapshot = vi.fn();
     const context = {
@@ -137,7 +137,7 @@ describe("models.list plugin metadata handoff", () => {
   });
 
   it("discovers a harness catalog for an explicit configured picker read", async () => {
-    const cfg = { agents: { defaults: { model: "custom/modern" } } } as OpenClawConfig;
+    const cfg = { agents: { defaults: { model: "custom/modern" } } } as GrantedConfig;
     const snapshot: ModelCatalogSnapshot = {
       entries: [catalogEntry("modern")],
       routeVariants: [],

@@ -13,7 +13,7 @@ import {
   setRuntimeAuthProfileStoreSnapshot,
 } from "../agents/auth-profiles/runtime-snapshots.js";
 import { writePersistedAuthProfileStoreRaw } from "../agents/auth-profiles/sqlite.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.js";
 import {
   flushDiagnosticsTimeline,
   measureDiagnosticsTimelineSpan,
@@ -60,7 +60,7 @@ type GatewayStartupLogMock = {
 };
 
 type GatewayStartupStateEmitterMock = ReturnType<
-  typeof vi.fn<(code: string, message: string, cfg: OpenClawConfig) => void>
+  typeof vi.fn<(code: string, message: string, cfg: GrantedConfig) => void>
 >;
 
 const RESOLVED_GATEWAY_TOKEN = "resolved-gateway-token";
@@ -74,7 +74,7 @@ function activateSecretsRuntimeSnapshotForTest(snapshot: PreparedSecretsRuntimeS
   });
 }
 
-function gatewayTokenConfig(config: OpenClawConfig): OpenClawConfig {
+function gatewayTokenConfig(config: GrantedConfig): GrantedConfig {
   return {
     ...config,
     gateway: {
@@ -88,11 +88,11 @@ function gatewayTokenConfig(config: OpenClawConfig): OpenClawConfig {
   };
 }
 
-function asConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function asConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
-function buildSnapshot(config: OpenClawConfig): ConfigFileSnapshot {
+function buildSnapshot(config: GrantedConfig): ConfigFileSnapshot {
   const raw = `${JSON.stringify(config, null, 2)}\n`;
   return buildTestConfigSnapshot({
     path: "/tmp/openclaw-startup-secrets-test.json",
@@ -106,7 +106,7 @@ function buildSnapshot(config: OpenClawConfig): ConfigFileSnapshot {
   });
 }
 
-function preparedSnapshot(config: OpenClawConfig): PreparedSecretsRuntimeSnapshot {
+function preparedSnapshot(config: GrantedConfig): PreparedSecretsRuntimeSnapshot {
   return {
     sourceConfig: config,
     config,
@@ -128,7 +128,7 @@ function preparedSnapshot(config: OpenClawConfig): PreparedSecretsRuntimeSnapsho
 }
 
 function preparedSnapshotWithGatewayToken(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   token = RESOLVED_GATEWAY_TOKEN,
 ): PreparedSecretsRuntimeSnapshot {
   return {
@@ -188,7 +188,7 @@ function runtimeSecretsActivatorForTest(params: {
 function runtimeSecretsActivatorOptionsForTest() {
   return {
     logSecrets: mockLogSecretsForTest(),
-    emitStateEvent: vi.fn<(code: string, message: string, cfg: OpenClawConfig) => void>(),
+    emitStateEvent: vi.fn<(code: string, message: string, cfg: GrantedConfig) => void>(),
   };
 }
 
@@ -297,13 +297,13 @@ function installGatewayStartupSecretsRuntimeMock(state: GatewayStartupSecretsRun
       preflightActiveSecretsRuntimeSnapshotRefresh: async ({
         sourceConfig,
       }: {
-        sourceConfig: OpenClawConfig;
+        sourceConfig: GrantedConfig;
       }) => await runtimeState.prepareRuntimeSecretsSnapshot({ config: sourceConfig }),
       refreshActiveSecretsRuntimeSnapshotForConfig: async ({
         sourceConfig,
         preflightResult,
       }: {
-        sourceConfig: OpenClawConfig;
+        sourceConfig: GrantedConfig;
         preflightResult?: unknown;
       }) => {
         const snapshot =
@@ -353,7 +353,7 @@ function createGatewayStartupSecretsRuntimeHarness(prefix: string) {
   };
 }
 
-async function activateImportedStartupConfig(config: OpenClawConfig) {
+async function activateImportedStartupConfig(config: GrantedConfig) {
   const { createRuntimeSecretsActivator: createActivator } =
     await import("./server-startup-config.js");
   return await createActivator(runtimeSecretsActivatorOptionsForTest())(
@@ -365,7 +365,7 @@ async function activateImportedStartupConfig(config: OpenClawConfig) {
   );
 }
 
-async function activateStartupConfigWithEnv(config: OpenClawConfig, env: NodeJS.ProcessEnv) {
+async function activateStartupConfigWithEnv(config: GrantedConfig, env: NodeJS.ProcessEnv) {
   const activateRuntimeSecrets = createRuntimeSecretsActivator(
     runtimeSecretsActivatorOptionsForTest(),
   );
@@ -413,7 +413,7 @@ function expectBootstrapAuthResolvedGatewayToken(
 
 async function expectImportedStartupConfigUsesFullSecretsRuntime(
   harness: ReturnType<typeof createGatewayStartupSecretsRuntimeHarness>,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<void> {
   harness.install();
 
@@ -2198,7 +2198,7 @@ describe("gateway startup config secret preflight", () => {
       "SECRETS_RELOADER_RECOVERED",
     ]);
 
-    const changedSourceConfig: OpenClawConfig = structuredClone(sourceConfig);
+    const changedSourceConfig: GrantedConfig = structuredClone(sourceConfig);
     changedSourceConfig.models!.providers!.openai!.apiKey = {
       source: "env",
       provider: "default",
@@ -2508,7 +2508,7 @@ describe("gateway startup config secret preflight", () => {
     });
     expect(typeof result.config.gateway).toBe("object");
     const preflightInput = callArg<{
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       loadAuthStore?: unknown;
     }>(prepareRuntimeSecretsSnapshot);
     expect(preflightInput.config?.channels).toBeUndefined();
@@ -2545,7 +2545,7 @@ describe("gateway startup config secret preflight", () => {
     expect(result.auth.mode).toBe("password");
     expect(result.auth.password).toBe("override-password");
     const preflightInput = callArg<{
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       loadAuthStore?: unknown;
     }>(prepareRuntimeSecretsSnapshot);
     expect(preflightInput.config?.gateway?.auth?.mode).toBe("password");
@@ -2567,7 +2567,7 @@ describe("gateway startup config secret preflight", () => {
     expect(result.auth.token).toBe("startup-test-token");
     expect(prepareRuntimeSecretsSnapshot).toHaveBeenCalledTimes(1);
     const preflightInput = callArg<{
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       loadAuthStore?: unknown;
     }>(prepareRuntimeSecretsSnapshot);
     expect(preflightInput.config?.gateway?.auth?.token).toBe("startup-test-token");
@@ -2675,13 +2675,13 @@ describe("gateway startup config secret preflight", () => {
         preflightActiveSecretsRuntimeSnapshotRefresh: async ({
           sourceConfig,
         }: {
-          sourceConfig: OpenClawConfig;
+          sourceConfig: GrantedConfig;
         }) => await state.prepareRuntimeSecretsSnapshot({ config: sourceConfig }),
         refreshActiveSecretsRuntimeSnapshotForConfig: async ({
           sourceConfig,
           preflightResult,
         }: {
-          sourceConfig: OpenClawConfig;
+          sourceConfig: GrantedConfig;
           preflightResult?: unknown;
         }) => {
           const snapshot =
@@ -2843,7 +2843,7 @@ describe("gateway startup config secret preflight", () => {
       },
       refreshHandler: null,
     });
-    const prepareRuntimeSecretsSnapshot = vi.fn(async (params: { config: OpenClawConfig }) =>
+    const prepareRuntimeSecretsSnapshot = vi.fn(async (params: { config: GrantedConfig }) =>
       preparedSnapshot(params.config),
     );
     const activateRuntimeSecrets = runtimeSecretsActivatorForTest({

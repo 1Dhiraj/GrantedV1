@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { HelloOk } from "../../packages/gateway-protocol/src/schema/frames.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
 import type { DeviceIdentity } from "../infra/device-identity.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
@@ -370,15 +370,15 @@ function setGatewayNetworkDefaults(port = 18789) {
   pickPrimaryTailnetIPv4.mockReturnValue(undefined);
 }
 
-function setGatewayConfig(gateway: NonNullable<OpenClawConfig["gateway"]>) {
+function setGatewayConfig(gateway: NonNullable<GrantedConfig["gateway"]>) {
   getRuntimeConfig.mockReturnValue({ gateway });
 }
 
-function setEnvSecretGatewayConfig(gateway: NonNullable<OpenClawConfig["gateway"]>) {
+function setEnvSecretGatewayConfig(gateway: NonNullable<GrantedConfig["gateway"]>) {
   const config = {
     gateway,
     secrets: { providers: { default: { source: "env" } } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   getRuntimeConfig.mockReturnValue(config);
 }
 
@@ -1512,7 +1512,7 @@ describe("buildGatewayConnectionDetails", () => {
         bind: "loopback",
         tls: { enabled: true },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     resolveGatewayPort.mockReturnValue(18800);
     gatewayConfigMocks.inspectGatewayTlsCertificate.mockResolvedValue({
       ok: true,
@@ -1532,7 +1532,7 @@ describe("buildGatewayConnectionDetails", () => {
         mode: "local",
         bind: "loopback",
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     resolveGatewayPort.mockImplementation((_config?: unknown, env?: unknown) => {
       const candidateEnv = env as NodeJS.ProcessEnv | undefined;
       return Number(candidateEnv?.GRANTED_GATEWAY_PORT ?? 18789);
@@ -1570,7 +1570,7 @@ describe("buildGatewayConnectionDetails", () => {
         mode: "remote",
         remote: { url: "wss://selected-gateway.example/ws" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const prevUrl = process.env.GRANTED_GATEWAY_URL;
     try {
       process.env.GRANTED_GATEWAY_URL = "wss://unrelated-gateway.example/ws";

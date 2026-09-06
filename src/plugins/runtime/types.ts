@@ -3,7 +3,7 @@
 // public plugin-sdk dts graph (check-plugin-sdk-exports guards this).
 import type { NodePluginToolDescriptor } from "../../../packages/gateway-protocol/src/schema/nodes.js";
 import type { AgentWaitResult } from "../../agents/run-wait.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { OperatorScope } from "../../gateway/operator-scopes.js";
 import type { PluginRuntimeCore, RuntimeLogger } from "./types-core.js";
 
@@ -154,7 +154,7 @@ export type PluginRuntime = PluginRuntimeCore & {
   };
   sandbox: {
     resolveWorkspaceAuthority: (params: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       agentId?: string;
       confinedToolNames?: readonly string[];
       requiredToolNames?: readonly string[];
@@ -167,7 +167,7 @@ export type PluginRuntime = PluginRuntimeCore & {
       confinementError?: string;
     };
     prepareWorkspaceAuthority: (params: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       agentId?: string;
       confinedToolNames?: readonly string[];
       requiredToolNames?: readonly string[];

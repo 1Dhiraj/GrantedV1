@@ -3,7 +3,7 @@ import path from "node:path";
 import { expect, vi } from "vitest";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { createConfigFileSnapshot } from "../config/io.snapshot-shared.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 // Non-interactive onboarding test helpers build runtime stubs that throw instead of exiting.
 import type { RuntimeEnv } from "../runtime.js";
 import { captureEnv, deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
@@ -44,7 +44,7 @@ export type OnboardGatewayHealthCall = {
 };
 
 export type OnboardHealthCommandCall = OnboardGatewayHealthCall & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 
 export function createThrowingRuntime(): NonInteractiveRuntime {
@@ -102,7 +102,7 @@ export function readOnboardFirstMockCall(mock: unknown, label: string): unknown[
 }
 
 export function createOnboardTestConfigStore() {
-  const configStore = new Map<string, OpenClawConfig>();
+  const configStore = new Map<string, GrantedConfig>();
 
   function resolveConfigPath() {
     const override = process.env.GRANTED_CONFIG_PATH?.trim();
@@ -116,7 +116,7 @@ export function createOnboardTestConfigStore() {
     return path.join(stateDir, "openclaw.json");
   }
 
-  function readConfig(): OpenClawConfig {
+  function readConfig(): GrantedConfig {
     return configStore.get(resolveConfigPath()) ?? {};
   }
 
@@ -251,7 +251,7 @@ export function createOnboardGatewayTimeoutCapture() {
   };
 }
 
-export async function mockOnboardingAgent(params: { config: OpenClawConfig; workspace: string }) {
+export async function mockOnboardingAgent(params: { config: GrantedConfig; workspace: string }) {
   const roster = listAgentEntries(params.config);
   const existing = roster.find((entry) => entry.default === true) ?? roster[0];
   if (existing) {

@@ -7,7 +7,7 @@ import {
 } from "../../sessions/agent-harness-session-key.js";
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import {
   SessionEntryLifecycleUpsertConflictError,
@@ -219,7 +219,7 @@ export async function applySessionStoreProjection<T>(params: {
 }
 
 function readProjectedRemovalEntry(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   projected: ProjectedLifecycleMutation["removals"][number],
   allowCanonicalRepair = false,
 ): SessionEntry | undefined {
@@ -258,7 +258,7 @@ export async function applySessionEntryLifecycleMutation(params: {
   /** Doctor-only bypass while exact malformed rows are removed in the same transaction. */
   allowCanonicalRepair?: boolean;
   /** Doctor-only synchronous state transfer that commits with the destination entry. */
-  afterUpsertsInTransaction?: (database: OpenClawAgentDatabase) => void;
+  afterUpsertsInTransaction?: (database: GrantedAgentDatabase) => void;
   /** Synchronous caller-authority guard checked immediately before lifecycle writes. */
   beforeCommitInTransaction?: () => void;
   /** Runs after the SQLite commit and before fallible artifact publication. */

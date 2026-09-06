@@ -8,13 +8,13 @@ import { readSkillProposalEvents } from "../../skills/workshop/store-evaluation.
 import { writeConfigMachineState } from "../../state/config-machine-state.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { callGatewayHandler } from "./skills.test-helpers.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let stateDir = "";
 
 const mocks = vi.hoisted(() => ({

@@ -21,7 +21,7 @@ vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal
 
 import { isMatrixAudioContent, resolveMatrixPreflightAudioTranscript } from "./preflight-audio.js";
 
-const cfg = {} as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig;
+const cfg = {} as import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
 
 describe("isMatrixAudioContent", () => {
   it("accepts Matrix audio messages and audio files", () => {

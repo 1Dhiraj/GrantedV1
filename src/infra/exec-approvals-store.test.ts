@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -46,7 +46,7 @@ vi.mock("../logging/subsystem.js", () => ({
   }),
 }));
 
-type ExecApprovalsDatabase = Pick<OpenClawStateKyselyDatabase, "exec_approvals_config">;
+type ExecApprovalsDatabase = Pick<GrantedStateKyselyDatabase, "exec_approvals_config">;
 
 const tempDirs: string[] = [];
 const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);

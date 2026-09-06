@@ -1,5 +1,5 @@
 // TTS contract suites provide reusable text-to-speech plugin contract assertions.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ResolvedTtsConfig, SpeechProviderPlugin } from "openclaw/plugin-sdk/speech-core";
 import {
   fetchWithSsrFGuard,
@@ -95,11 +95,11 @@ function createResolvedModel(provider: string, modelId: string) {
   };
 }
 
-function asLegacyTtsConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function asLegacyTtsConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
-function asLegacyOpenClawConfig(value: Record<string, unknown>): OpenClawConfig {
+function asLegacyOpenClawConfig(value: Record<string, unknown>): GrantedConfig {
   return asLegacyTtsConfig(value);
 }
 
@@ -143,7 +143,7 @@ function createSummarizeTextDeps() {
   };
 }
 
-function createOpenAiTelephonyCfg(model: "tts-1" | "gpt-4o-mini-tts"): OpenClawConfig {
+function createOpenAiTelephonyCfg(model: "tts-1" | "gpt-4o-mini-tts"): GrantedConfig {
   return asLegacyTtsConfig({
     tts: {
       provider: "openai",
@@ -487,7 +487,7 @@ function setupTestSpeechProviderRegistry() {
   setActivePluginRegistry(registry);
 }
 
-function createResolvedSummarizationConfig(cfg: OpenClawConfig): ResolvedTtsConfig {
+function createResolvedSummarizationConfig(cfg: GrantedConfig): ResolvedTtsConfig {
   const rawConfig = typeof cfg.tts === "object" && cfg.tts !== null ? cfg.tts : {};
   return {
     auto: "off",
@@ -543,7 +543,7 @@ export function describeTtsConfigContract() {
     beforeEach(setupTtsContractTest);
 
     describe("resolveEdgeOutputFormat", () => {
-      const baseCfg: OpenClawConfig = {
+      const baseCfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-4o-mini" } } },
         tts: {},
       };
@@ -773,7 +773,7 @@ export function describeTtsConfigContract() {
     });
 
     describe("resolveTtsConfig – openai.baseUrl", () => {
-      const baseCfg: OpenClawConfig = {
+      const baseCfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-4o-mini" } } },
         tts: {},
       };
@@ -850,7 +850,7 @@ export function describeTtsSummarizationContract() {
   describe("tts summarization contract", () => {
     beforeEach(setupTtsSummarizationTest);
 
-    const baseCfg: OpenClawConfig = {
+    const baseCfg: GrantedConfig = {
       agents: { defaults: { model: { primary: "openai/gpt-4o-mini" } } },
       tts: {},
     };
@@ -858,7 +858,7 @@ export function describeTtsSummarizationContract() {
     async function runSummarizeText(params?: {
       text?: string;
       targetLength?: number;
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
     }) {
       const cfg = params?.cfg ?? baseCfg;
       const config = createResolvedSummarizationConfig(cfg);
@@ -914,7 +914,7 @@ export function describeTtsSummarizationContract() {
     });
 
     it("uses summaryModel override when configured", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
         tts: { summaryModel: "openai/gpt-4.1-mini" },
       };
@@ -1266,7 +1266,7 @@ export function describeTtsProviderRuntimeContract() {
     it.each([
       {
         name: "ordinary synthesis",
-        run: async (cfg: OpenClawConfig, timeoutMs: number) =>
+        run: async (cfg: GrantedConfig, timeoutMs: number) =>
           await ttsRuntime.textToSpeech({
             text: "Hello from the timeout contract.",
             cfg,
@@ -1276,7 +1276,7 @@ export function describeTtsProviderRuntimeContract() {
       },
       {
         name: "telephony synthesis",
-        run: async (cfg: OpenClawConfig, timeoutMs: number) =>
+        run: async (cfg: GrantedConfig, timeoutMs: number) =>
           await ttsRuntime.textToSpeechTelephony({
             text: "Hello from the telephony timeout contract.",
             cfg,
@@ -1341,7 +1341,7 @@ export function describeTtsAutoApplyContract() {
     beforeAll(setupTtsRuntime);
     beforeEach(setupTtsContractTest);
 
-    const baseCfg: OpenClawConfig = asLegacyOpenClawConfig({
+    const baseCfg: GrantedConfig = asLegacyOpenClawConfig({
       agents: { defaults: { model: { primary: "openai/gpt-4o-mini" } } },
       tts: {
         auto: "inbound",
@@ -1364,13 +1364,13 @@ export function describeTtsAutoApplyContract() {
       }
     };
 
-    const taggedCfg: OpenClawConfig = {
+    const taggedCfg: GrantedConfig = {
       ...baseCfg,
       tts: { ...baseCfg.tts, auto: "tagged" },
     };
 
     async function expectAutoTtsOutcome(params: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       payload: { text: string };
       inboundAudio?: boolean;
       expectedFetchCalls: number;

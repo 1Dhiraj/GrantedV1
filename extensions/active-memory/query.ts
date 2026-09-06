@@ -4,7 +4,7 @@ import {
   resolveAgentEffectiveModelPrimary,
   resolveDefaultModelForAgent,
 } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
 import {
   ACTIVE_MEMORY_CLOSE_TAG,
@@ -294,7 +294,7 @@ function parseModelCandidate(modelRef: string | undefined, defaultProvider = DEF
 }
 
 function getModelRef(
-  runtimeConfig: OpenClawConfig,
+  runtimeConfig: GrantedConfig,
   agentId: string,
   config: ResolvedActiveRecallPluginConfig,
   ctx?: {

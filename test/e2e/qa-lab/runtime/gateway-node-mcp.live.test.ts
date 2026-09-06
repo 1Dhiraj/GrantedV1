@@ -5,7 +5,7 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { afterEach, describe, expect, it } from "vitest";
 import { createQaGatewayChild, type QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import type { McpServerConfig } from "../../../../src/config/types.mcp.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import {
@@ -125,7 +125,7 @@ describe.skipIf(!LIVE_ENABLED)("OpenAI cross-placement MCP model proof", () => {
           repoRoot,
           createChildEnv({ home: nodeHome, tempDir: nodeTempDir }),
         );
-        const nodeConfig: OpenClawConfig = {
+        const nodeConfig: GrantedConfig = {
           gateway: { mode: "local" },
           agents: { defaults: { workspace: nodeWorkspace } },
           plugins: { enabled: false },

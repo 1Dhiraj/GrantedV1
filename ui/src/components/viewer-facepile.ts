@@ -11,7 +11,7 @@ import {
   projectPresenceViewers,
   type PresenceViewer,
 } from "../lib/presence-users.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import {
   identityAvatarClass,
   renderIdentityAvatarImage,
@@ -39,7 +39,7 @@ function renderViewerAvatar(view: IdentityAvatarView) {
 
 type ViewerAvatarVariant = "session" | "footer" | "profile";
 
-class ViewerAvatar extends OpenClawLightDomContentsElement {
+class ViewerAvatar extends GrantedLightDomContentsElement {
   @property({ attribute: false }) user: PresenceViewer | null = null;
   @property() variant: ViewerAvatarVariant = "session";
   @property({ attribute: false }) identity?: SessionParticipantIdentity;
@@ -69,7 +69,7 @@ class ViewerAvatar extends OpenClawLightDomContentsElement {
   }
 }
 
-class ViewerFacepile extends OpenClawLightDomContentsElement {
+class ViewerFacepile extends GrantedLightDomContentsElement {
   @property({ attribute: false }) presencePayload: unknown;
   @property({ attribute: false }) selfUser?: AuthenticatedUser | null;
   @property({ attribute: false }) selfInstanceId?: string;

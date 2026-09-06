@@ -2,19 +2,19 @@ import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../utils.js";
 import { getConfigValueAtPath, unsetConfigValueAtPath } from "./config-paths.js";
 import { isSameFixedSessionStoreConfig } from "./sessions/session-store-config.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 const SESSION_STORE_OWNER_PATH = ["agents", "defaults", "sessionStore", "agentId"] as const;
 const SESSION_STORE_CONFIG_PATH = SESSION_STORE_OWNER_PATH.slice(0, -1);
 
 export function prepareSessionStoreOwnershipForWrite(params: {
-  currentConfig: OpenClawConfig;
+  currentConfig: GrantedConfig;
   currentStore: string | undefined;
-  targetConfig: OpenClawConfig;
+  targetConfig: GrantedConfig;
   env: NodeJS.ProcessEnv;
   explicitSetPaths?: readonly (readonly string[])[];
-  explicitSetValueSource?: OpenClawConfig;
-}): { config: OpenClawConfig; sameFixedSessionStore: boolean; ownershipPaths: string[][] } {
+  explicitSetValueSource?: GrantedConfig;
+}): { config: GrantedConfig; sameFixedSessionStore: boolean; ownershipPaths: string[][] } {
   const sameFixedSessionStore = isSameFixedSessionStoreConfig(
     params.currentStore,
     params.targetConfig.session?.store,

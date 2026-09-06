@@ -5,7 +5,7 @@ import {
 } from "openclaw/plugin-sdk/channel-inbound";
 import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
 import { vi } from "vitest";
-import type { OpenClawConfig, PluginRuntime, RuntimeEnv } from "../runtime-api.js";
+import type { GrantedConfig, PluginRuntime, RuntimeEnv } from "../runtime-api.js";
 import type { MSTeamsConversationStore } from "./conversation-store.js";
 import type { MSTeamsActivityHandler } from "./monitor-handler.js";
 import type { MSTeamsMessageHandlerDeps } from "./monitor-handler.types.js";
@@ -208,7 +208,7 @@ export function createActivityHandler(
 }
 
 export function createMSTeamsMessageHandlerDeps(params?: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   runtime?: RuntimeEnv;
 }): MSTeamsMessageHandlerDeps {
   const app = {

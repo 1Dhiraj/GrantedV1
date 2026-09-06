@@ -1,6 +1,6 @@
 // Channel setup tests cover setup flow prompts and config output.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { WizardCancelledError, WizardNavigationError } from "../wizard/prompts.js";
 import {
@@ -250,7 +250,7 @@ const TARGETED_CHANNEL_SETUP_OPTIONS = {
 } satisfies NonNullable<Parameters<typeof setupChannels>[3]>;
 
 function runChannelSetup(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   prompter: Record<string, unknown>,
   options?: Parameters<typeof setupChannels>[3],
 ) {
@@ -326,7 +326,7 @@ describe("setupChannels workspace shadow exclusion", () => {
         defaults: { systemAgent: { agentId: "main" } },
         entries: { main: {}, helper: {}, third: {} },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     resolveDefaultAgentId.mockImplementationOnce(() => {
       throw new Error("legacy default resolver must not own channel setup");
     });
@@ -564,7 +564,7 @@ describe("setupChannels workspace shadow exclusion", () => {
         configured: false,
         statusLines: [],
       })),
-      configure: vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+      configure: vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => ({
         cfg: {
           ...cfg,
           channels: {
@@ -780,7 +780,7 @@ describe("setupChannels workspace shadow exclusion", () => {
     const confirm = vi.fn(async () => {
       throw new WizardNavigationError("back");
     });
-    const cfg = { channels: { telegram: { botToken: "keep" } } } as OpenClawConfig;
+    const cfg = { channels: { telegram: { botToken: "keep" } } } as GrantedConfig;
 
     const result = await runChannelSetup(cfg, { confirm, select }, DEFERRED_CHANNEL_SETUP_OPTIONS);
 
@@ -828,7 +828,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       const confirm = vi.fn(async () => {
         throw new WizardNavigationError("back");
       });
-      const cfg = { channels: { "external-chat": { token: "keep" } } } as OpenClawConfig;
+      const cfg = { channels: { "external-chat": { token: "keep" } } } as GrantedConfig;
 
       const result = await runChannelSetup(
         cfg,
@@ -904,7 +904,7 @@ describe("setupChannels workspace shadow exclusion", () => {
 
     await expect(
       setupChannels(
-        {} as OpenClawConfig,
+        {} as GrantedConfig,
         {} as never,
         {
           confirm: vi.fn(async () => true),
@@ -969,7 +969,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       return {
         cfg: {
           channels: { "external-chat": { token: "should-not-apply" } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "external-account",
       };
     });
@@ -983,7 +983,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       promptOrder.push("channel picker");
       return "__done__";
     });
-    const cfg = { channels: { telegram: { botToken: "keep" } } } as OpenClawConfig;
+    const cfg = { channels: { telegram: { botToken: "keep" } } } as GrantedConfig;
 
     const result = await runChannelSetup(
       cfg,
@@ -1011,7 +1011,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       return {
         cfg: {
           channels: { "external-chat": { token: "should-not-apply" } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         accountId: "custom-account",
       };
     });
@@ -1026,7 +1026,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       throw new WizardNavigationError("back");
     });
     const result = await runChannelSetup(
-      { channels: { telegram: { botToken: "keep" } } } as OpenClawConfig,
+      { channels: { telegram: { botToken: "keep" } } } as GrantedConfig,
       { select, text },
       DEFERRED_CHANNEL_SETUP_OPTIONS,
     );
@@ -1061,7 +1061,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       throw new WizardNavigationError("back");
     });
     const result = await runChannelSetup(
-      { channels: { telegram: { botToken: "keep" } } } as OpenClawConfig,
+      { channels: { telegram: { botToken: "keep" } } } as GrantedConfig,
       { select, text },
       DEFERRED_CHANNEL_SETUP_OPTIONS,
     );
@@ -1108,7 +1108,7 @@ describe("setupChannels workspace shadow exclusion", () => {
       .mockResolvedValueOnce("__done__");
     const cfg = {
       channels: { "external-chat": { token: "keep" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await runChannelSetup(cfg, { select }, DEFERRED_CHANNEL_SETUP_OPTIONS);
 
@@ -1162,7 +1162,7 @@ describe("setupChannels workspace shadow exclusion", () => {
     const text = vi.fn(async () => {
       throw new WizardNavigationError("back");
     });
-    const cfg = { plugins: { allow: ["memory-core"] } } as OpenClawConfig;
+    const cfg = { plugins: { allow: ["memory-core"] } } as GrantedConfig;
 
     const result = await runChannelSetup(cfg, { select, text }, DEFERRED_CHANNEL_SETUP_OPTIONS);
 
@@ -1227,7 +1227,7 @@ describe("setupChannels workspace shadow exclusion", () => {
     const beforePersistentEffect = vi.fn(async () => undefined);
 
     const result = await runChannelSetup(
-      { channels: { telegram: { botToken: "keep" } } } as OpenClawConfig,
+      { channels: { telegram: { botToken: "keep" } } } as GrantedConfig,
       {
         select,
         text: vi.fn(async () => {
@@ -1304,7 +1304,7 @@ describe("setupChannels workspace shadow exclusion", () => {
 
     await expect(
       setupChannels(
-        {} as OpenClawConfig,
+        {} as GrantedConfig,
         {} as never,
         {
           confirm: vi.fn(async () => true),
@@ -1333,7 +1333,7 @@ describe("setupChannels workspace shadow exclusion", () => {
     const cancelled = new WizardCancelledError();
     const configure = vi.fn(async ({ prompter }) => {
       await prompter.text({ message: "Token" });
-      return { cfg: {} as OpenClawConfig };
+      return { cfg: {} as GrantedConfig };
     });
     const externalChatPlugin = makeExternalChatSetupPlugin({ configure });
     resolveChannelSetupEntries.mockReturnValue(externalChatSetupEntries());
@@ -1341,7 +1341,7 @@ describe("setupChannels workspace shadow exclusion", () => {
 
     await expect(
       setupChannels(
-        {} as OpenClawConfig,
+        {} as GrantedConfig,
         {} as never,
         {
           confirm: vi.fn(async () => true),
@@ -1412,7 +1412,7 @@ describe("setupChannels workspace shadow exclusion", () => {
         configured: true,
         statusLines: [],
       })),
-      configure: vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+      configure: vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => ({
         cfg,
         accountId: "default",
       })),
@@ -1472,7 +1472,7 @@ describe("setupChannels workspace shadow exclusion", () => {
         configured: true,
         statusLines: [],
       })),
-      configure: vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+      configure: vi.fn(async ({ cfg }: { cfg: GrantedConfig }) => ({
         cfg,
         accountId: "default",
       })),
@@ -1531,7 +1531,7 @@ describe("setupChannels workspace shadow exclusion", () => {
         statusLines: [],
       })),
       configure: vi.fn(async () => ({
-        cfg: pausedConfig as OpenClawConfig,
+        cfg: pausedConfig as GrantedConfig,
         completion: "paused" as const,
       })),
     };

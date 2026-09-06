@@ -5,7 +5,7 @@ import {
   isNonSecretApiKeyMarker,
   normalizeApiKeyConfig,
   normalizeOptionalSecretInput,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import { resolveConfiguredSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
@@ -75,7 +75,7 @@ function shouldSuppressResolvedRuntimeApiKeyForHeaderAuth(
 
 export async function resolveLmstudioConfiguredApiKeyForProvider(params: {
   providerId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   path?: string;
   allowUnresolved?: boolean;
@@ -115,7 +115,7 @@ export async function resolveLmstudioConfiguredApiKeyForProvider(params: {
 }
 
 export async function resolveLmstudioConfiguredApiKey(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   path?: string;
   allowUnresolved?: boolean;
@@ -127,7 +127,7 @@ export async function resolveLmstudioConfiguredApiKey(params: {
 }
 
 export async function resolveLmstudioProviderHeaders(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   headers?: unknown;
   path?: string;
@@ -168,7 +168,7 @@ export async function resolveLmstudioProviderHeaders(params: {
  * Use this as the standard auth setup step before discovery or model load calls.
  */
 export async function resolveLmstudioRequestContext(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   env?: NodeJS.ProcessEnv;
   providerHeaders?: unknown;
@@ -195,7 +195,7 @@ export async function resolveLmstudioRequestContext(params: {
  * Resolves LM Studio runtime API key from config.
  */
 export async function resolveLmstudioRuntimeApiKey(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   env?: NodeJS.ProcessEnv;
   headers?: unknown;

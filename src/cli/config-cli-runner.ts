@@ -7,7 +7,7 @@ import { prepareConfigWriteTopology } from "../config/io.write-topology.js";
 import { ConfigMutationConflictError } from "../config/mutation-conflict.js";
 import { resolveConfigPath } from "../config/paths.js";
 import { readBestEffortRuntimeConfigSchema } from "../config/runtime-schema.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { diffConfigPaths } from "../gateway/config-diff.js";
 import { buildGatewayReloadPlan } from "../gateway/config-reload-plan.js";
 import { resolveGatewayReloadSettings } from "../gateway/config-reload-settings.js";
@@ -182,8 +182,8 @@ function collectChangedLeafPaths(value: unknown, prefix: string): string[] {
 function expandActualChangedPaths(
   actualPaths: string[],
   requestedPaths: string[],
-  before: OpenClawConfig,
-  after: OpenClawConfig,
+  before: GrantedConfig,
+  after: GrantedConfig,
 ): string[] {
   const expanded = new Set<string>();
   for (const actualPath of actualPaths) {
@@ -209,8 +209,8 @@ function expandActualChangedPaths(
 
 function configApplyHintForOperations(
   operations: readonly ConfigSetOperation[],
-  beforeConfig: OpenClawConfig,
-  afterConfig: OpenClawConfig,
+  beforeConfig: GrantedConfig,
+  afterConfig: GrantedConfig,
 ): string {
   const requestedPaths = operations.map(({ requestedPath }) => toDotPath(requestedPath));
   const paths = expandActualChangedPaths(
@@ -356,7 +356,7 @@ export async function runConfigOperations(params: {
   // Only final deletions may be replayed by the persistence owner.
   unsetPaths = unsetPaths.filter((path) => !getAtPath(next, path).found);
   const removedGatewayAuthPaths = pruneInactiveGatewayAuthCredentials({ root: next, operations });
-  let nextConfig = normalizeConfigMutationModelRefs(next as OpenClawConfig);
+  let nextConfig = normalizeConfigMutationModelRefs(next as GrantedConfig);
   const normalizedExplicitSetPaths = explicitSetPaths.map(normalizeConfigMutationExplicitSetPath);
   if (options.dryRun) {
     nextConfig = prepareConfigWriteTopology({

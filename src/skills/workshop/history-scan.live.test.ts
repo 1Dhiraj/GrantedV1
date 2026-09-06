@@ -1,9 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { isLiveTestEnabled } from "../../agents/live-test-helpers.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import type { SkillHistoryScanPromptSession } from "./history-scan-prompt.js";
@@ -16,10 +16,10 @@ const LIVE =
   Boolean(process.env.OPENAI_API_KEY?.trim());
 const describeLive = LIVE ? describe : describe.skip;
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let workspaceDir = "";
 
-function liveConfig(): OpenClawConfig {
+function liveConfig(): GrantedConfig {
   const modelId = process.env.GRANTED_LIVE_SKILL_HISTORY_MODEL ?? "gpt-5.6-luna";
   return {
     // This eval needs only OpenAI and the built-in Workshop tool.

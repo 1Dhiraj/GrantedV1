@@ -1,4 +1,4 @@
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
 import type { APIVoiceState, Client } from "../internal/discord.js";
 import type { GatewayPlugin } from "../internal/gateway.js";
@@ -268,7 +268,7 @@ export async function resolveDiscordVoiceIngressContextWithParticipants(params: 
   entry: VoiceSessionEntry;
   userId: string;
   client: Client;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig: DiscordAccountConfig;
   admissionAllowFrom?: string[];
   botUserId?: string;

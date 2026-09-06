@@ -8,7 +8,7 @@ import { listSessionEntriesReadOnly } from "../config/sessions/session-accessor.
 import { readExactSessionEntryRowForCanonicalRepair } from "../config/sessions/session-accessor.sqlite-canonical-repair.js";
 import { writeSessionEntry } from "../config/sessions/session-accessor.sqlite-entry-store.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readAgentProvenance } from "../state/agent-provenance.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import {
@@ -89,7 +89,7 @@ it("records operator and agent creation provenance after roster commits", async 
 });
 
 describe("agent roster persistence", () => {
-  async function addWorkerToConfig(config: unknown): Promise<OpenClawConfig> {
+  async function addWorkerToConfig(config: unknown): Promise<GrantedConfig> {
     const state = await createOpenClawTestState({
       layout: "state-only",
       scenario: "empty",
@@ -99,7 +99,7 @@ describe("agent roster persistence", () => {
       await state.writeConfig(config);
       const result = await createAgent({ name: "Worker", workspace: state.path("worker") });
       expect(result).toMatchObject({ status: "created", agentId: "worker" });
-      return JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+      return JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
     } finally {
       closeOpenClawStateDatabaseForTest();
       await state.cleanup();
@@ -152,7 +152,7 @@ describe("agent roster persistence", () => {
         },
       });
 
-      const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+      const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
       expect(JSON.stringify(persisted.agents?.list)).toBe(JSON.stringify(list));
       expect(persisted.agents).not.toHaveProperty("entries");
       expect(persisted.gateway?.port).toBe(19001);
@@ -169,7 +169,7 @@ it("creates main as an ordinary fresh agent after doctor completes both ownershi
     scenario: "empty",
     label: "ordinary-main-agent",
   });
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { entries: { robby: { workspace: state.path("workspace-robby") } } },
   };
   const legacyDatabasePath = path.join(state.agentDir("main"), "openclaw-agent.sqlite");
@@ -226,7 +226,7 @@ it("creates main as an ordinary fresh agent after doctor completes both ownershi
     if (created.status !== "created") {
       throw new Error(`expected main creation, got ${JSON.stringify(created)}`);
     }
-    const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+    const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
     const mainSessionTarget = resolveSqliteTargetFromSessionStorePath(
       resolveSessionStorePathCore(persisted.session?.store, { agentId: "main", env: state.env }),
       { agentId: "main", env: state.env },

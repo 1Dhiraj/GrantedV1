@@ -24,7 +24,7 @@ import {
 import { buildReplyPromptEnvelope } from "../../../src/auto-reply/reply/prompt-prelude.js";
 import type { TemplateContext } from "../../../src/auto-reply/templating.js";
 import { SILENT_REPLY_TOKEN } from "../../../src/auto-reply/tokens.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { GrantedConfig } from "../../../src/config/config.js";
 import { makeTempWorkspace, writeWorkspaceFile } from "../../../src/test-helpers/workspace.js";
 
 // Prompt composition scenarios for system/body prompt stability tests.
@@ -569,7 +569,7 @@ async function createBootstrapWarningScenario(workspaceDir: string): Promise<Pro
       },
       entries: { main: { default: true } },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const largeAgents = "# AGENTS.md\n\n" + "Rules.\n".repeat(5_000);
   const largeSoul = "# SOUL.md\n\n" + "Notes.\n".repeat(3_000);
   await writeWorkspaceFile({ dir: workspaceDir, name: "AGENTS.md", content: largeAgents });

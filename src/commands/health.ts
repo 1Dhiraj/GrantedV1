@@ -6,7 +6,7 @@ import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import { listReadOnlyChannelPluginsForConfig } from "../channels/plugins/read-only.js";
 import { probeGatewayStatus } from "../cli/daemon-cli/probe.js";
 import { withProgress } from "../cli/progress.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildGatewayConnectionDetails,
   buildGatewayProbeConnectionDetails,
@@ -47,7 +47,7 @@ const DEFAULT_TIMEOUT_MS = 10_000;
 const healthLog = createSubsystemLogger("health");
 
 const debugHealth = (
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   message: string,
   meta?: Record<string, unknown>,
 ) => {
@@ -62,7 +62,7 @@ function isGatewayHealthAuthUnavailableError(error: unknown): boolean {
 
 export async function emitReachableGatewayAuthDiagnostic(params: {
   error: unknown;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: RuntimeEnv;
   timeoutMs?: number;
   token?: string;
@@ -193,7 +193,7 @@ export async function healthCommand(
     json?: boolean;
     timeoutMs?: number;
     verbose?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     token?: string;
     password?: string;
     ignoreEnvUrlOverride?: boolean;
@@ -499,7 +499,7 @@ export async function healthCommandNonExiting(
   });
 }
 
-export async function readNonObservingHealthConfig(): Promise<OpenClawConfig> {
+export async function readNonObservingHealthConfig(): Promise<GrantedConfig> {
   const { readConfigFileSnapshot } = await loadConfigRuntime();
   const snapshot = await readConfigFileSnapshot({
     observe: false,

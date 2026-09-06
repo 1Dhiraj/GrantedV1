@@ -7,7 +7,7 @@ import { runCommandWithTimeout } from "../../process/exec.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { type PlacementStore, REQUEST } from "./placement-dispatch-test-fixtures.js";
 import { createHarness } from "./placement-dispatch-test-harness.js";
@@ -22,7 +22,7 @@ const { stageWorkerWorkspaceResult } = workerWorkspaceResultStaging;
 
 describe("staged worker placement result recovery", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let placementStore: PlacementStore;
 
   beforeEach(async () => {

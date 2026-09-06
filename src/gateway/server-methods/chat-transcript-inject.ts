@@ -4,7 +4,7 @@ import type { SessionManager } from "../../agents/sessions/session-manager.js";
 import { persistSessionTranscriptTurn } from "../../config/sessions/session-accessor.js";
 import type { SessionLifecycleRevisionExpectation } from "../../config/sessions/session-transcript-turn-lifecycle.types.js";
 import { applyAssistantDeliveryDirectives } from "../../config/sessions/transcript-assistant-delivery.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import {
   readSessionTranscriptRunId,
@@ -84,7 +84,7 @@ export async function appendInjectedAssistantMessageToTranscript(params: {
   abortMeta?: GatewayInjectedAbortMeta;
   ttsSupplement?: GatewayInjectedTtsSupplementMarker;
   now?: number;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<GatewayInjectedTranscriptAppendResult> {
   const now = params.now ?? Date.now();
   const usage = {

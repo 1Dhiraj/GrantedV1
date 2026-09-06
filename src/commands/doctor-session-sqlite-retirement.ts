@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { requireDirectorySync, syncDirectory } from "../infra/directory-durability.js";
 import { assertOpenClawStateWriteAllowedAtPath } from "../state/openclaw-state-ownership.js";
 import {
@@ -60,7 +60,7 @@ function assertRecoveryOriginal(archivePath: string, artifact: MigrationArtifact
 export async function retireSessionSqliteRecovery(params: {
   env: NodeJS.ProcessEnv;
   preview: RecoveryCleanupReport;
-  readConfig(): Promise<OpenClawConfig>;
+  readConfig(): Promise<GrantedConfig>;
   confirm(report: RecoveryCleanupReport): Promise<boolean>;
 }): Promise<RecoveryCleanupReport> {
   await assertOpenClawStateWriteAllowedAtPath({

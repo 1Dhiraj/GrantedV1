@@ -15,7 +15,7 @@ import type {
   listSessionParticipantsReadOnly,
   stageSessionPendingInput,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resetDiagnosticEventsForTest } from "../../infra/diagnostic-events.js";
 import {
   resetDetachedTaskLifecycleRuntimeForTests,
@@ -68,7 +68,7 @@ const mocks = vi.hoisted(() => ({
   resolveAgentExplicitRecipientSession: vi.fn(async () => ({})),
   readAcpSessionMeta: vi.fn<typeof readAcpSessionMeta>(() => undefined),
   listAgentIds: vi.fn(() => ["main"]),
-  loadConfigReturn: {} as OpenClawConfig,
+  loadConfigReturn: {} as GrantedConfig,
   loadVoiceWakeRoutingConfig: vi.fn(),
   resolveVoiceWakeRouteByTrigger: vi.fn(),
   getChannelPlugin: vi.fn(),
@@ -88,7 +88,7 @@ export function getAgentTestMocks() {
   return mocks;
 }
 
-function resolveAgentTestConfig(cfg: OpenClawConfig = mocks.loadConfigReturn): OpenClawConfig {
+function resolveAgentTestConfig(cfg: GrantedConfig = mocks.loadConfigReturn): GrantedConfig {
   if (cfg.agents?.list) {
     return cfg;
   }

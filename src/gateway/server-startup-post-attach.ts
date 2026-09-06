@@ -4,7 +4,7 @@ import { loadGetReplyFromConfigRuntime } from "../auto-reply/reply/dispatch-from
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
 import type { CliDeps } from "../cli/deps.types.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasConfiguredInternalHooks } from "../hooks/configured.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import type { GatewayActiveWorkInspectors } from "../infra/gateway-active-work.js";
@@ -139,7 +139,7 @@ function schedulePostAttachUpdateSentinelRefresh(params: {
 }
 
 function scheduleProviderAuthStatePrewarm(params: {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   log: {
     info: (msg: string) => void;
     warn: (msg: string) => void;
@@ -364,7 +364,7 @@ function scheduleRestartSentinelWakeAfterReady(params: {
 }
 
 function scheduleTranscriptsAutoStartSidecar(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   startupTrace?: GatewayStartupTrace;
   log: { warn: (msg: string) => void };
   waitForPostReadyWork?: () => Promise<void>;
@@ -445,8 +445,8 @@ async function waitForAcpRuntimeBackendReady(params: {
 }
 
 async function prewarmConfiguredPrimaryModel(params: {
-  cfg: OpenClawConfig;
-  getConfig?: () => OpenClawConfig | Promise<OpenClawConfig>;
+  cfg: GrantedConfig;
+  getConfig?: () => GrantedConfig | Promise<GrantedConfig>;
   isCurrent?: () => boolean;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   workspaceDir?: string;
@@ -457,17 +457,17 @@ async function prewarmConfiguredPrimaryModel(params: {
 }
 
 type StartupExternalAuthHydrationDeps = {
-  listAgentIds: (cfg: OpenClawConfig) => string[];
-  resolveAgentDir: (cfg: OpenClawConfig, agentId: string) => string;
-  collectConfiguredRefs: (cfg: OpenClawConfig, agentId: string) => readonly { value: string }[];
-  hydrate: (cfg: OpenClawConfig, agentDir: string, providers: readonly string[]) => void;
+  listAgentIds: (cfg: GrantedConfig) => string[];
+  resolveAgentDir: (cfg: GrantedConfig, agentId: string) => string;
+  collectConfiguredRefs: (cfg: GrantedConfig, agentId: string) => readonly { value: string }[];
+  hydrate: (cfg: GrantedConfig, agentDir: string, providers: readonly string[]) => void;
 };
 
 async function hydrateConfiguredExternalCliAuth(params: {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   log: { warn: (msg: string) => void };
   deps?: StartupExternalAuthHydrationDeps | Promise<StartupExternalAuthHydrationDeps>;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const deps: StartupExternalAuthHydrationDeps =
     (await params.deps) ??
     (await Promise.all([
@@ -479,7 +479,7 @@ async function hydrateConfiguredExternalCliAuth(params: {
       listAgentIds: scope.listAgentIds,
       resolveAgentDir: scope.resolveAgentDir,
       collectConfiguredRefs: configured.collectPreparedModelRuntimeConfiguredRefs,
-      hydrate: (cfg: OpenClawConfig, agentDir: string, providers: readonly string[]) => {
+      hydrate: (cfg: GrantedConfig, agentDir: string, providers: readonly string[]) => {
         const discovery = external.externalCliDiscoveryForProviders({ cfg, providers });
         if (discovery.mode === "none") {
           return;
@@ -517,8 +517,8 @@ async function hydrateConfiguredExternalCliAuth(params: {
 }
 
 async function publishConfiguredModelRuntimeSnapshots(params: {
-  cfg: OpenClawConfig;
-  getConfig?: () => OpenClawConfig | Promise<OpenClawConfig>;
+  cfg: GrantedConfig;
+  getConfig?: () => GrantedConfig | Promise<GrantedConfig>;
   isCurrent?: () => boolean;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   workspaceDir?: string;
@@ -572,8 +572,8 @@ async function publishConfiguredModelRuntimeSnapshots(params: {
 
 async function publishStartupModelRuntime(
   params: {
-    cfg: OpenClawConfig;
-    getConfig?: () => OpenClawConfig | Promise<OpenClawConfig>;
+    cfg: GrantedConfig;
+    getConfig?: () => GrantedConfig | Promise<GrantedConfig>;
     isCurrent?: () => boolean;
     pluginMetadataSnapshot?: PluginMetadataSnapshot;
     workspaceDir?: string;
@@ -590,8 +590,8 @@ async function publishStartupModelRuntime(
 
 /** Start post-ready sidecars such as channels, hooks, plugin services, and cleanup tasks. */
 export async function startGatewaySidecars(params: {
-  cfg: OpenClawConfig;
-  getModelRuntimeConfig?: () => OpenClawConfig;
+  cfg: GrantedConfig;
+  getModelRuntimeConfig?: () => GrantedConfig;
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
   pluginRegistry: ReturnType<typeof loadOpenClawPlugins>;
   defaultWorkspaceDir: string;
@@ -1037,7 +1037,7 @@ const defaultGatewayPostAttachRuntimeDeps: GatewayPostAttachRuntimeDeps = {
 function createDeferredGatewayUpdateCheck(params: {
   startupTrace?: GatewayStartupTrace;
   runtimeDeps: GatewayPostAttachRuntimeDeps;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   log: {
     info: (msg: string) => void;
     warn: (msg: string) => void;
@@ -1160,8 +1160,8 @@ function createDeferredGatewayUpdateCheck(params: {
 export async function startGatewayPostAttachRuntime(
   params: {
     minimalTestGateway: boolean;
-    cfgAtStart: OpenClawConfig;
-    getConfig: () => OpenClawConfig;
+    cfgAtStart: GrantedConfig;
+    getConfig: () => GrantedConfig;
     bindHost: string;
     bindHosts: string[];
     port: number;
@@ -1177,8 +1177,8 @@ export async function startGatewayPostAttachRuntime(
     broadcastPluginEvent?: import("./server-broadcast-types.js").GatewayPluginEventBroadcastFn;
     controlUiBasePath: string;
     controlUiRootLifecycle?: GatewayControlUiRootLifecycle;
-    gatewayPluginConfigAtStart: OpenClawConfig;
-    activationSourceConfig: OpenClawConfig;
+    gatewayPluginConfigAtStart: GrantedConfig;
+    activationSourceConfig: GrantedConfig;
     pluginManifestRecords: readonly PluginManifestRecord[];
     pluginMetadataSnapshot?: PluginMetadataSnapshot;
     ambientEnvTriggers?: AmbientEnvTriggerPolicy;
@@ -1226,7 +1226,7 @@ export async function startGatewayPostAttachRuntime(
     providerAuthPrewarm?: {
       enabled?: boolean;
       delayMs?: number;
-      getConfig?: () => OpenClawConfig;
+      getConfig?: () => GrantedConfig;
     };
     waitForPostReadyWork?: () => Promise<void>;
     activeWorkInspectors?: Partial<GatewayActiveWorkInspectors>;

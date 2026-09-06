@@ -16,7 +16,7 @@ import { shouldKeepSubagentRunChildLink } from "../agents/subagents/registry/sub
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { MAX_SESSION_PARTICIPANTS } from "../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withPinnedActivePluginRegistryWorkspaceDir } from "../plugins/runtime-workspace-state.js";
 import {
   isIncognitoSessionKey,
@@ -80,7 +80,7 @@ const SESSIONS_LIST_DEFAULT_LIMIT = 100;
 const SESSIONS_LIST_TRANSCRIPT_FIELD_ROWS = 100;
 
 type ListSessionsFromStoreParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   durableStorePath?: string;
   entryFilter?: (key: string, entry: SessionEntry) => boolean;
   storePath: string;
@@ -107,7 +107,7 @@ type SessionEntrySelection = {
 };
 
 function populateSessionListAcpMetadata(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entries: readonly SessionEntryPair[];
   opts: SessionsListParams;
   rowContext?: SessionListRowContext;
@@ -162,7 +162,7 @@ function resolveSessionsListWindowLimit(limit: number | undefined, offset: numbe
 }
 
 function filterSessionEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: Record<string, SessionEntry>;
   opts: SessionsListParams;
   now: number;
@@ -396,7 +396,7 @@ function isPhantomAgentStoreListEntry(key: string, entry: SessionEntry | undefin
 }
 
 function selectSessionEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: Record<string, SessionEntry>;
   opts: SessionsListParams;
   now: number;
@@ -565,7 +565,7 @@ function buildSessionsListResult(
 }
 
 export function resolveSessionsListDefaultsAgentId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   requestedAgentId?: string,
 ): string {
   return requestedAgentId
@@ -574,7 +574,7 @@ export function resolveSessionsListDefaultsAgentId(
 }
 
 export function filterAndSortSessionEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entryFilter?: (key: string, entry: SessionEntry) => boolean;
   store: Record<string, SessionEntry>;
   opts: SessionsListParams;

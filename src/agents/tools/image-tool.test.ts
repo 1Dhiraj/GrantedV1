@@ -7,7 +7,7 @@ import path from "node:path";
 import { isInboundPathAllowed } from "@openclaw/media-core/inbound-path-policy";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { ModelDefinitionConfig } from "../../config/types.models.js";
 import { encodePngRgba, fillPixel } from "../../media/png-encode.js";
 import type {
@@ -20,7 +20,7 @@ import { withEnvAsync } from "../../test-utils/env.js";
 import { withFetchPreconnect } from "../../test-utils/fetch-mock.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { AuthProfileCredential, AuthProfileStore } from "../auth-profiles/types.js";
 import {
@@ -56,7 +56,7 @@ const publicSurfaceLoaderMocks = vi.hoisted(() => ({
             cfg,
           }: {
             accountId?: string | null;
-            cfg: OpenClawConfig;
+            cfg: GrantedConfig;
           }) => [
             ...((accountId
               ? cfg.channels?.imessage?.accounts?.[accountId]?.attachmentRoots
@@ -104,7 +104,7 @@ const imageProviderHarness = vi.hoisted(() => {
 // and channel-inbound tests cover the real bundled contract loader.
 vi.mock("../../media/channel-inbound-roots.js", () => ({
   resolveChannelInboundAttachmentRootsForChannel: (params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     channelId?: string | null;
     accountId?: string | null;
   }) => {
@@ -173,7 +173,7 @@ vi.mock("../auth-profiles.js", () => ({
       .filter(([, profile]) => profile?.provider === provider)
       .map(([profileId]) => profileId),
   resolveAuthProfileOrder: (params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     store: { profiles?: Record<string, { provider?: string }> };
     provider: string;
   }) => {
@@ -217,7 +217,7 @@ vi.mock("../auth-profiles/external-cli-sync.js", () => ({
 
 vi.mock("../model-auth.js", () => ({
   resolveProviderEntryApiKeyProfileReference: (params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     provider: string;
     store: { profiles?: Record<string, { provider?: string; type?: string }> };
   }) => {
@@ -233,7 +233,7 @@ vi.mock("../model-auth.js", () => ({
   },
   hasRuntimeAvailableProviderAuth: (params: {
     provider: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     modelApi?: string;
   }) => {
     const providerConfig = params.cfg?.models?.providers?.[params.provider];
@@ -242,7 +242,7 @@ vi.mock("../model-auth.js", () => ({
     }
     return Boolean(providerConfig?.apiKey);
   },
-  hasUsableCustomProviderApiKey: (cfg?: OpenClawConfig, provider?: string) => {
+  hasUsableCustomProviderApiKey: (cfg?: GrantedConfig, provider?: string) => {
     const providerConfig = cfg?.models?.providers?.[provider ?? ""];
     const apiKey = providerConfig?.apiKey;
     return typeof apiKey === "string" && apiKey.trim().length > 0;
@@ -467,7 +467,7 @@ function stubOpenAiCompletionsOkFetch(text = "ok") {
   return fetch;
 }
 
-function createMinimaxImageConfig(): OpenClawConfig {
+function createMinimaxImageConfig(): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -879,7 +879,7 @@ describe("image tool implicit imageModel config", () => {
   type Profiles = AuthProfileStore["profiles"];
   type ImplicitImageRoutingCase = {
     name: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     profiles?: Profiles;
     codexProvider?: boolean;
     openAiApiKey?: boolean;
@@ -888,10 +888,10 @@ describe("image tool implicit imageModel config", () => {
 
   const openAiPrimaryCfg = {
     agents: { defaults: { model: { primary: "openai/gpt-5.4" } } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const anthropicPrimaryCfg = {
     agents: { defaults: { model: { primary: "anthropic/claude-sonnet-4-6" } } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const codexImageModel = { primary: "codex/gpt-5.5" };
   const openAiDefaultImageModel = { primary: "openai/gpt-5.4-mini" };
 
@@ -1067,7 +1067,7 @@ describe("image tool implicit imageModel config", () => {
     await withTempAgentDir(async (agentDir) => {
       await writeProfiles(agentDir, { "openai:chatgpt": openAiOAuthProfile() });
       installImageUnderstandingProviderStubs(minimaxProvider, moonshotProvider, codexMediaProvider);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...openAiPrimaryCfg,
         models: {
           providers: {
@@ -1088,7 +1088,7 @@ describe("image tool implicit imageModel config", () => {
   it("keeps configured OpenAI vision metadata when direct OpenAI API key auth exists", async () => {
     vi.stubEnv("OPENAI_API_KEY", "openai-test");
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...openAiPrimaryCfg,
         models: {
           providers: {
@@ -1109,7 +1109,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("preserves explicit OpenAI image model config without direct auth", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "openai/gpt-5.4" },
@@ -1126,7 +1126,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("preserves explicit Codex image model config", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "openai/gpt-5.4" },
@@ -1196,7 +1196,7 @@ describe("image tool implicit imageModel config", () => {
         resolveDefaultMediaModel: resolveDefaultMediaModelSpy,
         resolveAutoMediaKeyProviders: resolveAutoMediaKeyProvidersSpy,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.4" } } },
       };
 
@@ -1223,7 +1223,7 @@ describe("image tool implicit imageModel config", () => {
         capabilities: ["image"],
         describeImage,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "opencode-go/kimi-k2.6" } } },
       };
       const tool = createRequiredImageTool({
@@ -1280,7 +1280,7 @@ describe("image tool implicit imageModel config", () => {
       vi.stubEnv("MINIMAX_OAUTH_TOKEN", "minimax-oauth-test");
       vi.stubEnv("OPENAI_API_KEY", "openai-test");
       vi.stubEnv("ANTHROPIC_API_KEY", "anthropic-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "minimax/MiniMax-M2.7" } } },
       };
       expect(resolveImageModelConfigForTool({ cfg, agentDir })).toEqual({
@@ -1296,7 +1296,7 @@ describe("image tool implicit imageModel config", () => {
       vi.stubEnv("MINIMAX_API_KEY", "minimax-test");
       vi.stubEnv("OPENAI_API_KEY", "openai-test");
       vi.stubEnv("ANTHROPIC_API_KEY", "anthropic-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "minimax/MiniMax-M2.7" } } },
         models: {
           mode: "merge",
@@ -1320,7 +1320,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("keeps MiniMax CN chat metadata off automatic image routing", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "minimax-cn/MiniMax-M2.5" } } },
         models: {
           mode: "merge",
@@ -1370,7 +1370,7 @@ describe("image tool implicit imageModel config", () => {
         resolveDefaultMediaModel: ({ providerId, capability }) =>
           capability === "image" ? defaultImageModels.get(providerId.toLowerCase()) : undefined,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           mode: "merge",
           providers: {
@@ -1413,7 +1413,7 @@ describe("image tool implicit imageModel config", () => {
         resolveDefaultMediaModel: ({ providerId, capability }) =>
           capability === "image" && providerId === "minimax" ? "MiniMax-VL-01" : undefined,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           mode: "merge",
           providers: {
@@ -1451,7 +1451,7 @@ describe("image tool implicit imageModel config", () => {
           capabilities: ["image"],
           describeImage,
         });
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: {
               imageModel: { primary: "ollama/gemma4:26b-a4b-it-q4_K_M" },
@@ -1484,7 +1484,7 @@ describe("image tool implicit imageModel config", () => {
           capabilities: ["image"],
           describeImage,
         });
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: {
               imageModel: { primary: "ollama/gemma4:26b-a4b-it-q4_K_M" },
@@ -1529,7 +1529,7 @@ describe("image tool implicit imageModel config", () => {
       });
       vi.stubEnv("OPENAI_API_KEY", "openai-test");
       vi.stubEnv("ANTHROPIC_API_KEY", "anthropic-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "minimax-portal/MiniMax-M2.7" } } },
       };
       expect(resolveImageModelConfigForTool({ cfg, agentDir })).toEqual(
@@ -1542,7 +1542,7 @@ describe("image tool implicit imageModel config", () => {
   it("pairs opencode primary with the plugin-owned image model when auth exists", async () => {
     await withTempAgentDir(async (agentDir) => {
       vi.stubEnv("OPENCODE_API_KEY", "opencode-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "opencode/minimax-m2.7" } } },
       };
       expect(resolveImageModelConfigForTool({ cfg, agentDir })).toEqual({
@@ -1555,7 +1555,7 @@ describe("image tool implicit imageModel config", () => {
   it("pairs opencode-go primary with the Go plugin-owned image model when auth exists", async () => {
     await withTempAgentDir(async (agentDir) => {
       vi.stubEnv("OPENCODE_API_KEY", "opencode-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "opencode-go/minimax-m2.7" } } },
       };
       expect(resolveImageModelConfigForTool({ cfg, agentDir })).toEqual({
@@ -1570,7 +1570,7 @@ describe("image tool implicit imageModel config", () => {
       vi.stubEnv("ZAI_API_KEY", "zai-test");
       vi.stubEnv("OPENAI_API_KEY", "openai-test");
       vi.stubEnv("ANTHROPIC_API_KEY", "anthropic-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "zai/glm-4.7" } } },
       };
       expect(resolveImageModelConfigForTool({ cfg, agentDir })).toEqual(
@@ -1588,7 +1588,7 @@ describe("image tool implicit imageModel config", () => {
           "acme:default": { type: "api_key", provider: "acme", key: "sk-test" },
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "acme/text-1" } } },
         models: {
           providers: {
@@ -1611,7 +1611,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("pairs a custom provider when config declares its api key", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "hatchery-qwen3.6-plus/text-1" } } },
         models: {
           providers: {
@@ -1641,7 +1641,7 @@ describe("image tool implicit imageModel config", () => {
           "kimchi:default": { type: "api_key", provider: "kimchi", key: "sk-test" },
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "kimchi/text-1" } } },
         models: {
           providers: {
@@ -1674,7 +1674,7 @@ describe("image tool implicit imageModel config", () => {
           },
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "aws-bedrock/text-1" } } },
         models: {
           providers: {
@@ -1694,7 +1694,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("prefers explicit agents.defaults.imageModel", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "minimax/MiniMax-M2.7" },
@@ -1710,7 +1710,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("resolves providerless explicit image models from unique configured image providers", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: {
@@ -1751,7 +1751,7 @@ describe("image tool implicit imageModel config", () => {
         capabilities: ["image"],
         describeImage,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "moondream" },
@@ -1782,7 +1782,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("rejects ambiguous providerless explicit image models", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "moondream" },
@@ -1810,7 +1810,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("keeps unmatched providerless explicit image models on the legacy default-provider path", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "gpt-5.4-mini" },
@@ -1826,7 +1826,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("loads images directly for native-vision models without resolving an image model", async () => {
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "acme/vision-1" },
@@ -1898,7 +1898,7 @@ describe("image tool implicit imageModel config", () => {
       installFastLocalImageProviderStubs(minimaxProvider, moonshotProvider);
       vi.stubEnv("MOONSHOT_API_KEY", "moonshot-test");
       const fetch = stubOpenAiCompletionsOkFetch("ok moonshot");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "moonshot/kimi-k2.5" },
@@ -1957,7 +1957,7 @@ describe("image tool implicit imageModel config", () => {
   it("falls back to the generic image runtime when openrouter has no media provider registration", async () => {
     await withTempAgentDir(async (agentDir) => {
       const fetch = stubOpenAiCompletionsOkFetch("ok openrouter");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "openrouter/google/gemini-2.5-flash-lite" },
@@ -1990,7 +1990,7 @@ describe("image tool implicit imageModel config", () => {
   it("falls back to the generic multi-image runtime when openrouter has no media provider registration", async () => {
     await withTempAgentDir(async (agentDir) => {
       const fetch = stubOpenAiCompletionsOkFetch("ok multi");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "openrouter/google/gemini-2.5-flash-lite" },
@@ -2047,7 +2047,7 @@ describe("image tool implicit imageModel config", () => {
       );
       global.fetch = withFetchPreconnect(fetch);
       vi.stubEnv("MINIMAX_API_KEY", "minimax-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "minimax-portal/MiniMax-M2.7" },
@@ -2220,7 +2220,7 @@ describe("image tool implicit imageModel config", () => {
       const imagePath = path.join(attachmentRoot, "photo.png");
       await fs.writeFile(imagePath, Buffer.from(ONE_PIXEL_PNG_B64, "base64"));
       try {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: {
               imageModel: { primary: "ollama/moondream" },
@@ -2293,7 +2293,7 @@ describe("image tool implicit imageModel config", () => {
       await fs.mkdir(attachmentRoot, { recursive: true });
       await fs.writeFile(imagePath, Buffer.from(ONE_PIXEL_PNG_B64, "base64"));
       try {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: {
               imageModel: { primary: "ollama/moondream" },
@@ -2369,7 +2369,7 @@ describe("image tool implicit imageModel config", () => {
     vi.stubEnv("MINIMAX_API_KEY", "minimax-test");
 
     await withTempAgentDir(async (agentDir) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...createMinimaxImageConfig(),
         tools: { web: { fetch: { ssrfPolicy: { allowRfc2544BenchmarkRange: true } } } },
       };
@@ -2428,7 +2428,7 @@ describe("image tool implicit imageModel config", () => {
       const sandbox = { root: sandboxRoot, bridge: createHostSandboxFsBridge(sandboxRoot) };
 
       vi.stubEnv("OPENAI_API_KEY", "openai-test");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "minimax/MiniMax-M2.7" } } },
       };
       const tool = createRequiredImageTool({ config: cfg, agentDir, sandbox });
@@ -2507,7 +2507,7 @@ describe("image tool implicit imageModel config", () => {
 
       const fetch = stubMinimaxOkFetch();
 
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: "minimax/MiniMax-M2.7" },
@@ -2607,7 +2607,7 @@ describe("image tool data URL support", () => {
           models: [model.mediaInput.image],
         }),
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "openai/tiny-vision" },
@@ -2662,7 +2662,7 @@ describe("image tool data URL support", () => {
           }),
         },
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "openai/tiny-vision" },
@@ -2708,7 +2708,7 @@ describe("image tool data URL support", () => {
           return { text: "ok", model: params.model };
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: "openai/plain-vision" },
@@ -2743,7 +2743,7 @@ describe("image tool data URL support", () => {
 
 describe("image tool MiniMax VLM routing", () => {
   const priorFetch = global.fetch;
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({ label: "minimax-vlm", applyEnv: false });
@@ -3247,7 +3247,7 @@ describe("image compression policy", () => {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 
   beforeEach(() => {
     installImageUnderstandingProviderStubs();
@@ -3269,7 +3269,7 @@ describe("image compression policy", () => {
       try {
         const provider = "prepared-image-provider";
         const model = "prepared-image-model";
-        const cfg = {} satisfies OpenClawConfig;
+        const cfg = {} satisfies GrantedConfig;
         const generationA = createModelGenerationFixture({
           agentDir: state.agentDir("prepared"),
           workspaceDir: state.workspaceDir,
@@ -3343,7 +3343,7 @@ describe("image compression policy", () => {
   it("derives model metadata, quality preference, and image count from config", async () => {
     const cfg = {
       ...cfgWithImageModelMetadata,
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await expect(
       testing.resolveImageCompressionPolicy({
@@ -3474,7 +3474,7 @@ describe("image compression policy", () => {
                 },
               },
             },
-          } satisfies OpenClawConfig,
+          } satisfies GrantedConfig,
           imageModelConfig: {
             primary: "anthropic/claude-opus-4.7-20260219",
           },

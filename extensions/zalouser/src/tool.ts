@@ -1,7 +1,7 @@
 import { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
 // Zalouser plugin module implements tool behavior.
 import { stringEnum } from "openclaw/plugin-sdk/channel-actions";
-import type { AnyAgentTool, OpenClawPluginToolContext } from "openclaw/plugin-sdk/core";
+import type { AnyAgentTool, GrantedPluginToolContext } from "openclaw/plugin-sdk/core";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { jsonResult as json, type AgentToolResult } from "openclaw/plugin-sdk/tool-results";
 import { Type } from "typebox";
@@ -43,7 +43,7 @@ type ToolParams = {
 };
 
 type ZalouserToolContext = Pick<
-  OpenClawPluginToolContext,
+  GrantedPluginToolContext,
   "deliveryContext" | "config" | "runtimeConfig" | "getRuntimeConfig"
 >;
 

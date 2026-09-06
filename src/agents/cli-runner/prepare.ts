@@ -6,7 +6,7 @@ import { ensureSystemPromptCacheBoundary } from "@openclaw/ai/internal/shared";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import { messageToolOwnsVisibleReply } from "../../auto-reply/source-reply-delivery-mode.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   assertContextEngineHostSupport,
   buildGenericCliContextEngineHostSupport,
@@ -494,7 +494,7 @@ export async function prepareCliRunContext(
           ...runConfig.agents,
           entries: { [sessionOwner]: { default: true } },
         },
-      } satisfies OpenClawConfig);
+      } satisfies GrantedConfig);
   const started = Date.now();
   const executionMode = params.executionMode ?? "agent";
   const isSideQuestion = executionMode === "side-question";

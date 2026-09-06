@@ -29,7 +29,7 @@ import { runCommandWithTimeout } from "../process/exec.js";
 import { isCronSessionKey, isSubagentSessionKey } from "../routing/session-key.js";
 import { deriveSessionChatTypeFromKey } from "../sessions/session-chat-type-shared.js";
 import { createLazyPromise, getOrCreatePromise } from "../shared/lazy-promise.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import { resolveUserPath } from "../utils.js";
 import {
   MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES,
@@ -678,7 +678,7 @@ async function workspaceSetupStateHasSurvivalEvidence(params: {
 
 function readCanonicalWorkspaceStateSnapshot(
   dir: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): WorkspaceStateSnapshot {
   const snapshot = readWorkspaceStateSnapshot(dir, options);
   assertNoUnmigratedWorkspaceState({
@@ -689,7 +689,7 @@ function readCanonicalWorkspaceStateSnapshot(
 
 export async function isWorkspaceSetupCompleted(
   dir: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<boolean> {
   const state = readCanonicalWorkspaceStateSnapshot(dir, options).setup;
   return typeof state.setupCompletedAt === "string" && state.setupCompletedAt.trim().length > 0;
@@ -697,7 +697,7 @@ export async function isWorkspaceSetupCompleted(
 
 export async function resolveWorkspaceBootstrapStatus(
   dir: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<"pending" | "complete"> {
   const resolvedDir = resolveUserPath(dir);
   const state = readCanonicalWorkspaceStateSnapshot(resolvedDir, options).setup;
@@ -723,7 +723,7 @@ export async function seedWorkspaceBootstrap(params: {
   dir: string;
   content: Buffer;
   nowMs?: number;
-  stateOptions?: OpenClawStateDatabaseOptions;
+  stateOptions?: GrantedStateDatabaseOptions;
 }): Promise<"seeded" | "already-seeded" | "consumed"> {
   if (params.content.byteLength > MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES) {
     throw new WorkspaceBootstrapSeedConflictError(

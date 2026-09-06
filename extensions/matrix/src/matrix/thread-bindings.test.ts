@@ -3,7 +3,7 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
@@ -73,7 +73,7 @@ describe("matrix thread bindings", () => {
   async function createBindingManager(
     params: {
       auth?: MatrixAuth;
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
       stateDir?: string;
       idleTimeoutMs?: number;
       maxAgeMs?: number;

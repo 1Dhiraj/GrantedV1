@@ -7,7 +7,7 @@ import {
   createScopedChannelConfigAdapter,
 } from "openclaw/plugin-sdk/channel-config-helpers";
 import type { ChannelDoctorAdapter } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import {
@@ -66,7 +66,7 @@ const discordDoctor: ChannelDoctorAdapter = {
 };
 
 function resolveDiscordConfigAccessorAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): DiscordConfigAccessorAccount {
   const accountId = normalizeAccountId(

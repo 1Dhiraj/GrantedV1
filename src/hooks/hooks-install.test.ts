@@ -7,7 +7,7 @@ import { tryInstallHookPackFromLocalPath } from "../cli/plugins-install-hook-fal
 import { readConfigFileSnapshot } from "../config/config.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { pinConfigDir } from "../utils.js";
 import { readHookInstalls } from "./installs.js";
@@ -44,7 +44,7 @@ describe.each([
   { mode: "copied", link: false },
   { mode: "linked", link: true },
 ])("hooks install ($mode)", ({ link }) => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
 
   beforeEach(async () => {
     state = await createOpenClawTestState({ label: "hooks-install", layout: "split" });

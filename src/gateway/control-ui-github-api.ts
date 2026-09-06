@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
 import { getRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import {
   assertSecretOwnerAvailable,
@@ -52,7 +52,7 @@ export function optionalNumber(record: Record<string, unknown>, key: string): nu
 
 export function githubApiToken(
   env: NodeJS.ProcessEnv = process.env,
-  config: OpenClawConfig | null = getRuntimeConfigSnapshot(),
+  config: GrantedConfig | null = getRuntimeConfigSnapshot(),
 ): string | undefined {
   const configured = config?.gateway?.controlUi?.github?.token;
   if (configured !== undefined) {
@@ -76,7 +76,7 @@ export function githubApiToken(
 /** Raw-config inspection for doctor; it never consults process-global runtime degradation state. */
 export function hasConfiguredGitHubApiCredential(
   env: NodeJS.ProcessEnv,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): boolean {
   return (
     config.gateway?.controlUi?.github?.token !== undefined ||

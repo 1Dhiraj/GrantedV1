@@ -18,7 +18,7 @@ import {
   isGatewayCapabilityAdvertised,
   isGatewayMethodAdvertised,
 } from "../../lib/gateway-methods.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import "../../styles/board-document.css";
 import "./board-view.ts";
 
@@ -36,7 +36,7 @@ type ProviderBinding = {
   capabilityKey: string;
 };
 
-export class OpenClawBoardDocument extends OpenClawLightDomElement {
+export class GrantedBoardDocument extends GrantedLightDomElement {
   @property({ attribute: false }) gatewaySnapshot?: ApplicationGatewaySnapshot;
   @property({ attribute: false }) sessionKey: string | null = null;
   @property({ attribute: false }) onDocumentClose: (() => void) | null = null;
@@ -132,7 +132,7 @@ export class OpenClawBoardDocument extends OpenClawLightDomElement {
 
   private async bindProvider(
     binding: ProviderBinding,
-    capabilities: ReturnType<OpenClawBoardDocument["providerCapabilities"]>,
+    capabilities: ReturnType<GrantedBoardDocument["providerCapabilities"]>,
     generation: number,
   ): Promise<void> {
     try {
@@ -308,11 +308,11 @@ export class OpenClawBoardDocument extends OpenClawLightDomElement {
 }
 
 if (!customElements.get("openclaw-board-document")) {
-  customElements.define("openclaw-board-document", OpenClawBoardDocument);
+  customElements.define("openclaw-board-document", GrantedBoardDocument);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-board-document": OpenClawBoardDocument;
+    "openclaw-board-document": GrantedBoardDocument;
   }
 }

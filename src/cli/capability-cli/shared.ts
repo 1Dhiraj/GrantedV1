@@ -17,7 +17,7 @@ import {
   getRuntimeConfigSourceSnapshot,
   setRuntimeConfigSnapshot,
 } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { writeRuntimeJson, defaultRuntime, type RuntimeEnv } from "../../runtime.js";
 import { getProviderEnvVars } from "../../secrets/provider-env-vars.js";
 import { resolveCommandConfigWithSecrets } from "../command-config-resolution.js";
@@ -106,7 +106,7 @@ export function resolveSelectedProviderFromModelRef(
 }
 
 export function resolveCapabilityProviderAgentId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   rawAgentId: string | undefined,
   surface = "inference provider inspection",
 ): string {
@@ -130,7 +130,7 @@ export function resolveCapabilityAgentOption(
     : inheritOptionFromParent<string>(command, "agent");
 }
 function getAuthProfileIdsForProvider(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   providerId: string,
   agentId: string,
 ): string[] {
@@ -140,7 +140,7 @@ function getAuthProfileIdsForProvider(
 }
 
 export function providerHasGenericConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerId: string;
   /** Omit only for aggregate/global callers that intentionally exclude agent auth stores. */
   agentId?: string;
@@ -239,8 +239,8 @@ export async function resolveLocalCapabilityRuntimeConfig(params: {
   allowedPaths?: Set<string>;
   forcedActivePaths?: Set<string>;
   optionalActivePaths?: Set<string>;
-  config?: OpenClawConfig;
-}): Promise<OpenClawConfig> {
+  config?: GrantedConfig;
+}): Promise<GrantedConfig> {
   const cfg = params.config ?? getRuntimeConfig();
   const { effectiveConfig } = await resolveCommandConfigWithSecrets({
     config: cfg,
@@ -256,7 +256,7 @@ export async function resolveLocalCapabilityRuntimeConfig(params: {
   return effectiveConfig;
 }
 
-export function pinRuntimeConfigSnapshot(config: OpenClawConfig): void {
+export function pinRuntimeConfigSnapshot(config: GrantedConfig): void {
   const sourceConfig = getRuntimeConfigSourceSnapshot();
   if (sourceConfig) {
     setRuntimeConfigSnapshot(config, sourceConfig);

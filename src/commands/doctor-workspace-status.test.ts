@@ -2,7 +2,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import * as noteModule from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginVersionDriftReport } from "../plugins/plugin-version-drift.js";
 import {
   createPluginLoadResult,
@@ -15,7 +15,7 @@ import {
 } from "./doctor-workspace-status.js";
 
 const mocks = vi.hoisted(() => ({
-  listAgentIds: vi.fn<(_cfg: OpenClawConfig) => string[]>(() => ["default"]),
+  listAgentIds: vi.fn<(_cfg: GrantedConfig) => string[]>(() => ["default"]),
   resolveAgentWorkspaceDir: vi.fn(),
   resolveDefaultAgentId: vi.fn(),
   buildPluginRegistrySnapshotReport: vi.fn(),
@@ -25,7 +25,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("../agents/agent-scope.js", () => ({
-  listAgentIds: (cfg: OpenClawConfig) => mocks.listAgentIds(cfg),
+  listAgentIds: (cfg: GrantedConfig) => mocks.listAgentIds(cfg),
   resolveAgentWorkspaceDir: (...args: unknown[]) => mocks.resolveAgentWorkspaceDir(...args),
   tryResolveDefaultAgentId: (...args: unknown[]) => mocks.resolveDefaultAgentId(...args),
 }));
@@ -61,13 +61,13 @@ async function runNoteWorkspaceStatusForTest(
   loadResult: ReturnType<typeof createPluginLoadResult>,
   compatibilityWarnings: string[] = [],
   opts?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     pluginVersionDrift?: PluginVersionDriftReport;
     flows?: unknown[];
     tasksByFlowId?: (flowId: string) => unknown[];
   },
 ) {
-  const cfg: OpenClawConfig = opts?.cfg ?? {};
+  const cfg: GrantedConfig = opts?.cfg ?? {};
   mocks.resolveDefaultAgentId.mockReturnValue("default");
   mocks.listAgentIds.mockReturnValue(["default"]);
   mocks.resolveAgentWorkspaceDir.mockReturnValue("/workspace");

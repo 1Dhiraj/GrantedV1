@@ -35,7 +35,7 @@ export {
   resolveUserPath,
   truncateUtf16Safe,
 } from "./host/openclaw-runtime-io.js";
-export type { OpenClawConfig } from "./host/openclaw-runtime-config.js";
+export type { GrantedConfig } from "./host/openclaw-runtime-config.js";
 export type { SecretInput } from "./host/openclaw-runtime-config.js";
 export type { MemoryCitationsMode } from "./host/openclaw-runtime-config.js";
 export type { MemorySearchConfig } from "./host/openclaw-runtime-config.js";

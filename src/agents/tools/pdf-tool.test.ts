@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import * as pdfExtractModule from "../../media/pdf-extract.js";
 import * as webMedia from "../../media/web-media.js";
 import { withEnvAsync } from "../../test-utils/env.js";
@@ -77,16 +77,16 @@ async function withConfiguredPdfTool(
   });
 }
 
-function withPdfModel(primary: string): OpenClawConfig {
+function withPdfModel(primary: string): GrantedConfig {
   return {
     agents: { defaults: { pdfModel: { primary } } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function withDefaultModel(primary: string): OpenClawConfig {
+function withDefaultModel(primary: string): GrantedConfig {
   return {
     agents: { defaults: { model: { primary } } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function expectFields(value: unknown, expected: Record<string, unknown>): void {
@@ -173,7 +173,7 @@ describe("createPdfTool", () => {
       vi.stubEnv("AWS_ACCESS_KEY_ID", "");
       vi.stubEnv("AWS_SECRET_ACCESS_KEY", "");
       vi.stubEnv("AWS_BEARER_TOKEN_BEDROCK", "");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { model: { primary: "amazon-bedrock/text-1" } } },
         models: {
           mode: "replace",
@@ -519,7 +519,7 @@ describe("createPdfTool", () => {
         input: ["text", "document"],
       });
       vi.spyOn(pdfNativeProviders, "anthropicAnalyzePdf").mockResolvedValue("native summary");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...withPdfModel(ANTHROPIC_PDF_MODEL),
         tools: {
           web: {

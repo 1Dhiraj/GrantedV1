@@ -4,7 +4,7 @@
  * Keeps optional tool gating separate from tool construction so config and execution contracts decide exposure.
  */
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveEffectiveToolPolicy } from "./agent-tools.policy.js";
 import { isPrimaryBootstrapRun } from "./bootstrap-routing.js";
 import {
@@ -48,7 +48,7 @@ export function collectPresentOpenClawTools(
 export function shouldIncludeProgressCardToolForOpenClawTools(params: {
   agentId?: string;
   agentSessionKey?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   modelId?: string;
   modelProvider?: string;
   pluginToolDenylist?: string[];
@@ -99,7 +99,7 @@ export function shouldIncludeProgressCardToolForOpenClawTools(params: {
 }
 
 type PrimarySessionToolRegistrationParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentSessionKey?: string;
   pluginToolDenylist?: string[];
 };

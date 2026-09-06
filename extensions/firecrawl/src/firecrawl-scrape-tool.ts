@@ -1,6 +1,6 @@
 // Firecrawl plugin module implements firecrawl scrape tool behavior.
 import { optionalStringEnum } from "openclaw/plugin-sdk/channel-actions";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
 import {
   jsonResult,
   readNonNegativeIntegerParam,
@@ -51,7 +51,7 @@ const FirecrawlScrapeToolSchema = Type.Object(
   { additionalProperties: false },
 );
 
-export function createFirecrawlScrapeTool(api: OpenClawPluginApi) {
+export function createFirecrawlScrapeTool(api: GrantedPluginApi) {
   return {
     name: "firecrawl_scrape",
     label: "Firecrawl Scrape",

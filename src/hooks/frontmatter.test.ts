@@ -6,7 +6,7 @@ import {
   resolveHookManifestMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
-import type { OpenClawHookMetadata } from "./types.js";
+import type { GrantedHookMetadata } from "./types.js";
 
 function requireString(value: string | undefined, label: string): string {
   if (typeof value !== "string") {
@@ -15,7 +15,7 @@ function requireString(value: string | undefined, label: string): string {
   return value;
 }
 
-function requireOpenClawMetadata(metadata: OpenClawHookMetadata | undefined): OpenClawHookMetadata {
+function requireOpenClawMetadata(metadata: GrantedHookMetadata | undefined): GrantedHookMetadata {
   if (!metadata) {
     throw new Error("expected openclaw metadata");
   }

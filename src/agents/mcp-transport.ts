@@ -7,7 +7,7 @@
 import { StringDecoder } from "node:string_decoder";
 import type { SSEClientTransportOptions } from "@modelcontextprotocol/sdk/client/sse.js";
 import type { FetchLike, Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { logDebug } from "../logger.js";
 import { truncateUtf8Suffix } from "../utils/utf8-truncate.js";
 import type { SessionMcpRequesterScope } from "./agent-bundle-mcp-types.js";
@@ -18,12 +18,12 @@ import {
   withSameOriginMcpHttpHeaders,
 } from "./mcp-http-fetch.js";
 import {
-  OpenClawSSEClientTransport,
-  OpenClawStreamableHTTPClientTransport,
+  GrantedSSEClientTransport,
+  GrantedStreamableHTTPClientTransport,
 } from "./mcp-http-transport.js";
 import { withMcpOAuthBearer } from "./mcp-oauth-fetch.js";
 import { operatorMcpOAuthIdentity, requesterMcpOAuthIdentity } from "./mcp-oauth-identity.js";
-import { OpenClawStdioClientTransport } from "./mcp-stdio-transport.js";
+import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 import { resolveMcpTransportConfig } from "./mcp-transport-config.js";
 
 type ResolvedMcpTransport = {
@@ -38,7 +38,7 @@ type ResolvedMcpTransport = {
 
 const MAX_MCP_STDERR_LINE_BYTES = 8 * 1024;
 
-function attachStderrLogging(serverName: string, transport: OpenClawStdioClientTransport) {
+function attachStderrLogging(serverName: string, transport: GrantedStdioClientTransport) {
   const stderr = transport.stderr;
   if (!stderr) {
     return undefined;
@@ -126,7 +126,7 @@ export function resolveMcpTransport(
   serverName: string,
   rawServer: unknown,
   options?: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     agentDir?: string;
     prepareDataDir?: string;
     requesterScope?: SessionMcpRequesterScope;
@@ -137,7 +137,7 @@ export function resolveMcpTransport(
     return null;
   }
   if (resolved.kind === "stdio") {
-    const transport = new OpenClawStdioClientTransport({
+    const transport = new GrantedStdioClientTransport({
       command: resolved.command,
       args: resolved.args,
       env: resolved.env,
@@ -205,7 +205,7 @@ export function resolveMcpTransport(
       : baseFetch;
   if (resolved.transportType === "streamable-http") {
     return {
-      transport: new OpenClawStreamableHTTPClientTransport(new URL(resolved.url), {
+      transport: new GrantedStreamableHTTPClientTransport(new URL(resolved.url), {
         requestInit: resolved.auth === "oauth" || !headers ? undefined : { headers },
         fetch: httpFetch,
       }),
@@ -219,7 +219,7 @@ export function resolveMcpTransport(
   const sseHeaders: Record<string, string> = { ...headers };
   const hasHeaders = Object.keys(sseHeaders).length > 0;
   return {
-    transport: new OpenClawSSEClientTransport(new URL(resolved.url), {
+    transport: new GrantedSSEClientTransport(new URL(resolved.url), {
       requestInit: resolved.auth === "oauth" || !hasHeaders ? undefined : { headers: sseHeaders },
       fetch: httpFetch,
       eventSourceInit: {

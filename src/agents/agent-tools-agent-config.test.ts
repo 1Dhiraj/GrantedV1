@@ -10,7 +10,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import "./test-helpers/fast-bash-tools.js";
 import "./test-helpers/fast-coding-tools.js";
 import "./test-helpers/fast-openclaw-tools.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveChannelGroupToolsPolicy } from "../config/group-policy.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createSessionConversationTestRegistry } from "../test-utils/session-conversation-registry.js";
@@ -70,7 +70,7 @@ describe("Agent-specific tool filtering", () => {
     const relativeEscape = path.relative(workspaceDir, escapedPath);
 
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         tools: {
           allow: ["read", "write", "exec"],
           exec: {
@@ -109,7 +109,7 @@ describe("Agent-specific tool filtering", () => {
     }
   }
 
-  function createMainSessionTools(cfg: OpenClawConfig) {
+  function createMainSessionTools(cfg: GrantedConfig) {
     return createOpenClawCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
@@ -119,9 +119,9 @@ describe("Agent-specific tool filtering", () => {
   }
 
   function createMainAgentConfig(params: {
-    tools: NonNullable<OpenClawConfig["tools"]>;
-    agentTools?: NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number]["tools"];
-  }): OpenClawConfig {
+    tools: NonNullable<GrantedConfig["tools"]>;
+    agentTools?: NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number]["tools"];
+  }): GrantedConfig {
     return {
       tools: params.tools,
       agents: {
@@ -174,7 +174,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("uses the configured default agent for lean local-model filtering on legacy session keys", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -205,7 +205,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should allow apply_patch for OpenAI models when write is allow-listed", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read", "write", "exec"],
       },
@@ -227,7 +227,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should allow disabling apply_patch explicitly", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read", "write", "exec"],
         exec: {
@@ -275,7 +275,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply agent-specific tool policy", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read", "write", "exec"],
         deny: [],
@@ -308,7 +308,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply provider-specific tool policy", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         allow: ["read", "write", "exec"],
         byProvider: {
@@ -332,7 +332,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply provider-specific tool profile overrides", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         profile: "coding",
         byProvider: {
@@ -357,7 +357,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve different tool policies for different agents", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -398,7 +398,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve group tool policy overrides (group-specific beats wildcard)", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -423,7 +423,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply per-sender tool policies for group tools", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -458,7 +458,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply global per-sender tool policy to core tools", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "id:guest": { deny: ["exec", "process"] },
@@ -481,7 +481,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("keeps core tools for owner WebChat while restricting non-owners", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec", "process"] },
@@ -521,7 +521,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should let agent per-sender policy override global sender wildcard", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         toolsBySender: {
           "*": { deny: ["exec"] },
@@ -557,7 +557,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should not let default sender policy override group tools", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -585,7 +585,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve telegram group tool policy for topic session keys", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           groups: {
@@ -603,7 +603,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should not apply forged caller group tool policy for non-group sessions", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: { allow: ["read"] },
       channels: {
         whatsapp: {
@@ -633,7 +633,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve feishu group tool policy for sender-scoped session keys", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         feishu: {
           groups: {
@@ -658,7 +658,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should prefer scoped group candidates before wildcard tool policy", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         feishu: {
           groups: {
@@ -686,7 +686,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve inherited group tool policy for subagent parent groups", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -704,7 +704,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply global tool policy before agent-specific policy", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         deny: ["browser"], // Global deny
       },

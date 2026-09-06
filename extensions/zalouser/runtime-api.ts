@@ -20,7 +20,7 @@ export type {
   ChannelStatusIssue,
 } from "openclaw/plugin-sdk/channel-contract";
 export type {
-  OpenClawConfig,
+  GrantedConfig,
   GroupToolPolicyConfig,
   MarkdownTableMode,
 } from "openclaw/plugin-sdk/config-contracts";
@@ -28,7 +28,7 @@ export type {
   PluginRuntime,
   AnyAgentTool,
   ChannelPlugin,
-  OpenClawPluginToolContext,
+  GrantedPluginToolContext,
 } from "openclaw/plugin-sdk/core";
 export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
 export {

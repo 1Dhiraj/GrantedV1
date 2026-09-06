@@ -3,7 +3,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { isIP } from "node:net";
 import { fileTypeFromBuffer } from "file-type";
 import pLimit from "p-limit";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { normalizeHostname } from "../infra/net/hostname.js";
 import { isBlockedHostnameOrIp } from "../infra/net/ssrf.js";
@@ -236,7 +236,7 @@ export async function handlePluginIconHttpRequest(
   res: ServerResponse,
   opts: {
     auth: ResolvedGatewayAuth;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     basePath?: string;
     trustedProxies?: string[];
     allowRealIpFallback?: boolean;

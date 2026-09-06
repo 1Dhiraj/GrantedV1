@@ -7,7 +7,7 @@ import {
   type PluginMetadataSnapshot,
 } from "../plugins/plugin-metadata-snapshot.js";
 import { validateConfigObjectRaw, validateConfigObjectRawWithPlugins } from "./validation.js";
-import { OpenClawSchemaShape } from "./zod-schema.root-shape.js";
+import { GrantedSchemaShape } from "./zod-schema.root-shape.js";
 
 type DocsConfigFinding = {
   filePath: string;
@@ -44,7 +44,7 @@ type DocsConfigValidationContext = {
   pluginMetadataSnapshot: Pick<PluginMetadataSnapshot, "manifestRegistry">;
 };
 
-const ROOT_CONFIG_KEYS = new Set(Object.keys(OpenClawSchemaShape));
+const ROOT_CONFIG_KEYS = new Set(Object.keys(GrantedSchemaShape));
 
 function emptyStats(filesScanned = 0): DocsConfigStats {
   return {

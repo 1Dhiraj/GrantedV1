@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { formatAllowFromLowercase } from "../../plugin-sdk/allow-from.js";
 import {
   buildDmGroupAccountAllowlistAdapter,
@@ -37,12 +37,12 @@ vi.mock("../../config/config.js", () => ({
   transformConfigFileWithRetry: async (params: {
     afterWrite?: unknown;
     transform: (
-      currentConfig: OpenClawConfig,
+      currentConfig: GrantedConfig,
       context: { snapshot: ConfigSnapshotMock; previousHash: string | null; attempt: number },
     ) =>
-      | Promise<{ nextConfig: OpenClawConfig; result?: unknown }>
+      | Promise<{ nextConfig: GrantedConfig; result?: unknown }>
       | {
-          nextConfig: OpenClawConfig;
+          nextConfig: GrantedConfig;
           result?: unknown;
         };
   }) => {
@@ -111,7 +111,7 @@ function normalizeAllowlistValues(values: Array<string | number>): string[] {
 }
 
 function resolveTelegramTestAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): TelegramTestSectionConfig {
   const section = cfg.channels?.telegram as TelegramTestSectionConfig | undefined;
@@ -277,7 +277,7 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
 
 function buildAllowlistParams(
   commandBody: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   ctxOverrides?: {
     Provider?: string;
     Surface?: string;
@@ -317,7 +317,7 @@ describe("handleAllowlistCommand", () => {
     const cfg = {
       commands: { text: true },
       channels: { telegram: { allowFrom: ["123", "@Alice"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await handleAllowlistCommand(
       buildAllowlistParams("/allowlist list dm", cfg),
       true,
@@ -353,12 +353,12 @@ describe("handleAllowlistCommand", () => {
               const params = buildAllowlistParams("/allowlist add dm 789", {
                 commands: { text: true, config: true },
                 channels: { telegram: { allowFrom: ["123"] } },
-              } as OpenClawConfig);
+              } as GrantedConfig);
               params.command.senderIsOwner = true;
               const result = await handleAllowlistCommand(params, true);
 
               expect(result?.shouldContinue, "default account").toBe(false);
-              const written = await readJsonFile<OpenClawConfig>(configPath);
+              const written = await readJsonFile<GrantedConfig>(configPath);
               expect(written.channels?.telegram?.allowFrom, "default account").toEqual([
                 "123",
                 "789",
@@ -392,7 +392,7 @@ describe("handleAllowlistCommand", () => {
             {
               commands: { text: true, config: true },
               channels: { telegram: { accounts: { work: { allowFrom: ["123"] } } } },
-            } as OpenClawConfig,
+            } as GrantedConfig,
             { AccountId: "work" },
           );
           params.command.senderIsOwner = true;
@@ -420,13 +420,13 @@ describe("handleAllowlistCommand", () => {
         const params = buildAllowlistParams("/allowlist add group 789", {
           commands: { text: true, config: true },
           channels: { telegram: { groupAllowFrom: ["123"] } },
-        } as OpenClawConfig);
+        } as GrantedConfig);
         params.command.senderIsOwner = true;
 
         const result = await handleAllowlistCommand(params, true);
 
         expect(result?.shouldContinue).toBe(false);
-        const written = await readJsonFile<OpenClawConfig>(configPath);
+        const written = await readJsonFile<GrantedConfig>(configPath);
         expect(written.channels?.telegram?.groupAllowFrom).toEqual(["123", "789"]);
         expect(addChannelAllowFromStoreEntryMock).not.toHaveBeenCalled();
         expect(result?.reply?.text).toContain(
@@ -447,7 +447,7 @@ describe("handleAllowlistCommand", () => {
             ...telegramAllowlistTestPlugin,
             config: {
               ...telegramAllowlistTestPlugin.config,
-              defaultAccountId: (cfg: OpenClawConfig) =>
+              defaultAccountId: (cfg: GrantedConfig) =>
                 (cfg.channels?.telegram as TelegramTestSectionConfig | undefined)?.defaultAccount ??
                 DEFAULT_ACCOUNT_ID,
             },
@@ -464,7 +464,7 @@ describe("handleAllowlistCommand", () => {
           accounts: { work: { allowFrom: ["123"] } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     readChannelAllowFromStoreMock.mockResolvedValueOnce([]);
 
     const result = await handleAllowlistCommand(
@@ -492,7 +492,7 @@ describe("handleAllowlistCommand", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     readConfigFileSnapshotMock.mockResolvedValueOnce({
       valid: true,
       parsed: structuredClone(cfg),
@@ -520,7 +520,7 @@ describe("handleAllowlistCommand", () => {
             ...telegramAllowlistTestPlugin,
             config: {
               ...telegramAllowlistTestPlugin.config,
-              defaultAccountId: (cfg: OpenClawConfig) =>
+              defaultAccountId: (cfg: GrantedConfig) =>
                 (cfg.channels?.telegram as TelegramTestSectionConfig | undefined)?.defaultAccount ??
                 DEFAULT_ACCOUNT_ID,
             },
@@ -541,7 +541,7 @@ describe("handleAllowlistCommand", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     readConfigFileSnapshotMock.mockResolvedValueOnce({
       valid: true,
       parsed: structuredClone(cfg),
@@ -570,7 +570,7 @@ describe("handleAllowlistCommand", () => {
         telegram: { allowFrom: ["*"], configWrites: true },
         discord: { allowFrom: ["owner-discord-id"], configWrites: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams(
       "/allowlist add dm --channel discord attacker-discord-id",
       cfg,
@@ -597,7 +597,7 @@ describe("handleAllowlistCommand", () => {
       channels: {
         telegram: { allowFrom: ["*"], configWrites: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --channel unknown attacker-id", cfg, {
       Provider: "telegram",
       Surface: "telegram",
@@ -621,7 +621,7 @@ describe("handleAllowlistCommand", () => {
         telegram: { allowFrom: ["123"], configWrites: false },
         discord: { allowFrom: ["456"], configWrites: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     readConfigFileSnapshotMock.mockResolvedValueOnce({
       valid: true,
       parsed: structuredClone(cfg),
@@ -648,7 +648,7 @@ describe("handleAllowlistCommand", () => {
           configWrites: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --store 789", cfg);
     params.command.senderIsOwner = true;
     const result = await handleAllowlistCommand(params, true);
@@ -669,7 +669,7 @@ describe("handleAllowlistCommand", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --store --account work 789", cfg, {
       AccountId: "work",
     });
@@ -688,7 +688,7 @@ describe("handleAllowlistCommand", () => {
         telegram: { allowFrom: ["123"], configWrites: false },
         discord: { allowFrom: ["456"], configWrites: true },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --channel discord --store 789", cfg, {
       Provider: "telegram",
       Surface: "telegram",
@@ -715,7 +715,7 @@ describe("handleAllowlistCommand", () => {
           configWrites: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --store 789", cfg);
     params.command.senderIsOwner = true;
     const result = await handleAllowlistCommand(params, true);
@@ -733,7 +733,7 @@ describe("handleAllowlistCommand", () => {
     const cfg = {
       commands: { text: true, config: true },
       channels: { telegram: { allowFrom: ["123"], configWrites: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist remove all --store 789", cfg);
     params.command.senderIsOwner = true;
 
@@ -752,7 +752,7 @@ describe("handleAllowlistCommand", () => {
     const cfg = {
       commands: { text: true, config: true },
       channels: { telegram: { allowFrom: ["123"], configWrites: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add group --store 789", cfg);
     params.command.senderIsOwner = true;
 
@@ -779,7 +779,7 @@ describe("handleAllowlistCommand", () => {
     const cfg = {
       commands: { text: true, config: true },
       channels: { telegram: { allowFrom: ["123"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist remove dm --store 789", cfg);
     params.command.senderIsOwner = true;
     const result = await handleAllowlistCommand(params, true);
@@ -802,7 +802,7 @@ describe("handleAllowlistCommand", () => {
     const cfg = {
       commands: { text: true, config: true },
       channels: { telegram: { allowFrom: ["123"] } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const params = buildAllowlistParams("/allowlist add dm --account __proto__ 789", cfg);
     params.command.senderIsOwner = true;
     const result = await handleAllowlistCommand(params, true);
@@ -854,7 +854,7 @@ describe("handleAllowlistCommand", () => {
               configWrites: true,
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const params = buildAllowlistParams(`/allowlist remove dm ${testCase.removeId}`, cfg, {
           Provider: testCase.provider,
@@ -864,7 +864,7 @@ describe("handleAllowlistCommand", () => {
         const result = await handleAllowlistCommand(params, true);
 
         expect(result?.shouldContinue).toBe(false);
-        const written = await readJsonFile<OpenClawConfig>(configPath);
+        const written = await readJsonFile<GrantedConfig>(configPath);
         const channelConfig = written.channels?.[testCase.provider];
         expect(channelConfig?.allowFrom).toEqual(testCase.expectedAllowFrom);
         expect(channelConfig?.dm).not.toHaveProperty("allowFrom");

@@ -3,7 +3,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { activateContextEngineRegistrations } from "../context-engine/registry.js";
 import { resolveRealpathOrAbsolute } from "../infra/boundary-path.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
@@ -69,7 +69,7 @@ export type AuthorizedDreamingSidecar = {
 };
 
 function resolveDreamingSidecarEngineId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   memorySlot: string | null | undefined;
 }): string | null {
   const normalizedMemorySlot = normalizeLowercaseStringOrEmpty(params.memorySlot);
@@ -88,7 +88,7 @@ function resolveDreamingSidecarEngineId(params: {
 }
 
 export function resolveAuthorizedDreamingSidecar(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   normalized: NormalizedPluginsConfig;
   activationSource: PluginActivationConfigSource;
   manifestRegistry: PluginManifestRegistry;

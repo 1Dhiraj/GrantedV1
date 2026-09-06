@@ -2,7 +2,7 @@ import type { Message } from "grammy/types";
 import type { ChannelIngressContextBinding } from "openclaw/plugin-sdk/channel-ingress-runtime";
 import type {
   DmPolicy,
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -47,7 +47,7 @@ export type TelegramEventAuthorizationMode =
 
 export interface TelegramHandlerAuthorization {
   resolveTelegramEventAuthorizationContext: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     chatId: number;
     isGroup: boolean;
     senderId?: string;
@@ -134,7 +134,7 @@ export function createTelegramHandlerAuthorization({
   // Authorization owns one ingress snapshot. The agent turn intentionally
   // captures again after batching so reloads during debounce apply to execution.
   const resolveTelegramEventAuthorizationContext = async (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     chatId: number;
     isGroup: boolean;
     senderId?: string;
@@ -481,7 +481,7 @@ export function createTelegramHandlerAuthorization({
 }
 
 type TelegramEventAuthorizationContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramCfg: TelegramAccountConfig;
   allowFrom?: Array<string | number>;
   dmPolicy: DmPolicy;
@@ -519,7 +519,7 @@ function shouldSkipTelegramGroupMessage(
     hasGroupAllowOverride: boolean;
     groupConfig?: TelegramGroupConfig;
     topicConfig?: TelegramTopicConfig;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     telegramCfg: TelegramAccountConfig;
   },
   runtime: Pick<RegisterTelegramHandlerParams, "logger" | "resolveGroupPolicy">,

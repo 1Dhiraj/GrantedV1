@@ -10,7 +10,7 @@ import {
 } from "../config/includes.js";
 import type { ConfigWriteOptions } from "../config/io.js";
 import { containsConfigIncludeDirective } from "../config/io.read-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
@@ -48,7 +48,7 @@ import {
   type PluginUninstallDirectoryRemoval,
 } from "./uninstall.js";
 
-function addInstalledPluginToAllowlist(cfg: OpenClawConfig, pluginId: string): OpenClawConfig {
+function addInstalledPluginToAllowlist(cfg: GrantedConfig, pluginId: string): GrantedConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.length === 0 || allow.includes(pluginId)) {
     return cfg;
@@ -64,7 +64,7 @@ function addInstalledPluginToAllowlist(cfg: OpenClawConfig, pluginId: string): O
   };
 }
 
-function removeInstalledPluginFromDenylist(cfg: OpenClawConfig, pluginId: string): OpenClawConfig {
+function removeInstalledPluginFromDenylist(cfg: GrantedConfig, pluginId: string): GrantedConfig {
   const deny = cfg.plugins?.deny;
   if (!Array.isArray(deny) || !deny.includes(pluginId)) {
     return cfg;
@@ -84,7 +84,7 @@ function removeInstalledPluginFromDenylist(cfg: OpenClawConfig, pluginId: string
 }
 
 export type ConfigSnapshotForInstallPersist = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   baseHash: string | undefined;
   writeOptions: Pick<
     ConfigWriteOptions,
@@ -316,7 +316,7 @@ function sourceMatchesInstalledPath(params: {
 }
 
 function logShadowedNpmInstallWarning(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   install: Omit<PluginInstallUpdate, "pluginId">;
   warn: (message: string, managementMessage: string) => void;
@@ -406,7 +406,7 @@ function resolveReplacedManagedInstallRemoval(params: {
               [params.pluginId]: params.previousInstall,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pluginId: params.pluginId,
         deleteFiles: true,
       },
@@ -427,7 +427,7 @@ function resolveReplacedManagedInstallRemoval(params: {
   return plan.directoryRemoval;
 }
 
-function prepareConfigForDisabledInstall(config: OpenClawConfig, pluginId: string): OpenClawConfig {
+function prepareConfigForDisabledInstall(config: GrantedConfig, pluginId: string): GrantedConfig {
   const entry = config.plugins?.entries?.[pluginId];
   const policy = isRecord(entry) ? { ...entry } : {};
   delete policy.config;
@@ -449,7 +449,7 @@ type PluginConfigEnablement =
   | { mode: "invalid"; error: string };
 
 function resolvePluginConfigEnablement(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   manifest?: PluginManifestRecord;
 }): PluginConfigEnablement {
@@ -490,7 +490,7 @@ export async function persistPluginInstall(params: {
   persistenceLogger?: PluginInstallLogger;
   onCommitted?: () => void;
   beforePersistentApply?: () => void;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const runtime = params.runtime ?? defaultRuntime;
   // Terminal diagnostics may contain paths/errors; management receives only producer-authored summaries.
   const warn = (message: string, managementMessage: string): void => {

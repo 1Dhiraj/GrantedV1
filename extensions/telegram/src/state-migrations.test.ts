@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { buildLegacyMigrationPreview } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
@@ -59,7 +59,7 @@ describe("telegram state migrations", () => {
           ownership: "explicit",
           entries: { main: {}, ops: {}, research: {} },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       await expect(detectTelegramLegacyStateMigrations({ cfg, env })).resolves.toEqual([]);
     } finally {
@@ -94,7 +94,7 @@ describe("telegram state migrations", () => {
           entries: { main: {}, ops: {}, research: {} },
         },
         bindings: [{ agentId: "main", match: { channel: "telegram", accountId: "*" } }],
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const messagePlan = plans.find((plan) => plan.sourcePath === messageCachePath);
       const sentPlan = plans.find((plan) => plan.sourcePath === sentMessagePath);
@@ -131,7 +131,7 @@ describe("telegram state migrations", () => {
 
       const cfg = {
         agents: { list: [{ id: "main" }, { id: "ops", default: true }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const sentPlan = plans.find((plan) => plan.sourcePath === sentMessagePath);
       if (!sentPlan || sentPlan.kind !== "plugin-state-import") {
@@ -156,7 +156,7 @@ describe("telegram state migrations", () => {
 
       const cfg = {
         agents: { ownership: "explicit", entries: { main: {}, ops: {}, research: {} } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       await expect(detectTelegramLegacyStateMigrations({ cfg, env })).rejects.toMatchObject({
         name: "AgentSelectionRequiredError",
         code: "AGENT_SELECTION_REQUIRED",
@@ -193,7 +193,7 @@ describe("telegram state migrations", () => {
         { agentId: "main", match: { channel: "telegram", accountId: "primary" } },
         { agentId: "ops", match: { channel: "telegram", accountId: "alerts" } },
       ],
-    } as OpenClawConfig;
+    } as GrantedConfig;
     try {
       for (const [index, store] of stores.entries()) {
         await mkdir(path.dirname(store.storePath), { recursive: true });
@@ -250,7 +250,7 @@ describe("telegram state migrations", () => {
       const cfg = {
         agents: { ownership: "explicit", entries: { main: {}, ops: {} } },
         channels: { telegram: { accounts: { ops: { botToken: "123456:ops" } } } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
 
       expect(plans.find((plan) => plan.sourcePath === topicNamePath)).toMatchObject({
@@ -293,7 +293,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const botInfoPlan = plans.find(
         (plan) =>
@@ -370,7 +370,7 @@ describe("telegram state migrations", () => {
         agents: {
           list: [{ id: "ops", default: true }],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const messageCachePlan = plans.find(
         (plan) =>
@@ -439,7 +439,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const topicNamePlan = plans.find(
         (plan) =>
@@ -506,7 +506,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const topicNamePlan = plans.find(
         (plan) =>
@@ -620,7 +620,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
 
       expect(
@@ -755,7 +755,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const expiredPlans = plans.filter(
         (plan) => plan.kind === "plugin-state-import" && plan.sourcePath === sentMessagePath,
@@ -861,7 +861,7 @@ describe("telegram state migrations", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const plans = await detectTelegramLegacyStateMigrations({ cfg, env });
       const importPlans = plans.filter((plan) => plan.kind === "plugin-state-import");
       const currentSentPlan = importPlans.find(

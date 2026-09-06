@@ -8,10 +8,10 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 
 type AuditIdentityDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "audit_events" | "audit_identity_keys" | "execution_identity_contexts"
 >;
 type AuditIdentityKeyRow = Pick<

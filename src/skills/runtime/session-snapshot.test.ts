@@ -1,7 +1,7 @@
 // Session snapshot tests cover runtime skill state captured for agent sessions.
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { WORKSPACE_SKILLS_PROMPT_FORMAT_VERSION } from "../types.js";
 import type { SkillSnapshot } from "../types.js";
@@ -254,7 +254,7 @@ describe("resolveReusableWorkspaceSkillSnapshot", () => {
 
     const first = resolveReusableWorkspaceSkillSnapshot({
       workspaceDir: TEST_WORKSPACE_DIR,
-      config: { channels: { discord: { token: "enabled" } } } as OpenClawConfig,
+      config: { channels: { discord: { token: "enabled" } } } as GrantedConfig,
       existingSnapshot: snapshot,
     });
 
@@ -263,7 +263,7 @@ describe("resolveReusableWorkspaceSkillSnapshot", () => {
 
     const second = resolveReusableWorkspaceSkillSnapshot({
       workspaceDir: TEST_WORKSPACE_DIR,
-      config: { channels: { discord: {} } } as OpenClawConfig,
+      config: { channels: { discord: {} } } as GrantedConfig,
       existingSnapshot: { ...snapshot },
     });
 
@@ -282,13 +282,13 @@ describe("resolveReusableWorkspaceSkillSnapshot", () => {
 
     resolveReusableWorkspaceSkillSnapshot({
       workspaceDir: TEST_WORKSPACE_DIR,
-      config: { channels: { discord: { token: "first-secret" } } } as OpenClawConfig,
+      config: { channels: { discord: { token: "first-secret" } } } as GrantedConfig,
       existingSnapshot: snapshot,
     });
 
     resolveReusableWorkspaceSkillSnapshot({
       workspaceDir: TEST_WORKSPACE_DIR,
-      config: { channels: { discord: { token: "rotated-secret" } } } as OpenClawConfig,
+      config: { channels: { discord: { token: "rotated-secret" } } } as GrantedConfig,
       existingSnapshot: { ...snapshot },
     });
 

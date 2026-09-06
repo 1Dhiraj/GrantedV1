@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaProviderMode } from "../../extensions/qa-lab/src/run-config.ts";
 import type { QaSuiteRoundTripProbe } from "../../extensions/qa-lab/src/suite-round-trip.ts";
 import { normalizeCsvOrLooseStringList } from "../../packages/normalization-core/src/string-normalization.ts";
@@ -50,7 +50,7 @@ const DEFAULT_RTT_CHECK_ID = "channel-canary";
 const EXTENDED_STABLE_2026_6_35 = "2026.6.35";
 const LEGACY_CONFIG_CUTOFF = "2026.7.2-beta.4";
 
-function projectExtendedStable2026_6_35QaConfig(cfg: OpenClawConfig): OpenClawConfig {
+function projectExtendedStable2026_6_35QaConfig(cfg: GrantedConfig): GrantedConfig {
   const { entries, ...agents } = cfg.agents ?? {};
   const { mediaModels, modelPolicy: _modelPolicy, ...defaults } = agents.defaults ?? {};
 
@@ -71,10 +71,10 @@ function projectExtendedStable2026_6_35QaConfig(cfg: OpenClawConfig): OpenClawCo
       },
       list: Object.entries(entries ?? {}).map(([id, agent]) => Object.assign({ id }, agent)),
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function projectLegacyPackageQaConfig(cfg: OpenClawConfig): OpenClawConfig {
+function projectLegacyPackageQaConfig(cfg: GrantedConfig): GrantedConfig {
   const { entries, ...agents } = cfg.agents ?? {};
   const { modelPolicy: _modelPolicy, ...legacyDefaults } = agents.defaults ?? {};
   const memory = cfg.memory as
@@ -103,7 +103,7 @@ function projectLegacyPackageQaConfig(cfg: OpenClawConfig): OpenClawConfig {
             .map((key) => [key, memory[key]]),
         )
       : memory,
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function resolvePackageConfigMutation(env: NodeJS.ProcessEnv = process.env) {

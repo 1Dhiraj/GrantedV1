@@ -1,7 +1,7 @@
 import type { Message } from "grammy/types";
 import { formatMediaPlaceholderText } from "openclaw/plugin-sdk/channel-inbound";
 import { resolveStoredModelOverride } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
 import {
   getSessionEntry,
@@ -83,7 +83,7 @@ export type ResolveTelegramSessionStateParams = {
   threadSpec: TelegramThreadSpec;
   botHasTopicsEnabled?: boolean;
   senderId?: string | number;
-  runtimeCfg: OpenClawConfig;
+  runtimeCfg: GrantedConfig;
 };
 
 export type ResolvePromptContextAmbientWatermarkParams = {
@@ -434,7 +434,7 @@ export function createTelegramMessageContextRuntime({
     ctx: TelegramContext,
     msg: Message,
     replyChainNodes: TelegramCachedMessageNode[],
-    runtimeCfg: OpenClawConfig,
+    runtimeCfg: GrantedConfig,
     runtimeTelegramCfg: TelegramAccountConfig,
     options?: TelegramMessageContextOptions,
     mediaByMessageId?: ReadonlyMap<string, TelegramMediaRef>,

@@ -1,17 +1,17 @@
 /** Configured provider rows own exact model ids before plugin normalization. */
 import { findNormalizedProviderValue } from "@openclaw/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 type ConfiguredProviderModelParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   model: string;
 };
 
 /** Find the first configured provider without rediscovering its normalized key. */
 export function findConfiguredModelProvider(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   provider: string,
 ): ModelProviderConfig | undefined {
   return provider.trim()

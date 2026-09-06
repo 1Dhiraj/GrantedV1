@@ -13,18 +13,18 @@ import {
 import { appendTranscriptEventsInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import { waitForSessionTranscriptIndexReconcile } from "../config/sessions/session-transcript-reconcile.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as agentDatabase from "../state/openclaw-agent-db.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 
 const note = vi.hoisted(() => vi.fn());
@@ -37,7 +37,7 @@ import { noteSessionTranscriptLabelHealth } from "./doctor-session-transcript-la
 const AGENT_ID = "main";
 const SESSION_ID = "legacy-label-session";
 const SESSION_KEY = "agent:main:legacy-label-session";
-const CFG: OpenClawConfig = { agents: { list: [{ id: AGENT_ID }] } };
+const CFG: GrantedConfig = { agents: { list: [{ id: AGENT_ID }] } };
 const SESSION_TIMESTAMP = "2026-04-25T00:00:00Z";
 
 type MessageFixture = {
@@ -61,10 +61,10 @@ function createMessageEvent(fixture: MessageFixture): TranscriptEvent {
 }
 
 function appendTranscriptFixture(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   events: readonly TranscriptEvent[],
   scope: { sessionId?: string; sessionKey?: string } = {},
-): OpenClawAgentDatabase {
+): GrantedAgentDatabase {
   agentDatabase.runOpenClawAgentWriteTransaction((database) => {
     expect(
       appendTranscriptEventsInTransaction(
@@ -82,10 +82,10 @@ function appendTranscriptFixture(
 }
 
 function seedMessageTranscript(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   messages: readonly MessageFixture[],
   scope: { sessionId?: string; sessionKey?: string } = {},
-): OpenClawAgentDatabase {
+): GrantedAgentDatabase {
   const sessionId = scope.sessionId ?? SESSION_ID;
   return appendTranscriptFixture(
     databaseOptions,
@@ -113,9 +113,9 @@ function findMessageContent(events: readonly unknown[], eventId: string): unknow
 }
 
 async function runTranscriptLabelHealth(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   shouldRepair: boolean,
-  cfg: OpenClawConfig = CFG,
+  cfg: GrantedConfig = CFG,
 ): Promise<void> {
   await noteSessionTranscriptLabelHealth({ cfg, env: state.env, shouldRepair });
 }
@@ -181,8 +181,8 @@ function createLegacyLabelEvents(): {
 }
 
 function seedLegacyLabelTranscript(
-  databaseOptions: OpenClawAgentDatabaseOptions,
-): OpenClawAgentDatabase {
+  databaseOptions: GrantedAgentDatabaseOptions,
+): GrantedAgentDatabase {
   const { events } = createLegacyLabelEvents();
   return appendTranscriptFixture(databaseOptions, events);
 }
@@ -202,8 +202,8 @@ function findEventJson(
 }
 
 describe("doctor SQLite session transcript label migration", () => {
-  let state: OpenClawTestState;
-  let transcriptDatabaseOptions: OpenClawAgentDatabaseOptions;
+  let state: GrantedTestState;
+  let transcriptDatabaseOptions: GrantedAgentDatabaseOptions;
 
   beforeEach(async () => {
     note.mockClear();
@@ -417,7 +417,7 @@ describe("doctor SQLite session transcript label migration", () => {
       const customSqlitePath = resolveSqliteTargetFromSessionStorePath(customStorePath, {
         agentId: AGENT_ID,
       }).path;
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { entries: { [shared ? "beta" : AGENT_ID]: {} } },
         session: { store: customStorePath },
       };

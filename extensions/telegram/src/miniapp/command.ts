@@ -1,8 +1,8 @@
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginCommandDefinition,
+  GrantedPluginApi,
+  GrantedPluginCommandDefinition,
   PluginCommandContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { TelegramMiniAppLaunchTickets } from "./launch-ticket.js";
@@ -10,16 +10,16 @@ import { isTelegramMiniAppOwner } from "./owner.js";
 import { resolveTelegramMiniAppUrls, TELEGRAM_MINIAPP_URL_ERROR } from "./url.js";
 
 export function registerTelegramMiniAppCommand(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   launchTickets: TelegramMiniAppLaunchTickets,
 ): void {
   api.registerCommand(createTelegramMiniAppDashboardCommand(api, launchTickets));
 }
 
 function createTelegramMiniAppDashboardCommand(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   launchTickets: TelegramMiniAppLaunchTickets,
-): OpenClawPluginCommandDefinition {
+): GrantedPluginCommandDefinition {
   return {
     name: "dashboard",
     description: "Open the OpenClaw dashboard",
@@ -61,8 +61,8 @@ function createTelegramMiniAppDashboardCommand(
   };
 }
 
-function currentConfig(api: OpenClawPluginApi): OpenClawConfig {
-  return (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+function currentConfig(api: GrantedPluginApi): GrantedConfig {
+  return (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
 }
 
 function isTelegramDirectCommand(ctx: PluginCommandContext): boolean {

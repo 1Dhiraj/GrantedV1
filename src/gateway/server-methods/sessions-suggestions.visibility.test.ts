@@ -5,7 +5,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { addSessionMember } from "../../config/sessions/session-sharing-store.js";
 import { addSessionSuggestion } from "../../config/sessions/session-suggestion-store.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { getSessionSuggestionTestMocks } from "./sessions-suggestions.test-mocks.js";
@@ -75,7 +75,7 @@ describe("session suggestion visibility and role ceilings", () => {
         },
       );
       const guest = client(guestProfile.id, "Guest");
-      const roleConfig = (others: "none" | "view" | "suggest"): OpenClawConfig => ({
+      const roleConfig = (others: "none" | "view" | "suggest"): GrantedConfig => ({
         gateway: {
           roles: {
             default: "guest",

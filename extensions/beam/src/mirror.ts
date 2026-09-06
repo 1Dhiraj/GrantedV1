@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { resolveConfiguredSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
@@ -394,7 +394,7 @@ export function createBeamMirrorRunner(params: {
       }
       let agentId: string;
       try {
-        agentId = resolveSessionAgentIdsStrict({ config: config as OpenClawConfig }).defaultAgentId;
+        agentId = resolveSessionAgentIdsStrict({ config: config as GrantedConfig }).defaultAgentId;
       } catch (error) {
         warnThrottled(`beam mirror disabled: ${String(error)}`);
         return;
@@ -403,7 +403,7 @@ export function createBeamMirrorRunner(params: {
       if (mirror.token !== undefined) {
         const resolved = await resolveConfiguredSecretInputString({
           // The resolver only reads; the plugin runtime exposes a DeepReadonly view.
-          config: config as OpenClawConfig,
+          config: config as GrantedConfig,
           env,
           value: mirror.token,
           path: MIRROR_TOKEN_PATH,

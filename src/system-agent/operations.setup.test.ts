@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resetPluginStateStoreForTests } from "../plugin-state/plugin-state-store.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { SystemAgentInferenceUnavailableError } from "./inference-error.js";
@@ -166,7 +166,7 @@ beforeAll(() => {
   restoreCliBackendFixture = installSystemAgentClaudeCliBackendTestFixture();
   pluginMetadataSnapshot = installSystemAgentPluginMetadataTestSnapshot();
   mockConfig.setPluginMetadataBinder((config) => {
-    pluginMetadataSnapshot?.bindForConfig(config as OpenClawConfig);
+    pluginMetadataSnapshot?.bindForConfig(config as GrantedConfig);
   });
   mockConfig.reset();
 });
@@ -1017,7 +1017,7 @@ describe("parseSystemAgentOperation", () => {
       expect(requireRecord(agents.defaults, "defaults").model).toEqual({
         primary: "anthropic/global-default",
       });
-      const work = listAgentEntries(config as OpenClawConfig).find((entry) => entry.id === "work");
+      const work = listAgentEntries(config as GrantedConfig).find((entry) => entry.id === "work");
       expect(work?.model).toEqual({
         primary: "openai/gpt-5.5",
       });
@@ -1034,7 +1034,7 @@ describe("parseSystemAgentOperation", () => {
     expect(requireRecord(agents.defaults, "defaults").model).toEqual({
       primary: "anthropic/global-default",
     });
-    const work = listAgentEntries(mockConfig.currentConfig() as OpenClawConfig).find(
+    const work = listAgentEntries(mockConfig.currentConfig() as GrantedConfig).find(
       (entry) => entry.id === "work",
     );
     expect(work?.model).toEqual({

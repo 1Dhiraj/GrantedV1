@@ -1,7 +1,7 @@
 // Imported by register.test.ts to keep its mocked suite in one Vitest module graph.
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import { runDoctorLintChecks, type OpenClawConfig } from "openclaw/plugin-sdk/health";
+import { runDoctorLintChecks, type GrantedConfig } from "openclaw/plugin-sdk/health";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { collectPolicyEvidence } from "../policy-state.js";
 import {
@@ -27,7 +27,7 @@ function writeModelPolicyFixture(providers: object): Promise<string> {
   return writePolicyFixture({ models: { providers } });
 }
 
-async function runModelPolicyFixture(providers: object, cfg: OpenClawConfig) {
+async function runModelPolicyFixture(providers: object, cfg: GrantedConfig) {
   return runPolicyDoctorLint(ctx(await writeModelPolicyFixture(providers), cfg));
 }
 
@@ -55,7 +55,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         reviewer: {
@@ -91,7 +91,7 @@ describe("registerPolicyDoctorChecks", () => {
           reviewer: { tools: { deny: ["exec"] } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         reviewer: {
@@ -124,7 +124,7 @@ describe("registerPolicyDoctorChecks", () => {
       agents: {
         list: [{ id: "reviewer" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         reviewer: {
@@ -168,7 +168,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       channels: { telegram: { enabled: false } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture(
       {
         channels: {
@@ -197,7 +197,7 @@ describe("registerPolicyDoctorChecks", () => {
       mcp: { servers: { untrusted: { command: "uvx", args: ["untrusted-mcp"] } } },
       models: { providers: { openrouter: {} } },
       browser: { ssrfPolicy: { dangerouslyAllowPrivateNetwork: true } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writePolicyFixture({
       channels: {},
       mcp: {},
@@ -515,7 +515,7 @@ describe("registerPolicyDoctorChecks", () => {
           model: "openrouter/openai/gpt-5.5",
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ deny: ["openrouter"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -547,7 +547,7 @@ describe("registerPolicyDoctorChecks", () => {
           model: "OpenRouter/openai/gpt-5.5",
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ deny: ["openrouter", "amazon-bedrock"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -573,7 +573,7 @@ describe("registerPolicyDoctorChecks", () => {
           model: "OpenRouter/openai/gpt-5.5",
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openrouter", "amazon-bedrock"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -597,7 +597,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openai"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -620,7 +620,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openai"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -646,7 +646,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openai"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -667,7 +667,7 @@ describe("registerPolicyDoctorChecks", () => {
           anthropic: {},
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openai"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -691,7 +691,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await runModelPolicyFixture({ allow: ["openai"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -715,7 +715,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await runModelPolicyFixture({ deny: ["openrouter"] }, cfg);
 
     expect(result.findings).toEqual([
@@ -750,7 +750,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeMcpPolicyFixture({ deny: ["untrusted"] });
 
     const result = await runPolicyDoctorLint(ctx(configPath, cfg));
@@ -776,7 +776,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeMcpPolicyFixture({ deny: ["DocsServer"] });
 
     const result = await runPolicyDoctorLint(ctx(configPath, cfg));
@@ -806,7 +806,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeMcpPolicyFixture({ allow: ["docs"] });
 
     const result = await runPolicyDoctorLint(ctx(configPath, cfg));
@@ -832,7 +832,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeMcpPolicyFixture({ allow: ["DocsServer"] });
 
     const result = await runPolicyDoctorLint(ctx(configPath, cfg));
@@ -887,7 +887,7 @@ describe("registerPolicyDoctorChecks", () => {
           openrouter: {},
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeMcpPolicyFixture({ allow: ["docs"] });
 
     const result = await runPolicyDoctorLint(ctx(configPath, cfg));
@@ -909,7 +909,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       session: { requireDmScope: "per-channel-peer" },
       channels: {
@@ -956,7 +956,7 @@ describe("registerPolicyDoctorChecks", () => {
     const cfg = {
       ...cfgWithPolicy(),
       session: { dmScope: "Per-Channel-Peer" },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       session: { requireDmScope: "per-channel-peer" },
     });
@@ -985,7 +985,7 @@ describe("registerPolicyDoctorChecks", () => {
           requireMention: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({
       ingress: {
         session: { requireDmScope: "per-channel-peer" },
@@ -1039,7 +1039,7 @@ describe("registerPolicyDoctorChecks", () => {
           requireMention: false,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writePolicyFixture({
       scopes: {
         telegramIngress: {
@@ -1092,7 +1092,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         denyOpenGroups: true,
@@ -1134,7 +1134,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         requireMentionInGroups: true,
@@ -1171,7 +1171,7 @@ describe("registerPolicyDoctorChecks", () => {
           requireMention: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         denyOpenGroups: true,
@@ -1209,7 +1209,7 @@ describe("registerPolicyDoctorChecks", () => {
           groupPolicy: "allowlist",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         allowDmPolicies: ["disabled"],
@@ -1340,7 +1340,7 @@ describe("registerPolicyDoctorChecks", () => {
       channels: {
         qqbot: {},
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       session: { requireDmScope: "per-channel-peer" },
       channels: {
@@ -1372,7 +1372,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         allowDmPolicies: ["pairing"],
@@ -1413,7 +1413,7 @@ describe("registerPolicyDoctorChecks", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const configPath = await writeIngressPolicyFixture({
       channels: {
         denyOpenGroups: true,

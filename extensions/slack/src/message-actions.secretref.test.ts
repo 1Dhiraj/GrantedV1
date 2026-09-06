@@ -1,5 +1,5 @@
 // Slack tests cover account-isolated message-tool discovery.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { listSlackMessageActions } from "./message-actions.js";
 
@@ -19,7 +19,7 @@ describe("Slack message actions with an unavailable account SecretRef", () => {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   it("keeps healthy account actions discoverable", () => {
     expect(listSlackMessageActions(cfg)).toContain("send");

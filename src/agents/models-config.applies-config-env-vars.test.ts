@@ -1,6 +1,6 @@
 // Verifies models.json planning applies config env vars and discovery scope.
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createConfigRuntimeEnv } from "../config/env-vars.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -129,7 +129,7 @@ function createImplicitGoogleVertexProvider(): ProviderConfig {
 }
 
 async function resolveProvidersForConfigEnvTest(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   onResolveImplicitProviders: (env: NodeJS.ProcessEnv) => void;
 }) {
   // Config env vars are materialized into the discovery env before implicit
@@ -152,7 +152,7 @@ async function resolveProvidersForConfigEnvTest(params: {
   );
 }
 
-function createConfigEnvVarsConfig(): OpenClawConfig {
+function createConfigEnvVarsConfig(): GrantedConfig {
   return {
     models: { providers: {} },
     env: {
@@ -164,7 +164,7 @@ function createConfigEnvVarsConfig(): OpenClawConfig {
   };
 }
 
-async function resolveProvidersAndCaptureDiscoveryEnv(cfg: OpenClawConfig) {
+async function resolveProvidersAndCaptureDiscoveryEnv(cfg: GrantedConfig) {
   let discoveryEnv: NodeJS.ProcessEnv | undefined;
   const providers = await resolveProvidersForConfigEnvTest({
     cfg,
@@ -275,7 +275,7 @@ beforeAll(async () => {
 
 describe("models-config", () => {
   it("keeps the implicit provider catalog when explicit baseUrl is blank", async () => {
-    let observedConfig: OpenClawConfig | undefined;
+    let observedConfig: GrantedConfig | undefined;
     const providers = await resolveProvidersForModelsJsonWithDeps(
       {
         cfg: {

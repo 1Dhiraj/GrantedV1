@@ -1,5 +1,5 @@
 // Github Copilot tests cover auth plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const ensureAuthProfileStoreMock = vi.hoisted(() => vi.fn());
@@ -389,7 +389,7 @@ describe("resolveFirstGithubToken", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const env = {
         COPILOT_GITHUB_TOKEN: "ambient-copilot-token",
         GH_TOKEN: "ambient-gh-token",

@@ -61,7 +61,7 @@ export async function appendExpectedSessionTranscriptTurn(
   scope: SessionTranscriptWriteScope,
   options: {
     atomicGroup?: boolean;
-    config?: import("../types.openclaw.js").OpenClawConfig;
+    config?: import("../types.openclaw.js").GrantedConfig;
     cwd?: string;
     expectedLifecycleRevision?: SessionLifecycleRevisionExpectation;
     expectedWriterRunId?: SessionTranscriptTurnExpectedState["expectedWriterRunId"];

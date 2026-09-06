@@ -19,7 +19,7 @@ import {
   type TraceEvent,
   type TraceNormalizer,
 } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { ReplyDispatchKind, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
@@ -509,7 +509,7 @@ function createPreparedTraceMessage(scenario: SlackTraceScenarioName): PreparedS
           },
         }
       : {}),
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const client = traceState.client;
   if (!client) {
     throw new Error("trace Slack client not initialized");

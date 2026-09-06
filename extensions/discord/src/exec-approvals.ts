@@ -1,7 +1,7 @@
 // Discord plugin module implements exec approvals behavior.
 import type { ChannelOutboundPayloadHint } from "openclaw/plugin-sdk/channel-contract";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   DiscordExecApprovalConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
@@ -30,7 +30,7 @@ function normalizeDiscordApproverId(value: string): string | undefined {
   }
 }
 
-function resolveDiscordOwnerApprovers(cfg: OpenClawConfig): string[] {
+function resolveDiscordOwnerApprovers(cfg: GrantedConfig): string[] {
   const ownerAllowFrom = cfg.commands?.ownerAllowFrom;
   if (!Array.isArray(ownerAllowFrom) || ownerAllowFrom.length === 0) {
     return [];
@@ -42,7 +42,7 @@ function resolveDiscordOwnerApprovers(cfg: OpenClawConfig): string[] {
 }
 
 export function getDiscordExecApprovalApprovers(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   configOverride?: DiscordExecApprovalConfig | null;
 }): string[] {
@@ -56,7 +56,7 @@ export function getDiscordExecApprovalApprovers(params: {
 }
 
 export function isDiscordExecApprovalClientEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   configOverride?: DiscordExecApprovalConfig | null;
 }): boolean {
@@ -72,7 +72,7 @@ export function isDiscordExecApprovalClientEnabled(params: {
 }
 
 export function isDiscordExecApprovalApprover(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   senderId?: string | null;
   configOverride?: DiscordExecApprovalConfig | null;
@@ -89,7 +89,7 @@ export function isDiscordExecApprovalApprover(params: {
 }
 
 export function shouldSuppressLocalDiscordExecApprovalPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   payload: ReplyPayload;
   hint?: ChannelOutboundPayloadHint;

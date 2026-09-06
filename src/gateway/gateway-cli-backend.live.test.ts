@@ -15,7 +15,7 @@ import { loadCliSessionHistoryMessages } from "../agents/cli-runner/session-hist
 import { isLiveTestEnabled } from "../agents/live-test-helpers.js";
 import { shouldSkipLiveProviderDrift } from "../agents/live-test-provider-drift.js";
 import { parseModelRef } from "../agents/model-selection.js";
-import { clearRuntimeConfigSnapshot, type OpenClawConfig } from "../config/config.js";
+import { clearRuntimeConfigSnapshot, type GrantedConfig } from "../config/config.js";
 import { resolveSessionTranscriptRuntimeTarget } from "../config/sessions/session-accessor.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { resetGlobalHookRunner } from "../plugins/hook-runner-global.js";
@@ -155,7 +155,7 @@ function resolveCliBackendAgentAttemptTimeouts(): CliBackendAgentAttemptTimeouts
 
 function openAiProviderConfigForCodexCli(
   modelKey: string,
-): NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>["openai"] {
+): NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>["openai"] {
   const parsed = parseModelRef(modelKey, DEFAULT_PROVIDER);
   const modelId = parsed?.model?.trim() || "gpt-5.6-luna";
   return {
@@ -444,8 +444,8 @@ describeLive("gateway live (cli backend)", () => {
         });
       }
 
-      const cfg: OpenClawConfig = {};
-      const nextCfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {};
+      const nextCfg: GrantedConfig = {
         ...cfg,
         ...(CLI_CACHE_PROBE
           ? {

@@ -8,7 +8,7 @@ import {
   listMessageReceiptPlatformIds,
   type MessageReceipt,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
 import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
 import {
   deliverTextOrMediaReply,
@@ -25,7 +25,7 @@ type SendMattermostMessage = (
   to: string,
   text: string,
   opts: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string;
     mediaUrl?: string;
     mediaLocalRoots?: readonly string[];
@@ -59,7 +59,7 @@ export function joinMattermostVisibleContent(contents: readonly (string | undefi
 
 export async function deliverMattermostReplyPayload(params: {
   core: PluginRuntime;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   payload: ReplyPayload;
   channelId: string;
   accountId: string;

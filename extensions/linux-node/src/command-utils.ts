@@ -1,4 +1,4 @@
-import type { OpenClawPluginNodeHostCommandAvailabilityContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeHostCommandAvailabilityContext } from "openclaw/plugin-sdk/plugin-entry";
 import type { CommandOptions, SpawnResult } from "openclaw/plugin-sdk/process-runtime";
 import { asFiniteNumber, asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
@@ -44,7 +44,7 @@ export function assertToolResult(result: SpawnResult, code: string): void {
 }
 
 export function isCapabilityEnabledForHost(
-  context: OpenClawPluginNodeHostCommandAvailabilityContext,
+  context: GrantedPluginNodeHostCommandAvailabilityContext,
   capability: keyof ResolvedLinuxNodePluginConfig,
 ): boolean {
   return resolveLinuxNodePluginConfigFromHost(context.config)?.[capability].enabled === true;

@@ -14,7 +14,7 @@ import type { BoardFace } from "../../lib/board/settings.ts";
 import { readSessionDragData, sessionDragActive } from "../../lib/sessions/drag.ts";
 import { sessionNavigationTarget } from "../../lib/sessions/route-navigation.ts";
 import { areUiSessionKeysEquivalent } from "../../lib/sessions/session-key.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { persistSessionBoardFace } from "./chat-board-face-persistence.ts";
 import { currentRouteLocation, stillOwnsCanonicalLocation } from "./chat-canonical-location.ts";
@@ -55,7 +55,7 @@ import {
 
 type DropIndicator = { paneId: string; zone: SplitDropZone; rect: SplitDropRect };
 
-export class ChatPage extends OpenClawLightDomElement implements SessionSplitHost {
+export class ChatPage extends GrantedLightDomElement implements SessionSplitHost {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
   @property({ attribute: false }) data!: SessionChatRouteData;

@@ -1,6 +1,6 @@
 import type { Command } from "commander";
-import type { OpenClawPluginApi } from "../plugins/plugin-api.types.js";
-import type { OpenClawPluginCliRootCommandDescriptor } from "../plugins/plugin-registration.types.js";
+import type { GrantedPluginApi } from "../plugins/plugin-api.types.js";
+import type { GrantedPluginCliRootCommandDescriptor } from "../plugins/plugin-registration.types.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { createMeetingRealtimeEngineBindings } from "./agent-consult.js";
 import {
@@ -151,16 +151,16 @@ type MeetingPluginShellEntryOptions<
   | "unknownActionMessage"
 > & {
   cli: {
-    descriptor: OpenClawPluginCliRootCommandDescriptor;
+    descriptor: GrantedPluginCliRootCommandDescriptor;
     load(): Promise<(params: { program: Command; config: Config }) => void>;
   };
   browserGuestLabel: string;
   platform: MeetingPluginShellPlatform;
   runtime: new (params: {
     config: Config;
-    fullConfig: OpenClawPluginApi["config"];
-    logger: OpenClawPluginApi["logger"];
-    runtime: OpenClawPluginApi["runtime"];
+    fullConfig: GrantedPluginApi["config"];
+    logger: GrantedPluginApi["logger"];
+    runtime: GrantedPluginApi["runtime"];
   }) => Runtime;
   transcriptSource: { aliases?: readonly string[]; id: string };
 };

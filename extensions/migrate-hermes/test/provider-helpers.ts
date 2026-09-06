@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 
 function noop() {}
 
@@ -19,11 +19,11 @@ export async function writeFile(filePath: string, content: string) {
 }
 
 export function makeConfigRuntime(
-  config: OpenClawConfig,
-  onWrite?: (next: OpenClawConfig) => void,
+  config: GrantedConfig,
+  onWrite?: (next: GrantedConfig) => void,
 ): NonNullable<MigrationProviderContext["runtime"]> {
-  const commitConfig = (next: OpenClawConfig) => {
-    (Object.keys(config) as Array<keyof OpenClawConfig>).forEach((key) => delete config[key]);
+  const commitConfig = (next: GrantedConfig) => {
+    (Object.keys(config) as Array<keyof GrantedConfig>).forEach((key) => delete config[key]);
     Object.assign(config, next);
     onWrite?.(next);
   };
@@ -36,7 +36,7 @@ export function makeConfigRuntime(
         mutate,
       }: {
         afterWrite?: unknown;
-        mutate: (draft: OpenClawConfig, context: unknown) => Promise<unknown> | void;
+        mutate: (draft: GrantedConfig, context: unknown) => Promise<unknown> | void;
       }) => {
         const next = structuredClone(config);
         const result = await mutate(next, {
@@ -57,7 +57,7 @@ export function makeConfigRuntime(
         nextConfig,
       }: {
         afterWrite?: unknown;
-        nextConfig: OpenClawConfig;
+        nextConfig: GrantedConfig;
       }) => {
         commitConfig(nextConfig);
         return { afterWrite, followUp: { mode: "auto", requiresRestart: false }, nextConfig };
@@ -70,12 +70,12 @@ export function makeContext(params: {
   source: string;
   stateDir: string;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   includeSecrets?: boolean;
   overwrite?: boolean;
   itemKinds?: string[];
   targetAgentId?: string;
-  model?: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["model"];
+  model?: NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["model"];
   reportDir?: string;
   runtime?: MigrationProviderContext["runtime"];
 }): MigrationProviderContext {
@@ -88,7 +88,7 @@ export function makeContext(params: {
           ...(params.model !== undefined ? { model: params.model } : {}),
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
   return {
     config,
     stateDir: params.stateDir,

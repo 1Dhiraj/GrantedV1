@@ -5,7 +5,7 @@ import { validateDecisionReceiptV1 } from "../../packages/gateway-protocol/src/i
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { pseudonymizeExecutionIdentityRef } from "./audit-identity.js";
 import { recordExecutionDecisionFact } from "./execution-decision-facts.js";
@@ -181,7 +181,7 @@ export function parseExecutionDecisionWork(value: unknown): ExecutionDecisionWor
 /** Project raw private refs at the audit owner, then persist only the bounded receipt. */
 export function processExecutionDecisionWork(
   value: unknown,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): "inserted" | "existing" {
   const work = parseExecutionDecisionWork(value);
   const db = openOpenClawStateDatabase(options).db;

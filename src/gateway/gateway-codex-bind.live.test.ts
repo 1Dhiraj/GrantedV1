@@ -11,7 +11,7 @@ import { saveAuthProfileStore } from "../agents/auth-profiles/store.js";
 import { isLiveTestEnabled } from "../agents/live-test-helpers.js";
 import type { ChannelOutboundContext } from "../channels/plugins/types.adapters.js";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { getSessionBindingService } from "../infra/outbound/session-binding-service.js";
 import { findBundledPluginMetadataById } from "../plugins/bundled-plugin-metadata.js";
@@ -265,7 +265,7 @@ async function writeGatewayConfig(params: {
   const modelProvider = params.modelProvider?.trim() || "codex";
   const usesApiKeyAuth =
     modelProvider === "openai" && process.env.GRANTED_LIVE_CODEX_HARNESS_AUTH === "api-key";
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     gateway: {
       mode: "local",
       port: params.port,

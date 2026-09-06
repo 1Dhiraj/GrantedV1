@@ -3,7 +3,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import {
   getActivePluginRegistry,
@@ -44,13 +44,13 @@ const discordConfig = {
   channels: {
     discord: {},
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 const updatedDiscordConfig = {
   channels: {
     discord: { enabled: true },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 const explicitFleetDiscordConfig = {
   agents: {
@@ -63,7 +63,7 @@ const explicitFleetDiscordConfig = {
   channels: {
     discord: {},
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 const systemOwnedFleetDiscordConfig = {
   agents: {
@@ -77,7 +77,7 @@ const systemOwnedFleetDiscordConfig = {
   channels: {
     discord: {},
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function installDiscordSetupShell(): void {
   const registry = createEmptyPluginRegistry();
@@ -153,7 +153,7 @@ describe("bootstrapOutboundChannelPlugin", () => {
         },
       },
       channels: { discord: {} },
-    }).config as OpenClawConfig;
+    }).config as GrantedConfig;
     const handle = createEmptyPluginRegistry();
     handle.channels = [
       {

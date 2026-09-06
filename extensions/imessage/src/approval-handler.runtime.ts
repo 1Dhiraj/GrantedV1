@@ -20,7 +20,7 @@ import type {
   SystemAgentApprovalRequest,
 } from "openclaw/plugin-sdk/approval-runtime";
 import { createActionGate } from "openclaw/plugin-sdk/channel-actions";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
 import { resolveIMessageAccount } from "./accounts.js";
@@ -118,7 +118,7 @@ function buildPendingPayload(params: {
 type IMessageApprovalTargetTransport = "imessage" | "sms" | "unknown";
 
 function classifyIMessageApprovalTargetTransport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: PreparedIMessageApprovalTarget;
 }): IMessageApprovalTargetTransport {
   const account = resolveIMessageAccount({ cfg: params.cfg, accountId: params.target.accountId });
@@ -154,7 +154,7 @@ function classifyIMessageApprovalTargetTransport(params: {
  * cost of a cold cache is that the first approval after start uses tapbacks.
  */
 function canIMessageApprovalUsePoll(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: PreparedIMessageApprovalTarget;
   plannedTarget: { surface: string };
   allowedDecisions: readonly ExecApprovalReplyDecision[];
@@ -202,7 +202,7 @@ function canIMessageApprovalUsePoll(params: {
 }
 
 function resolveIMessageApprovalCliOptions(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: PreparedIMessageApprovalTarget;
 }): { cliPath: string; dbPath?: string; timeoutMs?: number } {
   const account = resolveIMessageAccount({ cfg: params.cfg, accountId: params.target.accountId });
@@ -224,7 +224,7 @@ function resolveIMessageApprovalCliOptions(params: {
  *
  */
 async function deliverIMessageApprovalPoll(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: PreparedIMessageApprovalTarget;
   approvalId: string;
   approvalKind: ChannelApprovalKind;
@@ -366,7 +366,7 @@ async function resolveIMessageApprovalChatGuid(params: {
  * original details message still carries every manual command.
  */
 async function recoverIMessageApprovalTextFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: PreparedIMessageApprovalTarget;
   promptMessageId?: string;
   fallbackText: string;

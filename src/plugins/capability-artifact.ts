@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginAcceptedDeclaredSurface } from "../config/types.plugins.js";
 import { isRootFileMissingFailure } from "../infra/boundary-file-read.js";
 import {
@@ -18,7 +18,7 @@ import { resolvePackageExtensionEntries } from "./package-manifest.js";
 import { createPluginCache, withPluginCache } from "./plugin-cache.js";
 
 type PluginArtifactInspectionContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   currentArtifactDir?: string;
 };
 

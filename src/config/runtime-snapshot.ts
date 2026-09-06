@@ -6,14 +6,14 @@ import {
   type PreparedConfigRuntimeEnv,
 } from "./config-env-vars.js";
 import { copyConfigResolutionFacts, getConfigResolutionFacts } from "./resolution-facts.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 export type RuntimeConfigSnapshotRefreshOptions = {
   includeAuthStoreRefs?: boolean;
 };
 
 export type RuntimeConfigSnapshotRefreshParams = RuntimeConfigSnapshotRefreshOptions & {
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
   preflightResult?: unknown;
 };
 type MaybePromise<T> = T | Promise<T>;
@@ -77,8 +77,8 @@ export type RuntimeConfigSnapshotRefreshHandler = {
 
 export type RuntimeConfigWriteNotification = {
   configPath: string;
-  sourceConfig: OpenClawConfig;
-  runtimeConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  runtimeConfig: GrantedConfig;
   persistedHash: string;
   revision: number;
   fingerprint: string;
@@ -91,11 +91,11 @@ export type RuntimeConfigWriteNotification = {
 };
 
 export type RuntimeConfigWritePreparedCandidate = {
-  runtimeConfig: OpenClawConfig;
-  compareConfig: OpenClawConfig;
+  runtimeConfig: GrantedConfig;
+  compareConfig: GrantedConfig;
   runtimeEnv?: PreparedConfigRuntimeEnv;
-  reapplyRuntimeOverlays?: (config: OpenClawConfig) => OpenClawConfig;
-  reapplyCompareOverlays?: (config: OpenClawConfig) => OpenClawConfig;
+  reapplyRuntimeOverlays?: (config: GrantedConfig) => GrantedConfig;
+  reapplyCompareOverlays?: (config: GrantedConfig) => GrantedConfig;
 };
 
 export type RuntimeConfigSnapshotMetadata = {
@@ -105,14 +105,14 @@ export type RuntimeConfigSnapshotMetadata = {
   updatedAtMs: number;
 };
 
-let runtimeConfigSnapshot: OpenClawConfig | null = null;
-let runtimeConfigSourceSnapshot: OpenClawConfig | null = null;
+let runtimeConfigSnapshot: GrantedConfig | null = null;
+let runtimeConfigSourceSnapshot: GrantedConfig | null = null;
 let runtimeConfigSnapshotMetadata: RuntimeConfigSnapshotMetadata | null = null;
 let runtimeConfigAppliedHash: string | null = null;
 let runtimeConfigSnapshotRevision = 0;
 let runtimeConfigSnapshotRefreshHandler: RuntimeConfigSnapshotRefreshHandler | null = null;
 type ManagedRuntimeConfigWritePreflight = (
-  sourceConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
   refreshOptions?: RuntimeConfigSnapshotRefreshOptions,
 ) => MaybePromise<RuntimeConfigWritePreparedCandidate>;
 const managedRuntimeConfigWriteOwners = new Map<
@@ -120,7 +120,7 @@ const managedRuntimeConfigWriteOwners = new Map<
   Set<{ id: symbol; preflight?: ManagedRuntimeConfigWritePreflight }>
 >();
 const runtimeConfigWriteListeners = new Set<(event: RuntimeConfigWriteNotification) => void>();
-const runtimeConfigSnapshotPreparers = new Set<(config: OpenClawConfig) => void>();
+const runtimeConfigSnapshotPreparers = new Set<(config: GrantedConfig) => void>();
 
 function stableConfigStringify(value: unknown): string {
   if (value === null || typeof value !== "object") {
@@ -136,7 +136,7 @@ function stableConfigStringify(value: unknown): string {
     .join(",")}}`;
 }
 
-function configSnapshotsMatch(left: OpenClawConfig, right: OpenClawConfig): boolean {
+function configSnapshotsMatch(left: GrantedConfig, right: GrantedConfig): boolean {
   if (left === right) {
     return true;
   }
@@ -151,13 +151,13 @@ function configSnapshotsMatch(left: OpenClawConfig, right: OpenClawConfig): bool
   }
 }
 
-export function hashRuntimeConfigValue(value: OpenClawConfig): string {
+export function hashRuntimeConfigValue(value: GrantedConfig): string {
   return sha256Base64Url(stableConfigStringify(value));
 }
 
 function createRuntimeConfigSnapshotMetadata(
-  config: OpenClawConfig,
-  sourceConfig?: OpenClawConfig,
+  config: GrantedConfig,
+  sourceConfig?: GrantedConfig,
 ): RuntimeConfigSnapshotMetadata {
   runtimeConfigSnapshotRevision += 1;
   return {
@@ -169,8 +169,8 @@ function createRuntimeConfigSnapshotMetadata(
 }
 
 export function setRuntimeConfigSnapshot(
-  config: OpenClawConfig,
-  sourceConfig?: OpenClawConfig,
+  config: GrantedConfig,
+  sourceConfig?: GrantedConfig,
 ): void {
   const factSource = getConfigResolutionFacts(config) !== null ? config : (sourceConfig ?? config);
   copyConfigResolutionFacts(factSource, config);
@@ -184,7 +184,7 @@ export function setRuntimeConfigSnapshot(
 }
 
 export function registerRuntimeConfigSnapshotPreparer(
-  prepare: (config: OpenClawConfig) => void,
+  prepare: (config: GrantedConfig) => void,
 ): () => void {
   runtimeConfigSnapshotPreparers.add(prepare);
   if (runtimeConfigSnapshot) {
@@ -194,8 +194,8 @@ export function registerRuntimeConfigSnapshotPreparer(
 }
 
 export function setAppliedRuntimeConfigSnapshot(
-  config: OpenClawConfig,
-  sourceConfig: OpenClawConfig,
+  config: GrantedConfig,
+  sourceConfig: GrantedConfig,
 ): void {
   setRuntimeConfigSnapshot(config, sourceConfig);
   runtimeConfigAppliedHash = hashRuntimeConfigValue(sourceConfig);
@@ -204,7 +204,7 @@ export function setAppliedRuntimeConfigSnapshot(
 /** Publish a newer canonical source without changing the active runtime object. */
 export function setRuntimeConfigSourceSnapshotIfCurrent(params: {
   expectedRevision: number;
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
 }): boolean {
   if (
     !runtimeConfigSnapshot ||
@@ -232,11 +232,11 @@ export function clearRuntimeConfigSnapshot(): void {
   resetConfigRuntimeState();
 }
 
-export function getRuntimeConfigSnapshot(): OpenClawConfig | null {
+export function getRuntimeConfigSnapshot(): GrantedConfig | null {
   return runtimeConfigSnapshot;
 }
 
-export function getRuntimeConfigSourceSnapshot(): OpenClawConfig | null {
+export function getRuntimeConfigSourceSnapshot(): GrantedConfig | null {
   return runtimeConfigSourceSnapshot;
 }
 
@@ -253,7 +253,7 @@ export function setRuntimeConfigAppliedHash(hash: string | null): void {
   runtimeConfigAppliedHash = hash;
 }
 
-export function resolveRuntimeConfigCacheKey(config: OpenClawConfig): string {
+export function resolveRuntimeConfigCacheKey(config: GrantedConfig): string {
   const metadata = runtimeConfigSnapshotMetadata;
   if (metadata && config === runtimeConfigSnapshot) {
     return `runtime:${metadata.revision}:${metadata.fingerprint}`;
@@ -263,8 +263,8 @@ export function resolveRuntimeConfigCacheKey(config: OpenClawConfig): string {
 
 export function createRuntimeConfigWriteNotification(params: {
   configPath: string;
-  sourceConfig: OpenClawConfig;
-  runtimeConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  runtimeConfig: GrantedConfig;
   persistedHash: string;
   writtenAtMs?: number;
   afterWrite?: ConfigWriteAfterWrite;
@@ -300,10 +300,10 @@ export function createRuntimeConfigWriteNotification(params: {
 }
 
 export function selectApplicableRuntimeConfig(params: {
-  inputConfig?: OpenClawConfig;
-  runtimeConfig?: OpenClawConfig | null;
-  runtimeSourceConfig?: OpenClawConfig | null;
-}): OpenClawConfig | undefined {
+  inputConfig?: GrantedConfig;
+  runtimeConfig?: GrantedConfig | null;
+  runtimeSourceConfig?: GrantedConfig | null;
+}): GrantedConfig | undefined {
   const runtimeConfig = params.runtimeConfig ?? null;
   if (!runtimeConfig) {
     return params.inputConfig;
@@ -371,7 +371,7 @@ export function registerManagedRuntimeConfigWriteOwner(
 
 export async function preflightManagedRuntimeConfigWrite(
   configPath: string,
-  sourceConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
   refreshOptions?: RuntimeConfigSnapshotRefreshOptions,
 ): Promise<Map<symbol, RuntimeConfigWritePreparedCandidate>> {
   const owners = managedRuntimeConfigWriteOwners.get(configPath);
@@ -401,7 +401,7 @@ export function notifyRuntimeConfigWriteListeners(event: RuntimeConfigWriteNotif
   }
 }
 
-export function loadPinnedRuntimeConfig(loadFresh: () => OpenClawConfig): OpenClawConfig {
+export function loadPinnedRuntimeConfig(loadFresh: () => GrantedConfig): GrantedConfig {
   if (runtimeConfigSnapshot) {
     return runtimeConfigSnapshot;
   }
@@ -411,7 +411,7 @@ export function loadPinnedRuntimeConfig(loadFresh: () => OpenClawConfig): OpenCl
 }
 
 export async function preflightRuntimeSnapshotWrite(params: {
-  nextSourceConfig: OpenClawConfig;
+  nextSourceConfig: GrantedConfig;
   refreshOptions?: RuntimeConfigSnapshotRefreshOptions;
   createRefreshError: (detail: string, cause: unknown) => Error;
   formatRefreshError: (error: unknown) => string;
@@ -431,11 +431,11 @@ export async function preflightRuntimeSnapshotWrite(params: {
 }
 
 export async function finalizeRuntimeSnapshotWrite(params: {
-  nextSourceConfig: OpenClawConfig;
+  nextSourceConfig: GrantedConfig;
   refreshOptions?: RuntimeConfigSnapshotRefreshOptions;
   hadRuntimeSnapshot: boolean;
   hadBothSnapshots: boolean;
-  loadFreshConfig: () => OpenClawConfig;
+  loadFreshConfig: () => GrantedConfig;
   notifyCommittedWrite: () => void;
   createRefreshError: (detail: string, cause: unknown) => Error;
   formatRefreshError: (error: unknown) => string;

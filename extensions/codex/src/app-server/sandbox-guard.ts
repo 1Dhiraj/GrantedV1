@@ -3,7 +3,7 @@
  * node-exec routing guarantees.
  */
 import { tryResolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import { resolveSandboxRuntimeStatus, type SandboxContext } from "openclaw/plugin-sdk/sandbox";
 import { isCodexRemoteExecPlacementSandbox } from "./config-parsing.js";
@@ -82,7 +82,7 @@ const NODE_EXEC_BLOCKED_CONTROL_PLANE_METHODS = new Set<string>([
 export function resolveCodexAppServerDirectSandboxBypassBlock(params: {
   method: string;
   requestParams?: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   sandbox?: Pick<SandboxContext, "enabled"> | null;
@@ -135,7 +135,7 @@ export function resolveCodexAppServerDirectSandboxBypassBlock(params: {
 
 /** Resolves the generic native-execution block for sandboxed or node-hosted sessions. */
 export function resolveCodexNativeExecutionBlock(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;
@@ -148,7 +148,7 @@ export function resolveCodexNativeExecutionBlock(params: {
 
 /** Returns a block message when native Codex execution cannot honor active sandboxing. */
 export function resolveCodexNativeSandboxBlock(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;
@@ -228,7 +228,7 @@ function formatCodexNativeSandboxBlock(params: { surface: string }): string {
 }
 
 function resolveCodexNativeNodeExecBlock(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;

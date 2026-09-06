@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { runWithSessionTranscriptReadFence } from "../../config/sessions/session-transcript-read-fence.js";
 /**
  * Manages context-engine lifecycle hooks for native agent harnesses.
@@ -116,7 +116,7 @@ export async function bootstrapHarnessContextEngine(params: {
   fallbackReason?: string | null;
   degradedReason?: string | null;
   runMaintenance?: typeof runHarnessContextEngineMaintenance;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   warn: (message: string) => void;
 }): Promise<void> {
   if (
@@ -287,7 +287,7 @@ export async function finalizeHarnessContextEngineTurn(params: {
   degradedReason?: string | null;
   runMaintenance?: typeof runHarnessContextEngineMaintenance;
   sessionManager?: unknown;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   warn: (message: string) => void;
   /** True when this turn belongs to a heartbeat run. */
   isHeartbeat?: boolean;
@@ -443,7 +443,7 @@ export async function runHarnessContextEngineMaintenance(params: {
   executionMode?: "foreground" | "background";
   onDeferredMaintenance?: (promise: Promise<void>) => void;
   withSessionManagerRewriteLock?: <T>(operation: () => Promise<T> | T) => Promise<T>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }) {
   const runtimeSettings = buildHarnessContextEngineRuntimeSettings(params);
   return await runContextEngineMaintenance({

@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -82,7 +82,7 @@ describe("buildMistralRealtimeTranscriptionProvider", () => {
   it("normalizes nested provider config", () => {
     const provider = buildMistralRealtimeTranscriptionProvider();
     const resolved = provider.resolveConfig?.({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       rawConfig: {
         providers: {
           mistral: {
@@ -109,7 +109,7 @@ describe("buildMistralRealtimeTranscriptionProvider", () => {
   it("normalizes pasted API key artifacts for realtime auth headers", () => {
     const provider = buildMistralRealtimeTranscriptionProvider();
     const resolved = provider.resolveConfig?.({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       rawConfig: {
         providers: {
           mistral: {

@@ -4,10 +4,10 @@ import { access, readFile, realpath } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
+import type { GrantedPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicyContext,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicyContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -53,7 +53,7 @@ function createManagedWorkspaceInvocation(cwd: string) {
     sendNodeEvent: async () => undefined,
     acquireManagedWorkspace,
     prepareExecAuthorization: () => () => {},
-  } satisfies NonNullable<Parameters<OpenClawPluginNodeHostCommand["handle"]>[2]>;
+  } satisfies NonNullable<Parameters<GrantedPluginNodeHostCommand["handle"]>[2]>;
   return { placement, context, acquireManagedWorkspace, release };
 }
 
@@ -65,7 +65,7 @@ function createNodeFrames() {
     signalReady = resolve;
   });
   const outbound: JsonRpcRecord[] = [];
-  const io: OpenClawPluginNodeHostCommandIo = {
+  const io: GrantedPluginNodeHostCommandIo = {
     signal: controller.signal,
     emitChunk: async () => undefined,
     onInput: () => undefined,
@@ -271,7 +271,7 @@ describe("Codex node exec-server", () => {
       risk: { level: "high", family: "codex.exec-server" },
       approvals: { request },
       invokeNode,
-    } satisfies OpenClawPluginNodeInvokePolicyContext;
+    } satisfies GrantedPluginNodeInvokePolicyContext;
 
     for (const { decision, result } of [
       {

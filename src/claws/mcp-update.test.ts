@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { applyClawMcpUpdate as applyClawMcpUpdateRaw } from "./mcp-update.js";
 import {
@@ -142,7 +142,7 @@ describe("applyClawMcpUpdate", () => {
       {
         config: {
           mcp: { servers: { docs: { command: "uvx", args: ["docs-resolved"] }, legacy } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sourceMcpServers: { docs: oldDocs, legacy },
         nowMs: 20,
         readRefs: () => currentRefs,

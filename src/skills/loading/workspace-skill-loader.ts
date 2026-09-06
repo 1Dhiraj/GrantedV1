@@ -6,7 +6,7 @@ import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-
 import { tryResolveAmbientOwnerAgentId } from "../../agents/agent-scope-config.js";
 import { canonicalizePath } from "../../agents/utils/paths.js";
 import { isDefaultStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
@@ -24,7 +24,7 @@ import { getSkillsSnapshotVersion } from "../runtime/refresh-state.js";
 import { mergeRemoteNodeSkillEntries } from "../runtime/remote-skills.js";
 import { fingerprintSkillSnapshotConfig } from "../runtime/snapshot-config-fingerprint.js";
 import type {
-  OpenClawSkillMetadata,
+  GrantedSkillMetadata,
   ParsedSkillFrontmatter,
   SkillEligibilityContext,
   SkillEntry,
@@ -81,7 +81,7 @@ type WorkspaceSkillRoots = {
 };
 
 type WorkspaceSkillLoadOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   managedSkillsDir?: string;
   bundledSkillsDir?: string;
   pluginSkillsDir?: string;
@@ -159,7 +159,7 @@ function warnSkillPrecedenceCollision(winner: Skill, loser: Skill, workspaceDir:
 
 function filterSkillEntries(
   entries: SkillEntry[],
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   skillFilter?: string[],
   skillOverrides?: Readonly<Record<string, boolean>>,
   eligibility?: SkillEligibilityContext,
@@ -244,7 +244,7 @@ function readSourceInstallSkillKey(skillDir: string): string | undefined {
 function resolveSkillEntryMetadata(params: {
   frontmatter: ParsedSkillFrontmatter;
   skillDir: string;
-}): OpenClawSkillMetadata | undefined {
+}): GrantedSkillMetadata | undefined {
   const metadata = resolveSkillManifestMetadata(params.frontmatter);
   if (metadata?.skillKey) {
     return metadata;
@@ -377,7 +377,7 @@ function loadGeneratedPluginSkillRecords(params: {
 function loadSkillEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     agentId?: string;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
@@ -573,7 +573,7 @@ function loadSkillEntries(
 }
 
 function resolveEffectiveWorkspaceSkillFilter(opts?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   agentSkillFilter?: "apply" | "ignore";
   skillFilter?: string[];
@@ -590,7 +590,7 @@ function resolveEffectiveWorkspaceSkillFilter(opts?: {
 export function resolveWorkspaceSkillPromptEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];
@@ -684,7 +684,7 @@ export function loadMergedWorkspaceSkills(
 export function loadVisibleSkills(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     skillFilter?: string[];
@@ -711,7 +711,7 @@ export function loadVisibleSkills(
 export function filterWorkspaceSkills(
   entries: SkillEntry[],
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     skillFilter?: string[];
     skillOverrides?: Record<string, boolean>;
     eligibility?: SkillEligibilityContext;

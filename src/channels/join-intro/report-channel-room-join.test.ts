@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { applyEmbeddedAttemptToolsAllow } from "../../agents/embedded-agent-runner/run/attempt-tool-construction-plan.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   countPluginStateLiveEntries,
   resetPluginStateStoreForTests,
@@ -21,7 +21,7 @@ vi.mock("../../cron/isolated-agent.js", () => ({ runCronIsolatedAgentTurn }));
 
 let stateDir: string;
 
-function createJoinParams(conversationId: string, cfg: OpenClawConfig = {}) {
+function createJoinParams(conversationId: string, cfg: GrantedConfig = {}) {
   return {
     cfg,
     channel: "slack",

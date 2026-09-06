@@ -3,7 +3,7 @@ import path from "node:path";
 import { isStringRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveMcpTransportConfig } from "../agents/mcp-transport-config.js";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { isRecord } from "../utils.js";
 import {
@@ -595,7 +595,7 @@ function inspectMcpServerRuntimeSupport(loaded: {
 
 export function loadEnabledBundleMcpConfig(params: {
   workspaceDir: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
 }): EnabledBundleMcpConfigResult {
   const loaded = loadEnabledBundleConfig({

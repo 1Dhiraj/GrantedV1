@@ -6,7 +6,7 @@ import type {
   AcpRuntimeHandle,
   AcpRuntimeStatus,
 } from "@openclaw/acp-core/runtime/types";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withAcpRuntimeErrorBoundary } from "../runtime/errors.js";
 import type {
   AcpSessionStatus,
@@ -19,7 +19,7 @@ import { resolveRuntimeOptionsFromMeta } from "./runtime-options.js";
 
 /** Reads a fresh ACP session status and reconciles runtime identifiers from the status response. */
 export async function runManagerGetSessionStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId: string;
   signal?: AbortSignal;

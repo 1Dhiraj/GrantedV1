@@ -5,7 +5,7 @@ import type {
 } from "@openclaw/workboard-contract";
 import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { OpenClawPluginApi, OpenClawPluginService } from "../api.js";
+import type { GrantedPluginApi, GrantedPluginService } from "../api.js";
 import {
   cleanupWorkboardCardWorktree,
   isWorkboardWorktreeCleanupCandidate,
@@ -77,7 +77,7 @@ type WorkboardLifecycleMatchHandler = (input: {
   sessionKey?: string;
 }) => Promise<void>;
 
-type WorkboardLifecycleService = OpenClawPluginService & {
+type WorkboardLifecycleService = GrantedPluginService & {
   onGatewayStart: () => void;
   onGatewayStop: () => void;
 };
@@ -391,7 +391,7 @@ function normalizeSession(value: unknown): WorkboardLifecycleSession | undefined
 }
 
 export async function readWorkboardLifecycleSessions(
-  gateway: Pick<OpenClawPluginApi["runtime"]["gateway"], "isAvailable" | "request">,
+  gateway: Pick<GrantedPluginApi["runtime"]["gateway"], "isAvailable" | "request">,
   options: WorkboardLifecycleSessionReadOptions = { includeUnknown: false },
 ): Promise<WorkboardLifecycleSessionSnapshot> {
   if (!(await gateway.isAvailable())) {

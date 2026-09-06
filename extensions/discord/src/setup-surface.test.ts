@@ -1,6 +1,6 @@
 // Discord tests cover setup surface plugin behavior.
 import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { createDiscordSetupWizardBase } from "./setup-core.js";
 
@@ -52,7 +52,7 @@ describe("discordSetupWizard.status", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(configured).toBe(false);
@@ -74,7 +74,7 @@ describe("discordSetupWizard.groupAccess", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "default",
       resolved: [
         {

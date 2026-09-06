@@ -23,7 +23,7 @@ import {
   persistSessionTranscriptTurn,
 } from "../config/sessions/session-accessor.js";
 import { appendAssistantMessageToSessionTranscript } from "../config/sessions/transcript.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { dispatchCronDelivery } from "../cron/isolated-agent/delivery-dispatch.js";
 import { emitAgentEvent } from "../infra/agent-events.js";
 import { claimAgentRunContext, clearAgentRunContext } from "../infra/agent-run-registry.js";
@@ -35,7 +35,7 @@ import { persistUserTurnTranscript } from "../sessions/user-turn-transcript.test
 import { ensureProfileForEmail, setAvatar, setDisplayName } from "../state/user-profiles.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resolveCurrentUserProfileDisplay } from "./current-user-profile-display.js";
 import { testState } from "./test-helpers.runtime-state.js";
@@ -56,7 +56,7 @@ import { createWorkerTranscriptCommitter } from "./worker-environments/transcrip
 installGatewayTestHooks({ scope: "suite" });
 
 const cleanupDirs: string[] = [];
-const cleanupTestStates: OpenClawTestState[] = [];
+const cleanupTestStates: GrantedTestState[] = [];
 const SETUP_RPC_TIMEOUT_MS = 30_000;
 let harness: Awaited<ReturnType<typeof createGatewaySuiteHarness>>;
 let subscribedOperatorWs:
@@ -2714,7 +2714,7 @@ describe("session.message websocket events", () => {
       },
       storePath,
     });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { list: [{ id: "main", default: true }] },
       session: { mainKey: "main", store: storePath },
     };

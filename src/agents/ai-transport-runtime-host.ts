@@ -3,7 +3,7 @@ import {
   getAiTransportHost,
   type AiProviderRequestCapabilities,
 } from "@openclaw/ai";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import "../llm/ai-transport-host.js";
 import { getModelProviderRuntimePluginHandle } from "../plugins/provider-hook-runtime.js";
 import type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
@@ -44,17 +44,17 @@ export function configureAiTransportRuntimeHost(): void {
       resolveProviderStream: (params) =>
         resolveProviderStreamFn({
           ...params,
-          config: params.config as OpenClawConfig | undefined,
+          config: params.config as GrantedConfig | undefined,
           context: {
             ...params.context,
-            config: params.context.config as OpenClawConfig | undefined,
+            config: params.context.config as GrantedConfig | undefined,
             model: params.context.model as ProviderRuntimeModel,
           },
         }),
       resolveTransportTurnState: (params) =>
         resolveProviderTransportTurnStateWithPlugin({
           ...params,
-          config: params.config as OpenClawConfig | undefined,
+          config: params.config as GrantedConfig | undefined,
           runtimeHandle: getModelProviderRuntimePluginHandle(params.context.model),
           context: {
             ...params.context,
@@ -64,10 +64,10 @@ export function configureAiTransportRuntimeHost(): void {
       wrapSimpleCompletionStream: (params) =>
         wrapProviderSimpleCompletionStreamFn({
           ...params,
-          config: params.config as OpenClawConfig | undefined,
+          config: params.config as GrantedConfig | undefined,
           context: {
             ...params.context,
-            config: params.context.config as OpenClawConfig | undefined,
+            config: params.context.config as GrantedConfig | undefined,
             model: params.context.model as ProviderRuntimeModel,
           },
         }),

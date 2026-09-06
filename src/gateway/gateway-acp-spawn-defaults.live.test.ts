@@ -17,7 +17,7 @@ import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.j
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { loadSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { clearPluginLoaderCache } from "../plugins/loader.test-fixtures.js";
 import { resetPluginRuntimeStateForTest } from "../plugins/runtime.js";
@@ -206,7 +206,7 @@ async function waitForAcpBackendReady(timeoutMs = CONNECT_TIMEOUT_MS): Promise<v
 }
 
 async function waitForSessionEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   timeoutMs?: number;
 }): Promise<SessionEntry> {
@@ -228,7 +228,7 @@ async function waitForSessionEntry(params: {
 }
 
 async function runOpenCodeThinkingControlProof(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model: string;
   thinking: string;
   sessionKeys: string[];
@@ -285,7 +285,7 @@ async function runOpenCodeThinkingControlProof(params: {
 }
 
 async function runCodexThinkingControlProof(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   model: string;
   thinking: string;
   sessionKeys: string[];
@@ -372,7 +372,7 @@ function createConfig(params: {
   subagentModel?: string;
   thinking?: string;
   includePrimaryOnlyAcpAgent?: boolean;
-}): OpenClawConfig {
+}): GrantedConfig {
   const subagents = params.subagentModel
     ? {
         allowAgents: ["*"],

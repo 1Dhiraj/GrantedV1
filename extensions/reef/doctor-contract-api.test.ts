@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
@@ -108,7 +108,7 @@ function reefKeys(): ReefKeys {
   };
 }
 
-function legacyConfig(): OpenClawConfig {
+function legacyConfig(): GrantedConfig {
   const identity = generateIdentity();
   return {
     channels: {
@@ -130,7 +130,7 @@ function legacyConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("Reef doctor contract", () => {

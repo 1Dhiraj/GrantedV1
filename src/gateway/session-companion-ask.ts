@@ -6,7 +6,7 @@ import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { resolveSimpleCompletionSelectionForAgent } from "../agents/simple-completion-runtime.js";
 import { resolveUtilityModelRefForAgent } from "../agents/utility-model.js";
 import { resolveSessionStorePathCore } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { Message, Usage } from "../llm/types.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
@@ -39,7 +39,7 @@ type SessionCompanionPromptMessage = {
 };
 
 type SessionCompanionRunParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   modelRef: string;
   sessionKey: string;
@@ -50,7 +50,7 @@ type SessionCompanionRunParams = {
 };
 
 export type SessionCompanionAskDeps = {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   sessionObserver: {
     getCompanionSnapshot: (
       sessionKey: string,

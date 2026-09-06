@@ -1,6 +1,6 @@
 // Resolves the economy model: the cheap model background agent turns fall back
 // to when no per-role model is configured.
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 /**
  * Cheap model configured for background/low-stakes agent turns (heartbeat,
@@ -14,7 +14,7 @@ import type { OpenClawConfig } from "./types.openclaw.js";
  * turns, and every per-role setting (`heartbeat.model`, `compaction.model`,
  * `subagents.model`) still wins over it.
  */
-export function resolveEconomyModelRef(cfg?: OpenClawConfig): string | undefined {
+export function resolveEconomyModelRef(cfg?: GrantedConfig): string | undefined {
   const raw = cfg?.agents?.defaults?.economyModel;
   const trimmed = typeof raw === "string" ? raw.trim() : "";
   return trimmed.length > 0 ? trimmed : undefined;

@@ -502,7 +502,7 @@ describe("Parallels smoke model selection", () => {
     expect(controller).toContain('run_bounded 1800 prlctl exec "$VM_NAME" powershell.exe');
     expect(controller).not.toContain('run_windows_installer prlctl exec "$VM_NAME"');
     expect(controller).toContain(
-      "if (Test-Path -LiteralPath '${GUEST_PROFILE_PS}/Downloads/OpenClawPrereqs')",
+      "if (Test-Path -LiteralPath '${GUEST_PROFILE_PS}/Downloads/GrantedPrereqs')",
     );
     expect(controller).toContain("winget.exe download --source winget");
     expect(controller).toContain("GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY");
@@ -1807,7 +1807,7 @@ if (commandArgs[0] === "list") {
     expect(transports).toContain('if exist "${windowsDonePath}"');
     expect(transports).toContain('type "%WINDIR%\\\\Temp\\\\${guestRunDir}\\\\run.log"');
     expect(transports).toContain("WINDOWS_BACKGROUND_LOG_MAX_BYTES");
-    expect(transports).toContain("Write-OpenClawUtf8File $pidPath ([string]$PID)");
+    expect(transports).toContain("Write-GrantedUtf8File $pidPath ([string]$PID)");
     expect(transports).toContain('launch.stdout.includes("started")');
     expect(transports).toContain("waitForWindowsBackgroundMaterialized");
   });
@@ -2554,7 +2554,7 @@ if (commandArgs[0] === "list") {
     expect(windows).toContain(
       "Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
-    expect(windows).toContain("$script:OpenClawUpdateExit = $LASTEXITCODE");
+    expect(windows).toContain("$script:GrantedUpdateExit = $LASTEXITCODE");
     expect(windows).not.toContain("$env:GRANTED_DISABLE_BUNDLED_PLUGINS = '1'");
     for (const script of [macos, windows]) {
       expect(script).toContain('readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF")');
@@ -2593,7 +2593,7 @@ if (commandArgs[0] === "list") {
     expect(powershell).toContain('selectedModelEntry.agentRuntime = { id: "openclaw" }');
     expect(powershell).toContain("delete selectedModelEntry.agentRuntime");
     expect(powershell).toContain("delete providerEntry.agentRuntime");
-    expect(powershell).toContain("Resolve-OpenClawCommand");
+    expect(powershell).toContain("Resolve-GrantedCommand");
     expect(powershell).toContain("npm\\node_modules\\openclaw\\openclaw.mjs");
     expect(powershell).toContain("$ErrorActionPreference = 'Continue'");
     expect(powershell).toContain("$PSNativeCommandUseErrorActionPreference = $false");

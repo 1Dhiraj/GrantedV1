@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
@@ -113,7 +113,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
   ...streamingAliasMigration.legacyConfigRules,
 ];
 
-function normalizeRetiredGoogleChatKeys(cfg: OpenClawConfig): ChannelDoctorConfigMutation {
+function normalizeRetiredGoogleChatKeys(cfg: GrantedConfig): ChannelDoctorConfigMutation {
   return normalizeChannelConfigEntries({
     cfg,
     channelId: "googlechat",
@@ -124,7 +124,7 @@ function normalizeRetiredGoogleChatKeys(cfg: OpenClawConfig): ChannelDoctorConfi
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const retired = normalizeRetiredGoogleChatKeys(cfg);
   return streamingAliasMigration.normalizeChannelConfig({

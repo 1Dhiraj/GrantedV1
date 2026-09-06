@@ -1,6 +1,6 @@
 // Non-interactive gateway config tests cover port, bind, auth token, and SecretRef preservation behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { withEnv } from "../../../test-utils/env.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { applyNonInteractiveGatewayConfig } from "./gateway-config.js";
@@ -35,19 +35,19 @@ const SAMPLE_SECRET_REF = {
   id: "GRANTED_GATEWAY_TOKEN_REF",
 };
 
-function createTokenConfig(token: unknown): OpenClawConfig {
+function createTokenConfig(token: unknown): GrantedConfig {
   return {
     gateway: { auth: { mode: "token", token } },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 function applyGatewayConfig({
-  nextConfig = {} as OpenClawConfig,
+  nextConfig = {} as GrantedConfig,
   opts = baseOpts,
   runtime = createRuntime(),
   env = {},
 }: {
-  nextConfig?: OpenClawConfig;
+  nextConfig?: GrantedConfig;
   opts?: OnboardOptions;
   runtime?: ReturnType<typeof createRuntime>;
   env?: Record<string, string | undefined>;
@@ -389,7 +389,7 @@ describe("applyNonInteractiveGatewayConfig auth resolution", () => {
     const runtime = createRuntime();
 
     const result = applyGatewayConfig({
-      nextConfig: { gateway: { customBindHost: "not-an-ip" } } as OpenClawConfig,
+      nextConfig: { gateway: { customBindHost: "not-an-ip" } } as GrantedConfig,
       opts: { gatewayBind: "custom" } as OnboardOptions,
       runtime,
     });
@@ -403,7 +403,7 @@ describe("applyNonInteractiveGatewayConfig auth resolution", () => {
     const runtime = createRuntime();
 
     const result = applyGatewayConfig({
-      nextConfig: { gateway: { customBindHost: "192.168.1.100" } } as OpenClawConfig,
+      nextConfig: { gateway: { customBindHost: "192.168.1.100" } } as GrantedConfig,
       opts: { gatewayBind: "custom" } as OnboardOptions,
       runtime,
     });

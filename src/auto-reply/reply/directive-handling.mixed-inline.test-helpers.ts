@@ -2,7 +2,7 @@ import { vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
 import type { ModelAliasIndex } from "../../agents/model-selection.js";
 import { createModelVisibilityPolicy } from "../../agents/model-visibility-policy.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { parseInlineSessionDirectives, type InlineDirectives } from "./directive-handling.parse.js";
 import { applyInlineDirectiveOverrides } from "./get-reply-directives-apply.js";
@@ -13,7 +13,7 @@ export function createSessionEntry(overrides?: Partial<SessionEntry>): SessionEn
 
 export async function applyMixedDirectives(params: {
   body: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   sessionEntry?: SessionEntry;
   sessionKey?: string;
   storePath?: string;
@@ -30,7 +30,7 @@ export async function applyMixedDirectives(params: {
   directives?: InlineDirectives;
 }) {
   const cfg =
-    params.cfg ?? ({ commands: { text: true }, agents: { defaults: {} } } as OpenClawConfig);
+    params.cfg ?? ({ commands: { text: true }, agents: { defaults: {} } } as GrantedConfig);
   const provider = params.provider ?? "anthropic";
   const model = params.model ?? "claude-opus-4-6";
   const channel = params.channel ?? "telegram";

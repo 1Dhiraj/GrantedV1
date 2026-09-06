@@ -1,8 +1,8 @@
 import { sql } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { runSqliteDeferredTransactionSync } from "../../infra/sqlite-transaction.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type {
   SessionTranscriptReadScope,
   TranscriptEvent,
@@ -10,7 +10,7 @@ import type {
 import { readSqliteTranscriptStoreBatches } from "./session-accessor.sqlite-scope.js";
 
 type TitleProbeDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   | "session_transcript_active_events"
   | "session_transcript_index_state"
   | "session_windows"
@@ -28,7 +28,7 @@ export type SessionTranscriptTitleProbe = {
 
 const SESSION_TITLE_PROBE_MESSAGES = 20;
 
-function getTitleProbeKysely(database: Pick<OpenClawAgentDatabase, "db">) {
+function getTitleProbeKysely(database: Pick<GrantedAgentDatabase, "db">) {
   return getNodeSqliteKysely<TitleProbeDatabase>(database.db);
 }
 
@@ -49,7 +49,7 @@ function sqliteTranscriptBoundaryEventType() {
 }
 
 function readTitleProbeChunk(
-  database: Pick<OpenClawAgentDatabase, "db" | "path">,
+  database: Pick<GrantedAgentDatabase, "db" | "path">,
   sessionIds: readonly string[],
 ): Map<string, SessionTranscriptTitleProbe> {
   const db = getTitleProbeKysely(database);

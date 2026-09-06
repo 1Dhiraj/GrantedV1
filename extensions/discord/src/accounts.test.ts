@@ -2,7 +2,7 @@
 import type {
   DiscordAccountConfig,
   DiscordConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
@@ -79,7 +79,7 @@ describe("Discord defaultAccount omission contract", () => {
           accounts: { work: { enabled: false, token: "token-work" } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(listDiscordAccountIds(cfg)).toEqual(["default", "work"]);
     expect(resolveDefaultDiscordAccountId(cfg)).toBe("default");
@@ -336,7 +336,7 @@ describe("resolveDiscordAccount runtime config selection", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeCfg = {
       channels: {
         discord: {
@@ -344,7 +344,7 @@ describe("resolveDiscordAccount runtime config selection", () => {
           accounts: { work: { name: "Work", token: "Bot runtime-work-token" } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     setRuntimeConfigSnapshot(runtimeCfg, sourceCfg);
 
     const resolved = resolveDiscordAccount({ cfg: sourceCfg });
@@ -364,7 +364,7 @@ describe("resolveDiscordAccount runtime config selection", () => {
             token: { source: "env", provider: "default", id: "DISCORD_BOT_TOKEN" },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       accountId: "default",
     });
 

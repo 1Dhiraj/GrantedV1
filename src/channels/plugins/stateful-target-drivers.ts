@@ -3,7 +3,7 @@
  *
  * Stores lifecycle drivers for binding targets that carry mutable external session state.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveGlobalMap } from "../../shared/global-singleton.js";
 import type {
   ConfiguredBindingResolution,
@@ -22,20 +22,20 @@ export type StatefulBindingTargetResetResult =
 export type StatefulBindingTargetDriver = {
   id: string;
   ensureReady: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     bindingResolution: ConfiguredBindingResolution;
   }) => Promise<StatefulBindingTargetReadyResult>;
   ensureSession: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     bindingResolution: ConfiguredBindingResolution;
   }) => Promise<StatefulBindingTargetSessionResult>;
   resolveTargetBySessionKey?: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
   }) => StatefulBindingTargetDescriptor | null;
   resetInPlace?: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     bindingTarget: StatefulBindingTargetDescriptor;
     reason: "new" | "reset";
@@ -84,7 +84,7 @@ export function getStatefulBindingTargetDriver(id: string): StatefulBindingTarge
 }
 
 export function resolveStatefulBindingTargetBySessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
 }): { driver: StatefulBindingTargetDriver; bindingTarget: StatefulBindingTargetDescriptor } | null {

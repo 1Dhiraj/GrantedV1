@@ -1,5 +1,5 @@
 // Fal helper module supports http config behavior.
-import type { AuthProfileStore, OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { AuthProfileStore, GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import {
   resolveProviderHttpRequestConfig,
@@ -10,12 +10,12 @@ import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runti
 const DEFAULT_FAL_BASE_URL = "https://fal.run";
 
 type FalAuthenticatedRequest = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   authStore?: AuthProfileStore;
 };
 
-function resolveFalConfiguredBaseUrl(cfg?: OpenClawConfig): string | undefined {
+function resolveFalConfiguredBaseUrl(cfg?: GrantedConfig): string | undefined {
   return normalizeOptionalString(cfg?.models?.providers?.fal?.baseUrl);
 }
 

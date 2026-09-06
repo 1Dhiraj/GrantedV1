@@ -10,7 +10,7 @@ import {
   loadAuthProfileStoreWithoutExternalProfiles,
   saveAuthProfileStore,
 } from "../agents/auth-profiles/store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { pluginLoaderCacheState } from "../plugins/registry-lifecycle.js";
 import { resetPluginRuntimeStateForTest } from "../plugins/runtime.js";
 import type { ProviderPlugin } from "../plugins/types.js";
@@ -109,7 +109,7 @@ describe("models auth login --force", () => {
           }
         };`,
       );
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { list: [{ id: "main", workspace: state.workspaceDir }] },
         plugins: { allow: [provider], entries: { [provider]: { enabled: true } } },
         gateway: {

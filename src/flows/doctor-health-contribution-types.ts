@@ -1,7 +1,7 @@
 import type { RetiredAuthProfileCleanupPlan } from "../commands/doctor-auth-legacy-oauth.js";
 import type { probeGatewayMemoryStatus } from "../commands/doctor-gateway-health.js";
 import type { DoctorOptions, DoctorPrompter } from "../commands/doctor-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { buildGatewayConnectionDetails } from "../gateway/call.js";
 import type { UpdatePostInstallDoctorResult } from "../infra/update-doctor-result.js";
 import type { PluginMetadataSnapshotScopeRunner } from "../plugins/current-plugin-metadata-snapshot.js";
@@ -11,7 +11,7 @@ import type { HealthCheck, HealthCheckContext } from "./health-checks.js";
 import type { FlowContribution } from "./types.js";
 
 type DoctorConfigResult = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   path?: string;
   shouldWriteConfig?: boolean;
   /** Repair panels held back until the atomic config write commits. */
@@ -38,8 +38,8 @@ export type DoctorHealthFlowContext = {
   options: DoctorOptions;
   prompter: DoctorPrompter;
   configResult: DoctorConfigResult;
-  cfg: OpenClawConfig;
-  cfgForPersistence: OpenClawConfig;
+  cfg: GrantedConfig;
+  cfgForPersistence: GrantedConfig;
   /** The finalized config-flow candidate crossed the atomic writer boundary. */
   configResultWriteCommitted?: boolean;
   /** The requested config write was refused; later repairs must not consume its candidate. */

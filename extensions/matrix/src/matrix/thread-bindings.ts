@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
 import { resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/session-key-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -231,7 +231,7 @@ function buildMatrixBindingIntroText(params: {
 }
 
 async function sendBindingMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: MatrixClient;
   accountId: string;
   roomId: string;
@@ -252,7 +252,7 @@ async function sendBindingMessage(params: {
 }
 
 async function sendFarewellMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: MatrixClient;
   accountId: string;
   record: MatrixThreadBindingRecord;
@@ -287,7 +287,7 @@ async function sendFarewellMessage(params: {
 }
 
 export async function createMatrixThreadBindingManager(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   auth: MatrixAuth;
   client: MatrixClient;

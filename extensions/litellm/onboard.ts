@@ -2,7 +2,7 @@
 import {
   createDefaultModelPresetAppliers,
   type ModelDefinitionConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 
 export const LITELLM_BASE_URL = "http://localhost:4000";
@@ -32,7 +32,7 @@ export function buildLitellmModelDefinition(): ModelDefinitionConfig {
 export const { applyConfig: applyLitellmConfig, applyProviderConfig: applyLitellmProviderConfig } =
   createDefaultModelPresetAppliers<[]>({
     primaryModelRef: LITELLM_DEFAULT_MODEL_REF,
-    resolveParams: (cfg: OpenClawConfig) => {
+    resolveParams: (cfg: GrantedConfig) => {
       const existingProvider = cfg.models?.providers?.litellm as { baseUrl?: unknown } | undefined;
       const resolvedBaseUrl =
         typeof existingProvider?.baseUrl === "string" ? existingProvider.baseUrl.trim() : "";

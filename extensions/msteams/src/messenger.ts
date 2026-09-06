@@ -13,7 +13,7 @@ import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
 import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
 import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
-import type { MarkdownTableMode, MSTeamsReplyStyle, OpenClawConfig } from "../runtime-api.js";
+import type { MarkdownTableMode, MSTeamsReplyStyle, GrantedConfig } from "../runtime-api.js";
 import { AI_GENERATED_ENTITY } from "./ai-entity.js";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import type { MSTeamsSdkCloudOptions } from "./cloud.js";
@@ -224,7 +224,7 @@ export function renderReplyPayloadsToMessages(
   const tableMode =
     options.tableMode ??
     getMSTeamsRuntime().channel.text.resolveMarkdownTableMode({
-      cfg: getMSTeamsRuntime().config.current() as OpenClawConfig,
+      cfg: getMSTeamsRuntime().config.current() as GrantedConfig,
       channel: "msteams",
     });
 

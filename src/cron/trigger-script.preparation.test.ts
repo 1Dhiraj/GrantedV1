@@ -11,7 +11,7 @@ import { prepareOwnedPluginLoadContext } from "../agents/prepared-model-runtime.
 import { ToolSearchRuntime } from "../agents/tool-search-runtime.js";
 import { resolveToolSearchConfig } from "../agents/tool-search.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata.test-support.js";
 import {
   cleanupPluginLoaderFixturesForTest,
@@ -35,7 +35,7 @@ type HeadlessParams = Parameters<
 >[0];
 
 let state: Awaited<ReturnType<typeof createOpenClawTestState>>;
-let config: OpenClawConfig;
+let config: GrantedConfig;
 let registrations: string;
 
 beforeEach(async () => {

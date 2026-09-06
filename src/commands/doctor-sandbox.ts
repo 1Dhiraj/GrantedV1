@@ -16,7 +16,7 @@ import {
   validateSandboxContainerEngineTarget,
 } from "../agents/sandbox/docker.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding, HealthRepairEffect } from "../flows/health-checks.js";
 import { resolveOpenClawPackageRootsSync } from "../infra/openclaw-root.js";
 import { runCommandWithTimeout, runExec } from "../process/exec.js";
@@ -131,12 +131,12 @@ async function runCodexBwrapNamespaceProbe(
   }
 }
 
-function codexBwrapNeedsNetworkNamespaceProbe(cfg: OpenClawConfig): boolean {
+function codexBwrapNeedsNetworkNamespaceProbe(cfg: GrantedConfig): boolean {
   const network = cfg.agents?.defaults?.sandbox?.docker?.network?.trim().toLowerCase();
   return network === undefined || network === "" || network === "none";
 }
 
-async function probeCodexBwrapNamespaces(cfg: OpenClawConfig): Promise<CodexBwrapNamespaceProbe> {
+async function probeCodexBwrapNamespaces(cfg: GrantedConfig): Promise<CodexBwrapNamespaceProbe> {
   if (process.platform !== "linux") {
     return { ok: true };
   }
@@ -157,7 +157,7 @@ async function probeCodexBwrapNamespaces(cfg: OpenClawConfig): Promise<CodexBwra
 }
 
 async function noteCodexBwrapNamespaceWarning(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   engineName: "Docker" | "Podman",
 ): Promise<void> {
   const probe = await probeCodexBwrapNamespaces(cfg);
@@ -210,22 +210,22 @@ async function containerImageExists(command: "docker" | "podman", image: string)
   }
 }
 
-function resolveSandboxDockerImage(cfg: OpenClawConfig): string {
+function resolveSandboxDockerImage(cfg: GrantedConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.docker?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_IMAGE;
 }
 
-function resolveSandboxBackend(cfg: OpenClawConfig): string {
+function resolveSandboxBackend(cfg: GrantedConfig): string {
   const backend = cfg.agents?.defaults?.sandbox?.backend?.trim();
   return (backend || "docker").toLowerCase();
 }
 
-function resolveSandboxBrowserImage(cfg: OpenClawConfig): string {
+function resolveSandboxBrowserImage(cfg: GrantedConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.browser?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_BROWSER_IMAGE;
 }
 
-function updateSandboxDockerImage(cfg: OpenClawConfig, image: string): OpenClawConfig {
+function updateSandboxDockerImage(cfg: GrantedConfig, image: string): GrantedConfig {
   return {
     ...cfg,
     agents: {
@@ -244,7 +244,7 @@ function updateSandboxDockerImage(cfg: OpenClawConfig, image: string): OpenClawC
   };
 }
 
-function updateSandboxBrowserImage(cfg: OpenClawConfig, image: string): OpenClawConfig {
+function updateSandboxBrowserImage(cfg: GrantedConfig, image: string): GrantedConfig {
   return {
     ...cfg,
     agents: {
@@ -304,10 +304,10 @@ async function handleMissingSandboxImage(
  * support because nested app-server shells rely on host user/network namespace policy.
  */
 export async function maybeRepairSandboxImages(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   const sandbox = cfg.agents?.defaults?.sandbox;
   const mode = sandbox?.mode ?? "off";
   if (!sandbox || mode === "off") {
@@ -492,7 +492,7 @@ export async function maybeRepairSandboxRegistryFiles(prompter: DoctorPrompter):
 }
 
 /** Warns when agent sandbox overrides are ignored because sandbox scope resolves to shared. */
-export function noteSandboxScopeWarnings(cfg: OpenClawConfig) {
+export function noteSandboxScopeWarnings(cfg: GrantedConfig) {
   const globalSandbox = cfg.agents?.defaults?.sandbox;
   const warnings: string[] = [];
 

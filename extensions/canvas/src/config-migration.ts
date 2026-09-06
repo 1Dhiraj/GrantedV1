@@ -1,7 +1,7 @@
 /** Canvas config migration to the single surviving route-enable switch. */
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
 import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
@@ -14,7 +14,7 @@ import { resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
 
 const RETIRED_HOST_KEYS = ["root", "port", "liveReload"] as const;
 
-function readLegacyCanvasRoot(config: OpenClawConfig): unknown {
+function readLegacyCanvasRoot(config: GrantedConfig): unknown {
   // Stable releases merged canvasHost into plugin host config; plugin keys won.
   const legacyHost = readRecord(readRecord(config)?.canvasHost);
   const pluginHost = readRecord(resolvePluginConfigObject(config, "canvas")?.host);
@@ -22,7 +22,7 @@ function readLegacyCanvasRoot(config: OpenClawConfig): unknown {
 }
 
 export function resolveLegacyCanvasDocumentsDir(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
 }): string | null {
@@ -68,8 +68,8 @@ export function listLegacyCanvasDocumentIds(documentsDir: string): string[] {
 }
 
 /** Removes retired file-host settings while preserving the route enablement choice. */
-export function migrateCanvasHostConfig(config: OpenClawConfig): {
-  config: OpenClawConfig;
+export function migrateCanvasHostConfig(config: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
 } | null {
   const legacyHost = readRecord((config as { canvasHost?: unknown }).canvasHost);
@@ -100,7 +100,7 @@ export function migrateCanvasHostConfig(config: OpenClawConfig): {
     return null;
   }
 
-  const next = structuredClone(config) as OpenClawConfig & { canvasHost?: unknown };
+  const next = structuredClone(config) as GrantedConfig & { canvasHost?: unknown };
   delete next.canvasHost;
   const enabled = asBoolean(existingHost?.enabled) ?? asBoolean(legacyHost?.enabled);
   const nextPlugins = readRecord(next.plugins) ?? {};

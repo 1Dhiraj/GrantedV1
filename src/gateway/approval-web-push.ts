@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveGatewayPublicOrigin } from "../config/gateway-public-origin.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   WEB_PUSH_USER_PREFERENCES_KEY,
   isWebPushQuietHours,
@@ -108,7 +108,7 @@ function approvalWebPushTopic(approvalId: string): string {
     .slice(0, 32);
 }
 
-function approvalWebPushUrl(cfg: OpenClawConfig, approvalId: string): string {
+function approvalWebPushUrl(cfg: GrantedConfig, approvalId: string): string {
   const controlUiBasePath = normalizeControlUiBasePath(cfg.gateway?.controlUi?.basePath);
   // The receiving PWA owns the service-worker scope, which may differ from the
   // remote Gateway's base path. Keep navigation relative to that PWA scope.
@@ -123,7 +123,7 @@ function approvalWebPushUrl(cfg: OpenClawConfig, approvalId: string): string {
 
 async function deliverBoundApprovalWebPush<TPayload>(params: {
   record: ExecApprovalRecord<TPayload>;
-  getRuntimeConfig: () => OpenClawConfig;
+  getRuntimeConfig: () => GrantedConfig;
   stateDir?: string;
 }): Promise<ApprovalRequestWebPushDelivery | null> {
   if (params.record.resolvedAtMs !== undefined || params.record.expiresAtMs <= Date.now()) {
@@ -231,7 +231,7 @@ async function deliverBoundApprovalWebPush<TPayload>(params: {
 
 /** Retains successful request targets so terminal state replaces their tagged alert. */
 export function createApprovalWebPushDelivery(params: {
-  getRuntimeConfig: () => OpenClawConfig;
+  getRuntimeConfig: () => GrantedConfig;
   log?: { warn?: (message: string) => void };
   stateDir?: string;
 }) {

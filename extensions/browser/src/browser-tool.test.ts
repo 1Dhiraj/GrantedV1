@@ -1,6 +1,6 @@
 // Browser tests cover browser tool plugin behavior.
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { Value } from "typebox/value";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { BrowserActionPathResult } from "./browser/client-actions-types.js";
@@ -193,7 +193,7 @@ const configMocks = vi.hoisted(() => ({
   loadConfig: vi.fn<
     () => {
       browser: Record<string, unknown>;
-      gateway?: OpenClawConfig["gateway"];
+      gateway?: GrantedConfig["gateway"];
       agents?: { defaults?: { imageMaxDimensionPx?: number } };
     }
   >(() => ({ browser: {} })),
@@ -2370,7 +2370,7 @@ describe("browser tool standalone routing", () => {
   });
   afterEach(() => vi.unstubAllEnvs());
 
-  it.each<{ name: string; gateway?: OpenClawConfig["gateway"] }>([
+  it.each<{ name: string; gateway?: GrantedConfig["gateway"] }>([
     { name: "no Gateway config" },
     { name: "only a local port", gateway: { port: 19970 } },
     { name: "only browser-control auth", gateway: { auth: { token: "browser-control-token" } } },
@@ -2396,7 +2396,7 @@ describe("browser tool standalone routing", () => {
 
   it.each<{
     name: string;
-    gateway?: OpenClawConfig["gateway"];
+    gateway?: GrantedConfig["gateway"];
     target?: "node";
     node?: string;
     gatewayUrl?: string;

@@ -1,6 +1,6 @@
 // Discord tests cover monitor plugin behavior.
 import { ChannelType } from "discord-api-types/v10";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   buildPluginBindingApprovalCustomId,
   registerSessionBindingAdapter,
@@ -112,14 +112,14 @@ function discordTestSendResult(messageId: string, channelId = "dm-channel") {
 
 describe("discord component interactions", () => {
   let editDiscordComponentMessageMock: ReturnType<typeof vi.spyOn>;
-  const createCfg = (): OpenClawConfig =>
+  const createCfg = (): GrantedConfig =>
     ({
       channels: {
         discord: {
           replyToMode: "first",
         },
       },
-    }) as OpenClawConfig;
+    }) as GrantedConfig;
 
   const createDiscordConfig = (overrides?: Partial<DiscordAccountConfig>): DiscordAccountConfig =>
     ({
@@ -654,7 +654,7 @@ describe("discord component interactions", () => {
       createComponentContext({
         cfg: {
           channels: { discord: { replyToMode: "first", groupPolicy: "allowlist" } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         discordConfig: createDiscordConfig({ groupPolicy: "allowlist" }),
         guildEntries: {},
       }),
@@ -726,7 +726,7 @@ describe("discord component interactions", () => {
       createComponentContext({
         cfg: {
           channels: { discord: { replyToMode: "first", groupPolicy: "allowlist" } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         discordConfig: createDiscordConfig({ groupPolicy: "allowlist" }),
         guildEntries: params.guildEntries,
       }),

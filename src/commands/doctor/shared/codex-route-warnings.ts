@@ -9,7 +9,7 @@ import {
   resolveModelExtraParamSources,
 } from "../../../agents/model-extra-params.js";
 import { resolveModelRuntimePolicy } from "../../../agents/model-runtime-policy.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { detectWindowsSpawnCommandInlineArgs } from "../../../plugin-sdk/windows-spawn.js";
 import { listMutableCodexRouteAgentEntries } from "./codex-route-agent-entries.js";
 import {
@@ -53,7 +53,7 @@ import { rewriteKnownModelRefs } from "./legacy-config-migrations.runtime.models
 import { migrateLegacyRuntimeModelRef } from "./legacy-runtime-model-providers.js";
 
 export function resolveKnownModelRefMigrationTarget(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   ref: string,
 ): string | undefined {
   const blockedModelIdentities = new Set(
@@ -130,7 +130,7 @@ function formatDisabledCodexPluginWarning(params: {
   ].join("\n");
 }
 
-function collectCodexAppServerCommandWarnings(cfg: OpenClawConfig): string[] {
+function collectCodexAppServerCommandWarnings(cfg: GrantedConfig): string[] {
   const plugins = asMutableRecord(cfg.plugins);
   const entries = asMutableRecord(plugins?.entries);
   const codex = asMutableRecord(entries?.codex);
@@ -173,7 +173,7 @@ function ownValues(record: Record<string, unknown>, keys: readonly string[]): un
   return keys.filter((key) => Object.hasOwn(record, key)).map((key) => record[key]);
 }
 
-function modelUsesCodexForEveryAgent(cfg: OpenClawConfig, modelRef: string): boolean {
+function modelUsesCodexForEveryAgent(cfg: GrantedConfig, modelRef: string): boolean {
   const parsed = parseCodexRouteModelRef(modelRef);
   if (!parsed || parsed.modelId === "*") {
     return false;
@@ -192,7 +192,7 @@ function modelUsesCodexForEveryAgent(cfg: OpenClawConfig, modelRef: string): boo
 }
 
 function collectCodexModelParamHits(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env?: NodeJS.ProcessEnv,
 ): CodexModelParamHit[] {
   const hits: CodexModelParamHit[] = [];
@@ -280,7 +280,7 @@ function formatCodexModelParamWarning(hits: readonly CodexModelParamHit[]): stri
   ].join("\n");
 }
 
-function repairRedundantCodexServiceTiers(cfg: OpenClawConfig, env?: NodeJS.ProcessEnv) {
+function repairRedundantCodexServiceTiers(cfg: GrantedConfig, env?: NodeJS.ProcessEnv) {
   const removable = collectCodexModelParamHits(cfg, env).filter((hit) => hit.removable);
   if (removable.length === 0) {
     return { config: cfg, changes: [] };
@@ -302,7 +302,7 @@ function repairRedundantCodexServiceTiers(cfg: OpenClawConfig, env?: NodeJS.Proc
 
 /** Collect non-executing Codex runtime compatibility diagnostics for Doctor and lint. */
 export function collectCodexRuntimeCompatibilityWarnings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env?: NodeJS.ProcessEnv,
 ): string[] {
   const warnings = collectCodexAppServerCommandWarnings(cfg);
@@ -313,7 +313,7 @@ export function collectCodexRuntimeCompatibilityWarnings(
   return warnings;
 }
 
-function collectCodexComputerUseWarnings(cfg: OpenClawConfig): string[] {
+function collectCodexComputerUseWarnings(cfg: GrantedConfig): string[] {
   const plugins = asMutableRecord(cfg.plugins);
   const entries = asMutableRecord(plugins?.entries);
   const codex = asMutableRecord(entries?.codex);
@@ -358,7 +358,7 @@ function collectCodexComputerUseWarnings(cfg: OpenClawConfig): string[] {
 
 /** Collect doctor warnings for legacy Codex model refs, runtime pins, and compaction overrides. */
 export function collectCodexRouteWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   blockedProviderPlan?: BlockedLegacyOpenAICodexProviderPlan;
 }): string[] {
@@ -475,12 +475,12 @@ export function collectCodexRouteWarnings(params: {
 
 /** Rewrite legacy Codex config routes to OpenAI refs and explicit runtime policy when allowed. */
 export function maybeRepairCodexRoutes(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   shouldRepair: boolean;
   codexRuntimeReady?: boolean;
   blockedProviderPlan?: BlockedLegacyOpenAICodexProviderPlan;
-}): { cfg: OpenClawConfig; warnings: string[]; changes: string[] } {
+}): { cfg: GrantedConfig; warnings: string[]; changes: string[] } {
   const env = params.env ?? process.env;
   const blockedProviderPlan =
     params.blockedProviderPlan ?? collectBlockedLegacyOpenAICodexProviderPlan(params.cfg);

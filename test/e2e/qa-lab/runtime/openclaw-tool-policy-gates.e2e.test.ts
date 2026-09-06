@@ -4,13 +4,13 @@ import { expect, test } from "vitest";
 import { createOpenClawCodingTools } from "../../../../src/agents/agent-tools.js";
 import { createAgentToolsSandboxContext } from "../../../../src/agents/test-helpers/agent-tools-sandbox-context.js";
 import { createHostSandboxFsBridge } from "../../../../src/agents/test-helpers/host-sandbox-fs-bridge.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 
-type OpenClawCodingToolsOptions = NonNullable<Parameters<typeof createOpenClawCodingTools>[0]>;
+type GrantedCodingToolsOptions = NonNullable<Parameters<typeof createOpenClawCodingTools>[0]>;
 
 function toolNames(
-  config: OpenClawConfig,
-  options: Pick<OpenClawCodingToolsOptions, "sandbox"> = {},
+  config: GrantedConfig,
+  options: Pick<GrantedCodingToolsOptions, "sandbox"> = {},
 ) {
   return new Set(
     createOpenClawCodingTools({
@@ -36,12 +36,12 @@ function expectIncluded(names: Set<string>, included: string[], excluded: string
 }
 
 test("OpenClaw applies every configured tool policy as a restrictive intersection", () => {
-  const profileConfig: OpenClawConfig = {
+  const profileConfig: GrantedConfig = {
     tools: { profile: "coding" },
   };
   expectIncluded(toolNames(profileConfig), ["read", "write", "edit", "exec"], ["message"]);
 
-  const globalConfig: OpenClawConfig = {
+  const globalConfig: GrantedConfig = {
     tools: {
       profile: "coding",
       allow: ["group:fs", "exec", "process"],
@@ -54,7 +54,7 @@ test("OpenClaw applies every configured tool policy as a restrictive intersectio
     ["apply_patch", "message"],
   );
 
-  const providerConfig: OpenClawConfig = {
+  const providerConfig: GrantedConfig = {
     tools: {
       ...globalConfig.tools,
       byProvider: {
@@ -72,7 +72,7 @@ test("OpenClaw applies every configured tool policy as a restrictive intersectio
     ["apply_patch", "edit", "message"],
   );
 
-  const agentConfig: OpenClawConfig = {
+  const agentConfig: GrantedConfig = {
     tools: providerConfig.tools,
     agents: {
       list: [

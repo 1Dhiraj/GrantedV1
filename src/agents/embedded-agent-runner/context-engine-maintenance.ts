@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { publishTranscriptUpdate } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   hasSameContextEngineInstance,
   isContextEngineAbortRejection,
@@ -73,7 +73,7 @@ type ContextEngineMaintenanceParams = {
   executionMode?: "foreground" | "background";
   onDeferredMaintenance?: (promise: Promise<void>) => void;
   onDeferredMaintenanceFailure?: (error: unknown) => void;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   disposeDeferredContextEngineAfterMaintenance?: boolean;
 };
 

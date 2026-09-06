@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { listSessionEntriesCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readConfigMachineState, writeConfigMachineState } from "../state/config-machine-state.js";
 import {
   closeOpenClawAgentDatabasesForTest,
@@ -267,7 +267,7 @@ describe("doctor reserved incognito session key repair", () => {
       const sqlitePath = shared
         ? path.join(stateDir, "shared.sqlite")
         : resolveOpenClawAgentSqlitePath({ agentId: "main", env });
-      const cfg: OpenClawConfig = shared
+      const cfg: GrantedConfig = shared
         ? { agents: { entries: { beta: {} } }, session: { store: sqlitePath } }
         : {};
       const database = openOpenClawAgentDatabase({

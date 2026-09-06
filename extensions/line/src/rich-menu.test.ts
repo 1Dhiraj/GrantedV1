@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { datetimePickerAction, messageAction, postbackAction, uriAction } from "./actions.js";
 import {
@@ -250,7 +250,7 @@ describe("createDefaultMenuConfig", () => {
   });
 });
 
-const richMenuUploadCfg: OpenClawConfig = {
+const richMenuUploadCfg: GrantedConfig = {
   channels: {
     line: {
       channelAccessToken: "line-token",

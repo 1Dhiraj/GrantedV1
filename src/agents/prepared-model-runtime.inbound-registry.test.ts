@@ -16,7 +16,7 @@ import { getPluginRuntimeGenerationRegistry } from "../plugins/runtime/generatio
 import { getPluginRuntimeLoadContext } from "../plugins/runtime/load-context.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import type { DiscoverAuthStorageOptions } from "./agent-auth-discovery.js";
 import { withPreparedModelRuntimePluginGenerationScope } from "./prepared-model-runtime-generation-scope.js";
@@ -29,7 +29,7 @@ import {
 } from "./prepared-model-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared reply dispatch runtime", () => {
   beforeEach(async () => {

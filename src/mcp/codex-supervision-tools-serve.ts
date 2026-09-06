@@ -9,7 +9,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { disposeRegisteredAgentHarnesses } from "../agents/harness/registry.js";
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import { normalizePluginTargetConfig } from "../plugins/config-state.js";
@@ -26,8 +26,8 @@ const LEGACY_TOOL_NAMES = [
 const LEGACY_TOOL_NAME_SET = new Set<string>(LEGACY_TOOL_NAMES);
 const TRUSTED_STANDALONE_MCP_OWNER_CONTEXT = { senderIsOwner: true as const };
 
-function withCodexSupervisionEnabled(config: OpenClawConfig): OpenClawConfig {
-  const next = structuredClone(normalizePluginTargetConfig(config, "codex")) as OpenClawConfig &
+function withCodexSupervisionEnabled(config: GrantedConfig): GrantedConfig {
+  const next = structuredClone(normalizePluginTargetConfig(config, "codex")) as GrantedConfig &
     Record<string, unknown>;
   const plugins = (next.plugins ??= {}) as Record<string, unknown>;
   plugins.enabled = true;
@@ -55,7 +55,7 @@ function withCodexSupervisionEnabled(config: OpenClawConfig): OpenClawConfig {
   return next;
 }
 
-function resolveCodexSupervisionTools(config: OpenClawConfig): AnyAgentTool[] {
+function resolveCodexSupervisionTools(config: GrantedConfig): AnyAgentTool[] {
   const context = {
     config,
     runtimeConfig: config,
@@ -95,7 +95,7 @@ function requireCompleteCodexSupervisionToolSet(tools: readonly AnyAgentTool[]):
 }
 
 export function createCodexSupervisionToolsMcpServer(
-  params: { config?: OpenClawConfig; tools?: AnyAgentTool[] } = {},
+  params: { config?: GrantedConfig; tools?: AnyAgentTool[] } = {},
 ): Server {
   const config = withCodexSupervisionEnabled(params.config ?? getRuntimeConfig());
   const tools = params.tools ?? resolveCodexSupervisionTools(config);

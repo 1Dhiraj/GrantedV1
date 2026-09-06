@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   hasLegacyAccountStreamingAliases,
@@ -86,7 +86,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
 ];
 
 export function normalizeCompatibilityConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   return normalizeChannelConfigEntries({
     cfg: params.cfg,

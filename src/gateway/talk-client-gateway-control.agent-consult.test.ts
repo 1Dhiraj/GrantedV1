@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginRuntime } from "../plugins/runtime/types.js";
 import {
   authorizeClientVoiceConfirmation,
@@ -48,7 +48,7 @@ import {
   type TalkAgentConsultAuthority,
 } from "./talk-client-gateway-control.js";
 
-const config = {} as OpenClawConfig;
+const config = {} as GrantedConfig;
 const coreParams = {
   config,
   prompt: "check",

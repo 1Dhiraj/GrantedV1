@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { OpenClawPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
 import type {
   SessionDiscussionInfo,
   SessionDiscussionProvider,
@@ -61,7 +61,7 @@ type DiscussionServiceOptions = {
   clientFactory?: (account: ResolvedClickClackAccount) => ClickClackClient;
   installationId?: string;
   bindingGenerationFactory?: () => string;
-  gatewayEvents?: Pick<OpenClawPluginGatewayEvents, "onSessionsChanged">;
+  gatewayEvents?: Pick<GrantedPluginGatewayEvents, "onSessionsChanged">;
   startTimer?: boolean;
   maxRetainedDetachedBindings?: number;
 };
@@ -125,7 +125,7 @@ export class ClickClackDiscussionService {
   }
 
   bindGatewayEvents(
-    gatewayEvents: Pick<OpenClawPluginGatewayEvents, "onSessionsChanged"> | undefined,
+    gatewayEvents: Pick<GrantedPluginGatewayEvents, "onSessionsChanged"> | undefined,
   ): void {
     // Service (re)start reactivates regardless of capability: a broadcaster-less
     // runtime must still recover its fallback poll after a stop/start cycle.

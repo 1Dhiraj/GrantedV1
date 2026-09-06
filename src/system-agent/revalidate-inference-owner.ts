@@ -3,7 +3,7 @@ import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import type { AgentExecutionAuthBinding } from "../agents/execution-auth-binding.js";
 import type { AgentHarnessPluginSelection } from "../agents/harness/runtime-plugin-load-plan.js";
 import { loadAgentRuntimePluginRegistryHandle } from "../agents/runtime-plugins.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginCache, withPluginCache } from "../plugins/plugin-cache.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { withPluginRuntimeGenerationScope } from "../plugins/runtime/generation-scope.js";
@@ -21,7 +21,7 @@ type RevalidationDeps = SystemAgentVerifiedInferenceDeps & {
 
 /** Setup owns fresh package facts without replacing the Gateway's startup generation. */
 export function loadSetupInferencePluginGeneration(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   selection: AgentHarnessPluginSelection;
   resolvePluginMetadataSnapshot?: typeof resolvePluginMetadataSnapshot;

@@ -264,7 +264,7 @@ vi.mock("../../agents/harness/selection.js", () => ({
   }: {
     provider?: string;
     modelId?: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
   }) => {
     const modelRuntime =
       provider && modelId
@@ -320,7 +320,7 @@ import {
   replaceRuntimeAuthProfileStoreSnapshots,
 } from "../../agents/auth-profiles.js";
 import type { ModelAliasIndex } from "../../agents/model-selection.js";
-import type { ModelDefinitionConfig, OpenClawConfig } from "../../config/config.js";
+import type { ModelDefinitionConfig, GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import {
@@ -418,11 +418,11 @@ function baseAliasIndex(): ModelAliasIndex {
   return { byAlias: new Map(), byKey: new Map() };
 }
 
-function baseConfig(): OpenClawConfig {
+function baseConfig(): GrantedConfig {
   return {
     commands: { text: true },
     agents: { defaults: {} },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 function modelDefinition(id: string, name: string): ModelDefinitionConfig {
@@ -559,7 +559,7 @@ function resolveModelSelectionForCommand(params: {
   command: string;
   allowedModelKeys: Set<string>;
   allowedModelCatalog: Array<{ provider: string; id: string }>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
 }) {
   return resolveModelSelectionFromDirective({
@@ -583,7 +583,7 @@ async function persistModelDirectiveForTest(params: {
   command: string;
   agentId?: string;
   profiles?: Record<string, ApiKeyProfile>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   aliasIndex?: ModelAliasIndex;
   allowedModelKeys: string[];
   allowedModelCatalog?: ModelCatalogEntry[];
@@ -852,7 +852,7 @@ function nestedOpenRouterStatusFixture(configureDirectProvider: boolean) {
           },
         },
       },
-    } as unknown as OpenClawConfig,
+    } as unknown as GrantedConfig,
     allowedModelCatalog: [
       { provider: "google", id: "gemini-3-flash-preview", name: "Gemini 3 Flash" },
       {
@@ -996,7 +996,7 @@ describe("/model chat UX", () => {
           cfg: {
             ...baseConfig(),
             plugins: { allow: ["workspace-model-list"] },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
         });
 
         expect(reply?.text).toContain("- anthropic");
@@ -1044,7 +1044,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [
         { provider: "anthropic", id: "claude-opus-4-6", name: "Claude Opus 4.5" },
         { provider: "openai", id: "gpt-4.1-mini", name: "GPT-4.1 mini" },
@@ -1073,7 +1073,7 @@ describe("/model chat UX", () => {
             modelPolicy: { allow: ["anthropic/*"] },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelKeys: new Set(["anthropic/*"]),
       allowedModelCatalog: [
         { provider: "anthropic", id: "claude-sonnet-4-6", name: "Claude Sonnet 4.6" },
@@ -1099,7 +1099,7 @@ describe("/model chat UX", () => {
           modelPolicy: { allow: ["openrouter:free"] },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const policy = createModelVisibilityPolicy({
       cfg,
       catalog: [],
@@ -1142,7 +1142,7 @@ describe("/model chat UX", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const policy = createModelVisibilityPolicy({
       cfg,
       catalog: [],
@@ -1229,7 +1229,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [{ provider: "openai", id: "gpt-5.5", name: "GPT-5.5" }],
     });
 
@@ -1271,7 +1271,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [{ provider: "openai", id: "gpt-5.5", name: "GPT-5.5" }],
     });
 
@@ -1309,7 +1309,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [{ provider: "openai", id: "gpt-5.5", name: "GPT-5.5" }],
     });
 
@@ -1351,7 +1351,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [{ provider: "openai", id: "gpt-5.5", name: "GPT-5.5" }],
     });
 
@@ -1392,7 +1392,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       allowedModelCatalog: [{ provider: "openai", id: "gpt-5.5", name: "GPT-5.5" }],
     });
 
@@ -1426,7 +1426,7 @@ describe("/model chat UX", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           allowedModelCatalog: [
             { provider: "anthropic", id: "claude-opus-4-6", name: "Claude Opus 4.6" },
           ],
@@ -1439,7 +1439,7 @@ describe("/model chat UX", () => {
 
   it("auto-applies closest match for typos", () => {
     const directives = parseInlineSessionDirectives("/model anthropic/claud-opus-4-5");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       commands: { text: true },
       agents: { defaults: { modelPolicy: { allow: ["anthropic/claude-opus-4-6"] } } },
     };
@@ -1593,7 +1593,7 @@ describe("/model chat UX", () => {
 
     const resolved = resolveModelSelectionFromDirective({
       directives: parseInlineSessionDirectives(`/model gpt@${OPENAI_DATE_PROFILE_ID}`),
-      cfg: { commands: { text: true } } as unknown as OpenClawConfig,
+      cfg: { commands: { text: true } } as unknown as GrantedConfig,
       agentDir: TEST_AGENT_DIR,
       defaultProvider: "anthropic",
       defaultModel: "claude-opus-4-6",
@@ -1707,7 +1707,7 @@ describe("/model chat UX", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     expect(persisted.provider).toBe("openai");
@@ -1728,7 +1728,7 @@ describe("/model chat UX", () => {
           contextTokens: 272_000,
         },
       ],
-      cfg: baseConfig() as OpenClawConfig,
+      cfg: baseConfig() as GrantedConfig,
     });
 
     expect(persisted.contextTokens).toBe(272_000);

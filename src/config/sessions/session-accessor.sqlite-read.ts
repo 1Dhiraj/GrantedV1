@@ -10,7 +10,7 @@ import { extractAssistantPhaseText } from "../../shared/chat-message-content.js"
 import { isTranscriptOnlyOpenClawAssistantModel } from "../../shared/transcript-only-openclaw-assistant.js";
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type {
   LatestTranscriptAssistantMessage,
@@ -40,7 +40,7 @@ export type SqliteTranscriptStorageRow = SqliteTranscriptSnapshotRow & {
   createdAt: number;
 };
 
-export function createTranscriptIdentityReader(database: OpenClawAgentDatabase, sessionId: string) {
+export function createTranscriptIdentityReader(database: GrantedAgentDatabase, sessionId: string) {
   const read = prepareSqliteQuerySync<
     string,
     { event_id: string; parent_id: string | null; seq: number }
@@ -62,7 +62,7 @@ export function createTranscriptIdentityReader(database: OpenClawAgentDatabase, 
 }
 
 export function readTranscriptIdentityByEventId(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   eventId: string,
 ): { eventId: string; parentId: string | null; seq: number } | undefined {
@@ -205,7 +205,7 @@ export function readTranscriptEventAtSeqSync(
 }
 
 export function loadTranscriptEventsFromDatabase(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   options: { beforeEventSeq?: number; projection?: "reset-boundary" } = {},
 ): TranscriptEvent[] {
@@ -229,7 +229,7 @@ export function loadTranscriptEventsFromDatabase(
 }
 
 export function readTranscriptSnapshot(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): { events: TranscriptEvent[]; rows: SqliteTranscriptSnapshotRow[] } {
   const rows = readTranscriptEventRows(database, sessionId);
@@ -241,7 +241,7 @@ export function readTranscriptSnapshot(
 
 /** Reads transcript rows without decoding payloads for snapshot comparison. */
 export function readTranscriptEventRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): SqliteTranscriptSnapshotRow[] {
   const db = getSessionKysely(database.db);
@@ -261,7 +261,7 @@ export function readTranscriptEventRows(
 
 /** Reads exact transcript storage rows for guarded doctor rewrites. */
 export function readTranscriptStorageRows(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): SqliteTranscriptStorageRow[] {
   const db = getSessionKysely(database.db);
@@ -426,7 +426,7 @@ export async function findTranscriptEvent(
 }
 
 export function findTranscriptEventInDatabase(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   match: (event: TranscriptEvent) => boolean,
 ): { event: TranscriptEvent } | undefined {

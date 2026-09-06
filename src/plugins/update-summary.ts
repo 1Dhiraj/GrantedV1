@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   attachPluginInstallOwnerMigrations,
   resolvePluginInstallTransaction,
@@ -19,7 +19,7 @@ import type {
 } from "./update-source.js";
 
 export function recordPluginUpdateFailure(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   disableOnFailure?: boolean;
   dryRun?: boolean;
   logger: PluginUpdateLogger;
@@ -31,7 +31,7 @@ export function recordPluginUpdateFailure(params: {
     code?: string;
     installedPayloadRunnable?: boolean;
   };
-}): { config: OpenClawConfig; changed: boolean } {
+}): { config: GrantedConfig; changed: boolean } {
   const options = params.options ?? {};
   const preserveInstalledPayload =
     options.code === PLUGIN_INSTALL_ERROR_CODE.NPM_METADATA_FAILURE &&
@@ -86,7 +86,7 @@ export function recordPluginUpdateTransaction(
 }
 
 export async function finalizePluginUpdateSummary(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changed: boolean;
   outcomes: PluginUpdateOutcome[];
   ranNpmInstaller: boolean;

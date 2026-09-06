@@ -13,7 +13,7 @@ import {
   readSessionTranscriptMessageEvents,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { getAgentEventLifecycleGeneration } from "../infra/agent-events.js";
 import type { RealtimeVoiceProviderPlugin } from "../plugins/types.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
@@ -34,7 +34,7 @@ import type {
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { registerChatAbortController, type ChatAbortControllerEntry } from "./chat-abort.js";
 import { createChatRunState } from "./server-chat-state.js";
@@ -128,7 +128,7 @@ function ensureActiveRelayTurnId(relaySessionId: string): string {
 }
 
 describe("talk realtime gateway relay", () => {
-  let testState: OpenClawTestState | undefined;
+  let testState: GrantedTestState | undefined;
 
   beforeEach(async () => {
     testState = await createOpenClawTestState({
@@ -620,7 +620,7 @@ describe("talk realtime gateway relay", () => {
       );
       setTestEnvValue("GRANTED_STATE_DIR", tempDir);
       const storePath = path.join(tempDir, "configured", "sessions.sqlite");
-      const cfg: OpenClawConfig = { session: { store: storePath, mainKey, scope } };
+      const cfg: GrantedConfig = { session: { store: storePath, mainKey, scope } };
       let bridgeRequest: RealtimeVoiceBridgeCreateRequest | undefined;
       try {
         await replaceSessionEntry(
@@ -886,7 +886,7 @@ describe("talk realtime gateway relay", () => {
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-owner-pin-")),
     );
     setTestEnvValue("GRANTED_STATE_DIR", tempDir);
-    let runtimeConfig: OpenClawConfig = {
+    let runtimeConfig: GrantedConfig = {
       agents: { entries: { main: { default: true }, ops: {} } },
     };
     try {

@@ -1,7 +1,7 @@
 // Agent scope tests cover which per-agent fields may flatten into runtime defaults.
 import { describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   AgentSelectionRequiredError,
   listAgentEntriesWithSource,
@@ -94,7 +94,7 @@ describe("agent roster resolution", () => {
 
   const ambientOwnerCases: Array<{
     name: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     requestedAgentId?: string;
     expected: string;
   }> = [
@@ -105,7 +105,7 @@ describe("agent roster resolution", () => {
           defaults: { systemAgent: { agentId: "beta" } },
           entries: { alpha: { default: true }, beta: {} },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: "beta",
     },
     {
@@ -115,19 +115,19 @@ describe("agent roster resolution", () => {
           defaults: { systemAgent: { agentId: "beta" } },
           entries: { alpha: { default: true }, beta: {} },
         },
-      }).config as OpenClawConfig,
+      }).config as GrantedConfig,
       expected: "beta",
     },
     {
       name: "legacy marker without a configured system agent",
       config: {
         agents: { entries: { alpha: { default: true }, beta: {} } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       expected: "alpha",
     },
     {
       name: "sole agent",
-      config: { agents: { entries: { solo: {} } } } satisfies OpenClawConfig,
+      config: { agents: { entries: { solo: {} } } } satisfies GrantedConfig,
       expected: "solo",
     },
     {
@@ -137,7 +137,7 @@ describe("agent roster resolution", () => {
           defaults: { systemAgent: { agentId: "beta" } },
           entries: { alpha: { default: true }, beta: {}, gamma: {} },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       requestedAgentId: " GAMMA ",
       expected: "gamma",
     },
@@ -154,7 +154,7 @@ describe("agent roster resolution", () => {
   it("fails closed with context when an ambient owner is ambiguous", () => {
     const ownerlessFleet = {
       agents: { ownership: "explicit" as const, entries: { ops: {}, research: {} } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(tryResolveAmbientOwnerAgentId(ownerlessFleet)).toBeUndefined();
     expect(() => resolveAmbientOwnerAgentId(ownerlessFleet)).toThrow(AgentSelectionRequiredError);
@@ -178,7 +178,7 @@ describe("agent roster resolution", () => {
         defaults: { systemAgent: { agentId: "beta" } },
         entries: { alpha: { default: true }, beta: { agentDir: "/tmp/openclaw-beta-agent" } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveDefaultAgentDir(config)).toBe("/tmp/openclaw-beta-agent");
   });
@@ -208,7 +208,7 @@ describe("agent roster resolution", () => {
       agents: {
         entries: { ops: { default: true }, research: {} },
       },
-    }).config as OpenClawConfig;
+    }).config as GrantedConfig;
 
     expect(cfg.agents?.entries?.ops?.default).toBeUndefined();
     expect(resolveAgentOperationAgentId(cfg)).toBe("ops");
@@ -262,7 +262,7 @@ describe("agent roster resolution", () => {
         defaults: { workspace: "/srv/ops" },
         entries: { ops: { default: true }, research: {} },
       },
-    }).config as OpenClawConfig;
+    }).config as GrantedConfig;
 
     expect(cfg.agents?.entries?.ops?.default).toBeUndefined();
     expect(cfg.agents?.entries?.ops?.workspace).toBeUndefined();
@@ -271,7 +271,7 @@ describe("agent roster resolution", () => {
   });
 
   it("keeps a raw legacy marker owner on the inherited workspace", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/srv/ops" },
         entries: { ops: { default: true }, research: {} },
@@ -299,7 +299,7 @@ describe("agent roster resolution", () => {
       expect(
         tryResolveDefaultAgentId({
           agents: { entries: { alpha: { default: marker } } },
-        } as unknown as OpenClawConfig),
+        } as unknown as GrantedConfig),
       ).toBe("alpha");
     }
   });
@@ -308,7 +308,7 @@ describe("agent roster resolution", () => {
     const entry = JSON.parse('{"__proto__":{"tools":{"allow":["*"]}}}') as Record<string, unknown>;
     const [listed] = listAgentEntriesWithSource({
       agents: { entries: { ops: entry } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     expect(listed).toBeDefined();
     const listedEntry = listed!.entry;
 
@@ -323,7 +323,7 @@ describe("agent roster resolution", () => {
 
 describe("resolveAgentConfig model policy", () => {
   it("keeps an empty per-agent policy inherited instead of flattening it", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { modelPolicy: { allow: ["openai/gpt-5.5"] } },
         list: [{ id: "main", modelPolicy: {} }],
@@ -334,7 +334,7 @@ describe("resolveAgentConfig model policy", () => {
   });
 
   it("returns an explicit per-agent allowlist override", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { modelPolicy: { allow: ["openai/gpt-5.5"] } },
         list: [{ id: "main", modelPolicy: { allow: ["openai/gpt-5.6-sol"] } }],

@@ -1,6 +1,6 @@
 // Whatsapp tests cover configured ACP binding support.
 import { resolveConfiguredAcpBindingRecord } from "openclaw/plugin-sdk/acp-binding-resolve-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   createTestRegistry,
@@ -14,7 +14,7 @@ function createCfg(
   peerId: string,
   accountId = "work",
   peerKind: "direct" | "group" = "direct",
-): OpenClawConfig {
+): GrantedConfig {
   return {
     agents: {
       list: [
@@ -46,7 +46,7 @@ function createCfg(
         },
       },
     ],
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("WhatsApp configured ACP bindings", () => {

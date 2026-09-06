@@ -1,6 +1,6 @@
 // Ollama embedding runtime implements provider integration.
 import type { EmbeddingProvider } from "openclaw/plugin-sdk/embedding-providers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import {
   isKnownEnvApiKeyMarker,
   isNonSecretApiKeyMarker,
@@ -41,7 +41,7 @@ type MemoryCoreAcquireLocalService = (
 ) => Promise<{ release: () => void } | undefined>;
 
 type OllamaEmbeddingOptions = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir?: string;
   provider?: string;
   remote?: {
@@ -217,7 +217,7 @@ function resolveSourcedOllamaEmbeddingKey(params: {
 }
 
 async function resolveConfiguredOllamaEmbeddingSecret(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   value: unknown;
   path: string;
 }): Promise<string | undefined> {

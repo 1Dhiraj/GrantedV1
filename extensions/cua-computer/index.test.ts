@@ -8,9 +8,9 @@ import {
   resolveEffectiveEnableState,
 } from "openclaw/plugin-sdk/plugin-config-runtime";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginNodeInvokePolicyContext,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginNodeInvokePolicyContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi, type TestPluginApiInput } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -78,7 +78,7 @@ describe("cua-computer plugin registration", () => {
   it.each(["linux", "win32"])("loads only remote policy by default on %s", (platform) => {
     Object.defineProperty(process, "platform", { configurable: true, value: platform });
     const registerNodeHostCommand = vi.fn();
-    const policies: OpenClawPluginNodeInvokePolicy[] = [];
+    const policies: GrantedPluginNodeInvokePolicy[] = [];
     registerPlugin({
       config: {},
       registerNodeHostCommand,
@@ -101,7 +101,7 @@ describe("cua-computer plugin registration", () => {
     },
   ])("preserves native provider activation on $platform", ({ platform, config }) => {
     Object.defineProperty(process, "platform", { configurable: true, value: platform });
-    const commands: OpenClawPluginNodeHostCommand[] = [];
+    const commands: GrantedPluginNodeHostCommand[] = [];
     registerPlugin({ config, registerNodeHostCommand: (command) => commands.push(command) });
     expect(commands.map((command) => command.command)).toEqual(["screen.snapshot", "computer.act"]);
     expect(artifactMocks.verify).toHaveBeenCalledOnce();
@@ -109,16 +109,16 @@ describe("cua-computer plugin registration", () => {
   });
 
   it("registers the screen and dangerous computer node-host commands", () => {
-    const commands: OpenClawPluginNodeHostCommand[] = [];
-    const policies: OpenClawPluginNodeInvokePolicy[] = [];
+    const commands: GrantedPluginNodeHostCommand[] = [];
+    const policies: GrantedPluginNodeInvokePolicy[] = [];
     const registerTool = vi.fn();
     const registerCli = vi.fn();
     const registerNodeCliFeature = vi.fn();
     const registerService = vi.fn();
     registerPlugin({
       pluginConfig: {},
-      registerNodeHostCommand: (command: OpenClawPluginNodeHostCommand) => commands.push(command),
-      registerNodeInvokePolicy: (policy: OpenClawPluginNodeInvokePolicy) => policies.push(policy),
+      registerNodeHostCommand: (command: GrantedPluginNodeHostCommand) => commands.push(command),
+      registerNodeInvokePolicy: (policy: GrantedPluginNodeInvokePolicy) => policies.push(policy),
       registerTool,
       registerCli,
       registerNodeCliFeature,
@@ -149,10 +149,10 @@ describe("cua-computer plugin registration", () => {
     expect(validateManifestConfig({ unexpected: true }).ok).toBe(false);
     expect(plugin.configSchema).not.toHaveProperty("uiHints");
 
-    const commands: OpenClawPluginNodeHostCommand[] = [];
+    const commands: GrantedPluginNodeHostCommand[] = [];
     registerPlugin({
       pluginConfig: config,
-      registerNodeHostCommand: (command: OpenClawPluginNodeHostCommand) => commands.push(command),
+      registerNodeHostCommand: (command: GrantedPluginNodeHostCommand) => commands.push(command),
       registerNodeInvokePolicy: () => {},
     });
 
@@ -185,11 +185,11 @@ describe("cua-computer plugin registration", () => {
   });
 
   it("forwards an explicitly armed computer action and preserves node refusals", async () => {
-    const policies: OpenClawPluginNodeInvokePolicy[] = [];
+    const policies: GrantedPluginNodeInvokePolicy[] = [];
     registerPlugin({
       pluginConfig: {},
       registerNodeHostCommand: () => {},
-      registerNodeInvokePolicy: (policy: OpenClawPluginNodeInvokePolicy) => policies.push(policy),
+      registerNodeInvokePolicy: (policy: GrantedPluginNodeInvokePolicy) => policies.push(policy),
     });
     const refusal = {
       ok: false as const,
@@ -202,7 +202,7 @@ describe("cua-computer plugin registration", () => {
       policies[0]!.handle({
         invokeNode,
         risk: { level: "ordinary", family: "input" },
-      } as unknown as OpenClawPluginNodeInvokePolicyContext),
+      } as unknown as GrantedPluginNodeInvokePolicyContext),
     ).resolves.toEqual(refusal);
     expect(invokeNode).toHaveBeenCalledOnce();
   });

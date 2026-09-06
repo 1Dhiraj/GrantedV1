@@ -3,7 +3,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { drainFormattedSystemEvents } from "../auto-reply/reply/session-system-events.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveMainSessionKey } from "../config/sessions/main-session.js";
 import { enqueueRoutedSystemEvent } from "../plugin-sdk/system-event-runtime.js";
 import { isCronSystemEvent } from "./heartbeat-events-filter.js";
@@ -46,7 +46,7 @@ async function importSystemEventOwnershipModule(
   )) as SystemEventOwnershipModule;
 }
 
-const cfg = {} as unknown as OpenClawConfig;
+const cfg = {} as unknown as GrantedConfig;
 const mainKey = resolveMainSessionKey(cfg);
 
 async function drainFormattedEvents(

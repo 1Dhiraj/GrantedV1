@@ -1,6 +1,6 @@
 // Doctor repair for configs that reuse Gateway shared-secret auth as hooks.token.
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   canMaterializeGatewayAuthSecretRefsWithoutExec,
   materializeGatewayAuthSecretRefs,
@@ -21,7 +21,7 @@ function activeGatewaySharedSecret(auth: ResolvedGatewayAuth): string {
 
 /** Rotate hooks.token when it matches the active Gateway token/password shared secret. */
 export function repairHooksTokenReuseGatewayAuth(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
   createToken: () => string = randomToken,
 ): Promise<DoctorConfigMutationResult> {
@@ -29,9 +29,9 @@ export function repairHooksTokenReuseGatewayAuth(
 }
 
 async function materializeDoctorGatewayAuthRefs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   const materializeParams = {
     cfg,
     env,
@@ -52,7 +52,7 @@ async function materializeDoctorGatewayAuthRefs(
 }
 
 async function repairHooksTokenReuseGatewayAuthAfterMaterializingRefs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
   createToken: () => string,
 ): Promise<DoctorConfigMutationResult> {

@@ -1,6 +1,6 @@
 // Model command shared tests cover shared config and provider helper behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { loadValidConfigOrThrow, resolveModelsTargetAgent, updateConfig } from "./shared.js";
 
 const mocks = vi.hoisted(() => ({
@@ -20,7 +20,7 @@ describe("models/shared", () => {
   });
 
   it("returns config when snapshot is valid", async () => {
-    const cfg = { providers: {} } as unknown as OpenClawConfig;
+    const cfg = { providers: {} } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       runtimeConfig: cfg,
@@ -57,7 +57,7 @@ describe("models/shared", () => {
   });
 
   it("resolves unscoped model reads through the configured system agent", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         ownership: "explicit",
         defaults: { systemAgent: { agentId: "helper" } },
@@ -98,7 +98,7 @@ describe("models/shared", () => {
   });
 
   it("updateConfig writes mutated config", async () => {
-    const cfg = { update: { channel: "stable" } } as unknown as OpenClawConfig;
+    const cfg = { update: { channel: "stable" } } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       hash: "config-1",
@@ -121,14 +121,14 @@ describe("models/shared", () => {
   it("updateConfig exposes runtime config without writing runtime defaults", async () => {
     const sourceConfig = {
       agents: { defaults: { models: { "anthropic/claude-sonnet-4-6": {} } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeConfig = {
       agents: {
         defaults: {
           models: { "anthropic/claude-sonnet-4-6": { alias: "sonnet" } },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       hash: "config-2",

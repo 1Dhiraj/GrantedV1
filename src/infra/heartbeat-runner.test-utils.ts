@@ -10,7 +10,7 @@ import {
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
 import type { InternalSessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeCronJobScratch } from "../cron/scratch-store.js";
 import { CronService } from "../cron/service.js";
 import { resolveCronJobsStorePath } from "../cron/store.js";
@@ -123,7 +123,7 @@ export function readSessionStoreForTest<T extends object = HeartbeatSessionSeed>
 /** Seed the configured main session and return its session key. */
 export async function seedMainSessionStore(
   storePath: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   session: HeartbeatSessionSeed,
 ): Promise<string> {
   const sessionKey = resolveMainSessionKey(cfg);

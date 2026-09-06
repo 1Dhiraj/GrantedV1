@@ -7,7 +7,7 @@ import { PROTOCOL_VERSION } from "../../packages/gateway-protocol/src/index.js";
 import { createDeferred } from "../../test/helpers/promise.js";
 import type { DurableMessageBatchSendResult } from "../channels/message/runtime.js";
 import { createOutboundSendDeps } from "../cli/outbound-send-deps.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import {
   prepareGatewaySuspend,
@@ -46,7 +46,7 @@ const buildSessionLookup = (
     parentSessionKey?: string;
   } = {},
 ): ReturnType<typeof loadSessionEntryType> => ({
-  cfg: { session: { mainKey: "agent:main:main" } } as OpenClawConfig,
+  cfg: { session: { mainKey: "agent:main:main" } } as GrantedConfig,
   agentId: "main",
   storePath: "/tmp/sessions.json",
   store: {} as ReturnType<typeof loadSessionEntryType>["store"],
@@ -146,7 +146,7 @@ const runtimeMocks = vi.hoisted(() => ({
   ),
   resolveSessionAgentId: vi.fn(() => "main"),
   resolveSessionModelRef: vi.fn(
-    (_cfg: OpenClawConfig, entry?: { model?: string; modelProvider?: string }) => ({
+    (_cfg: GrantedConfig, entry?: { model?: string; modelProvider?: string }) => ({
       provider: entry?.modelProvider ?? "test-provider",
       model: entry?.model ?? "default-model",
     }),

@@ -1,4 +1,4 @@
-import type { OpenClawPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { createFileTransferNodeInvokePolicy } from "./node-invoke-policy.js";
@@ -19,7 +19,7 @@ describe("file-transfer dir.list policy", () => {
         return { id: "approval-1", decision: "allow-once" as const };
       }),
     };
-    const invokeNode = vi.fn<OpenClawPluginNodeInvokePolicyContext["invokeNode"]>(
+    const invokeNode = vi.fn<GrantedPluginNodeInvokePolicyContext["invokeNode"]>(
       async ({ params } = {}) => {
         const record = requireRecord(params, "invoke params");
         events.push(record.preflightOnly === true ? "preflight" : "list");
@@ -40,7 +40,7 @@ describe("file-transfer dir.list policy", () => {
         };
       },
     );
-    const ctx: OpenClawPluginNodeInvokePolicyContext = {
+    const ctx: GrantedPluginNodeInvokePolicyContext = {
       nodeId: "node-1",
       command: "dir.list",
       params: { path: "/tmp/project", expectedCanonicalPath: "/tmp/injected" },

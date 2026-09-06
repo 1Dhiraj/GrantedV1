@@ -18,7 +18,7 @@ import {
   resolveStoredModelOverride,
   type CommandArgs,
 } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import {
   getSessionEntry,
@@ -62,7 +62,7 @@ function buildTelegramCommandMenuModelContext(params: {
 }
 
 function resolveTelegramCommandMenuModelContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }): TelegramCommandMenuModelContext {
@@ -128,7 +128,7 @@ function resolveTelegramCommandMenuModelContext(params: {
 }
 
 function resolveTelegramFastCommandModelContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }): { provider?: string; model?: string } {
@@ -159,7 +159,7 @@ function resolveTelegramFastCommandModelContext(params: {
 }
 
 function resolveTelegramFastCommandState(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
 }) {
@@ -196,7 +196,7 @@ function resolveTelegramFastCommandState(params: {
 }
 
 async function resolveTelegramThinkMenuCurrentLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider?: string;
   model?: string;

@@ -1,11 +1,11 @@
 // Repairs canonical binding references after agent config migration.
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { DEFAULT_AGENT_ID, normalizeAgentId } from "../../../routing/session-key.js";
 
 export function pruneBindingsForMissingAgents(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   changes: string[],
-): OpenClawConfig {
+): GrantedConfig {
   const agents = cfg.agents?.list;
   const bindings = cfg.bindings;
   if (!Array.isArray(agents) || agents.length === 0 || !Array.isArray(bindings)) {

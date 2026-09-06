@@ -2,11 +2,11 @@
 import { Command } from "commander";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPluginCatalogEntry } from "../channels/plugins/catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { registerChannelsCli } from "./channels-cli.js";
 
 const fixture = vi.hoisted(() => ({
-  config: {} as OpenClawConfig,
+  config: {} as GrantedConfig,
   registered: true,
   login: vi.fn(),
   logout: vi.fn(async () => ({ cleared: false })),
@@ -20,7 +20,7 @@ vi.mock("../commands/config-validation.js", () => ({
   requireValidConfigFileSnapshot: async () => ({ sourceConfig: fixture.config, hash: "fixture" }),
 }));
 vi.mock("../config/plugin-auto-enable.js", () => ({
-  applyPluginAutoEnable: ({ config }: { config: OpenClawConfig }) => ({ config, changes: [] }),
+  applyPluginAutoEnable: ({ config }: { config: GrantedConfig }) => ({ config, changes: [] }),
 }));
 vi.mock("../channels/plugins/catalog.js", () => ({
   listRawChannelPluginCatalogEntries: fixture.catalog,

@@ -6,8 +6,8 @@ import process from "node:process";
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import { timestampMsToIsoString } from "openclaw/plugin-sdk/number-runtime";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
@@ -58,7 +58,7 @@ type CodexCliSessionNodeInfo = {
   commands?: string[];
 };
 
-export function createCodexCliSessionNodeHostCommands(): OpenClawPluginNodeHostCommand[] {
+export function createCodexCliSessionNodeHostCommands(): GrantedPluginNodeHostCommand[] {
   return [
     {
       command: CODEX_CLI_SESSIONS_LIST_COMMAND,
@@ -74,7 +74,7 @@ export function createCodexCliSessionNodeHostCommands(): OpenClawPluginNodeHostC
   ];
 }
 
-export function createCodexCliSessionNodeInvokePolicies(): OpenClawPluginNodeInvokePolicy[] {
+export function createCodexCliSessionNodeInvokePolicies(): GrantedPluginNodeInvokePolicy[] {
   return [
     {
       commands: [CODEX_CLI_SESSIONS_LIST_COMMAND],

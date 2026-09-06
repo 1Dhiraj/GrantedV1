@@ -70,7 +70,7 @@ import { showToast } from "../../lib/toast.ts";
 import { isActiveWorkboardCard } from "../../lib/workboard/card-state.ts";
 import { captureSessionToWorkboard } from "../../lib/workboard/index.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { sessionAgentIdentityById, sessionAgentIds } from "./agent-scope.ts";
 import { rememberSessionCustomGroup, sessionCategoryNames } from "./custom-groups.ts";
@@ -102,7 +102,7 @@ type SessionsPageListBinding = {
   key: string;
 };
 
-class SessionsPage extends OpenClawLightDomElement {
+class SessionsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: ApplicationContext;
 

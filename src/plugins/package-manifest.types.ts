@@ -79,7 +79,7 @@ export type PluginPackageInstall = {
   requiredPlatformPackages?: string[];
 };
 
-type OpenClawPackageSetupFeatures = {
+type GrantedPackageSetupFeatures = {
   configPromotion?: boolean | "preserve-root";
   /**
    * @deprecated Declare doctorContract.stateMigrations in openclaw.plugin.json instead.
@@ -89,31 +89,31 @@ type OpenClawPackageSetupFeatures = {
   legacySessionSurfaces?: boolean;
 };
 
-type OpenClawPackageCompat = {
+type GrantedPackageCompat = {
   pluginApi?: string;
   minGatewayVersion?: string;
 };
 
-export type OpenClawPackageBuild = {
+export type GrantedPackageBuild = {
   bundledDist?: boolean;
   openclawVersion?: string;
   pluginSdkVersion?: string;
 };
 
-export type OpenClawPackageManifest = {
+export type GrantedPackageManifest = {
   extensions?: string[];
   runtimeExtensions?: string[];
   setupEntry?: string;
   runtimeSetupEntry?: string;
-  setupFeatures?: OpenClawPackageSetupFeatures;
+  setupFeatures?: GrantedPackageSetupFeatures;
   plugin?: {
     id?: string;
     label?: string;
   };
   channel?: PluginPackageChannel;
-  compat?: OpenClawPackageCompat;
+  compat?: GrantedPackageCompat;
   install?: PluginPackageInstall;
-  build?: OpenClawPackageBuild;
+  build?: GrantedPackageBuild;
 };
 
 export type PackageExtensionResolution =
@@ -130,4 +130,4 @@ export type PackageManifest = {
   description?: string;
   dependencies?: Record<string, string>;
   optionalDependencies?: Record<string, string>;
-} & Partial<Record<ManifestKey, OpenClawPackageManifest>>;
+} & Partial<Record<ManifestKey, GrantedPackageManifest>>;

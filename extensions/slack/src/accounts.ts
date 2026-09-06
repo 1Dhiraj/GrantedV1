@@ -4,7 +4,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   hasConfiguredAccountValue,
   normalizeAccountId,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import {
   mapAllowFromEntries,
@@ -87,7 +87,7 @@ export const listSlackAccountIds = listAccountIds;
 export const resolveDefaultSlackAccountId = resolveDefaultAccountId;
 
 function resolveSlackAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): SlackAccountConfig | undefined {
   return resolveAccountEntry(cfg.channels?.slack?.accounts, accountId);
@@ -149,10 +149,7 @@ function mergeSlackStreamingConfig(
   };
 }
 
-export function mergeSlackAccountConfig(
-  cfg: OpenClawConfig,
-  accountId: string,
-): SlackAccountConfig {
+export function mergeSlackAccountConfig(cfg: GrantedConfig, accountId: string): SlackAccountConfig {
   const accountConfig = resolveSlackAccountConfig(cfg, accountId);
   const merged = resolveMergedSlackAccountConfig(cfg, accountId);
   const streaming = mergeSlackStreamingConfig(
@@ -163,7 +160,7 @@ export function mergeSlackAccountConfig(
 }
 
 export function resolveSlackAccountAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): string[] | undefined {
   const accountId = normalizeAccountId(
@@ -176,7 +173,7 @@ export function resolveSlackAccountAllowFrom(params: {
 }
 
 export function resolveSlackConfigAccessorAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): SlackConfigAccessorAccount {
   const accountId = normalizeAccountId(
@@ -190,7 +187,7 @@ export function resolveSlackConfigAccessorAccount(params: {
 }
 
 export function resolveSlackAccountDmPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ChannelDmPolicy | undefined {
   const accountId = normalizeAccountId(
@@ -202,7 +199,7 @@ export function resolveSlackAccountDmPolicy(params: {
 }
 
 export function resolveSlackAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedSlackAccount {
   const accountId = normalizeAccountId(
@@ -266,7 +263,7 @@ export function resolveSlackAccount(params: {
   };
 }
 
-export function listEnabledSlackAccounts(cfg: OpenClawConfig): ResolvedSlackAccount[] {
+export function listEnabledSlackAccounts(cfg: GrantedConfig): ResolvedSlackAccount[] {
   return listSlackAccountIds(cfg)
     .map((accountId) => resolveSlackAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { REQUEST, seedActivePlacement } from "./placement-dispatch-test-fixtures.js";
 import { FORCED_WORKER_ABANDONMENT_ERROR } from "./placement-force-abandon.js";
@@ -17,7 +17,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("worker placement workspace journal", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerSessionPlacementStore;
 
   beforeEach(() => {

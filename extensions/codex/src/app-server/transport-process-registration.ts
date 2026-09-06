@@ -1,7 +1,7 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { once } from "node:events";
-import type { OpenClawPluginService } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
 import { z } from "zod";
 import { terminateCodexAppServerOrphan } from "./transport-process-containment.js";
 import {
@@ -97,7 +97,7 @@ async function reapRegisteredCodexAppServerOrphans(requestedDeadline?: number): 
   }
 }
 
-export function createCodexAppServerProcessReaperService(): OpenClawPluginService {
+export function createCodexAppServerProcessReaperService(): GrantedPluginService {
   return {
     id: "codex-app-server-process-reaper",
     start(ctx) {

@@ -7,7 +7,7 @@ import {
   loadTranscriptEvents,
 } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../state/openclaw-agent-db-additive-columns.js";
 import {
   closeOpenClawAgentDatabasesForTest,
@@ -59,7 +59,7 @@ describe("doctor transcript owner repair", () => {
         env,
       });
       const canonicalKey = "agent:main:work";
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }, { id: "ops" }] },
         session: { mainKey: "work", store: storeTemplate },
       };
@@ -151,7 +151,7 @@ describe("doctor transcript owner repair", () => {
           ],
         },
         session: { mainKey: "work", store: storeTemplate },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       if (sourceAgentId === "main") {
         insertLegacySession({
@@ -239,7 +239,7 @@ describe("doctor transcript owner repair", () => {
       const cfg = {
         agents: { list: [{ id: "main", default: true }] },
         session: { store: storeTemplate },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const canonicalKey = "agent:main:main";
       const staleKey = "agent:main:telegram:default:direct:fixture-peer";
       const sessionId = "stolen-owner-session";
@@ -315,7 +315,7 @@ describe("doctor transcript owner repair", () => {
       const cfg = {
         agents: { list: [{ id: "main", default: true }] },
         session: { mainKey: "work", store: storeTemplate },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const staleKey = "agent:main:telegram:default:direct:fixture-peer";
       const intermediateKey = "agent:main:main";
       const canonicalKey = "agent:main:work";

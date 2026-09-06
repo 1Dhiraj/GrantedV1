@@ -8,7 +8,7 @@ import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
 import {
@@ -78,7 +78,7 @@ function requireLoadWebMediaCall(): readonly unknown[] {
 }
 
 async function runAttachmentRemoteMediaAction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   action: "sendAttachment" | "upload-file";
 }) {
   return runMessageAction({
@@ -242,7 +242,7 @@ describe("runMessageAction media behavior", () => {
           password: "test-password",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const attachmentPlugin: ChannelPlugin = {
       id: "attachmentchat",
       meta: {
@@ -296,7 +296,7 @@ describe("runMessageAction media behavior", () => {
     }
 
     async function expectRejectsLocalAbsolutePathWithoutSandbox(params: {
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
       action: "sendAttachment" | "setGroupIcon";
       target: string;
       mediaField?: "media" | "mediaUrl" | "fileUrl";
@@ -560,7 +560,7 @@ describe("runMessageAction media behavior", () => {
           enabled: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const handleActionMock = vi.fn();
     const replyPlugin: ChannelPlugin = {
       id: "replychat",

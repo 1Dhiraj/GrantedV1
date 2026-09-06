@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import {
   catalogEntry,
@@ -27,7 +27,7 @@ describe("models.list configured static entries", () => {
           models: { "openai/gpt-5.6-luna": {}, "openai/gpt-5.6-sol": {} },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listModels({
       catalog,
@@ -66,7 +66,7 @@ describe("models.list configured static entries", () => {
           models: { "openai/gpt-5.6-luna": {}, "openai/gpt-5.6-sol": {} },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = listModels({
       catalog: [],
@@ -96,7 +96,7 @@ describe("models.list configured static entries", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       listModels({
@@ -148,7 +148,7 @@ describe("models.list configured static entries", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await listModels({
         agentId: "worker",

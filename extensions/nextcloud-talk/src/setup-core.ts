@@ -5,7 +5,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupInput,
 } from "openclaw/plugin-sdk/channel-setup";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
 import {
   applyAccountNameToChannelSection,
@@ -111,10 +111,10 @@ async function promptNextcloudTalkAllowFrom(params: {
 }
 
 async function promptNextcloudTalkAllowFromForAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const accountId = resolveSetupAccountId({
     accountId: params.accountId,
     defaultAccountId: resolveDefaultNextcloudTalkAccountId(params.cfg as CoreConfig),

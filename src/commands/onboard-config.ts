@@ -6,7 +6,7 @@ import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js"
 import { setConfigValueAtPath } from "../config/config-paths.js";
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ToolProfileId } from "../config/types.tools.js";
 import { resolveUserPath } from "../utils.js";
 
@@ -53,7 +53,7 @@ function hasExistingAgentState(env: NodeJS.ProcessEnv): boolean {
 
 /** Detects a workspace change that could remap an existing agent fleet. */
 export function resolveOnboardingWorkspaceConflict(
-  baseConfig: OpenClawConfig,
+  baseConfig: GrantedConfig,
   requestedWorkspaceDir: string,
   env: NodeJS.ProcessEnv = process.env,
 ): OnboardingWorkspaceConflict | undefined {
@@ -82,14 +82,14 @@ export function resolveOnboardingWorkspaceConflict(
 // personal-agent session across channels) is the product default. Multi-user DM
 // isolation is opt-in; `openclaw security audit` nudges it when traffic warrants.
 export function applyLocalSetupWorkspaceConfig(
-  baseConfig: OpenClawConfig,
+  baseConfig: GrantedConfig,
   workspaceDir: string,
   options: {
     allowWorkspaceChange?: boolean;
     preserveWorkspace?: boolean;
     env?: NodeJS.ProcessEnv;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const workspaceConflict = resolveOnboardingWorkspaceConflict(
     baseConfig,
     workspaceDir,
@@ -128,7 +128,7 @@ export function applyLocalSetupWorkspaceConfig(
 }
 
 /** Marks default agents to skip bootstrap file creation. */
-export function applySkipBootstrapConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applySkipBootstrapConfig(cfg: GrantedConfig): GrantedConfig {
   const next = structuredClone(cfg);
   setConfigValueAtPath(
     next as Record<string, unknown>,

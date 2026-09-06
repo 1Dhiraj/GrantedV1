@@ -1,7 +1,7 @@
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { INCLUDE_KEY } from "../../../config/includes.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.openclaw.js";
 import { isPathInside } from "../../../infra/path-safety.js";
 import { isRecord } from "../../../utils.js";
 
@@ -86,8 +86,8 @@ export function classifyOtelGrpcMigrationOwnership(params: {
 
 export function isSingleTopLevelIncludeMigration(params: {
   parsed: unknown;
-  sourceConfig: OpenClawConfig;
-  candidate: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  candidate: GrantedConfig;
 }): boolean {
   if (!isRecord(params.parsed)) {
     return false;

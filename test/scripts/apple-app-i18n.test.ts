@@ -383,7 +383,7 @@ describe("Apple app i18n catalogs", () => {
     const watchDirect = await readFile("apps/ios/WatchApp/Sources/WatchDirectNode.swift", "utf8");
 
     expect(design).toContain(
-      "struct ProStatusRow: View {\n    let icon: String\n    let title: OpenClawTextValue\n    let detail: OpenClawTextValue",
+      "struct ProStatusRow: View {\n    let icon: String\n    let title: GrantedTextValue\n    let detail: GrantedTextValue",
     );
     expect(design).not.toContain(
       "struct ProStatusRow: View {\n    let icon: String\n    let title: String",
@@ -396,19 +396,19 @@ describe("Apple app i18n catalogs", () => {
     expect(watch).toContain("accessory: .verbatim(self.store.talkSummaryText)");
     expect(watch).toContain("title: .verbatim(record.approval.commandPreview");
     expect(settings).toContain(
-      "let title: OpenClawTextValue\n    let detail: OpenClawTextValue\n    let priority: OpenClawTextValue",
+      "let title: GrantedTextValue\n    let detail: GrantedTextValue\n    let priority: GrantedTextValue",
     );
     expect(settings).toContain(
-      "struct SettingsDetailRow: View {\n    let label: LocalizedStringKey\n    let value: OpenClawTextValue",
+      "struct SettingsDetailRow: View {\n    let label: LocalizedStringKey\n    let value: GrantedTextValue",
     );
     expect(settings).toContain("self.value.text");
     expect(settings).not.toContain("Text(self.item.title)");
     expect(agentDetailComponents).toContain(
-      "func agentProDetailMetric(label: OpenClawTextValue, value: String)",
+      "func agentProDetailMetric(label: GrantedTextValue, value: String)",
     );
     expect(agentDetailComponents).toContain("Text(verbatim: value)");
     expect(agentDetailComponents).toContain(
-      "func agentProEmptyDetailRow(\n    icon: String,\n    title: OpenClawTextValue,\n    detail: OpenClawTextValue)",
+      "func agentProEmptyDetailRow(\n    icon: String,\n    title: GrantedTextValue,\n    detail: GrantedTextValue)",
     );
     expect(agentDetailComponents).toContain("title.text");
     expect(agentDetailComponents).toContain("detail.text");
@@ -422,7 +422,7 @@ describe("Apple app i18n catalogs", () => {
     expect(agentDreaming).not.toContain("private func detailMetric(");
     expect(agentDreaming).not.toContain("private func emptyDetailRow(");
     expect(settingsActions).toContain(
-      "func diagnosticCheckRow(\n        icon: String,\n        title: OpenClawTextValue,\n        detail: OpenClawTextValue,\n        value: OpenClawTextValue",
+      "func diagnosticCheckRow(\n        icon: String,\n        title: GrantedTextValue,\n        detail: GrantedTextValue,\n        value: GrantedTextValue",
     );
     expect(settingsSections).toContain("func settingsToggle(\n        _ title: LocalizedStringKey");
     expect(settingsSections).toContain(

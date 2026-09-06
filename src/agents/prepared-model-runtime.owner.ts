@@ -2,7 +2,7 @@ import path from "node:path";
 import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { hashRuntimeConfigValue } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isReservedSystemAgentId } from "../system-agent/agent-id.js";
 import {
   listAgentIds,
@@ -230,8 +230,8 @@ export function rebindInputToCommittedConfiguredOwner(
 
 /** Accepts canonical config clones without weakening projected-config isolation. */
 export function preparedModelRuntimeConfigsMatch(
-  left: OpenClawConfig,
-  right: OpenClawConfig,
+  left: GrantedConfig,
+  right: GrantedConfig,
 ): boolean {
   if (left === right) {
     return true;
@@ -245,7 +245,7 @@ export function preparedModelRuntimeConfigsMatch(
 
 function stampPreparedModelRuntimeSnapshotConfig(
   snapshot: PreparedModelRuntimeSnapshot,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): PreparedModelRuntimeSnapshot {
   if (snapshot.config === config) {
     return snapshot;
@@ -257,7 +257,7 @@ function stampPreparedModelRuntimeSnapshotConfig(
 
 export function advancePreparedModelRuntimeOwnerConfig(
   owner: PreparedModelRuntimeOwner,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): void {
   owner.input = { ...owner.input, config };
   if (owner.snapshot) {
@@ -408,7 +408,7 @@ export function createPreparedModelRuntimeReplacement(): PreparedModelRuntimeRep
 }
 
 export function listConfiguredOwnerInputs(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   defaultWorkspaceDir?: string,
   allowGatewaySubagentBinding?: boolean,
 ): PreparedModelRuntimeInput[] {
@@ -437,7 +437,7 @@ export function listConfiguredOwnerInputs(
 }
 
 function resolveConfiguredRuntimePluginSelections(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
 ): PreparedModelRuntimeInput["runtimePluginSelections"] {
   const configured = resolveDefaultModelForAgent({ cfg: config, agentId });

@@ -7,7 +7,7 @@ import * as configRuntime from "../../config/config.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   resolveOpenClawAgentSqlitePath,
@@ -24,7 +24,7 @@ vi.mock("../../channels/plugins/read-only.js", () => ({
 }));
 
 async function summarizeStore(storePath: string, agentId: string) {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { ownership: "explicit", entries: { [agentId]: {} } },
     session: { store: storePath },
   };
@@ -97,7 +97,7 @@ describe("health session store paths", () => {
       });
       const clone = vi.spyOn(globalThis, "structuredClone");
       const parse = vi.spyOn(JSON, "parse");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           ownership: "explicit",
           entries: Object.fromEntries(agentIds.map((agentId) => [agentId, {}])),

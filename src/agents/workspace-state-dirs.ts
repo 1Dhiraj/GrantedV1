@@ -3,7 +3,7 @@ import path from "node:path";
 import { resolveStateDir } from "../config/paths.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { listSessionEntryKeysReadOnly } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveUserPath } from "../infra/home-dir.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { listAgentIds, resolveAgentConfig, resolveAgentWorkspaceDir } from "./agent-scope.js";
@@ -15,7 +15,7 @@ import { assertWorkspaceStateMigrationReady } from "./workspace-legacy-state.js"
 
 /** Select configured workspaces and active sandbox copies for migration and readiness. */
 export function listWorkspaceStateDirs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   homedir: () => string;
   stateDir: string;
@@ -84,7 +84,7 @@ export function listWorkspaceStateDirs(params: {
 
 /** Refuse completion before channels accept work that a workspace cannot execute. */
 export function assertConfiguredWorkspaceStateReady(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): void {
   const env = params.env ?? process.env;

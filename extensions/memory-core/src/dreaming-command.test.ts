@@ -1,25 +1,25 @@
 // Memory Core tests cover dreaming command plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginCommandContext } from "openclaw/plugin-sdk/core";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { handleDreamingCommand } from "./dreaming-command.js";
 
-function resolveStoredDreaming(config: OpenClawConfig): Record<string, unknown> {
+function resolveStoredDreaming(config: GrantedConfig): Record<string, unknown> {
   const entry = asNullableRecord(config.plugins?.entries?.["memory-core"]);
   const pluginConfig = asNullableRecord(entry?.config);
   return asNullableRecord(pluginConfig?.dreaming) ?? {};
 }
 
-function createHarness(initialConfig: OpenClawConfig = {}) {
-  let runtimeConfig: OpenClawConfig = initialConfig;
+function createHarness(initialConfig: GrantedConfig = {}) {
+  let runtimeConfig: GrantedConfig = initialConfig;
 
   const runtime = {
     config: {
       current: vi.fn(() => runtimeConfig),
       loadConfig: vi.fn(() => runtimeConfig),
-      mutateConfigFile: vi.fn(async ({ mutate }: { mutate: (draft: OpenClawConfig) => void }) => {
+      mutateConfigFile: vi.fn(async ({ mutate }: { mutate: (draft: GrantedConfig) => void }) => {
         const draft = structuredClone(runtimeConfig);
         mutate(draft);
         runtimeConfig = draft;
@@ -34,18 +34,18 @@ function createHarness(initialConfig: OpenClawConfig = {}) {
           result: undefined,
         };
       }),
-      replaceConfigFile: vi.fn(async ({ nextConfig }: { nextConfig: OpenClawConfig }) => {
+      replaceConfigFile: vi.fn(async ({ nextConfig }: { nextConfig: GrantedConfig }) => {
         runtimeConfig = nextConfig;
       }),
-      writeConfigFile: vi.fn(async (nextConfig: OpenClawConfig) => {
+      writeConfigFile: vi.fn(async (nextConfig: GrantedConfig) => {
         runtimeConfig = nextConfig;
       }),
     },
-  } as unknown as OpenClawPluginApi["runtime"];
+  } as unknown as GrantedPluginApi["runtime"];
 
   const api = {
     runtime,
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
 
   return {
     api,
@@ -56,7 +56,7 @@ function createHarness(initialConfig: OpenClawConfig = {}) {
 
 function createCommandContext(
   args?: string,
-  config: OpenClawConfig = {},
+  config: GrantedConfig = {},
   overrides?: Partial<Pick<PluginCommandContext, "gatewayClientScopes" | "senderIsOwner">>,
 ): PluginCommandContext {
   return {

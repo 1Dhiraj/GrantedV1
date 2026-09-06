@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
 import { resolveFutureConfigActionBlock } from "../../config/future-version-guard.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import {
   loadInstalledPluginIndexInstallRecords,
@@ -15,7 +15,7 @@ import { runExec } from "../../process/exec.js";
 import { defaultRuntime } from "../../runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { VERSION } from "../../version.js";
 
@@ -62,7 +62,7 @@ const pluginResult: PostCorePluginUpdateResult = {
   integrityDrifts: [],
 };
 type Lane = LeaseScenario["lane"];
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let entrypoint: string;
 
 beforeEach(async () => {
@@ -543,7 +543,7 @@ describe("update orchestration lifecycle ownership", () => {
           },
         },
       });
-      const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+      const persisted = JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
       expect(persisted.meta?.lastTouchedVersion).toBe(valid ? VERSION : futureVersion);
       expect(persisted.update?.channel).toBe("stable");
       const startupBlock = resolveFutureConfigActionBlock({

@@ -4,7 +4,7 @@ import {
   runOpenClawNpmResumeGh,
   validateOpenClawNpmResumeRun,
 } from "../../scripts/openclaw-npm-resume-run.mts";
-import type { OpenClawNpmResumeValidationInput } from "../../scripts/openclaw-npm-resume-run.mts";
+import type { GrantedNpmResumeValidationInput } from "../../scripts/openclaw-npm-resume-run.mts";
 
 const SHA = "a".repeat(40);
 const TAG_OBJECT_SHA = "b".repeat(40);
@@ -12,8 +12,8 @@ const BRANCH = `release-publish/${SHA.slice(0, 12)}-123`;
 const URL = "https://github.com/openclaw/openclaw/actions/runs/456";
 
 function fixture(
-  overrides: Partial<OpenClawNpmResumeValidationInput> = {},
-): OpenClawNpmResumeValidationInput {
+  overrides: Partial<GrantedNpmResumeValidationInput> = {},
+): GrantedNpmResumeValidationInput {
   return {
     canonicalWorkflowId: 101,
     compareStatus: "identical",

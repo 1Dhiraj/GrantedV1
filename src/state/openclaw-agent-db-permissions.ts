@@ -1,7 +1,7 @@
 import { chmodSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
-import type { OpenClawAgentDatabaseOptions } from "./openclaw-agent-db-contract.js";
+import type { GrantedAgentDatabaseOptions } from "./openclaw-agent-db-contract.js";
 import { resolveOpenClawAgentSqlitePath } from "./openclaw-agent-db.paths.js";
 
 const GRANTED_AGENT_DB_DIR_MODE = 0o700;
@@ -9,7 +9,7 @@ const GRANTED_AGENT_DB_FILE_MODE = 0o600;
 
 export function ensureOpenClawAgentDatabasePermissions(
   pathname: string,
-  options: OpenClawAgentDatabaseOptions,
+  options: GrantedAgentDatabaseOptions,
 ): void {
   const dir = path.dirname(pathname);
   const defaultPath = resolveOpenClawAgentSqlitePath({

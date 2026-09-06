@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   testing as sessionBindingTesting,
@@ -67,7 +67,7 @@ const lineBindingsPlugin = {
 describe("buildLineMessageContext", () => {
   let tmpDir: string;
   let storePath: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   const account: ResolvedLineAccount = {
     accountId: "default",
     enabled: true,
@@ -364,7 +364,7 @@ describe("buildLineMessageContext", () => {
 
   it("keeps inbound log previews UTF-16 well-formed at the limit", async () => {
     const timestamp = 1_700_000_000_000;
-    const logCfg: OpenClawConfig = {
+    const logCfg: GrantedConfig = {
       ...cfg,
       agents: { defaults: { envelopeTimestamp: "off" } },
     };
@@ -699,7 +699,7 @@ describe("buildLineMessageContext", () => {
 
   it("keeps per-channel-peer direct-message last-route writes on the isolated session", async () => {
     const event = createMessageEvent({ type: "user", userId: "user-1" });
-    const directCfg: OpenClawConfig = {
+    const directCfg: GrantedConfig = {
       session: { store: storePath, dmScope: "per-channel-peer" },
     };
 
@@ -738,7 +738,7 @@ describe("buildLineMessageContext", () => {
 
   it("group peer binding matches raw groupId without prefix (#21907)", async () => {
     const groupId = "Cc7e3bece1234567890abcdef"; // pragma: allowlist secret
-    const bindingCfg: OpenClawConfig = {
+    const bindingCfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         list: [{ id: "main" }, { id: "line-group-agent" }],
@@ -775,7 +775,7 @@ describe("buildLineMessageContext", () => {
 
   it("room peer binding matches raw roomId without prefix (#21907)", async () => {
     const roomId = "Rr1234567890abcdef";
-    const bindingCfg: OpenClawConfig = {
+    const bindingCfg: GrantedConfig = {
       session: { store: storePath },
       agents: {
         list: [{ id: "main" }, { id: "line-room-agent" }],

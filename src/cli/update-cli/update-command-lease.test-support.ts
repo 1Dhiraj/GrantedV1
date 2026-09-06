@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { once } from "node:events";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 
 export type LeaseScenario = {
@@ -13,7 +13,7 @@ export type LeaseScenario = {
   readinessFailure?: "finding" | "execution";
   hostVersion?: string;
   doctorWrites?: boolean;
-  writerConfig?: OpenClawConfig;
+  writerConfig?: GrantedConfig;
   writerRecords?: Record<string, PluginInstallRecord>;
 };
 

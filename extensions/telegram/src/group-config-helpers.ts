@@ -6,7 +6,7 @@ import {
 } from "openclaw/plugin-sdk/channel-policy";
 // Telegram helper module supports group config helpers behavior.
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   TelegramAccountConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -49,7 +49,7 @@ export function resolveTelegramScopedGroupConfig(
 }
 
 export function resolveTelegramGroupIngestEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   chatId: string | number;
   accountId?: string;
   topicConfig?: TelegramTopicConfig;

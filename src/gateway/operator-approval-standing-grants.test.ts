@@ -12,11 +12,11 @@ import {
 import type { CronStoredJob } from "../cron/types.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import {
@@ -33,7 +33,7 @@ import {
 } from "./operator-approval-store.js";
 
 type StandingGrantDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "operator_approval_standing_grants" | "operator_approvals" | "cron_jobs"
 >;
 type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approval"];
@@ -44,7 +44,7 @@ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60_000;
 
 const tempDirs: string[] = [];
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-standing-grant-")),
   );
@@ -109,7 +109,7 @@ function cronJob(overrides: Partial<CronStoredJob> = {}): CronStoredJob {
 
 /** Persists the job and returns the revision the loader observes for it. */
 function seedCronJob(
-  databaseOptions: OpenClawStateDatabaseOptions,
+  databaseOptions: GrantedStateDatabaseOptions,
   job: CronStoredJob = cronJob(),
 ): string {
   const database = openOpenClawStateDatabase(databaseOptions);
@@ -129,7 +129,7 @@ const OPERATION_BINDING = buildCronExecOperationBinding({
 });
 
 function mintGrant(params: {
-  databaseOptions: OpenClawStateDatabaseOptions;
+  databaseOptions: GrantedStateDatabaseOptions;
   approvalId?: string;
   jobConfigRevision: string;
   operationBinding?: string;
@@ -159,7 +159,7 @@ function mintGrant(params: {
   expect(resolved.outcome).toBe("resolved");
 }
 
-function readGrantRows(databaseOptions: OpenClawStateDatabaseOptions) {
+function readGrantRows(databaseOptions: GrantedStateDatabaseOptions) {
   const database = openOpenClawStateDatabase(databaseOptions);
   if (!tableExists(database.db, "operator_approval_standing_grants")) {
     return null;
@@ -370,7 +370,7 @@ describe("cron standing grant consumption", () => {
   }
 
   function consume(params: {
-    databaseOptions: OpenClawStateDatabaseOptions;
+    databaseOptions: GrantedStateDatabaseOptions;
     revision: string;
     operationBinding?: string;
     nowMs?: number;

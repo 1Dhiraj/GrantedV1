@@ -4,7 +4,7 @@ import path from "node:path";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { resolveAgentWorkspaceDir, tryResolveDefaultAgentId } from "../agents/agent-scope.js";
 import { DEFAULT_AGENTS_FILENAME } from "../agents/workspace.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { readRegularFile } from "../infra/regular-file.js";
 import {
@@ -322,7 +322,7 @@ type WorkspaceMemoryDoctorScope = {
 
 /** Emits workspace root-memory health warnings. */
 export async function noteWorkspaceMemoryHealth(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   scope?: WorkspaceMemoryDoctorScope,
 ): Promise<void> {
   try {
@@ -351,7 +351,7 @@ export async function noteWorkspaceMemoryHealth(
 
 /** Prompts to merge legacy root memory into canonical memory when both files exist. */
 export async function maybeRepairWorkspaceMemoryHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: DoctorPrompter;
   scope?: WorkspaceMemoryDoctorScope;
 }): Promise<void> {

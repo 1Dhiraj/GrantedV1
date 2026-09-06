@@ -3,7 +3,7 @@ import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { NormalizedUsage, UsageLike } from "../agents/usage.js";
 import { normalizeUsage } from "../agents/usage.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { countToolResults, extractToolCallNames } from "../utils/transcript-tools.js";
 import { resolveModelCostConfig } from "../utils/usage-format.js";
 import type {
@@ -231,7 +231,7 @@ export type UsageCostResolver = (params: {
 }) => ReturnType<typeof resolveModelCostConfig>;
 
 export function createUsageCostResolver(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
 }): UsageCostResolver {
   const cache = new Map<string, ReturnType<typeof resolveModelCostConfig>>();

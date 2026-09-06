@@ -2,7 +2,7 @@ import {
   assertSecretOwnerAvailable,
   isSecretOwnerAvailable,
 } from "openclaw/plugin-sdk/channel-secret-owner-runtime";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   buildRealtimeVoiceSessionInstructions,
   buildRealtimeVoiceSpeakExactMessage,
@@ -130,7 +130,7 @@ export class DiscordRealtimeVoiceSession implements VoiceRealtimeSession {
   constructor(
     private readonly params: {
       accountId: string;
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       discordConfig: DiscordAccountConfig;
       entry: VoiceSessionEntry;
       mode: Exclude<DiscordVoiceMode, "stt-tts">;

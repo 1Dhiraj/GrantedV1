@@ -6,23 +6,23 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import type { TranscriptSessionDescriptor, TranscriptUtterance } from "./provider-types.js";
 import type { TranscriptsSummary } from "./summary.js";
 
 type MeetingTranscriptsDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "meeting_transcript_sessions" | "meeting_transcript_summaries" | "meeting_transcript_utterances"
 >;
 
 export type MeetingTranscriptSessionRow = Selectable<
-  OpenClawStateKyselyDatabase["meeting_transcript_sessions"]
+  GrantedStateKyselyDatabase["meeting_transcript_sessions"]
 >;
 type MeetingTranscriptSummaryRow = Selectable<
-  OpenClawStateKyselyDatabase["meeting_transcript_summaries"]
+  GrantedStateKyselyDatabase["meeting_transcript_summaries"]
 >;
 type MeetingTranscriptUtteranceRow = Selectable<
-  OpenClawStateKyselyDatabase["meeting_transcript_utterances"]
+  GrantedStateKyselyDatabase["meeting_transcript_utterances"]
 >;
 
 export function meetingTranscriptDb(db: DatabaseSync) {

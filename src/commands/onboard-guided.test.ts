@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSuiteLogPathTracker } from "../logging/log-test-helpers.js";
 import { flushLogger, resetLogger, setLoggerOverride } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
@@ -54,12 +54,12 @@ const readConfigFileSnapshot = vi.hoisted(() =>
 );
 const localOnboarding = vi.hoisted(() => {
   const states = new Map<string, LocalOnboardingState>();
-  const persisted = { config: undefined as OpenClawConfig | undefined };
+  const persisted = { config: undefined as GrantedConfig | undefined };
   return {
     states,
     persisted,
     read: vi.fn((configPath: string) => states.get(configPath)),
-    readForConfig: vi.fn((configPath: string, config: OpenClawConfig) => {
+    readForConfig: vi.fn((configPath: string, config: GrantedConfig) => {
       const state = states.get(configPath);
       return state?.securityAcknowledgedAt === config.wizard?.securityAcknowledgedAt
         ? state
@@ -119,7 +119,7 @@ const logPathTracker = createSuiteLogPathTracker("openclaw-guided-onboard-log-")
 
 vi.mock("../config/config.js", () => ({
   readConfigFileSnapshot,
-  withConfigMutationExclusive: (effect: (config: OpenClawConfig) => Promise<unknown>) =>
+  withConfigMutationExclusive: (effect: (config: GrantedConfig) => Promise<unknown>) =>
     effect(localOnboarding.persisted.config ?? {}),
 }));
 vi.mock("../state/local-onboarding-state.js", () => ({
@@ -129,7 +129,7 @@ vi.mock("../state/local-onboarding-state.js", () => ({
   completeLocalOnboarding: localOnboarding.complete,
 }));
 vi.mock("./onboard-agent.js", () => ({
-  ensureOnboardingAgent: async ({ config }: { config: OpenClawConfig }) => ({ config }),
+  ensureOnboardingAgent: async ({ config }: { config: GrantedConfig }) => ({ config }),
   validateFirstOnboardingAgentName: () => undefined,
 }));
 
@@ -195,7 +195,7 @@ function setupApplyResult() {
   };
 }
 
-function recommendationOutcome(config: OpenClawConfig) {
+function recommendationOutcome(config: GrantedConfig) {
   return { config, commitResult: vi.fn() };
 }
 
@@ -243,7 +243,7 @@ function setupDeps(params: {
       }),
     persistRiskAcknowledgement:
       params.persistRiskAcknowledgement ??
-      vi.fn(async (config: OpenClawConfig) => {
+      vi.fn(async (config: GrantedConfig) => {
         localOnboarding.persisted.config = config;
         return config.wizard?.securityAcknowledgedAt;
       }),
@@ -481,7 +481,7 @@ describe("runGuidedOnboarding", () => {
 
   it("persists the one-time risk acknowledgement before inference detection", async () => {
     const prompter = createWizardPrompter();
-    const persistRiskAcknowledgement = vi.fn(async (config: OpenClawConfig) => {
+    const persistRiskAcknowledgement = vi.fn(async (config: GrantedConfig) => {
       localOnboarding.persisted.config = config;
     });
     const detect = vi.fn(async () => detection());

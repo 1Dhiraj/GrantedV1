@@ -1,6 +1,6 @@
 // Daemon lifecycle core tests cover service lifecycle transitions and platform adapters.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { GatewayServiceControlArgs } from "../../daemon/service-types.js";
 import type { GatewayService } from "../../daemon/service.js";
 import {
@@ -14,7 +14,7 @@ import {
   stubEmptyGatewayEnv,
 } from "./test-helpers/lifecycle-core-harness.js";
 
-const loadConfig = vi.fn<() => OpenClawConfig>(() => ({
+const loadConfig = vi.fn<() => GrantedConfig>(() => ({
   gateway: {
     auth: {
       token: "config-token",

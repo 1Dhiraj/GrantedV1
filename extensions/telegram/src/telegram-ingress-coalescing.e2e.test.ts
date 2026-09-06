@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
@@ -91,7 +91,7 @@ const { writeTelegramSpooledUpdate } = await import("./telegram-ingress-spool.te
 
 const cfg = {
   channels: { telegram: { dmPolicy: "open", allowFrom: ["*"] } },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function photoUpdate(params: { updateId: number; messageId: number; caption?: string }) {
   return {

@@ -3,7 +3,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { Type } from "typebox";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as codeModeExecution from "./code-mode-execution.js";
 import {
   applyCodeModeCatalog,
@@ -202,7 +202,7 @@ describe("Code Mode catalog and model-visible surface", () => {
 
   it("hides normal tools when only the active agent enables code mode", () => {
     const catalogRef = createToolSearchCatalogRef();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         entries: { ops: { tools: { codeMode: true } } },
       },

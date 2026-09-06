@@ -6,7 +6,7 @@ import {
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import {
   registerOpenClawStateDatabaseLifecycleListener,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { parseClawInstallRecordSchemaVersion } from "./provenance-schema-version.js";
 
@@ -128,18 +128,18 @@ registerOpenClawStateDatabaseLifecycleListener((event) => {
   notifySnapshotListeners();
 });
 
-function resolveSnapshotPath(options: OpenClawStateDatabaseOptions): string {
+function resolveSnapshotPath(options: GrantedStateDatabaseOptions): string {
   return options.database?.path ?? resolveDatabasePath(options);
 }
 
 export function readCachedClawInstallSchemaVersions(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): ClawInstallSchemaVersionSnapshot {
   return snapshotsByPath.get(resolveSnapshotPath(options)) ?? { kind: "uninitialized" };
 }
 
 export function initializeCachedClawInstallSchemaVersions(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const path = resolveSnapshotPath(options);
   const previous = snapshotsByPath.get(path);
@@ -186,7 +186,7 @@ export function cacheClawInstallSchemaVersion(
   agentId: string,
   schemaVersion: ReturnType<typeof parseClawInstallRecordSchemaVersion>,
   agentConfigDigest: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const snapshot = snapshotsByPath.get(resolveSnapshotPath(options));
   if (snapshot?.kind !== "ready") {
@@ -198,7 +198,7 @@ export function cacheClawInstallSchemaVersion(
 
 export function deleteCachedClawInstallSchemaVersion(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const snapshot = snapshotsByPath.get(resolveSnapshotPath(options));
   if (snapshot?.kind !== "ready" || !snapshot.schemaVersions.delete(agentId)) {

@@ -1,7 +1,7 @@
 // Webhooks TaskFlow E2E covers route-bound child cancellation on a real Gateway listener.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawPluginService } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginService } from "openclaw/plugin-sdk/core";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
@@ -27,7 +27,7 @@ import {
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../../../../src/config/config.js";
 import { resolveSessionStorePathCore } from "../../../../src/config/sessions/paths.js";
 import { replaceSessionEntrySync } from "../../../../src/config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { cancelActiveCronTaskRun } from "../../../../src/cron/service/active-run-cancellation.js";
 import { startGatewayServer } from "../../../../src/gateway/server.js";
 import { getGatewayE2ePortBlock } from "../../../../src/gateway/test-helpers.e2e.js";
@@ -190,7 +190,7 @@ describe("webhooks TaskFlow child cancellation authority", () => {
     const configPath = path.join(root, "openclaw.json");
     await fs.mkdir(stateDir, { recursive: true });
 
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       gateway: {
         mode: "local",
         bind: "loopback",
@@ -246,7 +246,7 @@ describe("webhooks TaskFlow child cancellation authority", () => {
           killSubagentRunAdmin,
         });
         const routeCleanups: Array<() => void> = [];
-        const acpxServices: OpenClawPluginService[] = [];
+        const acpxServices: GrantedPluginService[] = [];
         const acpxRuntime = createPluginRuntimeMock({
           state: {
             openKeyedStore: (options) => createPluginStateKeyedStoreForTests("acpx", options),

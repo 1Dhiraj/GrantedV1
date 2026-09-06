@@ -15,7 +15,7 @@ import {
   validateSessionsCatalogListParams,
   validateSessionsCatalogReadParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import type {
   SessionCatalogCreateTarget,
@@ -91,7 +91,7 @@ type ProviderCreateTargetResolution =
   | { ok: false; message: string };
 
 const providerCreateTargetsByConfig = new WeakMap<
-  OpenClawConfig,
+  GrantedConfig,
   WeakMap<SessionCatalogProvider, Map<string, ProviderCreateTargetResolution>>
 >();
 
@@ -114,12 +114,12 @@ type CatalogListCacheState = {
   entries: Map<string, CatalogListCacheEntry>;
 };
 
-const catalogListsByConfig = new WeakMap<OpenClawConfig, CatalogListCacheState>();
+const catalogListsByConfig = new WeakMap<GrantedConfig, CatalogListCacheState>();
 const catalogCallerIds = new WeakMap<GatewayClient, number>();
 let nextCatalogCallerId = 0;
 
 function providerCreateTargetCache(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SessionCatalogProvider,
 ): Map<string, ProviderCreateTargetResolution> {
   let byProvider = providerCreateTargetsByConfig.get(config);
@@ -138,7 +138,7 @@ function providerCreateTargetCache(
 function resolveProviderCreateTarget(
   provider: SessionCatalogProvider,
   agentId: string,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): ProviderCreateTargetResolution {
   const cache = providerCreateTargetCache(config, provider);
   const cached = cache.get(agentId);
@@ -169,7 +169,7 @@ function resolveProviderCreateTarget(
 export function resolveRegisteredCatalogCreateTarget(
   catalogId: string,
   agentId: string,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): SessionCatalogCreateTargetResolution {
   const registration = catalogRegistrationSnapshot().registrations.find(
     (entry) => entry.provider.id === catalogId,
@@ -224,7 +224,7 @@ function sessionCatalogListKey(params: {
 }
 
 function catalogListCache(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   registrationSnapshot: CatalogRegistrationSnapshot,
 ): Map<string, CatalogListCacheEntry> {
   let state = catalogListsByConfig.get(config);

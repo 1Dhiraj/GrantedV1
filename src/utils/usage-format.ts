@@ -26,7 +26,7 @@ import { mergeModelCost } from "../config/model-cost.js";
 import { resolveStateDir } from "../config/paths.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../config/runtime-source-projection.js";
 import type { ModelProviderConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { tryReadJsonSync } from "../infra/json-files.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import {
@@ -204,7 +204,7 @@ function loadModelsJsonCostIndex(options?: {
   }
 }
 
-function resolveCostAgentDir(config?: OpenClawConfig, agentDir?: string): string | undefined {
+function resolveCostAgentDir(config?: GrantedConfig, agentDir?: string): string | undefined {
   if (agentDir) {
     return agentDir;
   }
@@ -246,7 +246,7 @@ function serializeCostIndex(
  * Consumers cache this value to know when resolved cost entries need recomputation.
  */
 export function resolveModelCostConfigFingerprint(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDir?: string,
 ): string {
   const resolvedAgentDir = resolveCostAgentDir(config, agentDir);
@@ -280,7 +280,7 @@ export function resolveModelCostConfigFingerprint(
 export function resolveModelCostConfig(params: {
   provider?: string;
   model?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   allowPluginNormalization?: boolean;
 }): ModelCostConfig | undefined {

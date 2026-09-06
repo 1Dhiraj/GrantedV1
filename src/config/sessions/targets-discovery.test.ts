@@ -4,7 +4,7 @@ import path from "node:path";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import * as sessionDirs from "../../agents/session-dirs.js";
-import type { OpenClawConfig } from "../config.js";
+import type { GrantedConfig } from "../config.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import {
@@ -28,7 +28,7 @@ describe("resolveAgentSessionStoreTargetsSync", () => {
     await withTempHome(async (home) => {
       const customRoot = path.join(home, "custom-state");
       const storePaths = await createAgentSessionStores(customRoot, ["main", "codex"]);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...createCustomRootCfg(customRoot, "main"),
         agents: { list: [{ id: "main", default: true }, { id: "codex" }] },
       };
@@ -70,7 +70,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
     await withTempHome(async (home) => {
       const customRoot = path.join(home, "custom-state");
       const storePaths = await createAgentSessionStores(customRoot, ["main", "codex"]);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         ...createCustomRootCfg(customRoot, "main"),
         agents: { list: [{ id: "main", default: true }, { id: "codex" }] },
       };
@@ -91,7 +91,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
       const storePath = path.join(home, "shared", "sessions.json");
       await fs.mkdir(path.dirname(storePath), { recursive: true });
       await fs.writeFile(storePath, "{}\n", "utf8");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
         session: { store: storePath },
       };
@@ -121,7 +121,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
         }),
         "utf8",
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
         session: { store: storePath },
       };
@@ -135,7 +135,7 @@ describe("resolveExistingAgentSessionStoreTargetsSync", () => {
   it("includes existing deterministic template targets outside discoverable agent roots", async () => {
     await withTempHome(async (home) => {
       const storeTemplate = path.join(home, "external-stores", "sessions-{agentId}.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "main", default: true }] },
         session: { store: storeTemplate },
       };
@@ -213,7 +213,7 @@ describe("resolveAllAgentSessionStoreTargetsSync", () => {
       const stateDir = path.join(home, ".openclaw");
       const storePaths = await createAgentSessionStores(stateDir, ["ops", "retired"]);
 
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [{ id: "ops", default: true }],
         },
@@ -292,7 +292,7 @@ describe("resolveAllAgentSessionStoreTargetsSync", () => {
         ...process.env,
         GRANTED_STATE_DIR: envStateDir,
       };
-      const cfg: OpenClawConfig = EXPLICIT_MAIN_CONFIG;
+      const cfg: GrantedConfig = EXPLICIT_MAIN_CONFIG;
       const mainStorePath = await resolveRealStorePath(mainSessionsDir);
       const retiredStorePath = await resolveRealStorePath(retiredSessionsDir);
 
@@ -398,7 +398,7 @@ describe("resolveAllAgentSessionStoreTargetsSync", () => {
         { sessionId: "sid-whitespace", updatedAt: Date.now() },
       );
 
-      const cfg: OpenClawConfig = EXPLICIT_MAIN_CONFIG;
+      const cfg: GrantedConfig = EXPLICIT_MAIN_CONFIG;
       const mainStorePath = await resolveRealStorePath(mainSessionsDir);
       const targets = resolveAllAgentSessionStoreTargetsSync(cfg, { env: process.env });
 

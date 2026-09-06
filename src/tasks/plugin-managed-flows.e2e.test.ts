@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadOpenClawPluginsWithInternalOverrides } from "../plugins/loader-runtime-load.js";
 import { resetPluginLoaderTestStateForTest } from "../plugins/loader.test-fixtures.js";
 import { createPluginRuntime } from "../plugins/runtime/index.js";
@@ -91,7 +91,7 @@ describe("plugin-managed TaskFlows", () => {
           },
         });
 
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           plugins: {
             enabled: true,
             allow: [PLUGIN_ID],

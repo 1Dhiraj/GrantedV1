@@ -8,7 +8,7 @@ import {
   resolveSetupAccountId,
   splitSetupEntries,
   type ChannelSetupWizard,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
 } from "openclaw/plugin-sdk/setup-runtime";
 import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
@@ -36,10 +36,10 @@ async function resolveDiscordAllowFromEntries(params: { token?: string; entries:
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const accountId = resolveSetupAccountId({
     accountId: params.accountId,
     defaultAccountId: resolveDefaultDiscordSetupAccountId(params.cfg),
@@ -95,7 +95,7 @@ async function promptDiscordAllowFrom(params: {
 }
 
 async function resolveDiscordGroupAllowlist(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   credentialValues: { token?: string };
   entries: string[];

@@ -3,7 +3,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderPlugin } from "../plugins/types.js";
 import { captureEnv, withEnvAsync } from "../test-utils/env.js";
 import type { AuthProfileCredential, AuthProfileStore } from "./auth-profiles/types.js";
@@ -116,8 +116,8 @@ describe("models-config provider auth provenance", () => {
         typeof import("./models-config.providers.implicit.js").resolveImplicitProviders
       >;
       plan: (
-        source?: OpenClawConfig,
-        prepared?: OpenClawConfig,
+        source?: GrantedConfig,
+        prepared?: GrantedConfig,
       ) => ReturnType<typeof import("./models-config.plan.js").planOpenClawModelsJson>;
       authorization: Array<string | null>;
       authResults: Array<{ apiKey?: string; discoveryApiKey?: string }>;
@@ -492,8 +492,8 @@ describe("models-config provider auth provenance", () => {
 
   const configRef = { source: "store", provider: "default", id: "CONFIG_KEY" } as const;
   const configWithKey = (
-    apiKey: NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>[string]["apiKey"],
-  ): OpenClawConfig => ({
+    apiKey: NonNullable<NonNullable<GrantedConfig["models"]>["providers"]>[string]["apiKey"],
+  ): GrantedConfig => ({
     models: {
       providers: { openai: { baseUrl: "https://catalog.example.test/v1", apiKey, models: [] } },
     },

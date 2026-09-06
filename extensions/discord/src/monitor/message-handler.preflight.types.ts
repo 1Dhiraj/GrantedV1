@@ -4,7 +4,7 @@ import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
 import type { SessionBindingRecord } from "openclaw/plugin-sdk/conversation-runtime";
 import type { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import type { ChannelType, Client, User } from "../internal/discord.js";
@@ -20,7 +20,7 @@ import type { DiscordThreadChannel } from "./threading.js";
 
 export type { DiscordSenderIdentity } from "./sender-identity.js";
 
-type LoadedConfig = OpenClawConfig;
+type LoadedConfig = GrantedConfig;
 type BuildChannelInboundContext =
   typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
 export type RuntimeEnv = import("openclaw/plugin-sdk/runtime-env").RuntimeEnv;
@@ -30,7 +30,7 @@ export type DiscordMessageEvent = import("./listeners.js").DiscordMessageEvent;
 type DiscordMessagePreflightSharedFields = {
   cfg: LoadedConfig;
   discordConfig: NonNullable<
-    import("openclaw/plugin-sdk/config-contracts").OpenClawConfig["channels"]
+    import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]
   >["discord"];
   accountId: string;
   token: string;

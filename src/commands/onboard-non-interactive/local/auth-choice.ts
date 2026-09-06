@@ -6,7 +6,7 @@
  */
 import type { ApiKeyCredential } from "../../../agents/auth-profiles/types.js";
 import { formatCliCommand } from "../../../cli/command-format.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { SecretInput } from "../../../config/types.secrets.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { resolveManifestDeprecatedProviderAuthChoice } from "../../../plugins/provider-auth-choices.js";
@@ -39,13 +39,13 @@ type ResolvedNonInteractiveApiKey = NonNullable<
 
 /** Applies a local non-interactive auth choice to the pending OpenClaw config. */
 export async function applyNonInteractiveAuthChoice(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   authChoice: AuthChoice;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   target: OnboardingAgentTarget;
-}): Promise<OpenClawConfig | null> {
+}): Promise<GrantedConfig | null> {
   const { opts, runtime, baseConfig } = params;
   let authChoice = normalizeApiKeyTokenProviderAuthChoice({
     authChoice: params.authChoice,

@@ -1,6 +1,6 @@
 // Google Meet plugin entrypoint registers its OpenClaw integration.
 import type { GatewayRequestHandlerOptions } from "openclaw/plugin-sdk/gateway-runtime";
-import { definePluginEntry, type OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { jsonResult as json } from "openclaw/plugin-sdk/tool-results";
 import { GOOGLE_MEET_CLI_DESCRIPTOR } from "./src/cli-output-mode.js";
@@ -29,7 +29,7 @@ export default definePluginEntry({
   name: "Google Meet",
   description: "Join Google Meet calls through Chrome or Twilio transports",
   configSchema: googleMeetConfigSchema,
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     const config = googleMeetConfigSchema.parse(api.pluginConfig);
     const ensureRuntime = createGoogleMeetRuntimeAccessor({ api, config });
     const registerGatewayMethod = (

@@ -6,13 +6,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GatewayTransportError } from "../gateway/transport-error.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../test-utils/tracked-temp-dirs.js";
 import { registerSkillsCli } from "./skills-cli.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let stateDir = "";
 
 const mocks = vi.hoisted(() => {

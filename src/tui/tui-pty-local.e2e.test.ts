@@ -9,7 +9,7 @@ import { pathToFileURL } from "node:url";
 import { afterAll, beforeAll, describe, expect, it, type TestFunction } from "vitest";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../test/helpers/openclaw-test-instance.js";
 import { isProcessAlive, waitForPidFile } from "../../test/helpers/process-wait.js";
 import { createDeferred } from "../../test/helpers/promise.js";
@@ -17,7 +17,7 @@ import { reloadSharedAuthStoreOwnership } from "../agents/auth-profiles/path-res
 import { loadAuthProfileStoreForRuntime } from "../agents/auth-profiles/store.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { ModelProviderConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { connectGatewayClient } from "../gateway/test-helpers.e2e.js";
 import { runExec } from "../process/exec.js";
 import { withEnv } from "../test-utils/env.js";
@@ -518,7 +518,7 @@ function buildLocalModeConfig(params: {
       auth: { mode: "token", token: "tui-pty-local" },
     },
     discovery: { mdns: { mode: "off" } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
 async function cleanupLocalModeResources(params: {
@@ -552,10 +552,10 @@ async function startLocalModeTui(
     followupReplyText?: string;
     replyText?: string;
     prepareConfig?: (params: {
-      config: OpenClawConfig;
+      config: GrantedConfig;
       tempDir: string;
       stateDir: string;
-    }) => Promise<OpenClawConfig> | OpenClawConfig;
+    }) => Promise<GrantedConfig> | GrantedConfig;
   } = {},
 ) {
   const replyText = opts.replyText ?? "LOCAL_PTY_RESPONSE";
@@ -587,7 +587,7 @@ async function startLocalModeTui(
     holdFirstResponse: opts.holdFirstResponse,
     followupReplyText: opts.followupReplyText,
   });
-  let config: OpenClawConfig = buildLocalModeConfig({
+  let config: GrantedConfig = buildLocalModeConfig({
     workspaceDir,
     providerBaseUrl: mockModel.baseUrl,
     toolsProfile: opts.invalidEditLoop ? "coding" : "minimal",
@@ -653,7 +653,7 @@ async function startLocalModeTui(
 }
 
 type SharedGatewayFixture = {
-  gateway: OpenClawTestInstance;
+  gateway: GrantedTestInstance;
   controlClient: GatewayChatClient;
   mockModel: MockModelServer;
   run: PtyRun;
@@ -716,13 +716,13 @@ function buildGatewayModeConfig(params: { tempDir: string; providerBaseUrl: stri
         mode: "followup",
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
 async function startSharedGatewayFixture(): Promise<SharedGatewayFixture> {
   const tempDir = await mkdtemp(path.join(tmpdir(), "openclaw-tui-pty-gateway-"));
   let mockModel: MockModelServer | undefined;
-  let gateway: OpenClawTestInstance | undefined;
+  let gateway: GrantedTestInstance | undefined;
   let controlClient: GatewayChatClient | undefined;
   let run: PtyRun | undefined;
   try {
@@ -944,7 +944,7 @@ async function startGatewayModeTui(
 }
 
 async function startIsolatedGatewayPty(params: {
-  gateway: OpenClawTestInstance;
+  gateway: GrantedTestInstance;
   registerCleanup: CleanupRegistrar;
   sessionKey?: string;
   token?: string;
@@ -1438,7 +1438,7 @@ describe("TUI PTY real backends", () => {
         await fixture.run.waitForOutput("local shell: enabled for this session");
         await fixture.run.waitForOutput("[local] exit 0");
 
-        const repaired = JSON.parse(await readFile(fixture.configPath, "utf8")) as OpenClawConfig;
+        const repaired = JSON.parse(await readFile(fixture.configPath, "utf8")) as GrantedConfig;
         expect(repaired.tools?.profile).toBe("minimal");
 
         const { stdout } = await runExec(
@@ -1611,7 +1611,7 @@ export default {
             : "";
         expect(persistedDigest).toBe(expectedDigest);
 
-        const config = JSON.parse(await readFile(fixture.configPath, "utf8")) as OpenClawConfig;
+        const config = JSON.parse(await readFile(fixture.configPath, "utf8")) as GrantedConfig;
         expect(resolveAgentModelPrimaryValue(config.agents?.defaults?.model)).toBe(
           "tui-pty-mock/gpt-5.5",
         );

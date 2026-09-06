@@ -8,7 +8,7 @@ import {
   markConversationDeliverySent,
 } from "../../config/sessions/conversation-delivery-store.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildConversationRef } from "../../routing/conversation-ref.js";
 import { registerPendingConversationTurn } from "../../sessions/conversation-turns.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
@@ -27,7 +27,7 @@ async function setupReefConversation() {
   const storePath = path.join(stateDir, "sessions.json");
   const sessionKey = "agent:main:reef:direct:peer-agent";
   const sessionId = "reef-session";
-  const cfg = { session: { store: storePath } } as OpenClawConfig;
+  const cfg = { session: { store: storePath } } as GrantedConfig;
   await sessionAccessor.upsertSessionEntryCore(
     { agentId: "main", sessionKey, storePath },
     {
@@ -90,7 +90,7 @@ describe("conversation turn capture", () => {
 
     await expect(
       capturePendingConversationTurnReply({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         ctx: {
           SessionKey: "agent:main:reef:direct:untrusted",
           ChatType: "direct",
@@ -475,7 +475,7 @@ describe("conversation turn capture", () => {
     const scope = { agentId: "main", storePath };
     const sessionKey = "agent:main:discord:channel:ops-room:thread:user-context";
     const sessionId = "discord-thread-session";
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     await sessionAccessor.upsertSessionEntryCore(
       { ...scope, sessionKey },
       {
@@ -570,7 +570,7 @@ describe("conversation turn capture", () => {
 
     await expect(
       capturePendingConversationTurnReply({
-        cfg: { session: { store: path.join(stateDir, "sessions.json") } } as OpenClawConfig,
+        cfg: { session: { store: path.join(stateDir, "sessions.json") } } as GrantedConfig,
         ctx: {
           SessionKey: "agent:main:reef:direct:missing",
           ChatType: "direct",

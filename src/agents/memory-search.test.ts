@@ -1,6 +1,6 @@
 // Verifies memory-search config resolution across providers, sync, and batching.
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resolveRememberAcrossConversations } from "../memory-host-sdk/host/config-utils.js";
 import {
   clearEmbeddingProviders,
@@ -21,7 +21,7 @@ import { runtimeMemorySecretOwnerId } from "../secrets/runtime-memory-secret-own
 import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.paths.js";
 import { resolveMemorySearchConfig, resolveMemorySearchSyncConfig } from "./memory-search.js";
 
-const asConfig = (cfg: OpenClawConfig): OpenClawConfig => ({
+const asConfig = (cfg: GrantedConfig): GrantedConfig => ({
   ...cfg,
   // Provider registries are supplied explicitly below; plugin loading belongs
   // to its integration tests and would turn these pure config cases into cold scans.
@@ -111,7 +111,7 @@ describe("memory search config", () => {
     expect(resolved?.cache.maxEntries).toBeGreaterThan(0);
   });
 
-  function configWithDefaultProvider(provider: string): OpenClawConfig {
+  function configWithDefaultProvider(provider: string): GrantedConfig {
     return asConfig({
       memory: {
         search: {
@@ -292,7 +292,7 @@ describe("memory search config", () => {
       expected: true,
     },
   ])("resolves remember-across-conversations for $name", ({ cfg, expected }) => {
-    expect(resolveRememberAcrossConversations(asConfig(cfg as OpenClawConfig), "main")).toBe(
+    expect(resolveRememberAcrossConversations(asConfig(cfg as GrantedConfig), "main")).toBe(
       expected,
     );
   });

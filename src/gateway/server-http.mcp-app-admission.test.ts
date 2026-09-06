@@ -1,7 +1,7 @@
 // Proves standalone MCP App HTTP work participates in Gateway suspension admission.
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getActiveGatewayRootWorkCount,
   markGatewayRestartDraining,
@@ -35,7 +35,7 @@ function deferred() {
   return { promise, resolve };
 }
 
-function mcpAppsConfig(): OpenClawConfig {
+function mcpAppsConfig(): GrantedConfig {
   return {
     gateway: { trustedProxies: [] },
     mcp: { apps: { enabled: true } },

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { getRuntimeConfig, writeConfigFile } from "../config/config.js";
 import { withTempHome } from "../config/home-env.test-harness.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -138,7 +138,7 @@ describe("secrets runtime snapshot gateway-auth integration", () => {
 
         const persistedConfig = JSON.parse(
           await fs.readFile(path.join(home, ".openclaw", "openclaw.json"), "utf8"),
-        ) as OpenClawConfig;
+        ) as GrantedConfig;
         expect(persistedConfig.gateway?.auth?.token).toEqual(initialTokenRef);
       });
     },

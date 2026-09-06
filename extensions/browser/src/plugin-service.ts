@@ -5,7 +5,7 @@ import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
 import {
   startLazyPluginServiceModule,
   type LazyPluginServiceHandle,
-  type OpenClawPluginService,
+  type GrantedPluginService,
 } from "./sdk-node-runtime.js";
 
 type BrowserControlHandle = LazyPluginServiceHandle | null;
@@ -23,7 +23,7 @@ function validateBrowserControlOverrideSpecifier(specifier: string): string {
 /** Creates the Browser plugin service registered by the plugin entrypoint. */
 export function createBrowserPluginService(params: {
   stopOnDemand: () => Promise<void>;
-}): OpenClawPluginService {
+}): GrantedPluginService {
   let handle: BrowserControlHandle = null;
 
   return {

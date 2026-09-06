@@ -10,7 +10,7 @@ import type {
   ExecApprovalForwardingConfig,
   ExecApprovalForwardTarget,
 } from "../config/types.approvals.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   buildApprovalResolvedReplyPayload,
@@ -50,7 +50,7 @@ type DeliverApprovalPayloads =
   typeof import("../channels/message/runtime.js").sendDurableMessageBatchCore;
 type MaybePromise<T> = T | Promise<T>;
 type ResolveSessionTargetFn = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   request: ExecApprovalRequest;
 }) => MaybePromise<ExecApprovalForwardTarget | null>;
 
@@ -71,7 +71,7 @@ type PendingApproval<TRouteRequest extends ApprovalRouteRequest> = {
 };
 
 type ApprovalRenderContext<TRouteRequest extends ApprovalRouteRequest> = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: ForwardTarget;
   routeRequest: TRouteRequest;
 };
@@ -97,7 +97,7 @@ type ApprovalStrategy<
   TRouteRequest extends ApprovalRouteRequest = ApprovalRouteRequest,
 > = {
   kind: ChannelApprovalKind;
-  config: (cfg: OpenClawConfig) => ExecApprovalForwardingConfig | undefined;
+  config: (cfg: GrantedConfig) => ExecApprovalForwardingConfig | undefined;
   getRequestId: (request: TRequest) => string;
   getResolvedId: (resolved: TResolved) => string;
   getExpiresAtMs: (request: TRequest) => number;
@@ -130,7 +130,7 @@ export type ExecApprovalForwarder = {
 };
 
 type ExecApprovalForwarderDeps = {
-  getConfig?: () => OpenClawConfig;
+  getConfig?: () => GrantedConfig;
   deliver?: DeliverApprovalPayloads;
   nowMs?: () => number;
   resolveSessionTarget?: ResolveSessionTargetFn;
@@ -198,7 +198,7 @@ function buildSyntheticApprovalRequest(routeRequest: ApprovalRouteRequest): Exec
 function shouldSkipForwardingFallback(params: {
   approvalKind: ChannelApprovalKind;
   target: ExecApprovalForwardTarget;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   routeRequest: ApprovalRouteRequest;
 }): boolean {
   const channel = normalizeMessageChannel(params.target.channel) ?? params.target.channel;
@@ -338,7 +338,7 @@ function extractApprovalRouteRequest(
 }
 
 function defaultResolveSessionTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   request: ExecApprovalRequest;
 }): Promise<ExecApprovalForwardTarget | null> {
   return loadExecApprovalForwarderRuntime().then(({ resolveExecApprovalSessionTarget }) => {
@@ -367,7 +367,7 @@ function defaultResolveSessionTarget(params: {
 }
 
 async function deliverToTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targets: ForwardTarget[];
   buildPayload: (target: ForwardTarget) => ReplyPayload;
   deliver: DeliverApprovalPayloads;
@@ -421,7 +421,7 @@ function buildApprovalRenderPayload<TParams>(params: {
 }
 
 function buildExecPendingPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   request: ExecApprovalRequest;
   target: ForwardTarget;
   nowMs: number;
@@ -444,7 +444,7 @@ function buildExecPendingPayload(params: {
 }
 
 function buildExecResolvedPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   resolved: ExecApprovalResolved;
   target: ForwardTarget;
 }): ReplyPayload {
@@ -462,7 +462,7 @@ function buildExecResolvedPayload(params: {
 }
 
 function buildPluginPendingPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   request: PluginApprovalRequest;
   target: ForwardTarget;
   nowMs: number;
@@ -484,7 +484,7 @@ function buildPluginPendingPayload(params: {
 }
 
 function buildPluginResolvedPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   resolved: PluginApprovalResolved;
   target: ForwardTarget;
 }): ReplyPayload {
@@ -500,7 +500,7 @@ function buildPluginResolvedPayload(params: {
 }
 
 async function resolveForwardTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config?: ExecApprovalForwardingConfig;
   approvalKind: ChannelApprovalKind;
   routeRequest: ApprovalRouteRequest;
@@ -552,7 +552,7 @@ function createApprovalHandlers<
   TRouteRequest extends ApprovalRouteRequest = ApprovalRouteRequest,
 >(params: {
   strategy: ApprovalStrategy<TRequest, TResolved, TRouteRequest>;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   deliver: DeliverApprovalPayloads;
   nowMs: () => number;
   resolveSessionTarget: ResolveSessionTargetFn;
@@ -560,7 +560,7 @@ function createApprovalHandlers<
   const pending = createPendingApprovalRegistry<PendingApproval<TRouteRequest>>();
 
   const resolveTargets = async (paramsForRoute: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     config?: ExecApprovalForwardingConfig;
     routeRequest: TRouteRequest;
   }): Promise<ForwardTarget[]> =>
@@ -709,7 +709,7 @@ function createApprovalStrategy<
   TResolved extends { id: string; request?: ApprovalRouteRequestFields | null },
 >(params: {
   kind: ChannelApprovalKind;
-  config: (cfg: OpenClawConfig) => ExecApprovalForwardingConfig | undefined;
+  config: (cfg: GrantedConfig) => ExecApprovalForwardingConfig | undefined;
   buildExpiredText: (request: TRequest) => string;
   buildPendingPayload: (
     params: ApprovalPendingRenderContext<TRequest, ApprovalRouteRequest>,

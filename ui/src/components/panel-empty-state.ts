@@ -1,8 +1,8 @@
 import { css, html, nothing, type TemplateResult } from "lit";
 import { property } from "lit/decorators.js";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 
-class OpenClawPanelEmptyState extends OpenClawLitElement {
+class GrantedPanelEmptyState extends GrantedLitElement {
   @property() heading = "";
   @property() description = "";
 
@@ -79,7 +79,7 @@ class OpenClawPanelEmptyState extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-panel-empty-state")) {
-  customElements.define("openclaw-panel-empty-state", OpenClawPanelEmptyState);
+  customElements.define("openclaw-panel-empty-state", GrantedPanelEmptyState);
 }
 
 export function renderPanelEmptyState(params: {
@@ -100,6 +100,6 @@ export function renderPanelEmptyState(params: {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-panel-empty-state": OpenClawPanelEmptyState;
+    "openclaw-panel-empty-state": GrantedPanelEmptyState;
   }
 }

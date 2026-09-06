@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
 import {
@@ -12,7 +12,7 @@ import {
 import { resolveModelWithRegistry } from "./model.js";
 import { createProviderRuntimeTestMock } from "./model.provider-runtime.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let auth: ReturnType<typeof guardModelFixtureAuth>;
 beforeEach(async () => {
   state = await createOpenClawTestState({ label: "model-forward-compat" });

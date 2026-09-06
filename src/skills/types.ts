@@ -18,7 +18,7 @@ export type SkillInstallSpec = {
   targetDir?: string;
 };
 
-export type OpenClawSkillMetadata = {
+export type GrantedSkillMetadata = {
   always?: boolean;
   skillKey?: string;
   primaryEnv?: string;
@@ -104,7 +104,7 @@ type SkillExposure = {
 export type SkillEntry = {
   skill: Skill;
   frontmatter: ParsedSkillFrontmatter;
-  metadata?: OpenClawSkillMetadata;
+  metadata?: GrantedSkillMetadata;
   invocation?: SkillInvocationPolicy;
   exposure?: SkillExposure;
   syncSourceDir?: string;

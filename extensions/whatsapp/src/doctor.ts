@@ -3,13 +3,13 @@ import type {
   ChannelDoctorAdapter,
   ChannelDoctorConfigMutation,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   collectChannelAccountScopes,
 } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 
-type AckScope = NonNullable<NonNullable<OpenClawConfig["messages"]>["ackReactionScope"]>;
+type AckScope = NonNullable<NonNullable<GrantedConfig["messages"]>["ackReactionScope"]>;
 
 type LegacyAckSource = {
   path: string;
@@ -34,7 +34,7 @@ function resolveLegacyAckScope(ack: Record<string, unknown>): AckScope | undefin
         : undefined;
 }
 
-function resolveDefaultAgentEmoji(cfg: OpenClawConfig): string | undefined {
+function resolveDefaultAgentEmoji(cfg: GrantedConfig): string | undefined {
   const entries = asObjectRecord(asObjectRecord(cfg.agents)?.entries);
   const agents = entries
     ? Object.values(entries).flatMap((value) => {
@@ -50,7 +50,7 @@ function resolveDefaultAgentEmoji(cfg: OpenClawConfig): string | undefined {
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const changes: string[] = [];
   const sources: LegacyAckSource[] = [];

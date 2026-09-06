@@ -177,7 +177,7 @@ describe("Matrix account state Doctor migration", () => {
     await staleStore.setSyncData(matrixSyncResponse("cursor-after-repair"));
     await expect(staleStore.flush()).rejects.toMatchObject({
       cause: {
-        name: "OpenClawStateDatabaseSchemaMigrationRequiredError",
+        name: "GrantedStateDatabaseSchemaMigrationRequiredError",
         message: expect.stringContaining("audit-events-v2"),
       },
     });

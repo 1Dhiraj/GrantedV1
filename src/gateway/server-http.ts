@@ -11,7 +11,7 @@ import type { TlsOptions } from "node:tls";
 import { isCoreCanvasHostEnabled } from "../canvas/config.js";
 import { isCanvasDocumentHttpPath } from "../canvas/constants.js";
 import { getRuntimeConfig } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createDiagnosticTraceContext,
   runWithDiagnosticTraceContext,
@@ -177,7 +177,7 @@ export function createGatewayHttpServer(opts: {
   handleNodeWorkspaceTransferRequest?: NodeWorkspaceTransferHttpCallback;
   getReadiness?: ReadinessChecker;
   getStartup?: StartupChecker;
-  getRuntimeConfig?: () => OpenClawConfig;
+  getRuntimeConfig?: () => GrantedConfig;
   getGatewayRequestContext?: () => GatewayRequestContext | undefined;
   isStartupPluginRuntimeReady?: () => boolean;
   isTerminalEnabled?: () => boolean;

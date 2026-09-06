@@ -5,7 +5,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TranscriptNotContinuableError } from "../../packages/agent-core/src/errors.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createAgentRunStaleLifecycleError } from "../infra/agent-lifecycle-error.js";
 import {
   onTrustedInternalDiagnosticEvent,
@@ -314,7 +314,7 @@ async function runModelFallbackCase(name: string, run: () => Promise<void>): Pro
   }
 }
 
-function makeFallbacksOnlyCfg(): OpenClawConfig {
+function makeFallbacksOnlyCfg(): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -323,10 +323,10 @@ function makeFallbacksOnlyCfg(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function makeProviderFallbackCfg(provider: string): OpenClawConfig {
+function makeProviderFallbackCfg(provider: string): GrantedConfig {
   return makeCfg({
     agents: {
       defaults: {
@@ -341,7 +341,7 @@ function makeProviderFallbackCfg(provider: string): OpenClawConfig {
 
 function makeProviderOrderFallbackCfg(
   entries: Array<[provider: string, model: string]>,
-): OpenClawConfig {
+): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -361,7 +361,7 @@ function makeProviderOrderFallbackCfg(
         ]),
       ),
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 async function withTempAuthStore<T>(
@@ -379,7 +379,7 @@ async function makeAuthTempDir(): Promise<string> {
 }
 
 async function runWithStoredAuth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   store: AuthProfileStore;
   provider: string;
   run: (provider: string, model: string) => Promise<string>;
@@ -591,7 +591,7 @@ function captureModelFailoverDiagnostics(): {
   return { events, stop };
 }
 
-function makeDiagnosticFallbackConfig(fallbacks: string[]): OpenClawConfig {
+function makeDiagnosticFallbackConfig(fallbacks: string[]): GrantedConfig {
   return makeCfg({
     agents: { defaults: { model: { primary: "openai/gpt-5.5", fallbacks } } },
   });
@@ -1232,7 +1232,7 @@ describe("runWithModelFallback", () => {
       },
     ] satisfies Array<{
       name: string;
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       provider: string;
       model: string;
       requestedRouteResolution?: "raw" | "resolved";
@@ -4639,7 +4639,7 @@ describe("runWithModelFallback", () => {
         },
       ] satisfies Array<{
         name: string;
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         provider: string;
         model: string;
         calls: Array<[string, string]>;
@@ -5336,7 +5336,7 @@ describe("runWithImageModelFallback", () => {
       },
     ] satisfies Array<{
       name: string;
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       modelOverride: string;
       expected: Array<[string, string]>;
     }>;

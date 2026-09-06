@@ -4,7 +4,7 @@ import type { IncomingMessage } from "node:http";
 import { createRuntimeTaskFlow } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { createMockServerResponse } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { createTaskFlowWebhookRequestHandler, type TaskFlowWebhookTarget } from "./http.js";
 
 type BoundTaskFlow = TaskFlowWebhookTarget["taskFlow"];
@@ -75,7 +75,7 @@ function createHandler(secret = "shared-secret"): {
   const targetsByPath = new Map<string, TaskFlowWebhookTarget[]>([[target.path, [target]]]);
   return {
     handler: createTaskFlowWebhookRequestHandler({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       targetsByPath,
     }),
     target,
@@ -85,7 +85,7 @@ function createHandler(secret = "shared-secret"): {
 
 function createHandlerWithTarget(
   target: TaskFlowWebhookTarget,
-  cfg: OpenClawConfig = {} as OpenClawConfig,
+  cfg: GrantedConfig = {} as GrantedConfig,
 ): ReturnType<typeof createTaskFlowWebhookRequestHandler> {
   const targetsByPath = new Map<string, TaskFlowWebhookTarget[]>([[target.path, [target]]]);
   return createTaskFlowWebhookRequestHandler({

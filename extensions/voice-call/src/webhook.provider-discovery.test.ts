@@ -5,7 +5,7 @@ import {
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getRealtimeTranscriptionProvider } from "openclaw/plugin-sdk/realtime-transcription";
 import { useAutoCleanupTempDirTracker, withEnvAsync } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it } from "vitest";
@@ -54,7 +54,7 @@ describe("VoiceCallWebhookServer transcription provider discovery", () => {
           JSON.stringify({ openclaw: { extensions: ["./index.cjs"] } }),
         );
       }
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { workspace } },
         plugins: {
           allow: ["active-stt", "configured-stt"],

@@ -1,15 +1,15 @@
 import { statSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createLazyRuntimeModule,
   createLazyRuntimeSurface,
 } from "openclaw/plugin-sdk/lazy-runtime";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
+  GrantedPluginApi,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
 } from "openclaw/plugin-sdk/plugin-entry";
 import type { SessionCatalogProvider } from "openclaw/plugin-sdk/session-catalog";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_ROUTE_PROBE_MODEL_IDS } from "./cli-constants.js";
@@ -53,11 +53,11 @@ function claudeProjectsAvailable(env: NodeJS.ProcessEnv): boolean {
   }
 }
 
-function currentConfig(api: OpenClawPluginApi): OpenClawConfig {
-  return (api.runtime.config?.current?.() ?? api.config ?? {}) as OpenClawConfig;
+function currentConfig(api: GrantedPluginApi): GrantedConfig {
+  return (api.runtime.config?.current?.() ?? api.config ?? {}) as GrantedConfig;
 }
 
-function registerClaudeSessionCatalog(api: OpenClawPluginApi): void {
+function registerClaudeSessionCatalog(api: GrantedPluginApi): void {
   const loadCatalogRuntime = createLazyRuntimeSurface(
     () => import("./session-catalog.js"),
     (module) => module.createClaudeSessionCatalogRuntime(api),
@@ -86,7 +86,7 @@ function registerClaudeSessionCatalog(api: OpenClawPluginApi): void {
   api.registerSessionCatalog(provider);
 }
 
-function createClaudeSessionNodeHostCommands(): OpenClawPluginNodeHostCommand[] {
+function createClaudeSessionNodeHostCommands(): GrantedPluginNodeHostCommand[] {
   return [
     {
       command: CLAUDE_SESSIONS_LIST_COMMAND,
@@ -117,7 +117,7 @@ function createClaudeSessionNodeHostCommands(): OpenClawPluginNodeHostCommand[] 
   ];
 }
 
-export function createClaudeSessionNodeInvokePolicies(): OpenClawPluginNodeInvokePolicy[] {
+export function createClaudeSessionNodeInvokePolicies(): GrantedPluginNodeInvokePolicy[] {
   return [
     {
       commands: [
@@ -133,7 +133,7 @@ export function createClaudeSessionNodeInvokePolicies(): OpenClawPluginNodeInvok
   ];
 }
 
-export function registerClaudeSessionDiscovery(api: OpenClawPluginApi): void {
+export function registerClaudeSessionDiscovery(api: GrantedPluginApi): void {
   if (!isClaudeSessionCatalogEnabled(api.pluginConfig)) {
     return;
   }

@@ -1,6 +1,6 @@
 // Mattermost tests cover account-isolated message-tool discovery.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { mattermostPlugin } from "./channel.js";
 
 describe("Mattermost message-tool SecretRef inspection", () => {
@@ -20,7 +20,7 @@ describe("Mattermost message-tool SecretRef inspection", () => {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   it("keeps healthy account actions discoverable", () => {
     expect(mattermostPlugin.actions?.describeMessageTool({ cfg })?.actions).toEqual(

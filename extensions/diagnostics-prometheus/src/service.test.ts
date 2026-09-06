@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from "vitest";
 import type {
   DiagnosticEventMetadata,
   DiagnosticEventPayload,
-  OpenClawPluginServiceContext,
+  GrantedPluginServiceContext,
 } from "../api.js";
 import { createDiagnosticsPrometheusExporter } from "./service.js";
 
@@ -20,7 +20,7 @@ type ExporterHealthReport = {
   reason?: "configured";
 };
 type TrustedExporterInternalDiagnostics = NonNullable<
-  OpenClawPluginServiceContext["internalDiagnostics"]
+  GrantedPluginServiceContext["internalDiagnostics"]
 > & {
   reportExporterHealth?: (update: ExporterHealthReport) => void;
 };

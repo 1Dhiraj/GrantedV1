@@ -5,7 +5,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test-support.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { BrowserProfileConfig, OpenClawConfig } from "../config/config.js";
+import type { BrowserProfileConfig, GrantedConfig } from "../config/config.js";
 import { resolveOpenClawUserDataDir } from "./chrome.js";
 import type { BrowserRouteContext, BrowserServerState } from "./server-context.js";
 import {
@@ -19,18 +19,18 @@ import { movePathToTrash } from "./trash.js";
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 const configMocks = vi.hoisted(() => ({
-  getRuntimeConfig: vi.fn<() => OpenClawConfig>(),
-  getRuntimeConfigSourceSnapshot: vi.fn<() => OpenClawConfig | null>(() => null),
-  writeConfigFile: vi.fn<(cfg: OpenClawConfig) => Promise<void>>(async (_cfg) => {}),
+  getRuntimeConfig: vi.fn<() => GrantedConfig>(),
+  getRuntimeConfigSourceSnapshot: vi.fn<() => GrantedConfig | null>(() => null),
+  writeConfigFile: vi.fn<(cfg: GrantedConfig) => Promise<void>>(async (_cfg) => {}),
   mutateConfigFile: vi.fn(
     async (params: {
       mutate: (
-        draft: OpenClawConfig,
+        draft: GrantedConfig,
         context: {
           snapshot: {
             path: string;
-            runtimeConfig: OpenClawConfig;
-            sourceConfig: OpenClawConfig;
+            runtimeConfig: GrantedConfig;
+            sourceConfig: GrantedConfig;
           };
         },
       ) => unknown;
@@ -69,7 +69,7 @@ vi.mock("../config/config.js", async () => {
   const actual = await vi.importActual<typeof import("../config/config.js")>("../config/config.js");
   return {
     ...actual,
-    replaceConfigFile: vi.fn(async ({ nextConfig }: { nextConfig: OpenClawConfig }) => {
+    replaceConfigFile: vi.fn(async ({ nextConfig }: { nextConfig: GrantedConfig }) => {
       await configMocks.writeConfigFile(nextConfig);
     }),
     mutateConfigFile: configMocks.mutateConfigFile,
@@ -327,13 +327,13 @@ describe("BrowserProfilesService", () => {
         browser: {
           profiles: {},
         },
-      } as OpenClawConfig)
+      } as GrantedConfig)
       .mockReturnValue({
         browser: {
           cdpPortRangeEnd: 18801,
           profiles: {},
         },
-      } as unknown as OpenClawConfig);
+      } as unknown as GrantedConfig);
 
     const service = createBrowserProfilesService(ctx);
     const result = await service.createProfile({ name: "work" });
@@ -690,7 +690,7 @@ describe("BrowserProfilesService", () => {
 
   it("preserves a same-name replacement config that appears during lifecycle drain", async () => {
     const originalProfile = { cdpPort: 18801, color: "#0066CC" };
-    let currentConfig: OpenClawConfig = {
+    let currentConfig: GrantedConfig = {
       browser: {
         defaultProfile: "openclaw",
         profiles: {

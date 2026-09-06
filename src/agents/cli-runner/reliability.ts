@@ -3,7 +3,7 @@
  */
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { CliBackendConfig } from "../../plugins/cli-backend.types.js";
 import {
   CLI_FRESH_WATCHDOG_DEFAULTS,
@@ -99,7 +99,7 @@ export function resolveCliNoOutputTimeoutMs(params: {
 }
 
 export function resolveCliRunTimeoutOverrideMs(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   lane?: string;
   timeoutMs: number;
   runTimeoutOverrideMs?: number;

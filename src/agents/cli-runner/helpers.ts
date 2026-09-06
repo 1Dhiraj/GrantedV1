@@ -17,7 +17,7 @@ import { isAcpRuntimeSpawnAvailable } from "../../acp/runtime/availability.js";
 import type { SourceReplyDeliveryMode } from "../../auto-reply/get-reply-options.types.js";
 import type { ThinkLevel } from "../../auto-reply/thinking.js";
 import type { ChatType } from "../../channels/chat-type.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { hasErrnoCode } from "../../infra/errno.js";
 import { resolveRuntimeOsLabel } from "../../infra/os-summary.js";
 import { privateFileStore } from "../../infra/private-file-store.js";
@@ -103,7 +103,7 @@ export function resolveCliRunQueueKey(params: {
 export function buildCliAgentSystemPrompt(params: {
   workspaceDir: string;
   cwd?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   defaultThinkLevel?: ThinkLevel;
   extraSystemPrompt?: string;
   sourceReplyDeliveryMode?: SourceReplyDeliveryMode;

@@ -5,7 +5,7 @@ import type {
   GatewayBindMode,
   GatewayTailscaleConfig,
 } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   formatUnsafeGatewayTailscaleNoAuthMessage,
   isUnsafeGatewayTailscaleNoAuth,
@@ -45,7 +45,7 @@ type GatewayRuntimeConfig = {
 
 /** Resolves bind, auth, HTTP, Tailscale, and hook settings for one gateway start. */
 export async function resolveGatewayRuntimeConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   port: number;
   bind?: GatewayBindMode;
   host?: string;

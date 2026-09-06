@@ -39,7 +39,7 @@ import { t } from "../../i18n/index.ts";
 import { AuthenticatedAvatarRouteLoader } from "../../lib/authenticated-avatar-route.ts";
 import { resolveAgentAvatarUrl, resolveAssistantTextAvatar } from "../../lib/avatar.ts";
 import { formatUiError } from "../../lib/format-error.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PROFILE_SETTINGS_TARGET_IDS } from "../config/settings-targets.ts";
 import { processProfileAvatar, ProfileAvatarError } from "./avatar-processing.ts";
 import "../../styles/profile.css";
@@ -53,7 +53,7 @@ function toIdentityErrorMessage(error: unknown): string {
   return formatUiError(error, t("profilePage.identity.profileUnavailable"));
 }
 
-export class ProfilePage extends OpenClawLightDomElement {
+export class ProfilePage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: false })
   private context!: ApplicationContext;
 

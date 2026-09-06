@@ -1,6 +1,6 @@
 import os from "node:os";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { createOpenClawTools } from "../openclaw-tools.js";
 import {
@@ -15,7 +15,7 @@ import { createSessionsSpawnTool } from "./sessions-spawn-tool.js";
 import { testing as structuredOutputTesting } from "./structured-output-tool.test-support.js";
 
 const requesterSessionKey = "agent:main:main";
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   session: { mainKey: "main", scope: "per-sender" },
   tools: { swarm: true },
   agents: {

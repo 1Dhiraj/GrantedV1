@@ -1,5 +1,5 @@
 import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { hasRunWorkspaceSkillUsage } from "../../skills/runtime/run-usage.js";
 import { stripProposalFrontmatterForSkill } from "../../skills/workshop/frontmatter.js";
@@ -88,7 +88,7 @@ function prepareSkillPatch(params: {
 
 export async function executePrepareSkillPatch(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   toolParams: Record<string, unknown>;
   preparedSkillPatches: Map<string, SkillWorkshopPreparedPatch>;

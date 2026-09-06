@@ -6,12 +6,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { clearRuntimeAuthProfileStoreSnapshots } from "../agents/auth-profiles/runtime-snapshots.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { maybeRepairLegacyOAuthSidecarProfiles } from "./doctor-auth-oauth-sidecar.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 
 function makePrompter(shouldRepair: boolean): DoctorPrompter {
   return {
@@ -32,7 +32,7 @@ function makePrompter(shouldRepair: boolean): DoctorPrompter {
   };
 }
 
-async function makeTestState(seed = "legacy-oauth-seed"): Promise<OpenClawTestState> {
+async function makeTestState(seed = "legacy-oauth-seed"): Promise<GrantedTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-oauth-sidecar-",
@@ -46,7 +46,7 @@ async function makeTestState(seed = "legacy-oauth-seed"): Promise<OpenClawTestSt
 }
 
 function writeLegacyAuthProfiles(
-  state: OpenClawTestState,
+  state: GrantedTestState,
   store: unknown,
   agentId = "main",
 ): Promise<string> {

@@ -1,5 +1,5 @@
 /** Agent runtime id normalization and retired runtime-selection compatibility helpers. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 
@@ -37,7 +37,7 @@ export function normalizeOptionalAgentRuntimeId(raw: unknown): EmbeddedAgentRunt
 
 /** Resolves the deprecated explicit whole-agent runtime override, when present. */
 export function resolveAgentScopedRuntimeOverride(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
 }): EmbeddedAgentRuntime | undefined {
   const agentId = params.agentId ? normalizeAgentId(params.agentId) : undefined;

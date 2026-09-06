@@ -21,7 +21,7 @@ type RelinkManagedNpmRootResult = {
   skipped: number;
 };
 
-export type OpenClawPeerLinkAuditIssue = {
+export type GrantedPeerLinkAuditIssue = {
   packageName: string;
   packageDir: string;
   reason: string;
@@ -30,12 +30,12 @@ export type OpenClawPeerLinkAuditIssue = {
 type AuditManagedNpmRootResult = {
   checked: number;
   broken: number;
-  issues: OpenClawPeerLinkAuditIssue[];
+  issues: GrantedPeerLinkAuditIssue[];
 };
 
-type OpenClawPeerLinkResult = "linked" | "skipped" | "unchanged";
+type GrantedPeerLinkResult = "linked" | "skipped" | "unchanged";
 
-type OpenClawHostDependency = {
+type GrantedHostDependency = {
   declaration: "peerDependencies" | "dependencies";
   spec: string;
 };
@@ -44,14 +44,14 @@ type RegisteredOpenClawHostLinkResult = {
   checked: number;
   repaired: number;
   skipped: number;
-  issues: OpenClawPeerLinkAuditIssue[];
+  issues: GrantedPeerLinkAuditIssue[];
 };
 
 /** Resolve the host declaration consistently for peer and direct runtime dependencies. */
 export function resolveOpenClawHostDependency(manifest: {
   dependencies?: unknown;
   peerDependencies?: unknown;
-}): OpenClawHostDependency | null {
+}): GrantedHostDependency | null {
   for (const declaration of ["peerDependencies", "dependencies"] as const) {
     const dependencies = manifest[declaration];
     const spec =
@@ -164,7 +164,7 @@ async function auditOpenClawPeerDependency(params: {
   packageDir: string;
   npmRoot?: string;
   packageName?: string;
-}): Promise<OpenClawPeerLinkAuditIssue | null> {
+}): Promise<GrantedPeerLinkAuditIssue | null> {
   const packageName =
     params.packageName ??
     (params.npmRoot
@@ -217,7 +217,7 @@ async function auditOpenClawPeerDependency(params: {
 export async function auditOpenClawPeerDependencyLink(params: {
   packageDir: string;
   packageName?: string;
-}): Promise<OpenClawPeerLinkAuditIssue | null> {
+}): Promise<GrantedPeerLinkAuditIssue | null> {
   const packageName = params.packageName ?? path.basename(params.packageDir);
   const hostRoot = resolveOpenClawPackageRootSync({
     argv1: process.argv[1],
@@ -242,7 +242,7 @@ export async function auditOpenClawPeerDependencyLink(params: {
 export async function auditDeclaredOpenClawHostDependency(params: {
   packageDir: string;
   packageName?: string;
-}): Promise<OpenClawPeerLinkAuditIssue | null> {
+}): Promise<GrantedPeerLinkAuditIssue | null> {
   const dependencies = await readPackageOpenClawLinkDependencies(params.packageDir);
   if (!Object.hasOwn(dependencies, "openclaw")) {
     return null;
@@ -286,7 +286,7 @@ async function linkOpenClawPeerDependency(params: {
   installedDir: string;
   peerName: string;
   logger: PluginPeerLinkLogger;
-}): Promise<OpenClawPeerLinkResult> {
+}): Promise<GrantedPeerLinkResult> {
   const nodeModulesDir = await ensureRealNodeModulesDir({
     installedDir: params.installedDir,
     logger: params.logger,
@@ -413,7 +413,7 @@ export async function reconcileRegisteredOpenClawHostLinks(params: {
   let checked = 0;
   let repaired = 0;
   let skipped = 0;
-  const issues: OpenClawPeerLinkAuditIssue[] = [];
+  const issues: GrantedPeerLinkAuditIssue[] = [];
   for (const [pluginId, record] of Object.entries(params.installRecords).toSorted(
     ([left], [right]) => left.localeCompare(right),
   )) {
@@ -537,7 +537,7 @@ export async function auditOpenClawPeerDependenciesInManagedNpmRoot(params: {
   }
 
   let checked = 0;
-  const issues: OpenClawPeerLinkAuditIssue[] = [];
+  const issues: GrantedPeerLinkAuditIssue[] = [];
   for (const packageDir of await listManagedNpmRootPackageDirs(params.npmRoot)) {
     let openClawLinkDependencies: Record<string, string>;
     try {

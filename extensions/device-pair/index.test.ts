@@ -3,12 +3,12 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type {
-  OpenClawPluginCommandDefinition,
+  GrantedPluginCommandDefinition,
   PluginCommandContext,
 } from "openclaw/plugin-sdk/core";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "./api.js";
+import type { GrantedPluginApi } from "./api.js";
 
 const pluginApiMocks = vi.hoisted(() => ({
   clearDeviceBootstrapTokens: vi.fn(async () => ({ removed: 2 })),
@@ -71,8 +71,8 @@ type ApprovedPairingResult = Extract<
   { status: "approved" }
 >;
 type RegisterPairOptions = {
-  config?: OpenClawPluginApi["config"];
-  runtime?: OpenClawPluginApi["runtime"];
+  config?: GrantedPluginApi["config"];
+  runtime?: GrantedPluginApi["runtime"];
   pluginConfig?: Record<string, unknown>;
 };
 
@@ -106,9 +106,9 @@ const exactTestTitle = (title: string) => () => title;
 
 function createApi(
   params: RegisterPairOptions & {
-    registerCommand?: (command: OpenClawPluginCommandDefinition) => void;
+    registerCommand?: (command: GrantedPluginCommandDefinition) => void;
   } = {},
-): OpenClawPluginApi {
+): GrantedPluginApi {
   return createTestPluginApi({
     id: "device-pair",
     name: "device-pair",
@@ -120,13 +120,13 @@ function createApi(
       publicUrl: "wss://gateway.example.test",
       ...params.pluginConfig,
     },
-    runtime: (params.runtime ?? {}) as OpenClawPluginApi["runtime"],
+    runtime: (params.runtime ?? {}) as GrantedPluginApi["runtime"],
     registerCommand: params.registerCommand,
   });
 }
 
-function registerPairCommand(params: RegisterPairOptions = {}): OpenClawPluginCommandDefinition {
-  let command: OpenClawPluginCommandDefinition | undefined;
+function registerPairCommand(params: RegisterPairOptions = {}): GrantedPluginCommandDefinition {
+  let command: GrantedPluginCommandDefinition | undefined;
   registerDevicePair.register(
     createApi({
       ...params,
@@ -227,7 +227,7 @@ async function expectRejectedCommand(params: {
 function createChannelRuntime(
   channel: string,
   sendMessage: (...args: unknown[]) => Promise<unknown>,
-): OpenClawPluginApi["runtime"] {
+): GrantedPluginApi["runtime"] {
   return {
     channel: {
       outbound: {
@@ -242,7 +242,7 @@ function createChannelRuntime(
             : undefined,
       },
     },
-  } as unknown as OpenClawPluginApi["runtime"];
+  } as unknown as GrantedPluginApi["runtime"];
 }
 
 function makePendingPairingRequest(): ListedPendingPairingRequest {
@@ -477,7 +477,7 @@ describe("device-pair /pair qr", () => {
           {
             runtime: {
               channel: { outbound: { loadAdapter } },
-            } as unknown as OpenClawPluginApi["runtime"],
+            } as unknown as GrantedPluginApi["runtime"],
           },
         ),
       );

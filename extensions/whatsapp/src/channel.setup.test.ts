@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Whatsapp tests cover channel.setup plugin behavior.
 import { createQueuedWizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
@@ -69,12 +69,12 @@ vi.mock("openclaw/plugin-sdk/setup", async () => {
       return [...normalized];
     },
     splitSetupEntries: splitSetupEntriesForMock,
-    setSetupChannelEnabled: (cfg: OpenClawConfig, channel: string, enabled: boolean) => ({
+    setSetupChannelEnabled: (cfg: GrantedConfig, channel: string, enabled: boolean) => ({
       ...cfg,
       channels: {
         ...cfg.channels,
         [channel]: {
-          ...(cfg.channels?.[channel as keyof NonNullable<OpenClawConfig["channels"]>] as object),
+          ...(cfg.channels?.[channel as keyof NonNullable<GrantedConfig["channels"]>] as object),
           enabled,
         },
       },
@@ -121,12 +121,12 @@ describe("WhatsApp setup promotion contract", () => {
 
 async function runConfigureWithHarness(params: {
   harness: ReturnType<typeof createQueuedWizardPrompter>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   runtime?: RuntimeEnv;
   forceAllowFrom?: boolean;
 }) {
   const result = await finalizeWhatsAppSetup({
-    cfg: params.cfg ?? ({} as OpenClawConfig),
+    cfg: params.cfg ?? ({} as GrantedConfig),
     accountId: DEFAULT_ACCOUNT_ID,
     forceAllowFrom: params.forceAllowFrom ?? false,
     prompter: params.harness.prompter,
@@ -200,7 +200,7 @@ describe("whatsapp setup wizard", () => {
     });
 
     const result = await finalizeWhatsAppSetup({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountId: DEFAULT_ACCOUNT_ID,
       forceAllowFrom: false,
       prompter: harness.prompter,
@@ -267,7 +267,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "work",
       account: {
         accountId: "work",
@@ -305,7 +305,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "work",
       account: {
         accountId: "work",
@@ -346,7 +346,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.cfg.channels?.whatsapp?.dmPolicy).toBeUndefined();
@@ -377,7 +377,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.cfg.channels?.whatsapp?.accounts?.Default?.authDir).toBe("/tmp/default-auth");
@@ -441,7 +441,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       deps: {
         readWebAuthExistsForDecision: async () => ({
           outcome: "stable" as const,
@@ -456,7 +456,7 @@ describe("whatsapp setup wizard", () => {
 
   it("heartbeat readiness honors the channel disable flag", async () => {
     const result = await checkWhatsAppHeartbeatReady({
-      cfg: { channels: { whatsapp: { enabled: false } } } as OpenClawConfig,
+      cfg: { channels: { whatsapp: { enabled: false } } } as GrantedConfig,
       deps: {
         readWebAuthExistsForDecision: async () => ({
           outcome: "stable" as const,
@@ -481,7 +481,7 @@ describe("whatsapp setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       deps: {
         readWebAuthExistsForDecision: async () => ({ outcome: "unstable" as const }),
         hasActiveWebListener: () => true,

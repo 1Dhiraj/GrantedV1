@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, onTestFinished, vi } from "vitest";
 import { withTempHome, writeOpenClawConfig } from "../config/test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import * as migrationCheckpoint from "../infra/startup-migration-checkpoint.js";
 import {
@@ -18,7 +18,7 @@ import {
   withPluginCache,
 } from "../plugins/plugin-cache.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -35,7 +35,7 @@ import { createDoctorPluginMetadataSnapshotScope } from "./doctor/shared/plugin-
 async function withPreflightPluginFixture(
   run: (
     writeVersion: (version: string) => Promise<void>,
-    config: OpenClawConfig,
+    config: GrantedConfig,
     workspaces: Record<string, string>,
   ) => Promise<void>,
   workspaceNames: string[] = [],
@@ -76,7 +76,7 @@ async function withPreflightPluginFixture(
       }
     };
     await writeVersion("1.0.0");
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       ...(workspaceNames.length
         ? {
             agents: {
@@ -509,7 +509,7 @@ describe("Doctor plugin persistence", () => {
         });
         const readStateCheckpoint = () => {
           const { db } = openOpenClawStateDatabase({ env: process.env });
-          const kysely = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "schema_meta">>(db);
+          const kysely = getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "schema_meta">>(db);
           return executeSqliteQueryTakeFirstSync(
             db,
             kysely

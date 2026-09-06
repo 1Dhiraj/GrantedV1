@@ -1,7 +1,7 @@
 // Tts Local Cli live tests cover the real process and ffmpeg integration.
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveFfmpegBin, runFfmpeg } from "openclaw/plugin-sdk/media-runtime";
 import type { SpeechProviderConfig, SpeechSynthesisRequest } from "openclaw/plugin-sdk/speech-core";
 import { withTempDir } from "openclaw/plugin-sdk/test-env";
@@ -48,7 +48,7 @@ copyFileSync(${JSON.stringify(wavPath)}, process.argv[outIndex + 1]);
       const provider = buildCliSpeechProvider();
       const request: SpeechSynthesisRequest = {
         text: "hello world",
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         providerConfig,
         providerOverrides: {},
         timeoutMs: 30_000,
@@ -92,7 +92,7 @@ copyFileSync(${JSON.stringify(wavPath)}, process.argv[outIndex + 1]);
 
     const result = await buildCliSpeechProvider().synthesize({
       text: "hello world",
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       providerConfig,
       providerOverrides: {},
       timeoutMs: 30_000,
@@ -134,7 +134,7 @@ copyFileSync(${JSON.stringify(wavPath)}, process.argv[outIndex + 1]);
 
     const result = await buildCliSpeechProvider().synthesize({
       text: "hello world",
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       providerConfig,
       providerOverrides: {},
       timeoutMs: 30_000,

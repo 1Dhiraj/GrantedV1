@@ -2,7 +2,7 @@ import http from "node:http";
 import type { AddressInfo } from "node:net";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Context, Model } from "../../../../packages/ai/src/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
   PROVIDER_FAILURE_WITH_OUTPUT_ERROR_CODE,
@@ -420,7 +420,7 @@ describe("handleEmbeddedAssistantFailure", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const calls: string[] = [];
     let embeddedFailure: { reason: string; rawError?: string } | undefined;
     let embeddedTrace: AssistantFailureInput["traceAttempts"] = [];
@@ -503,7 +503,7 @@ describe("handleEmbeddedAssistantFailure", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const calls: string[] = [];
 
       const result = await runWithModelFallback({
@@ -746,7 +746,7 @@ describe("handleEmbeddedAssistantFailure", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const calls: string[] = [];
       const run = async (provider: string, model: string) => {
         calls.push(`${provider}/${model}`);

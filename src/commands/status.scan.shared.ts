@@ -12,7 +12,7 @@ import {
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { buildGatewayConnectionDetailsWithResolvers } from "../gateway/connection-details.js";
 import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
 import { isLoopbackGatewayUrl } from "../gateway/net.js";
@@ -149,7 +149,7 @@ type StatusMemorySearchManager = {
 };
 
 type StatusMemorySearchManagerResolver = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   purpose: "status";
   inspectSources: true;
@@ -180,7 +180,7 @@ function shouldTryLocalStatusRpcFallback(params: {
 }
 
 async function applyLocalStatusRpcFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   configPath: string;
   gatewayMode: "local" | "remote";
   gatewayUrl: string;
@@ -241,7 +241,7 @@ async function applyLocalStatusRpcFallback(params: {
   };
 }
 
-function hasExplicitMemorySearchConfig(cfg: OpenClawConfig, agentId: string): boolean {
+function hasExplicitMemorySearchConfig(cfg: GrantedConfig, agentId: string): boolean {
   if (cfg.memory && Object.hasOwn(cfg.memory, "search")) {
     return true;
   }
@@ -254,7 +254,7 @@ function hasExplicitMemorySearchConfig(cfg: OpenClawConfig, agentId: string): bo
 }
 
 /** Resolves whether memory status should be shown and which slot owns it. */
-export function resolveMemoryPluginStatus(cfg: OpenClawConfig): MemoryPluginStatus {
+export function resolveMemoryPluginStatus(cfg: GrantedConfig): MemoryPluginStatus {
   const pluginsEnabled = cfg.plugins?.enabled !== false;
   if (!pluginsEnabled) {
     return { enabled: false, slot: null, reason: "plugins disabled" };
@@ -268,7 +268,7 @@ export function resolveMemoryPluginStatus(cfg: OpenClawConfig): MemoryPluginStat
 
 /** Resolves gateway connection details, probe result, auth warnings, and call overrides. */
 export async function resolveGatewayProbeSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   configPath: string;
   env: NodeJS.ProcessEnv;
   opts: {
@@ -380,11 +380,11 @@ export function buildTailscaleHttpsUrl(params: {
 
 /** Resolves memory provider status without creating default stores just for status output. */
 export async function resolveSharedMemoryStatusSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentStatus: { defaultId?: string | null };
   memoryPlugin: MemoryPluginStatus;
   resolveMemoryConfig: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     agentId: string,
   ) => { store: { databasePath: string } } | null;
   getMemorySearchManager: StatusMemorySearchManagerResolver;
@@ -430,7 +430,7 @@ export async function resolveSharedMemoryStatusSnapshot(params: {
 
 async function resolveMemoryManagerStatusSnapshot(
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     getMemorySearchManager: StatusMemorySearchManagerResolver;
   },
   agentId: string,

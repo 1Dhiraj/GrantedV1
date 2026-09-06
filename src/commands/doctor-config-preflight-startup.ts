@@ -1,6 +1,6 @@
 import type { ConfigSnapshotReadMeasure } from "../config/io.js";
 import type { ConfigFileSnapshot } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   MigrationCheckpointIdentity,
   StartupMigrationLease,
@@ -37,7 +37,7 @@ type MigrationCheckpoint = {
 
 /** Completes startup checkpointing and plugin verification after state migration has run. */
 export async function completeStartupMigrationPreflight(params: {
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   freshConfigGuardAllowed: boolean | undefined;
   gatewayStartupCheckpointRequired: boolean;
   migrationCheckpoint: MigrationCheckpoint | undefined;

@@ -7,7 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { ExecApprovalsResolved } from "../infra/exec-approvals.js";
 import type { SafeBinProfileFixture } from "../infra/exec-safe-bin-policy.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -198,7 +198,7 @@ async function createSafeBinsExecTool(params: {
     fs.writeFileSync(path.join(tmpDir, file.name), file.contents, "utf8");
   }
 
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     tools: {
       exec: {
         host: "gateway",

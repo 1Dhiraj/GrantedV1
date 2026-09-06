@@ -8,7 +8,7 @@ import {
   handleDiscordMessageAction,
   requestDiscord,
 } from "@openclaw/discord/api.js";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { writeExternalFileWithinRoot } from "openclaw/plugin-sdk/security-runtime";
 import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -389,7 +389,7 @@ function parseDiscordQaCredentialPayload(payload: unknown): DiscordQaRuntimeEnv 
 }
 
 function buildDiscordQaConfig(
-  baseCfg: OpenClawConfig,
+  baseCfg: GrantedConfig,
   params: {
     guildId: string;
     channelId: string;
@@ -409,7 +409,7 @@ function buildDiscordQaConfig(
       guildId: string;
     };
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const pluginAllow = uniqueStrings([...(baseCfg.plugins?.allow ?? []), "discord"]);
   const pluginEntries = {
     ...baseCfg.plugins?.entries,
@@ -1221,7 +1221,7 @@ async function pollThreadReplyMessage(params: {
 }
 
 async function runDiscordThreadReplyFilePathAttachmentScenario(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   driverBotId: string;
   outputDir: string;
   runtimeEnv: DiscordQaRuntimeEnv;

@@ -17,7 +17,7 @@ import type {
 } from "../../channels/plugins/types.public.js";
 import { appendAssistantMessageToSessionTranscript } from "../../config/sessions.js";
 import { getOwnedSessionTranscriptWriterFence } from "../../config/sessions/transcript-write-context.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   normalizeMessagePresentation,
   renderMessagePresentationFallbackText,
@@ -41,7 +41,7 @@ const log = createSubsystemLogger("outbound/send-service");
 
 /** Shared execution context for message-tool send and poll actions. */
 type OutboundSendContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: ChannelId;
   plugin: ChannelPlugin;
   params: Record<string, unknown>;

@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { OutputRuntimeEnv } from "../runtime.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -68,7 +68,7 @@ function createRuntime(): OutputRuntimeEnv & { json: unknown[] } {
   };
 }
 
-function createConfig(): OpenClawConfig {
+function createConfig(): GrantedConfig {
   return {
     agents: {
       list: [{ id: "main", default: true }],
@@ -122,7 +122,7 @@ describe("agentsListCommand", () => {
           orphan: { name: "Orphan" },
         },
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
     listAgentProvenanceMock.mockReturnValue([
       { agentId: "main", createdVia: "operator", creatorAgentId: null, createdAtMs: 1 },
       { agentId: "child", createdVia: "agent", creatorAgentId: "main", createdAtMs: 2 },
@@ -219,7 +219,7 @@ describe("agentsListCommand", () => {
         },
       },
       bindings: [{ agentId: "main", match: { channel: "telegram" } }],
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     requireValidConfigMock.mockResolvedValue(cfg);
     summarizeBindingsMock.mockReturnValue([`${control}Telegram\nroute`]);
     listProvidersForAgentMock.mockReturnValue([`${control}Telegram\tconfigured`]);
@@ -265,7 +265,7 @@ describe("agentsListCommand", () => {
               },
             ],
           },
-        } satisfies OpenClawConfig);
+        } satisfies GrantedConfig);
         const runtime = createRuntime();
 
         await withEnvAsync({ GRANTED_HOME: home }, async () => {

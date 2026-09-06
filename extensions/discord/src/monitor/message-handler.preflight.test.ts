@@ -109,7 +109,7 @@ function createThreadBinding(
 }
 
 function createPreflightArgs(params: {
-  cfg: import("openclaw/plugin-sdk/config-contracts").OpenClawConfig;
+  cfg: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
   discordConfig: DiscordConfig;
   data: DiscordMessageEvent;
   client: DiscordClient;
@@ -228,7 +228,7 @@ async function runGuildPreflight(params: {
   guildId: string;
   message: import("../internal/discord.js").Message;
   discordConfig: DiscordConfig;
-  cfg?: import("openclaw/plugin-sdk/config-contracts").OpenClawConfig;
+  cfg?: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
   guildEntries?: Parameters<typeof preflightDiscordMessage>[0]["guildEntries"];
   includeGuildObject?: boolean;
   abortSignal?: AbortSignal;
@@ -271,7 +271,7 @@ async function runDmPreflight(params: {
 }
 
 async function runUnresolvedDmPreflight(params: {
-  cfg?: import("openclaw/plugin-sdk/config-contracts").OpenClawConfig;
+  cfg?: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
   channelId: string;
   message: import("../internal/discord.js").Message;
   discordConfig: DiscordConfig;
@@ -1274,7 +1274,7 @@ describe("preflightDiscordMessage", () => {
       createPreflightArgs({
         cfg: {
           ...DEFAULT_PREFLIGHT_CFG,
-        } as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {
           allowBots: true,
         } as DiscordConfig,
@@ -1615,7 +1615,7 @@ describe("preflightDiscordMessage", () => {
             unmentionedInbound: "room_event",
           },
         },
-      } as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+      } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
       guildEntries: {
         [guildId]: {
           channels: {
@@ -1699,7 +1699,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,
@@ -2513,7 +2513,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,
@@ -2583,7 +2583,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,

@@ -1103,14 +1103,14 @@ ${script}`,
     const commands = decodedCommands.join("\n---\n");
     const payloads = inputs.join("\n---\n");
     expect(commands).toContain("$pidPath");
-    expect(commands).toContain("function Write-OpenClawUtf8File");
+    expect(commands).toContain("function Write-GrantedUtf8File");
     expect(commands).toContain("[System.Text.UTF8Encoding]::new($false)");
-    expect(payloads).toContain("Write-OpenClawUtf8File $exitPath '0'");
-    expect(payloads).toContain("Write-OpenClawUtf8File $donePath 'done'");
-    expect(payloads).toContain("Write-OpenClawUtf8File $pidPath ([string]$PID)");
+    expect(payloads).toContain("Write-GrantedUtf8File $exitPath '0'");
+    expect(payloads).toContain("Write-GrantedUtf8File $donePath 'done'");
+    expect(payloads).toContain("Write-GrantedUtf8File $pidPath ([string]$PID)");
     expect(commands).toContain('cmd.exe /d /s /c start "" /b powershell.exe');
     expect(commands).toContain("icacls.exe $runDir /inheritance:r");
-    expect(commands).toContain("Stop-OpenClawBackgroundProcessTree ([int]$backgroundPid)");
+    expect(commands).toContain("Stop-GrantedBackgroundProcessTree ([int]$backgroundPid)");
     expect(commands).toContain(
       'Get-CimInstance Win32_Process -Filter "ParentProcessId=$ProcessId"',
     );
@@ -1254,7 +1254,7 @@ ${script}`,
     ).rejects.toThrow("windows background marker smuggle timed out");
 
     expect(decodedCommands.join("\n")).toContain(
-      "Stop-OpenClawBackgroundProcessTree ([int]$backgroundPid)",
+      "Stop-GrantedBackgroundProcessTree ([int]$backgroundPid)",
     );
   });
 
@@ -1302,7 +1302,7 @@ ${script}`,
 
     expect(pollCount).toBe(1);
     expect(output.join("")).toContain("first chunk");
-    expect(decodedCommands.join("\n")).not.toContain("Stop-OpenClawBackgroundProcessTree");
+    expect(decodedCommands.join("\n")).not.toContain("Stop-GrantedBackgroundProcessTree");
     expect(decodedCommands.join("\n")).toContain(
       "Remove-Item -Path $scriptPath, $logPath, $donePath, $exitPath, $pidPath",
     );
@@ -1446,7 +1446,7 @@ exit 7
     expect(windowsScript).toContain(
       "Remove-Item $nodeScriptPath -Force -ErrorAction SilentlyContinue",
     );
-    expect(windowsScript).toContain("Remove-FuturePluginEntries\nStop-OpenClawGatewayProcesses");
+    expect(windowsScript).toContain("Remove-FuturePluginEntries\nStop-GrantedGatewayProcesses");
     expect(script).toContain("scrub_future_plugin_entries\nstop_openclaw_gateway_processes");
     expect(macosScript).toContain('GRANTED_BIN="$(resolve_required_command openclaw)"');
     expect(macosScript).toContain("/usr/local/bin:/usr/local/sbin");
@@ -1491,7 +1491,7 @@ exit 7
       "Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
     const versionIndex = script.indexOf("Invoke-OpenClaw --version", scopedIndex);
-    const startIndex = script.indexOf("\nStart-OpenClawGateway\n", updateIndex);
+    const startIndex = script.indexOf("\nStart-GrantedGateway\n", updateIndex);
     const agentIndex = script.indexOf("Invoke-OpenClaw agent --local");
 
     expect(updateIndex).toBeGreaterThanOrEqual(0);

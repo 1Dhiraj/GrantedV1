@@ -4,7 +4,7 @@
 import { TOOL_NAME_SEPARATOR } from "../../agent-bundle-mcp-names.js";
 import {
   type CoreToolFactoryFamily,
-  type OpenClawCodingToolConstructionPlan,
+  type GrantedCodingToolConstructionPlan,
   listCoreToolFactoryDescriptors,
   resolveCoreToolFactoryFamily,
 } from "../../core-tool-factory-descriptors.js";
@@ -21,7 +21,7 @@ import {
   readToolAllowlistIntersection,
 } from "../../tool-policy.js";
 
-const ALL_CODING_TOOL_CONSTRUCTION_PLAN: OpenClawCodingToolConstructionPlan = {
+const ALL_CODING_TOOL_CONSTRUCTION_PLAN: GrantedCodingToolConstructionPlan = {
   includeBaseCodingTools: true,
   includeShellTools: true,
   includeChannelTools: true,
@@ -29,7 +29,7 @@ const ALL_CODING_TOOL_CONSTRUCTION_PLAN: OpenClawCodingToolConstructionPlan = {
   includePluginTools: true,
 };
 
-const NO_CODING_TOOL_CONSTRUCTION_PLAN: OpenClawCodingToolConstructionPlan = {
+const NO_CODING_TOOL_CONSTRUCTION_PLAN: GrantedCodingToolConstructionPlan = {
   includeBaseCodingTools: false,
   includeShellTools: false,
   includeChannelTools: false,
@@ -38,8 +38,8 @@ const NO_CODING_TOOL_CONSTRUCTION_PLAN: OpenClawCodingToolConstructionPlan = {
 };
 
 function cloneCodingToolConstructionPlan(
-  plan: OpenClawCodingToolConstructionPlan,
-): OpenClawCodingToolConstructionPlan {
+  plan: GrantedCodingToolConstructionPlan,
+): GrantedCodingToolConstructionPlan {
   return { ...plan };
 }
 
@@ -124,7 +124,7 @@ export function mergeForcedEmbeddedAttemptToolsAllow(
 
 function resolveCodingToolConstructionPlanForAllowlist(
   toolsAllow?: string[],
-): OpenClawCodingToolConstructionPlan {
+): GrantedCodingToolConstructionPlan {
   if (!toolsAllow) {
     return cloneCodingToolConstructionPlan(ALL_CODING_TOOL_CONSTRUCTION_PLAN);
   }
@@ -190,7 +190,7 @@ export function resolveEmbeddedAttemptToolConstructionPlan(params: {
   constructTools: boolean;
   includeCoreTools: boolean;
   runtimeToolAllowlist?: string[];
-  codingToolConstructionPlan: OpenClawCodingToolConstructionPlan;
+  codingToolConstructionPlan: GrantedCodingToolConstructionPlan;
 } {
   // Model capability is authoritative: forced delivery cannot materialize a
   // tool the selected model cannot call.

@@ -14,7 +14,7 @@ import {
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";
 import { inheritSessionCreationPolicy } from "../../config/sessions/session-entry-provenance.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveAgentRoute, type RoutePeer } from "../../routing/resolve-route.js";
 import { normalizeAgentId, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
@@ -38,7 +38,7 @@ export type OutboundSessionRoute = {
 
 /** Inputs required to resolve an outbound target into a session route. */
 export type ResolveOutboundSessionRouteParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: ChannelId;
   plugin?: ChannelPlugin;
   agentId: string;
@@ -253,7 +253,7 @@ export async function resolveOutboundSessionRoute(
 }
 
 type OutboundSessionEntryParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: ChannelId;
   accountId?: string | null;
   route: OutboundSessionRoute;

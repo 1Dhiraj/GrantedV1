@@ -9,7 +9,7 @@ import {
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   onSessionLifecycleEvent,
   type SessionLifecycleEvent,
@@ -222,7 +222,7 @@ describe("applySessionModelSelection", () => {
     "persists an off-catalog selection under policy %j without credentials",
     async (modelPolicy) => {
       const sessionEntry = createEntry({ thinkingLevel: "high" });
-      const cfg: OpenClawConfig = { agents: { defaults: { modelPolicy } } };
+      const cfg: GrantedConfig = { agents: { defaults: { modelPolicy } } };
       const result = await applySessionModelSelection(
         createParams({
           cfg,

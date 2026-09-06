@@ -4,7 +4,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import type { InternalSessionEntry, SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
 import {
   agentCommand,
@@ -167,7 +167,7 @@ describe("agentCommand compaction transcript rotation", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     state.runAgentAttemptMock.mockResolvedValueOnce(
       makeResult({
         sessionId: "custom-provider-session",

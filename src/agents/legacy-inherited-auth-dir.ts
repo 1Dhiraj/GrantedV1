@@ -2,12 +2,12 @@ import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveAgentDir } from "./agent-scope-config.js";
 import { resolveSharedAuthStoreOwnership } from "./auth-profiles/path-resolve.js";
 
-export function resolveLegacyInheritedAuthAgentId(config: OpenClawConfig): string {
+export function resolveLegacyInheritedAuthAgentId(config: GrantedConfig): string {
   return (
     normalizeOptionalString(config.agents?.defaults?.authInheritance?.agentId) ??
     tryResolveLegacyCompatibilityAgentId(config) ??
@@ -16,14 +16,14 @@ export function resolveLegacyInheritedAuthAgentId(config: OpenClawConfig): strin
 }
 
 export function resolveLegacyInheritedAuthAgentDir(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): string {
   return resolveAgentDir(config, resolveLegacyInheritedAuthAgentId(config), env);
 }
 
 export function resolveLegacyInheritedAuthDir(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): string | undefined {
   return resolveSharedAuthStoreOwnership(env).location === "legacy-main"
@@ -32,9 +32,9 @@ export function resolveLegacyInheritedAuthDir(
 }
 
 export function pinLegacyInheritedAuthOwnerForRosterTransition(
-  sourceConfig: OpenClawConfig,
-  targetConfig: OpenClawConfig,
-): OpenClawConfig {
+  sourceConfig: GrantedConfig,
+  targetConfig: GrantedConfig,
+): GrantedConfig {
   const sourceOwner = resolveLegacyInheritedAuthAgentId(sourceConfig);
   if (sourceOwner === resolveLegacyInheritedAuthAgentId(targetConfig)) {
     return targetConfig;
@@ -55,8 +55,8 @@ export function pinLegacyInheritedAuthOwnerForRosterTransition(
 }
 
 export function assertSafeLegacyInheritedAuthDirTransition(
-  sourceConfig: OpenClawConfig,
-  targetConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
+  targetConfig: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): void {
   const sourceOwner = resolveLegacyInheritedAuthAgentId(sourceConfig);

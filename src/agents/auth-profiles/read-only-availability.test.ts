@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveStoredCredentialReadOnlyAvailability } from "./read-only-availability.js";
 
 const cfg = {
@@ -8,7 +8,7 @@ const cfg = {
       vault: { source: "env" },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 describe("resolveStoredCredentialReadOnlyAvailability", () => {
   it.each([
@@ -49,7 +49,7 @@ describe("resolveStoredCredentialReadOnlyAvailability", () => {
     it.each<{
       name: string;
       provider: string;
-      secrets?: OpenClawConfig["secrets"];
+      secrets?: GrantedConfig["secrets"];
       expected: boolean | undefined;
     }>([
       { name: "implicit default", provider: "default", expected: undefined },

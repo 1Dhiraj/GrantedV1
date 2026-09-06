@@ -3,7 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { resolveBoundAgentIdForSession } from "../agents/session-agent-binding.js";
 import { resolveCommandConversationResolution } from "../channels/conversation-resolution.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ADMIN_SCOPE, isOperatorScope } from "../gateway/operator-scopes.js";
 import { logVerbose } from "../globals.js";
 import { withPluginCommandExecution } from "./command-execution-lock.js";
@@ -49,7 +49,7 @@ function sanitizeArgs(args: string | undefined): string | undefined {
 
 function resolveBindingConversation(params: {
   registry: PluginRegistry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   channel: string;
   senderId?: string;
   from?: string;

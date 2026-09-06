@@ -1,6 +1,6 @@
 // Telegram plugin module owns dispatch-time session and transcript access.
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 import {
@@ -20,7 +20,7 @@ import type {
 } from "./bot-message-dispatch.types.js";
 
 export function createFreshTelegramSessionEntryLoader(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   telegramDeps: TelegramBotDeps;
 }): FreshTelegramSessionEntryLoader {
   const entriesByPathAndKey = new Map<string, ReturnType<typeof getSessionEntry>>();
@@ -43,7 +43,7 @@ export function createFreshTelegramSessionEntryLoader(params: {
 }
 
 export function resolveTelegramReasoningLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey?: string;
   agentId: string;
   loadFreshSessionEntry: FreshTelegramSessionEntryLoader;
@@ -88,7 +88,7 @@ function resolveTelegramScopedTranscriptSession(params: {
 }
 
 export async function mirrorTelegramAssistantReplyToTranscript(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   idempotencyKey: string;
   loadFreshSessionEntry: FreshTelegramSessionEntryLoader;
   route: TelegramMessageContext["route"];

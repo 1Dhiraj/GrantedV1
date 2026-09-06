@@ -17,7 +17,7 @@ import {
 import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
 import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
 import { hasControlCommand } from "openclaw/plugin-sdk/command-auth-native";
-import type { GroupPolicy, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GroupPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   readChannelAllowFromStore,
   resolvePairingIdLabel,
@@ -83,7 +83,7 @@ function isDownloadableLineMessageType(
 }
 
 interface LineHandlerContext {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedLineAccount;
   runtime: RuntimeEnv;
   buildContext?: typeof buildChannelInboundEventContext;
@@ -91,7 +91,7 @@ interface LineHandlerContext {
   processMessage: (
     ctx: LineInboundContext,
     control: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       turnAdoptionLifecycle?: LineWebhookTurnAdoptionLifecycle;
     },
   ) => Promise<void>;

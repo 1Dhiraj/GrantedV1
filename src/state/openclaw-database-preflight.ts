@@ -21,7 +21,7 @@ import {
 import { discoverAgentDatabaseMigrationTargets } from "../infra/state-migrations.media-persistence-targets.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { assertOpenClawAgentDatabaseForMaintenance } from "./openclaw-agent-db-maintenance.js";
-import type { OpenClawSchemaVersions } from "./openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "./openclaw-schema-versions.js";
 import {
   GRANTED_DATABASE_SCHEMA_DOCS_URL,
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
@@ -31,14 +31,14 @@ import {
   assertOpenClawStateDatabaseOwner,
   assertOpenClawStateDatabaseForMaintenance,
 } from "./openclaw-state-db-maintenance.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   resolveOpenClawRegisteredAgentDatabasePath,
   resolveOpenClawStateSqlitePath,
 } from "./openclaw-state-db.paths.js";
 import {
   inspectOpenClawStateOwnershipFromDatabase,
-  type OpenClawExternalStateOwnership,
+  type GrantedExternalStateOwnership,
 } from "./openclaw-state-ownership.js";
 import {
   getOpenClawStateRuntimeSchema,
@@ -66,16 +66,16 @@ export type IndeterminateOpenClawDatabase = {
   reason: string;
 };
 
-export type OpenClawDatabaseSchemaPreflight = {
+export type GrantedDatabaseSchemaPreflight = {
   incompatible: IncompatibleOpenClawDatabase[];
   indeterminate: IndeterminateOpenClawDatabase[];
 };
 
-type OpenClawStateSchemaPreflightResult = {
+type GrantedStateSchemaPreflightResult = {
   databasePath: string;
   foundVersion: number | null;
   issues: SqliteSchemaIssue[];
-  ownership: OpenClawExternalStateOwnership | null;
+  ownership: GrantedExternalStateOwnership | null;
   reason?: string;
   requiresWrite: boolean;
   schema: "openclaw.state-schema-preflight.v1";
@@ -83,9 +83,9 @@ type OpenClawStateSchemaPreflightResult = {
   targetVersion: number;
 };
 
-type AgentRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "agent_databases">;
+type AgentRegistryDatabase = Pick<GrantedStateKyselyDatabase, "agent_databases">;
 
-type OpenClawDatabaseSchemaPreflightOperation = "doctor" | "gateway-restart" | "gateway-startup";
+type GrantedDatabaseSchemaPreflightOperation = "doctor" | "gateway-restart" | "gateway-startup";
 
 function formatDoctorIncompatibleDatabase(database: IncompatibleOpenClawDatabase): string {
   const agent = database.agentId ? ` for agent ${database.agentId}` : "";
@@ -94,10 +94,10 @@ function formatDoctorIncompatibleDatabase(database: IncompatibleOpenClawDatabase
 }
 
 /** Fatal refusal when persisted schemas were written by a newer build. */
-export class OpenClawDatabaseSchemaPreflightError extends SqliteSchemaVersionError {
+export class GrantedDatabaseSchemaPreflightError extends SqliteSchemaVersionError {
   constructor(
     readonly incompatibleDatabases: readonly IncompatibleOpenClawDatabase[],
-    options: { operation?: OpenClawDatabaseSchemaPreflightOperation } = {},
+    options: { operation?: GrantedDatabaseSchemaPreflightOperation } = {},
   ) {
     const operation = options.operation ?? "gateway-startup";
     const prefix =
@@ -114,7 +114,7 @@ export class OpenClawDatabaseSchemaPreflightError extends SqliteSchemaVersionErr
       `${prefix} because ${incompatibleDatabases.length} OpenClaw database schema(s) are newer than this build. ` +
         `Refused by ${describeRunningOpenClawBuild()}.${doctorGuidance} See ${GRANTED_DATABASE_SCHEMA_DOCS_URL}.`,
     );
-    this.name = "OpenClawDatabaseSchemaPreflightError";
+    this.name = "GrantedDatabaseSchemaPreflightError";
   }
 }
 
@@ -142,7 +142,7 @@ export function assertOpenClawDatabasesReady(
       : {}),
   });
   if (schemas.incompatible.length > 0) {
-    throw new OpenClawDatabaseSchemaPreflightError(schemas.incompatible, {
+    throw new GrantedDatabaseSchemaPreflightError(schemas.incompatible, {
       operation: options.operation,
     });
   }
@@ -213,7 +213,7 @@ function deduplicateSchemaIssues(issues: readonly SqliteSchemaIssue[]): SqliteSc
 /** Compare one explicit SQLite file with this release's canonical shared-state schema. */
 export async function preflightOpenClawStateDatabasePath(
   databasePath: string,
-): Promise<OpenClawStateSchemaPreflightResult> {
+): Promise<GrantedStateSchemaPreflightResult> {
   const resolvedPath = path.resolve(databasePath);
   const base = {
     schema: "openclaw.state-schema-preflight.v1",
@@ -222,11 +222,11 @@ export async function preflightOpenClawStateDatabasePath(
   } as const;
   let database: DatabaseSync | undefined;
   let foundVersion: number | null = null;
-  let ownership: OpenClawExternalStateOwnership | null = null;
+  let ownership: GrantedExternalStateOwnership | null = null;
   const result = (
-    status: OpenClawStateSchemaPreflightResult["status"],
+    status: GrantedStateSchemaPreflightResult["status"],
     details: { issues?: SqliteSchemaIssue[]; reason?: string; requiresWrite?: boolean } = {},
-  ): OpenClawStateSchemaPreflightResult => ({
+  ): GrantedStateSchemaPreflightResult => ({
     ...base,
     foundVersion,
     ownership,
@@ -325,7 +325,7 @@ export async function preflightOpenClawStateDatabasePath(
 /** Read schema headers and optionally verify current schema shape without repairing it. */
 export function preflightOpenClawDatabaseSchemas(options: {
   env: NodeJS.ProcessEnv;
-  supportedVersions: OpenClawSchemaVersions;
+  supportedVersions: GrantedSchemaVersions;
   verifyCurrentSchemaShape?: boolean;
   configuredAgentDatabaseTargets?:
     | readonly { agentId: string; path: string }[]
@@ -333,8 +333,8 @@ export function preflightOpenClawDatabaseSchemas(options: {
         registeredDatabases: readonly { agentId: string; path: string }[],
       ) => readonly { agentId: string; path: string }[]);
   configuredAgentDatabaseCandidatePaths?: readonly string[];
-}): OpenClawDatabaseSchemaPreflight {
-  const result: OpenClawDatabaseSchemaPreflight = { incompatible: [], indeterminate: [] };
+}): GrantedDatabaseSchemaPreflight {
+  const result: GrantedDatabaseSchemaPreflight = { incompatible: [], indeterminate: [] };
   const statePath = path.resolve(resolveOpenClawStateSqlitePath(options.env));
   let registeredDatabases: ReturnType<typeof readRegisteredAgentDatabases> = [];
   let stateDatabase: DatabaseSync | undefined;

@@ -4,7 +4,7 @@ import {
   isHeartbeatContentEffectivelyEmpty,
 } from "../auto-reply/heartbeat.js";
 import { SILENT_REPLY_TOKEN } from "../auto-reply/tokens.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readHeartbeatMonitorScratch } from "../cron/scratch-store.js";
 import { resolveCronJobsStorePathFromConfig } from "../cron/store.js";
 import { formatErrorMessage } from "./errors.js";
@@ -80,7 +80,7 @@ export function shouldPreflightExecEventWake(
 }
 
 export async function resolveHeartbeatPreflight(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   heartbeat?: HeartbeatConfig;
   sessionKey?: string;
@@ -227,7 +227,7 @@ function appendHeartbeatScratch(prompt: string, heartbeatScratchContent?: string
 }
 
 export function resolveHeartbeatRunPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   heartbeat?: HeartbeatConfig;
   preflight: HeartbeatPreflight;
   canRelayToUser: boolean;

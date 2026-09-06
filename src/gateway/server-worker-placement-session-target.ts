@@ -1,5 +1,5 @@
 import type { managedWorktrees } from "../agents/worktrees/service.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runExclusiveSessionLifecycleMutation } from "../sessions/session-lifecycle-admission.js";
 import type * as sessionUtils from "./session-utils.js";
 import type { WorkerPlacementExecutionMode } from "./worker-environments/placement-record.js";
@@ -20,7 +20,7 @@ type WorkerPlacementWorktree = NonNullable<ReturnType<typeof managedWorktrees.fi
 
 export async function runWorkerPlacementSessionBarrier<T>(params: {
   sessionRuntime: WorkerPlacementSessionRuntime;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   sessionId: string;
   sessionKey: string;
   agentId: string;
@@ -101,7 +101,7 @@ export function resolveWorkerPlacementSessionTarget<
 >(params: {
   sessionRuntime: {
     resolveGatewaySessionStoreTargetWithStore: (input: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       key: string;
       agentId: string;
       clone: false;
@@ -114,7 +114,7 @@ export function resolveWorkerPlacementSessionTarget<
       findLiveByOwner: (ownerKind: "session", ownerId: string) => Worktree | undefined;
     };
   };
-  config: OpenClawConfig;
+  config: GrantedConfig;
   sessionId: string;
   sessionKey: string;
   agentId: string;

@@ -19,7 +19,7 @@ import {
   MIN_CLIENT_PROTOCOL_VERSION,
   PROTOCOL_VERSION,
 } from "../../../../packages/gateway-protocol/src/version.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { formatErrorMessage } from "../../../../src/infra/errors.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import {
@@ -399,7 +399,7 @@ async function waitForGeneration(
   });
 }
 
-function withOtelEndpoint(config: OpenClawConfig, endpoint: string): OpenClawConfig {
+function withOtelEndpoint(config: GrantedConfig, endpoint: string): GrantedConfig {
   return {
     ...config,
     gateway: {
@@ -435,7 +435,7 @@ function withOtelEndpoint(config: OpenClawConfig, endpoint: string): OpenClawCon
 }
 
 async function updateWatchedEndpoint(configPath: string, endpoint: string): Promise<void> {
-  const parsed = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+  const parsed = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
   const next = withOtelEndpoint(parsed, endpoint);
   await fs.writeFile(configPath, `${JSON.stringify(next, null, 2)}\n`, "utf8");
 }

@@ -4,11 +4,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { SessionManager } from "../src/agents/sessions/session-manager.js";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const TEST_TIMEOUT_MS = 180_000;
@@ -29,7 +29,7 @@ type MockModelServer = {
 
 type MockSseEvent = { type: string } & Record<string, unknown>;
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const modelServers: MockModelServer[] = [];
 
 afterEach(async () => {
@@ -135,7 +135,7 @@ describe("Gateway OpenAI Responses compaction replay", () => {
   );
 });
 
-function createTestConfig(baseUrl: string): OpenClawConfig {
+function createTestConfig(baseUrl: string): GrantedConfig {
   return {
     plugins: { slots: { memory: "none" } },
     agents: {

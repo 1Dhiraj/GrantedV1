@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { createPluginMetadataSnapshot } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadGatewayPlugins } from "../gateway/server-plugins.js";
 import { withEnv } from "../test-utils/env.js";
 import { loadBundledCapabilityRuntimeRegistry } from "./bundled-capability-runtime.js";
@@ -85,7 +85,7 @@ export default { id: "${id}", register(api) {
     path.join(seed.dir, "package.json"),
     JSON.stringify({ openclaw: { extensions: ["./index.cjs"] } }),
   );
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: { defaults: { workspace: workspaceDir } },
     plugins: { enabled: false },
   };
@@ -123,7 +123,7 @@ function loadGatewayGeneration(
   }).pluginRegistry;
 }
 
-const speechProviders = (cfg: OpenClawConfig) =>
+const speechProviders = (cfg: GrantedConfig) =>
   resolvePluginCapabilityProviders({ key: "speechProviders", cfg });
 
 afterEach(() => {

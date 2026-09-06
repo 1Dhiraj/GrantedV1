@@ -1,11 +1,11 @@
 import { replaceConfigFile } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { commitConfigWithPendingPluginInstalls } from "../../plugins/install-record-commit.js";
 import { refreshPluginRegistryAfterConfigMutation } from "../../plugins/registry-refresh.js";
 import type { RuntimeEnv } from "../../runtime.js";
 
 export async function persistChannelPluginConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   pluginInstalled: boolean;
   baseHash?: string;
   runtime: RuntimeEnv;

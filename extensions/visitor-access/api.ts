@@ -2,8 +2,8 @@ export {
   buildPluginConfigSchema,
   definePluginEntry,
   type AnyAgentTool,
-  type OpenClawPluginApi,
-  type OpenClawPluginToolContext,
+  type GrantedPluginApi,
+  type GrantedPluginToolContext,
   type PluginLogger,
 } from "openclaw/plugin-sdk/plugin-entry";
 export type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";

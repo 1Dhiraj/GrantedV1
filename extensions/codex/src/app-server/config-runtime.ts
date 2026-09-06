@@ -11,8 +11,8 @@ import type {
   CodexManagedCommandOrder,
   CodexComputerUseConfig,
   CodexPluginConfig,
-  OpenClawExecMode,
-  OpenClawExecPolicyForCodexAppServer,
+  GrantedExecMode,
+  GrantedExecPolicyForCodexAppServer,
   ProviderAuthAliasConfig,
   ResolvedCodexComputerUseConfig,
 } from "./config-contracts.js";
@@ -91,8 +91,8 @@ export function resolveCodexAppServerHomeScope(params: {
 export function resolveCodexAppServerRuntimeOptions(
   params: {
     pluginConfig?: unknown;
-    execMode?: OpenClawExecMode;
-    execPolicy?: OpenClawExecPolicyForCodexAppServer;
+    execMode?: GrantedExecMode;
+    execPolicy?: GrantedExecPolicyForCodexAppServer;
     sessionPermissionMode?: "read-only" | "guarded" | "workspace" | "full";
     modelProvider?: string;
     model?: string;
@@ -179,7 +179,7 @@ export function resolveCodexAppServerRuntimeOptions(
     (execMode !== "auto" || !canUseModelBackedReviewer);
   const forceUserReviewer = forceUserReviewerForUnknownModel || forceUserReviewerForExecMode;
   const forceGuardianReviewer = execMode === "auto" && canUseModelBackedReviewer;
-  const execModeRequiringPromptingApprovals: Extract<OpenClawExecMode, "auto" | "ask"> | undefined =
+  const execModeRequiringPromptingApprovals: Extract<GrantedExecMode, "auto" | "ask"> | undefined =
     execMode === "auto" || execMode === "ask" ? execMode : forceUserReviewer ? "ask" : undefined;
   const forceDangerFullAccessSandbox =
     params.execPolicy?.touched === true &&

@@ -9,7 +9,7 @@ import {
   buildCodexUserMcpServersThreadConfigPatchForRuntime,
   resolveCodexMcpToolOverridesForAgent,
 } from "openclaw/plugin-sdk/codex-mcp-projection";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { loadExecApprovals } from "openclaw/plugin-sdk/exec-approvals-runtime";
 import { buildNativeHookRelayCommandPlan } from "openclaw/plugin-sdk/native-hook-relay-runtime";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
@@ -54,7 +54,7 @@ type Initialization = NonNullable<AgentHarnessSessionDeletionParams["initializat
 export async function prepareCanonicalCodexFork(params: {
   created: Created;
   initialization: Initialization;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   context: NonNullable<CodexSessionCatalogControl["forkContext"]>;
   model: string;
   modelProvider: string;

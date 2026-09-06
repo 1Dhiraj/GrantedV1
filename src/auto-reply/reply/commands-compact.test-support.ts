@@ -1,6 +1,6 @@
 // Shared compact-command mocks and fixtures for focused behavior suites.
 import { vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import {
   resolveAgentDirMock,
@@ -40,7 +40,7 @@ export const { handleCompactCommand } = await import("./commands-compact.js");
 
 export function buildCompactParams(
   commandBodyNormalized: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): HandleCommandsParams {
   return {
     cfg,
@@ -97,7 +97,7 @@ export function requireIncrementCompactionCountCall(index = 0) {
 export function requireResolveSessionAgentIdCall(index = 0) {
   const call = (
     resolveSessionAgentIdMock.mock.calls[index] as unknown as [unknown] | undefined
-  )?.[0] as { sessionKey?: string; config?: OpenClawConfig } | undefined;
+  )?.[0] as { sessionKey?: string; config?: GrantedConfig } | undefined;
   if (!call) {
     throw new Error(`resolveSessionAgentId call ${index} missing`);
   }
@@ -105,7 +105,7 @@ export function requireResolveSessionAgentIdCall(index = 0) {
 }
 
 export function requireResolveAgentDirCall(index = 0) {
-  const call = resolveAgentDirMock.mock.calls[index] as [OpenClawConfig, string] | undefined;
+  const call = resolveAgentDirMock.mock.calls[index] as [GrantedConfig, string] | undefined;
   if (!call) {
     throw new Error(`resolveAgentDir call ${index} missing`);
   }

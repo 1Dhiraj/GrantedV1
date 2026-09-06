@@ -23,7 +23,7 @@ import {
   type TempWorkspaceSync,
 } from "openclaw/plugin-sdk/temp-path";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import {
   listGoogleChatAccountIds,
   resolveGoogleChatAccount,
@@ -244,7 +244,7 @@ describe("googlechat setup", () => {
 
     const result = await runSetupWizardConfigure({
       configure: googlechatConfigure,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       prompter,
       options: {},
     });
@@ -285,7 +285,7 @@ describe("googlechat setup", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountOverrides: {
         googlechat: "alerts",
       },
@@ -309,7 +309,7 @@ describe("googlechat setup", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountOverrides: {},
       options: {},
     });
@@ -337,7 +337,7 @@ describe("googlechat setup", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       prompter,
     });
 
@@ -561,7 +561,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("inherits shared defaults from accounts.default for named accounts", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           accounts: {
@@ -586,7 +586,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("prefers top-level and account overrides over accounts.default", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           audienceType: "project-number",
@@ -612,7 +612,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("merges account bot loop protection over top-level defaults field-by-field", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           botLoopProtection: {
@@ -641,7 +641,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("merges account bot loop protection over accounts.default field-by-field", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           accounts: {
@@ -672,7 +672,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("does not inherit disabled state from accounts.default for named accounts", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           accounts: {
@@ -696,7 +696,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("does not inherit default-account credentials into named accounts", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           accounts: {
@@ -724,7 +724,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("does not inherit dangerous name matching from accounts.default", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           accounts: {
@@ -747,7 +747,7 @@ describe("resolveGoogleChatAccount", () => {
   });
 
   it("uses configured defaultAccount when accountId is omitted", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         googlechat: {
           defaultAccount: "alerts",

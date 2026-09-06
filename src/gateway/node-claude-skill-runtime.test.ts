@@ -16,7 +16,7 @@ import { decodeClaudeCliNodeRunParams } from "../node-host/invoke-agent-cli-clau
 import { runClaudeCliNodeCommand } from "../node-host/invoke-agent-cli-claude.js";
 import type { NodeInvokeRequestPayload } from "../node-host/invoke-types.js";
 import { withPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
-import type { OpenClawPluginNodeHostCommandIo } from "../plugins/types.js";
+import type { GrantedPluginNodeHostCommandIo } from "../plugins/types.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import {
   loadSkillLibrarySelection,
@@ -192,7 +192,7 @@ async function fixture(
             progress(text, seq++);
           },
         });
-        const io: OpenClawPluginNodeHostCommandIo = {
+        const io: GrantedPluginNodeHostCommandIo = {
           signal: controller.signal,
           emitChunk: async () => {
             throw new Error("unexpected raw duplex output");

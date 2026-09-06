@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildSessionEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
 import {
   ensureMemoryIndexSchema,
@@ -500,7 +500,7 @@ describe("memory-core doctor dreaming migration", () => {
   }
 
   function migrationParams(
-    config: OpenClawConfig = {
+    config: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: workspaceDir }],
       },
@@ -1627,7 +1627,7 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await legacyMemoryIndexMigration().migrateLegacyState(migrationParams(config));
 
@@ -1654,7 +1654,7 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const migration = legacyMemoryIndexMigration();
     const preview = await migration.detectLegacyState(migrationParams(config));
@@ -1714,7 +1714,7 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const migration = legacyMemoryIndexMigration();
     const preview = await migration.detectLegacyState(migrationParams(config));
@@ -1766,7 +1766,7 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const migration = legacyMemoryIndexMigration();
     const preview = await migration.detectLegacyState(migrationParams(config));
@@ -1826,7 +1826,7 @@ describe("memory-core doctor dreaming migration", () => {
           { id: "work", workspace: path.join(rootDir, "work") },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const migration = legacyMemoryIndexMigration();
     const preview = await migration.detectLegacyState(migrationParams(config));
@@ -1880,7 +1880,7 @@ describe("memory-core doctor dreaming migration", () => {
     } finally {
       db.close();
     }
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       memory: {
         search: {
           store: {
@@ -1940,7 +1940,7 @@ describe("memory-core doctor dreaming migration", () => {
     const legacyPath = path.join(stateDir, "memory", "main.sqlite");
     const agentPath = path.join(stateDir, "agents", "main", "agent", "openclaw-agent.sqlite");
     await writeLegacyMemorySidecar(legacyPath, { vector: "vec0" });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       memory: {
         search: {
           store: {
@@ -1983,7 +1983,7 @@ describe("memory-core doctor dreaming migration", () => {
     const legacyPath = path.join(stateDir, "memory", "main.sqlite");
     const agentPath = path.join(stateDir, "agents", "main", "agent", "openclaw-agent.sqlite");
     await writeLegacyMemorySidecar(legacyPath, { vector: "vec0" });
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       memory: {
         search: {
           provider: "none",
@@ -2034,10 +2034,10 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await legacyMemoryIndexMigration().migrateLegacyState(migrationParams(config));
-    const repairedConfig: OpenClawConfig = {
+    const repairedConfig: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: workspaceDir }],
       },
@@ -2090,7 +2090,7 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await legacyMemoryIndexMigration().migrateLegacyState(migrationParams(config));
     const retryEntries = await fs.readdir(path.join(stateDir, "memory"));
@@ -2099,7 +2099,7 @@ describe("memory-core doctor dreaming migration", () => {
     );
     expect(alternateRetry).toBeDefined();
     const alternateRetryPath = path.join(stateDir, "memory", alternateRetry ?? "");
-    const repairedConfig: OpenClawConfig = {
+    const repairedConfig: GrantedConfig = {
       memory: {
         search: {
           store: {
@@ -2194,10 +2194,10 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await legacyMemoryIndexMigration().migrateLegacyState(migrationParams(config));
-    const repairedConfig: OpenClawConfig = {
+    const repairedConfig: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: workspaceDir }],
       },
@@ -2237,10 +2237,10 @@ describe("memory-core doctor dreaming migration", () => {
         defaults: {},
         list: [{ id: "main", workspace: workspaceDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await legacyMemoryIndexMigration().migrateLegacyState(migrationParams(config));
-    const repairedConfig: OpenClawConfig = {
+    const repairedConfig: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: workspaceDir }],
       },

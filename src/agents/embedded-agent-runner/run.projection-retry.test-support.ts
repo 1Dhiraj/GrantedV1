@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult, makeCompactionSuccess } from "./run.overflow-compaction.fixture.js";
 import {
   createOverflowRunParams,
@@ -11,7 +11,7 @@ import {
 } from "./run.overflow-compaction.harness.js";
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 let agentDatabase: typeof import("../../state/openclaw-agent-db.js");
 let sessionAccessor: typeof import("../../config/sessions/session-accessor.js");

@@ -5,11 +5,11 @@
 import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { normalizeThinkLevel } from "../../../auto-reply/thinking.shared.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 
 /** Resolves subagent thinking override and initial session patch from caller/agent config. */
 export function resolveSubagentThinkingOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requesterAgentConfig?: unknown;
   targetAgentConfig?: unknown;
   thinkingOverrideRaw?: string;

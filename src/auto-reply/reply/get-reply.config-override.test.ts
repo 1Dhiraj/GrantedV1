@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { PreparedReplyDispatchRuntime } from "../../agents/prepared-model-runtime.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { SessionWorkStartInvalidatedError } from "../../config/sessions/lifecycle.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { createSessionDiffBaselineCaptureClaim } from "../../config/sessions/session-diff-baseline-capture.js";
@@ -164,7 +164,7 @@ describe("getReplyFromConfig configOverride", () => {
           userTimezone: "UTC",
         },
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     await getReplyFromConfig(buildGetReplyCtx(), undefined, {
       agents: {
@@ -172,7 +172,7 @@ describe("getReplyFromConfig configOverride", () => {
           userTimezone: "America/New_York",
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expectResolvedTelegramTimezone(mocks.resolveReplyDirectives);
   });
@@ -242,7 +242,7 @@ describe("getReplyFromConfig configOverride", () => {
             userTimezone: "America/New_York",
           },
         },
-      } satisfies OpenClawConfig),
+      } satisfies GrantedConfig),
     );
 
     expect(loadConfigMock).not.toHaveBeenCalled();
@@ -310,7 +310,7 @@ describe("getReplyFromConfig configOverride", () => {
     const cfg = Object.freeze({
       agents: { defaults: { userTimezone: "America/New_York" } },
       channels: { telegram: { botToken: "resolved-telegram-token" } },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
     const ownKeys = Reflect.ownKeys(cfg);
     vi.mocked(loadConfigMock).mockImplementation(() => {
       throw new Error("getRuntimeConfig should not be called for complete runtime config");

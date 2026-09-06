@@ -6,7 +6,7 @@ import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-sta
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { assertCronJobScratchContent } from "./scratch-contract.js";
 import { cronStoreKey } from "./store/key.js";
@@ -74,7 +74,7 @@ function readScratchStateFromDatabase(
 export function readCronJobScratchState(
   storePath: string,
   jobId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): CronJobScratchState {
   const { db } = openOpenClawStateDatabase(options);
   return readScratchStateFromDatabase(db, cronStoreKey(storePath), jobId);
@@ -128,7 +128,7 @@ function readHeartbeatMonitorScratchFromDatabase(
 export function readHeartbeatMonitorScratch(
   storePath: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): { jobId: string; state: CronJobScratchState } | undefined {
   const { db } = openOpenClawStateDatabase(options);
   return readHeartbeatMonitorScratchFromDatabase(db, storePath, agentId);
@@ -138,7 +138,7 @@ export function readHeartbeatMonitorScratch(
 export function readHeartbeatMonitorScratchReadOnly(
   storePath: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): { jobId: string; state: CronJobScratchState } | undefined {
   return withExistingOpenClawStateDatabaseReadOnly(
     ({ db }) => readHeartbeatMonitorScratchFromDatabase(db, storePath, agentId),
@@ -154,7 +154,7 @@ export function writeCronJobScratch(params: {
   expectedRevision?: number;
   sourceSha256?: string;
   nowMs?: number;
-  options?: OpenClawStateDatabaseOptions;
+  options?: GrantedStateDatabaseOptions;
 }): CronJobScratchWriteResult {
   if (params.content !== null) {
     assertCronJobScratchContent(params.content);
@@ -235,7 +235,7 @@ export function writeCronJobScratch(params: {
 export function deleteCronJobScratch(
   storePath: string,
   jobId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
   guard?: { expectedRevision: number },
 ): boolean {
   return runOpenClawStateWriteTransaction(

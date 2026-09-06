@@ -3,7 +3,7 @@
  *
  * Owner ids are rendered raw; no config or secret is required.
  */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const MAX_OWNER_PROMPT_SENDERS = 16;
 export const MAX_OWNER_PROMPT_CONTENT_BYTES = 980;
@@ -25,7 +25,7 @@ type OwnerDisplaySetting = {
 };
 
 type OwnerDisplaySecretResolution = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   generatedSecret?: string;
 };
 
@@ -65,7 +65,7 @@ export function resolveOwnerPromptNumbers(params: {
  * Resolve owner display settings for prompt rendering.
  * Keep auth secrets decoupled from owner hash secrets.
  */
-export function resolveOwnerDisplaySetting(_config?: OpenClawConfig): OwnerDisplaySetting {
+export function resolveOwnerDisplaySetting(_config?: GrantedConfig): OwnerDisplaySetting {
   return { ownerDisplay: "raw", ownerDisplaySecret: undefined };
 }
 
@@ -74,7 +74,7 @@ export function resolveOwnerDisplaySetting(_config?: OpenClawConfig): OwnerDispl
  * Returns updated config and generated secret when autofill was needed.
  */
 export function ensureOwnerDisplaySecret(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   _generateSecret?: () => string,
 ): OwnerDisplaySecretResolution {
   return { config };

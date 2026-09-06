@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   ProviderModelRouteCandidate,
   ProviderModelRouteResolution,
@@ -50,7 +50,7 @@ export function authStore(
 }
 
 export function evaluate(params: {
-  cfg?: OpenClawConfig | Record<string, unknown>;
+  cfg?: GrantedConfig | Record<string, unknown>;
   env?: NodeJS.ProcessEnv;
   ref?: ModelAuthAvailabilityRef;
   resolution?: ProviderModelRouteResolution | null;
@@ -61,7 +61,7 @@ export function evaluate(params: {
   preparedRuntimeAuthMaterializations?: readonly RuntimeAuthMaterialization[];
 }) {
   return createModelAuthAvailabilityResolver({
-    cfg: (params.cfg ?? {}) as OpenClawConfig,
+    cfg: (params.cfg ?? {}) as GrantedConfig,
     authStore: params.store ?? authStore(),
     env: params.env ?? {},
     routeResolverFactory: routeResolverFactory(params.resolution ?? dualRoutes),

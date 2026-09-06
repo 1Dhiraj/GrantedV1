@@ -28,7 +28,7 @@ import {
   getRuntimeConfigSourceSnapshot,
   selectApplicableRuntimeConfig,
 } from "../../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveOutboundChannelPlugin } from "../../infra/outbound/channel-resolution.js";
 import { resolveMessageChannelSelection } from "../../infra/outbound/channel-selection.js";
 import { OutboundDeliveryError } from "../../infra/outbound/deliver-types.js";
@@ -490,7 +490,7 @@ function replayReservedMessageOperationRoute(params: {
 }
 
 function resolveMessageOperationAccountRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   plugin: ChannelPlugin;
   accountIds: readonly unknown[];
@@ -524,7 +524,7 @@ function resolveMessageOperationAccountRoute(params: {
 
 async function withMessageOperationRoute<
   T extends {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     channel: string;
     plugin: ChannelPlugin;
   },
@@ -679,8 +679,8 @@ async function resolveRequestedChannel(params: {
   rejectWebchatAsInternalOnly?: boolean;
 }): Promise<
   | {
-      cfg: OpenClawConfig;
-      sourceCfg: OpenClawConfig;
+      cfg: GrantedConfig;
+      sourceCfg: GrantedConfig;
       channel: string;
     }
   | {
@@ -723,8 +723,8 @@ async function resolveInternalDeliveryChannel(
 ): Promise<
   | {
       kind: "ready";
-      cfg: OpenClawConfig;
-      sourceCfg: OpenClawConfig;
+      cfg: GrantedConfig;
+      sourceCfg: GrantedConfig;
       channel: string;
     }
   | {
@@ -750,7 +750,7 @@ async function resolveInternalDeliveryChannel(
 function resolveGatewayOutboundTarget(params: {
   channel: string;
   to: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
 }):
   | {
@@ -778,9 +778,9 @@ function resolveGatewayOutboundTarget(params: {
 }
 
 function resolveMessageActionRuntimeConfig(params: {
-  cfg: OpenClawConfig;
-  sourceCfg: OpenClawConfig;
-}): OpenClawConfig {
+  cfg: GrantedConfig;
+  sourceCfg: GrantedConfig;
+}): GrantedConfig {
   const runtimeConfig = getRuntimeConfigSnapshot();
   const runtimeSourceConfig = getRuntimeConfigSourceSnapshot();
   if (!runtimeConfig || !runtimeSourceConfig) {

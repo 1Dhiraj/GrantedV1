@@ -4,7 +4,7 @@ import path from "node:path";
 import type { App } from "@slack/bolt";
 import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
 import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
@@ -15,7 +15,7 @@ import { createSlackMonitorContext } from "../context.js";
 export function createInboundSlackTestContext(params: {
   accountId?: string;
   app?: App;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   appClient?: App["client"];
   defaultRequireMention?: boolean;
   replyToMode?: "off" | "all" | "first" | "batched";

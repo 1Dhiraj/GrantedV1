@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   archiveLegacyStateSource,
   type PluginDoctorStateMigration,
@@ -126,7 +126,7 @@ function resolveLegacySanitizedSessionKey(
   return matches.length === 1 && match ? match : null;
 }
 
-function listAgentIds(config: OpenClawConfig): string[] {
+function listAgentIds(config: GrantedConfig): string[] {
   const ids = new Set<string>(["main"]);
   if (isRecord(config.agents?.entries)) {
     for (const agentId of Object.keys(config.agents.entries)) {

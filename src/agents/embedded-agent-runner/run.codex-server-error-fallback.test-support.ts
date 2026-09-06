@@ -1,6 +1,6 @@
 // Full-entry coverage for handing Codex server_error turns to model fallback.
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAssistantMessageFixture } from "../test-helpers/assistant-message-fixtures.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
@@ -17,7 +17,7 @@ import {
 } from "./run.overflow-compaction.harness.js";
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 
 describe("runEmbeddedAgent Codex server_error fallback handoff", () => {

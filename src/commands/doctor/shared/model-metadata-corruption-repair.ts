@@ -2,11 +2,11 @@ import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import type { ConfigAuditRecord } from "../../../config/io.audit.js";
 import { getRecord } from "../../../config/legacy.shared.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveConfiguredModelCatalogOwnership } from "./legacy-config-migrations.runtime.models.catalog.js";
 
 export type ModelMetadataCorruptionRepair = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   warnings: string[];
 };
@@ -125,13 +125,13 @@ function hasAuditProvenance(params: {
 
 /** Repairs audit-proven model metadata written by the historical runtime-materialization bug. */
 export function repairGeneratedModelMetadataCorruption(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   authoredRoot: unknown;
   configPath: string;
   currentHash: string | null;
   auditRecords: readonly ConfigAuditRecord[];
 }): ModelMetadataCorruptionRepair {
-  const next: OpenClawConfig = structuredClone(params.config);
+  const next: GrantedConfig = structuredClone(params.config);
   const providers = getRecord(getRecord(next.models)?.providers);
   if (!providers) {
     return { config: params.config, changes: [], warnings: [] };

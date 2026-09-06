@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import * as sessionAccessor from "../config/sessions/session-accessor.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveHeartbeatMonitorPlan } from "../cron/heartbeat-monitor.js";
 import { heartbeatTaskDeclarationKey, isHeartbeatTaskCronJob } from "../cron/heartbeat-task.js";
 import { readCronJobScratchState, writeCronJobScratch } from "../cron/scratch-store.js";
@@ -25,7 +25,7 @@ const tempDirs: string[] = [];
 let originalHome: string | undefined;
 let originalStateDir: string | undefined;
 
-function createTestCronService(storePath: string, cfg: OpenClawConfig, nowMs: number): CronService {
+function createTestCronService(storePath: string, cfg: GrantedConfig, nowMs: number): CronService {
   const noop = () => {};
   const log = { debug: noop, info: noop, warn: noop, error: noop };
   return new CronService({
@@ -88,7 +88,7 @@ tasks:
   process.env.GRANTED_STATE_DIR = env.GRANTED_STATE_DIR;
   const cfg = {
     agents: { defaults: { heartbeat: { every: "30m" } }, list: [{ id: "main" }] },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const storePath = resolveCronJobsStorePathFromConfig(cfg, env);
   const cron = createTestCronService(storePath, cfg, nowMs);
   const spec = resolveHeartbeatMonitorPlan(cfg, []).specs[0];
@@ -194,7 +194,7 @@ describe("heartbeat scratch task cron migration", () => {
     const env = { ...process.env, HOME: path.join(root, "home"), GRANTED_STATE_DIR: root };
     const cfg = {
       agents: { defaults: { heartbeat: { every: "30m" } }, list: [{ id: "main" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(collectHeartbeatTaskMigrationFindings(cfg, env)).resolves.toEqual([]);
     await expect(fs.stat(resolveOpenClawStateSqlitePath(env))).rejects.toMatchObject({

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Whatsapp tests cover group policy plugin behavior.
 import { describe, expect, it } from "vitest";
 import {
@@ -23,7 +23,7 @@ describe("whatsapp group policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveWhatsAppGroupRequireMention({ cfg, groupId: "1203630@g.us" })).toBe(false);
     expect(resolveWhatsAppGroupRequireMention({ cfg, groupId: "other@g.us" })).toBe(true);
@@ -47,7 +47,7 @@ describe("whatsapp group policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const fallbackCfg = {
       channels: {
         whatsapp: {
@@ -55,7 +55,7 @@ describe("whatsapp group policy", () => {
           accounts: { work: { groups: {} } },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveWhatsAppGroupRequireMention({
@@ -85,7 +85,7 @@ describe("whatsapp group policy", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveWhatsAppGroupToolPolicy({

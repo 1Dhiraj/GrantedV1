@@ -10,14 +10,14 @@ import {
   createAmbientVerifiedBinding,
   SystemAgentChatEngine,
   type MemoryImportStepParams,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./chat-engine.test-support.js";
 
 describe("SystemAgentChatEngine memory", () => {
   it("refuses memory import before provider discovery when the default workspace is missing", async () => {
     const root = useTempStateDir();
     const workspace = path.join(root, "missing-workspace");
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       ...sharedVerifiedInferenceConfig,
       agents: {
         ...sharedVerifiedInferenceConfig.agents,
@@ -48,14 +48,14 @@ describe("SystemAgentChatEngine memory", () => {
 
   it("rechecks inference authority immediately before a hosted memory copy", async () => {
     const workspace = useTempStateDir();
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       ...sharedVerifiedInferenceConfig,
       agents: {
         ...sharedVerifiedInferenceConfig.agents,
         defaults: { workspace },
       },
     };
-    const changedConfig: OpenClawConfig = {
+    const changedConfig: GrantedConfig = {
       agents: { defaults: { model: { primary: "anthropic/claude-opus-4-8" } } },
     };
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
@@ -108,7 +108,7 @@ describe("SystemAgentChatEngine memory", () => {
 
   it("stops a hosted memory copy when config drifts after planning", async () => {
     const workspace = useTempStateDir();
-    const baseConfig: OpenClawConfig = {
+    const baseConfig: GrantedConfig = {
       ...sharedVerifiedInferenceConfig,
       agents: {
         ...sharedVerifiedInferenceConfig.agents,

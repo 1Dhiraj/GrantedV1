@@ -4,7 +4,7 @@ import path from "node:path";
 import { withTempHome as withTempHomeBase } from "../plugin-sdk/test-env.js";
 import { resetPluginLoaderTestStateForTest } from "../plugins/loader.test-fixtures.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
-import { resetConfigRuntimeState, type OpenClawConfig } from "./config.js";
+import { resetConfigRuntimeState, type GrantedConfig } from "./config.js";
 
 function resetConfigTestRuntimeState(): void {
   resetConfigRuntimeState();
@@ -104,7 +104,7 @@ export async function withEnvOverride<T>(
 
 export function buildWebSearchProviderConfig(params: {
   provider: NonNullable<
-    NonNullable<NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"]>["provider"]
+    NonNullable<NonNullable<NonNullable<GrantedConfig["tools"]>["web"]>["search"]>["provider"]
   >;
   enabled?: boolean;
   providerConfig?: Record<string, unknown>;

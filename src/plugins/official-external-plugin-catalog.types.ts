@@ -6,7 +6,7 @@ import type {
   PluginManifestProviderEndpoint,
 } from "./manifest-types.js";
 import type {
-  OpenClawPackageManifest,
+  GrantedPackageManifest,
   PluginPackageChannel,
   PluginPackageInstall,
 } from "./package-manifest.types.js";
@@ -75,7 +75,7 @@ type OfficialExternalCatalogChannel = PluginPackageChannel & {
 /** Manifest-like metadata stored in official external catalog entries. */
 export type OfficialExternalPluginCatalogManifest = {
   legacyPluginIds?: readonly string[];
-  setupFeatures?: OpenClawPackageManifest["setupFeatures"];
+  setupFeatures?: GrantedPackageManifest["setupFeatures"];
   plugin?: {
     id?: string;
     label?: string;

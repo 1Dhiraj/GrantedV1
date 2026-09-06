@@ -1,6 +1,6 @@
 /** Tests plugin lookup table indexing for manifest-owned contribution ids. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveInstalledPluginIndexPolicyHash } from "./installed-plugin-index-policy.js";
 import type { PluginManifestRecord, PluginManifestRegistry } from "./manifest-registry.js";
 import type { PluginRegistrySnapshot } from "./plugin-registry.js";
@@ -28,12 +28,12 @@ vi.mock("../channels/config-presence.js", () => ({
       Object.keys(value).some((key) => key !== "enabled"),
     ),
   listPotentialConfiguredChannelIds: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     env: NodeJS.ProcessEnv,
     options?: { includePersistedAuthState?: boolean },
   ) => listPotentialConfiguredChannelIds(config, env, options),
   listPotentialConfiguredChannelPresenceSignals: (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     env: NodeJS.ProcessEnv,
     options?: { includePersistedAuthState?: boolean },
   ) =>
@@ -41,7 +41,7 @@ vi.mock("../channels/config-presence.js", () => ({
       channelId,
       source: "env" as const,
     })),
-  listExplicitlyDisabledChannelIdsForConfig: (config: OpenClawConfig) =>
+  listExplicitlyDisabledChannelIdsForConfig: (config: GrantedConfig) =>
     listExplicitlyDisabledChannelIdsForConfig(config),
 }));
 
@@ -121,7 +121,7 @@ describe("loadPluginLookUpTable", () => {
   beforeEach(() => {
     listPotentialConfiguredChannelIds
       .mockReset()
-      .mockImplementation((config: OpenClawConfig) => Object.keys(config.channels ?? {}));
+      .mockImplementation((config: GrantedConfig) => Object.keys(config.channels ?? {}));
     listExplicitlyDisabledChannelIdsForConfig.mockReset().mockReturnValue([]);
     loadPluginManifestRegistryForInstalledIndex.mockReset();
   });
@@ -186,7 +186,7 @@ describe("loadPluginLookUpTable", () => {
         plugins: {
           slots: { memory: "none" },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       env: {},
       index,
     });
@@ -230,7 +230,7 @@ describe("loadPluginLookUpTable", () => {
     ];
     const config = {
       plugins: { slots: { memory: "none" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const env = { TELEGRAM_FAKE_TEST_TRIGGER: "configured" } as NodeJS.ProcessEnv;
     const index = createIndex(plugins, {
       policyHash: resolveInstalledPluginIndexPolicyHash(config),
@@ -241,7 +241,7 @@ describe("loadPluginLookUpTable", () => {
     });
     listPotentialConfiguredChannelIds.mockImplementation(
       (
-        _config: OpenClawConfig,
+        _config: GrantedConfig,
         _env: NodeJS.ProcessEnv,
         options?: { ambientEnvTriggers?: string },
       ) => (options?.ambientEnvTriggers === "suppress" ? [] : ["telegram"]),
@@ -276,13 +276,13 @@ describe("loadPluginLookUpTable", () => {
     loadPluginManifestRegistryForInstalledIndex.mockReturnValue(manifestRegistry);
     listPotentialConfiguredChannelIds.mockImplementation(
       (
-        _config: OpenClawConfig,
+        _config: GrantedConfig,
         _env: NodeJS.ProcessEnv,
         options?: { ambientEnvTriggers?: string },
       ) => (options?.ambientEnvTriggers === "suppress" ? [] : ["telegram"]),
     );
     const { loadPluginLookUpTable } = await import("./plugin-lookup-table.js");
-    const config = { plugins: { slots: { memory: "none" } } } as OpenClawConfig;
+    const config = { plugins: { slots: { memory: "none" } } } as GrantedConfig;
     const env = { TELEGRAM_FAKE_TEST_TRIGGER: "configured" } as NodeJS.ProcessEnv;
 
     expect(loadPluginLookUpTable({ config, env, index }).startup.pluginIds).toEqual(["telegram"]);
@@ -299,7 +299,7 @@ describe("loadPluginLookUpTable", () => {
         config: {
           ...config,
           channels: { telegram: { enabled: true } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         env,
         index,
         ambientEnvTriggers: "suppress",
@@ -346,7 +346,7 @@ describe("loadPluginLookUpTable", () => {
           allow: ["openai"],
           slots: { memory: "none" },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       env: {},
       index,
     };
@@ -422,7 +422,7 @@ describe("loadPluginLookUpTable", () => {
           allow: ["openai"],
           slots: { memory: "none" },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       env: {},
       index,
     };
@@ -481,7 +481,7 @@ describe("loadPluginLookUpTable", () => {
         allow: ["openai"],
         slots: { memory: "none" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const index = createIndex(plugins, {
       policyHash: resolveInstalledPluginIndexPolicyHash(config),
     });
@@ -559,7 +559,7 @@ describe("loadPluginLookUpTable", () => {
         },
         slots: { memory: "none" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const index = createIndex(plugins, {
       policyHash: resolveInstalledPluginIndexPolicyHash(config),
     });
@@ -615,7 +615,7 @@ describe("loadPluginLookUpTable", () => {
       plugins: {
         enabled: false,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const index = createIndex(plugins, {
       policyHash: resolveInstalledPluginIndexPolicyHash(config),
     });
@@ -665,7 +665,7 @@ describe("loadPluginLookUpTable", () => {
       channels: {
         telegram: { token: "configured" },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const compatibleIndex = {
       ...index,
       policyHash: resolveInstalledPluginIndexPolicyHash(config),
@@ -710,7 +710,7 @@ describe("loadPluginLookUpTable", () => {
         activation: { onStartup: true },
       }),
     ];
-    const startupConfig: OpenClawConfig = {
+    const startupConfig: GrantedConfig = {
       plugins: {
         entries: { demo: { enabled: false } },
         load: { paths: ["/plugins/startup"] },
@@ -731,7 +731,7 @@ describe("loadPluginLookUpTable", () => {
       index,
     });
     loadPluginManifestRegistryForInstalledIndex.mockClear();
-    const enabledConfig: OpenClawConfig = {
+    const enabledConfig: GrantedConfig = {
       plugins: { load: { paths: ["/plugins/next-boot"] }, slots: { memory: "none" } },
     };
     const replacementIndex = createIndex([
@@ -748,7 +748,7 @@ describe("loadPluginLookUpTable", () => {
       [startupConfig, []],
       [enabledConfig, ["demo"]],
       [{ ...enabledConfig, plugins: { ...enabledConfig.plugins, deny: ["demo"] } }, []],
-    ] satisfies Array<[OpenClawConfig, string[]]>) {
+    ] satisfies Array<[GrantedConfig, string[]]>) {
       const table = loadPluginLookUpTable({
         config,
         env: { HOME: "/home/next-boot" },

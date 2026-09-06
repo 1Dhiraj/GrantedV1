@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { MEDIA_MAX_BYTES } from "../../media/store.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 
@@ -25,7 +25,7 @@ import {
   resolveAttachmentMediaPolicy,
 } from "./message-action-params.js";
 
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 const maybeIt = process.platform === "win32" ? it.skip : it;
 const matrixMediaSourceParamKeys = ["avatarPath", "avatarUrl"] as const;
 

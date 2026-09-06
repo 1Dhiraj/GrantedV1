@@ -1,7 +1,7 @@
 // ClickClack tests cover non-interactive setup validation and config writes.
 import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import type { ChannelSetupInput } from "openclaw/plugin-sdk/channel-setup";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -35,7 +35,7 @@ function makeClaimError(status: number, detail: string): Error {
 }
 
 function validate(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   accountId?: string;
   input: ClickClackSetupInput;
 }) {
@@ -46,7 +46,7 @@ function validate(params: {
   });
 }
 
-async function prepare(input: ClickClackSetupInput, cfg: OpenClawConfig = {}) {
+async function prepare(input: ClickClackSetupInput, cfg: GrantedConfig = {}) {
   return await clickClackSetupContract.prepareAccountConfigInput?.({
     cfg,
     accountId: DEFAULT_ACCOUNT_ID,
@@ -192,7 +192,7 @@ describe("ClickClack setup adapter", () => {
             apiBaseUrl: "http://127.0.0.1:8484",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     );
 
     expect(claimClickClackSetupCode).toHaveBeenCalledWith({
@@ -225,7 +225,7 @@ describe("ClickClack setup adapter", () => {
             apiBaseUrl: "http://127.0.0.1:8484",
           },
         },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).resolves.toMatchObject({
       baseUrl: "https://api.clickclack.example/services/clickclack",
     });
@@ -394,7 +394,7 @@ describe("ClickClack setup adapter", () => {
               workspace: "default",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         input: { useEnv: true },
       }),
     ).toBeNull();
@@ -407,7 +407,7 @@ describe("ClickClack setup adapter", () => {
               workspace: "default",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         input: { useEnv: true },
       }),
     ).toBe("ClickClack base URL must be a valid http(s) URL.");
@@ -451,7 +451,7 @@ describe("ClickClack setup adapter", () => {
 
     expect(
       clickClackSetupContract.applyAccountConfig({
-        cfg: { channels: { clickclack: { name: "Legacy" } } } as OpenClawConfig,
+        cfg: { channels: { clickclack: { name: "Legacy" } } } as GrantedConfig,
         accountId: "Work Team",
         input: {
           name: "Work",
@@ -509,7 +509,7 @@ describe("ClickClack setup adapter", () => {
           workspace: "default",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const withToken = clickClackSetupContract.applyAccountConfig({
       cfg: {
@@ -519,7 +519,7 @@ describe("ClickClack setup adapter", () => {
             tokenFile: "/run/secrets/old-token",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: DEFAULT_ACCOUNT_ID,
       input: {
         token: "ccb_new",
@@ -538,7 +538,7 @@ describe("ClickClack setup adapter", () => {
             token: "ccb_old",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: DEFAULT_ACCOUNT_ID,
       input: {
         tokenFile: "/run/secrets/new-token",
@@ -561,7 +561,7 @@ describe("ClickClack setup adapter", () => {
             tokenFile: "/run/secrets/old-token",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: DEFAULT_ACCOUNT_ID,
       input: { useEnv: true },
     });
@@ -581,7 +581,7 @@ describe("ClickClack setup adapter", () => {
             tokenFile: "/run/secrets/default-token",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       accountId: "work",
       input: {
         token: "ccb_work",
@@ -604,7 +604,7 @@ describe("ClickClack setup adapter", () => {
           tokenFile: "/run/secrets/clickclack",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       applyClickClackCredentialConfig({
@@ -626,7 +626,7 @@ describe("ClickClack setup adapter", () => {
           workspace: "default",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtime = createNonExitingRuntimeEnv();
 
     await clickClackSetupContract.afterAccountConfigWritten?.({

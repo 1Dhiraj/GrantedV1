@@ -9,7 +9,7 @@ import {
   fingerprintResolvedAuthProfileCredential,
   fingerprintResolvedProviderAuth,
 } from "../agents/execution-auth-binding.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSystemAgentConfiguredRouteFromConfig } from "./inference-route.js";
 import { resolvePersistentApplyInference } from "./setup-inference.js";
 import {
@@ -134,7 +134,7 @@ function authDeps(apiKey = "verified-key") {
   };
 }
 
-function config(model = "openai/gpt-5.5@openai:verified"): OpenClawConfig {
+function config(model = "openai/gpt-5.5@openai:verified"): GrantedConfig {
   return {
     agents: { defaults: { model } },
     auth: {
@@ -161,7 +161,7 @@ function requireFingerprint(value: string | undefined): string {
 }
 
 async function bindingFor(
-  baseConfig: OpenClawConfig,
+  baseConfig: GrantedConfig,
   deps: SystemAgentVerifiedInferenceDeps = { ...authDeps(), ...pluginArtifactDeps() },
 ) {
   const route = await requireRoute(baseConfig);
@@ -204,10 +204,10 @@ type ConfiguredRoute = NonNullable<
 type EmbeddedRoute = Extract<ConfiguredRoute, { runner: "embedded" }>;
 type CliRoute = Extract<ConfiguredRoute, { runner: "cli" }>;
 
-async function requireRoute(baseConfig: OpenClawConfig): Promise<ConfiguredRoute>;
-async function requireRoute(baseConfig: OpenClawConfig, runner: "embedded"): Promise<EmbeddedRoute>;
-async function requireRoute(baseConfig: OpenClawConfig, runner: "cli"): Promise<CliRoute>;
-async function requireRoute(baseConfig: OpenClawConfig, runner?: ConfiguredRoute["runner"]) {
+async function requireRoute(baseConfig: GrantedConfig): Promise<ConfiguredRoute>;
+async function requireRoute(baseConfig: GrantedConfig, runner: "embedded"): Promise<EmbeddedRoute>;
+async function requireRoute(baseConfig: GrantedConfig, runner: "cli"): Promise<CliRoute>;
+async function requireRoute(baseConfig: GrantedConfig, runner?: ConfiguredRoute["runner"]) {
   const route = await resolveSystemAgentConfiguredRouteFromConfig(baseConfig);
   if (!route || (runner && route.runner !== runner)) {
     throw new Error("missing test route");
@@ -228,15 +228,12 @@ function createBinding(
   });
 }
 
-function configSnapshot(baseConfig: OpenClawConfig) {
+function configSnapshot(baseConfig: GrantedConfig) {
   const snapshot = { exists: true, valid: true, config: baseConfig };
   return { readConfigFileSnapshot: vi.fn(async () => snapshot) as never };
 }
 
-function codexHarnessConfig(
-  profileId?: string,
-  plugins?: OpenClawConfig["plugins"],
-): OpenClawConfig {
+function codexHarnessConfig(profileId?: string, plugins?: GrantedConfig["plugins"]): GrantedConfig {
   return {
     agents: {
       list: [
@@ -275,7 +272,7 @@ function opaqueHarnessAuth(route: ConfiguredRoute, backendId = "codex") {
 }
 
 async function opaqueHarnessBinding(
-  baseConfig: OpenClawConfig,
+  baseConfig: GrantedConfig,
   options: { configuredAuto?: boolean; backendId?: string } = {},
 ) {
   const route = await requireRoute(baseConfig, "embedded");
@@ -292,7 +289,7 @@ async function opaqueHarnessBinding(
 
 async function revalidate(
   binding: Awaited<ReturnType<typeof bindingFor>>,
-  baseConfig: OpenClawConfig,
+  baseConfig: GrantedConfig,
   deps: SystemAgentVerifiedInferenceDeps = {},
 ) {
   return resolveSystemAgentVerifiedInferenceRoute(binding, {
@@ -309,7 +306,7 @@ async function envAuthFixture() {
         models: { "openai/gpt-5.6": { agentRuntime: { id: "openclaw" } } },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const route = await requireRoute(baseConfig);
   const resolvedAuth = {
     apiKey: "env-key",
@@ -328,7 +325,7 @@ describe("verified OpenClaw inference binding", () => {
     const oauthConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8@anthropic:oauth" } },
       auth: { profiles: { "anthropic:oauth": { provider: "anthropic", mode: "oauth" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const route = await requireRoute(oauthConfig);
     const credential = {
       type: "oauth" as const,
@@ -439,7 +436,7 @@ describe("verified OpenClaw inference binding", () => {
       agents: {
         entries: { ops: { default: true, model: "claude-cli/claude-opus-5" } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const route = await requireRoute(cliConfig, "cli");
     const resolveOwner = vi.fn(async () => "opaque-cli-owner");
     const deps = {
@@ -471,7 +468,7 @@ describe("verified OpenClaw inference binding", () => {
   it("invalidates a strict CLI credential when its package artifact changes", async () => {
     const cliConfig = {
       agents: { defaults: { model: "claude-cli/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const route = await requireRoute(cliConfig, "cli");
     const resolveAuth = vi.fn(() => "strict-cli-credential");
     const resolveArtifact = vi.fn(async () => "claude-cli-artifact-v1");
@@ -535,7 +532,7 @@ describe("verified OpenClaw inference binding", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       await expect(revalidate(binding, materialized, deps)).resolves.toBe(binding.execution);
 
@@ -562,7 +559,7 @@ describe("verified OpenClaw inference binding", () => {
         ],
       },
       auth: { profiles: { [profileId]: { provider: "claude-cli", mode: "api_key" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const credential = {
       type: "api_key" as const,
       provider: "claude-cli",
@@ -694,7 +691,7 @@ describe("verified OpenClaw inference binding", () => {
       auth: {
         profiles: { "openai:verified": { provider: "openai", mode: "api_key" } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const resolved = await requireRoute(harnessConfig, "embedded");
     const configuredRoute = {
       ...resolved,
@@ -864,7 +861,7 @@ describe("verified OpenClaw inference binding", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const route = await requireRoute(bedrockConfig, "embedded");
     const auth = { source: "aws-sdk default chain", mode: "aws-sdk" as const };
     const fingerprint = () =>
@@ -1044,7 +1041,7 @@ describe("verified OpenClaw inference binding", () => {
       ...baseConfig,
       channels: { discord: { enabled: true } },
       plugins: { entries: { discord: { enabled: true } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const route = await revalidate(binding, changed, authDeps());
 
@@ -1087,9 +1084,9 @@ describe("verified OpenClaw inference binding", () => {
       remainsValid: false,
     },
   ])("projects the provider-owner policy when $name", async ({ plugins, remainsValid }) => {
-    const baseConfig = { ...config(), plugins: { allow: [] } } satisfies OpenClawConfig;
+    const baseConfig = { ...config(), plugins: { allow: [] } } satisfies GrantedConfig;
     const binding = await bindingFor(baseConfig);
-    const changed = { ...config(), plugins } satisfies OpenClawConfig;
+    const changed = { ...config(), plugins } satisfies GrantedConfig;
 
     const route = await revalidate(binding, changed, authDeps());
 

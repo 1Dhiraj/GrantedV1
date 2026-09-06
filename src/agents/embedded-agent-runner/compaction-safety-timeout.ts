@@ -2,7 +2,7 @@
  * Wraps compaction calls with a safety timeout and abort cleanup.
  */
 import { finiteSecondsToTimerSafeMilliseconds } from "@openclaw/normalization-core/number-coercion";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isRuntimeCompactionDelegate } from "../../context-engine/delegate.js";
 import type { CompactResult, ContextEngine } from "../../context-engine/types.js";
 import { createAbortError } from "../../infra/abort-signal.js";
@@ -45,7 +45,7 @@ async function raceCompactionWithAbortSignal<T>(
   }
 }
 
-export function resolveCompactionTimeoutMs(cfg?: OpenClawConfig): number {
+export function resolveCompactionTimeoutMs(cfg?: GrantedConfig): number {
   return (
     finiteSecondsToTimerSafeMilliseconds(cfg?.agents?.defaults?.compaction?.timeoutSeconds, {
       floorSeconds: true,

@@ -12,8 +12,8 @@ import {
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import type { SessionTranscriptReadScope } from "./session-accessor.sqlite-contract.js";
 import {
@@ -55,7 +55,7 @@ export type SessionTranscriptReconcileResult = {
   reconciledSessions: number;
 };
 
-type SessionTranscriptReconcileParams = OpenClawAgentDatabaseOptions & {
+type SessionTranscriptReconcileParams = GrantedAgentDatabaseOptions & {
   createWorker?: (filename: string | URL, options: WorkerOptions) => Worker;
   preferredSessionId?: string;
 };
@@ -65,7 +65,7 @@ type ActivePreparedProjection = {
   plan: PreparedSessionTranscriptProjectionMetadata;
 };
 
-function reconcileKey(params: OpenClawAgentDatabaseOptions): string {
+function reconcileKey(params: GrantedAgentDatabaseOptions): string {
   return resolveOpenClawAgentSqlitePath(params);
 }
 
@@ -86,9 +86,9 @@ function continueProjectionWorker(worker: Worker, accepted: boolean): void {
 }
 
 async function runProjectionWrite<T>(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   operationLabel: string,
-  operation: (database: OpenClawAgentDatabase) => T,
+  operation: (database: GrantedAgentDatabase) => T,
 ): Promise<T> {
   return await runExclusiveSqliteSessionWrite(databaseOptions, async () =>
     runOpenClawAgentWriteTransaction(operation, databaseOptions, { operationLabel }),
@@ -96,7 +96,7 @@ async function runProjectionWrite<T>(
 }
 
 async function claimPreparedSessionTranscriptProjection(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   plan: PreparedSessionTranscriptProjectionMetadata,
 ): Promise<ActivePreparedProjection | undefined> {
   const claimId = nextProjectionClaimId();
@@ -142,7 +142,7 @@ function decodeFtsChunk(chunk: EncodedTranscriptFtsChunk) {
 }
 
 async function appendPreparedProjectionChunk(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   active: ActivePreparedProjection,
   rows:
     | {
@@ -173,7 +173,7 @@ async function appendPreparedProjectionChunk(
 }
 
 async function finalizePreparedProjection(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   active: ActivePreparedProjection,
 ): Promise<boolean> {
   return await runProjectionWrite(
@@ -193,7 +193,7 @@ export async function reconcileSessionTranscriptIndexes(
   params: SessionTranscriptReconcileParams,
 ): Promise<SessionTranscriptReconcileResult> {
   const databasePath = resolveOpenClawAgentSqlitePath(params);
-  const databaseOptions: OpenClawAgentDatabaseOptions = {
+  const databaseOptions: GrantedAgentDatabaseOptions = {
     agentId: params.agentId,
     ...(params.env ? { env: params.env } : {}),
     path: databasePath,
@@ -385,14 +385,14 @@ export function startSessionTranscriptIndexReconcile(
 }
 
 export function isSessionTranscriptIndexReconcileRunning(
-  params: OpenClawAgentDatabaseOptions,
+  params: GrantedAgentDatabaseOptions,
 ): boolean {
   return runningReconciles.has(reconcileKey(params));
 }
 
 /** Test and maintenance wait hook for an already-scheduled reconcile. */
 export async function waitForSessionTranscriptIndexReconcile(
-  params: OpenClawAgentDatabaseOptions,
+  params: GrantedAgentDatabaseOptions,
 ): Promise<void> {
   await runningReconciles.get(reconcileKey(params))?.promise;
 }

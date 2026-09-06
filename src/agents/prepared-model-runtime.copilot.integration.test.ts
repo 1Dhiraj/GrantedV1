@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadBundledPluginPublicSurface } from "../plugin-sdk/test-helpers/public-surface-loader.js";
 import * as pluginState from "../plugin-state/plugin-state-store.js";
 import * as pluginModuleRuntime from "../plugins/loader-module-runtime.js";
@@ -49,7 +49,7 @@ it("prepares an agent-local Copilot BYOK harness without replacing the active ro
     GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     GRANTED_DISABLE_BUNDLED_PLUGINS: "0",
   };
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: {
       ownership: "explicit",
       entries: {

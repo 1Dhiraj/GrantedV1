@@ -10,7 +10,7 @@ import {
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, PluginRuntime, ResolvedLineAccount } from "../api.js";
+import type { GrantedConfig, PluginRuntime, ResolvedLineAccount } from "../api.js";
 import { linePlugin } from "./channel.js";
 import { lineGatewayAdapter } from "./gateway.js";
 import { probeLineBot } from "./probe.js";
@@ -55,7 +55,7 @@ describe("line setup wizard", () => {
 
     const result = await runSetupWizardConfigure({
       configure: lineConfigure,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       prompter,
       options: {},
     });
@@ -100,7 +100,7 @@ describe("line setup wizard", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(configured).toBe(false);
@@ -164,7 +164,7 @@ describe("linePlugin status.probeAccount", () => {
     });
 
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       account: {
         accountId: "default",
         enabled: true,

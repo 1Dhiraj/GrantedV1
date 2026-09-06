@@ -14,7 +14,7 @@ import {
   normalizeOptionalString,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 
 function stripCodeFences(s: string): string {
   const trimmed = s.trim();
@@ -45,7 +45,7 @@ function stripDuplicateProviderPrefix(provider: string | undefined, model: strin
 }
 
 function resolveLlmTaskModelRef(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   provider?: string;
   rawModel?: string;
   preserveProvider?: boolean;
@@ -123,7 +123,7 @@ export const llmTaskToolDefinition = {
   }),
 };
 
-export function createLlmTaskTool(api: OpenClawPluginApi) {
+export function createLlmTaskTool(api: GrantedPluginApi) {
   return {
     ...llmTaskToolDefinition,
 
@@ -181,7 +181,7 @@ export function createLlmTaskTool(api: OpenClawPluginApi) {
 
       const thinkingRaw =
         typeof params.thinking === "string" && params.thinking.trim() ? params.thinking : undefined;
-      let thinkLevel: ReturnType<OpenClawPluginApi["runtime"]["agent"]["normalizeThinkingLevel"]> =
+      let thinkLevel: ReturnType<GrantedPluginApi["runtime"]["agent"]["normalizeThinkingLevel"]> =
         undefined;
       if (thinkingRaw) {
         thinkLevel = api.runtime.agent.normalizeThinkingLevel(thinkingRaw);

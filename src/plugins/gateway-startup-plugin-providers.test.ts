@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { collectConfiguredAgentModelProviderIds } from "./gateway-startup-plugin-providers.js";
 import type { PluginManifestRecord, PluginManifestRegistry } from "./manifest-registry.js";
 
@@ -81,7 +81,7 @@ describe("configured Gateway model provider ownership", () => {
     ]);
     const config = {
       agents: { defaults: { model: "selected/requested" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(collectConfiguredAgentModelProviderIds(config, registry)).toEqual(new Set(["selected"]));
     expect(unrelatedNormalizationReads).toBe(0);

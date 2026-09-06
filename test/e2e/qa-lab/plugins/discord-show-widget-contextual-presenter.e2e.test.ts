@@ -4,7 +4,7 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { MessageFlags } from "discord-api-types/v10";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   GatewayClient,
   startGatewayClientWhenEventLoopReady,
@@ -132,7 +132,7 @@ async function startDiscordRestLoopback() {
   };
 }
 
-function configureDiscordActivities(cfg: OpenClawConfig): OpenClawConfig {
+function configureDiscordActivities(cfg: GrantedConfig): GrantedConfig {
   return {
     ...cfg,
     tools: {

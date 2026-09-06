@@ -6,7 +6,7 @@ import {
   type QuestionWaitAnswerResult,
   type SecretsStoreListResult,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ENV_SECRET_REF_ID_RE, type SecretRef } from "../../config/types.secrets.js";
 import { ADMIN_SCOPE } from "../../gateway/operator-scopes.js";
 import { resolveDefaultSecretProviderAlias } from "../../secrets/ref-contract.js";
@@ -225,7 +225,7 @@ function listSecretStoreResult(result: SecretsStoreListResult) {
 
 /** Creates the metadata-only secret-store tool and its human-entered write flow. */
 export function createSecretsTool(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   runId?: string;

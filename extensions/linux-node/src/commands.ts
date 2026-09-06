@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
 import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
@@ -146,7 +146,7 @@ async function defaultWithTempFile<T>(
 
 export function createLinuxNodeCommands(
   deps: LinuxNodeCommandDeps,
-): OpenClawPluginNodeHostCommand[] {
+): GrantedPluginNodeHostCommand[] {
   const platform = deps.platform ?? process.platform;
   const env = deps.env ?? process.env;
   const findExecutable = deps.resolveExecutable ?? resolveExecutable;
@@ -182,7 +182,7 @@ export function createLinuxNodeCommands(
   };
   const isAvailable =
     (capability: keyof ResolvedLinuxNodePluginConfig, tool: "ffmpeg" | "notify-send") =>
-    (context: OpenClawPluginNodeHostCommandAvailabilityContext) =>
+    (context: GrantedPluginNodeHostCommandAvailabilityContext) =>
       platform === "linux" &&
       isCapabilityEnabledForHost(context, capability) &&
       findTool(tool, context.env) !== null;

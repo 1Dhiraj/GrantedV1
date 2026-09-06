@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { WizardCancelledError } from "../wizard/prompts.js";
 import { setupGuidedCustodianTestSuite } from "./onboard-guided.custodian.test-support.js";
 import type { GuidedOnboardingDeps } from "./onboard-guided.js";
@@ -345,7 +345,7 @@ describe("runGuidedOnboarding custodian flow", () => {
   });
 
   it("rejects a replaced config before recording inference setup ownership", async () => {
-    const replacementConfig: OpenClawConfig = {
+    const replacementConfig: GrantedConfig = {
       wizard: { securityAcknowledgedAt: "2026-08-03T00:00:00.000Z" },
     };
     const activate = vi.fn<NonNullable<GuidedOnboardingDeps["activate"]>>(async (params) => {
@@ -444,7 +444,7 @@ describe("runGuidedOnboarding custodian flow", () => {
   it("rejects replacement config identity at the setup config-write boundary", async () => {
     const setupEffects = vi.fn();
     const applySetup = vi.fn<NonNullable<GuidedOnboardingDeps["applySetup"]>>(async (params) => {
-      const replacementConfig: OpenClawConfig = {
+      const replacementConfig: GrantedConfig = {
         agents: { defaults: { workspace: params.workspace } },
         wizard: { securityAcknowledgedAt: "2026-08-03T00:00:00.000Z" },
       };
@@ -501,14 +501,14 @@ describe("runGuidedOnboarding custodian flow", () => {
   it.each([
     {
       label: "installation identity",
-      replace: (config: OpenClawConfig): OpenClawConfig => ({
+      replace: (config: GrantedConfig): GrantedConfig => ({
         ...config,
         wizard: { ...config.wizard, securityAcknowledgedAt: "2026-08-03T00:00:00.000Z" },
       }),
     },
     {
       label: "effective workspace",
-      replace: (config: OpenClawConfig): OpenClawConfig => ({
+      replace: (config: GrantedConfig): GrantedConfig => ({
         ...config,
         agents: {
           ...config.agents,

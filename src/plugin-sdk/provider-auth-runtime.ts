@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { ensureAuthProfileStore } from "../agents/auth-profiles/store.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { startOAuthLoopbackCallbackServer } from "../infra/oauth-loopback-callback.js";
 import { escapeHtml } from "../shared/html-escape.js";
 
@@ -78,7 +78,7 @@ export type ProviderAuthProfileMetadata = {
 
 export function resolveProviderAuthProfileMetadata(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   profileId?: string;
   agentDir?: string;
 }): ProviderAuthProfileMetadata {

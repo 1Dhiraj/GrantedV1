@@ -3,7 +3,7 @@ import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type { ModelsAuthLoginFlowOptions } from "openclaw/plugin-sdk/provider-auth-login-flow-runtime";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
@@ -64,7 +64,7 @@ type TelegramLoginFlow = NonNullable<TelegramNativeCommandDeps["runModelsAuthLog
 let loginAccountIndex = 0;
 
 function registerLoginCommand(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   loginFlow: LoginFlowMock;
   accountId?: string;
   allowFrom?: string[];
@@ -163,7 +163,7 @@ describe("registerTelegramNativeCommands /login", () => {
           ownerAllowFrom: ["200"],
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
 
@@ -214,7 +214,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
 
@@ -273,7 +273,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
     if (!nativeCommandCallbackDispatcher) {
@@ -336,7 +336,7 @@ describe("registerTelegramNativeCommands /login", () => {
           ownerAllowFrom: ["200"],
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
       allowFrom: ["200"],
     });
@@ -365,7 +365,7 @@ describe("registerTelegramNativeCommands /login", () => {
           allowFrom: { telegram: ["200"] },
           ownerAllowFrom: ["999"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
 
@@ -400,7 +400,7 @@ describe("registerTelegramNativeCommands /login", () => {
           ownerAllowFrom: ["200"],
         },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
 
@@ -427,7 +427,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
     });
 
@@ -457,7 +457,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
       runtime,
     });
@@ -508,7 +508,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
       abortSignal: shutdown.signal,
     });
@@ -540,7 +540,7 @@ describe("registerTelegramNativeCommands /login", () => {
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
         agents: { list: [{ id: "main", default: true }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       loginFlow,
       abortSignal: account.signal,
     });
@@ -591,7 +591,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -664,7 +664,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -725,7 +725,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -775,7 +775,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -829,7 +829,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -858,7 +858,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });
@@ -905,7 +905,7 @@ describe("registerTelegramNativeCommands /login", () => {
       accountId: "default",
       cfg: {
         commands: { native: true, ownerAllowFrom: ["200"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       allowFrom: ["200"],
       loginFlow: runModelsAuthLoginFlow,
     });

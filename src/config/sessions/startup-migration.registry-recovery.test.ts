@@ -14,7 +14,7 @@ import {
   repairOpenClawStateDatabaseSchemaIfNeeded,
 } from "../../state/openclaw-state-db.js";
 import { withEnvAsync } from "../../test-utils/env.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { loadCombinedSessionStoreForGatewayCore } from "./combined-store-gateway.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";
@@ -32,7 +32,7 @@ it("does not create a missing configured agent database during startup maintenan
   const stateDir = path.join(root, "state");
   const storePath = path.join(stateDir, "agents", "idle", "sessions", "sessions.json");
   const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { entries: { idle: { default: true } } },
     session: { store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json") },
   };
@@ -72,7 +72,7 @@ it("re-registers durable lineage children before configured-only runtime reads",
   await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     const env = { ...process.env };
     const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { entries: { ops: { default: true } } },
       session: { store: storeTemplate },
     };
@@ -158,7 +158,7 @@ it("keeps copied state directories self-contained for combined gateway reads", a
   fs.mkdirSync(sourceStateDir);
   const canonicalSourceStateDir = fs.realpathSync.native(sourceStateDir);
   const copiedStateDir = path.join(root, "copy");
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { entries: { main: { default: true } } },
   };
   const sessionKey = "agent:main:copied-state";

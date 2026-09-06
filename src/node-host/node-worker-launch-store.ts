@@ -5,10 +5,10 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import type { NodeWorkerSupervisorIdentity } from "../worker/node-supervisor-protocol.js";
@@ -33,7 +33,7 @@ export type {
 } from "./node-worker-launch-receipt.js";
 
 type NodeWorkerLaunchDatabase = Pick<
-  OpenClawStateDatabase,
+  GrantedStateDatabase,
   "node_worker_launch_containers" | "node_worker_launches" | "node_worker_turns"
 >;
 
@@ -314,7 +314,7 @@ function rowMatchesImmutableIdentity(
 
 /** Synchronous shared-state owner for durable node worker launch supervision. */
 export class NodeWorkerLaunchStore {
-  private readonly databaseOptions: OpenClawStateDatabaseOptions;
+  private readonly databaseOptions: GrantedStateDatabaseOptions;
 
   constructor(options: { env?: NodeJS.ProcessEnv } = {}) {
     this.databaseOptions = options.env ? { env: options.env } : {};

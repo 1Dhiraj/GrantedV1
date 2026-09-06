@@ -1,7 +1,7 @@
 // Setup migration promotion owns durable journals, rollback, and path validation.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readDurableJsonFile, writeJsonAtomic } from "../infra/json-files.js";
 import { isNotFoundPathError, isPathInside } from "../infra/path-guards.js";
 import type { MigrationApplyResult, MigrationPlan } from "../plugins/types.js";
@@ -269,7 +269,7 @@ async function hasPublishedPromotionComponent(components: PromotionComponent[]):
 export async function recoverSetupMigrationPromotion(params: {
   stateDir: string;
   providerId: string;
-  readConfigFile: () => Promise<OpenClawConfig>;
+  readConfigFile: () => Promise<GrantedConfig>;
 }): Promise<SetupMigrationPromotionResume | undefined> {
   const found = await readLatestPromotionJournal(params);
   if (!found) {

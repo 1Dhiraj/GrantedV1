@@ -6,7 +6,7 @@ import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   createPluginStateSyncKeyedStore,
@@ -21,7 +21,7 @@ import {
   seedPluginStateEntriesForTests,
 } from "./plugin-state-store.test-helpers.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeAll(async () => {
   testState = await createOpenClawTestState({ label: "plugin-state-doctor-repair" });

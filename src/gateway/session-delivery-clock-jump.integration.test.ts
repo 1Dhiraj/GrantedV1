@@ -1,6 +1,6 @@
 import http from "node:http";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getDeliveryQueueEntryStatus } from "../infra/delivery-queue-sqlite.js";
 import { scheduleSessionDelivery } from "../infra/session-delivery-queue-runtime.js";
 import { testing } from "../infra/session-delivery-queue-runtime.test-support.js";
@@ -142,7 +142,7 @@ describe("session delivery clock-jump integration", () => {
           gateway: { auth: { mode: "token", token } },
           plugins: { slots: { memory: "none" } },
           tools: { profile: "minimal" },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         const { id } = await enqueueClaimedSessionDelivery(
           {
             kind: "agentTurn",

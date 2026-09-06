@@ -15,7 +15,7 @@ import {
   resolveUsableCustomProviderApiKey,
 } from "../../agents/model-auth.js";
 import type { ProviderAuthAliasLookupParams } from "../../agents/provider-auth-aliases.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { hasConfiguredSecretInput } from "../../config/types.secrets.js";
 import type { readPreparedCatalog } from "../server-model-catalog-auth.js";
 import type { ModelAuthStatusProvider } from "./models-auth-status.types.js";
@@ -32,7 +32,7 @@ function resolveEnvVarName(source: string): string | undefined {
 }
 
 export function resolveProviderApiKeys(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   store: AuthProfileStore,
   authAliasLookupParams: PreparedAuthMetadataLookupParams,
 ): Map<string, ModelAuthStatusProvider["apiKey"]> {

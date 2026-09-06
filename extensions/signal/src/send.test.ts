@@ -1,6 +1,6 @@
 // Signal tests cover send plugin behavior.
 import http from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const signalRpcRequestMock = vi.hoisted(() => vi.fn());
@@ -43,7 +43,7 @@ const SIGNAL_TEST_CFG = {
       },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 describe("sendMessageSignal receipts", () => {
   beforeEach(() => {
@@ -655,7 +655,7 @@ describe("Signal quoted-message provider replay safety", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     vi.doUnmock("./client-adapter.js");
     vi.resetModules();
@@ -787,7 +787,7 @@ describe("Signal native JSON-RPC recipient delivery", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     signalRpcRequestMock.mockClear();
     vi.doUnmock("./client-adapter.js");

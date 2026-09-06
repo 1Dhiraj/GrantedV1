@@ -5,7 +5,7 @@ import path from "node:path";
 import { runManagedCommand } from "../../../../scripts/lib/managed-child-process.mts";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 import { waitFor } from "./cloud-worker-midturn-loss-fixture.js";
 import type { SkillLibraryWireClient } from "./skill-library-wire-fixture.js";
@@ -21,7 +21,7 @@ type ListedNode = {
 };
 
 export async function startSkillLibraryNodeProcess(
-  gateway: OpenClawTestInstance,
+  gateway: GrantedTestInstance,
   admin: SkillLibraryWireClient,
 ) {
   const node = await createOpenClawTestInstance({

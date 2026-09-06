@@ -3,7 +3,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { GrantedConfig } from "../../../config/config.js";
 import { replaceTranscriptEvents } from "../../../config/sessions/session-accessor.js";
 import { createInternalHookEvent } from "../../internal-hooks.js";
 import handler, { flushSessionMemoryWritesForTest } from "./handler.js";
@@ -30,7 +30,7 @@ describe("session-memory automatic reset", () => {
       const cfg = {
         agents: { defaults: { workspace: tempDir } },
         session: { store: storePath },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await replaceTranscriptEvents({ agentId: "main", sessionId, sessionKey, storePath }, [
         {
           type: "message",

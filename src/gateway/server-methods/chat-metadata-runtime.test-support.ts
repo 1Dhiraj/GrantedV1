@@ -7,13 +7,13 @@ import type { AuthProfileStore } from "../../agents/auth-profiles.js";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
 import { setPreparedModelRuntimeAuthStore } from "../../agents/prepared-model-runtime-auth.js";
 import type { PreparedModelRuntimeSnapshot } from "../../agents/prepared-model-runtime.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { createGatewayChatMetadataRuntime } from "./chat-metadata-runtime.js";
 import type { GatewayRequestContext } from "./types.js";
 
 export function createChatMetadataOwner(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   id: string,
   credentials: AgentCredentialMap = {},
   provider = "test",
@@ -55,7 +55,7 @@ export function createChatMetadataOwner(
 }
 
 export function createChatMetadataHarness(
-  initialConfig: OpenClawConfig = { agents: { list: [{ id: "main", default: true }] } },
+  initialConfig: GrantedConfig = { agents: { list: [{ id: "main", default: true }] } },
   runtimeOptions: {
     beforeRefresh?: () => Promise<void>;
     refreshOnRead?: boolean;
@@ -158,7 +158,7 @@ export function createChatMetadataHarness(
     getSkillsVersion,
     invalidProjections,
     runtime,
-    setConfig(next: OpenClawConfig) {
+    setConfig(next: GrantedConfig) {
       config = next;
     },
     setAuthStore(next: AuthProfileStore | undefined) {

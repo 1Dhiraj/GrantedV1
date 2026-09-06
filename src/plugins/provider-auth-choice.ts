@@ -8,7 +8,7 @@ import {
 import { formatLiteralProviderPrefixedModelRef } from "../agents/model-ref-shared.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.js";
 import { normalizeAgentModelRefForConfig } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openUrl } from "../infra/browser-open.js";
 import { isRemoteEnvironment } from "../infra/remote-env.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -35,7 +35,7 @@ import type {
 
 type ApplyProviderAuthChoiceParams = {
   authChoice: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;
@@ -51,7 +51,7 @@ type ApplyProviderAuthChoiceParams = {
 };
 
 type ApplyProviderAuthChoiceResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentModelOverride?: string;
   retrySelection?: boolean;
 };
@@ -79,9 +79,9 @@ function formatModelRefForDisplay(modelRef: string, provider: ProviderPlugin): s
 }
 
 function restoreConfiguredPrimaryModel(
-  nextConfig: OpenClawConfig,
-  originalConfig: OpenClawConfig,
-): OpenClawConfig {
+  nextConfig: GrantedConfig,
+  originalConfig: GrantedConfig,
+): GrantedConfig {
   const originalModel = originalConfig.agents?.defaults?.model;
   const nextAgents = nextConfig.agents;
   const nextDefaults = nextAgents?.defaults;
@@ -110,7 +110,7 @@ function restoreConfiguredPrimaryModel(
   };
 }
 
-function resolveConfiguredDefaultModelPrimary(cfg: OpenClawConfig): string | undefined {
+function resolveConfiguredDefaultModelPrimary(cfg: GrantedConfig): string | undefined {
   const model = cfg.agents?.defaults?.model;
   if (typeof model === "string") {
     return model;
@@ -151,8 +151,8 @@ async function noteDefaultModelResult(params: {
 }
 
 async function applyDefaultModelFromAuthChoice(params: {
-  config: OpenClawConfig;
-  entryConfig: OpenClawConfig;
+  config: GrantedConfig;
+  entryConfig: GrantedConfig;
   selectedModel: string;
   selectedModelDisplay?: string;
   preserveExistingDefaultModel: boolean | undefined;
@@ -160,8 +160,8 @@ async function applyDefaultModelFromAuthChoice(params: {
   runtime: RuntimeEnv;
   workspaceDir?: string;
   beforePersistentEffect?: () => void | Promise<void>;
-  runSelectedModelHook: (config: OpenClawConfig) => Promise<void>;
-}): Promise<OpenClawConfig | null> {
+  runSelectedModelHook: (config: GrantedConfig) => Promise<void>;
+}): Promise<GrantedConfig | null> {
   const previousPrimary = resolveConfiguredDefaultModelPrimary(params.entryConfig);
   const preservesDifferentPrimary =
     params.preserveExistingDefaultModel === true &&
@@ -226,7 +226,7 @@ async function loadPluginProviderRuntime(): Promise<ProviderAuthChoiceRuntime> {
 
 function resolveManifestAuthChoiceScope(params: {
   authChoice: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
   env?: NodeJS.ProcessEnv;
 }): ProviderAuthChoiceMetadata | undefined {
@@ -242,7 +242,7 @@ function withProviderPluginId(provider: ProviderPlugin, pluginId: string): Provi
   return provider.pluginId === pluginId ? provider : { ...provider, pluginId };
 }
 export async function runProviderPluginAuthMethodUnpersisted(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   runtime: RuntimeEnv;
   signal?: AbortSignal;
@@ -282,9 +282,9 @@ export async function runProviderPluginAuthMethodUnpersisted(params: {
 }
 
 export function applyProviderPluginAuthMethodResultConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   result: ProviderAuthResult;
-}): OpenClawConfig {
+}): GrantedConfig {
   const { result } = params;
   let nextConfig = params.config;
 
@@ -311,7 +311,7 @@ export function applyProviderPluginAuthMethodResultConfig(params: {
 }
 
 export async function runProviderPluginAuthMethod(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
@@ -326,7 +326,7 @@ export async function runProviderPluginAuthMethod(params: {
   secretInputMode?: ProviderAuthOptionBag["secretInputMode"];
   allowSecretRefPrompt?: boolean;
   opts?: Partial<ProviderAuthOptionBag>;
-}): Promise<{ config: OpenClawConfig; defaultModel?: string }> {
+}): Promise<{ config: GrantedConfig; defaultModel?: string }> {
   const prepared = await prepareProviderPluginAuthMethod(params);
   await prepared.persistAuthProfiles();
 
@@ -339,7 +339,7 @@ export async function runProviderPluginAuthMethod(params: {
 async function prepareProviderPluginAuthMethod(
   params: Parameters<typeof runProviderPluginAuthMethod>[0],
 ): Promise<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaultModel?: string;
   authProfiles: ProviderAuthResult["profiles"];
   persistAuthProfiles: (profiles?: ProviderAuthResult["profiles"]) => Promise<void>;
@@ -461,7 +461,7 @@ export async function prepareAuthChoiceLoadedPluginProvider(
       enabledConfig = enableResult.config;
     }
 
-    const resolveScopedRuntimeProviders = (config: OpenClawConfig): ProviderPlugin[] =>
+    const resolveScopedRuntimeProviders = (config: GrantedConfig): ProviderPlugin[] =>
       resolvePluginProviders({
         config,
         workspaceDir,

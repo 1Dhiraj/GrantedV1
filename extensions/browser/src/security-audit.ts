@@ -1,7 +1,7 @@
 /**
  * Browser plugin security audit checks for auth and remote CDP exposure.
  */
-import type { OpenClawPluginSecurityAuditContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginSecurityAuditContext } from "openclaw/plugin-sdk/plugin-entry";
 import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
 import { formatCliCommand } from "openclaw/plugin-sdk/setup-tools";
 import { isPrivateNetworkOptInEnabled, isPrivateIpAddress } from "openclaw/plugin-sdk/ssrf-policy";
@@ -24,7 +24,7 @@ function isTrustedPrivateHostname(hostname: string): boolean {
 }
 
 /** Collects Browser plugin security audit findings for the current config/env. */
-export function collectBrowserSecurityAuditFindings(ctx: OpenClawPluginSecurityAuditContext) {
+export function collectBrowserSecurityAuditFindings(ctx: GrantedPluginSecurityAuditContext) {
   const findings: Array<{
     checkId: string;
     severity: "warn" | "critical";

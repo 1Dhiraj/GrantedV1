@@ -10,7 +10,7 @@ import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coerci
 import type { Model } from "openclaw/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { mintSecretSentinel } from "../secrets/sentinel.js";
 import { getDeterministicFreePortBlock } from "../test-utils/ports.js";
 import { killPidIfAlive, readPidFile, waitForPidToExit } from "../test-utils/process-tree.js";
@@ -265,7 +265,7 @@ describe("provider local service", () => {
               },
             },
           },
-        }) as OpenClawConfig,
+        }) as GrantedConfig,
     );
 
     const lease = await withSpawnReadyHealthProbe(() =>

@@ -9,7 +9,7 @@ import {
 import { resolveCanonicalPluginApprovalRequestAllowedDecisions } from "../infra/plugin-approval-canonical-decisions.js";
 import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js";
 import { resolvePluginApprovalTimeoutMs } from "../infra/plugin-approvals.js";
-import type { OpenClawPluginNodeInvokePolicyContext } from "../plugins/types.js";
+import type { GrantedPluginNodeInvokePolicyContext } from "../plugins/types.js";
 import type { AgentRuntimeIdentity } from "./agent-runtime-identity-token.js";
 import {
   resolveNodeInvokePlacementGrant,
@@ -67,7 +67,7 @@ export function createPluginNodeInvokeApprovalRuntime(params: {
   command: string;
   approvalScope?: string;
   nodeSession: NodeSession;
-  risk: OpenClawPluginNodeInvokePolicyContext["risk"];
+  risk: GrantedPluginNodeInvokePolicyContext["risk"];
   standingGrantAuthorization: NodeInvokePlacementGrantAuthorization;
   placementGrantAuthority?: {
     agentId: string;
@@ -93,7 +93,7 @@ export function createPluginNodeInvokeApprovalRuntime(params: {
     threadId?: unknown;
   };
   isCurrent: () => boolean;
-}): OpenClawPluginNodeInvokePolicyContext["approvals"] | undefined {
+}): GrantedPluginNodeInvokePolicyContext["approvals"] | undefined {
   const manager = params.context.pluginApprovalManager;
   if (!manager) {
     return undefined;

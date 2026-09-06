@@ -1,5 +1,5 @@
 import { listNativeCommandSpecsForConfig as listRealNativeCommandSpecsForConfig } from "openclaw/plugin-sdk/command-auth-native";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
 import { registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
 import {
@@ -37,7 +37,7 @@ vi.mock("openclaw/plugin-sdk/plugin-command-runtime", async (importOriginal) => 
 type ResolverParams = Parameters<typeof resolveDiscordProviderCommandSpecs>[0];
 type SkillCommands = ReturnType<NonNullable<ResolverParams["listSkillCommandsForAgents"]>>;
 
-const cfg: OpenClawConfig = {};
+const cfg: GrantedConfig = {};
 const skillCommands = [
   { name: "skill-only", skillName: "Skill Only", description: "Skill only" },
   { name: "extra-skill", skillName: "Extra Skill", description: "Extra skill" },
@@ -63,7 +63,7 @@ function createResolverHarness(
   const listSkillCommandsForAgents = vi.fn(() => configuredSkillCommands);
   const listNativeCommandSpecsForConfig = vi.fn(
     (
-      _config: OpenClawConfig,
+      _config: GrantedConfig,
       listOptions?: Parameters<NonNullable<ResolverParams["listNativeCommandSpecsForConfig"]>>[1],
     ): NativeCommandSpec[] => [
       ...nativeCommandSpecs,
@@ -251,7 +251,7 @@ describe("resolveDiscordProviderCommandSpecs", () => {
       skillName: "Voice Skill",
       description: "Skill voice",
     };
-    const config: OpenClawConfig = { commands: { native: true, nativeSkills: true } };
+    const config: GrantedConfig = { commands: { native: true, nativeSkills: true } };
     const rawPrimary = listRealNativeCommandSpecsForConfig(config, {
       provider: "discord",
       skillCommands: [voiceSkill],

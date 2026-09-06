@@ -1,5 +1,5 @@
 // Task state imports this leaf; importing runtime barrels here closes a type dependency cycle.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { DetachedTaskTerminalState } from "./detached-task-runtime-contract.js";
 
 export type SubagentKillTargetState =
@@ -21,7 +21,7 @@ export type SubagentAdminKillResult =
 
 /** Admin cancellation hook for ACP sessions owned by task records. */
 type CancelAcpSessionAdmin = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   reason: string;
@@ -37,7 +37,7 @@ export type TaskRegistryControlRuntime = {
     cancelSession: CancelAcpSessionAdmin;
   };
   killSubagentRunAdmin: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionKey: string;
     agentId?: string;
     expectedRunId?: string;

@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogProvider,
   SessionUpstreamActivity,
@@ -197,10 +197,10 @@ async function checkCodexUpstreamActivity(
 }
 
 export function createChecker(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   bindingStore: CodexAppServerBindingStore;
   control: CodexSessionCatalogControlFactory;
-  getRuntimeConfig: () => OpenClawConfig | undefined;
+  getRuntimeConfig: () => GrantedConfig | undefined;
 }): NonNullable<SessionCatalogProvider["checkUpstreamActivity"]> {
   const resolveThreadId = async (probe: SessionUpstreamProbe) => {
     const config = params.getRuntimeConfig();

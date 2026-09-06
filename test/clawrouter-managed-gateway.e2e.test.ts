@@ -6,7 +6,7 @@ import { setTimeout as delay } from "node:timers/promises";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const API_KEY = "clawrouter-e2e-secret";
@@ -28,7 +28,7 @@ type FakeClawRouter = {
   close: () => Promise<void>;
 };
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const routers: FakeClawRouter[] = [];
 
 afterEach(async () => {
@@ -224,7 +224,7 @@ describe("ClawRouter managed gateway contract", () => {
 });
 
 async function waitForGatewayReadiness(
-  instance: OpenClawTestInstance,
+  instance: GrantedTestInstance,
 ): Promise<{ ready: boolean; failing: string[] }> {
   const url = `http://127.0.0.1:${instance.port}/readyz`;
   // Preserve the 10-second readiness budget while detecting startup sooner.

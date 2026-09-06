@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import type { Model } from "openclaw/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -179,7 +179,7 @@ vi.mock("./model-auth-env-vars.js", () => {
     bedrock: "amazon-bedrock",
     "aws-bedrock": "amazon-bedrock",
   };
-  const resolveMockProviderAuthEvidence = (params?: { config?: OpenClawConfig }) => {
+  const resolveMockProviderAuthEvidence = (params?: { config?: GrantedConfig }) => {
     const evidence = {
       "google-vertex": [
         {
@@ -213,7 +213,7 @@ vi.mock("./model-auth-env-vars.js", () => {
   };
   return {
     listKnownProviderEnvApiKeyNames: () => [...new Set(Object.values(candidates).flat())],
-    resolveProviderEnvAuthLookupMaps: (params?: { config?: OpenClawConfig }) => ({
+    resolveProviderEnvAuthLookupMaps: (params?: { config?: GrantedConfig }) => ({
       aliasMap,
       envCandidateMap: candidates,
       authEvidenceMap: resolveMockProviderAuthEvidence(params),
@@ -404,7 +404,7 @@ function buildDemoLocalStore(keys: string[]) {
   };
 }
 
-function buildDemoLocalProviderCfg(apiKey: string): OpenClawConfig {
+function buildDemoLocalProviderCfg(apiKey: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -717,7 +717,7 @@ describe("getApiKeyForModelCore", () => {
           "configured",
         );
 
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             list: [
               {
@@ -759,7 +759,7 @@ describe("getApiKeyForModelCore", () => {
           "configured",
         );
 
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           ...buildDemoLocalProviderCfg("DEMO_LOCAL_API_KEY"),
           agents: {
             list: [
@@ -793,7 +793,7 @@ describe("getApiKeyForModelCore", () => {
       },
       async (state) => {
         const configuredAgentDir = state.agentDir("configured");
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             list: [
               {
@@ -1044,7 +1044,7 @@ describe("getApiKeyForModelCore", () => {
     const credentialsPath = path.join(tempDir, "credentials.json");
     await fs.writeFile(credentialsPath, "{}", "utf8");
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         allow: ["workspace-cloud"],
       },
@@ -1145,12 +1145,12 @@ describe("getApiKeyForModelCore", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(
       hasAuthForModelProvider({
         provider: "amazon-bedrock",
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         env: {},
         store,
       }),
@@ -1179,7 +1179,7 @@ describe("getApiKeyForModelCore", () => {
       profiles: {},
       usageStats: {},
     } as unknown as AuthProfileStore;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           "anthropic-local": {
@@ -1189,7 +1189,7 @@ describe("getApiKeyForModelCore", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     // Initially available
     await expect(
@@ -1437,7 +1437,7 @@ describe("getApiKeyForModelCore", () => {
           },
         },
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             "inline-cloud": {
@@ -1473,7 +1473,7 @@ describe("getApiKeyForModelCore", () => {
       { source: "file", provider: "default", id: "/run/secrets/inline-cloud" },
       { source: "exec", provider: "default", id: "print-inline-cloud-key" },
     ] as const) {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             "inline-cloud": {
@@ -1515,7 +1515,7 @@ describe("getApiKeyForModelCore", () => {
           },
         },
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             "inline-cloud": {
@@ -1550,7 +1550,7 @@ describe("getApiKeyForModelCore", () => {
           },
         },
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             "inline-cloud": {
@@ -2306,7 +2306,7 @@ describe("resolveApiKeyForProviderCore — per-entry apiKey as profile ID refere
           },
         },
       };
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             openai: {

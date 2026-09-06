@@ -10,7 +10,7 @@ import { property, state } from "lit/decorators.js";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import { t } from "../../i18n/index.ts";
 import { formatUiError, formatUiExternalText } from "../../lib/format-error.ts";
-import { OpenClawLitElement } from "../../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../../lit/openclaw-element.ts";
 import { DockLayoutController } from "../dock-layout-controller.ts";
 import {
   DESKTOP_PANEL_TOGGLE_EVENT,
@@ -44,7 +44,7 @@ import { DesktopSessionController } from "./desktop-session-controller.ts";
 import { desktopSourceForEnvironment } from "./desktop-source.ts";
 
 /** `<openclaw-desktop-panel>` — dockable RFB access to Gateway desktop sources. */
-class OpenClawDesktopPanel extends OpenClawLitElement {
+class GrantedDesktopPanel extends GrantedLitElement {
   @property({ attribute: false }) client: GatewayBrowserClient | null = null;
   @property({ type: Boolean }) available = false;
   @property({ type: Boolean }) suppressed = false;
@@ -722,11 +722,11 @@ class OpenClawDesktopPanel extends OpenClawLitElement {
 }
 
 if (!customElements.get("openclaw-desktop-panel")) {
-  customElements.define("openclaw-desktop-panel", OpenClawDesktopPanel);
+  customElements.define("openclaw-desktop-panel", GrantedDesktopPanel);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-desktop-panel": OpenClawDesktopPanel;
+    "openclaw-desktop-panel": GrantedDesktopPanel;
   }
 }

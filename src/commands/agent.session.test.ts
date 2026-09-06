@@ -12,7 +12,7 @@ import {
 import { clearSessionStoreCacheForTest } from "../config/sessions/store-writer-state.js";
 import { resolveSessionTranscriptFile } from "../config/sessions/transcript.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildOutboundSessionContext } from "../infra/outbound/session-context.js";
 import { normalizeSessionDeliveryState } from "../utils/delivery-context.shared.js";
 
@@ -27,7 +27,7 @@ function mockConfig(
   home: string,
   storePath: string,
   agentsList?: Array<{ id: string; default?: boolean }>,
-): OpenClawConfig {
+): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -38,7 +38,7 @@ function mockConfig(
       list: agentsList,
     },
     session: { store: storePath, mainKey: "main" },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function writeSessionStoreSeed(
@@ -53,7 +53,7 @@ async function writeSessionStoreSeed(
 }
 
 async function withCrossAgentResumeFixture(
-  run: (params: { sessionId: string; sessionKey: string; cfg: OpenClawConfig }) => Promise<void>,
+  run: (params: { sessionId: string; sessionKey: string; cfg: GrantedConfig }) => Promise<void>,
 ): Promise<void> {
   await withTempHome(async (home) => {
     const storePattern = path.join(home, "agents", "{agentId}", "sessions", "sessions.json");
@@ -124,7 +124,7 @@ describe("agent session resolution", () => {
           ownership: "explicit",
           entries: { ops: {}, research: {} },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await replaceSessionEntry(
         { agentId: "research", sessionKey: "main", storePath: researchStore },
         { sessionId: "research-session", updatedAt: Date.now() },

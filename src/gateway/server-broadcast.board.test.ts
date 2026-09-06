@@ -8,7 +8,7 @@ import {
   deleteSessionEntryLifecycle,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { createGatewayBroadcaster } from "./server-broadcast.js";
 import {
@@ -196,7 +196,7 @@ describe("collaboration event scope guards", () => {
           updatedAt: 1,
         };
       }
-      const cfg: OpenClawConfig = {};
+      const cfg: GrantedConfig = {};
       const filter = vi.fn(
         (
           client: GatewayWsClient,
@@ -377,7 +377,7 @@ describe("collaboration event scope guards", () => {
       subscribers,
       isVisible: () => true,
       getConfig: () =>
-        ({ agents: { list: [{ id: "main", default: true }, { id: "work" }] } }) as OpenClawConfig,
+        ({ agents: { list: [{ id: "main", default: true }, { id: "work" }] } }) as GrantedConfig,
     });
     const { broadcastToConnIds } = createGatewayBroadcaster({
       clients: new Set([main.client, legacy.client, both.client, work.client, workRaw.client]),
@@ -416,7 +416,7 @@ describe("collaboration event scope guards", () => {
       sessionEventSubscribers,
       isVisible: () => true,
       getConfig: () =>
-        ({ agents: { list: [{ id: "main", default: true }, { id: "work" }] } }) as OpenClawConfig,
+        ({ agents: { list: [{ id: "main", default: true }, { id: "work" }] } }) as GrantedConfig,
     });
     const { broadcastToConnIds } = createGatewayBroadcaster({
       clients: new Set([message.client, eventOnly.client, unrelated.client]),

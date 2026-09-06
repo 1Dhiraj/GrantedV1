@@ -1,5 +1,5 @@
 // Discord tests cover route resolution plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
 import { describe, expect, it } from "vitest";
 import {
@@ -11,10 +11,7 @@ import {
   shouldIgnoreStaleDiscordRouteBinding,
 } from "./route-resolution.js";
 
-function buildWorkerBindingConfig(peer: {
-  kind: "channel" | "direct";
-  id: string;
-}): OpenClawConfig {
+function buildWorkerBindingConfig(peer: { kind: "channel" | "direct"; id: string }): GrantedConfig {
   return {
     agents: {
       list: [{ id: "worker" }],

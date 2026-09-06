@@ -5,7 +5,7 @@
  */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderSyntheticAuthWithPlugin } from "../plugins/provider-runtime.js";
 import type { ProviderAuthEvidence } from "../secrets/provider-env-vars.js";
 import { secretRefKey } from "../secrets/ref-contract.js";
@@ -56,7 +56,7 @@ function resolveAuthProfileStoreInput(input: AuthProfileStoreInput) {
 export function createProviderApiKeyResolverFromPreparedCredentials(
   env: NodeJS.ProcessEnv,
   credentials: Readonly<AuthStorageData>,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): ProviderApiKeyResolver {
   const resolveConfiguredOrEnvironment = createProviderApiKeyResolver(
     env,
@@ -102,7 +102,7 @@ export function createProviderApiKeyResolverFromPreparedCredentials(
 
 function createProviderAuthLookupCaches(
   env: NodeJS.ProcessEnv,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): () => ProviderAuthLookupCaches {
   let caches: ProviderAuthLookupCaches | undefined;
   return () => {
@@ -135,8 +135,8 @@ function resolveProviderIdForAuthFromCaches(
 export function createProviderApiKeyResolver(
   env: NodeJS.ProcessEnv,
   authStoreInput: AuthProfileStoreInput,
-  config?: OpenClawConfig,
-  sourceConfigForSecrets?: OpenClawConfig,
+  config?: GrantedConfig,
+  sourceConfigForSecrets?: GrantedConfig,
 ): ProviderApiKeyResolver {
   const getLookupCaches = createProviderAuthLookupCaches(env, config);
   return (provider: string) => {
@@ -186,8 +186,8 @@ export function createProviderApiKeyResolver(
 export function createProviderAuthResolver(
   env: NodeJS.ProcessEnv,
   authStoreInput: AuthProfileStoreInput,
-  config?: OpenClawConfig,
-  sourceConfigForSecrets?: OpenClawConfig,
+  config?: GrantedConfig,
+  sourceConfigForSecrets?: GrantedConfig,
 ): ProviderAuthResolver {
   const getLookupCaches = createProviderAuthLookupCaches(env, config);
   return (provider: string, options?: { oauthMarker?: string }) => {
@@ -277,9 +277,9 @@ export function createProviderAuthResolver(
 
 function resolveConfigBackedProviderAuth(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
-  sourceConfigForSecrets?: OpenClawConfig;
+  sourceConfigForSecrets?: GrantedConfig;
 }):
   | {
       apiKey: string;

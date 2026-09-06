@@ -21,7 +21,7 @@ import {
 } from "../../config/sessions.js";
 import { patchSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { estimateAggregateUsageCost, resolveModelCostConfig } from "../../utils/usage-format.js";
 
@@ -78,7 +78,7 @@ function resolveNonNegativeTokenCount(value: number | undefined): number | undef
 }
 
 function estimateSessionRunCostUsd(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   usage?: NormalizedUsage;
   providerUsed?: string;
@@ -107,7 +107,7 @@ export async function persistSessionUsageUpdate(params: {
     "sessionId" | "lifecycleRevision" | "activeWriterRunId"
   >;
   authorize?: () => boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   usage?: NormalizedUsage;
   /**

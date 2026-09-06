@@ -26,7 +26,7 @@ import {
 } from "../commands/channel-setup/trusted-catalog.js";
 import type { ChannelChoice } from "../commands/onboard-types.js";
 import { isChannelConfigured } from "../config/channel-configured.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveBundledPluginSources } from "../plugins/bundled-sources.js";
 import { enablePluginWithCapabilityConsent } from "../plugins/enable.js";
@@ -62,7 +62,7 @@ export function createChannelSetupTransaction(params: {
   beforePersistentEffect?: () => Promise<void>;
 }) {
   const hooks = new Map<string, ChannelOnboardingPostWriteHook>();
-  const runPostWriteHooks = async (cfg: OpenClawConfig) => {
+  const runPostWriteHooks = async (cfg: GrantedConfig) => {
     await runCollectedChannelOnboardingPostWriteHooks({
       hooks: [...hooks.values()],
       cfg,
@@ -78,9 +78,9 @@ export function createChannelSetupTransaction(params: {
       hooks.set(`${hook.channel}:${hook.accountId}`, hook);
     },
     async commit(
-      nextConfig: OpenClawConfig,
-      write: (config: OpenClawConfig) => Promise<OpenClawConfig>,
-    ): Promise<OpenClawConfig> {
+      nextConfig: GrantedConfig,
+      write: (config: GrantedConfig) => Promise<GrantedConfig>,
+    ): Promise<GrantedConfig> {
       await params.beforePersistentEffect?.();
       const committedConfig = await write(nextConfig);
       await runPostWriteHooks(committedConfig);
@@ -92,7 +92,7 @@ export function createChannelSetupTransaction(params: {
 
 export async function runCollectedChannelOnboardingPostWriteHooks(params: {
   hooks: ChannelOnboardingPostWriteHook[];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   beforePersistentEffect?: () => Promise<void>;
 }): Promise<void> {
@@ -113,7 +113,7 @@ export function createChannelOnboardingPostWriteHook(params: {
   accountId?: string;
   adapter?: Pick<ChannelSetupWizardAdapter, "afterConfigWritten">;
   channel: ChannelChoice;
-  previousCfg: OpenClawConfig;
+  previousCfg: GrantedConfig;
 }): ChannelOnboardingPostWriteHook | undefined {
   if (!params.accountId || !params.adapter?.afterConfigWritten) {
     return undefined;
@@ -134,11 +134,11 @@ export function createChannelOnboardingPostWriteHook(params: {
 // Channel-specific prompts moved into setup flow adapters.
 
 export async function setupChannels(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
   options?: SetupChannelsOptions,
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   let next = cfg;
   const deferStatusUntilSelection = options?.deferStatusUntilSelection === true;
   const forceAllowFromChannels = new Set(options?.forceAllowFromChannels ?? []);
@@ -728,7 +728,7 @@ export async function setupChannels(
               enabled: true,
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         resumingDisabledChannel = true;
       } else if (deferredDisabledHint === "plugin disabled") {
         const resume =

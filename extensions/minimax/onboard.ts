@@ -5,7 +5,7 @@ import {
   applyAgentDefaultModelPrimary,
   applyOnboardAuthAgentModelsAndProviders,
   type ModelProviderConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 import {
   buildMinimaxApiModelDefinition,
@@ -21,9 +21,9 @@ type MinimaxApiProviderConfigParams = {
 };
 
 function applyMinimaxApiProviderConfigWithBaseUrl(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: MinimaxApiProviderConfigParams,
-): OpenClawConfig {
+): GrantedConfig {
   const providers = { ...cfg.models?.providers } as Record<string, ModelProviderConfig>;
   const normalizedProviderId = normalizeProviderId(params.providerId);
   const existingProvider =
@@ -65,17 +65,17 @@ function applyMinimaxApiProviderConfigWithBaseUrl(
 }
 
 function applyMinimaxApiConfigWithBaseUrl(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: MinimaxApiProviderConfigParams,
-): OpenClawConfig {
+): GrantedConfig {
   const next = applyMinimaxApiProviderConfigWithBaseUrl(cfg, params);
   return applyAgentDefaultModelPrimary(next, `${params.providerId}/${params.modelId}`);
 }
 
 export function applyMinimaxApiProviderConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelId = MINIMAX_DEFAULT_MODEL_ID,
-): OpenClawConfig {
+): GrantedConfig {
   return applyMinimaxApiProviderConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,
@@ -84,9 +84,9 @@ export function applyMinimaxApiProviderConfig(
 }
 
 export function applyMinimaxApiConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelId = MINIMAX_DEFAULT_MODEL_ID,
-): OpenClawConfig {
+): GrantedConfig {
   return applyMinimaxApiConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,
@@ -95,9 +95,9 @@ export function applyMinimaxApiConfig(
 }
 
 export function applyMinimaxApiProviderConfigCn(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelId = MINIMAX_DEFAULT_MODEL_ID,
-): OpenClawConfig {
+): GrantedConfig {
   return applyMinimaxApiProviderConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,
@@ -106,9 +106,9 @@ export function applyMinimaxApiProviderConfigCn(
 }
 
 export function applyMinimaxApiConfigCn(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelId = MINIMAX_DEFAULT_MODEL_ID,
-): OpenClawConfig {
+): GrantedConfig {
   return applyMinimaxApiConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,

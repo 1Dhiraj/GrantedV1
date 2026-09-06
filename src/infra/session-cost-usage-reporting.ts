@@ -6,7 +6,7 @@ import { stripInboundMetadata } from "../auto-reply/reply/strip-inbound-meta.js"
 import { isPrimarySessionTranscriptFileName } from "../config/sessions/artifacts.js";
 import { parseSqliteSessionFileMarker } from "../config/sessions/legacy-sqlite-marker.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { stripEnvelope, stripMessageIdHints } from "../shared/chat-envelope.js";
 import {
   isUsageCostRollupFresh,
@@ -136,7 +136,7 @@ export async function loadSessionCostSummary(params: {
   sessionId?: string;
   sessionEntry?: SessionEntry;
   sessionFile?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId: string;
   sessionTarget?: {
     agentId: string;
@@ -201,7 +201,7 @@ export async function loadSessionUsageTimeSeries(params: {
   sessionId?: string;
   sessionEntry?: SessionEntry;
   sessionFile?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId: string;
   maxPoints?: number;
 }): Promise<SessionUsageTimeSeries | null> {
@@ -308,7 +308,7 @@ export async function loadSessionLogs(params: {
   sessionId?: string;
   sessionEntry?: SessionEntry;
   sessionFile?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId: string;
   limit?: number;
 }): Promise<SessionLogEntry[] | null> {

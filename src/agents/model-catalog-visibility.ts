@@ -3,7 +3,7 @@
  * combines explicit policy, configured models, defaults, and runtime
  * auth-backed availability.
  */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   ModelAuthAvailabilityEvaluation,
   ModelAuthAvailabilityRef,
@@ -104,7 +104,7 @@ function isPickerVisibleCatalogEntry(
 }
 
 type LogicalModelCatalogParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   catalog: ModelCatalogEntry[];
   defaultProvider: string;
   defaultModel?: string;

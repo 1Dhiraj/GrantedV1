@@ -4,8 +4,8 @@ import path from "node:path";
 import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import {
   resolvePreferredOpenClawTmpDir,
-  type OpenClawConfig,
-  type OpenClawPluginApi,
+  type GrantedConfig,
+  type GrantedPluginApi,
 } from "../api.js";
 import {
   resolveDiffsPluginDefaults,
@@ -24,7 +24,7 @@ const DIFF_ARTIFACT_MAX_ENTRIES = 2_048;
 const DIFF_ARTIFACT_MAX_BYTES_PER_ENTRY = 32 * 1024 * 1024;
 const DIFF_ARTIFACT_MAX_BYTES_PER_NAMESPACE = 256 * 1024 * 1024;
 
-export function registerDiffsPlugin(api: OpenClawPluginApi): void {
+export function registerDiffsPlugin(api: GrantedPluginApi): void {
   // CLI metadata has no runtime state, and this plugin exposes no CLI commands.
   if (api.registrationMode === "cli-metadata") {
     return;
@@ -43,14 +43,12 @@ export function registerDiffsPlugin(api: OpenClawPluginApi): void {
   });
   const resolveCurrentPluginConfig = () =>
     resolveLivePluginConfigObject(
-      api.runtime.config?.current
-        ? () => api.runtime.config.current() as OpenClawConfig
-        : undefined,
+      api.runtime.config?.current ? () => api.runtime.config.current() as GrantedConfig : undefined,
       "diffs",
       api.pluginConfig as Record<string, unknown>,
     ) ?? {};
   const resolveCurrentAccessConfig = () => {
-    const currentConfig = (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+    const currentConfig = (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
     const pluginConfig = resolveCurrentPluginConfig();
     return {
       allowRemoteViewer: resolveDiffsPluginSecurity(pluginConfig).allowRemoteViewer,
@@ -94,8 +92,8 @@ export function registerDiffsPlugin(api: OpenClawPluginApi): void {
   }));
 }
 
-function resolveDiffsLanguagePackAvailability(api: OpenClawPluginApi): boolean {
-  const currentConfig = (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+function resolveDiffsLanguagePackAvailability(api: GrantedPluginApi): boolean {
+  const currentConfig = (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
   const plugins = currentConfig.plugins;
   if (plugins?.enabled === false) {
     return false;

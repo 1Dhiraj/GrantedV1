@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   sameDefaultInferenceRoute,
   type DefaultInferenceRouteProjection,
@@ -44,13 +44,13 @@ export function sameSetupConfiguredRoute(
 }
 
 export function assertSetupTarget(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   expectedAgentId?: string;
   expectedAgentDir?: string;
   expectedModelRef?: string;
-  resolveAgentDir: (config: OpenClawConfig, agentId: string) => string;
-  resolveDefaultAgentId: (config: OpenClawConfig) => string;
-  resolveDefaultModelForAgent: (params: { cfg: OpenClawConfig; agentId: string }) => {
+  resolveAgentDir: (config: GrantedConfig, agentId: string) => string;
+  resolveDefaultAgentId: (config: GrantedConfig) => string;
+  resolveDefaultModelForAgent: (params: { cfg: GrantedConfig; agentId: string }) => {
     provider: string;
     model: string;
   };

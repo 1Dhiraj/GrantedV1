@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { privateFileStore } from "../../../infra/private-file-store.js";
 import { resolveAgentWorkspaceDir } from "../../agent-scope.js";
 import {
@@ -103,7 +103,7 @@ type SubagentAttachmentRequest =
   | { status: "forbidden"; error: string }
   | { status: "error"; error: string };
 
-function resolveAttachmentLimits(config: OpenClawConfig): AttachmentLimits {
+function resolveAttachmentLimits(config: GrantedConfig): AttachmentLimits {
   const attachmentsCfg = config.tools?.sessions_spawn?.attachments;
   return {
     enabled: attachmentsCfg?.enabled === true,
@@ -126,7 +126,7 @@ function resolveAttachmentLimits(config: OpenClawConfig): AttachmentLimits {
 }
 
 function resolveSubagentAttachmentRequest(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   attachments?: SubagentInlineAttachment[];
 }): SubagentAttachmentRequest {
   const requestedAttachments = Array.isArray(params.attachments) ? params.attachments : [];
@@ -277,7 +277,7 @@ function prepareSubagentAttachments(params: {
 }
 
 export function resolveAcpSessionsSpawnImageAttachments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   attachments?: SubagentInlineAttachment[];
 }):
   | { status: "ok"; attachments: AcpInlineImageAttachment[] }
@@ -314,7 +314,7 @@ export function resolveAcpSessionsSpawnImageAttachments(params: {
 }
 
 export async function materializeSubagentAttachments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   targetAgentId: string;
   workspaceDir?: string;
   attachments?: SubagentInlineAttachment[];

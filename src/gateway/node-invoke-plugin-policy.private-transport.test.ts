@@ -3,7 +3,7 @@ import { createOperationalRunInstanceRef } from "../agents/admitted-run-context.
 import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
-import type { OpenClawPluginNodeInvokePolicyContext } from "../plugins/types.js";
+import type { GrantedPluginNodeInvokePolicyContext } from "../plugins/types.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import {
   applyPluginNodeInvokePolicy,
@@ -41,7 +41,7 @@ describe("private node policy transport", () => {
   it("uses the registered risk and approval policy without advertising the private capability", async () => {
     const manager = new ExecApprovalManager<PluginApprovalRequestPayload>();
     const reviewer = createOperatorClient();
-    const handle = vi.fn(async (policyContext: OpenClawPluginNodeInvokePolicyContext) => {
+    const handle = vi.fn(async (policyContext: GrantedPluginNodeInvokePolicyContext) => {
       expect(policyContext.risk).toEqual({ level: "high", family: "fixture_mutation" });
       const decision = await policyContext.approvals?.request({
         title: "Private desktop action",
@@ -92,7 +92,7 @@ describe("private node policy transport", () => {
   it.each(["missing-policy", "invalid-risk"] as const)(
     "rejects private dispatch before the policy handler for %s",
     async (failure) => {
-      const handle = vi.fn((ctx: OpenClawPluginNodeInvokePolicyContext) => ctx.invokeNode());
+      const handle = vi.fn((ctx: GrantedPluginNodeInvokePolicyContext) => ctx.invokeNode());
       const registration = createDemoPolicy(handle);
       registration.policy.classifyRisk = () => {
         throw new Error("invalid private action");

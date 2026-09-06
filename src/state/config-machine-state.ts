@@ -6,13 +6,13 @@ import {
 } from "../infra/kysely-sync.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 
-type ConfigMachineStateDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type ConfigMachineStateDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
 function normalizeStateKey(key: string): string {
   const normalized = key.trim();
@@ -33,7 +33,7 @@ function serializeStateValue(value: unknown): string {
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Callers own the JSON shape for open-ended state keys.
 export function readConfigMachineStateWithMetadata<T>(
   key: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): { value: T; updatedAtMs: number } | undefined {
   return withExistingOpenClawStateDatabaseReadOnly(({ db: database }) => {
     if (!tableExists(database, "config_machine_state")) {
@@ -56,7 +56,7 @@ export function readConfigMachineStateWithMetadata<T>(
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Callers own the JSON shape for open-ended state keys.
 export function readConfigMachineState<T>(
   key: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): T | undefined {
   return readConfigMachineStateWithMetadata<T>(key, options)?.value;
 }
@@ -64,7 +64,7 @@ export function readConfigMachineState<T>(
 export function writeConfigMachineState(
   key: string,
   value: unknown,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const stateKey = normalizeStateKey(key);
   const valueJson = serializeStateValue(value);
@@ -91,18 +91,18 @@ export function writeConfigMachineState(
 export function updateConfigMachineState<T>(
   key: string,
   update: (current: T | undefined) => T,
-  options?: OpenClawStateDatabaseOptions,
+  options?: GrantedStateDatabaseOptions,
 ): T;
 /** Returning undefined removes the key within the same compare-and-update transaction. */
 export function updateConfigMachineState<T>(
   key: string,
   update: (current: T | undefined) => T | undefined,
-  options?: OpenClawStateDatabaseOptions,
+  options?: GrantedStateDatabaseOptions,
 ): T | undefined;
 export function updateConfigMachineState<T>(
   key: string,
   update: (current: T | undefined) => T | undefined,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): T | undefined {
   const stateKey = normalizeStateKey(key);
   const now = Date.now();
@@ -146,7 +146,7 @@ export function updateConfigMachineState<T>(
 /** Delete one machine-state value, reporting whether a stored value existed. */
 export function deleteConfigMachineState(
   key: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const stateKey = normalizeStateKey(key);
   return runOpenClawStateWriteTransaction(
@@ -166,7 +166,7 @@ export function deleteConfigMachineState(
 /** Import retired config values without replacing newer canonical database state. */
 export function importConfigMachineState(
   entries: ReadonlyArray<readonly [key: string, value: unknown]>,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): { imported: string[]; kept: string[] } {
   if (entries.length === 0) {
     return { imported: [], kept: [] };

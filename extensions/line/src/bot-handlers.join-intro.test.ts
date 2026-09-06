@@ -1,5 +1,5 @@
 import type { messagingApi, webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { LineAccountConfig } from "./types.js";
 
@@ -52,7 +52,7 @@ function joinEvent(source: webhook.Source): webhook.JoinEvent {
 }
 
 function createContext(config: LineAccountConfig = {}) {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { list: [{ id: "main" }, { id: "room-agent" }] },
     accessGroups: {
       empty: { type: "message.senders", members: {} },

@@ -1,10 +1,10 @@
 // Covers bundled config migrations through the plugin setup registry.
 import path from "node:path";
 import { describe, expect, test } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runPluginSetupConfigMigrations } from "./setup-registry.js";
 
-function runMigration(config: OpenClawConfig) {
+function runMigration(config: GrantedConfig) {
   return runPluginSetupConfigMigrations({
     env: {
       ...process.env,
@@ -41,7 +41,7 @@ describe("bundled setup config migrations", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const before = structuredClone(config);
     const result = runMigration(config);
 
@@ -90,7 +90,7 @@ describe("bundled setup config migrations", () => {
         root: "~/legacy-canvas",
         liveReload: false,
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(result.changes).toEqual([
       "Migrated canvasHost.enabled to plugins.entries.canvas.config.host.enabled.",

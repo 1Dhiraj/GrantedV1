@@ -1,6 +1,6 @@
 // Discord plugin module implements thread session close behavior.
 import { listAgentIds } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   deleteSessionEntry,
   listSessionEntries,
@@ -14,7 +14,7 @@ import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coe
  * that a later inbound message starts a fresh session in every reset mode.
  */
 export async function closeDiscordThreadSessions(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   threadId: string;
 }): Promise<number> {
   const { cfg, threadId } = params;

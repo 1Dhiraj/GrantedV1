@@ -3,7 +3,7 @@ import {
   createAgentToAgentPolicy,
   resolveSessionToolAccess,
 } from "../agents/tools/sessions-access.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { SessionCompanionAskError } from "./session-companion-ask.js";
 import type { SessionCompanionContextReader } from "./session-companion-context.js";
 import {
@@ -33,7 +33,7 @@ function createHarness(overrides?: {
   }) => Promise<string>;
   snapshot?: () => SessionObserverCompanionSnapshot;
 }) {
-  const cfg: OpenClawConfig = {};
+  const cfg: GrantedConfig = {};
   const currentSessionId = vi.fn(overrides?.currentSessionId ?? (() => "session-1"));
   const readContext = vi.fn(
     overrides?.readContext ??

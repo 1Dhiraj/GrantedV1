@@ -3,10 +3,10 @@ import {
   buildChannelGroupsScopeTree,
   resolveScopeRequireMention,
 } from "openclaw/plugin-sdk/channel-policy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveExactLineGroupConfigKey } from "./group-keys.js";
 
-type LineGroupContext = { cfg: OpenClawConfig; accountId?: string | null; groupId?: string | null };
+type LineGroupContext = { cfg: GrantedConfig; accountId?: string | null; groupId?: string | null };
 
 export function resolveLineGroupRequireMention(params: LineGroupContext): boolean {
   const tree = buildChannelGroupsScopeTree(params.cfg, "line", params.accountId);

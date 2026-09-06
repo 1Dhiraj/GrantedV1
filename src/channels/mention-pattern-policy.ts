@@ -6,13 +6,13 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { MentionPatternsMode, MentionPatternsPolicyConfig } from "../config/types.messages.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /**
  * Inputs for resolving whether mention-pattern matching is enabled in a conversation.
  */
 export type ResolveMentionPatternPolicyParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   conversationId?: string | null;
   providerPolicy?: MentionPatternsPolicyConfig;
@@ -45,7 +45,7 @@ function isMentionPatternsPolicyConfig(value: unknown): value is MentionPatterns
 }
 
 function resolveProviderMentionPatternsPolicy(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   provider: string | undefined,
 ): MentionPatternsPolicyConfig | undefined {
   if (!cfg || !provider) {

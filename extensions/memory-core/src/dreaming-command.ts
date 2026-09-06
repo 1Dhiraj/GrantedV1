@@ -1,19 +1,19 @@
 // Memory Core plugin module implements dreaming command behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveMemoryDreamingConfig } from "openclaw/plugin-sdk/memory-core-host-status";
-import type { OpenClawPluginApi, PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi, PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
 import {
   asNullableRecord,
   normalizeLowercaseStringOrEmpty,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveShortTermPromotionDreamingConfig } from "./dreaming.js";
 
-function resolveDreamingPluginConfig(cfg: OpenClawConfig): Record<string, unknown> {
+function resolveDreamingPluginConfig(cfg: GrantedConfig): Record<string, unknown> {
   const entry = asNullableRecord(cfg.plugins?.entries?.["memory-core"]);
   return asNullableRecord(entry?.config) ?? {};
 }
 
-function updateDreamingEnabledInConfig(cfg: OpenClawConfig, enabled: boolean): OpenClawConfig {
+function updateDreamingEnabledInConfig(cfg: GrantedConfig, enabled: boolean): GrantedConfig {
   const entries = { ...cfg.plugins?.entries };
   const existingEntry = asNullableRecord(entries["memory-core"]) ?? {};
   const existingConfig = asNullableRecord(existingEntry.config) ?? {};
@@ -50,7 +50,7 @@ function formatPhaseGuide(): string {
   ].join("\n");
 }
 
-function formatStatus(cfg: OpenClawConfig): string {
+function formatStatus(cfg: GrantedConfig): string {
   const pluginConfig = resolveDreamingPluginConfig(cfg);
   const dreaming = resolveMemoryDreamingConfig({
     pluginConfig,
@@ -89,7 +89,7 @@ function lacksAdminOrOwnerForDreamingMutation(params: {
   return params.senderIsOwner !== true;
 }
 
-export async function handleDreamingCommand(api: OpenClawPluginApi, ctx: PluginCommandContext) {
+export async function handleDreamingCommand(api: GrantedPluginApi, ctx: PluginCommandContext) {
   const args = ctx.args?.trim() ?? "";
   const [firstToken = ""] = args
     .split(/\s+/)

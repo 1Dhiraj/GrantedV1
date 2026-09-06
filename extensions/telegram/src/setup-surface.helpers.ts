@@ -3,7 +3,7 @@ import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
 import {
   applySetupAccountConfigPatch,
   DEFAULT_ACCOUNT_ID,
-  type OpenClawConfig,
+  type GrantedConfig,
   patchChannelConfigForAccount,
 } from "openclaw/plugin-sdk/setup";
 import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
@@ -18,9 +18,9 @@ import { promptTelegramAllowFromForAccount, telegramSetupAdapter } from "./setup
 const channel = "telegram" as const;
 
 export function ensureTelegramDefaultGroupMentionGate(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const resolved = resolveTelegramAccount({ cfg, accountId });
   const wildcardGroup = resolved.config.groups?.["*"];
   if (wildcardGroup?.requireMention !== undefined) {
@@ -43,7 +43,7 @@ export function ensureTelegramDefaultGroupMentionGate(
   });
 }
 
-export function shouldShowTelegramDmAccessWarning(cfg: OpenClawConfig, accountId: string): boolean {
+export function shouldShowTelegramDmAccessWarning(cfg: GrantedConfig, accountId: string): boolean {
   const merged = mergeTelegramAccountConfig(cfg, accountId);
   const policy = merged.dmPolicy ?? "pairing";
   const hasAllowFrom =

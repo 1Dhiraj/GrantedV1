@@ -2,7 +2,7 @@
  * Gateway startup plugin bootstrap tests.
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
@@ -203,16 +203,16 @@ function firstCallArg<T>(mock: { mock: { calls: unknown[][] } }, _type?: (value:
   return call[0] as T;
 }
 
-function slackConfig(): OpenClawConfig {
+function slackConfig(): GrantedConfig {
   return {
     channels: {
       slack: { enabled: true, token: "token" },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function prepareBootstrapWithRuntimeConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options: {
     minimalTestGateway?: boolean;
     pluginMetadataSnapshot?: PluginMetadataSnapshot;
@@ -357,7 +357,7 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
       plugins: {
         allow: ["bench-plugin"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const activationConfig = {
       channels: {
         telegram: {
@@ -373,7 +373,7 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       channels: {
         telegram: {
@@ -399,7 +399,7 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     applyPluginAutoEnable.mockReturnValueOnce({
       config: activationConfig,
       changes: [],
@@ -422,9 +422,9 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
       manifestRegistry: pluginManifestRegistry,
     });
     const lookupInput = firstCallArg<{
-      activationSourceConfig?: OpenClawConfig;
+      activationSourceConfig?: GrantedConfig;
       metadataSnapshot?: PluginMetadataSnapshot;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
     }>(loadPluginLookUpTable);
     expect(lookupInput.activationSourceConfig).toBe(sourceConfig);
     expect(lookupInput.metadataSnapshot).toBe(pluginMetadataSnapshot);
@@ -471,7 +471,7 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
   );
 
   it("threads durable worker provider ids into startup lookup planning", async () => {
-    await prepareBootstrapWithRuntimeConfig({ channels: {} } as OpenClawConfig, {
+    await prepareBootstrapWithRuntimeConfig({ channels: {} } as GrantedConfig, {
       workerProviderIds: ["static-ssh"],
     });
 
@@ -522,7 +522,7 @@ describe("prepareGatewayPluginBootstrap startup plugins", () => {
           telegram: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareBootstrapWithRuntimeConfig(cfg, {
       pluginMetadataSnapshot,
@@ -561,7 +561,7 @@ describe("loadGatewayStartupPluginRuntime", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       workspaceDir: "/workspace",
       log,
       baseMethods: ["ping"],
@@ -596,7 +596,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "openai" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
@@ -613,7 +613,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "openai" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry(["openai"]),
       log,
     });
@@ -629,7 +629,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "openai", fallback: "ollama" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry(["openai"]),
       log,
     });
@@ -646,7 +646,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "openai", fallback: "ollama" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry(["openai", "ollama"]),
       log,
     });
@@ -662,7 +662,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "generic-embed" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([], { embeddingProviderIds: ["generic-embed"] }),
       log,
     });
@@ -678,7 +678,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "openai-compatible" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
@@ -703,7 +703,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
@@ -719,7 +719,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
         memory: { search: { provider: "none", fallback: "openai" } },
 
         agents: { defaults: {} },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
@@ -736,14 +736,14 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
 
         agents: { defaults: {} },
         plugins: { slots: { memory: "none" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
     expect(log.warn).not.toHaveBeenCalled();
   });
 
-  function customOllamaConfig(source: "provider" | "fallback" = "provider"): OpenClawConfig {
+  function customOllamaConfig(source: "provider" | "fallback" = "provider"): GrantedConfig {
     const memorySearch =
       source === "provider"
         ? { provider: "ollama-5080" }
@@ -759,7 +759,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   it.each([
@@ -823,7 +823,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
             },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });
@@ -845,7 +845,7 @@ describe("warnUnregisteredConfiguredMemoryEmbeddingProviders", () => {
             },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginRegistry: registry([]),
       log,
     });

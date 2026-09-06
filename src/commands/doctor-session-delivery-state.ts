@@ -4,7 +4,7 @@ import {
 } from "../config/sessions/session-accessor.js";
 import { stripRuntimeOnlySessionSkillsFields } from "../config/sessions/store-entry-shape.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeLegacySessionEntryDelivery } from "../infra/state-migrations.legacy-session-store.js";
 import {
   closeOpenClawAgentDatabaseByPath,
@@ -22,7 +22,7 @@ export type SessionDeliveryStateRepairReport = {
 /** Scan or rewrite legacy delivery fields inside existing session row JSON. */
 export function repairCanonicalSessionDeliveryStates(params: {
   apply: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): SessionDeliveryStateRepairReport {
   return repairCanonicalSessionEntries({
@@ -35,7 +35,7 @@ export function repairCanonicalSessionDeliveryStates(params: {
 /** Removes runtime-only skill catalogs from previously persisted session rows. */
 export function repairCanonicalSessionResolvedSkills(params: {
   apply: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): SessionDeliveryStateRepairReport {
   return repairCanonicalSessionEntries({
@@ -47,7 +47,7 @@ export function repairCanonicalSessionResolvedSkills(params: {
 
 export function repairCanonicalSessionEntries(params: {
   apply: boolean;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   transform: (entry: SessionEntry, sessionKey: string, phase: "scan" | "repair") => SessionEntry;
   updateDeliveryProjection: boolean;

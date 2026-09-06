@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withTempHome } from "../../config/home-env.test-harness.js";
 import { invokePluginArtifactInstallMock } from "../../plugins/test-helpers/install-fixtures.js";
 import { mockFirstObjectArg } from "../../test-utils/mock-call-assertions.js";
@@ -153,7 +153,7 @@ describe("chat plugin install release stream", () => {
   it.each([false, true])(
     "keeps beta artifact selection with capability acceptance %s",
     async (acceptCapabilities) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         commands: { text: true, plugins: true },
         plugins: { enabled: true },
         update: { channel: "beta" },

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES } from "../agents/workspace-bootstrap-read.js";
 import { readWorkspaceStateSnapshot } from "../agents/workspace-state-store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { applyClawAddPlan } from "./add.js";
 import { seedClawPackageBootstrap } from "./bootstrap.js";
@@ -108,7 +108,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     const added = await applyClawAddPlan(plan, {
       env,
       nowMs: 1_000,
@@ -154,7 +154,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     const order: string[] = [];
 
     const added = await applyClawAddPlan(plan, {
@@ -190,7 +190,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     const added = await applyClawAddPlan(plan, {
       env,
@@ -247,7 +247,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
 
     const added = await applyClawAddPlan(plan, {
       env,
@@ -297,7 +297,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     let releaseSeed!: () => void;
     const seedReleased = new Promise<void>((resolve) => {
       releaseSeed = resolve;
@@ -458,7 +458,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     await applyClawAddPlan(addPlan, {
       env,
       consentPlanIntegrity: addPlan.planIntegrity,
@@ -508,7 +508,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     await applyClawAddPlan(addPlan, {
       env,
       consentPlanIntegrity: addPlan.planIntegrity,
@@ -556,7 +556,7 @@ describe("package-root BOOTSTRAP.md", () => {
       source: read.source,
       context: { workspace },
     });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     await applyClawAddPlan(addPlan, {
       env,
       consentPlanIntegrity: addPlan.planIntegrity,

@@ -11,7 +11,7 @@ import { SessionManager } from "../../agents/sessions/index.js";
 import { getCanonicalSkillWorkspace } from "../../agents/skill-workshop-workspace-context.js";
 import { getRuntimeConfig } from "../../config/config.js";
 import { resolveInternalSessionEffectsIdentity } from "../../config/sessions/internal-session-key.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { clearAgentRunContext, registerAgentRunContext } from "../../infra/agent-run-registry.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { runWithGatewayIndependentRootWorkAdmission } from "../../process/gateway-work-admission.js";
@@ -69,18 +69,18 @@ export type SkillExperienceReviewParams = {
   event: ExperienceReviewAgentEndEvent;
   ctx: ExperienceReviewAgentContext;
   usedSkills?: readonly RunSkillUsage[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 };
 
 export type ExperienceReviewCandidate = {
   ctx: ExperienceReviewAgentContext;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   usedSkills?: readonly RunSkillUsage[];
   turnAborted?: boolean;
 };
 
 type ExperienceReviewRunDeps = {
-  getCurrentConfig?: () => OpenClawConfig | Promise<OpenClawConfig>;
+  getCurrentConfig?: () => GrantedConfig | Promise<GrantedConfig>;
 };
 
 type ExperienceReviewTimer = ReturnType<typeof setTimeout>;
@@ -127,7 +127,7 @@ function isEligibleContext(ctx: ExperienceReviewAgentContext): boolean {
 
 export async function prepareSkillExperienceReviewCandidate(
   candidate: ExperienceReviewCandidate,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Promise<ExperienceReviewCandidate | undefined> {
   if (resolveSkillWorkshopConfig(config).autonomous.mode === "off") {
     return undefined;

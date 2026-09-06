@@ -13,7 +13,7 @@ import { recordReplyOperationAgentTurn } from "../auto-reply/reply/reply-operati
 import { resolveReplyOperationRunState } from "../auto-reply/reply/reply-operation-run-state.js";
 import { createReplyOperation } from "../auto-reply/reply/reply-run-registry.js";
 import { testing as replyRunRegistryTesting } from "../auto-reply/reply/reply-run-registry.test-support.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   clearCronJobActive,
   markCronJobActive,
@@ -68,7 +68,7 @@ beforeEach(() => {
 
 afterEach(() => resetHeartbeatEventsForTest());
 
-function createHeartbeatTelegramConfig(storePath: string): OpenClawConfig {
+function createHeartbeatTelegramConfig(storePath: string): GrantedConfig {
   return {
     session: { store: storePath },
     agents: {
@@ -84,12 +84,12 @@ function createHeartbeatTelegramConfig(storePath: string): OpenClawConfig {
         allowFrom: ["123"],
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 async function seedHeartbeatTelegramSession(
   storePath: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   entry: Partial<Parameters<typeof seedMainSessionStore>[2]> = {},
 ) {
   return seedMainSessionStore(storePath, cfg, {
@@ -103,7 +103,7 @@ async function seedHeartbeatTelegramSession(
 type HeartbeatRunOverrides = Omit<Parameters<typeof runHeartbeatOnce>[0], "cfg" | "deps">;
 
 function runHeartbeat(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   replySpy: HeartbeatDeps["getReplyFromConfig"],
   overrides: HeartbeatRunOverrides = {},
   deps: Partial<HeartbeatDeps> = {},

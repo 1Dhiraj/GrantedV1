@@ -15,7 +15,7 @@ import { t } from "../../i18n/index.ts";
 import { formatUiError } from "../../lib/format-error.ts";
 import { canCallGatewayMethod, isGatewayMethodAdvertised } from "../../lib/gateway-methods.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { probePortalReachable, type PortalReachability } from "./portal-reachability.ts";
 import { resolvePortalUrl } from "./portal-url.ts";
@@ -29,7 +29,7 @@ type PortalProbeState = {
   status: "probing" | PortalReachability;
 };
 
-class PortalsPage extends OpenClawLightDomElement {
+class PortalsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

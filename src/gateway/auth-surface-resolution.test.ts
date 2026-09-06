@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveGatewayInteractiveSurfaceAuth,
   resolveGatewayProbeSurfaceAuth,
@@ -14,7 +14,7 @@ function missingSecretRef(id: string) {
   return { source: "env", provider: "default", id } as const;
 }
 
-function configWithSecretProvider(gateway: NonNullable<OpenClawConfig["gateway"]>): OpenClawConfig {
+function configWithSecretProvider(gateway: NonNullable<GrantedConfig["gateway"]>): GrantedConfig {
   return {
     gateway,
     secrets: { providers: { default: { source: "env" } } },

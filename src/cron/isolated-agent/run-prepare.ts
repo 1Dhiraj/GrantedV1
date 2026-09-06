@@ -13,7 +13,7 @@ import { resolveAgentModelPrimaryValue } from "../../config/model-input.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { resolveSessionWorkStartError } from "../../config/sessions/lifecycle.js";
 import type { AgentDefaultsConfig } from "../../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveCreatorSandbox } from "../../gateway/operator-role-policy.js";
 import type { SourceDeliveryPlan } from "../../infra/outbound/source-delivery-plan.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
@@ -97,7 +97,7 @@ import { loadCronSessionEntryLatest, resolveCronSession } from "./session.js";
 
 export type PreparedCronRunContext = {
   input: RunCronAgentTurnParams;
-  cfgWithAgentDefaults: OpenClawConfig;
+  cfgWithAgentDefaults: GrantedConfig;
   agentId: string;
   agentCfg: AgentDefaultsConfig;
   agentDir: string;

@@ -10,7 +10,7 @@ import {
   readManagedImageRecord,
 } from "../gateway/managed-image-record-store.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -148,7 +148,7 @@ describe("cleanOldMedia managed-subtree retention", () => {
     const { db } = openOpenClawStateDatabase();
     const marker = executeSqliteQueryTakeFirstSync(
       db,
-      getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "outbound_media_provenance">>(db)
+      getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "outbound_media_provenance">>(db)
         .selectFrom("outbound_media_provenance")
         .select("realpath")
         .where("realpath", "=", staleOutbound.path),

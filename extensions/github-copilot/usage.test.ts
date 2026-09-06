@@ -1,11 +1,11 @@
 import { expectDefined } from "@openclaw/normalization-core";
-import type { OpenClawConfig, OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig, GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 
 function registerProvider() {
-  const registerProviderMock = vi.fn<OpenClawPluginApi["registerProvider"]>();
+  const registerProviderMock = vi.fn<GrantedPluginApi["registerProvider"]>();
   plugin.register(createTestPluginApi({ registerProvider: registerProviderMock }));
   return expectDefined(registerProviderMock.mock.calls[0]?.[0], "Copilot provider registration");
 }
@@ -62,7 +62,7 @@ describe("GitHub Copilot usage credential routing", () => {
           enterpriseUrl: testCase.credentialDomain,
         })
       : "durable-token";
-    const config: OpenClawConfig = testCase.configuredDomain
+    const config: GrantedConfig = testCase.configuredDomain
       ? {
           models: {
             providers: {

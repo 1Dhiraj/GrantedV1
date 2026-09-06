@@ -34,4 +34,4 @@ export {
   resolveCanonicalRootMemoryFile,
   shouldSkipRootMemoryAuxiliaryPath,
 } from "../../../../src/memory/root-memory-files.js";
-export type { OpenClawPluginApi } from "../../../../src/plugins/types.js";
+export type { GrantedPluginApi } from "../../../../src/plugins/types.js";

@@ -2,7 +2,7 @@
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveUserPath } from "../utils.js";
@@ -12,8 +12,8 @@ import { setupWizardCommand } from "./onboard.js";
 type ConfigSnapshotStub = {
   exists: boolean;
   valid: boolean;
-  config: OpenClawConfig;
-  sourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  sourceConfig?: GrantedConfig;
   readError?: { code: string | null };
 };
 
@@ -376,7 +376,7 @@ describe("setupWizardCommand", () => {
             workspace: 42,
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
     });
 
     await setupWizardCommand({ reset: true, resetScope: "full" }, runtime);

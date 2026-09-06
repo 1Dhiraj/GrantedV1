@@ -4,7 +4,7 @@ import {
   createQueuedWizardPrompter,
 } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { CUSTOM_LOCAL_AUTH_MARKER } from "openclaw/plugin-sdk/provider-auth";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
@@ -86,8 +86,8 @@ function buildConfig(
     apiKey: LMSTUDIO_DEFAULT_API_KEY_ENV_VAR,
     api: "openai-completions",
   },
-  config: Omit<OpenClawConfig, "models"> = {},
-): OpenClawConfig {
+  config: Omit<GrantedConfig, "models"> = {},
+): GrantedConfig {
   return {
     ...config,
     models: {
@@ -123,13 +123,13 @@ function mockFetchedModelsOnce(models: LmstudioModelWire[]): void {
 }
 
 function buildDiscoveryContext(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   apiKey?: string;
   discoveryApiKey?: string;
   env?: NodeJS.ProcessEnv;
 }): ProviderCatalogContext {
   return {
-    config: params?.config ?? ({} as OpenClawConfig),
+    config: params?.config ?? ({} as GrantedConfig),
     env: params?.env ?? {},
     resolveProviderApiKey: () => ({
       apiKey: params?.apiKey,
@@ -145,7 +145,7 @@ function buildDiscoveryContext(params?: {
 }
 
 function buildNonInteractiveContext(params?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   customBaseUrl?: string;
   customApiKey?: string;
   lmstudioApiKey?: string;
@@ -192,7 +192,7 @@ function createPromptText(apiKey = "lmstudio-test-key", baseUrl = "http://localh
 
 function runInteractive(
   params: Omit<Parameters<typeof promptAndConfigureLmstudioInteractive>[0], "config"> & {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
   } = {},
 ) {
   const { config = buildConfig(), ...options } = params;

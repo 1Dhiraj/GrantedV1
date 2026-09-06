@@ -14,7 +14,7 @@ import type {
   ChannelMessageSendTextContext,
 } from "../../channels/message/types.js";
 import type { ChannelOutboundAdapter, ChannelPlugin } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { renderMessagePresentationFallbackText } from "../../interactive/payload.js";
 import * as mediaCapabilityModule from "../../media/read-capability.js";
 import { createHookRunner } from "../../plugins/hooks.js";
@@ -257,8 +257,8 @@ let deliverOutboundPayloads: DeliverModule["deliverOutboundPayloads"];
 let deliverOutboundPayloadsInternal: DeliverModule["deliverOutboundPayloadsInternal"];
 let resolveOutboundDurableFinalDeliverySupport: DeliverModule["resolveOutboundDurableFinalDeliverySupport"];
 
-const matrixChunkConfig: OpenClawConfig = {
-  channels: { matrix: { textChunkLimit: 4000 } } as OpenClawConfig["channels"],
+const matrixChunkConfig: GrantedConfig = {
+  channels: { matrix: { textChunkLimit: 4000 } } as GrantedConfig["channels"],
 };
 
 const expectedPreferredTmpRoot = resolvePreferredOpenClawTmpDir();
@@ -499,7 +499,7 @@ function deliverMatrix(params: MatrixDeliveryArgs) {
 async function deliverMatrixPayload(params: {
   sendMatrix: MatrixSendFn;
   payload: DeliverOutboundPayload;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }) {
   return deliverMatrix({
     cfg: params.cfg ?? matrixChunkConfig,
@@ -515,8 +515,8 @@ async function runChunkedMatrixDelivery(params?: {
     .fn()
     .mockResolvedValueOnce({ messageId: "m1", roomId: "!room:example" })
     .mockResolvedValueOnce({ messageId: "m2", roomId: "!room:example" });
-  const cfg: OpenClawConfig = {
-    channels: { matrix: { textChunkLimit: 2 } } as OpenClawConfig["channels"],
+  const cfg: GrantedConfig = {
+    channels: { matrix: { textChunkLimit: 2 } } as GrantedConfig["channels"],
   };
   const results = await deliverMatrix({
     cfg,
@@ -548,7 +548,7 @@ async function runBestEffortPartialFailureDelivery(params?: { onError?: boolean 
     .mockRejectedValueOnce(new Error("fail"))
     .mockResolvedValueOnce({ messageId: "m2", roomId: "!room:example" });
   const onError = vi.fn();
-  const cfg: OpenClawConfig = {};
+  const cfg: GrantedConfig = {};
   const results = await deliverMatrix({
     cfg,
     payloads: [{ text: "a" }, { text: "b" }],
@@ -1245,7 +1245,7 @@ describe("deliverOutboundPayloads", () => {
     const onDeliveryAttempt = vi.fn(async () => {});
 
     await deliverMatrix({
-      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as GrantedConfig,
       payloads: [{ text: "abcd" }],
       deps: { matrix: sendMatrix },
       queuePolicy: "required",
@@ -2844,7 +2844,7 @@ describe("deliverOutboundPayloads", () => {
               },
             },
           },
-        } as OpenClawConfig["channels"],
+        } as GrantedConfig["channels"],
       },
       payloads: [{ text: "heartbeat media", mediaUrl: "file:///tmp/policy.png" }],
       deps: { matrix: sendMatrix },
@@ -3013,7 +3013,7 @@ describe("deliverOutboundPayloads", () => {
     );
 
     const results = await deliverOutboundPayloads({
-      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as GrantedConfig,
       channel: "matrix",
       to: "!room",
       accountId: "default",
@@ -3038,7 +3038,7 @@ describe("deliverOutboundPayloads", () => {
     );
 
     await deliverOutboundPayloads({
-      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as GrantedConfig,
       channel: "matrix",
       to: "!room",
       payloads: [{ text: "abcd" }],
@@ -3070,7 +3070,7 @@ describe("deliverOutboundPayloads", () => {
     );
 
     await deliverOutboundPayloads({
-      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 2 } } } as GrantedConfig,
       channel: "matrix",
       to: "!room",
       payloads: [{ text: "abcd" }],
@@ -3335,7 +3335,7 @@ describe("deliverOutboundPayloads", () => {
       ...payload,
       channelData: { normalized: true },
     }));
-    const cfg = { channels: { matrix: { enabled: true } } } as unknown as OpenClawConfig;
+    const cfg = { channels: { matrix: { enabled: true } } } as unknown as GrantedConfig;
     const sendPayload = installPayloadOutbound(
       { channel: "matrix", messageId: "context", roomId: "!room" },
       { normalizePayload, sendMedia: vi.fn() },
@@ -3828,7 +3828,7 @@ describe("deliverOutboundPayloads", () => {
       );
 
       const textResults = await deliverOutboundPayloads({
-        cfg: { channels: { line: {} } } as OpenClawConfig,
+        cfg: { channels: { line: {} } } as GrantedConfig,
         channel: "line",
         to: "U123",
         accountId: "default",
@@ -3848,7 +3848,7 @@ describe("deliverOutboundPayloads", () => {
         "fmt:hello **boss**:2",
       ]);
 
-      const cfg = { channels: { line: {} } } as OpenClawConfig;
+      const cfg = { channels: { line: {} } } as GrantedConfig;
       const onDeliveredPayload = vi.fn();
       const mediaResults = await deliverOutboundPayloads({
         cfg,
@@ -4139,7 +4139,7 @@ describe("deliverOutboundPayloads", () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-media", roomId: "!room" });
 
     await deliverMatrix({
-      cfg: { channels: { matrix: {} } } as OpenClawConfig,
+      cfg: { channels: { matrix: {} } } as GrantedConfig,
       payloads: [{ text: "hi", mediaUrl: "https://example.com/x.png" }],
       deps: { matrix: sendMatrix },
     });
@@ -4166,7 +4166,7 @@ describe("deliverOutboundPayloads", () => {
           matrix: {
             allowFrom: ["111", "222", "333"],
           },
-        } as OpenClawConfig["channels"],
+        } as GrantedConfig["channels"],
       },
       channel: "matrix",
       to: "!explicit:example",
@@ -4194,7 +4194,7 @@ describe("deliverOutboundPayloads", () => {
     });
 
     await deliverOutboundPayloads({
-      cfg: { channels: { matrix: {} } } as OpenClawConfig,
+      cfg: { channels: { matrix: {} } } as GrantedConfig,
       channel: "matrix",
       to: "room:!room:example",
       payloads: [{ text: "voice caption", mediaUrl: "file:///tmp/clip.mp3", audioAsVoice: true }],
@@ -4220,7 +4220,7 @@ describe("deliverOutboundPayloads", () => {
     setTestOutbound({ sendText: vi.fn(), sendMedia });
 
     await deliverOutboundPayloads({
-      cfg: { channels: { matrix: {} } } as OpenClawConfig,
+      cfg: { channels: { matrix: {} } } as GrantedConfig,
       channel: "matrix",
       to: "room:!room:example",
       payloads: [
@@ -4259,10 +4259,10 @@ describe("deliverOutboundPayloads", () => {
 
   it("respects newline chunk mode for plugin text without splitting short messages", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m1", roomId: "!room:example" });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         matrix: { textChunkLimit: 4000, chunkMode: "newline" },
-      } as OpenClawConfig["channels"],
+      } as GrantedConfig["channels"],
     };
 
     await deliverMatrix({
@@ -4283,10 +4283,10 @@ describe("deliverOutboundPayloads", () => {
       .fn()
       .mockResolvedValueOnce({ messageId: "m1", roomId: "!room:example" })
       .mockResolvedValueOnce({ messageId: "m2", roomId: "!room:example" });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         matrix: { textChunkLimit: 14, chunkMode: "newline" },
-      } as OpenClawConfig["channels"],
+      } as GrantedConfig["channels"],
     };
 
     await deliverMatrix({
@@ -4325,7 +4325,7 @@ describe("deliverOutboundPayloads", () => {
     });
 
     await deliverOutboundPayloads({
-      cfg: { channels: { matrix: { textChunkLimit: 4000 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 4000 } } } as GrantedConfig,
       channel: "matrix",
       to: "!room",
       payloads: [{ text: "abcd" }],
@@ -4359,7 +4359,7 @@ describe("deliverOutboundPayloads", () => {
     });
 
     await deliverOutboundPayloadsInternal({
-      cfg: { channels: { matrix: { textChunkLimit: 4000 } } } as OpenClawConfig,
+      cfg: { channels: { matrix: { textChunkLimit: 4000 } } } as GrantedConfig,
       channel: "matrix",
       to: "!room",
       payloads: [{ text: "line one\nline two" }],
@@ -4445,7 +4445,7 @@ describe("deliverOutboundPayloads", () => {
       sendMedia,
     });
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: { matrix: { textChunkLimit: 4000, chunkMode: "newline" } },
     };
     const text = "```js\nconst a = 1;\nconst b = 2;\n```\nAfter";
@@ -4492,7 +4492,7 @@ describe("deliverOutboundPayloads", () => {
   it("passes config through for plugin media sends", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-media", roomId: "!room" });
     setTestOutbound(matrixOutboundForTest);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { defaults: { mediaMaxMb: 3 } },
     };
 
@@ -5054,7 +5054,7 @@ describe("deliverOutboundPayloads", () => {
     const workspaceOnlyConfig = {
       ...matrixChunkConfig,
       tools: { fs: { workspaceOnly: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     // Deliberately outside the OpenClaw temp root: that root is itself a default
     // media root, so a state dir inside it would admit the source by containment
     // and hide whether the agent-scoped capability is what grants access.
@@ -5165,7 +5165,7 @@ describe("deliverOutboundPayloads", () => {
 
   it("suppresses direct silent replies from the outbound session", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-silent", roomId: "!room" });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           silentReply: {
@@ -5231,7 +5231,7 @@ describe("deliverOutboundPayloads", () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m1", roomId: "!room:example" });
     const abortController = new AbortController();
     abortController.abort();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
 
     await expect(
       deliverMatrix({
@@ -5259,7 +5259,7 @@ describe("deliverOutboundPayloads", () => {
   it("passes normalized payload to onError", async () => {
     const sendMatrix = vi.fn().mockRejectedValue(new Error("boom"));
     const onError = vi.fn();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
 
     await deliverMatrix({
       cfg,
@@ -5288,7 +5288,7 @@ describe("deliverOutboundPayloads", () => {
     );
     mocks.appendAssistantMessageToSessionTranscript.mockClear();
 
-    const cfg = { channels: { line: {} } } as OpenClawConfig;
+    const cfg = { channels: { line: {} } } as GrantedConfig;
     await deliverOutboundPayloads({
       cfg,
       channel: "line",

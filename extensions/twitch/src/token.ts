@@ -14,7 +14,7 @@ import {
   normalizeAccountId,
   resolveNormalizedAccountEntry,
 } from "openclaw/plugin-sdk/account-resolution";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 
 type TwitchTokenSource = "env" | "config" | "none";
 
@@ -53,7 +53,7 @@ function normalizeTwitchToken(raw?: string | null): string | undefined {
  * @returns Token resolution with source
  */
 export function resolveTwitchToken(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   opts: { accountId?: string | null; envToken?: string | null } = {},
 ): TwitchTokenResolution {
   const accountId = normalizeAccountId(opts.accountId);

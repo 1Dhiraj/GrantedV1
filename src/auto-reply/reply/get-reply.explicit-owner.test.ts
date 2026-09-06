@@ -14,7 +14,7 @@ import * as pluginRuntime from "../../plugins/runtime.js";
 import { createPluginRecord } from "../../plugins/status.test-helpers.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { withFullRuntimeReplyConfig } from "./get-reply-fast-path.js";
 import { getReplyFromConfig } from "./get-reply.js";
@@ -28,7 +28,7 @@ vi.mock("../../agents/embedded-agent.js", async (importOriginal) => ({
   })),
 }));
 
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 afterEach(async () => {
   await state?.cleanup();
   vi.clearAllMocks();

@@ -3,9 +3,9 @@ import {
   preflightOpenClawDatabaseSchemas,
   type IncompatibleOpenClawDatabase,
   type IndeterminateOpenClawDatabase,
-  type OpenClawDatabaseSchemaPreflight,
+  type GrantedDatabaseSchemaPreflight,
 } from "../../state/openclaw-database-preflight.js";
-import type { OpenClawSchemaVersions } from "../../state/openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
 
 export function formatSchemaRefusalLines(
   schemas: {
@@ -30,14 +30,14 @@ export function formatSchemaRefusalLines(
 }
 
 export function checkTargetDatabaseSchemas(
-  supportedVersions: OpenClawSchemaVersions | undefined,
+  supportedVersions: GrantedSchemaVersions | undefined,
   env: NodeJS.ProcessEnv = process.env,
-): OpenClawDatabaseSchemaPreflight {
+): GrantedDatabaseSchemaPreflight {
   return supportedVersions
     ? preflightOpenClawDatabaseSchemas({ env, supportedVersions })
     : { incompatible: [], indeterminate: [] };
 }
 
-export function hasSchemaRefusal(schemas: OpenClawDatabaseSchemaPreflight): boolean {
+export function hasSchemaRefusal(schemas: GrantedDatabaseSchemaPreflight): boolean {
   return schemas.incompatible.length > 0 || schemas.indeterminate.length > 0;
 }

@@ -2,7 +2,7 @@
 import { safeParseJsonRecord } from "@openclaw/normalization-core";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../state/openclaw-state-db.js";
 import {
   bindDeliveryQueueEntry,
@@ -63,7 +63,7 @@ function enoent(queueName: string, id: string): Error & { code: string } {
 
 function upsertDeliveryQueueEntryInDatabase(
   params: UpsertDeliveryQueueEntryParams,
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
 ): boolean {
   return upsertBoundDeliveryQueueEntryInDatabase(bindDeliveryQueueEntry(params), database);
 }

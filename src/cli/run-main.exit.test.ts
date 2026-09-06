@@ -6,7 +6,7 @@ import process from "node:process";
 import { expectDefined } from "@openclaw/normalization-core";
 import { CommanderError } from "commander";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { GATEWAY_SERVICE_RUNTIME_PID_ENV } from "../daemon/constants.js";
 import { flushDiagnosticsTimeline } from "../infra/diagnostics-timeline.js";
 import { createNewerSqliteSchemaVersionError } from "../infra/sqlite-user-version.js";
@@ -186,7 +186,7 @@ const createCliProgressMock = vi.hoisted(() =>
 );
 const loadConfigMock = vi.hoisted(() =>
   vi.fn<
-    (...args: Parameters<typeof import("../config/io.js").readBestEffortConfig>) => OpenClawConfig
+    (...args: Parameters<typeof import("../config/io.js").readBestEffortConfig>) => GrantedConfig
   >(() => ({})),
 );
 const readSourceConfigBestEffortMock = vi.hoisted(() => vi.fn(async () => ({})));
@@ -4432,7 +4432,7 @@ describe("runCli exit behavior", () => {
 
   it("passes configured remote edge auth into the bare-root onboarding probe", async () => {
     const url = "wss://gateway.example/ws";
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {

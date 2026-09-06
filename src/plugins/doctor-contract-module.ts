@@ -1,7 +1,7 @@
 import type { ChannelIngressQueue } from "../channels/message/ingress-queue.js";
 import type { LegacyConfigRule } from "../config/legacy.shared.js";
 import type { SessionAcpMeta, SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorRawStateEntry,
@@ -96,7 +96,7 @@ export type PluginDoctorChannelIngressQueueAccess = {
 };
 
 type PluginDoctorStateMigrationInput = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
   oauthDir: string;
@@ -136,13 +136,13 @@ export type PluginDoctorContractModule = {
   stateMigrations?: unknown;
 };
 
-type PluginDoctorCompatibilityNormalizer = (params: { cfg: OpenClawConfig }) => {
-  config: OpenClawConfig;
+type PluginDoctorCompatibilityNormalizer = (params: { cfg: GrantedConfig }) => {
+  config: GrantedConfig;
   changes: string[];
 };
 
 type PluginDoctorSessionStoreAgentIdsResolver = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) => readonly string[];
 
 function coerceLegacyConfigRules(value: unknown): LegacyConfigRule[] {

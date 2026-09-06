@@ -7,7 +7,7 @@ import {
   resolveAgentMainSessionKey,
   resolveExplicitAgentSessionKey,
 } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   loadVoiceWakeRoutingConfig,
   resolveVoiceWakeRouteByTrigger,
@@ -68,7 +68,7 @@ type AgentContentPhaseResult = {
 
 export async function prepareAgentContentPhase(params: {
   request: AgentRunRequest;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   context: AgentTurnContext;
   respond: GatewayRequestHandlerOptions["respond"];
   isRawModelRun: boolean;

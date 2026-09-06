@@ -1,7 +1,7 @@
 import { lstatSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { LEGACY_IMPLICIT_AGENT_ID, normalizeAgentId } from "../../routing/session-key.js";
-import type { OpenClawRegisteredAgentDatabase } from "../../state/openclaw-agent-db-contract.js";
+import type { GrantedRegisteredAgentDatabase } from "../../state/openclaw-agent-db-contract.js";
 import {
   isSameOpenClawAgentDatabasePath,
   listOpenClawRegisteredAgentDatabases,
@@ -30,13 +30,13 @@ type ResolveSqliteStoreTargetOptions = {
   agentId?: string;
   defaultAgentId?: string;
   env?: NodeJS.ProcessEnv;
-  registeredDatabases?: readonly Pick<OpenClawRegisteredAgentDatabase, "agentId" | "path">[];
+  registeredDatabases?: readonly Pick<GrantedRegisteredAgentDatabase, "agentId" | "path">[];
   isSameDatabasePath?: (left: string, right: string) => boolean;
 };
 
 function resolveRegisteredOwners(
   pathname: string,
-  registeredDatabases: readonly Pick<OpenClawRegisteredAgentDatabase, "agentId" | "path">[],
+  registeredDatabases: readonly Pick<GrantedRegisteredAgentDatabase, "agentId" | "path">[],
   isSameDatabasePath: (left: string, right: string) => boolean,
 ): string[] {
   return [

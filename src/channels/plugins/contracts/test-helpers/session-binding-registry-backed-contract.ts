@@ -13,7 +13,7 @@ import type { SessionBindingCapabilities } from "../../../../infra/outbound/sess
 import { resetPluginRuntimeStateForTest } from "../../../../plugins/runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../../test-utils/openclaw-test-state.js";
 import { getSessionBindingContractRegistry } from "./registry-session-binding.js";
 
@@ -67,7 +67,7 @@ export function describeSessionBindingRegistryBackedContract(id: string) {
   }
 
   describe(`${entry.id} session binding contract`, () => {
-    let testState: OpenClawTestState | undefined;
+    let testState: GrantedTestState | undefined;
 
     beforeAll(async () => {
       await entry.preload?.();

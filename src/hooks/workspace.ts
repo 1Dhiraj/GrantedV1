@@ -4,7 +4,7 @@ import path from "node:path";
 import { safeParseJson } from "@openclaw/normalization-core";
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 import { MANIFEST_KEYS, readManifestSection } from "../compat/legacy-names.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openRootFileSync, readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { isPathInsideWithRealpath } from "../security/scan-paths.js";
@@ -207,7 +207,7 @@ function loadHookEntriesFromDir(params: {
 function discoverWorkspaceHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
   },
@@ -258,7 +258,7 @@ function discoverWorkspaceHookEntries(
 export function loadWorkspaceHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
     entries?: HookEntry[];

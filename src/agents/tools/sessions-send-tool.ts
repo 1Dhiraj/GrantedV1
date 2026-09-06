@@ -16,7 +16,7 @@ import { parseSessionThreadInfo } from "../../config/sessions/thread-info.js";
 import { runWithoutOwnedSessionTranscriptWrites } from "../../config/sessions/transcript-write-context.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
 import type { AgentRouteBinding } from "../../config/types.agents.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
@@ -204,7 +204,7 @@ function normalizeSessionsSendArguments(args: unknown): Record<string, unknown> 
 }
 
 function resolveConfiguredAgentMainSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   mainKey: string;
 }): string | undefined {
@@ -220,7 +220,7 @@ function resolveConfiguredAgentMainSessionKey(params: {
 }
 
 function isConfiguredAgentMainSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   sessionKey: string;
   mainKey: string;
@@ -243,7 +243,7 @@ function isConfiguredAgentMainSessionKey(params: {
 }
 
 async function createConfiguredAgentMainSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   callGateway: GatewayCaller;
   agentId?: string;
   sessionKey: string;
@@ -358,7 +358,7 @@ function shouldFallbackCronRunScopedActiveDelivery(
 }
 
 async function startAgentRun(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   callGateway: GatewayCaller;
   runId: string;
   sendParams: Record<string, unknown> & {
@@ -501,7 +501,7 @@ export function createSessionsSendTool(opts?: {
   agentSessionKey?: string;
   agentChannel?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   callGateway?: GatewayCaller;
   /** Backend-derived target incarnation; never sourced from model arguments. */
   expectedTargetSessionId?: string;

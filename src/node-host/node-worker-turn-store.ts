@@ -5,10 +5,10 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import type { NodeWorkerSupervisorIdentity } from "../worker/node-supervisor-protocol.js";
@@ -21,7 +21,7 @@ import {
 } from "./node-worker-launch-store.js";
 import type { NodeWorkerProcessIdentity } from "./node-worker-process-identity.js";
 
-type TurnDatabase = Pick<OpenClawStateDatabase, "node_worker_turns">;
+type TurnDatabase = Pick<GrantedStateDatabase, "node_worker_turns">;
 type TurnRow = Selectable<TurnDatabase["node_worker_turns"]>;
 
 export type NodeWorkerTurnReceipt = NodeWorkerLaunchReceipt & { ownerLaunchId: string };
@@ -142,7 +142,7 @@ function pruneTerminal(database: DatabaseSync, nowMs: number, excludeTurnId: str
 
 /** Immutable turn outcomes attached to a separately supervised physical worker. */
 export class NodeWorkerTurnStore {
-  private readonly databaseOptions: OpenClawStateDatabaseOptions;
+  private readonly databaseOptions: GrantedStateDatabaseOptions;
 
   constructor(options: { env?: NodeJS.ProcessEnv } = {}) {
     this.databaseOptions = options.env ? { env: options.env } : {};

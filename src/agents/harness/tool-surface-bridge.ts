@@ -1,5 +1,5 @@
 import { messageToolOwnsVisibleReply } from "../../auto-reply/source-reply-delivery-mode.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { HookContext } from "../agent-tools.before-tool-call.js";
 import {
   CODE_MODE_EXEC_TOOL_NAME,
@@ -44,7 +44,7 @@ export type AgentHarnessToolSurfaceRuntime = {
     tools: AnyAgentTool[];
     promptToolPolicy: ReturnType<typeof createAgentHarnessPromptToolPolicy<AnyAgentTool>>;
   };
-  config: OpenClawConfig | undefined;
+  config: GrantedConfig | undefined;
   includeToolSearchControls: boolean;
   runtimeToolAllowlist: string[] | undefined;
   toolSearchCatalogRef: ToolSearchCatalogRef | undefined;
@@ -56,7 +56,7 @@ export type AgentHarnessToolSurfaceRuntime = {
 export function createAgentHarnessToolSurfaceRuntimeCore(params: {
   abortSignal?: AbortSignal;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   disableTools?: boolean;
   executeTool: ToolSearchCatalogToolExecutor;
   forceMessageTool?: boolean;

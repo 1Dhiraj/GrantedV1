@@ -21,7 +21,7 @@ import {
   readOpenIncognitoAgentDatabaseGeneration,
 } from "../../state/openclaw-agent-db.js";
 import { resolveSessionStoreCompatibilityAgentId } from "../legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import {
   countSessionEntryRowsReadOnly,
@@ -62,7 +62,7 @@ type ResolvedGatewaySessionStoreTargets = {
 };
 
 type PreparedConfiguredSessionStoreTargets = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   includeIncognito: boolean;
   incognitoGeneration: number;
   registryToken: symbol;
@@ -126,7 +126,7 @@ function loadGatewayStoreEntries(params: {
 }
 
 function mergeSessionEntryIntoCombined(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   combined: Record<string, SessionEntry>;
   agentIdBySessionKey: Map<string, string>;
   entry: SessionEntry;
@@ -164,7 +164,7 @@ function mergeSessionEntryIntoCombined(params: {
 }
 
 function mergeOpenIncognitoStores(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   combined: Record<string, SessionEntry>;
   agentIdBySessionKey: Map<string, string>;
   projection: GatewaySessionEntryProjection;
@@ -201,7 +201,7 @@ function mergeOpenIncognitoStores(params: {
 }
 
 function filterCombinedStoreToConfiguredAgents(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   configuredAgentIds: ReadonlySet<string>;
   store: Record<string, SessionEntry>;
   agentIdBySessionKey: Map<string, string>;
@@ -230,7 +230,7 @@ function filterCombinedStoreToConfiguredAgents(params: {
 }
 
 function resolvePreparedConfiguredSessionStoreTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   includeIncognito: boolean,
 ): ResolvedGatewaySessionStoreTargets {
   const registryToken = readOpenClawAgentDatabaseRegistryToken();
@@ -298,7 +298,7 @@ function resolvePreparedConfiguredSessionStoreTargets(
 }
 
 function resolveGatewaySessionStoreTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: GatewaySessionStoreOptions,
 ): ResolvedGatewaySessionStoreTargets {
   const storeConfig = cfg.session?.store;
@@ -365,7 +365,7 @@ function resolveGatewaySessionStoreTargets(
 
 /** Checks whether Gateway prewarm can project the selected stores within a bounded row budget. */
 export function canPrewarmCombinedSessionStoresForGateway(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { agentIds: readonly string[]; maxRows: number },
 ): boolean {
   let totalRows = 0;
@@ -390,7 +390,7 @@ export function canPrewarmCombinedSessionStoresForGateway(
 
 /** Loads and canonicalizes session entries for gateway views across one or more agent stores. */
 export function loadCombinedSessionStoreForGatewayCore(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts: GatewaySessionStoreOptions = {},
 ): {
   diagnostics?: readonly string[];

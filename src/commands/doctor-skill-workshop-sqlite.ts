@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isMissingPathError } from "../infra/errors.js";
 import { removePathWithinRoot } from "../infra/fs-safe-remove.js";
 import { pathExists, root, type Root } from "../infra/fs-safe.js";
@@ -54,12 +54,12 @@ function proposalWorkspace(record: SkillProposalRecord): string {
   return path.dirname(path.dirname(path.resolve(record.target.skillDir)));
 }
 
-function configuredAgentIds(config: OpenClawConfig): string[] {
+function configuredAgentIds(config: GrantedConfig): string[] {
   return listAgentIds(config);
 }
 
 function inferOwnerAgentId(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   record: SkillProposalRecord;
   workspaceDir: string;
@@ -132,7 +132,7 @@ async function verifyImportedProposal(params: {
 }
 
 async function migrateProposal(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   proposalId: string;
   stateRoot: Root;
@@ -211,7 +211,7 @@ async function reconcileIncompleteProposal(params: {
 
 /** Import verified legacy proposal sidecars, then remove only the imported JSON metadata. */
 export async function migrateLegacySkillWorkshopProposals(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<MigrationResult> {
   const env = params.env ?? process.env;

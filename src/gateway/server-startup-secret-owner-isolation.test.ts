@@ -13,7 +13,7 @@ import { resolveApiKeyForProviderCore } from "../agents/model-auth.js";
 import { resolveSandboxContext } from "../agents/sandbox/context.js";
 import type { ChannelGatewayContext } from "../channels/plugins/types.adapters.js";
 import type { ChannelAccountSnapshot, ChannelPlugin } from "../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { tryReadSecretFileSync } from "../infra/secret-file.js";
 import { selectAgentSystemEvents } from "../infra/system-event-ownership.js";
 import {
@@ -60,7 +60,7 @@ const { webSearchProviders } = vi.hoisted(() => {
         setCredentialValue: (config: { apiKey?: unknown }, value: unknown) => {
           config.apiKey = value;
         },
-        getConfiguredCredentialValue: (config: OpenClawConfig | undefined) => {
+        getConfiguredCredentialValue: (config: GrantedConfig | undefined) => {
           const pluginConfig = config?.plugins?.entries?.google?.config;
           return pluginConfig && typeof pluginConfig === "object"
             ? (pluginConfig as { webSearch?: { apiKey?: unknown } }).webSearch?.apiKey
@@ -100,12 +100,12 @@ vi.mock("../secrets/runtime-web-tools-fallback.runtime.js", () => ({
 installGatewayTestHooks({ scope: "suite" });
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-async function writeConfig(config: OpenClawConfig): Promise<void> {
+async function writeConfig(config: GrantedConfig): Promise<void> {
   const { writeConfigFile } = await import("../config/config.js");
   await writeConfigFile(config);
 }
 
-function baseConfig(): OpenClawConfig {
+function baseConfig(): GrantedConfig {
   return {
     gateway: {
       mode: "local",
@@ -802,7 +802,7 @@ describe("Gateway startup SecretRef owner isolation", () => {
       },
       async () => {
         const profileId = "openai:cold";
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           ...baseConfig(),
           agents: {
             defaults: {

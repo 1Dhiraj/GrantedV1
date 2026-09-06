@@ -6,7 +6,7 @@ import {
   resolveSqliteScope,
   toDatabaseOptions,
 } from "../../config/sessions/session-accessor.sqlite-scope.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import type { PluginDoctorRepairAuthority } from "../../infra/state-migrations.types.js";
 import type {
@@ -29,12 +29,12 @@ import {
 import { resolveSessionStorePathForAcp } from "./session-meta-store.js";
 import { rowToAcpSessionMeta } from "./session-meta.js";
 
-type DoctorAcpScope = { config: OpenClawConfig; env: NodeJS.ProcessEnv; pluginId: string };
+type DoctorAcpScope = { config: GrantedConfig; env: NodeJS.ProcessEnv; pluginId: string };
 
 // Canonical metadata plus a current binding proves free harness namespaces. Configured
 // binding keys still belong to the roster, even when their metadata survives retirement.
 function isRetiredClaimOwner(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   target: { agentId: string; sessionKey: string },
 ): boolean {
   const parsed = parseAgentSessionKey(target.sessionKey);

@@ -14,7 +14,7 @@ import {
 } from "@opentelemetry/sdk-trace-base";
 import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
 import { registerUnhandledRejectionHandler } from "openclaw/plugin-sdk/runtime-env";
-import type { DiagnosticTraceContext, OpenClawPluginService } from "../api.js";
+import type { DiagnosticTraceContext, GrantedPluginService } from "../api.js";
 import {
   DEFAULT_SERVICE_NAME,
   OTEL_EXPORTER_OTLP_ENDPOINT_ENV,
@@ -183,7 +183,7 @@ function diagnosticTraceContextFromSpanContext(spanContext: SpanContext): Diagno
   };
 }
 
-export function createDiagnosticsOtelService(): OpenClawPluginService {
+export function createDiagnosticsOtelService(): GrantedPluginService {
   let traceProvider: BasicTracerProvider | null = null;
   let meterProvider: MeterProvider | null = null;
   let logProvider: LoggerProvider | null = null;
@@ -687,5 +687,5 @@ export function createDiagnosticsOtelService(): OpenClawPluginService {
       preserveExporterRoutesOnNextStop = false;
       await stopStarted(preserveExporterRoutes ? { preserveExporterRoutes: true } : undefined);
     },
-  } satisfies OpenClawPluginService;
+  } satisfies GrantedPluginService;
 }

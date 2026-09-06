@@ -5,7 +5,7 @@ import {
   inheritLegacyDefaultAgentId,
   tryGetLegacyDefaultAgentId,
 } from "../../../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { normalizeAgentId } from "../../../routing/session-key.js";
 import {
   isBlockedLegacyCodexModelRef,
@@ -27,7 +27,7 @@ function ensureRecord(container: MutableRecord, key: string): MutableRecord {
 }
 
 function resolvePolicyOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: CronCodexRuntimePolicyTarget;
 }): { owner: MutableRecord; path: string } | undefined {
   const root = isRecord(params.cfg) ? params.cfg : {};
@@ -69,11 +69,11 @@ function resolvePolicyOwner(params: {
 
 /** Install model-scoped Codex runtime intent for canonical refs migrated out of cron payloads. */
 export function repairCronCodexRuntimePolicies(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targets: ReadonlyArray<CronCodexRuntimePolicyTarget>;
   blockedModelIdentities?: ReadonlySet<LegacyCodexModelIdentity>;
 }): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   warnings: string[];
   blockedTargets: CronCodexRuntimePolicyTarget[];
@@ -164,7 +164,7 @@ export function repairCronCodexRuntimePolicies(params: {
 
 /** Restrict a post-config-write cron rewrite to runtime policies already on disk. */
 export function planCronCodexRefRewriteAgainstPersistedConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targets: ReadonlyArray<CronCodexRuntimePolicyTarget>;
   blockedModelIdentities?: ReadonlySet<LegacyCodexModelIdentity>;
 }): { warnings: string[]; blockedTargets: CronCodexRuntimePolicyTarget[] } {

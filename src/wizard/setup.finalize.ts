@@ -32,7 +32,7 @@ import {
 } from "../commands/onboard-helpers.js";
 import type { OnboardOptions } from "../commands/onboard-types.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   describeGatewayServiceRestart,
   formatGatewayServiceStartRepairIssues,
@@ -66,9 +66,9 @@ import type { GatewayWizardSettings, WizardFlow } from "./setup.types.js";
 type FinalizeOnboardingOptions = {
   flow: WizardFlow;
   opts: OnboardOptions;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   hadExistingConfig?: boolean;
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   workspaceDir: string;
   settings: GatewayWizardSettings;
   prompter: WizardPrompter;
@@ -78,7 +78,7 @@ type FinalizeOnboardingOptions = {
 const HATCH_TUI_TIMEOUT_MS = 5 * 60 * 1000;
 
 function buildSessionGatewayAuthOverride(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   settings: GatewayWizardSettings;
   resolvedGatewayPassword: string;
 }): GatewayAuthConfig | undefined {
@@ -100,7 +100,7 @@ function buildSessionGatewayAuthOverride(params: {
 }
 
 async function startSessionGatewayForOnboarding(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   settings: GatewayWizardSettings;
   resolvedGatewayPassword: string;
   prompter: WizardPrompter;
@@ -244,7 +244,7 @@ function buildGatewayRecoveryProjection(params: {
 export async function ensureGatewayServiceForOnboarding(params: {
   flow: WizardFlow;
   opts: Pick<OnboardOptions, "installDaemon" | "daemonRuntime">;
-  nextConfig: OpenClawConfig;
+  nextConfig: GrantedConfig;
   settings: Pick<GatewayWizardSettings, "port">;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;
@@ -586,7 +586,7 @@ export async function finalizeSetupWizard(
             });
       if (gatewayProbe.ok) {
         try {
-          const healthConfig: OpenClawConfig =
+          const healthConfig: GrantedConfig =
             settings.authMode === "token" && settings.gatewayToken
               ? {
                   ...nextConfig,

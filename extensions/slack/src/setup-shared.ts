@@ -4,7 +4,7 @@ import { patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup-runtime"
 import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
 import { isSlackSetupAccountConfigured } from "./account-configured.js";
 import type { ResolvedSlackAccount } from "./accounts.js";
-import type { OpenClawConfig } from "./channel-api.js";
+import type { GrantedConfig } from "./channel-api.js";
 
 export const SLACK_CHANNEL = "slack" as const;
 
@@ -118,10 +118,10 @@ export function buildSlackSetupLines(): string[] {
 }
 
 export function setSlackChannelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
   channelKeys: string[],
-): OpenClawConfig {
+): GrantedConfig {
   const channels = Object.fromEntries(channelKeys.map((key) => [key, { enabled: true }]));
   return patchChannelConfigForAccount({
     cfg,

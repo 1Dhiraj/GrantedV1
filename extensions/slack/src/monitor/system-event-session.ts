@@ -1,5 +1,5 @@
 // Slack plugin module owns session routing for non-message events.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveRuntimeConversationBindingRoute } from "openclaw/plugin-sdk/conversation-runtime";
 import {
   resolveAgentRoute,
@@ -27,7 +27,7 @@ type SlackSystemEventSessionKeyParams = {
 type SlackSystemEventRoute = Pick<ResolvedAgentRoute, "agentId" | "sessionKey">;
 
 export function createSlackSystemEventRouteResolver(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   getTeamId: () => string;
   mainKey: string;
@@ -75,7 +75,7 @@ export function createSlackSystemEventRouteResolver(params: {
 }
 
 function resolveSlackSystemEventRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   teamId: string;
   threadInheritParent: boolean;

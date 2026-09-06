@@ -15,7 +15,7 @@ import {
   WEBHOOK_ANOMALY_COUNTER_DEFAULTS,
   WEBHOOK_RATE_LIMIT_DEFAULTS,
   resolveClientIp,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../runtime-api.js";
 import type { ResolvedZaloAccount } from "./accounts.js";
 import type { ZaloRuntimeEnv } from "./monitor.types.js";
@@ -23,7 +23,7 @@ import { ZaloWebhookPayloadError } from "./webhook-spool.js";
 
 type ZaloWebhookTarget = {
   account: ResolvedZaloAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: ZaloRuntimeEnv;
   secret: string;
   path: string;

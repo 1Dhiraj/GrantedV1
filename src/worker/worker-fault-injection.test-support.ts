@@ -16,7 +16,7 @@ import {
   resolveSessionTranscriptRuntimeTarget,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as workerServer from "../gateway/server/ws-connection/worker-connection.js";
 import type { GatewayWsClient } from "../gateway/server/ws-types.js";
 import type { WorkerConnectionIdentity } from "../gateway/worker-environments/connection-identity.js";
@@ -160,8 +160,8 @@ type WorkerClientOptions = {
 
 export class ComposedGatewayHarness {
   readonly socketPath: string;
-  readonly cfg: OpenClawConfig;
-  readonly database: stateDb.OpenClawStateDatabase;
+  readonly cfg: GrantedConfig;
+  readonly database: stateDb.GrantedStateDatabase;
   readonly store: envStore.WorkerEnvironmentStore;
   readonly placementStore: placements.WorkerSessionPlacementStore;
   readonly requests: Array<{ method: string; params: unknown }> = [];

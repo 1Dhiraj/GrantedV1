@@ -1,7 +1,7 @@
 import path from "node:path";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { listRawChannelPluginCatalogEntries } from "../../../channels/plugins/catalog.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import { compareOpenClawReleaseVersions } from "../../../infra/npm-registry-spec.js";
 import {
@@ -70,7 +70,7 @@ function resolvePluginPathIdentity(
 
 /** Keep doctor diagnostics and actual package repair on the same discovery snapshot. */
 export async function resolveConfiguredPluginInstallContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   configuredPluginIds: ReadonlySet<string>;
   configuredChannelIds: ReadonlySet<string>;
@@ -250,7 +250,7 @@ function setDownloadableInstallCandidate(params: {
 }
 
 export function collectDownloadableInstallCandidates(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   missingPluginIds: ReadonlySet<string>;
   configuredPluginIds?: ReadonlySet<string>;
@@ -406,7 +406,7 @@ function addLegacyNpmDeclarationInstallCandidate(params: {
 }
 
 function collectLegacyNpmDeclarationInstallCandidates(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   configuredPluginIds: ReadonlySet<string>;
   missingPluginIds: ReadonlySet<string>;
@@ -455,7 +455,7 @@ function collectLegacyNpmDeclarationInstallCandidates(params: {
 }
 
 export function collectUpdateDeferredPluginIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   configuredPluginIds: ReadonlySet<string>;
   configuredChannelIds: ReadonlySet<string>;
@@ -628,7 +628,7 @@ function isConfiguredPluginRepairTarget(params: {
 }
 
 function collectOfficialReplacementInstallCandidates(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   repairablePluginIds: ReadonlySet<string>;
   configuredPluginIds: ReadonlySet<string>;

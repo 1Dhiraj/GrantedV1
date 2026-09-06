@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { loadPreparedModelCatalogOwnerSnapshot } from "./prepared-model-catalog.js";
 import {
@@ -24,7 +24,7 @@ import {
 import { PreparedReplyDispatchPublicationOwner } from "./prepared-reply-dispatch-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared model runtime reload auth adoption", () => {
   beforeEach(async () => {

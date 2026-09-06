@@ -21,13 +21,13 @@ import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import { tableExists, tableHasColumns } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { parseDeliveryContextJson, parseSqliteJsonValue } from "./task-registry.sqlite.shared.js";
 import type { TaskRegistryStoreSnapshot } from "./task-registry.store.types.js";
@@ -44,10 +44,10 @@ import {
   type TaskRuntime,
 } from "./task-registry.types.js";
 
-type TaskRunsTable = OpenClawStateKyselyDatabase["task_runs"];
-type TaskDeliveryStateTable = OpenClawStateKyselyDatabase["task_delivery_state"];
+type TaskRunsTable = GrantedStateKyselyDatabase["task_runs"];
+type TaskDeliveryStateTable = GrantedStateKyselyDatabase["task_delivery_state"];
 type TaskRegistryStoreDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "task_delivery_state" | "task_runs"
 >;
 
@@ -316,7 +316,7 @@ function selectTaskDeliveryStateRows(db: DatabaseSync): TaskDeliveryStateRow[] {
 
 /** Upserts a prebound task on the exact supplied shared-state handle. */
 export function upsertTaskRunRowInDatabase(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   row: BoundTaskRecord,
 ): void {
   const { db } = database;
@@ -374,7 +374,7 @@ function openTaskRegistryDatabase(): TaskRegistryDatabase {
   return cachedDatabase;
 }
 
-function withWriteTransaction(write: (database: OpenClawStateDatabase) => void) {
+function withWriteTransaction(write: (database: GrantedStateDatabase) => void) {
   // Open once before BEGIN; the callback receives that exact shared-state owner.
   openTaskRegistryDatabase();
   runOpenClawStateWriteTransaction((database) => write(database));
@@ -504,7 +504,7 @@ export function upsertTaskRegistryRecordToSqlite(task: TaskRecord) {
 export function bindTaskRunExecution(params: {
   admitted: AdmittedRunContext;
   taskId: string;
-  options?: OpenClawStateDatabaseOptions;
+  options?: GrantedStateDatabaseOptions;
 }): ExecutionOwnerBindingResult {
   const binding = executionOwnerBindingFromAdmission(params.admitted);
   if (!binding) {

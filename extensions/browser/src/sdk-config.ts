@@ -6,7 +6,7 @@ export {
   getRuntimeConfigSourceSnapshot,
 } from "openclaw/plugin-sdk/runtime-config-snapshot";
 export { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
-export type { BrowserProfileConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { BrowserProfileConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 export {
   normalizePluginsConfig,
   resolveEffectiveEnableState,

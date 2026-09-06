@@ -5,10 +5,10 @@ import { hasErrnoCode } from "../../infra/errno.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../../infra/node-sqlite.js";
 import { writeConfigMachineState } from "../../state/config-machine-state.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { resolveUserPath } from "../../utils.js";
 import { listLegacyAuthProfileSources } from "./legacy-source-files.js";
 import {
@@ -27,10 +27,10 @@ const SHARED_AUTH_STORE_MIGRATION_KIND = "shared-auth-store-state-db";
 const inspectedLegacySharedAuthOwnerships = new WeakSet<SharedAuthStoreOwnership>();
 
 type SourceAuthDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "auth_profile_store" | "auth_profile_state"
 >;
-type SharedAuthMigrationDatabase = Pick<OpenClawStateKyselyDatabase, "migration_sources">;
+type SharedAuthMigrationDatabase = Pick<GrantedStateKyselyDatabase, "migration_sources">;
 
 export type SharedAuthLegacyStoreRow = { store_json: string; updated_at: number };
 export type SharedAuthLegacyStateRow = { state_json: string; updated_at: number };

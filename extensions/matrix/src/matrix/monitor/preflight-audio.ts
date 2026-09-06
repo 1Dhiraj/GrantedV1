@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createChannelPreflightAudio } from "openclaw/plugin-sdk/media-understanding-runtime";
 
 export function isMatrixAudioContent(params: { msgtype?: string; mimetype?: string }): boolean {
@@ -19,7 +19,7 @@ const matrixPreflightAudio = createChannelPreflightAudio({
 export async function resolveMatrixPreflightAudioTranscript(params: {
   mediaPath: string;
   mediaContentType?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   chatType: "channel" | "direct";
   originatingTo: string;
@@ -48,7 +48,7 @@ export async function resolveMatrixPreflightAudioTranscript(params: {
 
 export async function sendMatrixPreflightAudioTranscriptEcho(params: {
   transcript: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   originatingTo: string;
   messageThreadId?: string;

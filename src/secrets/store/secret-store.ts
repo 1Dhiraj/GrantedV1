@@ -10,11 +10,11 @@ import { normalizeSqliteNumber } from "../../infra/sqlite-number.js";
 import { registerSecretValueForRedaction } from "../../logging/secret-redaction-registry.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
 import { ensureSecretStoreSchema } from "../../state/openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { normalizeExactAllowedHost } from "../exact-hostname.js";
 import { sealSecretSentinel } from "../sentinel.js";
@@ -41,8 +41,8 @@ export {
   SecretStoreValidationError,
 } from "./secret-store-validation-error.js";
 
-type SecretStoreDatabase = Pick<OpenClawStateKyselyDatabase, "secret_store_entries">;
-type SecretStoreRow = Selectable<OpenClawStateKyselyDatabase["secret_store_entries"]>;
+type SecretStoreDatabase = Pick<GrantedStateKyselyDatabase, "secret_store_entries">;
+type SecretStoreRow = Selectable<GrantedStateKyselyDatabase["secret_store_entries"]>;
 type SecretStoreScope = { kind: "team" };
 type SecretStoreKind = "secret" | "env";
 
@@ -183,7 +183,7 @@ function toMetadata(row: SecretStoreRow): SecretStoreEntryMetadata {
 export function listSecretStoreEntries(params: {
   scope: SecretStoreScope;
   includeDeleted?: boolean;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): SecretStoreEntryMetadata[] {
   const { scopeKind, scopeId } = normalizeScope(params.scope);
   try {
@@ -216,7 +216,7 @@ export function listSecretStoreEntries(params: {
 export function consumeGitHubSetupHandoff(params: {
   name: string;
   nowMs?: number;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): string | undefined {
   if (classifyHiddenGitHubStoreName(params.name) !== "setup") {
     return undefined;
@@ -273,7 +273,7 @@ export function consumeGitHubSetupHandoff(params: {
 export function readSecretStoreExecEnvironment(params: {
   includeSecretSentinels: boolean;
   excludeNames?: readonly string[];
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): SecretStoreExecEnvironment {
   try {
     return (
@@ -337,7 +337,7 @@ export function readSecretStoreExecEnvironment(params: {
 export function readSecretStoreValue(params: {
   scope: SecretStoreScope;
   name: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): Result<string, SecretStoreReadError> {
   try {
     assertSecretStoreEnvName(params.name);
@@ -390,7 +390,7 @@ export function writeSecretStoreEntry(params: {
   kind: SecretStoreKind;
   allowedHosts?: readonly string[];
   updatedBy: string | null;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): void {
   assertSecretStoreMutationName(params.name);
   assertSecretStoreValue(params.value, params.kind);
@@ -453,7 +453,7 @@ export function updateSecretStoreAllowedHosts(params: {
   name: string;
   allowedHosts: readonly string[];
   updatedBy: string | null;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): void {
   assertSecretStoreEnvName(params.name);
   const allowedHosts = normalizeSecretAllowedHosts(params.allowedHosts);
@@ -493,7 +493,7 @@ export function updateSecretStoreAllowedHosts(params: {
 export function deleteSecretStoreEntry(params: {
   scope: SecretStoreScope;
   name: string;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): void {
   assertSecretStoreMutationName(params.name);
   const { scopeKind, scopeId } = normalizeScope(params.scope);
@@ -531,7 +531,7 @@ export function deleteSecretStoreEntry(params: {
 
 export function purgeExpiredSecretStoreEntries(
   params: {
-    database?: OpenClawStateDatabaseOptions;
+    database?: GrantedStateDatabaseOptions;
   } = {},
 ): number {
   const state = openOpenClawStateDatabase(params.database);

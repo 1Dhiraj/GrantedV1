@@ -8,7 +8,7 @@ import { promoteToPopoverTopLayer } from "../../../components/menu-surface.ts";
 import "../../../components/web-awesome.ts";
 import { t } from "../../../i18n/index.ts";
 import { EDITOR_IDS, EDITOR_LABELS, type EditorId } from "../../../lib/editor-links.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 
 export type SessionDiffScope =
   | { scope: "all" | "uncommitted" }
@@ -63,7 +63,7 @@ export type SessionDiffMenuAction =
   | { kind: "toggle-split" }
   | { kind: "toggle-wrap" };
 
-class SessionDiffMenu extends OpenClawLightDomElement {
+class SessionDiffMenu extends GrantedLightDomElement {
   @property({ attribute: false }) menu: SessionDiffMenuData | null = null;
   @property({ attribute: false }) onAction: (action: SessionDiffMenuAction) => void = () => {};
   @property({ attribute: false }) onClose: () => void = () => {};

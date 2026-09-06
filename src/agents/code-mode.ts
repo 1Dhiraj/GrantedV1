@@ -4,7 +4,7 @@
  */
 import { Type } from "typebox";
 import { getAgentToolExecutionContext } from "../../packages/agent-core/src/tool-execution-context.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
 import { CODE_MODE_NODES_TOOL_ID } from "./code-mode-bridge.js";
 import {
@@ -298,7 +298,7 @@ export function createCodeModeTools(ctx: CodeModeToolContext): AnyAgentTool[] {
 /** Compact normal tools behind Code Mode exec/wait controls. */
 export function applyCodeModeCatalog(params: {
   tools: AnyAgentTool[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionId?: string;
   sessionKey?: string;
   agentId?: string;
@@ -351,7 +351,7 @@ export function applyCodeModeCatalog(params: {
 /** Move client-side tool definitions into the active Code Mode catalog. */
 export function addClientToolsToCodeModeCatalog(params: {
   tools: ToolDefinition[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionId?: string;
   sessionKey?: string;
   agentId?: string;

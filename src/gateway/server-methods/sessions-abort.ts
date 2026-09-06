@@ -17,7 +17,7 @@ import {
   isConfiguredSessionStoreAgentId,
   resolveExistingAgentSessionStoreTargetsSync,
 } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 import { setGatewayDedupeEntry } from "../agent-turn/agent-job.js";
 import { resolveChatRunOwnerAgentId } from "../chat-run-owner.js";
@@ -82,7 +82,7 @@ export function resolveAbortSessionKey(params: {
 
 function resolveSessionKeyAgentId(
   sessionKey: string | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): string | undefined {
   const key = normalizeOptionalString(sessionKey);
   if (!key) {
@@ -97,13 +97,13 @@ function resolveSessionKeyAgentId(
 function sessionKeyBelongsToAgent(
   sessionKey: string | undefined,
   agentId: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): boolean {
   return resolveSessionKeyAgentId(sessionKey, cfg) === normalizeAgentId(agentId);
 }
 
 function resolveScopedAbortKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string | undefined;
   agentId: string | undefined;
 }): string | undefined {

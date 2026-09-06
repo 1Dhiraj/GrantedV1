@@ -1,6 +1,6 @@
 // Doctor repair sequencing tests cover ordered repair execution and dependency handling.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
 import { runDoctorRepairSequence } from "./repair-sequencing.js";
 
@@ -101,7 +101,7 @@ vi.mock("../../plugins/provider-install-catalog.js", () => ({
 
 vi.mock("./shared/channel-doctor.js", () => ({
   collectChannelDoctorCompatibilityMutations: mocks.collectChannelDoctorCompatibilityMutations,
-  collectChannelDoctorRepairMutations: ({ cfg }: { cfg: OpenClawConfig }) => {
+  collectChannelDoctorRepairMutations: ({ cfg }: { cfg: GrantedConfig }) => {
     const allowFrom = cfg.channels?.discord?.allowFrom as unknown[] | undefined;
     if (allowFrom?.[0] === 123) {
       return [
@@ -140,14 +140,14 @@ vi.mock("./shared/channel-doctor.js", () => ({
 }));
 
 vi.mock("./shared/empty-allowlist-scan.js", () => ({
-  scanEmptyAllowlistPolicyWarnings: (cfg: OpenClawConfig) =>
+  scanEmptyAllowlistPolicyWarnings: (cfg: GrantedConfig) =>
     cfg.channels?.signal
       ? ["channels.signal.accounts.ops\u001B[31m-team\u001B[0m\r\nnext.dmPolicy warning"]
       : [],
 }));
 
 vi.mock("./shared/allowlist-policy-repair.js", () => ({
-  maybeRepairAllowlistPolicyAllowFrom: async (cfg: OpenClawConfig) => ({
+  maybeRepairAllowlistPolicyAllowFrom: async (cfg: GrantedConfig) => ({
     config: cfg,
     changes: [],
   }),
@@ -158,7 +158,7 @@ vi.mock("./shared/allowfrom-fallback-migration.js", () => ({
 }));
 
 vi.mock("./shared/bundled-plugin-load-paths.js", () => ({
-  maybeRepairBundledPluginLoadPaths: (cfg: OpenClawConfig) => ({
+  maybeRepairBundledPluginLoadPaths: (cfg: GrantedConfig) => ({
     config: cfg,
     changes: [],
   }),
@@ -181,14 +181,14 @@ vi.mock("./shared/stale-auth-order.js", () => ({
 }));
 
 vi.mock("./shared/invalid-plugin-config.js", () => ({
-  maybeRepairInvalidPluginConfig: (cfg: OpenClawConfig) => ({
+  maybeRepairInvalidPluginConfig: (cfg: GrantedConfig) => ({
     config: cfg,
     changes: [],
   }),
 }));
 
 vi.mock("./shared/legacy-tools-by-sender.js", () => ({
-  maybeRepairLegacyToolsBySenderKeys: (cfg: OpenClawConfig) => {
+  maybeRepairLegacyToolsBySenderKeys: (cfg: GrantedConfig) => {
     const channels = cfg.channels as Record<string, unknown> | undefined;
     const tools = channels?.tools as
       | { exec?: { toolsBySender?: Record<string, unknown> } }
@@ -225,7 +225,7 @@ vi.mock("./shared/legacy-tools-by-sender.js", () => ({
 }));
 
 vi.mock("./shared/exec-safe-bins.js", () => ({
-  maybeRepairExecSafeBinProfiles: (cfg: OpenClawConfig) => ({
+  maybeRepairExecSafeBinProfiles: (cfg: GrantedConfig) => ({
     config: cfg,
     changes: [],
   }),
@@ -241,12 +241,12 @@ vi.mock("./shared/plugin-dependency-cleanup.js", () => ({
 describe("doctor repair sequencing", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mocks.applyPluginAutoEnable.mockImplementation((params: { config: OpenClawConfig }) => ({
+    mocks.applyPluginAutoEnable.mockImplementation((params: { config: GrantedConfig }) => ({
       config: params.config,
       changes: [],
     }));
     mocks.materializePluginAutoEnableCandidates.mockImplementation(
-      (params: { config: OpenClawConfig }) => ({
+      (params: { config: GrantedConfig }) => ({
         config: params.config,
         changes: [],
       }),
@@ -265,7 +265,7 @@ describe("doctor repair sequencing", () => {
     mocks.loadPluginMetadataSnapshot.mockReturnValue({
       manifestRegistry: { plugins: [], diagnostics: [] },
     });
-    mocks.maybeRepairGroupAllowFromFallback.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.maybeRepairGroupAllowFromFallback.mockImplementation((cfg: GrantedConfig) => ({
       config: cfg,
       changes: [],
     }));
@@ -282,24 +282,24 @@ describe("doctor repair sequencing", () => {
       changes: [],
       warnings: [],
     });
-    mocks.maybeRepairOpenAICodexAuthConfig.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.maybeRepairOpenAICodexAuthConfig.mockImplementation((cfg: GrantedConfig) => ({
       changes: [],
       config: cfg,
       warnings: [],
     }));
-    mocks.maybeRepairOpenPolicyAllowFrom.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.maybeRepairOpenPolicyAllowFrom.mockImplementation((cfg: GrantedConfig) => ({
       config: cfg,
       changes: [],
     }));
     mocks.maybeRepairStaleManagedNpmBundledPlugins.mockReturnValue(null);
     mocks.maybeRepairStaleConfiguredAuthOrders.mockImplementation(
-      ({ cfg }: { cfg: OpenClawConfig }) => ({ config: cfg, changes: [] }),
+      ({ cfg }: { cfg: GrantedConfig }) => ({ config: cfg, changes: [] }),
     );
     mocks.repairMissingConfiguredPluginInstalls.mockResolvedValue({
       changes: [],
       warnings: [],
     });
-    mocks.repairStaleAgentModelRefs.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.repairStaleAgentModelRefs.mockImplementation((cfg: GrantedConfig) => ({
       config: cfg,
       changes: [],
       warnings: [],
@@ -316,7 +316,7 @@ describe("doctor repair sequencing", () => {
       diagnostics: [],
     });
     mocks.resolveProfileUnusableUntilForDisplay.mockReturnValue(null);
-    mocks.maybeRepairStalePluginConfig.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.maybeRepairStalePluginConfig.mockImplementation((cfg: GrantedConfig) => ({
       config: cfg,
       changes: [],
     }));
@@ -324,7 +324,7 @@ describe("doctor repair sequencing", () => {
 
   it("runs the doctor-only Tailscale profile identity migration", async () => {
     const env = { GRANTED_STATE_DIR: "/tmp/openclaw-doctor-test" };
-    const candidate = {} as OpenClawConfig;
+    const candidate = {} as GrantedConfig;
     mocks.migrateLegacyTailscaleProfileIdentities.mockReturnValue({
       changes: ["Migrated Tailscale profile identity."],
       warnings: ["Tailscale identity conflict."],
@@ -343,7 +343,7 @@ describe("doctor repair sequencing", () => {
 
   it("retains the exact auth profile map after import for later session-owner repair", async () => {
     const env = { GRANTED_STATE_DIR: "/tmp/openclaw-doctor-test" };
-    const candidate = {} as OpenClawConfig;
+    const candidate = {} as GrantedConfig;
     const profileIdMap = new Map([["openai-codex:default", "openai:chatgpt-default"]]);
     mocks.collectOpenAICodexAuthProfileStoreIdMap.mockReturnValue(profileIdMap);
     mocks.maybeMigrateAuthProfileJsonStoresToSqlite.mockResolvedValue({
@@ -382,7 +382,7 @@ describe("doctor repair sequencing", () => {
       changes: ["Migrated \u001B[31mrecommendations\u001B[0m\r\nnext."],
       warnings: ["Migration \u001B[31mwarning\u001B[0m\r\nnext."],
     });
-    const candidate = {} as OpenClawConfig;
+    const candidate = {} as GrantedConfig;
 
     const result = await runDoctorRepairSequence({
       state: { cfg: candidate, candidate, pendingChanges: false, fixHints: [] },
@@ -423,7 +423,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         candidate: {
           channels: {
             discord: {
@@ -444,7 +444,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -470,7 +470,7 @@ describe("doctor repair sequencing", () => {
   it("applies stale configured auth-order repair", async () => {
     const cfg = {
       auth: { order: { anthropic: ["anthropic:claude-cli"] } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.maybeRepairStaleConfiguredAuthOrders.mockReturnValueOnce({
       config: {
         auth: { order: {} },
@@ -524,14 +524,14 @@ describe("doctor repair sequencing", () => {
               "google-meet": { enabled: true },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           plugins: {
             entries: {
               "google-meet": { enabled: true },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -611,8 +611,8 @@ describe("doctor repair sequencing", () => {
 
     const result = await runDoctorRepairSequence({
       state: {
-        cfg: {} as OpenClawConfig,
-        candidate: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
+        candidate: {} as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -649,8 +649,8 @@ describe("doctor repair sequencing", () => {
 
     const result = await runDoctorRepairSequence({
       state: {
-        cfg: {} as OpenClawConfig,
-        candidate: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
+        candidate: {} as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -672,14 +672,14 @@ describe("doctor repair sequencing", () => {
               allowFrom: [106232522769186816],
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         candidate: {
           channels: {
             discord: {
               allowFrom: [106232522769186816],
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -699,7 +699,7 @@ describe("doctor repair sequencing", () => {
       changes: ['Installed missing configured plugin "brave" from @openclaw/brave-plugin.'],
       warnings: [],
     });
-    mocks.applyPluginAutoEnable.mockImplementationOnce((params: { config: OpenClawConfig }) => ({
+    mocks.applyPluginAutoEnable.mockImplementationOnce((params: { config: GrantedConfig }) => ({
       config: {
         ...params.config,
         plugins: {
@@ -719,11 +719,11 @@ describe("doctor repair sequencing", () => {
         cfg: {
           tools: { web: { search: { provider: "brave" } } },
           plugins: { allow: ["telegram"] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           tools: { web: { search: { provider: "brave" } } },
           plugins: { allow: ["telegram"] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -770,7 +770,7 @@ describe("doctor repair sequencing", () => {
               research: { workspace: "/srv/research" },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           agents: {
             ownership: "explicit",
@@ -779,7 +779,7 @@ describe("doctor repair sequencing", () => {
               research: { workspace: "/srv/research" },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -802,7 +802,7 @@ describe("doctor repair sequencing", () => {
         pluginInventoryChanged: true,
       };
     });
-    mocks.repairStaleAgentModelRefs.mockImplementationOnce((cfg: OpenClawConfig) => ({
+    mocks.repairStaleAgentModelRefs.mockImplementationOnce((cfg: GrantedConfig) => ({
       config: mistralInstalled
         ? cfg
         : {
@@ -827,7 +827,7 @@ describe("doctor repair sequencing", () => {
         defaults: { model: { primary: "mistral/mistral-large-latest" } },
       },
       memory: { search: { provider: "mistral" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await runDoctorRepairSequence({
       state: {
@@ -867,7 +867,7 @@ describe("doctor repair sequencing", () => {
         defaults: { model: { primary: "mistral/mistral-large-latest" } },
       },
       memory: { search: { provider: "mistral" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await runDoctorRepairSequence({
       state: {
@@ -896,7 +896,7 @@ describe("doctor repair sequencing", () => {
       pluginInventoryChanged: true,
     });
     mocks.materializePluginAutoEnableCandidates.mockImplementationOnce(
-      (params: { config: OpenClawConfig }) => ({
+      (params: { config: GrantedConfig }) => ({
         config: {
           ...params.config,
           plugins: {
@@ -911,7 +911,7 @@ describe("doctor repair sequencing", () => {
       }),
     );
     mocks.collectChannelDoctorCompatibilityMutations.mockImplementationOnce(
-      (cfg: OpenClawConfig) => [
+      (cfg: GrantedConfig) => [
         {
           config: {
             ...cfg,
@@ -941,14 +941,14 @@ describe("doctor repair sequencing", () => {
               dm: { enabled: true, policy: "allowlist", allowFrom: [123] },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           channels: {
             discord: {
               dm: { enabled: true, policy: "allowlist", allowFrom: [123] },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -984,7 +984,7 @@ describe("doctor repair sequencing", () => {
       pluginInventoryChanged: true,
     });
     mocks.materializePluginAutoEnableCandidates.mockImplementationOnce(
-      (params: { config: OpenClawConfig }) => ({
+      (params: { config: GrantedConfig }) => ({
         config: {
           ...params.config,
           plugins: {
@@ -1001,8 +1001,8 @@ describe("doctor repair sequencing", () => {
 
     const result = await runDoctorRepairSequence({
       state: {
-        cfg: {} as OpenClawConfig,
-        candidate: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
+        candidate: {} as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1074,7 +1074,7 @@ describe("doctor repair sequencing", () => {
     >("./shared/stale-agent-model-ref-repair.js");
     mocks.repairStaleAgentModelRefs.mockImplementationOnce(
       (
-        cfg: OpenClawConfig,
+        cfg: GrantedConfig,
         options: NonNullable<Parameters<typeof repairStaleAgentModelRefsActual>[1]>,
       ) =>
         repairStaleAgentModelRefsActual(cfg, {
@@ -1087,7 +1087,7 @@ describe("doctor repair sequencing", () => {
     };
     const scopedSnapshots: Array<PluginMetadataSnapshot | undefined> = [];
     const runWithPluginMetadataSnapshot = <T>(
-      _scope: { config: OpenClawConfig; workspaceDir?: string },
+      _scope: { config: GrantedConfig; workspaceDir?: string },
       run: () => T,
     ): T => {
       scopedSnapshots.push(pluginMetadataSnapshotState.current);
@@ -1103,7 +1103,7 @@ describe("doctor repair sequencing", () => {
               workspace: workspaceDir,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           agents: {
             defaults: {
@@ -1111,7 +1111,7 @@ describe("doctor repair sequencing", () => {
               workspace: workspaceDir,
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1184,7 +1184,7 @@ describe("doctor repair sequencing", () => {
         'ClawHub trust warning for "@openclaw/brave-plugin@1.2.3": scan=pending; reasons=pending.',
       ],
     });
-    mocks.maybeRepairStalePluginConfig.mockImplementationOnce((cfg: OpenClawConfig) => ({
+    mocks.maybeRepairStalePluginConfig.mockImplementationOnce((cfg: GrantedConfig) => ({
       config: {
         ...cfg,
         plugins: {
@@ -1209,7 +1209,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           plugins: {
             allow: ["brave"],
@@ -1221,7 +1221,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1243,7 +1243,7 @@ describe("doctor repair sequencing", () => {
 
   it("moves legacy Codex routes to canonical OpenAI before missing plugin install repair", async () => {
     mocks.repairMissingConfiguredPluginInstalls.mockImplementationOnce(
-      async (params: { cfg: OpenClawConfig }) => {
+      async (params: { cfg: GrantedConfig }) => {
         expect(params.cfg.agents?.defaults?.model).toBe("openai/gpt-5.5");
         expect(params.cfg.agents?.defaults?.agentRuntime).toBeUndefined();
         return {
@@ -1261,14 +1261,14 @@ describe("doctor repair sequencing", () => {
               model: "openai-codex/gpt-5.5",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           agents: {
             defaults: {
               model: "openai-codex/gpt-5.5",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1287,7 +1287,7 @@ describe("doctor repair sequencing", () => {
 
   it("repairs #94184 stale Codex model-map refs before missing plugin install repair", async () => {
     mocks.repairMissingConfiguredPluginInstalls.mockImplementationOnce(
-      async (params: { cfg: OpenClawConfig }) => {
+      async (params: { cfg: GrantedConfig }) => {
         expect(params.cfg.plugins?.entries?.codex?.enabled).toBe(true);
         expect(params.cfg.agents?.defaults?.model).toBe("openai/gpt-5.5");
         expect(params.cfg.agents?.defaults?.models?.["openai/gpt-5.5"]?.agentRuntime).toEqual({
@@ -1318,7 +1318,7 @@ describe("doctor repair sequencing", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await runDoctorRepairSequence({
       state: {
@@ -1355,7 +1355,7 @@ describe("doctor repair sequencing", () => {
 
   it("runs group allowFrom fallback migration after open-policy allowFrom repair", async () => {
     const events: string[] = [];
-    mocks.maybeRepairOpenPolicyAllowFrom.mockImplementationOnce((cfg: OpenClawConfig) => {
+    mocks.maybeRepairOpenPolicyAllowFrom.mockImplementationOnce((cfg: GrantedConfig) => {
       events.push("open-policy");
       return {
         config: {
@@ -1371,7 +1371,7 @@ describe("doctor repair sequencing", () => {
         changes: ['channels.signal.allowFrom: set to ["*"]'],
       };
     });
-    mocks.maybeRepairGroupAllowFromFallback.mockImplementationOnce((cfg: OpenClawConfig) => {
+    mocks.maybeRepairGroupAllowFromFallback.mockImplementationOnce((cfg: GrantedConfig) => {
       events.push("group-fallback");
       expect(cfg.channels?.signal?.allowFrom).toEqual(["*"]);
       return {
@@ -1397,14 +1397,14 @@ describe("doctor repair sequencing", () => {
               dmPolicy: "open",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           channels: {
             signal: {
               dmPolicy: "open",
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1446,7 +1446,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           plugins: {
             allow: ["brave"],
@@ -1465,7 +1465,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1493,7 +1493,7 @@ describe("doctor repair sequencing", () => {
     });
     mocks.maybeRepairStalePluginConfig.mockImplementationOnce(
       (
-        cfg: OpenClawConfig,
+        cfg: GrantedConfig,
         _env: NodeJS.ProcessEnv | undefined,
         params: {
           preservePluginIds?: string[];
@@ -1545,7 +1545,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           plugins: {
             allow: ["brave"],
@@ -1567,7 +1567,7 @@ describe("doctor repair sequencing", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -1596,7 +1596,7 @@ describe("doctor repair sequencing", () => {
     });
     mocks.maybeRepairStalePluginConfig.mockImplementationOnce(
       (
-        cfg: OpenClawConfig,
+        cfg: GrantedConfig,
         _env: NodeJS.ProcessEnv | undefined,
         params: {
           preservePluginIds?: string[];
@@ -1624,14 +1624,14 @@ describe("doctor repair sequencing", () => {
               allowFrom: ["+15555550123"],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         candidate: {
           channels: {
             whatsapp: {
               allowFrom: ["+15555550123"],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },

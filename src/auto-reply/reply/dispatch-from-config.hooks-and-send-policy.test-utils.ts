@@ -1,7 +1,7 @@
 // Imported by a dispatch-from-config entrypoint to keep its mocked suite in one Vitest module graph.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { PROVIDER_CONVERSATION_STATE_ERROR_USER_MESSAGE } from "../../agents/failover/user-copy.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { WorkerSessionPlacementRecord } from "../../gateway/worker-environments/placement-record.js";
 import type { SessionBindingRecord } from "../../infra/outbound/session-binding-service.js";
 import type { PluginSubagentRequesterContext } from "../../plugins/runtime/subagent-requester-context.js";
@@ -362,7 +362,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
 
     await dispatchReplyFromConfig({
       ctx,
-      cfg: { diagnostics: { enabled: true } } as OpenClawConfig,
+      cfg: { diagnostics: { enabled: true } } as GrantedConfig,
       dispatcher,
       replyResolver: async () => ({ text: "agent reply" }),
     });
@@ -494,7 +494,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     },
   ])("records explicit NO_REPLY without a generic fallback in $name", async ({ ctx, cfg }) => {
     setNoAbort();
@@ -568,7 +568,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
 
     const result = await dispatchReplyFromConfig({
       ctx: buildTestCtx({ ChatType: "direct", SessionKey: "test:queue-cap" }),
-      cfg: { diagnostics: { enabled: true } } as OpenClawConfig,
+      cfg: { diagnostics: { enabled: true } } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -636,7 +636,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -676,7 +676,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -740,7 +740,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -778,7 +778,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -861,7 +861,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -902,7 +902,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -973,7 +973,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
       replyOptions: {
@@ -1018,7 +1018,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1060,7 +1060,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1096,7 +1096,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1138,7 +1138,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1180,7 +1180,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1210,7 +1210,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
       ctx,
       cfg: {
         agents: { defaults: { silentReply: { group: "disallow" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver: vi.fn(async () => ({ text: "Legacy final answer." })),
     });
@@ -1247,7 +1247,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1281,7 +1281,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1326,7 +1326,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1373,7 +1373,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1414,7 +1414,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1453,7 +1453,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       dispatcher,
       replyResolver,
     });
@@ -1475,7 +1475,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
     const dispatcher = createDispatcher();
     let capturedOnToolResult: ((payload: ReplyPayload) => Promise<void>) | undefined;
     const replyResolver = vi.fn(
-      async (_ctx: MsgContext, opts?: GetReplyOptions, _cfg?: OpenClawConfig) => {
+      async (_ctx: MsgContext, opts?: GetReplyOptions, _cfg?: GrantedConfig) => {
         capturedOnToolResult = opts?.onToolResult as
           | ((payload: ReplyPayload) => Promise<void>)
           | undefined;
@@ -1508,7 +1508,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
       | ((payload: ReplyPayload, context?: unknown) => Promise<void>)
       | undefined;
     const replyResolver = vi.fn(
-      async (_ctx: MsgContext, opts?: GetReplyOptions, _cfg?: OpenClawConfig) => {
+      async (_ctx: MsgContext, opts?: GetReplyOptions, _cfg?: GrantedConfig) => {
         capturedOnBlockReply = opts?.onBlockReply as
           | ((payload: ReplyPayload, context?: unknown) => Promise<void>)
           | undefined;
@@ -2024,7 +2024,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
 
   it.each<{
     name: string;
-    commands?: OpenClawConfig["commands"];
+    commands?: GrantedConfig["commands"];
     admitted: boolean;
   }>([
     { name: "ordinary channel-authorized reset", admitted: true },
@@ -2316,7 +2316,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
         messages: {
           groupChat: { visibleReplies: "message_tool" },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       expectedClaim: { channel: "discord" },
       pluginReply: { text: "Codex native reply" },
       expectPluginReplyDelivered: true,
@@ -2351,7 +2351,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
     bindingId: string;
     conversation: SessionBindingRecord["conversation"];
     ctx: Partial<MsgContext>;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     replyOptions?: { sourceReplyDeliveryMode: "message_tool_only" };
     expectedClaim: Record<string, unknown>;
     pluginReply?: ReplyPayload;
@@ -2642,7 +2642,7 @@ describe("sendPolicy deny — suppress delivery, not processing (#53328)", () =>
       updatedAt: 0,
       sendPolicy: "allow",
     };
-    const cfg = { messages: { visibleReplies: "message_tool" } } as OpenClawConfig;
+    const cfg = { messages: { visibleReplies: "message_tool" } } as GrantedConfig;
     const dispatcher = createDispatcher();
     const replyResolver = vi.fn(async () => ({ text: "reset ack" }) satisfies ReplyPayload);
     const ctx = buildTestCtx({

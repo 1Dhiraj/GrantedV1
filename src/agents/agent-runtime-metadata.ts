@@ -1,5 +1,5 @@
 /** Resolves agent runtime metadata from model/provider policy and ACP session overlays. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { applyAcpRuntimeOverlay, type AgentRuntimeMetadata } from "./acp-runtime-overlay.js";
 import { isDefaultAgentRuntimeId } from "./agent-runtime-id.js";
 import { resolveAvailableAgentHarnessPolicy } from "./harness/availability.js";
@@ -10,7 +10,7 @@ import {
 } from "./session-runtime-compat.js";
 
 type ModelAgentRuntimeMetadataParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider?: string;
   model?: string;

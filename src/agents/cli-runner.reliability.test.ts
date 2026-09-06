@@ -18,7 +18,7 @@ import {
   upsertSessionEntryCore,
   type SessionTranscriptRuntimeTarget,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   markMcpLoopbackRequestClassified,
   markMcpLoopbackRequestFinished,
@@ -4540,7 +4540,7 @@ describe("runCliAgent reliability", () => {
       expectDefined(manager.getLeafId(), "retained history entry"),
       10_000,
     );
-    const config: OpenClawConfig = { agents: { defaults: { workspace: dir } } };
+    const config: GrantedConfig = { agents: { defaults: { workspace: dir } } };
     cliBackendsTesting.setDepsForTest({
       resolvePluginSetupCliBackend: () => undefined,
       resolveRuntimeCliBackends: () => [
@@ -4591,7 +4591,7 @@ describe("runCliAgent reliability", () => {
     const { dir, sessionFile, sessionTarget } = createSessionFixture({
       history: [{ role: "user", content: "earlier ask" }],
     });
-    const config: OpenClawConfig = { agents: { defaults: { workspace: dir } } };
+    const config: GrantedConfig = { agents: { defaults: { workspace: dir } } };
     cliBackendsTesting.setDepsForTest({
       resolvePluginSetupCliBackend: () => undefined,
       resolveRuntimeCliBackends: () => [

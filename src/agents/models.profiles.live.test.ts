@@ -7,7 +7,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { type Api, completeSimple, type Model } from "openclaw/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { coerceSecretRef, type SecretInput } from "../config/types.secrets.js";
 import { parseLiveCsvFilter } from "../media-generation/live-test-helpers.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
@@ -107,7 +107,7 @@ const LOCAL_OLLAMA_HOSTNAMES = new Set([
   "host.docker.internal",
   "host.orb.internal",
 ]);
-let activeLiveCompletionConfig: OpenClawConfig | undefined;
+let activeLiveCompletionConfig: GrantedConfig | undefined;
 
 type OllamaRuntimeApi = {
   createConfiguredOllamaStreamFn: (params: {
@@ -180,7 +180,7 @@ function filterLiveModelRefsByProvider(
 function findUnmatchedExplicitLiveModelRefs(params: {
   refs: readonly { provider: string; id: string }[];
   models: readonly Pick<Model, "provider" | "id">[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): string[] {
   const unmatched: string[] = [];
@@ -200,10 +200,10 @@ function findUnmatchedExplicitLiveModelRefs(params: {
 }
 
 function applyLiveProviderDiscoveryPluginCompat(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providers: readonly string[] | undefined;
   env?: NodeJS.ProcessEnv;
-}): OpenClawConfig {
+}): GrantedConfig {
   return applyLiveOllamaProviderEnvCompat({
     config: applyLiveProviderPluginDiscoveryCompat(params),
     providers: params.providers,
@@ -212,10 +212,10 @@ function applyLiveProviderDiscoveryPluginCompat(params: {
 }
 
 function applyLiveOllamaProviderEnvCompat(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providers: readonly string[] | undefined;
   env?: NodeJS.ProcessEnv;
-}): OpenClawConfig {
+}): GrantedConfig {
   if (!params.providers?.some((provider) => normalizeProviderId(provider) === "ollama")) {
     return params.config;
   }
@@ -254,7 +254,7 @@ function applyLiveOllamaProviderEnvCompat(params: {
 }
 
 async function ensureLiveProviderApisRegistered(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providers: readonly string[] | undefined;
 }): Promise<void> {
   if (!params.providers?.some((provider) => normalizeProviderId(provider) === "ollama")) {
@@ -352,7 +352,7 @@ function isLocalOllamaBaseUrl(baseUrl: string): boolean {
   }
 }
 
-function resolveLiveOllamaBaseUrl(model: Pick<Model, "baseUrl">, config?: OpenClawConfig): string {
+function resolveLiveOllamaBaseUrl(model: Pick<Model, "baseUrl">, config?: GrantedConfig): string {
   return (
     readStringProperty(model, "baseUrl") ||
     readConfiguredOllamaBaseUrl(config?.models?.providers?.ollama) ||
@@ -362,7 +362,7 @@ function resolveLiveOllamaBaseUrl(model: Pick<Model, "baseUrl">, config?: OpenCl
 
 function isLiveLocalOllamaModel(
   model: Pick<Model, "provider" | "baseUrl">,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): boolean {
   return (
     normalizeProviderId(model.provider) === "ollama" &&
@@ -372,7 +372,7 @@ function isLiveLocalOllamaModel(
 
 function canReuseConfiguredLocalOllamaApiKey(
   model: Pick<Model, "baseUrl">,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): boolean {
   const providerConfig = config?.models?.providers?.ollama;
   if (isOllamaRemoteApiKeyReference(providerConfig?.apiKey)) {
@@ -407,7 +407,7 @@ function canonicalOllamaCredentialBaseUrl(baseUrl: string): string {
 
 async function resolveLiveModelApiKeyInfo(params: {
   model: Model;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requireProfileKeys: boolean;
 }): Promise<Awaited<ReturnType<typeof getApiKeyForModelCore>>> {
   if (isLiveLocalOllamaModel(params.model, params.cfg)) {
@@ -779,7 +779,7 @@ describe("explicit live model discovery scope", () => {
           openai: { enabled: true },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -795,7 +795,7 @@ describe("explicit live model discovery scope", () => {
   it("hydrates Ollama Cloud provider settings from live env when Ollama is in scope", () => {
     const cfg = {
       plugins: {},
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -817,7 +817,7 @@ describe("explicit live model discovery scope", () => {
   it("defaults Ollama live provider settings to the local endpoint", () => {
     const cfg = {
       plugins: {},
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -846,7 +846,7 @@ describe("explicit live model discovery scope", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -874,7 +874,7 @@ describe("explicit live model discovery scope", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -894,7 +894,7 @@ describe("explicit live model discovery scope", () => {
   it("uses the local Ollama auth marker for self-hosted live env URLs", () => {
     const cfg = {
       plugins: {},
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     for (const baseUrl of [
       "http://127.0.0.1:11434",
@@ -940,7 +940,7 @@ describe("explicit live model discovery scope", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const result = applyLiveProviderDiscoveryPluginCompat({
         config: cfg,
@@ -972,7 +972,7 @@ describe("explicit live model discovery scope", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,
@@ -1003,7 +1003,7 @@ describe("explicit live model discovery scope", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = applyLiveProviderDiscoveryPluginCompat({
       config: cfg,

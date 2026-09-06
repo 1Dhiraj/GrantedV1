@@ -1,5 +1,5 @@
 // Qa Lab tests cover discord live plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { discordQaScenarioSupport } from "./discord-live.runtime.js";
 
@@ -105,7 +105,7 @@ describe("discord live qa runtime", () => {
   });
 
   it("injects a temporary Discord account into the QA gateway config", () => {
-    const baseCfg: OpenClawConfig = {
+    const baseCfg: GrantedConfig = {
       plugins: {
         allow: ["memory-core", "qa-channel"],
         entries: {

@@ -4,7 +4,7 @@ import { ref } from "lit/directives/ref.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { icons } from "../../../components/icons.ts";
 import { t } from "../../../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../../../lit/openclaw-element.ts";
 import {
   openAttachmentCardFromClick,
   renderAttachmentCardHeader,
@@ -47,7 +47,7 @@ function formatChatMediaTime(seconds: number): string {
   return `${minutes}:${String(remainder).padStart(2, "0")}`;
 }
 
-class ChatAudioPlayer extends OpenClawLightDomContentsElement {
+class ChatAudioPlayer extends GrantedLightDomContentsElement {
   @property() src = "";
   @property() sourceIdentity = "";
   @property() label = "";

@@ -13,7 +13,7 @@ import {
   getEmbeddedSessionPromptState,
 } from "../../agents/embedded-agent-runner/session-prompt-state.js";
 import { buildChannelInboundEventContext } from "../../channels/inbound-event/context.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { InternalSessionEntry as SessionEntry } from "../../config/sessions.js";
 import {
   appendTranscriptMessage,
@@ -201,7 +201,7 @@ describe("resolveReplySessionPreprocessingState", () => {
 
   function resolvePreprocessingState(storePath: string) {
     return resolveReplySessionPreprocessingState({
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       ctx: finalizeInboundContext({
         Body: "<media:audio>",
         RawBody: "<media:audio>",
@@ -500,7 +500,7 @@ describe("initSessionState guarded initialization", () => {
             dmScope: "per-channel-peer",
             groupScope: "per-group",
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       expect(listAmbientGroupWatchTargets("agent:main:main")).toEqual(new Set([groupSessionKey]));
@@ -525,7 +525,7 @@ describe("initSessionState guarded initialization", () => {
             cfg: {
               agents: { list: [{ id: "main", default: true }, { id: agentId }] },
               session: { store: path.join(stateDir, "durable", "{agentId}", "sessions.json") },
-            } as OpenClawConfig,
+            } as GrantedConfig,
             ctx: {
               Body: "hello from incognito webchat",
               Provider: "webchat",
@@ -565,7 +565,7 @@ describe("initSessionState guarded initialization", () => {
           Body: "blocked while archived",
           SessionKey: sessionKey,
         },
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
       }),
     ).rejects.toThrow(
       'Session "agent:main:telegram:chat:archived" is archived. Restore it before starting new work.',
@@ -603,7 +603,7 @@ describe("initSessionState guarded initialization", () => {
       { agentId: "main", sessionId: failedSessionId, sessionKey, storePath },
       { message: { role: "user", content: "preserve the failed transcript" } },
     );
-    const cfg = { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig;
+    const cfg = { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig;
 
     await expect(
       initSessionState({
@@ -699,7 +699,7 @@ describe("initSessionState guarded initialization", () => {
           Provider: "matrix",
           Surface: "matrix",
         },
-        cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+        cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
         commandAuthorized: true,
       });
 
@@ -722,7 +722,7 @@ describe("initSessionState guarded initialization", () => {
         updatedAt: 100,
       },
     });
-    const cfg: OpenClawConfig = { session: { store: storePath } };
+    const cfg: GrantedConfig = { session: { store: storePath } };
     let releaseWriter = () => {};
     const writerReleased = new Promise<void>((resolve) => {
       releaseWriter = resolve;
@@ -773,7 +773,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const threadSessionKey = "agent:main:slack:channel:c1:thread:123";
     const threadLabel = "Slack thread #general: starter";
@@ -845,7 +845,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const first = await initSessionState({
       ctx: {
@@ -916,7 +916,7 @@ describe("initSessionState thread forking", () => {
           InboundEventKind: "user_request",
           InputProvenance: { kind: "external_user", sourceChannel: "slack" },
         },
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
       }),
     ).rejects.toThrow(/ended during restart recovery/i);
     expect(loadSessionEntry({ storePath, sessionKey: threadSessionKey })).toMatchObject({
@@ -954,7 +954,7 @@ describe("initSessionState thread forking", () => {
           InboundEventKind: "user_request",
           InputProvenance: { kind: "external_user", sourceChannel: "slack" },
         },
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
       }),
     ).rejects.toThrow(/ended during restart recovery/i);
     expect(loadSessionEntry({ storePath, sessionKey: threadSessionKey })).toMatchObject({
@@ -998,7 +998,7 @@ describe("initSessionState thread forking", () => {
           InboundEventKind: "user_request",
           InputProvenance: { kind: "external_user", sourceChannel: "slack" },
         },
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
       }),
     ).rejects.toThrow(
       /cannot be replaced while model selection is locked.*WebChat.*Resume in new session/i,
@@ -1040,7 +1040,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1120,7 +1120,7 @@ describe("initSessionState thread forking", () => {
             InboundEventKind: "user_request",
             InputProvenance: { kind: "external_user", sourceChannel: "slack" },
           },
-          cfg: { session: { store: storePath } } as OpenClawConfig,
+          cfg: { session: { store: storePath } } as GrantedConfig,
         }),
       ).rejects.toThrow(/ended during restart recovery/i);
       expect(loadSessionEntry({ storePath, sessionKey: threadSessionKey })).toMatchObject({
@@ -1160,7 +1160,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const threadSessionKey = "agent:main:slack:channel:c1:thread:estimated";
     const result = await initSessionState({
@@ -1192,7 +1192,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1213,7 +1213,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     setActivePluginRegistry(createSessionConversationTestRegistry());
     try {
@@ -1237,7 +1237,7 @@ describe("initSessionState RawBody", () => {
   it("uses RawBody for command extraction and reset triggers when Body contains wrapped context", async () => {
     const root = await makeCaseDir("openclaw-rawbody-");
     const storePath = path.join(root, "sessions.json");
-    const cfg: OpenClawConfig = { session: { store: storePath } };
+    const cfg: GrantedConfig = { session: { store: storePath } };
 
     const statusResult = await initSessionState({
       ctx: {
@@ -1272,7 +1272,7 @@ describe("initSessionState RawBody", () => {
         store: storePath,
         resetTriggers: ["/new"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const ctx = {
       RawBody: "/NEW KeepThisCase",
@@ -1326,7 +1326,7 @@ describe("initSessionState RawBody", () => {
           store: storePath,
           resetTriggers: ["/new"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -1356,7 +1356,7 @@ describe("initSessionState RawBody", () => {
               mentionPatterns: [String.raw`@openclaw`],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       expect(result.isNewSession).toBe(true);
@@ -1414,7 +1414,7 @@ describe("initSessionState RawBody", () => {
               mentionPatterns: [String.raw`@openclaw`],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       expect(result.isNewSession).toBe(true);
@@ -1439,7 +1439,7 @@ describe("initSessionState RawBody", () => {
           store: storePath,
           resetTriggers: ["/new"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -1462,7 +1462,7 @@ describe("initSessionState RawBody", () => {
           store: storePath,
           resetTriggers: ["/new"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -1503,7 +1503,7 @@ describe("initSessionState RawBody", () => {
       ctx,
       cfg: {
         session: { store: storePath, resetTriggers: ["/new"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(ctx).toMatchObject({
@@ -1519,7 +1519,7 @@ describe("initSessionState RawBody", () => {
     const storePath = await createStorePath("openclaw-body-only-reset-");
     const cfg = {
       session: { store: storePath, resetTriggers: ["/new"] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const legacy = await initSessionState({
       ctx: {
@@ -1555,7 +1555,7 @@ describe("initSessionState RawBody", () => {
     const storePath = await createStorePath("openclaw-audio-reset-");
     const cfg = {
       session: { store: storePath, resetTriggers: ["/new"] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const transcriptOnly = await initSessionState({
       ctx: {
@@ -1606,7 +1606,7 @@ describe("initSessionState RawBody", () => {
       cfg: {
         session: { store: storePath, resetTriggers: ["/new"] },
         messages: { groupChat: { mentionPatterns: [String.raw`@openclaw`] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       commandAuthorized: false,
     });
 
@@ -1662,7 +1662,7 @@ describe("initSessionState RawBody", () => {
         store: storePath,
         resetTriggers: ["/new"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1726,7 +1726,7 @@ describe("initSessionState RawBody", () => {
         store: storePath,
         resetTriggers: ["/new"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1782,7 +1782,7 @@ describe("initSessionState RawBody", () => {
 
     const cfg = {
       session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1844,7 +1844,7 @@ describe("initSessionState RawBody", () => {
         },
         cfg: {
           session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       });
 
       // Erasing the debt at rollover would recreate the silent ambiguous loss.
@@ -1879,7 +1879,7 @@ describe("initSessionState RawBody", () => {
                 sandbox,
               },
             },
-            cfg: { session: { store: storePath } } as OpenClawConfig,
+            cfg: { session: { store: storePath } } as GrantedConfig,
           });
           expect(listSessionStateEventsSince(sessionKey, "main", 0, 20).events).toContainEqual(
             expect.objectContaining({
@@ -1905,7 +1905,7 @@ describe("initSessionState RawBody", () => {
                 sandbox: "required",
               },
             },
-            cfg: { session: { store: storePath } } as OpenClawConfig,
+            cfg: { session: { store: storePath } } as GrantedConfig,
           });
           const persisted = loadSessionEntry({ storePath, sessionKey, readConsistency: "latest" });
           expect(persisted).toMatchObject({
@@ -1931,7 +1931,7 @@ describe("initSessionState RawBody", () => {
   it("records accepted inputs once and keeps creation hints separate from participation", async () => {
     const root = await makeCaseDir("openclaw-session-participant-admission-");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const profileContext = {
       RawBody: "authenticated input",
@@ -2127,7 +2127,7 @@ describe("initSessionState RawBody", () => {
       },
       cfg: {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -2234,7 +2234,7 @@ describe("initSessionState RawBody", () => {
       },
       cfg: {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -2324,7 +2324,7 @@ describe("initSessionState RawBody", () => {
         },
         ...(bindings ? { bindings } : {}),
         channels: { discord: { allowFrom: ["*"] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.resetTriggered).toBe(true);
@@ -2367,7 +2367,7 @@ describe("initSessionState RawBody", () => {
           allowFrom: ["*"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     sessionBindingTesting.resetSessionBindingAdaptersForTests();
     registerSessionBindingAdapter({
@@ -2451,7 +2451,7 @@ describe("initSessionState RawBody", () => {
           allowFrom: ["*"],
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -2478,7 +2478,7 @@ describe("initSessionState RawBody", () => {
     const targetSessionKey = "agent:main:main";
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     setMinimalCurrentConversationBindingRegistryForTests();
     registerCurrentConversationBindingAdapterForTest({
@@ -2537,7 +2537,7 @@ describe("initSessionState RawBody", () => {
         },
       });
 
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello",
@@ -2630,7 +2630,7 @@ describe("initSessionState RawBody", () => {
       },
       cfg: {
         session: { store: storePath },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.sessionKey).toBe(boundSessionKey);
@@ -2689,7 +2689,7 @@ describe("initSessionState RawBody", () => {
       SenderId: "U123",
       ChatType: "direct",
     };
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx,
@@ -2745,7 +2745,7 @@ describe("initSessionState RawBody", () => {
         SenderId: "U123",
         ChatType: "direct",
       },
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       expectedExistingSessionId: sourceSessionId,
       pinExpectedExistingSession: true,
       newlyCreatedSessionId: sourceSessionId,
@@ -2851,7 +2851,7 @@ describe("initSessionState reset policy", () => {
 
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey, Provider: "internal", Surface: "internal" },
-      cfg: { session: { store: storePath, ...scenario.session } } as OpenClawConfig,
+      cfg: { session: { store: storePath, ...scenario.session } } as GrantedConfig,
       requestedSessionId:
         "requestedSessionId" in scenario && scenario.requestedSessionId === "existing"
           ? existingSessionId
@@ -2898,7 +2898,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         reset: { mode: "idle", idleMinutes: 30 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -2936,7 +2936,7 @@ describe("initSessionState reset policy", () => {
       },
     });
 
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -3025,7 +3025,7 @@ describe("initSessionState reset policy", () => {
       transcriptMutationOrder: scenario.transcriptMutationOrder,
     });
 
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: scenario.sessionKey },
       cfg,
@@ -3075,7 +3075,7 @@ describe("initSessionState reset policy", () => {
       },
     });
 
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: "@openclaw hello",
@@ -3138,7 +3138,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: body,
@@ -3179,7 +3179,7 @@ describe("initSessionState reset policy", () => {
         CommandBody: body,
         SessionKey: sessionKey,
       },
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
     });
 
     expect(result.resetTriggered).toBe(false);
@@ -3207,7 +3207,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: "/reset soft",
@@ -3283,7 +3283,7 @@ describe("initSessionState reset policy", () => {
 
     const result = await initSessionState({
       ctx: { SessionKey: scenario.sessionKey, ...scenario.ctx },
-      cfg: { session: { store: storePath, ...scenario.session } } as OpenClawConfig,
+      cfg: { session: { store: storePath, ...scenario.session } } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(false);
@@ -3316,7 +3316,7 @@ describe("initSessionState browser tab cleanup", () => {
         store: storePath,
         reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -3359,7 +3359,7 @@ describe("initSessionState browser tab cleanup", () => {
         store: storePath,
         reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -3383,7 +3383,7 @@ describe("initSessionState browser tab cleanup", () => {
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: "/new",
@@ -3408,7 +3408,7 @@ describe("initSessionState browser tab cleanup", () => {
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: "hello",
@@ -3432,7 +3432,7 @@ describe("initSessionState browser tab cleanup", () => {
       },
     });
 
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     const result = await initSessionState({
       ctx: {
         Body: "/new",
@@ -3480,7 +3480,7 @@ describe("initSessionState channel reset overrides", () => {
         resetByType: { direct: { mode: "idle", idleMinutes: 10 } },
         resetByChannel: { discord: { mode: "idle", idleMinutes: 10080 } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -3510,7 +3510,7 @@ describe("initSessionState reset authorization", () => {
     });
   }
 
-  function makeCfg(params: { storePath: string; allowFrom: string[] }): OpenClawConfig {
+  function makeCfg(params: { storePath: string; allowFrom: string[] }): GrantedConfig {
     return {
       session: { store: params.storePath, idleMinutes: 999 },
       channels: {
@@ -3519,7 +3519,7 @@ describe("initSessionState reset authorization", () => {
           groupPolicy: "open",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   it.each<{
@@ -3638,7 +3638,7 @@ describe("initSessionState reset authorization", () => {
         },
         channels: { [provider]: { allowFrom: ["*"] } },
         commands: { ownerAllowFrom: ["owner"], allowFrom },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const route = resolveAgentRoute({
         cfg,
         channel: provider,
@@ -3921,7 +3921,7 @@ describe("initSessionState reset triggers in Slack channels", () => {
     });
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -3999,7 +3999,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
           },
           cfg: {
             session: { store: storePath, idleMinutes: 999 },
-          } as OpenClawConfig,
+          } as GrantedConfig,
         }),
       ).rejects.toThrow(MODEL_SELECTION_LOCKED_RESET_MESSAGE);
 
@@ -4050,7 +4050,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
           Provider: "telegram",
           Surface: "telegram",
         },
-        cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+        cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
       }),
     ).rejects.toThrow(MODEL_SELECTION_LOCKED_RESET_MESSAGE);
 
@@ -4087,7 +4087,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
       },
       cfg: {
         session: { store: storePath, idleMinutes: 1 },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(false);
@@ -4322,7 +4322,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.isNewSession).toBe(true);
@@ -4449,7 +4449,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, idleMinutes: 999 },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await initSessionState({
         ctx: {
@@ -4487,7 +4487,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -4548,7 +4548,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
         ChatType: "direct",
         SessionKey: sessionKey,
       },
-      cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+      cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
     });
 
     expect(result.resetTriggered).toBe(false);
@@ -4579,7 +4579,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, idleMinutes: 999 },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       const result = await initSessionState({
         ctx: {
@@ -4648,7 +4648,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
         Provider: "telegram",
         Surface: "telegram",
       },
-      cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+      cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
     });
 
     try {
@@ -4699,7 +4699,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
               Provider: "telegram",
               Surface: "telegram",
             },
-            cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+            cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
           }),
       );
       expect(result.sessionId).toBe(existingSessionId);
@@ -4746,7 +4746,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
                 Provider: "telegram",
                 Surface: "telegram",
               },
-              cfg: { session: { store: storePath, idleMinutes: 999 } } as OpenClawConfig,
+              cfg: { session: { store: storePath, idleMinutes: 999 } } as GrantedConfig,
               signal: controller.signal,
             }),
         );
@@ -4897,7 +4897,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
       },
       cfg: {
         session: { store: storePath, reset: { mode: "idle", idleMinutes: 1 } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const replaceSession = runExclusiveSessionStoreWrite(storePath, async () => {
       await writeSessionStoreFast(storePath, {
@@ -4977,7 +4977,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello",
@@ -5043,7 +5043,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello while active",
@@ -5100,7 +5100,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello after boundary",
@@ -5158,7 +5158,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
       const cfg = {
         session: { store: storePath, reset: { mode: "daily", atHour: 4 } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello after boundary",
@@ -5220,7 +5220,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
       });
       await fs.writeFile(transcriptPath, '{"type":"message"}\n', "utf8");
 
-      const cfg = { session: { store: storePath } } as OpenClawConfig;
+      const cfg = { session: { store: storePath } } as GrantedConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello",
@@ -5261,7 +5261,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
         store: storePath,
         reset: { mode: "idle", idleMinutes: 1 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await writeSessionStoreFast(storePath, {
       [sessionKey]: {
@@ -5305,7 +5305,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
         store: storePath,
         reset: { mode: "idle", idleMinutes: 1 },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await writeSessionStoreFast(storePath, {
       [sessionKey]: {
@@ -5347,7 +5347,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 0 },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -5382,7 +5382,7 @@ describe("drainFormattedSystemEvents", () => {
       enqueueSystemEvent("Model switched.", { sessionKey: "agent:main:main" });
 
       const result = await drainFormattedSystemEvents({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:main",
         isMainSession: true,
@@ -5403,7 +5403,7 @@ describe("drainFormattedSystemEvents", () => {
     ]);
 
     const result = await drainFormattedSystemEvents({
-      cfg: { channels: {} } as OpenClawConfig,
+      cfg: { channels: {} } as GrantedConfig,
       agentId: "main",
       sessionKey: "agent:main:main",
       isMainSession: true,
@@ -5429,7 +5429,7 @@ describe("drainFormattedSystemEvents", () => {
       enqueueSystemEvent("Model switched.", { sessionKey: "agent:main:main" });
 
       const result = await drainFormattedSystemEvents({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:main",
         isMainSession: true,
@@ -5454,7 +5454,7 @@ describe("drainFormattedSystemEvents", () => {
       });
 
       const result = await drainFormattedSystemEvents({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:main",
         isMainSession: true,
@@ -6059,7 +6059,7 @@ describe("persistSessionUsageUpdate", () => {
       updatedAt: Date.now(),
     });
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: { main: {}, other: {} },
@@ -6295,7 +6295,7 @@ describe("persistSessionUsageUpdate", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       usage: { input: 5_107, output: 1_827, cacheRead: 1_536, cacheWrite: 0 },
       lastCallUsage: { input: 5_107, output: 1_827, cacheRead: 1_536, cacheWrite: 0 },
       providerUsed: "openai",
@@ -6313,7 +6313,7 @@ describe("persistSessionUsageUpdate", () => {
 describe("initSessionState stale threadId fallback", () => {
   it("does not inherit lastThreadId from a previous thread interaction in non-thread sessions", async () => {
     const storePath = await createStorePath("stale-thread-");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     // First interaction: inside a DM topic (thread session)
     const threadResult = await initSessionState({
@@ -6341,7 +6341,7 @@ describe("initSessionState stale threadId fallback", () => {
 
   it("preserves explicit transport thread routing in non-thread sessions", async () => {
     const storePath = await createStorePath("transport-thread-");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -6361,7 +6361,7 @@ describe("initSessionState stale threadId fallback", () => {
 
   it("preserves external thread routing for internal turns and clears it for external non-thread turns", async () => {
     const storePath = await createStorePath("internal-thread-route-");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
     const sessionKey = "agent:main:main";
 
     await writeSessionStoreFast(storePath, {
@@ -6430,7 +6430,7 @@ describe("initSessionState stale threadId fallback", () => {
 
   it("preserves lastThreadId within the same thread session", async () => {
     const storePath = await createStorePath("preserve-thread-");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     // First message in thread
     await initSessionState({
@@ -6489,7 +6489,7 @@ describe("initSessionState dmScope delivery migration", () => {
       },
       cfg: {
         session: { store: storePath, dmScope: "per-channel-peer" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     const persisted = readSessionStoreFast(storePath);
@@ -6544,7 +6544,7 @@ describe("initSessionState internal channel routing preservation", () => {
         },
       },
     });
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -6604,7 +6604,7 @@ describe("initSessionState internal channel routing preservation", () => {
         updatedAt: Date.now(),
       },
     });
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -6645,7 +6645,7 @@ describe("initSessionState internal channel routing preservation", () => {
         },
       },
     });
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -6808,7 +6808,7 @@ describe("initSessionState internal channel routing preservation", () => {
       cfg: {
         ...("config" in scenario ? scenario.config : {}),
         session: { store: storePath, ...("session" in scenario ? scenario.session : {}) },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expectEntryFields(result.sessionEntry, scenario.expected, scenario.name);

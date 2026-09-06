@@ -9,7 +9,7 @@ import { tryResolveLegacyCompatibilityAgentId } from "./legacy.default-agent-own
 import { migratePersistedImplicitMainRoster } from "./legacy.roster.js";
 import { createMergePatch } from "./merge-patch.js";
 import { setConfigResolutionFacts } from "./resolution-facts.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 vi.unmock("../agents/agent-scope-config.js");
 
@@ -24,7 +24,7 @@ type WriteCase = {
   options?: Partial<PersistInput>;
   expected?: unknown;
   error?: string;
-  verify?: (persisted: OpenClawConfig) => void;
+  verify?: (persisted: GrantedConfig) => void;
 };
 
 const main = { default: true };
@@ -679,7 +679,7 @@ const writeCases: WriteCase[] = [
   },
 ];
 
-function resolveWriteCase(testCase: WriteCase): OpenClawConfig {
+function resolveWriteCase(testCase: WriteCase): GrantedConfig {
   return resolvePersistCandidateForWrite({
     runtimeConfig: testCase.current,
     sourceConfig: testCase.source ?? testCase.current,
@@ -687,7 +687,7 @@ function resolveWriteCase(testCase: WriteCase): OpenClawConfig {
     ...(testCase.authored === undefined ? {} : { rootAuthoredConfig: testCase.authored }),
     ...(testCase.before === undefined ? {} : { sourceConfigBeforeMigrations: testCase.before }),
     ...testCase.options,
-  }) as OpenClawConfig;
+  }) as GrantedConfig;
 }
 
 describe("config io write prepare", () => {
@@ -741,7 +741,7 @@ describe("config io write prepare", () => {
       agents: { entries: { ops: {}, research: { default: true } } },
       gateway: { port: 18789 },
     };
-    const migrated = migratePersistedImplicitMainRoster(authored).config as OpenClawConfig;
+    const migrated = migratePersistedImplicitMainRoster(authored).config as GrantedConfig;
 
     const persisted = resolvePersistCandidateForWrite({
       runtimeConfig: migrated,
@@ -752,10 +752,10 @@ describe("config io write prepare", () => {
       preserveLegacyAgentRoster: true,
       explicitSetPaths: [["gateway", "port"]],
       explicitSetValueSource: { gateway: { port: 19001 } },
-    }) as OpenClawConfig;
+    }) as GrantedConfig;
 
     expect(persisted.agents?.entries?.research?.default).toBe(true);
-    const reloaded = migratePersistedImplicitMainRoster(persisted).config as OpenClawConfig;
+    const reloaded = migratePersistedImplicitMainRoster(persisted).config as GrantedConfig;
     expect(tryResolveLegacyCompatibilityAgentId(reloaded)).toBe("research");
   });
 
@@ -808,7 +808,7 @@ describe("config io write prepare", () => {
           nextConfig: roster(entries),
           unsetPaths,
           allowedAgentRosterRemovals: ["worker"],
-        }) as OpenClawConfig,
+        }) as GrantedConfig,
         unsetPaths,
       ),
     ).toEqual(roster({ main }));
@@ -824,7 +824,7 @@ describe("config io write prepare", () => {
         nextConfig: roster({ main }),
         unsetPaths,
         allowedAgentRosterRemovals: ["main"],
-      }) as OpenClawConfig,
+      }) as GrantedConfig,
       unsetPaths,
     );
     expect(persisted.agents).not.toHaveProperty("list");
@@ -851,7 +851,7 @@ describe("config io write prepare", () => {
             },
           },
         },
-      }) as OpenClawConfig,
+      }) as GrantedConfig,
       [["plugins", "installs"]],
     );
     expect(persisted.plugins).not.toHaveProperty("installs");
@@ -1110,7 +1110,7 @@ describe("config io write prepare", () => {
   });
 
   it("applies explicit unsets without mutating caller config", () => {
-    const input: OpenClawConfig = {
+    const input: GrantedConfig = {
       gateway: { mode: "local" },
       commands: { ownerDisplay: "hash" },
       tools: { alsoAllow: ["exec", "fetch", "read"] },
@@ -1135,7 +1135,7 @@ describe("config io write prepare", () => {
     ["constructor key", ["commands", "constructor"]],
     ["prototype constructor property", ["commands", "prototype"]],
   ] as const)("treats %s unset paths as immutable no-ops", (_name, unsetPath) => {
-    const input: OpenClawConfig = {
+    const input: GrantedConfig = {
       gateway: { mode: "local" },
       commands: { ownerDisplay: "hash" },
       tools: { alsoAllow: ["exec", "fetch"] },

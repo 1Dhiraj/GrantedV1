@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SessionDiscussionProvider } from "../../plugins/session-discussion-registry.js";
 import { sessionDiscussionHandlers } from "./session-discussion.js";
 
@@ -45,7 +45,7 @@ vi.mock("./sessions-shared.js", () => ({
 
 const cfg = {
   agents: { defaults: { model: { primary: "openai/gpt-5.5" } } },
-} as OpenClawConfig;
+} as GrantedConfig;
 const sessionKey = "agent:main:thread";
 const storePath = "/tmp/openclaw/sessions.sqlite";
 
@@ -54,7 +54,7 @@ type Method = "session.discussion.info" | "session.discussion.open";
 async function invoke(
   method: Method,
   params: Record<string, unknown>,
-  runtimeConfig: OpenClawConfig = cfg,
+  runtimeConfig: GrantedConfig = cfg,
 ) {
   const calls: Array<{ ok: boolean; payload?: unknown; error?: unknown }> = [];
   await sessionDiscussionHandlers[method]?.({
@@ -164,7 +164,7 @@ describe("session discussion gateway methods", () => {
     const registered = provider();
     mocks.getProvider.mockReturnValue(registered.value);
     mockSession({ sessionId: "session-ops-global", updatedAt: 1 });
-    const ownedConfig: OpenClawConfig = {
+    const ownedConfig: GrantedConfig = {
       session: { scope: "global", store: "/tmp/shared-sessions.sqlite" },
       agents: {
         ownership: "explicit",
@@ -182,7 +182,7 @@ describe("session discussion gateway methods", () => {
       agentId: "ops",
     });
 
-    const ownerlessConfig: OpenClawConfig = {
+    const ownerlessConfig: GrantedConfig = {
       ...ownedConfig,
       agents: { ownership: "explicit", entries: { ops: {}, research: {} } },
     };

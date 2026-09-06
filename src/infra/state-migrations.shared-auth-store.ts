@@ -26,12 +26,12 @@ import {
   closeAuthProfileReadPool,
   resolveAuthProfileDatabaseOwnerId,
 } from "../agents/auth-profiles/sqlite.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   runOpenClawAgentWriteTransaction,
 } from "../state/openclaw-agent-db.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -52,11 +52,11 @@ const SOURCE_STORE_KEY = "primary";
 const TARGET_STORE_KEY = "shared";
 
 type SourceAuthDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "auth_profile_store" | "auth_profile_state"
 >;
 type SharedAuthMigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "config_machine_state" | "migration_runs" | "migration_sources"
 >;
 

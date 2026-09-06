@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { WebSocket } from "ws";
 import {
@@ -58,10 +58,10 @@ function createFixturePlugin(repoRoot: string, outputRoot: string) {
 }
 
 function withVoiceCallConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginDir: string;
   servePort: number;
-}): OpenClawConfig {
+}): GrantedConfig {
   const config = params.config;
   return {
     ...config,

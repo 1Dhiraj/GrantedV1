@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
 import "./test-helpers/fast-openclaw-tools.js";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createSessionConversationTestRegistry } from "../test-utils/session-conversation-registry.js";
 import { createOpenClawCodingTools } from "./agent-tools.js";
@@ -16,7 +16,7 @@ import { resolveExecToolConfig } from "./lazy-exec-tool.js";
 
 function createExecHostDefaultsConfig(
   agents: Array<{ id: string; execHost?: "auto" | "gateway" | "sandbox" }>,
-): OpenClawConfig {
+): GrantedConfig {
   return {
     tools: {
       exec: {
@@ -119,7 +119,7 @@ describe("Agent-specific exec tool defaults", () => {
   });
 
   it("should run exec synchronously when process is denied", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       tools: {
         deny: ["process"],
         exec: {

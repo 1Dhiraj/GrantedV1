@@ -16,10 +16,10 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { getFileLockProcessStartTime, isPidDefinitelyDead } from "../../shared/pid-alive.js";
-import type { DB as OpenClawStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { resolveCronJobConfigRevision } from "../config-revision.js";
@@ -43,7 +43,7 @@ import { loadedCronStoreFromRows, loadCronRows } from "./row-codec.js";
  * I4: Finalization applies outcomes to the authoritative row, never an admitted snapshot.
  */
 
-type CronRunReceiptDatabase = Pick<OpenClawStateDatabase, "cron_run_receipts">;
+type CronRunReceiptDatabase = Pick<GrantedStateDatabase, "cron_run_receipts">;
 type CronRunReceiptRow = Selectable<CronRunReceiptDatabase["cron_run_receipts"]>;
 
 export type CronRunReceiptStatus =
@@ -191,7 +191,7 @@ function activeRow(db: DatabaseSync, key: string, jobId?: string) {
 
 function withReceiptWrite<T>(
   operationLabel: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   operation: (database: DatabaseSync) => T,
 ): T {
   let initializedDatabase: DatabaseSync | undefined;
@@ -216,7 +216,7 @@ function withReceiptWrite<T>(
 export function bindCronRunReceiptExecution(params: {
   admitted: AdmittedRunContext;
   handle: CronRunReceiptHandle;
-  options?: OpenClawStateDatabaseOptions;
+  options?: GrantedStateDatabaseOptions;
 }): ExecutionOwnerBindingResult {
   const binding = executionOwnerBindingFromAdmission(params.admitted);
   if (!binding) {

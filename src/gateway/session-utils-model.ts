@@ -42,7 +42,7 @@ import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-a
 import { resolveAgentMainSessionKey, type SessionEntry } from "../config/sessions.js";
 import { projectPublicSessionEntry } from "../config/sessions/session-entry-projection.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { LEGACY_IMPLICIT_AGENT_ID, normalizeAgentId } from "../routing/session-key.js";
 import type { GatewayModelCatalogSnapshot } from "./server-model-catalog.types.js";
 import {
@@ -114,7 +114,7 @@ function resolveGatewaySessionThinkingLevel(params: {
 }
 
 function resolveGatewaySessionThinkingDefault(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   thinkingPolicyProvider?: string;
   model: string;
@@ -157,7 +157,7 @@ function resolveGatewaySessionThinkingDefault(params: {
 }
 
 export function resolveGatewayModelThinkingProfile(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider: string;
   model: string;
@@ -223,7 +223,7 @@ export function resolveGatewayModelThinkingProfile(params: {
 }
 
 type GatewaySessionThinkingProjectionParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
   agentId: string;
@@ -309,7 +309,7 @@ export function resolveGatewaySessionThinkingProjectionInternal(
 }
 
 export function getSessionDefaults(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelCatalog?: ModelCatalogEntry[],
   options?: {
     agentId?: string;
@@ -600,7 +600,7 @@ export async function resolveGatewayModelSupportsImages(params: {
 }
 
 export function resolveSessionDisplayModelIdentityRefCached(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider?: string;
   model?: string;
@@ -624,7 +624,7 @@ export function resolveSessionDisplayModelIdentityRefCached(params: {
 }
 
 function resolveSessionDisplayModelIdentityRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider?: string;
   model?: string;
@@ -665,7 +665,7 @@ function resolveSessionDisplayModelIdentityRef(params: {
 
 export async function projectSessionPatchResult(params: {
   canonicalKey: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: SessionEntry;
   modelCatalogByAgent: ReadonlyMap<string, Promise<ModelCatalogEntry[]>>;
   storePath: string;

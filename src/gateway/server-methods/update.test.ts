@@ -3,7 +3,7 @@
 
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../config/types.openclaw.js";
 import type { RestartSentinelPayload } from "../../infra/restart-sentinel.js";
 import type { RespawnSupervisor } from "../../infra/supervisor-markers.js";
 import type { UpdateChannel } from "../../infra/update-channels.js";
@@ -230,11 +230,11 @@ beforeEach(() => {
     exists: true,
     raw: "{}",
     parsed: {},
-    resolved: {} as OpenClawConfig,
-    sourceConfig: {} as OpenClawConfig,
+    resolved: {} as GrantedConfig,
+    sourceConfig: {} as GrantedConfig,
     valid: true,
-    config: {} as OpenClawConfig,
-    runtimeConfig: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
+    runtimeConfig: {} as GrantedConfig,
     issues: [],
     warnings: [],
     legacyIssues: [],
@@ -292,7 +292,7 @@ beforeEach(() => {
 async function invokeUpdateRun(
   params: Record<string, unknown>,
   respond?: (ok: boolean, response?: unknown) => void,
-  runtimeConfig: OpenClawConfig = { update: {} },
+  runtimeConfig: GrantedConfig = { update: {} },
 ) {
   const { updateHandlers } = await import("./update.js");
   const onRespond = respond ?? (() => {});
@@ -308,7 +308,7 @@ async function invokeUpdateRun(
 
 async function captureUpdateRunPayload(
   params: Record<string, unknown> = {},
-  runtimeConfig?: OpenClawConfig,
+  runtimeConfig?: GrantedConfig,
 ): Promise<UpdateRunPayload | undefined> {
   let payload: UpdateRunPayload | undefined;
   await invokeUpdateRun(
@@ -1048,7 +1048,7 @@ describe("update.run post-core plugin finalize", () => {
           enabled: true,
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     readConfigFileSnapshotMock.mockResolvedValueOnce({
       path: "/tmp/openclaw.json",
       exists: true,
@@ -1074,7 +1074,7 @@ describe("update.run post-core plugin finalize", () => {
     const [finalizeParams] = firstMockCall(
       runPostCoreFinalizeAfterGatewayUpdateMock,
       "post-core finalize",
-    ) as [{ preUpdateConfig?: { sourceConfig?: OpenClawConfig; authoredConfig?: OpenClawConfig } }];
+    ) as [{ preUpdateConfig?: { sourceConfig?: GrantedConfig; authoredConfig?: GrantedConfig } }];
     expect(finalizeParams.preUpdateConfig).toEqual({
       sourceConfig: preUpdateConfig,
       authoredConfig: preUpdateConfig,

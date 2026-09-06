@@ -2,7 +2,7 @@ import { stableStringify } from "@openclaw/normalization-core";
 import { normalizeClawHubSha256Integrity } from "../infra/clawhub-artifacts.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   readClawInstallRecordFromDatabase,
@@ -84,7 +84,7 @@ export function findResumableIntroducedPluginRequirement(params: {
 
 export async function readClawResumeStateReadOnly(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Promise<
   | {
       record: PersistedClawInstall;

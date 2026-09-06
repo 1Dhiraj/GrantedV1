@@ -1,5 +1,5 @@
 import { vi, type Mock } from "vitest";
-import { OpenClawTerminalPanel } from "./terminal-panel.ts";
+import { GrantedTerminalPanel } from "./terminal-panel.ts";
 
 export type CreateOptions = {
   parent: HTMLElement;
@@ -63,7 +63,7 @@ export function defineTestTerminalPanelElement(
 
   // The full non-isolated UI suite can import the production panel before this
   // test. Override its factory instead of relying on a module mock import order.
-  class TestTerminalPanel extends OpenClawTerminalPanel {
+  class TestTerminalPanel extends GrantedTerminalPanel {
     override createTerminalController = createGhosttyTerminalMock as unknown as TerminalFactory;
   }
 

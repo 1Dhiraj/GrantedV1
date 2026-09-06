@@ -7,7 +7,7 @@ import path from "node:path";
 import { Writable } from "node:stream";
 import { pathToFileURL } from "node:url";
 import { inspect } from "node:util";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -1686,7 +1686,7 @@ describe("buildQaRuntimeEnv", () => {
       const recordPath = path.join(fixtureRoot, "commands.jsonl");
       const fixturePath = await writePackagedGatewayFixture(fixtureRoot);
       await mkdir(tempParentDir);
-      const mutateConfig = vi.fn((cfg: OpenClawConfig) => cfg);
+      const mutateConfig = vi.fn((cfg: GrantedConfig) => cfg);
       const owner = ownGateway();
       await expect(
         owner.start({

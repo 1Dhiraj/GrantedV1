@@ -11,7 +11,7 @@ import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { resolvePathFromInput } from "../agents/path-policy.js";
 import { resolveWorkspaceRoot } from "../agents/workspace-dir.js";
 import { extractDeliveryInfo } from "../config/sessions/delivery-info.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
@@ -132,7 +132,7 @@ async function validateAttachmentFiles(
   maxBytes: number,
   options?: {
     forceDocumentMime?: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     sessionKey?: string;
   },
 ): Promise<string[] | { error: string }> {
@@ -197,7 +197,7 @@ async function validateAttachmentFiles(
 
 function resolveAttachmentFilePath(params: {
   filePath: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
 }): string {
   const workspaceDir =
@@ -224,7 +224,7 @@ function resolveSessionAttachmentThreadId(params: {
 
 /** Sends a bundled-plugin session attachment through the session's active delivery route. */
 export async function sendPluginSessionAttachment(
-  params: PluginSessionAttachmentParams & { config?: OpenClawConfig; origin?: PluginOrigin },
+  params: PluginSessionAttachmentParams & { config?: GrantedConfig; origin?: PluginOrigin },
 ): Promise<PluginSessionAttachmentResult> {
   if (params.origin !== "bundled") {
     return { ok: false, error: "session attachments are restricted to bundled plugins" };

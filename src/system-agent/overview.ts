@@ -11,7 +11,7 @@ import {
   resolveConfigPath,
   resolveGatewayPort,
   type ConfigFileSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../config/config.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import { isFastTestRuntimeEnv } from "../infra/env.js";
@@ -60,7 +60,7 @@ export type SystemAgentOverview = {
   };
 };
 
-type OpenClawReferencePaths = Awaited<ReturnType<typeof resolveOpenClawReferencePaths>>;
+type GrantedReferencePaths = Awaited<ReturnType<typeof resolveOpenClawReferencePaths>>;
 
 type GatewayConnectionDetails = {
   url: string;
@@ -73,7 +73,7 @@ type SystemAgentOverviewDependencies = {
   resolveConfigPath?: typeof resolveConfigPath;
   resolveGatewayPort?: typeof resolveGatewayPort;
   buildGatewayConnectionDetails?: (input: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     configPath: string;
   }) => GatewayConnectionDetails;
   probeLocalCommand?: typeof probeLocalCommand;
@@ -88,7 +88,7 @@ function issueMessages(snapshot: ConfigFileSnapshot): string[] {
   });
 }
 
-function buildAgentSummaries(cfg: OpenClawConfig, defaultAgentId: string): SystemAgentSummary[] {
+function buildAgentSummaries(cfg: GrantedConfig, defaultAgentId: string): SystemAgentSummary[] {
   const entries = listAgentEntries(cfg);
   if (entries.length === 0) {
     return [
@@ -127,7 +127,7 @@ function buildAgentSummaries(cfg: OpenClawConfig, defaultAgentId: string): Syste
   return summaries;
 }
 
-function resolveFastTestReferences(env: NodeJS.ProcessEnv): OpenClawReferencePaths | undefined {
+function resolveFastTestReferences(env: NodeJS.ProcessEnv): GrantedReferencePaths | undefined {
   if (!isFastTestRuntimeEnv(env)) {
     return undefined;
   }

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginRuntime } from "./runtime/types.js";
 import { importSessionCatalogHistory } from "./session-catalog-history-import.js";
 import { listSessionCatalogEntries } from "./session-catalog.js";
@@ -73,7 +73,7 @@ function importHistory(
       sessionId: "session-1",
       sessionKey: "agent:main:catalog-adopt",
       agentId: "main",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     }),
   };
 }
@@ -93,7 +93,7 @@ describe("listSessionCatalogEntries", () => {
     const config = retainLegacyDefaultAgentId(
       {
         agents: { list: [{ id: "alpha" }, { id: "beta" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       "beta",
     );
     const listSessionEntries = vi.fn((_params: { agentId: string }) => []);
@@ -114,7 +114,7 @@ describe("listSessionCatalogEntries", () => {
         ownership: "explicit",
         list: [{ id: "alpha" }, { id: "beta" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const listSessionEntries = vi.fn(() => []);
     const runtime = {
       agent: { session: { listSessionEntries } },

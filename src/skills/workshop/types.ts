@@ -1,5 +1,5 @@
 // Workshop types define generated skill draft, policy, and config contracts.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginHookSkillProposalEvaluationOutcome } from "../../plugins/hook-types.js";
 import type { SkillScanFinding } from "../security/scanner.js";
 import type { SkillCollectionReconcileContext } from "./collection-contracts.js";
@@ -233,7 +233,7 @@ export type SkillProposalCreateInput = {
   workspaceDir: string;
   agentId?: string;
   eventActor?: SkillProposalEventActor;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   name: string;
   description: string;
@@ -250,7 +250,7 @@ export type SkillProposalUpdateInput = {
   workspaceDir: string;
   agentId?: string;
   eventActor?: SkillProposalEventActor;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   skillName: string;
   description?: string;
@@ -275,7 +275,7 @@ export type SkillProposalReviseInput = {
   workspaceDir: string;
   agentId?: string;
   eventActor?: SkillProposalEventActor;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   proposalId: string;
   expectedRevisionHash?: string;
@@ -292,7 +292,7 @@ export type SkillProposalActionInput = {
   workspaceDir: string;
   agentId?: string;
   eventActor?: SkillProposalEventActor;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   proposalId: string;
   expectedRevisionHash?: string;

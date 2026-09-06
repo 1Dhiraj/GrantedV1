@@ -20,7 +20,7 @@ import {
   updateAuthProfileStoreWithLock,
   type AuthProfileStore,
   type OAuthCredential,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ProviderAuthResult,
 } from "openclaw/plugin-sdk/provider-auth";
 import {
@@ -56,7 +56,7 @@ const OPENAI_CODEX_DEFAULT_MODEL = "openai/gpt-5.6-sol";
 const HERMES_AUTH_DISPLAY_NAME = "Hermes import";
 
 type AgentDefaultModelConfigs = NonNullable<
-  NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["models"]
+  NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["models"]
 >;
 type AgentDefaultModelConfigEntry = AgentDefaultModelConfigs[string];
 
@@ -163,9 +163,9 @@ function mergeModelConfigEntry(
 }
 
 function applyOAuthModelConfigsToConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   result: ProviderAuthResult,
-): OpenClawConfig {
+): GrantedConfig {
   const patchModels = readProviderAuthModelConfigs(result);
   const existingModels = cfg.agents?.defaults?.models ?? {};
   const models: AgentDefaultModelConfigs = result.replaceDefaultModels

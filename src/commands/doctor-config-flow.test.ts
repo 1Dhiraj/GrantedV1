@@ -5,7 +5,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeChannelPairingStateSnapshot } from "../pairing/pairing-store-sqlite.test-helpers.js";
 import type { PluginCapabilityConsentHandler } from "../plugins/capability-consent.js";
 import { buildPluginCapabilityConsentReview } from "../plugins/capability-summary.js";
@@ -27,7 +27,7 @@ const createDoctorPluginMetadataSnapshotScopeParamsMock = vi.hoisted(() => vi.fn
 const runDoctorConfigPreflightOptionsMock = vi.hoisted(() => vi.fn());
 const collectDoctorPreviewNotesParamsMock = vi.hoisted(() => vi.fn());
 const prepareTailscaleConfigMigrationMock = vi.hoisted(() =>
-  vi.fn(({ cfg }: { cfg: OpenClawConfig }) => ({
+  vi.fn(({ cfg }: { cfg: GrantedConfig }) => ({
     config: cfg,
     changes: [] as string[],
     warnings: [] as string[],
@@ -1621,7 +1621,7 @@ describe("doctor config flow", () => {
   });
 
   it("previews and applies the legacy Tailscale Serve migration through Doctor", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       gateway: {
         bind: "lan",
         auth: { mode: "token", token: "secret" },
@@ -1773,7 +1773,7 @@ describe("doctor config flow", () => {
       },
     };
     const result = await runDoctorConfigWithInput({
-      config: migratePersistedImplicitMainRoster(rawConfig).config as OpenClawConfig,
+      config: migratePersistedImplicitMainRoster(rawConfig).config as GrantedConfig,
       parsedConfig: rawConfig,
       repair: true,
       run: loadAndMaybeMigrateDoctorConfig,
@@ -1801,7 +1801,7 @@ describe("doctor config flow", () => {
       },
     };
     const result = await runDoctorConfigWithInput({
-      config: migratePersistedImplicitMainRoster(rawConfig).config as OpenClawConfig,
+      config: migratePersistedImplicitMainRoster(rawConfig).config as GrantedConfig,
       parsedConfig: rawConfig,
       repair: true,
       run: loadAndMaybeMigrateDoctorConfig,
@@ -1833,7 +1833,7 @@ describe("doctor config flow", () => {
       channels: { telegram: { enabled: true } },
       talk: { provider: "test" },
     };
-    const config = migratePersistedImplicitMainRoster(rawConfig).config as OpenClawConfig;
+    const config = migratePersistedImplicitMainRoster(rawConfig).config as GrantedConfig;
     const result = await runDoctorConfigWithInput({
       config,
       parsedConfig: rawConfig,
@@ -1864,7 +1864,7 @@ describe("doctor config flow", () => {
       channels: { telegram: { enabled: true } },
       talk: { provider: "test" },
     };
-    const config = migratePersistedImplicitMainRoster(rawConfig).config as OpenClawConfig;
+    const config = migratePersistedImplicitMainRoster(rawConfig).config as GrantedConfig;
     const result = await runDoctorConfigWithInput({
       config,
       parsedConfig: rawConfig,

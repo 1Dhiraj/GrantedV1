@@ -11,7 +11,7 @@ import {
   resolveNodeExecEligibility,
 } from "../../agents/exec-defaults.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { loadSkillLibrarySelection } from "../library/selection.js";
@@ -31,7 +31,7 @@ export {
 
 export function listSkillCommandsForWorkspace(params: {
   workspaceDir: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   skillFilter?: string[];
   sessionEntry?: ExecSessionDefaults &
@@ -92,7 +92,7 @@ function dedupeBySkillName(commands: SkillCommandSpec[]): SkillCommandSpec[] {
 }
 
 export function listSkillCommandsForAgents(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentIds?: string[];
   sessionEntry?: ExecSessionDefaults &
     Pick<SessionEntry, "skillLibrarySelections" | "skillsSnapshot">;

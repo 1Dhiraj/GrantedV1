@@ -5,7 +5,7 @@ import type { PluginApprovalRequestPayload } from "../../infra/plugin-approvals.
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import type { AgentRuntimeIdentity } from "../agent-runtime-identity-token.js";
 import { ExecApprovalManager } from "../exec-approval-manager.js";
@@ -14,7 +14,7 @@ import type { GatewayRequestHandlerOptions } from "./types.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function databaseOptions(): OpenClawStateDatabaseOptions {
+function databaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(tempDirs.make("plugin-approval-id-"));
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }

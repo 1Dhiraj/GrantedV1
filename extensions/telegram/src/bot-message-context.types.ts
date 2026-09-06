@@ -6,7 +6,7 @@ import type {
   ResolvedChannelMessageIngress,
 } from "openclaw/plugin-sdk/channel-ingress-runtime";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   DmPolicy,
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -67,7 +67,7 @@ export type TelegramLogger = {
 type ResolveTelegramGroupConfig = (
   chatId: string | number,
   messageThreadId: number | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ) => {
   groupConfig?: TelegramGroupConfig | TelegramDirectConfig;
   topicConfig?: TelegramTopicConfig;
@@ -76,10 +76,10 @@ type ResolveTelegramGroupConfig = (
 type ResolveGroupActivation = (params: {
   agentId?: string;
   sessionKey: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) => boolean | undefined;
 
-type ResolveGroupRequireMention = (chatId: string | number, cfg: OpenClawConfig) => boolean;
+type ResolveGroupRequireMention = (chatId: string | number, cfg: GrantedConfig) => boolean;
 
 type TelegramMessageContextRuntimeOverrides = Partial<
   Pick<
@@ -111,7 +111,7 @@ export type BuildTelegramMessageContextParams = {
   storeAllowFrom: string[];
   options?: TelegramMessageContextOptions;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: { accountId: string };
   ownerAgentId?: string;
   historyLimit: number;

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { isChannelConfigMetadataKey } from "./config-metadata.js";
 import {
   hasMeaningfulChannelConfig,
@@ -34,7 +34,7 @@ function makeTempStateDir() {
 }
 
 function expectPotentialConfiguredChannelCase(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   expectedIds: string[];
   options?: Parameters<typeof listPotentialConfiguredChannelIds>[2];
@@ -71,7 +71,7 @@ describe("config presence", () => {
         "  ": { token: "dummy" },
         " matrix ": { homeserver: "https://matrix.example.org" },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(isChannelConfigMetadataKey(" modelByChannel ")).toBe(true);
     expectPotentialConfiguredChannelCase({
@@ -104,7 +104,7 @@ describe("config presence", () => {
         modelByChannel: { enabled: false },
         " ": { enabled: false },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(listExplicitlyDisabledChannelIdsForConfig(cfg)).toEqual(["matrix"]);
   });

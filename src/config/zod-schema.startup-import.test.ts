@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const providersWhatsappImportMock = vi.hoisted(() => vi.fn());
 
-describe("OpenClawSchema startup imports", () => {
+describe("GrantedSchema startup imports", () => {
   beforeEach(() => {
     providersWhatsappImportMock.mockClear();
     vi.doMock("./zod-schema.providers-whatsapp.js", () => {
@@ -19,7 +19,7 @@ describe("OpenClawSchema startup imports", () => {
       "./zod-schema.js?scope=startup-generic-channels",
     );
 
-    const parsed = runtime.OpenClawSchema.safeParse({
+    const parsed = runtime.GrantedSchema.safeParse({
       channels: {
         defaults: {
           groupPolicy: "open",

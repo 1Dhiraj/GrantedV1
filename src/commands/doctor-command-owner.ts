@@ -3,10 +3,10 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PairingChannel } from "../pairing/pairing-store.types.js";
 
-function resolveConfiguredCommandOwners(cfg: OpenClawConfig): string[] {
+function resolveConfiguredCommandOwners(cfg: GrantedConfig): string[] {
   const owners = cfg.commands?.ownerAllowFrom;
   if (!Array.isArray(owners)) {
     return [];
@@ -17,7 +17,7 @@ function resolveConfiguredCommandOwners(cfg: OpenClawConfig): string[] {
 }
 
 /** Returns true when at least one owner sender id is configured. */
-export function hasConfiguredCommandOwners(cfg: OpenClawConfig): boolean {
+export function hasConfiguredCommandOwners(cfg: GrantedConfig): boolean {
   return resolveConfiguredCommandOwners(cfg).length > 0;
 }
 
@@ -41,7 +41,7 @@ export function formatCommandOwnerFromChannelSender(params: {
 }
 
 /** Emits setup guidance when privileged command ownership is not configured. */
-export function noteCommandOwnerHealth(cfg: OpenClawConfig): void {
+export function noteCommandOwnerHealth(cfg: GrantedConfig): void {
   if (hasConfiguredCommandOwners(cfg)) {
     return;
   }

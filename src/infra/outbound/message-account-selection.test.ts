@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setActiveDegradedSecretOwners } from "../../secrets/runtime-degraded-state.js";
 import { validateExplicitMessageAccountSelection } from "./message-account-selection.js";
 
@@ -10,13 +10,13 @@ afterEach(() => {
 });
 
 describe("validateExplicitMessageAccountSelection", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
   const plugin = {
     id: "feishu",
     config: {
       listAccountIds: () => ["default"],
       defaultAccountId: () => "ops",
-      resolveAccount: (_cfg: OpenClawConfig, accountId?: string | null) => ({
+      resolveAccount: (_cfg: GrantedConfig, accountId?: string | null) => ({
         accountId,
         enabled: true,
       }),
@@ -93,13 +93,13 @@ describe("resolveMessageBroadcastAccountPlan (registry-scoped channel plugins)",
     id: "line",
     config: {
       listAccountIds: () => ["ops"],
-      resolveAccount: (_cfg: OpenClawConfig, accountId?: string | null) => ({
+      resolveAccount: (_cfg: GrantedConfig, accountId?: string | null) => ({
         accountId,
         enabled: true,
       }),
     },
   } as unknown as ChannelPlugin;
-  const scopedCfg = { channels: { line: { enabled: true } } } as unknown as OpenClawConfig;
+  const scopedCfg = { channels: { line: { enabled: true } } } as unknown as GrantedConfig;
 
   it("plans candidates from a channel plugin that is only registry-scoped", async () => {
     const { withPluginRuntimeRegistryScope } =

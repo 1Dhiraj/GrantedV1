@@ -1,6 +1,6 @@
 /** Tracks the current plugin metadata snapshot for control-plane lookups. */
 import { AsyncLocalStorage } from "node:async_hooks";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import {
   currentPluginMetadataConfigIdentityCache,
@@ -32,12 +32,12 @@ import { normalizePluginIdScope, serializePluginIdScope } from "./plugin-scope.j
 type CurrentPluginMetadataSnapshotState = ReturnType<
   typeof getCurrentPluginMetadataSnapshotState
 > & {
-  configIdentities: WeakSet<OpenClawConfig>;
+  configIdentities: WeakSet<GrantedConfig>;
 };
 
 type CurrentPluginMetadataSnapshotOptions = {
-  config?: OpenClawConfig;
-  compatibleConfigs?: readonly OpenClawConfig[];
+  config?: GrantedConfig;
+  compatibleConfigs?: readonly GrantedConfig[];
   env?: NodeJS.ProcessEnv;
   /** Only immutable runtime generations may trust identity across policy drift. */
   trustConfigIdentity?: boolean;
@@ -56,7 +56,7 @@ type TemporaryPluginMetadataSnapshotLease = {
 };
 
 type CurrentPluginMetadataSnapshotParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   allowScopedSnapshot?: boolean;
   pluginIds?: readonly string[];
@@ -73,7 +73,7 @@ type PluginMetadataSnapshotCandidate = {
   defaultDiscoveryCompatible?: boolean;
   compatiblePolicyHashes?: readonly string[];
   compatibleConfigFingerprints?: readonly string[];
-  hasConfigIdentity?: (config: OpenClawConfig) => boolean;
+  hasConfigIdentity?: (config: GrantedConfig) => boolean;
   immutableRuntimeGeneration?: boolean;
 };
 
@@ -83,7 +83,7 @@ type ScopedPluginMetadataSnapshot = PluginMetadataSnapshotCandidate & {
 
 export type PluginMetadataSnapshotScopeRunner = <T>(
   params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     workspaceDir?: string;
   },
   run: () => T,
@@ -99,7 +99,7 @@ const scopedPluginMetadataSnapshot = resolveGlobalSingleton<
 >(SCOPED_PLUGIN_METADATA_SNAPSHOT_KEY, () => new AsyncLocalStorage());
 
 function resolvePluginMetadataControlPlaneFingerprint(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   options: Omit<ResolvePluginControlPlaneContextParams, "config"> = {},
 ): string {
   return resolvePluginControlPlaneFingerprint({
@@ -117,7 +117,7 @@ function publishCurrentPluginMetadataSnapshot(
     throw new Error("Gateway plugin metadata can only be replaced after shutdown");
   }
   currentPluginMetadataConfigIdentityCache.clear();
-  const fingerprint = (config: OpenClawConfig | undefined, policyHash: string | undefined) =>
+  const fingerprint = (config: GrantedConfig | undefined, policyHash: string | undefined) =>
     resolvePluginMetadataControlPlaneFingerprint(config, {
       env: options.env,
       index: snapshot.index,
@@ -314,7 +314,7 @@ export function withPluginMetadataSnapshotScope<T>(
         workspaceDir,
       })
     : snapshot.configFingerprint;
-  const configIdentities = new WeakSet<OpenClawConfig>();
+  const configIdentities = new WeakSet<GrantedConfig>();
   if (options.config) {
     const policyHash = resolveInstalledPluginIndexPolicyHash(options.config, options.env);
     if (

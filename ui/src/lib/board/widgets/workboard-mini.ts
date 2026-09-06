@@ -7,7 +7,7 @@ import type { BoardWidget } from "../types.ts";
 import type { PluginBoardWidgetRenderer } from "./index.ts";
 import { WorkboardWidgetElement } from "./workboard-widget.ts";
 
-class OpenClawWorkboardMiniWidget extends WorkboardWidgetElement {
+class GrantedWorkboardMiniWidget extends WorkboardWidgetElement {
   override render(): TemplateResult {
     if (this.loading && !this.loaded) {
       return html`<p class="workboard-widget__state">${t("workboard.widget.loading")}</p>`;
@@ -78,7 +78,7 @@ class OpenClawWorkboardMiniWidget extends WorkboardWidgetElement {
 }
 
 if (!customElements.get("openclaw-workboard-mini-widget")) {
-  customElements.define("openclaw-workboard-mini-widget", OpenClawWorkboardMiniWidget);
+  customElements.define("openclaw-workboard-mini-widget", GrantedWorkboardMiniWidget);
 }
 
 export const renderWorkboardMiniWidget: PluginBoardWidgetRenderer = ({
@@ -102,6 +102,6 @@ export const renderWorkboardMiniWidget: PluginBoardWidgetRenderer = ({
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-workboard-mini-widget": OpenClawWorkboardMiniWidget;
+    "openclaw-workboard-mini-widget": GrantedWorkboardMiniWidget;
   }
 }

@@ -1,5 +1,5 @@
 // Telegram tests cover thread bindings plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-runtime";
 import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
@@ -7,7 +7,7 @@ import {
   resetPluginStateStoreForTests,
 } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setTelegramRuntime } from "./runtime.js";
 import { clearTelegramRuntimeForTest } from "./runtime.test-support.js";
@@ -47,7 +47,7 @@ const TELEGRAM_THREAD_BINDINGS_TEST_CFG = {
       token: "test-token",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 type TelegramThreadBindingManagerParams = Parameters<
   typeof createTelegramThreadBindingManagerImpl
@@ -85,7 +85,7 @@ async function flushMicrotasks(): Promise<void> {
 }
 
 describe("telegram thread bindings", () => {
-  let openClawState: OpenClawTestState;
+  let openClawState: GrantedTestState;
   let threadBindingStore: PluginStateSyncKeyedStore<ThreadBindingStoreEntry>;
 
   function createThreadBindingStore(): PluginStateSyncKeyedStore<ThreadBindingStoreEntry> {

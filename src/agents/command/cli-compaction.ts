@@ -10,7 +10,7 @@ import {
  */
 import { resolveFreshSessionTotalTokens, type SessionEntry } from "../../config/sessions/types.js";
 import type { AgentCompactionMode } from "../../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildGenericCliContextEngineHostSupport } from "../../context-engine/host-compat.js";
 import { ensureContextEnginesInitialized as ensureContextEnginesInitializedImpl } from "../../context-engine/init.js";
 import { resolveContextEngine as resolveContextEngineImpl } from "../../context-engine/registry.js";
@@ -73,11 +73,11 @@ type SettingsManagerLike = {
 type CliCompactionDeps = {
   openSessionManager: (target: SessionTranscriptRuntimeTarget) => SessionManagerLike;
   ensureContextEnginesInitialized: () => void;
-  resolveContextEngine: (cfg: OpenClawConfig) => Promise<ContextEngine>;
+  resolveContextEngine: (cfg: GrantedConfig) => Promise<ContextEngine>;
   createPreparedEmbeddedAgentSettingsManager: (params: {
     cwd: string;
     agentDir: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     contextTokenBudget?: number;
   }) => SettingsManagerLike | Promise<SettingsManagerLike>;
   applyAgentAutoCompactionGuard: (params: {
@@ -117,7 +117,7 @@ type CliCompactionRuntimeContextParams = {
   workspaceDir: string;
   cwd?: string;
   agentDir: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   skillsSnapshot?: SkillSnapshot;
   senderIsOwner?: boolean;
   provider: string;
@@ -251,7 +251,7 @@ async function compactCliTranscript(params: {
   sessionFile: string;
   sessionManager: SessionManagerLike;
   storePath: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir: string;
   cwd?: string;
   agentDir: string;
@@ -415,7 +415,7 @@ async function compactCliTranscript(params: {
 }
 
 async function compactNativeHarnessCliTranscript(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionId: string;
   sessionKey: string;
   sessionFile: string;
@@ -586,7 +586,7 @@ async function compactNativeHarnessCliTranscript(params: {
 /** Runs pre-turn compaction for a CLI session and returns the updated session entry. */
 export async function runCliTurnCompactionLifecycle(
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     sessionId: string;
     sessionKey: string;
     sessionEntry: SessionEntry | undefined;

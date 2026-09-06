@@ -2,7 +2,7 @@
 import type { AcpRuntimeSessionMode } from "@openclaw/acp-core/runtime/types";
 import { clampTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { AcpRuntimeError } from "../runtime/errors.js";
 import type { ActiveTurnState, SessionAcpMeta } from "./manager.types.js";
@@ -13,10 +13,7 @@ const ACP_TURN_TIMEOUT_REASON = "turn-timeout";
 export const ACP_TURN_TIMEOUT_DETAIL_CODE = "TURN_TIMEOUT";
 
 /** Resolves the effective ACP turn timeout from session runtime options or agent defaults. */
-export function resolveTurnTimeoutMs(params: {
-  cfg: OpenClawConfig;
-  meta: SessionAcpMeta;
-}): number {
+export function resolveTurnTimeoutMs(params: { cfg: GrantedConfig; meta: SessionAcpMeta }): number {
   const runtimeTimeoutSeconds = resolveRuntimeOptionsFromMeta(params.meta).timeoutSeconds;
   if (
     typeof runtimeTimeoutSeconds === "number" &&

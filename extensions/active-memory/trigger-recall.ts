@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   isAutomaticMemoryEntryEligible,
   stripMemoryAnnotationCarriers,
@@ -125,7 +125,7 @@ export function buildTriggerRecallContext(matches: TriggerRecallMatch[]): string
 }
 
 type TriggerLookupParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   query: string;
   activeProjectKeys?: string[];
@@ -137,7 +137,7 @@ type TriggerLookupParams = {
 type TriggerRecallRunEntry = {
   activeProjectKeys: string[];
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   promise: Promise<MemorySearchResult[]>;
   query: string;
 };

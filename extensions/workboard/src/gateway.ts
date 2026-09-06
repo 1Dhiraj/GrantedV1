@@ -1,6 +1,6 @@
 // Workboard plugin module implements gateway behavior.
 import type { WorkboardCard } from "@openclaw/workboard-contract";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import { redactClaimToken } from "./card-redaction.js";
 import {
   assertNoCursorAdvance,
@@ -35,7 +35,7 @@ async function redactCardResult(card: Promise<WorkboardCard>) {
 }
 
 export function registerWorkboardGatewayMethods(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   store?: WorkboardStore;
 }) {
   const { api } = params;

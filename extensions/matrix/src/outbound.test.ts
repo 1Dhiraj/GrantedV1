@@ -1,6 +1,6 @@
 // Matrix tests cover outbound plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { chunkTextForOutbound, type OpenClawConfig } from "../runtime-api.js";
+import { chunkTextForOutbound, type GrantedConfig } from "../runtime-api.js";
 
 const mocks = vi.hoisted(() => ({
   sendMessageMatrix: vi.fn(),
@@ -106,7 +106,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendText!({
       cfg,
@@ -147,7 +147,7 @@ describe("matrixOutbound cfg threading", () => {
       }
 
       const result = await send({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "room:!room:example",
         text: "first\nlast",
         mediaUrl: "file:///tmp/photo.png",
@@ -172,7 +172,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const mediaAccess = {
       localRoots: ["/tmp/openclaw"],
       workspaceDir: "/tmp/openclaw",
@@ -207,7 +207,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const matrix = vi.fn(async () => ({
       messageId: "evt-injected",
       roomId: "!room:example",
@@ -240,7 +240,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendPoll!({
       cfg,
@@ -360,7 +360,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const presentationContent = {
       version: 1,
@@ -414,7 +414,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const presentationContent = {
       version: 1,
@@ -454,7 +454,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const presentationContent = {
       version: 1,
@@ -498,7 +498,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendPayload!({
       cfg,
@@ -533,7 +533,7 @@ describe("matrixOutbound cfg threading", () => {
     const onPlatformSendDispatch = vi.fn();
 
     await matrixOutbound.sendPayload!({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "room:!room:example",
       text: "caption",
       payload: {
@@ -584,7 +584,7 @@ describe("matrixOutbound cfg threading", () => {
       });
 
     const result = await matrixOutbound.sendPayload!({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "room:!room:example",
       text: "caption",
       payload: {
@@ -627,7 +627,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "resolved-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendPayload!({
       cfg,
@@ -676,7 +676,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "test-access-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendPayload!({
       cfg,
@@ -719,7 +719,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "test-access-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await matrixOutbound.sendPayload!({
       cfg,
@@ -750,7 +750,7 @@ describe("matrixOutbound cfg threading", () => {
           accessToken: "regression-token",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await matrixOutbound.sendPayload!({
       cfg,

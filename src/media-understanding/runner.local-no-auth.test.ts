@@ -6,7 +6,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 import { CUSTOM_LOCAL_AUTH_MARKER } from "../agents/model-auth-markers.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { buildProviderRegistry, runCapability } from "./runner.js";
 import { withAudioFixture, withVideoFixture } from "./runner.test-utils.js";
@@ -112,7 +112,7 @@ function createAudioCfg(params: {
   model: string;
   providerConfig?: Record<string, unknown>;
   entry?: Record<string, unknown>;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     ...(params.providerConfig
       ? {
@@ -139,10 +139,10 @@ function createAudioCfg(params: {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
-function createVideoCfg(params: { provider: string; model: string }): OpenClawConfig {
+function createVideoCfg(params: { provider: string; model: string }): GrantedConfig {
   return {
     tools: {
       media: {
@@ -159,7 +159,7 @@ function createVideoCfg(params: { provider: string; model: string }): OpenClawCo
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 describe("runCapability local no-auth audio providers", () => {

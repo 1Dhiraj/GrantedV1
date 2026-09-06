@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { InstalledPluginIndex } from "./installed-plugin-index.js";
 import {
   resolveInstalledPluginLifecycleOwnership,
@@ -54,13 +54,13 @@ function contributionKeys(
 
 /** Reconcile policy for children removed by a package update. */
 export function reconcilePluginPackageUpdateConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   beforeIndex: InstalledPluginIndex;
   afterIndex: InstalledPluginIndex;
   snapshot: PluginPackageUpdateSnapshot;
   installOwnerMigrations?: Readonly<Record<string, string>>;
   env?: NodeJS.ProcessEnv;
-}): { ok: true; config: OpenClawConfig } | { ok: false; error: string } {
+}): { ok: true; config: GrantedConfig } | { ok: false; error: string } {
   let config = params.config;
   for (const [installOwner, before] of params.snapshot) {
     const nextInstallOwner = params.installOwnerMigrations?.[installOwner] ?? installOwner;
@@ -113,7 +113,7 @@ export function reconcilePluginPackageUpdateConfig(params: {
 }
 
 export function pluginPackageUpdateMayMutateConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   index: InstalledPluginIndex;
   snapshot: PluginPackageUpdateSnapshot;
 }): boolean {

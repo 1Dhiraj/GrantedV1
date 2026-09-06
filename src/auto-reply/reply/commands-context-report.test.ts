@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { crc32, inflateSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { persistSessionTranscriptTurn } from "../../config/sessions/session-accessor.js";
 import { resolveSessionStorePathForScope } from "../../config/sessions/session-store-path.js";
@@ -522,7 +522,7 @@ describe("buildCommandContext", () => {
 
     const result = buildCommandContext({
       ctx,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       isGroup: false,
       triggerBodyNormalized: "/id",
       commandAuthorized: true,
@@ -545,7 +545,7 @@ describe("buildCommandContext", () => {
 
     const result = buildCommandContext({
       ctx,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       isGroup: false,
       triggerBodyNormalized: stripStructuralPrefixes("/reset soft\nre-read persona files"),
       commandAuthorized: true,
@@ -569,7 +569,7 @@ describe("buildCommandContext", () => {
 
     const result = buildCommandContext({
       ctx,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       isGroup: false,
       triggerBodyNormalized: stripStructuralPrefixes(body),
       commandAuthorized: true,
@@ -595,7 +595,7 @@ describe("buildCommandContext", () => {
 
     const result = buildCommandContext({
       ctx,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       isGroup: false,
       triggerBodyNormalized: "/codex bind",
       commandAuthorized: true,

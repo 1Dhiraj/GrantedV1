@@ -13,7 +13,7 @@ import {
 import { listManagedPluginNpmRootsSync } from "../plugins/npm-project-roots.js";
 import {
   auditOpenClawPeerDependenciesInManagedNpmRoot,
-  type OpenClawPeerLinkAuditIssue,
+  type GrantedPeerLinkAuditIssue,
   reconcileRegisteredOpenClawHostLinks,
   relinkOpenClawPeerDependenciesInManagedNpmRoot,
 } from "../plugins/plugin-peer-link.js";
@@ -30,9 +30,9 @@ type PluginPackageReadFailure = {
 };
 
 type PluginHostLinkAudit = {
-  peerLinkIssues: OpenClawPeerLinkAuditIssue[];
+  peerLinkIssues: GrantedPeerLinkAuditIssue[];
   packageReadFailures: PluginPackageReadFailure[];
-  registeredPeerLinkIssues: OpenClawPeerLinkAuditIssue[];
+  registeredPeerLinkIssues: GrantedPeerLinkAuditIssue[];
   registeredPackageReadFailures: PluginPackageReadFailure[];
 };
 

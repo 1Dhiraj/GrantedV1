@@ -9,7 +9,7 @@ import { createDeferredCore } from "../../shared/deferred.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { coordinateWorkerPlacementDispatch } from "./placement-dispatch-coordinator.js";
 import {
@@ -27,7 +27,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("worker placement dispatch reclaim", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let placementStore: PlacementStore;
 
   beforeEach(async () => {

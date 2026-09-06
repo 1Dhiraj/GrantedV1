@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { PresenceEntry } from "../../../packages/gateway-protocol/src/schema/snapshot.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { sessionSuggestionHandlers } from "./sessions-suggestions.js";
@@ -45,7 +45,7 @@ function client(profileId: string, connId: string): GatewayClient {
   };
 }
 
-function context(broadcast = vi.fn(), cfg: OpenClawConfig = {}): GatewayRequestContext {
+function context(broadcast = vi.fn(), cfg: GrantedConfig = {}): GatewayRequestContext {
   return {
     getRuntimeConfig: () => cfg,
     broadcast,
@@ -253,7 +253,7 @@ describe("session typing handler", () => {
     await withOpenClawTestState({ scenario: "minimal" }, async () => {
       const cfg = {
         agents: { list: [{ id: "main" }, { id: "work" }] },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await upsertSessionEntryCore(
         { agentId, sessionKey: "global" },
         {

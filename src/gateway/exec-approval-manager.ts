@@ -18,7 +18,7 @@ import {
   captureGatewayRootWorkAdmissionContinuationScope,
   type GatewayRootWorkAdmissionContinuationScope,
 } from "../process/gateway-work-admission.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import type { AgentRuntimeDelegatedAuthority } from "./agent-runtime-identity-token.js";
 import type {
   PlacementStandingGrantMintSpec,
@@ -121,7 +121,7 @@ export type ExecApprovalRecord<TPayload = ExecApprovalRequestPayload> = {
 
 type OperatorApprovalPersistenceRuntime = {
   runtimeEpoch: string;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 };
 
 export type OperatorStandingGrantMintSpec =

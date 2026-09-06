@@ -2,7 +2,7 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { findBundledPluginMetadataById } from "../plugins/bundled-plugin-metadata.js";
 import { resolvePluginConfigContractsById } from "../plugins/config-contracts.js";
 import { resolveSecretRefValues } from "./resolve.js";
@@ -13,7 +13,7 @@ function envRef(id: string) {
   return { source: "env" as const, provider: "default", id };
 }
 
-const explicitMainRoster: NonNullable<OpenClawConfig["agents"]> = {
+const explicitMainRoster: NonNullable<GrantedConfig["agents"]> = {
   list: [{ id: "main", default: true }],
 };
 const isolatedEnv: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: process.env.GRANTED_TEST_HOME };
@@ -43,7 +43,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const context = createResolverContext({ sourceConfig: config, env: isolatedEnv });
 
     collectPluginConfigAssignments({
@@ -95,7 +95,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(
       resolvePluginConfigContractsById({
         config,
@@ -170,7 +170,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const env = { ...isolatedEnv, GEMINI_GATEWAY_TOKEN: "resolved-gateway-token" };
     const context = createResolverContext({ sourceConfig: config, env });
 
@@ -220,7 +220,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = structuredClone(sourceConfig);
     const env = { ...isolatedEnv, TAVILY_API_KEY: "resolved-tavily-key" };
     const context = createResolverContext({ sourceConfig, env });
@@ -307,7 +307,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(
       resolvePluginConfigContractsById({
         config,
@@ -377,7 +377,7 @@ describe("collectPluginConfigAssignments bundled plugin manifests", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(
       resolvePluginConfigContractsById({
         config,

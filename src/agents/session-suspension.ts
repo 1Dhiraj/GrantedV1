@@ -10,7 +10,7 @@ import {
 } from "@openclaw/normalization-core/number-coercion";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import type { QuotaSuspension } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import { resolveRegisteredAgentIdForDir } from "./agent-dir-registry.js";
@@ -54,7 +54,7 @@ type SessionSuspensionTarget =
   | { mode: "defer"; defer: (params: SessionSuspensionParams) => void }
   | { mode: "suspend" };
 export type SessionSuspensionParams = {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   agentId?: string;
   agentDir?: string;
   sessionId: string;

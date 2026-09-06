@@ -9,7 +9,7 @@ import { startGatewayConfigReloader } from "../gateway/config-reload.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -34,10 +34,10 @@ import {
 import { ConfigMutationConflictError } from "./mutation-conflict.js";
 import { createProviderConfigFixture } from "./runtime-snapshot.test-fixtures.js";
 import type { AgentModelEntryConfig, AgentModelPolicyConfig } from "./types.agent-defaults.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "./types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.openclaw.js";
 
 const CONFIG_CLOBBER_SNAPSHOT_LIMIT = 32;
-type ConfigHealthDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type ConfigHealthDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 
 // Mock the plugin manifest registry so we can register a fake channel whose
 // AJV JSON Schema carries a `default` value.  This lets the #56772 regression
@@ -201,7 +201,7 @@ describe("config io write", () => {
 
   const createExistingConfigSnapshot = (
     configPath: string,
-    config: OpenClawConfig,
+    config: GrantedConfig,
     raw: string | null,
   ): ConfigFileSnapshot => ({
     path: configPath,
@@ -218,8 +218,8 @@ describe("config io write", () => {
     legacyIssues: [],
   });
 
-  const readPersistedConfig = async (configPath: string): Promise<OpenClawConfig> =>
-    JSON.parse(await fs.readFile(configPath, "utf-8")) as OpenClawConfig;
+  const readPersistedConfig = async (configPath: string): Promise<GrantedConfig> =>
+    JSON.parse(await fs.readFile(configPath, "utf-8")) as GrantedConfig;
 
   const writeConfigJson = async (configPath: string, config: unknown) => {
     await fs.writeFile(configPath, formatConfig(config), "utf-8");
@@ -261,7 +261,7 @@ describe("config io write", () => {
   itWithHome(
     "preserves a bare legacy restriction through an unrelated write and reload",
     async (home) => {
-      const original: OpenClawConfig = { agents: { defaults: { models: { bare: {} } } } };
+      const original: GrantedConfig = { agents: { defaults: { models: { bare: {} } } } };
       const { configPath } = await writeConfigFixture(home, original);
       const io = createFastConfigIO(home, { configPath });
 
@@ -337,7 +337,7 @@ describe("config io write", () => {
             }
             return;
           }
-          const policyFor = (cfg: OpenClawConfig) =>
+          const policyFor = (cfg: GrantedConfig) =>
             createModelVisibilityPolicy({
               cfg,
               catalog: [],
@@ -564,7 +564,7 @@ describe("config io write", () => {
       { gateway: { mode: "local", port: 19001 } },
     );
 
-    await io.writeConfigFile(nextConfig as OpenClawConfig);
+    await io.writeConfigFile(nextConfig as GrantedConfig);
 
     const persisted = JSON.parse(await fs.readFile(configPath, "utf-8")) as Record<string, unknown>;
     expect(persisted.gateway).toEqual({ mode: "local", port: 19001 });
@@ -621,7 +621,7 @@ describe("config io write", () => {
         env: auditCase.env ?? ({} as NodeJS.ProcessEnv),
         logger: { warn, error: vi.fn() },
       });
-      const config: OpenClawConfig = auditCase.seedExistingConfig
+      const config: GrantedConfig = auditCase.seedExistingConfig
         ? { gateway: { mode: "local", port: 18790 } }
         : { gateway: { mode: "local" } };
 
@@ -1447,7 +1447,7 @@ describe("config io write", () => {
     const snapshot = await io.readConfigFileSnapshot();
     expect(snapshot.exists).toBe(false);
     expect(snapshot.config.agents?.entries).toEqual({ main: {} });
-    let preflightConfig: OpenClawConfig | undefined;
+    let preflightConfig: GrantedConfig | undefined;
 
     await io.writeConfigFile(
       {
@@ -2105,11 +2105,11 @@ describe("config io write", () => {
       const initialConfig = {
         gateway: { mode: "local" as const },
         logging: { level: "info" as const },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await writeConfigJson(configPath, initialConfig);
       const preflight = vi.fn(
         async (
-          sourceConfig: OpenClawConfig,
+          sourceConfig: GrantedConfig,
           refreshOptions?: { includeAuthStoreRefs?: boolean },
         ) => ({
           runtimeConfig: sourceConfig,
@@ -2154,18 +2154,18 @@ describe("config io write", () => {
         auth: { mode: "token" as const, token: "${GRANTED_TEST_MANAGED_ROOT_ENV}" },
       },
       env: { vars: { [envKey]: "old" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const initialConfig = {
       ...initialAuthoredConfig,
       gateway: {
         ...initialAuthoredConfig.gateway,
         auth: { mode: "token" as const, token: "old" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     await fs.mkdir(path.dirname(configPath), { recursive: true });
     await writeConfigJson(configPath, initialAuthoredConfig);
     let preparedEnv: NodeJS.ProcessEnv | undefined;
-    let notifiedSource: OpenClawConfig | undefined;
+    let notifiedSource: GrantedConfig | undefined;
     const unsubscribe = registerConfigWriteListener(
       (event) => {
         notifiedSource = event.sourceConfig;
@@ -2211,11 +2211,11 @@ describe("config io write", () => {
       const activeConfig = {
         env: { vars: { [envKey]: "old" } },
         gateway: { auth: { mode: "token" as const, token: "old" } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const candidate = {
         env: { vars: { [envKey]: "new" } },
         gateway: { auth: { mode: "token" as const, token: "${GRANTED_TEST_WATCHER_ENV}" } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await writeConfigJson(configPath, candidate);
 
@@ -2236,7 +2236,7 @@ describe("config io write", () => {
     async (home) => {
       const configPath = configPathForHome(home);
       const envKey = "GRANTED_TEST_INTERLEAVED_WRITE_ENV";
-      const makeConfig = (value: string, token: string): OpenClawConfig => ({
+      const makeConfig = (value: string, token: string): GrantedConfig => ({
         env: { vars: { [envKey]: value } },
         gateway: { mode: "local", auth: { mode: "token", token } },
       });
@@ -2246,7 +2246,7 @@ describe("config io write", () => {
       const configC = makeConfig("c", "c");
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await writeConfigJson(configPath, authoredA);
-      let notifiedSource: OpenClawConfig | undefined;
+      let notifiedSource: GrantedConfig | undefined;
       const unsubscribe = registerConfigWriteListener(
         (event) => {
           notifiedSource = event.sourceConfig;
@@ -2415,7 +2415,7 @@ describe("config io write", () => {
     const initialConfig = {
       gateway: { mode: "local", port: 18789 },
       plugins: { entries: { "google-antigravity-auth": { enabled: false } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const initialRaw = formatConfig(initialConfig);
     await fs.writeFile(configPath, initialRaw, "utf-8");
     const warn = vi.fn();
@@ -2456,7 +2456,7 @@ describe("config io write", () => {
     async (home) => {
       const configPath = configPathForHome(home);
       await fs.mkdir(path.dirname(configPath), { recursive: true });
-      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
+      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies GrantedConfig;
       await writeConfigJson(configPath, initialConfig);
       const baseSnapshot = createExistingConfigSnapshot(configPath, initialConfig, null);
 
@@ -2518,7 +2518,7 @@ describe("config io write", () => {
   itWithHome("blocks runtime preflight failures before committing root writes", async (home) => {
     const configPath = configPathForHome(home);
     const initialRaw = formatConfig({ gateway: { mode: "local" } });
-    let observedSource: OpenClawConfig | undefined;
+    let observedSource: GrantedConfig | undefined;
 
     await fs.mkdir(path.dirname(configPath), { recursive: true });
     await fs.writeFile(configPath, initialRaw, "utf-8");
@@ -2598,7 +2598,7 @@ describe("config io write", () => {
         ...process.env,
         GRANTED_CONFIG_PATH: configPath,
       } as NodeJS.ProcessEnv;
-      let observedSource: OpenClawConfig | undefined;
+      let observedSource: GrantedConfig | undefined;
 
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, initialRaw, "utf-8");
@@ -2631,7 +2631,7 @@ describe("config io write", () => {
     async (home) => {
       const configPath = configPathForHome(home);
       const envKey = "GRANTED_TEST_RUNTIME_ROLLBACK_ENV";
-      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
+      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies GrantedConfig;
       const initialRaw = formatConfig(initialConfig);
 
       await fs.mkdir(path.dirname(configPath), { recursive: true });
@@ -2672,7 +2672,7 @@ describe("config io write", () => {
     "restores the prior snapshot slot when post-commit refresh rolls back",
     async (home) => {
       const configPath = configPathForHome(home);
-      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
+      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies GrantedConfig;
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await writeConfigJson(configPath, initialConfig);
 
@@ -2715,7 +2715,7 @@ describe("config io write", () => {
     "rolls back a managed root write when canonical rereads exhaust env generations",
     async (home) => {
       const configPath = configPathForHome(home);
-      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
+      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies GrantedConfig;
       const initialRaw = formatConfig(initialConfig);
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, initialRaw, "utf-8");
@@ -2762,7 +2762,7 @@ describe("config io write", () => {
     async (home) => {
       const configPath = configPathForHome(home);
       const otherConfigPath = path.join(home, ".openclaw", "other.json");
-      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
+      const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies GrantedConfig;
       const initialRaw = formatConfig(initialConfig);
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, initialRaw, "utf-8");
@@ -2947,7 +2947,7 @@ describe("config io write", () => {
 
       try {
         // Plugin is enabled but missing required "token" — validation fails without skip.
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: { entries: { main: { default: true } } },
           plugins: { entries: { "strict-plugin": { enabled: true } } },
         };
@@ -2960,7 +2960,7 @@ describe("config io write", () => {
             /Config validation failed/,
           );
           await expect(
-            writeConfigFile({ agents: { entries: "not-array" } } as unknown as OpenClawConfig, {
+            writeConfigFile({ agents: { entries: "not-array" } } as unknown as GrantedConfig, {
               skipPluginValidation: true,
             }),
           ).rejects.toThrow(/Config validation failed/);
@@ -3206,9 +3206,7 @@ gateway: { mode: "local", port: 18789 }
             ),
           ).toEqual([]);
 
-          const handEditedAuthoredConfig = structuredClone(
-            writtenSnapshot.parsed,
-          ) as OpenClawConfig;
+          const handEditedAuthoredConfig = structuredClone(writtenSnapshot.parsed) as GrantedConfig;
           handEditedAuthoredConfig.gateway = {
             ...handEditedAuthoredConfig.gateway,
             port: 18790,

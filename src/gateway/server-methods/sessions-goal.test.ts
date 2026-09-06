@@ -5,7 +5,7 @@ import {
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry, SessionGoal } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { handleGatewayRequest } from "../server-methods.js";
@@ -22,7 +22,7 @@ vi.mock("./chat-send-handler.js", () => ({ handleSessionGoalResumeChat: resumeCh
 
 const sessionKey = "agent:main:goal-controls";
 const sessionId = "goal-controls-session";
-const cfg: OpenClawConfig = { agents: { list: [{ id: "main", default: true }] } };
+const cfg: GrantedConfig = { agents: { list: [{ id: "main", default: true }] } };
 
 function initialGoal(): SessionGoal {
   return {

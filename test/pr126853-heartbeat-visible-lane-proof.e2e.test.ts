@@ -9,7 +9,7 @@ import {
   getRuntimeConfigSnapshot,
 } from "../src/config/config.js";
 import { clearSessionStoreCacheForTest } from "../src/config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import {
   disconnectGatewayClient,
   startGatewayWithClient,
@@ -212,7 +212,7 @@ describe("PR #126853 real Gateway lane proof", () => {
           },
           gateway: { auth: { mode: "token", token } },
           plugins: { slots: { memory: "none" } },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         gateway = await within(
           startGatewayWithClient({
             cfg,

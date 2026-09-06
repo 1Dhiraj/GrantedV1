@@ -7,7 +7,7 @@ import {
   resolveChannelStreamingBlockEnabled,
   resolveChannelStreamingPreviewToolProgress,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   asObjectRecord,
@@ -108,7 +108,7 @@ function describeConfigValueType(value: unknown): string {
   return typeof value;
 }
 
-function scanTelegramMalformedGroupsConfig(cfg: OpenClawConfig): TelegramMalformedGroupsHit[] {
+function scanTelegramMalformedGroupsConfig(cfg: GrantedConfig): TelegramMalformedGroupsHit[] {
   const hits: TelegramMalformedGroupsHit[] = [];
   for (const scope of collectChannelAccountScopes({ cfg, channelId: "telegram" })) {
     if (!Object.hasOwn(scope.account, "groups")) {
@@ -143,7 +143,7 @@ function collectTelegramMalformedGroupsWarnings(params: {
   ];
 }
 
-function scanTelegramInvalidAllowFromEntries(cfg: OpenClawConfig): TelegramAllowFromInvalidHit[] {
+function scanTelegramInvalidAllowFromEntries(cfg: GrantedConfig): TelegramAllowFromInvalidHit[] {
   const hits: TelegramAllowFromInvalidHit[] = [];
   const scanList = (pathLabel: string, list: unknown) => {
     if (!Array.isArray(list)) {
@@ -180,7 +180,7 @@ function collectTelegramInvalidAllowFromWarnings(params: {
   ];
 }
 
-function scanTelegramBotEndpointApiRoots(cfg: OpenClawConfig): TelegramApiRootBotEndpointHit[] {
+function scanTelegramBotEndpointApiRoots(cfg: GrantedConfig): TelegramApiRootBotEndpointHit[] {
   const hits: TelegramApiRootBotEndpointHit[] = [];
   for (const scope of collectChannelAccountScopes({ cfg, channelId: "telegram" })) {
     const value = scope.account.apiRoot;
@@ -211,7 +211,7 @@ function collectTelegramApiRootWarnings(params: {
   ];
 }
 
-function formatTelegramAccountConfigPath(cfg: OpenClawConfig, accountId: string): string {
+function formatTelegramAccountConfigPath(cfg: GrantedConfig, accountId: string): string {
   const telegram = asObjectRecord((cfg.channels as Record<string, unknown> | undefined)?.telegram);
   const accounts = asObjectRecord(telegram?.accounts);
   if (!accounts || Object.keys(accounts).length === 0) {
@@ -221,7 +221,7 @@ function formatTelegramAccountConfigPath(cfg: OpenClawConfig, accountId: string)
 }
 
 function scanTelegramSelectedQuoteToolProgressWarnings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): TelegramSelectedQuoteToolProgressHit[] {
   if (!asObjectRecord((cfg.channels as Record<string, unknown> | undefined)?.telegram)) {
     return [];
@@ -271,8 +271,8 @@ function collectTelegramSelectedQuoteToolProgressWarnings(params: {
   ];
 }
 
-function maybeRepairTelegramApiRoots(cfg: OpenClawConfig): {
-  config: OpenClawConfig;
+function maybeRepairTelegramApiRoots(cfg: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const hits = scanTelegramBotEndpointApiRoots(cfg);
@@ -304,7 +304,7 @@ function maybeRepairTelegramApiRoots(cfg: OpenClawConfig): {
 }
 
 function collectTelegramMissingEnvTokenWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): string[] {
   if (resolveDefaultTelegramAccountId(params.cfg) !== "default") {
@@ -323,8 +323,8 @@ function collectTelegramMissingEnvTokenWarnings(params: {
   ];
 }
 
-async function repairTelegramConfig(params: { cfg: OpenClawConfig }): Promise<{
-  config: OpenClawConfig;
+async function repairTelegramConfig(params: { cfg: GrantedConfig }): Promise<{
+  config: GrantedConfig;
   changes: string[];
 }> {
   const apiRootRepair = maybeRepairTelegramApiRoots(params.cfg);
@@ -335,8 +335,8 @@ async function repairTelegramConfig(params: { cfg: OpenClawConfig }): Promise<{
   };
 }
 
-async function maybeRepairTelegramAllowFromUsernames(cfg: OpenClawConfig): Promise<{
-  config: OpenClawConfig;
+async function maybeRepairTelegramAllowFromUsernames(cfg: GrantedConfig): Promise<{
+  config: GrantedConfig;
   changes: string[];
 }> {
   const hits = scanTelegramInvalidAllowFromEntries(cfg);

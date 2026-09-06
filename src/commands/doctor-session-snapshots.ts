@@ -7,7 +7,7 @@ import { resolveStateDir } from "../config/paths.js";
 import { hydrateSessionStoreSkillPromptRefs } from "../config/sessions/skill-prompt-blobs.js";
 import { resolveAllAgentSessionStoreTargetsSync } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HealthFinding, HealthRepairEffect } from "../flows/health-checks.js";
 import { expandHomePrefix, resolveOsHomeDir } from "../infra/home-dir.js";
 import { writeTextAtomic } from "../infra/json-files.js";
@@ -319,7 +319,7 @@ async function listSessionStorePaths(stateDir: string): Promise<string[]> {
 }
 
 function resolveSessionStorePaths(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): string[] | undefined {
   if (!params.cfg) {
@@ -344,7 +344,7 @@ function loadSessionStoreForSnapshotScan(storePath: string): Record<string, Sess
 export async function detectSessionSnapshotHealthIssues(params?: {
   storePaths?: string[];
   bundledSkillsDir?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<SessionSnapshotHealthIssue[]> {
   const bundledSkillsDir = resolveSessionSnapshotBundledSkillsDir({
@@ -508,7 +508,7 @@ function repairFreshSessionSnapshotPaths(params: {
 export async function noteSessionSnapshotHealth(params?: {
   storePaths?: string[];
   bundledSkillsDir?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   shouldRepair?: boolean;
 }) {

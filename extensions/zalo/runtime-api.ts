@@ -2,7 +2,7 @@ export type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 export type {
   GroupPolicy,
   MarkdownTableMode,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 export type {
   BaseProbeResult,

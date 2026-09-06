@@ -10,7 +10,7 @@ import {
 } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import type { GatewayActiveWorkInspectors } from "./gateway-active-work.js";
 import { writeUpdateInstallReceiptRowSync } from "./restart-sentinel-store.js";
@@ -164,7 +164,7 @@ type PersistedUpdateCheckState = {
 
 describe("update-startup", () => {
   let tempDir: string;
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
   let triageResult: Extract<
     Awaited<ReturnType<typeof runUpdateFailureTriageMock>>,
     { status: "completed" }

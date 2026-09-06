@@ -14,7 +14,7 @@ import { t } from "../i18n/index.ts";
 import { formatUiError } from "../lib/format-error.ts";
 import { normalizeAgentId } from "../lib/sessions/session-key.ts";
 import { isTerminalAvailable } from "../lib/terminal-availability.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../lit/subscriptions-controller.ts";
 import type { ChatRouteData } from "../pages/chat/route-loader.ts";
 import { bootstrapApplication, type ApplicationRuntime } from "./bootstrap.ts";
@@ -63,7 +63,7 @@ function renderConnectingSplash(status?: string) {
   `;
 }
 
-export class OpenClawApp extends OpenClawLightDomElement {
+export class GrantedApp extends GrantedLightDomElement {
   // Pinned while a connect submitted from the visible login gate is in
   // flight, so a failed manual attempt cannot flash the shell in between.
   @state() private loginGatePinned = false;

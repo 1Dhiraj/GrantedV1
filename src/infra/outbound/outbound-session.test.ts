@@ -2,7 +2,7 @@
 // target parsing, plus best-effort session route persistence.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
 import {
@@ -60,8 +60,8 @@ describe("resolveOutboundSessionRoute", () => {
     setMinimalOutboundSessionPluginRegistryForTests();
   });
 
-  const baseConfig = {} as OpenClawConfig;
-  const perChannelPeerCfg = { session: { dmScope: "per-channel-peer" } } as OpenClawConfig;
+  const baseConfig = {} as GrantedConfig;
+  const perChannelPeerCfg = { session: { dmScope: "per-channel-peer" } } as GrantedConfig;
   const identityLinksCfg = {
     session: {
       dmScope: "per-peer",
@@ -69,7 +69,7 @@ describe("resolveOutboundSessionRoute", () => {
         alice: ["guildchat:123"],
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const workspaceMpimCfg = {
     channels: {
       workspace: {
@@ -78,7 +78,7 @@ describe("resolveOutboundSessionRoute", () => {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   it("uses a prepared runtime plugin for session-route resolution", async () => {
     const plugin = {
@@ -169,7 +169,7 @@ describe("resolveOutboundSessionRoute", () => {
             session: testCase.bindingSession,
           },
         ],
-      } as OpenClawConfig,
+      } as GrantedConfig,
       channel: "bound-channel",
       plugin,
       agentId: "main",
@@ -182,7 +182,7 @@ describe("resolveOutboundSessionRoute", () => {
   });
 
   async function expectResolvedRoute(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     channel: string;
     target: string;
     replyToId?: string;
@@ -221,7 +221,7 @@ describe("resolveOutboundSessionRoute", () => {
   type RouteCase = Parameters<typeof expectResolvedRoute>[0];
   type NamedRouteCase = RouteCase & { name: string };
 
-  const perChannelPeerSessionCfg = { session: { dmScope: "per-channel-peer" } } as OpenClawConfig;
+  const perChannelPeerSessionCfg = { session: { dmScope: "per-channel-peer" } } as GrantedConfig;
 
   it.each([
     {
@@ -238,7 +238,7 @@ describe("resolveOutboundSessionRoute", () => {
     },
     {
       name: "global groupScope main",
-      cfg: { session: { groupScope: "main" } } as OpenClawConfig,
+      cfg: { session: { groupScope: "main" } } as GrantedConfig,
       channel: "mobilechat",
       target: "120363040000000000@g.us",
       expected: {
@@ -641,7 +641,7 @@ describe("ensureOutboundSessionEntry", () => {
         session: {
           store: "/stores/{agentId}.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       channel: "workspace",
       route: {
         sessionKey: "agent:main:workspace:channel:c1",
@@ -668,7 +668,7 @@ describe("ensureOutboundSessionEntry", () => {
 
   it("persists the canonical direct peer separately from its adapter target", async () => {
     await ensureOutboundSessionEntry({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "reef",
       route: {
         sessionKey: "agent:main:main",
@@ -733,7 +733,7 @@ describe("ensureOutboundSessionEntry", () => {
 
     await expect(
       ensureOutboundSessionEntry({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "reef",
         route: {
           sessionKey: "agent:main:main",
@@ -752,7 +752,7 @@ describe("ensureOutboundSessionEntry", () => {
 
     await expect(
       bindOutboundSessionEntry({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "reef",
         route: {
           sessionKey: "agent:main:main",

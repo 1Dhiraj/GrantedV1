@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { upsertAuthProfile } from "../../agents/auth-profiles/profiles.js";
 import { loadAuthProfileStoreWithoutExternalProfiles } from "../../agents/auth-profiles/store.js";
 import { readConfigFileSnapshot, resetConfigRuntimeState } from "../../config/io.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
@@ -102,7 +102,7 @@ describe("local setup fleet owner persistence", () => {
           nextConfig,
           target,
         }: {
-          nextConfig: OpenClawConfig;
+          nextConfig: GrantedConfig;
           target: OnboardingAgentTarget;
         }) => {
           expect(target).toEqual({ agentId: "beta", agentDir, workspaceDir: workspace });

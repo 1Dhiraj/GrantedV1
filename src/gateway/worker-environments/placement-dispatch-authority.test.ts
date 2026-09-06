@@ -16,7 +16,7 @@ import { createDeferredCore } from "../../shared/deferred.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
@@ -37,7 +37,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("worker placement cancellation and reclaim authority", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let placementStore: PlacementStore;
 
   const createTestHarness = (options: Parameters<typeof createHarness>[1] = {}) =>

@@ -19,7 +19,7 @@ import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import {
   chunkMarkdownTextWithMode,
@@ -47,7 +47,7 @@ const ACCOUNT_ID = "main";
 // Matches the monitor's draft stream wiring (throttleMs: 1200).
 const DRAFT_THROTTLE_MS = 1200;
 
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 const tableMode = resolveMarkdownTableMode({ cfg, channel: "mattermost" });
 const chunkMode = resolveChunkMode(cfg, "mattermost", ACCOUNT_ID);
 const textLimit = resolveTextChunkLimit(cfg, "mattermost", ACCOUNT_ID, { fallbackLimit: 4000 });

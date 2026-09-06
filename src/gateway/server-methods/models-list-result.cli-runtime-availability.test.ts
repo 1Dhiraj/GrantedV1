@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-support.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   listModels,
   providerCatalogEntry,
@@ -19,14 +19,14 @@ const config = {
       },
     ],
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 async function listClaudeCliModel(
   params: {
     authenticated?: boolean;
     providerApiKey?: boolean;
     pluginDisabled?: boolean;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
   } = {},
 ) {
   return await listModels({

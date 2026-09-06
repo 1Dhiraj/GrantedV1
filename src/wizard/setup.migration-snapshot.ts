@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import { createReadStream } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { FILE_LOCK_TIMEOUT_ERROR_CODE, withFileLock } from "../infra/file-lock.js";
 import { readJsonFile } from "../infra/json-files.js";
 import { isNotFoundPathError } from "../infra/path-guards.js";
@@ -74,7 +74,7 @@ function hasMeaningfulWizardConfig(value: unknown): boolean {
   );
 }
 
-function hasMeaningfulConfig(config: OpenClawConfig): boolean {
+function hasMeaningfulConfig(config: GrantedConfig): boolean {
   return Object.entries(config as Record<string, unknown>).some(([key, value]) => {
     if (MEANINGFUL_CONFIG_IGNORED_KEYS.has(key)) {
       return false;
@@ -83,7 +83,7 @@ function hasMeaningfulConfig(config: OpenClawConfig): boolean {
   });
 }
 
-function buildSetupMigrationSnapshotConfig(config: OpenClawConfig): Record<string, unknown> {
+function buildSetupMigrationSnapshotConfig(config: GrantedConfig): Record<string, unknown> {
   const snapshot: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(config as Record<string, unknown>)) {
     if (MEANINGFUL_CONFIG_IGNORED_KEYS.has(key)) {
@@ -107,7 +107,7 @@ function buildSetupMigrationSnapshotConfig(config: OpenClawConfig): Record<strin
 }
 
 export async function inspectSetupMigrationFreshness(params: {
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   stateDir: string;
   workspaceDir: string;
 }): Promise<{ fresh: boolean; reasons: string[] }> {
@@ -136,9 +136,9 @@ export async function inspectSetupMigrationFreshness(params: {
 
 /** Preserve interactive consent decisions made before the import lock rereads config. */
 export function preserveSetupMigrationOnboardingConsents(
-  config: OpenClawConfig,
-  inMemoryConfig: OpenClawConfig,
-): OpenClawConfig {
+  config: GrantedConfig,
+  inMemoryConfig: GrantedConfig,
+): GrantedConfig {
   const securityAcknowledgedAt = inMemoryConfig.wizard?.securityAcknowledgedAt;
   const preserveSecurity = securityAcknowledgedAt && !config.wizard?.securityAcknowledgedAt;
   const preserveTelemetry = inMemoryConfig.telemetry?.consentedAt && !config.telemetry?.consentedAt;
@@ -248,7 +248,7 @@ async function hashSourcePath(
 
 /** Hashes migration-owned target state without persisting raw paths or values. */
 export async function buildSetupMigrationTargetSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   stateDir: string;
   workspaceDir: string;
 }): Promise<string> {
@@ -290,8 +290,8 @@ export async function buildSetupMigrationPlanSourceSnapshot(plan: MigrationPlan)
 
 /** Verifies planning inputs and builds the exact provider-side-effect retry boundary. */
 export async function prepareSetupMigrationAttemptBoundary(params: {
-  currentConfig: OpenClawConfig;
-  targetConfig: OpenClawConfig;
+  currentConfig: GrantedConfig;
+  targetConfig: GrantedConfig;
   stateDir: string;
   workspaceDir: string;
   plan: MigrationPlan;

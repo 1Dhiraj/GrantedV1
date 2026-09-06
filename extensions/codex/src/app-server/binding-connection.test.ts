@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { createCodexCatalogHomeResolver } from "../session-catalog-homes.js";
 import { resolveCodexAppServerHomeDir } from "./auth-start-options.js";
@@ -79,7 +79,7 @@ describe("Codex binding app-server connection", () => {
             { id: "beta", agentDir: betaAgentDir },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const env = { ...process.env, CODEX_HOME: processCodexHome };
       const source = createCodexCatalogHomeResolver({
         config,
@@ -134,7 +134,7 @@ describe("Codex binding app-server connection", () => {
     const agentDir = path.join(os.tmpdir(), "openclaw-websocket-agent");
     const config = {
       agents: { list: [{ id: "main", agentDir, default: true }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const pluginConfig = {
       supervision: { enabled: true },
       appServer: { transport: "websocket", url: "ws://127.0.0.1:4500" },

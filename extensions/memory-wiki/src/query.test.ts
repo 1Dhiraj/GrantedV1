@@ -5,7 +5,7 @@ import path from "node:path";
 import { filterMemorySearchHitsBySessionVisibility } from "@openclaw/memory-core/api.js";
 import type { MemoryReadResult } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { compileMemoryWikiVault } from "./compile.js";
 import type { MemoryWikiPluginConfig } from "./config.js";
 import { renderWikiMarkdown } from "./markdown.js";
@@ -108,15 +108,15 @@ async function createQueryVault(options?: {
   });
 }
 
-function createAppConfig(): OpenClawConfig {
+function createAppConfig(): GrantedConfig {
   return {
     agents: {
       list: [{ id: "main", default: true }],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function createSessionVisibilityAppConfig(): OpenClawConfig {
+function createSessionVisibilityAppConfig(): GrantedConfig {
   return {
     agents: {
       defaults: { sandbox: { sessionToolsVisibility: "all" } },
@@ -125,14 +125,14 @@ function createSessionVisibilityAppConfig(): OpenClawConfig {
     tools: {
       sessions: { visibility: "self" },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function createAgentSessionVisibilityAppConfig(): OpenClawConfig {
+function createAgentSessionVisibilityAppConfig(): GrantedConfig {
   return {
     agents: { list: [{ id: "main", default: true }, { id: "secondary" }] },
     tools: { sessions: { visibility: "agent" } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function mockSessionTranscriptStore() {
@@ -1365,7 +1365,7 @@ describe("searchMemoryWiki", () => {
       agents: {
         list: [{ id: "main", default: true }, { id: "secondary" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     loadCombinedSessionStoreForGatewayMock.mockReturnValue({
       storePath: "(test)",
       store: {

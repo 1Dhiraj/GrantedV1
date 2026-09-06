@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
 import { withTempDir } from "openclaw/plugin-sdk/test-env";
 // Codex tests cover config plugin behavior.
@@ -2677,7 +2677,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
             ask,
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const execPolicy = resolveOpenClawExecPolicyForCodexAppServer({ config });
 
       expectRuntimePolicy(
@@ -2709,7 +2709,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
           ask: "on-miss",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const execPolicy = resolveOpenClawExecPolicyForCodexAppServer({ config });
 
     expectRuntimePolicy(resolveRuntimeForTest({ execPolicy }), {
@@ -2727,7 +2727,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
           ask: "always",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(() =>
       resolveRuntimeForTest({
@@ -2740,7 +2740,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
   it("fails closed when managed policy forbids mandatory per-command approvals", () => {
     const config = {
       tools: { exec: { security: "full", ask: "always" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(() =>
       resolveRuntimeForTest({
@@ -2753,7 +2753,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
   it("honors managed policy that permits mandatory per-command approvals", () => {
     const config = {
       tools: { exec: { security: "full", ask: "always" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expectRuntimePolicy(
       resolveRuntimeForTest({
@@ -2776,7 +2776,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
           ask: "always",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expectRuntimePolicy(
       resolveRuntimeForTest({

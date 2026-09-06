@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   resolveFreshSessionTotalTokens,
   type InternalSessionEntry as SessionEntry,
@@ -25,7 +25,7 @@ import { resolveSession } from "./session.js";
 const { listSessionEntriesCore, loadSessionEntry, replaceSessionEntry } = sessionAccessor;
 
 vi.mock("../model-selection.js", () => ({
-  isCliProvider: (provider: string, _cfg?: OpenClawConfig) =>
+  isCliProvider: (provider: string, _cfg?: GrantedConfig) =>
     ["claude-cli", "codex-cli", "google-gemini-cli"].includes(provider.trim().toLowerCase()),
   normalizeProviderId: (provider: string) => provider.trim().toLowerCase(),
 }));
@@ -52,7 +52,7 @@ vi.mock("../../utils/usage-format.js", async (importOriginal) => {
       config?: unknown;
       agentDir?: string;
     }) => {
-      const agents = (params.config as OpenClawConfig | undefined)?.agents?.list ?? [];
+      const agents = (params.config as GrantedConfig | undefined)?.agents?.list ?? [];
       if (agents.length > 1 && !params.agentDir) {
         throw new Error("multi-agent cost resolution requires an explicit agent directory");
       }
@@ -263,7 +263,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
               },
             },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         agentDir: path.join(dir, "agents", "marie", "agent"),
         sessionId,
         sessionKey,
@@ -302,7 +302,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, sessionStore);
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -339,7 +339,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, sessionStore);
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -391,7 +391,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, { [sessionKey]: concurrentEntry });
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -428,7 +428,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
             maxEntries: 42,
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-maintenance-config";
       const sessionId = "test-maintenance-config-session";
       const now = Date.now();
@@ -479,7 +479,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("persists the selected embedded harness id on the session", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-harness-pin";
       const sessionId = "test-harness-pin-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -520,7 +520,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("rejects a finalizer attempting to rebind from public compaction metadata", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-rotated-session";
       const sessionId = "test-rotated-session-old";
       const rotatedSessionId = "test-rotated-session-new";
@@ -564,7 +564,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("uses the runtime context budget from agent metadata instead of cold fallback", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-runtime-context";
       const sessionId = "test-runtime-context-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -619,7 +619,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-capped-context-override";
       const sessionId = "test-capped-context-override-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -667,7 +667,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-claude-cli-configured-context";
       const sessionId = "test-claude-cli-configured-context-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -712,7 +712,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-harness-pin-cli";
       const sessionId = "test-harness-pin-cli-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -758,7 +758,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-claude-cli";
       const sessionId = "test-openclaw-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -817,7 +817,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-clear-unflushed-cli";
       const sessionId = "test-openclaw-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -931,7 +931,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("preserves terminal lifecycle state when caller has a stale running snapshot", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-lifecycle-preserve";
       const sessionId = "test-lifecycle-preserve-session";
       const terminalEntry: SessionEntry = {
@@ -1129,7 +1129,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
             store: storePath,
             mainKey: "main",
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sessionKey,
       });
 
@@ -1145,7 +1145,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
     "marks previous totalTokens=%i stale without provider usage (#67667)",
     async (totalTokens) => {
       await withTempSessionStore(async ({ storePath }) => {
-        const cfg = {} as OpenClawConfig;
+        const cfg = {} as GrantedConfig;
         const sessionKey = "agent:main:explicit:test-no-usage";
         const sessionId = "test-session";
 
@@ -1193,7 +1193,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("persists estimated context budget status without marking stale usage fresh", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-context-budget-status";
       const sessionId = "test-context-budget-status-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -1262,7 +1262,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("clears stale estimated context budget status when a runtime refresh has no current estimate", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-clear-context-budget-status";
       const sessionId = "test-clear-context-budget-status-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -1331,7 +1331,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-cli-cumulative-usage";
       const sessionId = "test-cli-cumulative-usage-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -1390,7 +1390,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, sessionStore);
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -1593,7 +1593,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-cli-last-call-usage";
       const sessionId = "test-cli-last-call-usage-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -1749,7 +1749,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
     "keeps ordinary $runtime context independent of historical compaction metadata",
     async (testCase) => {
       await withTempSessionStore(async ({ storePath }) => {
-        const cfg = {} as OpenClawConfig;
+        const cfg = {} as GrantedConfig;
         const { sessionKey, sessionId, provider, model } = testCase;
         const sessionStore: Record<string, SessionEntry> = {
           [sessionKey]: {
@@ -1797,7 +1797,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
     "does not revive historical compaction snapshot %s without a private fact",
     async (compactionTokensAfter) => {
       await withTempSessionStore(async ({ storePath }) => {
-        const cfg = {} as OpenClawConfig;
+        const cfg = {} as GrantedConfig;
         const sessionKey = "agent:main:explicit:test-compaction-tokens-after-invalid";
         const sessionId = "test-compaction-tokens-after-invalid-session";
         const sessionStore: Record<string, SessionEntry> = {
@@ -1854,7 +1854,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
     { name: "cost-only zero total", usage: { cost: { total: 0 } }, total: 0, hasTokens: false },
   ])("snapshots $name instead of accumulating", async ({ usage, total, hasTokens }) => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             fixture: {
@@ -1923,7 +1923,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("preserves lastInteractionAt for non-interactive system runs", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-system-run";
       const sessionId = "test-system-run-session";
       const lastInteractionAt = Date.now() - 60 * 60_000;
@@ -1969,7 +1969,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("preserves lastActivityAt for heartbeat-style runs", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-heartbeat-run";
       const sessionId = "test-heartbeat-run-session";
       const lastActivityAt = Date.now() - 60 * 60_000;
@@ -2011,7 +2011,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("advances lastInteractionAt for interactive runs", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-user-run";
       const sessionId = "test-user-run-session";
       const lastInteractionAt = Date.now() - 60 * 60_000;
@@ -2050,7 +2050,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("clears main recovery markers after settled background progress", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-clear-recovery-state";
       const sessionId = "test-clear-recovery-state-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2154,7 +2154,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, { [sessionKey]: replacementEntry });
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -2220,7 +2220,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
       await seedSessionStore(storePath, { [sessionKey]: concurrentEntry });
 
       await updateSessionStoreAfterAgentRun({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         sessionId,
         sessionKey,
         storePath,
@@ -2249,7 +2249,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("preserves runtime model and contextTokens when preserveRuntimeModel is true (heartbeat bleed fix)", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-heartbeat-bleed";
       const sessionId = "test-heartbeat-bleed-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2366,7 +2366,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
         agents: {
           defaults: {},
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-preserve-user-facing-run-state";
       const sessionId = "test-preserve-user-facing-run-state-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2475,7 +2475,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("does not recreate a missing persisted row while preserving user-facing state", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:missing-visible-row";
       const sessionId = "missing-visible-row-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2520,7 +2520,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("creates a missing persisted row for a new normal run", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:new-normal-row";
       const sessionId = "new-normal-row-session";
       const sessionStore: Record<string, SessionEntry> = {};
@@ -2554,7 +2554,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("does not recreate a missing persisted row after a normal run with a preloaded entry", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:deleted-normal-row";
       const sessionId = "deleted-normal-row-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2599,7 +2599,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("does not overwrite a replacement persisted row after a normal run", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:rebound-visible-row";
       const sessionId = "run-session-id";
       const replacementEntry: SessionEntry = {
@@ -2645,7 +2645,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("leaves contextTokens unset when entry has prior model but no contextTokens (heartbeat bleed guard)", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-heartbeat-no-context-tokens";
       const sessionId = "test-heartbeat-no-context-tokens-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2694,7 +2694,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("does not set runtime model when preserveRuntimeModel is true and entry has no prior runtime model", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-heartbeat-new-session";
       const sessionId = "test-heartbeat-new-session-id";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2738,7 +2738,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("preserves model without borrowing heartbeat provider when entry has model but no modelProvider", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-heartbeat-model-no-provider";
       const sessionId = "test-heartbeat-model-no-provider-session";
       const sessionStore: Record<string, SessionEntry> = {
@@ -2788,7 +2788,7 @@ describe("updateSessionStoreAfterAgentRun", () => {
 
   it("overwrites runtime model when preserveRuntimeModel is false (default behavior)", async () => {
     await withTempSessionStore(async ({ storePath }) => {
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       const sessionKey = "agent:main:explicit:test-normal-overwrite";
       const sessionId = "test-normal-overwrite-session";
       const sessionStore: Record<string, SessionEntry> = {

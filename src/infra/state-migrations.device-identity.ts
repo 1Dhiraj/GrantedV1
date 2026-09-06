@@ -1,6 +1,6 @@
 // Owner-authorized import for the retired primary device identity JSON.
 import { root, type Root } from "@openclaw/fs-safe";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -69,7 +69,7 @@ function deviceIdentityKeyMaterialMatches(left: DeviceIdentity, right: DeviceIde
   }
 }
 
-type DeviceIdentityMigrationDatabase = Pick<OpenClawStateKyselyDatabase, "device_identities">;
+type DeviceIdentityMigrationDatabase = Pick<GrantedStateKyselyDatabase, "device_identities">;
 
 type LegacySourceSnapshot = LegacyMigrationSourceSnapshot & {
   identity: NormalizedLegacyDeviceIdentity;

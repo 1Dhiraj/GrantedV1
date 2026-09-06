@@ -2,7 +2,7 @@
 // aliases, model catalog validation, and rejected invalid patch payloads.
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import type { SessionCreatedActor } from "../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
@@ -59,7 +59,7 @@ const ANTHROPIC_OPUS_MODEL = "anthropic/claude-opus-4-6";
 const ANTHROPIC_OPUS_ID = "claude-opus-4-6";
 const OPENAI_GPT_MODEL = "openai/gpt-5.4";
 const OPENAI_GPT_ID = "gpt-5.4";
-const EMPTY_CFG = {} as OpenClawConfig;
+const EMPTY_CFG = {} as GrantedConfig;
 
 type ApplySessionsPatchArgs = Parameters<typeof applySessionsPatchToStore>[0];
 type ProviderAuthMetadataSnapshot = NonNullable<
@@ -90,7 +90,7 @@ const BYTEPLUS_PROVIDER_AUTH_METADATA_SNAPSHOT = {
 async function runPatch(params: {
   patch: ApplySessionsPatchArgs["patch"];
   store?: Record<string, SessionEntry>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   storeKey?: string;
   agentId?: string;
   loadGatewayModelCatalog?: ApplySessionsPatchArgs["loadGatewayModelCatalog"];
@@ -177,7 +177,7 @@ function expectModelSelection(
 
 async function applyMainModelPatch(params: {
   store?: Record<string, SessionEntry>;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   model: string | null;
   catalogRefs?: string[];
   providerAuthMetadataSnapshot?: ProviderAuthMetadataSnapshot;
@@ -227,7 +227,7 @@ function expectAuthOverride(
   }
 }
 
-async function applySubagentModelPatch(cfg: OpenClawConfig) {
+async function applySubagentModelPatch(cfg: GrantedConfig) {
   return expectPatchOk(
     await runPatch({
       cfg,
@@ -248,7 +248,7 @@ function makeKimiSubagentCfg(params: {
   agentPrimaryModel?: string;
   agentSubagentModel?: string;
   defaultsSubagentModel?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -268,10 +268,10 @@ function makeKimiSubagentCfg(params: {
         },
       ],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function createAllowlistedAnthropicModelCfg(): OpenClawConfig {
+function createAllowlistedAnthropicModelCfg(): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -281,7 +281,7 @@ function createAllowlistedAnthropicModelCfg(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("gateway sessions patch", () => {
@@ -896,7 +896,7 @@ describe("gateway sessions patch", () => {
             model: { primary: `anthropic/${ANTHROPIC_OPUS_ID}` },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       store,
       model: ANTHROPIC_SONNET_MODEL,
       catalogRefs: [ANTHROPIC_SONNET_MODEL],
@@ -1184,7 +1184,7 @@ describe("gateway sessions patch", () => {
               },
               entries: { main: agentPolicy ? { modelPolicy: { allow: [] } } : {} },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           storeKey: "global",
           patch: { key: "global", model: override },
           loadGatewayModelCatalog: async () => [],
@@ -1230,7 +1230,7 @@ describe("gateway sessions patch", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: { key: MAIN_SESSION_KEY, model: "lmstudio-moe/Local" },
         loadGatewayModelCatalog: loadCatalog(
           "lmstudio-moe/qwen3.6-35b-a3b",
@@ -1271,7 +1271,7 @@ describe("gateway sessions patch", () => {
               model: { primary: "ollama/qwen3:0.6b" },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: {
           key: MAIN_SESSION_KEY,
           thinkingLevel: "medium",
@@ -1295,7 +1295,7 @@ describe("gateway sessions patch", () => {
     async (sessionState) => {
       const cfg = {
         agents: { defaults: { model: { primary: "claude-cli/claude-fable-5" } } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const loadGatewayModelCatalog = async () => [
         {
           provider: "claude-cli",
@@ -1353,7 +1353,7 @@ describe("gateway sessions patch", () => {
             model: { primary: "anthropic/claude-mythos-5" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       patch: {
         key: MAIN_SESSION_KEY,
         thinkingLevel: "medium",
@@ -1381,7 +1381,7 @@ describe("gateway sessions patch", () => {
               model: { primary: "gmn/gpt-5.4" },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: {
           key: MAIN_SESSION_KEY,
           thinkingLevel: "xhigh",
@@ -1418,7 +1418,7 @@ describe("gateway sessions patch", () => {
               },
             ],
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         storeKey: "global",
         agentId: "work",
         patch: {
@@ -1441,7 +1441,7 @@ describe("gateway sessions patch", () => {
               model: { primary: "openai/gpt-5.5" },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: {
           key: MAIN_SESSION_KEY,
           thinkingLevel: "xhigh",
@@ -1465,7 +1465,7 @@ describe("gateway sessions patch", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: { key: MAIN_SESSION_KEY, thinkingLevel: "ultra" },
         loadGatewayModelCatalog: async () => [],
       }),
@@ -1486,7 +1486,7 @@ describe("gateway sessions patch", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         store: mainStoreEntry({ thinkingLevel: "ultra" }),
         patch: { key: MAIN_SESSION_KEY, model: "openai/gpt-5.6-luna" },
         loadGatewayModelCatalog: loadCatalog("openai/gpt-5.6-sol", "openai/gpt-5.6-luna"),
@@ -1501,7 +1501,7 @@ describe("gateway sessions patch", () => {
       await runPatch({
         cfg: {
           agents: { defaults: { model: { primary: "openai/gpt-5.6-luna" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         store: mainStoreEntry({
           agentRuntimeOverride: "openclaw",
           agentHarnessId: "codex",
@@ -1534,7 +1534,7 @@ describe("gateway sessions patch", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       store: mainStoreEntry({}),
       patch: { key: MAIN_SESSION_KEY, thinkingLevel: "ultra" },
       loadGatewayModelCatalog: async () => [],
@@ -1552,7 +1552,7 @@ describe("gateway sessions patch", () => {
     const result = await runPatch({
       cfg: {
         agents: { defaults: { model: { primary: "openai/gpt-5.6-luna" } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       store: mainStoreEntry({ agentHarnessId: "openclaw" }),
       patch: { key: MAIN_SESSION_KEY, thinkingLevel: "ultra" },
       loadGatewayModelCatalog: async () => [],
@@ -1572,7 +1572,7 @@ describe("gateway sessions patch", () => {
       await runPatch({
         cfg: {
           agents: { defaults: { model: { primary: "synthetic/plain" } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         store: mainStoreEntry({ thinkingLevel: "max" }),
         patch: { key: MAIN_SESSION_KEY, label: "new label" },
         loadGatewayModelCatalog,
@@ -1932,7 +1932,7 @@ describe("gateway sessions patch", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         patch: { key: MAIN_SESSION_KEY, model: "kimi-k2.6@work" },
         loadGatewayModelCatalog: async () => [
           { provider: "openai", id: "gpt-5.4", name: "gpt-5.4" },

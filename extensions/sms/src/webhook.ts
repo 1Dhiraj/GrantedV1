@@ -1,6 +1,6 @@
 // Sms plugin module implements webhook behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createFixedWindowRateLimiter,
   isRequestBodyLimitError,
@@ -56,7 +56,7 @@ type SmsWebhookLog = {
 };
 
 export type SmsWebhookHandlerParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedSmsAccount;
   ingress: {
     enqueue: (form: Record<string, string>) => Promise<{ duplicate: boolean }>;
@@ -72,7 +72,7 @@ function headerValue(value: string | string[] | undefined): string | undefined {
   return value;
 }
 
-function resolvedClientAddress(params: { cfg: OpenClawConfig; req: IncomingMessage }): string {
+function resolvedClientAddress(params: { cfg: GrantedConfig; req: IncomingMessage }): string {
   return (
     resolveRequestClientIp(
       params.req,

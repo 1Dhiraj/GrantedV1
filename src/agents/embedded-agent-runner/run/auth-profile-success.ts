@@ -1,6 +1,6 @@
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { MODEL_APIS, type ModelApi } from "../../../config/types.models.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { redactIdentifier } from "../../../logging/redact-identifier.js";
 import type { ProviderRouteOverridePresence } from "../../../plugin-sdk/provider-model-types.js";
@@ -86,7 +86,7 @@ export function reportEmbeddedRunSuccessfulAuthBinding(input: {
   modelApi: string;
   modelBaseUrl?: string;
   requestTransportOverrides?: ProviderRouteOverridePresence;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentHarnessId: string;
   pluginHarnessOwnsTransport: boolean;
   pluginHarnessOwnsAuthBootstrap: boolean;

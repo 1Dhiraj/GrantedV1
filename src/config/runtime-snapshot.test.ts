@@ -29,7 +29,7 @@ import {
   setRuntimeConfigSnapshotRefreshHandler,
 } from "./runtime-snapshot.js";
 import { createProviderConfigFixture } from "./runtime-snapshot.test-fixtures.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 function resetRuntimeConfigState(): void {
   setRuntimeConfigSnapshotRefreshHandler(null);
@@ -44,7 +44,7 @@ describe("runtime snapshot state", () => {
   it("pins the first successful load in memory until the snapshot is cleared", () => {
     let freshPort = 18789;
     let loadCount = 0;
-    const loadFresh = (): OpenClawConfig => {
+    const loadFresh = (): GrantedConfig => {
       loadCount += 1;
       return { gateway: { port: freshPort } };
     };
@@ -70,7 +70,7 @@ describe("runtime snapshot state", () => {
   });
 
   it("publishes and replaces same-byte resolution facts with the source snapshot", () => {
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       gateway: { auth: { mode: "token", token: "${GATEWAY_TOKEN}" } },
     };
     const unresolvedSource = structuredClone(runtimeConfig);
@@ -102,8 +102,8 @@ describe("runtime snapshot state", () => {
   });
 
   it("tracks snapshot metadata and cache keys across runtime refreshes", () => {
-    const firstConfig: OpenClawConfig = { gateway: { port: 18789 } };
-    const secondConfig: OpenClawConfig = { gateway: { port: 19001 } };
+    const firstConfig: GrantedConfig = { gateway: { port: 18789 } };
+    const secondConfig: GrantedConfig = { gateway: { port: 19001 } };
 
     setRuntimeConfigSnapshot(firstConfig);
     const firstMetadata = getRuntimeConfigSnapshotMetadata();
@@ -148,7 +148,7 @@ describe("runtime snapshot state", () => {
         setConfigResolutionFacts(sourceConfig, createConfigResolutionFacts([]));
       }
       const runtimeConfig = createProviderConfigFixture("sk-runtime-resolved");
-      const scopedResolvedConfig: OpenClawConfig = {
+      const scopedResolvedConfig: GrantedConfig = {
         ...runtimeConfig,
         tools: {
           updatePlan: true,
@@ -197,10 +197,10 @@ describe("runtime snapshot state", () => {
 
   it("refreshes both snapshots from disk after a write when source + runtime snapshots exist", async () => {
     const notifyCommittedWrite = vi.fn();
-    const loadFreshConfig = vi.fn<() => OpenClawConfig>(() => ({
+    const loadFreshConfig = vi.fn<() => GrantedConfig>(() => ({
       gateway: { auth: { mode: "token" } },
     }));
-    const nextSourceConfig: OpenClawConfig = {
+    const nextSourceConfig: GrantedConfig = {
       gateway: { auth: { mode: "token" } },
       ...createProviderConfigFixture(),
     };
@@ -247,7 +247,7 @@ describe("runtime snapshot state", () => {
 
   it("keeps the last-known-good runtime snapshot active while specialized refresh is pending", async () => {
     const notifyCommittedWrite = vi.fn();
-    const loadFreshConfig = vi.fn<() => OpenClawConfig>(() => ({
+    const loadFreshConfig = vi.fn<() => GrantedConfig>(() => ({
       gateway: { auth: { mode: "token" } },
     }));
     let releaseRefresh: (() => void) | undefined;
@@ -294,7 +294,7 @@ describe("runtime snapshot state", () => {
   });
 
   it("notifies registered write listeners with committed runtime snapshots", () => {
-    const seen: Array<{ configPath: string; runtimeConfig: OpenClawConfig }> = [];
+    const seen: Array<{ configPath: string; runtimeConfig: GrantedConfig }> = [];
     const unsubscribe = registerRuntimeConfigWriteListener((event) => {
       seen.push({
         configPath: event.configPath,
@@ -342,8 +342,8 @@ describe("runtime snapshot state", () => {
   });
 
   it("keeps prepared candidates scoped to each managed owner", async () => {
-    const runtimeConfigA: OpenClawConfig = { gateway: { port: 19001 } };
-    const runtimeConfigB: OpenClawConfig = { gateway: { port: 19002 } };
+    const runtimeConfigA: GrantedConfig = { gateway: { port: 19001 } };
+    const runtimeConfigB: GrantedConfig = { gateway: { port: 19002 } };
     const candidateA = { runtimeConfig: runtimeConfigA, compareConfig: {} };
     const candidateB = { runtimeConfig: runtimeConfigB, compareConfig: {} };
     const releaseA = registerManagedRuntimeConfigWriteOwner(
@@ -366,7 +366,7 @@ describe("runtime snapshot state", () => {
   });
 
   it("defers raw runtime activation to a managed write owner", async () => {
-    const activeConfig: OpenClawConfig = { gateway: { port: 18789 } };
+    const activeConfig: GrantedConfig = { gateway: { port: 18789 } };
     setRuntimeConfigSnapshot(activeConfig);
     const notifyCommittedWrite = vi.fn();
     const refresh = vi.fn(async () => true);

@@ -5,7 +5,7 @@ import crypto from "node:crypto";
 import path from "node:path";
 import { applyMergePatch } from "../../config/merge-patch.js";
 import type { SessionToolOverrides } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { tryReadJson } from "../../infra/json-files.js";
 import {
@@ -325,7 +325,7 @@ export async function prepareCliBundleMcpConfig(params: {
   mode?: CliBundleMcpMode;
   backend: CliBackendConfig;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   toolOverrides?: SessionToolOverrides;
   agentDir?: string;
   additionalConfig?: BundleMcpConfig;
@@ -438,7 +438,7 @@ export async function prepareCliBundleMcpConfig(params: {
     ),
   };
   if (params.nativeMcpPolicy && Object.keys(policyConfig.mcpServers).length > 0) {
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       ...params.config,
       mcp: { ...params.config?.mcp, servers: policyConfig.mcpServers },
     };

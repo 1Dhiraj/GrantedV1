@@ -1,7 +1,7 @@
 // Gateway probe auth helpers used by status scans.
 // This module resolves probe credentials without exposing secret values to report builders.
 
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveGatewayProbeAuthSafeWithSecretInputs,
   resolveGatewayProbeTarget,
@@ -9,7 +9,7 @@ import {
 
 /** Resolves gateway probe auth plus any non-secret warning about credential lookup. */
 export async function resolveGatewayProbeAuthResolution(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<{
   auth: {

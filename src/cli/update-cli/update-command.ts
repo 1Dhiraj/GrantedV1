@@ -49,7 +49,7 @@ import {
 } from "../../infra/update-post-core-context.js";
 import { loadInstalledPluginIndexInstallRecords } from "../../plugins/installed-plugin-index-records.js";
 import { defaultRuntime } from "../../runtime.js";
-import type { OpenClawSchemaVersions } from "../../state/openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
 import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
 import { assertOpenClawStateWriteAllowedAtPath } from "../../state/openclaw-state-ownership.js";
 import { VERSION } from "../../version.js";
@@ -354,7 +354,7 @@ async function updateCommandInternal(
   let packageInstallTarget: ResolvedGlobalInstallTarget | undefined;
   let installedPackageName = DEFAULT_PACKAGE_NAME;
   let packageAlreadyCurrent = false;
-  let packageTargetSchemaVersions: OpenClawSchemaVersions | undefined;
+  let packageTargetSchemaVersions: GrantedSchemaVersions | undefined;
   let packageRuntimeTarget: { version: string; nodeEngine: string | null } | undefined;
   let managedServiceRootRedirect: ManagedServiceRootRedirect | null = null;
   // The service's Node can differ even when its package root matches the shell.

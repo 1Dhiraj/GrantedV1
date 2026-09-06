@@ -7,7 +7,7 @@ import type {
   CodexAppServerRuntimeOptions,
   CodexAppServerSandboxMode,
   CodexPluginConfig,
-  OpenClawExecMode,
+  GrantedExecMode,
 } from "./config-contracts.js";
 import { selectGuardianSandbox } from "./config-exec-policy.js";
 import {
@@ -25,7 +25,7 @@ type SessionPermissionMode = NonNullable<EmbeddedRunAttemptParamsV2["permissionM
 export type CodexEffectiveSessionPermissionPolicy = {
   mode: SessionPermissionMode;
   root: string;
-  execMode: OpenClawExecMode;
+  execMode: GrantedExecMode;
 };
 
 export const CODEX_SESSION_PERMISSION_EXEC_MODES = {
@@ -33,7 +33,7 @@ export const CODEX_SESSION_PERMISSION_EXEC_MODES = {
   guarded: "ask",
   workspace: "auto",
   full: "full",
-} satisfies Record<SessionPermissionMode, OpenClawExecMode>;
+} satisfies Record<SessionPermissionMode, GrantedExecMode>;
 
 type CodexSessionPermissionTuple = {
   approvalPolicy: CodexAppServerManagedApprovalPolicy;
@@ -88,7 +88,7 @@ function requirementsAllowTuple(
 
 function tightenTupleForExecMode(
   tuple: CodexSessionPermissionTuple,
-  execMode: OpenClawExecMode | undefined,
+  execMode: GrantedExecMode | undefined,
   requiresPerCommandApproval: boolean,
 ): CodexSessionPermissionTuple {
   switch (execMode) {
@@ -184,7 +184,7 @@ export function applyCodexSessionPermissionPolicy(params: {
   requirementsToml?: string;
   hostName?: string;
   policyLocked?: boolean;
-  execMode?: OpenClawExecMode;
+  execMode?: GrantedExecMode;
 }): CodexAppServerRuntimeOptions {
   if (!params.permissionMode) {
     return params.appServer;

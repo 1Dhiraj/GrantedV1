@@ -3,7 +3,7 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import {
   loadOpenClawProviderIndex,
-  type OpenClawProviderIndexProvider,
+  type GrantedProviderIndexProvider,
 } from "../model-catalog/index.js";
 import { normalizePluginsConfig, resolveEffectiveEnableState } from "./config-state.js";
 import {
@@ -36,7 +36,7 @@ export type ProviderInstallCatalogEntry = ProviderAuthChoiceMetadata & {
 };
 
 type ProviderInstallCatalogParams = {
-  config?: import("../config/types.openclaw.js").OpenClawConfig;
+  config?: import("../config/types.openclaw.js").GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   includeUntrustedWorkspacePlugins?: boolean;
@@ -158,7 +158,7 @@ function resolveInstallInfoFromRegistryRecord(params: {
 }
 
 function resolveInstallInfoFromProviderIndex(
-  provider: OpenClawProviderIndexProvider,
+  provider: GrantedProviderIndexProvider,
 ): PluginPackageInstall | null {
   const install = provider.plugin.install;
   if (!install) {

@@ -1,7 +1,7 @@
 // Slack plugin module implements channel type behavior.
 import { createHash } from "node:crypto";
 import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
@@ -72,7 +72,7 @@ function resolveConfiguredSlackConversationInfo(params: {
 }
 
 export async function resolveSlackConversationInfo(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   channelId: string;
   teamId?: string;
@@ -152,7 +152,7 @@ export async function resolveSlackConversationInfo(params: {
 }
 
 export async function resolveSlackChannelType(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   channelId: string;
   teamId?: string;

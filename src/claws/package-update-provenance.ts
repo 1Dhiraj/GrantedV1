@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { stableStringify } from "@openclaw/normalization-core";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   toPackageRefExtensionSqlParams,
@@ -33,7 +33,7 @@ export function digestClawPackageRef(ref: PersistedClawPackageRef): string {
 export function replaceClawPackageRefExpected(
   expected: PersistedClawPackageRef | undefined,
   replacement: PersistedClawPackageRef | undefined,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const identity = expected ?? replacement;
   if (!identity) {

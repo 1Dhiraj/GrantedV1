@@ -7,7 +7,7 @@ export {
   resolveConfiguredFromCredentialStatuses,
 } from "openclaw/plugin-sdk/channel-status";
 export type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-export type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 
 const DISCORD_CHANNEL_META = {
   id: "discord",

@@ -6,7 +6,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { CRON_JOB_SCRATCH_MAX_BYTES } from "../cron/scratch-contract.js";
 import {
   deleteCronJobScratch,
@@ -42,7 +42,7 @@ type HeartbeatSource = {
   sha256: string;
 };
 
-async function resolveHeartbeatScratchMigrationOwners(cfg: OpenClawConfig) {
+async function resolveHeartbeatScratchMigrationOwners(cfg: GrantedConfig) {
   const migrationAgents: ReturnType<typeof resolveHeartbeatAgents> = [];
   const disabledEntryKeys = new Set<string>();
   for (const agent of resolveHeartbeatAgents(cfg)) {
@@ -60,7 +60,7 @@ async function resolveHeartbeatScratchMigrationOwners(cfg: OpenClawConfig) {
 }
 
 async function readHeartbeatSource(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   options?: { recoverClaims?: boolean },
 ): Promise<HeartbeatSource | undefined> {
@@ -393,7 +393,7 @@ function migrationFinding(params: {
 
 /** Reports remaining workspace heartbeat files without changing them. */
 export async function collectHeartbeatScratchMigrationFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<readonly HealthFinding[]> {
   const findings: HealthFinding[] = [];
   const { migrationAgents, disabledEntryKeys } = await resolveHeartbeatScratchMigrationOwners(cfg);
@@ -435,7 +435,7 @@ export async function collectHeartbeatScratchMigrationFindings(
 
 /** Migrates each enrolled agent's heartbeat file into its stable monitor job. */
 export async function maybeMigrateHeartbeatFilesToScratch(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   shouldRepair: boolean;
   env?: NodeJS.ProcessEnv;
 }): Promise<HeartbeatScratchMigrationResult> {

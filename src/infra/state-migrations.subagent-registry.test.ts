@@ -6,7 +6,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { SubagentRunRecord } from "../agents/subagents/registry/subagent-registry.types.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -22,7 +22,7 @@ import {
   migrateLegacySubagentRegistry,
 } from "./state-migrations.subagent-registry.js";
 
-type MigrationDatabase = Pick<OpenClawStateKyselyDatabase, "migration_sources" | "subagent_runs">;
+type MigrationDatabase = Pick<GrantedStateKyselyDatabase, "migration_sources" | "subagent_runs">;
 
 describe("legacy subagent registry Doctor migration", () => {
   const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {

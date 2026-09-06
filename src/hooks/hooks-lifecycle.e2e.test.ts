@@ -6,7 +6,7 @@ import JSON5 from "json5";
 import * as tar from "tar";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { installHooksFromPath } from "./install.js";
 import {
   clearInternalHooks,
@@ -48,8 +48,8 @@ async function runHooksCli(args: string[], env: NodeJS.ProcessEnv) {
   }
 }
 
-async function readConfig(configPath: string): Promise<OpenClawConfig> {
-  return JSON5.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+async function readConfig(configPath: string): Promise<GrantedConfig> {
+  return JSON5.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
 }
 
 async function createHookPackFixture() {
@@ -73,7 +73,7 @@ async function createHookPackFixture() {
     fs.mkdir(hookDir, { recursive: true }),
   ]);
 
-  const initialConfig: OpenClawConfig = {
+  const initialConfig: GrantedConfig = {
     agents: { defaults: { workspace: workspaceDir } },
     hooks: { internal: { enabled: true } },
   };

@@ -6,7 +6,7 @@ import * as sqliteDirectories from "../../infra/sqlite-private-directory.js";
 import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
 import {
   withOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { listSessionBranches } from "./session-accessor.js";
 import { loadExactSessionEntry } from "./session-accessor.sqlite-entry.js";
@@ -16,7 +16,7 @@ import {
 } from "./session-accessor.sqlite-import.js";
 import { loadTranscriptEventsSync } from "./session-accessor.sqlite-read.js";
 
-function target(state: OpenClawTestState, id: string) {
+function target(state: GrantedTestState, id: string) {
   return {
     agentId: "main",
     env: state.env,

@@ -8,7 +8,7 @@ import { SILENT_REPLY_TOKEN } from "../../../auto-reply/tokens.js";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../../../config/config.js";
 import * as configSessions from "../../../config/sessions.js";
 import { patchSessionEntryCore } from "../../../config/sessions/session-accessor.js";
@@ -220,7 +220,7 @@ const chatHistoryMock = vi.fn(async (_sessionKey?: string) => ({
   messages: [] as Array<unknown>,
 }));
 let sessionStore: SessionStoreFixture = {};
-let configOverride: OpenClawConfig = {
+let configOverride: GrantedConfig = {
   session: {
     mainKey: "main",
     scope: "per-sender",
@@ -298,7 +298,7 @@ const announceFormatChannelPlugins = [
   },
 ];
 
-function setConfigOverride(next: OpenClawConfig): void {
+function setConfigOverride(next: GrantedConfig): void {
   configOverride = next;
   setRuntimeConfigSnapshot(configOverride);
 }

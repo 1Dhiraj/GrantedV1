@@ -11,7 +11,7 @@ import { renderPanelLoadingSkeleton } from "../../../components/panel-loading-sk
 import { t } from "../../../i18n/index.ts";
 import { formatUiError } from "../../../lib/format-error.ts";
 import { buildWidgetThemeMessage, postWidgetTheme } from "../../../lib/widget-theme.ts";
-import { OpenClawLightDomElement } from "../../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../../lit/openclaw-element.ts";
 
 type SessionDiscussionInfoLoader = (sessionKey: string) => Promise<SessionDiscussionInfo>;
 type SessionDiscussionOpener = (sessionKey: string) => Promise<SessionDiscussionInfo>;
@@ -90,7 +90,7 @@ function resolveDiscussionEmbedUrl(value: string | undefined): string | null {
   return url.href;
 }
 
-class SessionDiscussionPanel extends OpenClawLightDomElement {
+class SessionDiscussionPanel extends GrantedLightDomElement {
   @property() sessionKey = "";
   @property({ attribute: false }) loadInfo: SessionDiscussionInfoLoader | null = null;
   @property({ attribute: false }) openDiscussion: SessionDiscussionOpener | null = null;

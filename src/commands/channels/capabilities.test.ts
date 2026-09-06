@@ -2,7 +2,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
 import { ExpectedCliError } from "../../cli/failure-output.js";
-import type { OpenClawConfig, replaceConfigFile } from "../../config/config.js";
+import type { GrantedConfig, replaceConfigFile } from "../../config/config.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 import { createTestConfigSnapshot } from "../test-runtime-config-helpers.js";
 import { channelsCapabilitiesCommand } from "./capabilities.js";
@@ -460,7 +460,7 @@ describe("channelsCapabilitiesCommand", () => {
       id: "CAPABILITIES_TEST_SLACK_TOKEN",
     } as const;
     const sourceConfig = { channels: { slack: { botToken: tokenRef } } };
-    let runtimeConfig: OpenClawConfig = {
+    let runtimeConfig: GrantedConfig = {
       ...sourceConfig,
       messages: { responsePrefix: "runtime-default" },
     };

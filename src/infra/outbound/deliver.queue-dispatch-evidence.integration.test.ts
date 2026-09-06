@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -48,7 +48,7 @@ describe("queued delivery dispatch evidence", () => {
     onPayloadDeliveryOutcome: (outcome: OutboundPayloadDeliveryOutcome) => void;
   }) =>
     deliverOutboundPayloads({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix",
       to: "!room:example",
       payloads: [{ text: "first" }],
@@ -106,7 +106,7 @@ describe("queued delivery dispatch evidence", () => {
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "first" }],
@@ -138,7 +138,7 @@ describe("queued delivery dispatch evidence", () => {
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "first" }, { text: "second" }],

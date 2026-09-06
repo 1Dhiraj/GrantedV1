@@ -21,13 +21,13 @@ import * as stateDb from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import * as doctor from "./state-migrations.doctor.js";
 import * as migration from "./state-migrations.shared-auth-store.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-const ownerStates: OpenClawTestState[] = [];
+const ownerStates: GrantedTestState[] = [];
 
 function makeStore(profileId: string, key: string) {
   return {

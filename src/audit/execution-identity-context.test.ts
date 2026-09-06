@@ -8,7 +8,7 @@ import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../state/openclaw-state-db.js";
 import { recordAuditEvent } from "./audit-event-store.js";
 import {
@@ -36,7 +36,7 @@ function databaseOptions() {
   return { env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-identity-") } };
 }
 
-function openIndependentStateDatabase(path: string): OpenClawStateDatabase {
+function openIndependentStateDatabase(path: string): GrantedStateDatabase {
   return {
     db: openNodeSqliteDatabase(path),
     path,
@@ -101,7 +101,7 @@ function persistExecutionIdentityAdmissionEnvelope(
 function prepareExecutionIdentityContextAtAdmission(
   admissionFacts: ExecutionIdentityAdmissionFacts,
   options: {
-    database?: OpenClawStateDatabase;
+    database?: GrantedStateDatabase;
     env?: NodeJS.ProcessEnv;
     now?: number;
     contextId?: string;

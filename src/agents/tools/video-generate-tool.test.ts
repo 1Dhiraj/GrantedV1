@@ -3,7 +3,7 @@
 import { MAX_VIDEO_BYTES } from "@openclaw/media-core/constants";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { parseReplyDirectives } from "../../auto-reply/reply/reply-directives.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import * as mediaStore from "../../media/store.js";
 import * as webMedia from "../../media/web-media.js";
 import * as pluginConfig from "../../plugins/config-state.js";
@@ -125,8 +125,8 @@ const GENERATION_PROVIDER_ENV_VARS = [
   "XAI_API_KEY",
 ];
 
-function asConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function asConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
 function expectVideoGenerateTool(
@@ -156,7 +156,7 @@ function createAuthStore(providers: string[]): AuthProfileStore {
 }
 
 function createVideoProviderSnapshot(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   id: string;
   origin: PluginManifestRecord["origin"];
   referenceAudioInputs?: boolean;

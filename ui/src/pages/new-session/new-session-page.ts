@@ -13,7 +13,7 @@ import { normalizeAgentTargetLabel } from "../../lib/agents/display.ts";
 import { canCallGatewayMethod } from "../../lib/gateway-methods.ts";
 import { sessionNavigationTarget } from "../../lib/sessions/route-navigation.ts";
 import { buildAgentMainSessionKey } from "../../lib/sessions/session-key.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import "../../styles/chat.css";
 import "../../styles/new-session.css";
@@ -53,7 +53,7 @@ import { renderWhereChip, resolveWhereChip } from "./where-chip.ts";
 
 const { activateDraft, restoreDraft, restoreDraftOwner, retainDraft } = drafts;
 
-export class NewSessionPage extends OpenClawLightDomElement {
+export class NewSessionPage extends GrantedLightDomElement {
   @property({ attribute: false }) data: NewSessionRouteData | undefined;
 
   @consume({ context: applicationContext, subscribe: true })

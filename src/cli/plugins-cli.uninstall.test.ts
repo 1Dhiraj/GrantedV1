@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { persistClawPackageRef } from "../claws/provenance.js";
 import type { ClawAddPlan } from "../claws/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { recordInstalledPluginIndexInstallOwner } from "../plugins/installed-plugin-index-install-owner.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
@@ -35,7 +35,7 @@ const ORIGINAL_GRANTED_NIX_MODE = process.env.GRANTED_NIX_MODE;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function primeUninstallPlan(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   overrides: {
     actions?: Record<string, boolean>;
     directoryRemoval?: { target: string } | null;
@@ -146,7 +146,7 @@ describe("plugins cli uninstall", () => {
           contextEngine: "alpha",
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [{ id: "alpha", name: "alpha" }],
       diagnostics: [],
@@ -154,7 +154,7 @@ describe("plugins cli uninstall", () => {
     setInstalledPluginIndexInstallRecords({
       alpha: { source: "path", sourcePath: ALPHA_INSTALL_PATH, installPath: ALPHA_INSTALL_PATH },
     });
-    primeUninstallPlan({} as OpenClawConfig, { actions: { contextEngineSlot: true } });
+    primeUninstallPlan({} as GrantedConfig, { actions: { contextEngineSlot: true } });
 
     await runPluginsCommand(["plugins", "uninstall", "alpha", "--dry-run"]);
 
@@ -181,13 +181,13 @@ describe("plugins cli uninstall", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextConfig = {
       plugins: {
         entries: {},
         installs: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(baseConfig.plugins?.installs ?? {});
@@ -244,7 +244,7 @@ describe("plugins cli uninstall", () => {
           calendar: { source: "npm", spec: "calendar@1.0.0" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextConfig = {
       plugins: {
         entries: { "unrelated-plugin": { enabled: true } },
@@ -252,7 +252,7 @@ describe("plugins cli uninstall", () => {
           "unrelated-plugin": { source: "npm", spec: "unrelated-plugin@1.0.0" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(baseConfig.plugins?.installs ?? {});
@@ -292,7 +292,7 @@ describe("plugins cli uninstall", () => {
           "calendar-two": { source: "npm", spec: "calendar-two@1.0.0" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(baseConfig.plugins?.installs ?? {});
@@ -334,14 +334,14 @@ describe("plugins cli uninstall", () => {
           entries: { alpha: { enabled: true } },
           installs: { alpha: installRecord },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       pluginCliConfigMock.mockReturnValue(baseConfig);
       setInstalledPluginIndexInstallRecords({ alpha: installRecord });
       buildPluginSnapshotReportMock.mockReturnValue({
         plugins: [{ id: "alpha", name: "alpha" }],
         diagnostics: [],
       });
-      primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as OpenClawConfig, {
+      primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as GrantedConfig, {
         actions: { channelConfig: false },
       });
       persistClawPackageRef(
@@ -388,14 +388,14 @@ describe("plugins cli uninstall", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(baseConfig.plugins?.installs ?? {});
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [{ id: "alpha", name: "alpha" }],
       diagnostics: [],
     });
-    primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as OpenClawConfig);
+    primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as GrantedConfig);
     promptYesNoMock.mockRejectedValueOnce(new PromptInputClosedError());
 
     await expect(runPluginsCommand(["plugins", "uninstall", "alpha"])).rejects.toThrow(
@@ -426,13 +426,13 @@ describe("plugins cli uninstall", () => {
         },
         installs: installRecords,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextConfig = {
       plugins: {
         entries: {},
         installs: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const previousPersistedIndex = createTestInstalledPluginIndex({
       policyHash: "previous-policy",
       installRecords,
@@ -480,13 +480,13 @@ describe("plugins cli uninstall", () => {
         },
         installs: installRecords,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextConfig = {
       plugins: {
         entries: {},
         installs: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(installRecords);
@@ -537,14 +537,14 @@ describe("plugins cli uninstall", () => {
         },
         installs: installRecords,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(installRecords);
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [{ id: "alpha", name: "alpha" }],
       diagnostics: [],
     });
-    primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as OpenClawConfig, {
+    primeUninstallPlan({ plugins: { entries: {}, installs: {} } } as GrantedConfig, {
       directoryRemoval: { target: installPath },
     });
     applyPluginUninstallDirectoryRemovalMock.mockResolvedValue({
@@ -582,7 +582,7 @@ describe("plugins cli uninstall", () => {
         installPath: sharedPath,
       },
     };
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(config);
     setInstalledPluginIndexInstallRecords(installRecords);
     buildPluginSnapshotReportMock.mockReturnValue({
@@ -605,7 +605,7 @@ describe("plugins cli uninstall", () => {
         allow: ["alpha", "beta"],
         deny: ["alpha"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(baseConfig);
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [],
@@ -626,7 +626,7 @@ describe("plugins cli uninstall", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     pluginCliConfigMock.mockReturnValue(baseConfig);
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [],
@@ -672,7 +672,7 @@ describe("plugins cli uninstall", () => {
         installs: installRecords,
       },
       channels,
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     pluginCliConfigMock.mockReturnValue(baseConfig);
     setInstalledPluginIndexInstallRecords(installRecords);
@@ -735,7 +735,7 @@ describe("plugins cli uninstall", () => {
           [pluginId]: { enabled: true },
           discord: { enabled: true },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       pluginCliConfigMock.mockReturnValue(baseConfig);
       setInstalledPluginIndexInstallRecords(installRecords);
       buildPluginSnapshotReportMock.mockReturnValue({
@@ -803,7 +803,7 @@ describe("plugins cli uninstall", () => {
       } as const;
       pluginCliConfigMock.mockReturnValue({
         channels: { chat: { enabled: true }, "pack/one": { enabled: true } },
-      } as OpenClawConfig);
+      } as GrantedConfig);
       setInstalledPluginIndexInstallRecords(installRecords);
       buildPluginSnapshotReportMock.mockReturnValue({
         plugins: [{ id: "pack/one", name: "One", status: "loaded", channelIds: ["chat"] }],
@@ -853,7 +853,7 @@ describe("plugins cli uninstall", () => {
         entries: {},
         installs: {},
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [{ id: "alpha", name: "alpha" }],
       diagnostics: [],

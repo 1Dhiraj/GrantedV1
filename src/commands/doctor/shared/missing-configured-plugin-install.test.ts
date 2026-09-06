@@ -7,7 +7,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../../../packages/gateway-protocol/src/capability-consent-error-details.js";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
 import { withIsolatedTestHome } from "../../../../test/test-env.js";
-import type { OpenClawConfig, PluginsConfig } from "../../../config/types.js";
+import type { GrantedConfig, PluginsConfig } from "../../../config/types.js";
 import { resolveRegistryUpdateChannel } from "../../../infra/update-channels.js";
 import { resolvePluginArtifactDeclaredSurface } from "../../../plugins/capability-artifact.js";
 import type { PluginCapabilityConsentHandler } from "../../../plugins/capability-consent.js";
@@ -198,7 +198,7 @@ function writeLegacyNpmDeclarationStub(params: {
 }
 
 async function repairConfiguredPlugins(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: Record<string, string | undefined> = {},
 ) {
   const { repairMissingConfiguredPluginInstalls } =
@@ -330,7 +330,7 @@ vi.mock("../../../plugins/doctor-contract-registry.js", async (importOriginal) =
     ...actual,
     // Plugin-owned compatibility discovery has its own coverage. Keep this
     // install-repair suite focused and avoid scanning every source plugin.
-    applyPluginDoctorCompatibilityMigrations: (cfg: OpenClawConfig) => ({
+    applyPluginDoctorCompatibilityMigrations: (cfg: GrantedConfig) => ({
       config: cfg,
       changes: [],
     }),
@@ -432,7 +432,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           });
         },
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         plugins: { entries: { codex: { enabled: previousState !== "disabled" } } },
       };
       const { repairMissingPluginInstallsForIds } =
@@ -498,7 +498,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       }
       mocks.loadInstalledPluginIndexInstallRecords.mockResolvedValue(records);
       mocks.updateNpmInstalledPlugins.mockImplementation(
-        async ({ config }: { config: OpenClawConfig }) => ({
+        async ({ config }: { config: GrantedConfig }) => ({
           config: siblingSucceeded
             ? {
                 ...config,
@@ -803,7 +803,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       const consent = vi.fn<PluginCapabilityConsentHandler>(async (review) => ({
         reviewToken: review.reviewToken,
       }));
-      const cfg: OpenClawConfig = { plugins: { entries: { matrix: { enabled: true } } } };
+      const cfg: GrantedConfig = { plugins: { entries: { matrix: { enabled: true } } } };
       const { repairMissingConfiguredPluginInstalls } =
         await import("./missing-configured-plugin-install.js");
       const result = await repairMissingConfiguredPluginInstalls({
@@ -1178,7 +1178,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
         entries: { matrix: { enabled: false } },
       },
       channels: { matrix: { enabled: false } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const baselineRecords = {};
     expect(resolveInstalledPluginIndexPolicyHash(cfg)).not.toBe(
       resolveInstalledPluginIndexPolicyHash(undefined),
@@ -1210,7 +1210,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       channels: {
         matrix: { enabled: true, homeserver: "https://matrix.example.org" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.listChannelPluginCatalogEntries.mockReturnValue([
       {
         id: "matrix",
@@ -1264,7 +1264,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       channels: {
         matrix: { enabled: true, homeserver: "https://matrix.example.org" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.listChannelPluginCatalogEntries.mockReturnValue([
       {
         id: "matrix",
@@ -1304,7 +1304,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       channels: {
         matrix: { enabled: true, homeserver: "https://matrix.example.org" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.installPluginFromClawHub
       .mockResolvedValueOnce({
         ok: false,
@@ -1363,7 +1363,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       channels: {
         matrix: { enabled: true, homeserver: "https://matrix.example.org" },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const reviewNotice =
       "╭─ REVIEW RECOMMENDED - ClawHub has not completed a fresh clean check ─╮\n" +
       "│ • Status:            security scan is pending                         │\n" +
@@ -2231,7 +2231,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           discord: { enabled: true },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const npmRoot = tempDirs.make("openclaw-plugin-stub-repair-");
     const packageDir = path.join(npmRoot, "node_modules", "@openclaw", "discord");
     mocks.resolveDefaultPluginNpmDir.mockReturnValue(npmRoot);
@@ -2946,7 +2946,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     });
 
     expect(migration.next).not.toBeNull();
-    const cfg = migration.next as OpenClawConfig;
+    const cfg = migration.next as GrantedConfig;
     expect(cfg.plugins?.allow).toEqual(["codex"]);
     expect(cfg.plugins?.entries?.codex).toEqual({
       enabled: true,
@@ -4342,7 +4342,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       npmSpec: "@openclaw/brave-plugin",
       priorSpec: "@openclaw/brave-plugin@2026.5.1-beta.1",
       targetDir: "/tmp/openclaw-plugins/brave",
-      cfg: { tools: { web: { search: { provider: "brave" } } } } satisfies OpenClawConfig,
+      cfg: { tools: { web: { search: { provider: "brave" } } } } satisfies GrantedConfig,
       catalogKind: "provider" as const,
     },
     {
@@ -4669,7 +4669,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       }),
       cfg: {
         agents: { defaults: { model: "groq/llama-3.3-70b-versatile" } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       useManifestResolvers: false,
     },
     {
@@ -4694,7 +4694,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
             ],
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       useManifestResolvers: false,
     },
     {
@@ -4709,7 +4709,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       }),
       cfg: {
         agents: { defaults: { voiceModel: { primary: "gradium/tts-default" } } },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       useManifestResolvers: false,
     },
   ])("$name", async ({ pluginId, npmSpec, version, entry, cfg, useManifestResolvers }) => {

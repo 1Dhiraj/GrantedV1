@@ -7,7 +7,7 @@ import {
   openOpenClawAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { readSessionArchiveContentSync } from "./archive-compression.js";
 import { isRetainedSessionTranscriptArchiveName } from "./artifacts.js";
 import { runSessionsCleanup } from "./cleanup-service.js";
@@ -49,7 +49,7 @@ describe("sessions cleanup --fix-missing", () => {
   it("inspects unscoped transcript keys in the selected agent's fixed-store partition", async () => {
     await withOpenClawTestState({ layout: "state-only" }, async (state) => {
       storePath = state.statePath("shared.json");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { ownership: "explicit", entries: { main: {}, beta: {} } },
         session: { store: storePath },
       };

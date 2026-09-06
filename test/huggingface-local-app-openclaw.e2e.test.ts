@@ -5,7 +5,7 @@ import type { AddressInfo } from "node:net";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 type CapturedChatRequest = {
@@ -34,7 +34,7 @@ const HF_LOCAL_APP_CASES = [
   },
 ] as const;
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const fakeServers: FakeOpenAiServer[] = [];
 
 afterEach(async () => {

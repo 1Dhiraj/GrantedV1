@@ -1,5 +1,5 @@
 // Imessage tests cover actions plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const probeMock = vi.hoisted(() => ({
@@ -86,7 +86,7 @@ vi.mock("./monitor-reply-cache.js", async () => {
 
 const { imessageMessageActions } = await import("./actions.js");
 
-function cfg(actions?: Record<string, boolean | undefined>): OpenClawConfig {
+function cfg(actions?: Record<string, boolean | undefined>): GrantedConfig {
   return {
     channels: {
       imessage: {
@@ -95,7 +95,7 @@ function cfg(actions?: Record<string, boolean | undefined>): OpenClawConfig {
         actions,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function imsgOptions(chatGuid = "") {

@@ -5,7 +5,7 @@ import {
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
 import {
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type { ExactSessionEntry, SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import {
@@ -117,7 +117,7 @@ type SessionIdentityEvidenceRow = {
 };
 
 function readSessionIdentityEvidenceRows(
-  database: Pick<OpenClawAgentDatabase, "agentId" | "db">,
+  database: Pick<GrantedAgentDatabase, "agentId" | "db">,
   items: readonly SessionIdentityEvidenceItem[],
 ): SessionIdentityEvidenceResult[] {
   assertCanonicalSqliteSessionKeysCurrent(database);

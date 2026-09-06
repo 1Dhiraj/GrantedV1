@@ -9,7 +9,7 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import type { ThinkLevel } from "../auto-reply/thinking.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withTempWorkspace } from "../infra/private-temp-workspace.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import type { AssistantMessage } from "../llm/types.js";
@@ -53,7 +53,7 @@ import { resolveEffectiveAgentRuntime } from "./thinking-runtime.js";
 import type { UsageLike } from "./usage.js";
 
 type RunIsolatedCompletionParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   model: string;
   /** Explicit credential owner. CLI and harness paths must not replace it with another profile. */
@@ -379,7 +379,7 @@ function prepareIsolatedHarnessParamsV2(
 }
 
 async function prepareHostAuthorization(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentId: string;
   agentDir: string;
   provider: string;

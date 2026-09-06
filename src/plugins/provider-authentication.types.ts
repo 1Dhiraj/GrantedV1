@@ -1,7 +1,7 @@
 import type { ApiKeyCredential, AuthProfileCredential } from "../agents/auth-profiles/types.js";
 import type { PromptMode } from "../agents/system-prompt.types.js";
 import type { ModelProviderConfig } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import type { SecretInputMode } from "./provider-auth-types.js";
@@ -34,7 +34,7 @@ export type ProviderAuthResult = {
    * `models.providers.<id>` entries, default aliases, or agent model helpers.
    * The caller still persists auth-profile bindings separately.
    */
-  configPatch?: Partial<OpenClawConfig>;
+  configPatch?: Partial<GrantedConfig>;
   defaultModel?: string;
   notes?: string[];
   /**
@@ -47,7 +47,7 @@ export type ProviderAuthResult = {
 
 /** Interactive auth context passed to provider login/setup methods. */
 export type ProviderAuthContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDir?: string;
   workspaceDir?: string;
@@ -113,8 +113,8 @@ export type ProviderNonInteractiveApiKeyCredentialParams = {
 
 export type ProviderAuthMethodNonInteractiveContext = {
   authChoice: string;
-  config: OpenClawConfig;
-  baseConfig: OpenClawConfig;
+  config: GrantedConfig;
+  baseConfig: GrantedConfig;
   opts: ProviderAuthOptionBag;
   runtime: RuntimeEnv;
   agentDir?: string;
@@ -134,7 +134,7 @@ type ProviderAuthMethodNonInteractiveValidationContext = Omit<
 
 /** Read-only context for app-guided discovery of already available inference. */
 export type ProviderAppGuidedSetupContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
   signal?: AbortSignal;
@@ -179,7 +179,7 @@ export type ProviderAuthMethod = {
   run: (ctx: ProviderAuthContext) => Promise<ProviderAuthResult>;
   runNonInteractive?: (
     ctx: ProviderAuthMethodNonInteractiveContext,
-  ) => Promise<OpenClawConfig | null>;
+  ) => Promise<GrantedConfig | null>;
   /** Side-effect-free prerequisite validation used before destructive reset handling. */
   validateNonInteractive?: (
     ctx: ProviderAuthMethodNonInteractiveValidationContext,
@@ -259,7 +259,7 @@ export type ProviderOAuthProfileIdRepair = {
 };
 
 export type ProviderModelSelectedContext = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   model: string;
   prompter: WizardPrompter;
   agentDir?: string;
@@ -267,14 +267,14 @@ export type ProviderModelSelectedContext = {
 };
 
 export type ProviderDeferSyntheticProfileAuthContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   providerConfig?: ModelProviderConfig;
   resolvedApiKey?: string;
 };
 
 export type ProviderSystemPromptContributionContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   provider: string;

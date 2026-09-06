@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
 import {
   fetchWithSsrFGuard,
@@ -246,7 +246,7 @@ export async function createMSTeamsQaTransportAdapter(
             webhook: { port: webhookPort, path: "/api/messages" },
           },
         },
-      }) as Pick<OpenClawConfig, "channels" | "messages">,
+      }) as Pick<GrantedConfig, "channels" | "messages">,
     createRuntimeEnvPatch: () => ({
       GRANTED_BUILD_PRIVATE_QA: "1",
       NODE_OPTIONS: [

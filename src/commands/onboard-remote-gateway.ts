@@ -7,7 +7,7 @@ import type {
   SystemAgentSetupDetectResult,
   SystemAgentSetupVerifyResult,
 } from "../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   isGatewayClientRequestError,
   isGatewayTransportError,
@@ -37,7 +37,7 @@ const GATEWAY_RESTART_IDENTITY_ERROR =
 type CallGateway = <T>(options: CallGatewayCliOptions) => Promise<T>;
 
 type RemoteGatewayInferenceTarget = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   gatewayUrl: string;
   token?: string;
   password?: string;
@@ -161,7 +161,7 @@ function activationTimeoutMs(kind: ActivateSetupInferenceParams["kind"]): number
     : GATEWAY_SETUP_ACTIVATE_TIMEOUT_MS;
 }
 
-function bindGatewayConfig(target: RemoteGatewayInferenceTarget): OpenClawConfig {
+function bindGatewayConfig(target: RemoteGatewayInferenceTarget): GrantedConfig {
   return {
     ...target.config,
     gateway: {

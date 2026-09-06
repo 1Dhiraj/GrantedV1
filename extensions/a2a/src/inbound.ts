@@ -3,14 +3,14 @@ import {
   resolveChannelInboundRouteEnvelope,
 } from "openclaw/plugin-sdk/channel-inbound";
 import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
 import type { A2aTaskStore } from "./task-store.js";
 import type { ResolvedA2aChannelAccount } from "./types.js";
 
 type A2aInboundDispatchParams = {
   account: ResolvedA2aChannelAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   channelRuntime: PluginRuntime["channel"];
   buildContext: typeof buildChannelInboundEventContext;
   store: A2aTaskStore;

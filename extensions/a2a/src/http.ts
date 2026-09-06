@@ -1,7 +1,7 @@
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
   isRequestBodyLimitError,
@@ -40,7 +40,7 @@ type A2aInboundDispatch = {
 };
 
 type A2aHttpHandlerParams = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   a2aConfig: A2aChannelConfig;
   version: string;
   taskStore: A2aTaskStore;

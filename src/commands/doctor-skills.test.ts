@@ -1,7 +1,7 @@
 // Doctor skills tests cover skill install checks, status summaries, and repair guidance.
 import { describe, expect, it, vi } from "vitest";
 import { createEmptyInstallChecks } from "../cli/requirements-test-fixtures.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { SkillStatusEntry, SkillStatusReport } from "../skills/discovery/status.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 import {
@@ -204,7 +204,7 @@ describe("doctor skills", () => {
     );
     const confirmAutoFix = vi.fn(async () => true);
     const prompter = { ...createPrompter(), confirmAutoFix };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           { id: "main", default: true, workspace: "/tmp/main" },
@@ -227,7 +227,7 @@ describe("doctor skills", () => {
   });
 
   it("disables unavailable skills through skills.entries without dropping existing config", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       skills: {
         entries: {
           gog: { env: { EXISTING: "1" } },

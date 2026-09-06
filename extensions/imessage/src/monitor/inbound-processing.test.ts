@@ -1,5 +1,5 @@
 // Imessage tests cover inbound processing plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { sanitizeTerminalText } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { loadFreshIMessageReplyCacheForTest } from "../test-support/runtime.js";
@@ -11,7 +11,7 @@ let rememberIMessageReplyCache: ReplyCacheModule["rememberIMessageReplyCache"];
 let buildIMessageInboundContext: InboundProcessingModule["buildIMessageInboundContext"];
 let resolveIMessageReactionContext: InboundProcessingModule["resolveIMessageReactionContext"];
 let resolveIMessageInboundDecision: InboundProcessingModule["resolveIMessageInboundDecision"];
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 type InboundDecisionParams = Parameters<
   InboundProcessingModule["resolveIMessageInboundDecision"]
 >[0];
@@ -202,7 +202,7 @@ describe("resolveIMessageInboundDecision echo detection", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const createdAt = "2026-03-02T20:58:10.649Z";
 
     expect(
@@ -802,7 +802,7 @@ describe("buildIMessageInboundContext", () => {
     }
 
     const contextParams = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountService: undefined,
       decision,
       historyLimit: 0,
@@ -836,7 +836,7 @@ describe("buildIMessageInboundContext", () => {
     }
 
     const { ctxPayload } = await buildIMessageInboundContext({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountService: undefined,
       decision: {
         ...decision,
@@ -869,7 +869,7 @@ describe("buildIMessageInboundContext", () => {
     }
 
     const { ctxPayload, inboundHistory } = await buildIMessageInboundContext({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountService: undefined,
       decision,
       message,
@@ -908,7 +908,7 @@ describe("buildIMessageInboundContext", () => {
         channelConfigReads += 1;
         return { imessage: { service: "imessage" } };
       },
-    }) as OpenClawConfig;
+    }) as GrantedConfig;
     const { imessageTo } = await buildIMessageInboundContext({
       cfg: projectionCfg,
       accountService: "sms",
@@ -1069,7 +1069,7 @@ describe("buildIMessageInboundContext MessageSid handling (rowid-leak regression
       hasControlCommand: false,
     };
     return {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       accountService: undefined,
       decision: decision as unknown as Parameters<
         typeof buildIMessageInboundContext

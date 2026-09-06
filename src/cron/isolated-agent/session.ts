@@ -21,7 +21,7 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { preserveCreationStamp } from "../../config/sessions/session-entry-provenance.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const FRESH_CRON_CARRIED_PREFERENCE_FIELDS = [
   "chatType",
@@ -145,7 +145,7 @@ export function loadCronSessionEntryLatest(
 
 /** Resolves or rolls over the cron session entry for one isolated-agent run. */
 export function resolveCronSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   sourceSessionKey?: string;
   skillLibrarySelections?: SessionEntry["skillLibrarySelections"];

@@ -11,7 +11,7 @@ import {
   setActivePluginRegistry,
   type PluginHookRegistration,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { afterEach, assert, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSlackSendTestClient } from "./blocks.test-helpers.js";
@@ -26,7 +26,7 @@ vi.mock("./send.runtime.js", () => ({
   sendMessageSlack: sendMessageSlackMock,
 }));
 
-const cfg: OpenClawConfig = {
+const cfg: GrantedConfig = {
   channels: {
     slack: {
       botToken: "xoxb-test",

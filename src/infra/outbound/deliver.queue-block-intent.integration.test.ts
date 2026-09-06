@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -71,14 +71,14 @@ describe("deliverOutboundPayloads queue integration: block intent recovery", () 
 
     await drainMatrixReconnect({ deliver, stateDir: tmpDir });
     await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,
     });
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "regenerated duplicate" }],

@@ -4,7 +4,7 @@ import path from "node:path";
 import { root, type Root } from "@openclaw/fs-safe";
 import { mcpOAuthStoreKeyFromLegacyFileName } from "../agents/mcp-oauth-identity.js";
 import { parseMcpOAuthStoreJson } from "../agents/mcp-oauth-store.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -39,7 +39,7 @@ const MIGRATION_KIND = "legacy-mcp-oauth-json";
 const MAX_LEGACY_STORE_BYTES = 4 * 1024 * 1024;
 const utf8Decoder = new TextDecoder("utf-8", { fatal: true });
 
-type McpOAuthMigrationDatabase = Pick<OpenClawStateKyselyDatabase, "mcp_oauth_stores">;
+type McpOAuthMigrationDatabase = Pick<GrantedStateKyselyDatabase, "mcp_oauth_stores">;
 
 type LegacySourceSnapshot = LegacyMigrationSourceSnapshot & { store: Record<string, unknown> };
 

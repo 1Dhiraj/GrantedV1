@@ -8,7 +8,7 @@ import {
 } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   archiveAuthProfileMigrationSource,
@@ -38,7 +38,7 @@ const {
 ] as MigrationReceiptTestApi;
 
 describe("auth profile migration receipts", () => {
-  const states: OpenClawTestState[] = [];
+  const states: GrantedTestState[] = [];
 
   afterEach(async () => {
     closeOpenClawStateDatabaseForTest();

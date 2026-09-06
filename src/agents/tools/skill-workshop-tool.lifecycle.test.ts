@@ -5,13 +5,13 @@ import { listSkillProposalEvents } from "../../skills/workshop/service.js";
 import { readSkillProposalRecord } from "../../skills/workshop/store.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 async function proposalDraftPath(proposalId: string): Promise<string> {
   const record = await readSkillProposalRecord(proposalId, { env: testState.env });

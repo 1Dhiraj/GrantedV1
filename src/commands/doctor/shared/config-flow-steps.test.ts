@@ -1,6 +1,6 @@
 // Config-flow step tests cover doctor repair step ordering and mutation planning.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.openclaw.js";
 
 const { migrateLegacyConfigMock, stripUnknownConfigKeysMock } = vi.hoisted(() => ({
   migrateLegacyConfigMock: vi.fn(),
@@ -49,7 +49,7 @@ function createLegacyStepResult(
 describe("doctor config flow steps", () => {
   beforeEach(() => {
     migrateLegacyConfigMock.mockReset();
-    migrateLegacyConfigMock.mockImplementation((config: OpenClawConfig) => ({
+    migrateLegacyConfigMock.mockImplementation((config: GrantedConfig) => ({
       config,
       changes: [],
     }));
@@ -78,7 +78,7 @@ describe("doctor config flow steps", () => {
   it("migrates the resolved config so single-file include values are repairable", () => {
     const sourceConfig = {
       mcp: { servers: { local: { command: "node", disabled: true } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     migrateLegacyConfigMock.mockReturnValueOnce({
       config: {
         commands: { native: "auto" },
@@ -110,7 +110,7 @@ describe("doctor config flow steps", () => {
   it("blocks grpc migration when include ownership is ambiguous and names every source", () => {
     const sourceConfig = {
       diagnostics: { otel: { enabled: true, protocol: "grpc" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = createLegacyStepResult({
       parsed: { diagnostics: { $include: ["./a.json5", "./b.json5"] } },
       includeProvenance: [
@@ -234,7 +234,7 @@ describe("doctor config flow steps", () => {
     const result = applyUnknownConfigKeyStep({
       state: {
         cfg: {},
-        candidate: { bogus: true } as unknown as OpenClawConfig,
+        candidate: { bogus: true } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -296,7 +296,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -362,7 +362,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -412,7 +412,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -464,7 +464,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -513,7 +513,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },
@@ -563,7 +563,7 @@ describe("doctor config flow steps", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         pendingChanges: false,
         fixHints: [],
       },

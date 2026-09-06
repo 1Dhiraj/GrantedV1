@@ -32,7 +32,7 @@ import {
   type SessionEntry,
 } from "../config/sessions.js";
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildAgentMainSessionKey,
   normalizeAgentId,
@@ -53,7 +53,7 @@ type SandboxExplainOptions = {
 const SANDBOX_DOCS_URL = "https://docs.openclaw.ai/sandbox";
 
 function normalizeExplainSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   session?: string;
 }): string {
@@ -79,7 +79,7 @@ function normalizeExplainSessionKey(params: {
 }
 
 function inferProviderFromSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
 }): string | undefined {
   const parsed = parseAgentSessionKey(params.sessionKey);
@@ -111,7 +111,7 @@ function inferProviderFromSessionKey(params: {
 }
 
 function resolveActiveChannel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry?: SessionEntry;
   sessionKey: string;
 }): string | undefined {

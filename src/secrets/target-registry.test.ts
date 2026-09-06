@@ -1,6 +1,6 @@
 /** Tests core secret target registry queries without plugin discovery. */
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   buildTalkTestProviderConfig,
   TALK_TEST_PROVIDER_API_KEY_PATH,
@@ -25,7 +25,7 @@ describe("secret target registry", () => {
           token: { source: "env" as const, provider: "default", id: "REMOTE_TOKEN" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const targets = discoverConfigSecretTargetsByIds(config, new Set(["talk.providers.*.apiKey"]));
 
@@ -55,7 +55,7 @@ describe("secret target registry", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const targets = discoverConfigSecretTargetsByIds(
       config,

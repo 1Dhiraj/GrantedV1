@@ -20,7 +20,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupDmPolicy,
   type ChannelSetupWizard,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/setup-runtime";
 import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -43,7 +43,7 @@ type SlackSetupInput = ChannelSetupInput & {
   mode?: "socket" | "http" | "relay";
 };
 
-function enableSlackAccount(cfg: OpenClawConfig, accountId: string): OpenClawConfig {
+function enableSlackAccount(cfg: GrantedConfig, accountId: string): GrantedConfig {
   return patchChannelConfigForAccount({
     cfg,
     channel,
@@ -53,10 +53,10 @@ function enableSlackAccount(cfg: OpenClawConfig, accountId: string): OpenClawCon
 }
 
 function setSlackSetupIdentity(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   identity: "bot" | "user";
-}): OpenClawConfig {
+}): GrantedConfig {
   const next = patchChannelConfigForAccount({
     cfg: params.cfg,
     channel,
@@ -82,7 +82,7 @@ function setSlackSetupIdentity(params: {
         ...next.channels,
         slack: nextSlack,
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   const account = slack.accounts?.[params.accountId];
@@ -109,7 +109,7 @@ function setSlackSetupIdentity(params: {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createSlackTokenCredential(params: {
@@ -461,13 +461,13 @@ export function createSlackSetupWizardBase(handlers: {
       channel,
       label: t("wizard.slack.channelsLabel"),
       placeholder: "#general, #private, C123",
-      currentPolicy: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId: string }) =>
+      currentPolicy: ({ cfg, accountId }: { cfg: GrantedConfig; accountId: string }) =>
         inspectSlackAccount({ cfg, accountId }).config.groupPolicy ?? "allowlist",
-      currentEntries: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId: string }) =>
+      currentEntries: ({ cfg, accountId }: { cfg: GrantedConfig; accountId: string }) =>
         Object.entries(inspectSlackAccount({ cfg, accountId }).config.channels ?? {})
           .filter(([, value]) => value?.enabled !== false)
           .map(([key]) => key),
-      updatePrompt: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId: string }) =>
+      updatePrompt: ({ cfg, accountId }: { cfg: GrantedConfig; accountId: string }) =>
         Boolean(inspectSlackAccount({ cfg, accountId }).config.channels),
       resolveAllowlist: handlers.resolveGroupAllowlist,
       fallbackResolved: (entries) => entries,
@@ -476,12 +476,12 @@ export function createSlackSetupWizardBase(handlers: {
         accountId,
         resolved,
       }: {
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         accountId: string;
         resolved: unknown;
       }) => setSlackChannelAllowlist(cfg, accountId, resolved as string[]),
     }),
-    disable: (cfg: OpenClawConfig) => setSetupChannelEnabled(cfg, channel, false),
+    disable: (cfg: GrantedConfig) => setSetupChannelEnabled(cfg, channel, false),
   } satisfies ChannelSetupWizard;
 }
 export function createSlackSetupWizardProxy(

@@ -8,7 +8,7 @@ import {
   resolveOAuthDir,
   resolveStateDir,
 } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   resolveActivatedPluginBackupInventory,
@@ -493,7 +493,7 @@ export async function canonicalizePathForContainment(targetPath: string): Promis
 
 /** Resolve one configured agent's canonical backup root and owner database path. */
 export async function resolveBackupAgentRoot(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   agentId: string,
 ): Promise<BackupAgentRoot> {
   const sourcePath = await canonicalizePathForContainment(resolveAgentDir(config, agentId));
@@ -505,7 +505,7 @@ export async function resolveBackupAgentRoot(
 }
 
 /** Resolve configured agent storage roots and their canonical database paths for backup ownership. */
-export async function resolveBackupAgentRoots(config: OpenClawConfig): Promise<BackupAgentRoot[]> {
+export async function resolveBackupAgentRoots(config: GrantedConfig): Promise<BackupAgentRoot[]> {
   return await Promise.all(
     listAgentIds(config).map((agentId) => resolveBackupAgentRoot(config, agentId)),
   );

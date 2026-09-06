@@ -133,8 +133,8 @@ export const windowsOpenClawResolver = String.raw`$portableNode = if ($env:LOCAL
 if ($portableNode -and (Test-Path (Join-Path $portableNode 'node.exe'))) {
   $env:PATH = "$portableNode;$env:PATH"
 }
-function Resolve-OpenClawCommand {
-  if ($script:OpenClawResolvedCommand) { return $script:OpenClawResolvedCommand }
+function Resolve-GrantedCommand {
+  if ($script:GrantedResolvedCommand) { return $script:GrantedResolvedCommand }
   $shimCandidates = @()
   if ($env:APPDATA) {
     $shimCandidates += Join-Path $env:APPDATA 'npm\openclaw.cmd'
@@ -154,8 +154,8 @@ function Resolve-OpenClawCommand {
   }
   foreach ($candidate in $shimCandidates) {
     if ($candidate -and (Test-Path $candidate)) {
-      $script:OpenClawResolvedCommand = @{ Kind = 'shim'; Path = $candidate }
-      return $script:OpenClawResolvedCommand
+      $script:GrantedResolvedCommand = @{ Kind = 'shim'; Path = $candidate }
+      return $script:GrantedResolvedCommand
     }
   }
   $entryCandidates = @()
@@ -167,24 +167,24 @@ function Resolve-OpenClawCommand {
   }
   foreach ($candidate in $entryCandidates) {
     if ($candidate -and (Test-Path $candidate)) {
-      $script:OpenClawResolvedCommand = @{ Kind = 'node'; Path = $candidate }
-      return $script:OpenClawResolvedCommand
+      $script:GrantedResolvedCommand = @{ Kind = 'node'; Path = $candidate }
+      return $script:GrantedResolvedCommand
     }
   }
   throw 'openclaw command not found in PATH, APPDATA npm, or npm global prefix'
 }
 function Invoke-OpenClaw {
-  param([Parameter(ValueFromRemainingArguments = $true)][string[]] $OpenClawArgs)
-  $command = Resolve-OpenClawCommand
+  param([Parameter(ValueFromRemainingArguments = $true)][string[]] $GrantedArgs)
+  $command = Resolve-GrantedCommand
   $previousErrorActionPreference = $ErrorActionPreference
   $previousNativeErrorActionPreference = $PSNativeCommandUseErrorActionPreference
   $ErrorActionPreference = 'Continue'
   $PSNativeCommandUseErrorActionPreference = $false
   try {
     if ($command.Kind -eq 'node') {
-      & node.exe $command.Path @OpenClawArgs
+      & node.exe $command.Path @GrantedArgs
     } else {
-      & $command.Path @OpenClawArgs
+      & $command.Path @GrantedArgs
     }
   } finally {
     $ErrorActionPreference = $previousErrorActionPreference

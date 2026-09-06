@@ -1,5 +1,5 @@
 import { getPublicKey, type Event, type Filter } from "nostr-tools";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const relayMocks = vi.hoisted(() => ({
@@ -160,7 +160,7 @@ describe("Buzz live directory", () => {
           groups: { [ROOM_ID]: {} },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(
       listBuzzDirectoryPeersLive({
@@ -237,7 +237,7 @@ describe("Buzz live directory", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const {
         listBuzzDirectoryGroupsLive,
         listBuzzDirectoryPeersLive,
@@ -270,7 +270,7 @@ describe("Buzz live directory", () => {
           groups: { [ROOM_ID]: {} },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const { listBuzzDirectoryGroupsFromConfig } = await import("./directory-config.js");
     const { listBuzzDirectoryGroupsLive } = await import("./directory.js");
 
@@ -295,7 +295,7 @@ describe("Buzz live directory", () => {
           groups: { [ROOM_ID]: {} },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(
       listBuzzDirectoryPeersLive({
@@ -339,7 +339,7 @@ describe("Buzz live directory", () => {
           groups: { [ROOM_ID]: {} },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await getBuzzDirectorySelf({ cfg, accountId: "default" });
     await listBuzzDirectoryPeersLive({ cfg, accountId: "default" });
@@ -376,7 +376,7 @@ describe("Buzz live directory", () => {
               groups: { [ROOM_ID]: {} },
             },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         accountId: "default",
       }),
     ).resolves.toEqual([{ kind: "group", id: `buzz:${ROOM_ID}`, name: "Cached Engineering" }]);

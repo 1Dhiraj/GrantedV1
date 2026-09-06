@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createModelVisibilityPolicy } from "../agents/model-visibility-policy.js";
 import { registerModelsCli } from "../cli/models-cli.js";
 import { stampConfigWriteMetadata } from "../config/io.meta.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { defaultRuntime } from "../runtime.js";
 import { runRegisteredCli } from "../test-utils/command-runner.js";
 
@@ -41,11 +41,11 @@ function makeRuntime() {
   return { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
 }
 
-function getWrittenConfig(): OpenClawConfig {
+function getWrittenConfig(): GrantedConfig {
   if (!mocks.writtenConfig) {
     throw new Error("expected config write");
   }
-  return mocks.writtenConfig as OpenClawConfig;
+  return mocks.writtenConfig as GrantedConfig;
 }
 
 function expectWrittenPrimaryModel(model: string) {

@@ -5,11 +5,11 @@ import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveBundledPluginInstallCommandHint } from "../../../plugins/bundled-sources.js";
 
 /** Resolves the install command hint shown when the configured ACP backend is missing. */
-export function resolveAcpInstallCommandHint(cfg: OpenClawConfig): string {
+export function resolveAcpInstallCommandHint(cfg: GrantedConfig): string {
   const configured = normalizeOptionalString(cfg.acp?.runtime?.installCommand);
   if (configured) {
     return configured;

@@ -1,5 +1,5 @@
 // Google Meet helper module supports config compat behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asNullableRecord,
   normalizeOptionalLowercaseString as normalizeProviderId,
@@ -32,8 +32,8 @@ export const legacyConfigRules: LegacyConfigRule[] = [
   },
 ];
 
-function migrateGoogleMeetLegacyRealtimeProvider(config: OpenClawConfig): {
-  config: OpenClawConfig;
+function migrateGoogleMeetLegacyRealtimeProvider(config: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
 } | null {
   const rawEntry = asNullableRecord(config.plugins?.entries?.["google-meet"]);
@@ -71,8 +71,8 @@ function migrateGoogleMeetLegacyRealtimeProvider(config: OpenClawConfig): {
   };
 }
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   return migrateGoogleMeetLegacyRealtimeProvider(cfg) ?? { config: cfg, changes: [] };

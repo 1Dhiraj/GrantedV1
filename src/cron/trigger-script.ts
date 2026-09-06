@@ -41,7 +41,7 @@ import {
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import { ensureAgentWorkspace } from "../agents/workspace.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessageWithCode } from "../infra/errors.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import type { PluginRegistry } from "../plugins/registry-types.js";
@@ -91,7 +91,7 @@ type PreparedTriggerRuntime = {
 };
 
 type PrepareTriggerRuntime = (params: {
-  runtimeConfig: OpenClawConfig;
+  runtimeConfig: GrantedConfig;
   jobId: string;
   agentId?: string;
   toolsAllow?: string[];
@@ -101,7 +101,7 @@ type PrepareTriggerRuntime = (params: {
 }) => Promise<PreparedTriggerRuntime>;
 
 type CronTriggerEvaluatorDeps = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runHeadless?: typeof runCodeModeScriptHeadless;
   prepareRuntime?: PrepareTriggerRuntime;
   loadPluginRegistry?: typeof loadPreparedInboundPluginRegistry;
@@ -109,12 +109,12 @@ type CronTriggerEvaluatorDeps = {
 
 type TriggerRuntimeCacheEntry = {
   promise: Promise<PreparedTriggerRuntime>;
-  configEpoch: OpenClawConfig;
+  configEpoch: GrantedConfig;
   agentId: string;
   toolsAllowKey: string;
 };
 
-function resolveTriggerAgentId(config: OpenClawConfig, agentId?: string): string {
+function resolveTriggerAgentId(config: GrantedConfig, agentId?: string): string {
   return agentId?.trim() ? normalizeAgentId(agentId) : resolveDefaultAgentId(config);
 }
 
@@ -355,7 +355,7 @@ function createCronCodeModeRunner(deps: CronTriggerEvaluatorDeps) {
   const runtimeCache = new Map<string, TriggerRuntimeCacheEntry>();
 
   const resolveCachedRuntime = async (request: {
-    runtimeConfig: OpenClawConfig;
+    runtimeConfig: GrantedConfig;
     jobId: string;
     requestedAgentId?: string;
     agentId: string;

@@ -7,7 +7,7 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { logConfigUpdated } from "../../config/logging.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { type RuntimeEnv, writeRuntimeJson } from "../../runtime.js";
 import { createGatewayEnvSecretRef } from "../../secrets/ref-contract.js";
 import { applySkipBootstrapConfig } from "../onboard-config.js";
@@ -19,7 +19,7 @@ import { commitNonInteractiveOnboardConfig } from "./config-write.js";
 export async function runNonInteractiveRemoteSetup(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: GrantedConfig;
   baseHash?: string;
 }) {
   const { opts, runtime, baseConfig, baseHash } = params;
@@ -64,7 +64,7 @@ export async function runNonInteractiveRemoteSetup(params: {
     delete preservedRemote.token;
   }
 
-  let nextConfig: OpenClawConfig = {
+  let nextConfig: GrantedConfig = {
     ...baseConfig,
     gateway: {
       ...baseConfig.gateway,

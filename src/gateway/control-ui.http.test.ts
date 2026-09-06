@@ -13,7 +13,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { normalizeAssistantIdentity } from "../../ui/src/lib/assistant-identity.ts";
 import * as configIo from "../config/io.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { approveDevicePairing } from "../infra/device-pairing-approval.js";
 import { ensureDeviceToken } from "../infra/device-pairing-tokens.js";
 import { requestDevicePairing } from "../infra/device-pairing.js";
@@ -128,7 +128,7 @@ afterEach(() => {
 });
 
 describe("handleControlUiHttpRequest", () => {
-  function createAvatarConfig(workspace: string, avatar: string): OpenClawConfig {
+  function createAvatarConfig(workspace: string, avatar: string): GrantedConfig {
     return {
       agents: {
         defaults: { workspace },
@@ -234,7 +234,7 @@ describe("handleControlUiHttpRequest", () => {
     basePath?: string;
     auth?: ResolvedGatewayAuth;
     headers?: IncomingMessage["headers"];
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     rateLimiter?: AuthRateLimiter;
     remoteAddress?: string;
     trustedProxies?: string[];
@@ -266,7 +266,7 @@ describe("handleControlUiHttpRequest", () => {
   async function runAvatarRequest(params: {
     url: string;
     method: "GET" | "HEAD" | "POST";
-    config: OpenClawConfig;
+    config: GrantedConfig;
     basePath?: string;
     auth?: ResolvedGatewayAuth;
     headers?: IncomingMessage["headers"];
@@ -369,7 +369,7 @@ describe("handleControlUiHttpRequest", () => {
     agentId?: string;
     meta?: boolean;
     headers?: IncomingMessage["headers"];
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
   }) {
     return await runAvatarRequest({
       url: `/avatar/${params.agentId ?? "main"}${params.meta ? "?meta=1" : ""}`,
@@ -1553,7 +1553,7 @@ describe("handleControlUiHttpRequest", () => {
     await withControlUiRoot({
       indexHtml: "<html><head></head><body>Hello</body></html>\n",
       fn: async (tmp) => {
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           gateway: { controlUi: { environment: { label: "edge & team", color: "amber" } } },
         };
         const auth = { mode: "token" as const, token: "test-token", allowTailscale: false };

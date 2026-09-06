@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginActivationSource, normalizePluginsConfig } from "../plugins/config-state.js";
 import { setCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata.test-support.js";
 import { resolveInstalledPluginIndexPolicyHash } from "../plugins/installed-plugin-index-policy.js";
@@ -835,7 +835,7 @@ describe("plugin-sdk facade runtime", () => {
 
     function createTestSnapshot(
       params: {
-        config?: OpenClawConfig;
+        config?: GrantedConfig;
         plugins?: SnapshotPluginRecord[];
       } = {},
     ): PluginMetadataSnapshot {
@@ -891,7 +891,7 @@ describe("plugin-sdk facade runtime", () => {
           demo: { enabled: true },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const matchedSnapshot = createTestSnapshot({
       config: configWithPaths,
       plugins: [

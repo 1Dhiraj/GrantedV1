@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { buildSessionCreationStamp } from "../../../config/sessions/session-entry-provenance.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveIncognitoOpenClawAgentSqlitePath } from "../../../state/openclaw-agent-db.js";
 import { resolveUserPath } from "../../../utils.js";
 import {
@@ -113,7 +113,7 @@ export function loadSubagentConfig() {
 }
 
 export async function createInitialSubagentSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targetAgentId: string;
   childSessionKey: string;
   label?: string;
@@ -237,7 +237,7 @@ export async function createInitialSubagentSession(params: {
 }
 
 export async function persistInitialChildSessionRuntimeModel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   childSessionKey: string;
   resolvedModel?: string;
 }): Promise<string | undefined> {

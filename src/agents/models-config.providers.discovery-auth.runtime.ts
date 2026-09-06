@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { secretRefKey } from "../secrets/ref-contract.js";
 import { resolveAuthProfileSecretOwnerId } from "../secrets/runtime-auth-profile-owner.js";
@@ -23,7 +23,7 @@ export async function prepareProviderDiscoveryAuth(
     resolveProviderApiKey: ProviderApiKeyResolver;
     resolveProviderAuth: ProviderAuthResolver;
   },
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ) {
   const profiles = new Map<string, () => string>();
   for (const [profileId, credential] of Object.entries(authStore.profiles)) {

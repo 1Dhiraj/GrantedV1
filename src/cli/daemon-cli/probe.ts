@@ -6,7 +6,7 @@ import {
   ConnectErrorDetailCodes,
   readConnectErrorDetailCode,
 } from "../../../packages/gateway-protocol/src/connect-error-details.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import type { GatewayProbeAuthSummary, GatewayProbeServerSummary } from "../../gateway/probe.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
@@ -51,7 +51,7 @@ export async function probeGatewayStatus(opts: {
   localPortOverride?: number;
   token?: string;
   password?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   tlsFingerprint?: string;
   timeoutMs: number;
   preauthHandshakeTimeoutMs?: number;

@@ -14,7 +14,7 @@ import type {
   TalkProviderConfig,
   TalkRealtimeConfig,
 } from "./types.gateway.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 import { coerceSecretRef } from "./types.secrets.js";
 
 function normalizeTalkSecretInput(value: unknown): TalkProviderConfig["apiKey"] | undefined {
@@ -185,14 +185,14 @@ function activeProviderFromTalk(talk: TalkConfig): string | undefined {
 
 /** Resolve the explicitly selected or sole authored Talk speech provider. */
 export function resolveConfiguredTalkSpeechProviderId(
-  config: Pick<OpenClawConfig, "talk">,
+  config: Pick<GrantedConfig, "talk">,
 ): string | undefined {
   return config.talk ? activeProviderFromTalk(config.talk) : undefined;
 }
 
 /** Resolve the explicitly selected or sole authored Talk realtime provider. */
 export function resolveConfiguredTalkRealtimeProviderId(
-  config: Pick<OpenClawConfig, "talk">,
+  config: Pick<GrantedConfig, "talk">,
 ): string | undefined {
   return config.talk?.realtime ? activeProviderFromTalk(config.talk.realtime) : undefined;
 }
@@ -254,7 +254,7 @@ export function normalizeTalkSection(value: TalkConfig | undefined): TalkConfig 
 }
 
 /** Return a config copy with `talk` normalized when a valid Talk section is present. */
-export function normalizeTalkConfig(config: OpenClawConfig): OpenClawConfig {
+export function normalizeTalkConfig(config: GrantedConfig): GrantedConfig {
   if (!config.talk) {
     return config;
   }

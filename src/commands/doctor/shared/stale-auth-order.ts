@@ -20,7 +20,7 @@ import {
 import type { AuthProfileStore } from "../../../agents/auth-profiles/types.js";
 import { resolveProviderIdForAuth } from "../../../agents/provider-auth-aliases.js";
 import { resolveStateDir } from "../../../config/paths.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { normalizeAgentId } from "../../../routing/session-key.js";
 import {
   inspectOpenClawAgentDatabaseOwner,
@@ -61,7 +61,7 @@ function isProfileIdList(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((profileId) => typeof profileId === "string");
 }
 
-function readValidConfiguredAuthOrder(cfg: OpenClawConfig): Record<string, string[]> | undefined {
+function readValidConfiguredAuthOrder(cfg: GrantedConfig): Record<string, string[]> | undefined {
   const order: unknown = cfg.auth?.order;
   if (!isRecord(order)) {
     return undefined;
@@ -76,7 +76,7 @@ function readValidConfiguredAuthOrder(cfg: OpenClawConfig): Record<string, strin
   return result;
 }
 
-function hasValidConfiguredAuthProfiles(cfg: OpenClawConfig): boolean {
+function hasValidConfiguredAuthProfiles(cfg: GrantedConfig): boolean {
   const profiles: unknown = cfg.auth?.profiles;
   if (profiles === undefined) {
     return true;
@@ -93,7 +93,7 @@ function hasValidConfiguredAuthProfiles(cfg: OpenClawConfig): boolean {
   );
 }
 
-function hasNonemptyConfiguredAuthOrder(cfg: OpenClawConfig): boolean {
+function hasNonemptyConfiguredAuthOrder(cfg: GrantedConfig): boolean {
   const order = readValidConfiguredAuthOrder(cfg);
   return Boolean(order && Object.values(order).some((profileIds) => profileIds.length > 0));
 }
@@ -142,7 +142,7 @@ function listRetainedStateAgentDirs(env: NodeJS.ProcessEnv): string[] | null {
 }
 
 function loadConfiguredAgentAuthStores(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): LoadedAuthStores | undefined {
   const order = readValidConfiguredAuthOrder(cfg);
@@ -382,7 +382,7 @@ function loadConfiguredAgentAuthStores(
   return { status: "ready", stores, activeStores, runtimeProfileIds };
 }
 
-function removeAuthOrderKeys(cfg: OpenClawConfig, providers: ReadonlySet<string>): OpenClawConfig {
+function removeAuthOrderKeys(cfg: GrantedConfig, providers: ReadonlySet<string>): GrantedConfig {
   const order = Object.fromEntries(
     Object.entries(readValidConfiguredAuthOrder(cfg) ?? {}).filter(
       ([provider]) => !providers.has(provider),
@@ -398,7 +398,7 @@ function removeAuthOrderKeys(cfg: OpenClawConfig, providers: ReadonlySet<string>
 }
 
 function scanUndeclaredConfiguredAuthOrders(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   loaded?: Extract<LoadedAuthStores, { status: "ready" }>,
 ): UndeclaredConfiguredAuthOrder[] {
   const order = readValidConfiguredAuthOrder(cfg);
@@ -430,10 +430,10 @@ function scanUndeclaredConfiguredAuthOrders(
 }
 
 function repairUndeclaredConfiguredAuthOrders(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   loaded?: Extract<LoadedAuthStores, { status: "ready" }>,
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
   warnings: string[];
 } {
@@ -483,7 +483,7 @@ function repairUndeclaredConfiguredAuthOrders(
 
 /** Find nonempty config orders that only reference removed profiles. */
 function scanStaleConfiguredAuthOrders(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stores: readonly AuthProfileStore[];
   activeStores?: readonly AuthProfileStore[];
   runtimeProfileIds?: ReadonlySet<string>;
@@ -545,11 +545,11 @@ function scanStaleConfiguredAuthOrders(params: {
 
 /** Remove provably stale config orders and restore per-agent automatic selection. */
 function repairStaleConfiguredAuthOrders(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stores: readonly AuthProfileStore[];
   activeStores?: readonly AuthProfileStore[];
   runtimeProfileIds?: ReadonlySet<string>;
-}): { config: OpenClawConfig; changes: string[] } {
+}): { config: GrantedConfig; changes: string[] } {
   const hits = scanStaleConfiguredAuthOrders(params);
   if (hits.length === 0) {
     return { config: params.cfg, changes: [] };
@@ -565,9 +565,9 @@ function repairStaleConfiguredAuthOrders(params: {
 
 /** Load configured agent stores and repair their stale config auth orders. */
 export function maybeRepairStaleConfiguredAuthOrders(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
-}): { config: OpenClawConfig; changes: string[]; warnings?: string[] } {
+}): { config: GrantedConfig; changes: string[]; warnings?: string[] } {
   if (!hasNonemptyConfiguredAuthOrder(params.cfg)) {
     return { config: params.cfg, changes: [] };
   }
@@ -594,7 +594,7 @@ export function maybeRepairStaleConfiguredAuthOrders(params: {
 
 /** Build preview warnings for stale config auth orders. */
 export function collectStaleConfiguredAuthOrderWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   doctorFixCommand: string;
   env?: NodeJS.ProcessEnv;
 }): string[] {

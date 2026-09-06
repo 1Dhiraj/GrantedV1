@@ -2,7 +2,7 @@
 // bootstrap inputs, and forwarding fields into embedded attempts.
 import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedAcquireAgentRunPreparedModelRuntime,
@@ -13,7 +13,7 @@ import {
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 import type { EmbeddedRunAttemptResult } from "./run/types.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 
 function makeAssistantMessage(

@@ -11,7 +11,7 @@ import { resolveAgentDir } from "../agents/agent-scope.js";
 import { resolveMemorySearchConfig } from "../agents/memory-search.js";
 import { createConfiguredProviderLocalServiceAcquirer } from "../agents/provider-local-service.js";
 import { getRuntimeConfig } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { logWarn } from "../logger.js";
 import { getMemoryEmbeddingProvider } from "../plugins/memory-embedding-provider-runtime.js";
@@ -233,7 +233,7 @@ function resolveEmbeddingProviderRemoteConfig(remote: MemorySearchEmbeddingConfi
 }
 
 function isLocalEmbeddingProvider(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: EmbeddingProviderRequest;
 }): boolean {
   const providerId =
@@ -242,7 +242,7 @@ function isLocalEmbeddingProvider(params: {
 }
 
 async function createConfiguredEmbeddingProvider(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir: string;
   provider: EmbeddingProviderRequest;
   model: string;

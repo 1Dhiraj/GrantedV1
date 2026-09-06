@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import type {
   WorkerSessionPlacementIdentity,
@@ -25,7 +25,7 @@ const SESSION: WorkerSessionPlacementIdentity = {
 
 describe("worker session placement store", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerSessionPlacementStore;
   let nowMs: number;
 

@@ -23,7 +23,7 @@ import {
   resolveUsableCustomProviderApiKey,
 } from "../agents/model-auth.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { DoctorMemoryEmbeddingRuntimePayload } from "../gateway/server-methods/doctor.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
@@ -72,7 +72,7 @@ type MemoryDoctorAgentScope = {
   workspaceDir: string;
 };
 
-function resolveMemoryDoctorAgentScopes(cfg: OpenClawConfig): MemoryDoctorAgentScope[] {
+function resolveMemoryDoctorAgentScopes(cfg: GrantedConfig): MemoryDoctorAgentScope[] {
   return listAgentIds(cfg).map((agentId) => ({
     agentId,
     agentDir: resolveAgentDir(cfg, agentId),
@@ -147,7 +147,7 @@ const MEMORY_EMBEDDING_PROVIDER_AUTH_IDS = new Map([
 const OPENAI_COMPATIBLE_MEMORY_EMBEDDING_PROVIDER = "openai-compatible";
 const OPENAI_COMPATIBLE_MODEL_APIS = new Set(["openai-completions", "openai-responses"]);
 
-function hasConfiguredAwsSdkAuthForProvider(provider: string, cfg: OpenClawConfig): boolean {
+function hasConfiguredAwsSdkAuthForProvider(provider: string, cfg: GrantedConfig): boolean {
   const providerConfig = findNormalizedProviderValue(cfg.models?.providers, provider);
   if (providerConfig?.auth === "aws-sdk") {
     return true;
@@ -160,7 +160,7 @@ function hasConfiguredAwsSdkAuthForProvider(provider: string, cfg: OpenClawConfi
   );
 }
 
-function isOpenAICompatibleMemoryProvider(providerId: string, cfg: OpenClawConfig): boolean {
+function isOpenAICompatibleMemoryProvider(providerId: string, cfg: GrantedConfig): boolean {
   const normalizedProviderId = normalizeProviderId(providerId);
   if (normalizedProviderId === OPENAI_COMPATIBLE_MEMORY_EMBEDDING_PROVIDER) {
     return true;
@@ -184,7 +184,7 @@ function isOpenAICompatibleMemoryProvider(providerId: string, cfg: OpenClawConfi
 
 function resolveOpenAICompatibleMemoryBaseUrl(
   providerId: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   remoteBaseUrl: string | undefined,
 ): string | undefined {
   return (
@@ -193,7 +193,7 @@ function resolveOpenAICompatibleMemoryBaseUrl(
   );
 }
 
-function isKeyOptionalMemoryProvider(providerId: string, cfg: OpenClawConfig): boolean {
+function isKeyOptionalMemoryProvider(providerId: string, cfg: GrantedConfig): boolean {
   return (
     providerId === "local" ||
     providerId === "ollama" ||
@@ -203,7 +203,7 @@ function isKeyOptionalMemoryProvider(providerId: string, cfg: OpenClawConfig): b
 }
 
 async function resolveRuntimeMemoryAuditContext(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
 ): Promise<RuntimeMemoryAuditContext | null> {
   const result = await getActiveMemorySearchManagerCore({
@@ -258,7 +258,7 @@ function buildDreamingArtifactIssueNote(audit: DreamingArtifactsAuditSummary): s
   ].join("\n");
 }
 
-export async function noteMemoryRecallHealth(cfg: OpenClawConfig): Promise<void> {
+export async function noteMemoryRecallHealth(cfg: GrantedConfig): Promise<void> {
   const scopes = resolveMemoryDoctorAgentScopes(cfg);
   const labelAgents = scopes.length > 1;
   const dreaming = resolveMemoryDreamingConfig({
@@ -305,7 +305,7 @@ export async function noteMemoryRecallHealth(cfg: OpenClawConfig): Promise<void>
 }
 
 export async function maybeRepairMemoryRecallHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: DoctorPrompter;
 }): Promise<void> {
   const scopes = resolveMemoryDoctorAgentScopes(params.cfg);
@@ -410,7 +410,7 @@ export async function maybeRepairMemoryRecallHealth(params: {
   }
 }
 
-function hasActiveAlternateMemoryPluginSlot(cfg: OpenClawConfig): boolean {
+function hasActiveAlternateMemoryPluginSlot(cfg: GrantedConfig): boolean {
   const plugins = normalizePluginsConfig(cfg.plugins);
   if (!plugins.enabled) {
     return false;
@@ -435,7 +435,7 @@ function hasActiveAlternateMemoryPluginSlot(cfg: OpenClawConfig): boolean {
   return entry.enabled === true || entry.config !== undefined;
 }
 
-function isActiveMemoryPluginAvailable(cfg: OpenClawConfig): boolean {
+function isActiveMemoryPluginAvailable(cfg: GrantedConfig): boolean {
   const plugins = normalizePluginsConfig(cfg.plugins);
   if (!plugins.enabled || plugins.deny.includes("active-memory")) {
     return false;
@@ -451,7 +451,7 @@ function isActiveMemoryPluginAvailable(cfg: OpenClawConfig): boolean {
   return pluginConfig?.enabled !== false;
 }
 
-function resolveActiveMemoryConversationRecallSupport(cfg: OpenClawConfig): {
+function resolveActiveMemoryConversationRecallSupport(cfg: GrantedConfig): {
   providerSupported: boolean;
   memorySearchAllowed: boolean;
 } {
@@ -472,7 +472,7 @@ function resolveActiveMemoryConversationRecallSupport(cfg: OpenClawConfig): {
 }
 
 function noteRememberAcrossConversationsHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   noteFn: typeof note;
 }): { enabled: boolean } {
@@ -521,7 +521,7 @@ type MemorySearchHealthOptions = {
 };
 
 export async function noteMemorySearchHealth(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts?: MemorySearchHealthOptions,
 ): Promise<void> {
   const scopes = resolveMemoryDoctorAgentScopes(cfg);
@@ -551,7 +551,7 @@ export async function noteMemorySearchHealth(
 }
 
 async function noteMemorySearchHealthForAgent(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   scope: MemoryDoctorAgentScope,
   opts: MemorySearchHealthOptions,
 ): Promise<void> {
@@ -843,7 +843,7 @@ function hasLocalEmbeddings(local: { modelPath?: string }): boolean {
 
 async function hasApiKeyForProvider(
   provider: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentDir: string,
   opts?: { skipProfileResolution?: boolean },
 ): Promise<boolean> {

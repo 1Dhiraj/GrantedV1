@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import { resolveMatrixAccount } from "./accounts.js";
 import { resolveMatrixInboundRoute } from "./monitor/route.js";
 
 export function resolveMatrixConversationRouteOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   conversation: {
     kind: "direct" | "group" | "channel";

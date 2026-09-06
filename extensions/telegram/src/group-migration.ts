@@ -1,4 +1,4 @@
-import type { OpenClawConfig, TelegramGroupConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramGroupConfig } from "openclaw/plugin-sdk/config-contracts";
 // Telegram plugin module implements group migration behavior.
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
@@ -15,7 +15,7 @@ type TelegramGroupMigrationResult = {
 };
 
 function resolveAccountGroups(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): { groups?: TelegramGroups } {
   if (!accountId) {
@@ -59,7 +59,7 @@ function migrateTelegramGroupsInPlace(
 }
 
 export function migrateTelegramGroupConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   oldChatId: string;
   newChatId: string;

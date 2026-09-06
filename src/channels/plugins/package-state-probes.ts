@@ -6,7 +6,7 @@
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { isBundledSourceOverlayPath } from "../../plugins/bundled-source-overlays.js";
@@ -21,7 +21,7 @@ import { isSafeChannelEnvVarTriggerName } from "../../secrets/channel-env-var-na
 import { loadChannelPluginModule, resolveExistingPluginModulePath } from "./module-loader.js";
 
 type ChannelPackageStateChecker = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }) => boolean;
 
@@ -297,7 +297,7 @@ export function collectBundledChannelPackageStateLoadFailures(
 export function hasBundledChannelPackageState(params: {
   metadataKey: ChannelPackageStateMetadataKey;
   channelId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   discovery?: PluginDiscoveryResult;
 }): boolean {
@@ -320,7 +320,7 @@ export function hasBundledChannelPackageState(params: {
 export function hasChannelPackageState(params: {
   entry: PluginChannelCatalogEntry;
   metadataKey: ChannelPackageStateMetadataKey;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): boolean {
   const checker = resolveChannelPackageStateChecker({

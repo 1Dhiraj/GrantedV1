@@ -1,6 +1,6 @@
 // Full-entry coverage for current-attempt error context across model fallback.
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAssistantMessageFixture } from "../test-helpers/assistant-message-fixtures.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
@@ -22,7 +22,7 @@ import {
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 import type { EmbeddedRunAttemptResult } from "./run/types.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 const DEEPSEEK_ERROR_MESSAGE = "429 insufficient quota";
 const COMPACTION_REMOVED_ERROR_MESSAGE = "current candidate model unavailable";
@@ -140,7 +140,7 @@ function setupCompactionRemovedFallbackAttempt() {
   );
 }
 
-function runCompactionRemovedFallbackAttempt(ownedState: OpenClawTestState) {
+function runCompactionRemovedFallbackAttempt(ownedState: GrantedTestState) {
   return runEmbeddedAgent({
     ...createOverflowRunParams(ownedState),
     runId: "run-compaction-fallback-error-context",

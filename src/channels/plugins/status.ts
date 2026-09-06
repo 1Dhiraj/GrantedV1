@@ -4,7 +4,7 @@
  * Combines plugin status hooks, account inspection, and safe account field projection.
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { inspectChannelAccount } from "../account-inspection.js";
 import {
   projectSafeChannelAccountSnapshotFields,
@@ -22,7 +22,7 @@ import type { ChannelAccountSnapshot } from "./types.public.js";
 
 export async function buildChannelAccountSnapshotFromAccount<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   account: ResolvedAccount;
   runtime?: ChannelAccountSnapshot;
@@ -82,7 +82,7 @@ export async function buildChannelAccountSnapshotFromAccount<ResolvedAccount>(pa
 
 export async function buildReadOnlySourceChannelAccountSnapshot<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   runtime?: ChannelAccountSnapshot;
   probe?: unknown;
@@ -100,7 +100,7 @@ export async function buildReadOnlySourceChannelAccountSnapshot<ResolvedAccount>
 
 export async function resolveChannelAccountSnapshot<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   runtime?: ChannelAccountSnapshot;
   probe?: unknown;

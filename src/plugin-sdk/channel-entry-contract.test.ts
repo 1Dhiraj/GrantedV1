@@ -8,7 +8,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { PluginModuleLoaderFactory } from "../plugins/plugin-module-loader-cache.js";
 import type { PluginRuntime } from "../plugins/runtime/types.js";
-import type { OpenClawPluginApi, PluginRegistrationMode } from "../plugins/types.js";
+import type { GrantedPluginApi, PluginRegistrationMode } from "../plugins/types.js";
 import { withMockedWindowsPlatform } from "../test-utils/vitest-spies.js";
 import {
   defineBundledChannelEntry,
@@ -46,13 +46,13 @@ function writeJson(targetPath: string, value: unknown): void {
   fs.writeFileSync(targetPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-function createApi(registrationMode: PluginRegistrationMode): OpenClawPluginApi {
+function createApi(registrationMode: PluginRegistrationMode): GrantedPluginApi {
   return {
     registrationMode,
     runtime: { registrationMode } as unknown as PluginRuntime,
     registerChannel: vi.fn(),
     registerTool: vi.fn(),
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
 }
 
 function writeBundledChannelFixture(params: {
@@ -102,9 +102,9 @@ function writeBundledChannelFixture(params: {
 function createBundledChannelEntry(params: {
   importerPath: string;
   pluginId: string;
-  registerCliMetadata?: (api: OpenClawPluginApi) => void;
-  registerFull?: (api: OpenClawPluginApi) => void;
-  registerCapabilities?: (api: OpenClawPluginApi) => void;
+  registerCliMetadata?: (api: GrantedPluginApi) => void;
+  registerFull?: (api: GrantedPluginApi) => void;
+  registerCapabilities?: (api: GrantedPluginApi) => void;
 }) {
   return defineBundledChannelEntry({
     id: params.pluginId,
@@ -149,9 +149,9 @@ describe("defineBundledChannelEntry", () => {
       pluginId,
       runtimeMarker,
     });
-    const registerCliMetadata = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerCapabilities = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerFull = vi.fn<(api: OpenClawPluginApi) => void>((api) => {
+    const registerCliMetadata = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerCapabilities = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerFull = vi.fn<(api: GrantedPluginApi) => void>((api) => {
       api.registerTool(
         {
           name: "channel_tool",
@@ -191,9 +191,9 @@ describe("defineBundledChannelEntry", () => {
       pluginId,
       runtimeMarker,
     });
-    const registerCliMetadata = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerFull = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerCapabilities = vi.fn<(api: OpenClawPluginApi) => void>();
+    const registerCliMetadata = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerFull = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerCapabilities = vi.fn<(api: GrantedPluginApi) => void>();
     const entry = createBundledChannelEntry({
       importerPath,
       pluginId,
@@ -221,9 +221,9 @@ describe("defineBundledChannelEntry", () => {
       pluginId,
       runtimeMarker,
     });
-    const registerCliMetadata = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerFull = vi.fn<(api: OpenClawPluginApi) => void>();
-    const registerCapabilities = vi.fn<(api: OpenClawPluginApi) => void>();
+    const registerCliMetadata = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerFull = vi.fn<(api: GrantedPluginApi) => void>();
+    const registerCapabilities = vi.fn<(api: GrantedPluginApi) => void>();
     const entry = createBundledChannelEntry({
       importerPath,
       pluginId,
@@ -263,7 +263,7 @@ describe("defineBundledChannelSetupEntry", () => {
   it("exposes setup-runtime registrations without loading the full channel entry", () => {
     const tempRoot = tempDirs.make("openclaw-bundled-setup-entry-");
     const runtimeMarker = path.join(tempRoot, "runtime-loaded");
-    const setupRuntimeRegister = vi.fn<(api: OpenClawPluginApi) => void>();
+    const setupRuntimeRegister = vi.fn<(api: GrantedPluginApi) => void>();
     const pluginId = "bundled-setup-runtime";
     const { importerPath } = writeBundledChannelFixture({
       pluginRoot: path.join(tempRoot, "dist", "extensions", pluginId),

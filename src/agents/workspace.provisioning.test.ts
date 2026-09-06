@@ -9,7 +9,7 @@ import * as commandExec from "../process/exec.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resetLegacyWorkspaceStateCheckForTest } from "./workspace-legacy-state.test-support.js";
 import * as workspaceState from "./workspace-state-store.js";
@@ -20,7 +20,7 @@ import {
   ensureAgentWorkspace,
 } from "./workspace.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 let disposeGitCohort: (() => Promise<void>) | undefined;
 
 beforeEach(async () => {

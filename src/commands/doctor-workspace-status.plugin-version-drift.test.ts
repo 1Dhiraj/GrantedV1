@@ -1,7 +1,7 @@
 // Focused QA evidence for official Codex plugin drift through doctor diagnostics.
 import { describe, expect, it, vi } from "vitest";
 import * as noteModule from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { detectPluginVersionDrift } from "../plugins/plugin-version-drift.js";
 import {
   collectWorkspaceStatusHealthFindings,
@@ -33,7 +33,7 @@ vi.mock("../tasks/runtime-internal.js", () => ({
   listTasksForFlowId: () => [],
 }));
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   plugins: {
     entries: {
       codex: { enabled: true },

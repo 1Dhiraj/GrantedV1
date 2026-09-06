@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { resolveAuthStorePathForDisplay } from "openclaw/plugin-sdk/agent-runtime";
 import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
@@ -49,7 +49,7 @@ function makeContext(params: {
           workspace: params.workspaceDir,
         },
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     stateDir: params.stateDir,
     source: params.source,
     includeSecrets: true,

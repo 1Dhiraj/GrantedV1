@@ -8,7 +8,7 @@ import {
   loadSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { registerInternalHook, unregisterInternalHook } from "../../hooks/internal-hooks.js";
 import { createDeferredCore } from "../../shared/deferred.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
@@ -60,7 +60,7 @@ function client(profileId?: string): GatewayClient {
   };
 }
 
-function context(cfg: OpenClawConfig) {
+function context(cfg: GrantedConfig) {
   return {
     getRuntimeConfig: () => cfg,
     getSessionEventSubscriberConnIds: () => new Set(["observer"]),
@@ -70,7 +70,7 @@ function context(cfg: OpenClawConfig) {
 }
 
 async function invoke(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient;
   request: Record<string, unknown>;
 }) {
@@ -151,7 +151,7 @@ describe("sessions.patch", () => {
     await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
       const sessionKey = "agent:main:permission-update";
       const sessionId = "session-permission-update";
-      const cfg: OpenClawConfig = {};
+      const cfg: GrantedConfig = {};
       const requestContext = context(cfg);
       const requestClient = client();
       requestClient.connect.scopes = ["operator.admin"];
@@ -245,7 +245,7 @@ describe("sessions.patch", () => {
       const profileId = ensureProfileForEmail("patch-creator@example.test").id;
       const sessionKey = "agent:main:patch-created";
       const requestClient = client(profileId);
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "member",
@@ -322,7 +322,7 @@ describe("sessions.assignOwner", () => {
             { id: "research", identity: { name: "Research" } },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const requestContext = context(cfg);
       await expect(
         dispatchGatewayMethodInProcess(
@@ -375,7 +375,7 @@ describe("sessions.assignOwner", () => {
             { id: "research", identity: { name: "Research" } },
           ],
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       vi.spyOn(Date, "now").mockReturnValue(4242);
 
       const result = await invoke({
@@ -455,7 +455,7 @@ describe("sessions.assignOwner", () => {
       );
       const cfg = {
         agents: { list: [{ id: "main", default: true }, { id: "research" }] },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const request = { key: sessionKey, owner: { type: "agent", id: "research" } };
       const hidden = await invoke({ cfg, client: client("profile-viewer"), request });
       expect(hidden.responses[0]?.[2]).toMatchObject({

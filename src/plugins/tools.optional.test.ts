@@ -2,7 +2,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { DEFAULT_PLUGIN_TOOLS_ALLOWLIST_ENTRY } from "../agents/tool-policy.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { SecretRef } from "../config/types.secrets.js";
 import { resetLogger, setLoggerOverride } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
@@ -140,7 +140,7 @@ function createToolManifest(
   };
 }
 
-function createContext(): { config: OpenClawConfig; workspaceDir: string } {
+function createContext(): { config: GrantedConfig; workspaceDir: string } {
   return {
     config: {
       plugins: {
@@ -1330,7 +1330,7 @@ describe("resolvePluginTools optional tools", () => {
   it.each<{
     name: string;
     apiKey: SecretRef;
-    secrets: OpenClawConfig["secrets"];
+    secrets: GrantedConfig["secrets"];
   }>([
     {
       name: "explicit file provider",
@@ -2317,7 +2317,7 @@ describe("resolvePluginTools optional tools", () => {
 
   it("executes cached plugin tools from the published generation without rescanning manifests", async () => {
     const context = createContext();
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       ...context.config,
       channels: { telegram: { enabled: false } },
     };

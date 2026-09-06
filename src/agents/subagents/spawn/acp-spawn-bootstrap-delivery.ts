@@ -5,7 +5,7 @@ import {
   formatConversationTarget,
   deliveryContextFromConversation,
 } from "../../../channels/route-projection.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { SessionBindingRecord } from "../../../infra/outbound/session-binding-service.js";
 import { resolveSpawnChannelAccountId } from "../../spawn-plan.js";
 import type { AcpSpawnRequesterState } from "./acp-spawn-requester.js";
@@ -44,7 +44,7 @@ export type AcpSpawnBootstrapDeliveryPlan = {
 };
 
 export function resolveAcpSpawnBootstrapDeliveryPlan(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   spawnMode: "run" | "session";
   effectiveStreamToParent: boolean;
   requester: AcpSpawnRequesterState;

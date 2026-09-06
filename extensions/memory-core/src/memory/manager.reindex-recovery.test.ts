@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
@@ -68,7 +68,7 @@ describe("memory manager reindex recovery", () => {
     provider?: string;
     sources?: Array<"memory" | "sessions">;
     cacheEnabled?: boolean;
-  }): OpenClawConfig {
+  }): GrantedConfig {
     return isolateMemoryManagerTestConfig({
       memory: {
         search: {
@@ -89,7 +89,7 @@ describe("memory manager reindex recovery", () => {
     });
   }
 
-  async function openManager(cfg: OpenClawConfig): Promise<MemoryIndexManager> {
+  async function openManager(cfg: GrantedConfig): Promise<MemoryIndexManager> {
     const { getMemorySearchManager } = await import("./index.js");
     const result = await getMemorySearchManager({ cfg, agentId: "main" });
     if (!result.manager) {

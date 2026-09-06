@@ -3,7 +3,7 @@ import { createDeferred } from "../../../test/helpers/promise.js";
 import { onTrustedMessageAuditEvent } from "../../audit/message-audit-events.js";
 import { createMessageReceiptFromOutboundResults } from "../../channels/message/receipt.js";
 import type { ChannelMessageSendTextContext } from "../../channels/message/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -63,7 +63,7 @@ async function startBlockedFreshDelivery(params: { tmpDir: string }) {
     ]),
   );
   const delivery = deliverOutboundPayloads({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     channel: "matrix",
     to: "!room:example",
     payloads: [{ text: "fresh live content" }],
@@ -131,7 +131,7 @@ async function startBlockedStableDelivery(params: {
     params.tmpDir,
   );
   const delivery = deliverOutboundPayloads({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     channel: "matrix",
     to: "!room:example",
     payloads: [{ text: "regenerated content must not replace queue custody" }],
@@ -208,7 +208,7 @@ async function startBlockedRenderedStableDelivery(params: {
     params.tmpDir,
   );
   const delivery = deliverOutboundPayloads({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     channel: "matrix",
     to: "!room:example",
     payloads: [{ text: "regenerated content must not replace queue custody" }],
@@ -271,7 +271,7 @@ async function startBlockedProviderStableDelivery(params: {
     params.tmpDir,
   );
   const delivery = deliverOutboundPayloads({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     channel: "matrix",
     to: "!room:example",
     payloads: [{ text: "regenerated content must not replace queue custody" }],

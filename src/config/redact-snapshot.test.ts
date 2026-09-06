@@ -13,7 +13,7 @@ import {
   type TestSnapshot,
 } from "./redact-snapshot.test-helpers.js";
 import { buildConfigSchemaCore } from "./schema.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "./types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.openclaw.js";
 
 function expectNestedPairValue(
   source: Record<string, Record<string, Record<string, unknown>>>,
@@ -712,7 +712,7 @@ describe("redactConfigSnapshot", () => {
           mode: "full",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const raw = JSON.stringify(sourceConfig);
     const runtimeConfig = materializeRuntimeConfig(structuredClone(sourceConfig));
     const snapshot = {

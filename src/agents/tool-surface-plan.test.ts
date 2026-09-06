@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runWithAgentRingZeroTools } from "./agent-tools.ring-zero-context.js";
 import { createCodeModeTools } from "./code-mode.js";
 import { createStubTool } from "./test-helpers/agent-tool-stubs.js";
@@ -16,7 +16,7 @@ import { applyAgentToolSurfaceCatalog, resolveAgentToolSurfacePlan } from "./too
 // keep a public export alive that no production caller needs.
 type AgentToolSurfacePlanParams = Parameters<typeof resolveAgentToolSurfacePlan>[0];
 
-const controlsEnabledConfig: OpenClawConfig = {
+const controlsEnabledConfig: GrantedConfig = {
   tools: { codeMode: true, toolSearch: true },
 };
 const basePlanParams: AgentToolSurfacePlanParams = {
@@ -47,7 +47,7 @@ describe("resolveAgentToolSurfacePlan", () => {
   );
 
   it("uses the selected model policy before transport aliases and reevaluates fallbacks", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: "auto" },
       agents: { defaults: { models: { "test/family": { codeMode: false } } } },
     };
@@ -95,7 +95,7 @@ describe("resolveAgentToolSurfacePlan", () => {
     },
   ] satisfies Array<{
     name: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     expected: { codeMode: boolean; toolSearch: boolean };
   }>)("keeps controls mutually exclusive: $name", ({ config, expected }) => {
     const plan = resolveAgentToolSurfacePlan({ ...basePlanParams, config });
@@ -106,7 +106,7 @@ describe("resolveAgentToolSurfacePlan", () => {
   });
 
   it("preserves Code Mode controls for a checkpoint-proven restart recovery", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: false, toolSearch: true },
     };
     const plan = resolveAgentToolSurfacePlan({
@@ -140,7 +140,7 @@ describe("resolveAgentToolSurfacePlan", () => {
     },
   ] satisfies Array<{
     name: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     toolsAllow?: string[];
     forceCodeModeControls?: boolean;
   }>)("does not add $name controls to a completion-private message-only run", (run) => {
@@ -203,7 +203,7 @@ describe("resolveAgentToolSurfacePlan", () => {
     },
   ] satisfies Array<{
     name: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     toolsAllow?: string[];
     forceCodeModeControls?: boolean;
     expected: { codeMode: boolean; toolSearch: boolean };
@@ -224,7 +224,7 @@ describe("applyAgentToolSurfaceCatalog", () => {
   const executeTool: ToolSearchCatalogToolExecutor = async () => ({ content: [], details: {} });
 
   it("uses the code-mode catalog when code-mode controls are enabled", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: true, toolSearch: { enabled: true, mode: "directory" } },
     };
     const plan = resolveAgentToolSurfacePlan({ ...basePlanParams, config });
@@ -247,7 +247,7 @@ describe("applyAgentToolSurfaceCatalog", () => {
   });
 
   it("keeps checkpoint-proven recovery executable after Code Mode is disabled", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: false, toolSearch: { enabled: true, mode: "directory" } },
     };
     const plan = resolveAgentToolSurfacePlan({
@@ -288,7 +288,7 @@ describe("applyAgentToolSurfaceCatalog", () => {
   });
 
   it("uses the schema-directory catalog in directory mode", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: false, toolSearch: { enabled: true, mode: "directory" } },
     };
     const plan = resolveAgentToolSurfacePlan({ ...basePlanParams, config });
@@ -309,7 +309,7 @@ describe("applyAgentToolSurfaceCatalog", () => {
   });
 
   it("uses the tool-search catalog outside directory mode", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { codeMode: false, toolSearch: { enabled: true, mode: "tools" } },
     };
     const plan = resolveAgentToolSurfacePlan({ ...basePlanParams, config });

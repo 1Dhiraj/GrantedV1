@@ -10,12 +10,12 @@ import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.j
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { maybeMigrateAuthProfileJsonStoresToSqlite } from "./doctor-auth-flat-profiles.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 
 function makePrompter(): DoctorPrompter {
   return {
@@ -30,7 +30,7 @@ function makePrompter(): DoctorPrompter {
   } as unknown as DoctorPrompter;
 }
 
-async function makeTestState(): Promise<OpenClawTestState> {
+async function makeTestState(): Promise<GrantedTestState> {
   const state = await createOpenClawTestState();
   states.push(state);
   return state;

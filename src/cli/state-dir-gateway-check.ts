@@ -1,6 +1,6 @@
 import path from "node:path";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readGatewayServiceState, resolveGatewayService } from "../daemon/service.js";
 import {
   buildGatewayConnectionDetails,
@@ -67,7 +67,7 @@ export function compareCliGatewayStateDirs(params: {
 
 export async function checkCliGatewayStateDir(params: {
   command: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
 }): Promise<CliGatewayStateDirOutcome> {
   const cliStateDir = resolveStateDir(process.env);
   const cliConfigPath = resolveConfigPath(process.env);

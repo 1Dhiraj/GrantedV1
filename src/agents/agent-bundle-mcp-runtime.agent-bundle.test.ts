@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { afterEach, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadEnabledBundleMcpConfig } from "../plugins/bundle-mcp.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
@@ -141,7 +141,7 @@ it("discovers an installed Agent Plugins bundle and executes its real stdio tool
     "utf8",
   );
 
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     plugins: { entries: { [pluginId]: { enabled: true } } },
   };
   await withEnvAsync(

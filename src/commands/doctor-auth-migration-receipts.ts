@@ -13,20 +13,20 @@ import {
   recordLegacyMigrationRun,
   recordLegacyMigrationSource,
 } from "../infra/state-migrations.receipts.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
-import type { DB as OpenClawStateDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
 } from "../state/openclaw-state-db.js";
 
 const MIGRATION_KIND = "auth-profile-json-to-sqlite-v2";
-type MigrationDatabase = Pick<OpenClawStateDatabase, "migration_runs" | "migration_sources">;
+type MigrationDatabase = Pick<GrantedStateDatabase, "migration_runs" | "migration_sources">;
 type AuthProfileTargetDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "auth_profile_store" | "auth_profile_state"
 > &
-  Pick<OpenClawStateDatabase, "config_machine_state">;
+  Pick<GrantedStateDatabase, "config_machine_state">;
 
 export type AuthProfileMigrationSourceReceipt = {
   sourceKey: string;

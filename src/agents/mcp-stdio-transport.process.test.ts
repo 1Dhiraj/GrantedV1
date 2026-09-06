@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { isPidAlive } from "../shared/pid-alive.js";
 import { killPidIfAlive } from "../test-utils/process-tree.js";
-import { OpenClawStdioClientTransport } from "./mcp-stdio-transport.js";
+import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
@@ -22,7 +22,7 @@ describe.skipIf(process.platform === "win32")("OpenClaw stdio process-group owne
         `import {spawn} from "node:child_process"; import fs from "node:fs"; const child=spawn(process.execPath,["-e","setInterval(()=>{},1000)"],{stdio:"ignore"}); fs.writeFileSync(${JSON.stringify(descendantPidPath)},String(child.pid)); const timer=setInterval(()=>{if(fs.existsSync(${JSON.stringify(exitMarkerPath)})){clearInterval(timer);process.exit(1)}},10);`,
         "utf8",
       );
-      const transport = new OpenClawStdioClientTransport({
+      const transport = new GrantedStdioClientTransport({
         command: process.execPath,
         args: [serverPath],
         stderr: "ignore",
@@ -64,7 +64,7 @@ describe.skipIf(process.platform === "win32")("OpenClaw stdio process-group owne
         `import {spawn} from "node:child_process"; import fs from "node:fs"; const child=spawn(process.execPath,["-e","setInterval(()=>{},1000)"],{stdio:"ignore"}); fs.writeFileSync(${JSON.stringify(descendantPidPath)},String(child.pid)); process.stdin.resume(); process.stdin.on("end",()=>process.exit(0));`,
         "utf8",
       );
-      const transport = new OpenClawStdioClientTransport({
+      const transport = new GrantedStdioClientTransport({
         command: process.execPath,
         args: [serverPath],
         stderr: "ignore",

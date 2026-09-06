@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import { createServer, IncomingMessage, type ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import type { webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
@@ -233,7 +233,7 @@ describe("monitorLineProvider lifecycle", () => {
     const task = monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       abortSignal: abort.signal,
       statusSink,
@@ -264,7 +264,7 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
       accountId: "work",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -288,7 +288,7 @@ describe("monitorLineProvider lifecycle", () => {
     await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       abortSignal: abort.signal,
     });
@@ -300,7 +300,7 @@ describe("monitorLineProvider lifecycle", () => {
     const monitor = await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -326,7 +326,7 @@ describe("monitorLineProvider lifecycle", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -346,7 +346,7 @@ describe("monitorLineProvider lifecycle", () => {
       monitorLineProvider({
         channelAccessToken: "token",
         channelSecret: "secret", // pragma: allowlist secret
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         runtime: {} as RuntimeEnv,
       }),
     ).rejects.toThrow("line bot startup failed");
@@ -364,7 +364,7 @@ describe("monitorLineProvider lifecycle", () => {
       monitorLineProvider({
         channelAccessToken: "token",
         channelSecret: "secret", // pragma: allowlist secret
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         runtime: {} as RuntimeEnv,
         statusSink,
       }),
@@ -395,7 +395,7 @@ describe("monitorLineProvider lifecycle", () => {
     const monitor = await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
     const onMessage = createLineBotMock.mock.calls[0]?.[0]?.onMessage;
@@ -456,7 +456,7 @@ describe("monitorLineProvider lifecycle", () => {
     const monitor = await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
     const onMessage = createLineBotMock.mock.calls[0]?.[0]?.onMessage;
@@ -514,7 +514,7 @@ describe("monitorLineProvider lifecycle", () => {
     const monitor = await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
     const onMessage = createLineBotMock.mock.calls[0]?.[0]?.onMessage;
@@ -548,14 +548,14 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "first-token",
       channelSecret: "first-secret", // pragma: allowlist secret
       accountId: "first",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
     const secondMonitor = await monitorLineProvider({
       channelAccessToken: "second-token",
       channelSecret: "second-secret", // pragma: allowlist secret
       accountId: "second",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -596,7 +596,7 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
       accountId: "default",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime,
     });
     const route = requireRegisteredRoute();
@@ -802,7 +802,7 @@ describe("monitorLineProvider lifecycle", () => {
       channelSecret: "secret", // pragma: allowlist secret
       webhookPath: "/Line//Webhook/",
       accountId: "default",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -834,7 +834,7 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
       accountId: "default",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -864,7 +864,7 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
       accountId: "default",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -909,14 +909,14 @@ describe("monitorLineProvider lifecycle", () => {
       channelAccessToken: "first-token",
       channelSecret: "shared-secret", // pragma: allowlist secret
       accountId: "first",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
     const secondMonitor = await monitorLineProvider({
       channelAccessToken: "second-token",
       channelSecret: "shared-secret", // pragma: allowlist secret
       accountId: "second",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 
@@ -954,7 +954,7 @@ describe("monitorLineProvider lifecycle", () => {
     const monitor = await monitorLineProvider({
       channelAccessToken: "token",
       channelSecret: "secret", // pragma: allowlist secret
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
     });
 

@@ -17,7 +17,7 @@ import {
   writePersistedInstalledPluginIndexInstallRecordsWithLeaseMock,
   applyPluginUninstallDirectoryRemovalMock,
 } from "../cli/plugins-cli-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { hasRetainedManagedNpmInstallMarker } from "./managed-npm-retention.js";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
 
@@ -70,7 +70,7 @@ describe("persistPluginInstall", () => {
       plugins: {
         allow: ["memory-core"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         allow: ["memory-core", "alpha"],
@@ -78,9 +78,9 @@ describe("persistPluginInstall", () => {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockImplementation((...args: unknown[]) => {
-      const [cfg, pluginId] = args as [OpenClawConfig, string];
+      const [cfg, pluginId] = args as [GrantedConfig, string];
       expect(pluginId).toBe("alpha");
       expect(cfg.plugins?.allow).toEqual(["memory-core", "alpha"]);
       return { config: enabledConfig, enabled: true };
@@ -152,14 +152,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     clearPluginRegistryLoadCacheMock.mockImplementation(() => {
       throw new Error("cache unavailable");
@@ -190,14 +190,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           codex: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     setInstalledPluginIndexInstallRecords({
       codex: {
@@ -208,7 +208,7 @@ describe("persistPluginInstall", () => {
     });
     planPluginUninstallMock.mockReturnValueOnce({
       ok: true,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginId: "codex",
       actions: {
         entry: false,
@@ -280,14 +280,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           codex: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     setInstalledPluginIndexInstallRecords({
       codex: {
@@ -321,14 +321,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           codex: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-plugin-persist-"));
     const previousProjectRoot = path.join(tempRoot, "npm", "projects", "codex-v1");
@@ -357,7 +357,7 @@ describe("persistPluginInstall", () => {
     });
     planPluginUninstallMock.mockReturnValueOnce({
       ok: true,
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginId: "codex",
       actions: {
         entry: false,
@@ -426,14 +426,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           discord: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [
@@ -485,14 +485,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           discord: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     buildPluginSnapshotReportMock.mockReturnValue({
       plugins: [
@@ -529,14 +529,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
     refreshPluginRegistryMock.mockRejectedValueOnce(new Error("registry unavailable"));
 
@@ -566,14 +566,14 @@ describe("persistPluginInstall", () => {
       plugins: {
         entries: {},
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const enabledConfig = {
       plugins: {
         entries: {
           alpha: { enabled: true },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     enablePluginInConfigMock.mockReturnValue({ config: enabledConfig, enabled: true });
 
     const next = await persistPluginInstall({

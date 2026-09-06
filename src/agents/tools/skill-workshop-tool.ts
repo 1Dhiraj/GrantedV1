@@ -4,7 +4,7 @@ import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
  *
  * Exposes proposal create/update/review/apply actions while the workshop service owns persistence.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { applyAutonomousSkillProposal } from "../../skills/workshop/autonomous-apply.js";
 import {
@@ -136,7 +136,7 @@ function bindProposalRevisionConstraint(
 type SkillWorkshopToolOptions = {
   libraryAuthoring?: import("../../skills/library/authoring.js").SkillLibraryAuthoringCapability;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentId?: string;
   origin?: SkillProposalOrigin;

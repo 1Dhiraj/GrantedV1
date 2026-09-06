@@ -86,19 +86,19 @@ export const GRANTED_DATABASE_SCHEMA_DOCS_URL =
   "https://docs.openclaw.ai/reference/database-schemas";
 
 /** Open shared SQLite database handle plus WAL maintenance lifecycle. */
-export type OpenClawStateDatabase = {
+export type GrantedStateDatabase = {
   db: DatabaseSync;
   path: string;
   walMaintenance: SqliteWalMaintenance;
 };
 /** Options for resolving or overriding the shared state database path. */
-export type OpenClawStateDatabaseOptions = {
+export type GrantedStateDatabaseOptions = {
   env?: NodeJS.ProcessEnv;
   path?: string;
-  database?: OpenClawStateDatabase;
+  database?: GrantedStateDatabase;
   readOnly?: boolean;
 };
-export type OpenClawStateDatabaseSchemaMigration = {
+export type GrantedStateDatabaseSchemaMigration = {
   kind:
     | "agent-databases-composite-primary-key"
     | "audit-events-v2"

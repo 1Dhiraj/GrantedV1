@@ -10,14 +10,14 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { createChannelIngressQueue } from "./ingress-queue.js";
 
-type ChannelIngressTestDatabase = Pick<OpenClawStateKyselyDatabase, "channel_ingress_events">;
+type ChannelIngressTestDatabase = Pick<GrantedStateKyselyDatabase, "channel_ingress_events">;
 
 function createTestIngressQueue<TPayload, TMetadata = unknown, TCompletedMetadata = unknown>(
   stateDir: string,
@@ -670,7 +670,7 @@ describe("channel ingress queue", () => {
           claim_owner: overrides.claim_owner ?? null,
           claimed_at: overrides.claimed_at ?? null,
           completed_at: overrides.completed_at ?? null,
-        } as Insertable<OpenClawStateKyselyDatabase["channel_ingress_events"]>),
+        } as Insertable<GrantedStateKyselyDatabase["channel_ingress_events"]>),
       );
     }
 

@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { CLI_OUTPUT_MAX_BUFFER } from "./defaults.constants.js";
@@ -112,7 +112,7 @@ async function runAudioEntry(params: {
     result = await runCliEntry({
       capability: "audio",
       entry: { type: "cli", command: params.command, args: params.args },
-      cfg: { tools: { media: { audio: {} } } } as OpenClawConfig,
+      cfg: { tools: { media: { audio: {} } } } as GrantedConfig,
       ctx,
       attachment: requireFirstAttachment(media),
       cache,
@@ -171,7 +171,7 @@ describe("media-understanding CLI audio entry", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           ctx,
           attachment: requireFirstAttachment(media),
           cache,
@@ -215,7 +215,7 @@ describe("media-understanding CLI audio entry", () => {
         },
         cfg: {
           tools: { media: { audio: { language: testCase.configLanguage } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         ctx,
         attachment: requireFirstAttachment(media),
         cache,
@@ -279,7 +279,7 @@ describe("media-understanding CLI audio entry", () => {
                   "{{MediaPaths}}",
                 ],
               },
-              cfg: { tools: { media: { audio: {} } } } as OpenClawConfig,
+              cfg: { tools: { media: { audio: {} } } } as GrantedConfig,
               ctx,
               attachment,
               cache,
@@ -343,7 +343,7 @@ describe("media-understanding CLI audio entry", () => {
               command: "whisper-cli",
               args: ["-otxt", "-of", "{{OutputBase}}", "{{MediaPath}}"],
             },
-            cfg: { tools: { media: { audio: {} } } } as OpenClawConfig,
+            cfg: { tools: { media: { audio: {} } } } as GrantedConfig,
             ctx,
             attachment: requireFirstAttachment(media),
             cache,
@@ -477,7 +477,7 @@ describe("media-understanding CLI audio entry", () => {
           command: "sherpa-onnx-offline",
           args: ["{{MediaPath}}"],
         },
-        cfg: { tools: { media: { audio: {} } } } as OpenClawConfig,
+        cfg: { tools: { media: { audio: {} } } } as GrantedConfig,
         ctx,
         attachment: requireFirstAttachment(media),
         cache,
@@ -502,7 +502,7 @@ describe("media-understanding CLI audio entry", () => {
           command: "sherpa-onnx-offline",
           args: ["{{MediaPath}}"],
         },
-        cfg: { tools: { media: { audio: {} } } } as OpenClawConfig,
+        cfg: { tools: { media: { audio: {} } } } as GrantedConfig,
         ctx,
         attachment: requireFirstAttachment(media),
         cache,

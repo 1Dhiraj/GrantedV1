@@ -8,7 +8,7 @@ import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import { Type } from "typebox";
 import type { ChatPendingInputsPage } from "../../../packages/gateway-protocol/src/schema/logs-chat.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { capArrayByJsonBytes } from "../../gateway/session-transcript-readers.js";
 import { jsonUtf8Bytes } from "../../infra/json-utf8-bytes.js";
 import { redactToolPayloadText } from "../../logging/redact.js";
@@ -429,7 +429,7 @@ export function createSessionsHistoryTool(opts?: {
   agentSessionKey?: string;
   requesterAgentIdOverride?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   callGateway?: GatewayCaller;
   sessionLinkBase?: string;
 }): AnyAgentTool {

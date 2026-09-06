@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { listAgentIds, resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveCodexAppServerHomeDir,
   resolveCodexAppServerLocalHomeDir,
@@ -41,7 +41,7 @@ function existingCatalogHomeCandidates(value: string, label?: string): CatalogHo
 
 /** Resolves every local Codex store the operator already owns, without path disclosure. */
 function resolveCodexCatalogHomes(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginConfig: unknown;
   ownerAgentId: string;
   env: NodeJS.ProcessEnv;
@@ -137,14 +137,14 @@ type CodexCatalogHomeResolver = {
 
 /** Discovers Codex homes once per immutable Gateway config generation. */
 export function createCodexCatalogHomeResolver(params: {
-  config: OpenClawConfig;
-  getRuntimeConfig: () => OpenClawConfig | undefined;
+  config: GrantedConfig;
+  getRuntimeConfig: () => GrantedConfig | undefined;
   getPluginConfig: () => unknown;
   env?: NodeJS.ProcessEnv;
 }): CodexCatalogHomeResolver {
   const env = params.env ?? process.env;
-  const homesByConfig = new WeakMap<OpenClawConfig, Map<string, readonly CodexCatalogHome[]>>();
-  const buildSnapshot = (config: OpenClawConfig) => {
+  const homesByConfig = new WeakMap<GrantedConfig, Map<string, readonly CodexCatalogHome[]>>();
+  const buildSnapshot = (config: GrantedConfig) => {
     const pluginConfig = params.getPluginConfig();
     const homesByAgent = new Map(
       listAgentIds(config).map((agentId) => [

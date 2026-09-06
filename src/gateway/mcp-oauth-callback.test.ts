@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { requesterMcpOAuthStoreKeyPrefix } from "../agents/mcp-oauth-identity.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   complete: vi.fn(),
@@ -24,7 +24,7 @@ const STORE_KEY = `${requesterMcpOAuthStoreKeyPrefix("calendar", SERVER_URL)}fed
 const AUTHORIZATION_URL =
   "https://accounts.example.com/authorize?state=state-1234567890&client_id=openclaw";
 
-function callbackConfig(serverName = "calendar"): OpenClawConfig {
+function callbackConfig(serverName = "calendar"): GrantedConfig {
   return {
     mcp: {
       servers: {
@@ -49,7 +49,7 @@ function pendingStore() {
 
 async function dispatch(
   path: string,
-  options?: { config?: OpenClawConfig; method?: string },
+  options?: { config?: GrantedConfig; method?: string },
 ): Promise<{
   handled: boolean;
   response: ReturnType<typeof createResponse>;

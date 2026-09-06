@@ -6,7 +6,7 @@ import {
   listExplicitlyDisabledChannelIdsForConfig,
   listPotentialConfiguredChannelPresenceSignals,
 } from "../../../channels/config-presence.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isRecord } from "../../../utils.js";
 
 type ConfiguredChannelEntryPolicy = "raw" | "enabled" | "meaningful" | "enabled-or-meaningful";
@@ -41,7 +41,7 @@ export function listDoctorConfiguredChannelIds(
   options: DoctorConfiguredChannelIdOptions,
 ): string[] {
   const root = isRecord(config) ? config : {};
-  const cfg = root as OpenClawConfig;
+  const cfg = root as GrantedConfig;
   if (options.skipWhenPluginsDisabled && isRecord(root.plugins) && root.plugins.enabled === false) {
     return [];
   }

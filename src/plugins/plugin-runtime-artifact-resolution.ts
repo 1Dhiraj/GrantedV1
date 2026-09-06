@@ -1,6 +1,6 @@
 /** Resolves the exact root and entry selected by the plugin runtime loader. */
 import path from "node:path";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { pluginCacheExistsSync, pluginCacheRealpathSync } from "./plugin-cache-files.js";
 import { getPluginCacheRoot } from "./plugin-cache.js";
 import type { PluginOrigin } from "./plugin-origin.types.js";
@@ -33,7 +33,7 @@ export function resolvePluginRuntimeArtifact(params: {
   rootDir: string;
   origin: PluginOrigin;
   preferBuiltPluginArtifacts: boolean;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: GrantedPackageManifest;
   registry?: PluginRegistry;
 }): { source: string; rootDir: string } {
   const rootDir = resolveCanonicalDistRuntimeSource(

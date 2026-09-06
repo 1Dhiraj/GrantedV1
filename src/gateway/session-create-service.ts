@@ -55,7 +55,7 @@ import {
   type SessionCreatedVia,
 } from "../config/sessions/session-entry-provenance.js";
 import { inheritSessionSelection } from "../config/sessions/session-entry-selection.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createInternalHookEvent,
   hasInternalHookListeners,
@@ -113,7 +113,7 @@ const loadSessionLifecycleRuntime = createLazyRuntimeModule(
 );
 
 function resolveSessionCreateModelSelection(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   input: string | { model: string; agentRuntime?: string } | undefined,
   parentEntry?: SessionEntry,
@@ -155,7 +155,7 @@ function resolveSessionCreateModelSelection(
 
 async function existingSessionSelectionWouldChange(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   catalogModel?: string;
   defaultModel: string;
   defaultProvider: string;
@@ -306,7 +306,7 @@ type CreateGatewaySessionResult =
   | Extract<GatewaySessionCommitResult, { ok: false }>;
 
 export async function createGatewaySession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key?: string;
   agentId?: string;
   label?: string;

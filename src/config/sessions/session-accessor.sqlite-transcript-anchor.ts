@@ -1,7 +1,7 @@
 import { executeSqliteQueryTakeFirstSync } from "../../infra/kysely-sync.js";
 import {
   openOpenClawAgentDatabase,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import {
   getSessionKysely,
@@ -15,7 +15,7 @@ import type { TranscriptEntryAnchor } from "./transcript-entry-anchor.js";
 
 /** Reads one active message identity from the caller's current SQLite transaction. */
 export function readActiveTranscriptEntryAnchorInTransaction(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   resolved: ResolvedTranscriptScope;
   entryId: string;
   message?: unknown;

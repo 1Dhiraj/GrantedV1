@@ -17,7 +17,7 @@ import {
   serializeModelCatalogBundle,
   summarizeModelCatalogBundle,
 } from "../../scripts/publish-model-catalog.mts";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import { setRemoteModelCatalogOverlaySourcesForTest } from "../../src/model-catalog/remote-overlay.test-support.js";
 import {
   estimateAggregateUsageCost,
@@ -66,7 +66,7 @@ function publishedPricingParams(bundle: RemoteModelCatalogBundle, provider: stri
       checked_at: bundle.generatedAt,
     }),
   });
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     plugins: { allow: [provider], entries: { [provider]: { enabled: true } } },
   };
   return { config, agentDir, provider };

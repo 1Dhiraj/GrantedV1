@@ -26,20 +26,20 @@ export const STATE_SUPERVISION_KEY = "gateway.supervision";
 const MAX_OWNERSHIP_TIMESTAMP_MS = 8_640_000_000_000_000;
 const MANAGER_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/u;
 
-export type OpenClawExternalStateOwnership = {
+export type GrantedExternalStateOwnership = {
   claimedAt: number;
   managerId: string;
   mode: "external";
   version: 1;
 };
 
-export class OpenClawStateOwnershipError extends Error {}
+export class GrantedStateOwnershipError extends Error {}
 
 export function isOpenClawStateWriteContentionError(error: unknown): boolean {
   return error instanceof StateDatabaseCoordinatorContentionError || isSqliteLockError(error);
 }
 
-export class OpenClawStateOwnershipMetadataError extends OpenClawStateOwnershipError {
+export class GrantedStateOwnershipMetadataError extends GrantedStateOwnershipError {
   constructor(
     readonly databasePath: string,
     message: string,
@@ -48,11 +48,11 @@ export class OpenClawStateOwnershipMetadataError extends OpenClawStateOwnershipE
       `OpenClaw shared state ownership metadata is invalid at ${databasePath}: ${message}. ` +
         "Repair it with GRANTED_SUPERVISOR_MODE=external openclaw database ownership claim --manager <manager-id>.",
     );
-    this.name = "OpenClawStateOwnershipMetadataError";
+    this.name = "GrantedStateOwnershipMetadataError";
   }
 }
 
-class OpenClawStateExternalOwnershipError extends OpenClawStateOwnershipError {
+class GrantedStateExternalOwnershipError extends GrantedStateOwnershipError {
   constructor(
     readonly databasePath: string,
     readonly managerId: string,
@@ -61,7 +61,7 @@ class OpenClawStateExternalOwnershipError extends OpenClawStateOwnershipError {
       `OpenClaw shared state database ${databasePath} is externally supervised by ${managerId}. ` +
         "Use that external supervisor with GRANTED_SUPERVISOR_MODE=external for writable operations.",
     );
-    this.name = "OpenClawStateExternalOwnershipError";
+    this.name = "GrantedStateExternalOwnershipError";
   }
 }
 
@@ -78,12 +78,12 @@ export function normalizeOpenClawStateManagerId(managerId: string): string {
 function parseExternalOwnership(
   valueJson: string,
   databasePath: string,
-): OpenClawExternalStateOwnership {
+): GrantedExternalStateOwnership {
   let value: unknown;
   try {
     value = JSON.parse(valueJson) as unknown;
   } catch {
-    throw new OpenClawStateOwnershipMetadataError(databasePath, "reserved value is not valid JSON");
+    throw new GrantedStateOwnershipMetadataError(databasePath, "reserved value is not valid JSON");
   }
   const record = isRecord(value) ? value : undefined;
   const keys = record ? Object.keys(record).toSorted().join(",") : "";
@@ -100,7 +100,7 @@ function parseExternalOwnership(
     claimedAt < 0 ||
     claimedAt > MAX_OWNERSHIP_TIMESTAMP_MS
   ) {
-    throw new OpenClawStateOwnershipMetadataError(
+    throw new GrantedStateOwnershipMetadataError(
       databasePath,
       "reserved value does not match the version 1 external ownership contract",
     );
@@ -118,7 +118,7 @@ export function inspectOpenClawStateOwnershipFromDatabase(
   database: DatabaseSync,
   databasePath: string,
   configMachineStateTableReady = false,
-): OpenClawExternalStateOwnership | null {
+): GrantedExternalStateOwnership | null {
   if (!configMachineStateTableReady && !tableExists(database, "config_machine_state")) {
     return null;
   }
@@ -129,7 +129,7 @@ export function inspectOpenClawStateOwnershipFromDatabase(
     return null;
   }
   if (typeof row.value_json !== "string") {
-    throw new OpenClawStateOwnershipMetadataError(databasePath, "reserved value is not text");
+    throw new GrantedStateOwnershipMetadataError(databasePath, "reserved value is not text");
   }
   return parseExternalOwnership(row.value_json, databasePath);
 }
@@ -137,7 +137,7 @@ export function inspectOpenClawStateOwnershipFromDatabase(
 function inspectOwnershipThroughConnection(
   location: string,
   databasePath: string,
-): OpenClawExternalStateOwnership | null {
+): GrantedExternalStateOwnership | null {
   const database = openNodeSqliteDatabase(location, { readOnly: true });
   try {
     database.exec(
@@ -151,7 +151,7 @@ function inspectOwnershipThroughConnection(
 
 function inspectJournalAwarePublicOwnership(
   databasePath: string,
-): OpenClawExternalStateOwnership | null {
+): GrantedExternalStateOwnership | null {
   const prepared = prepareSqliteReadOnlyLocationSync(databasePath);
   try {
     return inspectOwnershipThroughConnection(prepared.location, databasePath);
@@ -198,7 +198,7 @@ export function runWithOpenClawStateOwnershipCoordinator<T>(
 /** Inspect one resolved state database path without mutating its state tree. */
 export function inspectOpenClawStateOwnershipAtPath(
   databasePath: string,
-): OpenClawExternalStateOwnership | null {
+): GrantedExternalStateOwnership | null {
   const resolvedPath = path.resolve(databasePath);
   if (!existsSync(resolvedPath)) {
     return null;
@@ -207,12 +207,12 @@ export function inspectOpenClawStateOwnershipAtPath(
 }
 
 function assertOwnershipAllowsWrite(
-  status: OpenClawExternalStateOwnership | null,
+  status: GrantedExternalStateOwnership | null,
   databasePath: string,
   env: NodeJS.ProcessEnv,
 ): void {
   if (status && !isGatewayExternallySupervised(env)) {
-    throw new OpenClawStateExternalOwnershipError(databasePath, status.managerId);
+    throw new GrantedStateExternalOwnershipError(databasePath, status.managerId);
   }
 }
 

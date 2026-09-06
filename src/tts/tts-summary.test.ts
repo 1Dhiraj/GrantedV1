@@ -14,7 +14,7 @@ import {
   setTtsMachinePrefsPathResolver,
   synthesizeMock,
   textToSpeechCore,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./tts-runtime.test-support.js";
 
 type Completion =
@@ -64,7 +64,7 @@ function assistant(content: AssistantMessage["content"]): AssistantMessage {
 
 const originalText = "The original reply remains visible. ".repeat(60);
 const persistAudio = vi.fn(async () => "/tmp/synthetic-summary.ogg");
-let cfg: OpenClawConfig;
+let cfg: GrantedConfig;
 
 beforeEach(() => {
   cfg = {

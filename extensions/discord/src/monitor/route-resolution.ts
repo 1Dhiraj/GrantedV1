@@ -1,5 +1,5 @@
 // Discord plugin module implements route resolution behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { SessionBindingRecord } from "openclaw/plugin-sdk/conversation-runtime";
 import {
   deriveLastRoutePolicy,
@@ -46,7 +46,7 @@ export function buildDiscordConversationRouteContext(params: {
 }
 
 export function resolveDiscordConversationRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   guildId?: string | null;
   memberRoleIds?: string[];
@@ -67,7 +67,7 @@ export function resolveDiscordConversationRoute(params: {
 }
 
 export function resolveDiscordBoundConversationRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   guildId?: string | null;
   memberRoleIds?: string[];

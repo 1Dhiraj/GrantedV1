@@ -15,7 +15,7 @@ import {
   setRuntimeConfigAppliedHash,
 } from "../../config/runtime-snapshot.js";
 import { createRuntimeConfigWriteApplication } from "../../config/runtime-write-application.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   claimAgentRunDelegatedAuthority,
   resetAgentRunRegistryForTest,
@@ -150,7 +150,7 @@ const defaultClient = {
   connect: { device: { id: "device-test" } },
 } as GatewayClient;
 
-const verifiedConfig: OpenClawConfig = {
+const verifiedConfig: GrantedConfig = {
   agents: { defaults: { model: "openai/gpt-5.5@openai:verified" } },
   auth: { profiles: { "openai:verified": { provider: "openai", mode: "api_key" } } },
 };

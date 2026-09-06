@@ -1,7 +1,7 @@
 // Bundled health checks define built-in doctor checks for runtime readiness.
 import { asOptionalObjectRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
 import { collectConfiguredAgentHarnessRuntimes } from "../agents/harness-runtimes.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { MissingPublicSurfaceError } from "../plugin-sdk/facade-loader.js";
 import { normalizePluginId, normalizePluginsConfig } from "../plugins/config-state.js";
 import { passesManifestOwnerBasePolicy } from "../plugins/manifest-owner-policy.js";
@@ -63,7 +63,7 @@ type BundledHealthCheckSelection = {
 type BundledHealthCheckPluginStateMode = "direct" | "deferred" | "isolated";
 
 type BundledHealthCheckParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   cwd?: string;
   env?: NodeJS.ProcessEnv;
   runWithPluginStateSnapshot?: <T>(
@@ -263,7 +263,7 @@ function registerBundledWorkerProviderHealthChecks(
   }
 }
 
-function shouldRegisterCodexManagedHealth(cfg: OpenClawConfig): boolean {
+function shouldRegisterCodexManagedHealth(cfg: GrantedConfig): boolean {
   if (!collectConfiguredAgentHarnessRuntimes(cfg).includes("codex")) {
     return false;
   }
@@ -273,7 +273,7 @@ function shouldRegisterCodexManagedHealth(cfg: OpenClawConfig): boolean {
   });
 }
 
-function isMemoryCoreActive(cfg: OpenClawConfig): boolean {
+function isMemoryCoreActive(cfg: GrantedConfig): boolean {
   const plugins = normalizePluginsConfig(cfg.plugins);
   const selectedMemoryPluginId =
     typeof plugins.slots.memory === "string"
@@ -293,7 +293,7 @@ function isMemoryCoreActive(cfg: OpenClawConfig): boolean {
   );
 }
 
-function shouldRegisterPluginHealth(cfg: OpenClawConfig, pluginId: string): boolean {
+function shouldRegisterPluginHealth(cfg: GrantedConfig, pluginId: string): boolean {
   const entry = cfg.plugins?.entries?.[pluginId];
   if (entry?.enabled !== true) {
     return false;
@@ -304,7 +304,7 @@ function shouldRegisterPluginHealth(cfg: OpenClawConfig, pluginId: string): bool
   });
 }
 
-function shouldRegisterPolicyHealth(params: { cfg: OpenClawConfig; cwd?: string }): boolean {
+function shouldRegisterPolicyHealth(params: { cfg: GrantedConfig; cwd?: string }): boolean {
   const entry = params.cfg.plugins?.entries?.policy;
   const config = readRecord(entry?.config) ?? {};
   if (entry === undefined || entry.enabled === false || config.enabled === false) {

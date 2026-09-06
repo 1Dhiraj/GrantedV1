@@ -5,12 +5,12 @@ import { SYSTEM_AGENT_ID } from "../../system-agent/agent-id.js";
 import { jsonResult, readToolStringParam, type AnyAgentTool } from "./common.js";
 import { callInProcessGatewayTool, type InProcessGatewayCaller } from "./in-process-gateway.js";
 
-const OpenClawDelegateSchema = Type.Object({
+const GrantedDelegateSchema = Type.Object({
   message: Type.String({ description: "What system must do." }),
   sessionId: Type.Optional(Type.String({ description: "Continue prior OpenClaw talk." })),
 });
 
-const OpenClawDelegateOutputSchema = Type.Object(
+const GrantedDelegateOutputSchema = Type.Object(
   {
     reply: Type.String(),
     action: Type.Optional(Type.String()),
@@ -20,7 +20,7 @@ const OpenClawDelegateOutputSchema = Type.Object(
   { additionalProperties: false },
 );
 
-type OpenClawDelegateResult = {
+type GrantedDelegateResult = {
   sessionId: string;
   reply: string;
   action?: string;
@@ -55,14 +55,14 @@ function createOpenClawDelegateTool(options?: {
     label: "OpenClaw",
     description:
       "Ask system expert. Gateway restart, config, channels, plugins, agents, models/providers, updates. Changes need human approval.",
-    parameters: OpenClawDelegateSchema,
-    outputSchema: OpenClawDelegateOutputSchema,
+    parameters: GrantedDelegateSchema,
+    outputSchema: GrantedDelegateOutputSchema,
     execute: async (_toolCallId, args) => {
       const params = (args ?? {}) as Record<string, unknown>;
       const message = readToolStringParam(params, "message", { required: true });
       const sessionId = readToolStringParam(params, "sessionId") ?? defaultSessionId;
       const callGateway = options?.callGateway ?? callInProcessGatewayTool;
-      const result = await callGateway<OpenClawDelegateResult>("openclaw.chat", {
+      const result = await callGateway<GrantedDelegateResult>("openclaw.chat", {
         sessionId,
         message,
         delegation: {

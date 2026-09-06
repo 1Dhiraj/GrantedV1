@@ -1,7 +1,7 @@
 import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
 import {
   isProviderAuthProfileConfigured,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-auth";
 import type {
   OpenAICompatibleRealtimeAudioFormat,
@@ -234,7 +234,7 @@ export function toXaiRealtimeWsUrl(
 
 export function hasXaiRealtimeApiKeyInput(
   configApiKey: string | undefined,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   agentId?: string,
 ): boolean {
   if (normalizeOptionalString(configApiKey) || normalizeOptionalString(process.env.XAI_API_KEY)) {

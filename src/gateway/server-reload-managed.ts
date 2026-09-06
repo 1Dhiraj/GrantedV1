@@ -3,7 +3,7 @@ import {
   refreshPreparedModelRuntimeSnapshots,
 } from "../agents/prepared-model-runtime.js";
 import { copyConfigResolutionFacts } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { applyLoggingConfig } from "../logging/logger.js";
 import { runWithGatewayIndependentRootWorkAdmission } from "../process/gateway-work-admission.js";
 import { getActiveSecretsRuntimeSnapshotRevisionState } from "../secrets/runtime-state.js";
@@ -68,10 +68,10 @@ export function startManagedGatewayConfigReloader(
   }
 
   const prepareRuntimeCandidate = (
-    runtimeConfig: OpenClawConfig,
-    sourceConfig: OpenClawConfig,
+    runtimeConfig: GrantedConfig,
+    sourceConfig: GrantedConfig,
     ownership?: GatewayConfigReloadTransactionOwnership,
-  ): OpenClawConfig => {
+  ): GrantedConfig => {
     const canonicalConfig = restoreCanonicalSecretRefs(runtimeConfig, sourceConfig);
     copyConfigResolutionFacts(sourceConfig, canonicalConfig);
     const candidateConfig = ownership?.reapplyRuntimeOverlays(canonicalConfig) ?? canonicalConfig;
@@ -79,7 +79,7 @@ export function startManagedGatewayConfigReloader(
     copyConfigResolutionFacts(candidateConfig, prepared);
     return prepared;
   };
-  const applyRuntimeConfigOverrides = (config: OpenClawConfig): OpenClawConfig => {
+  const applyRuntimeConfigOverrides = (config: GrantedConfig): GrantedConfig => {
     const applied = params.applyRuntimeConfigOverrides?.(config) ?? config;
     copyConfigResolutionFacts(config, applied);
     return applied;
@@ -88,7 +88,7 @@ export function startManagedGatewayConfigReloader(
     params.restartRecoveryAvailable !== false && params.requestRecoveryRestart !== undefined;
 
   const tryPrepareRuntimeSecrets = async (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     transactionOwnership: GatewayConfigReloadTransactionOwnership,
     activationParams: RuntimeSecretsPreflightParams,
   ): Promise<CurrentRuntimeSecretsPreparation | null> => {
@@ -189,9 +189,9 @@ export function startManagedGatewayConfigReloader(
   });
   const runManagedRestart = async (
     plan: GatewayReloadPlan,
-    nextConfig: OpenClawConfig,
+    nextConfig: GrantedConfig,
     transactionOwnership: GatewayConfigReloadTransactionOwnership,
-    sourceConfig: OpenClawConfig,
+    sourceConfig: GrantedConfig,
     restartOptions?: GatewayRestartRequestOptions,
     beforeRestartRequest?: () => Promise<void>,
   ) => {
@@ -209,7 +209,7 @@ export function startManagedGatewayConfigReloader(
           previousRequired: string | undefined | null;
           previousCurrent: string | undefined;
           nextGeneration: string | undefined;
-          runtimeConfig: OpenClawConfig;
+          runtimeConfig: GrantedConfig;
         }
       | undefined;
     try {
@@ -340,7 +340,7 @@ export function startManagedGatewayConfigReloader(
     applyHotReload,
   });
 
-  let lastCommittedRuntimeConfig: OpenClawConfig | undefined;
+  let lastCommittedRuntimeConfig: GrantedConfig | undefined;
   const configReloader = startGatewayConfigReloader({
     initialConfig: params.initialConfig,
     initialCompareConfig: params.initialCompareConfig,

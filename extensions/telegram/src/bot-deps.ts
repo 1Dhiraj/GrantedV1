@@ -11,7 +11,7 @@ import {
   createChannelMessageReplyPipeline,
   deliverInboundReplyWithMessageSendContext,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   readChannelAllowFromStore,
   recordInboundSession,
@@ -40,7 +40,7 @@ import { editMessageTelegram } from "./send.js";
 import { wasSentByBot } from "./sent-message-cache.js";
 
 type ResolveTelegramApprovalParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   approvalId: string;
   decision: ExecApprovalReplyDecision;
   channel: "telegram";

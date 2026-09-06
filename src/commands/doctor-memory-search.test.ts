@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 
 const note = vi.hoisted(() => vi.fn());
@@ -11,10 +11,10 @@ const listAgentIds = vi.hoisted(() =>
   ),
 );
 const resolveAgentDir = vi.hoisted(() =>
-  vi.fn<(_cfg: OpenClawConfig, agentId: string) => string>(() => "/tmp/agent-default"),
+  vi.fn<(_cfg: GrantedConfig, agentId: string) => string>(() => "/tmp/agent-default"),
 );
 const resolveAgentWorkspaceDir = vi.hoisted(() =>
-  vi.fn<(_cfg: OpenClawConfig, agentId: string) => string>(() => "/tmp/agent-default/workspace"),
+  vi.fn<(_cfg: GrantedConfig, agentId: string) => string>(() => "/tmp/agent-default/workspace"),
 );
 const resolveMemorySearchConfig = vi.hoisted(() => vi.fn());
 const resolveApiKeyForProviderCore = vi.hoisted(() => vi.fn());
@@ -220,7 +220,7 @@ function expectFirstNoteExcludes(...values: string[]) {
 }
 
 describe("noteMemorySearchHealth", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
   const skippedGatewayOptions = {
     gatewayMemoryProbe: { checked: false, ready: false, skipped: true },
   } satisfies NonNullable<Parameters<typeof noteMemorySearchHealth>[1]>;
@@ -254,7 +254,7 @@ describe("noteMemorySearchHealth", () => {
     NonNullable<Parameters<typeof noteMemorySearchHealth>[1]>,
     {
       overrides?: Record<string, unknown>;
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       contains?: string[];
       noNote?: boolean;
       noApiKeyLookup?: boolean;
@@ -274,7 +274,7 @@ describe("noteMemorySearchHealth", () => {
     provider: string,
     options?: Parameters<typeof noteMemorySearchHealth>[1],
     overrides?: Record<string, unknown>,
-    config: OpenClawConfig = cfg,
+    config: GrantedConfig = cfg,
   ) {
     stubMemorySearchConfig(provider, overrides);
     await noteMemorySearchHealth(config, options);
@@ -282,7 +282,7 @@ describe("noteMemorySearchHealth", () => {
 
   async function runConfiguredMemorySearch(
     provider: string,
-    config: OpenClawConfig,
+    config: GrantedConfig,
     options?: Parameters<typeof noteMemorySearchHealth>[1],
     overrides?: Record<string, unknown>,
   ) {
@@ -290,9 +290,9 @@ describe("noteMemorySearchHealth", () => {
   }
 
   function conversationRecallConfig(
-    plugins?: OpenClawConfig["plugins"],
+    plugins?: GrantedConfig["plugins"],
     rememberAcrossConversations = true,
-  ): OpenClawConfig {
+  ): GrantedConfig {
     return {
       agents: {
         list: [
@@ -303,11 +303,11 @@ describe("noteMemorySearchHealth", () => {
         ],
       },
       ...(plugins ? { plugins } : {}),
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   async function runConversationRecallHealth(
-    plugins?: OpenClawConfig["plugins"],
+    plugins?: GrantedConfig["plugins"],
     rememberAcrossConversations = true,
     overrides: Record<string, unknown> = conversationRecall,
   ) {
@@ -319,7 +319,7 @@ describe("noteMemorySearchHealth", () => {
     );
   }
 
-  async function runAuthLintHealth(provider: "openai" | "bedrock", config: OpenClawConfig = cfg) {
+  async function runAuthLintHealth(provider: "openai" | "bedrock", config: GrantedConfig = cfg) {
     await runConfiguredMemorySearch(
       provider,
       config,
@@ -741,7 +741,7 @@ describe("noteMemorySearchHealth", () => {
     ],
   ])("%s", async (_name, plugins, isActive) => {
     resolveActiveMemoryBackendConfig.mockReturnValue(null);
-    const config = { session: { dmScope: "per-peer" }, plugins } as unknown as OpenClawConfig;
+    const config = { session: { dmScope: "per-peer" }, plugins } as unknown as GrantedConfig;
     await runConfiguredMemorySearch("auto", config);
     expect(resolveApiKeyForProviderCore).not.toHaveBeenCalled();
     if (isActive) {
@@ -873,8 +873,8 @@ describe("noteMemorySearchHealth", () => {
       agents: {
         list: [{ id: "personal", memory: { search: { rememberAcrossConversations: true } } }],
       },
-    } as OpenClawConfig;
-    resolveMemorySearchConfig.mockImplementation((_cfg: OpenClawConfig, agentId: string) =>
+    } as GrantedConfig;
+    resolveMemorySearchConfig.mockImplementation((_cfg: GrantedConfig, agentId: string) =>
       agentId === "personal"
         ? undefined
         : { provider: "openai", local: {}, remote: {}, sources: ["memory"] },
@@ -1013,7 +1013,7 @@ describe("noteMemorySearchHealth", () => {
           models: {
             providers: { localEmbeddings: { baseUrl: "http://127.0.0.1:1234/v1", models: [] } },
           },
-        } as unknown as OpenClawConfig,
+        } as unknown as GrantedConfig,
         noNote: true,
         noApiKeyLookup: true,
       },
@@ -1052,7 +1052,7 @@ describe("noteMemorySearchHealth", () => {
     const orderedCfg = {
       ...cfg,
       auth: { order: { openai: profileIds } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await runAuthLintHealth("openai", orderedCfg);
     expect(hasAuthProfileStoreSourceForProvider).toHaveBeenCalledWith(
       "openai",
@@ -1071,7 +1071,7 @@ describe("noteMemorySearchHealth", () => {
           "amazon-bedrock": { auth: "aws-sdk", models: [] },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await runAuthLintHealth("bedrock", bedrockCfg);
 
@@ -1097,7 +1097,7 @@ describe("noteMemorySearchHealth", () => {
         },
         order: { "amazon-bedrock": ["amazon-bedrock:default"] },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await runAuthLintHealth("bedrock", bedrockCfg);
 
@@ -1138,7 +1138,7 @@ describe("noteMemorySearchHealth", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     await runConfiguredMemorySearch(
       "openai",
       openaiCfg,
@@ -1248,7 +1248,7 @@ describe("noteMemorySearchHealth", () => {
   it("does not warn for secondary key-optional providers when readiness was skipped", async () => {
     const multiAgentCfg = {
       agents: { list: [{ id: "agent-default" }, { id: "secondary" }] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     resolveAgentDir.mockImplementation((_cfg, agentId) => `/tmp/${agentId}`);
     resolveAgentWorkspaceDir.mockImplementation((_cfg, agentId) => `/tmp/${agentId}/workspace`);
     resolveMemorySearchConfig.mockReturnValue({ provider: "ollama", local: {}, remote: {} });
@@ -1263,7 +1263,7 @@ describe("noteMemorySearchHealth", () => {
 });
 
 describe("memory recall doctor integration", () => {
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   beforeEach(() => {
     note.mockClear();

@@ -11,7 +11,7 @@ import {
   countCancelHints,
   expectDefined,
   SystemAgentWizardAnswerError,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
 } from "./chat-engine.test-support.js";
 
@@ -497,12 +497,12 @@ describe("SystemAgentChatEngine wizard", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
-    let currentConfig: OpenClawConfig = baseConfig;
+    let currentConfig: GrantedConfig = baseConfig;
     const engine = new SystemAgentChatEngine({
       surface: "gateway",
       verifiedInference,

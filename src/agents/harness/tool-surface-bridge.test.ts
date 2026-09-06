@@ -1,7 +1,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { runWithAgentRingZeroTools } from "../agent-tools.ring-zero-context.js";
 import { createStubTool } from "../test-helpers/agent-tool-stubs.js";
 import {
@@ -18,7 +18,7 @@ function createAgentHarnessToolSurfaceRuntime(
 ): ReturnType<typeof createAgentHarnessToolSurfaceRuntimeBase> {
   return createAgentHarnessToolSurfaceRuntimeBase({
     ...params,
-    config: migratePersistedImplicitMainRoster(params.config).config as OpenClawConfig,
+    config: migratePersistedImplicitMainRoster(params.config).config as GrantedConfig,
   });
 }
 
@@ -26,7 +26,7 @@ function tools(names: string[]) {
   return names.map(createStubTool);
 }
 
-function createRuntime(config: OpenClawConfig) {
+function createRuntime(config: GrantedConfig) {
   return createAgentHarnessToolSurfaceRuntime({
     config,
     executeTool: async () => ({ content: [], details: {} }),
@@ -114,7 +114,7 @@ describe("createAgentHarnessToolSurfaceRuntime", () => {
   });
 
   it("filters raw SDK tools but does not refilter prepared constructor output", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { defaults: { experimental: { localModelLean: true } } },
       tools: { alsoAllow: ["image_generate"], toolSearch: { enabled: false } },
     };
@@ -134,7 +134,7 @@ describe("createAgentHarnessToolSurfaceRuntime", () => {
   });
 
   it("keeps exec direct in lean structured Tool Search mode", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { defaults: { experimental: { localModelLean: true } } },
     };
     const runtime = createRuntime(config);
@@ -162,7 +162,7 @@ describe("createAgentHarnessToolSurfaceRuntime", () => {
   });
 
   it("keeps directory tool schemas stable across unrelated user prompts", () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: { toolSearch: { enabled: true, mode: "directory" } },
     };
     const availableTools = tools([
@@ -378,7 +378,7 @@ describe("createAgentHarnessToolSurfaceRuntime", () => {
   it("preserves explicit code-mode compaction for lean runs", () => {
     testing.setToolSearchCodeModeSupportedForTest(true);
     try {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { defaults: { experimental: { localModelLean: true } } },
         tools: { toolSearch: { mode: "code" } },
       };

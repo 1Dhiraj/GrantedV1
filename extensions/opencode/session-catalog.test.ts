@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import type { SessionTranscriptWriteLockContext } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
@@ -11,7 +11,7 @@ type ResolveAcpSessionAvailability =
   (typeof import("openclaw/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
 type RunCommandBuffered =
   (typeof import("openclaw/plugin-sdk/process-runtime"))["runCommandBuffered"];
-type RegisteredSessionCatalogProvider = Parameters<OpenClawPluginApi["registerSessionCatalog"]>[0];
+type RegisteredSessionCatalogProvider = Parameters<GrantedPluginApi["registerSessionCatalog"]>[0];
 type OptionalCatalogAgent<T extends { agentId?: string }> = Omit<T, "agentId"> & {
   agentId?: string;
 };
@@ -41,12 +41,12 @@ type SessionCatalogProvider = Omit<
     >,
   ) => ReturnType<NonNullable<RegisteredSessionCatalogProvider["openTerminal"]>>;
 };
-type NodeHostCommand = Parameters<OpenClawPluginApi["registerNodeHostCommand"]>[0];
-type NodeInvokePolicy = Parameters<OpenClawPluginApi["registerNodeInvokePolicy"]>[0];
+type NodeHostCommand = Parameters<GrantedPluginApi["registerNodeHostCommand"]>[0];
+type NodeInvokePolicy = Parameters<GrantedPluginApi["registerNodeInvokePolicy"]>[0];
 type CatalogListParams = Parameters<SessionCatalogProvider["list"]>[0];
 type CatalogReadParams = Parameters<SessionCatalogProvider["read"]>[0];
 type CreateSessionEntryParams = Parameters<
-  OpenClawPluginApi["runtime"]["agent"]["session"]["createSessionEntry"]
+  GrantedPluginApi["runtime"]["agent"]["session"]["createSessionEntry"]
 >[0];
 
 function bindTestCatalogOwner(provider: RegisteredSessionCatalogProvider): SessionCatalogProvider {
@@ -164,7 +164,7 @@ const pairedNodeLocator = { hostId: "node:node-1", threadId: "ses_remote" } as c
 const removeDirectory = (directory: string) => fs.rm(directory, { recursive: true, force: true });
 
 function captureOpenCodeSessionRegistrations(
-  pluginConfig: OpenClawPluginApi["pluginConfig"] = {},
+  pluginConfig: GrantedPluginApi["pluginConfig"] = {},
   overrides: Record<string, unknown> = {},
 ) {
   const catalogs: SessionCatalogProvider[] = [];
@@ -176,8 +176,8 @@ function captureOpenCodeSessionRegistrations(
       pluginConfig,
       runtime: {
         nodes: { list: vi.fn().mockResolvedValue({ nodes: [] }) },
-      } as unknown as OpenClawPluginApi["runtime"],
-      ...(overrides as Partial<OpenClawPluginApi>),
+      } as unknown as GrantedPluginApi["runtime"],
+      ...(overrides as Partial<GrantedPluginApi>),
       registerSessionCatalog: (catalog: RegisteredSessionCatalogProvider) =>
         catalogs.push(bindTestCatalogOwner(catalog)),
       registerNodeHostCommand: (command: NodeHostCommand) => commands.push(command),

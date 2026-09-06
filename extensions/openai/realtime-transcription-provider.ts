@@ -1,5 +1,5 @@
 // Openai provider module implements model/runtime integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   isProviderAuthProfileConfigured,
   resolveProviderAuthProfileApiKey,
@@ -36,7 +36,7 @@ type OpenAIRealtimeTranscriptionProviderConfig = {
 
 type OpenAIRealtimeTranscriptionSessionConfig = RealtimeTranscriptionSessionCreateRequest & {
   apiKey?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   language?: string;
   model: string;
   prompt?: string;

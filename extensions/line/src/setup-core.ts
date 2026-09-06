@@ -3,7 +3,7 @@ import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
 import type {
   ChannelSetupAdapter,
   ChannelSetupInput,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/setup";
 import {
   createSetupInputPresenceValidator,
@@ -24,12 +24,12 @@ type LineSetupInput = ChannelSetupInput & {
 };
 
 export function patchLineAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   patch: Record<string, unknown>;
   clearFields?: string[];
   enabled?: boolean;
-}): OpenClawConfig {
+}): GrantedConfig {
   return patchScopedAccountConfig({
     cfg: params.cfg,
     channelKey: "line",
@@ -45,7 +45,7 @@ export function patchLineAccountConfig(params: {
   });
 }
 
-export function isLineConfigured(cfg: OpenClawConfig, accountId: string): boolean {
+export function isLineConfigured(cfg: GrantedConfig, accountId: string): boolean {
   return hasLineCredentials(resolveLineAccount({ cfg, accountId }));
 }
 

@@ -13,7 +13,7 @@ import {
   readPersistedInstalledPluginIndexSync,
   resolveLegacyInstalledPluginIndexStorePath,
 } from "../plugins/installed-plugin-index-store.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -39,7 +39,7 @@ import {
 } from "./state-migrations.storage.js";
 import type { MigrationMessages } from "./state-migrations.types.js";
 
-type LegacyPluginStateImportDatabase = Pick<OpenClawStateKyselyDatabase, "plugin_state_entries">;
+type LegacyPluginStateImportDatabase = Pick<GrantedStateKyselyDatabase, "plugin_state_entries">;
 
 export async function migrateLegacyPluginStateSidecar(params: {
   stateDir: string;

@@ -5,7 +5,7 @@ import path from "node:path";
 import { appendMemoryHostEvent } from "openclaw/plugin-sdk/memory-host-events";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { listMemoryCorePublicArtifacts } from "./public-artifacts.js";
 
 describe("listMemoryCorePublicArtifacts", () => {
@@ -53,7 +53,7 @@ describe("listMemoryCorePublicArtifacts", () => {
       results: [],
     });
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true, workspace: workspaceDir }],
       },
@@ -109,7 +109,7 @@ describe("listMemoryCorePublicArtifacts", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.writeFile(path.join(workspaceDir, "memory.md"), "# Legacy Durable Memory\n", "utf8");
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", default: true, workspace: workspaceDir }],
       },

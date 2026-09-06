@@ -5,14 +5,14 @@ import {
   splitSystemPromptCacheBoundary,
   SYSTEM_PROMPT_CACHE_BOUNDARY,
 } from "@openclaw/ai/internal/shared";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { ProviderTransformSystemPromptContext } from "../../../plugins/types.js";
 import { buildEmbeddedSystemPrompt } from "../system-prompt.js";
 
 type EmbeddedSystemPromptParams = Parameters<typeof buildEmbeddedSystemPrompt>[0];
 type ProviderSystemPromptTransform = (params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   context: ProviderTransformSystemPromptContext;
 }) => string;
@@ -23,7 +23,7 @@ type BuildAttemptSystemPromptParams = {
   transformProviderSystemPrompt: ProviderSystemPromptTransform;
   providerTransform: {
     provider: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir: string;
     context: Omit<ProviderTransformSystemPromptContext, "systemPrompt">;
   };

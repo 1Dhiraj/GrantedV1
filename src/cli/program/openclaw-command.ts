@@ -20,9 +20,9 @@ declare module "commander" {
   }
 }
 
-export class OpenClawCommand extends Command {
+export class GrantedCommand extends Command {
   override createCommand(name?: string): Command {
-    return new OpenClawCommand(name);
+    return new GrantedCommand(name);
   }
 
   override error(message: string, errorOptions?: ErrorOptions): never {

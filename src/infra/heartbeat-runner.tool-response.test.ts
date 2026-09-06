@@ -16,7 +16,7 @@ import {
 import { recordReplyOperationAgentTurn } from "../auto-reply/reply/reply-operation-agent-turn-state.js";
 import { resolveReplyOperationRunState } from "../auto-reply/reply/reply-operation-run-state.js";
 import { SILENT_REPLY_TOKEN } from "../auto-reply/tokens.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import {
@@ -74,7 +74,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
     isolatedSession?: boolean;
     target?: "telegram" | "last" | "none";
     showOk?: boolean;
-  }): OpenClawConfig {
+  }): GrantedConfig {
     return {
       agents: {
         defaults: {
@@ -109,7 +109,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
         },
       },
       session: { store: params.storePath },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
 
   function createDeps(params: {
@@ -126,7 +126,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
 
   function seedTelegramSession(
     storePath: string,
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     entry: Partial<Parameters<typeof seedMainSessionStore>[2]> = {},
   ) {
     return seedMainSessionStore(storePath, cfg, {
@@ -138,7 +138,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
   }
 
   function runHeartbeat(
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     replySpy: HeartbeatDeps["getReplyFromConfig"],
     sendTelegram: ReturnType<typeof vi.fn>,
     overrides: Omit<Parameters<typeof runHeartbeatOnce>[0], "cfg" | "deps"> = {},
@@ -152,7 +152,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
 
   function expectTelegramSend(
     sendTelegram: ReturnType<typeof vi.fn>,
-    params: { text: string; cfg: OpenClawConfig; silent?: boolean },
+    params: { text: string; cfg: GrantedConfig; silent?: boolean },
   ) {
     expect(sendTelegram).toHaveBeenCalledTimes(1);
     expect(sendTelegram.mock.calls).toEqual([
@@ -261,7 +261,7 @@ describe("runHeartbeatOnce heartbeat response tool", () => {
       beforeSeed?: (params: {
         tmpDir: string;
         storePath: string;
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
       }) => Promise<void>;
       tasks?: Parameters<typeof runHeartbeatOnce>[0]["tasks"];
     } = {},

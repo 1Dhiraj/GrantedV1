@@ -1,6 +1,6 @@
 // Active session shutdown tracker.
 // Remembers sessions needing `session_end` hooks during gateway shutdown/restart.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGlobalMap } from "../shared/global-singleton.js";
 
 // Module-level tracker of sessions that have received `session_start` but not
@@ -17,7 +17,7 @@ import { resolveGlobalMap } from "../shared/global-singleton.js";
 // runs. That is what keeps the shutdown finalizer from double-firing.
 
 type ActiveSessionForShutdown = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   sessionId: string;
   storePath: string;

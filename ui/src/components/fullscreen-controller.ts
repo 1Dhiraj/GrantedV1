@@ -1,5 +1,5 @@
 import { html, type ReactiveController, type TemplateResult } from "lit";
-import type { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import type { GrantedLitElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 
 type FullscreenControllerOptions = {
@@ -23,7 +23,7 @@ export class FullscreenController implements ReactiveController {
   private readonly onFullscreenChange = () => this.handleFullscreenChange();
 
   constructor(
-    private readonly host: OpenClawLitElement,
+    private readonly host: GrantedLitElement,
     private readonly options: FullscreenControllerOptions,
   ) {
     host.addController(this);

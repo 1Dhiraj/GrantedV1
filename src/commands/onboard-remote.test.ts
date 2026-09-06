@@ -1,7 +1,7 @@
 // Onboard remote tests cover remote gateway prompts, Bonjour discovery, and remote config mutation.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/auth-wizard.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";
 import { captureEnv } from "../test-utils/env.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
@@ -62,7 +62,7 @@ describe("promptRemoteGatewayConfig", () => {
   const envSnapshot = captureEnv(["GRANTED_ALLOW_INSECURE_PRIVATE_WS", "GRANTED_GATEWAY_TOKEN"]);
 
   async function runRemotePrompt(params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     text: WizardPrompter["text"];
     selectResponses: Partial<Record<string, string>>;
     confirm: boolean;
@@ -129,7 +129,7 @@ describe("promptRemoteGatewayConfig", () => {
       sshIdentity: "/tmp/test-identity",
       sshHostKeyPolicy: "strict" as const,
     };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: { mode: "remote", remote: { ...remote, url: seededUrl ?? remote.url } },
     };
     detectBinary.mockResolvedValue(true);
@@ -159,7 +159,7 @@ describe("promptRemoteGatewayConfig", () => {
     ["preserves", "wss://gateway.example/rpc", { "X-Edge-Auth": "test-secret" }],
     ["clears", "wss://other.example/rpc", undefined],
   ])("%s edge auth based on the remote Gateway scope", async (_label, nextUrl, expected) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         mode: "remote",
         remote: {
@@ -308,7 +308,7 @@ describe("promptRemoteGatewayConfig", () => {
       text,
     });
 
-    const next = await promptRemoteGatewayConfig({} as OpenClawConfig, prompter);
+    const next = await promptRemoteGatewayConfig({} as GrantedConfig, prompter);
 
     expect(next.gateway?.mode).toBe("remote");
     expect(next.gateway?.remote?.url).toBe(manualUrl);
@@ -417,7 +417,7 @@ describe("promptRemoteGatewayConfig", () => {
       text,
     });
 
-    const next = await promptRemoteGatewayConfig({} as OpenClawConfig, prompter);
+    const next = await promptRemoteGatewayConfig({} as GrantedConfig, prompter);
 
     expect(next.gateway?.remote?.url).toBe("ws://127.0.0.1:18789");
     expect(vi.mocked(select).mock.calls.map(([params]) => params.message)).not.toContain(
@@ -496,7 +496,7 @@ describe("promptRemoteGatewayConfig", () => {
       return (params.options[0]?.value ?? "") as never;
     });
 
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const prompter = createPrompter({
       confirm: vi.fn(async () => false),
       select,
@@ -541,7 +541,7 @@ describe("promptRemoteGatewayConfig", () => {
 
     const cfg = {
       gateway: { remote: { token: "preexisting-remote-token" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const prompter = createPrompter({ confirm, select, text });
 
     const next = await promptRemoteGatewayConfig(cfg, prompter);
@@ -579,7 +579,7 @@ describe("promptRemoteGatewayConfig", () => {
 
     const cfg = {
       gateway: { remote: { password: "preexisting-remote-password" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const prompter = createPrompter({ confirm, select, text });
 
     const next = await promptRemoteGatewayConfig(cfg, prompter);

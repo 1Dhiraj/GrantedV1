@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveBoundAgentIdForSession } from "./session-agent-binding.js";
 
 describe("resolveBoundAgentIdForSession", () => {
   const multiAgentConfig = {
     agents: { entries: { main: {}, research: {} } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const singleAgentConfig = {
     agents: { entries: { main: {} } },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 
   it.each([
     {
@@ -46,7 +46,7 @@ describe("resolveBoundAgentIdForSession", () => {
         entries: { ops: {}, research: {} },
       },
       session: { scope: "global", store: "/tmp/openclaw-shared-sessions.sqlite" },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveBoundAgentIdForSession({ config, sessionKey: "global" })).toBe("ops");
   });

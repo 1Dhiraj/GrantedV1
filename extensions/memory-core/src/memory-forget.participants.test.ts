@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { deleteSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
@@ -17,7 +17,7 @@ import {
 describe("memory forget participant selectors", () => {
   let stateDir: string;
   let workspaceDir: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
 
   beforeEach(async () => {
     stateDir = tempDirs.make("openclaw-memory-forget-");

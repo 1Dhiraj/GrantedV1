@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Discord tests cover security audit plugin behavior.
 import { describe, expect, it, vi } from "vitest";
 import type { ResolvedDiscordAccount } from "./accounts.js";
@@ -87,7 +87,7 @@ const broadMemberCases: BroadMemberCase[] = [
 ];
 
 async function collectFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   config: DiscordAccountConfig;
   accountId?: string;
   orderedAccountIds?: string[];
@@ -159,7 +159,7 @@ describe("Discord security audit findings", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       expectFinding: true,
     },
     {
@@ -181,7 +181,7 @@ describe("Discord security audit findings", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as GrantedConfig,
       expectFinding: false,
     },
   ])("$name", async (testCase) => {

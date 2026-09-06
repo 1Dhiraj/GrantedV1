@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { walkDirectorySync } from "../../infra/fs-safe.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
@@ -52,7 +52,7 @@ type SkillDiscoveryBudget = {
   truncated: boolean;
 };
 
-export function resolveSkillDiscoveryLimits(config?: OpenClawConfig): ResolvedSkillDiscoveryLimits {
+export function resolveSkillDiscoveryLimits(config?: GrantedConfig): ResolvedSkillDiscoveryLimits {
   const limits = config?.skills?.limits;
   return {
     maxCandidatesPerRoot: limits?.maxCandidatesPerRoot ?? DEFAULT_MAX_CANDIDATES_PER_ROOT,

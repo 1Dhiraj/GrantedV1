@@ -7,7 +7,7 @@ import {
 } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createSkillProposalEvent } from "./plugin-hooks.js";
 import { listSkillProposalEvents, listSkillProposals, proposeCreateSkill } from "./service.js";
@@ -18,7 +18,7 @@ import {
 } from "./store-sqlite-transition.js";
 import { updateSkillProposalRecord } from "./store.js";
 
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

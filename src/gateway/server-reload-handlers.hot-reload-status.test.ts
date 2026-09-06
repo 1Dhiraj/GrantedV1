@@ -6,7 +6,7 @@
  */
 import { describe, expect, it, vi } from "vitest";
 import { getRuntimeAuthProfileStoreCredentialsRevision } from "../agents/auth-profiles/runtime-snapshots.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayPluginReloadResult } from "./server-reload-handlers.js";
 import { startManagedGatewayConfigReloader } from "./server-reload-handlers.js";
 
@@ -53,7 +53,7 @@ vi.mock("./config-reload.js", async () => {
 
 describe("startManagedGatewayConfigReloader hotReloadStatus plumbing", () => {
   it("forwards live status and invalidates config.get on watcher commit", async () => {
-    const initialConfig = { session: { store: "/tmp/sessions.json" } } as OpenClawConfig;
+    const initialConfig = { session: { store: "/tmp/sessions.json" } } as GrantedConfig;
     const broadcast = vi.fn();
     const reloader = startManagedGatewayConfigReloader({
       configRevisionProjector: {
@@ -107,7 +107,7 @@ describe("startManagedGatewayConfigReloader hotReloadStatus plumbing", () => {
         invalidate: vi.fn(),
       },
       channelManager: {} as never,
-      activateRuntimeSecrets: vi.fn(async (config: OpenClawConfig) => ({
+      activateRuntimeSecrets: vi.fn(async (config: GrantedConfig) => ({
         sourceConfig: config,
         config,
         authStores: [],

@@ -1,6 +1,6 @@
 import { css, html, type TemplateResult } from "lit";
 import { property } from "lit/decorators.js";
-import { OpenClawLitElement } from "../lit/openclaw-element.ts";
+import { GrantedLitElement } from "../lit/openclaw-element.ts";
 
 export type PanelLoadingSkeletonVariant =
   | "browser"
@@ -12,7 +12,7 @@ export type PanelLoadingSkeletonVariant =
   | "tasks"
   | "terminal";
 
-class PanelLoadingSkeleton extends OpenClawLitElement {
+class PanelLoadingSkeleton extends GrantedLitElement {
   @property({ reflect: true, attribute: "data-panel-skeleton" })
   variant: PanelLoadingSkeletonVariant = "files";
 

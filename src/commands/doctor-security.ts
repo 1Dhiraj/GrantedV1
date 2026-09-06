@@ -3,7 +3,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { note } from "../../packages/terminal-core/src/note.js";
 import { listReadOnlyChannelPluginsForConfig } from "../channels/plugins/read-only.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig, GatewayBindMode } from "../config/config.js";
+import type { GrantedConfig, GatewayBindMode } from "../config/config.js";
 import type { AgentConfig } from "../config/types.agents.js";
 import { hasConfiguredSecretInput, resolveSecretInputRef } from "../config/types.secrets.js";
 import { resolveGatewayAuthTokenSourceConflict } from "../gateway/auth-token-source-conflict.js";
@@ -27,7 +27,7 @@ import { collectChannelSecurityFindingsCore } from "../security/audit-channel.js
 import type { SecurityAuditFinding } from "../security/audit.types.js";
 import { collectExecFilesystemPolicyDriftHits } from "../security/exec-filesystem-policy.js";
 
-function collectImplicitHeartbeatDirectPolicyWarnings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectImplicitHeartbeatDirectPolicyWarnings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
 
   const maybeWarn = (params: {
@@ -95,7 +95,7 @@ function execAskRank(value: ExecAsk): number {
 }
 
 function collectExecPolicyConflictWarnings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   approvals: ExecApprovalsFile,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
@@ -218,7 +218,7 @@ function collectDurableExecApprovalWarnings(approvals: ExecApprovalsFile): Secur
   ];
 }
 
-function collectExecFilesystemPolicyWarnings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectExecFilesystemPolicyWarnings(cfg: GrantedConfig): SecurityAuditFinding[] {
   return collectExecFilesystemPolicyDriftHits(cfg).map((hit) => ({
     checkId: "doctor.exec_filesystem_policy",
     severity: "warn",
@@ -233,7 +233,7 @@ function collectExecFilesystemPolicyWarnings(cfg: OpenClawConfig): SecurityAudit
   }));
 }
 
-function collectPlaintextConfigSecretWarnings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectPlaintextConfigSecretWarnings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const plaintextPaths: string[] = [];
   const defaults = cfg.secrets?.defaults;
 
@@ -287,7 +287,7 @@ function collectPlaintextConfigSecretWarnings(cfg: OpenClawConfig): SecurityAudi
 
 /** Collects doctor security findings without emitting terminal notes. */
 export async function collectSecurityWarnings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<SecurityAuditFinding[]> {
   const findings: SecurityAuditFinding[] = [];
@@ -439,7 +439,7 @@ function renderSecurityFindingLines(finding: SecurityAuditFinding): string[] {
 }
 
 /** Emits security warnings plus the deep audit follow-up command. */
-export async function noteSecurityWarnings(cfg: OpenClawConfig) {
+export async function noteSecurityWarnings(cfg: GrantedConfig) {
   const findings = await collectSecurityWarnings(cfg);
   if (findings.length > 0) {
     const lines = findings.flatMap(renderSecurityFindingLines);

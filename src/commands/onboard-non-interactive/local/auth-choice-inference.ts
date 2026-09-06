@@ -5,7 +5,7 @@
  * passing `--auth`, including plugin-defined provider auth flags.
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveProviderOnboardAuthFlags } from "../../../plugins/provider-auth-choices.js";
 import { CORE_ONBOARD_AUTH_FLAGS } from "../../onboard-core-auth-flags.js";
 import type { AuthChoice, OnboardOptions } from "../../onboard-types.js";
@@ -30,7 +30,7 @@ function hasStringValue(value: unknown): boolean {
 export function inferAuthChoiceFromFlags(
   opts: OnboardOptions,
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
   },

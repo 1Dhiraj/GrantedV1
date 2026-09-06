@@ -21,7 +21,7 @@ import {
 import { resolveChannelSetupWizardAdapterForPlugin } from "../commands/channel-setup/registry.js";
 import type { ChannelChoice } from "../commands/onboard-types.js";
 import { isChannelConfigured } from "../config/channel-configured.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   findBundledPluginSourceInMap,
@@ -57,7 +57,7 @@ type ChannelSetupSelectionEntry = {
   };
 };
 
-export function resolveChannelSetupWorkspaceDir(cfg: OpenClawConfig): string {
+export function resolveChannelSetupWorkspaceDir(cfg: GrantedConfig): string {
   const agentId = resolveAmbientOwnerAgentId(cfg, undefined, {
     surface: "channel setup",
     hint: "Set agents.defaults.systemAgent.agentId before configuring channels.",
@@ -351,7 +351,7 @@ export function findBundledSourceForCatalogChannel(params: {
 }
 
 export async function collectChannelStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   options?: SetupChannelsOptions;
   accountOverrides: Partial<Record<ChannelChoice, string>>;
@@ -473,7 +473,7 @@ export async function collectChannelStatus(params: {
 }
 
 export async function noteChannelStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   options?: SetupChannelsOptions;
   accountOverrides?: Partial<Record<ChannelChoice, string>>;
@@ -543,7 +543,7 @@ export function resolveQuickstartDefault(
 }
 
 export function resolveChannelSelectionNoteLines(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   workspaceDir?: string;
   installedPlugins: ChannelSetupPlugin[];
   selection: ChannelChoice[];

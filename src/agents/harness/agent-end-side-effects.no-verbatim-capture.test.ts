@@ -8,13 +8,13 @@ import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.j
 import { listSkillProposals } from "../../skills/workshop/service.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { awaitAgentEndSideEffects } from "./agent-end-side-effects.js";
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let sessionKeyIndex = 0;
 
 beforeAll(async () => {

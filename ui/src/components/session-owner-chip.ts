@@ -6,7 +6,7 @@ import type { SessionsListResult } from "../api/types.ts";
 import { t } from "../i18n/index.ts";
 import { takeGraphemes } from "../lib/graphemes.ts";
 import { resolveAvatar } from "../lib/identity-avatar.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import "./viewer-facepile.ts";
 
 export type SessionCreatedActor = ProtocolSessionCreatedActor;
@@ -114,7 +114,7 @@ export function renderSessionOwnerAvatar(
  * identities (solo mode shows no attribution chrome). Human actors use the durable
  * profile projection carried by the session record; actors without it keep stable initials.
  */
-class SessionOwnerChip extends OpenClawLightDomElement {
+class SessionOwnerChip extends GrantedLightDomElement {
   @property({ attribute: false }) owner: SessionCreatedActor | null = null;
   @property({ type: String }) size: "row" | "header" = "row";
   @property({ type: String }) attribution: "created" | "owned" | "archived" = "created";

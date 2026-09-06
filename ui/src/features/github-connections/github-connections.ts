@@ -16,7 +16,7 @@ import {
 } from "../../components/settings-ui.ts";
 import { t } from "../../i18n/index.ts";
 import { currentConfigObject } from "../../lib/config/config-state-model.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { PROFILE_SETTINGS_TARGET_IDS } from "../../pages/config/settings-targets.ts";
 import { GitHubIdentityController } from "./github-identity-controller.ts";
 import {
@@ -27,7 +27,7 @@ import {
 } from "./github-identity-view.ts";
 
 /** Profile credentials have their own read-scoped lifecycle, independent of users.self edits. */
-export class GitHubConnections extends OpenClawLightDomElement {
+export class GitHubConnections extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: false })
   private context!: ApplicationContext;
   @state() private purpose: "personal" | "system" = "personal";

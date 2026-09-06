@@ -1,5 +1,5 @@
 // Qa Lab plugin module implements qa channel transport behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaBusState } from "./bus-state.js";
 import { getQaProvider } from "./providers/index.js";
 import {
@@ -78,7 +78,7 @@ function createQaChannelReportNotes(params: QaTransportReportParams) {
 async function handleQaChannelAction(params: {
   action: QaTransportActionName;
   args: Record<string, unknown>;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }) {
   const { qaChannelPlugin } = await import("openclaw/plugin-sdk/qa-channel");

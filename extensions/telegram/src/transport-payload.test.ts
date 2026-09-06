@@ -1,7 +1,7 @@
 import { buffer } from "node:stream/consumers";
 import { Bot } from "grammy";
 import type { Message } from "grammy/types";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
@@ -50,7 +50,7 @@ const DIRECT_TOPIC_ID = 77;
 const cfg = {
   channels: { telegram: { botToken: TOKEN } },
   session: { store: "/tmp/openclaw-telegram-transport-payload-test.json" },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function directMessagesMessage(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
@@ -263,7 +263,7 @@ describe("Telegram topic transport payloads", () => {
     const richCfg = {
       ...cfg,
       channels: { telegram: { botToken: TOKEN, richMessages: true } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     await sendMessageTelegram(`${DIRECT_CHAT_ID}:direct-topic:${DIRECT_TOPIC_ID}`, "**rich**", {
       cfg: richCfg,
       token: TOKEN,

@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   findOpenClawAgentDatabaseMediaMigrationRequiredError,
-  OpenClawAgentDatabaseMediaMigrationRequiredError,
+  GrantedAgentDatabaseMediaMigrationRequiredError,
 } from "./openclaw-agent-db-migration-required.js";
 
 describe("agent database media migration error classification", () => {
   it("recognizes a rehydrated exact migration error through its cause chain", () => {
-    const original = new OpenClawAgentDatabaseMediaMigrationRequiredError(
+    const original = new GrantedAgentDatabaseMediaMigrationRequiredError(
       "/tmp/openclaw-agent.sqlite",
       14,
     );

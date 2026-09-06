@@ -20,7 +20,7 @@ import {
   hasRuntimeCredentialAvailable,
   markConfiguredUnavailableCredentialStatusesAvailable,
 } from "../../channels/status/read-model.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatPhoneNumberForCli } from "../../infra/phone-number-presentation.js";
 import { listExplicitConfiguredChannelIdsForConfig } from "../../plugins/channel-plugin-ids.js";
 import { resolveMissingOfficialExternalChannelPluginRepairHints } from "../../plugins/official-external-plugin-repair-hints.js";
@@ -46,8 +46,8 @@ type ChannelAccountRow = ChannelAccountTokenSummaryRow & {
 
 type ResolvedChannelAccountRowParams = {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceConfig: GrantedConfig;
   accountId: string;
 };
 
@@ -87,7 +87,7 @@ const formatAccountLabel = (params: { accountId: string; name?: string }) => {
 
 const buildAccountNotes = (params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: ChannelAccountRow;
   liveCredentialAvailable?: boolean;
   credentialResolutionSkipped?: boolean;
@@ -223,10 +223,10 @@ function formatLoadFailureDetail(message: string): string {
 
 /** Builds the `status --all` channel summary and per-account detail tables. */
 export async function buildChannelsTable(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   opts?: {
     showSecrets?: boolean;
-    sourceConfig?: OpenClawConfig;
+    sourceConfig?: GrantedConfig;
     includeSetupFallbackPlugins?: boolean;
     liveChannelStatus?: unknown;
     credentialResolutionSkipped?: boolean;

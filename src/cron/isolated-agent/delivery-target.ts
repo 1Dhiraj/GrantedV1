@@ -5,7 +5,7 @@ import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.j
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { stripTargetProviderPrefix } from "../../infra/outbound/channel-target-prefix.js";
 import type { OutboundSessionRoute } from "../../infra/outbound/outbound-session.js";
@@ -130,7 +130,7 @@ function shouldStripResolvedTargetProviderPrefix(target: ResolvedMessagingTarget
 
 /** Resolves cron delivery config into a concrete channel target and optional thread/account. */
 export async function resolveDeliveryTarget(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   jobPayload: {
     channel?: ChannelId;

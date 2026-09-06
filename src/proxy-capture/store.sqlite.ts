@@ -20,7 +20,7 @@ import {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../state/openclaw-state-db.js";
 import type {
   CaptureBlobRecord,
@@ -202,7 +202,7 @@ function sortObservedCounts(counts: Map<string, number>): CaptureObservedDimensi
 }
 
 type SharedDebugProxyCaptureState = {
-  database: OpenClawStateDatabase;
+  database: GrantedStateDatabase;
   env?: NodeJS.ProcessEnv;
 };
 

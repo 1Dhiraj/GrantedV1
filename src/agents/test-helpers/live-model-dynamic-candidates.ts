@@ -9,7 +9,7 @@ import {
 } from "@openclaw/model-catalog-core/provider-id";
 import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { Model } from "../../llm/types.js";
 import { withBundledPluginEnablementCompat } from "../../plugins/bundled-compat.js";
 import type {
@@ -178,7 +178,7 @@ export function shouldExcludeProviderFromDefaultHighSignalLiveSweep(params: {
   provider?: string | null;
   useExplicitModels: boolean;
   providerFilter?: ReadonlySet<string> | null;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   resolveProviderOwners?: (provider: string) => readonly string[] | undefined;
@@ -323,7 +323,7 @@ async function runProviderDynamicModelDefault(
 async function normalizeDynamicModelDefault(
   model: Model,
   agentDir: string,
-  options: { config?: OpenClawConfig; workspaceDir?: string },
+  options: { config?: GrantedConfig; workspaceDir?: string },
 ): Promise<Model> {
   const { normalizeDiscoveredAgentModel } = await import("../agent-model-discovery.js");
   return normalizeDiscoveredAgentModel(model, agentDir, options);
@@ -359,10 +359,10 @@ export function resolveLiveProviderDiscoveryProviderIds(params: {
 }
 
 export function applyLiveProviderPluginDiscoveryCompat(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providers: readonly string[] | undefined;
   env?: NodeJS.ProcessEnv;
-}): OpenClawConfig {
+}): GrantedConfig {
   const pluginIds = new Set<string>();
   for (const provider of params.providers ?? []) {
     const owners =
@@ -414,7 +414,7 @@ export function applyLiveProviderPluginDiscoveryCompat(params: {
  */
 export async function appendPrioritizedDynamicLiveModels(params: {
   models: Model[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentDir: string;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;

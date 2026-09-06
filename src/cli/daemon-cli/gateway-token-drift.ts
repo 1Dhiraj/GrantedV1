@@ -1,5 +1,5 @@
 // Token drift resolver for restart checks: compare service token only when token auth is active.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveGatewayAuthToken } from "../../gateway/auth-token-resolution.js";
 import { createGatewayCredentialPlan } from "../../gateway/credential-planner.js";
 import { GatewaySecretRefUnavailableError } from "../../gateway/credentials.js";
@@ -8,10 +8,7 @@ function authModeDisablesToken(mode: string | undefined): boolean {
   return mode === "password" || mode === "none" || mode === "trusted-proxy";
 }
 
-function isPasswordFallbackActive(params: {
-  cfg: OpenClawConfig;
-  env: NodeJS.ProcessEnv;
-}): boolean {
+function isPasswordFallbackActive(params: { cfg: GrantedConfig; env: NodeJS.ProcessEnv }): boolean {
   const plan = createGatewayCredentialPlan({
     config: params.cfg,
     env: params.env,
@@ -24,7 +21,7 @@ function isPasswordFallbackActive(params: {
 
 /** Resolve the expected Gateway token for service drift checks, or undefined when token auth is inactive. */
 export async function resolveGatewayTokenForDriftCheck(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<string | undefined> {
   const env = params.env ?? process.env;

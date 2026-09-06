@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 
 const wizardTestMocks = vi.hoisted(() => {
@@ -43,15 +43,15 @@ const wizardTestMocks = vi.hoisted(() => {
     promptAuthConfig: vi.fn(),
     promptGatewayConfig: vi.fn(),
     promptRemoteGatewayConfig: vi.fn(
-      async (cfg: OpenClawConfig): Promise<OpenClawConfig> => ({
+      async (cfg: GrantedConfig): Promise<GrantedConfig> => ({
         ...cfg,
         gateway: { mode: "remote", remote: { url: "wss://gateway.example.test" } },
       }),
     ),
-    isCodexNativeWebSearchRelevant: vi.fn(({ config }: { config: OpenClawConfig }) =>
+    isCodexNativeWebSearchRelevant: vi.fn(({ config }: { config: GrantedConfig }) =>
       Boolean(config.auth?.profiles?.["openai:default"]),
     ),
-    setupChannels: vi.fn(async (cfg: OpenClawConfig) => cfg),
+    setupChannels: vi.fn(async (cfg: GrantedConfig) => cfg),
     guardCancel: vi.fn((value: unknown, _runtime: RuntimeEnv, _exitCode?: number) => value),
   };
 });
@@ -147,7 +147,7 @@ vi.mock("../../packages/terminal-core/src/note.js", () => ({
 
 vi.mock("./onboard-helpers.js", () => ({
   DEFAULT_WORKSPACE: "~/.openclaw/workspace",
-  applyWizardMetadata: (cfg: OpenClawConfig) => cfg,
+  applyWizardMetadata: (cfg: GrantedConfig) => cfg,
   ensureWorkspaceAndSessions: vi.fn(),
   guardCancel: wizardTestMocks.guardCancel,
   printWizardHeader: wizardTestMocks.printWizardHeader,
@@ -227,12 +227,12 @@ export function setupWizardTestDefaults() {
       credentialPath: "plugins.entries.firecrawl.config.webSearch.apiKey",
     },
   ]);
-  wizardTestMocks.setupSearch.mockImplementation(async (cfg: OpenClawConfig) => ({
+  wizardTestMocks.setupSearch.mockImplementation(async (cfg: GrantedConfig) => ({
     outcome: "completed",
     config: cfg,
   }));
-  wizardTestMocks.promptAuthConfig.mockImplementation(async (cfg: OpenClawConfig) => cfg);
-  wizardTestMocks.promptGatewayConfig.mockImplementation(async (cfg: OpenClawConfig) => ({
+  wizardTestMocks.promptAuthConfig.mockImplementation(async (cfg: GrantedConfig) => cfg);
+  wizardTestMocks.promptGatewayConfig.mockImplementation(async (cfg: GrantedConfig) => ({
     config: cfg,
     port: 18789,
   }));
@@ -254,7 +254,7 @@ export function createWizardTestRuntime() {
   };
 }
 
-export function setupBaseWizardTestState(config: OpenClawConfig = {}) {
+export function setupBaseWizardTestState(config: GrantedConfig = {}) {
   wizardTestMocks.readConfigFileSnapshot.mockResolvedValue({ ...EMPTY_CONFIG_SNAPSHOT, config });
   wizardTestMocks.resolveGatewayPort.mockReturnValue(18789);
   wizardTestMocks.probeGatewayReachable.mockResolvedValue({ ok: false });
@@ -305,7 +305,7 @@ export function createEnabledWebSearchConfig(
   provider: string,
   pluginEntry: Record<string, unknown>,
 ) {
-  return (cfg: OpenClawConfig) => ({
+  return (cfg: GrantedConfig) => ({
     ...cfg,
     tools: {
       ...cfg.tools,

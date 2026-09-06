@@ -19,7 +19,7 @@ import {
 } from "../../process/gateway-work-admission.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { writeWorkspaceSkills } from "../test-support/e2e-test-helpers.js";
@@ -61,7 +61,7 @@ function foregroundPromptContext(
 }
 
 const tempDirs = createTrackedTempDirs();
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   testState = await createOpenClawTestState({

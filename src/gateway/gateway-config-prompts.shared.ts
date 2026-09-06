@@ -3,7 +3,7 @@
 import { isIpv6Address, parseCanonicalIpAddress } from "@openclaw/net-policy/ip";
 import { expectDefined } from "@openclaw/normalization-core";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getTailnetHostname } from "../infra/tailscale.js";
 
 export const TAILSCALE_EXPOSURE_OPTIONS = [
@@ -68,10 +68,10 @@ function appendAllowedOrigin(existing: string[] | undefined, origin: string): st
 }
 
 export async function maybeAddTailnetOriginToControlUiAllowedOrigins(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   tailscaleMode: string;
   tailscaleBin?: string | null;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   if (params.tailscaleMode !== "serve" && params.tailscaleMode !== "funnel") {
     return params.config;
   }

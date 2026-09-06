@@ -1,6 +1,6 @@
 // Tests MCP command configuration, listing, and enablement behavior.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withTempHome } from "../../config/home-env.test-harness.js";
 import { REDACTED_SENTINEL } from "../../config/redact-snapshot.js";
 import { createCommandWorkspaceHarness } from "./commands-filesystem.test-support.js";
@@ -64,7 +64,7 @@ function expectMcpResult<T>(result: T | null): T {
   return result;
 }
 
-function buildCfg(): OpenClawConfig {
+function buildCfg(): GrantedConfig {
   return {
     commands: {
       text: true,

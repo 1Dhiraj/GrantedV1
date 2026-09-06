@@ -1,12 +1,12 @@
 // Plugin entry contracts define the manifest-facing hooks implemented by plugin packages.
 import { emptyPluginConfigSchema } from "../plugins/config-schema.js";
 import type {
-  OpenClawPluginConfigSchema,
-  OpenClawPluginDefinition,
+  GrantedPluginConfigSchema,
+  GrantedPluginDefinition,
   ProviderBuiltInModelSuppressionContext as ProviderBuiltInModelSuppressionContextType,
 } from "../plugins/types.js";
 import { createCachedLazyValueGetter } from "./lazy-value.js";
-export type { OpenClawConfig } from "../config/types.openclaw.js";
+export type { GrantedConfig } from "../config/types.openclaw.js";
 
 export type {
   AgentHarness,
@@ -22,25 +22,25 @@ export type {
   MigrationProviderContext,
   MigrationProviderPlugin,
   MigrationSummary,
-  OpenClawGatewayDiscoveryAdvertiseContext,
-  OpenClawGatewayDiscoveryService,
-  OpenClawPluginApi,
-  OpenClawPluginCommandDefinition,
-  OpenClawPluginConfigSchema,
-  OpenClawPluginDefinition,
-  OpenClawPluginHttpRouteHandler,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginNodeInvokePolicyContext,
-  OpenClawPluginNodeInvokePolicyResult,
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginSecurityAuditContext,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
-  OpenClawPluginToolContext,
-  OpenClawPluginToolFactory,
+  GrantedGatewayDiscoveryAdvertiseContext,
+  GrantedGatewayDiscoveryService,
+  GrantedPluginApi,
+  GrantedPluginCommandDefinition,
+  GrantedPluginConfigSchema,
+  GrantedPluginDefinition,
+  GrantedPluginHttpRouteHandler,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginNodeInvokePolicyContext,
+  GrantedPluginNodeInvokePolicyResult,
+  GrantedPluginReloadRegistration,
+  GrantedPluginSecurityAuditCollector,
+  GrantedPluginSecurityAuditContext,
+  GrantedPluginService,
+  GrantedPluginServiceContext,
+  GrantedPluginToolContext,
+  GrantedPluginToolFactory,
   PluginAgentEventEmitParams,
   PluginAgentEventEmitResult,
   PluginAgentEventSubscriptionRegistration,
@@ -148,8 +148,8 @@ export type {
 export type ProviderBuiltInModelSuppressionContext = ProviderBuiltInModelSuppressionContextType;
 
 export type {
-  OpenClawPluginGatewayEventScope,
-  OpenClawPluginGatewayEvents,
+  GrantedPluginGatewayEventScope,
+  GrantedPluginGatewayEvents,
 } from "../plugins/gateway-events.js";
 export { WorkerProviderError } from "../plugins/capability-provider.types.js";
 
@@ -203,17 +203,17 @@ type DefinePluginEntryOptions = {
    * manifest `kind`. Runtime-entry `kind` remains only as a compatibility
    * fallback for older plugins.
    */
-  kind?: OpenClawPluginDefinition["kind"];
-  configSchema?: OpenClawPluginConfigSchema | (() => OpenClawPluginConfigSchema);
-  reload?: OpenClawPluginDefinition["reload"];
-  nodeHostCommands?: OpenClawPluginDefinition["nodeHostCommands"];
-  securityAuditCollectors?: OpenClawPluginDefinition["securityAuditCollectors"];
-  register: NonNullable<OpenClawPluginDefinition["register"]>;
+  kind?: GrantedPluginDefinition["kind"];
+  configSchema?: GrantedPluginConfigSchema | (() => GrantedPluginConfigSchema);
+  reload?: GrantedPluginDefinition["reload"];
+  nodeHostCommands?: GrantedPluginDefinition["nodeHostCommands"];
+  securityAuditCollectors?: GrantedPluginDefinition["securityAuditCollectors"];
+  register: NonNullable<GrantedPluginDefinition["register"]>;
 };
 
 /** Normalized object shape that OpenClaw loads from a plugin entry module. */
 type DefinedPluginEntry = Omit<DefinePluginEntryOptions, "configSchema"> & {
-  configSchema: OpenClawPluginConfigSchema;
+  configSchema: GrantedPluginConfigSchema;
 };
 
 /**

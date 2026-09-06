@@ -12,7 +12,7 @@ import {
   readPersistedSharedAuthProfileStoreRaw,
   writePersistedAuthProfileStoreRaw,
 } from "../agents/auth-profiles/sqlite.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import {
@@ -101,7 +101,7 @@ const mockedLegacyMigrationDetectors = vi.hoisted(() => ({
   entries: [] as Array<{
     pluginId: string;
     detector: (params: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       env: NodeJS.ProcessEnv;
       stateDir: string;
       oauthDir: string;
@@ -216,7 +216,7 @@ vi.mock("../plugins/doctor-contract-registry.js", async (importOriginal) => {
 
 async function makeRootWithEmptyCfg() {
   const root = makeDoctorStateDir();
-  const cfg: OpenClawConfig = {};
+  const cfg: GrantedConfig = {};
   return { root, cfg };
 }
 
@@ -235,7 +235,7 @@ function writeLegacyTelegramAllowFromStore(oauthDir: string) {
   );
 }
 
-async function runTelegramAllowFromMigration(params: { root: string; cfg: OpenClawConfig }) {
+async function runTelegramAllowFromMigration(params: { root: string; cfg: GrantedConfig }) {
   const oauthDir = ensureCredentialsDir(params.root);
   writeLegacyTelegramAllowFromStore(oauthDir);
   const env = { GRANTED_STATE_DIR: params.root } as NodeJS.ProcessEnv;
@@ -713,7 +713,7 @@ function appendLegacyTaskWithObsoleteDeliveryStatus(taskRunsPath: string): void 
 
 async function detectAndRunMigrations(params: {
   root: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   now?: () => number;
 }) {
   const detected = await detectLegacyStateMigrations({
@@ -746,7 +746,7 @@ function readSessionsStore(targetDir: string) {
 
 async function runAndReadSessionsStore(params: {
   root: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targetDir: string;
   now?: () => number;
 }) {
@@ -852,7 +852,7 @@ describe("doctor legacy state migrations", () => {
 
   beforeAll(async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const legacySessionsDir = writeLegacySessionsFixture({
       root,
       sessions: {
@@ -1168,7 +1168,7 @@ describe("doctor legacy state migrations", () => {
 
   it("migrates legacy ACP metadata from sessions.json into shared SQLite", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const legacySessionKey = "acp:binding:discord:default:feedface";
     const sessionKey = "agent:main:acp:binding:discord:default:feedface";
     writeLegacySessionsFixture({
@@ -1245,7 +1245,7 @@ describe("doctor legacy state migrations", () => {
     const legacySessionKey = "acp:binding:discord:default:feedface";
     const sessionKey = "agent:ops:acp:binding:discord:default:feedface";
     const storePath = path.join(customRoot, "agents", "ops", "sessions", "sessions.json");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: {
         store: path.join(customRoot, "agents", "{agentId}", "sessions", "sessions.json"),
       },
@@ -1353,7 +1353,7 @@ describe("doctor legacy state migrations", () => {
     const customRoot = makeDoctorStateDir();
     const outsideRoot = makeDoctorStateDir();
     const sessionKey = "agent:main:acp:binding:discord:default:feedface";
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: {
         store: path.join(customRoot, "agents", "{agentId}", "sessions", "sessions.json"),
       },
@@ -1394,7 +1394,7 @@ describe("doctor legacy state migrations", () => {
 
   it("does not apply WhatsApp session-key reinterpretation when its owner is unselected", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const targetDir = path.join(root, "agents", "main", "sessions");
 
     writeLegacySessionsFixture({
@@ -1499,7 +1499,7 @@ describe("doctor legacy state migrations", () => {
 
   it("uses the channel-resolved default account for unscoped pairing allowFrom", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         whatsapp: {
           accounts: {
@@ -1537,7 +1537,7 @@ describe("doctor legacy state migrations", () => {
 
   it("does not fan out legacy Telegram pairing allowFrom store to configured named accounts", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           defaultAccount: "bot2",
@@ -1559,7 +1559,7 @@ describe("doctor legacy state migrations", () => {
 
   it("migrates legacy Telegram pairing allowFrom store to the default agent bound account", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "ops", default: true }],
       },
@@ -1585,7 +1585,7 @@ describe("doctor legacy state migrations", () => {
 
   it("migrates a case-preserved Telegram account filename through Doctor", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         telegram: {
           accounts: {
@@ -1611,7 +1611,7 @@ describe("doctor legacy state migrations", () => {
 
   it("no-ops when nothing detected", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const detected = await detectLegacyStateMigrations({
       cfg,
       env: { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv,
@@ -4086,7 +4086,7 @@ describe("doctor legacy state migrations", () => {
 
   it("routes legacy state to the default agent entry", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { list: [{ id: "alpha", default: true }] },
     };
     writeLegacySessionsFixture({
@@ -4108,7 +4108,7 @@ describe("doctor legacy state migrations", () => {
 
   it("honors session.mainKey when seeding the direct-chat bucket", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = { session: { mainKey: "work" } };
+    const cfg: GrantedConfig = { session: { mainKey: "work" } };
     writeLegacySessionsFixture({
       root,
       sessions: {
@@ -4148,7 +4148,7 @@ describe("doctor legacy state migrations", () => {
 
   it("prefers the newest entry when collapsing main aliases", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = { session: { mainKey: "work" } };
+    const cfg: GrantedConfig = { session: { mainKey: "work" } };
     const targetDir = path.join(root, "agents", "main", "sessions");
     writeJson5(path.join(targetDir, "sessions.json"), {
       "agent:main:main": { sessionId: "legacy", updatedAt: 50 },
@@ -4167,7 +4167,7 @@ describe("doctor legacy state migrations", () => {
 
   it("lowercases agent session keys during canonicalization", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const targetDir = path.join(root, "agents", "main", "sessions");
     writeJson5(path.join(targetDir, "sessions.json"), {
       "agent:main:slack:channel:C123": { sessionId: "legacy", updatedAt: 10 },
@@ -4185,7 +4185,7 @@ describe("doctor legacy state migrations", () => {
 
   it("preserves Matrix room and thread casing during canonicalization", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const targetDir = path.join(root, "agents", "main", "sessions");
     writeJson5(path.join(targetDir, "sessions.json"), {
       "agent:main:Matrix:Channel:!Mixed:Example.Org:Thread:$EventABC": {
@@ -4208,7 +4208,7 @@ describe("doctor legacy state migrations", () => {
 
   it("preserves unscoped legacy Matrix room casing when scoping to an agent", async () => {
     const root = makeDoctorStateDir();
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
     const targetDir = path.join(root, "agents", "main", "sessions");
     writeJson5(path.join(targetDir, "sessions.json"), {
       "Matrix:Channel:!Mixed:Example.Org": { sessionId: "matrix", updatedAt: 10 },

@@ -1,13 +1,13 @@
 // DeepInfra tests cover plugin-owned doctor compatibility migrations.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { legacyConfigRules, normalizeCompatibilityConfig } from "./doctor-contract-api.js";
 
-function deepinfraConfig(provider: Record<string, unknown>): OpenClawConfig {
-  return { models: { providers: { deepinfra: provider } } } as unknown as OpenClawConfig;
+function deepinfraConfig(provider: Record<string, unknown>): GrantedConfig {
+  return { models: { providers: { deepinfra: provider } } } as unknown as GrantedConfig;
 }
 
-function migratedProvider(cfg: OpenClawConfig): Record<string, unknown> {
+function migratedProvider(cfg: GrantedConfig): Record<string, unknown> {
   const providers = cfg.models?.providers as Record<string, Record<string, unknown>> | undefined;
   return providers?.deepinfra ?? {};
 }
@@ -28,9 +28,9 @@ describe("DeepInfra doctor contract", () => {
   });
 
   it("returns the same config when no deepinfra provider is configured", () => {
-    const cfg = { models: { providers: {} } } as OpenClawConfig;
+    const cfg = { models: { providers: {} } } as GrantedConfig;
     expect(normalizeCompatibilityConfig({ cfg })).toEqual({ config: cfg, changes: [] });
-    expect(normalizeCompatibilityConfig({ cfg: {} as OpenClawConfig }).changes).toEqual([]);
+    expect(normalizeCompatibilityConfig({ cfg: {} as GrantedConfig }).changes).toEqual([]);
   });
 
   it("replaces a default-valued nativeBaseUrl with the canonical baseUrl", () => {

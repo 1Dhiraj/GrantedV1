@@ -1,6 +1,6 @@
 import { Container } from "@cloudflare/containers";
 
-interface OpenClawContainerEnv {
+interface GrantedContainerEnv {
   ANTHROPIC_API_KEY?: string;
   DISCORD_BOT_TOKEN?: string;
   LITESTREAM_ACCESS_KEY_ID: string;
@@ -25,7 +25,7 @@ const OPTIONAL_SECRET_NAMES = [
   "TELEGRAM_BOT_TOKEN",
 ] as const;
 
-function buildContainerEnv(env: OpenClawContainerEnv): Record<string, string> {
+function buildContainerEnv(env: GrantedContainerEnv): Record<string, string> {
   const containerEnv: Record<string, string> = {
     LITESTREAM_ACCESS_KEY_ID: env.LITESTREAM_ACCESS_KEY_ID,
     LITESTREAM_BUCKET: env.LITESTREAM_BUCKET,
@@ -51,7 +51,7 @@ function buildContainerEnv(env: OpenClawContainerEnv): Record<string, string> {
   return containerEnv;
 }
 
-export class OpenClawContainer extends Container<OpenClawContainerEnv> {
+export class GrantedContainer extends Container<GrantedContainerEnv> {
   override defaultPort = 8080;
   // /healthz exists in every published OpenClaw image and answers as soon as the
   // Gateway's listener is up, which is exactly what this readiness poll asks.
@@ -65,7 +65,7 @@ export class OpenClawContainer extends Container<OpenClawContainerEnv> {
 
   private readonly webhookOnly: boolean;
 
-  constructor(ctx: unknown, env: OpenClawContainerEnv) {
+  constructor(ctx: unknown, env: GrantedContainerEnv) {
     super(ctx, env);
     this.envVars = buildContainerEnv(env);
     this.webhookOnly = env.GRANTED_WEBHOOK_ONLY === "true";

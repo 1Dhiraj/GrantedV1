@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
 import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -21,7 +21,7 @@ type LanceDbTable = Awaited<ReturnType<LanceDbConnection["openTable"]>>;
 
 const LEGACY_ENVELOPE_DELETE_BATCH_SIZE = 500;
 
-function resolveLegacyMemoryOwner(config: OpenClawConfig): {
+function resolveLegacyMemoryOwner(config: GrantedConfig): {
   agentId: string;
   label: "default" | "system";
 } {
@@ -102,7 +102,7 @@ function resolveHome(env: NodeJS.ProcessEnv): string {
 }
 
 function resolveConfiguredDbPath(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
   pluginRoot: string,
 ): string {
@@ -122,7 +122,7 @@ function resolveConfiguredDbPath(
 }
 
 function resolveStorageOptions(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): Record<string, string> | undefined {
   const pluginConfig = asOptionalRecord(config.plugins?.entries?.["memory-lancedb"]?.config);
@@ -150,7 +150,7 @@ function resolveStorageOptions(
 }
 
 async function openMemoryTable(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   pluginRoot: string;
 }): Promise<{

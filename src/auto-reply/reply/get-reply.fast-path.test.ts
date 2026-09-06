@@ -3,7 +3,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-support.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
@@ -17,7 +17,7 @@ import { listSessionStateEventsSince } from "../../sessions/session-state-events
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { getReplyPayloadMetadata } from "../reply-payload.js";
 import { handleGoalCommand } from "./commands-goal.js";
@@ -139,7 +139,7 @@ function readFastPathSessionEntry(storePath: string, sessionKey: string): Sessio
 }
 
 describe("getReplyFromConfig fast test bootstrap", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   let isolatedStorePath: string;
 
   beforeAll(async () => {
@@ -167,7 +167,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
     mocks.buildStatusReply.mockReset();
     mocks.buildStatusReply.mockImplementation(async (params: unknown) => {
       const status = params as {
-        cfg: OpenClawConfig;
+        cfg: GrantedConfig;
         resolvedThinkLevel?: string;
         resolveDefaultThinkingLevel: () => Promise<string | undefined>;
         sessionKey?: string;
@@ -230,7 +230,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
 
   it("fails fast on unmarked config overrides in strict fast-test mode", async () => {
     await expect(
-      getReplyFromConfig(buildGetReplyCtx(), undefined, {} as OpenClawConfig),
+      getReplyFromConfig(buildGetReplyCtx(), undefined, {} as GrantedConfig),
     ).rejects.toThrow(/withFastReplyConfig\(\)\/markCompleteReplyConfig\(\)/);
     expect(vi.mocked(loadConfigMock)).not.toHaveBeenCalled();
   });
@@ -245,7 +245,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
       },
       channels: { telegram: { allowFrom: ["*"] } },
       session: { store: isolatedStorePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     // Check the mocked runtime resolver before fast bootstrap can create its workspace.
     expect(isPathInside(state.root, resolveAgentWorkspaceDirMock(cfg, "main"))).toBe(true);
@@ -270,7 +270,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
           botToken: "resolved-telegram-token",
         },
       },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     await getReplyFromConfig(buildGetReplyCtx(), undefined, {
       agents: {
@@ -278,7 +278,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
           userTimezone: "America/New_York",
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(vi.mocked(loadConfigMock)).toHaveBeenCalledOnce();
     expect(mocks.initSessionState).toHaveBeenCalledOnce();
@@ -303,7 +303,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         SessionKey: "agent:main:slack:channel:C123",
       }),
       { onSessionPrepared } as never,
-      {} as OpenClawConfig,
+      {} as GrantedConfig,
     );
 
     expect(onSessionPrepared).toHaveBeenCalledWith({
@@ -329,7 +329,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         SessionKey: sessionKey,
       }),
       undefined,
-      {} as OpenClawConfig,
+      {} as GrantedConfig,
     );
 
     expect(result).toEqual({ text: MODEL_SELECTION_LOCKED_RESET_MESSAGE });
@@ -341,7 +341,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
     const cfg = withFastReplyConfig({
       agents: { defaults: { workspace: state.workspaceDir } },
       session: { store: isolatedStorePath },
-    } satisfies OpenClawConfig);
+    } satisfies GrantedConfig);
 
     await expect(getReplyFromConfig(buildGetReplyCtx(), undefined, cfg)).resolves.toEqual({
       text: "ok",
@@ -375,7 +375,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await expect(
       getReplyFromConfig(buildGetReplyCtx(), { isHeartbeat: true }, cfg),
@@ -408,7 +408,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await expect(
       getReplyFromConfig(buildGetReplyCtx(), { isHeartbeat: true }, cfg),
@@ -441,7 +441,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     await expect(
       getReplyFromConfig(buildGetReplyCtx(), { isHeartbeat: true }, cfg),
@@ -466,7 +466,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: isolatedStorePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     vi.mocked(resolveDefaultModelMock).mockReturnValueOnce({
       defaultProvider: "openai",
       defaultModel: "gpt-5.5",
@@ -526,7 +526,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         ],
       },
       session: { store: isolatedStorePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     vi.mocked(resolveDefaultModelMock).mockReturnValueOnce({
       defaultProvider: "openai",
       defaultModel: "gpt-5.5",
@@ -584,7 +584,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     vi.mocked(resolveDefaultModelMock).mockReturnValueOnce({
       defaultProvider: "openai",
       defaultModel: "gpt-5.5",
@@ -635,7 +635,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: isolatedStorePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     mocks.resolveReplyDirectives.mockResolvedValueOnce({
       kind: "reply",
       reply: { text: "model status" },
@@ -694,7 +694,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         },
       },
       session: { store: storePath },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     const continuationPrompt = `Pursue this goal exactly as written from this JSON string: "\\/status"`;
     const continueDirectives = async (params: unknown) =>
       createGetReplyContinueDirectivesResult({
@@ -773,7 +773,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandSource: "native",
         CommandTargetSessionKey: "agent:main:main",
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: "/tmp/workspace",
@@ -793,7 +793,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
           actor: { type: "human", source: "profile", id: "profile-ada" },
         },
       }),
-      cfg: { session: { store: isolatedStorePath } } as OpenClawConfig,
+      cfg: { session: { store: isolatedStorePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: "/tmp/workspace",
@@ -824,7 +824,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandBody: "/reset",
         SessionKey: sessionKey,
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: state.workspaceDir,
@@ -846,7 +846,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
       }),
       cfg: {
         session: { store: isolatedStorePath, resetTriggers: ["/new"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: "/tmp/workspace",
@@ -867,7 +867,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
       }),
       cfg: {
         session: { store: isolatedStorePath, resetTriggers: ["/new"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: "/tmp/workspace",
@@ -908,7 +908,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandBody: "/reset",
         SessionKey: sessionKey,
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: state.workspaceDir,
@@ -940,7 +940,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
           CommandBody: "/reset",
           SessionKey: sessionKey,
         }),
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
         agentId: "main",
         commandAuthorized: true,
         workspaceDir: state.workspaceDir,
@@ -971,7 +971,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandBody: "hello",
         SessionKey: sessionKey,
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: state.workspaceDir,
@@ -992,7 +992,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         To: undefined,
         SenderId: "gateway-client",
       }),
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "main",
       isGroup: false,
       triggerBodyNormalized: "/codex bind",
@@ -1013,7 +1013,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         RawBody: body,
         CommandBody: body,
       }),
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       sessionKey: "main",
       isGroup: false,
       triggerBodyNormalized: body,
@@ -1040,7 +1040,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandBody: "/reset \nsoft",
         SessionKey: sessionKey,
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: state.workspaceDir,
@@ -1068,7 +1068,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
         CommandBody: "/reset: soft",
         SessionKey: sessionKey,
       }),
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       agentId: "main",
       commandAuthorized: true,
       workspaceDir: state.workspaceDir,

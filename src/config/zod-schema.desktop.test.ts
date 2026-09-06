@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { computeBaseConfigSchemaResponse } from "./schema-base.js";
 import { DESKTOP_FIELD_HELP, DESKTOP_FIELD_LABELS } from "./zod-schema.desktop.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 
-describe("OpenClawSchema desktop config", () => {
+describe("GrantedSchema desktop config", () => {
   it("round-trips the host Labs config and rejects unknown or unsafe fields", () => {
     expect(
-      OpenClawSchema.parse({
+      GrantedSchema.parse({
         desktop: {
           host: {
             enabled: true,
@@ -19,16 +19,15 @@ describe("OpenClawSchema desktop config", () => {
     ).toStrictEqual({
       host: { enabled: true, managed: true, port: 5901, passwordFile: "/run/vnc/passwd" },
     });
+    expect(GrantedSchema.safeParse({ desktop: { host: { enabled: true, port: 0 } } }).success).toBe(
+      false,
+    );
     expect(
-      OpenClawSchema.safeParse({ desktop: { host: { enabled: true, port: 0 } } }).success,
-    ).toBe(false);
-    expect(
-      OpenClawSchema.safeParse({ desktop: { host: { enabled: true, passwordFile: "relative" } } })
+      GrantedSchema.safeParse({ desktop: { host: { enabled: true, passwordFile: "relative" } } })
         .success,
     ).toBe(false);
     expect(
-      OpenClawSchema.safeParse({ desktop: { host: { enabled: true, manageServer: true } } })
-        .success,
+      GrantedSchema.safeParse({ desktop: { host: { enabled: true, manageServer: true } } }).success,
     ).toBe(false);
   });
 

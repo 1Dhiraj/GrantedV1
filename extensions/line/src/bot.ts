@@ -1,5 +1,5 @@
 // Line plugin module implements bot behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
 import {
   getRuntimeConfig,
@@ -28,12 +28,12 @@ interface LineBotOptions {
   accountId?: string;
   runtime?: RuntimeEnv;
   buildContext?: BuildChannelInboundContext;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   mediaMaxMb?: number;
   onMessage?: (
     ctx: LineInboundContext,
     control: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       turnAdoptionLifecycle?: LineWebhookTurnAdoptionLifecycle;
     },
   ) => Promise<void>;
@@ -65,7 +65,7 @@ export function createLineBot(opts: LineBotOptions): LineBot {
         runtimeConfig: startupRuntimeConfig,
         runtimeSourceConfig: startupRuntimeSourceConfig,
       }) === startupRuntimeConfig);
-  const resolveTurnConfig = (): OpenClawConfig =>
+  const resolveTurnConfig = (): GrantedConfig =>
     (followsRuntimeConfig ? getRuntimeConfigSnapshot() : undefined) ?? startupConfig;
   // `channels.line` changes restart the monitor, so account credentials and settings
   // remain startup-prepared facts.

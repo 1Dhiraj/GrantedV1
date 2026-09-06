@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import {
@@ -13,7 +13,7 @@ import {
 } from "./runtime-degraded-state.js";
 import { asConfig, setupSecretsRuntimeSnapshotTestHooks } from "./runtime.test-support.ts";
 
-function createOpenAiFileModelsConfig(): NonNullable<OpenClawConfig["models"]> {
+function createOpenAiFileModelsConfig(): NonNullable<GrantedConfig["models"]> {
   return {
     providers: {
       openai: {
@@ -220,7 +220,7 @@ describe("secrets runtime provider and media surfaces", () => {
         refKeys: [],
         reason: "credential file is unavailable",
       });
-      const runtimeSourceConfig: OpenClawConfig = {
+      const runtimeSourceConfig: GrantedConfig = {
         ...initial.sourceConfig,
         logging: { level: "debug" },
       };

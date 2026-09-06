@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 const writeWizardConfigFile = vi.hoisted(() => vi.fn());
 
@@ -10,11 +10,11 @@ import { commitNonInteractiveOnboardConfig } from "./config-write.js";
 describe("commitNonInteractiveOnboardConfig", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    writeWizardConfigFile.mockImplementation(async (config: OpenClawConfig) => config);
+    writeWizardConfigFile.mockImplementation(async (config: GrantedConfig) => config);
   });
 
   it("keeps the verified config hash on the canonical writer", async () => {
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: GrantedConfig = {
       gateway: { port: 19_001 },
     };
 
@@ -32,7 +32,7 @@ describe("commitNonInteractiveOnboardConfig", () => {
   });
 
   it("permits config size reduction only for an explicitly requested reset", async () => {
-    const nextConfig: OpenClawConfig = {};
+    const nextConfig: GrantedConfig = {};
 
     await commitNonInteractiveOnboardConfig({
       nextConfig,

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   onTrustedInternalDiagnosticEvent,
   resetDiagnosticEventsForTest,
@@ -26,7 +26,7 @@ const cfg = {
       model: "openai/gpt-5.5",
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 const preparedModel = {
   selection: {

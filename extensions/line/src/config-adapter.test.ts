@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { listLineAccountIds } from "./accounts.js";
 import { lineConfigAdapter } from "./config-adapter.js";
@@ -29,7 +29,7 @@ describe("LINE config adapter", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const nextCfg = lineConfigAdapter.deleteAccount!({ cfg, accountId: "default" });
 

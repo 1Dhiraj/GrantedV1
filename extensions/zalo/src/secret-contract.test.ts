@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createResolverContext } from "openclaw/plugin-sdk/secret-ref-runtime";
 import { describe, expect, it } from "vitest";
 import { collectRuntimeConfigAssignments } from "./secret-contract.js";
@@ -18,7 +18,7 @@ describe("Zalo secret contract", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const context = createResolverContext({ sourceConfig, env: {} });
 
     collectRuntimeConfigAssignments({ config: structuredClone(sourceConfig), context });
@@ -40,7 +40,7 @@ describe("Zalo secret contract", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const context = createResolverContext({ sourceConfig, env: {} });
 
     collectRuntimeConfigAssignments({ config: structuredClone(sourceConfig), context });

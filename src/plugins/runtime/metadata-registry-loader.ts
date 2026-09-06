@@ -1,5 +1,5 @@
 // Metadata registry loader builds plugin metadata registries without activating runtime barrels.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadPluginRegistryHandle } from "../loader.js";
 import type { PluginManifestRegistry } from "../manifest-registry.js";
 import { hasExplicitPluginIdScope } from "../plugin-scope.js";
@@ -10,8 +10,8 @@ import { resolvePluginRuntimeLoadContext } from "./load-context.resolve.js";
 
 /** Loads a non-activated plugin metadata registry snapshot for validation/status callers. */
 export function loadPluginMetadataRegistrySnapshot(options?: {
-  config?: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config?: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   logger?: PluginLogger;
   workspaceDir?: string;

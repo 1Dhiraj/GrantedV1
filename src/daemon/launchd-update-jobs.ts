@@ -35,7 +35,7 @@ export type StaleOpenClawUpdateLaunchdJob = {
   lastExitStatus?: number;
 };
 
-type OpenClawUpdateLaunchdLabelCandidate = {
+type GrantedUpdateLaunchdLabelCandidate = {
   label: string;
   requiresMetadata: boolean;
 };
@@ -55,7 +55,7 @@ function normalizeOpenClawUpdateLaunchdLabel(label: unknown): string | null {
 
 function normalizeOpenClawUpdateLaunchdLabelCandidate(
   label: unknown,
-): OpenClawUpdateLaunchdLabelCandidate | null {
+): GrantedUpdateLaunchdLabelCandidate | null {
   const normalized = normalizeOpenClawUpdateLaunchdLabel(label);
   if (normalized) {
     return { label: normalized, requiresMetadata: false };
@@ -86,7 +86,7 @@ function isCurrentGatewayLaunchdLabel(label: string, env: NodeJS.ProcessEnv): bo
 
 function resolveCurrentOpenClawUpdateLaunchdJobLabel(
   env: NodeJS.ProcessEnv = process.env,
-): OpenClawUpdateLaunchdLabelCandidate | null {
+): GrantedUpdateLaunchdLabelCandidate | null {
   for (const label of [
     env.LAUNCH_JOB_LABEL,
     env.LAUNCH_JOB_NAME,
@@ -114,8 +114,8 @@ export function parseLaunchctlListOpenClawUpdateJobs(
 
 function parseLaunchctlListOpenClawUpdateJobCandidates(
   output: string,
-): Array<StaleOpenClawUpdateLaunchdJob & OpenClawUpdateLaunchdLabelCandidate> {
-  const jobs: Array<StaleOpenClawUpdateLaunchdJob & OpenClawUpdateLaunchdLabelCandidate> = [];
+): Array<StaleOpenClawUpdateLaunchdJob & GrantedUpdateLaunchdLabelCandidate> {
+  const jobs: Array<StaleOpenClawUpdateLaunchdJob & GrantedUpdateLaunchdLabelCandidate> = [];
   for (const rawLine of output.split(/\r?\n/)) {
     const line = rawLine.trim();
     if (!line) {
@@ -215,7 +215,7 @@ export async function findStaleOpenClawUpdateLaunchdJobs(
 }
 
 async function disableOpenClawUpdateLaunchdJobCandidate(params: {
-  candidate: OpenClawUpdateLaunchdLabelCandidate;
+  candidate: GrantedUpdateLaunchdLabelCandidate;
   env: NodeJS.ProcessEnv;
   trustCurrentEnvMarker: boolean;
 }): Promise<boolean> {

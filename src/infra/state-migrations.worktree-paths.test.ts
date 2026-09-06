@@ -6,7 +6,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { getRegistryWorktree, insertRegistryWorktree } from "../agents/worktrees/registry.js";
 import { ManagedWorktreeService } from "../agents/worktrees/service.js";
 import { initializeManagedWorktreeTestRepository } from "../agents/worktrees/service.test-support.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { EMPTY_LEGACY_SESSION_SURFACES } from "../plugins/legacy-session-surfaces.types.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -38,7 +38,7 @@ describe("managed worktree path state migrations", () => {
     const env = { ...process.env, HOME: root, GRANTED_STATE_DIR: stateDir };
 
     const detected = await detectLegacyStateMigrations({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       env,
       homedir: () => root,
       legacySessionSurfaces: EMPTY_LEGACY_SESSION_SURFACES,
@@ -110,7 +110,7 @@ describe("managed worktree path state migrations", () => {
         beforeCleanupOutcome.close();
       }
 
-      const cfg = {} as OpenClawConfig;
+      const cfg = {} as GrantedConfig;
       // Doctor's read-only SELECT * follows the physical columns. Compatibility
       // validation must allow this additive column to be absent before that query.
       const detected = await detectLegacyStateMigrations({

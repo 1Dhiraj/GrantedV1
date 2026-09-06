@@ -18,7 +18,7 @@ import {
 } from "./send-context.js";
 import type { TelegramSendOpts, TelegramSendResult } from "./send-message-types.js";
 import type { TelegramPreparedSender } from "./send-prepared.js";
-import type { OpenClawConfig } from "./send.runtime.js";
+import type { GrantedConfig } from "./send.runtime.js";
 import { recordSentMessage } from "./sent-message-cache.js";
 import { planTelegramTextDeliveryPages } from "./telegram-text-delivery.js";
 import { resolveTelegramTextChunkLimit } from "./text-chunk-limit.js";
@@ -50,7 +50,7 @@ function buildTelegramTextSendReceipt(params: {
 }
 
 export function createTelegramTextSender(config: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ownerAgentId: string;
   account: ResolvedTelegramAccount;
   api: TelegramApi;

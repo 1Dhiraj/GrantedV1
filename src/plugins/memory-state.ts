@@ -1,7 +1,7 @@
 /** Registry state for plugin memory runtimes, prompt supplements, and flush planning. */
 import { AsyncLocalStorage } from "node:async_hooks";
 import { filterStringEntries } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { normalizePluginsConfig, resolveEffectivePluginActivationState } from "./config-state.js";
 import type {
@@ -127,7 +127,7 @@ function adoptEligibleRuntimeMemoryRegistrations<T extends { pluginId: string }>
 export function adoptRuntimeMemoryRegistrations(
   targetRegistry: PluginRegistry,
   runtimeRegistry: PluginRegistry,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): PluginRegistry {
   const normalizedConfig = normalizePluginsConfig(config.plugins);
   const canAdopt = (pluginId: string) => {
@@ -326,7 +326,7 @@ export function listMemoryPromptPreparations(): MemoryPromptPreparationRegistrat
   return [...requireActivePluginRegistry().memoryPromptPreparations];
 }
 export function resolveMemoryFlushPlan(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   nowMs?: number;
   contextWindowTokens?: number;
 }): MemoryFlushPlan | null {
@@ -372,7 +372,7 @@ function isValidMemoryPublicArtifact(
 }
 
 export async function listActiveMemoryPublicArtifacts(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): Promise<MemoryPluginPublicArtifact[]> {
   const capability = getMemoryCapability();
   const pluginId = capability?.pluginId;

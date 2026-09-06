@@ -1,6 +1,6 @@
 // Covers provider auth input collection and credential handling.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import {
   ensureApiKeyFromEnvOrPrompt,
@@ -18,7 +18,7 @@ const resolveEnvApiKey = vi.hoisted(() =>
     (
       provider: string,
       env?: NodeJS.ProcessEnv,
-      _options?: { config?: OpenClawConfig; workspaceDir?: string },
+      _options?: { config?: GrantedConfig; workspaceDir?: string },
     ) => {
       if (provider !== "minimax") {
         return null;
@@ -256,7 +256,7 @@ describe("validateApiKeyInput", () => {
 describe("ensureApiKeyFromEnvOrPrompt", () => {
   it("uses the prepared workspace when staged config has no default agent", async () => {
     const workspaceDir = "/tmp/openclaw-provider-workspace";
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: { entries: { main: {}, work: { workspace: workspaceDir } } },
       plugins: { entries: { minimax: { enabled: true } } },
     };

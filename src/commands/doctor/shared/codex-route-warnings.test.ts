@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveAgentHarnessPolicy } from "../../../agents/harness/policy.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   ensureAuthProfileStore: vi.fn(),
@@ -62,7 +62,7 @@ type CodexRouteRepairOptions = Omit<
 >;
 
 // These fixtures intentionally exercise raw legacy shapes that current config validation rejects.
-const asLegacyConfig = (cfg: unknown): OpenClawConfig => cfg as OpenClawConfig;
+const asLegacyConfig = (cfg: unknown): GrantedConfig => cfg as GrantedConfig;
 
 function collectCodexRouteWarnings(cfg: unknown, options: CodexRouteWarningOptions = {}): string[] {
   return collectCodexRouteWarningsUnderTest({ cfg: asLegacyConfig(cfg), ...options });
@@ -80,7 +80,7 @@ type CodexRouteRepairResult = ReturnType<typeof maybeRepairCodexRoutes>;
 type AgentRuntime = ReturnType<typeof resolveAgentHarnessPolicy>["runtime"];
 
 function expectAgentRuntime(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   expected: AgentRuntime,
   options: { provider?: string; modelId?: string; agentId?: string } = {},
 ) {
@@ -554,7 +554,7 @@ describe("collectCodexRouteWarnings", () => {
     const cfg = {
       plugins: DISABLED_CODEX_PLUGIN_CONFIG,
       agents: { defaults: { model: { primary: "openai/gpt-5.4-nano" } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       collectCodexRouteWarnings(cfg, {
@@ -1255,7 +1255,7 @@ describe("collectCodexRouteWarnings", () => {
         ],
       },
       hooks: { gmail: { model: "openai-codex/gpt-5.4" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(collectCodexRouteWarnings(cfg)).toStrictEqual([
       legacyRouteWarning("- hooks.gmail.model: openai-codex/gpt-5.4 should become openai/gpt-5.4."),
@@ -1594,7 +1594,7 @@ describe("collectCodexRouteWarnings", () => {
         list: [{ id: "worker", model: "anthropic/claude-sonnet-4-6" }],
       },
       hooks: { gmail: { model: "openai-codex/gpt-5.4" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(collectCodexRouteWarnings(cfg)).toStrictEqual([
       legacyRouteWarning("- hooks.gmail.model: openai-codex/gpt-5.4 should become openai/gpt-5.4."),
@@ -2434,7 +2434,7 @@ describe("collectCodexRouteWarnings", () => {
         },
         list: [{ id: "worker", model: "openai-codex/gpt-5.4" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "worker" });
 
@@ -2465,7 +2465,7 @@ describe("collectCodexRouteWarnings", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "worker" });
 
@@ -2492,7 +2492,7 @@ describe("collectCodexRouteWarnings", () => {
         },
         list: [{ id: "worker", model: "openai-codex/gpt-5.4" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "worker" });
 
@@ -2519,7 +2519,7 @@ describe("collectCodexRouteWarnings", () => {
       },
       agents: { defaults: { model: "openai-codex/gpt-5.4" } },
       plugins: DISABLED_CODEX_PLUGIN_CONFIG,
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex" });
 
@@ -2545,7 +2545,7 @@ describe("collectCodexRouteWarnings", () => {
         },
       },
       agents: { defaults: { model: "openai-codex/gpt-5.4" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex" });
 
@@ -2573,7 +2573,7 @@ describe("collectCodexRouteWarnings", () => {
       agents: {
         list: [{ id: "worker", model: "openai-codex/gpt-5.4" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "worker" });
 
@@ -2603,7 +2603,7 @@ describe("collectCodexRouteWarnings", () => {
           { id: "regular", model: "openai/gpt-5.4" },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "main" });
     expectAgentRuntime(cfg, "codex", { agentId: "regular" });
@@ -2636,7 +2636,7 @@ describe("collectCodexRouteWarnings", () => {
       agents: {
         list: [{ id: "worker", model: "openai-codex/gpt-5.4" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "openclaw", { provider: "openai-codex", agentId: "worker" });
 
@@ -2662,7 +2662,7 @@ describe("collectCodexRouteWarnings", () => {
         },
         list: [{ id: "worker", model: "openai-codex/gpt-5.4" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectAgentRuntime(cfg, "auto", { provider: "openai-codex", agentId: "worker" });
 

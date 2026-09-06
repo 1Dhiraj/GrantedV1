@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import type { AuthProfileStore } from "./auth-profiles.js";
 import { resolveEnvApiKey } from "./model-auth-env.js";
@@ -59,7 +59,7 @@ describe("workspace plugin model auth evidence", () => {
     await fs.writeFile(credentialsPath, "{}", "utf8");
     await writeWorkspaceAuthEvidencePlugin(workspaceDir);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: {
         allow: ["workspace-cloud"],
       },

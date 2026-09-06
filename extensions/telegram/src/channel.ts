@@ -22,7 +22,7 @@ import {
   buildTokenChannelStatusSummary,
   projectCredentialSnapshotFields,
 } from "openclaw/plugin-sdk/channel-status";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { channelBlockedPatch } from "openclaw/plugin-sdk/gateway-runtime";
@@ -123,7 +123,7 @@ function resolveTelegramProbe() {
   );
 }
 
-function isTelegramRichMessagesEnabled(cfg: OpenClawConfig, accountId?: string | null): boolean {
+function isTelegramRichMessagesEnabled(cfg: GrantedConfig, accountId?: string | null): boolean {
   const selectedAccountId = accountId ?? resolveDefaultTelegramAccountId(cfg);
   return mergeTelegramAccountConfig(cfg, selectedAccountId).richMessages === true;
 }
@@ -249,7 +249,7 @@ const telegramChannelOutbound = createTelegramOutboundAdapter({
   preferFinalAssistantVisibleText: true,
 });
 
-const telegramMessageAdapter = createChannelMessageAdapterFromOutbound<OpenClawConfig>({
+const telegramMessageAdapter = createChannelMessageAdapterFromOutbound<GrantedConfig>({
   id: "telegram",
   live: {
     capabilities: {
@@ -492,7 +492,7 @@ function shouldStripTelegramThreadFromAnnounceOrigin(params: {
 }
 
 function resolveTelegramOutboundSessionRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   accountId?: string | null;
   target: string;
@@ -632,7 +632,7 @@ function resolveTelegramNativeTopicThreadId(
 }
 
 async function resolveTelegramTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   inputs: string[];
   kind: "user" | "group";

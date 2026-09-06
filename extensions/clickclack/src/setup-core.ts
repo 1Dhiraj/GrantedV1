@@ -5,7 +5,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupInput,
 } from "openclaw/plugin-sdk/channel-setup";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import {
   applyAccountNameToChannelSection,
@@ -156,12 +156,12 @@ function formatClickClackSetupCodeClaimError(error: unknown): Error {
 }
 
 export function applyClickClackSetupConfigPatch(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   name?: string;
   patch: Record<string, unknown>;
   clearFields?: readonly string[];
-}): OpenClawConfig {
+}): GrantedConfig {
   const accountId = normalizeAccountId(params.accountId);
   const scopedConfig =
     accountId === DEFAULT_ACCOUNT_ID
@@ -187,12 +187,12 @@ export function applyClickClackSetupConfigPatch(params: {
 }
 
 export function applyClickClackCredentialConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   token?: unknown;
   tokenFile?: string;
   useEnv?: boolean;
-}): OpenClawConfig {
+}): GrantedConfig {
   const fieldsToClear = params.useEnv
     ? ["token", "tokenFile"]
     : params.tokenFile

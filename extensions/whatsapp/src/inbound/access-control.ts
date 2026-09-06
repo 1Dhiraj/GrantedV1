@@ -1,6 +1,6 @@
 // Whatsapp plugin module implements access control behavior.
 import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { upsertChannelPairingRequest } from "openclaw/plugin-sdk/conversation-runtime";
 import { defaultRuntime } from "openclaw/plugin-sdk/runtime-env";
 import { warnMissingProviderGroupPolicyFallbackOnce } from "openclaw/plugin-sdk/runtime-group-policy";
@@ -48,7 +48,7 @@ function blockedInboundAccess(
 }
 
 export async function checkInboundAccessControl(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   from: string;
   selfE164: string | null;

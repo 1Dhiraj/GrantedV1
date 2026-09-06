@@ -1,7 +1,7 @@
 // Telegram plugin module implements token behavior.
 import { resolveNormalizedAccountEntry } from "openclaw/plugin-sdk/account-core";
 import type { BaseTokenResolution } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
@@ -33,7 +33,7 @@ type RuntimeTokenValueResolution =
   | { status: "missing" };
 
 function resolveEnvSecretRefValue(params: {
-  cfg?: Pick<OpenClawConfig, "secrets">;
+  cfg?: Pick<GrantedConfig, "secrets">;
   provider: string;
   id: string;
 }): string | undefined {
@@ -58,7 +58,7 @@ function resolveEnvSecretRefValue(params: {
 }
 
 function resolveRuntimeTokenValue(params: {
-  cfg?: Pick<OpenClawConfig, "secrets">;
+  cfg?: Pick<GrantedConfig, "secrets">;
   value: unknown;
   path: string;
 }): RuntimeTokenValueResolution {
@@ -108,7 +108,7 @@ type ResolveTelegramTokenOpts = {
 };
 
 export function resolveTelegramToken(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   opts: ResolveTelegramTokenOpts = {},
 ): TelegramTokenResolution {
   const requestedAccountId = normalizeOptionalAccountId(opts.accountId);

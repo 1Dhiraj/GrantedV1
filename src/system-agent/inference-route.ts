@@ -10,13 +10,13 @@ import {
   cliBackendAcceptsAuthProfileForwarding,
   resolveCliExecutionAuthProfileId,
 } from "../agents/cli-execution-auth.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { SYSTEM_AGENT_ID } from "./agent-id.js";
 
 export type SystemAgentConfiguredRoute = {
-  runConfig: OpenClawConfig;
+  runConfig: GrantedConfig;
   modelLabel: string;
   provider: string;
   model: string;
@@ -51,16 +51,16 @@ export type DefaultInferenceRouteProjection = {
   defaults: unknown;
   agent?: unknown;
   executionAgent?: unknown;
-  env: OpenClawConfig["env"];
-  secrets: OpenClawConfig["secrets"];
-  plugins: OpenClawConfig["plugins"];
-  tools: OpenClawConfig["tools"];
+  env: GrantedConfig["env"];
+  secrets: GrantedConfig["secrets"];
+  plugins: GrantedConfig["plugins"];
+  tools: GrantedConfig["tools"];
 };
 
 function projectSystemAgentExecutionConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   routeAgentId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const agents = listAgentEntries(config);
   const routeAgent = agents.find((agent) => normalizeAgentId(agent.id) === routeAgentId);
   const retainedAgents = agents.filter((agent) => normalizeAgentId(agent.id) !== SYSTEM_AGENT_ID);
@@ -83,7 +83,7 @@ function projectSystemAgentExecutionConfig(
 }
 
 export async function resolveSystemAgentConfiguredRouteFromConfig(
-  runConfig: OpenClawConfig,
+  runConfig: GrantedConfig,
   requestedAgentId?: string,
   deps: SystemAgentRouteProjectionDeps = {},
 ): Promise<SystemAgentConfiguredRoute | null> {
@@ -199,7 +199,7 @@ function projectRelevantModelMap(params: {
 
 /** Project every config input that can change the configured default-agent route. */
 export async function projectDefaultInferenceRoute(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   deps: SystemAgentRouteProjectionDeps = {},
 ): Promise<DefaultInferenceRouteProjection> {
   return await projectInferenceRoute(config, undefined, deps);
@@ -207,7 +207,7 @@ export async function projectDefaultInferenceRoute(
 
 /** Project every config input that can change one configured agent route. */
 export async function projectInferenceRoute(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   requestedAgentId?: string,
   deps: SystemAgentRouteProjectionDeps = {},
 ): Promise<DefaultInferenceRouteProjection> {

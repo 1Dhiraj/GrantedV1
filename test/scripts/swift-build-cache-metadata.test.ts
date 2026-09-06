@@ -75,14 +75,14 @@ describe.skipIf(process.platform === "win32")("Swift build-cache input metadata"
       sourcePath,
       "apps/macos/Tests/FeatureTests.swift",
       "apps/shared/OpenClawKit/Sources/Shared.swift",
-      "apps/shared/OpenClawMLXTTSProtocol/Sources/OpenClawMLXTTSProtocol/MLXTTSProtocol.swift",
+      "apps/shared/GrantedMLXTTSProtocol/Sources/GrantedMLXTTSProtocol/MLXTTSProtocol.swift",
       sharedFixture,
       "apps/swabble/Sources/Voice.swift",
       "apps/macos/.build/checkouts/dependency/Sources/Library.swift",
       "apps/macos/Package.swift",
       "apps/macos/Package.resolved",
       "apps/shared/OpenClawKit/Package.swift",
-      "apps/shared/OpenClawMLXTTSProtocol/Package.swift",
+      "apps/shared/GrantedMLXTTSProtocol/Package.swift",
       "apps/swabble/Package.swift",
     ];
     setTime(originalTime, ...unchanged.slice(1).map((relative) => writeInput(root, relative)));

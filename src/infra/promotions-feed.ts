@@ -1,5 +1,5 @@
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -24,7 +24,7 @@ const PROMOTIONS_FEED_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
 // 30s — a blackholed connection must not stall `models list`.
 const PROMOTIONS_FEED_FETCH_TIMEOUT_MS = 2500;
 
-type PromotionsFeedDatabase = Pick<OpenClawStateKyselyDatabase, "clawhub_promotion_claims">;
+type PromotionsFeedDatabase = Pick<GrantedStateKyselyDatabase, "clawhub_promotion_claims">;
 
 type StoredPromotionsFeedState = {
   etag: string | null;

@@ -6,7 +6,7 @@ import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js
 import { useMockHttp } from "../test-utils/mock-http.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   listLivePromotionEntries,
@@ -45,7 +45,7 @@ function feedPayload(overrides: Record<string, unknown> = {}) {
 }
 
 describe("promotions feed state", () => {
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
 
   beforeEach(async () => {
     testState = await createOpenClawTestState({

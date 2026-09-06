@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createCorePluginStateSyncKeyedStore,
   MAX_PLUGIN_STATE_ENTRIES_PER_PLUGIN,
@@ -49,7 +49,7 @@ export type StoredSkillHistoryScanState = StoredSkillHistoryScanSnapshot & {
 
 export type SkillHistoryScanScope = {
   agentId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   direction?: SkillHistoryScanDirection;
   env?: NodeJS.ProcessEnv;
   workspaceDir: string;

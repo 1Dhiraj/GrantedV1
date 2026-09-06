@@ -1,5 +1,5 @@
 // Telegram plugin module implements access groups behavior.
-import type { DmPolicy, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DmPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   expandAllowFromWithAccessGroups,
   parseAccessGroupAllowFromEntry,
@@ -12,7 +12,7 @@ import {
 } from "./bot-access.js";
 
 export async function expandTelegramAllowFromWithAccessGroups(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   allowFrom?: Array<string | number>;
   accountId?: string;
   senderId?: string;
@@ -42,7 +42,7 @@ export async function expandTelegramAllowFromWithAccessGroups(params: {
 }
 
 export async function resolveTelegramDmAllow(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   allowFrom?: Array<string | number>;
   groupAllowOverride?: Array<string | number>;
   storeAllowFrom?: string[];

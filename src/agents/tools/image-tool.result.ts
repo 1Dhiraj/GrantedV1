@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveImageSanitizationLimits } from "../image-sanitization.js";
 import type { AgentToolResult } from "../runtime/index.js";
 import { sanitizeToolResultImages } from "../tool-images.js";
@@ -30,7 +30,7 @@ export function buildImageToolReferenceDetails(
 
 export async function buildNativeImageToolResult(
   images: readonly LoadedImageForTool[],
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): Promise<AgentToolResult<unknown>> {
   const result: AgentToolResult<unknown> = {
     content: [

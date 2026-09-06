@@ -17,7 +17,7 @@ import {
   formatUnsupportedChannelActionMessage,
 } from "../../cli/error-format.js";
 import { isTerminalInteractive } from "../../cli/terminal-interactivity.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { commitConfigWithPendingPluginInstalls } from "../../plugins/install-record-commit.js";
 import { refreshPluginRegistryAfterConfigMutation } from "../../plugins/registry-refresh.js";
 import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
@@ -44,7 +44,7 @@ const CHANNEL_ADD_CONTROL_OPTION_KEYS = new Set(["agent", "channel", "account"])
 
 async function resolveCatalogChannelEntry(
   raw: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   resolveWorkspaceDir: () => string,
 ) {
   const trimmed = normalizeOptionalLowercaseString(raw);
@@ -135,7 +135,7 @@ async function channelsAddCommandImpl(
   if (!configSnapshot) {
     return;
   }
-  const cfg = (configSnapshot.sourceConfig ?? configSnapshot.config) as OpenClawConfig;
+  const cfg = (configSnapshot.sourceConfig ?? configSnapshot.config) as GrantedConfig;
   const baseHash = configSnapshot.hash;
   let nextConfig = cfg;
   let pluginRegistrySourceChanged = false;

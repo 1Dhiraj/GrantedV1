@@ -3,7 +3,7 @@ import { stableStringify } from "@openclaw/normalization-core";
 import { beginAgentDeletion } from "../agents/agent-lifecycle-registry.js";
 import { listAgentEntries } from "../agents/agent-scope.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   AgentConfigPreconditionError,
   deleteAgentConfigEntry,
@@ -15,8 +15,8 @@ import {
   readAgentDeletionJournal,
 } from "../state/agent-deletion-journal.js";
 import type {
-  OpenClawStateDatabase,
-  OpenClawStateDatabaseOptions,
+  GrantedStateDatabase,
+  GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db-contract.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
@@ -25,7 +25,7 @@ import {
   type ClawTrashPath,
 } from "./lifecycle-delete-support.js";
 
-export type ConfigCommit = (transform: (config: OpenClawConfig) => OpenClawConfig) => Promise<void>;
+export type ConfigCommit = (transform: (config: GrantedConfig) => GrantedConfig) => Promise<void>;
 
 type ClawAgentConfigRemovalParams = {
   agentId: string;
@@ -33,9 +33,9 @@ type ClawAgentConfigRemovalParams = {
   expectedRemovalSurfaceDigest: string;
   expectedState: "present" | "missing";
   fallbackWorkspace: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   commitConfig?: ConfigCommit;
-  stateDatabase?: OpenClawStateDatabaseOptions;
+  stateDatabase?: GrantedStateDatabaseOptions;
   trashPath?: ClawTrashPath;
   onModified: () => Error;
 };
@@ -43,13 +43,13 @@ type ClawAgentConfigRemovalParams = {
 type ClawAgentConfigRemovalResult = {
   agentRemoved: boolean;
   cleanupTargets?: ClawCleanupTargets;
-  configBeforeDelete: OpenClawConfig;
-  nextConfig: OpenClawConfig;
+  configBeforeDelete: GrantedConfig;
+  nextConfig: GrantedConfig;
 };
 
 export { digestClawAgentConfig } from "./agent-config-digest.js";
 
-export function digestClawAgentRemovalSurface(config: OpenClawConfig, agentId: string): string {
+export function digestClawAgentRemovalSurface(config: GrantedConfig, agentId: string): string {
   const normalizedId = normalizeAgentId(agentId);
   const surface = {
     bindings: (config.bindings ?? []).filter(
@@ -187,7 +187,7 @@ export async function claimClawAgentConfigRemoval(params: ClawAgentConfigRemoval
     deletion.commit();
     return {
       ...result,
-      completeDeletion: (database: OpenClawStateDatabase) => {
+      completeDeletion: (database: GrantedStateDatabase) => {
         if (
           !completeAgentDeletionJournalInDatabase(
             database,

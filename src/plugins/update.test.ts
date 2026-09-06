@@ -4,7 +4,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { bundledPluginRootAt } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { resolvePluginArtifactDeclaredSurface } from "./capability-artifact.js";
@@ -225,7 +225,7 @@ function createNpmInstallConfig(params: {
   resolvedName?: string;
   resolvedSpec?: string;
   resolvedVersion?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       installs: {
@@ -252,7 +252,7 @@ function createMarketplaceInstallConfig(params: {
   marketplaceSource: string;
   marketplacePlugin: string;
   marketplaceName?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       installs: {
@@ -278,7 +278,7 @@ function createClawHubInstallConfig(
     clawhubChannel?: "community" | "official" | "private";
     spec?: string;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   const pluginId = params.pluginId ?? "demo";
   const clawhubPackage = params.clawhubPackage ?? pluginId;
   return {
@@ -298,7 +298,7 @@ function createClawHubInstallConfig(
   };
 }
 
-function createEnabledDemoClawHubInstallConfig(): OpenClawConfig {
+function createEnabledDemoClawHubInstallConfig(): GrantedConfig {
   const installPath = createInstalledPackageDir({
     name: "demo",
     version: "1.2.3",
@@ -325,7 +325,7 @@ function createGitInstallConfig(params: {
   spec: string;
   installPath: string;
   commit?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       installs: {
@@ -345,7 +345,7 @@ function createBundledPathInstallConfig(params: {
   installPath: string;
   sourcePath?: string;
   spec?: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       load: { paths: params.loadPaths },
@@ -485,7 +485,7 @@ function createPeerLinkInstallConfig(params: {
   plugins: Array<{ pluginId: string; packageName: string }>;
   installPaths: Record<string, string>;
   extraInstalls?: Record<string, PluginInstallRecord>;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     plugins: {
       installs: {
@@ -670,7 +670,7 @@ function createBundledSource(params?: { pluginId?: string; localPath?: string; n
 type ExternalizedPluginBridge = NonNullable<
   Parameters<typeof syncPluginsForUpdateChannel>[0]["externalizedBundledPluginBridges"]
 >[number];
-function createDisabledPluginConfig(install: PluginInstallRecord): OpenClawConfig {
+function createDisabledPluginConfig(install: PluginInstallRecord): GrantedConfig {
   return {
     plugins: {
       entries: { demo: { enabled: false, config: { preserved: true } } },
@@ -697,7 +697,7 @@ function createExternalizedPluginConfig(params?: {
   includeLoad?: boolean;
   loadPaths?: string[];
   install?: PluginInstallRecord;
-}): OpenClawConfig {
+}): GrantedConfig {
   const pluginId = params?.pluginId ?? "legacy-chat";
   const bundledRoot = appBundledPluginRoot(pluginId);
   return {
@@ -719,7 +719,7 @@ function createExternalizedPluginConfig(params?: {
 }
 
 function syncExternalizedPlugin(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   bridge?: Partial<ExternalizedPluginBridge>;
   channel?: "stable" | "beta" | "extended-stable";
   coreVersion?: string;
@@ -771,7 +771,7 @@ function expectCodexAppServerInstallState(params: {
 type UpdateInstalledPluginParams = Parameters<typeof updateNpmInstalledPlugins>[0];
 
 function updatePlugin(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginId: string,
   params: Omit<UpdateInstalledPluginParams, "config" | "pluginIds"> = {},
 ) {
@@ -1049,7 +1049,7 @@ describe("updateNpmInstalledPlugins", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       if (previousPayload === "missing") {
         fs.rmSync(installedDir, { recursive: true, force: true });
       } else if (previousPayload === "corrupt") {
@@ -1284,7 +1284,7 @@ describe("updateNpmInstalledPlugins", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await updateNpmInstalledPlugins({ config, pluginIds: ["demo"] });
 
@@ -1302,7 +1302,7 @@ describe("updateNpmInstalledPlugins", () => {
   });
 
   it("does not treat inherited prototype names as install records", async () => {
-    const config: OpenClawConfig = { plugins: { installs: {} } };
+    const config: GrantedConfig = { plugins: { installs: {} } };
 
     const result = await updatePlugin(config, "constructor");
 
@@ -1959,7 +1959,7 @@ describe("updateNpmInstalledPlugins", () => {
         },
       }),
     );
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         installs: {
           codex: {
@@ -2812,7 +2812,7 @@ describe("updateNpmInstalledPlugins", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await updatePlugin(config, "demo", {
       disableOnFailure: true,
@@ -3322,7 +3322,7 @@ describe("updateNpmInstalledPlugins", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await updateNpmInstalledPlugins({
       config,
@@ -3372,7 +3372,7 @@ describe("updateNpmInstalledPlugins", () => {
           contextEngine: "demo",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await updateNpmInstalledPlugins({
       config,
@@ -4595,7 +4595,7 @@ describe("updateNpmInstalledPlugins", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await updatePlugin(config, "fish-audio");
 
@@ -4695,7 +4695,7 @@ describe("updateNpmInstalledPlugins", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       pluginIds: ["context-engine"],
     });
 

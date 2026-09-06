@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   downloadClawHubGitHubSkillArchive,
   downloadClawHubSkillArchive,
@@ -69,7 +69,7 @@ export type ClawHubInstallParams = {
   forceInstall?: boolean;
   confirmInstall?: () => boolean | Promise<boolean>;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
   clawManaged?: boolean;
   onAfterBackup?: (backupDir: string) => Promise<string | undefined>;
@@ -310,7 +310,7 @@ async function installArchiveResolution(params: {
   authority: "official" | "openclaw" | "third-party";
   force?: boolean;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
   onAfterBackup?: (backupDir: string) => Promise<string | undefined>;
 }) {
@@ -360,7 +360,7 @@ async function installGitHubResolution(params: {
   trustState?: ClawHubSkillsShTrustState;
   force?: boolean;
   logger?: Logger;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   onInstallPolicyWarning?: InstallSafetyOverrides["onInstallPolicyWarning"];
   onAfterBackup?: (backupDir: string) => Promise<string | undefined>;
 }) {

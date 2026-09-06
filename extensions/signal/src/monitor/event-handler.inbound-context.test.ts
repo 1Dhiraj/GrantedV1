@@ -1,6 +1,6 @@
 // Signal tests cover event handler.inbound context plugin behavior.
 import { expectChannelInboundContextContract as expectInboundContextContract } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveSignalReplyContextWithPersistence } from "../reply-authors.js";
@@ -18,7 +18,7 @@ let createSignalEventHandler: typeof import("./event-handler.js").createSignalEv
 
 type DispatchInboundMessageMockParams = {
   ctx: MsgContext;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   dispatcher?: {
     sendFinalReply: (payload: { text: string; isError?: boolean }) => void;
     markComplete: () => void;
@@ -282,8 +282,8 @@ function nextTimerTick(): Promise<void> {
 }
 
 type SignalHandler = ReturnType<typeof createSignalEventHandler>;
-type SignalMessagesConfig = NonNullable<OpenClawConfig["messages"]>;
-type SignalChannelConfig = NonNullable<NonNullable<OpenClawConfig["channels"]>["signal"]>;
+type SignalMessagesConfig = NonNullable<GrantedConfig["messages"]>;
+type SignalChannelConfig = NonNullable<NonNullable<GrantedConfig["channels"]>["signal"]>;
 type DirectMessageOverrides = Omit<SignalEnvelope, "dataMessage"> & {
   dataMessage?: NonNullable<SignalEnvelope["dataMessage"]>;
 };
@@ -313,7 +313,7 @@ function createStatusReactionConfig(
     messages?: TestMessagesConfig;
     signal?: Partial<SignalChannelConfig>;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   return {
     messages: {
       ackReaction: "👀",
@@ -329,7 +329,7 @@ function createStatusReactionConfig(
         ...options.signal,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createDirectConfig(
@@ -337,7 +337,7 @@ function createDirectConfig(
     messages?: TestMessagesConfig;
     signal?: Partial<SignalChannelConfig>;
   } = {},
-): OpenClawConfig {
+): GrantedConfig {
   return {
     messages: {
       inbound: { debounceMs: 0 },
@@ -356,7 +356,7 @@ function createDirectConfig(
 function createGroupAllowlistConfig(options: {
   messages?: TestMessagesConfig;
   signal: Partial<SignalChannelConfig> & Pick<SignalChannelConfig, "groupAllowFrom">;
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     messages: {
       inbound: { debounceMs: 0 },
@@ -456,7 +456,7 @@ describe("signal createSignalEventHandler inbound context", () => {
 
   it("passes a finalized MsgContext to dispatchInboundMessage", async () => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await receiveGroupMessage(handler, "hi");
@@ -471,7 +471,7 @@ describe("signal createSignalEventHandler inbound context", () => {
 
   it("normalizes direct chat To/OriginatingTo targets to canonical Signal ids", async () => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await receiveDirectMessage(handler, { dataMessage: { message: "hello" } });
@@ -484,7 +484,7 @@ describe("signal createSignalEventHandler inbound context", () => {
 
   it("sets ReplyToId from the inbound Signal timestamp", async () => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await receiveDirectMessage(handler, { dataMessage: { message: "hello" } });
@@ -519,7 +519,7 @@ describe("signal createSignalEventHandler inbound context", () => {
     },
   ])("falls back to $name timestamp for native reply metadata", async ({ envelope }) => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await handler(
@@ -539,7 +539,7 @@ describe("signal createSignalEventHandler inbound context", () => {
 
   it("uses editMessage.targetSentTimestamp as the native reply target", async () => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await handler(
@@ -586,7 +586,7 @@ describe("signal createSignalEventHandler inbound context", () => {
       cfg: {
         messages: { inbound: { debounceMs: 10 } },
         channels: { signal: { replyToMode: "batched" } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       deliverReplies: deliverRepliesMock,
     });
 
@@ -632,7 +632,7 @@ describe("signal createSignalEventHandler inbound context", () => {
         session: { dmScope: "per-channel-peer" },
         messages: { inbound: { debounceMs: 0 } },
         channels: { signal: { dmPolicy: "open", allowFrom: ["*"] } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     await receiveDirectMessage(handler, { dataMessage: { message: "hello" } });
@@ -660,7 +660,7 @@ describe("signal createSignalEventHandler inbound context", () => {
 
   it("keeps direct chat text in BodyForAgent while Body remains the legacy envelope", async () => {
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
     });
 
     await receiveDirectMessage(handler, {
@@ -1147,7 +1147,7 @@ describe("signal createSignalEventHandler inbound context", () => {
       ],
     ]);
     const handler = createTestHandler({
-      cfg: { messages: { inbound: { debounceMs: 0 } } } as OpenClawConfig,
+      cfg: { messages: { inbound: { debounceMs: 0 } } } as GrantedConfig,
       groupHistories,
       historyLimit: 5,
     });
@@ -1346,7 +1346,7 @@ describe("signal createSignalEventHandler inbound context", () => {
       },
     };
     const handler = createTestHandler({
-      cfg: cfg as OpenClawConfig,
+      cfg: cfg as GrantedConfig,
       dmPolicy: "allowlist",
       allowFrom: [],
       reactionMode: "all",

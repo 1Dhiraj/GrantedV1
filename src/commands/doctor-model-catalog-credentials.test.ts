@@ -18,7 +18,7 @@ import {
   PLUGIN_MODEL_CATALOG_GENERATED_BY,
   replacePersistedPluginModelCatalogs,
 } from "../agents/plugin-model-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -61,7 +61,7 @@ function provider(apiKey: string) {
   };
 }
 
-function migrationParams(state: ReturnType<typeof createState>, cfg: OpenClawConfig) {
+function migrationParams(state: ReturnType<typeof createState>, cfg: GrantedConfig) {
   return {
     cfg,
     env: state.env,
@@ -82,7 +82,7 @@ describe("doctor model catalog credential migration", () => {
   it("copies config, root, and plugin catalog keys before runtime retires plaintext", async () => {
     const state = createState();
     const { agentDir } = state;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: { providers: { configured: provider("configured-secret") } },
     };
     const rootContents = `{
@@ -131,7 +131,7 @@ describe("doctor model catalog credential migration", () => {
 
   it("preserves custom provider env references and removes profiles containing their markers", async () => {
     const state = createState();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: { providers: { custom: provider("${CUSTOM_PROVIDER_KEY}") } },
     };
     fs.writeFileSync(
@@ -173,7 +173,7 @@ describe("doctor model catalog credential migration", () => {
 
   it("does not copy a stale generated credential over an explicit provider SecretRef", async () => {
     const state = createState();
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: { providers: { custom: provider("${CUSTOM_PROVIDER_KEY}") } },
     };
     fs.writeFileSync(
@@ -277,7 +277,7 @@ describe("doctor model catalog credential migration", () => {
           third: { agentDir: thirdAgentDir },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await expect(maybeMigrateModelCatalogCredentials(migrationParams(state, cfg))).resolves.toEqual(
       { detected: 1, migrated: 1, removed: 0, warnings: [] },

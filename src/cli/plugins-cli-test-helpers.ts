@@ -4,7 +4,7 @@ import type { Mock } from "vitest";
 import { vi } from "vitest";
 import { getRuntimeConfig } from "../config/config.js";
 import type { HookInstallRecord } from "../config/types.hooks.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { PLUGIN_INSTALL_ERROR_CODE } from "../plugins/install-types.js";
 import type { InstalledPluginIndex } from "../plugins/installed-plugin-index.js";
@@ -94,13 +94,13 @@ function invokeMock<TArgs extends unknown[], TResult>(mock: unknown, ...args: TA
 }
 
 export const pluginCliConfigMock: Mock<LoadConfigFn> = vi.fn<LoadConfigFn>(
-  () => ({}) as OpenClawConfig,
+  () => ({}) as GrantedConfig,
 );
 export const readConfigFileSnapshotMock: AsyncUnknownMock = vi.fn();
 export const readConfigFileSnapshotForWriteMock: AsyncUnknownMock = vi.fn();
 export const configWriteMock: AsyncUnknownMock = vi.fn(async () => undefined);
 export const replaceConfigFileMock: AsyncUnknownMock = vi.fn(
-  async (params: { nextConfig: OpenClawConfig }) => await configWriteMock(params.nextConfig),
+  async (params: { nextConfig: GrantedConfig }) => await configWriteMock(params.nextConfig),
 ) as AsyncUnknownMock;
 const resolveStateDir: Mock<() => string> = vi.fn(() => "/tmp/openclaw-state");
 export const installPluginFromMarketplaceMock: Mock<InstallPluginFromMarketplaceFn> = vi.fn();
@@ -291,9 +291,9 @@ vi.mock("../config/config.js", () => ({
       readConfigFileSnapshotForWriteMock,
       ...args,
     )) as (typeof import("../config/config.js"))["readConfigFileSnapshotForWrite"],
-  writeConfigFile: ((config: OpenClawConfig) =>
+  writeConfigFile: ((config: GrantedConfig) =>
     invokeMock<
-      [OpenClawConfig],
+      [GrantedConfig],
       ReturnType<(typeof import("../config/config.js"))["writeConfigFile"]>
     >(configWriteMock, config)) as (typeof import("../config/config.js"))["writeConfigFile"],
   replaceConfigFile: ((
@@ -918,7 +918,7 @@ export function resetPluginsCliTestState() {
   installHooksFromPathMock.mockReset();
   recordHookInstallMock.mockReset();
 
-  pluginCliConfigMock.mockReturnValue({} as OpenClawConfig);
+  pluginCliConfigMock.mockReturnValue({} as GrantedConfig);
   readConfigFileSnapshotMock.mockImplementation(async () => {
     const config = getRuntimeConfig();
     return {
@@ -950,8 +950,9 @@ export function resetPluginsCliTestState() {
   });
   configWriteMock.mockResolvedValue(undefined);
   replaceConfigFileMock.mockImplementation(
-    (async (params: { nextConfig: OpenClawConfig }) =>
-      await configWriteMock(params.nextConfig)) as (...args: unknown[]) => Promise<unknown>,
+    (async (params: { nextConfig: GrantedConfig }) => await configWriteMock(params.nextConfig)) as (
+      ...args: unknown[]
+    ) => Promise<unknown>,
   );
   resolveStateDir.mockReturnValue("/tmp/openclaw-state");
   resolveMarketplaceInstallShortcutMock.mockResolvedValue(null);
@@ -959,13 +960,13 @@ export function resetPluginsCliTestState() {
     ok: false,
     error: "marketplace install failed",
   });
-  enablePluginInConfigMock.mockImplementation(((cfg: OpenClawConfig, pluginId: string) => ({
+  enablePluginInConfigMock.mockImplementation(((cfg: GrantedConfig, pluginId: string) => ({
     config: cfg,
     enabled: true,
     pluginId,
   })) as (...args: unknown[]) => unknown);
   recordPluginInstallMock.mockImplementation(
-    ((cfg: OpenClawConfig) => cfg) as (...args: unknown[]) => unknown,
+    ((cfg: GrantedConfig) => cfg) as (...args: unknown[]) => unknown,
   );
   loadInstalledPluginIndexInstallRecords.mockImplementation(async () =>
     clonePluginInstallRecords(mockInstalledPluginIndexInstallRecords),
@@ -1051,7 +1052,7 @@ export function resetPluginsCliTestState() {
   });
   refreshPluginRegistryMock.mockResolvedValue(defaultRegistryIndex);
   notifyGatewayPluginMetadataChangedMock.mockResolvedValue(true);
-  applyExclusiveSlotSelectionMock.mockImplementation((({ config }: { config: OpenClawConfig }) => ({
+  applyExclusiveSlotSelectionMock.mockImplementation((({ config }: { config: GrantedConfig }) => ({
     config,
     warnings: [],
   })) as (...args: unknown[]) => unknown);
@@ -1059,7 +1060,7 @@ export function resetPluginsCliTestState() {
     config,
     pluginId,
   }: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     pluginId: string;
   }) => ({
     ok: true,
@@ -1075,12 +1076,12 @@ export function resetPluginsCliTestState() {
   updateNpmInstalledPluginsMock.mockResolvedValue({
     outcomes: [],
     changed: false,
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
   });
   updateNpmInstalledHookPacksMock.mockResolvedValue({
     outcomes: [],
     changed: false,
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
   });
   promptYesNoMock.mockResolvedValue(true);
   promptText.mockResolvedValue("demo");
@@ -1126,7 +1127,7 @@ export function resetPluginsCliTestState() {
     error: "hook npm install disabled in test",
   });
   recordHookInstallMock.mockImplementation(
-    ((cfg: OpenClawConfig) => cfg) as (...args: unknown[]) => unknown,
+    ((cfg: GrantedConfig) => cfg) as (...args: unknown[]) => unknown,
   );
 }
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

@@ -1,7 +1,7 @@
 /**
  * Selects and invokes native agent harnesses for embedded run attempts.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createChildDiagnosticTraceContext,
   createDiagnosticTraceContext,
@@ -67,7 +67,7 @@ type AgentHarnessSelectionParams = {
   provider: string;
   modelId?: string;
   modelProvider?: AgentHarnessSupportContext["modelProvider"];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   agentHarnessId?: string;

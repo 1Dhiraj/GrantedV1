@@ -1,4 +1,4 @@
-import type { BrowserConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { BrowserConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
 import { isLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
 import { resolveBrowserConfig } from "./config.js";
@@ -13,7 +13,7 @@ type BrowserExtensionPairing = {
   topology: "local" | "browser-node" | "direct-remote";
 };
 
-type PairingConfig = OpenClawConfig & { browser?: BrowserConfig };
+type PairingConfig = GrantedConfig & { browser?: BrowserConfig };
 
 function firstExtensionRelayPort(cfg: PairingConfig): number {
   const resolved = resolveBrowserConfig(cfg.browser, cfg);

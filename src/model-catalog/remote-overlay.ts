@@ -5,7 +5,7 @@ import {
 } from "@openclaw/model-catalog-core";
 import type { ModelCatalogProvider } from "@openclaw/model-catalog-core/model-catalog-types";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { VERSION } from "../version.js";
 import { bundledCatalogGeneratedAt } from "./bundled-catalog-stamp.js";
@@ -30,7 +30,7 @@ function isCompatible(bundle: RemoteModelCatalogBundle): boolean {
   return comparison !== null && comparison >= 0;
 }
 
-function getActiveRemoteModelCatalog(config: OpenClawConfig): ActiveRemoteModelCatalog | undefined {
+function getActiveRemoteModelCatalog(config: GrantedConfig): ActiveRemoteModelCatalog | undefined {
   if (!isRemoteModelCatalogRefreshEnabled(config)) {
     return undefined;
   }
@@ -67,7 +67,7 @@ function getActiveRemoteModelCatalog(config: OpenClawConfig): ActiveRemoteModelC
 }
 
 export function getRemoteModelCatalogProviderOverlay(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: string,
 ): ModelCatalogProvider | undefined {
   const providerId = normalizeProviderId(provider);
@@ -75,7 +75,7 @@ export function getRemoteModelCatalogProviderOverlay(
 }
 
 export function getRemoteModelCatalogPricing(
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): Readonly<Record<string, RemoteModelCatalogPricing>> | undefined {
   return getActiveRemoteModelCatalog(config)?.pricing;
 }

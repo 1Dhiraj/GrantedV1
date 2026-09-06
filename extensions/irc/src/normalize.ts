@@ -1,5 +1,5 @@
 import { buildChannelOutboundSessionRoute } from "openclaw/plugin-sdk/channel-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Irc helper module supports normalize behavior.
 import {
   normalizeLowercaseStringOrEmpty,
@@ -40,7 +40,7 @@ export function normalizeIrcMessagingTarget(raw: string): string | undefined {
 }
 
 export function resolveIrcOutboundSessionRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   accountId?: string | null;
   target: string;

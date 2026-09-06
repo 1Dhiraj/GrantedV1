@@ -10,7 +10,7 @@ import {
 import { resolveSessionRuntimeOverrideForProvider } from "../../agents/session-runtime-compat.js";
 import { resolveChannelModelOverride } from "../../channels/model-overrides.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { resolveStoredModelOverride } from "../../sessions/stored-model-overrides.js";
@@ -107,7 +107,7 @@ export function resolveTurnModelOverride(
 
 function resolveChannelModelCandidate(params: {
   aliasIndex: ModelAliasIndex;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: FinalizedMsgContext;
   defaultProvider: string;
   entry?: SessionEntry;
@@ -150,7 +150,7 @@ function resolveChannelModelCandidate(params: {
 }
 
 function resolveStoredModelCandidate(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   defaultProvider: string;
   entry?: SessionEntry;
   parentSessionKey?: string;
@@ -211,7 +211,7 @@ function resolveModelOverrideCandidate(params: {
  * ping-pong across turn kinds (#121485).
  */
 export function resolveVisibleRepliesPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   chatType?: string;
   ctx: FinalizedMsgContext;
   entry?: SessionEntry;
@@ -245,7 +245,7 @@ export function resolveVisibleRepliesPolicy(params: {
 }
 
 function resolveHarnessSourceVisibleRepliesDefault(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: FinalizedMsgContext;
   entry?: SessionEntry;
   sessionAgentId: string;

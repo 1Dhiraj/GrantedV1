@@ -1,5 +1,5 @@
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogHost,
   SessionCatalogProvider,
@@ -160,7 +160,7 @@ type ClaudeSessionCatalogRuntime = Required<
 >;
 
 export function createClaudeSessionCatalogRuntime(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
 ): ClaudeSessionCatalogRuntime {
   return {
     list: async (query) => {

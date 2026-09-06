@@ -5,7 +5,7 @@ import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { GATEWAY_OWNER_ONLY_CORE_TOOLS } from "../../security/dangerous-tools.js";
 import { resolveSkillDispatchTools, type SkillToolDispatchDependencies } from "./tool-dispatch.js";
 
@@ -72,7 +72,7 @@ describe("resolveSkillDispatchTools", () => {
         },
         cfg: {
           tools: { allow: ["read", "cron"] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:telegram:group:restricted-room",
         workspaceDir: "/tmp/openclaw-skill-tool-dispatch-test",
@@ -94,7 +94,7 @@ describe("resolveSkillDispatchTools", () => {
     const tools = resolveSkillDispatchTools(
       {
         message: { surface: "telegram", senderId: "user-1" },
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:telegram:direct:user-1",
         workspaceDir: "/tmp/openclaw-skill-tool-dispatch-test",
@@ -119,7 +119,7 @@ describe("resolveSkillDispatchTools", () => {
     resolveSkillDispatchTools(
       {
         message: { surface: "telegram", senderId: "user-1" },
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentId: "main",
         sessionKey: "agent:main:telegram:direct:user-1",
         workspaceDir: "/tmp/openclaw-skill-tool-dispatch-test",
@@ -169,7 +169,7 @@ describe("resolveSkillDispatchTools", () => {
                 "id:alice": {},
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           agentId: "main",
           sessionKey,
           workspaceDir: "/tmp/openclaw-skill-tool-dispatch-test",
@@ -189,7 +189,7 @@ describe("resolveSkillDispatchTools", () => {
   it("removes owner-only core tools for authorized non-owner dispatch", () => {
     const common = {
       message: { surface: "telegram", senderId: "allowed-user" },
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       agentId: "main",
       sessionKey: "agent:main:telegram:direct:allowed-user",
       workspaceDir: "/tmp/openclaw-skill-tool-dispatch-test",

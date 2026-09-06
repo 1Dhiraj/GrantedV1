@@ -7,7 +7,7 @@
 
 import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
 import { createChannelInboundEnvelopeBuilder } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { resolveOutboundMediaUrls } from "openclaw/plugin-sdk/reply-payload";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
@@ -28,7 +28,7 @@ type TwitchMonitorOptions = {
   account: TwitchAccountConfig;
   accountId: string;
   channelRuntime: ReturnType<typeof getTwitchRuntime>["channel"];
-  config: unknown; // OpenClawConfig
+  config: unknown; // GrantedConfig
   runtime: TwitchRuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: Omit<ChannelAccountSnapshot, "accountId">) => void;
@@ -63,7 +63,7 @@ async function processTwitchMessage(params: {
     turnAdoptionLifecycle,
     statusSink,
   } = params;
-  const cfg = config as OpenClawConfig;
+  const cfg = config as GrantedConfig;
   const route = channelRuntime.routing.resolveAgentRoute({
     cfg,
     channel: "twitch",
@@ -210,7 +210,7 @@ async function deliverTwitchReply(params: {
     const result = await sendMessageTwitchInternal({
       channel,
       text: [payload.text, ...resolveOutboundMediaUrls(payload)].filter(Boolean).join(" "),
-      cfg: config as OpenClawConfig,
+      cfg: config as GrantedConfig,
       account,
       accountId,
       clientManager,

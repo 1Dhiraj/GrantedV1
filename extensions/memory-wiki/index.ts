@@ -1,7 +1,7 @@
 // Memory Wiki plugin entrypoint registers its OpenClaw integration.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { definePluginEntry, type OpenClawConfig } from "./api.js";
+import { definePluginEntry, type GrantedConfig } from "./api.js";
 import {
   activateMemoryWikiCompiledCacheOwner,
   configureMemoryWikiCompiledCacheStore,
@@ -82,7 +82,7 @@ export default definePluginEntry({
   register(api) {
     const config = resolveMemoryWikiConfig(api.pluginConfig);
     const getAppConfig = () =>
-      (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig | undefined;
+      (api.runtime.config?.current?.() ?? api.config) as GrantedConfig | undefined;
     const resolveConfig: MemoryWikiConfigResolver = (agentId, appConfig = getAppConfig()) =>
       resolveMemoryWikiAgentConfig({ config, appConfig, agentId });
     const resolveToolContext = (agentId?: string) => {

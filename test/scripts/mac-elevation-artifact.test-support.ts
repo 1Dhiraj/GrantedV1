@@ -62,7 +62,7 @@ export async function artifactFixture(mac: MacScriptFixture) {
 <key>CFBundleVersion</key><string>420</string>
 <key>OpenClawGitCommit</key><string>${sourceCommit}</string>
 <key>PeekabooSourceCommit</key><string>${peekabooCommit}</string>
-<key>OpenClawBuildTimestamp</key><string>${buildInfo.builtAt}</string>
+<key>GrantedBuildTimestamp</key><string>${buildInfo.builtAt}</string>
 <key>OpenClawWorkerBuildID</key><string>${buildInfo.buildId}</string>
 </dict></plist>`,
   );

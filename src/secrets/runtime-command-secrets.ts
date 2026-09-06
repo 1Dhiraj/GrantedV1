@@ -2,7 +2,7 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import { cloneConfigWithResolutionFacts } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { resolveManifestContractOwnerPluginId } from "../plugins/plugin-registry.js";
 import {
@@ -38,9 +38,9 @@ function hasProviderOverrides(overrides: CommandSecretProviderOverrides | undefi
 }
 
 function applyProviderOverridesToConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   overrides: CommandSecretProviderOverrides | undefined,
-): OpenClawConfig {
+): GrantedConfig {
   if (!hasProviderOverrides(overrides)) {
     return config;
   }
@@ -69,7 +69,7 @@ function isWebCommandSecretPath(path: string): boolean {
 }
 
 function isProviderOverridePath(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   path: string;
   providerOverrides: CommandSecretProviderOverrides | undefined;
 }): boolean {
@@ -113,8 +113,8 @@ function isProviderOverridePath(params: {
 }
 
 function restoreInactiveWebCommandSecretTargets(params: {
-  sourceConfig: OpenClawConfig;
-  resolvedConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  resolvedConfig: GrantedConfig;
   targetIds: ReadonlySet<string>;
   inactiveRefPaths: string[];
   providerOverrides: CommandSecretProviderOverrides | undefined;
@@ -166,7 +166,7 @@ function restoreInactiveWebCommandSecretTargets(params: {
 }
 
 function filterInactiveRefPaths(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   inactiveRefPaths: readonly string[];
   providerOverrides: CommandSecretProviderOverrides | undefined;
   allowedPaths?: ReadonlySet<string>;
@@ -192,8 +192,8 @@ function filterInactiveRefPaths(params: {
 }
 
 async function resolveForcedActiveCommandSecretTargets(params: {
-  sourceConfig: OpenClawConfig;
-  resolvedConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  resolvedConfig: GrantedConfig;
   targetIds: ReadonlySet<string>;
   allowedPaths?: ReadonlySet<string>;
   forcedActivePaths?: ReadonlySet<string>;

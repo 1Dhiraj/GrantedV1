@@ -9,7 +9,7 @@ import {
   normalizeAgentModelRefForConfig,
   normalizeAgentModelSelectionForConfig,
 } from "./model-input.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 const MODEL_SELECTION_KEYS = ["model", "imageModel", "voiceModel", "pdfModel"] as const;
 const MEDIA_MODEL_KEYS = ["image", "video", "music"] as const;
@@ -175,17 +175,17 @@ function normalizeProviderCatalogs(
 
 /** Canonicalize model refs submitted through a config mutation API before persistence. */
 export function normalizeSubmittedConfigModelRefs(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   modelIdNormalizationPolicies?: ReadonlyMap<string, ManifestModelIdNormalizationProvider>,
-): OpenClawConfig {
+): GrantedConfig {
   let next = cfg;
   const agents = normalizeAgentScopes(cfg.agents);
   if (agents !== cfg.agents) {
-    next = { ...next, agents: agents as OpenClawConfig["agents"] };
+    next = { ...next, agents: agents as GrantedConfig["agents"] };
   }
   const models = normalizeProviderCatalogs(cfg.models, modelIdNormalizationPolicies);
   if (models !== cfg.models) {
-    next = { ...next, models: models as OpenClawConfig["models"] };
+    next = { ...next, models: models as GrantedConfig["models"] };
   }
   // tools.subagents owns only tool policy; model selection moved to
   // agents.defaults/entries.*.subagents.model and the schema rejects the old key.

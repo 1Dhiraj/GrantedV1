@@ -1,8 +1,8 @@
 // Workboard tests cover command plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { OpenClawPluginCommandDefinition } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginCommandDefinition } from "openclaw/plugin-sdk/core";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import { registerWorkboardCommand } from "./command.js";
 import type { PersistedWorkboardCard, WorkboardKeyedStore } from "./persistence-types.js";
 import { WorkboardStore } from "./store.js";
@@ -29,7 +29,7 @@ function createMemoryStore<T = PersistedWorkboardCard>(): WorkboardKeyedStore<T>
   };
 }
 
-function createApi(run = vi.fn().mockResolvedValue({ runId: "run-1" })): OpenClawPluginApi {
+function createApi(run = vi.fn().mockResolvedValue({ runId: "run-1" })): GrantedPluginApi {
   return {
     registerCommand: vi.fn(),
     runtime: {
@@ -51,11 +51,11 @@ function createApi(run = vi.fn().mockResolvedValue({ runId: "run-1" })): OpenCla
         })),
       },
     },
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
 }
 
 async function runWorkboardCommand(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   store: WorkboardStore;
   args?: string;
   context?: {
@@ -66,7 +66,7 @@ async function runWorkboardCommand(params: {
     sessionKey?: string;
   };
 }) {
-  let command: OpenClawPluginCommandDefinition | undefined;
+  let command: GrantedPluginCommandDefinition | undefined;
   vi.mocked(params.api.registerCommand).mockImplementationOnce((definition) => {
     command = definition;
   });
@@ -173,9 +173,9 @@ describe("handleWorkboardCommand", () => {
       sandboxed: true,
       workspaceAccess: "rw" as const,
     });
-    let command: OpenClawPluginCommandDefinition | undefined;
+    let command: GrantedPluginCommandDefinition | undefined;
     const api = {
-      registerCommand: vi.fn((definition: OpenClawPluginCommandDefinition) => {
+      registerCommand: vi.fn((definition: GrantedPluginCommandDefinition) => {
         command = definition;
       }),
       runtime: {
@@ -194,7 +194,7 @@ describe("handleWorkboardCommand", () => {
           prepareWorkspaceAuthority,
         },
       },
-    } as unknown as OpenClawPluginApi;
+    } as unknown as GrantedPluginApi;
     registerWorkboardCommand({ api, store });
     expect(command).toBeDefined();
 

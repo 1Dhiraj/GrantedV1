@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
@@ -84,7 +84,7 @@ describe("retired Phone Control doctor migration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -120,7 +120,7 @@ describe("retired Phone Control doctor migration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -155,7 +155,7 @@ describe("retired Phone Control doctor migration", () => {
       gateway: {
         nodes: { commands: { allow: ["sms.send", "health.summary"] } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -168,7 +168,7 @@ describe("retired Phone Control doctor migration", () => {
       gateway: {
         nodes: { commands: { deny: [...RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS] } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -186,7 +186,7 @@ describe("retired Phone Control doctor migration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -210,7 +210,7 @@ describe("retired Phone Control doctor migration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -232,7 +232,7 @@ describe("retired Phone Control doctor migration", () => {
       gateway: {
         nodes: { commands: { deny: [...RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS] } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -251,7 +251,7 @@ describe("retired Phone Control doctor migration", () => {
       gateway: {
         nodes: { commands: { deny: [...RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS] } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     try {
       const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
@@ -268,7 +268,7 @@ describe("retired Phone Control doctor migration", () => {
     const deny = [...RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS, "custom.command"];
     const cfg = {
       gateway: { nodes: { commands: { allow: ["sms.send"], deny } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 
@@ -293,7 +293,7 @@ describe("retired Phone Control doctor migration", () => {
     const deny = ["camera.snap", "custom.command"];
     const cfg = {
       gateway: { nodes: { commands: { deny } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = await prepareRetiredPhoneControlCleanup({ cfg, env });
 

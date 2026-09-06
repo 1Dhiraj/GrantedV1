@@ -13,7 +13,7 @@ import { MediaFetchError } from "openclaw/plugin-sdk/media-runtime";
 import { parseDateStringTimestampMs as resolveGoogleChatTimestampMs } from "openclaw/plugin-sdk/number-runtime";
 import { mergePairLoopGuardConfig } from "openclaw/plugin-sdk/pair-loop-guard-runtime";
 import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { resolveWebhookPath } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import { downloadGoogleChatMedia, sendGoogleChatMessage } from "./api.js";
@@ -165,7 +165,7 @@ async function processGoogleChatEvent(
 function resolveBotDisplayName(params: {
   accountName?: string;
   agentId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): string {
   const { accountName, agentId, config } = params;
   if (accountName?.trim()) {
@@ -181,7 +181,7 @@ function resolveBotDisplayName(params: {
 async function processMessageWithPipeline(params: {
   event: GoogleChatEvent;
   account: ResolvedGoogleChatAccount;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: GoogleChatRuntimeEnv;
   core: GoogleChatCoreRuntime;
   statusSink?: GoogleChatStatusSink;

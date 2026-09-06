@@ -5,7 +5,7 @@ import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coerc
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -25,7 +25,7 @@ const MAX_PROCESS_INSTANCE_ID_LENGTH = 120;
 const MAX_REASON_LENGTH = 200;
 
 const handoffLog = createSubsystemLogger("restart-handoff");
-type GatewayRestartHandoffDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_handoff">;
+type GatewayRestartHandoffDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_handoff">;
 type GatewayRestartHandoffRow = {
   kind: string;
   version: number;

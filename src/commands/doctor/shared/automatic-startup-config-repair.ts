@@ -7,7 +7,7 @@ import { resolveConfigSnapshotHash, transformConfigFile } from "../../../config/
 import { stampConfigWriteMetadata } from "../../../config/io.meta.js";
 import { containsConfigIncludeDirective } from "../../../config/io.read-helpers.js";
 import { findLegacyConfigIssues } from "../../../config/legacy.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.js";
 import {
   validateConfigObjectRaw,
   validateConfigObjectWithPlugins,
@@ -17,7 +17,7 @@ import { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 import { findDoctorLegacyConfigIssues } from "./legacy-config-issues.js";
 
 type AutomaticConfigRepairPlan = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   snapshot: ConfigFileSnapshot;
   changes: string[];
 };
@@ -34,7 +34,7 @@ function admitAutomaticConfigRepairSnapshot(snapshot: ConfigFileSnapshot): boole
 
 function buildAutomaticConfigRepairPlan(
   snapshot: ConfigFileSnapshot,
-  config: OpenClawConfig,
+  config: GrantedConfig,
   changes: string[],
 ): AutomaticConfigRepairPlan {
   return {

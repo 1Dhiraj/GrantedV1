@@ -12,12 +12,12 @@ import {
 } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { getSkillCuratorStatus, registerSkillUsageTracking } from "./curator.js";
 import { applySkillProposal, proposeCreateSkill } from "./service.js";
 
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 
 beforeEach(async () => {
   resetDiagnosticEventsForTest();

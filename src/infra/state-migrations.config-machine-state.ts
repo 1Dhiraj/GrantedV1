@@ -1,6 +1,6 @@
 // Imports machine-owned openclaw.json values into the shared SQLite state store.
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { clearBundledDiscoveryModeMemo } from "../plugins/bundled-discovery-state.js";
 import {
@@ -13,7 +13,7 @@ const BUNDLED_DISCOVERY_STATE_CUTOVER_VERSION = "2026.7.2";
 
 /** Preserve retired machine-owned config fields before Doctor strips them. */
 export function migrateLegacyConfigMachineState(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): { changes: string[]; warnings: string[] } {
   const raw = params.config as Record<string, unknown>;

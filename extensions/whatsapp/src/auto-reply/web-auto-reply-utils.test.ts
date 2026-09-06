@@ -1,7 +1,7 @@
 // Whatsapp tests cover web auto reply utils plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeMainKey } from "openclaw/plugin-sdk/routing";
 import {
   evaluateSessionFreshness,
@@ -72,7 +72,7 @@ const makeMsg = (overrides: TestMessageOverrides): AdmittedWebInboundMessage => 
 };
 
 function getSessionSnapshotForTest(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   from: string,
   ctx?: {
     sessionKey?: string | null;
@@ -334,7 +334,7 @@ describe("getSessionSnapshot", () => {
               whatsapp: { mode: "idle", idleMinutes: 360 },
             },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
 
         const snapshot = getSessionSnapshotForTest(cfg, "whatsapp:+15550001111", {
           sessionKey,

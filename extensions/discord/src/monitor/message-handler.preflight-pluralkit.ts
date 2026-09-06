@@ -7,9 +7,7 @@ export async function resolveDiscordPreflightPluralKitInfo(params: {
   message: DiscordMessageEvent["message"];
   webhookId: string | null;
   config?: NonNullable<
-    NonNullable<
-      import("openclaw/plugin-sdk/config-contracts").OpenClawConfig["channels"]
-    >["discord"]
+    NonNullable<import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]>["discord"]
   >["pluralkit"];
   abortSignal?: AbortSignal;
 }): Promise<Awaited<ReturnType<typeof import("../pluralkit.js").fetchPluralKitMessageInfo>>> {

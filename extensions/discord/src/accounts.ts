@@ -13,7 +13,7 @@ import { resolveConfiguredFromCredentialStatuses } from "openclaw/plugin-sdk/cha
 import type {
   DiscordAccountConfig,
   DiscordActionConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAccountEntry } from "openclaw/plugin-sdk/routing";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -46,21 +46,21 @@ export const listDiscordAccountIds = listAccountIds;
 export const resolveDefaultDiscordAccountId = resolveDefaultAccountId;
 
 export function resolveDiscordAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): DiscordAccountConfig | undefined {
   return resolveAccountEntry(cfg.channels?.discord?.accounts, accountId);
 }
 
 export function mergeDiscordAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): DiscordAccountConfig {
   return resolveMergedDiscordAccountConfig(cfg, accountId);
 }
 
 export function resolveDiscordAccountAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): string[] | undefined {
   const accountId = normalizeAccountId(
@@ -73,7 +73,7 @@ export function resolveDiscordAccountAllowFrom(params: {
 }
 
 export function resolveDiscordAccountDmPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ChannelDmPolicy | undefined {
   const accountId = normalizeAccountId(
@@ -85,7 +85,7 @@ export function resolveDiscordAccountDmPolicy(params: {
 }
 
 export function createDiscordActionGate(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): (key: keyof DiscordActionConfig, defaultValue?: boolean) => boolean {
   const accountId = normalizeAccountId(
@@ -98,7 +98,7 @@ export function createDiscordActionGate(params: {
 }
 
 export function resolveDiscordAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedDiscordAccount {
   const cfg = selectDiscordRuntimeConfig(params.cfg);
@@ -120,7 +120,7 @@ export function resolveDiscordAccount(params: {
 }
 
 export function resolveDiscordMaxLinesPerMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   discordConfig?: DiscordAccountConfig | null;
   accountId?: string | null;
 }): number | undefined {
@@ -133,7 +133,7 @@ export function resolveDiscordMaxLinesPerMessage(params: {
   }).config.maxLinesPerMessage;
 }
 
-function inspectDiscordRuntimeAvailability(account: ResolvedDiscordAccount, cfg: OpenClawConfig) {
+function inspectDiscordRuntimeAvailability(account: ResolvedDiscordAccount, cfg: GrantedConfig) {
   return resolveDiscordAccountAvailability({
     account,
     resolveAccounts: () =>
@@ -143,25 +143,25 @@ function inspectDiscordRuntimeAvailability(account: ResolvedDiscordAccount, cfg:
 
 export function isDiscordAccountEnabledForRuntime(
   account: ResolvedDiscordAccount,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): boolean {
   return inspectDiscordRuntimeAvailability(account, cfg).enabled;
 }
 
 export function resolveDiscordAccountDisabledReason(
   account: ResolvedDiscordAccount,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): string {
   return inspectDiscordRuntimeAvailability(account, cfg).stateReason ?? "disabled";
 }
 
-export function listEnabledDiscordAccounts(cfg: OpenClawConfig): ResolvedDiscordAccount[] {
+export function listEnabledDiscordAccounts(cfg: GrantedConfig): ResolvedDiscordAccount[] {
   return listDiscordAccountIds(cfg)
     .map((accountId) => resolveDiscordAccount({ cfg, accountId }))
     .filter((account) => isDiscordAccountEnabledForRuntime(account, cfg));
 }
 
-export function listDiscordStartupAccountIds(cfg: OpenClawConfig): string[] {
+export function listDiscordStartupAccountIds(cfg: GrantedConfig): string[] {
   const startupAccountIds = listEnabledDiscordAccounts(cfg)
     .filter(
       (candidate) =>

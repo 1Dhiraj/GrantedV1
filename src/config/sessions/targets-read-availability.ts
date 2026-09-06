@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { readSessionEntryKeys } from "./session-accessor.sqlite-entry-store.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";
@@ -33,7 +33,7 @@ type FixedSessionStoreReadSnapshot =
   | Extract<SessionStoreTargetsReadResult, { available: false }>;
 export type SessionStoreTargetsReadCache = Map<string, FixedSessionStoreReadSnapshot>;
 
-function resolveReadDefaultAgentId(cfg: OpenClawConfig, targetAgentId: string): string {
+function resolveReadDefaultAgentId(cfg: GrantedConfig, targetAgentId: string): string {
   const persistedOwner = resolvePersistedSessionStoreOwner(cfg);
   return persistedOwner.kind === "none" ? normalizeAgentId(targetAgentId) : persistedOwner.agentId;
 }
@@ -82,7 +82,7 @@ function readSessionStoreTargetSnapshot(params: {
 }
 
 function resolveFixedSessionStoreTargetsReadOnly(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   requested: string,
   env: NodeJS.ProcessEnv,
   cache?: SessionStoreTargetsReadCache,
@@ -136,7 +136,7 @@ function resolveFixedSessionStoreTargetsReadOnly(
 
 /** Resolves every plausible store while preserving read availability and ownership. */
 export function resolveExistingAgentSessionStoreTargetsReadOnlyResult(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   params: { cache?: SessionStoreTargetsReadCache; env?: NodeJS.ProcessEnv } = {},
 ): SessionStoreTargetsReadResult {

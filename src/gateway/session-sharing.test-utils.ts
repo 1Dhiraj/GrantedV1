@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../state/user-profiles.js";
 import type { GatewayClient } from "./server-methods/types.js";
 
@@ -53,7 +53,7 @@ export function sharingPolicyClient(params: {
   };
 }
 
-export function rolePolicyConfig(writeAgents: "*" | string[] = "*"): OpenClawConfig {
+export function rolePolicyConfig(writeAgents: "*" | string[] = "*"): GrantedConfig {
   return {
     gateway: {
       roles: {

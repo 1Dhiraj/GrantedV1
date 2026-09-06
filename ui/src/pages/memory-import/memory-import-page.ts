@@ -15,7 +15,7 @@ import { listSelectableAgents } from "../../lib/agents/display.ts";
 import { formatUiError } from "../../lib/format-error.ts";
 import { isGatewayMethodAdvertised } from "../../lib/gateway-methods.ts";
 import { generateUUID } from "../../lib/uuid.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   renderMemoryImport,
@@ -41,7 +41,7 @@ function toErrorMessage(error: unknown): string {
   return formatUiError(error, "request failed");
 }
 
-export class MemoryImportPage extends OpenClawLightDomElement {
+export class MemoryImportPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

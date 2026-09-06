@@ -1,6 +1,6 @@
 // Imessage tests cover conversation route plugin behavior.
 import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   testing as sessionBindingTesting,
   registerSessionBindingAdapter,
@@ -23,7 +23,7 @@ const baseCfg = {
     list: [{ id: "main" }, { id: "codex" }],
   },
   bindings: [{ agentId: "main", match: { channel: "imessage", accountId: "default" } }],
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 const configuredCfg = {
   ...baseCfg,
@@ -39,7 +39,7 @@ const configuredCfg = {
       },
     },
   ],
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 describe("resolveIMessageConversationRoute", () => {
   beforeEach(() => {

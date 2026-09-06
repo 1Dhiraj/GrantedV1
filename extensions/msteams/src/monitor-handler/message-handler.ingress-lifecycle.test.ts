@@ -9,7 +9,7 @@ import {
 } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
 import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../runtime-api.js";
+import type { GrantedConfig } from "../../runtime-api.js";
 import { createMSTeamsIngress } from "../msteams-ingress.js";
 import type { MSTeamsIngressLifecycle } from "../msteams-ingress.js";
 import type { MSTeamsTurnContext } from "../sdk-types.js";
@@ -64,7 +64,7 @@ function directActivity(id: string, text: string): MSTeamsTurnContext["activity"
   } as MSTeamsTurnContext["activity"];
 }
 
-function createHandler(cfg: OpenClawConfig) {
+function createHandler(cfg: GrantedConfig) {
   const { deps } = createMessageHandlerDeps(cfg, {
     createInboundDebouncer,
     resolveInboundDebounceMs: vi.fn(() => 40),
@@ -80,7 +80,7 @@ describe("Microsoft Teams drain claim ownership", () => {
   it("defers a claimed activity and binds completion to reply adoption", async () => {
     const handler = createHandler({
       channels: { msteams: { dmPolicy: "open", allowFrom: ["*"] } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     const lifecycle = createLifecycle();
 
     const result = await handler(context(directActivity("activity-one", "hello")), lifecycle);
@@ -109,7 +109,7 @@ describe("Microsoft Teams drain claim ownership", () => {
     const handler = createHandler({
       messages: { inbound: { debounceMs: 40 } },
       channels: { msteams: { dmPolicy: "open", allowFrom: ["*"] } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
     const first = createLifecycle();
     const second = createLifecycle();
 
@@ -145,7 +145,7 @@ describe("Microsoft Teams drain claim ownership", () => {
             requireMention: true,
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         createInboundDebouncer,
         resolveInboundDebounceMs: vi.fn(() => 20),
@@ -193,7 +193,7 @@ describe("Microsoft Teams drain claim ownership", () => {
     const createIntegratedIngress = () => {
       const handler = createHandler({
         channels: { msteams: { dmPolicy: "open", allowFrom: ["*"] } },
-      } as OpenClawConfig);
+      } as GrantedConfig);
       return createMSTeamsIngress({
         accountId: "test-app",
         queue,

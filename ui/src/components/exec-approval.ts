@@ -7,7 +7,7 @@ import {
   KEYBOARD_SHORTCUT_COMBOS,
   matchesShortcutCombo,
 } from "../lib/keyboard-shortcut-catalog.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import {
   approvalRemainingLabel,
   approvalTitle,
@@ -15,7 +15,7 @@ import {
   renderExecApprovalCard,
   resolveApprovalDecisions,
 } from "./exec-approval-card.ts";
-import type { OpenClawModalDialog } from "./modal-dialog.ts";
+import type { GrantedModalDialog } from "./modal-dialog.ts";
 import "./modal-dialog.ts";
 
 type ExecApprovalProps = {
@@ -90,9 +90,9 @@ function shortcutDecision(event: KeyboardEvent): ExecApprovalDecision | null {
   return matchesShortcutCombo(KEYBOARD_SHORTCUT_COMBOS.denyApproval, event) ? "deny" : null;
 }
 
-class ExecApproval extends OpenClawLightDomContentsElement {
+class ExecApproval extends GrantedLightDomContentsElement {
   @property({ attribute: false }) props?: ExecApprovalProps;
-  @query("openclaw-modal-dialog") private dialog?: OpenClawModalDialog;
+  @query("openclaw-modal-dialog") private dialog?: GrantedModalDialog;
   @state() private selectedApprovalId: string | null = null;
   @state() private explicitlyOpen = false;
 

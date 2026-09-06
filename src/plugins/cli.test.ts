@@ -1,7 +1,7 @@
 /** CLI integration coverage for plugin commands, setup, status, and registry flows. */
 import { Command } from "commander";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { createPluginCliLoadSession } from "./cli-registry-loader.js";
 
 const mocks = vi.hoisted(() => ({
@@ -109,7 +109,7 @@ function createAutoEnabledCliFixture() {
   const rawConfig = {
     plugins: {},
     channels: { demo: { enabled: true } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const autoEnabledConfig = {
     ...rawConfig,
     plugins: {
@@ -117,7 +117,7 @@ function createAutoEnabledCliFixture() {
         demo: { enabled: true },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return { rawConfig, autoEnabledConfig };
 }
 
@@ -177,8 +177,8 @@ function getMockCallObject(mock: ReturnType<typeof vi.fn>, callIndex = 0, argInd
 }
 
 function expectAutoEnabledCliLoad(params: {
-  rawConfig: OpenClawConfig;
-  autoEnabledConfig: OpenClawConfig;
+  rawConfig: GrantedConfig;
+  autoEnabledConfig: GrantedConfig;
   autoEnabledReasons?: Record<string, string[]>;
 }) {
   expect(mocks.applyPluginAutoEnable).toHaveBeenCalledWith(
@@ -232,7 +232,7 @@ describe("registerPluginCliCommands", () => {
       autoEnabledReasons: {},
     }));
     mocks.loadConfig.mockReset();
-    mocks.loadConfig.mockReturnValue({} as OpenClawConfig);
+    mocks.loadConfig.mockReturnValue({} as GrantedConfig);
     mocks.getRuntimeConfigSnapshot.mockReset();
     mocks.getRuntimeConfigSnapshot.mockReturnValue(null);
     mocks.readConfigFileSnapshot.mockReset();
@@ -246,7 +246,7 @@ describe("registerPluginCliCommands", () => {
   it("skips plugin CLI registrars when commands already exist", async () => {
     const program = createProgram("memory");
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig);
+    await registerPluginCliCommands(program, {} as GrantedConfig);
 
     expect(mocks.memoryRegister).not.toHaveBeenCalled();
     expect(mocks.otherRegister).toHaveBeenCalledTimes(1);
@@ -257,7 +257,7 @@ describe("registerPluginCliCommands", () => {
     // Alias-only root names (e.g. cron|automations) are owned commands too.
     program.command("mem-core").alias("memory");
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig);
+    await registerPluginCliCommands(program, {} as GrantedConfig);
 
     expect(mocks.memoryRegister).not.toHaveBeenCalled();
     expect(mocks.otherRegister).toHaveBeenCalledTimes(1);
@@ -266,7 +266,7 @@ describe("registerPluginCliCommands", () => {
   it("forwards an explicit env to plugin loading", async () => {
     const env = { GRANTED_HOME: "/srv/openclaw-home" } as NodeJS.ProcessEnv;
 
-    await registerPluginCliCommands(createProgram(), {} as OpenClawConfig, env);
+    await registerPluginCliCommands(createProgram(), {} as GrantedConfig, env);
 
     const loadOptions = getMockCallObject(mocks.loadOpenClawPlugins);
     expect(loadOptions.env).toEqual(env);
@@ -274,7 +274,7 @@ describe("registerPluginCliCommands", () => {
   });
 
   it("injects gateway-backed node runtime into plugin CLI commands", async () => {
-    await registerPluginCliCommands(createProgram(), {} as OpenClawConfig);
+    await registerPluginCliCommands(createProgram(), {} as GrantedConfig);
 
     const loadOptions = getMockCallObject(mocks.loadOpenClawPlugins) as {
       runtimeOptions?: { nodes?: { list?: unknown; invoke?: unknown } };
@@ -298,18 +298,18 @@ describe("registerPluginCliCommands", () => {
   it("reloads plugin CLI entries when the requested primary command changes", async () => {
     const program = createProgram();
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       primary: "memory",
     });
-    await registerPluginCliCommands(program, {} as OpenClawConfig);
+    await registerPluginCliCommands(program, {} as GrantedConfig);
 
     expect(mocks.loadOpenClawPlugins).toHaveBeenCalledTimes(2);
   });
 
   it("reloads plugin CLI entries when config or environment identity changes", async () => {
     const program = createProgram();
-    const configA = {} as OpenClawConfig;
-    const configB = { plugins: {} } as OpenClawConfig;
+    const configA = {} as GrantedConfig;
+    const configB = { plugins: {} } as GrantedConfig;
     const envA = { GRANTED_HOME: "/tmp/a" } as NodeJS.ProcessEnv;
     const envB = { GRANTED_HOME: "/tmp/b" } as NodeJS.ProcessEnv;
 
@@ -386,7 +386,7 @@ describe("registerPluginCliCommands", () => {
     await expect(
       getPluginCliCommandDescriptors({
         plugins: { entries: { "legacy-cli": { enabled: true } } },
-      } as OpenClawConfig),
+      } as GrantedConfig),
     ).resolves.toEqual([]);
 
     expect(stderrWrite).not.toHaveBeenCalled();
@@ -418,7 +418,7 @@ describe("registerPluginCliCommands", () => {
     mocks.loadOpenClawPluginCliRegistry.mockRejectedValue(new Error("broken legacy CLI plugin"));
     const config = {
       plugins: { entries: { "legacy-cli": { enabled: true } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expect(getPluginCliCommandDescriptors(config)).resolves.toEqual([
       {
@@ -440,7 +440,7 @@ describe("registerPluginCliCommands", () => {
       plugins: {
         entries: { "legacy-cli": { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     mocks.resolvePluginMetadataSnapshot.mockReturnValue(createLegacyExternalCliMetadataSnapshot());
     mocks.loadOpenClawPluginCliRegistry.mockResolvedValue({
       cliRegistrars: [
@@ -514,7 +514,7 @@ describe("registerPluginCliCommands", () => {
     const program = createProgram();
     program.exitOverride();
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
     });
 
@@ -546,7 +546,7 @@ describe("registerPluginCliCommands", () => {
       program.command("memory-admin");
     });
 
-    await registerPluginCliCommands(createProgram(), {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(createProgram(), {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
     });
 
@@ -558,7 +558,7 @@ describe("registerPluginCliCommands", () => {
     program.exitOverride();
     mocks.resolveManifestActivationPluginIds.mockReturnValue(["memory-core"]);
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
       primary: "memory",
     });
@@ -597,7 +597,7 @@ describe("registerPluginCliCommands", () => {
       canvas.command("snapshot").action(mocks.memoryListAction);
     });
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
       primary: "nodes",
     });
@@ -616,7 +616,7 @@ describe("registerPluginCliCommands", () => {
     const program = createProgram();
     program.exitOverride();
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
       primary: "memory",
     });
@@ -643,7 +643,7 @@ describe("registerPluginCliCommands", () => {
     const program = createProgram("nodes");
     program.exitOverride();
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
       primary: "nodes",
     });
@@ -656,7 +656,7 @@ describe("registerPluginCliCommands", () => {
     const program = createProgram();
     program.exitOverride();
 
-    await registerPluginCliCommands(program, {} as OpenClawConfig, undefined, undefined, {
+    await registerPluginCliCommands(program, {} as GrantedConfig, undefined, undefined, {
       mode: "lazy",
       primary: "missing-command",
     });
@@ -667,7 +667,7 @@ describe("registerPluginCliCommands", () => {
   });
 
   it("reuses the validated cold snapshot runtime config without a second config read", async () => {
-    const snapshotConfig = { plugins: { enabled: true } } as OpenClawConfig;
+    const snapshotConfig = { plugins: { enabled: true } } as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValueOnce({
       valid: true,
       config: {},
@@ -680,7 +680,7 @@ describe("registerPluginCliCommands", () => {
   });
 
   it("skips unrelated plugin validation for cold plugin-owned CLI commands", async () => {
-    const snapshotConfig = { plugins: { enabled: true } } as OpenClawConfig;
+    const snapshotConfig = { plugins: { enabled: true } } as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValueOnce({
       valid: true,
       config: {},
@@ -694,8 +694,8 @@ describe("registerPluginCliCommands", () => {
   });
 
   it("preserves an already-active runtime config snapshot", async () => {
-    const snapshotConfig = { plugins: { enabled: true } } as OpenClawConfig;
-    const activeConfig = { plugins: { enabled: false } } as OpenClawConfig;
+    const snapshotConfig = { plugins: { enabled: true } } as GrantedConfig;
+    const activeConfig = { plugins: { enabled: false } } as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValueOnce({
       valid: true,
       config: {},

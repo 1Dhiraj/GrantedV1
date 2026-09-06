@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   DEFAULT_CACHE_TTL_MINUTES,
   DEFAULT_SEARCH_COUNT,
@@ -232,7 +232,7 @@ async function fetchSearxngResults(params: {
 }
 
 export async function runSearxngSearch(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   query: string;
   count?: number;
   categories?: string;

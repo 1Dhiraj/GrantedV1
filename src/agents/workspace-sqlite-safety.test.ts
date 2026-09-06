@@ -10,7 +10,7 @@ import {
 import { makeTempWorkspace } from "../test-helpers/workspace.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resetLegacyWorkspaceStateCheckForTest } from "./workspace-legacy-state.test-support.js";
 import { resolveWorkspaceStateIdentity } from "./workspace-state-identity.js";
@@ -23,7 +23,7 @@ import {
   WORKSPACE_VANISHED_ERROR_CODE,
 } from "./workspace.js";
 
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeEach(async () => {
   resetLegacyWorkspaceStateCheckForTest();

@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeEach, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.types.js";
 import { createColdPluginFixture } from "./test-helpers/cold-plugin-fixtures.js";
@@ -57,13 +57,13 @@ function coldPluginRoot(pluginId: string, channelId: string): string {
 const channelOwnerRoot = coldPluginRoot("cold-plugin", "cold-channel");
 const otherRoot = coldPluginRoot("other-plugin", "other-channel");
 
-const config: OpenClawConfig = {
+const config: GrantedConfig = {
   channels: { "cold-channel": { enabled: true } },
   plugins: {
     load: { paths: [channelOwnerRoot, otherRoot] },
     entries: { "cold-plugin": { enabled: true }, "other-plugin": { enabled: true } },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function countReport(params: { effectiveOnly: boolean; onlyPluginIds?: readonly string[] }): {
   rebuilds: number;

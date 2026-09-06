@@ -17,7 +17,7 @@ import {
   type SessionStoreTarget as ResolvedSessionStoreTarget,
 } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveStoredSessionOwnerAgentId } from "../gateway/session-store-key.js";
 import { readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -259,7 +259,7 @@ function commonPathAncestor(leftPath: string, rightPath: string): string {
 }
 
 // Direct store migrations are scoped by path; broader agent discovery needs runtime config.
-function resolveDoctorSessionSqliteConfig(options: DoctorSessionSqliteOptions): OpenClawConfig {
+function resolveDoctorSessionSqliteConfig(options: DoctorSessionSqliteOptions): GrantedConfig {
   if (options.cfg) {
     return options.cfg;
   }
@@ -272,7 +272,7 @@ function resolveDoctorSessionSqliteConfig(options: DoctorSessionSqliteOptions): 
 function resolveDoctorSessionSqliteTargets(params: {
   allAgents?: boolean;
   agent?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   mode: DoctorSessionSqliteMode;
   store?: string;
@@ -331,7 +331,7 @@ function filterLegacySessionStoreTargets(
 async function inspectOrMigrateTarget(params: {
   activeRun?: ActiveSessionSqliteMigrationRun;
   archiveTargets?: LegacyArchiveTarget[];
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   mode: Exclude<DoctorSessionSqliteMode, "restore" | "recover">;
   target: SessionStoreTarget;
@@ -429,7 +429,7 @@ async function inspectOrMigrateTarget(params: {
 }
 
 function gatherLegacyArchiveCoverage(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
   targets: readonly SessionStoreTarget[],
 ) {
@@ -626,7 +626,7 @@ function readLegacySessionRecords(
 }
 
 function isLegacySessionRecordOwnedByTarget(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   target: SessionStoreTarget,
   sessionKey: string,
 ): boolean {

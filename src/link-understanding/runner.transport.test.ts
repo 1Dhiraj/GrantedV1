@@ -3,7 +3,7 @@ import type { AddressInfo, Socket } from "node:net";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isPidAlive } from "../shared/pid-alive.js";
 import { killPidIfAlive, waitForPidFile, waitForPidToExit } from "../test-utils/process-tree.js";
 import { withTempDir } from "../test-utils/temp-dir.js";
@@ -103,7 +103,7 @@ async function withServer(handler: RequestListener, run: (base: string) => Promi
   }
 }
 
-function config(args: string[], timeoutSeconds = 10): OpenClawConfig {
+function config(args: string[], timeoutSeconds = 10): GrantedConfig {
   return {
     tools: {
       links: { models: [{ command: process.execPath, args, timeoutSeconds: 10 }], timeoutSeconds },
@@ -148,7 +148,7 @@ describe("runLinkUnderstanding transport cleanup", () => {
               models: [{ type: "cli", command: "summarize" }],
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         ctx: { Body: `see ${url}` } as MsgContext,
       });
 

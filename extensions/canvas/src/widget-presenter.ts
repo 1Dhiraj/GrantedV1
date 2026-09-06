@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
 import { selectDefaultNodeFromList } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { CANVAS_PRESENT_COMMAND, isEligibleCanvasNode } from "./node-eligibility.js";
 
 const DEFAULT_CANVAS_NODE_INVOKE_TIMEOUT_MS = 30_000;
 
 type CanvasRuntimeNode = Awaited<ReturnType<PluginRuntime["nodes"]["list"]>>["nodes"][number];
-type WidgetPresenter = Parameters<OpenClawPluginApi["registerWidgetPresenter"]>[0];
+type WidgetPresenter = Parameters<GrantedPluginApi["registerWidgetPresenter"]>[0];
 
 async function selectCanvasNode(
   nodesRuntime: PluginRuntime["nodes"],

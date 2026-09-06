@@ -7,10 +7,10 @@ import { createChannelMcpRuntime } from "./channel-server-runtime.js";
  * This module wires config, the Gateway bridge, protocol notifications, and
  * registered tools into a lifecycle that callers can either embed or serve.
  */
-type OpenClawMcpServeOptions = NonNullable<Parameters<typeof createChannelMcpRuntime>[0]>;
+type GrantedMcpServeOptions = NonNullable<Parameters<typeof createChannelMcpRuntime>[0]>;
 
 /** Serve the channel MCP server over stdio until transport or process shutdown. */
-export async function serveOpenClawChannelMcp(opts: OpenClawMcpServeOptions = {}): Promise<void> {
+export async function serveOpenClawChannelMcp(opts: GrantedMcpServeOptions = {}): Promise<void> {
   const { server, start, close } = await createChannelMcpRuntime(opts);
   const transport = new StdioServerTransport();
 

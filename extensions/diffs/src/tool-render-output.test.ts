@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import type { DiffScreenshotter } from "./browser.runtime.js";
 import { resolveDiffsPluginDefaults } from "./config.js";
 import { createDiffStoreHarness } from "./test-helpers.js";
@@ -75,7 +75,7 @@ describe("diffs tool rendered output guards", () => {
   });
 });
 
-function createApi(): OpenClawPluginApi {
+function createApi(): GrantedPluginApi {
   return createTestPluginApi({
     id: "diffs",
     name: "Diffs",
@@ -87,7 +87,7 @@ function createApi(): OpenClawPluginApi {
         bind: "loopback",
       },
     },
-    runtime: {} as OpenClawPluginApi["runtime"],
+    runtime: {} as GrantedPluginApi["runtime"],
   });
 }
 

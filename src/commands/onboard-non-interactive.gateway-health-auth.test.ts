@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayHealthProbeToken } from "./onboard-non-interactive/local.test-support.js";
 
 async function withTempDir<T>(run: (dir: string) => Promise<T>): Promise<T> {
@@ -63,7 +63,7 @@ describe("resolveGatewayHealthProbeToken", () => {
             },
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       expect(resolved).toEqual({ token: "file-secret-token" });
     });
@@ -93,7 +93,7 @@ describe("resolveGatewayHealthProbeToken", () => {
             },
           },
         },
-      } as OpenClawConfig);
+      } as GrantedConfig);
 
       expect(resolved.token).toBeUndefined();
       expect(resolved.unresolvedRefReason).toBe(
@@ -117,7 +117,7 @@ describe("resolveGatewayHealthProbeToken", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(resolved).toEqual({ password: "resolved-password" });
   });
@@ -136,7 +136,7 @@ describe("resolveGatewayHealthProbeToken", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(resolved.password).toBeUndefined();
     expect(resolved.unresolvedRefReason).toBe(
@@ -149,7 +149,7 @@ describe("resolveGatewayHealthProbeToken", () => {
 
     const resolved = await resolveGatewayHealthProbeToken({
       gateway: { auth: { mode: "password" } },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(resolved).toEqual({ password: "environment-password" });
   });

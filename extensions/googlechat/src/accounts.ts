@@ -3,7 +3,7 @@ import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
-  type OpenClawConfig,
+  type GrantedConfig,
   resolveAccountEntry,
 } from "openclaw/plugin-sdk/account-resolution";
 import { safeParseJsonWithSchema, safeParseWithSchema } from "openclaw/plugin-sdk/extension-shared";
@@ -63,7 +63,7 @@ const {
 export { listGoogleChatAccountIds, resolveDefaultGoogleChatAccountId };
 
 function mergeGoogleChatAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): GoogleChatAccountConfig {
   const raw = cfg.channels?.["googlechat"] ?? {};
@@ -93,7 +93,7 @@ function mergeGoogleChatAccountConfig(
 }
 
 export function resolveGoogleChatConfigAccessorAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): GoogleChatConfigAccessorAccount {
   const accountId = normalizeAccountId(
@@ -119,7 +119,7 @@ function parseServiceAccount(value: unknown): Record<string, unknown> | null {
 }
 
 function resolveCredentialsFromConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   account: GoogleChatAccountConfig;
   mode: SecretInputStringResolutionMode;
@@ -206,7 +206,7 @@ function resolveCredentialsFromConfig(params: {
 }
 
 function resolveGoogleChatAccountWithMode(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   mode: SecretInputStringResolutionMode;
 }): ResolvedGoogleChatAccount {
@@ -238,14 +238,14 @@ function resolveGoogleChatAccountWithMode(params: {
 }
 
 export function resolveGoogleChatAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedGoogleChatAccount {
   return resolveGoogleChatAccountWithMode({ ...params, mode: "strict" });
 }
 
 export function inspectGoogleChatAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }) {
   const account = resolveGoogleChatAccountWithMode({ ...params, mode: "inspect" });

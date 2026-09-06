@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SignalEventHandlerDeps } from "./monitor/event-handler.types.js";
 
@@ -53,7 +53,7 @@ const config = {
       allowFrom: ["*"],
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 function requireCapturedFetchAttachment(): SignalEventHandlerDeps["fetchAttachment"] {
   if (!capturedFetchAttachment) {

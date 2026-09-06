@@ -13,7 +13,7 @@ import {
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { addSessionMember } from "../../config/sessions/session-sharing-store.js";
 import type { GatewayOperatorRoleDefinition } from "../../config/types.gateway.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { emitAgentEvent } from "../../infra/agent-events.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
@@ -493,7 +493,7 @@ describe("tasks gateway handlers", () => {
         agents: "*",
         scopes: ["operator.read", "operator.write"],
       };
-      const config: OpenClawConfig =
+      const config: GrantedConfig =
         access === "incognito"
           ? {}
           : { gateway: { roles: { default: "guest", definitions: { guest } } } };

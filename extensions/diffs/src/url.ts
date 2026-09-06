@@ -1,14 +1,14 @@
 // Diffs plugin module implements url behavior.
 import {
   resolveGatewayPublicOrigin,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
 
 type ViewerBaseUrlFieldName = "baseUrl" | "viewerBaseUrl";
 
 export function buildViewerUrl(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   viewerPath: string;
   baseUrl?: string;
   viewerBaseUrl?: string;
@@ -53,7 +53,7 @@ export function normalizeViewerBaseUrl(
   return withoutTrailingSlash;
 }
 
-function resolveGatewayBaseUrl(config: OpenClawConfig): string {
+function resolveGatewayBaseUrl(config: GrantedConfig): string {
   const scheme = config.gateway?.tls?.enabled ? "https" : "http";
   const port = resolveGatewayPort(config);
   const customHost = config.gateway?.customBindHost?.trim();

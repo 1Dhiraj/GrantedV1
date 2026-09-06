@@ -23,7 +23,7 @@ import {
 import { loadPluginInstallRuntime } from "./install-shared.js";
 import type { PluginInstallLogger } from "./install-types.js";
 import { hasRetainedManagedNpmInstallMarker } from "./managed-npm-retention.js";
-import type { OpenClawPackageManifest } from "./manifest.js";
+import type { GrantedPackageManifest } from "./manifest.js";
 import { relinkOpenClawPeerDependenciesInManagedNpmRoot } from "./plugin-peer-link.js";
 
 const rollbackSnapshotCopyMode = fsConstants.COPYFILE_FICLONE;
@@ -659,7 +659,7 @@ export async function resolveManagedNpmGenerationUseForInstall(params: {
 }
 
 export function resolveRequiredPlatformPackageNames(
-  packageMetadata?: OpenClawPackageManifest,
+  packageMetadata?: GrantedPackageManifest,
 ): { ok: true; packageNames: string[] } | { ok: false; error: string } {
   const raw = packageMetadata?.install?.requiredPlatformPackages as unknown;
   if (raw === undefined) {

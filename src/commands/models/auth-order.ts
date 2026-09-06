@@ -10,14 +10,14 @@ import {
 import { findNormalizedProviderValue, normalizeProviderId } from "../../agents/model-selection.js";
 import { resolveProviderIdForAuth } from "../../agents/provider-auth-aliases.js";
 import { formatCliCommand } from "../../cli/command-format.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { type RuntimeEnv, writeRuntimeJson } from "../../runtime.js";
 import { shortenHomePath } from "../../utils.js";
 import { refreshRunningGatewayAuthState } from "./auth-refresh.js";
 import { loadModelsConfig } from "./load-config.js";
 import { resolveModelsTargetAgent } from "./shared.js";
 
-function describeOrder(store: AuthProfileStore, provider: string, cfg: OpenClawConfig): string[] {
+function describeOrder(store: AuthProfileStore, provider: string, cfg: GrantedConfig): string[] {
   const authProvider = resolveProviderIdForAuth(provider, { config: cfg });
   const canonical = findNormalizedProviderValue(store.order, authProvider);
   if (canonical !== undefined) {
@@ -30,7 +30,7 @@ function describeOrder(store: AuthProfileStore, provider: string, cfg: OpenClawC
   );
 }
 
-function describeOrderFallback(cfg: OpenClawConfig, provider: string): string {
+function describeOrderFallback(cfg: GrantedConfig, provider: string): string {
   const authProvider = resolveProviderIdForAuth(provider, { config: cfg });
   const configuredOrder =
     findNormalizedProviderValue(cfg.auth?.order, authProvider) ??

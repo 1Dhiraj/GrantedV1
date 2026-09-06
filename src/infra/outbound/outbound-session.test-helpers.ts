@@ -6,7 +6,7 @@ import {
   normalizeOptionalLowercaseString,
 } from "@openclaw/normalization-core/string-coerce";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   buildChannelOutboundSessionRoute,
   buildThreadAwareOutboundSessionRoute,
@@ -48,7 +48,7 @@ function createSessionRouteTestPlugin(params: {
 }
 
 function buildThreadedChannelRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   channel: string;
   accountId?: string | null;

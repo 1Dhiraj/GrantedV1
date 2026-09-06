@@ -93,7 +93,7 @@ export type ManagedProcess = {
 };
 
 /** Common loopback server and lease ownership shared by both execution transports. */
-type OpenClawExecServerLease = {
+type GrantedExecServerLease = {
   environmentId: string;
   authPath: string;
   refCount: number;
@@ -109,7 +109,7 @@ type OpenClawExecServerLease = {
 };
 
 /** Locally interpreted exec-server protocol backed by an OpenClaw sandbox. */
-export type OpenClawExecServer = OpenClawExecServerLease & {
+export type GrantedExecServer = GrantedExecServerLease & {
   backend: NonNullable<SandboxContext["backend"]>;
   fsBridge: NonNullable<SandboxContext["fsBridge"]>;
   readonly networkIsolated: boolean;
@@ -127,7 +127,7 @@ export type CodexNodeExecServerLease = {
 };
 
 /** Opaque exec-server relay backed by the exact prepared paired-device placement. */
-export type OpenClawNodeExecServer = OpenClawExecServerLease & {
+export type GrantedNodeExecServer = GrantedExecServerLease & {
   node: {
     id: string;
     leases: Map<string, CodexNodeExecServerLease>;
@@ -135,4 +135,4 @@ export type OpenClawNodeExecServer = OpenClawExecServerLease & {
 };
 
 /** One canonical loopback/refcount owner with either local or node connection handling. */
-export type OpenClawLeasedExecServer = OpenClawExecServer | OpenClawNodeExecServer;
+export type GrantedLeasedExecServer = GrantedExecServer | GrantedNodeExecServer;

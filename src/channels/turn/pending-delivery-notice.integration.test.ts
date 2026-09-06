@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setReplyPayloadMetadata } from "../../auto-reply/reply-payload.js";
 import type { FinalizedMsgContext } from "../../auto-reply/templating.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { failDurableDelivery } from "../../infra/outbound/delivery-completion.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { dispatchRoutedChannelTurn } from "./lifecycle.js";
@@ -60,7 +60,7 @@ function createCtx(overrides: Partial<FinalizedMsgContext> = {}): FinalizedMsgCo
 describe("pending delivery notice end to end", () => {
   let tmpDir: string;
   let storePath: string;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   const sessionKey = "agent:main:telegram:direct:chat-1";
   const context = { channel: "telegram", to: "chat-1", accountId: "default" };
   const completion = {
@@ -78,7 +78,7 @@ describe("pending delivery notice end to end", () => {
     tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-notice-e2e-"));
     storePath = path.join(tmpDir, "sessions.json");
     completion.storePath = storePath;
-    cfg = { session: { store: storePath } } as OpenClawConfig;
+    cfg = { session: { store: storePath } } as GrantedConfig;
     await replaceSessionEntry(
       { sessionKey, storePath },
       {

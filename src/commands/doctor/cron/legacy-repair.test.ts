@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   loadCronQuarantinedJobs,
   loadCronStore,
@@ -31,7 +31,7 @@ afterEach(async () => {
 
 it.each<{
   name: string;
-  agents: NonNullable<OpenClawConfig["agents"]>;
+  agents: NonNullable<GrantedConfig["agents"]>;
   agentId?: string;
   expectedOwner: { kind: "runtime-default" | "explicit"; agentId: string };
 }>([
@@ -86,7 +86,7 @@ it.each<{
     const cfg = {
       cron: { store: storePath },
       agents,
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const state = await loadLegacyCronRepairState({ cfg, storePath, readOnly: true });
 
     expect(state?.rawJobs[0]?.agentId).toBe(agentId);
@@ -110,7 +110,7 @@ function job(id: string): CronJob {
 }
 
 async function loadRepairStateForStore(storePath: string) {
-  const cfg = { cron: { store: storePath } } as OpenClawConfig;
+  const cfg = { cron: { store: storePath } } as GrantedConfig;
   const state = expectDefined(
     await loadLegacyCronRepairState({ cfg, storePath }),
     `repair state for ${storePath}`,
@@ -183,7 +183,7 @@ it("does not reactivate quarantined automations during startup repair", async ()
       },
     ],
   });
-  const cfg = { cron: { store: storePath } } as OpenClawConfig;
+  const cfg = { cron: { store: storePath } } as GrantedConfig;
 
   const result = await repairLegacyCronStoreWithoutPrompt({ cfg });
 

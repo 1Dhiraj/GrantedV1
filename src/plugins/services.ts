@@ -1,6 +1,6 @@
 /** Starts, stops, and inspects plugin service registrations. */
 import { STATE_DIR } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GatewayPluginEventBroadcastFn } from "../gateway/server-broadcast-types.js";
 import {
   emitTrustedDiagnosticEventWithPrivateData,
@@ -26,7 +26,7 @@ import type { PluginServiceRegistration } from "./registry-types.js";
 import type { PluginRegistry } from "./registry.js";
 import { createPluginServiceHealthGeneration } from "./service-health.js";
 import { encodeStartupTraceSegment } from "./startup-trace-segment.js";
-import type { OpenClawPluginServiceContext, PluginLogger } from "./types.js";
+import type { GrantedPluginServiceContext, PluginLogger } from "./types.js";
 
 const log = createSubsystemLogger("plugins");
 export const PLUGIN_SERVICE_REPLACEMENT_STOP_TIMEOUT_MS = 5_000;
@@ -34,7 +34,7 @@ export const PLUGIN_SERVICE_REPLACEMENT_STOP_TIMEOUT_MS = 5_000;
 class PluginServiceReplacementTimeoutError extends Error {}
 
 type TrustedExporterInternalDiagnostics = NonNullable<
-  OpenClawPluginServiceContext["internalDiagnostics"]
+  GrantedPluginServiceContext["internalDiagnostics"]
 > & {
   reportExporterHealth: (update: DiagnosticExporterHealthUpdate) => void;
 };
@@ -49,14 +49,14 @@ function createPluginLogger(): PluginLogger {
 }
 
 function createServiceContext(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   startupTrace?: PluginServiceStartupTrace;
   workspaceDir?: string;
   service: PluginServiceRegistration;
-  serviceHealth: NonNullable<OpenClawPluginServiceContext["serviceHealth"]>;
-  gatewayEvents?: OpenClawPluginServiceContext["gatewayEvents"];
+  serviceHealth: NonNullable<GrantedPluginServiceContext["serviceHealth"]>;
+  gatewayEvents?: GrantedPluginServiceContext["gatewayEvents"];
   lease: PluginRuntimeCapabilityLease;
-}): OpenClawPluginServiceContext {
+}): GrantedPluginServiceContext {
   const isDiagnosticsExporter =
     params.service?.pluginId === params.service?.service.id &&
     (params.service?.service.id === "diagnostics-otel" ||
@@ -115,7 +115,7 @@ function createScopedGatewayEvents(params: {
   broadcast?: GatewayPluginEventBroadcastFn;
   lease: PluginRuntimeCapabilityLease;
 }): {
-  gatewayEvents?: OpenClawPluginServiceContext["gatewayEvents"];
+  gatewayEvents?: GrantedPluginServiceContext["gatewayEvents"];
 } {
   // No broadcaster means no gateway events at all: emits have nowhere to go and
   // sessions.changed is queued by the broadcaster itself. Omitting the facade
@@ -186,7 +186,7 @@ type PluginServiceStartupTrace = {
 
 export async function startPluginServices(params: {
   registry: PluginRegistry;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir?: string;
   startupTrace?: PluginServiceStartupTrace;
   broadcastPluginEvent?: GatewayPluginEventBroadcastFn;

@@ -12,14 +12,14 @@ import {
   assertAgentDeletionPathFence,
   prepareAgentDeletionPathFence,
 } from "./agent-deletion-journal.js";
-import type { OpenClawStateDatabaseOptions } from "./openclaw-state-db-contract.js";
+import type { GrantedStateDatabaseOptions } from "./openclaw-state-db-contract.js";
 import { ensureAgentDatabaseLeaseSchema } from "./openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
-import type { OpenClawStateLeaseContext } from "./openclaw-state-lease.js";
+import type { GrantedStateLeaseContext } from "./openclaw-state-lease.js";
 
 type AgentDatabaseLeaseDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "agent_database_leases" | "agent_deletion_journal" | "state_leases"
 >;
 
@@ -28,17 +28,17 @@ export const AGENT_DATABASE_MAINTENANCE_LEASE = {
   key: "global",
 } as const;
 
-export class OpenClawAgentDatabaseLeaseActiveError extends Error {
+export class GrantedAgentDatabaseLeaseActiveError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "OpenClawAgentDatabaseLeaseActiveError";
+    this.name = "GrantedAgentDatabaseLeaseActiveError";
   }
 }
 
-const maintenanceAuthority = new AsyncLocalStorage<OpenClawStateLeaseContext>();
+const maintenanceAuthority = new AsyncLocalStorage<GrantedStateLeaseContext>();
 
 export function runWithAgentDatabaseMaintenanceAuthority<T>(
-  authority: OpenClawStateLeaseContext,
+  authority: GrantedStateLeaseContext,
   run: () => Promise<T>,
 ): Promise<T> {
   return maintenanceAuthority.run(authority, run);
@@ -127,7 +127,7 @@ export function claimOpenClawAgentDatabaseLease(params: {
 
 export function releaseOpenClawAgentDatabaseLease(
   leaseId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   runOpenClawStateWriteTransaction((database) => {
     ensureAgentDatabaseLeaseSchema(database.db);
@@ -140,8 +140,8 @@ export function releaseOpenClawAgentDatabaseLease(
 }
 
 export function assertNoOpenClawAgentDatabaseLeases(
-  agentIdRaw: string | OpenClawStateLeaseContext,
-  options: OpenClawStateDatabaseOptions = {},
+  agentIdRaw: string | GrantedStateLeaseContext,
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   const maintenance = typeof agentIdRaw === "string" ? undefined : agentIdRaw;
   const agentId = typeof agentIdRaw === "string" ? normalizeAgentId(agentIdRaw) : undefined;
@@ -211,7 +211,7 @@ export function assertNoOpenClawAgentDatabaseLeases(
     }, options);
     if (leaseStillExists && (!agentId || row.agent_id === agentId)) {
       const remediation = agentId ? "." : "; stop that process and rerun openclaw doctor --fix.";
-      throw new OpenClawAgentDatabaseLeaseActiveError(
+      throw new GrantedAgentDatabaseLeaseActiveError(
         `Agent ${row.agent_id} database is still open in another process${remediation}`,
       );
     }

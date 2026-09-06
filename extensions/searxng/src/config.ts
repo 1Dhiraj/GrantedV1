@@ -1,5 +1,5 @@
 // Searxng helper module supports config behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeSecretInput } from "openclaw/plugin-sdk/secret-input";
 import { resolveReadOnlyEnvSecretRef } from "openclaw/plugin-sdk/secret-ref-readonly";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -20,7 +20,7 @@ function normalizeBaseUrl(value: unknown): string | undefined {
 }
 
 function resolveSearxngWebSearchConfig(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): SearxngPluginConfig["webSearch"] | undefined {
   const pluginConfig = config?.plugins?.entries?.searxng?.config as SearxngPluginConfig | undefined;
   const webSearch = pluginConfig?.webSearch;
@@ -30,7 +30,7 @@ function resolveSearxngWebSearchConfig(
   return undefined;
 }
 
-export function resolveSearxngBaseUrl(config?: OpenClawConfig): string | undefined {
+export function resolveSearxngBaseUrl(config?: GrantedConfig): string | undefined {
   const webSearch = resolveSearxngWebSearchConfig(config);
   const resolved = resolveReadOnlyEnvSecretRef({
     value: webSearch?.baseUrl,
@@ -48,10 +48,10 @@ export function resolveSearxngBaseUrl(config?: OpenClawConfig): string | undefin
   return normalizeBaseUrl(process.env[SEARXNG_BASE_URL_ENV_VAR]);
 }
 
-export function resolveSearxngCategories(config?: OpenClawConfig): string | undefined {
+export function resolveSearxngCategories(config?: GrantedConfig): string | undefined {
   return normalizeOptionalString(resolveSearxngWebSearchConfig(config)?.categories);
 }
 
-export function resolveSearxngLanguage(config?: OpenClawConfig): string | undefined {
+export function resolveSearxngLanguage(config?: GrantedConfig): string | undefined {
   return normalizeOptionalString(resolveSearxngWebSearchConfig(config)?.language);
 }

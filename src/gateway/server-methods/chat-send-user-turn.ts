@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { GatewayClientInfo } from "../../../packages/gateway-protocol/src/client-info.js";
 import type { RuntimeMsgContext as MsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { MediaFact } from "../../media/media-facts.js";
 import type { InputProvenance } from "../../sessions/input-provenance.js";
 import { prepareSessionParticipantInput } from "../../sessions/session-participant-input.js";
@@ -86,8 +86,8 @@ function buildChatSendPromptMedia(
 
 function buildChatSendMessageContext(params: {
   agentId: string;
-  cfg?: OpenClawConfig;
-  getConfig?: () => OpenClawConfig;
+  cfg?: GrantedConfig;
+  getConfig?: () => GrantedConfig;
   client: GatewayRequestHandlerOptions["client"];
   clientInfo?: GatewayClientInfo;
   clientRunId: string;
@@ -210,7 +210,7 @@ export function prepareChatSendUserTurn(params: {
   attachments: PreparedChatSendAttachments;
   client: GatewayRequestHandlerOptions["client"];
   logGateway: GatewayRequestContext["logGateway"];
-  getConfig?: () => OpenClawConfig;
+  getConfig?: () => GrantedConfig;
   userTurn: ChatSendUserTurnInputController;
 }) {
   const { request, session, admission, attachments, client, logGateway, userTurn } = params;

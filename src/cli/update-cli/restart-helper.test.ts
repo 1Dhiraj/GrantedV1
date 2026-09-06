@@ -174,19 +174,19 @@ ${body}`,
   }
 
   function expectWindowsRestartWaitOrdering(content: string, port = 18789) {
-    const stateCheck = "$taskState = Get-OpenClawScheduledTaskState -TaskName $taskName";
+    const stateCheck = "$taskState = Get-GrantedScheduledTaskState -TaskName $taskName";
     const runningGuard = 'if ($taskState -eq "Running")';
     const endCommand =
-      'Invoke-OpenClawSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10';
+      'Invoke-GrantedSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10';
     const skipEndLog = "openclaw restart skipped schtasks end";
     const pollLoop = "for ($attempt = 1; $attempt -le 10; $attempt++)";
-    const pollCall = `Get-OpenClawListenerSnapshot -Port $port`;
+    const pollCall = `Get-GrantedListenerSnapshot -Port $port`;
     const forceKillBranch = "if ($attempt -eq 10)";
-    const ownerCheckFunction = "function Invoke-OpenClawVerifiedListenerKill";
-    const ownerCheckCall = "Invoke-OpenClawVerifiedListenerKill -ProcessId $listenerPid";
+    const ownerCheckFunction = "function Invoke-GrantedVerifiedListenerKill";
+    const ownerCheckCall = "Invoke-GrantedVerifiedListenerKill -ProcessId $listenerPid";
     const forceKillCommand = "if ($lease.Terminate())";
     const runCommand =
-      'Invoke-OpenClawSchtasksWithTimeout -Arguments @("/Run", "/TN", $taskName) -TimeoutSeconds 30';
+      'Invoke-GrantedSchtasksWithTimeout -Arguments @("/Run", "/TN", $taskName) -TimeoutSeconds 30';
     const portAssignment = `$port = ${port}`;
     const stateCheckIndex = content.indexOf(stateCheck);
     const runningGuardIndex = content.indexOf(runningGuard, stateCheckIndex);
@@ -678,11 +678,11 @@ exit 0
       expect(content).toContain('$ErrorActionPreference = "Continue"');
       expect(content).toContain("gateway-restart.log");
       expect(content).toContain("$taskName = 'OpenClaw Gateway'");
-      expect(content).toContain("function Invoke-OpenClawSchtasksWithTimeout");
-      expect(content).toContain("function Get-OpenClawScheduledTaskState");
-      expect(content).toContain("function Get-OpenClawListenerKillDecision");
-      expect(content).toContain("function Invoke-OpenClawVerifiedListenerKill");
-      expect(content).toContain("function Invoke-OpenClawStartupLauncher");
+      expect(content).toContain("function Invoke-GrantedSchtasksWithTimeout");
+      expect(content).toContain("function Get-GrantedScheduledTaskState");
+      expect(content).toContain("function Get-GrantedListenerKillDecision");
+      expect(content).toContain("function Invoke-GrantedVerifiedListenerKill");
+      expect(content).toContain("function Invoke-GrantedStartupLauncher");
       expect(content).toContain("Get-ScheduledTask -TaskName $TaskName");
       expect(content).toContain("openclaw restart skipped schtasks end");
       expect(content).toContain("$gatewayScriptPath = ");
@@ -719,7 +719,7 @@ exit 0
       expect(content).toContain("creationTime - (creationTime % 10)");
       expect(content).toContain("$creationTimeFileTime -= $creationTimeFileTime % 10");
       expect(content).toContain("TryOpenProcess($QueryPid)");
-      expect(content).toContain("Get-OpenClawListenerKillDecision");
+      expect(content).toContain("Get-GrantedListenerKillDecision");
       expect(content).toContain("$recheckedListeners = & $ListenerQuery $Port");
       expect(content).toContain("$recheckedProcess = & $ProcessQuery $ProcessId");
       expect(content).toContain("if ($lease.Terminate())");
@@ -806,7 +806,7 @@ function Invoke-MockedKill {
     $script:ProcessOpenCalls += 1
     return $script:MockLease
   }
-  Invoke-OpenClawVerifiedListenerKill -ProcessId 4242 -Port 18789 -ExpectedArgv $ExpectedArgv -ProcessQuery $processQuery -ListenerQuery $listenerQuery -ProcessOpen $processOpen
+  Invoke-GrantedVerifiedListenerKill -ProcessId 4242 -Port 18789 -ExpectedArgv $ExpectedArgv -ProcessQuery $processQuery -ListenerQuery $listenerQuery -ProcessOpen $processOpen
 }
 
 # Get-NetTCPConnection exposes object properties, including duplicate IPv4/IPv6 rows.
@@ -818,7 +818,7 @@ function Get-NetTCPConnection {
     [pscustomobject]@{ LocalPort = 443; OwningProcess = 5252 }
   )
 }
-$snapshot = Get-OpenClawListenerSnapshot -Port 18789
+$snapshot = Get-GrantedListenerSnapshot -Port 18789
 Assert-True $snapshot.Known "Get-NetTCPConnection snapshot should be known"
 Assert-True (@($snapshot.Pids).Count -eq 1) "duplicate listener PIDs should collapse"
 Assert-True (@($snapshot.Pids)[0] -eq 4242) "wrong Get-NetTCPConnection PID"
@@ -833,13 +833,13 @@ function netstat.exe {
     "  TCP    127.0.0.1:18789    127.0.0.1:61234 HERGESTELLT     5252"
   )
 }
-$snapshot = Get-OpenClawListenerSnapshot -Port 18789
+$snapshot = Get-GrantedListenerSnapshot -Port 18789
 Assert-True $snapshot.Known "netstat snapshot should be known"
 Assert-True (@($snapshot.Pids).Count -eq 1) "netstat IPv4/IPv6 PIDs should collapse"
 Assert-True (@($snapshot.Pids)[0] -eq 4242) "wrong netstat PID"
 
 function netstat.exe { $script:LASTEXITCODE = 1 }
-$snapshot = Get-OpenClawListenerSnapshot -Port 18789
+$snapshot = Get-GrantedListenerSnapshot -Port 18789
 Assert-True (-not $snapshot.Known) "failed listener queries must remain unknown"
 
 $creation = "133987654321000000"
@@ -905,12 +905,12 @@ Write-Output "GRANTED_RESTART_POLICY_OK"
         GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (custom)",
       });
       expect(content).toContain("$taskName = 'OpenClaw Gateway (custom)'");
-      expect(content).toContain("Get-OpenClawScheduledTaskState -TaskName $taskName");
+      expect(content).toContain("Get-GrantedScheduledTaskState -TaskName $taskName");
       expect(content).toContain(
-        'Invoke-OpenClawSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10',
+        'Invoke-GrantedSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10',
       );
       expect(content).toContain(
-        "$status = Invoke-OpenClawStartupLauncher -LauncherPath $gatewayScriptPath",
+        "$status = Invoke-GrantedStartupLauncher -LauncherPath $gatewayScriptPath",
       );
       expectWindowsRestartWaitOrdering(content);
       await cleanupScript(scriptPath);

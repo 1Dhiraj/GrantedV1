@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { encodeOnePasswordSecretId } from "../onepassword-secret-id.js";
 import { registerOnePasswordSecretRefCommands, testing } from "./secret-ref-cli.js";
@@ -21,7 +21,7 @@ function captureStdout() {
   return () => output;
 }
 
-function createProgram(config: OpenClawConfig = {}): Command {
+function createProgram(config: GrantedConfig = {}): Command {
   const program = new Command().exitOverride();
   const onepassword = program.command("onepassword");
   registerOnePasswordSecretRefCommands({
@@ -34,7 +34,7 @@ function createProgram(config: OpenClawConfig = {}): Command {
 }
 
 async function runStatus(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   args: string[] = [],
 ): Promise<Record<string, unknown>> {
   const output = captureStdout();
@@ -335,7 +335,7 @@ describe("1Password CLI status", () => {
   });
 
   it("requires an explicit alias when multiple providers are configured", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       secrets: {
         providers: Object.fromEntries(
           ["corp-onepassword", "prod-onepassword"].map((alias) => [

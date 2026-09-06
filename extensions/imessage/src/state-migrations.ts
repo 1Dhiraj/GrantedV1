@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import type { ChannelLegacyStateMigrationPlan } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { fileExists } from "openclaw/plugin-sdk/file-access-runtime";
 import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
 import { asFiniteNumber, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -353,7 +353,7 @@ function detectSentEchoMigration(params: {
 }
 
 function detectCatchupCursorMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): ChannelLegacyStateMigrationPlan[] {
@@ -414,7 +414,7 @@ function detectCatchupCursorMigrations(params: {
 }
 
 export async function detectIMessageLegacyStateMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): Promise<ChannelLegacyStateMigrationPlan[]> {

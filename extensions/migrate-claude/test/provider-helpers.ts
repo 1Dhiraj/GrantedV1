@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 
 const logger = {
   info() {},
@@ -17,11 +17,11 @@ export async function writeFile(filePath: string, content: string) {
 }
 
 export function makeConfigRuntime(
-  config: OpenClawConfig,
-  onWrite?: (next: OpenClawConfig) => void,
+  config: GrantedConfig,
+  onWrite?: (next: GrantedConfig) => void,
 ): NonNullable<MigrationProviderContext["runtime"]> {
-  const commitConfig = (next: OpenClawConfig) => {
-    for (const key of Object.keys(config) as Array<keyof OpenClawConfig>) {
+  const commitConfig = (next: GrantedConfig) => {
+    for (const key of Object.keys(config) as Array<keyof GrantedConfig>) {
       delete config[key];
     }
     Object.assign(config, next);
@@ -36,7 +36,7 @@ export function makeConfigRuntime(
         mutate,
       }: {
         afterWrite?: unknown;
-        mutate: (draft: OpenClawConfig, context: unknown) => Promise<unknown> | void;
+        mutate: (draft: GrantedConfig, context: unknown) => Promise<unknown> | void;
       }) => {
         const next = structuredClone(config);
         const result = await mutate(next, {
@@ -69,7 +69,7 @@ export function makeConfigRuntime(
         nextConfig,
       }: {
         afterWrite?: unknown;
-        nextConfig: OpenClawConfig;
+        nextConfig: GrantedConfig;
       }) => {
         commitConfig(nextConfig);
         return {
@@ -86,7 +86,7 @@ export function makeContext(params: {
   source: string;
   stateDir: string;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   includeSecrets?: boolean;
   overwrite?: boolean;
   targetAgentId?: string;
@@ -102,7 +102,7 @@ export function makeContext(params: {
           workspace: params.workspaceDir,
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
   return {
     config,
     stateDir: params.stateDir,

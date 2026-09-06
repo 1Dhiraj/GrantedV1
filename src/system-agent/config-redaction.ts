@@ -21,7 +21,7 @@ import {
 } from "../config/schema.js";
 import { findWildcardHintMatch } from "../config/schema.shared.js";
 import { isSensitiveConfigPath } from "../config/sensitive-paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ChannelsSchema } from "../config/zod-schema.channels-config.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
@@ -29,7 +29,7 @@ import { normalizePluginPolicyId } from "../plugins/plugin-policy-id.js";
 import type { ConfigUiHint, ConfigUiHints } from "../shared/config-ui-hints-types.js";
 
 type SystemAgentConfigRedactionSource = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   valid?: boolean;
 };
 

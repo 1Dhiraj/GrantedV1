@@ -1,7 +1,7 @@
 // Model set tests cover persisting default model/provider selections.
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 
 const mocks = vi.hoisted(() => ({
@@ -62,7 +62,7 @@ describe("modelsSetCommand", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeConfig = {
       agents: {
         defaults: {
@@ -71,7 +71,7 @@ describe("modelsSetCommand", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       hash: "config-hash",
@@ -112,7 +112,7 @@ describe("modelsSetCommand", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const runtimeConfig = {
       agents: {
         defaults: {
@@ -122,7 +122,7 @@ describe("modelsSetCommand", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       hash: "config-hash",
@@ -162,7 +162,7 @@ describe("modelsSetCommand", () => {
           models: {},
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     mocks.readConfigFileSnapshot.mockResolvedValue({
       valid: true,
       hash: "config-hash",

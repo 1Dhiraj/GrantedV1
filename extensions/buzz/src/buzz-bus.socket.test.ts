@@ -6,7 +6,7 @@ import {
   createPluginRuntimeMock,
   createStartAccountContext,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import {
   createPluginStateKeyedStoreForTests,
@@ -171,7 +171,7 @@ it("finishes an admitted room turn after its sender is removed", async () => {
         groups: { [fixture.roomId]: { requireMention: false } },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const account = resolveBuzzAccount({ cfg });
   vi.mocked(runtime.channel.inbound.dispatch).mockImplementation(async (params) => {
     dispatched.resolve();
@@ -321,7 +321,7 @@ it("recovers the Gateway account after silent presence without replaying pre-act
         groups: { [fixture.roomId]: { requireMention: false } },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
   const account = resolveBuzzAccount({ cfg });
   const abort = new AbortController();
   const states: string[] = [];

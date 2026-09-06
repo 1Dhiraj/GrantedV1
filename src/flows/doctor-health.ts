@@ -29,7 +29,7 @@ async function assertDoctorDatabaseSchemasCompatible(): Promise<void> {
     },
   });
   if (databaseSchemas.incompatible.length > 0) {
-    throw new databasePreflight.OpenClawDatabaseSchemaPreflightError(databaseSchemas.incompatible, {
+    throw new databasePreflight.GrantedDatabaseSchemaPreflightError(databaseSchemas.incompatible, {
       operation: "doctor",
     });
   }

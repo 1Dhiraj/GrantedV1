@@ -13,12 +13,12 @@ import os from "node:os";
 import path from "node:path";
 import { resolveAgentDir, resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
 } from "openclaw/plugin-sdk/json-schema-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import {
   createCapturedPluginRegistration,
@@ -213,7 +213,7 @@ export function registerCodexSessionCatalog(
       ? baseControl
       : (() => {
           const resolver = createCodexCatalogHomeResolver({
-            config: params.getRuntimeConfig() ?? (params.api.config as OpenClawConfig),
+            config: params.getRuntimeConfig() ?? (params.api.config as GrantedConfig),
             getRuntimeConfig: params.getRuntimeConfig,
             getPluginConfig,
           });
@@ -311,14 +311,14 @@ function bindTestCatalogOwner(provider: RegisteredSessionCatalogProvider): Sessi
   } as SessionCatalogProvider;
 }
 
-export const config = {} as OpenClawConfig;
+export const config = {} as GrantedConfig;
 
-export function compatibilityOwnerConfig(owner = "alpha"): OpenClawConfig {
+export function compatibilityOwnerConfig(owner = "alpha"): GrantedConfig {
   return {
     agents: {
       list: ["alpha", "beta"].map((id) => (id === owner ? { id, default: true } : { id })),
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 export async function normalizeCodexManifestConfig(
@@ -572,7 +572,7 @@ export function createRuntime(
 export function archiveTestSession(params: {
   control: CodexSessionCatalogControl;
   agentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   bindingStore?: CodexAppServerBindingStore;
   runtime?: PluginRuntime;
   threadId?: string;
@@ -589,7 +589,7 @@ export function archiveTestSession(params: {
   });
 }
 
-export function createGatewayApi(runtime: PluginRuntime, apiConfig: OpenClawConfig = {}) {
+export function createGatewayApi(runtime: PluginRuntime, apiConfig: GrantedConfig = {}) {
   let provider: SessionCatalogProvider | undefined;
   const registerSessionCatalog = vi.fn((candidate: RegisteredSessionCatalogProvider) => {
     provider = bindTestCatalogOwner(candidate);
@@ -598,7 +598,7 @@ export function createGatewayApi(runtime: PluginRuntime, apiConfig: OpenClawConf
     config: apiConfig,
     runtime,
     registerSessionCatalog,
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
   return { api, getProvider: () => provider, registerSessionCatalog };
 }
 
@@ -636,6 +636,6 @@ export type {
   CodexAppServerThreadBinding,
   CodexCatalogHome,
   CodexThread,
-  OpenClawConfig,
+  GrantedConfig,
   PluginRuntime,
 };

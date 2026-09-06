@@ -20,7 +20,7 @@ import type { ReadConfigFileSnapshotForWriteResult } from "../config/io.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.js";
 import type { OptionalBootstrapFileName } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { defaultRuntime, writeRuntimeJson } from "../runtime.js";
@@ -170,7 +170,7 @@ export async function setupCommand(
     !snapshot.exists ||
     (!hasResolvedRosterBeforeMigrations(snapshot) && !configIncludeOwnsAgentRoster(snapshot));
   const cfg = shouldPersistRoster
-    ? (migratePersistedImplicitMainRoster(snapshot.sourceConfig).config as OpenClawConfig)
+    ? (migratePersistedImplicitMainRoster(snapshot.sourceConfig).config as GrantedConfig)
     : snapshot.sourceConfig;
   const authoredDefaults = cfg.agents?.defaults ?? {};
   const resolvedDefaults = resolvedConfig.agents?.defaults ?? authoredDefaults;
@@ -195,7 +195,7 @@ export async function setupCommand(
 
   // Keep the candidate runtime-shaped. replaceConfigFile persists only its
   // diff against snapshot.parsed, never resolved include/env values wholesale.
-  let next: OpenClawConfig = snapshot.exists ? resolvedConfig : cfg;
+  let next: GrantedConfig = snapshot.exists ? resolvedConfig : cfg;
   if (shouldPersistRoster) {
     const { list: _legacyList, ...agents } = next.agents ?? {};
     next = {

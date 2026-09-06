@@ -7,19 +7,19 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import type {
-  DB as OpenClawStateDatabase,
+  DB as GrantedStateDatabase,
   SkillUploads,
 } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 
 export const SKILL_UPLOAD_LEASE_SCOPE = "skill-upload-install";
 
 export type SkillUploadDatabase = Pick<
-  OpenClawStateDatabase,
+  GrantedStateDatabase,
   "skill_upload_chunks" | "skill_uploads" | "state_leases"
 >;
 export type SkillUploadRow = Selectable<SkillUploads>;
@@ -27,14 +27,14 @@ export type SkillUploadRow = Selectable<SkillUploads>;
 export function resolveSkillUploadDatabaseOptions(options: {
   env?: NodeJS.ProcessEnv;
   path?: string;
-}): OpenClawStateDatabaseOptions {
+}): GrantedStateDatabaseOptions {
   return {
     ...(options.env ? { env: options.env } : {}),
     ...(options.path ? { path: options.path } : {}),
   };
 }
 
-export function openSkillUploadDatabase(options: OpenClawStateDatabaseOptions) {
+export function openSkillUploadDatabase(options: GrantedStateDatabaseOptions) {
   const database = openOpenClawStateDatabase(options);
   return {
     database,
@@ -44,7 +44,7 @@ export function openSkillUploadDatabase(options: OpenClawStateDatabaseOptions) {
 
 export function readSkillUploadRow(
   uploadId: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): SkillUploadRow | undefined {
   const { database, kysely } = openSkillUploadDatabase(options);
   return executeSqliteQueryTakeFirstSync(
@@ -72,7 +72,7 @@ export function deleteOwnedSkillUpload(
   uploadId: string,
   owner: string,
   nowMs: number,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): "deleted" | "missing" | "not-owner" {
   return runOpenClawStateWriteTransaction(({ db }) => {
     const kysely = getNodeSqliteKysely<SkillUploadDatabase>(db);
@@ -121,7 +121,7 @@ export function hasLiveSkillUploadInstallLease(
 export function deleteExpiredSkillUploadUnlessLeased(params: {
   uploadId: string;
   nowMs: number;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
 }): "active" | "deleted" | "leased" | "missing" {
   return runOpenClawStateWriteTransaction(({ db }) => {
     const kysely = getNodeSqliteKysely<SkillUploadDatabase>(db);
@@ -151,7 +151,7 @@ export function renewSkillUploadInstallLease(params: {
   owner: string;
   heartbeatAt: number;
   expiresAt: number;
-  options: OpenClawStateDatabaseOptions;
+  options: GrantedStateDatabaseOptions;
 }): boolean {
   return runOpenClawStateWriteTransaction(({ db }) => {
     const kysely = getNodeSqliteKysely<SkillUploadDatabase>(db);
@@ -176,7 +176,7 @@ export function renewSkillUploadInstallLease(params: {
 
 export function readSkillUploadArchiveChunks(
   uploadId: string,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): Array<{ byte_offset: number; size_bytes: number; chunk_blob: Uint8Array }> {
   const { database, kysely } = openSkillUploadDatabase(options);
   return executeSqliteQuerySync(

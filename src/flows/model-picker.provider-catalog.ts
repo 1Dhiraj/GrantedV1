@@ -4,7 +4,7 @@ import { resolveDefaultAgentDir } from "../agents/agent-scope.js";
 import { createPreparedModelCatalogProviderNormalizer } from "../agents/model-catalog.js";
 import type { ModelCatalogSnapshot } from "../agents/model-catalog.types.js";
 import { loadPreparedModelCatalogSnapshot } from "../agents/prepared-model-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 
 function filterProviderSnapshot(
@@ -24,7 +24,7 @@ function filterProviderSnapshot(
 
 /** Loads committed catalog models for the user's preferred provider. */
 export async function loadPreferredProviderPickerCatalog(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   preferredProvider: string;
   agentDir?: string;
   workspaceDir?: string;

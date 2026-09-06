@@ -8,7 +8,7 @@ import {
   materializeLegacyDefaultAgentRoles,
   resolveLegacyFirstAgentWorkspacePin,
 } from "./legacy.default-agent-roles.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 type MigrationResult = {
   config: unknown;
@@ -128,7 +128,7 @@ export function migratePersistedImplicitMainRoster(
   );
   const hasValidLegacyMarker = agents.ownership !== "explicit" && markedIds.length === 1;
   const legacyDefaultAgentId =
-    tryGetLegacyDefaultAgentId(raw as OpenClawConfig) ??
+    tryGetLegacyDefaultAgentId(raw as GrantedConfig) ??
     (validIds.length > 1 && hasValidLegacyMarker ? markedIds[0] : undefined);
   let nextRoot: Record<string, unknown> = { ...root, agents };
   let insertedPaths: string[][] = [];
@@ -153,7 +153,7 @@ export function migratePersistedImplicitMainRoster(
   }
   if (legacyDefaultAgentId && options.materializeRoles !== false) {
     const materialized = materializeLegacyDefaultAgentRoles(
-      nextRoot as OpenClawConfig,
+      nextRoot as GrantedConfig,
       legacyDefaultAgentId,
       options,
     );
@@ -186,7 +186,7 @@ export function migratePersistedImplicitMainRoster(
     changed = true;
   }
 
-  const config = (changed ? nextRoot : raw) as OpenClawConfig;
+  const config = (changed ? nextRoot : raw) as GrantedConfig;
   retainLegacyDefaultAgentId(config, legacyDefaultAgentId);
   return {
     config,

@@ -5,7 +5,7 @@ import {
 } from "openclaw/plugin-sdk/inbound-envelope";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { formatAgentEnvelope, resolveEnvelopeFormatOptions } from "../../auto-reply/envelope.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createChannelInboundEnvelopeBuilder,
   resolveChannelInboundRouteEnvelope,
@@ -30,7 +30,7 @@ vi.mock("../../routing/resolve-route.js", () => ({ resolveAgentRoute }));
 const cfg = {
   agents: { defaults: { userTimezone: "UTC" } },
   session: { store: "/state/{agentId}/sessions.json" },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 describe("channel inbound envelope", () => {
   beforeEach(() => vi.clearAllMocks());

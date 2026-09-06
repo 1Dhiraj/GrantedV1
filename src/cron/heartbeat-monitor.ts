@@ -1,7 +1,7 @@
 /** Canonical projection from heartbeat config to system-owned cron monitor jobs. */
 import { isDeepStrictEqual } from "node:util";
 import { DEFAULT_HEARTBEAT_EVERY } from "../auto-reply/heartbeat.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveHeartbeatAgents, resolveHeartbeatIntervalMs } from "../infra/heartbeat-config.js";
 import {
   resolveHeartbeatPhaseMs,
@@ -69,7 +69,7 @@ function heartbeatMonitorDeclarativeFields(job: CronJob | CronJobCreate) {
 
 /** Projects configured monitor state and its create/update/remove changes together. */
 export function resolveHeartbeatMonitorPlan(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   existingJobs: readonly CronJob[],
   options: { schedulerSeed?: string } = {},
 ): HeartbeatMonitorPlan {
@@ -148,7 +148,7 @@ export function resolveHeartbeatMonitorPlan(
 /** Applies the canonical heartbeat monitor plan while isolating per-row failures. */
 export async function applyHeartbeatMonitorJobs(params: {
   cron: Pick<CronService, "add" | "list" | "remove">;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   schedulerSeed?: string;
   logger?: { warn: (obj: unknown, msg?: string) => void };
   commitGuard?: () => void;

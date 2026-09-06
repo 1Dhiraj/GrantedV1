@@ -13,7 +13,7 @@ import {
   writePersistedAuthProfileStoreRaw,
 } from "../../../agents/auth-profiles/sqlite.js";
 import type { AuthProfileStore } from "../../../agents/auth-profiles/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../../plugins/plugin-metadata-lifecycle.js";
 import {
   closeOpenClawAgentDatabasesForTest,
@@ -88,15 +88,12 @@ function writeTokenStore(agentDir: string, params: Parameters<typeof tokenStore>
   writePersistedAuthProfileStoreRaw(tokenStore(params), agentDir);
 }
 
-function anthropicOrderConfig(
-  profileId: string,
-  agents?: OpenClawConfig["agents"],
-): OpenClawConfig {
+function anthropicOrderConfig(profileId: string, agents?: GrantedConfig["agents"]): GrantedConfig {
   return { ...(agents ? { agents } : {}), auth: { order: { anthropic: [profileId] } } };
 }
 
 function repair(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   stores: AuthProfileStore[],
   runtimeProfileIds?: ReadonlySet<string>,
 ) {
@@ -134,7 +131,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
       auth: {
         order: { anthropic: ["anthropic:claude-cli"] },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const before = buildAuthHealthSummary({ cfg, store });
     const result = repair(cfg, [store]);
     const after = buildAuthHealthSummary({ cfg: result.config, store });
@@ -172,7 +169,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
           },
           order: { openai: ["openai:manual"] },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
@@ -197,7 +194,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
           },
           order: { openai: ["openai:manual"] },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
 
       const preview = collectStaleConfiguredAuthOrderWarnings({
         cfg,
@@ -227,7 +224,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
           },
           order: { openai: ["openai:manual"] },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       writePersistedAuthProfileStoreRaw(
         {
           version: 1,
@@ -257,7 +254,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
           },
           order: { openai: ["openai:missing"] },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       writePersistedAuthProfileStoreRaw(
         {
           version: 1,
@@ -279,7 +276,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
   });
 
   it("preserves an explicit empty order", () => {
-    const cfg = { auth: { order: { anthropic: [] } } } satisfies OpenClawConfig;
+    const cfg = { auth: { order: { anthropic: [] } } } satisfies GrantedConfig;
 
     const result = repair(cfg, [tokenStore({ profileId: "claude-cli:setup-token" })]);
 
@@ -291,7 +288,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
     (orderEntry) => {
       const cfg = {
         auth: { order: { anthropic: orderEntry } },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
 
       expect(repair(cfg, [tokenStore({ profileId: "claude-cli:setup-token" })])).toEqual({
         config: cfg,
@@ -312,7 +309,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
         profiles: { broken: null },
         order: { anthropic: ["anthropic:missing"] },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(repair(cfg, [tokenStore({ profileId: "claude-cli:setup-token" })])).toEqual({
       config: cfg,
@@ -334,7 +331,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
         },
         order: { anthropic: ["anthropic:removed", "anthropic:pending"] },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = repair(cfg, [tokenStore({ profileId: "claude-cli:setup-token" })]);
 
@@ -346,7 +343,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
       auth: {
         order: { anthropic: ["anthropic:removed", "anthropic:existing"] },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const store = tokenStore({
       profileId: "anthropic:existing",
       provider: "anthropic",
@@ -412,7 +409,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
           "claude-cli": ["claude-cli:removed"],
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const mainStore: AuthProfileStore = {
       version: 1,
       profiles: {
@@ -768,7 +765,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
       const cfg = {
         agents: { list: [{ id: "work", default: true }] },
         auth: { order: { openai: ["openai:runtime-only"] } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       writePersistedAuthProfileStoreRaw(
         {
           version: 1,

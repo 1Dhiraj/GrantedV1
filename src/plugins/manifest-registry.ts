@@ -6,7 +6,7 @@ import {
   uniqueStrings,
 } from "@openclaw/normalization-core/string-normalization";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { isBlockedObjectKey } from "../infra/prototype-keys.js";
 import { resolveUserPath } from "../utils.js";
@@ -37,7 +37,7 @@ import {
   isCoreReservedPluginId,
   loadPluginManifest,
   PLUGIN_MANIFEST_FILENAME,
-  type OpenClawPackageManifest,
+  type GrantedPackageManifest,
   type PluginManifestCatalog,
   type PluginManifest,
   type PluginManifestChannelConfig,
@@ -216,7 +216,7 @@ function normalizePreferredPluginIds(raw: unknown): string[] | undefined {
 
 function mergePackageChannelMetaIntoChannelConfigs(params: {
   channelConfigs?: Record<string, PluginManifestChannelConfig>;
-  packageChannel?: OpenClawPackageManifest["channel"];
+  packageChannel?: GrantedPackageManifest["channel"];
 }): Record<string, PluginManifestChannelConfig> | undefined {
   const channelId = params.packageChannel?.id?.trim();
   if (
@@ -664,7 +664,7 @@ function resolveCandidateInstallOwner(params: {
 function matchesInstalledPluginRecord(params: {
   pluginId: string;
   candidate: PluginCandidate;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   installRecords: Record<string, PluginInstallRecord>;
   installPathOnly?: boolean;
@@ -749,7 +749,7 @@ function isTrustedOfficialPluginInstall(params: {
 function resolveDuplicatePrecedenceRank(params: {
   pluginId: string;
   candidate: PluginCandidate;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   installRecords: Record<string, PluginInstallRecord>;
 }): number {
@@ -791,7 +791,7 @@ function isIntentionalInstalledBundledDuplicate(params: {
   pluginId: string;
   left: PluginCandidate;
   right: PluginCandidate;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   installRecords: Record<string, PluginInstallRecord>;
 }): boolean {
@@ -837,7 +837,7 @@ function isSameGlobalPackageDuplicate(left: PluginCandidate, right: PluginCandid
 
 export function loadPluginManifestRegistryCore(
   params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
     candidates?: PluginCandidate[];

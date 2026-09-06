@@ -1,5 +1,5 @@
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { redactToolPayloadTextWithConfig } from "../../logging/redact.js";
 import { getActivePluginRegistry } from "../../plugins/runtime.js";
 import { normalizeAccountId } from "../../routing/session-key.js";
@@ -41,7 +41,7 @@ type ChannelAccountStateInput = {
 };
 
 export function resolveUnavailableChannelAccountSnapshot(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: {
     channelId: string;
     accountId: string;

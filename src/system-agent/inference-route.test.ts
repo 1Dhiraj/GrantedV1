@@ -3,7 +3,7 @@ import { resolveAgentDir } from "../agents/agent-scope.js";
 import { clearAgentHarnesses, registerAgentHarness } from "../agents/harness/registry.js";
 import { selectAgentHarness } from "../agents/harness/selection.js";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { SYSTEM_AGENT_ID } from "./agent-id.js";
 import {
   projectDefaultInferenceRoute,
@@ -11,7 +11,7 @@ import {
   sameDefaultInferenceRoute,
 } from "./inference-route.js";
 
-function devConfig(agentRuntime?: string): OpenClawConfig {
+function devConfig(agentRuntime?: string): GrantedConfig {
   return {
     agents: {
       defaults: { model: "openai/gpt-5.5" },
@@ -48,10 +48,10 @@ afterEach(() => {
 
 describe("resolveSystemAgentConfiguredRouteFromConfig", () => {
   it("treats a setup-materialized first-agent roster as inference-route neutral", async () => {
-    const withoutRoster: OpenClawConfig = {
+    const withoutRoster: GrantedConfig = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
     };
-    const withFirstAgent: OpenClawConfig = {
+    const withFirstAgent: GrantedConfig = {
       agents: {
         defaults: withoutRoster.agents?.defaults,
         entries: {

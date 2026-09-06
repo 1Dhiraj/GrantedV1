@@ -1,6 +1,6 @@
 // Tests runtime-loaded fast-path command behavior for get-reply.
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
 import {
@@ -40,7 +40,7 @@ describe("getReplyFromConfig fast-path runtime", () => {
           ChatType: "direct",
         },
         {},
-        makeReplyConfig(home) as OpenClawConfig,
+        makeReplyConfig(home) as GrantedConfig,
       );
     });
     vi.unstubAllEnvs();
@@ -83,7 +83,7 @@ describe("getReplyFromConfig fast-path runtime", () => {
           ChatType: "direct",
         },
         {},
-        makeReplyConfig(home) as OpenClawConfig,
+        makeReplyConfig(home) as GrantedConfig,
       );
 
       const text = Array.isArray(res) ? res[0]?.text : res?.text;
@@ -115,7 +115,7 @@ describe("getReplyFromConfig fast-path runtime", () => {
           ChatType: "direct",
         },
         {},
-        makeReplyConfig(home) as OpenClawConfig,
+        makeReplyConfig(home) as GrantedConfig,
       );
 
       expect(agentMocks.runEmbeddedAgent).toHaveBeenCalledWith(
@@ -149,7 +149,7 @@ describe("getReplyFromConfig fast-path runtime", () => {
           ChatType: "direct",
         },
         {},
-        makeReplyConfig(home) as OpenClawConfig,
+        makeReplyConfig(home) as GrantedConfig,
       );
 
       expect(agentMocks.runEmbeddedAgent).toHaveBeenCalledWith(

@@ -16,7 +16,7 @@ import {
   expectDefined,
   SystemAgentInferenceUnavailableError,
   verifyConfigAfterSystemAgentWrite,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
 } from "./chat-engine.test-support.js";
 import { ChatTurnRouter } from "./chat-turn-router.js";
@@ -236,10 +236,10 @@ describe("SystemAgentChatEngine operations", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const changedConfig = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
     const readConfigFileSnapshot = vi
       .fn()
@@ -270,7 +270,7 @@ describe("SystemAgentChatEngine operations", () => {
     const config = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8@anthropic:oauth" } },
       auth: { profiles: { "anthropic:oauth": { provider: "anthropic", mode: "oauth" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     let credential = {
       type: "oauth" as const,
       provider: "anthropic",
@@ -317,7 +317,7 @@ describe("SystemAgentChatEngine operations", () => {
     const config = {
       agents: { defaults: { model: "anthropic/claude-opus-4-8@anthropic:oauth" } },
       auth: { profiles: { "anthropic:oauth": { provider: "anthropic", mode: "oauth" } } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     let credential = {
       type: "oauth" as const,
       provider: "anthropic",
@@ -537,10 +537,10 @@ describe("SystemAgentChatEngine operations", () => {
         ...baseConfig.agents,
         list: baseConfig.agents.list.map((agent) => ({ ...agent, model: "openai/gpt-5.6-sol" })),
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verifiedInference = await createAmbientVerifiedBinding(baseConfig);
     const reboundInference = await createAmbientVerifiedBinding(changedConfig);
-    let currentConfig: OpenClawConfig = baseConfig;
+    let currentConfig: GrantedConfig = baseConfig;
     const executeOperation = vi.fn(async (_operation, runtime, options) => {
       currentConfig = changedConfig;
       options.onVerifiedInferenceChanged?.(reboundInference);
@@ -743,7 +743,7 @@ describe("SystemAgentChatEngine CLI loop backends", () => {
           model: { primary: "claude-cli/claude-opus-4-8" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const snapshot = configSnapshot(config);
     const inference = await createCliVerifiedBinding(config);
     const inferenceDeps = {
@@ -807,7 +807,7 @@ describe("SystemAgentChatEngine CLI loop backends", () => {
           model: { primary: "claude-cli/claude-opus-4-8" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const snapshot = configSnapshot(config);
     const inference = await createCliVerifiedBinding(config);
     const inferenceDeps = {

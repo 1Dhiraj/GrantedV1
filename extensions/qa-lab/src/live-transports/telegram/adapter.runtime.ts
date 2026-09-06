@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
 import {
   assertQaGatewayCredentialLeaseQuarantine,
@@ -273,7 +273,7 @@ export async function createTelegramQaTransportAdapter(
       };
     },
     createGatewayConfig: () =>
-      buildTelegramQaConfig({} as OpenClawConfig, {
+      buildTelegramQaConfig({} as GrantedConfig, {
         apiRoot: activeApiProxy.apiRoot,
         groupId: credentialLease.payload.groupId,
         sutToken: credentialLease.payload.sutToken,

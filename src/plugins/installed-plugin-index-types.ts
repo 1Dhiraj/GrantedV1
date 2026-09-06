@@ -1,5 +1,5 @@
 /** Type contract for the generated installed plugin index persisted on disk. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import type { PluginCompatCode } from "./compat/registry.js";
 import type { PluginCandidate, PluginDiscoveryResult } from "./discovery.types.js";
@@ -7,7 +7,7 @@ import type { PluginInstallSourceInfo } from "./install-source-info.types.js";
 import type { InstalledPluginFileSignature } from "./installed-plugin-index-hash.js";
 import type { PluginManifestRecord } from "./manifest-registry.types.js";
 import type { PluginDiagnostic } from "./manifest-types.js";
-import type { OpenClawPackageBuild, PluginPackageChannel } from "./package-manifest.types.js";
+import type { GrantedPackageBuild, PluginPackageChannel } from "./package-manifest.types.js";
 
 /** Schema version for installed plugin index files. */
 export const INSTALLED_PLUGIN_INDEX_VERSION = 1;
@@ -116,7 +116,7 @@ export type InstalledPluginIndexRecord = {
    */
   packageInstall?: PluginInstallSourceInfo;
   packageChannel?: InstalledPluginPackageChannelInfo;
-  packageBuild?: OpenClawPackageBuild;
+  packageBuild?: GrantedPackageBuild;
   manifestPath: string;
   manifestHash: string;
   /** Hash of the doctor-contract artifact selected by the runtime resolver. */
@@ -161,7 +161,7 @@ export type InstalledPluginIndex = {
 };
 
 export type LoadInstalledPluginIndexParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   stateDir?: string;

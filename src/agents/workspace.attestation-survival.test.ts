@@ -7,7 +7,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { resetLegacyWorkspaceStateCheckForTest } from "./workspace-legacy-state.test-support.js";
 import {
@@ -22,7 +22,7 @@ import {
 } from "./workspace.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 
 beforeEach(async () => {
   resetLegacyWorkspaceStateCheckForTest();

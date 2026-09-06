@@ -12,7 +12,7 @@ import {
   getRuntimeConfig,
   getRuntimeConfigSourceSnapshot,
   projectConfigOntoRuntimeSourceSnapshot,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../config/config.js";
 import { createConfigRuntimeEnv } from "../config/env-vars.js";
 import { hashRuntimeConfigValue } from "../config/runtime-snapshot.js";
@@ -254,10 +254,10 @@ function writePluginCatalogsForModelsJson(params: {
   });
 }
 
-function resolveModelsConfigInput(config?: OpenClawConfig): {
-  config: OpenClawConfig;
-  discoveryAuthConfig: OpenClawConfig;
-  sourceConfigForSecrets: OpenClawConfig;
+function resolveModelsConfigInput(config?: GrantedConfig): {
+  config: GrantedConfig;
+  discoveryAuthConfig: GrantedConfig;
+  sourceConfigForSecrets: GrantedConfig;
 } {
   const runtimeSource = getRuntimeConfigSourceSnapshot();
   if (!config) {
@@ -286,7 +286,7 @@ function resolveModelsConfigInput(config?: OpenClawConfig): {
 }
 
 function prepareModelsConfigContext(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDirOverride?: string,
   options: EnsureOpenClawModelsJsonOptions = {},
 ): PreparedModelsConfigContext {
@@ -344,7 +344,7 @@ async function withModelsJsonWriteLock<T>(targetPath: string, run: () => Promise
 
 /** Ensures models.json and the agent SQLite catalog cache are current. */
 async function prepareOpenClawModelsJsonSource(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDirOverride?: string,
   options: EnsureOpenClawModelsJsonOptions = {},
 ): Promise<PreparedOpenClawModelsJsonSource> {
@@ -439,7 +439,7 @@ async function prepareOpenClawModelsJsonSource(
  * Control-plane inventory reads use this when their lifecycle generation may be superseded.
  */
 export async function planOpenClawModelsJsonSource(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDirOverride?: string,
   options: PlanOpenClawModelsJsonSourceOptions = {},
 ): Promise<PlannedOpenClawModelsJsonSource> {
@@ -473,7 +473,7 @@ export async function planOpenClawModelsJsonSource(
 
 /** Ensures models.json and the agent SQLite catalog cache are current. */
 export async function ensureOpenClawModelsJson(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   agentDirOverride?: string,
   options: EnsureOpenClawModelsJsonOptions = {},
 ): Promise<ModelsJsonReadyResult> {

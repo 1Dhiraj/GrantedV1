@@ -16,7 +16,7 @@ import { getMatrixRuntime } from "../../runtime.js";
 import type { MatrixClient } from "../sdk.js";
 import { sendMessageMatrix } from "../send.js";
 import type { MatrixSendResult } from "../send/types.js";
-import type { OpenClawConfig, ReplyPayload, RuntimeEnv } from "./runtime-api.js";
+import type { GrantedConfig, ReplyPayload, RuntimeEnv } from "./runtime-api.js";
 
 export type MatrixReplyDeliveryResult = {
   messageIds?: string[];
@@ -110,7 +110,7 @@ function resolveVisibleMatrixReplyText(text?: string): string | undefined {
 }
 
 export async function deliverMatrixReplies(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   replies: ReplyPayload[];
   roomId: string;
   client: MatrixClient;

@@ -1,6 +1,6 @@
 // Msteams tests cover outbound plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 
 const mocks = vi.hoisted(() => ({
   sendAdaptiveCardMSTeams: vi.fn(),
@@ -30,7 +30,7 @@ const cfg = {
       appId: "resolved-app-id",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 type MSTeamsSendText = NonNullable<typeof msteamsOutbound.sendText>;
 type MSTeamsSendMedia = NonNullable<typeof msteamsOutbound.sendMedia>;
@@ -139,7 +139,7 @@ describe("msteamsOutbound cfg threading", () => {
             textChunkLimit: configuredLimit,
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const params = { cfg: configuredCfg, fallbackLimit: configuredLimit };
 
       expect(msteamsPlugin.outbound?.resolveEffectiveTextChunkLimit?.(params)).toBe(expectedLimit);
@@ -154,7 +154,7 @@ describe("msteamsOutbound cfg threading", () => {
           appId: "resolved-app-id",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await requireSendText()({
       cfg: cfgResult,
@@ -224,7 +224,7 @@ describe("msteamsOutbound cfg threading", () => {
           appId: "resolved-app-id",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await requireSendMedia()({
       cfg: cfgValue,
@@ -468,7 +468,7 @@ describe("msteamsOutbound cfg threading", () => {
             textChunkLimit: configuredLimit,
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const text = "x".repeat(textLength);
 
       await requireSendPayload()({
@@ -595,7 +595,7 @@ describe("msteamsOutbound cfg threading", () => {
           appId: "resolved-app-id",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await requireSendPoll()({
       cfg: cfgLocal,

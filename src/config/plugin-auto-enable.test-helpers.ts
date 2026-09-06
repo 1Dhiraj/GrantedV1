@@ -6,7 +6,7 @@ import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-l
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import type { PluginOrigin } from "../plugins/plugin-origin.types.js";
 import { cleanupTrackedTempDirs, makeTrackedTempDir } from "../plugins/test-helpers/fs-fixtures.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 const tempDirs: string[] = [];
 
@@ -79,7 +79,7 @@ export function makeRegistry(
 }
 
 export function createPluginMetadataSnapshot(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   manifestRegistry: PluginManifestRegistry;
   workspaceDir?: string;
 }): PluginMetadataSnapshot {

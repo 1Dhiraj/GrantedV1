@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { isRecord as isJsonObject } from "@openclaw/normalization-core/record-coerce";
 import { listAgentIds, resolveAgentDir } from "../agents/agent-scope.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveUserPath } from "../utils.js";
 import { parseEnvValue } from "./shared.js";
@@ -36,7 +36,7 @@ function resolveActiveAgentDir(stateDir: string, env: NodeJS.ProcessEnv = proces
  * Includes active env override, implicit main agent, discovered state dirs, and configured agents.
  */
 export function listAgentModelsJsonPaths(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   stateDir: string,
   env: NodeJS.ProcessEnv = process.env,
 ): string[] {

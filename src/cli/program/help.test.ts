@@ -3,7 +3,7 @@ import { Command, CommanderError } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ProgramContext } from "./context.js";
 import { configureProgramHelp } from "./help.js";
-import { OpenClawCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./openclaw-command.js";
 
 const hasEmittedCliBannerMock = vi.hoisted(() => vi.fn(() => false));
 const formatCliBannerLineMock = vi.hoisted(() => vi.fn(() => "BANNER-LINE"));
@@ -122,7 +122,7 @@ describe("configureProgramHelp", () => {
     process.argv = ["node", "openclaw", ...argv];
     let stdout = "";
     let stderr = "";
-    const program = new OpenClawCommand().enablePositionalOptions().exitOverride();
+    const program = new GrantedCommand().enablePositionalOptions().exitOverride();
     configureProgramHelp(program, testProgramContext);
     program.configureOutput({
       writeOut: (value) => {
@@ -192,7 +192,7 @@ describe("configureProgramHelp", () => {
   it("formats parse errors from the exact Commander command path", async () => {
     let stderr = "";
     process.argv = ["node", "openclaw", "plugins", "--source", "list", "list", "--wat"];
-    const program = new OpenClawCommand().enablePositionalOptions().exitOverride();
+    const program = new GrantedCommand().enablePositionalOptions().exitOverride();
     configureProgramHelp(program, testProgramContext);
     program.configureOutput({
       writeErr: (value) => {

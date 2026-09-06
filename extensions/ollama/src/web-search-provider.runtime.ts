@@ -1,5 +1,5 @@
 // Ollama web-search runtime implements provider integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   isNonSecretApiKeyMarker,
   normalizeOptionalSecretInput,
@@ -94,7 +94,7 @@ function createOllamaWebSearchCredentialError(ref: { source: string; id: string 
 // Delegate configured-key resolution (literal value or env-backed SecretRef) to the shared
 // web-search resolver, then apply Ollama's marker filter so persisted non-secret placeholders
 // (e.g. the OAuth/signin marker) fall through to the ambient OLLAMA_API_KEY instead of being sent.
-function resolveConfiguredOllamaWebSearchApiKey(config?: OpenClawConfig): string | undefined {
+function resolveConfiguredOllamaWebSearchApiKey(config?: GrantedConfig): string | undefined {
   const credentialValue = config?.models?.providers?.ollama?.apiKey;
   const credentialRef = coerceSecretRef(credentialValue);
   const resolvedValue = normalizeOllamaWebSearchApiKey(
@@ -112,7 +112,7 @@ function resolveConfiguredOllamaWebSearchApiKey(config?: OpenClawConfig): string
   return resolvedValue;
 }
 
-function resolveOllamaWebSearchBaseUrl(config?: OpenClawConfig): string {
+function resolveOllamaWebSearchBaseUrl(config?: GrantedConfig): string {
   const pluginBaseUrl = normalizeOptionalString(
     resolveProviderWebSearchPluginConfig(config, "ollama")?.baseUrl,
   );
@@ -178,7 +178,7 @@ function buildOllamaWebSearchAttempts(params: {
 }
 
 async function runOllamaWebSearch(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   query: string;
   count?: number;
   signal?: AbortSignal;
@@ -298,11 +298,11 @@ async function runOllamaWebSearch(params: {
 }
 
 async function warnOllamaWebSearchPrereqs(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   prompter: {
     note: (message: string, title?: string) => Promise<void>;
   };
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const baseUrl = resolveOllamaWebSearchBaseUrl(params.config);
   if (isOllamaCloudBaseUrl(baseUrl)) {
     if (

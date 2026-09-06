@@ -1,6 +1,6 @@
 import type { Result } from "@openclaw/normalization-core/result";
 import type { TSchema } from "typebox";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginToolMcpMeta } from "../plugins/tool-metadata.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
 import type { CodeModeSkill } from "./code-mode-skills.js";
@@ -83,8 +83,8 @@ export type ToolSearchConfig = {
 
 /** Per-run/session context used by Tool Search control tools. */
 export type ToolSearchToolContext = {
-  config?: OpenClawConfig;
-  runtimeConfig?: OpenClawConfig;
+  config?: GrantedConfig;
+  runtimeConfig?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   sessionId?: string;

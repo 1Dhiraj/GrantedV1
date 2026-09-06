@@ -10,7 +10,7 @@ import { WebSocketServer } from "ws";
 import codexPlugin from "../../extensions/codex/index.js";
 import { createAgentHarnessCatalogEvaluator } from "../../src/agents/harness/model-catalog-readiness.js";
 import type { AgentHarness } from "../../src/agents/harness/types.js";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import {
   buildModelsListResult,
   createGatewayAgentModelCatalogProjector,
@@ -121,7 +121,7 @@ describe("models.list native account catalog", () => {
             });
             httpServer.listen(socketPath);
             await once(server, "listening");
-            const config: OpenClawConfig = {
+            const config: GrantedConfig = {
               agents: {
                 defaults: {
                   workspace: state.workspaceDir,
@@ -280,7 +280,7 @@ describe("models.list native account catalog", () => {
                   observed.mode ? { accountType: observed.mode } : undefined,
                 );
               }
-              const hostRoutes: OpenClawConfig["models"][] = [
+              const hostRoutes: GrantedConfig["models"][] = [
                 {
                   providers: {
                     openai: {

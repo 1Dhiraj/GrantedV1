@@ -6,7 +6,7 @@ import type { TalkCatalogResult } from "@openclaw/gateway-protocol";
 import { html, type TemplateResult } from "lit";
 import { property, state } from "lit/decorators.js";
 import { applicationContext, type ApplicationContext } from "../../app/context.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
   isTalkGptLiveModel,
@@ -64,7 +64,7 @@ function gptLiveRejectsTransport(model: string | null, transport: string): boole
   return isTalkGptLiveModel(model) && transport === "provider-websocket";
 }
 
-class TalkSettingsPage extends OpenClawLightDomElement {
+class TalkSettingsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

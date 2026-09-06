@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
 import { sanitizeForPlainText } from "openclaw/plugin-sdk/channel-outbound";
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IMessageRpcClient } from "./client.js";
 import {
@@ -97,7 +97,7 @@ function createApprovalPrompt(id = "approval-123") {
 }
 
 describe("sendMessageIMessage receipts", () => {
-  let openClawState: OpenClawTestState;
+  let openClawState: GrantedTestState;
 
   beforeEach(async () => {
     openClawState = await createOpenClawTestState({

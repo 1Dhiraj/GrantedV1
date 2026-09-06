@@ -236,7 +236,7 @@ describe("graph upload helpers", () => {
 
     expectGraphUploadFetch(
       fetchFn,
-      "https://graph.microsoft.com/v1.0/sites/site-123/drive/root:/OpenClawShared/b.txt:/content?@microsoft.graph.conflictBehavior=rename",
+      "https://graph.microsoft.com/v1.0/sites/site-123/drive/root:/GrantedShared/b.txt:/content?@microsoft.graph.conflictBehavior=rename",
     );
     expect(result).toEqual({
       id: "item-2",
@@ -261,7 +261,7 @@ describe("graph upload helpers", () => {
 
     expectGraphUploadFetch(
       fetchFn,
-      "https://graph.microsoft.com/v1.0/sites/site-123/drive/root:/OpenClawShared/image-1.png:/content?@microsoft.graph.conflictBehavior=rename",
+      "https://graph.microsoft.com/v1.0/sites/site-123/drive/root:/GrantedShared/image-1.png:/content?@microsoft.graph.conflictBehavior=rename",
     );
     expect(result.name).toBe("image-1 1.png");
   });

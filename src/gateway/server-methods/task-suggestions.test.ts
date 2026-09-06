@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { addSessionMember } from "../../config/sessions/session-sharing-store.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
@@ -29,7 +29,7 @@ import type { GatewayClient, RespondFn } from "./types.js";
 const mocks = vi.hoisted(() => ({ handleChatSend: vi.fn() }));
 const sessionReadState = vi.hoisted(() => ({ mode: "normal" as "normal" | "present" | "throw" }));
 type TaskOperatorRole = "none" | "view" | "suggest" | "restricted";
-const taskRoleConfig = (role: TaskOperatorRole): OpenClawConfig => ({
+const taskRoleConfig = (role: TaskOperatorRole): GrantedConfig => ({
   gateway: {
     roles: {
       default: "guest",

@@ -7,7 +7,7 @@ import {
 } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { resolveSandboxRuntimeStatus } from "../../agents/sandbox/runtime-status.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { isPathInside } from "../../infra/path-guards.js";
 
@@ -17,7 +17,7 @@ type PreparedSessionCreateRoot = {
 };
 
 export function prepareSessionCreateFilesystemRoot(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requestedExecNode?: string;
   requestedProjectId?: string;
   enforceSandboxContainment: boolean;

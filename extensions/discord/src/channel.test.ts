@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { ChannelType } from "discord-api-types/v10";
 import { createStartAccountContext } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedDiscordAccount } from "./accounts.js";
@@ -59,7 +59,7 @@ vi.mock("./audit.js", () => {
   };
 });
 
-function createCfg(): OpenClawConfig {
+function createCfg(): GrantedConfig {
   return {
     channels: {
       discord: {
@@ -67,14 +67,14 @@ function createCfg(): OpenClawConfig {
         token: "discord-token",
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function resolveAccount(cfg: OpenClawConfig, accountId = "default"): ResolvedDiscordAccount {
+function resolveAccount(cfg: GrantedConfig, accountId = "default"): ResolvedDiscordAccount {
   return discordPlugin.config.resolveAccount(cfg, accountId);
 }
 
-function startDiscordAccount(cfg: OpenClawConfig, accountId = "default") {
+function startDiscordAccount(cfg: GrantedConfig, accountId = "default") {
   return discordPlugin.gateway!.startAccount!(
     createStartAccountContext({
       account: resolveAccount(cfg, accountId),
@@ -100,7 +100,7 @@ function prepareDiscordStartupMocks() {
 }
 
 async function expectDiscordStartupDelay(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
   expectedMs: number,
 ) {
@@ -181,7 +181,7 @@ describe("discordPlugin outbound", () => {
 
     expect(
       buildToolContext({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         context: {
           To: "user:123456789",
           NativeChannelId: "987654321",
@@ -355,7 +355,7 @@ describe("discordPlugin outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveReplyToMode({ cfg, accountId: "work" })).toBe("first");
     expect(resolveReplyToMode({ cfg, accountId: "default" })).toBe("all");
@@ -601,7 +601,7 @@ describe("discordPlugin outbound", () => {
           token: { source: "env", provider: "default", id: "DISCORD_BOT_TOKEN" },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     await expect(startDiscordAccount(cfg)).rejects.toThrow(
       'Discord bot token configured for account "default" is unavailable',
@@ -769,7 +769,7 @@ describe("discordPlugin outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expectDiscordStartupDelay(cfg, "alpha", 0);
     await expectDiscordStartupDelay(cfg, "zeta", 10_000);
@@ -789,7 +789,7 @@ describe("discordPlugin outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expectDiscordStartupDelay(cfg, "main", 0);
     await expectDiscordStartupDelay(cfg, "billy", 10_000);
@@ -811,7 +811,7 @@ describe("discordPlugin outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expectDiscordStartupDelay(cfg, "billy", 0);
     await expectDiscordStartupDelay(cfg, "farber", 10_000);
@@ -829,7 +829,7 @@ describe("discordPlugin outbound", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await expectDiscordStartupDelay(cfg, "zeta", 0);
   });

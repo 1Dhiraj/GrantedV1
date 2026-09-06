@@ -6,7 +6,7 @@ import {
   ensureApiKeyFromEnvOrPrompt,
   hasConfiguredSecretInput,
   normalizeOptionalSecretInput,
-  type OpenClawConfig,
+  type GrantedConfig,
   type SecretInput,
   type SecretInputMode,
 } from "openclaw/plugin-sdk/provider-auth";
@@ -90,7 +90,7 @@ function resolveLmstudioSetupDefaultInferenceBaseUrl(env: NodeJS.ProcessEnv = pr
     : LMSTUDIO_DEFAULT_INFERENCE_BASE_URL;
 }
 
-function stripLmstudioStoredAuthConfig(cfg: OpenClawConfig): OpenClawConfig {
+function stripLmstudioStoredAuthConfig(cfg: GrantedConfig): GrantedConfig {
   const { profiles: _profiles, order: _order, ...restAuth } = cfg.auth ?? {};
   const nextProfiles = Object.fromEntries(
     Object.entries(cfg.auth?.profiles ?? {}).filter(
@@ -322,7 +322,7 @@ function isLmstudioDiscoveryConfigResolutionError(error: unknown): boolean {
 
 /** Preserves existing allowlist metadata and appends discovered LM Studio model refs. */
 function mergeDiscoveredLmstudioAllowlistEntries(params: {
-  existing?: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]>["models"];
+  existing?: NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]>["models"];
   discoveredModels: ModelDefinitionConfig[];
 }) {
   return withAgentModelAliases(
@@ -508,7 +508,7 @@ export async function detectAppGuidedLmstudioAvailability(
 
 /** Interactive LM Studio setup with connectivity and model-availability checks. */
 export async function promptAndConfigureLmstudioInteractive(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   agentDir?: string;
   workspaceDir?: string;
   prompter?: WizardPrompter;
@@ -830,7 +830,7 @@ export async function validateLmstudioNonInteractive(
 /** Non-interactive setup path backed by the shared self-hosted helper. */
 export async function configureLmstudioNonInteractive(
   ctx: ProviderAuthMethodNonInteractiveContext,
-): Promise<OpenClawConfig | null> {
+): Promise<GrantedConfig | null> {
   const validated = await validateNonInteractiveLmstudioDiscovery(ctx);
   if (!validated) {
     return null;

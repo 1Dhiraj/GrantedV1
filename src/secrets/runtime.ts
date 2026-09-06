@@ -26,7 +26,7 @@ import {
   getRuntimeConfigSnapshot,
   type RuntimeConfigSnapshotRefreshParams,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
@@ -93,7 +93,7 @@ async function resolveLoadablePluginOrigins(params: {
   return listPluginOriginsFromMetadataSnapshot(params.plugins);
 }
 
-function hasConfiguredPluginEntries(config: OpenClawConfig): boolean {
+function hasConfiguredPluginEntries(config: GrantedConfig): boolean {
   const entries = config.plugins?.entries;
   return (
     Boolean(entries) &&
@@ -103,7 +103,7 @@ function hasConfiguredPluginEntries(config: OpenClawConfig): boolean {
   );
 }
 
-function hasConfiguredChannelEntries(config: OpenClawConfig): boolean {
+function hasConfiguredChannelEntries(config: GrantedConfig): boolean {
   const channels = config.channels;
   return (
     Boolean(channels) &&
@@ -113,7 +113,7 @@ function hasConfiguredChannelEntries(config: OpenClawConfig): boolean {
   );
 }
 
-function hasConfiguredPluginIntegrationSecretProviders(config: OpenClawConfig): boolean {
+function hasConfiguredPluginIntegrationSecretProviders(config: GrantedConfig): boolean {
   const providers = config.secrets?.providers;
   if (!providers || typeof providers !== "object" || Array.isArray(providers)) {
     return false;
@@ -126,7 +126,7 @@ function hasConfiguredPluginIntegrationSecretProviders(config: OpenClawConfig): 
   );
 }
 
-function shouldLoadPluginMetadataForSecrets(config: OpenClawConfig): boolean {
+function shouldLoadPluginMetadataForSecrets(config: GrantedConfig): boolean {
   return (
     hasConfiguredPluginEntries(config) ||
     hasConfiguredChannelEntries(config) ||
@@ -169,9 +169,9 @@ function loadAuthStoresWithMigrationIsolation(params: {
 
 /** Prepares a secrets runtime snapshot and records refresh context for later activation. */
 export async function prepareSecretsRuntimeSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   /** Optional assignment projection; resolver/plugin policy still uses the full config. */
-  assignmentConfig?: OpenClawConfig;
+  assignmentConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   agentDirs?: string[];
   /** Skip config and web-tool refs when only auth-profile stores need materialization. */
@@ -370,7 +370,7 @@ export function activateSecretsRuntimeSnapshot(snapshot: PreparedSecretsRuntimeS
 /** Activates resolved runtime bytes while retaining the distinct raw config source. */
 export function activateSecretsRuntimeSnapshotWithSource(
   snapshot: PreparedSecretsRuntimeSnapshot,
-  runtimeSourceConfig: OpenClawConfig,
+  runtimeSourceConfig: GrantedConfig,
 ): void {
   activateSecretsRuntimeSnapshotState({
     ...createSecretsRuntimeSnapshotActivation(snapshot),
@@ -382,7 +382,7 @@ export function activateSecretsRuntimeSnapshotWithSource(
 export function activateSecretsRuntimeSnapshotIfCurrent(
   snapshot: PreparedSecretsRuntimeSnapshot,
   expectedRevision: number,
-  options?: { preserveActivationLineage?: boolean; runtimeSourceConfig?: OpenClawConfig },
+  options?: { preserveActivationLineage?: boolean; runtimeSourceConfig?: GrantedConfig },
 ): boolean {
   return activateSecretsRuntimeSnapshotStateIfCurrent({
     ...createSecretsRuntimeSnapshotActivation(snapshot),
@@ -397,7 +397,7 @@ export function restoreSecretsRuntimeSnapshotIfCurrent(
   snapshot: PreparedSecretsRuntimeSnapshot,
   expectedRevision: number,
   ownedSnapshot: PreparedSecretsRuntimeSnapshot,
-  options?: { runtimeSourceConfig?: OpenClawConfig },
+  options?: { runtimeSourceConfig?: GrantedConfig },
 ): boolean {
   return restoreSecretsRuntimeSnapshotStateIfCurrent({
     ...createSecretsRuntimeSnapshotActivation(snapshot),
@@ -414,7 +414,7 @@ type PreparedSecretsRuntimeRefresh = {
 
 function coercePreflightRefresh(
   value: unknown,
-  sourceConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
 ): PreparedSecretsRuntimeRefresh | null {
   if (!value || typeof value !== "object") {
     return null;
@@ -428,9 +428,9 @@ function coercePreflightRefresh(
 }
 
 async function prepareActiveSecretsRuntimeRefresh(
-  sourceConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
   includeAuthStoreRefs?: boolean,
-  snapshotConfig: OpenClawConfig = sourceConfig,
+  snapshotConfig: GrantedConfig = sourceConfig,
 ): Promise<PreparedSecretsRuntimeRefresh | null> {
   const expectedRevision = getActiveSecretsRuntimeSnapshotRevisionState();
   const activeRefreshContext = getActiveSecretsRuntimeRefreshContext();
@@ -506,7 +506,7 @@ function patchResolvedSecretRefLeaves(params: {
   current: unknown;
   source: unknown;
   resolved: unknown;
-  defaults: NonNullable<OpenClawConfig["secrets"]>["defaults"];
+  defaults: NonNullable<GrantedConfig["secrets"]>["defaults"];
 }): ResolvedSecretRefPatch {
   if (coerceSecretRef(params.source, params.defaults)) {
     return isDeepStrictEqual(params.source, params.resolved)
@@ -554,7 +554,7 @@ function patchResolvedSecretRefLeaves(params: {
   return { changed: false, value: params.current };
 }
 
-function selectProviderAuthConfig(config: OpenClawConfig): OpenClawConfig {
+function selectProviderAuthConfig(config: GrantedConfig): GrantedConfig {
   return {
     ...(config.secrets === undefined ? {} : { secrets: config.secrets }),
     ...(config.models === undefined ? {} : { models: config.models }),
@@ -666,7 +666,7 @@ export async function refreshActiveProviderAuthRuntimeSnapshot(): Promise<boolea
       defaults: activeSnapshot.sourceConfig.secrets?.defaults,
     });
     if (modelsPatch.changed) {
-      config.models = modelsPatch.value as OpenClawConfig["models"];
+      config.models = modelsPatch.value as GrantedConfig["models"];
     }
     const refreshedSnapshot: PreparedSecretsRuntimeSnapshot = {
       ...activeSnapshot,

@@ -6,7 +6,7 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { ensureColumn, tableExists, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   SESSION_WATCH_PROVENANCE_AMBIENT_GROUP,
   SESSION_WATCH_PROVENANCE_EXPLICIT,
@@ -18,7 +18,7 @@ const SESSION_WATCH_PROVENANCE_COLUMN_SQL =
   `provenance TEXT NOT NULL DEFAULT '${SESSION_WATCH_PROVENANCE_EXPLICIT}' ` +
   `CHECK (provenance IN ('${SESSION_WATCH_PROVENANCE_EXPLICIT}', '${SESSION_WATCH_PROVENANCE_AMBIENT_GROUP}'))`;
 
-type SessionWatchCursorDatabase = Pick<OpenClawStateKyselyDatabase, "session_watch_cursors">;
+type SessionWatchCursorDatabase = Pick<GrantedStateKyselyDatabase, "session_watch_cursors">;
 
 type SessionWatchCursorProvenanceMigrationResult = {
   addedColumn: boolean;

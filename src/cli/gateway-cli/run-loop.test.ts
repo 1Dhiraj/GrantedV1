@@ -11,7 +11,7 @@ import { SUPERVISOR_HINT_ENV_VARS } from "../../infra/supervisor-markers.js";
 import { resolveGlobalMap } from "../../shared/global-singleton.js";
 import {
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
-  OpenClawAgentDatabaseMediaMigrationRequiredError,
+  GrantedAgentDatabaseMediaMigrationRequiredError,
 } from "../../state/openclaw-agent-db-migration-required.js";
 import { captureEnv, deleteTestEnvValue } from "../../test-utils/env.js";
 import { pickBeaconHost, pickGatewayPort } from "./discover.js";
@@ -670,7 +670,7 @@ describe("runGatewayLoop", () => {
 
   it("records a typed reason for media-migration startup failures", async () => {
     await withIsolatedSignals(async () => {
-      const failure = new OpenClawAgentDatabaseMediaMigrationRequiredError(
+      const failure = new GrantedAgentDatabaseMediaMigrationRequiredError(
         "/tmp/openclaw-agent.sqlite",
         14,
       );

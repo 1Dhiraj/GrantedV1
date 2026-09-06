@@ -3,7 +3,7 @@ import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coerci
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import type { QuotaSuspension } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { enqueueCommandInLane, getCommandLaneSnapshot } from "../process/command-queue.js";
 import { resetCommandQueueStateForTest } from "../process/command-queue.test-support.js";
 import { CommandLane } from "../process/lanes.js";
@@ -26,7 +26,7 @@ vi.mock("./command/session.js", () => sessionKeyResolverMocks);
 async function recordSuspension(ttlMs = 100) {
   const { suspendSession } = await import("./session-suspension.js");
   await suspendSession({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     sessionId: "session-1",
     reason: "quota_exhausted",
     failedProvider: "openai",
@@ -97,7 +97,7 @@ describe("session suspension", () => {
     );
 
     await suspendSession({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       agentId: "work",
       // Default layout: <state>/agents/<id>/agent — basename is always "agent".
       agentDir: "/state/agents/work/agent",
@@ -123,7 +123,7 @@ describe("session suspension", () => {
     registerResolvedAgentDir({ agentId: "research", agentDir: "/state/agents/research/agent" });
     try {
       await suspendSession({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         agentDir: "/state/agents/research/agent",
         sessionId: "session-2",
         reason: "quota_exhausted",

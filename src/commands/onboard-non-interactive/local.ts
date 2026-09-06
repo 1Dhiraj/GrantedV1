@@ -8,7 +8,7 @@ import { listAgentEntries } from "../../agents/agent-scope-config.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { resolveGatewayPort } from "../../config/config.js";
 import { logConfigUpdated } from "../../config/logging.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveGatewayAuthToken } from "../../gateway/auth-token-resolution.js";
 import { resolveConfiguredSecretInputWithFallback } from "../../gateway/resolve-configured-secret-input-string.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -92,7 +92,7 @@ async function collectGatewayHealthFailureDiagnostics(): Promise<
 
 /** Resolves the auth material used by the post-setup gateway health probe. */
 async function resolveGatewayHealthProbeToken(
-  nextConfig: OpenClawConfig,
+  nextConfig: GrantedConfig,
 ): Promise<{ token?: string; password?: string; unresolvedRefReason?: string }> {
   if (nextConfig.gateway?.auth?.mode === "password") {
     // Password mode uses the configured password directly; token fallback must
@@ -146,8 +146,8 @@ function formatGatewayHealthFailureDetail(params: {
 export async function runNonInteractiveLocalSetup(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
-  sourceConfigBeforeMigrations: OpenClawConfig;
+  baseConfig: GrantedConfig;
+  sourceConfigBeforeMigrations: GrantedConfig;
   baseHash?: string;
 }) {
   const { opts, runtime, baseConfig, sourceConfigBeforeMigrations, baseHash } = params;
@@ -176,7 +176,7 @@ export async function runNonInteractiveLocalSetup(params: {
     );
   }
 
-  let nextConfig: OpenClawConfig = applyLocalSetupWorkspaceConfig(
+  let nextConfig: GrantedConfig = applyLocalSetupWorkspaceConfig(
     baseConfig,
     requestedWorkspaceDir,
     { allowWorkspaceChange: !hasAuthoredRoster && !workspaceConflict },

@@ -41,7 +41,7 @@ import {
   buildWatchedSessionsPromptLines,
   prepareWatchedSessionsPrompt,
 } from "../agents/watched-sessions-prompt.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ImageContent } from "../llm/types.js";
 import { redactToolDetail } from "../logging/redact.js";
 import type { PromptImageOrderEntry } from "../media/prompt-image-order.js";
@@ -57,7 +57,7 @@ export const TOOL_PROGRESS_OUTPUT_MAX_CHARS = 8_000;
  * model keeps refusing cross-session questions on those runtimes (openclaw#114797).
  */
 export function buildWatchedSessionsHarnessContext(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionKey?: string;
   sandboxed?: boolean;
   toolNames: Iterable<string>;
@@ -183,7 +183,7 @@ export type {
   AgentToolResultMiddlewareOptions,
   AgentToolResultMiddlewareResult,
   AgentToolResultMiddlewareRuntime,
-  OpenClawAgentToolResult,
+  GrantedAgentToolResult,
 } from "../plugins/agent-tool-result-middleware-types.js";
 export type {
   CodexAppServerExtensionContext,
@@ -346,7 +346,7 @@ export async function detectAndLoadAgentHarnessPromptImages(params: {
   existingImages?: ImageContent[];
   imageOrder?: PromptImageOrderEntry[];
   media?: import("../media/media-facts.js").MediaFact[];
-  config?: import("../config/types.openclaw.js").OpenClawConfig;
+  config?: import("../config/types.openclaw.js").GrantedConfig;
   workspaceOnly?: boolean;
   localRoots?: readonly string[];
   sandbox?: { root: string; bridge: SandboxFsBridge };

@@ -10,7 +10,7 @@ import {
   writeAcpSessionMetaForMigration,
 } from "../acp/runtime/session-meta.js";
 import * as thinking from "../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
@@ -47,7 +47,7 @@ describe("session list resolver cache", () => {
       await withStateDirEnv("openclaw-list-work-budget-", async ({ stateDir }) => {
         resetPluginRuntimeStateForTest();
         setActivePluginRegistry(createEmptyPluginRegistry());
-        const cfg: OpenClawConfig = {};
+        const cfg: GrantedConfig = {};
         resetConfigRuntimeState();
         setRuntimeConfigSnapshot(cfg);
         const store = Object.fromEntries(
@@ -97,14 +97,14 @@ describe("session list resolver cache", () => {
     { name: "recorded zero", recorded: 0, tiered: true, expected: 0 },
     { name: "unknown tiered total", recorded: undefined, tiered: true, expected: undefined },
   ])("bounds resolver work and preserves $name", ({ recorded, tiered, expected }) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: { primary: "google-vertex/gemini-3-flash-preview" },
           thinkingDefault: "off",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const tuples: Array<{ modelProvider: string; model: string }> = [
       { modelProvider: "google-vertex", model: "gemini-3-flash-preview" },
       { modelProvider: "openai", model: "gpt-5" },
@@ -201,7 +201,7 @@ describe("session list resolver cache", () => {
       setActivePluginRegistry(createEmptyPluginRegistry());
       const cfg = {
         agents: { defaults: { model: { primary: "openai/gpt-5" }, thinkingDefault: "off" } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       resetConfigRuntimeState();
       setRuntimeConfigSnapshot(cfg);
 
@@ -339,7 +339,7 @@ describe("session list resolver cache", () => {
       setActivePluginRegistry(createEmptyPluginRegistry());
       const cfg = {
         agents: { defaults: { model: { primary: "openai/gpt-5" }, thinkingDefault: "off" } },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       resetConfigRuntimeState();
       setRuntimeConfigSnapshot(cfg);
       const storePath = "/tmp/sessions.json";

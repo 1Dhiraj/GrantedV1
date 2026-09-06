@@ -6,7 +6,7 @@ import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-cont
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { createWorkerPlacementMoveService } from "./placement-move-service.js";
 import type { WorkerSessionPlacementIdentity } from "./placement-record.js";
@@ -23,7 +23,7 @@ const SESSION: WorkerSessionPlacementIdentity = {
 
 describe("worker session placement moves", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerSessionPlacementStore;
   let nowMs: number;
 

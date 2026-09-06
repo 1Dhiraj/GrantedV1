@@ -7,7 +7,7 @@ import {
 import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import canvasPlugin from "../../../../extensions/canvas/index.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import type { GatewayClient } from "../../../../src/gateway/client.js";
 import { startGatewayServer } from "../../../../src/gateway/server.js";
 import {
@@ -107,7 +107,7 @@ describe("Canvas agent tool over a paired macOS node", () => {
       });
       const port = await getGatewayE2ePortBlock();
       const gatewayToken = "qa-canvas-agent-node-token";
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         gateway: {
           mode: "local",
           port,

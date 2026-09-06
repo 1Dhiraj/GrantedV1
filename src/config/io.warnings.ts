@@ -6,7 +6,7 @@ import {
   setBoundedConfigIoWarningEntry,
   warnedFutureTouchedVersions,
 } from "./io.state.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 import { shouldWarnOnTouchedVersion } from "./version.js";
 
 export function warnOnConfigMiskeys(raw: unknown, logger: Pick<typeof console, "warn">): void {
@@ -49,7 +49,7 @@ export function logConfigWarningsOnce(params: {
 }
 
 export function warnIfConfigFromFuture(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   logger: Pick<typeof console, "warn">,
 ): void {
   const touched = cfg.meta?.lastTouchedVersion;

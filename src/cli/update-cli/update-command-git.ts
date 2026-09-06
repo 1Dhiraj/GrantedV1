@@ -14,7 +14,7 @@ import { readCurrentGitUpdateRecovery } from "../../infra/update-runner-git-reco
 import { runGatewayUpdate, type UpdateRunResult } from "../../infra/update-runner.js";
 import { defaultRuntime } from "../../runtime.js";
 import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../../state/openclaw-database-preflight.js";
-import type { OpenClawSchemaVersions } from "../../state/openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
 import { splitShellArgs } from "../../utils/shell-argv.js";
 import { createUpdateProgress } from "./progress.js";
 import {
@@ -116,7 +116,7 @@ export async function retireStandaloneGitWrapper(params: {
 }
 
 type BeforeGitMutation = (target: {
-  schemaVersions?: OpenClawSchemaVersions;
+  schemaVersions?: GrantedSchemaVersions;
   metadataUnreadable?: string;
 }) => Promise<{
   allowGatewayServiceRepair?: boolean;

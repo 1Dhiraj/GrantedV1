@@ -1,7 +1,7 @@
 // ACPX doctor contract repairs shipped config and migrates plugin-owned runtime state.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   archiveLegacyStateSource,
   asObjectRecord,
@@ -33,8 +33,8 @@ export const legacyConfigRules = RETIRED_ACPX_CONFIG_KEYS.map((key) => ({
 }));
 
 /** Removes retired plugin-owned config without keeping runtime compatibility keys. */
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const entry = asObjectRecord(cfg.plugins?.entries?.acpx);

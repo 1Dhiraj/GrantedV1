@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   killPidIfAlive,
   waitForPidFile,
@@ -86,7 +86,7 @@ function baseRequest(sourcePath: string): InstallPolicyRequest {
   };
 }
 
-function configWithPolicy(scriptPath: string, env: Record<string, string>): OpenClawConfig {
+function configWithPolicy(scriptPath: string, env: Record<string, string>): GrantedConfig {
   return {
     security: {
       installPolicy: {
@@ -285,7 +285,7 @@ describe("runInstallPolicy", () => {
   });
 
   it("skips skill requests when targets only include plugins", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       security: {
         installPolicy: {
           enabled: true,

@@ -12,12 +12,12 @@ import {
 import type { PersistedUserTurnMessage } from "../../sessions/user-turn-transcript.types.js";
 import { resolveGlobalSingleton } from "../../shared/global-singleton.js";
 import type { SessionPendingInputs } from "../../state/openclaw-agent-db.generated.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import {
   ensureSessionPendingInputsSchema,
   hasSessionPendingInputsSchema,
 } from "../../state/openclaw-agent-pending-inputs-schema.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import { getSessionKysely, type ResolvedTranscriptScope } from "./session-accessor.sqlite-scope.js";
 
 export type SessionPendingInputState = "queued" | "interrupted" | "cancelled";
@@ -34,7 +34,7 @@ export type SessionPendingInputPage = {
   nextBefore?: number;
 };
 export type SessionPendingInputRow = Selectable<SessionPendingInputs>;
-type PendingInputDatabase = Pick<OpenClawAgentDatabase, "db" | "path">;
+type PendingInputDatabase = Pick<GrantedAgentDatabase, "db" | "path">;
 
 export type SessionPendingInputOwner = {
   inputId: string;
@@ -44,7 +44,7 @@ export type SessionPendingInputOwner = {
   idempotencyKey: string;
   lifecycleGeneration: string;
   messageJson: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   assertCurrent: () => void;
   finish: (disposition: Exclude<SessionPendingInputState, "queued">) => void;
   /** Aggregate authority is the exact source closures, never persisted source identifiers. */

@@ -4,7 +4,7 @@ import fs from "node:fs";
 import fsp from "node:fs/promises";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -26,7 +26,7 @@ import {
   migrateLegacyExecApprovals,
 } from "./state-migrations.exec-approvals.js";
 
-type MigrationDatabase = Pick<OpenClawStateKyselyDatabase, "migration_runs" | "migration_sources">;
+type MigrationDatabase = Pick<GrantedStateKyselyDatabase, "migration_runs" | "migration_sources">;
 
 describe("legacy exec approvals migration", () => {
   const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);

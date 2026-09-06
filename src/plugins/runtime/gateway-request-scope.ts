@@ -8,7 +8,7 @@ import type {
 import { resolveGlobalSingleton } from "../../shared/global-singleton.js";
 import type { PluginOrigin } from "../plugin-origin.types.js";
 import type { PluginRegistry } from "../registry-types.js";
-import type { OpenClawPluginNodeWorkspace } from "../types.node-host.js";
+import type { GrantedPluginNodeWorkspace } from "../types.node-host.js";
 
 type PluginRuntimeGatewayRequestScope = {
   /** Exact placement owner captured before the local harness begins. */
@@ -16,7 +16,7 @@ type PluginRuntimeGatewayRequestScope = {
     runId: string;
     agentId: string;
     nodeId: string;
-    workspace: OpenClawPluginNodeWorkspace;
+    workspace: GrantedPluginNodeWorkspace;
   }) => void;
   /** In-process admitted owner only; never projected into RPC parameters. */
   invokeWithSessionNodeAuthority?: <T>(
@@ -25,7 +25,7 @@ type PluginRuntimeGatewayRequestScope = {
       command: string;
       source: "session-full" | "human-approved";
       nodeId: string;
-      workspace: OpenClawPluginNodeWorkspace;
+      workspace: GrantedPluginNodeWorkspace;
     },
     invoke: (assertCurrent: () => void, signal: AbortSignal) => Promise<T>,
   ) => Promise<T | undefined>;
@@ -38,7 +38,7 @@ type PluginRuntimeGatewayRequestScope = {
       pluginId: string;
       command: string;
       nodeId: string;
-      workspace: OpenClawPluginNodeWorkspace;
+      workspace: GrantedPluginNodeWorkspace;
     }) => void;
   };
   context?: GatewayRequestContext;

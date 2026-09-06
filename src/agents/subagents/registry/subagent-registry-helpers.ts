@@ -13,7 +13,7 @@ import {
   resolveSessionStorePathCore,
 } from "../../../config/sessions.js";
 import { patchSessionEntryCore } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { computeBackoff } from "../../../infra/backoff.js";
 import { defaultRuntime } from "../../../runtime.js";
 import { truncateUtf8Prefix } from "../../../utils/utf8-truncate.js";
@@ -348,7 +348,7 @@ export function reconcileOrphanedRestoredRuns(params: {
 }
 
 /** Resolves the completed subagent archive delay from config. */
-function resolveArchiveAfterMs(cfg?: OpenClawConfig) {
+function resolveArchiveAfterMs(cfg?: GrantedConfig) {
   const config = cfg ?? getRuntimeConfig();
   const minutes =
     config.agents?.defaults?.subagents?.archiveAfterMinutes ??
@@ -363,7 +363,7 @@ function resolveArchiveAfterMs(cfg?: OpenClawConfig) {
 }
 
 /** Arms retention only after the run or its waitable collector result has completed. */
-export function updateSubagentArchiveAtMs(entry: SubagentRunRecord, cfg?: OpenClawConfig): boolean {
+export function updateSubagentArchiveAtMs(entry: SubagentRunRecord, cfg?: GrantedConfig): boolean {
   const endedAt =
     typeof entry.execution.endedAt === "number" && Number.isFinite(entry.execution.endedAt)
       ? entry.execution.endedAt

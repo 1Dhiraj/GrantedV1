@@ -2,7 +2,7 @@ import type { DatabaseSync } from "node:sqlite";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { isPidAlive } from "../shared/pid-alive.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
 import { chunkItems } from "../utils/chunk-items.js";
 // Per-agent SQLite storage for rebuildable per-session usage rollups.
@@ -15,7 +15,7 @@ const REFRESH_LOCK_KEY = "refresh-lock";
 const RETIRED_ROLLUP_SCOPE = "session-cost-usage-rollup-v1";
 const ROLLUP_SCOPE = "session-cost-usage-rollup-v2";
 
-type AgentCacheDatabase = Pick<OpenClawAgentKyselyDatabase, "cache_entries">;
+type AgentCacheDatabase = Pick<GrantedAgentKyselyDatabase, "cache_entries">;
 
 type SessionCostUsageRefreshLock = {
   pid: number;

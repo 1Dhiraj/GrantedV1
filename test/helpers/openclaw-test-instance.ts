@@ -13,14 +13,14 @@ import {
 import { terminateManagedChild } from "../../scripts/lib/managed-child-process.mts";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../src/test-utils/openclaw-test-state.js";
 import { sleep } from "../../src/utils.js";
 import { decodeUtf8Tail } from "./bounded-child-output.js";
 
-type OpenClawTestStateOptions = NonNullable<Parameters<typeof createOpenClawTestState>[0]>;
+type GrantedTestStateOptions = NonNullable<Parameters<typeof createOpenClawTestState>[0]>;
 
-type OpenClawTestInstanceOptions = {
+type GrantedTestInstanceOptions = {
   name: string;
   cwd?: string;
   port?: number;
@@ -28,22 +28,22 @@ type OpenClawTestInstanceOptions = {
   hookToken?: string;
   config?: Record<string, unknown>;
   env?: Record<string, string | undefined>;
-  state?: Omit<OpenClawTestStateOptions, "applyEnv" | "gateway" | "env">;
+  state?: Omit<GrantedTestStateOptions, "applyEnv" | "gateway" | "env">;
   gatewayArgs?: string[];
   startTimeoutMs?: number;
   stopTimeoutMs?: number;
 };
 
-type OpenClawTestInstanceCommandResult = {
+type GrantedTestInstanceCommandResult = {
   code: number | null;
   signal: NodeJS.Signals | null;
   stdout: string;
   stderr: string;
 };
 
-type OpenClawTestProcess = ChildProcessByStdio<null, Readable, Readable>;
+type GrantedTestProcess = ChildProcessByStdio<null, Readable, Readable>;
 
-export type OpenClawTestInstance = {
+export type GrantedTestInstance = {
   name: string;
   port: number;
   url: string;
@@ -52,16 +52,16 @@ export type OpenClawTestInstance = {
   homeDir: string;
   stateDir: string;
   configPath: string;
-  state: OpenClawTestState;
+  state: GrantedTestState;
   stdout: string[];
   stderr: string[];
-  child?: OpenClawTestProcess;
+  child?: GrantedTestProcess;
   env: NodeJS.ProcessEnv;
   entrypoint: () => Promise<string[]>;
   cli: (
     args: string[],
     options?: { timeoutMs?: number },
-  ) => Promise<OpenClawTestInstanceCommandResult>;
+  ) => Promise<GrantedTestInstanceCommandResult>;
   startGateway: () => Promise<void>;
   stopGateway: () => Promise<void>;
   logs: () => string;
@@ -85,8 +85,8 @@ type BoundedStringLog = string[] & {
   truncated?: boolean;
 };
 
-type OpenClawTestChildProcess = Pick<OpenClawTestProcess, "kill" | "pid">;
-type OpenClawTestProcessReadiness = Pick<OpenClawTestProcess, "exitCode" | "signalCode"> & {
+type GrantedTestChildProcess = Pick<GrantedTestProcess, "kill" | "pid">;
+type GrantedTestProcessReadiness = Pick<GrantedTestProcess, "exitCode" | "signalCode"> & {
   once: (event: "exit", listener: () => void) => unknown;
   off: (event: "exit", listener: () => void) => unknown;
 };
@@ -226,7 +226,7 @@ const getFreePort = async () => {
 };
 
 async function waitForGatewayReady(
-  proc: OpenClawTestProcessReadiness,
+  proc: GrantedTestProcessReadiness,
   chunksOut: string[],
   chunksErr: string[],
   port: number,
@@ -305,14 +305,11 @@ async function waitForGatewayReady(
   );
 }
 
-function hasGatewayProcessClosed(child: OpenClawTestProcess): boolean {
+function hasGatewayProcessClosed(child: GrantedTestProcess): boolean {
   return hasChildExited(child) && child.stdout.closed && child.stderr.closed;
 }
 
-async function waitForGatewayClose(
-  child: OpenClawTestProcess,
-  timeoutMs: number,
-): Promise<boolean> {
+async function waitForGatewayClose(child: GrantedTestProcess, timeoutMs: number): Promise<boolean> {
   const deadline = Date.now() + Math.max(0, timeoutMs);
   while (!hasGatewayProcessClosed(child) && Date.now() < deadline) {
     await sleep(Math.min(10, deadline - Date.now()));
@@ -321,7 +318,7 @@ async function waitForGatewayClose(
 }
 
 async function stopGatewayProcess(
-  child: OpenClawTestProcess,
+  child: GrantedTestProcess,
   deadline: number,
   stopTimeoutMs: number,
   options: GatewayProcessStopOptions = {},
@@ -393,7 +390,7 @@ async function stopGatewayProcess(
   return hasGatewayProcessClosed(child);
 }
 
-function hasChildExited(child: Pick<OpenClawTestProcess, "exitCode" | "signalCode">) {
+function hasChildExited(child: Pick<GrantedTestProcess, "exitCode" | "signalCode">) {
   return child.exitCode !== null || child.signalCode !== null;
 }
 
@@ -444,8 +441,8 @@ function createInstanceEnv(params: {
 }
 
 export async function createOpenClawTestInstance(
-  options: OpenClawTestInstanceOptions,
-): Promise<OpenClawTestInstance> {
+  options: GrantedTestInstanceOptions,
+): Promise<GrantedTestInstance> {
   const cwd = options.cwd ?? process.cwd();
   const port = options.port ?? (await getFreePort());
   const gatewayToken = options.gatewayToken ?? `gateway-${options.name}-${randomUUID()}`;
@@ -483,7 +480,7 @@ export async function createOpenClawTestInstance(
     stateEnv: state.env,
     extraEnv: options.env ?? {},
   });
-  let child: { process: OpenClawTestProcess; ready: boolean } | undefined;
+  let child: { process: GrantedTestProcess; ready: boolean } | undefined;
   let cleaned = false;
   let operation: { kind: "start" | "stop" | "cleanup"; promise: Promise<void> } | undefined;
   const enqueue = (kind: NonNullable<typeof operation>["kind"], action: () => Promise<void>) => {
@@ -508,7 +505,7 @@ export async function createOpenClawTestInstance(
     return next.promise;
   };
   const stopTimeoutMs = options.stopTimeoutMs ?? GATEWAY_STOP_TIMEOUT_MS;
-  const spawnGatewayProcess = (args: string[], attemptStderr: string[]): OpenClawTestProcess => {
+  const spawnGatewayProcess = (args: string[], attemptStderr: string[]): GrantedTestProcess => {
     const next = spawn("node", args, {
       cwd,
       env,
@@ -525,7 +522,7 @@ export async function createOpenClawTestInstance(
     return next;
   };
   const releaseGatewayChild = async (
-    target: OpenClawTestProcess,
+    target: GrantedTestProcess,
     deadline: number,
     stopOptions: GatewayProcessStopOptions = {},
   ): Promise<boolean> => {
@@ -554,7 +551,7 @@ export async function createOpenClawTestInstance(
     }
   };
 
-  const instance: OpenClawTestInstance = {
+  const instance: GrantedTestInstance = {
     name: options.name,
     port,
     url: `ws://127.0.0.1:${port}`,
@@ -663,7 +660,7 @@ async function runCommand(params: {
   cwd: string;
   env: NodeJS.ProcessEnv;
   timeoutMs: number;
-}): Promise<OpenClawTestInstanceCommandResult> {
+}): Promise<GrantedTestInstanceCommandResult> {
   const [command, ...args] = params.args;
   if (!command) {
     throw new Error("missing command");
@@ -708,7 +705,7 @@ function shouldUseOpenClawTestProcessGroup(): boolean {
 }
 
 function signalOpenClawTestProcess(
-  child: OpenClawTestChildProcess,
+  child: GrantedTestChildProcess,
   signal: NodeJS.Signals,
   killProcess: (pid: number, signal: NodeJS.Signals) => boolean = (pid, nextSignal) =>
     process.kill(pid, nextSignal),

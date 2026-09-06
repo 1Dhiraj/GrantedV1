@@ -10,8 +10,8 @@ import {
 } from "./openclaw-state-db-audit-migration.js";
 import {
   GRANTED_STATE_STRICT_SCHEMA_VERSION,
-  type OpenClawStateDatabaseOptions,
-  type OpenClawStateDatabaseSchemaMigration,
+  type GrantedStateDatabaseOptions,
+  type GrantedStateDatabaseSchemaMigration,
 } from "./openclaw-state-db-contract.js";
 import { resolveDatabasePath } from "./openclaw-state-db-maintenance.js";
 import * as operatorApprovalMigration from "./openclaw-state-db-operator-approval-migration.js";
@@ -20,7 +20,7 @@ import {
   tableHasColumn,
   tablePrimaryKeyColumns,
 } from "./openclaw-state-db-schema-helpers.js";
-import { OpenClawStateDatabaseSchemaMigrationRequiredError } from "./openclaw-state-db-schema-migration-required.js";
+import { GrantedStateDatabaseSchemaMigrationRequiredError } from "./openclaw-state-db-schema-migration-required.js";
 import { FOLDED_SINGLETON_STATE_TABLES_V12 } from "./openclaw-state-db-schema-v12-foldin.js";
 import * as sessionWatchMigration from "./openclaw-state-db-session-watch-migration.js";
 import {
@@ -313,7 +313,7 @@ export function assertCanonicalStateSchemaShape(db: DatabaseSync, pathname: stri
   operatorApprovalMigration.assertCanonicalOperatorApprovalKinds(db, pathname);
   if (!hasCanonicalAgentDatabasesPrimaryKey(db)) {
     if (canRepairAgentDatabasesPrimaryKey(db)) {
-      throw new OpenClawStateDatabaseSchemaMigrationRequiredError(
+      throw new GrantedStateDatabaseSchemaMigrationRequiredError(
         "agent-databases-composite-primary-key",
         pathname,
       );
@@ -324,7 +324,7 @@ export function assertCanonicalStateSchemaShape(db: DatabaseSync, pathname: stri
   }
   if (!hasCanonicalAuditEventsSchema(db)) {
     if (canRepairLegacyAuditEventsSchema(db)) {
-      throw new OpenClawStateDatabaseSchemaMigrationRequiredError("audit-events-v2", pathname);
+      throw new GrantedStateDatabaseSchemaMigrationRequiredError("audit-events-v2", pathname);
     }
     throw new Error(
       `OpenClaw state database ${pathname} has a noncanonical audit event schema that cannot be repaired automatically; restore the canonical audit_events shape before retrying.`,
@@ -332,8 +332,8 @@ export function assertCanonicalStateSchemaShape(db: DatabaseSync, pathname: stri
   }
 }
 export function detectOpenClawStateDatabaseSchemaMigrations(
-  options: OpenClawStateDatabaseOptions = {},
-): OpenClawStateDatabaseSchemaMigration[] {
+  options: GrantedStateDatabaseOptions = {},
+): GrantedStateDatabaseSchemaMigration[] {
   const pathname = resolveDatabasePath(options);
   if (!existsSync(pathname)) {
     return [];
@@ -355,8 +355,8 @@ export function detectOpenClawStateDatabaseSchemaMigrations(
 export function detectOpenClawStateDatabaseSchemaMigrationsFromDatabase(
   db: DatabaseSync,
   pathname: string,
-): OpenClawStateDatabaseSchemaMigration[] {
-  const migrations: OpenClawStateDatabaseSchemaMigration[] = [];
+): GrantedStateDatabaseSchemaMigration[] {
+  const migrations: GrantedStateDatabaseSchemaMigration[] = [];
   const userVersion = readSqliteUserVersion(db);
   if (
     userVersion < RETIRED_COMMITMENTS_SCHEMA_VERSION &&

@@ -2,7 +2,7 @@
 // one-shot completion wiring before requests reach the shared LLM stream path.
 import { createApiRegistry } from "@openclaw/ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { Model } from "../llm/types.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
 import {
@@ -762,7 +762,7 @@ describe("prepareSimpleCompletionModelForAgent", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       resolveSimpleCompletionSelectionForAgent({
@@ -794,7 +794,7 @@ describe("prepareSimpleCompletionModelForAgent", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const modelResolver = createOpenAIRouteModelResolver({
       api: "openai-chatgpt-responses",
       baseUrl: "https://chatgpt.com/backend-api/codex",
@@ -837,7 +837,7 @@ describe("prepareSimpleCompletionModelForAgent", () => {
   it("keeps the Codex route for OAuth auth", async () => {
     const cfg = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const modelResolver = createOpenAIRouteModelResolver({
       api: "openai-chatgpt-responses",
       baseUrl: "https://chatgpt.com/backend-api/codex",
@@ -879,7 +879,7 @@ describe("prepareSimpleCompletionModelForAgent", () => {
         },
       },
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const modelResolver = createOpenAIRouteModelResolver({
       api: "openai-responses",
       baseUrl: "https://relay.example/v1",
@@ -908,7 +908,7 @@ describe("prepareSimpleCompletionModelForAgent", () => {
   it("honors an explicit model ref while selecting its auth-compatible route", async () => {
     const cfg = {
       agents: { defaults: { model: "anthropic/claude-opus-4-6" } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const modelResolver = createOpenAIRouteModelResolver({
       api: "openai-chatgpt-responses",
       baseUrl: "https://chatgpt.com/backend-api/codex",

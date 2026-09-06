@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, describe, expect, it, onTestFinished } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   createPluginCliLoadSession,
   loadPluginCliDescriptors,
@@ -31,7 +31,7 @@ function countRegisterRuns(markerPath: string): number {
     : 0;
 }
 
-function setupCountingCliPlugin(): { config: OpenClawConfig; markerPath: string } {
+function setupCountingCliPlugin(): { config: GrantedConfig; markerPath: string } {
   useNoBundledPlugins();
   const pluginDir = makePluginLoaderTempDir();
   const markerPath = path.join(makePluginLoaderTempDir(), "register-runs.log");
@@ -59,7 +59,7 @@ module.exports = {
         load: { paths: [path.join(pluginDir, "index.cjs")] },
         allow: ["counting-cli"],
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     markerPath,
   };
 }

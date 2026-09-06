@@ -8,7 +8,7 @@ import {
 } from "../auto-reply/thinking.js";
 /** Resolves the concrete harness runtime that owns the next agent turn. */
 import type { SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAvailableAgentHarnessPolicy } from "./harness/availability.js";
 import { resolveAutoAgentHarnessId } from "./harness/support.js";
 import { resolveSessionRuntimeOverrideForProvider } from "./session-runtime-compat.js";
@@ -58,7 +58,7 @@ export function concretizeAgentRuntime(runtime: string): string {
 
 /** Resolves an explicit session override before configured model/provider policy. */
 export function resolveEffectiveAgentRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
   modelApi?: string | null;
@@ -102,7 +102,7 @@ export function resolveEffectiveAgentRuntime(params: {
 
 /** Revalidates a turn-local thinking level after fallback selects its actual model/runtime. */
 export function resolveCandidateThinkingLevel(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   modelId: string;
   level?: ThinkLevel;

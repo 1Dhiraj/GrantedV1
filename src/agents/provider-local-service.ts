@@ -12,7 +12,7 @@ import {
 } from "@openclaw/normalization-core/number-coercion";
 import { sleepWithAbort } from "@openclaw/retry";
 import type { ModelProviderLocalServiceConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { toErrorObject } from "../infra/errors.js";
 import { mergeProcessEnv } from "../infra/process-env.js";
 import type { Model } from "../llm/types.js";
@@ -95,7 +95,7 @@ export type AcquireConfiguredProviderLocalService = (
 
 /** Bind local-service acquisition to a host-owned config snapshot. */
 export function createConfiguredProviderLocalServiceAcquirer(
-  getConfig: () => OpenClawConfig,
+  getConfig: () => GrantedConfig,
 ): AcquireConfiguredProviderLocalService {
   return async (target, signal) => {
     const provider = getConfig().models?.providers?.[target.providerId];

@@ -4,7 +4,7 @@ import { optionalPositiveIntegerSchema } from "openclaw/plugin-sdk/channel-actio
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
 import { Type, type TSchema } from "typebox";
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { GrantedPluginApi } from "../runtime-api.js";
 import { createFeishuToolClient, resolveAnyEnabledFeishuToolsConfig } from "./tool-account.js";
 import { feishuExternalToolResult as json } from "./tool-result.js";
 
@@ -580,7 +580,7 @@ const UpdateRecordSchema = Type.Object({
 
 // ============ Tool Registration ============
 
-export function registerFeishuBitableTools(api: OpenClawPluginApi) {
+export function registerFeishuBitableTools(api: GrantedPluginApi) {
   if (!api.config) {
     return;
   }

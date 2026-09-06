@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { telegramBotInfoForTest } from "./bot.create-telegram-bot.test-support.js";
 
@@ -49,7 +49,7 @@ function createMembershipContext(params?: {
   };
 }
 
-function registerJoinHandler(config: OpenClawConfig) {
+function registerJoinHandler(config: GrantedConfig) {
   getLoadConfigMock().mockReturnValue(config);
   createTelegramBotCore({
     token: "tok",
@@ -65,7 +65,7 @@ describe("Telegram group join introductions", () => {
   });
 
   it("reports the bot's native group join with metadata-only room context", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       channels: {
         telegram: {
           groupPolicy: "open",

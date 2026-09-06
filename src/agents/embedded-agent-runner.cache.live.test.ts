@@ -5,7 +5,7 @@ import path from "node:path";
 import type { AssistantMessage, Message, Tool } from "openclaw/plugin-sdk/llm";
 import { Type } from "typebox";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { disposeOpenClawAgentDatabaseByPath } from "../state/openclaw-agent-db.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { prepareSystemAgentRunAdmission } from "./admitted-run-context.js";
@@ -257,7 +257,7 @@ function buildEmbeddedRunnerConfig(
     modelAlias?: string;
     transport?: "sse" | "websocket";
   },
-): OpenClawConfig {
+): GrantedConfig {
   const provider = params.model.provider;
   const modelKey = `${provider}/${params.model.id}`;
   const providerBaseUrl =

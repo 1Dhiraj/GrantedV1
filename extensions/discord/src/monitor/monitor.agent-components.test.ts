@@ -1,7 +1,7 @@
 // Discord tests cover monitor.agent components plugin behavior.
 import { ChannelType, ComponentType } from "discord-api-types/v10";
 import { expectPairingReplyText } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
 import {
   enqueueSystemEvent,
@@ -45,7 +45,7 @@ describe("agent components", () => {
     peer: { kind: "group", id: "group-dm-channel" },
   });
 
-  const createCfg = (): OpenClawConfig => ({}) as OpenClawConfig;
+  const createCfg = (): GrantedConfig => ({}) as GrantedConfig;
   const createDmInteraction = (params: { interactionId: string; data?: Record<string, unknown> }) =>
     createInteraction(
       createInternalTestClient(),

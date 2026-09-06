@@ -3,7 +3,7 @@ import type { DatabaseSync } from "node:sqlite";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 
 const ensuredDatabases = new WeakSet<DatabaseSync>();
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS meeting_transcript_summaries (
 ) STRICT;
 `;
 
-export function ensureMeetingTranscriptsSchema(options: OpenClawStateDatabaseOptions = {}): void {
+export function ensureMeetingTranscriptsSchema(options: GrantedStateDatabaseOptions = {}): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredDatabases.has(database.db)) {
     return;

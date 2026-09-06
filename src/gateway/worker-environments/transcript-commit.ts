@@ -13,7 +13,7 @@ import {
   replaceSessionEntrySync,
   withTranscriptWriteTransaction,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { KeyedAsyncQueue } from "../../plugin-sdk/keyed-async-queue.js";
 import {
   attachSessionTranscriptRunId,
@@ -30,7 +30,7 @@ import {
 } from "./transcript-commit-store.js";
 
 type WorkerTranscriptCommitterOptions = {
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   store?: WorkerTranscriptCommitStore;
 };
 
@@ -317,7 +317,7 @@ function resolvePersistedCommitAcrossDag(params: {
 }
 
 async function applyWorkerTranscriptCommit(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   identity: WorkerConnectionIdentity;
   messages: readonly CommittedAgentMessage[];
   recoverPersistedBatch: boolean;

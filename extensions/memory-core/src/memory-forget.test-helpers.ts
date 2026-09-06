@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
@@ -16,7 +16,7 @@ export async function createMemoryForgetFixture(stateDir: string) {
   await fs.mkdir(workspaceDir);
   vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   await configureMemoryCoreDreamingStateForTests();
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: { defaults: { workspace: workspaceDir }, list: [{ id: "main", default: true }] },
   };
   return { stateDir, workspaceDir, cfg };

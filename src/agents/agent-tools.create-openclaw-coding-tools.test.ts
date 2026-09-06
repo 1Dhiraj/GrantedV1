@@ -12,7 +12,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as windowsEncoding from "../infra/windows-encoding.js";
 import { readMemoryArtifactProvenance } from "../memory/memory-artifact-provenance.js";
 import {
@@ -131,14 +131,14 @@ function applyRuntimeToolsAllow<T extends { name: string }>(tools: T[], toolsAll
   return tools.filter((tool) => allowSet.has(normalizeToolPolicyName(tool.name)));
 }
 
-type OpenClawCodingTool = ReturnType<typeof createOpenClawCodingTools>[number];
-type OpenClawToolsOptions = NonNullable<Parameters<typeof createOpenClawTools>[0]>;
+type GrantedCodingTool = ReturnType<typeof createOpenClawCodingTools>[number];
+type GrantedToolsOptions = NonNullable<Parameters<typeof createOpenClawTools>[0]>;
 
 function toolNameList(tools: readonly { name: string }[]): string[] {
   return tools.map((tool) => tool.name);
 }
 
-function requireTool(tools: OpenClawCodingTool[], name: string): OpenClawCodingTool {
+function requireTool(tools: GrantedCodingTool[], name: string): GrantedCodingTool {
   const tool = tools.find((candidate) => candidate.name === name);
   if (!tool) {
     throw new Error(`expected ${name} tool`);
@@ -146,14 +146,14 @@ function requireTool(tools: OpenClawCodingTool[], name: string): OpenClawCodingT
   return tool;
 }
 
-function requireToolExecute(tool: OpenClawCodingTool): NonNullable<OpenClawCodingTool["execute"]> {
+function requireToolExecute(tool: GrantedCodingTool): NonNullable<GrantedCodingTool["execute"]> {
   if (!tool.execute) {
     throw new Error(`expected ${tool.name} tool execute`);
   }
   return tool.execute;
 }
 
-function latestCreateOpenClawToolsOptions(): OpenClawToolsOptions {
+function latestCreateOpenClawToolsOptions(): GrantedToolsOptions {
   const calls = vi.mocked(createOpenClawTools).mock.calls;
   const lastCall = calls.at(-1);
   const options = lastCall?.[0];
@@ -176,7 +176,7 @@ function expectListIncludes(
 }
 
 function cronCreatorToolNames(
-  list: OpenClawToolsOptions["cronCreatorToolAllowlist"] | undefined,
+  list: GrantedToolsOptions["cronCreatorToolAllowlist"] | undefined,
 ): string[] | undefined {
   return list?.map((entry) => (typeof entry === "string" ? entry : entry.name));
 }
@@ -268,7 +268,7 @@ describe("createOpenClawCodingTools", () => {
     },
   );
 
-  const testConfig: OpenClawConfig = {};
+  const testConfig: GrantedConfig = {};
 
   afterEach(() => {
     resetGlobalHookRunner();
@@ -1003,7 +1003,7 @@ describe("createOpenClawCodingTools", () => {
     const childSessionId = "verified-child-session";
     const modelProvider = "openai";
     const modelId = "gpt-5.4";
-    const config: OpenClawConfig = { session: { store: storeTemplate } };
+    const config: GrantedConfig = { session: { store: storeTemplate } };
     const inputProvenance = {
       kind: "inter_session" as const,
       sourceSessionKey: childSessionKey,
@@ -1648,7 +1648,7 @@ describe("createOpenClawCodingTools", () => {
   it("materializes additive runtime tools while preserving normal deny policy", () => {
     const createOpenClawToolsMock = vi.mocked(createOpenClawTools);
     createOpenClawToolsMock.mockClear();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       tools: {
         profile: "coding",
         deny: ["workboard_block"],
@@ -1823,7 +1823,7 @@ describe("createOpenClawCodingTools", () => {
     const createOpenClawToolsMock = vi.mocked(createOpenClawTools);
     createOpenClawToolsMock.mockClear();
     const cronCreatorToolAllowlistRef: NonNullable<
-      OpenClawToolsOptions["cronCreatorToolAllowlist"]
+      GrantedToolsOptions["cronCreatorToolAllowlist"]
     > = [];
 
     createOpenClawCodingTools({
@@ -1948,7 +1948,7 @@ describe("createOpenClawCodingTools", () => {
     });
     expect(toolNameList(codexTools)).toContain("apply_patch");
 
-    const disabledConfig: OpenClawConfig = {
+    const disabledConfig: GrantedConfig = {
       tools: {
         exec: {
           applyPatch: { enabled: false },
@@ -1969,7 +1969,7 @@ describe("createOpenClawCodingTools", () => {
     });
     expect(toolNameList(anthropicTools)).not.toContain("apply_patch");
 
-    const allowModelsConfig: OpenClawConfig = {
+    const allowModelsConfig: GrantedConfig = {
       tools: {
         exec: {
           applyPatch: { allowModels: ["gpt-5.4"] },
@@ -2201,7 +2201,7 @@ describe("createOpenClawCodingTools", () => {
         tools: { profile: "full" },
         browser: { enabled: true },
         plugins: { entries: { browser: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const names = new Set(tools.map((tool) => tool.name));
     // full profile must not filter any tools — browser, canvas, etc. must be present.
@@ -2217,7 +2217,7 @@ describe("createOpenClawCodingTools", () => {
         tools: { profile: "full" },
         browser: { enabled: true },
         plugins: { entries: { browser: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const names = new Set(tools.map((tool) => tool.name));
     expect(names.has("browser")).toBe(true);
@@ -2232,7 +2232,7 @@ describe("createOpenClawCodingTools", () => {
       config: {
         browser: { enabled: true },
         plugins: { entries: { browser: { enabled: true } } },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     const names = new Set(tools.map((tool) => tool.name));
     // No profile means no profile filtering — all tools pass.
@@ -2244,7 +2244,7 @@ describe("createOpenClawCodingTools", () => {
       browser: { enabled: true },
       plugins: { entries: { browser: { enabled: true } } },
       tools: { profile: "coding" },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const codingSubagent = createOpenClawCodingTools({
       sessionKey: "agent:main:subagent:test",
       config: baseConfig,
@@ -2260,7 +2260,7 @@ describe("createOpenClawCodingTools", () => {
           profile: "coding",
           subagents: { tools: { allow: ["browser"] } },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     expect(toolNameList(subagentAllowOnly)).not.toContain("browser");
 
@@ -2269,7 +2269,7 @@ describe("createOpenClawCodingTools", () => {
       config: {
         ...baseConfig,
         tools: { profile: "coding", alsoAllow: ["browser"] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
     expect(toolNameList(profileStageAlsoAllow)).toContain("browser");
   });
@@ -2312,7 +2312,7 @@ describe("createOpenClawCodingTools", () => {
       config: {
         messages: { visibleReplies: "message_tool" },
         tools: { profile: "coding" },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       trigger: "heartbeat",
     });
 

@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { tryResolveSessionCompatibilityOwnerAgentId } from "../session-request-agent.js";
 
 export function resolveChatSendStopOwnerScope(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   selectedAgentId?: string;
   sessionKey: string;
 }): { agentId?: string; defaultAgentId?: string } {

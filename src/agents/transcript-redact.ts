@@ -5,7 +5,7 @@ import { OPENAI_RESPONSES_APIS } from "@openclaw/ai/internal/openai-responses-pa
  * Applies logging redaction rules to persisted messages while preserving unchanged object identity.
  */
 import { findNormalizedProviderValue } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readLoggingConfig } from "../logging/config.js";
 import { redactSourceInputTextWithConfig } from "../logging/redact-source.js";
 import {
@@ -32,7 +32,7 @@ import {
 } from "./transcript-redact-images.js";
 import { sanitizeCompactionReplayState } from "./transcript-redact-replay.js";
 
-function resolveTranscriptLoggingConfig(cfg?: OpenClawConfig) {
+function resolveTranscriptLoggingConfig(cfg?: GrantedConfig) {
   const configuredLogging = readLoggingConfig();
   const redactPatterns = cfg?.logging?.redactPatterns ?? configuredLogging?.redactPatterns;
   return redactPatterns ? { redactPatterns } : undefined;
@@ -40,7 +40,7 @@ function resolveTranscriptLoggingConfig(cfg?: OpenClawConfig) {
 
 function redactTranscriptText(
   value: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   modelVisibleToolResult = false,
 ): string {
   const loggingConfig = resolveTranscriptLoggingConfig(cfg);
@@ -52,7 +52,7 @@ function redactTranscriptText(
 function redactTranscriptStructuredFieldValue(
   key: string,
   value: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   modelVisibleToolResult = false,
 ): string {
   // Preserve pagination state only in transcripts; value-pattern and global log redaction remain.
@@ -199,7 +199,7 @@ function isGoogleThoughtSignature(value: string): boolean {
 
 function resolveTranscriptAssistantRoute(
   source: Record<string, unknown>,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
 ): TranscriptAssistantRoute {
   const api = typeof source.api === "string" ? source.api : undefined;
   const model = typeof source.model === "string" ? source.model : undefined;
@@ -485,7 +485,7 @@ function sanitizeOpenAICompletionsToolSignature(
 
 function redactTranscriptStructuredValue(
   value: unknown,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   fieldKey?: string,
   seen: WeakSet<object> = new WeakSet<object>(),
   preserveImageDataUrlFields = false,
@@ -727,7 +727,7 @@ function redactTranscriptStructuredValue(
 /** Return a redacted transcript message according to logging config. */
 export function redactTranscriptMessage(
   message: AgentMessage,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   sourceAppend?: CodeModeSourceAppend,
 ): AgentMessage {
   const redacted = redactTranscriptStructuredValue(

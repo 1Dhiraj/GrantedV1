@@ -6,5 +6,5 @@ export {
   getRuntimeConfigSourceSnapshot,
   mutateConfigFile,
   type BrowserProfileConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../sdk-config.js";

@@ -6,7 +6,7 @@ import path from "node:path";
 import { sanitizeSurrogates } from "@openclaw/ai/internal/shared";
 import { stableStringify } from "@openclaw/normalization-core";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveUserPath } from "../utils.js";
 import { parseBooleanValue } from "../utils/boolean.js";
 import { safeJsonStringify } from "../utils/safe-json.js";
@@ -66,7 +66,7 @@ type CacheTrace = {
 };
 
 type CacheTraceInit = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   runId?: string;
   sessionId?: string;

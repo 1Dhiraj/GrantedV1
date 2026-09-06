@@ -7,7 +7,7 @@ import {
   claimAgentSessionWriter,
 } from "../agents/embedded-agent-runner/run/session-bootstrap.js";
 import { resolveAgentRunSessionTarget } from "../agents/run-session-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import type { ActivateSetupInferenceDeps } from "./setup-inference-core.js";
@@ -29,7 +29,7 @@ describe("setup completion session ownership", () => {
       const root = tempRoots.make("openclaw-setup-completion-");
       const stateDir = path.join(root, "state");
       vi.stubEnv("GRANTED_STATE_DIR", stateDir);
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           ownership: "explicit",
           entries: { research: {} },

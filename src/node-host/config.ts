@@ -10,10 +10,10 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { readConfigMachineStateWithMetadata } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   normalizeNodeHostCloudflareAccessConfig,
@@ -45,9 +45,9 @@ export const NODE_HOST_CONFIG_KEY = "nodeHost.config";
 export const LEGACY_NODE_HOST_CONFIG_FILE = "node.json";
 export const LEGACY_NODE_HOST_CONFIG_CLAIM_SUFFIX = ".doctor-importing";
 
-type NodeHostConfigDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type NodeHostConfigDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 
-function databaseOptions(env: NodeJS.ProcessEnv): OpenClawStateDatabaseOptions {
+function databaseOptions(env: NodeJS.ProcessEnv): GrantedStateDatabaseOptions {
   return { env };
 }
 

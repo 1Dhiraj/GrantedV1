@@ -1,11 +1,11 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { t } from "../wizard/i18n/index.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { getSecurityNoteTitle } from "../wizard/setup.security-note.js";
 import { requestTelemetryConsent, requireRiskAcknowledgement } from "../wizard/setup.shared.js";
 import type { OnboardOptions } from "./onboard-types.js";
 
-async function persistRiskAcknowledgement(config: OpenClawConfig): Promise<string | undefined> {
+async function persistRiskAcknowledgement(config: GrantedConfig): Promise<string | undefined> {
   const securityAcknowledgedAt = config.wizard?.securityAcknowledgedAt;
   if (!securityAcknowledgedAt) {
     return undefined;
@@ -27,10 +27,10 @@ async function persistRiskAcknowledgement(config: OpenClawConfig): Promise<strin
 export async function requestGuidedOnboardingConsent(params: {
   opts: OnboardOptions;
   prompter: WizardPrompter;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   offerQuickstart: boolean;
-  persistRiskAcknowledgement?: (config: OpenClawConfig) => Promise<string | void>;
-}): Promise<{ quickstart: boolean; config: OpenClawConfig; securityAcknowledgedAt: string }> {
+  persistRiskAcknowledgement?: (config: GrantedConfig) => Promise<string | void>;
+}): Promise<{ quickstart: boolean; config: GrantedConfig; securityAcknowledgedAt: string }> {
   const { opts, prompter, config: existingConfig, offerQuickstart } = params;
   let quickstart = false;
   if (offerQuickstart) {

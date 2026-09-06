@@ -11,7 +11,7 @@ import type {
   BoardWidgetAppViewResult,
   BoardWidgetPutResult,
 } from "../../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import {
@@ -53,7 +53,7 @@ async function readExecutedMarkers(eventPath: string): Promise<string[]> {
     );
 }
 
-function appConfig(cfg: OpenClawConfig, fixture: HttpFixture): OpenClawConfig {
+function appConfig(cfg: GrantedConfig, fixture: HttpFixture): GrantedConfig {
   return {
     ...cfg,
     mcp: {

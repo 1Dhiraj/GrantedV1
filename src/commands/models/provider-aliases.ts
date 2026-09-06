@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   loadPluginManifestRegistryCore,
   type PluginManifestRecord,
@@ -11,7 +11,7 @@ import { loadPluginManifest, type PluginManifestModelCatalog } from "../../plugi
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.js";
 
 type ProviderAliasSource = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   metadataSnapshot?: Pick<PluginMetadataSnapshot, "manifestRegistry">;
 };
 

@@ -7,11 +7,11 @@ import {
 } from "../infra/kysely-sync.js";
 import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { resolveUserPath } from "../utils.js";
@@ -88,7 +88,7 @@ type WorkspaceStateDeletionPlan = {
 };
 
 type WorkspaceStateDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   | "workspace_setup_state"
   | "workspace_path_aliases"
   | "workspace_generated_bootstrap_hashes"
@@ -301,7 +301,7 @@ function readSnapshotFromDatabase(params: {
 
 export function readWorkspaceStateSnapshot(
   workspaceDir: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): WorkspaceStateSnapshot {
   if (options.readOnly) {
     const snapshot = withExistingOpenClawStateDatabaseReadOnly(
@@ -371,7 +371,7 @@ export function mergeWorkspaceSetupState(
   workspaceDir: string,
   next: Partial<Omit<WorkspaceSetupState, "version">>,
   nowMs = Date.now(),
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): WorkspaceSetupState {
   assertCanonicalIntegerTimestamp(nowMs, "setup update");
   if (next.bootstrapSeededAt) {

@@ -5,7 +5,7 @@ import {
   transformConfigFileWithRetry,
   validateConfigObjectWithPlugins,
 } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   resolvePluginCapabilityConsent,
   type PluginCapabilityConsentHandler,
@@ -24,7 +24,7 @@ export function formatAutoReplyConfigMutationError(error: unknown): string | nul
 function assertValidConfig(
   next: Record<string, unknown>,
   action: string,
-): { config: OpenClawConfig } {
+): { config: GrantedConfig } {
   const validated = validateConfigObjectWithPlugins(next);
   if (!validated.ok) {
     const issue = expectDefined(validated.issues[0], "issues entry at 0");
@@ -80,7 +80,7 @@ export async function setPluginEnabledFromCommand(params: {
   enabled: boolean;
   action: "enable" | "disable";
   onCapabilityConsent?: PluginCapabilityConsentHandler;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const committed = await transformConfigFileWithRetry({
     afterWrite: { mode: "auto" },
     transform: async (currentConfig) => {
@@ -113,7 +113,7 @@ type AllowlistConfigEditResult =
 type MaybePromise<T> = T | Promise<T>;
 
 type ApplyAllowlistConfigEdit = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   parsedConfig: Record<string, unknown>;
   accountId?: string | null;
   scope: "dm" | "group";
@@ -123,7 +123,7 @@ type ApplyAllowlistConfigEdit = (params: {
 
 /** Applies a channel allowlist edit through a plugin-provided config mutation hook. */
 export async function applyAllowlistConfigMutation(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   scope: "dm" | "group";
   action: "add" | "remove";

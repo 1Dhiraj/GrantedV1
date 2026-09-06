@@ -1,5 +1,5 @@
 // Memory Core tests cover embeddings plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { EmbeddingProviderAdapter } from "openclaw/plugin-sdk/embedding-providers";
 import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type { MemoryEmbeddingProviderAdapter } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
@@ -14,7 +14,7 @@ import {
 const mockEmbeddingRegistry = vi.hoisted(() => ({
   genericAdapters: [] as EmbeddingProviderAdapter[],
   adapters: [] as MemoryEmbeddingProviderAdapter[],
-  genericLookupConfigs: [] as Array<OpenClawConfig | undefined>,
+  genericLookupConfigs: [] as Array<GrantedConfig | undefined>,
   acquireLocalService: vi.fn(async () => undefined),
 }));
 
@@ -23,7 +23,7 @@ vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", () => ({
   createLocalEmbeddingProvider: async () => {
     throw new Error("local embedding provider is not used by these tests");
   },
-  getMemoryEmbeddingProvider: (id: string, config?: OpenClawConfig) => {
+  getMemoryEmbeddingProvider: (id: string, config?: GrantedConfig) => {
     const memoryAdapter = mockEmbeddingRegistry.adapters.find((adapter) => adapter.id === id);
     if (memoryAdapter) {
       return memoryAdapter;
@@ -64,7 +64,7 @@ function createOptions(
           "voyage",
         ],
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     agentDir: "/tmp/openclaw-agent",
     provider,
     fallback: "none",
@@ -246,7 +246,7 @@ describe("createEmbeddingProvider", () => {
       const config = {
         ...primaryOptions.config,
         models: { providers: { [fallback]: fallbackProviderConfig } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const local = { modelPath: "/tmp/synthetic-memory-model.gguf", contextSize: 2048 };
 
       const result = await createEmbeddingProvider({

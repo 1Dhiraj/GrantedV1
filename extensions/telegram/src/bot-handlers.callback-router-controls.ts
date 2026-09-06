@@ -5,7 +5,7 @@ import {
 } from "openclaw/plugin-sdk/approval-gateway-runtime";
 import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
 import type { parseExecApprovalCommandText } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   buildPluginBindingResolvedText,
   parsePluginBindingApprovalCustomId,
@@ -88,7 +88,7 @@ type LegacyApprovalCallback = NonNullable<ReturnType<typeof parseExecApprovalCom
 export function createTelegramCallbackApprovalRuntime(params: {
   accountId: RegisterTelegramHandlerParams["accountId"];
   telegramDeps: RegisterTelegramHandlerParams["telegramDeps"];
-  runtimeCfg: OpenClawConfig;
+  runtimeCfg: GrantedConfig;
   senderId: string;
   actions: TelegramCallbackMessageActions;
 }) {

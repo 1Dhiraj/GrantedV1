@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TrustedMessageAuditEvent } from "../../audit/message-audit-events.js";
 import { onTrustedMessageAuditEventForTest as onTrustedMessageAuditEvent } from "../../audit/message-audit-events.test-support.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -43,7 +43,7 @@ async function deliverPartialMatrixBatch(sendMatrix: ReturnType<typeof vi.fn>, t
   process.env.GRANTED_STATE_DIR = tmpDir;
   await expect(
     deliverOutboundPayloads({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix",
       to: "!room:example",
       payloads: [{ text: "first" }, { text: "second" }],
@@ -103,7 +103,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const deliver = vi.fn<DeliverFn>(async () => []);
     await drainMatrixReconnect({ deliver, stateDir: tmpDir });
     await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,
@@ -142,7 +142,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await drainMatrixReconnect({ deliver, stateDir: tmpDir });
     await recoverPendingDeliveries({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       deliver,
       log: createRecoveryLog(),
       stateDir: tmpDir,
@@ -201,7 +201,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "" }],
@@ -377,7 +377,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "regenerated replay must never reach the recipient" }],
@@ -451,7 +451,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [
@@ -486,7 +486,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "stable-message" });
     const deliveryIntentId = "cron-direct-delivery:v1:stable-completion";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "send once" }],
@@ -512,7 +512,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "stable-best-effort-message" });
     const deliveryIntentId = "cron-direct-delivery:v1:best-effort-stable-completion";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "best-effort send once" }],
@@ -550,7 +550,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     );
     const deliveryIntentId = "cron-direct-delivery:v1:concurrent-stable-completion";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "send exactly once" }],
@@ -586,7 +586,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const onError = vi.fn();
     const deliveryIntentId = "cron-direct-delivery:v1:best-effort-partial-send";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "sent first" }, { text: "failed second" }],
@@ -621,7 +621,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "", toJid: "!route-only:example" });
     const deliveryIntentId = "cron-direct-delivery:v1:no-platform-identity";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "provider returned no message identity" }],
@@ -654,7 +654,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
       .mockResolvedValueOnce({});
     const deliveryIntentId = "cron-direct-delivery:v1:live-matrix-partial-no-identity";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "confirmed recipient message" }, { text: "ambiguous message" }],
@@ -703,7 +703,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
       await expect(
         deliverOutboundPayloads({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           channel: "matrix",
           to: "!room:example",
           payloads: [{ text: "never falsely report this recipient delivery" }],
@@ -729,7 +729,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "preserve this delivery until reconciliation" }],
@@ -752,7 +752,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "cancel before provider dispatch" }],
@@ -785,7 +785,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
         .mockRejectedValueOnce(cause);
       const deliveryIntentId = `cron-direct-delivery:v1:partial-${failureKind.replaceAll(" ", "-")}-no-replay`;
       const params = {
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix" as const,
         to: "!room:example",
         payloads: [{ text: "already visible" }, { text: "later terminal failure" }],
@@ -826,7 +826,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
       .mockResolvedValueOnce({ messageId: "recovered-stable-message" });
     const deliveryIntentId = "cron-direct-delivery:v1:safe-retry";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "safe retry" }],
@@ -859,7 +859,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     const sendMatrix = vi.fn().mockRejectedValue(new Error("provider result was lost"));
     const deliveryIntentId = "cron-direct-delivery:v1:unknown-platform-outcome";
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "ambiguous send" }],
@@ -937,7 +937,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
 
     await expect(
       deliverOutboundPayloads({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         channel: "matrix",
         to: "!room:example",
         payloads: [{ text: "NO_REPLY" }, { text: "visible" }],
@@ -972,7 +972,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   ) => {
     process.env.GRANTED_STATE_DIR = tmpDir;
     const failure = await deliverOutboundPayloads({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix",
       to: "!room:example",
       payloads: [{ text: "first" }],

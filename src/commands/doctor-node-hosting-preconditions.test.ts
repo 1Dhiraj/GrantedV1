@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { registerAgentHarness } from "../agents/harness/registry.js";
 import type { AgentHarness } from "../agents/harness/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import {
   getActivePluginRegistry,
@@ -13,7 +13,7 @@ import { collectNodeHostingPreconditionFindings } from "./doctor-node-hosting-pr
 
 const originalPluginRegistry = getActivePluginRegistry();
 
-function findingsFor(cfg: OpenClawConfig) {
+function findingsFor(cfg: GrantedConfig) {
   return collectNodeHostingPreconditionFindings(cfg);
 }
 
@@ -76,7 +76,7 @@ describe("node-hosting preconditions", () => {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 
   it.each([
     {
@@ -126,7 +126,7 @@ describe("node-hosting preconditions", () => {
     },
   ] satisfies Array<{
     name: string;
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     requirements: string[];
   }>)("warns when $name", ({ cfg, requirements }) => {
     expect(findingsFor(cfg).map((finding) => finding.requirement)).toEqual(requirements);
@@ -165,7 +165,7 @@ describe("node-hosting preconditions", () => {
       },
       requirement: "device-session-runtime",
     },
-  ] satisfies Array<{ name: string; cfg: OpenClawConfig; requirement: string }>)(
+  ] satisfies Array<{ name: string; cfg: GrantedConfig; requirement: string }>)(
     "warns when $name",
     ({ cfg, requirement }) => {
       expect(findingsFor(cfg).map((finding) => finding.requirement)).toContain(requirement);

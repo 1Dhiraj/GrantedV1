@@ -1,7 +1,7 @@
 // Google setup module handles plugin onboarding behavior.
 import {
   applyAgentDefaultModelPrimary,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 
 export const GOOGLE_GEMINI_DEFAULT_MODEL = "google/gemini-3.1-pro-preview";
@@ -23,7 +23,7 @@ function isRetiredGeminiModelRef(value: unknown): boolean {
   return modelRef.endsWith("/gemini-3-pro") || modelRef.endsWith("/gemini-3-pro-preview");
 }
 
-function hasRetiredGeminiDefaultModelRefs(cfg: OpenClawConfig): boolean {
+function hasRetiredGeminiDefaultModelRefs(cfg: GrantedConfig): boolean {
   const defaults = cfg.agents?.defaults;
   const model = defaults?.model as unknown;
   if (model && typeof model === "object") {
@@ -56,8 +56,8 @@ function hasRetiredGeminiDefaultModelRefs(cfg: OpenClawConfig): boolean {
   );
 }
 
-export function applyGoogleGeminiModelDefault(cfg: OpenClawConfig): {
-  next: OpenClawConfig;
+export function applyGoogleGeminiModelDefault(cfg: GrantedConfig): {
+  next: GrantedConfig;
   changed: boolean;
 } {
   const current = cfg.agents?.defaults?.model as unknown;

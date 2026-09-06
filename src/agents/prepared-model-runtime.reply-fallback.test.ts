@@ -12,14 +12,14 @@ import type { RunPreparedReplyParams } from "../auto-reply/reply/get-reply-run.t
 import { bindPreparedReplyDispatchRuntime } from "../auto-reply/reply/prepared-reply-dispatch-context.js";
 import type { FollowupRun } from "../auto-reply/reply/queue.js";
 import { createPluginMetadataSnapshot } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { listRuntimePluginIdsFromRegistry } from "../plugins/active-runtime-registry.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { createPluginRecord } from "../plugins/status.test-helpers.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import * as agentScope from "./agent-scope.js";
 import { resolveAgentRuntimePluginLoadPlan } from "./harness/runtime-plugin-load-plan.js";
@@ -43,7 +43,7 @@ vi.mock("../auto-reply/reply/get-reply-run-execute.js", () => ({
 }));
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("prepared reply fallback ownership", () => {
   beforeEach(async () => {
@@ -77,7 +77,7 @@ describe("prepared reply fallback ownership", () => {
   ] as const)(
     "admits $scope routes with source=$source, locked=$locked without widening execution policy",
     async ({ scope, source, locked }) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           entries: {
             default:

@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PreparedWorkspaceSkillMutation } from "../lifecycle/workspace-skill-write.js";
 import type {
   SkillCollectionPlanEntry,
@@ -21,7 +21,7 @@ export async function prepareCollectionCreateProposals(params: {
   current: readonly WritableSkillCollectionEntry[];
   plan: readonly SkillCollectionPlanEntry[];
   prepared: readonly PreparedWorkspaceSkillMutation[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   env?: NodeJS.ProcessEnv;
 }): Promise<Map<string, SkillProposalReadResult>> {

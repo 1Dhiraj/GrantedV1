@@ -1,6 +1,6 @@
 // Covers embedding provider runtime hooks supplied by plugins.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   clearEmbeddingProviders,
   registerEmbeddingProvider,
@@ -92,7 +92,7 @@ describe("embedding provider runtime resolution", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(runtimeModule.getEmbeddingProvider("tenant-embeddings", cfg)?.id).toBe(
       "openai-compatible",
@@ -116,7 +116,7 @@ describe("embedding provider runtime resolution", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     mocks.resolvePluginCapabilityProvider.mockImplementation(({ providerId }) =>
       providerId === "tenant-embeddings" ? adapter : undefined,
     );

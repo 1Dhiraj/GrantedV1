@@ -13,7 +13,7 @@ import { tryResolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveExecDefaults } from "../agents/exec-defaults.js";
 import { resolveSandboxConfigForAgent } from "../agents/sandbox/config.js";
 import type { ChannelPlugin } from "../channels/plugins/types.plugin.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/config.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/config.js";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
 import { copyConfigResolutionFacts } from "../config/resolution-facts.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
@@ -88,8 +88,8 @@ type AgentSkillMcpBoundaryCandidate =
 export type { SecurityAuditReport } from "./audit.types.js";
 
 type SecurityAuditOptions = {
-  config: OpenClawConfig;
-  sourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  sourceConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   platform?: NodeJS.Platform;
   deep?: boolean;
@@ -124,8 +124,8 @@ type SecurityAuditOptions = {
 };
 
 type AuditExecutionContext = {
-  cfg: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  cfg: GrantedConfig;
+  sourceConfig: GrantedConfig;
   env: NodeJS.ProcessEnv;
   platform: NodeJS.Platform;
   includeFilesystem: boolean;
@@ -245,9 +245,9 @@ function normalizeSuppressionText(value: string | undefined): string {
 }
 
 async function materializeAuditGatewayAuthRefs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const materializeParams = {
     cfg: params.cfg,
     env: params.env,
@@ -267,7 +267,7 @@ async function materializeAuditGatewayAuthRefs(params: {
   }
 }
 
-function shouldMaterializeHooksGatewayAuthRefs(cfg: OpenClawConfig): boolean {
+function shouldMaterializeHooksGatewayAuthRefs(cfg: GrantedConfig): boolean {
   return cfg.hooks?.enabled === true && Boolean(normalizeOptionalString(cfg.hooks.token));
 }
 
@@ -471,8 +471,8 @@ async function collectFilesystemFindings(params: {
 }
 
 function collectGatewayConfigFindings(
-  cfg: OpenClawConfig,
-  sourceConfig: OpenClawConfig,
+  cfg: GrantedConfig,
+  sourceConfig: GrantedConfig,
   env: NodeJS.ProcessEnv,
   options: { gatewayAuthOverride?: SecurityAuditGatewayAuthOverride } = {},
 ): SecurityAuditFinding[] {
@@ -574,7 +574,7 @@ async function collectPluginSecurityAuditFindings(
   return collectorResults.flat();
 }
 
-function collectElevatedFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectElevatedFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const enabled = cfg.tools?.elevated?.enabled;
   const allowFrom = cfg.tools?.elevated?.allowFrom ?? {};
@@ -609,7 +609,7 @@ function collectElevatedFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   return findings;
 }
 
-function collectExecRuntimeFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectExecRuntimeFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const globalExecHost = cfg.tools?.exec?.host;
   const globalStrictInlineEval = cfg.tools?.exec?.strictInlineEval === true;
@@ -927,7 +927,7 @@ function collectExecRuntimeFindings(cfg: OpenClawConfig): SecurityAuditFinding[]
   return findings;
 }
 
-function collectAgentRosterFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
+function collectAgentRosterFindings(cfg: GrantedConfig): SecurityAuditFinding[] {
   const agents = listAgentEntries(cfg);
   // A missing roster is the supported pre-roster compatibility state and is
   // materialized by config loading. An explicitly authored empty roster is invalid.
@@ -964,7 +964,7 @@ function formatNamesPreview(names: readonly string[]): string {
   return `${visible.join(", ")}${suffix}`;
 }
 
-function listConfiguredMcpServerNames(cfg: OpenClawConfig): string[] {
+function listConfiguredMcpServerNames(cfg: GrantedConfig): string[] {
   return Object.entries(cfg.mcp?.servers ?? {})
     .filter(([, server]) => server?.enabled !== false)
     .map(([name]) => name)
@@ -1020,7 +1020,7 @@ function hasOwnSkillsAllowlist(entry: object | undefined): boolean {
   return Boolean(entry && Object.hasOwn(entry, "skills"));
 }
 
-function collectAgentSkillMcpBoundaryScopes(cfg: OpenClawConfig): AgentSkillMcpBoundaryScope[] {
+function collectAgentSkillMcpBoundaryScopes(cfg: GrantedConfig): AgentSkillMcpBoundaryScope[] {
   const agents = listAgentEntries(cfg);
   const defaultsHaveSkillAllowlist = hasOwnSkillsAllowlist(cfg.agents?.defaults);
   const candidates: AgentSkillMcpBoundaryCandidate[] = [
@@ -1087,7 +1087,7 @@ function collectAgentSkillMcpBoundaryScopes(cfg: OpenClawConfig): AgentSkillMcpB
 }
 
 async function collectAgentSkillMcpBoundaryFindings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
 }): Promise<SecurityAuditFinding[]> {
   const scopes = collectAgentSkillMcpBoundaryScopes(params.cfg);
@@ -1146,7 +1146,7 @@ async function collectAgentSkillMcpBoundaryFindings(params: {
   return findings;
 }
 
-function collectOpenExecSurfacePaths(cfg: OpenClawConfig): string[] {
+function collectOpenExecSurfacePaths(cfg: GrantedConfig): string[] {
   const channels = asNullableRecord(cfg.channels);
   if (!channels) {
     return [];
@@ -1214,7 +1214,7 @@ function collectInterpreterAllowlistHits(params: {
 }
 
 async function maybeProbeGateway(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   timeoutMs: number;
   probe: ProbeGatewayFn;

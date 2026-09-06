@@ -27,7 +27,7 @@ import {
   resolveScopeRequireMention,
 } from "openclaw/plugin-sdk/channel-policy";
 import { hasControlCommand } from "openclaw/plugin-sdk/command-auth-native";
-import type { DmPolicy, GroupPolicy, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DmPolicy, GroupPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveChannelContextVisibilityMode } from "openclaw/plugin-sdk/context-visibility-runtime";
 import type { ConfiguredBindingRouteResult } from "openclaw/plugin-sdk/conversation-runtime";
 import { createChannelHistoryWindow, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
@@ -400,7 +400,7 @@ type IMessageInboundDecision =
   | IMessageInboundDispatchDecision;
 
 export async function resolveIMessageInboundDecision(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   message: IMessagePayload;
   opts?: Pick<MonitorIMessageOpts, "requireMention">;
@@ -896,7 +896,7 @@ export async function resolveIMessageInboundDecision(params: {
 }
 
 export async function buildIMessageInboundContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountService: IMessageService | undefined;
   decision: IMessageInboundDispatchDecision;
   message: IMessagePayload;

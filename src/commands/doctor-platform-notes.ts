@@ -5,7 +5,7 @@ import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasConfiguredSecretInput } from "../config/types.secrets.js";
 import { findStaleOpenClawUpdateLaunchdJobs } from "../daemon/launchd.js";
 import { resolveGatewayService, type GatewayService } from "../daemon/service.js";
@@ -117,7 +117,7 @@ async function launchctlGetenv(name: string): Promise<string | undefined> {
   }
 }
 
-function hasConfigGatewayCreds(cfg: OpenClawConfig): boolean {
+function hasConfigGatewayCreds(cfg: GrantedConfig): boolean {
   const localPassword = cfg.gateway?.auth?.password;
   const remoteToken = cfg.gateway?.remote?.token;
   const remotePassword = cfg.gateway?.remote?.password;
@@ -131,7 +131,7 @@ function hasConfigGatewayCreds(cfg: OpenClawConfig): boolean {
 
 /** Returns a warning for host-wide launchctl gateway auth env overrides. */
 async function collectMacLaunchctlGatewayEnvOverrideWarning(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: {
     platform?: NodeJS.Platform;
     getenv?: (name: string) => Promise<string | undefined>;
@@ -179,7 +179,7 @@ async function collectMacLaunchctlGatewayEnvOverrideWarning(
 
 /** Emits macOS launchctl gateway auth override warnings. */
 export async function noteMacLaunchctlGatewayEnvOverrides(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: {
     platform?: NodeJS.Platform;
     getenv?: (name: string) => Promise<string | undefined>;
@@ -209,7 +209,7 @@ async function resolveGatewayServiceEnvForPlatformNotes(deps?: {
 
 /** Collects all macOS gateway platform warnings without emitting notes. */
 export async function collectMacGatewayPlatformWarnings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps?: {
     platform?: NodeJS.Platform;
     env?: NodeJS.ProcessEnv;

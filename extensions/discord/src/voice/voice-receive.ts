@@ -1,4 +1,4 @@
-import type { OpenClawConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
 import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
@@ -51,7 +51,7 @@ export class DiscordVoiceReceive {
       accountId: string;
       admissionAllowFrom?: string[];
       botUserId: () => string | undefined;
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       client: Client;
       discordConfig: DiscordAccountConfig;
       getSession: (guildId: string) => VoiceSessionEntry | undefined;

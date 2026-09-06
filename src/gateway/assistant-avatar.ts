@@ -4,7 +4,7 @@ import {
   type OpenedLocalAgentAvatarFile,
 } from "../agents/identity-avatar-file.js";
 import type { AgentAvatarResolution } from "../agents/identity-avatar.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isRenderableAvatarImageDataUrl } from "../shared/avatar-limits.js";
 import {
   hasAvatarUriScheme,
@@ -35,7 +35,7 @@ type OpenGatewayAssistantAvatarProjection = {
 
 const gatewayAvatarDataUrlCache = createGatewayAvatarDataUrlCache();
 
-function resolveSameOriginAvatarUrl(cfg: OpenClawConfig, source: string): string | undefined {
+function resolveSameOriginAvatarUrl(cfg: GrantedConfig, source: string): string | undefined {
   const basePath = cfg.gateway?.controlUi?.basePath;
   const unbased = matchControlUiResourceUrl("agentAvatar", source);
   if (unbased) {
@@ -49,7 +49,7 @@ function resolveSameOriginAvatarUrl(cfg: OpenClawConfig, source: string): string
  * A projection with `openedFile` transfers fd ownership to the caller.
  */
 export function openGatewayAssistantAvatar(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   identity: GatewayAssistantIdentity;
 }): OpenGatewayAssistantAvatarProjection {
   const { cfg, identity } = params;
@@ -85,7 +85,7 @@ export function openGatewayAssistantAvatar(params: {
 
 /** Resolve one selected identity avatar and its matching public metadata. */
 export function resolveGatewayAssistantAvatar(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   identity: GatewayAssistantIdentity;
 }): GatewayAssistantAvatarProjection {
   const { cfg, identity } = params;

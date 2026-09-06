@@ -5,7 +5,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { probeGatewayStatus } from "../cli/daemon-cli/probe.js";
 import { compareCliGatewayStateDirs, type GatewayHello } from "../cli/state-dir-gateway-check.js";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildGatewayConnectionDetails,
   buildGatewayProbeConnectionDetails,
@@ -80,7 +80,7 @@ function noteCliGatewayVersionSkew(status: StatusSummary | undefined): void {
  */
 export async function checkGatewayHealth(params: {
   runtime: RuntimeEnv;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs?: number;
 }): Promise<{ healthOk: boolean; authenticated: boolean; status?: StatusSummary }> {
   const timeoutMs =
@@ -228,7 +228,7 @@ export async function checkGatewayHealth(params: {
 
 /** Probes gateway memory readiness without forcing deep embedding checks. */
 export async function probeGatewayMemoryStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs?: number;
 }): Promise<GatewayMemoryProbe> {
   const timeoutMs =

@@ -1,7 +1,7 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 type CronOwnerRefusalDeps = Pick<
   typeof import("../infra/gateway-lock.js"),
@@ -54,7 +54,7 @@ async function loadDefaultDeps(): Promise<CronOwnerRefusalDeps> {
 }
 
 async function assertSafe(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   storePath: string,
   env: NodeJS.ProcessEnv,
   deps: CronOwnerRefusalDeps,
@@ -120,7 +120,7 @@ async function assertSafe(
 }
 
 export async function prepareCronOwnerWriteRefusal(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: {
     storePath: string;
     provenOwnerAgentId?: string;

@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 import { resolveAgentDir } from "../agents/agent-scope.js";
 import { saveAuthProfileStore } from "../agents/auth-profiles/store.js";
 import { computeCacheHitRate } from "../agents/live-cache-test-support.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { loadOpenClawPlugins } from "../plugins/loader.js";
 
 export const CLI_BACKEND_PROBE_PLUGIN_ID = "cli-backend-probe";
@@ -123,7 +123,7 @@ export async function createCliBackendProbePlugin(
 }
 
 export function prepareClaudeCacheProbeBackend(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   liveBackend: RuntimeBackendEntry;
   providerId: string;
 }): RuntimeBackendEntry {

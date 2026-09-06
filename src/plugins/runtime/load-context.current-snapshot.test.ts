@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   getCurrentPluginMetadataSnapshot,
   setGatewayPluginMetadataSnapshot,
@@ -18,7 +18,7 @@ vi.mock("../plugin-metadata-snapshot.js", async (importOriginal) => ({
 }));
 
 function createSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir: string;
 }): PluginMetadataSnapshot {
   const policyHash = resolveInstalledPluginIndexPolicyHash(params.config);

@@ -1,6 +1,6 @@
 // Explicit connection policy decides when CLI gateway calls can avoid reading
 // config because URL and auth were fully supplied by flags.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { trimToUndefined, type ExplicitGatewayAuth } from "./credentials.js";
 
 // Explicit connection policy lets CLI paths skip config IO only when the caller
@@ -28,7 +28,7 @@ function targetMayRequireConfiguredEdgeAuth(url: string): boolean {
  * the connection: this is the historical recovery path for an invalid config.
  */
 export function isExplicitGatewayConnection(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   urlOverride?: string;
   explicitAuth?: ExplicitGatewayAuth;
 }): boolean {
@@ -41,7 +41,7 @@ export function isExplicitGatewayConnection(params: {
 
 /** Returns true when url/auth flags are sufficient and loading OpenClaw config is unnecessary. */
 export function canSkipGatewayConfigLoad(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   urlOverride?: string;
   explicitAuth?: ExplicitGatewayAuth;
 }): boolean {

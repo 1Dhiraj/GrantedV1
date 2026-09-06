@@ -8,7 +8,7 @@ import {
   fingerprintOpaqueRuntimeOwner,
   fingerprintResolvedProviderAuth,
 } from "../agents/execution-auth-binding.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import type { runSetupMemoryImportStep } from "../wizard/setup.memory-import.js";
 import {
   SystemAgentChatEngine as RuntimeSystemAgentChatEngine,
@@ -123,7 +123,7 @@ export const sharedVerifiedInferenceConfig = {
       },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 export let sharedVerifiedInference: SystemAgentVerifiedInferenceBinding | undefined;
 let sharedVerifiedInferenceDeps: SystemAgentVerifiedInferenceDeps | undefined;
@@ -137,7 +137,7 @@ export function useTempStateDir(): string {
   return dir;
 }
 
-export function configSnapshot(config: OpenClawConfig): ConfigFileSnapshot {
+export function configSnapshot(config: GrantedConfig): ConfigFileSnapshot {
   return {
     exists: true,
     valid: true,
@@ -180,7 +180,7 @@ function testHarnessBinding(route: SystemAgentConfiguredRoute) {
   };
 }
 
-export async function createAmbientVerifiedBinding(config: OpenClawConfig) {
+export async function createAmbientVerifiedBinding(config: GrantedConfig) {
   const route = await resolveSystemAgentConfiguredRouteFromConfig(config);
   if (!route) {
     throw new Error("missing test route");
@@ -208,7 +208,7 @@ export async function createAmbientVerifiedBinding(config: OpenClawConfig) {
 }
 
 export async function createOAuthVerifiedBinding(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   credential: Parameters<typeof fingerprintAuthProfileCredential>[0]["credential"],
 ) {
   const route = await resolveSystemAgentConfiguredRouteFromConfig(config);
@@ -235,7 +235,7 @@ export async function createOAuthVerifiedBinding(
   });
 }
 
-export async function createCliVerifiedBinding(config: OpenClawConfig) {
+export async function createCliVerifiedBinding(config: GrantedConfig) {
   const route = await resolveSystemAgentConfiguredRouteFromConfig(config);
   if (!route || route.runner !== "cli") {
     throw new Error("missing test CLI route");
@@ -402,7 +402,7 @@ export function fakeOverviewLoader(
 
 export { expectDefined } from "@openclaw/normalization-core";
 export { hashSystemAgentOperation } from "./operator-approval.js";
-export type { OpenClawConfig } from "../config/types.openclaw.js";
+export type { GrantedConfig } from "../config/types.openclaw.js";
 export type { WizardPrompter } from "../wizard/prompts.js";
 export { runSystemAgentTurnWithDeps } from "./agent-turn.test-support.js";
 export { classifySystemAgentApprovalText } from "./operator-approval.js";

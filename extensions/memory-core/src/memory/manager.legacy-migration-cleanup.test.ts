@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import {
   ensureMemoryIndexSchema,
   loadSqliteVecExtension,
@@ -157,7 +157,7 @@ describe("memory legacy migration cleanup", () => {
           },
           list: [{ id: "main", default: true }],
         },
-      }) as OpenClawConfig;
+      }) as GrantedConfig;
     const cfg = createConfig({ provider: "none", vectorEnabled: false });
     const result = await MemoryIndexManager.get({ cfg, agentId: "main" });
     if (!result) {

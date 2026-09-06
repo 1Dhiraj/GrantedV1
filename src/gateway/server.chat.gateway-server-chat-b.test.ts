@@ -36,7 +36,7 @@ import {
   waitForSessionTranscriptProjection,
 } from "../config/sessions/session-transcript-reconcile.js";
 import type { AgentModelConfig } from "../config/types.agents-shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { rotateAgentEventLifecycleGeneration } from "../infra/agent-events.js";
 import { onDiagnosticEvent, type DiagnosticPayloadLargeEvent } from "../infra/diagnostic-events.js";
 import { flushDiagnosticsTimeline } from "../infra/diagnostics-timeline.js";
@@ -188,7 +188,7 @@ type GatewayHarness = Awaited<ReturnType<typeof createGatewaySuiteHarness>>;
 type GatewaySocket = Awaited<ReturnType<GatewayHarness["openWs"]>>;
 let harness: GatewayHarness;
 
-function createGatewayPluginMetadataSnapshot(config: OpenClawConfig): PluginMetadataSnapshot {
+function createGatewayPluginMetadataSnapshot(config: GrantedConfig): PluginMetadataSnapshot {
   const policyHash = resolveInstalledPluginIndexPolicyHash(config);
   const index: PluginMetadataSnapshot["index"] = {
     version: 1,
@@ -724,7 +724,7 @@ async function prepareMainHistoryHarness(params: {
 async function prepareUnconfiguredAcpHarnessSession(options?: { withMetadata?: boolean }) {
   openDirectChatSession();
   const sessionKey = `agent:codex:acp:${randomUUID()}`;
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: { entries: { main: { default: true } } },
     acp: { enabled: true, backend: "acpx", allowedAgents: ["codex"] },
   };
@@ -1562,7 +1562,7 @@ describe("gateway server chat", () => {
         defaults: {},
         list: [{ id: "main", default: true }, { id: "work" }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const context = createDirectChatContext({
       getRuntimeConfig: () => config,
       loadGatewayModelCatalogSnapshot: vi.fn(async () => ({
@@ -2589,7 +2589,7 @@ describe("gateway server chat", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         await writeGatewayConfig(config);
         const responses: Array<{ ok: boolean; payload?: unknown; error?: unknown }> = [];
         const metadata = {

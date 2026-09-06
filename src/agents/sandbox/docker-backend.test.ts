@@ -2,7 +2,7 @@
 // handling for sandbox and browser containers.
 import fs from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { resolveSandboxConfigForAgent } from "./config.js";
 
 const dockerMocks = vi.hoisted(() => ({
@@ -34,7 +34,7 @@ const {
   podmanSandboxBackendManager,
 } = await import("./docker-backend.js");
 
-function createConfig(): OpenClawConfig {
+function createConfig(): GrantedConfig {
   return {
     agents: {
       defaults: {

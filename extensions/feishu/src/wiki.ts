@@ -1,7 +1,7 @@
 // Feishu plugin module implements wiki behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
 import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { GrantedPluginApi } from "../runtime-api.js";
 import { createFeishuToolClient, resolveAnyEnabledFeishuToolsConfig } from "./tool-account.js";
 import {
   feishuExternalToolResult as jsonResult,
@@ -203,7 +203,7 @@ async function renameNode(client: Lark.Client, spaceId: string, nodeToken: strin
 
 // ============ Tool Registration ============
 
-export function registerFeishuWikiTools(api: OpenClawPluginApi) {
+export function registerFeishuWikiTools(api: GrantedPluginApi) {
   if (!api.config) {
     return;
   }

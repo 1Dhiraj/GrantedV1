@@ -9,7 +9,7 @@
 import fs from "node:fs/promises";
 import { asObjectRecord } from "../config/channel-compat-normalization.js";
 import type { CompatMutationResult } from "../config/channel-compat-normalization.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import type { OpenKeyedStoreOptions } from "../plugin-state/plugin-state-store.js";
 import type { PluginDoctorStateMigration } from "../plugins/doctor-contract-module.js";
@@ -76,7 +76,7 @@ type KeyMoveChangeContext = {
 
 /** Collects a channel's root config and object-shaped account overrides in config order. */
 export function collectChannelAccountScopes(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: string;
 }): Array<{
   prefix: string;
@@ -316,14 +316,14 @@ export function defineStrayPluginEntryConfigMigration(params: {
     message: string;
     match: (value: unknown) => boolean;
   };
-  normalizeConfig: (params: { cfg: OpenClawConfig }) => {
-    config: OpenClawConfig;
+  normalizeConfig: (params: { cfg: GrantedConfig }) => {
+    config: GrantedConfig;
     changes: string[];
   };
 } {
   const { pluginId, channelId } = params;
   const entryConfigPath = `plugins.entries.${pluginId}.config`;
-  const readStrayEntryConfig = (cfg: OpenClawConfig): Record<string, unknown> | null => {
+  const readStrayEntryConfig = (cfg: GrantedConfig): Record<string, unknown> | null => {
     const entries = asObjectRecord(asObjectRecord(cfg.plugins)?.entries);
     const config = asObjectRecord(asObjectRecord(entries?.[pluginId])?.config);
     return config && Object.keys(config).length > 0 ? config : null;

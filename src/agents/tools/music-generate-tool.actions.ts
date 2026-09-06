@@ -3,7 +3,7 @@
  *
  * Handles provider listing, task status, and duplicate-guard output for the music generation tool.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { listSupportedMusicGenerationModes } from "../../music-generation/capabilities.js";
 import { listRuntimeMusicGenerationProviders } from "../../music-generation/runtime.js";
 import type { AuthProfileStore } from "../auth-profiles/types.js";
@@ -64,7 +64,7 @@ function summarizeMusicGenerationCapabilities(
 
 /** Builds the music-generation provider listing result shown to the agent. */
 export function createMusicGenerateListActionResult(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
   options?: { workspaceDir?: string; agentDir?: string; authStore?: AuthProfileStore },
 ): MusicGenerateActionResult {
   const providers = listRuntimeMusicGenerationProviders({ config });

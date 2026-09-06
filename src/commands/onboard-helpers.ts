@@ -15,7 +15,7 @@ import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
 import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
 import type { OptionalBootstrapFileName } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveAdvertisedControlUiLinks,
   resolveControlUiLinks,
@@ -52,7 +52,7 @@ export function guardCancel<T>(value: T | symbol, runtime: RuntimeEnv, exitCode 
 }
 
 /** Summarizes existing config values before onboarding overwrites or reuses them. */
-export function summarizeExistingConfig(config: OpenClawConfig): string {
+export function summarizeExistingConfig(config: GrantedConfig): string {
   const rows: string[] = [];
   const defaults = config.agents?.defaults;
   if (defaults?.workspace) {
@@ -74,7 +74,7 @@ export function summarizeExistingConfig(config: OpenClawConfig): string {
   return rows.length ? rows.join("\n") : "No key settings detected.";
 }
 
-function summarizeGatewayConfig(config: OpenClawConfig): string | null {
+function summarizeGatewayConfig(config: GrantedConfig): string | null {
   const gateway = config.gateway;
   if (
     !gateway?.mode &&
@@ -164,9 +164,9 @@ export async function printWizardHeader(runtime: RuntimeEnv): Promise<void> {
 
 /** Records wizard provenance metadata on config writes. */
 export function applyWizardMetadata(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   params: { command: string; mode: OnboardMode },
-): OpenClawConfig {
+): GrantedConfig {
   const commit =
     normalizeOptionalString(process.env.GIT_COMMIT) ?? normalizeOptionalString(process.env.GIT_SHA);
   return inheritLegacyDefaultAgentId(cfg, {
@@ -295,7 +295,7 @@ function throwIfResetFailed(failures: string[]): void {
 
 type OnboardingGatewayProbeParams = {
   url: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   originScopedDeviceAuth?: boolean;
   token?: string;
   password?: string;
@@ -379,7 +379,7 @@ export async function probeGatewayConfiguredModel(
     };
   }
   try {
-    const config = configCandidate as OpenClawConfig;
+    const config = configCandidate as GrantedConfig;
     const model = resolveAgentEffectiveModelPrimary(config, resolveDefaultAgentId(config));
     return model
       ? { kind: "configured" }

@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { McpServerConfig } from "../config/types.mcp.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { applyClawAddPlan } from "./add.js";
 import { buildClawAddPlan } from "./lifecycle.js";
 import { installClawMcpServers } from "./mcp.js";
@@ -73,7 +73,7 @@ export async function createUpdatePlanFixture(root: string) {
   if (addPlan.blockers.length > 0) {
     throw new Error(JSON.stringify(addPlan.blockers));
   }
-  let config: OpenClawConfig = {};
+  let config: GrantedConfig = {};
   await applyClawAddPlan(addPlan, {
     consentPlanIntegrity: addPlan.planIntegrity,
     env,

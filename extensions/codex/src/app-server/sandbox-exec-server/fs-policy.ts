@@ -8,14 +8,14 @@ import { requireObject, requireString } from "./json-rpc.js";
 import { resolveExecServerPath } from "./path-uri.js";
 import type {
   FsAccessMode,
-  OpenClawExecServer,
+  GrantedExecServer,
   ResolvedFsSandboxEntry,
   ResolvedFsSandboxPolicy,
 } from "./types.js";
 
 /** Resolves request-local sandbox policy and asserts each requested path has the needed access. */
 export function assertFsSandboxAccess(
-  execServer: OpenClawExecServer,
+  execServer: GrantedExecServer,
   record: JsonObject,
   requests: Array<{ path: string; access: "read" | "write" }>,
 ): void {
@@ -24,7 +24,7 @@ export function assertFsSandboxAccess(
 
 /** Parses a Codex managed filesystem sandbox context into normalized access entries. */
 export function resolveFsSandboxPolicy(
-  execServer: OpenClawExecServer,
+  execServer: GrantedExecServer,
   record: JsonObject,
 ): ResolvedFsSandboxPolicy | undefined {
   if (record.sandbox === undefined || record.sandbox === null) {
@@ -64,7 +64,7 @@ export function resolveFsSandboxPolicy(
   };
 }
 
-function readFsSandboxCwd(execServer: OpenClawExecServer, sandbox: JsonObject): string {
+function readFsSandboxCwd(execServer: GrantedExecServer, sandbox: JsonObject): string {
   if (sandbox.cwd === undefined || sandbox.cwd === null) {
     return normalizeSandboxAbsolutePath(execServer.sandbox.containerWorkdir, "sandbox cwd");
   }

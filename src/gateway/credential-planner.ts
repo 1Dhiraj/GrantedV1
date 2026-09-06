@@ -7,7 +7,7 @@ import {
   getConfigResolutionFacts,
   hasUnresolvedConfigPath,
 } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasConfiguredSecretInput, resolveSecretInputRef } from "../config/types.secrets.js";
 
 type GatewayCredentialInputPath =
@@ -49,7 +49,7 @@ export type GatewayCredentialPlan = {
   remotePasswordActive: boolean;
 };
 
-type GatewaySecretDefaults = NonNullable<OpenClawConfig["secrets"]>["defaults"];
+type GatewaySecretDefaults = NonNullable<GrantedConfig["secrets"]>["defaults"];
 
 /** Normalize optional Gateway credential strings to nonempty values. */
 export const trimToUndefined = normalizeOptionalString;
@@ -71,7 +71,7 @@ export function trimCredentialToUndefined(value: unknown): string | undefined {
 
 /** Classify one configured credential input without resolving secret refs. */
 function resolveConfiguredGatewayCredentialInput(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   value: unknown;
   defaults?: GatewaySecretDefaults;
   path: GatewayCredentialInputPath;
@@ -111,7 +111,7 @@ function resolveConfiguredGatewayCredentialInput(params: {
 
 /** Build the shared credential plan for Gateway startup, local auth, and remote client auth. */
 export function createGatewayCredentialPlan(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   defaults?: GatewaySecretDefaults;
 }): GatewayCredentialPlan {

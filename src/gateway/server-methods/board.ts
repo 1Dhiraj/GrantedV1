@@ -24,7 +24,7 @@ import type { BoardSessionTarget, BoardStore } from "../../boards/board-store.js
 import { readCanvasDocumentHtmlSource } from "../../canvas/documents.js";
 import { buildWidgetDocument } from "../../canvas/wrap.js";
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.entry.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { loadExecApprovalsReadOnly } from "../../infra/exec-approvals.js";
 import { resolveExecAutoReviewDecision } from "../../infra/exec-auto-review.js";
 import {
@@ -118,7 +118,7 @@ function assertCapabilityParamsSize(
 }
 
 async function resolveBoardWidgetApproval(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sessionKey: string;
   name: string;

@@ -2,7 +2,7 @@ import {
   assertSafeLegacyInheritedAuthDirTransition,
   pinLegacyInheritedAuthOwnerForRosterTransition,
 } from "../agents/legacy-inherited-auth-dir.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 const AUTH_INHERITANCE_PATH = "agents.defaults.authInheritance";
 
@@ -16,12 +16,12 @@ function explicitlySetsAuthInheritance(explicitSetPaths?: readonly (readonly str
 }
 
 export function prepareAuthInheritanceOwnerForWrite(params: {
-  currentConfig: OpenClawConfig;
-  targetConfig: OpenClawConfig;
+  currentConfig: GrantedConfig;
+  targetConfig: GrantedConfig;
   writesOwnershipTopology: boolean;
   explicitSetPaths?: readonly (readonly string[])[];
   env?: NodeJS.ProcessEnv;
-}): { config: OpenClawConfig; insertedPaths: string[][] } {
+}): { config: GrantedConfig; insertedPaths: string[][] } {
   if (!params.writesOwnershipTopology || explicitlySetsAuthInheritance(params.explicitSetPaths)) {
     return { config: params.targetConfig, insertedPaths: [] };
   }

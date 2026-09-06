@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveSharedMainAuthAgentDir } from "../agents/auth-profiles/shared-main-dir.js";
 import { writePersistedAuthProfileStoreRaw } from "../agents/auth-profiles/sqlite.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import {
   collectAuthProfileHealthFindings,
@@ -32,8 +32,8 @@ vi.mock("../agents/auth-profiles.js", async () => {
   };
 });
 
-function doctorFixtureConfig(config: unknown): OpenClawConfig {
-  return config as OpenClawConfig;
+function doctorFixtureConfig(config: unknown): GrantedConfig {
+  return config as GrantedConfig;
 }
 
 describe("doctor auth hints", () => {

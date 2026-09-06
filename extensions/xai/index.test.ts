@@ -1,5 +1,5 @@
 // Xai tests cover index plugin behavior.
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import {
   createCapturedPluginRegistration,
@@ -48,7 +48,7 @@ function createProviderModel(overrides: {
   };
 }
 
-type XaiAutoEnableProbe = Parameters<OpenClawPluginApi["registerAutoEnableProbe"]>[0];
+type XaiAutoEnableProbe = Parameters<GrantedPluginApi["registerAutoEnableProbe"]>[0];
 
 function registerXaiAutoEnableProbe(): XaiAutoEnableProbe {
   const probes: XaiAutoEnableProbe[] = [];
@@ -77,7 +77,7 @@ function requireEntry<T extends { id?: string }>(entries: T[], id: string): T {
 type XaiBilledToolName = "code_execution" | "x_search";
 
 function registerXaiBilledToolFactories() {
-  const tools = new Map<string, Parameters<OpenClawPluginApi["registerTool"]>[0]>();
+  const tools = new Map<string, Parameters<GrantedPluginApi["registerTool"]>[0]>();
   plugin.register(
     createTestPluginApi({
       registerTool(tool, opts) {

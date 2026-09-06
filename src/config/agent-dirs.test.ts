@@ -1,7 +1,7 @@
 // Covers agent directory resolution across config and environment overrides.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { findDuplicateAgentDirs } from "./agent-dirs.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -9,7 +9,7 @@ afterEach(() => {
 
 describe("resolveEffectiveAgentDir via findDuplicateAgentDirs", () => {
   it("finds duplicate explicit dirs in keyed agent entries", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         entries: {
           alpha: { default: true, agentDir: "/srv/shared-agent" },
@@ -31,7 +31,7 @@ describe("resolveEffectiveAgentDir via findDuplicateAgentDirs", () => {
     // since they have different IDs.  Instead we just verify no crash and
     // that the env flows through by checking a two-agent config produces
     // distinct dirs (no duplicates).
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "alpha" }, { id: "beta" }],
       },
@@ -50,7 +50,7 @@ describe("resolveEffectiveAgentDir via findDuplicateAgentDirs", () => {
     // Force two agents to the same explicit agentDir to verify the path
     // that doesn't use the default — then test the default path by
     // checking that a single-agent config resolves without duplicates.
-    const cfg: OpenClawConfig = {};
+    const cfg: GrantedConfig = {};
 
     const env = {
       GRANTED_HOME: "/srv/openclaw-home",

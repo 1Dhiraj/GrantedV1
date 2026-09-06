@@ -33,7 +33,7 @@ import type {
   ChannelMessageActionName,
   ChannelOutboundAdapter,
   ChannelPlugin,
-  OpenClawConfig,
+  GrantedConfig,
 } from "../runtime-api.js";
 import {
   buildProbeChannelStatusSummary,
@@ -91,7 +91,7 @@ const MSTEAMS_GROUP_MANAGEMENT_ACTIONS = new Set<ChannelMessageActionName>([
 ]);
 
 const collectMSTeamsSecurityWarnings = createAllowlistProviderGroupPolicyWarningCollector<{
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }>({
   providerConfigPresent: (cfg) => cfg.channels?.msteams !== undefined,
   resolveGroupPolicy: ({ cfg }) => cfg.channels?.msteams?.groupPolicy,

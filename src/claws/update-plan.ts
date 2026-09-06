@@ -3,11 +3,11 @@ import { createHash } from "node:crypto";
 import { lstat } from "node:fs/promises";
 import { stableStringify } from "@openclaw/normalization-core";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { root as fsSafeRoot } from "../infra/fs-safe.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   clawExtensionProvenanceChanged,
@@ -72,9 +72,9 @@ export async function buildClawUpdatePlan(params: {
   targetClawMarkdownBody?: Buffer;
   targetOpenClawProfile?: ClawOpenClawProfile;
   targetSource: ClawSourceIdentity;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   sourceMcpServers: Record<string, Record<string, unknown>>;
-  stateOptions?: OpenClawStateDatabaseOptions & { packageDeps?: PackageRemovalDeps };
+  stateOptions?: GrantedStateDatabaseOptions & { packageDeps?: PackageRemovalDeps };
   packagePreflight?: ClawPackagePreflight;
   diagnostics?: ClawDiagnostic[];
 }): Promise<ClawUpdatePlan> {
@@ -119,7 +119,7 @@ export async function buildClawUpdatePlan(params: {
       digest,
     });
   }
-  const readOnlyStateOptions: OpenClawStateDatabaseOptions & {
+  const readOnlyStateOptions: GrantedStateDatabaseOptions & {
     packageDeps?: PackageRemovalDeps;
   } = {
     ...params.stateOptions,

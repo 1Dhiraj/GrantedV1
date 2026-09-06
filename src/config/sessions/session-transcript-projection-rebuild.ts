@@ -9,7 +9,7 @@ import {
   prepareSqliteQuerySync,
 } from "../../infra/kysely-sync.js";
 import { runSqliteDeferredTransactionSync } from "../../infra/sqlite-transaction.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   isCanonicalSessionTranscriptEntry,
   parseSessionTranscriptTreeEntry,
@@ -18,14 +18,14 @@ import {
 } from "./transcript-tree.js";
 
 type TranscriptProjectionDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "session_windows" | "session_transcript_index_state" | "transcript_events"
 > & {
-  session_transcript_active_events: OpenClawAgentKyselyDatabase["session_transcript_active_events"] & {
+  session_transcript_active_events: GrantedAgentKyselyDatabase["session_transcript_active_events"] & {
     rowid: Generated<number>;
   };
   session_transcript_fts: Omit<
-    OpenClawAgentKyselyDatabase["session_transcript_fts"],
+    GrantedAgentKyselyDatabase["session_transcript_fts"],
     "timestamp"
   > & {
     rowid: Generated<number>;

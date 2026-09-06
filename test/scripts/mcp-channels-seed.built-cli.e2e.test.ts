@@ -4,7 +4,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { describe, expect, it } from "vitest";
 import { runSessionStartupMigration } from "../../src/config/sessions/startup-migration.js";
-import type { OpenClawConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.openclaw.js";
 import {
   getSessionEntry,
   projectSessionDeliveryFields,
@@ -41,7 +41,7 @@ describe("MCP channels Docker seed", () => {
           },
         );
 
-        const cfg = JSON.parse(await fs.readFile(state.configPath, "utf8")) as OpenClawConfig;
+        const cfg = JSON.parse(await fs.readFile(state.configPath, "utf8")) as GrantedConfig;
         await runSessionStartupMigration({ cfg, env: state.env, log: { info() {}, warn() {} } });
         const storePath = path.join(state.agentDir(), "openclaw-agent.sqlite");
         await expect(fs.stat(storePath)).resolves.toMatchObject({ size: expect.any(Number) });

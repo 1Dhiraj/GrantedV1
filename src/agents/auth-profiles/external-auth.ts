@@ -3,7 +3,7 @@
  * Combines provider plugin auth profiles with scoped external CLI credentials
  * and decides which runtime profiles may be persisted back to the store.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveExternalAuthProfilesWithPlugins } from "../../plugins/provider-external-auth.js";
 import type { ProviderExternalAuthProfile } from "../../plugins/provider-external-auth.types.js";
 import { isAmbientCredentialAllowedByProviderAuthPin } from "./ambient-auth.js";
@@ -26,7 +26,7 @@ type ExternalAuthProfileMap = Map<string, ProviderExternalAuthProfile>;
 type ResolveExternalAuthProfiles = typeof resolveExternalAuthProfilesWithPlugins;
 type ExternalCliOverlayOptions = {
   allowKeychainPrompt?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   externalCliProviderIds?: Iterable<string>;
   externalCliProfileIds?: Iterable<string>;
 };
@@ -69,7 +69,7 @@ function resolveExplicitProfileIds(values: Iterable<string> | undefined): Set<st
 function isExternalAuthProfileAllowed(
   profile: ProviderExternalAuthProfile,
   store: AuthProfileStore,
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
   explicitProfileIds: ReadonlySet<string> | undefined,
   env: NodeJS.ProcessEnv,
 ): boolean {

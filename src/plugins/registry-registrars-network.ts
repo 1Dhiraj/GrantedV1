@@ -21,10 +21,10 @@ import type {
 } from "./registry-types.js";
 import type { SessionCatalogProvider } from "./session-catalog.js";
 import type {
-  OpenClawPluginChannelRegistration,
-  OpenClawPluginHostedMediaResolver,
-  OpenClawPluginHttpRouteParams,
-  OpenClawPluginMcpServerConnectionResolver,
+  GrantedPluginChannelRegistration,
+  GrantedPluginHostedMediaResolver,
+  GrantedPluginHttpRouteParams,
+  GrantedPluginMcpServerConnectionResolver,
   PluginRegistrationMode,
 } from "./types.js";
 
@@ -132,7 +132,7 @@ export function createNetworkRegistrars(state: PluginRegistryState) {
   const canDispatchGatewayMethodsFromHttpRoute = (record: PluginRecord): boolean =>
     (record.contracts?.gatewayMethodDispatch ?? []).includes(GATEWAY_METHOD_DISPATCH_CONTRACT);
 
-  const registerHttpRoute = (record: PluginRecord, params: OpenClawPluginHttpRouteParams) => {
+  const registerHttpRoute = (record: PluginRecord, params: GrantedPluginHttpRouteParams) => {
     const normalizedPath = normalizePluginHttpPath(params.path);
     if (!normalizedPath) {
       reportRegistrationWarning(record, "http route registration missing path");
@@ -212,7 +212,7 @@ export function createNetworkRegistrars(state: PluginRegistryState) {
 
   const registerHostedMediaResolver = (
     record: PluginRecord,
-    resolver: OpenClawPluginHostedMediaResolver,
+    resolver: GrantedPluginHostedMediaResolver,
   ) => {
     if (typeof resolver !== "function") {
       reportRegistrationError(record, "hosted media resolver registration missing resolver");
@@ -229,7 +229,7 @@ export function createNetworkRegistrars(state: PluginRegistryState) {
 
   const registerMcpServerConnectionResolver = (
     record: PluginRecord,
-    resolver: OpenClawPluginMcpServerConnectionResolver,
+    resolver: GrantedPluginMcpServerConnectionResolver,
   ) => {
     const serverName = normalizeOptionalString(resolver?.serverName);
     if (!serverName || typeof resolver.resolve !== "function") {
@@ -272,7 +272,7 @@ export function createNetworkRegistrars(state: PluginRegistryState) {
 
   const registerChannel = (
     record: PluginRecord,
-    registration: OpenClawPluginChannelRegistration | ChannelPlugin,
+    registration: GrantedPluginChannelRegistration | ChannelPlugin,
     mode: PluginRegistrationMode = "full",
     resolveChannelRuntime?: PluginChannelRegistration["resolveChannelRuntime"],
   ) => {
@@ -285,8 +285,8 @@ export function createNetworkRegistrars(state: PluginRegistryState) {
     }
     const registrationCapabilities = resolvePluginRegistrationCapabilities(mode);
     const normalized =
-      typeof (registration as OpenClawPluginChannelRegistration).plugin === "object"
-        ? (registration as OpenClawPluginChannelRegistration)
+      typeof (registration as GrantedPluginChannelRegistration).plugin === "object"
+        ? (registration as GrantedPluginChannelRegistration)
         : { plugin: registration as ChannelPlugin };
     const plugin = normalizeRegisteredChannelPlugin({
       pluginId: record.id,

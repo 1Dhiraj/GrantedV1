@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { listAgentIds } from "openclaw/plugin-sdk/agent-scope-runtime";
 import type { ChannelLegacyStateMigrationPlan } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { fileExists } from "openclaw/plugin-sdk/file-access-runtime";
 import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
 import { isRecord, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -64,7 +64,7 @@ function resolveLegacySessionStorePath(params: {
 }
 
 function resolveAgentSessionStorePath(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   agentId: string;
 }): string {
@@ -75,7 +75,7 @@ function resolveAgentSessionStorePath(params: {
 }
 
 function listLegacyAgentSessionStoreSources(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
   resolveSourcePath: (storePath: string) => string;
@@ -115,7 +115,7 @@ function listLegacyAgentSessionStoreSources(params: {
   ];
 }
 
-function resolveTelegramLegacyStateOwnerAgentId(cfg: OpenClawConfig): string {
+function resolveTelegramLegacyStateOwnerAgentId(cfg: GrantedConfig): string {
   const configuredAccountIds = listTelegramAccountIds(cfg);
   const accountIds =
     configuredAccountIds.length > 0 ? configuredAccountIds : [resolveDefaultTelegramAccountId(cfg)];
@@ -246,7 +246,7 @@ function listTelegramLegacyMessageCacheEntries(persistedPath: string) {
 }
 
 function listTelegramLegacySidecarAccountIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
   prefix: string;
   suffix: string;
@@ -270,7 +270,7 @@ function listTelegramLegacySidecarAccountIds(params: {
 }
 
 function detectTelegramMessageCacheLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): ChannelLegacyStateMigrationPlan[] {
@@ -293,7 +293,7 @@ function detectTelegramMessageCacheLegacyStateMigration(params: {
 }
 
 function detectTelegramBotInfoCacheLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
 }): ChannelLegacyStateMigrationPlan[] {
   return listTelegramAccountIds(params.cfg).flatMap((accountId) => {
@@ -317,7 +317,7 @@ function detectTelegramBotInfoCacheLegacyStateMigration(params: {
 }
 
 async function detectTelegramUpdateOffsetLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): Promise<ChannelLegacyStateMigrationPlan[]> {
@@ -383,7 +383,7 @@ function detectTelegramStickerCacheLegacyStateMigration(params: {
 }
 
 function detectTelegramSentMessageCacheLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): ChannelLegacyStateMigrationPlan[] {
@@ -408,7 +408,7 @@ function detectTelegramSentMessageCacheLegacyStateMigration(params: {
 }
 
 function detectTelegramThreadBindingLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): ChannelLegacyStateMigrationPlan[] {
@@ -441,7 +441,7 @@ function topicNameCacheImportSource(sourcePath: string, targetStorePath: string)
 }
 
 function detectTelegramTopicNameCacheLegacyStateMigration(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): ChannelLegacyStateMigrationPlan[] {
@@ -482,7 +482,7 @@ function detectTelegramTopicNameCacheLegacyStateMigration(params: {
 }
 
 export async function detectTelegramLegacyStateMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir?: string;
 }): Promise<ChannelLegacyStateMigrationPlan[]> {

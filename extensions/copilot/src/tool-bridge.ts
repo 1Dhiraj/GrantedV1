@@ -29,9 +29,9 @@ import { isRawCopilotModelRun } from "./attempt-mode.js";
 
 type CreateOpenClawCodingTools =
   (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
-type OpenClawCodingToolsOptions = NonNullable<Parameters<CreateOpenClawCodingTools>[0]>;
+type GrantedCodingToolsOptions = NonNullable<Parameters<CreateOpenClawCodingTools>[0]>;
 type CreateOpenClawCodingToolsForBridge = (
-  options?: OpenClawCodingToolsOptions,
+  options?: GrantedCodingToolsOptions,
 ) => ReturnType<CreateOpenClawCodingTools> | Promise<ReturnType<CreateOpenClawCodingTools>>;
 type AgentHarnessToolSurfaceRuntime = ReturnType<typeof createAgentHarnessToolSurfaceRuntime>;
 type CatalogExecuteParams = Parameters<
@@ -337,7 +337,7 @@ function buildOpenClawCodingToolsOptions(
   input: CopilotToolBridgeInput,
   toolPlan: ReturnType<typeof resolveEmbeddedAttemptToolConstructionPlan>,
   toolSurfaceRuntime?: ReturnType<typeof createAgentHarnessToolSurfaceRuntime>,
-): OpenClawCodingToolsOptions {
+): GrantedCodingToolsOptions {
   const a = input.attemptParams;
 
   // Mirror PI's `sandboxSessionKey` derivation (attempt.ts:873-874) so
@@ -382,7 +382,7 @@ function buildOpenClawCodingToolsOptions(
     "compat" in model &&
     model.compat &&
     typeof model.compat === "object"
-      ? (model.compat as OpenClawCodingToolsOptions["modelCompat"])
+      ? (model.compat as GrantedCodingToolsOptions["modelCompat"])
       : undefined;
 
   return {

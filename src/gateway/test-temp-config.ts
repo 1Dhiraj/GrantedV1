@@ -9,7 +9,7 @@ import {
   resetConfigRuntimeState,
   setRuntimeConfigSnapshot,
 } from "../config/config.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { clearSecretsRuntimeSnapshot } from "../secrets/runtime.js";
 
 function canonicalizeTempConfigForTest(cfg: unknown): unknown {
@@ -42,7 +42,7 @@ export async function withTempConfig(params: {
 }): Promise<void> {
   const prevConfigPath = process.env.GRANTED_CONFIG_PATH;
 
-  const testConfig = canonicalizeTempConfigForTest(params.cfg) as OpenClawConfig;
+  const testConfig = canonicalizeTempConfigForTest(params.cfg) as GrantedConfig;
   const dir = await mkdtemp(path.join(os.tmpdir(), params.prefix ?? "openclaw-test-config-"));
   const configPath = path.join(dir, "openclaw.json");
 

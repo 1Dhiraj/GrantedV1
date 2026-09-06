@@ -14,7 +14,7 @@ import {
 import { collectSecurityWarnings } from "../commands/doctor-security.js";
 import { noteSessionTranscriptHealth } from "../commands/doctor-session-transcripts.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { ExecApprovalsMigrationRequiredError } from "../infra/exec-approvals-migration-gate.js";
 import {
   readExecApprovalsConfigRow,
@@ -131,7 +131,7 @@ describe("runDoctorHealthFlow", () => {
       mocks.emulateNativeInstall = kind !== "runtime-only";
       mocks.servicePlatform = windows ? "win32" : undefined;
       await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: { ownership: "explicit", entries: { main: { workspace: state.workspaceDir } } },
         };
         await state.writeConfig(cfg);
@@ -307,7 +307,7 @@ describe("runDoctorHealthFlow", () => {
     async (outcome) => {
       await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
         const clean = outcome.startsWith("clean-") || outcome.startsWith("update-");
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             ownership: "explicit",
             entries: {
@@ -723,7 +723,7 @@ describe("runDoctorHealthFlow", () => {
       await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
         const storePath =
           layout === "configured" ? state.path("custom", "sessions.json") : undefined;
-        const cfg: OpenClawConfig = storePath ? { session: { store: storePath } } : {};
+        const cfg: GrantedConfig = storePath ? { session: { store: storePath } } : {};
         mocks.config.mockReturnValue(cfg);
         const configuredPath = storePath
           ? resolveSqliteTargetFromSessionStorePath(storePath, {
@@ -877,7 +877,7 @@ describe("runDoctorHealthFlow", () => {
     async (kind) => {
       await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
         const workspaceDir = state.statePath("secondary-workspace");
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             ownership: "explicit",
             entries: {

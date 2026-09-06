@@ -4,20 +4,20 @@ import { resolveAgentConfig } from "../../agents/agent-scope.js";
 import { DEFAULT_PROVIDER } from "../../agents/defaults.js";
 import { resolveAllowedModelRefCore } from "../../agents/model-selection-resolve.js";
 import type { ResolvedPublishedModelCatalogOwner } from "../../agents/prepared-model-catalog.types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { withPluginRuntimeGenerationScope } from "../../plugins/runtime/generation-scope.js";
 import { resolveCronModelSelection } from "./model-selection.js";
 import { resolveCronAgentConfig } from "./run-config.js";
 
-function buildCronConfig(cfg: OpenClawConfig, agentId: string): OpenClawConfig {
+function buildCronConfig(cfg: GrantedConfig, agentId: string): GrantedConfig {
   return resolveCronAgentConfig({
     config: cfg,
     agentConfigOverride: resolveAgentConfig(cfg, agentId),
   }).cfgWithAgentDefaults;
 }
 
-function resolveCronPayloadModel(cfg: OpenClawConfig, raw: string) {
+function resolveCronPayloadModel(cfg: GrantedConfig, raw: string) {
   return resolveAllowedModelRefCore({
     cfg,
     catalog: [
@@ -33,7 +33,7 @@ function resolveCronPayloadModel(cfg: OpenClawConfig, raw: string) {
 
 describe("resolveCronAgentConfig model policy preservation", () => {
   it("keeps the inherited default restriction when the per-agent policy is empty", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { modelPolicy: { allow: ["openai/gpt-5.5"] } },
         list: [{ id: "worker", modelPolicy: {} }],
@@ -49,7 +49,7 @@ describe("resolveCronAgentConfig model policy preservation", () => {
   });
 
   it("applies an explicit per-agent allowlist to cron model resolution", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { modelPolicy: { allow: ["openai/gpt-5.5"] } },
         list: [{ id: "worker", modelPolicy: { allow: ["openai/gpt-5.6-sol"] } }],
@@ -88,7 +88,7 @@ describe("resolveCronAgentConfig model policy preservation", () => {
       });
       const metadataSnapshot = snapshot("/tmp/cron-owner", "selected");
       const otherWorkspace = snapshot("/tmp/other-owner", "other");
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             model: { primary: source === "default" ? "custom/legacy" : "custom/baseline" },

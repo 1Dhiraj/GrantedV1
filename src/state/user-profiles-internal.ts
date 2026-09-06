@@ -3,7 +3,7 @@ import { expressionBuilder, type SelectQueryBuilder } from "kysely";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import {
   ensureUserProfilesSchema,
@@ -82,7 +82,7 @@ export function formatUserProfileAvatarEtag(sha256: string, mime: UserProfileAva
 
 export function getProfileAvatar(
   profileId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): UserProfileAvatar | undefined {
   ensureUserProfilesSchema(options);
   const profile = selectResolvedUserProfileById(openOpenClawStateDatabase(options).db, profileId);

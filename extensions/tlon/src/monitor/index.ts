@@ -22,7 +22,7 @@ import {
   readStringField as readString,
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import type { OpenClawConfig } from "../../runtime-api.js";
+import type { GrantedConfig } from "../../runtime-api.js";
 import { createLoggerBackedRuntime } from "../../runtime-api.js";
 import { getTlonRuntime } from "../runtime.js";
 import { createSettingsManager, type TlonSettingsStore } from "../settings.js";
@@ -76,7 +76,7 @@ type MonitorTlonOpts = {
 
 export async function monitorTlonProvider(opts: MonitorTlonOpts = {}): Promise<void> {
   const core = getTlonRuntime();
-  const cfg = core.config.current() as OpenClawConfig;
+  const cfg = core.config.current() as GrantedConfig;
   if (cfg.channels?.tlon?.enabled === false) {
     return;
   }

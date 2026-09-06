@@ -15,7 +15,7 @@ import { parsePort } from "../cli/shared/parse-port.js";
 import { readConfigFileSnapshotForWrite, resolveGatewayPort } from "../config/config.js";
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { logConfigUpdated } from "../config/logging.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createChannelSetupTransaction } from "../flows/channel-setup.js";
 import { resolveGatewayProbeAuthSafeWithSecretInputs } from "../gateway/probe-auth.js";
 import { formatWindowsGatewayFirewallGuidance } from "../infra/windows-gateway-firewall-diagnostics.js";
@@ -90,7 +90,7 @@ function loadSetupPluginConfigModule(): Promise<SetupPluginConfigModule> {
 }
 
 async function runGatewayHealthCheck(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   port: number;
   daemonSetupOutcome?: DaemonSetupOutcome;
@@ -252,11 +252,11 @@ async function promptChannelMode(runtime: RuntimeEnv): Promise<ChannelsWizardMod
 }
 
 async function promptWebToolsConfig(
-  nextConfig: OpenClawConfig,
+  nextConfig: GrantedConfig,
   runtime: RuntimeEnv,
   prompter: ReturnType<typeof createClackPrompter>,
-): Promise<OpenClawConfig> {
-  type WebSearchConfig = NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"];
+): Promise<GrantedConfig> {
+  type WebSearchConfig = NonNullable<NonNullable<GrantedConfig["tools"]>["web"]>["search"];
   const existingSearch = nextConfig.tools?.web?.search;
   const existingFetch = nextConfig.tools?.web?.fetch;
   const { isCodexNativeWebSearchRelevant } = await import("../agents/codex-native-web-search.js");
@@ -462,7 +462,7 @@ export async function runConfigureWizard(
       ownedConfigPathForWrite: prepared.writeOptions.ownedConfigPathForWrite,
     };
     const currentBaseHash = snapshot.hash;
-    const baseConfig: OpenClawConfig = snapshot.valid
+    const baseConfig: GrantedConfig = snapshot.valid
       ? (snapshot.sourceConfig ?? snapshot.config)
       : {};
 

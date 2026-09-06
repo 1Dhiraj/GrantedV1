@@ -15,7 +15,7 @@ import {
 import { resetLogger, setLoggerOverride } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -63,7 +63,7 @@ async function withStdoutIsTTY<T>(isTTY: boolean, run: () => Promise<T>): Promis
   }
 }
 
-type ConfigHealthDatabase = Pick<OpenClawStateKyselyDatabase, "config_health_entries">;
+type ConfigHealthDatabase = Pick<GrantedStateKyselyDatabase, "config_health_entries">;
 
 function readConfigHealthRow(env: NodeJS.ProcessEnv, configPath: string) {
   const { db } = openOpenClawStateDatabase({ env });

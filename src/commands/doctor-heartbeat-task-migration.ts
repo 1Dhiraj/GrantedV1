@@ -8,7 +8,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { heartbeatTaskDeclarationKey, isHeartbeatTaskCronJob } from "../cron/heartbeat-task.js";
 import { cronSchedulingInputsEqual } from "../cron/schedule-identity.js";
 import {
@@ -42,7 +42,7 @@ const HEARTBEAT_TASK_MIGRATION_CHECK_ID = "core/doctor/heartbeat-task-cron-migra
 
 type HeartbeatTaskMigrationResult = { changes: string[]; warnings: string[] };
 
-function resolveHeartbeatTaskMigrationAgents(cfg: OpenClawConfig) {
+function resolveHeartbeatTaskMigrationAgents(cfg: GrantedConfig) {
   return resolveHeartbeatAgents(cfg).filter(
     (agent) => resolveHeartbeatIntervalMs(cfg, undefined, agent.heartbeat) !== null,
   );
@@ -98,7 +98,7 @@ function migrationFinding(params: {
 
 /** Reports task blocks still owned by heartbeat scratch without changing them. */
 export async function collectHeartbeatTaskMigrationFindings(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<readonly HealthFinding[]> {
   const storePath = resolveCronJobsStorePathFromConfig(cfg, env);
@@ -412,7 +412,7 @@ async function clearLegacyTaskTimestamps(params: {
 
 /** Converts valid scratch tasks and removes their source block in one SQLite transaction. */
 export async function maybeMigrateHeartbeatTasksToCron(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   shouldRepair: boolean;
   env?: NodeJS.ProcessEnv;
   nowMs?: number;

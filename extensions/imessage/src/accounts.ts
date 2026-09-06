@@ -5,7 +5,7 @@ import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
 import {
   normalizeAccountId,
   resolveAccountEntry,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
 import {
@@ -41,7 +41,7 @@ export const listIMessageAccountIds = listAccountIds;
 export const resolveDefaultIMessageAccountId = resolveDefaultAccountId;
 
 function resolveIMessageAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): IMessageAccountConfig | undefined {
   return resolveAccountEntry(cfg.channels?.imessage?.accounts, accountId);
@@ -84,7 +84,7 @@ function mergeIMessageStreamingConfig(
   };
 }
 
-function mergeIMessageAccountConfig(cfg: OpenClawConfig, accountId: string): IMessageAccountConfig {
+function mergeIMessageAccountConfig(cfg: GrantedConfig, accountId: string): IMessageAccountConfig {
   const accountConfig = resolveIMessageAccountConfig(cfg, accountId);
   const merged = resolveMergedIMessageAccountConfig(cfg, accountId);
   const streaming = mergeIMessageStreamingConfig(
@@ -95,7 +95,7 @@ function mergeIMessageAccountConfig(cfg: OpenClawConfig, accountId: string): IMe
 }
 
 export function resolveIMessageAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedIMessageAccount {
   const accountId = normalizeAccountId(
@@ -164,7 +164,7 @@ function resolveIMessageAccountSourceSignature(account: ResolvedIMessageAccount)
 }
 
 function resolveIMessageAccountSourceOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   signature: string;
 }): string | undefined {
   // Prefer an explicit named account over the implicit "default" so that
@@ -208,7 +208,7 @@ function resolveIMessageDatabaseFileIdentity(dbPath: string): string | undefined
  * keep treating both accounts normally.
  */
 export function resolveIMessageDuplicateSourceOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedIMessageAccount;
 }): string | undefined {
   if (!params.account.enabled || !params.account.configured) {
@@ -221,14 +221,14 @@ export function resolveIMessageDuplicateSourceOwner(params: {
   return owner && owner !== params.account.accountId ? owner : undefined;
 }
 
-export function listEnabledIMessageAccounts(cfg: OpenClawConfig): ResolvedIMessageAccount[] {
+export function listEnabledIMessageAccounts(cfg: GrantedConfig): ResolvedIMessageAccount[] {
   return listIMessageAccountIds(cfg)
     .map((accountId) => resolveIMessageAccount({ cfg, accountId }))
     .filter((account) => account.enabled);
 }
 
 export function hasExclusiveIMessageLocalDatabase(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedIMessageAccount;
   cliPath: string;
   dbPath?: string;
@@ -278,7 +278,7 @@ export function hasExclusiveIMessageLocalDatabase(params: {
 }
 
 export function collectIMessageDuplicateAccountSourceWarnings(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): string[] {
   const groups = new Map<string, ResolvedIMessageAccount[]>();
   for (const accountId of listIMessageAccountIds(params.cfg)) {

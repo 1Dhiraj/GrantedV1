@@ -1,11 +1,11 @@
 import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 
 export async function resolveXaiRealtimeApiKey(
   configApiKey: string | undefined,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   agentId?: string,
 ): Promise<string> {
   const direct =

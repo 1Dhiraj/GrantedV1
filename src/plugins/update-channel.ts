@@ -1,5 +1,5 @@
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../packages/gateway-protocol/src/capability-consent-error-details.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
 import { readInstalledPackageVersion } from "../infra/package-update-utils.js";
@@ -61,13 +61,13 @@ type PluginChannelSyncSummary = {
 };
 
 export type PluginChannelSyncResult = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changed: boolean;
   summary: PluginChannelSyncSummary;
 };
 
 export async function syncPluginsForUpdateChannel(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   channel: UpdateChannel;
   coreVersion?: string;
   workspaceDir?: string;

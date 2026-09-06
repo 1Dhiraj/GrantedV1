@@ -29,7 +29,7 @@ import { resolveProjectedSessionContextTokens } from "../config/sessions/context
 import { listSessionEntriesReadOnly } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveStoredSessionKeyForAgentStore } from "../gateway/session-store-key.js";
 import { info } from "../globals.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
@@ -192,7 +192,7 @@ const formatKindCell = (kind: SessionRow["kind"], rich: boolean) => {
 };
 
 function resolveSessionRuntimeLabel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry: SessionEntry;
   agentRuntime: ReturnType<typeof resolveModelAgentRuntimeMetadata>;
   modelProvider: string;
@@ -244,7 +244,7 @@ function stripChannelRecipientPrefix(
 
 function resolveDisplayRuntimePolicySessionKey(params: {
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   entry: SessionEntry;
 }): string | undefined {

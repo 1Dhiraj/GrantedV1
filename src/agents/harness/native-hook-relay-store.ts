@@ -5,7 +5,7 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { withOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -23,9 +23,9 @@ type NativeHookRelayBridgePruneResult = {
   reason: "dead-pid" | "expired";
 };
 
-type NativeHookRelayBridgeDatabase = Pick<OpenClawStateKyselyDatabase, "native_hook_relay_bridges">;
+type NativeHookRelayBridgeDatabase = Pick<GrantedStateKyselyDatabase, "native_hook_relay_bridges">;
 
-type NativeHookRelayBridgeRow = OpenClawStateKyselyDatabase["native_hook_relay_bridges"];
+type NativeHookRelayBridgeRow = GrantedStateKyselyDatabase["native_hook_relay_bridges"];
 
 type NativeHookRelayBridgeSnapshot = {
   record: NativeHookRelayBridgeRecord;

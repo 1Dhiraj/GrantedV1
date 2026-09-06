@@ -832,7 +832,7 @@ describe("plugin authoring commands", () => {
     }
 
     expect(fs.readFileSync(path.join(projectDir, "src/index.test.ts"), "utf8")).toContain(
-      "OpenClawPluginApi",
+      "GrantedPluginApi",
     );
     expect(fs.readFileSync(path.join(projectDir, "vitest.config.ts"), "utf8")).toContain(
       'include: ["src/**/*.test.ts"]',

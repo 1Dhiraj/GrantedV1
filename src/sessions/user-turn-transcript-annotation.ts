@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { redactTranscriptMessage } from "../agents/transcript-redact.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   loadSessionEntry,
   publishTranscriptUpdate,
@@ -50,7 +50,7 @@ export function bindUserTurnTranscriptAnnotation(params: {
     expectedWriterRunId?: string;
   };
   runId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   abortSignal?: AbortSignal;
   assertCurrent: () => void;
 }): ((annotation: UserTurnTranscriptAnnotation) => Promise<void>) | undefined {

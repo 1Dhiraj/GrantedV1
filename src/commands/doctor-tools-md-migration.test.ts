@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 vi.mock("../../packages/terminal-core/src/note.js", () => ({ note: vi.fn() }));
 
@@ -124,7 +124,7 @@ async function createFixture() {
   await fs.mkdir(workspace, { recursive: true });
   const cfg = {
     agents: { list: [{ id: "main", default: true, workspace }] },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return {
     root,
     stateDir,

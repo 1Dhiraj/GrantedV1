@@ -1,6 +1,6 @@
 // Coverage for forward-compatible model fallback errors and provider overrides.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ModelProviderConfig, OpenClawConfig } from "../../config/config.js";
+import type { ModelProviderConfig, GrantedConfig } from "../../config/config.js";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
@@ -93,7 +93,7 @@ vi.mock("../prepared-model-runtime.js", async () => {
     await import("../../config/plugin-auto-enable.test-helpers.js");
   const createSnapshot = (input: {
     agentDir: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
   }) => {
     const config = input.config ?? {};
@@ -168,7 +168,7 @@ async function resolveModelForTest(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ) {
   return await resolveModelAsync(provider, modelId, agentDir, cfg, {
     runtimeHooks: createRuntimeHooks(),
@@ -205,7 +205,7 @@ async function resolveAnthropicModelWithProviderOverrides(overrides: Partial<Mod
         anthropic: overrides,
       },
     },
-  } as unknown as OpenClawConfig);
+  } as unknown as GrantedConfig);
 }
 
 describe("resolveModel forward-compat errors and overrides", () => {
@@ -267,7 +267,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
         cost: { ...staleCost, ...cost },
       };
       const providerConfig = { baseUrl: "https://models.example/v1", models: [model] };
-      const runtime: OpenClawConfig = { models: { providers: { [provider]: providerConfig } } };
+      const runtime: GrantedConfig = { models: { providers: { [provider]: providerConfig } } };
       const source = {
         models: {
           providers: {
@@ -285,7 +285,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const catalogModel = {
         ...model,
         provider,
@@ -373,7 +373,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
@@ -395,7 +395,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
     expect(result.error).toBeUndefined();
@@ -407,7 +407,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   it("resolves suppressed openai gpt-5.3-codex-spark through model-scoped Codex runtime", async () => {
     mockOpenAICodexTemplateModel(discoverModels);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           models: {
@@ -429,7 +429,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   it("keeps model-scoped Codex runtime blocked for explicit OpenAI API-key provider config", async () => {
     mockOpenAICodexTemplateModel(discoverModels);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           models: {
@@ -507,7 +507,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
@@ -537,7 +537,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
@@ -561,7 +561,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
@@ -594,7 +594,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.3-codex-spark", "/tmp/agent", cfg);
 
@@ -654,7 +654,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -680,7 +680,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -706,7 +706,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -734,7 +734,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -763,7 +763,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await resolveModelForTest(
       "azure-openai-responses",
@@ -779,7 +779,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   });
 
   it("uses codex fallback even when openai provider is configured", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           openai: {
@@ -788,7 +788,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectResolvedForwardCompatFallbackResult({
       result: await resolveModelForTest("openai", "gpt-5.4", "/tmp/agent", cfg),
@@ -803,7 +803,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   it("uses codex fallback when inline model omits api (#39682)", async () => {
     mockOpenAICodexTemplateModel(discoverModels);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           openai: {
@@ -813,7 +813,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("openai", "gpt-5.4", "/tmp/agent", cfg);
     expect(result.error).toBeUndefined();
@@ -829,7 +829,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   it("keeps openai gpt-5.4 responses overrides on the OpenAI API transport", async () => {
     mockOpenAICodexTemplateModel(discoverModels);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           openai: {
@@ -838,7 +838,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectResolvedForwardCompatFallbackResult({
       result: await resolveModelForTest("openai", "gpt-5.4", "/tmp/agent", cfg),
@@ -854,7 +854,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
   it("normalizes openai gpt-5.4 completions overrides to the OpenAI API transport", async () => {
     mockOpenAICodexTemplateModel(discoverModels);
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: {
         providers: {
           openai: {
@@ -863,7 +863,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expectResolvedForwardCompatFallbackResult({
       result: await resolveModelForTest("openai", "gpt-5.4", "/tmp/agent", cfg),
@@ -948,7 +948,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const result = await resolveModelForTest("kimi", "kimi-code", "/tmp/agent", cfg);
     expect(result.error).toBeUndefined();

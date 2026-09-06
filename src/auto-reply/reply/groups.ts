@@ -7,7 +7,7 @@ import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-l
 import { findChatChannelMeta, normalizeChatChannelId } from "../../channels/registry.js";
 import { resolveChannelGroupRequireMention } from "../../config/group-policy.js";
 import type { GroupKeyResolution, SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
 import type { SilentReplyPolicy } from "../../shared/silent-reply-policy.js";
 import { isInternalMessageChannel } from "../../utils/message-channel.js";
@@ -44,7 +44,7 @@ async function resolveRuntimeChannelId(raw?: string | null): Promise<string | nu
 
 /** Resolves whether a group/channel turn requires an explicit mention. */
 export async function resolveGroupRequireMention(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: TemplateContext;
   groupResolution?: GroupKeyResolution;
 }): Promise<boolean> {

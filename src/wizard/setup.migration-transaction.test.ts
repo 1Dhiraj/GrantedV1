@@ -7,7 +7,7 @@ import { loadPersistedAuthProfileStoreAtDatabasePath } from "../agents/auth-prof
 import { updateAuthProfileStoreWithLock } from "../agents/auth-profiles/store.js";
 import { assertAgentHarnessRunAdmission } from "../agents/embedded-agent-runner/run/session-bootstrap.js";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { summarizeMigrationItems } from "../plugin-sdk/migration.js";
 import type {
   MigrationApplyResult,
@@ -469,7 +469,7 @@ describe("transactional setup migration import", () => {
           modelRef: "openai/gpt-5.6-sol",
         });
         expect(await fs.readFile(liveMemory, "utf8")).toBe("remember this\n");
-        expect((currentConfig.value as OpenClawConfig).agents?.entries).toBeUndefined();
+        expect((currentConfig.value as GrantedConfig).agents?.entries).toBeUndefined();
         expect(JSON.stringify(currentConfig.value)).not.toContain(".openclaw-migration-");
         expect(
           loadPersistedAuthProfileStoreAtDatabasePath(liveDatabase, "agent")?.profiles[

@@ -7,11 +7,11 @@ import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-syn
 import { runWithSqliteBusyTimeout } from "../infra/sqlite-busy-timeout.js";
 import { isSqliteLockError } from "../infra/sqlite-transaction.js";
 import { loggingState } from "../logging/state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { startOpenClawStateLeaseHeartbeat } from "./openclaw-state-lease-heartbeat.js";
 import {
@@ -19,18 +19,18 @@ import {
   renewOpenClawStateLeaseInTransaction,
 } from "./openclaw-state-lease-store.js";
 
-type LeaseDatabase = Pick<OpenClawStateKyselyDatabase, "state_leases">;
+type LeaseDatabase = Pick<GrantedStateKyselyDatabase, "state_leases">;
 type LeaseKysely = ReturnType<typeof getNodeSqliteKysely<LeaseDatabase>>;
 
-type OpenClawStateLeaseDatabase = {
+type GrantedStateLeaseDatabase = {
   scope: "shared";
-  options?: OpenClawStateDatabaseOptions;
+  options?: GrantedStateDatabaseOptions;
 };
 
-type OpenClawStateLeaseOptions = {
+type GrantedStateLeaseOptions = {
   scope: string;
   key: string;
-  database: OpenClawStateLeaseDatabase;
+  database: GrantedStateLeaseDatabase;
   leaseMs: number;
   waitMs: number;
   signal?: AbortSignal;
@@ -42,7 +42,7 @@ type OpenClawStateLeaseOptions = {
   operationLabel?: string;
 };
 
-export type OpenClawStateLeaseContext = {
+export type GrantedStateLeaseContext = {
   signal: AbortSignal;
   /** Renew or verify independent renewal before another blocking phase. */
   renew?(): void;
@@ -52,19 +52,19 @@ export type OpenClawStateLeaseContext = {
   assertOwnedInTransaction(database: DatabaseSync): void;
 };
 
-type OpenClawStateLeaseErrorCode =
+type GrantedStateLeaseErrorCode =
   | "GRANTED_STATE_LEASE_INVALID_INPUT"
   | "GRANTED_STATE_LEASE_TIMEOUT"
   | "GRANTED_STATE_LEASE_ABORTED"
   | "GRANTED_STATE_LEASE_LOST"
   | "GRANTED_STATE_LEASE_STORAGE_FAILED";
 
-export class OpenClawStateLeaseError extends Error {
-  readonly code: OpenClawStateLeaseErrorCode;
+export class GrantedStateLeaseError extends Error {
+  readonly code: GrantedStateLeaseErrorCode;
 
-  constructor(message: string, options: { code: OpenClawStateLeaseErrorCode; cause?: unknown }) {
+  constructor(message: string, options: { code: GrantedStateLeaseErrorCode; cause?: unknown }) {
     super(message, { cause: options.cause });
-    this.name = "OpenClawStateLeaseError";
+    this.name = "GrantedStateLeaseError";
     this.code = options.code;
   }
 }
@@ -119,17 +119,17 @@ function registerProcessExitLeaseCleanup(cleanup: () => void): () => void {
 }
 
 function leaseError(
-  code: OpenClawStateLeaseErrorCode,
+  code: GrantedStateLeaseErrorCode,
   message: string,
   cause?: unknown,
-): OpenClawStateLeaseError {
-  return new OpenClawStateLeaseError(message, {
+): GrantedStateLeaseError {
+  return new GrantedStateLeaseError(message, {
     code,
     ...(cause === undefined ? {} : { cause }),
   });
 }
 
-function invalidInput(message: string): OpenClawStateLeaseError {
+function invalidInput(message: string): GrantedStateLeaseError {
   return leaseError("GRANTED_STATE_LEASE_INVALID_INPUT", message);
 }
 
@@ -147,7 +147,7 @@ function validateNonEmptyString(value: unknown, label: string): string {
   return value;
 }
 
-function validateOptions(options: OpenClawStateLeaseOptions) {
+function validateOptions(options: GrantedStateLeaseOptions) {
   if (typeof options !== "object" || options === null || Array.isArray(options)) {
     throw invalidInput("state lease options must be an object");
   }
@@ -188,7 +188,7 @@ function validateOptions(options: OpenClawStateLeaseOptions) {
 }
 
 function withLeaseWriteTransaction<T>(
-  database: OpenClawStateLeaseDatabase,
+  database: GrantedStateLeaseDatabase,
   operationLabel: string,
   operation: (db: DatabaseSync, kysely: LeaseKysely) => T,
   busyTimeoutMs = LEASE_DB_BUSY_TIMEOUT_MS,
@@ -212,7 +212,7 @@ type LeaseIdentity = {
 
 function tryAcquire(
   params: LeaseIdentity & {
-    database: OpenClawStateLeaseDatabase;
+    database: GrantedStateLeaseDatabase;
     operationLabel: string;
     leaseMs: number;
   },
@@ -252,7 +252,7 @@ function tryAcquire(
 
 function renew(
   params: LeaseIdentity & {
-    database: OpenClawStateLeaseDatabase;
+    database: GrantedStateLeaseDatabase;
     operationLabel: string;
     leaseMs: number;
   },
@@ -281,7 +281,7 @@ function assertLeaseOwnedInDatabase(database: DatabaseSync, params: LeaseIdentit
 }
 
 function verifyLeaseOwnership(
-  params: LeaseIdentity & { database?: OpenClawStateLeaseDatabase; transaction?: DatabaseSync },
+  params: LeaseIdentity & { database?: GrantedStateLeaseDatabase; transaction?: DatabaseSync },
 ): number {
   try {
     if (params.transaction) {
@@ -295,7 +295,7 @@ function verifyLeaseOwnership(
       params,
     );
   } catch (error) {
-    if (error instanceof OpenClawStateLeaseError) {
+    if (error instanceof GrantedStateLeaseError) {
       throw error;
     }
     throw leaseError(
@@ -308,7 +308,7 @@ function verifyLeaseOwnership(
 
 function release(
   params: LeaseIdentity & {
-    database: OpenClawStateLeaseDatabase;
+    database: GrantedStateLeaseDatabase;
     operationLabel: string;
   },
 ): void {
@@ -348,7 +348,7 @@ function abortError(
   signal: AbortSignal,
   label: string,
   leaseLabel: string,
-): OpenClawStateLeaseError {
+): GrantedStateLeaseError {
   return leaseError(
     "GRANTED_STATE_LEASE_ABORTED",
     `${leaseLabel} ${label} was aborted`,
@@ -358,8 +358,8 @@ function abortError(
 
 /** Run one trusted operation under a host-owned SQLite lease. */
 export async function withOpenClawStateLease<T>(
-  options: OpenClawStateLeaseOptions,
-  run: (lease: OpenClawStateLeaseContext) => Promise<T>,
+  options: GrantedStateLeaseOptions,
+  run: (lease: GrantedStateLeaseContext) => Promise<T>,
 ): Promise<T> {
   const validated = validateOptions(options);
   if (validated.signal?.aborted) {
@@ -386,7 +386,7 @@ export async function withOpenClawStateLease<T>(
         leaseLabel: validated.leaseLabel,
       });
     } catch (error) {
-      if (error instanceof OpenClawStateLeaseError) {
+      if (error instanceof GrantedStateLeaseError) {
         throw error;
       }
       if (!isSqliteLockError(error)) {
@@ -465,7 +465,7 @@ export async function withOpenClawStateLease<T>(
   const abortLost = (cause?: unknown) => {
     if (!leaseLost.signal.aborted) {
       leaseLost.abort(
-        cause instanceof OpenClawStateLeaseError
+        cause instanceof GrantedStateLeaseError
           ? cause
           : leaseError(
               "GRANTED_STATE_LEASE_LOST",
@@ -506,7 +506,7 @@ export async function withOpenClawStateLease<T>(
     try {
       renewAndSchedule();
     } catch (error) {
-      if (error instanceof OpenClawStateLeaseError && error.code === "GRANTED_STATE_LEASE_LOST") {
+      if (error instanceof GrantedStateLeaseError && error.code === "GRANTED_STATE_LEASE_LOST") {
         abortLost(error);
       } else if (confirmedExpiresAt !== undefined && Date.now() >= confirmedExpiresAt) {
         abortLost(error);

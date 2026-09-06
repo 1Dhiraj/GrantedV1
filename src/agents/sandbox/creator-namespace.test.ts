@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import type { SessionCreatedActor } from "../../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { hashTextSha256 } from "./hash.js";
 import { resolveSandboxRuntimeStatus } from "./runtime-status.js";
@@ -17,7 +17,7 @@ describe("required sandbox creator namespaces", () => {
     async (scope) => {
       await withOpenClawTestState({ scenario: "minimal" }, async (state) => {
         const id = "equal-creator-id";
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: {
               sandbox: {

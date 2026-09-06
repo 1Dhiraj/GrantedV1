@@ -1,4 +1,4 @@
-import type { OpenClawConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
 import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
@@ -92,7 +92,7 @@ function resolveVoiceConnectionGroup(accountId: string): string {
 }
 
 function resolveDiscordVoiceAgentRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   guildId: string;
   sessionChannelId: string;
@@ -145,7 +145,7 @@ export class DiscordVoiceSessions {
     private readonly params: {
       accountId: string;
       botUserId: () => string | undefined;
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       client: Client;
       destroyed: () => boolean;
       discordConfig: DiscordAccountConfig;

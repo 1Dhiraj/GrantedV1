@@ -28,7 +28,7 @@ import { withPostAdmissionExecutionOwnerBinding } from "../../audit/execution-ow
 import type { ThinkLevel, VerboseLevel } from "../../auto-reply/thinking.js";
 import type { CliSessionBinding } from "../../config/sessions.js";
 import type { AgentDefaultsConfig } from "../../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { registerCronRunExecSource } from "../../infra/cron-run-exec-source.js";
 import type { SourceDeliveryPlan } from "../../infra/outbound/source-delivery-plan.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
@@ -246,8 +246,8 @@ export type CronExecutionResult = {
 
 /** Creates the model-fallback executor for one isolated cron prompt run. */
 function createCronPromptExecutor(params: {
-  cfg: OpenClawConfig;
-  cfgWithAgentDefaults: OpenClawConfig;
+  cfg: GrantedConfig;
+  cfgWithAgentDefaults: GrantedConfig;
   job: CronStoredJob;
   agentId: string;
   agentDir: string;
@@ -873,8 +873,8 @@ function createCronPromptExecutor(params: {
 
 /** Executes an isolated cron prompt, including live model-switch and interim-ack retries. */
 export async function executeCronRun(params: {
-  cfg: OpenClawConfig;
-  cfgWithAgentDefaults: OpenClawConfig;
+  cfg: GrantedConfig;
+  cfgWithAgentDefaults: GrantedConfig;
   job: CronStoredJob;
   agentId: string;
   agentDir: string;

@@ -13,14 +13,14 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../src/infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../src/state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../src/state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "../../src/state/openclaw-state-db.js";
 import { registerStopChildBehaviorTests } from "./bench-gateway-child-test-support.js";
 
-type GatewayRestartIntentDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_intent">;
+type GatewayRestartIntentDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_intent">;
 
 type BenchCliResult = {
   status: number | null;

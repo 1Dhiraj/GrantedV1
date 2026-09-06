@@ -2,7 +2,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { withTempHomeConfig } from "../config/test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { markClawMcpServerIndependentlyOwned } from "../state/claw-mcp-adoption.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { applyClawAddPlan } from "./add.js";
@@ -47,7 +47,7 @@ async function addMcpFixture() {
     context: { workspace: join(root, "workspace-worker") },
   });
   const env = { GRANTED_STATE_DIR: join(root, "state") };
-  let config: OpenClawConfig = {};
+  let config: GrantedConfig = {};
   await applyClawAddPlan(plan, {
     consentPlanIntegrity: plan.planIntegrity,
     env,
@@ -64,7 +64,7 @@ async function addMcpFixture() {
 }
 
 function listedMcpServers(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   mcpServers: Record<string, Record<string, unknown>>,
 ) {
   return {
@@ -91,7 +91,7 @@ describe("Claw MCP removal", () => {
       setMcpServer: vi.fn(),
       listMcpServers: vi.fn().mockResolvedValue(listedMcpServers({}, { docs: sourceServer })),
     });
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       ...current.getConfig(),
       mcp: { servers: { docs: sourceServer } },
     };
@@ -116,7 +116,7 @@ describe("Claw MCP removal", () => {
   it("deletes the final unchanged Claw-created MCP server", async () => {
     const current = await addMcpFixture();
     await recordManagedMcp(current);
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       ...current.getConfig(),
       mcp: {
         servers: {

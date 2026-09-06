@@ -1,7 +1,7 @@
 // Matrix tests cover credential-state migrations owned by the doctor contract.
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
@@ -41,7 +41,7 @@ function createContext(env?: NodeJS.ProcessEnv): PluginDoctorStateMigrationConte
 function createMigrationParams(stateDir: string) {
   const env = { GRANTED_STATE_DIR: stateDir };
   return {
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
     env,
     stateDir,
     oauthDir: path.join(stateDir, "oauth"),

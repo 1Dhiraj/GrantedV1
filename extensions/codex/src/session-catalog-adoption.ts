@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import {
   listSessionCatalogEntries,
@@ -100,7 +100,7 @@ function readCodexSupervisionMarker(entry: {
 export async function listAdoptedSessionEntries(params: {
   agentId?: string;
   bindingStore: CodexAppServerBindingStore;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   runtime: PluginRuntime;
   sessionEntries?: SessionCatalogEntrySnapshot;
 }): Promise<Map<string, AdoptedSessionEntry>> {
@@ -156,7 +156,7 @@ export async function listAdoptedSessionEntries(params: {
 async function findAdoptedSessionEntry(params: {
   agentId?: string;
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: PluginRuntime;
   threadId: string;
   sourceHomeId?: string;
@@ -206,7 +206,7 @@ function matchesPendingAdoptionBinding(
 async function ensurePendingAdoptionBinding(params: {
   initialization: Parameters<Parameters<typeof createImportedCodexSession>[0]["afterImport"]>[1];
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   identity: ReturnType<typeof sessionBindingIdentity>;
   sourceThreadId: string;
   connectionFingerprint: string;
@@ -251,9 +251,9 @@ async function ensurePendingAdoptionBinding(params: {
 
 async function createOrReuseAdoptedSession(params: {
   agentId: string;
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   sourceThread: CodexThread;
   connectionFingerprint: string;
   sourceHomeId?: string;
@@ -339,9 +339,9 @@ async function createOrReuseAdoptedSession(params: {
 
 type ContinueLocalCodexSessionParams = {
   agentId: string;
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   control: CodexSessionCatalogControl;
   threadId: string;
   hostId?: string;

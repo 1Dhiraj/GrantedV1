@@ -5,7 +5,7 @@ import path from "node:path";
 import { Command } from "commander";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "./api.js";
+import type { GrantedPluginApi } from "./api.js";
 import type { VoiceCallRuntime } from "./runtime-entry.js";
 import type { CallRecord } from "./src/types.js";
 
@@ -35,7 +35,7 @@ type Registered = {
   methods: Map<string, unknown>;
   methodScopes: Map<string, string | undefined>;
   tools: unknown[];
-  service?: Parameters<OpenClawPluginApi["registerService"]>[0];
+  service?: Parameters<GrantedPluginApi["registerService"]>[0];
 };
 type MockCallSource = {
   mock: {
@@ -142,7 +142,7 @@ function setup(
     registrationMode: "full",
     config: {},
     pluginConfig: config,
-    runtime: { tts: { textToSpeechTelephony: vi.fn() } } as unknown as OpenClawPluginApi["runtime"],
+    runtime: { tts: { textToSpeechTelephony: vi.fn() } } as unknown as GrantedPluginApi["runtime"],
     logger: noopLogger,
     registerGatewayMethod: (method: string, handler: unknown, opts?: { scope?: string }) => {
       methods.set(method, handler);

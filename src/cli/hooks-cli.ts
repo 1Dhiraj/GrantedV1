@@ -13,7 +13,7 @@ import {
   tryResolveLegacyCompatibilityAgentId,
 } from "../agents/agent-scope.js";
 import { getRuntimeConfig, readConfigFileSnapshot, replaceConfigFile } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildWorkspaceHookStatus,
   type HookStatusEntry,
@@ -65,7 +65,7 @@ type HooksReportTarget = {
   workspaceDir: string;
 };
 
-function resolveHooksReportTarget(config: OpenClawConfig, rawAgentId?: string): HooksReportTarget {
+function resolveHooksReportTarget(config: GrantedConfig, rawAgentId?: string): HooksReportTarget {
   const requested = rawAgentId?.trim();
   if (rawAgentId !== undefined && !requested) {
     throw new Error("--agent must not be blank");
@@ -86,7 +86,7 @@ function resolveHooksReportTarget(config: OpenClawConfig, rawAgentId?: string): 
   return { agentId, workspaceDir: resolveAgentWorkspaceDir(config, agentId) };
 }
 
-function buildHooksReport(config: OpenClawConfig, target: HooksReportTarget): HookStatusReport {
+function buildHooksReport(config: GrantedConfig, target: HooksReportTarget): HookStatusReport {
   // Plugin-managed and workspace hooks share one resolved policy view for status/actions.
   const workspaceDir = target.workspaceDir;
   const workspaceEntries = loadWorkspaceHookEntries(workspaceDir, { config });
@@ -191,7 +191,7 @@ async function runOneShotHooksCliAction(
 }
 async function setHookEnabled(hookName: string, enabled: boolean, agentId?: string): Promise<void> {
   const snapshot = await readConfigFileSnapshot();
-  const config = (snapshot.sourceConfig ?? snapshot.config) as OpenClawConfig;
+  const config = (snapshot.sourceConfig ?? snapshot.config) as GrantedConfig;
   const hook = resolveHookSelection(
     buildHooksReport(config, resolveHooksReportTarget(config, agentId)),
     hookName,
@@ -220,7 +220,7 @@ async function setHookEnabled(hookName: string, enabled: boolean, agentId?: stri
   }
   const entries = { ...config.hooks?.internal?.entries };
   entries[hook.hookKey] = { ...entries[hook.hookKey], enabled };
-  const nextConfig: OpenClawConfig = {
+  const nextConfig: GrantedConfig = {
     ...config,
     hooks: {
       ...config.hooks,

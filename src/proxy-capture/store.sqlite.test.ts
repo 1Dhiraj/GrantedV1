@@ -7,7 +7,7 @@ import { cleanupTempDirs, makeTempDir } from "../../test/helpers/temp-dir.js";
 import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { claimOpenClawStateOwnership } from "../state/openclaw-state-ownership-operations.js";
-import { OpenClawStateOwnershipError } from "../state/openclaw-state-ownership.js";
+import { GrantedStateOwnershipError } from "../state/openclaw-state-ownership.js";
 import {
   acquireDebugProxyCaptureStore,
   closeDebugProxyCaptureStore,
@@ -94,7 +94,7 @@ describe("DebugProxyCaptureStore", () => {
         sourceScope: "openclaw",
         sourceProcess: "cli",
       }),
-    ).toThrow(OpenClawStateOwnershipError);
+    ).toThrow(GrantedStateOwnershipError);
   });
 
   it("tracks and closes cached stores independently across paths", () => {

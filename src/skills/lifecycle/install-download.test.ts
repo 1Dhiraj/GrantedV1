@@ -9,7 +9,7 @@ import { __setFsSafeTestHooksForTest, getFsSafeTestHooks } from "@openclaw/fs-sa
 import JSZip from "jszip";
 import * as tar from "tar";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { resolveSkillToolsRootDir } from "../runtime/tools-dir.js";
 import { createInstallDownloadTestState } from "../test-support/install-download-test-utils.js";
 import {
@@ -211,7 +211,7 @@ function mockTarExtractionFlow(params: {
 }
 
 let workspaceDir = "";
-let testState: OpenClawTestState | undefined;
+let testState: GrantedTestState | undefined;
 beforeAll(async () => {
   testState = await createInstallDownloadTestState();
   workspaceDir = testState.workspaceDir;

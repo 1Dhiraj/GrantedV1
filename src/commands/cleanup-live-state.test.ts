@@ -8,7 +8,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { createNonExitingRuntime } from "../runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 
 const gatewayService = vi.hoisted(() => ({
@@ -32,7 +32,7 @@ const { resetCommand } = await import("./reset.js");
 const { uninstallCommand } = await import("./uninstall.js");
 
 const liveOwners = new Set<ChildProcess>();
-const testStates = new Set<OpenClawTestState>();
+const testStates = new Set<GrantedTestState>();
 
 async function stopLiveStateOwner(child: ChildProcess): Promise<void> {
   liveOwners.delete(child);
@@ -66,7 +66,7 @@ afterEach(async () => {
   }
 });
 
-async function startLiveStateOwner(state: OpenClawTestState): Promise<ChildProcess> {
+async function startLiveStateOwner(state: GrantedTestState): Promise<ChildProcess> {
   const lockModuleUrl = pathToFileURL(path.resolve("src/infra/gateway-lock.ts")).href;
   const script = `
     import path from "node:path";

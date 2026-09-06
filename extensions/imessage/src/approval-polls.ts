@@ -9,7 +9,7 @@ import {
   listApprovalReactionBindings,
 } from "openclaw/plugin-sdk/approval-reaction-runtime";
 import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
 import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
 import { asDateTimestampMs } from "openclaw/plugin-sdk/number-runtime";
@@ -436,7 +436,7 @@ function warn(message: string, fields: Record<string, unknown>): void {
  * before the ordinary dispatch pipeline renders it as prose.
  */
 export async function maybeResolveIMessageApprovalPollVote(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   message: IMessagePayload;
   gatewayUrl?: string;

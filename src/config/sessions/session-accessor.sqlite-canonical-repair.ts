@@ -6,7 +6,7 @@ import {
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { publishSessionEntryCacheInvalidation } from "./session-accessor.sqlite-entry-cache.js";
 import { readSessionGenerationIdsForKeys } from "./session-accessor.sqlite-lifecycle-state.js";
@@ -50,7 +50,7 @@ function resolveSqliteCanonicalRepairLookupKeys(
 
 /** Doctor probes only the exact staged target and may replace a malformed partial row. */
 export function readExactSessionEntryRowForCanonicalRepair(
-  database: Pick<OpenClawAgentDatabase, "db">,
+  database: Pick<GrantedAgentDatabase, "db">,
   sessionKey: string,
   options: { allowMalformedRowRepair?: boolean } = {},
 ) {
@@ -92,7 +92,7 @@ export function readExactSessionEntryRowForCanonicalRepair(
 /** Doctor-only cross-store copy; the source node remains until lifecycle archival succeeds. */
 export function copySqliteSessionOwnedStateForCanonicalRepair(params: {
   canonicalKey: string;
-  destinationDatabase: OpenClawAgentDatabase;
+  destinationDatabase: GrantedAgentDatabase;
   preferredEntry?: SessionEntry;
   preferredSessionKey?: string;
   source: { agentId: string; storePath: string };
@@ -179,7 +179,7 @@ export async function ensureSqliteTranscriptGenerationsForCanonicalRepair(
 
 /** Doctor-only same-store rewrite for delivery attribution owned by removed aliases. */
 export function rehomeSqliteSessionDeliveryReferencesForCanonicalRepair(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   canonicalKey: string,
   previousKeys: readonly string[],
 ): void {
@@ -190,7 +190,7 @@ export function rehomeSqliteSessionDeliveryReferencesForCanonicalRepair(
 
 /** Doctor-only batched delivery rewrite with one session identity inventory per database. */
 export function rehomeSqliteSessionDeliveryReferencesForCanonicalRepairBatch(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   repairs: readonly { canonicalKey: string; previousKeys: readonly string[] }[],
 ): void {
   if (repairs.length === 0) {
@@ -245,10 +245,10 @@ export function rehomeSqliteSessionDeliveryReferencesForCanonicalRepairBatch(
 
 function copySqliteSessionOwnedStateForRepair(params: {
   canonicalKey: string;
-  destination: OpenClawAgentDatabase;
+  destination: GrantedAgentDatabase;
   preferredEntry?: SessionEntry;
   preferredSessionKey?: string;
-  source: OpenClawAgentDatabase;
+  source: GrantedAgentDatabase;
   sourceEntries: readonly SessionEntry[];
   sourceKeys: readonly string[];
 }): void {
@@ -493,9 +493,9 @@ function copySqliteSessionOwnedStateForRepair(params: {
 }
 
 function copySqliteSessionGenerationRows(params: {
-  destination: OpenClawAgentDatabase;
+  destination: GrantedAgentDatabase;
   sessionId: string;
-  source: OpenClawAgentDatabase;
+  source: GrantedAgentDatabase;
   sourceWindowPresent: boolean;
 }): boolean {
   const sourceDb = getSessionKysely(params.source.db);

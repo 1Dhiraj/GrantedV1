@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { runCommandBuffered } from "../process/exec.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   assertGitHubPublicationRefCasCompleted,
@@ -19,7 +19,7 @@ import {
   githubPublicationUpdateRefArgs,
 } from "./github-publication-git-transport.js";
 
-let testState: OpenClawTestState;
+let testState: GrantedTestState;
 let directoryIndex = 0;
 const REQUEST_ID = "11111111-1111-4111-8111-111111111111";
 

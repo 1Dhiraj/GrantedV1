@@ -18,12 +18,12 @@ import {
 } from "../infra/kysely-sync.js";
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import type { TaskFlowRegistryStoreSnapshot } from "./task-flow-registry.store.types.js";
 import {
@@ -36,8 +36,8 @@ import {
 import { parseDeliveryContextJson, parseSqliteJsonValue } from "./task-registry.sqlite.shared.js";
 import { parseTaskNotifyPolicy } from "./task-registry.types.js";
 
-type FlowRunsTable = OpenClawStateKyselyDatabase["flow_runs"];
-type FlowRegistryStoreDatabase = Pick<OpenClawStateKyselyDatabase, "flow_runs">;
+type FlowRunsTable = GrantedStateKyselyDatabase["flow_runs"];
+type FlowRegistryStoreDatabase = Pick<GrantedStateKyselyDatabase, "flow_runs">;
 
 type FlowRegistryRow = Selectable<FlowRunsTable> & {
   sync_mode: string | null;
@@ -295,7 +295,7 @@ export function upsertTaskFlowRegistryRecordToSqlite(flow: TaskFlowRecord) {
 export function bindTaskFlowExecution(params: {
   admitted: AdmittedRunContext;
   flowId: string;
-  options?: OpenClawStateDatabaseOptions;
+  options?: GrantedStateDatabaseOptions;
 }): ExecutionOwnerBindingResult {
   const binding = executionOwnerBindingFromAdmission(params.admitted);
   if (!binding) {

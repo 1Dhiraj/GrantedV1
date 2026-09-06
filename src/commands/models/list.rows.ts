@@ -15,7 +15,7 @@ import { modelCatalogLogicalKey } from "../../agents/model-selection-shared.js";
 import { shouldSuppressBuiltInModelCore } from "../../agents/model-suppression.js";
 import { openAIModelCatalogRoutePolicy } from "../../agents/openai-model-routes.js";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../../config/types.models.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ModelRegistry } from "../../llm/model-registry.js";
 import type { Model } from "../../llm/types.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
@@ -126,7 +126,7 @@ function hasSameCatalogRoute(left: ListRowModel, right: ListRowModel): boolean {
 function projectListRowModel(params: {
   model: ListRowModel;
   evaluation: ModelListAuthEvaluation;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   routeIndex?: ModelCatalogLogicalRouteIndex;
 }): ListRowModel {
   const projection =
@@ -314,7 +314,7 @@ function shouldListConfiguredProviderModel(params: {
 }
 
 function findConfiguredProviderModel(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   modelId: string;
 }): ListRowModel | undefined {
@@ -332,7 +332,7 @@ function findConfiguredProviderModel(params: {
 
 function toFallbackConfiguredListModel(
   entry: ConfiguredEntry,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   catalogEntry?: ModelCatalogEntry,
 ): ListRowModel {
   // Explicit models.providers definitions stay authoritative; the prepared

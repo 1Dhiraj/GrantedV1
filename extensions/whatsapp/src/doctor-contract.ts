@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
@@ -55,7 +55,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
   },
 ];
 
-function removeExposeErrorText(cfg: OpenClawConfig, changes: string[]): OpenClawConfig {
+function removeExposeErrorText(cfg: GrantedConfig, changes: string[]): GrantedConfig {
   return stripRetiredChannelKeys({
     cfg,
     channelId: "whatsapp",
@@ -68,7 +68,7 @@ function removeExposeErrorText(cfg: OpenClawConfig, changes: string[]): OpenClaw
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   const ackReaction = normalizeAckReactionConfig({ cfg });
   const retiredConfig = removeExposeErrorText(ackReaction.config, ackReaction.changes);

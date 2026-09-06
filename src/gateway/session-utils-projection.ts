@@ -7,7 +7,7 @@ import {
 import { buildSubagentSessionListReadIndex } from "../agents/subagents/registry/subagent-registry-read.js";
 import { resolveSessionStorePathCore, type SessionEntry } from "../config/sessions.js";
 import { resolveConcreteSessionStorePath } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { readRecentSessionUsageFromTranscript as readScopedRecentSessionUsageFromTranscript } from "./session-transcript-readers.js";
 import type {
@@ -50,7 +50,7 @@ export function buildSingleRowStoreChildSessionsByKey(params: {
 }
 
 export function resolveSessionSelectedModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry?: SessionEntry;
   agentId: string;
   rowContext?: SessionListRowContext;
@@ -115,7 +115,7 @@ export function resolveChildSessionKeys(
 }
 
 export function resolveTranscriptUsageFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   entry?: SessionEntry;
   storePath: string;

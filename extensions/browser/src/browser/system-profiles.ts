@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import { resolveOpenClawUserDataDir } from "./chrome.js";
@@ -53,7 +53,7 @@ type SystemCookieReaderDeps = {
 };
 
 type SystemProfileDeps = SystemCookieReaderDeps & {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 };
 
 const SYSTEM_BROWSER_DIRS: Record<SystemBrowser, string[]> = {

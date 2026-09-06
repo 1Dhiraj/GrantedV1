@@ -1,7 +1,7 @@
 /**
  * Applies final effective tool policy to embedded-agent runtime settings.
  */
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { getPluginToolMeta } from "../../plugins/tool-metadata.js";
 import type { ResolvedConversationCapabilityProfile } from "../conversation-capability-profile.js";
@@ -33,7 +33,7 @@ type FinalEffectiveToolPolicyParams = {
   // the already-filtered core tools would drop plugin tools whose WeakMap
   // metadata no longer survives core-tool wrapping/normalization.
   bundledTools: AnyAgentTool[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   metadataSnapshot?: PluginMetadataSnapshot;
   conversationCapabilityProfile: ResolvedConversationCapabilityProfile;

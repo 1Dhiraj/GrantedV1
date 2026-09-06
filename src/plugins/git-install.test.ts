@@ -11,7 +11,7 @@ import type { DiagnosticSecurityEvent } from "../infra/diagnostic-events.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   requestDeferredPluginInstall,
@@ -161,7 +161,7 @@ describe("isImmutableGitCommitRef", () => {
 });
 
 describe("installPluginFromGitSpec", () => {
-  let state: OpenClawTestState;
+  let state: GrantedTestState;
   const trackedTempDirs = useAutoCleanupTempDirTracker(afterEach);
 
   beforeEach(async () => {

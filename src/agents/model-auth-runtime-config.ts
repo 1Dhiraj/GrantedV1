@@ -7,7 +7,7 @@ import {
   getRuntimeConfigSourceSnapshot,
   selectApplicableRuntimeConfig,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   findActiveDegradedSecretOwner,
   SecretSurfaceUnavailableError,
@@ -18,7 +18,7 @@ import type { ResolvedProviderAuth } from "./model-auth-runtime-shared.js";
 
 /** Reads a runtime-resolved credential for a SecretRef-backed provider entry. */
 export function resolveManagedSecretRefRuntimeProviderAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
   secretSentinels?: boolean;
 }): ResolvedProviderAuth | undefined {
@@ -65,7 +65,7 @@ export function resolveManagedSecretRefRuntimeProviderAuth(params: {
 }
 
 export function assertRuntimeProviderSecretOwnerAvailable(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   provider: string;
 }): void {
   const provider = normalizeProviderId(params.provider);

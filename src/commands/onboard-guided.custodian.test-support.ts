@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSuiteLogPathTracker } from "../logging/log-test-helpers.js";
 import { resetLogger } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
@@ -48,12 +48,12 @@ const readConfigFileSnapshot = vi.hoisted(() =>
 );
 const localOnboarding = vi.hoisted(() => {
   const states = new Map<string, LocalOnboardingState>();
-  const persisted = { config: undefined as OpenClawConfig | undefined };
+  const persisted = { config: undefined as GrantedConfig | undefined };
   return {
     states,
     persisted,
     read: vi.fn((configPath: string) => states.get(configPath)),
-    readForConfig: vi.fn((configPath: string, config: OpenClawConfig) => {
+    readForConfig: vi.fn((configPath: string, config: GrantedConfig) => {
       const state = states.get(configPath);
       return state?.securityAcknowledgedAt === config.wizard?.securityAcknowledgedAt
         ? state
@@ -108,7 +108,7 @@ const localOnboarding = vi.hoisted(() => {
 });
 const withConfigMutationExclusive = vi.hoisted(() =>
   vi.fn(
-    async (effect: (config: OpenClawConfig) => Promise<unknown>) =>
+    async (effect: (config: GrantedConfig) => Promise<unknown>) =>
       await effect(localOnboarding.persisted.config ?? {}),
   ),
 );
@@ -123,7 +123,7 @@ vi.mock("../state/local-onboarding-state.js", () => ({
   completeLocalOnboarding: localOnboarding.complete,
 }));
 vi.mock("./onboard-agent.js", () => ({
-  ensureOnboardingAgent: async ({ config }: { config: OpenClawConfig }) => ({
+  ensureOnboardingAgent: async ({ config }: { config: GrantedConfig }) => ({
     config: {
       ...config,
       agents: { ...config.agents, list: [{ id: "main", default: true }] },
@@ -258,7 +258,7 @@ function setupDeps(params: {
       }),
     persistRiskAcknowledgement:
       params.persistRiskAcknowledgement ??
-      vi.fn(async (config: OpenClawConfig) => {
+      vi.fn(async (config: GrantedConfig) => {
         localOnboarding.persisted.config = config;
         return config.wizard?.securityAcknowledgedAt;
       }),

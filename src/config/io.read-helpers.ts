@@ -32,7 +32,7 @@ import type { ConfigIoDeps, NormalizedConfigIoDeps, ParseConfigJson5Result } fro
 import { resolveConfigPath, resolveIncludeRoots, resolveStateDir } from "./paths.js";
 import { createConfigResolutionFacts, type ConfigResolutionFacts } from "./resolution-facts.js";
 import { getRuntimeConfigSourceSnapshot } from "./runtime-snapshot.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 export function hashConfigRaw(raw: string | null): string {
   // Present-file hashes stay compatible with last-known-good recovery metadata.
@@ -59,8 +59,8 @@ export function resolveConfigSnapshotHash(snapshot: {
   return hashConfigRaw(snapshot.raw);
 }
 
-export function coerceConfig(value: unknown): OpenClawConfig {
-  return (asOptionalRecord(value) ?? {}) as OpenClawConfig;
+export function coerceConfig(value: unknown): GrantedConfig {
+  return (asOptionalRecord(value) ?? {}) as GrantedConfig;
 }
 
 export function hasConfigMeta(value: unknown): boolean {
@@ -327,7 +327,7 @@ export function resolveConfigForRead(
   lowerPrecedenceEnv: Readonly<Record<string, string>> = {},
 ): ConfigReadResolution {
   if (resolvedIncludes && typeof resolvedIncludes === "object" && "env" in resolvedIncludes) {
-    applyConfigEnvVars(resolvedIncludes as OpenClawConfig, env, { lowerPrecedenceEnv });
+    applyConfigEnvVars(resolvedIncludes as GrantedConfig, env, { lowerPrecedenceEnv });
   }
   const envWarnings: EnvSubstitutionWarning[] = [];
   const pendingEnvSecretRefs = new Map<string, string>();
@@ -366,7 +366,7 @@ export function replaceEnvSnapshot(
 
 export function resolveManagedRuntimeEnvBaseline(): {
   generation: number;
-  sourceConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
 } {
   const published = getPublishedConfigRuntimeEnvState();
   return {

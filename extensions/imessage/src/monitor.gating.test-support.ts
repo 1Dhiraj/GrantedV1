@@ -1,5 +1,5 @@
 // Imessage tests cover monitor.gating plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it } from "vitest";
 import { parseIMessageNotification } from "./monitor/parse-notification.js";
 import type { IMessagePayload } from "./monitor/types.js";
@@ -10,7 +10,7 @@ type DecisionParams = Parameters<InboundProcessingModule["resolveIMessageInbound
 let buildIMessageInboundContext: InboundProcessingModule["buildIMessageInboundContext"];
 let resolveIMessageInboundDecision: InboundProcessingModule["resolveIMessageInboundDecision"];
 
-function baseCfg(): OpenClawConfig {
+function baseCfg(): GrantedConfig {
   return {
     channels: {
       imessage: {
@@ -24,11 +24,11 @@ function baseCfg(): OpenClawConfig {
     messages: {
       groupChat: { mentionPatterns: ["@openclaw"] },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 async function resolve(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   message: IMessagePayload;
   storeAllowFrom?: string[];
 }) {
@@ -43,7 +43,7 @@ async function resolve(params: {
 }
 
 async function resolveDecision(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   message: IMessagePayload;
   groupHistories?: DecisionParams["groupHistories"];
   allowFrom?: string[];
@@ -82,7 +82,7 @@ async function resolveDispatchDecision(params: Parameters<typeof resolveDecision
 }
 
 async function buildDispatchContextPayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   message: IMessagePayload;
   allowFrom?: string[];
   groupAllowFrom?: string[];

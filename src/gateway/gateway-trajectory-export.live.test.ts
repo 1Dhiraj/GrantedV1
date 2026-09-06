@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { GATEWAY_CLIENT_CAPS } from "../../packages/gateway-protocol/src/client-info.js";
 import type { EventFrame } from "../../packages/gateway-protocol/src/index.js";
 import { isLiveTestEnabled } from "../agents/live-test-helpers.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setTestEnvValue } from "../test-utils/env.js";
 import { loadSqliteTrajectoryRuntimeEvents } from "../trajectory/runtime-store.sqlite.js";
 import { GatewayClient } from "./client.js";
@@ -101,7 +101,7 @@ async function writeLiveGatewayConfig(params: {
   token: string;
   workspace: string;
 }): Promise<void> {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     gateway: {
       mode: "local",
       port: params.port,

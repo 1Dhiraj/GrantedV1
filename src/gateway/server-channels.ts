@@ -18,7 +18,7 @@ import {
   resolveChannelAccountState,
   resolveUnavailableChannelAccountSnapshot,
 } from "../channels/status/account-state.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withGatewayNativeApprovalRuntime } from "../infra/approval-gateway-runtime-context.js";
 import type { GatewayNativeApprovalMethod } from "../infra/approval-gateway-runtime-methods.js";
 import type { GatewayNativeApprovalRuntime } from "../infra/approval-gateway-runtime.types.js";
@@ -197,7 +197,7 @@ async function waitForChannelStopGracefully(task: Promise<unknown> | undefined, 
 }
 
 type ChannelManagerOptions = {
-  getRuntimeConfig: () => OpenClawConfig;
+  getRuntimeConfig: () => GrantedConfig;
   channelLogs: Partial<Record<ChannelId, SubsystemLogger>>;
   channelRuntimeEnvs: Partial<Record<ChannelId, RuntimeEnv>>;
   /**

@@ -4,7 +4,7 @@ import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
 } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
 import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "openclaw/plugin-sdk/media-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -20,7 +20,7 @@ const hoisted = vi.hoisted(() => ({
 const recordChannelActivity = vi.hoisted(() => vi.fn());
 const loadWebMediaMock = vi.fn();
 let sendMessageWhatsApp: typeof import("./send.js").sendMessageWhatsApp;
-const WHATSAPP_TEST_CFG: OpenClawConfig = { channels: { whatsapp: {} } };
+const WHATSAPP_TEST_CFG: GrantedConfig = { channels: { whatsapp: {} } };
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<

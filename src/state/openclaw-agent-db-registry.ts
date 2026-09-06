@@ -10,7 +10,7 @@ import {
 } from "./agent-deletion-journal.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { invalidateRegisteredAgentDatabasesMemo } from "./openclaw-agent-db-registry-listing.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
 import { resolveOpenClawAgentDatabaseStoredPath } from "./openclaw-state-db.paths.js";
 
@@ -19,7 +19,7 @@ export {
   readOpenClawAgentDatabaseRegistryToken,
 } from "./openclaw-agent-db-registry-listing.js";
 
-type OpenClawAgentRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "agent_databases">;
+type GrantedAgentRegistryDatabase = Pick<GrantedStateKyselyDatabase, "agent_databases">;
 
 type AgentDatabasePathIdentity = {
   lexicalPath: string;
@@ -622,7 +622,7 @@ export function registerOpenClawAgentDatabase(params: {
     (database) => {
       assertAgentDeletionPathFence(database.db, deletionFence);
       const storedPath = resolveOpenClawAgentDatabaseStoredPath(database.path, params.path);
-      const db = getNodeSqliteKysely<OpenClawAgentRegistryDatabase>(database.db);
+      const db = getNodeSqliteKysely<GrantedAgentRegistryDatabase>(database.db);
       executeSqliteQuerySync(
         database.db,
         db
@@ -690,7 +690,7 @@ export function unregisterOpenClawAgentDatabase(params: {
     (database) => {
       const storedPath = resolveOpenClawAgentDatabaseStoredPath(database.path, params.path);
       const matchingPaths = [...new Set([storedPath, params.path, path.resolve(params.path)])];
-      const db = getNodeSqliteKysely<OpenClawAgentRegistryDatabase>(database.db);
+      const db = getNodeSqliteKysely<GrantedAgentRegistryDatabase>(database.db);
       executeSqliteQuerySync(
         database.db,
         db
@@ -711,7 +711,7 @@ export function unregisterOpenClawAgentDatabases(params: {
 }): void {
   runOpenClawStateWriteTransaction(
     (database) => {
-      const db = getNodeSqliteKysely<OpenClawAgentRegistryDatabase>(database.db);
+      const db = getNodeSqliteKysely<GrantedAgentRegistryDatabase>(database.db);
       executeSqliteQuerySync(
         database.db,
         db.deleteFrom("agent_databases").where("agent_id", "=", params.agentId),

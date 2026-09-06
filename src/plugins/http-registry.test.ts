@@ -1,6 +1,6 @@
 /** Verifies plugin HTTP route registration, collision detection, and metadata capture. */
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { registerPluginHttpRoute, withPluginHttpRouteRegistry } from "./http-registry.js";
 import { createEmptyPluginRegistry } from "./registry-empty.js";
 import { createPluginRegistry } from "./registry.js";
@@ -146,7 +146,7 @@ describe("registerPluginHttpRoute", () => {
       runtime: {} as PluginRuntime,
       activateGlobalSideEffects: false,
     });
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const plainRecord = createPluginRecord({
       id: "plain-http",
       source: "/plugins/plain-http/index.ts",
@@ -323,7 +323,7 @@ describe("registerPluginHttpRoute", () => {
       const record = createPluginRecord({ id: "demo", source: "/plugins/demo/index.js" });
       const handler = vi.fn();
       pluginRegistry.registry.plugins.push(record);
-      pluginRegistry.createApi(record, { config: {} as OpenClawConfig }).registerHttpRoute({
+      pluginRegistry.createApi(record, { config: {} as GrantedConfig }).registerHttpRoute({
         path: "/plugins/shared",
         auth: "plugin",
         handler,
@@ -453,7 +453,7 @@ describe("registerPluginHttpRoute", () => {
     });
     const slashHandler = vi.fn();
     pluginRegistry.registry.plugins.push(record);
-    pluginRegistry.createApi(record, { config: {} as OpenClawConfig }).registerHttpRoute({
+    pluginRegistry.createApi(record, { config: {} as GrantedConfig }).registerHttpRoute({
       path: "/Mattermost//Interactions/default/",
       auth: "plugin",
       handler: slashHandler,

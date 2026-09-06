@@ -7,7 +7,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolvePluginNpmProjectDir } from "./install-paths.js";
 import { installPluginFromNpmSpec, PLUGIN_INSTALL_ERROR_CODE } from "./install.js";
 
@@ -110,7 +110,7 @@ async function createInstalledPackageTreePolicyExec(rootDir: string) {
 function configWithInstalledPackageTreeBlockPolicy(exec: {
   command: string;
   args: string[];
-}): OpenClawConfig {
+}): GrantedConfig {
   return {
     security: {
       installPolicy: {
@@ -308,11 +308,7 @@ function useRegistry(registry: string): void {
   process.env.npm_config_registry = registry;
 }
 
-async function installNpmPlugin(params: {
-  config?: OpenClawConfig;
-  npmRoot: string;
-  spec: string;
-}) {
+async function installNpmPlugin(params: { config?: GrantedConfig; npmRoot: string; spec: string }) {
   return await installPluginFromNpmSpec({
     ...(params.config ? { config: params.config } : {}),
     spec: params.spec,

@@ -1,6 +1,6 @@
 import { ChannelType, PermissionFlagsBits } from "discord-api-types/v10";
 import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
 import type { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
 import { Guild, GuildCreateListener, type Client } from "../internal/discord.js";
@@ -20,7 +20,7 @@ const DISCORD_GUILD_JOIN_INTRO_MAX_AGE_MS = 5 * 60 * 1_000;
 export class DiscordGuildJoinIntroductionListener extends GuildCreateListener {
   constructor(
     private readonly params: {
-      cfg: OpenClawConfig;
+      cfg: GrantedConfig;
       accountId: string;
       botUserId?: string;
       groupPolicy: "open" | "allowlist" | "disabled";

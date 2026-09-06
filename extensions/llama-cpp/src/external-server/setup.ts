@@ -10,7 +10,7 @@ import {
   ensureApiKeyFromEnvOrPrompt,
   normalizeOptionalSecretInput,
   upsertAuthProfileWithLock,
-  type OpenClawConfig,
+  type GrantedConfig,
   type SecretInput,
 } from "openclaw/plugin-sdk/provider-auth";
 import {
@@ -118,7 +118,7 @@ function hasEndpointChanged(provider: ModelProviderConfig | undefined, baseUrl: 
   );
 }
 
-function stripLlamaServerEndpointAuth(config: OpenClawConfig): OpenClawConfig {
+function stripLlamaServerEndpointAuth(config: GrantedConfig): GrantedConfig {
   const withoutProfile = removeAuthProfileConfig(config, PROFILE_ID);
   const provider = withoutProfile.models?.providers?.[LLAMA_CPP_PROVIDER_ID];
   const endpointSafeProvider = stripEndpointCredentials(provider);
@@ -152,7 +152,7 @@ function stripAuthorizationHeader<T>(
 }
 
 function buildExistingProviderConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   discovery: Extract<LlamaServerDiscoveryResult, { kind: "success" }>;
   resetEndpoint: boolean;
   persistence: AuthPersistence<unknown>;
@@ -174,7 +174,7 @@ function buildExistingProviderConfig(params: {
 }
 
 function buildSetupResult(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   discovery: Extract<LlamaServerDiscoveryResult, { kind: "success" }>;
   modelId: string;
   resetEndpoint: boolean;
@@ -487,7 +487,7 @@ export async function validateLlamaServerNonInteractive(
 /** Non-interactive setup with optional API-key persistence. */
 export async function configureLlamaServerNonInteractive(
   ctx: ProviderAuthMethodNonInteractiveContext,
-): Promise<OpenClawConfig | null> {
+): Promise<GrantedConfig | null> {
   const validated = await validateNonInteractiveDiscovery(ctx);
   if (!validated) {
     return null;
@@ -498,7 +498,7 @@ export async function configureLlamaServerNonInteractive(
     resetEndpoint: validated.resetEndpoint,
     persistence: validated.persistence,
   });
-  let config: OpenClawConfig = {
+  let config: GrantedConfig = {
     ...ctx.config,
     models: {
       ...ctx.config.models,

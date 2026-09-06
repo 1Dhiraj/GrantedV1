@@ -13,7 +13,7 @@ import {
   maintainClawPackageLifecycleLease,
   type MaintainedClawPackageLifecycleLease,
 } from "../state/claw-package-lifecycle-lease.js";
-import type { OpenClawStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import {
   readClawPackageRefs,
   readClawInstallRecords,
@@ -214,7 +214,7 @@ export async function inspectClawPackage(
 export async function planClawPackageRemovals(
   install: PersistedClawInstall,
   packages: PersistedClawPackageRef[],
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     deps?: PackageRemovalDeps;
     referencedCleanup?: ClawReferencedCleanup;
   } = {},
@@ -376,7 +376,7 @@ export async function planClawPackageRemovals(
   return decisions;
 }
 
-type ApplyClawPackageRemovalOptions = OpenClawStateDatabaseOptions & {
+type ApplyClawPackageRemovalOptions = GrantedStateDatabaseOptions & {
   deps?: PackageRemovalDeps;
 };
 

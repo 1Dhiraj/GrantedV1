@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { prepareSessionCreateFilesystemRoot } from "./session-create-root.js";
 
@@ -9,7 +9,7 @@ const directoryLinkType = process.platform === "win32" ? "junction" : "dir";
 
 describe("session create filesystem root", () => {
   let state: Awaited<ReturnType<typeof createOpenClawTestState>>;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   let workspace: string;
 
   beforeEach(async () => {

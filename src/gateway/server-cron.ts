@@ -30,7 +30,7 @@ import {
   listKnownSessionStoreAgentIds,
 } from "../config/sessions/targets.js";
 import type { AgentDefaultsConfig } from "../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveCronJobEffectiveAgentId } from "../cron/agent-id.js";
 import {
   buildCronCommandSummary,
@@ -148,7 +148,7 @@ export type GatewayCronState = {
   reconcileExitWatchers: () => Promise<void>;
   reconcileStreamWatchers: () => Promise<void>;
   stopStreamWatchers: () => Promise<void>;
-  reconcileHeartbeatJobs: (cfg?: OpenClawConfig) => Promise<GatewayHeartbeatReconciliationResult>;
+  reconcileHeartbeatJobs: (cfg?: GrantedConfig) => Promise<GatewayHeartbeatReconciliationResult>;
 };
 
 export type GatewayCronExitWatcherHandoff = {
@@ -259,7 +259,7 @@ async function finalizeCronCompletionAnnouncement(params: {
   runStartedAtMs?: number;
   abortSignal?: AbortSignal;
   deps: CliDeps;
-  resolveCronAgent: (requested?: string | null) => { agentId: string; cfg: OpenClawConfig };
+  resolveCronAgent: (requested?: string | null) => { agentId: string; cfg: GrantedConfig };
   logger: ReturnType<typeof getChildLogger>;
   label: string;
   traceResolvedFailure?: boolean;
@@ -416,7 +416,7 @@ const CRON_ACTIVE_RUN_SHUTDOWN_DRAIN_MS = 10_000;
 
 /** Build the cron service state used by Gateway startup and lazy cron loading. */
 export function buildGatewayCronService(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deps: CliDeps;
   broadcast: (event: string, payload: unknown, opts?: { dropIfSlow?: boolean }) => void;
   env?: NodeJS.ProcessEnv;
@@ -435,10 +435,10 @@ export function buildGatewayCronService(params: {
   // same explicit opt-in while omitted config keeps the guard strict.
   const webhookSsrfPolicy = mergeSsrFPolicies(params.cfg.cron?.webhookSsrfPolicy);
 
-  const findAgentEntry = (cfg: OpenClawConfig, agentId: string) =>
+  const findAgentEntry = (cfg: GrantedConfig, agentId: string) =>
     listAgentEntries(cfg).find((entry) => normalizeAgentId(entry.id) === agentId);
 
-  const hasConfiguredAgent = (cfg: OpenClawConfig, agentId: string) =>
+  const hasConfiguredAgent = (cfg: GrantedConfig, agentId: string) =>
     Boolean(findAgentEntry(cfg, agentId));
 
   const resolveCronAgent = (requested?: string | null) => {
@@ -464,7 +464,7 @@ export function buildGatewayCronService(params: {
   };
 
   const resolveCronSessionKey = (paramsValue: {
-    runtimeConfig: OpenClawConfig;
+    runtimeConfig: GrantedConfig;
     agentId: string;
     requestedSessionKey?: string | null;
   }) => {
@@ -545,7 +545,7 @@ export function buildGatewayCronService(params: {
   };
 
   const resolveCronHeartbeatOverride = (paramsLocal: {
-    runtimeConfig: OpenClawConfig;
+    runtimeConfig: GrantedConfig;
     agentId?: string;
     heartbeat?: AgentDefaultsConfig["heartbeat"];
   }) => {
@@ -1587,7 +1587,7 @@ export function buildGatewayCronService(params: {
     }
   };
   const reconcileHeartbeatJobs = (
-    cfgOverride?: OpenClawConfig,
+    cfgOverride?: GrantedConfig,
   ): Promise<GatewayHeartbeatReconciliationResult> => {
     const epoch = ++heartbeatReconcileEpoch;
     if (heartbeatRetryTimer) {

@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isAcpRuntimeSpawnAvailable } from "../../acp/runtime/availability.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isMissingPathError } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
@@ -44,7 +44,7 @@ registerPluginMetadataProcessMemoLifecycleClear(() => {
 
 export function resolvePluginSkillRoots(params: {
   workspaceDir: string | undefined;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   /** Override the plugin skills directory for testing. */
   pluginSkillsDir?: string;
 }): PluginSkillRoot[] {
@@ -65,7 +65,7 @@ export function resolvePluginSkillRoots(params: {
 
 export function resolvePluginSkillRootsFromMetadata(params: {
   workspaceDir: string | undefined;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   pluginSkillsDir?: string;
   metadataSnapshot: PluginMetadataSnapshot;
 }): PluginSkillRoot[] {

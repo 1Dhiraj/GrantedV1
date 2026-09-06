@@ -6,7 +6,7 @@ import { formatConfigIssueLines, normalizeConfigIssues } from "../config/issue-f
 import { renderConfigValidationIssueLines } from "../config/issue-location.js";
 import { isPluginPackagingRuntimeOutputInvalidConfigSnapshot } from "../config/recovery-policy.js";
 import type { ConfigValidationIssue } from "../config/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   coerceSecretRef,
   isSecretRef,
@@ -111,7 +111,7 @@ function pathContains(parent: readonly string[], child: readonly string[]): bool
 }
 
 function selectConfigMutationSecrets(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   operations: ConfigSetOperation[],
 ): ConfigMutationSecretSelection {
   const paths = operations.map(({ setPath }) => setPath);
@@ -195,7 +195,7 @@ function selectConfigMutationSecrets(
 
 async function collectDryRunResolvabilityErrors(params: {
   refs: SecretRef[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<ConfigSetDryRunError[]> {
   const failures: ConfigSetDryRunError[] = [];
   for (const ref of params.refs) {
@@ -214,7 +214,7 @@ async function collectDryRunResolvabilityErrors(params: {
 
 function collectDryRunStaticErrorsForSkippedExecRefs(params: {
   refs: SecretRef[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): ConfigSetDryRunError[] {
   const failures: ConfigSetDryRunError[] = [];
   for (const ref of params.refs) {
@@ -271,7 +271,7 @@ function selectDryRunRefsForResolution(params: { refs: SecretRef[]; allowExecInD
 }
 
 function collectStrictConfigErrors(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginMetadataSnapshot?: Pick<PluginMetadataSnapshot, "manifestRegistry">,
 ): ConfigSetDryRunError[] {
   const validated = validateConfigObjectRawWithPlugins(config, {
@@ -288,7 +288,7 @@ function collectStrictConfigErrors(
 }
 
 export function assertStrictConfigForMutation(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   pluginMetadataSnapshot?: Pick<PluginMetadataSnapshot, "manifestRegistry">,
 ): void {
   const errors = collectStrictConfigErrors(config, pluginMetadataSnapshot);
@@ -301,7 +301,7 @@ export function assertStrictConfigForMutation(
 }
 
 async function collectConfigSecretProviderErrors(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   selection?: ConfigMutationSecretSelection;
 }): Promise<ConfigValidationIssue[]> {
   const providers = params.config.secrets?.providers ?? {};
@@ -365,8 +365,8 @@ function dedupeDryRunErrors(errors: ConfigSetDryRunError[]): ConfigSetDryRunErro
 
 /** Validates one final candidate and decides whether the runner may preview, skip, or write it. */
 export async function validateConfigMutation(params: {
-  config: OpenClawConfig;
-  previousConfig: OpenClawConfig;
+  config: GrantedConfig;
+  previousConfig: GrantedConfig;
   operations: ConfigSetOperation[];
   options: ConfigMutationOptions;
   configPath: string;

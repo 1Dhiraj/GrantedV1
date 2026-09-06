@@ -29,7 +29,7 @@ import {
   AGENT_MEDIA_SCHEMA_VERSION,
   GRANTED_AGENT_SCHEMA_VERSION,
 } from "./openclaw-agent-db-contract.js";
-import { OpenClawAgentDatabaseMediaMigrationRequiredError } from "./openclaw-agent-db-migration-required.js";
+import { GrantedAgentDatabaseMediaMigrationRequiredError } from "./openclaw-agent-db-migration-required.js";
 import {
   ensureSessionAdditiveColumns,
   ensureSessionEntryValidityProjection,
@@ -274,7 +274,7 @@ export function assertCanonicalAgentPersistenceVersion(
   const isNewUnownedDatabase =
     userVersion === 0 && readExistingAgentSchemaMeta(db) === null && !hasApplicationSchema;
   if (userVersion < AGENT_MEDIA_SCHEMA_VERSION && !isNewUnownedDatabase) {
-    throw new OpenClawAgentDatabaseMediaMigrationRequiredError(pathname, userVersion);
+    throw new GrantedAgentDatabaseMediaMigrationRequiredError(pathname, userVersion);
   }
   if (userVersion < GRANTED_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new Error(

@@ -16,14 +16,14 @@ import {
   openAIModelCatalogRoutePolicy,
   resolveModelCatalogIdentityKey,
 } from "../../agents/openai-model-routes.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isManifestPluginAvailableForControlPlane } from "../../plugins/manifest-contract-eligibility.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import type { ProviderCatalogOutcome } from "../../plugins/provider-catalog.types.js";
 
 function listEnabledSyntheticAuthProviderRefs(
   metadataSnapshot: PluginMetadataSnapshot,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): readonly string[] {
   return metadataSnapshot.plugins
     .filter((plugin) =>
@@ -33,7 +33,7 @@ function listEnabledSyntheticAuthProviderRefs(
 }
 
 export function createModelsListAuthResolver(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   metadataSnapshot: PluginMetadataSnapshot;
   preparedAuthStore: AuthProfileStore;
@@ -66,7 +66,7 @@ export function createModelsListAuthResolver(params: {
 }
 
 export function createModelsListEntryEvaluator(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   authResolver: ModelAuthAvailabilityResolver;
   metadataSnapshot: PluginMetadataSnapshot;

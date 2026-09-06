@@ -9,14 +9,14 @@ import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import { isSqliteCorruptionError } from "../infra/sqlite-transaction.js";
 import { openClawStateDatabaseCache } from "./openclaw-state-db-cache.js";
 import { withOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
 } from "./openclaw-state-db.js";
 
-type StateDbTestDatabase = Pick<OpenClawStateKyselyDatabase, "diagnostic_events">;
+type StateDbTestDatabase = Pick<GrantedStateKyselyDatabase, "diagnostic_events">;
 
 const PROBE_SCOPE = "corruption-recovery-test";
 // Real out-of-place b-tree leaf page from the production incident: page 1 no

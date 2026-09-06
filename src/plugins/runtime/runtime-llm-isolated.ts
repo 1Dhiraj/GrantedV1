@@ -4,7 +4,7 @@ import type { IsolatedCompletionResult } from "../../agents/isolated-completion.
 import { buildConfiguredModelCatalog } from "../../agents/model-selection-shared.js";
 import { resolveEffectiveAgentRuntime } from "../../agents/thinking-runtime.js";
 import { resolveThinkingProfile } from "../../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createLlmCompleteError as completionError } from "./runtime-llm-error.js";
 import type { LlmCompleteParams, LlmIsolatedAgentRuntimeCompleteParams } from "./types-core.js";
 
@@ -70,7 +70,7 @@ function resolveIsolatedTimeoutMs(value: number | undefined): number {
 }
 
 function assertIsolatedReasoningSupported(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider: string;
   model: string;
@@ -102,7 +102,7 @@ function assertIsolatedReasoningSupported(params: {
 
 export async function runIsolatedAgentRuntimeCompletion(params: {
   request: LlmIsolatedAgentRuntimeCompleteParams;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   provider: string;
   model: string;

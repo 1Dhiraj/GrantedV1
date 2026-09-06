@@ -12,7 +12,7 @@ import { resolveResponsePrefixTemplate } from "../../auto-reply/reply/response-p
 import { normalizeOutboundLocation } from "../../channels/location.js";
 import { normalizeConversationReadInvocationOrigin } from "../../channels/plugins/conversation-read-origin.js";
 import type { ChannelId, ChannelMessageActionName } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   hasLegacyInteractiveReplyBlocks,
   hasMessagePresentationBlocks,
@@ -67,7 +67,7 @@ function resolveReplyMediaAttachmentType(value: unknown): ReplyMediaAttachment["
 }
 
 export async function buildMessagePayload(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   actionParams: Record<string, unknown>;
   input: MessageActionInput;
   channel?: ChannelId;

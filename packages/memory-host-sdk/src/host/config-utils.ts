@@ -73,7 +73,7 @@ type AgentConfig = {
 };
 
 /** Narrow OpenClaw config shape consumed by memory host utilities. */
-export type OpenClawConfig = {
+export type GrantedConfig = {
   agents?: {
     defaults?: {
       workspace?: string;
@@ -99,7 +99,7 @@ export type OpenClawConfig = {
   };
 };
 
-export function resolveRememberAcrossConversations(cfg: OpenClawConfig, agentId: string): boolean {
+export function resolveRememberAcrossConversations(cfg: GrantedConfig, agentId: string): boolean {
   const defaults = cfg.memory?.search;
   const overrides = resolveAgentConfig(cfg, agentId)?.memory?.search;
   const explicit = overrides?.rememberAcrossConversations ?? defaults?.rememberAcrossConversations;
@@ -242,7 +242,7 @@ function resolveDefaultAgentWorkspaceDir(env: NodeJS.ProcessEnv = process.env): 
 }
 
 /** Return configured agent entries after dropping nullish placeholders. */
-function listAgentEntries(cfg: OpenClawConfig): AgentConfig[] {
+function listAgentEntries(cfg: GrantedConfig): AgentConfig[] {
   if (cfg.agents?.entries) {
     return Object.entries(cfg.agents.entries).map(([id, entry]) => Object.assign({ id }, entry));
   }
@@ -252,7 +252,7 @@ function listAgentEntries(cfg: OpenClawConfig): AgentConfig[] {
 }
 
 /** Resolve the default agent id from explicit default marker or first agent entry. */
-function resolveDefaultAgentId(cfg: OpenClawConfig): string {
+function resolveDefaultAgentId(cfg: GrantedConfig): string {
   const agents = listAgentEntries(cfg);
   if (agents.length === 0) {
     return DEFAULT_AGENT_ID;
@@ -262,7 +262,7 @@ function resolveDefaultAgentId(cfg: OpenClawConfig): string {
 }
 
 /** Find one agent config by canonical id. */
-function resolveAgentConfig(cfg: OpenClawConfig, agentId: string): AgentConfig | undefined {
+function resolveAgentConfig(cfg: GrantedConfig, agentId: string): AgentConfig | undefined {
   const id = normalizeAgentId(agentId);
   return listAgentEntries(cfg).find((entry) => normalizeAgentId(entry.id) === id);
 }
@@ -274,7 +274,7 @@ function stripNullBytes(value: string): string {
 
 /** Resolve the workspace directory for an agent id and config defaults. */
 export function resolveMemoryHostAgentWorkspaceDir(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   env: NodeJS.ProcessEnv = process.env,
 ): string {
@@ -297,7 +297,7 @@ export function resolveMemoryHostAgentWorkspaceDir(
 
 /** Resolve context limits for an agent with defaults fallback. */
 export function resolveMemoryHostAgentContextLimits(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   agentId?: string | null,
 ): AgentContextLimitsConfig | undefined {
   const defaults = cfg?.agents?.defaults?.contextLimits;
@@ -309,7 +309,7 @@ export function resolveMemoryHostAgentContextLimits(
 
 /** Resolve enabled memory search config plus deduplicated extra paths for an agent. */
 export function resolveMemoryHostSearchPathConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
 ): {
   enabled: boolean;

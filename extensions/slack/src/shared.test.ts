@@ -1,5 +1,5 @@
 // Slack tests cover shared plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { slackSetupPlugin } from "./channel.setup.js";
 import { setSlackChannelAllowlist } from "./setup-shared.js";
@@ -103,7 +103,7 @@ describe("slackConfigAdapter", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const next = slackConfigAdapter.deleteAccount?.({ cfg, accountId: "default" });
 
@@ -139,7 +139,7 @@ describe("slackConfigAdapter", () => {
           defaultTo: "C123",
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(slackConfigAdapter.resolveAllowFrom?.({ cfg, accountId: "default" })).toEqual(["U123"]);
     expect(slackConfigAdapter.resolveDefaultTo?.({ cfg, accountId: "default" })).toBe("C123");

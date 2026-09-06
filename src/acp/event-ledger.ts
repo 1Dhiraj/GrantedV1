@@ -3,7 +3,7 @@ import type { DatabaseSync } from "node:sqlite";
 import type { SessionUpdate } from "@agentclientprotocol/sdk";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
   runOpenClawStateWriteTransaction,
 } from "../state/openclaw-state-db.js";
 import {
@@ -397,7 +397,7 @@ function buildSqliteReplay(session: AcpLedgerSession | undefined): AcpEventLedge
 
 /** Creates the SQLite-backed ACP event ledger used by the state database. */
 export function createSqliteAcpEventLedger(
-  params: OpenClawStateDatabaseOptions & AcpLedgerOptions = {},
+  params: GrantedStateDatabaseOptions & AcpLedgerOptions = {},
 ): AcpEventLedger {
   const normalized = normalizeAcpLedgerOptions(params);
   const dbOptions = { env: params.env, path: params.path };

@@ -13,7 +13,7 @@ import {
   WorkerLiveEventParamsSchema,
 } from "../../../packages/gateway-protocol/src/schema.js";
 import * as sessions from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig as Config } from "../../config/types.openclaw.js";
+import type { GrantedConfig as Config } from "../../config/types.openclaw.js";
 import {
   emitAgentEvent,
   getAgentEventLifecycleGeneration,

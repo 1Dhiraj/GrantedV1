@@ -13,7 +13,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { openaiMediaUnderstandingProvider } from "../../../../extensions/openai/api.js";
 import type { MsgContext } from "../../../../src/auto-reply/templating.js";
-import type { OpenClawConfig } from "../../../../src/config/types.js";
+import type { GrantedConfig } from "../../../../src/config/types.js";
 import { applyMediaUnderstanding } from "../../../../src/media-understanding/apply.js";
 import { withEnvAsync } from "../../../../src/test-utils/env.js";
 
@@ -215,7 +215,7 @@ async function startForwardProxy(
   return await listen(server);
 }
 
-function createConfig(providerBaseUrl: string, maxBytes: number): OpenClawConfig {
+function createConfig(providerBaseUrl: string, maxBytes: number): GrantedConfig {
   return {
     models: {
       providers: {

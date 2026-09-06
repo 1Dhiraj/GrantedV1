@@ -2,7 +2,7 @@
 import { getRuntimeConfig } from "../../config/config.js";
 import { resolveConfigWidePluginMetadataSnapshot } from "../../config/io.plugin-metadata.js";
 import { applyPluginAutoEnable } from "../../config/plugin-auto-enable.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolvePluginActivationSourceConfig } from "../activation-source-config.js";
 import { resolvePluginControlPlaneWorkspace } from "../control-plane-workspace.js";
 import { extractPluginInstallRecordsFromInstalledPluginIndex } from "../installed-plugin-index-install-records.js";
@@ -17,8 +17,8 @@ import { createPluginRuntimeLoaderLogger, type PluginRuntimeLoadContext } from "
 
 /** Options accepted while resolving plugin runtime load context. */
 type PluginRuntimeLoadContextOptions = {
-  config?: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config?: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   onlyPluginIds?: readonly string[];
@@ -40,7 +40,7 @@ export function resolvePluginRuntimeLoadContext(
     workspaceDir: options?.workspaceDir,
   }).workspaceDir;
   const resolveMetadataSnapshot = (params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     index?: PluginMetadataSnapshot["index"];
   }): PluginMetadataSnapshot => {
     if (options?.workspaceDir === undefined) {

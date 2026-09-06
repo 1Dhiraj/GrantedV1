@@ -1,5 +1,5 @@
 export {
   definePluginEntry,
   type AnyAgentTool,
-  type OpenClawPluginApi,
+  type GrantedPluginApi,
 } from "openclaw/plugin-sdk/plugin-entry";

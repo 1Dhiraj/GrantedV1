@@ -4,7 +4,7 @@ import type { BoardSnapshot } from "../../lib/board/types.ts";
 import "../../styles/base.css";
 import "./board-view.ts";
 
-type OpenClawBoardView = HTMLElementTagNameMap["openclaw-board-view"];
+type GrantedBoardView = HTMLElementTagNameMap["openclaw-board-view"];
 
 const hasBrowserLayout = !navigator.userAgent.toLowerCase().includes("jsdom");
 
@@ -41,7 +41,7 @@ const source: BoardSnapshot = {
   ],
 };
 
-async function mount(applyOps = vi.fn(async () => undefined)): Promise<OpenClawBoardView> {
+async function mount(applyOps = vi.fn(async () => undefined)): Promise<GrantedBoardView> {
   const view = document.createElement("openclaw-board-view");
   view.snapshot = structuredClone(source);
   view.activeTabId = "main";

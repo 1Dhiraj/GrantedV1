@@ -5,7 +5,7 @@ import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract
 import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
 import type { ChannelInboundTurnPlan } from "openclaw/plugin-sdk/channel-inbound";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   SlackReactionNotificationMode,
   SessionScope,
   DmPolicy,
@@ -78,7 +78,7 @@ const SLACK_CHANNEL_DENIAL_WARNING_TTL_MS = 5 * 60_000;
 const SLACK_CHANNEL_DENIAL_WARNING_MAX_ENTRIES = 1024;
 
 export type SlackMonitorContext = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   botToken: string;
   app: App;
@@ -178,7 +178,7 @@ export type SlackMonitorContext = {
 };
 
 export function createSlackMonitorContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   botToken: string;
   app: App;

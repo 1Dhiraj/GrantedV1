@@ -12,7 +12,7 @@ import { registerPluginHttpRoute } from "../plugins/http-registry.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { getPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
 import type { PluginServicesHandle } from "../plugins/services.js";
-import type { OpenClawPluginServiceContext } from "../plugins/types.js";
+import type { GrantedPluginServiceContext } from "../plugins/types.js";
 import {
   GatewayDrainingError,
   getActiveGatewayRootWorkCount,
@@ -2303,7 +2303,7 @@ describe("startGatewayPostAttachRuntime", () => {
       await vi.importActual<typeof import("../plugins/services.js")>("../plugins/services.js");
     const registry = createEmptyPluginRegistry();
     const broadcastPluginEvent = vi.fn();
-    let context: OpenClawPluginServiceContext | undefined;
+    let context: GrantedPluginServiceContext | undefined;
     let releaseCleanup: (() => void) | undefined;
     const cleanupReleased = new Promise<void>((resolve) => {
       releaseCleanup = resolve;

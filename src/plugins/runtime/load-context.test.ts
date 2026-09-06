@@ -1,6 +1,6 @@
 // Load context tests cover agent and workspace context resolution for plugin runtimes.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createPluginCache, withPluginCache } from "../plugin-cache.js";
 import type { PluginMetadataSnapshot } from "../plugin-metadata-snapshot.types.js";
 
@@ -8,7 +8,7 @@ const loadConfigMock = vi.fn<typeof import("../../config/config.js").loadConfig>
 const applyPluginAutoEnableMock =
   vi.fn<typeof import("../../config/plugin-auto-enable.js").applyPluginAutoEnable>();
 const resolvePluginControlPlaneWorkspaceMock = vi.fn(
-  (params: { config: OpenClawConfig; env?: NodeJS.ProcessEnv; workspaceDir?: string }) => ({
+  (params: { config: GrantedConfig; env?: NodeJS.ProcessEnv; workspaceDir?: string }) => ({
     workspaceDir: params.workspaceDir ?? "/resolved-workspace",
     workspaceScope: "selected" as const,
   }),

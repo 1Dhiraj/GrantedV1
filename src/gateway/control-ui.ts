@@ -11,7 +11,7 @@ import {
   type AgentAvatarResolution,
   resolvePublicAgentAvatarSource,
 } from "../agents/identity-avatar.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   matchRootFileOpenFailure,
   openRootFileSync,
@@ -102,7 +102,7 @@ const controlUiAssistantMediaTicketSecret = randomBytes(32);
 
 type ControlUiRequestOptions = {
   basePath?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   terminalEnabled?: boolean;
   agentId?: string;
   root?: ControlUiRootState;
@@ -435,7 +435,7 @@ export async function handleControlUiAssistantMediaRequest(
   res: ServerResponse,
   opts?: {
     basePath?: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     agentId?: string;
     auth?: ResolvedGatewayAuth;
     trustedProxies?: string[];
@@ -566,7 +566,7 @@ export async function handleControlUiAvatarRequest(
   res: ServerResponse,
   opts: {
     basePath?: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     auth?: ResolvedGatewayAuth;
     trustedProxies?: string[];
     allowRealIpFallback?: boolean;

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { flushDiagnosticsTimeline } from "../infra/diagnostics-timeline.js";
 import { createGatewayDispatchStartupTrace } from "./startup-trace.js";
 
@@ -89,7 +89,7 @@ describe("CLI startup trace", () => {
 
     await trace.configureDiagnosticsTimeline({
       diagnostics: { flags: ["timeline"] },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(readTimelineEvents(timelinePath)).toEqual(
       expect.arrayContaining([

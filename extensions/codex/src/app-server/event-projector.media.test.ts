@@ -1,4 +1,4 @@
-import { createOpenClawTestState, type OpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
 import { afterEach, beforeEach } from "vitest";
 import {
   describe,
@@ -20,7 +20,7 @@ import {
 
 registerCodexEventProjectorTestLifecycle();
 
-let openClawState: OpenClawTestState;
+let openClawState: GrantedTestState;
 beforeEach(async () => {
   openClawState = await createOpenClawTestState({
     layout: "state-only",

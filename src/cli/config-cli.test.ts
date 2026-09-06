@@ -6,7 +6,7 @@ import { Command } from "commander";
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConfigMutationConflictError } from "../config/mutation-conflict.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.js";
 import {
   createPluginManifestRecordFixture as createPluginManifestRecord,
   createPluginMetadataSnapshotFixture as createPluginMetadataSnapshot,
@@ -33,7 +33,7 @@ const mockReadConfigFileSnapshot =
   vi.fn<(options?: { observe?: boolean }) => Promise<ConfigFileSnapshot>>();
 const mockWriteConfigFile = vi.fn<
   (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     options?: {
       auditOrigin?: "cli";
       unsetPaths?: string[][];
@@ -105,7 +105,7 @@ vi.mock("../config/config.js", () => ({
     writeOptions: {},
   }),
   writeConfigFile: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     options?: {
       auditOrigin?: "cli";
       unsetPaths?: string[][];
@@ -113,7 +113,7 @@ vi.mock("../config/config.js", () => ({
     },
   ) => mockWriteConfigFile(cfg, options),
   replaceConfigFile: (params: {
-    nextConfig: OpenClawConfig;
+    nextConfig: GrantedConfig;
     writeOptions?: {
       auditOrigin?: "cli";
       unsetPaths?: string[][];
@@ -236,8 +236,8 @@ vi.mock("../runtime.js", async () => {
 });
 
 function buildSnapshot(params: {
-  resolved: OpenClawConfig;
-  config: OpenClawConfig;
+  resolved: GrantedConfig;
+  config: GrantedConfig;
 }): ConfigFileSnapshot {
   return {
     path: "/tmp/openclaw.json",
@@ -255,12 +255,12 @@ function buildSnapshot(params: {
   };
 }
 
-function setSnapshot(resolved: OpenClawConfig, config: OpenClawConfig) {
+function setSnapshot(resolved: GrantedConfig, config: GrantedConfig) {
   mockReadConfigFileSnapshot.mockResolvedValue(buildSnapshot({ resolved, config }));
 }
 
-function setGatewaySnapshot(secrets?: OpenClawConfig["secrets"]): void {
-  const resolved: OpenClawConfig = {
+function setGatewaySnapshot(secrets?: GrantedConfig["secrets"]): void {
+  const resolved: GrantedConfig = {
     gateway: { port: 18789 },
     ...(secrets ? { secrets } : {}),
   };
@@ -295,7 +295,7 @@ function writeSecurePluginEntrypoint(pathname: string, contents: string): void {
   fs.chmodSync(pathname, 0o644);
 }
 
-function withRuntimeDefaults(resolved: OpenClawConfig): OpenClawConfig {
+function withRuntimeDefaults(resolved: GrantedConfig): GrantedConfig {
   return {
     ...resolved,
     agents: {
@@ -401,7 +401,7 @@ function makeInvalidSnapshot(params: {
   path?: string;
   raw?: string;
   parsed?: unknown;
-  sourceConfig?: OpenClawConfig;
+  sourceConfig?: GrantedConfig;
 }): ConfigFileSnapshot {
   const parsed = params.parsed ?? {};
   return {
@@ -409,8 +409,8 @@ function makeInvalidSnapshot(params: {
     exists: true,
     raw: params.raw ?? "{}",
     parsed,
-    sourceConfig: params.sourceConfig ?? (parsed as OpenClawConfig),
-    resolved: parsed as OpenClawConfig,
+    sourceConfig: params.sourceConfig ?? (parsed as GrantedConfig),
+    resolved: parsed as GrantedConfig,
     valid: false,
     runtimeConfig: {},
     config: {},
@@ -459,12 +459,12 @@ async function runValidateJsonAndGetPayload() {
   };
 }
 
-function firstWrittenConfig(): OpenClawConfig {
+function firstWrittenConfig(): GrantedConfig {
   const written = firstMockArg(mockWriteConfigFile);
   if (!written) {
     throw new Error("expected written config");
   }
-  return written as OpenClawConfig;
+  return written as GrantedConfig;
 }
 
 function firstWriteConfigOptions():
@@ -577,7 +577,7 @@ describe("config cli", () => {
 
   describe("config set - issue #6070", () => {
     it("preserves existing config keys when setting a new value", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: { main: {}, oracle: { workspace: "~/oracle-workspace" } },
         },
@@ -585,7 +585,7 @@ describe("config cli", () => {
         tools: { allow: ["group:fs"] },
         logging: { level: "debug" },
       };
-      const runtimeMerged: OpenClawConfig = {
+      const runtimeMerged: GrantedConfig = {
         ...withRuntimeDefaults(resolved),
       };
       setSnapshot(resolved, runtimeMerged);
@@ -604,7 +604,7 @@ describe("config cli", () => {
     });
 
     it("marks set paths explicit so default-equal writes persist", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           telegram: {
             botToken: "tok-abc",
@@ -619,7 +619,7 @@ describe("config cli", () => {
             dmPolicy: "pairing",
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       setSnapshot(resolved, runtimeMerged);
 
       await runConfigSet("channels.telegram.dmPolicy", "pairing");
@@ -631,7 +631,7 @@ describe("config cli", () => {
     });
 
     it("marks object set paths explicit so nested default-equal writes persist", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           telegram: {
             botToken: "tok-abc",
@@ -646,7 +646,7 @@ describe("config cli", () => {
             dmPolicy: "pairing",
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       setSnapshot(resolved, runtimeMerged);
 
       await runConfigCommand([
@@ -662,7 +662,7 @@ describe("config cli", () => {
     });
 
     it("does not inject runtime defaults into the written config", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: { port: 18789 },
       };
       const runtimeMerged = {
@@ -676,7 +676,7 @@ describe("config cli", () => {
         } as never,
         messages: { ackReaction: "✅" } as never,
         sessions: { persistence: { enabled: true } } as never,
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, runtimeMerged);
 
       await runConfigSet("gateway.auth.mode", "token");
@@ -693,7 +693,7 @@ describe("config cli", () => {
     });
 
     it("writes agents.defaults.videoGenerationModel.primary without disturbing sibling defaults", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             model: "openai/gpt-5.4",
@@ -724,7 +724,7 @@ describe("config cli", () => {
     });
 
     it("normalizes retired Google Gemini model refs before writing config mutations", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             model: {
@@ -763,7 +763,7 @@ describe("config cli", () => {
     });
 
     it("rejects an unresolved primary model before writing config", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.4-mini" } } },
       };
       setSnapshot(resolved, resolved);
@@ -785,7 +785,7 @@ describe("config cli", () => {
     });
 
     it("preserves an authored env placeholder after model validation", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.4-mini" } } },
       };
       setSnapshot(resolved, resolved);
@@ -813,7 +813,7 @@ describe("config cli", () => {
     });
 
     it("reports an unresolved primary model in dry-run JSON without writing config", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.4-mini" } } },
       };
       setSnapshot(resolved, resolved);
@@ -852,7 +852,7 @@ describe("config cli", () => {
     });
 
     it("reports model resolver setup failures as incomplete dry-run JSON", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { defaults: { model: { primary: "openai/gpt-5.4-mini" } } },
       };
       setSnapshot(resolved, resolved);
@@ -884,7 +884,7 @@ describe("config cli", () => {
     });
 
     it("normalizes explicit model-map paths before writing config mutations", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             models: {
@@ -913,7 +913,7 @@ describe("config cli", () => {
     });
 
     it("normalizes explicit per-agent model-map paths before writing config mutations", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: {
             ops: { models: { "google/gemini-3-pro-preview": {} } },
@@ -938,7 +938,7 @@ describe("config cli", () => {
     });
 
     it("normalizes per-agent model refs before writing config mutations", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: {
             tester: {
@@ -963,7 +963,7 @@ describe("config cli", () => {
     });
 
     it("normalizes provider catalog model refs before writing config mutations", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         models: {
           providers: {
             google: {
@@ -1011,7 +1011,7 @@ describe("config cli", () => {
           ],
         }),
       );
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         models: {
           providers: {
             myproxy: {
@@ -1142,7 +1142,7 @@ describe("config cli", () => {
     });
 
     it("rejects protected model map replacement unless explicitly requested", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             models: {
@@ -1169,7 +1169,7 @@ describe("config cli", () => {
     });
 
     it("merges protected model map values with --merge", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             models: {
@@ -1210,7 +1210,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -1232,7 +1232,7 @@ describe("config cli", () => {
     });
 
     it("drops gateway.auth.password when switching mode to token", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           auth: {
             mode: "password",
@@ -1257,7 +1257,7 @@ describe("config cli", () => {
     });
 
     it("drops gateway.auth.token when switching mode to password", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           auth: {
             mode: "token",
@@ -1280,7 +1280,7 @@ describe("config cli", () => {
     });
 
     it("applies mode-based credential cleanup using the final batch result", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           auth: {
             mode: "password",
@@ -1320,7 +1320,7 @@ describe("config cli", () => {
     });
 
     it("redacts sensitive values", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           auth: {
             token: "super-secret-token",
@@ -1335,7 +1335,7 @@ describe("config cli", () => {
     });
 
     it("redacts sensitive values in JSON output", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           auth: {
             token: "super-secret-token",
@@ -1353,8 +1353,8 @@ describe("config cli", () => {
     });
 
     it("prints materialized subagent archive default", async () => {
-      const resolved: OpenClawConfig = {};
-      const config: OpenClawConfig = {
+      const resolved: GrantedConfig = {};
+      const config: GrantedConfig = {
         agents: {
           defaults: {
             maxConcurrent: 4,
@@ -1866,7 +1866,7 @@ describe("config cli", () => {
 
   describe("config set parsing flags", () => {
     it("falls back to raw string when parsing fails and strict mode is off", async () => {
-      const resolved: OpenClawConfig = { gateway: { port: 18789 } };
+      const resolved: GrantedConfig = { gateway: { port: 18789 } };
       setSnapshot(resolved, resolved);
 
       await runConfigSet("gateway.auth.mode", "{bad");
@@ -1904,7 +1904,7 @@ describe("config cli", () => {
     });
 
     it("accepts --strict-json with batch mode and applies batch payload", async () => {
-      const resolved: OpenClawConfig = { gateway: { port: 18789 } };
+      const resolved: GrantedConfig = { gateway: { port: 18789 } };
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -1983,7 +1983,7 @@ describe("config cli", () => {
       async (mode) => {
         const resolved = {
           channels: { discord: { accounts: [{ token: "existing-token" }] } },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         const ref = { source: "env", provider: "default", id: "DISCORD_ACCOUNT_TOKEN" };
         const configPath = "channels.discord.accounts[0].token";
         setSnapshot(resolved, resolved);
@@ -2028,7 +2028,7 @@ describe("config cli", () => {
     it("keeps a quoted numeric record key distinct from an array-indexed secret target", async () => {
       const resolved = {
         channels: { discord: { accounts: { "0": { token: "existing-token" } } } },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const ref = { source: "env", provider: "default", id: "DISCORD_ACCOUNT_TOKEN" };
       setSnapshot(resolved, resolved);
 
@@ -2075,7 +2075,7 @@ describe("config cli", () => {
     ])("preserves generic config path identity for %s", async (configPath, value, expected) => {
       const resolved = {
         agents: { defaults: { models: { "fixture/model.v1": { params: {} } } } },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigSet(configPath, JSON.stringify(value), "--strict-json");
@@ -2088,13 +2088,13 @@ describe("config cli", () => {
 
     it("keeps numeric config set path segments as object keys for schema-backed Discord guild records", async () => {
       setConfigMutationShapeSchema();
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           discord: {
             enabled: true,
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -2119,13 +2119,13 @@ describe("config cli", () => {
 
     it("keeps numeric config set path segments as object keys for other schema-backed records", async () => {
       setConfigMutationShapeSchema();
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           telegram: {
             enabled: true,
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -2150,7 +2150,7 @@ describe("config cli", () => {
 
     it("canonicalizes schema-backed numeric agent list indexes before writing", async () => {
       setConfigMutationShapeSchema();
-      const resolved: OpenClawConfig = {};
+      const resolved: GrantedConfig = {};
       setSnapshot(resolved, resolved);
 
       await runConfigSet("agents.list.0.id", '"tech"', "--strict-json");
@@ -2463,7 +2463,7 @@ describe("config cli", () => {
 
     it("dry-runs config patch channel fields against plugin-owned schemas", async () => {
       setExternalFeishuSchema();
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           feishu: {
             appId: "app-id",
@@ -2663,7 +2663,7 @@ describe("config cli", () => {
     });
 
     it("fails dry-run when skipped exec refs use an unconfigured provider", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: { port: 18789 },
         secrets: {
           providers: {},
@@ -2691,7 +2691,7 @@ describe("config cli", () => {
     });
 
     it("fails dry-run when skipped exec refs use a provider with mismatched source", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: { port: 18789 },
         secrets: {
           providers: {
@@ -2723,7 +2723,7 @@ describe("config cli", () => {
     });
 
     it("writes inline SecretRef paths when target uses secret-input shape", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: { port: 18789, auth: { mode: "token" } },
       };
       setSnapshot(resolved, resolved);
@@ -2814,7 +2814,7 @@ describe("config cli", () => {
     });
 
     it("supports batch-file mode", async () => {
-      const resolved: OpenClawConfig = { gateway: { port: 18789 } };
+      const resolved: GrantedConfig = { gateway: { port: 18789 } };
       setSnapshot(resolved, resolved);
 
       const pathname = path.join(
@@ -2834,7 +2834,7 @@ describe("config cli", () => {
     });
 
     it("batch-file nested leaf updates preserve agents defaults and roster siblings", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             models: {
@@ -2913,7 +2913,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = path.join(
@@ -2986,7 +2986,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = writeTempJson5File("openclaw-config-patch-empty-object", {
@@ -3025,7 +3025,7 @@ describe("config cli", () => {
             ],
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = writeTempJson5File("openclaw-config-patch-array-delete", {
@@ -3056,7 +3056,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = writeTempJson5File("openclaw-config-patch-object-delete", {
@@ -3133,7 +3133,7 @@ describe("config cli", () => {
             mode: "socket",
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = writeTempJson5File("openclaw-config-patch-empty-merge", {
@@ -3161,7 +3161,7 @@ describe("config cli", () => {
             enabled: true,
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = writeTempJson5File("openclaw-config-patch-numeric-object-key", {
@@ -3198,7 +3198,7 @@ describe("config cli", () => {
             default: { source: "env" },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = path.join(
@@ -3232,7 +3232,7 @@ describe("config cli", () => {
     it("emits the resolved config path in config patch JSON", async () => {
       const home = path.join(os.tmpdir(), "openclaw-home-token-config-patch");
       const configPath = path.join(home, ".openclaw", "openclaw.json");
-      const resolved: OpenClawConfig = { gateway: { port: 18789 } };
+      const resolved: GrantedConfig = { gateway: { port: 18789 } };
       const snapshot = buildSnapshot({ resolved, config: resolved });
       snapshot.path = configPath;
       mockReadConfigFileSnapshot.mockResolvedValueOnce(snapshot);
@@ -3308,7 +3308,7 @@ describe("config cli", () => {
           secrets: {
             providers: {},
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         mockLoadPluginMetadataSnapshot.mockReturnValue(
           createPluginMetadataSnapshot({
             diagnostics: [],
@@ -3424,7 +3424,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const patch = writeTempJson5File("openclaw-config-plugin-disable", {
@@ -3457,7 +3457,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const patch = writeTempJson5File("openclaw-config-plugin-provider-ref", {
@@ -3490,7 +3490,7 @@ describe("config cli", () => {
             default: { source: "env" },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = path.join(
@@ -3535,7 +3535,7 @@ describe("config cli", () => {
             enabled: false,
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
       mockResolveSecretRefValue.mockRejectedValue(new Error("missing env var"));
 
@@ -3604,7 +3604,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       const pathname = path.join(
@@ -4057,7 +4057,7 @@ describe("config cli", () => {
     });
 
     it("fails dry-run when provider updates make existing refs unresolvable", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           port: 18789,
           auth: {
@@ -4096,7 +4096,7 @@ describe("config cli", () => {
     });
 
     it("fails dry-run for nested provider edits that make existing refs unresolvable", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           port: 18789,
           auth: {
@@ -4226,7 +4226,7 @@ describe("config cli", () => {
       },
     ])("$name", async ({ args, error, list }) => {
       if (list) {
-        const resolved = { agents: { list } } as unknown as OpenClawConfig;
+        const resolved = { agents: { list } } as unknown as GrantedConfig;
         setSnapshot(resolved, resolved);
       }
       await expect(runConfigCommand(args)).rejects.toThrow(ExitError);
@@ -4330,7 +4330,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -4355,7 +4355,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -4387,7 +4387,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand(["config", "unset", 'channels.discord.guilds["prod]guild"].channels']);
@@ -4429,7 +4429,7 @@ describe("config cli", () => {
     });
 
     it("preserves valid bracket path forms", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: {}, other: { name: "Other" } } },
       };
       setSnapshot(resolved, resolved);
@@ -4451,7 +4451,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -4476,7 +4476,7 @@ describe("config cli", () => {
 
   describe("config unset - issue #6070", () => {
     it("preserves existing config keys when unsetting a value", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: {} } },
         gateway: { port: 18789 },
         tools: {
@@ -4485,7 +4485,7 @@ describe("config cli", () => {
         },
         logging: { level: "debug" },
       };
-      const runtimeMerged: OpenClawConfig = {
+      const runtimeMerged: GrantedConfig = {
         ...withRuntimeDefaults(resolved),
       };
       setSnapshot(resolved, runtimeMerged);
@@ -4507,12 +4507,12 @@ describe("config cli", () => {
     });
 
     it("submits only the specified roster entry removal for writer validation", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: { "agent-a": {}, "agent-b": {}, "agent-c": {} },
         },
       };
-      const runtimeMerged: OpenClawConfig = {
+      const runtimeMerged: GrantedConfig = {
         ...withRuntimeDefaults(resolved),
       };
       setSnapshot(resolved, runtimeMerged);
@@ -4527,7 +4527,7 @@ describe("config cli", () => {
     });
 
     it("preserves write-level unset handling for numeric object keys", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         channels: {
           discord: {
             guilds: {
@@ -4536,7 +4536,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand(["config", "unset", "channels.discord.guilds.123"]);
@@ -4555,7 +4555,7 @@ describe("config cli", () => {
     });
 
     it("dry-runs an unset without writing the config file", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: {} } },
         gateway: { port: 18789 },
         tools: {
@@ -4573,7 +4573,7 @@ describe("config cli", () => {
     });
 
     it("rejects an unset that makes a dependent model reference unresolved", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             model: {
@@ -4609,7 +4609,7 @@ describe("config cli", () => {
     });
 
     it("reports an unset model failure through dry-run JSON", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             model: {
@@ -4653,7 +4653,7 @@ describe("config cli", () => {
     });
 
     it("prints JSON for config unset dry-run", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: {} } },
         gateway: { port: 18789 },
         tools: {
@@ -4679,7 +4679,7 @@ describe("config cli", () => {
     });
 
     it("prints structured JSON when unset dry-run misses a path", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: { port: 18789 },
         tools: {
           profile: "coding",
@@ -4723,7 +4723,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const runtimeMerged = {
         agents: {
           defaults: {
@@ -4732,7 +4732,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const aliasPath = 'agents.defaults.models["openai/gpt-5.4"].alias';
       setSnapshot(resolved, runtimeMerged);
 
@@ -4772,7 +4772,7 @@ describe("config cli", () => {
     it("reports No change when removing a normalized duplicate leaves config unchanged", async () => {
       const retired = "google/gemini-3-pro-preview";
       const canonical = "google/gemini-3.1-pro-preview";
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           defaults: {
             models: {
@@ -4792,7 +4792,7 @@ describe("config cli", () => {
     });
 
     it("validates existing refs when unset dry-run removes all secret providers", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           port: 18789,
           auth: {
@@ -4827,7 +4827,7 @@ describe("config cli", () => {
     });
 
     it("validates existing refs when unset dry-run removes secret defaults", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         gateway: {
           port: 18789,
           auth: { mode: "token", token: "${WEB_SEARCH_API_KEY}" },
@@ -4841,7 +4841,7 @@ describe("config cli", () => {
             vaultenv: { source: "env" },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand(["config", "unset", "secrets.defaults", "--dry-run"]);
@@ -4907,7 +4907,7 @@ describe("config cli", () => {
     });
 
     it("prints a hot-reload hint for agents.list model changes", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: { main: {}, "mason-vale": { model: { primary: "ollama/qwen3-coder-next" } } },
         },
@@ -4928,7 +4928,7 @@ describe("config cli", () => {
     });
 
     it("does not treat legacy per-agent agentRuntime as restart-required", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: {
             "codex-legacy": {
@@ -4937,7 +4937,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, withRuntimeDefaults(resolved));
 
       await runConfigCommand([
@@ -4953,7 +4953,7 @@ describe("config cli", () => {
     });
 
     it("keeps the restart hint for hot-path edits when reload mode is off", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: { main: { model: { primary: "openai/gpt-5.4" } } },
         },
@@ -4977,7 +4977,7 @@ describe("config cli", () => {
     });
 
     it("normalizes legacy restart mode to hot apply semantics", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: { main: { model: { primary: "openai/gpt-5.4" } } },
         },
@@ -5001,7 +5001,7 @@ describe("config cli", () => {
     });
 
     it("prints a hot-reload hint when removing legacy per-agent agentRuntime", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: {
           entries: {
             "codex-legacy": {
@@ -5009,7 +5009,7 @@ describe("config cli", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, withRuntimeDefaults(resolved));
 
       await runConfigCommand(["config", "unset", "agents.list[0].agentRuntime"]);
@@ -5020,13 +5020,13 @@ describe("config cli", () => {
     });
 
     it("prints a hot-reload hint for provider runtime policy changes", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         models: {
           providers: {
             openai: {},
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -5043,7 +5043,7 @@ describe("config cli", () => {
     });
 
     it("keeps the restart hint for broad plugins writes that change load paths", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         plugins: {
           load: {
             paths: ["/tmp/openclaw-plugins-a"],
@@ -5052,7 +5052,7 @@ describe("config cli", () => {
             canvas: { enabled: true },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand([
@@ -5069,7 +5069,7 @@ describe("config cli", () => {
     });
 
     it("keeps the restart hint for broad plugins unsets that remove load paths", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         plugins: {
           load: {
             paths: ["/tmp/openclaw-plugins-a"],
@@ -5078,7 +5078,7 @@ describe("config cli", () => {
             canvas: { enabled: true },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       setSnapshot(resolved, resolved);
 
       await runConfigCommand(["config", "unset", "plugins"]);
@@ -5088,7 +5088,7 @@ describe("config cli", () => {
     });
 
     it("keeps the restart hint for restart-required config paths", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: {} } },
         gateway: { port: 18789 },
       };
@@ -5113,7 +5113,7 @@ describe("config cli", () => {
               [pluginId]: { enabled: true, config: { accounts: [{ enabled: true }] } },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         setSnapshot(resolved, resolved);
 
         await runConfigSet(configPath, "false");
@@ -5126,7 +5126,7 @@ describe("config cli", () => {
     );
 
     it("keeps the restart hint for mixed hot and restart batch updates", async () => {
-      const resolved: OpenClawConfig = {
+      const resolved: GrantedConfig = {
         agents: { entries: { main: { model: { primary: "openai/gpt-5.4" } } } },
         gateway: { port: 18789 },
       };

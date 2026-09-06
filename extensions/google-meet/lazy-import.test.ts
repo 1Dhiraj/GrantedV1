@@ -1,8 +1,8 @@
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeInvokePolicy,
-  OpenClawPluginNodeInvokePolicyContext,
+  GrantedPluginApi,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeInvokePolicy,
+  GrantedPluginNodeInvokePolicyContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
@@ -11,9 +11,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GoogleMeetConfig } from "./src/config.js";
 import { GOOGLE_MEET_NODE_COMMAND } from "./src/transports/google-meet-platform-constants.js";
 
-type GatewayHandler = Parameters<OpenClawPluginApi["registerGatewayMethod"]>[1];
-type CliRegistrar = Parameters<OpenClawPluginApi["registerCli"]>[0];
-type ToolFactory = Parameters<OpenClawPluginApi["registerTool"]>[0];
+type GatewayHandler = Parameters<GrantedPluginApi["registerGatewayMethod"]>[1];
+type CliRegistrar = Parameters<GrantedPluginApi["registerCli"]>[0];
+type ToolFactory = Parameters<GrantedPluginApi["registerTool"]>[0];
 
 describe("google-meet lazy imports", () => {
   afterEach(() => {
@@ -119,8 +119,8 @@ describe("google-meet lazy imports", () => {
 
     const { default: googleMeetPlugin } = await import("./index.js");
     const gatewayMethods = new Map<string, GatewayHandler>();
-    const nodeCommands: OpenClawPluginNodeHostCommand[] = [];
-    const nodePolicies: OpenClawPluginNodeInvokePolicy[] = [];
+    const nodeCommands: GrantedPluginNodeHostCommand[] = [];
+    const nodePolicies: GrantedPluginNodeInvokePolicy[] = [];
     const cliRegistrars: CliRegistrar[] = [];
     const transcriptProviders: TranscriptSourceProvider[] = [];
     let toolFactory: ToolFactory | undefined;
@@ -231,11 +231,11 @@ describe("google-meet lazy imports", () => {
   });
 
   it("loads and caches the node policy delegate", async () => {
-    const delegateHandle = vi.fn<OpenClawPluginNodeInvokePolicy["handle"]>(async () => ({
+    const delegateHandle = vi.fn<GrantedPluginNodeInvokePolicy["handle"]>(async () => ({
       ok: true,
     }));
     const loadPolicy = vi.fn(
-      async (_config: GoogleMeetConfig): Promise<OpenClawPluginNodeInvokePolicy> => ({
+      async (_config: GoogleMeetConfig): Promise<GrantedPluginNodeInvokePolicy> => ({
         commands: [GOOGLE_MEET_NODE_COMMAND],
         dangerous: true,
         handle: delegateHandle,
@@ -248,10 +248,10 @@ describe("google-meet lazy imports", () => {
     expect(policy.dangerous).toBe(true);
     expect(loadPolicy).not.toHaveBeenCalled();
 
-    await expect(policy.handle({} as OpenClawPluginNodeInvokePolicyContext)).resolves.toEqual({
+    await expect(policy.handle({} as GrantedPluginNodeInvokePolicyContext)).resolves.toEqual({
       ok: true,
     });
-    await expect(policy.handle({} as OpenClawPluginNodeInvokePolicyContext)).resolves.toEqual({
+    await expect(policy.handle({} as GrantedPluginNodeInvokePolicyContext)).resolves.toEqual({
       ok: true,
     });
     expect(loadPolicy).toHaveBeenCalledTimes(1);
@@ -264,13 +264,11 @@ describe("google-meet lazy imports", () => {
       throw new Error("load failed");
     });
 
-    await expect(policy.handle({} as OpenClawPluginNodeInvokePolicyContext)).resolves.toMatchObject(
-      {
-        ok: false,
-        code: "PLUGIN_POLICY_UNAVAILABLE",
-        unavailable: true,
-      },
-    );
+    await expect(policy.handle({} as GrantedPluginNodeInvokePolicyContext)).resolves.toMatchObject({
+      ok: false,
+      code: "PLUGIN_POLICY_UNAVAILABLE",
+      unavailable: true,
+    });
   });
 
   it("does not rewrite node policy delegate failures", async () => {
@@ -285,10 +283,10 @@ describe("google-meet lazy imports", () => {
           handle: async () => {
             throw delegateError;
           },
-        }) satisfies OpenClawPluginNodeInvokePolicy,
+        }) satisfies GrantedPluginNodeInvokePolicy,
     );
 
-    await expect(policy.handle({} as OpenClawPluginNodeInvokePolicyContext)).rejects.toBe(
+    await expect(policy.handle({} as GrantedPluginNodeInvokePolicyContext)).rejects.toBe(
       delegateError,
     );
   });

@@ -10,7 +10,7 @@ import type {
 } from "../../../packages/gateway-protocol/src/index.js";
 import type { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import type { searchSessionTranscripts } from "../../config/sessions/session-transcript-search.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { CallGatewayOptions } from "../../gateway/call.js";
 import type {
   readChatHistoryPage,
@@ -29,13 +29,13 @@ const SESSIONS_SEARCH_MAX_QUERY_CHARS = 4096;
 interface EmbeddedGatewayRuntime {
   resolveSessionAgentId: (opts: {
     sessionKey: string;
-    config: OpenClawConfig;
+    config: GrantedConfig;
     agentId?: string;
   }) => string;
-  getRuntimeConfig: () => OpenClawConfig;
-  resolveSessionStoreKey: (params: { cfg: OpenClawConfig; sessionKey: string }) => string;
+  getRuntimeConfig: () => GrantedConfig;
+  resolveSessionStoreKey: (params: { cfg: GrantedConfig; sessionKey: string }) => string;
   resolveStoredSessionKeyForAgentStore: (params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     agentId: string;
     sessionKey: string;
   }) => string;
@@ -47,23 +47,23 @@ interface EmbeddedGatewayRuntime {
     messages: unknown[];
     maxSingleMessageBytes: number;
   }) => { messages: unknown[] };
-  resolveEffectiveChatHistoryMaxChars: (cfg: OpenClawConfig) => number;
+  resolveEffectiveChatHistoryMaxChars: (cfg: GrantedConfig) => number;
   capArrayByJsonBytes: (items: unknown[], maxBytes: number) => { items: unknown[] };
   listSessionsFromStoreAsync: (opts: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     storePath: string;
     store: unknown;
     opts: SessionsListParams;
   }) => Promise<SessionsListResult>;
   loadCombinedSessionStoreForGatewayCore: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     opts?: { agentId?: string; projection?: "full" | "list" },
   ) => {
     storePath: string;
     store: unknown;
   };
   resolveSessionKeyFromResolveParams: (opts: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     client: null;
     p: SessionsResolveParams;
   }) => Promise<SessionsResolveResult>;
@@ -71,7 +71,7 @@ interface EmbeddedGatewayRuntime {
     sessionKey: string,
     opts?: { agentId?: string },
   ) => {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     storePath: string | undefined;
     entry: Parameters<typeof readChatHistoryPage>[0]["entry"];
     canonicalKey: string;
@@ -80,7 +80,7 @@ interface EmbeddedGatewayRuntime {
   resolveChatHistoryNextOffset: typeof resolveChatHistoryNextOffset;
   shouldReplayOldestChatHistoryRecord: typeof shouldReplayOldestChatHistoryRecord;
   resolveSessionModelRef: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     entry: unknown,
     sessionAgentId: string,
   ) => { provider: string | undefined };

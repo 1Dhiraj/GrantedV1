@@ -6,7 +6,7 @@ import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
 import { hasAuthProfileForProvider } from "../agents/tools/model-config.helpers.js";
 import type { SecretInputMode } from "../commands/onboard-types.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   DEFAULT_SECRET_PROVIDER_ALIAS,
   type SecretInput,
@@ -30,7 +30,7 @@ import { createPluginCapabilityConsentPrompter } from "../wizard/plugin-capabili
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { sortFlowContributionsByLabel, type FlowContribution } from "./types.js";
 
-type SearchConfig = NonNullable<NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"]>;
+type SearchConfig = NonNullable<NonNullable<NonNullable<GrantedConfig["tools"]>["web"]>["search"]>;
 type SearchProvider = NonNullable<SearchConfig["provider"]>;
 type MutableSearchConfig = SearchConfig & Record<string, unknown>;
 
@@ -59,7 +59,7 @@ function resolveSearchProviderCredentialLabel(
 }
 
 export function listSearchProviderOptions(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): readonly PluginWebSearchProviderEntry[] {
   return resolveSearchProviderOptions(config);
 }
@@ -71,7 +71,7 @@ function showsSearchProviderInSetup(
 }
 
 export function resolveSearchProviderOptions(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): readonly PluginWebSearchProviderEntry[] {
   return resolveSearchProviderSetupContributions(config).map(
     (contribution) => contribution.provider,
@@ -98,7 +98,7 @@ function buildSearchProviderSetupContribution(params: {
 }
 
 function resolveSearchProviderSetupContributions(
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): SearchProviderSetupContribution[] {
   const runtimeProviders = sortWebSearchProviders(
     resolvePluginWebSearchProviders({
@@ -138,7 +138,7 @@ function resolveSearchProviderSetupContributions(
   );
 }
 
-function defaultModelUsesCodexRuntime(config: OpenClawConfig): boolean {
+function defaultModelUsesCodexRuntime(config: GrantedConfig): boolean {
   const configuredPrimary = resolveAgentModelPrimaryValue(config.agents?.defaults?.model);
   if (!configuredPrimary) {
     return false;
@@ -171,7 +171,7 @@ function prioritizeSearchProvider(
 }
 
 function resolveSearchProviderEntry(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SearchProvider,
 ): PluginWebSearchProviderEntry | undefined {
   return resolveSearchProviderOptions(config).find((entry) => entry.id === provider);
@@ -192,7 +192,7 @@ function formatAuthProviderLabel(providerId: string): string {
 }
 
 function providerIsReady(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   entry: Pick<
     PluginWebSearchProviderEntry,
     "id" | "authProviderId" | "envVars" | "requiresCredential"
@@ -218,23 +218,23 @@ function formatSearchProviderOptionLabel(label: string, note: string): string {
   return normalizedNote ? `${label} (${normalizedNote})` : label;
 }
 
-function rawKeyValue(config: OpenClawConfig, provider: SearchProvider): unknown {
+function rawKeyValue(config: GrantedConfig, provider: SearchProvider): unknown {
   const entry = resolveSearchProviderEntry(config, provider);
   return entry?.getConfiguredCredentialValue?.(config);
 }
 
 export function resolveExistingKey(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SearchProvider,
 ): string | undefined {
   return normalizeSecretInputString(rawKeyValue(config, provider));
 }
 
-export function hasExistingKey(config: OpenClawConfig, provider: SearchProvider): boolean {
+export function hasExistingKey(config: GrantedConfig, provider: SearchProvider): boolean {
   return hasConfiguredSecretInput(rawKeyValue(config, provider));
 }
 
-function buildSearchEnvRef(config: OpenClawConfig, provider: SearchProvider): SecretRef {
+function buildSearchEnvRef(config: GrantedConfig, provider: SearchProvider): SecretRef {
   const entry =
     resolveSearchProviderEntry(config, provider) ??
     listSearchProviderOptions(config).find((candidate) => candidate.id === provider) ??
@@ -251,7 +251,7 @@ function buildSearchEnvRef(config: OpenClawConfig, provider: SearchProvider): Se
 }
 
 function resolveSearchSecretInput(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SearchProvider,
   key: string,
   secretInputMode?: SecretInputMode,
@@ -264,16 +264,16 @@ function resolveSearchSecretInput(
 }
 
 export function applySearchKey(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SearchProvider,
   key: SecretInput,
-): OpenClawConfig {
+): GrantedConfig {
   const providerEntry = resolveSearchProviderEntry(config, provider);
   if (!providerEntry) {
     return config;
   }
   const search: MutableSearchConfig = { ...config.tools?.web?.search, provider, enabled: true };
-  const nextBase: OpenClawConfig = {
+  const nextBase: GrantedConfig = {
     ...config,
     tools: {
       ...config.tools,
@@ -286,9 +286,9 @@ export function applySearchKey(
 }
 
 function applySearchProviderSelectionConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   providerEntry: Pick<PluginWebSearchProviderEntry, "pluginId" | "applySelectionConfig">,
-): OpenClawConfig {
+): GrantedConfig {
   if (providerEntry.applySelectionConfig) {
     return providerEntry.applySelectionConfig(config);
   }
@@ -299,9 +299,9 @@ function applySearchProviderSelectionConfig(
 }
 
 export function applySearchProviderSelection(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   provider: SearchProvider,
-): OpenClawConfig {
+): GrantedConfig {
   const providerEntry = resolveSearchProviderEntry(config, provider);
   if (!providerEntry) {
     return config;
@@ -311,7 +311,7 @@ export function applySearchProviderSelection(
     provider,
     enabled: true,
   };
-  const nextBase: OpenClawConfig = {
+  const nextBase: GrantedConfig = {
     ...config,
     tools: {
       ...config.tools,
@@ -324,12 +324,12 @@ export function applySearchProviderSelection(
   return applySearchProviderSelectionConfig(nextBase, providerEntry);
 }
 
-function preserveDisabledState(original: OpenClawConfig, result: OpenClawConfig): OpenClawConfig {
+function preserveDisabledState(original: GrantedConfig, result: GrantedConfig): GrantedConfig {
   if (original.tools?.web?.search?.enabled !== false) {
     return result;
   }
 
-  const next: OpenClawConfig = {
+  const next: GrantedConfig = {
     ...result,
     tools: {
       ...result.tools,
@@ -378,7 +378,7 @@ function preserveDisabledState(original: OpenClawConfig, result: OpenClawConfig)
 
   return {
     ...next,
-    plugins: nextPlugins as OpenClawConfig["plugins"],
+    plugins: nextPlugins as GrantedConfig["plugins"],
   };
 }
 
@@ -390,32 +390,32 @@ type SetupSearchOptions = {
 };
 
 type SearchSetupResult =
-  | { outcome: "completed"; config: OpenClawConfig }
+  | { outcome: "completed"; config: GrantedConfig }
   | {
       outcome: "kept-current";
-      config: OpenClawConfig;
+      config: GrantedConfig;
       reason: "no-providers" | "user-skipped";
     }
   | {
       outcome: "kept-current";
-      config: OpenClawConfig;
+      config: GrantedConfig;
       reason: "provider-unavailable" | "provider-install-skipped";
       providerId: string;
     }
   | {
       outcome: "install-failed";
-      config: OpenClawConfig;
+      config: GrantedConfig;
       providerId: string;
       reason: "failed" | "timed-out";
     };
 
-function completedSearchSetup(config: OpenClawConfig): SearchSetupResult {
+function completedSearchSetup(config: GrantedConfig): SearchSetupResult {
   return { outcome: "completed", config };
 }
 
 async function finalizeSearchProviderSetup(params: {
-  originalConfig: OpenClawConfig;
-  nextConfig: OpenClawConfig;
+  originalConfig: GrantedConfig;
+  nextConfig: GrantedConfig;
   entry: SearchProviderEntryWithInstall;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
@@ -482,7 +482,7 @@ async function finalizeSearchProviderSetup(params: {
 }
 
 export async function runSearchSetupFlow(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
   opts?: SetupSearchOptions,
@@ -620,7 +620,7 @@ export async function runSearchSetupFlow(
       };
     }
   }
-  const finalizeSelection = (nextConfig: OpenClawConfig) =>
+  const finalizeSelection = (nextConfig: GrantedConfig) =>
     finalizeSearchProviderSetup({
       originalConfig: config,
       nextConfig,

@@ -6,7 +6,7 @@ import { projectAuthoredAgentRosterForWrite } from "../../../config/io.write-pre
 import { formatConfigIssueLines } from "../../../config/issue-format.js";
 import { createMergePatch } from "../../../config/merge-patch.js";
 import { resolveIncludeRoots } from "../../../config/paths.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.openclaw.js";
 import { protectActiveAuthProfileConfig } from "../../doctor-auth-profile-config.js";
 import { stripUnknownConfigKeys } from "../../doctor-config-analysis.js";
 import type { DoctorConfigMutationState } from "./config-mutation-state.js";
@@ -142,10 +142,10 @@ export function applyUnknownConfigKeyStep(params: {
 
 /** Restore references moved by Doctor while keeping resolved values for its state repairs. */
 export function restoreDoctorConfigEnvRefs(
-  candidate: OpenClawConfig,
+  candidate: GrantedConfig,
   snapshot: ConfigFileSnapshot,
   env?: NodeJS.ProcessEnv,
-): OpenClawConfig {
+): GrantedConfig {
   const authored = resolveConfigIncludes(snapshot.parsed, snapshot.path, undefined, {
     allowedRoots: resolveIncludeRoots(env),
   });
@@ -167,5 +167,5 @@ export function restoreDoctorConfigEnvRefs(
     env,
   );
   // SAFETY: Restoring string leaves preserves the candidate's config structure.
-  return restored as OpenClawConfig;
+  return restored as GrantedConfig;
 }

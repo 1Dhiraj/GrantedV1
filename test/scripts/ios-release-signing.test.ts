@@ -78,7 +78,7 @@ describe("scripts/ios-release-signing.mjs", () => {
     expect(output).toContain("Signing repo: git@github.com:openclaw/apps-signing.git");
     expect(output).toContain("Signing branch: main");
     expect(output).toContain("Signing setup and sync: Fastlane match");
-    expect(output).not.toContain("OpenClawWatchExtension");
+    expect(output).not.toContain("GrantedWatchExtension");
     expect(output).toContain(
       "capabilities: PUSH_NOTIFICATIONS, APP_GROUPS, APP_ATTEST, HEALTH_KIT",
     );

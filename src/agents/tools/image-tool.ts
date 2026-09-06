@@ -2,7 +2,7 @@ import { resolve, isAbsolute } from "node:path";
 import { Type } from "typebox";
 import { findCapabilityProviderById } from "../../../packages/media-generation-core/src/capability-model-ref.js";
 import { normalizeMediaProviderId } from "../../../packages/media-understanding-common/src/provider-id.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { MediaUnderstandingModelConfig } from "../../config/types.tools.js";
 import {
   DEFAULT_TIMEOUT_SECONDS,
@@ -115,7 +115,7 @@ const resolveModelAsyncDefault: ResolveModelAsync = async (...args) => {
 
 function resolveRegisteredMediaUnderstandingProvider(params: {
   providerId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): MediaUnderstandingProvider | undefined {
   return resolvePluginCapabilityProvider({
     key: "mediaUnderstandingProviders",
@@ -137,7 +137,7 @@ const imageToolProviderDeps = {
   loadImageWebMediaRuntime,
 };
 
-function hasExplicitDefaultPrimaryModel(cfg?: OpenClawConfig): boolean {
+function hasExplicitDefaultPrimaryModel(cfg?: GrantedConfig): boolean {
   const model = cfg?.agents?.defaults?.model;
   if (typeof model === "string") {
     return model.trim().length > 0;
@@ -243,7 +243,7 @@ function resolveImageToolMaxTokens(modelMaxTokens: number | undefined, requested
  *   - fall back to OpenAI/Anthropic when available
  */
 function resolveImageModelConfigForTool(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir: string;
   workspaceDir?: string;
   authStore?: AuthProfileStore;
@@ -395,7 +395,7 @@ if (process.env.VITEST || process.env.NODE_ENV === "test") {
 }
 
 function resolveImageModelConfigForOverride(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   modelOverride?: string;
 }): ImageModelConfig | null {
   const model = params.modelOverride?.trim();
@@ -408,7 +408,7 @@ function resolveImageModelConfigForOverride(params: {
   });
 }
 
-function pickMaxBytes(cfg?: OpenClawConfig, maxBytesMb?: number): number | undefined {
+function pickMaxBytes(cfg?: GrantedConfig, maxBytesMb?: number): number | undefined {
   if (typeof maxBytesMb === "number" && Number.isFinite(maxBytesMb) && maxBytesMb > 0) {
     return Math.floor(maxBytesMb * 1024 * 1024);
   }
@@ -420,7 +420,7 @@ function pickMaxBytes(cfg?: OpenClawConfig, maxBytesMb?: number): number | undef
 }
 
 function resolveCompressionModelCandidates(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   imageModelConfig?: ImageModelConfig | null;
   modelOverride?: string;
 }): Array<{ provider: string; model: string }> {
@@ -445,7 +445,7 @@ function resolveCompressionModelCandidates(params: {
 }
 
 async function resolveCompressionModelPolicyWithHooks(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   model: string;
   agentDir?: string;
@@ -476,7 +476,7 @@ async function resolveCompressionModelPolicyWithHooks(params: {
 }
 
 async function resolveCompressionModelPolicy(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider: string;
   model: string;
   agentDir?: string;
@@ -500,7 +500,7 @@ async function resolveCompressionModelPolicy(params: {
 }
 
 async function resolveImageCompressionPolicy(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   imageModelConfig?: ImageModelConfig | null;
   modelOverride?: string;
   imageCount: number;
@@ -563,7 +563,7 @@ function matchesImageTimeoutEntry(params: {
 }
 
 function resolveImageToolTimeoutMs(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   provider: string;
   model: string;
   providerRegistry: Map<string, MediaUnderstandingProvider>;
@@ -586,7 +586,7 @@ function resolveImageToolTimeoutMs(params: {
 type ImageSandboxConfig = MediaToolSandbox;
 
 async function runImagePrompt(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   agentDir: string;
   authStore?: AuthProfileStore;
@@ -604,7 +604,7 @@ async function runImagePrompt(params: {
   attempts: Array<{ provider: string; model: string; error: string }>;
 }> {
   const effectiveCfg = applyImageModelConfigDefaults(params.cfg, params.imageModelConfig);
-  const providerCfg: OpenClawConfig = effectiveCfg ?? {};
+  const providerCfg: GrantedConfig = effectiveCfg ?? {};
   const preparedProviders =
     params.preparedModelRuntime?.mediaCapabilityProviders?.mediaUnderstandingProviders;
 
@@ -748,7 +748,7 @@ async function runImagePrompt(params: {
 }
 
 export function createImageTool(options?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   agentDir?: string;
   authProfileStore?: AuthProfileStore;

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
 import {
@@ -124,7 +124,7 @@ async function createStoredSession(params: {
   return { storePath, transcriptPath };
 }
 
-type SessionResetConfig = NonNullable<NonNullable<OpenClawConfig["session"]>["reset"]>;
+type SessionResetConfig = NonNullable<NonNullable<GrantedConfig["session"]>["reset"]>;
 
 async function initStoredSessionState(params: {
   prefix: string;
@@ -140,7 +140,7 @@ async function initStoredSessionState(params: {
       store: storePath,
       ...(params.reset ? { reset: params.reset } : {}),
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   await initSessionState({
     ctx: { Body: "hello", SessionKey: params.sessionKey },
@@ -222,7 +222,7 @@ describe("session hook context wiring", () => {
       const storePath = await createStorePath(`memory-${reason}`);
       const workspaceDir = path.join(path.dirname(storePath), "workspace");
       const automatic = reason === "daily" || reason === "idle";
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { defaults: { workspace: workspaceDir } },
         hooks: { internal: { enabled: true, entries: { "session-memory": { enabled: true } } } },
         session: {
@@ -352,7 +352,7 @@ describe("session hook context wiring", () => {
     const sessionKey = "agent:main:telegram:direct:123";
     const storePath = await createStorePath("openclaw-session-hook-start");
     await writeStore(storePath, {});
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
@@ -397,7 +397,7 @@ describe("session hook context wiring", () => {
     await writeStore(storePath, { [sessionKey]: seed });
     const params = {
       ctx: { Body: seed.goal?.objective, SessionKey: sessionKey },
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       commandAuthorized: true,
       expectedExistingSessionId: sessionId,
       pinExpectedExistingSession: true,
@@ -441,7 +441,7 @@ describe("session hook context wiring", () => {
       sessionKey,
       sessionId: "old-session",
     });
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     await initSessionState({
       ctx: { Body: "/new", SessionKey: sessionKey },
@@ -491,7 +491,7 @@ describe("session hook context wiring", () => {
 
     await initSessionState({
       ctx: { Body: "/new", SessionKey: sessionKey },
-      cfg: { session: { store: storePath } } as OpenClawConfig,
+      cfg: { session: { store: storePath } } as GrantedConfig,
       commandAuthorized: true,
     });
 
@@ -530,7 +530,7 @@ describe("session hook context wiring", () => {
       markGatewayRestartDraining();
       await initSessionState({
         ctx: { Body: "/new", SessionKey: sessionKey },
-        cfg: { session: { store: storePath } } as OpenClawConfig,
+        cfg: { session: { store: storePath } } as GrantedConfig,
         commandAuthorized: true,
       });
       await vi.waitFor(() => expect(releases).toHaveLength(3));
@@ -555,7 +555,7 @@ describe("session hook context wiring", () => {
       sessionId: "reset-session",
       text: "reset me",
     });
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as GrantedConfig;
 
     await initSessionState({
       ctx: { Body: "/reset", SessionKey: sessionKey },
@@ -580,7 +580,7 @@ describe("session hook context wiring", () => {
         store: storePath,
         resetTriggers: ["/fresh"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await initSessionState({
       ctx: { Body: "/fresh", SessionKey: sessionKey },

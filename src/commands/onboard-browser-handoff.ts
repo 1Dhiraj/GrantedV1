@@ -5,7 +5,7 @@ import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { callGateway } from "../gateway/call.js";
 import { resolveGatewayCredentialsWithSecretInputs } from "../gateway/credentials-secret-inputs.js";
 import type { SystemPresence } from "../infra/system-presence.js";
@@ -32,7 +32,7 @@ const HANDOFF_POLL_INTERVAL_MS = 1_000;
 const HANDOFF_PROBE_TIMEOUT_MS = 5_000;
 
 type BrowserHatchTarget = {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   dashboardUrl: string;
   documentUrl: string;
   sshHint?: string;
@@ -62,7 +62,7 @@ type BrowserHatchHandoffDeps = {
   env?: NodeJS.ProcessEnv;
   platform?: NodeJS.Platform;
   openBrowser?: (url: string) => Promise<boolean>;
-  resolveTarget?: (config: OpenClawConfig, env: NodeJS.ProcessEnv) => Promise<BrowserHatchTarget>;
+  resolveTarget?: (config: GrantedConfig, env: NodeJS.ProcessEnv) => Promise<BrowserHatchTarget>;
   probePresence?: (
     target: BrowserHatchTarget,
     timeoutMs: number,
@@ -83,7 +83,7 @@ type BrowserHatchHandoffDeps = {
 };
 
 async function resolveBrowserHatchTarget(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): Promise<BrowserHatchTarget> {
   const shared = await resolveControlUiHandoffTarget({ config, env });
@@ -217,7 +217,7 @@ async function waitForDashboardClient(params: {
 /** Opens or prints the dashboard and waits for its Control UI client connection. */
 export async function runBrowserHatchHandoff(
   params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     prompter: WizardPrompter;
     suppressTokenOutput?: boolean;
   },

@@ -7,7 +7,7 @@ import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -256,7 +256,7 @@ describe("sessionsCommand model resolution", () => {
         }).path;
         const database = openOpenClawAgentDatabase({ agentId: "main", path: databasePath });
         const db = getNodeSqliteKysely<
-          Pick<OpenClawAgentKyselyDatabase, "session_nodes" | "session_windows">
+          Pick<GrantedAgentKyselyDatabase, "session_nodes" | "session_windows">
         >(database.db);
         const persisted = executeSqliteQueryTakeFirstSync(
           database.db,

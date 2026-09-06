@@ -21,12 +21,12 @@ import {
   NodeClaudeSkillResultSchema,
   type NodeClaudeSkillInit,
 } from "../infra/node-claude-skill-protocol.js";
-import type { OpenClawPluginNodeHostCommandIo } from "../plugins/types.js";
+import type { GrantedPluginNodeHostCommandIo } from "../plugins/types.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import { materializeSkillResources } from "../skills/runtime/resources.js";
 
 /** The local MCP endpoint is a transport proxy only; no library, profile, or admin access. */
-export async function prepareNodeClaudeSkillSession(io: OpenClawPluginNodeHostCommandIo) {
+export async function prepareNodeClaudeSkillSession(io: GrantedPluginNodeHostCommandIo) {
   const frames = io.frames;
   if (!frames) {
     throw new Error("Upgrade and restart this node host for Claude skill resource support.");

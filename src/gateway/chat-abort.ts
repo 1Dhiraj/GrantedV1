@@ -11,7 +11,7 @@ import { createAgentRunRestartAbortError } from "../agents/run-termination.js";
 import { readToolValidationErrorSummary } from "../agents/tool-error-summary.js";
 import { isAbortRequestText } from "../auto-reply/reply/abort-primitives.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   emitAgentEvent,
   getAgentEventLifecycleGeneration,
@@ -529,7 +529,7 @@ export type ChatAbortOps = {
     sessionKey?: string,
   ) => { sessionKey: string; agentId?: string; clientRunId: string } | undefined;
   agentRunSeq: Map<string, number>;
-  getRuntimeConfig?: () => OpenClawConfig;
+  getRuntimeConfig?: () => GrantedConfig;
   broadcast: (
     event: string,
     payload: unknown,
@@ -752,7 +752,7 @@ export function updateChatRunProvider(
 export function abortChatRunsForProvider(
   ops: ChatAbortOps,
   params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     providerId: string;
     agentId?: string;
     stopReason?: string;

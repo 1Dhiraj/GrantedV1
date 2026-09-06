@@ -1,6 +1,6 @@
 import type { AuthenticateResult } from "mailauth";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
 import { vi } from "vitest";
 import { createImapState, type ImapCursor } from "./state.js";
@@ -9,7 +9,7 @@ export function createImapTestRuntime() {
   const namespaces = new Map<string, Map<string, unknown>>();
   let cursorChanged = createDeferred<void>();
   const dispatchHookAgentTurn = vi.fn<
-    OpenClawPluginApi["runtime"]["hooks"]["dispatchHookAgentTurn"]
+    GrantedPluginApi["runtime"]["hooks"]["dispatchHookAgentTurn"]
   >(async () => ({ ok: true, runId: "mail-run" }));
   const runtime = createPluginRuntimeMock({
     hooks: { dispatchHookAgentTurn },

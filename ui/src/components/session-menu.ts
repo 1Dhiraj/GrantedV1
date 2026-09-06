@@ -2,7 +2,7 @@ import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { keyed } from "lit/directives/keyed.js";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { DropdownMenuController } from "./dropdown-menu-controller.ts";
 import { icons } from "./icons.ts";
 import { activateMenuShortcut, menuShortcutHint } from "./menu-shortcuts.ts";
@@ -39,7 +39,7 @@ export type SessionMenuAction =
 
 export type SessionMenuActionKind = SessionMenuAction["kind"];
 
-class SessionMenu extends OpenClawLightDomElement {
+class SessionMenu extends GrantedLightDomElement {
   @property({ attribute: false }) session: SessionMenuData = EMPTY_SESSION_MENU_DATA;
   @property({ attribute: false }) compact = false;
   @property({ attribute: false }) navigationAllowed = false;

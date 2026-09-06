@@ -1,11 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { VERSION } from "../version.js";
-import { OpenClawChannelBridge } from "./channel-bridge.js";
+import { GrantedChannelBridge } from "./channel-bridge.js";
 import { ClaudePermissionRequestSchema, type ClaudeChannelMode } from "./channel-shared.js";
 import { getChannelMcpCapabilities, registerChannelMcpTools } from "./channel-tools.js";
 
-async function resolveMcpConfig(config: OpenClawConfig | undefined): Promise<OpenClawConfig> {
+async function resolveMcpConfig(config: GrantedConfig | undefined): Promise<GrantedConfig> {
   if (config) {
     return config;
   }
@@ -18,13 +18,13 @@ export async function createChannelMcpRuntime(
     gatewayUrl?: string;
     gatewayToken?: string;
     gatewayPassword?: string;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     claudeChannelMode?: ClaudeChannelMode;
     verbose?: boolean;
   } = {},
 ): Promise<{
   server: McpServer;
-  bridge: OpenClawChannelBridge;
+  bridge: GrantedChannelBridge;
   start: () => Promise<void>;
   close: () => Promise<void>;
 }> {
@@ -35,7 +35,7 @@ export async function createChannelMcpRuntime(
     { name: "openclaw", version: VERSION },
     capabilities ? { capabilities } : undefined,
   );
-  const bridge = new OpenClawChannelBridge(cfg, {
+  const bridge = new GrantedChannelBridge(cfg, {
     gatewayUrl: opts.gatewayUrl,
     gatewayToken: opts.gatewayToken,
     gatewayPassword: opts.gatewayPassword,

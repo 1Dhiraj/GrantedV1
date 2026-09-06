@@ -3,7 +3,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { defineChannelAliasMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 
@@ -53,7 +53,7 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
 export function normalizeCompatibilityConfig({
   cfg,
 }: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): ChannelDoctorConfigMutation {
   // SAFETY: doctor inspects legacy channel keys before schema validation.
   const channels = cfg.channels as Record<string, unknown> | undefined;
@@ -95,7 +95,7 @@ export function normalizeCompatibilityConfig({
     cfg:
       nextImessage === imessage
         ? cfg
-        : ({ ...cfg, channels: { ...channels, imessage: nextImessage } } as OpenClawConfig), // SAFETY: only retired catchup keys are removed.
+        : ({ ...cfg, channels: { ...channels, imessage: nextImessage } } as GrantedConfig), // SAFETY: only retired catchup keys are removed.
     changes,
   });
   if (changes.length === 0) {

@@ -5,8 +5,8 @@ import { createNodeDuplexEndpoint } from "../infra/node-duplex-framing.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
 import type {
-  OpenClawPluginNodeHostCommandContext,
-  OpenClawPluginNodeHostCommandIo,
+  GrantedPluginNodeHostCommandContext,
+  GrantedPluginNodeHostCommandIo,
 } from "../plugins/types.node-host.js";
 import { handleInvoke } from "./invoke.js";
 
@@ -22,7 +22,7 @@ describe("non-duplex node-host plugin cancellation", () => {
       async (
         _paramsJSON?: string | null,
         _io?: unknown,
-        context?: OpenClawPluginNodeHostCommandContext,
+        context?: GrantedPluginNodeHostCommandContext,
       ) => {
         await new Promise<void>((_resolve, reject) => {
           context?.signal?.addEventListener(
@@ -136,14 +136,14 @@ describe("non-duplex node-host plugin cancellation", () => {
         },
       });
       controller.signal.addEventListener("abort", () => framedIo.close(), { once: true });
-      const io: OpenClawPluginNodeHostCommandIo = {
+      const io: GrantedPluginNodeHostCommandIo = {
         signal: controller.signal,
         emitChunk: vi.fn(async (_chunk: string) => undefined),
         onInput: vi.fn(),
         frames: framedIo,
       };
       const handle = vi.fn(
-        async (_paramsJSON?: string | null, commandIo?: OpenClawPluginNodeHostCommandIo) => {
+        async (_paramsJSON?: string | null, commandIo?: GrantedPluginNodeHostCommandIo) => {
           commandIo?.frames?.onMessage(async () => await listenerCompleted);
           framedIo.receive(
             JSON.stringify({ v: 1, kind: "data", message: 0, index: 0, last: true, data: "Bw==" }),

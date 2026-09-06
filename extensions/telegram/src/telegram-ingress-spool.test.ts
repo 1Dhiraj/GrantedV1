@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests as createChannelIngressQueue,
@@ -154,7 +154,7 @@ describe("telegram ingress spool mapping", () => {
       const queue = openTelegramIngressQueue(spoolDir);
       const monitor = createTelegramIngressMonitor({
         queue,
-        cfg: { channels: { telegram: { groupPolicy: "open" } } } as OpenClawConfig,
+        cfg: { channels: { telegram: { groupPolicy: "open" } } } as GrantedConfig,
         accountId: "acct",
         onError,
         dispatch: async (update) => {
@@ -254,7 +254,7 @@ describe("telegram ingress spool mapping", () => {
       const queue = openTelegramIngressQueue(spoolDir);
       const monitor = createTelegramIngressMonitor({
         queue,
-        cfg: { channels: { telegram: { groupPolicy: "open" } } } as OpenClawConfig,
+        cfg: { channels: { telegram: { groupPolicy: "open" } } } as GrantedConfig,
         accountId: "acct",
         dispatch: (update) => {
           const updateId = resolveTelegramUpdateId(update);

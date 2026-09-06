@@ -7,7 +7,7 @@ import { createInterface } from "node:readline";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -27,7 +27,7 @@ import type { GatewayRestartHandoff } from "./restart-handoff.js";
 
 const tempDirs: string[] = [];
 const handoffConsumerCleanups: Array<() => Promise<void>> = [];
-type GatewayRestartHandoffDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_handoff">;
+type GatewayRestartHandoffDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_handoff">;
 
 function createHandoffEnv(): NodeJS.ProcessEnv {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-restart-handoff-"));

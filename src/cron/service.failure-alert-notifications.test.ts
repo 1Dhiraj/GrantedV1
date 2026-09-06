@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { resolveAgentMainSessionKey } from "../config/sessions/main-session.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HeartbeatRunOptions } from "../infra/heartbeat-runner-execution.js";
 import { resolveHeartbeatRunPrompt } from "../infra/heartbeat-runner-prompt.js";
 import { startHeartbeatRunner } from "../infra/heartbeat-runner-scheduler.js";
@@ -70,7 +70,7 @@ describe("CronService failure notification delivery", () => {
       wakesNow: false,
     },
   ])("routes a rejected failure alert to $name with cadence disabled", async (testCase) => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { heartbeat: { every: "0m" } },
         list: [{ id: "main" }, { id: "ops" }],

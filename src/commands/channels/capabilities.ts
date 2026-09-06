@@ -22,7 +22,7 @@ import { getChannelsCommandSecretTargetIds } from "../../cli/command-secret-targ
 import { formatUnknownChannelMessage } from "../../cli/error-format.js";
 import { ExpectedCliError } from "../../cli/failure-output.js";
 import { parseTimeoutMsWithFallback } from "../../cli/parse-timeout.js";
-import { getRuntimeConfig, type OpenClawConfig } from "../../config/config.js";
+import { getRuntimeConfig, type GrantedConfig } from "../../config/config.js";
 import { danger } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { defaultRuntime, type RuntimeEnv, writeRuntimeJson } from "../../runtime.js";
@@ -218,7 +218,7 @@ function renderDisplayLine(line: ChannelCapabilitiesDisplayLine) {
 
 async function resolveChannelReports(params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   timeoutMs: number;
   accountOverride?: string;
   target?: string;
@@ -301,7 +301,7 @@ async function resolveChannelReports(params: {
   return reports;
 }
 
-async function resolveCapabilitiesRuntimeConfig(config: OpenClawConfig, runtime: RuntimeEnv) {
+async function resolveCapabilitiesRuntimeConfig(config: GrantedConfig, runtime: RuntimeEnv) {
   return (
     await resolveCommandConfigWithSecrets({
       config,

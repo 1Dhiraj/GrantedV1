@@ -1,6 +1,6 @@
 /** Tests media-generation provider registry aliases and plugin capability integration. */
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import type {
   ImageGenerationProviderPlugin,
   VideoGenerationProviderPlugin,
@@ -81,7 +81,7 @@ beforeEach(() => {
 
 describe("image-generation provider registry", () => {
   it("delegates provider resolution to the capability provider boundary", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const { listImageGenerationProviders } = registry;
 
     expect(listImageGenerationProviders(cfg)).toStrictEqual([]);

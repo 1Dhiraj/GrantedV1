@@ -2,7 +2,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { materializePluginAutoEnableCandidates } from "../config/plugin-auto-enable.apply.js";
 import { makeRegistry } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runChannelLogin, runChannelLogout } from "./channel-auth.js";
 
 const mocks = vi.hoisted(() => ({
@@ -214,13 +214,13 @@ describe("channel-auth", () => {
   ] as const)(
     "uses source intent and the active runtime snapshot for %s",
     async (_mode, run, action) => {
-      const sourceConfig: OpenClawConfig = { channels: { whatsapp: {} } };
+      const sourceConfig: GrantedConfig = { channels: { whatsapp: {} } };
       mocks.readConfigFileSnapshot.mockResolvedValue({
         hash: "config-1",
         valid: true,
         sourceConfig,
       });
-      const runtimeConfig: OpenClawConfig = {
+      const runtimeConfig: GrantedConfig = {
         ...sourceConfig,
         agents: { defaults: { maxConcurrent: 4 } },
         plugins: { entries: { "memory-core": { config: {} } } },
@@ -243,23 +243,23 @@ describe("channel-auth", () => {
     ["login", runChannelLogin, mocks.login],
     ["logout", runChannelLogout, mocks.logoutAccount],
   ] as const)("uses runtime account callbacks when inferring %s", async (_mode, run, action) => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       channels: { whatsapp: { accounts: { work: { authDir: "~/wa-work", enabled: true } } } },
     };
-    const runtimeConfig: OpenClawConfig = {
+    const runtimeConfig: GrantedConfig = {
       channels: {
         whatsapp: { accounts: { work: { authDir: "/runtime/wa-work", enabled: true } } },
       },
       agents: { defaults: { maxConcurrent: 4 } },
     };
-    const listAccountIds = vi.fn((cfg: OpenClawConfig) =>
+    const listAccountIds = vi.fn((cfg: GrantedConfig) =>
       Object.keys(cfg.channels?.whatsapp?.accounts ?? {}),
     );
     const resolveAccount = vi.fn(
-      (cfg: OpenClawConfig, accountId: string) => cfg.channels?.whatsapp?.accounts?.[accountId],
+      (cfg: GrantedConfig, accountId: string) => cfg.channels?.whatsapp?.accounts?.[accountId],
     );
     const isEnabled = vi.fn(
-      (account: { enabled?: boolean } | undefined, cfg: OpenClawConfig) =>
+      (account: { enabled?: boolean } | undefined, cfg: GrantedConfig) =>
         cfg.channels?.whatsapp?.enabled !== false && account?.enabled !== false,
     );
     const selectedPlugin = { ...plugin, config: { listAccountIds, resolveAccount, isEnabled } };
@@ -279,12 +279,12 @@ describe("channel-auth", () => {
   });
 
   it("keeps repeated credential-free logout free of runtime-only plugin activation writes", async () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       channels: { whatsapp: { enabled: false } },
       plugins: { allow: ["whatsapp"], entries: { whatsapp: { enabled: true } } },
     };
     mocks.readConfigFileSnapshot.mockResolvedValue({ hash: "config-1", valid: true, sourceConfig });
-    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: OpenClawConfig }) =>
+    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: GrantedConfig }) =>
       materializePluginAutoEnableCandidates({
         config,
         candidates: [],
@@ -298,7 +298,7 @@ describe("channel-auth", () => {
     await runChannelLogout({ channel: "whatsapp" }, runtime);
 
     // Runtime plugin schema defaults can appear on a later invocation.
-    const laterRuntimeConfig: OpenClawConfig = {
+    const laterRuntimeConfig: GrantedConfig = {
       ...sourceConfig,
       plugins: {
         ...sourceConfig.plugins,
@@ -474,7 +474,7 @@ describe("channel-auth", () => {
   });
 
   it("auto-picks the single auth-capable channel from the auto-enabled config snapshot", async () => {
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       channels: { whatsapp: {} },
       plugins: { allow: ["whatsapp"] },
     };
@@ -489,7 +489,7 @@ describe("channel-auth", () => {
     };
     mocks.readConfigFileSnapshot.mockResolvedValue({ hash: "config-1", valid: true, sourceConfig });
     mocks.loadConfig.mockReturnValue(runtimeConfig);
-    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: OpenClawConfig }) =>
+    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: GrantedConfig }) =>
       materializePluginAutoEnableCandidates({
         config,
         candidates: [{ pluginId: "whatsapp", kind: "channel-configured", channelId: "whatsapp" }],
@@ -498,7 +498,7 @@ describe("channel-auth", () => {
         ]),
       }),
     );
-    mocks.resolveAccount.mockImplementation((cfg: OpenClawConfig) => ({
+    mocks.resolveAccount.mockImplementation((cfg: GrantedConfig) => ({
       enabled: cfg.channels?.whatsapp?.enabled === true,
     }));
     mocks.replaceConfigFile.mockImplementation(async () => {
@@ -569,7 +569,7 @@ describe("channel-auth", () => {
       },
     };
     mocks.loadConfig.mockReturnValue({ channels: { whatsapp: {}, zalouser: {} } });
-    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: OpenClawConfig }) =>
+    mocks.applyPluginAutoEnable.mockImplementation(({ config }: { config: GrantedConfig }) =>
       materializePluginAutoEnableCandidates({
         config,
         candidates: [{ pluginId: "whatsapp", kind: "channel-configured", channelId: "whatsapp" }],

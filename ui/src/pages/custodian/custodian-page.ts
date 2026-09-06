@@ -8,7 +8,7 @@ import "../../components/openclaw-mascot.ts";
 import { t } from "../../i18n/index.ts";
 import { channelSnapshotHasActiveChannel } from "../../lib/channels/index.ts";
 import { isGatewayMethodAdvertised } from "../../lib/gateway-methods.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import "../../styles/custodian.css";
 import { renderCustodianChangeHistory } from "./custodian-history.ts";
@@ -17,7 +17,7 @@ import "./custodian-surface.ts";
 
 const SYSTEM_CHANGE_PAGE_SIZE = 50;
 
-export class CustodianPage extends OpenClawLightDomElement {
+export class CustodianPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

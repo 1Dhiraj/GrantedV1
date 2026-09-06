@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { applySystemAgentModelSelection } from "./setup-model-selection.js";
 
 describe("applySystemAgentModelSelection", () => {
@@ -12,7 +12,7 @@ describe("applySystemAgentModelSelection", () => {
           beta: { model: "openai/gpt-5.6-sol" },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await applySystemAgentModelSelection({ config, model: "openai/gpt-5.6-luna" });
 
@@ -25,7 +25,7 @@ describe("applySystemAgentModelSelection", () => {
       agents: {
         entries: { main: { default: true }, ops: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     await expect(
       applySystemAgentModelSelection({
@@ -56,7 +56,7 @@ describe("applySystemAgentModelSelection", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const result = await applySystemAgentModelSelection({ config, model: "openai/gpt-5.5" });
 

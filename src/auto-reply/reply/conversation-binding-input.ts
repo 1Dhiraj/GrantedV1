@@ -3,7 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 import { normalizeConversationText } from "../../acp/conversation-id.js";
 import { resolveCommandConversationResolution } from "../../channels/conversation-resolution.js";
 import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-loaded.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { stringifyRouteThreadId } from "../../plugin-sdk/channel-route.js";
 import type { MsgContext } from "../templating.js";
 import type { HandleCommandsParams } from "./commands-types.js";
@@ -36,7 +36,7 @@ export function resolveConversationBindingChannelFromMessage(
 
 export function resolveConversationBindingAccountIdFromMessage(params: {
   ctx: BindingMsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   commandChannel?: string | null;
 }): string {
   const channel = resolveConversationBindingChannelFromMessage(params.ctx, params.commandChannel);
@@ -56,7 +56,7 @@ export function resolveConversationBindingThreadIdFromMessage(
 }
 
 export function resolveConversationBindingContextFromMessage(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx: BindingMsgContext;
   senderId?: string | null;
   sessionKey?: string | null;

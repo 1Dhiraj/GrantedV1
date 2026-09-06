@@ -12,11 +12,11 @@ import {
 } from "../infra/sqlite-transaction.js";
 import { ensureOpenClawAgentBoardSchemaInTransaction } from "../state/openclaw-agent-board-schema.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { applyBoardOps, BoardValidationError, normalizeBoardLayout } from "./board-layout.js";
 import {
@@ -53,10 +53,10 @@ import {
 } from "./sqlite-board-codec.js";
 
 type BoardDatabase = Pick<
-  OpenClawAgentKyselyDatabase,
+  GrantedAgentKyselyDatabase,
   "board_tabs" | "board_widgets" | "session_nodes"
 >;
-type BoardDatabaseHandle = Pick<OpenClawAgentDatabase, "db" | "path">;
+type BoardDatabaseHandle = Pick<GrantedAgentDatabase, "db" | "path">;
 
 type StoredBoard = {
   snapshot: BoardSnapshot;
@@ -71,7 +71,7 @@ const presentBoardDatabases = new WeakSet<DatabaseSync>();
 // Read-only connections cannot run the lazy DDL, and a pre-existing v13 DB has
 // no board tables until the first write. Reads must treat that as "no boards",
 // not "no such table".
-function boardTablesPresent(database: Pick<OpenClawAgentDatabase, "db">): boolean {
+function boardTablesPresent(database: Pick<GrantedAgentDatabase, "db">): boolean {
   if (ensuredBoardDatabases.has(database.db) || presentBoardDatabases.has(database.db)) {
     return true;
   }
@@ -85,7 +85,7 @@ function boardTablesPresent(database: Pick<OpenClawAgentDatabase, "db">): boolea
   return true;
 }
 
-function ensureBoardSchema(database: OpenClawAgentDatabase): void {
+function ensureBoardSchema(database: GrantedAgentDatabase): void {
   if (ensuredBoardDatabases.has(database.db)) {
     return;
   }
@@ -387,7 +387,7 @@ export class SqliteBoardStore implements BoardStore {
   }
 
   private prepareWrite(target: BoardSessionTarget): {
-    database: OpenClawAgentDatabase;
+    database: GrantedAgentDatabase;
     resolved: { agentId: string; path?: string; sessionKey: string };
   } {
     const resolved = this.resolve(target);

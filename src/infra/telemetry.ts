@@ -5,13 +5,13 @@ import { z } from "zod";
 import { isChannelConfigMetadataKey } from "../channels/config-metadata.js";
 import { isBuiltInModelProviderOverlayId } from "../config/model-provider-config.js";
 import { resolveIsNixMode } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveOfficialExternalProviderPluginIds } from "../plugins/official-external-plugin-catalog.js";
 import { isPubliclyKnownPluginId } from "../plugins/plugin-public-identity.js";
 import { listEnabledPluginRecords } from "../plugins/plugin-runtime-inventory.js";
 import { readConfigMachineState, writeConfigMachineState } from "../state/config-machine-state.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { VERSION } from "../version.js";
 import { isTruthyEnvValue } from "./env.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "./kysely-sync.js";
@@ -87,7 +87,7 @@ function isAutomatedEnvironment(): boolean {
   return isTruthyEnvValue(process.env.CI);
 }
 
-function isUpdateCheckDisabled(config: OpenClawConfig): boolean {
+function isUpdateCheckDisabled(config: GrantedConfig): boolean {
   return (
     config.update?.checkOnStart === false ||
     isTruthyEnvValue(process.env.GRANTED_NO_AUTO_UPDATE) ||
@@ -106,7 +106,7 @@ function countRecentSessions(nowMs: number): number {
     return (
       withExistingOpenClawStateDatabaseReadOnly(({ db: database }) => {
         const db =
-          getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "session_state_events">>(database);
+          getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "session_state_events">>(database);
         const row = executeSqliteQueryTakeFirstSync(
           database,
           db
@@ -140,7 +140,7 @@ function readTelemetryState(): TelemetryState {
   }
 }
 
-export function resolveTelemetryStatus(config: OpenClawConfig): {
+export function resolveTelemetryStatus(config: GrantedConfig): {
   enabled: boolean;
   reason: TelemetryStatusReason;
   endpoint: string;
@@ -171,7 +171,7 @@ export function resolveTelemetryStatus(config: OpenClawConfig): {
 }
 
 export function buildTelemetryPayload(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: { surface: TelemetrySurface },
 ): TelemetryPayload {
   const enabledPlugins = listEnabledPluginRecords(config);
@@ -228,7 +228,7 @@ export function buildTelemetryPayload(
 }
 
 export async function checkTelemetryUpdate(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   options: TelemetryUpdateOptions,
 ): Promise<TelemetryUpdate | null> {
   if (isUpdateCheckDisabled(config)) {

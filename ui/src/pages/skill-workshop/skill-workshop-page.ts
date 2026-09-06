@@ -9,7 +9,7 @@ import {
   filterSkillWorkshopProposals,
   type SkillWorkshopAppliedDiffMode,
 } from "../../lib/skill-workshop/index.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { renderPluginsHubHeader } from "../plugins/plugins-hub-header.ts";
 import { PLUGINS_HUB_PANEL_ID } from "../plugins/plugins-hub.ts";
@@ -279,7 +279,7 @@ function renderSkillWorkshopPage(
   `;
 }
 
-class SkillWorkshopPage extends OpenClawLightDomElement {
+class SkillWorkshopPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: SkillWorkshopPageContext;
   @property({ attribute: false }) data?: SkillWorkshopRouteData;

@@ -2,5 +2,5 @@
 export {
   createOpenClawTestState,
   withOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";

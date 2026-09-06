@@ -3,7 +3,7 @@ import path from "node:path";
 import type { Model } from "openclaw/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
@@ -29,7 +29,7 @@ import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-d
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { loadSqliteTrajectoryRuntimeEvents } from "../../trajectory/runtime-store.sqlite.js";
 import { createTrajectoryRuntimeRecorder } from "../../trajectory/runtime.js";
@@ -190,7 +190,7 @@ const mockCallGatewayTool = vi.mocked(callGatewayTool);
 
 const originalRuntime = process.env.GRANTED_AGENT_RUNTIME;
 const trajectoryTempDirs = createTempDirTracker();
-let generationState: OpenClawTestState;
+let generationState: GrantedTestState;
 let selectionAdmission: PreparedAgentRunAdmission;
 let selectionAdmittedRunContext: AdmittedRunContext;
 
@@ -282,7 +282,7 @@ afterEach(async () => {
   await generationState.cleanup();
 });
 
-function createAttemptParams(config?: OpenClawConfig): EmbeddedRunAttemptParams {
+function createAttemptParams(config?: GrantedConfig): EmbeddedRunAttemptParams {
   return {
     admittedRunContext: selectionAdmittedRunContext,
     prompt: "hello",
@@ -415,7 +415,7 @@ function registerSuccessfulCodexHarness(): void {
   );
 }
 
-function groupSenderDenyAllConfig(): OpenClawConfig {
+function groupSenderDenyAllConfig(): GrantedConfig {
   // Mirrors Telegram sender policy shape used when selection must preserve
   // channel/group sender tool constraints across fallback attempts.
   return {
@@ -430,10 +430,10 @@ function groupSenderDenyAllConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function groupDenyAllConfig(): OpenClawConfig {
+function groupDenyAllConfig(): GrantedConfig {
   return {
     channels: {
       telegram: {
@@ -444,10 +444,10 @@ function groupDenyAllConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfig {
+function providerRuntimeConfig(provider: string, runtime: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -458,14 +458,14 @@ function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfi
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function agentModelRuntimeConfig(
   modelRef: string,
   runtime: string,
   agentId?: string,
-): OpenClawConfig {
+): GrantedConfig {
   if (agentId) {
     return {
       agents: {
@@ -474,7 +474,7 @@ function agentModelRuntimeConfig(
           { id: agentId, models: { [modelRef]: { agentRuntime: { id: runtime } } } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
   }
   return {
     agents: {
@@ -484,7 +484,7 @@ function agentModelRuntimeConfig(
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function maybeCompactAgentHarnessSession(
@@ -1089,22 +1089,22 @@ describe("runAgentHarnessAttempt", () => {
       { ownerPluginId: "codex" },
     );
     const cases: Array<{
-      config: OpenClawConfig;
+      config: GrantedConfig;
       agentId?: string;
       sessionKey?: string;
     }> = [
-      { config: { tools: { deny: ["*"] } } as OpenClawConfig },
+      { config: { tools: { deny: ["*"] } } as GrantedConfig },
       {
         config: {
           agents: { list: [{ id: "worker", tools: { deny: ["*"] } }] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         agentId: "worker",
       },
       {
         config: {
           agents: { defaults: { sandbox: { mode: "all" } } },
           tools: { sandbox: { tools: { deny: ["*"] } } },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         sessionKey: "agent:main:session-1",
       },
     ];
@@ -1606,29 +1606,29 @@ describe("runAgentHarnessAttempt", () => {
     );
 
     const cases: Array<{
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
       conversationToolPolicy?: EmbeddedRunAttemptParams["conversationToolPolicy"];
       agentId?: string;
       sessionKey?: string;
       swarmCollector?: boolean;
     }> = [
       {},
-      { config: { tools: { profile: "coding" } } as OpenClawConfig },
+      { config: { tools: { profile: "coding" } } as GrantedConfig },
       { conversationToolPolicy: {} },
       { conversationToolPolicy: { allow: ["*"] } },
       { swarmCollector: false },
       { swarmCollector: true },
       { conversationToolPolicy: { deny: ["exec"] } },
-      { config: { tools: { deny: ["exec"] } } as OpenClawConfig },
+      { config: { tools: { deny: ["exec"] } } as GrantedConfig },
       {
         config: {
           agents: { list: [{ id: "worker", tools: { deny: ["exec"] } }] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         agentId: "worker",
         sessionKey: "agent:worker:session-1",
       },
       {
-        config: { tools: { deny: ["exec"] } } as OpenClawConfig,
+        config: { tools: { deny: ["exec"] } } as GrantedConfig,
         conversationToolPolicy: {},
       },
     ];
@@ -1701,23 +1701,23 @@ describe("runAgentHarnessAttempt", () => {
   it.each([
     {
       name: "narrow allowlist",
-      config: { tools: { allow: ["message"] } } as OpenClawConfig,
+      config: { tools: { allow: ["message"] } } as GrantedConfig,
     },
     {
       name: "specific denylist",
-      config: { tools: { deny: ["exec"] } } as OpenClawConfig,
+      config: { tools: { deny: ["exec"] } } as GrantedConfig,
     },
     {
       name: "narrow profile",
-      config: { tools: { profile: "coding" } } as OpenClawConfig,
+      config: { tools: { profile: "coding" } } as GrantedConfig,
     },
   ])("marks plugin side questions restricted for a $name", ({ config }) => {
     expect(resolvePluginHarnessPolicyToolsAllow(createAttemptParams(config))).toEqual([]);
   });
 
   it.each([
-    { name: "full tool profile", config: { tools: { profile: "full" } } as OpenClawConfig },
-    { name: "explicit empty allowlist", config: { tools: { allow: [] } } as OpenClawConfig },
+    { name: "full tool profile", config: { tools: { profile: "full" } } as GrantedConfig },
+    { name: "explicit empty allowlist", config: { tools: { allow: [] } } as GrantedConfig },
   ])("leaves plugin side questions unrestricted for an $name", ({ config }) => {
     expect(resolvePluginHarnessPolicyToolsAllow(createAttemptParams(config))).toBeUndefined();
   });
@@ -1729,7 +1729,7 @@ describe("runAgentHarnessAttempt", () => {
           "*": { deny: ["*"] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolvePluginHarnessPolicyToolsAllow({
@@ -1747,7 +1747,7 @@ describe("runAgentHarnessAttempt", () => {
           "*": { deny: ["*"] },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolvePluginHarnessPolicyToolsAllow({
@@ -2039,7 +2039,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     registerAgentHarness({
       id: "copilot",
       label: "Copilot",
@@ -2096,7 +2096,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     registerAgentHarness({
       id: "copilot",
       label: "Copilot",
@@ -2148,7 +2148,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       buildAgentHarnessSupportContext({
@@ -2180,7 +2180,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       buildAgentHarnessSupportContext({
@@ -2234,7 +2234,7 @@ describe("selectAgentHarness", () => {
             },
           },
         },
-      }) satisfies OpenClawConfig;
+      }) satisfies GrantedConfig;
     const sourceConfig = createConfig();
     const runtimeConfig = createConfig({ supportsStore: false });
     setRuntimeConfigSnapshot(runtimeConfig, sourceConfig);
@@ -2301,7 +2301,7 @@ describe("selectAgentHarness", () => {
             requestTransportOverrides: "none",
           },
           requestedRuntime: "codex",
-          config: config as OpenClawConfig,
+          config: config as GrantedConfig,
           ...identity,
         }).modelProvider,
       ).toMatchObject({
@@ -2317,7 +2317,7 @@ describe("selectAgentHarness", () => {
   ] as const)(
     "keeps authored reasoning metadata and native controls on %s Codex",
     (_label, api, baseUrl) => {
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         models: {
           providers: {
             openai: {
@@ -2519,7 +2519,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const modelProvider = {
       api: "openai-responses",
       baseUrl: "https://api.openai.com/v1",
@@ -2581,7 +2581,7 @@ describe("selectAgentHarness", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       resolveAvailableAgentHarnessPolicy({ provider: "openai", modelId: "gpt-5.5", config }),
@@ -3027,7 +3027,7 @@ describe("selectAgentHarness", () => {
             },
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
 
       expect(resolveAgentHarnessPolicy({ provider: "openai", modelId: "gpt-5.4", config })).toEqual(
         { runtime: "openclaw", runtimeSource: "implicit" },
@@ -3046,7 +3046,7 @@ describe("selectAgentHarness", () => {
           agentRuntime: { id: "codex" },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(
       selectAgentHarness({
@@ -3059,7 +3059,7 @@ describe("selectAgentHarness", () => {
 
   it("ignores legacy agent CLI runtime aliases for OpenAI agent model runs", async () => {
     registerSuccessfulCodexHarness();
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         defaults: {
           agentRuntime: { id: "claude-cli" },
@@ -3320,7 +3320,7 @@ describe("selectAgentHarness", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
       }),
     ).resolves.toEqual({ ok: true, compacted: false });
     expect(compact).toHaveBeenCalledTimes(1);
@@ -3785,7 +3785,7 @@ describe("selectAgentHarness", () => {
   });
 
   it("keeps auth-route rematerialization on the caller-owned prepared generation", async () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as GrantedConfig;
     const createStores = () => ({ authStorage: {} as never, modelRegistry: {} as never });
     const generationA = createModelGenerationFixture({
       agentDir: generationState.agentDir(),

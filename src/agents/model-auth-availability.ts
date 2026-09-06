@@ -7,7 +7,7 @@ import {
 import { hasNonEmptyString as hasSecret } from "@openclaw/normalization-core/string-coerce";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import { resolveMergedModelProviderConfig } from "../config/model-provider-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import type {
   ProviderModelRouteAuthRequirement,
@@ -137,7 +137,7 @@ export type ModelAuthAvailabilityResolver = {
 export function applyCliRuntimeModelAuthAvailability(params: {
   authResolver: ModelAuthAvailabilityResolver;
   evaluation: ModelAuthAvailabilityEvaluation;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   metadataSnapshot?: PluginMetadataSnapshot;
   provider: string;
@@ -198,7 +198,7 @@ export function applyCliRuntimeModelAuthAvailability(params: {
       : { availability: undefined, routeResolution: null };
 }
 type CreateModelAuthAvailabilityResolverParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   authStore: AuthProfileStore;
   agentDir?: string;
   workspaceDir?: string;

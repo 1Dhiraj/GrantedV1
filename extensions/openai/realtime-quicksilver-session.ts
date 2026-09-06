@@ -1,7 +1,7 @@
 // Native GPT-Live browser sessions: WebRTC offer broker plus gateway-owned sideband control.
 import { randomBytes, randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
 import {
   resolveOpenAICodexAuthIdentity,
@@ -103,7 +103,7 @@ function readBearerToken(req: IncomingMessage): string | undefined {
 }
 
 export async function resolveOpenAIChatGptSubscriptionAuth(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 }): Promise<Extract<OpenAIQuicksilverAuth, { type: "oauth" }> | undefined> {
   const token = await resolveProviderAuthProfileApiKey({
@@ -124,7 +124,7 @@ export async function resolveOpenAIChatGptSubscriptionAuth(params: {
 }
 
 export function createOpenAIQuicksilverBrowserSessionBroker(params: {
-  getConfig: () => OpenClawConfig | undefined;
+  getConfig: () => GrantedConfig | undefined;
   logger: Pick<PluginLogger, "debug" | "warn">;
   fetchImpl?: typeof fetch;
   webSocketFactory?: OpenAIQuicksilverSocketFactory;

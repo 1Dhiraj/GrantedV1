@@ -1,5 +1,5 @@
 // Qa Lab plugin module implements suite runtime types behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaProviderMode } from "./model-selection.js";
 import type { QaTransportActionName, QaTransportAdapter } from "./qa-transport.js";
 
@@ -42,7 +42,7 @@ export type QaSuiteRuntimeEnv = {
   mock: {
     baseUrl: string;
   } | null;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 };
 
 export type QaSkillStatusEntry = {

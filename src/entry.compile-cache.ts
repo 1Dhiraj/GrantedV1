@@ -97,14 +97,14 @@ function resolveOpenClawCompileCacheDirectory(params: {
   );
 }
 
-type OpenClawCompileCacheRespawnPlan = {
+type GrantedCompileCacheRespawnPlan = {
   command: string;
   args: string[];
   env: NodeJS.ProcessEnv;
   detachForProcessTree: boolean;
 };
 
-type OpenClawCompileCacheRespawnRuntime = RespawnChildRuntime & {
+type GrantedCompileCacheRespawnRuntime = RespawnChildRuntime & {
   writeError: (message: string) => void;
 };
 
@@ -117,7 +117,7 @@ function buildOpenClawCompileCacheRespawnPlan(params: {
   argv?: string[];
   compileCacheDir?: string;
   platform?: NodeJS.Platform;
-}): OpenClawCompileCacheRespawnPlan | undefined {
+}): GrantedCompileCacheRespawnPlan | undefined {
   const env = params.env ?? process.env;
   const argv = params.argv ?? process.argv;
   const platform = params.platform ?? process.platform;
@@ -176,8 +176,8 @@ export async function respawnWithoutOpenClawCompileCacheIfNeeded(params: {
 }
 
 function runOpenClawCompileCacheRespawnPlan(
-  plan: OpenClawCompileCacheRespawnPlan,
-  runtime: OpenClawCompileCacheRespawnRuntime = {
+  plan: GrantedCompileCacheRespawnPlan,
+  runtime: GrantedCompileCacheRespawnRuntime = {
     spawn,
     attachChildProcessBridge,
     exit: process.exit.bind(process) as (code?: number) => never,

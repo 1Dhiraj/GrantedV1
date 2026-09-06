@@ -3,7 +3,7 @@ import type { ModelCatalogProvider } from "@openclaw/model-catalog-core/model-ca
 
 // Normalized provider-index schema. It describes providers discoverable before
 // plugin install, including install hints, auth choices, and preview catalogs.
-export type OpenClawProviderIndexPluginInstall = {
+export type GrantedProviderIndexPluginInstall = {
   clawhubSpec?: string;
   npmSpec?: string;
   defaultChoice?: "clawhub" | "npm";
@@ -11,14 +11,14 @@ export type OpenClawProviderIndexPluginInstall = {
   expectedIntegrity?: string;
 };
 
-export type OpenClawProviderIndexPlugin = {
+export type GrantedProviderIndexPlugin = {
   id: string;
   package?: string;
   source?: string;
-  install?: OpenClawProviderIndexPluginInstall;
+  install?: GrantedProviderIndexPluginInstall;
 };
 
-export type OpenClawProviderIndexProviderAuthChoice = {
+export type GrantedProviderIndexProviderAuthChoice = {
   method: string;
   choiceId: string;
   choiceLabel: string;
@@ -35,17 +35,17 @@ export type OpenClawProviderIndexProviderAuthChoice = {
   onboardingScopes?: readonly ("text-inference" | "image-generation" | "music-generation")[];
 };
 
-export type OpenClawProviderIndexProvider = {
+export type GrantedProviderIndexProvider = {
   id: string;
   name: string;
-  plugin: OpenClawProviderIndexPlugin;
+  plugin: GrantedProviderIndexPlugin;
   docs?: string;
   categories?: readonly string[];
-  authChoices?: readonly OpenClawProviderIndexProviderAuthChoice[];
+  authChoices?: readonly GrantedProviderIndexProviderAuthChoice[];
   previewCatalog?: ModelCatalogProvider;
 };
 
-export type OpenClawProviderIndex = {
+export type GrantedProviderIndex = {
   version: number;
-  providers: Readonly<Record<string, OpenClawProviderIndexProvider>>;
+  providers: Readonly<Record<string, GrantedProviderIndexProvider>>;
 };

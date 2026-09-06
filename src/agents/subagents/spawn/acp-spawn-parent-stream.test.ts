@@ -1,6 +1,6 @@
 /** Tests ACP child-to-parent stream relay notices and routing. */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { mergeMockedModule } from "../../../test-utils/vitest-module-mocks.js";
 
 const enqueueSystemEventMock = vi.fn();
@@ -43,7 +43,7 @@ const progressCommentaryDeliveryContext = {
   threadId: 1122,
 };
 
-function progressModeConfig(acp?: OpenClawConfig["acp"]): OpenClawConfig {
+function progressModeConfig(acp?: GrantedConfig["acp"]): GrantedConfig {
   return {
     ...(acp ? { acp } : {}),
     channels: {

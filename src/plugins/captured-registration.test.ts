@@ -1,7 +1,7 @@
 // Covers captured plugin registration behavior in test registries.
 import { describe, expect, it, vi } from "vitest";
 import { capturePluginRegistration } from "./captured-registration.js";
-import type { AnyAgentTool, OpenClawPluginApi } from "./types.js";
+import type { AnyAgentTool, GrantedPluginApi } from "./types.js";
 
 describe("captured plugin registration", () => {
   it("rejects runtime access while capturing CLI metadata without activating the real runtime", () => {
@@ -203,8 +203,8 @@ describe("captured plugin registration", () => {
   });
 
   it("returns synthetic scheduled-turn ids independent of human-readable names", async () => {
-    let scheduleSessionTurn: OpenClawPluginApi["scheduleSessionTurn"] | undefined;
-    let registerSessionSchedulerJob: OpenClawPluginApi["registerSessionSchedulerJob"] | undefined;
+    let scheduleSessionTurn: GrantedPluginApi["scheduleSessionTurn"] | undefined;
+    let registerSessionSchedulerJob: GrantedPluginApi["registerSessionSchedulerJob"] | undefined;
     const captured = capturePluginRegistration({
       id: "captured-custom-plugin",
       name: "Captured Custom Plugin",

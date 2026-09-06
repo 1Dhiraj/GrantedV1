@@ -1,14 +1,14 @@
 import { existsSync } from "node:fs";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 
 /** Records an explicit non-Claw claim through the canonical MCP owner. */
 export function markClawMcpServerIndependentlyOwned(
   name: string,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): number {
   const databasePath = options.path ?? resolveOpenClawStateSqlitePath(options.env ?? process.env);
   if (!existsSync(databasePath)) {

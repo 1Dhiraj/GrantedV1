@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createDoctorConfigSnapshot } from "../commands/doctor-config-snapshot.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { runWriteConfigHealth } from "./doctor-health-contribution-runners.config.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contribution-types.js";
 
@@ -14,7 +14,7 @@ vi.mock("../agents/auth-profiles.js", () => ({
 }));
 
 vi.mock("../commands/doctor/shared/config-flow-steps.js", () => ({
-  restoreDoctorConfigEnvRefs: (cfg: OpenClawConfig) => cfg,
+  restoreDoctorConfigEnvRefs: (cfg: GrantedConfig) => cfg,
 }));
 
 vi.mock("../config/config.js", () => ({
@@ -36,11 +36,11 @@ vi.mock("../config/logging.js", () => ({
 }));
 
 vi.mock("../commands/onboard-helpers.js", () => ({
-  applyWizardMetadata: (cfg: OpenClawConfig) => cfg,
+  applyWizardMetadata: (cfg: GrantedConfig) => cfg,
 }));
 
 function createContext(): DoctorHealthFlowContext {
-  const cfg = { gateway: { mode: "local" } } satisfies OpenClawConfig;
+  const cfg = { gateway: { mode: "local" } } satisfies GrantedConfig;
   return {
     runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
     options: {},

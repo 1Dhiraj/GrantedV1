@@ -13,7 +13,7 @@ import {
 import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { loadSessionEntry } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { GatewayTransportError } from "../../gateway/call.js";
 import { withAgentSessionModelPatchOrigin } from "../../gateway/session-model-patch-origin.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -175,7 +175,7 @@ type SessionsToolOptions = {
   agentSessionId?: string;
   requesterAgentIdOverride?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   callGateway?: AgentToolGatewayRequestCaller;
   hasInProcessGatewayContext?: () => boolean;
 };
@@ -237,7 +237,7 @@ async function resolvePatchTarget(
   callGateway: AgentToolGatewayRequestCaller,
 ): Promise<{
   agentId: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   isRequesterSession: boolean;
   key: string;
   requesterAgentId: string;

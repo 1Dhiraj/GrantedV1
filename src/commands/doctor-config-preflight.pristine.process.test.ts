@@ -4,7 +4,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterAll, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasActiveStartupMigrationLease } from "../infra/startup-migration-checkpoint.js";
 import {
   createSourceRuntime,
@@ -110,7 +110,7 @@ describe("CLI pristine startup after early config observation", () => {
         // Inherited plugin selectors must not add unrelated convergence work to this fixture.
         plugins: { enabled: false },
         ...(stateful ? { messages: { ackReaction: "ok" } } : {}),
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const configRaw = JSON.stringify(config);
       fs.writeFileSync(configPath, configRaw);
       const env: NodeJS.ProcessEnv = {

@@ -2,20 +2,20 @@ import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js"
 
 const DATABASE_VERIFY_CHILD_ARG = "--openclaw-database-verify-child";
 
-export type OpenClawDatabaseVerifyTarget = {
+export type GrantedDatabaseVerifyTarget = {
   path: string;
   kind: "agent" | "state";
   label: string;
 };
 
-export type OpenClawDatabaseVerifyResult = {
+export type GrantedDatabaseVerifyResult = {
   path: string;
   ok: boolean;
   error?: string;
   terminal?: boolean;
 };
 
-function isVerifyTarget(value: unknown): value is OpenClawDatabaseVerifyTarget {
+function isVerifyTarget(value: unknown): value is GrantedDatabaseVerifyTarget {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return false;
   }
@@ -32,8 +32,8 @@ function formatVerifyError(error: unknown): string {
 }
 
 async function verifyOpenClawDatabase(
-  target: OpenClawDatabaseVerifyTarget,
-): Promise<OpenClawDatabaseVerifyResult> {
+  target: GrantedDatabaseVerifyTarget,
+): Promise<GrantedDatabaseVerifyResult> {
   const [sqlite, integrity, location] = await Promise.all([
     import("../infra/node-sqlite.js"),
     import("../infra/sqlite-integrity.js"),
@@ -41,7 +41,7 @@ async function verifyOpenClawDatabase(
   ]);
   let cleanup: (() => boolean) | undefined;
   let database: import("node:sqlite").DatabaseSync | undefined;
-  let result = await (async (): Promise<OpenClawDatabaseVerifyResult> => {
+  let result = await (async (): Promise<GrantedDatabaseVerifyResult> => {
     try {
       const prepared = await location.prepareSqliteReadOnlyLocationInProcess(target.path);
       cleanup = prepared.cleanup;
@@ -80,9 +80,9 @@ async function verifyOpenClawDatabase(
 
 /** Verify database files serially so large agent scans never compete for I/O. */
 export async function verifyOpenClawDatabases(
-  targets: readonly OpenClawDatabaseVerifyTarget[],
-): Promise<OpenClawDatabaseVerifyResult[]> {
-  const results: OpenClawDatabaseVerifyResult[] = [];
+  targets: readonly GrantedDatabaseVerifyTarget[],
+): Promise<GrantedDatabaseVerifyResult[]> {
+  const results: GrantedDatabaseVerifyResult[] = [];
   for (const target of targets) {
     results.push(await verifyOpenClawDatabase(target));
   }

@@ -2,7 +2,7 @@
  * Bundled Codex plugin entry: app-server harness, media understanding,
  * migration provider, CLI-session commands, and binding hooks.
  */
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
 import {
   normalizePluginsConfig,
@@ -74,8 +74,8 @@ export default definePluginEntry({
     // cannot identify the owning plugin package or its pinned dependencies.
     setManagedCodexPluginRoot(api.rootDir);
     const resolveCurrentConfig = () =>
-      api.runtime.config?.current ? (api.runtime.config.current() as OpenClawConfig) : undefined;
-    const resolvePluginConfig = (resolveConfig: () => OpenClawConfig | undefined) => {
+      api.runtime.config?.current ? (api.runtime.config.current() as GrantedConfig) : undefined;
+    const resolvePluginConfig = (resolveConfig: () => GrantedConfig | undefined) => {
       const liveConfig = resolveConfig();
       // Codex plugin config can change at runtime. A missing live entry is an
       // explicit removal, while an unavailable runtime snapshot uses startup config.
@@ -167,7 +167,7 @@ export default definePluginEntry({
     registerCodexCliMetadata(api);
     const sessionCatalogControlFactory = createCodexSessionCatalogControl({
       managedThreads: bindingStore.managedThreads,
-      config: api.config as OpenClawConfig,
+      config: api.config as GrantedConfig,
       getPluginConfig: resolveCurrentPluginConfig,
       getRuntimeConfig: resolveCurrentConfig,
     });
@@ -185,7 +185,7 @@ export default definePluginEntry({
         sessionCatalogControlFactory,
         {
           getPluginConfig: resolveCurrentPluginConfig,
-          getRuntimeConfig: () => resolveCurrentConfig() ?? (api.config as OpenClawConfig),
+          getRuntimeConfig: () => resolveCurrentConfig() ?? (api.config as GrantedConfig),
         },
         bindingStore,
       )) {
@@ -285,7 +285,7 @@ export default definePluginEntry({
             resolveCodexCliSessionForBindingOnNode({ runtime: api.runtime, ...params }),
           codexPluginsManagementIo: {
             readConfig: () => {
-              const current = (api.runtime.config?.current?.() ?? {}) as OpenClawConfig;
+              const current = (api.runtime.config?.current?.() ?? {}) as GrantedConfig;
               const plugins = (current as Record<string, unknown>).plugins;
               if (!plugins || typeof plugins !== "object") {
                 return Promise.resolve({});

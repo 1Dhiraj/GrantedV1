@@ -5,10 +5,10 @@ import type { RetryConfig } from "openclaw/plugin-sdk/retry-runtime";
 import type { TelegramInlineButtons } from "./button-types.js";
 import type { createTelegramPromptContextProjectionCursor } from "./prompt-context-projection.js";
 import type { TelegramApiOverride } from "./send-context.js";
-import type { OpenClawConfig } from "./send.runtime.js";
+import type { GrantedConfig } from "./send.runtime.js";
 
 export type TelegramSendOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   token?: string;
   accountId?: string;
   verbose?: boolean;

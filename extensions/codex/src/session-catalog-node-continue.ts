@@ -1,6 +1,6 @@
 import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import {
   createSessionCatalogAdoptionCoordinator,
@@ -281,8 +281,8 @@ async function readNodeCodexHistory(params: {
 
 async function continueNodeCodexSessionInner(params: {
   agentId: string;
-  api: OpenClawPluginApi;
-  config: OpenClawConfig;
+  api: GrantedPluginApi;
+  config: GrantedConfig;
   hostId: string;
   threadId: string;
   clientScopes?: readonly string[];
@@ -366,8 +366,8 @@ async function continueNodeCodexSessionInner(params: {
 
 export async function continueNodeCodexSession(params: {
   agentId?: string;
-  api: OpenClawPluginApi;
-  config: OpenClawConfig;
+  api: GrantedPluginApi;
+  config: GrantedConfig;
   hostId: string;
   threadId: string;
   clientScopes?: readonly string[];

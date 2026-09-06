@@ -3,7 +3,7 @@ import { z, type ZodTypeAny } from "zod";
 import type { JsonSchemaObject } from "../shared/json-schema.types.js";
 import type { PluginConfigUiHint } from "./manifest-types.js";
 import { parseJsonSchemaIssuePath, validateJsonSchemaValue } from "./schema-validator.js";
-import type { OpenClawPluginConfigSchema } from "./types.js";
+import type { GrantedPluginConfigSchema } from "./types.js";
 
 type Issue = { path: Array<string | number>; message: string };
 
@@ -18,14 +18,14 @@ type ZodSchemaWithToJsonSchema = ZodTypeAny & {
 type BuildPluginConfigSchemaOptions = {
   /** @deprecated Declare top-level `uiHints` in `openclaw.plugin.json`. */
   uiHints?: Record<string, PluginConfigUiHint>;
-  safeParse?: OpenClawPluginConfigSchema["safeParse"];
+  safeParse?: GrantedPluginConfigSchema["safeParse"];
 };
 
 type BuildJsonPluginConfigSchemaOptions = {
   cacheKey?: string;
   /** @deprecated Declare top-level `uiHints` in `openclaw.plugin.json`. */
   uiHints?: Record<string, PluginConfigUiHint>;
-  safeParse?: OpenClawPluginConfigSchema["safeParse"];
+  safeParse?: GrantedPluginConfigSchema["safeParse"];
 };
 
 function error(message: string): SafeParseResult {
@@ -116,7 +116,7 @@ function safeParseJsonSchema(
 export function buildJsonPluginConfigSchema(
   schema: JsonSchemaObject,
   options?: BuildJsonPluginConfigSchemaOptions,
-): OpenClawPluginConfigSchema {
+): GrantedPluginConfigSchema {
   const safeParse =
     options?.safeParse ??
     ((value: unknown) =>
@@ -132,7 +132,7 @@ export function buildJsonPluginConfigSchema(
 export function buildPluginConfigSchema(
   schema: ZodTypeAny,
   options?: BuildPluginConfigSchemaOptions,
-): OpenClawPluginConfigSchema {
+): GrantedPluginConfigSchema {
   const schemaWithJson = schema as ZodSchemaWithToJsonSchema;
   const safeParse = options?.safeParse ?? ((value) => safeParseRuntimeSchema(schema, value));
   if (typeof schemaWithJson.toJSONSchema === "function") {
@@ -161,7 +161,7 @@ export function buildPluginConfigSchema(
 }
 
 /** Return a schema for plugins that intentionally accept no config keys. */
-export function emptyPluginConfigSchema(): OpenClawPluginConfigSchema {
+export function emptyPluginConfigSchema(): GrantedPluginConfigSchema {
   return {
     safeParse(value: unknown): SafeParseResult {
       if (value === undefined) {

@@ -1,6 +1,6 @@
 // Public model-catalog facade. Keep exports here curated so callers use the
 // normalized planning APIs instead of reaching into provider-index internals.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   planManifestModelCatalogRows,
   type ManifestModelCatalogRowSelection,
@@ -11,7 +11,7 @@ export { planManifestModelCatalogSuppressions } from "./manifest-planner.js";
 
 export function planEffectiveModelCatalogRows(params: {
   registry: Parameters<typeof planManifestModelCatalogRows>[0]["registry"];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   providerFilter?: string;
   providerFilters?: readonly string[];
   mergeKeyFilter?: ReadonlySet<string>;
@@ -28,4 +28,4 @@ export function planEffectiveModelCatalogRows(params: {
   });
 }
 export type { ManifestModelCatalogSuppressionEntry } from "./manifest-planner.js";
-export type { OpenClawProviderIndexProvider } from "./provider-index/index.js";
+export type { GrantedProviderIndexProvider } from "./provider-index/index.js";

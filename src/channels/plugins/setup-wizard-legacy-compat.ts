@@ -1,6 +1,6 @@
 import { asNullableRecord as asObjectRecord } from "@openclaw/normalization-core/record-coerce";
 import type { DmPolicy } from "../../config/types.base.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 import type { WizardPrompter } from "../../wizard/prompts.js";
 import { resolveChannelDmAllowFrom, resolveChannelDmPolicy } from "./dm-access.js";
@@ -19,12 +19,12 @@ type AllowFromResolution = {
   id?: string | null;
 };
 
-function resolveLegacyChannelConfig(cfg: OpenClawConfig, channel: string): Record<string, unknown> {
+function resolveLegacyChannelConfig(cfg: GrantedConfig, channel: string): Record<string, unknown> {
   return asObjectRecord(cfg.channels?.[channel]) ?? {};
 }
 
 function resolveLegacyChannelAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   channel: string,
   accountId: string,
 ): Record<string, unknown> | null {
@@ -33,10 +33,10 @@ function resolveLegacyChannelAccount(
 }
 
 function patchLegacyChannelConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   patch: Record<string, unknown>;
-}): OpenClawConfig {
+}): GrantedConfig {
   const channelConfig = resolveLegacyChannelConfig(params.cfg, params.channel);
   const dmConfig = asObjectRecord(channelConfig.dm) ?? {};
   return {
@@ -55,10 +55,10 @@ function patchLegacyChannelConfig(params: {
   };
 }
 function setLegacyChannelDmPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   dmPolicy: DmPolicy;
-}): OpenClawConfig {
+}): GrantedConfig {
   const channelConfig = resolveLegacyChannelConfig(params.cfg, params.channel);
   const existingAllowFrom = resolveChannelDmAllowFrom({ account: channelConfig });
   const allowFrom =
@@ -139,13 +139,13 @@ export function createLegacyCompatChannelDmPolicy(params: {
 
 /** @deprecated Compatibility for plugins published before setup allowlists became plugin-owned. */
 export async function promptLegacyChannelAllowFromForAccount<TAccount>(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel: string;
   prompter: WizardPrompter;
   accountId?: string;
   defaultAccountId: string;
-  resolveAccount: (cfg: OpenClawConfig, accountId: string) => TAccount;
-  resolveExisting: (account: TAccount, cfg: OpenClawConfig) => Array<string | number>;
+  resolveAccount: (cfg: GrantedConfig, accountId: string) => TAccount;
+  resolveExisting: (account: TAccount, cfg: GrantedConfig) => Array<string | number>;
   resolveToken: (account: TAccount) => string | null | undefined;
   noteTitle: string;
   noteLines: string[];
@@ -154,7 +154,7 @@ export async function promptLegacyChannelAllowFromForAccount<TAccount>(params: {
   parseId: (value: string) => string | null;
   invalidWithoutTokenNote: string;
   resolveEntries: (params: { token: string; entries: string[] }) => Promise<AllowFromResolution[]>;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const accountId = resolveSetupAccountId({
     accountId: params.accountId,
     defaultAccountId: params.defaultAccountId,

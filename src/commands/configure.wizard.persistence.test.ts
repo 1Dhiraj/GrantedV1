@@ -1,6 +1,6 @@
 // Configure wizard persistence tests protect config writes before local side effects.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   intro: vi.fn(),
@@ -45,7 +45,7 @@ vi.mock("../wizard/setup.secret-input.js", () => ({
 
 vi.mock("./onboard-helpers.js", () => ({
   DEFAULT_WORKSPACE: "/tmp/openclaw-workspace",
-  applyWizardMetadata: (config: OpenClawConfig) => config,
+  applyWizardMetadata: (config: GrantedConfig) => config,
   guardCancel: (value: unknown) => value,
   probeGatewayReachable: mocks.probeGatewayReachable,
   resolveAdvertisedControlUiLinks: vi.fn(async () => ({
@@ -118,9 +118,9 @@ describe("configure wizard persistence before local side effects", () => {
   ] as const)("persists Local before %s reports %s", async (section, outcome) => {
     const choices = ["local", section, "__continue"];
     const events: string[] = [];
-    const writes: OpenClawConfig[] = [];
+    const writes: GrantedConfig[] = [];
     mocks.select.mockImplementation(async () => choices.shift());
-    mocks.writeWizardConfigFile.mockImplementation(async (config: OpenClawConfig) => {
+    mocks.writeWizardConfigFile.mockImplementation(async (config: GrantedConfig) => {
       events.push("commit");
       writes.push(config);
       return config;

@@ -6,7 +6,7 @@ import {
   listPotentialConfiguredChannelIds,
 } from "../channels/config-presence.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isVitestRuntimeEnv } from "../infra/env.js";
 import {
   listExplicitConfiguredChannelIdsForConfig,
@@ -20,8 +20,8 @@ import type { PluginManifestRecord } from "./manifest-registry.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.types.js";
 
 function collectConfiguredChannelIds(
-  config: OpenClawConfig,
-  activationSourceConfig: OpenClawConfig,
+  config: GrantedConfig,
+  activationSourceConfig: GrantedConfig,
   env: NodeJS.ProcessEnv,
   discovery: PluginMetadataSnapshot["discovery"],
 ): string[] {
@@ -48,7 +48,7 @@ function collectConfiguredChannelIds(
 }
 
 function collectBundledChannelOwnerPluginIds(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   channelIds: readonly string[];
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
@@ -106,7 +106,7 @@ function collectBundledChannelOwnerPluginIds(params: {
   return sortUniqueStrings(pluginIds);
 }
 
-function collectExplicitEffectivePluginIds(config: OpenClawConfig): string[] {
+function collectExplicitEffectivePluginIds(config: GrantedConfig): string[] {
   const plugins = normalizePluginsConfig(config.plugins);
   if (!plugins.enabled) {
     return [];
@@ -134,7 +134,7 @@ function collectExplicitEffectivePluginIds(config: OpenClawConfig): string[] {
 
 /** Lists plugin ids that are effectively enabled for a config/discovery context. */
 export function resolveEffectivePluginIds(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
   bundledPluginsDir?: string;

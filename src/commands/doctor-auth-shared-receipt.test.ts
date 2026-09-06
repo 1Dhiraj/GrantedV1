@@ -10,11 +10,11 @@ import {
 } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { maybeMigrateAuthProfileJsonStoresToSqlite } from "./doctor-auth-flat-profiles.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 afterEach(async () => {
   vi.restoreAllMocks();

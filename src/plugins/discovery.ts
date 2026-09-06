@@ -35,7 +35,7 @@ import {
   loadPluginManifest,
   type PluginManifest,
   resolvePackageExtensionEntries,
-  type OpenClawPackageManifest,
+  type GrantedPackageManifest,
   type PackageExtensionResolution,
   type PackageManifest,
 } from "./manifest.js";
@@ -621,7 +621,7 @@ function addLegacyNpmDeclarationDiagnostic(params: {
 
 function shouldSkipIncompatiblePackagePluginApi(params: {
   origin: PluginOrigin;
-  packageManifest: OpenClawPackageManifest | undefined;
+  packageManifest: GrantedPackageManifest | undefined;
   pluginId: string;
   packageDir: string;
   env: NodeJS.ProcessEnv;

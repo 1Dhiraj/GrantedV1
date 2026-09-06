@@ -36,11 +36,11 @@ import { migratePersistedImplicitMainRoster } from "./legacy.roster.js";
 import { copyConfigResolutionFacts } from "./resolution-facts.js";
 import { applyConfigOverrides } from "./runtime-overrides.js";
 import { resolveShellEnvExpectedKeys } from "./shell-env-expected-keys.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "./types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
 type ValidationPluginMetadataSnapshotLoader = {
-  load: (config: OpenClawConfig) => Pick<PluginMetadataSnapshot, "manifestRegistry">;
+  load: (config: GrantedConfig) => Pick<PluginMetadataSnapshot, "manifestRegistry">;
   getManifestRegistry: () => PluginManifestRegistry | undefined;
   getSnapshot: () => PluginMetadataSnapshot | undefined;
 };
@@ -50,13 +50,13 @@ export type ConfigIoContext = {
   configPath: string;
   options: ConfigIoFactoryOptions;
   observeLoadConfigSnapshot: (snapshot: ConfigFileSnapshot) => ConfigFileSnapshot;
-  finalizeLoadedRuntimeConfig: (config: OpenClawConfig) => OpenClawConfig;
+  finalizeLoadedRuntimeConfig: (config: GrantedConfig) => GrantedConfig;
   createValidationPluginMetadataSnapshotLoader: (params: {
     effectiveConfigRaw: unknown;
     env: NodeJS.ProcessEnv;
     allowCurrentPluginMetadata?: boolean;
   }) => ValidationPluginMetadataSnapshotLoader;
-  resolveRuntimePreflightSourceConfig: (candidate: OpenClawConfig) => OpenClawConfig;
+  resolveRuntimePreflightSourceConfig: (candidate: GrantedConfig) => GrantedConfig;
   prepareRecoveryBackupCandidate: (
     candidate: ConfigRecoveryCandidate,
   ) => ConfigRecoveryCandidatePreparation;
@@ -73,7 +73,7 @@ export function createConfigIoContext(options: ConfigIoFactoryOptions = {}): Con
     return snapshot;
   }
 
-  function finalizeLoadedRuntimeConfig(cfg: OpenClawConfig): OpenClawConfig {
+  function finalizeLoadedRuntimeConfig(cfg: GrantedConfig): GrantedConfig {
     const duplicates = findDuplicateAgentDirs(cfg, { env: deps.env, homedir: deps.homedir });
     if (duplicates.length > 0) {
       throw new DuplicateAgentDirError(duplicates);
@@ -127,7 +127,7 @@ export function createConfigIoContext(options: ConfigIoFactoryOptions = {}): Con
     };
   }
 
-  function resolveRuntimePreflightSourceConfig(candidate: OpenClawConfig): OpenClawConfig {
+  function resolveRuntimePreflightSourceConfig(candidate: GrantedConfig): GrantedConfig {
     const env = { ...deps.env } as NodeJS.ProcessEnv;
     const resolvedIncludes = resolveConfigIncludesForRead(candidate, configPath, { ...deps, env });
     const resolution = resolveConfigForRead(resolvedIncludes, env, deps.lowerPrecedenceEnv);

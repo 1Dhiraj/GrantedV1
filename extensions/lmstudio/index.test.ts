@@ -1,7 +1,7 @@
 // Lmstudio tests cover index plugin behavior.
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ProviderAuthMethod,
   ProviderPrepareDynamicModelContext,
 } from "openclaw/plugin-sdk/plugin-entry";
@@ -640,7 +640,7 @@ describe("lmstudio plugin", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       provider?.augmentModelCatalog?.({

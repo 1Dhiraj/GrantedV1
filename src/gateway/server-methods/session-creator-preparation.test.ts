@@ -7,7 +7,7 @@ import {
   addSessionMember,
   removeSessionMember,
 } from "../../config/sessions/session-sharing-store.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { getActivePluginRegistry, setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
@@ -373,7 +373,7 @@ describe("creator preparation at synchronous fan-out boundaries", () => {
       );
       addSessionMember(scope, { identityId: callerId, addedBy: "fixture" });
       const recipients = eventClients(callerId);
-      let cfg: OpenClawConfig = {};
+      let cfg: GrantedConfig = {};
       const decisions: Array<[string, boolean]> = [];
       const { broadcast } = createGatewayBroadcaster({
         clients: new Set(recipients.map(({ client }) => client)),
@@ -463,7 +463,7 @@ describe("creator preparation at synchronous fan-out boundaries", () => {
 
   it("keeps configured, retired and agent-scoped sentinel stores distinct", async () => {
     await withCreatorRows(async ({ callerId, creatorId, keys }) => {
-      const cfg: OpenClawConfig = { agents: { list: [{ id: "work", default: true }] } };
+      const cfg: GrantedConfig = { agents: { list: [{ id: "work", default: true }] } };
       const workKey = "agent:work:prepared-work";
       const client = eventClients(creatorId)[0]!.client;
       const receive = (sessionKeys: string[], agentId?: string) =>

@@ -1,6 +1,6 @@
 // Stale subagent allowlist tests cover doctor warnings for obsolete subagent allowlists.
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   collectStaleSubagentAllowlistWarnings,
   maybeRepairStaleSubagentAllowlists,
@@ -26,7 +26,7 @@ describe("stale subagent allowlist doctor repair", () => {
           { id: "planner" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(scanStaleSubagentAllowlistReferences(cfg)).toStrictEqual([
       {
@@ -63,7 +63,7 @@ describe("stale subagent allowlist doctor repair", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(scanStaleSubagentAllowlistReferences(cfg)).toStrictEqual([
       {
@@ -92,7 +92,7 @@ describe("stale subagent allowlist doctor repair", () => {
           { id: "planner" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = maybeRepairStaleSubagentAllowlists(cfg);
 

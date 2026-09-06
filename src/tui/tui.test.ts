@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { MALFORMED_STREAMING_FRAGMENT_ERROR_MESSAGE } from "../shared/assistant-error-format.js";
 import { withEnv } from "../test-utils/env.js";
@@ -303,7 +303,7 @@ describe("resolveTuiSessionKey", () => {
 });
 
 describe("resolveInitialTuiAgentId", () => {
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     agents: {
       ownership: "explicit",
       list: [
@@ -384,7 +384,7 @@ describe("resolveInitialTuiAgentId", () => {
   });
 
   it("uses the persisted fixed-store owner for an unscoped global session", () => {
-    const restartConfig: OpenClawConfig = {
+    const restartConfig: GrantedConfig = {
       session: { scope: "global", store: "/tmp/shared.sqlite" },
       agents: {
         ownership: "explicit",
@@ -404,7 +404,7 @@ describe("resolveInitialTuiAgentId", () => {
   });
 
   it("uses the persisted fixed-store owner for any bare initial session key", () => {
-    const restartConfig: OpenClawConfig = {
+    const restartConfig: GrantedConfig = {
       session: { store: "/tmp/shared.sqlite" },
       agents: {
         ownership: "explicit",
@@ -425,7 +425,7 @@ describe("resolveInitialTuiAgentId", () => {
 
 describe("resolveTuiSessionSelection", () => {
   it("keeps a fixed-store bare key with its persisted owner", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       session: { store: "/tmp/shared.sqlite" },
       agents: {
         ownership: "explicit",
@@ -446,7 +446,7 @@ describe("resolveTuiSessionSelection", () => {
   });
 
   it("carries an explicit owner while unwrapping global storage", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { ownership: "explicit", list: [{ id: "ops" }, { id: "research" }] },
     };
     expect(

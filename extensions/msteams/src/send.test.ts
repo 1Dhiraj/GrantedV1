@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promi
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import {
   deleteMessageMSTeams,
   editAdaptiveCardMSTeams,
@@ -285,7 +285,7 @@ describe("sendMessageMSTeams", () => {
     });
 
     const result = await sendMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conversation@thread.tacv2",
       text: "hello",
       mediaUrl: "file:///tmp/agent-workspace/inline.png",
@@ -339,7 +339,7 @@ describe("sendMessageMSTeams", () => {
       await useActualOutboundMediaLoader();
 
       await sendMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:conversation@thread.tacv2",
         text: "approved attachment",
         mediaUrl: "report.txt",
@@ -378,7 +378,7 @@ describe("sendMessageMSTeams", () => {
 
       await expect(
         sendMessageMSTeams({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           to: "conversation:19:conversation@thread.tacv2",
           text: "outside attachment",
           mediaUrl: "../outside.txt",
@@ -398,7 +398,7 @@ describe("sendMessageMSTeams", () => {
 
     await expect(
       sendMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:conversation@thread.tacv2",
         text: "private attachment",
         mediaUrl: "report.txt",
@@ -420,7 +420,7 @@ describe("sendMessageMSTeams", () => {
     mockState.convertMarkdownTables.mockReturnValue("hello");
 
     const result = await sendMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conversation@thread.tacv2",
       text: "hello",
     });
@@ -459,7 +459,7 @@ describe("sendMessageMSTeams", () => {
     });
 
     await sendMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:channel@thread.tacv2",
       text: "threaded reply",
     });
@@ -486,7 +486,7 @@ describe("sendMessageMSTeams", () => {
     });
 
     await sendMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:channel@thread.tacv2",
       text: "top-level reply",
     });
@@ -511,7 +511,7 @@ describe("sendMessageMSTeams", () => {
     });
 
     await sendMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: `conversation:${graphConversationId}`,
       text: "report",
       mediaUrl: "https://example.com/report.pdf",
@@ -539,7 +539,7 @@ describe("sendMessageMSTeams", () => {
 
     await expect(
       sendMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:group-id@thread.v2",
         text: "report",
         mediaUrl: "https://example.com/report.pdf",
@@ -582,7 +582,7 @@ describe("editMessageMSTeams", () => {
     });
 
     const result = await editMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conversation@thread.tacv2",
       activityId: "activity-123",
       text: "Updated message text",
@@ -611,7 +611,7 @@ describe("editMessageMSTeams", () => {
 
     await expect(
       editMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:conversation@thread.tacv2",
         activityId: "activity-123",
         text: "Updated text",
@@ -631,7 +631,7 @@ describe("editMessageMSTeams", () => {
     const card = { type: "AdaptiveCard", version: "1.5", body: [] };
 
     const result = await editAdaptiveCardMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conversation@thread.tacv2",
       activityId: "approval-activity",
       card,
@@ -679,7 +679,7 @@ describe("deleteMessageMSTeams", () => {
     });
 
     const result = await deleteMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conversation@thread.tacv2",
       activityId: "activity-456",
     });
@@ -702,7 +702,7 @@ describe("deleteMessageMSTeams", () => {
 
     await expect(
       deleteMessageMSTeams({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         to: "conversation:19:conversation@thread.tacv2",
         activityId: "activity-456",
       }),
@@ -730,7 +730,7 @@ describe("deleteMessageMSTeams", () => {
     });
 
     await deleteMessageMSTeams({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       to: "conversation:19:conv@thread.tacv2",
       activityId: "activity-789",
     });

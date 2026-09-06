@@ -2,7 +2,7 @@
  * Resolves model provider API keys from explicit environment variables.
  */
 import { normalizeProviderIdForAuth } from "@openclaw/model-catalog-core/provider-id";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getShellEnvAppliedKeys } from "../infra/shell-env.js";
 import { resolvePluginSetupProviderCore } from "../plugins/setup-registry.js";
 import { resolveLocalProviderAuthEvidence } from "../secrets/provider-auth-evidence.js";
@@ -33,7 +33,7 @@ type ProviderDirectAuthPlanningEvidence =
     };
 
 export type EnvApiKeyLookupOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   aliasMap?: Readonly<Record<string, string>>;
   candidateMap?: Readonly<Record<string, readonly string[]>>;

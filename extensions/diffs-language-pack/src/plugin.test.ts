@@ -7,7 +7,7 @@ import { promisify } from "node:util";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { withServer } from "openclaw/plugin-sdk/test-env";
 import { beforeAll, describe, expect, it } from "vitest";
-import type { OpenClawPluginApi, OpenClawPluginHttpRouteHandler } from "../api.js";
+import type { GrantedPluginApi, GrantedPluginHttpRouteHandler } from "../api.js";
 import { registerDiffsLanguagePackPlugin } from "./plugin.js";
 
 const execFileAsync = promisify(execFile);
@@ -51,19 +51,19 @@ beforeAll(async () => {
   await ensureViewerRuntimeForTests();
 }, 120_000);
 
-function captureHandler(): OpenClawPluginHttpRouteHandler {
-  let registeredHttpRouteHandler: OpenClawPluginHttpRouteHandler | undefined;
+function captureHandler(): GrantedPluginHttpRouteHandler {
+  let registeredHttpRouteHandler: GrantedPluginHttpRouteHandler | undefined;
   const api = createTestPluginApi({
     id: "diffs-language-pack",
     name: "Diffs Language Pack",
     description: "Diffs Language Pack",
     source: "test",
     config: {},
-    registerHttpRoute(params: Parameters<OpenClawPluginApi["registerHttpRoute"]>[0]) {
+    registerHttpRoute(params: Parameters<GrantedPluginApi["registerHttpRoute"]>[0]) {
       registeredHttpRouteHandler = params.handler;
     },
   });
-  registerDiffsLanguagePackPlugin(api as unknown as OpenClawPluginApi);
+  registerDiffsLanguagePackPlugin(api as unknown as GrantedPluginApi);
   if (!registeredHttpRouteHandler) {
     throw new Error("expected the plugin to register an HTTP route");
   }

@@ -1,6 +1,6 @@
 // Xai provider module implements model/runtime integration.
 import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import type {
   SpeechProviderPlugin,
@@ -92,7 +92,7 @@ export function buildXaiSpeechProvider(): SpeechProviderPlugin {
 // 3. xAI OAuth auth profile (cfg-scoped)
 async function resolveOptionalXaiAudioApiKey(
   configApiKey: string | undefined,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): Promise<string | undefined> {
   const direct = resolveDirectXaiAudioApiKey(configApiKey);
   if (direct) {
@@ -107,7 +107,7 @@ async function resolveOptionalXaiAudioApiKey(
 
 async function resolveXaiAudioApiKey(
   configApiKey: string | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Promise<string> {
   const apiKey = await resolveOptionalXaiAudioApiKey(configApiKey, cfg);
   if (apiKey) {

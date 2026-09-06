@@ -15,7 +15,7 @@ import { evaluateSkillInstallPolicy } from "../../plugins/install-security-scan.
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import { hasMultipleSessionSharingIdentities } from "../../state/user-profile-list.js";
 import {
@@ -50,7 +50,7 @@ import {
 /** Prepared once at human ingress; no library catalog or feature schema work. */
 export function resolveSkillLibraryPresentation(
   authority: SkillLibraryAuthority,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Pick<
   SkillsLibraryListResult,
   "profileId" | "multipleProfiles" | "defaultTarget" | "canManageWorkspace"
@@ -74,7 +74,7 @@ export function resolveSkillLibraryPresentation(
 export function listSkillLibrary(
   authority: SkillLibraryAuthority,
   params: SkillsLibraryListParams = {},
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): SkillsLibraryListResult {
   authority.assertCurrent();
   const presentation = resolveSkillLibraryPresentation(authority, options);
@@ -147,7 +147,7 @@ export async function readSkillLibrary(
   authority: SkillLibraryAuthority,
   skillId: string,
   revision?: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
   selected?: { revision: string; assertSessionAccess: () => void },
 ): Promise<SkillsLibraryReadResult> {
   const authorize = (db: import("node:sqlite").DatabaseSync) => {
@@ -215,7 +215,7 @@ export async function readSkillLibrary(
 export async function saveSkillLibrary(
   authority: SkillLibraryAuthority,
   params: SkillsLibrarySaveParams,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
   uploadId?: string,
 ): Promise<SkillsLibraryReceipt> {
   if (!validateSkillsLibrarySaveParams(params)) {
@@ -369,7 +369,7 @@ export async function saveSkillLibrary(
 export function mutateSkillLibrary(
   authority: SkillLibraryAuthority,
   params: SkillsLibraryMutateParams,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): SkillsLibraryReceipt {
   const exists = readSkillLibraryStore(
     (db) => requireSkillLibraryEntry(db, params.skillId, authority, true),

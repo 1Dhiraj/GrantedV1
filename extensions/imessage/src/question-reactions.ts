@@ -1,6 +1,6 @@
 // iMessage transport binding for numbered ask_user reactions.
 import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createQuestionReactionTargetStore,
   questionGatewayRuntime,
@@ -101,7 +101,7 @@ export function hasIMessageQuestionReactionTarget(params: {
 }
 
 export async function maybeResolveIMessageQuestionReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   message: IMessagePayload;
   bodyText: string;

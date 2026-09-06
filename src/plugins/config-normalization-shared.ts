@@ -1,7 +1,7 @@
 // Shares plugin config normalization helpers across control-plane paths.
 import { normalizeArrayBackedTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 import { normalizeChatChannelId } from "../channels/ids.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeSlotValue, resolveSlotSelection } from "./slots.js";
 
 /** Canonical plugin config shape consumed by runtime policy and loaders. */
@@ -238,7 +238,7 @@ function normalizePluginEntries(
 
 /** Normalizes plugin config while allowing callers to resolve aliases first. */
 export function normalizePluginsConfigWithResolverCore(
-  config?: OpenClawConfig["plugins"],
+  config?: GrantedConfig["plugins"],
   normalizePluginId: NormalizePluginId = identityNormalizePluginId,
 ): NormalizedPluginsConfig {
   const memorySlot = resolveSlotSelection("memory", config?.slots?.memory);
@@ -256,7 +256,7 @@ export function normalizePluginsConfigWithResolverCore(
 }
 
 export function isBundledChannelEnabledByChannelConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   pluginId: string,
 ): boolean {
   const channels = cfg?.channels as Record<string, unknown> | undefined;

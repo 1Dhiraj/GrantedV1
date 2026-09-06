@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { describeSpendLimitVerdict, readSpendLimits } from "./spend-limit.js";
 
-const cfg = (defaults: Record<string, unknown>): OpenClawConfig =>
-  ({ agents: { defaults } }) as unknown as OpenClawConfig;
+const cfg = (defaults: Record<string, unknown>): GrantedConfig =>
+  ({ agents: { defaults } }) as unknown as GrantedConfig;
 
 describe("readSpendLimits", () => {
   it("returns undefined when nothing is configured, so the check stays free", () => {

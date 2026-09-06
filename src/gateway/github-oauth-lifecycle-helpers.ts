@@ -8,7 +8,7 @@ import type {
 } from "../agents/github-oauth-records.js";
 import type { GitHubToolAccount } from "../agents/github-tool-account.js";
 import { resolveConfiguredGitHubToolIdentity } from "../agents/github-tool-identity.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 
 export const REFRESH_SKEW_MS = 10 * 60_000;
@@ -27,7 +27,7 @@ export const defaultGitAuthor = (account: GitHubToolAccount) => ({
 });
 
 export function identityStillSelected(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   location: { scope: GitHubIdentityScope; agentId: string },
   expected: GitHubToolIdentityConfig | null,
 ): boolean {
@@ -36,7 +36,7 @@ export function identityStillSelected(
 }
 
 export function authorizationStillOwned(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   record: GitHubDeviceAuthorizationRecord,
 ): boolean {
   return (
@@ -47,7 +47,7 @@ export function authorizationStillOwned(
   );
 }
 
-export function configuredOAuthIdentities(config: OpenClawConfig): ConfiguredOAuthIdentity[] {
+export function configuredOAuthIdentities(config: GrantedConfig): ConfiguredOAuthIdentity[] {
   const identities: ConfiguredOAuthIdentity[] = [];
   const system = config.tools?.github;
   if (system?.kind === "oauth") {
@@ -67,7 +67,7 @@ export function configuredOAuthIdentities(config: OpenClawConfig): ConfiguredOAu
 }
 
 export function currentIdentityForRecord(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   record: Pick<GitHubOAuthRecord, "scope" | "agentId">,
 ): GitHubToolIdentityConfig | undefined {
   return resolveConfiguredGitHubToolIdentity({ config, ...record });

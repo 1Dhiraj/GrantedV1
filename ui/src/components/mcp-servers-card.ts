@@ -17,7 +17,7 @@ import {
   type McpServersPatchBuildResult,
 } from "../lib/config/mcp-servers.ts";
 import { formatUiError } from "../lib/format-error.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../lit/subscriptions-controller.ts";
 import { icons } from "./icons.ts";
 import { renderMcpServerForm, type McpServerForm } from "./mcp-server-form.ts";
@@ -47,7 +47,7 @@ function tlsLabel(tls: McpServerSummary["tls"]): string | null {
   }
 }
 
-class McpServersCard extends OpenClawLightDomElement {
+class McpServersCard extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context?: ApplicationContext;
 

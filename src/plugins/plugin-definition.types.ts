@@ -1,14 +1,14 @@
-import type { OpenClawPluginApi } from "./plugin-api.types.js";
-import type { OpenClawPluginConfigSchema } from "./plugin-config-schema.types.js";
+import type { GrantedPluginApi } from "./plugin-api.types.js";
+import type { GrantedPluginConfigSchema } from "./plugin-config-schema.types.js";
 import type { PluginKind } from "./plugin-kind.types.js";
 import type {
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
+  GrantedPluginReloadRegistration,
+  GrantedPluginSecurityAuditCollector,
 } from "./plugin-registration.types.js";
-import type { OpenClawPluginNodeHostCommand } from "./types.node-host.js";
+import type { GrantedPluginNodeHostCommand } from "./types.node-host.js";
 
 /** Module-level plugin definition loaded from a native plugin entry file. */
-export type OpenClawPluginDefinition = {
+export type GrantedPluginDefinition = {
   id?: string;
   name?: string;
   description?: string;
@@ -20,11 +20,11 @@ export type OpenClawPluginDefinition = {
    * metadata-only command paths.
    */
   kind?: PluginKind | PluginKind[];
-  configSchema?: OpenClawPluginConfigSchema;
-  reload?: OpenClawPluginReloadRegistration;
-  nodeHostCommands?: OpenClawPluginNodeHostCommand[];
-  securityAuditCollectors?: OpenClawPluginSecurityAuditCollector[];
-  register?: (api: OpenClawPluginApi) => void;
+  configSchema?: GrantedPluginConfigSchema;
+  reload?: GrantedPluginReloadRegistration;
+  nodeHostCommands?: GrantedPluginNodeHostCommand[];
+  securityAuditCollectors?: GrantedPluginSecurityAuditCollector[];
+  register?: (api: GrantedPluginApi) => void;
 };
 
-export type OpenClawPluginModule = OpenClawPluginDefinition | ((api: OpenClawPluginApi) => void);
+export type GrantedPluginModule = GrantedPluginDefinition | ((api: GrantedPluginApi) => void);

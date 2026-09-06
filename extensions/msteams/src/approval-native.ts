@@ -21,7 +21,7 @@ import type {
   ChannelApprovalCapability,
   ChannelOutboundPayloadHint,
 } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { getMSTeamsApprovalApprovers, msTeamsApprovalAuth } from "./approval-auth.js";
@@ -34,7 +34,7 @@ type MSTeamsApprovalRequest =
   | SystemAgentApprovalRequest;
 
 function isMSTeamsApprovalTransportEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   if (params.accountId && normalizeAccountId(params.accountId) !== DEFAULT_ACCOUNT_ID) {
@@ -74,7 +74,7 @@ const msTeamsApprovalRouteGates = createNativeApprovalChannelRouteGates({
 });
 
 export function isMSTeamsNativeApprovalClientEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   return (
@@ -86,7 +86,7 @@ export function isMSTeamsNativeApprovalClientEnabled(params: {
 }
 
 export function shouldHandleMSTeamsNativeApprovalRequest(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   approvalKind?: ChannelApprovalKind;
   request: MSTeamsApprovalRequest;
@@ -99,7 +99,7 @@ export function shouldHandleMSTeamsNativeApprovalRequest(params: {
 }
 
 export function shouldSuppressLocalMSTeamsExecApprovalPrompt(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   payload: ReplyPayload;
   hint?: ChannelOutboundPayloadHint;

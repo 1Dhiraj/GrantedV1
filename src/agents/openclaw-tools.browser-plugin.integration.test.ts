@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resetConfigRuntimeState, setRuntimeConfigSnapshot } from "../config/config.js";
 import {
   createPluginMetadataSnapshot,
@@ -78,7 +78,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["browser"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const tools = resolveOpenClawPluginToolsForOptions({
       options: { config },
@@ -100,7 +100,7 @@ describe("createOpenClawTools browser plugin integration", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const tools = resolveOpenClawPluginToolsForOptions({
       options: { config },
@@ -139,14 +139,14 @@ describe("createOpenClawTools browser plugin integration", () => {
           plugins: {
             allow: ["browser"],
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         fsPolicy: { workspaceOnly: true },
       },
       resolvedConfig: {
         plugins: {
           allow: ["browser"],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     const browserTool = tools.find((tool) => tool.name === "browser");
@@ -254,7 +254,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       channels: { telegram: { enabled: true } },
       plugins: { allow: ["telegram"] },
       tools: { fs: { workspaceOnly: true } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     let delivery:
       | {
           send: (params: { text: string; mediaUrl?: string }) => Promise<void>;
@@ -389,7 +389,7 @@ describe("createOpenClawTools browser plugin integration", () => {
 
     resolveOpenClawPluginToolsForOptions({
       options: {
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         agentSessionKey: "agent:main:telegram:group:123",
         runId: "run-1",
         sessionId: "session-1",
@@ -398,7 +398,7 @@ describe("createOpenClawTools browser plugin integration", () => {
         agentTo: "123",
         requesterAgentIdOverride: "main",
       },
-      resolvedConfig: {} as OpenClawConfig,
+      resolvedConfig: {} as GrantedConfig,
     });
 
     expect(
@@ -423,7 +423,7 @@ describe("createOpenClawTools browser plugin integration", () => {
     });
     const config = {
       gateway: { mode: "remote", remote: { url: "wss://gateway.example" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     try {
       hoisted.resolvePluginTools.mockReturnValue([]);
@@ -453,7 +453,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["browser"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: { config, allowGatewaySubagentBinding: true },
@@ -466,7 +466,7 @@ describe("createOpenClawTools browser plugin integration", () => {
 
   it("forwards the lifecycle registry to workspace-scoped plugin tools", () => {
     hoisted.resolvePluginTools.mockReturnValue([]);
-    const config = { plugins: { enabled: true } } as OpenClawConfig;
+    const config = { plugins: { enabled: true } } as GrantedConfig;
     const pluginRegistry = createEmptyPluginRegistry();
     setActivePluginRegistry(pluginRegistry, "gateway", "gateway-bindable", "/gateway-workspace");
 
@@ -480,7 +480,7 @@ describe("createOpenClawTools browser plugin integration", () => {
 
   it("forwards lifecycle-prepared plugin facts to plugin resolution", () => {
     hoisted.resolvePluginTools.mockReturnValue([]);
-    const config = { plugins: { enabled: true } } as OpenClawConfig;
+    const config = { plugins: { enabled: true } } as GrantedConfig;
     const pluginRegistry = { tools: [] } as never;
     const metadataSnapshot = createPluginMetadataSnapshot({
       config,
@@ -553,7 +553,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["xai"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: {
@@ -612,7 +612,7 @@ describe("createOpenClawTools browser plugin integration", () => {
         },
       },
       plugins: { allow: ["xai"] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: {
@@ -656,7 +656,7 @@ describe("createOpenClawTools browser plugin integration", () => {
         },
       },
       plugins: { allow: ["xai"] },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: {
@@ -681,7 +681,7 @@ describe("createOpenClawTools browser plugin integration", () => {
 
   it("preserves ungated plugin resolution when no authoritative auth store is supplied", () => {
     hoisted.resolvePluginTools.mockReturnValue([]);
-    const config = { plugins: { allow: ["browser"] } } as OpenClawConfig;
+    const config = { plugins: { allow: ["browser"] } } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: { config, agentDir: "/unread-auth-store" },
@@ -703,7 +703,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["browser"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     resolveOpenClawPluginToolsForOptions({
       options: {
@@ -726,12 +726,12 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["old-plugin"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const staleRuntimeConfig = {
       plugins: {
         allow: ["old-plugin"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const resolvedRunConfig = {
       plugins: {
         allow: ["browser"],
@@ -739,10 +739,10 @@ describe("createOpenClawTools browser plugin integration", () => {
       tools: {
         updatePlan: true,
       },
-    } as OpenClawConfig;
-    let capturedRuntimeConfig: OpenClawConfig | undefined;
+    } as GrantedConfig;
+    let capturedRuntimeConfig: GrantedConfig | undefined;
     hoisted.resolvePluginTools.mockImplementation((params: unknown) => {
-      capturedRuntimeConfig = (params as { context?: { runtimeConfig?: OpenClawConfig } }).context
+      capturedRuntimeConfig = (params as { context?: { runtimeConfig?: GrantedConfig } }).context
         ?.runtimeConfig;
       return [];
     });
@@ -778,7 +778,7 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["old-plugin"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const explicitConfig = {
       plugins: {
         allow: ["browser"],
@@ -786,15 +786,15 @@ describe("createOpenClawTools browser plugin integration", () => {
       tools: {
         updatePlan: true,
       },
-    } as OpenClawConfig;
-    let capturedRuntimeConfig: OpenClawConfig | undefined;
-    let getRuntimeConfig: (() => OpenClawConfig | undefined) | undefined;
+    } as GrantedConfig;
+    let capturedRuntimeConfig: GrantedConfig | undefined;
+    let getRuntimeConfig: (() => GrantedConfig | undefined) | undefined;
     hoisted.resolvePluginTools.mockImplementation((params: unknown) => {
       const context = (
         params as {
           context?: {
-            runtimeConfig?: OpenClawConfig;
-            getRuntimeConfig?: () => OpenClawConfig | undefined;
+            runtimeConfig?: GrantedConfig;
+            getRuntimeConfig?: () => GrantedConfig | undefined;
           };
         }
       ).context;
@@ -818,23 +818,23 @@ describe("createOpenClawTools browser plugin integration", () => {
       plugins: {
         allow: ["memory-core"],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const firstRuntimeConfig = {
       plugins: {
         allow: ["memory-core"],
         entries: { "memory-core": { enabled: true } },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const nextRuntimeConfig = {
       plugins: {
         allow: ["memory-core"],
         entries: { "memory-core": { enabled: false } },
       },
-    } as OpenClawConfig;
-    let getRuntimeConfig: (() => OpenClawConfig | undefined) | undefined;
+    } as GrantedConfig;
+    let getRuntimeConfig: (() => GrantedConfig | undefined) | undefined;
     hoisted.resolvePluginTools.mockImplementation((params: unknown) => {
       getRuntimeConfig = (
-        params as { context?: { getRuntimeConfig?: () => OpenClawConfig | undefined } }
+        params as { context?: { getRuntimeConfig?: () => GrantedConfig | undefined } }
       ).context?.getRuntimeConfig;
       return [];
     });

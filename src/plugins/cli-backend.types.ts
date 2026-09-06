@@ -1,5 +1,5 @@
 /** Type contracts for plugin-owned CLI backend integrations. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ContextEngineHostCapability } from "../context-engine/types.js";
 
 /** Static command adapter owned by a CLI backend plugin registration. */
@@ -113,7 +113,7 @@ export type CliBundleMcpMode =
   | "gemini-system-settings";
 
 export type CliBackendPrepareExecutionContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   agentDir?: string;
   provider: string;
@@ -270,7 +270,7 @@ export type CliBackendExecute = (
 ) => AsyncIterable<Record<string, unknown>>;
 
 export type CliBackendResolveExecutionArgsContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   provider: string;
   modelId: string;
@@ -351,7 +351,7 @@ type CliBackendExactToolAvailabilityVersionPolicy = Readonly<{
 }>;
 
 export type CliBackendNormalizeConfigContext = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   backendId: string;
   agentId?: string;
 };
@@ -449,7 +449,7 @@ type CliBackendPluginBase = {
    * the generic CLI runner or prompt builder.
    */
   transformSystemPrompt?: (ctx: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     provider: string;
     modelId: string;

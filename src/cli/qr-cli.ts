@@ -3,7 +3,7 @@ import type { Command } from "commander";
 import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { hasConfiguredSecretInput } from "../config/types.secrets.js";
 import { trimToUndefined } from "../gateway/credentials.js";
 import { resolveRequiredConfiguredSecretRefInputString } from "../gateway/resolve-configured-secret-input-string.js";
@@ -39,7 +39,7 @@ const LIMITED_TRANSPORT_WARNING =
 function renderQrAscii(data: string): Promise<string> {
   return renderQrTerminal(data, { small: true });
 }
-function readDevicePairPublicUrlFromConfig(cfg: OpenClawConfig): string | undefined {
+function readDevicePairPublicUrlFromConfig(cfg: GrantedConfig): string | undefined {
   const value = cfg.plugins?.entries?.["device-pair"]?.config?.["publicUrl"];
   if (typeof value !== "string") {
     return undefined;
@@ -49,7 +49,7 @@ function readDevicePairPublicUrlFromConfig(cfg: OpenClawConfig): string | undefi
 }
 
 function shouldResolveLocalGatewayPasswordSecret(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): boolean {
   // Default/implicit password auth may require resolving a local SecretRef before encoding setup.
@@ -71,7 +71,7 @@ function shouldResolveLocalGatewayPasswordSecret(
   return !envToken && !configTokenConfigured;
 }
 
-async function resolveLocalGatewayPasswordSecretIfNeeded(cfg: OpenClawConfig): Promise<void> {
+async function resolveLocalGatewayPasswordSecretIfNeeded(cfg: GrantedConfig): Promise<void> {
   const resolvedPassword = await resolveRequiredConfiguredSecretRefInputString({
     config: cfg,
     env: process.env,

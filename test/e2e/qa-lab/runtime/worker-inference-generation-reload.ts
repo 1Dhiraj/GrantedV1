@@ -15,7 +15,7 @@ import {
   startQaMockOpenAiServer,
   type QaEvidenceSummaryJson,
 } from "../../../../extensions/qa-lab/api.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { collectErrorGraphCandidates } from "../../../../src/infra/errors.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import {
@@ -153,13 +153,13 @@ async function startAuthInspectingProxy(targetBaseUrl: string) {
 }
 
 function buildGenerationConfig(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   generation: Generation;
   pluginDir: string;
   tracePath: string;
   barrierPath: string;
   mockProviderBaseUrl: string;
-}): OpenClawConfig {
+}): GrantedConfig {
   const { config, generation, pluginDir, tracePath, barrierPath, mockProviderBaseUrl } = params;
   const providerConfig = config.models?.providers?.[PROVIDER_ID];
   return {
@@ -237,13 +237,13 @@ async function hotPublishGeneration(params: {
   generation: Exclude<Generation, "A">;
 }): Promise<{ pidBefore: number; pidAfter: number }> {
   const before = (await params.gateway.call("system.info", {})) as { pid?: number };
-  const config = JSON.parse(await fs.readFile(params.gateway.configPath, "utf8")) as OpenClawConfig;
+  const config = JSON.parse(await fs.readFile(params.gateway.configPath, "utf8")) as GrantedConfig;
   const pluginEntry = config.plugins?.entries?.[PLUGIN_ID];
   const providerConfig = config.models?.providers?.[PROVIDER_ID];
   if (!pluginEntry?.config || !providerConfig) {
     throw new Error("generation A config was not installed before hot publish");
   }
-  const next: OpenClawConfig = {
+  const next: GrantedConfig = {
     ...config,
     plugins: {
       ...config.plugins,
@@ -288,12 +288,12 @@ async function hotPublishChannelCredential(params: {
 }): Promise<{ pidBefore: number; pidAfter: number }> {
   const before = (await params.gateway.call("system.info", {})) as { pid?: number };
   const previous = (await params.gateway.call("config.get", {})) as { hash?: string };
-  const config = JSON.parse(await fs.readFile(params.gateway.configPath, "utf8")) as OpenClawConfig;
+  const config = JSON.parse(await fs.readFile(params.gateway.configPath, "utf8")) as GrantedConfig;
   const providerConfig = config.models?.providers?.[PROVIDER_ID];
   if (!providerConfig) {
     throw new Error("worker generation provider was missing before credential reload");
   }
-  const next: OpenClawConfig = {
+  const next: GrantedConfig = {
     ...config,
     models: {
       ...config.models,

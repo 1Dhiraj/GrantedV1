@@ -3,7 +3,7 @@ import path from "node:path";
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { resolveAgentWorkspaceDir, tryResolveDefaultAgentId } from "../../../agents/agent-scope.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {
   buildBundledPluginLoadPathAliases,
   normalizeBundledLookupPath,
@@ -20,7 +20,7 @@ type BundledPluginLoadPathHit = {
   pathLabel: string;
 };
 
-function resolveBundledWorkspaceDir(cfg: OpenClawConfig): string | undefined {
+function resolveBundledWorkspaceDir(cfg: GrantedConfig): string | undefined {
   const defaultAgentId = tryResolveDefaultAgentId(cfg);
   return defaultAgentId ? resolveAgentWorkspaceDir(cfg, defaultAgentId) : undefined;
 }
@@ -34,7 +34,7 @@ function isOpenClawNodeModulesPackageRoot(packageRoot: string): boolean {
 
 /** Find configured plugin load paths that alias bundled plugins already shipped by OpenClaw. */
 export function scanBundledPluginLoadPathMigrations(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): BundledPluginLoadPathHit[] {
   const plugins = asNullableRecord(cfg.plugins);
@@ -127,10 +127,10 @@ export function collectBundledPluginLoadPathWarnings(params: {
 
 /** Remove redundant bundled plugin load path aliases while preserving unrelated custom paths. */
 export function maybeRepairBundledPluginLoadPaths(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   changes: string[];
 } {
   const hits = scanBundledPluginLoadPathMigrations(cfg, env);

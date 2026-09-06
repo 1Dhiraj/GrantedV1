@@ -17,7 +17,7 @@ import {
 import { resolveAgentModelFallbackValues } from "../config/model-input.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { applySessionEntryReplacements } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { updateLegacySessionStore } from "../infra/state-migrations.legacy-session-store.js";
 import { listPluginDoctorSessionRouteStateOwners } from "../plugins/doctor-contract-registry.js";
 import type { DoctorSessionRouteStateOwner } from "../plugins/doctor-session-route-state-owner-types.js";
@@ -56,7 +56,7 @@ function repairExample(repair: DoctorSessionRouteStateRepair): string {
 }
 
 function resolveSessionAgentId(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   sessionKey: string,
   storeAgentId?: string,
 ): string | undefined {
@@ -66,7 +66,7 @@ function resolveSessionAgentId(
 /** Resolves the currently configured provider/model/runtime route for a session key. */
 function resolveConfiguredDoctorSessionStateRoute(params: {
   agentId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   env?: NodeJS.ProcessEnv;
 }): DoctorSessionRouteState | undefined {
@@ -107,7 +107,7 @@ function resolveConfiguredDoctorSessionStateRoute(params: {
 }
 
 function resolvePluginDoctorSessionRouteStateOwners(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): DoctorSessionRouteStateOwner[] {
   return listPluginDoctorSessionRouteStateOwners({ config: params.cfg, env: params.env });
@@ -341,7 +341,7 @@ function scanEntryForOwner(params: {
 /** Streams session entries into compact plugin-owned route-state findings. */
 export function createPluginSessionStateDoctorScanner(params: {
   agentId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }) {
   const repairs: DoctorSessionRouteStateRepair[] = [];

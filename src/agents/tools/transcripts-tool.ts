@@ -9,7 +9,7 @@ import { uniqueStrings } from "@openclaw/normalization-core/string-normalization
 import { Type } from "typebox";
 import { sanitizeTerminalText } from "../../../packages/terminal-core/src/safe-text.js";
 import { resolveStateDir } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import {
   type ResolvedTranscriptsAutoStartConfig,
@@ -453,7 +453,7 @@ export function createTranscriptsTool(options?: {
   agentAccountId?: string;
   caller?: TranscriptToolCaller;
   assertCallerActive?: () => void;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   stateDir?: string;
   logger?: TranscriptsLogger;
 }): AnyAgentTool {

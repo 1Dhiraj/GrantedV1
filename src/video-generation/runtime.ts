@@ -1,7 +1,7 @@
 // Video generation runtime coordinates provider auth, fallbacks, and job polling.
 import type { FallbackAttempt } from "../agents/model-fallback.types.js";
 import { resolveAgentModelTimeoutMsValue } from "../config/model-input.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { parseVideoGenerationModelRef } from "../media-generation/model-ref.js";
 import {
@@ -96,7 +96,7 @@ function validateProviderOptionsAgainstDeclaration(params: {
 }
 
 function buildNoVideoGenerationModelConfiguredMessage(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps: VideoGenerationRuntimeDeps,
 ): string {
   const listProviders = deps.listProviders ?? listVideoGenerationProviders;
@@ -109,7 +109,7 @@ function buildNoVideoGenerationModelConfiguredMessage(
 }
 
 export function listRuntimeVideoGenerationProviders(
-  params?: { config?: OpenClawConfig },
+  params?: { config?: GrantedConfig },
   deps: VideoGenerationRuntimeDeps = {},
 ) {
   return (deps.listProviders ?? listVideoGenerationProviders)(params?.config);

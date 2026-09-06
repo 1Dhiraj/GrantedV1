@@ -12,7 +12,7 @@ import {
   terminalOpenResult,
   type CreateGhosttyTerminalMock,
 } from "./terminal-panel.test-support.ts";
-import { OpenClawTerminalPanel } from "./terminal-panel.ts";
+import { GrantedTerminalPanel } from "./terminal-panel.ts";
 
 vi.mock("../../app/sw-refresh.runtime.ts", () => ({
   refreshControlUiServiceWorker: vi.fn(async () => false),
@@ -21,7 +21,7 @@ vi.mock("../../app/sw-refresh.runtime.ts", () => ({
 const createGhosttyTerminalMock: CreateGhosttyTerminalMock = vi.fn();
 const TERMINAL_PANEL_ELEMENT_NAME = defineTestTerminalPanelElement(createGhosttyTerminalMock);
 
-describe("OpenClawTerminalPanel reconnect", () => {
+describe("GrantedTerminalPanel reconnect", () => {
   beforeEach(async () => {
     vi.stubGlobal("localStorage", createStorageMock());
     vi.stubGlobal("sessionStorage", createStorageMock());
@@ -91,7 +91,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
       },
       addEventListener: () => () => {},
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.available = true;
     document.body.append(panel);
@@ -196,7 +196,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
         };
       },
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.available = true;
     document.body.append(panel);
@@ -293,7 +293,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
       },
       addEventListener: () => () => {},
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.agentId = "research";
     panel.client = client;
     panel.available = true;
@@ -386,7 +386,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
       },
       addEventListener: () => () => {},
     };
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.available = true;
     document.body.append(panel);
@@ -451,7 +451,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
           releases.push(resolve);
         }),
     );
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.client = client;
     panel.available = true;
     document.body.append(panel);
@@ -497,7 +497,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
       addEventListener: () => () => {},
     };
     vi.mocked(refreshControlUiServiceWorker).mockReturnValueOnce(new Promise<boolean>(() => {}));
-    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const panel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     panel.catalogReadyTimeoutMs = 10;
     panel.client = client;
     panel.available = true;
@@ -546,7 +546,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
       },
       addEventListener: () => () => {},
     };
-    const stalePanel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as OpenClawTerminalPanel;
+    const stalePanel = document.createElement(TERMINAL_PANEL_ELEMENT_NAME) as GrantedTerminalPanel;
     stalePanel.client = client;
     stalePanel.available = true;
     document.body.append(stalePanel);
@@ -577,7 +577,7 @@ describe("OpenClawTerminalPanel reconnect", () => {
     stalePanel.remove();
     const currentPanel = document.createElement(
       TERMINAL_PANEL_ELEMENT_NAME,
-    ) as OpenClawTerminalPanel;
+    ) as GrantedTerminalPanel;
     currentPanel.client = client;
     currentPanel.available = true;
     document.body.append(currentPanel);

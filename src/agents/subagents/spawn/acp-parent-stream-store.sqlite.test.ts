@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   runOpenClawAgentWriteTransaction,
@@ -22,7 +22,7 @@ describe("ACP parent stream SQLite store", () => {
       };
       runOpenClawAgentWriteTransaction((database) => {
         const db = getNodeSqliteKysely<
-          Pick<OpenClawAgentKyselyDatabase, "session_nodes" | "session_windows">
+          Pick<GrantedAgentKyselyDatabase, "session_nodes" | "session_windows">
         >(database.db);
         executeSqliteQuerySync(
           database.db,
@@ -63,7 +63,7 @@ describe("ACP parent stream SQLite store", () => {
       ]);
 
       runOpenClawAgentWriteTransaction((database) => {
-        const db = getNodeSqliteKysely<Pick<OpenClawAgentKyselyDatabase, "session_windows">>(
+        const db = getNodeSqliteKysely<Pick<GrantedAgentKyselyDatabase, "session_windows">>(
           database.db,
         );
         executeSqliteQuerySync(
@@ -85,7 +85,7 @@ describe("ACP parent stream SQLite store", () => {
       };
       runOpenClawAgentWriteTransaction((database) => {
         const db = getNodeSqliteKysely<
-          Pick<OpenClawAgentKyselyDatabase, "session_nodes" | "session_windows">
+          Pick<GrantedAgentKyselyDatabase, "session_nodes" | "session_windows">
         >(database.db);
         executeSqliteQuerySync(
           database.db,

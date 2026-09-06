@@ -15,7 +15,7 @@ import {
 import type {
   CodexSandboxExecSessionNotifications,
   HttpHeader,
-  OpenClawExecServer,
+  GrantedExecServer,
 } from "./types.js";
 
 /** Maximum JSON-line size accepted from the streaming HTTP helper process. */
@@ -23,7 +23,7 @@ const SANDBOX_HTTP_STREAM_LINE_MAX_CHARS = 256 * 1024;
 
 /** Handles one sandbox HTTP JSON-RPC request, optionally streaming response body deltas. */
 export async function httpRequest(
-  execServer: OpenClawExecServer,
+  execServer: GrantedExecServer,
   notifications: CodexSandboxExecSessionNotifications,
   params: JsonValue | undefined,
 ): Promise<JsonObject> {
@@ -87,7 +87,7 @@ function assertSandboxHttpRequestTargetAllowed(url: string): void {
 }
 
 async function runSandboxHttpRequest(
-  execServer: OpenClawExecServer,
+  execServer: GrantedExecServer,
   params: SandboxHttpRequest,
 ): Promise<JsonObject & { status: number; headers: HttpHeader[]; bodyBase64: string }> {
   const result = await execServer.backend.runShellCommand({
@@ -115,7 +115,7 @@ async function runSandboxHttpRequest(
 }
 
 async function runStreamingSandboxHttpRequest(
-  execServer: OpenClawExecServer,
+  execServer: GrantedExecServer,
   notifications: CodexSandboxExecSessionNotifications,
   requestId: string,
   params: SandboxHttpRequest,

@@ -11,7 +11,7 @@ import {
   type AuthProfileStore,
   buildTokenProfileId,
   listProfilesForProvider,
-  type OpenClawConfig as ProviderAuthConfig,
+  type GrantedConfig as ProviderAuthConfig,
   type ProviderAuthResult,
   suggestOAuthProfileIdForLegacyDefault,
   validateAnthropicSetupToken,

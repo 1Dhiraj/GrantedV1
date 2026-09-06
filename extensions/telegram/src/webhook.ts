@@ -4,7 +4,7 @@ import type { IncomingMessage } from "node:http";
 import net from "node:net";
 import { InputFile } from "grammy";
 import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isDiagnosticsEnabled } from "openclaw/plugin-sdk/diagnostic-runtime";
 import {
   logWebhookError,
@@ -260,7 +260,7 @@ function resolveForwardedClientIp(
   return undefined;
 }
 
-function resolveTelegramWebhookClientIp(req: IncomingMessage, config?: OpenClawConfig): string {
+function resolveTelegramWebhookClientIp(req: IncomingMessage, config?: GrantedConfig): string {
   const remoteAddress = parseIpLiteral(req.socket.remoteAddress);
   const trustedProxies = config?.gateway?.trustedProxies;
   if (!remoteAddress) {
@@ -288,7 +288,7 @@ function resolveTelegramWebhookClientIp(req: IncomingMessage, config?: OpenClawC
 function resolveTelegramWebhookRateLimitKey(
   req: IncomingMessage,
   path: string,
-  config?: OpenClawConfig,
+  config?: GrantedConfig,
 ): string {
   return `${path}:${resolveTelegramWebhookClientIp(req, config)}`;
 }
@@ -297,7 +297,7 @@ export async function startTelegramWebhook(opts: {
   token: string;
   accountId?: string;
   ownerAgentId?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   path?: string;
   port?: number;
   host?: string;

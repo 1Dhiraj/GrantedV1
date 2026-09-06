@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
 import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
@@ -609,7 +609,7 @@ describe("active-memory plugin", () => {
   };
   const registerPluginConfig = (overrides: Record<string, unknown>) => {
     api.pluginConfig = { agents: ["main"], mode: "always", ...overrides };
-    plugin.register(api as unknown as OpenClawPluginApi);
+    plugin.register(api as unknown as GrantedPluginApi);
   };
   const seedSession = (sessionKey: string, sessionId: string, updatedAt = 0) => {
     hoisted.sessionStore[sessionKey] = { sessionId, updatedAt };
@@ -731,7 +731,7 @@ describe("active-memory plugin", () => {
     );
     testing.resetActiveRecallCacheForTests();
     testing.setTimeoutPartialDataGraceMsForTests(5);
-    plugin.register(api as unknown as OpenClawPluginApi);
+    plugin.register(api as unknown as GrantedPluginApi);
   });
 
   afterEach(() => {
@@ -4726,7 +4726,7 @@ describe("active-memory plugin", () => {
           resolveLookup = resolve;
         }),
     });
-    plugin.register(api as unknown as OpenClawPluginApi);
+    plugin.register(api as unknown as GrantedPluginApi);
 
     const resultPromise = runPromptBuild(
       { prompt: "what food do i usually order? stalled toggle lookup" },
@@ -4763,7 +4763,7 @@ describe("active-memory plugin", () => {
           setTimeout(() => resolve(undefined), 1_490);
         }),
     });
-    plugin.register(api as unknown as OpenClawPluginApi);
+    plugin.register(api as unknown as GrantedPluginApi);
     runEmbeddedAgent.mockImplementationOnce(() => new Promise<never>(() => {}));
 
     const resultPromise = runPromptBuild(

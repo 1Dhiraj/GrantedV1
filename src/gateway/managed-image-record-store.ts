@@ -5,11 +5,11 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 
 export const MANAGED_OUTGOING_ORIGINALS_SUBDIR = "outgoing/originals";
@@ -40,7 +40,7 @@ export type ManagedImageRecord = {
 };
 
 export type ManagedImageRecordDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "managed_outgoing_image_records"
 >;
 type ManagedImageRecordRow = Selectable<
@@ -54,7 +54,7 @@ type ManagedImageRecordEntry = {
   cleanupPending: boolean;
 };
 
-function stateDatabaseOptions(stateDir?: string): OpenClawStateDatabaseOptions {
+function stateDatabaseOptions(stateDir?: string): GrantedStateDatabaseOptions {
   return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 

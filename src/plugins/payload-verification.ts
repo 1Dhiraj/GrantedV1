@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { pathExists } from "../infra/fs-safe.js";
 import { resolveUserPath } from "../utils.js";
@@ -45,7 +45,7 @@ export type MissingPluginInstallPayload = {
 /** Finds tracked install records whose package payload is absent on disk. */
 export async function collectMissingPluginInstallPayloads(params: {
   records: Record<string, PluginInstallRecord>;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   skipDisabledPlugins?: boolean;
   syncOfficialPluginInstalls?: boolean;
   env?: NodeJS.ProcessEnv;

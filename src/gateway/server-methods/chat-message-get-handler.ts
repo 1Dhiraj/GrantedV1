@@ -7,7 +7,7 @@ import {
 import { CHAT_PENDING_INPUT_MESSAGE_PREFIX } from "../../../packages/gateway-protocol/src/schema/chat-history-constants.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { readSessionPendingInput } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { jsonUtf8Bytes } from "../../infra/json-utf8-bytes.js";
 import {
   augmentChatHistoryWithCanvasBlocks,
@@ -73,7 +73,7 @@ export const chatMessageGetHandlers: GatewayRequestHandlers = {
     };
     const agentIdOverride = normalizeOptionalText((params as { agentId?: string }).agentId);
     const requestedAgent = resolveRequestedChatAgentId({
-      cfg: (context as { getRuntimeConfig?: () => OpenClawConfig }).getRuntimeConfig?.(),
+      cfg: (context as { getRuntimeConfig?: () => GrantedConfig }).getRuntimeConfig?.(),
       requestedSessionKey: sessionKey,
       agentId: agentIdOverride,
     });

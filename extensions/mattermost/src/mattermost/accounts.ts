@@ -22,7 +22,7 @@ import type {
   MattermostReplyToMode,
 } from "../types.js";
 import { normalizeMattermostBaseUrl } from "./client.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { GrantedConfig } from "./runtime-api.js";
 
 type MattermostTokenSource = "env" | "config" | "none";
 type MattermostBaseUrlSource = "env" | "config" | "none";
@@ -79,7 +79,7 @@ function resolveMattermostRequireMention(config: MattermostAccountConfig): boole
 }
 
 function resolveMattermostAccountWithMode(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   mode: SecretInputStringResolutionMode;
 }): ResolvedMattermostAccount {
@@ -137,14 +137,14 @@ function resolveMattermostAccountWithMode(params: {
 }
 
 export function resolveMattermostAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): ResolvedMattermostAccount {
   return resolveMattermostAccountWithMode({ ...params, mode: "strict" });
 }
 
 export function inspectMattermostAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }) {
   const account = resolveMattermostAccountWithMode({ ...params, mode: "inspect" });

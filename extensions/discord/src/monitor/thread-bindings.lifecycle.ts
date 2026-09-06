@@ -1,6 +1,6 @@
 import { readAcpSessionEntry, type AcpSessionStoreEntry } from "openclaw/plugin-sdk/acp-runtime";
 import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 // Discord plugin module implements thread bindings.lifecycle behavior.
 import {
   normalizeOptionalLowercaseString,
@@ -40,7 +40,7 @@ export type AcpThreadBindingReconciliationResult = {
 type AcpThreadBindingHealthStatus = "healthy" | "stale" | "uncertain";
 
 type AcpThreadBindingHealthProbe = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   sessionKey: string;
   binding: ThreadBindingRecord;
@@ -73,7 +73,7 @@ export function listThreadBindingsBySessionKey(params: {
 }
 
 export async function autoBindSpawnedDiscordSubagent(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   channel?: string;
   to?: string;
@@ -208,7 +208,7 @@ function resolveStoredAcpBindingHealth(params: {
 }
 
 export async function reconcileAcpThreadBindingsOnStartup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string;
   sendFarewell?: boolean;
   healthProbe?: AcpThreadBindingHealthProbe;

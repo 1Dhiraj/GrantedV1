@@ -4,7 +4,7 @@ import {
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
 import type { ModelDefinitionConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
 import type { ProviderPlugin } from "../plugins/types.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -53,7 +53,7 @@ describe("models config input presence", () => {
       apiKey: "AWS_PROFILE",
       models: [model("vision-model")],
     };
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       models: { providers: { "amazon-bedrock": configuredProvider } },
     };
     const sourceConfigForSecrets = {
@@ -66,7 +66,7 @@ describe("models config input presence", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const resolveImplicitProviders = vi.fn<ResolveImplicitProviders>(async () => ({
       "amazon-bedrock": {
         ...configuredProvider,
@@ -169,7 +169,7 @@ describe("models config input presence", () => {
         apiKey: "CATALOG_FIXTURE_KEY",
         models: [configuredModel],
       };
-      const cfg: OpenClawConfig = { models: { providers: { [providerId]: configuredProvider } } };
+      const cfg: GrantedConfig = { models: { providers: { [providerId]: configuredProvider } } };
       const sourceConfigForSecrets = {
         models: {
           providers: {
@@ -193,7 +193,7 @@ describe("models config input presence", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const discovered = {
         ...configuredProvider,
         models: [

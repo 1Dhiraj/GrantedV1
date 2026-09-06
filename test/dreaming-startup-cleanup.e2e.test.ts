@@ -1,6 +1,6 @@
 // A real Gateway restart must remove interrupted Dreaming sessions from its public session list.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import { getSessionEntry, upsertSessionEntry } from "../src/plugin-sdk/session-store-runtime.js";
 import {
@@ -9,12 +9,12 @@ import {
 } from "../src/plugin-sdk/sqlite-runtime-testing.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const STALE_AGE_MS = 600_000;
 const WAIT_OPTIONS = { interval: 50, timeout: 15_000 } as const;
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 
 type GatewaySessionClient = Awaited<ReturnType<typeof connectGatewayClient>>;
 
@@ -65,7 +65,7 @@ async function listSessionKeys(client: GatewaySessionClient): Promise<string[]> 
   return result.sessions.map(({ key }) => key);
 }
 
-async function connect(instance: OpenClawTestInstance): Promise<GatewaySessionClient> {
+async function connect(instance: GrantedTestInstance): Promise<GatewaySessionClient> {
   return await connectGatewayClient({
     url: instance.url,
     token: instance.gatewayToken,
@@ -89,7 +89,7 @@ describe("Gateway dreaming session restart cleanup", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const instance = await createOpenClawTestInstance({
       name: "dreaming-startup-cleanup",
       config,

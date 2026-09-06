@@ -7,14 +7,14 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
 
-type ClawPackageLifecycleDatabase = Pick<OpenClawStateKyselyDatabase, "state_leases">;
+type ClawPackageLifecycleDatabase = Pick<GrantedStateKyselyDatabase, "state_leases">;
 
 type ClawPackageLifecycleArtifact =
   | { kind: "plugin"; source: "clawhub"; ref: string }
@@ -30,7 +30,7 @@ export type MaintainedClawPackageLifecycleLease = {
   release: () => void;
 };
 
-type ClawPackageLifecycleLeaseOptions = OpenClawStateDatabaseOptions & {
+type ClawPackageLifecycleLeaseOptions = GrantedStateDatabaseOptions & {
   nowMs?: number;
   owner?: string;
   required?: boolean;

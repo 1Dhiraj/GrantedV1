@@ -36,7 +36,7 @@ const gatewayOutputPath = path.join(
 );
 const constantsOutputPath = path.join(
   repoRoot,
-  "apps/android/app/src/main/java/ai/openclaw/app/protocol/OpenClawProtocolConstants.kt",
+  "apps/android/app/src/main/java/ai/openclaw/app/protocol/GrantedProtocolConstants.kt",
 );
 const protocolSchemas = ProtocolSchemas as unknown as Record<string, JsonSchema>;
 
@@ -92,7 +92,7 @@ const schemaNames = new Map<string, string>([
 ]);
 
 const androidEnums: EnumSpec[] = [
-  enumSpec("OpenClawCapability", "", [
+  enumSpec("GrantedCapability", "", [
     ["Canvas", "canvas"],
     ["Camera", "camera"],
     ["Sms", "sms"],
@@ -109,49 +109,49 @@ const androidEnums: EnumSpec[] = [
     ["VoiceWake", "voiceWake"],
     ["MobileUI", "mobileUI"],
   ]),
-  enumSpec("OpenClawCameraCommand", "camera.", [
+  enumSpec("GrantedCameraCommand", "camera.", [
     ["List", "list"],
     ["Snap", "snap"],
     ["Clip", "clip"],
   ]),
-  enumSpec("OpenClawSmsCommand", "sms.", [
+  enumSpec("GrantedSmsCommand", "sms.", [
     ["Send", "send"],
     ["Search", "search"],
   ]),
-  enumSpec("OpenClawTalkCommand", "talk.", [
+  enumSpec("GrantedTalkCommand", "talk.", [
     ["PttStart", "ptt.start"],
     ["PttStop", "ptt.stop"],
     ["PttCancel", "ptt.cancel"],
     ["PttOnce", "ptt.once"],
   ]),
-  enumSpec("OpenClawLocationCommand", "location.", [["Get", "get"]]),
-  enumSpec("OpenClawDeviceCommand", "device.", [
+  enumSpec("GrantedLocationCommand", "location.", [["Get", "get"]]),
+  enumSpec("GrantedDeviceCommand", "device.", [
     ["Status", "status"],
     ["Info", "info"],
     ["Permissions", "permissions"],
     ["Health", "health"],
     ["Apps", "apps"],
   ]),
-  enumSpec("OpenClawNotificationsCommand", "notifications.", [
+  enumSpec("GrantedNotificationsCommand", "notifications.", [
     ["List", "list"],
     ["Actions", "actions"],
   ]),
-  enumSpec("OpenClawSystemCommand", "system.", [["Notify", "notify"]]),
-  enumSpec("OpenClawPhotosCommand", "photos.", [["Latest", "latest"]]),
-  enumSpec("OpenClawContactsCommand", "contacts.", [
+  enumSpec("GrantedSystemCommand", "system.", [["Notify", "notify"]]),
+  enumSpec("GrantedPhotosCommand", "photos.", [["Latest", "latest"]]),
+  enumSpec("GrantedContactsCommand", "contacts.", [
     ["Search", "search"],
     ["Add", "add"],
   ]),
-  enumSpec("OpenClawCalendarCommand", "calendar.", [
+  enumSpec("GrantedCalendarCommand", "calendar.", [
     ["Events", "events"],
     ["Add", "add"],
   ]),
-  enumSpec("OpenClawMotionCommand", "motion.", [
+  enumSpec("GrantedMotionCommand", "motion.", [
     ["Activity", "activity"],
     ["Pedometer", "pedometer"],
   ]),
-  enumSpec("OpenClawCallLogCommand", "callLog.", [["Search", "search"]]),
-  enumSpec("OpenClawMobileUiCommand", "mobile.ui.", [
+  enumSpec("GrantedCallLogCommand", "callLog.", [["Search", "search"]]),
+  enumSpec("GrantedMobileUiCommand", "mobile.ui.", [
     ["Observe", "observe"],
     ["Act", "act"],
   ]),

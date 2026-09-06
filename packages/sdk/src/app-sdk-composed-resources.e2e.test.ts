@@ -43,7 +43,7 @@ import type { WorkerEnvironmentServiceRecord } from "../../../src/gateway/worker
 import { emitAgentEvent } from "../../../src/infra/agent-events.js";
 import { registerAgentRunContext } from "../../../src/infra/agent-run-registry.js";
 import { withTimeout } from "../../../src/utils/with-timeout.js";
-import { GatewayClientTransport, OpenClaw, type OpenClawEvent } from "./index.js";
+import { GatewayClientTransport, OpenClaw, type GrantedEvent } from "./index.js";
 
 vi.mock("../../../src/infra/device-pairing.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../../../src/infra/device-pairing.js")>();
@@ -395,8 +395,8 @@ async function createFakeGateway(): Promise<FakeGateway> {
   };
 }
 
-async function collectUntilCompleted(events: AsyncIterable<OpenClawEvent>) {
-  const collected: OpenClawEvent[] = [];
+async function collectUntilCompleted(events: AsyncIterable<GrantedEvent>) {
+  const collected: GrantedEvent[] = [];
   for await (const event of events) {
     collected.push(event);
     if (event.type === "run.completed") {
@@ -432,7 +432,7 @@ async function proveDeterministicGatewayContracts(): Promise<void> {
       }),
       run.wait({ timeoutMs: 2_000 }),
     ]);
-    const expectedEvents: OpenClawEvent[] = [
+    const expectedEvents: GrantedEvent[] = [
       {
         version: 1,
         id: "2:agent:run-sdk-e2e:main:1001",

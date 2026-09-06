@@ -2,7 +2,7 @@ import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../../state/openclaw-agent-db-additive-columns.js";
 import {
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { ensureColumn } from "../../state/openclaw-state-db-schema-helpers.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
@@ -16,7 +16,7 @@ import {
 import type { SessionActor, SessionOwnerAssignment } from "./session-entry-provenance.js";
 
 export function replaceSessionOwnerInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionKey: string,
   owner: SessionOwnerAssignment | undefined,
 ): boolean {

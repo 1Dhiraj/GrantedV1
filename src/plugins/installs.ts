@@ -4,7 +4,7 @@ import {
   getPluginInstallRecordMapEntry,
   setPluginInstallRecordMapEntry,
 } from "../config/plugin-install-record-map.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { buildNpmResolutionFields, type NpmSpecResolution } from "../infra/install-source-utils.js";
 import { parseRegistryNpmSpec } from "../infra/npm-registry-spec.js";
@@ -16,7 +16,7 @@ export type PluginInstallUpdate = PluginInstallRecord & { pluginId: string };
 type NpmInstallPathRecord = Pick<PluginInstallRecord, "source" | "installPath">;
 
 export function configReferencesNpmInstallPath(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   install: NpmInstallPathRecord | undefined;
   env?: NodeJS.ProcessEnv;
 }): boolean {
@@ -33,11 +33,11 @@ export function configReferencesNpmInstallPath(params: {
 }
 
 export function reconcileNpmPluginLoadPath(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   previousInstall: NpmInstallPathRecord | undefined;
   nextInstall: NpmInstallPathRecord;
   env?: NodeJS.ProcessEnv;
-}): OpenClawConfig {
+}): GrantedConfig {
   const previousPath = params.previousInstall?.installPath;
   const nextPath = params.nextInstall.installPath;
   if (
@@ -120,9 +120,9 @@ export function resolveNpmInstallRecordSpec(params: {
 
 /** Replaces a plugin install record with the authoritative completed install. */
 export function recordPluginInstall(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   update: PluginInstallUpdate,
-): OpenClawConfig {
+): GrantedConfig {
   const { pluginId, ...record } = update;
   const nextRecord = {
     ...record,

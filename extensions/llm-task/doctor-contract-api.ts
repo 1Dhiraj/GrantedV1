@@ -1,5 +1,5 @@
 // LLM Task doctor contract migrates shipped plugin-local completion policy.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseModelRef } from "openclaw/plugin-sdk/model-ref-parse";
 import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 
@@ -34,8 +34,8 @@ export const legacyConfigRules = [
   },
 ];
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const plugins = asObjectRecord(cfg.plugins);
@@ -103,7 +103,7 @@ export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): 
             config: nextPluginConfig,
           },
         },
-      } as OpenClawConfig["plugins"],
+      } as GrantedConfig["plugins"],
     },
     changes,
   };

@@ -12,11 +12,11 @@ import {
   type SessionAcpMeta,
   type SessionEntry,
 } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
   runOpenClawStateWriteTransaction,
 } from "../../state/openclaw-state-db.js";
 import {
@@ -43,7 +43,7 @@ import {
 export { resolveSessionStorePathForAcp } from "./session-meta-store.js";
 
 export type AcpSessionStoreEntry = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   storePath: string;
   sessionKey: string;
@@ -103,7 +103,7 @@ function bindAcpSessionMeta(params: {
 export function readAcpSessionMeta(params: {
   sessionKey: string;
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   databasePath?: string;
 }): SessionAcpMeta | undefined {
@@ -146,7 +146,7 @@ export function readAcpSessionMeta(params: {
 export function readAcpSessionMetaForEntry(params: {
   sessionKey: string;
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   entry: AcpSessionEntryBinding | undefined;
   env?: NodeJS.ProcessEnv;
   databasePath?: string;
@@ -185,7 +185,7 @@ export function readAcpSessionMetaBatch(params: {
   }>;
   env?: NodeJS.ProcessEnv;
   databasePath?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): Map<SessionEntry, SessionAcpMeta | undefined> {
   const result = new Map<SessionEntry, SessionAcpMeta | undefined>();
   const entriesByKey = new Map<
@@ -279,7 +279,7 @@ export function readAcpSessionMetaBatch(params: {
   return result;
 }
 
-function selectAcpSessionRows(options: OpenClawStateDatabaseOptions = {}): AcpSessionRow[] {
+function selectAcpSessionRows(options: GrantedStateDatabaseOptions = {}): AcpSessionRow[] {
   const database = openOpenClawStateDatabase(options);
   return executeSqliteQuerySync(
     database.db,
@@ -424,7 +424,7 @@ function upsertAcpSessionMetaRow(db: DatabaseSync, row: Insertable<AcpSessionsTa
 export function readAcpSessionEntry(params: {
   sessionKey: string;
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   clone?: boolean;
   env?: NodeJS.ProcessEnv;
   databasePath?: string;
@@ -467,7 +467,7 @@ export function readAcpSessionEntry(params: {
 }
 
 export async function listAcpSessionEntries(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   clone?: boolean;
   databasePath?: string;
@@ -547,7 +547,7 @@ function sessionStoreUpdateOptions(params: {
 export async function upsertAcpSessionMeta(params: {
   sessionKey: string;
   agentId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   databasePath?: string;
   now?: () => number;

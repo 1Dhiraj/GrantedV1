@@ -22,9 +22,9 @@ import type { SandboxChildOwner } from "./sandbox-exec-server/sandbox-child.js";
 import { CodexSandboxExecSession } from "./sandbox-exec-server/session.js";
 import type {
   CodexNodeExecServerLease,
-  OpenClawExecServer,
-  OpenClawLeasedExecServer,
-  OpenClawNodeExecServer,
+  GrantedExecServer,
+  GrantedLeasedExecServer,
+  GrantedNodeExecServer,
 } from "./sandbox-exec-server/types.js";
 
 /** Codex environment metadata registered for one sandbox exec-server lease. */
@@ -148,7 +148,7 @@ async function acquireOpenClawExecServer(params: {
   runtime?: PluginRuntime;
   signal?: AbortSignal;
   onExecutionDisconnect?: (error: Error) => void;
-}): Promise<{ server: OpenClawLeasedExecServer; nodeLease?: CodexNodeExecServerLease }> {
+}): Promise<{ server: GrantedLeasedExecServer; nodeLease?: CodexNodeExecServerLease }> {
   const { sandbox, runtime, signal, onExecutionDisconnect } = params;
   const key = sandbox.runtimeId;
   while (true) {
@@ -217,7 +217,7 @@ async function acquireOpenClawExecServer(params: {
 
 function startAndRememberOpenClawExecServer(
   sandbox: SandboxContext,
-): Promise<OpenClawLeasedExecServer> {
+): Promise<GrantedLeasedExecServer> {
   const created = startOpenClawExecServer(sandbox);
   const key = sandbox.runtimeId;
   sandboxExecServerRegistry.servers.set(key, created);
@@ -229,7 +229,7 @@ function startAndRememberOpenClawExecServer(
   return created;
 }
 
-async function startOpenClawExecServer(sandbox: SandboxContext): Promise<OpenClawLeasedExecServer> {
+async function startOpenClawExecServer(sandbox: SandboxContext): Promise<GrantedLeasedExecServer> {
   const backend = sandbox.backend;
   const fsBridge = sandbox.fsBridge;
   const placementNodeId = readCodexPlacementNodeId(sandbox);
@@ -280,7 +280,7 @@ async function startOpenClawExecServer(sandbox: SandboxContext): Promise<OpenCla
     children: new Set<SandboxChildOwner>(),
     cleanupTasks: new Set<Promise<void>>(),
   };
-  const execServer: OpenClawLeasedExecServer =
+  const execServer: GrantedLeasedExecServer =
     connection.kind === "node"
       ? { ...common, node: { id: connection.id, leases: new Map() } }
       : {
@@ -313,7 +313,7 @@ async function startOpenClawExecServer(sandbox: SandboxContext): Promise<OpenCla
   return execServer;
 }
 
-async function releaseOpenClawExecServer(execServer: OpenClawLeasedExecServer): Promise<void> {
+async function releaseOpenClawExecServer(execServer: GrantedLeasedExecServer): Promise<void> {
   if (execServer.closed) {
     return;
   }
@@ -339,7 +339,7 @@ function buildEnvironmentId(sandbox: SandboxContext): string {
 }
 
 function isAuthorizedExecServerRequest(
-  execServer: OpenClawLeasedExecServer,
+  execServer: GrantedLeasedExecServer,
   request: IncomingMessage,
 ): boolean {
   const url = new URL(request.url ?? "", "ws://127.0.0.1");
@@ -392,7 +392,7 @@ function readCodexPlacementWorkspaceIdentity(sandbox: SandboxContext): {
 }
 
 function handleNodeConnection(
-  execServer: OpenClawNodeExecServer,
+  execServer: GrantedNodeExecServer,
   socket: WebSocket,
   request: IncomingMessage,
 ): void {
@@ -418,7 +418,7 @@ function handleNodeConnection(
 }
 
 function closeCodexNodeExecServerLease(
-  execServer: OpenClawNodeExecServer,
+  execServer: GrantedNodeExecServer,
   lease: CodexNodeExecServerLease,
 ): void {
   execServer.node.leases.delete(lease.id);
@@ -430,7 +430,7 @@ function closeCodexNodeExecServerLease(
 }
 
 function handleClosedCodexNodeExecServerLease(
-  execServer: OpenClawNodeExecServer,
+  execServer: GrantedNodeExecServer,
   lease: CodexNodeExecServerLease,
   result: { failed: boolean; error?: unknown },
 ): void {
@@ -453,7 +453,7 @@ function handleClosedCodexNodeExecServerLease(
   }
 }
 
-function handleConnection(execServer: OpenClawExecServer, socket: WebSocket): void {
+function handleConnection(execServer: GrantedExecServer, socket: WebSocket): void {
   const session = new CodexSandboxExecSession(execServer, {
     isOpen: () => socket.readyState === socket.OPEN,
     send: (message) => socket.send(JSON.stringify(message)),

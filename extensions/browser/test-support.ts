@@ -8,4 +8,4 @@ export {
 } from "openclaw/plugin-sdk/test-fixtures";
 export { createTempHomeEnv, useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
 export { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
-export type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";

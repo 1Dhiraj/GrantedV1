@@ -3,7 +3,7 @@ import type { Duplex } from "node:stream";
 import type { Result } from "@openclaw/normalization-core/result";
 import type { Command } from "commander";
 import type { MessageReceipt } from "../channels/message/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ApprovalScope } from "../infra/approval-scope.js";
 import type {
   DiagnosticEventPrivateData,
@@ -15,7 +15,7 @@ import type { DiagnosticTracePropagationBridge as DiagnosticTracePropagationBrid
 import type { SecurityAuditFinding } from "../security/audit.types.js";
 import type { DeliveryContext } from "../utils/delivery-context.types.js";
 import type { PluginLogger } from "./logger-types.js";
-import type { OpenClawPluginNodeWorkspace } from "./types.node-host.js";
+import type { GrantedPluginNodeWorkspace } from "./types.node-host.js";
 
 type ChannelPlugin = import("../channels/plugins/types.plugin.js").ChannelPlugin;
 type DiagnosticTracePropagationBridge = DiagnosticTracePropagationBridgeContract<
@@ -39,28 +39,28 @@ export type PluginInteractiveRegistration<
 
 export type PluginInteractiveHandlerRegistration = PluginInteractiveRegistration;
 
-export type OpenClawPluginHttpRouteAuth = "gateway" | "plugin";
-export type OpenClawPluginHttpRouteMatch = "exact" | "prefix";
-export type OpenClawPluginGatewayRuntimeScopeSurface = "write-default" | "trusted-operator";
+export type GrantedPluginHttpRouteAuth = "gateway" | "plugin";
+export type GrantedPluginHttpRouteMatch = "exact" | "prefix";
+export type GrantedPluginGatewayRuntimeScopeSurface = "write-default" | "trusted-operator";
 
-export type OpenClawPluginHttpRouteHandler = (
+export type GrantedPluginHttpRouteHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<boolean | void> | boolean | void;
 
-export type OpenClawPluginHttpRouteUpgradeHandler = (
+export type GrantedPluginHttpRouteUpgradeHandler = (
   req: IncomingMessage,
   socket: Duplex,
   head: Buffer,
 ) => Promise<boolean | void> | boolean | void;
 
-export type OpenClawPluginHttpRouteParams = {
+export type GrantedPluginHttpRouteParams = {
   path: string;
-  handler: OpenClawPluginHttpRouteHandler;
-  handleUpgrade?: OpenClawPluginHttpRouteUpgradeHandler;
-  auth: OpenClawPluginHttpRouteAuth;
-  match?: OpenClawPluginHttpRouteMatch;
-  gatewayRuntimeScopeSurface?: OpenClawPluginGatewayRuntimeScopeSurface;
+  handler: GrantedPluginHttpRouteHandler;
+  handleUpgrade?: GrantedPluginHttpRouteUpgradeHandler;
+  auth: GrantedPluginHttpRouteAuth;
+  match?: GrantedPluginHttpRouteMatch;
+  gatewayRuntimeScopeSurface?: GrantedPluginGatewayRuntimeScopeSurface;
   nodeCapability?: {
     surface: string;
     ttlMs?: number;
@@ -68,7 +68,7 @@ export type OpenClawPluginHttpRouteParams = {
   replaceExisting?: boolean;
 };
 
-export type OpenClawPluginHostedMediaResolver = (
+export type GrantedPluginHostedMediaResolver = (
   mediaUrl: string,
 ) => string | null | undefined | Promise<string | null | undefined>;
 
@@ -127,7 +127,7 @@ export type WidgetPresenter = WidgetPresenterBase &
       }
   );
 
-export type OpenClawPluginCliContext = {
+export type GrantedPluginCliContext = {
   /**
    * Command object where this plugin should register its commands.
    *
@@ -136,12 +136,12 @@ export type OpenClawPluginCliContext = {
    */
   program: Command;
   parentPath: readonly string[];
-  config: OpenClawConfig;
+  config: GrantedConfig;
   workspaceDir?: string;
   logger: PluginLogger;
 };
 
-export type OpenClawPluginCliRegistrar = (ctx: OpenClawPluginCliContext) => void | Promise<void>;
+export type GrantedPluginCliRegistrar = (ctx: GrantedPluginCliContext) => void | Promise<void>;
 
 /**
  * Top-level CLI metadata for plugin-owned commands.
@@ -151,36 +151,36 @@ export type OpenClawPluginCliRegistrar = (ctx: OpenClawPluginCliContext) => void
  * advertising it at the root CLI level, provide descriptors that cover every
  * top-level command root registered by that plugin CLI surface.
  */
-type OpenClawPluginCliCommandDescriptor = {
+type GrantedPluginCliCommandDescriptor = {
   name: string;
   description: string;
   hasSubcommands: boolean;
 };
 
 /** Root-command metadata that is available before a plugin registrar is activated. */
-export type OpenClawPluginCliRootCommandDescriptor = OpenClawPluginCliCommandDescriptor & {
+export type GrantedPluginCliRootCommandDescriptor = GrantedPluginCliCommandDescriptor & {
   machineOutput?: (params: { argv: readonly string[]; stdoutIsTTY: boolean }) => boolean;
 };
 
-type OpenClawPluginRootCliRegistrationOptions = {
+type GrantedPluginRootCliRegistrationOptions = {
   /** Omit or pass an empty path for root commands. */
   parentPath?: readonly [];
   commands?: readonly string[];
-  descriptors?: readonly OpenClawPluginCliRootCommandDescriptor[];
+  descriptors?: readonly GrantedPluginCliRootCommandDescriptor[];
 };
 
 /** Backward-compatible registration shape for dynamic root or nested paths. */
-type OpenClawPluginLegacyCliRegistrationOptions = {
+type GrantedPluginLegacyCliRegistrationOptions = {
   parentPath?: readonly string[];
   commands?: readonly string[];
-  descriptors?: readonly OpenClawPluginCliCommandDescriptor[];
+  descriptors?: readonly GrantedPluginCliCommandDescriptor[];
 };
 
-export type OpenClawPluginCliRegistrationOptions =
-  | OpenClawPluginRootCliRegistrationOptions
-  | OpenClawPluginLegacyCliRegistrationOptions;
+export type GrantedPluginCliRegistrationOptions =
+  | GrantedPluginRootCliRegistrationOptions
+  | GrantedPluginLegacyCliRegistrationOptions;
 
-export type OpenClawPluginNodeCliFeatureOptions = {
+export type GrantedPluginNodeCliFeatureOptions = {
   /** Explicit node feature command names owned under `openclaw nodes`. */
   commands?: string[];
   /**
@@ -189,22 +189,22 @@ export type OpenClawPluginNodeCliFeatureOptions = {
    * Descriptors are registered under `openclaw nodes`, so a descriptor named
    * `"camera"` exposes `openclaw nodes camera`.
    */
-  descriptors?: OpenClawPluginCliCommandDescriptor[];
+  descriptors?: GrantedPluginCliCommandDescriptor[];
 };
 
-export type OpenClawPluginReloadRegistration = {
+export type GrantedPluginReloadRegistration = {
   restartPrefixes?: string[];
   hotPrefixes?: string[];
   noopPrefixes?: string[];
 };
 
 export type {
-  OpenClawPluginNodeHostCommand,
-  OpenClawPluginNodeHostCommandAvailabilityContext,
-  OpenClawPluginNodeHostCommandIo,
+  GrantedPluginNodeHostCommand,
+  GrantedPluginNodeHostCommandAvailabilityContext,
+  GrantedPluginNodeHostCommandIo,
 } from "./types.node-host.js";
 
-export type OpenClawPluginNodeInvokeTransportResult =
+export type GrantedPluginNodeInvokeTransportResult =
   | {
       ok: true;
       payload?: unknown;
@@ -217,9 +217,9 @@ export type OpenClawPluginNodeInvokeTransportResult =
       details?: Record<string, unknown>;
     };
 
-type OpenClawPluginNodeInvokeApprovalDecision = "allow-once" | "allow-always" | "deny";
+type GrantedPluginNodeInvokeApprovalDecision = "allow-once" | "allow-always" | "deny";
 
-type OpenClawPluginNodeInvokePolicyApprovalRuntime = {
+type GrantedPluginNodeInvokePolicyApprovalRuntime = {
   request: (input: {
     title: string;
     description: string;
@@ -229,21 +229,21 @@ type OpenClawPluginNodeInvokePolicyApprovalRuntime = {
     toolCallId?: string;
     agentId?: string;
     sessionKey?: string;
-    allowedDecisions?: readonly OpenClawPluginNodeInvokeApprovalDecision[];
+    allowedDecisions?: readonly GrantedPluginNodeInvokeApprovalDecision[];
     timeoutMs?: number;
   }) => Promise<{
     id?: string;
-    decision?: OpenClawPluginNodeInvokeApprovalDecision | null;
+    decision?: GrantedPluginNodeInvokeApprovalDecision | null;
   }>;
 };
 
-export type OpenClawPluginNodeInvokePolicyContext = {
+export type GrantedPluginNodeInvokePolicyContext = {
   nodeId: string;
   command: string;
   params: unknown;
   timeoutMs?: number;
   idempotencyKey?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginConfig?: Record<string, unknown>;
   node?: {
     nodeId: string;
@@ -261,23 +261,23 @@ export type OpenClawPluginNodeInvokePolicyContext = {
     /** Stable, content-free family name; never include user or action arguments. */
     family: string;
   };
-  approvals?: OpenClawPluginNodeInvokePolicyApprovalRuntime;
+  approvals?: GrantedPluginNodeInvokePolicyApprovalRuntime;
   /** Full covers only the selected harness's declared node commands; undefined requires a human decision. */
   invokeNodeWithSessionFull?: (input: {
-    workspace: OpenClawPluginNodeWorkspace;
+    workspace: GrantedPluginNodeWorkspace;
     /** Called only after the host authorizes this exact admitted Full launch. */
     createParams: () => unknown;
-  }) => Promise<OpenClawPluginNodeInvokeTransportResult | undefined>;
+  }) => Promise<GrantedPluginNodeInvokeTransportResult | undefined>;
   invokeNode: (input?: {
     params?: unknown;
     /** Bind an approved launch to its admitted managed workspace, when present. */
-    workspace?: OpenClawPluginNodeWorkspace;
+    workspace?: GrantedPluginNodeWorkspace;
     timeoutMs?: number;
     idempotencyKey?: string;
-  }) => Promise<OpenClawPluginNodeInvokeTransportResult>;
+  }) => Promise<GrantedPluginNodeInvokeTransportResult>;
 };
 
-export type OpenClawPluginNodeInvokePolicyResult =
+export type GrantedPluginNodeInvokePolicyResult =
   | {
       ok: true;
       payload?: unknown;
@@ -291,7 +291,7 @@ export type OpenClawPluginNodeInvokePolicyResult =
       unavailable?: boolean;
     };
 
-export type OpenClawPluginNodeInvokePolicy = {
+export type GrantedPluginNodeInvokePolicy = {
   commands: string[];
   /**
    * Platforms where these node-handled commands should be allowlisted by default.
@@ -321,26 +321,26 @@ export type OpenClawPluginNodeInvokePolicy = {
    * Throwing rejects the invocation before dispatch.
    */
   classifyRisk?: (
-    ctx: Pick<OpenClawPluginNodeInvokePolicyContext, "command" | "params">,
-  ) => NonNullable<OpenClawPluginNodeInvokePolicyContext["risk"]>;
+    ctx: Pick<GrantedPluginNodeInvokePolicyContext, "command" | "params">,
+  ) => NonNullable<GrantedPluginNodeInvokePolicyContext["risk"]>;
   handle: (
-    ctx: OpenClawPluginNodeInvokePolicyContext,
-  ) => Promise<OpenClawPluginNodeInvokePolicyResult> | OpenClawPluginNodeInvokePolicyResult;
+    ctx: GrantedPluginNodeInvokePolicyContext,
+  ) => Promise<GrantedPluginNodeInvokePolicyResult> | GrantedPluginNodeInvokePolicyResult;
 };
 
-export type OpenClawPluginSecurityAuditContext = {
-  config: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+export type GrantedPluginSecurityAuditContext = {
+  config: GrantedConfig;
+  sourceConfig: GrantedConfig;
   env: NodeJS.ProcessEnv;
   stateDir: string;
   configPath: string;
 };
 
-export type OpenClawPluginSecurityAuditCollector = (
-  ctx: OpenClawPluginSecurityAuditContext,
+export type GrantedPluginSecurityAuditCollector = (
+  ctx: GrantedPluginSecurityAuditContext,
 ) => SecurityAuditFinding[] | Promise<SecurityAuditFinding[]>;
 
-export type OpenClawGatewayDiscoveryAdvertiseContext = {
+export type GrantedGatewayDiscoveryAdvertiseContext = {
   machineDisplayName: string;
   gatewayPort: number;
   gatewayTlsEnabled: boolean;
@@ -352,26 +352,26 @@ export type OpenClawGatewayDiscoveryAdvertiseContext = {
   minimal: boolean;
 };
 
-export type OpenClawGatewayDiscoveryService = {
+export type GrantedGatewayDiscoveryService = {
   id: string;
   advertise: (
-    ctx: OpenClawGatewayDiscoveryAdvertiseContext,
+    ctx: GrantedGatewayDiscoveryAdvertiseContext,
   ) => void | Promise<void | { stop?: () => void | Promise<void> }>;
 };
 
 /** Context passed to long-lived plugin services. */
-export type OpenClawPluginServiceHealth = {
+export type GrantedPluginServiceHealth = {
   reportFailure: (error: unknown) => void;
   clearFailure: () => void;
 };
 
-export type OpenClawPluginServiceContext = {
-  config: OpenClawConfig;
+export type GrantedPluginServiceContext = {
+  config: GrantedConfig;
   workspaceDir?: string;
   stateDir: string;
   logger: PluginLogger;
-  serviceHealth?: OpenClawPluginServiceHealth;
-  gatewayEvents?: import("./gateway-events.js").OpenClawPluginGatewayEvents;
+  serviceHealth?: GrantedPluginServiceHealth;
+  gatewayEvents?: import("./gateway-events.js").GrantedPluginGatewayEvents;
   startupTrace?: {
     detail?: (name: string, metrics: ReadonlyArray<readonly [string, number | string]>) => void;
     measure: <T>(name: string, run: () => T | Promise<T>) => Promise<T>;
@@ -390,13 +390,13 @@ export type OpenClawPluginServiceContext = {
 };
 
 /** Background service registered by a plugin during `register(api)`. */
-export type OpenClawPluginService = {
+export type GrantedPluginService = {
   id: string;
-  start: (ctx: OpenClawPluginServiceContext) => void | Promise<void>;
-  stop?: (ctx: OpenClawPluginServiceContext) => void | Promise<void>;
+  start: (ctx: GrantedPluginServiceContext) => void | Promise<void>;
+  stop?: (ctx: GrantedPluginServiceContext) => void | Promise<void>;
 };
 
-export type OpenClawPluginChannelRegistration = {
+export type GrantedPluginChannelRegistration = {
   plugin: ChannelPlugin;
 };
 

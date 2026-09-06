@@ -12,7 +12,7 @@ import {
   clearOpenClawAgentDatabaseOpenFailure,
   migrateOpenClawAgentDatabaseForMaintenance,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
   withAgentDatabaseMaintenanceLease,
 } from "../state/openclaw-agent-db.js";
 import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
@@ -158,7 +158,7 @@ function recoverCorruptSqliteTargets(
 }
 
 function repairCanonicalIndexesForRecovery(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
   sqlitePath: string,
 ): { ok: true } | { error: unknown; ok: false } {
   try {

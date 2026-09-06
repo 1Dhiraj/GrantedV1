@@ -3,13 +3,13 @@ import {
   configIncludeOwnsAgentRoster,
   hasResolvedRosterBeforeMigrations,
 } from "./agent-roster-provenance.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "./types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.openclaw.js";
 
 vi.unmock("../agents/agent-scope-config.js");
 
 function snapshot(params: {
   parsed: unknown;
-  sourceConfigBeforeMigrations: OpenClawConfig;
+  sourceConfigBeforeMigrations: GrantedConfig;
   agentRosterIncludeOwned?: boolean;
 }): ConfigFileSnapshot {
   return {
@@ -163,7 +163,7 @@ describe("agent roster include provenance", () => {
       configIncludeOwnsAgentRoster(
         snapshot({
           parsed,
-          sourceConfigBeforeMigrations: resolved as OpenClawConfig,
+          sourceConfigBeforeMigrations: resolved as GrantedConfig,
           agentRosterIncludeOwned: includeOwned,
         }),
       ),

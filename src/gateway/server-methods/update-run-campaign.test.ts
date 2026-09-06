@@ -3,7 +3,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { UpdateScheduleState } from "../../../packages/gateway-protocol/src/index.js";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RespawnSupervisor } from "../../infra/supervisor-markers.js";
 import type { UpdateCampaignController } from "../../infra/update-campaign.js";
 import type { UpdateRunResult } from "../../infra/update-runner.js";
@@ -296,7 +296,7 @@ async function invokeUpdateRun(
       connect: { client: { id: "control-ui" }, device: { id: "device-1" } },
     },
     context: {
-      getRuntimeConfig: () => ({ update: {} }) as OpenClawConfig,
+      getRuntimeConfig: () => ({ update: {} }) as GrantedConfig,
       logGateway: { info: logGatewayInfoMock },
     },
   } as never);

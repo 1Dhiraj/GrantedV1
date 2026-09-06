@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { getSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
 import {
@@ -53,7 +53,7 @@ function createGateway(
       },
     },
     ...(params.sessionStore ? { session: { store: params.sessionStore } } : {}),
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const hooks = new Map<string, GatewayHook>();
   const logger = { debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn() };
   const cron = {
@@ -74,7 +74,7 @@ function createGateway(
     logger,
     runtime: { config: { current: () => config } },
     on: (eventName: string, hook: GatewayHook) => hooks.set(eventName, hook),
-  } as unknown as OpenClawPluginApi;
+  } as unknown as GrantedPluginApi;
   registerShortTermPromotionDreaming(api);
 
   const start = async () => {

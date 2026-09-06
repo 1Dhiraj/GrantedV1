@@ -10,7 +10,7 @@ import {
   isOpenClawAgentDatabaseOpen,
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import {
   closeOpenClawStateDatabaseByPath,
@@ -122,7 +122,7 @@ describe("session transcript reconcile worker lifecycle", () => {
       new Promise<void>((resolve) => {
         realSetImmediate(resolve);
       });
-    const startDeferred = (options: OpenClawAgentDatabaseOptions) => {
+    const startDeferred = (options: GrantedAgentDatabaseOptions) => {
       const release = createDeferred();
       immediateSpy.mockImplementationOnce((callback) => {
         void release.promise.then(() => callback());

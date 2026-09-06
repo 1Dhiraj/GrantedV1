@@ -2,7 +2,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   normalizeAgentId,
   parseAgentSessionKey,
@@ -38,7 +38,7 @@ type ResolvedArtifactSession = {
 
 function resolveArtifactSessionAgentId(
   sessionKey: string | undefined,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): string | undefined {
   const key = normalizeOptionalString(sessionKey);
   if (!key) {
@@ -61,7 +61,7 @@ function resolveArtifactSessionAgentId(
 function resolveScopedArtifactSessionKey(
   sessionKey: string | undefined,
   agentId: string | undefined,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): string | undefined {
   const key = normalizeOptionalString(sessionKey);
   if (!key) {
@@ -94,7 +94,7 @@ function resolveScopedArtifactSessionKey(
 
 function resolveQuerySession(
   query: ArtifactQuery,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): ResolvedArtifactSession | undefined {
   if (query.sessionKey) {
     const sessionKey = resolveScopedArtifactSessionKey(query.sessionKey, query.agentId, cfg);
@@ -164,7 +164,7 @@ export class ArtifactSessionResolutionError extends Error {
 
 export function resolveAuthorizedArtifactSession(
   query: ArtifactQuery,
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   client: GatewayClient | null,
 ): ResolvedArtifactSession | undefined {
   const resolved = resolveQuerySession(query, cfg);

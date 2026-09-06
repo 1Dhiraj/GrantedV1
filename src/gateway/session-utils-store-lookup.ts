@@ -17,7 +17,7 @@ import {
   type SessionEntryListScope,
 } from "../config/sessions/session-accessor.js";
 import { canonicalSessionKeyMigrationRequiredError } from "../config/sessions/session-canonical-key.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   DEFAULT_AGENT_ID,
   isIncognitoSessionKey,
@@ -78,7 +78,7 @@ function findCanonicalStoreMatch(
 }
 
 function buildGatewaySessionStoreScanTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   canonicalKey: string;
   agentId: string;
@@ -107,7 +107,7 @@ type GatewaySessionStoreDiscovery = {
 };
 
 function resolveGatewaySessionStoreCandidates(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId: string,
   cache?: GatewaySessionStoreDiscoveryCache,
 ): GatewaySessionStoreDiscovery {
@@ -147,7 +147,7 @@ export type GatewaySessionStoreCache = Map<string, Record<string, SessionEntry>>
 export type GatewaySessionStoreDiscoveryCache = Map<string, GatewaySessionStoreDiscovery>;
 
 export function createGatewaySessionStoreDiscoveryCache(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targets: readonly SessionStoreTarget[];
   agentIds: Iterable<string>;
 }): GatewaySessionStoreDiscoveryCache {
@@ -259,7 +259,7 @@ function loadGatewaySessionLookupStoreUncached(
 }
 
 function resolveGatewaySessionStoreLookup(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   canonicalKey: string;
   agentId: string;
@@ -360,7 +360,7 @@ function isAgentScopedSentinelSessionKey(canonicalKey: string): boolean {
 }
 
 function resolveExplicitDeletedLegacyMainStoreTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   clone?: boolean;
   deferCanonicalValidation?: boolean;
@@ -460,7 +460,7 @@ function resolveExplicitDeletedLegacyMainStoreTarget(params: {
 }
 
 export function resolveGatewaySessionStoreTargetWithStore(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   agentId?: string;
   clone?: boolean;
@@ -592,7 +592,7 @@ function includeDirectChildEntries(
 }
 
 export function resolveGatewaySessionStoreTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   agentId?: string;
   clone?: boolean;

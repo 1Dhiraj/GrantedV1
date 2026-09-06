@@ -4,7 +4,7 @@ import {
   type GatewayPresenceUpdate,
   PresenceUpdateStatus,
 } from "discord-api-types/v10";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Client } from "../internal/discord.js";
@@ -104,7 +104,7 @@ function createPresenceListener({
   ...overrides
 }: PresenceListenerOverrides = {}): DiscordPresenceListener {
   return new DiscordPresenceListener({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     accountId: "molty",
     guildEntries: {
       "guild-1": { presenceEvents: { channelId: "channel-1", ...presenceEvents } },

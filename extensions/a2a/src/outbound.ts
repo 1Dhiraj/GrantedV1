@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
 import {
   fetchWithSsrFGuard,
@@ -29,7 +29,7 @@ const A2aOutboundResponseSchema = z.object({
 });
 
 type A2aOutboundSendParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   to: string;
   text: string;

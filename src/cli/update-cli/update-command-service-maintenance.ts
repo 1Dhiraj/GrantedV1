@@ -5,7 +5,7 @@ import { stableStringify } from "@openclaw/normalization-core/stable-stringify";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { createConfigIO } from "../../config/io.js";
 import { resolveGatewayPort } from "../../config/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   GATEWAY_SERVICE_RUNTIME_PID_ENV,
   isGatewayServiceEnv,
@@ -725,7 +725,7 @@ export function shouldBlockMutableUpdateFromGatewayServiceEnv(params: {
 }
 
 export async function resolveUpdatedGatewayRestartPort(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   processEnv?: NodeJS.ProcessEnv;
   serviceEnv?: NodeJS.ProcessEnv;
   serviceCommand?: GatewayServiceCommandConfig | null;

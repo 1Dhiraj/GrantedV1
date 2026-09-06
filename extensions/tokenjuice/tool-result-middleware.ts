@@ -3,7 +3,7 @@ import process from "node:process";
 import type {
   AgentToolResultMiddleware,
   AgentToolResultMiddlewareEvent,
-  OpenClawAgentToolResult,
+  GrantedAgentToolResult,
 } from "openclaw/plugin-sdk/agent-harness";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { createTokenjuiceOpenClawEmbeddedExtension } from "./runtime-api.js";
@@ -12,16 +12,16 @@ type TokenjuiceToolResultHandler = (
   event: {
     toolName: string;
     input: Record<string, unknown>;
-    content: OpenClawAgentToolResult["content"];
+    content: GrantedAgentToolResult["content"];
     details: unknown;
     isError?: boolean;
   },
   ctx: { cwd: string },
-) => Promise<Partial<OpenClawAgentToolResult> | void> | Partial<OpenClawAgentToolResult> | void;
+) => Promise<Partial<GrantedAgentToolResult> | void> | Partial<GrantedAgentToolResult> | void;
 
 function normalizeDetails(
   event: AgentToolResultMiddlewareEvent,
-  current: OpenClawAgentToolResult,
+  current: GrantedAgentToolResult,
 ): unknown {
   if (
     (event.toolName !== "exec" && event.toolName !== "bash") ||

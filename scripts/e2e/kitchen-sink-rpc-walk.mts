@@ -36,7 +36,7 @@ type KitchenSinkEnv = {
 type CapturedOutput = { text: string; truncatedChars: number };
 type CommandChild = ChildProcess;
 type ProcessTreeTarget = Pick<CommandChild, "exitCode" | "kill" | "pid" | "signalCode">;
-type OpenClawRunner =
+type GrantedRunner =
   | { baseArgs: string[]; command: string; label?: string; pnpm?: never }
   | { baseArgs: string[]; label?: string; pnpm: true; command?: never };
 type TaskkillRunner = (
@@ -93,7 +93,7 @@ type RpcCallOptions = {
   commandResourceOptions?: RunCommandOptions;
   env: KitchenSinkEnv;
   port: number;
-  runner: OpenClawRunner;
+  runner: GrantedRunner;
 };
 type GatewayChild = {
   exitCode?: number | null;
@@ -381,7 +381,7 @@ export async function resolveKitchenSinkRpcPort(
   return await (options.findAvailablePort ?? findAvailableLoopbackPort)();
 }
 
-function resolveOpenClawRunner(): OpenClawRunner {
+function resolveOpenClawRunner(): GrantedRunner {
   if (process.env.GRANTED_ENTRY) {
     return {
       command: "node",
@@ -792,7 +792,7 @@ export function signalProcessGroup(
 }
 
 async function runOpenClaw(
-  runner: OpenClawRunner,
+  runner: GrantedRunner,
   args: string[],
   env: ProcessEnv,
   options: Pick<
@@ -823,7 +823,7 @@ async function runOpenClaw(
 }
 
 async function resolveOpenClawCommand(
-  runner: OpenClawRunner,
+  runner: GrantedRunner,
   args: string[],
   env: ProcessEnv,
   options: { stdio?: StdioOptions } = {},
@@ -1090,7 +1090,7 @@ async function rpcCall(method: string, params: unknown, options: RpcCallOptions)
   return unwrapRpcPayload(payload);
 }
 
-async function loadCallGatewayModule(runner: OpenClawRunner) {
+async function loadCallGatewayModule(runner: GrantedRunner) {
   if (!usesBuiltOpenClawEntry(runner)) {
     return null;
   }
@@ -1162,7 +1162,7 @@ export function findDistCallGatewayModuleFiles(cwd = process.cwd()) {
 }
 
 export function usesBuiltOpenClawEntry(
-  runner: OpenClawRunner,
+  runner: GrantedRunner,
   cwd = process.cwd(),
   env: ProcessEnv = process.env,
 ) {
@@ -1405,12 +1405,7 @@ function configureKitchenSink(env: KitchenSinkEnv, port: number) {
   writeJson(configPath, config);
 }
 
-async function startGateway(
-  runner: OpenClawRunner,
-  port: number,
-  env: ProcessEnv,
-  logPath: string,
-) {
+async function startGateway(runner: GrantedRunner, port: number, env: ProcessEnv, logPath: string) {
   const log = fs.openSync(logPath, "w");
   const command = await resolveOpenClawCommand(
     runner,

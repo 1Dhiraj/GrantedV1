@@ -1,7 +1,7 @@
 // Tests plugin command install, listing, and config behavior.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import type { PluginCapabilityConsentReview } from "../../plugins/capability-summary.js";
 import { recordInstalledPluginIndexInstallOwner } from "../../plugins/installed-plugin-index-install-owner.js";
 import { ManagedPluginLifecycleError } from "../../plugins/management-lifecycle-error.js";
@@ -60,12 +60,12 @@ vi.mock("../../config/config.js", () => ({
   transformConfigFileWithRetry: async (params: {
     afterWrite?: unknown;
     transform: (
-      currentConfig: OpenClawConfig,
+      currentConfig: GrantedConfig,
       context: { snapshot: ConfigSnapshotMock; previousHash: string | null; attempt: number },
     ) =>
-      | Promise<{ nextConfig: OpenClawConfig; result?: unknown }>
+      | Promise<{ nextConfig: GrantedConfig; result?: unknown }>
       | {
-          nextConfig: OpenClawConfig;
+          nextConfig: GrantedConfig;
           result?: unknown;
         };
   }) => {
@@ -124,7 +124,7 @@ vi.mock("../../plugins/status.js", () => ({
 }));
 
 vi.mock("../../plugins/toggle-config.js", () => ({
-  setPluginEnabledInConfig: vi.fn((config: OpenClawConfig, id: string, enabled: boolean) => ({
+  setPluginEnabledInConfig: vi.fn((config: GrantedConfig, id: string, enabled: boolean) => ({
     ...config,
     plugins: {
       ...config.plugins,
@@ -144,7 +144,7 @@ vi.mock("../../utils.js", async () => {
   };
 });
 
-function buildCfg(): OpenClawConfig {
+function buildCfg(): GrantedConfig {
   return {
     plugins: { enabled: true },
     commands: { text: true, plugins: true },
@@ -155,7 +155,7 @@ const WRITE_GATEWAY_SCOPES = ["operator.admin", "operator.write", "operator.pair
 
 function buildPluginsParams(
   commandBodyNormalized: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   options?: { gatewayClientScopes?: string[]; omitGatewayClientScopes?: boolean },
 ) {
   const params = buildPluginsCommandParams({

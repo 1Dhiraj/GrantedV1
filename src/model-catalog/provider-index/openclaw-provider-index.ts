@@ -1,5 +1,5 @@
 // Bundled OpenClaw provider index advertises pre-install provider metadata for model picker discovery.
-import type { OpenClawProviderIndex } from "./types.js";
+import type { GrantedProviderIndex } from "./types.js";
 
 // OpenClaw-owned preview metadata for providers whose plugins may not be
 // installed yet. Installed plugin manifests remain authoritative; this index is
@@ -94,4 +94,4 @@ export const GRANTED_PROVIDER_INDEX = {
       },
     },
   },
-} satisfies OpenClawProviderIndex;
+} satisfies GrantedProviderIndex;

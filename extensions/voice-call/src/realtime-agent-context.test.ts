@@ -2,9 +2,9 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "../api.js";
+import type { GrantedPluginApi } from "../api.js";
 import type { VoiceCallConfig } from "./config.js";
 import { buildRealtimeVoiceInstructions } from "./realtime-agent-context.js";
 import { createVoiceCallBaseConfig } from "./test-fixtures.js";
@@ -45,7 +45,7 @@ function createConfig(overrides?: Partial<VoiceCallConfig["realtime"]>): VoiceCa
   return config;
 }
 
-function createAgentRuntime(workspaceDir: string): OpenClawPluginApi["runtime"]["agent"] {
+function createAgentRuntime(workspaceDir: string): GrantedPluginApi["runtime"]["agent"] {
   return {
     resolveAgentIdentity: vi.fn(() => ({
       name: "Claw Voice",
@@ -55,7 +55,7 @@ function createAgentRuntime(workspaceDir: string): OpenClawPluginApi["runtime"][
       creature: "operator",
     })),
     resolveAgentWorkspaceDir: vi.fn(() => workspaceDir),
-  } as unknown as OpenClawPluginApi["runtime"]["agent"];
+  } as unknown as GrantedPluginApi["runtime"]["agent"];
 }
 
 describe("buildRealtimeVoiceInstructions", () => {
@@ -65,7 +65,7 @@ describe("buildRealtimeVoiceInstructions", () => {
     await writeFile(path.join(workspaceDir, "IDENTITY.md"), "Name: Claw Voice\nVibe: snappy\n");
     await writeFile(path.join(workspaceDir, "SECRET.md"), "do not include\n");
 
-    const coreConfig = { agents: { list: [{ id: "voice" }] } } as OpenClawConfig;
+    const coreConfig = { agents: { list: [{ id: "voice" }] } } as GrantedConfig;
 
     const instructions = await buildRealtimeVoiceInstructions({
       baseInstructions: "Base voice instructions.",
@@ -113,7 +113,7 @@ describe("buildRealtimeVoiceInstructions", () => {
     const instructions = await buildRealtimeVoiceInstructions({
       baseInstructions: "Base voice instructions.",
       config,
-      coreConfig: { agents: { list: [{ id: agentId }] } } as OpenClawConfig,
+      coreConfig: { agents: { list: [{ id: agentId }] } } as GrantedConfig,
       agentRuntime: createAgentRuntime("/unused"),
       agentId,
     });

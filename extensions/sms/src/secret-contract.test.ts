@@ -1,5 +1,5 @@
 // Sms tests cover secret contract plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   applyResolvedAssignments,
   createResolverContext,
@@ -9,13 +9,13 @@ import { describe, expect, it } from "vitest";
 import { collectRuntimeConfigAssignments, secretTargetRegistryEntries } from "./secret-contract.js";
 
 async function resolveSmsSecretAssignments(
-  sourceConfig: OpenClawConfig,
+  sourceConfig: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): Promise<{
-  config: OpenClawConfig;
+  config: GrantedConfig;
   warnings: ReturnType<typeof createResolverContext>["warnings"];
 }> {
-  const resolvedConfig: OpenClawConfig = structuredClone(sourceConfig);
+  const resolvedConfig: GrantedConfig = structuredClone(sourceConfig);
   const context = createResolverContext({ sourceConfig, env });
 
   collectRuntimeConfigAssignments({
@@ -56,7 +56,7 @@ describe("sms secret contract", () => {
             fromNumber: "+15557654321",
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       { TWILIO_AUTH_TOKEN: "resolved-token" },
     );
 
@@ -83,7 +83,7 @@ describe("sms secret contract", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         TWILIO_DEFAULT_TOKEN: "resolved-default-token",
         TWILIO_SUPPORT_TOKEN: "resolved-support-token",
@@ -114,7 +114,7 @@ describe("sms secret contract", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         TWILIO_ACCOUNT_SID: "AC-env",
         TWILIO_PHONE_NUMBER: "+15550001111",
@@ -146,7 +146,7 @@ describe("sms secret contract", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       { TWILIO_SUPPORT_TOKEN: "resolved-support-token" },
     );
 

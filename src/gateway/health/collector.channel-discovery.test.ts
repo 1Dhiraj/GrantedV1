@@ -5,7 +5,7 @@ import {
   createPluginMetadataSnapshot,
   makeRegistry,
 } from "../../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setGatewayPluginMetadataSnapshot } from "../../plugins/current-plugin-metadata-snapshot.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -16,11 +16,11 @@ import {
 } from "../../test-utils/channel-plugins.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { collectGatewayHealthSnapshot } from "./collector.js";
 
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 
 afterEach(async () => {
   vi.restoreAllMocks();
@@ -35,7 +35,7 @@ describe("Gateway health channel discovery", () => {
     "uses admitted channels and configured failures without credential discovery (%s runtime snapshot)",
     async (runtime) => {
       state = await createOpenClawTestState({ label: "health-channel-discovery" });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: { ownership: "explicit", entries: { main: {} } },
         channels: {
           "failed-chat": {

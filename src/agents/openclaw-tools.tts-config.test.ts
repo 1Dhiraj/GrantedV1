@@ -1,6 +1,6 @@
 // Verifies createOpenClawTools wires shared config and context into the TTS tool.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createOpenClawTools } from "./openclaw-tools.js";
 import type { AnyAgentTool } from "./tools/common.js";
 
@@ -146,7 +146,7 @@ function getTextToSpeechParams() {
   return calls[0]?.[0] as
     | {
         text?: string;
-        cfg?: OpenClawConfig;
+        cfg?: GrantedConfig;
         agentId?: string;
         channel?: string;
         accountId?: string;
@@ -175,7 +175,7 @@ describe("createOpenClawTools TTS config wiring", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const tool = createOpenClawTools({
       config: injectedConfig,
@@ -214,7 +214,7 @@ describe("createOpenClawTools TTS config wiring", () => {
       agents: {
         list: [{ id: "reader" }, { id: "main" }],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const tool = createOpenClawTools({
       config: injectedConfig,
@@ -247,7 +247,7 @@ describe("createOpenClawTools TTS config wiring", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     const tool = createOpenClawTools({
       config: injectedConfig,
@@ -277,7 +277,7 @@ describe("createOpenClawTools transcript ownership wiring", () => {
   });
 
   it("uses trusted caller authority instead of the delivery account", () => {
-    const injectedConfig = { transcripts: { enabled: true } } satisfies OpenClawConfig;
+    const injectedConfig = { transcripts: { enabled: true } } satisfies GrantedConfig;
 
     createOpenClawTools({
       config: injectedConfig,
@@ -387,7 +387,7 @@ describe("createOpenClawTools media generation session wiring", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     createOpenClawTools({
       config,
@@ -423,7 +423,7 @@ describe("createOpenClawTools media generation session wiring", () => {
           mediaModels: { image: { primary: "image-owner/model" } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     createOpenClawTools({
       config,

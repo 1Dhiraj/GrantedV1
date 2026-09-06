@@ -6,7 +6,7 @@ import {
   type SessionVisibility,
 } from "../../packages/gateway-protocol/src/index.js";
 import { isSessionMember, type SessionEntry } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isIncognitoSessionKey } from "../routing/session-key.js";
 import {
   authorizeGatewaySessionCreation,
@@ -51,7 +51,7 @@ export function isGatewayAdmin(client: Pick<GatewayClient, "connect"> | null): b
   return client?.connect?.scopes?.includes("operator.admin") === true;
 }
 
-export function allowedSessionVisibilities(cfg: OpenClawConfig): SessionVisibility[] {
+export function allowedSessionVisibilities(cfg: GrantedConfig): SessionVisibility[] {
   const policy = cfg.session?.sharing;
   return [
     "shared",
@@ -62,14 +62,14 @@ export function allowedSessionVisibilities(cfg: OpenClawConfig): SessionVisibili
 }
 
 export function isSessionVisibilityAllowed(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   visibility: SessionVisibility,
 ): boolean {
   return allowedSessionVisibilities(cfg).includes(visibility);
 }
 
 export function resolveSessionSharingTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
   storeCache?: GatewaySessionStoreCache;
@@ -99,7 +99,7 @@ export function resolveSessionSharingTarget(params: {
 }
 
 export type SessionSharingRoleParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   client: GatewayClient | null;
   target: SessionSharingTarget;
   includeMembership?: boolean;
@@ -182,7 +182,7 @@ function isIncognitoSessionTarget(params: {
 }
 
 export function isResolvedIncognitoSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
 }): boolean {
@@ -214,7 +214,7 @@ export function authorizeIncognitoSessionTarget(params: {
 }
 
 export function canAccessIncognitoSession(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   sessionKey: string;
   agentId?: string;
@@ -232,7 +232,7 @@ export function canAccessIncognitoSession(params: {
 }
 
 export function authorizeResolvedSessionMutation(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   sessionKey: string;
   agentId?: string;
@@ -272,7 +272,7 @@ export function authorizeResolvedSessionMutation(params: {
 }
 
 export function authorizeSessionAgentRun(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   client: GatewayClient | null;
   target: SessionSharingTarget;
 }): ErrorShape | null {
@@ -298,7 +298,7 @@ export function authorizeSessionAgentRun(params: {
 }
 
 export function authorizeSessionSharingTarget(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   client: GatewayClient | null;
   target: SessionSharingTarget;
 }): ErrorShape | null {

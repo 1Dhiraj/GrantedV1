@@ -4,7 +4,7 @@ import { writeExternalFileWithinRoot } from "../infra/fs-safe.js";
 import { executeSqliteQuerySync, executeSqliteQueryTakeFirstSync } from "../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import type { TranscriptSessionDescriptor } from "./provider-types.js";
 import { ensureMeetingTranscriptsSchema } from "./sqlite-schema.js";
@@ -19,7 +19,7 @@ const TRANSCRIPT_EXPORT_ROW_BATCH_SIZE = 64;
 export async function writeTranscriptJsonlArtifact(params: {
   sessionDir: string;
   session: TranscriptSessionDescriptor;
-  databaseOptions: OpenClawStateDatabaseOptions;
+  databaseOptions: GrantedStateDatabaseOptions;
 }): Promise<string> {
   ensureMeetingTranscriptsSchema(params.databaseOptions);
   const database = openOpenClawStateDatabase(params.databaseOptions);

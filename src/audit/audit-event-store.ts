@@ -9,11 +9,11 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   AUDIT_EVENT_SCHEMA_VERSION,
@@ -42,8 +42,8 @@ import {
   recordConfirmedTerminalMessageExecutionBinding,
 } from "./message-execution-binding.js";
 
-type AuditEventsTable = OpenClawStateKyselyDatabase["audit_events"];
-type AuditDatabase = Pick<OpenClawStateKyselyDatabase, "audit_events">;
+type AuditEventsTable = GrantedStateKyselyDatabase["audit_events"];
+type AuditDatabase = Pick<GrantedStateKyselyDatabase, "audit_events">;
 type AuditEventRow = Selectable<AuditEventsTable>;
 
 export const AUDIT_EVENT_RETENTION_MS = 30 * 24 * 60 * 60_000;
@@ -608,7 +608,7 @@ function pruneAuditEventsAfterInsert(db: DatabaseSync, now: number): void {
 /** Persist one projected event idempotently and prune fixed retention bounds. */
 export function recordAuditEvent(
   input: AuditEventInput,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): AuditEventRecord | undefined {
   if (isOutboundMessageProgressInput(input)) {
     throw new Error("outbound message progress belongs to its companion store");
@@ -667,7 +667,7 @@ export function listAuditEvents(params: {
   cursor?: number;
   limit: number;
   now?: number;
-  database?: OpenClawStateDatabaseOptions;
+  database?: GrantedStateDatabaseOptions;
 }): AuditEventListPage {
   const { db } = openOpenClawStateDatabase(params.database);
   const filters = params.filters ?? {};
@@ -728,7 +728,7 @@ export function listAuditEvents(params: {
 export function pruneExpiredAuditEvents(
   params: {
     now?: number;
-    database?: OpenClawStateDatabaseOptions;
+    database?: GrantedStateDatabaseOptions;
   } = {},
 ): number {
   return runOpenClawStateWriteTransaction(({ db }) => {

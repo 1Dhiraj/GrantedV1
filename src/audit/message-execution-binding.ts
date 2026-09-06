@@ -6,11 +6,11 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { tableExists, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import {
@@ -19,7 +19,7 @@ import {
 } from "./execution-identity-admission.js";
 
 type ExecutionBindingDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "execution_identity_contexts" | "outbound_message_execution_bindings"
 >;
 const ensuredTerminalBindingDatabases = new WeakSet<DatabaseSync>();
@@ -68,7 +68,7 @@ function terminalBindingSchemaSql(): string {
 
 /** Install the terminal binding companion only when an exact producer first uses it. */
 export function ensureTerminalMessageExecutionBindingSchema(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
 ): void {
   const database = openOpenClawStateDatabase(options);
   if (ensuredTerminalBindingDatabases.has(database.db)) {

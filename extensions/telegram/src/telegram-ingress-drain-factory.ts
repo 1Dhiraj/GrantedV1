@@ -1,5 +1,5 @@
 // Telegram plugin module builds transport-shared durable ingress monitors.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { TelegramBotInfo } from "./bot-info.js";
 import {
@@ -24,7 +24,7 @@ type TelegramSpooledBot = {
 type CreateTelegramTransportIngressMonitorParams = {
   spoolDir: string;
   bot: TelegramSpooledBot;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   botInfo?: TelegramBotInfo;
   adoptionStallTimeoutMs?: number;

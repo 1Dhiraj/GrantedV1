@@ -4,7 +4,7 @@ import {
   createChannelIngressMonitor,
   type ChannelIngressQueue,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { runDetachedWebhookWork } from "openclaw/plugin-sdk/webhook-request-guards";
 import { dispatchSmsInboundEvent, type SmsChannelRuntime } from "./inbound.js";
 import { looksLikeSmsPhoneNumber, normalizeSmsPhoneNumber } from "./phone.js";
@@ -80,7 +80,7 @@ function parseSmsIngressForm(
 }
 
 export function createSmsIngressSpool(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   account: ResolvedSmsAccount;
   channelRuntime: SmsChannelRuntime;
   queue?: ChannelIngressQueue<SmsIngressPayload>;

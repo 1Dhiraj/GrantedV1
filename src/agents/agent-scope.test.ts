@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { withEnv } from "../test-utils/env.js";
 import { findOverlappingWorkspaceAgentIds } from "./agent-delete-safety.js";
@@ -34,7 +34,7 @@ import {
 
 describe("resolveAgentConfig", () => {
   it("should return undefined when agent id does not exist", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: "~/openclaw" }],
       },
@@ -44,7 +44,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return basic agent config", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -75,7 +75,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("prefers per-agent verbose defaults over global defaults", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           verboseDefault: "full",
@@ -92,7 +92,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("merges contextLimits from defaults with per-agent overrides", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           contextLimits: {
@@ -119,7 +119,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("merges experimental flags from defaults with per-agent overrides", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           experimental: {
@@ -150,13 +150,13 @@ describe("resolveAgentConfig", () => {
         },
         list: [{ id: "main" }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(resolveAgentExplicitModelPrimary(cfgWithStringDefault, "main")).toBeUndefined();
     expect(resolveAgentEffectiveModelPrimary(cfgWithStringDefault, "main")).toBe(
       "anthropic/claude-sonnet-4-6",
     );
 
-    const cfgWithObjectDefault: OpenClawConfig = {
+    const cfgWithObjectDefault: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -170,7 +170,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentExplicitModelPrimary(cfgWithObjectDefault, "main")).toBeUndefined();
     expect(resolveAgentEffectiveModelPrimary(cfgWithObjectDefault, "main")).toBe("openai/gpt-5.4");
 
-    const cfgNoDefaults: OpenClawConfig = {
+    const cfgNoDefaults: GrantedConfig = {
       agents: {
         list: [{ id: "main" }],
       },
@@ -180,7 +180,7 @@ describe("resolveAgentConfig", () => {
   });
 
   describe("resolveModelFallbackAvailability", () => {
-    const cfgWithFallbacks: OpenClawConfig = {
+    const cfgWithFallbacks: GrantedConfig = {
       agents: {
         defaults: { model: { fallbacks: ["anthropic/claude-sonnet-4-6"] } },
         list: [{ id: "main" }],
@@ -295,7 +295,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("supports per-agent model primary+fallbacks", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -320,7 +320,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentModelFallbacksOverride(cfg, "linus")).toEqual(["openai/gpt-5.4"]);
 
     // If an agent owns a primary, missing fallbacks means no model fallback.
-    const cfgNoOverride: OpenClawConfig = {
+    const cfgNoOverride: GrantedConfig = {
       agents: {
         list: [
           {
@@ -341,7 +341,7 @@ describe("resolveAgentConfig", () => {
       }),
     ).toStrictEqual([]);
 
-    const cfgStringModel: OpenClawConfig = {
+    const cfgStringModel: GrantedConfig = {
       agents: {
         list: [
           {
@@ -353,7 +353,7 @@ describe("resolveAgentConfig", () => {
     };
     expect(resolveAgentModelFallbacksOverride(cfgStringModel, "linus")).toStrictEqual([]);
 
-    const cfgStrictAgentWithDefaultFallbacks: OpenClawConfig = {
+    const cfgStrictAgentWithDefaultFallbacks: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -383,7 +383,7 @@ describe("resolveAgentConfig", () => {
     ).toStrictEqual([]);
 
     // Explicit empty list disables global fallbacks for that agent.
-    const cfgDisable: OpenClawConfig = {
+    const cfgDisable: GrantedConfig = {
       agents: {
         list: [
           {
@@ -453,7 +453,7 @@ describe("resolveAgentConfig", () => {
       }),
     ).toStrictEqual([]);
 
-    const cfgInheritDefaultsWithoutAgentModel: OpenClawConfig = {
+    const cfgInheritDefaultsWithoutAgentModel: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -482,7 +482,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("updates the effective model primary at the winning config layer", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -513,7 +513,7 @@ describe("resolveAgentConfig", () => {
       fallbacks: ["anthropic/claude-sonnet-4-6"],
     });
 
-    const inheritedCfg: OpenClawConfig = {
+    const inheritedCfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -535,7 +535,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("resolves the model write target without mutating config", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { model: "openai/gpt-5.4" },
         list: [
@@ -556,7 +556,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("resolves run fallback overrides via shared helper", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -894,7 +894,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("resolves subagent model fallbacks from the selected subagent model source", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -975,7 +975,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("uses subagent model fallbacks for auto-selected spawned subagent models", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           model: {
@@ -1056,7 +1056,7 @@ describe("resolveAgentConfig", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const result = resolveAgentConfig(cfg, "work");
     expect(result?.sandbox).toEqual({
       mode: "all",
@@ -1068,7 +1068,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return agent-specific tools config", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -1098,7 +1098,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return both sandbox and tools config", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           {
@@ -1122,7 +1122,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should normalize agent id", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main", workspace: "~/openclaw" }],
       },
@@ -1163,14 +1163,14 @@ describe("resolveAgentConfig", () => {
   it("uses GRANTED_HOME for default agentDir", () => {
     const home = path.join(path.sep, "srv", "openclaw-home");
     withEnv({ GRANTED_HOME: home, GRANTED_STATE_DIR: "" }, () => {
-      const agentDir = resolveAgentDir({} as OpenClawConfig, "main");
+      const agentDir = resolveAgentDir({} as GrantedConfig, "main");
       expect(agentDir).toBe(path.join(path.resolve(home), ".openclaw", "agents", "main", "agent"));
     });
   });
 
   it("resolves default agentDir from the configured default agent", () => {
     const stateDir = path.join(path.sep, "tmp", "test-state");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main" }, { id: "ops", default: true }],
       },
@@ -1182,7 +1182,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("non-default agent uses agents.defaults.workspace as base (#59789)", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "work", default: true, workspace: "/work-ws" }],
@@ -1193,7 +1193,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("default agent without per-agent workspace uses agents.defaults.workspace directly", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "work", default: true }],
@@ -1205,7 +1205,7 @@ describe("resolveAgentConfig", () => {
 
   it("non-default agent without defaults.workspace falls back to stateDir", () => {
     const stateDir = path.join(path.sep, "tmp", "test-state");
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [{ id: "main" }, { id: "work", default: true, workspace: "/work-ws" }],
       },
@@ -1219,7 +1219,7 @@ describe("resolveAgentConfig", () => {
 
 describe("resolveAgentWorkspaceProvisioning", () => {
   it("marks an ACP agent without an explicit workspace but a distinct runtime cwd as runtime-managed", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [
@@ -1232,7 +1232,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("marks an invocation with a distinct binding-derived cwd as runtime-managed", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "codex", runtime: { type: "acp" } }],
@@ -1244,7 +1244,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("keeps standard provisioning when the ACP agent declares an explicit workspace (#92015)", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [
@@ -1263,7 +1263,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("keeps standard provisioning when the invocation has no distinct cwd anywhere", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "codex", runtime: { type: "acp" } }],
@@ -1273,7 +1273,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("does not treat a configured binding cwd as an invocation cwd (mixed bindings, #92015 review)", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "codex", runtime: { type: "acp" } }],
@@ -1286,7 +1286,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
           acp: { cwd: "/projects/app" },
         },
       ],
-    } as OpenClawConfig;
+    } as GrantedConfig;
     // The turn scoped to a different binding without cwd keeps bootstrap.
     expect(resolveAgentWorkspaceProvisioning(cfg, "codex")).toBe("standard");
     // The turn scoped to the cwd-bearing binding skips scaffolding.
@@ -1296,7 +1296,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("keeps standard provisioning when the invocation cwd equals the resolved workspace", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "codex", runtime: { type: "acp" } }],
@@ -1308,7 +1308,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("lets the invocation cwd win over the runtime default when it equals the workspace", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [
@@ -1323,7 +1323,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("keeps standard provisioning for a provisioned dir that is not the implicit workspace", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "codex", runtime: { type: "acp", acp: { cwd: "/projects/app" } } }],
@@ -1338,7 +1338,7 @@ describe("resolveAgentWorkspaceProvisioning", () => {
   });
 
   it("keeps standard provisioning for embedded agents without an explicit workspace", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: "/shared-ws" },
         list: [{ id: "main" }, { id: "work", runtime: { type: "embedded" } }],
@@ -1359,7 +1359,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
       try {
         fs.mkdirSync(composed);
         fs.mkdirSync(decomposed);
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             entries: {
               composed: { workspace: composed },
@@ -1381,7 +1381,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
   it("returns the most specific workspace match for a directory", () => {
     const workspaceRoot = `/tmp/openclaw-agent-scope-${Date.now()}-root`;
     const opsWorkspace = `${workspaceRoot}/projects/ops`;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           { id: "main", workspace: workspaceRoot },
@@ -1396,7 +1396,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
 
   it("returns undefined when directory has no matching workspace", () => {
     const workspaceRoot = `/tmp/openclaw-agent-scope-${Date.now()}-root`;
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         list: [
           { id: "main", workspace: workspaceRoot },
@@ -1423,7 +1423,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
         process.platform === "win32" ? "junction" : "dir",
       );
 
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           list: [
             { id: "main", workspace: realWorkspaceRoot },
@@ -1453,7 +1453,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
         workspaceAliasDir,
         process.platform === "win32" ? "junction" : "dir",
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: { list: [{ id: "ops", workspace: workspaceAliasDir }] },
       };
 
@@ -1468,7 +1468,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
     const alias = path.join(root, "alias");
     try {
       fs.symlinkSync(alias, alias, process.platform === "win32" ? "junction" : "dir");
-      const cfg: OpenClawConfig = { agents: { entries: { ops: { workspace: alias } } } };
+      const cfg: GrantedConfig = { agents: { entries: { ops: { workspace: alias } } } };
 
       expect(resolveAgentIdByWorkspacePath(cfg, alias)).toBe("ops");
       expect(resolveAgentIdByWorkspacePath(cfg, path.join(root, "other"))).toBeUndefined();
@@ -1480,7 +1480,7 @@ describe("resolveAgentIdByWorkspacePath", () => {
 
 describe("resolveAgentSkillsFilter", () => {
   it("inherits agents.defaults.skills when the agent omits skills", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           skills: ["github", "weather"],
@@ -1493,7 +1493,7 @@ describe("resolveAgentSkillsFilter", () => {
   });
 
   it("uses agents.list[].skills as a full replacement", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           skills: ["github", "weather"],
@@ -1506,7 +1506,7 @@ describe("resolveAgentSkillsFilter", () => {
   });
 
   it("keeps explicit empty agent skills as no skills", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: {
           skills: ["github", "weather"],

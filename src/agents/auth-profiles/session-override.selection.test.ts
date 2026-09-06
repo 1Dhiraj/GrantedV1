@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   authStoreMocks,
   createAuthStoreWithProfiles,
@@ -52,7 +52,7 @@ async function select(params: {
   modelId?: string;
 }) {
   return await resolveSessionAuthSelection({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as GrantedConfig,
     provider: "openai",
     modelId: params.modelId ?? "gpt-5.6-sol",
     ...(params.configuredProfileId ? { configuredProfileId: params.configuredProfileId } : {}),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { recordInstalledPluginIndexInstallOwner } from "./installed-plugin-index-install-owner.js";
 import type { InstalledPluginIndex, InstalledPluginIndexRecord } from "./installed-plugin-index.js";
 import {
@@ -77,7 +77,7 @@ describe("plugin package update policy reconciliation", () => {
     if (!snapshot.ok) {
       throw new Error(snapshot.error);
     }
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         allow: ["pack/one", "pack/two", "pack/old", "other"],
         deny: ["pack/two", "pack/old", "other-denied"],

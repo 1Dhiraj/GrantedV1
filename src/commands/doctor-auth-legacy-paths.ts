@@ -5,7 +5,7 @@ import { listAgentIds, resolveAgentDir } from "../agents/agent-scope.js";
 import { resolveSharedMainAuthAgentDir } from "../agents/auth-profiles/shared-main-dir.js";
 import { resolveLegacyInheritedAuthAgentDir } from "../agents/legacy-inherited-auth-dir.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveUserPath } from "../utils.js";
 
 function resolveLegacyAuthAgentDir(agentDir?: string): string {
@@ -46,7 +46,7 @@ function listExistingAgentDirsFromState(env: NodeJS.ProcessEnv): string[] {
  * decryptable sidecar secrets get imported as credential-less profiles.
  */
 export function listAuthProfileRepairCandidates(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): AuthProfileRepairCandidate[] {
   const candidates = new Map<string, AuthProfileRepairCandidate>();

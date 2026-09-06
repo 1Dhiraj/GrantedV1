@@ -1,10 +1,10 @@
 import { expect, vi } from "vitest";
 import { isPathInside } from "../../infra/path-guards.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 
 /** Guard the real consumers before discovery can touch an unowned workspace. */
 export async function guardRunWorkspaceOwnership(
-  state: Pick<OpenClawTestState, "root" | "home" | "stateDir">,
+  state: Pick<GrantedTestState, "root" | "home" | "stateDir">,
 ) {
   // Import after the harness reset so the spies intercept the runner's graph.
   const metadata = await import("../../plugins/plugin-metadata-snapshot.js");

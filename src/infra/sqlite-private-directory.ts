@@ -24,7 +24,7 @@ const WINDOWS_PRIVATE_DIRECTORY_NATIVE_SOURCE = `
 using System;
 using System.Runtime.InteropServices;
 
-public static class OpenClawPrivateDirectory
+public static class GrantedPrivateDirectory
 {
     [StructLayout(LayoutKind.Sequential)]
     private struct SecurityAttributes
@@ -167,7 +167,7 @@ function resolvePrivateDirectoryPowerShell(directoryPath: string): {
     "foreach ($sidValue in @($current.Value, 'S-1-5-18', 'S-1-5-32-544')) { $sid = New-Object System.Security.Principal.SecurityIdentifier($sidValue); $rule = New-Object System.Security.AccessControl.FileSystemAccessRule($sid, [System.Security.AccessControl.FileSystemRights]::FullControl, $inheritance, $propagation, [System.Security.AccessControl.AccessControlType]::Allow); [void]$security.AddAccessRule($rule) }",
     "$sections = [System.Security.AccessControl.AccessControlSections]::Owner -bor [System.Security.AccessControl.AccessControlSections]::Access",
     "$sddl = $security.GetSecurityDescriptorSddlForm($sections)",
-    "$errorCode = [OpenClawPrivateDirectory]::Create($path, $sddl)",
+    "$errorCode = [GrantedPrivateDirectory]::Create($path, $sddl)",
     `if ($errorCode -eq 80 -or $errorCode -eq 183) { throw '${WINDOWS_DIRECTORY_EXISTS_MARKER}' }`,
     "if ($errorCode -ne 0) { $exception = New-Object System.ComponentModel.Win32Exception($errorCode); throw $exception }",
   ].join("; ");

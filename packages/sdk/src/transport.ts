@@ -5,7 +5,7 @@ import type {
   ConnectableOpenClawTransport,
   GatewayEvent,
   GatewayRequestOptions,
-  OpenClawTransport,
+  GrantedTransport,
 } from "./types.js";
 
 // Gateway transport adapter that converts the lower-level GatewayClient into the
@@ -187,7 +187,7 @@ export class GatewayClientTransport implements ConnectableOpenClawTransport {
 
 /** Narrow an SDK transport to one that supports explicit connect. */
 export function isConnectableTransport(
-  transport: OpenClawTransport,
+  transport: GrantedTransport,
 ): transport is ConnectableOpenClawTransport {
   return typeof (transport as { connect?: unknown }).connect === "function";
 }

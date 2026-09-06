@@ -1,7 +1,7 @@
 // Line plugin module implements auto reply delivery behavior.
 import type { messagingApi } from "@line/bot-sdk";
 import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   collectErrorGraphCandidates,
   extractErrorCode,
@@ -28,7 +28,7 @@ type LineAutoReplyDeps = {
   pushMessagesLine: (
     to: string,
     messages: messagingApi.Message[],
-    opts: { cfg: OpenClawConfig; accountId?: string },
+    opts: { cfg: GrantedConfig; accountId?: string },
   ) => Promise<unknown>;
   createFlexMessage: (altText: string, contents: FlexContainer) => messagingApi.FlexMessage;
   buildMediaMessage: (
@@ -45,7 +45,7 @@ type LineAutoReplyDeps = {
   replyMessageLine: (
     replyToken: string,
     messages: messagingApi.Message[],
-    opts: { cfg: OpenClawConfig; accountId?: string },
+    opts: { cfg: GrantedConfig; accountId?: string },
   ) => Promise<unknown>;
   onReplyError?: (err: unknown) => void;
 };
@@ -112,7 +112,7 @@ export async function deliverLineAutoReply(params: {
   replyToken?: string | null;
   replyTokenUsed: boolean;
   accountId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   textLimit: number;
   deps: LineAutoReplyDeps;
 }): Promise<LineAutoReplyDeliveryResult> {

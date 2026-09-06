@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type {
   ProviderCatalogContext,
   ProviderCatalogResult,
@@ -19,7 +19,7 @@ import { buildCopilotRuntimeHeaders } from "./runtime-identity.js";
 
 type GithubCopilotCatalogContext = {
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   profileId?: string;
   authProfileMode?: ProviderPrepareDynamicModelContext["authProfileMode"];
@@ -42,7 +42,7 @@ async function loadGithubCopilotRuntime() {
 }
 
 export function createGithubCopilotDynamicModelHooks(params: {
-  discoveryEnabled(config?: OpenClawConfig): boolean;
+  discoveryEnabled(config?: GrantedConfig): boolean;
 }) {
   const preparedDynamicModels = new WeakMap<
     object,
@@ -158,7 +158,7 @@ export function createGithubCopilotDynamicModelHooks(params: {
     prepareDynamicModel,
     resolveDynamicModel,
     runCatalog,
-    preferRuntimeResolvedModel: ({ config }: { config?: OpenClawConfig }) =>
+    preferRuntimeResolvedModel: ({ config }: { config?: GrantedConfig }) =>
       params.discoveryEnabled(config),
   };
 }

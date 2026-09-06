@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildApprovalResolutionRef } from "../infra/approval-resolution-ref.js";
 import {
   closeOpenClawStateDatabaseForTest,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import { createOperatorApprovalSessionEventRuntime } from "./operator-approval-session-events.js";
@@ -24,7 +24,7 @@ const SIBLING_SESSION_KEY = "agent:main:parent:sibling";
 const tempDirs: string[] = [];
 type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approval"];
 
-function createDatabaseOptions(): OpenClawStateDatabaseOptions {
+function createDatabaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-approval-events-"));
   tempDirs.push(stateDir);
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
@@ -119,7 +119,7 @@ function createTerminalRecord(
 
 function createRuntime(params: {
   clients: GatewayClient[];
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
   now?: () => number;
   controlUiBasePath?: string;
   reconcileTerminal?: Parameters<
@@ -141,7 +141,7 @@ function createRuntime(params: {
 }
 
 function insertPendingApproval(params: {
-  databaseOptions: OpenClawStateDatabaseOptions;
+  databaseOptions: GrantedStateDatabaseOptions;
   id: string;
   audienceSessionKeys: string[];
   createdAtMs: number;

@@ -1,5 +1,5 @@
 import { resolveExecCommandHighlighting } from "../config/exec-command-highlighting.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { applyExecPolicyLayer } from "../infra/exec-policy.js";
 import { resolveMergedSafeBinProfileFixtures } from "../infra/exec-safe-bin-runtime-policy.js";
 import {
@@ -81,7 +81,7 @@ export function createLazyExecTool(
 }
 
 /** Resolve global and per-agent exec defaults before runtime-only overrides. */
-export function resolveExecToolConfig(params: { cfg?: OpenClawConfig; agentId?: string }) {
+export function resolveExecToolConfig(params: { cfg?: GrantedConfig; agentId?: string }) {
   const cfg = params.cfg;
   const globalExec = cfg?.tools?.exec;
   const agentExec =

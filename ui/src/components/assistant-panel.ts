@@ -21,7 +21,7 @@ import {
   resolveUiConversationIdentity,
   resolveUiDefaultAgentId,
 } from "../lib/sessions/session-key.ts";
-import { OpenClawLightDomElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../lit/openclaw-element.ts";
 import { getSafeLocalStorage } from "../local-storage.ts";
 import { buildHomeWorkContext, subscribeChatWorkContext } from "../pages/chat/chat-work-context.ts";
 import {
@@ -59,7 +59,7 @@ const panelLayout = createDockPanelLayout({
   defaultWidth: 440,
 });
 
-export class OpenClawAssistantPanel extends OpenClawLightDomElement {
+export class GrantedAssistantPanel extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   @property({ attribute: false })
   context: ApplicationContext<RouteId> | undefined;
@@ -439,11 +439,11 @@ export class OpenClawAssistantPanel extends OpenClawLightDomElement {
 }
 
 if (!customElements.get("openclaw-assistant-panel")) {
-  customElements.define("openclaw-assistant-panel", OpenClawAssistantPanel);
+  customElements.define("openclaw-assistant-panel", GrantedAssistantPanel);
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "openclaw-assistant-panel": OpenClawAssistantPanel;
+    "openclaw-assistant-panel": GrantedAssistantPanel;
   }
 }

@@ -12,7 +12,7 @@ import {
 export { getCoreTtsToolResultMediaUrls } from "../agents/tools/tts-tool-result-provenance.js";
 export { consumeTrustedToolNoStartError } from "../agents/tool-result-error.js";
 
-type OpenClawCodingToolsOptions = NonNullable<
+type GrantedCodingToolsOptions = NonNullable<
   Parameters<typeof import("./agent-harness.js").createOpenClawCodingTools>[0]
 >;
 
@@ -20,15 +20,15 @@ export type AgentHarnessToolSurfaceRuntime = Omit<
   CoreAgentHarnessToolSurfaceRuntime,
   "toolSearchCatalogExecutor" | "toolSearchCatalogRef"
 > & {
-  toolSearchCatalogExecutor: OpenClawCodingToolsOptions["toolSearchCatalogExecutor"];
-  toolSearchCatalogRef: OpenClawCodingToolsOptions["toolSearchCatalogRef"];
+  toolSearchCatalogExecutor: GrantedCodingToolsOptions["toolSearchCatalogExecutor"];
+  toolSearchCatalogRef: GrantedCodingToolsOptions["toolSearchCatalogRef"];
 };
 
 export type AgentHarnessToolSurfaceRuntimeParams = Omit<
   Parameters<typeof createAgentHarnessToolSurfaceRuntimeCore>[0],
   "executeTool"
 > & {
-  executeTool: NonNullable<OpenClawCodingToolsOptions["toolSearchCatalogExecutor"]>;
+  executeTool: NonNullable<GrantedCodingToolsOptions["toolSearchCatalogExecutor"]>;
 };
 
 export function createAgentHarnessToolSurfaceRuntime(

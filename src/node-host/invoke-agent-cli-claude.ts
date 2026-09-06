@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { StringDecoder } from "node:string_decoder";
 import { logWarn } from "../logger.js";
-import type { OpenClawPluginNodeHostCommandIo } from "../plugins/types.js";
+import type { GrantedPluginNodeHostCommandIo } from "../plugins/types.js";
 import { getProcessSupervisor } from "../process/supervisor/index.js";
 import type { RunExit, SpawnSecretInput } from "../process/supervisor/types.js";
 import { truncateUtf8Suffix } from "../utils/utf8-truncate.js";
@@ -39,7 +39,7 @@ export async function runClaudeCliNodeCommand(params: {
   secretInput?: SpawnSecretInput;
   timeoutMs: number | undefined;
   signal?: AbortSignal;
-  skillIo?: OpenClawPluginNodeHostCommandIo;
+  skillIo?: GrantedPluginNodeHostCommandIo;
 }): Promise<RunResult> {
   const cancelledResult = (): RunResult => ({
     exitCode: 130,

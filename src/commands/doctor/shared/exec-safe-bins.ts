@@ -2,7 +2,7 @@
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { listAgentEntriesWithSource } from "../../../agents/agent-scope-config.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveCommandResolutionFromArgv } from "../../../infra/exec-command-resolution.js";
 import {
   normalizeConfiguredSafeBins,
@@ -48,7 +48,7 @@ type ExecSafeBinTrustedDirHintHit = {
   resolvedPath: string;
 };
 
-function collectExecSafeBinScopes(cfg: OpenClawConfig): ExecSafeBinScopeRef[] {
+function collectExecSafeBinScopes(cfg: GrantedConfig): ExecSafeBinScopeRef[] {
   const scopes: ExecSafeBinScopeRef[] = [];
   const globalExec = asNullableRecord(cfg.tools?.exec);
   const globalTrustedDirs = normalizeConfiguredTrustedSafeBinDirs(globalExec?.safeBinTrustedDirs);
@@ -102,7 +102,7 @@ function collectExecSafeBinScopes(cfg: OpenClawConfig): ExecSafeBinScopeRef[] {
 }
 
 /** Scan configured safeBins for missing profiles and risky low-friction entries. */
-export function scanExecSafeBinCoverage(cfg: OpenClawConfig): ExecSafeBinCoverageHit[] {
+export function scanExecSafeBinCoverage(cfg: GrantedConfig): ExecSafeBinCoverageHit[] {
   const hits: ExecSafeBinCoverageHit[] = [];
   for (const scope of collectExecSafeBinScopes(cfg)) {
     const interpreterBins = new Set(listInterpreterLikeSafeBins(scope.safeBins));
@@ -135,9 +135,7 @@ export function scanExecSafeBinCoverage(cfg: OpenClawConfig): ExecSafeBinCoverag
 }
 
 /** Scan configured safeBins that resolve outside trusted binary directories. */
-export function scanExecSafeBinTrustedDirHints(
-  cfg: OpenClawConfig,
-): ExecSafeBinTrustedDirHintHit[] {
+export function scanExecSafeBinTrustedDirHints(cfg: GrantedConfig): ExecSafeBinTrustedDirHintHit[] {
   const hits: ExecSafeBinTrustedDirHintHit[] = [];
   for (const scope of collectExecSafeBinScopes(cfg)) {
     for (const bin of scope.safeBins) {
@@ -244,8 +242,8 @@ export function collectExecSafeBinTrustedDirHintWarnings(
 }
 
 /** Scaffold missing custom safeBin profiles and warn on interpreter/risky entries. */
-export function maybeRepairExecSafeBinProfiles(cfg: OpenClawConfig): {
-  config: OpenClawConfig;
+export function maybeRepairExecSafeBinProfiles(cfg: GrantedConfig): {
+  config: GrantedConfig;
   changes: string[];
   warnings: string[];
 } {

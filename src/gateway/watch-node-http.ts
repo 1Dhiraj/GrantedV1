@@ -13,7 +13,7 @@ import {
   validateConnectParams,
   type ConnectParams,
 } from "../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getBoundDeviceBootstrapProfile,
   redeemDeviceBootstrapTokenProfile,
@@ -130,7 +130,7 @@ type WatchNodeSession = {
 
 type WatchNodeHttpRuntimeOptions = {
   nodeRegistry: NodeRegistry;
-  getConfig: () => OpenClawConfig;
+  getConfig: () => GrantedConfig;
   broadcast: GatewayBroadcastFn;
   rateLimiter?: AuthRateLimiter;
   nodeReapprovalCoordinator?: NodeReapprovalCoordinator;
@@ -163,7 +163,7 @@ function readBearerToken(req: IncomingMessage): string | null {
 
 function resolveWatchClientAddress(
   req: IncomingMessage,
-  config: OpenClawConfig,
+  config: GrantedConfig,
 ): { clientIp?: string; rateLimitKey: string } {
   const attribution = readPreparedGatewayIngressAttribution(req);
   if (attribution && attribution.kind !== "unattributable-proxy") {

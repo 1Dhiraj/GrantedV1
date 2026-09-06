@@ -17,7 +17,7 @@ import {
   type ChannelSetupAdapter,
   type ChannelSetupWizard,
   type ChannelSetupWizardTextInput,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
 } from "openclaw/plugin-sdk/setup-runtime";
 import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
@@ -109,10 +109,10 @@ function buildIMessageSetupPatch(input: IMessageSetupInput) {
 }
 
 async function promptIMessageAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   return promptParsedAllowFromForAccount({
     cfg: params.cfg,
     accountId: params.accountId,
@@ -152,7 +152,7 @@ export const imessageDmPolicy = createChannelDmPolicy({
   promptAllowFrom: promptIMessageAllowFrom,
 });
 
-function resolveIMessageCliPath(params: { cfg: OpenClawConfig; accountId: string }) {
+function resolveIMessageCliPath(params: { cfg: GrantedConfig; accountId: string }) {
   return resolveIMessageAccount(params).config.cliPath ?? "imsg";
 }
 
@@ -227,7 +227,7 @@ export const imessageSetupStatusBase = {
   unconfiguredHint: t("wizard.imessage.imsgMissing"),
   configuredScore: 1,
   unconfiguredScore: 0,
-  resolveConfigured: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId?: string }) =>
+  resolveConfigured: ({ cfg, accountId }: { cfg: GrantedConfig; accountId?: string }) =>
     resolveIMessageAccount({ cfg, accountId }).configured,
 };
 
@@ -255,6 +255,6 @@ export function createIMessageSetupWizardProxy(loadWizard: () => Promise<Channel
     ],
     completionNote: imessageCompletionNote,
     dmPolicy: imessageDmPolicy,
-    disable: (cfg: OpenClawConfig) => setSetupChannelEnabled(cfg, channel, false),
+    disable: (cfg: GrantedConfig) => setSetupChannelEnabled(cfg, channel, false),
   });
 }

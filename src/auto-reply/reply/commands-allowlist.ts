@@ -10,7 +10,7 @@ import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { ChannelId } from "../../channels/plugins/types.public.js";
 import { normalizeChatChannelId } from "../../channels/registry.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   addChannelAllowFromStoreEntry,
   readChannelAllowFromStore,
@@ -61,7 +61,7 @@ const ACTIONS = new Set(["list", "add", "remove"]);
 const SCOPES = new Set<AllowlistScope>(["dm", "group", "all"]);
 
 function resolveAllowlistAccountId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: ChannelId;
   parsedAccount?: string;
   ctxAccountId?: string;
@@ -172,7 +172,7 @@ function parseAllowlistCommand(raw: string): AllowlistCommand | null {
 }
 
 function normalizeAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: ChannelId;
   accountId?: string | null;
   values: Array<string | number>;
@@ -226,7 +226,7 @@ async function updatePairingStoreAllowlist(params: {
 }
 
 async function resolveAllowlistNames(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: ChannelId;
   accountId?: string | null;
   scope: "dm" | "group";
@@ -247,7 +247,7 @@ async function resolveAllowlistNames(params: {
 }
 
 async function readAllowlistConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelId: ChannelId;
   accountId?: string | null;
 }) {

@@ -1,7 +1,7 @@
 import { mkdir } from "node:fs/promises";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -56,7 +56,7 @@ describe("Claw add legacy plan resume", () => {
     if (!legacyRecord) {
       throw new Error("expected legacy install record");
     }
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       agents: {
         entries: {
           worker: Object.fromEntries(
@@ -131,7 +131,7 @@ describe("Claw add legacy plan resume", () => {
     if (!legacyRecord) {
       throw new Error("expected legacy install record");
     }
-    let config: OpenClawConfig = {
+    let config: GrantedConfig = {
       agents: {
         entries: {
           worker: Object.fromEntries(
@@ -140,7 +140,7 @@ describe("Claw add legacy plan resume", () => {
         },
       },
     };
-    const commitConfig = async (transform: (config: OpenClawConfig) => OpenClawConfig) => {
+    const commitConfig = async (transform: (config: GrantedConfig) => GrantedConfig) => {
       config = transform(config);
     };
     const dependencies = {

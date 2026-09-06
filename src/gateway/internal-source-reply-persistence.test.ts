@@ -19,10 +19,7 @@ import {
 } from "../sessions/transcript-events.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
-import {
-  withOpenClawTestState,
-  type OpenClawTestState,
-} from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
 import { persistInternalSourceReply } from "./internal-source-reply-persistence.js";
 import {
   MANAGED_OUTGOING_IMAGE_ARTIFACT_ID_PREFIX,
@@ -37,7 +34,7 @@ import {
 const TINY_PNG_BASE64 =
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9ZQmcAAAAASUVORK5CYII=";
 
-async function createSourceReplyFixture(state: OpenClawTestState) {
+async function createSourceReplyFixture(state: GrantedTestState) {
   const sessionKey = "agent:main:webchat:dm:partial-promotion";
   const sessionId = "partial-promotion-session";
   const scope = {

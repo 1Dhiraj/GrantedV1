@@ -2,7 +2,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { listAgentEntriesWithSource, resolveDefaultAgentId } from "../agents/agent-scope-config.js";
 import { resolveSandboxScope } from "../agents/sandbox/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { runtimeSandboxSecretOwnerId } from "./runtime-sandbox-secret-owner.js";
 import {
@@ -54,7 +54,7 @@ function collectAssignment(params: {
 
 /** Collects SSH material once for every agent whose current backend can manage it. */
 export function collectAgentSandboxAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults: SecretDefaults | undefined;
   context: ResolverContext;
   agentId?: string;

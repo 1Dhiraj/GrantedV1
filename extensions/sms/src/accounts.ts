@@ -8,7 +8,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   hasConfiguredAccountValue,
   resolveAccountEntry,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/account-resolution";
 import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
 import {
@@ -26,7 +26,7 @@ const CHANNEL_ID = "sms";
 const DEFAULT_WEBHOOK_PATH = "/webhooks/sms";
 const DEFAULT_TEXT_CHUNK_LIMIT = 1500;
 
-function getChannelConfig(cfg: OpenClawConfig): SmsChannelConfig | undefined {
+function getChannelConfig(cfg: GrantedConfig): SmsChannelConfig | undefined {
   return cfg?.channels?.[CHANNEL_ID] as SmsChannelConfig | undefined;
 }
 
@@ -87,14 +87,14 @@ const {
 export { listSmsAccountIds, resolveDefaultSmsAccountId };
 
 export function resolveSmsAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): ResolvedSmsAccount {
   return readSmsAccount(cfg, accountId, "strict").account;
 }
 
 function readSmsAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string | null | undefined,
   mode: SecretInputStringResolutionMode,
 ): { account: ResolvedSmsAccount; tokenStatus: SecretInputStringResolution["status"] } {
@@ -155,7 +155,7 @@ function readSmsAccount(
   return { account, tokenStatus: authToken.status };
 }
 
-export function inspectSmsAccount(cfg: OpenClawConfig, accountId?: string | null) {
+export function inspectSmsAccount(cfg: GrantedConfig, accountId?: string | null) {
   const { account, tokenStatus } = readSmsAccount(cfg, accountId, "inspect");
   const configured = Boolean(
     account.accountSid &&

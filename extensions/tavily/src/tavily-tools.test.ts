@@ -1,6 +1,6 @@
 // Tavily tests cover tavily tools plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -36,10 +36,10 @@ function requireFirstMockArg(mock: ReturnType<typeof vi.fn>, label: string): unk
   return call[0];
 }
 
-function fakeApi(): OpenClawPluginApi {
+function fakeApi(): GrantedPluginApi {
   return {
     config: {},
-  } as OpenClawPluginApi;
+  } as GrantedPluginApi;
 }
 
 describe("tavily tools", () => {
@@ -282,7 +282,7 @@ describe("tavily tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const runtimeConfig = {
       plugins: {
         entries: {
@@ -295,9 +295,9 @@ describe("tavily tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
-    const registeredTools: Array<Parameters<OpenClawPluginApi["registerTool"]>[0]> = [];
-    const registeredOptions: Array<Parameters<OpenClawPluginApi["registerTool"]>[1]> = [];
+    } as GrantedConfig;
+    const registeredTools: Array<Parameters<GrantedPluginApi["registerTool"]>[0]> = [];
+    const registeredOptions: Array<Parameters<GrantedPluginApi["registerTool"]>[1]> = [];
     const api = createTestPluginApi({
       config: rawConfig,
       registerTool(tool, opts) {
@@ -482,7 +482,7 @@ describe("tavily tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveTavilyApiKey(cfg)).toBe("plugin-key");
     expect(resolveTavilyBaseUrl(cfg)).toBe("https://plugin.tavily.test");
@@ -494,7 +494,7 @@ describe("tavily tools", () => {
 
     expect(resolveTavilyApiKey()).toBe("env-key");
     expect(resolveTavilyBaseUrl()).toBe("https://env.tavily.test");
-    expect(resolveTavilyBaseUrl({} as OpenClawConfig)).not.toBe(DEFAULT_TAVILY_BASE_URL);
+    expect(resolveTavilyBaseUrl({} as GrantedConfig)).not.toBe(DEFAULT_TAVILY_BASE_URL);
     expect(resolveTavilySearchTimeoutSeconds()).toBe(30);
     expect(resolveTavilyExtractTimeoutSeconds()).toBe(60);
   });

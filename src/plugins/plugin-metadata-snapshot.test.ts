@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { makeTempDir } from "../../test/helpers/temp-dir.js";
 import { resolveDefaultModelForAgent } from "../agents/model-selection-config.js";
 import { buildConfiguredModelCatalog } from "../agents/model-selection-shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { clearBundledDiscoveryModeMemo } from "./bundled-discovery-state.js";
@@ -791,7 +791,7 @@ describe("plugin metadata snapshot", () => {
     );
     enumeratePolicies.mockClear();
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: { defaults: { model: { primary: "demo/latest" } } },
       models: {
         providers: {

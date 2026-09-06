@@ -35,7 +35,7 @@ import {
   synthesizeSpeech,
   testApi,
   transcodeAudioBufferMock,
-  type OpenClawConfig,
+  type GrantedConfig,
   type ReplyPayload,
 } from "./tts-runtime.test-support.js";
 
@@ -206,7 +206,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
           provider: "openai",
           prefsPath: "/tmp/openclaw-speech-core-realtime-voice-model-ignored-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -247,7 +247,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
           enabled: true,
           prefsPath: "/tmp/openclaw-speech-core-supported-voice-model-provider-test.json",
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
     });
 
     expect(result.success).toBe(true);
@@ -273,7 +273,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -310,7 +310,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
             mimo: { apiKey: "fake" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 
@@ -337,7 +337,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disableFallback: true,
     });
 

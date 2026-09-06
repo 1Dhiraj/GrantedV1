@@ -4,7 +4,7 @@ import type { Insertable, Selectable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -21,14 +21,14 @@ import type {
   ProvisionedFileState,
 } from "./types.js";
 
-type WorktreesTable = OpenClawStateKyselyDatabase["worktrees"];
+type WorktreesTable = GrantedStateKyselyDatabase["worktrees"];
 type WorktreeRow = Selectable<WorktreesTable>;
-type WorktreeRegistryDatabase = Pick<OpenClawStateKyselyDatabase, "worktrees">;
+type WorktreeRegistryDatabase = Pick<GrantedStateKyselyDatabase, "worktrees">;
 type WorktreeProvisionedDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "worktree_provisioned_file_chunks"
 >;
-type WorktreeLeaseDatabase = Pick<OpenClawStateKyselyDatabase, "worktrees" | "state_leases">;
+type WorktreeLeaseDatabase = Pick<GrantedStateKyselyDatabase, "worktrees" | "state_leases">;
 
 function dbFor(env: NodeJS.ProcessEnv): DatabaseSync {
   return openOpenClawStateDatabase({ env }).db;

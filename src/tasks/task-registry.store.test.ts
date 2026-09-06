@@ -17,7 +17,7 @@ import { resetLogger, setLoggerOverride } from "../logging/logger.js";
 import { loggingState } from "../logging/state.js";
 import { createWarnLogCapture } from "../logging/test-helpers/warn-log-capture.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
@@ -25,7 +25,7 @@ import {
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
   withOpenClawTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createManagedTaskFlow as createManagedTaskFlowOrNull } from "./task-flow-registry.js";
@@ -89,7 +89,7 @@ function createManagedTaskFlow(
   return flow;
 }
 type TaskRegistryTestDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "task_delivery_state" | "task_runs"
 >;
 
@@ -177,7 +177,7 @@ describe("task-registry store runtime", () => {
       },
     );
   });
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
 
   beforeAll(async () => {
     testState = await createOpenClawTestState({

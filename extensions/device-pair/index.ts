@@ -4,7 +4,7 @@ import { isIP } from "node:net";
 import os from "node:os";
 import path from "node:path";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { definePluginEntry, type OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
@@ -203,7 +203,7 @@ function isLoopbackHost(host: string): boolean {
 }
 
 function resolveScheme(
-  cfg: OpenClawPluginApi["config"],
+  cfg: GrantedPluginApi["config"],
   opts?: { forceSecure?: boolean },
 ): "ws" | "wss" {
   if (opts?.forceSecure) {
@@ -357,7 +357,7 @@ async function resolveTailnetHost(): Promise<string | null> {
   );
 }
 
-function resolveAuthLabel(cfg: OpenClawPluginApi["config"]): ResolveAuthLabelResult {
+function resolveAuthLabel(cfg: GrantedPluginApi["config"]): ResolveAuthLabelResult {
   const mode = cfg.gateway?.auth?.mode;
   const token =
     pickFirstDefined([process.env.GRANTED_GATEWAY_TOKEN, cfg.gateway?.auth?.token]) ?? undefined;
@@ -401,7 +401,7 @@ function resolveRequiredAuthLabel(
     : { error: "Gateway auth is set to password, but no password is configured." };
 }
 
-async function resolveGatewayUrl(api: OpenClawPluginApi): Promise<ResolveUrlResult> {
+async function resolveGatewayUrl(api: GrantedPluginApi): Promise<ResolveUrlResult> {
   const { resolveAdvertisedLanHost, resolveGatewayBindUrl, resolveGatewayPort } =
     await loadDevicePairApiModule();
   const cfg = api.config;
@@ -456,7 +456,7 @@ async function resolveGatewayUrl(api: OpenClawPluginApi): Promise<ResolveUrlResu
   };
 }
 
-async function resolveMobilePairingGatewayUrl(api: OpenClawPluginApi): Promise<ResolveUrlResult> {
+async function resolveMobilePairingGatewayUrl(api: GrantedPluginApi): Promise<ResolveUrlResult> {
   const result = await resolveGatewayUrl(api);
   if (!result.url) {
     return result;
@@ -668,7 +668,7 @@ async function issueSetupPayload(params: {
 }
 
 async function sendQrPngToSupportedChannel(params: {
-  api: OpenClawPluginApi;
+  api: GrantedPluginApi;
   ctx: QrCommandContext;
   sender: QrChannelSender;
   target: string;
@@ -700,7 +700,7 @@ export default definePluginEntry({
   id: "device-pair",
   name: "Device Pair",
   description: "QR/bootstrap pairing helpers for OpenClaw devices",
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     let notifierService: ReturnType<NotifyModule["createPairingNotifierService"]> | undefined;
     api.registerService({
       id: "device-pair-notifier",

@@ -1,12 +1,12 @@
 // Zalo tests cover actions plugin behavior.
 import http from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { zaloMessageActions } from "./actions.js";
 
 describe("zaloMessageActions.describeMessageTool", () => {
   it("honors the selected Zalo account during discovery", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       channels: {
         zalo: {
           enabled: true,
@@ -50,7 +50,7 @@ describe("zaloMessageActions.describeMessageTool", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(zaloMessageActions.describeMessageTool?.({ cfg })).toEqual({
       actions: ["send"],
       capabilities: [],

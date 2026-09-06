@@ -14,7 +14,7 @@ import {
   readSessionTranscriptEvents,
 } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { GrantedConfig } from "../runtime-api.js";
 import { feishuDoctor } from "./doctor.js";
 
 const runFeishuDoctorSequence = feishuDoctor.runConfigSequence!;
@@ -22,7 +22,7 @@ const defaultAgentId = "main";
 const defaultFeishuSessionKey = "agent:main:feishu:direct:ou_user";
 const blankUserMessages = ["", "", ""];
 
-function feishuConfig(): OpenClawConfig {
+function feishuConfig(): GrantedConfig {
   return {
     channels: {
       feishu: {
@@ -30,7 +30,7 @@ function feishuConfig(): OpenClawConfig {
         appSecret: "secret_xxx",
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function stateDir(): string {
@@ -159,7 +159,7 @@ function writeFeishuDedupState(contents: string): void {
   fs.writeFileSync(target, contents);
 }
 
-async function runDoctor(shouldRepair: boolean, cfg: OpenClawConfig = feishuConfig()) {
+async function runDoctor(shouldRepair: boolean, cfg: GrantedConfig = feishuConfig()) {
   return await runFeishuDoctorSequence({ cfg, env: process.env, shouldRepair });
 }
 
@@ -200,7 +200,7 @@ describe("Feishu doctor state repair", () => {
         return {
           ...feishuConfig(),
           session: { store: customStorePath },
-        } as OpenClawConfig;
+        } as GrantedConfig;
       },
     },
     {
@@ -440,7 +440,7 @@ describe("Feishu doctor state repair", () => {
             ...feishuConfig(),
             agents: { list: [{ id: agentId, default: true }] },
             session: { store: customStorePath },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           session,
           sqlitePath: path.join(path.dirname(customStorePath), "openclaw-agent.support.sqlite"),
           verifyTranscript: true,

@@ -12,7 +12,7 @@ import {
   resolveChannelStreamingProgressCommentary,
   type StreamingCompatEntry,
 } from "../../../channels/streaming.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { onAgentEventForRun } from "../../../infra/agent-events.js";
 import {
   type EventSessionRoutingPolicy,
@@ -107,7 +107,7 @@ function mergeStreamingEntry(
 }
 
 function resolveParentProgressStreamingEntry(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   deliveryContext: DeliveryContext | undefined;
 }): StreamingCompatEntry | undefined {
   const channelId = normalizeOptionalString(params.deliveryContext?.channel);
@@ -130,7 +130,7 @@ function resolveParentProgressStreamingEntry(params: {
 }
 
 function resolveParentProgressCommentary(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   deliveryContext: DeliveryContext | undefined;
 }): boolean {
   return resolveChannelStreamingProgressCommentary(
@@ -182,7 +182,7 @@ export function startAcpSpawnParentStreamRelay(params: {
   noOutputPollMs?: number;
   maxRelayLifetimeMs?: number;
   emitStartNotice?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): AcpSpawnParentRelayHandle {
   const runId = normalizeOptionalString(params.runId) ?? "";
   const parentSessionKey = normalizeOptionalString(params.parentSessionKey) ?? "";

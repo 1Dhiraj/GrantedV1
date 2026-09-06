@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { handleSystemAgentCommand } from "../../dist/auto-reply/reply/commands-system-agent.js";
 import { clearConfigCache } from "../../dist/config/config.js";
-import type { OpenClawConfig } from "../../dist/config/types.openclaw.js";
+import type { GrantedConfig } from "../../dist/config/types.openclaw.js";
 import { createSqliteAuditRecordStore } from "../../dist/infra/sqlite-audit-record-store.js";
 import {
   SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -23,7 +23,7 @@ function assert(condition: unknown, message: string): asserts condition {
   }
 }
 
-function makeParams(commandBody: string, cfg: OpenClawConfig, isGroup = false) {
+function makeParams(commandBody: string, cfg: GrantedConfig, isGroup = false) {
   return {
     cfg,
     command: {
@@ -45,7 +45,7 @@ function makeParams(commandBody: string, cfg: OpenClawConfig, isGroup = false) {
   } as Parameters<typeof handleSystemAgentCommand>[0];
 }
 
-async function invoke(commandBody: string, cfg: OpenClawConfig, isGroup = false): Promise<string> {
+async function invoke(commandBody: string, cfg: GrantedConfig, isGroup = false): Promise<string> {
   const result: CommandResult = await handleSystemAgentCommand(
     makeParams(commandBody, cfg, isGroup),
     true,
@@ -59,7 +59,7 @@ async function invoke(commandBody: string, cfg: OpenClawConfig, isGroup = false)
 
 async function invokeWithDeps(
   commandBody: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deps: NonNullable<Parameters<typeof runSystemAgentRescueMessage>[0]["deps"]>,
 ): Promise<string> {
   const result = await runSystemAgentRescueMessage({
@@ -101,7 +101,7 @@ async function main() {
   });
   assert(denied.includes("sandboxing is active"), "sandboxed rescue was not denied");
 
-  const cfg: OpenClawConfig = {};
+  const cfg: GrantedConfig = {};
   const deterministicInference = {
     verifyInferenceConfig: async () => ({
       ok: true as const,
@@ -259,7 +259,7 @@ async function main() {
   );
   assert(doctorRuns.length === 0, "remote rescue must not invoke doctor repair");
 
-  const updatedConfig = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+  const updatedConfig = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
   const updatedModel = updatedConfig.agents?.defaults?.model;
   assert(
     (typeof updatedModel === "string" ? updatedModel : updatedModel?.primary) === "openai/gpt-5.2",

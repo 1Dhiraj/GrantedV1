@@ -3,7 +3,7 @@ import {
   runChannelInboundEvent,
   type ChannelInboundEventRunnerParams,
 } from "openclaw/plugin-sdk/channel-inbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { FinalizedMsgContext, GetReplyOptions } from "openclaw/plugin-sdk/reply-runtime";
 import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -93,7 +93,7 @@ describe("Matrix active-turn steering admission", () => {
         session: { store: storePath },
         messages: { queue: { mode: "steer" } },
         channels: { matrix: { dm: { allowFrom: ["*"] } } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const inboundDeduper: NonNullable<MatrixMonitorHandlerParams["inboundDeduper"]> = {
         claim: vi.fn(async ({ eventId }) => {
           const claim = createClaimSpies();

@@ -1,5 +1,5 @@
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { AssistantMessage } from "../../llm/types.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
@@ -46,7 +46,7 @@ const TOOL_CALL_INPUT_MISSING_RE =
 const TOOL_CALL_INPUT_PATH_RE =
   /messages\.\d+\.content\.\d+\.tool_(?:use|call)\.(?:input|arguments)/i;
 type AssistantErrorTextOptions = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   sessionKey?: string;
   agentId?: string;
   provider?: string;

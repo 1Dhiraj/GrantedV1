@@ -1,5 +1,5 @@
 // Workspace skill prompt helpers render bounded catalogs and reusable snapshots.
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { resolveEffectiveAgentSkillsLimits } from "../discovery/agent-filter.js";
@@ -16,7 +16,7 @@ import { resolveWorkspaceSkillPromptEntries } from "./workspace-skill-loader.js"
 const skillsLogger = createSubsystemLogger("skills");
 
 type WorkspaceSkillBuildOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   managedSkillsDir?: string;
   bundledSkillsDir?: string;
   entries?: SkillEntry[];
@@ -84,7 +84,7 @@ export function buildSkillSnapshot(
 type ResolveSkillsPromptParams = {
   skillsSnapshot?: SkillSnapshot;
   entries?: SkillEntry[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir: string;
   agentId?: string;
   eligibility?: SkillEligibilityContext;

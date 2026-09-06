@@ -10,7 +10,7 @@ import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../../infr
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
 import { onSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -470,7 +470,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
         env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
         path: path.join(paths.stateDir, "agents", "main", "agent", "openclaw-agent.sqlite"),
       });
-      const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database.db);
+      const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database.db);
       const removedRoute = executeSqliteQueryTakeFirstSync(
         database.db,
         db
@@ -1222,7 +1222,7 @@ describe("sqlite session normalization", () => {
       env,
       path: paths.sqlitePath,
     });
-    const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database.db);
+    const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database.db);
     const session = executeSqliteQueryTakeFirstSync(
       database.db,
       db
@@ -1513,7 +1513,7 @@ describe("sqlite session normalization", () => {
       env,
       path: paths.sqlitePath,
     });
-    const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database.db);
+    const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database.db);
     const route = executeSqliteQueryTakeFirstSync(
       database.db,
       db
@@ -2319,7 +2319,7 @@ describe("sqlite session normalization", () => {
       env,
       path: paths.sqlitePath,
     });
-    const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database.db);
+    const db = getNodeSqliteKysely<GrantedAgentKyselyDatabase>(database.db);
     const row = executeSqliteQueryTakeFirstSync(
       database.db,
       db

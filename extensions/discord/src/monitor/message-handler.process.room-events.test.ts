@@ -294,7 +294,7 @@ describe("processDiscordMessage session routing and room events", () => {
 
   it("prefers bound session keys and sets MessageThreadId for bound thread messages", async () => {
     const threadBindings = createThreadBindingManager({
-      cfg: {} as import("openclaw/plugin-sdk/config-contracts").OpenClawConfig,
+      cfg: {} as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
       accountId: "default",
       persist: false,
       enableSweeper: false,

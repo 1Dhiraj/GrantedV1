@@ -17,7 +17,7 @@ const GRANTED_PACKAGE_ENTRY_PATHS = new Set([
   path.join("src", "entry.ts"),
 ]);
 
-export type OpenClawCliInvocation = Readonly<{
+export type GrantedCliInvocation = Readonly<{
   command: string;
   args: string[];
   cwd: string;
@@ -79,7 +79,7 @@ export function resolveCurrentOpenClawCliInvocation(
     execPath?: string;
     moduleUrl?: string;
   } = {},
-): OpenClawCliInvocation {
+): GrantedCliInvocation {
   const execPath = options.execPath ?? process.execPath;
   const entry = (options.argv1 ?? process.argv[1])?.trim();
   const cwd = options.cwd ?? tryProcessCwd();

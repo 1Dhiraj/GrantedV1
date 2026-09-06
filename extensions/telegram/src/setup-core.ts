@@ -7,7 +7,7 @@ import {
   splitSetupEntries,
   createSetupTranslator,
   type ChannelSetupAdapter,
-  type OpenClawConfig,
+  type GrantedConfig,
   type WizardPrompter,
 } from "openclaw/plugin-sdk/setup-runtime";
 import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
@@ -58,7 +58,7 @@ export function parseTelegramAllowFromId(raw: string): string | null {
 }
 
 export async function promptTelegramAllowFromForAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
 }) {

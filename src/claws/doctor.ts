@@ -3,23 +3,23 @@ import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
 import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-core";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveDefaultCronStaggerMs } from "../cron/stagger.js";
 import type { CronJob } from "../cron/types.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { isExperimentalClawsEnabled } from "./experimental.js";
 import { readClawStatus, type ClawStatusRecord } from "./lifecycle-state.js";
 
 const CLAW_STATE_CHECK_ID = "core/doctor/claws-state";
 
-type ClawDoctorOptions = OpenClawStateDatabaseOptions & {
-  cfg?: OpenClawConfig;
+type ClawDoctorOptions = GrantedStateDatabaseOptions & {
+  cfg?: GrantedConfig;
   sourceMcpServers?: Record<string, Record<string, unknown>>;
   listMcpServers?: typeof listConfiguredMcpServers;
   cronGateway?: {
@@ -273,7 +273,7 @@ function tableExists(db: DatabaseSync, name: string): boolean {
   );
 }
 
-function orphanedAgentIds(options: OpenClawStateDatabaseOptions): string[] {
+function orphanedAgentIds(options: GrantedStateDatabaseOptions): string[] {
   const { db } = openOpenClawStateDatabase(options);
   const installed = new Set<string>();
   if (tableExists(db, "claw_installs")) {
@@ -333,7 +333,7 @@ export async function collectClawStateHealthFindings(
   if (!isExperimentalClawsEnabled(options.env ?? process.env)) {
     return [];
   }
-  let database: OpenClawStateDatabase | undefined;
+  let database: GrantedStateDatabase | undefined;
   try {
     database = await openExistingOpenClawStateDatabaseReadOnly(options);
     if (!database) {

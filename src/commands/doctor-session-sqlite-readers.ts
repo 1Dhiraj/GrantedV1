@@ -21,7 +21,7 @@ import {
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import type { SessionStoreTarget as ResolvedSessionStoreTarget } from "../config/sessions/targets.js";
 import { resolveAllAgentSessionStoreCandidateTargetsSync } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
 import { tableExists, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
@@ -537,7 +537,7 @@ export function projectExistingAgentDatabaseTargets(
 }
 
 export function listExistingAgentDatabaseTargets(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): ExistingAgentDatabaseTarget[] {
   return projectExistingAgentDatabaseTargets(

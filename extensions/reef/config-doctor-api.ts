@@ -1,5 +1,5 @@
 import type { ChannelDoctorLegacyConfigRule } from "openclaw/plugin-sdk/channel-contract";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { defineStrayPluginEntryConfigMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { ReefChannelConfigSchema } from "./src/config-schema.js";
@@ -27,8 +27,8 @@ export const legacyConfigRules: ChannelDoctorLegacyConfigRule[] = [
   reefStrayEntryConfigMigration.legacyConfigRule,
 ];
 
-export function normalizeCompatibilityConfig({ cfg }: { cfg: OpenClawConfig }): {
-  config: OpenClawConfig;
+export function normalizeCompatibilityConfig({ cfg }: { cfg: GrantedConfig }): {
+  config: GrantedConfig;
   changes: string[];
 } {
   const reef = cfg.channels?.reef;

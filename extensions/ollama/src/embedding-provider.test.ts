@@ -1,6 +1,6 @@
 import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 // Ollama tests cover embedding provider plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createStreamingResponse } from "../../test-support/streaming-error-response.js";
 
@@ -50,15 +50,15 @@ type MemoryEmbeddingOptions = Parameters<typeof ollamaMemoryEmbeddingProviderAda
 function createProviderConfig(
   provider: Record<string, unknown>,
   providerId = "ollama",
-): OpenClawConfig {
-  return { models: { providers: { [providerId]: provider } } } as unknown as OpenClawConfig;
+): GrantedConfig {
+  return { models: { providers: { [providerId]: provider } } } as unknown as GrantedConfig;
 }
 
 function embeddingOptions<T extends EmbeddingProviderOptions | MemoryEmbeddingOptions>(
   overrides: Partial<T> = {},
 ): T {
   return {
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
     provider: "ollama",
     model: "nomic-embed-text",
     fallback: "none",

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
 import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
 import { createOpenAIQuicksilverBrowserSessionBroker } from "./realtime-quicksilver-session.js";
@@ -10,7 +10,7 @@ const OPENAI_QUICKSILVER_SESSION_OWNER_KEY = Symbol.for(
 type BrokerSession = ReturnType<typeof createOpenAIQuicksilverBrowserSessionBroker>;
 
 type BrokerParams = {
-  getConfig: () => OpenClawConfig | undefined;
+  getConfig: () => GrantedConfig | undefined;
   logger: Pick<PluginLogger, "debug" | "warn">;
 };
 

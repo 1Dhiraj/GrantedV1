@@ -3,7 +3,7 @@
  */
 import http from "node:http";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   getGatewayTestPort,
   installGatewayTestHooks,
@@ -90,7 +90,7 @@ async function requestHealthz(port: number): Promise<{ status: number; body: str
   });
 }
 
-async function writeConfig(config: OpenClawConfig): Promise<void> {
+async function writeConfig(config: GrantedConfig): Promise<void> {
   const { writeConfigFile } = await import("../config/config.js");
   await writeConfigFile(config);
 }
@@ -123,7 +123,7 @@ describe("gateway startup web fetch config", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     port = await getGatewayTestPort();
     server = await startTestGatewayServer(port, {

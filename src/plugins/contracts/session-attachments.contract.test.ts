@@ -17,7 +17,7 @@ import { createPluginRegistry } from "../registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../runtime.js";
 import type { PluginRuntime } from "../runtime/types.js";
 import { createPluginRecord } from "../status.test-helpers.js";
-import type { OpenClawPluginApi } from "../types.js";
+import type { GrantedPluginApi } from "../types.js";
 
 const workflowMocks = vi.hoisted(() => ({
   getChannelPlugin: vi.fn(),
@@ -138,7 +138,7 @@ describe("plugin session attachments", () => {
     workflowMocks.sendMessage.mockReset();
     resetPluginRuntimeStateForTest();
     clearPluginLoaderCache();
-    delete (globalThis as { proofAttachmentApi?: OpenClawPluginApi }).proofAttachmentApi;
+    delete (globalThis as { proofAttachmentApi?: GrantedPluginApi }).proofAttachmentApi;
     delete (globalThis as { proofAttachmentLog?: unknown[] }).proofAttachmentLog;
   });
 
@@ -493,7 +493,7 @@ describe("plugin session attachments", () => {
           },
         } as unknown as PluginRuntime,
       });
-      let capturedApi: OpenClawPluginApi | undefined;
+      let capturedApi: GrantedPluginApi | undefined;
       registerTestPlugin({
         registry,
         config: registrationConfig,
@@ -560,7 +560,7 @@ describe("plugin session attachments", () => {
           },
         } as unknown as PluginRuntime,
       });
-      let capturedApi: OpenClawPluginApi | undefined;
+      let capturedApi: GrantedPluginApi | undefined;
       registerTestPlugin({
         registry,
         config: registrationConfig,

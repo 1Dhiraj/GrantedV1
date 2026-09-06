@@ -2,11 +2,11 @@ import { html, nothing, type TemplateResult } from "lit";
 import { property } from "lit/decorators.js";
 import { beginNativeWindowDrag } from "../app/native-window-drag.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { icons } from "./icons.ts";
 import "./tooltip.ts";
 
-class MacosTitlebarControls extends OpenClawLightDomContentsElement {
+class MacosTitlebarControls extends GrantedLightDomContentsElement {
   @property({ attribute: false }) navCollapsed = false;
   @property({ attribute: false }) historyOnly = false;
   @property({ attribute: false }) canGoBack = false;

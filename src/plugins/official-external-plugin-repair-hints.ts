@@ -1,5 +1,5 @@
 /** Builds doctor/install repair hints for missing official external plugin owners. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveConfiguredChannelPresencePolicy } from "./channel-plugin-ids.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 import {
@@ -55,8 +55,8 @@ export function resolveOfficialExternalPluginRepairHint(
 }
 
 type MissingOfficialExternalChannelPluginRepairHintParams = {
-  config: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   /** Prepared manifest facts avoid rebuilding the registry for this resolution. */

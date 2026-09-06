@@ -4,7 +4,7 @@
 import crypto from "node:crypto";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { filterStringRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { BundleMcpConfig, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import { createLazyRuntimeMethod } from "../shared/lazy-runtime.js";
 import {
@@ -17,7 +17,7 @@ import { resolveMcpOAuthAccessToken, type McpOAuthConfig } from "./mcp-oauth.js"
 import { resolveMcpTransportConfig } from "./mcp-transport-config.js";
 
 type McpAuthProfileOptions = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 };
 
@@ -49,7 +49,7 @@ const resolveMcpAuthProfileBearerToken = createLazyRuntimeMethod(
 async function resolveMcpBearerToken(params: {
   serverName: string;
   server: BundleMcpServerConfig;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
 }): Promise<string | undefined> {
   const authProfileId = resolveMcpAuthProfileId(params.server);

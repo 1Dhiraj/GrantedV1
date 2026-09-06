@@ -29,7 +29,7 @@ import {
 import { resolveEffectiveAgentRuntime } from "../../agents/thinking-runtime.js";
 import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { assertAgentRunLifecycleGenerationCurrent } from "../../infra/agent-events.js";
 import { claimAgentRunContext } from "../../infra/agent-run-registry.js";
 import type { InputProvenance } from "../../sessions/input-provenance.js";
@@ -95,8 +95,8 @@ export type PreparedAgentRunDispatch = {
 export async function prepareAgentRunDispatch(params: {
   promptedAt: number;
   request: AgentRunRequest;
-  cfg: OpenClawConfig;
-  cfgForAgent?: OpenClawConfig;
+  cfg: GrantedConfig;
+  cfgForAgent?: GrantedConfig;
   sessionEntry?: SessionEntry;
   resolvedSessionKey?: string;
   requestedSessionKeyRaw?: string;

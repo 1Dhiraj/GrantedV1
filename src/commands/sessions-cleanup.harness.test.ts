@@ -7,7 +7,7 @@ import {
   loadSessionEntry,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createPluginStateSyncKeyedStore } from "../plugin-state/plugin-state-store.js";
 import * as pluginModuleRuntime from "../plugins/loader-module-runtime.js";
 import {
@@ -118,7 +118,7 @@ describe("offline sessions cleanup harness ownership", () => {
         const { owner, unrelated } = writeCleanupPlugins(bundledRoot);
         vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", undefined);
         vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", bundledRoot);
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           agents: {
             defaults: { model: { primary: "other-provider/other-model" } },
             entries: { main: { default: true, workspace: state.workspaceDir } },

@@ -40,13 +40,13 @@ import {
   sessionNavigationTarget,
 } from "../../lib/sessions/route-navigation.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { buildCronSuggestions, THINKING_SUGGESTIONS } from "./form-suggestions.ts";
 import { resolveCronRouteData } from "./route-model.ts";
 import { renderCron, type CronDetailTab, type CronListTab } from "./view.ts";
 
-class CronPage extends OpenClawLightDomElement {
+class CronPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

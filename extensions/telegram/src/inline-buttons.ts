@@ -1,6 +1,6 @@
 // Telegram plugin module implements inline buttons behavior.
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   TelegramInlineButtonsScope,
 } from "openclaw/plugin-sdk/config-contracts";
 import {
@@ -64,7 +64,7 @@ export function resolveTelegramInlineButtonsScopeFromCapabilities(
 }
 
 export function resolveTelegramInlineButtonsScope(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): TelegramInlineButtonsScope {
   const account = inspectTelegramAccount({ cfg: params.cfg, accountId: params.accountId });
@@ -72,7 +72,7 @@ export function resolveTelegramInlineButtonsScope(params: {
 }
 
 export function isTelegramInlineButtonsEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): boolean {
   if (params.accountId) {

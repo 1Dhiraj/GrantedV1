@@ -5,7 +5,7 @@
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { ThinkLevel } from "../auto-reply/thinking.shared.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveAgentWorkspaceDir } from "./agent-scope.js";
 import type { PreparedSessionPermissionPolicy } from "./tool-fs-policy.types.js";
@@ -66,7 +66,7 @@ export function mapToolContextToSpawnedRunMetadata(
 
 /** Resolve which workspace a spawned run should inherit. */
 export function resolveSpawnedWorkspaceInheritance(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   targetAgentId?: string;
   requesterSessionKey?: string;
   explicitWorkspaceDir?: string | null;

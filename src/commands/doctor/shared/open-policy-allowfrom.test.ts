@@ -1,7 +1,7 @@
 // Open policy allow-from tests cover doctor handling of open allowlist policy.
 import { describe, expect, it } from "vitest";
 import type { GoogleChatConfig } from "../../../config/types.googlechat.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { GoogleChatConfigSchema } from "../../../config/zod-schema.providers-googlechat.js";
 import {
   collectOpenPolicyAllowFromWarnings,
@@ -121,7 +121,7 @@ describe("doctor open-policy allowFrom repair", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig);
+    } as unknown as GrantedConfig);
 
     expect(result.changes).toEqual([
       '- channels.discord.dmPolicy: set to "open" (migrated from channels.discord.dm.policy)',
@@ -189,7 +189,7 @@ describe("doctor open-policy allowFrom repair", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     const first = maybeRepairOpenPolicyAllowFrom(config);
     const second = maybeRepairOpenPolicyAllowFrom(first.config);

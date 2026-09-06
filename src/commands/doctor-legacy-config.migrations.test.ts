@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import {
   createPluginMetadataSnapshot,
   makeRegistry,
@@ -27,7 +27,7 @@ vi.mock("../plugins/setup-registry.js", () => ({
     autoEnableProbes: [],
     diagnostics: [],
   }),
-  runPluginSetupConfigMigrations: ({ config }: { config: OpenClawConfig }) => ({
+  runPluginSetupConfigMigrations: ({ config }: { config: GrantedConfig }) => ({
     config,
     changes: [],
   }),
@@ -68,12 +68,12 @@ vi.mock("../plugins/manifest-registry.js", () => {
   };
 });
 
-function legacyConfig(value: unknown): OpenClawConfig {
-  return value as OpenClawConfig;
+function legacyConfig(value: unknown): GrantedConfig {
+  return value as GrantedConfig;
 }
 
 vi.mock("./doctor/shared/channel-legacy-config-migrate.js", () => ({
-  applyChannelDoctorCompatibilityMigrations: (cfg: OpenClawConfig) => ({
+  applyChannelDoctorCompatibilityMigrations: (cfg: GrantedConfig) => ({
     next: cfg,
     changes: [],
   }),
@@ -95,7 +95,7 @@ vi.mock("../secrets/target-registry.js", async () => {
   };
 
   return {
-    discoverConfigSecretTargets: (cfg: OpenClawConfig) => {
+    discoverConfigSecretTargets: (cfg: GrantedConfig) => {
       const targets: Array<{
         entry: typeof entry;
         path: string;
@@ -187,12 +187,12 @@ describe("normalizeCompatibilityConfigValues", () => {
   it("drops reserved MCP server names without touching sibling servers", () => {
     const raw = JSON.parse(
       '{"mcp":{"servers":{"__proto__":{"command":"bad"},"docs":{"command":"docs"}}},"nodeHost":{"mcp":{"servers":{"__proto__":{"command":"bad-node"},"local":{"command":"local"}}}}}',
-    ) as OpenClawConfig;
+    ) as GrantedConfig;
 
     const normalized = {
       mcp: { servers: { docs: { command: "docs" } } },
       nodeHost: { mcp: { servers: { local: { command: "local" } } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const migrated = normalizeCompatibilityConfigValues(normalized, { sourceRaw: raw });
 
     expect(migrated.config.mcp?.servers).toStrictEqual({ docs: { command: "docs" } });
@@ -564,7 +564,7 @@ describe("normalizeCompatibilityConfigValues", () => {
           plugin: {
             ...createChannelTestPluginBase({ id: "undeclared-demo", label: "Undeclared Demo" }),
             setup: {
-              applyAccountConfig: ({ cfg }: { cfg: OpenClawConfig }) => cfg,
+              applyAccountConfig: ({ cfg }: { cfg: GrantedConfig }) => cfg,
             },
           },
         },
@@ -604,7 +604,7 @@ describe("normalizeCompatibilityConfigValues", () => {
           plugin: {
             ...createChannelTestPluginBase({ id: "late-demo", label: "Late Demo" }),
             setup: {
-              applyAccountConfig: ({ cfg }: { cfg: OpenClawConfig }) => cfg,
+              applyAccountConfig: ({ cfg }: { cfg: GrantedConfig }) => cfg,
               singleAccountKeysToMove: ["customAuth"],
             },
           },
@@ -942,7 +942,7 @@ describe("normalizeCompatibilityConfigValues", () => {
             },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         pluginProviderIds: new Set(["plugin-provider"]),
         persistedProviderIdsByAgentId: new Map(),
@@ -986,7 +986,7 @@ describe("normalizeCompatibilityConfigValues", () => {
             { id: "core", model: "anthropic/claude-sonnet-4-6" },
           ],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         pluginProviderIds: new Set(["anthropic", "my-cli"]),
         persistedProviderIdsByAgentId: new Map([["worker", new Set(["agent-local"])]]),
@@ -1006,7 +1006,7 @@ describe("normalizeCompatibilityConfigValues", () => {
           model: "my-cli/model",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const baseSnapshot = createPluginMetadataSnapshot({
       config,
       manifestRegistry: makeRegistry([
@@ -1046,7 +1046,7 @@ describe("normalizeCompatibilityConfigValues", () => {
             model: { primary: "mistral/mistral-large-latest" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         pluginProviderIds: new Set(),
         persistedProviderIdsByAgentId: new Map(),
@@ -1066,7 +1066,7 @@ describe("normalizeCompatibilityConfigValues", () => {
           defaults: { model: "agent-local/model" },
           list: [{ id: "main" }, { id: "worker" }],
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         pluginProviderIds: new Set(),
         persistedProviderIdsByAgentId: new Map([
@@ -1092,7 +1092,7 @@ describe("normalizeCompatibilityConfigValues", () => {
             worker: { model: "deleted/worker" },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       {
         pluginProviderIds: new Set(),
         persistedProviderIdsByAgentId: new Map([
@@ -1118,7 +1118,7 @@ describe("normalizeCompatibilityConfigValues", () => {
             models: { "deleted/main": {} },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       { pluginProviderIds: new Set(), persistedProviderIdsByAgentId: new Map() },
     );
 
@@ -1431,7 +1431,7 @@ describe("normalizeCompatibilityConfigValues", () => {
     for (const migration of LEGACY_CONFIG_MIGRATIONS) {
       migration.apply(migrated, migrationChanges);
     }
-    const normalized = normalizeCompatibilityConfigValues(migrated as OpenClawConfig);
+    const normalized = normalizeCompatibilityConfigValues(migrated as GrantedConfig);
     const repaired = maybeRepairCodexRoutes({ cfg: normalized.config, shouldRepair: true });
 
     expect(repaired.cfg.agents?.defaults?.model).toEqual({
@@ -2188,7 +2188,7 @@ describe("normalizeCompatibilityConfigValues", () => {
           },
         },
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
 
     expect(res.config.plugins?.entries?.firecrawl).toEqual({
       enabled: true,

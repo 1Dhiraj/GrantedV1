@@ -2,7 +2,7 @@
  * Shared config normalization for Codex native web search.
  */
 import { normalizeUniqueTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isRecord } from "../utils.js";
 
 /** Whether native Codex search may use cached or live external web access. */
@@ -60,7 +60,7 @@ function normalizeUserLocation(value: unknown): CodexNativeSearchUserLocation | 
 
 /** Resolve Codex native web-search config from OpenClaw tool settings. */
 export function resolveCodexNativeWebSearchConfig(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): ResolvedCodexNativeWebSearchConfig {
   const nativeConfig = config?.tools?.web?.search?.openaiCodex;
   return {
@@ -74,7 +74,7 @@ export function resolveCodexNativeWebSearchConfig(
 
 /** Return concise prompt/status text for enabled Codex native search. */
 export function describeCodexNativeWebSearch(
-  config: OpenClawConfig | undefined,
+  config: GrantedConfig | undefined,
 ): string | undefined {
   if (config?.tools?.web?.search?.enabled === false) {
     return undefined;

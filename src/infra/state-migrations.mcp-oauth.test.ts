@@ -8,7 +8,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { operatorMcpOAuthIdentity } from "../agents/mcp-oauth-identity.js";
 import { createMcpOAuthClientProvider } from "../agents/mcp-oauth-provider.js";
 import { clearMcpOAuthCredentials, resolveMcpOAuthAccessToken } from "../agents/mcp-oauth.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -24,10 +24,7 @@ import {
   migrateLegacyMcpOAuthStores,
 } from "./state-migrations.mcp-oauth.js";
 
-type MigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
-  "mcp_oauth_stores" | "migration_sources"
->;
+type MigrationDatabase = Pick<GrantedStateKyselyDatabase, "mcp_oauth_stores" | "migration_sources">;
 
 const DEFAULT_FILE_NAME = "server-0123456789abcdef.json";
 

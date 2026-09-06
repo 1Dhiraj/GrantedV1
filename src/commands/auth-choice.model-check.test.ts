@@ -1,7 +1,7 @@
 // Auth-choice model check tests cover warnings for mismatched model and auth config.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AuthProfileStore } from "../agents/auth-profiles.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveDefaultModelAuthStatus,
   warnIfModelConfigLooksOff,
@@ -65,7 +65,7 @@ describe("warnIfModelConfigLooksOff", () => {
           model: "openai/gpt-5.5",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter, { env: {}, validateCatalog: false });
 
@@ -88,7 +88,7 @@ describe("warnIfModelConfigLooksOff", () => {
   it("reports missing auth for generic providers without credential evidence", () => {
     const config = {
       agents: { defaults: { model: "anthropic/claude-sonnet-4-6" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveDefaultModelAuthStatus(config, { env: {} })).toMatchObject({
       provider: "anthropic",
@@ -100,7 +100,7 @@ describe("warnIfModelConfigLooksOff", () => {
   it("accepts pending auth profiles collected by the current setup transaction", async () => {
     const config = {
       agents: { defaults: { model: "anthropic/claude-sonnet-4-6" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const pendingAuthProfiles = [
       {
         profileId: "anthropic:default",
@@ -129,7 +129,7 @@ describe("warnIfModelConfigLooksOff", () => {
   it("does not use pending auth profiles from a different provider", async () => {
     const config = {
       agents: { defaults: { model: "anthropic/claude-sonnet-4-6" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const note = vi.fn(async () => {});
 
     await warnIfModelConfigLooksOff(config, makePrompter({ note }), {
@@ -177,7 +177,7 @@ describe("warnIfModelConfigLooksOff", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter, { validateCatalog: false });
 
@@ -216,7 +216,7 @@ describe("warnIfModelConfigLooksOff", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter, { validateCatalog: false });
 
@@ -235,7 +235,7 @@ describe("warnIfModelConfigLooksOff", () => {
           model: "openai/gpt-5.5",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter);
 
@@ -258,7 +258,7 @@ describe("warnIfModelConfigLooksOff", () => {
           },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter, {
       agentId: "worker",
@@ -279,7 +279,7 @@ describe("warnIfModelConfigLooksOff", () => {
   it("accepts subscription auth but not key sources for gpt-5.3-codex-spark", async () => {
     const config = {
       agents: { defaults: { model: "openai/gpt-5.3-codex-spark" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(
       resolveDefaultModelAuthStatus(config, { env: { OPENAI_API_KEY: "api-key" } }),
     ).toMatchObject({
@@ -338,7 +338,7 @@ describe("warnIfModelConfigLooksOff", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveDefaultModelAuthStatus(config)).toMatchObject({
       status: "incompatible",
@@ -383,7 +383,7 @@ describe("warnIfModelConfigLooksOff", () => {
     ]);
     const config = {
       agents: { defaults: { model: "openai/gpt-5.4-nano" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, prompter);
 
@@ -403,7 +403,7 @@ describe("warnIfModelConfigLooksOff", () => {
     ]);
     const config = {
       agents: { defaults: { model: "openai/gpt-5.4-codex" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, makePrompter({ note }), {
       env: { OPENAI_API_KEY: "api-key" },
@@ -445,7 +445,7 @@ describe("warnIfModelConfigLooksOff", () => {
     const note = vi.fn(async () => {});
     const config = {
       agents: { defaults: { model: "openai/gpt-5.4-nano" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     await warnIfModelConfigLooksOff(config, makePrompter({ note }));
 
@@ -457,7 +457,7 @@ describe("warnIfModelConfigLooksOff", () => {
     const prompter = makePrompter({ note });
     const config = {
       agents: { defaults: { model: "openai/gpt-5.4-nano" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveDefaultModelAuthStatus(config)).toMatchObject({
       status: "indeterminate",
@@ -475,7 +475,7 @@ describe("warnIfModelConfigLooksOff", () => {
     openAIRouteMocks.override = () => null;
     const config = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     expect(resolveDefaultModelAuthStatus(config)).toMatchObject({
       status: "indeterminate",

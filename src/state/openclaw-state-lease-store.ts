@@ -6,12 +6,12 @@ import {
 } from "../infra/kysely-sync.js";
 import type { DB } from "./openclaw-state-db.generated.js";
 
-export type OpenClawStateLeaseIdentity = { scope: string; key: string; owner: string };
+export type GrantedStateLeaseIdentity = { scope: string; key: string; owner: string };
 type LeaseDatabase = Pick<DB, "state_leases">;
 
 export function readOpenClawStateLeaseExpiry(
   db: DatabaseSync,
-  identity: OpenClawStateLeaseIdentity,
+  identity: GrantedStateLeaseIdentity,
 ): number | undefined {
   return executeSqliteQueryTakeFirstSync(
     db,
@@ -29,7 +29,7 @@ export function readOpenClawStateLeaseExpiry(
 /** The caller owns the write transaction; expired or replaced owners cannot renew. */
 export function renewOpenClawStateLeaseInTransaction(
   db: DatabaseSync,
-  identity: OpenClawStateLeaseIdentity,
+  identity: GrantedStateLeaseIdentity,
   leaseMs: number,
 ): number | undefined {
   const now = Date.now();

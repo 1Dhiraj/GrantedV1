@@ -3,7 +3,7 @@ import path from "node:path";
 import type { Insertable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -41,11 +41,11 @@ export async function withTempState<T>(fn: (stateDir: string) => Promise<T>): Pr
 
 export function seedPendingBacklog(stateDir: string, total: number): void {
   const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
-  const kysely = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "channel_ingress_events">>(
+  const kysely = getNodeSqliteKysely<Pick<GrantedStateKyselyDatabase, "channel_ingress_events">>(
     database.db,
   );
   for (let offset = 0; offset < total; offset += 500) {
-    const rows: Array<Insertable<OpenClawStateKyselyDatabase["channel_ingress_events"]>> = [];
+    const rows: Array<Insertable<GrantedStateKyselyDatabase["channel_ingress_events"]>> = [];
     const end = Math.min(offset + 500, total);
     for (let index = offset; index < end; index += 1) {
       rows.push({

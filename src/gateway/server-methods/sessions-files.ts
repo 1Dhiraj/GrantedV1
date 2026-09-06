@@ -21,7 +21,7 @@ import {
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { resolveToCwd as resolveSessionToolPathToCwd } from "../../agents/sessions/tools/path-utils.js";
 import { insideGitCheckout } from "../../agents/worktrees/git.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { FsSafeError } from "../../infra/fs-safe.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import { isPathInside } from "../../infra/path-guards.js";
@@ -860,7 +860,7 @@ function respondSessionFileUnsafe(respond: RespondFn, filePath: string) {
 }
 
 function requireSessionFilesAgentId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   agentId?: string;
   respond: RespondFn;

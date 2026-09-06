@@ -64,7 +64,7 @@ async function loadAuthoredSetupConfig(params: {
   configExists: boolean;
   configValid: boolean;
 }): Promise<{
-  authoredConfig?: import("../config/types.openclaw.js").OpenClawConfig;
+  authoredConfig?: import("../config/types.openclaw.js").GrantedConfig;
   hasAuthoredSetup: boolean;
 }> {
   const authoredConfig = await (async () => {

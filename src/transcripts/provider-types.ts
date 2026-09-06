@@ -1,6 +1,6 @@
 // Transcript provider contracts for external and manual transcript sources.
 import type { Result } from "@openclaw/normalization-core/result";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /**
  * Public contracts for transcript source providers.
@@ -58,7 +58,7 @@ export type TranscriptSessionDescriptor = {
 
 /** Request passed to providers that can start live transcript capture. */
 export type TranscriptStartRequest = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   session: TranscriptSessionDescriptor;
   abortSignal?: AbortSignal;
   startupWaitMs?: number;
@@ -90,7 +90,7 @@ export type TranscriptsStartResult =
 
 /** Request passed to providers that can stop live transcript capture. */
 export type TranscriptStopRequest = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   sessionId: string;
   source: TranscriptSourceLocator;
   reason?: string;
@@ -118,7 +118,7 @@ export type TranscriptSourceStatus = {
 
 /** Request passed to providers that import post-hoc transcript text. */
 export type TranscriptImportRequest = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   session: TranscriptSessionDescriptor;
   text: string;
   speakerLabel?: string;
@@ -147,14 +147,14 @@ export type TranscriptSourceAccessControl = {
   channelId: string;
   /** Resolve and validate the canonical account before persistence. */
   resolveAccountId: (params: {
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     source: TranscriptSourceLocator;
   }) => Result<string | undefined, string>;
   /** Apply the provider's native access policy to the resolved source. */
   authorize: (params: {
     action: TranscriptToolAction;
     caller: TranscriptToolCaller;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     source: TranscriptSourceLocator;
   }) => Promise<Result<void, string>>;
 };
@@ -171,7 +171,7 @@ export type TranscriptSourceProvider = {
   stop?: (request: TranscriptStopRequest) => Promise<TranscriptsStopResult>;
   status?: (
     source: TranscriptSourceLocator,
-    cfg?: OpenClawConfig,
+    cfg?: GrantedConfig,
   ) => Promise<TranscriptSourceStatus[]>;
   importTranscript?: (request: TranscriptImportRequest) => Promise<TranscriptUtterance[]>;
 };

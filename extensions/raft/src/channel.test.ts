@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { raftPlugin } from "./channel.js";
 
@@ -49,7 +49,7 @@ describe("Raft channel plugin", () => {
             profile: "test-profile",
           },
         },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       const account = raftPlugin.config.resolveAccount(cfg, "default");
 
       const result = await raftPlugin.status!.probeAccount!({

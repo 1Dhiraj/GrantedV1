@@ -2,11 +2,11 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { guardModelFixtureAuth, guardModelFixtureWorkspace } from "./model.fixture.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let auth: ReturnType<typeof guardModelFixtureAuth>;
 let workspace: ReturnType<typeof guardModelFixtureWorkspace>;
 beforeEach(async () => {

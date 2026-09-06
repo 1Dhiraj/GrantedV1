@@ -28,7 +28,7 @@ import {
   GatewayPageController,
   type GatewayPageChange,
 } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { fetchPluginIconBlobUrl } from "./icon-loader.ts";
 import { confirmPluginUninstall } from "./plugin-lifecycle-confirmation.ts";
 import { PluginsConsentController } from "./plugins-consent-controller.ts";
@@ -69,7 +69,7 @@ function withPlugin(
   return { ...current, plugins };
 }
 
-class PluginsPage extends OpenClawLightDomElement {
+class PluginsPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

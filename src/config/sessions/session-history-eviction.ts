@@ -11,8 +11,8 @@ import {
   isIncognitoOpenClawAgentSqlitePath,
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db.js";
 import {
   hasRetainedSessionTranscriptArchives,
@@ -116,7 +116,7 @@ export async function inspectSqliteSessionHistoryDiskBudget(
 }
 
 function collectProtectedHistoricalSessionIds(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   storePath: string;
 }): Set<string> {
   const protectedSessionIds = readReferencedSessionIds(params.database);
@@ -127,7 +127,7 @@ function collectProtectedHistoricalSessionIds(params: {
 }
 
 function collectRecentSessionHistoryIds(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   preserveRecentMs?: number | null;
 }): Set<string> {
   if (params.preserveRecentMs == null) {
@@ -163,7 +163,7 @@ function collectRecentSessionHistoryIds(params: {
 }
 
 function isRecentHistoricalSessionId(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   preserveRecentMs?: number | null;
   sessionId: string;
 }): boolean {
@@ -199,7 +199,7 @@ function isRecentHistoricalSessionId(params: {
 }
 
 function collectCandidateProtectedHistoricalSessionIds(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   preserveRecentMs?: number | null;
   sessionId: string;
   storePath: string;
@@ -213,7 +213,7 @@ function collectCandidateProtectedHistoricalSessionIds(params: {
 
 /** Session ids owned by in-flight work admissions, without live-reference protection. */
 export function collectAdmissionProtectedSessionIds(params: {
-  database: OpenClawAgentDatabase;
+  database: GrantedAgentDatabase;
   storePath: string;
 }): Set<string> {
   const protectedSessionIds = new Set<string>();
@@ -264,7 +264,7 @@ export function collectAdmissionProtectedSessionIds(params: {
 }
 
 function readHistoricalSessionIds(params: {
-  databaseOptions: OpenClawAgentDatabaseOptions;
+  databaseOptions: GrantedAgentDatabaseOptions;
   preserveRecentMs?: number | null;
   storePath: string;
 }): string[] {
@@ -286,7 +286,7 @@ function readHistoricalSessionIds(params: {
   ).rows.flatMap((row) => (protectedSessionIds.has(row.session_id) ? [] : [row.session_id]));
 }
 
-function reclaimSqliteFreePages(databaseOptions: OpenClawAgentDatabaseOptions): void {
+function reclaimSqliteFreePages(databaseOptions: GrantedAgentDatabaseOptions): void {
   // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
   // Committed row deletion first lands in the WAL. TRUNCATE makes that shrink immediately;
@@ -303,7 +303,7 @@ function reclaimSqliteFreePages(databaseOptions: OpenClawAgentDatabaseOptions): 
 }
 
 function hasCanonicalSessionTranscriptArchives(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
 ): boolean {
   // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
@@ -332,7 +332,7 @@ function hasCanonicalSessionTranscriptArchives(
 }
 
 function readUnpublishedSessionTranscriptArchiveNames(
-  databaseOptions: OpenClawAgentDatabaseOptions,
+  databaseOptions: GrantedAgentDatabaseOptions,
 ): Set<string> {
   // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
@@ -361,7 +361,7 @@ function readUnpublishedSessionTranscriptArchiveNames(
 
 async function pruneCanonicalSessionTranscriptArchivesToHighWater(params: {
   archiveDirectory: string;
-  databaseOptions: OpenClawAgentDatabaseOptions;
+  databaseOptions: GrantedAgentDatabaseOptions;
   highWaterBytes: number;
   storePath: string;
 }): Promise<{ removedFiles: number; usage: SessionPhysicalDiskUsage }> {
@@ -420,7 +420,7 @@ async function pruneCanonicalSessionTranscriptArchivesToHighWater(params: {
 
 async function pruneAllSessionTranscriptArchivesToHighWater(params: {
   archiveDirectory: string;
-  databaseOptions: OpenClawAgentDatabaseOptions;
+  databaseOptions: GrantedAgentDatabaseOptions;
   highWaterBytes: number;
   storePath: string;
 }): Promise<{ removedFiles: number; usage: SessionPhysicalDiskUsage }> {

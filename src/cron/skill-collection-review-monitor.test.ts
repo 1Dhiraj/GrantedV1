@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSkillCollectionReviewMonitorSpecs } from "./skill-collection-review-monitor.js";
 
 describe("resolveSkillCollectionReviewMonitorSpecs", () => {
@@ -14,7 +14,7 @@ describe("resolveSkillCollectionReviewMonitorSpecs", () => {
         defaults: {},
       },
       skills: { workshop: { autonomous: { mode: "auto" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const specs = resolveSkillCollectionReviewMonitorSpecs(cfg, {
       schedulerSeed: "test-seed",
@@ -48,7 +48,7 @@ describe("resolveSkillCollectionReviewMonitorSpecs", () => {
     const cfg = {
       agents: { list: [{ id: "main", workspace: "/tmp/openclaw-disabled" }] },
       skills: { workshop: { autonomous: { mode: "propose" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const [spec] = resolveSkillCollectionReviewMonitorSpecs(cfg, {
       schedulerSeed: "test-seed",

@@ -12,7 +12,7 @@ import {
   type AuthProfileMigrationSourceReceipt,
 } from "../commands/doctor-auth-migration-receipts.js";
 import type { DoctorPrompter } from "../commands/doctor-prompter.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -20,7 +20,7 @@ import {
 } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import {
   createDoctorHealthFlowContext,
@@ -28,7 +28,7 @@ import {
 } from "./doctor-health-contributions.test-support.js";
 
 vi.mock("../commands/doctor-auth-legacy-oauth.js", () => ({
-  maybeRepairLegacyOAuthProfileIds: vi.fn(async (config: OpenClawConfig) => ({
+  maybeRepairLegacyOAuthProfileIds: vi.fn(async (config: GrantedConfig) => ({
     config,
     retiredProfileCleanupPlans: [],
   })),
@@ -44,7 +44,7 @@ vi.mock("../commands/doctor-auth.js", () => ({
   noteSharedAuthStoreStatus: vi.fn(() => undefined),
 }));
 
-const states: OpenClawTestState[] = [];
+const states: GrantedTestState[] = [];
 const { recordAuthProfileMigrationImported } = (globalThis as Record<PropertyKey, unknown>)[
   Symbol.for("openclaw.authProfileMigrationReceiptsTestApi")
 ] as {
@@ -70,7 +70,7 @@ function makePrompter(shouldRepair: boolean): DoctorPrompter {
   };
 }
 
-function makeLegacyConfig(): OpenClawConfig {
+function makeLegacyConfig(): GrantedConfig {
   return {
     auth: {
       profiles: {
@@ -85,10 +85,10 @@ function makeLegacyConfig(): OpenClawConfig {
       },
       order: { "openai-codex": ["openai-codex:bravo"] },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
-async function makeState(): Promise<OpenClawTestState> {
+async function makeState(): Promise<GrantedTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-auth-import-order-",
@@ -98,7 +98,7 @@ async function makeState(): Promise<OpenClawTestState> {
   return state;
 }
 
-async function writeLegacyRotationState(state: OpenClawTestState): Promise<string> {
+async function writeLegacyRotationState(state: GrantedTestState): Promise<string> {
   return await state.writeText(
     "agents/main/agent/auth-state.json",
     `${JSON.stringify({
@@ -110,7 +110,7 @@ async function writeLegacyRotationState(state: OpenClawTestState): Promise<strin
   );
 }
 
-async function writeLegacyCredentialStore(state: OpenClawTestState): Promise<string> {
+async function writeLegacyCredentialStore(state: GrantedTestState): Promise<string> {
   return await state.writeText(
     "agents/main/agent/auth-profiles.json",
     `${JSON.stringify({
@@ -133,7 +133,7 @@ async function writeLegacyCredentialStore(state: OpenClawTestState): Promise<str
   );
 }
 
-function loadMigratedStore(state: OpenClawTestState) {
+function loadMigratedStore(state: GrantedTestState) {
   return (
     loadPersistedAuthProfileStore(state.agentDir()) ??
     loadPersistedSharedAuthProfileStore(state.env)

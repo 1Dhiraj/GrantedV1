@@ -3,7 +3,7 @@ import type {
   SessionCatalogTranscriptItem,
   SessionsCatalogReadResult,
 } from "../../packages/gateway-protocol/src/schema/sessions-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { AgentMessage } from "../plugin-sdk/agent-core.js";
 import { withSessionTranscriptWriteLock } from "../plugin-sdk/session-transcript-runtime.js";
 
@@ -154,7 +154,7 @@ export async function importSessionCatalogHistory(params: {
   sessionKey: string;
   agentId: string;
   cwd?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<void> {
   const items = await readBoundedSessionCatalogHistory({ read: params.read });
   const fallbackTimestamp = Date.now();

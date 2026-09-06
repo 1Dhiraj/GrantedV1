@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resolveSessionTranscriptsDirForAgent as resolveTestSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import {
@@ -1919,7 +1919,7 @@ describe("memory cli", () => {
         list: [{ id: "main", default: true }],
       },
       plugins: { enabled: false },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     getRuntimeConfig.mockReturnValue(cfg);
     const actualMemory =

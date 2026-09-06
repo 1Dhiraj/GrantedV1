@@ -3,7 +3,7 @@ import {
   resolveSqliteScope,
   toDatabaseOptions,
 } from "../config/sessions/session-accessor.sqlite-scope.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
@@ -13,8 +13,8 @@ import { executeSqliteQuerySync, getNodeSqliteKysely } from "./kysely-sync.js";
 
 const MESSAGE_TOOL_RUN_OUTCOME_MAX_ROWS = 10_000;
 
-type MessageToolRunOutcomeTable = OpenClawAgentKyselyDatabase["message_tool_run_outcomes"];
-type MessageToolRunOutcomeDatabase = Pick<OpenClawAgentKyselyDatabase, "message_tool_run_outcomes">;
+type MessageToolRunOutcomeTable = GrantedAgentKyselyDatabase["message_tool_run_outcomes"];
+type MessageToolRunOutcomeDatabase = Pick<GrantedAgentKyselyDatabase, "message_tool_run_outcomes">;
 type MessageToolRunOutcomeInsert = Insertable<MessageToolRunOutcomeTable>;
 
 /** Records one bounded completion fact for a message-tool-only run. */

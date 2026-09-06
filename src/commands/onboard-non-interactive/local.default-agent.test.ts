@@ -4,7 +4,7 @@ import path from "node:path";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readConfigFileSnapshot, resetConfigRuntimeState } from "../../config/io.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
@@ -27,7 +27,7 @@ vi.mock("../../config/logging.js", () => ({
 
 vi.mock("../onboard-helpers.js", () => ({
   DEFAULT_WORKSPACE: "/tmp/default-workspace",
-  applyWizardMetadata: (config: OpenClawConfig) => config,
+  applyWizardMetadata: (config: GrantedConfig) => config,
   ensureWorkspaceAndSessions: mocks.ensureWorkspaceAndSessions,
   resolveLocalControlUiProbeLinks: vi.fn(),
   waitForGatewayReachable: vi.fn(),
@@ -59,7 +59,7 @@ vi.mock("./local/output.js", () => ({
 }));
 
 vi.mock("./local/skills-config.js", () => ({
-  applyNonInteractiveSkillsConfig: ({ nextConfig }: { nextConfig: OpenClawConfig }) => nextConfig,
+  applyNonInteractiveSkillsConfig: ({ nextConfig }: { nextConfig: GrantedConfig }) => nextConfig,
 }));
 
 import { runNonInteractiveSetup } from "../onboard-non-interactive.js";
@@ -89,10 +89,10 @@ describe("runNonInteractiveLocalSetup default-agent ownership", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.applyAuthChoice.mockImplementation(
-      async ({ nextConfig }: { nextConfig: OpenClawConfig }) => nextConfig,
+      async ({ nextConfig }: { nextConfig: GrantedConfig }) => nextConfig,
     );
     mocks.applyGatewayConfig.mockImplementation(
-      ({ nextConfig }: { nextConfig: OpenClawConfig }) => ({
+      ({ nextConfig }: { nextConfig: GrantedConfig }) => ({
         nextConfig,
         port: 18789,
         bind: "loopback",
@@ -101,10 +101,10 @@ describe("runNonInteractiveLocalSetup default-agent ownership", () => {
       }),
     );
     mocks.commitConfig.mockImplementation(
-      async ({ nextConfig }: { nextConfig: OpenClawConfig }) => nextConfig,
+      async ({ nextConfig }: { nextConfig: GrantedConfig }) => nextConfig,
     );
     mocks.ensureOnboardingAgent.mockImplementation(
-      async ({ config }: { config: OpenClawConfig }) => ({
+      async ({ config }: { config: GrantedConfig }) => ({
         config,
         agentId: "ops",
         bootstrapPending: false,
@@ -217,7 +217,7 @@ describe("runNonInteractiveLocalSetup default-agent ownership", () => {
           expect(snapshot.sourceConfig?.agents?.entries).toEqual({ main: {} });
         }
         mocks.ensureOnboardingAgent.mockImplementationOnce(
-          async ({ config }: { config: OpenClawConfig }) => ({
+          async ({ config }: { config: GrantedConfig }) => ({
             config: {
               ...config,
               agents: {
@@ -332,7 +332,7 @@ describe("runNonInteractiveLocalSetup default-agent ownership", () => {
           expect(before.sourceConfig?.agents?.entries).toEqual({ main: {} });
         }
         let foreignRaw: string | undefined;
-        const writeForeignConfig = async (config: OpenClawConfig) => {
+        const writeForeignConfig = async (config: GrantedConfig) => {
           foreignRaw = JSON.stringify({
             ...config,
             agents: {
@@ -492,7 +492,7 @@ describe("runNonInteractiveLocalSetup default-agent ownership", () => {
         );
         resetConfigRuntimeState();
         mocks.ensureOnboardingAgent.mockImplementationOnce(
-          async ({ config }: { config: OpenClawConfig }) => ({
+          async ({ config }: { config: GrantedConfig }) => ({
             config,
             agentId,
             bootstrapPending: false,

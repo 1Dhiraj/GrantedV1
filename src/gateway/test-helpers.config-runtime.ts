@@ -12,7 +12,7 @@ import type {
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
 import type { AgentBinding } from "../config/types.agents.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.js";
 import { validateConfigObjectWithPlugins } from "../config/validation.js";
 import { writeJsonAtomic } from "../infra/json-files.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
@@ -172,8 +172,8 @@ export function createGatewayConfigOverrides(actual: GatewayConfigRuntime): Gate
       gateway,
       hooks,
       cron,
-    } as OpenClawConfig;
-    return migratePersistedImplicitMainRoster(composed).config as OpenClawConfig;
+    } as GrantedConfig;
+    return migratePersistedImplicitMainRoster(composed).config as GrantedConfig;
   };
 
   const readConfigFileSnapshot = async (): Promise<ConfigFileSnapshot> => {
@@ -306,8 +306,7 @@ export function createGatewayConfigOverrides(actual: GatewayConfigRuntime): Gate
     get isNixMode() {
       return testIsNixMode.value;
     },
-    applyConfigOverrides: (cfg: OpenClawConfig) =>
-      composeTestConfig(cfg as Record<string, unknown>),
+    applyConfigOverrides: (cfg: GrantedConfig) => composeTestConfig(cfg as Record<string, unknown>),
     getRuntimeConfig: loadRuntimeAwareTestConfig,
     parseConfigJson5: (raw: string) => {
       try {

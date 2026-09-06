@@ -5,7 +5,7 @@
  * prompt so callers do not duplicate owner, TTS, alias, memory, or FS policy.
  */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildTtsSystemPromptHint } from "../tts/tts-settings.js";
 import { resolveMainSessionDelegationMode } from "./delegation-guidance.js";
 import { resolveOwnerDisplaySetting } from "./owner-display.js";
@@ -27,11 +27,11 @@ type ResolvedAgentSystemPromptConfig = Pick<
 >;
 
 type ConfiguredAgentSystemPromptParams = AgentSystemPromptRenderParams & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
 };
 
-function buildModelAliasLines(cfg?: OpenClawConfig) {
+function buildModelAliasLines(cfg?: GrantedConfig) {
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(cfg?.agents?.defaults?.models ?? {})) {
     const model = normalizeOptionalString(keyRaw) ?? "";
@@ -47,7 +47,7 @@ function buildModelAliasLines(cfg?: OpenClawConfig) {
 
 /** Resolves all config-derived system prompt fields for an agent. */
 function resolveAgentSystemPromptConfig(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   sourceReplyDeliveryMode?: AgentSystemPromptRenderParams["sourceReplyDeliveryMode"];

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { addSessionMember } from "../../config/sessions/session-sharing-store.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   claimAgentRunDelegatedAuthority,
   getAgentRunContext,
@@ -87,7 +87,7 @@ describe("question gateway methods", () => {
         id: "global-question",
         timeoutMs: 100,
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "guest",
@@ -144,7 +144,7 @@ describe("question gateway methods", () => {
           },
         );
         manager.request({ ...requestParams, id: "foreign-question" });
-        const cfg: OpenClawConfig = {
+        const cfg: GrantedConfig = {
           gateway: {
             roles: {
               default: "guest",
@@ -200,7 +200,7 @@ describe("question gateway methods", () => {
           createdActor: { type: "human", source: "profile", id: owner.id },
         },
       );
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         gateway: {
           roles: {
             default: "guest",

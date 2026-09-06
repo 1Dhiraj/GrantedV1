@@ -11,7 +11,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { SsrFBlockedError, type LookupFn, type SsrFPolicy } from "../../infra/net/ssrf.js";
 import { logDebug, logWarn } from "../../logger.js";
@@ -157,7 +157,7 @@ const WebFetchOutputSchema = Type.Object(
   { additionalProperties: false },
 );
 
-type WebFetchConfig = NonNullable<OpenClawConfig["tools"]>["web"] extends infer Web
+type WebFetchConfig = NonNullable<GrantedConfig["tools"]>["web"] extends infer Web
   ? Web extends { fetch?: infer Fetch }
     ? Fetch
     : undefined
@@ -191,7 +191,7 @@ async function loadWebGuardedFetch(): Promise<
   return (await webGuardedFetchLoader.load()).fetchWithWebToolsNetworkGuard;
 }
 
-function resolveFetchConfig(cfg?: OpenClawConfig): WebFetchConfig {
+function resolveFetchConfig(cfg?: GrantedConfig): WebFetchConfig {
   return resolveWebProviderConfig(cfg, "fetch") as NonNullable<WebFetchConfig> | undefined;
 }
 
@@ -519,7 +519,7 @@ type WebFetchRuntimeParams = {
   userAgent: string;
   headers?: Record<string, string>;
   readabilityEnabled: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   useTrustedEnvProxy: boolean;
   ssrfPolicy?: SsrFPolicy;
   providerCacheKey?: string;
@@ -956,7 +956,7 @@ async function fetchWebPayload(params: WebFetchRuntimeParams): Promise<Record<st
 }
 
 export function createWebFetchTool(options?: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sandboxed?: boolean;
   runtimeWebFetch?: RuntimeWebFetchMetadata;
   lateBindRuntimeConfig?: boolean;

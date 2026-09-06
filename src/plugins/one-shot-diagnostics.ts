@@ -1,5 +1,5 @@
 /** Starts diagnostics exporter plugin services for one-shot CLI embedded agent runs. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { waitForDiagnosticEventsDrained } from "../infra/diagnostic-events.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 
@@ -19,7 +19,7 @@ export type OneShotDiagnosticsHandle = {
   stop: () => Promise<void>;
 };
 
-function suppressOtelStdoutLogSink(config: OpenClawConfig): OpenClawConfig {
+function suppressOtelStdoutLogSink(config: GrantedConfig): GrantedConfig {
   const diagnostics = config.diagnostics;
   const otel = diagnostics?.otel;
   if (otel?.logs !== true || (otel.logsExporter !== "stdout" && otel.logsExporter !== "both")) {
@@ -41,7 +41,7 @@ function suppressOtelStdoutLogSink(config: OpenClawConfig): OpenClawConfig {
   };
 }
 
-function isOtelExportConfigured(config: OpenClawConfig): boolean {
+function isOtelExportConfigured(config: GrantedConfig): boolean {
   // Mirrors the diagnostics-otel service's own start() gate so disabled
   // configs skip plugin loading entirely on the CLI hot path.
   const diagnostics = config.diagnostics;
@@ -86,7 +86,7 @@ async function runBoundedExitStep(
  * queue and shuts the SDK down (force-flush) before the process exits.
  */
 export async function startOneShotDiagnosticsExporters(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   suppressStdoutDiagnosticLogs?: boolean;
 }): Promise<OneShotDiagnosticsHandle | null> {
   const config =

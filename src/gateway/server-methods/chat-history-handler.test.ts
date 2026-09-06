@@ -8,7 +8,7 @@ import {
   updateSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
 import { createDirectChatContext } from "../server-chat.agent-events.test-helpers.js";
 import { chatHistoryHandlers } from "./chat-history-handler.js";
@@ -28,7 +28,7 @@ describe("chat history model selection defaults", () => {
               work: { model: "anthropic/claude-sonnet-4-6" },
             },
           },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         await state.writeConfig(cfg);
         const scope = {
           agentId: "work",
@@ -410,7 +410,7 @@ describe("chat metadata ownership", () => {
   });
 
   it("returns a typed selection error for an ownerless explicit fleet", async () => {
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       agents: {
         ownership: "explicit",
         entries: { ops: {}, research: {} },

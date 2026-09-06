@@ -7,7 +7,7 @@ import {
   openOpenClawAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 
 const cleanupRace = vi.hoisted(() => ({
   afterPreview: undefined as (() => void) | undefined,
@@ -58,7 +58,7 @@ describe("sessions cleanup applied summary", () => {
         const storePath = path.join(state.sessionsDir(), "sessions.json");
         const cfg = {
           session: { maintenance: { mode: "enforce", maxDiskBytes: false, pruneAfter: "1s" } },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
         await state.writeConfig(cfg);
         await fs.mkdir(state.sessionsDir(), { recursive: true });
         const orphan = path.join(state.sessionsDir(), "orphan.jsonl");
@@ -99,7 +99,7 @@ describe("sessions cleanup applied summary", () => {
       const cfg = {
         agents: { ownership: "explicit", entries: { main: {}, beta: {} } },
         session: { store: storePath, maintenance: { mode: "warn", pruneAfter: "1d" } },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       await state.writeConfig(cfg);
       const scopes = ["main", "beta"].map((agentId) => ({
         agentId,

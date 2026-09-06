@@ -9,7 +9,7 @@
  */
 import { resolveAcpSessionCwd } from "@openclaw/acp-core/runtime/session-identifiers";
 import type { SessionAcpMeta } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import {
   isImplicitAcpWorkspaceCandidate,
   resolveAgentWorkspaceProvisioning,
@@ -17,7 +17,7 @@ import {
 } from "./agent-scope-config.js";
 
 export async function resolveAcpAgentWorkspaceProvisioningForTurn(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   /** Workspace directory being provisioned for this turn, when already known. */
   workspaceDir?: string;

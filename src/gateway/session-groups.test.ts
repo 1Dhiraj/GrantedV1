@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionEntry } from "../config/sessions.js";
 import { loadSessionEntry, replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
@@ -28,7 +28,7 @@ import { SessionMutationAuthorizationChangedError } from "./session-mutation-aut
 describe("session groups catalog", () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
-  const cfg = {} as OpenClawConfig;
+  const cfg = {} as GrantedConfig;
 
   beforeEach(async () => {
     const tempRoot = await fs.realpath(os.tmpdir());

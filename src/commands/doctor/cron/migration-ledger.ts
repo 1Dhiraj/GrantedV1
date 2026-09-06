@@ -7,7 +7,7 @@ import {
   getNodeSqliteKysely,
 } from "../../../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../../../infra/node-sqlite.js";
-import type { DB as OpenClawStateDatabase } from "../../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
@@ -15,7 +15,7 @@ import {
 import { resolveOpenClawStateSqlitePath } from "../../../state/openclaw-state-db.paths.js";
 import type { LegacyCronMigrationSource } from "./legacy-store-migration.js";
 
-type CronMigrationDatabase = Pick<OpenClawStateDatabase, "migration_runs" | "migration_sources">;
+type CronMigrationDatabase = Pick<GrantedStateDatabase, "migration_runs" | "migration_sources">;
 
 function migrationRunId(source: LegacyCronMigrationSource): string {
   return `cron-legacy:${source.sourceKey}`;

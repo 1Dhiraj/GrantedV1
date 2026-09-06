@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   isOpenClawAgentDatabaseOpen,
@@ -101,7 +101,7 @@ function agentKysely() {
     db: database.db,
     kysely: getNodeSqliteKysely<
       Pick<
-        OpenClawAgentKyselyDatabase,
+        GrantedAgentKyselyDatabase,
         "session_transcript_fts" | "session_transcript_index_state" | "transcript_events"
       >
     >(database.db),

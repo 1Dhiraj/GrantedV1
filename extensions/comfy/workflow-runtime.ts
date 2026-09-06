@@ -2,7 +2,7 @@
 import { randomInt } from "node:crypto";
 import fs from "node:fs/promises";
 import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
 import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
 import { resolvePositiveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
@@ -123,7 +123,7 @@ function readConfigInteger(config: ComfyProviderConfig, key: string): number | u
   return typeof value === "number" && Number.isInteger(value) && value > 0 ? value : undefined;
 }
 
-function getComfyConfig(cfg?: OpenClawConfig): ComfyProviderConfig {
+function getComfyConfig(cfg?: GrantedConfig): ComfyProviderConfig {
   const pluginConfig = cfg?.plugins?.entries?.comfy?.config;
   if (isRecord(pluginConfig)) {
     return pluginConfig;
@@ -158,7 +158,7 @@ function resolveComfyMode(config: ComfyProviderConfig): ComfyMode {
 
 function resolveComfyApiKey(
   config: ComfyProviderConfig,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): ComfyApiKeyResolution {
   const resolved = resolveSecretInputString({
     value: config.apiKey,
@@ -259,7 +259,7 @@ function setWorkflowInput(params: {
   inputs[params.inputName] = params.value;
 }
 
-async function resolveComfyHeadersConfig(value: unknown, cfg: OpenClawConfig): Promise<Headers> {
+async function resolveComfyHeadersConfig(value: unknown, cfg: GrantedConfig): Promise<Headers> {
   const headers = new Headers();
   if (!isRecord(value)) {
     return headers;
@@ -645,7 +645,7 @@ async function downloadOutputFile(params: {
 
 // Only env refs can be checked without I/O. Keep other refs selectable until
 // the async request resolver can establish their availability.
-function hasUnavailableComfyHeaderSecret(value: unknown, cfg?: OpenClawConfig): boolean {
+function hasUnavailableComfyHeaderSecret(value: unknown, cfg?: GrantedConfig): boolean {
   if (!isRecord(value)) {
     return false;
   }
@@ -671,7 +671,7 @@ function hasUnavailableComfyHeaderSecret(value: unknown, cfg?: OpenClawConfig): 
 }
 
 export function isComfyCapabilityConfigured(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentDir?: string;
   capability: ComfyCapability;
 }): boolean {
@@ -706,7 +706,7 @@ export function isComfyCapabilityConfigured(params: {
 }
 
 export async function runComfyWorkflow(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentDir?: string;
   authStore?: AuthProfileStore;
   prompt: string;

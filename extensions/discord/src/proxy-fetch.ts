@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { makeProxyFetch } from "openclaw/plugin-sdk/fetch-runtime";
 import { danger } from "openclaw/plugin-sdk/runtime-env";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
@@ -7,7 +7,7 @@ import type { ResolvedDiscordAccount } from "./accounts.js";
 
 function resolveDiscordProxyUrl(
   account: Pick<ResolvedDiscordAccount, "config">,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): string | undefined {
   const accountProxy = normalizeOptionalString(account.config.proxy);
   if (accountProxy) {
@@ -25,7 +25,7 @@ function resolveDiscordProxyFetchByUrl(
 
 export function resolveDiscordProxyFetchForAccount(
   account: Pick<ResolvedDiscordAccount, "config">,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   runtime?: Pick<RuntimeEnv, "error">,
 ): typeof fetch | undefined {
   return resolveDiscordProxyFetchByUrl(resolveDiscordProxyUrl(account, cfg), runtime);

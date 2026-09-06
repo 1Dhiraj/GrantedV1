@@ -5,7 +5,7 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createPersistentDedupeImportEntry,
   type PersistentDedupeEntry,
@@ -67,7 +67,7 @@ function createContext(env?: NodeJS.ProcessEnv): PluginDoctorStateMigrationConte
 function createMigrationParams(stateDir: string) {
   const env = { GRANTED_STATE_DIR: stateDir };
   return {
-    config: {} as OpenClawConfig,
+    config: {} as GrantedConfig,
     env,
     stateDir,
     oauthDir: path.join(stateDir, "oauth"),

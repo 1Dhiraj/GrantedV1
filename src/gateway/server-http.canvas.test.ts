@@ -5,7 +5,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { resolveCanvasNodeCapability } from "../canvas/constants.js";
 import { createCanvasDocument } from "../canvas/documents.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import type { ResolvedGatewayAuth } from "./auth.js";
 import {
@@ -30,7 +30,7 @@ afterEach(async () => {
 });
 
 async function requestHostedDocument(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   skipHost?: string;
 }): Promise<Response> {
   return await withHostedDocumentServer(
@@ -44,7 +44,7 @@ async function requestHostedDocument(params: {
 
 async function withHostedDocumentServer<T>(
   params: {
-    config: OpenClawConfig;
+    config: GrantedConfig;
     skipHost?: string;
   },
   run: (context: {

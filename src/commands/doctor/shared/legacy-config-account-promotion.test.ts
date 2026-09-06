@@ -2,18 +2,18 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, expect, it, vi } from "vitest";
 import { widenOfficialExternalChannelSecretSchema } from "../../../config/official-external-channel-secret-schema.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../../../plugins/plugin-metadata-lifecycle.js";
 import { resetPluginRuntimeStateForTest } from "../../../plugins/runtime.js";
 import { validateJsonSchemaValue } from "../../../plugins/schema-validator.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../../test-utils/openclaw-test-state.js";
 import { normalizeCompatibilityConfigValues } from "./legacy-config-core-migrate.js";
 import { seedMissingDefaultAccountsFromSingleAccountBase } from "./legacy-config-core-normalizers.js";
 
-let state: OpenClawTestState | undefined;
+let state: GrantedTestState | undefined;
 
 afterEach(async () => {
   clearPluginMetadataLifecycleCaches();
@@ -66,7 +66,7 @@ it.each([
       }),
     );
     // Only generic fields: undeclared-key deferral cannot hide a missing static contract.
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       plugins: { allow: ["preserved"], entries: { preserved: { enabled } } },
       channels: {
         "preserved-chat": {
@@ -146,7 +146,7 @@ it.each([
     );
   }
 
-  const cfg: OpenClawConfig = {
+  const cfg: GrantedConfig = {
     ...(enabled === undefined
       ? {}
       : {

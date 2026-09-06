@@ -1,5 +1,5 @@
 import { listAgentIds } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
 import { sessionCatalogAdoptedSourceKey } from "openclaw/plugin-sdk/session-catalog";
 import {
@@ -15,7 +15,7 @@ import type { CodexSessionCatalogControl } from "./session-catalog-types.js";
 async function assertNoPendingSupervisionBranch(params: {
   agentId: string;
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   runtime: PluginRuntime;
   threadId: string;
   sourceHomeId?: string;
@@ -68,7 +68,7 @@ async function assertNoPendingSupervisionBranch(params: {
 export async function archiveLocalCodexSession(params: {
   agentId: string;
   bindingStore: CodexAppServerBindingStore;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   control: CodexSessionCatalogControl;
   runtime: PluginRuntime;
   threadId: string;

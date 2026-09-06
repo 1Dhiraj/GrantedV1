@@ -1,5 +1,5 @@
 // Imessage API module exposes the plugin public contract.
-import type { OpenClawConfig as RuntimeApiOpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig as RuntimeApiOpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
 
 export {
   DEFAULT_ACCOUNT_ID,

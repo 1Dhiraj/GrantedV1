@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   PluginAcceptedDeclaredSurface,
   PluginInstallRecord,
@@ -129,7 +129,7 @@ function throwManagedPluginCapabilityConsentRequired(review: PluginCapabilityCon
 
 /** Enforce and durably acknowledge consent before an installed plugin is enabled. */
 export async function resolvePluginCapabilityConsent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   env?: NodeJS.ProcessEnv;
   acknowledge?: PluginCapabilityConsentAcknowledgment;
@@ -228,7 +228,7 @@ export async function resolvePluginCapabilityConsent(params: {
 }
 
 async function resolvePluginArtifactCapabilityConsent(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   pluginId: string;
   record: PluginInstallRecord;
   sourceRecord?: PluginInstallRecord;
@@ -319,7 +319,7 @@ async function resolvePluginArtifactCapabilityConsent(params: {
 
 /** Bind artifact consent to verified staged bytes and carry acceptance into the record commit. */
 export function createManagedPluginArtifactConsentHandler(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   source: PluginInstallRecord["source"];
   env?: NodeJS.ProcessEnv;
   spec?: string;

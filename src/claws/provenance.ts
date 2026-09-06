@@ -5,7 +5,7 @@ import { stableStringify } from "@openclaw/normalization-core";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
@@ -168,7 +168,7 @@ export function readClawInstallRecordFromDatabase(
 
 export function readClawInstallRecord(
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawInstall | undefined {
   const row = selectClawInstallRow(openOpenClawStateDatabase(options).db, agentId);
   return row ? rowToRecord(row) : undefined;
@@ -176,7 +176,7 @@ export function readClawInstallRecord(
 
 export function persistClawInstallRecord(
   plan: ClawAddPlan,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     status?: ClawInstallStatus;
     nowMs?: number;
     expectedExistingRecord?: PersistedClawInstall;
@@ -282,7 +282,7 @@ export function persistClawInstallRecord(
 export function updateClawInstallRecordStatus(
   agentId: string,
   status: ClawInstallStatus,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     nowMs?: number;
     expectedStatuses?: ClawInstallStatus[];
   } = {},
@@ -311,7 +311,7 @@ export function updateClawInstallRecordStatus(
 
 export function deleteClawInstallRecord(
   agentId: string,
-  options: OpenClawStateDatabaseOptions & { expectedStatuses?: ClawInstallStatus[] } = {},
+  options: GrantedStateDatabaseOptions & { expectedStatuses?: ClawInstallStatus[] } = {},
 ): void {
   runOpenClawStateWriteTransaction(({ db }) => {
     const expectedStatuses = options.expectedStatuses ?? [];
@@ -333,7 +333,7 @@ export function deleteClawInstallRecord(
 }
 
 export function readClawInstallRecords(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): PersistedClawInstall[] {
   const database = openOpenClawStateDatabase(options);
   const bootstrapColumns = selectClawBootstrapProvenanceColumns(database.db);
@@ -355,7 +355,7 @@ export function readClawInstallRecords(
 
 export function updateClawInstallRecord(
   plan: ClawAddPlan,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     nowMs?: number;
     expectedClaw?: { version: string; integrity: string };
     status?: ClawInstallStatus;
@@ -455,7 +455,7 @@ export function updateClawInstallRecord(
 export function persistClawPackageRef(
   plan: ClawAddPlan,
   pkg: ResolvedClawPackage,
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     nowMs?: number;
     status?: ClawPackageRefStatus;
     relationship?: ClawPackageRelationship;
@@ -601,7 +601,7 @@ export function persistClawPackageRef(
 export function updateClawPackageRefStatus(
   ref: PersistedClawPackageRef,
   status: ClawPackageRefStatus,
-  options: OpenClawStateDatabaseOptions & { nowMs?: number } = {},
+  options: GrantedStateDatabaseOptions & { nowMs?: number } = {},
 ): PersistedClawPackageRef {
   const nowMs = options.nowMs ?? Date.now();
   runOpenClawStateWriteTransaction(({ db }) => {
@@ -630,7 +630,7 @@ export function updateClawPackageRefStatus(
 }
 
 export function readClawPackageRefs(
-  options: OpenClawStateDatabaseOptions & {
+  options: GrantedStateDatabaseOptions & {
     agentId?: string;
     kind?: ClawPackage["kind"];
     source?: ClawPackage["source"];

@@ -49,7 +49,7 @@ import type {
 } from "../auto-reply/get-reply-options.types.js";
 import type { InboundEventKind } from "../channels/inbound-event/kind.js";
 import type { ConversationReadInvocationOrigin } from "../channels/plugins/conversation-read-origin.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveEventSessionRoutingPolicy } from "../infra/event-session-routing.js";
 import type { ExecMode } from "../infra/exec-approvals.js";
 import { logWarn } from "../logger.js";
@@ -67,7 +67,7 @@ type GatewayScopedToolSurface = "http" | "loopback";
 
 /** Resolve the tools visible to a gateway caller after agent, channel, and surface policy. */
 export function resolveGatewayScopedTools(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   authProfileStore?: AuthProfileStore;
   agentDir?: string;
   sessionKey: string;

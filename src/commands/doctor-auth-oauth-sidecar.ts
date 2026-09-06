@@ -8,7 +8,7 @@ import { AUTH_STORE_VERSION } from "../agents/auth-profiles/constants.js";
 import { clearRuntimeAuthProfileStoreSnapshots } from "../agents/auth-profiles/runtime-snapshots.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { resolveOAuthDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadJsonFileThroughSymlink, writeJsonTarget } from "../infra/json-file.js";
 import { shortenHomePath } from "../utils.js";
 import {
@@ -142,7 +142,7 @@ function backupLegacyOAuthSidecarStore(authPath: string, now: () => number): str
  * profile are removed; unreferenced sidecars stay because unknown agent directories may use them.
  */
 export async function maybeRepairLegacyOAuthSidecarProfiles(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: Pick<DoctorPrompter, "confirmAutoFix">;
   now?: () => number;
   emitNotes?: boolean;

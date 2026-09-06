@@ -18,7 +18,7 @@ import {
 } from "openclaw/plugin-sdk/approval-reaction-runtime";
 import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
 import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
 import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
 import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
@@ -476,7 +476,7 @@ function readApprovalReactionEvent(
 }
 
 export async function handleIMessageApprovalReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   message: IMessagePayload;
   bodyText: string;
@@ -600,7 +600,7 @@ export async function handleIMessageApprovalReaction(params: {
 }
 
 export async function maybeResolveIMessageApprovalReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   message: IMessagePayload;
   bodyText: string;

@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 import type { AgentRuntimeIdentity } from "../agent-runtime-identity-token.js";
 import { ExecApprovalManager } from "../exec-approval-manager.js";
@@ -18,7 +18,7 @@ vi.mock("../../infra/command-analysis/explain.js", () => ({
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function databaseOptions(): OpenClawStateDatabaseOptions {
+function databaseOptions(): GrantedStateDatabaseOptions {
   const stateDir = fs.realpathSync(tempDirs.make("exec-approval-id-"));
   return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }

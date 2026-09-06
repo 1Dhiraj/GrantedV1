@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import * as imageGenerationRuntime from "../../image-generation/runtime.js";
 import * as mediaStore from "../../media/store.js";
 import { createOpenClawTools } from "../openclaw-tools.js";
@@ -73,12 +73,12 @@ describe.runIf(process.platform === "win32")("host-local media tool file URLs", 
         });
         vi.spyOn(pdfNativeProviders, "anthropicAnalyzePdf").mockResolvedValue("native summary");
 
-        const config: OpenClawConfig = {
+        const config: GrantedConfig = {
           agents: {
             entries: { main: { default: true } },
             defaults: { pdfModel: { primary: "anthropic/claude-opus-4-6" } },
           },
-        } as OpenClawConfig;
+        } as GrantedConfig;
         const tools = createOpenClawTools({
           agentDir,
           workspaceDir,

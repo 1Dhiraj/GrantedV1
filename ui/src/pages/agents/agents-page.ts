@@ -50,7 +50,7 @@ import {
 } from "../../lib/gateway-methods.ts";
 import { parseAgentSessionKey } from "../../lib/sessions/session-key.ts";
 import { GatewayPageController } from "../../lit/gateway-page-controller.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { loadAgentFileContent, saveAgentFile } from "./files.ts";
 import {
@@ -77,7 +77,7 @@ type AgentsRequestSources = Partial<
 >;
 
 class AgentsPage
-  extends OpenClawLightDomElement
+  extends GrantedLightDomElement
   implements Omit<AgentsState, "agentsLoading" | "agentsError">
 {
   @consume({ context: applicationContext, subscribe: true })

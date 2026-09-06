@@ -1,6 +1,6 @@
 // Tests bash command status replies and active-process cancellation.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withStateDirEnv } from "../../test-helpers/state-dir-env.js";
 import type { MsgContext } from "../templating.js";
 
@@ -34,7 +34,7 @@ const { handleBashChatCommand } = await import("./bash-command.js");
 function buildParams(commandBody: string) {
   const cfg = {
     commands: { bash: true },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 
   const ctx = {
     CommandBody: commandBody,

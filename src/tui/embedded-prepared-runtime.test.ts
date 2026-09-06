@@ -9,12 +9,12 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { acquireAgentRunPreparedModelRuntime } from "../agents/prepared-model-runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { EmbeddedPreparedModelRuntimeHost } from "./embedded-prepared-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();
-let state: OpenClawTestState;
+let state: GrantedTestState;
 
 describe("EmbeddedPreparedModelRuntimeHost", () => {
   beforeEach(async () => {

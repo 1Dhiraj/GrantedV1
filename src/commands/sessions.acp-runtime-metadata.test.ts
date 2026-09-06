@@ -10,23 +10,23 @@ import {
   registerAgentHarness,
 } from "../agents/harness/registry.js";
 import { restoreRegisteredAgentHarnesses } from "../agents/harness/registry.test-support.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 
 const ACP_SESSION_KEY = "agent:copilot:acp:86b7b5af-3773-4a56-b244-069d6c5d3db9";
 const NON_ACP_SESSION_KEY = "agent:main:main";
 
-function buildConfigWithoutAgentRuntimePolicy(): OpenClawConfig {
+function buildConfigWithoutAgentRuntimePolicy(): GrantedConfig {
   return {
     agents: {
       list: [{ id: "copilot" }, { id: "main", default: true }],
       defaults: {},
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function computeSessionAgentRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   fallbackAgentId: string;
   acpRuntime?: boolean;
@@ -62,7 +62,7 @@ describe("session ACP runtime metadata", () => {
           throw new Error("projection must not execute");
         },
       });
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         models: {
           providers: {
             openai: {
@@ -168,7 +168,7 @@ describe("session ACP runtime metadata", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       agentId: "main",
       provider: "openai",
       model: "gpt-5.5",
@@ -195,7 +195,7 @@ describe("session ACP runtime metadata", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         agentId: "main",
         provider: "openai",
         model: "gpt-5.6-sol",

@@ -1,6 +1,6 @@
 // Owns config snapshots, include boundaries, and recovery for plugin installation.
 import { readConfigFileSnapshotForWrite } from "../config/config.js";
-import type { ConfigValidationIssue, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveInstallConfigMutationPreflights,
   selectInstallMutationWriteOptions,
@@ -97,7 +97,7 @@ function isAllowedPluginRecoveryIssue(
 }
 
 function collectRequestedPluginInstallPaths(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   installRecords: Awaited<ReturnType<typeof loadInstalledPluginIndexInstallRecords>>,
   request: PluginInstallRequestContext,
   env: NodeJS.ProcessEnv,
@@ -133,11 +133,11 @@ async function collectRequestedPluginLocationBridgePaths(
 }
 
 function removeOwnedMissingPluginLoadPaths(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   issues: readonly ConfigValidationIssue[],
   ownedLoadPaths: ReadonlySet<string>,
   env: NodeJS.ProcessEnv,
-): OpenClawConfig {
+): GrantedConfig {
   const missingPaths = new Set<string>();
   for (const issue of issues) {
     const missingPath = extractMissingPluginLoadPath(issue);
@@ -172,7 +172,7 @@ function removeOwnedMissingPluginLoadPaths(
 }
 
 async function resolveRequestedPluginInstallPaths(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   issues: readonly ConfigValidationIssue[],
   request: PluginInstallRequestContext,
   env: NodeJS.ProcessEnv,

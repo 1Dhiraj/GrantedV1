@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { resolveCodexCatalogCreateSession } from "./session-catalog-create.js";
 
-function configWithAllowedModels(models: string[], runtime?: string): OpenClawConfig {
+function configWithAllowedModels(models: string[], runtime?: string): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -58,7 +58,7 @@ describe("resolveCodexCatalogCreateSession", () => {
           },
         ],
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(resolveCodexCatalogCreateSession(config, "main")).toEqual({
       model: "openai/gpt-5.6-sol",

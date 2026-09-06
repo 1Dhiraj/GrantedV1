@@ -6,7 +6,7 @@ import type {
   ChannelOutboundAdapter,
   ChannelOutboundContext,
 } from "../../channels/plugins/types.adapters.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -22,7 +22,7 @@ import { acceptedPreparedOutboundEntries } from "./prepared-batch.js";
 
 let deliverOutboundPayloads: typeof import("./deliver.js").deliverOutboundPayloads;
 
-const cfg = {} as OpenClawConfig;
+const cfg = {} as GrantedConfig;
 
 function installMatrixAdapter(outbound: ChannelOutboundAdapter): void {
   setActivePluginRegistry(

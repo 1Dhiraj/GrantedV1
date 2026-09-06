@@ -12,11 +12,11 @@ import {
   resolveMergedModelProviderModels,
 } from "../../config/model-provider-config.js";
 import { resolveFreshSessionTotalTokens, type SessionEntry } from "../../config/sessions.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 export function resolveMemoryFlushContextWindowTokens(params: {
   modelId?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
 }): number {
   return (
@@ -29,7 +29,7 @@ export function resolveMemoryFlushContextWindowTokens(params: {
   );
 }
 
-export function resolveMaxActiveTranscriptBytes(cfg?: OpenClawConfig): number | undefined {
+export function resolveMaxActiveTranscriptBytes(cfg?: GrantedConfig): number | undefined {
   const parsed = parseNonNegativeByteSize(
     cfg?.agents?.defaults?.compaction?.maxActiveTranscriptBytes,
   );
@@ -54,7 +54,7 @@ export function resolveCompactionThreshold(params: {
 }
 
 export function resolveResponsesServerCompactionThreshold(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   modelId?: string;
 }): number | undefined {

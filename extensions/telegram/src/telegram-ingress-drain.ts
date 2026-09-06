@@ -6,7 +6,7 @@ import {
   type ChannelIngressQueue,
   type ChannelIngressQueueRecord,
 } from "openclaw/plugin-sdk/channel-outbound";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { clampPositiveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
 import {
   fitsTelegramCallbackData,
@@ -263,7 +263,7 @@ type TelegramIngressDrainDispatch = (
 type CreateTelegramIngressMonitorParams = {
   queue: ChannelIngressQueue<TelegramSpooledUpdatePayload>;
   /** Required for authorization-gated supersede (numeric allowlist). */
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   botInfo?: TelegramBotInfo;
   adoptionStallTimeoutMs?: number;

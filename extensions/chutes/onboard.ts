@@ -2,7 +2,7 @@ import { readManifestProviderDefaultModelRef } from "openclaw/plugin-sdk/provide
 import {
   applyAgentDefaultModelPrimary,
   createModelCatalogPresetAppliers,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "openclaw/plugin-sdk/provider-onboard";
 import { CHUTES_BASE_URL, CHUTES_MODEL_CATALOG } from "./models.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
@@ -12,7 +12,7 @@ export const CHUTES_DEFAULT_MODEL_REF = readManifestProviderDefaultModelRef(mani
 
 const chutesPresetAppliers = createModelCatalogPresetAppliers({
   primaryModelRef: CHUTES_DEFAULT_MODEL_REF,
-  resolveParams: (cfg: OpenClawConfig) => ({
+  resolveParams: (cfg: GrantedConfig) => ({
     providerId: "chutes",
     api: "openai-completions",
     baseUrl: CHUTES_BASE_URL,
@@ -29,11 +29,11 @@ const chutesPresetAppliers = createModelCatalogPresetAppliers({
   }),
 });
 
-export function applyChutesProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyChutesProviderConfig(cfg: GrantedConfig): GrantedConfig {
   return chutesPresetAppliers.applyProviderConfig(cfg);
 }
 
-export function applyChutesConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyChutesConfig(cfg: GrantedConfig): GrantedConfig {
   const next = applyChutesProviderConfig(cfg);
   return {
     ...next,
@@ -54,6 +54,6 @@ export function applyChutesConfig(cfg: OpenClawConfig): OpenClawConfig {
   };
 }
 
-export function applyChutesApiKeyConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyChutesApiKeyConfig(cfg: GrantedConfig): GrantedConfig {
   return applyAgentDefaultModelPrimary(applyChutesProviderConfig(cfg), CHUTES_DEFAULT_MODEL_REF);
 }

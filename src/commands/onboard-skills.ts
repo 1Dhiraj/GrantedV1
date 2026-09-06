@@ -6,7 +6,7 @@
  */
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveBrewExecutable } from "../infra/brew.js";
 import { isContainerEnvironment } from "../infra/container-environment.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -117,7 +117,7 @@ function isTrustedAutoInstallableSkill(skill: { bundled: boolean; source: string
 }
 
 function resolveDefaultNodeManager(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   requested: NodeManagerChoice | undefined,
   runtime: RuntimeEnv,
 ) {
@@ -134,7 +134,7 @@ function resolveDefaultNodeManager(
 
 /** Runs the interactive skills setup step and returns the updated config. */
 export async function setupSkills(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   workspaceDir: string,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
@@ -142,7 +142,7 @@ export async function setupSkills(
     nodeManager?: NodeManagerChoice;
     beforePersistentEffect?: () => Promise<void>;
   } = {},
-): Promise<OpenClawConfig> {
+): Promise<GrantedConfig> {
   const report = buildWorkspaceSkillStatus(workspaceDir, { config: cfg });
   const eligible = report.skills.filter((s) => s.eligible);
   const unsupportedOs = report.skills.filter(
@@ -214,7 +214,7 @@ export async function setupSkills(
     const readiness = await resolveKindReadinessOnce(primaryInstall.kind);
     readinessBySkillName.set(skill.name, readiness);
   }
-  let next: OpenClawConfig = cfg;
+  let next: GrantedConfig = cfg;
   if (candidateInstallable.length === 0 && missing.length === 0) {
     await prompter.note(
       [

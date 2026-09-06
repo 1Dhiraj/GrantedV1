@@ -1,6 +1,6 @@
 // Runtime registry loader assembles process-root plugin runtimes from config metadata.
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withActivatedPluginIds } from "../activation-context.js";
 import {
   resolveChannelPluginIds,
@@ -116,8 +116,8 @@ function resolveScopePluginIds(params: {
 
 export function ensurePluginRegistryLoaded(options?: {
   scope?: PluginRegistryScope;
-  config?: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config?: GrantedConfig;
+  activationSourceConfig?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
   persistedSandboxBackendIds?: readonly string[];

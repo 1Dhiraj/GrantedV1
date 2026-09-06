@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -86,10 +86,10 @@ describe("project registry", () => {
         .get(),
     ).toBeUndefined();
 
-    expect(listProjectRegistry({} as OpenClawConfig, options)).toEqual([
+    expect(listProjectRegistry({} as GrantedConfig, options)).toEqual([
       expect.objectContaining({ id: "workspace:main", source: "workspace" }),
     ]);
-    expect(listProjectRegistry({} as OpenClawConfig, options)).toHaveLength(1);
+    expect(listProjectRegistry({} as GrantedConfig, options)).toHaveLength(1);
 
     const rows = state.db
       .prepare("SELECT name FROM sqlite_schema WHERE type = 'table' AND name = 'projects'")
@@ -121,7 +121,7 @@ describe("project registry", () => {
           { id: "work", workspace: "/workspace/alpha" },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(listProjectRegistry(cfg, options).map((project) => project.displayName)).toEqual([
       "alpha",
       "OpenClaw",
@@ -134,7 +134,7 @@ describe("project registry", () => {
           { id: "work", workspace: repo },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(listProjectRegistry(sharedWorkspaceCfg, options).map((project) => project.id)).toEqual([
       "openclaw",
       "workspace:main",
@@ -196,12 +196,12 @@ describe("project registry", () => {
     const registered = await registerProjectRegistry({ path: repo, name: "Existing" }, options);
 
     const added = await materializeProjectClone(
-      { cfg: {} as OpenClawConfig, gitUrl: "https://github.com/acme/existing.git" },
+      { cfg: {} as GrantedConfig, gitUrl: "https://github.com/acme/existing.git" },
       options,
     );
 
     expect(added).toEqual(registered);
-    expect(listProjectRegistry({} as OpenClawConfig, options)).toHaveLength(2);
+    expect(listProjectRegistry({} as GrantedConfig, options)).toHaveLength(2);
   });
 
   it("serializes an existing cloned-project return with checkout deletion", async () => {
@@ -236,7 +236,7 @@ describe("project registry", () => {
 
     let additionSettled = false;
     const addition = materializeProjectClone(
-      { cfg: {} as OpenClawConfig, gitUrl: originUrl },
+      { cfg: {} as GrantedConfig, gitUrl: originUrl },
       options,
     ).finally(() => {
       additionSettled = true;
@@ -299,7 +299,7 @@ describe("project registry", () => {
     await expect(deletion).resolves.toBe(true);
     const registrationResult = await registration;
     expect(registrationResult).toMatchObject({ error: expect.any(ProjectCheckoutError) });
-    expect(listProjectRegistry({} as OpenClawConfig, options)).toEqual([
+    expect(listProjectRegistry({} as GrantedConfig, options)).toEqual([
       expect.objectContaining({ source: "workspace" }),
     ]);
     await expect(fs.stat(checkout)).rejects.toMatchObject({ code: "ENOENT" });

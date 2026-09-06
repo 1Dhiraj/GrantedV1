@@ -8,7 +8,7 @@ import type {
   GroupToolPolicyBySenderConfig,
   GroupToolPolicyConfig,
   MarkdownConfig,
-  OpenClawConfig,
+  GrantedConfig,
   ReplyToMode,
 } from "openclaw/plugin-sdk/config-contracts";
 
@@ -73,8 +73,8 @@ type IrcConfig = IrcAccountConfig & {
   defaultAccount?: string;
 };
 
-export type CoreConfig = OpenClawConfig & {
-  channels?: OpenClawConfig["channels"] & {
+export type CoreConfig = GrantedConfig & {
+  channels?: GrantedConfig["channels"] & {
     irc?: IrcConfig;
   };
 };

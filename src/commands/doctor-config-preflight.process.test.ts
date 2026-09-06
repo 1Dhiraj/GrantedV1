@@ -8,7 +8,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { createOpenClawTestInstance } from "../../test/helpers/openclaw-test-instance.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveGatewayLockDir } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadCronJobsStoreWithConfigJobsReadOnly, loadCronQuarantinedJobs } from "../cron/store.js";
 import { hasActiveStartupMigrationLease } from "../infra/startup-migration-checkpoint.js";
 import { getFileLockProcessStartTime } from "../shared/pid-alive.js";
@@ -287,7 +287,7 @@ describe("doctor invalid config process exit", () => {
     expect(output).not.toContain("Building Control UI assets");
     expect(output).toContain("Merged agents.entries.jup.memorySearch");
 
-    const repairedConfig = JSON.parse(fs.readFileSync(configPath, "utf8")) as OpenClawConfig;
+    const repairedConfig = JSON.parse(fs.readFileSync(configPath, "utf8")) as GrantedConfig;
     expect(repairedConfig.agents).not.toHaveProperty("list");
     expect(repairedConfig.agents?.entries?.jup).not.toHaveProperty("memorySearch");
     expect(repairedConfig.agents?.entries?.jup?.memory?.search).toEqual({
@@ -550,7 +550,7 @@ describe("gateway startup-migration refusal", () => {
         defaults: { systemAgent: { agentId: "main" } },
         entries: { main: {}, blocker: {}, digest: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const env: NodeJS.ProcessEnv = {
       ...process.env,
       HOME: root,
@@ -614,7 +614,7 @@ describe("gateway startup-migration refusal", () => {
         ownership: "explicit",
         entries: { main: {}, blocker: {}, digest: {} },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const env: NodeJS.ProcessEnv = {
       ...process.env,
       HOME: root,
@@ -811,7 +811,7 @@ describe("gateway startup-migration refusal", () => {
         load: { paths: [pluginDir] },
         entries: { [pluginId]: { enabled: true } },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const env: NodeJS.ProcessEnv = {
       ...process.env,
       HOME: root,

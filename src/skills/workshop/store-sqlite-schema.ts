@@ -3,15 +3,15 @@ import type { DatabaseSync } from "node:sqlite";
 import type { Selectable } from "kysely";
 import { getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { ensureColumn } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
 
 export type SkillWorkshopDatabase = Pick<
-  OpenClawStateDatabase,
+  GrantedStateDatabase,
   | "skill_workshop_proposal_events"
   | "skill_workshop_proposal_rollbacks"
   | "skill_workshop_proposals"
@@ -99,7 +99,7 @@ const ensuredDatabases = new WeakSet<DatabaseSync>();
 
 export function databaseOptions(
   options: SkillWorkshopStoreOptions = {},
-): OpenClawStateDatabaseOptions {
+): GrantedStateDatabaseOptions {
   if (options.stateDir) {
     return {
       ...(options.env ? { env: options.env } : {}),

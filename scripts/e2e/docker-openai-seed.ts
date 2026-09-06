@@ -3,10 +3,10 @@
 import {
   applyProviderConfigWithDefaultModelPreset,
   type ModelDefinitionConfig,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "../../dist/plugin-sdk/provider-onboard.js";
 
-export type { OpenClawConfig };
+export type { GrantedConfig };
 
 const DOCKER_OPENAI_MODEL_REF = "openai/gpt-5.6-luna";
 const DOCKER_OPENAI_BASE_URL =
@@ -28,9 +28,9 @@ const DOCKER_OPENAI_MODEL: ModelDefinitionConfig = {
 };
 
 export function applyDockerOpenAiProviderConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   apiKey: string,
-): OpenClawConfig {
+): GrantedConfig {
   const seededConfig = applyProviderConfigWithDefaultModelPreset(config, {
     providerId: "openai",
     api: "openai-responses",

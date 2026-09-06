@@ -5,7 +5,7 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import {
   classifyExecutionOwnerBinding,
@@ -17,7 +17,7 @@ export const EXECUTION_OWNER_LIFECYCLE_BINDING_TABLE =
 type ExecutionOwnerLifecycleKind = "cron" | "task" | "flow";
 
 type ExecutionOwnerLifecycleDatabase = Pick<
-  OpenClawStateDatabase,
+  GrantedStateDatabase,
   "cron_run_receipts" | "execution_owner_lifecycle_bindings" | "flow_runs" | "task_runs"
 >;
 

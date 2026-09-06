@@ -7,7 +7,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { getRuntimeConfig } from "../config/io.js";
 import type { GatewayOperatorRoleDefinition } from "../config/types.gateway.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { verifyDeviceToken } from "../infra/device-pairing-tokens.js";
 import { listDevicePairing } from "../infra/device-pairing.js";
 import { verifyPairingToken } from "../infra/pairing-token.js";
@@ -114,7 +114,7 @@ type GatewayHttpRequestAuthParams = {
 };
 
 type GatewayHttpRequestAuthCheckParams = Omit<GatewayHttpRequestAuthParams, "res"> & {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 };
 
 type GatewayHttpConnectAuthorizer = (
@@ -150,7 +150,7 @@ function usesSharedSecretGatewayMethod(method: GatewayAuthResult["method"] | und
 
 async function resolveAuthenticatedHttpUserProfile(params: {
   authResult: GatewayAuthResult;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   req: IncomingMessage;
 }): Promise<AuthenticatedHttpUserProfile> {
   const authenticatedUserId = normalizeOptionalString(params.authResult.user);
@@ -185,7 +185,7 @@ async function resolveAuthenticatedHttpUserProfile(params: {
   }
 }
 
-function resolveHttpProfile(profileId: string, updatedAt: number, cfg: OpenClawConfig) {
+function resolveHttpProfile(profileId: string, updatedAt: number, cfg: GrantedConfig) {
   const display = getUserProfileDisplay(profileId);
   const operatorRolePolicy = resolveOperatorRolePolicyForProfile(display.id, cfg);
   return {
@@ -583,7 +583,7 @@ export async function checkGatewayHttpRequestAuth(params: {
   trustedProxies?: string[];
   allowRealIpFallback?: boolean;
   rateLimiter?: AuthRateLimiter;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
 }): Promise<GatewayHttpRequestAuthCheckResult> {
   return await checkGatewayHttpRequestAuthWith(params, authorizeHttpGatewayConnect);
 }
@@ -644,7 +644,7 @@ export async function authorizeScopedGatewayHttpRequestOrReply(params: {
     requestAuth: AuthorizedGatewayHttpRequest,
   ) => string[];
 }): Promise<{
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   requestAuth: AuthorizedGatewayHttpRequest;
   operatorScopes: string[];
 } | null> {

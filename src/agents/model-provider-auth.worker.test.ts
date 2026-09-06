@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
@@ -20,7 +20,7 @@ const tempDirs: string[] = [];
 vi.mock("./prepared-model-catalog.js", () => ({
   loadProviderScopedThinkingCatalog: vi.fn(async () => []),
   loadPreparedModelCatalogOwnerSnapshot: vi.fn(
-    async (params: { agentDir: string; agentId?: string; config: OpenClawConfig }) => ({
+    async (params: { agentDir: string; agentId?: string; config: GrantedConfig }) => ({
       agentDir: params.agentDir,
       agentId: params.agentId,
       config: params.config,
@@ -77,7 +77,7 @@ describe("provider auth warm worker", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
         const result = await runProviderAuthWarmWorkerInput({
           cfg,
           runtimeAuthStores: [
@@ -128,7 +128,7 @@ describe("provider auth warm worker", () => {
               },
             },
           },
-        } as unknown as OpenClawConfig;
+        } as unknown as GrantedConfig;
 
         const usageId = resolveInlineProviderApiKeyUsageId("cooled-down");
         const result = await runProviderAuthWarmWorkerInput({

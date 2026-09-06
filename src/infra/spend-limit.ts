@@ -1,6 +1,6 @@
 // Spend ceilings for unattended work: a cumulative USD cap for all model calls
 // and optional per-provider caps, checked before each call.
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadCostUsageSummaryFromCache } from "./session-cost-usage-cache-runtime.js";
 
 /**
@@ -41,7 +41,7 @@ function normalizeLimit(value: unknown): number {
  * Configured ceilings, or undefined when none apply. Callers use this to skip
  * the usage read entirely, so an install without limits pays nothing.
  */
-export function readSpendLimits(cfg?: OpenClawConfig): SpendLimits | undefined {
+export function readSpendLimits(cfg?: GrantedConfig): SpendLimits | undefined {
   const defaults = cfg?.agents?.defaults;
   const totalUsd = normalizeLimit(defaults?.spendLimitUsd);
   const rawByProvider = defaults?.spendLimitUsdByProvider ?? {};
@@ -60,7 +60,7 @@ export function readSpendLimits(cfg?: OpenClawConfig): SpendLimits | undefined {
 }
 
 async function readSpend(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId: string;
   nowMs: number;
 }): Promise<SpendReading> {
@@ -91,7 +91,7 @@ async function readSpend(params: {
  * no limit is configured, so the check is cheap on the default path.
  */
 export async function checkSpendLimit(params: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId: string;
   provider?: string;
   nowMs?: number;

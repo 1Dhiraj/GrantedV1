@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
-  cfg: {} as OpenClawConfig,
+  cfg: {} as GrantedConfig,
   info: vi.fn(),
   isNixMode: false,
   mutateConfigFileWithRetry: vi.fn(),
@@ -48,7 +48,7 @@ describe("resolveStickyModelSelectionPolicy", () => {
         { id: "inheriting" },
       ],
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 
   it.each([
     { scope: undefined, agentId: "main", target: "global" },
@@ -100,7 +100,7 @@ describe("persistStickyModelSelection", () => {
             },
           },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       target: "defaults" as const,
       requestedTarget: undefined,
     },
@@ -121,7 +121,7 @@ describe("persistStickyModelSelection", () => {
             },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       target: "agent" as const,
       requestedTarget: undefined,
     },
@@ -138,7 +138,7 @@ describe("persistStickyModelSelection", () => {
           },
           entries: { main: {} },
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       target: "agent" as const,
       requestedTarget: "agent" as const,
     },
@@ -163,7 +163,7 @@ describe("persistStickyModelSelection", () => {
             },
           ],
         },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       target: "defaults" as const,
       requestedTarget: "defaults" as const,
     },

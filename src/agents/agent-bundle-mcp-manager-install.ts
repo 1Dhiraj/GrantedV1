@@ -1,6 +1,6 @@
 import type { SessionToolOverrides } from "../config/sessions/types.js";
 /** Session MCP runtime manager install path: static get-or-create + requester resolve/install. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import type { SessionMcpRuntimeManagerLifecycle } from "./agent-bundle-mcp-manager-lifecycle.js";
@@ -25,7 +25,7 @@ type RuntimeEntryParams = {
   sessionKey?: string;
   workspaceDir: string;
   agentDir?: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
   includeServerNames?: ReadonlySet<string>;
   excludeServerNames?: ReadonlySet<string>;
@@ -46,7 +46,7 @@ type SessionMcpRuntimeManagerInstall = {
     sessionKey?: string;
     workspaceDir: string;
     agentDir?: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
     oauthRequesterNameSet: ReadonlySet<string>;
     mcpServers: Record<string, BundleMcpServerConfig>;
@@ -172,7 +172,7 @@ export function createSessionMcpRuntimeManagerInstall(
     sessionKey?: string;
     workspaceDir: string;
     agentDir?: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
     safeServerNamesByServer: ReadonlyMap<string, string>;
     includeServerNames: ReadonlySet<string>;
@@ -261,7 +261,7 @@ export function createSessionMcpRuntimeManagerInstall(
     sessionKey?: string;
     workspaceDir: string;
     agentDir?: string;
-    cfg?: OpenClawConfig;
+    cfg?: GrantedConfig;
     manifestRegistry?: Pick<PluginManifestRegistry, "plugins">;
     oauthRequesterNameSet: ReadonlySet<string>;
     mcpServers: Record<string, BundleMcpServerConfig>;

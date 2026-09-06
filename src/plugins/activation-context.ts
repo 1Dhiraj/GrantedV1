@@ -1,6 +1,6 @@
 // Builds plugin activation context from config, discovery, and manifests.
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withBundledPluginEnablementCompat } from "./bundled-compat.js";
 import {
   createPluginActivationSource,
@@ -13,17 +13,17 @@ import type { PluginDiscoveryResult } from "./discovery.js";
 import type { PluginManifestRegistry } from "./manifest-registry.js";
 
 type PluginActivationInputs = {
-  rawConfig?: OpenClawConfig;
-  config?: OpenClawConfig;
+  rawConfig?: GrantedConfig;
+  config?: GrantedConfig;
   normalized: NormalizedPluginsConfig;
-  activationSourceConfig?: OpenClawConfig;
+  activationSourceConfig?: GrantedConfig;
   activationSource: PluginActivationConfigSource;
   autoEnabledReasons: Record<string, string[]>;
 };
 
 type PluginActivationParams = {
-  rawConfig?: OpenClawConfig;
-  resolvedConfig?: OpenClawConfig;
+  rawConfig?: GrantedConfig;
+  resolvedConfig?: GrantedConfig;
   autoEnabledReasons?: Record<string, string[]>;
   env?: NodeJS.ProcessEnv;
   workspaceDir?: string;
@@ -36,7 +36,7 @@ type BundledCompatActivationParams = PluginActivationParams & {
   activation?: "defaults" | "selected";
   onlyPluginIds?: readonly string[];
   resolveBundledPluginIds: (params: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     workspaceDir?: string;
     env?: NodeJS.ProcessEnv;
     onlyPluginIds?: readonly string[];
@@ -45,11 +45,11 @@ type BundledCompatActivationParams = PluginActivationParams & {
 };
 
 export function withActivatedPluginIds(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   pluginIds: readonly string[];
   overrideGlobalDisable?: boolean;
   overrideExplicitDisable?: boolean;
-}): OpenClawConfig | undefined {
+}): GrantedConfig | undefined {
   if (params.pluginIds.length === 0) {
     return params.config;
   }
@@ -89,7 +89,7 @@ export function withActivatedPluginIds(params: {
 }
 
 function applyPluginAutoEnableForActivation(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   workspaceDir?: string;
   discovery?: PluginDiscoveryResult;

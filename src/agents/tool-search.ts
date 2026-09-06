@@ -2,7 +2,7 @@
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
 import type { AgentToolResult, AgentToolUpdateCallback } from "./runtime/index.js";
 import type { ToolDefinition } from "./sessions/index.js";
@@ -212,7 +212,7 @@ function shouldExposeControlTool(name: string, mode: ToolSearchMode): boolean {
 /** Replace visible tools with Tool Search controls and register hidden catalog entries. */
 export function applyToolSearchCatalog(params: {
   tools: AnyAgentTool[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionId?: string;
   sessionKey?: string;
   agentId?: string;
@@ -239,7 +239,7 @@ export { applyToolSchemaDirectoryCatalog };
 /** Move client-provided tools into an existing Tool Search catalog. */
 export function addClientToolsToToolSearchCatalog(params: {
   tools: ToolDefinition[];
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionId?: string;
   sessionKey?: string;
   agentId?: string;

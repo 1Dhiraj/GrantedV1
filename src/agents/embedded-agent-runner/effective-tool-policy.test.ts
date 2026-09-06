@@ -4,7 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setPluginToolMeta } from "../../plugins/tool-metadata.js";
 import { resolveConversationCapabilityProfile } from "../conversation-capability-profile.js";
 import type { AnyAgentTool } from "../tools/common.js";
@@ -31,7 +31,7 @@ function makeTool(name: string): AnyAgentTool {
 function applyFinalPolicy(
   params: {
     bundledTools: AnyAgentTool[];
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     warn?: (message: string) => void;
   } & Pick<
     ConversationCapabilityProfileParams,

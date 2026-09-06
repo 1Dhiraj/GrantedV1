@@ -6,7 +6,7 @@ import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
 import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
 import type {
   CreateSandboxBackendParams,
-  OpenClawConfig,
+  GrantedConfig,
   SandboxBackendCommandParams,
   SandboxBackendCommandResult,
   SandboxBackendFactory,
@@ -1191,7 +1191,7 @@ class OpenShellSandboxBackendImpl {
 }
 
 function resolveOpenShellPluginConfigFromConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   fallback: ResolvedOpenShellPluginConfig,
 ): ResolvedOpenShellPluginConfig {
   const pluginConfig = config.plugins?.entries?.openshell?.config;

@@ -26,7 +26,7 @@ export type {
   SshSandboxSession,
   SshSandboxSettings,
 } from "../agents/sandbox.js";
-export type { OpenClawConfig } from "../config/config.js";
+export type { GrantedConfig } from "../config/config.js";
 export { resolveReadOnlyWorkspaceSkillMounts } from "../agents/sandbox/workspace-mounts.js";
 
 export {

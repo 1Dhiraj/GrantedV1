@@ -13,7 +13,7 @@ import {
   getChannelIngressKysely,
 } from "../../../../src/channels/message/ingress-queue.js";
 import type { ModelDefinitionConfig } from "../../../../src/config/types.models.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import { executeSqliteQuerySync } from "../../../../src/infra/kysely-sync.js";
 import { openExistingOpenClawStateDatabaseReadOnly } from "../../../../src/state/openclaw-state-db.js";
 import { withTestTimeout } from "../../../helpers/promise.js";
@@ -115,7 +115,7 @@ function configuredModel(id: string): ModelDefinitionConfig {
   };
 }
 
-function pickerConfig(apiRoot: string, modelId: string): OpenClawConfig {
+function pickerConfig(apiRoot: string, modelId: string): GrantedConfig {
   const modelRef = `${REPLACEMENT_PROVIDER}/${modelId}`;
   return {
     gateway: { mode: "local", bind: "loopback", auth: { mode: "token", token: "picker-token" } },

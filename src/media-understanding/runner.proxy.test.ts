@@ -1,7 +1,7 @@
 // Media runner proxy tests cover environment proxy fetch selection for audio
 // and video providers.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.js";
+import type { GrantedConfig } from "../config/types.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { withAudioFixture, withVideoFixture } from "./runner.test-utils.js";
 import type { AudioTranscriptionRequest, VideoDescriptionRequest } from "./types.js";
@@ -38,7 +38,7 @@ let buildProviderRegistry: typeof import("./runner.js").buildProviderRegistry;
 let clearMediaUnderstandingBinaryCacheForTests: typeof import("./runner.test-support.js").clearMediaUnderstandingBinaryCacheForTests;
 let runCapability: typeof import("./runner.js").runCapability;
 
-function createOpenAiAudioCfg(providerOverrides: Record<string, unknown> = {}): OpenClawConfig {
+function createOpenAiAudioCfg(providerOverrides: Record<string, unknown> = {}): GrantedConfig {
   return {
     models: {
       providers: {
@@ -57,7 +57,7 @@ function createOpenAiAudioCfg(providerOverrides: Record<string, unknown> = {}): 
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 function expectSingleOutputText(
@@ -149,7 +149,7 @@ describe("runCapability proxy fetch passthrough", () => {
                 },
               },
             },
-          } as unknown as OpenClawConfig,
+          } as unknown as GrantedConfig,
           ctx,
           attachments: cache,
           media,

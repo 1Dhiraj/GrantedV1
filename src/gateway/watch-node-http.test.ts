@@ -13,7 +13,7 @@ import {
 } from "../../packages/gateway-protocol/src/client-info.js";
 import { PROTOCOL_VERSION, type ConnectParams } from "../../packages/gateway-protocol/src/index.js";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   issueDeviceBootstrapToken,
   issueDevicePairSetupBootstrapToken,
@@ -119,7 +119,7 @@ async function startRuntime(
   options?: {
     rateLimiter?: AuthRateLimiter;
     abortConnectResponse?: boolean;
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     now?: () => number;
     onConnectResponseStart?: () => void;
     onPollReady?: (response: ServerResponse) => void;

@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { isBlockedObjectKey } from "../infra/prototype-keys.js";
 import { parseConfigPathArrayIndex } from "../shared/path-array-index.js";
-import type { OpenClawConfig } from "./types.js";
+import type { GrantedConfig } from "./types.js";
 
 const MANAGED_CONFIG_UNSET_PATHS = [["plugins", "installs"]] as const;
 const WRITE_PRUNED_OBJECT = Symbol("write-pruned-object");
@@ -72,9 +72,9 @@ function unsetPathForWriteAt(
 }
 
 function unsetPathForWrite(
-  root: OpenClawConfig,
+  root: GrantedConfig,
   pathSegments: string[],
-): { changed: boolean; next: OpenClawConfig } {
+): { changed: boolean; next: GrantedConfig } {
   if (pathSegments.length === 0) {
     return { changed: false, next: root };
   }
@@ -86,15 +86,15 @@ function unsetPathForWrite(
     return { changed: true, next: {} };
   }
   if (isRecord(result.value)) {
-    return { changed: true, next: result.value as OpenClawConfig };
+    return { changed: true, next: result.value as GrantedConfig };
   }
   return { changed: false, next: root };
 }
 
 export function applyUnsetPathsForWrite(
-  root: OpenClawConfig,
+  root: GrantedConfig,
   unsetPaths: readonly string[][] | undefined,
-): OpenClawConfig {
+): GrantedConfig {
   let next = root;
   for (const unsetPath of unsetPaths ?? []) {
     if (!Array.isArray(unsetPath) || unsetPath.length === 0) {

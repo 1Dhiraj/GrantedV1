@@ -1,6 +1,6 @@
 import { resolveAgentWorkspaceDir, tryResolveSoleAgentId } from "../agents/agent-scope.js";
 import { isLegacyParentWritableUpdateDoctorPass } from "../commands/doctor/shared/update-phase.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contribution-types.js";
 
 export function isUpdateDoctorRun(
@@ -10,10 +10,10 @@ export function isUpdateDoctorRun(
   return value === "1" || value === "true";
 }
 
-export function resolveDoctorMode(cfg: OpenClawConfig): "local" | "remote" {
+export function resolveDoctorMode(cfg: GrantedConfig): "local" | "remote" {
   return cfg.gateway?.mode === "remote" ? "remote" : "local";
 }
-export function resolveDoctorWorkspaceDir(cfg: OpenClawConfig, env = process.env) {
+export function resolveDoctorWorkspaceDir(cfg: GrantedConfig, env = process.env) {
   const agentId = tryResolveSoleAgentId(cfg);
   return agentId ? resolveAgentWorkspaceDir(cfg, agentId, env) : undefined;
 }

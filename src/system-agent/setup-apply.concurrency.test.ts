@@ -4,7 +4,7 @@ import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { afterEach, describe, expect, it } from "vitest";
 import { resolveAgentDir } from "../agents/agent-scope.js";
 import { readConfigFileSnapshot, resetConfigRuntimeState } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { applySystemAgentSetup } from "./setup-apply.js";
 
@@ -18,7 +18,7 @@ const runtime: RuntimeEnv = {
 
 const sourceConfig = {
   agents: { defaults: { model: "openai/gpt-5.5" } },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 async function writeConcurrentRoster(pathname: string, agentId: string): Promise<void> {
   await fs.writeFile(

@@ -4,7 +4,7 @@
  * This module builds runtime plugin tools from config/options, delivery context,
  * auth profiles, and the current runtime config snapshot.
  */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveMessageActionTurnCapability,
   selectMessageActionRequesterIdentity,
@@ -16,9 +16,9 @@ import {
   withPluginRuntimeRegistryScope,
 } from "../plugins/runtime/gateway-request-scope.js";
 import { getPluginRuntimeLoadContext } from "../plugins/runtime/load-context.js";
-import type { OpenClawPluginToolDelivery } from "../plugins/tool-types.js";
+import type { GrantedPluginToolDelivery } from "../plugins/tool-types.js";
 import { resolvePluginTools } from "../plugins/tools.js";
-import type { OpenClawPluginToolContext } from "../plugins/types.js";
+import type { GrantedPluginToolContext } from "../plugins/types.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { resolveApiKeyForProfile, resolveAuthProfileOrder } from "./auth-profiles.js";
 import type { AuthProfileStore } from "./auth-profiles/types.js";
@@ -30,14 +30,14 @@ import {
 import { createNodePluginTools } from "./node-plugin-tools.js";
 import {
   resolveOpenClawPluginToolInputs,
-  type OpenClawPluginToolOptions,
+  type GrantedPluginToolOptions,
 } from "./openclaw-tools.plugin-context.js";
 import type { PreparedModelRuntimeSnapshot } from "./prepared-model-runtime.types.js";
 import { resolveAgentRuntimeToolConfig } from "./tool-runtime-config.js";
 import type { AnyAgentTool } from "./tools/common.js";
 import { hasProviderAuthForTool } from "./tools/model-config.helpers.js";
 
-type ResolveOpenClawPluginToolsOptions = OpenClawPluginToolOptions & {
+type ResolveOpenClawPluginToolsOptions = GrantedPluginToolOptions & {
   preparedModelRuntime?: PreparedModelRuntimeSnapshot;
   pluginToolAllowlist?: string[];
   pluginToolDenylist?: string[];
@@ -62,10 +62,10 @@ const loadMessageActionRunner = createLazyRuntimeModule(
 
 function createPluginToolDelivery(params: {
   options: ResolveOpenClawPluginToolsOptions | undefined;
-  context: OpenClawPluginToolContext;
-  bindingConfig: OpenClawConfig | undefined;
-  resolveConfig: () => OpenClawConfig | undefined;
-}): OpenClawPluginToolDelivery | undefined {
+  context: GrantedPluginToolContext;
+  bindingConfig: GrantedConfig | undefined;
+  resolveConfig: () => GrantedConfig | undefined;
+}): GrantedPluginToolDelivery | undefined {
   const deliveryContext = params.context.deliveryContext;
   const agentId = params.context.agentId;
   const sessionKey = params.context.sessionKey;
@@ -193,7 +193,7 @@ function createPluginToolDelivery(params: {
 /** Resolves plugin tools and their delivery context for an agent run. */
 export function resolveOpenClawPluginToolsForOptions(params: {
   options?: ResolveOpenClawPluginToolsOptions;
-  resolvedConfig?: OpenClawConfig;
+  resolvedConfig?: GrantedConfig;
   existingToolNames?: Set<string>;
 }): AnyAgentTool[] {
   if (params.options?.disablePluginTools) {

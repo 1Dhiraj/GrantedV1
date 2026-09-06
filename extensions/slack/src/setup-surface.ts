@@ -7,7 +7,7 @@ import {
   resolveEntriesWithOptionalToken,
   resolveSetupAccountId,
   createSetupTranslator,
-  type OpenClawConfig,
+  type GrantedConfig,
   parseMentionOrPrefixedId,
   promptResolvedAllowFrom,
   splitSetupEntries,
@@ -51,10 +51,10 @@ async function resolveSlackAllowFromEntries(params: {
 }
 
 async function promptSlackAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const parseId = (value: string) =>
     parseMentionOrPrefixedId({
       value,
@@ -118,7 +118,7 @@ async function promptSlackAllowFrom(params: {
 }
 
 async function resolveSlackGroupAllowlist(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   credentialValues: SlackSetupCredentialValues;
   entries: string[];

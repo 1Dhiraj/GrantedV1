@@ -1,5 +1,5 @@
 import { posix, win32 } from "node:path";
-import { buildPluginConfigSchema, type OpenClawPluginConfigSchema } from "openclaw/plugin-sdk/core";
+import { buildPluginConfigSchema, type GrantedPluginConfigSchema } from "openclaw/plugin-sdk/core";
 import {
   formatPluginConfigIssue,
   mapPluginConfigIssues,
@@ -80,7 +80,7 @@ const MxcPluginConfigSchema = z.strictObject({
     .optional(),
 });
 
-export function createMxcPluginConfigSchema(): OpenClawPluginConfigSchema {
+export function createMxcPluginConfigSchema(): GrantedPluginConfigSchema {
   return buildPluginConfigSchema(MxcPluginConfigSchema, {
     safeParse(value) {
       if (value === undefined) {

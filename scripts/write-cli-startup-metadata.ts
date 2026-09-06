@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
 import pMap from "p-map";
 import type { RootHelpRenderOptions } from "../src/cli/program/root-help.js";
-import type { OpenClawConfig } from "../src/config/config.js";
+import type { GrantedConfig } from "../src/config/config.js";
 import { resolveCliStartupRootHelpBundleIdentity } from "./lib/cli-startup-root-help-bundle.js";
 import { terminateManagedChild } from "./lib/managed-child-process.mts";
 
@@ -420,7 +420,7 @@ function createIsolatedRootHelpRenderContext(
     GRANTED_DISABLE_BUNDLED_PLUGINS: "",
     GRANTED_STATE_DIR: stateDir,
   };
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     agents: {
       defaults: {
         workspace: workspaceDir,

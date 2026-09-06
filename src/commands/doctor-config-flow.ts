@@ -15,7 +15,7 @@ import { readRecentConfigAuditRecords } from "../config/io.audit.js";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
 import { CONFIG_PATH } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { callGateway } from "../gateway/call.js";
 import { isPathInside } from "../infra/path-guards.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -44,10 +44,7 @@ import { isSingleTopLevelIncludeMigration } from "./doctor/shared/include-migrat
 import { normalizeCompatibilityConfigValues } from "./doctor/shared/legacy-config-core-migrate.js";
 import type { DoctorPluginMetadataSnapshotState } from "./doctor/shared/plugin-metadata-snapshot-scope.js";
 
-function collectInvalidHookTransformsDirWarnings(
-  cfg: OpenClawConfig,
-  configPath: string,
-): string[] {
+function collectInvalidHookTransformsDirWarnings(cfg: GrantedConfig, configPath: string): string[] {
   const transformsDir = cfg.hooks?.transformsDir?.trim();
   if (!transformsDir) {
     return [];
@@ -65,7 +62,7 @@ function collectInvalidHookTransformsDirWarnings(
   ];
 }
 
-function collectUnsupportedInternalHookEntryWarnings(cfg: OpenClawConfig): string[] {
+function collectUnsupportedInternalHookEntryWarnings(cfg: GrantedConfig): string[] {
   const entries = cfg.hooks?.internal?.entries;
   if (!entries) {
     return [];
@@ -90,7 +87,7 @@ function collectUnsupportedInternalHookEntryWarnings(cfg: OpenClawConfig): strin
   );
 }
 
-function collectConfiguredChannelIds(cfg: OpenClawConfig): string[] {
+function collectConfiguredChannelIds(cfg: GrantedConfig): string[] {
   const channels =
     cfg.channels && typeof cfg.channels === "object" && !Array.isArray(cfg.channels)
       ? cfg.channels
@@ -199,7 +196,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     pluginMetadataSnapshotState.current = undefined;
     pluginMetadataSnapshotScope.invalidate();
   };
-  const runWithCurrentPluginMetadata = <T>(config: OpenClawConfig, run: () => T): T => {
+  const runWithCurrentPluginMetadata = <T>(config: GrantedConfig, run: () => T): T => {
     const soleAgentId = tryResolveSoleAgentId(config);
     return runWithPluginMetadataSnapshot(
       {
@@ -271,7 +268,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     // again after health repairs, when the retired owner marker is no longer available to recover it.
     const migrated = migratePersistedImplicitMainRoster(state.candidate, {
       materializeWorkspace: true,
-    }).config as OpenClawConfig;
+    }).config as GrantedConfig;
     const migratedRoster = readAgentRosterProperty(migrated);
     const migratedEntries = migratedRoster?.kind === "entries" ? migratedRoster.value : undefined;
     const { list: _legacyList, ...candidateAgents } = migrated.agents ?? {};
@@ -282,7 +279,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
         agents: {
           ...candidateAgents,
           ...(stampsExplicitOwnership ? { ownership: "explicit" as const } : {}),
-          entries: migratedEntries as NonNullable<OpenClawConfig["agents"]>["entries"],
+          entries: migratedEntries as NonNullable<GrantedConfig["agents"]>["entries"],
         },
       },
       changes: [

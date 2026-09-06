@@ -35,7 +35,7 @@ import {
   projectCredentialSnapshotFields,
   resolveConfiguredFromCredentialStatuses,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type GrantedConfig,
 } from "./channel-api.js";
 import {
   buildDiscordCrossContextPresentation,
@@ -174,7 +174,7 @@ function shouldTreatDiscordDeliveredTextAsVisible(params: {
   );
 }
 
-function resolveDiscordStartupDelayMs(cfg: OpenClawConfig, accountId: string): number {
+function resolveDiscordStartupDelayMs(cfg: GrantedConfig, accountId: string): number {
   const startupAccountIds = listDiscordStartupAccountIds(cfg);
   const startupIndex = startupAccountIds.findIndex((candidateId) => candidateId === accountId);
   return startupIndex <= 0 ? 0 : startupIndex * DISCORD_ACCOUNT_STARTUP_STAGGER_MS;
@@ -526,7 +526,7 @@ export const discordPlugin: ChannelPlugin<ResolvedDiscordAccount, DiscordProbe> 
               ],
             };
           }
-          const statusCfg: OpenClawConfig = {
+          const statusCfg: GrantedConfig = {
             channels: {
               discord: {
                 accounts: {

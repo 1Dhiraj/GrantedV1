@@ -1,7 +1,7 @@
 // OpenClaw TUI backend tests cover rescue status integration with the TUI backend.
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import * as preparedModelCatalog from "../agents/prepared-model-catalog.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { SystemAgentInferenceUnavailableError } from "./inference-error.js";
 import type { SystemAgentCommandDeps, SystemAgentOperation } from "./operations.js";
@@ -11,7 +11,7 @@ import { runSystemAgentTui, type SystemAgentTuiOptions } from "./tui-backend.js"
 import { resolveSystemAgentVerifiedInferenceState } from "./verified-inference.js";
 
 const verifiedInferenceMocks = vi.hoisted(() => ({
-  preparedBindings: new WeakMap<object, OpenClawConfig>(),
+  preparedBindings: new WeakMap<object, GrantedConfig>(),
 }));
 
 vi.mock("../plugins/providers.js", () => ({
@@ -74,9 +74,9 @@ const verifiedConfig = {
       },
     },
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
-function configSnapshot(config: OpenClawConfig) {
+function configSnapshot(config: GrantedConfig) {
   return {
     exists: true,
     valid: true,
@@ -99,7 +99,7 @@ beforeAll(async () => {
 
 async function createVerifiedTuiOptions(
   deps: SystemAgentCommandDeps = {},
-  config: OpenClawConfig = verifiedConfig,
+  config: GrantedConfig = verifiedConfig,
   useRealVerification = false,
 ) {
   const fixture =
@@ -299,7 +299,7 @@ describe("runSystemAgentTui", () => {
           thinkingDefault: "high",
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const profileQualifiedOverview = {
       ...overview,
       defaultModel: "openai/gpt-5.5@openai:setup-test",
@@ -347,7 +347,7 @@ describe("runSystemAgentTui", () => {
     const config = {
       ...verifiedConfig,
       agents: { defaults: { model: "openai/gpt-5.6-sol" } },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const verified = await createVerifiedTuiOptions(
       {
         loadOverview: async () => ({

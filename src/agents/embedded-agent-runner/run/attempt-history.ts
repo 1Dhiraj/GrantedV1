@@ -13,7 +13,7 @@ import {
   listSessionEntriesReadOnly,
   updateSessionEntry,
 } from "../../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import type { AssembleResult } from "../../../context-engine/types.js";
 import { resolveHeartbeatSummaryForAgent } from "../../../infra/heartbeat-summary.js";
@@ -713,7 +713,7 @@ export function resolveAttemptTranscriptPolicy(params: {
   runtimePlanModelContext: AttemptRuntimeModelContext;
   provider: string;
   modelId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 }): TranscriptPolicy {
   return (

@@ -17,7 +17,7 @@ import {
   updateSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { onSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -170,7 +170,7 @@ describe("worker transcript commit application", () => {
   let sessionsDir: string;
   let storePath: string;
   let sessionTarget: Awaited<ReturnType<typeof resolveSessionTranscriptRuntimeTarget>>;
-  let cfg: OpenClawConfig;
+  let cfg: GrantedConfig;
   let committer: WorkerTranscriptCommitter;
   let ledgerStore: WorkerTranscriptCommitStore;
   let unsubscribe: (() => void) | undefined;

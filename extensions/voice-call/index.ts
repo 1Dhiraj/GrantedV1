@@ -1,5 +1,5 @@
 // Voice Call plugin entrypoint registers its OpenClaw integration.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { ErrorCodes, errorShape } from "openclaw/plugin-sdk/gateway-runtime";
 import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
@@ -14,7 +14,7 @@ import { Type } from "typebox";
 import {
   definePluginEntry,
   type GatewayRequestHandlerOptions,
-  type OpenClawPluginApi,
+  type GrantedPluginApi,
 } from "./api.js";
 import { VOICE_CALL_CLI_DESCRIPTOR } from "./cli-output-mode.js";
 import { createVoiceCallRuntime, type VoiceCallRuntime } from "./runtime-entry.js";
@@ -96,7 +96,7 @@ const VOICE_CALL_RUNTIME_COORDINATOR_KEY = Symbol.for("openclaw.voice-call.runti
 type VoiceCallRuntimeGeneration = {
   retired: boolean;
   serviceHealth?: Parameters<
-    Parameters<OpenClawPluginApi["registerService"]>[0]["start"]
+    Parameters<GrantedPluginApi["registerService"]>[0]["start"]
   >[0]["serviceHealth"];
 };
 
@@ -190,7 +190,7 @@ export default definePluginEntry({
   name: "Voice Call",
   description: "Voice-call plugin with Telnyx/Twilio/Plivo providers",
   configSchema: voiceCallConfigSchema,
-  register(api: OpenClawPluginApi) {
+  register(api: GrantedPluginApi) {
     const config = resolveVoiceCallConfig(voiceCallConfigSchema.parse(api.pluginConfig));
     const validation = validateProviderConfig(config);
 
@@ -204,7 +204,7 @@ export default definePluginEntry({
           };
     const continueOperationStore = createVoiceCallContinueOperationStore({
       config,
-      coreConfig: api.config as OpenClawConfig,
+      coreConfig: api.config as GrantedConfig,
     });
     const activateRuntimeGeneration = (generation: VoiceCallRuntimeGeneration) =>
       activateVoiceCallRuntimeGeneration(runtimeCoordinator, runtimeRegistration, generation);
@@ -265,7 +265,7 @@ export default definePluginEntry({
 
         const runtimePromise = createVoiceCallRuntime({
           config,
-          coreConfig: api.config as OpenClawConfig,
+          coreConfig: api.config as GrantedConfig,
           fullConfig: api.config,
           agentRuntime: api.runtime.agent,
           stateRuntime: api.runtime.state,

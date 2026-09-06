@@ -14,7 +14,7 @@ import { resolveUnavailableChannelAccountSnapshot } from "../../channels/status/
 import { tryResolveLegacyCompatibilityAgentId } from "../../config/legacy.default-agent-owner.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import type { SessionEntrySummary } from "../../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isDiagnosticFlagEnabled } from "../../infra/diagnostic-flags.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { resolveHeartbeatSummaryForAgent } from "../../infra/heartbeat-summary.js";
@@ -59,7 +59,7 @@ const healthLog = createSubsystemLogger("health");
 type HealthSnapshotAudience = "public" | "admin";
 
 const debugHealth = (
-  cfg: OpenClawConfig | undefined,
+  cfg: GrantedConfig | undefined,
   message: string,
   meta?: Record<string, unknown>,
 ) => {
@@ -68,10 +68,10 @@ const debugHealth = (
   }
 };
 
-const resolveHeartbeatSummary = (cfg: OpenClawConfig, agentId: string) =>
+const resolveHeartbeatSummary = (cfg: GrantedConfig, agentId: string) =>
   resolveHeartbeatSummaryForAgent(cfg, agentId);
 
-export function resolveHealthAgentOrder(cfg: OpenClawConfig) {
+export function resolveHealthAgentOrder(cfg: GrantedConfig) {
   const defaultAgentId = tryResolveLegacyCompatibilityAgentId(cfg);
   const entries = listAgentEntries(cfg);
   const seen = new Set<string>();
@@ -141,7 +141,7 @@ async function buildHealthSessionSummary(storePath: string, agentId?: string) {
 
 /** Shares one bounded session snapshot across every configured agent in this collection. */
 export async function buildHealthAgentSummaries(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   { defaultAgentId, ordered }: ReturnType<typeof resolveHealthAgentOrder>,
 ): Promise<AgentHealthSummary[]> {
   const reader = await createHealthSessionStoreReader(ordered.map((entry) => entry.id));
@@ -160,7 +160,7 @@ export async function buildHealthAgentSummaries(
   });
 }
 
-function buildPluginHealthSummary(cfg: OpenClawConfig): PluginHealthSummary | undefined {
+function buildPluginHealthSummary(cfg: GrantedConfig): PluginHealthSummary | undefined {
   // Keep full internal diagnostics, but sanitize both load and service errors before public caching.
   function projectError(
     plugin: NonNullable<ReturnType<typeof getActivePluginRegistry>>["plugins"][number] | undefined,
@@ -344,7 +344,7 @@ function resolveHealthProbeTimeoutMs(deadlineAtMs: number): number {
 
 async function buildHealthAccountRecord(params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   defaultAccountId: string;
   includeSensitive: boolean;
@@ -692,7 +692,7 @@ export async function collectGatewayHealthSnapshot(params: {
   };
 }
 
-async function readRuntimeHealthConfig(): Promise<OpenClawConfig> {
+async function readRuntimeHealthConfig(): Promise<GrantedConfig> {
   const { getRuntimeConfig } = await import("../../config/config.js");
   return getRuntimeConfig();
 }

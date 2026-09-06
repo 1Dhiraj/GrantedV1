@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadAndActivateRootPluginRegistry } from "../plugins/loader.js";
 import { resetPluginLoaderTestStateForTest } from "../plugins/loader.test-fixtures.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
@@ -82,7 +82,7 @@ describe("simple completion prepared plugin scope", () => {
       name: "direct provider and model",
       expectedModelId: "selected-model",
       prepare: (params: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         modelResolver: typeof resolveModelAsync;
         provider: string;
         modelId: string;
@@ -99,7 +99,7 @@ describe("simple completion prepared plugin scope", () => {
       name: "agent-selected manifest utility model",
       expectedModelId: "utility-model",
       prepare: (params: {
-        config: OpenClawConfig;
+        config: GrantedConfig;
         modelResolver: typeof resolveModelAsync;
         provider: string;
         modelId: string;
@@ -165,7 +165,7 @@ module.exports = {
             [unrelated.pluginId]: { enabled: true },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       let preparedRuntime: PreparedModelRuntimeSnapshot | undefined;
       const modelResolver: typeof resolveModelAsync = vi.fn(
         async (provider, modelId, _agentDir, _cfg, options) => {
@@ -252,7 +252,7 @@ module.exports = {
         if (!address || typeof address === "string") {
           throw new Error("Completion owner fixture did not expose a TCP port");
         }
-        const configFor = (fixture: typeof selected): OpenClawConfig => ({
+        const configFor = (fixture: typeof selected): GrantedConfig => ({
           agents: {
             defaults: { workspace: fixture.rootDir, model: `${fixture.providerId}/selected-model` },
           },

@@ -1,6 +1,6 @@
 // Signal setup owns transport discovery and canonical account writes.
 import { normalizeAccountId, resolveAccountEntry } from "openclaw/plugin-sdk/account-resolution";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   patchChannelConfigForAccount,
@@ -54,7 +54,7 @@ function normalizeTransport(transport: SignalTransportConfig): SignalTransportCo
 }
 
 function assertSignalContainerTransportHasAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   transport: SignalTransportConfig;
 }): void {
@@ -69,7 +69,7 @@ function assertSignalContainerTransportHasAccount(params: {
 }
 
 function assertSignalLocalEndpointDoesNotConflictWithManagedSibling(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   transport: SignalTransportConfig;
 }): void {
@@ -109,7 +109,7 @@ function assertSignalLocalEndpointDoesNotConflictWithManagedSibling(params: {
 }
 
 export function resolveConfiguredSignalTransport(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): SignalTransportConfig | undefined {
   const signal = cfg.channels?.signal;
@@ -152,7 +152,7 @@ function alignManagedConnectionUrlAfterBindChange(params: {
 }
 
 export function prepareSignalManagedNativeTransport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   overrides?: Omit<SignalManagedNativeTransport, "kind">;
 }): SignalManagedNativeTransport {
@@ -259,7 +259,7 @@ export function prepareSignalManagedNativeTransport(params: {
 }
 
 export async function probeSignalTransport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   transport: SignalTransportConfig;
   account?: string;
@@ -288,10 +288,10 @@ export async function probeSignalTransport(params: {
 }
 
 export function writeSignalAccountTransport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId: string;
   transport: SignalTransportConfig;
-}): OpenClawConfig {
+}): GrantedConfig {
   const transport = normalizeTransport(params.transport);
   assertSignalContainerTransportHasAccount({
     cfg: params.cfg,

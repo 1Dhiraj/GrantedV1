@@ -4,7 +4,7 @@ import { modelKey } from "../../agents/model-selection.js";
 import { resolveContextConfigProviderForRuntime } from "../../agents/openai-routing.js";
 import { resolveStickyModelSelectionScope } from "../../agents/sticky-model-selection.js";
 import type { SessionEntry, SessionScope } from "../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { enqueueSystemEvent } from "../../infra/system-events.js";
 import {
   isModelSelectionLocked,
@@ -27,8 +27,8 @@ import { resolveContextTokens } from "./model-selection-context.js";
 import type { createModelSelectionState } from "./model-selection.js";
 import type { TypingController } from "./typing.js";
 
-type AgentDefaults = NonNullable<OpenClawConfig["agents"]>["defaults"];
-type AgentEntry = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentDefaults = NonNullable<GrantedConfig["agents"]>["defaults"];
+type AgentEntry = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number];
 
 const commandsStatusLoader = createLazyImportLoader(() => import("./commands-status.runtime.js"));
 const directiveLevelsLoader = createLazyImportLoader(
@@ -117,7 +117,7 @@ type ApplyDirectiveResult =
 
 export async function applyInlineDirectiveOverrides(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;

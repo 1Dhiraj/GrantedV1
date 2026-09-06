@@ -5,8 +5,8 @@ import type { AgentMessage, StreamFn } from "openclaw/plugin-sdk/agent-core";
 import type { AssistantMessage, Model } from "openclaw/plugin-sdk/llm";
 import type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginNodeInvokePolicyContext,
+  GrantedPluginApi,
+  GrantedPluginNodeInvokePolicyContext,
 } from "openclaw/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -46,23 +46,22 @@ vi.mock("./src/tool.js", () => ({
   createCanvasTool: mocks.createCanvasTool,
 }));
 
-function registerCanvas(config: OpenClawPluginApi["config"] = {}) {
-  const routes: Array<Parameters<OpenClawPluginApi["registerHttpRoute"]>[0]> = [];
-  const services: Array<Parameters<OpenClawPluginApi["registerService"]>[0]> = [];
-  const resolvers: Array<Parameters<OpenClawPluginApi["registerHostedMediaResolver"]>[0]> = [];
-  const widgetPresenters: Array<Parameters<OpenClawPluginApi["registerWidgetPresenter"]>[0]> = [];
+function registerCanvas(config: GrantedPluginApi["config"] = {}) {
+  const routes: Array<Parameters<GrantedPluginApi["registerHttpRoute"]>[0]> = [];
+  const services: Array<Parameters<GrantedPluginApi["registerService"]>[0]> = [];
+  const resolvers: Array<Parameters<GrantedPluginApi["registerHostedMediaResolver"]>[0]> = [];
+  const widgetPresenters: Array<Parameters<GrantedPluginApi["registerWidgetPresenter"]>[0]> = [];
   const tools: Array<{
-    tool: Parameters<OpenClawPluginApi["registerTool"]>[0];
-    opts: Parameters<OpenClawPluginApi["registerTool"]>[1];
+    tool: Parameters<GrantedPluginApi["registerTool"]>[0];
+    opts: Parameters<GrantedPluginApi["registerTool"]>[1];
   }> = [];
   const cliFeatures: Array<{
-    registrar: Parameters<OpenClawPluginApi["registerNodeCliFeature"]>[0];
-    opts: Parameters<OpenClawPluginApi["registerNodeCliFeature"]>[1];
+    registrar: Parameters<GrantedPluginApi["registerNodeCliFeature"]>[0];
+    opts: Parameters<GrantedPluginApi["registerNodeCliFeature"]>[1];
   }> = [];
-  const nodeInvokePolicies: Array<Parameters<OpenClawPluginApi["registerNodeInvokePolicy"]>[0]> =
-    [];
+  const nodeInvokePolicies: Array<Parameters<GrantedPluginApi["registerNodeInvokePolicy"]>[0]> = [];
   const boardWidgetContentKinds: Array<
-    Parameters<OpenClawPluginApi["registerBoardWidgetContentKind"]>[0]
+    Parameters<GrantedPluginApi["registerBoardWidgetContentKind"]>[0]
   > = [];
   canvasPlugin.register?.(
     createTestPluginApi({
@@ -92,8 +91,8 @@ function registerCanvas(config: OpenClawPluginApi["config"] = {}) {
 }
 
 function createNodeInvokeContext(
-  params: Partial<OpenClawPluginNodeInvokePolicyContext>,
-): OpenClawPluginNodeInvokePolicyContext {
+  params: Partial<GrantedPluginNodeInvokePolicyContext>,
+): GrantedPluginNodeInvokePolicyContext {
   return {
     nodeId: "node-1",
     command: "canvas.present",

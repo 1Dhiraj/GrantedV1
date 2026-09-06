@@ -54,7 +54,7 @@ import {
   createPluginMetadataSnapshot,
   makeRegistry,
 } from "../config/plugin-auto-enable.test-helpers.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import {
   getPluginRuntimeGatewayRequestScope,
@@ -397,7 +397,7 @@ describe("agent runtime plugin registries", () => {
   });
 
   it("carries low-level reply policy without rebinding the loader's cached registry", async () => {
-    const config = { plugins: { enabled: false } } satisfies OpenClawConfig;
+    const config = { plugins: { enabled: false } } satisfies GrantedConfig;
     const cachedRegistry = createEmptyPluginRegistry();
     hoisted.loadPluginRegistryHandle.mockReturnValue(cachedRegistry);
     const pluginRegistry = loadAgentRuntimePluginRegistryHandle({
@@ -563,7 +563,7 @@ describe("agent runtime plugin registries", () => {
   it.each([
     {
       name: "globally disabled plugins",
-      config: { plugins: { enabled: false } } satisfies OpenClawConfig,
+      config: { plugins: { enabled: false } } satisfies GrantedConfig,
       runtime: "codex",
       expectedOwner: 'Owner plugin "codex" is not activatable',
       expectedReason: "plugins disabled",
@@ -571,7 +571,7 @@ describe("agent runtime plugin registries", () => {
     },
     {
       name: "globally disabled plugins with an unknown owner",
-      config: { plugins: { enabled: false } } satisfies OpenClawConfig,
+      config: { plugins: { enabled: false } } satisfies GrantedConfig,
       runtime: "custom-harness",
       expectedOwner: "no plugin can register agent harness",
       expectedReason: "Plugins are disabled",
@@ -581,7 +581,7 @@ describe("agent runtime plugin registries", () => {
       name: "a restrictive allowlist",
       config: {
         plugins: { allow: ["openai", "memory-core"] },
-      } satisfies OpenClawConfig,
+      } satisfies GrantedConfig,
       runtime: "codex",
       expectedOwner: 'Owner plugin "codex" is not activatable',
       expectedReason: "not in allowlist",

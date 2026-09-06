@@ -4,7 +4,7 @@ import fsp from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata.test-support.js";
 import { loadPluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import {
@@ -87,7 +87,7 @@ describe("bundle plugin hooks", () => {
     return bundleRoot;
   }
 
-  function createConfig(enabled: boolean): OpenClawConfig {
+  function createConfig(enabled: boolean): GrantedConfig {
     return {
       hooks: {
         internal: {

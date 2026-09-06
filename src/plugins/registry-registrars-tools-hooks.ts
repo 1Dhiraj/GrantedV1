@@ -43,11 +43,11 @@ import {
   isPromptInjectionHookName,
 } from "./types.js";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginHookOptions,
-  OpenClawPluginToolContext,
-  OpenClawPluginToolFactory,
-  OpenClawPluginToolOptions,
+  GrantedPluginApi,
+  GrantedPluginHookOptions,
+  GrantedPluginToolContext,
+  GrantedPluginToolFactory,
+  GrantedPluginToolOptions,
   PluginHookHandlerMap,
   PluginHookName,
   PluginHookRegistrationOptions,
@@ -80,7 +80,7 @@ export function createToolHookRegistrars(state: PluginRegistryState) {
 
   const registerCodexAppServerExtensionFactory = (
     record: PluginRecord,
-    factory: Parameters<OpenClawPluginApi["registerCodexAppServerExtensionFactory"]>[0],
+    factory: Parameters<GrantedPluginApi["registerCodexAppServerExtensionFactory"]>[0],
   ) => {
     if (record.origin !== "bundled") {
       reportRegistrationError(
@@ -133,8 +133,8 @@ export function createToolHookRegistrars(state: PluginRegistryState) {
 
   const registerAgentToolResultMiddleware = (
     record: PluginRecord,
-    handler: Parameters<OpenClawPluginApi["registerAgentToolResultMiddleware"]>[0],
-    options: Parameters<OpenClawPluginApi["registerAgentToolResultMiddleware"]>[1],
+    handler: Parameters<GrantedPluginApi["registerAgentToolResultMiddleware"]>[0],
+    options: Parameters<GrantedPluginApi["registerAgentToolResultMiddleware"]>[1],
     policy?: PluginTypedHookPolicy,
   ) => {
     if (typeof (handler as unknown) !== "function") {
@@ -211,8 +211,8 @@ export function createToolHookRegistrars(state: PluginRegistryState) {
 
   const registerTool = (
     record: PluginRecord,
-    tool: AnyAgentTool | OpenClawPluginToolFactory,
-    opts?: OpenClawPluginToolOptions,
+    tool: AnyAgentTool | GrantedPluginToolFactory,
+    opts?: GrantedPluginToolOptions,
   ) => {
     if (pluginsWithChannelRegistrationConflict.has(record.id)) {
       return;
@@ -227,8 +227,8 @@ export function createToolHookRegistrars(state: PluginRegistryState) {
     }
     const names = [...(opts?.names ?? []), ...(opts?.name ? [opts.name] : [])];
     const optional = opts?.optional === true;
-    const factory: OpenClawPluginToolFactory =
-      typeof tool === "function" ? tool : (_ctx: OpenClawPluginToolContext) => tool;
+    const factory: GrantedPluginToolFactory =
+      typeof tool === "function" ? tool : (_ctx: GrantedPluginToolContext) => tool;
     if (typeof tool !== "function") {
       names.push(tool.name);
     }
@@ -261,8 +261,8 @@ export function createToolHookRegistrars(state: PluginRegistryState) {
     record: PluginRecord,
     events: string | string[],
     handler: InternalHookHandler,
-    opts: OpenClawPluginHookOptions | undefined,
-    config: OpenClawPluginApi["config"],
+    opts: GrantedPluginHookOptions | undefined,
+    config: GrantedPluginApi["config"],
     pluginConfig: unknown,
   ) => {
     const normalizedEvents = normalizeStringEntries(Array.isArray(events) ? events : [events]);

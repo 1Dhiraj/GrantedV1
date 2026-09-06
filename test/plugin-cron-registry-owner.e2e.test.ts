@@ -4,7 +4,7 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import {
   connectGatewayClient,
   disconnectGatewayClient,
@@ -14,7 +14,7 @@ import { upsertSessionEntry } from "../src/plugin-sdk/session-store-runtime.js";
 import { closeOpenClawAgentDatabasesForTest } from "../src/plugin-sdk/sqlite-runtime-testing.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 
 const PLUGIN_ID = "cron-registry-owner-proof";
@@ -70,7 +70,7 @@ type CronListPage = {
   jobs: CronJobView[];
 };
 
-const instances: OpenClawTestInstance[] = [];
+const instances: GrantedTestInstance[] = [];
 const cleanupDirs: string[] = [];
 const modelServers: MockModelServer[] = [];
 
@@ -320,7 +320,7 @@ describe("plugin cron registry ownership e2e", () => {
         contextWindow: 128_000,
         maxTokens: 4_096,
       });
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         plugins: {
           entries: Object.fromEntries(pluginIds.map((id) => [id, { enabled: true }])),
           slots: { memory: "none" },
@@ -550,7 +550,7 @@ describe("plugin cron registry ownership e2e", () => {
             },
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies GrantedConfig;
       const customPort = await getGatewayE2ePortBlock();
       const instance = await createOpenClawTestInstance({
         name: "plugin-cron-registry-owner",

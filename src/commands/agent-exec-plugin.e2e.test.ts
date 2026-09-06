@@ -4,7 +4,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { writePersistedInstalledPluginIndexInstallRecords } from "../plugins/installed-plugin-index-records.js";
 
 const execFileAsync = promisify(execFile);
@@ -108,7 +108,7 @@ async function writeHarnessPlugin(stateDir: string): Promise<void> {
   );
 }
 
-function buildExecProofConfig(): OpenClawConfig {
+function buildExecProofConfig(): GrantedConfig {
   return {
     plugins: {
       allow: ["exec-proof"],
@@ -140,7 +140,7 @@ function buildExecProofConfig(): OpenClawConfig {
 
 async function writeConfig(
   stateDir: string,
-  config: OpenClawConfig = buildExecProofConfig(),
+  config: GrantedConfig = buildExecProofConfig(),
 ): Promise<void> {
   await fs.writeFile(path.join(stateDir, "openclaw.json"), JSON.stringify(config), "utf8");
 }

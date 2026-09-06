@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { Context } from "grammy";
 import { parseExecApprovalCommandText } from "openclaw/plugin-sdk/approval-reply-runtime";
 import { buildCommandsMessagePaginated } from "openclaw/plugin-sdk/command-status";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { applySessionModelSelection } from "openclaw/plugin-sdk/model-session-runtime";
 import { formatModelsAvailableHeader } from "openclaw/plugin-sdk/models-provider-runtime";
 import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
@@ -429,7 +429,7 @@ async function handleTelegramModelCallback(params: {
   isGroup: boolean;
   threadSpec: ReturnType<typeof resolveTelegramMessageThreadSpec>;
   senderId: string;
-  runtimeCfg: OpenClawConfig;
+  runtimeCfg: GrantedConfig;
   telegramDeps: RegisterTelegramHandlerParams["telegramDeps"];
   actions: TelegramCallbackMessageActions;
   messageRuntime: TelegramCallbackMessageRuntime;

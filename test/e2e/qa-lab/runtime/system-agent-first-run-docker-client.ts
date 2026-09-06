@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { shouldStartOnboardingForFreshInstall } from "../../../../dist/cli/run-main.js";
 import { clearConfigCache } from "../../../../dist/config/config.js";
-import type { OpenClawConfig } from "../../../../dist/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../dist/config/types.openclaw.js";
 import { createSqliteAuditRecordStore } from "../../../../dist/infra/sqlite-audit-record-store.js";
 import type { RuntimeEnv } from "../../../../dist/runtime.js";
 import {
@@ -99,7 +99,7 @@ function countInferencePrompts(lines: string[]): number {
   return lines.filter((line) => line.includes(INFERENCE_PROBE_PROMPT)).length;
 }
 
-function resolveDefaultModel(config: OpenClawConfig): string | undefined {
+function resolveDefaultModel(config: GrantedConfig): string | undefined {
   const model = config.agents?.defaults?.model;
   return typeof model === "string" ? model : model?.primary;
 }
@@ -254,7 +254,7 @@ async function main() {
     activation.modelRef === "claude-cli/claude-opus-5",
     `activation selected the wrong model: ${activation.modelRef}`,
   );
-  const inferenceConfig = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+  const inferenceConfig = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
   assert(
     resolveDefaultModel(inferenceConfig) === activation.modelRef,
     "activation did not persist the verified inference route",
@@ -365,7 +365,7 @@ async function main() {
     `unexpected fake Claude prompt count: ${probeLines.length}`,
   );
 
-  const config = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+  const config = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
   assert(
     config.agents?.defaults?.workspace === spec.dockerDefaultWorkspace,
     "first-run setup did not write default workspace",

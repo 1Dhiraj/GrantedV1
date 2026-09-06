@@ -1,25 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { computeBaseConfigSchemaResponse } from "./schema-base.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { GrantedSchema } from "./zod-schema.js";
 import { projectTelemetryFieldMetadata } from "./zod-schema.telemetry.js";
 
-describe("OpenClawSchema telemetry config", () => {
+describe("GrantedSchema telemetry config", () => {
   it("keeps feature statistics absent by default and preserves explicit consent decisions", () => {
-    expect(OpenClawSchema.parse({}).telemetry).toBeUndefined();
+    expect(GrantedSchema.parse({}).telemetry).toBeUndefined();
 
     for (const enabled of [false, true]) {
       const telemetry = { enabled, consentedAt: "2026-08-23T12:00:00.000Z" };
-      expect(OpenClawSchema.parse({ telemetry }).telemetry).toStrictEqual(telemetry);
+      expect(GrantedSchema.parse({ telemetry }).telemetry).toStrictEqual(telemetry);
     }
   });
 
   it("rejects unknown telemetry fields and malformed consent timestamps", () => {
     expect(
-      OpenClawSchema.safeParse({ telemetry: { enabled: true, installId: "hidden" } }).success,
+      GrantedSchema.safeParse({ telemetry: { enabled: true, installId: "hidden" } }).success,
     ).toBe(false);
-    expect(
-      OpenClawSchema.safeParse({ telemetry: { consentedAt: "not-a-timestamp" } }).success,
-    ).toBe(false);
+    expect(GrantedSchema.safeParse({ telemetry: { consentedAt: "not-a-timestamp" } }).success).toBe(
+      false,
+    );
   });
 
   it("projects schema-owned labels, help, docs, and the existing configuration tier", () => {

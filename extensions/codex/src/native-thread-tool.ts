@@ -11,7 +11,7 @@ import {
   isModelSelectionLocked,
   ModelSelectionLockedError,
 } from "openclaw/plugin-sdk/model-session-runtime";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import {
   asBoolean,
   asOptionalRecord,
@@ -110,14 +110,14 @@ const CodexThreadsParamsSchema = Type.Union([
 
 type CodexThreadsToolOptions = {
   bindingStore: CodexAppServerBindingStore;
-  context: OpenClawPluginToolContext;
+  context: GrantedPluginToolContext;
   runtime: PluginRuntime;
   getPluginConfig: () => unknown;
   request?: typeof codexControlRequest;
 };
 
 function resolveToolSession(
-  context: OpenClawPluginToolContext,
+  context: GrantedPluginToolContext,
   runtime: PluginRuntime,
 ): { sessionId: string; modelSelectionLocked: boolean } | undefined {
   const sessionKey = context.sessionKey?.trim();

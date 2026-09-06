@@ -3,7 +3,7 @@
 // heartbeat-runner.scheduler.test.ts so that file stays inside the oxlint
 // max-lines budget.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { resetConfigRuntimeState, type OpenClawConfig } from "../config/config.js";
+import { resetConfigRuntimeState, type GrantedConfig } from "../config/config.js";
 import { wake as wakeCronService } from "../cron/service/wake.js";
 import { setHeartbeatsEnabled, startHeartbeatRunner } from "./heartbeat-runner.js";
 import { requestHeartbeat } from "./heartbeat-wake.js";
@@ -41,7 +41,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
   }
 
   async function expectWakeDispatch(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     runSpy: MockRunOnce;
     wake: Parameters<typeof requestHeartbeat>[0];
     expectedCall: Record<string, unknown>;
@@ -75,7 +75,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
       const runner = startHeartbeatRunner({
         cfg: {
           agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         runOnce: runSpy,
       });
       const enqueueSystemEvent = vi.fn();
@@ -137,7 +137,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = startHeartbeatRunner({
       cfg: {
         agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runOnce: runSpy,
     });
 
@@ -161,7 +161,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = startHeartbeatRunner({
       cfg: {
         agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runOnce: runSpy,
     });
 
@@ -187,7 +187,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = await expectWakeDispatch({
       cfg: {
         agents: { list: [{ id: "main", heartbeat: { every: "30m" } }, { id: "ops" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runSpy,
       wake: {
         source: "hook",
@@ -219,7 +219,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
       const runner = await expectWakeDispatch({
         cfg: {
           agents: { list: [{ id: "main", heartbeat: { every: "30m" } }, { id: "ops" }] },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         runSpy,
         wake: {
           source,
@@ -246,7 +246,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = await expectWakeDispatch({
       cfg: {
         agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runSpy,
       wake: {
         source: "exec-event",
@@ -272,7 +272,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = await expectWakeDispatch({
       cfg: {
         agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runSpy,
       wake: {
         source: "restart-sentinel",
@@ -311,7 +311,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     const runner = startHeartbeatRunner({
       cfg: {
         agents: { defaults: { heartbeat: { every: "0m" } }, list: [{ id: "main" }] },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       runOnce: runSpy,
     });
 
@@ -332,7 +332,7 @@ describe("startHeartbeatRunner targeted unscheduled wake dispatch", () => {
     useFakeHeartbeatTime();
     const runSpy = vi.fn().mockResolvedValue({ status: "ran", durationMs: 1 });
     const runner = startHeartbeatRunner({
-      cfg: { agents: { list: [{ id: "main", heartbeat: { every: "30m" } }] } } as OpenClawConfig,
+      cfg: { agents: { list: [{ id: "main", heartbeat: { every: "30m" } }] } } as GrantedConfig,
       runOnce: runSpy,
     });
 

@@ -5,7 +5,7 @@ import { listAgentEntries, toAgentEntriesRecord } from "../agents/agent-scope.js
 import { resolveSandboxConfigForAgent } from "../agents/sandbox/config.js";
 import { expandToolGroups, resolveToolProfilePolicy } from "../agents/tool-policy-shared.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-summary.js";
 import { resolveRememberAcrossConversations } from "../memory-host-sdk/host/config-utils.js";
 import { resolveClawToolProfileSnapshot } from "./tool-profile-consent.js";
@@ -355,10 +355,10 @@ function pushAgentCapabilityChanges(params: {
   }
 }
 
-type AgentConfig = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentConfig = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number];
 
 function normalizeLegacyAgent(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   currentAgent: AgentConfig,
   desiredAgent: AgentConfig,
 ): AgentConfig {
@@ -395,7 +395,7 @@ function normalizeLegacyAgent(
   };
 }
 
-function resolveHeartbeat(config: OpenClawConfig, agentId: string): unknown {
+function resolveHeartbeat(config: GrantedConfig, agentId: string): unknown {
   const defaults = config.agents?.defaults?.heartbeat;
   const overrides = listAgentEntries(config).find((agent) => agent.id === agentId)?.heartbeat;
   return {
@@ -405,7 +405,7 @@ function resolveHeartbeat(config: OpenClawConfig, agentId: string): unknown {
   };
 }
 
-function resolvePortableTools(config: OpenClawConfig, agentId: string): unknown {
+function resolvePortableTools(config: GrantedConfig, agentId: string): unknown {
   const globalTools = config.tools;
   const agentTools = listAgentEntries(config).find((agent) => agent.id === agentId)?.tools;
   return {
@@ -417,7 +417,7 @@ function resolvePortableTools(config: OpenClawConfig, agentId: string): unknown 
   };
 }
 
-function resolvePortableMemorySearch(config: OpenClawConfig, agentId: string): unknown {
+function resolvePortableMemorySearch(config: GrantedConfig, agentId: string): unknown {
   const defaults = config.memory?.search;
   const overrides = listAgentEntries(config).find((agent) => agent.id === agentId)?.memory?.search;
   const enabled = overrides?.enabled ?? defaults?.enabled ?? true;
@@ -442,10 +442,10 @@ function resolvePortableMemorySearch(config: OpenClawConfig, agentId: string): u
 }
 
 function prepareCapabilityComparisonConfig(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   entries: AgentConfig[],
   preferredDefaultAgentId: string,
-): OpenClawConfig {
+): GrantedConfig {
   const hasDefault = entries.some((entry) => entry.default === true);
   const comparisonEntries = hasDefault
     ? entries
@@ -461,7 +461,7 @@ function prepareCapabilityComparisonConfig(
 export function pushResolvedAgentCapabilityChanges(params: {
   changes: ClawUpdateCapabilityChange[];
   agentId: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
   desiredAgent: AgentConfig;
 }): void {
   const currentAgents = listAgentEntries(params.config);

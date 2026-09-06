@@ -24,7 +24,7 @@ function buildWindowsQuickFirewallCommand(port: number): string {
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 $targetPort = ${port}
-function Test-OpenClawPortMatch($value) {
+function Test-GrantedPortMatch($value) {
   foreach ($entry in @($value)) {
     $text = ([string]$entry).Trim()
     if ($text -eq '' -or $text -eq '*' -or $text -eq 'Any') { return $true }
@@ -40,7 +40,7 @@ function Test-OpenClawPortMatch($value) {
   }
   return $false
 }
-function Resolve-OpenClawProgramScope($rule) {
+function Resolve-GrantedProgramScope($rule) {
   $program = ([string]$rule.ApplicationName).Trim()
   if ($program) { return $program }
   foreach ($field in @('serviceName', 'LocalAppPackageId', 'LocalUserOwner')) {
@@ -51,7 +51,7 @@ function Resolve-OpenClawProgramScope($rule) {
   if ($ports -ne '' -and $ports -ne '*') { return 'Any' }
   return 'Any'
 }
-function Get-OpenClawManagedRules {
+function Get-GrantedManagedRules {
   try {
     $getRule = Get-Command Get-NetFirewallRule -ErrorAction Stop
     $sourceTypeParameter = $getRule.Parameters['PolicyStoreSourceType']
@@ -71,7 +71,7 @@ function Get-OpenClawManagedRules {
     foreach ($rule in $rules) {
       foreach ($portFilter in @($rule | Get-NetFirewallPortFilter)) {
         $protocol = $portFilter.Protocol.ToString()
-        if (($protocol -eq 'Any' -or $protocol -eq 'TCP') -and (Test-OpenClawPortMatch $portFilter.LocalPort)) {
+        if (($protocol -eq 'Any' -or $protocol -eq 'TCP') -and (Test-GrantedPortMatch $portFilter.LocalPort)) {
           $appFilter = $rule | Get-NetFirewallApplicationFilter
           $addressFilter = $rule | Get-NetFirewallAddressFilter
           [void]$matchingRules.Add([pscustomobject]@{
@@ -95,20 +95,20 @@ function Get-OpenClawManagedRules {
 $connections = Get-NetConnectionProfile | Select-Object InterfaceAlias, @{Name='NetworkCategory';Expression={$_.NetworkCategory.ToString()}}
 $activeProfiles = Get-NetFirewallProfile -PolicyStore ActiveStore | Select-Object Name, @{Name='Enabled';Expression={$_.Enabled.ToString()}}, @{Name='DefaultInboundAction';Expression={$_.DefaultInboundAction.ToString()}}, @{Name='AllowInboundRules';Expression={$_.AllowInboundRules.ToString()}}, @{Name='AllowLocalFirewallRules';Expression={$_.AllowLocalFirewallRules.ToString()}}
 $localProfiles = Get-NetFirewallProfile -PolicyStore localhost | Select-Object Name, @{Name='Enabled';Expression={$_.Enabled.ToString()}}, @{Name='DefaultInboundAction';Expression={$_.DefaultInboundAction.ToString()}}, @{Name='AllowInboundRules';Expression={$_.AllowInboundRules.ToString()}}, @{Name='AllowLocalFirewallRules';Expression={$_.AllowLocalFirewallRules.ToString()}}
-$managedMatchingRules = @(Get-OpenClawManagedRules)
+$managedMatchingRules = @(Get-GrantedManagedRules)
 $policy = New-Object -ComObject HNetCfg.FwPolicy2
 $matchingRules = New-Object System.Collections.ArrayList
 foreach ($rule in $policy.Rules) {
   if (-not $rule.Enabled -or $rule.Direction -ne 1 -or $rule.Action -ne 1) { continue }
   $protocol = if ($rule.Protocol -eq 6) { 'TCP' } elseif ($rule.Protocol -eq 256) { 'Any' } else { [string]$rule.Protocol }
-  if (($protocol -ne 'TCP' -and $protocol -ne 'Any') -or -not (Test-OpenClawPortMatch $rule.LocalPorts)) { continue }
+  if (($protocol -ne 'TCP' -and $protocol -ne 'Any') -or -not (Test-GrantedPortMatch $rule.LocalPorts)) { continue }
   [void]$matchingRules.Add([pscustomobject]@{
     DisplayName = [string]$rule.Name
     Name = [string]$rule.Name
     Profile = [string]$rule.Profiles
     PolicyStoreSource = 'PersistentStore'
     PolicyStoreSourceType = 'Local'
-    Program = (Resolve-OpenClawProgramScope $rule)
+    Program = (Resolve-GrantedProgramScope $rule)
     LocalAddress = [string]$rule.LocalAddresses
     RemoteAddress = [string]$rule.RemoteAddresses
   })

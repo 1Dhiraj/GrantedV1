@@ -119,7 +119,7 @@ type PublishedInstallScenario = {
   expectedVersion: string;
 };
 
-type OpenClawNpmPostpublishVerifyArgs =
+type GrantedNpmPostpublishVerifyArgs =
   | {
       help: false;
       version: string;
@@ -135,7 +135,7 @@ export function openClawNpmPostpublishVerifyUsage(): string {
 
 export function parseOpenClawNpmPostpublishVerifyArgs(
   argv: readonly string[],
-): OpenClawNpmPostpublishVerifyArgs {
+): GrantedNpmPostpublishVerifyArgs {
   const args = argv[0] === "--" ? argv.slice(1) : argv;
   const version = args[0]?.trim() ?? "";
   if (version === "--help" || version === "-h") {

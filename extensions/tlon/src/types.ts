@@ -5,7 +5,7 @@ import {
 // Tlon type declarations define plugin contracts.
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
 import type { ResolvedChannelImplicitMentions } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   hasLegacyFlatAllowPrivateNetworkAlias,
   isPrivateNetworkOptInEnabled,
@@ -58,7 +58,7 @@ export type TlonResolvedAccount = {
   ownerShip: string | null;
 };
 
-function resolveTlonChannelConfig(cfg: OpenClawConfig): TlonAccountConfig | undefined {
+function resolveTlonChannelConfig(cfg: GrantedConfig): TlonAccountConfig | undefined {
   return cfg.channels?.tlon as TlonAccountConfig | undefined;
 }
 
@@ -74,7 +74,7 @@ const {
 export { listTlonAccountIds };
 
 function resolveMergedTlonAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId: string,
 ): Record<string, unknown> & TlonAccountConfig {
   const channel = resolveTlonChannelConfig(cfg);
@@ -86,7 +86,7 @@ function resolveMergedTlonAccountConfig(
 }
 
 export function resolveTlonAccount(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): TlonResolvedAccount {
   const resolvedAccountId = normalizeAccountId(accountId);

@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import type { AgentEventPayload } from "../../infra/agent-events.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedClassifyFailoverReason,
@@ -13,7 +13,7 @@ import {
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 import type { EmbeddedRunAttemptResult } from "./run/types.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
 let onAgentEvent: typeof import("../../infra/agent-events.js").onAgentEvent;
 let resetAgentEventsForTest: typeof import("../../infra/agent-events.js").resetAgentEventsForTest;

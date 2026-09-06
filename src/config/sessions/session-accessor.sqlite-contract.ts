@@ -1,5 +1,5 @@
 import type { SessionTranscriptUpdate } from "../../sessions/transcript-events.js";
-import type { OpenClawConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.openclaw.js";
 import type {
   DeletedAgentSessionEntryPurgeParams,
   DeleteSessionEntryLifecycleParams,
@@ -142,7 +142,7 @@ export type {
 
 export type TranscriptMessageAppendOptions<TMessage> = {
   appendIntent?: "active-branch";
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   cwd?: string;
   idempotencyLookup?: "scan" | "scan-assistant" | "caller-checked";
   message: TMessage;

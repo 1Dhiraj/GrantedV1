@@ -1,6 +1,6 @@
 // Exercises agent harness registration, ownership metadata, and selection handoff.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { markPluginRegistryRetired } from "../../plugins/registry-lifecycle.js";
 import {
@@ -74,7 +74,7 @@ function makeHarness(
   };
 }
 
-function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfig {
+function providerRuntimeConfig(provider: string, runtime: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -85,7 +85,7 @@ function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfi
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("agent harness registry", () => {

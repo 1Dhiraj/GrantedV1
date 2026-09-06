@@ -5,7 +5,7 @@ import { safeParseJson } from "@openclaw/normalization-core";
 import type { Selectable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { normalizeCronRuntimeAuthority } from "../runtime-authority.js";
 import { normalizeCronScheduledToolPolicy } from "../scheduled-tool-policy.js";
 import { cronJobUsesToolRuntime } from "../tools-allow.js";
@@ -34,11 +34,11 @@ CREATE TABLE IF NOT EXISTS cron_job_runtime_authorities (
 `;
 
 type CronAuthorityDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "cron_job_runtime_authorities" | "cron_jobs"
 >;
 type CronRuntimeAuthorityRow = Selectable<
-  OpenClawStateKyselyDatabase["cron_job_runtime_authorities"]
+  GrantedStateKyselyDatabase["cron_job_runtime_authorities"]
 >;
 
 type CronRuntimeAuthorityLoadResult = {

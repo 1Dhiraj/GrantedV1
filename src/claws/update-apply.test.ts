@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { ClawCronUpdateError } from "./cron-update.js";
 import type { buildClawAddPlan } from "./lifecycle.js";
@@ -224,7 +224,7 @@ describe("applyClawUpdatePlan", () => {
         desiredDigest: "sha256:target-agent",
       },
     ]);
-    let config: OpenClawConfig = { agents: { entries: { worker: { name: "Worker" } } } };
+    let config: GrantedConfig = { agents: { entries: { worker: { name: "Worker" } } } };
     const persisted = { ...install, claw: source, updatedAtMs: 2 };
     const persistInstall = vi.fn(() => persisted);
 
@@ -269,7 +269,7 @@ describe("applyClawUpdatePlan", () => {
       },
     ]);
     const order: string[] = [];
-    let config: OpenClawConfig = { agents: { entries: {} } };
+    let config: GrantedConfig = { agents: { entries: {} } };
 
     await applyClawUpdatePlan(
       updatePlan,
@@ -428,7 +428,7 @@ describe("applyClawUpdatePlan", () => {
         reason: "target adds cron job",
       },
     ]);
-    let config: OpenClawConfig = { agents: { entries: {} } };
+    let config: GrantedConfig = { agents: { entries: {} } };
     const workspaceRollback = vi.fn(async () => undefined);
     const mcpRollback = vi.fn(async () => undefined);
     const packageRollback = vi.fn(async () => undefined);
@@ -869,7 +869,7 @@ describe("applyClawUpdatePlan", () => {
           return workspaceRollback;
         },
       };
-      let config: OpenClawConfig = {};
+      let config: GrantedConfig = {};
       let commits = 0;
 
       await expect(
@@ -935,7 +935,7 @@ describe("applyClawUpdatePlan", () => {
         currentDigest,
       },
     ]);
-    let config: OpenClawConfig = { agents: { entries: { worker: { name: "Worker" } } } };
+    let config: GrantedConfig = { agents: { entries: { worker: { name: "Worker" } } } };
     let commits = 0;
 
     await expect(
@@ -976,7 +976,7 @@ describe("applyClawUpdatePlan", () => {
         currentDigest,
       },
     ]);
-    let config: OpenClawConfig = { agents: { entries: {} } };
+    let config: GrantedConfig = { agents: { entries: {} } };
 
     await expect(
       applyClawUpdatePlan(

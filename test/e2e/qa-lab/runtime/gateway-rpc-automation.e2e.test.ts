@@ -15,7 +15,7 @@ import {
 } from "../../../../src/config/config.js";
 import { resetConfigOverrides } from "../../../../src/config/runtime-overrides.js";
 import { clearSessionStoreCacheForTest } from "../../../../src/config/sessions/store-writer-state.js";
-import type { OpenClawConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
 import {
   disconnectGatewayClient,
   startGatewayWithClient,
@@ -219,7 +219,7 @@ describe("Gateway task and automation RPCs", () => {
           },
           gateway: { auth: { mode: "token", token } },
           plugins: { slots: { memory: "none" } },
-        } satisfies OpenClawConfig;
+        } satisfies GrantedConfig;
 
         gateway = await startGatewayWithClient({
           cfg: config,

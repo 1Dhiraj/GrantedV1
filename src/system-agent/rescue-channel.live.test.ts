@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import type { CommandContext } from "../auto-reply/reply/commands-types.js";
 import { clearConfigCache } from "../config/config.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { resetPluginStateStoreForTests } from "../plugin-state/plugin-state-store.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
@@ -38,7 +38,7 @@ function commandContext(channel = process.env.GRANTED_LIVE_SYSTEM_AGENT_CHANNEL 
 
 async function runRescue(params: {
   commandBody: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   ctx?: CommandContext;
 }) {
   const ctx = params.ctx ?? commandContext();
@@ -84,7 +84,7 @@ describeLive("OpenClaw live rescue channel smoke", () => {
         ),
       );
 
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         tools: { exec: { mode: "full" } },
       };
 
@@ -98,7 +98,7 @@ describeLive("OpenClaw live rescue channel smoke", () => {
         "Default model: openai/gpt-5.5",
       );
 
-      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as OpenClawConfig;
+      const config = JSON.parse(await fs.readFile(configPath, "utf8")) as GrantedConfig;
       const defaultModel = config.agents?.defaults?.model;
       if (!defaultModel || typeof defaultModel !== "object") {
         throw new Error("expected default model object");

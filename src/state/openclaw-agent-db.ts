@@ -31,9 +31,9 @@ import {
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type {
-  OpenClawAgentDatabase,
-  OpenClawAgentDatabaseOptions,
-  OpenClawAgentDatabaseOwnerInspection,
+  GrantedAgentDatabase,
+  GrantedAgentDatabaseOptions,
+  GrantedAgentDatabaseOwnerInspection,
 } from "./openclaw-agent-db-contract.js";
 import {
   AGENT_DATABASE_MAINTENANCE_LEASE,
@@ -69,16 +69,16 @@ import {
 import {
   createOpenClawDatabaseVerificationError,
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db.js";
-import { withOpenClawStateLease, type OpenClawStateLeaseContext } from "./openclaw-state-lease.js";
+import { withOpenClawStateLease, type GrantedStateLeaseContext } from "./openclaw-state-lease.js";
 
 export {
   GRANTED_AGENT_SCHEMA_VERSION,
-  type OpenClawAgentDatabase,
-  type OpenClawAgentDatabaseOptions,
-  type OpenClawAgentDatabaseOwnerInspection,
-  type OpenClawRegisteredAgentDatabase,
+  type GrantedAgentDatabase,
+  type GrantedAgentDatabaseOptions,
+  type GrantedAgentDatabaseOwnerInspection,
+  type GrantedRegisteredAgentDatabase,
 } from "./openclaw-agent-db-contract.js";
 export {
   assertOpenClawAgentDatabaseForMaintenance,
@@ -120,8 +120,8 @@ export class IncognitoAgentDatabasePathCollisionError extends Error {
 // satisfies the bounded-cache policy within a predictable FD budget, without config.
 export const GRANTED_AGENT_DB_OPEN_HANDLE_CAP = 64;
 const agentDbLog = createSubsystemLogger("state/agent-db");
-const cachedDatabases = new Map<string, OpenClawAgentDatabase>();
-const incognitoDatabases = new WeakSet<OpenClawAgentDatabase>();
+const cachedDatabases = new Map<string, GrantedAgentDatabase>();
+const incognitoDatabases = new WeakSet<GrantedAgentDatabase>();
 let incognitoDatabaseGeneration = 0;
 const cachedDatabaseOpenFailures = new Map<string, unknown>();
 const cachedDatabaseLeases = new Map<
@@ -168,7 +168,7 @@ export function recordOpenClawAgentDatabaseOpenFailure(
  */
 export function clearOpenClawAgentDatabaseOpenFailure(
   pathname: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   const resolvedPath = path.resolve(pathname);
   const cleared = clearOpenClawDatabaseQuarantine(resolvedPath, { env: options.env });
@@ -195,7 +195,7 @@ function logSlowAgentDatabaseOpen(params: {
 /** Read a database's durable role and agent owner without mutating it. */
 export function inspectOpenClawAgentDatabaseOwner(
   pathname: string,
-): OpenClawAgentDatabaseOwnerInspection {
+): GrantedAgentDatabaseOwnerInspection {
   let db: DatabaseSync | undefined;
   try {
     // A handle this process holds was owner-validated when it was opened, and
@@ -226,8 +226,8 @@ export function inspectOpenClawAgentDatabaseOwner(
 
 /** Open or return a cached per-agent database after schema and owner validation. */
 export function openOpenClawAgentDatabase(
-  options: OpenClawAgentDatabaseOptions,
-): OpenClawAgentDatabase {
+  options: GrantedAgentDatabaseOptions,
+): GrantedAgentDatabase {
   const agentId = normalizeAgentId(options.agentId);
   const databaseOptions = { ...options, agentId };
   const pathname = resolveOpenClawAgentSqlitePath(databaseOptions);
@@ -316,7 +316,7 @@ export function openOpenClawAgentDatabase(
   });
   const openStartedAt = Date.now();
   let openedDb: DatabaseSync | undefined;
-  let openedDatabase: OpenClawAgentDatabase | undefined;
+  let openedDatabase: GrantedAgentDatabase | undefined;
   let openedWalMaintenance: SqliteWalMaintenance | undefined;
   try {
     ensureOpenClawAgentDatabasePermissions(pathname, databaseOptions);
@@ -330,7 +330,7 @@ export function openOpenClawAgentDatabase(
     // Version and owner can change while evicted, so their read-only gates run on every open.
     let isValidatedReopen = validatedAgentDatabasePaths.get(pathname) === agentId;
     const walMaintenance = (() => {
-      let maintenance: OpenClawAgentDatabase["walMaintenance"] | undefined;
+      let maintenance: GrantedAgentDatabase["walMaintenance"] | undefined;
       try {
         db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
         assertSupportedAgentSchemaVersion(db, pathname);
@@ -417,7 +417,7 @@ export function openOpenClawAgentDatabase(
             checkpoint: () => false,
             close: () => false,
           },
-        } satisfies OpenClawAgentDatabase);
+        } satisfies GrantedAgentDatabase);
       // Failed opens remain disposal-owned but cannot become successful cache hits.
       cachedDatabases.set(pathname, retainedDatabase);
       cachedDatabaseLeases.set(pathname, { leaseId, env: options.env });
@@ -432,15 +432,15 @@ export function openOpenClawAgentDatabase(
 
 /** Queue a non-throwing runtime publication on the outer database commit edge. */
 export function deferOpenClawAgentPostCommitPublication(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   publish: () => void,
 ): boolean {
   return deferSqlitePostCommitPublication(database.db, publish);
 }
 
 export function runOpenClawAgentWriteTransaction<T>(
-  operation: (database: OpenClawAgentDatabase) => T,
-  options: OpenClawAgentDatabaseOptions,
+  operation: (database: GrantedAgentDatabase) => T,
+  options: GrantedAgentDatabaseOptions,
   transactionOptions: Pick<
     SqliteTransactionOptions,
     "busyTimeoutMs" | "operationLabel" | "slowTransactionHoldMs"
@@ -475,7 +475,7 @@ export function runOpenClawAgentWriteTransaction<T>(
 let unregisterExitClose: (() => void) | null = null;
 
 function closeCachedOpenClawAgentDatabase(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   options: { eviction?: boolean } = {},
 ): void {
   // Eviction must stay cheap: PASSIVE skips waiting on concurrent readers,
@@ -546,8 +546,8 @@ export function isOpenClawAgentDatabaseOpen(pathname: string): boolean {
 
 /** Return the matching live cache entry without materializing a database. */
 export function getOpenClawAgentDatabaseIfOpen(
-  options: OpenClawAgentDatabaseOptions,
-): OpenClawAgentDatabase | undefined {
+  options: GrantedAgentDatabaseOptions,
+): GrantedAgentDatabase | undefined {
   const agentId = normalizeAgentId(options.agentId);
   const pathname = resolveOpenClawAgentSqlitePath({ ...options, agentId });
   const database = cachedDatabases.get(pathname);
@@ -582,7 +582,7 @@ export function readOpenIncognitoAgentDatabaseGeneration(): number {
 }
 
 /** Returns whether this exact process-held database is incognito/in-memory. */
-export function isIncognitoOpenClawAgentDatabase(database: OpenClawAgentDatabase): boolean {
+export function isIncognitoOpenClawAgentDatabase(database: GrantedAgentDatabase): boolean {
   return incognitoDatabases.has(database);
 }
 
@@ -666,8 +666,8 @@ export function closeOpenClawAgentDatabases(rootPath?: string): void {
 
 /** Fence cross-process agent writers while Doctor reconciles shared plugin state. */
 export function withAgentDatabaseMaintenanceLease<T>(
-  options: Pick<OpenClawStateDatabaseOptions, "env">,
-  run: (maintenance: OpenClawStateLeaseContext) => Promise<T>,
+  options: Pick<GrantedStateDatabaseOptions, "env">,
+  run: (maintenance: GrantedStateLeaseContext) => Promise<T>,
 ): Promise<T> {
   return withOpenClawStateLease(
     {

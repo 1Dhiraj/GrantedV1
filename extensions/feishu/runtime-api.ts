@@ -11,13 +11,13 @@ export type {
   ChannelOutboundAdapter,
   ChannelPlugin,
   HistoryEntry,
-  OpenClawConfig,
-  OpenClawPluginApi,
+  GrantedConfig,
+  GrantedPluginApi,
   OutboundIdentity,
   PluginRuntime,
   ReplyPayload,
 } from "openclaw/plugin-sdk/core";
-export type { OpenClawConfig as ClawdbotConfig } from "openclaw/plugin-sdk/core";
+export type { GrantedConfig as ClawdbotConfig } from "openclaw/plugin-sdk/core";
 export type RuntimeEnv = {
   log: (...args: unknown[]) => void;
   error: (...args: unknown[]) => void;

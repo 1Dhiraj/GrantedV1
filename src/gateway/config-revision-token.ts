@@ -7,13 +7,13 @@ import {
 } from "../infra/kysely-sync.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";
 import { ensureConfigRevisionKeySchema } from "../state/openclaw-state-db-schema-additive.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 
-type ConfigRevisionKeyDatabase = Pick<OpenClawStateKyselyDatabase, "config_revision_keys">;
+type ConfigRevisionKeyDatabase = Pick<GrantedStateKyselyDatabase, "config_revision_keys">;
 type ConfigRevisionKeyRow = Pick<
   Selectable<ConfigRevisionKeyDatabase["config_revision_keys"]>,
   "hmac_key"
@@ -106,7 +106,7 @@ function createGatewayConfigRevisionProjector(key: Uint8Array): GatewayConfigRev
 
 /** Loads the durable installation key once for the Gateway request lifecycle. */
 export function loadGatewayConfigRevisionProjector(
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): GatewayConfigRevisionProjector {
   const candidateKey = randomBytes(CONFIG_REVISION_KEY_BYTES);
   return runOpenClawStateWriteTransaction(

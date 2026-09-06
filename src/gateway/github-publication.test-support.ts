@@ -7,7 +7,7 @@ import { insertRegistryWorktree } from "../agents/worktrees/registry.js";
 import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../state/openclaw-state-db.js";
 import { createGitHubPublicationRuntime as createRuntime } from "./github-publication-runtime.js";
 import { createGitHubPublicationCoordinator as createCoordinator } from "./github-publication.js";
@@ -112,7 +112,7 @@ export function commandResult(stdout = "", code = 0) {
 }
 
 export function seedLocalPublication(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   params: {
     requestId: string;
     status: "requested" | "publishing";

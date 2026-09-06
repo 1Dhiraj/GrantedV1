@@ -10,7 +10,7 @@ import {
   type InternalSessionEntry,
   type SessionEntry,
 } from "../config/sessions.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { sessionDeliveryChannel, sessionDeliveryOrigin } from "../utils/delivery-context.shared.js";
 import { resolveSessionStoreAgentId } from "./session-store-key.js";
@@ -101,7 +101,7 @@ export function resolveSessionListRowContext(params: {
 
 export function resolveSessionListSearchModelFields(params: {
   agentId?: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   key: string;
   entry?: SessionEntry;
   rowContext?: SessionListRowContext;
@@ -211,7 +211,7 @@ export function loadGatewaySessionRow(
 }
 
 export function buildGatewaySessionInfo(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
   key: string;

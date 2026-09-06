@@ -6,7 +6,7 @@ import {
   createAttachedChannelResultAdapter,
   type ChannelOutboundAdapter,
 } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { sendTextMediaPayload } from "openclaw/plugin-sdk/reply-payload";
 import { resolveDefaultWhatsAppAccountId } from "./account-ids.js";
 import {
@@ -31,7 +31,7 @@ type CreateWhatsAppOutboundBaseParams = {
   skipEmptyText?: boolean;
 };
 
-function resolveQuoteLookupAccountId(cfg?: OpenClawConfig, accountId?: string | null): string {
+function resolveQuoteLookupAccountId(cfg?: GrantedConfig, accountId?: string | null): string {
   const explicitAccountId = normalizeOptionalAccountId(accountId);
   if (explicitAccountId) {
     return explicitAccountId;

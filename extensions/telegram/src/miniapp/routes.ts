@@ -1,12 +1,12 @@
 import crypto from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   BOOTSTRAP_HANDOFF_OPERATOR_SCOPES,
   issueDeviceBootstrapToken,
 } from "openclaw/plugin-sdk/device-bootstrap";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
   createFixedWindowRateLimiter,
@@ -37,7 +37,7 @@ const rateLimit = createFixedWindowRateLimiter({
 });
 
 export function registerTelegramMiniAppRoutes(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   launchTickets: TelegramMiniAppLaunchTickets,
 ): void {
   api.registerHttpRoute({
@@ -79,7 +79,7 @@ async function handlePage(req: IncomingMessage, res: ServerResponse, url: URL): 
 }
 
 async function handleAuth(
-  api: OpenClawPluginApi,
+  api: GrantedPluginApi,
   launchTickets: TelegramMiniAppLaunchTickets,
   req: IncomingMessage,
   res: ServerResponse,
@@ -167,8 +167,8 @@ async function handleAuth(
   });
 }
 
-function currentConfig(api: OpenClawPluginApi): OpenClawConfig {
-  return (api.runtime.config?.current?.() ?? api.config) as OpenClawConfig;
+function currentConfig(api: GrantedPluginApi): GrantedConfig {
+  return (api.runtime.config?.current?.() ?? api.config) as GrantedConfig;
 }
 
 function parseAuthBody(

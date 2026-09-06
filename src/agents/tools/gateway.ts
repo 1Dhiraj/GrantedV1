@@ -14,7 +14,7 @@ import {
 } from "../../../packages/gateway-protocol/src/client-info.js";
 import { ErrorCodes } from "../../../packages/gateway-protocol/src/schema/error-codes.js";
 import { getRuntimeConfig, resolveGatewayPort } from "../../config/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   createAgentRuntimeExecutionLineageHandoff,
   readAgentRuntimeExecutionLineage,
@@ -94,7 +94,7 @@ function canonicalizeToolGatewayWsUrl(raw: string): { origin: string; key: strin
   return { origin, key };
 }
 
-function resolveLocalGatewayUrlKeys(cfg: OpenClawConfig): Set<string> {
+function resolveLocalGatewayUrlKeys(cfg: GrantedConfig): Set<string> {
   const port = resolveGatewayPort(cfg);
   return new Set<string>([
     `ws://127.0.0.1:${port}`,
@@ -106,7 +106,7 @@ function resolveLocalGatewayUrlKeys(cfg: OpenClawConfig): Set<string> {
   ]);
 }
 
-function resolveConfiguredRemoteGatewayKey(cfg: OpenClawConfig): string | undefined {
+function resolveConfiguredRemoteGatewayKey(cfg: GrantedConfig): string | undefined {
   let remoteKey: string | undefined;
   const remoteUrl = normalizeOptionalString(cfg.gateway?.remote?.url) ?? "";
   if (remoteUrl) {
@@ -122,7 +122,7 @@ function resolveConfiguredRemoteGatewayKey(cfg: OpenClawConfig): string | undefi
 }
 
 function resolveDefaultGatewayTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   envGatewayUrl?: string;
 }): GatewayOverrideTarget {
   if (params.envGatewayUrl) {
@@ -140,7 +140,7 @@ function resolveDefaultGatewayTarget(params: {
 }
 
 function validateGatewayUrlOverrideForAgentTools(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   urlOverride: string;
 }): { url: string; target: GatewayOverrideTarget } {
   const { cfg } = params;
@@ -165,7 +165,7 @@ function validateGatewayUrlOverrideForAgentTools(params: {
 }
 
 function resolveGatewayOverrideToken(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: GatewayOverrideTarget;
   explicitToken?: string;
 }): string | undefined {

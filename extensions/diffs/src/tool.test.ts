@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi, OpenClawPluginToolContext } from "../api.js";
+import type { GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import type { DiffScreenshotter } from "./browser.runtime.js";
 import { resolveDiffsPluginDefaults } from "./config.js";
 import { DiffArtifactStore } from "./store.js";
@@ -597,7 +597,7 @@ describe("diffs tool", () => {
   });
 });
 
-function createApi(pluginConfig?: Record<string, unknown>): OpenClawPluginApi {
+function createApi(pluginConfig?: Record<string, unknown>): GrantedPluginApi {
   return createTestPluginApi({
     id: "diffs",
     name: "Diffs",
@@ -610,7 +610,7 @@ function createApi(pluginConfig?: Record<string, unknown>): OpenClawPluginApi {
       },
     },
     pluginConfig,
-    runtime: {} as OpenClawPluginApi["runtime"],
+    runtime: {} as GrantedPluginApi["runtime"],
   });
 }
 
@@ -618,7 +618,7 @@ function createToolWithScreenshotter(
   store: DiffArtifactStore,
   screenshotter: DiffScreenshotter,
   defaults = DEFAULT_DIFFS_TOOL_DEFAULTS,
-  context: OpenClawPluginToolContext = {
+  context: GrantedPluginToolContext = {
     agentId: "main",
     sessionId: "session-123",
     messageChannel: "discord",

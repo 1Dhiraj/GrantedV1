@@ -3,7 +3,7 @@ import path from "node:path";
 // Plugin registry migration tests cover doctor repair of persisted plugin registry state.
 import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { recordPluginCandidateInstallOwner } from "../../../plugins/candidate-install-owner.js";
 import type { PluginCandidate } from "../../../plugins/discovery.js";
 import { writePersistedInstalledPluginIndex } from "../../../plugins/installed-plugin-index-store-write.js";
@@ -280,7 +280,7 @@ describe("doctor plugin registry migration", () => {
     const stateDir = makeTempDir();
     const invalidConfig = JSON.parse(
       '{"plugins":{"installs":{"constructor":{"source":"bogus"}}}}',
-    ) as OpenClawConfig;
+    ) as GrantedConfig;
 
     await expect(
       migratePluginRegistryForDoctor({

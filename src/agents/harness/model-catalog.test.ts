@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import type { ModelCatalogSnapshot } from "../model-catalog.types.js";
 import { augmentModelCatalogWithAgentHarness } from "./model-catalog.js";
@@ -15,7 +15,7 @@ const cfg = {
       },
     ],
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 const snapshot: ModelCatalogSnapshot = {
   entries: [

@@ -621,12 +621,12 @@ if ($null -eq $config.update) {
 $config.update | Add-Member -Force -MemberType NoteProperty -Name channel -Value 'dev'
 $config | ConvertTo-Json -Depth 100 | Set-Content -Path $configPath -Encoding utf8
 ${windowsScopedEnvFunction}
-$script:OpenClawUpdateExit = 0
+$script:GrantedUpdateExit = 0
 Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1'${devTargetEntry} } {
   Invoke-OpenClaw update --channel dev --yes --json --no-restart --timeout ${this.updateTimeoutSeconds}
-  $script:OpenClawUpdateExit = $LASTEXITCODE
+  $script:GrantedUpdateExit = $LASTEXITCODE
 }
-if ($script:OpenClawUpdateExit -ne 0) { throw "openclaw update failed with exit code $script:OpenClawUpdateExit" }
+if ($script:GrantedUpdateExit -ne 0) { throw "openclaw update failed with exit code $script:GrantedUpdateExit" }
 Invoke-OpenClaw --version
 Invoke-OpenClaw update status --json`,
       this.updateTimeoutSeconds * 1000,

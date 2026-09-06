@@ -4,13 +4,13 @@ import {
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
 import type { AgentConfig } from "../../config/types.agents.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import type { GatewayClient, GatewayRequestContext, RespondFn } from "./types.js";
 
@@ -70,11 +70,11 @@ const defaultConfig = {
     defaults: { model: "anthropic/claude-opus-4-6" },
     list: defaultAgents,
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
-let cfg: OpenClawConfig;
-let persistedConfig: OpenClawConfig | undefined;
-let openClawTestState: OpenClawTestState;
+let cfg: GrantedConfig;
+let persistedConfig: GrantedConfig | undefined;
+let openClawTestState: GrantedTestState;
 
 function context(): GatewayRequestContext {
   return {
@@ -135,7 +135,7 @@ beforeEach(() => {
   effects.mutateConfigFileWithRetry
     .mockReset()
     .mockImplementation(
-      async (params: { mutate: (draft: OpenClawConfig, context: unknown) => unknown }) => {
+      async (params: { mutate: (draft: GrantedConfig, context: unknown) => unknown }) => {
         const draft = structuredClone(cfg);
         const result = await params.mutate(draft, {});
         persistedConfig = draft;

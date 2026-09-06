@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
@@ -12,8 +12,8 @@ import { afterEach, describe, expect, it } from "vitest";
 import { telegramApprovalCapability } from "./approval-native.js";
 
 function buildConfig(
-  overrides?: Partial<NonNullable<NonNullable<OpenClawConfig["channels"]>["telegram"]>>,
-): OpenClawConfig {
+  overrides?: Partial<NonNullable<NonNullable<GrantedConfig["channels"]>["telegram"]>>,
+): GrantedConfig {
   return {
     channels: {
       telegram: {
@@ -26,7 +26,7 @@ function buildConfig(
         ...overrides,
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 const tempDirs: string[] = [];

@@ -1,9 +1,9 @@
 // Vydra setup module handles plugin onboarding behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-onboard";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
 
 const VYDRA_DEFAULT_IMAGE_MODEL_REF = "vydra/grok-imagine";
 
-export function applyVydraConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyVydraConfig(cfg: GrantedConfig): GrantedConfig {
   if (cfg.agents?.defaults?.mediaModels?.image) {
     return cfg;
   }

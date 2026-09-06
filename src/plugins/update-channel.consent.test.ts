@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../packages/gateway-protocol/src/capability-consent-error-details.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolvePluginArtifactDeclaredSurface } from "./capability-artifact.js";
 import { computeDeclaredSurfaceHash } from "./capability-summary.js";
 import type { PluginInstallArtifactConsentHandler } from "./install-types.js";
@@ -64,7 +64,7 @@ describe("channel migration artifact consent", () => {
       GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
     };
     const previousSurface = resolvePluginArtifactDeclaredSurface(installedDir, env);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: {
         entries: { [pluginId]: { enabled: true } },
         load: { paths: [installedDir] },

@@ -16,7 +16,7 @@ import {
   applyMessageDefaults,
 } from "./defaults.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "./runtime-snapshot.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 const mocks = vi.hoisted(() => ({
   applyProviderConfigDefaultsForConfig: vi.fn(),
@@ -253,7 +253,7 @@ describe("applyModelDefaults catalog seeding", () => {
 
   it("keeps catalog-seeded compatibility out of authored route overrides", async () => {
     const { applyModelDefaults } = await import("./defaults.js");
-    const sourceConfig: OpenClawConfig = {
+    const sourceConfig: GrantedConfig = {
       models: {
         providers: {
           openai: {

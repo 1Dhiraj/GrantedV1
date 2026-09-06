@@ -1,5 +1,5 @@
 import { monitorEventLoopDelay, performance } from "node:perf_hooks";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   emitDiagnosticsTimelineEvent,
   isDiagnosticsTimelineEnabled,
@@ -29,7 +29,7 @@ export async function measureStartup<T>(
 
 export function createGatewayStartupTrace(log: GatewayLogger, startedAt = performance.now()) {
   const logEnabled = isTruthyEnvValue(process.env.GRANTED_GATEWAY_STARTUP_TRACE);
-  let timelineConfig: OpenClawConfig | undefined;
+  let timelineConfig: GrantedConfig | undefined;
   let eventLoopDelay: ReturnType<typeof monitorEventLoopDelay> | undefined;
   const timelineOptions = () => ({
     ...(timelineConfig ? { config: timelineConfig } : {}),
@@ -122,7 +122,7 @@ export function createGatewayStartupTrace(log: GatewayLogger, startedAt = perfor
     }
   };
   return {
-    setConfig(config: OpenClawConfig) {
+    setConfig(config: GrantedConfig) {
       timelineConfig = config;
       ensureEventLoopDelay();
     },

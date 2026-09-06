@@ -2,7 +2,7 @@
 import type { AgentToolResult } from "../agents/runtime/index.js";
 import type { PluginToolMatcher } from "./hook-types.js";
 
-export type OpenClawAgentToolResult<TResult = unknown> = AgentToolResult<TResult>;
+export type GrantedAgentToolResult<TResult = unknown> = AgentToolResult<TResult>;
 
 export type AgentToolResultMiddlewareRuntime = "openclaw" | "codex";
 
@@ -14,7 +14,7 @@ export type AgentToolResultMiddlewareEvent = {
   args: Record<string, unknown>;
   cwd?: string;
   isError?: boolean;
-  result: OpenClawAgentToolResult;
+  result: GrantedAgentToolResult;
 };
 
 export type AgentToolResultMiddlewareContext = {
@@ -26,7 +26,7 @@ export type AgentToolResultMiddlewareContext = {
 };
 
 export type AgentToolResultMiddlewareResult = {
-  result: OpenClawAgentToolResult;
+  result: GrantedAgentToolResult;
 };
 
 export type AgentToolResultMiddleware = (

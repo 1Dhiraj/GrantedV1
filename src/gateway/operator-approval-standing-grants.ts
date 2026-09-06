@@ -14,11 +14,11 @@ import {
 } from "../infra/kysely-sync.js";
 import { buildSystemRunApprovalEnvBinding } from "../infra/system-run-approval-binding.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabase,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 
 const STANDING_GRANT_TABLE = "operator_approval_standing_grants";
@@ -48,7 +48,7 @@ CREATE INDEX IF NOT EXISTS idx_operator_approval_standing_grants_binding
 `;
 
 type StandingGrantDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "operator_approval_standing_grants" | "operator_approvals" | "cron_jobs"
 >;
 
@@ -147,7 +147,7 @@ function ensureStandingGrantSchema(db: DatabaseSync): void {
  * re-mint for the same (agent, job, binding) replaces prior grants.
  */
 export function mintCronStandingGrantLocked(
-  database: OpenClawStateDatabase,
+  database: GrantedStateDatabase,
   params: CronStandingGrantMintSpec & {
     approvalId: string;
     nowMs: number;
@@ -200,7 +200,7 @@ type CronStandingGrantLookupParams = {
   jobConfigRevision: string;
   operationBinding: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 };
 
 /**
@@ -359,7 +359,7 @@ export type CronStandingGrantListing = CronStandingGrantRecord & {
 export function listCronStandingGrants(
   params: {
     limit?: number;
-    databaseOptions?: OpenClawStateDatabaseOptions;
+    databaseOptions?: GrantedStateDatabaseOptions;
   } = {},
 ): CronStandingGrantListing[] {
   const limit = Math.max(1, Math.min(params.limit ?? 200, 500));
@@ -412,7 +412,7 @@ export function revokeCronStandingGrant(params: {
   grantId: string;
   revokedBy: string;
   nowMs?: number;
-  databaseOptions?: OpenClawStateDatabaseOptions;
+  databaseOptions?: GrantedStateDatabaseOptions;
 }): RevokeCronStandingGrantResult {
   return runOpenClawStateWriteTransaction((database) => {
     if (!tableExists(database.db, STANDING_GRANT_TABLE)) {

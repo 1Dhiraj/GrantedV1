@@ -1,6 +1,6 @@
 // WhatsApp web auto-reply routing behavior.
 import "./test-helpers.js";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { installWebAutoReplyUnitTestHooks, makeSessionStore } from "./auto-reply.test-harness.js";
 import { buildMentionConfig } from "./auto-reply/mentions.js";
@@ -32,7 +32,7 @@ vi.mock("./auto-reply/monitor/last-route.js", async () => {
   };
 });
 
-function makeCfg(storePath: string): OpenClawConfig {
+function makeCfg(storePath: string): GrantedConfig {
   return {
     channels: { whatsapp: { allowFrom: ["*"] } },
     session: { store: storePath },
@@ -48,7 +48,7 @@ function makeReplyLogger() {
   } as unknown as Parameters<typeof createWebOnMessageHandler>[0]["replyLogger"];
 }
 
-function createHandlerForTest(opts: { cfg: OpenClawConfig; replyResolver: unknown }) {
+function createHandlerForTest(opts: { cfg: GrantedConfig; replyResolver: unknown }) {
   const backgroundTasks = new Set<Promise<unknown>>();
   const replyLogger = makeReplyLogger();
   const handler = createWebOnMessageHandler({

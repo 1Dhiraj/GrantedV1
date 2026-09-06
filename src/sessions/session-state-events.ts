@@ -12,11 +12,11 @@ import {
 import { normalizeSqliteNumber } from "../infra/sqlite-number.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { buildAgentMainSessionKey, resolveAgentIdFromSessionKey } from "../routing/session-key.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
 import {
   SESSION_WATCH_PROVENANCE_AMBIENT_GROUP,
@@ -65,12 +65,12 @@ type SessionStateEventRecord = {
 };
 
 type SessionStateDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "session_state_events" | "session_state_heads" | "session_watch_cursors"
 >;
-type SessionStateEventsTable = OpenClawStateKyselyDatabase["session_state_events"];
+type SessionStateEventsTable = GrantedStateKyselyDatabase["session_state_events"];
 type SessionStateEventRow = Selectable<SessionStateEventsTable>;
-type SessionWatchCursorRow = Selectable<OpenClawStateKyselyDatabase["session_watch_cursors"]>;
+type SessionWatchCursorRow = Selectable<GrantedStateKyselyDatabase["session_watch_cursors"]>;
 
 const SESSION_STATE_RETENTION_MS = 30 * 24 * 60 * 60_000;
 const SESSION_STATE_MAX_ROWS = 50_000;
@@ -250,7 +250,7 @@ function clampSessionStateOccurredAt(value: number | undefined, now: number): nu
 
 export function recordSessionStateEvent(
   input: SessionStateEventInput,
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): SessionStateEventRecord | undefined {
   const now = options.now ?? Date.now();
   const occurredAt = clampSessionStateOccurredAt(input.occurredAt, now);
@@ -376,7 +376,7 @@ export function recordSessionStateEvent(
 export function getSessionStateVersion(
   sessionKey: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): number {
   try {
     const { db } = openOpenClawStateDatabase(options);
@@ -399,7 +399,7 @@ export function getSessionStateVersion(
 /** Batch durable signal-log heads for session-list enrichment, keyed agent → session key. */
 export function getSessionStateVersions(
   refs: ReadonlyArray<{ sessionKey: string; agentId: string }>,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Record<string, Record<string, number>> {
   const keys = [...new Set(refs.map((ref) => ref.sessionKey).filter(Boolean))];
   if (keys.length === 0) {
@@ -436,7 +436,7 @@ export function listSessionStateEventsSince(
   agentId: string,
   afterSequence: number,
   limit = 200,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): {
   events: SessionStateEventRecord[];
   truncated: boolean;
@@ -498,7 +498,7 @@ export function listSessionStateEventsSince(
 export function acknowledgeSessionStateNotices(
   watcherSessionKey: string,
   targetSessionKeys: readonly string[],
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): void {
   const now = options.now ?? Date.now();
   const followups: Array<{
@@ -550,7 +550,7 @@ export function acknowledgeSessionStateNotices(
 /** Reset parent-side assumptions while retaining target history across session incarnations. */
 export function handleSessionStateSessionReset(
   sessionKey: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   try {
     runOpenClawStateWriteTransaction(({ db }) => {
@@ -570,7 +570,7 @@ export function handleSessionStateSessionReset(
 export function handleSessionStateSessionDeleted(
   sessionKey: string,
   agentId: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): void {
   deleteSessionUpstreamLink(sessionKey, agentId, options);
   try {
@@ -617,7 +617,7 @@ function sessionExists(sessionKey: string, env?: NodeJS.ProcessEnv): boolean {
 
 /** Re-materialize pending notices after the in-memory queue is lost on restart. */
 export function sweepSessionStateWatchNotices(
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): void {
   const now = options.now ?? Date.now();
   try {
@@ -657,7 +657,7 @@ export function sweepSessionStateWatchNotices(
 
 /** Enforce bounded retained history without regressing durable per-session heads. */
 function pruneSessionStateEvents(
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): void {
   const now = options.now ?? Date.now();
   try {
@@ -801,7 +801,7 @@ export function recordSessionCreated(params: {
 /** True when any seeded or explicitly registered watcher cursor targets this session. */
 function hasSessionStateWatchers(
   targetSessionKey: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): boolean {
   try {
     const { db } = openOpenClawStateDatabase(options);
@@ -824,7 +824,7 @@ function hasSessionStateWatchers(
 /** List durable ambient-group targets owned by one watcher; failures grant nothing. */
 export function listAmbientGroupWatchTargets(
   watcherSessionKey: string,
-  options: OpenClawStateDatabaseOptions = {},
+  options: GrantedStateDatabaseOptions = {},
 ): Set<string> {
   try {
     const { db } = openOpenClawStateDatabase(options);
@@ -846,7 +846,7 @@ export function listAmbientGroupWatchTargets(
 /** Register an explicit watcher (e.g. a sessions_send coordinator) for a target session. */
 export function registerSessionStateWatch(
   params: { watcherSessionKey: string; targetSessionKey: string; targetAgentId?: string },
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): boolean {
   if (
     params.watcherSessionKey === params.targetSessionKey ||
@@ -908,7 +908,7 @@ export function registerMainSessionGroupWatch(
     entry?: SessionEntry;
     mainKey?: string;
   },
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): boolean {
   if (classifySessionKind(params.sessionKey, params.entry) !== "group") {
     return false;
@@ -977,7 +977,7 @@ export function recordSessionHumanDirectMessage(
     payload?: Record<string, unknown>;
     occurredAt?: number;
   },
-  options: OpenClawStateDatabaseOptions & { now?: number } = {},
+  options: GrantedStateDatabaseOptions & { now?: number } = {},
 ): SessionStateEventRecord | undefined {
   const watcherSessionKey = params.entry?.spawnedBy ?? params.entry?.parentSessionKey;
   if (params.actor.actorType !== "human") {

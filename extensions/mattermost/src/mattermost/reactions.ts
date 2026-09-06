@@ -15,14 +15,14 @@ import {
   type MattermostFetch,
   type MattermostPost,
 } from "./client.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { GrantedConfig } from "./runtime-api.js";
 
 type ConversationReadInvocationOrigin = NonNullable<
   ChannelMessageActionContext["conversationReadOrigin"]
 >;
 type Result = { ok: true } | { ok: false; error: string };
 type ReactionParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   postId: string;
   emojiName: string;
   accountId?: string | null;
@@ -62,7 +62,7 @@ async function resolveBotUserId(
 }
 
 export async function addMattermostReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   postId: string;
   emojiName: string;
   accountId?: string | null;
@@ -77,7 +77,7 @@ export async function addMattermostReaction(params: {
 }
 
 export async function removeMattermostReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   postId: string;
   emojiName: string;
   accountId?: string | null;

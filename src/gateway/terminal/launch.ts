@@ -10,7 +10,7 @@ import {
   resolveDefaultAgentId,
 } from "../../agents/agent-scope-config.js";
 import { resolveSandboxConfigForAgent } from "../../agents/sandbox/config.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 import { isTerminalConfigEnabled } from "./enabled.js";
 
@@ -41,7 +41,7 @@ export type TerminalLaunchResolution =
 type TerminalLaunchPolicy = {
   resolve: (agentId?: string) => TerminalLaunchResolution;
   isEnabled: () => boolean;
-  prepareConfig: (config: OpenClawConfig, options: { restartPending: boolean }) => void;
+  prepareConfig: (config: GrantedConfig, options: { restartPending: boolean }) => void;
   commitConfig: () => void;
   acceptConfig: (options: { retireRejectedRestart: boolean }) => void;
 };
@@ -80,7 +80,7 @@ function resolveTerminalShell(params: {
  * main session on the host, so a host terminal is allowed there.
  */
 function resolveTerminalLaunch(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   enabled: boolean;
   agentId?: string;
   configuredShell?: string;
@@ -127,18 +127,18 @@ function resolveTerminalLaunch(params: {
 }
 
 /** Maintains fail-closed terminal admission across deferred config restarts. */
-export function createTerminalLaunchPolicy(initialConfig: OpenClawConfig): TerminalLaunchPolicy {
+export function createTerminalLaunchPolicy(initialConfig: GrantedConfig): TerminalLaunchPolicy {
   let activeConfig = initialConfig;
   let hasPendingRestart = false;
-  let preparedConfig: OpenClawConfig | null = null;
-  let appliedConfigWhileRestartPending: OpenClawConfig | null = null;
+  let preparedConfig: GrantedConfig | null = null;
+  let appliedConfigWhileRestartPending: GrantedConfig | null = null;
   const createRestrictions = () => ({
     disabled: false,
     blockedAgents: new Map<string, TerminalLaunchBlock>(),
   });
   const restartRestrictions = createRestrictions();
   const commitRestrictions = createRestrictions();
-  const preserveTerminalConfig = (config: OpenClawConfig, owner: OpenClawConfig) => {
+  const preserveTerminalConfig = (config: GrantedConfig, owner: GrantedConfig) => {
     const { terminal: _ignored, ...gateway } = config.gateway ?? {};
     const terminal = owner.gateway?.terminal;
     return {
@@ -149,7 +149,7 @@ export function createTerminalLaunchPolicy(initialConfig: OpenClawConfig): Termi
       },
     };
   };
-  const resolveForConfig = (config: OpenClawConfig, agentId?: string) => {
+  const resolveForConfig = (config: GrantedConfig, agentId?: string) => {
     const terminalConfig = config.gateway?.terminal;
     return resolveTerminalLaunch({
       config,
@@ -159,7 +159,7 @@ export function createTerminalLaunchPolicy(initialConfig: OpenClawConfig): Termi
     });
   };
   const accumulateRestrictions = (
-    config: OpenClawConfig,
+    config: GrantedConfig,
     restrictions: ReturnType<typeof createRestrictions>,
   ) => {
     if (!isTerminalConfigEnabled(config)) {

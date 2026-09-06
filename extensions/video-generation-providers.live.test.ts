@@ -3,7 +3,7 @@ import {
   resolveApiKeyForProvider,
   resolveDefaultAgentDir,
 } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
@@ -156,7 +156,7 @@ function readPositiveIntegerEnv(raw: string | undefined, fallback: number): numb
   return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-function withPluginsEnabled(cfg: OpenClawConfig): OpenClawConfig {
+function withPluginsEnabled(cfg: GrantedConfig): GrantedConfig {
   return {
     ...cfg,
     plugins: {

@@ -9,7 +9,7 @@ import {
 } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { SpeechProviderConfig, SpeechSynthesisRequest } from "openclaw/plugin-sdk/speech-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -28,7 +28,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", () => ({
 
 import { buildCliSpeechProvider } from "./speech-provider.js";
 
-const TEST_CFG = {} as OpenClawConfig;
+const TEST_CFG = {} as GrantedConfig;
 const MAX_AUDIO_OUTPUT_BYTES = 50 * 1024 * 1024;
 const VALID_MPEG_FRAME_HEADER = [0xff, 0xfb, 0x90, 0x64] as const;
 const FREE_FORMAT_MPEG_FRAME_HEADER = [0xff, 0xfb, 0x00, 0x64] as const;

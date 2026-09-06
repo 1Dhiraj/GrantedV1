@@ -1,5 +1,5 @@
 import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { parseDateStringTimestampMs } from "openclaw/plugin-sdk/number-runtime";
 import { withSessionTranscriptWriteLock } from "openclaw/plugin-sdk/session-transcript-runtime";
 import { CLAUDE_CLI_BACKEND_ID } from "./cli-constants.js";
@@ -60,7 +60,7 @@ export async function importClaudeHistory(params: {
   agentId: string;
   storePath: string;
   cwd?: string;
-  config: OpenClawConfig;
+  config: GrantedConfig;
 }): Promise<void> {
   const items = params.items.toReversed();
   await withSessionTranscriptWriteLock(params, async (transcript) => {

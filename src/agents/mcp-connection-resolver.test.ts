@@ -4,7 +4,7 @@ import http from "node:http";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildGatewayReloadPlan } from "../gateway/config-reload-plan.js";
 import { createGatewayCronReconciliation } from "../gateway/server-cron-reconciled.js";
 import { createGatewayReloadHandlers } from "../gateway/server-reload-handlers.js";
@@ -167,7 +167,7 @@ function createMcpProofPluginRegistry() {
         source: `/plugins/${pluginId}/index.ts`,
       });
       pluginRegistry.registry.plugins.push(record);
-      return pluginRegistry.createApi(record, { config: {} as OpenClawConfig });
+      return pluginRegistry.createApi(record, { config: {} as GrantedConfig });
     },
   };
 }
@@ -339,7 +339,7 @@ describe("mcp connection resolver helpers", () => {
       };
       const reloadLog = { info: vi.fn(), warn: vi.fn(), error: vi.fn() };
       const requestRecoveryRestart = vi.fn(() => ({ status: "failed" as const }));
-      const nextConfig: OpenClawConfig = {
+      const nextConfig: GrantedConfig = {
         plugins: {
           entries: {
             "startup-mail": { enabled: false },

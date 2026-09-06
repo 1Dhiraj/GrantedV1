@@ -1,5 +1,5 @@
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { asBoolean } from "../utils/boolean.js";
 import {
   normalizeSupportedRealtimeVoiceActivationName,
@@ -30,7 +30,7 @@ export function resolveRealtimeVoiceSessionPolicy(params: {
   configuredConsultPolicy: "auto" | "always" | undefined;
   requireWakeName: boolean | undefined;
   configuredWakeNames: string[] | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
 }): RealtimeVoiceSessionPolicy {
   const toolPolicy = resolveRealtimeVoiceAgentConsultToolPolicy(
@@ -103,7 +103,7 @@ function resolveRealtimeVoiceWakeNamePolicy(params: {
 
 function resolveRealtimeVoiceWakeNames(params: {
   configuredWakeNames: string[] | undefined;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
 }): string[] {
   if (params.configuredWakeNames !== undefined) {

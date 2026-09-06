@@ -4,7 +4,7 @@ import {
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import { clearAllCliSessions } from "./cli-session-binding.js";
 import type {
@@ -285,7 +285,7 @@ export function appendTranscriptEventSync(
 }
 
 function resolveTranscriptEventAppendParent(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   event: TranscriptEvent,
   options: TranscriptEventAppendOptions,
@@ -394,7 +394,7 @@ function resolveTranscriptAppendRefusal(
 }
 
 function assertLockedTranscriptWriteAllowed(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedTranscriptScope,
   scope: SessionTranscriptWriteScope,
 ): void {
@@ -539,7 +539,7 @@ export async function withTranscriptWriteTransaction<T>(
 }
 
 function isSqliteTranscriptSnapshotUnchanged(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   expected: readonly SqliteTranscriptSnapshotRow[],
 ): boolean {
@@ -554,7 +554,7 @@ function isSqliteTranscriptSnapshotUnchanged(
 }
 
 function assertSqliteTranscriptSnapshotUnchanged(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   expected: readonly SqliteTranscriptSnapshotRow[],
 ): void {

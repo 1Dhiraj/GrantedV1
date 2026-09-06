@@ -13,7 +13,7 @@ import type { ThinkLevel } from "../auto-reply/thinking.shared.js";
 import type { ChatType } from "../channels/chat-type.js";
 import type { InboundEventKind } from "../channels/inbound-event/kind.js";
 import type { ModelCompatConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { GroupToolPolicyConfig } from "../config/types.tools.js";
 import type { DiagnosticTraceContext } from "../infra/diagnostic-trace-context.js";
 import { resolveEventSessionRoutingPolicy } from "../infra/event-session-routing.js";
@@ -68,7 +68,7 @@ import {
   resolveConversationToolPolicies,
 } from "./conversation-tool-policy-pipeline.js";
 import { createCoreCodingTools } from "./core-coding-tools.js";
-import type { OpenClawCodingToolConstructionPlan } from "./core-tool-factory-descriptors.js";
+import type { GrantedCodingToolConstructionPlan } from "./core-tool-factory-descriptors.js";
 import { bindActiveCronCreatorAuthorityResolver } from "./cron-creator-authority-context.js";
 import { applyDelegationCapability, type DelegationCapability } from "./delegation-capability.js";
 import { pinExecToolTarget } from "./exec-tool-target-pinning.js";
@@ -131,7 +131,7 @@ const MEMORY_FLUSH_ALLOWED_TOOL_NAMES = new Set(["read", "write"]);
 function applyModelProviderToolPolicy(
   toolsInput: AnyAgentTool[],
   params?: {
-    config?: OpenClawConfig;
+    config?: GrantedConfig;
     modelProvider?: string;
     modelApi?: string;
     modelId?: string;
@@ -174,7 +174,7 @@ function applyModelProviderToolPolicy(
 export { resolveToolLoopDetectionConfig } from "./tool-loop-detection-config.js";
 
 /** Public options for building one plugin-owned agent tool surface. */
-type OpenClawCodingToolsOptions = {
+type GrantedCodingToolsOptions = {
   agentId?: string;
   /** Retained policy owner; execution identity remains agentId/runSessionKey. */
   policyAgentId?: string;
@@ -242,7 +242,7 @@ type OpenClawCodingToolsOptions = {
    * Defaults to workspaceDir when not set.
    */
   spawnWorkspaceDir?: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   /** Explicitly distinguishes live Gateway session policy from a pinned run override. */
   sessionConfigSource?: "runtime" | "pinned";
   abortSignal?: AbortSignal;
@@ -362,7 +362,7 @@ type OpenClawCodingToolsOptions = {
   /** Runtime-local Tool Search catalog ref shared with attempt compaction. */
   toolSearchCatalogRef?: ToolSearchCatalogRef;
   /** Limits which tool families are materialized before the shared policy pipeline runs. */
-  toolConstructionPlan?: OpenClawCodingToolConstructionPlan;
+  toolConstructionPlan?: GrantedCodingToolConstructionPlan;
   /** Ring-zero OpenClaw tool; set only by the OpenClaw agent runner. */
   systemAgentTool?: import("./tools/system-agent-tool.js").SystemAgentToolOptions;
   /** Trusted sender identity bit for command/channel-action auth and owner-gated plugin tools. */
@@ -396,7 +396,7 @@ type OpenClawCodingToolsOptions = {
   scheduledToolPolicy?: ScheduledToolPolicyContext;
 };
 
-function createOpenClawCodingToolsInternal(options?: OpenClawCodingToolsOptions): AnyAgentTool[] {
+function createOpenClawCodingToolsInternal(options?: GrantedCodingToolsOptions): AnyAgentTool[] {
   const sandbox = options?.sandbox?.enabled ? options.sandbox : undefined;
   const isMemoryFlushRun = options?.trigger === "memory";
   if (isMemoryFlushRun && !options?.memoryFlushWritePath) {
@@ -1094,7 +1094,7 @@ function createOpenClawCodingToolsInternal(options?: OpenClawCodingToolsOptions)
 }
 
 /** Build the runtime tool list exposed through the public agent harness SDK. */
-export function createOpenClawCodingTools(options?: OpenClawCodingToolsOptions): AnyAgentTool[] {
+export function createOpenClawCodingTools(options?: GrantedCodingToolsOptions): AnyAgentTool[] {
   return createOpenClawCodingToolsInternal(options);
 }
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

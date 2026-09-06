@@ -10,7 +10,7 @@ import {
   recordChannelAdmissionDecision,
   type ChannelAdmissionEvidence,
 } from "../../channels/message-access/admission-evidence.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 
 /** Adapt one opaque channel carrier to the canonical admitted-run facts and decision FIFO. */
 export function consumeChannelRunAdmission(evidence: ChannelAdmissionEvidence | undefined): {
@@ -55,7 +55,7 @@ export function consumeChannelRunAdmission(evidence: ChannelAdmissionEvidence | 
 
 /** Defer evidence consumption until the selected runtime actually admits the run. */
 export function prepareChannelRunAdmission(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runId: string;
   agentId: string;
   ingressKind: ExecutionIdentityAdmissionFacts["ingress"]["kind"];

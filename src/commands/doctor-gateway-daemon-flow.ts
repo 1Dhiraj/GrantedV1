@@ -3,7 +3,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { resolveGatewayPort } from "../config/config.js";
 import { isDefaultInstallIdentity } from "../config/paths.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveGatewayLaunchAgentLabel,
   resolveNodeLaunchAgentLabel,
@@ -159,7 +159,7 @@ function renderEstablishedGatewayConnections(connections: PortConnection[]): str
 }
 
 async function maybeReportEstablishedGatewayClients(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   deep: boolean,
   port?: number,
 ): Promise<void> {
@@ -174,7 +174,7 @@ async function maybeReportEstablishedGatewayClients(
   }
 }
 
-async function noteGatewayPortDiagnostics(cfg: OpenClawConfig, deep: boolean): Promise<boolean> {
+async function noteGatewayPortDiagnostics(cfg: GrantedConfig, deep: boolean): Promise<boolean> {
   const port = resolveGatewayPort(cfg, process.env);
   const bindHost = await resolveGatewayBindHost(
     cfg.gateway?.bind ?? "loopback",
@@ -212,7 +212,7 @@ async function noteGatewayServiceInspectionFailure(
  * services, report port conflicts, or restart unhealthy supervision when policy allows.
  */
 export async function maybeRepairGatewayDaemon(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   runtime: RuntimeEnv;
   prompter: DoctorPrompter;
   options: DoctorOptions;

@@ -3,8 +3,8 @@ import { StreamableHTTPError } from "@modelcontextprotocol/sdk/client/streamable
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { OpenClawStreamableHTTPClientTransport } from "./mcp-http-transport.js";
-import { OpenClawStdioClientTransport } from "./mcp-stdio-transport.js";
+import { GrantedStreamableHTTPClientTransport } from "./mcp-http-transport.js";
+import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 
 type LifecycleSession = {
   client: Pick<Client, "close">;
@@ -22,7 +22,7 @@ export function isStatefulMcpHttpSessionExpired(
 ): boolean {
   return (
     session.transportType === "streamable-http" &&
-    session.transport instanceof OpenClawStreamableHTTPClientTransport &&
+    session.transport instanceof GrantedStreamableHTTPClientTransport &&
     session.transport.sessionId !== undefined &&
     error instanceof StreamableHTTPError &&
     error.code === 404
@@ -63,9 +63,9 @@ export async function connectMcpClient(params: {
           client: params.client,
           transport: params.transport,
           transportType:
-            params.transport instanceof OpenClawStdioClientTransport
+            params.transport instanceof GrantedStdioClientTransport
               ? "stdio"
-              : params.transport instanceof OpenClawStreamableHTTPClientTransport
+              : params.transport instanceof GrantedStreamableHTTPClientTransport
                 ? "streamable-http"
                 : "sse",
         },
@@ -129,7 +129,7 @@ export async function disposeMcpClient(
     // group, so force it dead before disposal can report completion.
     const { transport } = session;
     const closeTransport =
-      session.transportType === "stdio" && transport instanceof OpenClawStdioClientTransport
+      session.transportType === "stdio" && transport instanceof GrantedStdioClientTransport
         ? () => transport.forceClose()
         : () => transport.close();
     await settleWithin(

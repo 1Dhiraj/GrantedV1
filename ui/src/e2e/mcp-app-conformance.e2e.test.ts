@@ -19,7 +19,7 @@ import {
   clearRuntimeConfigSnapshot,
   readConfigFileSnapshotWithPluginMetadata,
 } from "../../../src/config/config.js";
-import type { OpenClawConfig } from "../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../src/config/types.openclaw.js";
 import { startGatewayServer } from "../../../src/gateway/server.js";
 import { getGatewayE2ePortBlock } from "../../../src/gateway/test-helpers.e2e.js";
 import { captureEnv, setTestEnvValue } from "../../../src/test-utils/env.js";
@@ -151,7 +151,7 @@ describeConformance("MCP App Control UI and standalone host conformance", () => 
     do {
       sandboxPort = await getGatewayE2ePortBlock();
     } while (sandboxPort === gatewayPort);
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       gateway: {
         auth: { mode: "token", token: authValue },
         controlUi: { allowedOrigins: [controlUiOrigin] },

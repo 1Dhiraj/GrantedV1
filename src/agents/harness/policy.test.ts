@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveAgentHarnessPolicy as resolveAgentHarnessPolicyBase } from "./policy.js";
 
 function resolveAgentHarnessPolicy(
@@ -8,11 +8,11 @@ function resolveAgentHarnessPolicy(
 ): ReturnType<typeof resolveAgentHarnessPolicyBase> {
   return resolveAgentHarnessPolicyBase({
     ...params,
-    config: migratePersistedImplicitMainRoster(params.config).config as OpenClawConfig,
+    config: migratePersistedImplicitMainRoster(params.config).config as GrantedConfig,
   });
 }
 
-function openAIProviderConfig(overrides: Record<string, unknown>): OpenClawConfig {
+function openAIProviderConfig(overrides: Record<string, unknown>): GrantedConfig {
   return {
     models: {
       providers: {
@@ -24,7 +24,7 @@ function openAIProviderConfig(overrides: Record<string, unknown>): OpenClawConfi
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("resolveAgentHarnessPolicy", () => {
@@ -106,7 +106,7 @@ describe("resolveAgentHarnessPolicy", () => {
                 },
               },
             },
-          } as OpenClawConfig,
+          } as GrantedConfig,
           env: {},
         }),
       ).toEqual({ runtime: "auto", runtimeSource: "implicit" });

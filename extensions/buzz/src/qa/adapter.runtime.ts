@@ -1,5 +1,5 @@
 import { setTimeout as sleep } from "node:timers/promises";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { QaBusConversationKind } from "openclaw/plugin-sdk/qa-channel-protocol";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
 import type { BuzzInboundMessage } from "../message-event.js";
@@ -205,7 +205,7 @@ export async function createBuzzQaTransportAdapter(
             defaultTo: buildBuzzTarget(credentials.roomId),
           },
         },
-      }) as Pick<OpenClawConfig, "channels" | "messages">,
+      }) as Pick<GrantedConfig, "channels" | "messages">,
     waitReady: async ({ gateway, timeoutMs, pollIntervalMs }) =>
       await waitForBuzzChannelRunning({
         // Buzz is currently single-account; the QA bus keeps its portable SUT

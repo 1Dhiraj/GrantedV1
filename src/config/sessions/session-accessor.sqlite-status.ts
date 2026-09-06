@@ -1,7 +1,7 @@
 import { sql } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type {
   SessionEntryStatus,
   SessionEntrySummary,
@@ -17,7 +17,7 @@ import {
 import { projectCanonicalSessionEntryShape } from "./store-entry-shape.js";
 import type { SessionEntry } from "./types.js";
 
-type SessionStatusDatabase = Pick<OpenClawAgentKyselyDatabase, "session_nodes">;
+type SessionStatusDatabase = Pick<GrantedAgentKyselyDatabase, "session_nodes">;
 
 // Metadata readers do not own prompt snapshots. Strip those bytes before JS allocation;
 // malformed or SQLite-overdepth JSON still reaches the existing parser unchanged.
@@ -50,7 +50,7 @@ export function parseSessionEntryJson(
 }
 
 export function readSessionEntriesByStatus(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   statuses: readonly SessionEntryStatus[],
   sessionKeys?: readonly string[],
 ): SessionEntrySummary[] {

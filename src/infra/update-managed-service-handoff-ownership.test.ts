@@ -7,7 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import { PassThrough, type Readable } from "node:stream";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -58,7 +58,7 @@ vi.mock("node:child_process", async () => {
 
 const tempDirs = new Set<string>();
 const mockedHandoffLeaseCleanups = new Set<() => void>();
-type GatewayRestartSentinelDatabase = Pick<OpenClawStateKyselyDatabase, "gateway_restart_sentinel">;
+type GatewayRestartSentinelDatabase = Pick<GrantedStateKyselyDatabase, "gateway_restart_sentinel">;
 
 beforeEach(() => {
   spawnMock.mockReset();

@@ -3,7 +3,7 @@
  */
 import type {
   ChannelBotLoopProtectionConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/config-contracts";
 import type { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
 
@@ -71,8 +71,8 @@ type ClickClackConfig = ClickClackAccountConfig & {
 };
 
 /** OpenClaw config narrowed to include ClickClack channel settings. */
-export type CoreConfig = OpenClawConfig & {
-  channels?: OpenClawConfig["channels"] & {
+export type CoreConfig = GrantedConfig & {
+  channels?: GrantedConfig["channels"] & {
     clickclack?: ClickClackConfig;
   };
 };

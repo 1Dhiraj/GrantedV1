@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { digestRuntimeWebOwnerContract } from "./runtime-owner-contract.js";
 
-function digestWebContract(sourceConfig: OpenClawConfig): string {
+function digestWebContract(sourceConfig: GrantedConfig): string {
   return digestRuntimeWebOwnerContract({
     scopePath: "plugins.entries.web-search.config.webSearch.apiKey",
     configuredProvider: "brave",
@@ -21,7 +21,7 @@ describe("runtime owner contracts", () => {
           "web-search": { config: { webSearch: { apiKey: "$BRAVE_API_KEY" } } },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
     const canonical = {
       plugins: {
         entries: {
@@ -34,7 +34,7 @@ describe("runtime owner contracts", () => {
           },
         },
       },
-    } satisfies OpenClawConfig;
+    } satisfies GrantedConfig;
 
     expect(digestWebContract(shorthand)).toBe(digestWebContract(canonical));
   });

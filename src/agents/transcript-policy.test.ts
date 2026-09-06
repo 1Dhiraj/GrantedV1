@@ -3,7 +3,7 @@
  * Exercises provider-family fallbacks, plugin replay hooks, and policy caching.
  */
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
 
 vi.mock("../plugins/provider-hook-runtime.js", async () => {
@@ -263,7 +263,7 @@ describe("resolveTranscriptPolicy", () => {
   });
 
   it("memoizes replay policy resolution for the same config and process env", () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
 
     const firstPolicy = resolveTranscriptPolicy({
       provider: "mistral",
@@ -282,7 +282,7 @@ describe("resolveTranscriptPolicy", () => {
   });
 
   it("does not reuse cached replay policies across custom env objects", () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const strictEnv = {
       ...process.env,
       GRANTED_TEST_TRANSCRIPT_POLICY: "strict",
@@ -488,7 +488,7 @@ describe("resolveTranscriptPolicy", () => {
   });
 
   it("does not reuse cached Anthropic policies across canonical model identities", () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const model = makeOpenAiCompatibleReasoningModel({
       id: "production-claude",
       name: "Production Claude",
@@ -546,7 +546,7 @@ describe("resolveTranscriptPolicy", () => {
   });
 
   it("does not reuse cached unowned Anthropic policies across reasoning compat changes", () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const model = {
       id: "moonshotai/kimi-k2.5",
       name: "Kimi K2.5",
@@ -580,7 +580,7 @@ describe("resolveTranscriptPolicy", () => {
   });
 
   it("does not reuse cached OpenAI-compatible policies across reasoning metadata changes", () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
 
     const defaultPolicy = resolveTranscriptPolicy({
       config,

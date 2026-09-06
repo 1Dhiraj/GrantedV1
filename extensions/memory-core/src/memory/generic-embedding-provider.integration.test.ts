@@ -1,7 +1,7 @@
 // Memory Core tests cover generic embedding provider.integration plugin behavior.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearEmbeddingProviders,
   listRegisteredEmbeddingProviders,
@@ -98,7 +98,7 @@ function createMemoryEmbeddingOptions(overrides?: {
       plugins: {
         enabled: false,
       },
-    } as OpenClawConfig,
+    } as GrantedConfig,
     agentDir: "/tmp/openclaw-agent",
     provider: overrides?.provider ?? "openai-compatible",
     fallback: "none",

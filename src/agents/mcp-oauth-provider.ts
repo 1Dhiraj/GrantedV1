@@ -5,7 +5,7 @@ import type { OAuthClientProvider } from "@modelcontextprotocol/sdk/client/auth.
 import type { OAuthClientMetadata, OAuthTokens } from "@modelcontextprotocol/sdk/shared/auth.js";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawStateLeaseContext } from "../state/openclaw-state-lease.js";
+import type { GrantedStateLeaseContext } from "../state/openclaw-state-lease.js";
 import type { McpOAuthIdentity } from "./mcp-oauth-identity.js";
 import { readMcpOAuthStore, updateMcpOAuthStore, type McpOAuthStore } from "./mcp-oauth-store.js";
 
@@ -50,7 +50,7 @@ function buildOAuthClientMetadata(
 }
 
 export function bindMcpOAuthLeaseAssertion(
-  lease: OpenClawStateLeaseContext | undefined,
+  lease: GrantedStateLeaseContext | undefined,
 ): ((database: DatabaseSync) => void) | undefined {
   return lease ? (database) => lease.assertOwnedInTransaction(database) : undefined;
 }
@@ -82,7 +82,7 @@ export function createMcpOAuthClientProvider(params: {
   config?: McpOAuthConfig;
   allowAuthorizationRedirect?: boolean;
   suppressStoredTokens?: boolean;
-  lease?: OpenClawStateLeaseContext;
+  lease?: GrantedStateLeaseContext;
 }): OAuthClientProvider {
   const config = params.config ?? {};
   const storeKey = params.identity.storeKey;

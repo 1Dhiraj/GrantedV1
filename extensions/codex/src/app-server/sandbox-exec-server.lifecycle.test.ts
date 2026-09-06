@@ -29,7 +29,7 @@ import { CodexSandboxExecSession } from "./sandbox-exec-server/session.js";
 import type {
   CodexSandboxExecSessionNotifications,
   ManagedProcess,
-  OpenClawExecServer,
+  GrantedExecServer,
 } from "./sandbox-exec-server/types.js";
 
 type FakeNotifications = CodexSandboxExecSessionNotifications & {
@@ -57,14 +57,14 @@ function createFakeNotifications(): FakeNotifications {
   };
 }
 
-function createExecServer(sandbox: SandboxContext): OpenClawExecServer {
+function createExecServer(sandbox: SandboxContext): GrantedExecServer {
   return {
     sandbox,
     backend: sandbox.backend,
     fsBridge: sandbox.fsBridge,
     children: new Set(),
     cleanupTasks: new Set(),
-  } as OpenClawExecServer;
+  } as GrantedExecServer;
 }
 
 function processStartParams(processId: string) {

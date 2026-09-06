@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { HealthCheck, OpenClawConfig } from "openclaw/plugin-sdk/health";
+import type { HealthCheck, GrantedConfig } from "openclaw/plugin-sdk/health";
 import { describe, expect, it, vi } from "vitest";
 import { CODEX_APP_SERVER_VERSION } from "./app-server/version.js";
 import {
@@ -9,7 +9,7 @@ import {
   registerCodexManagedAppServerDoctorChecks,
 } from "./doctor.js";
 
-function config(appServer: Record<string, unknown> = {}): OpenClawConfig {
+function config(appServer: Record<string, unknown> = {}): GrantedConfig {
   return {
     agents: {
       defaults: {
@@ -45,7 +45,7 @@ function config(appServer: Record<string, unknown> = {}): OpenClawConfig {
   };
 }
 
-function context(cfg: OpenClawConfig) {
+function context(cfg: GrantedConfig) {
   return {
     mode: "lint" as const,
     runtime: {} as never,

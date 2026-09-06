@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { isBackgroundExecTask } from "./background-exec-task-contract.js";
 import { CRON_TASK_KIND } from "./cron-task-contract.js";
@@ -39,7 +39,7 @@ function ensureTaskCancellationReady(task: TaskRecord): void {
 }
 
 export async function cancelTaskById(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   taskId: string;
   reason?: string;
 }): Promise<{ found: boolean; cancelled: boolean; reason?: string; task?: TaskRecord }> {

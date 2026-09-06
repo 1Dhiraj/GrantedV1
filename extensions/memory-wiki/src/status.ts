@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { listActiveMemoryPublicArtifacts } from "openclaw/plugin-sdk/memory-host-core";
 import { pathExists } from "openclaw/plugin-sdk/security-runtime";
-import type { OpenClawConfig } from "../api.js";
+import type { GrantedConfig } from "../api.js";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import { filterMemoryWikiBridgeArtifacts, resolveMemoryWikiVaultAgentId } from "./bridge.js";
 import type { ResolvedMemoryWikiConfig } from "./config.js";
@@ -65,7 +65,7 @@ export type MemoryWikiDoctorReport = {
 };
 
 type ResolveMemoryWikiStatusDeps = {
-  appConfig?: OpenClawConfig;
+  appConfig?: GrantedConfig;
   callerAgentId?: string;
   pathExists?: (inputPath: string) => Promise<boolean>;
   listPublicArtifacts?: typeof listActiveMemoryPublicArtifacts;

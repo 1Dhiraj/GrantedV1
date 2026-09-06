@@ -1,12 +1,12 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { ConfigAuditRecord } from "../../../config/io.audit.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { repairGeneratedModelMetadataCorruption } from "./model-metadata-corruption-repair.js";
 
 const configPath = path.resolve("/tmp/openclaw-model-metadata-corruption.json");
 
-function corruptedConfig(): OpenClawConfig {
+function corruptedConfig(): GrantedConfig {
   return {
     models: {
       providers: {

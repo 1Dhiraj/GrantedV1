@@ -7,7 +7,7 @@
  * bundled provider schemas; generic primitives come from channel-config-schema.
  */
 import { z, type ZodObject, type ZodOptional, type ZodType } from "zod";
-import type { OpenClawConfig } from "./config-contracts.js";
+import type { GrantedConfig } from "./config-contracts.js";
 import {
   createLazyFacadeObjectValue,
   loadBundledPluginPublicSurfaceModuleSyncCore,
@@ -50,7 +50,7 @@ export const SignalConfigSchema = createLegacyExternalChannelConfigSchema();
 /** @deprecated See SlackConfigSchema. */
 export const MSTeamsConfigSchema = createLegacyExternalChannelConfigSchema();
 
-type ChannelConfig = NonNullable<OpenClawConfig["channels"]>;
+type ChannelConfig = NonNullable<GrantedConfig["channels"]>;
 type ConfigSchemaShape<TOutput extends object> = {
   -readonly [K in keyof TOutput]-?: Pick<TOutput, K> extends Required<Pick<TOutput, K>>
     ? ZodType<TOutput[K]>

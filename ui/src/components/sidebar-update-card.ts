@@ -14,13 +14,13 @@ import {
   isUpdateActionable,
 } from "../app/update-schedule-projection.ts";
 import { t } from "../i18n/index.ts";
-import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
+import { GrantedLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { PollController } from "../lit/poll-controller.ts";
 import "../styles/sidebar-update-card.css";
 import { icons } from "./icons.ts";
 import "./tooltip.ts";
 
-class SidebarUpdateCard extends OpenClawLightDomContentsElement {
+class SidebarUpdateCard extends GrantedLightDomContentsElement {
   @property({ attribute: false }) compact = false;
   @property({ attribute: false }) updateAvailable: UpdateAvailable | null = null;
   @property({ attribute: false }) updateSchedule: UpdateScheduleState | null = null;

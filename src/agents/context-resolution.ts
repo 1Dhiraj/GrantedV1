@@ -5,7 +5,7 @@ import {
 } from "@openclaw/llm-core";
 import { stripSelfProviderModelPrefix } from "@openclaw/model-catalog-core/provider-model-id-normalization";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   lookupCachedContextTokens,
   lookupCachedContextWindow,
@@ -24,7 +24,7 @@ export type ModelsConfig = {
 };
 
 export type ContextTokenResolutionParams = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   provider?: string;
   modelProvider?: string;
   model?: string;
@@ -65,7 +65,7 @@ function resolveProviderModelRef(params: {
 }
 
 function resolveConfiguredProviderModel(
-  cfg: OpenClawConfig | null | undefined,
+  cfg: GrantedConfig | null | undefined,
   provider: string,
   model: string,
 ): ConfigModelEntry | undefined {
@@ -97,7 +97,7 @@ function resolveConfiguredProviderModel(
 }
 
 function resolveConfiguredRuntimeModel(
-  cfg: OpenClawConfig | null | undefined,
+  cfg: GrantedConfig | null | undefined,
   provider: string,
   modelProvider: string | undefined,
   model: string,

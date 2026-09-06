@@ -12,7 +12,7 @@ import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import type { ChannelId } from "../../channels/plugins/types.public.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import type { AgentDefaultsConfig } from "../../config/types.agent-defaults.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAccountId } from "../../routing/session-key.js";
 import { isSecretOwnerAvailable } from "../../secrets/runtime-degraded-state.js";
 import {
@@ -73,7 +73,7 @@ export function resolveOutboundTarget(params: {
   to?: string;
   allowFrom?: string[];
   allowBootstrap?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   accountId?: string | null;
   mode?: ChannelOutboundTargetMode;
 }): OutboundTargetResolution {
@@ -118,7 +118,7 @@ function ownerIdMatchesRoute(plugin: ChannelPlugin, ownerId: string, routeTo: st
 }
 
 function resolveHeartbeatOwnerRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry?: SessionEntry;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
 }): { plugin: ChannelPlugin; ownerId: string; reuseSessionRoute: boolean } | undefined {
@@ -201,7 +201,7 @@ function resolveHeartbeatOwnerRoute(params: {
 
 /** Read-only owner-route probe for status/doctor surfaces. Unproven targets fail closed. */
 export function hasResolvableHeartbeatOwnerRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   entry?: SessionEntry;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
@@ -217,7 +217,7 @@ export function hasResolvableHeartbeatOwnerRoute(params: {
  * Resolves heartbeat delivery. Owner/unset ignores `to`; only explicit channels consume it.
  */
 export function resolveHeartbeatDeliveryTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   entry?: SessionEntry;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
@@ -502,7 +502,7 @@ function buildNoHeartbeatDeliveryTarget(params: {
 
 /** Resolves heartbeat delivery and lets plugins refine the outbound session route. */
 export async function resolveHeartbeatDeliveryTargetWithSessionRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   entry?: SessionEntry;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
@@ -667,7 +667,7 @@ function resolveHeartbeatDeliveryChatType(params: {
 }
 
 function shouldReuseHeartbeatRouteThreadId(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   target: string;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
   turnSource?: DeliveryContext;
@@ -730,7 +730,7 @@ function resolveHeartbeatSenderId(params: {
 
 /** Resolves the sender id/allow-list context used for heartbeat sends. */
 export function resolveHeartbeatSenderContext(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entry?: SessionEntry;
   delivery: OutboundTarget;
 }): HeartbeatSenderContext {

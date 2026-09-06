@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
 import type { AuthProfileStore } from "../agents/auth-profiles.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { loadBundledPluginPublicSurface } from "../plugin-sdk/test-helpers/public-surface-loader.js";
 import type {
   PluginOrigin,
@@ -62,7 +62,7 @@ function createCoverageWebSearchProvider(params: {
   order: number;
 }): PluginWebSearchProviderEntry {
   const credentialPath = `plugins.entries.${params.pluginId}.config.webSearch.apiKey`;
-  const readConfiguredCredential = (config?: OpenClawConfig): unknown =>
+  const readConfiguredCredential = (config?: GrantedConfig): unknown =>
     (config?.plugins?.entries?.[params.pluginId]?.config as { webSearch?: { apiKey?: unknown } })
       ?.webSearch?.apiKey;
   return {
@@ -96,7 +96,7 @@ function createCoverageWebFetchProvider(params: {
   envVar: string;
 }): PluginWebFetchProviderEntry {
   const credentialPath = `plugins.entries.${params.pluginId}.config.webFetch.apiKey`;
-  const readConfiguredCredential = (config?: OpenClawConfig): unknown =>
+  const readConfiguredCredential = (config?: GrantedConfig): unknown =>
     (config?.plugins?.entries?.[params.pluginId]?.config as { webFetch?: { apiKey?: unknown } })
       ?.webFetch?.apiKey;
   return {
@@ -408,7 +408,7 @@ function buildCoverageLoadablePluginOrigins(
   return origins;
 }
 
-function addCoveragePluginLoadPath(config: OpenClawConfig, pluginId: string): void {
+function addCoveragePluginLoadPath(config: GrantedConfig, pluginId: string): void {
   const loadPath = COVERAGE_CONFIG_PLUGIN_SOURCE_DIRS.get(pluginId);
   if (!loadPath) {
     return;
@@ -547,7 +547,7 @@ function collectOpenClawCoverageEntries(options: {
 }
 
 function applyConfigForOpenClawTarget(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   entry: SecretRegistryEntry,
   envId: string,
   wildcardToken: string,
@@ -744,7 +744,7 @@ function applyAuthStoreTarget(
 }
 
 async function prepareConfigCoverageSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   loadablePluginOrigins?: ReadonlyMap<string, PluginOrigin>;
   includeRuntimeWebTools?: boolean;
@@ -797,7 +797,7 @@ async function prepareConfigCoverageSnapshot(params: {
 }
 
 async function prepareAuthCoverageSnapshot(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
   agentDirs: string[];
   loadAuthStore: (agentDir?: string) => AuthProfileStore;
@@ -847,7 +847,7 @@ async function expectOpenClawCoverageBatchResolved(
   batch: readonly SecretRegistryEntry[],
 ): Promise<void> {
   logCoverageBatch(label, batch);
-  const config = {} as OpenClawConfig;
+  const config = {} as GrantedConfig;
   const env: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: process.env.GRANTED_TEST_HOME };
   for (const [index, entry] of batch.entries()) {
     const envId = toCoverageEnvRefId("GRANTED_SECRET_TARGET", entry.id);
@@ -978,7 +978,7 @@ describe("secrets runtime target coverage", () => {
           applyAuthStoreTarget(authStore, entry, envId, resolveCoverageWildcardToken(index));
         }
         const snapshot = await prepareAuthCoverageSnapshot({
-          config: {} as OpenClawConfig,
+          config: {} as GrantedConfig,
           env,
           agentDirs: ["/tmp/openclaw-agent-main"],
           loadAuthStore: () => authStore,

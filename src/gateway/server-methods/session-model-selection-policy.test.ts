@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withEnv } from "../../test-utils/env.js";
 import { resolveGatewayModelSelectionPolicy } from "./session-model-selection-policy.js";
 
@@ -11,7 +11,7 @@ const cfg = {
       { id: "work", model: "anthropic/claude-sonnet-4-6" },
     ],
   },
-} satisfies OpenClawConfig;
+} satisfies GrantedConfig;
 
 describe("resolveGatewayModelSelectionPolicy", () => {
   it("discloses the effective write target to an admin", () => {

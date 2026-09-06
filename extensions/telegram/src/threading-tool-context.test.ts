@@ -1,5 +1,5 @@
 // Telegram tests cover threading tool context plugin behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { telegramPlugin } from "./channel.js";
 import { buildTelegramThreadingToolContext } from "./threading-tool-context.js";
@@ -64,7 +64,7 @@ describe("telegramPlugin reply threading", () => {
       throw new Error("Telegram reply mode resolver is unavailable");
     }
 
-    const cfg = { channels: { telegram } } as unknown as OpenClawConfig;
+    const cfg = { channels: { telegram } } as unknown as GrantedConfig;
     expect(resolveReplyToMode({ cfg, accountId: "sut" })).toBe(expected);
     expect(tryReadSecretFileSyncMock).not.toHaveBeenCalled();
   });
@@ -111,7 +111,7 @@ describe("buildTelegramThreadingToolContext", () => {
     const hasRepliedRef = { value: false };
     expect(
       buildTelegramThreadingToolContext({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         accountId: "default",
         context: {
           To: "telegram:-1001:topic:77",
@@ -130,7 +130,7 @@ describe("buildTelegramThreadingToolContext", () => {
   it("parses topic thread state from target grammar when MessageThreadId is absent", () => {
     expect(
       buildTelegramThreadingToolContext({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as GrantedConfig,
         accountId: "default",
         context: {
           To: "telegram:-1001:topic:77",

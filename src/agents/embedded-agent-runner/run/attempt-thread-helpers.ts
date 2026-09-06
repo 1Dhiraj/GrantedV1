@@ -2,7 +2,7 @@ import { normalizeStructuredPromptSection } from "@openclaw/ai/internal/shared";
 /**
  * Handles per-attempt thread prompt composition and cache TTL markers.
  */
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { joinPresentTextSegments } from "../../../shared/text/join-segments.js";
 
 /** Custom transcript marker used to preserve cache-TTL pruning state across attempts. */
@@ -59,7 +59,7 @@ export function resolveAttemptSpawnWorkspaceDir(params: {
 function shouldAppendAttemptCacheTtl(params: {
   timedOutDuringCompaction: boolean;
   compactionOccurredThisAttempt: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   modelId: string;
   modelApi?: string;
@@ -85,7 +85,7 @@ export function appendAttemptCacheTtlIfNeeded(params: {
   };
   timedOutDuringCompaction: boolean;
   compactionOccurredThisAttempt: boolean;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   provider: string;
   modelId: string;
   modelApi?: string;

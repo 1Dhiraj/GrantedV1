@@ -7,7 +7,7 @@ import {
   loadExactSessionEntryReadOnly,
 } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -75,7 +75,7 @@ describe("doctor canonical session decision races", () => {
       const cfg = {
         agents: { list: [{ id: "main", default: true }] },
         session: { store: storeTemplate },
-      } as OpenClawConfig;
+      } as GrantedConfig;
       expect(await repairCanonicalSessionKeys({ apply: true, cfg, env })).toMatchObject({
         foundGroups: 1,
         repairedGroups: 1,

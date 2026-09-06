@@ -1,6 +1,6 @@
 /** Resolves plugin config contract metadata for scanners and secret/config policy checks. */
 import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { findBundledPluginMetadataById } from "./bundled-plugin-metadata.js";
 import { getGatewayPluginMetadataSnapshot } from "./current-plugin-metadata-state.js";
 import { discoverOpenClawPlugins, type PluginDiscoveryResult } from "./discovery.js";
@@ -22,7 +22,7 @@ type PluginConfigContractMetadata = {
 
 /** Resolve config contract metadata for plugin ids through the runtime registry and bundled fallback. */
 export function resolvePluginConfigContractsById(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   workspaceDir?: string;
   env?: NodeJS.ProcessEnv;
   fallbackToBundledMetadata?: boolean;

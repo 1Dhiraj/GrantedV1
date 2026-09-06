@@ -18,7 +18,7 @@ import {
   replaceSessionEntrySync,
 } from "../../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { rotateAgentEventLifecycleGeneration } from "../../../infra/agent-events.js";
 import {
   beginSessionWorkAdmission,
@@ -149,10 +149,10 @@ function nextSessionStorePath(label: string) {
   return path.join(tempRoot, `${tempStoreIndex}-${label}.json`);
 }
 
-function cfgWithSessionStore(storePath = nextSessionStorePath("sessions")): OpenClawConfig {
+function cfgWithSessionStore(storePath = nextSessionStorePath("sessions")): GrantedConfig {
   return {
     session: { store: storePath },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 async function writeSessionStoreFixture(label: string, store: Record<string, unknown>) {
@@ -2943,7 +2943,7 @@ describe("listControlledSubagentRuns", () => {
         ownership: "explicit",
         entries: { research: {}, ops: {} },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     expect(listControlledSubagentRuns("global", "research", cfg).map((run) => run.runId)).toEqual([
       "run-research",
     ]);

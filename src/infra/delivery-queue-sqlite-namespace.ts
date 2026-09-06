@@ -1,5 +1,5 @@
 // Owns atomic delivery-queue ownership changes across namespace versions.
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import {
   completeDeliveryQueueEntry,
@@ -15,7 +15,7 @@ import {
 } from "./kysely-sync.js";
 import { runSqliteImmediateTransactionSync } from "./sqlite-transaction.js";
 
-type DeliveryQueueDatabase = Pick<OpenClawStateKyselyDatabase, "delivery_queue_entries">;
+type DeliveryQueueDatabase = Pick<GrantedStateKyselyDatabase, "delivery_queue_entries">;
 type QueueStatus = "pending" | "failed" | "completed";
 
 function openStateDatabase(stateDir?: string) {

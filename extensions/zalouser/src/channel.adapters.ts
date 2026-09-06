@@ -19,7 +19,7 @@ import {
   type ChannelOutboundAdapter,
   type OutboundDeliveryResult,
 } from "openclaw/plugin-sdk/channel-send-result";
-import type { GroupToolPolicyConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GroupToolPolicyConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createStaticReplyToModeResolver } from "openclaw/plugin-sdk/conversation-runtime";
 import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
@@ -60,7 +60,7 @@ type ZalouserSendTextContext = {
   to: string;
   text: string;
   accountId?: string | null;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   onDeliveryResult?: (result: ChannelMessageSendResult) => Promise<void> | void;
 };
 
@@ -78,11 +78,11 @@ export function resolveZalouserQrProfile(accountId?: string | null): string {
   return normalized;
 }
 
-function resolveZalouserOutboundChunkMode(cfg: OpenClawConfig, accountId?: string) {
+function resolveZalouserOutboundChunkMode(cfg: GrantedConfig, accountId?: string) {
   return getZalouserRuntime().channel.text.resolveChunkMode(cfg, "zalouser", accountId);
 }
 
-function resolveZalouserOutboundTextChunkLimit(cfg: OpenClawConfig, accountId?: string) {
+function resolveZalouserOutboundTextChunkLimit(cfg: GrantedConfig, accountId?: string) {
   return getZalouserRuntime().channel.text.resolveTextChunkLimit(cfg, "zalouser", accountId, {
     fallbackLimit: ZALOUSER_TEXT_CHUNK_LIMIT,
   });
@@ -333,7 +333,7 @@ export const zalouserResolverAdapter = {
     kind,
     runtime,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     inputs: string[];
     kind: "user" | "group";
@@ -397,7 +397,7 @@ export const zalouserAuthAdapter = {
     accountId,
     runtime,
   }: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     accountId?: string | null;
     runtime: RuntimeEnv;
   }) => {
@@ -438,7 +438,7 @@ export const zalouserAuthAdapter = {
 export const zalouserSecurityAdapter = {
   resolveDmPolicy: resolveZalouserDmPolicy,
   dmRouting: {
-    resolveDmScope: ({ cfg }: { cfg: OpenClawConfig }) => resolveZalouserDmSessionScope(cfg),
+    resolveDmScope: ({ cfg }: { cfg: GrantedConfig }) => resolveZalouserDmSessionScope(cfg),
   },
   collectAuditFindings: async (params: {
     accountId?: string | null;
@@ -456,7 +456,7 @@ export const zalouserPairingTextAdapter = {
   idLabel: "zalouserUserId",
   message: "Your pairing request has been approved.",
   normalizeAllowEntry: createPairingPrefixStripper(/^(zalouser|zlu):/i),
-  notify: async ({ cfg, id, message }: { cfg: OpenClawConfig; id: string; message: string }) => {
+  notify: async ({ cfg, id, message }: { cfg: GrantedConfig; id: string; message: string }) => {
     const { sendMessageZalouser } = await loadZalouserChannelRuntime();
     const account = resolveZalouserAccountSync({ cfg });
     const authenticated = await checkZcaAuthenticated(account.profile);

@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createSolidPngBuffer } from "../../../test/helpers/image-fixtures.js";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { resolveVideoGenerationModeCapabilities } from "../../video-generation/capabilities.js";
 import type {
@@ -28,7 +28,7 @@ function createPreparedRuntime(providers: VideoGenerationProvider[]): PreparedMo
   } as unknown as PreparedModelRuntimeSnapshot;
 }
 
-function createConfig(primary: string, fallbacks: string[]): OpenClawConfig {
+function createConfig(primary: string, fallbacks: string[]): GrantedConfig {
   return {
     agents: {
       defaults: {

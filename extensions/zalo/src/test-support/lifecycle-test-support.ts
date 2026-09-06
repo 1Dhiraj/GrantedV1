@@ -4,7 +4,7 @@ import {
   createPluginRuntimeMediaMock,
   createPluginRuntimeMock,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "openclaw/plugin-sdk/core";
 import { expect, vi } from "vitest";
 import type { ResolvedZaloAccount } from "../types.js";
@@ -38,7 +38,7 @@ function createLifecycleAccountConfig(params: LifecycleMonitorSetupParams) {
   };
 }
 
-function createLifecycleConfig(params: LifecycleMonitorSetupParams): OpenClawConfig {
+function createLifecycleConfig(params: LifecycleMonitorSetupParams): GrantedConfig {
   return {
     channels: {
       zalo: {
@@ -48,7 +48,7 @@ function createLifecycleConfig(params: LifecycleMonitorSetupParams): OpenClawCon
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function createLifecycleAccount(params: LifecycleMonitorSetupParams): ResolvedZaloAccount {

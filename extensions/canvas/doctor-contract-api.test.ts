@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
 import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "openclaw/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -45,7 +45,7 @@ describe("Canvas doctor config repair", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     const result = normalizeCompatibilityConfig({ cfg });
 
@@ -77,8 +77,8 @@ function migrationParams(params: {
             canvas: { config: { host: { root: params.customRoot } } },
           },
         },
-      } as OpenClawConfig)
-    : ({} as OpenClawConfig);
+      } as GrantedConfig)
+    : ({} as GrantedConfig);
   return {
     config,
     env: process.env,

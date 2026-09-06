@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadCronJobsStore, resolveCronJobsStorePathFromConfig } from "../cron/store.js";
 import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
 import { resolveHeartbeatPhaseMs } from "../infra/heartbeat-schedule.js";
@@ -49,7 +49,7 @@ async function createFixture(every = "15m") {
       defaults: { heartbeat: { every } },
       list: [{ id: "main" }],
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   const storePath = resolveCronJobsStorePathFromConfig(cfg, env);
   return { cfg, env, storePath };
 }
@@ -107,7 +107,7 @@ describe("heartbeat cadence cron migration", () => {
     const updatedCfg = {
       ...fixture.cfg,
       agents: { ...fixture.cfg.agents, defaults: { heartbeat: { every: "45m" } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const updated = await maybeMigrateHeartbeatCadenceToCron({
       cfg: updatedCfg,
       shouldRepair: true,
@@ -155,7 +155,7 @@ describe("heartbeat cadence cron migration", () => {
           { id: "beta", heartbeat: { every: "20m" } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await maybeMigrateHeartbeatCadenceToCron({
       cfg: initialCfg,
       shouldRepair: true,
@@ -171,7 +171,7 @@ describe("heartbeat cadence cron migration", () => {
           { id: "gamma", heartbeat: { every: "30m" } },
         ],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const result = await maybeMigrateHeartbeatCadenceToCron({
       cfg: updatedCfg,
       shouldRepair: true,
@@ -247,7 +247,7 @@ describe("heartbeat cadence cron migration", () => {
         defaults: { heartbeat: { every: "15m" } },
         list: [{ id: agentId }],
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const storePath = resolveCronJobsStorePathFromConfig(cfg, suppliedEnv);
 
     const result = await maybeMigrateHeartbeatCadenceToCron({

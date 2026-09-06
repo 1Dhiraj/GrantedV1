@@ -1,7 +1,7 @@
 /** Shared attempt, error, and harness helpers for model fallback execution. */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { TRANSCRIPT_NOT_CONTINUABLE_ERROR_CODE } from "../../packages/agent-core/src/errors.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isCronTerminalAbortReasonText } from "../cron/service/execution-errors.js";
 import { formatErrorMessage, toErrorObject } from "../infra/errors.js";
 import { isCommandLaneTaskTimeoutError } from "../process/command-queue.js";
@@ -80,7 +80,7 @@ export function resolveFallbackAuthScope(params: {
 }
 
 type ModelFallbackRuntimeContext = {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   sessionKey?: string;
   resolveAgentHarnessRuntimeOverride?: (provider: string, model: string) => string | undefined;
@@ -377,7 +377,7 @@ export function resolveNextFallbackCandidateIndex(params: {
   return params.candidates.length;
 }
 
-function isCliAgentRuntime(runtime: string | undefined, cfg: OpenClawConfig | undefined): boolean {
+function isCliAgentRuntime(runtime: string | undefined, cfg: GrantedConfig | undefined): boolean {
   const normalized = normalizeOptionalString(runtime);
   if (!normalized) {
     return false;
@@ -584,7 +584,7 @@ export function throwFallbackFailureSummary(params: {
   formatAttempt: (attempt: FallbackAttempt) => string;
   soonestCooldownExpiry?: number | null;
   attribution?: FailoverAttribution;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   agentId?: string;
   agentDir?: string;
 }): never {
@@ -633,7 +633,7 @@ export function resolveFallbackSoonestCooldownExpiry(params: {
   authRuntime: ModelFallbackAuthRuntime | null;
   authStore: AuthProfileStore | null;
   agentDir?: string;
-  cfg: OpenClawConfig | undefined;
+  cfg: GrantedConfig | undefined;
   candidates: ModelCandidate[];
 }): number | null {
   if (!params.authRuntime || !params.authStore) {

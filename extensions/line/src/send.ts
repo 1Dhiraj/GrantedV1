@@ -5,7 +5,7 @@ import lineBotSdkPackage from "@line/bot-sdk/package.json" with { type: "json" }
 import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
 import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
 import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
 import {
   readProviderJsonResponse,
@@ -99,7 +99,7 @@ async function loadLineIdentity<T>(
 }
 
 interface LineSendOpts {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channelAccessToken?: string;
   accountId?: string;
   verbose?: boolean;

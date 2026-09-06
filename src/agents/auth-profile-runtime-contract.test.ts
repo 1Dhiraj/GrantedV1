@@ -11,7 +11,7 @@ import {
   expectedForwardedAuthProfile,
 } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
 import { resolveOpenAIRuntimeProvider } from "./openai-routing.js";
 import { resolveProviderIdForAuth } from "./provider-auth-aliases.js";
@@ -36,7 +36,7 @@ const authAliasMetadata = {
   plugins: createAuthAliasManifestRegistry().plugins,
 };
 
-function authAliasLookupParams(config: OpenClawConfig = {}) {
+function authAliasLookupParams(config: GrantedConfig = {}) {
   return {
     config,
     workspaceDir,
@@ -47,7 +47,7 @@ function resolveContractPlan(params: {
   provider: string;
   authProfileProvider: string;
   authProfileId: string;
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   harnessRuntime?: string;
   authProfileSource?: "auto" | "user";
 }) {
@@ -76,7 +76,7 @@ function resolveContractPlan(params: {
   };
 }
 
-function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfig {
+function providerRuntimeConfig(provider: string, runtime: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -87,7 +87,7 @@ function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfi
         },
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 describe("Auth profile runtime contract - embedded OpenClaw and CLI adapter", () => {

@@ -280,7 +280,7 @@ function Write-RestartLog {
   }
 }
 
-function Join-OpenClawProcessArguments {
+function Join-GrantedProcessArguments {
   param([string[]]$Arguments)
   ($Arguments | ForEach-Object {
     if ($_ -match "\\s") {
@@ -291,7 +291,7 @@ function Join-OpenClawProcessArguments {
   }) -join " "
 }
 
-function Invoke-OpenClawSchtasksWithTimeout {
+function Invoke-GrantedSchtasksWithTimeout {
   param(
     [string[]]$Arguments,
     [int]$TimeoutSeconds
@@ -300,7 +300,7 @@ function Invoke-OpenClawSchtasksWithTimeout {
   try {
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
     $startInfo.FileName = "schtasks.exe"
-    $startInfo.Arguments = Join-OpenClawProcessArguments -Arguments $Arguments
+    $startInfo.Arguments = Join-GrantedProcessArguments -Arguments $Arguments
     $startInfo.UseShellExecute = $false
     $startInfo.RedirectStandardOutput = $true
     $startInfo.RedirectStandardError = $true
@@ -328,7 +328,7 @@ function Invoke-OpenClawSchtasksWithTimeout {
   }
 }
 
-function Get-OpenClawScheduledTaskState {
+function Get-GrantedScheduledTaskState {
   param([string]$TaskName)
   try {
     $task = Get-ScheduledTask -TaskName $TaskName -ErrorAction Stop
@@ -469,7 +469,7 @@ try {
 }
 
 # GRANTED_RESTART_KILL_POLICY_BEGIN
-function Get-OpenClawListenerSnapshot {
+function Get-GrantedListenerSnapshot {
   param([int]$Port)
 
   try {
@@ -519,7 +519,7 @@ function Get-OpenClawListenerSnapshot {
   }
 }
 
-function Get-OpenClawProcessFacts {
+function Get-GrantedProcessFacts {
   param([int]$ProcessId)
 
   try {
@@ -545,7 +545,7 @@ function Get-OpenClawProcessFacts {
   }
 }
 
-function Test-OpenClawArgvEqual {
+function Test-GrantedArgvEqual {
   param([string[]]$Actual, [string[]]$Expected)
   if ($Actual.Count -ne $Expected.Count) {
     return $false
@@ -571,17 +571,17 @@ function Test-OpenClawArgvEqual {
   return $true
 }
 
-function Test-OpenClawSameProcess {
+function Test-GrantedSameProcess {
   param($Expected, $Actual)
   return (
     $null -ne $Actual -and
     $Actual.ProcessId -eq $Expected.ProcessId -and
     $Actual.CreationTimeFileTime -eq $Expected.CreationTimeFileTime -and
-    (Test-OpenClawArgvEqual -Actual $Actual.Argv -Expected $Expected.Argv)
+    (Test-GrantedArgvEqual -Actual $Actual.Argv -Expected $Expected.Argv)
   )
 }
 
-function Get-OpenClawListenerKillDecision {
+function Get-GrantedListenerKillDecision {
   param(
     [int]$CandidatePid,
     [string[]]$ExpectedArgv,
@@ -596,7 +596,7 @@ function Get-OpenClawListenerKillDecision {
   if ($null -eq $ObservedProcess -or $ObservedProcess.ProcessId -ne $CandidatePid) {
     return "process-unavailable"
   }
-  if (-not (Test-OpenClawArgvEqual -Actual $ObservedProcess.Argv -Expected $ExpectedArgv)) {
+  if (-not (Test-GrantedArgvEqual -Actual $ObservedProcess.Argv -Expected $ExpectedArgv)) {
     return "command-mismatch"
   }
   if ($HeldProcessCreationTimeFileTime -ne $ObservedProcess.CreationTimeFileTime) {
@@ -608,19 +608,19 @@ function Get-OpenClawListenerKillDecision {
   if ($RecheckedListeners.Pids -notcontains $CandidatePid) {
     return "no-longer-listening"
   }
-  if (-not (Test-OpenClawSameProcess -Expected $ObservedProcess -Actual $RecheckedProcess)) {
+  if (-not (Test-GrantedSameProcess -Expected $ObservedProcess -Actual $RecheckedProcess)) {
     return "process-replaced"
   }
   return "kill"
 }
 
-function Invoke-OpenClawVerifiedListenerKill {
+function Invoke-GrantedVerifiedListenerKill {
   param(
     [int]$ProcessId,
     [int]$Port,
     [string[]]$ExpectedArgv,
-    [scriptblock]$ProcessQuery = { param([int]$QueryPid) Get-OpenClawProcessFacts -ProcessId $QueryPid },
-    [scriptblock]$ListenerQuery = { param([int]$QueryPort) Get-OpenClawListenerSnapshot -Port $QueryPort },
+    [scriptblock]$ProcessQuery = { param([int]$QueryPid) Get-GrantedProcessFacts -ProcessId $QueryPid },
+    [scriptblock]$ListenerQuery = { param([int]$QueryPort) Get-GrantedListenerSnapshot -Port $QueryPort },
     [scriptblock]$ProcessOpen = { param([int]$QueryPid) [OpenClaw.Restart.NativeMethods]::TryOpenProcess($QueryPid) }
   )
 
@@ -633,7 +633,7 @@ function Invoke-OpenClawVerifiedListenerKill {
     Write-RestartLog "openclaw restart skipped listener source=update pid=$ProcessId decision=expected-command-unavailable"
     return
   }
-  if (-not (Test-OpenClawArgvEqual -Actual $observedProcess.Argv -Expected $ExpectedArgv)) {
+  if (-not (Test-GrantedArgvEqual -Actual $observedProcess.Argv -Expected $ExpectedArgv)) {
     Write-RestartLog "openclaw restart skipped listener source=update pid=$ProcessId decision=command-mismatch"
     return
   }
@@ -656,7 +656,7 @@ function Invoke-OpenClawVerifiedListenerKill {
       RecheckedListeners = $recheckedListeners
       RecheckedProcess = $recheckedProcess
     }
-    $decision = Get-OpenClawListenerKillDecision @decisionParams
+    $decision = Get-GrantedListenerKillDecision @decisionParams
     if ($decision -ne "kill") {
       Write-RestartLog "openclaw restart skipped listener source=update pid=$ProcessId decision=$decision"
       return
@@ -677,7 +677,7 @@ function Invoke-OpenClawVerifiedListenerKill {
 }
 # GRANTED_RESTART_KILL_POLICY_END
 
-function Invoke-OpenClawStartupLauncher {
+function Invoke-GrantedStartupLauncher {
   param([string]$LauncherPath)
   $launcherPath = $LauncherPath
   if (-not (Test-Path -LiteralPath $launcherPath)) {
@@ -701,9 +701,9 @@ $gatewayScriptPath = ${quotedGatewayScriptPath}
 $expectedGatewayArgv = @(${expectedGatewayArgv})
 Write-RestartLog "openclaw restart attempt source=update target=$taskName"
 
-$taskState = Get-OpenClawScheduledTaskState -TaskName $taskName
+$taskState = Get-GrantedScheduledTaskState -TaskName $taskName
 if ($taskState -eq "Running") {
-  $endStatus = Invoke-OpenClawSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10
+  $endStatus = Invoke-GrantedSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10
   if ($endStatus -ne 0) {
     Write-RestartLog "openclaw restart schtasks end did not complete cleanly source=update status=$endStatus"
   }
@@ -712,7 +712,7 @@ if ($taskState -eq "Running") {
 }
 
 for ($attempt = 1; $attempt -le 10; $attempt++) {
-  $listenerSnapshot = Get-OpenClawListenerSnapshot -Port $port
+  $listenerSnapshot = Get-GrantedListenerSnapshot -Port $port
   if (-not $listenerSnapshot.Known) {
     if ($attempt -eq 10) {
       Write-RestartLog "openclaw restart listener ownership unavailable source=update; refusing force-kill"
@@ -729,7 +729,7 @@ for ($attempt = 1; $attempt -le 10; $attempt++) {
 
   if ($attempt -eq 10) {
     foreach ($listenerPid in $listeners) {
-      Invoke-OpenClawVerifiedListenerKill -ProcessId $listenerPid -Port $port -ExpectedArgv $expectedGatewayArgv
+      Invoke-GrantedVerifiedListenerKill -ProcessId $listenerPid -Port $port -ExpectedArgv $expectedGatewayArgv
     }
     break
   }
@@ -737,9 +737,9 @@ for ($attempt = 1; $attempt -le 10; $attempt++) {
   Start-Sleep -Seconds 1
 }
 
-$status = Invoke-OpenClawSchtasksWithTimeout -Arguments @("/Run", "/TN", $taskName) -TimeoutSeconds 30
+$status = Invoke-GrantedSchtasksWithTimeout -Arguments @("/Run", "/TN", $taskName) -TimeoutSeconds 30
 if ($status -ne 0) {
-  $status = Invoke-OpenClawStartupLauncher -LauncherPath $gatewayScriptPath
+  $status = Invoke-GrantedStartupLauncher -LauncherPath $gatewayScriptPath
 }
 if ($status -eq 0) {
   Write-RestartLog "openclaw restart done source=update"

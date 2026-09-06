@@ -1,5 +1,5 @@
 /** Process-local index of session keys that enabled cron jobs are bound to. */
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveCronJobBoundSessionKeys } from "../cron/job-session-bindings.js";
 import type { CronJob } from "../cron/types.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
@@ -21,7 +21,7 @@ let registeredEpoch = 0;
 let memo: {
   jobs: readonly CronJob[];
   version: number;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   keys: ReadonlySet<string>;
 } | null = null;
 
@@ -75,7 +75,7 @@ export function readSessionAutomationVersion(): number {
 
 function buildAutomationKeys(
   jobs: readonly CronJob[],
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   defaultAgentId: string | undefined,
 ): ReadonlySet<string> {
   const keys = new Set<string>();
@@ -98,7 +98,7 @@ function buildAutomationKeys(
 /** True when an enabled cron job is bound to the canonical session key. */
 export function sessionHasAutomation(
   sessionKey: string,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
 ): boolean {
   const jobs = source?.getJobs();

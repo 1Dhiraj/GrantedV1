@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { McpServerConfig } from "../config/types.mcp.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
@@ -20,7 +20,7 @@ import type { ClawSourceIdentity } from "./types.js";
 afterEach(() => closeOpenClawStateDatabaseForTest());
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-function snapshotMcpServers(config: OpenClawConfig): Record<string, Record<string, unknown>> {
+function snapshotMcpServers(config: GrantedConfig): Record<string, Record<string, unknown>> {
   return structuredClone(config.mcp?.servers ?? {}) as Record<string, Record<string, unknown>>;
 }
 
@@ -84,7 +84,7 @@ async function installFixture(
   params: { withFile?: boolean; withMcp?: boolean; withCron?: boolean; cron?: string } = {},
 ) {
   const current = await fixture(params);
-  let config: OpenClawConfig = {};
+  let config: GrantedConfig = {};
   await applyClawAddPlan(current.plan, {
     consentPlanIntegrity: current.plan.planIntegrity,
     env: current.env,
@@ -429,7 +429,7 @@ describe("collectClawStateHealthFindings", () => {
 
   it("reports partial installs and unresolved cron ownership", async () => {
     const current = await fixture({ withCron: true });
-    let config: OpenClawConfig = {};
+    let config: GrantedConfig = {};
     await applyClawAddPlan(current.plan, {
       consentPlanIntegrity: current.plan.planIntegrity,
       env: current.env,

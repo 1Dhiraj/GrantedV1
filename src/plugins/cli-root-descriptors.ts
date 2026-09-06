@@ -1,6 +1,6 @@
 /** Resolves root CLI help from process-stable manifests before plugin code loads. */
 import { collectUniqueCommandDescriptors } from "../cli/program/command-descriptor-utils.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginCliLoaderOptions } from "./cli-registry-loader.js";
 import { normalizePluginsConfig, resolveMemorySlotDecision } from "./config-state.js";
 import { isInstalledPluginEnabled } from "./installed-plugin-index.js";
@@ -9,7 +9,7 @@ import { normalizePluginPolicyId } from "./plugin-policy-id.js";
 import { buildPluginRuntimeLoadOptions } from "./runtime/load-context.js";
 import { resolvePluginRuntimeLoadContext } from "./runtime/load-context.resolve.js";
 import { hasKind } from "./slots.js";
-import type { OpenClawPluginCliRootCommandDescriptor, PluginLogger } from "./types.js";
+import type { GrantedPluginCliRootCommandDescriptor, PluginLogger } from "./types.js";
 
 const quietLogger = {
   info: () => {},
@@ -19,11 +19,11 @@ const quietLogger = {
 } satisfies PluginLogger;
 
 export async function getPluginCliCommandDescriptors(
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   env?: NodeJS.ProcessEnv,
   loaderOptions?: PluginCliLoaderOptions,
-): Promise<OpenClawPluginCliRootCommandDescriptor[]> {
-  const descriptorGroups: OpenClawPluginCliRootCommandDescriptor[][] = [];
+): Promise<GrantedPluginCliRootCommandDescriptor[]> {
+  const descriptorGroups: GrantedPluginCliRootCommandDescriptor[][] = [];
   try {
     const context = resolvePluginRuntimeLoadContext({ config: cfg, env, logger: quietLogger });
     const snapshot = context.metadataSnapshot;

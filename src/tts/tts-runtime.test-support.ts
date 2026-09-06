@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import { mkdirSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig, TtsConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TtsConfig } from "openclaw/plugin-sdk/config-contracts";
 import { MAX_TIMER_TIMEOUT_MS as MAX_TIMER_TIMEOUT_MS_CORE } from "openclaw/plugin-sdk/number-runtime";
 import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
 import {
@@ -204,7 +204,7 @@ export function prefsPathFor(prefsName: string): string {
   return path.join(PREFS_TMP_DIR, `${prefsName}.json`);
 }
 
-export function createTtsConfig(prefsName: string): OpenClawConfig {
+export function createTtsConfig(prefsName: string): GrantedConfig {
   setTtsMachinePrefsPathResolver(() => prefsPathFor(prefsName));
   return {
     tts: {
@@ -287,7 +287,7 @@ export async function expectTtsPayloadResult(params: {
 
 export { prepareSynthesisMock, synthesizeMock, transcodeAudioBufferMock };
 export type {
-  OpenClawConfig,
+  GrantedConfig,
   ReplyPayload,
   SpeechListVoicesRequest,
   SpeechSynthesisRequest,

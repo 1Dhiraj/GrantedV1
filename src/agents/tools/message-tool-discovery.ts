@@ -17,7 +17,7 @@ import {
 } from "../../channels/plugins/message-action-discovery.js";
 import type { ChannelMessageCapability } from "../../channels/plugins/message-capabilities.js";
 import type { ChannelMessageActionName } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveAllowedMessageActions } from "../../infra/outbound/outbound-policy.js";
 import { normalizeAccountId, parseSessionDeliveryRoute } from "../../routing/session-key.js";
 import { INTERNAL_MESSAGE_CHANNEL, normalizeMessageChannel } from "../../utils/message-channel.js";
@@ -29,7 +29,7 @@ import {
 import { buildMessageToolSchemaFromActions } from "./message-tool-schema-scoping.js";
 import { MESSAGE_TOOL_SCHEMA_BUILDERS } from "./message-tool-schema.js";
 export type MessageToolDiscoveryParams = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   currentChatType?: ChatType;
   currentChannelProvider?: string;
   currentChannelId?: string;
@@ -45,7 +45,7 @@ export type MessageToolDiscoveryParams = {
 };
 
 type MessageActionDiscoveryInput = Omit<ChannelMessageActionDiscoveryInput, "cfg" | "channel"> & {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   channel?: string;
   preparedMessageToolCatalog?: PreparedMessageToolCatalog;
 };

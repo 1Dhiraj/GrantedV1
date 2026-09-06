@@ -1,6 +1,6 @@
 /** Collects and analyzes command-scoped secret assignments from OpenClaw config. */
 import { getAuthoredConfigSecretRef, resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { getPath } from "./path-utils.js";
 import { isExpectedResolvedSecretValue } from "./secret-value.js";
@@ -33,8 +33,8 @@ type AnalyzeAssignmentsFromSnapshotResult = {
  */
 /** Analyzes command secret assignments without mutating the source config. */
 export function analyzeCommandSecretAssignmentsFromSnapshot(params: {
-  sourceConfig: OpenClawConfig;
-  resolvedConfig: OpenClawConfig;
+  sourceConfig: GrantedConfig;
+  resolvedConfig: GrantedConfig;
   targetIds: ReadonlySet<string>;
   inactiveRefPaths?: ReadonlySet<string>;
   allowedPaths?: ReadonlySet<string>;

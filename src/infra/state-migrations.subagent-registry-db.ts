@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   executeSqliteQuerySync,
@@ -10,7 +10,7 @@ import {
 const MIGRATION_KIND = "legacy-subagent-registry-json";
 
 type SubagentRegistryMigrationDatabase = Pick<
-  OpenClawStateKyselyDatabase,
+  GrantedStateKyselyDatabase,
   "migration_runs" | "migration_sources"
 >;
 

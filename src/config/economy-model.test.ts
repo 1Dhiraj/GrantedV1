@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { resolveEconomyModelRef } from "./economy-model.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
-const cfgWith = (economyModel?: string): OpenClawConfig =>
-  ({ agents: { defaults: { economyModel } } }) as OpenClawConfig;
+const cfgWith = (economyModel?: string): GrantedConfig =>
+  ({ agents: { defaults: { economyModel } } }) as GrantedConfig;
 
 describe("resolveEconomyModelRef", () => {
   it("returns the configured background model", () => {
@@ -28,8 +28,8 @@ describe("resolveEconomyModelRef", () => {
 
   it("survives a missing config or missing agent defaults", () => {
     expect(resolveEconomyModelRef(undefined)).toBeUndefined();
-    expect(resolveEconomyModelRef({} as OpenClawConfig)).toBeUndefined();
-    expect(resolveEconomyModelRef({ agents: {} } as OpenClawConfig)).toBeUndefined();
+    expect(resolveEconomyModelRef({} as GrantedConfig)).toBeUndefined();
+    expect(resolveEconomyModelRef({ agents: {} } as GrantedConfig)).toBeUndefined();
   });
 
   it("ignores a non-string value instead of throwing", () => {

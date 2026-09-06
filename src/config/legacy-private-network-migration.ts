@@ -11,7 +11,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "../plugin-sdk/channel-contract.js";
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.openclaw.js";
 
 /** Detects the retired flat `allowPrivateNetwork` key before doctor migration. */
 export function hasLegacyFlatAllowPrivateNetworkAlias(value: unknown): boolean {
@@ -76,7 +76,7 @@ function hasLegacyAllowPrivateNetworkInAccounts(value: unknown): boolean {
 /** Build doctor rules that migrate legacy private-network aliases for one channel config. */
 export function createLegacyPrivateNetworkDoctorContract(params: { channelKey: string }): {
   legacyConfigRules: ChannelDoctorLegacyConfigRule[];
-  normalizeCompatibilityConfig: (params: { cfg: OpenClawConfig }) => ChannelDoctorConfigMutation;
+  normalizeCompatibilityConfig: (params: { cfg: GrantedConfig }) => ChannelDoctorConfigMutation;
 } {
   const pathPrefix = `channels.${params.channelKey}`;
   return {
@@ -146,7 +146,7 @@ export function createLegacyPrivateNetworkDoctorContract(params: { channelKey: s
           channels: {
             ...cfg.channels,
             [params.channelKey]: updatedChannel,
-          } as OpenClawConfig["channels"],
+          } as GrantedConfig["channels"],
         },
         changes,
       };

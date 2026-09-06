@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   resolveMemoryDreamingPluginConfig,
   resolveSessionTranscriptsDirForAgent,
@@ -116,7 +116,7 @@ describe("memory-core redaction product boundaries", () => {
       timestamp: "2026-08-03T18:00:00.000Z",
       content: `${safeControlText} ${RAW_DREAMING_SECRET}`,
     });
-    const cfg: OpenClawConfig = {
+    const cfg: GrantedConfig = {
       agents: {
         defaults: { workspace: workspaceDir, userTimezone: "UTC" },
         list: [{ id: "main", workspace: workspaceDir }],

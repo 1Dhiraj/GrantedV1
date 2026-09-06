@@ -4,7 +4,7 @@ import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { resolveSandboxPath } from "../../agents/sandbox-paths.js";
 import { canonicalizePath } from "../../agents/utils/paths.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { tryReadJson, writeJson } from "../../infra/json-files.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
@@ -135,7 +135,7 @@ async function ensureSyncedSkillsDirectory(targetSkillsDir: string): Promise<voi
 export async function syncWorkspaceSkills(params: {
   sourceWorkspaceDir: string;
   targetWorkspaceDir: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   skillFilter?: string[];
   agentId?: string;
   eligibility?: SkillEligibilityContext;

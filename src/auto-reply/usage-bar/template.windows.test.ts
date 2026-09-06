@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { resolveResponseUsageLine } from "../reply/agent-runner-usage-line.js";
 import { clearUsageBarTemplateCacheForTest } from "./template.test-support.js";
@@ -37,7 +37,7 @@ describe.runIf(process.platform === "win32")("usage footer Windows home paths", 
             responseUsage: "full",
             usageTemplate: `~\\${fileName}`,
           },
-        } as OpenClawConfig,
+        } as GrantedConfig,
         agentDir: "C:\\openclaw\\agents\\main\\agent",
         sessionRaw: "full",
         usage: { input: 12, output: 3 },

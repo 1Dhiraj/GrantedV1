@@ -2,7 +2,7 @@
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type {
   AnyAgentTool,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
 import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
@@ -26,7 +26,7 @@ type MemorySearchManagerResult = Awaited<
 export const loadMemoryToolRuntime = createLazyRuntimeModule(() => import("./tools.runtime.js"));
 
 export async function getMemoryManagerContextWithPurpose(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   purpose?: "default" | "status" | "cli";
   acquireLocalService?: MemoryCoreAcquireLocalService;

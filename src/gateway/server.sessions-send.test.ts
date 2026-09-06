@@ -21,7 +21,7 @@ import {
   loadSessionEntry,
   persistSessionTranscriptTurn,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { emitAgentEvent } from "../infra/agent-events.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../test-utils/channel-plugins.js";
 import { captureEnv } from "../test-utils/env.js";
@@ -639,7 +639,7 @@ describe("sessions_send agent targeting", () => {
         throw new Error("GRANTED_CONFIG_PATH missing in gateway test environment");
       }
       const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sessions-send-agent-"));
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         tools: {
           sessions: {
             visibility: "all",
@@ -763,7 +763,7 @@ describe("sessions_send direct-message requester routing", () => {
       // own agent so a preceding case can never satisfy this case's spy.
       const targetAgentId = `orion-${label.toLowerCase().replaceAll(" ", "-")}`;
       const targetSessionKey = `agent:${targetAgentId}:main`;
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         ...(bindingAccountId || bindingAgentId
           ? {
               bindings: [

@@ -12,7 +12,7 @@ import {
   selectApplicableRuntimeConfig,
 } from "../config/runtime-snapshot.js";
 import type {
-  OpenClawConfig,
+  GrantedConfig,
   ResolvedTtsPersona,
   TtsAutoMode,
   TtsConfig,
@@ -113,7 +113,7 @@ export function resolveModelOverridePolicy(
   };
 }
 
-export function resolveTtsRuntimeConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function resolveTtsRuntimeConfig(cfg: GrantedConfig): GrantedConfig {
   return (
     selectApplicableRuntimeConfig({
       inputConfig: cfg,
@@ -200,7 +200,7 @@ function collectDirectProviderConfigEntries(raw: TtsConfig): Record<string, Spee
 }
 
 export function resolveTtsConfig(
-  cfgInput: OpenClawConfig,
+  cfgInput: GrantedConfig,
   contextOrAgentId?: string | TtsConfigResolutionContext,
 ): ResolvedTtsConfig {
   const cfg = resolveTtsRuntimeConfig(cfgInput);
@@ -304,7 +304,7 @@ type ResolvedTtsSettingsSnapshot = {
 };
 
 export function resolveTtsSettingsSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionAuto?: string;
   agentId?: string;
   channelId?: string;
@@ -348,7 +348,7 @@ export function resolveTtsSettingsSnapshot(params: {
 }
 
 export function buildTtsSystemPromptHint(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
   options?: { messageToolOnly?: boolean },
 ): string | undefined {

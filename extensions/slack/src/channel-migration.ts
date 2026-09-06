@@ -1,5 +1,5 @@
 // Slack plugin module implements channel migration behavior.
-import type { OpenClawConfig, SlackChannelConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, SlackChannelConfig } from "openclaw/plugin-sdk/config-contracts";
 import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
 import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
 
@@ -14,7 +14,7 @@ type SlackChannelMigrationResult = {
 };
 
 function resolveAccountChannels(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   accountId?: string | null,
 ): { channels?: SlackChannels } {
   if (!accountId) {
@@ -62,7 +62,7 @@ function migrateSlackChannelsInPlace(
 }
 
 export function migrateSlackChannelConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   oldChannelId: string;
   newChannelId: string;

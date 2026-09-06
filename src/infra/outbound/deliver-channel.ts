@@ -14,7 +14,7 @@ import type {
   ChannelOutboundTargetRef,
 } from "../../channels/plugins/types.adapters.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
 import {
@@ -45,7 +45,7 @@ const loadChannelBootstrapRuntime = createLazyRuntimeModule(
 );
 const loadChannelPluginFromRegistry = createChannelRegistryLoader((entry) => entry.plugin);
 export async function resolveChannelOutboundDirectiveOptions(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   channel: string;
 }): Promise<{ extractMarkdownImages?: boolean }> {
@@ -68,7 +68,7 @@ export async function createChannelHandler(params: ChannelHandlerParams): Promis
 }
 
 async function loadBootstrappedChannelPlugin(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   channel: string;
 }): Promise<{ plugin?: ChannelPlugin; pluginRegistry?: PluginRegistry }> {
@@ -168,7 +168,7 @@ async function runChannelMessageSendWithLifecycle<
 }
 
 export async function resolveOutboundDurableFinalDeliverySupport(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId?: string;
   channel: string;
   requirements?: DurableFinalDeliveryRequirements;

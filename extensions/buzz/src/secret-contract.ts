@@ -6,7 +6,7 @@ import {
   type ResolverContext,
   type SecretDefaults,
 } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveBuzzAccountConfig } from "./types.js";
 
 const fields = ["privateKey", "authTag"] as const;
@@ -18,7 +18,7 @@ export const secretTargetRegistryEntries = createChannelSecretTargetRegistryEntr
 });
 
 export function collectRuntimeConfigAssignments(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   defaults?: SecretDefaults;
   context: ResolverContext;
 }): void {

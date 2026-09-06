@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { performance } from "node:perf_hooks";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import { isDiagnosticFlagEnabled } from "./diagnostic-flags.js";
 import { isTruthyEnvValue } from "./env.js";
@@ -56,13 +56,13 @@ type DiagnosticsTimelineSpanOptions = {
   phase?: string;
   parentSpanId?: string;
   attributes?: DiagnosticsTimelineAttributes;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
   omitErrorMessage?: boolean;
 };
 
 type DiagnosticsTimelineOptions = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env?: NodeJS.ProcessEnv;
 };
 
@@ -76,7 +76,7 @@ type ActiveDiagnosticsTimelineSpan = {
 };
 
 type StartedDiagnosticsTimelineSpan = ActiveDiagnosticsTimelineSpan & {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   env: NodeJS.ProcessEnv;
   startedAt: number;
   omitErrorMessage?: boolean;

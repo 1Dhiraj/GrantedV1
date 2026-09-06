@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withTempHome as withTempHomeBase } from "../plugin-sdk/test-env.js";
 import type { CronJob } from "./types.js";
 
@@ -41,9 +41,9 @@ export async function writeSessionStoreEntries(
 export function makeCfg(
   home: string,
   storePath: string,
-  overrides: Partial<OpenClawConfig> = {},
-): OpenClawConfig {
-  const base: OpenClawConfig = {
+  overrides: Partial<GrantedConfig> = {},
+): GrantedConfig {
+  const base: GrantedConfig = {
     agents: {
       entries: { main: { default: true } },
       defaults: {
@@ -52,7 +52,7 @@ export function makeCfg(
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as OpenClawConfig;
+  } as GrantedConfig;
   return { ...base, ...overrides };
 }
 

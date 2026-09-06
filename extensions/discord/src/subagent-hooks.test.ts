@@ -3,7 +3,7 @@ import {
   getRequiredHookHandler,
   registerHookHandlersForTest,
 } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginApi } from "openclaw/plugin-sdk/core";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type ThreadBindingRecord = {
@@ -25,7 +25,7 @@ vi.mock("./monitor/thread-bindings.js", () => ({
   unbindThreadBindingsBySessionKey: hookMocks.unbindThreadBindingsBySessionKey,
 }));
 function registerHandlersForTest() {
-  return registerHookHandlersForTest<OpenClawPluginApi>({
+  return registerHookHandlersForTest<GrantedPluginApi>({
     config: {},
     register: registerDiscordSubagentHooks,
   });

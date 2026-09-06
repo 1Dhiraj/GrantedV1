@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 
 const commitNonInteractiveOnboardConfigMock = vi.hoisted(() =>
-  vi.fn(async (_params: { nextConfig: OpenClawConfig }) => undefined),
+  vi.fn(async (_params: { nextConfig: GrantedConfig }) => undefined),
 );
 
 vi.mock("./config-write.js", () => ({

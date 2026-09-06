@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 import { expectDefined } from "@openclaw/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 
@@ -472,7 +472,7 @@ describe("gateway usage helpers", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-02-05T00:00:00.000Z"));
 
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
     const a = await testApi.loadCostUsageSummaryCached({
       startMs: 1,
       endMs: 2,
@@ -507,7 +507,7 @@ describe("gateway usage helpers", () => {
 
     const config = {
       agents: { entries: { ops: { default: true } } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await testApi.loadCostUsageSummaryCached({ startMs: 1, endMs: 2, config });
 
     const entry = testApi.costUsageCache.get("agent:ops:1-2:gateway");
@@ -524,7 +524,7 @@ describe("gateway usage helpers", () => {
   });
 
   it("keeps cost usage cache entries scoped by agentId", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
 
     await testApi.loadCostUsageSummaryCached({
       startMs: 1,
@@ -571,7 +571,7 @@ describe("gateway usage helpers", () => {
   });
 
   it("keeps cost usage cache entries scoped by the complete day bucket", async () => {
-    const config = {} as OpenClawConfig;
+    const config = {} as GrantedConfig;
 
     await testApi.loadCostUsageSummaryCached({
       startMs: 1,
@@ -736,7 +736,7 @@ describe("gateway usage helpers", () => {
   it("does not project local avatar bytes for usage-only agent enumeration", async () => {
     await withTestDir({ prefix: "openclaw-usage-avatar-" }, async (workspace) => {
       await fs.writeFile(`${workspace}/avatar.png`, "avatar");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         agents: {
           list: [{ id: "main", workspace, identity: { avatar: "avatar.png" } }],
         },
@@ -777,7 +777,7 @@ describe("gateway usage helpers", () => {
     const config = {
       agents: { list: [{ id: "main", default: true }, { id: "opus" }] },
       session: {},
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const context = { getRuntimeConfig: () => config };
     const params = { startDate: "2026-02-01", endDate: "2026-02-01", mode: "utc" };
 

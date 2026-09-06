@@ -8,14 +8,14 @@ import {
   MAX_TIMER_TIMEOUT_MS,
   resolveOptionalIntegerOption,
 } from "@openclaw/normalization-core/number-coercion";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const DEFAULT_AGENT_TIMEOUT_SECONDS = 48 * 60 * 60;
 export const DEFAULT_AGENT_TIMEOUT_MS = DEFAULT_AGENT_TIMEOUT_SECONDS * 1000;
 const NO_TIMEOUT_MS = MAX_TIMER_TIMEOUT_MS;
 const NO_TIMEOUT_SECONDS = Math.floor(NO_TIMEOUT_MS / 1000);
 
-function resolveAgentTimeoutSeconds(cfg?: OpenClawConfig): number {
+function resolveAgentTimeoutSeconds(cfg?: GrantedConfig): number {
   const raw = resolveOptionalIntegerOption(cfg?.agents?.defaults?.timeoutSeconds);
   // Config 0 uses the same unlimited-run sentinel as per-run overrides. The
   // LLM idle watchdog still enforces liveness under that sentinel.
@@ -27,7 +27,7 @@ function resolveAgentTimeoutSeconds(cfg?: OpenClawConfig): number {
 }
 
 export function resolveAgentTimeoutMs(opts: {
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   overrideMs?: number | null;
   overrideSeconds?: number | null;
   minMs?: number;

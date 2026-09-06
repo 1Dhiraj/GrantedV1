@@ -7,7 +7,7 @@ import { readSqliteUserVersion } from "../infra/sqlite-user-version.js";
 import { configureSqlitePreSchemaPragmas } from "../infra/sqlite-wal.js";
 import {
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
-  type OpenClawStateDatabaseOptions,
+  type GrantedStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import {
   assertSupportedSchemaVersion,
@@ -121,7 +121,7 @@ function ensureStartupMigrationCheckpointSchema(
 
 export function withOpenClawStateStartupCheckpointConnection<T>(
   callback: (db: DatabaseSync) => T,
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   initializeCanonicalSchema: (db: DatabaseSync, pathname: string, env: NodeJS.ProcessEnv) => void,
 ): T {
   const env = options.env ?? process.env;
@@ -152,7 +152,7 @@ export function withOpenClawStateStartupCheckpointConnection<T>(
 
 /** Admit only recognized native bootstrap; versioned state stays on the read-only path. */
 export function initializeNativeOpenClawStateConnection(
-  options: OpenClawStateDatabaseOptions,
+  options: GrantedStateDatabaseOptions,
   initializeCanonicalSchema: (db: DatabaseSync, pathname: string, env: NodeJS.ProcessEnv) => void,
 ): void {
   if (

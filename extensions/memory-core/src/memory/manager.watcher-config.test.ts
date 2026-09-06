@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import type {
   MemorySearchConfig,
-  OpenClawConfig,
+  GrantedConfig,
 } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
 import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
@@ -229,8 +229,8 @@ describe("memory watcher config", () => {
     await fs.writeFile(path.join(extraDir, seedFile.name), seedFile.contents);
   }
 
-  function createWatcherConfig(overrides?: Partial<MemorySearchConfig>): OpenClawConfig {
-    const defaults: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]> = {
+  function createWatcherConfig(overrides?: Partial<MemorySearchConfig>): GrantedConfig {
+    const defaults: NonNullable<NonNullable<GrantedConfig["agents"]>["defaults"]> = {
       workspace: workspaceDir,
     };
     return isolateMemoryManagerTestConfig({
@@ -250,10 +250,10 @@ describe("memory watcher config", () => {
         defaults,
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig);
+    } as GrantedConfig);
   }
 
-  async function expectWatcherManager(cfg: OpenClawConfig) {
+  async function expectWatcherManager(cfg: GrantedConfig) {
     const result = await getMemorySearchManager({ cfg, agentId: "main" });
     if (!result.manager) {
       throw new Error("manager missing");

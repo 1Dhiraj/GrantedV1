@@ -10,7 +10,7 @@ import type {
   detectInferenceBackends,
   InferenceBackendKind,
 } from "../commands/onboard-inference.js";
-import type { ConfigFileSnapshot, OpenClawConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { enablePluginInConfig } from "../plugins/enable.js";
 import type {
@@ -202,7 +202,7 @@ export type ActivateSetupInferenceParams = {
   /** Lock the caller's cancellation boundary before the first durable setup effect. */
   beforePersistentEffect?: () => void | Promise<void>;
   /** Observe the authored config held by the inference writer before it commits. */
-  onCommitStarted?: (sourceConfig: OpenClawConfig) => void;
+  onCommitStarted?: (sourceConfig: GrantedConfig) => void;
   /** Gateway callers await application only after releasing the setup queue and lane. */
   onRuntimeApplication?: (
     application: ReturnType<

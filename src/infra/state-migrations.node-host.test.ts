@@ -10,7 +10,7 @@ import {
   type NodeHostConfig,
 } from "../node-host/config.js";
 import { readConfigMachineStateWithMetadata } from "../state/config-machine-state.js";
-import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -22,7 +22,7 @@ import {
   migrateLegacyNodeHostConfig,
 } from "./state-migrations.node-host.js";
 
-type NodeHostConfigDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_state">;
+type NodeHostConfigDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 const fixtureDigest = ["fixture", "digest"].join("-");
 
 describe("legacy node-host Doctor migration", () => {

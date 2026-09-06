@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createWarnLogCapture } from "../logging/test-helpers/warn-log-capture.js";
 import { resolveImageFallbackCandidates } from "./model-fallback-candidates.js";
 
@@ -15,7 +15,7 @@ describe("resolveImageFallbackCandidates", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     try {
       expect(
@@ -57,7 +57,7 @@ describe("resolveImageFallbackCandidates", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
 
     try {
       expect(

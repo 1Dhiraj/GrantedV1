@@ -3,7 +3,7 @@ import {
   executeSqliteQueryTakeFirstSync,
   iterateSqliteQuerySync,
 } from "../../infra/kysely-sync.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type { TranscriptMessageAppendOptions } from "./session-accessor.sqlite-contract.js";
 import { readTranscriptIdentityByEventId } from "./session-accessor.sqlite-read.js";
 import { getSessionKysely } from "./session-accessor.sqlite-scope.js";
@@ -15,7 +15,7 @@ import {
 import { resolveVisibleTranscriptAppendParentId } from "./transcript-visible-events.js";
 
 export function resolveTranscriptMessageAppendParent<TMessage>(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   options: Pick<TranscriptMessageAppendOptions<TMessage>, "appendIntent" | "parentId">,
 ): string | null {
@@ -63,7 +63,7 @@ export function resolveTranscriptMessageAppendParent<TMessage>(
 }
 
 function readActiveTranscriptAppendParentId(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
 ): string | null {
   const db = getSessionKysely(database.db);
@@ -122,7 +122,7 @@ function readActiveTranscriptAppendParentId(
 }
 
 function transcriptTreeReferenceExists(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   sessionId: string,
   eventId: string | null,
 ): boolean {

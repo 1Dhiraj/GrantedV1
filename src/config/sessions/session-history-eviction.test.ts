@@ -27,7 +27,7 @@ import {
 } from "../../state/openclaw-agent-db.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../../test-utils/openclaw-test-state.js";
 import { appendSqliteTrajectoryRuntimeEvents } from "../../trajectory/runtime-store.sqlite.js";
 import type { TrajectoryEvent } from "../../trajectory/types.js";
@@ -47,7 +47,7 @@ import {
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";
 
 describe("SQLite historical session disk budget", () => {
-  let testState: OpenClawTestState;
+  let testState: GrantedTestState;
   let tempDir: string;
   let storePath: string;
 

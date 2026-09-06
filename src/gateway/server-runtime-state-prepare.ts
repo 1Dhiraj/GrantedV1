@@ -4,7 +4,7 @@ import { listLoadedChannelPlugins } from "../channels/plugins/registry-loaded.js
 import type { ChannelId } from "../channels/plugins/types.public.js";
 import { createDefaultDeps } from "../cli/deps.js";
 import { getRuntimeConfig } from "../config/io.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { loadGatewayTlsServerRuntime } from "../infra/tls/gateway.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
@@ -347,7 +347,7 @@ export async function prepareGatewayKernelState(params: {
       env: process.env,
       tailscaleMode,
     });
-  const resolveSharedGatewaySessionGenerationForConfig = (config: OpenClawConfig) =>
+  const resolveSharedGatewaySessionGenerationForConfig = (config: GrantedConfig) =>
     resolveSharedGatewaySessionGeneration(
       resolveGatewayAuth({
         authConfig: config.gateway?.auth,

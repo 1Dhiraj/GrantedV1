@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getLatestSubagentRunByChildSessionKey } from "./subagents/registry/subagent-registry-read.js";
 import {
   getSubagentRunByRunId,
@@ -10,7 +10,7 @@ import type { AnyAgentTool } from "./tools/common.js";
 import { createStructuredOutputTool } from "./tools/structured-output-tool.js";
 
 export function createOpenClawSwarmToolGroups(params: {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   effectiveRequesterAgentId: string;
   agentSessionKey?: string;
   runSessionKey?: string;

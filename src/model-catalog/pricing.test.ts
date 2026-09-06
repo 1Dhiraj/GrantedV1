@@ -11,7 +11,7 @@ import {
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
 import type { ModelDefinitionConfig } from "../config/types.models.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as manifestNormalization from "../plugins/manifest-model-id-normalization.js";
 import { normalizeManifestModelPricing } from "../plugins/manifest-model-provider-normalizers.js";
 import * as pluginMetadata from "../plugins/plugin-metadata-snapshot.js";
@@ -107,7 +107,7 @@ afterEach(() => {
   resetRemoteModelCatalogOverlayForTest();
 });
 
-function configFor(baseUrl: string): OpenClawConfig {
+function configFor(baseUrl: string): GrantedConfig {
   return {
     models: {
       providers: {
@@ -117,7 +117,7 @@ function configFor(baseUrl: string): OpenClawConfig {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as GrantedConfig;
 }
 
 describe("hosted model pricing", () => {
@@ -131,8 +131,8 @@ describe("hosted model pricing", () => {
       maxTokens: 8192,
     };
     const providers = { fixture: { baseUrl: "https://fixture.invalid", models: [model] } };
-    const firstConfig: OpenClawConfig = { models: { providers } };
-    const secondConfig: OpenClawConfig = { models: { providers } };
+    const firstConfig: GrantedConfig = { models: { providers } };
+    const secondConfig: GrantedConfig = { models: { providers } };
     const enumeratePolicies = vi.fn(Reflect.ownKeys);
     const snapshotFor = (canonicalModel: string) =>
       createPluginMetadataSnapshotFixture({
@@ -202,7 +202,7 @@ describe("hosted model pricing", () => {
           })),
         },
       };
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         models: {
           providers: {
             openai: { baseUrl: "https://api.openai.com/v1", models: [] },
@@ -246,7 +246,7 @@ describe("hosted model pricing", () => {
     "keeps exact pricing namespaces distinct in %s",
     async (source) => {
       const agentDir = tempDirs.make("openclaw-exact-pricing-");
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         models: {
           providers: {
             custom: {
@@ -287,7 +287,7 @@ describe("hosted model pricing", () => {
     { provider: "nvidia", model: "nvidia/nemotron", shortModel: "nemotron" },
   ])("retains static pricing aliases for $provider", ({ provider, model, shortModel }) => {
     const agentDir = tempDirs.make("openclaw-static-pricing-alias-");
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       models: {
         providers: {
           [provider]: {
@@ -399,7 +399,7 @@ describe("hosted model pricing", () => {
   ])("requires exact authoritative hosted zero evidence: $name", (scenario) => {
     const agentDir = tempDirs.make("openclaw-native-zero-policy-");
     vi.stubEnv("GRANTED_STATE_DIR", agentDir);
-    const config: OpenClawConfig = {
+    const config: GrantedConfig = {
       plugins: { allow: ["venice"], entries: { venice: { enabled: !scenario.disabled } } },
       ...(scenario.private
         ? {
@@ -576,7 +576,7 @@ describe("hosted model pricing", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const runtime = structuredClone(source);
       const model = expectDefined(
         runtime.models?.providers?.openai?.models[0],
@@ -661,7 +661,7 @@ describe("hosted model pricing", () => {
   it.each(["unpaired", "incompatible"] as const)(
     "preserves independent configured pricing with an %s runtime snapshot",
     (snapshot) => {
-      const runtime = { agents: { defaults: {} } } satisfies OpenClawConfig;
+      const runtime = { agents: { defaults: {} } } satisfies GrantedConfig;
       setRuntimeConfigSnapshot(runtime, snapshot === "unpaired" ? undefined : {});
       const config = {
         models: {
@@ -672,7 +672,7 @@ describe("hosted model pricing", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as GrantedConfig;
       const agentDir = tempDirs.make("openclaw-independent-pricing-");
       expect(
         resolveModelCostConfig({ config, agentDir, provider: "openai", model: "gpt-authored" }),
@@ -709,7 +709,7 @@ describe("hosted model pricing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     const agentDir = tempDirs.make("openclaw-empty-tier-pricing-");
     expect(
       resolveModelCostConfig({ config, agentDir, provider: "openai", model: "gpt-authored" }),
@@ -751,7 +751,7 @@ describe("hosted model pricing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(
       resolveModelCostConfig({ config, agentDir, provider: "openai", model: "gpt-catalog" }),
     ).toEqual({ input: 99, output: 99, cacheRead: 0, cacheWrite: 0 });
@@ -828,7 +828,7 @@ describe("hosted model pricing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(
       resolveModelCostConfig({
         config,
@@ -859,7 +859,7 @@ describe("hosted model pricing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(
       resolveModelCostConfig({
         config: zaiConfig,
@@ -873,7 +873,7 @@ describe("hosted model pricing", () => {
   it("fingerprints provider overlays without explicit model rows", () => {
     const config = {
       models: { providers: { openai: { baseUrl: "https://api.openai.com/v1" } } },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
     expect(() => resolveModelCostConfigFingerprint(config)).not.toThrow();
   });
 
@@ -897,7 +897,7 @@ describe("hosted model pricing", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(resolveModelCostConfig({ config, provider: "fixture", model: "priced" })).toEqual({
       input: 1,

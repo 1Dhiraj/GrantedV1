@@ -2,7 +2,7 @@
  * Shared assertions for provider onboarding config migration and fallback behavior.
  */
 import { expect } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   resolveAgentModelFallbackValues,
   resolveAgentModelPrimaryValue,
@@ -15,7 +15,7 @@ import {
 } from "./onboard-config.js";
 
 export function expectProviderOnboardAllowlistAlias(params: {
-  applyProviderConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyProviderConfig: (config: GrantedConfig) => GrantedConfig;
   modelRef: string;
   alias: string;
 }) {
@@ -35,7 +35,7 @@ export function expectProviderOnboardAllowlistAlias(params: {
 }
 
 export function expectProviderOnboardPrimaryAndFallbacks(params: {
-  applyConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyConfig: (config: GrantedConfig) => GrantedConfig;
   modelRef: string;
 }) {
   expectProviderOnboardPrimaryModel(params);
@@ -47,7 +47,7 @@ export function expectProviderOnboardPrimaryAndFallbacks(params: {
 }
 
 export function expectProviderOnboardPrimaryModel(params: {
-  applyConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyConfig: (config: GrantedConfig) => GrantedConfig;
   modelRef: string;
 }) {
   const cfg = params.applyConfig({});
@@ -55,7 +55,7 @@ export function expectProviderOnboardPrimaryModel(params: {
 }
 
 export function expectProviderOnboardPreservesPrimary(params: {
-  applyProviderConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyProviderConfig: (config: GrantedConfig) => GrantedConfig;
   primaryModelRef: string;
 }) {
   const cfg = params.applyProviderConfig({
@@ -65,7 +65,7 @@ export function expectProviderOnboardPreservesPrimary(params: {
 }
 
 export function expectProviderOnboardMergedLegacyConfig(params: {
-  applyProviderConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyProviderConfig: (config: GrantedConfig) => GrantedConfig;
   providerId: string;
   providerApi: ModelApi;
   baseUrl: string;

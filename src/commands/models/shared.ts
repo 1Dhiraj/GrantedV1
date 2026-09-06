@@ -11,7 +11,7 @@ import {
 } from "../../agents/model-selection.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import {
-  type OpenClawConfig,
+  type GrantedConfig,
   readConfigFileSnapshot,
   replaceConfigFile,
 } from "../../config/config.js";
@@ -41,7 +41,7 @@ export const formatMs = (value?: number | null) => {
 };
 
 /** Loads config from disk and throws a formatted error when validation fails. */
-export async function loadValidConfigOrThrow(): Promise<OpenClawConfig> {
+export async function loadValidConfigOrThrow(): Promise<GrantedConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = formatConfigIssueLines(snapshot.issues, "-").join("\n");
@@ -52,16 +52,16 @@ export async function loadValidConfigOrThrow(): Promise<OpenClawConfig> {
 
 /** Runtime config snapshot supplied to model config mutators. */
 type UpdateConfigContext = {
-  runtimeConfig: OpenClawConfig;
+  runtimeConfig: GrantedConfig;
 };
 
 /** Reads source config, applies a mutator, and writes only the source-form config. */
 export async function updateConfig(
   mutator: (
-    cfg: OpenClawConfig,
+    cfg: GrantedConfig,
     context: UpdateConfigContext,
-  ) => OpenClawConfig | Promise<OpenClawConfig>,
-): Promise<OpenClawConfig> {
+  ) => GrantedConfig | Promise<GrantedConfig>,
+): Promise<GrantedConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = formatConfigIssueLines(snapshot.issues, "-").join("\n");
@@ -80,7 +80,7 @@ export async function updateConfig(
 }
 
 /** Resolves a CLI model reference through aliases and catalog provider aliases. */
-export function resolveModelTarget(params: { raw: string; cfg: OpenClawConfig }): {
+export function resolveModelTarget(params: { raw: string; cfg: GrantedConfig }): {
   provider: string;
   model: string;
 } {
@@ -101,7 +101,7 @@ export function resolveModelTarget(params: { raw: string; cfg: OpenClawConfig })
 
 function resolveAuthoredModelAliasTarget(params: {
   raw: string;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }): { provider: string; model: string } | undefined {
   const aliasIndex = buildModelAliasIndex({
     cfg: params.cfg,
@@ -117,7 +117,7 @@ function resolveAuthoredModelAliasTarget(params: {
 
 /** Resolves model reference strings to canonical provider/model keys. */
 export function resolveModelKeysFromEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   entries: readonly string[];
 }): string[] {
   const aliasIndex = buildModelAliasIndex({
@@ -136,7 +136,7 @@ export function resolveModelKeysFromEntries(params: {
     .map((entry) => modelKey(entry.ref.provider, entry.ref.model));
 }
 
-function resolveKnownAgentId(cfg: OpenClawConfig, rawAgentId: string): string {
+function resolveKnownAgentId(cfg: GrantedConfig, rawAgentId: string): string {
   const agentId = normalizeAgentId(rawAgentId);
   if (!listAgentIds(cfg).includes(agentId)) {
     throw new Error(
@@ -150,7 +150,7 @@ type ModelsTargetMode = { kind: "read"; agentDirOverride?: string } | { kind: "m
 
 /** Resolves model-command scope and retains configured auth ownership through read overrides. */
 export function resolveModelsTargetAgent(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   rawAgentId: string | undefined,
   mode: ModelsTargetMode,
 ): {
@@ -244,12 +244,12 @@ export function mergePrimaryFallbackConfig(
 
 /** Applies a default text/image primary-model update and ensures the model entry exists. */
 export function applyDefaultModelPrimaryUpdate(params: {
-  cfg: OpenClawConfig;
-  resolveCfg?: OpenClawConfig;
+  cfg: GrantedConfig;
+  resolveCfg?: GrantedConfig;
   modelRaw: string;
   field: "model" | "imageModel";
   resolvedTarget?: { provider: string; model: string };
-}): OpenClawConfig {
+}): GrantedConfig {
   const resolved = params.resolvedTarget ?? resolveDefaultModelPrimaryTarget(params);
   const nextModels = {
     ...params.cfg.agents?.defaults?.models,
@@ -275,8 +275,8 @@ export function applyDefaultModelPrimaryUpdate(params: {
 }
 
 function resolveDefaultModelPrimaryTarget(params: {
-  cfg: OpenClawConfig;
-  resolveCfg?: OpenClawConfig;
+  cfg: GrantedConfig;
+  resolveCfg?: GrantedConfig;
   modelRaw: string;
 }): { provider: string; model: string } {
   return params.resolveCfg && params.resolveCfg !== params.cfg
@@ -289,7 +289,7 @@ function resolveDefaultModelPrimaryTarget(params: {
 export async function updateDefaultModelPrimaryConfig(params: {
   modelRaw: string;
   field: "model" | "imageModel";
-}): Promise<{ updated: OpenClawConfig; warning?: string }> {
+}): Promise<{ updated: GrantedConfig; warning?: string }> {
   let warning: string | undefined;
   const updated = await updateConfig((cfg, context) => {
     const resolvedTarget = resolveDefaultModelPrimaryTarget({

@@ -4,7 +4,7 @@ import {
   DEFAULT_HEARTBEAT_EVERY,
   resolveHeartbeatPromptCore as resolveHeartbeatPromptText,
 } from "../auto-reply/heartbeat.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { tryResolveAmbientHeartbeatAgentId } from "./heartbeat-agent-resolution.js";
 import {
@@ -30,7 +30,7 @@ export type HeartbeatSummary = {
 const DEFAULT_HEARTBEAT_TARGET = "owner";
 
 /** Return whether heartbeat scheduling applies to an agent. */
-export function isHeartbeatEnabledForAgent(cfg: OpenClawConfig, agentId?: string): boolean {
+export function isHeartbeatEnabledForAgent(cfg: GrantedConfig, agentId?: string): boolean {
   const resolvedAgentId = agentId ?? tryResolveAmbientHeartbeatAgentId(cfg);
   return (
     resolvedAgentId !== undefined &&
@@ -40,7 +40,7 @@ export function isHeartbeatEnabledForAgent(cfg: OpenClawConfig, agentId?: string
 
 /** Resolve display-ready heartbeat settings for an agent. */
 export function resolveHeartbeatSummaryForAgent(
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   agentId?: string,
 ): HeartbeatSummary {
   const merged = resolveHeartbeatConfig(cfg, agentId);

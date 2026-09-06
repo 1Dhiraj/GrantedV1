@@ -1,6 +1,6 @@
 // Verifies OpenClaw tool registration, availability, and construction policy.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { setEmbeddedMode } from "../infra/embedded-mode.js";
 import { createPluginBoardWidgetContentKindRegistrar } from "../plugins/board-widget-content-kinds.js";
 import { createPluginRecord } from "../plugins/loader-records.js";
@@ -33,7 +33,7 @@ vi.mock("./openclaw-plugin-tools.js", () => ({
 type ProgressCardGatingParams = Parameters<typeof shouldIncludeProgressCardToolForOpenClawTools>[0];
 type CreateOpenClawToolsOptions = NonNullable<Parameters<typeof createOpenClawTools>[0]>;
 
-function withDefaultRoster(config: OpenClawConfig | undefined): OpenClawConfig {
+function withDefaultRoster(config: GrantedConfig | undefined): GrantedConfig {
   return {
     ...config,
     agents: config?.agents ?? { entries: { main: { default: true } } },
@@ -94,7 +94,7 @@ describe("openclaw-tools progress_card gating", () => {
       config: {
         tools: { allow: ["update_plan"] },
         transcripts: { enabled: true },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       cwd: "/repo",
       enableHeartbeatTool: true,
       taskSuggestionDeliveryMode: "gateway",
@@ -106,12 +106,12 @@ describe("openclaw-tools progress_card gating", () => {
   });
 
   it("enables progress_card by default", () => {
-    expectProgressCardEnabled({ config: {} as OpenClawConfig }, true);
+    expectProgressCardEnabled({ config: {} as GrantedConfig }, true);
   });
 
   it("exposes progress_card from default tool construction for every embedded model", () => {
     const defaultTools = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       modelProvider: "anthropic",
       modelId: "claude-sonnet-4-6",
     });
@@ -140,7 +140,7 @@ describe("openclaw-tools progress_card gating", () => {
     // runs are the primary consumer.
     expect(
       createFastToolNames({
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         runSessionKey: "agent:main:non-embedded",
       }),
     ).toEqual(expect.arrayContaining(["ask_user", "secrets"]));
@@ -148,13 +148,13 @@ describe("openclaw-tools progress_card gating", () => {
 
     expect(
       createFastToolNames({
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         agentSessionKey: "agent:main:subagent:worker",
       }),
     ).not.toContain("ask_user");
     expect(
       createFastToolNames({
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
         runSessionKey: "agent:main:run",
       }),
     ).toContain("ask_user");
@@ -162,11 +162,11 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("wraps constructed tools with before-tool-call hooks by default", () => {
     const tools = createTestOpenClawTools({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       disablePluginTools: true,
     });
     const unwrappedTools = createTestOpenClawTools({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       disablePluginTools: true,
       wrapBeforeToolCallHook: false,
     });
@@ -184,7 +184,7 @@ describe("openclaw-tools progress_card gating", () => {
           publicOrigin: "http://127.0.0.1:18789",
           controlUi: { basePath: " /control/// " },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       disablePluginTools: true,
       wrapBeforeToolCallHook: false,
     });
@@ -199,7 +199,7 @@ describe("openclaw-tools progress_card gating", () => {
   it("keeps message tool in embedded message-tool-only completions", () => {
     setEmbeddedMode(true);
     const tools = createTestOpenClawTools({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       disablePluginTools: true,
       wrapBeforeToolCallHook: false,
       sourceReplyDeliveryMode: "message_tool_only",
@@ -210,21 +210,21 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("exposes delegation only to regular unsandboxed gateway agents", () => {
     const regular = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:main:main",
     });
     const sandboxed = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:main:main",
       sandboxed: true,
     });
     const system = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:openclaw:main",
     });
     setEmbeddedMode(true);
     const embedded = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:main:main",
     });
 
@@ -240,11 +240,11 @@ describe("openclaw-tools progress_card gating", () => {
       capability,
       () => ({
         defaultTools: createFastToolNames({
-          config: {} as OpenClawConfig,
+          config: {} as GrantedConfig,
           runId: "run-local",
         }),
         disabledTools: createFastToolNames({
-          config: { transcripts: { enabled: false } } as OpenClawConfig,
+          config: { transcripts: { enabled: false } } as GrantedConfig,
           runId: "run-local",
         }),
       }),
@@ -256,17 +256,17 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("registers task suggestions only for sessions with an actionable gateway sink", () => {
     const withoutSession = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       cwd: "/repo",
       taskSuggestionDeliveryMode: "gateway",
     });
     const withoutSink = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:main:main",
       cwd: "/repo",
     });
     const withSink = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       agentSessionKey: "agent:main:main",
       cwd: "/repo",
       taskSuggestionDeliveryMode: "gateway",
@@ -282,18 +282,18 @@ describe("openclaw-tools progress_card gating", () => {
   it("keeps explicitly allowed message tool in embedded completions", () => {
     setEmbeddedMode(true);
     const fromRuntimeAllowlist = createTestOpenClawTools({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       disablePluginTools: true,
       pluginToolAllowlist: ["message"],
       wrapBeforeToolCallHook: false,
     });
     const fromGlobalAlsoAllow = createTestOpenClawTools({
-      config: { tools: { profile: "minimal", alsoAllow: ["message"] } } as OpenClawConfig,
+      config: { tools: { profile: "minimal", alsoAllow: ["message"] } } as GrantedConfig,
       disablePluginTools: true,
       wrapBeforeToolCallHook: false,
     });
     const denied = createTestOpenClawTools({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       disablePluginTools: true,
       pluginToolAllowlist: ["message"],
       pluginToolDenylist: ["message"],
@@ -308,10 +308,10 @@ describe("openclaw-tools progress_card gating", () => {
   it("keeps subagent spawn available for trusted embedded gateway-bound runs", () => {
     setEmbeddedMode(true);
     const defaultTools = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
     const gatewayBoundTools = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       allowGatewaySubagentBinding: true,
     });
 
@@ -327,7 +327,7 @@ describe("openclaw-tools progress_card gating", () => {
       applyToolAvailabilityDescriptions(
         createTestOpenClawTools({
           allowGatewaySubagentBinding,
-          config: {} as OpenClawConfig,
+          config: {} as GrantedConfig,
           disableMessageTool: true,
           disablePluginTools: true,
           wrapBeforeToolCallHook: false,
@@ -345,14 +345,14 @@ describe("openclaw-tools progress_card gating", () => {
   });
 
   it("registers progress_card when explicitly enabled", () => {
-    const config = { tools: { updatePlan: true } } as OpenClawConfig;
+    const config = { tools: { updatePlan: true } } as GrantedConfig;
 
     expectProgressCardEnabled({ config }, true);
   });
 
   it("maps the shipped update_plan allowlist name to progress_card", () => {
     const tools = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginToolAllowlist: ["update_plan"],
       modelProvider: "anthropic",
       modelId: "claude-sonnet-4-6",
@@ -363,7 +363,7 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("includes progress_card when a config allowlist group includes it", () => {
     const includeProgressCard = shouldIncludeProgressCardToolForOpenClawTools({
-      config: { tools: { allow: ["group:agents"] } } as OpenClawConfig,
+      config: { tools: { allow: ["group:agents"] } } as GrantedConfig,
     });
 
     expect(includeProgressCard).toBe(true);
@@ -390,7 +390,7 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("leaves normal deny policy enforcement to the assembled tool set", () => {
     const tools = createFastToolNames({
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
       pluginToolAllowlist: ["group:agents"],
       pluginToolDenylist: ["update_plan"],
       modelProvider: "anthropic",
@@ -402,7 +402,7 @@ describe("openclaw-tools progress_card gating", () => {
 
   it("lets an explicit updatePlan false override an allowlist that includes the tool", () => {
     expectProgressCardEnabled(
-      { config: { tools: { updatePlan: false, allow: ["update_plan"] } } as OpenClawConfig },
+      { config: { tools: { updatePlan: false, allow: ["update_plan"] } } as GrantedConfig },
       false,
     );
   });
@@ -536,7 +536,7 @@ describe("Swarm registration", () => {
         createTestOpenClawTools({
           agentSessionKey: "agent:main:main",
           allowGatewaySubagentBinding,
-          config: { tools: { swarm: true } } as OpenClawConfig,
+          config: { tools: { swarm: true } } as GrantedConfig,
           disableMessageTool: true,
           disablePluginTools: true,
           wrapBeforeToolCallHook: false,

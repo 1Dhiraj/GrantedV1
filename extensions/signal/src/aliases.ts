@@ -1,5 +1,5 @@
 // Signal alias helpers keep OpenClaw-side names inside the Signal plugin boundary.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import type { ChannelDirectoryEntry } from "openclaw/plugin-sdk/core";
 import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { resolveSignalAccount } from "./accounts.js";
@@ -34,7 +34,7 @@ function normalizeAliasKey(raw: string): string | undefined {
 }
 
 function resolveAliasMap(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
 }): Map<string, string> {
   const account = resolveSignalAccount({
@@ -112,7 +112,7 @@ function resolveSignalAliasTargetFromMap(params: {
 }
 
 function resolveSignalAliasTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   input: string;
 }): ResolvedSignalAliasTarget | null {
@@ -124,7 +124,7 @@ function resolveSignalAliasTarget(params: {
 }
 
 export function resolveSignalTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   input: string;
 }): ResolvedSignalTarget | null {
@@ -143,7 +143,7 @@ export function resolveSignalTarget(params: {
 }
 
 export function listSignalAliasDirectoryEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   accountId?: string | null;
   kind: SignalResolvedTargetKind;
   query?: string | null;

@@ -27,7 +27,7 @@ import { canCallGatewayMethod, isGatewayMethodAdvertised } from "../../lib/gatew
 import { projectPresencePayload } from "../../lib/presence-users.ts";
 import { resolveSessionKey } from "../../lib/sessions/index.ts";
 import { uiSessionEventMatches } from "../../lib/sessions/session-key.ts";
-import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
+import { GrantedLightDomElement } from "../../lit/openclaw-element.ts";
 import { StreamAutoFollowController } from "../../lit/stream-auto-follow-controller.ts";
 import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import {
@@ -72,7 +72,7 @@ function isExpiredDecisionCursorError(error: unknown): boolean {
   );
 }
 
-class ActivityPage extends OpenClawLightDomElement {
+class ActivityPage extends GrantedLightDomElement {
   @consume({ context: applicationContext, subscribe: true })
   private context!: ApplicationContext;
 

@@ -13,7 +13,7 @@ import {
   getRuntimeConfigSnapshot,
   getRuntimeConfigSourceSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   activateSecretsRuntimeSnapshotWithSource,
   clearSecretsRuntimeSnapshot,
@@ -21,7 +21,7 @@ import {
 } from "../secrets/runtime.js";
 import {
   createOpenClawTestState,
-  type OpenClawTestState,
+  type GrantedTestState,
 } from "../test-utils/openclaw-test-state.js";
 import { createGatewaySecretsReloader } from "./server-secrets-reload.js";
 import {
@@ -30,7 +30,7 @@ import {
 } from "./server-shared-auth-generation.js";
 import { createRuntimeSecretsActivator } from "./server-startup-config.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 const recoveredRef = { source: "env", provider: "default", id: "TEST_RELOADED_MODEL_KEY" } as const;
 
 function sourceConfig() {
@@ -65,10 +65,10 @@ function sourceConfig() {
         },
       },
     },
-  } satisfies OpenClawConfig;
+  } satisfies GrantedConfig;
 }
 
-function requireRuntimeConfig(): OpenClawConfig {
+function requireRuntimeConfig(): GrantedConfig {
   const config = getRuntimeConfigSnapshot();
   if (!config) {
     throw new Error("Expected active runtime config");
@@ -95,7 +95,7 @@ afterEach(async () => {
 async function coldRuntime(clients: SharedGatewayAuthClient[] = []) {
   const config = sourceConfig();
   await state.writeConfig(config);
-  const runtimeConfig: OpenClawConfig = structuredClone(config);
+  const runtimeConfig: GrantedConfig = structuredClone(config);
   runtimeConfig.models!.providers!["healthy-fixture"]!.models[0]!.compat = { supportsStore: false };
   const initial = await prepareSecretsRuntimeSnapshot({
     config: runtimeConfig,

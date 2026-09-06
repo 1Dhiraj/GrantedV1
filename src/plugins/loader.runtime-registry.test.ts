@@ -8,7 +8,7 @@ import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { requestHeartbeat, setHeartbeatWakeHandler } from "../infra/heartbeat-wake.js";
 import { drainSystemEvents } from "../infra/system-events.js";
@@ -382,7 +382,7 @@ function requireMemoryEmbeddingProvider(providerId: string) {
 }
 
 function setLoaderMetadataSnapshot(params: { pluginIds?: readonly string[] } = {}) {
-  const config: OpenClawConfig = {
+  const config: GrantedConfig = {
     plugins: {
       allow: ["demo"],
       slots: { memory: "none" },
@@ -509,7 +509,7 @@ describe("resolvePluginLoadCacheContext", () => {
 
   it("does not reuse metadata when the activation source adds plugin load paths", () => {
     const { config, env, workspaceDir } = setLoaderMetadataSnapshot();
-    const activationSourceConfig: OpenClawConfig = {
+    const activationSourceConfig: GrantedConfig = {
       plugins: {
         ...config.plugins,
         load: { paths: ["/plugins/activation-source-only"] },

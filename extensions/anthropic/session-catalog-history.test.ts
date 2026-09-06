@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { importClaudeHistory } from "./session-catalog-history.js";
 import { parseTranscriptLine } from "./session-catalog-transcript.js";
@@ -61,7 +61,7 @@ describe("importClaudeHistory", () => {
       sessionId: "session-1",
       sessionKey: "agent:main:catalog-adopt",
       agentId: "main",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
 
     expect(JSON.stringify(appended)).not.toContain("private skill instructions");
@@ -97,7 +97,7 @@ describe("importClaudeHistory", () => {
         sessionId: "session-1",
         sessionKey: "agent:main:catalog-adopt",
         agentId: "main",
-        config: {} as OpenClawConfig,
+        config: {} as GrantedConfig,
       });
     } finally {
       vi.useRealTimers();
@@ -125,7 +125,7 @@ describe("importClaudeHistory", () => {
       sessionId: "session-1",
       sessionKey: "agent:main:catalog-adopt",
       agentId: "main",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
 
     const userRow = appended.find((message) => message.role === "user");
@@ -149,7 +149,7 @@ describe("importClaudeHistory", () => {
       sessionId: "session-1",
       sessionKey: "agent:main:catalog-adopt",
       agentId: "main",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
 
     expect(appended).toHaveLength(1);
@@ -166,7 +166,7 @@ describe("importClaudeHistory", () => {
       sessionId: "session-1",
       sessionKey: "agent:main:catalog-adopt",
       agentId: "main",
-      config: {} as OpenClawConfig,
+      config: {} as GrantedConfig,
     });
 
     expect(appended).toHaveLength(1);

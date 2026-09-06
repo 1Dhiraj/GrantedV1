@@ -1,5 +1,5 @@
 // Google Meet plugin module implements chrome behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   createMeetingRealtimeEngineBindings,
   createLocalMeetingRealtimeAudioTransport,
@@ -50,7 +50,7 @@ type ChromeNodeRealtimeAudioBridgeHandle = MeetingRealtimeAudioEngineHandle & {
   bridgeId: string;
 };
 
-function shouldCaptureCaptions(mode: GoogleMeetMode, fullConfig?: OpenClawConfig): boolean {
+function shouldCaptureCaptions(mode: GoogleMeetMode, fullConfig?: GrantedConfig): boolean {
   return (
     mode === "transcribe" || !fullConfig || resolveTranscriptsConfig(fullConfig.transcripts).enabled
   );
@@ -90,7 +90,7 @@ export async function assertGoogleMeetAudioAvailable(params: {
 export async function launchChromeMeet(params: {
   runtime: PluginRuntime;
   config: GoogleMeetConfig;
-  fullConfig: OpenClawConfig;
+  fullConfig: GrantedConfig;
   meetingSessionId: string;
   requesterSessionKey?: string;
   mode: GoogleMeetMode;
@@ -442,7 +442,7 @@ async function openMeetWithBrowserProxy(params: {
 export async function recoverCurrentMeetTab(params: {
   runtime: PluginRuntime;
   config: GoogleMeetConfig;
-  fullConfig?: OpenClawConfig;
+  fullConfig?: GrantedConfig;
   mode?: GoogleMeetMode;
   readOnly?: boolean;
   trackedMeetingUrl?: string;
@@ -477,7 +477,7 @@ export async function recoverCurrentMeetTab(params: {
 export async function recoverCurrentMeetTabOnNode(params: {
   runtime: PluginRuntime;
   config: GoogleMeetConfig;
-  fullConfig?: OpenClawConfig;
+  fullConfig?: GrantedConfig;
   mode?: GoogleMeetMode;
   readOnly?: boolean;
   trackedMeetingUrl?: string;
@@ -525,7 +525,7 @@ export async function recoverCurrentMeetTabOnNode(params: {
 export async function launchChromeMeetOnNode(params: {
   runtime: PluginRuntime;
   config: GoogleMeetConfig;
-  fullConfig: OpenClawConfig;
+  fullConfig: GrantedConfig;
   meetingSessionId: string;
   requesterSessionKey?: string;
   mode: GoogleMeetMode;

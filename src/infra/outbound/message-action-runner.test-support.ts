@@ -8,7 +8,7 @@ import type {
   ChannelOutboundAdapter,
   ChannelPlugin,
 } from "../../channels/plugins/types.public.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
   createChannelTestPluginBase,
@@ -28,7 +28,7 @@ export const workspaceConfig = {
       appToken: "workspace-app-test",
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 /** Direct-chat config fixture that allows any sender. */
 export const directChatConfig = {
@@ -37,7 +37,7 @@ export const directChatConfig = {
       allowFrom: ["*"],
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 export const directOutbound: ChannelOutboundAdapter = {
   deliveryMode: "direct",
@@ -135,7 +135,7 @@ export function createMessageActionContextFixture() {
 }
 
 export const runDryAction = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   action: ChannelMessageActionName;
   actionParams: Record<string, unknown>;
   toolContext?: Record<string, unknown>;
@@ -155,7 +155,7 @@ export const runDryAction = (params: {
   });
 
 export const runDrySend = (params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   actionParams: Record<string, unknown>;
   toolContext?: Record<string, unknown>;
   abortSignal?: AbortSignal;
@@ -201,7 +201,7 @@ function hasChannelBotToken(channelConfig: unknown): boolean {
 
 function createConfiguredTestPlugin(params: {
   id: string;
-  isConfigured: (cfg: OpenClawConfig) => boolean;
+  isConfigured: (cfg: GrantedConfig) => boolean;
   normalizeTarget: (raw: string) => string | undefined;
   resolveTarget: (input: string) => ResolvedTestTarget | null;
 }): ChannelPlugin {
@@ -289,7 +289,7 @@ const testchatConfig = {
       enabled: true,
     },
   },
-} as OpenClawConfig;
+} as GrantedConfig;
 
 function createReplyActionPlugin(handleAction: ChannelActionHandler): ChannelPlugin {
   return {

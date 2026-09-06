@@ -1,7 +1,7 @@
 // Link-understanding runner tests cover guarded fetches, command execution, scoping, and template behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { LinkModelConfig } from "../config/types.tools.js";
 import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
 import { runCommandWithTimeout } from "../process/exec.js";
@@ -39,7 +39,7 @@ function cfg(entry: LinkModelConfig) {
         models: [entry],
       },
     },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 function ctx(body: string): MsgContext {
@@ -91,7 +91,7 @@ describe("runLinkUnderstanding", () => {
             models: [{ type: "cli", command: "summarize" }],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       ctx: {
         Body: "see https://example.com/page",
         ChatType: "channel",
@@ -263,7 +263,7 @@ describe("runLinkUnderstanding", () => {
             ],
           },
         },
-      } as OpenClawConfig,
+      } as GrantedConfig,
       ctx: ctx("see https://example.com/page"),
     });
 

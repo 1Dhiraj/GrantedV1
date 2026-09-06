@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import "./codex-native-assets.js";
 
 type CodexNativeAssetHit = {
@@ -8,7 +8,7 @@ type CodexNativeAssetHit = {
 
 type TestApi = {
   scanCodexNativeAssets(params: {
-    cfg: OpenClawConfig;
+    cfg: GrantedConfig;
     env?: NodeJS.ProcessEnv;
   }): Promise<CodexNativeAssetHit[]>;
 };

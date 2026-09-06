@@ -1,7 +1,7 @@
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { OpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import { isInternalSessionEffectsKey } from "./internal-session-key.js";
 import type {
   SessionAccessScope,
@@ -17,7 +17,7 @@ import type { SessionEntry } from "./types.js";
 
 export function listTranscriptInstancesFromDatabase(params: {
   currentEntries: Pick<ReadonlyMap<string, SessionEntry>, "get">;
-  database: Pick<OpenClawAgentDatabase, "agentId" | "db">;
+  database: Pick<GrantedAgentDatabase, "agentId" | "db">;
   options: SessionTranscriptInstanceListOptions;
 }): SessionTranscriptInstance[] {
   const db = getSessionKysely(params.database.db);

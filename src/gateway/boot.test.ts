@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionScope } from "../config/sessions/types.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 
 const agentCommand = vi.fn();
 const localAgentCommand = vi.fn();
@@ -40,12 +40,12 @@ describe("runBootOnce", () => {
     store?: string;
     scope?: SessionScope;
     mainKey?: string;
-  }): OpenClawConfig => ({
+  }): GrantedConfig => ({
     agents: { list: [{ id: "main", default: true }] },
     ...(session ? { session } : {}),
   });
 
-  const resolveMainStore = (cfg: OpenClawConfig = testConfig()) => {
+  const resolveMainStore = (cfg: GrantedConfig = testConfig()) => {
     const sessionKey = resolveMainSessionKey(cfg);
     const agentId = resolveAgentIdFromSessionKey(sessionKey);
     const storePath = resolveSessionStorePathCore(cfg.session?.store, { agentId });
@@ -116,7 +116,7 @@ describe("runBootOnce", () => {
   const runBootAndReturnCall = async (
     params: {
       content?: string;
-      cfg?: OpenClawConfig;
+      cfg?: GrantedConfig;
       agentId?: string;
     } = {},
   ): Promise<Record<string, unknown>> => {

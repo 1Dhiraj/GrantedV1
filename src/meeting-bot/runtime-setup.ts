@@ -1,5 +1,5 @@
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import type { PluginRuntime } from "../plugins/runtime/types.js";
 import { resolveMeetingAudioRuntimeForFormat, type MeetingAudioRuntime } from "./audio-backend.js";
@@ -40,7 +40,7 @@ export function createMeetingRuntimeSetup<Config extends MeetingPluginConfig, Mo
 ) {
   return async (params: {
     config: Config;
-    fullConfig: OpenClawConfig;
+    fullConfig: GrantedConfig;
     runtime: PluginRuntime;
     options?: { mode?: Mode; transport?: "chrome" | "chrome-node" };
   }) => {

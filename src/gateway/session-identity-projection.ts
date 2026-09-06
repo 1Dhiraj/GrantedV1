@@ -13,7 +13,7 @@ import {
   sessionCreatorProfileId,
   type SessionActor,
 } from "../config/sessions/session-entry-provenance.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { looksLikeAvatarPath } from "../shared/avatar-policy.js";
 import { SESSIONS_LIST_OWNER_LIMIT } from "../shared/session-list-limits.js";
@@ -26,7 +26,7 @@ import type { SessionActorProfileIdentity } from "./session-utils-contracts.js";
 export function projectSessionParticipant(
   identity: SessionParticipantIdentity,
   profiles: Map<string, SessionActorProfileIdentity | undefined>,
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
 ): SessionParticipant {
   if (identity.type === "agent" && cfg) {
     const agent = resolveAgentIdentity(cfg, identity.id);
@@ -64,7 +64,7 @@ export function projectSessionParticipant(
 export function projectSessionActor(
   actor: SessionActor | undefined,
   profiles: Map<string, SessionActorProfileIdentity | undefined> = new Map(),
-  cfg?: OpenClawConfig,
+  cfg?: GrantedConfig,
   profileProvenance = true,
 ): SessionCreatedActor | undefined {
   if (!actor) {
@@ -88,7 +88,7 @@ export function projectSessionActor(
 export function projectAssignableSessionOwner(
   actor: SessionActor | undefined,
   userProfileIdentityById: Map<string, SessionActorProfileIdentity | undefined>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   configuredAgentIds?: ReadonlySet<string>,
   profileProvenance = true,
 ): SessionOwnerFacetIdentity | undefined {
@@ -116,7 +116,7 @@ export function projectAssignableSessionOwner(
 export function projectSessionOwner(
   entry: SessionEntry | undefined,
   userProfileIdentityById: Map<string, SessionActorProfileIdentity | undefined> | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   configuredAgentIds?: ReadonlySet<string>,
 ): (SessionOwner & { actor: SessionOwnerFacetIdentity }) | undefined {
   const persisted = entry?.owner;
@@ -142,7 +142,7 @@ export function projectSessionOwner(
 export function projectSessionParticipants(
   entry: SessionEntry | undefined,
   userProfileIdentityById: Map<string, SessionActorProfileIdentity | undefined> | undefined,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
 ): Map<string, SessionParticipant> {
   const identities = userProfileIdentityById ?? new Map();
   const participants = new Map<string, SessionParticipant>();
@@ -157,7 +157,7 @@ export function projectSessionParticipants(
 export function projectSessionPeople(
   entry: SessionEntry,
   identities: Map<string, SessionActorProfileIdentity | undefined>,
-  cfg: OpenClawConfig,
+  cfg: GrantedConfig,
   owner?: SessionOwnerFacetIdentity,
 ): SessionPerson[] {
   const participants = projectSessionParticipants(entry, identities, cfg);

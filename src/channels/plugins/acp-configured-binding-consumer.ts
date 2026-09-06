@@ -20,14 +20,14 @@ import {
 } from "../../agents/agent-scope.js";
 import { parseModelRef } from "../../agents/model-selection-normalize.js";
 import { resolveConfiguredThinkingDefault } from "../../agents/model-thinking-default.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type {
   ConfiguredBindingRuleConfig,
   ConfiguredBindingTargetFactory,
 } from "./binding-types.js";
 import type { ConfiguredBindingConsumer } from "./configured-binding-consumers.js";
 
-function resolveAgentRuntimeAcpDefaults(params: { cfg: OpenClawConfig; ownerAgentId: string }): {
+function resolveAgentRuntimeAcpDefaults(params: { cfg: GrantedConfig; ownerAgentId: string }): {
   acpAgentId?: string;
   mode?: string;
   cwd?: string;
@@ -48,7 +48,7 @@ function resolveAgentRuntimeAcpDefaults(params: { cfg: OpenClawConfig; ownerAgen
 }
 
 function resolveConfiguredBindingWorkspaceCwd(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
 }): string | undefined {
   // Only bind cwd when the agent has an explicit workspace contract; otherwise let ACP choose
@@ -66,7 +66,7 @@ function resolveConfiguredBindingWorkspaceCwd(params: {
 }
 
 function buildAcpTargetFactory(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   binding: ConfiguredBindingRuleConfig;
   channel: string;
   agentId: string;

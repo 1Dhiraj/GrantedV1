@@ -2,7 +2,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { settleReplyDispatcher } from "../../auto-reply/dispatch-dispatcher.js";
 import type { ReplyDispatchRuntimeInfo } from "../../auto-reply/reply/reply-dispatcher.types.js";
 import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { OpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAssistantMessageFixture } from "../test-helpers/assistant-message-fixtures.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -14,7 +14,7 @@ import {
 } from "./run.overflow-compaction.harness.js";
 import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harness.test-support.js";
 
-let state: OpenClawTestState;
+let state: GrantedTestState;
 const GENERIC_TIMEOUT = "LLM request timed out.";
 const AUTHORITATIVE_TIMEOUT =
   "Provider timed out after the request started. Retry the turn, or increase its configured timeout.";

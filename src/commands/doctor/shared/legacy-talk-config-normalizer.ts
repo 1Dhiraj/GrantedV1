@@ -2,12 +2,12 @@
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeTalkSection } from "../../../config/talk.js";
-import type { OpenClawConfig } from "../../../config/types.js";
+import type { GrantedConfig } from "../../../config/types.js";
 
 function buildLegacyRealtimeTalkCompat(
   talk: Record<string, unknown>,
-  normalizedTalk: NonNullable<OpenClawConfig["talk"]>,
-): NonNullable<OpenClawConfig["talk"]>["realtime"] {
+  normalizedTalk: NonNullable<GrantedConfig["talk"]>,
+): NonNullable<GrantedConfig["talk"]>["realtime"] {
   if (talk.realtime !== undefined) {
     return undefined;
   }
@@ -29,18 +29,18 @@ function buildLegacyRealtimeTalkCompat(
   if (normalizedTalk.providers !== undefined) {
     compat.providers = normalizedTalk.providers;
   }
-  return normalizeTalkSection({ realtime: compat } as OpenClawConfig["talk"])?.realtime;
+  return normalizeTalkSection({ realtime: compat } as GrantedConfig["talk"])?.realtime;
 }
 
 /** Normalize Talk provider shape and move only core-owned legacy realtime fields. */
-export function normalizeLegacyTalkConfig(cfg: OpenClawConfig, changes: string[]): OpenClawConfig {
+export function normalizeLegacyTalkConfig(cfg: GrantedConfig, changes: string[]): GrantedConfig {
   const rawTalk: unknown = cfg.talk;
   if (!isRecord(rawTalk)) {
     return cfg;
   }
 
-  const normalizedTalk: Record<string, unknown> & NonNullable<OpenClawConfig["talk"]> =
-    normalizeTalkSection(rawTalk as OpenClawConfig["talk"]) ?? {};
+  const normalizedTalk: Record<string, unknown> & NonNullable<GrantedConfig["talk"]> =
+    normalizeTalkSection(rawTalk as GrantedConfig["talk"]) ?? {};
   for (const key of ["voiceId", "voiceAliases", "modelId", "outputFormat", "apiKey"] as const) {
     if (rawTalk[key] !== undefined) {
       normalizedTalk[key] = rawTalk[key];

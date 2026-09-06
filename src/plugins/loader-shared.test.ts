@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
 import { setRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
 import { resolvePluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import { getPluginCliCommandDescriptors } from "./cli-root-descriptors.js";
@@ -334,7 +334,7 @@ module.exports = { id: "source-fixture", register(api) {
                     },
                   }),
             });
-            const runtime: OpenClawConfig = {
+            const runtime: GrantedConfig = {
               plugins: {
                 allow: [id],
                 load: { paths: [entry] },
@@ -343,7 +343,7 @@ module.exports = { id: "source-fixture", register(api) {
                 },
               },
             };
-            const source: OpenClawConfig = {
+            const source: GrantedConfig = {
               ...runtime,
               plugins: {
                 ...runtime.plugins,
@@ -411,7 +411,7 @@ module.exports = { id: "source-fixture", register(api) {
                     }) === registry,
                   ).toBe(true);
 
-                  const alternateSource: OpenClawConfig = {
+                  const alternateSource: GrantedConfig = {
                     ...source,
                     plugins: {
                       ...source.plugins,

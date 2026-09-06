@@ -18,7 +18,7 @@ import { createHostChannelInboundEventContextBuilder } from "../../channels/inbo
 import { configureChannelAdmissionEvidenceCollection } from "../../channels/message-access/admission-evidence.js";
 import { registerChannelIngressHostOwner } from "../../channels/message-access/ingress-host-owner.js";
 import { resolveStableChannelMessageIngress } from "../../channels/message-access/runtime.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import {
   listSessionParticipantsReadOnly,
   upsertSessionEntryCore,
@@ -66,8 +66,8 @@ const auditMocks = vi.hoisted(() => ({
 }));
 
 const policyMocks = vi.hoisted(() => ({
-  resolveAcpDispatchPolicyError: vi.fn<(cfg: OpenClawConfig) => AcpRuntimeError | null>(() => null),
-  resolveAcpAgentPolicyError: vi.fn<(cfg: OpenClawConfig, agent: string) => AcpRuntimeError | null>(
+  resolveAcpDispatchPolicyError: vi.fn<(cfg: GrantedConfig) => AcpRuntimeError | null>(() => null),
+  resolveAcpAgentPolicyError: vi.fn<(cfg: GrantedConfig, agent: string) => AcpRuntimeError | null>(
     () => null,
   ),
 }));
@@ -116,7 +116,7 @@ const ttsMocks = vi.hoisted(() => ({
     const params = paramsUnknown as { payload: unknown };
     return params.payload;
   }),
-  resolveTtsConfig: vi.fn((_cfg: OpenClawConfig) => ({ mode: "final" })),
+  resolveTtsConfig: vi.fn((_cfg: GrantedConfig) => ({ mode: "final" })),
 }));
 
 const ttsCapabilityMocks = vi.hoisted(() => ({ captionedFinalText: false }));
@@ -142,7 +142,7 @@ const diagnosticMocks = vi.hoisted(() => ({
 
 const sessionMetaMocks = vi.hoisted(() => ({
   readAcpSessionEntry: vi.fn<
-    (params: { sessionKey: string; cfg?: OpenClawConfig }) => AcpSessionStoreEntry | null
+    (params: { sessionKey: string; cfg?: GrantedConfig }) => AcpSessionStoreEntry | null
   >(() => null),
 }));
 
@@ -157,7 +157,7 @@ const bindingServiceMocks = vi.hoisted(() => ({
 
 vi.mock("./dispatch-acp-manager.runtime.js", () => ({
   getAcpSessionManager: () => managerMocks,
-  readAcpSessionEntry: (params: { sessionKey: string; cfg?: OpenClawConfig }) =>
+  readAcpSessionEntry: (params: { sessionKey: string; cfg?: GrantedConfig }) =>
     sessionMetaMocks.readAcpSessionEntry(params),
   getSessionBindingService: () => ({
     listBySession: (targetSessionKey: string) =>
@@ -179,9 +179,9 @@ vi.mock("../../agents/command/attempt-execution.runtime.js", () => ({
 }));
 
 vi.mock("../../acp/policy.js", () => ({
-  resolveAcpDispatchPolicyError: (cfg: OpenClawConfig) =>
+  resolveAcpDispatchPolicyError: (cfg: GrantedConfig) =>
     policyMocks.resolveAcpDispatchPolicyError(cfg),
-  resolveAcpAgentPolicyError: (cfg: OpenClawConfig, agent: string) =>
+  resolveAcpAgentPolicyError: (cfg: GrantedConfig, agent: string) =>
     policyMocks.resolveAcpAgentPolicyError(cfg, agent),
 }));
 
@@ -332,7 +332,7 @@ function setReadyAcpResolution() {
   });
 }
 
-function createAcpConfigWithVisibleToolTags(): OpenClawConfig {
+function createAcpConfigWithVisibleToolTags(): GrantedConfig {
   return createAcpTestConfig({
     acp: {
       enabled: true,
@@ -350,7 +350,7 @@ async function runDispatch(params: {
   bodyForAgent: string;
   runId?: string;
   onAgentRunStart?: Parameters<typeof tryDispatchAcpReplyCore>[0]["onAgentRunStart"];
-  cfg?: OpenClawConfig;
+  cfg?: GrantedConfig;
   dispatcher?: ReplyDispatcher;
   shouldRouteToOriginating?: boolean;
   originatingChannel?: string;
@@ -3137,7 +3137,7 @@ describe("tryDispatchAcpReplyCore", () => {
         : [],
     );
     sessionMetaMocks.readAcpSessionEntry.mockImplementation(
-      (params: { sessionKey: string; cfg?: OpenClawConfig }) =>
+      (params: { sessionKey: string; cfg?: GrantedConfig }) =>
         params.sessionKey === canonicalSessionKey
           ? {
               cfg: params.cfg ?? createAcpTestConfig(),
@@ -3205,7 +3205,7 @@ describe("tryDispatchAcpReplyCore", () => {
         : [],
     );
     sessionMetaMocks.readAcpSessionEntry.mockImplementation(
-      (params: { sessionKey: string; cfg?: OpenClawConfig }) =>
+      (params: { sessionKey: string; cfg?: GrantedConfig }) =>
         params.sessionKey === canonicalSessionKey
           ? {
               cfg: params.cfg ?? createAcpTestConfig(),

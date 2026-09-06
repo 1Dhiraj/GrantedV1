@@ -18,7 +18,7 @@ import {
   resolveConfiguredAgentDatabaseCandidatePaths,
   resolveConfiguredAgentDatabaseTargets,
 } from "../config/sessions/targets.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readGatewayServiceState, resolveGatewayService } from "../daemon/service.js";
 import { resolvePathViaExistingAncestorSync } from "../infra/boundary-path.js";
 import {
@@ -29,7 +29,7 @@ import type { RuntimeEnv } from "../runtime.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   preflightOpenClawDatabaseSchemas,
-  OpenClawDatabaseSchemaPreflightError,
+  GrantedDatabaseSchemaPreflightError,
 } from "../state/openclaw-database-preflight.js";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
@@ -67,7 +67,7 @@ async function assertDoctorMaintenanceSchemasCompatible(env: NodeJS.ProcessEnv):
     verifyCurrentSchemaShape: true,
   });
   if (schemas.incompatible.length > 0) {
-    throw new OpenClawDatabaseSchemaPreflightError(schemas.incompatible, { operation: "doctor" });
+    throw new GrantedDatabaseSchemaPreflightError(schemas.incompatible, { operation: "doctor" });
   }
 }
 
@@ -111,7 +111,7 @@ export async function beginDoctorMaintenance(params: {
   options: DoctorOptions;
   root: string | null;
   runtime: RuntimeEnv;
-}): Promise<{ release(): Promise<void>; finish(cfg: OpenClawConfig): Promise<void> } | undefined> {
+}): Promise<{ release(): Promise<void>; finish(cfg: GrantedConfig): Promise<void> } | undefined> {
   if (!(params.options.repair === true || params.options.yes === true)) {
     return undefined;
   }

@@ -3,7 +3,7 @@
  */
 import path from "node:path";
 import type { BrowserConfig } from "../config/types.browser.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import type { ResolvedBrowserConfig, ResolvedBrowserProfile } from "./browser-types.js";
 import { loadBundledPluginPublicSurfaceModuleSyncCore } from "./facade-loader.js";
@@ -33,7 +33,7 @@ export const DEFAULT_UPLOAD_DIR = path.join(resolvePreferredOpenClawTmpDir(), "u
 type BrowserProfilesSurface = {
   resolveBrowserConfig: (
     cfg: BrowserConfig | undefined,
-    rootConfig?: OpenClawConfig,
+    rootConfig?: GrantedConfig,
   ) => ResolvedBrowserConfig;
   resolveProfile: (
     resolved: ResolvedBrowserConfig,
@@ -51,7 +51,7 @@ function loadBrowserProfilesSurface(): BrowserProfilesSurface {
 /** Resolves browser config through the activated bundled browser profile facade. */
 export function resolveBrowserConfig(
   cfg: BrowserConfig | undefined,
-  rootConfig?: OpenClawConfig,
+  rootConfig?: GrantedConfig,
 ): ResolvedBrowserConfig {
   return loadBrowserProfilesSurface().resolveBrowserConfig(cfg, rootConfig);
 }

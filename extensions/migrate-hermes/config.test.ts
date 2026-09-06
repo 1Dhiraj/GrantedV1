@@ -1,7 +1,7 @@
 // Migrate Hermes tests cover config plugin behavior.
 import path from "node:path";
 import { readConfigFileSnapshot } from "openclaw/plugin-sdk/health";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
@@ -151,7 +151,7 @@ describe("Hermes migration config mapping", () => {
     const { source, workspaceDir, stateDir } = await makeHermesPaths();
     const config = {
       agents: { defaults: { workspace: workspaceDir } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await writeFile(
       path.join(source, "config.yaml"),
       [
@@ -214,7 +214,7 @@ describe("Hermes migration config mapping", () => {
     const { source, workspaceDir, stateDir } = await makeHermesPaths();
     const config = {
       agents: { defaults: { workspace: workspaceDir } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     await writeFile(
       path.join(source, "config.yaml"),
       [

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { GrantedConfig } from "../config/config.js";
 import { resetUsageFormatCachesForTest, resolveModelCostConfig } from "./usage-format.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -35,7 +35,7 @@ describe("usage-format agent roster", () => {
       agents: {
         list: [{ id: "ops", default: true, agentDir: opsAgentDir }],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as GrantedConfig;
 
     expect(
       resolveModelCostConfig({

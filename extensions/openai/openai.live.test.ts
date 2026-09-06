@@ -5,7 +5,7 @@ import path from "node:path";
 import OpenAI from "openai";
 import type { ResolvedTtsConfig } from "openclaw/plugin-sdk/agent-runtime";
 import { AuthStorage, ModelRegistry } from "openclaw/plugin-sdk/agent-sessions";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { coerceErrorMessage as formatLiveOpenAIError } from "openclaw/plugin-sdk/error-runtime";
 import { encodePngRgba, fillPixel } from "openclaw/plugin-sdk/media-runtime";
 import {
@@ -98,7 +98,7 @@ function resolveLiveOpenAISkipReason(error: unknown): string | null {
  * Deliberately does not read the operator's real ~/.openclaw config: strict schema
  * validation on that real, possibly-unmigrated file must never gate live provider tests.
  */
-function createLiveConfig(): OpenClawConfig {
+function createLiveConfig(): GrantedConfig {
   return {
     models: {
       providers: {

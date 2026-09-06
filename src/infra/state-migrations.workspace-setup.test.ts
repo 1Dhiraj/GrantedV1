@@ -10,7 +10,7 @@ import {
   prepareWorkspaceStateDeletion,
   readWorkspaceStateSnapshot,
 } from "../agents/workspace-state-store.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import {
   detectLegacyWorkspaceState,
@@ -168,7 +168,7 @@ describe("legacy workspace Doctor migration", () => {
     );
     const aliasContext = {
       ...context,
-      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies OpenClawConfig,
+      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies GrantedConfig,
       workspaceDir: workspaceAlias,
     };
     const completedAt = "2026-07-15T10:01:00.000Z";
@@ -205,7 +205,7 @@ describe("legacy workspace Doctor migration", () => {
     );
     const aliasContext = {
       ...context,
-      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies OpenClawConfig,
+      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies GrantedConfig,
       workspaceDir: workspaceAlias,
     };
     const identity = resolveWorkspaceStateIdentity(context.workspaceDir);
@@ -250,7 +250,7 @@ describe("legacy workspace Doctor migration", () => {
     );
     const aliasContext = {
       ...context,
-      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies OpenClawConfig,
+      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies GrantedConfig,
       workspaceDir: workspaceAlias,
     };
     const sourcePath = `${workspaceAlias}.attested`;
@@ -315,7 +315,7 @@ describe("legacy workspace Doctor migration", () => {
     );
     const aliasContext = {
       ...context,
-      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies OpenClawConfig,
+      cfg: { agents: { defaults: { workspace: workspaceAlias } } } satisfies GrantedConfig,
       workspaceDir: workspaceAlias,
     };
     const identityA = resolveWorkspaceStateIdentity(context.workspaceDir);

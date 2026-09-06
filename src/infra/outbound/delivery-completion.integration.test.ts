@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TrustedMessageAuditEvent } from "../../audit/message-audit-events.js";
 import { onTrustedMessageAuditEventForTest as onTrustedMessageAuditEvent } from "../../audit/message-audit-events.test-support.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { GrantedConfig } from "../../config/config.js";
 import { loadSessionEntry, replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -71,7 +71,7 @@ describe("pending-final durable delivery completion", () => {
     );
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "matrix-message-1" });
     const params = {
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       channel: "matrix" as const,
       to: "!room:example",
       payloads: [{ text: "deliver once" }],
@@ -130,7 +130,7 @@ describe("pending-final durable delivery completion", () => {
     try {
       await expect(
         deliverOutboundPayloads({
-          cfg: {} as OpenClawConfig,
+          cfg: {} as GrantedConfig,
           channel: "matrix",
           to: "!room:example",
           payloads: [{ text: "delivery identity may have been lost" }],

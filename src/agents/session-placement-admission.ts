@@ -1,5 +1,5 @@
 import type { SessionTranscriptRuntimeTarget } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import type { RunEmbeddedAgentParams } from "./embedded-agent-runner/run/params.js";
 import type { EmbeddedAgentRunResult } from "./embedded-agent-runner/types.js";
@@ -17,7 +17,7 @@ export type SessionPlacementTurnParams = RunEmbeddedAgentParams & { sessionFile:
 
 type SessionPlacementSandboxParams = {
   agentId: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   sessionId: string;
   sessionKey?: string;
   workspaceDir: string;

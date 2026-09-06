@@ -7,7 +7,7 @@ import type { SkillLibraryFile } from "../../../../packages/gateway-protocol/src
 import { VERSION } from "../../../../src/version.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "../../../helpers/openclaw-test-instance.js";
 
 export const SKILL_LIBRARY_ALICE = "alice@skills.example.invalid";
@@ -76,7 +76,7 @@ export class SkillLibraryWireClient {
   }
 
   static async connect(
-    instance: OpenClawTestInstance,
+    instance: GrantedTestInstance,
     options: {
       email?: string;
       scopes?: string[];
@@ -171,7 +171,7 @@ export class SkillLibraryWireClient {
   }
 }
 
-export async function createSkillLibraryWireInstance(): Promise<OpenClawTestInstance> {
+export async function createSkillLibraryWireInstance(): Promise<GrantedTestInstance> {
   const instance = await createOpenClawTestInstance({
     name: "skill-library-wire",
     startTimeoutMs: 120_000,

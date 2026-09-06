@@ -4,14 +4,14 @@ import http from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { GrantedConfig } from "../../config/types.js";
 import { ensureDevicePairSetupBootstrapToken } from "../../infra/device-bootstrap.js";
 import { decodePairingSetupCode } from "../../pairing/setup-code.js";
 import { createDeferredCore } from "../../shared/deferred.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { createNodeBootstrapArtifactProvider } from "./node-bootstrap-artifact.js";
 import { createWorkerNodeEnrollmentManager } from "./node-enrollment.js";
@@ -36,7 +36,7 @@ const PLUGIN_PUBLIC_URL = "wss://pairing.example.test";
 const LOCAL_TLS_FINGERPRINT = "c".repeat(64);
 const REMOTE_TLS_FINGERPRINT = "d".repeat(64);
 
-function createConfig(pluginPublicUrl?: string): OpenClawConfig {
+function createConfig(pluginPublicUrl?: string): GrantedConfig {
   return {
     gateway: {
       bind: "loopback",
@@ -55,7 +55,7 @@ function createConfig(pluginPublicUrl?: string): OpenClawConfig {
 
 describe("worker node enrollment", () => {
   let root: string;
-  let database: OpenClawStateDatabase;
+  let database: GrantedStateDatabase;
   let store: WorkerEnvironmentStore;
   let transfer: ReturnType<typeof createWorkerBootstrapArtifactTransferService>;
   let managers: ReturnType<typeof createWorkerNodeEnrollmentManager>[];
@@ -457,7 +457,7 @@ describe("worker node enrollment", () => {
             tls: { enabled: true },
             auth: { mode: "token", token: "gateway-token" },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedUrl: "wss://192.168.50.20:19443",
         expectedFingerprint: LOCAL_TLS_FINGERPRINT,
       },
@@ -468,7 +468,7 @@ describe("worker node enrollment", () => {
             remote: { url: "wss://remote.example.test", tlsFingerprint: REMOTE_TLS_FINGERPRINT },
             auth: { mode: "token", token: "gateway-token" },
           },
-        } satisfies OpenClawConfig,
+        } satisfies GrantedConfig,
         expectedUrl: "wss://remote.example.test",
         expectedFingerprint: REMOTE_TLS_FINGERPRINT,
       },

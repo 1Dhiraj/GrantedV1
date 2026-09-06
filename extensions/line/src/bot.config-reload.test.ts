@@ -1,5 +1,5 @@
 import type { webhook } from "@line/bot-sdk";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
@@ -15,7 +15,7 @@ type DeliverFn = (
 const { createLineWebhookSpoolMock, handleLineWebhookEventsMock } = vi.hoisted(() => ({
   createLineWebhookSpoolMock: vi.fn(),
   handleLineWebhookEventsMock: vi.fn(
-    async (_events: webhook.Event[], _context: { cfg: OpenClawConfig; historyLimit: number }) => {},
+    async (_events: webhook.Event[], _context: { cfg: GrantedConfig; historyLimit: number }) => {},
   ),
 }));
 
@@ -28,18 +28,18 @@ vi.mock("./bot-handlers.js", () => ({
 
 const { createLineBot } = await import("./bot.js");
 
-function configWithHistoryLimit(historyLimit: number): OpenClawConfig {
+function configWithHistoryLimit(historyLimit: number): GrantedConfig {
   return {
     channels: {
       line: { enabled: true, channelAccessToken: "test-token", channelSecret: "test-secret" },
     },
     messages: { groupChat: { historyLimit } },
-  } as OpenClawConfig;
+  } as GrantedConfig;
 }
 
 // Capture the spool callback so a reload can land between creation and delivery.
-function createDeliverableBot(startupConfig: OpenClawConfig): {
-  deliverOnce: () => Promise<{ cfg: OpenClawConfig; historyLimit: number }>;
+function createDeliverableBot(startupConfig: GrantedConfig): {
+  deliverOnce: () => Promise<{ cfg: GrantedConfig; historyLimit: number }>;
 } {
   let deliver: DeliverFn | undefined;
   createLineWebhookSpoolMock.mockImplementation((spoolOptions: { deliver: DeliverFn }) => {
@@ -136,7 +136,7 @@ describe("the config a delivered LINE event is handled with", () => {
         },
       },
       messages: { groupChat: { historyLimit: 10 } },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     setRuntimeConfigSnapshot(startupConfig, startupConfig);
     const bot = createDeliverableBot(startupConfig);
 

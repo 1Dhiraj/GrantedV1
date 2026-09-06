@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { DEFAULT_AGENT_ID } from "../routing/session-key.js";
 import { isIncognitoSessionKey } from "../shared/incognito-session-key.js";
 import { resolveAuthorizedBoardViewTicketClaims } from "./board-view-ticket.js";
@@ -219,7 +219,7 @@ function readSessionSharingStringParam(params: unknown, key: string): string | u
 }
 
 function resolveSessionGroupMutationTargets(params: {
-  getCfg: () => OpenClawConfig;
+  getCfg: () => GrantedConfig;
   requestParams: unknown;
 }): SessionMutationTarget[] | undefined {
   const groupName = readSessionSharingStringParam(params.requestParams, "name");
@@ -229,7 +229,7 @@ function resolveSessionGroupMutationTargets(params: {
 }
 
 function resolveSessionGroupsPutMutationTargets(
-  getCfg: () => OpenClawConfig,
+  getCfg: () => GrantedConfig,
   requestParams: unknown,
 ): SessionMutationTarget[] | undefined {
   const names =
@@ -325,7 +325,7 @@ export function resolveSessionMutationTargets(params: {
   method: string;
   requestParams: unknown;
   context: GatewayRequestContext;
-  getCfg: () => OpenClawConfig;
+  getCfg: () => GrantedConfig;
 }): SessionMutationTarget[] | undefined {
   if (params.method === "sessions.patchMany") {
     const targets =

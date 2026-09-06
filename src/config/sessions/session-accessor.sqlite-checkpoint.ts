@@ -3,7 +3,7 @@ import { uniqueStrings } from "@openclaw/normalization-core/string-normalization
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import {
   runOpenClawAgentWriteTransaction,
-  type OpenClawAgentDatabase,
+  type GrantedAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
 import type { TranscriptEvent } from "./session-accessor.sqlite-contract.js";
 import {
@@ -150,7 +150,7 @@ async function applySqliteCompactionCheckpointSessionOperation(
 }
 
 function applySqliteCompactionCheckpointSessionOperationInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedSqliteScope,
   operation: SqliteCompactionCheckpointSessionOperation,
   sourceKey: string,
@@ -210,7 +210,7 @@ function applySqliteCompactionCheckpointSessionOperationInTransaction(
 }
 
 function forkSqliteCheckpointTranscriptInTransaction(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   resolved: ResolvedSqliteScope,
   params: {
     checkpoint: SessionCompactionCheckpoint;
@@ -324,7 +324,7 @@ function resolveSqliteCheckpointTranscriptForkSources(
 }
 
 function readSqliteTranscriptRowsForFork(
-  database: OpenClawAgentDatabase,
+  database: GrantedAgentDatabase,
   source: { sessionId: string; leafId?: string },
 ): { status: "created"; events: TranscriptEvent[] } | { status: "missing-boundary" | "failed" } {
   const boundarySeq = source.leafId

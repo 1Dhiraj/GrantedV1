@@ -4,7 +4,7 @@ import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-  type OpenClawStateDatabase,
+  type GrantedStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { drainWorkerSessionPlacement } from "./placement-drain.js";
 import { createPlacementMoveOps } from "./placement-move-intent.js";
@@ -103,7 +103,7 @@ function updateTransition(
 }
 
 export function createWorkerSessionPlacementStore(
-  options: { database?: OpenClawStateDatabase; now?: () => number } = {},
+  options: { database?: GrantedStateDatabase; now?: () => number } = {},
 ) {
   const path = (options.database ?? openOpenClawStateDatabase()).path;
   const now = options.now ?? Date.now;

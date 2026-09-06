@@ -5,7 +5,7 @@ import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { listOpenClawRegisteredAgentDatabases } from "../state/openclaw-agent-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
@@ -105,7 +105,7 @@ function collectSqliteBloatWarnings(deps?: { env?: NodeJS.ProcessEnv }): string[
 }
 
 export function noteSqliteDatabaseBloat(
-  _cfg: OpenClawConfig, // reserved for API consistency with other Doctor contributions
+  _cfg: GrantedConfig, // reserved for API consistency with other Doctor contributions
   deps?: { env?: NodeJS.ProcessEnv },
 ): void {
   const warnings = collectSqliteBloatWarnings(deps);

@@ -1,5 +1,5 @@
 // Qa Lab plugin module implements auth behavior.
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import {
   applyAuthProfileConfig,
   coerceSecretRef,
@@ -57,14 +57,14 @@ function isQaLiveOfficialOpenAiBaseUrl(baseUrl: unknown): boolean {
   }
 }
 
-function qaLiveOpenAiUsesCodexByDefault(cfg: OpenClawConfig): boolean {
+function qaLiveOpenAiUsesCodexByDefault(cfg: GrantedConfig): boolean {
   return isQaLiveOfficialOpenAiBaseUrl(
     resolveQaLiveProviderConfig({ cfg, providerId: "openai" })?.baseUrl,
   );
 }
 
 function expandQaLiveApiKeyProviderIds(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerIds: readonly string[];
 }) {
   const expanded = new Set(normalizeQaLiveProviderIds(params.providerIds));
@@ -77,7 +77,7 @@ function expandQaLiveApiKeyProviderIds(params: {
 function resolveQaLiveEnvApiKey(params: {
   providerId: string;
   env: NodeJS.ProcessEnv;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) {
   const resolved = resolveEnvApiKey(params.providerId, params.env, { config: params.cfg });
   if (resolved?.apiKey) {
@@ -95,7 +95,7 @@ function resolveQaLiveEnvApiKey(params: {
 function resolveQaLiveConfiguredApiKey(params: {
   providerId: string;
   env: NodeJS.ProcessEnv;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) {
   const providerConfig = resolveQaLiveProviderConfig(params);
   const apiKey = providerConfig?.apiKey;
@@ -129,12 +129,12 @@ function resolveQaLiveConfiguredApiKey(params: {
 function resolveQaLiveApiKey(params: {
   providerId: string;
   env: NodeJS.ProcessEnv;
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
 }) {
   return resolveQaLiveEnvApiKey(params) ?? resolveQaLiveConfiguredApiKey(params);
 }
 
-function resolveQaLiveProviderConfig(params: { cfg: OpenClawConfig; providerId: string }) {
+function resolveQaLiveProviderConfig(params: { cfg: GrantedConfig; providerId: string }) {
   const providers = params.cfg.models?.providers;
   if (!providers) {
     return undefined;
@@ -145,12 +145,12 @@ function resolveQaLiveProviderConfig(params: { cfg: OpenClawConfig; providerId: 
   );
 }
 
-function hasQaLiveStagedApiKeyProfile(params: { cfg: OpenClawConfig; providerId: string }) {
+function hasQaLiveStagedApiKeyProfile(params: { cfg: GrantedConfig; providerId: string }) {
   return Boolean(params.cfg.auth?.profiles?.[buildQaLiveApiKeyProfileId(params.providerId)]);
 }
 
 function qaLiveRequiresCodexAuth(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerIds: readonly string[];
   env: NodeJS.ProcessEnv;
 }) {
@@ -188,10 +188,10 @@ function resolveQaLiveAnthropicSetupToken(env: NodeJS.ProcessEnv = process.env) 
 }
 
 export async function stageQaLiveAnthropicSetupToken(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
   env?: NodeJS.ProcessEnv;
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const resolved = resolveQaLiveAnthropicSetupToken(params.env);
   if (!resolved) {
     return params.cfg;
@@ -216,12 +216,12 @@ export async function stageQaLiveAnthropicSetupToken(params: {
 }
 
 export async function stageQaLiveApiKeyProfiles(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   stateDir: string;
   providerIds: readonly string[];
   env?: NodeJS.ProcessEnv;
   agentIds?: readonly string[];
-}): Promise<OpenClawConfig> {
+}): Promise<GrantedConfig> {
   const env = params.env ?? process.env;
   const providerIds = uniqueStrings(normalizeStringEntries(params.providerIds)).toSorted();
   const profiles: Record<
@@ -271,7 +271,7 @@ export async function stageQaLiveApiKeyProfiles(params: {
 }
 
 export function assertQaLiveCodexAuthAvailable(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   providerIds: readonly string[];
   env?: NodeJS.ProcessEnv;
   readCodexCredentials?: typeof readCodexCliCredentialsCached;

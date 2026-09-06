@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:http";
 import { expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.openclaw.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import { buildMockOpenAiResponsesProvider } from "../src/gateway/test-openai-responses-model.js";
 import {
   createOpenClawTestInstance,
-  type OpenClawTestInstance,
+  type GrantedTestInstance,
 } from "./helpers/openclaw-test-instance.js";
 import { createDeferred } from "./helpers/promise.js";
 
@@ -48,7 +48,7 @@ it(
         response.destroy(error instanceof Error ? error : new Error(String(error)));
       });
     });
-    let instance: OpenClawTestInstance | undefined;
+    let instance: GrantedTestInstance | undefined;
     let client: Awaited<ReturnType<typeof connectGatewayClient>> | undefined;
     let final: Promise<unknown> | undefined;
     try {
@@ -64,7 +64,7 @@ it(
         `http://127.0.0.1:${address.port}/v1`,
         modelId,
       );
-      const config: OpenClawConfig = {
+      const config: GrantedConfig = {
         plugins: { slots: { memory: "none" } },
         agents: {
           entries: { main: {} },

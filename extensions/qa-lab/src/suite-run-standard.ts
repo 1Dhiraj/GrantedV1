@@ -1,6 +1,6 @@
 import path from "node:path";
 import { disposeRegisteredAgentHarnesses } from "openclaw/plugin-sdk/agent-harness";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { createQaGatewayChild } from "./gateway-child.js";
 import type { QaLabLatestReport } from "./lab-server.types.js";
 import {
@@ -149,7 +149,7 @@ export async function runQaFlowSuiteStandard(
         gatewayConfigPatches.length > 0 || params?.mutateConfig
           ? (cfg) => {
               const patchedConfig = gatewayConfigPatches.length
-                ? (applyQaSuiteGatewayConfigPatches(cfg, gatewayConfigPatches) as OpenClawConfig)
+                ? (applyQaSuiteGatewayConfigPatches(cfg, gatewayConfigPatches) as GrantedConfig)
                 : cfg;
               return params?.mutateConfig ? params.mutateConfig(patchedConfig) : patchedConfig;
             }

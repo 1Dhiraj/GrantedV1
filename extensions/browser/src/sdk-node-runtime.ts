@@ -16,7 +16,7 @@ export {
   safeParseJson,
 } from "openclaw/plugin-sdk/gateway-runtime";
 export type { GatewayRequestHandlers, NodeSession } from "openclaw/plugin-sdk/gateway-runtime";
-export type { OpenClawPluginService } from "openclaw/plugin-sdk/plugin-entry";
+export type { GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
 export {
   startLazyPluginServiceModule,
   type LazyPluginServiceHandle,

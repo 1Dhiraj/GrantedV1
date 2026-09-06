@@ -2,7 +2,7 @@
  * Handles assistant-stage failover decisions during embedded-agent attempts.
  */
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
   projectAgentRunAttemptTerminal,
@@ -71,7 +71,7 @@ export async function handleAssistantFailover(params: {
   providerOwner?: PreparedProviderFailoverOwner;
   activeErrorContext: { provider: string; model: string };
   lastAssistant: AssistantMessage | undefined;
-  config: OpenClawConfig | undefined;
+  config: GrantedConfig | undefined;
   sessionKey?: string;
   agentId?: string;
   authFailure: boolean;
@@ -349,7 +349,7 @@ export async function handleAssistantFailover(params: {
 
 function resolveAssistantFailoverErrorMessage(params: {
   lastAssistant: AssistantMessage | undefined;
-  config: OpenClawConfig | undefined;
+  config: GrantedConfig | undefined;
   sessionKey?: string;
   agentId?: string;
   activeErrorContext: { provider: string; model: string };

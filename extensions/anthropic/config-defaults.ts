@@ -3,7 +3,7 @@ import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scop
  * Anthropic config defaulting helpers. They seed default Anthropic/Claude CLI
  * model refs and cache-retention params based on configured auth mode.
  */
-import type { OpenClawConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
@@ -33,7 +33,7 @@ function normalizeProviderId(provider: string): string {
 }
 
 function resolveAnthropicDefaultAuthMode(
-  config: OpenClawConfig,
+  config: GrantedConfig,
   env: NodeJS.ProcessEnv,
 ): "api_key" | "oauth" | null {
   if (usesRetiredClaudeCliProviderEntry(config)) {
@@ -92,7 +92,7 @@ function resolveAnthropicDefaultAuthMode(
   return null;
 }
 
-function usesRetiredClaudeCliProviderEntry(config: OpenClawConfig): boolean {
+function usesRetiredClaudeCliProviderEntry(config: GrantedConfig): boolean {
   return Object.entries(config.models?.providers ?? {}).some(
     ([provider, entry]) =>
       normalizeProviderId(provider) === "anthropic" && entry.apiKey === CLAUDE_CLI_PROFILE_ID,
@@ -148,7 +148,7 @@ function isAnthropicCacheRetentionTarget(
   );
 }
 
-function usesClaudeCliModelSelection(config: OpenClawConfig): boolean {
+function usesClaudeCliModelSelection(config: GrantedConfig): boolean {
   const primary = resolveModelPrimaryValue(
     config.agents?.defaults?.model as
       | string
@@ -172,7 +172,7 @@ function usesClaudeCliModelSelection(config: OpenClawConfig): boolean {
   });
 }
 
-function usesSelectedClaudeCliAuthProfile(config: OpenClawConfig): boolean {
+function usesSelectedClaudeCliAuthProfile(config: GrantedConfig): boolean {
   if (usesRetiredClaudeCliProviderEntry(config)) {
     return true;
   }
@@ -226,7 +226,7 @@ function modelEntryWithClaudeCliRuntime(entry: unknown): Record<string, unknown>
   return base;
 }
 
-function collectClaudeCliRuntimeRefsFromConfig(config: OpenClawConfig): string[] {
+function collectClaudeCliRuntimeRefsFromConfig(config: GrantedConfig): string[] {
   type ClaudeCliModelSelection = string | { primary?: string; fallbacks?: string[] } | undefined;
   const selections: Array<{
     model: ClaudeCliModelSelection;
@@ -286,9 +286,9 @@ export function normalizeAnthropicProviderConfigForProvider<
 
 /** Apply Anthropic and Claude CLI defaults to an OpenClaw config object. */
 export function applyAnthropicConfigDefaults(params: {
-  config: OpenClawConfig;
+  config: GrantedConfig;
   env: NodeJS.ProcessEnv;
-}): OpenClawConfig {
+}): GrantedConfig {
   const defaults = params.config.agents?.defaults;
   if (!defaults) {
     return params.config;

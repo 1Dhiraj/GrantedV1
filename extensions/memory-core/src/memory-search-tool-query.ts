@@ -6,8 +6,8 @@ import {
   type MemorySearchRuntimeDebug,
   type MemorySource,
 } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { filterMemorySearchHitsBySessionVisibility } from "./session-search-visibility.js";
 import { buildMemorySearchUnavailableResult } from "./tools.shared.js";
 
@@ -36,11 +36,11 @@ type MemorySearchToolQuery = {
   requestedCorpus?: "memory" | "wiki" | "all" | "sessions";
   sessionKey?: string;
   activeProjectKeys?: readonly string[];
-  conversationRecall?: OpenClawPluginToolContext["conversationRecall"];
+  conversationRecall?: GrantedPluginToolContext["conversationRecall"];
 };
 
 type MemorySearchToolVisibility = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   agentId: string;
   sandboxed: boolean;
 };

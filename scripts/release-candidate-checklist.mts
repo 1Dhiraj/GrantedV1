@@ -95,8 +95,8 @@ const TIDECLAW_ALPHA_WORKFLOW_REF_PATTERN =
 const WINDOWS_NODE_TAG_PATTERN = /^v[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z]+([.-][0-9A-Za-z]+)*)?$/u;
 const WINDOWS_NODE_REPO = "openclaw/openclaw-windows-node";
 const WINDOWS_NODE_REQUIRED_ASSETS = [
-  "OpenClawCompanion-Setup-x64.exe",
-  "OpenClawCompanion-Setup-arm64.exe",
+  "GrantedCompanion-Setup-x64.exe",
+  "GrantedCompanion-Setup-arm64.exe",
 ];
 const SHA256_DIGEST_PATTERN = /^sha256:[a-f0-9]{64}$/u;
 const SHA256_HEX_PATTERN = /^[a-f0-9]{64}$/u;

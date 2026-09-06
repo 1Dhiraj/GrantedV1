@@ -15,7 +15,7 @@ import { agentCommandFromIngress } from "../commands/agent.js";
 import { getRuntimeConfig as defaultGetRuntimeConfig } from "../config/io.js";
 import { resolveSystemMainSessionTarget as defaultResolveSystemMainSessionTarget } from "../config/sessions/main-session.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadOrCreateProcessDeviceIdentity as defaultLoadOrCreateProcessDeviceIdentity } from "../infra/device-identity.js";
 import {
   updatePairedDevicePresence as defaultUpdatePairedDevicePresence,
@@ -554,7 +554,7 @@ function parsePayloadObject(payloadJSON?: string | null): Record<string, unknown
 }
 
 async function sendReceiptAck(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   deps: NodeEventContext["deps"];
   sessionKey: string;
   channel: string;

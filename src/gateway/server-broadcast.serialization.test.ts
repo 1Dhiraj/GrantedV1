@@ -13,7 +13,7 @@ import {
   patchSessionEntryCore,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.openclaw.js";
 import { setVerbose } from "../global-state.js";
 import type { SystemPresence } from "../infra/system-presence.js";
 import { resetLogger, setLoggerOverride } from "../logging/logger.js";
@@ -263,7 +263,7 @@ describe("presence recipient projection", () => {
 
   it("preserves scoped sentinels, recipient ordering, and current visibility without changing the source", async () => {
     await withOpenClawTestState({ scenario: "minimal" }, async () => {
-      let cfg: OpenClawConfig = { agents: { entries: { main: {}, work: {} } } };
+      let cfg: GrantedConfig = { agents: { entries: { main: {}, work: {} } } };
       const sharedKey = "agent:main:shared";
       const incognitoKey = "agent:main:dashboard:incognito-presence";
       const keys = [
@@ -437,7 +437,7 @@ describe("presence recipient projection", () => {
       }
       pending.connect.scopes = ["operator.admin"];
       expect(project(pending)).toEqual(presence);
-      const cfg: OpenClawConfig = { gateway: { roles: { definitions: {} } } };
+      const cfg: GrantedConfig = { gateway: { roles: { definitions: {} } } };
       const restrictedProject = createPresenceRecipientProjection({ cfg, presence });
       expect(restrictedProject(solo)).toEqual([person, idle]);
       solo.internal = { operatorRoleActor: { kind: "system" } };

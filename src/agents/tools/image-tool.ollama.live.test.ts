@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createImageTool } from "./image-tool.js";
 
 const LIVE = process.env.GRANTED_LIVE_TEST === "1" && process.env.GRANTED_LIVE_OLLAMA_IMAGE === "1";
@@ -46,7 +46,7 @@ describe.skipIf(!LIVE)("image tool Ollama live", () => {
       vi.stubEnv("OLLAMA_API_KEY", "ollama-local");
     }
     await withLiveImageWorkspace(async ({ agentDir, workspaceDir, imagePath }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: GrantedConfig = {
         agents: {
           defaults: {
             imageModel: { primary: OLLAMA_IMAGE_MODEL },

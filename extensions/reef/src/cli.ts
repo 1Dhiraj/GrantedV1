@@ -4,7 +4,7 @@
 import type { Command } from "commander";
 import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
 import { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "openclaw/plugin-sdk/core";
 import { fingerprint } from "../protocol/index.js";
 import {
   parseReefRelayUrl,
@@ -162,7 +162,7 @@ type RegisterOptions = {
 async function writeReefRegistration(candidate: ReefChannelConfig): Promise<void> {
   await mutateConfigFile({
     afterWrite: { mode: "auto" },
-    mutate(draft: OpenClawConfig) {
+    mutate(draft: GrantedConfig) {
       draft.channels = {
         ...draft.channels,
         reef: candidate,
@@ -174,7 +174,7 @@ async function writeReefRegistration(candidate: ReefChannelConfig): Promise<void
 async function writeReefMigrationStateDir(stateDir: string): Promise<void> {
   await mutateConfigFile({
     afterWrite: { mode: "auto" },
-    mutate(draft: OpenClawConfig) {
+    mutate(draft: GrantedConfig) {
       const existing = draft.channels?.reef;
       draft.channels = {
         ...draft.channels,

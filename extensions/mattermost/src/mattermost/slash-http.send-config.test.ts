@@ -1,6 +1,6 @@
 // Mattermost tests cover slash http.send config plugin behavior.
 import { ServerResponse, type IncomingMessage } from "node:http";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "openclaw/plugin-sdk/core";
 import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
 import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -236,7 +236,7 @@ describe("slash-http cfg threading", () => {
           botToken: "exec:secret-ref",
         },
       },
-    } as OpenClawConfig;
+    } as GrantedConfig;
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
       cfg,
@@ -300,7 +300,7 @@ describe("slash-http cfg threading", () => {
     });
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       registeredCommands: [
         {
@@ -350,7 +350,7 @@ describe("slash-http cfg threading", () => {
 
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       registeredCommands: [
         {
@@ -385,7 +385,7 @@ describe("slash-http cfg threading", () => {
     });
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       registeredCommands: [
         {
@@ -430,7 +430,7 @@ describe("slash-http cfg threading", () => {
 
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as GrantedConfig,
       runtime: {} as RuntimeEnv,
       registeredCommands: [
         {

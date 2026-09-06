@@ -8,7 +8,7 @@ import type { MessagingToolSend } from "../../agents/embedded-agent-messaging.ty
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-loaded.js";
 import { normalizeAnyChannelId } from "../../channels/registry.js";
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { hasReplyPayloadContent } from "../../interactive/payload.js";
 import { normalizeMediaReferenceForComparison } from "../../media/media-reference-comparison.js";
 import {
@@ -25,7 +25,7 @@ import {
 import type { ReplyPayload } from "../types.js";
 
 type MessagingToolDedupeRouteParams = {
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   messageProvider?: string;
   messagingToolSentTargets?: MessagingToolSend[];
   originatingTo?: string;
@@ -192,7 +192,7 @@ function targetsMatchForDedupe(params: {
 
 function resolveOriginThreadIdForPayload(params: {
   provider: string;
-  config?: OpenClawConfig;
+  config?: GrantedConfig;
   accountId?: string;
   originatingThreadId?: string | number;
   replyToId?: string;

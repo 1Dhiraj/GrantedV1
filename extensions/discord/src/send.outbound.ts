@@ -2,7 +2,7 @@
 import type { APIChannel, APIGuildForumChannel, APIGuildMediaChannel } from "discord-api-types/v10";
 import { ChannelType } from "discord-api-types/v10";
 import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { MarkdownTableMode, OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
 import type { OutboundMediaAccess, PollInput } from "openclaw/plugin-sdk/media-runtime";
 import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
@@ -45,7 +45,7 @@ import {
 } from "./send.shared.js";
 import type { DiscordSendResult } from "./send.types.js";
 type DiscordSendOpts = {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   token?: string;
   accountId?: string;
   mediaUrl?: string;

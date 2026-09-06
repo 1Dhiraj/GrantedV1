@@ -1,7 +1,7 @@
 // QA Lab Matrix setup prepares transport state for the shared flow host.
 import { setTimeout as sleep } from "node:timers/promises";
 import { isDeepStrictEqual } from "node:util";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
@@ -74,8 +74,8 @@ function arrayPreservesBaseEntries(base: unknown[], merged: unknown[]): boolean 
 }
 
 function createMatrixQaConfigPatch(
-  current: OpenClawConfig,
-  target: OpenClawConfig,
+  current: GrantedConfig,
+  target: GrantedConfig,
   accountId: string,
 ) {
   const accountPath = `channels.matrix.accounts.${accountId}`;
@@ -281,7 +281,7 @@ export function createMatrixQaScenarioEnvironment(params: MatrixQaScenarioEnviro
   const syncState: MatrixQaScenarioContext["syncState"] = {};
   const syncStreams: Partial<Record<"driver" | "observer", MatrixQaRoomObserver>> = {};
   let canary: MatrixQaCanaryArtifact | undefined;
-  let baselineConfig: OpenClawConfig | undefined;
+  let baselineConfig: GrantedConfig | undefined;
   const resetObserverState = () => {
     for (const actorId of ["driver", "observer"] as const) {
       delete syncState[actorId];
@@ -306,7 +306,7 @@ export function createMatrixQaScenarioEnvironment(params: MatrixQaScenarioEnviro
         timeoutMs: 60_000,
       },
     )) as {
-      config?: OpenClawConfig;
+      config?: GrantedConfig;
     };
     if (!configSnapshot.config) {
       throw new Error("Matrix QA scenario requires config.get config");

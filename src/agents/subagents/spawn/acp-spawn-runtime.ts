@@ -19,7 +19,7 @@ import {
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { loadSessionEntry } from "../../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isMissingPathError } from "../../../infra/errors.js";
 import {
   getSessionBindingService,
@@ -89,7 +89,7 @@ function resolveAcpRuntimeTimeoutSeconds(runTimeoutSeconds?: number): number | u
 }
 
 export function resolveAcpSpawnRuntimeOptions(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   targetAgentId: string;
   configAgentId?: string;
   model?: string;
@@ -153,7 +153,7 @@ export function resolveAcpSpawnRuntimeOptions(params: {
 }
 
 export async function initializeAcpSpawnRuntime(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   targetAgentId: string;
   runtimeMode: AcpRuntimeSessionMode;
@@ -210,7 +210,7 @@ export async function initializeAcpSpawnRuntime(params: {
 }
 
 export async function bindPreparedAcpThread(params: {
-  cfg: OpenClawConfig;
+  cfg: GrantedConfig;
   sessionKey: string;
   targetAgentId: string;
   label?: string;
