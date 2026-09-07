@@ -34,7 +34,7 @@ const { isSupportedOpenClawNodeVersion } = await import("./node-version.mjs");
 
 const RECOMMENDED_NODE_MAJOR = 26;
 const SUPPORTED_NODE_RANGE = ">=22.22.3 <23, >=24.15.0 <25, or >=25.9.0";
-const COMPILE_CACHE_DISABLED_RESPAWNED_ENV = "OPENCLAW_COMPILE_CACHE_DISABLED_RESPAWNED";
+const COMPILE_CACHE_DISABLED_RESPAWNED_ENV = "GRANTED_COMPILE_CACHE_DISABLED_RESPAWNED";
 
 const ensureSupportedRuntimeVersion = () => {
   if (process.versions.bun) {
@@ -236,7 +236,7 @@ const respawnWithoutCompileCacheIfNeeded = () => {
   if (!isSourceCheckoutLauncher()) {
     return false;
   }
-  if (process.env[COMPILE_CACHE_DISABLED_RESPAWNED_ENV] === "1") {
+  if (readLauncherEnv("COMPILE_CACHE_DISABLED_RESPAWNED") === "1") {
     return false;
   }
   if (!module.getCompileCacheDir?.() && !isNodeCompileCacheRequested()) {
@@ -259,7 +259,7 @@ const respawnWithPackagedCompileCacheIfNeeded = () => {
   if (isSourceCheckoutLauncher() || isNodeCompileCacheDisabled()) {
     return false;
   }
-  if (process.env.OPENCLAW_PACKAGED_COMPILE_CACHE_RESPAWNED === "1") {
+  if (readLauncherEnv("PACKAGED_COMPILE_CACHE_RESPAWNED") === "1") {
     return false;
   }
   const currentDirectory = module.getCompileCacheDir?.();
@@ -273,7 +273,7 @@ const respawnWithPackagedCompileCacheIfNeeded = () => {
   const env = {
     ...process.env,
     NODE_COMPILE_CACHE: desiredDirectory,
-    OPENCLAW_PACKAGED_COMPILE_CACHE_RESPAWNED: "1",
+    GRANTED_PACKAGED_COMPILE_CACHE_RESPAWNED: "1",
   };
   return runRespawnedChild(
     process.execPath,
@@ -446,7 +446,7 @@ const isForegroundGmailRunInvocation = (argv) => {
 };
 
 const hasLauncherContainerTarget = (argv) => {
-  if (normalizeLauncherMetadataValue(process.env.OPENCLAW_CONTAINER)) {
+  if (normalizeLauncherMetadataValue(readLauncherEnv("CONTAINER"))) {
     return true;
   }
   const args = argv.slice(2);
@@ -502,8 +502,7 @@ const resolvePrecomputedCommandHelp = (argv) => {
   return null;
 };
 
-const isHelpFastPathDisabled = () =>
-  process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH === "1";
+const isHelpFastPathDisabled = () => readLauncherEnv("DISABLE_CLI_STARTUP_HELP_FAST_PATH") === "1";
 
 const normalizeLauncherHomeValue = (value) => {
   const trimmed = value?.trim();
@@ -516,7 +515,7 @@ const resolveLauncherOsHomeDir = () =>
   os.homedir();
 
 const resolveLauncherHomeDir = () => {
-  const explicit = normalizeLauncherHomeValue(process.env.OPENCLAW_HOME);
+  const explicit = normalizeLauncherHomeValue(readLauncherEnv("HOME"));
   const rawHome =
     explicit && (explicit === "~" || explicit.startsWith("~/") || explicit.startsWith("~\\"))
       ? explicit.replace(/^~(?=$|[\\/])/, () => resolveLauncherOsHomeDir())
@@ -535,28 +534,26 @@ const resolveLauncherUserPath = (input) => {
 };
 
 const resolveLauncherConfigPaths = () => {
-  const explicit = process.env.OPENCLAW_CONFIG_PATH?.trim();
+  const explicit = readLauncherEnv("CONFIG_PATH")?.trim();
   if (explicit) {
     return [resolveLauncherUserPath(explicit)];
   }
-  const stateOverride = process.env.OPENCLAW_STATE_DIR?.trim();
+  const filenames = ["granted.json", "openclaw.json", "clawdbot.json"];
+  const stateOverride = readLauncherEnv("STATE_DIR")?.trim();
   if (stateOverride) {
     const stateDir = resolveLauncherUserPath(stateOverride);
-    return [path.join(stateDir, "openclaw.json"), path.join(stateDir, "clawdbot.json")];
+    return filenames.map((filename) => path.join(stateDir, filename));
   }
   const homeDir = resolveLauncherHomeDir();
-  return [
-    path.join(homeDir, ".openclaw", "openclaw.json"),
-    path.join(homeDir, ".openclaw", "clawdbot.json"),
-    path.join(homeDir, ".clawdbot", "openclaw.json"),
-    path.join(homeDir, ".clawdbot", "clawdbot.json"),
-  ];
+  return [".granted", ".openclaw", ".clawdbot"].flatMap((dirname) =>
+    filenames.map((filename) => path.join(homeDir, dirname, filename)),
+  );
 };
 
 const shouldDeferRootHelpToRuntimeEntry = () => {
   if (
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR?.trim() ||
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS?.trim()
+    readLauncherEnv("BUNDLED_PLUGINS_DIR")?.trim() ||
+    readLauncherEnv("DISABLE_BUNDLED_PLUGINS")?.trim()
   ) {
     return true;
   }
@@ -584,7 +581,7 @@ const loadPrecomputedHelpText = (key, subkey) => {
 
 function tryOutputLauncherVersion(argv) {
   try {
-    if (normalizeLauncherMetadataValue(process.env.OPENCLAW_CONTAINER)) {
+    if (normalizeLauncherMetadataValue(readLauncherEnv("CONTAINER"))) {
       return false;
     }
     if (!isLauncherVersionFastPathArgv(argv)) {
@@ -592,7 +589,7 @@ function tryOutputLauncherVersion(argv) {
     }
     const version = resolveLauncherVersion();
     const commit = resolveLauncherCommit();
-    process.stdout.write(commit ? `OpenClaw ${version} (${commit})\n` : `OpenClaw ${version}\n`);
+    process.stdout.write(commit ? `Granted ${version} (${commit})\n` : `Granted ${version}\n`);
     return true;
   } catch {
     return false;
@@ -606,6 +603,14 @@ function isLauncherVersionFastPathArgv(argv) {
 function normalizeLauncherMetadataValue(value) {
   const trimmed = typeof value === "string" ? value.trim() : "";
   return trimmed && trimmed !== "undefined" && trimmed !== "null" ? trimmed : undefined;
+}
+
+function readLauncherEnv(suffix) {
+  return (
+    process.env[`GRANTED_${suffix}`] ??
+    process.env[`OPENCLAW_${suffix}`] ??
+    process.env[`CLAWDBOT_${suffix}`]
+  );
 }
 
 function readLauncherJson(relativePath) {
@@ -627,7 +632,7 @@ function resolveLauncherVersion() {
   if (buildVersion) {
     return buildVersion;
   }
-  return normalizeLauncherMetadataValue(process.env.OPENCLAW_BUNDLED_VERSION) ?? "0.0.0";
+  return normalizeLauncherMetadataValue(readLauncherEnv("BUNDLED_VERSION")) ?? "0.0.0";
 }
 
 function resolveLauncherCommit() {

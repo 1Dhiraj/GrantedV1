@@ -250,7 +250,7 @@ describe("resolveBuildAllStep", () => {
 
     expect(result).toEqual({
       command: "/custom/node",
-      args: ["--import", "tsx", scriptPath],
+      args: ["--import", "./scripts/tsx.mjs", scriptPath],
       options: {
         stdio: "inherit",
         env: expectedEnv,
@@ -268,7 +268,13 @@ describe("resolveBuildAllStep", () => {
 
     expect(result).toEqual({
       command: "/custom/node",
-      args: ["--import", "tsx", "scripts/bundled-plugin-assets.mts", "--phase", "build"],
+      args: [
+        "--import",
+        "./scripts/tsx.mjs",
+        "scripts/bundled-plugin-assets.mts",
+        "--phase",
+        "build",
+      ],
       options: {
         stdio: "inherit",
         env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
@@ -333,7 +339,9 @@ describe("resolveBuildAllSteps", () => {
 
       expect(result.status).toBe(0);
       expect(result.stderr).toBe("");
-      expect(result.stdout).toContain("Usage: node --import tsx scripts/build-all.mts [profile]");
+      expect(result.stdout).toContain(
+        "Usage: node --import ./scripts/tsx.mjs scripts/build-all.mts [profile]",
+      );
       expect(result.stdout).toContain("cliStartup");
       expect(result.stdout).not.toContain("[build-all]");
     }
@@ -352,7 +360,9 @@ describe("resolveBuildAllSteps", () => {
     expect(result.status).toBe(2);
     expect(result.stdout).toBe("");
     expect(result.stderr).toContain("unknown argument: --bogus");
-    expect(result.stderr).toContain("Usage: node --import tsx scripts/build-all.mts [profile]");
+    expect(result.stderr).toContain(
+      "Usage: node --import ./scripts/tsx.mjs scripts/build-all.mts [profile]",
+    );
     expect(result.stderr).toContain("Profiles:");
     expect(result.stderr).not.toContain("[build-all]");
     expect(result.stderr).not.toContain("at ");

@@ -264,6 +264,7 @@ describe("plugin npm runtime build planning", () => {
       path.join(outDir, "index.js"),
       [
         'import "granted/plugin-sdk/not-exported";',
+        'import "openclaw/plugin-sdk/not-exported";',
         'const runtime = __require("openclaw/plugin-sdk/not-exported-from-require");',
         "void runtime;",
         "",
@@ -277,6 +278,7 @@ describe("plugin npm runtime build planning", () => {
     );
 
     expect(listMissingPluginNpmRuntimeHostExports({ ...plan, outDir })).toEqual([
+      "granted/plugin-sdk/not-exported",
       "openclaw/plugin-sdk/not-exported",
       "openclaw/plugin-sdk/not-exported-from-require",
     ]);

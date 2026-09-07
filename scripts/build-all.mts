@@ -58,7 +58,12 @@ const TSDOWN_MAIN_PACKAGE_OUTPUT_ROOTS = TSDOWN_PACKAGE_OUTPUT_ROOTS.filter(
 );
 const declarationCacheOutputs = (roots: string[]) =>
   roots.map((root) => ({ path: root, extensions: TSDOWN_DECLARATION_EXTENSIONS }));
-const tsxScript = (script: string, ...args: string[]) => ["--import", "tsx", script, ...args];
+const tsxScript = (script: string, ...args: string[]) => [
+  "--import",
+  "./scripts/tsx.mjs",
+  script,
+  ...args,
+];
 const nodeStep = (label: string, args: string[]): Extract<BuildAllStep, { kind?: "node" }> => ({
   label,
   kind: "node",
@@ -281,9 +286,9 @@ export const BUILD_ALL_PROFILE_STEP_ENV: Record<string, Record<string, NodeJS.Pr
 
 function buildAllUsage() {
   return [
-    "Usage: node --import tsx scripts/build-all.mts [profile]",
+    "Usage: node --import ./scripts/tsx.mjs scripts/build-all.mts [profile]",
     "",
-    "Builds OpenClaw artifacts for the selected profile.",
+    "Builds Granted artifacts for the selected profile.",
     "",
     "Profiles:",
     ...Object.keys(BUILD_ALL_PROFILES).map((profile) => `  ${profile}`),

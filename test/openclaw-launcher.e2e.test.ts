@@ -119,13 +119,12 @@ function isProcessAlive(pid: number | undefined): boolean {
 }
 
 function launcherEnv(extra: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
-  const env = { ...process.env, ...extra };
-  delete env.GRANTED_BUNDLED_PLUGINS_DIR;
-  delete env.GRANTED_CONFIG_PATH;
-  delete env.GRANTED_DISABLE_BUNDLED_PLUGINS;
-  delete env.GRANTED_HOME;
-  delete env.GRANTED_STATE_DIR;
-  delete env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+  const env = { ...process.env };
+  for (const key of Object.keys(env)) {
+    if (/^(?:GRANTED|OPENCLAW|CLAWDBOT)_/.test(key)) {
+      delete env[key];
+    }
+  }
   delete env.NODE_COMPILE_CACHE;
   delete env.NODE_DISABLE_COMPILE_CACHE;
   for (const [key, value] of Object.entries(extra)) {
@@ -652,36 +651,70 @@ describe("openclaw launcher", () => {
     expect(result.stdout).not.toContain("PRECOMPUTED");
   });
 
-  it("checks the GRANTED_HOME default config path before using precomputed root help", async () => {
+  it.each([
+    { dirname: ".granted", filename: "granted.json" },
+    { dirname: ".openclaw", filename: "openclaw.json" },
+  ])(
+    "checks $dirname/$filename under GRANTED_HOME before using precomputed root help",
+    async ({ dirname, filename }) => {
+      const fixtureRoot = await makeLauncherFixture(fixtureRoots);
+      const openclawHome = path.join(fixtureRoot, "home");
+      const configDir = path.join(openclawHome, dirname);
+      await fs.mkdir(configDir, { recursive: true });
+      await fs.writeFile(
+        path.join(fixtureRoot, "dist", "cli-startup-metadata.json"),
+        JSON.stringify({ rootHelpText: "PRECOMPUTED memory help\n" }),
+        "utf8",
+      );
+      await fs.writeFile(
+        path.join(fixtureRoot, "dist", "entry.js"),
+        "process.stdout.write('RUNTIME ENTRY\\n');\n",
+        "utf8",
+      );
+      await fs.writeFile(
+        path.join(configDir, filename),
+        JSON.stringify({ plugins: { slots: { memory: "memory-lancedb" } } }),
+        "utf8",
+      );
+
+      const result = spawnSync(
+        process.execPath,
+        [path.join(fixtureRoot, "granted.mjs"), "--help"],
+        {
+          cwd: fixtureRoot,
+          env: launcherEnv({ GRANTED_HOME: openclawHome }),
+          encoding: "utf8",
+        },
+      );
+
+      expect(result.status).toBe(0);
+      expect(result.stdout).toBe("RUNTIME ENTRY\n");
+      expect(result.stdout).not.toContain("PRECOMPUTED");
+    },
+  );
+
+  it.each([
+    { env: { OPENCLAW_CONTAINER: "legacy" }, runtime: true },
+    { env: { CLAWDBOT_CONTAINER: "legacy" }, runtime: true },
+    { env: { GRANTED_CONTAINER: "", OPENCLAW_CONTAINER: "legacy" }, runtime: false },
+    { env: { OPENCLAW_CONTAINER: "", CLAWDBOT_CONTAINER: "legacy" }, runtime: false },
+  ])("honors container environment precedence: $env", async ({ env, runtime }) => {
     const fixtureRoot = await makeLauncherFixture(fixtureRoots);
-    const openclawHome = path.join(fixtureRoot, "home");
-    const configDir = path.join(openclawHome, ".openclaw");
-    await fs.mkdir(configDir, { recursive: true });
     await fs.writeFile(
       path.join(fixtureRoot, "dist", "cli-startup-metadata.json"),
-      JSON.stringify({ rootHelpText: "PRECOMPUTED memory help\n" }),
-      "utf8",
+      JSON.stringify({ rootHelpText: "PRECOMPUTED help\n" }),
     );
     await fs.writeFile(
       path.join(fixtureRoot, "dist", "entry.js"),
       "process.stdout.write('RUNTIME ENTRY\\n');\n",
-      "utf8",
     );
-    await fs.writeFile(
-      path.join(configDir, "openclaw.json"),
-      JSON.stringify({ plugins: { slots: { memory: "memory-lancedb" } } }),
-      "utf8",
-    );
-
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "granted.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ GRANTED_HOME: openclawHome }),
+      env: launcherEnv(env),
       encoding: "utf8",
     });
-
-    expect(result.status).toBe(0);
-    expect(result.stdout).toBe("RUNTIME ENTRY\n");
-    expect(result.stdout).not.toContain("PRECOMPUTED");
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toBe(runtime ? "RUNTIME ENTRY\n" : "PRECOMPUTED help\n");
   });
 
   it("keeps literal $ patterns in HOME when expanding a tilde GRANTED_HOME", async () => {
@@ -880,14 +913,7 @@ describe("openclaw launcher", () => {
       );
       const launcher = spawn(
         process.execPath,
-        [
-          path.join(fixtureRoot, "granted.mjs"),
-          "webhooks",
-          "--profile",
-          "fixture",
-          "gmail",
-          "run",
-        ],
+        [path.join(fixtureRoot, "granted.mjs"), "webhooks", "--profile", "fixture", "gmail", "run"],
         {
           cwd: fixtureRoot,
           env: launcherEnv({ NODE_COMPILE_CACHE: path.join(fixtureRoot, ".node-cache") }),

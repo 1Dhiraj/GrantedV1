@@ -101,7 +101,12 @@ function getStringRecord(value: unknown) {
 function createNeverBundleDependencyMatcher(packageJson: PluginPackageJson) {
   const externalDependencies = collectExternalDependencyNames(packageJson);
   return (id: string) => {
-    if (id === "openclaw" || id.startsWith("openclaw/")) {
+    if (
+      id === "granted" ||
+      id.startsWith("granted/") ||
+      id === "openclaw" ||
+      id.startsWith("openclaw/")
+    ) {
       return true;
     }
     for (const dependency of externalDependencies) {
@@ -113,8 +118,10 @@ function createNeverBundleDependencyMatcher(packageJson: PluginPackageJson) {
   };
 }
 
-const HOST_PLUGIN_SDK_IMPORT_RE =
-  /(?:\bfrom\s+|\bimport\s*(?:\(\s*)?|\b(?:require|_+require\d*)\(\s*)["'](openclaw\/plugin-sdk\/[^"']+)["']/gu;
+// Match the quoted host specifier directly. Trying to recognize every emitted
+// import wrapper here made scans pathologically slow when a broken build had
+// accidentally bundled thousands of host files into a plugin runtime.
+const HOST_PLUGIN_SDK_SPECIFIER_RE = /["']((?:granted|openclaw)\/plugin-sdk\/[^"'\\\r\n]+)["']/gu;
 
 function listRuntimeJavaScriptFiles(rootDir: string): string[] {
   if (!fs.existsSync(rootDir)) {
@@ -140,7 +147,7 @@ export function listMissingPluginNpmRuntimeHostExports(plan: { repoRoot: string;
   const hostImports = new Set<string>();
   for (const runtimePath of listRuntimeJavaScriptFiles(plan.outDir)) {
     const source = fs.readFileSync(runtimePath, "utf8");
-    for (const match of source.matchAll(HOST_PLUGIN_SDK_IMPORT_RE)) {
+    for (const match of source.matchAll(HOST_PLUGIN_SDK_SPECIFIER_RE)) {
       const specifier = match[1];
       if (specifier) {
         hostImports.add(specifier);
@@ -154,7 +161,7 @@ export function listMissingPluginNpmRuntimeHostExports(plan: { repoRoot: string;
   const hostPackageJson = readJsonFile(path.join(plan.repoRoot, "package.json"));
   const hostExports = new Set(Object.keys(hostPackageJson.exports ?? {}));
   return [...hostImports]
-    .filter((specifier) => !hostExports.has(specifier.replace(/^openclaw/u, ".")))
+    .filter((specifier) => !hostExports.has(specifier.replace(/^(?:granted|openclaw)/u, ".")))
     .toSorted((left, right) => left.localeCompare(right));
 }
 
@@ -416,7 +423,7 @@ export async function buildPluginNpmRuntime(params: PluginNpmRuntimeBuildParams)
   const missingHostExports = listMissingPluginNpmRuntimeHostExports(plan);
   if (missingHostExports.length > 0) {
     throw new Error(
-      `${plan.pluginDir} runtime imports missing OpenClaw host exports: ${missingHostExports.join(", ")}`,
+      `${plan.pluginDir} runtime imports missing Granted host exports: ${missingHostExports.join(", ")}`,
     );
   }
   rewriteCommonJsRuntimeSpecifiers(plan);
