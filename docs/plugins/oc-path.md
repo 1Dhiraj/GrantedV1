@@ -78,7 +78,7 @@ The plugin runs **in-process inside the `openclaw` CLI** on the host where you
 invoke the command. It does not need a running Gateway and does not open any
 network sockets; every verb is a pure transform over a file you point it at.
 
-Plugin metadata lives in `extensions/oc-path/openclaw.plugin.json`:
+Plugin metadata lives in `extensions/oc-path/granted.plugin.json`:
 
 ```json
 {

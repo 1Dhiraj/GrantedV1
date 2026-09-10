@@ -18,7 +18,7 @@ function createChannelSchemaRegistry(
         channelConfigs: { [channelId]: { schema } },
         cliBackends: [],
         hooks: [],
-        manifestPath: "/tmp/deep-channel-schema-plugin/openclaw.plugin.json",
+        manifestPath: "/tmp/deep-channel-schema-plugin/granted.plugin.json",
         origin,
         providers: [],
         rootDir: "/tmp/deep-channel-schema-plugin",

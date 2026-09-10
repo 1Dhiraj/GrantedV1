@@ -84,7 +84,7 @@ function buildRegistry(params: { acpxRoot: string; helperRoot: string }): Plugin
         origin: "workspace",
         rootDir: params.acpxRoot,
         source: params.acpxRoot,
-        manifestPath: path.join(params.acpxRoot, "openclaw.plugin.json"),
+        manifestPath: path.join(params.acpxRoot, "granted.plugin.json"),
       },
       {
         id: "helper",
@@ -97,7 +97,7 @@ function buildRegistry(params: { acpxRoot: string; helperRoot: string }): Plugin
         origin: "workspace",
         rootDir: params.helperRoot,
         source: params.helperRoot,
-        manifestPath: path.join(params.helperRoot, "openclaw.plugin.json"),
+        manifestPath: path.join(params.helperRoot, "granted.plugin.json"),
       },
     ],
   };
@@ -128,7 +128,7 @@ function createSinglePluginRegistry(params: {
         origin: params.origin ?? "workspace",
         rootDir: params.pluginRoot,
         source: params.pluginRoot,
-        manifestPath: path.join(params.pluginRoot, "openclaw.plugin.json"),
+        manifestPath: path.join(params.pluginRoot, "granted.plugin.json"),
       },
     ],
   };
@@ -649,7 +649,7 @@ describe("publishPluginSkills", () => {
       origin: "workspace" as const,
       rootDir,
       source: rootDir,
-      manifestPath: path.join(rootDir, "openclaw.plugin.json"),
+      manifestPath: path.join(rootDir, "granted.plugin.json"),
     }));
     hoisted.loadPluginManifestRegistryForInstalledIndex.mockReturnValue({
       diagnostics: [],

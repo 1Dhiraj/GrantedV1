@@ -140,7 +140,7 @@ function metadataSnapshot(enabled: boolean, installed = false) {
       origin: "bundled",
       rootDir: "/tmp/workboard",
       source: "/tmp/workboard/index.ts",
-      manifestPath: "/tmp/workboard/openclaw.plugin.json",
+      manifestPath: "/tmp/workboard/granted.plugin.json",
     },
     installOwner,
   );

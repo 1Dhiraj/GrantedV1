@@ -34,7 +34,7 @@ function manifest(canonical: string, ...aliases: string[]): PluginManifestRecord
     origin: "bundled",
     rootDir: `/tmp/${canonical}`,
     source: `/tmp/${canonical}/index.ts`,
-    manifestPath: `/tmp/${canonical}/openclaw.plugin.json`,
+    manifestPath: `/tmp/${canonical}/granted.plugin.json`,
     contracts: {
       speechProviders: [canonical, ...aliases],
       realtimeVoiceProviders: [canonical, ...aliases],

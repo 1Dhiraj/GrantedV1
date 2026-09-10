@@ -62,7 +62,7 @@ In Nix mode (`OPENCLAW_NIX_MODE=1`), `openclaw.json` is immutable. `install`, `u
 <Note>
 Bundled plugins ship with OpenClaw. Some are enabled by default (for example bundled model providers, bundled speech providers, and the bundled browser plugin); others require `plugins enable`.
 
-Native OpenClaw plugins ship `openclaw.plugin.json` with an inline JSON Schema (`configSchema`, even if empty). Compatible bundles use their own bundle manifests instead.
+Native OpenClaw plugins ship `granted.plugin.json` with an inline JSON Schema (`configSchema`, even if empty). Compatible bundles use their own bundle manifests instead.
 
 `plugins list` shows `Format: openclaw` or `Format: bundle`. Verbose list/info output also shows the bundle subtype (`agent (Agent Plugins)`, `codex`, `claude`, or `cursor`) plus detected bundle capabilities.
 </Note>
@@ -83,7 +83,7 @@ id for the default output directory and package naming. Tool scaffolds use
 `plugin:validate` that build then call `openclaw plugins build`/`validate`.
 
 `plugins build` imports the built entry, reads its static tool metadata, writes
-`openclaw.plugin.json`, and keeps `package.json`'s `openclaw.extensions` aligned.
+`granted.plugin.json`, and keeps `package.json`'s `openclaw.extensions` aligned.
 `plugins validate` checks that the generated manifest, package metadata, and
 current entry export still agree. Pass `--json` for a machine-readable
 validation result. See [Tool Plugins](/plugins/tool-plugins) for the full
@@ -249,7 +249,7 @@ pin becomes the exact replacement version on the same registry.
 
   </Accordion>
   <Accordion title="Archives">
-    Supported archives: `.zip`, `.tgz`, `.tar.gz`, `.tar`. Native OpenClaw plugin archives must contain a valid `openclaw.plugin.json` at the extracted plugin root; archives that only contain `package.json` are rejected before OpenClaw writes install records.
+    Supported archives: `.zip`, `.tgz`, `.tar.gz`, `.tar`. Native OpenClaw plugin archives must contain a valid `granted.plugin.json` at the extracted plugin root; archives that only contain `package.json` are rejected before OpenClaw writes install records.
 
     Use `npm-pack:<path.tgz>` when the file is an npm-pack tarball and you want
     the same per-plugin managed npm project path used by registry installs,
@@ -320,7 +320,7 @@ openclaw plugins install <plugin-name> --marketplace ./my-marketplace
 
 For local paths and archives, OpenClaw auto-detects:
 
-- native OpenClaw plugins (`openclaw.plugin.json`)
+- native OpenClaw plugins (`granted.plugin.json`)
 - Agent Plugins bundles (root `plugin.json` declaring the [Agent Plugins](https://agent-plugins.org) `$schema`)
 - Codex-compatible bundles (`.codex-plugin/plugin.json`)
 - Claude-compatible bundles (`.claude-plugin/plugin.json`, or the default Claude component layout when that manifest file is absent)

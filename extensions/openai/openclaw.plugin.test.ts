@@ -6,7 +6,7 @@ import {
   OPENAI_GPT_56_VARIANT_MODEL_IDS,
 } from "./model-route-contract.js";
 import { buildOpenAIProvider } from "./openai-provider.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { createOpenAIProvider } from "./provider-contract-api.js";
 import { buildOpenAISetupProvider } from "./setup-api.js";
 

@@ -194,7 +194,7 @@ async function writeBundledSchedulerPlugin(bundledRoot: string): Promise<void> {
   const pluginDir = path.join(bundledRoot, PLUGIN_ID);
   await mkdir(pluginDir, { recursive: true });
   await writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: PLUGIN_ID,
@@ -287,7 +287,7 @@ describe("plugin cron registry ownership e2e", () => {
         const pluginDir = path.join(bundledRoot, pluginId);
         await mkdir(pluginDir, { recursive: true });
         await writeFile(
-          path.join(pluginDir, "openclaw.plugin.json"),
+          path.join(pluginDir, "granted.plugin.json"),
           JSON.stringify({
             id: pluginId,
             providers: [pluginId],

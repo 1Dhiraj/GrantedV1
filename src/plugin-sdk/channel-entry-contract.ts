@@ -86,7 +86,7 @@ type DefineBundledChannelSetupEntryOptions = {
 /** Feature flags exposed by bundled setup entries for optional migration/session surfaces. */
 export type BundledChannelSetupEntryFeatures = {
   /**
-   * @deprecated Declare doctorContract.stateMigrations in openclaw.plugin.json instead.
+   * @deprecated Declare doctorContract.stateMigrations in granted.plugin.json instead.
    * Removal plan: remove the setup-entry adapter after the 2027.1 external-plugin migration window.
    */
   legacyStateMigrations?: boolean;

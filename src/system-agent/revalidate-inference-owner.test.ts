@@ -62,7 +62,7 @@ describe("revalidateSetupInferenceOwner", () => {
             version: "1.0.0",
             openclaw: { extensions: ["./index.js"] },
           });
-          await state.writeJson("plugin/openclaw.plugin.json", {
+          await state.writeJson("plugin/granted.plugin.json", {
             id: "fixture-runtime",
             agentHarnesses: ["fixture-runtime"],
             configSchema: { type: "object" },

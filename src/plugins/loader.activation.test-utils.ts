@@ -1148,7 +1148,7 @@ describe("loadOpenClawPlugins", () => {
       "utf-8",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "nested-default-channel",
@@ -1490,7 +1490,7 @@ ${channelPluginSource({
       );
       writeFixtureJson(
         globalDir,
-        "openclaw.plugin.json",
+        "granted.plugin.json",
         pluginManifest("untrusted-global-channel", ["untrusted-global-channel"]),
       );
       writeFixtureJson(globalDir, "package.json", {

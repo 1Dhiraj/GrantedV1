@@ -153,7 +153,7 @@ export function updatePluginManifest(
   plugin: Pick<TempPlugin, "dir">,
   patch: Record<string, unknown>,
 ) {
-  const manifestPath = path.join(plugin.dir, "openclaw.plugin.json");
+  const manifestPath = path.join(plugin.dir, "granted.plugin.json");
   const raw = JSON.parse(fs.readFileSync(manifestPath, "utf-8")) as Record<string, unknown>;
   fs.writeFileSync(manifestPath, JSON.stringify({ ...raw, ...patch }, null, 2), "utf-8");
 }
@@ -622,7 +622,7 @@ function createEscapingEntryFixture(params: { id: string; sourceBody: string }) 
   const linkedEntry = path.join(pluginDir, "entry.cjs");
   fs.writeFileSync(outsideEntry, params.sourceBody, "utf-8");
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify(
       {
         id: params.id,
@@ -707,7 +707,7 @@ export function createSetupEntryChannelPluginFixture(params: {
     name: params.packageName,
     openclaw: { extensions: ["./index.cjs"], setupEntry: "./setup-entry.cjs" },
   });
-  writeFixtureJson(pluginDir, "openclaw.plugin.json", pluginManifest(params.id, [params.id]));
+  writeFixtureJson(pluginDir, "granted.plugin.json", pluginManifest(params.id, [params.id]));
   fs.writeFileSync(
     path.join(pluginDir, "index.cjs"),
     params.useBundledFullEntryContract

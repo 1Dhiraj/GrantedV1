@@ -30,7 +30,7 @@ describe("running checkout discovery", () => {
             JSON.stringify({ name: `@granted/${id}`, openclaw: { extensions: ["./index.js"] } }),
           );
           fs.writeFileSync(
-            path.join(pluginDir, "openclaw.plugin.json"),
+            path.join(pluginDir, "granted.plugin.json"),
             JSON.stringify({ id, configSchema: { type: "object" } }),
           );
           fs.writeFileSync(path.join(pluginDir, "index.js"), "export default {};\n");
@@ -159,7 +159,7 @@ describe("host provenance across bundled build states", () => {
       JSON.stringify({ name: "@granted/hosted", openclaw: { extensions: ["./index.ts"] } }),
     );
     fs.writeFileSync(
-      path.join(pluginRoot, "openclaw.plugin.json"),
+      path.join(pluginRoot, "granted.plugin.json"),
       JSON.stringify({ id: "hosted", configSchema: { type: "object" } }),
     );
     fs.writeFileSync(path.join(pluginRoot, "index.ts"), "export default {};\n");

@@ -1,6 +1,6 @@
 // Venice tests cover provider runtime.contract plugin behavior.
 import { describeVeniceProviderRuntimeContract } from "granted/plugin-sdk/provider-test-contracts";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 describeVeniceProviderRuntimeContract(
   () => import("./index.js"),

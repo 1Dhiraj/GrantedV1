@@ -50,7 +50,7 @@ export function createModelGenerationFixture(params: {
     origin: "bundled",
     rootDir: `/tmp/generation-plugin-${params.label}`,
     source: `/tmp/generation-plugin-${params.label}/index.js`,
-    manifestPath: `/tmp/generation-plugin-${params.label}/openclaw.plugin.json`,
+    manifestPath: `/tmp/generation-plugin-${params.label}/granted.plugin.json`,
     modelCatalog: {
       ...(requestProvider === provider ? {} : { aliases: { [requestProvider]: { provider } } }),
       ...(params.runtimeAugment === undefined ? {} : { runtimeAugment: params.runtimeAugment }),

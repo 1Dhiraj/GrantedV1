@@ -61,7 +61,7 @@ export function createBundledBrowserPluginFixture(): { rootDir: string; cleanup:
   const pluginDir = path.join(rootDir, "browser");
   fs.mkdirSync(pluginDir, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify(BROWSER_FIXTURE_MANIFEST, null, 2),
     "utf8",
   );

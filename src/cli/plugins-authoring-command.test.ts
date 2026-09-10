@@ -325,11 +325,11 @@ describe("plugin authoring commands", () => {
       expect(writeJson).toHaveBeenCalledWith({
         valid: false,
         errors: [
-          "plugin manifest not found: $GRANTED_HOME/plugins/invalid-json/openclaw.plugin.json",
+          "plugin manifest not found: $GRANTED_HOME/plugins/invalid-json/granted.plugin.json",
         ],
       });
       expect(error).toHaveBeenCalledWith(
-        `plugin manifest not found: ${rootDir}/openclaw.plugin.json`,
+        `plugin manifest not found: ${rootDir}/granted.plugin.json`,
       );
       expect(log).not.toHaveBeenCalled();
       expect(exit).toHaveBeenCalledWith(1, { resetStream: process.stderr });
@@ -353,7 +353,7 @@ describe("plugin authoring commands", () => {
       });
       await runPluginsBuildCommand({ root: tmpDir, entry: entryPath });
 
-      const manifestPath = path.join(tmpDir, "openclaw.plugin.json");
+      const manifestPath = path.join(tmpDir, "granted.plugin.json");
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as Record<string, unknown>;
       const configSchema = manifest.configSchema as Record<string, unknown>;
       fs.writeFileSync(
@@ -421,7 +421,7 @@ describe("plugin authoring commands", () => {
         manifest,
         packageManifest,
       }),
-    ).toEqual(["openclaw.plugin.json generated metadata is stale. Run openclaw plugins build."]);
+    ).toEqual(["granted.plugin.json generated metadata is stale. Run openclaw plugins build."]);
   });
 
   it("projects undefined TypeBox options into the persisted manifest shape", () => {
@@ -508,7 +508,7 @@ describe("plugin authoring commands", () => {
       }),
     ).toEqual(
       stale
-        ? ["openclaw.plugin.json generated metadata is stale. Run openclaw plugins build."]
+        ? ["granted.plugin.json generated metadata is stale. Run openclaw plugins build."]
         : [],
     );
   });
@@ -532,7 +532,7 @@ describe("plugin authoring commands", () => {
         manifest,
         packageManifest,
       }),
-    ).toEqual(["openclaw.plugin.json generated metadata is stale. Run openclaw plugins build."]);
+    ).toEqual(["granted.plugin.json generated metadata is stale. Run openclaw plugins build."]);
   });
 
   it("rejects a missing generated manifest without changing package metadata", async () => {
@@ -558,7 +558,7 @@ describe("plugin authoring commands", () => {
         "Generated plugin metadata is out of date. Run openclaw plugins build.",
       );
       expect(fs.readFileSync(packagePath, "utf8")).toBe(packageBefore);
-      expect(fs.existsSync(path.join(tmpDir, "openclaw.plugin.json"))).toBe(false);
+      expect(fs.existsSync(path.join(tmpDir, "granted.plugin.json"))).toBe(false);
     } finally {
       exit.mockRestore();
       error.mockRestore();
@@ -580,9 +580,9 @@ describe("plugin authoring commands", () => {
         packageManifest: { openclaw: { extensions: ["./src/index.ts"] } },
       }),
     ).toEqual([
-      "openclaw.plugin.json generated metadata is stale. Run openclaw plugins build.",
-      "openclaw.plugin.json contracts.tools is missing: demo_echo",
-      "openclaw.plugin.json contracts.tools has no matching defineToolPlugin tool: other_tool",
+      "granted.plugin.json generated metadata is stale. Run openclaw plugins build.",
+      "granted.plugin.json contracts.tools is missing: demo_echo",
+      "granted.plugin.json contracts.tools has no matching defineToolPlugin tool: other_tool",
     ]);
   });
 
@@ -659,8 +659,8 @@ describe("plugin authoring commands", () => {
     try {
       await runPluginsBuildCommand({ root: tmpDir, entry: entryPath });
 
-      expect(fs.existsSync(path.join(tmpDir, "openclaw.plugin.json"))).toBe(true);
-      expect(log).toHaveBeenCalledWith(`Wrote ${path.join(tmpDir, "openclaw.plugin.json")}`);
+      expect(fs.existsSync(path.join(tmpDir, "granted.plugin.json"))).toBe(true);
+      expect(log).toHaveBeenCalledWith(`Wrote ${path.join(tmpDir, "granted.plugin.json")}`);
       expect(log).toHaveBeenCalledWith(`Updated ${packagePath}`);
     } finally {
       writeFileSync.mockRestore();
@@ -732,7 +732,7 @@ describe("plugin authoring commands", () => {
       },
     });
     expect(
-      JSON.parse(fs.readFileSync(path.join(projectDir, "openclaw.plugin.json"), "utf8")),
+      JSON.parse(fs.readFileSync(path.join(projectDir, "granted.plugin.json"), "utf8")),
     ).toMatchObject({
       id: "stock-quotes",
       name: 'Stock "Quotes"',
@@ -802,7 +802,7 @@ describe("plugin authoring commands", () => {
     expect(packageManifest.scripts).not.toHaveProperty("plugin:validate");
 
     const manifest = JSON.parse(
-      fs.readFileSync(path.join(projectDir, "openclaw.plugin.json"), "utf8"),
+      fs.readFileSync(path.join(projectDir, "granted.plugin.json"), "utf8"),
     );
     expect(manifest).toMatchObject({
       id: "plugin-init-test",

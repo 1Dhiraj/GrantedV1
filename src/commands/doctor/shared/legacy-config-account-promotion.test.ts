@@ -57,7 +57,7 @@ it.each([
       }),
     );
     await fs.writeFile(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "preserved",
         configSchema: { type: "object" },
@@ -136,7 +136,7 @@ it.each([
       }),
     );
     await fs.writeFile(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "openclaw-qqbot",
         configSchema: { type: "object" },

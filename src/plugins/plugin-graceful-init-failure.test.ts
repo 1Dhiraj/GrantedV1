@@ -35,7 +35,7 @@ function writePlugin(params: {
   const file = path.join(dir, filename);
   fs.writeFileSync(file, params.body, "utf-8");
   fs.writeFileSync(
-    path.join(dir, "openclaw.plugin.json"),
+    path.join(dir, "granted.plugin.json"),
     JSON.stringify({
       id: params.id,
       name: params.id,
@@ -49,7 +49,7 @@ function writePlugin(params: {
 }
 
 function readPluginId(pluginPath: string): string {
-  const manifestPath = path.join(path.dirname(pluginPath), "openclaw.plugin.json");
+  const manifestPath = path.join(path.dirname(pluginPath), "granted.plugin.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8")) as { id: string };
   return manifest.id;
 }

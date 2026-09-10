@@ -245,9 +245,9 @@ export function createReadyLogScanner(file) {
 
 function manifestPath(pluginDir, pluginRoot) {
   const candidates = [
-    ...(isNonEmptyString(pluginRoot) ? [path.join(pluginRoot, "openclaw.plugin.json")] : []),
-    path.join(process.cwd(), "dist", "extensions", pluginDir, "openclaw.plugin.json"),
-    path.join(process.cwd(), "dist-runtime", "extensions", pluginDir, "openclaw.plugin.json"),
+    ...(isNonEmptyString(pluginRoot) ? [path.join(pluginRoot, "granted.plugin.json")] : []),
+    path.join(process.cwd(), "dist", "extensions", pluginDir, "granted.plugin.json"),
+    path.join(process.cwd(), "dist-runtime", "extensions", pluginDir, "granted.plugin.json"),
   ];
   return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0];
 }

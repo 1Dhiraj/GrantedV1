@@ -4,7 +4,7 @@
 // `/v1/inference` values here so no request-time compat remap is needed.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { asObjectRecord } from "granted/plugin-sdk/runtime-doctor-migrations";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 const PROVIDER_PATH = "models.providers.deepinfra";
 const NATIVE_INFERENCE_PATH = "/v1/inference";

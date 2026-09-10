@@ -66,7 +66,7 @@ async function withPreflightPluginFixture(
           }),
         );
         await fs.writeFile(
-          path.join(root, "openclaw.plugin.json"),
+          path.join(root, "granted.plugin.json"),
           JSON.stringify({
             id,
             version,
@@ -349,7 +349,7 @@ describe("Doctor plugin persistence", () => {
               ".openclaw",
               "extensions",
               "preflight-beta",
-              "openclaw.plugin.json",
+              "granted.plugin.json",
             );
             const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
             await fs.writeFile(

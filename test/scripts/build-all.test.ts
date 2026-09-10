@@ -1270,7 +1270,7 @@ describe("resolveBuildStepCacheState", () => {
       for (const id of ["plain", "acpx", "external"]) {
         const directory = path.join(rootDir, "extensions", id);
         fs.mkdirSync(directory, { recursive: true });
-        fs.writeFileSync(path.join(directory, "openclaw.plugin.json"), JSON.stringify({ id }));
+        fs.writeFileSync(path.join(directory, "granted.plugin.json"), JSON.stringify({ id }));
         fs.writeFileSync(path.join(directory, "index.ts"), "export {};\n");
         fs.writeFileSync(
           path.join(directory, "package.json"),

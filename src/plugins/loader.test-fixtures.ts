@@ -95,7 +95,7 @@ export function writePluginMetadata(params: {
     );
   }
   fs.writeFileSync(
-    path.join(params.dir, "openclaw.plugin.json"),
+    path.join(params.dir, "granted.plugin.json"),
     JSON.stringify(
       {
         id: params.id,

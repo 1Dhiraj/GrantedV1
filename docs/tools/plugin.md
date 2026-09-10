@@ -247,7 +247,7 @@ OpenClaw recognizes two plugin formats:
 
 | Format                 | How it loads                                                                                | Use when                                                               |
 | ---------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Native OpenClaw plugin | `openclaw.plugin.json` plus a runtime module loaded in process                              | You are installing or building OpenClaw-specific runtime capabilities  |
+| Native OpenClaw plugin | `granted.plugin.json` plus a runtime module loaded in process                              | You are installing or building OpenClaw-specific runtime capabilities  |
 | Compatible bundle      | Agent Plugins, Codex, Claude, or Cursor plugin layout mapped into OpenClaw plugin inventory | You are reusing compatible skills, commands, hooks, or bundle metadata |
 
 Both formats appear in `openclaw plugins list`, `openclaw plugins inspect`,
@@ -277,7 +277,7 @@ enable or disable the plugin instead.
 
 Hook registration also depends on Gateway startup selection. For a hook-only
 plugin, declare `activation.onCapabilities: ["hook"]` in
-`openclaw.plugin.json`, then enable the plugin and include it in
+`granted.plugin.json`, then enable the plugin and include it in
 `plugins.allow` when that allowlist is configured. The manifest hint does not
 bypass global disable, deny, or per-plugin enablement policy.
 

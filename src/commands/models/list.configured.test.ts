@@ -152,7 +152,7 @@ describe("resolveConfiguredEntries", () => {
       fs.mkdirSync(distPluginRoot, { recursive: true });
       fs.mkdirSync(sourcePluginRoot, { recursive: true });
       fs.writeFileSync(
-        path.join(sourcePluginRoot, "openclaw.plugin.json"),
+        path.join(sourcePluginRoot, "granted.plugin.json"),
         JSON.stringify({
           id: "zai",
           configSchema: { type: "object" },
@@ -190,7 +190,7 @@ describe("resolveConfiguredEntries", () => {
                 skills: [],
                 hooks: [],
                 modelCatalog: { providers: {}, discovery: { zai: "static" } },
-                manifestPath: path.join(distPluginRoot, "openclaw.plugin.json"),
+                manifestPath: path.join(distPluginRoot, "granted.plugin.json"),
               },
             ],
           },

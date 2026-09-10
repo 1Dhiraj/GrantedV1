@@ -70,7 +70,7 @@ describe("redactConfigSnapshot", () => {
             {
               id: "demo",
               rootDir: "/private/plugin/root",
-              manifestPath: "/private/plugin/root/openclaw.plugin.json",
+              manifestPath: "/private/plugin/root/granted.plugin.json",
             },
           ],
           diagnostics: [],

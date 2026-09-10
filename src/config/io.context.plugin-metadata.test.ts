@@ -42,7 +42,7 @@ function manifestRecord(params: {
     version: "1.0.0",
     source: params.source,
     rootDir: params.source,
-    manifestPath: `${params.source}/openclaw.plugin.json`,
+    manifestPath: `${params.source}/granted.plugin.json`,
     origin: "workspace",
     channels: params.channels ?? [],
     providers: [],

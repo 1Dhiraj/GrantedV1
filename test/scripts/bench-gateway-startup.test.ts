@@ -568,7 +568,7 @@ describe("gateway startup benchmark script", () => {
       expect(config.plugins?.allow).toEqual(["bench-plugin-01", "bench-plugin-02"]);
       const manifest = JSON.parse(
         fs.readFileSync(
-          path.join(root, "plugins", "bench-plugin-01", "openclaw.plugin.json"),
+          path.join(root, "plugins", "bench-plugin-01", "granted.plugin.json"),
           "utf8",
         ),
       ) as { activation?: { onStartup?: boolean } };
@@ -668,7 +668,7 @@ describe("gateway startup benchmark script", () => {
       expect(pluginId).toBe("bench-plugin-01");
       const pluginDir = path.join(root, "plugins", pluginId ?? "missing");
       const manifest = JSON.parse(
-        fs.readFileSync(path.join(pluginDir, "openclaw.plugin.json"), "utf8"),
+        fs.readFileSync(path.join(pluginDir, "granted.plugin.json"), "utf8"),
       ) as { providers?: string[] };
       const source = fs.readFileSync(path.join(pluginDir, "index.cjs"), "utf8");
 
@@ -699,7 +699,7 @@ describe("gateway startup benchmark script", () => {
       const pluginId = config.plugins?.allow?.[0];
       const manifest = JSON.parse(
         fs.readFileSync(
-          path.join(root, "plugins", pluginId ?? "missing", "openclaw.plugin.json"),
+          path.join(root, "plugins", pluginId ?? "missing", "granted.plugin.json"),
           "utf8",
         ),
       ) as { modelCatalog?: unknown; providerCatalogEntry?: string; providers?: string[] };
@@ -729,7 +729,7 @@ describe("gateway startup benchmark script", () => {
       });
       const manifest = JSON.parse(
         fs.readFileSync(
-          path.join(root, "plugins", "bench-plugin-01", "openclaw.plugin.json"),
+          path.join(root, "plugins", "bench-plugin-01", "granted.plugin.json"),
           "utf8",
         ),
       ) as { activation?: { onStartup?: boolean } };

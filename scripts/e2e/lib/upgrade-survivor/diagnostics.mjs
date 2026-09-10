@@ -467,7 +467,7 @@ async function pluginIdentities(stateRoot, artifactRoot) {
           return result;
         };
         const packagePathMatches = entry.packageJson?.path === "package.json";
-        const manifestPathMatches = entry.manifestPath === path.join(root, "openclaw.plugin.json");
+        const manifestPathMatches = entry.manifestPath === path.join(root, "granted.plugin.json");
         identity.package = fingerprint(
           "package.json",
           packagePathMatches ? entry.packageJson.hash : undefined,
@@ -475,7 +475,7 @@ async function pluginIdentities(stateRoot, artifactRoot) {
         );
         identity.package.recordedPathMatches = entry.packageJson?.path ? packagePathMatches : null;
         identity.manifest = fingerprint(
-          "openclaw.plugin.json",
+          "granted.plugin.json",
           manifestPathMatches ? entry.manifestHash : undefined,
           ["id", "version"],
         );

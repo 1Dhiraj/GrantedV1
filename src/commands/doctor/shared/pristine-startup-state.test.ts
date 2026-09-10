@@ -38,7 +38,7 @@ function addBundledPlugin(
   const pluginDir = path.join(bundledPluginsDir, pluginId);
   fs.mkdirSync(pluginDir, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({ id: pluginId })}\n`,
   );
   if (options.doctorContract) {
@@ -65,7 +65,7 @@ function addConfiguredPlugin(
   const pluginDir = path.join(pluginsDir, pluginId);
   fs.mkdirSync(pluginDir, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({ id: pluginId, configSchema: { type: "object" } })}\n`,
   );
   fs.writeFileSync(

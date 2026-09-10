@@ -63,7 +63,7 @@ export default { id: "${id}", register(api) {
     filename: "index.ts",
     body: body("source"),
   });
-  const manifestPath = path.join(plugin.dir, "openclaw.plugin.json");
+  const manifestPath = path.join(plugin.dir, "granted.plugin.json");
   fs.writeFileSync(
     manifestPath,
     JSON.stringify({ id, configSchema: EMPTY_PLUGIN_SCHEMA, contracts: { speechProviders: [id] } }),

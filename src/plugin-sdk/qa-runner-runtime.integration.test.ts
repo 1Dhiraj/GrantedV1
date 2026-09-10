@@ -64,7 +64,7 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
 
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "qa-linked",
         qaRunners: [
@@ -151,7 +151,7 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
 
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "qa-legacy",
         qaRunners: [{ commandName: "legacy" }],
@@ -221,7 +221,7 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(stateDatabasePath, stateDatabaseSentinel, "utf8");
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "operator-runner",
         qaRunners: [{ commandName: "operator-sentinel" }],

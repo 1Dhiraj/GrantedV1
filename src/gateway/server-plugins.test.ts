@@ -825,7 +825,7 @@ describe("loadGatewayPlugins", () => {
               hooks: [],
               rootDir: "/tmp/qa-lab",
               source: "/tmp/qa-lab/index.js",
-              manifestPath: "/tmp/qa-lab/openclaw.plugin.json",
+              manifestPath: "/tmp/qa-lab/granted.plugin.json",
               contracts: { workerProviders: ["static-ssh"] },
             },
           ],

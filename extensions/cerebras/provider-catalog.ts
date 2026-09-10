@@ -13,7 +13,7 @@ import {
   asPositiveSafeInteger,
   normalizeOptionalString,
 } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 function projectCerebrasModels(
   rows: readonly unknown[],

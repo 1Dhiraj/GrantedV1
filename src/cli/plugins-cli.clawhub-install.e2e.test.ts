@@ -63,7 +63,7 @@ async function buildPluginZip(): Promise<Buffer> {
     }),
   );
   zip.file(
-    "package/openclaw.plugin.json",
+    "package/granted.plugin.json",
     JSON.stringify({
       id: PLUGIN_ID,
       configSchema: { type: "object", properties: {} },

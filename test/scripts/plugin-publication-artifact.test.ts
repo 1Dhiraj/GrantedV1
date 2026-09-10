@@ -340,7 +340,7 @@ function createFixture(
     options.tarEntries ?? [
       { path: "package/", type: "5" },
       { content: packageJson, path: "package/package.json" },
-      { content: '{"id":"meta"}\n', path: "package/openclaw.plugin.json" },
+      { content: '{"id":"meta"}\n', path: "package/granted.plugin.json" },
       { content: "export default {};\n", path: "package/index.js" },
     ],
   );
@@ -1241,7 +1241,7 @@ describe("plugin publication artifact", () => {
         }),
         tarEntry({
           content: '{"id":"meta"}\n',
-          path: "package/openclaw.plugin.json",
+          path: "package/granted.plugin.json",
         }),
       ]),
     );
@@ -1724,7 +1724,7 @@ describe("plugin publication artifact", () => {
           content: metaPackageJson(markerPath, { tag: "latest" }),
           path: "package/package.json",
         },
-        { content: '{"id":"meta"}\n', path: "package/openclaw.plugin.json" },
+        { content: '{"id":"meta"}\n', path: "package/granted.plugin.json" },
       ]),
     );
 
@@ -1800,7 +1800,7 @@ describe("plugin publication artifact", () => {
             content: metaPackageJson(markerPath, testCase.manifestOverrides),
             path: "package/package.json",
           },
-          { content: '{"id":"meta"}\n', path: "package/openclaw.plugin.json" },
+          { content: '{"id":"meta"}\n', path: "package/granted.plugin.json" },
         ]),
       );
       expect(

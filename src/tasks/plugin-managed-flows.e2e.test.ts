@@ -81,7 +81,7 @@ describe("plugin-managed TaskFlows", () => {
 };
 `,
         );
-        await state.writeJson(`plugins/${PLUGIN_ID}/openclaw.plugin.json`, {
+        await state.writeJson(`plugins/${PLUGIN_ID}/granted.plugin.json`, {
           id: PLUGIN_ID,
           contracts: { tools: [TOOL_NAME] },
           configSchema: {

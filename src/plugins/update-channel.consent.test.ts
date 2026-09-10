@@ -50,7 +50,7 @@ describe("channel migration artifact consent", () => {
         `export default () => ${JSON.stringify(version)};`,
       );
       fs.writeFileSync(
-        path.join(dir, "openclaw.plugin.json"),
+        path.join(dir, "granted.plugin.json"),
         JSON.stringify({ id: pluginId, providers, configSchema: { type: "object" } }),
       );
     }

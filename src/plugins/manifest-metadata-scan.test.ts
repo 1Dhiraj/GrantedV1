@@ -51,7 +51,7 @@ function createGlobalPluginFixture(pluginName: string) {
   const root = createTempRoot();
   const home = path.join(root, "home");
   const pluginDir = path.join(home, ".openclaw", "extensions", pluginName);
-  const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+  const manifestPath = path.join(pluginDir, "granted.plugin.json");
   fs.mkdirSync(pluginDir, { recursive: true });
   return {
     pluginDir,
@@ -111,7 +111,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
             channel: { id: "startup-channel", label: generation },
           },
         });
-        writeJson(path.join(targetDir, "openclaw.plugin.json"), {
+        writeJson(path.join(targetDir, "granted.plugin.json"), {
           id: pluginId,
           version: generation,
           configSchema: { type: "object" },
@@ -171,7 +171,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const home = path.join(root, "home");
     const bundledRoot = path.join(root, "extensions");
     const pluginDir = path.join(bundledRoot, "lifecycle-catalog");
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "granted.plugin.json");
     const env = {
       HOME: home,
       GRANTED_HOME: home,
@@ -219,11 +219,11 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const bundledRoot = path.join(root, "extensions");
     const staleBundledRoot = path.join(root, "stale", "extensions");
 
-    writeJson(path.join(bundledRoot, "openai", "openclaw.plugin.json"), {
+    writeJson(path.join(bundledRoot, "openai", "granted.plugin.json"), {
       id: "openai",
       providerEndpoints: [{ endpointClass: "openai-public", hosts: ["api.openai.com"] }],
     });
-    writeJson(path.join(staleBundledRoot, "openai", "openclaw.plugin.json"), {
+    writeJson(path.join(staleBundledRoot, "openai", "granted.plugin.json"), {
       id: "openai",
       providers: ["openai"],
     });
@@ -239,7 +239,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
         plugins: [
           {
             pluginId: "openai",
-            manifestPath: path.join(staleBundledRoot, "openai", "openclaw.plugin.json"),
+            manifestPath: path.join(staleBundledRoot, "openai", "granted.plugin.json"),
             manifestHash: "stale-openai",
             rootDir: path.join(staleBundledRoot, "openai"),
             origin: "bundled",
@@ -274,7 +274,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const home = path.join(root, "home");
     const partialBundledRoot = path.join(root, "dist", "extensions");
 
-    writeJson(path.join(partialBundledRoot, "qa-lab", "openclaw.plugin.json"), {
+    writeJson(path.join(partialBundledRoot, "qa-lab", "granted.plugin.json"), {
       id: "qa-lab",
       providers: ["qa-lab"],
     });
@@ -298,7 +298,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const root = createTempRoot();
     const home = path.join(root, "home");
     const pluginDir = path.join(home, ".openclaw", "extensions", "example");
-    writeJson(path.join(pluginDir, "openclaw.plugin.json"), { id: "example" });
+    writeJson(path.join(pluginDir, "granted.plugin.json"), { id: "example" });
 
     const records = listOpenClawPluginManifestMetadata({
       GRANTED_HOME: "   ",
@@ -333,7 +333,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
         },
       },
     };
-    writeJson(path.join(pluginDir, "openclaw.plugin.json"), manifest);
+    writeJson(path.join(pluginDir, "granted.plugin.json"), manifest);
 
     const records = listOpenClawPluginManifestMetadata({
       GRANTED_HOME: home,
@@ -360,7 +360,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
     },
   ])("fails fast on $name", ({ manifest, error }) => {
     const pluginDir = createTempRoot();
-    writeJson(path.join(pluginDir, "openclaw.plugin.json"), manifest);
+    writeJson(path.join(pluginDir, "granted.plugin.json"), manifest);
 
     const result = loadPluginManifest(pluginDir, false);
 
@@ -372,10 +372,10 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const home = path.join(root, "home");
 
     const goodPluginDir = path.join(home, ".openclaw", "extensions", "good-plugin");
-    writeJson(path.join(goodPluginDir, "openclaw.plugin.json"), { id: "good-plugin" });
+    writeJson(path.join(goodPluginDir, "granted.plugin.json"), { id: "good-plugin" });
 
     const oversizedDir = path.join(home, ".openclaw", "extensions", "big-plugin");
-    const oversizedPath = path.join(oversizedDir, "openclaw.plugin.json");
+    const oversizedPath = path.join(oversizedDir, "granted.plugin.json");
     fs.mkdirSync(oversizedDir, { recursive: true });
     fs.writeFileSync(
       oversizedPath,
@@ -465,7 +465,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
     fs.mkdirSync(exactDir, { recursive: true });
 
     // Write a compact JSON manifest padded to exactly the byte limit.
-    const exactPath = path.join(exactDir, "openclaw.plugin.json");
+    const exactPath = path.join(exactDir, "granted.plugin.json");
     const exactManifest = { id: "exact-plugin", pad: "" };
     const compactJson = JSON.stringify(exactManifest);
     const requiredPadding = 256 * 1024 - Buffer.byteLength(compactJson, "utf8");

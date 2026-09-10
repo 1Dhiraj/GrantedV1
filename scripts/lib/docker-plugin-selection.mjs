@@ -6,7 +6,7 @@ import { collectRootPackageExcludedExtensionDirs } from "./root-package-bundled-
 const PLUGIN_ID_RE = /^[a-z0-9][a-z0-9-]*$/u;
 
 function readManifest(pluginDir) {
-  const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+  const manifestPath = path.join(pluginDir, "granted.plugin.json");
   if (!fs.existsSync(manifestPath)) {
     return null;
   }

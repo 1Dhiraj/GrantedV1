@@ -1198,8 +1198,8 @@ describe("runCliTurnCompactionLifecycle", () => {
       const pluginRoot = path.join(bundled, pluginId);
       await fs.mkdir(pluginRoot, { recursive: true });
       await fs.copyFile(
-        new URL(`../../../extensions/${pluginId}/openclaw.plugin.json`, import.meta.url),
-        path.join(pluginRoot, "openclaw.plugin.json"),
+        new URL(`../../../extensions/${pluginId}/granted.plugin.json`, import.meta.url),
+        path.join(pluginRoot, "granted.plugin.json"),
       );
       await fs.writeFile(
         path.join(pluginRoot, "setup-api.mjs"),

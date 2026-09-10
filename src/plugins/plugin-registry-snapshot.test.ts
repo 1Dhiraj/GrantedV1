@@ -77,7 +77,7 @@ function writePackagePlugin(
   fs.mkdirSync(rootDir, { recursive: true });
   fs.writeFileSync(path.join(rootDir, "index.ts"), "export default { register() {} };\n", "utf8");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       name: pluginId,
@@ -104,7 +104,7 @@ function writeBundledPlugin(
   fs.mkdirSync(rootDir, { recursive: true });
   fs.writeFileSync(path.join(rootDir, entryPath), "export default { register() {} };\n", "utf8");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       name: pluginId,
@@ -145,7 +145,7 @@ function createCandidate(rootDir: string, pluginId = "demo"): PluginCandidate {
   fs.mkdirSync(rootDir, { recursive: true });
   fs.writeFileSync(path.join(rootDir, "index.ts"), "export default { register() {} };\n", "utf8");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       name: pluginId,
@@ -659,7 +659,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
       throw new Error("expected package plugin index record with file signatures");
     }
     expect(record.manifestFile.size).toBe(
-      fs.statSync(path.join(rootDir, "openclaw.plugin.json")).size,
+      fs.statSync(path.join(rootDir, "granted.plugin.json")).size,
     );
     expect(record.packageJson.fileSignature.size).toBe(
       fs.statSync(path.join(rootDir, "package.json")).size,
@@ -985,7 +985,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
         const artifactPath =
           artifact === "root"
             ? rootDir
-            : path.join(rootDir, artifact === "source" ? "index.ts" : "openclaw.plugin.json");
+            : path.join(rootDir, artifact === "source" ? "index.ts" : "granted.plugin.json");
         fs.rmSync(artifactPath, { recursive: artifact === "root" });
         fs.symlinkSync(path.join(tempRoot, "missing"), artifactPath);
 
@@ -1045,7 +1045,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     writePersistedInstalledPluginIndexSync(index, { stateDir });
 
     replaceFilePreservingSizeAndMtime(
-      path.join(rootDir, "openclaw.plugin.json"),
+      path.join(rootDir, "granted.plugin.json"),
       JSON.stringify({
         id: "demo",
         name: "Demo",

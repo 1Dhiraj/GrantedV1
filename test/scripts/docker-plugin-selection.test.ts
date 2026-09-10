@@ -31,7 +31,7 @@ function writePlugin(
   );
   if (manifestId) {
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       `${JSON.stringify({ id: manifestId })}\n`,
     );
   }
@@ -79,7 +79,7 @@ describe("Docker plugin selection", () => {
     writePlugin(extensionsRoot, "provider-source", "provider-plugin");
     writePlugin(extensionsRoot, "other-source", "other-plugin");
     fs.writeFileSync(
-      path.join(extensionsRoot, "provider-source", "openclaw.plugin.json"),
+      path.join(extensionsRoot, "provider-source", "granted.plugin.json"),
       JSON.stringify({ id: "provider-plugin", providers: ["api-provider", "portal-provider"] }),
     );
 

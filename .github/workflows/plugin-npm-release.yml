@@ -602,7 +602,7 @@ jobs:
           packed_package_json="${RUNNER_TEMP}/${EXTENSION_ID}-packed-package.json"
           packed_plugin_json="${RUNNER_TEMP}/${EXTENSION_ID}-packed-plugin.json"
           tar -xOf "${tarball_path}" package/package.json > "${packed_package_json}"
-          tar -xOf "${tarball_path}" package/openclaw.plugin.json > "${packed_plugin_json}"
+          tar -xOf "${tarball_path}" package/granted.plugin.json > "${packed_plugin_json}"
           source_package_json="${PACKAGE_DIR}/package.json"
           [[ -f "${source_package_json}" ]] || {
             echo "Source package.json is missing: ${source_package_json}." >&2
@@ -973,7 +973,7 @@ jobs:
             .digest("hex");
           const packageJson = JSON.parse(packedPackageJson.toString("utf8"));
           const pluginManifest = JSON.parse(
-            execFileSync("tar", ["-xOf", tarballPath, "package/openclaw.plugin.json"], {
+            execFileSync("tar", ["-xOf", tarballPath, "package/granted.plugin.json"], {
               encoding: "utf8",
             }),
           );

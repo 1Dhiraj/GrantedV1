@@ -66,7 +66,7 @@ it.each(cases)(
         }),
       );
       fs.writeFileSync(
-        path.join(memoryOwnerDir, "openclaw.plugin.json"),
+        path.join(memoryOwnerDir, "granted.plugin.json"),
         JSON.stringify({
           id: "memory-owner",
           name: "Memory Owner",

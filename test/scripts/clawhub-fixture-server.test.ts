@@ -204,7 +204,7 @@ describe("ClawHub fixture server", () => {
       `${JSON.stringify({ name: "@granted/whatsapp", version })}\n`,
     );
     writeFileSync(
-      path.join(packageDir, "openclaw.plugin.json"),
+      path.join(packageDir, "granted.plugin.json"),
       `${JSON.stringify({ id: "whatsapp", configSchema: { type: "object" } })}\n`,
     );
     execFileSync("tar", ["-czf", tarballPath, "-C", root, "package"]);

@@ -635,7 +635,7 @@ describe("harness runtime plugins", () => {
         ...installedProviderRecord("fixture-memory"),
         origin: "config",
         rootDir: "/fake/fixture-memory",
-        manifestPath: "/fake/fixture-memory/openclaw.plugin.json",
+        manifestPath: "/fake/fixture-memory/granted.plugin.json",
         manifestHash: "fixture",
         enabled: true,
         enabledByDefault: true,

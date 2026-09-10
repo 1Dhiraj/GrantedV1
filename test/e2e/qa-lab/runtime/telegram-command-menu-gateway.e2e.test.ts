@@ -59,7 +59,7 @@ async function writeLocalizedCommandPlugin(params: { repoRoot: string; workspace
     )}\n`,
   );
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: LOCALIZED_PLUGIN_ID,

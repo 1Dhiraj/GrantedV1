@@ -3,7 +3,7 @@ import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-ca
 import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
 import { supportsClaudeAdaptiveThinking } from "granted/plugin-sdk/provider-model-shared";
 import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 type CopilotRuntimeApi = "anthropic-messages" | "openai-completions" | "openai-responses";
 type CopilotReasoningCompat = {

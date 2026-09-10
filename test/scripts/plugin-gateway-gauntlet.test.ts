@@ -59,7 +59,7 @@ describe("plugin gateway gauntlet helpers", () => {
     rowAssertion?: "metrics" | "missing";
   }) {
     const outputDir = path.join(repoRoot, "artifacts");
-    await writeManifest("alpha", "openclaw.plugin.json", JSON.stringify({ id: "alpha" }));
+    await writeManifest("alpha", "granted.plugin.json", JSON.stringify({ id: "alpha" }));
     await fs.writeFile(path.join(repoRoot, "extensions", "alpha", "index.ts"), "export {};\n");
     await fs.mkdir(path.join(repoRoot, "scripts"), { recursive: true });
     const summaryAction =
@@ -285,7 +285,7 @@ describe("plugin gateway gauntlet helpers", () => {
   it("discovers bundled plugin manifests into lifecycle matrix rows", async () => {
     await writeManifest(
       "alpha",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({
         id: "alpha",
         enabledByDefault: true,
@@ -305,7 +305,7 @@ describe("plugin gateway gauntlet helpers", () => {
     );
     await writeManifest(
       "beta",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({ id: "beta", commandAliases: ["dreaming"], onboardingScopes: ["memory"] }),
     );
 
@@ -324,7 +324,7 @@ describe("plugin gateway gauntlet helpers", () => {
       hasConfigSchema: true,
       hasRequiredConfigFields: true,
       id: "alpha",
-      manifestPath: path.join("extensions", "alpha", "openclaw.plugin.json"),
+      manifestPath: path.join("extensions", "alpha", "granted.plugin.json"),
       name: "alpha",
       onboardingScopes: ["models"],
       providers: ["openai"],
@@ -340,7 +340,7 @@ describe("plugin gateway gauntlet helpers", () => {
   });
 
   it("keeps manifest ids separate from bounded build entry ids", async () => {
-    await writeManifest("kimi-coding", "openclaw.plugin.json", JSON.stringify({ id: "kimi" }));
+    await writeManifest("kimi-coding", "granted.plugin.json", JSON.stringify({ id: "kimi" }));
 
     const matrix = discoverBundledPluginManifests(repoRoot);
 
@@ -358,8 +358,8 @@ describe("plugin gateway gauntlet helpers", () => {
   });
 
   it("skips source-only plugin dirs that are excluded from the built runtime", async () => {
-    await writeManifest("qa-lab", "openclaw.plugin.json", JSON.stringify({ id: "qa-lab" }));
-    await writeManifest("telegram", "openclaw.plugin.json", JSON.stringify({ id: "telegram" }));
+    await writeManifest("qa-lab", "granted.plugin.json", JSON.stringify({ id: "qa-lab" }));
+    await writeManifest("telegram", "granted.plugin.json", JSON.stringify({ id: "telegram" }));
 
     const matrix = discoverBundledPluginManifests(repoRoot);
 
@@ -1266,7 +1266,7 @@ process.exit(7);
 
   it("fails once when skip-prebuild leaves plugin lifecycle probes without a built entry", async () => {
     const outputDir = path.join(repoRoot, "artifacts");
-    await writeManifest("acpx", "openclaw.plugin.json", JSON.stringify({ id: "acpx" }));
+    await writeManifest("acpx", "granted.plugin.json", JSON.stringify({ id: "acpx" }));
 
     const result = spawnSync(
       process.execPath,
@@ -1310,7 +1310,7 @@ process.exit(7);
 
   it("allows skip-prebuild slash-only dry runs when selected plugins have no slash probes", async () => {
     const outputDir = path.join(repoRoot, "artifacts");
-    await writeManifest("acpx", "openclaw.plugin.json", JSON.stringify({ id: "acpx" }));
+    await writeManifest("acpx", "granted.plugin.json", JSON.stringify({ id: "acpx" }));
 
     const result = spawnSync(
       process.execPath,
@@ -1478,7 +1478,7 @@ process.exit(7);
     const outputDir = path.join(repoRoot, `artifacts-${mode}`);
     await writeManifest(
       "workboard",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({
         id: "workboard",
         commandAliases: [
@@ -1600,10 +1600,10 @@ process.exit(7);
     );
     await writeManifest(
       "alpha",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({ id: "alpha", requiresPlugins: ["beta"] }),
     );
-    await writeManifest("beta", "openclaw.plugin.json", JSON.stringify({ id: "beta" }));
+    await writeManifest("beta", "granted.plugin.json", JSON.stringify({ id: "beta" }));
     await fs.writeFile(path.join(repoRoot, "extensions", "alpha", "index.ts"), "export {};\n");
     await fs.writeFile(path.join(repoRoot, "extensions", "beta", "index.ts"), "export {};\n");
     await fs.mkdir(path.join(repoRoot, "scripts"), { recursive: true });
@@ -1659,10 +1659,10 @@ process.exit(7);
     const outputDir = path.join(repoRoot, "artifacts");
     await writeManifest(
       "alpha",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({ id: "alpha", requiresPlugins: ["beta"] }),
     );
-    await writeManifest("beta", "openclaw.plugin.json", JSON.stringify({ id: "beta" }));
+    await writeManifest("beta", "granted.plugin.json", JSON.stringify({ id: "beta" }));
     await fs.writeFile(path.join(repoRoot, "extensions", "alpha", "index.ts"), "export {};\n");
     await fs.writeFile(path.join(repoRoot, "extensions", "beta", "index.ts"), "export {};\n");
     await fs.mkdir(path.join(repoRoot, "dist"), { recursive: true });

@@ -27,7 +27,7 @@ export {
 } from "./manifest-setup-normalizers.js";
 
 /** Canonical plugin manifest filename inside plugin roots. */
-export const PLUGIN_MANIFEST_FILENAME = "openclaw.plugin.json";
+export const PLUGIN_MANIFEST_FILENAME = "granted.plugin.json";
 const MAX_PLUGIN_MANIFEST_BYTES = 256 * 1024;
 const CORE_RESERVED_PLUGIN_IDS = new Set(["node-mcp"]);
 const VALID_PLUGIN_KINDS: ReadonlySet<string> = new Set<PluginKind>(["memory", "context-engine"]);

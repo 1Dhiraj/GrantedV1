@@ -27,7 +27,7 @@ export function inspectPluginStartupMetadata(params: {
   pluginId: string;
   rootDir: string;
 }): PluginStartupMetadata | undefined {
-  const manifest = tryReadJsonSync(path.join(params.rootDir, "openclaw.plugin.json"));
+  const manifest = tryReadJsonSync(path.join(params.rootDir, "granted.plugin.json"));
   if (!isRecord(manifest) || manifest.id !== params.pluginId) {
     return undefined;
   }

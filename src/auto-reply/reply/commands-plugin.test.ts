@@ -117,7 +117,7 @@ async function withDeclaredCommandPlugin(
   };
   try {
     await fs.writeFile(
-      path.join(tempDir, "openclaw.plugin.json"),
+      path.join(tempDir, "granted.plugin.json"),
       JSON.stringify({
         id: pluginId,
         configSchema: { type: "object", additionalProperties: false, properties: {} },

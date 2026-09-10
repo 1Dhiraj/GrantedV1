@@ -56,10 +56,10 @@ for (const [pluginId, expected] of Object.entries(selected)) {
   for (const entry of expected.entries) {
     assertFile(path.join(pluginRoot, entry));
   }
-  assertFile(path.join(pluginRoot, "openclaw.plugin.json"));
+  assertFile(path.join(pluginRoot, "granted.plugin.json"));
   assertFile(path.join(pluginRoot, "package.json"));
 
-  const manifest = readJson(path.join(pluginRoot, "openclaw.plugin.json"));
+  const manifest = readJson(path.join(pluginRoot, "granted.plugin.json"));
   const packageJson = readJson(path.join(pluginRoot, "package.json"));
   assert(manifest.id === pluginId, `unexpected ${pluginId} manifest id: ${manifest.id}`);
   assert(

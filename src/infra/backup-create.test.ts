@@ -1035,7 +1035,7 @@ describe("createBackupArchive", () => {
           "utf8",
         );
         await fs.writeFile(
-          path.join(pluginRoot, "openclaw.plugin.json"),
+          path.join(pluginRoot, "granted.plugin.json"),
           JSON.stringify({
             id: "backup-owner",
             configSchema: { type: "object", additionalProperties: false },
@@ -3182,7 +3182,7 @@ describe("createBackupArchive", () => {
           );
         }
         await fs.writeFile(
-          path.join(stateDir, "extensions", "demo", "openclaw.plugin.json"),
+          path.join(stateDir, "extensions", "demo", "granted.plugin.json"),
           '{"id":"demo"}\n',
           "utf8",
         );
@@ -3246,7 +3246,7 @@ describe("createBackupArchive", () => {
         const entries = await listArchiveEntries(result.archivePath);
 
         const entrySuffixes = entries.map((entry) => entry.replace(/^.*\/state\//, "/state/"));
-        expect(entrySuffixes).toContain("/state/extensions/demo/openclaw.plugin.json");
+        expect(entrySuffixes).toContain("/state/extensions/demo/granted.plugin.json");
         expect(entrySuffixes).toContain("/state/extensions/demo/src/index.js");
         expect(entrySuffixes).toContain("/state/node_modules/root-dep/index.js");
         expect(entrySuffixes).toContain("/state/node_modules/root-dep/fixture.sqlite");

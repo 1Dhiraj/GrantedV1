@@ -372,7 +372,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
         });
       }
       const originalManifest = fs.readFileSync(
-        path.join(installDir, "openclaw.plugin.json"),
+        path.join(installDir, "granted.plugin.json"),
         "utf8",
       );
       const records = installedRecords("codex", {
@@ -444,7 +444,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       });
 
       expect(committed).toBe(false);
-      expect(fs.readFileSync(path.join(installDir, "openclaw.plugin.json"), "utf8")).toBe(
+      expect(fs.readFileSync(path.join(installDir, "granted.plugin.json"), "utf8")).toBe(
         originalManifest,
       );
       expect(result.records).toBe(records);
@@ -4232,7 +4232,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           level: "warn",
           pluginId: "discord",
           message:
-            "channel plugin manifest declares discord without channelConfigs metadata; add openclaw.plugin.json#channelConfigs so config schema and setup surfaces work before runtime loads",
+            "channel plugin manifest declares discord without channelConfigs metadata; add granted.plugin.json#channelConfigs so config schema and setup surfaces work before runtime loads",
         },
       ],
     });

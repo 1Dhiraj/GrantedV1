@@ -3,7 +3,7 @@ import { readConfiguredProviderCatalogEntries } from "granted/plugin-sdk/provide
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 const PROVIDER_ID = "novita";
 

@@ -56,7 +56,7 @@ describe("ollama provider models", () => {
 
   it("declares every exact currently served Ollama Cloud model id", () => {
     const manifest = JSON.parse(
-      readFileSync(new URL("../openclaw.plugin.json", import.meta.url), "utf8"),
+      readFileSync(new URL("../granted.plugin.json", import.meta.url), "utf8"),
     ) as {
       modelCatalog: {
         providers: Record<

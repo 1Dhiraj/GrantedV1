@@ -135,7 +135,7 @@ function createMusicFixture() {
     origin: "bundled",
     rootDir: `/fake/${PLUGIN_ID}`,
     source: `/fake/${PLUGIN_ID}/index.js`,
-    manifestPath: `/fake/${PLUGIN_ID}/openclaw.plugin.json`,
+    manifestPath: `/fake/${PLUGIN_ID}/granted.plugin.json`,
     contracts: {
       musicGenerationProviders: [primary.id, fallback.id],
     },

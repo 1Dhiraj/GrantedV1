@@ -24,7 +24,7 @@ function createUnavailablePluginFixture(): string {
     }),
   );
   fs.writeFileSync(
-    path.join(root, "openclaw.plugin.json"),
+    path.join(root, "granted.plugin.json"),
     JSON.stringify({
       id: DEGRADED_PLUGIN_ID,
       configSchema: { type: "object", additionalProperties: false, properties: {} },

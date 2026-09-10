@@ -45,7 +45,7 @@ const manifestRecord = {
   origin: "global",
   rootDir: "/plugins/example",
   source: "/plugins/example/index.js",
-  manifestPath: "/plugins/example/openclaw.plugin.json",
+  manifestPath: "/plugins/example/granted.plugin.json",
 } satisfies PluginManifestRecord;
 
 function createRecordWithBuildVersion(openclawVersion: unknown) {
@@ -322,7 +322,7 @@ module.exports = { id: "source-fixture", register(api) {
   api.registerCli(() => {}, { descriptors: [{ ...${JSON.stringify(descriptor)}, description: api.pluginConfig.description }] });
 } };`,
             );
-            await state.writeJson("fixture/openclaw.plugin.json", {
+            await state.writeJson("fixture/granted.plugin.json", {
               id,
               configSchema,
               cliCommands: [descriptor],

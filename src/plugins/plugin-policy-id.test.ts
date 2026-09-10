@@ -48,7 +48,7 @@ describe("mixed-case plugin policy ids", () => {
   it("rejects a mixed-case spelling of a core reserved id", () => {
     const dir = tempDirs.make("plugin-id-case-");
     fs.writeFileSync(
-      path.join(dir, "openclaw.plugin.json"),
+      path.join(dir, "granted.plugin.json"),
       JSON.stringify({ id: "Node-MCP", configSchema: { type: "object" } }),
       "utf-8",
     );

@@ -256,7 +256,7 @@ function createGatewayPluginMetadataSnapshot(config: GrantedConfig): PluginMetad
         origin: "bundled",
         rootDir: "/test/openai",
         source: "/test/openai/index.ts",
-        manifestPath: "/test/openai/openclaw.plugin.json",
+        manifestPath: "/test/openai/granted.plugin.json",
       },
     ],
     diagnostics: [],

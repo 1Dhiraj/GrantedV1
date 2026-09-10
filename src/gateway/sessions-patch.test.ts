@@ -81,7 +81,7 @@ const BYTEPLUS_PROVIDER_AUTH_METADATA_SNAPSHOT = {
       origin: "bundled",
       rootDir: "/plugins/byteplus",
       source: "test",
-      manifestPath: "/plugins/byteplus/openclaw.plugin.json",
+      manifestPath: "/plugins/byteplus/granted.plugin.json",
       providerAuthAliases: { "byteplus-plan": "byteplus" },
     } satisfies PluginManifestRecord,
   ],

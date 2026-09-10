@@ -124,7 +124,7 @@ module.exports = {
 };
 `,
         );
-        await state.writeJson("catalog-plugin/openclaw.plugin.json", {
+        await state.writeJson("catalog-plugin/granted.plugin.json", {
           id: provider,
           providers: [provider],
           providerCatalogEntry: "./index.cjs",

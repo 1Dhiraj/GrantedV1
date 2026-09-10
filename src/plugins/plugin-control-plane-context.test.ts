@@ -25,7 +25,7 @@ function createIndex(
     plugins: [
       {
         pluginId,
-        manifestPath: `/plugins/${pluginId}/openclaw.plugin.json`,
+        manifestPath: `/plugins/${pluginId}/granted.plugin.json`,
         manifestHash: `${pluginId}-manifest-hash`,
         ...(options.doctorContractHash ? { doctorContractHash: options.doctorContractHash } : {}),
         ...(options.doctorContractFile ? { doctorContractFile: options.doctorContractFile } : {}),

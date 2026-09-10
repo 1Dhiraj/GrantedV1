@@ -320,7 +320,7 @@ export function writePluginFixtures(
       );
     }
     writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       `${JSON.stringify(
         {
           id,

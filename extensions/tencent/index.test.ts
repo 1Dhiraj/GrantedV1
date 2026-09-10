@@ -10,7 +10,7 @@ import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transp
 import { describe, expect, it } from "vitest";
 import { runSingleProviderCatalog } from "../test-support/provider-model-test-helpers.js";
 import tencentPlugin from "./index.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 type OpenAICompletionsModel = Model<"openai-completions">;
 

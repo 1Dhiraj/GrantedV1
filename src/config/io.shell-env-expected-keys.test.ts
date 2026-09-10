@@ -31,7 +31,7 @@ describe("config io shell env expected keys", () => {
       const home = createGeneratedPluginTempRoot("openclaw-shell-env-metadata-");
       const pluginDir = path.join(home, "configured-plugin");
       const configPath = path.join(home, "state", "openclaw.json");
-      writeJson(path.join(pluginDir, "openclaw.plugin.json"), {
+      writeJson(path.join(pluginDir, "granted.plugin.json"), {
         id: "shell-fixture",
         providers: ["shell-fixture"],
         channels: ["shell-fixture"],

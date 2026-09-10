@@ -572,7 +572,7 @@ describe("bundled plugin postinstall", () => {
       "dist",
       "extensions",
       "example",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
     );
     const stalePackage = path.join(packageRoot, "dist", "extensions", "qa-lab", "package.json");
     const staleManifest = path.join(
@@ -580,7 +580,7 @@ describe("bundled plugin postinstall", () => {
       "dist",
       "extensions",
       "qa-lab",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
     );
     await fs.mkdir(path.dirname(stalePackage), { recursive: true });
     await fs.mkdir(path.dirname(currentManifest), { recursive: true });
@@ -610,7 +610,7 @@ describe("bundled plugin postinstall", () => {
       path.join(packageRoot, "dist", "extensions", "qa-channel", "package.json"),
     );
     await expectPathMissing(
-      path.join(packageRoot, "dist", "extensions", "qa-channel", "openclaw.plugin.json"),
+      path.join(packageRoot, "dist", "extensions", "qa-channel", "granted.plugin.json"),
     );
     await expectPathMissing(
       path.join(packageRoot, "dist", "extensions", "qa-lab", "runtime-api.js"),

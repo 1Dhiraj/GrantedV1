@@ -290,7 +290,7 @@ describe("secrets runtime fast path", () => {
       });
 
       const manifestOpens = openSyncSpy.mock.calls.filter(
-        ([filePath]) => typeof filePath === "string" && filePath.endsWith("/openclaw.plugin.json"),
+        ([filePath]) => typeof filePath === "string" && filePath.endsWith("/granted.plugin.json"),
       );
       expect(snapshot.webTools.search.diagnostics).toEqual(expect.any(Array));
       expect(manifestOpens).toHaveLength(0);

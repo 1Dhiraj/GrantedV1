@@ -29,7 +29,7 @@ describe("collectEnabledInsecureOrDangerousFlags", () => {
       "export default { id: 'workspace-danger' };\n",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "workspace-danger",
         configSchema: { type: "object", additionalProperties: true },
@@ -71,7 +71,7 @@ describe("collectEnabledInsecureOrDangerousFlags", () => {
       "export default { id: 'workspace-danger' };\n",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "workspace-danger",
         configSchema: { type: "object", additionalProperties: true },
@@ -106,7 +106,7 @@ describe("collectEnabledInsecureOrDangerousFlags", () => {
       "export default { id: 'workspace-danger' };\n",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "workspace-danger",
         configSchema: { type: "object", additionalProperties: true },

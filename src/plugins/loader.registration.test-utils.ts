@@ -223,7 +223,7 @@ describe("loadOpenClawPlugins", () => {
     });
     for (const plugin of [first, second]) {
       fs.writeFileSync(
-        path.join(plugin.dir, "openclaw.plugin.json"),
+        path.join(plugin.dir, "granted.plugin.json"),
         JSON.stringify(
           {
             id: plugin.id,

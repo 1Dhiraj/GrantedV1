@@ -17,7 +17,7 @@ function buildStartupFixture() {
     const rootDir = `/tmp/plugins/${pluginId}`;
     return {
       pluginId,
-      manifestPath: `${rootDir}/openclaw.plugin.json`,
+      manifestPath: `${rootDir}/granted.plugin.json`,
       manifestHash: `${pluginId}-manifest`,
       rootDir,
       origin: "bundled",
@@ -65,7 +65,7 @@ function buildStartupFixture() {
       cliBackends: [],
       rootDir: `/tmp/plugins/${id}`,
       source: `/tmp/plugins/${id}/index.ts`,
-      manifestPath: `/tmp/plugins/${id}/openclaw.plugin.json`,
+      manifestPath: `/tmp/plugins/${id}/granted.plugin.json`,
       skills: [],
       hooks: [],
     })),

@@ -859,7 +859,7 @@ unrelated inbound runtime helpers.
   <a id="step-1-package-and-manifest"></a>
   <Step title="Package and manifest">
     Create the standard plugin files. The `channels` field in
-    `openclaw.plugin.json` (not a `kind` field) is what marks a manifest as
+    `granted.plugin.json` (not a `kind` field) is what marks a manifest as
     owning a channel. For the full package-metadata surface, see
     [Plugin Setup and Config](/plugins/sdk-setup#openclaw-channel):
 
@@ -881,7 +881,7 @@ unrelated inbound runtime helpers.
     }
     ```
 
-    ```json openclaw.plugin.json
+    ```json granted.plugin.json
     {
       "id": "acme-chat",
       "channels": ["acme-chat"],
@@ -1310,7 +1310,7 @@ Write colocated tests in `src/channel.test.ts`:
 ```text
 <bundled-plugin-root>/acme-chat/
 ├── package.json              # openclaw.channel metadata
-├── openclaw.plugin.json      # Manifest with config schema
+├── granted.plugin.json      # Manifest with config schema
 ├── index.ts                  # defineChannelPluginEntry
 ├── setup-entry.ts            # defineSetupPluginEntry
 ├── api.ts                    # Public exports (optional)

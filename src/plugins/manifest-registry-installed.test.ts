@@ -42,7 +42,7 @@ function writePlugin(rootDir: string, pluginId: string, modelPrefix: string) {
     "utf8",
   );
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       configSchema: { type: "object" },
@@ -67,7 +67,7 @@ function createIndex(rootDir: string): InstalledPluginIndex {
     plugins: [
       {
         pluginId: "installed",
-        manifestPath: path.join(rootDir, "openclaw.plugin.json"),
+        manifestPath: path.join(rootDir, "granted.plugin.json"),
         manifestHash: "manifest-hash",
         source: path.join(rootDir, "index.ts"),
         rootDir,
@@ -198,7 +198,7 @@ describe("loadPluginManifestRegistryForInstalledIndex", () => {
     writePlugin(rootDir, "installed", "installed-");
     const index = deepFreeze(createIndexWithFileSignatures(rootDir));
     const first = resolveInstalledManifestRegistryIndexFingerprint(index);
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     const nextMtime = new Date(Date.now() + 5000);
     fs.utimesSync(manifestPath, nextMtime, nextMtime);
     const second = resolveInstalledManifestRegistryIndexFingerprint(index);
@@ -266,7 +266,7 @@ describe("loadPluginManifestRegistryForInstalledIndex", () => {
     const index = deepFreeze(createIndex(rootDir));
     const first = resolveInstalledManifestRegistryIndexFingerprint(index);
 
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     const nextMtime = new Date(Date.now() + 5000);
     fs.utimesSync(manifestPath, nextMtime, nextMtime);
     const second = resolveInstalledManifestRegistryIndexFingerprint(index);
@@ -276,7 +276,7 @@ describe("loadPluginManifestRegistryForInstalledIndex", () => {
 
   it("reconstructs installed-index manifests in a fresh operation after files change", () => {
     const rootDir = makeTempDir();
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     writePlugin(rootDir, "installed", "installed-");
     const index = createIndex(rootDir);
     const env = {
@@ -446,7 +446,7 @@ describe("loadPluginManifestRegistryForInstalledIndex", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(packageDir, "openclaw.plugin.json"),
+      path.join(packageDir, "granted.plugin.json"),
       JSON.stringify({ id: "pack", configSchema: { type: "object" } }),
       "utf8",
     );
@@ -632,7 +632,7 @@ describe("loadPluginManifestRegistryForInstalledIndex", () => {
       env,
       includeDisabled: true,
     });
-    fs.unlinkSync(path.join(rootDir, "openclaw.plugin.json"));
+    fs.unlinkSync(path.join(rootDir, "granted.plugin.json"));
 
     const reused = loadPluginManifestRegistryForInstalledIndex({
       index,

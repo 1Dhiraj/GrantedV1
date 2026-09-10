@@ -302,10 +302,10 @@ describe("release-check", () => {
         expect(pluginEntries).toHaveProperty(channel);
         expect(excluded.has(channel)).toBe(false);
         const manifest = JSON.parse(
-          readFileSync(join("extensions", channel, "openclaw.plugin.json"), "utf8"),
+          readFileSync(join("extensions", channel, "granted.plugin.json"), "utf8"),
         ) as { channels: string[] };
         expect(manifest.channels).toContain(channel);
-        expect(artifacts).toContain(`dist/extensions/${channel}/openclaw.plugin.json`);
+        expect(artifacts).toContain(`dist/extensions/${channel}/granted.plugin.json`);
       }
     } finally {
       rmSync(homeDir, { recursive: true, force: true });

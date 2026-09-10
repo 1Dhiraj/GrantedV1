@@ -8,7 +8,7 @@ title: "Plugin reference"
 
 # Plugin reference
 
-This page is generated from top-level `extensions/*/openclaw.plugin.json`
+This page is generated from top-level `extensions/*/granted.plugin.json`
 manifests. Package metadata enriches entries when `package.json` is present.
 Regenerate it with:
 

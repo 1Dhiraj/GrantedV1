@@ -4,7 +4,7 @@ import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-mode
 import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import { LONGCAT_DEFAULT_MODEL_REF } from "./models.js";
 import { applyLongCatConfig } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { createLongCatThinkingWrapper } from "./stream.js";
 
 const PROVIDER_ID = "longcat";

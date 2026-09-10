@@ -45,7 +45,7 @@ function writeWorkspaceProviderPlugin(params: {
 }) {
   const pluginDir = path.join(params.workspaceDir, ".openclaw", "extensions", params.pluginId);
   mkdirSafeDir(pluginDir);
-  writeJson(path.join(pluginDir, "openclaw.plugin.json"), {
+  writeJson(path.join(pluginDir, "granted.plugin.json"), {
     id: params.pluginId,
     name: "Setup Trust Provider",
     description: "Test workspace provider plugin",

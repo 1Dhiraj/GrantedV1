@@ -4288,7 +4288,7 @@ update_candidate 1
         }),
       );
       writeFileSync(
-        join(root, "openclaw.plugin.json"),
+        join(root, "granted.plugin.json"),
         JSON.stringify({
           id: "example",
           version: "1.0.0",
@@ -4931,7 +4931,7 @@ ${invocation}
         join(fixtureRoot, "extensions/qa-channel/package.json"),
         '{"version":"2026.4.25"}',
       );
-      for (const file of ["package.json", "openclaw.plugin.json", "index.js", "setup-entry.js"]) {
+      for (const file of ["package.json", "granted.plugin.json", "index.js", "setup-entry.js"]) {
         writeFileSync(join(pluginRoot, file), "{}");
       }
       if (blockedPublication) {
@@ -7419,7 +7419,7 @@ done
     }
 
     expect(runner).not.toContain('cat "$RUN_LOG"');
-    expect(probe).toContain('"openclaw.plugin.json"');
+    expect(probe).toContain('"granted.plugin.json"');
     expect(runtimeSmoke).toContain(
       'readPositiveIntEnv("GRANTED_BUNDLED_PLUGIN_RUNTIME_READY_MS", 900000)',
     );

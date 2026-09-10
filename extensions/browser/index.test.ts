@@ -190,7 +190,7 @@ describe("browser plugin", () => {
 
   it("bundles the browser automation skill with the plugin", () => {
     const manifest = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "openclaw.plugin.json"), "utf8"),
+      fs.readFileSync(path.join(__dirname, "granted.plugin.json"), "utf8"),
     ) as { skills?: string[] };
     const skillPath = path.join(__dirname, "skills", "browser-automation", "SKILL.md");
 

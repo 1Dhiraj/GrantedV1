@@ -41,7 +41,7 @@ type AnthropicManifest = {
 };
 
 const manifest = JSON.parse(
-  readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8"),
+  readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
 ) as AnthropicManifest;
 const selectableContextWindowMetadata = {
   contextWindows: [

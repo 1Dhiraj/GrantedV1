@@ -270,7 +270,7 @@ describe("runtime postbuild static assets", () => {
       "utf8",
     );
     await fs.writeFile(
-      path.join(rootDir, "extensions", "diffs", "openclaw.plugin.json"),
+      path.join(rootDir, "extensions", "diffs", "granted.plugin.json"),
       '{"id":"diffs"}\n',
       "utf8",
     );
@@ -398,7 +398,7 @@ describe("runtime postbuild static assets", () => {
     await fs.mkdir(path.join(distPluginDir, "assets"), { recursive: true });
     await fs.writeFile(path.join(distPluginDir, "index.js"), "export default {};\n", "utf8");
     await fs.writeFile(
-      path.join(distPluginDir, "openclaw.plugin.json"),
+      path.join(distPluginDir, "granted.plugin.json"),
       '{"id":"diffs"}\n',
       "utf8",
     );

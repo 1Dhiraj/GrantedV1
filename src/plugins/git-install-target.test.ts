@@ -31,7 +31,7 @@ describe("git install target ownership", () => {
       JSON.stringify({ name: "git-fixture", version, openclaw: { extensions: ["index.js"] } }),
     );
     await fs.writeFile(
-      path.join(sourceDir, "openclaw.plugin.json"),
+      path.join(sourceDir, "granted.plugin.json"),
       JSON.stringify({ id: pluginId, configSchema: { type: "object", properties: {} } }),
     );
     await fs.writeFile(
@@ -90,7 +90,7 @@ describe("git install target ownership", () => {
       expect.soft(await git(installed.targetDir, "rev-parse", "HEAD")).toBe(installed.git.commit);
       await expect.soft(fs.readFile(markerPath, "utf8")).resolves.toBe("keep this checkout");
       await expect
-        .soft(fs.readFile(path.join(installed.targetDir, "openclaw.plugin.json"), "utf8"))
+        .soft(fs.readFile(path.join(installed.targetDir, "granted.plugin.json"), "utf8"))
         .resolves.toContain('"id":"demo"');
     },
   );

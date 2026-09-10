@@ -9,7 +9,7 @@ import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-ca
 import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transport-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 function createGlm47Template() {
   return {

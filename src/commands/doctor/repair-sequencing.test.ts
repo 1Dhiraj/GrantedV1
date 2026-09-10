@@ -744,7 +744,7 @@ describe("doctor repair sequencing", () => {
   it("uses plugins from every agent workspace after inventory repair", async () => {
     const researchPlugin = {
       id: "research-channel",
-      source: "/srv/research/.openclaw/extensions/research-channel/openclaw.plugin.json",
+      source: "/srv/research/.openclaw/extensions/research-channel/granted.plugin.json",
     };
     const manifestRegistry = { plugins: [researchPlugin], diagnostics: [] };
     mocks.resolveConfigWidePluginManifestRegistry.mockReturnValue(manifestRegistry);
@@ -1053,7 +1053,7 @@ describe("doctor repair sequencing", () => {
         {
           id: "workspace-plugin",
           source:
-            "/tmp/openclaw-doctor-workspace/.openclaw/extensions/workspace-plugin/openclaw.plugin.json",
+            "/tmp/openclaw-doctor-workspace/.openclaw/extensions/workspace-plugin/granted.plugin.json",
           providers: [workspaceProvider],
         },
       ],

@@ -72,7 +72,7 @@ async function fixture(mode: "source" | "package" | "external-plugin" = "source"
   await write(packageRoot, "dist/worker/workspace-rsync-receiver.mjs", "export {};");
   await write(packageRoot, "dist/build-info.json", { version, buildId });
   await write(packageRoot, "dist/extensions/remote-runtime/package.json", pluginPackage);
-  await write(packageRoot, "dist/extensions/remote-runtime/openclaw.plugin.json", {
+  await write(packageRoot, "dist/extensions/remote-runtime/granted.plugin.json", {
     id: "remote-runtime",
   });
   await write(
@@ -116,7 +116,7 @@ async function fixture(mode: "source" | "package" | "external-plugin" = "source"
       ...pluginPackage,
       openclaw: { extensions: ["./index.ts"], runtimeExtensions: ["./dist/index.js"] },
     });
-    await write(pluginRoot, "openclaw.plugin.json", { id: "remote-runtime" });
+    await write(pluginRoot, "granted.plugin.json", { id: "remote-runtime" });
     await write(pluginRoot, "dist/index.js", 'export const answer = "cloud-ready";');
     await write(pluginRoot, ".env", "FAKE_PRIVATE_VALUE=do-not-transfer");
     await write(

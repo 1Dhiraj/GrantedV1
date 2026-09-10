@@ -51,7 +51,7 @@ describe("Gateway startup plugin quarantine", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(brokenRoot, "openclaw.plugin.json"),
+      path.join(brokenRoot, "granted.plugin.json"),
       JSON.stringify({
         id: brokenPluginId,
         configSchema: {
@@ -78,7 +78,7 @@ describe("Gateway startup plugin quarantine", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(validRoot, "openclaw.plugin.json"),
+      path.join(validRoot, "granted.plugin.json"),
       JSON.stringify({
         id: validPluginId,
         configSchema: { type: "object", additionalProperties: false, properties: {} },
@@ -193,7 +193,7 @@ describe("Gateway startup plugin quarantine", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(selectedRoot, "openclaw.plugin.json"),
+      path.join(selectedRoot, "granted.plugin.json"),
       JSON.stringify({
         id: pluginId,
         configSchema: { type: "object", additionalProperties: false, properties: {} },
@@ -260,7 +260,7 @@ describe("Gateway startup plugin quarantine", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(selectedRoot, "openclaw.plugin.json"),
+      path.join(selectedRoot, "granted.plugin.json"),
       JSON.stringify({
         id: pluginId,
         configSchema: { type: "object", additionalProperties: false, properties: {} },

@@ -264,7 +264,7 @@ describe("voice-call plugin", () => {
 
   it("keeps config presentation metadata manifest-owned", () => {
     const manifest = JSON.parse(
-      fs.readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8"),
+      fs.readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
     ) as {
       uiHints?: Record<string, Record<string, unknown>>;
       configSchema?: { properties?: Record<string, unknown> };

@@ -187,7 +187,7 @@ describe("embedded acpx plugin config", () => {
   it("keeps the runtime json schema in sync with the manifest config schema", () => {
     const pluginRoot = resolveAcpxPluginRoot();
     const manifest = JSON.parse(
-      fs.readFileSync(path.join(pluginRoot, "openclaw.plugin.json"), "utf8"),
+      fs.readFileSync(path.join(pluginRoot, "granted.plugin.json"), "utf8"),
     ) as { configSchema?: unknown };
 
     expect(buildPluginConfigSchema(AcpxPluginConfigSchema).jsonSchema).toEqual(

@@ -236,7 +236,7 @@ describe("installTestEnv", () => {
     );
     writeFile(path.join(openClawHome, ".openclaw", "credentials", "token.txt"), "secret\n");
     writeFile(
-      path.join(openClawHome, ".openclaw", "external-plugins", "glueclaw", "openclaw.plugin.json"),
+      path.join(openClawHome, ".openclaw", "external-plugins", "glueclaw", "granted.plugin.json"),
       '{"id":"glueclaw"}\n',
     );
     const realStateDir = path.join(openClawHome, ".openclaw");
@@ -379,7 +379,7 @@ describe("installTestEnv", () => {
           ".openclaw",
           "external-plugins",
           "glueclaw",
-          "openclaw.plugin.json",
+          "granted.plugin.json",
         ),
       ),
     ).toBe(true);

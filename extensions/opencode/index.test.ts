@@ -10,7 +10,7 @@ import { expectPassthroughReplayPolicy } from "granted/plugin-sdk/provider-test-
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import {
   buildOpencodeZenLiveProviderConfig,
   prepareOpencodeZenModel,

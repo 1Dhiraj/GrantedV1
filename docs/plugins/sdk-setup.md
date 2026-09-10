@@ -8,7 +8,7 @@ read_when:
   - You are defining plugin config schemas or package.json openclaw metadata
 ---
 
-Reference for plugin packaging (`package.json` metadata), manifests (`openclaw.plugin.json`), setup entries, and config schemas.
+Reference for plugin packaging (`package.json` metadata), manifests (`granted.plugin.json`), setup entries, and config schemas.
 
 <Tip>
 **Looking for a walkthrough?** The how-to guides cover packaging in context: [Channel plugins](/plugins/sdk-channel-plugins#step-1-package-and-manifest) and [Provider plugins](/plugins/sdk-provider-plugins#step-1-package-and-manifest).
@@ -100,7 +100,7 @@ Publishing externally on ClawHub requires `compat` and `build`. Canonical publis
 </ParamField>
 
 <Note>
-Provider ids (`providers: string[]`) are manifest metadata, not package metadata. Declare them in `openclaw.plugin.json`, not here — see [Plugin manifest](/plugins/manifest).
+Provider ids (`providers: string[]`) are manifest metadata, not package metadata. Declare them in `granted.plugin.json`, not here — see [Plugin manifest](/plugins/manifest).
 </Note>
 
 ### `openclaw.channel`
@@ -242,7 +242,7 @@ Example:
 
 <AccordionGroup>
   <Accordion title="Onboarding behavior">
-    Interactive onboarding uses `openclaw.install` for install-on-demand surfaces: if your plugin exposes provider auth choices or channel setup/catalog metadata before runtime loads, onboarding can prompt for ClawHub, npm, or local install, install or enable the plugin, then continue the selected flow. ClawHub choices use `clawhubSpec` and are preferred when present; npm choices require trusted catalog metadata with a registry `npmSpec` (exact versions and `expectedIntegrity` are optional pins, enforced on install/update when set). Keep "what to show" in `openclaw.plugin.json` and "how to install it" in `package.json`.
+    Interactive onboarding uses `openclaw.install` for install-on-demand surfaces: if your plugin exposes provider auth choices or channel setup/catalog metadata before runtime loads, onboarding can prompt for ClawHub, npm, or local install, install or enable the plugin, then continue the selected flow. ClawHub choices use `clawhubSpec` and are preferred when present; npm choices require trusted catalog metadata with a registry `npmSpec` (exact versions and `expectedIntegrity` are optional pins, enforced on install/update when set). Keep "what to show" in `granted.plugin.json` and "how to install it" in `package.json`.
   </Accordion>
   <Accordion title="minHostVersion enforcement">
     If `minHostVersion` is set, install and non-bundled manifest-registry loading both enforce it. Older hosts skip external plugins; invalid version strings are rejected. Bundled source plugins are assumed to be co-versioned with the host checkout.
@@ -274,7 +274,7 @@ If your setup/full entry registers gateway RPC methods, keep them on a plugin-sp
 
 ## Plugin manifest
 
-Every native plugin must ship an `openclaw.plugin.json` in the package root. OpenClaw uses this to validate config without executing plugin code.
+Every native plugin must ship an `granted.plugin.json` in the package root. OpenClaw uses this to validate config without executing plugin code.
 
 ```json
 {
@@ -519,7 +519,7 @@ const configSchema = buildJsonChannelConfigSchema(
 );
 ```
 
-For third-party plugins, the cold-path contract is still the plugin manifest: mirror the generated JSON Schema into `openclaw.plugin.json#channelConfigs` so config schema, setup, and UI surfaces can inspect `channels.<id>` without loading runtime code.
+For third-party plugins, the cold-path contract is still the plugin manifest: mirror the generated JSON Schema into `granted.plugin.json#channelConfigs` so config schema, setup, and UI surfaces can inspect `channels.<id>` without loading runtime code.
 
 ## Setup wizards
 

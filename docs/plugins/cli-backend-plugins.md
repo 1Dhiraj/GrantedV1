@@ -33,7 +33,7 @@ A CLI backend plugin has three contracts:
 | Contract             | File                   | Purpose                                                   |
 | -------------------- | ---------------------- | --------------------------------------------------------- |
 | Package entry        | `package.json`         | Points OpenClaw at the plugin runtime module              |
-| Manifest ownership   | `openclaw.plugin.json` | Declares the backend id before runtime loads              |
+| Manifest ownership   | `granted.plugin.json` | Declares the backend id before runtime loads              |
 | Runtime registration | `index.ts`             | Calls `api.registerCliBackend(...)` with command defaults |
 
 The manifest is discovery metadata: it does not execute the CLI or register
@@ -76,7 +76,7 @@ runtime behavior. Runtime behavior starts when the plugin entry calls
   </Step>
 
   <Step title="Declare backend ownership">
-    ```json openclaw.plugin.json
+    ```json granted.plugin.json
     {
       "id": "acme-cli",
       "name": "Acme CLI",
@@ -460,7 +460,7 @@ MCP, or session-resume behavior.
 ## Checklist
 
 <Check>`package.json` has `openclaw.extensions` and built runtime entries for published packages</Check>
-<Check>`openclaw.plugin.json` declares `cliBackends` and intentional `activation.onStartup`</Check>
+<Check>`granted.plugin.json` declares `cliBackends` and intentional `activation.onStartup`</Check>
 <Check>`setup.cliBackends` is present when setup/model discovery should see the backend cold</Check>
 <Check>`api.registerCliBackend(...)` uses the same backend id as the manifest</Check>
 <Check>The backend model prefix or model-scoped `agentRuntime.id` selects the registration</Check>

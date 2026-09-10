@@ -214,7 +214,7 @@ export type SingleProviderPluginOptions = {
    */
   manifest?: SingleProviderPluginManifest;
   /**
-   * @deprecated Declare exclusive plugin kind in `openclaw.plugin.json` via
+   * @deprecated Declare exclusive plugin kind in `granted.plugin.json` via
    * manifest `kind`. Runtime-entry `kind` remains only as a compatibility
    * fallback for older plugins.
    */

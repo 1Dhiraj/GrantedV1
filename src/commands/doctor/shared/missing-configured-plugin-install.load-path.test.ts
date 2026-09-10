@@ -39,7 +39,7 @@ function writeProviderPlugin(rootDir: string): void {
     "utf8",
   );
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: "kilocode",
       enabledByDefault: true,
@@ -92,7 +92,7 @@ function writeBundledOpenCodeGoPlugin(bundledPluginsDir: string): void {
     "utf8",
   );
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: "opencode-go",
       activation: { onStartup: false },

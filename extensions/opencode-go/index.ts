@@ -3,7 +3,7 @@ import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-ent
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { opencodeGoMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { OPENCODE_GO_DEFAULT_MODEL_REF } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import {
   buildOpencodeGoLiveProviderConfig,
   buildStaticOpencodeGoProviderConfig,

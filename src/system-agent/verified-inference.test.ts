@@ -932,7 +932,7 @@ describe("verified OpenClaw inference binding", () => {
       replacement: {
         rootDir: "/replacement/provider-owner",
         source: "/replacement/provider-owner/index.js",
-        manifestPath: "/replacement/provider-owner/openclaw.plugin.json",
+        manifestPath: "/replacement/provider-owner/granted.plugin.json",
       },
     },
     { name: "package version", replacement: { packageVersion: "2.0.0" } },
@@ -971,7 +971,7 @@ describe("verified OpenClaw inference binding", () => {
       try {
         const rootDir = path.join(tempDir, "provider-owner");
         const source = path.join(rootDir, sourcePath);
-        const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+        const manifestPath = path.join(rootDir, "granted.plugin.json");
         const packageJsonPath = path.join(rootDir, "package.json");
         fs.mkdirSync(path.dirname(source), { recursive: true });
         fs.writeFileSync(source, "export const sourceRevision = 1;\n", "utf8");
@@ -991,7 +991,7 @@ describe("verified OpenClaw inference binding", () => {
         });
         const codexRootDir = path.join(tempDir, "codex");
         const codexSource = path.join(codexRootDir, "index.js");
-        const codexManifestPath = path.join(codexRootDir, "openclaw.plugin.json");
+        const codexManifestPath = path.join(codexRootDir, "granted.plugin.json");
         const codexPackageJsonPath = path.join(codexRootDir, "package.json");
         fs.mkdirSync(codexRootDir, { recursive: true });
         fs.writeFileSync(codexSource, "export const runtime = 'codex';\n", "utf8");

@@ -1922,13 +1922,13 @@ describe("installPluginFromClawHub", () => {
   it("falls back to strict files[] verification when sha256hash is missing", async () => {
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
         "dist/index.js": 'export const demo = "ok";',
         "_meta.json": '{"slug":"demo","version":"2026.3.22"}',
       },
       files: [
         clawHubArchiveFile("dist/index.js", 'export const demo = "ok";'),
-        clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}'),
+        clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}'),
       ],
       version: { sha256hash: null },
     });
@@ -1942,7 +1942,7 @@ describe("installPluginFromClawHub", () => {
     const success = expectInstallSuccess(result);
     expect(success.pluginId).toBe("demo");
     expect(logger.warn).toHaveBeenCalledWith(
-      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: dist/index.js, openclaw.plugin.json. Validated generated metadata files present in archive: _meta.json (JSON parse plus slug/version match only).',
+      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: dist/index.js, granted.plugin.json. Validated generated metadata files present in archive: _meta.json (JSON parse plus slug/version match only).',
     );
   });
 
@@ -1965,7 +1965,7 @@ describe("installPluginFromClawHub", () => {
     });
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
         "_meta.json": '{"slug":"demo","version":"2026.3.22"}',
       },
       version: { sha256hash: null },
@@ -1988,14 +1988,14 @@ describe("installPluginFromClawHub", () => {
     expect(success.packageName).toBe("demo");
     expect(success.clawhub?.clawhubPackage).toBe("demo");
     expect(logger.warn).toHaveBeenCalledWith(
-      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: openclaw.plugin.json. Validated generated metadata files present in archive: _meta.json (JSON parse plus slug/version match only).',
+      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: granted.plugin.json. Validated generated metadata files present in archive: _meta.json (JSON parse plus slug/version match only).',
     );
   });
 
   it("fails closed when sha256hash is present but unrecognized instead of silently falling back", async () => {
     mockClawHubVersionMetadata({
       sha256hash: "definitely-not-a-sha256",
-      files: [clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}')],
+      files: [clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}')],
     });
 
     const result = await installPluginFromClawHub({
@@ -2081,7 +2081,7 @@ describe("installPluginFromClawHub", () => {
 
   it("fails closed when files[] contains an invalid sha256", async () => {
     mockClawHubVersionMetadata({
-      files: [{ path: "openclaw.plugin.json", size: 13, sha256: "not-a-digest" }],
+      files: [{ path: "granted.plugin.json", size: 13, sha256: "not-a-digest" }],
     });
 
     const result = await installPluginFromClawHub({
@@ -2134,7 +2134,7 @@ describe("installPluginFromClawHub", () => {
         changelog: "",
         files: [
           {
-            path: "openclaw.plugin.json",
+            path: "granted.plugin.json",
             size: 13,
             sha256: sha256Hex('{"id":"demo"}'),
           },
@@ -2197,9 +2197,9 @@ describe("installPluginFromClawHub", () => {
 
   it("rejects fallback verification when an expected file is missing from the archive", async () => {
     await mockClawHubFallbackArchive({
-      entries: { "openclaw.plugin.json": '{"id":"demo"}' },
+      entries: { "granted.plugin.json": '{"id":"demo"}' },
       files: [
-        clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}'),
+        clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}'),
         clawHubArchiveFile("dist/index.js", 'export const demo = "ok";'),
       ],
     });
@@ -2219,12 +2219,12 @@ describe("installPluginFromClawHub", () => {
   it("rejects fallback verification when the archive includes an unexpected file", async () => {
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
         "dist/index.js": 'export const demo = "ok";',
         "extra.txt": "surprise",
       },
       files: [
-        clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}'),
+        clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}'),
         clawHubArchiveFile("dist/index.js", 'export const demo = "ok";'),
       ],
     });
@@ -2294,7 +2294,7 @@ describe("installPluginFromClawHub", () => {
 
   it("omits the skipped-files suffix when no generated extras are present", async () => {
     await mockClawHubFallbackArchive({
-      entries: { "openclaw.plugin.json": '{"id":"demo"}' },
+      entries: { "granted.plugin.json": '{"id":"demo"}' },
     });
     const logger = createLoggerSpies();
 
@@ -2305,14 +2305,14 @@ describe("installPluginFromClawHub", () => {
 
     expect(expectInstallSuccess(result).pluginId).toBe("demo");
     expect(logger.warn).toHaveBeenCalledWith(
-      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: openclaw.plugin.json.',
+      'ClawHub package "demo@2026.3.22" is missing sha256hash; falling back to files[] verification. Validated files: granted.plugin.json.',
     );
   });
 
   it("rejects fallback verification when _meta.json is not valid JSON", async () => {
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
         "_meta.json": "{not-json",
       },
     });
@@ -2332,7 +2332,7 @@ describe("installPluginFromClawHub", () => {
   it("rejects fallback verification when _meta.json slug does not match the package name", async () => {
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
         "_meta.json": '{"slug":"wrong","version":"2026.3.22"}',
       },
     });
@@ -2352,7 +2352,7 @@ describe("installPluginFromClawHub", () => {
   it("rejects fallback verification when _meta.json exceeds the per-file size limit", async () => {
     const { archivePath } = await createClawHubArchive({
       "_meta.json": '{"slug":"demo","version":"2026.3.22"}',
-      "openclaw.plugin.json": '{"id":"demo"}',
+      "granted.plugin.json": '{"id":"demo"}',
     });
     const oversizedMetaEntry = {
       name: "_meta.json",
@@ -2361,7 +2361,7 @@ describe("installPluginFromClawHub", () => {
       nodeStream: vi.fn(),
     } as unknown as JSZip.JSZipObject;
     const listedFileEntry = {
-      name: "openclaw.plugin.json",
+      name: "granted.plugin.json",
       dir: false,
       _data: { uncompressedSize: 13 },
       nodeStream: () => Readable.from([Buffer.from('{"id":"demo"}')]),
@@ -2369,7 +2369,7 @@ describe("installPluginFromClawHub", () => {
     const loadAsyncSpy = vi.spyOn(JSZip, "loadAsync").mockResolvedValueOnce({
       files: {
         "_meta.json": oversizedMetaEntry,
-        "openclaw.plugin.json": listedFileEntry,
+        "granted.plugin.json": listedFileEntry,
       },
     } as unknown as JSZip);
     fetchClawHubPackageVersionMock.mockResolvedValueOnce({
@@ -2379,7 +2379,7 @@ describe("installPluginFromClawHub", () => {
         changelog: "",
         files: [
           {
-            path: "openclaw.plugin.json",
+            path: "granted.plugin.json",
             size: 13,
             sha256: sha256Hex('{"id":"demo"}'),
           },
@@ -2431,7 +2431,7 @@ describe("installPluginFromClawHub", () => {
           changelog: "",
           files: [
             {
-              path: "openclaw.plugin.json",
+              path: "granted.plugin.json",
               size: 13,
               sha256: sha256Hex('{"id":"demo"}'),
             },
@@ -2487,7 +2487,7 @@ describe("installPluginFromClawHub", () => {
         changelog: "",
         files: [
           {
-            path: "openclaw.plugin.json",
+            path: "granted.plugin.json",
             size: 13,
             sha256: sha256Hex('{"id":"demo"}'),
           },
@@ -2519,8 +2519,8 @@ describe("installPluginFromClawHub", () => {
 
   it("rejects fallback verification when a file hash drifts from files[] metadata", async () => {
     await mockClawHubFallbackArchive({
-      entries: { "openclaw.plugin.json": '{"id":"demo"}' },
-      files: [{ path: "openclaw.plugin.json", size: 13, sha256: "1".repeat(64) }],
+      entries: { "granted.plugin.json": '{"id":"demo"}' },
+      files: [{ path: "granted.plugin.json", size: 13, sha256: "1".repeat(64) }],
     });
 
     const result = await installPluginFromClawHub({
@@ -2530,7 +2530,7 @@ describe("installPluginFromClawHub", () => {
     expectInstallFailureFields(
       result,
       CLAWHUB_INSTALL_ERROR_CODE.ARCHIVE_INTEGRITY_MISMATCH,
-      `ClawHub archive contents do not match files[] metadata for "demo@2026.3.22": expected openclaw.plugin.json to hash to ${"1".repeat(64)}, got ${sha256Hex('{"id":"demo"}')}.`,
+      `ClawHub archive contents do not match files[] metadata for "demo@2026.3.22": expected granted.plugin.json to hash to ${"1".repeat(64)}, got ${sha256Hex('{"id":"demo"}')}.`,
     );
     expect(installPluginFromArchiveMock).not.toHaveBeenCalled();
   });
@@ -2556,8 +2556,8 @@ describe("installPluginFromClawHub", () => {
     mockClawHubVersionMetadata({
       files: [
         {
-          ...clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}'),
-          path: "openclaw.plugin.json ",
+          ...clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}'),
+          path: "granted.plugin.json ",
         },
       ],
     });
@@ -2569,7 +2569,7 @@ describe("installPluginFromClawHub", () => {
     expectInstallFailureFields(
       result,
       CLAWHUB_INSTALL_ERROR_CODE.MISSING_ARCHIVE_INTEGRITY,
-      'ClawHub version metadata for "demo@2026.3.22" has an invalid files[0].path (path "openclaw.plugin.json " has leading or trailing whitespace).',
+      'ClawHub version metadata for "demo@2026.3.22" has an invalid files[0].path (path "granted.plugin.json " has leading or trailing whitespace).',
     );
     expect(downloadClawHubPackageArchiveMock).not.toHaveBeenCalled();
   });
@@ -2577,10 +2577,10 @@ describe("installPluginFromClawHub", () => {
   it("rejects fallback verification when the archive includes a whitespace-suffixed file path", async () => {
     await mockClawHubFallbackArchive({
       entries: {
-        "openclaw.plugin.json": '{"id":"demo"}',
-        "openclaw.plugin.json ": '{"id":"demo"}',
+        "granted.plugin.json": '{"id":"demo"}',
+        "granted.plugin.json ": '{"id":"demo"}',
       },
-      files: [clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}')],
+      files: [clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}')],
     });
 
     const result = await installPluginFromClawHub({
@@ -2590,13 +2590,13 @@ describe("installPluginFromClawHub", () => {
     expectInstallFailureFields(
       result,
       CLAWHUB_INSTALL_ERROR_CODE.ARCHIVE_INTEGRITY_MISMATCH,
-      'ClawHub archive contents do not match files[] metadata for "demo@2026.3.22": invalid package file path "openclaw.plugin.json " (path "openclaw.plugin.json " has leading or trailing whitespace).',
+      'ClawHub archive contents do not match files[] metadata for "demo@2026.3.22": invalid package file path "granted.plugin.json " (path "granted.plugin.json " has leading or trailing whitespace).',
     );
     expect(installPluginFromArchiveMock).not.toHaveBeenCalled();
   });
 
   it("rejects fallback metadata with duplicate files[] paths", async () => {
-    const file = clawHubArchiveFile("openclaw.plugin.json", '{"id":"demo"}');
+    const file = clawHubArchiveFile("granted.plugin.json", '{"id":"demo"}');
     mockClawHubVersionMetadata({ files: [file, file] });
 
     const result = await installPluginFromClawHub({
@@ -2606,7 +2606,7 @@ describe("installPluginFromClawHub", () => {
     expectInstallFailureFields(
       result,
       CLAWHUB_INSTALL_ERROR_CODE.MISSING_ARCHIVE_INTEGRITY,
-      'ClawHub version metadata for "demo@2026.3.22" has duplicate files[] path "openclaw.plugin.json".',
+      'ClawHub version metadata for "demo@2026.3.22" has duplicate files[] path "granted.plugin.json".',
     );
     expect(downloadClawHubPackageArchiveMock).not.toHaveBeenCalled();
   });

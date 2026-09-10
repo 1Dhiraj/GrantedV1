@@ -61,7 +61,7 @@ function createPlugin(params: {
     origin: params.origin ?? "bundled",
     rootDir: `/plugins/${params.id}`,
     source: `/plugins/${params.id}/index.js`,
-    manifestPath: `/plugins/${params.id}/openclaw.plugin.json`,
+    manifestPath: `/plugins/${params.id}/granted.plugin.json`,
     channels: [],
     providers: [],
     cliBackends: [],

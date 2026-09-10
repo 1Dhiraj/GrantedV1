@@ -35,7 +35,7 @@ describe("ClawHub plugin docs", () => {
     ) as unknown;
     const pluginManifest = JSON.parse(
       await fs.readFile(
-        path.join(DOCS_ROOT, "snippets", "plugin-publish", "minimal-openclaw.plugin.json"),
+        path.join(DOCS_ROOT, "snippets", "plugin-publish", "minimal-granted.plugin.json"),
         "utf8",
       ),
     ) as { id?: unknown; configSchema?: unknown };

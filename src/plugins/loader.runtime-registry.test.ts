@@ -701,7 +701,7 @@ describe("clearPluginRegistryLoadCache", () => {
         };`,
       });
       writeFileSync(
-        path.join(plugin.dir, "openclaw.plugin.json"),
+        path.join(plugin.dir, "granted.plugin.json"),
         JSON.stringify({
           id: plugin.id,
           configSchema: { type: "object", additionalProperties: false, properties: {} },

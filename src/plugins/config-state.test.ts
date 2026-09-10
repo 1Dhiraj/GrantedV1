@@ -268,7 +268,7 @@ describe("normalizePluginsConfig", () => {
     });
     const loadManifest = vi.spyOn(manifest, "loadPluginManifest").mockReturnValue({
       ok: true,
-      manifestPath: "/tmp/openclaw-global-anthropic/openclaw.plugin.json",
+      manifestPath: "/tmp/openclaw-global-anthropic/granted.plugin.json",
       manifest: {
         id: "external-anthropic",
         configSchema: {},

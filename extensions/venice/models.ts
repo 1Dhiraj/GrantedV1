@@ -7,7 +7,7 @@ import type {
   ModelProviderConfig,
 } from "granted/plugin-sdk/provider-model-shared";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { parseVeniceModelPricing } from "./pricing-api.js";
 
 const VENICE_MANIFEST_CATALOG = manifest.modelCatalog.providers.venice;

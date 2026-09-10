@@ -57,7 +57,7 @@ describe("CLI prepared metadata lifetime", () => {
     const params = { cfg, env, session, primaryCommand: "prepared" };
     const entries = await loadPluginCliRegistrationEntriesWithDefaults(params);
     expect(entries).toHaveLength(1);
-    fs.unlinkSync(path.join(plugin.dir, "openclaw.plugin.json"));
+    fs.unlinkSync(path.join(plugin.dir, "granted.plugin.json"));
     clearPluginMetadataLifecycleCaches();
     const program = new Command();
     await expect(entries[0]!.register(program)).rejects.toThrow(/plugin CLI preparation/i);
@@ -191,7 +191,7 @@ describe("CLI prepared metadata lifetime", () => {
         path.join(plugin.dir, "cli-metadata.cjs"),
         'module.exports = require("./index.cjs");',
       );
-      const manifestPath = path.join(plugin.dir, "openclaw.plugin.json");
+      const manifestPath = path.join(plugin.dir, "granted.plugin.json");
       fs.writeFileSync(
         manifestPath,
         JSON.stringify({
@@ -345,7 +345,7 @@ describe("CLI prepared metadata lifetime", () => {
   },
 };`,
       });
-      const manifestPath = path.join(plugin.dir, "openclaw.plugin.json");
+      const manifestPath = path.join(plugin.dir, "granted.plugin.json");
       if (!legacy) {
         const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
         manifest.cliCommands = [
@@ -505,7 +505,7 @@ describe("CLI prepared metadata lifetime", () => {
       const manifestRegistry = loadPluginManifestRegistryCore({ config, env });
       expect(manifestRegistry.plugins.map((entry) => entry.id)).toEqual([plugin.id]);
       // The caller owns this graph; subsequent discovery cannot recover the removed manifest.
-      fs.unlinkSync(path.join(plugin.dir, "openclaw.plugin.json"));
+      fs.unlinkSync(path.join(plugin.dir, "granted.plugin.json"));
       const registry = await loadOpenClawPluginCliRegistry({
         config,
         env,

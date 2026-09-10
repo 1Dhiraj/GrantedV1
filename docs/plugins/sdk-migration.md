@@ -140,7 +140,7 @@ next Plugin SDK major.
 ### Plugin state migration declarations
 
 Plugins should declare `doctorContract.stateMigrations: true` in
-`openclaw.plugin.json` and export `stateMigrations` from their doctor-contract
+`granted.plugin.json` and export `stateMigrations` from their doctor-contract
 artifact. Plan-based migrations can use
 `definePluginDoctorMigrationFromPlans(...)` from
 `openclaw/plugin-sdk/runtime-doctor-migrations` to preserve existing move, copy, preview,

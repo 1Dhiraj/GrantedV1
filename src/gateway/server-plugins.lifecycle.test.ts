@@ -101,7 +101,7 @@ async function writeInstanceBindingProbePlugin(): Promise<{ bundledRoot: string 
     })}\n`,
   );
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({
       id: "instance-binding-probe",
       name: "Startup plugin",
@@ -289,7 +289,7 @@ describe("gateway plugin instance bindings", () => {
       expect(startupMetadata?.byPluginId.get("instance-binding-probe")?.name).toBe(
         "Startup plugin",
       );
-      const manifestPath = path.join(bundledRoot, "instance-binding-probe", "openclaw.plugin.json");
+      const manifestPath = path.join(bundledRoot, "instance-binding-probe", "granted.plugin.json");
       const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
       await fs.writeFile(manifestPath, JSON.stringify({ ...manifest, name: "Changed plugin" }));
       const initialRegistrationCount = coordinator.runtimes.length;

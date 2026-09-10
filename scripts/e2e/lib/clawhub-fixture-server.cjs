@@ -106,7 +106,7 @@ function startPrepublishArtifactServer() {
         }),
       );
       const packedPlugin = JSON.parse(
-        execFileSync("tar", ["-xOf", tarballPath, "package/openclaw.plugin.json"], {
+        execFileSync("tar", ["-xOf", tarballPath, "package/granted.plugin.json"], {
           encoding: "utf8",
         }),
       );
@@ -282,7 +282,7 @@ async function buildNpmPackArtifact(fixture) {
     );
     await fs.promises.writeFile(path.join(packageDir, "index.js"), fixture.indexJs);
     await fs.promises.writeFile(
-      path.join(packageDir, "openclaw.plugin.json"),
+      path.join(packageDir, "granted.plugin.json"),
       `${JSON.stringify(fixture.manifest, null, 2)}\n`,
     );
     const npmTarballName = `${packageName.replace(/^@/, "").replace("/", "-")}-${fixture.version}.tgz`;
@@ -711,7 +711,7 @@ async function main() {
   });
   zip.file("package/index.js", fixture.indexJs, { date: new Date(0) });
   const manifestJson = `${JSON.stringify(fixture.manifest, null, 2)}\n`;
-  zip.file("package/openclaw.plugin.json", manifestJson, { date: new Date(0) });
+  zip.file("package/granted.plugin.json", manifestJson, { date: new Date(0) });
 
   const archive = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
   const sha256hash = crypto.createHash("sha256").update(archive).digest("hex");

@@ -16,7 +16,7 @@ function record(
   return recordInstalledPluginIndexInstallOwner(
     {
       pluginId,
-      manifestPath: `${rootDir}/openclaw.plugin.json`,
+      manifestPath: `${rootDir}/granted.plugin.json`,
       manifestHash: pluginId,
       source: `${rootDir}/${pluginId.split("/").at(-1)}.js`,
       rootDir,

@@ -522,7 +522,7 @@ title: "Plugin reference"
 
 # Plugin reference
 
-This page is generated from top-level \`extensions/*/openclaw.plugin.json\`
+This page is generated from top-level \`extensions/*/granted.plugin.json\`
 manifests. Package metadata enriches entries when \`package.json\` is present.
 Regenerate it with:
 
@@ -541,7 +541,7 @@ function collectPluginSourceEntries(): PluginSourceEntry[] {
     .readdirSync(EXTENSIONS_DIR)
     .toSorted((left, right) => left.localeCompare(right))) {
     const packagePath = path.join(EXTENSIONS_DIR, dirName, "package.json");
-    const manifestPath = path.join(EXTENSIONS_DIR, dirName, "openclaw.plugin.json");
+    const manifestPath = path.join(EXTENSIONS_DIR, dirName, "granted.plugin.json");
     if (!fs.existsSync(manifestPath)) {
       continue;
     }
@@ -560,7 +560,7 @@ function enumerateTopLevelPluginManifests() {
     .readdirSync(EXTENSIONS_DIR)
     .toSorted((left, right) => left.localeCompare(right))
     .flatMap((dirName) => {
-      const manifestPath = path.join(EXTENSIONS_DIR, dirName, "openclaw.plugin.json");
+      const manifestPath = path.join(EXTENSIONS_DIR, dirName, "granted.plugin.json");
       if (!fs.existsSync(manifestPath)) {
         return [];
       }
@@ -694,7 +694,7 @@ title: "Plugin inventory"
 
 # Plugin inventory
 
-This page is generated from top-level \`extensions/*/openclaw.plugin.json\`
+This page is generated from top-level \`extensions/*/granted.plugin.json\`
 manifests and the root npm package \`files\` exclusions. Optional \`package.json\`
 metadata enriches package and distribution details. Regenerate it with:
 

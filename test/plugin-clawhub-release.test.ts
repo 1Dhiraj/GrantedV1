@@ -91,7 +91,7 @@ function createClawPackBytes(
   return gzipSync(
     Buffer.concat([
       ...packageJsonEntries,
-      entry("package/openclaw.plugin.json", JSON.stringify({ id: "demo-plugin" })),
+      entry("package/granted.plugin.json", JSON.stringify({ id: "demo-plugin" })),
       Buffer.alloc(1024),
     ]),
   );

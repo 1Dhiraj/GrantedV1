@@ -434,7 +434,7 @@ describe("loadOpenClawPlugins", () => {
       },
     };
     const manifestRegistry = loadPluginManifestRegistryCore({ config });
-    fs.rmSync(path.join(plugin.dir, "openclaw.plugin.json"));
+    fs.rmSync(path.join(plugin.dir, "granted.plugin.json"));
 
     const registry = loadOpenClawPlugins({
       cache: false,
@@ -460,7 +460,7 @@ describe("loadOpenClawPlugins", () => {
     };
     const metadataSnapshot = loadPluginMetadataSnapshot({ config, env: process.env });
     setCurrentPluginMetadataSnapshot(metadataSnapshot, { config, env: process.env });
-    fs.rmSync(path.join(plugin.dir, "openclaw.plugin.json"));
+    fs.rmSync(path.join(plugin.dir, "granted.plugin.json"));
 
     const registry = loadOpenClawPlugins({
       cache: false,
@@ -632,7 +632,7 @@ describe("loadOpenClawPlugins", () => {
       "utf-8",
     );
     fs.writeFileSync(
-      path.join(pluginRoot, "openclaw.plugin.json"),
+      path.join(pluginRoot, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "discord",

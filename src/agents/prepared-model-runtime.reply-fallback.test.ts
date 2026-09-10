@@ -118,7 +118,7 @@ describe("prepared reply fallback ownership", () => {
         hooks: [],
         rootDir: `/plugins/${id}`,
         source: `/plugins/${id}/index.js`,
-        manifestPath: `/plugins/${id}/openclaw.plugin.json`,
+        manifestPath: `/plugins/${id}/granted.plugin.json`,
         activation: { onStartup: false, onProviders: [id] },
       }));
       const metadata = createPluginMetadataSnapshot({

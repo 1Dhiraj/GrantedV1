@@ -22,7 +22,7 @@ function makePlugin(overrides: Partial<PluginManifestRecord>): PluginManifestRec
     origin: "bundled",
     rootDir: "/tmp/demo",
     source: "/tmp/demo/index.js",
-    manifestPath: "/tmp/demo/openclaw.plugin.json",
+    manifestPath: "/tmp/demo/granted.plugin.json",
     ...overrides,
   };
 }

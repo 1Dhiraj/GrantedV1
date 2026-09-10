@@ -521,8 +521,8 @@ describe.concurrent("fresh compiled subprocess invocation", () => {
         const pluginRoot = path.join(bundled, "anthropic");
         writeFixture(
           pluginRoot,
-          "openclaw.plugin.json",
-          fs.readFileSync(path.join(root, "extensions/anthropic/openclaw.plugin.json"), "utf8"),
+          "granted.plugin.json",
+          fs.readFileSync(path.join(root, "extensions/anthropic/granted.plugin.json"), "utf8"),
         );
         writeFixture(
           pluginRoot,
@@ -568,7 +568,7 @@ describe.concurrent("fresh compiled subprocess invocation", () => {
             const pluginRoot = path.join(bundled, "fixture-hook");
             writeFixture(
               pluginRoot,
-              "openclaw.plugin.json",
+              "granted.plugin.json",
               JSON.stringify({
                 id: "fixture-hook",
                 providers: ["fixture-provider"],

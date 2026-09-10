@@ -892,7 +892,7 @@ describe("plugins cli update", () => {
         recordInstalledPluginIndexInstallOwner(
           {
             pluginId: "brave",
-            manifestPath: "/tmp/brave-beta/openclaw.plugin.json",
+            manifestPath: "/tmp/brave-beta/granted.plugin.json",
             manifestHash: "brave-v1",
             source: "/tmp/brave-beta/index.js",
             rootDir: "/tmp/brave-beta",

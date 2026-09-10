@@ -113,7 +113,7 @@ function prepareFixture() {
     [],
   );
   const manifestPaths = fixtures.map((fixture) =>
-    path.join(fixture.rootDir, "openclaw.plugin.json"),
+    path.join(fixture.rootDir, "granted.plugin.json"),
   );
   return { cfg, env, workspaceDir, metadataSnapshot, fixtures, manifestPaths };
 }

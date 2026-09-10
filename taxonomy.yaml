@@ -1031,7 +1031,7 @@ surfaces:
             description: Deprecated or compatibility subpaths continue to resolve during author migrations.
           - name: Plugin manifest
             coverageIds: [plugins.plugin-manifest]
-            description: "`openclaw.plugin.json` declares plugin identity, capabilities, and config schema."
+            description: "`granted.plugin.json` declares plugin identity, capabilities, and config schema."
           - name: Package metadata
             coverageIds: [plugins.package-metadata]
             description: "`package.json` carries the required `openclaw` metadata for discovery and release flows."

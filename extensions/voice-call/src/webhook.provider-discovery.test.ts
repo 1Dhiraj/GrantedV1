@@ -42,7 +42,7 @@ describe("VoiceCallWebhookServer transcription provider discovery", () => {
           } };`,
         );
         fs.writeFileSync(
-          path.join(pluginDir, "openclaw.plugin.json"),
+          path.join(pluginDir, "granted.plugin.json"),
           JSON.stringify({
             id,
             configSchema: { type: "object", additionalProperties: false, properties: {} },

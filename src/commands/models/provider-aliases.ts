@@ -45,7 +45,7 @@ function resolveSourcePeerPluginRoot(
   }
   const packageRoot = parts.slice(0, -3).join(path.sep) || path.sep;
   const sourceRoot = path.join(packageRoot, "extensions", plugin.id);
-  return fs.existsSync(path.join(sourceRoot, "openclaw.plugin.json")) ? sourceRoot : undefined;
+  return fs.existsSync(path.join(sourceRoot, "granted.plugin.json")) ? sourceRoot : undefined;
 }
 
 function loadSourcePeerModelCatalog(

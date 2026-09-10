@@ -109,27 +109,27 @@ describe("plugin capability consent", () => {
           name: "multi-plugin-package",
           openclaw: { extensions: ["./index.js", "./plugins/child/child.js"] },
         },
-        "openclaw.plugin.json": {
+        "granted.plugin.json": {
           id: "root",
           channels: ["chat"],
           contracts: { tools: ["read"] },
           configSchema: { type: "object" },
         },
         "index.js": "export {};",
-        "plugins/child/openclaw.plugin.json": {
+        "plugins/child/granted.plugin.json": {
           id: "child",
           contracts: { tools: ["write", "read"] },
           skills: ["child-skill"],
           configSchema: { type: "object" },
         },
         "plugins/child/child.js": "export {};",
-        "plugins/openclaw.plugin.json": {
+        "plugins/granted.plugin.json": {
           id: "ignored-ancestor",
           contracts: { tools: ["unreachable-tool"] },
           configSchema: { type: "object" },
         },
         "extra/extra.js": "export {};",
-        "extra/openclaw.plugin.json": {
+        "extra/granted.plugin.json": {
           id: "unmanaged-extra",
           contracts: { tools: ["unmanaged-tool"] },
           configSchema: { type: "object" },
@@ -139,7 +139,7 @@ describe("plugin capability consent", () => {
       if (staged) {
         fs.cpSync(rootDir, artifactDir, { recursive: true });
         fs.writeFileSync(
-          path.join(artifactDir, "plugins/child/openclaw.plugin.json"),
+          path.join(artifactDir, "plugins/child/granted.plugin.json"),
           JSON.stringify({
             id: "child",
             contracts: { tools: ["staged-write", "read"] },
@@ -227,7 +227,7 @@ describe("plugin capability consent", () => {
     const rootDir = createArtifactFixture({
       "package.json": { openclaw: { extensions: ["./index.js"] } },
       "index.js": "export {};",
-      "openclaw.plugin.json": {
+      "granted.plugin.json": {
         id: "native",
         contracts: { gatewayMethodDispatch: ["dangerous.gateway"] },
         configSchema: { type: "object" },
@@ -242,7 +242,7 @@ describe("plugin capability consent", () => {
 
   it("reviews a competing bundle before native fallback when the package declares no extensions", () => {
     const rootDir = createArtifactFixture({
-      "openclaw.plugin.json": {
+      "granted.plugin.json": {
         id: "native",
         contracts: { gatewayMethodDispatch: ["native.gateway"] },
         configSchema: { type: "object" },
@@ -258,7 +258,7 @@ describe("plugin capability consent", () => {
   it("rejects package extension entries that escape the installed artifact", () => {
     const rootDir = createArtifactFixture({
       "package.json": { openclaw: { extensions: ["../outside/index.js"] } },
-      "openclaw.plugin.json": { id: "root", configSchema: { type: "object" } },
+      "granted.plugin.json": { id: "root", configSchema: { type: "object" } },
     });
 
     expect(() => resolvePluginArtifactDeclaredSurface(rootDir)).toThrow();
@@ -413,7 +413,7 @@ describe("plugin capability consent", () => {
       mode: "install",
       stagedArtifactDir: createArtifactFixture({
         "index.js": "export {};",
-        "openclaw.plugin.json": { id: "plugin", configSchema: { type: "object" } },
+        "granted.plugin.json": { id: "plugin", configSchema: { type: "object" } },
       }),
     });
 
@@ -453,7 +453,7 @@ describe("plugin capability consent", () => {
       const files = {
         "package.json": { openclaw: { extensions: ["./index.js"] } },
         "index.js": "export {};",
-        "openclaw.plugin.json": {
+        "granted.plugin.json": {
           id: "plugin",
           contracts: { tools: ["repair-tool"] },
           configSchema: { type: "object" },
@@ -473,7 +473,7 @@ describe("plugin capability consent", () => {
       if (condition === "missing") {
         fs.rmSync(previousDir, { recursive: true });
       } else {
-        fs.writeFileSync(path.join(previousDir, "openclaw.plugin.json"), "{");
+        fs.writeFileSync(path.join(previousDir, "granted.plugin.json"), "{");
       }
       const params = {
         config: {},
@@ -509,7 +509,7 @@ describe("plugin capability consent", () => {
     const rootDir = createArtifactFixture({
       "package.json": { openclaw: { extensions: ["./index.js"] } },
       "index.js": "export {};",
-      "openclaw.plugin.json": { id: "plugin", configSchema: { type: "object" } },
+      "granted.plugin.json": { id: "plugin", configSchema: { type: "object" } },
     });
     const consent = createManagedPluginArtifactConsentHandler({
       config: { plugins: { entries: { plugin: { enabled: false } } } },

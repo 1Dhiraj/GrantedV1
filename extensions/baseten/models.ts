@@ -10,7 +10,7 @@ import type {
   ModelDefinitionConfig,
 } from "granted/plugin-sdk/provider-model-shared";
 import { asNonArrayRecord, filterStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 const BASETEN_MANIFEST_CATALOG = manifest.modelCatalog.providers.baseten;
 const DEFAULT_CONTEXT_WINDOW = 128_000;

@@ -29,7 +29,7 @@ function createPluginFixture(params: {
   fs.mkdirSync(pluginRoot, { recursive: true });
   fs.mkdirSync(stateDir, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify({
       id,
       configSchema: { type: "object", additionalProperties: false },

@@ -388,7 +388,7 @@ describe("native plugin alias preparation", () => {
     );
     writeFile(
       pluginDir,
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       JSON.stringify({
         id: "demo",
         configSchema: { type: "object", properties: {} },

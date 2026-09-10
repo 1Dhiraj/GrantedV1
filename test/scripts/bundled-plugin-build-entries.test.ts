@@ -49,7 +49,7 @@ describe("bundled plugin build entries", () => {
       channels: ["renamed-channel"],
       doctorContract: { configRepair: true, stateMigrations: true },
     };
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "granted.plugin.json");
     fs.writeFileSync(manifestPath, JSON.stringify(manifest));
     expect(() => collectChannelConfigDoctorBuildEntries({ cwd })).toThrow(
       /Missing config-only doctor entrypoint/,
@@ -194,7 +194,7 @@ describe("bundled plugin build entries", () => {
 
     expect(artifacts).toContain("dist/extensions/image-generation-core/package.json");
     expect(artifacts).toContain("dist/extensions/image-generation-core/runtime-api.js");
-    expect(artifacts).not.toContain("dist/extensions/image-generation-core/openclaw.plugin.json");
+    expect(artifacts).not.toContain("dist/extensions/image-generation-core/granted.plugin.json");
   });
 
   it("packs the Matrix packaged runtime shim", () => {
@@ -296,7 +296,7 @@ describe("bundled plugin build entries", () => {
       fs.mkdirSync(pluginDir, { recursive: true });
       fs.writeFileSync(path.join(pluginDir, "index.ts"), "export default {};\n");
       fs.writeFileSync(
-        path.join(pluginDir, "openclaw.plugin.json"),
+        path.join(pluginDir, "granted.plugin.json"),
         `${JSON.stringify({ id: pluginId })}\n`,
       );
       fs.writeFileSync(
@@ -388,7 +388,7 @@ describe("bundled plugin build entries", () => {
       "xiaomi",
     ]) {
       expect(artifacts).not.toContain(`dist/extensions/${pluginId}/index.js`);
-      expect(artifacts).not.toContain(`dist/extensions/${pluginId}/openclaw.plugin.json`);
+      expect(artifacts).not.toContain(`dist/extensions/${pluginId}/granted.plugin.json`);
       expect(artifacts).not.toContain(`dist/extensions/${pluginId}/package.json`);
     }
   });
@@ -399,7 +399,7 @@ describe("bundled plugin build entries", () => {
     expect(artifacts).toEqual(
       expect.arrayContaining([
         "dist/extensions/opencode-go/index.js",
-        "dist/extensions/opencode-go/openclaw.plugin.json",
+        "dist/extensions/opencode-go/granted.plugin.json",
         "dist/extensions/opencode-go/package.json",
       ]),
     );
@@ -409,7 +409,7 @@ describe("bundled plugin build entries", () => {
     const artifacts = listBundledPluginPackArtifacts();
 
     expect(artifacts).not.toContain("dist/extensions/vydra/index.js");
-    expect(artifacts).not.toContain("dist/extensions/vydra/openclaw.plugin.json");
+    expect(artifacts).not.toContain("dist/extensions/vydra/granted.plugin.json");
     expect(artifacts).not.toContain("dist/extensions/vydra/package.json");
   });
 
@@ -424,7 +424,7 @@ describe("bundled plugin build entries", () => {
 
     for (const pluginId of ["teams-meetings", "zoom-meetings"]) {
       expect(artifacts).not.toContain(`dist/extensions/${pluginId}/index.js`);
-      expect(artifacts).not.toContain(`dist/extensions/${pluginId}/openclaw.plugin.json`);
+      expect(artifacts).not.toContain(`dist/extensions/${pluginId}/granted.plugin.json`);
       expect(artifacts).not.toContain(`dist/extensions/${pluginId}/package.json`);
     }
   });
@@ -441,7 +441,7 @@ describe("bundled plugin build entries", () => {
     const artifacts = listBundledPluginPackArtifacts();
 
     expect(artifacts).not.toContain("dist/extensions/duckduckgo/index.js");
-    expect(artifacts).not.toContain("dist/extensions/duckduckgo/openclaw.plugin.json");
+    expect(artifacts).not.toContain("dist/extensions/duckduckgo/granted.plugin.json");
     expect(artifacts).not.toContain("dist/extensions/duckduckgo/package.json");
   });
 
@@ -449,7 +449,7 @@ describe("bundled plugin build entries", () => {
     const artifacts = listBundledPluginPackArtifacts();
 
     expect(artifacts).not.toContain("dist/extensions/voyage/index.js");
-    expect(artifacts).not.toContain("dist/extensions/voyage/openclaw.plugin.json");
+    expect(artifacts).not.toContain("dist/extensions/voyage/granted.plugin.json");
     expect(artifacts).not.toContain("dist/extensions/voyage/package.json");
   });
 
@@ -457,7 +457,7 @@ describe("bundled plugin build entries", () => {
     const artifacts = listBundledPluginPackArtifacts();
 
     expect(artifacts).not.toContain("dist/extensions/volcengine/index.js");
-    expect(artifacts).not.toContain("dist/extensions/volcengine/openclaw.plugin.json");
+    expect(artifacts).not.toContain("dist/extensions/volcengine/granted.plugin.json");
     expect(artifacts).not.toContain("dist/extensions/volcengine/package.json");
   });
 

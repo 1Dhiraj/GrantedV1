@@ -842,7 +842,7 @@ jobs:
             }
             const relativePath = `extensions/${entry.name}`;
             const packagePath = path.join(extensionRoot, entry.name, "package.json");
-            const manifestPath = path.join(extensionRoot, entry.name, "openclaw.plugin.json");
+            const manifestPath = path.join(extensionRoot, entry.name, "granted.plugin.json");
             if (!existsSync(packagePath) || !existsSync(manifestPath)) {
               continue;
             }

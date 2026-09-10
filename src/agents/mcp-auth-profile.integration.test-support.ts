@@ -39,7 +39,7 @@ function writeProvider(root: string, owner: string, tokenUrl: string, enabled = 
   const credentialPath = path.join(root, `external-${owner}.txt`);
   fs.writeFileSync(credentialPath, "first");
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: PLUGIN_ID,
       providers: [PROVIDER_ID],

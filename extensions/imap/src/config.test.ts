@@ -6,7 +6,7 @@ import { resolveImapConfig } from "./config.js";
 
 it("accepts all SDK authentication strengths and rejects an unknown config minimum", () => {
   const manifest = JSON.parse(
-    fs.readFileSync(new URL("../openclaw.plugin.json", import.meta.url), "utf8"),
+    fs.readFileSync(new URL("../granted.plugin.json", import.meta.url), "utf8"),
   ) as { configSchema: Record<string, unknown> };
   const strengths = [
     "mutable",

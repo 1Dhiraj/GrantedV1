@@ -25,7 +25,7 @@ or [Provider Plugins](/plugins/sdk-provider-plugins) instead.
   plugin imports it at runtime).
 - `openclaw >=2026.5.17`, the first version that exports
   `openclaw/plugin-sdk/tool-plugin`.
-- A package root that ships `dist/`, `openclaw.plugin.json`, and
+- A package root that ships `dist/`, `granted.plugin.json`, and
   `package.json`.
 
 ## Quickstart
@@ -48,7 +48,7 @@ npm test
 | `tsconfig.json`        | NodeNext TypeScript output to `dist/`                             |
 | `vitest.config.ts`     | Vitest config for `src/**/*.test.ts`                              |
 | `package.json`         | Scripts, runtime deps, `openclaw.extensions: ["./dist/index.js"]` |
-| `openclaw.plugin.json` | Generated manifest metadata for the initial tool                  |
+| `granted.plugin.json` | Generated manifest metadata for the initial tool                  |
 
 `npm run plugin:build` runs `npm run build` (tsc) then
 `openclaw plugins build --entry ./dist/index.js`. `npm run plugin:validate`
@@ -347,7 +347,7 @@ entry:
 ```json
 {
   "type": "module",
-  "files": ["dist", "openclaw.plugin.json", "README.md"],
+  "files": ["dist", "granted.plugin.json", "README.md"],
   "dependencies": {
     "typebox": "^1.1.38"
   },
@@ -384,7 +384,7 @@ Oxlint is not type-aware, so it cannot enforce these annotations. The generated
 
 `plugins validate` checks that:
 
-- `openclaw.plugin.json` exists and passes the normal manifest loader.
+- `granted.plugin.json` exists and passes the normal manifest loader.
 - The current entry exports `defineToolPlugin` metadata.
 - Generated manifest fields match the entry metadata.
 - `contracts.tools` matches the declared tool names.
@@ -447,7 +447,7 @@ The entry did not export a value created by `defineToolPlugin`. Confirm the
 module's default export is the `defineToolPlugin(...)` result, or pass the
 correct entry with `--entry`.
 
-### `openclaw.plugin.json generated metadata is stale`
+### `granted.plugin.json generated metadata is stale`
 
 The manifest no longer matches the entry metadata. Run:
 
@@ -456,7 +456,7 @@ npm run build
 openclaw plugins build --entry ./dist/index.js
 ```
 
-Commit both `openclaw.plugin.json` and `package.json` changes.
+Commit both `granted.plugin.json` and `package.json` changes.
 
 ### `package.json openclaw.extensions must include ./dist/index.js`
 
@@ -475,7 +475,7 @@ Check these in order:
 
 1. `openclaw plugins inspect <plugin-id> --runtime`
 2. `openclaw plugins validate --root <plugin-root> --entry ./dist/index.js`
-3. `openclaw.plugin.json` has `contracts.tools` with the expected tool names.
+3. `granted.plugin.json` has `contracts.tools` with the expected tool names.
 4. `package.json` has `openclaw.extensions: ["./dist/index.js"]`.
 5. The Gateway was restarted or reloaded after installing the plugin.
 

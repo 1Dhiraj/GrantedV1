@@ -133,7 +133,7 @@ fs.writeFileSync(
   `module.exports = { id: ${JSON.stringify(id)}, name: ${JSON.stringify(name)}, register(api) { api.registerGatewayMethod(${JSON.stringify(method)}, async () => ({ ok: true })); api.registerCli(({ program }) => { const root = program.command(${JSON.stringify(cliRoot)}).description(${JSON.stringify(`${name} fixture command`)}); root.command("ping").description("Print fixture ping output").action(() => { console.log(${JSON.stringify(cliOutput)}); }); }, { descriptors: [{ name: ${JSON.stringify(cliRoot)}, description: ${JSON.stringify(`${name} fixture command`)}, hasSubcommands: true }] }); }, };\n`,
 );
 fs.writeFileSync(
-  path.join(dir, "openclaw.plugin.json"),
+  path.join(dir, "granted.plugin.json"),
   `${JSON.stringify({ id, configSchema: { type: "object", properties: {} } }, null, 2)}\n`,
 );
 NODE

@@ -2266,7 +2266,7 @@ describe("qa bundled plugin dir", () => {
     );
     await mkdir(path.join(repoRoot, "extensions", "qa-channel"), { recursive: true });
     await writeFile(
-      path.join(repoRoot, "extensions", "qa-channel", "openclaw.plugin.json"),
+      path.join(repoRoot, "extensions", "qa-channel", "granted.plugin.json"),
       JSON.stringify({
         id: "qa-channel",
         toolMetadata: { qa_read: { replaySafe: true } },
@@ -2308,7 +2308,7 @@ describe("qa bundled plugin dir", () => {
     )) as { accountId: string };
     expect(qaChannel.accountId).toBe("qa");
     await expect(
-      readFile(path.join(bundledPluginsDir, "qa-channel", "openclaw.plugin.json"), "utf8"),
+      readFile(path.join(bundledPluginsDir, "qa-channel", "granted.plugin.json"), "utf8"),
     ).resolves.toContain('"replaySafe":true');
     expect((await lstat(path.join(bundledPluginsDir, "qa-channel"))).isDirectory()).toBe(true);
     expect((await lstat(path.join(bundledPluginsDir, "memory-core"))).isDirectory()).toBe(true);
@@ -2532,7 +2532,7 @@ describe("qa bundled plugin dir", () => {
   it("maps cli backend provider ids to their owning bundled plugin ids", async () => {
     const repoRoot = await tempDirs.makeTempDir("qa-plugin-owner-");
     await writeJsonFixture(
-      path.join(repoRoot, "dist", "extensions", "openai", "openclaw.plugin.json"),
+      path.join(repoRoot, "dist", "extensions", "openai", "granted.plugin.json"),
       {
         id: "openai",
         providers: ["openai", "openai"],
@@ -2551,7 +2551,7 @@ describe("qa bundled plugin dir", () => {
   it("maps configured OpenAI Responses provider aliases to the OpenAI plugin", async () => {
     const repoRoot = await tempDirs.makeTempDir("qa-plugin-owner-");
     await writeJsonFixture(
-      path.join(repoRoot, "dist", "extensions", "openai", "openclaw.plugin.json"),
+      path.join(repoRoot, "dist", "extensions", "openai", "granted.plugin.json"),
       {
         id: "openai",
         providers: ["openai"],

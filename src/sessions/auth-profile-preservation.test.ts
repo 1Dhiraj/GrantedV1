@@ -22,7 +22,7 @@ const workspaceAliasPlugin = {
   origin: "workspace",
   rootDir: "/plugins/fixture-provider",
   source: "test",
-  manifestPath: "/plugins/fixture-provider/openclaw.plugin.json",
+  manifestPath: "/plugins/fixture-provider/granted.plugin.json",
   providerAuthAliases: { "fixture-provider-plan": "fixture-provider" },
 } satisfies PluginManifestRecord;
 

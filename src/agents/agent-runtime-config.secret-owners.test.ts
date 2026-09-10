@@ -132,7 +132,7 @@ describe("agent execution respects prepared secret owners", () => {
           origin: "bundled" as const,
           rootDir: "/fixture/plugin",
           source: "/fixture/plugin/index.js",
-          manifestPath: "/fixture/plugin/openclaw.plugin.json",
+          manifestPath: "/fixture/plugin/granted.plugin.json",
         },
       ],
     };

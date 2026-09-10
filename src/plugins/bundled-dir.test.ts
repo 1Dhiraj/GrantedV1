@@ -71,7 +71,7 @@ function seedBundledPluginTree(rootDir: string, relativeDir: string, pluginId = 
     "utf8",
   );
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({ id: pluginId }, null, 2)}\n`,
     "utf8",
   );

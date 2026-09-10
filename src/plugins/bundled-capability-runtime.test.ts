@@ -57,7 +57,7 @@ function writeChannelCapabilityPlugin(id: string): TempPlugin {
     };`,
   });
   fs.writeFileSync(
-    path.join(plugin.dir, "openclaw.plugin.json"),
+    path.join(plugin.dir, "granted.plugin.json"),
     JSON.stringify(
       {
         id,
@@ -112,7 +112,7 @@ describe("loadBundledCapabilityRuntimeRegistry", () => {
       snapshot.bundledManifestRegistry?.plugins.find((plugin) => plugin.id === target.id)?.origin,
     ).toBe("bundled");
     setGatewayPluginMetadataSnapshot(snapshot, { config, env });
-    fs.writeFileSync(path.join(target.dir, "openclaw.plugin.json"), "{}");
+    fs.writeFileSync(path.join(target.dir, "granted.plugin.json"), "{}");
 
     const registry = loadBundledCapabilityRuntimeRegistry({ pluginIds: [target.id], config, env });
     expect(registry.providers.map((entry) => entry.provider.id)).toEqual(["bundled-capability"]);

@@ -21,7 +21,7 @@ export type GrantedPluginConfigSchema = {
   validate?: (value: unknown) => PluginConfigValidation;
   /**
    * @deprecated Declare config presentation metadata in the plugin's
-   * `openclaw.plugin.json` manifest via top-level `uiHints`. The host reads
+   * `granted.plugin.json` manifest via top-level `uiHints`. The host reads
    * manifest hints and does not consume runtime config-schema hints.
    */
   uiHints?: Record<string, PluginConfigUiHint>;

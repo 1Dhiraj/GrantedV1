@@ -240,7 +240,7 @@ describe("getSecretTargetRegistry metadata reuse", () => {
         configSchema: { type: "object", additionalProperties: true },
         configContracts: { secretInputs: { paths: [{ path: secretPath }] } },
       };
-      fs.writeFileSync(path.join(pluginRoot, "openclaw.plugin.json"), JSON.stringify(manifest));
+      fs.writeFileSync(path.join(pluginRoot, "granted.plugin.json"), JSON.stringify(manifest));
       return { ...manifest, origin: "config", channels: [], rootDir: pluginRoot };
     });
     metadataMocks.resolvePluginMetadataSnapshot.mockReturnValue({

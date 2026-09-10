@@ -109,7 +109,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             setupEntry: `./src/setup${extension}`,
           },
         },
-        files: ["openclaw.plugin.json", `src/index${extension}`, `src/setup${extension}`],
+        files: ["granted.plugin.json", `src/index${extension}`, `src/setup${extension}`],
       });
       expect(errors).toEqual([
         expect.stringContaining(
@@ -137,7 +137,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             setupEntry: `./src/setup${source}`,
           },
         },
-        files: ["openclaw.plugin.json", `dist/src/index${output}`, `dist/src/setup${output}`],
+        files: ["granted.plugin.json", `dist/src/index${output}`, `dist/src/setup${output}`],
       }),
     ).toEqual([]);
   });
@@ -153,7 +153,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             extensions: ["./index.ts"],
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "index.ts"],
+        files: ["package.json", "granted.plugin.json", "index.ts"],
       }),
     ).toEqual([
       "@granted/discord@2026.5.2 requires compiled runtime output for TypeScript entry ./index.ts: expected ./dist/index.js, ./dist/index.mjs, ./dist/index.cjs, ./index.js, ./index.mjs, ./index.cjs",
@@ -171,7 +171,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeExtensions: ["./dist/index.js"],
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "index.ts", "dist/index.js"],
+        files: ["package.json", "granted.plugin.json", "index.ts", "dist/index.js"],
       }),
     ).toStrictEqual([]);
   });
@@ -190,7 +190,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
         files: ["package.json", "dist/index.js"],
       }),
     ).toEqual([
-      "@granted/searxng-plugin@2026.6.11 plugin npm package must include openclaw.plugin.json",
+      "@granted/searxng-plugin@2026.6.11 plugin npm package must include granted.plugin.json",
     ]);
   });
 
@@ -205,7 +205,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
         files: ["package.json", "README.md"],
       }),
     ).toEqual([
-      "@granted/tavily-plugin@0.0.0 plugin npm package must include openclaw.plugin.json",
+      "@granted/tavily-plugin@0.0.0 plugin npm package must include granted.plugin.json",
     ]);
   });
 
@@ -220,7 +220,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeExtensions: ["./dist/index.js"],
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "src/index.ts"],
+        files: ["package.json", "granted.plugin.json", "src/index.ts"],
       }),
     ).toEqual(["@granted/line@2026.5.3 runtime extension entry not found: ./dist/index.js"]);
   });
@@ -236,7 +236,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeExtensions: ["./dist/index.js"],
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "dist/index.js"],
+        files: ["package.json", "granted.plugin.json", "dist/index.js"],
       }),
     ).toEqual([
       "@granted/acpx@2026.5.3 package.json openclaw.runtimeExtensions length (1) must match openclaw.extensions length (2)",
@@ -254,7 +254,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeExtensions: [" "],
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "src/index.ts", "dist/index.js"],
+        files: ["package.json", "granted.plugin.json", "src/index.ts", "dist/index.js"],
       }),
     ).toEqual([
       "@granted/whatsapp@2026.5.3 package.json openclaw.runtimeExtensions[0] must be a non-empty string",
@@ -275,7 +275,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
         },
         files: [
           "package.json",
-          "openclaw.plugin.json",
+          "granted.plugin.json",
           "index.ts",
           "dist/index.js",
           "setup-entry.ts",
@@ -299,7 +299,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeSetupEntry: "./dist/setup-entry.js",
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "dist/index.js", "dist/setup-entry.js"],
+        files: ["package.json", "granted.plugin.json", "dist/index.js", "dist/setup-entry.js"],
       }),
     ).toStrictEqual([]);
   });
@@ -317,7 +317,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeSetupEntry: "./dist/setup-entry.js",
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "dist/index.js"],
+        files: ["package.json", "granted.plugin.json", "dist/index.js"],
       }),
     ).toEqual(["@granted/matrix@2026.5.3 runtime setup entry not found: ./dist/setup-entry.js"]);
   });
@@ -334,7 +334,7 @@ describe("collectPluginNpmPublishedRuntimeErrors", () => {
             runtimeSetupEntry: "./dist/setup-entry.js",
           },
         },
-        files: ["package.json", "openclaw.plugin.json", "dist/index.js", "dist/setup-entry.js"],
+        files: ["package.json", "granted.plugin.json", "dist/index.js", "dist/setup-entry.js"],
       }),
     ).toEqual([
       "@granted/twitch@2026.5.3 package.json openclaw.runtimeSetupEntry requires openclaw.setupEntry",

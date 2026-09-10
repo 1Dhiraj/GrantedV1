@@ -57,7 +57,7 @@ export function writeManagedNpmPlugin(params: {
     "utf8",
   );
   fs.writeFileSync(
-    path.join(packageDir, "openclaw.plugin.json"),
+    path.join(packageDir, "granted.plugin.json"),
     JSON.stringify({
       id: params.pluginId,
       ...(params.name ? { name: params.name } : {}),

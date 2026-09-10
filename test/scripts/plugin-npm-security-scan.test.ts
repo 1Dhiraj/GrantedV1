@@ -86,7 +86,7 @@ function writePluginArtifact(params: {
     "utf8",
   );
   writeFileSync(
-    join(packageRoot, "openclaw.plugin.json"),
+    join(packageRoot, "granted.plugin.json"),
     `${JSON.stringify({ id: params.extensionId })}\n`,
     "utf8",
   );
@@ -280,7 +280,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         files: [
           "build-assets.mjs",
           "index.js",
-          "openclaw.plugin.json",
+          "granted.plugin.json",
           "package.json",
           "plugin-npm-security-scan.mjs",
         ],
@@ -299,7 +299,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       "utf8",
     );
     writeFileSync(
-      join(packageDir, "openclaw.plugin.json"),
+      join(packageDir, "granted.plugin.json"),
       `${JSON.stringify({ id: "inert" })}\n`,
       "utf8",
     );

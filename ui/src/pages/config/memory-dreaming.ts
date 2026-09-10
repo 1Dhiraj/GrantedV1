@@ -55,7 +55,7 @@ type DreamingFieldGroup = {
 };
 
 // Mirrors the memory-core manifest configSchema/uiHints
-// (extensions/memory-core/openclaw.plugin.json). Everything here previously
+// (extensions/memory-core/granted.plugin.json). Everything here previously
 // required hand-editing openclaw.json. `bounds` restates that manifest's
 // integer/minimum/maximum constraints so a rejected value is caught at the input
 // instead of after autosave hands it to the gateway.

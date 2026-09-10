@@ -804,7 +804,7 @@ describe("gateway startup-migration refusal", () => {
     const configPath = path.join(root, "openclaw.json");
     const pluginId = "updater-tool-owner";
     const pluginDir = path.join(root, "plugins", pluginId);
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "granted.plugin.json");
     const config = {
       gateway: { mode: "local", auth: { mode: "none" } },
       plugins: {

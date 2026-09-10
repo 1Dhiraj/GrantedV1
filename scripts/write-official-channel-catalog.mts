@@ -72,7 +72,7 @@ function readRepositoryPackageJsons(repoRoot: string) {
       continue;
     }
     try {
-      const pluginManifestPath = path.join(extensionsRoot, dirent.name, "openclaw.plugin.json");
+      const pluginManifestPath = path.join(extensionsRoot, dirent.name, "granted.plugin.json");
       packageJsons.push({
         dirName: dirent.name,
         packageJson: JSON.parse(fs.readFileSync(packageJsonPath, "utf8")),

@@ -7,7 +7,7 @@ import { resolveProviderAuthEnvVarCandidates } from "granted/plugin-sdk/provider
 import { describe, expect, it } from "vitest";
 import { runSingleProviderCatalog } from "../test-support/provider-model-test-helpers.js";
 import arceePlugin from "./index.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 describe("arcee provider plugin", () => {
   it("registers Arcee AI with direct and OpenRouter auth choices", async () => {

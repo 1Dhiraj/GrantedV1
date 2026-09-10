@@ -5,7 +5,7 @@ import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-ent
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { projectBasetenLiveModels, resolveBasetenDynamicModel } from "./models.js";
 import { applyBasetenConfig } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildStaticBasetenProvider } from "./provider-catalog.js";
 import { createBasetenThinkingWrapper } from "./stream.js";
 import { resolveBasetenThinkingProfile } from "./thinking.js";

@@ -8,7 +8,7 @@ import { isJsonObject, type CodexGetAccountResponse } from "./protocol.js";
 import { withCodexAppServerJsonClient } from "./request.js";
 import { captureSharedCodexAppServerCatalogLifetime } from "./shared-client.js";
 
-// Manifest contract (openclaw.plugin.json discovery.timeoutMs default): live model
+// Manifest contract (granted.plugin.json discovery.timeoutMs default): live model
 // discovery is bounded tightly so a wedged app-server degrades to the static catalog.
 const DEFAULT_MODEL_DISCOVERY_TIMEOUT_MS = 2500;
 type ModelInputType = NonNullable<ModelCatalogEntry["input"]>[number];

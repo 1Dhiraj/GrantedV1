@@ -61,7 +61,7 @@ function fixture(parentOnMain = false) {
     join(packageDir, "package.json"),
     JSON.stringify({ name: "@granted/example", version: "2026.8.2" }),
   );
-  writeFileSync(join(packageDir, "openclaw.plugin.json"), JSON.stringify({ id: "example" }));
+  writeFileSync(join(packageDir, "granted.plugin.json"), JSON.stringify({ id: "example" }));
   const tarballPath = join(artifactDir, "example.tgz");
   tar.create(
     {
@@ -73,7 +73,7 @@ function fixture(parentOnMain = false) {
       mtime: new Date("1985-10-26T08:15:00.000Z"),
       noPax: true,
     },
-    ["package/package.json", "package/openclaw.plugin.json"],
+    ["package/package.json", "package/granted.plugin.json"],
   );
   const tarball = readFileSync(tarballPath);
   const entry = readPackedClawHubTransaction({

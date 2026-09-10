@@ -163,7 +163,7 @@ If the watched Gateway exits during startup, the watcher runs `openclaw doctor -
 
 The managed tmux pane defaults to colored Gateway logs; set `FORCE_COLOR=0` when starting `pnpm gateway:watch` to disable ANSI output.
 
-The watcher restarts on build-relevant files under `src/`, extension source files, extension `package.json` and `openclaw.plugin.json` metadata, `tsconfig.json`, `package.json`, and `tsdown.config.ts`. Extension metadata changes restart the gateway without forcing a rebuild; source and config changes still rebuild `dist` first.
+The watcher restarts on build-relevant files under `src/`, extension source files, extension `package.json` and `granted.plugin.json` metadata, `tsconfig.json`, `package.json`, and `tsdown.config.ts`. Extension metadata changes restart the gateway without forcing a rebuild; source and config changes still rebuild `dist` first.
 
 Add gateway CLI flags after `gateway:watch` and they pass through on each restart. Re-running the same watch command respawns the named tmux pane; the raw watcher keeps a single-watcher lock so duplicate watcher parents are replaced instead of piling up.
 

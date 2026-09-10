@@ -39,7 +39,7 @@ function registerPlugin(overrides: TestPluginApiInput = {}) {
 
 function validateManifestConfig(value: unknown) {
   const manifest = JSON.parse(
-    fs.readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8"),
+    fs.readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
   ) as { configSchema: JsonSchemaObject };
   return validateJsonSchemaValue({
     cacheKey: "cua-computer.manifest.config.test",
@@ -60,7 +60,7 @@ describe("cua-computer plugin registration", () => {
 
   it("enables Gateway policy by default while keeping explicit plugin disable authoritative", () => {
     const manifest = JSON.parse(
-      fs.readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8"),
+      fs.readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
     ) as { enabledByDefault?: boolean; enabledByDefaultOnPlatforms?: string[] };
 
     expect(manifest.enabledByDefault).toBe(true);

@@ -361,7 +361,7 @@ describe("plugin management uninstall channel ownership", () => {
       origin: "global",
       rootDir: "/tmp/pack",
       source: `/tmp/pack/${id.endsWith("one") ? "one" : "two"}.js`,
-      manifestPath: "/tmp/pack/openclaw.plugin.json",
+      manifestPath: "/tmp/pack/granted.plugin.json",
     }));
     mocks.metadata.mockReturnValue({
       index: {

@@ -121,7 +121,7 @@ function seedChannelPkg(
       },
     },
   });
-  writeJsonFile(path.join(pluginDir, "openclaw.plugin.json"), {
+  writeJsonFile(path.join(pluginDir, "granted.plugin.json"), {
     id: pluginId,
     configSchema: { type: "object" },
     channels: [opts.id],

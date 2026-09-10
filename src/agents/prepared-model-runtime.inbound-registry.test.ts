@@ -148,7 +148,7 @@ describe("prepared reply dispatch runtime", () => {
       hooks: [],
       rootDir: `/plugins/${id}`,
       source: `/plugins/${id}/index.js`,
-      manifestPath: `/plugins/${id}/openclaw.plugin.json`,
+      manifestPath: `/plugins/${id}/granted.plugin.json`,
       activation: { onStartup: false, onAgentHarnesses: [id] },
     }));
     await refreshPreparedModelRuntimeSnapshots(config, {

@@ -164,7 +164,7 @@ describe("plugins cli policy mutations", () => {
               origin: "global",
               rootDir,
               source: fixture.runtimeSource,
-              manifestPath: `${rootDir}/openclaw.plugin.json`,
+              manifestPath: `${rootDir}/granted.plugin.json`,
             },
             "alpha",
           ),

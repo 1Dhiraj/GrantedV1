@@ -95,7 +95,7 @@ async function writeDiscoveryProbePlugin(
   await fs.mkdir(pluginDir, { recursive: true });
   await Promise.all([
     fs.writeFile(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       `${JSON.stringify(
         {
           id: DISCOVERY_PLUGIN_ID,

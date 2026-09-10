@@ -1,7 +1,7 @@
 // Xiaomi provider module implements model/runtime integration.
 import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-catalog-shared";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 export const XIAOMI_PROVIDER_ID = "xiaomi";
 export const XIAOMI_TOKEN_PLAN_PROVIDER_ID = "xiaomi-token-plan";

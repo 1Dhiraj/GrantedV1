@@ -73,7 +73,7 @@ describe("write-plugin-sdk-entry-dts", () => {
     ({ badPlugin, before, after }) => {
       const { root, write } = createFixture();
       for (const id of ["plain", badPlugin]) {
-        write(`extensions/${id}/openclaw.plugin.json`, JSON.stringify({ id }));
+        write(`extensions/${id}/granted.plugin.json`, JSON.stringify({ id }));
         write(
           `extensions/${id}/package.json`,
           JSON.stringify({

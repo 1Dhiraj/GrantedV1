@@ -98,7 +98,7 @@ function listPublishedExternalPluginOwners(): Array<{
     let manifest: { id?: unknown };
     try {
       manifest = JSON.parse(
-        readFileSync(new URL("openclaw.plugin.json", extensionDir), "utf8"),
+        readFileSync(new URL("granted.plugin.json", extensionDir), "utf8"),
       ) as { id?: unknown };
     } catch {
       throw new Error(`${entry.name} publishes without a readable plugin manifest`);

@@ -58,7 +58,7 @@ function metadataSnapshot(params: {
       origin: params.origin ?? "bundled",
       rootDir,
       source: `${rootDir}/index.ts`,
-      manifestPath: `${rootDir}/openclaw.plugin.json`,
+      manifestPath: `${rootDir}/granted.plugin.json`,
     },
     installOwner,
   );

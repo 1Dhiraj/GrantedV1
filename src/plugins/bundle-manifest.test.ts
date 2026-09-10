@@ -425,7 +425,7 @@ describe("bundle manifest parsing", () => {
 
     const nativeRoot = makeTempDir();
     writeBundleFixtureFiles(nativeRoot, {
-      "openclaw.plugin.json": { id: "native", configSchema: { type: "object" } },
+      "granted.plugin.json": { id: "native", configSchema: { type: "object" } },
       [AGENT_BUNDLE_MANIFEST_RELATIVE_PATH]: {
         $schema: AGENT_BUNDLE_MANIFEST_SCHEMA,
         name: "Agent",

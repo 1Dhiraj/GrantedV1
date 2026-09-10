@@ -148,7 +148,7 @@ function listSourceBundledPluginRoots(): string[] {
     .filter(
       (entryPath) =>
         fs.existsSync(path.join(entryPath, "package.json")) ||
-        fs.existsSync(path.join(entryPath, "openclaw.plugin.json")),
+        fs.existsSync(path.join(entryPath, "granted.plugin.json")),
     );
 }
 
@@ -162,7 +162,7 @@ function listExternalSourceBundledPluginRoots(extensionsDir: string): string[] |
 function listGitSourceBundledPluginRoots(extensionsDir: string): string[] | null {
   const result = spawnSync(
     "git",
-    ["ls-files", "--", "extensions/*/package.json", "extensions/*/openclaw.plugin.json"],
+    ["ls-files", "--", "extensions/*/package.json", "extensions/*/granted.plugin.json"],
     {
       cwd: process.cwd(),
       encoding: "utf8",
@@ -190,7 +190,7 @@ function listFindSourceBundledPluginRoots(extensionsDir: string): string[] | nul
       "package.json",
       "-o",
       "-name",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       ")",
     ],
     {

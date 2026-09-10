@@ -455,7 +455,7 @@ function writeFixture() {
     dependencies: { slugify: "^1.6.6" },
     openclaw: { extensions: ["./index.js"] },
   });
-  writeJson(path.join(dir, "openclaw.plugin.json"), {
+  writeJson(path.join(dir, "granted.plugin.json"), {
     id: pluginId,
     name: "E2E Slug Tool",
     description: "Docker E2E plugin tool fixture",

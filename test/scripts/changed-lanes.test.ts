@@ -1012,7 +1012,7 @@ describe("scripts/changed-lanes", () => {
   it.each([
     "extensions/whatsapp/src/config-ui-hints.ts",
     "extensions/mattermost/src/config-schema-core.ts",
-    "extensions/telegram/openclaw.plugin.json",
+    "extensions/telegram/granted.plugin.json",
     "extensions/discord/package.json",
     "extensions/slack/security-contract-api.ts",
     "src/config/zod-schema.core.ts",
@@ -2185,7 +2185,7 @@ describe("scripts/changed-lanes", () => {
       predicate: shouldRunDoctorContractOwnerTests,
       predicatePaths: [
         "extensions/telegram/doctor-contract-api.ts",
-        "extensions/telegram/openclaw.plugin.json",
+        "extensions/telegram/granted.plugin.json",
         "extensions/codex/src/migration/session-binding-sidecars.ts",
       ],
       changedPath: "extensions/telegram/doctor-contract-api.ts",

@@ -46,7 +46,7 @@ function createCandidate(rootDir: string): PluginCandidate {
   const source = path.join(rootDir, "index.ts");
   fs.writeFileSync(source, "export default { register() {} };\n", "utf8");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({ id: "demo", name: "Demo", configSchema: { type: "object" } }),
     "utf8",
   );
@@ -134,7 +134,7 @@ describe("plugin registry inspection", () => {
     expect(policy.refreshReasons).toEqual(["policy-changed"]);
 
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "demo",
         name: "Demo",

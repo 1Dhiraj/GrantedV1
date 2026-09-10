@@ -30,7 +30,7 @@ fs.writeFileSync(
   )}\n`,
 );
 fs.writeFileSync(
-  path.join(pluginDir, "openclaw.plugin.json"),
+  path.join(pluginDir, "granted.plugin.json"),
   `${JSON.stringify(
     {
       id: "clickclack",

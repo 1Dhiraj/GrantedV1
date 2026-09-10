@@ -1,7 +1,7 @@
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { isModernCohereModelId } from "./models.js";
 import { applyCohereConfig } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { COHERE_LIVE_MODEL_DISCOVERY } from "./provider-catalog.js";
 import { wrapCohereProviderStream } from "./stream.js";
 

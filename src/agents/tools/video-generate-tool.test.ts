@@ -171,7 +171,7 @@ function createVideoProviderSnapshot(params: {
     origin: params.origin,
     rootDir: `/plugins/${params.id}`,
     source: `/plugins/${params.id}/index.js`,
-    manifestPath: `/plugins/${params.id}/openclaw.plugin.json`,
+    manifestPath: `/plugins/${params.id}/granted.plugin.json`,
     channels: [],
     providers: [],
     cliBackends: [],
@@ -192,7 +192,7 @@ function createVideoProviderSnapshot(params: {
       id: `unrelated-${index}`,
       rootDir: `/plugins/unrelated-${index}`,
       source: `/plugins/unrelated-${index}/index.js`,
-      manifestPath: `/plugins/unrelated-${index}/openclaw.plugin.json`,
+      manifestPath: `/plugins/unrelated-${index}/granted.plugin.json`,
       contracts: index % 2 === 0 ? undefined : { videoGenerationProviders: [] },
     })),
   ];

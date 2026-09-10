@@ -2,7 +2,7 @@
  * Shared Claude CLI constants. These identify the synthetic backend, default
  * model refs, aliases, and session-id fields used across runtime and setup.
  */
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 /** Synthetic provider/backend id for Claude Code CLI-backed Anthropic models. */
 export const CLAUDE_CLI_BACKEND_ID = "claude-cli";

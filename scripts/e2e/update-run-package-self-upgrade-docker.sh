@@ -115,7 +115,7 @@ prepare_qa_channel_fixture() {
   ) >>"$ARTIFACT_DIR/historical-qa-channel-build.log" 2>&1
 
   local compiled_plugin="$checkout_root/dist/extensions/qa-channel"
-  for required_file in package.json openclaw.plugin.json index.js setup-entry.js; do
+  for required_file in package.json granted.plugin.json index.js setup-entry.js; do
     if [ ! -f "$compiled_plugin/$required_file" ]; then
       echo "shipped build omitted QA channel artifact $required_file" >&2
       return 1

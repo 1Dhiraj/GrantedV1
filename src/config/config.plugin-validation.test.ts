@@ -44,7 +44,7 @@ async function writePluginFixture(params: {
     manifest.channels = params.channels;
   }
   await fs.writeFile(
-    path.join(params.dir, "openclaw.plugin.json"),
+    path.join(params.dir, "granted.plugin.json"),
     JSON.stringify(manifest, null, 2),
     "utf-8",
   );
@@ -273,7 +273,7 @@ describe("config plugin validation", () => {
       process.cwd(),
       "extensions",
       "voice-call",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
     );
     const voiceCallManifest = JSON.parse(await fs.readFile(voiceCallManifestPath, "utf-8")) as {
       configSchema?: Record<string, unknown>;
@@ -323,7 +323,7 @@ describe("config plugin validation", () => {
         properties: { mode: { $ref: "#/$defs/Mode" } },
       },
       hooks: [],
-      manifestPath: "/bundled/schema/openclaw.plugin.json",
+      manifestPath: "/bundled/schema/granted.plugin.json",
       origin: "bundled",
       providers: [],
       rootDir: "/bundled/schema",
@@ -1583,7 +1583,7 @@ describe("config plugin validation", () => {
               {
                 level: "error",
                 pluginId: "broken-local",
-                source: path.join(suiteHome, "extensions", "broken-local", "openclaw.plugin.json"),
+                source: path.join(suiteHome, "extensions", "broken-local", "granted.plugin.json"),
                 message: "plugin manifest entry does not exist: dist/index.js",
               },
             ],
@@ -1623,7 +1623,7 @@ describe("config plugin validation", () => {
               {
                 level: "error",
                 pluginId: "broken-local",
-                source: path.join(suiteHome, "extensions", "broken-local", "openclaw.plugin.json"),
+                source: path.join(suiteHome, "extensions", "broken-local", "granted.plugin.json"),
                 message: "plugin manifest entry does not exist: dist/index.js",
               },
             ],

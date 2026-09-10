@@ -81,7 +81,7 @@ function listExternalBundledPluginDirs(): string[] | null {
   return [...metadataByDir.entries()]
     .filter(
       ([, metadataFiles]) =>
-        metadataFiles.has("package.json") && metadataFiles.has("openclaw.plugin.json"),
+        metadataFiles.has("package.json") && metadataFiles.has("granted.plugin.json"),
     )
     .map(([dirName]) => dirName)
     .toSorted();
@@ -89,7 +89,7 @@ function listExternalBundledPluginDirs(): string[] | null {
 
 function listGitPluginMetadataFiles(): string[] | null {
   return listGitTrackedFiles({
-    pathspecs: ["extensions/*/package.json", "extensions/*/openclaw.plugin.json"],
+    pathspecs: ["extensions/*/package.json", "extensions/*/granted.plugin.json"],
   });
 }
 
@@ -107,7 +107,7 @@ function listFindPluginMetadataFiles(): string[] | null {
       "package.json",
       "-o",
       "-name",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       ")",
     ],
     {
@@ -132,7 +132,7 @@ function readBundledPluginRecords(): BundledPluginRecord[] {
   return listBundledPluginDirs().flatMap((dirName) => {
     const rootDir = path.join(EXTENSIONS_ROOT, dirName);
     const packagePath = path.join(rootDir, "package.json");
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     if (!fs.existsSync(packagePath) || !fs.existsSync(manifestPath)) {
       return [];
     }
@@ -206,7 +206,7 @@ describe("bundled plugin naming guardrails", () => {
     {
       name: "keeps bundled workspace directories aligned with the plugin id unless explicitly allowlisted",
       message:
-        "Bundled extension directory names should match openclaw.plugin.json:id. If a legacy exception is unavoidable, add it to DIR_ID_EXCEPTIONS with a comment.",
+        "Bundled extension directory names should match granted.plugin.json:id. If a legacy exception is unavoidable, add it to DIR_ID_EXCEPTIONS with a comment.",
       collectMismatches: (records: BundledPluginRecord[]) =>
         records
           .filter(
@@ -244,7 +244,7 @@ describe("bundled plugin naming guardrails", () => {
     {
       name: "keeps bundled channel ids aligned with the canonical plugin id",
       message:
-        "Bundled openclaw.channel.id values must match openclaw.plugin.json:id for the owning plugin.",
+        "Bundled openclaw.channel.id values must match granted.plugin.json:id for the owning plugin.",
       collectMismatches: (records: BundledPluginRecord[]) =>
         records
           .filter(

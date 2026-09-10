@@ -117,7 +117,7 @@ async function writeRouteCapturePlugin(params: {
 }): Promise<void> {
   await fs.mkdir(params.pluginDir, { recursive: true });
   await fs.writeFile(
-    path.join(params.pluginDir, "openclaw.plugin.json"),
+    path.join(params.pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: PROOF_CHANNEL_ID,

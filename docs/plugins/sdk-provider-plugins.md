@@ -51,7 +51,7 @@ catalog, API-key auth, and dynamic model resolution.
     }
     ```
 
-    ```json openclaw.plugin.json
+    ```json granted.plugin.json
     {
       "id": "acme-ai",
       "name": "Acme AI",
@@ -1284,7 +1284,7 @@ folder, not a plugin package - do not use it here.
 ```
 <bundled-plugin-root>/acme-ai/
 ├── package.json              # openclaw.providers metadata
-├── openclaw.plugin.json      # Manifest with provider auth metadata
+├── granted.plugin.json      # Manifest with provider auth metadata
 ├── index.ts                  # definePluginEntry + registerProvider
 └── src/
     ├── provider.test.ts      # Tests

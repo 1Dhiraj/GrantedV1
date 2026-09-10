@@ -51,7 +51,7 @@ function createManifestRecord(
       origin: "config",
       rootDir,
       source: path.join(rootDir, "index.ts"),
-      manifestPath: path.join(rootDir, "openclaw.plugin.json"),
+      manifestPath: path.join(rootDir, "granted.plugin.json"),
       ...overrides,
     },
     owner,
@@ -328,7 +328,7 @@ describe("persistPluginInstall enablement", () => {
         recordPluginManifestInstallOwner(
           {
             id: "needs-config",
-            manifestPath: "/tmp/needs-config/openclaw.plugin.json",
+            manifestPath: "/tmp/needs-config/granted.plugin.json",
             configSchema: {
               type: "object",
               required: ["token"],
@@ -436,7 +436,7 @@ describe("persistPluginInstall enablement", () => {
         recordPluginManifestInstallOwner(
           {
             id: "needs-config",
-            manifestPath: "/tmp/needs-config/openclaw.plugin.json",
+            manifestPath: "/tmp/needs-config/granted.plugin.json",
             configSchema: {
               type: "object",
               required: ["token"],

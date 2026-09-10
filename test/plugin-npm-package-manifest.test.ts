@@ -132,7 +132,7 @@ function writePublishablePluginPackage(repoDir: string): string {
       },
     },
   });
-  writeJsonFile(join(packageDir, "openclaw.plugin.json"), { id: "diffs" });
+  writeJsonFile(join(packageDir, "granted.plugin.json"), { id: "diffs" });
   writeFileText(join(packageDir, "README.md"), "# Diffs\n");
   writeFileText(join(packageDir, "SKILL.md"), "# Diffs Skill\n");
   writeFileText(join(packageDir, "skills", "diffs", "SKILL.md"), "# Diffs Skill\n");
@@ -558,7 +558,7 @@ describe("plugin npm package manifest staging", () => {
         properties: {},
       },
     };
-    writeJsonFile(join(packageDir, "openclaw.plugin.json"), sourceManifest);
+    writeJsonFile(join(packageDir, "granted.plugin.json"), sourceManifest);
     writeGeneratedChannelMetadata(repoDir);
 
     const resolved = resolveAugmentedPluginNpmManifest({
@@ -589,14 +589,14 @@ describe("plugin npm package manifest staging", () => {
       },
     });
 
-    const originalText = readFileSync(join(packageDir, "openclaw.plugin.json"), "utf8");
+    const originalText = readFileSync(join(packageDir, "granted.plugin.json"), "utf8");
     withAugmentedPluginNpmManifestForPackage({ repoRoot: repoDir, packageDir }, () => {
       const stagedManifest = JSON.parse(
-        readFileSync(join(packageDir, "openclaw.plugin.json"), "utf8"),
+        readFileSync(join(packageDir, "granted.plugin.json"), "utf8"),
       );
       expect(stagedManifest.channelConfigs.twitch.description).toBe("Twitch chat integration");
     });
-    expect(readFileSync(join(packageDir, "openclaw.plugin.json"), "utf8")).toBe(originalText);
+    expect(readFileSync(join(packageDir, "granted.plugin.json"), "utf8")).toBe(originalText);
   });
 
   it("overlays package-local runtime metadata while packing and restores source package json", () => {
@@ -633,7 +633,7 @@ describe("plugin npm package manifest staging", () => {
       version: "2026.5.3",
       type: "module",
       bundledDependencies: [],
-      files: ["dist/**", "openclaw.plugin.json", "README.md", "SKILL.md", "skills/**"],
+      files: ["dist/**", "granted.plugin.json", "README.md", "SKILL.md", "skills/**"],
       peerDependencies: {
         openclaw: ">=2026.4.30",
       },

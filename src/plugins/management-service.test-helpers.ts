@@ -44,7 +44,7 @@ export function metadataSnapshot(params: {
     origin,
     rootDir: `/tmp/${id}`,
     source: `/tmp/${id}/index.ts`,
-    manifestPath: `/tmp/${id}/openclaw.plugin.json`,
+    manifestPath: `/tmp/${id}/granted.plugin.json`,
   };
   return {
     index: {

@@ -244,15 +244,15 @@ export function validateToolPluginProject(params: {
     existingManifest: params.manifest,
   });
   if (!jsonSchemaValuesEqual(params.manifest, expectedManifest)) {
-    errors.push("openclaw.plugin.json generated metadata is stale. Run openclaw plugins build.");
+    errors.push("granted.plugin.json generated metadata is stale. Run openclaw plugins build.");
   }
   if (params.manifest.id !== params.metadata.id) {
     errors.push(
-      `openclaw.plugin.json id (${String(params.manifest.id)}) must match entry id (${params.metadata.id})`,
+      `granted.plugin.json id (${String(params.manifest.id)}) must match entry id (${params.metadata.id})`,
     );
   }
   if (!params.manifest.configSchema || typeof params.manifest.configSchema !== "object") {
-    errors.push("openclaw.plugin.json must include object configSchema");
+    errors.push("granted.plugin.json must include object configSchema");
   }
   const manifestContracts = params.manifest.contracts as { tools?: unknown } | undefined;
   const manifestTools = Array.isArray(manifestContracts?.tools)
@@ -262,11 +262,11 @@ export function validateToolPluginProject(params: {
   const missing = metadataTools.filter((tool) => !manifestTools.includes(tool));
   const extra = manifestTools.filter((tool) => !metadataTools.includes(tool));
   if (missing.length > 0) {
-    errors.push(`openclaw.plugin.json contracts.tools is missing: ${missing.join(", ")}`);
+    errors.push(`granted.plugin.json contracts.tools is missing: ${missing.join(", ")}`);
   }
   if (extra.length > 0) {
     errors.push(
-      `openclaw.plugin.json contracts.tools has no matching defineToolPlugin tool: ${extra.join(
+      `granted.plugin.json contracts.tools has no matching defineToolPlugin tool: ${extra.join(
         ", ",
       )}`,
     );
@@ -493,7 +493,7 @@ function writeToolPluginScaffold(params: { rootDir: string; id: string; name: st
       "plugin:validate": "npm run build && openclaw plugins validate --entry ./dist/index.js",
       test: "vitest run --config ./vitest.config.ts",
     },
-    files: ["dist", "openclaw.plugin.json", "README.md"],
+    files: ["dist", "granted.plugin.json", "README.md"],
     peerDependencies: {
       openclaw: TOOL_PLUGIN_API_RANGE,
     },
@@ -587,7 +587,7 @@ function writeProviderPluginScaffold(params: { rootDir: string; id: string; name
       test: "vitest run --config ./vitest.config.ts",
       validate: "npm run build && clawhub package validate . --out .clawhub-validation",
     },
-    files: ["dist", "openclaw.plugin.json", "README.md"],
+    files: ["dist", "granted.plugin.json", "README.md"],
     peerDependencies: {
       openclaw: `>=${VERSION}`,
     },

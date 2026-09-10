@@ -86,7 +86,7 @@ function fixture() {
     id: "fixture-channel",
     body: "module.exports = { id: 'fixture-channel', register() {} };",
   });
-  const manifestPath = path.join(channelPlugin.dir, "openclaw.plugin.json");
+  const manifestPath = path.join(channelPlugin.dir, "granted.plugin.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   fs.writeFileSync(
     manifestPath,

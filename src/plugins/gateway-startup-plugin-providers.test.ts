@@ -15,7 +15,7 @@ function createManifestRecord(
     origin: "bundled",
     rootDir: `/tmp/plugins/${plugin.id}`,
     source: `/tmp/plugins/${plugin.id}/index.ts`,
-    manifestPath: `/tmp/plugins/${plugin.id}/openclaw.plugin.json`,
+    manifestPath: `/tmp/plugins/${plugin.id}/granted.plugin.json`,
     ...plugin,
   };
 }

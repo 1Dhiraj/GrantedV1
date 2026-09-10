@@ -25,7 +25,7 @@ const requireFromHere = createRequire(import.meta.url);
 
 function isAcpxPluginRoot(dir: string): boolean {
   return (
-    fs.existsSync(path.join(dir, "openclaw.plugin.json")) &&
+    fs.existsSync(path.join(dir, "granted.plugin.json")) &&
     fs.existsSync(path.join(dir, "package.json"))
   );
 }

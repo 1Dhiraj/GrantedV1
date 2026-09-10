@@ -174,7 +174,7 @@ function writePluginManifest(params: {
   requiresPlugins?: string[];
 }) {
   fs.writeFileSync(
-    path.join(params.pluginDir, "openclaw.plugin.json"),
+    path.join(params.pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: params.id,
       ...(params.requiresPlugins ? { requiresPlugins: params.requiresPlugins } : {}),
@@ -784,7 +784,7 @@ describe("discoverOpenClawPlugins", () => {
       '{"name":"@granted/twitch"}\n',
       "utf-8",
     );
-    fs.writeFileSync(path.join(extensionDir, "openclaw.plugin.json"), '{"id":"twitch"}\n', "utf-8");
+    fs.writeFileSync(path.join(extensionDir, "granted.plugin.json"), '{"id":"twitch"}\n', "utf-8");
 
     const result = withOpenClawPackageArgv(packageRoot, () =>
       discoverOpenClawPlugins({ env: buildDiscoveryEnv(stateDir) }),
@@ -1997,7 +1997,7 @@ describe("discoverOpenClawPlugins", () => {
         JSON.stringify({ name: 42, openclaw: { extensions: ["./index.js"] } }),
         "utf-8",
       );
-      fs.writeFileSync(path.join(pluginDir, "openclaw.plugin.json"), '{"id":', "utf-8");
+      fs.writeFileSync(path.join(pluginDir, "granted.plugin.json"), '{"id":', "utf-8");
       writePluginEntry(path.join(pluginDir, "index.js"));
     }
 
@@ -2026,7 +2026,7 @@ describe("discoverOpenClawPlugins", () => {
       }),
       "utf-8",
     );
-    fs.writeFileSync(path.join(pluginDir, "openclaw.plugin.json"), '{"id":', "utf-8");
+    fs.writeFileSync(path.join(pluginDir, "granted.plugin.json"), '{"id":', "utf-8");
     writePluginEntry(path.join(pluginDir, "index.js"));
 
     const discovery = await discoverWithStateDir(stateDir, {});
@@ -2059,7 +2059,7 @@ describe("discoverOpenClawPlugins", () => {
         }),
         "utf-8",
       );
-      fs.writeFileSync(path.join(pluginDir, "openclaw.plugin.json"), '{"id":', "utf-8");
+      fs.writeFileSync(path.join(pluginDir, "granted.plugin.json"), '{"id":', "utf-8");
       writePluginEntry(path.join(pluginDir, "index.js"));
 
       const discovery = await discoverWithStateDir(stateDir, {});

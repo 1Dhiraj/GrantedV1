@@ -70,7 +70,7 @@ export function hasUsableBundledPluginTree(pluginsDir: string): boolean {
       const pluginDir = path.join(pluginsDir, entry.name);
       return (
         pluginCacheExistsSync(path.join(pluginDir, "package.json")) ||
-        pluginCacheExistsSync(path.join(pluginDir, "openclaw.plugin.json"))
+        pluginCacheExistsSync(path.join(pluginDir, "granted.plugin.json"))
       );
     });
   } catch {

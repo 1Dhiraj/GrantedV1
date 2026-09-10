@@ -62,7 +62,7 @@ const modelPluginMetadataSnapshot = vi.hoisted(() => {
       enabledByDefault: true,
       rootDir: "/test/anthropic",
       source: "/test/anthropic/index.js",
-      manifestPath: "/test/anthropic/openclaw.plugin.json",
+      manifestPath: "/test/anthropic/granted.plugin.json",
     },
     {
       id: "byteplus",
@@ -79,7 +79,7 @@ const modelPluginMetadataSnapshot = vi.hoisted(() => {
       origin: "bundled",
       rootDir: "/test/byteplus",
       source: "/test/byteplus/index.js",
-      manifestPath: "/test/byteplus/openclaw.plugin.json",
+      manifestPath: "/test/byteplus/granted.plugin.json",
     },
     {
       id: "github-copilot",
@@ -100,7 +100,7 @@ const modelPluginMetadataSnapshot = vi.hoisted(() => {
       origin: "bundled",
       rootDir: "/test/github-copilot",
       source: "/test/github-copilot/index.js",
-      manifestPath: "/test/github-copilot/openclaw.plugin.json",
+      manifestPath: "/test/github-copilot/granted.plugin.json",
     },
   ];
   const index: PluginMetadataSnapshot["index"] = {

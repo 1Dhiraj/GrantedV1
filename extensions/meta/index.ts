@@ -4,7 +4,7 @@
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { applyMetaConfig } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildMetaProvider } from "./provider-catalog.js";
 import { wrapMetaProviderStream } from "./stream.js";
 import { resolveMetaThinkingProfile } from "./thinking.js";

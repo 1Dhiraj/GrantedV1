@@ -104,7 +104,7 @@ describe("plugin package facts", () => {
       }),
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "shared-entry",
         configSchema: { type: "object" },
@@ -187,7 +187,7 @@ describe("plugin package facts", () => {
     const bundledDir = path.join(root, "bundled");
     const pluginDir = path.join(bundledDir, "generation-owner");
     fs.mkdirSync(pluginDir, { recursive: true });
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "granted.plugin.json");
     const packagePath = path.join(pluginDir, "package.json");
     const writeGeneration = (version: string) => {
       const manifest = JSON.stringify({

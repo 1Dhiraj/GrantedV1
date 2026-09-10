@@ -68,7 +68,7 @@ function createSecretFixturePlugin(): PluginManifestRecord {
     },
     configSchema: { type: "object", additionalProperties: true },
     hooks: [],
-    manifestPath: "/tmp/secret-fixture/openclaw.plugin.json",
+    manifestPath: "/tmp/secret-fixture/granted.plugin.json",
     origin: "bundled",
     providers: [],
     rootDir: "/tmp/secret-fixture",

@@ -471,7 +471,7 @@ describe("applyPluginAutoEnable core", () => {
     expect(result.changes).toStrictEqual([]);
     expect(
       readFileSync.mock.calls.some(
-        ([filePath]) => typeof filePath === "string" && filePath.endsWith("openclaw.plugin.json"),
+        ([filePath]) => typeof filePath === "string" && filePath.endsWith("granted.plugin.json"),
       ),
     ).toBe(false);
   });
@@ -499,7 +499,7 @@ describe("applyPluginAutoEnable core", () => {
     expect(result.changes).toStrictEqual([]);
     expect(
       readFileSync.mock.calls.some(
-        ([filePath]) => typeof filePath === "string" && filePath.endsWith("openclaw.plugin.json"),
+        ([filePath]) => typeof filePath === "string" && filePath.endsWith("granted.plugin.json"),
       ),
     ).toBe(false);
   });

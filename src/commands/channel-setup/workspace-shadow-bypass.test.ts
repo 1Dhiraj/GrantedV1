@@ -114,7 +114,7 @@ function createManifestChannelPlugin(id: string, channels: string[]): PluginMani
     origin: "workspace",
     rootDir: `/tmp/openclaw-test/${id}`,
     source: `/tmp/openclaw-test/${id}/index.ts`,
-    manifestPath: `/tmp/openclaw-test/${id}/openclaw.plugin.json`,
+    manifestPath: `/tmp/openclaw-test/${id}/granted.plugin.json`,
   };
 }
 

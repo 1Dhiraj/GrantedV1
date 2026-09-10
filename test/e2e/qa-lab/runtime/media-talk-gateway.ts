@@ -98,7 +98,7 @@ async function createFixturePlugin(root: string) {
   const realtimeCallsPath = path.join(root, "realtime-calls.jsonl");
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: FIXTURE_PLUGIN_ID,

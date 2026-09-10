@@ -79,7 +79,7 @@ describe("post-core bundled plugin retirement", () => {
     fs.mkdirSync(bundledDir, { recursive: true });
     fs.writeFileSync(path.join(bundledDir, "index.js"), "export default {};\n", "utf8");
     fs.writeFileSync(
-      path.join(bundledDir, "openclaw.plugin.json"),
+      path.join(bundledDir, "granted.plugin.json"),
       JSON.stringify({
         id: "codex",
         name: "codex",
@@ -111,7 +111,7 @@ describe("post-core bundled plugin retirement", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(packageDir, "openclaw.plugin.json"),
+      path.join(packageDir, "granted.plugin.json"),
       JSON.stringify({ id: "codex", name: "codex", configSchema: { type: "object" } }),
       "utf8",
     );

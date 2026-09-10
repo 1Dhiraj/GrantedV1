@@ -234,7 +234,7 @@ TARGET_VERSION="$target_version" TARGET_TAG="$TARGET_TAG" node -e '
 CURRENT_PHASE=install-plugin
 qa_plugin_source="/tmp/openclaw-update-run-build/dist/extensions/qa-channel"
 qa_plugin_dir="$qa_plugin_source"
-if [ ! -f "$qa_plugin_source/openclaw.plugin.json" ] || [ ! -f "$qa_plugin_source/index.js" ]; then
+if [ ! -f "$qa_plugin_source/granted.plugin.json" ] || [ ! -f "$qa_plugin_source/index.js" ]; then
   echo "compiled tagged QA channel fixture is missing" >&2
   exit 1
 fi

@@ -12,7 +12,7 @@ function makePluginDir() {
 }
 
 function writeManifest(dir: string, manifest: Record<string, unknown>) {
-  fs.writeFileSync(path.join(dir, "openclaw.plugin.json"), JSON.stringify(manifest), "utf8");
+  fs.writeFileSync(path.join(dir, "granted.plugin.json"), JSON.stringify(manifest), "utf8");
 }
 
 describe("plugin manifest model catalog", () => {

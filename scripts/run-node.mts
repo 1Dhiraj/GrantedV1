@@ -506,7 +506,7 @@ const listRequiredBundledPluginMetadataOutputs = (
       requiredPaths.push(path.join(builtPluginDir, "package.json"));
     }
     if (hasManifest) {
-      requiredPaths.push(path.join(builtPluginDir, "openclaw.plugin.json"));
+      requiredPaths.push(path.join(builtPluginDir, "granted.plugin.json"));
     }
     return requiredPaths;
   });

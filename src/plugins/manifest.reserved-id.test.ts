@@ -16,7 +16,7 @@ describe("reserved plugin ids", () => {
     const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-node-mcp-manifest-"));
     tempDirs.push(rootDir);
     await fs.writeFile(
-      path.join(rootDir, "openclaw.plugin.json"),
+      path.join(rootDir, "granted.plugin.json"),
       JSON.stringify({ id: "node-mcp", configSchema: { type: "object" } }),
     );
 

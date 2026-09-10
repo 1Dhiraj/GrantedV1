@@ -45,7 +45,7 @@ function createSetupFailureFixture(params: {
   });
   writeFixtureJson(
     pluginDir,
-    "openclaw.plugin.json",
+    "granted.plugin.json",
     pluginManifest(params.id, [params.channelId ?? params.id]),
   );
   writeFixtureText(
@@ -118,7 +118,7 @@ function loadBuiltArtifactScenario(scenario: BuiltArtifactScenario) {
   if (scenario.packageBeforeManifest && packageManifest) {
     writeFixtureJson(pluginDir, "package.json", packageManifest);
   }
-  writeFixtureJson(pluginDir, "openclaw.plugin.json", pluginManifest(scenario.id));
+  writeFixtureJson(pluginDir, "granted.plugin.json", pluginManifest(scenario.id));
   if (!scenario.packageBeforeManifest && packageManifest) {
     writeFixtureJson(pluginDir, "package.json", packageManifest);
   }
@@ -169,7 +169,7 @@ function loadSourceExternalArtifactScenario(params: {
   mkdirSafe(path.join(repoRoot, ".git"));
   mkdirSafe(path.join(repoRoot, "src"));
   writeFixtureText(repoRoot, "pnpm-workspace.yaml", "packages: []\n");
-  writeFixtureJson(sourceDir, "openclaw.plugin.json", pluginManifest(id));
+  writeFixtureJson(sourceDir, "granted.plugin.json", pluginManifest(id));
   writeFixtureJson(sourceDir, "package.json", {
     openclaw: {
       extensions: ["./index.ts"],
@@ -181,8 +181,8 @@ function loadSourceExternalArtifactScenario(params: {
   if (params.rootBuildBody) {
     mkdirSafe(rootBuildDir);
     fs.copyFileSync(
-      path.join(sourceDir, "openclaw.plugin.json"),
-      path.join(rootBuildDir, "openclaw.plugin.json"),
+      path.join(sourceDir, "granted.plugin.json"),
+      path.join(rootBuildDir, "granted.plugin.json"),
     );
     writeFixtureJson(rootBuildDir, "package.json", {
       openclaw: { extensions: ["./index.js"] },
@@ -245,7 +245,7 @@ ${channelPluginSource({
       );
       writeFixtureJson(
         globalDir,
-        "openclaw.plugin.json",
+        "granted.plugin.json",
         pluginManifest("trusted-global-channel", ["trusted-global-channel"]),
       );
       writeFixtureJson(globalDir, "package.json", {
@@ -299,7 +299,7 @@ ${channelPluginSource({
 })}`,
     });
     fs.writeFileSync(
-      path.join(plugin.dir, "openclaw.plugin.json"),
+      path.join(plugin.dir, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "auto-enabled-load-path-channel",
@@ -996,7 +996,7 @@ ${channelPluginSource({
     });
     writeFixtureJson(
       pluginDir,
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       pluginManifest("workspace-artifact-symlink-test"),
     );
     writeFixtureText(

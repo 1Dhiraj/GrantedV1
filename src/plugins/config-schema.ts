@@ -16,14 +16,14 @@ type ZodSchemaWithToJsonSchema = ZodTypeAny & {
 };
 
 type BuildPluginConfigSchemaOptions = {
-  /** @deprecated Declare top-level `uiHints` in `openclaw.plugin.json`. */
+  /** @deprecated Declare top-level `uiHints` in `granted.plugin.json`. */
   uiHints?: Record<string, PluginConfigUiHint>;
   safeParse?: GrantedPluginConfigSchema["safeParse"];
 };
 
 type BuildJsonPluginConfigSchemaOptions = {
   cacheKey?: string;
-  /** @deprecated Declare top-level `uiHints` in `openclaw.plugin.json`. */
+  /** @deprecated Declare top-level `uiHints` in `granted.plugin.json`. */
   uiHints?: Record<string, PluginConfigUiHint>;
   safeParse?: GrantedPluginConfigSchema["safeParse"];
 };

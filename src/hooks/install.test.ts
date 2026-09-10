@@ -561,7 +561,7 @@ describe("installHooksFromPath", () => {
     expect(result.packageKind).toBe("plugin-capable");
   });
 
-  it.each([".codex-plugin/plugin.json", "hooks/hooks.json", "openclaw.plugin.json"])(
+  it.each([".codex-plugin/plugin.json", "hooks/hooks.json", "granted.plugin.json"])(
     "classifies hook packages with bundle marker %s as plugin-capable",
     async (bundleMarker) => {
       const stateDir = makeTempDir();

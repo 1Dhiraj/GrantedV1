@@ -216,7 +216,7 @@ describe("buildOfficialChannelCatalog", () => {
         },
       },
     });
-    writeJson(path.join(repoRoot, "extensions", "wecom", "openclaw.plugin.json"), {
+    writeJson(path.join(repoRoot, "extensions", "wecom", "granted.plugin.json"), {
       id: "wecom",
       catalog: {
         featured: true,

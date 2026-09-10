@@ -6,7 +6,7 @@ import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { ensureModelAllowlistEntry } from "granted/plugin-sdk/provider-onboard";
 import { BYTEPLUS_PROVIDER_CATALOG } from "./models.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildBytePlusVideoGenerationProvider } from "./video-generation-provider.js";
 
 const PROVIDER_ID = "byteplus";

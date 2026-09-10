@@ -2,7 +2,7 @@ import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboa
 import { describe, expect, it } from "vitest";
 import { TOGETHER_MODEL_CATALOG } from "./models.js";
 import { applyTogetherConfig, TOGETHER_DEFAULT_MODEL_REF } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 describe("Together onboarding", () => {
   it("applies the manifest catalog, default, and alias", () => {

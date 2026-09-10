@@ -540,7 +540,7 @@ mkdir -p "$plugin_dir"
 cat >"$plugin_dir/package.json" <<'JSON'
 {"name":"@granted/test-bad-plugin","version":"1.0.0","openclaw":{"extensions":["./index.cjs"],"setupEntry":"./setup-entry.cjs"}}
 JSON
-cat >"$plugin_dir/openclaw.plugin.json" <<'JSON'
+cat >"$plugin_dir/granted.plugin.json" <<'JSON'
 {"id":"test-bad-plugin","configSchema":{"type":"object","additionalProperties":false,"properties":{}},"channels":["test-bad-plugin"]}
 JSON
 cat >"$plugin_dir/index.cjs" <<'JS'

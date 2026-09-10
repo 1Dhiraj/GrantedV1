@@ -45,7 +45,7 @@ function createRegisteredExtensionPlugin(params: {
   );
   fs.writeFileSync(path.join(packageDir, "index.js"), "export default {};\n");
   fs.writeFileSync(
-    path.join(packageDir, "openclaw.plugin.json"),
+    path.join(packageDir, "granted.plugin.json"),
     JSON.stringify({ id: pluginId, configSchema: { type: "object" } }),
   );
   fs.writeFileSync(

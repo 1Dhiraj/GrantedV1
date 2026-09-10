@@ -121,7 +121,7 @@ function readBundledPluginManifestRecordFromDir(params: {
 }): FacadePluginManifestLike | null {
   const file = readPluginCacheFile({
     rootDir: path.join(params.pluginsRoot, params.resolvedDirName),
-    relativePath: "openclaw.plugin.json",
+    relativePath: "granted.plugin.json",
     rejectHardlinks: false,
   });
   if (!file.ok) {

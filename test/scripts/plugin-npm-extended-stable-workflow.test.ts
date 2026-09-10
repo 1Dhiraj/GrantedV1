@@ -16,7 +16,7 @@ import { PLUGIN_NPM_RELEASE_AUTHORITY_PATHS } from "../../scripts/lib/plugin-pub
 
 const workflowPath = ".github/workflows/plugin-npm-release.yml";
 const metaPackagePath = "extensions/meta/package.json";
-const metaManifestPath = "extensions/meta/openclaw.plugin.json";
+const metaManifestPath = "extensions/meta/granted.plugin.json";
 
 type Step = {
   env?: Record<string, string>;

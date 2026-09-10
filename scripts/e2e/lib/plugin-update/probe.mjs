@@ -46,7 +46,7 @@ function writeJson(file, value) {
 function seedInstallState() {
   const pluginRoot = openclawPath("extensions", "lossless-claw");
   const pluginSource = path.join(pluginRoot, "index.js");
-  const pluginManifest = path.join(pluginRoot, "openclaw.plugin.json");
+  const pluginManifest = path.join(pluginRoot, "granted.plugin.json");
   writeJson(path.join(pluginRoot, "package.json"), {
     name: "@example/lossless-claw",
     version: "0.9.0",

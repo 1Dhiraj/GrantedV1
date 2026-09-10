@@ -60,7 +60,7 @@ function writePluginManifest(root: string, pluginRoot: string, manifest: Record<
   const dir = path.join(root, pluginRoot);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(
-    path.join(dir, "openclaw.plugin.json"),
+    path.join(dir, "granted.plugin.json"),
     `${JSON.stringify(manifest, null, 2)}\n`,
     "utf8",
   );
@@ -1420,7 +1420,7 @@ describe("bundled plugin install/uninstall probe", () => {
     const root = makePackageRoot();
     fs.mkdirSync(path.join(root, "dist", "extensions", "qa-channel"), { recursive: true });
     fs.writeFileSync(
-      path.join(root, "dist", "extensions", "qa-channel", "openclaw.plugin.json"),
+      path.join(root, "dist", "extensions", "qa-channel", "granted.plugin.json"),
       '{"id":"qa-channel"}\n',
       "utf8",
     );
@@ -1606,7 +1606,7 @@ describe("bundled plugin install/uninstall probe", () => {
       recursive: true,
     });
     fs.writeFileSync(
-      path.join(root, "dist-runtime", "extensions", "runtime-only", "openclaw.plugin.json"),
+      path.join(root, "dist-runtime", "extensions", "runtime-only", "granted.plugin.json"),
       '{"id":"runtime-only"}\n',
       "utf8",
     );

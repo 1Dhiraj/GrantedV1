@@ -32,7 +32,7 @@ type StepFunManifest = {
 };
 
 function readManifest(): StepFunManifest {
-  return JSON.parse(readFileSync(resolve(import.meta.dirname, "openclaw.plugin.json"), "utf-8"));
+  return JSON.parse(readFileSync(resolve(import.meta.dirname, "granted.plugin.json"), "utf-8"));
 }
 
 describe("stepfun provider registration", () => {

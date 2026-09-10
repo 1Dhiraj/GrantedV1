@@ -432,7 +432,7 @@ seed_source_only_plugin_shadow() {
   }
 }
 JSON
-  cat >"$shadow_root/openclaw.plugin.json" <<'JSON'
+  cat >"$shadow_root/granted.plugin.json" <<'JSON'
 {
   "id": "opik-openclaw",
   "activation": {
@@ -518,7 +518,7 @@ fs.writeFileSync(
   )}\n`,
 );
 fs.writeFileSync(
-  path.join(root, "openclaw.plugin.json"),
+  path.join(root, "granted.plugin.json"),
   `${JSON.stringify(
     {
       id: "brave",

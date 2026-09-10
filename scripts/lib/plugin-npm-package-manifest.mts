@@ -1007,7 +1007,7 @@ export function mergeGeneratedChannelConfigs(
 export function resolveAugmentedPluginNpmManifest(params: PluginPackageParams) {
   const repoRoot = path.resolve(params.repoRoot ?? ".");
   const packageDir = resolvePackageDir(repoRoot, params.packageDir);
-  const manifestPath = path.join(packageDir, "openclaw.plugin.json");
+  const manifestPath = path.join(packageDir, "granted.plugin.json");
   if (!fs.existsSync(manifestPath)) {
     return {
       manifestPath,

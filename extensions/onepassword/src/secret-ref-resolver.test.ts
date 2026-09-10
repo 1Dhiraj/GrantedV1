@@ -23,7 +23,7 @@ const sourceStaticAssetPaths = [
   fileURLToPath(new URL("../onepassword-op-path.js", import.meta.url)),
   fileURLToPath(new URL("../onepassword-secret-id.js", import.meta.url)),
 ];
-const manifestPath = fileURLToPath(new URL("../openclaw.plugin.json", import.meta.url));
+const manifestPath = fileURLToPath(new URL("../granted.plugin.json", import.meta.url));
 const packagePath = fileURLToPath(new URL("../package.json", import.meta.url));
 const rootTsconfigPath = path.resolve("tsconfig.json");
 // The manifest test reads the production source; the timeout-only staged executable needs a

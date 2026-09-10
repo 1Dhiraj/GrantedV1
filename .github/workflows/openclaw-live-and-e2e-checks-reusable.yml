@@ -959,7 +959,7 @@ jobs:
           path: .release-target
           persist-credentials: false
           sparse-checkout: |
-            extensions/*/openclaw.plugin.json
+            extensions/*/granted.plugin.json
             extensions/*/package.json
           sparse-checkout-cone-mode: false
 

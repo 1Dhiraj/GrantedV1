@@ -64,7 +64,7 @@ it("adopts duplicate native titles without claiming labels or replacing local na
           logger: { info() {}, warn() {}, error() {}, debug() {} },
         });
         const rootDir = fileURLToPath(new URL("../../extensions/codex/", import.meta.url));
-        const manifest = JSON.parse(await fs.readFile(`${rootDir}/openclaw.plugin.json`, "utf8"));
+        const manifest = JSON.parse(await fs.readFile(`${rootDir}/granted.plugin.json`, "utf8"));
         const record = createPluginRecord({
           id: "codex",
           source: `${rootDir}/index.ts`,

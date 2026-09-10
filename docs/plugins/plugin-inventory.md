@@ -9,7 +9,7 @@ title: "Plugin inventory"
 
 # Plugin inventory
 
-This page is generated from top-level `extensions/*/openclaw.plugin.json`
+This page is generated from top-level `extensions/*/granted.plugin.json`
 manifests and the root npm package `files` exclusions. Optional `package.json`
 metadata enriches package and distribution details. Regenerate it with:
 

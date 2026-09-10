@@ -141,7 +141,7 @@ function parseJsonValue(text) {
 }
 
 function pluginRequiresConfig(pluginDir) {
-  const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+  const manifestPath = path.join(pluginDir, "granted.plugin.json");
   if (!fs.existsSync(manifestPath)) {
     throw new Error(`missing bundled plugin manifest: ${manifestPath}`);
   }

@@ -35,7 +35,7 @@ describe("stale managed bundled plugin retirement", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(packageDir, "openclaw.plugin.json"),
+      path.join(packageDir, "granted.plugin.json"),
       JSON.stringify({
         id: "external-demo",
         name: "external-demo",

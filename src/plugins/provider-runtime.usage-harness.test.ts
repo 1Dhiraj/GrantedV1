@@ -30,7 +30,7 @@ function makeCodexManifestEnv(): NodeJS.ProcessEnv {
     }),
   );
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: "codex",
       activation: { onAgentHarnesses: ["codex"] },

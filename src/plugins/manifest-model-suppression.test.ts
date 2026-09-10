@@ -320,7 +320,7 @@ describe("manifest model suppression", () => {
         // Public metadata is fixture data; core's type graph must not compile plugin files.
         const qwenManifest: Record<string, unknown> = JSON.parse(
           fs.readFileSync(
-            new URL("../../extensions/qwen/openclaw.plugin.json", import.meta.url),
+            new URL("../../extensions/qwen/granted.plugin.json", import.meta.url),
             "utf8",
           ),
         );

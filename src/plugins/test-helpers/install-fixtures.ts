@@ -130,7 +130,7 @@ export function createDualFormatInstallFixtureFactory(makeTempDir: MakeTempDir) 
       "utf-8",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "native-dual",
         configSchema: { type: "object", properties: {} },

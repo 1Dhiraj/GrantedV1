@@ -9,7 +9,7 @@ import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-ca
 import { describe, expect, it } from "vitest";
 import { resolveGroqReasoningCompatPatch } from "./api.js";
 import plugin from "./index.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 describe("groq provider compat", () => {
   it("recovers only matching implicit-budget rejections without changing normal tools", async () => {

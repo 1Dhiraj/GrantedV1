@@ -57,7 +57,7 @@ function createSnapshot(
           origin: "config",
           rootDir: "/fixture",
           source: "test",
-          manifestPath: "/fixture/openclaw.plugin.json",
+          manifestPath: "/fixture/granted.plugin.json",
           modelIdNormalization: {
             providers: {
               fixture: {

@@ -53,7 +53,7 @@ describe("CLI config producer lifetime", () => {
         api.registerCli(() => {}, { descriptors: [{ ...${descriptor}, machineOutput: () => true }] });
       } };`,
       );
-      const manifestPath = path.join(plugin.dir, "openclaw.plugin.json");
+      const manifestPath = path.join(plugin.dir, "granted.plugin.json");
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
       fs.writeFileSync(
         manifestPath,
@@ -76,7 +76,7 @@ describe("CLI config producer lifetime", () => {
           body: 'throw new Error("provider runtime must not load for config defaults");',
         });
         fs.writeFileSync(
-          path.join(owner.dir, "openclaw.plugin.json"),
+          path.join(owner.dir, "granted.plugin.json"),
           JSON.stringify({
             id: owner.id,
             providers: ["anthropic"],

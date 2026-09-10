@@ -546,11 +546,11 @@ describe("collectForbiddenPackPaths", () => {
         "dist/index.js",
         "dist/extensions/clickclack/index.js",
         "dist/extensions/slack/setup-entry.js",
-        "dist/extensions/msteams/openclaw.plugin.json",
+        "dist/extensions/msteams/granted.plugin.json",
       ]),
     ).toEqual([
       "dist/extensions/clickclack/index.js",
-      "dist/extensions/msteams/openclaw.plugin.json",
+      "dist/extensions/msteams/granted.plugin.json",
       "dist/extensions/slack/setup-entry.js",
     ]);
   });
@@ -723,7 +723,7 @@ describe("collectMissingPackPaths", () => {
       "dist/task-registry-control.runtime.js",
       "dist/telegram-ingress-worker.runtime.js",
       bundledDistPluginFile("telegram", "runtime-api.js"),
-      bundledDistPluginFile("telegram", "openclaw.plugin.json"),
+      bundledDistPluginFile("telegram", "granted.plugin.json"),
       bundledDistPluginFile("telegram", "package.json"),
     ]) {
       expect(missing).toContain(path);

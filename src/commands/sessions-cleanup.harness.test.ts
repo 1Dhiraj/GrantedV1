@@ -64,7 +64,7 @@ function writeCleanupPlugins(bundledRoot: string) {
     };`,
   });
   fs.writeFileSync(
-    path.join(owner.dir, "openclaw.plugin.json"),
+    path.join(owner.dir, "granted.plugin.json"),
     JSON.stringify({
       id: owner.id,
       activation: { onStartup: false, onAgentHarnesses: [HARNESS_ID] },

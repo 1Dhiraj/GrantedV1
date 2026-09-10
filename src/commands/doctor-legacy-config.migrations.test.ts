@@ -47,7 +47,7 @@ vi.mock("../plugins/manifest-registry.js", () => {
       contracts: { webSearchProviders: [webSearchProvider] },
       rootDir,
       source: `${rootDir}/index.ts`,
-      manifestPath: `${rootDir}/openclaw.plugin.json`,
+      manifestPath: `${rootDir}/granted.plugin.json`,
     };
   };
   return {

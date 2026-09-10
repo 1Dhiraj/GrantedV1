@@ -224,7 +224,7 @@ export async function runConsentScenario(entry, coreTarball) {
           }),
         );
         fs.writeFileSync(
-          path.join(dir, "openclaw.plugin.json"),
+          path.join(dir, "granted.plugin.json"),
           JSON.stringify({
             id: pluginId,
             contracts: { tools },

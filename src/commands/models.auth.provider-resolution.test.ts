@@ -86,7 +86,7 @@ describe("models auth login --force", () => {
       const pluginDir = path.join(state.workspaceDir, ".openclaw", "extensions", provider);
       await fs.mkdir(pluginDir, { recursive: true, mode: 0o755 });
       await fs.writeFile(
-        path.join(pluginDir, "openclaw.plugin.json"),
+        path.join(pluginDir, "granted.plugin.json"),
         JSON.stringify({
           id: provider,
           providers: [provider],

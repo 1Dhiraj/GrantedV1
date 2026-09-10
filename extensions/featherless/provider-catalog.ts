@@ -1,7 +1,7 @@
 // Featherless provider catalog exposes the curated setup model.
 import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-catalog-shared";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 export {
   FEATHERLESS_BASE_URL,

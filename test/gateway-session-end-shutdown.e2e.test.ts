@@ -30,7 +30,7 @@ afterEach(async () => {
 async function writeSessionEndPlugin(pluginDir: string, tracePath: string): Promise<void> {
   await mkdir(pluginDir, { recursive: true });
   await writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({
       id: PLUGIN_ID,
       name: "Session End Shutdown Proof",

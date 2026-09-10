@@ -759,7 +759,7 @@ describe("plugins cli uninstall", () => {
                 {
                   pluginId: "bridge",
                   rootDir: "/tmp/bridge",
-                  manifestPath: "/tmp/bridge/openclaw.plugin.json",
+                  manifestPath: "/tmp/bridge/granted.plugin.json",
                   manifestHash: "bridge",
                   origin: "global",
                   enabled: true,
@@ -826,7 +826,7 @@ describe("plugins cli uninstall", () => {
               {
                 pluginId: "pack/one",
                 rootDir: installPath,
-                manifestPath: `${installPath}/openclaw.plugin.json`,
+                manifestPath: `${installPath}/granted.plugin.json`,
                 manifestHash: "one",
                 origin: "global" as const,
                 enabled: true,

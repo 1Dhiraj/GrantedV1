@@ -42,7 +42,7 @@ describe("plugin fixture commands", () => {
       version: "0.1.0",
       openclaw: { extensions: ["./index.js"] },
     });
-    expect(readJson(path.join(pluginRoot, "openclaw.plugin.json"))).toMatchObject({
+    expect(readJson(path.join(pluginRoot, "granted.plugin.json"))).toMatchObject({
       id: "demo-plugin",
       configSchema: { type: "object", properties: {} },
     });

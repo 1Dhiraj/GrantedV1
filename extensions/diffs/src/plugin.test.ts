@@ -48,7 +48,7 @@ describe("diffs plugin language-pack discovery", () => {
         fs.mkdirSync(diffsRoot, { recursive: true });
         fs.mkdirSync(languagePackRoot, { recursive: true });
         fs.writeFileSync(
-          join(languagePackRoot, "openclaw.plugin.json"),
+          join(languagePackRoot, "granted.plugin.json"),
           '{"id":"diffs-language-pack"}\n',
         );
         const config = { plugins: {} } as GrantedConfig;

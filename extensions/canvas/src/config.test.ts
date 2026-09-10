@@ -20,7 +20,7 @@ describe("Canvas presenter config", () => {
 
   it("keeps the single host enablement switch manifest-owned", () => {
     const manifest = JSON.parse(
-      readFileSync(new URL("../openclaw.plugin.json", import.meta.url), "utf8"),
+      readFileSync(new URL("../granted.plugin.json", import.meta.url), "utf8"),
     ) as { uiHints?: Record<string, Record<string, unknown>> };
 
     expect(canvasConfigSchema).not.toHaveProperty("uiHints");

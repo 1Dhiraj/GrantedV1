@@ -45,7 +45,7 @@ Create a local `hook-demo` directory with these files:
 }
 ```
 
-```json openclaw.plugin.json
+```json granted.plugin.json
 {
   "id": "hook-demo",
   "name": "Hook Demo",

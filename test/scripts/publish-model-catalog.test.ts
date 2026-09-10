@@ -76,7 +76,7 @@ function writeFixtureManifest(root: string, pluginId: string, providers: Record<
   const pluginDir = path.join(root, "extensions", pluginId);
   fs.mkdirSync(pluginDir, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify({ id: pluginId, modelCatalog: { providers } }, null, 2)}\n`,
   );
 }

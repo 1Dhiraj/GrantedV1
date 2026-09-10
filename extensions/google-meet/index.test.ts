@@ -1240,7 +1240,7 @@ describe("google-meet plugin", () => {
 
   it("keeps advanced config metadata manifest-owned", () => {
     const manifest = JSON.parse(
-      readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8"),
+      readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
     ) as {
       uiHints?: Record<string, unknown>;
       configSchema?: GoogleMeetManifestConfigSchema;

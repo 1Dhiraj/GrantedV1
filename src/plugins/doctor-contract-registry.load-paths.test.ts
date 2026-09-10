@@ -29,7 +29,7 @@ function makeHermeticDoctorEnv(stateDir: string): NodeJS.ProcessEnv {
 function writeDoctorPlugin(pluginRoot: string, pluginId: string): void {
   fs.mkdirSync(pluginRoot, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,
@@ -91,7 +91,7 @@ module.exports = {
 function writeDistDoctorPlugin(pluginRoot: string, pluginId: string): void {
   fs.mkdirSync(path.join(pluginRoot, "dist"), { recursive: true });
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,
@@ -144,7 +144,7 @@ function writeLegacyRuntimeDoctorPlugin(params: {
 }): void {
   fs.mkdirSync(path.join(params.pluginRoot, "dist"), { recursive: true });
   fs.writeFileSync(
-    path.join(params.pluginRoot, "openclaw.plugin.json"),
+    path.join(params.pluginRoot, "granted.plugin.json"),
     JSON.stringify({
       id: params.pluginId,
       doctorContract: { configRepair: true },
@@ -189,7 +189,7 @@ function writeLegacyChannelMigrationPlugin(params: {
 }): void {
   fs.mkdirSync(params.pluginRoot, { recursive: true });
   fs.writeFileSync(
-    path.join(params.pluginRoot, "openclaw.plugin.json"),
+    path.join(params.pluginRoot, "granted.plugin.json"),
     JSON.stringify({ id: params.pluginId, channels: [params.pluginId], configSchema: {} }),
     "utf8",
   );
@@ -261,7 +261,7 @@ function writeModernBundledChannelMigrationPlugin(params: {
 }): void {
   fs.mkdirSync(params.pluginRoot, { recursive: true });
   fs.writeFileSync(
-    path.join(params.pluginRoot, "openclaw.plugin.json"),
+    path.join(params.pluginRoot, "granted.plugin.json"),
     JSON.stringify({
       id: params.pluginId,
       channels: [params.pluginId],
@@ -311,7 +311,7 @@ function writeModernBundledChannelMigrationPlugin(params: {
 function writeDoctorSessionOwnerPlugin(pluginRoot: string, pluginId: string): void {
   fs.mkdirSync(pluginRoot, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,
@@ -340,7 +340,7 @@ function writeDoctorSessionOwnerPlugin(pluginRoot: string, pluginId: string): vo
 function writeLegacyDoctorSessionOwnerPlugin(pluginRoot: string, pluginId: string): void {
   fs.mkdirSync(pluginRoot, { recursive: true });
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify({ id: pluginId, configSchema: {} }),
     "utf8",
   );

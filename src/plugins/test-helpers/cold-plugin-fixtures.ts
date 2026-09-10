@@ -52,7 +52,7 @@ export function createColdPluginFixture(options: ColdPluginFixtureOptions): Cold
     "utf8",
   );
   fs.writeFileSync(
-    path.join(options.rootDir, "openclaw.plugin.json"),
+    path.join(options.rootDir, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,

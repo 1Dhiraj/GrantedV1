@@ -924,7 +924,7 @@ node    1234 user   12u  IPv4    0t0      TCP localhost:1234
       expect(config.plugins?.allow).toEqual(["bench-plugin-01", "bench-plugin-02"]);
       const manifest = JSON.parse(
         fs.readFileSync(
-          path.join(root, "plugins", "bench-plugin-01", "openclaw.plugin.json"),
+          path.join(root, "plugins", "bench-plugin-01", "granted.plugin.json"),
           "utf8",
         ),
       ) as { activation?: { onStartup?: boolean } };

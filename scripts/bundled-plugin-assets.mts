@@ -61,7 +61,7 @@ function packagePluginAliases(packageName: unknown) {
 
 async function resolvePluginAliases(pluginDir: string, packageJson: Record<string, unknown>) {
   const aliases = new Set([path.basename(pluginDir), ...packagePluginAliases(packageJson.name)]);
-  const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+  const manifestPath = path.join(pluginDir, "granted.plugin.json");
   if (await pathExists(manifestPath)) {
     const manifest = await readJsonFile(manifestPath);
     if (typeof manifest.id === "string" && manifest.id) {

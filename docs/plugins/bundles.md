@@ -289,7 +289,7 @@ These are recognized and shown in diagnostics, but OpenClaw does not run them:
 
 OpenClaw checks for native plugin format first:
 
-1. `openclaw.plugin.json` or a valid `package.json` with `openclaw.extensions` - treated as a **native plugin**
+1. `granted.plugin.json` or a valid `package.json` with `openclaw.extensions` - treated as a **native plugin**
 2. Client-specific bundle markers (`.codex-plugin/`, `.cursor-plugin/`, `.claude-plugin/`) - treated as a **bundle** in that format
 3. A root `plugin.json` - treated as an **Agent Plugins bundle**
 4. Default manifestless Claude layout (`skills/`, `commands/`, `.mcp.json`, ...) - treated as a **Claude bundle**

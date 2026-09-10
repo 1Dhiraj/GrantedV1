@@ -362,7 +362,7 @@ clawhub package publish your-org/your-plugin
 clawhub package publish your-org/your-plugin@v1.0.0
 ```
 
-Native npm plugins must ship a plugin manifest (`openclaw.plugin.json`) plus
+Native npm plugins must ship a plugin manifest (`granted.plugin.json`) plus
 `package.json` metadata before publishing:
 
 ```json package.json
@@ -389,7 +389,7 @@ page as the publishing reference:
 - [ClawHub publishing](/clawhub/publishing) explains owners, scopes,
   releases, review, package validation, and package transfer.
 - [Building plugins](/plugins/building-plugins) shows the full plugin
-  package shape (including `openclaw.plugin.json`) and first publish
+  package shape (including `granted.plugin.json`) and first publish
   workflow.
 - [Plugin manifest](/plugins/manifest) defines native plugin manifest
   fields.

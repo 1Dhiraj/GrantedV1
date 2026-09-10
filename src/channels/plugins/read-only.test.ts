@@ -137,7 +137,7 @@ function writeExternalSetupChannelPlugin(
     "utf-8",
   );
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,
@@ -331,7 +331,7 @@ function writeBundledSetupChannelPlugin(
     );
   }
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify(
       {
         id: pluginId,
@@ -661,7 +661,7 @@ describe("listReadOnlyChannelPluginsForConfig", () => {
     });
     expect(pluginIds(first)).toContain("external-chat");
     expect(fs.existsSync(setupMarker)).toBe(true);
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "granted.plugin.json");
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
     manifest.channels = ["other-chat"];
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), "utf-8");

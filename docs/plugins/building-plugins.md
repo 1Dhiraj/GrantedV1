@@ -83,7 +83,7 @@ local proof.
 }
 ```
 
-```json openclaw.plugin.json
+```json granted.plugin.json
 {
   "id": "my-plugin",
   "name": "My Plugin",
@@ -369,7 +369,7 @@ Oxlint is not type-aware, so it cannot enforce these annotations.
 ## Pre-submission checklist
 
 <Check>**package.json** has correct `openclaw` metadata</Check>
-<Check>**openclaw.plugin.json** manifest is present and valid</Check>
+<Check>**granted.plugin.json** manifest is present and valid</Check>
 <Check>Entry point uses `defineChannelPluginEntry` or `definePluginEntry`</Check>
 <Check>All imports use focused `plugin-sdk/<subpath>` paths</Check>
 <Check>Internal imports use local modules, not SDK self-imports</Check>

@@ -310,7 +310,7 @@ describe("secrets runtime snapshot core lanes", () => {
         origin: "bundled",
         rootDir: "/test-plugin",
         source: "/test-plugin/index.ts",
-        manifestPath: "/test-plugin/openclaw.plugin.json",
+        manifestPath: "/test-plugin/granted.plugin.json",
         channels: [],
         providers: [`${authProviderId}-secondary`, authProviderId],
         cliBackends: [],

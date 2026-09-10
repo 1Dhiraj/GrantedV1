@@ -5,7 +5,7 @@ import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-mode
 import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import { fetchDeepSeekUsage } from "granted/plugin-sdk/provider-usage";
 import { applyDeepSeekConfig } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildDeepSeekProvider } from "./provider-catalog.js";
 import { createDeepSeekV4ThinkingWrapper } from "./stream.js";
 import { resolveDeepSeekV4ThinkingProfile } from "./thinking.js";

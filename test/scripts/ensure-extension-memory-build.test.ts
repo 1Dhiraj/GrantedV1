@@ -39,7 +39,7 @@ describe("ensure-extension-memory-build", () => {
   ])("reuses selected built entry %s without building unrelated plugins", (entry) => {
     const root = makeTempRoot();
     writeFixture(root, entry);
-    writeFixture(root, "extensions/internal/openclaw.plugin.json", '{"id":"internal"}');
+    writeFixture(root, "extensions/internal/granted.plugin.json", '{"id":"internal"}');
     writeFixture(root, "extensions/internal/index.ts");
     writeFixture(root, "extensions/external/index.ts", 'throw new Error("source imported");');
 
@@ -76,7 +76,7 @@ describe("ensure-extension-memory-build", () => {
   it("requires all expected bundled entries by default even when local output exists", () => {
     const root = makeTempRoot();
     for (const id of ["internal-a", "internal-b", "external"]) {
-      writeFixture(root, `extensions/${id}/openclaw.plugin.json`, JSON.stringify({ id }));
+      writeFixture(root, `extensions/${id}/granted.plugin.json`, JSON.stringify({ id }));
       writeFixture(root, `extensions/${id}/index.ts`);
     }
     writeFixture(

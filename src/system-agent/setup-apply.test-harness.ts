@@ -161,7 +161,7 @@ export function codexPluginMetadataSnapshot(homeScope: "agent" | "user") {
           hooks: [],
           rootDir: "/tmp/codex",
           source: "/tmp/codex/index.js",
-          manifestPath: "/tmp/codex/openclaw.plugin.json",
+          manifestPath: "/tmp/codex/granted.plugin.json",
           configSchema: {
             type: "object",
             additionalProperties: false,

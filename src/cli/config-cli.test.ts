@@ -3319,7 +3319,7 @@ describe("config cli", () => {
                 origin: "bundled",
                 rootDir,
                 source: path.join(rootDir, "index.js"),
-                manifestPath: path.join(rootDir, "openclaw.plugin.json"),
+                manifestPath: path.join(rootDir, "granted.plugin.json"),
                 secretProviderIntegrations: {
                   vault: {
                     source: "exec",

@@ -5,7 +5,7 @@ import {
   readManifestProviderDefaultModelRef,
 } from "granted/plugin-sdk/provider-catalog-shared";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 export const MOONSHOT_BASE_URL = "https://api.moonshot.ai/v1";
 export const MOONSHOT_CN_BASE_URL = "https://api.moonshot.cn/v1";

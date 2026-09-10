@@ -17,7 +17,7 @@ import { buildLongCatProvider } from "./provider-catalog.js";
 import { createLongCatThinkingWrapper } from "./stream.js";
 
 function readManifest() {
-  return JSON.parse(readFileSync(new URL("./openclaw.plugin.json", import.meta.url), "utf8")) as {
+  return JSON.parse(readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8")) as {
     providerAuthChoices?: Array<{ choiceId?: string; optionKey?: string; cliFlag?: string }>;
     setup?: { providers?: Array<{ id?: string; envVars?: string[] }> };
   };

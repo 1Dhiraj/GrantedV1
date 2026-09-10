@@ -255,7 +255,7 @@ function writeInstalledNpmPlugin(params: {
   );
   if (params.nativeManifest !== "missing") {
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       params.nativeManifest === "malformed"
         ? "{invalid plugin manifest"
         : JSON.stringify({
@@ -3519,7 +3519,7 @@ describe("installPluginFromNpmSpec", () => {
       return;
     }
     expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_PLUGIN_MANIFEST);
-    expect(result.error).toContain("package missing valid openclaw.plugin.json");
+    expect(result.error).toContain("package missing valid granted.plugin.json");
     expect(result.error).not.toContain("plugin id mismatch");
     expect(fs.existsSync(resolveTestPluginPackageDir(npmRoot, testCase.packageName))).toBe(false);
     expect(fs.existsSync(path.join(npmProjectRoot, "package.json"))).toBe(false);

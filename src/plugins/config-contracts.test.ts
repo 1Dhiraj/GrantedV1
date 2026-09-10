@@ -54,7 +54,7 @@ function createPluginRecord(
 ): PluginManifestRecord {
   return {
     rootDir: `/tmp/${overrides.id}`,
-    manifestPath: `/tmp/${overrides.id}/openclaw.plugin.json`,
+    manifestPath: `/tmp/${overrides.id}/granted.plugin.json`,
     channelConfigs: undefined,
     configUiHints: undefined,
     configSchema: undefined,
@@ -79,7 +79,7 @@ function createPluginRecord(
     skills: [],
     settingsFiles: undefined,
     hooks: [],
-    source: `/tmp/${overrides.id}/openclaw.plugin.json`,
+    source: `/tmp/${overrides.id}/granted.plugin.json`,
     setupSource: undefined,
     channelCatalogMeta: undefined,
     ...overrides,

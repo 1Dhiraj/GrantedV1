@@ -385,7 +385,7 @@ describe("agent exec command composition", () => {
     const pluginDir = path.join(operatorStateDir, "extensions", "exec-provider");
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.writeFile(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "exec-provider",
         configSchema: { type: "object", additionalProperties: false },

@@ -241,7 +241,7 @@ module.exports = { id: "packaged-cli-metadata", register() {} };`,
 };`,
     });
     fs.writeFileSync(
-      path.join(plugin.dir, "openclaw.plugin.json"),
+      path.join(plugin.dir, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "Config-Cli",
@@ -1069,7 +1069,7 @@ module.exports = {
 };`,
     });
     fs.writeFileSync(
-      path.join(plugin.dir, "openclaw.plugin.json"),
+      path.join(plugin.dir, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "memory-external",

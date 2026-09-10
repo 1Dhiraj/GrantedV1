@@ -211,7 +211,7 @@ module.exports = {
     pluginFile = sourceFile;
   }
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: PLUGIN_ID,
       providers: [PROVIDER_ID, DISCOVERED_HARNESS_ID, MISSING_AUTH_HARNESS_ID],

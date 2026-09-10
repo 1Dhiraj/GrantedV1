@@ -154,7 +154,7 @@ describe("PR #132123 real Gateway proof", () => {
         const provider = buildMockOpenAiResponsesProvider(`${providerBaseUrl}/v1`);
         await Promise.all([
           fs.writeFile(
-            path.join(pluginDir, "openclaw.plugin.json"),
+            path.join(pluginDir, "granted.plugin.json"),
             `${JSON.stringify({
               id: CONTEXT_ENGINE_ID,
               name: "PR 132123 After-Turn Gate",

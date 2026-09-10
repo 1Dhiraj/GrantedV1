@@ -662,10 +662,10 @@ describe("test-projects args", () => {
   });
 
   it("routes bundled plugin manifest changes through the docs config audit", () => {
-    expect(resolveChangedTestTargetPlan(["extensions/voice-call/openclaw.plugin.json"])).toEqual({
+    expect(resolveChangedTestTargetPlan(["extensions/voice-call/granted.plugin.json"])).toEqual({
       mode: "targets",
       targets: [
-        "extensions/voice-call/openclaw.plugin.json",
+        "extensions/voice-call/granted.plugin.json",
         "src/config/docs-config-examples.test.ts",
       ],
     });

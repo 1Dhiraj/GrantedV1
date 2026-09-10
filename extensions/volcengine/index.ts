@@ -5,7 +5,7 @@ import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-ent
 import { ensureModelAllowlistEntry } from "granted/plugin-sdk/provider-onboard";
 import { applyVolcengineToolSchemaCompat } from "./api.js";
 import { VOLCENGINE_PROVIDER_CATALOG } from "./models.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildVolcengineSpeechProvider } from "./speech-provider.js";
 
 const PROVIDER_ID = "volcengine";

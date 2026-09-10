@@ -14,7 +14,7 @@ import {
 } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { normalizeModelCompat } from "granted/plugin-sdk/provider-model-shared";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 const PROVIDER_ID = "opencode-go";
 

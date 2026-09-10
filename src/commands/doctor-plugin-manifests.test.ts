@@ -30,7 +30,7 @@ function configWithPluginLoadPath(pluginRoot: string): GrantedConfig {
 
 function writeManifest(dir: string, manifest: Record<string, unknown>) {
   fs.writeFileSync(
-    path.join(dir, "openclaw.plugin.json"),
+    path.join(dir, "granted.plugin.json"),
     `${JSON.stringify(manifest, null, 2)}\n`,
     "utf-8",
   );
@@ -116,7 +116,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
       manifestRoots: [pluginsRoot],
     });
 
-    const manifestPath = path.join(root, "openclaw.plugin.json");
+    const manifestPath = path.join(root, "granted.plugin.json");
     expect(migrations).toStrictEqual([
       {
         changeLines: [`- ${manifestPath}: moved speechProviders to contracts.speechProviders`],
@@ -153,7 +153,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
       manifestRoots: [pluginsRoot],
     });
 
-    const manifestPath = path.join(root, "openclaw.plugin.json");
+    const manifestPath = path.join(root, "granted.plugin.json");
     expect(migrations).toStrictEqual([
       {
         changeLines: [`- ${manifestPath}: moved tools to contracts.tools`],
@@ -196,7 +196,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
       checkId: "core/doctor/legacy-plugin-manifests",
       severity: "warning",
       message: "Plugin manifest openai uses legacy top-level capability keys.",
-      path: path.join(root, "openclaw.plugin.json"),
+      path: path.join(root, "granted.plugin.json"),
       target: "openai",
       requirement: "contracts-capability-keys",
       fixHint:
@@ -232,7 +232,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
     });
     expect(changed).toBe(true);
 
-    const next = JSON.parse(fs.readFileSync(path.join(root, "openclaw.plugin.json"), "utf-8")) as {
+    const next = JSON.parse(fs.readFileSync(path.join(root, "granted.plugin.json"), "utf-8")) as {
       speechProviders?: string[];
       mediaUnderstandingProviders?: string[];
       contracts?: Record<string, string[]>;
@@ -271,7 +271,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
       note: vi.fn(),
     });
 
-    const next = JSON.parse(fs.readFileSync(path.join(root, "openclaw.plugin.json"), "utf-8")) as {
+    const next = JSON.parse(fs.readFileSync(path.join(root, "granted.plugin.json"), "utf-8")) as {
       tools?: string[];
       contracts?: Record<string, string[]>;
     };
@@ -302,7 +302,7 @@ describe("doctor plugin manifest legacy contract repair", () => {
       manifestRoots: [pluginsRoot],
     });
 
-    const manifestPath = path.join(root, "openclaw.plugin.json");
+    const manifestPath = path.join(root, "granted.plugin.json");
     expect(migrations).toStrictEqual([
       {
         changeLines: [`- ${manifestPath}: moved speechProviders to contracts.speechProviders`],

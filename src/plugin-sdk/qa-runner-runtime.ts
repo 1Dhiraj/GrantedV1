@@ -601,7 +601,7 @@ export function listQaRunnerCliContributions(): readonly QaRunnerCliContribution
       }
       if (!registration) {
         throw new Error(
-          `QA runner plugin "${plugin.id}" declared "${runner.commandName}" in openclaw.plugin.json but did not export a matching CLI registration from its QA runner surface`,
+          `QA runner plugin "${plugin.id}" declared "${runner.commandName}" in granted.plugin.json but did not export a matching CLI registration from its QA runner surface`,
         );
       }
       const adapterFactory = registration.adapterFactory;
@@ -633,7 +633,7 @@ export function listQaRunnerCliContributions(): readonly QaRunnerCliContribution
     for (const commandName of runtimeRegistrationByCommandName?.keys() ?? []) {
       if (!declaredCommandNames.has(commandName)) {
         throw new Error(
-          `QA runner plugin "${plugin.id}" exported "${commandName}" from its QA runner surface but did not declare it in openclaw.plugin.json`,
+          `QA runner plugin "${plugin.id}" exported "${commandName}" from its QA runner surface but did not declare it in granted.plugin.json`,
         );
       }
     }

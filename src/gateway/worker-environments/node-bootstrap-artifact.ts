@@ -141,7 +141,7 @@ async function resolvePlugins(options: ArtifactOptions, packageRoot: string) {
         }
       }
       const manifest = JSON.parse(
-        await fs.readFile(path.join(builtRoot, "openclaw.plugin.json"), "utf8"),
+        await fs.readFile(path.join(builtRoot, "granted.plugin.json"), "utf8"),
       ) as { id?: unknown }; // SAFETY: the unknown id is checked against the trusted registry below.
       if (manifest.id !== id) {
         throw new Error(`Node bootstrap plugin identity does not match ${id}`);

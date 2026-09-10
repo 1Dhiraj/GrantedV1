@@ -112,7 +112,7 @@ describe("plugin npm runtime build planning", () => {
     });
     expect(diffsRuntimePlan.packageFiles).toEqual([
       "dist/**",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
       "README.md",
       "skills/**",
     ]);

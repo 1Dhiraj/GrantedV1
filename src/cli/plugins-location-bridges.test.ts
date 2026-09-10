@@ -82,7 +82,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "diagnostics-otel",
-        manifestPath: "/app/dist/extensions/diagnostics-otel/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/diagnostics-otel/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/diagnostics-otel/index.js",
         rootDir: "/app/dist/extensions/diagnostics-otel",
@@ -127,7 +127,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "diagnostics-otel",
-        manifestPath: "/app/dist/extensions/diagnostics-otel/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/diagnostics-otel/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/diagnostics-otel/index.js",
         rootDir: "/app/dist/extensions/diagnostics-otel",
@@ -165,7 +165,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "qqbot",
-        manifestPath: "/app/dist/extensions/qqbot/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/qqbot/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/qqbot/index.js",
         rootDir: "/app/dist/extensions/qqbot",
@@ -210,7 +210,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
       readPersistedInstalledPluginIndexMock.mockResolvedValue(
         makeIndex({
           pluginId,
-          manifestPath: `/app/dist/extensions/${pluginId}/openclaw.plugin.json`,
+          manifestPath: `/app/dist/extensions/${pluginId}/granted.plugin.json`,
           manifestHash: "hash",
           source: `/app/dist/extensions/${pluginId}/index.js`,
           rootDir: `/app/dist/extensions/${pluginId}`,
@@ -242,7 +242,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "comfy",
-        manifestPath: "/app/dist/extensions/comfy/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/comfy/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/comfy/index.js",
         rootDir: "/app/dist/extensions/comfy",
@@ -273,7 +273,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "imessage",
-        manifestPath: "/app/dist/extensions/imessage/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/imessage/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/imessage/index.js",
         rootDir: "/app/dist/extensions/imessage",
@@ -305,7 +305,7 @@ describe("listPersistedBundledPluginLocationBridges", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "local-only",
-        manifestPath: "/app/dist/extensions/local-only/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/local-only/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/local-only/index.js",
         rootDir: "/app/dist/extensions/local-only",
@@ -334,7 +334,7 @@ describe("listPersistedBundledPluginRecoveryLocations", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "diagnostics-otel",
-        manifestPath: "/app/dist/extensions/diagnostics-otel/openclaw.plugin.json",
+        manifestPath: "/app/dist/extensions/diagnostics-otel/granted.plugin.json",
         manifestHash: "hash",
         source: "/app/dist/extensions/diagnostics-otel/index.js",
         rootDir: "/app/dist/extensions/diagnostics-otel",
@@ -357,7 +357,7 @@ describe("listPersistedBundledPluginRecoveryLocations", () => {
     readPersistedInstalledPluginIndexMock.mockResolvedValue(
       makeIndex({
         pluginId: "diagnostics-otel",
-        manifestPath: "extensions/diagnostics-otel/openclaw.plugin.json",
+        manifestPath: "extensions/diagnostics-otel/granted.plugin.json",
         manifestHash: "hash",
         source: "extensions/diagnostics-otel/index.js",
         rootDir: "extensions/diagnostics-otel",

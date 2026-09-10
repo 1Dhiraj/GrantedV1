@@ -61,7 +61,7 @@ describe("bundled package channel metadata", () => {
         },
       },
     });
-    writeJsonFile(path.join(extensionsRoot, "matrix", "openclaw.plugin.json"), {
+    writeJsonFile(path.join(extensionsRoot, "matrix", "granted.plugin.json"), {
       id: "matrix",
       configSchema: { type: "object" },
       channels: ["matrix"],
@@ -98,7 +98,7 @@ describe("bundled package channel metadata", () => {
         },
       },
     });
-    writeJsonFile(path.join(extensionsRoot, "matrix", "openclaw.plugin.json"), {
+    writeJsonFile(path.join(extensionsRoot, "matrix", "granted.plugin.json"), {
       id: "matrix",
       configSchema: { type: "object" },
       channels: ["matrix"],
@@ -144,7 +144,7 @@ describe("bundled channel schema source", () => {
     const tracked =
       listGitTrackedFiles({
         repoRoot: pluginTestRepoRoot,
-        pathspecs: "extensions/*/openclaw.plugin.json",
+        pathspecs: "extensions/*/granted.plugin.json",
       }) ?? [];
     expect(tracked.length).toBeGreaterThan(0);
     const generatedChannelIds = new Set(

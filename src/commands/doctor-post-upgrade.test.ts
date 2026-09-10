@@ -97,7 +97,7 @@ async function writePluginFixture(
       "utf-8",
     );
   }
-  const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+  const manifestPath = path.join(pluginDir, "granted.plugin.json");
   if (params.manifest !== false) {
     await fs.writeFile(manifestPath, JSON.stringify(params.manifest ?? { id: params.id }), "utf-8");
   }

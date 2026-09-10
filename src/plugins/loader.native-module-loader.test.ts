@@ -12,7 +12,7 @@ const tempDirs = createTempDirTracker();
 function writeJavaScriptPluginFixture(id: string) {
   const pluginRoot = tempDirs.make("openclaw-plugin-loader-");
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify(
       {
         id,
@@ -76,7 +76,7 @@ function writePreSplitSdkBridgeConsumerFixture() {
     "utf-8",
   );
   fs.writeFileSync(
-    path.join(pluginRoot, "openclaw.plugin.json"),
+    path.join(pluginRoot, "granted.plugin.json"),
     JSON.stringify(
       {
         id: "sdk-bridge-consumer",

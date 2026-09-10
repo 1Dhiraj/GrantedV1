@@ -109,7 +109,7 @@ describe("CI changed Node test plan", () => {
   it.each([
     "extensions/copilot/index.ts",
     "extensions/copilot/harness.ts",
-    "extensions/copilot/openclaw.plugin.json",
+    "extensions/copilot/granted.plugin.json",
   ])("keeps host discovery proof when only %s changes", (changedPath) => {
     const hostTest = "src/agents/prepared-model-runtime.copilot.integration.test.ts";
     const shards = createChangedNodeTestShards([changedPath]);

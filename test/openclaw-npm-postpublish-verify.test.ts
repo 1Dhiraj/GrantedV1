@@ -671,7 +671,7 @@ describe("collectInstalledPackageErrors", () => {
   );
 
   it.each([
-    ["plugin manifest", "dist/extensions/ollama/openclaw.plugin.json"],
+    ["plugin manifest", "dist/extensions/ollama/granted.plugin.json"],
     ["generated plugin artifact", "dist/extensions/ollama/provider-discovery.js"],
   ])("rejects an installed bundled %s missing after postinstall", (_, relativePath) => {
     const packageRoot = makeInstalledPackageRoot();
@@ -689,7 +689,7 @@ describe("collectInstalledPackageErrors", () => {
   });
 
   it.each([
-    ["plugin manifest", "dist/extensions/ollama/openclaw.plugin.json"],
+    ["plugin manifest", "dist/extensions/ollama/granted.plugin.json"],
     ["generated plugin artifact", "dist/extensions/ollama/provider-discovery.js"],
   ])("rejects an installed bundled %s omitted from its inventory", (_, relativePath) => {
     const packageRoot = makeInstalledPackageRoot();
@@ -758,7 +758,7 @@ describe("collectInstalledPackageErrors", () => {
               providerId,
               "package.json",
             )}.`,
-            `installed bundled plugin artifact missing: dist/extensions/${providerId}/openclaw.plugin.json.`,
+            `installed bundled plugin artifact missing: dist/extensions/${providerId}/granted.plugin.json.`,
           ]),
         ),
       );
@@ -802,7 +802,7 @@ describe("collectInstalledPackageErrors", () => {
               providerId,
               "package.json",
             )}.`,
-            `installed bundled plugin artifact missing: dist/extensions/${providerId}/openclaw.plugin.json.`,
+            `installed bundled plugin artifact missing: dist/extensions/${providerId}/granted.plugin.json.`,
           ]),
         ),
       );

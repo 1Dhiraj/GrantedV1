@@ -33,7 +33,7 @@ describe("bundled plugin public surfaces", () => {
         },
       },
     });
-    writeJson(path.join(tempRoot, "extensions", "alpha", "openclaw.plugin.json"), {
+    writeJson(path.join(tempRoot, "extensions", "alpha", "granted.plugin.json"), {
       id: "alpha",
       channels: ["alpha"],
       configSchema: { type: "object" },
@@ -103,7 +103,7 @@ describe("bundled plugin public surfaces", () => {
         setupEntry: "./setup-entry.ts",
       },
     });
-    writeJson(path.join(tempRoot, "extensions", "alpha", "openclaw.plugin.json"), {
+    writeJson(path.join(tempRoot, "extensions", "alpha", "granted.plugin.json"), {
       id: "alpha",
       configSchema: { type: "object" },
     });
@@ -150,7 +150,7 @@ describe("bundled plugin public surfaces", () => {
         },
       },
     });
-    writeJson(path.join(distRoot, "extensions", "alpha", "openclaw.plugin.json"), {
+    writeJson(path.join(distRoot, "extensions", "alpha", "granted.plugin.json"), {
       id: "alpha",
       configSchema: {
         type: "object",
@@ -226,7 +226,7 @@ describe("bundled plugin public surfaces", () => {
         },
       },
     });
-    writeJson(path.join(distRoot, "extensions", "alpha", "openclaw.plugin.json"), {
+    writeJson(path.join(distRoot, "extensions", "alpha", "granted.plugin.json"), {
       id: "alpha",
       configSchema: {
         type: "object",

@@ -24,7 +24,7 @@ afterEach(() => {
 function createPluginRecord(id: string, enabled: boolean): InstalledPluginIndex["plugins"][number] {
   return {
     pluginId: id,
-    manifestPath: `/plugins/${id}/openclaw.plugin.json`,
+    manifestPath: `/plugins/${id}/granted.plugin.json`,
     manifestHash: id,
     rootDir: `/plugins/${id}`,
     origin: "global",

@@ -66,7 +66,7 @@ function createIndex(overrides: Partial<InstalledPluginIndex> = {}): InstalledPl
     plugins: [
       {
         pluginId: "demo",
-        manifestPath: "/plugins/demo/openclaw.plugin.json",
+        manifestPath: "/plugins/demo/granted.plugin.json",
         manifestHash: "manifest-hash",
         rootDir: "/plugins/demo",
         origin: "global",
@@ -97,7 +97,7 @@ function createCandidate(
     "utf8",
   );
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id,
       name: id === "demo" ? "Demo" : "Next Demo",
@@ -619,7 +619,7 @@ describe("installed plugin index persistence", () => {
       plugins: [
         {
           pluginId: "browser",
-          manifestPath: "/plugins/browser/openclaw.plugin.json",
+          manifestPath: "/plugins/browser/granted.plugin.json",
           manifestHash: "browser-manifest-hash",
           rootDir: "/plugins/browser",
           origin: "bundled",
@@ -649,7 +649,7 @@ describe("installed plugin index persistence", () => {
       plugins: [
         {
           pluginId: "provider-owner",
-          manifestPath: "/plugins/provider-owner/openclaw.plugin.json",
+          manifestPath: "/plugins/provider-owner/granted.plugin.json",
           manifestHash: "provider-owner-manifest-hash",
           rootDir: "/plugins/provider-owner",
           origin: "bundled",
@@ -851,7 +851,7 @@ describe("installed plugin index persistence", () => {
       ),
     ).toEqual(["orphaned", "package"]);
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "demo",
         name: "Demo",

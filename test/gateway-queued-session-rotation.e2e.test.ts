@@ -148,7 +148,7 @@ async function startMockModelServer(): Promise<MockModelServer> {
 
 async function writeTurnTracerPlugin(pluginDir: string, tracePath: string): Promise<void> {
   await writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: "queued-rotation-tracer",
       name: "Queued Rotation Tracer",

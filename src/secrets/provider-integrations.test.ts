@@ -38,7 +38,7 @@ function writeSecureFile(file: string, contents: string): void {
 function writePluginManifest(rootDir: string, manifest: Record<string, unknown>): void {
   fs.writeFileSync(path.join(rootDir, "index.ts"), "export default {};\n", "utf8");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       ...manifest,
       configSchema: {

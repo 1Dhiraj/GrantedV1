@@ -75,7 +75,7 @@ beforeEach(async () => {
     JSON.stringify({ name: "cold-probe", openclaw: { extensions: ["./index.ts"] } }),
   );
   fs.writeFileSync(
-    path.join(dir, "openclaw.plugin.json"),
+    path.join(dir, "granted.plugin.json"),
     JSON.stringify({
       id: "cold-probe",
       configSchema: { type: "object", properties: {} },

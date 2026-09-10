@@ -193,7 +193,7 @@ Shared hosting infrastructure:
 ### Plugin capability declarations
 
 Enabled plugins can extend the widget host through `dashboard.dataBindings`
-and `dashboard.actionVerbs` in `openclaw.plugin.json`. Plugin-local ids become
+and `dashboard.actionVerbs` in `granted.plugin.json`. Plugin-local ids become
 grant names prefixed by the plugin id, such as `workboard.cards.list` and
 `workboard.dispatch`; `%` and `.` in the plugin-id segment are escaped so a
 different plugin/local-id split cannot inherit the same persisted grant. During

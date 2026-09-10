@@ -522,7 +522,7 @@ describe("buildPluginRegistrySnapshotReport", () => {
       const open = vi.spyOn(fs, "openSync");
       const report = buildPluginRegistrySnapshotReport({ config, env, workspaceDir });
       const manifestOpens = open.mock.calls.filter(
-        ([file]) => file === path.join(fixture.rootDir, "openclaw.plugin.json"),
+        ([file]) => file === path.join(fixture.rootDir, "granted.plugin.json"),
       ).length;
       open.mockRestore();
 
@@ -610,7 +610,7 @@ describe("buildPluginRegistrySnapshotReport", () => {
       const report = buildPluginRegistrySnapshotReport(params);
       const metadataOpens = open.mock.calls.filter(
         ([file]) =>
-          file === path.join(rootDir, "openclaw.plugin.json") ||
+          file === path.join(rootDir, "granted.plugin.json") ||
           file === path.join(rootDir, "package.json"),
       );
       open.mockRestore();

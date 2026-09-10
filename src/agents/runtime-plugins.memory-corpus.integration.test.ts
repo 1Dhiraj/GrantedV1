@@ -51,7 +51,7 @@ it("keeps root-owned memory sidecars in a direct agent registry", async () => {
 };\n`,
   });
   fs.writeFileSync(
-    path.join(plugin.dir, "openclaw.plugin.json"),
+    path.join(plugin.dir, "granted.plugin.json"),
     JSON.stringify({ id: pluginId, configSchema, contracts: { tools: ["corpus_probe"] } }),
     "utf8",
   );

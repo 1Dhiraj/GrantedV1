@@ -30,7 +30,7 @@ function createBundledPluginFixture(): {
   fs.writeFileSync(source, "export default { register() {} };\n");
   fs.writeFileSync(builtSource, 'module.exports = { id: "fixture", register() {} };\n');
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: "fixture",
       configSchema: { type: "object", additionalProperties: false, properties: {} },

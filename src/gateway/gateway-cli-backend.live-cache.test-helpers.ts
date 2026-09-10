@@ -80,7 +80,7 @@ export async function createCliBackendProbePlugin(
   const resultToken = `MCP-SCHEMA-${randomBytes(6).toString("hex").toUpperCase()}`;
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: CLI_BACKEND_PROBE_PLUGIN_ID,

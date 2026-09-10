@@ -89,7 +89,7 @@ function createCandidate(
     "utf8",
   );
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       name: pluginId,
@@ -156,7 +156,7 @@ function createIndex(
     plugins: [
       {
         pluginId,
-        manifestPath: path.join(pluginRoot, "openclaw.plugin.json"),
+        manifestPath: path.join(pluginRoot, "granted.plugin.json"),
         manifestHash: "manifest-hash",
         rootDir: pluginRoot,
         origin: "global",
@@ -358,7 +358,7 @@ describe("plugin registry facade", () => {
       env,
       index,
     });
-    fs.unlinkSync(path.join(rootDir, "openclaw.plugin.json"));
+    fs.unlinkSync(path.join(rootDir, "granted.plugin.json"));
 
     expect(listPluginContributionIds({ lookUpTable, contribution: "providers" })).toEqual(["demo"]);
     expect(resolveProviderOwners({ lookUpTable, providerId: "DEMO" })).toEqual(["demo"]);
@@ -410,7 +410,7 @@ describe("plugin registry facade", () => {
     const rootDir = makeTempDir();
     fs.writeFileSync(path.join(rootDir, "index.ts"), "", "utf8");
     fs.writeFileSync(
-      path.join(rootDir, "openclaw.plugin.json"),
+      path.join(rootDir, "granted.plugin.json"),
       JSON.stringify({
         id: "openai",
         legacyPluginIds: ["openai-codex"],
@@ -427,7 +427,7 @@ describe("plugin registry facade", () => {
             createIndex("openai").plugins[0],
             'createIndex("openai").plugins[0] test invariant',
           ),
-          manifestPath: path.join(rootDir, "openclaw.plugin.json"),
+          manifestPath: path.join(rootDir, "granted.plugin.json"),
           source: path.join(rootDir, "index.ts"),
           rootDir,
         },
@@ -468,7 +468,7 @@ describe("plugin registry facade", () => {
       env,
       index,
     });
-    fs.unlinkSync(path.join(rootDir, "openclaw.plugin.json"));
+    fs.unlinkSync(path.join(rootDir, "granted.plugin.json"));
 
     const normalizePluginId = createPluginRegistryIdNormalizer(index, {
       manifestRegistry: lookUpTable.manifestRegistry,
@@ -493,7 +493,7 @@ describe("plugin registry facade", () => {
     const config = {} as const;
     fs.writeFileSync(path.join(persistedRootDir, "index.ts"), "", "utf8");
     fs.writeFileSync(
-      path.join(persistedRootDir, "openclaw.plugin.json"),
+      path.join(persistedRootDir, "granted.plugin.json"),
       JSON.stringify({ id: "persisted", configSchema: { type: "object" } }),
       "utf8",
     );
@@ -506,8 +506,8 @@ describe("plugin registry facade", () => {
               createIndex("persisted").plugins[0],
               'createIndex("persisted").plugins[0] test invariant',
             ),
-            manifestPath: path.join(persistedRootDir, "openclaw.plugin.json"),
-            manifestHash: hashFile(path.join(persistedRootDir, "openclaw.plugin.json")),
+            manifestPath: path.join(persistedRootDir, "granted.plugin.json"),
+            manifestHash: hashFile(path.join(persistedRootDir, "granted.plugin.json")),
             source: path.join(persistedRootDir, "index.ts"),
             rootDir: persistedRootDir,
           },
@@ -552,7 +552,7 @@ describe("plugin registry facade", () => {
       },
       { stateDir },
     );
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     const future = new Date(Date.now() + 1_000);
     fs.utimesSync(manifestPath, future, future);
 
@@ -628,7 +628,7 @@ describe("plugin registry facade", () => {
     });
     await writePersistedInstalledPluginIndex(persisted, { stateDir });
     fs.writeFileSync(
-      path.join(rootDir, "openclaw.plugin.json"),
+      path.join(rootDir, "granted.plugin.json"),
       JSON.stringify({
         id: "demo",
         name: "Demo",
@@ -742,7 +742,7 @@ describe("plugin registry facade", () => {
               createIndex("persisted").plugins[0],
               'createIndex("persisted").plugins[0] test invariant',
             ),
-            manifestPath: path.join(staleBundledRootDir, "openclaw.plugin.json"),
+            manifestPath: path.join(staleBundledRootDir, "granted.plugin.json"),
             source: path.join(staleBundledRootDir, "index.ts"),
             rootDir: staleBundledRootDir,
             origin: "bundled",
@@ -785,8 +785,8 @@ describe("plugin registry facade", () => {
     });
     fs.writeFileSync(path.join(sourceRoot, "package.json"), packageJson);
     fs.copyFileSync(
-      path.join(sourceRoot, "openclaw.plugin.json"),
-      path.join(builtRoot, "openclaw.plugin.json"),
+      path.join(sourceRoot, "granted.plugin.json"),
+      path.join(builtRoot, "granted.plugin.json"),
     );
     fs.copyFileSync(path.join(sourceRoot, "index.ts"), path.join(builtRoot, "index.ts"));
     fs.writeFileSync(path.join(builtRoot, "package.json"), packageJson);
@@ -826,7 +826,7 @@ describe("plugin registry facade", () => {
     for (const plugin of staleBuiltIndex.plugins) {
       plugin.rootDir = builtRoot;
       plugin.source = path.join(builtRoot, "index.ts");
-      plugin.manifestPath = path.join(builtRoot, "openclaw.plugin.json");
+      plugin.manifestPath = path.join(builtRoot, "granted.plugin.json");
       delete plugin.packageBuild;
     }
     await writePersistedInstalledPluginIndex(staleBuiltIndex, { stateDir });

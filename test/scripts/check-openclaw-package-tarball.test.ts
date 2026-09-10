@@ -439,7 +439,7 @@ describe("check-openclaw-package-tarball", () => {
   });
 
   it.each([
-    ["bundled plugin manifest", "dist/extensions/example/openclaw.plugin.json", "{}\n"],
+    ["bundled plugin manifest", "dist/extensions/example/granted.plugin.json", "{}\n"],
     ["generated non-JavaScript sidecar", "dist/generated/example.schema.json", "{}\n"],
   ])(
     "rejects a packaged %s omitted from the postinstall inventory",

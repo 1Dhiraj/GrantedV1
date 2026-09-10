@@ -135,7 +135,7 @@ async function createFixturePlugin() {
   const startupGatePath = path.join(root, "startup-connect-observed");
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: FIXTURE_PLUGIN_ID,

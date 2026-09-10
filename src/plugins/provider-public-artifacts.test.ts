@@ -406,7 +406,7 @@ describe("provider public artifacts", () => {
     const pluginDir = path.join(bundledPluginsDir, "openai");
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "openai",
         configSchema: { type: "object" },
@@ -518,7 +518,7 @@ describe("provider public artifacts", () => {
             cliBackends: [],
             hooks: [],
             origin: "bundled",
-            manifestPath: "/tmp/xai/openclaw.plugin.json",
+            manifestPath: "/tmp/xai/granted.plugin.json",
             providers: ["xai"],
             providerAuthAliases: { "x-ai": "xai" },
             rootDir: "/tmp/xai",
@@ -581,7 +581,7 @@ describe("provider public artifacts", () => {
             cliBackends: ["claude-cli"],
             hooks: [],
             origin: "bundled",
-            manifestPath: "/tmp/anthropic/openclaw.plugin.json",
+            manifestPath: "/tmp/anthropic/granted.plugin.json",
             providers: ["anthropic"],
             rootDir: "/tmp/anthropic",
             skills: [],
@@ -611,7 +611,7 @@ describe("provider public artifacts", () => {
       const pluginDir = path.join(bundledPluginsDir, pluginId);
       fs.mkdirSync(pluginDir, { recursive: true });
       fs.writeFileSync(
-        path.join(pluginDir, "openclaw.plugin.json"),
+        path.join(pluginDir, "granted.plugin.json"),
         JSON.stringify({
           id: pluginId,
           name: `${pluginId} ${version}`,
@@ -703,7 +703,7 @@ describe("provider public artifacts", () => {
             cliBackends: [],
             hooks: [],
             origin: "bundled",
-            manifestPath: "/tmp/owner/openclaw.plugin.json",
+            manifestPath: "/tmp/owner/granted.plugin.json",
             providers: ["alias"],
             rootDir: "/tmp/owner",
             skills: [],

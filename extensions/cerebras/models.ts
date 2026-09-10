@@ -2,7 +2,7 @@
  * Cerebras model catalog helpers derived from the plugin manifest.
  */
 import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildCerebrasProvider } from "./provider-catalog.js";
 
 const CEREBRAS_MANIFEST_CATALOG = manifest.modelCatalog.providers.cerebras;

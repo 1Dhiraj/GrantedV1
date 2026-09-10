@@ -312,7 +312,7 @@ export function describeGithubCopilotProviderRuntimeContract(
                 hooks: [],
                 rootDir: "/fixtures/github-copilot",
                 source: "/fixtures/github-copilot/index.js",
-                manifestPath: "/fixtures/github-copilot/openclaw.plugin.json",
+                manifestPath: "/fixtures/github-copilot/granted.plugin.json",
                 modelCatalog: normalizeModelCatalog(
                   {
                     providers: { "github-copilot": manifestCatalog },

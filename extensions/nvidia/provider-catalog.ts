@@ -14,7 +14,7 @@ import {
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
 } from "granted/plugin-sdk/ssrf-runtime";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 export const NVIDIA_DEFAULT_MODEL_ID = "nvidia/nemotron-3-ultra-550b-a55b";
 const NVIDIA_MODELS_URL = "https://integrate.api.nvidia.com/v1/models";

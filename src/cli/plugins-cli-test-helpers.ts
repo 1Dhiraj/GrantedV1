@@ -1013,7 +1013,7 @@ export function resetPluginsCliTestState() {
             origin: "global",
             rootDir,
             source: `${rootDir}/index.js`,
-            manifestPath: `${rootDir}/openclaw.plugin.json`,
+            manifestPath: `${rootDir}/granted.plugin.json`,
           },
           pluginId,
         );

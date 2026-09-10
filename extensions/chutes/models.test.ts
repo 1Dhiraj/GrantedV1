@@ -8,7 +8,7 @@ import {
   applyChutesProviderConfig,
   CHUTES_DEFAULT_MODEL_REF,
 } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 
 const EXPECTED_STATIC_MODEL_IDS = [
   "deepseek-ai/DeepSeek-V3.2-TEE",

@@ -337,7 +337,7 @@ async function writeSteeringToolsPlugin(
   await mkdir(pluginDir, { recursive: true });
   await Promise.all([
     writeFile(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       `${JSON.stringify({
         id: STEERING_PLUGIN_ID,
         name: "Gateway Steering Tools",

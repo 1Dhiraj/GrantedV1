@@ -16,7 +16,7 @@ import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import { hasConfiguredSecretInput } from "granted/plugin-sdk/secret-input";
 import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { asPositiveSafeInteger } from "granted/plugin-sdk/string-coerce-runtime";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { parseDeepInfraPricingCatalog } from "./pricing-api.js";
 
 const log = createSubsystemLogger("deepinfra-models");
@@ -185,7 +185,7 @@ function hasDeepInfraSurfaceModelRows(rows: readonly unknown[]): boolean {
   return rows.some((entry) => entryToSurfaceModel(entry as DeepInfraAgentModelEntry) !== null);
 }
 
-// Static fallback. Chat rows live in openclaw.plugin.json (manifest-validated);
+// Static fallback. Chat rows live in granted.plugin.json (manifest-validated);
 // non-chat surfaces live below because the manifest validator only accepts
 // chat-shaped rows. These are used pre-auth / offline; live discovery
 // overrides once a key is configured.

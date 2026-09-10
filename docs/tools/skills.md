@@ -219,7 +219,7 @@ regardless of where they are loaded from.
 ## Plugins and skills
 
 Plugins can ship their own skills by listing `skills` directories in
-`openclaw.plugin.json` (paths relative to the plugin root). Plugin skills load
+`granted.plugin.json` (paths relative to the plugin root). Plugin skills load
 when the plugin is enabled — for example, the browser plugin ships a
 `browser-automation` skill for multi-step browser control.
 

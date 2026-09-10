@@ -55,7 +55,7 @@ and out-of-range values fail plugin activation with an actionable error
 | `debug`          | `boolean`                         | `false`                                | Forwards debug output from the MXC SDK launcher.                                                                                                              |
 | `mxcPolicyPaths` | `string[]`                        | unset (built-in baseline only)         | Every entry must be a non-empty absolute path. See [Sandbox policy files](#sandbox-policy-files).                                                             |
 
-Any other key is rejected. `openclaw.plugin.json` publishes the same schema
+Any other key is rejected. `granted.plugin.json` publishes the same schema
 (enums, `minimum`/`maximum` bounds) so `openclaw config` validation and CLI
 help stay in sync with plugin runtime validation.
 

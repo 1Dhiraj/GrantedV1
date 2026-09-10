@@ -104,7 +104,7 @@ describe("plugin install record commit rollback", () => {
           }),
         );
         await fs.promises.writeFile(path.join(installPath, "index.cjs"), "module.exports = {};");
-        const manifestPath = path.join(installPath, "openclaw.plugin.json");
+        const manifestPath = path.join(installPath, "granted.plugin.json");
         const manifest = {
           id: pluginId,
           configSchema: { type: "object" },

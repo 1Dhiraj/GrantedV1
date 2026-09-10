@@ -4,7 +4,7 @@ import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
 import type { SecretInput } from "granted/plugin-sdk/secret-input";
 import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { applyKimiCodeConfig, KIMI_CODING_MODEL_REF } from "./onboard.js";
-import manifest from "./openclaw.plugin.json" with { type: "json" };
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildKimiCodingProvider, normalizeKimiCodingModelId } from "./provider-catalog.js";
 import { isKimiK3ModelId, resolveThinkingProfile } from "./provider-policy-api.js";
 import { KIMI_REPLAY_POLICY } from "./replay-policy.js";

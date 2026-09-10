@@ -38,7 +38,7 @@ type CandidateDir = {
   origin?: string;
 };
 
-const PLUGIN_MANIFEST_FILENAME = "openclaw.plugin.json";
+const PLUGIN_MANIFEST_FILENAME = "granted.plugin.json";
 function listChildPluginDirs(
   root: string | undefined,
   rank: number,

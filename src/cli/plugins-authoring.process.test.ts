@@ -34,7 +34,7 @@ export default defineToolPlugin({
 `,
   );
   await fs.writeFile(
-    path.join(project, "openclaw.plugin.json"),
+    path.join(project, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       name: "Authoring Proof",
@@ -81,7 +81,7 @@ describe("plugin authoring with invalid host config", () => {
       const project =
         command === "init" ? path.join(root, "project") : await createAuthoringFixture(root);
       if (command === "build") {
-        await fs.unlink(path.join(project, "openclaw.plugin.json"));
+        await fs.unlink(path.join(project, "granted.plugin.json"));
       }
       const args =
         command === "init"
@@ -93,7 +93,7 @@ describe("plugin authoring with invalid host config", () => {
       expect(result.code, result.stderr).toBe(0);
       expect(await fs.readFile(path.join(root, "openclaw.json"), "utf8")).toBe(invalidConfig);
       const manifest = JSON.parse(
-        await fs.readFile(path.join(project, "openclaw.plugin.json"), "utf8"),
+        await fs.readFile(path.join(project, "granted.plugin.json"), "utf8"),
       );
       expect(manifest).toMatchObject({ id: pluginId, contracts: { tools: ["echo"] } });
       if (command === "validate") {

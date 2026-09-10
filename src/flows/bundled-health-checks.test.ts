@@ -345,7 +345,7 @@ describe("registerBundledHealthChecks", () => {
           hooks: [],
           rootDir: "/bundled/crabbox",
           source: "/bundled/crabbox/index.js",
-          manifestPath: "/bundled/crabbox/openclaw.plugin.json",
+          manifestPath: "/bundled/crabbox/granted.plugin.json",
         },
       ],
       diagnostics: [],
@@ -463,7 +463,7 @@ describe("registerBundledHealthChecks", () => {
     trustedOfficialInstall?: boolean,
     healthChecks = true,
   ) {
-    const manifestPath = join(workspaceDir, "openclaw.plugin.json");
+    const manifestPath = join(workspaceDir, "granted.plugin.json");
     writeFileSync(
       manifestPath,
       JSON.stringify({

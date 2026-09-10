@@ -434,7 +434,7 @@ function createCapabilityConsentPackage(params: {
   fs.writeFileSync(path.join(rootDir, "index.js"), "export default () => {};\n");
   fs.writeFileSync(path.join(childDir, "addon.js"), "export default () => {};\n");
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "granted.plugin.json"),
     JSON.stringify({
       id: params.pluginId,
       name: "Consent fixture",
@@ -444,7 +444,7 @@ function createCapabilityConsentPackage(params: {
     }),
   );
   fs.writeFileSync(
-    path.join(childDir, "openclaw.plugin.json"),
+    path.join(childDir, "granted.plugin.json"),
     JSON.stringify({
       id: `${params.pluginId}-addon`,
       providers: params.childProviders,
@@ -1020,7 +1020,7 @@ describe("updateNpmInstalledPlugins", () => {
         installedDir,
         "children",
         "addon",
-        "openclaw.plugin.json",
+        "granted.plugin.json",
       );
       const previousChildManifest = fs.readFileSync(childManifestPath, "utf8");
       const config = {
@@ -1053,7 +1053,7 @@ describe("updateNpmInstalledPlugins", () => {
       if (previousPayload === "missing") {
         fs.rmSync(installedDir, { recursive: true, force: true });
       } else if (previousPayload === "corrupt") {
-        fs.writeFileSync(path.join(installedDir, "openclaw.plugin.json"), "{");
+        fs.writeFileSync(path.join(installedDir, "granted.plugin.json"), "{");
       }
       mockNpmViewMetadata({ name: packageName, version: "2.0.0", integrity: "sha512-next" });
       installPluginFromNpmSpecMock.mockImplementationOnce(
@@ -1120,7 +1120,7 @@ describe("updateNpmInstalledPlugins", () => {
               expect(details.source?.integrity).not.toBe("sha512-previous");
               if (review === "mutate") {
                 fs.writeFileSync(
-                  path.join(stagedDir, "children", "addon", "openclaw.plugin.json"),
+                  path.join(stagedDir, "children", "addon", "granted.plugin.json"),
                   JSON.stringify({
                     id: `${pluginId}-addon`,
                     providers: [...nextProviders, "changed-during-review"],

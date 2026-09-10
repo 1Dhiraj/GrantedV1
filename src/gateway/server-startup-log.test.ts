@@ -19,7 +19,7 @@ function createManifestRecord(
     channels: [],
     cliBackends: [],
     hooks: [],
-    manifestPath: `/tmp/${overrides.id}/openclaw.plugin.json`,
+    manifestPath: `/tmp/${overrides.id}/granted.plugin.json`,
     origin: "global",
     providers: [],
     rootDir: `/tmp/${overrides.id}`,

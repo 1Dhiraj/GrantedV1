@@ -94,13 +94,13 @@ function createSelectedPluginPackageFixture() {
   const files = {
     "package.json": JSON.stringify(packageJson),
     "extensions/demo/package.json": JSON.stringify(pluginPackage),
-    "extensions/demo/openclaw.plugin.json": '{"id":"demo"}',
+    "extensions/demo/granted.plugin.json": '{"id":"demo"}',
     "extensions/demo/index.ts": "export {};",
     "dist/extensions/demo/package.json": JSON.stringify({
       ...pluginPackage,
       openclaw: { ...pluginPackage.openclaw, extensions: ["./index.js"] },
     }),
-    "dist/extensions/demo/openclaw.plugin.json": '{"id":"demo"}',
+    "dist/extensions/demo/granted.plugin.json": '{"id":"demo"}',
     "dist/extensions/demo/index.js": 'export { value } from "../../shared-runtime.js";',
     "dist/extensions/demo/node_modules/host-native/index.js": "not portable",
     "dist/extensions/other/index.js": "not selected",

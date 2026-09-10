@@ -341,7 +341,7 @@ describe("scripts/plan-release-workflow-matrix.mjs", () => {
       }
     }
     const manifests = readdirSync("extensions").flatMap((id) => {
-      const manifestPath = path.join("extensions", id, "openclaw.plugin.json");
+      const manifestPath = path.join("extensions", id, "granted.plugin.json");
       return existsSync(manifestPath)
         ? [{ id, manifest: JSON.parse(readFileSync(manifestPath, "utf8")) }]
         : [];

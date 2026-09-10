@@ -148,7 +148,7 @@ function listExternalRepoBundledPluginManifestDirs(): string[] | null {
 }
 
 function listGitRepoBundledPluginManifestFiles(): string[] | null {
-  return listGitTrackedFiles({ repoRoot, pathspecs: "extensions/*/openclaw.plugin.json" });
+  return listGitTrackedFiles({ repoRoot, pathspecs: "extensions/*/granted.plugin.json" });
 }
 
 function listFindRepoBundledPluginManifestFiles(): string[] | null {
@@ -161,7 +161,7 @@ function listFindRepoBundledPluginManifestFiles(): string[] | null {
       "-type",
       "f",
       "-name",
-      "openclaw.plugin.json",
+      "granted.plugin.json",
     ],
     {
       cwd: repoRoot,
@@ -205,7 +205,7 @@ function createRepoBundledManifestRegistry(): PluginManifestRegistry {
       origin: "bundled",
       rootDir: path.join(repoRoot, "extensions", dirName),
       source: path.join(repoRoot, "extensions", dirName, "index.ts"),
-      manifestPath: path.join(repoRoot, "extensions", dirName, "openclaw.plugin.json"),
+      manifestPath: path.join(repoRoot, "extensions", dirName, "granted.plugin.json"),
       activation: manifest.activation,
       setup: manifest.setup,
       modelCatalog: manifest.modelCatalog,
@@ -775,7 +775,7 @@ describe("bundled plugin metadata", () => {
         extensions: ["./index.ts"],
       },
     });
-    writeJson(path.join(pluginRoot, "openclaw.plugin.json"), {
+    writeJson(path.join(pluginRoot, "granted.plugin.json"), {
       id: "alpha",
       channels: ["alpha"],
       configSchema: { type: "object" },
@@ -812,7 +812,7 @@ describe("bundled plugin metadata", () => {
       },
     });
     fs.writeFileSync(path.join(pluginRoot, "index.ts"), "export const source = true;\n", "utf8");
-    writeJson(path.join(pluginRoot, "openclaw.plugin.json"), {
+    writeJson(path.join(pluginRoot, "granted.plugin.json"), {
       id: "alpha",
       name: "Before",
       configSchema: { type: "object" },
@@ -820,7 +820,7 @@ describe("bundled plugin metadata", () => {
 
     expect(listBundledPluginMetadata({ rootDir: tempRoot })[0]?.manifest.name).toBe("Before");
 
-    writeJson(path.join(pluginRoot, "openclaw.plugin.json"), {
+    writeJson(path.join(pluginRoot, "granted.plugin.json"), {
       id: "alpha",
       name: "After",
       configSchema: { type: "object" },

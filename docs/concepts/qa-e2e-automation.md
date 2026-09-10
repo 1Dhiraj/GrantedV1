@@ -1323,7 +1323,7 @@ The minimum adoption bar for a new channel:
    harness.
 4. Mount the runner as `openclaw qa <runner>` instead of registering a
    competing root command. Runner plugins should declare `qaRunners` in
-   `openclaw.plugin.json` and export a matching `qaRunnerCliRegistrations`
+   `granted.plugin.json` and export a matching `qaRunnerCliRegistrations`
    array from a lightweight `qa-runner-api.ts` surface. Installed plugins using
    the shipped `runtime-api.ts` contract remain supported through 2026-10-01
    while authors migrate. Keep runner execution behind lazy entrypoints. An

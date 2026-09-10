@@ -789,7 +789,7 @@ async function withWorkspaceAuthFixture(
   fs.writeFileSync(path.join(pluginDir, "index.ts"), "export default {}\n", "utf8");
   fs.writeFileSync(credentialPath, "{}", "utf8");
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: fixture.pluginId,
       configSchema: { type: "object" },

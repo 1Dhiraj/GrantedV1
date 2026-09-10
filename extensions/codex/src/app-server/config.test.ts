@@ -3303,7 +3303,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
 
   it("publishes stable defaults without schema-defaulting mode-derived policy fields", async () => {
     const manifest = JSON.parse(
-      await fs.readFile(new URL("../../openclaw.plugin.json", import.meta.url), "utf8"),
+      await fs.readFile(new URL("../../granted.plugin.json", import.meta.url), "utf8"),
     ) as {
       configSchema: {
         properties: {

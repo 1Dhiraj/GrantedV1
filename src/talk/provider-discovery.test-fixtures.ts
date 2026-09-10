@@ -31,7 +31,7 @@ export function createVoiceProviderFixture(policy: GrantedConfig["plugins"] = {}
       } };`,
     });
     fs.writeFileSync(
-      path.join(plugin.dir, "openclaw.plugin.json"),
+      path.join(plugin.dir, "granted.plugin.json"),
       JSON.stringify({
         id,
         configSchema: EMPTY_PLUGIN_SCHEMA,

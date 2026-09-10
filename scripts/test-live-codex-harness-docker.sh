@@ -191,7 +191,7 @@ tmp_dir="$(mktemp -d)"
 openclaw_live_stage_source_tree "$tmp_dir"
 openclaw_live_stage_node_modules "$tmp_dir"
 openclaw_live_link_runtime_tree "$tmp_dir"
-if [ ! -f "$tmp_dir/extensions/codex/openclaw.plugin.json" ]; then
+if [ ! -f "$tmp_dir/extensions/codex/granted.plugin.json" ]; then
   echo "ERROR: staged Codex plugin not found for live harness." >&2
   exit 1
 fi

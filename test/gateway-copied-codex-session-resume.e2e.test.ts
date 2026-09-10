@@ -57,7 +57,7 @@ async function installCodexHarnessFixture(stateDir: string, config: GrantedConfi
   const pluginDir = path.join(stateDir, "extensions", PLUGIN_ID);
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: PLUGIN_ID,
       name: "Copied Codex session proof",

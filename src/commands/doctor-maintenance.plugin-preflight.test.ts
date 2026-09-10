@@ -64,7 +64,7 @@ it("admits plugin-only repair before executing setup or doctor modules", async (
     }),
   );
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: pluginId,
       channels: ["fixture-chat"],

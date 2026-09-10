@@ -179,7 +179,7 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
       const stagedRoot = path.join(root, "staged");
       const stagedPlugin = path.join(stagedRoot, "extensions", "codex");
       fs.mkdirSync(stagedPlugin, { recursive: true });
-      fs.writeFileSync(path.join(stagedPlugin, "openclaw.plugin.json"), "{}");
+      fs.writeFileSync(path.join(stagedPlugin, "granted.plugin.json"), "{}");
       fs.mkdirSync(path.join(root, "dist-runtime", "extensions", "codex"), {
         recursive: true,
       });

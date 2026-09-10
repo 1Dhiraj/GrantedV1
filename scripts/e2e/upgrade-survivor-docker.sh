@@ -472,7 +472,7 @@ fs.writeFileSync(
   )}\n`,
 );
 fs.writeFileSync(
-  path.join(root, "openclaw.plugin.json"),
+  path.join(root, "granted.plugin.json"),
   `${JSON.stringify(
     {
       id: "brave",

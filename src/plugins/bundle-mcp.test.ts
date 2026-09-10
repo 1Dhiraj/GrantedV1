@@ -210,7 +210,7 @@ describe("loadEnabledBundleMcpConfig", () => {
             hooks: [],
             rootDir: pluginRoot,
             source: path.join(pluginRoot, "index.js"),
-            manifestPath: path.join(pluginRoot, "openclaw.plugin.json"),
+            manifestPath: path.join(pluginRoot, "granted.plugin.json"),
             mcpServers: {
               app: {
                 transport: "stdio",
@@ -251,7 +251,7 @@ describe("loadEnabledBundleMcpConfig", () => {
             hooks: [],
             rootDir: pluginRoot,
             source: path.join(pluginRoot, "index.js"),
-            manifestPath: path.join(pluginRoot, "openclaw.plugin.json"),
+            manifestPath: path.join(pluginRoot, "granted.plugin.json"),
             mcpServers: { app: { command: "node", args: ["./mcp-server.js"] } },
           },
         ],

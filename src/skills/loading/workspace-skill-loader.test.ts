@@ -32,7 +32,7 @@ vi.mock("../../plugins/manifest-registry.js", async () => {
       const plugins = [];
       for (const id of ["workspace-skills", "browser"]) {
         const rootDir = pathLocal.join(extensionsRoot, id);
-        const manifestPath = pathLocal.join(rootDir, "openclaw.plugin.json");
+        const manifestPath = pathLocal.join(rootDir, "granted.plugin.json");
         if (!fsLocal.existsSync(manifestPath)) {
           continue;
         }
@@ -66,7 +66,7 @@ function createWorkspacePluginRegistry(workspaceDir: string): PluginManifestRegi
   const plugins: PluginManifestRecord[] = [];
   for (const id of ["workspace-skills", "browser"]) {
     const rootDir = path.join(extensionsRoot, id);
-    const manifestPath = path.join(rootDir, "openclaw.plugin.json");
+    const manifestPath = path.join(rootDir, "granted.plugin.json");
     if (!fsSync.existsSync(manifestPath)) {
       continue;
     }
@@ -322,7 +322,7 @@ describe("loadWorkspaceSkills", () => {
       skillDescription: "Browser automation",
     });
     await fs.writeFile(
-      path.join(pluginRoot, "openclaw.plugin.json"),
+      path.join(pluginRoot, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "browser",

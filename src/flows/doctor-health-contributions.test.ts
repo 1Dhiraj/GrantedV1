@@ -116,7 +116,7 @@ const mocks = vi.hoisted(() => ({
       checkId: "core/doctor/legacy-plugin-manifests",
       severity: "warning" as const,
       message: `Plugin manifest ${migration.pluginId} uses legacy top-level capability keys.`,
-      path: "/tmp/openclaw-plugin/openclaw.plugin.json",
+      path: "/tmp/openclaw-plugin/granted.plugin.json",
       target: migration.pluginId,
       requirement: "contracts-capability-keys",
     }),
@@ -965,7 +965,7 @@ describe("doctor health contributions", () => {
     expect(check.defaultEnabled).toBe(false);
 
     const migration = {
-      manifestPath: "/tmp/openclaw-plugin/openclaw.plugin.json",
+      manifestPath: "/tmp/openclaw-plugin/granted.plugin.json",
       pluginId: "legacy-plugin",
       nextRaw: {},
       changeLines: ["- moved tools to contracts.tools"],

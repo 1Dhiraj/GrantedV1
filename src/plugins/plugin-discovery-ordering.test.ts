@@ -33,7 +33,7 @@ function createPlugin(params: {
     }),
   );
   fs.writeFileSync(
-    path.join(params.pluginRoot, "openclaw.plugin.json"),
+    path.join(params.pluginRoot, "granted.plugin.json"),
     JSON.stringify({ id: params.pluginId, configSchema: { type: "object" } }),
   );
   fs.writeFileSync(

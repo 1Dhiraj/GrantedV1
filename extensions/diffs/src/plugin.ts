@@ -120,7 +120,7 @@ function hasSiblingLanguagePackRuntime(rootDir: string | undefined): boolean {
     path.join(languagePackRoot, "dist", "assets", "viewer-runtime.js"),
   ];
   return (
-    fs.existsSync(path.join(languagePackRoot, "openclaw.plugin.json")) &&
+    fs.existsSync(path.join(languagePackRoot, "granted.plugin.json")) &&
     runtimePaths.some((runtimePath) => fs.existsSync(runtimePath))
   );
 }

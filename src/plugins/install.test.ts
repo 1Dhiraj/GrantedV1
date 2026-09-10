@@ -613,7 +613,7 @@ function setupManifestInstallFixture(params: { manifestId: string; packageName?:
     fs.writeFileSync(packageJsonPath, JSON.stringify(manifest), "utf-8");
   }
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: params.manifestId,
       configSchema: { type: "object", properties: {} },
@@ -837,7 +837,7 @@ async function ensureDynamicArchiveTemplate(params: {
     const packageName =
       typeof params.packageJson.name === "string" ? params.packageJson.name : "fixture-plugin";
     fs.writeFileSync(
-      path.join(pkgDir, "openclaw.plugin.json"),
+      path.join(pkgDir, "granted.plugin.json"),
       JSON.stringify({
         id: params.manifestId ?? packageName,
         configSchema: { type: "object", properties: {} },
@@ -910,7 +910,7 @@ beforeAll(async () => {
     "utf-8",
   );
   fs.writeFileSync(
-    path.join(manifestInstallTemplateDir, "openclaw.plugin.json"),
+    path.join(manifestInstallTemplateDir, "granted.plugin.json"),
     JSON.stringify({
       id: "manifest-template",
       configSchema: { type: "object", properties: {} },
@@ -1078,7 +1078,7 @@ describe("installPluginFromArchive", () => {
     });
   });
 
-  it("rejects native plugin zip archives without openclaw.plugin.json", async () => {
+  it("rejects native plugin zip archives without granted.plugin.json", async () => {
     const stateDir = suiteTempRootTracker.makeTempDir();
     const archivePath = getArchiveFixturePath({
       cacheKey: "zipper:0.0.1",
@@ -1093,7 +1093,7 @@ describe("installPluginFromArchive", () => {
     });
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.error).toContain("package missing valid openclaw.plugin.json");
+      expect(result.error).toContain("package missing valid granted.plugin.json");
       expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_PLUGIN_MANIFEST);
     }
     expect(fs.existsSync(resolvePluginInstallDir("@granted/zipper", extensionsDir))).toBe(false);
@@ -1430,7 +1430,7 @@ describe("installPluginFromArchive", () => {
       "utf-8",
     );
     fs.writeFileSync(
-      path.join(pluginDir, "openclaw.plugin.json"),
+      path.join(pluginDir, "granted.plugin.json"),
       JSON.stringify({
         id: "legacy-entry-fallback",
         configSchema: { type: "object", properties: {} },
@@ -3665,7 +3665,7 @@ describe("installPluginFromDir", () => {
     expect(result.pluginId).toBe("@granted/test-plugin");
   });
 
-  it("uses openclaw.plugin.json id as install key when it differs from package name", async () => {
+  it("uses granted.plugin.json id as install key when it differs from package name", async () => {
     const { pluginDir, extensionsDir } = setupManifestInstallFixture({
       manifestId: "memory-cognee",
     });

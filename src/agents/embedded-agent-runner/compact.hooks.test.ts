@@ -1560,7 +1560,7 @@ describe("compactEmbeddedAgentSessionDirect hooks", () => {
             source: join(TEST_WORKSPACE_DIR, "workspace/profiled-plugin/index.js"),
             manifestPath: join(
               TEST_WORKSPACE_DIR,
-              "workspace/profiled-plugin/openclaw.plugin.json",
+              "workspace/profiled-plugin/granted.plugin.json",
             ),
             contracts: { tools: [toolName] },
             toolMetadata: { [toolName]: { profiles: ["coding"] } },
@@ -2083,7 +2083,7 @@ describe("compactEmbeddedAgentSessionDirect hooks", () => {
             origin: "workspace",
             rootDir: TEST_WORKSPACE_DIR,
             source: `${TEST_WORKSPACE_DIR}/index.js`,
-            manifestPath: `${TEST_WORKSPACE_DIR}/openclaw.plugin.json`,
+            manifestPath: `${TEST_WORKSPACE_DIR}/granted.plugin.json`,
             modelIdNormalization: {
               providers: {
                 anthropic: {

@@ -135,7 +135,7 @@ describe("applyModelDefaults", () => {
           origin: "config",
           rootDir: "/tmp/custom-provider-plugin",
           source: "test",
-          manifestPath: "/tmp/custom-provider-plugin/openclaw.plugin.json",
+          manifestPath: "/tmp/custom-provider-plugin/granted.plugin.json",
           modelIdNormalization: {
             providers: {
               myproxy: {

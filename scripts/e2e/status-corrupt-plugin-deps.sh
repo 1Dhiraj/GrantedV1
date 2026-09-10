@@ -33,7 +33,7 @@ cat > "$PLUGIN_DIR/package.json" <<'JSON'
 }
 JSON
 
-cat > "$PLUGIN_DIR/openclaw.plugin.json" <<'JSON'
+cat > "$PLUGIN_DIR/granted.plugin.json" <<'JSON'
 {
   "id": "e2e-corrupt-chat",
   "configSchema": {

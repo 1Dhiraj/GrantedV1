@@ -111,7 +111,7 @@ export function collectLegacyPluginManifestContractMigrations(params?: {
       if (!entry.isDirectory()) {
         continue;
       }
-      const manifestPath = path.join(root, entry.name, "openclaw.plugin.json");
+      const manifestPath = path.join(root, entry.name, "granted.plugin.json");
       const seenKey = manifestSeenKey(manifestPath);
       if (seen.has(seenKey)) {
         continue;

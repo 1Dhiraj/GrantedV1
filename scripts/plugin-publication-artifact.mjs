@@ -597,10 +597,10 @@ export function inspectPackageTarballBytes(inputBytes, options = {}) {
         );
       }
       packageManifestBytes = Buffer.from(content);
-    } else if (safePath === "package/openclaw.plugin.json") {
+    } else if (safePath === "package/granted.plugin.json") {
       if (content.length === 0 || content.length > MAX_PLUGIN_MANIFEST_BYTES) {
         throw new Error(
-          `Packed openclaw.plugin.json size is outside the allowed range: ${content.length}.`,
+          `Packed granted.plugin.json size is outside the allowed range: ${content.length}.`,
         );
       }
       pluginManifestBytes = Buffer.from(content);
@@ -614,11 +614,11 @@ export function inspectPackageTarballBytes(inputBytes, options = {}) {
     throw new Error("Plugin tarball must contain exactly one package/package.json.");
   }
   if (!pluginManifestBytes) {
-    throw new Error("Plugin tarball must contain exactly one package/openclaw.plugin.json.");
+    throw new Error("Plugin tarball must contain exactly one package/granted.plugin.json.");
   }
   inventory.sort((left, right) => compareCodeUnits(left.path, right.path));
   const packageManifest = parsePackedJson(packageManifestBytes, "Packed package.json");
-  const pluginManifest = parsePackedJson(pluginManifestBytes, "Packed openclaw.plugin.json");
+  const pluginManifest = parsePackedJson(pluginManifestBytes, "Packed granted.plugin.json");
   return {
     inventory,
     packageManifest,

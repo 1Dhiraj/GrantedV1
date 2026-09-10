@@ -63,7 +63,7 @@ describe("loadOpenClawPlugins", () => {
         "utf8",
       );
       fs.writeFileSync(
-        path.join(packageDir, "openclaw.plugin.json"),
+        path.join(packageDir, "granted.plugin.json"),
         JSON.stringify({ id: "pack", configSchema: EMPTY_PLUGIN_SCHEMA }),
         "utf8",
       );
@@ -1206,7 +1206,7 @@ describe("loadOpenClawPlugins", () => {
       body: simplePluginBody("profile-aware"),
     });
     fs.writeFileSync(
-      path.join(plugin.dir, "openclaw.plugin.json"),
+      path.join(plugin.dir, "granted.plugin.json"),
       JSON.stringify(
         {
           id: "profile-aware",

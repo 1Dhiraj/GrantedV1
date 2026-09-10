@@ -22,7 +22,7 @@ const manifestRegistry = {
       cliBackends: [],
       hooks: [],
       origin: "bundled",
-      manifestPath: "/tmp/xai/openclaw.plugin.json",
+      manifestPath: "/tmp/xai/granted.plugin.json",
       providers: ["xai"],
       providerAuthAliases: { "x-ai": "xai" },
       rootDir: "/tmp/xai",

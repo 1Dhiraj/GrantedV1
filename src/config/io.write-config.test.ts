@@ -1833,7 +1833,7 @@ describe("config io write", () => {
           hooks: [],
           rootDir: "/tmp/openclaw-test-literal-plugin",
           source: "/tmp/openclaw-test-literal-plugin/index.ts",
-          manifestPath: "/tmp/openclaw-test-literal-plugin/openclaw.plugin.json",
+          manifestPath: "/tmp/openclaw-test-literal-plugin/granted.plugin.json",
           configSchema: {
             type: "object",
             properties: {
@@ -1939,7 +1939,7 @@ describe("config io write", () => {
           hooks: [],
           rootDir: "/tmp/openclaw-test-required-plugin",
           source: "/tmp/openclaw-test-required-plugin/index.ts",
-          manifestPath: "/tmp/openclaw-test-required-plugin/openclaw.plugin.json",
+          manifestPath: "/tmp/openclaw-test-required-plugin/granted.plugin.json",
           configSchema: {
             type: "object",
             properties: {
@@ -2339,7 +2339,7 @@ describe("config io write", () => {
           hooks: [],
           rootDir: "/tmp/openclaw-test-demo",
           source: "/tmp/openclaw-test-demo/index.ts",
-          manifestPath: "/tmp/openclaw-test-demo/openclaw.plugin.json",
+          manifestPath: "/tmp/openclaw-test-demo/granted.plugin.json",
           configSchema: {
             type: "object",
             properties: {
@@ -2854,7 +2854,7 @@ describe("config io write", () => {
           hooks: [],
           rootDir: "/tmp/openclaw-test-demo",
           source: "/tmp/openclaw-test-demo/index.ts",
-          manifestPath: "/tmp/openclaw-test-demo/openclaw.plugin.json",
+          manifestPath: "/tmp/openclaw-test-demo/granted.plugin.json",
           configSchema: {
             type: "object",
             properties: {
@@ -2934,7 +2934,7 @@ describe("config io write", () => {
             hooks: [],
             rootDir: "/tmp/openclaw-test-strict-plugin",
             source: "/tmp/openclaw-test-strict-plugin/index.ts",
-            manifestPath: "/tmp/openclaw-test-strict-plugin/openclaw.plugin.json",
+            manifestPath: "/tmp/openclaw-test-strict-plugin/granted.plugin.json",
             configSchema: {
               type: "object",
               properties: { token: { type: "string" } },

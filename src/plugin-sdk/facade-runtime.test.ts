@@ -122,7 +122,7 @@ describe("plugin-sdk facade runtime", () => {
     const dir = createTrustedBundledFixtureRoot("openclaw-browser-generation-");
     const pluginDir = path.join(dir, "browser");
     writePluginPackageJson(pluginDir, "browser", "commonjs");
-    writeJsonFile(path.join(pluginDir, "openclaw.plugin.json"), {
+    writeJsonFile(path.join(pluginDir, "granted.plugin.json"), {
       id: "browser",
       enabledByDefault: true,
     });
@@ -618,7 +618,7 @@ describe("plugin-sdk facade runtime", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(lineDir, "openclaw.plugin.json"),
+      path.join(lineDir, "granted.plugin.json"),
       JSON.stringify({
         id: "line",
         channels: ["line"],
@@ -668,7 +668,7 @@ describe("plugin-sdk facade runtime", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(lineDir, "openclaw.plugin.json"),
+      path.join(lineDir, "granted.plugin.json"),
       JSON.stringify({
         id: "line",
         channels: ["line"],
@@ -716,7 +716,7 @@ describe("plugin-sdk facade runtime", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(encodedDir, "openclaw.plugin.json"),
+      path.join(encodedDir, "granted.plugin.json"),
       JSON.stringify({
         id: "line",
         channels: ["line"],
@@ -784,7 +784,7 @@ describe("plugin-sdk facade runtime", () => {
       "utf8",
     );
     fs.writeFileSync(
-      path.join(dir, "demo", "openclaw.plugin.json"),
+      path.join(dir, "demo", "granted.plugin.json"),
       JSON.stringify({
         id: "demo",
       }),
@@ -830,7 +830,7 @@ describe("plugin-sdk facade runtime", () => {
       'export const marker = "snapshot-validate";\n',
       "utf8",
     );
-    // Do NOT write openclaw.plugin.json on disk to force fallback to registry scan
+    // Do NOT write granted.plugin.json on disk to force fallback to registry scan
     useBundledPluginDirOverrideForTest(dir);
 
     function createTestSnapshot(
@@ -899,7 +899,7 @@ describe("plugin-sdk facade runtime", () => {
           id: "demo-snapshot",
           rootDir: path.join(dir, "demo"),
           source: path.join(dir, "demo", "runtime-api.js"),
-          manifestPath: path.join(dir, "demo", "openclaw.plugin.json"),
+          manifestPath: path.join(dir, "demo", "granted.plugin.json"),
           channels: ["demo"],
           providers: [],
           cliBackends: [],

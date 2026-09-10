@@ -389,7 +389,7 @@ describe("plugin-sdk qa-runner-runtime", () => {
     const module = await import("./qa-runner-runtime.js");
 
     expect(() => module.listQaRunnerCliContributions()).toThrow(
-      'QA runner plugin "qa-example" exported "extra" from its QA runner surface but did not declare it in openclaw.plugin.json',
+      'QA runner plugin "qa-example" exported "extra" from its QA runner surface but did not declare it in granted.plugin.json',
     );
   });
 });

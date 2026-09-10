@@ -340,7 +340,7 @@ function primeHookPackNpmFallback() {
   mockClawHubPackageNotFound("@acme/demo-hooks");
   installPluginFromNpmSpecMock.mockResolvedValue({
     ok: false,
-    error: "package.json missing openclaw.plugin.json",
+    error: "package.json missing granted.plugin.json",
   });
   installHooksFromNpmSpecMock.mockResolvedValue({
     ...createHookPackInstallResult("/tmp/hooks/demo-hooks"),
@@ -1320,7 +1320,7 @@ describe("plugins cli install", () => {
             hooks: [],
             rootDir: alphaRoot,
             source: `${alphaRoot}/index.js`,
-            manifestPath: `${alphaRoot}/openclaw.plugin.json`,
+            manifestPath: `${alphaRoot}/granted.plugin.json`,
           },
           "alpha",
         ),
@@ -2968,7 +2968,7 @@ describe("plugins cli install", () => {
     pluginCliConfigMock.mockReturnValue({} as GrantedConfig);
     installPluginFromPathMock.mockResolvedValue({
       ok: false,
-      error: "package.json missing openclaw.plugin.json",
+      error: "package.json missing granted.plugin.json",
       code: "missing_openclaw_extensions",
     });
     installHooksFromPathMock.mockResolvedValue({

@@ -546,7 +546,7 @@ jobs:
           OUTPUT_DIR="${output_dir}" node --input-type=module <<'NODE'
           import fs from "node:fs";
 
-          const manifestPath = "extensions/buzz/openclaw.plugin.json";
+          const manifestPath = "extensions/buzz/granted.plugin.json";
           const manifest = fs.existsSync(manifestPath)
             ? JSON.parse(fs.readFileSync(manifestPath, "utf8"))
             : {};

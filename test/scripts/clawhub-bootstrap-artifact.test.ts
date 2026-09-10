@@ -370,7 +370,7 @@ describe("ClawHub packed artifact identity", () => {
         }),
       },
       {
-        name: "openclaw.plugin.json",
+        name: "granted.plugin.json",
         prefix: "package",
         contents: JSON.stringify({ id: "meta" }),
       },

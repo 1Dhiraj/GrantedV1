@@ -157,7 +157,7 @@ describe("legacy state dir auto-migration", () => {
             {
               pluginId: "__proto__",
               installRecord: { source: "bogus", passthrough: { retained: true } },
-              manifestPath: "/plugins/demo/openclaw.plugin.json",
+              manifestPath: "/plugins/demo/granted.plugin.json",
               manifestHash: "legacy",
               rootDir: "/plugins/demo",
               origin: "global",
@@ -265,7 +265,7 @@ describe("legacy state dir auto-migration", () => {
                 spec: "demo@latest",
                 version: "1.0.0",
               }),
-              manifestPath: "/plugins/demo/openclaw.plugin.json",
+              manifestPath: "/plugins/demo/granted.plugin.json",
               manifestHash: "test",
               rootDir: "/plugins/demo",
               origin: "global",

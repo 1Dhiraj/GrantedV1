@@ -56,7 +56,7 @@ async function createLingeringPluginFixture(): Promise<{
     }),
   );
   await fs.writeFile(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "granted.plugin.json"),
     JSON.stringify({
       id: "linger",
       name: "Linger",

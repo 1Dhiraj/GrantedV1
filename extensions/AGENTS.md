@@ -29,7 +29,7 @@ third-party plugins see.
 - Do not import core internals from `src/**`, `src/channels/**`,
   `src/plugin-sdk-internal/**`, or another extension's `src/**`.
 - Do not use relative imports that escape the current extension package root.
-- Keep plugin metadata accurate in `openclaw.plugin.json` and the package
+- Keep plugin metadata accurate in `granted.plugin.json` and the package
   `openclaw` block so discovery and setup work without executing plugin code.
 - Plugin runtime dependencies belong to the owning plugin package. If a plugin
   dependency has a runtime peer, declare/provide it in that plugin's

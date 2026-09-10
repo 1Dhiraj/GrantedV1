@@ -1502,7 +1502,7 @@ describe("TUI PTY real backends", () => {
               "utf8",
             ),
             writeFile(
-              path.join(pluginDir, "openclaw.plugin.json"),
+              path.join(pluginDir, "granted.plugin.json"),
               `${JSON.stringify(
                 {
                   id: pluginId,

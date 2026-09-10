@@ -166,7 +166,7 @@ async function packPlugin(params: PackPluginParams): Promise<PackedVersion> {
     "utf8",
   );
   await fs.writeFile(
-    path.join(packageDir, "openclaw.plugin.json"),
+    path.join(packageDir, "granted.plugin.json"),
     `${JSON.stringify(
       {
         id: params.pluginId ?? params.packageName,

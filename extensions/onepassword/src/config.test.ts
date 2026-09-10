@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { MAX_REGISTERED_ITEMS, parseOnePasswordConfig } from "./config.js";
 
 const manifest = JSON.parse(
-  fs.readFileSync(new URL("../openclaw.plugin.json", import.meta.url), "utf8"),
+  fs.readFileSync(new URL("../granted.plugin.json", import.meta.url), "utf8"),
 ) as { configSchema: Record<string, unknown> };
 
 describe("parseOnePasswordConfig", () => {
