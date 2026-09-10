@@ -16,7 +16,7 @@ import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { hasMultipleSessionSharingIdentities } from "../../state/user-profile-list.js";
 import {
   assertProposalContainsNoLiteralSecrets,

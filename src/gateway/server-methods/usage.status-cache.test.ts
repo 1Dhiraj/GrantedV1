@@ -8,11 +8,11 @@ import {
   saveAuthProfileStore,
   type AuthProfileStore,
 } from "../../agents/auth-profiles.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { UsageSummary } from "../../infra/provider-usage.types.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 
 const mocks = vi.hoisted(() => ({
   ensureAuthProfileStore: vi.fn(),

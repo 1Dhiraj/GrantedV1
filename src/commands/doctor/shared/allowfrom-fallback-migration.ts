@@ -5,7 +5,7 @@ import { normalizeUniqueStringEntries } from "@granted/normalization-core/string
 import { resolveChannelDmAllowFrom } from "../../../channels/plugins/dm-access.js";
 import { normalizeAnyChannelId } from "../../../channels/registry.js";
 import { GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA } from "../../../config/bundled-channel-config-metadata.generated.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { getDoctorChannelCapabilities } from "../channel-capabilities.js";
 
 const PSEUDO_CHANNEL_KEYS = new Set(["defaults", "modelByChannel", "tools"]);

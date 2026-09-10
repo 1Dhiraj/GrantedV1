@@ -1,5 +1,5 @@
 import { resolveGatewayStartupTiming } from "../../commands/gateway-startup-timing.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { GatewayService } from "../../daemon/service.js";
 import { formatCliCommand } from "../command-format.js";
 import {

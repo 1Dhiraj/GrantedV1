@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { WizardCancelledError } from "../wizard/prompts.js";
 import { setupGuidedCustodianTestSuite } from "./onboard-guided.custodian.test-support.js";
 import type { GuidedOnboardingDeps } from "./onboard-guided.js";

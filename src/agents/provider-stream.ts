@@ -6,7 +6,7 @@
 import type { ApiRegistry } from "@granted/ai";
 import "./ai-transport-runtime-host.js";
 import { createTransportAwareStreamFnForModel } from "@granted/ai/transports";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getModelLlmRuntime } from "../llm/model-runtime-binding.js";
 import type { Api, Model } from "../llm/types.js";
 import { resolveProviderStreamFn } from "../plugins/provider-runtime.js";

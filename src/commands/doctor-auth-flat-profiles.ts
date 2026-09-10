@@ -54,7 +54,7 @@ import { resolveLegacyInheritedAuthAgentDir } from "../agents/legacy-inherited-a
 import { splitTrailingAuthProfile } from "../agents/model-ref-profile.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import type { AuthProfileConfig } from "../config/types.auth.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { loadJsonFileThroughSymlink } from "../infra/json-file.js";
 import { readLegacyMigrationReceipt } from "../infra/state-migrations.receipts.js";

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { ConfigAuditRecord } from "../../../config/io.audit.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { repairGeneratedModelMetadataCorruption } from "./model-metadata-corruption-repair.js";
 
 const configPath = path.resolve("/tmp/openclaw-model-metadata-corruption.json");

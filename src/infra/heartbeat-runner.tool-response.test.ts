@@ -25,8 +25,8 @@ import {
   readHeartbeatMonitorScratch,
 } from "../cron/scratch-store.js";
 import { resolveCronJobsStorePath, saveCronJobsStore } from "../cron/store.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { getLastHeartbeatEvent, resetHeartbeatEventsForTest } from "./heartbeat-events.js";
 import { claimHeartbeatOutcomeForRun } from "./heartbeat-outcome-store.js";
 import { truncateHeartbeatPreview } from "./heartbeat-runner-prompt.js";

@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../../state/granted-state-db.js";
 import { noteCronJobsStoreCommit } from "../store.js";
 import { cronStoreKey } from "../store/key.js";
 import {

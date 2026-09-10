@@ -5,7 +5,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
 } from "granted/plugin-sdk/channel-ingress-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { expect, vi } from "vitest";
 import { createTwitchIngress } from "./twitch-ingress.js";
 import type { TwitchChatMessage } from "./types.js";
@@ -36,7 +36,7 @@ export async function withTwitchIngressTestQueue<T>(
   fn: (queue: TwitchIngressTestQueue) => Promise<T>,
 ): Promise<T> {
   const createdDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-twitch-ingress-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-twitch-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
   const previousStateDir = process.env.GRANTED_STATE_DIR;

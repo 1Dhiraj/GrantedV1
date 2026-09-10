@@ -1,7 +1,7 @@
 import type { BundledStaticCatalogState } from "../agents/embedded-agent-runner/model.static-catalog.types.js";
 import type { BundledChannelCatalogEntry } from "../channels/bundled-channel-catalog.types.js";
 import type { ManifestChannelPlugin } from "../channels/plugins/manifest-channel-plugin.types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginDiscoveryResult } from "./discovery.types.js";
 import type { InstalledPluginIndex } from "./installed-plugin-index-types.js";
 import type { ManifestModelSuppressionResolver } from "./manifest-model-suppression.types.js";

@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import "./models-config.plan.js";
 import type { SourceModelFields } from "./models-config.merge.js";

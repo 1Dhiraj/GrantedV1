@@ -16,8 +16,8 @@ import {
   closeOpenClawStateDatabase,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { persistClawInstallRecord } from "./provenance.js";
 import { makeProvenancePlan, stateEnv } from "./provenance.test-helpers.js";
 

@@ -7,7 +7,7 @@ import { persistHeartbeatOutcome } from "../../../infra/heartbeat-outcome-store.
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../../state/openclaw-agent-db.js";
+} from "../../../state/granted-agent-db.js";
 
 const mocks = vi.hoisted(() => ({
   applyPromptToolsAllow: vi.fn(),

@@ -6,7 +6,7 @@ import type {
   AcpRuntimeStatus,
 } from "@granted/acp-core/runtime/types";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import { toErrorObject } from "../../infra/errors.js";
 import { isAcpSessionKey } from "../../sessions/session-key-utils.js";

@@ -1,7 +1,7 @@
 // System prompt config tests cover config-to-prompt parameter resolution through
 // the canonical agent prompt facade.
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { buildConfiguredAgentSystemPrompt } from "./system-prompt-config.js";
 
 vi.mock("../tts/tts-settings.js", () => ({

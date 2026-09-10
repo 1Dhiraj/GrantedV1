@@ -5,7 +5,7 @@ import { performance } from "node:perf_hooks";
 import { pathToFileURL } from "node:url";
 import { toErrorObject } from "@granted/normalization-core/error-coercion";
 import type { SubagentRunRecord } from "../src/agents/subagents/registry/subagent-registry.types.js";
-import type { DB as GrantedStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../src/state/granted-state-db.generated.js";
 import {
   WORKER_RESULT_SENTINEL,
   type WorkerResult,
@@ -105,8 +105,8 @@ async function resetRuntime(persist: boolean): Promise<void> {
   const [subagents, tasks, stateDb, agentDb] = await Promise.all([
     import("../src/agents/subagents/registry/subagent-registry.test-helpers.js"),
     import("../src/tasks/task-runtime.test-helpers.js"),
-    import("../src/state/openclaw-state-db.js"),
-    import("../src/state/openclaw-agent-db.js"),
+    import("../src/state/granted-state-db.js"),
+    import("../src/state/granted-agent-db.js"),
   ]);
   subagents.resetSubagentRegistryForTests({ persist });
   subagents.testing.setDepsForTest();
@@ -257,7 +257,7 @@ type BenchmarkStateDatabase = Pick<GrantedStateKyselyDatabase, "subagent_runs" |
 async function readDurableRows() {
   const [{ executeSqliteQuerySync, getNodeSqliteKysely }, stateDb] = await Promise.all([
     import("../src/infra/kysely-sync.js"),
-    import("../src/state/openclaw-state-db.js"),
+    import("../src/state/granted-state-db.js"),
   ]);
   const database = stateDb.openOpenClawStateDatabase();
   const db = getNodeSqliteKysely<BenchmarkStateDatabase>(database.db);

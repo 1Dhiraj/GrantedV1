@@ -5,7 +5,7 @@
  */
 import type { ReplyPayload } from "../../auto-reply/reply-payload.js";
 import type { ReplyToMode } from "../../config/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { OutboundSendDeps } from "../../infra/outbound/send-deps.js";
 import type { OutboundMediaAccess } from "../../media/load-options.js";
 import type { PollInput } from "../../polls.js";

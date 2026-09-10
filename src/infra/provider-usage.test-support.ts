@@ -1,5 +1,5 @@
 // Shared test helpers for provider usage loaders.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createProviderUsageFetch } from "../test-utils/provider-usage-fetch.js";
 import type { ProviderAuth } from "./provider-usage.auth.js";
 import type { UsageSummary } from "./provider-usage.types.js";

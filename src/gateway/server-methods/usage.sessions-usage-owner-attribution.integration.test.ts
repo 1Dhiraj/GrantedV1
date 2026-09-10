@@ -14,7 +14,7 @@ import {
 import { discoverAllSessions, loadSessionCostSummary } from "../../infra/session-cost-usage.js";
 import type { AssistantMessage } from "../../llm/types.js";
 import type { SessionsUsageResult } from "../../shared/usage-types.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { usageHandlers } from "./usage.js";
 
 it.each([undefined, "agent:opus:slack:dm", "global"])(

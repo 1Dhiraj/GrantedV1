@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import {
   completeDeliveryQueueEntry,
   countFailedDeliveryQueueEntries,
@@ -15,7 +15,7 @@ import {
   upsertDeliveryQueueEntry,
 } from "./delivery-queue-sqlite.js";
 import type { DeliveryQueueCompletionRetention } from "./delivery-queue-sqlite.types.js";
-import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./tmp-granted-dir.js";
 
 describe("delivery queue pending terminal transition", () => {
   let rootDir: string;
@@ -39,7 +39,7 @@ describe("delivery queue pending terminal transition", () => {
     });
 
   beforeEach(() => {
-    rootDir = fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-dq-terminal-"));
+    rootDir = fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-dq-terminal-"));
     stateDir = path.join(rootDir, "state");
     fs.mkdirSync(stateDir, { recursive: true });
   });

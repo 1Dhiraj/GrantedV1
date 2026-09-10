@@ -89,7 +89,7 @@ export async function startMinimalRealGateway(
     import("../infra/device-identity.js"),
     import("../shared/device-bootstrap-profile.js"),
     import("../config/sessions/session-accessor.sqlite-entry.js"),
-    import("../test-utils/openclaw-test-state.js"),
+    import("../test-utils/granted-test-state.js"),
   ]);
   const token = "minimal-real-gateway-token";
   const state = await testState.createOpenClawTestState({

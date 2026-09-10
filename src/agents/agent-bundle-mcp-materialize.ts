@@ -4,7 +4,7 @@ import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { normalizeToolParameterSchema } from "@granted/ai/internal/openai";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { logWarn } from "../logger.js";
 import {
   getPluginToolMeta,

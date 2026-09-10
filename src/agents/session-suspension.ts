@@ -10,7 +10,7 @@ import {
 } from "@granted/normalization-core/number-coercion";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import type { QuotaSuspension } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import { resolveRegisteredAgentIdForDir } from "./agent-dir-registry.js";

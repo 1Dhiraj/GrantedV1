@@ -7,13 +7,13 @@ import { resolveCanonicalPluginApprovalRequestAllowedDecisions } from "../infra/
 import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js";
 import { resetPluginRuntimeStateForTest } from "../plugins/runtime.js";
 import { withPluginRuntimeGatewayRequestScope } from "../plugins/runtime/gateway-request-scope.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 import { applyPluginNodeInvokePolicy } from "./node-invoke-plugin-policy.js";
 import {

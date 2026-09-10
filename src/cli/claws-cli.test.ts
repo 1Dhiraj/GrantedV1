@@ -4,7 +4,7 @@ import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { persistClawInstallRecord } from "../claws/provenance.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import * as cliTestHelpers from "./claws-cli.test-helpers.js";
 
 const mocks = vi.hoisted(() => {
@@ -74,9 +74,9 @@ vi.mock("../claws/packages.js", async () => ({
   preflightClawPackage: mocks.preflightClawPackage,
 }));
 
-vi.mock("../state/openclaw-state-db.js", async () => ({
-  ...(await vi.importActual<typeof import("../state/openclaw-state-db.js")>(
-    "../state/openclaw-state-db.js",
+vi.mock("../state/granted-state-db.js", async () => ({
+  ...(await vi.importActual<typeof import("../state/granted-state-db.js")>(
+    "../state/granted-state-db.js",
   )),
   openExistingOpenClawStateDatabaseReadOnly: mocks.openExistingOpenClawStateDatabaseReadOnly,
 }));

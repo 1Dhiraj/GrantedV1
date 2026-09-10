@@ -35,7 +35,7 @@ import { redactConfigObject, restoreRedactedValues } from "../../config/redact-s
 import { loadGatewayRuntimeConfigSchema } from "../../config/runtime-schema.js";
 import { projectSourceOntoRuntimeShape } from "../../config/runtime-source-projection.js";
 import { lookupConfigSchema, type ConfigSchemaResponse } from "../../config/schema.js";
-import type { ConfigValidationIssue, GrantedConfig } from "../../config/types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "../../config/types.granted.js";
 import {
   validateConfigObjectRawWithPlugins,
   validateConfigObjectWithPlugins,

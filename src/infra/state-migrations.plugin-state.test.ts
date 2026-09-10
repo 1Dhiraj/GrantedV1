@@ -8,7 +8,7 @@ import {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { runLegacyMigrationPlans } from "./state-migrations.plugin-state.js";
 
 describe("legacy migration plan failure isolation", () => {

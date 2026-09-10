@@ -20,7 +20,7 @@ import type {
   TaskSystemAuditCode,
   TaskSystemAuditSeverity,
 } from "../tasks/task-system-audit.types.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { tasksAuditJsonCommand, tasksListJsonCommand } from "./tasks-json.js";
 import { tasksListCommand, tasksShowCommand } from "./tasks.js";
 

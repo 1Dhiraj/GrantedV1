@@ -4,7 +4,7 @@ import {
   normalizeProviderModelIdWithPolicies,
   type ManifestModelIdNormalizationProvider,
 } from "@granted/model-catalog-core/provider-model-id-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 // Snapshot reads go through the registration-slot bridge so this module stays
 // off the control-plane/kysely graph; doctor closures cold-load it via

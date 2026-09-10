@@ -2,7 +2,7 @@ import path from "node:path";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveAgentDir } from "./agent-scope-config.js";
 import { resolveSharedAuthStoreOwnership } from "./auth-profiles/path-resolve.js";

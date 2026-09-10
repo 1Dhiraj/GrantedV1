@@ -5,7 +5,7 @@ import { createServer, type IncomingHttpHeaders } from "node:http";
 import { registerHooks } from "node:module";
 import path from "node:path";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { AuthProfileStore, OAuthCredential } from "./auth-profiles/types.js";
 
 const PLUGIN_ID = "mcp-proof-owner";
@@ -632,8 +632,8 @@ async function main(): Promise<void> {
       if (authRuntimeEntered) {
         const { closeAuthProfileReadPool } = await import("./auth-profiles/sqlite.js");
         const { closeOpenClawAgentDatabasesForTest } =
-          await import("../state/openclaw-agent-db.js");
-        const { closeOpenClawStateDatabaseForTest } = await import("../state/openclaw-state-db.js");
+          await import("../state/granted-agent-db.js");
+        const { closeOpenClawStateDatabaseForTest } = await import("../state/granted-state-db.js");
         closeAuthProfileReadPool();
         // Agent closure releases leases through shared state; close that owner last.
         closeOpenClawAgentDatabasesForTest();

@@ -3,7 +3,7 @@ import { parentPort, workerData } from "node:worker_threads";
 import {
   closeOpenClawAgentDatabaseByPath,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { listSessionsNeedingTranscriptIndexReconcile } from "./session-transcript-index.js";
 import {
   prepareSessionTranscriptProjection,

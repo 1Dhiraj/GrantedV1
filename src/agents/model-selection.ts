@@ -7,7 +7,7 @@ import {
 } from "@granted/normalization-core/string-coerce";
 import { resolveEconomyModelRef } from "../config/economy-model.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { DEFAULT_PROVIDER } from "./defaults.js";
 import { findModelInCatalog } from "./model-catalog-lookup.js";
 import type { ModelCatalogEntry } from "./model-catalog.types.js";

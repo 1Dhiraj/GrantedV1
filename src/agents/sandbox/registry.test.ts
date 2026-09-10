@@ -18,7 +18,7 @@ const { TEST_STATE_DIR, PREVIOUS_GRANTED_STATE_DIR, SANDBOX_REGISTRY_PATH } = vi
   };
 });
 
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
 import {
   readBrowserRegistry,

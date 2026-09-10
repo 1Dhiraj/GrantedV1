@@ -12,7 +12,7 @@ import { patchSessionEntryCore } from "../../config/sessions/session-accessor.js
 import { projectSessionSnapshotChanges } from "../../config/sessions/session-snapshot-merge.js";
 import { resolveMaintenanceConfigFromInput } from "../../config/sessions/store-maintenance.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createLazyPromise } from "../../shared/lazy-promise.js";
 import {
   clearAllCliSessions,

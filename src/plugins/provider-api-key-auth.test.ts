@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { loadAuthProfileStoreWithoutExternalProfiles } from "../agents/auth-profiles/store.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { createProviderApiKeyAuthMethod } from "./provider-api-key-auth.js";
 
 describe("createProviderApiKeyAuthMethod", () => {

@@ -6,7 +6,7 @@ import {
   resolveSqliteScope,
   toDatabaseOptions,
 } from "../../config/sessions/session-accessor.sqlite-scope.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import type { PluginDoctorRepairAuthority } from "../../infra/state-migrations.types.js";
 import type {
@@ -14,11 +14,11 @@ import type {
   PluginDoctorStateMigrationContext,
 } from "../../plugins/doctor-contract-module.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   acpSessionRowMatchesEntry,
   buildAcpDatabaseSessionKey,

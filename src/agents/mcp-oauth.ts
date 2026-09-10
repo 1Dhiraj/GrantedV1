@@ -5,7 +5,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import {
   type GrantedStateLeaseContext,
   withOpenClawStateLease,
-} from "../state/openclaw-state-lease.js";
+} from "../state/granted-state-lease.js";
 import {
   buildMcpHttpFetch,
   withoutMcpAuthorizationHeader,

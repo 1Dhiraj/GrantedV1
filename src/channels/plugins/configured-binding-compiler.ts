@@ -8,7 +8,7 @@ import {
   normalizeOptionalString,
 } from "@granted/normalization-core/string-coerce";
 import { listConfiguredBindings } from "../../config/bindings.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { pickFirstExistingAgentId } from "../../routing/resolve-route.js";
 import { resolveChannelConfiguredBindingProvider } from "./binding-provider.js";
 import type { CompiledConfiguredBinding, ConfiguredBindingChannel } from "./binding-types.js";

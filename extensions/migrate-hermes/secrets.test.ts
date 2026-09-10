@@ -10,7 +10,7 @@ import {
 import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -91,7 +91,7 @@ async function makeHermesSecretFixture(sourceName = "hermes") {
 describe("Hermes migration secret items", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-hermes-",
     });
   });

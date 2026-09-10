@@ -1,6 +1,6 @@
 // Full-entry coverage for before_agent_reply hook handling before embedded attempts.
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
   mockedGlobalHookRunner,
@@ -52,7 +52,7 @@ describe("runEmbeddedAgent before_agent_reply seam", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.before-agent-reply-cron" });
   });
 

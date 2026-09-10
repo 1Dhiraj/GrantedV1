@@ -16,12 +16,12 @@ import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, vi } from "vitest";
 import { setMatrixRuntime } from "./runtime.js";
 
 const defaultStateDir = fs.realpathSync(
-  fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-matrix-test-state-")),
+  fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-matrix-test-state-")),
 );
 
 afterAll(() => {

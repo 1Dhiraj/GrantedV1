@@ -2,7 +2,7 @@
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { normalizeChatChannelId } from "../channels/ids.js";
 import { ensurePluginAllowlisted } from "../config/plugins-allowlist.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginCapabilityConsentHandler } from "./capability-consent.js";
 import { normalizePluginId, normalizePluginsConfig } from "./config-state.js";
 import { ManagedPluginLifecycleError } from "./management-lifecycle-error.js";

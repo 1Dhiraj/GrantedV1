@@ -3,7 +3,7 @@
  *
  * Builds restricted agent configs for sandbox tool-policy and workspace tests.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 type AgentToolsConfig = NonNullable<NonNullable<GrantedConfig["agents"]>["list"]>[number]["tools"];
 type SandboxToolsConfig = {

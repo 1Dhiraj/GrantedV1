@@ -375,7 +375,7 @@ function collectForbiddenClosureImports(entry: ClosureEntry): string[] {
 
 function collectHeavyRuntimeDoctorMigrationImports(): string[] {
   const entryPath = path.join(REPO_ROOT, "src/plugin-sdk/runtime-doctor-migrations.ts");
-  const forbiddenPrefixes = ["src/plugin-state/plugin-state-store", "src/state/openclaw-state-db"];
+  const forbiddenPrefixes = ["src/plugin-state/plugin-state-store", "src/state/granted-state-db"];
   const violations: string[] = [];
   const visited = new Set<string>();
   const pending = [entryPath];

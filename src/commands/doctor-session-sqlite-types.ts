@@ -1,5 +1,5 @@
 /** Shared type contracts for doctor-owned session SQLite migration reports. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export type DoctorSessionSqliteIssue = {
   code: string;

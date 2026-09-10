@@ -4,10 +4,10 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import * as imageGenerationRuntime from "../../image-generation/runtime.js";
 import * as mediaStore from "../../media/store.js";
-import { createOpenClawTools } from "../openclaw-tools.js";
+import { createOpenClawTools } from "../granted-tools.js";
 import { createImageGenerateTool } from "./image-generate-tool.js";
 import * as pdfNativeProviders from "./pdf-native-providers.js";
 import {
@@ -28,7 +28,7 @@ vi.mock("../provider-stream.js", () => ({
   registerProviderStreamForModel: vi.fn(),
 }));
 
-vi.mock("../openclaw-plugin-tools.js", () => ({
+vi.mock("../granted-plugin-tools.js", () => ({
   resolveOpenClawPluginToolsForOptions: () => [],
 }));
 

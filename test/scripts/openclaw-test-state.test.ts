@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 
 const execFileAsync = promisify(execFile);
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const scriptPath = path.join(repoRoot, "scripts/lib/openclaw-test-state.mts");
+const scriptPath = path.join(repoRoot, "scripts/lib/granted-test-state.mts");
 
 function shellQuote(value: string): string {
   return `'${value.replace(/'/gu, `'\\''`)}'`;
@@ -28,9 +28,9 @@ function cleanupTestStateHomeTrap(): string {
 
 const secretKeyPattern = /^[a-f0-9]{64}$/u;
 
-describe("scripts/lib/openclaw-test-state", () => {
+describe("scripts/lib/granted-test-state", () => {
   it("creates a sourceable env file and JSON description", async () => {
-    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-state-script-"));
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-test-state-script-"));
     const envFile = path.join(tempRoot, "env.sh");
     try {
       const { stdout } = await execFileAsync(process.execPath, [
@@ -98,7 +98,7 @@ describe("scripts/lib/openclaw-test-state", () => {
   });
 
   it("renders a Docker-friendly shell snippet", async () => {
-    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-state-shell-"));
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-test-state-shell-"));
     const snippetFile = path.join(tempRoot, "state.sh");
     try {
       const { stdout } = await execFileAsync(process.execPath, [
@@ -165,7 +165,7 @@ describe("scripts/lib/openclaw-test-state", () => {
   });
 
   it("keeps shell key generation independent of node", async () => {
-    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-state-path-node-"));
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-test-state-path-node-"));
     const fakeBin = path.join(tempRoot, "bin");
     const snippetFile = path.join(tempRoot, "state.sh");
     const functionFile = path.join(tempRoot, "state-function.sh");
@@ -259,7 +259,7 @@ describe("scripts/lib/openclaw-test-state", () => {
   });
 
   it("renders a reusable Docker shell function", async () => {
-    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-state-function-"));
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-test-state-function-"));
     const snippetFile = path.join(tempRoot, "state-function.sh");
     try {
       const { stdout } = await execFileAsync(process.execPath, [

@@ -7,7 +7,7 @@ import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coerci
 // validation compatibility for cron jobs.
 import { Value } from "typebox/value";
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createCronTool } from "./cron-tool.js";
 
 /** Unwraps nullable anyOf unions to their object variant so paths can descend. */

@@ -16,7 +16,7 @@ import {
 } from "../../test/helpers/openclaw-test-instance.js";
 import { createDeferred, withTestTimeout } from "../../test/helpers/promise.js";
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { generateStoredDeviceIdentity } from "../infra/device-identity-store.js";
 import {
   publicKeyRawBase64UrlFromEd25519Pem,

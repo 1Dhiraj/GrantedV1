@@ -1,5 +1,5 @@
 // PDF extraction helpers read PDF text through configured document extraction.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   DocumentExtractedImage,
   DocumentExtractionResult,

@@ -1,7 +1,7 @@
 // Builds provider-aware auth-choice options and grouped onboarding menus.
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveProviderSetupFlowContributions } from "../flows/provider-flow.js";
 import {
   compareProviderAuthChoiceGroups,

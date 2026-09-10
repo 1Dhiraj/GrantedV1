@@ -74,7 +74,7 @@ describe("test-projects args", () => {
   it.each([
     {
       title: "routes boundary targets to the boundary config",
-      target: "src/infra/openclaw-root.test.ts",
+      target: "src/infra/granted-root.test.ts",
       config: "test/vitest/vitest.boundary.config.ts",
     },
     {
@@ -377,11 +377,11 @@ describe("test-projects args", () => {
   });
 
   it("routes infra targets to the infra config", () => {
-    expect(buildVitestRunPlans(["src/infra/openclaw-root.test.ts"])).toEqual([
+    expect(buildVitestRunPlans(["src/infra/granted-root.test.ts"])).toEqual([
       {
         config: "test/vitest/vitest.boundary.config.ts",
         forwardedArgs: [],
-        includePatterns: ["src/infra/openclaw-root.test.ts"],
+        includePatterns: ["src/infra/granted-root.test.ts"],
         watchMode: false,
       },
     ]);

@@ -4,7 +4,7 @@
  * to provider plugin doctor copy.
  */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildProviderAuthDoctorHintWithPlugin } from "../../plugins/provider-runtime.runtime.js";
 import type { AuthProfileStore } from "./types.js";
 

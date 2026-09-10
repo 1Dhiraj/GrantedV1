@@ -3,7 +3,7 @@ import type { ChildProcess } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const childProcessMocks = vi.hoisted(() => ({
@@ -32,7 +32,7 @@ async function createCliRoot(): Promise<{
   root: string;
 }> {
   const root = await mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "matrix-qa-cli-stream-error-"),
+    path.join(resolvePreferredGrantedTmpDir(), "matrix-qa-cli-stream-error-"),
   );
   const grandchildPidPath = path.join(root, "grandchild.pid");
   const grandchildReadyPath = path.join(root, "grandchild.ready");

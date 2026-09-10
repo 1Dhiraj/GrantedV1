@@ -2,7 +2,7 @@
 // envelope fields consumed by inbound-meta reply context blocks.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   applyChatSendReplyContextFields,
   resolveChatSendReplyContext,

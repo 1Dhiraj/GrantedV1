@@ -1,5 +1,5 @@
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { FastMode } from "../../../shared/fast-mode.js";
 import { resolveFastModeState } from "../../fast-mode.js";
 import {

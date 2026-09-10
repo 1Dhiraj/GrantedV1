@@ -1,6 +1,6 @@
 // Owns atomic delivery-queue ownership changes across namespace versions.
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import {
   completeDeliveryQueueEntry,
   deleteDeliveryQueueEntry,

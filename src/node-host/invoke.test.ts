@@ -12,9 +12,9 @@ import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeHostCommandContext,
 } from "../plugins/types.node-host.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
-import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../test-utils/granted-test-state.js";
 import type { SkillBinsProvider } from "./invoke-types.js";
 import { handleInvoke } from "./invoke.js";
 

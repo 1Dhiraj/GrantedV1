@@ -1,10 +1,10 @@
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
-import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../../state/openclaw-agent-db-additive-columns.js";
+import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../../state/granted-agent-db-additive-columns.js";
 import {
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
-import { ensureColumn } from "../../state/openclaw-state-db-schema-helpers.js";
+} from "../../state/granted-agent-db.js";
+import { ensureColumn } from "../../state/granted-state-db-schema-helpers.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { publishSessionEntryCacheInvalidation } from "./session-accessor.sqlite-entry-cache.js";
 import { hasSqliteSessionOwnerColumns } from "./session-accessor.sqlite-owner-projection.js";

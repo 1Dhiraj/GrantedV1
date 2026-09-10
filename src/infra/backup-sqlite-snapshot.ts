@@ -6,13 +6,13 @@ import type { BackupResourceInventory } from "../commands/backup-resource-invent
 import { isPathWithin } from "../commands/cleanup-utils.js";
 import { resolveGatewayLockDir } from "../config/paths.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { assertOpenClawAgentDatabaseOwner } from "../state/openclaw-agent-db-maintenance.js";
-import { assertOpenClawStateDatabaseOwner } from "../state/openclaw-state-db-maintenance.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { assertOpenClawAgentDatabaseOwner } from "../state/granted-agent-db-maintenance.js";
+import { assertOpenClawStateDatabaseOwner } from "../state/granted-state-db-maintenance.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   sanitizeOpenClawGlobalStateSnapshot,
   sanitizeOpenClawStateLeaseRows,
-} from "../state/openclaw-state-snapshot-sanitizer.js";
+} from "../state/granted-state-snapshot-sanitizer.js";
 import { isTransientSqliteBackupPath, isVolatileBackupPath } from "./backup-volatile-filter.js";
 import { hasErrnoCode } from "./errno.js";
 import { formatErrorMessage } from "./errors.js";
@@ -316,7 +316,7 @@ export async function createBackupSqliteSnapshotPlan(params: {
     }
     const canonicalSource = matchingCanonicalSources[0];
     const sourceDatabasePath = canonicalSource?.sourcePath ?? archiveSourcePath;
-    const sourcePath = path.join(params.tempDir, `openclaw-state-db-${snapshots.length}.sqlite`);
+    const sourcePath = path.join(params.tempDir, `granted-state-db-${snapshots.length}.sqlite`);
     try {
       await createVerifiedSqliteSnapshot({
         sourcePath: sourceDatabasePath,

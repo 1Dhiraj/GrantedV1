@@ -6,7 +6,7 @@ import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { pseudonymizeExecutionIdentityRef } from "./audit-identity.js";
 import { recordExecutionDecisionFact } from "./execution-decision-facts.js";
 import {

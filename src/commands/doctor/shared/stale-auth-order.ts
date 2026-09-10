@@ -20,12 +20,12 @@ import {
 import type { AuthProfileStore } from "../../../agents/auth-profiles/types.js";
 import { resolveProviderIdForAuth } from "../../../agents/provider-auth-aliases.js";
 import { resolveStateDir } from "../../../config/paths.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { normalizeAgentId } from "../../../routing/session-key.js";
 import {
   inspectOpenClawAgentDatabaseOwner,
   listOpenClawRegisteredAgentDatabases,
-} from "../../../state/openclaw-agent-db.js";
+} from "../../../state/granted-agent-db.js";
 import { isRecord, resolveUserPath } from "../../../utils.js";
 import {
   inspectAuthDatabaseFiles,

@@ -8,7 +8,7 @@ import {
 import { resolveSessionEntryAccessTarget } from "../config/sessions/session-accessor.entry.js";
 import { resolveSessionStorePathForScope } from "../config/sessions/session-store-path.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   classifySessionKeyShape,
   isUnscopedSessionKeySentinel,

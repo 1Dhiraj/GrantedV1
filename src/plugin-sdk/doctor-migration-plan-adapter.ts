@@ -1,6 +1,6 @@
 import { buildLegacyMigrationPreview } from "../channels/plugins/legacy-state-migration-preview.js";
 import type { ChannelLegacyStateMigrationPlan } from "../channels/plugins/legacy-state-migration.types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginDoctorStateMigration } from "../plugins/doctor-contract-module.js";
 
 type PluginDoctorPlanResolver = (params: {

@@ -8,11 +8,11 @@ import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { DiagnosticSecurityEvent } from "../infra/diagnostic-events.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import {
   requestDeferredPluginInstall,
   resolvePluginInstallTransaction,
@@ -695,11 +695,11 @@ describe("installPluginFromGitSpec", () => {
       expect(path.dirname(expectDefined(targetPrefix, "targetPrefix test invariant"))).toBe(
         await fs.realpath(path.dirname(persistentRepoDir)),
       );
-      // withTempDir roots fallback staging at resolvePreferredOpenClawTmpDir(), which
+      // withTempDir roots fallback staging at resolvePreferredGrantedTmpDir(), which
       // prefers /tmp/openclaw and only degrades to a uid-scoped os.tmpdir path when
       // that is unsafe. Recompute it here so the assertion holds on every host.
       expect(path.dirname(expectDefined(fallbackPrefix, "fallbackPrefix test invariant"))).toBe(
-        await fs.realpath(resolvePreferredOpenClawTmpDir()),
+        await fs.realpath(resolvePreferredGrantedTmpDir()),
       );
       expect(runCommandWithTimeoutMock).toHaveBeenCalledTimes(3);
     } finally {

@@ -1,6 +1,6 @@
 /** Resolves root CLI help from process-stable manifests before plugin code loads. */
 import { collectUniqueCommandDescriptors } from "../cli/program/command-descriptor-utils.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginCliLoaderOptions } from "./cli-registry-loader.js";
 import { normalizePluginsConfig, resolveMemorySlotDecision } from "./config-state.js";
 import { isInstalledPluginEnabled } from "./installed-plugin-index.js";

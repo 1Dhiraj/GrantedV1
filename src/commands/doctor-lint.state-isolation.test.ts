@@ -11,8 +11,8 @@ import { clearHealthChecksForTest } from "../flows/health-check-registry.js";
 import {
   closeOpenClawStateDatabaseByPath,
   closeOpenClawStateDatabaseForTest,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { runDoctorLintCli } from "./doctor-lint.js";
 
 const mocks = vi.hoisted(() => ({

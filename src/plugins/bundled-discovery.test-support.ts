@@ -1,7 +1,7 @@
 // Shared cleanup for bundled-discovery real-state test roots.
 import fs from "node:fs/promises";
-import { closeOpenClawStateDatabaseByPath } from "../state/openclaw-state-db-cache.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { closeOpenClawStateDatabaseByPath } from "../state/granted-state-db-cache.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 
 /**
  * Removes a temporary GRANTED_STATE_DIR root after closing its cached SQLite

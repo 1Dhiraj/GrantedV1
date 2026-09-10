@@ -4,7 +4,7 @@ import type {
 } from "@granted/model-catalog-core/model-catalog-types";
 import type { ModelCatalogEntry } from "../agents/model-catalog.types.js";
 import type { ModelProviderConfig } from "../config/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderCatalogOutcome } from "./provider-catalog-outcome.js";
 
 export type { ProviderCatalogOutcome } from "./provider-catalog-outcome.js";

@@ -1,6 +1,6 @@
 // Tests browser lifecycle cleanup after CLI and runtime shutdown paths.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "./config/types.openclaw.js";
+import type { GrantedConfig } from "./config/types.granted.js";
 
 const closeTrackedBrowserTabsForSessions = vi.hoisted(() => vi.fn(async () => 0));
 

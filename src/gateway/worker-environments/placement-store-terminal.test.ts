@@ -7,7 +7,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   placementTurnOwner,
   type WorkerSessionPlacementIdentity,

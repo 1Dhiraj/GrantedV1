@@ -8,7 +8,7 @@ import { readClawManifestFile } from "../claws/reader.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 
 const mocks = vi.hoisted(() => ({
   logs: [] as string[],

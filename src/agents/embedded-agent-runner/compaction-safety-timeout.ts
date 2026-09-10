@@ -2,7 +2,7 @@
  * Wraps compaction calls with a safety timeout and abort cleanup.
  */
 import { finiteSecondsToTimerSafeMilliseconds } from "@granted/normalization-core/number-coercion";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isRuntimeCompactionDelegate } from "../../context-engine/delegate.js";
 import type { CompactResult, ContextEngine } from "../../context-engine/types.js";
 import { createAbortError } from "../../infra/abort-signal.js";

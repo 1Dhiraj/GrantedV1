@@ -14,7 +14,7 @@ import {
   getRuntimeConfigSnapshotMetadata,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { ModelsConfigSchema } from "../config/zod-schema.core.js";
 import { getPath, setPathCreateStrict } from "../secrets/path-utils.js";
 import * as secretResolver from "../secrets/resolve.js";
@@ -34,7 +34,7 @@ import {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { resolveAgentRuntimeConfig } from "./agent-runtime-config.js";
 import { resolveApiKeyForProviderCore } from "./model-auth-provider.js";
 

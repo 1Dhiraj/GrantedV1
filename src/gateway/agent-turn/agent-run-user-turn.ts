@@ -12,7 +12,7 @@ import {
 import type { ExecElevatedDefaults } from "../../agents/bash-tools.exec-types.js";
 import { runAgentHarnessBeforeMessageWriteHook } from "../../agents/harness/hook-helpers.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { deleteMediaBuffer } from "../../media/store.js";
 import type { InputProvenance } from "../../sessions/input-provenance.js";
 import {

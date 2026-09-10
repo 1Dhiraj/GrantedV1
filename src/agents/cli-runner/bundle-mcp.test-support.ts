@@ -1,7 +1,7 @@
 /** Shared test harness for CLI runner bundle-MCP config preparation tests. */
 import fs from "node:fs/promises";
 import { afterAll, beforeAll } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   createBundleMcpTempHarness,
   createBundleProbePlugin,

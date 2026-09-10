@@ -13,7 +13,7 @@ import {
   tryResolveLegacyCompatibilityAgentId,
 } from "../agents/agent-scope.js";
 import { getRuntimeConfig, readConfigFileSnapshot, replaceConfigFile } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   buildWorkspaceHookStatus,
   type HookStatusEntry,

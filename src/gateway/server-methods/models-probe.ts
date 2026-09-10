@@ -15,7 +15,7 @@ import {
   redactAuthProbeError,
   runAuthProbes,
 } from "../../commands/models/list.probe.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatForLog } from "../ws-log.js";
 import { modelAuthAgentScopeError, resolveModelAuthAgentScope } from "./model-auth-agent-scope.js";
 import type { GatewayRequestHandlers } from "./types.js";

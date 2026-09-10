@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { closeOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { appendTranscriptTurn, readTranscriptTail } from "./transcript-store.js";
 

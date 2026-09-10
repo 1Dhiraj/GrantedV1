@@ -1,5 +1,5 @@
 import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
 import { formatErrorMessage } from "./errors.js";

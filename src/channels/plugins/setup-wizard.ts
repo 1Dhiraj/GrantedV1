@@ -4,7 +4,7 @@
  * Adapts declarative wizard definitions into imperative setup adapters used by onboarding.
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
 import { resolveChannelSetupExecutionAdapter } from "./setup-contract.js";
 import { configureChannelAccessWithAllowlist } from "./setup-group-access-configure.js";

@@ -20,7 +20,7 @@ scenario:
     - docs/help/testing.md
   codeRefs:
     - src/agents/harness/selection.ts
-    - src/agents/harness/builtin-openclaw.ts
+    - src/agents/harness/builtin-granted.ts
     - extensions/qa-lab/src/suite-runtime-agent-session.ts
   execution:
     kind: flow

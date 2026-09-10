@@ -89,7 +89,7 @@ describe("unit-fast vitest lane", () => {
       import path from "node:path";
       const selectedTests = [
         "src/agents/agent-tools.deferred-followup-guidance.test.ts",
-        "src/test-utils/openclaw-test-state.test.ts",
+        "src/test-utils/granted-test-state.test.ts",
         "src/utils.test.ts",
         "src/media-generation/runtime-shared.test.ts",
       ];
@@ -210,14 +210,14 @@ describe("unit-fast vitest lane", () => {
     expect(selection, configProbeResult.stdout).not.toBeNull();
     expect(JSON.parse(selection?.[1] ?? "null")).toEqual([
       ["src/agents/agent-tools.deferred-followup-guidance.test.ts"],
-      ["src/test-utils/openclaw-test-state.test.ts"],
+      ["src/test-utils/granted-test-state.test.ts"],
       ["src/utils.test.ts"],
     ]);
     const unitSelection = configProbeResult.stdout.match(/UNIT_SELECTION_PROBE (.+)/u);
     expect(unitSelection, configProbeResult.stdout).not.toBeNull();
     const excluded = [
       "src/agents/agent-tools.deferred-followup-guidance.test.ts",
-      "src/test-utils/openclaw-test-state.test.ts",
+      "src/test-utils/granted-test-state.test.ts",
       "src/utils.test.ts",
     ];
     const include = [...excluded, "src/media-generation/runtime-shared.test.ts"];

@@ -9,8 +9,8 @@ import { appendTranscriptEventsInTransaction } from "../config/sessions/session-
 import {
   closeOpenClawAgentDatabasesForTest,
   runOpenClawAgentWriteTransaction,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 
 export async function probeTranscriptHealthMemory(
   stateDir: string,
@@ -21,7 +21,7 @@ export async function probeTranscriptHealthMemory(
   const bundleDir = fs.mkdtempSync(path.join(cacheDir, "transcript-health-memory-"));
   const childPath = path.join(bundleDir, "child.mjs");
   try {
-    for (const schema of ["openclaw-agent-schema.sql", "openclaw-state-schema.sql"]) {
+    for (const schema of ["granted-agent-schema.sql", "granted-state-schema.sql"]) {
       fs.copyFileSync(path.join(process.cwd(), "src/state", schema), path.join(bundleDir, schema));
     }
     await build({

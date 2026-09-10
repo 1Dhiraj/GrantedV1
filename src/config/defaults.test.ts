@@ -16,7 +16,7 @@ import {
   applyMessageDefaults,
 } from "./defaults.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "./runtime-snapshot.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 const mocks = vi.hoisted(() => ({
   applyProviderConfigDefaultsForConfig: vi.fn(),

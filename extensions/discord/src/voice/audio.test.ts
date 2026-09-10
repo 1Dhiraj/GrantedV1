@@ -25,7 +25,7 @@ vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => {
   const actual = await importOriginal<typeof import("granted/plugin-sdk/temp-path")>();
   return {
     ...actual,
-    resolvePreferredOpenClawTmpDir: () => voiceWorkspaceFixture.rootDir,
+    resolvePreferredGrantedTmpDir: () => voiceWorkspaceFixture.rootDir,
     tempWorkspace: async (options: Parameters<typeof actual.tempWorkspace>[0]) => {
       const workspace = await actual.tempWorkspace({
         ...options,

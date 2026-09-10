@@ -10,7 +10,7 @@ import { hasConfiguredUnavailableCredentialStatus } from "../channels/account-sn
 import { formatChannelAllowFrom } from "../channels/account-summary.js";
 import { formatChannelStatusState } from "../channels/plugins/status-state.js";
 import type { ChannelPlugin } from "../channels/plugins/types.plugin.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
 import { formatTimeAgo } from "./format-time/format-relative.ts";
 

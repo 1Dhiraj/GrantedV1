@@ -1,7 +1,7 @@
 // Compaction is background work, so it falls back to the configured economy
 // model when no explicit compaction model is set.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveEmbeddedCompactionTarget } from "./compaction-runtime-context.js";
 
 const configWith = (defaults: Record<string, unknown>) =>

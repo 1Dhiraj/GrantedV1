@@ -5,7 +5,7 @@ import {
   type ErrorShape,
 } from "../../packages/gateway-protocol/src/index.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { hasNodeErrorCode, isPathInside } from "../infra/path-guards.js";
 
 export const GATEWAY_STALE_INSTALL_CLOSE_REASON =

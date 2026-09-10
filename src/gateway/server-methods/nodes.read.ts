@@ -7,7 +7,7 @@ import {
   validateNodePluginToolsUpdateParams,
   validateNodeSkillsUpdateParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { updatePairedNodeSessionHost } from "../../infra/device-pairing-node-facts.js";
 import { projectPairedDeviceNodeBindings } from "../../infra/device-pairing-node-state.js";
 import { listNodePairing, projectNodePairing } from "../../infra/device-pairing-node.js";

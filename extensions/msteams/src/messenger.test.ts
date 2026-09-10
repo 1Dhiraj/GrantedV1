@@ -5,7 +5,7 @@ import { pathToFileURL } from "node:url";
 import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import { SILENT_REPLY_TOKEN } from "granted/plugin-sdk/reply-chunking";
 import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { withServer } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { StoredConversationReference } from "./conversation-store.js";
@@ -357,7 +357,7 @@ describe("msteams messenger", () => {
     });
 
     it("requires SharePoint storage for channel files", async () => {
-      const tmpDir = await mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "msteams-storage-"));
+      const tmpDir = await mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "msteams-storage-"));
       const localFile = path.join(tmpDir, "note.txt");
       await writeFile(localFile, "hello");
 
@@ -385,7 +385,7 @@ describe("msteams messenger", () => {
 
     it("marks local activity preparation failures as never dispatched", async () => {
       const sendActivity = vi.fn(async () => ({ id: "should-not-send" }));
-      const missingPath = path.join(resolvePreferredOpenClawTmpDir(), "missing-msteams-file.txt");
+      const missingPath = path.join(resolvePreferredGrantedTmpDir(), "missing-msteams-file.txt");
 
       await expect(
         sendMSTeamsMessages({
@@ -402,7 +402,7 @@ describe("msteams messenger", () => {
 
     it("loads uppercase file URLs before sending personal images", async () => {
       const tmpDir = await mkdtemp(
-        path.join(resolvePreferredOpenClawTmpDir(), "msteams-file-url-"),
+        path.join(resolvePreferredGrantedTmpDir(), "msteams-file-url-"),
       );
       const localFile = path.join(tmpDir, "café image.png");
       const png = Buffer.from(
@@ -434,7 +434,7 @@ describe("msteams messenger", () => {
 
     it("does not claim no dispatch after an earlier batch message was sent", async () => {
       const sendActivity = vi.fn(async () => ({ id: "sent-first" }));
-      const missingPath = path.join(resolvePreferredOpenClawTmpDir(), "missing-second-file.txt");
+      const missingPath = path.join(resolvePreferredGrantedTmpDir(), "missing-second-file.txt");
 
       const error = await sendMSTeamsMessages({
         replyStyle: "thread",
@@ -509,7 +509,7 @@ describe("msteams messenger", () => {
     });
 
     it("retries media preparation but reuses it after provider dispatch starts", async () => {
-      const tmpDir = await mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "msteams-retry-"));
+      const tmpDir = await mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "msteams-retry-"));
       const localFile = path.join(tmpDir, "retry.txt");
       await writeFile(localFile, "hello");
 

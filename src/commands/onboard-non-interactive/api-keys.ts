@@ -12,7 +12,7 @@ import {
 import { isMalformedApiKeyInput } from "../../agents/auth-profiles/credential-state.js";
 import { resolveEnvApiKey } from "../../agents/model-auth.js";
 import { formatCliCommand } from "../../cli/command-format.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { normalizeOptionalSecretInput } from "../../utils/normalize-secret-input.js";
 import { rejectOnboardingOption } from "../onboard-options.js";

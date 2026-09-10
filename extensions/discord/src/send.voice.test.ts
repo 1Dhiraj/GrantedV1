@@ -13,7 +13,7 @@ vi.mock("openclaw/plugin-sdk/web-media", () => ({
 const tempPathMocks = vi.hoisted(() => ({ rootDir: "" }));
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => ({
   ...(await importOriginal<typeof import("granted/plugin-sdk/temp-path")>()),
-  resolvePreferredOpenClawTmpDir: () => tempPathMocks.rootDir,
+  resolvePreferredGrantedTmpDir: () => tempPathMocks.rootDir,
 }));
 
 const voiceMocks = vi.hoisted(() => ({

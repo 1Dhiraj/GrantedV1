@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { hasErrnoCode } from "../infra/errno.js";
 import type { ResolvedPluginBackupResource } from "../plugins/manifest-backup-resources.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { isPathWithin } from "./cleanup-utils.js";
 
 export type BackupAgentRoot = Readonly<{

@@ -1,5 +1,5 @@
 /** Runtime resolver for plugin-contributed embedding providers. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveConfiguredGenericEmbeddingProviderId } from "./embedding-provider-config.js";
 import {
   getRuntimeEmbeddingProviderAdapter,

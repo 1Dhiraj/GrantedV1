@@ -13,14 +13,14 @@ import { deleteAgentProvenanceForAgent, ensureAgentProvenanceSchema } from "./ag
 import type {
   GrantedStateDatabase,
   GrantedStateDatabaseOptions,
-} from "./openclaw-state-db-contract.js";
-import { ensureAgentDeletionJournalSchema } from "./openclaw-state-db-schema-additive.js";
-import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
+} from "./granted-state-db-contract.js";
+import { ensureAgentDeletionJournalSchema } from "./granted-state-db-schema-additive.js";
+import type { DB as GrantedStateKyselyDatabase } from "./granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "./granted-state-db.js";
 import {
   resolveOpenClawRegisteredAgentDatabasePath,
   resolveOpenClawStateSqlitePath,
-} from "./openclaw-state-db.paths.js";
+} from "./granted-state-db.paths.js";
 
 type AgentDeletionDatabase = Pick<
   GrantedStateKyselyDatabase,

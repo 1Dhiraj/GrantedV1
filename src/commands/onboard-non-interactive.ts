@@ -10,11 +10,11 @@ import { ConfigMutationConflictError, replaceConfigFile } from "../config/config
 import { readConfigFileSnapshot } from "../config/io.js";
 import { logConfigUpdated } from "../config/logging.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { defaultRuntime } from "../runtime.js";
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 import { withSetupMigrationTargetLock } from "../wizard/setup.migration-snapshot.js";
 import { createNonInteractiveLoggingPrompter } from "./non-interactive-prompter.js";
 import { runNonInteractiveLocalSetup } from "./onboard-non-interactive/local.js";

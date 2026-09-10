@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { validateCloudWorkerProfileSettings } from "../config/zod-schema.cloud-workers.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
 import { normalizePluginsConfig } from "./config-state.js";

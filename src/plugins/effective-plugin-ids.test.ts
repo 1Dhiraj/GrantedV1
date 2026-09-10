@@ -1,6 +1,6 @@
 /** Verifies effective plugin id resolution across config, manifests, and activation sources. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.js";
 
 const mocks = vi.hoisted(() => ({

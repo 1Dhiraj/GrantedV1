@@ -3,7 +3,7 @@ import type { Server as HttpServer, ServerResponse } from "node:http";
 // upgrade dispatch stays part of the regression coverage.
 import net from "node:net";
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ResolvedGatewayAuth } from "./auth.js";
 import { createGatewayHttpServer } from "./server-http.js";
 

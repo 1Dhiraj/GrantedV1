@@ -10,7 +10,7 @@ import {
   openOpenClawAgentDatabase,
   type GrantedAgentDatabase,
   type GrantedAgentDatabaseOptions,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { persistSessionTranscriptArchive } from "./session-accessor.sqlite-archive-store.js";
 import type {
   MaterializedSessionStateDeletePlan,
@@ -321,7 +321,7 @@ export async function projectSessionEntryLifecycleMutation(
     upserts: readonly SessionEntryLifecycleUpsert[];
   },
 ): Promise<ProjectedLifecycleMutation> {
-  // openclaw-agent-db.ts cache rule: keep handles within synchronous sections.
+  // granted-agent-db.ts cache rule: keep handles within synchronous sections.
   const removalDatabase = openOpenClawAgentDatabase(databaseOptions);
   const store = readSessionEntryStore(removalDatabase, {
     allowCanonicalRepair: params.allowCanonicalRepair === true,
@@ -421,7 +421,7 @@ export async function projectSessionEntryLifecycleMutation(
   if (projectedRemovals.length === 0) {
     return { deletePlans: [], removals: projectedRemovals, upsertedEntries };
   }
-  // openclaw-agent-db.ts cache rule: LRU eviction may close idle handles during buildEntry awaits.
+  // granted-agent-db.ts cache rule: LRU eviction may close idle handles during buildEntry awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
   const referencedSessionIds = collectProjectedReferencedSessionIds({
     database,

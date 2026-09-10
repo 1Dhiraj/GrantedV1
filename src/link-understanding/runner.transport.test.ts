@@ -3,7 +3,7 @@ import type { AddressInfo, Socket } from "node:net";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isPidAlive } from "../shared/pid-alive.js";
 import { killPidIfAlive, waitForPidFile, waitForPidToExit } from "../test-utils/process-tree.js";
 import { withTempDir } from "../test-utils/temp-dir.js";

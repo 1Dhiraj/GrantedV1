@@ -1,6 +1,6 @@
 // Model picker tests read the configured target agent without rewriting global defaults.
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 
 vi.mock("./model-picker.runtime.js", () => ({

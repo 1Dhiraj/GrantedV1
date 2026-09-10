@@ -9,9 +9,9 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import type { ThinkLevel } from "../auto-reply/thinking.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withTempWorkspace } from "../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import type { AssistantMessage } from "../llm/types.js";
 import { withPluginRuntimeGenerationScope } from "../plugins/runtime/generation-scope.js";
 import { prepareSystemAgentRunAdmission } from "./admitted-run-context.js";
@@ -179,7 +179,7 @@ async function runCliIsolatedCompletion(params: {
   workspaceDir: string;
 }): Promise<{ model: string; text: string; usage?: UsageLike }> {
   return await withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-isolated-completion-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-isolated-completion-" },
     async ({ dir }) => {
       const { runCliAgent } = await import("./cli-runner.runtime.js");
       const sessionId = `isolated-completion-${randomUUID()}`;
@@ -316,7 +316,7 @@ function resolveCliOwner(params: {
 
 async function resolveHarness(runtime: string): Promise<AgentHarness> {
   if (runtime === "openclaw") {
-    const { createOpenClawAgentHarness } = await import("./harness/builtin-openclaw.js");
+    const { createOpenClawAgentHarness } = await import("./harness/builtin-granted.js");
     return createOpenClawAgentHarness();
   }
   const harness = getRegisteredAgentHarness(runtime)?.harness;

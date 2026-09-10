@@ -6,7 +6,7 @@ import { stripInboundMetadata } from "../auto-reply/reply/strip-inbound-meta.js"
 import { isPrimarySessionTranscriptFileName } from "../config/sessions/artifacts.js";
 import { parseSqliteSessionFileMarker } from "../config/sessions/legacy-sqlite-marker.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { stripEnvelope, stripMessageIdHints } from "../shared/chat-envelope.js";
 import {
   isUsageCostRollupFresh,

@@ -1,5 +1,5 @@
 // Runtime bridge for web content extractors supplied by plugins.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveEnabledBundledManifestContractPlugins } from "./bundled-manifest-contract-plugins.js";
 import { sortPluginEntriesForAutoDetect } from "./plugin-entry-order.js";
 import { loadBundledWebContentExtractorEntriesFromDir } from "./web-content-extractor-public-artifacts.js";

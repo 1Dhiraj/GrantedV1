@@ -16,8 +16,8 @@ import {
   getCommandLaneSnapshot,
   setCommandLaneConcurrency,
 } from "../../process/command-queue.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../../state/user-profiles.js";
 import type { GatewayRequestContext, RespondFn, GatewayClient } from "./types.js";
 

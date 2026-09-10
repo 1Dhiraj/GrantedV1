@@ -4,7 +4,7 @@ import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/str
 import { AgentSelectionRequiredError } from "../agents/agent-scope-config.js";
 import { normalizeChatChannelId } from "../channels/ids.js";
 import { listRouteBindings } from "../config/bindings.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAgentRoute } from "./resolve-route.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId, normalizeAgentId } from "./session-key.js";
 

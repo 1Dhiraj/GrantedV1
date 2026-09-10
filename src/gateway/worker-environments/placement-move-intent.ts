@@ -9,12 +9,12 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { generateSecureToken } from "../../infra/secure-random.js";
-import { ensureColumn, tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
+import { ensureColumn, tableExists } from "../../state/granted-state-db-schema-helpers.js";
 import type {
   DB as StateDatabase,
   WorkerSessionPlacementMoves,
-} from "../../state/openclaw-state-db.generated.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+} from "../../state/granted-state-db.generated.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/granted-state-schema.js";
 import { drainWorkerSessionPlacement } from "./placement-drain.js";
 import { normalizeEpoch, required, type WorkerSessionPlacementRecord } from "./placement-record.js";
 import { getRequired, query, transitionValues } from "./placement-row-codec.js";

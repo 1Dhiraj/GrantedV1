@@ -3,7 +3,7 @@
  *
  * Primes, counts, and resolves compiled binding records from config and conversation facts.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ConversationRef } from "../../infra/outbound/session-binding-service.js";
 import type {
   ConfiguredBindingRecordResolution,

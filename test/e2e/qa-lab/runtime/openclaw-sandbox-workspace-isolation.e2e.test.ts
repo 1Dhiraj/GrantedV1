@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { expect, test } from "vitest";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { captureEnv, setTestEnvValue } from "../../../../src/test-utils/env.js";
 
 type WorkspaceAccess = "none" | "ro" | "rw";

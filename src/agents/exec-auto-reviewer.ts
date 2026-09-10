@@ -7,7 +7,7 @@
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { z } from "zod";
 import type { AgentModelConfig } from "../config/types.agents-shared.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   buildExecAutoReviewFailureDecision,
   defaultExecAutoReviewer,

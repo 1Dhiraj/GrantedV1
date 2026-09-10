@@ -1,7 +1,7 @@
 /** Configured provider rows own exact model ids before plugin normalization. */
 import { findNormalizedProviderValue } from "@granted/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 type ConfiguredProviderModelParams = {
   cfg?: GrantedConfig;

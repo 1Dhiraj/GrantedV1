@@ -1,7 +1,7 @@
 // Shared debounce-to-drain composition regression for pre-admission failures.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createInboundDebouncer } from "../../auto-reply/inbound-debounce.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { createChannelIngressDrain, DEFAULT_INGRESS_ADOPTION_STALL_MS } from "./ingress-drain.js";
 import {
   createTestIngressQueue,

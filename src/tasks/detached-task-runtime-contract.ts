@@ -1,5 +1,5 @@
 // Defines the detached task runtime contract and spawn options.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   JsonValue,
   TaskDeliveryState,

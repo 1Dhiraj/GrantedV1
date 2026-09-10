@@ -1,5 +1,5 @@
 // Talk provider registry stores realtime voice provider factories.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   resolvePluginCapabilityProvider,
   resolvePluginCapabilityProviders,

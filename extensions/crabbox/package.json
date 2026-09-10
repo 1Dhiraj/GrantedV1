@@ -14,8 +14,8 @@
     "build": {
       "staticAssets": [
         {
-          "source": "./assets/openclaw-worker-wallpaper.png",
-          "output": "assets/openclaw-worker-wallpaper.png"
+          "source": "./assets/granted-worker-wallpaper.png",
+          "output": "assets/granted-worker-wallpaper.png"
         }
       ]
     }

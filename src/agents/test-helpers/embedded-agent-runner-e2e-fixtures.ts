@@ -7,7 +7,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { AssistantMessage } from "granted/plugin-sdk/llm";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildAttemptReplayMetadata } from "../embedded-agent-runner/run/attempt-terminal-evidence.js";
 import type { EmbeddedRunAttemptResult } from "../embedded-agent-runner/run/types.js";
 

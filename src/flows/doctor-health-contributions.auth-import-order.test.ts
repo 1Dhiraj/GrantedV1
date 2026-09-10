@@ -12,16 +12,16 @@ import {
   type AuthProfileMigrationSourceReceipt,
 } from "../commands/doctor-auth-migration-receipts.js";
 import type { DoctorPrompter } from "../commands/doctor-prompter.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import {
   createDoctorHealthFlowContext,
   resolveDoctorHealthContributions,

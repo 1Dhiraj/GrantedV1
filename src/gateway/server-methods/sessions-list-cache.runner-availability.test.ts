@@ -4,14 +4,14 @@ import {
   recordSessionParticipant,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
-import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
+import { runOpenClawAgentWriteTransaction } from "../../state/granted-agent-db.js";
 import {
   ensureProfileForEmail,
   getUserProfileDisplay,
   linkEmail,
 } from "../../state/user-profiles.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import type { SessionsListResult } from "../session-utils.types.js";
 import { respondWithCachedSessionList } from "./sessions-list-cache.js";
 import type { GatewayClient, GatewayRequestContext } from "./types.js";

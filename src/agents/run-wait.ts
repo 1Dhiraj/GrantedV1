@@ -20,7 +20,7 @@ import {
   isOpenClawInternalSourceReplyMirrorAssistantMessage,
   isOpenClawMessageToolMirrorAssistantMessage,
   isTranscriptOnlyOpenClawAssistantMessage,
-} from "../shared/transcript-only-openclaw-assistant.js";
+} from "../shared/transcript-only-granted-assistant.js";
 import {
   buildAgentRunTerminalOutcomeFromWaitResult,
   type AgentRunTerminalOutcome,

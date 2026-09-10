@@ -7,7 +7,7 @@
 
 import { type ChildProcess, spawn } from "node:child_process";
 import process from "node:process";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { releaseChildProcessOutputAfterExit } from "../process/child-process.js";
 import { formatCommandResult } from "../process/command-error.js";

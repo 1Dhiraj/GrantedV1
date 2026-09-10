@@ -2,7 +2,7 @@ import { isRecord } from "@granted/normalization-core/record-coerce";
 import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { uniqueValues } from "@granted/normalization-core/string-normalization";
 import { normalizeAgentModelRefForConfig } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { modelKey } from "../shared/model-key.js";
 import { clampNumber } from "../utils.js";

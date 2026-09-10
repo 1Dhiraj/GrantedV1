@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveTranscriptsConfig } from "../../transcripts/config.js";
 import { manualTranscriptSourceProvider } from "../../transcripts/manual-source.js";
 import { getTranscriptSourceProvider } from "../../transcripts/provider-registry.js";

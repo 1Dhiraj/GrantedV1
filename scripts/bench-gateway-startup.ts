@@ -702,8 +702,8 @@ async function writeIncidentFixture(root: string, options: IncidentFixtureOption
   const env = { GRANTED_STATE_DIR: path.join(root, "state") };
   const [{ DatabaseSync }, agentDatabase, stateDatabase] = await Promise.all([
     import("node:sqlite"),
-    import("../src/state/openclaw-agent-db.js"),
-    import("../src/state/openclaw-state-db.js"),
+    import("../src/state/granted-agent-db.js"),
+    import("../src/state/granted-state-db.js"),
   ]);
   const state = stateDatabase.openOpenClawStateDatabase({ env });
   const agents = Array.from({ length: INCIDENT_WORKSPACE_COUNT }, (_, index) =>

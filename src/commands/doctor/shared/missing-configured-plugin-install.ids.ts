@@ -1,7 +1,7 @@
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listRawChannelPluginCatalogEntries } from "../../../channels/plugins/catalog.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveConfiguredChannelPresencePolicy } from "../../../plugins/channel-plugin-ids.js";
 import { collectConfiguredMemoryEmbeddingProviderIds } from "../../../plugins/gateway-startup-plugin-ids.js";
 import { collectConfiguredSpeechProviderIds } from "../../../plugins/gateway-startup-speech-providers.js";

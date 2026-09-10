@@ -4,7 +4,7 @@ import path from "node:path";
 import { expect, test, vi } from "vitest";
 import * as sessionDirs from "../agents/session-dirs.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import * as agentDatabaseRegistry from "../state/openclaw-agent-db-registry.js";
+import * as agentDatabaseRegistry from "../state/granted-agent-db-registry.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { testState, writeSessionStore } from "./test-helpers.js";
 import {

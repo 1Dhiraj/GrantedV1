@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import type { SessionObserverDigest } from "../../packages/gateway-protocol/src/schema/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { AgentEventPayload } from "../infra/agent-events.js";
 import {
   createSessionEventSubscriberRegistry,

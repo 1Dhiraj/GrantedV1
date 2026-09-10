@@ -4,7 +4,7 @@ import type {
   LocalTurnPlacementClaim,
   SessionPlacementAdmissionProvider,
 } from "../../agents/session-placement-admission.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { emitAgentRunStatusEvent } from "../../infra/agent-run-status-events.js";
 import { StaleWorkerBuildError } from "./admission.js";
 import { placementTurnOwner, sameWorkerSessionTurnClaim } from "./placement-record.js";

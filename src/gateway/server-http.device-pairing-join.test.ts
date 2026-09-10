@@ -4,8 +4,8 @@ import type { WebSocket } from "ws";
 import { getPairedDevice } from "../infra/device-pairing.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { decodePairingSetupCode } from "../pairing/setup-code.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
 import { loadDeviceIdentity } from "./device-authz.test-helpers.js";
 import {

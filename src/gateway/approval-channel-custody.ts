@@ -3,7 +3,7 @@ import {
   getLoadedChannelPlugin,
   resolveChannelApprovalCapability,
 } from "../channels/plugins/index.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   doesApprovalRequestSelectChannelAccount,
   type ApprovalRequestLike,

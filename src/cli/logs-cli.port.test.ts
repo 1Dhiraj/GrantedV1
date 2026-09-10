@@ -11,7 +11,7 @@ import {
 } from "../gateway/minimal-gateway.test-helpers.js";
 import { defaultRuntime, ExitError } from "../runtime.js";
 import { runRegisteredCli } from "../test-utils/command-runner.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { registerLogsCli } from "./logs-cli.js";
 
 afterEach(() => vi.restoreAllMocks());

@@ -9,7 +9,7 @@ import {
   shellEscape,
 } from "granted/plugin-sdk/sandbox";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -27,7 +27,7 @@ import {
   createOpenShellRuntimeEntryFixture,
 } from "./openshell.test-support.js";
 
-const openShellTestWorkspaceRoot = resolvePreferredOpenClawTmpDir();
+const openShellTestWorkspaceRoot = resolvePreferredGrantedTmpDir();
 
 function createOpenShellTestWorkspace(label: string): Promise<TempWorkspace> {
   return tempWorkspace({

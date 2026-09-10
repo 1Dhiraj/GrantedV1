@@ -8,17 +8,17 @@ import {
   executeSqliteQueryTakeFirstSync,
 } from "../../infra/kysely-sync.js";
 import type { PersistedUserTurnMessage } from "../../sessions/user-turn-transcript.types.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   ensureSessionPendingInputsSchema,
   hasPendingInputConsumptionColumn,
   hasSessionPendingInputsSchema,
-} from "../../state/openclaw-agent-pending-inputs-schema.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../state/granted-agent-pending-inputs-schema.js";
+import type { GrantedConfig } from "../types.granted.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { readSessionEntryRow } from "./session-accessor.sqlite-entry-store.js";
 import {

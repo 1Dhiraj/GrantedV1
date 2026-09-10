@@ -12,7 +12,7 @@ import {
 } from "../agents/auth-profiles.js";
 import type { AuthProfileCredential, AuthProfileStore } from "../agents/auth-profiles/types.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   COPILOT_INTEGRATION_ID,
   deriveCopilotApiBaseUrlFromToken,

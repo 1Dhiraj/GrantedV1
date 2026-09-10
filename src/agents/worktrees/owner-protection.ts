@@ -1,6 +1,6 @@
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { resolveSessionEntryAccessTarget } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveSessionWorkerPlacementContext } from "../../gateway/session-worker-placement-context.js";
 import { prepareSessionWorkerPlacementMutationCheck } from "../../gateway/worker-environments/session-placement-lifecycle.js";
 import {

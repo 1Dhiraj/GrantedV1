@@ -5,7 +5,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { probeGatewayStatus } from "../cli/daemon-cli/probe.js";
 import { compareCliGatewayStateDirs, type GatewayHello } from "../cli/state-dir-gateway-check.js";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   buildGatewayConnectionDetails,
   buildGatewayProbeConnectionDetails,

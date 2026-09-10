@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
-import { ensureWorkerEnvironmentNodeEnrollmentSchema } from "../state/openclaw-state-db-schema-additive.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { ensureWorkerEnvironmentNodeEnrollmentSchema } from "../state/granted-state-db-schema-additive.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

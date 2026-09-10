@@ -5,22 +5,22 @@ import type { Selectable } from "kysely";
 import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { insideGitCheckout, runGit } from "../agents/worktrees/git.js";
 import { slugifyWorktreeTitle } from "../agents/worktrees/name.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   type GrantedStateLeaseContext,
   withOpenClawStateLease,
-} from "../state/openclaw-state-lease.js";
+} from "../state/granted-state-lease.js";
 
 export type ProjectRegistryRecord = {
   id: string;

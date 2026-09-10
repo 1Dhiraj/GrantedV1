@@ -6,7 +6,7 @@ import { loadPersistedAuthProfileStore } from "../../src/agents/auth-profiles/pe
 import { clearRuntimeAuthProfileStoreSnapshots } from "../../src/agents/auth-profiles/runtime-snapshots.js";
 import type { RuntimeEnv } from "../../src/runtime.js";
 import { captureEnv } from "../../src/test-utils/env.js";
-import { createOpenClawTestState } from "../../src/test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../src/test-utils/granted-test-state.js";
 import type { WizardPrompter } from "../../src/wizard/prompts.js";
 import { createWizardPrompter as createBaseWizardPrompter } from "./wizard-prompter.js";
 

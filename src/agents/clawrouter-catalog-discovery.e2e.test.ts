@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   buildModelsListResult,
   createGatewayAgentModelCatalogProjector,
@@ -8,7 +8,7 @@ import type { GatewayRequestContext } from "../gateway/server-methods/types.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { createPreparedModelCatalogWorkerInput } from "./prepared-model-catalog-worker.js";
 import { runPreparedModelCatalogWorkerRequest } from "./prepared-model-catalog.worker.js";
 import { prepareWorkspaceBuildGroup } from "./prepared-model-runtime.facts.js";

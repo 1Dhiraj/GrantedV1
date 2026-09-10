@@ -5,9 +5,9 @@ import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { isPathInside } from "../../../infra/path-guards.js";
 import { getGatewayContextResolver } from "../../../plugins/runtime/gateway-request-scope.js";
-import { listOpenClawAgentDatabasesForTest as listSeedAgentDatabases } from "../../../state/openclaw-agent-db.js";
+import { listOpenClawAgentDatabasesForTest as listSeedAgentDatabases } from "../../../state/granted-agent-db.js";
 import "./subagent-registry.mocks.shared.js";
-import { closeOpenClawStateDatabaseForTest as closeSeedStateDatabase } from "../../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest as closeSeedStateDatabase } from "../../../state/granted-state-db.js";
 import {
   createSubagentRegistryTestDeps,
   gateSubagentRequesterSettlement,
@@ -32,8 +32,8 @@ let callGatewayModule: typeof import("../../../gateway/call.js");
 let agentEventsModule: typeof import("../../../infra/agent-events.js");
 let registryDepsModule: typeof import("./subagent-registry-deps.js");
 let registrySessionCleanupModule: typeof import("../../../test-utils/session-state-cleanup.js");
-let registryAgentDbModule: typeof import("../../../state/openclaw-agent-db.js");
-let registryStateDbModule: typeof import("../../../state/openclaw-state-db.js");
+let registryAgentDbModule: typeof import("../../../state/granted-agent-db.js");
+let registryStateDbModule: typeof import("../../../state/granted-state-db.js");
 
 function listFixtureAgentDatabases(listDatabases: typeof listSeedAgentDatabases, stateDir: string) {
   return listDatabases().filter((database) => isPathInside(stateDir, database.path));
@@ -107,9 +107,9 @@ describe("subagent registry persistence resume", () => {
     mod = await import("./subagent-registry.test-helpers.js");
     callGatewayModule = await import("../../../gateway/call.js");
     agentEventsModule = await import("../../../infra/agent-events.js");
-    registryStateDbModule = await import("../../../state/openclaw-state-db.js");
+    registryStateDbModule = await import("../../../state/granted-state-db.js");
     registryDepsModule = await import("./subagent-registry-deps.js");
-    registryAgentDbModule = await import("../../../state/openclaw-agent-db.js");
+    registryAgentDbModule = await import("../../../state/granted-agent-db.js");
     registrySessionCleanupModule = await import("../../../test-utils/session-state-cleanup.js");
   });
 

@@ -13,7 +13,7 @@ import { createReplyOperation } from "../../auto-reply/reply/reply-run-registry.
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import {
   createAssistant,
   createAssistantResultStream,
@@ -1531,7 +1531,7 @@ describe("compactEmbeddedAgentSessionDirect hooks", () => {
   );
 
   it("defaults rootless compaction permissions to the canonical agent workspace", async () => {
-    const workspaceDir = tempDirs.make("openclaw-rootless-compaction-permission-");
+    const workspaceDir = tempDirs.make("granted-rootless-compaction-permission-");
     const canonicalWorkspace = await realpath(workspaceDir);
 
     await compactEmbeddedAgentSessionDirect(

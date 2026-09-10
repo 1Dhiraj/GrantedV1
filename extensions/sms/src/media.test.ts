@@ -12,7 +12,7 @@ import type {
 } from "granted/plugin-sdk/plugin-state-runtime";
 import { createPluginStateKeyedStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { SsrFBlockedError } from "granted/plugin-sdk/security-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import type { loadWebMedia as loadWebMediaType } from "granted/plugin-sdk/web-media";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -94,7 +94,7 @@ vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => ({
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,
   GRANTED_STATE_DIR: fs.mkdtempSync(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-sms-media-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-sms-media-"),
   ),
 };
 

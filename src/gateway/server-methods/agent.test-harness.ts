@@ -15,7 +15,7 @@ import type {
   listSessionParticipantsReadOnly,
   stageSessionPendingInput,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resetDiagnosticEventsForTest } from "../../infra/diagnostic-events.js";
 import {
   resetDetachedTaskLifecycleRuntimeForTests,

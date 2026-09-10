@@ -10,7 +10,7 @@
     }
   },
   "metadata": {
-    "openclaw.config": "profiles/incident-response.openclaw.yml"
+    "openclaw.config": "profiles/incident-response.granted.yml"
   },
   "workspace": {
     "bootstrapFiles": {

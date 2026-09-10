@@ -1,8 +1,8 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { GatewayErrorDetailCodes } from "../../../packages/gateway-protocol/src/index.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { ensureProfileForEmail, linkEmail } from "../../state/user-profiles.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import type { GatewayClient } from "./types.js";
 import { usersHandlers } from "./users.js";
 

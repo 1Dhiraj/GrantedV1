@@ -3,9 +3,9 @@ import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
 } from "../../infra/kysely-sync.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
-import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../../state/openclaw-agent-progress-card-schema.js";
-import { ensureSessionParticipantsSchema } from "../../state/openclaw-agent-session-participants-schema.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
+import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../../state/granted-agent-progress-card-schema.js";
+import { ensureSessionParticipantsSchema } from "../../state/granted-agent-session-participants-schema.js";
 import {
   copySessionPendingInputsForRepair,
   deleteSessionPendingInputs,

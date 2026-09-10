@@ -6,7 +6,7 @@ import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
 import * as controlUiFsRuntime from "./control-ui-assets.fs.runtime.js";
-import { resolveOpenClawPackageRoot, resolveOpenClawPackageRootSync } from "./openclaw-root.js";
+import { resolveOpenClawPackageRoot, resolveOpenClawPackageRootSync } from "./granted-root.js";
 
 export function resolveControlUiDistIndexPathForRoot(root: string): string {
   return path.join(root, "dist", "control-ui", "index.html");

@@ -7,7 +7,7 @@ import {
 } from "../agents/harness/context-engine-logical-turn.js";
 import { SessionTranscriptReadFenceError } from "../config/sessions/session-transcript-read-fence.js";
 import type { MemoryCitationsMode } from "../config/types.memory.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   clearMemoryPluginState,
   registerMemoryPromptPreparation,

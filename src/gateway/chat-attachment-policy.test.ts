@@ -2,7 +2,7 @@
 // ceilings the parser actually enforces.
 import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   DEFAULT_CHAT_ATTACHMENT_MAX_BYTES,
   resolveChatAttachmentMaxBytes,

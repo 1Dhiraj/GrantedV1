@@ -14,8 +14,8 @@ import { runExclusiveSessionLifecycleMutation } from "../sessions/session-lifecy
 import {
   closeOpenClawAgentDatabaseByPath,
   closeOpenClawAgentDatabasesForTest,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { normalizeSessionDeliveryState } from "../utils/delivery-context.shared.js";
 import {

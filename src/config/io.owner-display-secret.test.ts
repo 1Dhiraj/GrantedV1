@@ -1,7 +1,7 @@
 // Verifies owner display secrets stay redacted in config IO paths.
 import { describe, expect, it } from "vitest";
 import { retainGeneratedOwnerDisplaySecret } from "./io.owner-display-secret.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 type OwnerDisplaySecretRuntimeState = Parameters<
   typeof retainGeneratedOwnerDisplaySecret

@@ -4,7 +4,7 @@ import {
   hasMeaningfulChannelConfigShallow,
   resolveChannelConfigRecord,
 } from "../config/channel-configured-shared.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readBundledDiscoveryModeMemoized } from "./bundled-discovery-state.js";
 import { isBundledProviderCompatContract } from "./bundled-provider-compat.js";
 import { normalizePluginsConfig, type NormalizedPluginsConfig } from "./config-state.js";

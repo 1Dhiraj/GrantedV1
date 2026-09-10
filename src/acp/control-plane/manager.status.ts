@@ -6,7 +6,7 @@ import type {
   AcpRuntimeHandle,
   AcpRuntimeStatus,
 } from "@granted/acp-core/runtime/types";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withAcpRuntimeErrorBoundary } from "../runtime/errors.js";
 import type {
   AcpSessionStatus,

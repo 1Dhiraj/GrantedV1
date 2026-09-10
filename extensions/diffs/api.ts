@@ -8,4 +8,4 @@ export {
   type GrantedPluginToolContext,
   type PluginLogger,
 } from "granted/plugin-sdk/plugin-entry";
-export { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+export { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";

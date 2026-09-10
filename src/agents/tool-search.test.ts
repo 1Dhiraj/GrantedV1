@@ -54,7 +54,7 @@ import { testing } from "./tool-search.test-support.js";
 import { setToolTerminalPresentation } from "./tool-terminal-presentation.js";
 import { jsonResult, type AnyAgentTool } from "./tools/common.js";
 import { createGatewayTool } from "./tools/gateway-tool.js";
-import { createOpenClawDelegateToolsForRun } from "./tools/openclaw-delegate-tool.js";
+import { createOpenClawDelegateToolsForRun } from "./tools/granted-delegate-tool.js";
 
 type TestCatalogContext = {
   sessionId?: string;

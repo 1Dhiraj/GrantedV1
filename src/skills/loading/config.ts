@@ -4,7 +4,7 @@ import {
   normalizeOptionalString,
 } from "@granted/normalization-core/string-coerce";
 import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { hasConfiguredSecretInput } from "../../config/types.secrets.js";
 import type { SkillConfig } from "../../config/types.skills.js";
 import {

@@ -9,7 +9,7 @@ import { prepareContextWindowCaches } from "../agents/context-cache-projection.j
 import { getContextWindowCaches, replaceContextWindowCaches } from "../agents/context-cache.js";
 import { resetContextWindowCacheForTest } from "../agents/context-runtime-state.js";
 import { resetPreparedModelRuntimeSnapshotsForTest } from "../agents/prepared-model-runtime.test-support.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { connectGatewayClient, disconnectGatewayClient } from "./test-helpers.e2e.js";
 import {
   getGatewayTestPort,

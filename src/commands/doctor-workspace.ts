@@ -4,7 +4,7 @@ import path from "node:path";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { resolveAgentWorkspaceDir, tryResolveDefaultAgentId } from "../agents/agent-scope.js";
 import { DEFAULT_AGENTS_FILENAME } from "../agents/workspace.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { readRegularFile } from "../infra/regular-file.js";
 import {
@@ -199,7 +199,7 @@ function buildMergedLegacyRootMemorySection(params: {
     "",
     `## Imported From Legacy Root ${LEGACY_ROOT_MEMORY_FILENAME}`,
     "",
-    `<!-- openclaw-root-memory-merge source=${LEGACY_ROOT_MEMORY_FILENAME} archived=${params.archivedLegacyPath} -->`,
+    `<!-- granted-root-memory-merge source=${LEGACY_ROOT_MEMORY_FILENAME} archived=${params.archivedLegacyPath} -->`,
     `This content came from legacy root \`${LEGACY_ROOT_MEMORY_FILENAME}\`, which was shadowed by \`${CANONICAL_ROOT_MEMORY_FILENAME}\`.`,
     "",
     params.legacyText.trim(),

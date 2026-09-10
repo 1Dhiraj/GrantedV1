@@ -7,7 +7,7 @@ import {
   prepareSecretsRuntimeSnapshot,
 } from "../secrets/runtime.js";
 import { discoverConfigSecretTargetsByIds } from "../secrets/target-registry.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   clearRuntimeConfigSnapshot,
   createMockSpeechProvider,

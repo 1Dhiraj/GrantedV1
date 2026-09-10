@@ -21,7 +21,7 @@ import {
   MIN_CLIENT_PROTOCOL_VERSION,
 } from "../../../../packages/gateway-protocol/src/version.js";
 import { runGatewaySmoke } from "../../../../scripts/dev/gateway-smoke.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { formatErrorMessage } from "../../../../src/infra/errors.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { createMcpClientTempState } from "./mcp-client-temp-state.fixture.ts";
@@ -713,7 +713,7 @@ async function writePluginToolsConfig(root: string, pluginDir: string) {
 async function runMcpPluginToolsProof(options: ProducerOptions): Promise<string> {
   const fixture = await createFixturePlugin();
   // openclaw-temp-dir: allow standalone producer cleans and verifies this root in its finally block
-  const runtimeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-tools-mcp-"));
+  const runtimeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-plugin-tools-mcp-"));
   const stateDir = path.join(runtimeRoot, "state");
   const homeDir = path.join(runtimeRoot, "home");
   await Promise.all([

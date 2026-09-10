@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   createCorePluginStateSyncKeyedStore,
   MAX_PLUGIN_STATE_ENTRIES_PER_PLUGIN,

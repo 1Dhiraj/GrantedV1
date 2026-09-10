@@ -1,7 +1,7 @@
 /** Command handlers for changing ACP runtime mode and config options on live sessions. */
 import type { AcpRuntime, AcpRuntimeHandle } from "@granted/acp-core/runtime/types";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { AcpRuntimeError, withAcpRuntimeErrorBoundary } from "../runtime/errors.js";
 import type { ManagerRuntimeHandleCache } from "./manager.runtime-handle-cache.js";
 import type {

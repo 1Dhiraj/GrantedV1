@@ -5,7 +5,7 @@ import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
 } from "../../infra/kysely-sync.js";
-import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../../state/openclaw-agent-db-additive-columns.js";
+import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "../../state/granted-agent-db-additive-columns.js";
 import { getSessionKysely } from "./session-accessor.sqlite-scope.js";
 import type { SessionActor } from "./session-entry-provenance.js";
 import type { SessionEntry } from "./types.js";

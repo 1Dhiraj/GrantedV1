@@ -8,15 +8,15 @@ import {
   applySessionEntryReplacements,
   listSessionEntriesReadOnly,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
-import { ensureColumn, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { ensureColumn, tableHasColumn } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   SessionMutationAuthorizationChangedError,
   type SessionMutationTarget,

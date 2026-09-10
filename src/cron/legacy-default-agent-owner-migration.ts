@@ -5,7 +5,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import { isMissingPathError } from "../infra/errors.js";
 import { writeTextAtomic } from "../infra/json-files.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import { parseJsonWithJson5Fallback } from "../utils/parse-json-compat.js";
 import { cronStoreKey } from "./store/key.js";
 import { materializeCronRowAgentOwners } from "./store/row-codec.js";

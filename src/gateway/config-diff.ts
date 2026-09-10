@@ -1,7 +1,7 @@
 // Config path diff helper used by gateway mutation diagnostics.
 import { isDeepStrictEqual } from "node:util";
 import * as talk from "../config/talk.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isPlainObject } from "../utils.js";
 
 /** Return dotted config paths whose values differ between two config snapshots. */

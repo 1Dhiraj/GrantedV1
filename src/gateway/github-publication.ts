@@ -10,7 +10,7 @@ import { getOrCreatePromise } from "../shared/lazy-promise.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { createPersonalGitHubPublicationCoordinator } from "./github-personal-publication.js";
 import {
   assertExpectedSharedGitHubPublisher,

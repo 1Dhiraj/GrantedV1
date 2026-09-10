@@ -6,13 +6,13 @@ import {
   SESSION_ARCHIVE_ZSTD_SUFFIX,
 } from "../config/sessions/archive-compression.js";
 import { reconcileSessionTranscriptIndexInTransaction } from "../config/sessions/session-transcript-index.js";
-import { registerOpenClawAgentDatabase } from "../state/openclaw-agent-db-registry.js";
+import { registerOpenClawAgentDatabase } from "../state/granted-agent-db-registry.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { requireNodeSqlite } from "./node-sqlite.js";
 
 export const PREVIOUS_VERSION = 16;

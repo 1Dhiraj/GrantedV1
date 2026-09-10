@@ -7,11 +7,11 @@ import {
   acquireStartupMigrationLease,
   STARTUP_MIGRATION_LEASE_TTL_MS,
 } from "../infra/startup-migration-checkpoint.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import {
   getCurrentPluginMetadataSnapshot,

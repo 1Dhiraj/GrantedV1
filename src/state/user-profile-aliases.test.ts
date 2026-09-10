@@ -3,12 +3,12 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { withPathResolutionEnv } from "../test-utils/env.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import { onUserProfilesChanged } from "./user-profile-events.js";
 import { ensureProfileForEmail, linkEmail, readUserProfileAliases } from "./user-profiles.js";
 

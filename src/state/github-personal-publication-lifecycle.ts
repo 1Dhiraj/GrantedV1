@@ -1,10 +1,10 @@
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB } from "./openclaw-state-db.generated.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
+import type { DB } from "./granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 
 /** Permanent session deletion owns all retained receipts, including pre-reset incarnations. */
 export function deletePersonalGitHubSessionReceipts(params: {

@@ -6,13 +6,13 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { ensureGitHubPublicationSchema } from "../state/openclaw-state-db-schema-additive.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as StateDatabase } from "../state/openclaw-state-db.generated.js";
+import { ensureGitHubPublicationSchema } from "../state/granted-state-db-schema-additive.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as StateDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import type { WorkerSessionTurnClaim } from "./worker-environments/placement-store.js";
 
 type GitHubPublicationDatabase = Pick<

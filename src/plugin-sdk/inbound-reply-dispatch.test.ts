@@ -9,7 +9,7 @@ import type {
   ChannelTurnResult,
   PreparedChannelTurn,
 } from "../channels/turn/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   dispatchChannelInboundReply,
   dispatchChannelInboundTurn,

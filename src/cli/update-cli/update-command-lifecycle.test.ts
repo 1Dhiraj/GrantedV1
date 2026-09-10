@@ -70,11 +70,11 @@ vi.mock("../../plugins/plugin-lifecycle-lease.js", () => ({
   },
 }));
 
-vi.mock("../../state/openclaw-state-db.paths.js", () => ({
+vi.mock("../../state/granted-state-db.paths.js", () => ({
   resolveOpenClawStateSqlitePath: vi.fn(() => "/tmp/openclaw.sqlite"),
 }));
 
-vi.mock("../../state/openclaw-state-ownership.js", () => ({
+vi.mock("../../state/granted-state-ownership.js", () => ({
   assertOpenClawStateWriteAllowedAtPath: vi.fn(async () => undefined),
 }));
 

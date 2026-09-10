@@ -6,13 +6,13 @@ import type { ExecutionIdentityContextV1 } from "../../packages/gateway-protocol
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { AdmittedRunContext } from "../agents/admitted-run-context.js";
 import { bindCronRunReceiptExecution } from "../cron/store/run-receipt-store.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import { tableHasColumn, tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
+import { tableHasColumn, tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+} from "../state/granted-state-db.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/granted-state-schema.js";
 import { bindTaskFlowExecution } from "../tasks/task-flow-registry.store.sqlite.js";
 import { bindTaskRunExecution } from "../tasks/task-registry.store.sqlite.js";
 import { presentExecutionDecisionReceipts } from "./execution-decision-receipts.js";

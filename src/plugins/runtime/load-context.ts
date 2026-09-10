@@ -1,5 +1,5 @@
 // Prepared plugin runtime load facts and registry-owned context access.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import { createSubsystemLogger } from "../../logging.js";
 import type { PluginLoadOptions } from "../loader.js";

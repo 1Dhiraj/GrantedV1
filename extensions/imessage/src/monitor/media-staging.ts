@@ -5,7 +5,7 @@ import type { ChannelInboundMediaInput } from "granted/plugin-sdk/channel-inboun
 import { isInboundPathAllowed, kindFromMime } from "granted/plugin-sdk/media-runtime";
 import { saveMediaBuffer } from "granted/plugin-sdk/media-store";
 import { openLocalFileSafely } from "granted/plugin-sdk/security-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { loadWebMedia } from "granted/plugin-sdk/web-media";
 import type { IMessageAttachment } from "./types.js";
 
@@ -119,7 +119,7 @@ async function readAttachmentBuffer(params: {
       try {
         const convert = params.deps.convertHeicToJpeg;
         const converted = await withTempWorkspace(
-          { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-imessage-heic-" },
+          { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-imessage-heic-" },
           async (workspace) => {
             const pinnedPath = await workspace.write("attachment.heic", buffer);
             return convert

@@ -4,13 +4,13 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { createAgent } from "../agents/agent-create.js";
 import { beginAgentDeletion } from "../agents/agent-lifecycle-registry.js";
 import { withTempHomeConfig, writeOpenClawConfig } from "../config/test-helpers.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadExecApprovals, saveExecApprovals } from "../infra/exec-approvals.js";
 import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { applyClawAddPlan } from "./add.js";
 import {

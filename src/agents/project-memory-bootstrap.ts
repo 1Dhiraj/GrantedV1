@@ -4,7 +4,7 @@ import {
   splitCuratedMarkdownEntries,
   stripMemoryAnnotationCarriers,
 } from "../../packages/memory-host-sdk/src/engine-storage.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   isAutomaticMemoryEntryEligible,
   type MemorySearchResult,

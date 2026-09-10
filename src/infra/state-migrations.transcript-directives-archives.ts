@@ -9,10 +9,10 @@ import {
 } from "../config/sessions/archive-compression.js";
 import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite-contract.js";
 import { resolveSqliteTranscriptArchiveDirectory } from "../config/sessions/session-accessor.sqlite-scope.js";
-import { assertAgentDatabaseMaintenanceAuthority } from "../state/openclaw-agent-db-lease.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
-import { SESSION_TRANSCRIPT_ARCHIVES_TABLE } from "../state/openclaw-agent-session-transcript-archive-schema.js";
-import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { assertAgentDatabaseMaintenanceAuthority } from "../state/granted-agent-db-lease.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
+import { SESSION_TRANSCRIPT_ARCHIVES_TABLE } from "../state/granted-agent-session-transcript-archive-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/granted-state-db.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

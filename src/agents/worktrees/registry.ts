@@ -2,13 +2,13 @@ import type { DatabaseSync } from "node:sqlite";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { Insertable, Selectable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/granted-state-db-readonly.js";
+import { tableExists } from "../../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   collectLiveRunLeases,
   WORKTREE_REMOVING_LEASE_KEY,

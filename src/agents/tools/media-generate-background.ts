@@ -3,7 +3,7 @@
  *
  * Binds shared detached media-task lifecycle behavior to image_generate labels and completion messages.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { DeliveryContext } from "../../utils/delivery-context.types.js";
 import { recordRecentMediaGenerationTaskStartForSession } from "../media-generation-task-status-shared.js";
 import {

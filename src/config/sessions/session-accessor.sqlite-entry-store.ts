@@ -7,8 +7,8 @@ import {
   iterateSqliteQuerySync,
 } from "../../infra/kysely-sync.js";
 import { getChildLogger } from "../../logging/logger.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/granted-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 import type { ConversationRouteContext } from "./conversation-route-context.js";
 import {
   linkSessionConversation,

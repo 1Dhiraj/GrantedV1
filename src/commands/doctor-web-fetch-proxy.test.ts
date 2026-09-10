@@ -1,6 +1,6 @@
 // Doctor web fetch proxy tests cover explicit opt-in diagnostics without exposing proxy values.
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { noteWebFetchProxyDiagnostic } from "./doctor-web-fetch-proxy.js";
 
 function serviceWithEnv(environment?: Record<string, string>) {

@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import { extnameFromAnyPath } from "@granted/media-core/file-name";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 export { asFiniteNumber as asNumber } from "@granted/normalization-core/number-coercion";
 export { asRecord } from "@granted/normalization-core/record-coerce";
 export { readStringValue } from "@granted/normalization-core/string-coerce";
@@ -47,7 +47,7 @@ export function resolveTempPathParts(opts: { ext: string; tmpDir?: string; id?: 
   id: string;
 } {
   // Restrict extensions before writing temp media paths derived from CLI/user input.
-  const tmpDir = opts.tmpDir ?? resolvePreferredOpenClawTmpDir();
+  const tmpDir = opts.tmpDir ?? resolvePreferredGrantedTmpDir();
   const rawExt = opts.ext.startsWith(".") ? opts.ext : `.${opts.ext}`;
   if (!/^\.[A-Za-z0-9][A-Za-z0-9_-]{0,15}$/u.test(rawExt)) {
     throw new Error("invalid media format");

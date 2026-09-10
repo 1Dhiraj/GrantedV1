@@ -6,7 +6,7 @@ import * as doctorLegacy from "../commands/doctor/shared/legacy-config-issues.js
 import * as channelPresence from "../plugins/channel-presence-policy.js";
 import * as manifestRegistry from "../plugins/manifest-registry.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { createConfigIoContext } from "./io.context.js";
 import {
   readConfigFileSnapshotFromContext,

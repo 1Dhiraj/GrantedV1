@@ -1,11 +1,11 @@
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { AuthStorage, ModelRegistry } from "../sessions/index.js";
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
 import {

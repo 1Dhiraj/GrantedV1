@@ -8,7 +8,7 @@ import type { ProviderPlugin } from "../../plugins/types.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { discoverAuthStorage, discoverModels } from "../agent-model-discovery.js";
 import {
   clearRuntimeAuthProfileStoreSnapshots,

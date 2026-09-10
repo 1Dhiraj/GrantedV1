@@ -4,7 +4,7 @@ import { runCommandWithTimeout } from "../process/exec.js";
 import {
   parseOpenClawSchemaVersions,
   type GrantedSchemaVersions,
-} from "../state/openclaw-schema-versions.js";
+} from "../state/granted-schema-versions.js";
 import { buildTimeoutAbortSignal } from "../utils/fetch-timeout.js";
 import { cancelUnreadResponseBody } from "./http-body.js";
 

@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { buildClawAddPlan } from "./lifecycle.js";
 import { parseClawManifest } from "./schema.js";
 import type { ClawOpenClawProfile, ClawSourceIdentity } from "./types.js";

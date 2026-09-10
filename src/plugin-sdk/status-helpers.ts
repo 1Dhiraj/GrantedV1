@@ -7,7 +7,7 @@ import {
   applyChannelAccountState,
   resolveChannelAccountState,
 } from "../channels/status/account-state.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 // Preserve the shipped Plugin SDK name while the implementation stays canonical.
 export { normalizeOptionalString as asString };
 export type { ChannelAccountSnapshot } from "../channels/plugins/types.core.js";

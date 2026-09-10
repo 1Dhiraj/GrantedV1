@@ -6,7 +6,7 @@ import {
   createQaGatewayChild,
   type QaGatewayChild,
 } from "../../../../extensions/qa-lab/api.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 

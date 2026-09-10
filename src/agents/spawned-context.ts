@@ -5,7 +5,7 @@
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ThinkLevel } from "../auto-reply/thinking.shared.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveAgentWorkspaceDir } from "./agent-scope.js";
 import type { PreparedSessionPermissionPolicy } from "./tool-fs-policy.types.js";

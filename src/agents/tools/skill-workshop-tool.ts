@@ -4,7 +4,7 @@ import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
  *
  * Exposes proposal create/update/review/apply actions while the workshop service owns persistence.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { applyAutonomousSkillProposal } from "../../skills/workshop/autonomous-apply.js";
 import {

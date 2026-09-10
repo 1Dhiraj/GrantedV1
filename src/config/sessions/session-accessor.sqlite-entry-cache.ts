@@ -3,7 +3,7 @@ import { executeSqliteQuerySync, iterateSqliteQuerySync } from "../../infra/kyse
 import {
   deferOpenClawAgentPostCommitPublication,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { hasSqliteSessionOwnerColumns } from "./session-accessor.sqlite-owner-projection.js";
 import {
   projectSqliteSessionParticipants,

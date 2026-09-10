@@ -1,6 +1,6 @@
 // Reconciles configured plugin installs after the core package update has completed.
 import path from "node:path";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import {
   filterRecordsToActive,

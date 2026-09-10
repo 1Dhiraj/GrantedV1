@@ -7,12 +7,12 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "./granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
+} from "./granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "./granted-state-db.paths.js";
 
 type ClawPackageLifecycleDatabase = Pick<GrantedStateKyselyDatabase, "state_leases">;
 

@@ -1,6 +1,6 @@
 import type { DoctorOptions } from "../commands/doctor-prompter.js";
 import { shouldManageGatewayService } from "../commands/doctor-service-repair-policy.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contribution-types.js";
 import { resolveDoctorWorkspaceSuggestionScopes } from "./doctor-workspace-suggestion-scopes.js";
 import type { HealthCheckContext, HealthFinding } from "./health-checks.js";

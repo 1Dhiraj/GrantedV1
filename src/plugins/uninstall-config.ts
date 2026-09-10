@@ -1,5 +1,5 @@
 // Pure plugin config cleanup shared by doctor repair and full uninstall flows.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   isUninstallPathInsideOrEqualInternal,
   removePluginInstallOwnerFromConfig,

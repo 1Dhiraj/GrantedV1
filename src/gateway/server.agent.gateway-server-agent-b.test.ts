@@ -15,8 +15,8 @@ import {
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import { emitAgentEvent } from "../infra/agent-events.js";
 import { registerAgentRunContext } from "../infra/agent-run-registry.js";
-import { openOpenClawAgentDatabase } from "../state/openclaw-agent-db.js";
-import { ensureSessionPendingInputsSchema } from "../state/openclaw-agent-pending-inputs-schema.js";
+import { openOpenClawAgentDatabase } from "../state/granted-agent-db.js";
+import { ensureSessionPendingInputsSchema } from "../state/granted-agent-pending-inputs-schema.js";
 import {
   createChannelTestPluginBase,
   createDirectOutboundTestAdapter,

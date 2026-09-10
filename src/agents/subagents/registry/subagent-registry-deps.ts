@@ -1,6 +1,6 @@
 import type { cleanupBrowserSessionsForLifecycleEnd } from "../../../browser-lifecycle-cleanup.js";
 import { getRuntimeConfig } from "../../../config/config.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { ResolveContextEngineOptions } from "../../../context-engine/registry.js";
 import type { ContextEngine } from "../../../context-engine/types.js";
 import { callGateway } from "../../../gateway/call.js";

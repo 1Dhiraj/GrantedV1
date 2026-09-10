@@ -5,7 +5,7 @@ import { listAgentEntries, toAgentEntriesRecord } from "../agents/agent-scope.js
 import { resolveSandboxConfigForAgent } from "../agents/sandbox/config.js";
 import { expandToolGroups, resolveToolProfilePolicy } from "../agents/tool-policy-shared.js";
 import { parseDurationMs } from "../cli/parse-duration.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-summary.js";
 import { resolveRememberAcrossConversations } from "../memory-host-sdk/host/config-utils.js";
 import { resolveClawToolProfileSnapshot } from "./tool-profile-consent.js";

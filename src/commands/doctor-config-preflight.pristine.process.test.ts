@@ -4,7 +4,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { afterAll, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasActiveStartupMigrationLease } from "../infra/startup-migration-checkpoint.js";
 import {
   createSourceRuntime,
@@ -185,7 +185,7 @@ describe("CLI pristine startup after early config observation", () => {
       });
       if (${existingState}) {
         const { openOpenClawStateDatabase, closeOpenClawStateDatabase } =
-          await import(${JSON.stringify(sourceUrl("state/openclaw-state-db.ts"))});
+          await import(${JSON.stringify(sourceUrl("state/granted-state-db.ts"))});
         openOpenClawStateDatabase({ env: process.env });
         closeOpenClawStateDatabase();
       }

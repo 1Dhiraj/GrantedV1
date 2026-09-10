@@ -12,12 +12,12 @@ import {
 import { withExtractedArchiveRoot } from "../../infra/install-flow.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { withTempWorkspace } from "../../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { selectResolvedUserProfileById } from "../../state/user-profiles-internal.js";
 import { installSkillFromClawHub } from "../lifecycle/clawhub.js";
 import {
@@ -73,7 +73,7 @@ export async function importSkillLibrary(
 ) {
   requireSkillLibraryProfile(openOpenClawStateDatabase(options).db, authority);
   return withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-library-source-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-library-source-" },
     async ({ dir }) => {
       const installed = await installSkillFromClawHub({
         workspaceDir: dir,
@@ -208,7 +208,7 @@ export async function uploadSkillLibrary(
     );
   }
   return withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-library-import-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-library-import-" },
     async ({ dir }) => {
       const archivePath = path.join(dir, "skill.zip");
       await fs.writeFile(archivePath, bytes, { mode: 0o600, flag: "wx" });

@@ -4,7 +4,7 @@ import { expect, test } from "vitest";
 import { createOpenClawCodingTools } from "../../../../src/agents/agent-tools.js";
 import { createAgentToolsSandboxContext } from "../../../../src/agents/test-helpers/agent-tools-sandbox-context.js";
 import { createHostSandboxFsBridge } from "../../../../src/agents/test-helpers/host-sandbox-fs-bridge.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 
 type GrantedCodingToolsOptions = NonNullable<Parameters<typeof createOpenClawCodingTools>[0]>;
 

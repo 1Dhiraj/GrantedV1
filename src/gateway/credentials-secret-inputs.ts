@@ -4,7 +4,7 @@ import {
   cloneConfigWithResolutionFacts,
   resolveConfigSecretRef,
 } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { materializeSecretInput } from "../secrets/resolve-secret-input-string.js";
 import {
   GatewaySecretRefUnavailableError,

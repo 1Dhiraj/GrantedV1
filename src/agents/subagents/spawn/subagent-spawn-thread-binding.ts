@@ -7,7 +7,7 @@ import {
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
 } from "../../../channels/thread-bindings-policy.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { DeliveryContext } from "../../../utils/delivery-context.types.js";
 import { summarizeSpawnError } from "../../spawn-pipeline.js";
 import { prepareSpawnThreadBinding } from "../../spawn-plan.js";

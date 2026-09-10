@@ -6,13 +6,13 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   HostedCatalogSignedFeedMonotonicityError,
   type HostedOfficialExternalPluginCatalogMetadata,

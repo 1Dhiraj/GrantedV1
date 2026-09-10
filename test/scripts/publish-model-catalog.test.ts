@@ -17,7 +17,7 @@ import {
   serializeModelCatalogBundle,
   summarizeModelCatalogBundle,
 } from "../../scripts/publish-model-catalog.mts";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import { setRemoteModelCatalogOverlaySourcesForTest } from "../../src/model-catalog/remote-overlay.test-support.js";
 import {
   estimateAggregateUsageCost,

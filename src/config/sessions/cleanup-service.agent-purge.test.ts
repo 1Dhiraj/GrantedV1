@@ -4,9 +4,9 @@ import { getLogger } from "../../logging/logger.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { purgeAgentSessionStoreEntries } from "./cleanup-service.js";
 import {
   appendTranscriptEventSync,

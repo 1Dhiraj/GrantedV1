@@ -1,6 +1,6 @@
 // Skill environment override helpers expose safe env vars requested by active skills.
 import { sanitizeEnvVars, validateEnvVarValue } from "../../agents/sandbox/sanitize-env-vars.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeResolvedSecretInputString } from "../../config/types.secrets.js";
 import {
   isDangerousHostEnvOverrideVarName,

@@ -1,6 +1,6 @@
 import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { setupCronServiceSuite } from "./service.test-harness.js";
 import { start } from "./service/ops-lifecycle.js";
 import { status } from "./service/ops-read.js";

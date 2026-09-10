@@ -1,5 +1,5 @@
 import { getChannelPlugin } from "../channels/plugins/index.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { requireActivePluginChannelRegistry } from "../plugins/runtime.js";
 import { withPluginRuntimeRegistryScope } from "../plugins/runtime/gateway-request-scope.js";

@@ -1,7 +1,7 @@
 // Covers exec approval config normalization and safe-bin policy.
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { tryParsePersistedExecApprovals } from "./exec-approvals-config.js";
 import { makeExecApprovalsTempDir } from "./exec-approvals-test-helpers.js";
 import {

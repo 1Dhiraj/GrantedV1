@@ -17,7 +17,7 @@ import {
   resolveSessionStorePathCore,
   type SessionEntry,
 } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { triggerSessionPatchHook } from "../../gateway/session-patch-hooks.js";
 import {
   isPluginMetadataSnapshotCompatible,

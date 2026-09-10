@@ -12,9 +12,9 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import { ensureContextEngineTurnOutboxSchema } from "../../state/openclaw-agent-context-engine-turn-outbox-schema.js";
-import type { DB as GrantedAgentDatabaseSchema } from "../../state/openclaw-agent-db.generated.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import { ensureContextEngineTurnOutboxSchema } from "../../state/granted-agent-context-engine-turn-outbox-schema.js";
+import type { DB as GrantedAgentDatabaseSchema } from "../../state/granted-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 
 type ContextEngineTurnOutboxDatabase = Pick<
   GrantedAgentDatabaseSchema,

@@ -16,7 +16,7 @@ export {
 } from "granted/plugin-sdk/core";
 export { resolveAdvertisedLanHost } from "granted/plugin-sdk/gateway-runtime";
 export {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   runPluginCommandWithTimeout,
 } from "granted/plugin-sdk/sandbox";
 export { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";

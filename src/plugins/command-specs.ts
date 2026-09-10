@@ -2,7 +2,7 @@
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { getLoadedChannelPlugin } from "../channels/plugins/index.js";
 import { resolveReadOnlyChannelCommandDefaults } from "../channels/plugins/read-only-command-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   pluginCommandSupportsChannel,
   projectPluginCommandNativeMetadata,

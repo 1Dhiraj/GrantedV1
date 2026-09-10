@@ -14,7 +14,7 @@ import {
 import { resolveStateDir } from "../config/paths.js";
 import { hasErrnoCode } from "../infra/errors.js";
 import { FsSafeError, root as fsSafeRoot } from "../infra/fs-safe.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { redactSensitiveText } from "../logging/redact.js";
 import { KeyedAsyncQueue } from "../plugin-sdk/keyed-async-queue.js";

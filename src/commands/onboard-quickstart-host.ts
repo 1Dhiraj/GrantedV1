@@ -2,7 +2,7 @@ import { resolveGatewayRunOptions } from "../cli/gateway-cli/run-options.js";
 import type { runGatewayCommand } from "../cli/gateway-cli/run.js";
 import { getGatewayRunRuntimeHooks } from "../cli/gateway-cli/runtime-hooks.js";
 import { readConfigFileSnapshot, resolveGatewayPort } from "../config/config.js";
-import type { ConfigFileSnapshot } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot } from "../config/types.granted.js";
 import { resolveGatewayCredentialsWithSecretInputs } from "../gateway/credentials-secret-inputs.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { createQuickstartNotePrompter } from "../system-agent/setup-apply.js";

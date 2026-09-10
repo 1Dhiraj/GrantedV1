@@ -5,7 +5,7 @@ import {
   listExplicitlyDisabledChannelIdsForConfig,
   type AmbientEnvTriggerPolicy,
 } from "../channels/config-presence.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { listGatewayActivatedChannelIds } from "./channel-presence-policy.js";
 import {
   normalizePluginsConfigWithResolverCore,

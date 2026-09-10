@@ -12,7 +12,7 @@ import { resolveInstalledPluginPackageOwnership } from "../../src/plugins/instal
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
-} from "../../src/state/openclaw-state-db.js";
+} from "../../src/state/granted-state-db.js";
 
 const PLUGIN_UPDATE_SCENARIO_SCRIPT = "scripts/e2e/lib/plugin-update/unchanged-scenario.sh";
 const CORRUPT_UPDATE_SCENARIO_SCRIPT = "scripts/e2e/lib/plugin-update/corrupt-update-scenario.sh";

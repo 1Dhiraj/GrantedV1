@@ -10,7 +10,7 @@ import {
 } from "../config/sessions/conversation-delivery-store.js";
 import { registerConversationAddresses } from "../config/sessions/conversation-registry.js";
 import { buildConversationRef } from "../routing/conversation-ref.js";
-import { closeOpenClawAgentDatabaseByPath } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabaseByPath } from "../state/granted-agent-db.js";
 
 const address = {
   channel: "reef",

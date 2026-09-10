@@ -4,12 +4,12 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import { githubAuthenticationSubject } from "./user-profile-github-identity.js";
 import { ensureUserProfilesSchema, type UserProfilesDatabase } from "./user-profiles-schema.js";
 import { classifyTailscaleLogin } from "./user-profiles-tailscale-login.js";

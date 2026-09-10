@@ -1,6 +1,6 @@
 // Ingress queue health tests cover conservative active-lane pressure aggregation.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { INGRESS_CLAIM_LEASE_MS } from "./ingress-claim-owner.js";
 import { countChannelIngressQueuePressure } from "./ingress-queue-health.js";
 import { createChannelIngressQueue, type ChannelIngressQueue } from "./ingress-queue.js";

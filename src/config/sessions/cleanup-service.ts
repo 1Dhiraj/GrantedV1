@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { getLogger } from "../../logging/logger.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import {
   createSessionsCleanupFailure,
   SessionsCleanupFailureError,

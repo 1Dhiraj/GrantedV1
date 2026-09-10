@@ -6,7 +6,7 @@ import {
   formatCliProcessFailure,
   runCliProcessChild,
 } from "../cli/cli-process-child.test-helpers.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 
 it("projects MCP App metadata without loading session runtime management", async () => {
   await withOpenClawTestState({ label: "mcp-app-import", applyEnv: false }, async (state) => {

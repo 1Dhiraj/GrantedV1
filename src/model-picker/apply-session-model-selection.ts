@@ -28,7 +28,7 @@ import {
   sessionModelOverrideChangesApplied,
 } from "../config/sessions/session-snapshot-merge.js";
 import type { InternalSessionEntry as SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { triggerSessionPatchHook } from "../gateway/session-patch-hooks.js";
 import { enqueueSystemEvent } from "../infra/system-events.js";
 import { applyModelOverrideWithAuthProfileCompatibility } from "../sessions/auth-profile-preservation.js";

@@ -10,8 +10,8 @@ import {
 } from "../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
-import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../state/openclaw-agent-progress-card-schema.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
+import { ensureOpenClawAgentProgressCardSchemaInTransaction } from "../state/granted-agent-progress-card-schema.js";
 
 type ProgressCardDatabase = Pick<GrantedAgentKyselyDatabase, "session_progress_cards">;
 type ProgressCardDatabaseInput = string | DatabaseSync;

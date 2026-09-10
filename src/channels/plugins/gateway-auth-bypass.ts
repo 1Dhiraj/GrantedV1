@@ -3,7 +3,7 @@
  *
  * Reads optional public artifacts that declare unauthenticated Gateway callback paths.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { tryLoadActivatedBundledPluginPublicSurfaceModule } from "../../plugin-sdk/facade-runtime.js";
 
 /**

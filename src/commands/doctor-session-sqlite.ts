@@ -17,7 +17,7 @@ import {
   type SessionStoreTarget as ResolvedSessionStoreTarget,
 } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveStoredSessionOwnerAgentId } from "../gateway/session-store-key.js";
 import { readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -30,7 +30,7 @@ import {
   parseAgentSessionKey,
 } from "../routing/session-key.js";
 import { migrateLegacySessionCreator } from "../state/creator-namespace-migration.js";
-import { closeOpenClawAgentDatabaseByPath } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabaseByPath } from "../state/granted-agent-db.js";
 import {
   readMigrationArtifactIdentity,
   sameMigrationArtifact,

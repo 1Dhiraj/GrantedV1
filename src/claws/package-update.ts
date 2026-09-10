@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { coerceErrorMessage, stableStringify } from "@granted/normalization-core";
 import { preflightPluginInstall } from "../plugins/plugin-install-preflight.js";
 import type { RuntimeEnv } from "../runtime.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import {
   digestClawPackageRef,
   replaceClawPackageRefExpected,

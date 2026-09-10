@@ -12,8 +12,8 @@ const execFileAsync = promisify(execFile);
 const repoRoot = path.resolve(import.meta.dirname, "../..");
 
 function buildConnectionReuseProbe(): string {
-  const agentDbUrl = pathToFileURL(path.join(repoRoot, "src/state/openclaw-agent-db.ts")).href;
-  const stateDbUrl = pathToFileURL(path.join(repoRoot, "src/state/openclaw-state-db.ts")).href;
+  const agentDbUrl = pathToFileURL(path.join(repoRoot, "src/state/granted-agent-db.ts")).href;
+  const stateDbUrl = pathToFileURL(path.join(repoRoot, "src/state/granted-state-db.ts")).href;
   return `
 import fs from "node:fs";
 import os from "node:os";

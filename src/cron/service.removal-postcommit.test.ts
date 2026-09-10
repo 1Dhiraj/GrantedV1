@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetGatewayWorkAdmission } from "../process/gateway-work-admission.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { readCronJobScratchState, writeCronJobScratch } from "./scratch-store.js";
 import { setupCronServiceSuite } from "./service.test-harness.js";
 import { add } from "./service/ops-mutations.js";

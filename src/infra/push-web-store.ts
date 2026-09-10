@@ -3,13 +3,13 @@ import type { DatabaseSync } from "node:sqlite";
 import type { Insertable, Selectable } from "kysely";
 import type { WebPushDevicePreferences } from "../../packages/gateway-protocol/src/schema/push.js";
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import { ensureColumn } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { ensureColumn } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { sha256HexPrefixCore } from "./crypto-digest.js";
 import {
   executeSqliteQuerySync,

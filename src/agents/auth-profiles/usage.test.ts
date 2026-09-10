@@ -5,7 +5,7 @@ import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coerci
  * persistence hooks without contacting real providers.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { setLoggerOverride } from "../../logging/logger.js";
 import type { AuthProfileStore, ProfileUsageStats } from "./types.js";
 import { resolveProfileUnusableUntil } from "./usage-state.js";

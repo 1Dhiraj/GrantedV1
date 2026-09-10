@@ -5,7 +5,7 @@ import {
   createPluginMetadataSnapshot,
   makeRegistry,
 } from "../../config/plugin-auto-enable.test-helpers.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { setGatewayPluginMetadataSnapshot } from "../../plugins/current-plugin-metadata-snapshot.js";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -17,7 +17,7 @@ import {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { collectGatewayHealthSnapshot } from "./collector.js";
 
 let state: GrantedTestState | undefined;

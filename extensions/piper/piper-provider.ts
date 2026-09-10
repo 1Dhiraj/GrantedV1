@@ -9,7 +9,7 @@ import type {
 } from "granted/plugin-sdk/speech";
 import { asFiniteNumber, asObject, trimToUndefined } from "granted/plugin-sdk/speech";
 import { resolveStateDir } from "granted/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 
 // Piper: fully-local, open-source neural TTS. Runs a small ONNX voice model on
 // the CPU (~real-time, no GPU, no network, no key) — so it is permanently free
@@ -157,7 +157,7 @@ export function buildPiperSpeechProvider(): SpeechProviderPlugin {
       if (!existsSync(modelPath)) {
         throw new Error(`piper voice model not found at ${modelPath}`);
       }
-      const tempRoot = resolvePreferredOpenClawTmpDir();
+      const tempRoot = resolvePreferredGrantedTmpDir();
       mkdirSync(tempRoot, { recursive: true, mode: 0o700 });
       const tempDir = mkdtempSync(path.join(tempRoot, "tts-piper-"));
       const outputPath = path.join(tempDir, "speech.wav");

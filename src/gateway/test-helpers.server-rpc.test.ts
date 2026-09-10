@@ -9,7 +9,7 @@ import { SQLITE_SESSION_WRITER_QUEUES } from "../config/sessions/store-writer-st
 import {
   disposeOpenClawAgentDatabaseByPath,
   listOpenClawAgentDatabasesForTest,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   installGatewayTestHooks,
   onceMessage,

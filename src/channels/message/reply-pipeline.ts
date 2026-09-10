@@ -10,7 +10,7 @@ import {
   resolveSourceReplyDeliveryMode,
   type SourceReplyDeliveryModeContext,
 } from "../../auto-reply/reply/source-reply-delivery-mode.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { getLoadedChannelPluginForRead } from "../plugins/registry-loaded.js";
 import { normalizeAnyChannelId } from "../registry-normalize.js";
 import {

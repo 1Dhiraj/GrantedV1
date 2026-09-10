@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { resolveMemoryFlushContextWindowTokens } from "../auto-reply/reply/memory-flush.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { refreshContextWindowCache, resetContextWindowCacheForTest } from "./context.js";
 
 describe("OpenCode Go context metadata", () => {

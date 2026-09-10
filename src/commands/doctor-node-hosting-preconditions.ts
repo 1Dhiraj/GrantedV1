@@ -5,7 +5,7 @@ import { GRANTED_AGENT_RUNTIME_ID } from "../agents/agent-runtime-id.js";
 import { listAgentIds } from "../agents/agent-scope-config.js";
 import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
 import { resolveEffectiveAgentRuntime } from "../agents/thinking-runtime.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { hasConfiguredGatewayAuthSecretInput } from "../gateway/auth-config-utils.js";
 import { normalizePluginsConfig, resolveEffectiveEnableState } from "../plugins/config-state.js";

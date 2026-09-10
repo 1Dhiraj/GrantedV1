@@ -8,7 +8,7 @@ import {
   makeTempDir,
   resetPluginAutoEnableTestState,
 } from "../config/plugin-auto-enable.test-helpers.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveProviderUsageSnapshotWithPlugin } from "./provider-runtime.js";
 import { createEmptyPluginRegistry } from "./registry-empty.js";
 import { withPluginRuntimeRegistryScope } from "./runtime/gateway-request-scope.js";

@@ -1,6 +1,6 @@
 const UPGRADE_SURVIVOR_SCENARIOS = Object.freeze([
   "base",
-  "acpx-openclaw-tools-bridge",
+  "acpx-granted-tools-bridge",
   "feishu-channel",
   "bootstrap-persona",
   "channel-post-core-restore",
@@ -138,7 +138,7 @@ export function supportsUpgradeSurvivorScenarioAtBaseline(scenario, baselineSpec
   return (
     (scenario !== "plugin-deps-cleanup" ||
       supportsUpgradeSurvivorPluginDependencyCleanup(baselineSpec)) &&
-    (scenario !== "acpx-openclaw-tools-bridge" ||
+    (scenario !== "acpx-granted-tools-bridge" ||
       supportsUpgradeSurvivorAcpToolsBridge(baselineSpec))
   );
 }

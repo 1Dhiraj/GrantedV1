@@ -1,11 +1,11 @@
 import { afterEach, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { prepareAgentContentPhase } from "./agent-content-phase.js";
 import type { AgentTurnContext } from "./types.js";
 

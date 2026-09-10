@@ -57,7 +57,7 @@ import { readAgentDeletionJournal } from "../state/agent-deletion-journal.js";
 import {
   listOpenClawRegisteredAgentDatabases,
   unregisterOpenClawAgentDatabases,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
 import { createClackPrompter } from "../wizard/clack-prompter.js";
 import { createQuietRuntime } from "./agents.command-shared.js";

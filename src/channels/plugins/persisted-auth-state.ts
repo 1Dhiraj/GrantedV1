@@ -3,7 +3,7 @@
  *
  * Lists and checks channel package metadata that can report persisted auth state.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginDiscoveryResult } from "../../plugins/discovery.js";
 import {
   hasBundledChannelPackageState,

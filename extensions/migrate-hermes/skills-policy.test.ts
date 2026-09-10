@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -14,7 +14,7 @@ let workspace: TempWorkspace;
 describe("Hermes skill activation policy migration", () => {
   beforeEach(async () => {
     workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-hermes-skills-policy-",
     });
   });

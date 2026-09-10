@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Wrap schema-parsed channel data through the host config boundary without projecting fields. */
 export async function validateTestChannelConfig(

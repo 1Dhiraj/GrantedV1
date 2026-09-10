@@ -8,7 +8,7 @@ import {
 import { resolveProviderEntryApiKeyProfileReference } from "../../agents/model-auth-provider-config.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { logConfigUpdated } from "../../config/logging.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   configReferencesAuthProfile,
   removeAuthProfileConfig,

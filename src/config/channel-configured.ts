@@ -5,7 +5,7 @@ import {
   hasMeaningfulChannelConfigShallow,
   resolveChannelConfigRecord,
 } from "./channel-configured-shared.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Resolves whether a channel has enough config, env, or plugin state to be considered setup. */
 export function isChannelConfigured(

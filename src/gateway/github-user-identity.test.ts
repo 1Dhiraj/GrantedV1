@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
 import { SecretSurfaceUnavailableError } from "../secrets/runtime-degraded-state.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import {
   ensureProfileForTailscaleIdentity,
   getUserProfileDisplay,
@@ -9,7 +9,7 @@ import {
   setDisplayName,
   syncGitHubIdentity,
 } from "../state/user-profiles.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { buildAuthenticatedPresenceUser } from "./authenticated-presence-user.js";
 import { ControlUiGitHubError } from "./control-ui-github-api.js";
 import { createAuthenticatedGitHubIdentitySync } from "./github-user-identity.js";

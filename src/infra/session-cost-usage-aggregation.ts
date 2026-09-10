@@ -12,9 +12,9 @@ import {
   scanSessionTranscriptTree,
 } from "../config/sessions/transcript-tree.js";
 import { selectVisibleTranscriptEvents } from "../config/sessions/transcript-visible-events.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
 import { resolveModelCostConfigFingerprint } from "../utils/usage-format.js";
 import {
   acquireSessionCostUsageRefreshLock,

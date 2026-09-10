@@ -2,19 +2,19 @@
 import { afterEach, describe, expect, it } from "vitest";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { createExecutionIdentityAdmissionToken } from "../../audit/execution-identity-admission.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
-import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
+import { tableExists } from "../../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { findTaskByRunId } from "../../tasks/task-registry.js";
 import { bindTaskRunExecution } from "../../tasks/task-registry.store.sqlite.js";
 import {
   resetTaskRegistryForTests,
   resetTaskFlowRegistryForTests,
 } from "../../tasks/task-runtime.test-helpers.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { AcpRuntimeError } from "../runtime/errors.js";
 import {
   appendBackgroundTaskProgressSummary,

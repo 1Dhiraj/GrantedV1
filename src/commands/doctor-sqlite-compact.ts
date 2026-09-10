@@ -3,7 +3,7 @@ import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { assertSqliteIntegrity } from "../infra/sqlite-integrity.js";
-import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/granted-state-db.js";
 
 export type DoctorSqliteCompactSnapshot = {
   autoVacuum: number;

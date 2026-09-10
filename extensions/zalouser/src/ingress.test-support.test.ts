@@ -2,14 +2,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it } from "vitest";
 import { withZalouserIngressTestQueue } from "./ingress.test-support.js";
 
 describe("withZalouserIngressTestQueue", () => {
   it("does not write through the parent state environment during teardown", async () => {
     const parentDir = await fs.realpath(
-      await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalouser-parent-")),
+      await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "openclaw-zalouser-parent-")),
     );
     const previousStateDir = process.env.GRANTED_STATE_DIR;
     process.env.GRANTED_STATE_DIR = parentDir;

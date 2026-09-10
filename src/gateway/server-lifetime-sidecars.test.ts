@@ -6,7 +6,7 @@ import { writeSecretStoreEntry } from "../secrets/store/secret-store.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { attachInitialGatewayLifetimeSidecars } from "./server-lifetime-sidecars.js";
 import { createGatewaySidecarStopOwner } from "./server-sidecar-owners.js";

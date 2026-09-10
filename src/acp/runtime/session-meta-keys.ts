@@ -3,15 +3,15 @@ import type { Selectable } from "kysely";
 import { tryResolveLegacyCompatibilityAgentId } from "../../config/legacy.default-agent-owner.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "../../state/granted-state-db.js";
 
 export type AcpSessionsTable = GrantedStateKyselyDatabase["acp_sessions"];
 type AcpSessionMetaDatabase = Pick<GrantedStateKyselyDatabase, "acp_sessions">;

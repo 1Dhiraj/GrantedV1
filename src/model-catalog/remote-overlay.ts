@@ -5,7 +5,7 @@ import {
 } from "@granted/model-catalog-core";
 import type { ModelCatalogProvider } from "@granted/model-catalog-core/model-catalog-types";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { VERSION } from "../version.js";
 import { bundledCatalogGeneratedAt } from "./bundled-catalog-stamp.js";

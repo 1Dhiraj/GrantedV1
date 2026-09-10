@@ -1,5 +1,5 @@
 // Applies Tool Search overlays on top of the selected runtime config.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { applyLocalModelLeanToolSearchDefaults } from "./local-model-lean.js";
 import { resolveAgentRuntimeToolConfig } from "./tool-runtime-config.js";
 

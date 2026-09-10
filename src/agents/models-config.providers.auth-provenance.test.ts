@@ -3,7 +3,7 @@ import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderPlugin } from "../plugins/types.js";
 import { captureEnv, withEnvAsync } from "../test-utils/env.js";
 import type { AuthProfileCredential, AuthProfileStore } from "./auth-profiles/types.js";

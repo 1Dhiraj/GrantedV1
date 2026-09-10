@@ -1,10 +1,10 @@
 import type { DatabaseSync } from "node:sqlite";
-import { ensureColumn, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
+import { ensureColumn, tableHasColumn } from "./granted-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 
 // Canonical additive schema for durable user profiles. Kept feature-local so
 // ordinary shared-state opens do not create identity tables until they are used.

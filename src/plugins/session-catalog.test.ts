@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginRuntime } from "./runtime/types.js";
 import { importSessionCatalogHistory } from "./session-catalog-history-import.js";
 import { listSessionCatalogEntries } from "./session-catalog.js";

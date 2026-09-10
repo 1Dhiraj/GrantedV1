@@ -1,5 +1,5 @@
 // Detects dangerous core config flags during security audits.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** List enabled core config flags that intentionally weaken security posture. */
 export function collectCoreInsecureOrDangerousFlags(cfg: GrantedConfig): string[] {

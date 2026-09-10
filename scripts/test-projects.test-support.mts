@@ -726,7 +726,7 @@ const SOURCE_TEST_TARGETS = new Map([
   ],
   ["extensions/codex/package.json", CODEX_VERSION_CONTRACT_TEST_TARGETS],
   ["extensions/codex/src/app-server/version.ts", CODEX_VERSION_CONTRACT_TEST_TARGETS],
-  ["src/test-utils/openclaw-test-state.ts", ["src/test-utils/openclaw-test-state.test.ts"]],
+  ["src/test-utils/granted-test-state.ts", ["src/test-utils/granted-test-state.test.ts"]],
   [
     "src/channels/plugins/contracts/test-helpers/manifest.ts",
     [
@@ -2306,7 +2306,7 @@ const EXACT_TOOLING_TARGETS = new Map<string, string[]>([
       "upgrade-survivor-probe-gateway",
       "upgrade-survivor-assertions",
       "upgrade-survivor-recovery-cleanup",
-      "openclaw-test-state",
+      "granted-test-state",
     ],
   ],
   [
@@ -2848,7 +2848,7 @@ const SEMANTIC_TOOLING_TARGET_PATTERNS: Array<[RegExp, string[]]> = [
   ],
   [/^scripts\/e2e\/codex-media-path-docker\.sh$/u, ["codex-media-path-client"]],
   [/^scripts\/e2e\/live-plugin-tool-docker\.sh$/u, ["live-plugin-tool-assertions"]],
-  [/^scripts\/e2e\/onboard-docker\.sh$/u, [dockerBuild, "openclaw-test-state"]],
+  [/^scripts\/e2e\/onboard-docker\.sh$/u, [dockerBuild, "granted-test-state"]],
   [
     new RegExp(
       [

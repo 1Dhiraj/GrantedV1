@@ -17,7 +17,7 @@ import {
   mutateSkillLibrary,
 } from "../skills/library/service.js";
 import { resolveSkillLibraryActor } from "../skills/library/store.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { selectResolvedUserProfileById } from "../state/user-profiles-internal.js";
 import {
   activateLibrarySelection,

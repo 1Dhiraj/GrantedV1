@@ -12,7 +12,7 @@ import { resolveConfiguredAcpBindingSpecBySessionKey } from "../../acp/persisten
 import { resolveConfiguredAcpBindingSpecFromRecord } from "../../acp/persistent-bindings.types.js";
 import { readAcpSessionEntry } from "../../acp/runtime/session-meta.js";
 import { resolveSessionEntryAccessTarget } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { performGatewaySessionReset } from "../../gateway/session-reset-service.js";
 import { isAcpSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import type {

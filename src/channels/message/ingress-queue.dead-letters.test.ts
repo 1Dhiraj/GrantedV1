@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { countFailedChannelIngressQueueEntries } from "./ingress-queue-health.js";
 import { createChannelIngressQueue } from "./ingress-queue.js";
 

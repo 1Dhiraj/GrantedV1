@@ -16,7 +16,7 @@ import type {
   ChannelPlugin,
   ChannelThreadingToolContext,
 } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { readBooleanParam } from "../../plugin-sdk/boolean-param.js";
 import { resolveFirstBoundAccountId } from "../../routing/bound-account-read.js";
 import { readTrimmedStringAlias } from "../../utils/string-readers.js";

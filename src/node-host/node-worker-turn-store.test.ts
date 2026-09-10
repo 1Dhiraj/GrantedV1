@@ -5,9 +5,9 @@ import { assertSqliteSchemaContains } from "../infra/sqlite-schema-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/openclaw-state-schema-compatibility.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+} from "../state/granted-state-db.js";
+import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/granted-state-schema-compatibility.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/granted-state-schema.js";
 import {
   NodeWorkerLaunchStore,
   type NodeWorkerContainerIdentity,

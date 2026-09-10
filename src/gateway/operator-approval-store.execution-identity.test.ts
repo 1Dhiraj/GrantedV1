@@ -5,7 +5,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   consumeOperatorApprovalAllowOnce,
   getOperatorApprovalDetailed,

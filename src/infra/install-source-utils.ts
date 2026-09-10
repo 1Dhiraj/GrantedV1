@@ -16,7 +16,7 @@ import { pathExists } from "./fs-safe.js";
 import { applyNpmFreshnessBypassEnv, type NpmProjectInstallEnvOptions } from "./npm-install-env.js";
 import { resolveNpmJsonEntries } from "./npm-registry-spec.js";
 import { withTempWorkspace } from "./private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./tmp-granted-dir.js";
 
 export function formatNpmCommandFailureOutput(result: SpawnResult): string {
   const detail = result.stderr.trim() || result.stdout.trim();
@@ -220,7 +220,7 @@ export async function withInstallWorkspace<T>(
   fn: (tmpDir: string) => Promise<T>,
   options?: { rootDir?: string },
 ): Promise<T> {
-  const rootDir = options?.rootDir ?? resolvePreferredOpenClawTmpDir();
+  const rootDir = options?.rootDir ?? resolvePreferredGrantedTmpDir();
   return await withTempWorkspace({ rootDir, prefix }, async (tmp) => fn(tmp.dir));
 }
 

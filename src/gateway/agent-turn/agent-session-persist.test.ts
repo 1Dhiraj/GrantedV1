@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { loadSessionEntry } from "../../config/sessions/session-accessor.js";
 import { getAgentEventLifecycleGeneration } from "../../infra/agent-events.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import type { AgentSessionPatchBuild } from "../server-methods/agent-session-patch.js";
 import { persistAgentSessionPhase } from "./agent-session-persist.js";
 

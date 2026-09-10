@@ -1,6 +1,6 @@
 /** Shared secrets runtime resolver context, assignments, and warning helpers. */
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { SecretRef } from "../config/types.secrets.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { secretRefKey } from "./ref-contract.js";

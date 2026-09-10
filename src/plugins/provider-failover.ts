@@ -1,5 +1,5 @@
 import { FAILOVER_REASONS, type FailoverReason } from "../agents/failover/signal.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   resolveLoadedProviderRuntimePlugin,
   resolveLoadedProviderPluginsForHooks,

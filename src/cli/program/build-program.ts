@@ -3,7 +3,7 @@ import process from "node:process";
 import { registerProgramCommands } from "./command-registry.js";
 import { createProgramContext } from "./context.js";
 import { configureProgramHelp } from "./help.js";
-import { GrantedCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./granted-command.js";
 import { registerPreActionHooks } from "./preaction.js";
 import { setProgramContext } from "./program-context.js";
 

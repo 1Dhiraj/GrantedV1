@@ -1,7 +1,7 @@
 // Normalizes task owner keys and checks requester access to task records.
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import {
   findTaskByRunId,

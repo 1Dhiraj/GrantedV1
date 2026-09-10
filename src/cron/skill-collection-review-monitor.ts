@@ -1,7 +1,7 @@
 /** Canonical projection from skill workshop config to system-owned cron jobs. */
 import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { canonicalizePath } from "../agents/utils/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveHeartbeatSchedulerSeed } from "../infra/heartbeat-runner.js";
 import { resolveHeartbeatPhaseMs } from "../infra/heartbeat-schedule.js";
 import { resolveSkillWorkshopConfig } from "../skills/workshop/config.js";

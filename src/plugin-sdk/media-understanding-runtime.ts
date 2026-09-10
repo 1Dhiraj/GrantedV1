@@ -1,7 +1,7 @@
 /**
  * Runtime SDK subpath for media understanding, image description, and audio transcription.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { logVerbose } from "../globals.js";
 import { sendTranscriptEcho } from "../media-understanding/echo-transcript.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";

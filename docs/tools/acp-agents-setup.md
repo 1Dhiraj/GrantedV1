@@ -236,7 +236,7 @@ openclaw config set plugins.entries.acpx.config.pluginToolsMcpBridge true
 
 What this does:
 
-- Injects a built-in MCP server named `openclaw-plugin-tools` into ACPX session
+- Injects a built-in MCP server named `granted-plugin-tools` into ACPX session
   bootstrap.
 - Exposes plugin tools already registered by installed and enabled OpenClaw
   plugins.
@@ -267,7 +267,7 @@ openclaw config set plugins.entries.acpx.config.openClawToolsMcpBridge true
 
 What this does:
 
-- Injects a built-in MCP server named `openclaw-tools` into ACPX session
+- Injects a built-in MCP server named `granted-tools` into ACPX session
   bootstrap.
 - Exposes selected built-in OpenClaw tools. The initial server exposes `cron`.
 - Keeps core-tool exposure explicit and default-off.

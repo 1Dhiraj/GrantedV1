@@ -1,5 +1,5 @@
 import type { CommandOptions } from "../process/exec.js";
-import type { GrantedSchemaVersions } from "../state/openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "../state/granted-schema-versions.js";
 import type { UpdateChannel } from "./update-channels.js";
 import type { DevUpdateTarget } from "./update-dev-target.js";
 import type { PackageUpdateStepAdvisory } from "./update-doctor-result.js";

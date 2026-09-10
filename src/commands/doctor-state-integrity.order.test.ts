@@ -1,9 +1,9 @@
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withStateDirEnv } from "../test-helpers/state-dir-env.js";
 import { noteStateIntegrity } from "./doctor-state-integrity.js";
 

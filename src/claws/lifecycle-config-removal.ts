@@ -3,7 +3,7 @@ import { stableStringify } from "@granted/normalization-core";
 import { beginAgentDeletion } from "../agents/agent-lifecycle-registry.js";
 import { listAgentEntries } from "../agents/agent-scope.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   AgentConfigPreconditionError,
   deleteAgentConfigEntry,
@@ -17,7 +17,7 @@ import {
 import type {
   GrantedStateDatabase,
   GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db-contract.js";
+} from "../state/granted-state-db-contract.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
   deletionEffects,

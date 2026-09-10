@@ -9,7 +9,7 @@ import {
   normalizeMainKey,
   resolveAgentIdFromSessionKey,
 } from "../../routing/session-key.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { resolveCanonicalMainSessionKey } from "./main-session-key.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "./session-store-owner.js";
 import type { SessionScope } from "./types.js";

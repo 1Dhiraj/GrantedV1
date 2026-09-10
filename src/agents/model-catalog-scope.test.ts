@@ -1,6 +1,6 @@
 // Verifies model catalog lookup scope for custom and manifest-owned models.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveModelCatalogScope } from "../plugins/provider-config-owner.js";
 
 describe("resolveModelCatalogScope", () => {

@@ -4,7 +4,7 @@
  * preserving explicitly required delivery tools.
  */
 import { messageToolOwnsVisibleReply } from "../auto-reply/source-reply-delivery-mode.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 import { resolveSessionAgentIds } from "./agent-scope.js";

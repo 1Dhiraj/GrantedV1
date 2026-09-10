@@ -2,9 +2,9 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { requireDirectorySync, syncDirectory } from "../infra/directory-durability.js";
-import { assertOpenClawStateWriteAllowedAtPath } from "../state/openclaw-state-ownership.js";
+import { assertOpenClawStateWriteAllowedAtPath } from "../state/granted-state-ownership.js";
 import {
   isPendingMigrationArtifactClaim,
   moveMigrationArtifact,

@@ -1,5 +1,5 @@
 import type { cleanupBrowserSessionsForLifecycleEnd } from "../../../browser-lifecycle-cleanup.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { callGateway as defaultCallGateway } from "../../../gateway/call.js";
 // This type-only leaf exists solely to keep lifecycle sibling modules from importing the controller.
 // Keeping the controller out of their dependency graph satisfies the architecture cycle gate.

@@ -24,9 +24,9 @@ export type {
 export async function closeQaRuntimeStores(tempRoot: string): Promise<void> {
   const [auth, agents, state, paths] = await Promise.all([
     import("../agents/auth-profiles/sqlite.js"),
-    import("../state/openclaw-agent-db.js"),
-    import("../state/openclaw-state-db.js"),
-    import("../state/openclaw-state-db.paths.js"),
+    import("../state/granted-agent-db.js"),
+    import("../state/granted-state-db.js"),
+    import("../state/granted-state-db.paths.js"),
   ]);
   // Agent close releases leases through shared state. Keep that owner alive
   // until every scoped handle closes, or exit-time release can recreate the root.

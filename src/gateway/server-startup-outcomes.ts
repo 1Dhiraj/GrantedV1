@@ -1,6 +1,6 @@
 // Fixed-vocabulary Gateway startup outcomes keep normal boot logs useful
 // without exposing configuration values, paths, or startup errors.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasConfiguredInternalHooks } from "../hooks/configured.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 

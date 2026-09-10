@@ -4,7 +4,7 @@ import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
 import { createPluginSecretRefSetupCli } from "granted/plugin-sdk/secret-ref-runtime";
 import { pathExists } from "granted/plugin-sdk/security-runtime";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { parseVaultSecretId } from "../vault-secret-id.js";
 
 const VAULT_PROVIDER_ALIAS = "vault";
@@ -30,7 +30,7 @@ const vaultSecretRefSetupCli: PluginSecretRefSetupCli = createPluginSecretRefSet
   },
   normalizeSecretId: normalizeVaultSecretId,
   defaultPlanPath: () =>
-    path.join(resolvePreferredOpenClawTmpDir(), `openclaw-vault-secrets-${process.pid}.json`),
+    path.join(resolvePreferredGrantedTmpDir(), `openclaw-vault-secrets-${process.pid}.json`),
 });
 
 type CommandLike = Parameters<typeof vaultSecretRefSetupCli.registerSetupCommand>[0];

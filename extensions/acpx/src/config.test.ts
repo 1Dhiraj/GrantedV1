@@ -149,7 +149,7 @@ describe("embedded acpx plugin config", () => {
       workspaceDir: "/tmp/openclaw-acpx",
     });
 
-    const server = resolved.mcpServers["openclaw-plugin-tools"];
+    const server = resolved.mcpServers["granted-plugin-tools"];
     expect(server).toEqual({
       command: process.execPath,
       args: expectedMcpServerArgs({
@@ -167,12 +167,12 @@ describe("embedded acpx plugin config", () => {
       workspaceDir: "/tmp/openclaw-acpx",
     });
 
-    const server = resolved.mcpServers["openclaw-tools"];
+    const server = resolved.mcpServers["granted-tools"];
     expect(server).toEqual({
       command: process.execPath,
       args: expectedMcpServerArgs({
-        sourceEntry: "src/mcp/openclaw-tools-serve.ts",
-        distEntry: "dist/mcp/openclaw-tools-serve.js",
+        sourceEntry: "src/mcp/granted-tools-serve.ts",
+        distEntry: "dist/mcp/granted-tools-serve.js",
       }),
     });
   });

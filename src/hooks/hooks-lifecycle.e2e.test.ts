@@ -6,7 +6,7 @@ import JSON5 from "json5";
 import * as tar from "tar";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { installHooksFromPath } from "./install.js";
 import {
   clearInternalHooks,

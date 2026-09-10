@@ -18,13 +18,13 @@ import {
   githubOAuthDeviceFields,
   validGitHubDeviceTiming,
 } from "../shared/github-oauth-values.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB } from "./openclaw-state-db.generated.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
+import type { DB } from "./granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import { selectResolvedUserProfileById } from "./user-profiles-internal.js";
 import type { UserProfilesDatabase } from "./user-profiles-schema.js";
 

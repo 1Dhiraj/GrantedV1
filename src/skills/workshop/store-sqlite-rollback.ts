@@ -4,7 +4,7 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../../state/granted-state-db.js";
 import { assertProposalId, parseSkillProposalRollback } from "./store-record.js";
 import { parseJson } from "./store-sqlite-record.js";
 import {

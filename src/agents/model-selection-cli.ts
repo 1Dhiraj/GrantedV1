@@ -1,7 +1,7 @@
 /**
  * Detects providers whose model selections are backed by CLI runtimes.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveRuntimeCliBackends } from "../plugins/cli-backends.runtime.js";
 import {
   resolvePluginSetupCliBackendDescriptor,

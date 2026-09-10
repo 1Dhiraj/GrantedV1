@@ -14,7 +14,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("../../packages/terminal-core/src/note.js", () => ({ note: mocks.note }));
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/granted-root.js", () => ({
   resolveOpenClawPackageRoot: vi.fn(async () => mocks.root),
   resolveOpenClawPackageRootSync: vi.fn(() => mocks.root),
 }));

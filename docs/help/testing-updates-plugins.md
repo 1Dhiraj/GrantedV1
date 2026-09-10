@@ -143,7 +143,7 @@ OPENCLAW_UPGRADE_SURVIVOR_SCENARIO=sqlite-volume \
 pnpm test:docker:published-upgrade-survivor
 ```
 
-Available scenarios: `base`, `acpx-openclaw-tools-bridge`, `feishu-channel`,
+Available scenarios: `base`, `acpx-granted-tools-bridge`, `feishu-channel`,
 `bootstrap-persona`, `channel-post-core-restore`, `plugin-deps-cleanup`,
 `configured-plugin-installs`, `stale-source-plugin-shadow`, `tilde-log-path`,
 `meeting-transcripts-sqlite`, `versioned-runtime-deps`, `cron-scheduled-authority`,

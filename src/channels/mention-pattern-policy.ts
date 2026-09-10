@@ -6,7 +6,7 @@ import { isRecord } from "@granted/normalization-core/record-coerce";
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { MentionPatternsMode, MentionPatternsPolicyConfig } from "../config/types.messages.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /**
  * Inputs for resolving whether mention-pattern matching is enabled in a conversation.

@@ -1,5 +1,5 @@
 import { resolveConfigWidePluginManifestRegistry } from "../../../config/io.plugin-metadata.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   withPluginMetadataSnapshotScope,
   type PluginMetadataSnapshotScopeRunner,

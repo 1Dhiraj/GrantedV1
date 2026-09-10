@@ -7,12 +7,12 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { find as findWorkerSessionPlacement } from "./worker-environments/placement-row-codec.js";
 
 const PLACEMENT_GRANT_TTL_MS = 30 * 24 * 60 * 60_000;

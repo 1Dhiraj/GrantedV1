@@ -4,7 +4,7 @@
 import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, onTestFinished, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { createChatRunState } from "../server-chat-state.js";
 import { recordClientPresenceActivity } from "../server/client-presence.js";
 import type { GatewayWsClient } from "../server/ws-types.js";

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveLegacyInheritedAuthAgentId } from "./legacy-inherited-auth-dir.js";
 
 describe("legacy inherited auth ownership", () => {

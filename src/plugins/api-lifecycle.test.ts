@@ -2,7 +2,7 @@
 // register() returns, while runtime methods remain callable from hooks and tools.
 import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { buildPluginApi } from "./api-builder.js";
 import { isLateCallablePluginApiMethod } from "./api-lifecycle.js";
 import { runPluginRegisterSyncInRegistry } from "./loader-module-runtime.js";

@@ -3,12 +3,12 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { assertSqliteSchemaContains } from "../infra/sqlite-schema-contract.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { getOpenClawStateRuntimeSchema } from "../state/openclaw-state-schema-compatibility.js";
+} from "../state/granted-state-db.js";
+import { getOpenClawStateRuntimeSchema } from "../state/granted-state-schema-compatibility.js";
 import { loadGatewayConfigRevisionProjector } from "./config-revision-token.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

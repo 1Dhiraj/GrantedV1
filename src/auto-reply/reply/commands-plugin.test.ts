@@ -21,7 +21,7 @@ import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { PluginCommandContext, PluginCommandResult } from "../../plugins/types.js";
-import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/openclaw-agent-db.js";
+import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/granted-agent-db.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { buildCommandContext } from "./commands-context.js";
 import { handlePluginCommand } from "./commands-plugin.js";
@@ -101,7 +101,7 @@ async function withDeclaredCommandPlugin(
   run: (cfg: GrantedConfig) => Promise<void>,
 ) {
   const tempDir = await fs.realpath(
-    await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-availability-")),
+    await fs.mkdtemp(path.join(os.tmpdir(), "granted-command-availability-")),
   );
   const pluginId = "recovery-controls";
   const alias = options.alias ?? "recover";

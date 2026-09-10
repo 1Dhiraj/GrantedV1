@@ -22,7 +22,7 @@ import {
   formatCliParseErrorOutput,
 } from "./error-output.js";
 import { setCommandJsonMode } from "./json-mode.js";
-import { GrantedCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./granted-command.js";
 import { registerLazyCommand } from "./register-lazy-command.js";
 
 async function parseLazyGroupError(params: {

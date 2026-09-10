@@ -14,7 +14,7 @@ import { resetPluginRuntimeStateForTest } from "../../../plugins/runtime.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../../test-utils/openclaw-test-state.js";
+} from "../../../test-utils/granted-test-state.js";
 import { getFreePort } from "../../../test-utils/ports.js";
 import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../../utils/message-channel.js";
 import { isLiveTestEnabled } from "../../live-test-helpers.js";

@@ -3,8 +3,8 @@ import { expect, it, vi } from "vitest";
 import { CURRENT_SESSION_VERSION, SessionManager } from "../../agents/sessions/session-manager.js";
 import { makeAgentAssistantMessage } from "../../agents/test-helpers/agent-message-fixtures.js";
 import { clearNodeSqliteKyselyCacheForDatabase } from "../../infra/kysely-sync.js";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import {
   appendTranscriptEvent,
   appendTranscriptMessage,

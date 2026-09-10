@@ -1,6 +1,6 @@
-import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../state/granted-state-db-contract.js";
 import { resolveRuntimeServiceCommit, VERSION } from "../version.js";
-import { resolveOpenClawPackageRootSync } from "./openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "./granted-root.js";
 
 type SqliteUserVersionReader = {
   prepare: (sql: string) => { get: () => unknown };

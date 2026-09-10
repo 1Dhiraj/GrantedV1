@@ -55,7 +55,7 @@ vi.mock("./commands-private-route.js", async () => {
   };
 });
 
-const workspaceHarness = createCommandWorkspaceHarness("openclaw-command-mcp-");
+const workspaceHarness = createCommandWorkspaceHarness("granted-command-mcp-");
 
 function expectMcpResult<T>(result: T | null): T {
   if (result === null) {
@@ -82,7 +82,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("writes MCP config and shows it back", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const setParams = buildCommandTestParams(
         '/mcp set context7={"command":"uvx","args":["context7-mcp"]}',
@@ -106,7 +106,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("blocks authorized non-owner senders from writing MCP config", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       mcpServers.set("existing", { command: "uvx", args: ["existing-mcp"] });
       const setParams = buildCommandTestParams(
@@ -132,7 +132,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("blocks authorized non-owner senders from reading MCP config", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       mcpServers.set("context7", { command: "uvx", args: ["context7-mcp"] });
       const showParams = buildCommandTestParams("/mcp show context7", buildCfg(), undefined, {
@@ -149,7 +149,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("rejects internal writes without operator.admin", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildCommandTestParams(
         '/mcp set context7={"command":"uvx","args":["context7-mcp"]}',
@@ -169,7 +169,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("accepts non-stdio MCP config at the config layer", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildCommandTestParams(
         '/mcp set remote={"url":"https://example.com/mcp"}',
@@ -185,7 +185,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("routes group /mcp show privately and redacts the delivered config", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const privateReplies: string[] = [];
       privateRouteMocks.resolvePrivateCommandRouteTargets.mockResolvedValue([
@@ -321,7 +321,7 @@ describe("handleCommands /mcp", () => {
       deliverPrivateMcpReply: async () => false,
     },
   ])("fails closed for group /mcp show with $name", async (route) => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const secret = "group-route-secret-value";
       mcpServers.set("billing-server", {
@@ -348,7 +348,7 @@ describe("handleCommands /mcp", () => {
   });
 
   it("tries later private owner routes without exposing config to the group", async () => {
-    await withTempHome("openclaw-command-mcp-home-", async () => {
+    await withTempHome("granted-command-mcp-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const attemptedTargets: string[] = [];
       mcpServers.set("billing-server", {

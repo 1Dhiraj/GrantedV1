@@ -5,8 +5,8 @@ import {
   resolveSqliteScope,
   toDatabaseOptions,
 } from "../config/sessions/session-accessor.sqlite-scope.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
-import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
+import { runOpenClawAgentWriteTransaction } from "../state/granted-agent-db.js";
 import type { HeartbeatWakeSource } from "./heartbeat-wake.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "./kysely-sync.js";
 

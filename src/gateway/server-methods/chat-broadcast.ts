@@ -1,5 +1,5 @@
 import { getReplyPayloadMetadata, type ReplyPayload } from "../../auto-reply/reply-payload.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 import { projectChatDisplayMessage } from "../chat-display-projection.js";
 import { tryResolveSessionCompatibilityOwnerAgentId } from "../session-request-agent.js";

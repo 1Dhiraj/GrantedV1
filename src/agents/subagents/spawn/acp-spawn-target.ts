@@ -1,6 +1,6 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { getAcpRuntimeBackend } from "../../../acp/runtime/registry.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { normalizeAgentIdStrict, normalizeOptionalAgentId } from "../../../routing/session-key.js";
 import { listAgentEntries, resolveAgentEntry } from "../../agent-scope-config.js";
 import { listAgentIds } from "../../agent-scope.js";

@@ -3,7 +3,7 @@
  *
  * Ensures or resets stateful binding targets through registered target drivers.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ConfiguredBindingResolution } from "./binding-types.js";
 import {
   ensureStatefulTargetBuiltinsRegistered,

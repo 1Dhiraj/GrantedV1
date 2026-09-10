@@ -4,11 +4,11 @@ import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { isSqliteSchemaVersionError } from "../../../infra/sqlite-user-version.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../../../state/openclaw-state-db-contract.js";
-import { closeOpenClawStateDatabaseForTest } from "../../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../../state/openclaw-state-db.paths.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../../state/granted-state-db-contract.js";
+import { closeOpenClawStateDatabaseForTest } from "../../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../../state/granted-state-db.paths.js";
 import { collectLegacyCronStoreHealthFindings, maybeRepairLegacyCronStore } from "./index.js";
 import {
   applyLegacyCronStoreRepair,

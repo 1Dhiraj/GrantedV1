@@ -3,7 +3,7 @@ import path from "node:path";
 import { expect, vi } from "vitest";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { createConfigFileSnapshot } from "../config/io.snapshot-shared.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.granted.js";
 // Non-interactive onboarding test helpers build runtime stubs that throw instead of exiting.
 import type { RuntimeEnv } from "../runtime.js";
 import { captureEnv, deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";

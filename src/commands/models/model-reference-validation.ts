@@ -1,6 +1,6 @@
 import { buildModelCatalogMergeKey } from "@granted/model-catalog-core/model-catalog-refs";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { planEffectiveModelCatalogRows } from "../../model-catalog/index.js";
 import { loadManifestMetadataSnapshot } from "../../plugins/manifest-contract-eligibility.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";

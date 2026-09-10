@@ -6,7 +6,7 @@ import path from "node:path";
 import { coerceErrorMessage as formatLiveError, expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it } from "vitest";
 import type { ModelApi } from "../../config/types.models.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resizeToJpeg } from "../../media/media-services.js";
 import { encodePngRgba, fillPixel } from "../../media/png-encode.js";
 import {

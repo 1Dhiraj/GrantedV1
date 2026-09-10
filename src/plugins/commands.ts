@@ -3,7 +3,7 @@
  *
  * Compatibility wrappers for plugin command registration, matching, and execution.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { clearPluginCommands, registerPluginCommand } from "./command-registration.js";
 import {
   listRegisteredPluginAgentPromptGuidance,

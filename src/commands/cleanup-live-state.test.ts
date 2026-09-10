@@ -9,7 +9,7 @@ import { createNonExitingRuntime } from "../runtime.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 
 const gatewayService = vi.hoisted(() => ({
   notLoadedText: "is not installed",

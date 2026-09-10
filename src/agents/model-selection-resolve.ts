@@ -4,7 +4,7 @@
  * This module resolves configured fallbacks and explicit model selections.
  */
 import { resolveAgentModelFallbackValues } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAgentModelFallbacksOverride } from "./agent-scope.js";
 import type { ModelCatalogEntry } from "./model-catalog.types.js";
 import type { ModelManifestNormalizationContext, ModelRef } from "./model-ref-shared.js";

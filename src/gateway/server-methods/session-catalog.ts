@@ -15,7 +15,7 @@ import {
   validateSessionsCatalogListParams,
   validateSessionsCatalogReadParams,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import type {
   SessionCatalogCreateTarget,

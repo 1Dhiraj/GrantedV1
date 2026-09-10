@@ -16,7 +16,7 @@ import {
   sessionCreatorProfileId,
   type SessionCreatedActor,
 } from "../../config/sessions/session-entry-provenance.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveSessionAgentId } from "../agent-scope.js";
 import { auditSandboxToolPolicyBlock, escapeControlCharsVisible } from "../tool-policy-audit.js";
 import { resolveSandboxConfigForAgent } from "./config.js";

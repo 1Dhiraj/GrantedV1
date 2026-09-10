@@ -6,7 +6,7 @@ import {
   createChannelIngressQueueForTests,
 } from "granted/plugin-sdk/channel-ingress-test-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { expect, vi } from "vitest";
 import type { createZalouserIngressMonitor } from "./ingress.js";
 import type { ZaloInboundMessage } from "./types.js";
@@ -63,7 +63,7 @@ export async function withZalouserIngressTestQueue<T>(
   fn: (queue: ZalouserTestQueue) => Promise<T>,
 ): Promise<T> {
   const createdDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalouser-ingress-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-zalouser-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
   const previousStateDir = process.env.GRANTED_STATE_DIR;

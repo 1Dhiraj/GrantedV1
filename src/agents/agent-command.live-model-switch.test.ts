@@ -20,7 +20,7 @@ import {
   createUserTurnTranscriptRecorder,
   type UserTurnTranscriptRecorder,
 } from "../sessions/user-turn-transcript.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   deliveryContextFromSession,
@@ -1336,7 +1336,7 @@ describe("agentCommand – LiveSessionModelSwitchError retry", () => {
     "persists a detached recovery start before closing a %s command",
     async (outcome) => {
       const stateDir = await fs.realpath(
-        await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-recovery-start-")),
+        await fs.mkdtemp(path.join(os.tmpdir(), "granted-command-recovery-start-")),
       );
       try {
         await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {

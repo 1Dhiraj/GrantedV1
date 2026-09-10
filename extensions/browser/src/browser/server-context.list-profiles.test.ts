@@ -341,7 +341,7 @@ describe("browser server-context listProfiles", () => {
     runtime.running = {
       pid: 123,
       exe: { kind: "chromium", path: "/usr/bin/chromium" },
-      userDataDir: "/tmp/openclaw-profile",
+      userDataDir: "/tmp/granted-profile",
       cdpPort: 18800,
       startedAt: Date.now(),
       proc: {} as never,

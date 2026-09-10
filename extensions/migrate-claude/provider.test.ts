@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { redactMigrationPlan } from "granted/plugin-sdk/migration";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -38,7 +38,7 @@ function planItemById(
 describe("Claude migration provider", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-claude-",
     });
   });

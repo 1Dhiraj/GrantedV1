@@ -22,7 +22,7 @@ import { createDeferredCore } from "../../../shared/deferred.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../../state/openclaw-state-db.js";
+} from "../../../state/granted-state-db.js";
 import { createWorkerSessionPlacementStore } from "../../worker-environments/placement-store.js";
 import { signalWorkerTurnClaimClosed } from "../../worker-environments/placement-turn-claim-events.js";
 import { prepareWorkerAgentRuntimeIdentity } from "../../worker-environments/worker-turn-payload.js";

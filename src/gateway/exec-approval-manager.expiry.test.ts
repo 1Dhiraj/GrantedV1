@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ExecApprovalRequestPayload } from "../infra/exec-approvals.js";
-import { closeOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { ExecApprovalManager } from "./exec-approval-manager.js";
 
 type TimeoutCallback = Parameters<typeof setTimeout>[0];

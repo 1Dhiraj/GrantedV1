@@ -8,7 +8,7 @@ import {
 import { readCurrentGitUpdateRecovery } from "../../infra/update-runner-git-recovery.js";
 import type { UpdateRunResult } from "../../infra/update-runner.js";
 import { defaultRuntime } from "../../runtime.js";
-import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
+import type { GrantedSchemaVersions } from "../../state/granted-schema-versions.js";
 import { replaceCliName, resolveCliName } from "../cli-name.js";
 import { formatCliCommand } from "../command-format.js";
 import { createUpdateProgress } from "./progress.js";

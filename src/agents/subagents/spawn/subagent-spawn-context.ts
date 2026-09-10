@@ -1,7 +1,7 @@
 import { finiteSecondsToTimerSafeMilliseconds } from "@granted/normalization-core/number-coercion";
 import { resolveThreadBindingSpawnPolicy } from "../../../channels/thread-bindings-policy.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { SubagentSpawnPreparation } from "../../../context-engine/types.js";
 import { summarizeSpawnError } from "../../spawn-pipeline.js";
 import { getSubagentSpawnDeps } from "./subagent-spawn-deps.js";

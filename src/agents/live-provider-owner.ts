@@ -5,7 +5,7 @@
  * same plugin owner without repeating manifest/provider resolution work.
  */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveOwningPluginIdsForProviderRef } from "../plugins/providers.js";
 
 type LiveProviderOwnerContext = {

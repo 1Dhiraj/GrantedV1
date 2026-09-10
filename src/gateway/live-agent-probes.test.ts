@@ -72,7 +72,7 @@ describe("live-agent-probes", () => {
     );
     expect(claudeRetryPrompt).toContain("mcp__openclaw__automations");
     expect(claudeRetryPrompt).toContain("Do not use Claude native `CronCreate`");
-    expect(claudeRetryPrompt).not.toContain("openclaw-tools");
+    expect(claudeRetryPrompt).not.toContain("granted-tools");
     expect(
       buildLiveCronProbeMessage({
         agent: "future-agent",

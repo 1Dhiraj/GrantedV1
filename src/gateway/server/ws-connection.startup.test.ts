@@ -42,8 +42,8 @@ import {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+} from "../../state/granted-state-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import {
   AUTH_RATE_LIMIT_SCOPE_BOOTSTRAP_TOKEN,
   createAuthRateLimiter,

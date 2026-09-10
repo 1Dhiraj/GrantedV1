@@ -2,7 +2,7 @@
 import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
 import type { AgentToolResult, AgentToolUpdateCallback } from "./runtime/index.js";
 import type { ToolDefinition } from "./sessions/index.js";

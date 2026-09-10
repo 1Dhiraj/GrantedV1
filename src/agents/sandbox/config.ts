@@ -5,7 +5,7 @@
  */
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SandboxSshSettings } from "../../config/types.sandbox.js";
 import { normalizeSecretInputString } from "../../config/types.secrets.js";
 import { resolveAgentConfig } from "../agent-scope.js";

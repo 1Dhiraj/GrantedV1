@@ -1402,7 +1402,7 @@ describe("/acp command", () => {
     );
     const { createTestAdmittedRunContext } =
       await import("../../agents/admitted-run-context.test-support.js");
-    const { closeOpenClawStateDatabaseByPath } = await import("../../state/openclaw-state-db.js");
+    const { closeOpenClawStateDatabaseByPath } = await import("../../state/granted-state-db.js");
 
     hoisted.upsertAcpSessionMetaMock.mockImplementation((input) =>
       sessionMeta.upsertAcpSessionMeta({ ...input, cfg, databasePath, now: () => 1 }),

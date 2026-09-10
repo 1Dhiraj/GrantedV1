@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildOpenAIResponsesParams } from "../../../packages/ai/src/transports/openai-responses-params-internal.js";
 import { createSolidPngBuffer } from "../../../test/helpers/image-fixtures.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { WorkerTunnelHandle } from "../../gateway/worker-environments/tunnel-contract.js";
 import { prepareWorkerTurnMedia } from "../../gateway/worker-environments/worker-turn-media.js";
 import type { Model } from "../../llm/types.js";

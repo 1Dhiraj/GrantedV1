@@ -4,7 +4,7 @@ import {
   MAX_DATE_TIMESTAMP_MS,
 } from "@granted/normalization-core/number-coercion";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAccountId } from "../routing/session-key.js";
 import {
   resolveThreadBindingLifecycle as resolveSharedThreadBindingLifecycle,

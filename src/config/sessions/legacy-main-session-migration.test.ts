@@ -16,14 +16,14 @@ import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admi
 import {
   closeOpenClawAgentDatabasesForTest,
   runOpenClawAgentWriteTransaction,
-} from "../../state/openclaw-agent-db.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
+} from "../../state/granted-agent-db.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/granted-state-db-readonly.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { migrateLegacyMainSessionKeys } from "./legacy-main-session-migration.js";
 import { assignSessionOwner } from "./session-accessor.js";
 import { readExactSessionEntryRowForCanonicalRepair } from "./session-accessor.sqlite-canonical-repair.js";

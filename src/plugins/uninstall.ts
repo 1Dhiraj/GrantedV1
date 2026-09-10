@@ -1,7 +1,7 @@
 // Removes installed plugins and updates plugin index records.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { readOpenClawManagedNpmRootOverrides } from "../infra/npm-managed-root.js";

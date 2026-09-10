@@ -5,7 +5,7 @@ import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   cloneAcpLedgerValue,
   createAcpPromptUpdates,

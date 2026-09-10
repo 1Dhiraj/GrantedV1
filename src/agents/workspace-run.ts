@@ -3,7 +3,7 @@
  *
  * Selects per-run workspace directories and redacts run identifiers for logs/prompts.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { logWarn } from "../logger.js";
 import { redactIdentifier } from "../logging/redact-identifier.js";
 import {

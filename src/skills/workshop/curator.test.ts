@@ -9,11 +9,11 @@ import {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { getSkillCuratorStatus, registerSkillUsageTracking } from "./curator.js";
 import { applySkillProposal, proposeCreateSkill } from "./service.js";
 

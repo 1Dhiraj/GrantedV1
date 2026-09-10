@@ -67,7 +67,7 @@ docker_e2e_docker_cmd run -d \
 source scripts/lib/openclaw-e2e-instance.sh
 openclaw_e2e_eval_test_state_from_b64 \"\${OPENCLAW_TEST_STATE_SCRIPT_B64:?missing test state}\"
 openclaw_e2e_write_state_env
-source /tmp/openclaw-test-state-env
+source /tmp/granted-test-state-env
 test -z \"\${OPENCLAW_EAGER_BROWSER_CONTROL_SERVER:-}\"
 entry=\"\$(openclaw_e2e_resolve_entrypoint)\"
 node \"\$entry\" config set browser.enabled true >/dev/null
@@ -97,7 +97,7 @@ set -euo pipefail
 PORT="$1"
 TOKEN="$2"
 PROFILE="$3"
-source /tmp/openclaw-test-state-env
+source /tmp/granted-test-state-env
 source scripts/lib/openclaw-e2e-instance.sh
 entry="$(openclaw_e2e_resolve_entrypoint)"
 base=(--url "ws://127.0.0.1:$PORT" --token "$TOKEN" --json)

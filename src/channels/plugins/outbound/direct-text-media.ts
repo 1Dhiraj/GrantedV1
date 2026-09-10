@@ -5,7 +5,7 @@
  */
 import { asOptionalRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import { chunkText } from "../../../auto-reply/chunk.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { OutboundSendDeps } from "../../../infra/outbound/deliver.js";
 import { sanitizeForPlainText } from "../../../infra/outbound/sanitize-text.js";
 import type { OutboundMediaAccess } from "../../../media/load-options.js";

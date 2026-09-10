@@ -3,7 +3,7 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { normalizeChatType } from "../../channels/chat-type.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { parseSessionDeliveryRoute } from "../../routing/session-key.js";
 import type { SilentReplyConversationType } from "../../shared/silent-reply-policy.js";
 

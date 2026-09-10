@@ -1,7 +1,7 @@
 // Doctor startup channel maintenance runs channel plugin startup repairs.
 import { runChannelPluginStartupMaintenance } from "../channels/plugins/lifecycle-startup.js";
 import { resolveDoctorChannelPreviewConfig } from "../commands/doctor/shared/preview-warnings.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding } from "./health-checks.js";
 
 const CHANNEL_PREVIEW_WARNINGS_CHECK_ID = "core/doctor/channel-preview-warnings";

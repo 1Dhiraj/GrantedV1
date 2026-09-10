@@ -9,7 +9,7 @@ import {
   listPotentialConfiguredChannelPresenceSignals,
   type AmbientEnvTriggerPolicy,
 } from "../channels/config-presence.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   DEFAULT_MEMORY_DREAMING_PLUGIN_ID,
   resolveMemoryDreamingConfig,

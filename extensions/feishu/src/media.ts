@@ -18,7 +18,7 @@ import type { ReplyPayloadTtsSupplement } from "granted/plugin-sdk/reply-payload
 import { readRegularFile, writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   withTempWorkspace,
   withTempDownloadPath,
 } from "granted/plugin-sdk/temp-path";
@@ -816,7 +816,7 @@ async function transcodeToFeishuVoiceOpus(params: {
   contentType?: string;
 }): Promise<{ buffer: Buffer; fileName: string; contentType: string }> {
   return await withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "feishu-voice-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "feishu-voice-" },
     async (workspace) => {
       const ext = normalizeLowercaseStringOrEmpty(path.extname(params.fileName));
       const inputExt = ext && ext.length <= 12 ? ext : ".audio";
@@ -890,7 +890,7 @@ async function probeMediaDurationMs(params: {
 }): Promise<number | undefined> {
   try {
     return await withTempWorkspace(
-      { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "feishu-media-probe-" },
+      { rootDir: resolvePreferredGrantedTmpDir(), prefix: "feishu-media-probe-" },
       async (workspace) => {
         const ext = normalizeLowercaseStringOrEmpty(path.extname(params.fileName));
         const inferredExt =

@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
 import { setRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { resolvePluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import { getPluginCliCommandDescriptors } from "./cli-root-descriptors.js";
 import type { PluginCandidate } from "./discovery.js";

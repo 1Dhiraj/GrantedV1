@@ -1,7 +1,7 @@
 // Defines core dangerous config flag metadata for security audits.
 import { listAgentEntriesWithSource, type ListedAgentEntry } from "../agents/agent-scope-config.js";
 import { DANGEROUS_SANDBOX_DOCKER_BOOLEAN_KEYS } from "../agents/sandbox/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 import { collectCoreInsecureOrDangerousFlags } from "./core-dangerous-config-flags.js";
 

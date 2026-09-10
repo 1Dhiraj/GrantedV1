@@ -13,7 +13,7 @@ import {
   resolveManagedGitHubProfileDir,
 } from "../../agents/github-tool-identity.js";
 import { cleanupRetiredManagedGitHubProfiles } from "../../agents/github-tool-profile-cleanup.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   listSecretStoreEntries,
   readSecretStoreExecEnvironment,
@@ -22,7 +22,7 @@ import {
 } from "../../secrets/store/secret-store.js";
 import { createDeferredCore } from "../../shared/deferred.js";
 import { dumpGitBackupDatabase } from "../../snapshot/git-backup-codec.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import {
   readUserGitHubConnection,
   resolvePersonalGitHubOwner,
@@ -36,7 +36,7 @@ import {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { createGitHubOAuthLifecycle } from "../github-oauth-lifecycle.js";
 import { invalidateOperatorRolePolicy } from "../operator-role-policy.js";
 import { handleGatewayRequest } from "../server-methods.js";

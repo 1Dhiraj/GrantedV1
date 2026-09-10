@@ -1,5 +1,5 @@
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 
 type RemoteModelCatalogStoreRow = {
   id: number;

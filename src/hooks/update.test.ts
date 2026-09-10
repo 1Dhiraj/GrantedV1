@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { HookInstallRecord } from "../config/types.hooks.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createTrackedTempDirs } from "../test-utils/tracked-temp-dirs.js";
 import type { HookNpmIntegrityDriftParams } from "./install.js";
 

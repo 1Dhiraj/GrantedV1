@@ -9,7 +9,7 @@ import {
 import { modelKey, normalizeModelRef } from "../../agents/model-selection.js";
 import { RUNTIME_MODEL_VISIBILITY_NORMALIZATION } from "../../agents/model-visibility-policy.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { StoredModelOverride } from "../../sessions/stored-model-overrides.js";
 import type { RuntimeModelNormalization } from "./model-runtime-normalization.js";
 

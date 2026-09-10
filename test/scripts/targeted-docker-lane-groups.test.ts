@@ -131,7 +131,7 @@ describe("scripts/plan-targeted-docker-lane-groups", () => {
       label: "an old single baseline with unsupported scenarios at the end",
       baselines: "2026.4.15",
       scenarios:
-        "base feishu-channel tilde-log-path acpx-openclaw-tools-bridge plugin-deps-cleanup",
+        "base feishu-channel tilde-log-path acpx-granted-tools-bridge plugin-deps-cleanup",
     },
     { label: "the default baseline", baselines: "", scenarios: "far-reaching" },
   ])("preserves each expanded lane exactly once for $label", ({ baselines, scenarios }) => {

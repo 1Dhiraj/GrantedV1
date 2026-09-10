@@ -1,4 +1,4 @@
-import { withOpenClawStateLease } from "../../state/openclaw-state-lease.js";
+import { withOpenClawStateLease } from "../../state/granted-state-lease.js";
 import { canonicalSkillCollectionWorkspace } from "./collection-paths.js";
 import { hashSkillProposalContent } from "./proposal-hash.js";
 import {

@@ -2,7 +2,7 @@
 import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   FileSecretProviderConfig,
   ManualExecSecretProviderConfig,

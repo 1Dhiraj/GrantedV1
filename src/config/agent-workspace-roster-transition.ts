@@ -4,7 +4,7 @@ import {
   toAgentEntriesRecord,
 } from "../agents/agent-scope-config.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 export function pinSurvivorWorkspaceForRosterCollapse(
   sourceConfig: GrantedConfig,

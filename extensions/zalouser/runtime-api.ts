@@ -60,4 +60,4 @@ export {
   sendPayloadWithChunkedTextAndMedia,
   type OutboundReplyPayload,
 } from "granted/plugin-sdk/reply-payload";
-export { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+export { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";

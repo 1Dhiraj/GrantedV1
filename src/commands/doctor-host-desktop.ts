@@ -1,5 +1,5 @@
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { inspectHostDesktop } from "../gateway/desktop/host-source.js";
 import { runCommandWithTimeout } from "../process/exec-runner.js";

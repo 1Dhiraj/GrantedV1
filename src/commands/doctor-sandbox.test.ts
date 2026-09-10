@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { note } from "../../packages/terminal-core/src/note.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { noteSandboxScopeWarnings } from "./doctor-sandbox.js";
 import { resolveSandboxScript } from "./doctor-sandbox.test-support.js";
 

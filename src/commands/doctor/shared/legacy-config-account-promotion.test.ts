@@ -2,14 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, expect, it, vi } from "vitest";
 import { widenOfficialExternalChannelSecretSchema } from "../../../config/official-external-channel-secret-schema.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { clearPluginMetadataLifecycleCaches } from "../../../plugins/plugin-metadata-lifecycle.js";
 import { resetPluginRuntimeStateForTest } from "../../../plugins/runtime.js";
 import { validateJsonSchemaValue } from "../../../plugins/schema-validator.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../../test-utils/openclaw-test-state.js";
+} from "../../../test-utils/granted-test-state.js";
 import { normalizeCompatibilityConfigValues } from "./legacy-config-core-migrate.js";
 import { seedMissingDefaultAccountsFromSingleAccountBase } from "./legacy-config-core-normalizers.js";
 

@@ -1,9 +1,9 @@
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   type ClawHubPromotionsFeedEntry,
   fetchClawHubPromotionsFeed,

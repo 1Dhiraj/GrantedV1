@@ -17,7 +17,7 @@ import {
   HEARTBEAT_SKIP_PREEMPTED,
   type HeartbeatRunResult,
 } from "../../infra/heartbeat-wake.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import { CRON_TASK_KIND } from "../../tasks/cron-task-contract.js";
 import { cancelTaskById, listTaskRecords } from "../../tasks/task-registry.js";
 import {

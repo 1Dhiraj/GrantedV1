@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { describeSecretResolutionError } from "./resolve-errors.js";
 import { resolveSecretRefString } from "./resolve.js";
 import { isRetryableSecretDegradationReason } from "./runtime-degraded-state.js";

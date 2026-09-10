@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { resolveRequiredOsHomeDir } from "./home-dir.js";
 import { resolveSystemBin } from "./resolve-system-bin.js";
-import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./tmp-granted-dir.js";
 import { decodeWindowsOutputBuffer } from "./windows-encoding.js";
 import {
   buildEncodedPowerShellArgs,
@@ -215,7 +215,7 @@ export function resolvePrivateSqliteSnapshotStagingRoot(): string {
   const cacheRoot =
     [process.env.XDG_CACHE_HOME?.trim(), appData].find((root) => root && path.isAbsolute(root)) ??
     path.join(resolveRequiredOsHomeDir(), platformRoot);
-  return resolvePreferredOpenClawTmpDir({
+  return resolvePreferredGrantedTmpDir({
     preferredDir: path.join(cacheRoot, "openclaw"),
     tmpdir: () => cacheRoot,
   });

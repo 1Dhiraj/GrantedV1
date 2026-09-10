@@ -7,7 +7,7 @@
  * the plugin runtime surface does not eagerly load the run machinery.
  */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveRuntimeCliBackends } from "../../plugins/cli-backends.runtime.js";
 import {
   ensureAuthProfileStore,

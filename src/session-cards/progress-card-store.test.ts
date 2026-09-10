@@ -1,7 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { AGENT_SCHEMA_WITHOUT_PROGRESS_CARD_SQL } from "../state/openclaw-agent-progress-card-schema.js";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { AGENT_SCHEMA_WITHOUT_PROGRESS_CARD_SQL } from "../state/granted-agent-progress-card-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
 import { readSessionProgressCard, writeSessionProgressCard } from "./progress-card-store.js";
 
 const SESSION_KEY = "agent:main:main";

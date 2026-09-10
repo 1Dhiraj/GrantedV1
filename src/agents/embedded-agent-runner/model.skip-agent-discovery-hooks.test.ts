@@ -3,7 +3,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { guardModelFixtureAuth, guardModelFixtureWorkspace } from "./model.fixture.test-support.js";
 
 let state: GrantedTestState;

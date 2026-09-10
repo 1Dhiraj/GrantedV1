@@ -12,7 +12,7 @@ import type {
   ChannelDoctorEmptyAllowlistAccountContext,
   ChannelDoctorSequenceResult,
 } from "../../../channels/plugins/types.adapters.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { isUnresolvedSecretInputError } from "../../../config/types.secrets.js";
 import { listDoctorConfiguredChannelIds } from "./configured-channel-ids.js";
 

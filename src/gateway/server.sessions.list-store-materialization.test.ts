@@ -9,11 +9,11 @@ import * as sessionsConfig from "../config/sessions.js";
 import * as sessionAccessor from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import * as agentDatabaseRegistry from "../state/openclaw-agent-db-registry.js";
+import * as agentDatabaseRegistry from "../state/granted-agent-db-registry.js";
 import {
   GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { scheduleGatewayHandlerPrewarm } from "./server-startup-handler-prewarm.js";
 import type { SessionsListResult } from "./session-utils.types.js";
 import { testState, writeSessionStore } from "./test-helpers.js";

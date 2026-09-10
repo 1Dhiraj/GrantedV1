@@ -11,12 +11,12 @@ import {
 } from "../config/plugin-install-record-map.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import * as stateDbReadOnly from "../state/openclaw-state-db-readonly.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
+import * as stateDbReadOnly from "../state/granted-state-db-readonly.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withMockedWindowsPlatform } from "../test-utils/vitest-spies.js";
 import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import type { PluginCandidate } from "./discovery.js";

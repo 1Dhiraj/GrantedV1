@@ -1,4 +1,4 @@
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 
 const LEGACY_AUDIT_COORDINATION_SCOPE = "migration.legacy-audit";
 const LEGACY_AUDIT_COORDINATION_KEY = "filesystem-sqlite-boundary";

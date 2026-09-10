@@ -9,7 +9,7 @@ import {
   getRuntimeConfigSnapshot,
 } from "../src/config/config.js";
 import { clearSessionStoreCacheForTest } from "../src/config/sessions/store-writer-state.js";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 import {
   disconnectGatewayClient,
   startGatewayWithClient,

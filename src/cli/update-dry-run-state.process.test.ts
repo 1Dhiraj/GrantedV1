@@ -8,8 +8,8 @@ import { CONTROL_PLANE_UPDATE_SENTINEL_META_ENV } from "../infra/update-control-
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { claimOpenClawStateOwnership } from "../state/openclaw-state-ownership-operations.js";
+} from "../state/granted-state-db.js";
+import { claimOpenClawStateOwnership } from "../state/granted-state-ownership-operations.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 

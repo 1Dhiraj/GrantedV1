@@ -21,7 +21,7 @@ import {
   listSessionEntriesCore,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { makeCronJob } from "../cron/delivery.test-helpers.js";
 import { loadCronStore, resolveCronJobsStorePath, saveCronStore } from "../cron/store.js";
 import { GatewayTransportError } from "../gateway/transport-error.js";
@@ -33,7 +33,7 @@ import { writeConfigMachineState } from "../state/config-machine-state.js";
 import {
   listOpenClawRegisteredAgentDatabases,
   registerOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import { withStateDirEnv } from "../test-helpers/state-dir-env.js";
 import {
   baseConfigSnapshot,

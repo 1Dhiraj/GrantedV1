@@ -5,16 +5,16 @@ import { afterEach, describe, expect, it } from "vitest";
 import gitPrerequisites from "../../.github/actions/git-owner/test-prerequisites.json" with { type: "json" };
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { STATE_SCHEMA_10_TO_9_DOWNGRADE_SQL } from "../state/openclaw-state-schema-v10-retirement.test-support.js";
-import { STATE_SCHEMA_11_TO_10_TABLES_SQL } from "../state/openclaw-state-schema-v11-retirement.test-support.js";
-import { STATE_SCHEMA_12_TO_11_DOWNGRADE_SQL } from "../state/openclaw-state-schema-v12-foldin.test-support.js";
-import { STATE_SCHEMA_13_TO_12_DOWNGRADE_SQL } from "../state/openclaw-state-schema-v13-widerow.test-support.js";
+} from "../state/granted-state-db.js";
+import { STATE_SCHEMA_10_TO_9_DOWNGRADE_SQL } from "../state/granted-state-schema-v10-retirement.test-support.js";
+import { STATE_SCHEMA_11_TO_10_TABLES_SQL } from "../state/granted-state-schema-v11-retirement.test-support.js";
+import { STATE_SCHEMA_12_TO_11_DOWNGRADE_SQL } from "../state/granted-state-schema-v12-foldin.test-support.js";
+import { STATE_SCHEMA_13_TO_12_DOWNGRADE_SQL } from "../state/granted-state-schema-v13-widerow.test-support.js";
 import { recordAuditEvent } from "./audit-event-store.js";
 import type { OutboundMessageProgressInput } from "./audit-event-types.js";
 import {
@@ -126,7 +126,7 @@ describe("outbound message progress companion", () => {
     const database = databaseOptions();
     const { db } = openOpenClawStateDatabase(database);
     const schema = fs
-      .readFileSync(new URL("../state/openclaw-state-schema.sql", import.meta.url), "utf8")
+      .readFileSync(new URL("../state/granted-state-schema.sql", import.meta.url), "utf8")
       .replace("  context_id TEXT,\n  execution_id TEXT,\n", "");
     const start = schema.indexOf("CREATE TABLE IF NOT EXISTS outbound_message_progress (");
     const end = schema.indexOf(") STRICT;", start);
@@ -292,7 +292,7 @@ describe("outbound message progress companion", () => {
       pinnedSchemaDatabase.exec(
         execFileSync(
           "git",
-          ["show", `${PINNED_PRE_C04_READER_SHA}:src/state/openclaw-state-schema.sql`],
+          ["show", `${PINNED_PRE_C04_READER_SHA}:src/state/granted-state-schema.sql`],
           { cwd: repositoryRoot, encoding: "utf8" },
         ),
       );
@@ -348,7 +348,7 @@ describe("outbound message progress companion", () => {
             const {
               closeOpenClawStateDatabaseForTest,
               openOpenClawStateDatabase,
-            } = await import("./src/state/openclaw-state-db.ts");
+            } = await import("./src/state/granted-state-db.ts");
             const database = { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
             const opened = openOpenClawStateDatabase(database);
             const schemaVersion = opened.db.prepare("PRAGMA user_version").get().user_version;

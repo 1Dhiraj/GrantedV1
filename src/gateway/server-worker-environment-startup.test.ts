@@ -13,7 +13,7 @@ import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { markPluginRegistryActive } from "../plugins/registry-lifecycle.js";
 import type { WorkerProvider } from "../plugins/types.js";
 import { createDeferredCore } from "../shared/deferred.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { createNodeDesktopStreamBroker } from "./desktop/node-stream-broker.js";
 import { createDesktopSessionRegistry } from "./desktop/session-registry.js";

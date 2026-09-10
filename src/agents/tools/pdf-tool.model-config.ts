@@ -3,7 +3,7 @@
  *
  * Selects explicit PDF, image-model, native PDF, vision, or text-extraction fallback models.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   providerSupportsNativePdfDocument,
   resolveAutoMediaKeyProviders,

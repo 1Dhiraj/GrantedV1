@@ -3,7 +3,7 @@ import path from "node:path";
 import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 // Zalo tests cover outbound media plugin behavior.
 import { createPluginStateKeyedStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { PluginRuntime } from "../runtime-api.js";
 
@@ -25,7 +25,7 @@ import { setZaloRuntime } from "./runtime.js";
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,
   GRANTED_STATE_DIR: fs.mkdtempSync(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalo-media-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-zalo-media-"),
   ),
 };
 

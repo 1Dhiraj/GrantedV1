@@ -1,7 +1,7 @@
 // ClawHub lifecycle facade: public API plus install/update coordination.
 import fs from "node:fs/promises";
 import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   downloadClawHubSkillArchive,
   normalizeClawHubSha256Integrity,

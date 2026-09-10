@@ -3,11 +3,11 @@ import path from "node:path";
 import { afterEach, expect, it, vi } from "vitest";
 import { createTranscriptEventReader } from "../../commands/doctor-session-sqlite-readers.js";
 import * as sqliteDirectories from "../../infra/sqlite-private-directory.js";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
 import {
   withOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { listSessionBranches } from "./session-accessor.js";
 import { loadExactSessionEntry } from "./session-accessor.sqlite-entry.js";
 import {

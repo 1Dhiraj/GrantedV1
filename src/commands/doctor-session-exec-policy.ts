@@ -3,7 +3,7 @@ import { resolveAgentConfig, resolveSessionAgentId } from "../agents/agent-scope
 import { resolveExecTarget } from "../agents/bash-tools.exec-runtime.js";
 import { SESSION_PERMISSION_BY_EXEC_MODE } from "../agents/session-permission-exec-mode.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   normalizeExecAsk,
   normalizeExecSecurity,

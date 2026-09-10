@@ -8,8 +8,8 @@ import {
   updateSessionEntry,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { createDirectChatContext } from "../server-chat.agent-events.test-helpers.js";
 import { chatHistoryHandlers } from "./chat-history-handler.js";
 import type { GatewayRequestContext, RespondFn } from "./types.js";

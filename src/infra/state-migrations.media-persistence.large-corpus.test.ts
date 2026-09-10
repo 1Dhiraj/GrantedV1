@@ -4,8 +4,8 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {
   closeOpenClawAgentDatabases,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { mergeProcessEnv } from "./process-env.js";
 
 const SESSION_COUNT = 2_640;
@@ -33,7 +33,7 @@ function migrationChildEnv(stateDir: string): NodeJS.ProcessEnv {
 const CHILD_SCRIPT = String.raw`
   import { createHash } from "node:crypto";
   import { DatabaseSync } from "node:sqlite";
-  import { resolveOpenClawAgentSqlitePath } from "./src/state/openclaw-agent-db.ts";
+  import { resolveOpenClawAgentSqlitePath } from "./src/state/granted-agent-db.ts";
   import { migrateLegacyMediaPersistence } from "./src/infra/state-migrations.media-persistence.ts";
   const path = resolveOpenClawAgentSqlitePath({ agentId: "main", env: process.env });
   let db = new DatabaseSync(path, { readOnly: true });
@@ -77,7 +77,7 @@ const CHILD_SCRIPT = String.raw`
   db.close();
 `;
 const SESSION_WINDOW_CHILD_SCRIPT = String.raw`
-  import { resolveOpenClawAgentSqlitePath } from "./src/state/openclaw-agent-db.ts";
+  import { resolveOpenClawAgentSqlitePath } from "./src/state/granted-agent-db.ts";
   import { migrateLegacyMediaPersistence } from "./src/infra/state-migrations.media-persistence.ts";
   const path = resolveOpenClawAgentSqlitePath({ agentId: "main", env: process.env });
   const migration = await migrateLegacyMediaPersistence({
@@ -87,7 +87,7 @@ const SESSION_WINDOW_CHILD_SCRIPT = String.raw`
 `;
 const SPARSE_EVENT_CHILD_SCRIPT = String.raw`
   import { DatabaseSync } from "node:sqlite";
-  import { resolveOpenClawAgentSqlitePath } from "./src/state/openclaw-agent-db.ts";
+  import { resolveOpenClawAgentSqlitePath } from "./src/state/granted-agent-db.ts";
   const originalPrepare = DatabaseSync.prototype.prepare;
   const cursorSelects = new Set();
   let mediaSelects = 0;

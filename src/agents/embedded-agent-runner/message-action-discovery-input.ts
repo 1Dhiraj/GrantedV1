@@ -2,7 +2,7 @@
  * Builds scoped message-action discovery inputs for embedded-agent tool setup.
  */
 import type { ChatType } from "../../channels/chat-type.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /**
  * Normalizes channel/session/message context before message-action discovery.

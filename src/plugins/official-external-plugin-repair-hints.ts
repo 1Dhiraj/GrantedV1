@@ -1,5 +1,5 @@
 /** Builds doctor/install repair hints for missing official external plugin owners. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveConfiguredChannelPresencePolicy } from "./channel-plugin-ids.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 import {

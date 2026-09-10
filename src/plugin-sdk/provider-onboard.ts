@@ -19,7 +19,7 @@ import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
 } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export type { GrantedConfig, ModelApi, ModelDefinitionConfig, ModelProviderConfig };
 export {

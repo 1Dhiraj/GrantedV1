@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { buildEmbeddedRunnerAssistant } from "../test-helpers/embedded-agent-runner-e2e-fixtures.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -21,7 +21,7 @@ describe("runEmbeddedAgent Code Mode reconciliation", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.code-mode-reconciliation" });
     mockedClassifyFailoverReason.mockReturnValue(null);
     useOpenAIPlatformAuthFixture();

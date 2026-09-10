@@ -1,5 +1,5 @@
 import { clearCurrentProviderAuthState } from "../agents/model-provider-auth.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isSecretRef } from "../config/types.secrets.js";
 import { requestActiveCronJobCancellationByPayloadKind } from "../cron/active-jobs.js";
 import { resolveSkillWorkshopConfig } from "../skills/workshop/config.js";

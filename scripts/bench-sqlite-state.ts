@@ -5,16 +5,16 @@ import path from "node:path";
 import type { DatabaseSync, SQLInputValue } from "node:sqlite";
 import { pathToFileURL } from "node:url";
 import { expectDefined } from "../packages/normalization-core/src/expect.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../src/state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../src/state/granted-agent-db-contract.js";
 import {
   openOpenClawAgentDatabase,
   closeOpenClawAgentDatabasesForTest,
-} from "../src/state/openclaw-agent-db.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
+} from "../src/state/granted-agent-db.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../src/state/openclaw-state-db.js";
+} from "../src/state/granted-state-db.js";
 import { parseStrictIntegerOption } from "./lib/dev-tooling-safety.ts";
 import {
   collectSqliteQueryPlanEvidence,

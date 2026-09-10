@@ -14,7 +14,7 @@ import {
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";
 import { inheritSessionCreationPolicy } from "../../config/sessions/session-entry-provenance.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveAgentRoute, type RoutePeer } from "../../routing/resolve-route.js";
 import { normalizeAgentId, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";

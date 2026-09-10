@@ -2,7 +2,7 @@
  * Resolves hook-selected model state and pre-model attachments for a run.
  */
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { ProviderRuntimeModel } from "../../../plugins/provider-runtime-model.types.js";
 import type {
   PluginHookBeforeModelResolveAttachment,

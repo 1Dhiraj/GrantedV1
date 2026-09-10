@@ -5,7 +5,7 @@
  */
 
 import type { ChannelId } from "../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   expandAllowFromWithAccessGroups,
   type AccessGroupMembershipResolver,

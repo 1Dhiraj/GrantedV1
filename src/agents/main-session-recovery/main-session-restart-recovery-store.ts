@@ -11,7 +11,7 @@ import {
   loadExactSessionEntry,
   updateSessionEntry,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { GatewayRecoveryRuntime } from "../../gateway/server-instance-runtime.types.js";
 import { readSessionMessagesAsync } from "../../gateway/session-transcript-readers.js";
 import { resolveGatewaySessionStoreTarget } from "../../gateway/session-utils.js";

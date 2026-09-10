@@ -5,7 +5,7 @@ import { normalizeAgentId } from "../../routing/session-key.js";
 import {
   createOpenClawAgentDatabasePathMatcher,
   listOpenClawRegisteredAgentDatabases,
-} from "../../state/openclaw-agent-db-registry.js";
+} from "../../state/granted-agent-db-registry.js";
 import {
   resolveSqliteTargetFromSessionStorePath,
   resolveUnsuffixedSqliteTargetFromSessionStorePath,

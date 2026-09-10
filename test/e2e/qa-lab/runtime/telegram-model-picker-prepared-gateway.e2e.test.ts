@@ -13,9 +13,9 @@ import {
   getChannelIngressKysely,
 } from "../../../../src/channels/message/ingress-queue.js";
 import type { ModelDefinitionConfig } from "../../../../src/config/types.models.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { executeSqliteQuerySync } from "../../../../src/infra/kysely-sync.js";
-import { openExistingOpenClawStateDatabaseReadOnly } from "../../../../src/state/openclaw-state-db.js";
+import { openExistingOpenClawStateDatabaseReadOnly } from "../../../../src/state/granted-state-db.js";
 import { withTestTimeout } from "../../../helpers/promise.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 

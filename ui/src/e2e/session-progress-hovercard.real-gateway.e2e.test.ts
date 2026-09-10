@@ -4,7 +4,7 @@ import { expect, it } from "vitest";
 import type { GatewayServer } from "../../../src/gateway/server-public.ts";
 import { getActivePluginRegistry } from "../../../src/plugins/runtime.ts";
 import type { SessionCatalogProvider } from "../../../src/plugins/session-catalog.ts";
-import { createOpenClawTestState } from "../../../src/test-utils/openclaw-test-state.ts";
+import { createOpenClawTestState } from "../../../src/test-utils/granted-test-state.ts";
 import { getFreePort } from "../../../src/test-utils/ports.ts";
 import type { GatewayBrowserClient } from "../api/gateway.ts";
 import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts";

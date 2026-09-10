@@ -1,7 +1,7 @@
 /** Tests foreground reply delivery ordering for buffered inbound dispatch. */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resetGlobalHookRunner } from "../plugins/hook-runner-global.js";
 import type { ReplyDispatchBeforeDeliver } from "./reply/reply-dispatcher.js";
 import type { ReplyDispatchBeforeDeliverOptions } from "./reply/reply-dispatcher.types.js";

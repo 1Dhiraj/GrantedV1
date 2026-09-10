@@ -1,7 +1,7 @@
 // Directory cache stores short-lived projections partitioned by config identity.
 import { resolveNonNegativeIntegerOption } from "@granted/normalization-core/number-coercion";
 import type { ChannelDirectoryEntryKind, ChannelId } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { pruneMapToMaxSize } from "../map-size.js";
 
 type CacheEntry<T> = {

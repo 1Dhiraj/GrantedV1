@@ -1,7 +1,7 @@
 // Talk provider types describe realtime voice provider configuration and APIs.
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { TalkTransport } from "./talk-events.js";
 
 export type RealtimeVoiceProviderId = string;

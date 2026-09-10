@@ -9,7 +9,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
 } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { liveProvidersShareOwningPlugin } from "../live-provider-owner.js";
 
 type ModelTarget = {

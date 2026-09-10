@@ -545,7 +545,7 @@ describe("recovery cancellation through the public run owner", () => {
   );
 
   it("compacts and accounts a fresh persistent run whose first append creates the session row", async () => {
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     const { SessionManager: PersistentSessionManager } =
       await import("../sessions/session-manager.js");
     const state = await createOpenClawTestState({ label: "fresh-persistent-recovery" });

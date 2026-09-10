@@ -9,7 +9,7 @@ import {
   resolveOpenProviderRuntimeGroupPolicy,
 } from "../../config/runtime-group-policy.js";
 import type { GroupPolicy } from "../../config/types.base.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SecurityAuditFinding } from "../../security/audit.types.js";
 
 type GroupPolicyWarningCollector = (groupPolicy: GroupPolicy) => string[];

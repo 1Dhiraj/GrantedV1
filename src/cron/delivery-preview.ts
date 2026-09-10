@@ -1,6 +1,6 @@
 /** Builds dry-run cron delivery labels for CLI/UI list surfaces. */
 import { resolveDefaultAgentId } from "../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasExplicitCronDeliveryTarget, resolveCronDeliveryPlan } from "./delivery-plan.js";
 import {
   resolveDeliveryTarget,

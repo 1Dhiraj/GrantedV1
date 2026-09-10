@@ -1,6 +1,6 @@
 // Skill runtime config helpers read the active runtime config snapshot for skill loading.
 import { getRuntimeConfigSnapshot } from "../../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { coerceSecretRef } from "../../config/types.secrets.js";
 
 // Raw skill secret refs must not be replaced by redacted runtime snapshots.

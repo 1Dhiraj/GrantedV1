@@ -16,23 +16,23 @@ import {
   canonicalizePersistedUserMessageMedia,
   hasMeaningfulRetiredMediaCarrier,
 } from "../media/media-facts.js";
-import { AGENT_MEDIA_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
-import { assertOpenClawAgentDatabaseOwner } from "../state/openclaw-agent-db-maintenance.js";
-import { registerOpenClawAgentDatabase } from "../state/openclaw-agent-db-registry.js";
-import { assertOpenClawAgentSchemaContains } from "../state/openclaw-agent-db-schema-helpers.js";
+import { AGENT_MEDIA_SCHEMA_VERSION } from "../state/granted-agent-db-contract.js";
+import { assertOpenClawAgentDatabaseOwner } from "../state/granted-agent-db-maintenance.js";
+import { registerOpenClawAgentDatabase } from "../state/granted-agent-db-registry.js";
+import { assertOpenClawAgentSchemaContains } from "../state/granted-agent-db-schema-helpers.js";
 import {
   ensureOpenClawAgentDatabaseSchema,
   migrateOpenClawAgentDatabaseToMediaPrerequisiteSchema,
-} from "../state/openclaw-agent-db-schema.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+} from "../state/granted-agent-db-schema.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
 import {
   GRANTED_AGENT_SCHEMA_VERSION,
   withAgentDatabaseMaintenanceLease,
   type GrantedAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { withLegacySessionParticipantsSchema } from "../state/openclaw-agent-participants-migration.js";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { withLegacySessionParticipantsSchema } from "../state/granted-agent-participants-migration.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/granted-state-db.js";
 import { VERSION } from "../version.js";
 import { repairGatewayAgentMediaMigrationStartupFailures } from "./gateway-boot-lifecycle.js";
 import {

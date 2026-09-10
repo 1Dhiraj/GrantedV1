@@ -2,7 +2,7 @@ import type { isEmbeddedAgentRunActive } from "../agents/embedded-agent.js";
 import type { loadSessionEntry } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import type { SessionCatalogProvider, SessionUpstreamProbe } from "../plugins/session-catalog.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import "./session-upstream-monitor.js";
 
 type SessionUpstreamMonitorOptions = GrantedStateDatabaseOptions & {

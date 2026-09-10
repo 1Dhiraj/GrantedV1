@@ -5,7 +5,7 @@ import { createSandboxFsBridge } from "../../agents/sandbox/fs-bridge.js";
 import { createPreprovisionedSshSandboxBackend } from "../../agents/sandbox/ssh-backend.js";
 import type { SandboxConfig, SandboxContext } from "../../agents/sandbox/types.js";
 import { resolveSessionSkillResourceMounts } from "../../agents/session-placement-skill-resources.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { WorkerSessionPlacementRecord } from "./placement-record.js";
 import type { WorkerEnvironmentService } from "./service.js";
 import { resolveWorkerSshSandboxSettings } from "./ssh.js";

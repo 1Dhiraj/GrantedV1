@@ -28,9 +28,9 @@ import {
   getRuntimeConfigSourceSnapshot,
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { SecretRef } from "../config/types.secrets.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import { captureEnv } from "../test-utils/env.js";
 import {
   listActiveDegradedSecretOwners,

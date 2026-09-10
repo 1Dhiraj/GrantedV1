@@ -1,7 +1,7 @@
 // Verifies exec command highlighting resolution across global and agent-scoped config.
 import { describe, expect, it } from "vitest";
 import { resolveExecCommandHighlighting } from "./exec-command-highlighting.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 describe("resolveExecCommandHighlighting", () => {
   it("defaults to false when no config is provided", () => {

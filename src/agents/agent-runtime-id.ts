@@ -1,5 +1,5 @@
 /** Agent runtime id normalization and retired runtime-selection compatibility helpers. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 

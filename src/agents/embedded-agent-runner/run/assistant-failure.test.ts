@@ -2,7 +2,7 @@ import http from "node:http";
 import type { AddressInfo } from "node:net";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Context, Model } from "../../../../packages/ai/src/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
   PROVIDER_FAILURE_WITH_OUTPUT_ERROR_CODE,

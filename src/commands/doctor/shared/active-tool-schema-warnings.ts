@@ -15,7 +15,7 @@ import {
 // Doctor warnings for active tools whose schemas cannot be projected to the selected runtime.
 import { buildReadableToolsByName } from "../../../agents/tools-effective-inventory-build.js";
 import type { AnyAgentTool } from "../../../agents/tools/common.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import type { PluginMetadataSnapshotScopeRunner } from "../../../plugins/current-plugin-metadata-snapshot.js";
 import { extractModelCompat } from "../../../plugins/provider-model-compat.js";

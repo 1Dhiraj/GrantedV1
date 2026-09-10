@@ -1,6 +1,6 @@
 /** ACP streaming and projection settings derived from config. */
 import type { AcpSessionUpdateTag } from "@granted/acp-core/runtime/types";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveEffectiveBlockStreamingConfig } from "./block-streaming.js";
 
 const DEFAULT_ACP_STREAM_COALESCE_IDLE_MS = 350;

@@ -2,7 +2,7 @@ import { normalizeStructuredPromptSection } from "@granted/ai/internal/shared";
 /**
  * Handles per-attempt thread prompt composition and cache TTL markers.
  */
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { joinPresentTextSegments } from "../../../shared/text/join-segments.js";
 
 /** Custom transcript marker used to preserve cache-TTL pruning state across attempts. */

@@ -3,7 +3,7 @@ import {
   configIncludeOwnsAgentRoster,
   hasResolvedRosterBeforeMigrations,
 } from "./agent-roster-provenance.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "./types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.granted.js";
 
 vi.unmock("../agents/agent-scope-config.js");
 

@@ -11,8 +11,8 @@ import {
   writePersistedAuthProfileStateRaw,
   writePersistedAuthProfileStoreRaw,
 } from "../../src/agents/auth-profiles/sqlite.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../src/state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../src/state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../src/state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../src/state/granted-state-db.js";
 import { stageLiveAuthProfiles } from "./stage-live-auth-profiles.js";
 
 const tempDirs = new Set<string>();

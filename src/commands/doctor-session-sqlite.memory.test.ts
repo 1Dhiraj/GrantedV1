@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 import { build as esbuild } from "esbuild";
 import { afterAll, beforeAll, expect, it } from "vitest";
 import { runtimeProcessCoreBuildEntries } from "../../scripts/lib/runtime-process-core-build-entries.mts";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { sqliteImportMemorySupportUrl } from "./doctor-session-sqlite.memory.test-support.js";
 
 const execFileAsync = promisify(execFile);
@@ -20,7 +20,7 @@ beforeAll(async () => {
   const outDir = path.join(bundleDir, "dist");
   fs.mkdirSync(outDir);
   childPath = path.join(outDir, "child.js");
-  for (const schema of ["openclaw-agent-schema.sql", "openclaw-state-schema.sql"]) {
+  for (const schema of ["granted-agent-schema.sql", "granted-state-schema.sql"]) {
     fs.copyFileSync(path.join(process.cwd(), "src/state", schema), path.join(outDir, schema));
   }
   await esbuild({

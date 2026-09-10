@@ -4,7 +4,7 @@
  * status, storage, and provider selection.
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { AuthProfileStore } from "./types.js";
 
 // Metadata can be configured separately from stored credentials. Config wins so

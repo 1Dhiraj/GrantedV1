@@ -3,7 +3,7 @@ import { definePluginEntry, type GrantedPluginService } from "granted/plugin-sdk
 import { createCrabboxWorkerProvider, resolveOpenClawRoot } from "./src/crabbox-worker-provider.js";
 
 const workerWallpaperPath = fileURLToPath(
-  new URL("./assets/openclaw-worker-wallpaper.png", import.meta.url),
+  new URL("./assets/granted-worker-wallpaper.png", import.meta.url),
 );
 
 export default definePluginEntry({

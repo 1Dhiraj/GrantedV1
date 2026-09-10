@@ -5,7 +5,7 @@ import { normalizeResolvedPricing } from "@granted/llm-core";
 import type { NormalizedModelCatalogRow } from "@granted/model-catalog-core/model-catalog-types";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../../config/types.models.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { planEffectiveModelCatalogRows } from "../../model-catalog/index.js";
 import { normalizePluginsConfig } from "../../plugins/config-state.js";
 import { getCurrentPluginMetadataSnapshot } from "../../plugins/current-plugin-metadata-snapshot.js";

@@ -8,7 +8,7 @@ import {
   normalizeOptionalString,
 } from "@granted/normalization-core/string-coerce";
 import { Type } from "typebox";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { bindModelLlmRuntime } from "../../llm/model-runtime-binding.js";
 import { complete } from "../../llm/stream.js";
 import type { Context } from "../../llm/types.js";

@@ -7,7 +7,7 @@ import type {
 } from "granted/plugin-sdk/plugin-state-runtime";
 import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -167,7 +167,7 @@ export function createMemoryWikiTestHarness() {
   async function createTempDir(prefix: string): Promise<string> {
     configureCompiledCacheStore();
     const workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix,
     });
     tempWorkspaces.push(workspace);

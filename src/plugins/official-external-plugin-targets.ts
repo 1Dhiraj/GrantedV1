@@ -1,7 +1,7 @@
 // Lightweight static projections for deciding whether plugin repair can be skipped.
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { BUNDLED_OFFICIAL_EXTERNAL_PLUGIN_CATALOG_ENTRIES } from "./official-external-plugin-bundled-catalogs.js";
 
 type StaticProvider = {

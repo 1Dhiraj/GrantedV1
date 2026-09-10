@@ -13,7 +13,7 @@ import {
   GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { requireNodeSqlite } from "./node-sqlite.js";
 import { migrateLegacyMediaPersistence } from "./state-migrations.media-persistence.js";
 import {

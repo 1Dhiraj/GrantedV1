@@ -1,6 +1,6 @@
 /** Tests Codex CLI bundle-MCP config override generation. */
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { retireSessionMcpRuntime } from "../agent-bundle-mcp-manager-api.js";
 import { AuthStorage } from "../sessions/auth-storage.js";

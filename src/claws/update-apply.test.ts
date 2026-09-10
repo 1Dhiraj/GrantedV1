@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { ClawCronUpdateError } from "./cron-update.js";
 import type { buildClawAddPlan } from "./lifecycle.js";
 import { ClawPackageUpdateError } from "./package-update.js";

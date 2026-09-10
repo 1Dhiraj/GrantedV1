@@ -1,6 +1,6 @@
 // Config helper tests cover channel plugin config merge and selection helpers.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { clearAccountEntryFields, clearAccountFieldsFromConfigSection } from "./config-helpers.js";
 
 describe("clearAccountEntryFields", () => {

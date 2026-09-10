@@ -2,7 +2,7 @@
 
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -100,7 +100,7 @@ describe("runEmbeddedAgent Codex app-server recovery", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.codex-app-server-recovery" });
     mockedClassifyFailoverReason.mockReturnValue(null);
   });

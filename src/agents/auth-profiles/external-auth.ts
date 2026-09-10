@@ -3,7 +3,7 @@
  * Combines provider plugin auth profiles with scoped external CLI credentials
  * and decides which runtime profiles may be persisted back to the store.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveExternalAuthProfilesWithPlugins } from "../../plugins/provider-external-auth.js";
 import type { ProviderExternalAuthProfile } from "../../plugins/provider-external-auth.types.js";
 import { isAmbientCredentialAllowedByProviderAuthPin } from "./ambient-auth.js";

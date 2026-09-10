@@ -14,14 +14,14 @@ import {
   hasInProcessGatewayToolContext,
 } from "../agents/tools/in-process-gateway.js";
 import type { CliDeps } from "../cli/deps.types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { makeCronJob } from "../cron/delivery.test-helpers.js";
 import { loadCronStore, resolveCronJobsStorePath, saveCronStore } from "../cron/store.js";
 import {
   getPluginRuntimeGatewayRequestScope,
   withPluginRuntimeGatewayContextResolver,
 } from "../plugins/runtime/gateway-request-scope.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withLocalGatewayRequestScope } from "./local-request-context.js";
 import type { GatewayRequestContext } from "./server-methods/types.js";
 import {

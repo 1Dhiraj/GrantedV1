@@ -10,7 +10,7 @@ import {
   SessionDeliveryDeadLetteredError,
   SessionDeliveryDeferredError,
 } from "../../../infra/session-delivery-queue-storage.js";
-import type { GrantedStateDatabaseOptions } from "../../../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../../../state/granted-state-db.js";
 import { findTaskByRunId, getTaskById } from "../../../tasks/runtime-internal.js";
 import type { TaskRecord } from "../../../tasks/task-registry.types.js";
 import { ensureDeliveryState } from "../registry/subagent-delivery-state.js";

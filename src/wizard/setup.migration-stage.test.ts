@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { updateAuthProfileStoreWithLock } from "../agents/auth-profiles/store.js";
 import type { MigrationPlan } from "../plugins/types.js";
-import { listOpenClawRegisteredAgentDatabases } from "../state/openclaw-agent-db-registry.js";
+import { listOpenClawRegisteredAgentDatabases } from "../state/granted-agent-db-registry.js";
 import type { SetupMigrationPromotionContinuation } from "./setup.migration-promotion.js";
 import { SetupMigrationTargetChangedError } from "./setup.migration-snapshot.js";
 import {
@@ -50,8 +50,8 @@ function continuation(): Omit<
 afterEach(async () => {
   const [{ closeOpenClawAgentDatabasesForTest }, { closeOpenClawStateDatabaseForTest }] =
     await Promise.all([
-      import("../state/openclaw-agent-db.js"),
-      import("../state/openclaw-state-db.js"),
+      import("../state/granted-agent-db.js"),
+      import("../state/granted-state-db.js"),
     ]);
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();
@@ -186,7 +186,7 @@ describe("setup migration stage", () => {
       reportDir,
       targetConfig,
     });
-    const { disposeOpenClawAgentDatabaseByPath } = await import("../state/openclaw-agent-db.js");
+    const { disposeOpenClawAgentDatabaseByPath } = await import("../state/granted-agent-db.js");
     disposeOpenClawAgentDatabaseByPath(path.join(stage.staged.agentDir, "openclaw-agent.sqlite"), {
       env: { ...process.env, GRANTED_STATE_DIR: stage.staged.stateDir },
     });

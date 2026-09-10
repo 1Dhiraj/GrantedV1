@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { parseClawManifest } from "./schema.js";
 import { buildClawUpdatePlan } from "./update-plan.js";
 import { createUpdatePlanFixture, targetSource } from "./update-plan.test-helpers.js";

@@ -4,7 +4,7 @@ import path from "node:path";
 import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import { note } from "../../../../packages/terminal-core/src/note.js";
 import type { HealthFinding } from "../../../flows/health-checks.js";
-import { resolveOpenClawPackageRootSync } from "../../../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../../../infra/granted-root.js";
 import { isPathInside } from "../../../infra/path-safety.js";
 import { shortenHomePath } from "../../../utils.js";
 

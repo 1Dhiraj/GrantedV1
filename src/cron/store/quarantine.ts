@@ -3,9 +3,9 @@ import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { createSqliteAuditRecordStore } from "../../infra/sqlite-audit-record-store.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
-import type { GrantedStateDatabase } from "../../state/openclaw-state-db.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/granted-state-db-readonly.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
+import type { GrantedStateDatabase } from "../../state/granted-state-db.js";
 import { cronStoreKey } from "./key.js";
 import type { CronQuarantinedJob, QuarantinedCronConfigJob } from "./types.js";
 

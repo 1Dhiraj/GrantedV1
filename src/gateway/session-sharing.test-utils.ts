@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../state/user-profiles.js";
 import type { GatewayClient } from "./server-methods/types.js";
 

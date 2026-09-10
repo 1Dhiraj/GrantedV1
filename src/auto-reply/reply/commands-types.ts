@@ -4,7 +4,7 @@ import type { QueueMode } from "../../../packages/gateway-protocol/src/schema/lo
 import type { BlockReplyChunking } from "../../agents/embedded-agent-block-chunker.js";
 import type { ChannelId } from "../../channels/plugins/types.public.js";
 import type { SessionEntry, SessionScope } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SessionMemoryTranscript } from "../../hooks/bundled/session-memory/capture.js";
 import type { PluginCommandContext } from "../../plugins/types.js";
 import type { SkillCommandSpec } from "../../skills/types.js";

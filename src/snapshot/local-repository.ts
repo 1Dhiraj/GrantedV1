@@ -50,7 +50,7 @@ import {
   buildSnapshotValidator,
   createOpenClawSnapshotCopy,
   normalizeSnapshotIdentity,
-} from "./openclaw-snapshot-copy.js";
+} from "./granted-snapshot-copy.js";
 import {
   SNAPSHOT_MANIFEST_FILENAME,
   SNAPSHOT_SQLITE_FILENAME,

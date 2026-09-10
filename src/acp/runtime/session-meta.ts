@@ -12,13 +12,13 @@ import {
   type SessionAcpMeta,
   type SessionEntry,
 } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   acpSessionRowMatchesEntry,
   type AcpSessionEntryBinding,

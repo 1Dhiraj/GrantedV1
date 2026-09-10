@@ -5,7 +5,7 @@ import {
   clampTimerTimeoutMs,
   resolveTimerTimeoutMs,
 } from "@granted/normalization-core/number-coercion";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "./model-catalog.types.js";
 import {
   buildConfiguredModelCatalog,

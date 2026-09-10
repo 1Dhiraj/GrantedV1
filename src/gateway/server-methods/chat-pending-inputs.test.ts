@@ -5,7 +5,7 @@ import {
   upsertSessionEntryCore,
   loadTranscriptEvents,
 } from "../../config/sessions/session-accessor.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { chatMessageGetHandlers } from "./chat-message-get-handler.js";
 import { readChatPendingInputs } from "./chat-pending-inputs.js";
 import type { GatewayRequestContext } from "./types.js";

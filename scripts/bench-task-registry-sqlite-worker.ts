@@ -2,7 +2,7 @@ import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { pathToFileURL } from "node:url";
 import { toErrorObject } from "@granted/normalization-core/error-coercion";
-import type { DB as GrantedStateKyselyDatabase } from "../src/state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../src/state/granted-state-db.generated.js";
 import {
   WORKER_RESULT_SENTINEL,
   type MemorySample,
@@ -170,7 +170,7 @@ function assertSnapshot(
 async function createCountReader() {
   const [{ executeSqliteQuerySync, getNodeSqliteKysely }, stateDb, state] = await Promise.all([
     import("../src/infra/kysely-sync.js"),
-    import("../src/state/openclaw-state-db.js"),
+    import("../src/state/granted-state-db.js"),
     import("../src/tasks/task-registry-state.js"),
   ]);
   return (): RegistrySnapshot => {
@@ -331,7 +331,7 @@ async function runCycle(
 async function resetRuntime(persist: boolean): Promise<void> {
   const [tasks, stateDb] = await Promise.all([
     import("../src/tasks/task-runtime.test-helpers.js"),
-    import("../src/state/openclaw-state-db.js"),
+    import("../src/state/granted-state-db.js"),
   ]);
   tasks.resetTaskRegistryForTests({ persist });
   stateDb.closeOpenClawStateDatabaseForTest();

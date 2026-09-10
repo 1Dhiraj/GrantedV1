@@ -5,7 +5,7 @@ import {
   resolveOpenClawAgentSqlitePath,
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { clearAllCliSessions } from "./cli-session-binding.js";
 import type {
   SessionTranscriptAccessScope,
@@ -429,13 +429,13 @@ export async function withTranscriptWriteLock<T>(
     let transcriptSnapshot: SqliteTranscriptSnapshotState | undefined;
     return await run({
       readEvents: async () => {
-        // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across caller awaits.
+        // granted-agent-db.ts cache rule: LRU eviction closes idle handles across caller awaits.
         const database = openOpenClawAgentDatabase(databaseOptions);
         const snapshot = readTranscriptSnapshot(database, resolved.sessionId);
         transcriptSnapshot = { kind: "current", rows: snapshot.rows };
         return snapshot.events;
       },
-      // openclaw-agent-db.ts cache rule: never retain a handle across caller awaits; LRU may close it.
+      // granted-agent-db.ts cache rule: never retain a handle across caller awaits; LRU may close it.
       readMessageFacts: async (params) =>
         readTranscriptMirrorFacts(openOpenClawAgentDatabase(databaseOptions), resolved, params),
       replaceEvents: async (events) => {

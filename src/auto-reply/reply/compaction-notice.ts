@@ -1,7 +1,7 @@
 // Shared compaction formatting and user-facing notice payload helpers.
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ReplyPayload } from "../types.js";
 
 export type CompactionNoticePhase =

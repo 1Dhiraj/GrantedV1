@@ -10,8 +10,8 @@ import {
   NODE_WORKER_ENVIRONMENT_STOP_COMMAND,
   NODE_WORKER_WORKSPACE_RETAIN_COMMAND,
 } from "../../../../src/infra/node-commands.js";
-import { withOpenClawStateDatabaseReadOnly } from "../../../../src/state/openclaw-state-db-readonly.js";
-import type { DB as StateDatabase } from "../../../../src/state/openclaw-state-db.generated.js";
+import { withOpenClawStateDatabaseReadOnly } from "../../../../src/state/granted-state-db-readonly.js";
+import type { DB as StateDatabase } from "../../../../src/state/granted-state-db.generated.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import { PROOF_TIMEOUT_MS } from "./cloud-worker-midturn-loss-fixture.js";

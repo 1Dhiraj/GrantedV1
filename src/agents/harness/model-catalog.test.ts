@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import type { ModelCatalogSnapshot } from "../model-catalog.types.js";
 import { augmentModelCatalogWithAgentHarness } from "./model-catalog.js";

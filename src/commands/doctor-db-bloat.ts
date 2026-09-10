@@ -5,10 +5,10 @@ import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
 import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
-import { listOpenClawRegisteredAgentDatabases } from "../state/openclaw-agent-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { listOpenClawRegisteredAgentDatabases } from "../state/granted-agent-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { formatBytes } from "./doctor-disk-space.js";
 
 // Bloat is only worth an operator's attention when the file is meaningfully

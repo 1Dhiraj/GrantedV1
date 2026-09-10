@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { root, type Root } from "@openclaw/fs-safe";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

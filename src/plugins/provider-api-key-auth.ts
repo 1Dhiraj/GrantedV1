@@ -2,7 +2,7 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import { createLazyRuntimeSurface } from "../shared/lazy-runtime.js";
 import { normalizeOptionalSecretInput } from "../utils/normalize-secret-input.js";

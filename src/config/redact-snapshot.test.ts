@@ -13,7 +13,7 @@ import {
   type TestSnapshot,
 } from "./redact-snapshot.test-helpers.js";
 import { buildConfigSchemaCore } from "./schema.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "./types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "./types.granted.js";
 
 function expectNestedPairValue(
   source: Record<string, Record<string, Record<string, unknown>>>,

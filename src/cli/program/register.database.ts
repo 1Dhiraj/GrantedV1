@@ -4,10 +4,10 @@ import { defaultRuntime, writeRuntimeJson, writeRuntimeStdout } from "../../runt
 import {
   GRANTED_DATABASE_SCHEMA_DOCS_URL,
   preflightOpenClawStateDatabasePath,
-} from "../../state/openclaw-database-preflight.js";
-import { resolveDatabasePath } from "../../state/openclaw-state-db-maintenance.js";
-import { claimOpenClawStateOwnership } from "../../state/openclaw-state-ownership-operations.js";
-import { inspectOpenClawStateOwnershipAtPath } from "../../state/openclaw-state-ownership.js";
+} from "../../state/granted-database-preflight.js";
+import { resolveDatabasePath } from "../../state/granted-state-db-maintenance.js";
+import { claimOpenClawStateOwnership } from "../../state/granted-state-ownership-operations.js";
+import { inspectOpenClawStateOwnershipAtPath } from "../../state/granted-state-ownership.js";
 import { applyParentDefaultHelpAction } from "./parent-default-help.js";
 
 type DatabaseOutputOptions = { json?: boolean };

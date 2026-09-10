@@ -4,7 +4,7 @@
 import crypto from "node:crypto";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { filterStringRecord, isRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { BundleMcpConfig, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import { createLazyRuntimeMethod } from "../shared/lazy-runtime.js";
 import {

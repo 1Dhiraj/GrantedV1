@@ -1,5 +1,5 @@
 import type { SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { SystemPresence } from "../infra/system-presence.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { authorizeOperatorScopesForRequiredScope, READ_SCOPE } from "./method-scopes.js";

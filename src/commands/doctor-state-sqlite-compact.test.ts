@@ -7,14 +7,14 @@ import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import {
   readOpenClawDatabaseQuarantine,
   recordOpenClawDatabaseQuarantine,
-} from "../state/openclaw-quarantine-store.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+} from "../state/granted-quarantine-store.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/granted-state-schema.js";
 import { runDoctorStateSqliteCompact } from "./doctor-state-sqlite-compact.js";
 
 const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {

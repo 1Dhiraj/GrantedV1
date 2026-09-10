@@ -3,7 +3,7 @@
  *
  * Combines account-scoped channel media limits with agent default limits.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeAccountId } from "../../routing/session-key.js";
 
 const MB = 1024 * 1024;

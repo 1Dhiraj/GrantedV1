@@ -9,7 +9,7 @@ import {
   resetPluginStateStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -158,7 +158,7 @@ function restoreEnv(name: keyof typeof previousEnv): void {
 
 beforeEach(async () => {
   testWorkspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-acpx-service-",
   });
 });

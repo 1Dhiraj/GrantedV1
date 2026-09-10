@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withEnv } from "../../test-utils/env.js";
 import { resolveGatewayModelSelectionPolicy } from "./session-model-selection-policy.js";
 

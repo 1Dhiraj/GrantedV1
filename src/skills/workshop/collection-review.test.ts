@@ -9,11 +9,11 @@ import {
 import { listAgentIds, resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { createSkillWorkshopTool } from "../../agents/tools/skill-workshop-tool.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { writeWorkspaceSkills } from "../test-support/e2e-test-helpers.js";
 import { MAX_RECONCILED_SKILLS, MAX_RECONCILED_SKILL_BYTES } from "./collection-contracts.js";

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { resolveLivePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   type GrantedConfig,
   type GrantedPluginApi,
 } from "../api.js";
@@ -31,7 +31,7 @@ export function registerDiffsPlugin(api: GrantedPluginApi): void {
   }
 
   const store = new DiffArtifactStore({
-    rootDir: path.join(resolvePreferredOpenClawTmpDir(), "openclaw-diffs"),
+    rootDir: path.join(resolvePreferredGrantedTmpDir(), "openclaw-diffs"),
     blobStore: api.runtime.state.openBlobStore<DiffArtifactBlobMetadata>({
       namespace: DIFF_ARTIFACT_NAMESPACE,
       maxEntries: DIFF_ARTIFACT_MAX_ENTRIES,

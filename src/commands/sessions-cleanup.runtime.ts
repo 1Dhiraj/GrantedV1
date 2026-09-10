@@ -7,7 +7,7 @@ import {
   type SessionStoreTarget,
   type SessionsCleanupOptions,
 } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withActivatedPluginIds } from "../plugins/activation-context.js";
 import { resolveManifestActivationPluginIds } from "../plugins/activation-planner.js";
 import { extractPluginInstallRecordsFromInstalledPluginIndex } from "../plugins/installed-plugin-index-install-records.js";

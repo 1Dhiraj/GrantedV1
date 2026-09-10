@@ -6,7 +6,7 @@
  */
 import path from "node:path";
 import { isDefaultStateDir, resolveStateDir } from "../../../config/paths.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveUserPath } from "../../../utils.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 

@@ -3,7 +3,7 @@ import {
   createAgentToAgentPolicy,
   resolveSessionToolAccess,
 } from "../agents/tools/sessions-access.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { SessionCompanionAskError } from "./session-companion-ask.js";
 import type { SessionCompanionContextReader } from "./session-companion-context.js";
 import {

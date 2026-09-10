@@ -1,5 +1,5 @@
 // Cron tool type declarations shared with the cron tool implementation.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { CronRuntimeAuthority } from "../../cron/runtime-authority.js";
 import type { CronCreatorAuthorityGrant } from "../../gateway/cron-creator-authority-grant.js";
 import type { DeliveryContext } from "../../utils/delivery-context.shared.js";

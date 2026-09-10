@@ -1,6 +1,6 @@
 // Runtime model auth helpers expose provider auth resolution to plugin runtimes.
 import { getApiKeyForModelCore, resolveApiKeyForProviderCore } from "../../agents/model-auth.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { Model } from "../../llm/types.js";
 import { prepareProviderRuntimeAuth } from "../provider-runtime.runtime.js";
 import type { ResolvedProviderRuntimeAuth } from "./model-auth-types.js";

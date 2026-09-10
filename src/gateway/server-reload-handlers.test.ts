@@ -32,7 +32,7 @@ import {
   createRuntimeConfigWriteApplication,
   type RuntimeConfigWriteApplicationStatus,
 } from "../config/runtime-write-application.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { CronService } from "../cron/service.js";
 import {
   consumeGatewaySigusr1RestartIntent,
@@ -379,7 +379,7 @@ vi.mock("../config/config.js", async () => {
   };
 });
 
-vi.mock("../state/openclaw-database-preflight.js", () => ({
+vi.mock("../state/granted-database-preflight.js", () => ({
   assertOpenClawDatabasesReady: hoisted.assertOpenClawDatabasesReady,
 }));
 

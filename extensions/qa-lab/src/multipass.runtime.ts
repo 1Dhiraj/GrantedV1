@@ -10,7 +10,7 @@ import { runExec } from "granted/plugin-sdk/process-runtime";
 import { sleep } from "granted/plugin-sdk/runtime-env";
 import { appendRegularFile } from "granted/plugin-sdk/security-runtime";
 import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import type { QaProviderMode } from "./model-selection.js";
 import { resolveQaForwardedLiveEnv, resolveQaLiveProviderConfigPath } from "./providers/env.js";
 import { DEFAULT_QA_LIVE_PROVIDER_MODE, getQaProvider } from "./providers/index.js";
@@ -613,7 +613,7 @@ export async function runQaMultipass(params: {
   }
 
   const hostTransferDirPath = await fs.promises.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), `${plan.vmName}-qa-suite-`),
+    path.join(resolvePreferredGrantedTmpDir(), `${plan.vmName}-qa-suite-`),
   );
   const hostTransferScriptPath = path.join(hostTransferDirPath, "guest-run.sh");
   await writeFile(hostTransferScriptPath, renderQaMultipassGuestScript(plan), {

@@ -2,7 +2,7 @@
 import {
   deferOpenClawAgentPostCommitPublication,
   runOpenClawAgentWriteTransaction,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import type {
   SessionAccessScope,
   SessionTranscriptWriteScope,

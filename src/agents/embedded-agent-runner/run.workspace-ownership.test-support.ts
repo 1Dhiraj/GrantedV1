@@ -1,6 +1,6 @@
 import { expect, vi } from "vitest";
 import { isPathInside } from "../../infra/path-guards.js";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 
 /** Guard the real consumers before discovery can touch an unowned workspace. */
 export async function guardRunWorkspaceOwnership(

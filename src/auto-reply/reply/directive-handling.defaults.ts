@@ -4,7 +4,7 @@ import {
   type ModelAliasIndex,
   resolveDefaultModelForAgent,
 } from "../../agents/model-selection.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Resolve default provider/model plus alias index for directive parsing. */
 export function resolveDefaultModel(params: { cfg: GrantedConfig; agentId?: string }): {

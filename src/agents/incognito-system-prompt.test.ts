@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveIncognitoOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
+import { resolveIncognitoOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
 import { appendIncognitoSystemPrompt } from "./incognito-system-prompt.js";
 
 describe("incognito system prompt", () => {

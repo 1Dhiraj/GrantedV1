@@ -19,9 +19,9 @@ import {
   listOpenIncognitoAgentDatabases,
   readOpenClawAgentDatabaseRegistryToken,
   readOpenIncognitoAgentDatabaseGeneration,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { resolveSessionStoreCompatibilityAgentId } from "../legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import {
   countSessionEntryRowsReadOnly,

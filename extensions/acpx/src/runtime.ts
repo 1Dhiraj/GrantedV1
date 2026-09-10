@@ -74,8 +74,8 @@ type GrantedRuntimeHandle = Awaited<ReturnType<AcpRuntime["ensureSession"]>>;
 type AcpxDelegateEnsureInput = Parameters<BaseAcpxRuntime["ensureSession"]>[0];
 type AcpxMcpServer = NonNullable<AcpRuntimeOptions["mcpServers"]>[number];
 
-const ACPX_PLUGIN_TOOLS_MCP_SERVER_NAME = "openclaw-plugin-tools";
-const ACPX_GRANTED_TOOLS_MCP_SERVER_NAME = "openclaw-tools";
+const ACPX_PLUGIN_TOOLS_MCP_SERVER_NAME = "granted-plugin-tools";
+const ACPX_GRANTED_TOOLS_MCP_SERVER_NAME = "granted-tools";
 const GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV = "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY";
 type ResetAwareSessionStore = AcpSessionStore & {
   markFresh: (sessionKey: string) => void;

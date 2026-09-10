@@ -6,7 +6,7 @@
  * does on the embedded attempt path.
  */
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const hoisted = vi.hoisted(() => {
   function makeTool(name: string, execute = vi.fn(async () => ({ content: [], details: {} }))) {
@@ -37,7 +37,7 @@ const hoisted = vi.hoisted(() => {
   };
 });
 
-vi.mock("../agents/openclaw-tools.js", () => ({
+vi.mock("../agents/granted-tools.js", () => ({
   createOpenClawTools: (options: Parameters<typeof hoisted.createOpenClawToolsMock>[0]) =>
     hoisted.createOpenClawToolsMock(options),
 }));

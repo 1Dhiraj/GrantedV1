@@ -10,7 +10,7 @@ import {
   persistSessionTranscriptTurn,
   upsertSessionEntryCore,
 } from "../../../../src/config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { READ_SCOPE } from "../../../../src/gateway/method-scopes.js";
 import { clearModelAuthStatusUsageCache } from "../../../../src/gateway/server-methods/models-auth-status-usage-cache.js";
 import { testApi as usageTestApi } from "../../../../src/gateway/server-methods/usage.js";
@@ -27,11 +27,11 @@ import { readSessionCostUsageRollupRows } from "../../../../src/infra/session-co
 import type { CostUsageSummary } from "../../../../src/infra/session-cost-usage.js";
 import type { SessionUsageTimeSeries } from "../../../../src/shared/session-usage-timeseries-types.js";
 import type { SessionsUsageResult } from "../../../../src/shared/usage-types.js";
-import { resolveOpenClawAgentSqlitePath } from "../../../../src/state/openclaw-agent-db.paths.js";
+import { resolveOpenClawAgentSqlitePath } from "../../../../src/state/granted-agent-db.paths.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../../../src/test-utils/openclaw-test-state.js";
+} from "../../../../src/test-utils/granted-test-state.js";
 
 const TEST_TIMEOUT_MS = 90_000;
 const FIXTURE_DATE = "2026-08-03";

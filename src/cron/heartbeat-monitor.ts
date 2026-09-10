@@ -1,7 +1,7 @@
 /** Canonical projection from heartbeat config to system-owned cron monitor jobs. */
 import { isDeepStrictEqual } from "node:util";
 import { DEFAULT_HEARTBEAT_EVERY } from "../auto-reply/heartbeat.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveHeartbeatAgents, resolveHeartbeatIntervalMs } from "../infra/heartbeat-config.js";
 import {
   resolveHeartbeatPhaseMs,

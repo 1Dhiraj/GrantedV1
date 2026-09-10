@@ -19,7 +19,7 @@ export const CHECKPOINT_ID = "chk_profile_warm";
 export const CLASSLESS_PROFILE = { provider: "aws", ttl: "24h", idleTimeout: "60m" };
 export const PROFILE = { ...CLASSLESS_PROFILE, class: "standard", warmImage: true };
 const WALLPAPER_PATH = fileURLToPath(
-  new URL("../assets/openclaw-worker-wallpaper.png", import.meta.url),
+  new URL("../assets/granted-worker-wallpaper.png", import.meta.url),
 );
 export const tempDirs: ReturnType<typeof useAutoCleanupTempDirTracker> =
   useAutoCleanupTempDirTracker(afterEach);

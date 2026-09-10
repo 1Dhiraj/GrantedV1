@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
-import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   legacyConfigRules,
@@ -12,7 +12,7 @@ import {
 } from "./doctor-contract-api.js";
 
 const migration = stateMigrations[0];
-const canvasDoctorWorkspaceRoot = resolvePreferredOpenClawTmpDir();
+const canvasDoctorWorkspaceRoot = resolvePreferredGrantedTmpDir();
 
 function createCanvasDoctorWorkspace(kind: "state" | "custom") {
   return tempWorkspace({

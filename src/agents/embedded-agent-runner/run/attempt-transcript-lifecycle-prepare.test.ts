@@ -13,8 +13,8 @@ import {
 import type { InternalSessionEntry } from "../../../config/sessions/types.js";
 import { getAgentRunLifecycleGeneration } from "../../../infra/agent-run-registry.js";
 import { onSessionIdentityMutation } from "../../../sessions/session-lifecycle-events.js";
-import { runOpenClawAgentWriteTransaction } from "../../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../../test-utils/openclaw-test-state.js";
+import { runOpenClawAgentWriteTransaction } from "../../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../../test-utils/granted-test-state.js";
 import {
   prepareSystemAgentRunAdmission,
   type PreparedAgentRunAdmission,

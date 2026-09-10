@@ -247,7 +247,7 @@ describe("AcpxRuntime fresh reset wrapper", () => {
     const managedRuntime = makeRuntime(baseStore(CODEX_ACP_COMMAND), {
       elicitationModes: ["form", "url"],
       openclawToolsMcpBridgeEnabled: true,
-      mcpServers: [{ name: "openclaw-tools", command: "node", args: [], env: [] }],
+      mcpServers: [{ name: "granted-tools", command: "node", args: [], env: [] }],
     });
     const managedDelegate = (
       managedRuntime.runtime as unknown as {
@@ -282,15 +282,15 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       openclawToolsMcpBridgeEnabled: true,
       mcpServers: [
         {
-          name: "openclaw-plugin-tools",
+          name: "granted-plugin-tools",
           command: "node",
           args: ["dist/mcp/plugin-tools-serve.js"],
           env: [],
         },
         {
-          name: "openclaw-tools",
+          name: "granted-tools",
           command: "node",
-          args: ["dist/mcp/openclaw-tools-serve.js"],
+          args: ["dist/mcp/granted-tools-serve.js"],
           env: [],
         },
       ],
@@ -312,11 +312,11 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       return delegate.options.mcpServers?.find((server) => server.name === serverName)?.env;
     };
 
-    expect(readScopedMcpEnv("agent:worker:main", "openclaw-plugin-tools")).toContainEqual({
+    expect(readScopedMcpEnv("agent:worker:main", "granted-plugin-tools")).toContainEqual({
       name: "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY",
       value: "agent:worker:main",
     });
-    expect(readScopedMcpEnv("agent:research:main", "openclaw-tools")).toContainEqual({
+    expect(readScopedMcpEnv("agent:research:main", "granted-tools")).toContainEqual({
       name: "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY",
       value: "agent:research:main",
     });
@@ -331,9 +331,9 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       openclawToolsMcpBridgeEnabled: true,
       mcpServers: [
         {
-          name: "openclaw-tools",
+          name: "granted-tools",
           command: "node",
-          args: ["dist/mcp/openclaw-tools-serve.js"],
+          args: ["dist/mcp/granted-tools-serve.js"],
           env: [],
         },
       ],
@@ -362,9 +362,9 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       openclawToolsMcpBridgeEnabled: true,
       mcpServers: [
         {
-          name: "openclaw-tools",
+          name: "granted-tools",
           command: "node",
-          args: ["dist/mcp/openclaw-tools-serve.js"],
+          args: ["dist/mcp/granted-tools-serve.js"],
           env: [],
         },
       ],
@@ -2070,9 +2070,9 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       openclawToolsMcpBridgeEnabled: true,
       mcpServers: [
         {
-          name: "openclaw-tools",
+          name: "granted-tools",
           command: "node",
-          args: ["dist/mcp/openclaw-tools-serve.js"],
+          args: ["dist/mcp/granted-tools-serve.js"],
           env: [],
         },
       ],
@@ -2457,9 +2457,9 @@ describe("AcpxRuntime fresh reset wrapper", () => {
         openclawWrapperRoot: "/tmp/openclaw/acpx",
         mcpServers: [
           {
-            name: "openclaw-tools",
+            name: "granted-tools",
             command: "node",
-            args: ["dist/mcp/openclaw-tools-serve.js"],
+            args: ["dist/mcp/granted-tools-serve.js"],
             env: [],
           },
         ],

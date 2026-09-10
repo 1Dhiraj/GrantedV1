@@ -175,7 +175,7 @@ repair_fixture_plugin_consent
   const stateFunction = execFileSync(process.execPath, [
     "--import",
     "tsx",
-    "scripts/lib/openclaw-test-state.mts",
+    "scripts/lib/granted-test-state.mts",
     "shell-function",
   ]);
   const result = spawnSync("bash", [runnerPath], {

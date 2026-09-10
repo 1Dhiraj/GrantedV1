@@ -97,7 +97,7 @@ describe("runEmbeddedAttempt cwd/workspace split", () => {
   });
 
   it("defaults rootless session permission boundaries to the canonical agent workspace", async () => {
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-rootless-permission-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "granted-rootless-permission-"));
     tempPaths.push(workspaceDir);
     const canonicalWorkspace = await fs.realpath(workspaceDir);
 

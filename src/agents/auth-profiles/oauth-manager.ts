@@ -4,7 +4,7 @@ import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
  * Resolves usable access tokens, refreshes expired credentials under global
  * locks, adopts safer main-store credentials, and mirrors refreshed tokens.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeSecretInputString } from "../../config/types.secrets.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { withFileLock } from "../../infra/file-lock.js";

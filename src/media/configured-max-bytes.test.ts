@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveGeneratedMediaMaxBytes } from "../plugin-sdk/media-generation-runtime.js";
 import { resolveOutboundMediaMaxBytes } from "./configured-max-bytes.js";
 

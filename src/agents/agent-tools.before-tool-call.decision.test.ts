@@ -21,7 +21,7 @@ import {
 import { markToolDecisionRecorded } from "./agent-tools.before-tool-call.decision.js";
 import { wrapToolWithBeforeToolCallHook } from "./agent-tools.before-tool-call.js";
 import { createCoreCodingTools } from "./core-coding-tools.js";
-import { createOpenClawTools } from "./openclaw-tools.js";
+import { createOpenClawTools } from "./granted-tools.js";
 import { getInternalToolExecutionPreparer } from "./runtime/internal-hooks.js";
 import { wrapToolDefinition } from "./sessions/tools/tool-definition-wrapper.js";
 import type { AnyAgentTool } from "./tools/common.js";

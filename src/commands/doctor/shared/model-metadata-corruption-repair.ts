@@ -2,7 +2,7 @@ import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import type { ConfigAuditRecord } from "../../../config/io.audit.js";
 import { getRecord } from "../../../config/legacy.shared.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveConfiguredModelCatalogOwnership } from "./legacy-config-migrations.runtime.models.catalog.js";
 
 export type ModelMetadataCorruptionRepair = {

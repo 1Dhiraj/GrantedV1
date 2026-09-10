@@ -1,5 +1,5 @@
 import type { managedWorktrees } from "../agents/worktrees/service.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveWorkerPlacementSessionTarget } from "./server-worker-placement-session-target.js";
 import type * as sessionUtils from "./session-utils.js";
 import { resolveDevicePlacementEligibility } from "./worker-environments/device-placement-eligibility.js";

@@ -1,6 +1,6 @@
 import { asNullableRecord as asObjectRecord } from "@granted/normalization-core/record-coerce";
 import type { DmPolicy } from "../../config/types.base.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 import type { WizardPrompter } from "../../wizard/prompts.js";
 import { resolveChannelDmAllowFrom, resolveChannelDmPolicy } from "./dm-access.js";

@@ -16,7 +16,7 @@ import { buildReplyPromptEnvelope } from "../../../src/auto-reply/reply/prompt-p
 import type { TemplateContext } from "../../../src/auto-reply/templating.js";
 import { SILENT_REPLY_TOKEN } from "../../../src/auto-reply/tokens.js";
 import { normalizeChatType } from "../../../src/channels/chat-type.js";
-import type { GrantedConfig } from "../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../src/config/types.granted.js";
 import type {
   AnyAgentTool,
   EmbeddedRunAttemptParams,

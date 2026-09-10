@@ -15,7 +15,7 @@ import { getActiveGatewayRootWorkCount } from "../../../src/process/gateway-work
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../../src/test-utils/openclaw-test-state.js";
+} from "../../../src/test-utils/granted-test-state.js";
 import type { ApplicationRuntime } from "../app/bootstrap.ts";
 import {
   canRunPlaywrightChromium,

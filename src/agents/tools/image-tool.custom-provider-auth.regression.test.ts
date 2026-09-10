@@ -8,7 +8,7 @@ import type { GrantedConfig } from "../../config/config.js";
 import type { ModelDefinitionConfig } from "../../config/types.models.js";
 import type { ImageDescriptionRequest } from "../../plugin-sdk/media-understanding.js";
 import { getApiKeyForModelCore, hasUsableCustomProviderApiKey } from "../model-auth.js";
-import { resolveImageToolFactoryAvailable } from "../openclaw-tools.media-factory-plan.js";
+import { resolveImageToolFactoryAvailable } from "../granted-tools.media-factory-plan.js";
 import { createImageTool } from "./image-tool.js";
 import { resolveImageModelConfigForTool, testing } from "./image-tool.test-support.js";
 import { hasProviderAuthForTool } from "./model-config.helpers.js";

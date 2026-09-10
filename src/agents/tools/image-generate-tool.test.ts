@@ -3,7 +3,7 @@
 import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 const taskRuntimeInternalMocks = vi.hoisted(() => {
   const mocks = {

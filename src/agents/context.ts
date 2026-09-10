@@ -2,7 +2,7 @@
 // agent reports a model id. This includes custom models.json entries.
 
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { computeBackoff, type BackoffPolicy } from "../infra/backoff.js";
 import {
   applyConfiguredContextWindows,

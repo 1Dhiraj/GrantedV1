@@ -30,9 +30,9 @@ import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
   deferOpenClawAgentPostCommitPublication,
-} from "../src/state/openclaw-agent-db.js";
-import { openOpenClawStateDatabase } from "../src/state/openclaw-state-db.js";
-import { withOpenClawTestState } from "../src/test-utils/openclaw-test-state.js";
+} from "../src/state/granted-agent-db.js";
+import { openOpenClawStateDatabase } from "../src/state/granted-state-db.js";
+import { withOpenClawTestState } from "../src/test-utils/granted-test-state.js";
 
 afterEach(() => vi.restoreAllMocks());
 

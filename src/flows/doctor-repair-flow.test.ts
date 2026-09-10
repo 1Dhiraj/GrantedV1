@@ -1,6 +1,6 @@
 // Doctor repair flow tests cover repair plan output and repair execution.
 import { describe, expect, expectTypeOf, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { runDoctorHealthRepairs } from "./doctor-repair-flow.js";
 import { normalizeHealthCheck } from "./health-check-adapter.js";
 import type {

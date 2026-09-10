@@ -10,11 +10,11 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { readConfigMachineStateWithMetadata } from "../state/config-machine-state.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   normalizeNodeHostCloudflareAccessConfig,
   type NodeHostCloudflareAccessConfig,

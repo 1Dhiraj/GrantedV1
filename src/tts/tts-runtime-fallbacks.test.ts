@@ -112,7 +112,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
       const result = await maybeApplyTtsToPayloadCore(
         {
           payload,
-          cfg: createTtsConfig("openclaw-command-auto-tts"),
+          cfg: createTtsConfig("granted-command-auto-tts"),
           channel: "slack",
           kind: "final",
           inboundAudio: true,
@@ -135,7 +135,7 @@ describe("TTS runtime provider fallback and delivery behavior", () => {
     const result = await maybeApplyTtsToPayloadCore(
       {
         payload,
-        cfg: createTtsConfig("openclaw-command-explicit-tts"),
+        cfg: createTtsConfig("granted-command-explicit-tts"),
         channel: "slack",
         kind: "final",
         ttsAuto: "off",

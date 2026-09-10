@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   withOpenClawTestState,
   type GrantedTestState,
-} from "../../../test-utils/openclaw-test-state.js";
+} from "../../../test-utils/granted-test-state.js";
 import type {
   CompactionAccountingFact,
   RunEmbeddedAgentParamsWithSessionFile,

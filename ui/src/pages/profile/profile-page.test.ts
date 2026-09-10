@@ -12,7 +12,7 @@ import { createApplicationContextProvider } from "../../test-helpers/application
 import { waitForFast } from "../../test-helpers/wait-for.ts";
 import { ProfilePage } from "./profile-page.ts";
 
-const PROFILE_PAGE_TEST_TAG = "test-openclaw-profile-page";
+const PROFILE_PAGE_TEST_TAG = "test-granted-profile-page";
 // Keep the element class on the same post-reset i18n module as this test.
 if (!customElements.get(PROFILE_PAGE_TEST_TAG)) {
   customElements.define(PROFILE_PAGE_TEST_TAG, class extends ProfilePage {});

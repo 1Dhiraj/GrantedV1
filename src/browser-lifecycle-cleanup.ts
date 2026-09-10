@@ -1,5 +1,5 @@
 // Coordinates browser process cleanup for CLI-managed runtime sessions.
-import type { GrantedConfig } from "./config/types.openclaw.js";
+import type { GrantedConfig } from "./config/types.granted.js";
 import { runBestEffortCleanup } from "./infra/non-fatal-cleanup.js";
 import { closeTrackedBrowserTabsForSessions } from "./plugin-sdk/browser-maintenance.js";
 

@@ -14,7 +14,7 @@ import {
 } from "../sessions/input-provenance.js";
 import { parseAgentSessionKey } from "../sessions/session-key-utils.js";
 import { projectAssistantDisplayContent } from "../shared/assistant-display-content.js";
-import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-openclaw-assistant.js";
+import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-granted-assistant.js";
 import { extractChatHistoryBlockText } from "./chat-display-projection.canvas.js";
 import {
   asRoleContentMessage,

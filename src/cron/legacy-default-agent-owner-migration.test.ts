@@ -5,7 +5,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { makeCronJob } from "./delivery.test-helpers.js";
 import { materializeLegacyDefaultCronJobOwners } from "./legacy-default-agent-owner-migration.js";
 import { CronService } from "./service.js";

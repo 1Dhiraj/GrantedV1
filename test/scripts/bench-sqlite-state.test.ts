@@ -5,8 +5,8 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { collectSqliteQueryPlanEvidence } from "../../scripts/lib/sqlite-query-plan-evidence.js";
 import { parseSqliteStateBenchmarkCli } from "../../scripts/lib/sqlite-state-benchmark-cli.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../../src/state/openclaw-agent-db-contract.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../../src/state/openclaw-state-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../../src/state/granted-agent-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../src/state/granted-state-db-contract.js";
 import { useAutoCleanupTempDirTracker } from "../helpers/temp-dir.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

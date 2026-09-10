@@ -1,9 +1,9 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { UpdateRunResult } from "../infra/update-runner.js";
 import { ExitError } from "../runtime.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contributions.js";
 import { runDoctorHealthFlow } from "./doctor-health.js";
 
@@ -28,8 +28,8 @@ vi.mock("../commands/doctor-prompter.js", () => ({
   createDoctorPrompter: () => ({ confirm: async () => true }),
 }));
 
-vi.mock("../infra/openclaw-root.js", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../infra/openclaw-root.js")>()),
+vi.mock("../infra/granted-root.js", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../infra/granted-root.js")>()),
   resolveOpenClawPackageRoot: async () => mocks.packageRoot(),
 }));
 

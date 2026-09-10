@@ -15,7 +15,7 @@ import {
   startQaMockOpenAiServer,
   type QaEvidenceSummaryJson,
 } from "../../../../extensions/qa-lab/api.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { collectErrorGraphCandidates } from "../../../../src/infra/errors.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import {

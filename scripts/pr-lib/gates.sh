@@ -106,7 +106,7 @@ mark_pr_operation_side_effects_if_available() {
 pin_worktree_bundled_plugins_dir() {
   # Nested .worktrees/<pr> checkouts resolve vitest tooling from the primary
   # checkout's node_modules; pin bundled plugin discovery to this worktree so
-  # PR branches without the openclaw-root node_modules-boundary fix still test
+  # PR branches without the granted-root node_modules-boundary fix still test
   # their own extensions instead of the primary checkout's stale trees.
   export OPENCLAW_BUNDLED_PLUGINS_DIR="${OPENCLAW_BUNDLED_PLUGINS_DIR:-$PWD/extensions}"
 }

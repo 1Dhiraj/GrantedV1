@@ -9,7 +9,7 @@ import {
 import { persistDevicePairingStoreState } from "../../../infra/device-pairing-store.js";
 import type { PairedDevice } from "../../../infra/device-pairing.types.js";
 import { PAIRING_SETUP_BOOTSTRAP_PROFILE } from "../../../shared/device-bootstrap-profile.js";
-import { withOpenClawTestState } from "../../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../../test-utils/granted-test-state.js";
 
 vi.mock("../health-state.js", () => ({
   buildGatewaySnapshot: vi.fn(() => ({

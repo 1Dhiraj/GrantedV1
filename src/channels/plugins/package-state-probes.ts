@@ -6,7 +6,7 @@
 import path from "node:path";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { isBundledSourceOverlayPath } from "../../plugins/bundled-source-overlays.js";

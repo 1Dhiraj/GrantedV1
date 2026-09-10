@@ -18,7 +18,7 @@ import { listChannelPlugins } from "../../channels/plugins/index.js";
 import { notifyPairingApproved } from "../../channels/plugins/pairing.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import { hasConfiguredCommandOwners } from "../../commands/doctor-command-owner.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { bootstrapCommandOwnerFromPairing } from "../../pairing/command-owner.js";
 import {
   approveChannelPairingRequest,

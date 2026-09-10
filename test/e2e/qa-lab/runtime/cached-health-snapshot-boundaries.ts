@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createQaGatewayChild, type QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import type { HealthSummary } from "../../../../src/gateway/health/types.js";
 import { healthHandlers } from "../../../../src/gateway/server-methods/health.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";

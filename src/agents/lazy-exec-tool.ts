@@ -1,12 +1,12 @@
 import { resolveExecCommandHighlighting } from "../config/exec-command-highlighting.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { applyExecPolicyLayer } from "../infra/exec-policy.js";
 import { resolveMergedSafeBinProfileFixtures } from "../infra/exec-safe-bin-runtime-policy.js";
 import {
   getInstallationTarget,
   withInstallationTarget,
 } from "../infra/installation-target-context.js";
-import { mergeGatewayAgentCliPath } from "../infra/openclaw-cli-shim.js";
+import { mergeGatewayAgentCliPath } from "../infra/granted-cli-shim.js";
 import { createLazyImportLoader } from "../shared/lazy-promise.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 import { describeExecTool } from "./bash-tools.descriptions.js";

@@ -15,7 +15,7 @@ import { agentCommandFromIngress } from "../commands/agent.js";
 import { getRuntimeConfig as defaultGetRuntimeConfig } from "../config/io.js";
 import { resolveSystemMainSessionTarget as defaultResolveSystemMainSessionTarget } from "../config/sessions/main-session.js";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadOrCreateProcessDeviceIdentity as defaultLoadOrCreateProcessDeviceIdentity } from "../infra/device-identity.js";
 import {
   updatePairedDevicePresence as defaultUpdatePairedDevicePresence,

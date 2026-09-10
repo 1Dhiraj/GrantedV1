@@ -444,7 +444,7 @@ describe("CI changed Node test plan", () => {
   it("covers every extension config when core changes can impact extension consumers", () => {
     const shards = createChangedExtensionFallbackShards([
       "src/gateway/tool-resolution.ts",
-      "src/agents/openclaw-tools.ts",
+      "src/agents/granted-tools.ts",
       "extensions/discord/src/channel.ts",
     ]);
 
@@ -475,7 +475,7 @@ describe("CI changed Node test plan", () => {
   });
 
   it("classifies core and fallback-gate extension impact", () => {
-    expect(hasCoreExtensionImpact(["src/agents/openclaw-tools.ts"])).toBe(true);
+    expect(hasCoreExtensionImpact(["src/agents/granted-tools.ts"])).toBe(true);
     expect(hasCoreExtensionImpact(["scripts/lib/changed-extensions.mts"])).toBe(true);
     expect(hasCoreExtensionImpact(["scripts/lib/ci-changed-node-test-plan.mts"])).toBe(true);
     expect(hasCoreExtensionImpact(["scripts/lib/extension-test-plan.mts"])).toBe(true);

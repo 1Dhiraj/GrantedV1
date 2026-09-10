@@ -1,6 +1,6 @@
 import { readClawPackageRefs, type PersistedClawPackageRef } from "../claws/provenance.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 
 function clawPackageRefMatchesPluginInstall(
   ref: PersistedClawPackageRef,

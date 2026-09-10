@@ -5,7 +5,7 @@ import {
   isOpenClawAgentDatabaseOpen,
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import {
   deleteSessionEntryLifecycle,

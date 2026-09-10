@@ -1,6 +1,6 @@
 // Doctor Tailscale tests cover safe migration of shipped external Serve routes.
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { TailscaleStatusCommandRunner } from "../shared/tailscale-status.js";
 import { prepareTailscaleConfigMigration } from "./doctor-tailscale.js";
 

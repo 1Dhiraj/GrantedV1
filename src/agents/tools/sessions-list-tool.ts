@@ -12,7 +12,7 @@ import {
   type SessionRunStatus,
 } from "../../../packages/gateway-protocol/src/schema/sessions-row.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { readSessionTitleFieldsFromTranscript } from "../../gateway/session-transcript-title-reader.js";
 import { deriveSessionTitle } from "../../gateway/session-utils.js";
 import { classifySessionKeyShape, isIncognitoSessionKey } from "../../routing/session-key.js";

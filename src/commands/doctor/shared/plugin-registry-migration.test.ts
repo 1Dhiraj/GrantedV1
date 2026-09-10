@@ -3,7 +3,7 @@ import path from "node:path";
 // Plugin registry migration tests cover doctor repair of persisted plugin registry state.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { recordPluginCandidateInstallOwner } from "../../../plugins/candidate-install-owner.js";
 import type { PluginCandidate } from "../../../plugins/discovery.js";
 import { writePersistedInstalledPluginIndex } from "../../../plugins/installed-plugin-index-store-write.js";
@@ -16,8 +16,8 @@ import {
   cleanupTrackedTempDirs,
   makeTrackedTempDir,
 } from "../../../plugins/test-helpers/fs-fixtures.js";
-import * as stateDbReadOnly from "../../../state/openclaw-state-db-readonly.js";
-import { runOpenClawStateWriteTransaction } from "../../../state/openclaw-state-db.js";
+import * as stateDbReadOnly from "../../../state/granted-state-db-readonly.js";
+import { runOpenClawStateWriteTransaction } from "../../../state/granted-state-db.js";
 import { migratePluginRegistryForDoctor } from "./plugin-registry-migration.js";
 const tempDirs: string[] = [];
 

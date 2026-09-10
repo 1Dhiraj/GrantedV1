@@ -6,7 +6,7 @@ import {
   resetPluginStateStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import {
   base64url,
@@ -35,7 +35,7 @@ export function resetFlowStoresForTests(): void {
 }
 
 export function flowStores() {
-  const stateDir = fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "reef-flow-"));
+  const stateDir = fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "reef-flow-"));
   stateDirs.push(stateDir);
   const runtime = createPluginRuntimeMock();
   runtime.state.openSyncKeyedStore = <T>(options: OpenKeyedStoreOptions) =>

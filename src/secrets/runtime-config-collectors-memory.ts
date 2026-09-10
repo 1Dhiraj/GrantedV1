@@ -9,7 +9,7 @@ import {
   type ListedAgentEntry,
   listAgentEntriesWithSource,
 } from "../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveConfiguredGenericEmbeddingProviderId } from "../plugins/embedding-provider-config.js";
 import { LEGACY_IMPLICIT_AGENT_ID, normalizeAgentId } from "../routing/session-key.js";
 import { runtimeMemorySecretOwnerId } from "./runtime-memory-secret-owner.js";

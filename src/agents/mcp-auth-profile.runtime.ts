@@ -1,5 +1,5 @@
 /** Demand-loaded auth-profile resolution for MCP bearer injection and projection. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveApiKeyForProfile } from "./auth-profiles/oauth.js";
 import { loadAuthProfileStoreForSecretsRuntime } from "./auth-profiles/store.js";
 

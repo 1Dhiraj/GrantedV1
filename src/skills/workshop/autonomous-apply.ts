@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isWorkshopOwnedSkillDir } from "./ownership.js";
 import { applySkillProposal } from "./service.js";
 import { readSkillProposalRecord, updateSkillProposalRecord } from "./store.js";

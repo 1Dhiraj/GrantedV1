@@ -4,7 +4,7 @@ import {
   resolveDefaultModelForAgent,
 } from "../../agents/model-selection.js";
 import { resolveEffectiveAgentRuntime } from "../../agents/thinking-runtime.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SessionCatalogCreateTarget } from "../session-catalog.js";
 
 type RuntimeSessionCatalogCreateTargetParams = {

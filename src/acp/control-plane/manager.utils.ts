@@ -1,6 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { SessionAcpMeta } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { toErrorObject } from "../../infra/errors.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 /** Shared ACP manager normalization, resolution, and error helpers. */

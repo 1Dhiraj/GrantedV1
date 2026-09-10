@@ -11,7 +11,7 @@ import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
 } from "../plugin-sdk/channel-contract.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Detects the retired flat `allowPrivateNetwork` key before doctor migration. */
 export function hasLegacyFlatAllowPrivateNetworkAlias(value: unknown): boolean {

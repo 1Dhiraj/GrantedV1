@@ -8,13 +8,13 @@ import {
   readConfigMachineState,
   updateConfigMachineState,
 } from "../../state/config-machine-state.js";
-import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
-import { withOpenClawStateLease } from "../../state/openclaw-state-lease.js";
+} from "../../state/granted-state-db.js";
+import { withOpenClawStateLease } from "../../state/granted-state-lease.js";
 import type { SkillCollectionReconcileResult } from "./collection-contracts.js";
 import {
   databaseOptions,

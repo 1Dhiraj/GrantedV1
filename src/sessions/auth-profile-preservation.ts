@@ -8,7 +8,7 @@ import {
 } from "../agents/auth-profiles/store.js";
 import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
 import type { SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import { applyModelOverrideToSessionEntry } from "./model-overrides.js";
 

@@ -8,13 +8,13 @@ import {
 } from "../../infra/kysely-sync.js";
 import { normalizeSqliteNumber } from "../../infra/sqlite-number.js";
 import { registerSecretValueForRedaction } from "../../logging/secret-redaction-registry.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import { ensureSecretStoreSchema } from "../../state/openclaw-state-db-schema-additive.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/granted-state-db-readonly.js";
+import { ensureSecretStoreSchema } from "../../state/granted-state-db-schema-additive.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   SECRET_STORE_VALUE_MAX_BYTES,
   SecretStoreValidationError,

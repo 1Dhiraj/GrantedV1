@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { prepareSessionCreateFilesystemRoot } from "./session-create-root.js";
 
 const directoryLinkType = process.platform === "win32" ? "junction" : "dir";

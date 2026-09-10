@@ -7,7 +7,7 @@ import {
 } from "../config/model-provider-config.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../config/runtime-source-projection.js";
 import type { ModelApi, ModelDefinitionConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   ProviderModelRouteResolution,
   ProviderModelRouteSource,

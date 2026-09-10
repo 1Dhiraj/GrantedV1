@@ -9,7 +9,7 @@ import {
 } from "../agents/tool-fs-policy.js";
 import { resolveDeliveryQueueMediaDir, resolveStateDir } from "../config/paths.js";
 import type { GrantedConfig } from "../config/types.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { resolveConfigDir } from "../utils.js";
 import { resolveLocalMediaPath } from "./local-media-path.js";
 
@@ -23,7 +23,7 @@ function resolveCachedPreferredTmpDir(): string {
   if (!cachedPreferredTmpDir) {
     // Temp-root discovery can hit platform/env state; keep one process-local
     // snapshot so media root lists stay stable during a run.
-    cachedPreferredTmpDir = resolvePreferredOpenClawTmpDir();
+    cachedPreferredTmpDir = resolvePreferredGrantedTmpDir();
   }
   return cachedPreferredTmpDir;
 }

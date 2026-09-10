@@ -10,7 +10,7 @@ import {
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawAgentDatabasesForTest,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { clearCronJobActive, markCronJobActive } from "./active-jobs.js";
 import { CronService } from "./service.js";
 import { setupCronServiceSuite } from "./service.test-harness.js";

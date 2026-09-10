@@ -20,7 +20,7 @@ import {
   deferOpenClawAgentPostCommitPublication,
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import {
   runExclusiveSqliteSessionWrite,

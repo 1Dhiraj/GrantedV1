@@ -16,7 +16,7 @@ import { assertUpgradeVolumeMigrated, seedUpgradeVolume } from "./sqlite-volume.
 const command = process.argv[2];
 const SCENARIOS = new Set([
   "base",
-  "acpx-openclaw-tools-bridge",
+  "acpx-granted-tools-bridge",
   "feishu-channel",
   "bootstrap-persona",
   "channel-post-core-restore",
@@ -521,7 +521,7 @@ function assertConfigSurvived() {
     }
   }
 
-  if (hasCoverage(coverage) && acceptsIntent(coverage, "acpx-openclaw-tools-bridge")) {
+  if (hasCoverage(coverage) && acceptsIntent(coverage, "acpx-granted-tools-bridge")) {
     const pluginAllow = config.plugins?.allow ?? [];
     assert(pluginAllow.includes("acpx"), "ACPX plugin allow entry missing");
     assert(config.plugins?.entries?.acpx?.enabled === true, "ACPX plugin entry changed");

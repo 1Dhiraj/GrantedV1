@@ -14,7 +14,7 @@ import { resolveFfmpegBin } from "granted/plugin-sdk/media-runtime";
 import { resamplePcm } from "granted/plugin-sdk/realtime-voice";
 import { logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
 import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
-import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { tempWorkspace, resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 
 const SAMPLE_RATE = 48_000;
 const CHANNELS = 2;
@@ -300,7 +300,7 @@ export async function writeVoiceWavFile(
   pcm: Buffer,
 ): Promise<{ path: string; durationSeconds: number }> {
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "discord-voice-",
   });
   scheduleTempCleanup(workspace.dir);

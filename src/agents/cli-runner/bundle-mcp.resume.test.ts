@@ -1,6 +1,6 @@
 /** Tests bundle-MCP resume hash stability across loopback endpoint changes. */
 import { describe, expect, it } from "vitest";
-import { buildSystemAgentToolsMcpServerConfig } from "../../mcp/openclaw-tools-serve-config.js";
+import { buildSystemAgentToolsMcpServerConfig } from "../../mcp/granted-tools-serve-config.js";
 import { resolveCliSessionReuse } from "../cli-session.js";
 import { prepareCliBundleMcpConfig } from "./bundle-mcp.js";
 import {

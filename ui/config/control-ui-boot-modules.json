@@ -1051,7 +1051,7 @@
  "src/shared/text/final-tags.ts",
  "src/shared/text/model-special-tokens.ts",
  "src/shared/text/reasoning-tags.ts",
- "src/shared/transcript-only-openclaw-assistant.ts",
+ "src/shared/transcript-only-granted-assistant.ts",
  "src/shared/update-outcome.ts",
  "src/talk/agent-consult-tool.ts",
  "src/talk/agent-run-control-shared.ts",

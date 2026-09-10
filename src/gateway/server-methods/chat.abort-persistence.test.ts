@@ -14,8 +14,8 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { onAgentEvent, resetAgentEventsForTest } from "../../infra/agent-events.js";
 import { onInternalSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { createChatRunState } from "../server-chat-state.js";
 import { handleChatAbortRequest } from "./chat-abort-handler.js";
 import { captureAbortedPartial, persistAbortedPartials } from "./chat-transcript-persistence.js";

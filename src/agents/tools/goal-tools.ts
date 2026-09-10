@@ -11,7 +11,7 @@ import {
   updateSessionGoalStatus,
 } from "../../config/sessions/goals.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 import { stringEnum } from "../schema/typebox.js";
 import {

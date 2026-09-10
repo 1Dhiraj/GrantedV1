@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { openRootFileSync, readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { resolveRealpathOrAbsolute } from "../infra/boundary-path.js";
 import { isRenderableAvatarImageDataUrl } from "../shared/avatar-limits.js";

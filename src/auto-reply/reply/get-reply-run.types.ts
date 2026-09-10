@@ -2,7 +2,7 @@ import type { FastMode } from "@granted/normalization-core/string-coerce";
 import type { AutoFallbackPrimaryProbe } from "../../agents/agent-scope.js";
 import type { ExecToolDefaults } from "../../agents/bash-tools.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ExtractedFileImage } from "../../media-understanding/extracted-file-images.js";
 import type { ExplicitSkillSelection } from "../../skills/types.js";
 import type { MsgContext, TemplateContext } from "../templating.js";

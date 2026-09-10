@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveGlobalMap } from "../shared/global-singleton.js";
 import {
@@ -16,8 +16,8 @@ import {
   type AgentDeletionJournalEntry,
 } from "../state/agent-deletion-journal.js";
 import { readAgentProvenance, type AgentProvenance } from "../state/agent-provenance.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db-contract.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db-contract.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { resolveAgentConfig } from "./agent-scope-config.js";
 
 const AGENT_LIFECYCLE_KEY = Symbol.for("openclaw.agentLifecycle");

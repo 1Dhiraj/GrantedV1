@@ -1,5 +1,5 @@
 // Realtime transcription provider types describe streaming transcription providers.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 // Public contracts for realtime transcription provider plugins and sessions.
 // Providers own config resolution; core owns session lifecycle shape.

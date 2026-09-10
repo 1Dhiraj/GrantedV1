@@ -7,17 +7,17 @@ import {
 } from "../../../test/helpers/cron/service-regression-fixtures.js";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { createExecutionIdentityAdmissionToken } from "../../audit/execution-identity-admission.js";
-import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
+import { tableExists } from "../../state/granted-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { createManagedTaskFlow } from "../../tasks/task-flow-registry.js";
 import {
   resetTaskFlowRegistryForTests,
   resetTaskRegistryForTests,
 } from "../../tasks/task-runtime.test-helpers.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { saveCronStore } from "../store.js";
 import {
   claimCronRunReceiptInDatabase,

@@ -1,7 +1,7 @@
 // Setup migration promotion owns durable journals, rollback, and path validation.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readDurableJsonFile, writeJsonAtomic } from "../infra/json-files.js";
 import { isNotFoundPathError, isPathInside } from "../infra/path-guards.js";
 import type { MigrationApplyResult, MigrationPlan } from "../plugins/types.js";

@@ -529,7 +529,7 @@ describe("resolveCommandsSystemPromptBundle", () => {
   });
 
   it("uses materialized sandbox skill paths for sandbox command prompts", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-sandbox-skills-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "granted-command-sandbox-skills-"));
     try {
       const workspaceDir = path.join(root, "workspace");
       const skillsWorkspaceDir = path.join(root, "state", "sandbox-skills");

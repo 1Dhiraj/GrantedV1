@@ -1,8 +1,8 @@
 import os from "node:os";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
-import { createOpenClawTools } from "../openclaw-tools.js";
+import { createOpenClawTools } from "../granted-tools.js";
 import {
   resetSubagentRegistryForTests,
   testing as registryTesting,

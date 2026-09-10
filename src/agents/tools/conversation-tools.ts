@@ -10,7 +10,7 @@ import {
   type ConversationSendResult,
   type ConversationTurnResult,
 } from "../../../packages/gateway-protocol/src/schema/agent.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { optionalPositiveIntegerSchema } from "../schema/typebox.js";
 import type { AnyAgentTool } from "./common.js";

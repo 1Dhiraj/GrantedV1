@@ -1,7 +1,7 @@
 // Proves standalone MCP App HTTP work participates in Gateway suspension admission.
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   getActiveGatewayRootWorkCount,
   markGatewayRestartDraining,

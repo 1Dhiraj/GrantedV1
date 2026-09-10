@@ -7,7 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import * as tar from "tar";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import * as openclawRoot from "../infra/openclaw-root.js";
+import * as openclawRoot from "../infra/granted-root.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import {
   DEFAULT_WORKER_BUNDLE_ARCHIVE_LIMITS,

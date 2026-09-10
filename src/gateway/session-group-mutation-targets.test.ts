@@ -2,16 +2,16 @@ import fs from "node:fs";
 import { performance } from "node:perf_hooks";
 import { expect, test, vi } from "vitest";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import * as sqliteWal from "../infra/sqlite-wal.js";
-import * as agentDatabaseLeases from "../state/openclaw-agent-db-lease.js";
-import * as agentDatabaseSchema from "../state/openclaw-agent-db-schema.js";
+import * as agentDatabaseLeases from "../state/granted-agent-db-lease.js";
+import * as agentDatabaseSchema from "../state/granted-agent-db-schema.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawAgentDatabasesForTest,
   GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { setStateDirEnv, withStateDirEnv } from "../test-helpers/state-dir-env.js";
 import { resolveSessionGroupMutationTargetsByName } from "./session-groups.js";
 

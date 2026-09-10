@@ -7,7 +7,7 @@ import {
 import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import canvasPlugin from "../../../../extensions/canvas/index.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import type { GatewayClient } from "../../../../src/gateway/client.js";
 import { startGatewayServer } from "../../../../src/gateway/server.js";
 import {

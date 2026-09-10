@@ -13,7 +13,7 @@ import {
   GRANTED_DELIVERY_MIRROR_MODEL,
   GRANTED_TRANSCRIPT_ARTIFACT_API,
   GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
-} from "../../shared/transcript-only-openclaw-assistant.js";
+} from "../../shared/transcript-only-granted-assistant.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
 import { resolveSessionTranscriptPathInDir } from "./paths.js";
 import {

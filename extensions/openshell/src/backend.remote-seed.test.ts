@@ -6,7 +6,7 @@ import path from "node:path";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type { SandboxBackendHandle } from "granted/plugin-sdk/sandbox";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -52,7 +52,7 @@ async function createAdoptedRemoteBackend(params: {
   skillsWorkspaceDir?: string;
 }) {
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-openshell-remote-seed-",
   });
   tempWorkspaces.push(workspace);
@@ -177,7 +177,7 @@ describe("openshell remote-mode seed across gateway restart", () => {
 
   it("refreshes materialized skills once per handle, not between remote operations", async () => {
     const skillsWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-openshell-remote-skills-",
     });
     tempWorkspaces.push(skillsWorkspace);

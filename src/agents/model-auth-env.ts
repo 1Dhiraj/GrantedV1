@@ -2,7 +2,7 @@
  * Resolves model provider API keys from explicit environment variables.
  */
 import { normalizeProviderIdForAuth } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getShellEnvAppliedKeys } from "../infra/shell-env.js";
 import { resolvePluginSetupProviderCore } from "../plugins/setup-registry.js";
 import { resolveLocalProviderAuthEvidence } from "../secrets/provider-auth-evidence.js";

@@ -5,8 +5,8 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { ensureAuthProfileStore } from "../agents/auth-profiles/store.js";
 import { runSecretsAudit } from "../secrets/audit.js";
 import { readSecretStoreValue } from "../secrets/store/secret-store.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { persistProviderAuthProfileBatch } from "./provider-auth-persistence.js";
 

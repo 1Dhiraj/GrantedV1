@@ -1,5 +1,5 @@
 import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAccountEntry } from "../routing/account-lookup.js";
 
 /** Reads an operator's explicit disable without resolving an operational account. */

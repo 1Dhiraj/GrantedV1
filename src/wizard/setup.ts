@@ -8,7 +8,7 @@ import { hasResolvedRosterBeforeMigrations } from "../config/agent-roster-proven
 import { ConfigMutationConflictError } from "../config/config.js";
 import { createMergePatch, applyMergePatch } from "../config/merge-patch.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveGatewayProbeAuthSafeWithSecretInputs } from "../gateway/probe-auth.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {

@@ -4,18 +4,18 @@ import { loadSessionEntry, upsertSessionEntryCore } from "../config/sessions/ses
 import { makeCronJob } from "../cron/delivery.test-helpers.js";
 import { loadCronStore, saveCronStore } from "../cron/store.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   ensureOpenClawAgentDatabaseSchema,
   openOpenClawAgentDatabase,
   withAgentDatabaseMaintenanceLease,
-} from "./openclaw-agent-db.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+} from "./granted-agent-db.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 
 describe("creator namespace upgrades", () => {
   it("qualifies only proven historical seams atomically and keeps a restorable backup", async () => {

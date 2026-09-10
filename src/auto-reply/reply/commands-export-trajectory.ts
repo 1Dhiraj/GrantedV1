@@ -5,7 +5,7 @@ import { formatErrorMessage } from "../../infra/errors.js";
 import type { ExecApprovalRequest } from "../../infra/exec-approvals.js";
 import type { ReplyPayload } from "../types.js";
 import { parseExportCommandOutputPath } from "./commands-export-common.js";
-import { buildCurrentOpenClawCliExecRequest } from "./commands-openclaw-cli.js";
+import { buildCurrentOpenClawCliExecRequest } from "./commands-granted-cli.js";
 import {
   deliverPrivateCommandReply,
   readCommandDeliveryTarget,

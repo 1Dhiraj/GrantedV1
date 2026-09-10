@@ -1,7 +1,7 @@
 import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
 import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { HeartbeatRunOptions } from "../../infra/heartbeat-runner-execution.js";
 import { resolveHeartbeatRunPrompt } from "../../infra/heartbeat-runner-prompt.js";
 import { startHeartbeatRunner } from "../../infra/heartbeat-runner-scheduler.js";

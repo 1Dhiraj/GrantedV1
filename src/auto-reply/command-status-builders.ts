@@ -6,7 +6,7 @@ import {
 } from "@granted/normalization-core/string-coerce";
 import { getChannelPlugin } from "../channels/plugins/index.js";
 import { isCommandFlagEnabled } from "../config/commands.flags.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { listPluginCommands } from "../plugins/commands.js";
 import type { SkillCommandSpec } from "../skills/types.js";
 import {

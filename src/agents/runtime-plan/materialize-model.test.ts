@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { materializePreparedRuntimeModel } from "./materialize-model.js";
 import type { AgentRuntimeAuthPlan } from "./types.js";
 

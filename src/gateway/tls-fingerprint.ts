@@ -1,6 +1,6 @@
 import { isWssUrl } from "@granted/net-policy/url-protocol";
 import { requireTlsFingerprint } from "../../packages/gateway-client/src/client-address-utils.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { inspectGatewayTlsCertificate } from "../infra/tls/gateway.js";
 
 /** Resolve the certificate pin for one already-selected Gateway target. */

@@ -22,18 +22,18 @@ import {
   listOpenClawRegisteredAgentDatabases,
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   isOpenClawStateDatabaseOpen,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { appendSqliteTrajectoryRuntimeEvents } from "../../trajectory/runtime-store.sqlite.js";
 import type { TrajectoryEvent } from "../../trajectory/types.js";
 import {
   deliveryContextFromSession,
   sessionDeliveryRoute,
 } from "../../utils/delivery-context.shared.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import {
   applySessionEntryReplacements,
   applySessionPatchProjections,

@@ -1,6 +1,6 @@
 // A real Gateway restart must remove interrupted Dreaming sessions from its public session list.
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import { getSessionEntry, upsertSessionEntry } from "../src/plugin-sdk/session-store-runtime.js";
 import {

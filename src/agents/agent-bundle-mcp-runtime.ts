@@ -13,7 +13,7 @@ import {
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { SessionToolOverrides } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { racePromiseWithAbortSignal } from "../infra/abort-signal.js";
 import { logWarn } from "../logger.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";

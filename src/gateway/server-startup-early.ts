@@ -2,7 +2,7 @@
 // Starts discovery, remote skills, task maintenance, and delayed maintenance setup.
 import { isNixMode } from "../config/paths.js";
 import type { GatewayTailscaleMode } from "../config/types.gateway.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayActiveWorkInspectors } from "../infra/gateway-active-work.js";
 import type { PluginRegistry } from "../plugins/registry-types.js";
 import { measureStartup, type GatewayStartupTrace } from "./server-startup-trace.js";

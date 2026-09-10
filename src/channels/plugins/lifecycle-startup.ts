@@ -1,5 +1,5 @@
 /** Invokes optional startup maintenance for loaded channel plugins. */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { listLoadedChannelPlugins } from "./registry-loaded.js";
 import type { ChannelPlugin } from "./types.plugin.js";
 

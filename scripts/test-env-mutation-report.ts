@@ -52,7 +52,7 @@ const TRACKED_ENV_KEYS = new Set([
   "XDG_STATE_HOME",
 ]);
 const DEFAULT_ALLOWED_FILES = new Map([
-  ["src/test-utils/openclaw-test-state.ts", "canonical OpenClaw test state helper"],
+  ["src/test-utils/granted-test-state.ts", "canonical OpenClaw test state helper"],
   ["test/non-isolated-runner.ts", "shared Vitest runner restores global env between files"],
   ["test/setup.extensions.ts", "global extension-test setup owns process env isolation"],
   ["test/setup.shared.ts", "global shared-test setup owns process env isolation"],

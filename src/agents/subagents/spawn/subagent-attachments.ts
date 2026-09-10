@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { privateFileStore } from "../../../infra/private-file-store.js";
 import { resolveAgentWorkspaceDir } from "../../agent-scope.js";
 import {

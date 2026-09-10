@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { reconcileHeartbeatMonitorJobs } from "../cron/heartbeat-monitor.js";
 import type { CronJob } from "../cron/types.js";
 

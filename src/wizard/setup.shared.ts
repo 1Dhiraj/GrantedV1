@@ -5,7 +5,7 @@ import type { ConfigWriteOptions } from "../config/io.js";
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { applyMergePatch, createMergePatch } from "../config/merge-patch.js";
 import type { ConfigWriteAfterWrite } from "../config/runtime-snapshot.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.granted.js";
 import { transformConfigWithPendingPluginInstalls } from "../plugins/install-record-commit.js";
 import { resolveDefaultSecretProviderAlias } from "../secrets/ref-contract.js";
 import { t } from "./i18n/index.js";

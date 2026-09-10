@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createHarness, persistedLiveDigest } from "./session-observer.test-utils.js";
 
 describe("session observer run bookkeeping", () => {

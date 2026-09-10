@@ -5,7 +5,7 @@ import { modelCatalogRowToEntry } from "../../agents/model-catalog-entry.js";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
 import { modelTransportRoutesMatch } from "../../agents/model-compat-catalog.js";
 import { modelKey } from "../../agents/model-ref-shared.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";
 import {

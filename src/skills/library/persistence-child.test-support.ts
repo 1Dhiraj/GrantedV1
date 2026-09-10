@@ -47,13 +47,13 @@ async function hold() {
 }
 
 type OlderReaderRuntime = Pick<
-  typeof import("../../state/openclaw-state-db.js"),
+  typeof import("../../state/granted-state-db.js"),
   | "openOpenClawStateDatabase"
   | "openExistingOpenClawStateDatabaseReadOnly"
   | "closeOpenClawStateDatabase"
 > &
   Pick<
-    typeof import("../../state/openclaw-agent-db.js"),
+    typeof import("../../state/granted-agent-db.js"),
     "openOpenClawAgentDatabase" | "closeOpenClawAgentDatabases"
   > &
   Pick<
@@ -130,7 +130,7 @@ async function runCandidate(
     return { kind: "complete" };
   }
   await phase("state-import");
-  const state = await import("../../state/openclaw-state-db.js");
+  const state = await import("../../state/granted-state-db.js");
   await phase("profiles-import");
   const { ensureProfileForEmail } = await import("../../state/user-profiles.js");
   await phase("service-import");
@@ -140,7 +140,7 @@ async function runCandidate(
   const sessions = usesSessions
     ? await import("../../config/sessions/session-accessor.sqlite-entry.js")
     : undefined;
-  const agent = usesSessions ? await import("../../state/openclaw-agent-db.js") : undefined;
+  const agent = usesSessions ? await import("../../state/granted-agent-db.js") : undefined;
   const selection = usesSessions ? await import("./selection.js") : undefined;
   const uploads = command.action === "seed" ? await import("./import.js") : undefined;
   await phase("imports-complete");

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { DecisionReceiptV1 } from "../../../packages/gateway-protocol/src/index.js";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { configureRuntimeActionDecisionSink } from "../../audit/runtime-action-decision.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withPluginRuntimePluginIdScope } from "./gateway-request-scope.js";
 import type { PluginRuntime } from "./types.js";
 

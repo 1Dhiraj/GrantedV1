@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { makeAttemptResult, makeCompactionSuccess } from "./run.overflow-compaction.fixture.js";
 import {
   createOverflowRunParams,
@@ -13,7 +13,7 @@ import { loadSharedRunIntegrationHarness } from "./run.shared-integration-harnes
 
 let state: GrantedTestState;
 let runEmbeddedAgent: Awaited<ReturnType<typeof loadSharedRunIntegrationHarness>>;
-let agentDatabase: typeof import("../../state/openclaw-agent-db.js");
+let agentDatabase: typeof import("../../state/granted-agent-db.js");
 let sessionAccessor: typeof import("../../config/sessions/session-accessor.js");
 let activeEvents: typeof import("../../config/sessions/session-accessor.sqlite-active-events.js");
 let sqliteScope: typeof import("../../config/sessions/session-accessor.sqlite-scope.js");
@@ -22,7 +22,7 @@ let reconcile: typeof import("../../config/sessions/session-transcript-reconcile
 describe("runEmbeddedAgent transcript projection retry", () => {
   beforeAll(async () => {
     runEmbeddedAgent = await loadSharedRunIntegrationHarness();
-    agentDatabase = await import("../../state/openclaw-agent-db.js");
+    agentDatabase = await import("../../state/granted-agent-db.js");
     sessionAccessor = await import("../../config/sessions/session-accessor.js");
     activeEvents = await import("../../config/sessions/session-accessor.sqlite-active-events.js");
     sqliteScope = await import("../../config/sessions/session-accessor.sqlite-scope.js");
@@ -31,7 +31,7 @@ describe("runEmbeddedAgent transcript projection retry", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.projection-retry" });
   });
 

@@ -1,5 +1,5 @@
 import { Type } from "typebox";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import type {
   McpToolCatalog,

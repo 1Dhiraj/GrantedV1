@@ -29,7 +29,7 @@ import {
   resolveTerminalAssistantTranscriptRunId,
 } from "../sessions/transcript-events.js";
 import { withRuntimeUserTurnTranscriptRecorder } from "../sessions/user-turn-transcript-runtime-context.js";
-import { isTranscriptOnlyOpenClawAssistantModel } from "../shared/transcript-only-openclaw-assistant.js";
+import { isTranscriptOnlyOpenClawAssistantModel } from "../shared/transcript-only-granted-assistant.js";
 import { formatContextLimitTruncationNotice } from "./embedded-agent-runner/context-truncation-notice.js";
 import {
   DEFAULT_MAX_LIVE_TOOL_RESULT_CHARS,

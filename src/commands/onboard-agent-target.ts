@@ -17,7 +17,7 @@ import {
 } from "../config/model-input.js";
 import type { OptionalBootstrapFileName } from "../config/types.agent-defaults.js";
 import type { AgentEntryConfig } from "../config/types.agents.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { applyPrimaryModel } from "../plugins/provider-model-primary.js";
 import { normalizeAgentId } from "../routing/session-key.js";

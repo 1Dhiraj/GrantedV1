@@ -1,5 +1,5 @@
 /** Controller identity, authorization, and controlled-run read scope. */
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   isSubagentSessionKey,
   normalizeAgentId,

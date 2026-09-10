@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { HelloOk } from "../../packages/gateway-protocol/src/schema/frames.js";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { CallGatewayCliOptions } from "../gateway/call.js";
 import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
 import type { RuntimeEnv } from "../runtime.js";

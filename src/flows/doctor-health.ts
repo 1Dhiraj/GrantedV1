@@ -17,9 +17,9 @@ const loadConfigModule = createLazyRuntimeModule(() => import("../config/config.
 
 async function assertDoctorDatabaseSchemasCompatible(): Promise<void> {
   const [databasePreflight, agentDatabase, stateDatabase] = await Promise.all([
-    import("../state/openclaw-database-preflight.js"),
-    import("../state/openclaw-agent-db-contract.js"),
-    import("../state/openclaw-state-db-contract.js"),
+    import("../state/granted-database-preflight.js"),
+    import("../state/granted-agent-db-contract.js"),
+    import("../state/granted-state-db-contract.js"),
   ]);
   const databaseSchemas = databasePreflight.preflightOpenClawDatabaseSchemas({
     env: process.env,
@@ -62,7 +62,7 @@ export async function runDoctorHealthFlow(runtime?: RuntimeEnv, options: DoctorO
   const { createDoctorPrompter } = await import("../commands/doctor-prompter.js");
   const prompter = createDoctorPrompter({ runtime: effectiveRuntime, options });
 
-  const { resolveOpenClawPackageRoot } = await import("../infra/openclaw-root.js");
+  const { resolveOpenClawPackageRoot } = await import("../infra/granted-root.js");
   const root = await resolveOpenClawPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
@@ -147,7 +147,7 @@ export async function runDoctorHealthFlow(runtime?: RuntimeEnv, options: DoctorO
         await import("../config/sessions/startup-migration.js");
       assertSessionStoreMigrationComplete({ cfg: ctx.cfg, env: process.env });
       const { assertOpenClawDatabasesReady } =
-        await import("../state/openclaw-database-preflight.js");
+        await import("../state/granted-database-preflight.js");
       const { resolveConfiguredAgentDatabaseTargets } =
         await import("../config/sessions/targets.js");
       assertOpenClawDatabasesReady({

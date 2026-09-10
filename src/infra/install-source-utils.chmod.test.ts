@@ -3,13 +3,13 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 
-const resolvePreferredOpenClawTmpDirMock = vi.hoisted(() => vi.fn());
+const resolvePreferredGrantedTmpDirMock = vi.hoisted(() => vi.fn());
 
-vi.mock("./tmp-openclaw-dir.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("./tmp-openclaw-dir.js")>();
+vi.mock("./tmp-granted-dir.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./tmp-granted-dir.js")>();
   return {
     ...actual,
-    resolvePreferredOpenClawTmpDir: resolvePreferredOpenClawTmpDirMock,
+    resolvePreferredGrantedTmpDir: resolvePreferredGrantedTmpDirMock,
   };
 });
 
@@ -28,7 +28,7 @@ describe("withInstallWorkspace private root", () => {
       await fs.chmod(mockParentRoot, 0o1777);
       const canonicalOpenClawDir = await fs.realpath(mockOpenClawDir);
 
-      resolvePreferredOpenClawTmpDirMock.mockReturnValue(mockOpenClawDir);
+      resolvePreferredGrantedTmpDirMock.mockReturnValue(mockOpenClawDir);
 
       let observedDir = "";
       const value = await withInstallWorkspace("openclaw-test-", async (tmpDir) => {

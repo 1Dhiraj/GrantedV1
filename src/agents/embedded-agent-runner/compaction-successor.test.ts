@@ -11,7 +11,7 @@ import {
   resetGatewayWorkAdmission,
   tryBeginGatewayRootWorkAdmission,
 } from "../../process/gateway-work-admission.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import type { PreparedAgentRunAdmission } from "../admitted-run-context.js";
 import type {
   AcceptedCompactionSuccessor,

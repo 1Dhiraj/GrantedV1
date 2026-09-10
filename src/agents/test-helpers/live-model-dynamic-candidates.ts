@@ -9,7 +9,7 @@ import {
 } from "@granted/model-catalog-core/provider-id";
 import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { Model } from "../../llm/types.js";
 import { withBundledPluginEnablementCompat } from "../../plugins/bundled-compat.js";
 import type {

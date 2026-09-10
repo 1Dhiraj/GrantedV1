@@ -15,8 +15,8 @@ import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+} from "../state/granted-state-db.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 import type { TranscriptSessionDescriptor, TranscriptUtterance } from "./provider-types.js";
 import { ensureMeetingTranscriptsSchema } from "./sqlite-schema.js";
 import {

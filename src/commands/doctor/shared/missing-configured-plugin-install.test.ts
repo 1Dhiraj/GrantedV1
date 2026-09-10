@@ -21,8 +21,8 @@ import { resolveInstalledPluginIndexPolicyHash } from "../../../plugins/installe
 import { isTrustedOfficialPluginInstallRecord } from "../../../plugins/official-external-install-records.js";
 import type { BundledProviderPolicySurface } from "../../../plugins/provider-policy-surface.js";
 import { createColdPluginFixture } from "../../../plugins/test-helpers/cold-plugin-fixtures.js";
-import { closeOpenClawStateDatabaseByPath } from "../../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../../state/openclaw-state-db.paths.js";
+import { closeOpenClawStateDatabaseByPath } from "../../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../../state/granted-state-db.paths.js";
 import { VERSION } from "../../../version.js";
 import { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 import {

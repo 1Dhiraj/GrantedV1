@@ -2,13 +2,13 @@ import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import type { Selectable } from "kysely";
 import { getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import { ensureColumn } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import { ensureColumn } from "../../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateDatabase } from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 
 export type SkillWorkshopDatabase = Pick<
   GrantedStateDatabase,

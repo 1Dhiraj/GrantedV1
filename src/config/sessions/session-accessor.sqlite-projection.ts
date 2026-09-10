@@ -8,7 +8,7 @@ import {
 import {
   openOpenClawAgentDatabase,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   SessionEntryLifecycleUpsertConflictError,
   type SessionArchivedTranscriptCleanupRule,

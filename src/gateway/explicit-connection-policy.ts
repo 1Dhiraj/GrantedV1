@@ -1,6 +1,6 @@
 // Explicit connection policy decides when CLI gateway calls can avoid reading
 // config because URL and auth were fully supplied by flags.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { trimToUndefined, type ExplicitGatewayAuth } from "./credentials.js";
 
 // Explicit connection policy lets CLI paths skip config IO only when the caller

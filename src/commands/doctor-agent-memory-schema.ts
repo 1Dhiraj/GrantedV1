@@ -8,7 +8,7 @@ import {
   listOpenClawRegisteredAgentDatabases,
   migrateOpenClawAgentDatabaseForMaintenance,
   withAgentDatabaseMaintenanceLease,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { shortenHomePath } from "../utils.js";
 import {
   DoctorSqliteMaintenanceLockUnavailableError,

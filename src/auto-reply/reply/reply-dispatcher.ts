@@ -2,7 +2,7 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { TypingCallbacks } from "../../channels/typing.js";
 import type { HumanDelayConfig } from "../../config/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   findPlatformMessageRejectedError,
   isProvenDeliveryNotSentError,

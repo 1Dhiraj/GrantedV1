@@ -17,7 +17,7 @@ let sharedRunEmbeddedAgent: Promise<TestRunEmbeddedAgent> | undefined;
 export function loadSharedRunIntegrationHarness(): Promise<TestRunEmbeddedAgent> {
   sharedRunEmbeddedAgent ??= (async () => {
     const { runEmbeddedAgent } = await loadRunOverflowCompactionHarness();
-    const { withOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { withOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     await withOpenClawTestState({ label: "shared-run-warmup" }, async (state) => {
       const guard = await guardRunWorkspaceOwnership(state);
       try {
@@ -36,7 +36,7 @@ export async function createSharedRunIntegrationSession(identity?: {
   sessionId: string;
   sessionKey: string;
 }) {
-  const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+  const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
   const { loadSessionEntry, replaceSessionEntry } =
     await import("../../config/sessions/session-accessor.js");
   const { forgetActiveSessionForShutdown } =

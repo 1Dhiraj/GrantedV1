@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { CodeModeHeadlessResult } from "../agents/code-mode.js";
-import { resolveOpenClawPluginToolsForOptions } from "../agents/openclaw-plugin-tools.js";
+import { resolveOpenClawPluginToolsForOptions } from "../agents/granted-plugin-tools.js";
 import {
   createPreparedInboundRegistryLoader,
   loadPreparedInboundPluginRegistry,
@@ -11,7 +11,7 @@ import { prepareOwnedPluginLoadContext } from "../agents/prepared-model-runtime.
 import { ToolSearchRuntime } from "../agents/tool-search-runtime.js";
 import { resolveToolSearchConfig } from "../agents/tool-search.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { setCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata.test-support.js";
 import {
   cleanupPluginLoaderFixturesForTest,
@@ -27,7 +27,7 @@ import {
 } from "../plugins/runtime/gateway-request-scope.js";
 import { getPluginRuntimeLoadContext } from "../plugins/runtime/load-context.js";
 import { resetPluginToolDescriptorCacheForTest } from "../plugins/tools.test-fixtures.js";
-import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { createCronScriptRuntime } from "./trigger-script.js";
 
 type HeadlessParams = Parameters<

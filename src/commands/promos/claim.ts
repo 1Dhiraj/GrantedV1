@@ -6,7 +6,7 @@ import { promptYesNo } from "../../cli/prompt.js";
 import { readConfigFileSnapshot, replaceConfigFile } from "../../config/config.js";
 import { formatConfigIssueLines } from "../../config/issue-format.js";
 import type { AgentModelEntryConfig } from "../../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { ClawHubRequestError } from "../../infra/clawhub-client.js";
 import { fetchClawHubPromotion, type ClawHubPromotion } from "../../infra/clawhub-promotions.js";
 import { markPromotionSlugsNotified, recordPromotionClaim } from "../../infra/promotions-feed.js";

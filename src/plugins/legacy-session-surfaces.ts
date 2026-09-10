@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { shouldIncludeChannelSetupFeatureForConfig } from "../channels/plugins/bundled-setup-policy.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { describeRootFileOpenFailure, openRootFileSync } from "../infra/boundary-file-read.js";
 import type { BundledChannelLegacySessionSurface } from "../plugin-sdk/channel-entry-contract.types.js";
 import { resolveConfiguredChannelPluginIds } from "./channel-plugin-ids.js";

@@ -1,5 +1,5 @@
 import { resolveBundledChannelGatewayAuthBypassPaths } from "../channels/plugins/gateway-auth-bypass.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { registerPluginMetadataProcessMemoLifecycleClear } from "../plugins/plugin-metadata-lifecycle.js";
 import type { AuthorizedGatewayHttpRequest } from "./http-auth-utils.js";
 import type { PluginNodeCapabilitySurface } from "./plugin-node-capability.js";

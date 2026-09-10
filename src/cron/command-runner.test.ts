@@ -219,7 +219,7 @@ describe("runCronCommandJob", () => {
     const result = await runCronCommandJob({
       job: makeCommandJob({
         kind: "command",
-        argv: ["openclaw-command-that-does-not-exist"],
+        argv: ["granted-command-that-does-not-exist"],
         timeoutSeconds: 5,
       }),
     });

@@ -17,7 +17,7 @@ import { mergeAlsoAllowPolicy, resolveToolProfilePolicy } from "../../agents/too
 import { normalizeChatType } from "../../channels/chat-type.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { resolveGroupSessionKey } from "../../config/sessions/group.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   deliveryContextFromSession,
   sessionDeliveryChannel,

@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { slugifyWorktreeTitle } from "../agents/worktrees/name.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { sha256HexPrefixCore } from "../infra/crypto-digest.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 import { cloneProjectCheckout, ProjectCloneError } from "./project-clone-runtime.js";
 import { parseProjectGitUrl } from "./project-git-url.js";
 import {

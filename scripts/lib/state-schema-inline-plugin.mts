@@ -5,13 +5,13 @@ export const STATE_SCHEMA_INLINE_PLUGIN_NAME = "openclaw:inline-state-schemas";
 
 const STATE_SCHEMA_MODULES = [
   {
-    modulePath: "src/state/openclaw-state-schema.ts",
-    schemaPath: "src/state/openclaw-state-schema.sql",
+    modulePath: "src/state/granted-state-schema.ts",
+    schemaPath: "src/state/granted-state-schema.sql",
     exportName: "GRANTED_STATE_SCHEMA_SQL",
   },
   {
-    modulePath: "src/state/openclaw-agent-schema.ts",
-    schemaPath: "src/state/openclaw-agent-schema.sql",
+    modulePath: "src/state/granted-agent-schema.ts",
+    schemaPath: "src/state/granted-agent-schema.sql",
     exportName: "GRANTED_AGENT_SCHEMA_SQL",
   },
 ] as const;

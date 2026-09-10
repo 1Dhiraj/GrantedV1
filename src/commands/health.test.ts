@@ -5,7 +5,7 @@ import { retainGatewayResponsePayload } from "../../packages/gateway-client/src/
 import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { ExitError } from "../runtime.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   buildCredentialsRequiredHealthDiagnostic,
   buildRateLimitedHealthDiagnostic,

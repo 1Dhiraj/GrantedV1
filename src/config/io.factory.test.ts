@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
-import type { DB } from "../state/openclaw-state-db.generated.js";
+import type { DB } from "../state/granted-state-db.generated.js";
 import { createSuiteTempRootTracker } from "../test-helpers/temp-dir.js";
 
 describe("config factory writer boundary", () => {
@@ -11,7 +11,7 @@ describe("config factory writer boundary", () => {
   beforeEach(() => vi.resetModules());
   afterEach(async () => {
     vi.doUnmock("./io.write.js");
-    const { closeOpenClawStateDatabaseForTest } = await import("../state/openclaw-state-db.js");
+    const { closeOpenClawStateDatabaseForTest } = await import("../state/granted-state-db.js");
     closeOpenClawStateDatabaseForTest();
   });
   afterAll(() => roots.cleanup());
@@ -47,7 +47,7 @@ describe("config factory writer boundary", () => {
     expect(snapshot.configDiagnostics).toBeNull();
     expect(snapshot.config.agents?.defaults?.compaction?.mode).toBe("safeguard");
     expect(snapshot.sourceConfig.agents?.defaults?.compaction).toBeUndefined();
-    const { openOpenClawStateDatabase } = await import("../state/openclaw-state-db.js");
+    const { openOpenClawStateDatabase } = await import("../state/granted-state-db.js");
     const { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } =
       await import("../infra/kysely-sync.js");
     const { db } = openOpenClawStateDatabase({ env });

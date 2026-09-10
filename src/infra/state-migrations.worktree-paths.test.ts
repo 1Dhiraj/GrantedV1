@@ -11,7 +11,7 @@ import { EMPTY_LEGACY_SESSION_SURFACES } from "../plugins/legacy-session-surface
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { requireNodeSqlite } from "./node-sqlite.js";
 import {
   detectLegacyStateMigrations,

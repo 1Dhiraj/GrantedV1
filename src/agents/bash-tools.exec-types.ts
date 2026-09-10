@@ -3,7 +3,7 @@
  * Defines defaults, approval follow-up payloads, elevated policy defaults, and
  * tool result details consumed across exec hosts and process controls.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { EventSessionRoutingPolicy } from "../infra/event-session-routing.js";
 import type {
   ExecApprovalDecision,

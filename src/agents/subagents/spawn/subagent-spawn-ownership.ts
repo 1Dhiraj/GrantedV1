@@ -3,7 +3,7 @@
  *
  * Resolves which session controls spawn state, thread binding, and completion delivery.
  */
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   resolveDisplaySessionKey,
   resolveInternalSessionKey,

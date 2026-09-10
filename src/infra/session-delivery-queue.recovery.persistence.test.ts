@@ -1,6 +1,6 @@
 // Covers real session-delivery retry failures against the persistent SQLite queue.
 import { describe, expect, it, vi } from "vitest";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import {
   drainPendingSessionDelivery,

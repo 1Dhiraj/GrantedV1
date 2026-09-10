@@ -15,7 +15,7 @@ import {
 } from "../infra/state-migrations.exec-approvals.js";
 import type { MigrationLogger, MigrationMessages } from "../infra/state-migrations.types.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { initializeNativeOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { initializeNativeOpenClawStateDatabase } from "../state/granted-state-db.js";
 
 async function reportMigration(
   label: string,

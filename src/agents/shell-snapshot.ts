@@ -11,7 +11,7 @@ import os from "node:os";
 import path from "node:path";
 import { resolveStateDir } from "../config/paths.js";
 import { withTempWorkspace } from "../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { killProcessTree } from "../process/kill-tree.js";
 
 const SNAPSHOT_VERSION = 1;
@@ -264,7 +264,7 @@ async function captureShellSnapshot(opts: ShellSnapshotWrapOptions): Promise<str
   const shellName = path.basename(opts.shell);
   return await withTempWorkspace(
     {
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-shell-snapshot-",
       dirMode: 0o700,
       mode: 0o600,

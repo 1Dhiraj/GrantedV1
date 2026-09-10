@@ -7,11 +7,11 @@ import {
   appendExactAssistantMessageToSessionTranscript,
   type SessionTranscriptAssistantMessage,
 } from "../config/sessions/transcript.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   GRANTED_TRANSCRIPT_ARTIFACT_API,
   GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
-} from "../shared/transcript-only-openclaw-assistant.js";
+} from "../shared/transcript-only-granted-assistant.js";
 import {
   getSessionWorkAdmissionRelease,
   runExclusiveSessionLifecycleMutation,

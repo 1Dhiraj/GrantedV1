@@ -2,7 +2,7 @@
 // can avoid triggering channel discovery.
 import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-loaded.js";
 import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   resolveOutboundTargetWithPlugin,
   type OutboundTargetResolution,

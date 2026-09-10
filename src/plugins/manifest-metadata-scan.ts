@@ -4,7 +4,7 @@ import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString as normalizeTrimmedString } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveHomeRelativePath } from "../infra/home-dir.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveBundledPluginsDir } from "./bundled-dir.js";
 import { getGatewayPluginMetadataSnapshot } from "./current-plugin-metadata-state.js";

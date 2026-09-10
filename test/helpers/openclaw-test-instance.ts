@@ -14,7 +14,7 @@ import { terminateManagedChild } from "../../scripts/lib/managed-child-process.m
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../src/test-utils/openclaw-test-state.js";
+} from "../../src/test-utils/granted-test-state.js";
 import { sleep } from "../../src/utils.js";
 import { decodeUtf8Tail } from "./bounded-child-output.js";
 

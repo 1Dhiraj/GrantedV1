@@ -6,7 +6,7 @@ import type {
   ProviderBuiltInModelSuppressionContext as ProviderBuiltInModelSuppressionContextType,
 } from "../plugins/types.js";
 import { createCachedLazyValueGetter } from "./lazy-value.js";
-export type { GrantedConfig } from "../config/types.openclaw.js";
+export type { GrantedConfig } from "../config/types.granted.js";
 
 export type {
   AgentHarness,

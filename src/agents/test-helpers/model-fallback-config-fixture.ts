@@ -3,7 +3,7 @@
  *
  * Builds a minimal config with primary and fallback models for model-selection tests.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 export function makeModelFallbackCfg(overrides: Partial<GrantedConfig> = {}): GrantedConfig {
   return {

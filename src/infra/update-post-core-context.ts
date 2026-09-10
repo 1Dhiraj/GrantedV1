@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { mergeProcessEnv } from "./process-env.js";
 import type { UpdateChannel } from "./update-channels.js";
 

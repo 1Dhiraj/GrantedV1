@@ -3,7 +3,7 @@ import {
   type ExecutionDecisionWork,
 } from "../../audit/execution-decision-work.js";
 import { configureExecutionIdentityAdmissionSink } from "../../audit/execution-identity-admission.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   createOperationalRunInstanceRef,
   prepareAgentRunAdmission,

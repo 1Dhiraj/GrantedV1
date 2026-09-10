@@ -13,13 +13,13 @@ import {
   listSessionEntryKeysReadOnly,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   resolveOpenClawAgentSqlitePath,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import {
   detectLegacyWorkspaceState,

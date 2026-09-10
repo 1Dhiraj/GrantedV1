@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export function canonicalizeSetupMigrationValue(value: unknown): unknown {
   if (Array.isArray(value)) {

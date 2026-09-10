@@ -9,7 +9,7 @@ import {
   pageOperatorApprovalReceiptsForRun,
   summarizeOperatorApprovalReceiptsForRun,
 } from "../gateway/operator-approval-store.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { parsePositiveAuditCursor } from "./audit-cursor.js";
 import {
   pageExecutionDecisionFactsForContext,

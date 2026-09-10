@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { runHeartbeatOnce } from "./heartbeat-runner.js";
 
 describe("heartbeat wake owner resolution", () => {

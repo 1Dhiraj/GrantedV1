@@ -1,5 +1,5 @@
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { asBoolean } from "../utils/boolean.js";
 import {
   normalizeSupportedRealtimeVoiceActivationName,

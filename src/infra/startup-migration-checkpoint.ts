@@ -6,11 +6,11 @@ import { performance } from "node:perf_hooks";
 import type { DatabaseSync } from "node:sqlite";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { getFileLockProcessStartTime, isPidDefinitelyDead } from "../shared/pid-alive.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import { withOpenClawStateStartupMigrationCheckpointDatabase } from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
-import { assertOpenClawStateWriteAllowed } from "../state/openclaw-state-ownership.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import { withOpenClawStateStartupMigrationCheckpointDatabase } from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
+import { assertOpenClawStateWriteAllowed } from "../state/granted-state-ownership.js";
 import { VERSION } from "../version.js";
 import {
   executeSqliteQuerySync,

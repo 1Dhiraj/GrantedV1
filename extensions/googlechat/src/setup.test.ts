@@ -18,7 +18,7 @@ import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/setup";
 import type { ChannelAccountSnapshot } from "granted/plugin-sdk/status-helpers";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -492,7 +492,7 @@ describe("resolveGoogleChatAccount", () => {
 
   it("resolves user-relative service-account files before checking availability", () => {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-googlechat-home-",
     });
     tempWorkspaces.push(workspace);
@@ -533,7 +533,7 @@ describe("resolveGoogleChatAccount", () => {
 
   it("ignores env JSON credentials when they decode to a non-object value", () => {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-googlechat-missing-",
     });
     tempWorkspaces.push(workspace);

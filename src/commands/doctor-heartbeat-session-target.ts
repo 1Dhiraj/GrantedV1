@@ -5,7 +5,7 @@ import { canonicalizeMainSessionAlias } from "../config/sessions/main-session.js
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveHeartbeatAgents, resolveHeartbeatIntervalMs } from "../infra/heartbeat-config.js";
 import { resolveHeartbeatDeliveryTarget } from "../infra/outbound/targets.js";
 import { loadLegacySessionStore } from "../infra/state-migrations.legacy-session-store.js";

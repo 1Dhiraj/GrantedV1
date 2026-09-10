@@ -16,8 +16,8 @@ import {
 import { readMcpOAuthCredentialsStatus } from "../agents/mcp-oauth.js";
 import { withTempHome } from "../config/home-env.test-harness.js";
 import { defaultRuntime } from "../runtime.js";
-import { withOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { withOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { getFreePort } from "../test-utils/ports.js";
 import { registerMcpCli } from "./mcp-cli.js";
 

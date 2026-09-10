@@ -3,9 +3,9 @@ import path from "node:path";
 import { afterEach, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { insertRegistryWorktree } from "../../agents/worktrees/registry.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
+import type { GrantedConfig } from "../types.granted.js";
 import {
   loadSessionEntry,
   replaceSessionEntry,

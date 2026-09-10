@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSolidPngBuffer } from "../../test/helpers/image-fixtures.js";
 import { toInboundMediaFactsWithMetadata } from "../channels/inbound-event/media.js";
 import { createManagedOutgoingMediaBlocks } from "../gateway/managed-image-attachments.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { resolveLocalMediaPath } from "./local-media-path.js";
 import { appendLocalMediaParentRoots } from "./local-roots.js";

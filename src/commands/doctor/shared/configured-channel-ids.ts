@@ -6,7 +6,7 @@ import {
   listExplicitlyDisabledChannelIdsForConfig,
   listPotentialConfiguredChannelPresenceSignals,
 } from "../../../channels/config-presence.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { isRecord } from "../../../utils.js";
 
 type ConfiguredChannelEntryPolicy = "raw" | "enabled" | "meaningful" | "enabled-or-meaningful";

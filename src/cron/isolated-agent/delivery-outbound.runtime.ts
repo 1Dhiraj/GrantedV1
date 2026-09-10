@@ -3,7 +3,7 @@ import type { ReplyPayload } from "../../auto-reply/reply-payload.js";
 import { createChannelReplyTransform } from "../../channels/message/reply-transform.js";
 import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-loaded.js";
 import { normalizeAnyChannelId } from "../../channels/registry-normalize.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 export { createOutboundSendDeps } from "../../cli/outbound-send-deps.js";
 export {

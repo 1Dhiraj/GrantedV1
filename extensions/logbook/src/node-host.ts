@@ -6,7 +6,7 @@ import { chmod, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { runExec } from "granted/plugin-sdk/process-runtime";
 import { asFiniteNumber } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 
 type LogbookSnapshotParams = {
   screenIndex?: number;
@@ -48,7 +48,7 @@ export async function handleLogbookSnapshot(rawParams: unknown): Promise<Logbook
   );
   // The shared helper rejects unsafe temp roots; the private subdirectory
   // keeps captures out of the broader OpenClaw temp namespace.
-  const captureDir = path.join(resolvePreferredOpenClawTmpDir(), "logbook");
+  const captureDir = path.join(resolvePreferredGrantedTmpDir(), "logbook");
   await mkdir(captureDir, { recursive: true, mode: 0o700 });
   await chmod(captureDir, 0o700);
   const filePath = path.join(captureDir, `logbook-snapshot-${randomUUID()}.jpg`);

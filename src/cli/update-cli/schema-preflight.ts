@@ -4,8 +4,8 @@ import {
   type IncompatibleOpenClawDatabase,
   type IndeterminateOpenClawDatabase,
   type GrantedDatabaseSchemaPreflight,
-} from "../../state/openclaw-database-preflight.js";
-import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
+} from "../../state/granted-database-preflight.js";
+import type { GrantedSchemaVersions } from "../../state/granted-schema-versions.js";
 
 export function formatSchemaRefusalLines(
   schemas: {

@@ -1,5 +1,5 @@
 /** Resolves external auth overlays through metadata and synchronous provider hooks. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getCurrentPluginMetadataSnapshot } from "./current-plugin-metadata-snapshot.js";
 import { resolvePluginMetadataSnapshot } from "./plugin-metadata-snapshot.js";
 import { resolveProviderPluginsForHooks } from "./provider-hook-runtime.js";

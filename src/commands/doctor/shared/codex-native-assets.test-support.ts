@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import "./codex-native-assets.js";
 
 type CodexNativeAssetHit = {

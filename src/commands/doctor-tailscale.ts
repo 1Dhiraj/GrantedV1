@@ -1,6 +1,6 @@
 // Doctor migration for Tailscale config and shipped external Serve routes.
 import { resolveGatewayPort } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { runUtf8CommandWithTimeout } from "../process/exec.js";
 import {
   inspectTailscaleServeGatewayUrlsWithRunner,

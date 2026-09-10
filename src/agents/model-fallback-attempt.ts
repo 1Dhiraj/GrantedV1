@@ -1,7 +1,7 @@
 /** Shared attempt, error, and harness helpers for model fallback execution. */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { TRANSCRIPT_NOT_CONTINUABLE_ERROR_CODE } from "../../packages/agent-core/src/errors.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isCronTerminalAbortReasonText } from "../cron/service/execution-errors.js";
 import { formatErrorMessage, toErrorObject } from "../infra/errors.js";
 import { isCommandLaneTaskTimeoutError } from "../process/command-queue.js";

@@ -17,7 +17,7 @@ import {
 } from "../agents/tool-policy.js";
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import { ensureStandalonePluginToolRegistryLoaded, resolvePluginTools } from "../plugins/tools.js";
@@ -76,7 +76,7 @@ export function createPluginToolsMcpServer(
       agentSessionKey: params.agentSessionKey,
       agentId: params.agentId,
     });
-  return createToolsMcpServer({ name: "openclaw-plugin-tools", tools });
+  return createToolsMcpServer({ name: "granted-plugin-tools", tools });
 }
 
 export async function servePluginToolsMcp(): Promise<void> {

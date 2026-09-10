@@ -22,7 +22,7 @@ import {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import type { NodeWorkerSupervisorNodeProof } from "../node-registry-private.js";
 import {
   bindDeviceWorkerAvailability,

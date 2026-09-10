@@ -5,7 +5,7 @@ import {
   formatConfigWriteDeniedMessage,
 } from "../../channels/plugins/config-writes.js";
 import type { ChannelId } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Resolves the denial message for config writes attempted from a channel. */
 export function resolveConfigWriteDeniedText(params: {

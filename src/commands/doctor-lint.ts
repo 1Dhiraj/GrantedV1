@@ -33,7 +33,7 @@ import {
   withPluginInstallRoots,
 } from "../plugins/install-root-context.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { isPostCoreConvergencePass } from "./doctor/shared/update-phase.js";
 
 interface DoctorLintCliOptions {

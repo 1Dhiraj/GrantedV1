@@ -14,7 +14,7 @@ import { resetPluginRuntimeStateForTest } from "../../../../plugins/runtime.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../../../test-utils/openclaw-test-state.js";
+} from "../../../../test-utils/granted-test-state.js";
 import { getSessionBindingContractRegistry } from "./registry-session-binding.js";
 
 function resolveSessionBindingContractRuntimeConfig(id: string) {

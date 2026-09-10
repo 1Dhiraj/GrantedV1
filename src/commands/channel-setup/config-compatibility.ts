@@ -1,6 +1,6 @@
 // Applies host-owned compatibility migrations to external channel setup output.
 import type { ChannelId } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveOfficialExternalChannelCompatibilityMigration } from "../../plugins/official-external-plugin-catalog.js";
 import { LEGACY_CONFIG_MIGRATIONS } from "../doctor/shared/legacy-config-migrations.js";
 

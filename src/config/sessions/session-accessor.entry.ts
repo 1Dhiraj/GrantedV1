@@ -4,8 +4,8 @@ import {
   resolveSessionStoreKey,
 } from "../../gateway/session-store-key.js";
 import { isIncognitoSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
-import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/openclaw-agent-db.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/granted-agent-db.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { resolveAgentMainSessionKey } from "./main-session.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { clearPluginOwnedSessionState } from "./plugin-host-cleanup.js";

@@ -1,6 +1,6 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
-import { ensureSessionGoalOperationsSchema } from "../../state/openclaw-agent-goal-operations-schema.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
+import { ensureSessionGoalOperationsSchema } from "../../state/granted-agent-goal-operations-schema.js";
 import {
   applySessionGoalOperation,
   readSessionGoalOperationReceipt,
@@ -61,7 +61,7 @@ export async function appendExpectedSessionTranscriptTurn(
   scope: SessionTranscriptWriteScope,
   options: {
     atomicGroup?: boolean;
-    config?: import("../types.openclaw.js").GrantedConfig;
+    config?: import("../types.granted.js").GrantedConfig;
     cwd?: string;
     expectedLifecycleRevision?: SessionLifecycleRevisionExpectation;
     expectedWriterRunId?: SessionTranscriptTurnExpectedState["expectedWriterRunId"];
@@ -107,7 +107,7 @@ export async function appendExpectedSessionTranscriptTurn(
     if (mutation) {
       ensureSessionGoalOperationsSchema(preparedDatabase.db);
     }
-    // openclaw-agent-db.ts cache rule: LRU can close idle handles during shouldAppend awaits.
+    // granted-agent-db.ts cache rule: LRU can close idle handles during shouldAppend awaits.
     const preparedEntry = readSessionEntryRow(preparedDatabase, resolved.sessionKey);
     const preparedReplay = mutation
       ? readSessionGoalOperationReceipt(

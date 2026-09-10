@@ -4,7 +4,7 @@
  * Converts raw requester session keys into the canonical registry key shape.
  */
 import { resolveAgentMainSessionKey } from "../../../config/sessions/main-session.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { normalizeMainKey } from "../../../routing/session-key.js";
 import { resolveSessionAgentId } from "../../agent-scope.js";
 

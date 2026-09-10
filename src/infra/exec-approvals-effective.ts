@@ -4,7 +4,7 @@ import {
   listAgentEntries,
   tryResolveLegacyCompatibilityAgentId,
 } from "../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   DEFAULT_EXEC_APPROVAL_ASK_FALLBACK,
   resolveExecApprovalAllowedDecisions,

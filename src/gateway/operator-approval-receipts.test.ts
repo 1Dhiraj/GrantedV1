@@ -4,11 +4,11 @@ import { trackSqliteStatementExecutions } from "../../test/helpers/sqlite-statem
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { activityRunInspectorSearch } from "../../ui/src/pages/activity/run-inspector-model.js";
 import { presentExecutionDecisionReceipts } from "../audit/execution-decision-receipts.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   forceDenyOperatorApproval,
   insertOperatorApproval,

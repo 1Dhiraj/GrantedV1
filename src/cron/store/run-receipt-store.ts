@@ -16,12 +16,12 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { getFileLockProcessStartTime, isPidDefinitelyDead } from "../../shared/pid-alive.js";
-import type { DB as GrantedStateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+} from "../../state/granted-state-db.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/granted-state-schema.js";
 import { resolveCronJobConfigRevision } from "../config-revision.js";
 import type { CronJob } from "../types.js";
 import { cronStoreKey } from "./key.js";

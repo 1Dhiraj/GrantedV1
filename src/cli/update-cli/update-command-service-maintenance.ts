@@ -5,7 +5,7 @@ import { stableStringify } from "@granted/normalization-core/stable-stringify";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { createConfigIO } from "../../config/io.js";
 import { resolveGatewayPort } from "../../config/paths.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   GATEWAY_SERVICE_RUNTIME_PID_ENV,
   isGatewayServiceEnv,

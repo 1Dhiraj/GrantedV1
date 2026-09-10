@@ -8,8 +8,8 @@ import {
   deleteSessionEntryLifecycle,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { createGatewayBroadcaster } from "./server-broadcast.js";
 import {
   createSessionEventSubscriberRegistry,

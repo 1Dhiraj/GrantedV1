@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import { readAcpSessionMeta, upsertAcpSessionMeta } from "../../acp/runtime/session-meta.js";
 import { writeSessionEntry } from "../../config/sessions/session-accessor.sqlite-entry-store.js";
-import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { runOpenClawAgentWriteTransaction } from "../../state/granted-agent-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { createRuntimeAgent } from "./runtime-agent.js";
 
 describe("plugin runtime ACP session creation", () => {

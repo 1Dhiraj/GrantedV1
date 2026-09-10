@@ -1,6 +1,6 @@
 /** Runtime-loaded channel target helpers used by cron delivery resolution. */
 import type { ChannelId } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveOutboundChannelPlugin } from "../../infra/outbound/channel-resolution.js";
 import {
   resolveOutboundSessionRoute,

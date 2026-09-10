@@ -3,10 +3,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { tryReadJson } from "../infra/json-files.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import {
   runInstallPolicy,
   type InstallPolicyFinding,

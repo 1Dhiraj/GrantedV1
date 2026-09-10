@@ -17,7 +17,7 @@ import { describeBinding } from "../commands/agents.binding-format.js";
 import { mergeAccountConfig } from "../config/channel-account-config.js";
 import { hasUnresolvedConfigPath } from "../config/resolution-facts.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { AgentToolsConfig } from "../config/types.tools.js";
 import { resolveGatewayAuthForConfig, type ResolvedGatewayAuth } from "../gateway/auth-resolve.js";
 import { resolveAllowedAgentIds } from "../gateway/hooks-policy.js";

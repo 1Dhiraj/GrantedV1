@@ -1,5 +1,5 @@
 // Shared abort runtime types for cancellation and cutoff persistence.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { FinalizedRuntimeMsgContext } from "../templating.js";
 
 /** Result from the fast abort path before normal reply dispatch starts. */

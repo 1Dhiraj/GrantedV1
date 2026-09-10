@@ -1,6 +1,6 @@
 // Config-flow step tests cover doctor repair step ordering and mutation planning.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.granted.js";
 
 const { migrateLegacyConfigMock, stripUnknownConfigKeysMock } = vi.hoisted(() => ({
   migrateLegacyConfigMock: vi.fn(),

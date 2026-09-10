@@ -1,6 +1,6 @@
 // Gateway auth token resolution applies explicit/config/SecretRef/env
 // precedence with caller-controlled env fallback behavior.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { trimToUndefined } from "./credentials.js";
 import {
   resolveConfiguredSecretInputWithFallback,

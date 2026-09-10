@@ -6,7 +6,7 @@
  */
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveBrewExecutable } from "../infra/brew.js";
 import { isContainerEnvironment } from "../infra/container-environment.js";
 import type { RuntimeEnv } from "../runtime.js";

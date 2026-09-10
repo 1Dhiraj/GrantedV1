@@ -21,14 +21,14 @@ import {
   isPidDefinitelyDead,
 } from "../shared/pid-alive.js";
 import { SKIPPED_UPDATE_OUTCOMES } from "../shared/update-outcome.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { resolveExecutableFromPathEnv } from "./executable-path.js";
 import { resolveInstallationTarget } from "./installation-target-context.js";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "./kysely-sync.js";
 import { openNodeSqliteDatabase, resolveNodeSqliteLocation } from "./node-sqlite.js";
 import type { GatewayRestartIntent } from "./restart-intent.js";
 import { SUPERVISOR_HINT_ENV_VARS, type RespawnSupervisor } from "./supervisor-markers.js";
-import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./tmp-granted-dir.js";
 import type { UpdateChannel } from "./update-channels.js";
 import {
   CONTROL_PLANE_UPDATE_SENTINEL_META_ENV,
@@ -1429,7 +1429,7 @@ function resolveGatewayServiceRecovery(
 }
 
 function resolveManagedUpdateLeaseDatabasePath(): string {
-  return path.join(resolvePreferredOpenClawTmpDir(), "managed-update-handoffs.sqlite");
+  return path.join(resolvePreferredGrantedTmpDir(), "managed-update-handoffs.sqlite");
 }
 
 function waitForHandoffResponse(child: HandoffChild, command?: string): Promise<string> {

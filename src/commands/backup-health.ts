@@ -5,7 +5,7 @@ import {
   readLatestSuccessfulBackupRun,
   type BackupRunRecord,
 } from "../state/backup-run-records.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
 
 // Backups older than two weeks no longer provide a useful routine recovery point.
 const BACKUP_STALE_AFTER_MS = 14 * 24 * 60 * 60 * 1_000;

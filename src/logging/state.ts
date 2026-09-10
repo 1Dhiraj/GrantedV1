@@ -1,5 +1,5 @@
 // Process-local logging state shared by logger, console capture, and test reset helpers.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const LOGGING_STATE_KEY = Symbol.for("openclaw.loggingState");
 export const APPLIED_LOGGING_CONFIG_UNOWNED = "unowned" as const;

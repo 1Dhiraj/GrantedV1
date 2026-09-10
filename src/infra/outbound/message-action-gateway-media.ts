@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { ReplyPayload } from "../../auto-reply/reply-payload.js";
 import type { ChannelId } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import { resolveOutboundMediaMaxBytes } from "../../media/configured-max-bytes.js";
 import type { OutboundMediaAccess } from "../../media/load-options.js";

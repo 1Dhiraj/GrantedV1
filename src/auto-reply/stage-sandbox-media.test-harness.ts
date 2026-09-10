@@ -1,6 +1,6 @@
 /** Shared harness for sandbox media staging tests. */
 import { join } from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withTempHome as withTempHomeBase } from "../plugin-sdk/test-env.js";
 import type { RuntimeMsgContext as MsgContext, TemplateContext } from "./templating.js";
 

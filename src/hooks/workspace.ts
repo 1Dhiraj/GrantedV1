@@ -4,7 +4,7 @@ import path from "node:path";
 import { safeParseJson } from "@granted/normalization-core";
 import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { MANIFEST_KEYS, readManifestSection } from "../compat/legacy-names.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { openRootFileSync, readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { isPathInsideWithRealpath } from "../security/scan-paths.js";

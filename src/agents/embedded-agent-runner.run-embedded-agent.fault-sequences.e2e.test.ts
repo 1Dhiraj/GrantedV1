@@ -146,7 +146,7 @@ async function withScenarioWorkspace<T>(
   } finally {
     const { waitForSessionTranscriptIndexReconcile } =
       await import("../config/sessions/session-transcript-reconcile.js");
-    const { closeOpenClawAgentDatabaseByPath } = await import("../state/openclaw-agent-db.js");
+    const { closeOpenClawAgentDatabaseByPath } = await import("../state/granted-agent-db.js");
     const { closeAuthProfileReadPool } = await import("./auth-profiles/sqlite.js");
     const databasePath = path.join(agentDir, "openclaw-agent.sqlite");
     try {

@@ -23,7 +23,7 @@ import {
   loadPersistedPluginModelCatalogsReadOnly,
 } from "../agents/plugin-model-catalog.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { listAgentModelsJsonPaths } from "../secrets/storage-scan.js";
 import { shortenHomePath } from "../utils.js";

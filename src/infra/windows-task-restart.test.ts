@@ -9,7 +9,7 @@ import { getWindowsCmdExePath } from "./windows-install-roots.js";
 import { decodeWindowsLauncherScript } from "./windows-launcher-encoding.js";
 
 const spawnMock = vi.hoisted(() => vi.fn());
-const resolvePreferredOpenClawTmpDirMock = vi.hoisted(() => vi.fn(() => os.tmpdir()));
+const resolvePreferredGrantedTmpDirMock = vi.hoisted(() => vi.fn(() => os.tmpdir()));
 const resolveTaskScriptPathMock = vi.hoisted(() =>
   vi.fn((env: Record<string, string | undefined>) => {
     const home = env.USERPROFILE || env.HOME || os.homedir();
@@ -29,8 +29,8 @@ vi.mock("node:child_process", async () => {
     },
   );
 });
-vi.mock("./tmp-openclaw-dir.js", () => ({
-  resolvePreferredOpenClawTmpDir: () => resolvePreferredOpenClawTmpDirMock(),
+vi.mock("./tmp-granted-dir.js", () => ({
+  resolvePreferredGrantedTmpDir: () => resolvePreferredGrantedTmpDirMock(),
 }));
 vi.mock("../daemon/schtasks.js", () => ({
   resolveTaskScriptPath: (env: Record<string, string | undefined>) =>
@@ -96,8 +96,8 @@ describe("relaunchGatewayScheduledTask", () => {
 
   beforeEach(() => {
     spawnMock.mockReset();
-    resolvePreferredOpenClawTmpDirMock.mockReset();
-    resolvePreferredOpenClawTmpDirMock.mockReturnValue(os.tmpdir());
+    resolvePreferredGrantedTmpDirMock.mockReset();
+    resolvePreferredGrantedTmpDirMock.mockReturnValue(os.tmpdir());
     resolveTaskScriptPathMock.mockReset();
     resolveTaskScriptPathMock.mockImplementation((env: Record<string, string | undefined>) => {
       const home = env.USERPROFILE || env.HOME || os.homedir();
@@ -213,7 +213,7 @@ describe("relaunchGatewayScheduledTask", () => {
     const unref = vi.fn();
     const metacharTmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw&(restart)-"));
     createdTmpDirs.add(metacharTmpDir);
-    resolvePreferredOpenClawTmpDirMock.mockReturnValue(metacharTmpDir);
+    resolvePreferredGrantedTmpDirMock.mockReturnValue(metacharTmpDir);
     spawnMock.mockReturnValue({ unref });
 
     relaunchGatewayScheduledTask({ GRANTED_PROFILE: "work" });

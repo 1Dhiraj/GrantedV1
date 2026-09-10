@@ -16,7 +16,7 @@ import {
 const CHROME_NETWORK_PREDICTION_DISABLED = 2;
 
 function decoratedMarkerPath(userDataDir: string) {
-  return path.join(userDataDir, ".openclaw-profile-decorated");
+  return path.join(userDataDir, ".granted-profile-decorated");
 }
 
 function safeReadJson(filePath: string): Record<string, unknown> | null {

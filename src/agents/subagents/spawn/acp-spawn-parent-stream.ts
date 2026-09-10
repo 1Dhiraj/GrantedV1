@@ -12,7 +12,7 @@ import {
   resolveChannelStreamingProgressCommentary,
   type StreamingCompatEntry,
 } from "../../../channels/streaming.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { onAgentEventForRun } from "../../../infra/agent-events.js";
 import {
   type EventSessionRoutingPolicy,

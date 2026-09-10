@@ -1,6 +1,6 @@
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
-import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
+import { runOpenClawAgentWriteTransaction } from "../../state/granted-agent-db.js";
 import { chunkItems } from "../../utils/chunk-items.js";
 import {
   deliveryContextFromSession,

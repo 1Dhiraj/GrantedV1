@@ -8,7 +8,7 @@ import {
   createChannelIngressQueueForTests as createChannelIngressQueue,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { expect, vi } from "vitest";
 
 export type SpoolPayload = {
@@ -66,7 +66,7 @@ export async function withQueue<T>(
   ) => Promise<T>,
 ): Promise<T> {
   const createdDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-line-spool-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-line-spool-"),
   );
   const stateDir = await fs.realpath(createdDir);
   const queue = createChannelIngressQueue<SpoolPayload>({

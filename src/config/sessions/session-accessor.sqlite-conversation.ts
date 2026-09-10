@@ -1,6 +1,6 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 import {
   conversationIdentityFromSessionEntry,
   type ConversationIdentity,

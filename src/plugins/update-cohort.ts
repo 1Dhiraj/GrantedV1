@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import type { UpdateChannel } from "../infra/update-channels.js";
 import type { PluginCapabilityConsentHandler } from "./capability-consent.js";

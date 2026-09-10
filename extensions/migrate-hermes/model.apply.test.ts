@@ -2,7 +2,7 @@
 import path from "node:path";
 import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -31,7 +31,7 @@ function defaultModelItem(status: "migrated" | "conflict") {
 describe("Hermes migration model apply", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-hermes-",
     });
   });

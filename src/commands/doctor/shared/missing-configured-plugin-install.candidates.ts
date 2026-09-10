@@ -1,7 +1,7 @@
 import path from "node:path";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listRawChannelPluginCatalogEntries } from "../../../channels/plugins/catalog.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { PluginInstallRecord } from "../../../config/types.plugins.js";
 import { compareOpenClawReleaseVersions } from "../../../infra/npm-registry-spec.js";
 import {

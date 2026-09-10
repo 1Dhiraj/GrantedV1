@@ -1,12 +1,12 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 import path from "node:path";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   GrantedStateLeaseError,
   withOpenClawStateLease,
   type GrantedStateLeaseContext,
-} from "../state/openclaw-state-lease.js";
+} from "../state/granted-state-lease.js";
 import { createPluginCache, withPluginCache } from "./plugin-cache.js";
 
 const PLUGIN_LIFECYCLE_LEASE_SCOPE = "core:plugin-lifecycle";

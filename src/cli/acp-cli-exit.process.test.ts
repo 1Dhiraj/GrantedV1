@@ -8,8 +8,8 @@ import { type RawData, WebSocketServer } from "ws";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+} from "../state/granted-state-db.js";
+import { createOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { runCliProcessChild } from "./cli-process-child.test-helpers.js";
 
 const INITIALIZE_FRAME = {

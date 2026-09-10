@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { promisify } from "node:util";
-import { ensureOpenClawAgentDatabaseSchema } from "../state/openclaw-agent-db.js";
+import { ensureOpenClawAgentDatabaseSchema } from "../state/granted-agent-db.js";
 
 const execFileAsync = promisify(execFile);
 // The fixture owns its package assets; resolving linked source back to the checkout

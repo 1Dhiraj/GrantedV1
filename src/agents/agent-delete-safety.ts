@@ -1,8 +1,8 @@
 /** Safety checks for deleting agents whose workspaces may overlap other agents. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { isSameOpenClawAgentDatabasePath } from "../state/openclaw-agent-db-registry.js";
+import { isSameOpenClawAgentDatabasePath } from "../state/granted-agent-db-registry.js";
 import { listAgentEntries, resolveAgentWorkspaceDir } from "./agent-scope.js";
 import {
   resolveSharedAuthStoreOwnership,

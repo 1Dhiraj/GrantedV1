@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { resolveStateDir } from "granted/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { captureEnv, mockPinnedHostnameResolution } from "granted/plugin-sdk/test-env";
 import {
   createGrayscaleAlphaPngBuffer,
@@ -55,7 +55,7 @@ async function expectLocalMediaAccessCode(promise: Promise<unknown>, code: strin
 
 beforeAll(async () => {
   fixtureRoot = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-media-test-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-media-test-"),
   );
   largeJpegBuffer = await fs.readFile("docs/assets/showcase/roof-camera-sky.jpg");
   largeJpegFile = await writeTempFile(largeJpegBuffer, ".jpg");
@@ -282,7 +282,7 @@ describe("local media root guard", () => {
 
   it("allows local paths under an explicit root", async () => {
     const result = await loadWebMedia(tinyPngFile, 1024 * 1024, {
-      localRoots: [resolvePreferredOpenClawTmpDir()],
+      localRoots: [resolvePreferredGrantedTmpDir()],
     });
     expect(result.kind).toBe("image");
   });
@@ -293,7 +293,7 @@ describe("local media root guard", () => {
     try {
       await expectLocalMediaAccessCode(
         loadWebMedia("file://attacker/share/evil.png", 1024 * 1024, {
-          localRoots: [resolvePreferredOpenClawTmpDir()],
+          localRoots: [resolvePreferredGrantedTmpDir()],
         }),
         "invalid-file-url",
       );
@@ -310,7 +310,7 @@ describe("local media root guard", () => {
     const file = await fs.realpath(tinyPngFile);
     const actualLstat = fs.lstat;
     // Keep the fixture's real root before the Windows platform mock changes temp-path resolution.
-    const realTmpRoot = resolvePreferredOpenClawTmpDir();
+    const realTmpRoot = resolvePreferredGrantedTmpDir();
     let unknownInspections = 0;
 
     await withMockedWindowsPlatform(async () => {
@@ -347,7 +347,7 @@ describe("local media root guard", () => {
   });
 
   it("rejects Windows network paths before filesystem checks", async () => {
-    const realTmpRoot = resolvePreferredOpenClawTmpDir();
+    const realTmpRoot = resolvePreferredGrantedTmpDir();
 
     await withMockedWindowsPlatform(async () => {
       const realpathSpy = vi.spyOn(fs, "realpath");

@@ -14,7 +14,7 @@ import {
   setCommandLaneConcurrency,
 } from "../../process/command-queue.js";
 import { CommandLane } from "../../process/lanes.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import * as cronStoreModule from "../store.js";
 import { loadCronStore, saveCronStore } from "../store.js";
 import { cronStoreKey } from "../store/key.js";

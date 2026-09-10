@@ -1,5 +1,5 @@
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { AssistantMessage } from "../../llm/types.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {

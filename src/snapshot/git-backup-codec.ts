@@ -9,15 +9,15 @@ import { assertSqliteIntegrity } from "../infra/sqlite-integrity.js";
 import { createPrivateSqliteTempDirectory } from "../infra/sqlite-private-directory.js";
 import { publishVerifiedSqliteFile } from "../infra/sqlite-snapshot.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { getOpenClawStateRuntimeSchema } from "../state/openclaw-state-schema-compatibility.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
+import { getOpenClawStateRuntimeSchema } from "../state/granted-state-schema-compatibility.js";
 import {
   AGENT_SECRET_TABLE_NAMES,
   STATE_SECRET_CONFIG_STATE_KEY_PREFIXES,
   STATE_SECRET_TABLE_NAMES,
 } from "../state/secret-state-tables.js";
 import { hashSnapshotArtifact } from "./manifest.js";
-import { buildSnapshotValidator } from "./openclaw-snapshot-copy.js";
+import { buildSnapshotValidator } from "./granted-snapshot-copy.js";
 import { SNAPSHOT_SQLITE_FILENAME } from "./snapshot-provider.js";
 
 export const GIT_BACKUP_MANIFEST = "manifest.json";

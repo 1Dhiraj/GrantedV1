@@ -5,7 +5,7 @@ import { OPENAI_RESPONSES_APIS } from "@granted/ai/internal/openai-responses-pay
  * Applies logging redaction rules to persisted messages while preserving unchanged object identity.
  */
 import { findNormalizedProviderValue } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readLoggingConfig } from "../logging/config.js";
 import { redactSourceInputTextWithConfig } from "../logging/redact-source.js";
 import {

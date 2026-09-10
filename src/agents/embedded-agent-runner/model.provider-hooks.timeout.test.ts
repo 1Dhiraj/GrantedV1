@@ -2,12 +2,12 @@ import { createServer, type Server } from "node:http";
 import { withFirstStreamEventTimeout } from "@granted/ai/internal/runtime";
 import { beforeEach, describe, expect, it } from "vitest";
 import { withTestTimeout } from "../../../test/helpers/promise.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import type { StreamFn } from "../runtime/index.js";
 import { guardModelFixtureAuth } from "./model.fixture.test-support.js";
 import { resolveModelAsync } from "./model.js";

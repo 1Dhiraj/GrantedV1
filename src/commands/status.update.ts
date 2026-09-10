@@ -2,7 +2,7 @@
 // Wraps registry/git update checks and formats compact update rows/hints.
 
 import { formatCliCommand } from "../cli/command-format.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRoot } from "../infra/granted-root.js";
 import {
   normalizeUpdateChannel,
   resolveEffectiveUpdateChannel,

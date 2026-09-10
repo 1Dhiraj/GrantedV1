@@ -7,7 +7,7 @@
  */
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { loadExactSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { deriveSessionTitle } from "../gateway/session-utils.js";
 import { resolveSandboxSessionToolsVisibility } from "../plugin-sdk/session-visibility.js";
 import { buildAgentMainSessionKey, parseAgentSessionKey } from "../routing/session-key.js";

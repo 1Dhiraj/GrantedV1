@@ -4,7 +4,7 @@
 import { expectDefined } from "@granted/normalization-core";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import * as loggingConfigModule from "../logging/config.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";
 import { resetSecretRedactionRegistryForTest } from "../logging/secret-redaction-registry.test-support.js";

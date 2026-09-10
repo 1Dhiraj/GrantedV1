@@ -5,9 +5,9 @@ import {
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
 import type { SessionEntry, SessionGoal } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { ensureProfileForEmail } from "../../state/user-profiles.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { handleGatewayRequest } from "../server-methods.js";
 import { SessionMutationAuthorizationChangedError } from "../session-sharing.js";
 import { flushPendingSessionsChangedEvents } from "./session-change-event.js";

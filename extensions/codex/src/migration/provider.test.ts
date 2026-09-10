@@ -8,7 +8,7 @@ import {
 import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import { upsertAuthProfile } from "granted/plugin-sdk/provider-auth";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -138,7 +138,7 @@ async function createCodexFixture(): Promise<{
   workspaceDir: string;
 }> {
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-migrate-codex-",
   });
   tempWorkspaces.push(workspace);
@@ -215,7 +215,7 @@ describe("buildCodexMigrationProvider", () => {
 
   it("preserves whitespace in nonempty CODEX_HOME values", async () => {
     const workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-codex-",
     });
     tempWorkspaces.push(workspace);

@@ -9,7 +9,7 @@ import { saveAuthProfileStore } from "../agents/auth-profiles/store.js";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import { clearSecretsRuntimeSnapshot } from "./runtime.js";
 import { asConfig } from "./runtime.test-support.js";
 

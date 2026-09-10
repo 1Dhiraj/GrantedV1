@@ -8,9 +8,9 @@ import {
   writeConfigMachineState,
   updateConfigMachineState,
 } from "../state/config-machine-state.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import type { TuiSessionList } from "./tui-backend.js";
 import type { SessionScope } from "./tui-types.js";
 

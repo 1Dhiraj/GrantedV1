@@ -2,7 +2,7 @@
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { isRetainedExecutionOwnerBinding } from "../../audit/execution-owner-binding.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import {
   createRunningTaskRun,

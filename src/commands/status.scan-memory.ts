@@ -4,7 +4,7 @@
 import { resolveMemorySearchConfig } from "../agents/memory-search.js";
 import type { GrantedConfig } from "../config/types.js";
 import { createLazyImportLoader } from "../shared/lazy-promise.js";
-import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.paths.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/granted-agent-db.paths.js";
 import type { getAgentLocalStatuses as getAgentLocalStatusesFn } from "./status.agent-local.js";
 import {
   resolveSharedMemoryStatusSnapshot,

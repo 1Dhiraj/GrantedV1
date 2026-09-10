@@ -3,7 +3,7 @@ import type {
   SessionCatalogSession,
 } from "../../../packages/gateway-protocol/src/index.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type {
   SessionCatalogListProviderParams,
   SessionCatalogProvider,

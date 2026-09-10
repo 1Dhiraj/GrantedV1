@@ -14,9 +14,9 @@ import {
 } from "../src/agents/auth-profiles/sqlite.js";
 import { isCurrentProcessLaunchdServiceLabel } from "../src/daemon/launchd-current-service.js";
 import { detectGatewayRespawnSupervisor } from "../src/infra/supervisor-markers.js";
-import { closeOpenClawAgentDatabaseByPath } from "../src/state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseByPath } from "../src/state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../src/state/openclaw-state-db.paths.js";
+import { closeOpenClawAgentDatabaseByPath } from "../src/state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseByPath } from "../src/state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../src/state/granted-state-db.paths.js";
 import {
   captureFullEnv,
   deleteTestEnvValue,

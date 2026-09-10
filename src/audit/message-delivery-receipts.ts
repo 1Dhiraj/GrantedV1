@@ -3,7 +3,7 @@ import type {
   DecisionReceiptV1,
   ExecutionIdentityContextV1,
 } from "../../packages/gateway-protocol/src/index.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import type { OutboundMessageAuditEventRecord } from "./audit-event-types.js";
 import {
   countOutboundMessageAuditEventsForRun,

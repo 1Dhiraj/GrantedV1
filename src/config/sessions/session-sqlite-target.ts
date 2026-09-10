@@ -1,15 +1,15 @@
 import { lstatSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { LEGACY_IMPLICIT_AGENT_ID, normalizeAgentId } from "../../routing/session-key.js";
-import type { GrantedRegisteredAgentDatabase } from "../../state/openclaw-agent-db-contract.js";
+import type { GrantedRegisteredAgentDatabase } from "../../state/granted-agent-db-contract.js";
 import {
   isSameOpenClawAgentDatabasePath,
   listOpenClawRegisteredAgentDatabases,
-} from "../../state/openclaw-agent-db-registry.js";
+} from "../../state/granted-agent-db-registry.js";
 import {
   inspectOpenClawAgentDatabaseOwner,
   isIncognitoOpenClawAgentSqlitePath,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 
 /** SQLite database target resolved from a legacy session store path. */
 type ResolvedSqliteStoreTarget = {

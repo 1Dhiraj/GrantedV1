@@ -46,7 +46,7 @@ struct StateDirectoryIsolationTrait: TestTrait, TestScoping {
             }
         }
         let quarantine = FileManager.default.temporaryDirectory
-            .appendingPathComponent("openclaw-test-state-quarantine-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("granted-test-state-quarantine-\(UUID().uuidString)", isDirectory: true)
         try? FileManager.default.createDirectory(at: quarantine, withIntermediateDirectories: true)
         return quarantine.path
     }()
@@ -61,7 +61,7 @@ struct StateDirectoryIsolationTrait: TestTrait, TestScoping {
         // launch environment, not a prior test's temp dir.
         let restorePath = Self.restoreStateDirPath
         let stateDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("openclaw-test-state-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("granted-test-state-\(UUID().uuidString)", isDirectory: true)
         var thrown: (any Error)?
         do {
             try FileManager.default.createDirectory(at: stateDir, withIntermediateDirectories: true)

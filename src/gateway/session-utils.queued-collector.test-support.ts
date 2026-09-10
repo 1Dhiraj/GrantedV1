@@ -21,7 +21,7 @@ import { onSessionLifecycleEvent } from "../sessions/session-lifecycle-events.js
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { registerChatAbortController } from "./chat-abort.js";
 import { buildAgentSessionPatch } from "./server-methods/agent-session-patch.js";
 import { createChatAbortContext } from "./server-methods/chat.abort.test-helpers.js";

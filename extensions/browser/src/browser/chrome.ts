@@ -15,7 +15,7 @@ import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtim
 import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { SsrFPolicy } from "../infra/net/ssrf.js";
 import { ensurePortAvailable } from "../infra/ports.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { CONFIG_DIR } from "../utils.js";
@@ -1037,7 +1037,7 @@ export async function launchOpenClawChrome(
       HOME: os.homedir(),
     };
     if (process.platform === "linux") {
-      const chromiumStateDir = path.join(resolvePreferredOpenClawTmpDir(), ".chromium");
+      const chromiumStateDir = path.join(resolvePreferredGrantedTmpDir(), ".chromium");
       env.XDG_CONFIG_HOME ??= chromiumStateDir;
       env.XDG_CACHE_HOME ??= chromiumStateDir;
     }

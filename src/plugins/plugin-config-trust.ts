@@ -1,6 +1,6 @@
 /** Applies workspace plugin allow/deny config before manifest records reach control-plane decisions. */
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 
 type PluginEntriesConfig = NonNullable<NonNullable<GrantedConfig["plugins"]>["entries"]>;

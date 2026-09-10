@@ -2,12 +2,12 @@
 import type { DatabaseSync } from "node:sqlite";
 import { DEVICE_PAIRING_JOIN_CODE_BYTES, isDevicePairingJoinCode } from "../pairing/join-code.js";
 import { decodePairingSetupCode, encodePairingSetupCode } from "../pairing/setup-code.js";
-import { ensureDevicePairingJoinCodeSchema } from "../state/openclaw-state-db-schema-additive.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { ensureDevicePairingJoinCodeSchema } from "../state/granted-state-db-schema-additive.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

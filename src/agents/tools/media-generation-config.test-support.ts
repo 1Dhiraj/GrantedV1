@@ -1,5 +1,5 @@
 // Test-only bridge that feeds legacy fixture values through the canonical mediaModels owner.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 type MediaCapability = "image" | "music" | "video";
 type LegacyMediaModelKey = "imageGenerationModel" | "musicGenerationModel" | "videoGenerationModel";

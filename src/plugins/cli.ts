@@ -1,7 +1,7 @@
 // Registers plugin-related CLI commands.
 import type { Command } from "commander";
 import { getRuntimeConfigSnapshot, readConfigFileSnapshot } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   createPluginCliLogger,
   createPluginCliLoadSession,

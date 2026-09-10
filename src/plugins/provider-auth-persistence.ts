@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { persistAuthProfileBatch } from "../agents/auth-profiles.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isValidEnvSecretRefId, type SecretRef } from "../config/types.secrets.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";
 import { resolveDefaultSecretProviderAlias } from "../secrets/ref-contract.js";

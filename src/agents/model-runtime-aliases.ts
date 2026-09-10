@@ -4,7 +4,7 @@
 import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAgentDir } from "./agent-scope-config.js";
 import { resolveExplicitAuthOrderSelection } from "./auth-profiles/order.js";
 import { getPreparedRuntimeAuthProfileStoreSnapshotCore } from "./auth-profiles/runtime-snapshots.js";

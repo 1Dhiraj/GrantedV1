@@ -14,7 +14,7 @@ import { LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH } from "../../scripts/lib/pa
 import { createDeferred } from "../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { sanitizeTriageUpdateFailure } from "../commands/triage-update.js";
-import type { GrantedConfig, ConfigFileSnapshot } from "../config/types.openclaw.js";
+import type { GrantedConfig, ConfigFileSnapshot } from "../config/types.granted.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import {
   GATEWAY_SERVICE_RUNTIME_PID_ENV,
@@ -161,17 +161,17 @@ vi.mock("../infra/update-runner.js", async (importOriginal) => ({
   runGatewayUpdate: vi.fn(),
 }));
 
-vi.mock("../state/openclaw-database-preflight.js", () => ({
+vi.mock("../state/granted-database-preflight.js", () => ({
   GRANTED_DATABASE_SCHEMA_DOCS_URL: "https://docs.openclaw.ai/reference/database-schemas",
   preflightOpenClawDatabaseSchemas: databasePreflightMocks.preflightOpenClawDatabaseSchemas,
 }));
 
-vi.mock("../state/openclaw-state-ownership.js", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../state/openclaw-state-ownership.js")>()),
+vi.mock("../state/granted-state-ownership.js", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../state/granted-state-ownership.js")>()),
   assertOpenClawStateWriteAllowedAtPath: vi.fn(async () => undefined),
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/granted-root.js", () => ({
   resolveOpenClawPackageRoot: vi.fn(),
   resolveOpenClawPackageRootSync: vi.fn(() => process.cwd()),
 }));
@@ -537,7 +537,7 @@ vi.mock("../commands/triage.js", () => ({ triageCommand }));
 const { runGatewayUpdate } = await import("../infra/update-runner.js");
 // Real recovery dependencies need the initialized runtime and child-process mocks.
 const { runUpdateFailureTriage } = await import("../infra/update-triage.js");
-const { resolveOpenClawPackageRoot } = await import("../infra/openclaw-root.js");
+const { resolveOpenClawPackageRoot } = await import("../infra/granted-root.js");
 const { resolveGatewayInstallEntrypoint } = await import("../daemon/gateway-entrypoint.js");
 const {
   mutateConfigFileWithRetry,

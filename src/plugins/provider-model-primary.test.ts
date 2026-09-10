@@ -1,6 +1,6 @@
 /** Verifies primary provider model selection across plugin model metadata. */
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { applyPrimaryModel } from "./provider-model-primary.js";
 
 describe("applyPrimaryModel", () => {

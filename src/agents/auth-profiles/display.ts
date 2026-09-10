@@ -2,7 +2,7 @@
  * Auth profile display labels.
  * Combines profile ids with configured human metadata for CLI/status output.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveAuthProfileMetadata } from "./identity.js";
 import type { AuthProfileStore } from "./types.js";
 

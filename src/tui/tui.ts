@@ -29,7 +29,7 @@ import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/sess
 import type { EmbeddedStateSignalProcess } from "../infra/embedded-state-lock.js";
 import { resolveExecutableFromPathEnv } from "../infra/executable-path.js";
 import type { GatewayLockIdentity, GatewayLockOptions } from "../infra/gateway-lock.js";
-import { resolveCurrentOpenClawCliInvocation } from "../infra/openclaw-cli-invocation.js";
+import { resolveCurrentOpenClawCliInvocation } from "../infra/granted-cli-invocation.js";
 import { tryProcessCwd } from "../infra/safe-cwd.js";
 import { registerUncaughtExceptionHandler } from "../infra/unhandled-rejections.js";
 import { setConsoleSubsystemFilter } from "../logging/console.js";

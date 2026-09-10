@@ -1,6 +1,6 @@
 // Configured hook helpers combine config and install records into active hooks.
 import type { HookConfig, HookInstallRecord } from "../config/types.hooks.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readConfigMachineState } from "../state/config-machine-state.js";
 
 function hasEnabledFlag(entry: HookConfig | undefined): boolean {

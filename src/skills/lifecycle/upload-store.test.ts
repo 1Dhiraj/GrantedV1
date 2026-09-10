@@ -10,7 +10,7 @@ import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { SkillUploadRequestError } from "./upload-store.js";
 import {
   deleteExpiredSkillUploadUnlessLeased,

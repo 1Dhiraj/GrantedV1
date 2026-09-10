@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveConversationCapabilityProfile } from "./conversation-capability-profile.js";
 import { createAdmittedHostCapabilityTestFixture } from "./harness/host-capability.test-support.js";
 import { resolveSandboxToolPolicyForAgent } from "./sandbox/tool-policy.js";

@@ -3,7 +3,7 @@ import {
   normalizeOptionalString,
 } from "@granted/normalization-core/string-coerce";
 import { resolveUserTimezone } from "../../agents/date-time.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildChannelSummary } from "../../infra/channel-summary.js";
 import {
   formatUtcTimestamp,

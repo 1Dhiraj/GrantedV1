@@ -3,13 +3,13 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { DecisionReceiptV1 } from "../../packages/gateway-protocol/src/index.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { readSqliteBusyTimeout } from "../infra/sqlite-busy-timeout.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   registerOpenClawStateDatabaseLifecycleListener,
-} from "../state/openclaw-state-db.js";
-import { claimOpenClawStateOwnership } from "../state/openclaw-state-ownership-operations.js";
+} from "../state/granted-state-db.js";
+import { claimOpenClawStateOwnership } from "../state/granted-state-ownership-operations.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { listAuditEvents, recordAuditEvent } from "./audit-event-store.js";
 import type { AuditEventInput } from "./audit-event-types.js";

@@ -5,8 +5,8 @@ import { expectDefined } from "@granted/normalization-core";
 // Covers plugin registry assembly, contribution lookup, and reset behavior.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { recordPluginCandidateInstallOwner } from "./candidate-install-owner.js";
 import type { PluginCandidate } from "./discovery.js";
 import { writePersistedInstalledPluginIndex } from "./installed-plugin-index-store-write.js";

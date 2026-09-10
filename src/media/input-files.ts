@@ -10,7 +10,7 @@ import { detectMime, normalizeMimeType } from "@granted/media-core/mime";
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
 import type { SsrFPolicy } from "../infra/net/ssrf.js";

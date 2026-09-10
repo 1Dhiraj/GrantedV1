@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { DEFAULT_SECRET_FILE_MAX_BYTES } from "granted/plugin-sdk/secret-file-runtime";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -137,7 +137,7 @@ function runResolver(params: {
   let stateDir = params.env?.GRANTED_STATE_DIR;
   if (!stateDir) {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-1password-test-",
     });
     resolverStateWorkspaces.push(workspace);
@@ -184,7 +184,7 @@ function runResolver(params: {
 
 beforeEach(() => {
   fixtureWorkspace = tempWorkspaceSync({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-1password-test-",
   });
 });

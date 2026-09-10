@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ImageContent, TextContent } from "../../llm/types.js";
 import type { AgentMessage } from "../runtime/index.js";
 

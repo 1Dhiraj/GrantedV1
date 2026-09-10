@@ -4,11 +4,11 @@ import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, beforeEach, vi } from "vitest";
 import { insertRegistryWorktree } from "../agents/worktrees/registry.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   type GrantedStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { createGitHubPublicationRuntime as createRuntime } from "./github-publication-runtime.js";
 import { createGitHubPublicationCoordinator as createCoordinator } from "./github-publication.js";
 import { REQUEST } from "./worker-environments/placement-dispatch-test-fixtures.js";

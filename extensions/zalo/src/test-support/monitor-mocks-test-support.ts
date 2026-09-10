@@ -15,7 +15,7 @@ import {
   setActivePluginRegistry,
 } from "granted/plugin-sdk/plugin-test-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi, type Mock } from "vitest";
 import type { ResolvedZaloAccount } from "../types.js";
 
@@ -143,7 +143,7 @@ export async function resetLifecycleTestState() {
 async function installLifecycleWebhookIngressState(): Promise<void> {
   const runtime = getZaloRuntimeMock() as PluginRuntime;
   const createdDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalo-lifecycle-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-zalo-lifecycle-"),
   );
   const stateDir = await fs.realpath(createdDir);
   previousLifecycleStateDir = process.env.GRANTED_STATE_DIR;

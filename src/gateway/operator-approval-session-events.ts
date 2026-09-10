@@ -3,7 +3,7 @@ import type {
   SessionApprovalEvent,
   SessionApprovalReplay,
 } from "../../packages/gateway-protocol/src/index.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { resolveApprovalSourceStreamKey } from "./approval-session-audience.js";
 import { normalizeControlUiBasePath } from "./control-ui-shared.js";
 import type { OperatorApprovalLifecycleEvent } from "./exec-approval-manager.js";

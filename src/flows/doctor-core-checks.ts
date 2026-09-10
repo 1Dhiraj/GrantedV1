@@ -30,7 +30,7 @@ import {
   resolveKnownModelRefMigrationTarget,
 } from "../commands/doctor/shared/codex-route-warnings.js";
 import { isDefaultInstallIdentity } from "../config/paths.js";
-import type { ConfigValidationIssue, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "../config/types.granted.js";
 import { resolveSecretInputRef, type SecretRef } from "../config/types.secrets.js";
 import type { CronListPageResult } from "../cron/service/list-page-types.js";
 import type { CronJob } from "../cron/types.js";

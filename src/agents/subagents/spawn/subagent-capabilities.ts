@@ -13,7 +13,7 @@ import {
 } from "@granted/normalization-core/string-coerce";
 import { DEFAULT_SUBAGENT_MAX_SPAWN_DEPTH } from "../../../config/agent-limits.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   isAcpSessionKey,
   isSubagentSessionKey,

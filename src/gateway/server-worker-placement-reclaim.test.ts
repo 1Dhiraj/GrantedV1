@@ -9,11 +9,11 @@ import { createDeferred } from "../../test/helpers/promise.js";
 import { loadTranscriptEvents, replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { clearAgentRunContext } from "../infra/agent-run-registry.js";
 import { runExclusiveSessionLifecycleMutation } from "../sessions/session-lifecycle-admission.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import {
   openOpenClawStateDatabase,
   closeOpenClawStateDatabaseForTest,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { pendingChatSendDedupeKey } from "./server-shared.js";
 import { cancelGatewayWorkerSessionWork } from "./server-worker-placement-cancel.js";
 import { createGatewayWorkerDispatchAdmission } from "./server-worker-placement-dispatch-admission.js";

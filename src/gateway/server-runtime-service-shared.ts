@@ -1,6 +1,6 @@
 // Shared Gateway runtime service helpers.
 // Supplies minimal service handles for tests and reduced startup paths.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HeartbeatRunner } from "../infra/heartbeat-runner.js";
 
 export type GatewayRuntimeServiceLogger = {

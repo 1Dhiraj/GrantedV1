@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 vi.mock("../../packages/terminal-core/src/note.js", () => ({ note: vi.fn() }));
 
@@ -118,7 +118,7 @@ afterEach(() => {
 });
 
 async function createFixture() {
-  const root = await fs.realpath(tempDirs.make("openclaw-tools-md-migration-"));
+  const root = await fs.realpath(tempDirs.make("granted-tools-md-migration-"));
   const stateDir = path.join(root, "state");
   const workspace = path.join(root, "workspace");
   await fs.mkdir(workspace, { recursive: true });

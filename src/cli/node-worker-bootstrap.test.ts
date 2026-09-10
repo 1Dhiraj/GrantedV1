@@ -28,12 +28,12 @@ import {
   writePlugin,
 } from "../plugins/loader.test-fixtures.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
-import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../state/openclaw-state-db-readonly.js";
-import type { DB } from "../state/openclaw-state-db.generated.js";
+import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../state/granted-state-db-readonly.js";
+import type { DB } from "../state/granted-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   initializeNativeOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { ensureCliCommandBootstrap } from "./command-bootstrap.js";
 import { resolveCliStartupPolicy } from "./command-startup-policy.js";
 import { testApi as configGuardTestApi } from "./program/config-guard.js";

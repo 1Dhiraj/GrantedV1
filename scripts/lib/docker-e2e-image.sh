@@ -153,7 +153,7 @@ docker_e2e_build_or_reuse() {
 docker_e2e_test_state_entrypoint() {
   local extension entrypoint
   for extension in mts mjs; do
-    entrypoint="$ROOT_DIR/scripts/lib/openclaw-test-state.$extension"
+    entrypoint="$ROOT_DIR/scripts/lib/granted-test-state.$extension"
     if [ -f "$entrypoint" ]; then
       printf '%s\n' "$entrypoint"
       return 0

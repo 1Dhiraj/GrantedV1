@@ -61,7 +61,7 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
 
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => ({
   ...(await importOriginal<typeof import("granted/plugin-sdk/temp-path")>()),
-  resolvePreferredOpenClawTmpDir: () => qaTempPathState.preferredTmpDir,
+  resolvePreferredGrantedTmpDir: () => qaTempPathState.preferredTmpDir,
 }));
 
 vi.mock("./node-exec.js", () => ({

@@ -11,7 +11,7 @@ import {
   getSessionEntry,
   upsertSessionEntry,
 } from "granted/plugin-sdk/session-store-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { buildTelegramMessageContextForTest } from "./bot-message-context.test-harness.js";
 
@@ -22,7 +22,7 @@ function createSuiteTempRootTracker(params: { prefix: string }) {
   const children: string[] = [];
   return {
     async setup() {
-      root = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), params.prefix));
+      root = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), params.prefix));
     },
     async make(name: string) {
       if (!root) {

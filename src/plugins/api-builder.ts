@@ -1,5 +1,5 @@
 // Builds plugin API objects from config, registries, and runtime helpers.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { attachPluginApiFacades, type GrantedPluginApiWithoutFacades } from "./api-facades.js";
 import type { PluginRuntime } from "./runtime/types.js";
 import type { GrantedPluginApi, PluginLogger } from "./types.js";

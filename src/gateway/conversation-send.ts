@@ -8,7 +8,7 @@ import {
   resolveConversationRegistryScope,
 } from "../config/sessions/conversation-registry.js";
 import { resolveConversationRouteFingerprint } from "../config/sessions/conversation-route-fingerprint.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   ConversationDeliveryRejectedError,
   defaultConversationDeliveryDeps,

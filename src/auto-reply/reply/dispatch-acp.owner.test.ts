@@ -6,7 +6,7 @@ import {
   unregisterAcpRuntimeBackend,
 } from "../../acp/runtime/registry.js";
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { tryDispatchAcpReplyCore } from "./dispatch-acp.js";
 import { createReplyDispatcher } from "./reply-dispatcher.js";
 import { buildTestCtx } from "./test-ctx.js";

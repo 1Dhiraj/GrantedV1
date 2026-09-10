@@ -9,7 +9,7 @@ import { isMissingPathError } from "./errors.js";
 import { readFileWindowFullySync } from "./file-read.js";
 import { resolveGitHeadPath } from "./git-root.js";
 import { pruneMapToMaxSize } from "./map-size.js";
-import { resolveOpenClawPackageRootSync } from "./openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "./granted-root.js";
 
 const formatCommit = (value?: string | null) => {
   if (!value) {

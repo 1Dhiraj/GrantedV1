@@ -44,7 +44,7 @@ import {
   readRegistryEntry,
   updateRegistry,
 } from "../agents/sandbox/registry.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { migrateLegacySandboxRegistryFiles } from "./doctor-sandbox-legacy-registry.js";
 

@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const runExecMock = vi.hoisted(() => vi.fn());
@@ -258,7 +258,7 @@ describe("qa multipass runtime", () => {
   });
 
   it("does not leave a temp guest transfer script behind when multipass is missing", async () => {
-    const tempRoot = resolvePreferredOpenClawTmpDir();
+    const tempRoot = resolvePreferredGrantedTmpDir();
     const before = new Set(fs.readdirSync(tempRoot));
     await renderPersistedGuestScript({
       outputDirName: "multipass-missing-test",

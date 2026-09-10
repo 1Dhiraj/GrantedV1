@@ -11,11 +11,11 @@ import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/sess
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { canonicalMemoryTestSupportModuleUrl } from "./doctor-session-canonical-keys.memory.test-support.js";
 import { insertLegacySession } from "./doctor-session-canonical-keys.test-support.js";
 
@@ -72,12 +72,12 @@ describe("canonical SQLite session repair memory", () => {
     bundleDir = fs.mkdtempSync(path.join(process.cwd(), "node_modules/.cache/canonical-memory-"));
     const childPath = path.join(bundleDir, "child.mjs");
     fs.copyFileSync(
-      path.join(process.cwd(), "src/state/openclaw-agent-schema.sql"),
-      path.join(bundleDir, "openclaw-agent-schema.sql"),
+      path.join(process.cwd(), "src/state/granted-agent-schema.sql"),
+      path.join(bundleDir, "granted-agent-schema.sql"),
     );
     fs.copyFileSync(
-      path.join(process.cwd(), "src/state/openclaw-state-schema.sql"),
-      path.join(bundleDir, "openclaw-state-schema.sql"),
+      path.join(process.cwd(), "src/state/granted-state-schema.sql"),
+      path.join(bundleDir, "granted-state-schema.sql"),
     );
     await esbuild({
       bundle: true,

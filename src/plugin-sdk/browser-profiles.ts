@@ -3,8 +3,8 @@
  */
 import path from "node:path";
 import type { BrowserConfig } from "../config/types.browser.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import type { ResolvedBrowserConfig, ResolvedBrowserProfile } from "./browser-types.js";
 import { loadBundledPluginPublicSurfaceModuleSyncCore } from "./facade-loader.js";
 export type {
@@ -28,7 +28,7 @@ export const DEFAULT_BROWSER_ACTION_TIMEOUT_MS = 60_000;
 /** Default maximum AI snapshot text captured from browser pages. */
 export const DEFAULT_AI_SNAPSHOT_MAX_CHARS = 80_000;
 /** Default upload staging directory used by browser-backed file uploads. */
-export const DEFAULT_UPLOAD_DIR = path.join(resolvePreferredOpenClawTmpDir(), "uploads");
+export const DEFAULT_UPLOAD_DIR = path.join(resolvePreferredGrantedTmpDir(), "uploads");
 
 type BrowserProfilesSurface = {
   resolveBrowserConfig: (

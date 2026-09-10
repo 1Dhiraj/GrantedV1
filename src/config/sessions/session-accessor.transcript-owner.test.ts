@@ -4,7 +4,7 @@ import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
 import { retainLegacyDefaultAgentId } from "../legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { loadTranscriptEvents, replaceSessionEntry } from "./session-accessor.js";
 import { persistSessionTranscriptTurn } from "./session-accessor.transcript-turn.js";
 

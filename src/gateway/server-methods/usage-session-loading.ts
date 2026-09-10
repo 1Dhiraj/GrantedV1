@@ -1,6 +1,6 @@
 import { expectDefined } from "@granted/normalization-core";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { mergeSessionCostSummaryInto } from "../../infra/session-cost-usage-rollup.js";
 import { createEmptyCostUsageTotals } from "../../infra/session-cost-usage-totals.js";
 import {

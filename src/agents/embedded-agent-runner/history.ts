@@ -5,7 +5,7 @@ import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { normalizeChatType, type ChatType } from "../../channels/chat-type.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeAccountId } from "../../routing/account-id.js";
 import { resolveNormalizedAccountEntry } from "../../routing/account-lookup.js";
 import { resolveLinkedDirectPeerId } from "../../routing/session-key.js";

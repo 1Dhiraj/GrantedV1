@@ -6,7 +6,7 @@ import {
   tryResolveDefaultAgentId,
 } from "../agents/agent-scope.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { collectPluginConfigContractMatches } from "../plugins/config-contract-matches.js";
 import { resolvePluginConfigContractsById } from "../plugins/config-contracts.js";
 import { isRecord, resolveUserPath } from "../utils.js";

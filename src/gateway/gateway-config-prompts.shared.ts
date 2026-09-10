@@ -3,7 +3,7 @@
 import { isIpv6Address, parseCanonicalIpAddress } from "@granted/net-policy/ip";
 import { expectDefined } from "@granted/normalization-core";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getTailnetHostname } from "../infra/tailscale.js";
 
 export const TAILSCALE_EXPOSURE_OPTIONS = [

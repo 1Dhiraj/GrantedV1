@@ -5,8 +5,8 @@ import {
   loadExactSessionEntryReadOnly,
   loadTranscriptEvents,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { createOpenClawTestState } from "../test-utils/granted-test-state.js";
 import type { ChatAbortControllerEntry } from "./chat-abort.js";
 import * as subscriptions from "./server-runtime-subscriptions.js";
 import { disconnectGatewayClient, startGatewayWithClient } from "./test-helpers.e2e.js";

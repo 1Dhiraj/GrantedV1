@@ -22,7 +22,7 @@ import {
   NODE_WORKER_WORKSPACE_EXEC_COMMAND,
 } from "../infra/node-commands.js";
 import { NODE_WORKER_SUPERVISOR_PROTOCOL_FEATURE } from "../infra/node-runner-inventory.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { resetLogger, setLoggerOverride } from "../logging/logger.js";
 import { createDiagnosticLogRecordCapture } from "../logging/test-helpers/diagnostic-log-capture.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
@@ -3406,7 +3406,7 @@ describe("gateway/node-registry", () => {
     setLoggerOverride({
       level: "warn",
       consoleLevel: "silent",
-      file: path.join(resolvePreferredOpenClawTmpDir(), `node-event-send-${process.pid}.log`),
+      file: path.join(resolvePreferredGrantedTmpDir(), `node-event-send-${process.pid}.log`),
     });
     const now = vi.spyOn(Date, "now").mockReturnValue(1_000);
     const registry = createTestNodeRegistry();

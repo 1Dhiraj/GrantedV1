@@ -12,12 +12,12 @@ import {
   assertOpenClawAgentDatabaseForMaintenance,
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../src/state/openclaw-agent-db.js";
+} from "../../src/state/granted-agent-db.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../src/state/openclaw-state-db.js";
+} from "../../src/state/granted-state-db.js";
 import { runVacuumInterruptionProof } from "./sqlite-reliability-compaction.js";
 import {
   COMMITTED_WAL_SENTINEL,

@@ -9,7 +9,7 @@ import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicyContext,
 } from "granted/plugin-sdk/plugin-entry";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createCodexNodeExecServerCommand,
@@ -423,7 +423,7 @@ describe("Codex node exec-server", () => {
     vi.stubEnv("NODE_OPTIONS", "--no-warnings");
 
     await withTempWorkspace(
-      { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "codex-node-exec-contract-" },
+      { rootDir: resolvePreferredGrantedTmpDir(), prefix: "codex-node-exec-contract-" },
       async ({ dir }) => {
         const cwd = await realpath(dir);
         const workspaceUri = pathToFileURL(cwd).href;

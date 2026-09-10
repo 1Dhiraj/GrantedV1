@@ -1,5 +1,5 @@
 import { withContainerEnvFile } from "../../infra/container-env-file.js";
-import { markOpenClawExecEnv } from "../../infra/openclaw-exec-env.js";
+import { markOpenClawExecEnv } from "../../infra/granted-exec-env.js";
 /**
  * Low-level Docker command helpers for sandbox runtimes.
  *

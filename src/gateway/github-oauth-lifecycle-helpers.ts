@@ -8,7 +8,7 @@ import type {
 } from "../agents/github-oauth-records.js";
 import type { GitHubToolAccount } from "../agents/github-tool-account.js";
 import { resolveConfiguredGitHubToolIdentity } from "../agents/github-tool-identity.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 
 export const REFRESH_SKEW_MS = 10 * 60_000;

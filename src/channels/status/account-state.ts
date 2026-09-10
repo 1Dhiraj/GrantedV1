@@ -1,5 +1,5 @@
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { redactToolPayloadTextWithConfig } from "../../logging/redact.js";
 import { getActivePluginRegistry } from "../../plugins/runtime.js";
 import { normalizeAccountId } from "../../routing/session-key.js";

@@ -19,11 +19,11 @@ import {
 } from "../../config/sessions/session-accessor.js";
 import { buildConversationRef } from "../../routing/conversation-ref.js";
 import { createDeferredCore } from "../../shared/deferred.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { normalizeSessionDeliveryState } from "../../utils/delivery-context.shared.js";
 import {
   OutboundDeliveryError,
@@ -311,7 +311,7 @@ describe("delivery-queue recovery", () => {
     } finally {
       // Reset modules gives recovery its own SQLite cache; close that handle before discarding it.
       const { closeOpenClawStateDatabaseForTest: closeRecoveryDatabase } =
-        await import("../../state/openclaw-state-db.js");
+        await import("../../state/granted-state-db.js");
       closeRecoveryDatabase();
       vi.doUnmock("./delivery-queue-storage.js");
       vi.resetModules();

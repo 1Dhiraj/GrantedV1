@@ -88,7 +88,7 @@ export function makeTerminalInput(overrides: TerminalInputOverrides = {}): Termi
     profileFailureStore: profileStore,
     attemptAuthProfileStore: profileStore,
     apiKeyInfo: null,
-    agentHarnessId: "builtin-openclaw",
+    agentHarnessId: "builtin-granted",
     settledTurnFinalizationOutcome: "not-attempted",
     pluginHarnessOwnsTransport: false,
     pluginHarnessOwnsAuthBootstrap: false,

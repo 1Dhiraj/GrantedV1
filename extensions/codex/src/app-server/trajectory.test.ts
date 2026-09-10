@@ -11,7 +11,7 @@ import {
   type SqliteTrajectoryRuntimeEventForTest,
 } from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -31,7 +31,7 @@ let testWorkspace: TempWorkspaceSync;
 
 beforeEach(() => {
   testWorkspace = tempWorkspaceSync({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-codex-trajectory-",
   });
 });

@@ -7,7 +7,7 @@ import type { ChannelSetupAdapter } from "../channels/plugins/types.adapters.js"
 import type { ChannelId } from "../channels/plugins/types.core.js";
 // Shared account-aware DM policy descriptors for channel setup surfaces.
 import type { DmPolicy } from "../config/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
 
 type DmPolicyAccountConfig = {

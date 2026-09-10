@@ -1,7 +1,7 @@
 // E2E: hook dispatch uses the shared cron budget without starving older cron work.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 import {
   createOpenClawTestInstance,
   type GrantedTestInstance,

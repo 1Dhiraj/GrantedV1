@@ -1,5 +1,5 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
+import { runOpenClawAgentWriteTransaction } from "../../state/granted-agent-db.js";
 import {
   normalizeLifecycleTarget,
   readSessionIdentitySnapshot,

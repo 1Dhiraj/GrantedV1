@@ -8,7 +8,7 @@ import type {
   SessionTranscriptTargetParams,
   TranscriptTurnAdmission,
 } from "granted/plugin-sdk/session-transcript-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi, type Mock } from "vitest";
 import { createAttemptTranscriptJournal } from "./attempt-transcript-journal.js";
 import type { AttemptParamsLike } from "./attempt-types.js";
@@ -80,7 +80,7 @@ export async function createFixture(
   resultContentSourceByToolName?: ReadonlyMap<string, "network">,
 ): Promise<AttemptTranscriptJournalFixture> {
   const tempDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-copilot-journal-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-copilot-journal-"),
   );
   tempDirs.push(tempDir);
   const target: SessionTranscriptTargetParams = {

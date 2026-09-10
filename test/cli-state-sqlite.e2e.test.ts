@@ -7,11 +7,11 @@ import { describe, expect, it } from "vitest";
 import {
   closeOpenClawAgentDatabaseByPath,
   openOpenClawAgentDatabase,
-} from "../src/state/openclaw-agent-db.js";
+} from "../src/state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
-} from "../src/state/openclaw-state-db.js";
+} from "../src/state/granted-state-db.js";
 
 describe("SQLite CLI maintenance ownership", () => {
   it("compacts after full CLI startup without retaining a config-health database handle", async () => {

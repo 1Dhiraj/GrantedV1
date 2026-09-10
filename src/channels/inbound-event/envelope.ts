@@ -5,7 +5,7 @@ import {
 } from "../../auto-reply/envelope.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { readSessionUpdatedAtCore } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   resolveAgentRoute,
   type ResolvedAgentRoute,

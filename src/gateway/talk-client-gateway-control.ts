@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { normalizeTalkSection } from "../config/talk.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createPluginRuntime } from "../plugins/runtime/index.js";
 import {
   GatewayDrainingError,

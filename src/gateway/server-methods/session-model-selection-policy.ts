@@ -4,7 +4,7 @@ import {
 } from "../../agents/sticky-model-selection.js";
 import { resolveIsNixMode } from "../../config/paths.js";
 import type { ModelSelectionScope } from "../../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { ADMIN_SCOPE } from "../operator-scopes.js";
 
 export function resolveGatewayModelSelectionPolicy(params: {

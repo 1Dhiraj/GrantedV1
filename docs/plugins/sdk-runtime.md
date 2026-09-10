@@ -911,7 +911,7 @@ snapshots; OpenClaw owns all persistence and lifecycle coordination.
       marginModules: 4, // 0-16
     });
     const pngQrDataUrl = await api.runtime.media.renderQrPngDataUrl("https://openclaw.ai");
-    const tmpRoot = resolvePreferredOpenClawTmpDir();
+    const tmpRoot = resolvePreferredGrantedTmpDir();
     const pngQrFile = await api.runtime.media.writeQrPngTempFile("https://openclaw.ai", {
       tmpRoot,
       dirPrefix: "my-plugin-qr-",

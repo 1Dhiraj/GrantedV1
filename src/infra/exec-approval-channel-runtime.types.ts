@@ -1,5 +1,5 @@
 // Defines channel-native approval runtime contracts.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   ApprovalRequestInput,
   ChannelApprovalKind,

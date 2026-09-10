@@ -1,7 +1,7 @@
 /** Builds embedded-agent settings snapshots from global, bundle, and project settings. */
 import path from "node:path";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { readBundleJsonObject } from "../plugins/bundle-config-shared.js";
 import type { BundleMcpServerConfig } from "../plugins/bundle-mcp.js";

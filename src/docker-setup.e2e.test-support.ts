@@ -4,7 +4,7 @@ import { createServer } from "node:net";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect } from "vitest";
-import { resolvePreferredOpenClawTmpDir } from "./infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./infra/tmp-granted-dir.js";
 import { createSuiteTempRootTracker } from "./test-helpers/temp-dir.js";
 
 export const repoRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -18,7 +18,7 @@ export type DockerSetupSandbox = {
 
 const sandboxRootTracker = createSuiteTempRootTracker({
   prefix: "openclaw-docker-setup-",
-  parentDir: resolvePreferredOpenClawTmpDir(),
+  parentDir: resolvePreferredGrantedTmpDir(),
 });
 
 export async function setupDockerSetupSandboxRoot(): Promise<void> {

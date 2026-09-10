@@ -1,7 +1,7 @@
 /**
  * Applies final effective tool policy to embedded-agent runtime settings.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { getPluginToolMeta } from "../../plugins/tool-metadata.js";
 import type { ResolvedConversationCapabilityProfile } from "../conversation-capability-profile.js";

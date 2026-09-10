@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { resolveMemorySearchConfig } from "../../agents/memory-search.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { MemorySearchConfig } from "../../config/types.tools.js";
 import { resolveCronAgentConfig } from "./run-config.js";
 

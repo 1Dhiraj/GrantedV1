@@ -3,7 +3,7 @@ import { errorBackoffMs } from "../cron/service/jobs-scheduling.js";
 import { cronStreamScheduleKey } from "../cron/stream-schedule.js";
 import type { CronJob, CronJobState } from "../cron/types.js";
 import { formatErrorMessage } from "../infra/errors.js";
-import { markOpenClawExecEnv } from "../infra/openclaw-exec-env.js";
+import { markOpenClawExecEnv } from "../infra/granted-exec-env.js";
 import type { ManagedRun, ProcessSupervisor } from "../process/supervisor/index.js";
 import type { RunExit } from "../process/supervisor/types.js";
 import {

@@ -1,5 +1,5 @@
 import { isIncognitoSessionKey } from "../routing/session-key.js";
-import { isIncognitoOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
+import { isIncognitoOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
 
 const INCOGNITO_SYSTEM_PROMPT =
   "This chat is incognito; do not store its conversation content in memory files or long-term notes.";

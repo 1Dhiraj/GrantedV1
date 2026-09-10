@@ -7,7 +7,7 @@ import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { resolveBundledPluginsDir } from "../plugins/bundled-dir.js";
 import type { PluginPackageChannel } from "../plugins/manifest.js";
 import { BUNDLED_OFFICIAL_EXTERNAL_PLUGIN_CATALOG_ENTRIES } from "../plugins/official-external-plugin-bundled-catalogs.js";

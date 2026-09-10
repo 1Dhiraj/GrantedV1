@@ -2,7 +2,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import { mutateConfigFileWithRetry } from "../config/config.js";
 import { resolveIsNixMode } from "../config/paths.js";
 import type { ModelSelectionScope } from "../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { normalizeAgentId } from "../routing/session-key.js";

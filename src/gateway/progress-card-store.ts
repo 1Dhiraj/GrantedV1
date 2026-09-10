@@ -3,8 +3,8 @@ import {
   readSessionProgressCard,
   writeSessionProgressCard,
 } from "../session-cards/progress-card-store.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
-import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../state/granted-agent-db-readonly.js";
+import { runOpenClawAgentWriteTransaction } from "../state/granted-agent-db.js";
 import { resolveGatewaySessionDatabase } from "./board-store.js";
 
 export type ProgressCardStore = {

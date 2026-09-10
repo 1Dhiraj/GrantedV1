@@ -11,7 +11,7 @@ import {
 } from "granted/plugin-sdk/session-store-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -224,7 +224,7 @@ describe("telegram exec approvals", () => {
 
   it("scopes non-telegram turn sources to the stored telegram account", async () => {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-telegram-exec-approvals-",
     });
     tempWorkspaces.push(workspace);

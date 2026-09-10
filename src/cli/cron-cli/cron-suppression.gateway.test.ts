@@ -18,7 +18,7 @@ import type { RespondFn } from "../../gateway/server-methods/types.js";
 import { getActiveGatewayRootWorkCount } from "../../process/gateway-work-admission.js";
 import { ExitError } from "../../runtime.js";
 import { resetTaskRegistryForTests } from "../../tasks/task-runtime.test-helpers.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 
 const mocks = vi.hoisted(() => ({
   runtime: {

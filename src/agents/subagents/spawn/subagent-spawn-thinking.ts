@@ -5,7 +5,7 @@
 import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeThinkLevel } from "../../../auto-reply/thinking.shared.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 
 /** Resolves subagent thinking override and initial session patch from caller/agent config. */
 export function resolveSubagentThinkingOverride(params: {

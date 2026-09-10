@@ -8,7 +8,7 @@ import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   listUnreportedPersonalGitHubPublications,
   markPersonalGitHubPublicationReported,

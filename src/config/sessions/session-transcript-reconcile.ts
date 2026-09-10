@@ -14,7 +14,7 @@ import {
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
   type GrantedAgentDatabaseOptions,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import type { SessionTranscriptReadScope } from "./session-accessor.sqlite-contract.js";
 import {
   resolveSqliteTranscriptReadScope,
@@ -420,7 +420,7 @@ export async function waitForSessionTranscriptProjection(
 ): Promise<void> {
   const resolved = resolveSqliteTranscriptReadScope(scope);
   const databaseOptions = toDatabaseOptions(resolved);
-  // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across polling awaits.
+  // granted-agent-db.ts cache rule: LRU eviction closes idle handles across polling awaits.
   while (
     isSessionTranscriptIndexReconcileRunning(databaseOptions) &&
     sessionTranscriptIndexNeedsReconcile(

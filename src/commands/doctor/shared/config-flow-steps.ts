@@ -6,7 +6,7 @@ import { projectAuthoredAgentRosterForWrite } from "../../../config/io.write-pre
 import { formatConfigIssueLines } from "../../../config/issue-format.js";
 import { createMergePatch } from "../../../config/merge-patch.js";
 import { resolveIncludeRoots } from "../../../config/paths.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../../config/types.granted.js";
 import { protectActiveAuthProfileConfig } from "../../doctor-auth-profile-config.js";
 import { stripUnknownConfigKeys } from "../../doctor-config-analysis.js";
 import type { DoctorConfigMutationState } from "./config-mutation-state.js";

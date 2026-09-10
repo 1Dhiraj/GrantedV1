@@ -5,8 +5,8 @@ import {
   resolveAuthProfileDatabasePath,
   writePersistedAuthProfileStateRaw,
 } from "../../agents/auth-profiles/sqlite.js";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { resolveModelsTargetAgent } from "./shared.js";
 
 describe("model inspection auth store ownership", () => {

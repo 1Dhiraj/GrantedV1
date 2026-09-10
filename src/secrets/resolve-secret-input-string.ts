@@ -1,5 +1,5 @@
 /** Resolves inline string or SecretRef inputs into normalized secret strings. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   normalizeSecretInputString,
   resolveSecretInputRef,

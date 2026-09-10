@@ -7,7 +7,7 @@ import type {
 } from "../../packages/gateway-protocol/src/index.js";
 import { isWellFormedApprovalId } from "../../packages/gateway-protocol/src/schema/approvals.js";
 import { findChatChannelLabel } from "../channels/ids.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withOperatorApprovalsGatewayClient } from "../gateway/operator-approvals-client.js";
 import { isApprovalNotFoundError } from "./approval-errors.js";
 import { getGatewayNativeApprovalRuntime } from "./approval-gateway-runtime-context.js";

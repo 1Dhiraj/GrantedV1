@@ -1,6 +1,6 @@
 // Stale subagent allowlist tests cover doctor warnings for obsolete subagent allowlists.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   collectStaleSubagentAllowlistWarnings,
   maybeRepairStaleSubagentAllowlists,

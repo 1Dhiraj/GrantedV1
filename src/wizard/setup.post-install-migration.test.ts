@@ -1,7 +1,7 @@
 // Post-install migration tests cover migration prompts and command guidance.
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createNonExitingRuntime } from "../runtime.js";
 import type { WizardPrompter } from "./prompts.js";
 

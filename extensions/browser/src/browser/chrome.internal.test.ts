@@ -47,8 +47,8 @@ vi.mock("../infra/ports.js", () => ({
   ensurePortAvailable: ensurePortAvailableMock,
 }));
 
-vi.mock("../infra/tmp-openclaw-dir.js", () => ({
-  resolvePreferredOpenClawTmpDir: () => "/tmp/openclaw-browser-test",
+vi.mock("../infra/tmp-granted-dir.js", () => ({
+  resolvePreferredGrantedTmpDir: () => "/tmp/openclaw-browser-test",
 }));
 
 // Shrink long launch/bootstrap timeouts so tests don't wait 15s for
@@ -2238,7 +2238,7 @@ describe("chrome.ts internal", () => {
       // fs.writeFileSync to throw for the marker file.
       const writeSpy = vi.spyOn(fs, "writeFileSync").mockImplementation((p) => {
         const s = String(p);
-        if (s.endsWith(".openclaw-profile-decorated") || s.endsWith("Preferences")) {
+        if (s.endsWith(".granted-profile-decorated") || s.endsWith("Preferences")) {
           throw new Error("write blew up");
         }
       });

@@ -8,7 +8,7 @@ import { validateDottedDecimalIPv4Input } from "@granted/net-policy/ipv4";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { formatCliCommand } from "../../../cli/command-format.js";
 import { formatInvalidPortOption } from "../../../cli/error-format.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   isValidEnvSecretRefId,
   resolveSecretInputRef,

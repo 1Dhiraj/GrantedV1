@@ -3,7 +3,7 @@
  * Rejects SecretRef-backed OAuth material because OAuth credentials are mutable
  * runtime state and must stay directly persisted by refresh flows.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { coerceSecretRef, resolveSecretInputRef } from "../../config/types.secrets.js";
 import type { AuthProfileCredential, AuthProfileStore } from "./types.js";
 

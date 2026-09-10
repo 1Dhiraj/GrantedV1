@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { normalizeOptionalString } from "@granted/normalization-core";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveGatewayPublicOrigin } from "../config/gateway-public-origin.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   WEB_PUSH_USER_PREFERENCES_KEY,
   isWebPushQuietHours,

@@ -4,13 +4,13 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "./openclaw-state-db.generated.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "./granted-state-db-readonly.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "./granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 
 type ConfigMachineStateDatabase = Pick<GrantedStateKyselyDatabase, "config_machine_state">;
 

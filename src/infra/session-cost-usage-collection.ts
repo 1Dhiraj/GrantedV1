@@ -30,7 +30,7 @@ import { streamSessionTranscriptLines } from "../config/sessions/transcript-stre
 import { selectVisibleTranscriptEvents } from "../config/sessions/transcript-visible-events.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
-import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
 
 export const USAGE_COST_TRANSCRIPT_STAT_CONCURRENCY = 32;

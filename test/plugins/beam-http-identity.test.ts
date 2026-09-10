@@ -2,7 +2,7 @@ import { once } from "node:events";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import beamPlugin from "../../extensions/beam/index.js";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import type { ResolvedGatewayAuth } from "../../src/gateway/auth.js";
 import { createTestGatewayServer } from "../../src/gateway/server-http.test-harness.js";
 import {
@@ -20,7 +20,7 @@ import {
 } from "../../src/plugins/runtime.js";
 import { createPluginRuntime } from "../../src/plugins/runtime/index.js";
 import { listProfiles } from "../../src/state/user-profiles.js";
-import { withOpenClawTestState } from "../../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../src/test-utils/granted-test-state.js";
 
 const routePath = "/api/v1/beam/sessions";
 const log = createSubsystemLogger("test/beam-http-identity");

@@ -5,11 +5,11 @@ import { createDeferred } from "../../../test/helpers/promise.js";
 import { onTrustedMessageAuditEventForTest } from "../../audit/message-audit-events.test-support.js";
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { claimDeliveryQueueEntryPlatformSend } from "../delivery-queue-sqlite-claim.js";
 import { PlatformMessageNotDispatchedError } from "./deliver-types.js";
 import { failDurableDelivery, type DurableDeliveryCompletion } from "./delivery-completion.js";

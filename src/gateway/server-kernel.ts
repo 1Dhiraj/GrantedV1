@@ -1,5 +1,5 @@
 import { isNixMode } from "../config/paths.js";
-import { clearGatewayAgentCliShim } from "../infra/openclaw-cli-shim.js";
+import { clearGatewayAgentCliShim } from "../infra/granted-cli-shim.js";
 import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
 import { createSubsystemLogger, runtimeForLogger } from "../logging/subsystem.js";
 import { retainGatewayPluginMetadata } from "../plugins/plugin-metadata-lifecycle.js";

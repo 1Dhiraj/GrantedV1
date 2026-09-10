@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contributions.js";
 
 const mocks = vi.hoisted(() => ({
@@ -26,8 +26,8 @@ vi.mock("../commands/doctor-prompter.js", () => ({
   createDoctorPrompter: () => ({ confirm: async () => true }),
 }));
 
-vi.mock("../infra/openclaw-root.js", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("../infra/openclaw-root.js")>()),
+vi.mock("../infra/granted-root.js", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../infra/granted-root.js")>()),
   resolveOpenClawPackageRoot: async () => mocks.packageRoot(),
 }));
 

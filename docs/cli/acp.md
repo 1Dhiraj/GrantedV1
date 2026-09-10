@@ -170,7 +170,7 @@ Each ACP session maps to a single Gateway session key. One agent can have many s
 
 Per-session `mcpServers` are not supported in bridge mode. If an ACP client sends them during `newSession` or `loadSession`, the bridge returns a clear error instead of silently ignoring them.
 
-If you want ACPX-backed sessions to see OpenClaw plugin tools or selected built-in tools such as `cron`, enable the gateway-side ACPX MCP bridges instead of trying to pass per-session `mcpServers`. See [ACP Agents](/tools/acp-agents-setup#plugin-tools-mcp-bridge) and [OpenClaw tools MCP bridge](/tools/acp-agents-setup#openclaw-tools-mcp-bridge).
+If you want ACPX-backed sessions to see OpenClaw plugin tools or selected built-in tools such as `cron`, enable the gateway-side ACPX MCP bridges instead of trying to pass per-session `mcpServers`. See [ACP Agents](/tools/acp-agents-setup#plugin-tools-mcp-bridge) and [OpenClaw tools MCP bridge](/tools/acp-agents-setup#granted-tools-mcp-bridge).
 
 ## Use from `acpx` (Codex, Claude, other ACP clients)
 

@@ -9,7 +9,7 @@ import { fileStore } from "../infra/file-store.js";
 import { openLocalFileSafely } from "../infra/fs-safe.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { withTempWorkspace } from "../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { getOrCreatePromise } from "../shared/lazy-promise.js";
 import { runFfmpeg } from "./ffmpeg-exec.js";
@@ -554,7 +554,7 @@ async function transcodePlaybackSource(params: {
 
     const outputBuffer = await withTempWorkspace(
       {
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "playback-transcode-",
       },
       async (workspace) => {

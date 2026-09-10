@@ -2,7 +2,7 @@
 // vi.mock calls live here so sibling suites share one config-write/daemon/health surface.
 import path from "node:path";
 import { vi } from "vitest";
-import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.granted.js";
 import {
   createOnboardTestConfigStore,
   createThrowingRuntime,

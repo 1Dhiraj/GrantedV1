@@ -19,8 +19,8 @@ import {
   resolveScopedAuthProfileStore,
 } from "../agents/model-auth-provider.js";
 import { UnresolvedSecretInputError } from "../config/types.secrets.js";
-import { closeOpenClawAgentDatabases } from "../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { closeOpenClawAgentDatabases } from "../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { getEmbeddingProvider } from "./embedding-provider-runtime.js";
 import type { EmbeddingProviderCreateOptions } from "./embedding-provider-types.js";
 import { openAICompatibleEmbeddingProviderAdapter } from "./openai-compatible-embedding-provider.js";

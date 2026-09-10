@@ -29,7 +29,7 @@ vi.mock("@granted/ai/transports", async (importOriginal) => ({
 let delegate: typeof import("../../context-engine/delegate.js").delegateCompactionToRuntime;
 let sessions: typeof import("../sessions/index.js");
 let accessor: typeof import("../../config/sessions/session-accessor.js");
-let databases: typeof import("../../state/openclaw-agent-db.js");
+let databases: typeof import("../../state/granted-agent-db.js");
 let streamResolution: typeof import("./stream-resolution.js");
 let replay: typeof import("../openai-transport-stream.test-support.js").testing;
 let accounting: typeof import("./run/compaction-accounting-bridge.js");
@@ -66,7 +66,7 @@ beforeAll(async () => {
     import("../../context-engine/delegate.js"),
     import("../sessions/index.js"),
     import("../../config/sessions/session-accessor.js"),
-    import("../../state/openclaw-agent-db.js"),
+    import("../../state/granted-agent-db.js"),
     import("./stream-resolution.js"),
     import("../openai-transport-stream.test-support.js"),
     import("./run/compaction-accounting-bridge.js"),

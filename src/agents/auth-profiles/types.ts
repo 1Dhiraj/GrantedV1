@@ -3,7 +3,7 @@
  * These types describe credential payloads, runtime selection state, and repair
  * results consumed by providers, sessions, doctor, and plugin-facing seams.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SecretRef } from "../../config/types.secrets.js";
 import type { LegacyOAuthRef } from "./legacy-oauth-ref.js";
 

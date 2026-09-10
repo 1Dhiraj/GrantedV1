@@ -4,9 +4,9 @@
 
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resetCommandQueueStateForTest } from "../../process/command-queue.test-support.js";
-import { closeOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import { SystemAgentChatEngine } from "../../system-agent/chat-engine.js";
 import { SystemAgentInferenceUnavailableError } from "../../system-agent/inference-error.js";
 import { createSystemAgentVerifiedInferenceTestFixture } from "../../system-agent/system-agent.test-helpers.js";

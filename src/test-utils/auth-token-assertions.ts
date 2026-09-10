@@ -1,6 +1,6 @@
 // Assertion helpers for auth token redaction and token shape tests.
 import { expect } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Asserts the generated Gateway auth token is both returned and persisted. */
 export function expectGeneratedTokenPersistedToGatewayAuth(params: {

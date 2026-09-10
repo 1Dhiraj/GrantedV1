@@ -1,6 +1,6 @@
 // Verifies owner display hashing uses a dedicated secret and raw mode disables it.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   ensureOwnerDisplaySecret,
   resolveOwnerDisplaySetting,

@@ -10,7 +10,7 @@ import {
   isPluginModelCatalogMigrationFile,
   migrateLegacyPluginModelCatalogs,
 } from "../agents/plugin-model-catalog.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { privateFileStore } from "../infra/private-file-store.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { shortenHomePath } from "../utils.js";

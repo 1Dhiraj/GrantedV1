@@ -1,5 +1,5 @@
 // Shared base compatibility normalizers reused by core and plugin setup migrations.
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { LegacyCodexModelIdentity } from "./codex-route-model-ref.js";
 import {
   normalizeLegacyBrowserConfig,

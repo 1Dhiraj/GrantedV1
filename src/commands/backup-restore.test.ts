@@ -10,8 +10,8 @@ import type { RuntimeEnv } from "../runtime.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+} from "../state/granted-state-db.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { backupRestoreCommand } from "./backup-restore.js";
 import { buildBackupArchivePath } from "./backup-shared.js";
 import { verifyBackupArchive } from "./backup-verify.js";

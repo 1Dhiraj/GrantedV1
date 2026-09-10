@@ -8,7 +8,7 @@ import {
   listSessionEntriesCore,
   loadSessionEntry,
 } from "../src/config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 import { connectGatewayClient, disconnectGatewayClient } from "../src/gateway/test-helpers.e2e.js";
 import { writeOpenAiResponsesText } from "./helpers/openai-responses-sse.js";
 import {

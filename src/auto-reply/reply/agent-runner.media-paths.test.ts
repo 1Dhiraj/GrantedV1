@@ -9,7 +9,7 @@ import {
   type TestModelFallbackRunnerParams,
 } from "../../agents/test-helpers/model-fallback-runner.test-support.js";
 import { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } from "../../config/config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { TemplateContext } from "../templating.js";
 import type { AgentTurnParams } from "./agent-runner-execution.types.js";
 import type { FollowupRun, QueueSettings } from "./queue.js";

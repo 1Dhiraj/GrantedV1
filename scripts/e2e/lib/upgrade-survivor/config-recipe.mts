@@ -179,14 +179,14 @@ const configuredPluginInstallSteps = [
 
 const scenarioConfigSteps = new Map<string, ConfigStep[]>([
   [
-    "acpx-openclaw-tools-bridge",
+    "acpx-granted-tools-bridge",
     [
       {
         ...configSetJsonFile(
-          "plugins-acpx-openclaw-tools-bridge",
-          "acpx-openclaw-tools-bridge",
+          "plugins-acpx-granted-tools-bridge",
+          "acpx-granted-tools-bridge",
           "plugins",
-          "plugins-acpx-openclaw-tools-bridge.json",
+          "plugins-acpx-granted-tools-bridge.json",
         ),
         // The candidate externalizes this runtime even when the baseline bundles it.
         prepublishPluginPackages: ["@granted/acpx"],
@@ -297,11 +297,11 @@ function adaptStepForBaseline(
   summary: BaselineAdaptationSummary,
 ): ConfigStep | null {
   if (
-    step.intent === "acpx-openclaw-tools-bridge" &&
+    step.intent === "acpx-granted-tools-bridge" &&
     isReleaseBefore(baselineVersion, "2026.4.22")
   ) {
-    if (!summary.skippedIntents.includes("acpx-openclaw-tools-bridge")) {
-      summary.skippedIntents.push("acpx-openclaw-tools-bridge");
+    if (!summary.skippedIntents.includes("acpx-granted-tools-bridge")) {
+      summary.skippedIntents.push("acpx-granted-tools-bridge");
     }
     return null;
   }

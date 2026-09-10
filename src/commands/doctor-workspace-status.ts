@@ -6,7 +6,7 @@ import {
   tryResolveDefaultAgentId,
 } from "../agents/agent-scope.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import type { PluginMetadataSnapshotScopeRunner } from "../plugins/current-plugin-metadata-snapshot.js";
 import {

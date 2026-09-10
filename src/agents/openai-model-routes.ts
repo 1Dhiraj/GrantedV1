@@ -2,7 +2,7 @@
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { resolveMergedModelProviderConfig } from "../config/model-provider-config.js";
 import type { ModelApi } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   ProviderModelRouteResolution,
   ProviderModelRouteSource,

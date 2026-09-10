@@ -6,7 +6,7 @@ import {
   resolveChannelAccountEnabled,
 } from "../../channels/account-summary.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 
 const PUBLIC_IMESSAGE_FULL_DISK_ACCESS_ERROR =

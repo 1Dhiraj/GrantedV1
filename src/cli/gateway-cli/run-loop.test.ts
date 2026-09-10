@@ -12,7 +12,7 @@ import { resolveGlobalMap } from "../../shared/global-singleton.js";
 import {
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
   GrantedAgentDatabaseMediaMigrationRequiredError,
-} from "../../state/openclaw-agent-db-migration-required.js";
+} from "../../state/granted-agent-db-migration-required.js";
 import { captureEnv, deleteTestEnvValue } from "../../test-utils/env.js";
 import { pickBeaconHost, pickGatewayPort } from "./discover.js";
 

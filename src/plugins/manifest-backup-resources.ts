@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasNodeErrorCode, isPathInside } from "../infra/path-guards.js";
 import { normalizePluginsConfig } from "./config-state.js";
 import { resolveDefaultPluginExtensionsDir } from "./install-paths.js";

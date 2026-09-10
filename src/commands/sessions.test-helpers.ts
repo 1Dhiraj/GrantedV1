@@ -11,7 +11,7 @@ import type { RuntimeEnv } from "../runtime.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 
 const sessionsConfigState = vi.hoisted<{ loadConfig: () => Record<string, unknown> }>(() => ({
   loadConfig: () => ({

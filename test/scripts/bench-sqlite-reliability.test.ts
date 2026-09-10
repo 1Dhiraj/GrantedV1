@@ -18,7 +18,7 @@ import { openNodeSqliteDatabase } from "../../src/infra/node-sqlite.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../src/state/openclaw-state-db.js";
+} from "../../src/state/granted-state-db.js";
 import { useAutoCleanupTempDirTracker } from "../helpers/temp-dir.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

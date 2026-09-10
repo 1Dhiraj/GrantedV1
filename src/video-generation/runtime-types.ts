@@ -1,7 +1,7 @@
 // Video runtime types describe auth and provider execution dependencies.
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 import type { FallbackAttempt } from "../agents/model-fallback.types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   GeneratedVideoAsset,
   VideoGenerationIgnoredOverride,

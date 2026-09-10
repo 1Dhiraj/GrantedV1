@@ -2,7 +2,7 @@ import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../../agents/defaults.js";
 import { parseModelRef } from "../../../agents/model-selection-normalize.js";
 import { resolveAgentModelPrimaryValue } from "../../../config/model-input.js";
 import type { AgentModelConfig } from "../../../config/types.agents-shared.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 
 export function resolveDoctorPrimaryModelRef(
   cfg: GrantedConfig,

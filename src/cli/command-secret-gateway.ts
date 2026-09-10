@@ -10,7 +10,7 @@ import {
   copyConfigResolutionFactsExcept,
   resolveConfigSecretRef,
 } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { callGateway } from "../gateway/call.js";
 import { gatewaySecretInputPathCanWin } from "../gateway/credentials-secret-inputs.js";

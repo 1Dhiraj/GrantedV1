@@ -3,7 +3,7 @@
  *
  * Kept separate so hot Plugin SDK setup helpers never import plugin discovery.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   getOfficialExternalPluginCatalogEntry,
   getOfficialExternalPluginCatalogManifest,

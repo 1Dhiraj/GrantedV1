@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, expect, test } from "vitest";
 import { createOpenClawCodingTools } from "../../../../src/agents/agent-tools.js";
 import type { AnyAgentTool } from "../../../../src/agents/agent-tools.types.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 
 const ARTIFACT = "mutation-receipt.md";

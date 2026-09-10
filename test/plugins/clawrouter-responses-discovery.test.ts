@@ -7,11 +7,11 @@ import {
   resolveModelAsync,
 } from "../../src/agents/embedded-agent-runner/model.js";
 import type { ProviderRuntimeHooks } from "../../src/agents/embedded-agent-runner/model.provider-hooks.js";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../src/test-utils/openclaw-test-state.js";
+} from "../../src/test-utils/granted-test-state.js";
 import { registerSingleProviderPlugin } from "../../src/test-utils/plugin-registration.js";
 
 const auth = vi.hoisted(() => ({ resolveApiKeyForProvider: vi.fn() }));

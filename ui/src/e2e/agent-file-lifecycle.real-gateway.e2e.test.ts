@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { expect, it } from "vitest";
 import type { GatewayServer } from "../../../src/gateway/server-public.ts";
-import { createOpenClawTestState } from "../../../src/test-utils/openclaw-test-state.ts";
+import { createOpenClawTestState } from "../../../src/test-utils/granted-test-state.ts";
 import { getFreePort } from "../../../src/test-utils/ports.ts";
 import {
   captureAgentFileScreenshot,

@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { createAssistantMessageEventStream, type Model } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   createOpenClawReadTool,
   createSandboxedReadTool,

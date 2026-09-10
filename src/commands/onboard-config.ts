@@ -6,7 +6,7 @@ import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js"
 import { setConfigValueAtPath } from "../config/config-paths.js";
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ToolProfileId } from "../config/types.tools.js";
 import { resolveUserPath } from "../utils.js";
 

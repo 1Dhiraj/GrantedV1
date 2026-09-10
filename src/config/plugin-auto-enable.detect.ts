@@ -8,7 +8,7 @@ import {
   resolvePluginAutoEnableManifestRegistry,
 } from "./plugin-auto-enable.shared.js";
 import type { PluginAutoEnableCandidate } from "./plugin-auto-enable.types.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Detects installed plugins that should become enabled from existing config usage. */
 export function detectPluginAutoEnableCandidates(params: {

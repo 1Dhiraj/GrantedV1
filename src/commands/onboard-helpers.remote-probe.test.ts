@@ -1,7 +1,7 @@
 // Onboarding Gateway probe tests cover reachability and configured-model classification.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ConnectErrorDetailCodes } from "../../packages/gateway-protocol/src/connect-error-details.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   probeGatewayConfiguredModel,
   probeGatewayReachable,

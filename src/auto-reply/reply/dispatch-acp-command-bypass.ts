@@ -1,5 +1,5 @@
 // Detects ACP commands that should bypass normal agent dispatch.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { hasControlCommand } from "../command-detection.js";
 import { isCommandEnabled } from "../commands-registry-list.js";
 import { shouldHandleTextCommands } from "../commands-text-routing.js";

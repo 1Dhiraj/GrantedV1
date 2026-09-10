@@ -2,7 +2,7 @@
 import { normalizeModelCatalogProviderId } from "@granted/model-catalog-core/model-catalog-refs";
 import type { NormalizedModelCatalogRow } from "@granted/model-catalog-core/model-catalog-types";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { planEffectiveModelCatalogRows } from "../../model-catalog/index.js";
 import type { ManifestModelCatalogRowSelection } from "../../model-catalog/manifest-planner.js";
 import { loadManifestMetadataSnapshot } from "../../plugins/manifest-contract-eligibility.js";

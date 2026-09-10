@@ -3,7 +3,7 @@
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { normalizeOptionalSecretInput } from "../utils/normalize-secret-input.js";
 import { listProfilesForProvider } from "./auth-profiles/profile-list.js";

@@ -1,7 +1,7 @@
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { describe, expect, it } from "vitest";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveSystemAgentConfiguredRouteFromConfig } from "./inference-route.js";

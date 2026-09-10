@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   openOpenClawAgentDatabase,
   type GrantedAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { VOICE_TRANSCRIPT_MAX_UNRESOLVED } from "./voice-transcript.js";
 
 export const VOICE_SESSION_CACHE_SCOPE = "talk-client-voice-sessions";

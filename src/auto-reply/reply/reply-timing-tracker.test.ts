@@ -1,6 +1,6 @@
 // Tests reply profiler flag detection and timing tracker output.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createAgentTurnTimingTracker } from "./agent-runner-turn-timing.js";
 import { createReplyHotPathTimingTracker } from "./dispatch-from-config.timing.js";
 import { createReplyTimingTracker, isReplyProfilerEnabled } from "./reply-timing-tracker.js";

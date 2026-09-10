@@ -2,7 +2,7 @@ import { normalizeStringEntries } from "@granted/normalization-core/string-norma
 import {
   parsePackageOpenClawSchemaVersions,
   type GrantedSchemaVersions,
-} from "../state/openclaw-schema-versions.js";
+} from "../state/granted-schema-versions.js";
 import { isBetaTag, isStableTag, type UpdateChannel } from "./update-channels.js";
 import { compareSemverStrings } from "./update-check.js";
 import type { CommandRunner, UpdateRunnerOptions } from "./update-runner-types.js";

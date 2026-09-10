@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import type { SkillHistoryScanCandidate } from "./history-scan-candidates.js";
 import type { SkillHistoryScanPromptSession } from "./history-scan-prompt.js";
 

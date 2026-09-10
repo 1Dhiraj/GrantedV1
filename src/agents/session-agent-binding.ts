@@ -8,7 +8,7 @@ import {
   normalizeOptionalString,
 } from "@granted/normalization-core/string-coerce";
 import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/session-store-owner.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeMainKey, parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveSessionAgentId } from "./agent-scope.js";
 

@@ -1,6 +1,6 @@
 // Allowlist policy repair tests cover doctor repair of unsafe or stale allowlist policy.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { SignalAccountConfig } from "../../../config/types.signal.js";
 import { maybeRepairAllowlistPolicyAllowFrom } from "./allowlist-policy-repair.js";
 

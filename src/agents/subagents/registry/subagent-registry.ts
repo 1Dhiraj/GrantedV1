@@ -1,6 +1,6 @@
 /** Coordinates subagent registration, lifecycle, delivery, steering, recovery, and persistence. */
 import type { AgentWaitParams } from "../../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { callGateway } from "../../../gateway/call.js";
 import { fenceScheduledGatewayContextResolver } from "../../../gateway/scheduled-run-gateway-context.js";
 import type { GatewayContextResolver } from "../../../gateway/server-methods/types.js";

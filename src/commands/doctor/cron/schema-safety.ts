@@ -1,5 +1,5 @@
 import { isSqliteSchemaVersionError } from "../../../infra/sqlite-user-version.js";
-import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../../../state/openclaw-state-db-readonly.js";
+import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../../../state/granted-state-db-readonly.js";
 
 export function assertCronStateSchemaSupported(env?: NodeJS.ProcessEnv): void {
   withExistingOpenClawStateDatabaseArtifactPreservingReadOnly(() => undefined, { env });

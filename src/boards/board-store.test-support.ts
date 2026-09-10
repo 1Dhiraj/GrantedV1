@@ -7,8 +7,8 @@ import { parseAgentSessionKey } from "../routing/session-key.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { SqliteBoardStore } from "./sqlite-board-store.js";
 
 export function createTestBoardStore(options: { stateDir?: string } = {}): SqliteBoardStore {

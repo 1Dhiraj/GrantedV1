@@ -441,7 +441,7 @@ describe("opt-in extension package boundaries", () => {
       "../../../../src/config/paths.js",
       "../../../../src/config/sessions/paths.js",
       "../../../../src/config/types.memory.js",
-      "../../../../src/config/types.openclaw.js",
+      "../../../../src/config/types.granted.js",
       "../../../../src/config/types.secrets.js",
       "../../../../src/config/types.tools.js",
     ]);

@@ -18,7 +18,7 @@ import {
   patchSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
-import { openOpenClawAgentDatabase } from "../state/openclaw-agent-db.js";
+import { openOpenClawAgentDatabase } from "../state/granted-agent-db.js";
 import { flushPendingSessionsChangedEvents } from "./server-methods/session-change-event.js";
 import {
   directSessionReq,

@@ -1,6 +1,6 @@
 // Configured hook tests cover the closed allowlist and open discovery decisions.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveConfiguredInternalHookNames } from "./configured.js";
 
 const readConfigMachineStateMock = vi.hoisted(() => vi.fn());

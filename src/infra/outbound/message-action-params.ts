@@ -9,7 +9,7 @@ import { assertMediaNotDataUrl, resolveSandboxedMediaSource } from "../../agents
 import { readStringArrayParam, readToolStringParam } from "../../agents/tools/common.js";
 import { resolveChannelMessageToolMediaSourceParamKeys } from "../../channels/plugins/message-action-discovery.js";
 import type { ChannelId, ChannelMessageActionName } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { root } from "../../infra/fs-safe.js";
 import { basenameFromMediaSource } from "../../infra/local-file-access.js";
 import { createBoundedOutboundMediaReadFile } from "../../media/bounded-read-file.js";

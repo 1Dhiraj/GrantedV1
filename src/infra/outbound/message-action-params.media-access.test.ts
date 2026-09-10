@@ -14,7 +14,7 @@ import {
   createChannelTestPluginBase,
   createTestRegistry,
 } from "../../test-utils/channel-plugins.js";
-import { resolvePreferredOpenClawTmpDir } from "../tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../tmp-granted-dir.js";
 import {
   resetMessageActionMediaMocks,
   runMessageAction,
@@ -418,7 +418,7 @@ describe("runMessageAction media behavior", () => {
     );
 
     it("allows media paths under preferred OpenClaw tmp root", async () => {
-      const tmpRoot = resolvePreferredOpenClawTmpDir();
+      const tmpRoot = resolvePreferredGrantedTmpDir();
       await fs.mkdir(tmpRoot, { recursive: true });
       const sandboxDir = await fs.mkdtemp(path.join(os.tmpdir(), "msg-sandbox-"));
       try {

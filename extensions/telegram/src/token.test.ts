@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -34,7 +34,7 @@ describe("resolveTelegramToken", () => {
 
   function createTokenFile(fileName: string, contents = "file-token\n"): string {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-telegram-token-",
     });
     tempWorkspaces.push(workspace);
@@ -148,7 +148,7 @@ describe("resolveTelegramToken", () => {
     () => {
       vi.stubEnv("TELEGRAM_BOT_TOKEN", "");
       const workspace = tempWorkspaceSync({
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "openclaw-telegram-token-",
       });
       tempWorkspaces.push(workspace);
@@ -180,7 +180,7 @@ describe("resolveTelegramToken", () => {
     () => {
       vi.stubEnv("TELEGRAM_BOT_TOKEN", "");
       const workspace = tempWorkspaceSync({
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "openclaw-telegram-token-",
       });
       tempWorkspaces.push(workspace);
@@ -214,7 +214,7 @@ describe("resolveTelegramToken", () => {
   it("does not fall back to config when tokenFile is missing", () => {
     vi.stubEnv("TELEGRAM_BOT_TOKEN", "");
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-telegram-token-",
     });
     tempWorkspaces.push(workspace);

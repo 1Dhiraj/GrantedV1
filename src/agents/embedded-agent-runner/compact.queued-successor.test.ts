@@ -37,7 +37,7 @@ const [
 ] = await Promise.all([
   import("../../auto-reply/reply/session-updates.js"),
   import("../../config/sessions/session-accessor.js"),
-  import("../../state/openclaw-agent-db.js"),
+  import("../../state/granted-agent-db.js"),
   import("../sessions/session-manager.js"),
   import("./compaction-safety-timeout.js"),
   vi.importActual<typeof import("./compaction-safety-timeout.js")>(

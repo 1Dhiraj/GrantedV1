@@ -1,5 +1,5 @@
 // Browser control auth helpers resolve plugin browser credentials from OpenClaw config.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadBundledPluginPublicSurfaceModuleSyncCore } from "./facade-loader.js";
 
 /** Browser control credentials resolved from config, env, or generated setup state. */

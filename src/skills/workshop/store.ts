@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import path from "node:path";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { FsSafeError, root, type ReadResult, type Root } from "../../infra/fs-safe.js";
 import {
   executeSqliteQuerySync,
@@ -8,7 +8,7 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { logWarn } from "../../logger.js";
-import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../../state/granted-state-db.js";
 import { normalizeSkillIndexName } from "../discovery/skill-index.js";
 import {
   assertInsideWorkspace,

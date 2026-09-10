@@ -3,7 +3,7 @@ import { asPositiveSafeInteger } from "@granted/normalization-core/number-coerci
 import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { readAssistantDisplayContent } from "../shared/assistant-display-content.js";
-import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-openclaw-assistant.js";
+import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-granted-assistant.js";
 import {
   extractAssistantTextForSilentCheck,
   hasAssistantDisplayableNonTextContent,

@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
-import { resolvePreferredOpenClawTmpDir } from "../../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../../infra/tmp-granted-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabase,
-} from "../../../state/openclaw-state-db.js";
+} from "../../../state/granted-state-db.js";
 import { getTaskById } from "../../../tasks/runtime-internal.js";
 import type { TaskRecord } from "../../../tasks/task-registry.types.js";
 import { resetTaskRegistryForTests } from "../../../tasks/task-runtime.test-helpers.js";
@@ -29,7 +29,7 @@ describe("subagent completion recovery identity", () => {
   beforeEach(() => {
     const tempDir = tempDirs.make(
       "openclaw-completion-recovery-",
-      resolvePreferredOpenClawTmpDir(),
+      resolvePreferredGrantedTmpDir(),
     );
     vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     database = openOpenClawStateDatabase();

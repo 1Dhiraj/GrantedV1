@@ -30,7 +30,7 @@ struct PortGuardianIsExpectedTests {
     @Test func `local mode rejects similarly named node project`() {
         #expect(!PortGuardian._testIsExpected(
             command: "node",
-            fullCommand: "/usr/local/bin/node /tmp/openclaw-tools/dist/index.js gateway --port 18789",
+            fullCommand: "/usr/local/bin/node /tmp/granted-tools/dist/index.js gateway --port 18789",
             port: 18789,
             mode: .local))
     }
@@ -58,7 +58,7 @@ struct PortGuardianIsExpectedTests {
     @Test func `local mode rejects stale launchd pid after listener replacement`() {
         #expect(!PortGuardian._testIsExpected(
             command: "node",
-            fullCommand: "/tmp/openclaw-tools/dist/index.js gateway --port 18789",
+            fullCommand: "/tmp/granted-tools/dist/index.js gateway --port 18789",
             port: 18789,
             mode: .local,
             pid: 5252,

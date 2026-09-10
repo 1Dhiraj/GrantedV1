@@ -8,14 +8,14 @@ import {
 import {
   openOpenClawAgentDatabase,
   closeOpenClawAgentDatabasesForTest,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { setUserPreferences } from "../state/user-preferences.js";
 import { ensureProfileForEmail, linkEmail, syncGitHubIdentity } from "../state/user-profiles.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   appendGitCoauthorContext,
   prepareGitCoauthorAttribution,

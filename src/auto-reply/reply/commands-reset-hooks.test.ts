@@ -104,7 +104,7 @@ function buildResetParams(
     elevated: { enabled: true, allowed: true, failures: [] },
     sessionKey: "agent:main:main",
     agentId: "main",
-    workspaceDir: "/tmp/openclaw-commands",
+    workspaceDir: "/tmp/granted-commands",
     defaultGroupActivation: () => "mention",
     resolvedVerboseLevel: "off",
     resolvedReasoningLevel: "off",
@@ -202,7 +202,7 @@ describe("handleCommands reset hooks", () => {
           sessionKey: "agent:main:telegram:direct:123",
         },
         expectedContext: {
-          workspaceDir: "/tmp/openclaw-commands",
+          workspaceDir: "/tmp/granted-commands",
         },
       },
     ] as const;

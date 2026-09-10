@@ -1,7 +1,7 @@
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const maintenanceState = vi.hoisted(() => ({ modelRunPruneAfterMs: 24 * 60 * 60 * 1000 }));

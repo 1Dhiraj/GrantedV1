@@ -4,7 +4,7 @@
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { getRuntimeConfigSnapshot } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveProviderSyntheticAuthWithPlugin } from "../plugins/provider-runtime.js";
 import { resolveRuntimeSyntheticAuthProviderRefState } from "../plugins/synthetic-auth.runtime.js";
 import { mintSecretSentinel } from "../secrets/sentinel.js";

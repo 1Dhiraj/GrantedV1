@@ -3,13 +3,13 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/granted-agent-db.generated.js";
 import {
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
   type GrantedAgentDatabaseOptions,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { resolveSqliteScope, toDatabaseOptions } from "./session-accessor.sqlite-scope.js";
 

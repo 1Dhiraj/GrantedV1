@@ -2,7 +2,7 @@
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import type { PreparedAgentCredentialModes } from "./agent-auth-credential-modes.js";
 import { resolveAuthProfileOrder } from "./auth-profiles/order.js";

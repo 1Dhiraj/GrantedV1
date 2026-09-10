@@ -3,7 +3,7 @@ import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { Type } from "typebox";
 import { findCapabilityProviderById } from "../../../packages/media-generation-core/src/capability-model-ref.js";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveImageGenerationMaxInputImages } from "../../image-generation/capabilities.js";
 import {
   generateImage,

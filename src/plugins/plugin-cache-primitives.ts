@@ -1,5 +1,5 @@
 // Defines bounded caches for plugin runtime results and schema validation.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import { registerPluginMetadataProcessMemoLifecycleClear } from "./plugin-metadata-lifecycle.js";
 

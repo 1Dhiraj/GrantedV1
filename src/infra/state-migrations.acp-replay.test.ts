@@ -6,7 +6,7 @@ import { createSqliteAcpEventLedger } from "../acp/event-ledger.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import {
   detectLegacyAcpReplayLedger,

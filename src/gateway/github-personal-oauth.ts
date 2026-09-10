@@ -20,7 +20,7 @@ import {
 } from "../agents/github-tool-identity.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import { getOrCreatePromise } from "../shared/lazy-promise.js";
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 import {
   disconnectedUserGitHubConnection,
   disconnectUserGitHubConnection,

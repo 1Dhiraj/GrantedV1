@@ -1,7 +1,7 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { getGatewayToolCallerIdentity } from "../agents/tools/gateway-caller-context.js";
 import { resolveToolsMcpAgentId, resolveToolsMcpSessionContext } from "./agent-session-env.js";
-import { resolveOpenClawToolsForMcp } from "./openclaw-tools-serve.js";
+import { resolveOpenClawToolsForMcp } from "./granted-tools-serve.js";
 const { callGatewayTool } = vi.hoisted(() => ({ callGatewayTool: vi.fn() }));
 vi.mock("../config/config.js", async (original) => ({
   ...(await original<typeof import("../config/config.js")>()),

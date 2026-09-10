@@ -1,7 +1,7 @@
 // Covers bundled config migrations through the plugin setup registry.
 import path from "node:path";
 import { describe, expect, test } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { runPluginSetupConfigMigrations } from "./setup-registry.js";
 
 function runMigration(config: GrantedConfig) {

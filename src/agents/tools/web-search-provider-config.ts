@@ -4,7 +4,7 @@
  * Projects plugin-owned provider configuration into the tool-local search shape.
  */
 import { resolvePluginWebSearchConfig } from "../../config/plugin-web-search-config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isLegacyWebSearchProviderConfigKey } from "../../config/web-search-legacy-provider-keys.js";
 
 /** Reads the legacy top-level web search credential value. */

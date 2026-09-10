@@ -13,7 +13,7 @@ import {
 } from "../../../../src/config/runtime-snapshot.js";
 import { GatewayClient } from "../../../../src/gateway/client.js";
 import { loadOrCreateDeviceIdentity } from "../../../../src/infra/device-identity.js";
-import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/granted-state-db.js";
 import { runQaGatewayFixture, stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import {

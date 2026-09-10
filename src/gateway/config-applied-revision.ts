@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayReloadPlan } from "./config-reload-plan.js";
 
 type AppliedCallback = (plan: GatewayReloadPlan, nextConfig: GrantedConfig) => void | Promise<void>;

@@ -1,6 +1,6 @@
 // Owns prepared-model-runtime publication readiness for a long-lived embedded TUI host.
 import { refreshPreparedModelRuntimeSnapshots } from "../agents/prepared-model-runtime.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export class EmbeddedPreparedModelRuntimeHost {
   private ready: Promise<void> = Promise.resolve();

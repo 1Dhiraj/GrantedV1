@@ -6,7 +6,7 @@ import {
   selectApplicableRuntimeConfig,
 } from "../../config/config.js";
 import type { AgentDefaultsConfig } from "../../config/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 type ResolvedAgentConfig = NonNullable<ReturnType<typeof resolveAgentConfig>>;
 

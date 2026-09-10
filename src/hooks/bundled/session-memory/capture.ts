@@ -5,7 +5,7 @@ import {
   type TranscriptEvent,
 } from "../../../config/sessions/session-accessor.js";
 import { selectVisibleTranscriptEvents } from "../../../config/sessions/transcript-visible-events.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveHookConfig } from "../../config.js";
 import { formatHookErrorForLog } from "../../fire-and-forget.js";
 import {

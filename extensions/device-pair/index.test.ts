@@ -19,7 +19,7 @@ const pluginApiMocks = vi.hoisted(() => ({
   revokeDeviceBootstrapToken: vi.fn(async () => ({ removed: true })),
   renderQrPngDataUrl: vi.fn(async () => "data:image/png;base64,ZmFrZXBuZw=="),
   resolveGatewayPort: vi.fn(() => 18789),
-  resolvePreferredOpenClawTmpDir: vi.fn(() => path.join(os.tmpdir(), "openclaw-device-pair-tests")),
+  resolvePreferredGrantedTmpDir: vi.fn(() => path.join(os.tmpdir(), "openclaw-device-pair-tests")),
   writeQrPngTempFile: vi.fn(async (dataValue: string, opts: { tmpRoot: string }) => {
     const dirPath = await fs.mkdtemp(path.join(opts.tmpRoot, "device-pair-qr-"));
     const filePath = path.join(dirPath, "pair-qr.png");
@@ -40,7 +40,7 @@ vi.mock("./api.js", () => ({
   listDevicePairing: vi.fn(async () => ({ pending: [] })),
   renderQrPngDataUrl: pluginApiMocks.renderQrPngDataUrl,
   revokeDeviceBootstrapToken: pluginApiMocks.revokeDeviceBootstrapToken,
-  resolvePreferredOpenClawTmpDir: pluginApiMocks.resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir: pluginApiMocks.resolvePreferredGrantedTmpDir,
   resolveAdvertisedLanHost: vi.fn(async () => null),
   resolveGatewayBindUrl: vi.fn(),
   resolveGatewayPort: pluginApiMocks.resolveGatewayPort,
@@ -292,11 +292,11 @@ beforeEach(async () => {
     token: "boot-token",
     expiresAtMs: Date.now() + 10 * 60_000,
   });
-  await fs.mkdir(pluginApiMocks.resolvePreferredOpenClawTmpDir(), { recursive: true });
+  await fs.mkdir(pluginApiMocks.resolvePreferredGrantedTmpDir(), { recursive: true });
 });
 
 afterEach(async () => {
-  await fs.rm(pluginApiMocks.resolvePreferredOpenClawTmpDir(), { recursive: true, force: true });
+  await fs.rm(pluginApiMocks.resolvePreferredGrantedTmpDir(), { recursive: true, force: true });
 });
 
 afterAll(() => {

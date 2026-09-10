@@ -6,12 +6,12 @@ import { createDeferred } from "../../../test/helpers/promise.js";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { withPluginRuntimeRegistryScope } from "../../plugins/runtime/gateway-request-scope.js";
-import { openClawStateDatabaseCache } from "../../state/openclaw-state-db-cache.js";
+import { openClawStateDatabaseCache } from "../../state/granted-state-db-cache.js";
 import {
   closeOpenClawStateDatabaseByPath,
   closeOpenClawStateDatabaseForTest,
-} from "../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+} from "../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import type {
   TranscriptSourceProvider,
   TranscriptStartRequest,

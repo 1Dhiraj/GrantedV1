@@ -3,7 +3,7 @@
  *
  * Bridges old DM allowlist/pairing behavior to channel ingress access decisions.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   expandAllowFromWithAccessGroups,
   type AccessGroupMembershipResolver,

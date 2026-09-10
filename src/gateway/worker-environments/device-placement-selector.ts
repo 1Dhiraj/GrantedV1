@@ -1,6 +1,6 @@
 import type { EnvironmentSummary } from "../../../packages/gateway-protocol/src/index.js";
 import type { DevicePlacementRequirement } from "../../agents/harness/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { NodeRegistry } from "../node-registry.js";
 import { resolveDevicePlacementEligibility } from "./device-placement-eligibility.js";
 import { deviceUnavailableText } from "./device-provider.js";

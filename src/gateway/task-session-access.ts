@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import type { TaskRecord } from "../tasks/task-registry.types.js";
 import { hasOperatorBoundary } from "./operator-role-policy.js";

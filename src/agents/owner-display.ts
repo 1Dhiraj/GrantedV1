@@ -3,7 +3,7 @@
  *
  * Owner ids are rendered raw; no config or secret is required.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const MAX_OWNER_PROMPT_SENDERS = 16;
 export const MAX_OWNER_PROMPT_CONTENT_BYTES = 980;

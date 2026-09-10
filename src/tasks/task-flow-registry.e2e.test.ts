@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { flowsCancelCommand, flowsListCommand, flowsShowCommand } from "../commands/flows.js";
 import { resetConfigRuntimeState } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   completeTaskRunByRunIdCore as completeTaskRunByRunId,
   createRunningTaskRunCore as createRunningTaskRunOrNull,

@@ -1,5 +1,5 @@
 // Node-host plugin command contracts, including the opt-in duplex transport.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export type GrantedPluginNodeHostCommandAvailabilityContext = {
   /** Node-local configuration used to build this host's Gateway declaration. */

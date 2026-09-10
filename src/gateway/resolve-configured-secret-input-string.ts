@@ -2,7 +2,7 @@
 // Resolves configured secret inputs and fallback values without leaking values.
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { secretRefKey } from "../secrets/ref-contract.js";
 import {

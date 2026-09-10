@@ -5,8 +5,8 @@ import { listRegistryWorktreesForMigration } from "../../agents/worktrees/regist
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { resolveProjectRegistry } from "../../projects/project-registry.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { patchSessionEntryCore } from "./session-accessor.js";
 import { parseReadableSqliteSessionEntryRow } from "./session-accessor.sqlite-entry-store.js";
 import {

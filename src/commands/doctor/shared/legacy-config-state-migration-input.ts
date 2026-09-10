@@ -1,5 +1,5 @@
 import type { ConfigFileSnapshot } from "../../../config/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { migrateLegacyConfig } from "./legacy-config-migrate.js";
 
 type StateMigrationConfigInput = {

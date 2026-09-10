@@ -1,9 +1,9 @@
 import { expectDefined } from "@granted/normalization-core";
 // Hook install record helpers read and write installed hook metadata.
 import type { HookInstallRecord } from "../config/types.hooks.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readConfigMachineState, updateConfigMachineState } from "../state/config-machine-state.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 
 /** Install record plus the hook pack id being updated in config. */
 export type HookInstallUpdate = HookInstallRecord & { hookId: string };

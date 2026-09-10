@@ -6,7 +6,7 @@ import { workspaceStatIdentity } from "../gateway/worker-environments/workspace-
 import { resolveOpenedFileRealPathForHandle } from "../infra/fs-safe.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { tempWorkspace } from "../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 
 type UploadSource = { path: string; size: number; sha256: string };
 
@@ -81,7 +81,7 @@ export async function createNodeWorkerUploadSnapshot(params: {
   signal?: AbortSignal;
 }) {
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "worker-workspace-upload-",
   });
   try {

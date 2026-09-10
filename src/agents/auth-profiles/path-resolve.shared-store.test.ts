@@ -3,8 +3,8 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { writeConfigMachineState } from "../../state/config-machine-state.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import { withEnv } from "../../test-utils/env.js";
 import { resolveAuthStatePathForDisplay, resolveAuthStorePathForDisplay } from "./paths.js";
 import {

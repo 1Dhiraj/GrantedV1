@@ -17,9 +17,9 @@ import type { SkillWorkshopProposalMutationBudget } from "../../skills/workshop/
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
-import { createOpenClawTools } from "../openclaw-tools.js";
+import { createOpenClawTools } from "../granted-tools.js";
 import { listCoreToolSections } from "../tool-catalog.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";
 

@@ -12,7 +12,7 @@ import {
 import { isRestartEnabled } from "../../config/commands.flags.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
 import { extractDeliveryInfo } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   EXTERNAL_SUPERVISOR_UPDATE_REQUIRED_REASON,
   isGatewayExternallySupervised,
@@ -330,7 +330,7 @@ export const updateHandlers: GatewayRequestHandlers = {
         result = {
           status: "error",
           mode: "unknown",
-          reason: "not-openclaw-root",
+          reason: "not-granted-root",
           steps: [],
           durationMs: 0,
         };

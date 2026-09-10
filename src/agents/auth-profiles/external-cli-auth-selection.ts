@@ -7,7 +7,7 @@ import {
   findNormalizedProviderValue,
   normalizeProviderId,
 } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveCliRuntimeExecutionProvider } from "../model-runtime-aliases.js";
 import { resolveProviderIdForAuth } from "../provider-auth-aliases.js";
 import { CLAUDE_CLI_PROFILE_ID } from "./constants.js";

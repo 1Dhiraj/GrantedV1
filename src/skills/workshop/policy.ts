@@ -3,7 +3,7 @@ import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { PLUGIN_APPROVAL_DESCRIPTION_MAX_LENGTH } from "../../infra/plugin-approvals.js";
 import { logDebug } from "../../logger.js";
 import type { PluginHookBeforeToolCallResult } from "../../plugins/hook-before-tool-call-result.js";

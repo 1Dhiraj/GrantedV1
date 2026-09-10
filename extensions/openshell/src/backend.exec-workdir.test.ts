@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import type { SandboxBackendHandle } from "granted/plugin-sdk/sandbox";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -83,7 +83,7 @@ async function createOpenShellBackendFixture(params: {
 
 async function createWorkspace(prefix = "workspace") {
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: `openclaw-openshell-${prefix}-`,
   });
   tempWorkspaces.push(workspace);
@@ -142,7 +142,7 @@ describe("openshell backend exec workdir validation", () => {
     vi.stubEnv("LANG", "en_US.UTF-8");
     vi.stubEnv("NODE_ENV", "test");
     const workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-openshell-workspace-",
     });
     tempWorkspaces.push(workspace);
@@ -703,7 +703,7 @@ describe("openshell backend exec workdir validation", () => {
     },
   ])("creates compatible persistent sandboxes for $label CLIs", async (scenario) => {
     const workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-openshell-create-",
     });
     tempWorkspaces.push(workspace);
@@ -753,7 +753,7 @@ describe("openshell backend exec workdir validation", () => {
     const workspaces = await Promise.all(
       ["first", "second"].map(async (label) =>
         tempWorkspace({
-          rootDir: resolvePreferredOpenClawTmpDir(),
+          rootDir: resolvePreferredGrantedTmpDir(),
           prefix: `openclaw-openshell-${label}-`,
         }),
       ),
@@ -849,7 +849,7 @@ describe("openshell backend exec workdir validation", () => {
     const workspaces = await Promise.all(
       ["first", "second"].map(async (label) =>
         tempWorkspace({
-          rootDir: resolvePreferredOpenClawTmpDir(),
+          rootDir: resolvePreferredGrantedTmpDir(),
           prefix: `openclaw-openshell-${label}-`,
         }),
       ),

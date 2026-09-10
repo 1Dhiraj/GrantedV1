@@ -2,7 +2,7 @@ import { prependSystemPromptAdditionAfterCacheBoundary } from "@granted/ai/inter
 /**
  * Builds and repairs prompt inputs for embedded-agent attempts.
  */
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type {
   ContextEnginePromptCacheInfo,
   ContextEngineRuntimeContext,

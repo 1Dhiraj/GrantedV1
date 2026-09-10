@@ -2,8 +2,8 @@
 import path from "node:path";
 import { root, type Root } from "@openclaw/fs-safe";
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

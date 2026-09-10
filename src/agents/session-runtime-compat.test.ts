@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { testing as cliBackendsTesting } from "./cli-backends.test-support.js";
 import {
   resolveManualCompactionCliTarget,

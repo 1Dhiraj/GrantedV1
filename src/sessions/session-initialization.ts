@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { capturePluginLifecycleAuthority } from "../plugins/registry-lifecycle.js";
 import { getPluginRegistryState } from "../plugins/runtime-state.js";
 import {

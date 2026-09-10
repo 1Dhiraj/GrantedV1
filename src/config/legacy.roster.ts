@@ -8,7 +8,7 @@ import {
   materializeLegacyDefaultAgentRoles,
   resolveLegacyFirstAgentWorkspacePin,
 } from "./legacy.default-agent-roles.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 type MigrationResult = {
   config: unknown;

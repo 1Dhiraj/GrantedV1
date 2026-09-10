@@ -1,5 +1,5 @@
 // Task state imports this leaf; importing runtime barrels here closes a type dependency cycle.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { DetachedTaskTerminalState } from "./detached-task-runtime-contract.js";
 
 export type SubagentKillTargetState =

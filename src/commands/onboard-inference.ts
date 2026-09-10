@@ -11,7 +11,7 @@ import {
 import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { probeLocalCommand, type LocalCommandProbe } from "../system-agent/probes.js";
 import {
   CLAUDE_CLI_DEFAULT_MODEL_REF,

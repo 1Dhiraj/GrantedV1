@@ -4,9 +4,9 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateDatabase } from "../state/granted-state-db.generated.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/granted-state-schema.js";
 import {
   classifyExecutionOwnerBinding,
   type ExecutionOwnerBindingResult,

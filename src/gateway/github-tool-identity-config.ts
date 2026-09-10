@@ -7,7 +7,7 @@ import { resolveMutableAgentEntry } from "../agents/agent-scope.js";
 import { applyAgentConfig } from "../commands/agents.config.js";
 import { unsetConfigValueAtPath } from "../config/config-paths.js";
 import { mutateConfigFileWithRetry } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 
 function sameIdentity(

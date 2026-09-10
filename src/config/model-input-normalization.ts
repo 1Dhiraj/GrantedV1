@@ -9,7 +9,7 @@ import {
   normalizeAgentModelRefForConfig,
   normalizeAgentModelSelectionForConfig,
 } from "./model-input.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 const MODEL_SELECTION_KEYS = ["model", "imageModel", "voiceModel", "pdfModel"] as const;
 const MEDIA_MODEL_KEYS = ["image", "video", "music"] as const;

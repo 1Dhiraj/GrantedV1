@@ -276,8 +276,8 @@ Board state lives in `agents/<agentId>/agent/openclaw-agent.sqlite`:
   capability declarations, approved digests, and grant state.
 
 The canonical table definitions, constraints, and indexes are in
-`src/state/openclaw-agent-schema.sql`. The board schema ensure/repair path is
-`src/state/openclaw-agent-board-schema.ts`; runtime reads and writes are owned by
+`src/state/granted-agent-schema.sql`. The board schema ensure/repair path is
+`src/state/granted-agent-board-schema.ts`; runtime reads and writes are owned by
 `src/boards/sqlite-board-store.ts`. See [Database schemas](/reference/database-schemas)
 for schema versions, migration and downgrade rules, and the review checkpoint for
 material storage changes. Do not use a copied SQL sketch as the schema contract.

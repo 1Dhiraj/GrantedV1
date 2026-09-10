@@ -1,5 +1,5 @@
 // Read-only device pairing snapshots avoid joining the shared-state writer lifecycle.
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
 import {
   readDevicePairingStoreStateFromDatabase,
   type DevicePairingStoreState,

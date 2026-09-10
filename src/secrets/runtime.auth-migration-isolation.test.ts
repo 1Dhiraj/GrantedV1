@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 let resolveApiKeyForProviderCore: typeof import("../agents/model-auth.js").resolveApiKeyForProviderCore;
-let closeOpenClawAgentDatabasesForTest: typeof import("../state/openclaw-agent-db.js").closeOpenClawAgentDatabasesForTest;
-let withOpenClawTestState: typeof import("../test-utils/openclaw-test-state.js").withOpenClawTestState;
+let closeOpenClawAgentDatabasesForTest: typeof import("../state/granted-agent-db.js").closeOpenClawAgentDatabasesForTest;
+let withOpenClawTestState: typeof import("../test-utils/granted-test-state.js").withOpenClawTestState;
 let activateSecretsRuntimeSnapshot: typeof import("./runtime.js").activateSecretsRuntimeSnapshot;
 let clearSecretsRuntimeSnapshot: typeof import("./runtime.js").clearSecretsRuntimeSnapshot;
 let prepareSecretsRuntimeSnapshot: typeof import("./runtime.js").prepareSecretsRuntimeSnapshot;
@@ -18,8 +18,8 @@ describe("auth profile migration isolation", () => {
       prepareSecretsRuntimeSnapshot,
     } = await import("./runtime.js"));
     ({ resolveApiKeyForProviderCore } = await import("../agents/model-auth.js"));
-    ({ closeOpenClawAgentDatabasesForTest } = await import("../state/openclaw-agent-db.js"));
-    ({ withOpenClawTestState } = await import("../test-utils/openclaw-test-state.js"));
+    ({ closeOpenClawAgentDatabasesForTest } = await import("../state/granted-agent-db.js"));
+    ({ withOpenClawTestState } = await import("../test-utils/granted-test-state.js"));
     clearSecretsRuntimeSnapshot();
     closeOpenClawAgentDatabasesForTest();
     vi.unstubAllEnvs();

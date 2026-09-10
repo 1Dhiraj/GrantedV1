@@ -4,7 +4,7 @@ import type {
   ConfigFileSnapshot,
   ConfigValidationIssue,
   GrantedConfig,
-} from "../config/types.openclaw.js";
+} from "../config/types.granted.js";
 import { createCompatibilityNotice, createPluginRecord } from "../plugins/status.test-fixtures.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {

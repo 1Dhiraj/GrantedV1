@@ -5,7 +5,7 @@ import type {
   ChannelMessageSendCommitContext,
   ChannelMessageUnknownSendReconciliationResult,
 } from "../../channels/message/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
 import {
   createDeliveryRecoveryCoordinator,

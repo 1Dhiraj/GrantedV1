@@ -8,7 +8,7 @@ import { readConfigFileSnapshot } from "../config/config.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { pinConfigDir } from "../utils.js";
 import { readHookInstalls } from "./installs.js";
 import {

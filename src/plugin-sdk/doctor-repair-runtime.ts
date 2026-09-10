@@ -17,5 +17,5 @@ export { removePluginFromConfig } from "../plugins/uninstall-config.js";
 export {
   detectOpenClawStateDatabaseSchemaMigrations,
   repairOpenClawStateDatabaseSchema,
-} from "../state/openclaw-state-db.js";
-export type { GrantedStateDatabaseSchemaMigration } from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
+export type { GrantedStateDatabaseSchemaMigration } from "../state/granted-state-db.js";

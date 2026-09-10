@@ -54,7 +54,7 @@ vi.mock("../../plugins/install-persistence.js", async (importOriginal) => ({
   persistPluginInstall: persistPluginInstallMock,
 }));
 
-const workspaceHarness = createCommandWorkspaceHarness("openclaw-command-plugins-clawhub-");
+const workspaceHarness = createCommandWorkspaceHarness("granted-command-plugins-clawhub-");
 
 function buildClawHubPluginsParams(commandBodyNormalized: string, workspaceDir: string) {
   return buildPluginsCommandParams({
@@ -78,7 +78,7 @@ describe("chat plugin install explicit ClawHub selectors", () => {
   it.each(["clawhub:", "clawhub:demo@", "clawhub:@scope/pkg@", "CLAWHUB:"])(
     "rejects malformed source %s before installer side effects",
     async (raw) => {
-      await withTempHome("openclaw-command-plugins-home-", async () => {
+      await withTempHome("granted-command-plugins-home-", async () => {
         const workspaceDir = await workspaceHarness.createWorkspace();
         const params = buildClawHubPluginsParams(`/plugins install ${raw} --force`, workspaceDir);
 
@@ -116,7 +116,7 @@ describe("chat plugin install explicit ClawHub selectors", () => {
       },
     });
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const result = await handlePluginsCommand(
         buildClawHubPluginsParams(
@@ -172,7 +172,7 @@ describe("chat plugin install release stream", () => {
       });
       persistPluginInstallMock.mockResolvedValue({});
 
-      await withTempHome("openclaw-command-plugins-home-", async (home) => {
+      await withTempHome("granted-command-plugins-home-", async (home) => {
         await fs.writeFile(
           path.join(home, ".openclaw", "openclaw.json"),
           `${JSON.stringify(cfg, null, 2)}

@@ -1,5 +1,5 @@
 // Converges the system-owned skill collection review jobs at startup and reload.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   resolveSkillCollectionReviewMonitorSpecs,
   skillCollectionReviewMonitorAgentId,

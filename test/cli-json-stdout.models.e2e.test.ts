@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { readConfigMachineState } from "../src/state/config-machine-state.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../src/state/granted-state-schema.js";
 import { runBuiltCli } from "./cli-json-stdout.test-support.js";
 
 async function seedPendingStateMigration(stateDir: string) {

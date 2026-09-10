@@ -6,8 +6,8 @@ import type { CronJob } from "./types.js";
 
 const sqliteTransactionLabels = vi.hoisted(() => [] as string[]);
 
-vi.mock("../state/openclaw-state-db.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../state/openclaw-state-db.js")>();
+vi.mock("../state/granted-state-db.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../state/granted-state-db.js")>();
   const runOpenClawStateWriteTransaction: typeof actual.runOpenClawStateWriteTransaction = (
     operation,
     options,

@@ -1,5 +1,5 @@
 /** Onboarding defaults for workspace hooks. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const DEFAULT_ONBOARDING_INTERNAL_HOOKS = ["session-memory"] as const;
 

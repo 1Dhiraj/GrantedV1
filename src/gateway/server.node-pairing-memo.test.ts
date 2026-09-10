@@ -7,7 +7,7 @@ import { configureSqliteConnectionPragmas } from "../infra/sqlite-wal.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { openTrackedWs } from "./device-authz.test-helpers.js";
 import {
   createNodePairingTestState,

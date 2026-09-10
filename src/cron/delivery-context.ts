@@ -1,6 +1,6 @@
 /** Converts live or stored session routing into cron delivery config. */
 import { extractDeliveryInfo } from "../config/sessions/delivery-info.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   normalizeDeliveryContext,
   type DeliveryContext,

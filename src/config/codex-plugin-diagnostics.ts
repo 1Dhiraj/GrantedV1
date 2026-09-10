@@ -26,7 +26,7 @@ import {
 import { resolveOpenAIImplicitAgentRuntime } from "../agents/openai-routing.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { resolveAgentModelFallbackValues } from "./model-input.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 const CODEX_PLUGIN_ID = "codex";
 const OPENAI_PROVIDER_ID = "openai";

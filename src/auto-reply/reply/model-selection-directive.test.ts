@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { buildModelAliasIndex } from "../../agents/model-selection.js";
 import { createModelVisibilityPolicy } from "../../agents/model-visibility-policy.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveModelDirectiveSelection } from "./model-selection-directive.js";
 import { createModelSelectionState } from "./model-selection.js";
 

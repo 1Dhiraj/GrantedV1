@@ -6,7 +6,7 @@ import { formatConfigIssueLines, normalizeConfigIssues } from "../config/issue-f
 import { renderConfigValidationIssueLines } from "../config/issue-location.js";
 import { isPluginPackagingRuntimeOutputInvalidConfigSnapshot } from "../config/recovery-policy.js";
 import type { ConfigValidationIssue } from "../config/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   coerceSecretRef,
   isSecretRef,

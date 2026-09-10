@@ -2,7 +2,7 @@
 import { asOptionalRecord as normalizeRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { NodePluginToolDescriptor } from "../../packages/gateway-protocol/src/schema/nodes.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   parseComputerUseCapabilityDescriptor,
   type ComputerUseCapabilityDescriptor,

@@ -4,7 +4,7 @@ import {
   type ReplyPayload,
 } from "../auto-reply/reply-payload.js";
 import { resolveChannelTtsVoiceDelivery } from "../channels/plugins/tts-capabilities.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { TtsAutoMode } from "../config/types.tts.js";
 import { createTtsDirectiveTextStreamCleaner } from "./directives.js";
 import { resolveStatusTtsSnapshot } from "./status-config.js";

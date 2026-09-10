@@ -2,7 +2,7 @@
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import { markInboundContextLabel } from "../../auto-reply/reply/inbound-context-marker.js";
-import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../../shared/transcript-only-openclaw-assistant.js";
+import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../../shared/transcript-only-granted-assistant.js";
 import {
   INTERNAL_RUNTIME_CONTEXT_BEGIN,
   INTERNAL_RUNTIME_CONTEXT_END,

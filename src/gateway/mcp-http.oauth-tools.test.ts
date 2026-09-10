@@ -1,7 +1,7 @@
 import { Type } from "typebox";
 import { describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../agents/tools/common.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveMcpLoopbackScopedTools } from "./mcp-http.runtime.js";
 
 const pluginTools = vi.hoisted(() => ({

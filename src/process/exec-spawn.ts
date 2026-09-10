@@ -1,7 +1,7 @@
 import path from "node:path";
 import process from "node:process";
 import { execa, type Options as ExecaOptions, type ResultPromise } from "execa";
-import { markOpenClawExecEnv } from "../infra/openclaw-exec-env.js";
+import { markOpenClawExecEnv } from "../infra/granted-exec-env.js";
 import { mergeProcessEnv } from "../infra/process-env.js";
 import { resolveSafeChildProcessInvocation } from "./windows-command.js";
 

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { AuthProfileStore } from "../auth-profiles.js";
 import { prepareAgentRuntimeAuth } from "./prepare-auth.js";
 

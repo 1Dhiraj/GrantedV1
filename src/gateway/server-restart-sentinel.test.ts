@@ -14,7 +14,7 @@ import { resolveSystemEventOptionsOwnerAgentId } from "../infra/system-event-own
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { normalizeSessionDeliveryState } from "../utils/delivery-context.shared.js";
 
 type RestartSentinel = NonNullable<

@@ -17,7 +17,7 @@ import {
 } from "../infra/local-file-access.js";
 import { assertNoPathAliasEscape, type PathAliasPolicy } from "../infra/path-alias-guards.js";
 import { isNotFoundPathError, isPathInside } from "../infra/path-guards.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { resolveConfigDir, shortenHomePath } from "../utils.js";
 
 const DATA_URL_RE = /^data:/i;
@@ -411,7 +411,7 @@ async function resolveAllowedTmpMediaPath(params: {
     return undefined;
   }
   const resolved = path.resolve(resolveSandboxInputPath(params.candidate, params.sandboxRoot));
-  const openClawTmpDir = path.resolve(resolvePreferredOpenClawTmpDir());
+  const openClawTmpDir = path.resolve(resolvePreferredGrantedTmpDir());
   if (!isPathInside(openClawTmpDir, resolved)) {
     return undefined;
   }

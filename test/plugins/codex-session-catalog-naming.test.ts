@@ -17,7 +17,7 @@ import {
 import { createPluginRegistry } from "../../src/plugins/registry.js";
 import { createPluginRuntime } from "../../src/plugins/runtime/index.js";
 import { withEnvAsync } from "../../src/test-utils/env.js";
-import { withOpenClawTestState } from "../../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../src/test-utils/granted-test-state.js";
 
 it("adopts duplicate native titles without claiming labels or replacing local naming", async () => {
   await withOpenClawTestState({ label: "native-adoption-naming" }, async (state) => {

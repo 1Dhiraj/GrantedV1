@@ -5,7 +5,7 @@
  */
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { uniqueStrings } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveAgentConfig } from "../agent-scope.js";
 import { compileGlobPatterns, matchesAnyGlobPattern } from "../glob-pattern.js";
 import { expandToolGroups, normalizeToolPolicyName } from "../tool-policy.js";

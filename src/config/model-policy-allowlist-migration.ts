@@ -1,7 +1,7 @@
 // Shared legacy model allowlist detection for runtime, doctor, and config writes.
 import { isRecord } from "../utils.js";
 import { createModelPolicyRefValidator } from "./model-policy-ref.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 export function hasModelPolicyAllowlistMigrationMarker(value: unknown): boolean {
   if (

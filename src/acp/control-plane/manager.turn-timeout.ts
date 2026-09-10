@@ -2,7 +2,7 @@
 import type { AcpRuntimeSessionMode } from "@granted/acp-core/runtime/types";
 import { clampTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import { AcpRuntimeError } from "../runtime/errors.js";
 import type { ActiveTurnState, SessionAcpMeta } from "./manager.types.js";

@@ -9,14 +9,14 @@ import type {
   WorkerProfile,
   WorkerSshEndpoint,
 } from "../../plugins/types.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
-import { ensureAdditiveStateColumns } from "../../state/openclaw-state-db-schema-additive.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/granted-state-db-contract.js";
+import { ensureAdditiveStateColumns } from "../../state/granted-state-db-schema-additive.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { hashWorkerCredential } from "./credential.js";
 import {
   createWorkerEnvironmentStore,

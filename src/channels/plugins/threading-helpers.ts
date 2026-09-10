@@ -4,7 +4,7 @@
  * Builds reply-to-mode resolvers from static, top-level, or account-scoped config.
  */
 import type { ReplyToMode } from "../../config/types.base.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ChannelThreadingAdapter } from "./types.core.js";
 
 type ReplyToModeResolver = NonNullable<ChannelThreadingAdapter["resolveReplyToMode"]>;

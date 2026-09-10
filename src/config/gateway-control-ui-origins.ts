@@ -1,6 +1,6 @@
 // Resolves allowed Control UI origins for gateway access.
 import { DEFAULT_GATEWAY_PORT } from "./paths.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Non-loopback gateway bind modes that require explicit Control UI allowed origins. */
 export type GatewayNonLoopbackBindMode = "lan" | "tailnet" | "custom" | "auto";

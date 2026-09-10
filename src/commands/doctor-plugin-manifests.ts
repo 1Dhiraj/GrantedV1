@@ -5,7 +5,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { z } from "zod";
 import { note } from "../../packages/terminal-core/src/note.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding } from "../flows/health-checks.js";
 import { loadPluginManifestRegistryCore } from "../plugins/manifest-registry.js";
 import type { RuntimeEnv } from "../runtime.js";

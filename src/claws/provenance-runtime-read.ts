@@ -2,12 +2,12 @@ import type { DatabaseSync } from "node:sqlite";
 import {
   assertOpenClawStateDatabaseOwner,
   resolveDatabasePath,
-} from "../state/openclaw-state-db-maintenance.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
+} from "../state/granted-state-db-maintenance.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
 import {
   registerOpenClawStateDatabaseLifecycleListener,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { parseClawInstallRecordSchemaVersion } from "./provenance-schema-version.js";
 
 type ClawInstallSchemaVersionRead =

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { prepareApprovalChannelCustody } from "./approval-channel-custody.js";
 
 const mocks = vi.hoisted(() => ({

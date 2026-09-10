@@ -11,7 +11,7 @@ import {
 
 describe("SQLite sessions/transcripts schema baseline", () => {
   it("includes session and transcript DDL while excluding unrelated agent tables", async () => {
-    const sourceSql = await readFile("src/state/openclaw-agent-schema.sql", "utf8");
+    const sourceSql = await readFile("src/state/granted-agent-schema.sql", "utf8");
 
     const rendered = renderSqliteSessionSchemaBaseline(sourceSql);
 

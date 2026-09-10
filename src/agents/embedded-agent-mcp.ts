@@ -5,7 +5,7 @@ import type { SessionToolOverrides } from "../config/sessions/types.js";
  * Embedded runs use this to merge bundled/plugin MCP server config and return
  * the launchable server map plus diagnostics for the caller.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   BundleMcpDataDirOwnership,
   BundleMcpDiagnostic,

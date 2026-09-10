@@ -1,7 +1,7 @@
 // Builds web-search install catalog entries from plugin metadata.
 import { normalizeOptionalString as normalizeString } from "@granted/normalization-core/string-coerce";
 import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 import { enablePluginInConfig } from "./enable.js";
 import type { PluginPackageInstall } from "./manifest.js";

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { addSessionMember } from "../../config/sessions/session-sharing-store.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   claimAgentRunDelegatedAuthority,
   getAgentRunContext,
@@ -14,7 +14,7 @@ import { isSecretValueRegisteredForRedaction } from "../../logging/secret-redact
 import * as secretsRuntimeState from "../../secrets/runtime-state.js";
 import { listSecretStoreEntries, readSecretStoreValue } from "../../secrets/store/secret-store.js";
 import { ensureProfileForEmail, setUserProfileRole } from "../../state/user-profiles.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import {
   abortChatRunById,
   registerChatAbortController,

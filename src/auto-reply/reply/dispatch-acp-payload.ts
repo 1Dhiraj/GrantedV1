@@ -1,7 +1,7 @@
 // Prepares ACP reply payloads before TTS, transcript accounting, or delivery.
 import { createChannelReplyTransform } from "../../channels/message/reply-transform.js";
 import type { ChannelMessagingAdapter } from "../../channels/plugins/types.public.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ReplyPayload } from "../types.js";
 import { normalizeReplyPayloadOutcome } from "./normalize-reply.js";
 import { prepareReplyPayloadForDispatcher } from "./reply-dispatcher.js";

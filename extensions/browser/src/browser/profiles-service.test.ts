@@ -451,7 +451,7 @@ describe("BrowserProfilesService", () => {
     const { ctx, state } = createCtx(resolved);
     vi.mocked(getRuntimeConfig).mockReturnValue({ browser: { profiles: {} } });
 
-    const tempDir = tempDirs.make("openclaw-profile-");
+    const tempDir = tempDirs.make("granted-profile-");
     const userDataDir = path.join(tempDir, "BraveSoftware", "Brave-Browser");
     fs.mkdirSync(userDataDir, { recursive: true });
 
@@ -475,7 +475,7 @@ describe("BrowserProfilesService", () => {
     const { ctx } = createCtx(resolved);
     vi.mocked(getRuntimeConfig).mockReturnValue({ browser: { profiles: {} } });
 
-    const tempDir = tempDirs.make("openclaw-profile-");
+    const tempDir = tempDirs.make("granted-profile-");
     const userDataDir = path.join(tempDir, "BraveSoftware", "Brave-Browser");
     fs.mkdirSync(userDataDir, { recursive: true });
 
@@ -574,7 +574,7 @@ describe("BrowserProfilesService", () => {
     const { service } = createDeletionFixture({
       resolvedProfile: { cdpPort: 18801, color: "#0066CC" },
     });
-    const tempDir = tempDirs.make("openclaw-profile-");
+    const tempDir = tempDirs.make("granted-profile-");
     const userDataDir = path.join(tempDir, "work", "user-data");
     fs.mkdirSync(path.dirname(userDataDir), { recursive: true });
     vi.mocked(resolveOpenClawUserDataDir).mockReturnValue(userDataDir);

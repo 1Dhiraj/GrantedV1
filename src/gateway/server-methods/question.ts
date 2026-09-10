@@ -14,7 +14,7 @@ import {
   validateQuestionWaitAnswerParams,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { registerActiveEmbeddedRunHumanInputWait } from "../../agents/embedded-agent-runner/run-state.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { ENV_SECRET_REF_ID_RE } from "../../config/types.secrets.js";
 import {
   handleQuestionChannelRequested,

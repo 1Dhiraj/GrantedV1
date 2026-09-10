@@ -1,7 +1,7 @@
 import { AGENT_MODEL_CONFIG_KEYS } from "@granted/model-catalog-core/configured-model-refs";
 import { asOptionalRecord as asMutableRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeOptionalLowercaseString as normalizeString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { listMutableCodexRouteAgentEntries } from "./codex-route-agent-entries.js";
 import {
   asAgentRuntimePolicyConfig,

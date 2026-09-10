@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginKind } from "./plugin-kind.types.js";
 import {
   loadPluginMetadataSnapshot,

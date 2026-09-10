@@ -1,10 +1,10 @@
 import { withTempHome as withBaseTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { operatorMcpOAuthIdentity } from "./mcp-oauth-identity.js";
 import {
   clearMcpOAuthStore,

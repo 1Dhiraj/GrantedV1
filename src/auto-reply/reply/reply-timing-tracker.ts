@@ -1,5 +1,5 @@
 /** Lightweight reply-stage profiler for slow-turn diagnostics. */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isDiagnosticFlagEnabled } from "../../infra/diagnostic-flags.js";
 
 type ReplyTimingSummary = {

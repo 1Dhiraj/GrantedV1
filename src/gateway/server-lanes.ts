@@ -3,7 +3,7 @@ import { enableSessionSuspensionWritesForGatewayStart } from "../agents/session-
 // Pushes config-derived agent/cron limits into the process command queue.
 import { resolveAgentMaxConcurrent, resolveSubagentMaxConcurrent } from "../config/agent-limits.js";
 import { resolveCronMaxConcurrentRuns } from "../config/cron-limits.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   getCommandLaneSnapshot,
   publishLaneConfiguration,

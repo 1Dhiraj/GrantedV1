@@ -4,7 +4,7 @@ import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import type { CliDeps } from "../cli/deps.types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const { cancelAllMock, getRuntimeConfigMock, stopAllMock } = vi.hoisted(() => ({
   cancelAllMock: vi.fn<() => Promise<void>>(),

@@ -14,7 +14,7 @@ are fixed, the WAL is checkpointed, and the database is vacuumed before
 deterministic Node `gzipSync(raw, { level: 9, mtime: 0 })` compression.
 
 The sorted `sqlite_schema` rows are byte-identical to a database initialized
-from `src/state/openclaw-state-schema.sql` at the commit above. Synthetic data
+from `src/state/granted-state-schema.sql` at the commit above. Synthetic data
 and metadata normalization do not alter the released schema.
 
 Fixture contract:

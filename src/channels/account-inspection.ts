@@ -4,7 +4,7 @@
  * Combines plugin inspection hooks, read-only fallbacks, and configured credential status.
  */
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   hasConfiguredUnavailableCredentialStatus,
   hasResolvedCredentialValue,

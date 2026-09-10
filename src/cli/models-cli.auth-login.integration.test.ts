@@ -5,7 +5,7 @@ import { loadAuthProfileStoreForRuntime } from "../agents/auth-profiles/store.js
 import type { ProviderPlugin } from "../plugins/types.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { runRegisteredCli } from "../test-utils/command-runner.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { registerModelsCli } from "./models-cli.js";
 
 const FRESH_PROFILE_ID = "openai:fresh-login";

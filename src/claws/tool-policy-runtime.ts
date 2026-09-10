@@ -1,7 +1,7 @@
 import { listAgentEntries } from "../agents/agent-scope.js";
 import { registerRuntimeConfigSnapshotPreparer } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
   initializeCachedClawInstallSchemaVersions,

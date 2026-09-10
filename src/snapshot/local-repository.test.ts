@@ -7,10 +7,10 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import { createPrivateSqliteDirectory } from "../infra/sqlite-private-directory.js";
 import { runExec } from "../process/exec.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db.js";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/granted-agent-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/granted-state-schema.js";
 import { hashSnapshotArtifact, readSnapshotManifest } from "./manifest.js";
 import {
   SNAPSHOT_MANIFEST_FILENAME,

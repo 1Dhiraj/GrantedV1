@@ -1,5 +1,5 @@
 // Test provider implementation for chat-style runtime interactions.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Test-only speech provider identity used by talk config assertions. */
 export const TALK_TEST_PROVIDER_ID = "acme-speech";

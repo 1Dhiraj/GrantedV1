@@ -174,12 +174,12 @@ posixIt.each([
 
     // These namespaces belong to callers, not the child invocation. Keep an open
     // SQLite reader in a sibling PID namespace throughout the real Vitest run.
-    const siblingRoot = path.join(tmp, "openclaw-test-state", `${process.pid}-7`);
+    const siblingRoot = path.join(tmp, "granted-test-state", `${process.pid}-7`);
     fs.mkdirSync(siblingRoot, { recursive: true });
     const sibling = new DatabaseSync(path.join(siblingRoot, "sentinel.sqlite"));
     const explicitPath = path.join(home, "live-state", "state", "openclaw.sqlite");
     const receiptPath = path.join(root, "receipt.json");
-    const databaseModule = JSON.stringify(path.join(repoRoot, "src/state/openclaw-state-db.ts"));
+    const databaseModule = JSON.stringify(path.join(repoRoot, "src/state/granted-state-db.ts"));
     const setupModule = path.join(repoRoot, hermetic ? "test/setup.env.ts" : "test/setup.ts");
     const configReceiptPath = path.join(root, "config-home.json");
     const testRoot = path.join(root, "src/tui");
@@ -196,7 +196,7 @@ import os, { homedir } from "node:os";
 import { syncBuiltinESMExports } from "node:module";
 import { createJiti } from "jiti";
 import { expect, vi } from "vitest";
-import { resolveOpenClawStateSqlitePath } from ${JSON.stringify(path.join(repoRoot, "src/state/openclaw-state-db.paths.ts"))};
+import { resolveOpenClawStateSqlitePath } from ${JSON.stringify(path.join(repoRoot, "src/state/granted-state-db.paths.ts"))};
 import { withTempHomeCore } from ${JSON.stringify(path.join(repoRoot, "src/plugin-sdk/test-helpers/temp-home.ts"))};
 import { createTempHomeEnv } from ${JSON.stringify(path.join(repoRoot, "src/test-utils/temp-home.ts"))};
 const capturedDefault = os.homedir;

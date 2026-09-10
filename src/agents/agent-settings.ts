@@ -1,7 +1,7 @@
 /** Applies agent compaction settings and small-context overflow guards. */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { AgentCompactionMode } from "../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ContextEngineInfo } from "../context-engine/types.js";
 import { resolveEffectiveCompactionReserveTokens } from "./agent-compaction-constants.js";
 import { resolveProviderEndpoint } from "./provider-attribution.js";

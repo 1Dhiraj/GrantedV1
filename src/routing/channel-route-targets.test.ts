@@ -1,6 +1,6 @@
 // Channel route target tests cover target parsing and validation.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { collectChannelRouteTargets } from "./channel-route-targets.js";
 
 function targetMap(cfg: GrantedConfig): Map<string, string[]> {

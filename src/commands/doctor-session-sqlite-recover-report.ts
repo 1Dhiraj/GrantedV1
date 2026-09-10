@@ -14,9 +14,9 @@ import {
   resolveOpenClawAgentSqlitePath,
   type GrantedAgentDatabaseOptions,
   withAgentDatabaseMaintenanceLease,
-} from "../state/openclaw-agent-db.js";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/granted-state-db.js";
 import {
   createSessionSqliteMigrationFailureIssue,
   writeSessionSqliteMigrationFailureReports,

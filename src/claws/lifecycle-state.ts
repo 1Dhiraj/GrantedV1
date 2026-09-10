@@ -3,12 +3,12 @@ import { coerceErrorMessage, stableStringify } from "@granted/normalization-core
 import { unsetConfiguredMcpServer } from "../agents/mcp-config-mutation.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   resolveOpenClawAgentSqlitePath,
-} from "../state/openclaw-agent-db.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import {
   clawCronGatewayJobMatchesRef,
   deleteClawCronRef,

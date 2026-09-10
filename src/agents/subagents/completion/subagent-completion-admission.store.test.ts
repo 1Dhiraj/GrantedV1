@@ -9,12 +9,12 @@ import {
   SessionDeliveryDeadLetteredError,
   SessionDeliveryDeferredError,
 } from "../../../infra/session-delivery-queue-storage.js";
-import { resolvePreferredOpenClawTmpDir } from "../../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../../infra/tmp-granted-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabase,
-} from "../../../state/openclaw-state-db.js";
+} from "../../../state/granted-state-db.js";
 import { ensureTaskRegistryReady, getTaskById } from "../../../tasks/runtime-internal.js";
 import { publishTaskRecordAfterAtomicStore } from "../../../tasks/task-registry.js";
 import type { TaskRecord } from "../../../tasks/task-registry.types.js";
@@ -51,7 +51,7 @@ describe("atomic subagent completion admission store", () => {
   let database: GrantedStateDatabase;
 
   beforeEach(() => {
-    tempDir = tempDirs.make("openclaw-subagent-admission-", resolvePreferredOpenClawTmpDir());
+    tempDir = tempDirs.make("openclaw-subagent-admission-", resolvePreferredGrantedTmpDir());
     database = openOpenClawStateDatabase({ path: path.join(tempDir, "state.sqlite") });
   });
 

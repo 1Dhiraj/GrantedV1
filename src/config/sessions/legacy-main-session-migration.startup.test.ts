@@ -8,8 +8,8 @@ import {
   markPluginRegistryRetired,
 } from "../../plugins/registry-lifecycle.js";
 import { withPluginRuntimeRegistryScope } from "../../plugins/runtime/gateway-request-scope.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { loadSessionEntry, replaceSessionEntry } from "./session-accessor.js";
 import { runSessionStartupMigration } from "./startup-migration.js";

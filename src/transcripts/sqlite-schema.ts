@@ -4,7 +4,7 @@ import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 
 const ensuredDatabases = new WeakSet<DatabaseSync>();
 const MEETING_TRANSCRIPTS_SCHEMA_SQL = `

@@ -1,7 +1,7 @@
 /**
  * Resolves image sanitization limits for historical session messages.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 // Image sanitization limits shared by tools and provider payload builders.
 export type ImageSanitizationLimits = {

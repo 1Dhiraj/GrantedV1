@@ -1,7 +1,7 @@
 // Gateway auth config utilities materialize token/password SecretRefs only for
 // the auth mode that can actually consume them.
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasConfiguredSecretInput, resolveSecretInputRef } from "../config/types.secrets.js";
 import { resolveRequiredConfiguredSecretRefInputString } from "./resolve-configured-secret-input-string.js";
 import {

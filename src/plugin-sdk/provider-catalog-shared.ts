@@ -8,7 +8,7 @@ import {
 import { normalizeConfiguredProviderCatalogModelId } from "../agents/model-ref-shared.js";
 import { resolveProviderRequestCapabilities } from "../agents/provider-attribution.js";
 import type { ModelDefinitionConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
 import type { ModelProviderConfig } from "./provider-model-shared.js";
 

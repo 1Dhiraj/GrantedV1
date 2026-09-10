@@ -10,7 +10,7 @@ import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import type { loadWebMedia as loadWebMediaType } from "granted/plugin-sdk/web-media";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -56,7 +56,7 @@ const testStateDirs = useAutoCleanupTempDirTracker((cleanup) => {
 // Each test gets clean SQLite state; reopen cases retain it within that test.
 const testStateDir = testStateDirs.make(
   "openclaw-synology-media-",
-  resolvePreferredOpenClawTmpDir(),
+  resolvePreferredGrantedTmpDir(),
 );
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,

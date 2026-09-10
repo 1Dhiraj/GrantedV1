@@ -8,10 +8,10 @@ import { resetConfigRuntimeState } from "../config/config.js";
 import { loadSessionEntry, replaceSessionEntry } from "../config/sessions/session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import * as taskRegistryMaintenance from "../tasks/task-registry.maintenance.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import type { GrantedTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
+import type { GrantedTestState } from "../test-utils/granted-test-state.js";
 import { runSessionRegistryMaintenance } from "./tasks-session-registry-maintenance.js";
 import { tasksMaintenanceCommand } from "./tasks.js";
 

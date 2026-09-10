@@ -6,7 +6,7 @@ import type { SessionEntry } from "../../config/sessions.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { createGatewayPortalService } from "../portals/portal-service.js";
 import * as httpListen from "../server/http-listen.js";
 import type { WorkerConnectionIdentity } from "./connection-identity.js";

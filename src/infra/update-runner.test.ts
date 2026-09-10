@@ -3522,7 +3522,7 @@ describe("runGatewayUpdate", () => {
     cwdSpy.mockRestore();
 
     expect(result.status).toBe("error");
-    expect(result.reason).toBe("not-openclaw-root");
+    expect(result.reason).toBe("not-granted-root");
     expect(calls.filter((call) => call.includes("status --porcelain"))).toEqual([]);
   });
 

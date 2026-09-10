@@ -14,13 +14,13 @@ export const runtimeProcessEntrypoints = {
   },
   databaseVerify: {
     currentModuleUrl,
-    sourceWorkerName: "../state/openclaw-database-verify.worker",
-    distWorkerPath: "state/openclaw-database-verify.worker.js",
+    sourceWorkerName: "../state/granted-database-verify.worker",
+    distWorkerPath: "state/granted-database-verify.worker.js",
   },
   stateLeaseHeartbeat: {
     currentModuleUrl,
-    sourceWorkerName: "../state/openclaw-state-lease-heartbeat.worker",
-    distWorkerPath: "state/openclaw-state-lease-heartbeat.worker.js",
+    sourceWorkerName: "../state/granted-state-lease-heartbeat.worker",
+    distWorkerPath: "state/granted-state-lease-heartbeat.worker.js",
   },
   sessionTranscriptArchive: {
     currentModuleUrl,

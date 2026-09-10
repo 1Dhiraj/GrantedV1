@@ -9,7 +9,7 @@ import type {
 } from "../../channels/plugins/types.public.js";
 import { listRouteBindings } from "../../config/bindings.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeOptionalAccountId } from "../../routing/account-id.js";
 import { normalizeRouteBindingChannelId } from "../../routing/binding-scope.js";
 import { buildAgentMainSessionKey, normalizeAgentId } from "../../routing/session-key.js";

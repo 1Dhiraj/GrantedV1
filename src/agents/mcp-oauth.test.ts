@@ -10,8 +10,8 @@ import { createRequest, createResponse } from "../gateway/server-http.test-harne
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { getFreePort } from "../test-utils/ports.js";
 import {
   operatorMcpOAuthIdentity,

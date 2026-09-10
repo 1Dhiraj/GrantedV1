@@ -120,7 +120,7 @@ function createManagedProfileState(
           cdpUrl: "http://127.0.0.1:18800",
           cdpHost: "127.0.0.1",
           cdpIsLoopback: true,
-          userDataDir: "/tmp/openclaw-profile",
+          userDataDir: "/tmp/granted-profile",
           color: "#FF4500",
           headless: false,
           headlessSource: "default",
@@ -178,7 +178,7 @@ async function callStartRoute(params: {
     cdpUrl: "http://127.0.0.1:18800",
     cdpHost: "127.0.0.1",
     cdpIsLoopback: true,
-    userDataDir: "/tmp/openclaw-profile",
+    userDataDir: "/tmp/granted-profile",
     color: "#FF4500",
     headless: false,
     headlessSource: "default",
@@ -388,7 +388,7 @@ describe("basic browser routes", () => {
       running: {
         pid: 222,
         exe: { kind: "chromium", path: "/usr/bin/chromium" },
-        userDataDir: "/tmp/openclaw-profile",
+        userDataDir: "/tmp/granted-profile",
         cdpPort: 18800,
         startedAt: Date.now(),
         proc: {} as never,
@@ -443,7 +443,7 @@ describe("basic browser routes", () => {
       running: {
         pid: 222,
         exe: { kind: "chromium", path: "/usr/bin/chromium" },
-        userDataDir: "/tmp/openclaw-profile",
+        userDataDir: "/tmp/granted-profile",
         cdpPort: 18800,
         startedAt: Date.now(),
         proc: {} as never,
@@ -505,7 +505,7 @@ describe("basic browser routes", () => {
       running: {
         pid: 222,
         exe: { kind: "chromium", path: "/usr/bin/chromium" },
-        userDataDir: "/tmp/openclaw-profile",
+        userDataDir: "/tmp/granted-profile",
         cdpPort: 18800,
         startedAt: Date.now(),
         proc: {} as never,
@@ -536,7 +536,7 @@ describe("basic browser routes", () => {
       running: {
         pid: 222,
         exe: { kind: "chromium", path: "/usr/bin/chromium" },
-        userDataDir: "/tmp/openclaw-profile",
+        userDataDir: "/tmp/granted-profile",
         cdpPort: 18800,
         startedAt: Date.now(),
         proc: {} as never,

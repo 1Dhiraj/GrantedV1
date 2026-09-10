@@ -13,7 +13,7 @@ import { listAgentIds, resolveAgentDir, resolveDefaultAgentId } from "../agents/
 import { AUTH_STORE_VERSION } from "../agents/auth-profiles/constants.js";
 import { loadPersistedAuthProfileStore } from "../agents/auth-profiles/persisted.js";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   isValidEnvSecretRefId,
   type ManualExecSecretProviderConfig,

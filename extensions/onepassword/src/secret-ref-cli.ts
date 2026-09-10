@@ -7,7 +7,7 @@ import {
 } from "granted/plugin-sdk/secret-file-runtime";
 import { createPluginSecretRefSetupCli } from "granted/plugin-sdk/secret-ref-runtime";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { resolveTrustedOnePasswordCli } from "../onepassword-op-path.js";
 import { encodeOnePasswordSecretId } from "../onepassword-secret-id.js";
 
@@ -34,7 +34,7 @@ const onePasswordSecretRefSetupCli: PluginSecretRefSetupCli = createPluginSecret
   },
   normalizeSecretId: normalizeOnePasswordSecretId,
   defaultPlanPath: () =>
-    path.join(resolvePreferredOpenClawTmpDir(), `openclaw-1password-secrets-${randomUUID()}.json`),
+    path.join(resolvePreferredGrantedTmpDir(), `openclaw-1password-secrets-${randomUUID()}.json`),
   beforeApplyCommands: [
     "openclaw plugins enable onepassword",
     "openclaw onepassword secretref status",

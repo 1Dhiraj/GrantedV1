@@ -1081,7 +1081,7 @@ process.stdout.write(sessionDir + "\\n");
     ) as string[];
 
     expect(scenarios).toContain("base");
-    expect(scenarios).toContain("acpx-openclaw-tools-bridge");
+    expect(scenarios).toContain("acpx-granted-tools-bridge");
     expect(scenarios).toContain("prerelease-plugin-registry");
     expect(scenarios).toContain("sqlite-volume");
     expect(new Set(scenarios).size).toBe(scenarios.length);
@@ -1235,7 +1235,7 @@ process.stdout.write(sessionDir + "\\n");
           ...process.env,
           GRANTED_STATE_DIR: stateDir,
           GRANTED_TEST_WORKSPACE_DIR: workspace,
-          GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
+          GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-granted-tools-bridge",
         },
         stdio: "pipe",
       });
@@ -1247,7 +1247,7 @@ process.stdout.write(sessionDir + "\\n");
   it("asserts the ACPX OpenClaw tools bridge config survived", () => {
     expect(() =>
       assertConfig({
-        acceptedIntents: ["acpx-openclaw-tools-bridge"],
+        acceptedIntents: ["acpx-granted-tools-bridge"],
         config: {
           plugins: {
             allow: ["acpx"],
@@ -1261,7 +1261,7 @@ process.stdout.write(sessionDir + "\\n");
             },
           },
         },
-        scenario: "acpx-openclaw-tools-bridge",
+        scenario: "acpx-granted-tools-bridge",
       }),
     ).not.toThrow();
   });

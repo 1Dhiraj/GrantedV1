@@ -1,7 +1,7 @@
 import { resolveStaticSessionMcpServerNames } from "../../agents/agent-bundle-mcp-runtime-config.js";
 import { resolveCodexMcpToolOverridesForAgent } from "../../agents/cli-runner/bundle-mcp-codex.js";
 /** Delivery planning, prompt policy, and delivery trace construction for cron runs. */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type {
   SourceDeliveryOutcome,
   SourceDeliveryVisibleDelivery,

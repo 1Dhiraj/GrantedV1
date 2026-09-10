@@ -2,8 +2,8 @@ import { existsSync } from "node:fs";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
+} from "./granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "./granted-state-db.paths.js";
 
 /** Records an explicit non-Claw claim through the canonical MCP owner. */
 export function markClawMcpServerIndependentlyOwned(

@@ -4,7 +4,7 @@ import { root, type Root } from "@openclaw/fs-safe";
 import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { err } from "@granted/normalization-core/result";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import {
   parsePersistedExecApprovals,
   resolveExecApprovalsPath,

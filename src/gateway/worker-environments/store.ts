@@ -22,18 +22,18 @@ import type {
   WorkerSshEndpoint,
 } from "../../plugins/types.js";
 import { isValidSecretRef } from "../../secrets/ref-contract.js";
-import { ensureWorkerEnvironmentNodeEnrollmentSchema } from "../../state/openclaw-state-db-schema-additive.js";
+import { ensureWorkerEnvironmentNodeEnrollmentSchema } from "../../state/granted-state-db-schema-additive.js";
 import type {
   DB as StateDatabase,
   WorkerEnvironmentCredentials,
   WorkerEnvironmentSshFallbackPorts,
   WorkerEnvironments,
-} from "../../state/openclaw-state-db.generated.js";
+} from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import type { WorkerCredentialRecord } from "./credential.js";
 import {
   canTransitionWorkerEnvironment,

@@ -13,13 +13,13 @@ import {
   resetPluginStateStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import { setIMessageRuntime } from "../runtime.js";
 
 function createIMessageTestEnv(): NodeJS.ProcessEnv & { GRANTED_STATE_DIR: string } {
   const stateDir = fs.realpathSync(
-    fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-imessage-state-")),
+    fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-imessage-state-")),
   );
   return { ...process.env, GRANTED_STATE_DIR: stateDir };
 }

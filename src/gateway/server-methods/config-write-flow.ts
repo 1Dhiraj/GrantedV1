@@ -13,7 +13,7 @@ import {
   type RuntimeConfigWriteApplicationStatus,
 } from "../../config/runtime-write-application.js";
 import { extractDeliveryInfo } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,

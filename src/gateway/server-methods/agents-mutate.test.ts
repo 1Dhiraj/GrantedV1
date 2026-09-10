@@ -254,7 +254,7 @@ vi.mock("../../infra/exec-approvals.js", () => ({
   withAgentExecApprovalsRemoved: mocks.withAgentExecApprovalsRemoved,
 }));
 
-vi.mock("../../state/openclaw-agent-db.js", () => ({
+vi.mock("../../state/granted-agent-db.js", () => ({
   closeOpenClawAgentDatabaseByPath: mocks.closeOpenClawAgentDatabaseByPath,
   listOpenClawRegisteredAgentDatabases: mocks.listOpenClawRegisteredAgentDatabases,
   resolveOpenClawAgentSqlitePath: mocks.resolveOpenClawAgentSqlitePath,
@@ -264,13 +264,13 @@ vi.mock("../../state/agent-deletion-journal.js", () => ({
   readAgentDeletionJournal: mocks.readAgentDeletionJournal,
 }));
 
-vi.mock("../../state/openclaw-agent-db-registry.js", () => ({
+vi.mock("../../state/granted-agent-db-registry.js", () => ({
   isSameOpenClawAgentDatabasePath: (left: string, right: string) =>
     path.resolve(left) === path.resolve(right),
   unregisterOpenClawAgentDatabase: mocks.unregisterOpenClawAgentDatabase,
 }));
 
-vi.mock("../../state/openclaw-agent-db-lease.js", () => ({
+vi.mock("../../state/granted-agent-db-lease.js", () => ({
   assertNoOpenClawAgentDatabaseLeases: mocks.assertNoOpenClawAgentDatabaseLeases,
 }));
 

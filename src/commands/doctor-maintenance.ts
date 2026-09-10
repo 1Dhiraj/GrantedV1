@@ -18,7 +18,7 @@ import {
   resolveConfiguredAgentDatabaseCandidatePaths,
   resolveConfiguredAgentDatabaseTargets,
 } from "../config/sessions/targets.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readGatewayServiceState, resolveGatewayService } from "../daemon/service.js";
 import { resolvePathViaExistingAncestorSync } from "../infra/boundary-path.js";
 import {
@@ -26,13 +26,13 @@ import {
   acquireStateDatabaseCoordinator,
 } from "../infra/state-database-coordinator.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/granted-agent-db-contract.js";
 import {
   preflightOpenClawDatabaseSchemas,
   GrantedDatabaseSchemaPreflightError,
-} from "../state/openclaw-database-preflight.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-database-preflight.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import type { DoctorOptions } from "./doctor-prompter.js";
 import { isDoctorUpdateRepairMode, resolveDoctorRepairMode } from "./doctor-repair-mode.js";
 import {
@@ -131,8 +131,8 @@ export async function beginDoctorMaintenance(params: {
         repairStoresMayBeOpen = false;
         const [{ closeOpenClawAgentDatabases }, { closeOpenClawStateDatabaseByPath }] =
           await Promise.all([
-            import("../state/openclaw-agent-db.js"),
-            import("../state/openclaw-state-db.js"),
+            import("../state/granted-agent-db.js"),
+            import("../state/granted-state-db.js"),
           ]);
         // Agent handles release leases through shared state. Close them before
         // handing off the coordinators, or the restarted Gateway sees Doctor as a writer.

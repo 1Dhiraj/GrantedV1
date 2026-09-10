@@ -9,7 +9,7 @@ import {
   setRuntimeConfigSnapshot,
   setRuntimeConfigSourceSnapshotIfCurrent,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { setTestEnvValue, withEnvAsync } from "../test-utils/env.js";
 import {
   createPluginCliLoadSession,

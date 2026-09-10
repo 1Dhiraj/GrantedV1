@@ -2,7 +2,7 @@
 import { modelKey } from "../../agents/model-ref-shared.js";
 import { shouldSuppressBuiltInModelCore } from "../../agents/model-suppression.js";
 import { loadPreparedAgentModelRegistry as loadAgentModelRegistry } from "../../agents/prepared-model-registry.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { Model } from "../../llm/types.js";
 import { formatErrorWithStack } from "./list.errors.js";
 import type { ConfiguredEntry } from "./list.types.js";

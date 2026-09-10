@@ -3,7 +3,7 @@ import { stableStringify } from "@granted/normalization-core";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   toPackageRefExtensionSqlParams,
   type PersistedClawPackageRef,

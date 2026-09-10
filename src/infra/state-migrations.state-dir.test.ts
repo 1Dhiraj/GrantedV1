@@ -6,7 +6,7 @@ import { getPluginInstallRecordMapEntry } from "../config/plugin-install-record-
 import { hashJson } from "../plugins/installed-plugin-index-hash.js";
 import { writePersistedInstalledPluginIndex } from "../plugins/installed-plugin-index-store-write.js";
 import { readPersistedInstalledPluginIndex } from "../plugins/installed-plugin-index-store.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import {
   autoMigrateLegacyStateDir,

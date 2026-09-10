@@ -2,9 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { replaceSessionEntry } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { openOpenClawAgentDatabase } from "../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { openOpenClawAgentDatabase } from "../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { createPluginDoctorStateMigrationContext } from "./state-migrations.plugin-doctor-context.js";
 
 describe("plugin doctor session identity evidence", () => {

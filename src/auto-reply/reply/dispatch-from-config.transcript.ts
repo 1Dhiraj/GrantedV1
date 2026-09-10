@@ -4,7 +4,7 @@ import {
   appendAssistantMessageToSessionTranscript,
   type SessionTranscriptDeliveryMirror,
 } from "../../config/sessions/transcript.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { getReplyPayloadMetadata, type ReplyPayload } from "../reply-payload.js";

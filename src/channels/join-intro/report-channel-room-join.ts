@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { createDefaultDeps } from "../../cli/deps.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { CronJob } from "../../cron/types.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";

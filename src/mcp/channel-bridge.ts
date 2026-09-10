@@ -7,7 +7,7 @@ import {
   normalizeOptionalLowercaseString,
 } from "@granted/normalization-core/string-coerce";
 import type { EventFrame } from "../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayClient } from "../gateway/client.js";
 import type { ChannelApprovalKind } from "../infra/approval-types.js";
 import { extractFirstTextBlock } from "../shared/chat-message-content.js";

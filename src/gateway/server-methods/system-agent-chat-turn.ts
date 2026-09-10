@@ -3,7 +3,7 @@ import type {
   SystemAgentChatResult,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveGatewayPublicOrigin } from "../../config/gateway-public-origin.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatExecApprovalExpiresIn } from "../../infra/exec-approval-reply.js";
 import type { SystemAgentApprovalRequestPayload } from "../../infra/system-agent-approvals.js";
 import type { SystemAgentChatEngine } from "../../system-agent/chat-engine.js";

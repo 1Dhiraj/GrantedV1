@@ -1,6 +1,6 @@
 /** Evaluates node-host exec policy from security, approval, and allowlist context. */
 import { resolveAgentConfig } from "../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   requiresExecApproval,
   resolveExecModePolicy,

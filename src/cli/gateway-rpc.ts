@@ -4,7 +4,7 @@ import type {
   GatewayClientMode,
   GatewayClientName,
 } from "../../packages/gateway-protocol/src/client-info.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { OperatorScope } from "../gateway/operator-scopes.js";
 import type { DeviceIdentity } from "../infra/device-identity.js";
 import { createLazyImportLoader } from "../shared/lazy-promise.js";

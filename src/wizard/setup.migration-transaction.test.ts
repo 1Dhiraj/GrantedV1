@@ -7,7 +7,7 @@ import { loadPersistedAuthProfileStoreAtDatabasePath } from "../agents/auth-prof
 import { updateAuthProfileStoreWithLock } from "../agents/auth-profiles/store.js";
 import { assertAgentHarnessRunAdmission } from "../agents/embedded-agent-runner/run/session-bootstrap.js";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { summarizeMigrationItems } from "../plugin-sdk/migration.js";
 import type {
   MigrationApplyResult,
@@ -20,7 +20,7 @@ import type {
 import {
   listOpenClawRegisteredAgentDatabases,
   registerOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import type { ActivateSetupInferenceDeps } from "../system-agent/setup-inference-core.js";
 import {
   WizardCancelledError,
@@ -278,8 +278,8 @@ beforeEach(() => {
 afterEach(async () => {
   const [{ closeOpenClawAgentDatabasesForTest }, { closeOpenClawStateDatabaseForTest }] =
     await Promise.all([
-      import("../state/openclaw-agent-db.js"),
-      import("../state/openclaw-state-db.js"),
+      import("../state/granted-agent-db.js"),
+      import("../state/granted-state-db.js"),
     ]);
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();

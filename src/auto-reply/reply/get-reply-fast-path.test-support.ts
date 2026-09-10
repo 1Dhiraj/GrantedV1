@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { markReplyConfigRuntimeMode } from "./reply-config-runtime-mode.js";
 
 export function markCompleteReplyConfig<T extends GrantedConfig>(

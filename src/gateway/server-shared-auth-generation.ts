@@ -1,6 +1,6 @@
 // Gateway shared-auth generation enforcement.
 // Disconnects clients when config writes invalidate shared credentials.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveGatewayReloadSettings } from "./config-reload-settings.js";
 
 /** Gateway client subset relevant to shared auth generation enforcement. */

@@ -9,7 +9,7 @@ import {
   resolveSessionRuntimeOverrideForProvider,
 } from "../../agents/session-runtime-compat.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 type ModelRuntimeDirectiveResolution =
   | { kind: "unchanged" }

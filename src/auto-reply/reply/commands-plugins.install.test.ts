@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { withTempHome } from "../../config/home-env.test-harness.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { invokePluginArtifactInstallMock } from "../../plugins/test-helpers/install-fixtures.js";
 import { expectObjectFields, mockFirstObjectArg } from "../../test-utils/mock-call-assertions.js";
 import { createCommandWorkspaceHarness } from "./commands-filesystem.test-support.js";
@@ -69,7 +69,7 @@ vi.mock("../../plugins/install-persistence.js", async (importOriginal) => ({
   persistPluginInstall: persistPluginInstallMock,
 }));
 
-const workspaceHarness = createCommandWorkspaceHarness("openclaw-command-plugins-install-");
+const workspaceHarness = createCommandWorkspaceHarness("granted-command-plugins-install-");
 
 function mockNpmPluginInstall(pluginId: string, packageName: string, version = "1.0.0"): void {
   installPluginFromNpmSpecMock.mockResolvedValue({
@@ -158,7 +158,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("rejects npm chat installs before package installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams("/plugins install @acme/policy-plugin@1.0.0", workspaceDir);
 
@@ -191,7 +191,7 @@ describe("handleCommands /plugins install", () => {
     };
     mockNpmPluginInstall("policy-plugin", "@acme/policy-plugin");
 
-    await withTempHome("openclaw-command-plugins-home-", async (home) => {
+    await withTempHome("granted-command-plugins-home-", async (home) => {
       await fs.writeFile(
         path.join(home, ".openclaw", "openclaw.json"),
         `${JSON.stringify(policyConfig, null, 2)}\n`,
@@ -253,7 +253,7 @@ describe("handleCommands /plugins install", () => {
     };
     mockNpmPluginInstall("brave", "@granted/brave-plugin");
 
-    await withTempHome("openclaw-command-plugins-home-", async (home) => {
+    await withTempHome("granted-command-plugins-home-", async (home) => {
       await fs.writeFile(
         path.join(home, ".openclaw", "openclaw.json"),
         `${JSON.stringify(policyConfig, null, 2)}\n`,
@@ -293,7 +293,7 @@ describe("handleCommands /plugins install", () => {
     coreVersion.value = version;
     mockNpmPluginInstall("discord", "@granted/discord");
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install npm:@granted/discord --accept-capabilities",
@@ -320,7 +320,7 @@ describe("handleCommands /plugins install", () => {
   it("installs bare bundled plugin ids from the bundled source without --force", async () => {
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams("/plugins install discord", workspaceDir);
 
@@ -342,7 +342,7 @@ describe("handleCommands /plugins install", () => {
   it("allows plugin ids matched by the official catalog", async () => {
     mockNpmPluginInstall("wecom-openclaw-plugin", "@wecom/wecom-openclaw-plugin", "2026.7.2");
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install wecom-openclaw-plugin --accept-capabilities",
@@ -367,7 +367,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("does not treat an explicit npm package as an official plugin id", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams("/plugins install npm:brave", workspaceDir);
 
@@ -381,7 +381,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("rejects npm-pack chat installs before package installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams("/plugins install npm-pack:/tmp/demo.tgz", workspaceDir);
 
@@ -416,7 +416,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const archivePath = "/tmp/packed-demo.tgz";
       const params = buildPluginsParams(
@@ -447,7 +447,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("rejects local path chat installs before package installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginDir = path.join(workspaceDir, "fixtures", "path-install-plugin");
       await fs.mkdir(pluginDir, { recursive: true });
@@ -474,7 +474,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginDir = path.join(workspaceDir, "fixtures", "path-install-plugin");
       await fs.mkdir(pluginDir, { recursive: true });
@@ -516,7 +516,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(`/plugins install ${bundledPath}`, workspaceDir);
 
@@ -538,7 +538,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("rejects local archive chat installs before package installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginArchive = path.join(workspaceDir, "fixtures", "archive-install-plugin.tgz");
       await fs.mkdir(path.dirname(pluginArchive), { recursive: true });
@@ -566,7 +566,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginArchive = path.join(workspaceDir, "fixtures", "archive-install-plugin.tgz");
       await fs.mkdir(path.dirname(pluginArchive), { recursive: true });
@@ -594,7 +594,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("blocks channel-authorized non-owner plugin installs before installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginDir = path.join(workspaceDir, "fixtures", "channel-installed-plugin");
       await fs.mkdir(pluginDir, { recursive: true });
@@ -620,7 +620,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("requires --force for non-ClawHub gateway client installs with operator.admin", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginDir = path.join(workspaceDir, "fixtures", "gateway-admin-plugin");
       await fs.mkdir(pluginDir, { recursive: true });
@@ -653,7 +653,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const pluginDir = path.join(workspaceDir, "fixtures", "gateway-admin-plugin");
       await fs.mkdir(pluginDir, { recursive: true });
@@ -711,7 +711,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install clawhub:@granted/clawhub-demo@1.2.3 --accept-capabilities",
@@ -798,7 +798,7 @@ describe("handleCommands /plugins install", () => {
       },
     );
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install clawhub:@granted/clawhub-demo@1.2.3 --accept-capabilities",
@@ -833,7 +833,7 @@ describe("handleCommands /plugins install", () => {
       warning,
     });
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install clawhub:@granted/blocked-demo@1.2.3",
@@ -856,7 +856,7 @@ describe("handleCommands /plugins install", () => {
     const previousNixMode = process.env.GRANTED_NIX_MODE;
     process.env.GRANTED_NIX_MODE = "1";
     try {
-      await withTempHome("openclaw-command-plugins-home-", async () => {
+      await withTempHome("granted-command-plugins-home-", async () => {
         const workspaceDir = await workspaceHarness.createWorkspace();
         const params = buildPluginsParams("/plugins install @acme/demo", workspaceDir);
         const result = await handlePluginsCommand(params, true);
@@ -882,7 +882,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("refuses installs through a root include before package installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async (home) => {
+    await withTempHome("granted-command-plugins-home-", async (home) => {
       const sharedConfigPath = path.join(home, ".openclaw", "shared.json5");
       await fs.writeFile(sharedConfigPath, `${JSON.stringify({ plugins: {} }, null, 2)}\n`);
       await fs.writeFile(
@@ -907,7 +907,7 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("rejects explicit git: chat installs before installer side effects", async () => {
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugins install git:github.com/acme/git-demo@v1.2.3",
@@ -937,7 +937,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const spec = "git:github.com/acme/git-demo@v1.2.3";
       const params = buildPluginsParams(
@@ -968,7 +968,7 @@ describe("handleCommands /plugins install", () => {
   it.each(["--force", "--accept-capabilities"])(
     "rejects %s unless it follows the install source",
     async (flag) => {
-      await withTempHome("openclaw-command-plugins-home-", async () => {
+      await withTempHome("granted-command-plugins-home-", async () => {
         const workspaceDir = await workspaceHarness.createWorkspace();
         const params = buildPluginsParams(
           `/plugins install ${flag} @acme/policy-plugin@1.0.0`,
@@ -1008,7 +1008,7 @@ describe("handleCommands /plugins install", () => {
     });
     persistPluginInstallMock.mockResolvedValue({});
 
-    await withTempHome("openclaw-command-plugins-home-", async () => {
+    await withTempHome("granted-command-plugins-home-", async () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const params = buildPluginsParams(
         "/plugin add clawhub:@granted/alias-demo@1.0.0 --accept-capabilities",
@@ -1034,7 +1034,7 @@ describe("handleCommands /plugins install", () => {
       coreVersion.value = version;
       mockNpmPluginInstall("wecom-openclaw-plugin", "@wecom/wecom-openclaw-plugin", "2026.7.2");
 
-      await withTempHome("openclaw-command-plugins-home-", async () => {
+      await withTempHome("granted-command-plugins-home-", async () => {
         const workspaceDir = await workspaceHarness.createWorkspace();
         const params = buildPluginsParams(
           "/plugins install @wecom/wecom-openclaw-plugin@latest --accept-capabilities",

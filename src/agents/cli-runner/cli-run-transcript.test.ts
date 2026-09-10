@@ -8,7 +8,7 @@ import {
   onInternalSessionTranscriptUpdate,
   type InternalSessionTranscriptUpdate,
 } from "../../sessions/transcript-events.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import { persistCliAssistantTranscript } from "./cli-run-transcript.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

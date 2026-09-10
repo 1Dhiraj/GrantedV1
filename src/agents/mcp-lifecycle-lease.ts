@@ -1,5 +1,5 @@
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
-import { withOpenClawStateLease } from "../state/openclaw-state-lease.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
+import { withOpenClawStateLease } from "../state/granted-state-lease.js";
 
 const MCP_LIFECYCLE_LEASE_SCOPE = "core:claw-mcp-lifecycle";
 const MCP_LIFECYCLE_LEASE_MS = 5 * 60_000;

@@ -2,7 +2,7 @@
  * Handles assistant-stage failover decisions during embedded-agent attempts.
  */
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
   projectAgentRunAttemptTerminal,

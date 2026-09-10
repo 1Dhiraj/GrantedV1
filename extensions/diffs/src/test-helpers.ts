@@ -9,7 +9,7 @@ import {
   createPluginBlobStoreForTests,
   resetPluginBlobStoreForTests,
 } from "granted/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "../api.js";
+import { resolvePreferredGrantedTmpDir } from "../api.js";
 import { DiffArtifactStore } from "./store.js";
 import type { DiffArtifactBlobMetadata } from "./types.js";
 
@@ -49,7 +49,7 @@ export async function createTempDiffRoot(prefix: string): Promise<{
   rootDir: string;
   cleanup: () => Promise<void>;
 }> {
-  const rootDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), prefix));
+  const rootDir = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), prefix));
   return {
     rootDir,
     cleanup: async () => {

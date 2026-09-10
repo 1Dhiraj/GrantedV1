@@ -9,7 +9,7 @@ import {
   resolveAgentModelPrimaryValue,
 } from "../../config/model-input.js";
 import type { AgentModelConfig } from "../../config/types.agents-shared.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { listAgentEntries } from "../agent-scope-config.js";
 
 /** Provider/profile ids that may need external CLI auth discovery. */

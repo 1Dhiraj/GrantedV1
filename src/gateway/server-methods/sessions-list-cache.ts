@@ -1,5 +1,5 @@
 import type { SessionsListParams } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { readAgentRunIndexVersion } from "../../infra/agent-run-registry.js";
 import {
   readSessionIdentityMutationVersion,
@@ -9,7 +9,7 @@ import { readSessionTranscriptUpdateVersion } from "../../sessions/transcript-ev
 import {
   readOpenClawAgentDatabaseRegistryToken,
   readOpenIncognitoAgentDatabaseGeneration,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { readUserProfileVersion } from "../../state/user-profile-events.js";
 import { operatorSessionCap } from "../operator-role-policy.js";
 import { readSessionAutomationVersion } from "../session-automation-index.js";

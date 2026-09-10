@@ -9,7 +9,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import { recordExecutionDecisionWork } from "../../audit/execution-decision-work.js";
 import { SESSION_LIFECYCLE_CHANGED_ERROR_REASON } from "../../config/sessions/lifecycle.js";
 import { resolveCanonicalMainSessionKey } from "../../config/sessions/main-session-key.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isGatewayClientRequestError } from "../../gateway/call.js";
 import {
   createSessionVisibilityDecisionChecker,

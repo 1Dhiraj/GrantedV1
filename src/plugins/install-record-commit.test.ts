@@ -15,7 +15,7 @@ import {
   createRuntimeConfigWriteApplication,
   getRuntimeConfigWriteApplication,
 } from "../config/runtime-write-application.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { listRecoveredManagedNpmInstallCandidates } from "./installed-plugin-index-record-reader.js";

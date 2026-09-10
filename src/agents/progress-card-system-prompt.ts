@@ -2,9 +2,9 @@ import {
   canonicalizeMainSessionAlias,
   resolveAgentMainSessionKey,
 } from "../config/sessions/main-session.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasPairedCardRenderer } from "../infra/device-pairing.js";
-import { shouldIncludeProgressCardToolForOpenClawTools } from "./openclaw-tools.registration.js";
+import { shouldIncludeProgressCardToolForOpenClawTools } from "./granted-tools.registration.js";
 import { resolveUtilityModelRefForAgent } from "./utility-model.js";
 
 const PROGRESS_CARD_SYSTEM_PROMPT =

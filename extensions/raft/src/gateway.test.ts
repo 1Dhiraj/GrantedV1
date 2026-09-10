@@ -4,7 +4,7 @@ import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { createChannelReplayGuard } from "granted/plugin-sdk/persistent-dedupe";
 import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -430,7 +430,7 @@ describe("Raft wake gateway", () => {
 
   it("persists accepted wake dedupe across restarts without crossing accounts", async () => {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-raft-wake-dedupe-",
     });
     tempWorkspaces.push(workspace);

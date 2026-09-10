@@ -5,14 +5,14 @@ import crypto from "node:crypto";
 import path from "node:path";
 import { applyMergePatch } from "../../config/merge-patch.js";
 import type { SessionToolOverrides } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { tryReadJson } from "../../infra/json-files.js";
 import {
   GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV,
   GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV,
   GRANTED_TOOLS_MCP_TOOLS_ENV,
-} from "../../mcp/openclaw-tools-serve-config.js";
+} from "../../mcp/granted-tools-serve-config.js";
 import {
   extractMcpServerMap,
   type BundleMcpConfig,

@@ -1,7 +1,7 @@
 /** Process-local identity for the non-secret config that an owner may use with a credential. */
 import { createHash } from "node:crypto";
 import { stableStringify } from "@granted/normalization-core";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { secretRefKey } from "./ref-contract.js";
 import { isRecord } from "./shared.js";

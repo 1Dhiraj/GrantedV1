@@ -23,7 +23,7 @@ paths:
   - src/agents/*completion*.ts
   - src/agents/*transport*.ts
   - src/agents/model-*.ts
-  - src/agents/openclaw-tools*.ts
+  - src/agents/granted-tools*.ts
   - src/agents/provider-*.ts
   - src/agents/session*.ts
   - src/agents/tool-call*.ts

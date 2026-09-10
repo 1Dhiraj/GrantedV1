@@ -10,7 +10,7 @@ import { withEnv, withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { executeNodeHostCommand } from "./bash-tools.exec-host-node.js";
 import type { ExecuteNodeHostCommandParams } from "./bash-tools.exec-host-node.types.js";
 import { resolvePreparedExecEnvironment } from "./bash-tools.exec-request-preparation.js";

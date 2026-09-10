@@ -2,12 +2,12 @@ import fs from "node:fs";
 import { expect, it, vi } from "vitest";
 import { resolveInternalSessionEffectsIdentity } from "../../config/sessions/internal-session-key.js";
 import * as sessionAccessor from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   isOpenClawAgentDatabaseOpen,
   resolveIncognitoOpenClawAgentSqlitePath,
-} from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+} from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { resolveSession, resolveSessionKeyForRequestCore } from "./session.js";
 
 it.each(["work", "dashboard:incognito-work"])(

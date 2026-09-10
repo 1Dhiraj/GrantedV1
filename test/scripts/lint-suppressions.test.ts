@@ -214,7 +214,7 @@ describe("production lint suppressions", () => {
         "src/cli/cli-utils.ts|typescript/no-unnecessary-type-parameters|1",
         "src/cli/command-options.ts|typescript/no-unnecessary-type-parameters|1",
         "src/cli/plugins-cli-test-helpers.ts|typescript/no-unnecessary-type-parameters|1",
-        "src/cli/program/openclaw-command.ts|eslint/no-underscore-dangle|1",
+        "src/cli/program/granted-command.ts|eslint/no-underscore-dangle|1",
         "src/cli/test-runtime-capture.ts|typescript/no-unnecessary-type-parameters|1",
         // Cleanup is retained in AggregateError.errors; extraction remains the primary cause.
         "src/commands/backup-restore.ts|preserve-caught-error|1",

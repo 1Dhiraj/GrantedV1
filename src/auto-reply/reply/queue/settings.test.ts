@@ -1,6 +1,6 @@
 // Tests queue setting normalization and directive parsing.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveQueueSettingsCore } from "./settings.js";
 
 describe("resolveQueueSettingsCore", () => {

@@ -1,7 +1,7 @@
 // Resolves diagnostics feature flags from config and environment.
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { normalizeUniqueStringEntriesLower } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const DIAGNOSTICS_ENV = "GRANTED_DIAGNOSTICS";
 

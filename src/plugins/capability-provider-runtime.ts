@@ -1,7 +1,7 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import * as talk from "../config/talk.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveVoiceModelRefs } from "../tts/voice-models.js";
 import {
   getLoadedRuntimePluginRegistry,

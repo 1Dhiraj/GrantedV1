@@ -52,7 +52,7 @@ import {
   hasSessionAutoModelFallbackProvenance,
   hasUserPinnedModelSelection,
 } from "../config/sessions/model-override-provenance.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readRecentSessionUsageFromTranscript } from "../gateway/session-transcript-readers.js";
 import { formatDurationCompact } from "../infra/format-time/format-duration.ts";
 import { formatTimeAgo } from "../infra/format-time/format-relative.ts";

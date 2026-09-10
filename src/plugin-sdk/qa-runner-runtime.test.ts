@@ -23,7 +23,7 @@ vi.mock("../plugins/manifest-registry.js", () => ({
   loadPluginManifestRegistryCore,
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/granted-root.js", () => ({
   resolveOpenClawPackageRootSync,
 }));
 

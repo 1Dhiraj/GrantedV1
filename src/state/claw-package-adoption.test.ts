@@ -14,7 +14,7 @@ import {
   acquireClawPackageLifecycleLease,
   withClawPackageLifecycleLease,
 } from "./claw-package-lifecycle-lease.js";
-import { closeOpenClawStateDatabaseForTest } from "./openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "./granted-state-db.js";
 
 afterEach(() => closeOpenClawStateDatabaseForTest());
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

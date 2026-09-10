@@ -1,5 +1,5 @@
 // Channel-aware cron delivery validation for gateway-owned mutations.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { listConfiguredMessageChannels } from "../infra/outbound/channel-selection.js";
 import {
   resolveTargetPrefixedChannel,

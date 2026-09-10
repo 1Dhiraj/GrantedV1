@@ -8,7 +8,7 @@ import {
   type ComputerUseProvider,
 } from "granted/plugin-sdk/computer-use";
 import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { createRastermill } from "rastermill";
 import { z } from "zod";
 import { normalizeModifiers, parseKeyChord, scalePoint } from "./actions.js";
@@ -228,7 +228,7 @@ function createImageProcessor(env: NodeJS.ProcessEnv): ImageProcessor {
   return createRastermill({
     execution: "auto",
     limits: { inputPixels: MAX_IMAGE_PIXELS, outputPixels: MAX_IMAGE_PIXELS },
-    temp: { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-cua-computer-" },
+    temp: { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-cua-computer-" },
     commandResolver: (command) => resolveImageCommand(command, env),
   });
 }

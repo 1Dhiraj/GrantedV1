@@ -7,8 +7,8 @@ import {
 } from "granted/plugin-sdk/runtime-config-snapshot";
 import { describe, expect, it, vi } from "vitest";
 import { upsertSessionEntryCore } from "../../../../src/config/sessions/session-accessor.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/openclaw-state-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/granted-state-db.js";
 import { createTempDirTracker } from "../../../../test/helpers/temp-dir.js";
 import {
   extractAgentIdFromSessionsDir,

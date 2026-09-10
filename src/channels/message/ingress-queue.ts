@@ -14,12 +14,12 @@ import {
 import type {
   ChannelIngressEvents,
   DB as GrantedStateKyselyDatabase,
-} from "../../state/openclaw-state-db.generated.js";
+} from "../../state/granted-state-db.generated.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 
 /** Pending or retryable inbound channel event stored in the durable ingress queue. */
 export type ChannelIngressQueueRecord<TPayload, TMetadata = unknown> = {

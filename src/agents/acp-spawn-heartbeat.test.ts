@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isHeartbeatEnabledForSessionAgent } from "./subagents/spawn/acp-spawn-heartbeat.js";
 import { resolveAcpSpawnRequesterState } from "./subagents/spawn/acp-spawn-requester.js";
 

@@ -13,7 +13,7 @@ import {
   getRuntimeConfigSnapshot,
   getRuntimeConfigSourceSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   activateSecretsRuntimeSnapshotWithSource,
   clearSecretsRuntimeSnapshot,
@@ -22,7 +22,7 @@ import {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { createGatewaySecretsReloader } from "./server-secrets-reload.js";
 import {
   enforceSharedGatewaySessionGenerationForConfigWrite,

@@ -6,7 +6,7 @@ import { SessionManager } from "../../agents/sessions/session-manager.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   resolveIncognitoOpenClawAgentSqlitePath,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import {
   createSessionEntryWithTranscript,

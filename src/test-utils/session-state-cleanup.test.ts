@@ -11,8 +11,8 @@ import { resetFileLockStateForTest } from "../infra/file-lock.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import {
   cleanupSessionStateForTest,
   resetSessionStateCleanupRuntimeForTests,

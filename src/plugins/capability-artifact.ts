@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginAcceptedDeclaredSurface } from "../config/types.plugins.js";
 import { isRootFileMissingFailure } from "../infra/boundary-file-read.js";
 import {

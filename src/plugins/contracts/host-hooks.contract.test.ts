@@ -24,7 +24,7 @@ import { pluginHostHookHandlers } from "../../gateway/server-methods/plugin-host
 import { buildGatewaySessionRow } from "../../gateway/session-utils.js";
 import { withTempConfig } from "../../gateway/test-temp-config.js";
 import { emitAgentEvent, resetAgentEventsForTest } from "../../infra/agent-events.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import type {
   AgentToolResultMiddlewareContext,
@@ -154,7 +154,7 @@ async function withHostHookState(
     session: { store: storePath },
   }),
 ): Promise<void> {
-  const stateDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), prefix));
+  const stateDir = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), prefix));
   const storePath = path.join(stateDir, "sessions.json");
   const tempConfig = createTempConfig(storePath);
   try {

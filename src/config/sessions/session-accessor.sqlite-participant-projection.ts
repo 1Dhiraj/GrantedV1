@@ -1,8 +1,8 @@
 import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import { SESSION_PARTICIPANTS_TABLE } from "../../state/openclaw-agent-session-participants-schema.js";
-import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
+import { SESSION_PARTICIPANTS_TABLE } from "../../state/granted-agent-session-participants-schema.js";
+import { tableExists } from "../../state/granted-state-db-schema-helpers.js";
 import {
   getSessionKysely,
   resolveSqliteReadScope,

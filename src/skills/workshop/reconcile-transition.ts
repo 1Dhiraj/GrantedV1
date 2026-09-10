@@ -1,6 +1,6 @@
 import path from "node:path";
 import { createConfigIO } from "../../config/config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   normalizeWorkspaceSkillSupportPath,
   prepareWorkspaceSkillRestoration,

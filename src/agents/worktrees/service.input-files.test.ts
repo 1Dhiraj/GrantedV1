@@ -12,7 +12,7 @@ import { applyStagedWorkerWorkspace } from "../../gateway/worker-environments/wo
 import { createStagedInputOwnershipFixture } from "../../media/staged-inputs.test-support.js";
 import { saveMediaBuffer } from "../../media/store.js";
 import { captureManifest } from "../../node-host/node-worker-workspace-commands.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import { requireGit } from "./git.js";
 import { ManagedWorktreeService } from "./service.js";
 import { initializeManagedWorktreeTestRepository } from "./service.test-support.js";

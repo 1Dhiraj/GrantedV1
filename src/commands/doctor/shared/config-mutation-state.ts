@@ -1,6 +1,6 @@
 // Shared doctor state helpers for previewing or applying config mutations.
 import { inheritLegacyDefaultAgentId } from "../../../config/legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 
 export type DoctorConfigMutationState = {
   /** Config currently used for command execution. */

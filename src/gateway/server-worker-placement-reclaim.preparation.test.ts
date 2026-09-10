@@ -6,11 +6,11 @@ import { afterEach, expect, it, vi } from "vitest";
 import { clearAgentRunContext } from "../infra/agent-run-registry.js";
 import { beginSessionWorkAdmission } from "../sessions/session-lifecycle-admission.js";
 import { createDeferredCore } from "../shared/deferred.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import {
   openOpenClawStateDatabase,
   closeOpenClawStateDatabaseForTest,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { createGatewayWorkerDispatchAdmission } from "./server-worker-placement-dispatch-admission.js";
 import { createGatewayWorkerPlacementMoveBarrier } from "./server-worker-placement-move-barrier.js";
 import { createGatewayWorkerPlacementReclaimBarriers } from "./server-worker-placement-reclaim.js";

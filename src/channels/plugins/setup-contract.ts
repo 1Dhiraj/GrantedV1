@@ -1,7 +1,7 @@
 import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { Option } from "commander";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { ChannelSetupAdapter } from "./setup-adapter.types.js";
 import type { ChannelSetupInput } from "./setup-input.js";

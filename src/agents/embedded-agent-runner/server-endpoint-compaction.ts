@@ -6,7 +6,7 @@ import {
   resolveOpenAIResponsesCompactEndpointPlan,
 } from "@granted/ai/transports";
 import type { Message } from "@granted/llm-core";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type { AgentMessage } from "../runtime/index.js";
 import { redactTranscriptMessage } from "../transcript-redact.js";

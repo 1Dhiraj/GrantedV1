@@ -1,5 +1,5 @@
 import type { Server } from "node:http";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginHookToolRequesterContext } from "../../plugins/hook-types.js";
 import type {
   BeforeToolCallFailureDisposition,

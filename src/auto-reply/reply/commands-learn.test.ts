@@ -1,7 +1,7 @@
 // Tests /learn prompt rewriting, defaults, standards, and availability gating.
 import { describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../../config/legacy.roster.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEFAULT_LEARN_REQUEST } from "../../skills/workshop/learn-prompt.js";
 import { SKILL_AUTHORING_STANDARDS_PROMPT } from "../../skills/workshop/skill-authoring-standards.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";

@@ -4,7 +4,7 @@ import path from "node:path";
 import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sanitizeHostExecEnv } from "../../infra/host-env-security.js";
 import { withInstallWorkspace } from "../../infra/install-source-utils.js";
 import { writeJson } from "../../infra/json-files.js";

@@ -6,7 +6,7 @@ import type { CronRunLogEntry } from "../../../cron/run-log-types.js";
 import { cronStoreKey } from "../../../cron/store/key.js";
 import { parseCronRunLogEntryObject } from "../../../cron/task-run-detail.js";
 import { migrateLegacyCronRunLogsToTaskRuns } from "../../../infra/state-migrations.cron-run-logs.js";
-import { runOpenClawStateWriteTransaction } from "../../../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../../../state/granted-state-db.js";
 
 const LEGACY_CRON_RUN_LOG_ARCHIVE_SUFFIX = ".migrated";
 

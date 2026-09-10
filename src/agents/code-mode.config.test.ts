@@ -1,7 +1,7 @@
 /** Tests pure Code Mode config without loading the guest or test runtime. */
 
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveCodeModeConfig } from "./code-mode-runtime.js";
 
 describe("Code Mode configuration", () => {

@@ -18,7 +18,7 @@ import { createWorkerSessionPlacementStore } from "../../../../src/gateway/worke
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../../../src/state/openclaw-state-db.js";
+} from "../../../../src/state/granted-state-db.js";
 import { stopQaGatewayFixture } from "../../../helpers/qa-gateway-cleanup.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 

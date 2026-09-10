@@ -7,7 +7,7 @@ import {
   resolveNonNegativeIntegerOption,
 } from "granted/plugin-sdk/number-runtime";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { resolveBrowserNavigationTimeoutMs } from "./act-policy.js";
 import {
   rethrowChromeMcpDocumentError,
@@ -35,7 +35,7 @@ import {
 import type { ChromeMcpSnapshotNode } from "./chrome-mcp.snapshot.js";
 
 async function withTempFile<T>(fn: (filePath: string) => Promise<T>): Promise<T> {
-  const dir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-chrome-mcp-"));
+  const dir = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "openclaw-chrome-mcp-"));
   const filePath = path.join(dir, randomUUID());
   try {
     return await fn(filePath);

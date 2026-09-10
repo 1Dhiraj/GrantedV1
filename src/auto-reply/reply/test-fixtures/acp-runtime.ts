@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 // Test fixture helpers for constructing ACP runtime session metadata.
 import type { SessionAcpMeta } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { ReplyDispatcher } from "../reply-dispatcher.types.js";
 
 const settledCounts = (delivered: number) => ({

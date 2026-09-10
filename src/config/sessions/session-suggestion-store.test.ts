@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { upsertSessionEntryCore } from "./session-accessor.js";
 import {

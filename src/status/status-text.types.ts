@@ -8,7 +8,7 @@ import type {
   VerboseLevel,
 } from "../auto-reply/thinking.js";
 import type { SessionEntry, SessionScope } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { MediaUnderstandingDecision } from "../media-understanding/types.js";
 
 // Input contract for buildStatusText. Most fields are already resolved by the

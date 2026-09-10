@@ -3,7 +3,7 @@
 
 import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ConfigFileSnapshot, GrantedConfig } from "../../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../../config/types.granted.js";
 import type { RestartSentinelPayload } from "../../infra/restart-sentinel.js";
 import type { RespawnSupervisor } from "../../infra/supervisor-markers.js";
 import type { UpdateChannel } from "../../infra/update-channels.js";

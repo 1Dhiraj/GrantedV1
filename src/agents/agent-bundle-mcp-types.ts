@@ -7,7 +7,7 @@ import type {
 import type { TSchema } from "typebox";
 import type { SessionToolOverrides } from "../config/sessions/types.js";
 import type { McpCodexToolApprovalMode, McpServerToolFilterConfig } from "../config/types.mcp.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import type { McpCodexToolAnnotations } from "./mcp-codex-tool-approval.js";
 import type { AnyAgentTool } from "./tools/common.js";

@@ -17,12 +17,12 @@ import {
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
 import { withTempWorkspace } from "../../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { validateRequestedSkillSlug } from "./archive-install.js";
 import {
   deleteOwnedSkillUpload,
@@ -698,7 +698,7 @@ function createSkillUploadStore(options?: SkillUploadStoreOptions) {
         try {
           return await withTempWorkspace(
             {
-              rootDir: tempRootDir ?? resolvePreferredOpenClawTmpDir(),
+              rootDir: tempRootDir ?? resolvePreferredGrantedTmpDir(),
               prefix: "openclaw-skill-upload-",
             },
             async (tmp) => {

@@ -3,7 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/str
 import { normalizeConversationText } from "../../acp/conversation-id.js";
 import { resolveCommandConversationResolution } from "../../channels/conversation-resolution.js";
 import { getLoadedChannelPluginForRead } from "../../channels/plugins/registry-loaded.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { stringifyRouteThreadId } from "../../plugin-sdk/channel-route.js";
 import type { MsgContext } from "../templating.js";
 import type { HandleCommandsParams } from "./commands-types.js";

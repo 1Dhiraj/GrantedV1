@@ -3,13 +3,13 @@ import { listAgentEntries } from "../agents/agent-scope.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   inspectBundlePluginArtifact,
   inspectNativePluginArtifact,
   PLUGIN_ARTIFACT_ADAPTER_IDENTITY,
 } from "../plugins/install-artifact-inspection.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { readClawCronRefs, type PersistedClawCronRef } from "./cron.js";
 import { digestClawAgentConfig } from "./lifecycle-config-removal.js";
 import {

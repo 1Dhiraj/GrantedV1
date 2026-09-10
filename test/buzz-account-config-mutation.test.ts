@@ -4,7 +4,7 @@ import {
   applyPreparedChannelAccountConfiguration,
   prepareChannelAccountConfiguration,
 } from "../src/channels/plugins/account-config-mutation.js";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 
 const rootKey = "11".repeat(32);
 const roomId = "7c4a6d2a-2ed9-4b4e-a5e2-4d705ee9b34c";

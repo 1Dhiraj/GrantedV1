@@ -13,8 +13,8 @@ import {
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
-import { resolveOpenClawStateDirForDatabasePath } from "../../state/openclaw-state-db.paths.js";
+} from "../../state/granted-state-db.js";
+import { resolveOpenClawStateDirForDatabasePath } from "../../state/granted-state-db.paths.js";
 import { advanceCronActiveJobGeneration, isCronJobActive } from "../active-jobs.js";
 import { CronService } from "../service.js";
 import { createCronStoreHarness } from "../service.test-harness.js";
@@ -58,7 +58,7 @@ beforeEach(async () => {
   scriptRoot = tempDirs.make("cron-owner-hardening-script-", os.tmpdir());
   runnerScript = path.join(scriptRoot, "runner.mts");
   const serviceUrl = pathToFileURL(path.resolve("src/cron/service.ts")).href;
-  const stateDatabaseUrl = pathToFileURL(path.resolve("src/state/openclaw-state-db.ts")).href;
+  const stateDatabaseUrl = pathToFileURL(path.resolve("src/state/granted-state-db.ts")).href;
   await fsPromises.writeFile(
     runnerScript,
     `

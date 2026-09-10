@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayReloadPlan } from "./config-reload.js";
 import { nextGatewayReloadGeneration } from "./server-reload-contracts.js";
 import { createGatewayRestartCoordinator } from "./server-reload-restart.js";

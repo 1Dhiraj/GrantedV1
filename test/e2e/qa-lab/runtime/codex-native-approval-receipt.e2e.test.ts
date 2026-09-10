@@ -11,7 +11,7 @@ import {
   GatewayClient,
   startGatewayClientWhenEventLoopReady,
 } from "../../../../src/plugin-sdk/gateway-runtime.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/granted-agent-db.js";
 import { loadBundledPluginFacade } from "../../../../src/test-utils/bundled-plugin-public-surface.js";
 import {
   createOpenClawTestInstance,

@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { defaultGatewayBindMode, resolveGatewayRequiredListenHosts } from "../gateway/net.js";
 import { isContainerEnvironment } from "../infra/container-environment.js";
 import { LOOPBACK_PORT_PROBE_HOSTS } from "../infra/ports-probe.js";

@@ -1,5 +1,5 @@
 import { isIncognitoSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
-import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/openclaw-agent-db.js";
+import { resolveIncognitoOpenClawAgentSqlitePath } from "../../state/granted-agent-db.js";
 import { getRuntimeConfig } from "../io.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 

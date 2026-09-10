@@ -9,18 +9,18 @@ import {
 import { readTranscriptStorageRows } from "../config/sessions/session-accessor.sqlite-read.js";
 import { waitForSessionTranscriptIndexReconcile } from "../config/sessions/session-transcript-reconcile.js";
 import { CURRENT_SESSION_VERSION } from "../config/sessions/version.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import * as agentDatabase from "../state/openclaw-agent-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import * as agentDatabase from "../state/granted-agent-db.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
   type GrantedAgentDatabaseOptions,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 
 const note = vi.hoisted(() => vi.fn());
 

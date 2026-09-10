@@ -3,7 +3,7 @@ import type { Duplex } from "node:stream";
 import type { Result } from "@granted/normalization-core/result";
 import type { Command } from "commander";
 import type { MessageReceipt } from "../channels/message/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ApprovalScope } from "../infra/approval-scope.js";
 import type {
   DiagnosticEventPrivateData,

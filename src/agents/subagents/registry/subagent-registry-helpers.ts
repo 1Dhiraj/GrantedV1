@@ -13,7 +13,7 @@ import {
   resolveSessionStorePathCore,
 } from "../../../config/sessions.js";
 import { patchSessionEntryCore } from "../../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { computeBackoff } from "../../../infra/backoff.js";
 import { defaultRuntime } from "../../../runtime.js";
 import { truncateUtf8Prefix } from "../../../utils/utf8-truncate.js";

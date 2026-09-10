@@ -15,7 +15,7 @@ import { sendMessage } from "../src/infra/outbound/message.js";
 import { setActivePluginRegistry } from "../src/plugins/runtime.js";
 import { onSessionTranscriptUpdate } from "../src/sessions/transcript-events.js";
 import { createTestRegistry } from "../src/test-utils/channel-plugins.js";
-import { withOpenClawTestState } from "../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../src/test-utils/granted-test-state.js";
 
 afterEach(() => setActivePluginRegistry(createTestRegistry([])));
 

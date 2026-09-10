@@ -1,12 +1,12 @@
 import { expect, it } from "vitest";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   deleteAgentProvenanceForAgent,
   listAgentProvenance,
   readAgentProvenance,
   recordAgentProvenance,
 } from "./agent-provenance.js";
-import { openOpenClawStateDatabase } from "./openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "./granted-state-db.js";
 
 it("records, replaces, lists, and deletes agent creation provenance", async () => {
   await withOpenClawTestState(

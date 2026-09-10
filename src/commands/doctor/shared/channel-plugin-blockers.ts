@@ -3,7 +3,7 @@ import { normalizeOptionalLowercaseString } from "@granted/normalization-core/st
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { listExplicitlyDisabledChannelIdsForConfig } from "../../../channels/config-presence.js";
 import type { AmbientEnvTriggerPolicy } from "../../../channels/config-presence.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { HealthFinding } from "../../../flows/health-checks.js";
 import {
   hasExplicitChannelConfig,

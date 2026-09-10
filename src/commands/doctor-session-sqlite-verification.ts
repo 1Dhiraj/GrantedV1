@@ -8,8 +8,8 @@ import { executeSqliteQueryTakeFirstSync, iterateSqliteQuerySync } from "../infr
 import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import { normalizeLegacySessionEntryDelivery } from "../infra/state-migrations.legacy-session-store.js";
 import { migrateLegacySessionCreator } from "../state/creator-namespace-migration.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
-import { inspectOpenClawAgentDatabaseOwner } from "../state/openclaw-agent-db.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../state/granted-agent-db-readonly.js";
+import { inspectOpenClawAgentDatabaseOwner } from "../state/granted-agent-db.js";
 import {
   readMigrationArtifactIdentity,
   type MigrationArtifact,

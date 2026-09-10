@@ -29,8 +29,8 @@ import { listKnownProviderAuthEnvVarNames } from "../../src/secrets/provider-env
 import {
   closeOpenClawAgentDatabaseByPath,
   closeOpenClawAgentDatabasesForTest,
-} from "../../src/state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../../src/state/openclaw-state-db.js";
+} from "../../src/state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../src/state/granted-state-db.js";
 import { sleep } from "../../src/utils.js";
 import { createOpenClawTestInstance } from "./openclaw-test-instance.js";
 

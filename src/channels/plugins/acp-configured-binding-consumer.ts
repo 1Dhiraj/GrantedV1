@@ -20,7 +20,7 @@ import {
 } from "../../agents/agent-scope.js";
 import { parseModelRef } from "../../agents/model-selection-normalize.js";
 import { resolveConfiguredThinkingDefault } from "../../agents/model-thinking-default.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type {
   ConfiguredBindingRuleConfig,
   ConfiguredBindingTargetFactory,

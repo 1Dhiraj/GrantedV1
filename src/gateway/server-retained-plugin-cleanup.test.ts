@@ -8,7 +8,7 @@ import {
   markRetainedManagedNpmInstall,
 } from "../plugins/managed-npm-retention.js";
 import { writeManagedNpmPlugin } from "../plugins/test-helpers/managed-npm-plugin.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { cleanupRetainedPluginInstallGenerations } from "./server-retained-plugin-cleanup.js";
 
 it("preserves package files retained by plugin uninstall", async () => {

@@ -1,7 +1,7 @@
 import path from "node:path";
 import { expect, it, vi } from "vitest";
 import * as sqliteQueries from "../../infra/kysely-sync.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import {
   applySessionEntryLifecycleMutation,
   commitReplySessionInitialization,

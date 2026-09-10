@@ -11,13 +11,13 @@ import {
 } from "../../infra/kysely-sync.js";
 import type { PersistedUserTurnMessage } from "../../sessions/user-turn-transcript.types.js";
 import { resolveGlobalSingleton } from "../../shared/global-singleton.js";
-import type { SessionPendingInputs } from "../../state/openclaw-agent-db.generated.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { SessionPendingInputs } from "../../state/granted-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 import {
   ensureSessionPendingInputsSchema,
   hasSessionPendingInputsSchema,
-} from "../../state/openclaw-agent-pending-inputs-schema.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../state/granted-agent-pending-inputs-schema.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { getSessionKysely, type ResolvedTranscriptScope } from "./session-accessor.sqlite-scope.js";
 
 export type SessionPendingInputState = "queued" | "interrupted" | "cancelled";

@@ -13,7 +13,7 @@ import {
   WorkerLiveEventParamsSchema,
 } from "../../../packages/gateway-protocol/src/schema.js";
 import * as sessions from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig as Config } from "../../config/types.openclaw.js";
+import type { GrantedConfig as Config } from "../../config/types.granted.js";
 import {
   emitAgentEvent,
   getAgentEventLifecycleGeneration,
@@ -29,7 +29,7 @@ import {
   releaseAgentRunContext,
   sweepStaleRunContexts,
 } from "../../infra/agent-run-registry.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import { loadSqliteTrajectoryRuntimeEventRowsSync } from "../../trajectory/runtime-store.sqlite.js";
 import type { WorkerConnectionIdentity as Identity } from "./connection-identity.js";
 import {

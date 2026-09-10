@@ -2,7 +2,7 @@
 import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeNullableString as normalizeId } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 
 function collectConfiguredProviderIds(cfg: GrantedConfig): Set<string> {
   const ids = new Set<string>();

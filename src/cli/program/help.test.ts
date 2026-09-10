@@ -3,7 +3,7 @@ import { Command, CommanderError } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ProgramContext } from "./context.js";
 import { configureProgramHelp } from "./help.js";
-import { GrantedCommand } from "./openclaw-command.js";
+import { GrantedCommand } from "./granted-command.js";
 
 const hasEmittedCliBannerMock = vi.hoisted(() => vi.fn(() => false));
 const formatCliBannerLineMock = vi.hoisted(() => vi.fn(() => "BANNER-LINE"));

@@ -9,7 +9,7 @@ import {
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { buildLegacyMigrationPreview } from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -23,7 +23,7 @@ describe("detectIMessageLegacyStateMigrations", () => {
 
   beforeEach(() => {
     stateWorkspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-imsg-migration-",
     });
   });

@@ -15,7 +15,7 @@ import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../../../state/openclaw-state-db.js";
+} from "../../../state/granted-state-db.js";
 import { publishTaskRecordAfterAtomicStore } from "../../../tasks/runtime-internal.js";
 import { resolveRequiredCompletionDeliveryFailureTerminalResult } from "../../../tasks/task-completion-contract.js";
 import { formatTaskBlockedFollowupMessage } from "../../../tasks/task-executor-policy.js";

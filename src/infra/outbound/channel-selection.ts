@@ -4,7 +4,7 @@ import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 // tool context fallback, or configured plugin accounts.
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import { formatUnknownChannelMessage } from "../../cli/error-format.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   type OfficialExternalPluginRepairHint,
   resolveMissingOfficialExternalChannelPluginRepairHint,

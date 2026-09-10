@@ -6,7 +6,7 @@ import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveStateDir } from "../../config/paths.js";
 import { readConfigMachineState } from "../../state/config-machine-state.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import { resolveSharedMainAuthAgentDir } from "./shared-main-dir.js";
 
 export const SHARED_AUTH_STORE_STATE_KEY = "auth.sharedStore";

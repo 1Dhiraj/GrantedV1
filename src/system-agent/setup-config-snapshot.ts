@@ -1,5 +1,5 @@
 import { listAgentEntries } from "../agents/agent-scope.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import { shortenHomePath } from "../utils.js";
 import { isReservedSystemAgentId } from "./agent-id.js";

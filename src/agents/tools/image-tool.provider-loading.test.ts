@@ -1,7 +1,7 @@
 // Image execution loads only the selected fallback owner, while prepared media
 // families and config-backed generic models keep their existing dispatch paths.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildMediaUnderstandingRegistry } from "../../media-understanding/provider-registry.js";
 import type { MediaUnderstandingProvider } from "../../media-understanding/types.js";
 import { createImageTool } from "./image-tool.js";

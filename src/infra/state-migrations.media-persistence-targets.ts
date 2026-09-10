@@ -9,7 +9,7 @@ import {
   isPersistentOpenClawAgentDatabasePath,
   listOpenClawRegisteredAgentDatabases,
   unregisterOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import { hasErrnoCode } from "./errno.js";
 import { isPathInside } from "./path-guards.js";
 

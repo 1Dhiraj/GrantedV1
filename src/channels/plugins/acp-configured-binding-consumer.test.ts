@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { resolveConfiguredAcpBindingSpecFromRecord } from "../../acp/persistent-bindings.types.js";
 import type { AgentAcpBinding } from "../../config/types.agents.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { acpConfiguredBindingConsumer } from "./acp-configured-binding-consumer.js";
 
 const binding: AgentAcpBinding = {

@@ -3,7 +3,7 @@ import {
   getRuntimeConfigSnapshot,
   getRuntimeConfigSourceSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import {
   isTrustedSecretSurfaceUnavailableError,

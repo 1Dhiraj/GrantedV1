@@ -1,18 +1,18 @@
 /** Explicit doctor maintenance for the canonical shared state SQLite database. */
 import fs from "node:fs";
 import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
-import { clearOpenClawDatabaseQuarantine } from "../state/openclaw-quarantine-store.js";
+import { clearOpenClawDatabaseQuarantine } from "../state/granted-quarantine-store.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   clearOpenClawStateDatabaseOpenFailure,
   ensureOpenClawStatePermissions,
   isOpenClawStateDatabaseOpen,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   assertOpenClawStateWriteAllowed,
   runWithOpenClawStateWriteAccess,
-} from "../state/openclaw-state-ownership.js";
+} from "../state/granted-state-ownership.js";
 import {
   compactDoctorSqliteFile,
   type DoctorSqliteCompactSnapshot,

@@ -1,7 +1,7 @@
 /** Canonical owner identity and nonpublishing auth snapshot composition. */
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import { cloneAuthProfileStore } from "./clone.js";
 import { AUTH_STORE_VERSION } from "./constants.js";
 import {

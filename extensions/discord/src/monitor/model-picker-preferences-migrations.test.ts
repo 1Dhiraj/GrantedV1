@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { buildLegacyMigrationPreview } from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -15,7 +15,7 @@ let stateWorkspace: TempWorkspace;
 
 beforeEach(async () => {
   stateWorkspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-discord-model-picker-migration-",
   });
 });

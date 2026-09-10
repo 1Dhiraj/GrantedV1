@@ -1,5 +1,5 @@
 // Audits code paths for deep safety risks that require manual review.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import type { SecurityAuditFinding } from "./audit.types.js";
 

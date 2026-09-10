@@ -12,7 +12,7 @@ import {
   patchSessionEntry,
 } from "granted/plugin-sdk/session-store-runtime";
 import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
-import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { tempWorkspace, resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   isMissingRegisteredMemoryToolsError,
   requireTransientWorkspaceDir,
@@ -185,7 +185,7 @@ async function runRecallSubagent(params: {
   const transientWorkspace = params.config.persistTranscripts
     ? undefined
     : await tempWorkspace({
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "openclaw-active-memory-",
       });
   const tempDir = transientWorkspace?.dir;

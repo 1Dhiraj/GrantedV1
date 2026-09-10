@@ -6,12 +6,12 @@ import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { cloneProjectCheckout, ProjectCloneError } from "./project-clone-runtime.js";
 import { materializeProjectClone, removeClonedProjectCheckout } from "./project-clone.js";
 import { parseProjectGitUrl } from "./project-git-url.js";

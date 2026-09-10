@@ -11,7 +11,7 @@ import {
 } from "@granted/normalization-core/string-coerce";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { SsrFBlockedError, type LookupFn, type SsrFPolicy } from "../../infra/net/ssrf.js";
 import { logDebug, logWarn } from "../../logger.js";

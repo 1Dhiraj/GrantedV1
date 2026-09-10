@@ -3,7 +3,7 @@ import path from "node:path";
 import { Command } from "commander";
 import { afterAll, afterEach, expect, it } from "vitest";
 import { retainLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   createPluginCliLoadSession,
   loadPluginCliDescriptors,

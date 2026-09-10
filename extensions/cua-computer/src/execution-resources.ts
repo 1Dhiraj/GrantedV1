@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import {
   removePathWithinRoot,
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   root,
 } from "granted/plugin-sdk/file-access-runtime";
 
@@ -87,7 +87,7 @@ async function requireEntry(
 }
 
 async function createCuaExecutionResources(): Promise<CuaExecutionResources> {
-  const preferredTmpRoot = await root(resolvePreferredOpenClawTmpDir(), {
+  const preferredTmpRoot = await root(resolvePreferredGrantedTmpDir(), {
     hardlinks: "reject",
     mode: 0o700,
     symlinks: "reject",

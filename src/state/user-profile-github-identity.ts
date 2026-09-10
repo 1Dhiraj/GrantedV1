@@ -9,7 +9,7 @@ import { normalizeGitHubLogin } from "../utils/github-login.js";
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import { mutateUserPreference, selectUserPreferenceValues } from "./user-preferences.js";
 import { selectResolvedUserProfileById, userProfilesDb } from "./user-profiles-internal.js";
 import { ensureUserProfilesSchema } from "./user-profiles-schema.js";

@@ -11,14 +11,14 @@ import {
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { resolveAllAgentSessionStoreTargetsSync } from "../config/sessions/targets.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
 import { buildConversationRef } from "../routing/conversation-ref.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../state/openclaw-agent-db-readonly.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../state/granted-agent-db-readonly.js";
 import {
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { runDoctorAgentDatabaseOperation } from "./doctor-agent-database-operation.js";
 
 const GENERAL_TOPIC_ID = "1";

@@ -3,15 +3,15 @@ import { isRecord as isPlainRecord } from "@granted/normalization-core/record-co
 import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { formatCliCommand } from "../cli/command-format.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { resolveRuntimeServiceCommit, resolveRuntimeServiceVersion } from "../version.js";
 import { formatErrorMessage } from "./errors.js";
 import { gitCommitPrefixesMatch } from "./git-commit.js";
-import { resolveOpenClawPackageRoot } from "./openclaw-root.js";
+import { resolveOpenClawPackageRoot } from "./granted-root.js";
 import {
   deleteRestartSentinelRowSync,
   readRestartSentinelRowSync,

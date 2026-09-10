@@ -10,7 +10,7 @@ import type {
 } from "../../../packages/gateway-protocol/src/index.js";
 import type { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import type { searchSessionTranscripts } from "../../config/sessions/session-transcript-search.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { CallGatewayOptions } from "../../gateway/call.js";
 import type {
   readChatHistoryPage,

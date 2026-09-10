@@ -29,8 +29,8 @@ describe("write-unified-entry-dts", () => {
         "scripts/lib/record-shared.mjs",
         "packages/normalization-core/src/mountinfo-path.ts",
         "extensions/memory-core/src/memory/manager-search-knn-entrypoint.ts",
-        "src/state/openclaw-state-schema.sql",
-        "src/state/openclaw-agent-schema.sql",
+        "src/state/granted-state-schema.sql",
+        "src/state/granted-agent-schema.sql",
       ]),
     );
     expect(closure).not.toContain("scripts/lib/ci-node-test-plan.mts");

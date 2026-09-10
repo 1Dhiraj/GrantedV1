@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Restores retired cron migration inputs that canonical config migration intentionally strips. */
 export function withLegacyConfig(

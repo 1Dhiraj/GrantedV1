@@ -2,7 +2,7 @@
 import path from "node:path";
 import type { MigrationPlan } from "granted/plugin-sdk/plugin-entry";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -15,7 +15,7 @@ let testWorkspace: TempWorkspace;
 describe("Hermes migration apply identity", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-hermes-",
     });
   });

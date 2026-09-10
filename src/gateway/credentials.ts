@@ -1,6 +1,6 @@
 // Gateway credential resolution.
 // Selects token/password credentials from explicit, env, local, and remote config inputs.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   createGatewayCredentialPlan,
   type GatewayCredentialPlan,

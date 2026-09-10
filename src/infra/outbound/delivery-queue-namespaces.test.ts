@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   commitStagedDeliveryQueueEntryOnceAcrossNamespaces,
   movePendingDeliveryQueueEntryNamespace,
@@ -18,7 +18,7 @@ import {
   upsertDeliveryQueueEntry,
 } from "../delivery-queue-sqlite.js";
 import type { DeliveryQueueCompletionRetention } from "../delivery-queue-sqlite.types.js";
-import { resolvePreferredOpenClawTmpDir } from "../tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../tmp-granted-dir.js";
 import {
   LEGACY_OUTBOUND_DELIVERY_QUEUE_NAME,
   DELIVERY_QUEUE_MEDIA_STAGING_QUEUE_NAME,
@@ -32,7 +32,7 @@ describe("outbound delivery namespace ownership", () => {
   let stateDir: string;
 
   beforeEach(() => {
-    rootDir = fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-dq-owner-"));
+    rootDir = fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-dq-owner-"));
     stateDir = path.join(rootDir, "state");
   });
 

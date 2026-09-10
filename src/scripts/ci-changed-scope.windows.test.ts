@@ -33,12 +33,12 @@ describe("detectChangedScope Windows routing", () => {
 
   it("routes source CLI invocation owners and their native proof to Windows", () => {
     for (const sourceCliPath of [
-      "src/infra/openclaw-cli-invocation.ts",
-      "src/infra/openclaw-cli-invocation.test.ts",
-      "src/infra/openclaw-cli-invocation.test-support.ts",
-      "src/infra/openclaw-cli-shim.ts",
-      "src/infra/openclaw-cli-shim.test.ts",
-      "src/infra/openclaw-cli-shim.windows.test.ts",
+      "src/infra/granted-cli-invocation.ts",
+      "src/infra/granted-cli-invocation.test.ts",
+      "src/infra/granted-cli-invocation.test-support.ts",
+      "src/infra/granted-cli-shim.ts",
+      "src/infra/granted-cli-shim.test.ts",
+      "src/infra/granted-cli-shim.windows.test.ts",
     ]) {
       expect(detectChangedScope([sourceCliPath]), sourceCliPath).toMatchObject({
         runNode: true,
@@ -49,9 +49,9 @@ describe("detectChangedScope Windows routing", () => {
     }
 
     for (const unrelatedPath of [
-      "src/infra/openclaw-root.ts",
+      "src/infra/granted-root.ts",
       "src/infra/openclaw-cli-other.test.ts",
-      "src/infra/openclaw-cli-shim-extra.ts",
+      "src/infra/granted-cli-shim-extra.ts",
     ]) {
       expect(detectChangedScope([unrelatedPath]).runWindows, unrelatedPath).toBe(false);
     }
@@ -106,8 +106,8 @@ describe("detectChangedScope Windows routing", () => {
 
   it("routes shared test-state fixture changes to Windows", () => {
     for (const fixturePath of [
-      "src/test-utils/openclaw-test-state.ts",
-      "src/test-utils/openclaw-test-state.test.ts",
+      "src/test-utils/granted-test-state.ts",
+      "src/test-utils/granted-test-state.test.ts",
     ]) {
       expect(detectChangedScope([fixturePath]), fixturePath).toMatchObject({
         runNode: true,
@@ -142,7 +142,7 @@ describe("detectChangedScope Windows routing", () => {
       "src/commands/doctor-sqlite-compact.ts",
       "src/infra/node-sqlite.ts",
       "src/infra/update-managed-service-handoff.ts",
-      "src/state/openclaw-state-db.ts",
+      "src/state/granted-state-db.ts",
     ]) {
       expect(detectChangedScope([sqlitePath]), sqlitePath).toMatchObject({
         runNode: true,
@@ -155,7 +155,7 @@ describe("detectChangedScope Windows routing", () => {
     for (const testPath of [
       "src/infra/update-managed-service-handoff-command.test.ts",
       "src/infra/update-managed-service-handoff-lifecycle.test.ts",
-      "src/state/openclaw-database-paths.windows.test.ts",
+      "src/state/granted-database-paths.windows.test.ts",
     ]) {
       expect(detectChangedScope([testPath]), testPath).toMatchObject({
         runNode: true,

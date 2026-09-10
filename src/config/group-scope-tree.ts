@@ -2,7 +2,7 @@
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { ChannelId } from "../channels/plugins/channel-id.types.js";
 import { resolveChannelGroups, resolveToolsBySender } from "./group-policy.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 import type { GroupToolPolicyBySenderConfig, GroupToolPolicyConfig } from "./types.tools.js";
 
 export type ScopeNode = {

@@ -1,6 +1,6 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import {

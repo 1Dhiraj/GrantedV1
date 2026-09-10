@@ -1,5 +1,5 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import type { ConfigValidationIssue, GrantedConfig } from "./types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "./types.granted.js";
 
 type JsonRecord = Record<string, unknown>;
 

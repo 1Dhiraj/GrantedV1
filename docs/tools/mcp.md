@@ -52,7 +52,7 @@ A local stdio server:
 openclaw mcp add local-tools \
   --command node \
   --arg ./dist/mcp-server.js \
-  --cwd /srv/openclaw-tools
+  --cwd /srv/granted-tools
 openclaw mcp doctor local-tools --probe
 ```
 

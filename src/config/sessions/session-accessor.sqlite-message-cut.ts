@@ -10,7 +10,7 @@ import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import type { TranscriptEvent } from "./session-accessor.sqlite-contract.js";
 import {
   collectSessionEntryLookupKeys,

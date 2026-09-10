@@ -33,7 +33,7 @@ const HOST_KEY = [["ssh", "ed25519"].join("-"), "AAAA"].join(" ");
 const GRANTED_ROOT = path.resolve(path.sep, "workspace", "openclaw");
 const SIBLING_BINARY = path.resolve(GRANTED_ROOT, "../crabbox/bin/crabbox");
 const WORKER_WALLPAPER_PATH = fileURLToPath(
-  new URL("../assets/openclaw-worker-wallpaper.png", import.meta.url),
+  new URL("../assets/granted-worker-wallpaper.png", import.meta.url),
 );
 const INSPECT_FAILURE_PREFIX = "Crabbox inspect failed with exit code 2: ";
 // These lifecycle cases opt out of capture; defaults and checkpoints have boundary coverage

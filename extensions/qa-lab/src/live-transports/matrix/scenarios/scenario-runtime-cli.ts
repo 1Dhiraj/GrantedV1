@@ -6,7 +6,7 @@ import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { createQaPosixCommandSettlement } from "../../../posix-command-settlement.js";
 import {
   killMatrixQaCliChild,
@@ -303,7 +303,7 @@ export async function createMatrixQaOpenClawCliRuntime(params: {
   userId: string;
 }) {
   const rootDir = await mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-matrix-cli-qa-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-matrix-cli-qa-"),
   );
   const artifactDir = path.join(
     params.outputDir,

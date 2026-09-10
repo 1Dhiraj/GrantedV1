@@ -1,6 +1,6 @@
 // Loads metadata snapshots and exposes Gateway startup planning entrypoints.
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayStartupPluginPlan } from "./gateway-startup-plugin-contracts.js";
 import { createGatewayStartupMetadataPluginIdScope } from "./gateway-startup-plugin-metadata.js";
 import { resolveGatewayStartupPluginPlanFromRegistry } from "./gateway-startup-plugin-plan.js";

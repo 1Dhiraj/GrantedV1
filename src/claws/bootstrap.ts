@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES } from "../agents/workspace-bootstrap-read.js";
 import { DEFAULT_BOOTSTRAP_FILENAME, seedWorkspaceBootstrap } from "../agents/workspace.js";
 import { root as fsSafeRoot } from "../infra/fs-safe.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { clawContainedRelativePath } from "./path-containment.js";
 import type { ClawAddPlan } from "./types.js";
 

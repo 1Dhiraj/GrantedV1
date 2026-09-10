@@ -7,8 +7,8 @@ import type { ConfigFileSnapshot, GrantedConfig } from "../../config/types.js";
 import { GATEWAY_SERVICE_RUNTIME_PID_ENV } from "../../daemon/constants.js";
 import { createNewerSqliteSchemaVersionError } from "../../infra/sqlite-user-version.js";
 import { SUPERVISOR_HINT_ENV_VARS } from "../../infra/supervisor-markers.js";
-import { GrantedDatabaseSchemaPreflightError } from "../../state/openclaw-database-preflight.js";
-import { GrantedStateDatabaseSchemaMigrationRequiredError } from "../../state/openclaw-state-db-schema-migration-required.js";
+import { GrantedDatabaseSchemaPreflightError } from "../../state/granted-database-preflight.js";
+import { GrantedStateDatabaseSchemaMigrationRequiredError } from "../../state/granted-state-db-schema-migration-required.js";
 import {
   captureEnv,
   deleteTestEnvValue,

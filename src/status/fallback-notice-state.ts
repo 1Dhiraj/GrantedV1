@@ -2,7 +2,7 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { areRuntimeModelRefsEquivalent } from "../agents/model-runtime-aliases.js";
 import type { SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 // Persisted fallback notice state is active only when the current selected and
 // active runtime refs still match the recorded fallback transition.

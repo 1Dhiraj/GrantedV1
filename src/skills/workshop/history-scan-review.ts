@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { prepareSystemAgentRunAdmission } from "../../agents/admitted-run-context.js";
 import { resolveDefaultModelForAgent } from "../../agents/model-selection-config.js";
 import { SessionManager } from "../../agents/sessions/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { CommandLane } from "../../process/lanes.js";
 import {
   buildSkillHistoryScanPrompt,

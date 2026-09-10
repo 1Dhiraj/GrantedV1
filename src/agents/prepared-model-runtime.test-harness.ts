@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
-import type { GrantedTestState } from "../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../test-utils/granted-test-state.js";
 import type { ModelCatalogSnapshot } from "./model-catalog.types.js";
 import type { AuthStorageData } from "./sessions/auth-storage.js";
 

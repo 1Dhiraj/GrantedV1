@@ -10,7 +10,7 @@ import { readConfigFileSnapshot, resolveConfigSnapshotHash } from "../config/con
 import { inheritLegacyDefaultAgentId } from "../config/legacy.default-agent-owner.js";
 import { createMergePatch, applyMergePatch } from "../config/merge-patch.js";
 import { migrateLegacyMainSessionKeys } from "../config/sessions/legacy-main-session-migration.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 
 export type FirstOnboardingAgent = { name: string };

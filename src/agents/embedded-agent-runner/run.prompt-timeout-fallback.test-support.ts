@@ -1,6 +1,6 @@
 // Full-entry coverage for handing replay-safe prompt timeouts to model fallback.
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -25,7 +25,7 @@ describe("runEmbeddedAgent prompt timeout fallback handoff", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.prompt-timeout-fallback" });
     useOpenAIPlatformAuthFixture();
   });

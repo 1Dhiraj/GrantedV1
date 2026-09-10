@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import type { WorkerSessionPlacementRecord } from "./placement-record.js";
 import { createPlacementSessionRetirement } from "./placement-session-retirement.js";
 import {

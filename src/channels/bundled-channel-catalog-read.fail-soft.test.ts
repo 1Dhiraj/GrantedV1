@@ -9,7 +9,7 @@ afterEach(() => {
 
 describe("listBundledChannelCatalogEntries discovery failures", () => {
   it("falls back to bundled official metadata when package metadata is unavailable", async () => {
-    vi.doMock("../infra/openclaw-root.js", () => ({
+    vi.doMock("../infra/granted-root.js", () => ({
       resolveOpenClawPackageRootSync: () => null,
       resolveOpenClawPackageRoot: async () => null,
     }));

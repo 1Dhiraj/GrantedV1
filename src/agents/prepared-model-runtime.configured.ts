@@ -9,7 +9,7 @@ import {
 } from "@granted/model-catalog-core/model-catalog-refs";
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { MODEL_APIS } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";
 import {
   normalizePluginDiscoveryResult,

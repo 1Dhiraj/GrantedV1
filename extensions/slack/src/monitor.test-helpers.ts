@@ -8,7 +8,7 @@ import {
 // Slack helper module supports monitor helpers behavior.
 import type { PluginRuntime } from "granted/plugin-sdk/core";
 import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import type { Mock } from "vitest";
 import { setSlackRuntime } from "./runtime.js";
@@ -330,7 +330,7 @@ export function resetSlackTestState(config: Record<string, unknown> = defaultSla
     fs.rmSync(lastSlackTestStateDir, { recursive: true, force: true });
   }
   const stateDir = fs.realpathSync(
-    fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-slack-monitor-state-")),
+    fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-slack-monitor-state-")),
   );
   lastSlackTestStateDir = stateDir;
   process.env.GRANTED_STATE_DIR = stateDir;

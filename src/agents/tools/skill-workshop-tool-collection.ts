@@ -2,7 +2,7 @@ import path from "node:path";
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { Type } from "typebox";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import {
   MAX_RECONCILED_SKILLS,

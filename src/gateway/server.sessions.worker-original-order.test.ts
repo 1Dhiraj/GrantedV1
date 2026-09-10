@@ -10,7 +10,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   type GrantedStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { loadSessionEntry } from "./session-utils.js";
 import { writeSessionStore } from "./test-helpers.js";
 import {

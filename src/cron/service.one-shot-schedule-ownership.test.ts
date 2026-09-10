@@ -6,7 +6,7 @@ import {
   setCommandLaneConcurrency,
 } from "../process/command-queue.js";
 import { CommandLane } from "../process/lanes.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { CronService } from "./service.js";
 import { setupCronServiceSuite } from "./service.test-harness.js";
 import type { CronEvent, CronServiceDeps } from "./service/state.js";

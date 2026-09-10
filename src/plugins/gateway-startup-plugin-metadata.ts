@@ -1,6 +1,6 @@
 // Builds deterministic metadata scopes for startup planning.
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { addRequiredAgentHarnessPluginIds } from "./gateway-startup-plugin-activation.js";
 import {
   addConfiguredActivationPathPluginIds,

@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadEnabledBundleMcpConfig } from "../plugins/bundle-mcp.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";

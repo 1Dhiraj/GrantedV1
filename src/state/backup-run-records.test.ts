@@ -8,12 +8,12 @@ import {
   readBackupFreshness,
 } from "../commands/backup-health.js";
 import { recordBackupRunOutcome } from "./backup-run-records.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "./granted-state-db-readonly.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
-} from "./openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
+} from "./granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "./granted-state-db.paths.js";
 
 const roots: string[] = [];
 const mocks = vi.hoisted(() => ({ note: vi.fn() }));

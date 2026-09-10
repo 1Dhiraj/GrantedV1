@@ -1,7 +1,7 @@
 // Queue health collector tests cover real SQLite dead letters and active ingress pressure.
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 
 vi.mock("../../config/config.js", () => ({
   getRuntimeConfig: () => ({ session: { store: "/tmp/queue-health-sessions" } }),

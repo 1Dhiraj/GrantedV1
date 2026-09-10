@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { getRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import {
   assertSecretOwnerAvailable,

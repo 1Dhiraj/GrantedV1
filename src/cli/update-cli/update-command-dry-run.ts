@@ -3,7 +3,7 @@ import type { UpdateChannel } from "../../infra/update-channels.js";
 import { canResolveRegistryVersionForPackageTarget } from "../../infra/update-global.js";
 import type { UpdateRunResult } from "../../infra/update-runner.js";
 import { defaultRuntime } from "../../runtime.js";
-import type { GrantedDatabaseSchemaPreflight } from "../../state/openclaw-database-preflight.js";
+import type { GrantedDatabaseSchemaPreflight } from "../../state/granted-database-preflight.js";
 import { formatSchemaRefusalLines, hasSchemaRefusal } from "./schema-preflight.js";
 import type { ManagedServiceRootRedirect } from "./update-command-service-plan.js";
 

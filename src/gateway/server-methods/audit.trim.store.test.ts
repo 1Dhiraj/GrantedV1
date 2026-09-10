@@ -5,7 +5,7 @@ import { listAuditEvents, recordAuditEvent } from "../../audit/audit-event-store
 import {
   closeOpenClawStateDatabaseForTest,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { auditHandlers } from "./audit.js";
 
 const tempDirs: string[] = [];

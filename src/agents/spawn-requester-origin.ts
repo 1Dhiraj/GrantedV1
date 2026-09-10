@@ -4,7 +4,7 @@
  * Normalizes delivery targets and route bindings so spawned runs can attribute the requesting account/channel.
  */
 import type { ChatType } from "../channels/chat-type.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveFirstBoundAccountId } from "../routing/bound-account-read.js";
 import { normalizeDeliveryContext } from "../utils/delivery-context.shared.js";
 

@@ -21,7 +21,7 @@ OPENCLAW_TEST_STATE_SCRIPT_B64="$(docker_e2e_test_state_shell_b64 config-reload 
 check_rpc_status() {
   local out_file="$1"
   docker_e2e_docker_cmd exec "$CONTAINER_NAME" bash -lc "
-source /tmp/openclaw-test-state-env
+source /tmp/granted-test-state-env
 source scripts/lib/openclaw-e2e-instance.sh
 entry=\"\$(openclaw_e2e_resolve_entrypoint)\"
 deadline=\$((SECONDS + 120))
@@ -70,7 +70,7 @@ echo "Checking initial RPC status..."
 check_rpc_status /tmp/config-reload-status-before.log
 
 echo "Mutating hot-reload gateway metadata..."
-docker_e2e_docker_cmd exec "$CONTAINER_NAME" bash -lc "source /tmp/openclaw-test-state-env
+docker_e2e_docker_cmd exec "$CONTAINER_NAME" bash -lc "source /tmp/granted-test-state-env
 node scripts/e2e/lib/config-reload/mutate-metadata.mjs"
 
 sleep 2

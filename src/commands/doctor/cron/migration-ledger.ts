@@ -7,12 +7,12 @@ import {
   getNodeSqliteKysely,
 } from "../../../infra/kysely-sync.js";
 import { openNodeSqliteDatabase } from "../../../infra/node-sqlite.js";
-import type { DB as GrantedStateDatabase } from "../../../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateDatabase } from "../../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../../state/openclaw-state-db.paths.js";
+} from "../../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../../state/granted-state-db.paths.js";
 import type { LegacyCronMigrationSource } from "./legacy-store-migration.js";
 
 type CronMigrationDatabase = Pick<GrantedStateDatabase, "migration_runs" | "migration_sources">;

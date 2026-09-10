@@ -8,13 +8,13 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { ensurePersonalGitHubPublicationSchema } from "../state/openclaw-state-db-schema-additive.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB } from "../state/openclaw-state-db.generated.js";
+import { ensurePersonalGitHubPublicationSchema } from "../state/granted-state-db-schema-additive.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { resolvePersonalGitHubOwner } from "../state/user-github-connections.js";
 import { projectGitHubPublicationResult } from "./github-publication-store.js";
 

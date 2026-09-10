@@ -39,7 +39,7 @@ import {
   resolvePersistedSessionStoreOwnerForKey,
 } from "../../config/sessions/session-store-owner.js";
 import type { InternalSessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   classifySessionKeyShape,
   isUnscopedSessionKeySentinel,

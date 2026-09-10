@@ -20,7 +20,7 @@ import {
 } from "../agents/auth-profiles/sqlite.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { agentExecCommand } from "./agent-exec.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

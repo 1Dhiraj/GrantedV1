@@ -3,7 +3,7 @@ import { DatabaseSync } from "node:sqlite";
 import { afterEach, assert, beforeEach, describe, expect, it } from "vitest";
 import { resolveApiKeyForProfile } from "../agents/auth-profiles/oauth.js";
 import { loadAuthProfileStoreForSecretsRuntime } from "../agents/auth-profiles/store.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { ensureMemoryIndexSchema } from "../plugin-sdk/memory-core-host-engine-storage.js";
 import { createPluginStateKeyedStoreForTests } from "../plugin-sdk/plugin-state-test-runtime.js";
 import { createTestPluginApi } from "../plugin-sdk/plugin-test-api.js";
@@ -26,7 +26,7 @@ import {
   prepareSecretsRuntimeSnapshot,
 } from "../secrets/runtime.js";
 import { writeSecretStoreEntry } from "../secrets/store/secret-store.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 
 beforeEach(async () => {
   setActivePluginRegistry(createEmptyPluginRegistry());

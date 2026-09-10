@@ -1,5 +1,5 @@
 // Runtime task types describe plugin task runtime config and invocation options.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { TaskDeliveryState } from "../../tasks/task-registry.types.js";
 import type { GrantedPluginToolContext } from "../tool-types.js";
 import type { PluginRuntimeTaskFlow } from "./runtime-taskflow.types.js";

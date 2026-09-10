@@ -10,7 +10,7 @@ import type {
   PluginInstallTrust,
   PluginsInspectResult,
 } from "../../packages/gateway-protocol/src/schema/plugins.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   PluginAcceptedDeclaredSurface,
   PluginEntryConfig,

@@ -7,7 +7,7 @@ import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { promisify } from "node:util";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -259,7 +259,7 @@ async function waitForGateway(params: {
 describe("diagnostics-prometheus managed install runtime", () => {
   it("installs the exact official package and exports metrics at Gateway startup", async () => {
     const workspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-prometheus-install-",
     });
     tempWorkspaces.push(workspace);

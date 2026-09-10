@@ -5,7 +5,7 @@ import {
 } from "@granted/llm-core";
 import { stripSelfProviderModelPrefix } from "@granted/model-catalog-core/provider-model-id-normalization";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   lookupCachedContextTokens,
   lookupCachedContextWindow,

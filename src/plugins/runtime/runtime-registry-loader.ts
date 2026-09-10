@@ -1,6 +1,6 @@
 // Runtime registry loader assembles process-root plugin runtimes from config metadata.
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { withActivatedPluginIds } from "../activation-context.js";
 import {
   resolveChannelPluginIds,

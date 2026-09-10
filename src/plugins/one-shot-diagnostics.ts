@@ -1,5 +1,5 @@
 /** Starts diagnostics exporter plugin services for one-shot CLI embedded agent runs. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { waitForDiagnosticEventsDrained } from "../infra/diagnostic-events.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 

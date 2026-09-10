@@ -15,7 +15,7 @@ import {
 } from "../config/sessions/conversation-registry.js";
 import type { ConversationRouteContext } from "../config/sessions/conversation-route-context.js";
 import { resolveConversationRouteFingerprint } from "../config/sessions/conversation-route-fingerprint.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { PlatformMessageNotDispatchedError } from "../infra/outbound/deliver-types.js";
 import { getGlobalPluginRegistry } from "../plugins/hook-runner-global.js";
 import { normalizeAccountId } from "../routing/account-id.js";

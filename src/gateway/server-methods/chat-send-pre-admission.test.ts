@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveChatSendStopOwnerScope } from "./chat-send-stop-owner-scope.js";
 
 describe("chat send stop ownership", () => {

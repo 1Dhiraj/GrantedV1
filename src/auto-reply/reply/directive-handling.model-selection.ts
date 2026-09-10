@@ -3,7 +3,7 @@ import { ensureAuthProfileStore } from "../../agents/auth-profiles.js";
 import type { ModelAliasIndex } from "../../agents/model-selection.js";
 import type { ModelVisibilityPolicy } from "../../agents/model-visibility-policy.js";
 import { resolveProviderIdForAuth } from "../../agents/provider-auth-aliases.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveProfileOverride } from "./directive-handling.auth-profile.js";
 import type { InlineDirectives } from "./directive-handling.parse.js";
 import { type ModelDirectiveSelection, resolveModelDirectiveSelection } from "./model-selection.js";

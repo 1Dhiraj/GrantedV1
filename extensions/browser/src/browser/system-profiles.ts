@@ -5,7 +5,7 @@ import path from "node:path";
 import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
 import type { GrantedConfig } from "../config/config.js";
 import { getRuntimeConfig } from "../config/config.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { resolveOpenClawUserDataDir } from "./chrome.js";
 import { usesOpenClawMockKeychain } from "./chrome.profile-decoration.js";
 import { BrowserProfileUnavailableError } from "./errors.js";
@@ -167,7 +167,7 @@ export function listSystemProfiles(
 
 /** Create a transactionally coherent snapshot while Chrome may be writing its WAL. */
 function snapshotCookieDatabase(source: string): { databasePath: string; cleanup: () => void } {
-  const tmpRoot = resolvePreferredOpenClawTmpDir();
+  const tmpRoot = resolvePreferredGrantedTmpDir();
   fs.mkdirSync(tmpRoot, { recursive: true });
   const tempDir = fs.mkdtempSync(path.join(tmpRoot, "openclaw-system-cookies-"));
   const databasePath = path.join(tempDir, "Cookies");

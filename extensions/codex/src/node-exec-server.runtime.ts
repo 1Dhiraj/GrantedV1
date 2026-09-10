@@ -7,7 +7,7 @@ import type { GrantedPluginNodeHostCommandIo } from "granted/plugin-sdk/node-hos
 import { killProcessTree } from "granted/plugin-sdk/process-runtime";
 import { sanitizeEnvVars } from "granted/plugin-sdk/sandbox";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   isManagedCodexDesktopCommand,
   resolveManagedCodexAppServerStartOptions,
@@ -181,7 +181,7 @@ export async function runCodexNodeExecServer(params: {
       throw nodeExecServerAbortError(io.signal);
     }
     return await withTempWorkspace(
-      { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "codex-node-exec-server-" },
+      { rootDir: resolvePreferredGrantedTmpDir(), prefix: "codex-node-exec-server-" },
       async ({ dir }) => {
         const codexHome = path.join(dir, ".codex");
         // Codex canonicalizes CODEX_HOME during startup and rejects missing directories.

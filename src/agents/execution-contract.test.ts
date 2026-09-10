@@ -1,6 +1,6 @@
 // Covers provider/model gates for strict agentic execution-contract activation.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isStrictAgenticExecutionContractActive } from "./execution-contract.js";
 
 describe("isStrictAgenticExecutionContractActive", () => {

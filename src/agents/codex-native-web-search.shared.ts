@@ -2,7 +2,7 @@
  * Shared config normalization for Codex native web search.
  */
 import { normalizeUniqueTrimmedStringList } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 
 /** Whether native Codex search may use cached or live external web access. */

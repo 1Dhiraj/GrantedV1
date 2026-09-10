@@ -3,7 +3,7 @@
  * schema policy quarantines incompatible tools and emits notices instead of
  * silently hiding them.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import { normalizeAgentRuntimeTools } from "./runtime-plan/tools.js";

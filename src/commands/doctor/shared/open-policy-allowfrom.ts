@@ -2,7 +2,7 @@
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { ensureOpenDmPolicyAllowFromWildcard } from "../../../channels/plugins/dm-access.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { getDoctorChannelCapabilities } from "../channel-capabilities.js";
 import type { AllowFromMode } from "./allow-from-mode.js";
 

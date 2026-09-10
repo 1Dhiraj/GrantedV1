@@ -7,7 +7,7 @@ import { parseStrictNonNegativeInteger } from "@granted/normalization-core/numbe
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { listSessionEntriesReadOnly } from "../../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { normalizeAgentId } from "../../../routing/session-key.js";
 import { getSubagentDepth, parseAgentSessionKey } from "../../../sessions/session-key-utils.js";
 import { resolveSessionAgentId } from "../../agent-scope.js";

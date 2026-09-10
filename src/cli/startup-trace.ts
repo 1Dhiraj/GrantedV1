@@ -1,6 +1,6 @@
 // Shared startup tracing for the entry wrapper and CLI dispatcher.
 import process from "node:process";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 
 type GatewayStartupTraceSource = "entry" | "cli.main";

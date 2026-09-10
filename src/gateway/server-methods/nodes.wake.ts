@@ -1,6 +1,6 @@
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { getRuntimeConfig } from "../../config/io.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { NodePairingGeneration } from "../../infra/device-pairing-node-state.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import {

@@ -1,7 +1,7 @@
 // Bound account read tests cover reading account bindings from channel metadata.
 import { describe, expect, it } from "vitest";
 import type { AgentRouteBinding } from "../config/types.agents.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveFirstBoundAccountId } from "./bound-account-read.js";
 
 function cfgWithBindings(matches: AgentRouteBinding["match"][]): GrantedConfig {

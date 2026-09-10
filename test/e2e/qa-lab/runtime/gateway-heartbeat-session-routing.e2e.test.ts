@@ -14,7 +14,7 @@ import {
   replaceSessionEntry,
 } from "../../../../src/config/sessions/session-accessor.js";
 import { clearSessionStoreCacheForTest } from "../../../../src/config/sessions/store-writer-state.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { readSessionMessagesAsync } from "../../../../src/gateway/session-transcript-readers.js";
 import {
   disconnectGatewayClient,

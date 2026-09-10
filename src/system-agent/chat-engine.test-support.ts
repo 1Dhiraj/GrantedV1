@@ -8,7 +8,7 @@ import {
   fingerprintOpaqueRuntimeOwner,
   fingerprintResolvedProviderAuth,
 } from "../agents/execution-auth-binding.js";
-import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.granted.js";
 import type { runSetupMemoryImportStep } from "../wizard/setup.memory-import.js";
 import {
   SystemAgentChatEngine as RuntimeSystemAgentChatEngine,
@@ -402,7 +402,7 @@ export function fakeOverviewLoader(
 
 export { expectDefined } from "@granted/normalization-core";
 export { hashSystemAgentOperation } from "./operator-approval.js";
-export type { GrantedConfig } from "../config/types.openclaw.js";
+export type { GrantedConfig } from "../config/types.granted.js";
 export type { WizardPrompter } from "../wizard/prompts.js";
 export { runSystemAgentTurnWithDeps } from "./agent-turn.test-support.js";
 export { classifySystemAgentApprovalText } from "./operator-approval.js";

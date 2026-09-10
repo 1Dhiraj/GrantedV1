@@ -14,7 +14,7 @@ import {
   installationTargetEnv,
   LOCAL_INSTALLATION_TARGET_UNSUPPORTED,
 } from "../infra/installation-target-context.js";
-import { GRANTED_CLI_ENV_VAR } from "../infra/openclaw-exec-env.js";
+import { GRANTED_CLI_ENV_VAR } from "../infra/granted-exec-env.js";
 import {
   getShellPathFromLoginShell,
   resolveShellEnvFallbackTimeoutMs,

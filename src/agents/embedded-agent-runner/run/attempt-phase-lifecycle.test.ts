@@ -8,7 +8,7 @@ import {
 } from "../../../config/sessions/session-accessor.js";
 import { createNestedToolActivity } from "../../../sessions/nested-tool-activity.js";
 import { createUserTurnTranscriptRecorder } from "../../../sessions/user-turn-transcript.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../../state/granted-agent-db.js";
 import { FULL_BOOTSTRAP_COMPLETED_CUSTOM_TYPE } from "../../bootstrap-files.js";
 import { SessionManager } from "../../sessions/session-manager.js";
 

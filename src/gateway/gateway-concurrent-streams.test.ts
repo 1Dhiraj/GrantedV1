@@ -12,7 +12,7 @@ import {
   RUNTIME_POSTBUILD_STAMP_FILE,
 } from "../../scripts/lib/local-build-metadata-paths.mts";
 import { createOpenClawTestInstance } from "../../test/helpers/openclaw-test-instance.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { AgentEventPayload } from "../infra/agent-events.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import { buildMockOpenAiResponsesProvider } from "./test-openai-responses-model.js";

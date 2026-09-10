@@ -40,7 +40,7 @@ const fetchWithSsrFGuardMock = vi.hoisted(() =>
 
 vi.mock("openclaw/plugin-sdk/temp-path", async () => {
   return {
-    resolvePreferredOpenClawTmpDir: () => "/tmp",
+    resolvePreferredGrantedTmpDir: () => "/tmp",
   };
 });
 

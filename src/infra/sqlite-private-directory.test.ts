@@ -25,7 +25,7 @@ import {
   createPrivateSqliteTempDirectorySync,
   resolvePrivateSqliteSnapshotStagingRoot,
 } from "./sqlite-private-directory.js";
-import * as tmpOpenClawDir from "./tmp-openclaw-dir.js";
+import * as tmpOpenClawDir from "./tmp-granted-dir.js";
 
 function errorCause(error: unknown): Error {
   expect(error).toBeInstanceOf(Error);
@@ -77,7 +77,7 @@ describe("private Windows SQLite directory diagnostics", () => {
     ({ xdgCacheHome, localAppData, expectedRoot }) => {
       vi.spyOn(process, "platform", "get").mockReturnValue("win32");
       const resolveTempRoot = vi
-        .spyOn(tmpOpenClawDir, "resolvePreferredOpenClawTmpDir")
+        .spyOn(tmpOpenClawDir, "resolvePreferredGrantedTmpDir")
         .mockImplementation((options) => options?.preferredDir ?? "");
 
       withEnv(

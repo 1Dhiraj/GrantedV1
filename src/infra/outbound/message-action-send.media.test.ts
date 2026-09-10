@@ -9,7 +9,7 @@ import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
 import type { GrantedConfig } from "../../config/config.js";
 import { MEDIA_MAX_BYTES } from "../../media/store.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import {
   messageActionRunnerMocks as channelResolutionMocks,
   resetMessageActionMediaMocks,

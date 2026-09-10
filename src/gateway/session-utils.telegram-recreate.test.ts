@@ -12,7 +12,7 @@ import {
   replaceSessionEntry,
   updateSessionLastRoute,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSuiteTempRootTracker } from "../test-helpers/temp-dir.js";
 import {
   deliveryContextFromSession,

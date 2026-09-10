@@ -19,7 +19,7 @@ import {
 import { buildAccountScopedDmSecurityPolicy } from "../channels/plugins/helpers.js";
 import type { ChannelConfigAdapter } from "../channels/plugins/types.adapters.js";
 import type { ChannelSecurityDmPolicy } from "../channels/plugins/types.core.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 
 export { clearAccountFieldsFromConfigSection } from "../channels/plugins/config-helpers.js";

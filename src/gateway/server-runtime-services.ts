@@ -1,7 +1,7 @@
 // Gateway post-ready runtime services.
 // Starts delayed maintenance, cron, heartbeat, recovery, and pricing refresh work.
 import { getRuntimeConfig } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { computeBackoffMs } from "../infra/delivery-recovery.shared.js";
 import {
   resolveHeartbeatAgents,

@@ -2,7 +2,7 @@
 import type { DatabaseSync } from "node:sqlite";
 import { isDeepStrictEqual } from "node:util";
 import { normalizeAgentId } from "../routing/session-key.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import { sha256Hex } from "./crypto-digest.js";
 import {
   normalizeExecApprovalsInternal,

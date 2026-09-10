@@ -1,6 +1,6 @@
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../config/sessions/session-store-owner.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 
 /** Resolves the durable requester owner for legacy rows that predate requesterAgentId. */

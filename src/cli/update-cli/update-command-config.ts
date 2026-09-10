@@ -14,7 +14,7 @@ import { resolveConfigIncludes } from "../../config/includes.js";
 import { asResolvedSourceConfig, asRuntimeConfig } from "../../config/materialize.js";
 import { resolveConfigPath, resolveIncludeRoots } from "../../config/paths.js";
 import { parsePluginInstallRecordMap } from "../../config/plugin-install-record-map.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import { shouldWarnOnTouchedVersion } from "../../config/version.js";
 import { normalizeUpdateChannel, type UpdateChannel } from "../../infra/update-channels.js";

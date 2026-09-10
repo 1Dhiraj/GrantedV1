@@ -1,5 +1,5 @@
 // TTS shared types describe speech requests, responses, and runtime config.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   ResolvedTtsPersona,
   TtsAutoMode,

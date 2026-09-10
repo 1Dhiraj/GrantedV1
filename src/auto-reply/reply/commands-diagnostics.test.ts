@@ -10,7 +10,7 @@ import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { PluginRuntime } from "../../plugins/runtime/types.js";
 import { createBundledPluginRecord } from "../../plugins/status.test-fixtures.js";
 import type { GrantedPluginCommandDefinition, PluginCommandContext } from "../../plugins/types.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { normalizeSessionDeliveryState } from "../../utils/delivery-context.shared.js";
 
 type PluginCommandHandler = GrantedPluginCommandDefinition["handler"];

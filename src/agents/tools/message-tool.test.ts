@@ -36,7 +36,7 @@ import {
 } from "../agent-tools.before-tool-call.js";
 import { withGatewayToolCallerIdentity } from "./gateway-caller-context.js";
 type CreateMessageTool = typeof import("./message-tool-execution.js").createMessageTool;
-type CreateOpenClawTools = typeof import("../openclaw-tools.js").createOpenClawTools;
+type CreateOpenClawTools = typeof import("../granted-tools.js").createOpenClawTools;
 type ResetPluginRuntimeStateForTest =
   typeof import("../../plugins/runtime.js").resetPluginRuntimeStateForTest;
 type SetActivePluginRegistry = typeof import("../../plugins/runtime.js").setActivePluginRegistry;
@@ -400,7 +400,7 @@ beforeAll(async () => {
     await import("../../plugins/runtime.js"));
   ({ createTestRegistry } = await import("../../test-utils/channel-plugins.js"));
   ({ createMessageTool } = await import("./message-tool-execution.js"));
-  ({ createOpenClawTools } = await import("../openclaw-tools.js"));
+  ({ createOpenClawTools } = await import("../granted-tools.js"));
   ({ runMessageAction: actualRunMessageAction } = await vi.importActual(
     "../../infra/outbound/message-action-runner.js",
   ));

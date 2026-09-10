@@ -1,6 +1,6 @@
 import { listSessionParticipantsReadOnly } from "../config/sessions/session-accessor.js";
 import { MAX_SESSION_PARTICIPANTS } from "../config/sessions/session-entry-provenance.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveUserProfileGitHubAttribution } from "../state/user-profile-github-identity.js";
 import { resolveConfiguredGitHubToolIdentity } from "./github-tool-identity.js";
 

@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { formatErrorMessage } from "../../../../src/infra/errors.js";
 import { isWithinActiveHours } from "../../../../src/infra/heartbeat-active-hours.js";
 import { startHeartbeatRunner } from "../../../../src/infra/heartbeat-runner.js";

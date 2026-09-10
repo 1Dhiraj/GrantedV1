@@ -4,7 +4,7 @@ import {
   ensureAuthProfileStore,
   findPersistedAuthProfileCredential,
 } from "../../agents/auth-profiles/store.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Resolves a user-selected auth profile override for the requested provider. */
 export function resolveProfileOverride(params: {

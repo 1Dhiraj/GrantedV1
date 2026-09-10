@@ -8,7 +8,7 @@ import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model
 import * as preparedRuntime from "../../agents/prepared-model-runtime.js";
 import type { PreparedModelRuntimeSnapshot } from "../../agents/prepared-model-runtime.types.js";
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resetAgentEventsForTest } from "../../infra/agent-events.js";
 import { createPluginMetadataSnapshotFixture } from "../../plugins/plugin-metadata.test-support.js";
 import { resolveProviderPolicySurface } from "../../plugins/provider-public-artifacts.js";
@@ -16,7 +16,7 @@ import type { ProviderThinkingProfile } from "../../plugins/provider-thinking.ty
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import type { PluginRegistry } from "../../plugins/registry-types.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { readPreparedGatewayModelCatalog } from "../server-model-catalog.js";
 import type { GatewaySessionRow, GatewaySessionsDefaults } from "../session-utils.types.js";
 import { agentsHandlers } from "./agents.js";

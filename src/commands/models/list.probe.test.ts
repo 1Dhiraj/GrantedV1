@@ -6,7 +6,7 @@ import path from "node:path";
 import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { AgentRunResultView } from "../../agents/agent-run-result.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { acquireGatewayLock, type GatewayLockOptions } from "../../infra/gateway-lock.js";
 
 let probeModule: typeof import("./list.probe.js");

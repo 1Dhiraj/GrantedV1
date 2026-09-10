@@ -1,7 +1,7 @@
 // Setup inference verification owns the shared verify/repair loop used by onboarding imports.
 import type { OnboardOptions } from "../commands/onboard-types.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { withConsoleSubsystemsSuppressed } from "../logging/console.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { t } from "./i18n/index.js";
@@ -38,7 +38,7 @@ export async function offerLiveModelVerification(params: {
   const [inference, authStore, agentDatabase] = await Promise.all([
     import("../system-agent/setup-inference.js"),
     import("../agents/auth-profiles/store.js"),
-    import("../state/openclaw-agent-db.js"),
+    import("../state/granted-agent-db.js"),
   ]);
   const stagedEnv = params.stateDir
     ? { ...process.env, GRANTED_STATE_DIR: params.stateDir }

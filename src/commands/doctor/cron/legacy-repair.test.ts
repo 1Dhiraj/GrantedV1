@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import {
   loadCronQuarantinedJobs,
   loadCronStore,
@@ -12,7 +12,7 @@ import {
 } from "../../../cron/store.js";
 import { cronStoreKey } from "../../../cron/store/key.js";
 import type { CronJob } from "../../../cron/types.js";
-import { openOpenClawStateDatabase } from "../../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../../state/granted-state-db.js";
 import {
   applyLegacyCronStoreRepair,
   loadLegacyCronRepairState,

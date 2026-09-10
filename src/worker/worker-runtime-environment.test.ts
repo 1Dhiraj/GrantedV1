@@ -5,7 +5,7 @@ import { expect, it } from "vitest";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { createWorkerRuntimeEnvironment } from "./worker.runtime.js";
 
 it("closes the worker state database before removing its directory without closing other state", async () => {

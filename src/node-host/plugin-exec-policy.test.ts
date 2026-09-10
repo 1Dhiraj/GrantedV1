@@ -10,7 +10,7 @@ import { saveExecApprovals, type ExecAsk, type ExecSecurity } from "../infra/exe
 import { createPluginRecord } from "../plugins/loader-records.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { invokeRegisteredNodeHostCommand } from "./plugin-node-host.js";
 
 let root: string;

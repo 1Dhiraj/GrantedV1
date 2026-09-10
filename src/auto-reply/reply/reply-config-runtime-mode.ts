@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 // Reply completeness is process-local metadata. Keep it off config objects so
 // frozen runtime snapshots and identity-keyed caches remain valid.

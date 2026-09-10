@@ -9,7 +9,7 @@ import type {
 } from "../../packages/gateway-protocol/src/index.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { resolveAgentMainSessionKey } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey, parseSessionDeliveryRoute } from "../routing/session-key.js";
 import {
   isAcpSessionKey,

@@ -2,18 +2,18 @@ import { link, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeCronJobCreate } from "../cron/normalize.js";
 import { upsertCronJobRow } from "../cron/store/row-codec.js";
 import type { CronStoredJob } from "../cron/types.js";
 import {
   listOpenClawRegisteredAgentDatabases,
   registerOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { applyClawAddPlan } from "./add.js";
 import { markClawCronRefRemoved, readClawCronRefs } from "./cron.js";
 import { claimClawAgentConfigRemoval } from "./lifecycle-config-removal.js";

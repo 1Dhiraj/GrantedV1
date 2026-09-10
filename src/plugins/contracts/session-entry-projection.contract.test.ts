@@ -13,7 +13,7 @@ import {
   replaceSessionEntry,
 } from "../../config/sessions/session-accessor.js";
 import { withTempConfig } from "../../gateway/test-temp-config.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { cleanupReplacedPluginHostRegistry, runPluginHostCleanup } from "../host-hook-cleanup.js";
 import { clearPluginHostRuntimeState } from "../host-hook-runtime.js";
@@ -74,7 +74,7 @@ async function withProjectionSessionStore(
     tempConfig: { session: { store: string } };
   }) => Promise<void>,
 ): Promise<void> {
-  const stateDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), prefix));
+  const stateDir = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), prefix));
   const storePath = path.join(stateDir, "sessions.json");
   const tempConfig = {
     agents: { entries: { main: { default: true } } },

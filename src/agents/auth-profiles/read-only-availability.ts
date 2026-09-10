@@ -1,6 +1,6 @@
 /** Pure, non-resolving credential availability checks shared by status and route selection. */
 import { hasNonEmptyString as hasSecret } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   isSecretRef,
   LEGACY_DOUBLE_UNDERSCORE_ENV_MARKER_PREFIX,

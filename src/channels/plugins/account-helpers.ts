@@ -6,7 +6,7 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { resolveMergedAccountConfig } from "../../config/channel-account-config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,

@@ -2,7 +2,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { markClawMcpServerIndependentlyOwned } from "../state/claw-mcp-adoption.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { buildClawAddPlan } from "./lifecycle.js";
 import { deleteClawMcpServerRef, installClawMcpServers, planClawMcpServerRemoval } from "./mcp.js";
 import { parseClawManifest } from "./schema.js";

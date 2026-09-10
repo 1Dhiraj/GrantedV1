@@ -9,7 +9,7 @@ import {
   unlinkIfExists,
 } from "granted/plugin-sdk/media-runtime";
 import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
-import { withTempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { withTempWorkspace, resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { loadWebMediaRaw } from "granted/plugin-sdk/web-media";
 import type { RequestClient } from "./internal/discord.js";
 import { parseAndResolveChannelRecipient } from "./recipient-resolution.js";
@@ -75,7 +75,7 @@ async function withMaterializedVoiceMessageInput<T>(
   const ext = extFromName || extFromMime || ".bin";
   return await withTempWorkspace(
     {
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "voice-src-",
     },
     async (workspace) => await run(await workspace.write(`input${ext}`, media.buffer)),

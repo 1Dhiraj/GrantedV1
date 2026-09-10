@@ -1,7 +1,7 @@
 // Matrix tests cover isolated runtime state fixtures.
 import fs from "node:fs";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it } from "vitest";
 import { getMatrixRuntime } from "./runtime.js";
 import { installMatrixTestRuntime } from "./test-runtime.js";
@@ -12,7 +12,7 @@ describe("installMatrixTestRuntime", () => {
 
     const runtime = getMatrixRuntime();
     const stateDir = runtime.state.resolveStateDir(process.env);
-    const tempRoot = fs.realpathSync(resolvePreferredOpenClawTmpDir());
+    const tempRoot = fs.realpathSync(resolvePreferredGrantedTmpDir());
 
     expect(stateDir).toBe(fs.realpathSync(stateDir));
     expect(path.dirname(stateDir)).toBe(tempRoot);
@@ -27,7 +27,7 @@ describe("installMatrixTestRuntime", () => {
   });
 
   it("preserves an explicit state directory override", () => {
-    const stateDir = path.join(resolvePreferredOpenClawTmpDir(), "matrix-explicit-state");
+    const stateDir = path.join(resolvePreferredGrantedTmpDir(), "matrix-explicit-state");
     installMatrixTestRuntime({ stateDir });
 
     expect(getMatrixRuntime().state.resolveStateDir(process.env)).toBe(stateDir);

@@ -410,12 +410,12 @@ export function renderApplicationShell(host: ShellViewHost) {
       ? renderCommandPaletteLoading(() => host.lazyCustomElements.close())
       : renderLazyElementModal(host.lazyCustomElements)}
     ${isOptionalElementDefined(host.commandPaletteElement)
-      ? html`<openclaw-command-palette
+      ? html`<granted-command-palette
           .onNavigate=${(routeId: RouteId, options?: ApplicationNavigationOptions) =>
             host.navigate(routeId, options)}
           .onSelectSession=${(sessionKey: string) => host.selectChatSession(sessionKey)}
           .onSlashCommand=${(command: string) => host.handleCommandPaletteSlashCommand(command)}
-        ></openclaw-command-palette>`
+        ></granted-command-palette>`
       : nothing}
     ${isOptionalElementDefined(DEBUG_OVERLAY_ELEMENT)
       ? html`<openclaw-debug-overlay></openclaw-debug-overlay>`

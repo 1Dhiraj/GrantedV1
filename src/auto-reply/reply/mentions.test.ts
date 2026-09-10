@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // Tests mention detection and command trigger matching.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { MsgContext } from "../templating.js";
 import {
   buildMentionRegexes,

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { resolveConfigPath, resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { readGatewayServiceState, resolveGatewayService } from "../daemon/service.js";
 import {
   buildGatewayConnectionDetails,

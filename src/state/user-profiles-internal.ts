@@ -4,7 +4,7 @@ import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/k
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import {
   ensureUserProfilesSchema,
   type UserProfilesDatabase,

@@ -3,7 +3,7 @@ import {
   normalizeAgentModelMapForConfig,
   normalizeAgentModelRefForConfig,
 } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Applies a primary model to agent defaults while preserving model fallback metadata. */
 export function applyPrimaryModel(cfg: GrantedConfig, model: string): GrantedConfig {

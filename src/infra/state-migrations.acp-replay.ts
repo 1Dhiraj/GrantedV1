@@ -8,8 +8,8 @@ import { isDeepStrictEqual } from "node:util";
 import type { SessionUpdate } from "@agentclientprotocol/sdk";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { z } from "zod";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import { withFileLock } from "./file-lock.js";
 import {
   executeSqliteQuerySync,

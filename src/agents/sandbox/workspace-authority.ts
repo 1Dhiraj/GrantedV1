@@ -1,6 +1,6 @@
 // Resolves whether one sandboxed session is confined to its writable workspace.
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeExecTarget } from "../../infra/exec-approvals.js";
 import { resolveEffectiveSessionToolsVisibility } from "../../plugin-sdk/session-visibility.js";
 import { resolveAgentConfig } from "../agent-scope.js";

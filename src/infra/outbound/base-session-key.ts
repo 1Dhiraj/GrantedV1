@@ -1,6 +1,6 @@
 // Base session-key helper keeps outbound-only delivery aligned with route
 // resolution session-scope rules.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildAgentSessionKey, type RoutePeer } from "../../routing/resolve-route.js";
 
 /**

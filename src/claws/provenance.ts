@@ -6,7 +6,7 @@ import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { digestClawAgentConfig } from "./agent-config-digest.js";
 import {
   CLAW_PACKAGE_REF_SCHEMA_VERSION,

@@ -2,7 +2,7 @@ import { Value } from "typebox/value";
 import { vi } from "vitest";
 import { GATEWAY_CLIENT_IDS } from "../../../packages/gateway-protocol/src/client-info.js";
 import { createOperationalRunInstanceRef } from "../../agents/admitted-run-context.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { claimAgentRunDelegatedAuthority } from "../../infra/agent-run-registry.js";
 import { NODE_WORKER_SUPERVISOR_PROTOCOL_FEATURE } from "../../infra/node-runner-inventory.js";
 import type { ComputerUseCapabilityDescriptor } from "../../plugins/computer-use-contract.js";

@@ -14,7 +14,7 @@ import { waitForSessionTranscriptProjection } from "../config/sessions/session-t
 import { sessionMatchesExpectedTranscriptTurn } from "../config/sessions/session-transcript-turn-state.js";
 import { getOwnedSessionTranscriptWriterFence } from "../config/sessions/transcript-write-context.js";
 import { sha256HexPrefixCore } from "../infra/crypto-digest.js";
-import { openOpenClawAgentDatabase } from "../state/openclaw-agent-db.js";
+import { openOpenClawAgentDatabase } from "../state/granted-agent-db.js";
 import type {
   PersistedUserTurnMessage,
   UserTurnTranscriptAdmissionReceipt,

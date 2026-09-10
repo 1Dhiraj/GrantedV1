@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { createOpenClawTools } from "../../../../src/agents/openclaw-tools.js";
+import { createOpenClawTools } from "../../../../src/agents/granted-tools.js";
 import type { PreparedModelRuntimeSnapshot } from "../../../../src/agents/prepared-model-runtime.js";
 import { createPluginMetadataSnapshot } from "../../../../src/config/plugin-auto-enable.test-helpers.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import type {
   MusicGenerationProvider,
   MusicGenerationRequest,

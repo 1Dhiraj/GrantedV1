@@ -2,7 +2,7 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it, vi } from "vitest";
 import {
   compareNormalizedPaths,
@@ -85,7 +85,7 @@ describe("scripts/bundle-a2ui.mjs", () => {
     "matches the tracked-input hash when Git discovery fails",
     async () => {
       await withTempWorkspace(
-        { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-a2ui-git-fallback-" },
+        { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-a2ui-git-fallback-" },
         async ({ dir }) => {
           const fakeBinDir = path.join(dir, "bin");
           const fakeGitPath = path.join(fakeBinDir, "git");

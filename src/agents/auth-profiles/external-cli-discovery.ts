@@ -4,7 +4,7 @@
  * auth profile store loading.
  */
 import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   resolveExternalCliAuthScopeFromConfig,
   type ExternalCliAuthScope,

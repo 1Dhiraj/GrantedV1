@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { requesterMcpOAuthStoreKeyPrefix } from "../agents/mcp-oauth-identity.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const mocks = vi.hoisted(() => ({
   complete: vi.fn(),

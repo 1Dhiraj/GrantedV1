@@ -1,6 +1,6 @@
 /** Tests for TTS SecretRef assignment ownership. */
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { collectTtsApiKeyAssignments } from "./runtime-config-collectors-tts.js";
 import { createResolverContext } from "./runtime-shared.js";
 

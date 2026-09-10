@@ -1,5 +1,5 @@
 /** Projects the canonical conversation tool policy into raw native MCP identities. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { BundleMcpConfig } from "../plugins/bundle-mcp.js";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import { buildBundleMcpToolsFromCatalog } from "./agent-bundle-mcp-materialize.js";

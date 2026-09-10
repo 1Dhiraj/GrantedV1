@@ -7,7 +7,7 @@ import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { resolveOpenClawDevSourceRoot } from "./dev-source-root.js";
 import {
   parsePluginCacheJson,

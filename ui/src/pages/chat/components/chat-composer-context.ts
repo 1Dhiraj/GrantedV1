@@ -1,7 +1,7 @@
 import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { asNullableObjectRecord as readCostRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing } from "lit";
-import { isTranscriptOnlyOpenClawAssistantMessage } from "../../../../../src/shared/transcript-only-openclaw-assistant.js";
+import { isTranscriptOnlyOpenClawAssistantMessage } from "../../../../../src/shared/transcript-only-granted-assistant.js";
 import type { GatewaySessionRow } from "../../../api/types.ts";
 import { normalizeBasePath } from "../../../app-route-paths.ts";
 import { icons } from "../../../components/icons.ts";

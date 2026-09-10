@@ -6,10 +6,10 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateDatabase } from "./openclaw-state-db.generated.js";
-import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateDatabase } from "./granted-state-db.generated.js";
+import { runOpenClawStateWriteTransaction } from "./granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "./granted-state-db.paths.js";
 
 type BackupRunDatabase = Pick<GrantedStateDatabase, "backup_runs">;
 

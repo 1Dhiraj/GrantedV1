@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import { getNodeSqliteKysely } from "./kysely-sync.js";
 
 type MeetingTranscriptMigrationDatabase = Pick<

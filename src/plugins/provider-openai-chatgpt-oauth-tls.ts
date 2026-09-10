@@ -5,7 +5,7 @@ import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coerci
 import { asNullableObjectRecord } from "@granted/normalization-core/record-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { cancelUnreadResponseBody } from "../infra/http-body.js";
 
 const OPENAI_AUTH_PROBE_URL =

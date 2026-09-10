@@ -8,7 +8,7 @@ import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
 import { normalizeStoreSessionKey } from "../../config/sessions/store-entry.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../../routing/session-key.js";
 
 /** Join the logical ACP key to its canonical SQLite entry without renaming ACP metadata. */

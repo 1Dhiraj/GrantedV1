@@ -9,7 +9,7 @@ import { normalizeStringEntries } from "@granted/normalization-core/string-norma
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { ChatType } from "../channels/chat-type.js";
 import { resolveControlUiSessionUrl } from "../config/control-ui-link-base.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   formatActiveNodeContextLabel,
   getCurrentActiveNodeContext,

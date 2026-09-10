@@ -8,7 +8,7 @@ import type {
   AgentModelPolicyConfig,
 } from "./types.agent-defaults.js";
 import type { AgentConfig } from "./types.agents.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 import { validateConfigObjectRaw } from "./validation-core.js";
 
 const models = { "openai/gpt-5.5": {} };

@@ -1,4 +1,4 @@
-import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/granted-agent-schema.js";
 
 const HISTORICAL_AGENT_LEASE_SCHEMA = `CREATE TABLE IF NOT EXISTS state_leases (
   scope TEXT NOT NULL,

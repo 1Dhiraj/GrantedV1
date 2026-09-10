@@ -12,7 +12,7 @@ import {
 } from "@granted/normalization-core/number-coercion";
 import { sleepWithAbort } from "@granted/retry";
 import type { ModelProviderLocalServiceConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { toErrorObject } from "../infra/errors.js";
 import { mergeProcessEnv } from "../infra/process-env.js";
 import type { Model } from "../llm/types.js";

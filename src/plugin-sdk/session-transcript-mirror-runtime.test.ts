@@ -9,7 +9,7 @@ import {
 } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { SessionTranscriptReadFenceError } from "../config/sessions/session-transcript-read-fence.js";
 import { waitForSessionTranscriptProjection } from "../config/sessions/session-transcript-reconcile.js";
-import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
+import { runOpenClawAgentWriteTransaction } from "../state/granted-agent-db.js";
 import {
   readCodexSessionTranscriptEventsBeforeAdmission,
   withCodexSessionTranscriptMirrorWriteLock,

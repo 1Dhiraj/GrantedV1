@@ -1,5 +1,5 @@
 /** Compatibility helper that auto-enables bundled plugins for legacy flows. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginEntryConfig } from "../config/types.plugins.js";
 import { readBundledDiscoveryModeMemoized } from "./bundled-discovery-state.js";
 import { normalizePluginId } from "./config-state.js";

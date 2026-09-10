@@ -16,7 +16,7 @@ async function seedTrajectorySession(tempHome: string, sessionKey: string) {
   delete env.GRANTED_HOME;
   const [{ upsertSessionEntryCore }, { closeOpenClawAgentDatabaseByPath }] = await Promise.all([
     import("../src/config/sessions/session-accessor.js"),
-    import("../src/state/openclaw-agent-db.js"),
+    import("../src/state/granted-agent-db.js"),
   ]);
   await upsertSessionEntryCore(
     { agentId: "main", env, sessionKey },

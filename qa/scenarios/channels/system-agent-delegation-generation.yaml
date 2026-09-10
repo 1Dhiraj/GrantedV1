@@ -17,7 +17,7 @@ scenario:
   docsRefs:
     - docs/channels/qa-channel.md
   codeRefs:
-    - src/agents/tools/openclaw-delegate-tool.ts
+    - src/agents/tools/granted-delegate-tool.ts
     - src/gateway/server-methods/system-agent.ts
     - src/system-agent/inference-fallback.ts
     - src/agents/embedded-agent-runner/run-orchestrator.ts

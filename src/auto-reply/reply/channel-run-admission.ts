@@ -10,7 +10,7 @@ import {
   recordChannelAdmissionDecision,
   type ChannelAdmissionEvidence,
 } from "../../channels/message-access/admission-evidence.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Adapt one opaque channel carrier to the canonical admitted-run facts and decision FIFO. */
 export function consumeChannelRunAdmission(evidence: ChannelAdmissionEvidence | undefined): {

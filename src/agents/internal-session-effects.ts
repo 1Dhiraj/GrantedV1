@@ -10,7 +10,7 @@ import {
 import { buildSessionCreationStamp } from "../config/sessions/session-entry-provenance.js";
 import { createSessionTranscriptHeader } from "../config/sessions/transcript-header.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import { isIncognitoOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
+import { isIncognitoOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
 import type { AgentRunSessionTarget } from "./run-session-target.js";
 
 type InternalSessionEffectsTarget = Required<

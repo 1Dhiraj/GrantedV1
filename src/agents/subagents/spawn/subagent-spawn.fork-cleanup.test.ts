@@ -5,7 +5,7 @@ import { expectDefined } from "@granted/normalization-core";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ExecutionDecisionWork } from "../../../audit/execution-decision-work.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { createDeferredCore } from "../../../shared/deferred.js";
 import { loadSubagentSpawnModuleForTest } from "./subagent-spawn.test-helpers.js";
 
@@ -112,9 +112,9 @@ describe("subagent fork context through SQLite and tool boundaries", () => {
     ({ forkSessionEntryFromParent: forkSession } =
       await import("../../../auto-reply/reply/session-fork.js"));
     ({ closeOpenClawAgentDatabasesForTest: closeAgentDatabases } =
-      await import("../../../state/openclaw-agent-db.js"));
+      await import("../../../state/granted-agent-db.js"));
     ({ closeOpenClawStateDatabaseForTest: closeStateDatabase } =
-      await import("../../../state/openclaw-state-db.js"));
+      await import("../../../state/granted-state-db.js"));
     swarmScheduler = await import("../swarm/swarm-scheduler.js");
     const { testing } = await import("../swarm/swarm-scheduler.test-support.js");
     resetScheduler = () => testing.reset();

@@ -1,6 +1,6 @@
 /** Secret-surface projection coverage loaded by the startup SecretRef suite. */
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveGatewayStartupSourceConfig } from "./server-startup-secret-surfaces.js";
 
 function channelConfig(): GrantedConfig {

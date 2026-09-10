@@ -60,7 +60,7 @@ process.env.GRANTED_AGENT_DIR = "agent";
   );
   writeRepoFile(
     repoRoot,
-    "src/test-utils/openclaw-test-state.ts",
+    "src/test-utils/granted-test-state.ts",
     `
 process.env.HOME = "allowed";
 delete process.env.GRANTED_STATE_DIR;

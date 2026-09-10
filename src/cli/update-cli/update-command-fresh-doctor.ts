@@ -7,7 +7,7 @@ import {
 } from "../../commands/doctor/shared/update-phase.js";
 import { readConfigFileSnapshot } from "../../config/config.js";
 import { resolveStateDir } from "../../config/paths.js";
-import type { ConfigFileSnapshot } from "../../config/types.openclaw.js";
+import type { ConfigFileSnapshot } from "../../config/types.granted.js";
 import { resolveGatewayInstallEntrypoint } from "../../daemon/gateway-entrypoint.js";
 import { buildUpdateDoctorEnv } from "../../infra/update-runner-doctor.js";
 import { redactSupportString } from "../../logging/diagnostic-support-redaction.js";

@@ -11,7 +11,7 @@ import type { PluginApprovalRequestPayload } from "../infra/plugin-approvals.js"
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   ExecApprovalManager,
   InvalidApprovalIdError,

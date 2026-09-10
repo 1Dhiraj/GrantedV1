@@ -20,7 +20,7 @@ import {
   type GitBackupRestoreResult,
 } from "./git-backup-codec.js";
 import { ensurePrivateSnapshotRepositoryRoot } from "./local-repository.js";
-import { createOpenClawSnapshotCopy } from "./openclaw-snapshot-copy.js";
+import { createOpenClawSnapshotCopy } from "./granted-snapshot-copy.js";
 import type { SnapshotDatabaseRef } from "./snapshot-provider.js";
 
 const GIT_BACKUP_MATERIALIZE_MAX_BYTES = 1024 * 1024 * 1024;

@@ -5,7 +5,7 @@ import net from "node:net";
 import path from "node:path";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   createQaBundledPluginsDir,
   resolveQaOwnerPluginIdsForProviderIds,
@@ -161,7 +161,7 @@ export async function prepareQaGatewayChild(
   params: QaGatewayChildParams,
   lifetime: QaGatewayChildLifecycle,
 ) {
-  const tempParentDir = params.command?.tempParentDir ?? resolvePreferredOpenClawTmpDir();
+  const tempParentDir = params.command?.tempParentDir ?? resolvePreferredGrantedTmpDir();
   const tempRoot = await fs.mkdtemp(path.join(tempParentDir, "openclaw-qa-suite-"));
   lifetime.tempRoot = tempRoot;
   const runtimeCwd = tempRoot;

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { normalizeOptionalString } from "@granted/normalization-core";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { WebPushNotificationCategory } from "../../packages/gateway-protocol/src/schema/push.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   WEB_PUSH_USER_PREFERENCES_KEY,
   isWebPushQuietHours,
@@ -16,7 +16,7 @@ import {
   prepareWebPushNotificationSender,
   type BoundWebPushSubscription,
 } from "../infra/push-web.js";
-import { isTranscriptOnlyOpenClawAssistantMessage } from "../shared/transcript-only-openclaw-assistant.js";
+import { isTranscriptOnlyOpenClawAssistantMessage } from "../shared/transcript-only-granted-assistant.js";
 import { getUserPreferences } from "../state/user-preferences.js";
 import { resolveUserProfileId } from "../state/user-profiles.js";
 import { QUESTIONS_SCOPE } from "./method-scopes.js";

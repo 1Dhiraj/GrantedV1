@@ -41,7 +41,7 @@ import {
   buildWatchedSessionsPromptLines,
   prepareWatchedSessionsPrompt,
 } from "../agents/watched-sessions-prompt.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ImageContent } from "../llm/types.js";
 import { redactToolDetail } from "../logging/redact.js";
 import type { PromptImageOrderEntry } from "../media/prompt-image-order.js";
@@ -346,7 +346,7 @@ export async function detectAndLoadAgentHarnessPromptImages(params: {
   existingImages?: ImageContent[];
   imageOrder?: PromptImageOrderEntry[];
   media?: import("../media/media-facts.js").MediaFact[];
-  config?: import("../config/types.openclaw.js").GrantedConfig;
+  config?: import("../config/types.granted.js").GrantedConfig;
   workspaceOnly?: boolean;
   localRoots?: readonly string[];
   sandbox?: { root: string; bridge: SandboxFsBridge };

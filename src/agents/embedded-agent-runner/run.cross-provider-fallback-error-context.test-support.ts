@@ -1,6 +1,6 @@
 // Full-entry coverage for current-attempt error context across model fallback.
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { makeAssistantMessageFixture } from "../test-helpers/assistant-message-fixtures.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
@@ -167,7 +167,7 @@ async function expectDeepseekFallbackError(promise: Promise<unknown>) {
 describe("runEmbeddedAgent cross-provider fallback error handling", () => {
   beforeAll(async () => {
     runEmbeddedAgent = await loadSharedRunIntegrationHarness();
-    const { withOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { withOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     await withOpenClawTestState({ label: "cross-provider-warmup" }, async (warmupState) => {
       await warmRunOverflowCompactionHarness(runEmbeddedAgent, warmupState, {
         config: makeCrossProviderFallbackConfig(),
@@ -182,7 +182,7 @@ describe("runEmbeddedAgent cross-provider fallback error handling", () => {
 
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.cross-provider-fallback-error-context" });
     useCrossProviderAuthFixture();
     mockedGlobalHookRunner.hasHooks.mockImplementation(() => false);

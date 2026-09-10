@@ -10,7 +10,7 @@ import {
   hasDeliveryTargetFields,
 } from "../../utils/delivery-context.shared.js";
 import { getRuntimeConfig } from "../io.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { openSessionEntryReadView, type SessionEntryReadView } from "./session-accessor.js";
 import {

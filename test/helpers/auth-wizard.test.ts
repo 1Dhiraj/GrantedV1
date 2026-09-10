@@ -4,11 +4,11 @@ import { describe, expect, it, vi } from "vitest";
 import {
   closeOpenClawAgentDatabaseByPath,
   openOpenClawAgentDatabase,
-} from "../../src/state/openclaw-agent-db.js";
+} from "../../src/state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
-} from "../../src/state/openclaw-state-db.js";
+} from "../../src/state/granted-state-db.js";
 import { captureFullEnv, withEnvAsync } from "../../src/test-utils/env.js";
 import { setupAuthTestEnv } from "./auth-wizard.js";
 

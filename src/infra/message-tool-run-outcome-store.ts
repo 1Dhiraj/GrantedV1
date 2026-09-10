@@ -3,12 +3,12 @@ import {
   resolveSqliteScope,
   toDatabaseOptions,
 } from "../config/sessions/session-accessor.sqlite-scope.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
 import {
   openOpenClawAgentDatabase,
   runOpenClawAgentWriteTransaction,
-} from "../state/openclaw-agent-db.js";
-import { ensureMessageToolRunOutcomeSchema } from "../state/openclaw-agent-message-tool-outcome-schema.js";
+} from "../state/granted-agent-db.js";
+import { ensureMessageToolRunOutcomeSchema } from "../state/granted-agent-message-tool-outcome-schema.js";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "./kysely-sync.js";
 
 const MESSAGE_TOOL_RUN_OUTCOME_MAX_ROWS = 10_000;

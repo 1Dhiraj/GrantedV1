@@ -7,7 +7,7 @@ import type {
   ApprovalChannelReviewer,
   ValidationError,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { hasApprovalTurnSourceRoute } from "../../infra/approval-turn-source.js";
 import type { ChannelApprovalKind } from "../../infra/approval-types.js";
 import type {

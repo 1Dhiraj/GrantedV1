@@ -10,7 +10,7 @@ import {
 } from "../../test/helpers/auth-wizard.js";
 import { ensureAuthProfileStore } from "../agents/auth-profiles/store.js";
 import { resolveProviderIdForAuth } from "../agents/provider-auth-aliases.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { OAuthCredentials } from "../llm/utils/oauth/types.js";
 import {
   applyAuthProfileConfig,

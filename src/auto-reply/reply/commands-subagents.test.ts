@@ -292,7 +292,7 @@ describe("subagents global-session inspection", () => {
 describe("subagents info", () => {
   const TEST_SESSION_STORE_PATH = path.join(
     os.tmpdir(),
-    `openclaw-commands-subagents-info-${process.pid}.json`,
+    `granted-commands-subagents-info-${process.pid}.json`,
   );
 
   function buildCommandTestConfig(): GrantedConfig {

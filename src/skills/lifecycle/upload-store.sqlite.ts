@@ -9,12 +9,12 @@ import {
 import type {
   DB as GrantedStateDatabase,
   SkillUploads,
-} from "../../state/openclaw-state-db.generated.js";
+} from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 
 export const SKILL_UPLOAD_LEASE_SCOPE = "skill-upload-install";
 

@@ -1,6 +1,6 @@
 // Spend ceilings for unattended work: a cumulative USD cap for all model calls
 // and optional per-provider caps, checked before each call.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadCostUsageSummaryFromCache } from "./session-cost-usage-cache-runtime.js";
 
 /**

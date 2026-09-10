@@ -10,15 +10,15 @@ import type { CronJob } from "../../cron/types.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+} from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { sessionMutationHandlers } from "./sessions-mutations.js";
 import type { GatewayClient, GatewayRequestContext } from "./types.js";
 
 const sqliteTransactionLabels = vi.hoisted(() => [] as string[]);
 
-vi.mock("../../state/openclaw-agent-db.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../../state/openclaw-agent-db.js")>();
+vi.mock("../../state/granted-agent-db.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../../state/granted-agent-db.js")>();
   const runOpenClawAgentWriteTransaction: typeof actual.runOpenClawAgentWriteTransaction = (
     operation,
     options,

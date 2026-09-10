@@ -7,7 +7,7 @@ import {
   validateSessionsCatalogStartTerminalParams,
 } from "../../../packages/gateway-protocol/src/index.js";
 import { allowsProcessHomeSessionScan } from "../../config/paths.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SessionCatalogProvider } from "../../plugins/session-catalog.js";
 import { authorizeGatewaySessionCreation } from "../operator-role-policy.js";
 import type { GatewayRequestHandlers } from "./types.js";

@@ -353,7 +353,7 @@ process.exit(0);
         {
           env: {
             ...process.env,
-            GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
+            GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-granted-tools-bridge",
             PATH: `${binDir}${process.platform === "win32" ? ";" : ":"}${process.env.PATH ?? ""}`,
           },
           stdio: "pipe",
@@ -365,7 +365,7 @@ process.exit(0);
         .trim()
         .split("\n")
         .map((line) => JSON.parse(line));
-      expect(summary.skippedIntents).toContain("acpx-openclaw-tools-bridge");
+      expect(summary.skippedIntents).toContain("acpx-granted-tools-bridge");
       expect(loggedArgs).not.toContainEqual(
         expect.arrayContaining([
           "set",

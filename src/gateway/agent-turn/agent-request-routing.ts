@@ -4,7 +4,7 @@ import { listAgentIds } from "../../agents/agent-scope.js";
 import { isExecApprovalFollowupSessionRebound } from "../../agents/bash-tools.exec-approval-followup-state.js";
 import { resolveExistingSessionKeyForRequest } from "../../agents/command/session.js";
 import { resolveExplicitAgentSessionKey } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { emitDiagnosticEvent } from "../../infra/diagnostic-events.js";
 import { resolveAgentExplicitRecipientSession } from "../../infra/outbound/agent-delivery.js";
 import { classifySessionKeyShape, normalizeAgentId } from "../../routing/session-key.js";

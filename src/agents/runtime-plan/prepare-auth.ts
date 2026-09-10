@@ -4,7 +4,7 @@
  * resolves secrets or loads a provider runtime.
  */
 import { resolveMergedModelProviderConfig } from "../../config/model-provider-config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ProviderRouteOverridePresence } from "../../plugin-sdk/provider-model-types.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import {

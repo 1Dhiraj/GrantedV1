@@ -168,7 +168,7 @@ describe("cli json stdout contract", () => {
           code: "ENOENT",
         });
       },
-      { prefix: "openclaw-profile-isolation-e2e-" },
+      { prefix: "granted-profile-isolation-e2e-" },
     );
   });
 

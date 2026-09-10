@@ -8,7 +8,7 @@ import { resolveSubagentLabel } from "../../../auto-reply/reply/subagents-utils.
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { listSessionEntriesReadOnly } from "../../../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../../../config/sessions/types.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { formatDurationCompact } from "../../../infra/format-time/format-duration.js";
 import { parseAgentSessionKey, type ParsedAgentSessionKey } from "../../../routing/session-key.js";
 import {

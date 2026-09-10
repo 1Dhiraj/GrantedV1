@@ -5,7 +5,7 @@ import { loadPersistedAuthProfileStore } from "../agents/auth-profiles/persisted
 import { repairOAuthProfileIdMismatch } from "../agents/auth-profiles/repair.js";
 import { ensureAuthProfileStoreWithoutExternalProfiles } from "../agents/auth-profiles/store.js";
 import { applyProviderConfigDefaultsForConfig } from "../config/provider-policy.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   configReferencesAuthProfile,
   removeAuthProfileConfig,

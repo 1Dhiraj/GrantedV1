@@ -5,7 +5,7 @@ import {
   type ConfigAuditRecord,
 } from "../../config/io.audit.js";
 import { createSqliteAuditRecordStore } from "../../infra/sqlite-audit-record-store.js";
-import { closeOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import {
   SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
   SYSTEM_AGENT_AUDIT_SCOPE,

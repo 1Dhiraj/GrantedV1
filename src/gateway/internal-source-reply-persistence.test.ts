@@ -18,8 +18,8 @@ import {
   type SessionTranscriptUpdate,
 } from "../sessions/transcript-events.js";
 import { createDeferredCore } from "../shared/deferred.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
-import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/granted-test-state.js";
 import { persistInternalSourceReply } from "./internal-source-reply-persistence.js";
 import {
   MANAGED_OUTGOING_IMAGE_ARTIFACT_ID_PREFIX,

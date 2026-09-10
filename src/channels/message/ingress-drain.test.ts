@@ -1,7 +1,7 @@
 // Durable ingress drain contract tests for lifecycle reliability invariants.
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
 import {
   createChannelIngressDrain,
   DEFAULT_INGRESS_ADOPTION_STALL_MS,

@@ -4,7 +4,7 @@
  * channel delivery can narrow tool access by sender identity.
  */
 import { resolveToolsBySender } from "../config/group-policy.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseSessionDeliveryRoute } from "../routing/session-key.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 import { pickSandboxToolPolicy } from "./sandbox-tool-policy.js";

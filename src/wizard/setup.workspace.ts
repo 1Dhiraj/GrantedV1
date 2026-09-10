@@ -2,7 +2,7 @@ import {
   resolveOnboardingWorkspaceConflict,
   type OnboardingWorkspaceConflict,
 } from "../commands/onboard-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { shortenHomePath } from "../utils.js";
 import { t } from "./i18n/index.js";
 import type { WizardPrompter } from "./prompts.js";

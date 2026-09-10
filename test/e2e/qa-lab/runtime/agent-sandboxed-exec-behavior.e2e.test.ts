@@ -5,7 +5,7 @@ import path from "node:path";
 import { expect, test } from "vitest";
 import { createOpenClawCodingTools } from "../../../../src/agents/agent-tools.js";
 import { resolveAttemptWorkspaceSandbox } from "../../../../src/agents/embedded-agent-runner/run/attempt-setup.js";
-import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../../../src/config/types.granted.js";
 import { captureEnv, setTestEnvValue } from "../../../../src/test-utils/env.js";
 
 function createConfig(params: {

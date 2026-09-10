@@ -7,7 +7,7 @@ import {
   persistSessionTranscriptTurn,
   upsertSessionEntryCore,
 } from "../src/config/sessions/session-accessor.js";
-import { withOpenClawTestState } from "../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../src/test-utils/granted-test-state.js";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const readerSentinel = "GRANTED_SESSION_HYDRATION_MEMORY:";

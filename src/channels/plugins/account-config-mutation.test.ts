@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createChannelTestPluginBase } from "../../test-utils/channel-plugins.js";
 import {
   applyPreparedChannelAccountConfiguration,

@@ -15,7 +15,7 @@ import {
   loadSessionEntryReadOnly,
 } from "../../../config/sessions/session-accessor.js";
 import { normalizeStoreSessionKey } from "../../../config/sessions/store-entry.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { SubagentRunOutcome } from "../announce/subagent-announce-output.js";
 import {
   SUBAGENT_ENDED_REASON_COMPLETE,

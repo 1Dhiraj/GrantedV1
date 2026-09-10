@@ -11,7 +11,7 @@ import {
 import { buildClawUpdatePlan, CLAW_UPDATE_PLAN_SCHEMA_VERSION } from "../claws/update-plan.js";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
 import { defaultRuntime, writeRuntimeJson, type RuntimeEnv } from "../runtime.js";
-import { openExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db.js";
+import { openExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db.js";
 import {
   emitClawFailure,
   formatClawDiagnostics,

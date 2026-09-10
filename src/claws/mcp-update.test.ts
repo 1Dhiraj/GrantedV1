@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { applyClawMcpUpdate as applyClawMcpUpdateRaw } from "./mcp-update.js";
 import {
   CLAW_MCP_REF_SCHEMA_VERSION,

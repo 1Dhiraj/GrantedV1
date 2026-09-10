@@ -112,7 +112,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
     config: GrantedConfig;
     markerPath: string;
   }> {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-secret-exec-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "granted-command-secret-exec-"));
     tempRoots.add(root);
     const markerPath = path.join(root, "executed");
     const resolverScript = [

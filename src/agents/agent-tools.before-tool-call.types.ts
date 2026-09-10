@@ -4,7 +4,7 @@
  * through the barrel that re-exports them.
  */
 import type { ToolLoopWarning } from "@granted/agent-core";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ToolLoopDetectionConfig } from "../config/types.tools.js";
 import type { DiagnosticToolTerminalReason } from "../infra/diagnostic-events.js";
 import type { DiagnosticTraceContext } from "../infra/diagnostic-trace-context.js";

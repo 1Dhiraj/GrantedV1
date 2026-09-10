@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createCoreHealthChecks } from "./doctor-core-checks.js";
 import { runDoctorLintChecks } from "./doctor-lint-flow.js";
 import type { HealthCheck } from "./health-checks.js";

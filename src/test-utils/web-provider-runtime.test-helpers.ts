@@ -1,5 +1,5 @@
 // Test helpers for mocked web provider runtime dependencies.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   PluginWebFetchProviderEntry,
   PluginWebSearchProviderEntry,

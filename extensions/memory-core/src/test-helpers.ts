@@ -8,7 +8,7 @@ import {
 } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, beforeAll } from "vitest";
 import {
   normalizeDailyIngestionState,
@@ -202,7 +202,7 @@ export function createMemoryCoreTestHarness() {
   beforeAll(async () => {
     await configureMemoryCoreDreamingStateForTests();
     fixtureRoot = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "memory-core-test-fixtures-"),
+      path.join(resolvePreferredGrantedTmpDir(), "memory-core-test-fixtures-"),
     );
   });
 

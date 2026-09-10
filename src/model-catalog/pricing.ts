@@ -7,7 +7,7 @@ import {
   createStaticProviderModelIdNormalizer,
   normalizeProviderId,
 } from "../agents/model-ref-shared.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isInstalledPluginEnabled } from "../plugins/installed-plugin-index.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import {

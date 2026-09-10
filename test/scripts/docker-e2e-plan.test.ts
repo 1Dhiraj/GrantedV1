@@ -1049,7 +1049,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
     expect(plan.lanes.map((lane) => lane.name)).toEqual([
       "published-upgrade-survivor-2026.4.29",
-      "published-upgrade-survivor-2026.4.29-acpx-openclaw-tools-bridge",
+      "published-upgrade-survivor-2026.4.29-acpx-granted-tools-bridge",
       "published-upgrade-survivor-2026.4.29-feishu-channel",
       "published-upgrade-survivor-2026.4.29-bootstrap-persona",
       "published-upgrade-survivor-2026.4.29-channel-post-core-restore",
@@ -1111,7 +1111,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       "published-upgrade-survivor-2026.6.11-versioned-runtime-deps",
     ]);
     expect(plan.omittedUnsupportedLanes).toEqual([
-      "published-upgrade-survivor-2026.6.11-acpx-openclaw-tools-bridge",
+      "published-upgrade-survivor-2026.6.11-acpx-granted-tools-bridge",
       "published-upgrade-survivor-2026.6.11-meeting-transcripts-sqlite",
       "published-upgrade-survivor-2026.6.11-cron-scheduled-authority",
     ]);
@@ -1150,7 +1150,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     });
 
     expect(plan.omittedUnsupportedLanes).toEqual([
-      "published-upgrade-survivor-2026.6.11-acpx-openclaw-tools-bridge",
+      "published-upgrade-survivor-2026.6.11-acpx-granted-tools-bridge",
       "published-upgrade-survivor-2026.6.11-meeting-transcripts-sqlite",
       "published-upgrade-survivor-2026.6.11-cron-scheduled-authority",
     ]);
@@ -1255,7 +1255,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     const plan = planFor({
       selectedLaneNames: ["published-upgrade-survivor"],
       upgradeSurvivorBaselines: "2026.4.21",
-      upgradeSurvivorScenarios: "acpx-openclaw-tools-bridge",
+      upgradeSurvivorScenarios: "acpx-granted-tools-bridge",
       upgradeSurvivorTargetRoot: targetRoot,
     });
 
@@ -1339,7 +1339,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
     expect(plan.lanes.map((lane) => lane.name)).toEqual([
       "published-upgrade-survivor-2026.4.29",
-      "published-upgrade-survivor-2026.4.29-acpx-openclaw-tools-bridge",
+      "published-upgrade-survivor-2026.4.29-acpx-granted-tools-bridge",
       "published-upgrade-survivor-2026.4.29-feishu-channel",
       "published-upgrade-survivor-2026.4.29-bootstrap-persona",
       "published-upgrade-survivor-2026.4.29-channel-post-core-restore",
@@ -1351,7 +1351,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       "published-upgrade-survivor-2026.4.29-versioned-runtime-deps",
       "published-upgrade-survivor-2026.4.29-cron-scheduled-authority",
       "published-upgrade-survivor-2026.4.22",
-      "published-upgrade-survivor-2026.4.22-acpx-openclaw-tools-bridge",
+      "published-upgrade-survivor-2026.4.22-acpx-granted-tools-bridge",
       "published-upgrade-survivor-2026.4.22-feishu-channel",
       "published-upgrade-survivor-2026.4.22-bootstrap-persona",
       "published-upgrade-survivor-2026.4.22-channel-post-core-restore",
@@ -1792,7 +1792,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       const plan = planFor({
         selectedLaneNames: ["published-upgrade-survivor"],
         upgradeSurvivorBaselines: baseline,
-        upgradeSurvivorScenarios: "acpx-openclaw-tools-bridge",
+        upgradeSurvivorScenarios: "acpx-granted-tools-bridge",
       });
       expect(plan.requiredPrepublishPluginPackages).toEqual(packages);
     },

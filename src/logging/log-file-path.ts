@@ -4,8 +4,8 @@ import path from "node:path";
 import type { GrantedConfig } from "../config/types.js";
 import {
   DEFAULT_POSIX_TMP_ROOT,
-  resolvePreferredOpenClawTmpDir,
-} from "../infra/tmp-openclaw-dir.js";
+  resolvePreferredGrantedTmpDir,
+} from "../infra/tmp-granted-dir.js";
 import { canUseNodeFs, formatLocalDate, LOG_PREFIX, LOG_SUFFIX } from "./log-file-shared.js";
 
 const ROLLING_LOG_FILE_RE = /^(openclaw(?:-[a-z0-9-]+)?)-(\d{4}-\d{2}-\d{2})\.log$/u;
@@ -50,7 +50,7 @@ export function resolveDefaultRollingLogFile(options?: {
   const date = options?.date ?? new Date();
   const env = options?.env ?? process.env;
   const logDir =
-    options?.logDir ?? (canUseNodeFs() ? resolvePreferredOpenClawTmpDir() : DEFAULT_POSIX_TMP_ROOT);
+    options?.logDir ?? (canUseNodeFs() ? resolvePreferredGrantedTmpDir() : DEFAULT_POSIX_TMP_ROOT);
   const profileSegment = resolveLogProfileSegment(env);
   const profileSuffix = profileSegment ? `-${profileSegment}` : "";
   return path.join(logDir, `${LOG_PREFIX}${profileSuffix}-${formatLocalDate(date)}${LOG_SUFFIX}`);

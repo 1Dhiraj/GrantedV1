@@ -25,7 +25,7 @@ import { onInternalSessionTranscriptUpdate } from "../sessions/transcript-events
 import {
   closeOpenClawAgentDatabaseByPath,
   resolveOpenClawAgentSqlitePath,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { ensureProfileForEmail } from "../state/user-profiles.js";
 import { REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME } from "../talk/agent-consult-tool.js";
 import { resetClientVoiceConfirmationStateForTest } from "../talk/client-voice-confirmation.test-support.js";

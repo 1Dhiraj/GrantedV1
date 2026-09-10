@@ -2,7 +2,7 @@
 import type { DatabaseSync, StatementSync } from "node:sqlite";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { SqliteTranscriptStorageRow } from "../config/sessions/session-accessor.sqlite-read.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 
 const LABEL_ROWS_SQL =
   "SELECT event_json, seq FROM transcript_events WHERE session_id = ? ORDER BY seq ASC";

@@ -2832,7 +2832,7 @@ rules:
       source-rule-id: openclaw-nodes-screen-record-outpath-guard-missing
     paths:
       include:
-        - src/agents/openclaw-tools.ts
+        - src/agents/granted-tools.ts
     patterns:
       - pattern: createNodesTool(...)
       - pattern-not-inside: |

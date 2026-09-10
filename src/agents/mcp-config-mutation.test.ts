@@ -3,7 +3,7 @@ import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { mcpConfigInternal } from "../config/mcp-config.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import {
   setConfiguredMcpServer,
   unsetConfiguredMcpServer,

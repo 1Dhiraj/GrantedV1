@@ -1,6 +1,6 @@
 // Covers when model selection should install the Copilot runtime plugin.
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { modelSelectionShouldEnsureCopilotRuntimePlugin } from "./copilot-routing.js";
 
 function withDefaultRoster(config: GrantedConfig = {}): GrantedConfig {

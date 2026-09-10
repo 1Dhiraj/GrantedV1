@@ -1,6 +1,6 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { gatewayOriginScope } from "../../packages/gateway-client/src/gateway-origin-scope.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   coerceSecretRef,
   normalizeSecretInputString,

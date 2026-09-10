@@ -8,7 +8,7 @@ import {
   loadExactSessionEntryReadOnly,
   replaceSessionEntry,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   createPluginStateKeyedStore,
   getPluginStateCapacity,
@@ -17,7 +17,7 @@ import {
 } from "../plugin-state/plugin-state-store.js";
 import { seedPluginStateEntriesForTests } from "../plugin-state/plugin-state-store.test-helpers.js";
 import type { PluginDoctorStateMigration } from "../plugins/doctor-contract-registry.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 
 const note = vi.hoisted(() => vi.fn());
 

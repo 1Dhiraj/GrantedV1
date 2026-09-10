@@ -10,7 +10,7 @@ import { resolveExecApprovalsPath } from "../infra/exec-approvals-config.js";
 import { loadExecApprovals } from "../infra/exec-approvals-store.js";
 import { testing as execApprovalsStoreTesting } from "../infra/exec-approvals-store.test-support.js";
 import { acquireGatewayLock } from "../infra/gateway-lock.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { runStartupMigrations } from "./startup-state-migrations.js";
 

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   EMPTY_PLUGIN_SCHEMA,
   makePluginLoaderTempDir,

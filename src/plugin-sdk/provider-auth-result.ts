@@ -8,7 +8,7 @@ import {
   normalizeAgentModelRefForConfig,
 } from "../config/model-input.js";
 import type { ModelProviderConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 
 function normalizeAgentModelConfigForAuthResult(value: unknown): unknown {

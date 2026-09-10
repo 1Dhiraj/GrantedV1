@@ -8,7 +8,7 @@ import {
   resolveSendableOutboundReplyParts,
 } from "granted/plugin-sdk/reply-payload";
 import type { ChatType } from "../../channels/chat-type.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { TtsAutoMode } from "../../config/types.tts.js";
 import { logVerbose } from "../../globals.js";
 import { formatErrorMessage } from "../../infra/errors.js";

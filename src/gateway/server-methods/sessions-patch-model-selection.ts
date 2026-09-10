@@ -3,7 +3,7 @@ import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { resolveSessionModelRef } from "../../agents/session-model-ref.js";
 import { persistStickyModelSelectionBestEffort } from "../../agents/sticky-model-selection.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { resolveGatewayModelSelectionPolicy } from "./session-model-selection-policy.js";
 
 export function persistSessionPatchModelSelection(params: {

@@ -6,14 +6,14 @@ import {
   withConfigMutationExclusive,
 } from "../config/config.js";
 import { completeLocalSetupRecovery } from "../system-agent/setup-recovery.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   beginLocalOnboarding,
   completeLocalOnboarding,
   readLocalOnboardingState,
   readLocalOnboardingStateForConfig,
 } from "./local-onboarding-state.js";
-import { closeOpenClawStateDatabaseForTest } from "./openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "./granted-state-db.js";
 
 afterEach(() => closeOpenClawStateDatabaseForTest());
 

@@ -7,7 +7,7 @@ import {
 } from "../../../config/sessions/session-accessor.js";
 import type { ImageContent } from "../../../llm/types.js";
 import { createUserTurnTranscriptRecorder } from "../../../sessions/user-turn-transcript.js";
-import { withOpenClawTestState } from "../../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../../test-utils/granted-test-state.js";
 import { prepareSystemAgentRunAdmission } from "../../admitted-run-context.js";
 import { readBtwTranscriptMessages } from "../../btw-transcript.js";
 import type { AgentMessage } from "../../runtime/index.js";

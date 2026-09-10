@@ -12,7 +12,7 @@ import type {
 import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   materializeWindowsSpawnProgram,
@@ -248,7 +248,7 @@ async function runCodexExecResume(params: {
   timeoutMs: number;
 }): Promise<string> {
   const outputPath = path.join(
-    await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-codex-cli-")),
+    await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "openclaw-codex-cli-")),
     "last-message.txt",
   );
   try {

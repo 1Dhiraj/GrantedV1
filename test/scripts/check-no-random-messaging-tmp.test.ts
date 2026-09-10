@@ -53,7 +53,7 @@ describe("check-no-random-messaging-tmp", () => {
         .toSorted(),
     ).toEqual(runtimePaths.map((relativePath) => `- ${relativePath}:2`).toSorted());
     expect(errorLog).toHaveBeenLastCalledWith(
-      "Use resolvePreferredOpenClawTmpDir() or plugin-sdk temp helpers instead of host tmp defaults.",
+      "Use resolvePreferredGrantedTmpDir() or plugin-sdk temp helpers instead of host tmp defaults.",
     );
   });
 

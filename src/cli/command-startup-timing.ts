@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 type DiagnosticsTimelineModule = typeof import("../infra/diagnostics-timeline.js");
 

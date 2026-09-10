@@ -3,7 +3,7 @@ import { getRegisteredAgentHarness } from "../../agents/harness/registry.js";
 import { resolveSessionModelRef } from "../../agents/session-model-ref.js";
 import { resolveEffectiveAgentRuntime } from "../../agents/thinking-runtime.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { GatewayAgentRuntime } from "../../shared/session-types.js";
 import type { WorkerPlacementExecutionMode } from "./placement-record.js";
 

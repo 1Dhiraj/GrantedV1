@@ -2,22 +2,22 @@ import type { DatabaseSync } from "node:sqlite";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite-contract.js";
 import { updateSqliteTranscriptEventJsonInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/granted-agent-db-contract.js";
 import {
   GrantedAgentDatabaseLeaseActiveError,
   assertAgentDatabaseMaintenanceAuthority,
   assertNoOpenClawAgentDatabaseLeases,
-} from "../state/openclaw-agent-db-lease.js";
+} from "../state/granted-agent-db-lease.js";
 import {
   assertOpenClawAgentDatabaseForMaintenance,
   migrateOpenClawAgentDatabaseForMaintenance,
-} from "../state/openclaw-agent-db-maintenance.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
+} from "../state/granted-agent-db-maintenance.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../state/granted-agent-db.generated.js";
 import {
   type GrantedAgentDatabase,
   withAgentDatabaseMaintenanceLease,
-} from "../state/openclaw-agent-db.js";
-import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/granted-state-db.js";
 import {
   clearNodeSqliteKyselyCacheForDatabase,
   executeSqliteQuerySync,

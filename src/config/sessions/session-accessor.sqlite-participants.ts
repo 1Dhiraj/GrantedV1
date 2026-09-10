@@ -3,11 +3,11 @@ import { emitSessionLifecycleEvent } from "../../sessions/session-lifecycle-even
 import {
   deferOpenClawAgentPostCommitPublication,
   runOpenClawAgentWriteTransaction,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   confirmSessionParticipantsSchemaEnsured,
   ensureSessionParticipantsSchema,
-} from "../../state/openclaw-agent-session-participants-schema.js";
+} from "../../state/granted-agent-session-participants-schema.js";
 import { readUserProfileAliases } from "../../state/user-profiles.js";
 import type { SessionAccessScope } from "./session-accessor.sqlite-contract.js";
 import { publishSessionEntryCacheInvalidation } from "./session-accessor.sqlite-entry-cache.js";

@@ -2,7 +2,7 @@
 // `hello-ok` handshake. Kept out of chat-attachments.ts so the handshake path
 // does not pull the media probe/store graph in just to read two numbers.
 import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { MAX_PAYLOAD_BYTES } from "./server-constants.js";
 
 const DEFAULT_CHAT_ATTACHMENT_MAX_MB = 20;

@@ -8,7 +8,7 @@ import {
   type ImageMetadata,
 } from "rastermill";
 import { resolveSystemBin } from "../infra/resolve-system-bin.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 
 export type { ImageMetadata, ImageProbe };
@@ -53,7 +53,7 @@ export function createImageProcessor() {
       outputPixels: MAX_IMAGE_INPUT_PIXELS,
     },
     temp: {
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-img-",
     },
     commandResolver: (command) =>

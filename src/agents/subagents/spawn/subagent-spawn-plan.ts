@@ -4,7 +4,7 @@
  * Resolves model, thinking, and timeout choices before the sessions_spawn executor launches work.
  */
 import { formatThinkingLevels } from "../../../auto-reply/thinking.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { FastMode } from "../../../shared/fast-mode.js";
 import { splitTrailingAuthProfile } from "../../model-ref-profile.js";
 import {

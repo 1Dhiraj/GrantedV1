@@ -9,7 +9,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createSolidPngBuffer } from "../../test/helpers/image-fixtures.js";
 import { buildInboundMediaNoteProjection } from "../auto-reply/media-note.js";
 import { stripInboundMetadata } from "../auto-reply/reply/strip-inbound-meta.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { getAgentScopedMediaLocalRoots } from "../media/local-roots.js";
 import { escapeRegExp } from "../shared/regexp.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
@@ -92,7 +92,7 @@ describe("prepareCliPromptImagePayload prompt references", () => {
 
   it("hydrates explicit prompt refs through the shared image loader", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-ref-image-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-ref-image-"),
     );
     const imagePath = path.join(workspaceDir, "photo.png");
     const image = createSolidPngBuffer(1, 1, { r: 255, g: 0, b: 0 });
@@ -165,7 +165,7 @@ describe("prepareCliPromptImagePayload prompt references", () => {
 
   it("dedupes repeated refs and skips failed loads before sanitizing", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-ref-dedupe-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-ref-dedupe-"),
     );
     const imagePath = path.join(workspaceDir, "a.png");
     await fs.writeFile(imagePath, createSolidPngBuffer(1, 1, { r: 0, g: 255, b: 0 }));
@@ -184,7 +184,7 @@ describe("prepareCliPromptImagePayload prompt references", () => {
 
   it("surfaces structured image hydration failures", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-structured-failure-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-structured-failure-"),
     );
     try {
       await expect(
@@ -223,7 +223,7 @@ describe("prepareCliPromptImagePayload prompt references", () => {
 
   it("delivers readable structured images when an unresolved attachment is hydration-suppressed", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-mixed-media-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-mixed-media-"),
     );
     const imagePath = path.join(workspaceDir, "present.png");
     const image = createSolidPngBuffer(1, 1, { r: 0, g: 0, b: 255 });
@@ -386,7 +386,7 @@ describe("buildCliArgs", () => {
 describe("writeCliImages", () => {
   it("uses stable hashed file paths so repeated image hydration reuses the same path", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-write-images-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-write-images-"),
     );
     const image: ImageContent = {
       type: "image",
@@ -411,7 +411,7 @@ describe("writeCliImages", () => {
       expect(first.imagePaths).toStrictEqual([
         expect.stringMatching(
           new RegExp(
-            `^${escapeRegExp(`${resolvePreferredOpenClawTmpDir()}/openclaw-cli-images/`)}.*\\.png$`,
+            `^${escapeRegExp(`${resolvePreferredGrantedTmpDir()}/openclaw-cli-images/`)}.*\\.png$`,
           ),
         ),
       ]);
@@ -464,7 +464,7 @@ describe("writeCliImages", () => {
 
   it("uses the shared media extension map for image formats beyond the tiny builtin list", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-write-heic-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-write-heic-"),
     );
     const image: ImageContent = {
       type: "image",
@@ -491,7 +491,7 @@ describe("writeCliImages", () => {
 
   it("sweeps stale workspace-scoped CLI image files", async () => {
     const workspaceDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-write-sweep-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-write-sweep-"),
     );
     const imageRoot = path.join(workspaceDir, ".openclaw-cli-images");
     const stalePath = path.join(imageRoot, "stale.png");
@@ -528,7 +528,7 @@ describe("writeCliImages", () => {
 
   it("hydrates prompt media refs into codex image args through the helper seams", async () => {
     const tempDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-prompt-image-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-prompt-image-"),
     );
     const sourceImage = path.join(tempDir, "bb-image.png");
     await fs.writeFile(sourceImage, createSolidPngBuffer(1, 1, { r: 255, g: 255, b: 255 }));
@@ -575,7 +575,7 @@ describe("writeCliImages", () => {
 
   it("appends hydrated prompt media refs for stdin backends through the helper seams", async () => {
     const tempDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-prompt-image-generic-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-prompt-image-generic-"),
     );
     const sourceImage = path.join(tempDir, "claude-image.png");
     await fs.writeFile(sourceImage, createSolidPngBuffer(1, 1, { r: 255, g: 255, b: 255 }));
@@ -605,7 +605,7 @@ describe("writeCliImages", () => {
 
   it("appends Gemini prompt refs with @-prefixed image paths", async () => {
     const tempDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-prompt-image-gemini-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-prompt-image-gemini-"),
     );
     const explicitImage: ImageContent = {
       type: "image",
@@ -656,7 +656,7 @@ describe("writeCliImages", () => {
 
   it("prefers explicit images over prompt refs through the helper seams", async () => {
     const tempDir = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-explicit-images-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-explicit-images-"),
     );
     const sourceImage = path.join(tempDir, "ignored-prompt-image.png");
     await fs.writeFile(sourceImage, createSolidPngBuffer(1, 1, { r: 255, g: 255, b: 255 }));

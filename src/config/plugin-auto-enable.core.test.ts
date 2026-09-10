@@ -17,7 +17,7 @@ import {
   makeRegistry,
   resetPluginAutoEnableTestState,
 } from "./plugin-auto-enable.test-helpers.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 import { validateConfigObject } from "./validation.js";
 
 vi.mock("../channels/plugins/package-state-probes.js", async (importOriginal) => {

@@ -1,7 +1,7 @@
 // Resolves filesystem paths for installed plugin index storage.
 import path from "node:path";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   hasActivePluginInstallRoots,
   resolveActivePluginInstallRoots,

@@ -2,7 +2,7 @@ import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { logWarn } from "../../logger.js";
-import { runOpenClawStateWriteTransaction } from "../../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../../state/granted-state-db.js";
 import { parseSkillProposalRow } from "./store-sqlite-record.js";
 import {
   databaseOptions,

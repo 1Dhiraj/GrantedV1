@@ -3,12 +3,12 @@ import { createHash } from "node:crypto";
 import { lstat } from "node:fs/promises";
 import { stableStringify } from "@granted/normalization-core";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { root as fsSafeRoot } from "../infra/fs-safe.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   clawExtensionProvenanceChanged,
   clawPackageActionsById,

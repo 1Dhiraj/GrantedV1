@@ -11,7 +11,7 @@ import {
   type PluginDoctorContractModule,
 } from "../../plugins/doctor-contract-module.js";
 import { getCachedPluginModuleLoader } from "../../plugins/plugin-module-loader-cache.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { readAcpSessionMeta, upsertAcpSessionMeta } from "./session-meta.js";
 
 it("inspects without creating state and conditionally updates only the proven current owner", async () => {

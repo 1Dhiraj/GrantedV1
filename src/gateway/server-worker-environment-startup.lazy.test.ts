@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { createDesktopSessionRegistry } from "./desktop/session-registry.js";
 import type { WorkerConnectionIdentity } from "./worker-environments/connection-identity.js";

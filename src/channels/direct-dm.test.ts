@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { dispatchInboundDirectDm } from "./direct-dm.js";
 import { buildChannelInboundEventContext } from "./inbound-event/context.js";
 import { resolveStableChannelMessageIngress } from "./message-access/runtime.js";

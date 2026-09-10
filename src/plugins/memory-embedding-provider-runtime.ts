@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getEmbeddingProvider, listEmbeddingProviders } from "./embedding-provider-runtime.js";
 import { listRegisteredEmbeddingProviders } from "./embedding-providers.js";
 import type { MemoryEmbeddingProviderAdapter } from "./memory-embedding-providers.js";

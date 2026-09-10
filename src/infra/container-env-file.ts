@@ -1,7 +1,7 @@
 // Owns private, short-lived environment transport for Docker and Podman commands.
 import { normalizeEnvVarKey } from "./host-env-security.js";
 import { tempWorkspace } from "./private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "./tmp-granted-dir.js";
 
 type ContainerEnvFile = {
   path: string;
@@ -50,7 +50,7 @@ export async function createContainerEnvFile(
 ): Promise<ContainerEnvFile> {
   const content = serializeContainerEnv(env);
   const workspace = await tempWorkspace({
-    rootDir: resolvePreferredOpenClawTmpDir(),
+    rootDir: resolvePreferredGrantedTmpDir(),
     prefix: "openclaw-container-env-",
     dirMode: 0o700,
     mode: 0o600,

@@ -1,14 +1,14 @@
 import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
 import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js";
-import { openClawStateDatabaseCache } from "./openclaw-state-db-cache.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
-import { tableExists } from "./openclaw-state-db-schema-helpers.js";
+import { openClawStateDatabaseCache } from "./granted-state-db-cache.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "./granted-state-db-readonly.js";
+import { tableExists } from "./granted-state-db-schema-helpers.js";
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "./openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
+} from "./granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "./granted-state-db.paths.js";
 import { readUserProfileVersion } from "./user-profile-events.js";
 import { selectUserProfileGitHubIdentities } from "./user-profile-github-identity.js";
 import {

@@ -11,17 +11,17 @@ import {
   assertAgentDatabaseMaintenanceAuthority,
   claimOpenClawAgentDatabaseLease,
   releaseOpenClawAgentDatabaseLease,
-} from "../state/openclaw-agent-db-lease.js";
+} from "../state/granted-agent-db-lease.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { withLegacySessionParticipantsSchema } from "../state/openclaw-agent-participants-migration.js";
-import { sessionParticipantsSchemaSql } from "../state/openclaw-agent-session-participants-schema.js";
+} from "../state/granted-agent-db.js";
+import { withLegacySessionParticipantsSchema } from "../state/granted-agent-participants-migration.js";
+import { sessionParticipantsSchemaSql } from "../state/granted-agent-session-participants-schema.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { openNodeSqliteDatabase, requireNodeSqlite } from "./node-sqlite.js";
 import { TRANSCRIPT_DIRECTIVE_MIGRATION_BATCH_SIZE } from "./state-migrations.transcript-directives-archives.js";
 import { migrateHistoricalTranscriptDirectives } from "./state-migrations.transcript-directives.js";
@@ -534,7 +534,7 @@ describe("historical transcript directive migration", () => {
     closeOpenClawAgentDatabasesForTest();
 
     let competingLeaseId: string | undefined;
-    const agentDatabaseLease = await import("../state/openclaw-agent-db-lease.js");
+    const agentDatabaseLease = await import("../state/granted-agent-db-lease.js");
     const originalAssert = agentDatabaseLease.assertAgentDatabaseMaintenanceAuthorityIfPresent;
     const authority = vi
       .spyOn(agentDatabaseLease, "assertAgentDatabaseMaintenanceAuthorityIfPresent")
@@ -592,7 +592,7 @@ describe("historical transcript directive migration", () => {
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     closeOpenClawAgentDatabasesForTest();
-    const agentDatabaseLease = await import("../state/openclaw-agent-db-lease.js");
+    const agentDatabaseLease = await import("../state/granted-agent-db-lease.js");
     vi.spyOn(agentDatabaseLease, "assertNoOpenClawAgentDatabaseLeases").mockImplementation(() => {
       throw new Error("shared-state lease inspection failed");
     });
@@ -737,7 +737,7 @@ describe("historical transcript directive migration", () => {
 
     let competingLeaseId: string | undefined;
     const originalAssert = assertAgentDatabaseMaintenanceAuthority;
-    const agentDatabaseLease = await import("../state/openclaw-agent-db-lease.js");
+    const agentDatabaseLease = await import("../state/granted-agent-db-lease.js");
     const authority = vi
       .spyOn(agentDatabaseLease, "assertAgentDatabaseMaintenanceAuthority")
       .mockImplementation(() => {
@@ -841,7 +841,7 @@ describe("historical transcript directive migration", () => {
 
     let competingLeaseId: string | undefined;
     const originalAssert = assertAgentDatabaseMaintenanceAuthority;
-    const agentDatabaseLease = await import("../state/openclaw-agent-db-lease.js");
+    const agentDatabaseLease = await import("../state/granted-agent-db-lease.js");
     const authority = vi
       .spyOn(agentDatabaseLease, "assertAgentDatabaseMaintenanceAuthority")
       .mockImplementation(() => {
@@ -911,12 +911,12 @@ describe("historical transcript directive migration", () => {
     `);
     closeOpenClawAgentDatabasesForTest();
 
-    const stateLease = await import("../state/openclaw-state-lease.js");
+    const stateLease = await import("../state/granted-state-lease.js");
     const withLease = stateLease.withOpenClawStateLease;
     vi.spyOn(stateLease, "withOpenClawStateLease").mockImplementationOnce((options, operation) =>
       withLease({ ...options, leaseMs: 1_000 }, operation),
     );
-    const agentDatabaseLease = await import("../state/openclaw-agent-db-lease.js");
+    const agentDatabaseLease = await import("../state/granted-agent-db-lease.js");
     const originalRenew = agentDatabaseLease.renewAgentDatabaseMaintenanceAuthorityIfPresent;
     let originalExpiresAt = 0;
     vi.spyOn(

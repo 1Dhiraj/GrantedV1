@@ -10,7 +10,7 @@ import { createDeferred } from "../../test/helpers/promise.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { resolvePublishedModelCatalogOwner } from "./prepared-model-catalog-owner.js";
 import {
   getPreparedModelRuntimeAuthMaterializations,

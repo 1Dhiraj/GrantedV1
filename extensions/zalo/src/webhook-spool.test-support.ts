@@ -5,7 +5,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
 } from "granted/plugin-sdk/channel-ingress-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { expect, vi } from "vitest";
 import type { zaloWebhookIngressRuntime } from "./webhook-spool.js";
 
@@ -37,7 +37,7 @@ export async function withZaloWebhookTestQueue<T>(
   fn: (queue: ZaloWebhookTestQueue) => Promise<T>,
 ): Promise<T> {
   const createdDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalo-ingress-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-zalo-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
   const previousStateDir = process.env.GRANTED_STATE_DIR;

@@ -1,6 +1,6 @@
 import type { ConfigSnapshotReadMeasure } from "../config/io.js";
 import type { ConfigFileSnapshot } from "../config/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type {
   MigrationCheckpointIdentity,
   StartupMigrationLease,

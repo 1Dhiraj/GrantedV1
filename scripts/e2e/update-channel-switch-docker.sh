@@ -18,7 +18,7 @@ PACKAGE_TGZ="$(docker_e2e_prepare_package_tgz update-channel-switch "${OPENCLAW_
 # Bare lanes mount the package artifact instead of baking app sources into the image.
 docker_e2e_package_mount_args "$PACKAGE_TGZ"
 OPENCLAW_TEST_STATE_SCRIPT_B64="$(
-  node --import tsx "$ROOT_DIR/scripts/lib/openclaw-test-state.mts" shell \
+  node --import tsx "$ROOT_DIR/scripts/lib/granted-test-state.mts" shell \
     --label update-channel-switch \
     --scenario update-stable |
     base64 |

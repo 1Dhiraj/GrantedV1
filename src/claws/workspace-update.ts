@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { resolve, sep } from "node:path";
 import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { root as fsSafeRoot } from "../infra/fs-safe.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import type { ClawAddPlan } from "./types.js";
 import type { ClawUpdatePlan } from "./update-plan.js";
 import { collectClawRollbackFailures } from "./update-rollback.js";

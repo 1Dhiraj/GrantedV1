@@ -9,7 +9,7 @@ import { BEFORE_TOOL_CALL_HOOK_CONTEXT } from "../agents/before-tool-call-metada
 import { runCodeModeScriptHeadless, type CodeModeHeadlessResult } from "../agents/code-mode.js";
 import { clearToolSearchCatalog } from "../agents/tool-search.js";
 import { jsonResult, type AnyAgentTool } from "../agents/tools/common.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createCronScriptRuntime } from "./trigger-script.js";
 
 type EvaluatorDeps = Parameters<typeof createCronScriptRuntime>[0];

@@ -1,5 +1,5 @@
 /** Resolves whether the metadata-only audit ledger records new events. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 export type AuditMessageMode = "off" | "direct" | "all";
 

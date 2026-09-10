@@ -1,5 +1,5 @@
 /** Collects config-backed secret targets for runtime secret preparation. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginOrigin } from "../plugins/plugin-origin.types.js";
 import { collectChannelConfigAssignments } from "./runtime-config-collectors-channels.js";
 import { collectCoreConfigAssignments } from "./runtime-config-collectors-core.js";

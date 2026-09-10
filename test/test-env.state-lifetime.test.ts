@@ -7,19 +7,19 @@ import { DatabaseSync } from "node:sqlite";
 import { pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { listOpenClawRegisteredAgentDatabases } from "../src/state/openclaw-agent-db-registry-listing.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
+import { listOpenClawRegisteredAgentDatabases } from "../src/state/granted-agent-db-registry-listing.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
-} from "../src/state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../src/state/openclaw-state-db.paths.js";
+} from "../src/state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../src/state/granted-state-db.paths.js";
 import { captureFullEnv, setTestEnvValue, withPathResolutionEnv } from "../src/test-utils/env.js";
 import { cleanupTempDirs, makeTempDir } from "./helpers/temp-dir.js";
 import { installTestEnv } from "./test-env.js";
 
 const require = createRequire(import.meta.url);
-const pathsModule = path.resolve(import.meta.dirname, "../src/state/openclaw-state-db.paths.ts");
+const pathsModule = path.resolve(import.meta.dirname, "../src/state/granted-state-db.paths.ts");
 const tempDirs = new Set<string>();
 const cleanups: Array<() => void> = [];
 let sandbox: string;
@@ -38,7 +38,7 @@ function installOwnedEnv() {
 beforeEach(() => {
   const snapshot = captureFullEnv();
   cleanups.push(snapshot.restore);
-  sandbox = makeTempDir(tempDirs, "openclaw-test-state-lifetime-");
+  sandbox = makeTempDir(tempDirs, "granted-test-state-lifetime-");
   vi.spyOn(os, "tmpdir").mockReturnValue(sandbox);
   setTestEnvValue("VITEST_WORKER_ID", "7");
 });
@@ -56,7 +56,7 @@ describe("test environment SQLite lifetime", () => {
     // Reproduce the old namespace only beneath a directory this test created.
     const legacyPath = path.join(
       sandbox,
-      "openclaw-test-state",
+      "granted-test-state",
       `${process.pid}-7`,
       "state",
       "openclaw.sqlite",
@@ -140,8 +140,8 @@ describe("test environment SQLite lifetime", () => {
   it("shares the owned path across module reloads, inherited workers, and subprocesses", async () => {
     const testEnv = installOwnedEnv();
     const freshPaths = await vi.importActual<
-      typeof import("../src/state/openclaw-state-db.paths.js")
-    >("../src/state/openclaw-state-db.paths.js?lifetime");
+      typeof import("../src/state/granted-state-db.paths.js")
+    >("../src/state/granted-state-db.paths.js?lifetime");
     expect(freshPaths.resolveOpenClawStateSqlitePath()).toBe(testEnv.databasePath);
     const source = `
       import { resolveOpenClawStateSqlitePath } from ${JSON.stringify(pathToFileURL(pathsModule).href)};

@@ -1,6 +1,6 @@
 /** Diagnostic helpers for embedded-agent compaction. */
 import type { ApiRegistry } from "@granted/ai";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { generateSecureToken } from "../../infra/secure-random.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import { isRealConversationMessage } from "../compaction-real-conversation.js";

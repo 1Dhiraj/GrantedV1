@@ -1,7 +1,7 @@
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 import { isInternalSessionEffectsKey } from "./internal-session-key.js";
 import type {
   SessionAccessScope,

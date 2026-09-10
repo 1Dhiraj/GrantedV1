@@ -5,9 +5,9 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
+import type { GrantedConfig } from "../types.granted.js";
 
 const cleanupRace = vi.hoisted(() => ({
   afterPreview: undefined as (() => void) | undefined,

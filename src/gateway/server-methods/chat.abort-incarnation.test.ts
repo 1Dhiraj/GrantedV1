@@ -19,7 +19,7 @@ import * as sessionLifecycle from "../../sessions/session-lifecycle-admission.js
 import {
   closeOpenClawAgentDatabaseByPath,
   listOpenClawAgentDatabasesForTest,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { handleChatAbortRequestWithLifecycle } from "./chat-abort-handler.js";
 import { useChatAbortRegistryFixture } from "./chat.abort-registry.test-support.js";
 import {

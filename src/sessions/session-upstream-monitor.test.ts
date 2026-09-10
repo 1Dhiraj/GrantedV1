@@ -10,7 +10,7 @@ import type { SessionCatalogProvider, SessionUpstreamProbe } from "../plugins/se
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { listSessionStateEventsSince, registerSessionStateWatch } from "./session-state-events.js";
 import {
   deleteSessionUpstreamLink,

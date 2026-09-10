@@ -4,7 +4,7 @@
  * moves toward provider plugin ownership.
  */
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderSystemPromptContribution } from "./system-prompt-contribution.js";
 
 const GPT5_MODEL_ID_PATTERN = /(?:^|[/:])gpt-5(?:[.-]|$)/i;

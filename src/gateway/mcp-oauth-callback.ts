@@ -5,7 +5,7 @@ import { readMcpOAuthPendingAuthorization, readMcpOAuthStore } from "../agents/m
 import { completeOAuthCallback } from "../agents/mcp-oauth.js";
 import { resolveMcpTransportConfig } from "../agents/mcp-transport-config.js";
 import { normalizeConfiguredMcpServers } from "../config/mcp-config-normalize.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 
 const MCP_OAUTH_CALLBACK_PATH = "/oauth/mcp/callback";

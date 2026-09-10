@@ -8,7 +8,7 @@ import {
   MAX_TIMER_TIMEOUT_MS,
   resolveOptionalIntegerOption,
 } from "@granted/normalization-core/number-coercion";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const DEFAULT_AGENT_TIMEOUT_SECONDS = 48 * 60 * 60;
 export const DEFAULT_AGENT_TIMEOUT_MS = DEFAULT_AGENT_TIMEOUT_SECONDS * 1000;

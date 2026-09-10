@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SkillProposalOrigin, SkillWorkshopRunOptions } from "../../skills/workshop/types.js";
 import { getCanonicalSkillWorkspace } from "../skill-workshop-workspace-context.js";
 import { createSkillWorkshopTool } from "./skill-workshop-tool.js";

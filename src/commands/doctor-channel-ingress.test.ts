@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { createChannelIngressQueue } from "../channels/message/ingress-queue.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { noteChannelIngressDeadLetters } from "./doctor-channel-ingress.js";
 
 describe("noteChannelIngressDeadLetters", () => {

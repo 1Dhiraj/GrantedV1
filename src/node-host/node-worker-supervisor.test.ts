@@ -12,7 +12,7 @@ import * as processTree from "../process/kill-tree.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import { NodeWorkerLaunchStore } from "./node-worker-launch-store.js";
 import {

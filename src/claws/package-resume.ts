@@ -3,7 +3,7 @@ import { normalizeClawHubSha256Integrity } from "../infra/clawhub-artifacts.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   readClawInstallRecordFromDatabase,
   readClawPackageRefs,

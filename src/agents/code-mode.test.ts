@@ -3,7 +3,7 @@
 import { expectDefined } from "@granted/normalization-core";
 import { Type } from "typebox";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import * as codeModeExecution from "./code-mode-execution.js";
 import {
   applyCodeModeCatalog,

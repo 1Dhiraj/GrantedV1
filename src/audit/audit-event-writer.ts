@@ -6,8 +6,8 @@ import { redactSensitiveText } from "../logging/redact.js";
 import {
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   runWithOpenClawStateBusyTimeout,
-} from "../state/openclaw-state-db.js";
-import { isOpenClawStateWriteContentionError } from "../state/openclaw-state-ownership.js";
+} from "../state/granted-state-db.js";
+import { isOpenClawStateWriteContentionError } from "../state/granted-state-ownership.js";
 import { pruneExpiredAuditEvents, recordAuditEvent } from "./audit-event-store.js";
 import { isOutboundMessageProgressInput, type AuditEventInput } from "./audit-event-types.js";
 import {

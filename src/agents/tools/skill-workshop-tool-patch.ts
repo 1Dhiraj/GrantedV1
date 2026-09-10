@@ -1,5 +1,5 @@
 import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { hasRunWorkspaceSkillUsage } from "../../skills/runtime/run-usage.js";
 import { stripProposalFrontmatterForSkill } from "../../skills/workshop/frontmatter.js";

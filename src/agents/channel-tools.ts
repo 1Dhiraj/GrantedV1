@@ -23,7 +23,7 @@ import type {
   ChannelMessageActionName,
 } from "../channels/plugins/types.public.js";
 import { normalizeAnyChannelId } from "../channels/registry.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { setChannelAgentToolMeta } from "./channel-tool-metadata.js";
 
 export { getChannelAgentToolMeta } from "./channel-tool-metadata.js";

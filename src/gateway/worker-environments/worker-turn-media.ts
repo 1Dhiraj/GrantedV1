@@ -18,7 +18,7 @@ import type { AgentMessage } from "../../agents/runtime/index.js";
 import type { SessionPlacementTurnParams } from "../../agents/session-placement-admission.js";
 import { resolveEffectiveToolFsWorkspaceOnly } from "../../agents/tool-fs-policy.js";
 import { tempWorkspace } from "../../infra/private-temp-workspace.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import { logWarn } from "../../logger.js";
 import { readLocalMediaFile } from "../../media/local-media-access.js";
 import { getAgentScopedMediaLocalRoots } from "../../media/local-roots.js";
@@ -178,7 +178,7 @@ export async function prepareWorkerTurnMedia(params: {
         );
       }
       staging ??= await tempWorkspace({
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "worker-attachments-",
       });
       const destination = path.join(staging.dir, ...relative.split("/"));

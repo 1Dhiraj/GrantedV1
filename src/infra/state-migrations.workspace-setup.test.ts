@@ -10,8 +10,8 @@ import {
   prepareWorkspaceStateDeletion,
   readWorkspaceStateSnapshot,
 } from "../agents/workspace-state-store.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import {
   detectLegacyWorkspaceState,
   migrateLegacyWorkspaceState,

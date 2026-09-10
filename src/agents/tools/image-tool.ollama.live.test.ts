@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createImageTool } from "./image-tool.js";
 
 const LIVE = process.env.GRANTED_LIVE_TEST === "1" && process.env.GRANTED_LIVE_OLLAMA_IMAGE === "1";

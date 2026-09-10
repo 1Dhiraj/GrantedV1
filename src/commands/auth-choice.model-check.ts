@@ -14,7 +14,7 @@ import { publishPreparedModelRuntimeSnapshot } from "../agents/prepared-model-ru
 import { buildProviderAuthRecoveryHint } from "../agents/provider-auth-recovery-hint.js";
 import { canonicalizeProviderModelId } from "../agents/provider-model-route.js";
 import type { ModelApi } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderModelRouteAuthRequirement } from "../plugin-sdk/provider-model-types.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 import type { WizardPrompter } from "../wizard/prompts.js";

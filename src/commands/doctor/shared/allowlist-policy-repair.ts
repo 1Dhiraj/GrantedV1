@@ -7,7 +7,7 @@ import {
   resolveChannelDmAccess,
   setCanonicalDmAllowFrom,
 } from "../../../channels/plugins/dm-access.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { readChannelAllowFromStore } from "../../../pairing/pairing-store.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
 import { resolveAllowFromMode, type AllowFromMode } from "./allow-from-mode.js";

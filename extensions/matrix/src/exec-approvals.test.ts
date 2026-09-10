@@ -8,7 +8,7 @@ import {
 } from "granted/plugin-sdk/session-store-runtime";
 import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
 } from "granted/plugin-sdk/temp-path";
@@ -407,7 +407,7 @@ describe("matrix exec approvals", () => {
 
   it("scopes non-matrix turn sources to the stored matrix account", async () => {
     const workspace = tempWorkspaceSync({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-matrix-exec-approvals-",
     });
     tempWorkspaces.push(workspace);

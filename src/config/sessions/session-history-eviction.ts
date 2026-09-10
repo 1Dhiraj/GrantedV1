@@ -13,7 +13,7 @@ import {
   runOpenClawAgentWriteTransaction,
   type GrantedAgentDatabase,
   type GrantedAgentDatabaseOptions,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   hasRetainedSessionTranscriptArchives,
   measureSessionPhysicalDiskUsage,
@@ -268,7 +268,7 @@ function readHistoricalSessionIds(params: {
   preserveRecentMs?: number | null;
   storePath: string;
 }): string[] {
-  // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+  // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(params.databaseOptions);
   const scope = { ...params, database };
   const protectedSessionIds = collectProtectedHistoricalSessionIds(scope);
@@ -287,7 +287,7 @@ function readHistoricalSessionIds(params: {
 }
 
 function reclaimSqliteFreePages(databaseOptions: GrantedAgentDatabaseOptions): void {
-  // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+  // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
   // Committed row deletion first lands in the WAL. TRUNCATE makes that shrink immediately;
   // incremental vacuum can then return free tail pages from the main file without a rewrite.
@@ -305,7 +305,7 @@ function reclaimSqliteFreePages(databaseOptions: GrantedAgentDatabaseOptions): v
 function hasCanonicalSessionTranscriptArchives(
   databaseOptions: GrantedAgentDatabaseOptions,
 ): boolean {
-  // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+  // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
   const db = getSessionKysely(database.db);
   const table = executeSqliteQuerySync(
@@ -334,7 +334,7 @@ function hasCanonicalSessionTranscriptArchives(
 function readUnpublishedSessionTranscriptArchiveNames(
   databaseOptions: GrantedAgentDatabaseOptions,
 ): Set<string> {
-  // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+  // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
   const database = openOpenClawAgentDatabase(databaseOptions);
   const db = getSessionKysely(database.db);
   const table = executeSqliteQuerySync(
@@ -368,7 +368,7 @@ async function pruneCanonicalSessionTranscriptArchivesToHighWater(params: {
   let usage = await measureSessionPhysicalDiskUsage(params.storePath);
   let removedFiles = 0;
   while (usage.totalBytes > params.highWaterBytes) {
-    // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+    // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
     const database = openOpenClawAgentDatabase(params.databaseOptions);
     const db = getSessionKysely(database.db);
     const row = executeSqliteQuerySync(
@@ -606,7 +606,7 @@ async function enforceSessionHistoryMaintenanceSerialized(
       identities: [sessionId],
       run: async () => {
         const plan = await runExclusiveSqliteSessionWrite(resolved, async () => {
-          // openclaw-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
+          // granted-agent-db.ts cache rule: LRU eviction closes idle handles across awaits.
           const database = openOpenClawAgentDatabase(databaseOptions);
           const protectedBeforeArchive = collectCandidateProtectedHistoricalSessionIds({
             database,

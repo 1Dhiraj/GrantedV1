@@ -5,7 +5,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { safeTranscriptPathSegment } from "../transcripts/store-artifacts.js";
 import { TranscriptsStore } from "../transcripts/store.js";
 import { summarizeTranscripts } from "../transcripts/summary.js";

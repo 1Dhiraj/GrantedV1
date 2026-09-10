@@ -5,7 +5,7 @@ import type {
   RequestFrame,
   errorShape,
 } from "../../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { DeviceAuthToken } from "../../../infra/device-pairing.types.js";
 import type { createSubsystemLogger } from "../../../logging/subsystem.js";
 import type { DeviceBootstrapProfile } from "../../../shared/device-bootstrap-profile.js";

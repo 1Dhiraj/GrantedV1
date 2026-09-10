@@ -2,8 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 import { loadSessionEntry, patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import { collectSessionMaintenancePreserveKeys } from "../config/sessions/store-maintenance-preserve.js";
 import { resolveMaintenanceConfigFromInput } from "../config/sessions/store-maintenance.js";
-import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import type { WorkerSessionPlacementRecord } from "./worker-environments/placement-record.js";
 
 const runtimeFactoryMocks = vi.hoisted(() => ({

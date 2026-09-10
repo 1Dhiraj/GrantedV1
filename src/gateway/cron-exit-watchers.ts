@@ -1,5 +1,5 @@
 import type { CronJob } from "../cron/types.js";
-import { markOpenClawExecEnv } from "../infra/openclaw-exec-env.js";
+import { markOpenClawExecEnv } from "../infra/granted-exec-env.js";
 import type { ManagedRun, ProcessSupervisor } from "../process/supervisor/index.js";
 import { createDeferredCore } from "../shared/deferred.js";
 import { resolveExitWatchShell } from "./cron-exit-watch-shell.js";

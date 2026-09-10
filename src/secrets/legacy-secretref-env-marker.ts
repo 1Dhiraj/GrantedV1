@@ -1,5 +1,5 @@
 /** Detects legacy SecretRef env markers in config values. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   isLegacySecretRefEnvMarker,
   parseLegacySecretRefEnvMarker,

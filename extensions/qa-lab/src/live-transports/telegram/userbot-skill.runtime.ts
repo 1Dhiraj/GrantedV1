@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 
 export type TelegramTestCredential = {
   environment: "test";
@@ -130,7 +130,7 @@ export async function loadTelegramUserbotSkillRuntime(params?: {
   return {
     userDriverPath,
     createStateRoot: () =>
-      fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-qa-telegram-")),
+      fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-qa-telegram-")),
     parseCredential(value) {
       return parseCredentialResult(Reflect.apply(parseCredential, undefined, [value]));
     },

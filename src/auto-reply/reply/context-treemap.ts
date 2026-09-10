@@ -5,7 +5,7 @@ import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";
 import { estimateTokensFromChars } from "@granted/normalization-core/cjk-chars";
 import type { SessionSystemPromptReport } from "../../config/sessions/types.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
 import { encodePngRgba } from "../../media/png-encode.js";
 
 /** PNG treemap renderer for visualizing prompt context size by section. */
@@ -457,7 +457,7 @@ export async function renderContextTreemapPng(params: {
     1,
   );
   const outPath = path.join(
-    resolvePreferredOpenClawTmpDir(),
+    resolvePreferredGrantedTmpDir(),
     `openclaw-context-map-${crypto.randomUUID()}.png`,
   );
   await writeFile(outPath, encodePngRgba(canvas.data, WIDTH, HEIGHT));

@@ -3,7 +3,7 @@ import { normalizeOptionalString } from "@granted/normalization-core/string-coer
 import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PairingChannel } from "../pairing/pairing-store.types.js";
 
 function resolveConfiguredCommandOwners(cfg: GrantedConfig): string[] {

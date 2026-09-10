@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ActivateSetupInferenceDeps } from "../system-agent/setup-inference-core.js";
 import { verifySetupInferenceConfig } from "../system-agent/setup-inference-verify.js";
 import type { WizardPrompter } from "./prompts.js";

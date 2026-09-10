@@ -2,7 +2,7 @@ import {
   GATEWAY_CLIENT_IDS,
   GATEWAY_CLIENT_MODES,
 } from "../../packages/gateway-protocol/src/client-info.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { listPairedDevicesReadOnly } from "../infra/device-pairing-store-readonly.js";
 import { hasEffectivePairedDeviceRole, type PairedDevice } from "../infra/device-pairing.js";
 import { listBoundWebPushSubscriptions, type BoundWebPushSubscription } from "../infra/push-web.js";

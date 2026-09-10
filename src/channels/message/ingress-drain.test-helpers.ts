@@ -2,12 +2,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Insertable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
+import { resolvePreferredGrantedTmpDir } from "../../infra/tmp-granted-dir.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { createChannelIngressQueue } from "./ingress-queue.js";
 
 export type IngressDrainTestPayload = { text: string };
@@ -29,7 +29,7 @@ export function createTestIngressQueue(
 
 export async function withTempState<T>(fn: (stateDir: string) => Promise<T>): Promise<T> {
   const stateDir = await fs.mkdtemp(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-ingress-drain-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-ingress-drain-"),
   );
   try {
     return await fn(stateDir);

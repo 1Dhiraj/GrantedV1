@@ -7,7 +7,7 @@ import {
   createColdPluginFixture,
   isColdPluginRuntimeLoaded,
 } from "../plugins/test-helpers/cold-plugin-fixtures.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import type { PrepareGatewaySessionLifecycle } from "./session-lifecycle-preparation.js";
 import { writeSessionStore } from "./test-helpers.js";
 import { testState } from "./test-helpers.runtime-state.js";

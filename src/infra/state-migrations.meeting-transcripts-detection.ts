@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   TRANSCRIPT_EXPORT_FILE_NAMES,
   TRANSCRIPT_PATH_SEGMENT_MAX_BYTES,

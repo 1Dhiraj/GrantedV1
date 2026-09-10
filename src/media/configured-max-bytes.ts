@@ -1,7 +1,7 @@
 // Configured media size helpers resolve maximum byte limits by media kind.
 import { maxBytesForKind, type MediaKind } from "@granted/media-core/constants";
 import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAccountId } from "../routing/account-id.js";
 import { resolveNormalizedAccountEntry } from "../routing/account-lookup.js";
 import { MEDIA_MAX_BYTES } from "./store.js";

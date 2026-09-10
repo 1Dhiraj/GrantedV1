@@ -157,7 +157,7 @@ class GrantedShell
   // still splash-gated, replaying would loop through the open handlers forever.
   readonly queryRenderedElement = (tagName: string): Element | null =>
     this.renderRoot?.querySelector(tagName) ?? null;
-  @query("openclaw-command-palette") commandPalette: CommandPaletteElement | undefined;
+  @query("granted-command-palette") commandPalette: CommandPaletteElement | undefined;
   @query("openclaw-exec-approval")
   approvalOverlay: (HTMLElement & { show(): void; dialogOpen?: boolean }) | undefined;
   commandPaletteTarget: CommandPaletteTargetDetail | undefined;

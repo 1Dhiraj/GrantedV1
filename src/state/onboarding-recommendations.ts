@@ -6,7 +6,7 @@ import {
   readConfigMachineState,
   updateConfigMachineState,
 } from "./config-machine-state.js";
-import type { GrantedStateDatabaseOptions } from "./openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "./granted-state-db.js";
 
 const OnboardingRecommendationMatchSchema = z.object({
   appLabel: z.string(),

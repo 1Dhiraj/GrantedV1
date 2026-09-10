@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { writeTextAtomic } from "../../infra/json-files.js";
 import { saveLegacySessionStore } from "../../infra/state-migrations.legacy-session-store.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { runSessionsCleanup } from "./cleanup-service.js";
 import {
   enforceSessionDiskBudget,

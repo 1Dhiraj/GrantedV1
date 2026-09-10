@@ -8,15 +8,15 @@ import {
   replaceSessionEntrySync,
   upsertSessionEntryCore,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sha256HexPrefixCore } from "../../infra/crypto-digest.js";
 import {
   registerClonedProjectRegistry,
   registerProjectRegistry,
 } from "../../projects/project-registry.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import { ensureProfileForEmail, linkEmail } from "../../state/user-profiles.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { createProjectsHandlers } from "./projects.js";
 
 const execFileAsync = promisify(execFile);

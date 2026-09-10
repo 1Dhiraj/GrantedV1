@@ -10,10 +10,10 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateDatabase } from "../state/granted-state-db.generated.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { EXECUTION_OWNER_LIFECYCLE_BINDING_TABLE } from "./execution-owner-lifecycle-binding-store.js";
 
 type WithSqliteRowId<Row> = Row & { rowid: number };

@@ -1,7 +1,7 @@
 // Bundles language-server metadata exposed by plugins.
 import path from "node:path";
 import { applyMergePatch } from "../config/merge-patch.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 import {
   inspectBundleServerRuntimeSupport,

@@ -1,6 +1,6 @@
 // Resolves the economy model: the cheap model background agent turns fall back
 // to when no per-role model is configured.
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /**
  * Cheap model configured for background/low-stakes agent turns (heartbeat,

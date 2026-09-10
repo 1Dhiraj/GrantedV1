@@ -6,7 +6,7 @@ import { note } from "../../packages/terminal-core/src/note.js";
 import { resolveStateDir } from "../config/paths.js";
 import { formatErrorMessage, hasErrnoCode } from "../infra/errors.js";
 import { deleteSessionCostUsageRollupsExcept } from "../infra/session-cost-usage-cache.sqlite.js";
-import { listOpenClawRegisteredAgentDatabases } from "../state/openclaw-agent-db.js";
+import { listOpenClawRegisteredAgentDatabases } from "../state/granted-agent-db.js";
 import { shortenHomePath } from "../utils.js";
 import { runDoctorAgentDatabaseOperation } from "./doctor-agent-database-operation.js";
 import { maybeScrubConfigAuditLog } from "./doctor-config-audit-scrub.js";

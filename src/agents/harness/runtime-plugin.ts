@@ -1,5 +1,5 @@
 /** Resolves the selected native harness from a run-owned plugin registry. */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ProviderRouteOverridePresence } from "../../plugin-sdk/provider-model-types.js";
 import {
   normalizePluginsConfig,

@@ -6,7 +6,7 @@ import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveEnvelopeFormatOptions } from "../../auto-reply/envelope.js";
 import { buildInboundUserContextPrefix } from "../../auto-reply/reply/inbound-meta.js";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { sanitizeAssistantVisibleTextWithProfile } from "../../shared/text/assistant-visible-text.js";
 import { resolveAssistantIdentity } from "../assistant-identity.js";
 import { projectChatDisplayMessage } from "../chat-display-projection.js";

@@ -2,7 +2,7 @@ import { writeConfigMachineState } from "../state/config-machine-state.js";
 // Maintains config metadata fields written alongside user config.
 import { VERSION } from "../version.js";
 import { materializeModelPolicyAllowlist } from "./model-policy-allowlist-migration.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Metadata keys automatically stamped on config writes. */
 export const AUTO_MANAGED_CONFIG_META_PATHS = [

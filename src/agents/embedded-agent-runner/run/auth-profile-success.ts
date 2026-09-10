@@ -1,6 +1,6 @@
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { MODEL_APIS, type ModelApi } from "../../../config/types.models.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { redactIdentifier } from "../../../logging/redact-identifier.js";
 import type { ProviderRouteOverridePresence } from "../../../plugin-sdk/provider-model-types.js";

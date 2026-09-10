@@ -34,12 +34,12 @@ import {
   openOpenClawAgentDatabase,
   GRANTED_AGENT_SCHEMA_VERSION,
   resolveOpenClawAgentSqlitePath,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   readOpenClawDatabaseQuarantine,
   recordOpenClawDatabaseQuarantine,
-} from "../state/openclaw-quarantine-store.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-quarantine-store.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { sessionDeliveryRoute } from "../utils/delivery-context.shared.js";
 import * as migrationArtifact from "./doctor-session-sqlite-artifact.js";
 import { createSessionSqliteMigrationFailureIssue } from "./doctor-session-sqlite-failure.js";

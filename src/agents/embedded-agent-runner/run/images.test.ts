@@ -6,7 +6,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { describe, expect, it, vi } from "vitest";
 import { buildInboundMediaNoteProjection } from "../../../auto-reply/media-note.js";
-import { resolvePreferredOpenClawTmpDir } from "../../../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../../../infra/tmp-granted-dir.js";
 import {
   attachRuntimePromptMediaFacts,
   readRuntimePromptImageOrder,
@@ -118,10 +118,10 @@ describe("detectImageReferences", () => {
 
   it("ignores temporary OpenClaw CLI image cache paths", () => {
     expectNoImageReferences(
-      `Prior turn wrote ${path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-images", "stale.jpg")}`,
+      `Prior turn wrote ${path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-images", "stale.jpg")}`,
     );
     expectNoImageReferences(
-      `[media attached: ${path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-images", "stale.jpg")} (image/jpeg)]`,
+      `[media attached: ${path.join(resolvePreferredGrantedTmpDir(), "openclaw-cli-images", "stale.jpg")} (image/jpeg)]`,
     );
     expectNoImageReferences(
       `Prior turn wrote ${path.join(os.tmpdir(), "openclaw", "openclaw-cli-images", "stale.jpg")}`,

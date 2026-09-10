@@ -11,7 +11,7 @@ import {
 } from "../channels/config-presence.js";
 import { hasChannelPackageState } from "../channels/plugins/package-state-probes.js";
 import { resolveConfigWidePluginManifestRegistry } from "../config/io.plugin-metadata.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveManifestActivationPluginIds } from "./activation-planner.js";
 import {
   createPluginActivationSource,

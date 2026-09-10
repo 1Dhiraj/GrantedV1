@@ -55,9 +55,9 @@ import { projectAssistantDisplayContent } from "../../shared/assistant-display-c
 import {
   disposeOpenClawAgentDatabaseByPath,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseByPath } from "../../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+} from "../../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseByPath } from "../../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import { withEnvAsync } from "../../test-utils/env.js";
 import { normalizeSessionDeliveryState } from "../../utils/delivery-context.shared.js";
 import { consumeCronCreatorAuthorityGrant } from "../cron-creator-authority-grant.js";

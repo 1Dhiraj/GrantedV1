@@ -515,6 +515,6 @@ export class ProfilePage extends GrantedLightDomElement {
   }
 }
 
-if (!customElements.get("openclaw-profile-page")) {
-  customElements.define("openclaw-profile-page", ProfilePage);
+if (!customElements.get("granted-profile-page")) {
+  customElements.define("granted-profile-page", ProfilePage);
 }

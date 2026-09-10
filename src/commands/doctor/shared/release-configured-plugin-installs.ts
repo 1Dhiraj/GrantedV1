@@ -5,7 +5,7 @@ import { collectConfiguredAgentHarnessRuntimes } from "../../../agents/harness-r
 import { normalizeChatChannelId } from "../../../channels/registry.js";
 import { isChannelConfigured } from "../../../config/channel-configured.js";
 import { detectPluginAutoEnableCandidates } from "../../../config/plugin-auto-enable.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { compareOpenClawVersions } from "../../../config/version.js";
 import {
   createDeferredConfiguredPluginRepairDoctorResult,

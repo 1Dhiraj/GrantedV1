@@ -3,7 +3,7 @@
  */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { mergeModelCost } from "../config/model-cost.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { ensureAuthProfileStore } from "./auth-profiles/store.js";
 import {

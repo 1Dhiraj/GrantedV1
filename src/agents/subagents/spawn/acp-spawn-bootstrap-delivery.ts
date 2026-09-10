@@ -5,7 +5,7 @@ import {
   formatConversationTarget,
   deliveryContextFromConversation,
 } from "../../../channels/route-projection.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { SessionBindingRecord } from "../../../infra/outbound/session-binding-service.js";
 import { resolveSpawnChannelAccountId } from "../../spawn-plan.js";
 import type { AcpSpawnRequesterState } from "./acp-spawn-requester.js";

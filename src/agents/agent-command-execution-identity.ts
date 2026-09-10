@@ -2,7 +2,7 @@ import type { ExecutionIdentityAdmissionFacts } from "../audit/execution-identit
 import { executionIdentitySpawnAdmission } from "../audit/execution-identity-spawn-admission.js";
 import { withPostAdmissionExecutionOwnerBinding } from "../audit/execution-owner-binding.js";
 import type { InternalSessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {

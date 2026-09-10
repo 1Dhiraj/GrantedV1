@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanupTempDirs, makeTempDir } from "../../../test/helpers/temp-dir.js";
 import * as sqliteQueries from "../../infra/kysely-sync.js";
-import * as agentDatabase from "../../state/openclaw-agent-db.js";
+import * as agentDatabase from "../../state/granted-agent-db.js";
 import {
   applySessionEntryLifecycleMutation,
   loadTranscriptEvents,
@@ -19,7 +19,7 @@ import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target
 
 const transactionInjection = vi.hoisted(() => ({ run: null as (() => void) | null }));
 
-vi.mock("../../state/openclaw-agent-db.js", async (importOriginal) => {
+vi.mock("../../state/granted-agent-db.js", async (importOriginal) => {
   const actual = await importOriginal<typeof agentDatabase>();
   return {
     ...actual,

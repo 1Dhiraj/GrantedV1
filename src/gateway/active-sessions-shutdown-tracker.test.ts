@@ -3,7 +3,7 @@
 
 import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   forgetActiveSessionForShutdown,
   listActiveSessionsForShutdown,

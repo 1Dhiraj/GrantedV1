@@ -2,7 +2,7 @@
  * Public Codex native web-search facade. It re-exports core activation helpers
  * and reports whether native search matters for the configured agent model.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   hasAvailableCodexAuth,
   isCodexNativeSearchEligibleModel,

@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import { afterEach, describe, expect, it } from "vitest";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import {
   createOnboardingRecommendationsStore,
   type OnboardingRecommendationMatch,
 } from "./onboarding-recommendations.js";
-import { closeOpenClawStateDatabaseForTest } from "./openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "./granted-state-db.js";
 
 const matches: OnboardingRecommendationMatch[] = [
   {

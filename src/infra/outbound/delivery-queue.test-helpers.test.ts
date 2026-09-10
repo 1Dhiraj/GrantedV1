@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   isOpenClawStateDatabaseOpen,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { installDeliveryQueueTmpDirHooks } from "./delivery-queue.test-helpers.js";
 
 const fixture = installDeliveryQueueTmpDirHooks();

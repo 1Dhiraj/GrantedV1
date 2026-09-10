@@ -1,6 +1,6 @@
 import type { Result } from "@granted/normalization-core/result";
 import type { TSchema } from "typebox";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginToolMcpMeta } from "../plugins/tool-metadata.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";
 import type { CodeModeSkill } from "./code-mode-skills.js";

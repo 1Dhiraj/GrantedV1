@@ -21,7 +21,7 @@ import type {
 } from "../../auto-reply/templating.js";
 import type { GroupKeyResolution } from "../../config/sessions/types.js";
 import type { DmScope } from "../../config/types.base.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { OutboundPayloadDeliverySuppressionReason } from "../../infra/outbound/deliver-types.js";
 import type {
   DeliverOutboundPayloadsParams,

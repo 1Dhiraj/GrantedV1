@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { shouldLoadChannelPluginInSetupRuntime } from "./loader-channel-setup.js";
 import type { ChannelPluginLoadIntent } from "./loader-types.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";

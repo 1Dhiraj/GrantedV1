@@ -13,8 +13,8 @@ import {
 import { readCurrentGitUpdateRecovery } from "../../infra/update-runner-git-recovery.js";
 import { runGatewayUpdate, type UpdateRunResult } from "../../infra/update-runner.js";
 import { defaultRuntime } from "../../runtime.js";
-import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../../state/openclaw-database-preflight.js";
-import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
+import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../../state/granted-database-preflight.js";
+import type { GrantedSchemaVersions } from "../../state/granted-schema-versions.js";
 import { splitShellArgs } from "../../utils/shell-argv.js";
 import { createUpdateProgress } from "./progress.js";
 import {

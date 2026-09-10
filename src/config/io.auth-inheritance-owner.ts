@@ -2,7 +2,7 @@ import {
   assertSafeLegacyInheritedAuthDirTransition,
   pinLegacyInheritedAuthOwnerForRosterTransition,
 } from "../agents/legacy-inherited-auth-dir.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 const AUTH_INHERITANCE_PATH = "agents.defaults.authInheritance";
 

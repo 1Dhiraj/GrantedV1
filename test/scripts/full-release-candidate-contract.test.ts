@@ -72,7 +72,7 @@ describe("full release candidate contract", () => {
 
     expect(request).toEqual(reorderedRequest);
     expect(request.upgradeSurvivorBaselines).toEqual(["openclaw@latest"]);
-    expect(request.upgradeSurvivorScenarios).toContain("acpx-openclaw-tools-bridge");
+    expect(request.upgradeSurvivorScenarios).toContain("acpx-granted-tools-bridge");
     expect(request.upgradeSurvivorScenarios).not.toContain("prerelease-plugin-registry");
     expect(request.upgradeSurvivorScenarios).not.toContain("sqlite-volume");
     expect(canonicalTestJson(request)).toBe(canonicalTestJson(reorderedRequest));

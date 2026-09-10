@@ -1,5 +1,5 @@
 import type { DevicePlacementRequirement } from "../../agents/harness/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
 import type { NodeWorkerSupervisorNodeProof } from "../node-registry-private.js";
 import { deviceUnavailableText, resolveDeviceWorkerAvailability } from "./device-provider.js";

@@ -1,6 +1,6 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionAgentId } from "../agents/agent-scope.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 
 /** Retained rows with unresolved owners stay inaccessible without hiding other tasks. */

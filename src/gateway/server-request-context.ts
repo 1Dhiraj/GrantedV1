@@ -6,7 +6,7 @@ import {
   hasGatewayClientCap,
   type GatewayClientId,
 } from "../../packages/gateway-protocol/src/client-info.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveUserProfileId } from "../state/user-profiles.js";
 import { NODE_DESKTOP_SERVICE_CONTEXT } from "./desktop/node-source-context.js";
 import { ScopeUpgradeCoordinator } from "./device-scope-upgrade.js";

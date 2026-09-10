@@ -19,7 +19,7 @@ vi.mock("../../plugins/provider-runtime.runtime.js", async () => {
     resolveProviderOAuthCredentialWithPlugin: providerOAuthMocks.resolveCredential,
   };
 });
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import { clearAuthProfileMigrationDiagnostics } from "../auth-profiles/legacy-source-diagnostic.js";
 import { loadPersistedAuthProfileStore } from "../auth-profiles/persisted.js";
 import {

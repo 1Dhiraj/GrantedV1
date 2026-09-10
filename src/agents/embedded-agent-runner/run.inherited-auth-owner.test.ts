@@ -1,7 +1,7 @@
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import { listAgentIds } from "../agent-scope-config.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import {
@@ -36,7 +36,7 @@ describe("embedded setup inference inherited auth owner", () => {
   // warmup is needed here; see createOverflowRunParams for the route trap.
   beforeEach(async () => {
     resetSharedRunIntegrationHarnessMocks();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "run.inherited-auth-owner" });
     useOpenAIPlatformAuthFixture();
   });

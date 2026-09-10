@@ -30,7 +30,7 @@ import {
   replaceTranscriptEvents,
 } from "../src/config/sessions/session-accessor.js";
 import { writeSessionEntry } from "../src/config/sessions/session-accessor.sqlite-entry-store.js";
-import type { GrantedConfig } from "../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../src/config/types.granted.js";
 import { sessionRewindHandlers } from "../src/gateway/server-methods/sessions-rewind.js";
 import type { GatewayRequestContext } from "../src/gateway/server-methods/types.js";
 import { createWorkerSessionPlacementStore } from "../src/gateway/worker-environments/placement-store.js";
@@ -62,8 +62,8 @@ import {
   createUserTurnTranscriptRecorder,
   type UserTurnTranscriptRecorder,
 } from "../src/sessions/user-turn-transcript.js";
-import { runOpenClawAgentWriteTransaction } from "../src/state/openclaw-agent-db.js";
-import { withOpenClawTestState } from "../src/test-utils/openclaw-test-state.js";
+import { runOpenClawAgentWriteTransaction } from "../src/state/granted-agent-db.js";
+import { withOpenClawTestState } from "../src/test-utils/granted-test-state.js";
 
 afterEach(() => {
   vi.restoreAllMocks();

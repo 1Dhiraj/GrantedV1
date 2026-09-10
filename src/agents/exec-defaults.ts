@@ -2,7 +2,7 @@
  * Resolves default exec tool settings from session and config context.
  */
 import type { SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   loadExecApprovals,
   type ExecAsk,

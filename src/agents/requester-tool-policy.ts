@@ -3,7 +3,7 @@
  * Sender-dependent policy resolves once at trusted ingress; verified descendants
  * consume the persisted effective parent projection instead of guessing identity.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { InputProvenance } from "../sessions/input-provenance.js";
 import { normalizeInputProvenance } from "../sessions/input-provenance.js";
 import {

@@ -2,7 +2,7 @@ import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { createAuditEventWriter } from "./audit-event-writer.js";
 import { pageExecutionDecisionFactsForContext } from "./execution-decision-facts.js";
 import type { ExecutionDecisionWork } from "./execution-decision-work.js";

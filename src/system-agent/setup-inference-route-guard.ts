@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   sameDefaultInferenceRoute,
   type DefaultInferenceRouteProjection,

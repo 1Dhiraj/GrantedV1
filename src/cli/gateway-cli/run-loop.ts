@@ -30,7 +30,7 @@ import { createLazyImportLoader } from "../../shared/lazy-promise.js";
 import {
   findOpenClawAgentDatabaseMediaMigrationRequiredError,
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
-} from "../../state/openclaw-agent-db-migration-required.js";
+} from "../../state/granted-agent-db-migration-required.js";
 import {
   armShutdownHardExitWatchdog,
   type ShutdownHardExitWatchdog,

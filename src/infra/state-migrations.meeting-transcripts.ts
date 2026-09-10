@@ -6,7 +6,7 @@ import type { DatabaseSync } from "node:sqlite";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { ensureMeetingTranscriptsSchema } from "../transcripts/sqlite-schema.js";
 import {
   safeTranscriptPathSegment,

@@ -1,6 +1,6 @@
 import type { TurnAdoptionLifecycle } from "../auto-reply/get-reply-options.types.js";
 import type { FinalizedMsgContext } from "../auto-reply/templating.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   normalizeOutboundReplyPayload,
   type OutboundReplyPayload,

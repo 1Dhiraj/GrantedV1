@@ -29,8 +29,8 @@ import {
   createUserTurnTranscriptRecorder,
   type UserTurnTranscriptRecorder,
 } from "../../sessions/user-turn-transcript.js";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
-import { ensureSessionPendingInputsSchema } from "../../state/openclaw-agent-pending-inputs-schema.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
+import { ensureSessionPendingInputsSchema } from "../../state/granted-agent-pending-inputs-schema.js";
 import { createDirectChatContext } from "../server-chat.agent-events.test-helpers.js";
 import {
   dispatchInboundMessageMock,

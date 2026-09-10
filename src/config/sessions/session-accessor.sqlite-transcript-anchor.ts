@@ -2,7 +2,7 @@ import { executeSqliteQueryTakeFirstSync } from "../../infra/kysely-sync.js";
 import {
   openOpenClawAgentDatabase,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   getSessionKysely,
   resolveSqliteTranscriptScope,

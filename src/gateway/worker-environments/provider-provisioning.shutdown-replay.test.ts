@@ -10,7 +10,7 @@ import type { WorkerNodeEnrollment } from "../../plugins/types.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { bindDeviceWorkerAvailability } from "./device-provider.js";
 import { createWorkerNodeEnrollmentManager } from "./node-enrollment.js";
 import { REQUEST } from "./placement-dispatch-test-fixtures.js";

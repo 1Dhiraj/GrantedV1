@@ -735,7 +735,7 @@ def match_profile_env_key(target, suffix)
 end
 
 def profile_plist_value(profile_path, key_path)
-  Tempfile.create(["openclaw-profile", ".plist"]) do |file|
+  Tempfile.create(["granted-profile", ".plist"]) do |file|
     stdout, stderr, status = Open3.capture3("security", "cms", "-D", "-i", profile_path)
     unless status.success?
       detail = stderr.to_s.strip

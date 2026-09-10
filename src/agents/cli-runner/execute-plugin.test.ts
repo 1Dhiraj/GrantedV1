@@ -1,7 +1,7 @@
 import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@granted/ai/internal/shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type {
   CliBackendExecute,
   CliBackendExecuteContext,

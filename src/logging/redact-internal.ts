@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { fullContextToolPayloadRedactionState } from "./redact-internal-state.js";
 
 type LoggingConfig = GrantedConfig["logging"];

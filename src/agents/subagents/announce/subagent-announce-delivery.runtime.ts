@@ -10,7 +10,7 @@ import { tryResolveLegacyCompatibilityAgentId } from "../../../config/legacy.def
 import { resolveSessionStorePathCore } from "../../../config/sessions.js";
 import { loadSessionEntryReadOnly as loadSessionEntry } from "../../../config/sessions/session-accessor.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../../config/sessions/session-store-owner.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { callGateway } from "../../../gateway/call.js";
 import { resolveExternalBestEffortDeliveryTarget } from "../../../infra/outbound/best-effort-delivery.js";
 import { createBoundDeliveryRouter } from "../../../infra/outbound/bound-delivery-router.js";

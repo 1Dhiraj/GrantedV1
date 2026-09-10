@@ -4,7 +4,7 @@ import {
   normalizeProviderId,
 } from "@granted/model-catalog-core/provider-id";
 import { normalizeUniqueSingleOrTrimmedStringList } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Core built-in model API ids that do not imply plugin ownership of a provider config. */
 export const CORE_BUILT_IN_MODEL_APIS = new Set([

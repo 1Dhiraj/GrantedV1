@@ -1,6 +1,6 @@
 import { err, ok, type Result } from "@granted/normalization-core/result";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEVICE_WORKER_PROVIDER_ID } from "./device-provider-identity.js";
 import type { WorkerPlacementDispatchRequest } from "./service-contract.js";
 

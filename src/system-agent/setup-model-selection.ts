@@ -1,6 +1,6 @@
 import { toAgentEntriesRecord } from "../agents/agent-scope-config.js";
 import type { AgentModelEntryConfig } from "../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId, normalizeAgentIdStrict } from "../routing/session-key.js";
 
 type SystemAgentModelSelectionParams = {

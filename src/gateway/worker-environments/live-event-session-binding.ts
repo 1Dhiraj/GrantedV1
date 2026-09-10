@@ -1,5 +1,5 @@
 import type { SessionIdentityMutation } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { WorkerLiveTrajectoryTarget } from "./live-event-projection.js";
 import { resolveWorkerSessionTarget } from "./session-target.js";
 

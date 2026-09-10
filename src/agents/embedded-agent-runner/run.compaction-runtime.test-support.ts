@@ -7,7 +7,7 @@ import type { ToolResultMessage } from "../../llm/types.js";
 import {
   withOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import type { PreparedAgentRunAdmission } from "../admitted-run-context.js";
 import type { EmbeddedRunCompactionRecoveryInput } from "./run/compaction-runtime.js";
 import type { PreparedEmbeddedRunInput } from "./run/execution-context.js";
@@ -28,7 +28,7 @@ async function createRecoveryFixture(state: GrantedTestState, options: FixtureOp
     await import("../../config/sessions/session-accessor.transcript-target.js");
   const { waitForSessionTranscriptIndexReconcile } =
     await import("../../config/sessions/session-transcript-reconcile.js");
-  const { closeOpenClawAgentDatabaseByPath } = await import("../../state/openclaw-agent-db.js");
+  const { closeOpenClawAgentDatabaseByPath } = await import("../../state/granted-agent-db.js");
   const { SessionManager } = await import("../sessions/session-manager.js");
   const { makeAgentAssistantMessage, makeAgentUserMessage } =
     await import("../test-helpers/agent-message-fixtures.js");

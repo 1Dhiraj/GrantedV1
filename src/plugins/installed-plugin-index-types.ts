@@ -1,5 +1,5 @@
 /** Type contract for the generated installed plugin index persisted on disk. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import type { PluginCompatCode } from "./compat/registry.js";
 import type { PluginCandidate, PluginDiscoveryResult } from "./discovery.types.js";

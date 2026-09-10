@@ -7,7 +7,7 @@ import {
 } from "../../../packages/gateway-protocol/src/schema/skill-library.js";
 import { resolveStateDir } from "../../config/paths.js";
 import { executeSqliteQuerySync } from "../../infra/kysely-sync.js";
-import type { GrantedStateDatabaseOptions } from "../../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../../state/granted-state-db.js";
 import {
   parseSkillFrontmatter,
   resolveSkillInvocationPolicy,

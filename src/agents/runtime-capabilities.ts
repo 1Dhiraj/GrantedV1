@@ -11,7 +11,7 @@ import {
   supportsAutomaticThreadBindingSpawn,
 } from "../channels/thread-bindings-policy.js";
 import { resolveChannelCapabilities } from "../config/channel-capabilities.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "../utils/message-channel-constants.js";
 import { resolveChannelPromptCapabilities } from "./channel-tools.js";
 

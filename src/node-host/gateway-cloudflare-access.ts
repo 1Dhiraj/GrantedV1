@@ -1,6 +1,6 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { CloudflareAccessCredentials } from "../../packages/gateway-client/src/cloudflare-access.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   coerceSecretRef,
   normalizeSecretInputString,

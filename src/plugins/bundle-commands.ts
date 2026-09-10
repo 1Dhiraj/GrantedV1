@@ -9,7 +9,7 @@ import {
   parseFrontmatterBlock,
   stripFrontmatterBlock,
 } from "../../packages/markdown-core/src/frontmatter.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { readRootJsonObjectSync } from "../infra/json-files.js";
 import { readRegularFileSync } from "../infra/regular-file.js";

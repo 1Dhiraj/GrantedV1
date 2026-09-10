@@ -1,6 +1,6 @@
 // QA Lab product proof for the legacy Codex auth doctor migration matrix.
 import { afterEach, describe, it } from "vitest";
-import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/granted-agent-db.js";
 import {
   createOpenClawTestInstance,
   type GrantedTestInstance,

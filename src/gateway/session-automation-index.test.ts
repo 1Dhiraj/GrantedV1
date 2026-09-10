@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { CronJob } from "../cron/types.js";
 import {
   bumpSessionAutomationVersion,

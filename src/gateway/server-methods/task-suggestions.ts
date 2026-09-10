@@ -15,7 +15,7 @@ import {
 } from "../../../packages/gateway-protocol/src/index.js";
 import { insideGitCheckout } from "../../agents/worktrees/git.js";
 import { resolveSessionWorkStartError } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 import { authorizeGatewaySessionCreation, hasOperatorBoundary } from "../operator-role-policy.js";

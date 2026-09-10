@@ -1,7 +1,7 @@
 // Doctor skills tests cover skill install checks, status summaries, and repair guidance.
 import { describe, expect, it, vi } from "vitest";
 import { createEmptyInstallChecks } from "../cli/requirements-test-fixtures.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { SkillStatusEntry, SkillStatusReport } from "../skills/discovery/status.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 import {

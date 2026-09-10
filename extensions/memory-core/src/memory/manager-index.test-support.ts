@@ -11,7 +11,7 @@ import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
 } from "granted/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
 import {
   configureMemoryCoreDreamingStateForTests,
@@ -532,7 +532,7 @@ export function createManagerIndexFixture(deps: {
 
   beforeAll(async () => {
     const rawRoot = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-mem-fixtures-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-mem-fixtures-"),
     );
     root = await fs.realpath(rawRoot);
     workspace = path.join(root, "workspace");

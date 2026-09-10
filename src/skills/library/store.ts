@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
 import type { SkillLibraryEntry } from "../../../packages/gateway-protocol/src/schema/skill-library.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { authorizeOperatorScopesForRequiredScope } from "../../gateway/method-scopes.js";
 import { resolveOperatorRolePolicyForAssignment } from "../../gateway/operator-role-policy.js";
 import {
@@ -9,15 +9,15 @@ import {
   executeSqliteQueryTakeFirstSync,
   getNodeSqliteKysely,
 } from "../../infra/kysely-sync.js";
-import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-state-db-readonly.js";
-import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";
-import type { DB as StateDatabase } from "../../state/openclaw-state-db.generated.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/granted-state-db-readonly.js";
+import { tableExists } from "../../state/granted-state-db-schema-helpers.js";
+import type { DB as StateDatabase } from "../../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
-} from "../../state/openclaw-state-db.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+} from "../../state/granted-state-db.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/granted-state-schema.js";
 import { selectResolvedUserProfileById } from "../../state/user-profiles-internal.js";
 import { managedSkillCommandName } from "./command-name.js";
 import { SkillLibraryError } from "./errors.js";

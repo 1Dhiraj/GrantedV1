@@ -12,7 +12,7 @@ import {
   isToolAllowedByPolicyName,
 } from "../../../agents/tool-policy-match.js";
 import { mergeAlsoAllowPolicy, resolveToolProfilePolicy } from "../../../agents/tool-policy.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type {
   AgentToolsConfig,
   ToolPolicyConfig,

@@ -14,7 +14,7 @@ import type { ChannelId } from "../channels/plugins/types.public.js";
 import { inspectReadOnlyChannelAccount } from "../channels/read-only-account-inspect.js";
 import { isDangerousNameMatchingEnabled } from "../config/dangerous-name-matching.js";
 import { canonicalizeMainSessionAlias } from "../config/sessions/main-session.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
   listExactDirectMessageBindingPeerIds,

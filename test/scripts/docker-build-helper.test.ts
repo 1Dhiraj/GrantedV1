@@ -847,7 +847,7 @@ print_log_tail "$LOG_PATH"
     const sourceResult = resolveEntrypoint(process.cwd());
     expect(sourceResult.status, sourceResult.stderr).toBe(0);
     expect(sourceResult.stdout.trim()).toBe(
-      join(process.cwd(), "scripts/lib/openclaw-test-state.mts"),
+      join(process.cwd(), "scripts/lib/granted-test-state.mts"),
     );
 
     const compiledRoot = tempDirs.make("openclaw-compiled-test-state-");
@@ -857,7 +857,7 @@ print_log_tail "$LOG_PATH"
 
     const compiledDir = join(compiledRoot, "scripts/lib");
     mkdirSync(compiledDir, { recursive: true });
-    const compiledEntrypoint = join(compiledDir, "openclaw-test-state.mjs");
+    const compiledEntrypoint = join(compiledDir, "granted-test-state.mjs");
     writeFileSync(compiledEntrypoint, "", "utf8");
     const compiledResult = resolveEntrypoint(compiledRoot);
     expect(compiledResult.status, compiledResult.stderr).toBe(0);

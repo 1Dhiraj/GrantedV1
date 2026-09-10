@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { resolveEconomyModelRef } from "./economy-model.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 const cfgWith = (economyModel?: string): GrantedConfig =>
   ({ agents: { defaults: { economyModel } } }) as GrantedConfig;

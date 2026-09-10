@@ -17,7 +17,7 @@ import {
 } from "../config/io.js";
 import { pinRuntimePaths, resolveStateDir } from "../config/paths.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { sanitizeHostExecEnv } from "../infra/host-env-security.js";
 import {
   getInstallationTarget,
@@ -25,7 +25,7 @@ import {
   withInstallationTarget,
 } from "../infra/installation-target-context.js";
 import { withEnvAsync } from "../test-utils/env.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import * as agentExec from "./agent-exec.js";
 import { triageCommand } from "./triage.js";
 

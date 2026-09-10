@@ -12,7 +12,7 @@ import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabaseOptions,
   type GrantedStateDatabase,
-} from "./openclaw-state-db.js";
+} from "./granted-state-db.js";
 import { mergeUserGitHubConnection } from "./user-github-connections.js";
 import { ensureUserPreferencesSchema, mergeUserPreferences } from "./user-preferences.js";
 import { emitUserProfilesChanged } from "./user-profile-events.js";

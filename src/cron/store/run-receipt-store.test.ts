@@ -5,7 +5,7 @@ import * as pidAlive from "../../shared/pid-alive.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { setupCronServiceSuite } from "../service.test-harness.js";
 import { proposeCronRunRecovery, recoverCronRunProposal } from "../service/run-recovery.js";
 import { createCronServiceState } from "../service/state.js";

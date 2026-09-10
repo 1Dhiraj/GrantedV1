@@ -1,5 +1,5 @@
 /** Builds the static and plugin-derived registry of secret migration targets. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { formatConcreteConfigPath } from "../shared/dot-path.js";

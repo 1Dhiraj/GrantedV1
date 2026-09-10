@@ -7,7 +7,7 @@
  */
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import type { MemorySearchResult } from "../memory-host-sdk/host/types.js";
 import { withTimeout } from "../utils/with-timeout.js";

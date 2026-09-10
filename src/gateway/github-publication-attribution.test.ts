@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import {
   BRANCH,
   SESSION_KEY,

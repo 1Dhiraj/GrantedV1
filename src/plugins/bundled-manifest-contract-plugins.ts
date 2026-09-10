@@ -1,5 +1,5 @@
 /** Resolves enabled bundled plugins that advertise a specific manifest contract list. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveBundledCompatActivationInputs } from "./activation-context.js";
 import { resolveEffectivePluginActivationState } from "./config-state.js";
 import { isPluginEnabledByDefaultForPlatform } from "./default-enablement.js";

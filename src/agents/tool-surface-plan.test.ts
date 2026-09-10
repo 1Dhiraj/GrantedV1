@@ -1,6 +1,6 @@
 import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { runWithAgentRingZeroTools } from "./agent-tools.ring-zero-context.js";
 import { createCodeModeTools } from "./code-mode.js";
 import { createStubTool } from "./test-helpers/agent-tool-stubs.js";

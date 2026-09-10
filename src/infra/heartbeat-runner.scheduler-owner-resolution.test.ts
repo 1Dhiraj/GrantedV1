@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { heartbeatLog } from "./heartbeat-runner-config.js";
 import { startHeartbeatRunner } from "./heartbeat-runner.js";
 import { requestHeartbeat } from "./heartbeat-wake.js";

@@ -3,8 +3,8 @@ import { formatErrorMessage } from "../../infra/errors.js";
 import { isSqliteSchemaVersionError } from "../../infra/sqlite-user-version.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { defaultRuntime } from "../../runtime.js";
-import { findOpenClawAgentDatabaseMediaMigrationRequiredError } from "../../state/openclaw-agent-db-migration-required.js";
-import { findOpenClawStateDatabaseSchemaMigrationRequiredError } from "../../state/openclaw-state-db-schema-migration-required.js";
+import { findOpenClawAgentDatabaseMediaMigrationRequiredError } from "../../state/granted-agent-db-migration-required.js";
+import { findOpenClawStateDatabaseSchemaMigrationRequiredError } from "../../state/granted-state-db-schema-migration-required.js";
 import { formatCliCommand } from "../command-format.js";
 
 const gatewayLog = createSubsystemLogger("gateway");

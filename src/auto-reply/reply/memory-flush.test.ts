@@ -4,7 +4,7 @@ import {
 } from "@granted/ai/transports";
 import { describe, expect, it } from "vitest";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../../config/types.models.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { modelKey } from "../../shared/model-key.js";
 import { resolveResponsesServerCompactionThreshold } from "./memory-flush.js";
 

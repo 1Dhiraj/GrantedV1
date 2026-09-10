@@ -7,7 +7,7 @@ import {
   applySessionStoreProjection,
   replaceSessionEntrySync,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { callGateway as gatewayCall } from "../../gateway/call.js";
 import { createSessionVisibilityChecker } from "../../plugin-sdk/session-visibility.js";
 import { describeSessionLinkRule } from "../tool-description-presets.js";

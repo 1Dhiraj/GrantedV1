@@ -6,7 +6,7 @@ import { sortUniqueStrings } from "@granted/normalization-core/string-normalizat
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import { listReadOnlyChannelPluginsForConfig } from "../channels/plugins/read-only.js";
 import { getConfigResolutionFacts } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import type {
   PluginWebFetchProviderEntry,

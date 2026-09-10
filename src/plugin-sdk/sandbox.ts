@@ -61,7 +61,7 @@ export {
   type PluginCommandRunOptions,
   type PluginCommandRunResult,
 } from "./run-command.js";
-export { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+export { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 export {
   tempWorkspace,
   tempWorkspaceSync,

@@ -18,7 +18,7 @@ import {
   INSTALLED_PLUGIN_INDEX_VERSION,
   type InstalledPluginIndex,
 } from "../plugins/installed-plugin-index.js";
-import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
+import { runOpenClawStateWriteTransaction } from "../state/granted-state-db.js";
 import { deliveryQueueMetadata } from "./delivery-queue-sqlite-bound.js";
 import {
   inferDeliveryQueueFailureRetention,

@@ -3,7 +3,7 @@ import {
   resolveConfiguredAgentId,
 } from "../../agents/agent-scope-config.js";
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Validate the selected operation owner before using its workspace for discovery. */
 export function resolveChannelSetupOwner(cfg: GrantedConfig, requestedAgentId?: string) {

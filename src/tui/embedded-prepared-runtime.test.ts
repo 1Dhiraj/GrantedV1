@@ -10,7 +10,7 @@ import { acquireAgentRunPreparedModelRuntime } from "../agents/prepared-model-ru
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { EmbeddedPreparedModelRuntimeHost } from "./embedded-prepared-runtime.js";
 
 const mocks = getPreparedModelRuntimeMocks();

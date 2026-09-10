@@ -5,7 +5,7 @@ import type {
 } from "../../../packages/gateway-protocol/src/schema/agents-models-skills.js";
 import { resolveAgentHarnessPolicy } from "../../agents/harness/policy.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ProviderCatalogOutcome } from "../../plugins/provider-catalog.types.js";
 import type { GatewayAgentRuntime } from "../../shared/session-types.js";
 import { projectWorkerPlacementAgentRuntime } from "../worker-environments/placement-session-runtime.js";

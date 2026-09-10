@@ -32,7 +32,7 @@ import { buildTestCtx } from "../../auto-reply/reply/test-ctx.js";
 import type { MsgContext } from "../../auto-reply/templating.js";
 import type { GetReplyOptions, ReplyPayload } from "../../auto-reply/types.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
-import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
+import type { GrantedTestState } from "../../test-utils/granted-test-state.js";
 import type { FailoverReason } from "../failover/signal.js";
 import type { AgentHarnessHostCapabilities } from "../harness/host-capability-types.js";
 import { registerAgentHarness } from "../harness/registry.js";
@@ -83,7 +83,7 @@ describe("prepared harness source delivery", () => {
     // The runner resets modules; keep its private payload metadata shared with dispatch.
     vi.doMock("../../auto-reply/reply-payload.js", () => replyPayloadRuntime);
     const loaded = await loadRunOverflowCompactionHarness();
-    const { createOpenClawTestState } = await import("../../test-utils/openclaw-test-state.js");
+    const { createOpenClawTestState } = await import("../../test-utils/granted-test-state.js");
     state = await createOpenClawTestState({ label: "prepared-source-delivery" });
     return loaded;
   }

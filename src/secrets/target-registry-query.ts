@@ -1,5 +1,5 @@
 /** Query helpers for discovering secret target registry entries. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { formatConcreteConfigPath, type ConcreteConfigPathSegment } from "../shared/dot-path.js";
 import { loadChannelSecretContractApi } from "./channel-contract-api.js";

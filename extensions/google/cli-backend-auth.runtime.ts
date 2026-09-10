@@ -7,7 +7,7 @@ import {
   type CliBackendToolAvailability,
 } from "granted/plugin-sdk/cli-backend";
 import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   assertGeminiCliLiteralIsolatedPrompt,
   GEMINI_CLI_EXACT_TOOL_ENV_BARRIERS,
@@ -431,7 +431,7 @@ async function writeGeminiCliJson(filePath: string, value: unknown): Promise<voi
 }
 
 async function createGeminiCliPrivateTempDir(prefix: string): Promise<string> {
-  const directory = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), prefix));
+  const directory = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), prefix));
   try {
     await fs.chmod(directory, 0o700);
     return directory;

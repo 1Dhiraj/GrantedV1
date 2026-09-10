@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginRuntime, RuntimeLogger } from "../plugins/runtime/types.js";
 import type { createMeetingRealtimeEngineBindings } from "./agent-consult.js";
 import type { startMeetingAgentRealtimeEngine } from "./realtime-agent-engine.js";

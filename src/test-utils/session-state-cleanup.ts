@@ -9,9 +9,9 @@ import { isPathInside } from "../infra/path-guards.js";
 import {
   closeOpenClawAgentDatabaseByPath,
   listOpenClawAgentDatabasesForTest,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseByPath } from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseByPath } from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 
 let fileLockDrainerForTests: typeof drainFileLockStateForTest | null = null;
 let sessionStoreWriterQueueDrainerForTests: typeof drainSessionStoreWriterQueuesForTest | null =

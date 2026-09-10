@@ -4,12 +4,12 @@ import type { ModelRef } from "../../agents/model-ref-shared.js";
 import { replaceSessionEntrySync } from "../../config/sessions/session-accessor.js";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../../config/sessions/session-sqlite-target.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { isPathInside } from "../../infra/path-guards.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import {
   TURN_MODEL_CHANNEL_REF,
   TURN_MODEL_DEFAULT_REF,

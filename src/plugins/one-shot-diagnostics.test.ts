@@ -1,6 +1,6 @@
 // One-shot diagnostics exporter start/flush lifecycle for embedded CLI runs.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const loadOpenClawPlugins = vi.hoisted(() => vi.fn());
 const startPluginServices = vi.hoisted(() => vi.fn());

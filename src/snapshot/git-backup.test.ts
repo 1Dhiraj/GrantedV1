@@ -10,13 +10,13 @@ import { readBackupFreshness } from "../commands/backup-health.js";
 import { createTestRuntime } from "../commands/test-runtime-config-helpers.js";
 import { executeGitCommand, requireGitCommand as requireGit } from "../infra/git-exec.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
-import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/granted-agent-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { createPathResolutionEnv, withEnvAsync } from "../test-utils/env.js";
 import { dumpGitBackupDatabase, restoreGitBackupDirectory } from "./git-backup-codec.js";
 import { createGitBackup, initializeGitBackupRepository } from "./git-backup.js";
@@ -316,7 +316,7 @@ describe("Git-backed SQLite snapshots", () => {
     const configPath = path.join(stateDir, "openclaw.json");
     await fs.mkdir(agentDir, { recursive: true });
     const { closeOpenClawAgentDatabaseByPath, openOpenClawAgentDatabase } =
-      await import("../state/openclaw-agent-db.js");
+      await import("../state/granted-agent-db.js");
     const agentDatabase = openOpenClawAgentDatabase({
       agentId: "main",
       env: { ...process.env, GRANTED_STATE_DIR: stateDir },

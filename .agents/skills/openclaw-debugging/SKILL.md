@@ -97,7 +97,7 @@ Raw store (when the CLI is unavailable, e.g. inspecting a remote host over
 SSH, or you need event-level detail):
 
 - Per-agent data plane: `~/.openclaw/agents/<agentId>/agent/openclaw-agent.sqlite`.
-  Canonical schema: `src/state/openclaw-agent-schema.sql`.
+  Canonical schema: `src/state/granted-agent-schema.sql`.
 - Hosted/systemd installs keep state under the service user's home (e.g.
   `/home/openclaw/.openclaw/...`), not root's — root may carry a separate
   stray install with different agents. If the expected agent dir is missing,

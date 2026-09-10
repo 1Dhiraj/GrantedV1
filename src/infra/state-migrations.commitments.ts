@@ -5,7 +5,7 @@ import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withLegacyMigrationStateLock } from "./state-migrations.lock.js";
 import {
   markLegacyMigrationSourceRemoved,

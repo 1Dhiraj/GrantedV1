@@ -1,6 +1,6 @@
 // Public model-catalog facade. Keep exports here curated so callers use the
 // normalized planning APIs instead of reaching into provider-index internals.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   planManifestModelCatalogRows,
   type ManifestModelCatalogRowSelection,

@@ -5,9 +5,9 @@ import { assertSqliteSchemaContains } from "../../infra/sqlite-schema-contract.j
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
-import { getOpenClawStateRuntimeSchema } from "../../state/openclaw-state-schema-compatibility.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+} from "../../state/granted-state-db.js";
+import { getOpenClawStateRuntimeSchema } from "../../state/granted-state-schema-compatibility.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/granted-state-schema.js";
 import { createWorkerSessionPlacementStore } from "./placement-store.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);

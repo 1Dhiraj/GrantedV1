@@ -1,7 +1,7 @@
 // Evaluates heartbeat active-hours windows.
 import { resolveUserTimezone } from "../agents/date-time.js";
 import type { AgentDefaultsConfig } from "../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 // Heartbeat active-hours helpers interpret user/local/IANA timezones and treat
 // invalid config as permissive so bad schedules do not disable heartbeats.

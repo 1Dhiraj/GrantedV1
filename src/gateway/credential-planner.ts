@@ -7,7 +7,7 @@ import {
   getConfigResolutionFacts,
   hasUnresolvedConfigPath,
 } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasConfiguredSecretInput, resolveSecretInputRef } from "../config/types.secrets.js";
 
 type GatewayCredentialInputPath =

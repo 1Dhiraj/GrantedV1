@@ -5,7 +5,7 @@ import type {
   GrantedPluginNodeHostCommandAvailabilityContext,
 } from "granted/plugin-sdk/plugin-entry";
 import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   assertToolResult,
   clamp,
@@ -139,7 +139,7 @@ async function defaultWithTempFile<T>(
   run: (filePath: string) => Promise<T>,
 ): Promise<T> {
   return await withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-linux-node-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-linux-node-" },
     async ({ dir }) => await run(path.join(dir, `capture${suffix}`)),
   );
 }

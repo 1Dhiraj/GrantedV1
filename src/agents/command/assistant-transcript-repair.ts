@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { SessionEntry, PendingTranscriptRepairState } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { runAgentHarnessBeforeMessageWriteHook } from "../harness/hook-helpers.js";

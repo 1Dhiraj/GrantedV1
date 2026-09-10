@@ -4,7 +4,7 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { readConfigFileSnapshotForWrite, type ConfigWriteOptions } from "../config/io.js";
 import { replaceConfigFile } from "../config/mutate.js";
 import type { GrantedConfig } from "../config/types.js";
-import type { ConfigFileSnapshot } from "../config/types.openclaw.js";
+import type { ConfigFileSnapshot } from "../config/types.granted.js";
 import { resolveSecretInputRef } from "../config/types.secrets.js";
 import { shouldRequireGatewayTokenForInstall } from "../gateway/auth-install-policy.js";
 import { hasAmbiguousGatewayAuthModeConfig } from "../gateway/auth-mode-policy.js";

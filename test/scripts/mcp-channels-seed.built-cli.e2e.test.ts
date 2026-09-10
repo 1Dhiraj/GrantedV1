@@ -4,7 +4,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { describe, expect, it } from "vitest";
 import { runSessionStartupMigration } from "../../src/config/sessions/startup-migration.js";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import {
   getSessionEntry,
   projectSessionDeliveryFields,
@@ -13,7 +13,7 @@ import {
   readSessionTranscriptEvents,
   readVisibleSessionTranscriptMessageEntries,
 } from "../../src/plugin-sdk/session-transcript-runtime.js";
-import { withOpenClawTestState } from "../../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../src/test-utils/granted-test-state.js";
 
 const execFileAsync = promisify(execFile);
 

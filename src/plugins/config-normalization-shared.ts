@@ -1,7 +1,7 @@
 // Shares plugin config normalization helpers across control-plane paths.
 import { normalizeArrayBackedTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { normalizeChatChannelId } from "../channels/ids.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeSlotValue, resolveSlotSelection } from "./slots.js";
 
 /** Canonical plugin config shape consumed by runtime policy and loaders. */

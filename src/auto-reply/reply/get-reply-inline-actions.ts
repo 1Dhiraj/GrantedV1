@@ -6,7 +6,7 @@ import type { BlockReplyChunking } from "../../agents/embedded-agent-block-chunk
 import type { ExecPolicyOverrides } from "../../agents/exec-defaults.js";
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { SessionEntry } from "../../config/sessions.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import type { SessionMemoryTranscript } from "../../hooks/bundled/session-memory/capture.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -389,7 +389,7 @@ export async function handleInlineActions(params: {
       const rawArgs = (skillInvocation.args ?? "").trim();
       const { resolveSkillDispatchTools } = await loadSkillToolDispatchRuntime();
       const dependencies =
-        params.skillToolDispatchDependencies ?? (await import("../../agents/openclaw-tools.js"));
+        params.skillToolDispatchDependencies ?? (await import("../../agents/granted-tools.js"));
       const authorizedTools = resolveSkillDispatchTools(
         {
           message: {

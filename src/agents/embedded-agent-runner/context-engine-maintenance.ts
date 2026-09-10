@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import { publishTranscriptUpdate } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   hasSameContextEngineInstance,
   isContextEngineAbortRejection,

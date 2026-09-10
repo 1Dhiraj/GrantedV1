@@ -5,7 +5,7 @@ import { uniqueStrings } from "../../packages/normalization-core/src/string-norm
 import { parseUsageCountedSessionIdFromFileName } from "../config/sessions/artifacts.js";
 import { loadCombinedSessionStoreForGatewayCore as loadGatewaySessionStore } from "../config/sessions/combined-store-gateway.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isIncognitoSessionKey, normalizeAgentId } from "../routing/session-key.js";
 export {
   formatSessionTranscriptMemoryHitKey,

@@ -4,7 +4,7 @@ import { asOptionalRecord as readModelParams } from "@granted/normalization-core
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { mergeModelCost } from "../../config/model-cost.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../../config/runtime-source-projection.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { Api, Model } from "../../llm/types.js";
 import type { PluginMetadataSnapshotOwnerMaps } from "../../plugins/plugin-metadata-snapshot.types.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";

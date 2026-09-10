@@ -6,7 +6,7 @@ import {
   findStructuredAuthParamRanges,
   redactStructuredAuthHeaders,
 } from "../../packages/acp-core/src/structured-auth-redaction.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { compileConfigRegex } from "../security/config-regex.js";
 import { readLoggingConfig } from "./config.js";
 import { replacePatternBounded } from "./redact-bounded.js";

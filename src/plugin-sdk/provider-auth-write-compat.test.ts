@@ -7,7 +7,7 @@ import { saveAuthProfileStore } from "../agents/auth-profiles/store.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { upsertAuthProfileWithLock as upsertApiKeyProfileWithLock } from "./provider-auth-api-key.js";
 import {
   removeProviderAuthProfilesWithLock,

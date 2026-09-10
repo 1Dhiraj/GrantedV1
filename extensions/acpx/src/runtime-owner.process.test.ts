@@ -50,7 +50,7 @@ it.each(["global", "shared-project"])(
           }),
           pluginToolsMcpBridgeEnabled: true,
           openclawToolsMcpBridgeEnabled: true,
-          mcpServers: ["openclaw-plugin-tools", "openclaw-tools", "user-server"].map((name) => ({
+          mcpServers: ["granted-plugin-tools", "granted-tools", "user-server"].map((name) => ({
             name,
             command: process.execPath,
             args: ["server.mjs"],
@@ -115,7 +115,7 @@ it.each(["global", "shared-project"])(
           const first = await turn(handle, `${agentId}-first`);
           expect(first).toMatchObject({ history: [`${agentId}-first`] });
           expect(first.mcpServers).toEqual([
-            ...["openclaw-plugin-tools", "openclaw-tools"].map((name) => ({
+            ...["granted-plugin-tools", "granted-tools"].map((name) => ({
               name,
               command: process.execPath,
               args: ["server.mjs", "--openclaw-agent-id", agentId],

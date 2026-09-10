@@ -6,9 +6,9 @@ import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { loadDeliveryQueueEntries } from "../delivery-queue-sqlite.js";
-import { resolvePreferredOpenClawTmpDir } from "../tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../tmp-granted-dir.js";
 import { OUTBOUND_DELIVERY_QUEUE_NAME } from "./delivery-queue-media-staging.js";
 import type { DeliverFn, RecoveryLogger } from "./delivery-queue-recovery.js";
 import type { QueuedDelivery } from "./delivery-queue-types.js";
@@ -24,7 +24,7 @@ export function installDeliveryQueueTmpDirHooks(): { readonly tmpDir: () => stri
   let fixtureCount = 0;
 
   beforeAll(() => {
-    fixtureRoot = fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-dq-suite-"));
+    fixtureRoot = fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), "openclaw-dq-suite-"));
   });
 
   beforeEach(() => {

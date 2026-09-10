@@ -11,7 +11,7 @@ import {
   resolveNodeExecEligibility,
 } from "../../agents/exec-defaults.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { loadSkillLibrarySelection } from "../library/selection.js";

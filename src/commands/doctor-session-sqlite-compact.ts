@@ -9,7 +9,7 @@ import {
   migrateOpenClawAgentDatabaseForMaintenance,
   resolveOpenClawAgentSqlitePath,
   withAgentDatabaseMaintenanceLease,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import { resolveTargetSqliteOptions } from "./doctor-session-sqlite-readers.js";
 import type { DoctorSessionSqliteCompactReport } from "./doctor-session-sqlite-types.js";
 import { compactDoctorSqliteFile } from "./doctor-sqlite-compact.js";

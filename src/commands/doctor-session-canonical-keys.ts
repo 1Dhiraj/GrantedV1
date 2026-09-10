@@ -21,11 +21,11 @@ import { setCanonicalSqliteSessionMainKey } from "../config/sessions/session-can
 import { preserveCreationStamp } from "../config/sessions/session-entry-provenance.js";
 import { serializeJsonlLines } from "../config/sessions/transcript-jsonl.js";
 import type { SessionEntry } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   openOpenClawAgentDatabase,
   type GrantedAgentDatabase,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   collectCanonicalSessionRepairGroups,
   listCanonicalSessionStores,

@@ -26,7 +26,7 @@ import {
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
 } from "granted/plugin-sdk/ssrf-runtime";
 import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { tempWorkspace, resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   buildExpressiveSsml,
   edgeTTS,
@@ -267,7 +267,7 @@ export function buildMicrosoftSpeechProvider(): SpeechProviderPlugin {
     synthesize: async (req) => {
       const config = readMicrosoftProviderConfig(req.providerConfig);
       const temp = await tempWorkspace({
-        rootDir: resolvePreferredOpenClawTmpDir(),
+        rootDir: resolvePreferredGrantedTmpDir(),
         prefix: "tts-microsoft-",
       });
       const tempDir = temp.dir;

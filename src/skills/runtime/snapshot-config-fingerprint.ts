@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { stableStringify } from "@granted/normalization-core";
 import { redactConfigObject } from "../../config/redact-snapshot.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 let configFingerprints = new WeakMap<GrantedConfig, string>();
 

@@ -109,7 +109,7 @@ test("OpenClaw executes and controls the complete real process lifecycle", async
     await expect(
       getProcessSupervisor().spawn({
         mode: "child",
-        argv: ["/definitely/not/a/real-openclaw-command"],
+        argv: ["/definitely/not/a/real-granted-command"],
         env: { GRANTED_CHILD_OOM_SCORE_ADJ: "0" },
         runId: missingRunId,
         sessionId: missingRunId,

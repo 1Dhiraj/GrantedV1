@@ -15,7 +15,7 @@ import type {
   SpeechTelephonySynthesisRequest,
 } from "granted/plugin-sdk/speech-core";
 import { asOptionalRecord, filterStringRecord } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 const log = createSubsystemLogger("tts-local-cli");
@@ -369,7 +369,7 @@ export function buildCliSpeechProvider(): SpeechProviderPlugin {
 
       return await withTempWorkspace(
         {
-          rootDir: resolvePreferredOpenClawTmpDir(),
+          rootDir: resolvePreferredGrantedTmpDir(),
           prefix: "openclaw-cli-tts-",
         },
         async (temp) => {
@@ -415,7 +415,7 @@ export function buildCliSpeechProvider(): SpeechProviderPlugin {
 
       return await withTempWorkspace(
         {
-          rootDir: resolvePreferredOpenClawTmpDir(),
+          rootDir: resolvePreferredGrantedTmpDir(),
           prefix: "openclaw-cli-tts-",
         },
         async (temp) => {

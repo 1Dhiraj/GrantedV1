@@ -1,6 +1,6 @@
 // Windows Doctor service-token tests cover detailed SecretRef diagnostic rendering.
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 const mocks = vi.hoisted(() => ({
   resolveGatewayAuthToken: vi.fn(),

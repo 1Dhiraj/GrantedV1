@@ -4,7 +4,7 @@ import path from "node:path";
 import type { ContainerConfig } from "@microsoft/mxc-sdk";
 import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/sandbox";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/sandbox";
 import type {
   SandboxBackendHandle,
   SandboxBackendExecSpec,
@@ -57,7 +57,7 @@ function createLauncherPayloadFile(
   payloadJson: string,
 ): MxcExecFinalizeToken & { payloadFile: string } {
   const payloadDir = mkdtempSync(
-    path.join(resolvePreferredOpenClawTmpDir(), "openclaw-mxc-payload-"),
+    path.join(resolvePreferredGrantedTmpDir(), "openclaw-mxc-payload-"),
   );
   const payloadFile = path.join(payloadDir, "payload.json");
   try {

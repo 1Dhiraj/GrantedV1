@@ -1,5 +1,5 @@
-import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { withExistingOpenClawStateDatabaseReadOnly } from "../state/granted-state-db-readonly.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   resolveInstalledPluginIndexStateDatabaseOptions,
   type InstalledPluginIndexStoreOptions,

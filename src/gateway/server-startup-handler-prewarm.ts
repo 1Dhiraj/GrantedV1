@@ -1,5 +1,5 @@
 import { listAgentIds } from "../agents/agent-scope-config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getActiveGatewayRootWorkCount } from "../process/gateway-work-admission.js";
 import { SIDEBAR_SESSION_ROSTER_LIMIT } from "../shared/session-list-limits.js";
 import { scheduleGatewayIdleTask, type GatewayIdleTaskHandle } from "./server-idle-task.js";

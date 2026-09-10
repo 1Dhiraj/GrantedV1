@@ -1,4 +1,4 @@
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { listSecretStoreEntries, readSecretStoreValue } from "./store/secret-store.js";
 
 export type PlaintextAssignment = {

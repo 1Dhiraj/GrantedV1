@@ -5,8 +5,8 @@ import { promisify } from "node:util";
 import { expect, onTestFinished } from "vitest";
 import { getRegistryWorktree } from "../../agents/worktrees/registry.js";
 import { managedWorktrees } from "../../agents/worktrees/service.js";
-import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { closeOpenClawStateDatabaseForTest } from "../../state/granted-state-db.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { testState } from "../test-helpers.js";
 import {
   directSessionReq,

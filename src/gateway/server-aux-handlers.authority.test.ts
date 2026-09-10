@@ -15,7 +15,7 @@ import {
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { createAgentRuntimeApprovalAuthorityValidator } from "./agent-runtime-identity-token.js";
 import { createGatewayAuxHandlers } from "./server-aux-handlers.js";
 import { createWorkerSessionPlacementStore } from "./worker-environments/placement-store.js";

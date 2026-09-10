@@ -295,7 +295,7 @@ openclaw_e2e_assert_dep_present() {
   exit 1
 }
 openclaw_e2e_write_state_env() {
-  local target="${1:-/tmp/openclaw-test-state-env}"
+  local target="${1:-/tmp/granted-test-state-env}"
   {
     printf 'export HOME=%q\n' "$HOME"
     printf 'export OPENCLAW_HOME=%q\n' "$OPENCLAW_HOME"

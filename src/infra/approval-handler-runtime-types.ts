@@ -1,5 +1,5 @@
 // Defines channel-native approval handler runtime types.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ChannelApprovalNativePlannedTarget } from "./approval-native-delivery.js";
 import type { PreparedChannelNativeApprovalTarget } from "./approval-native-runtime-types.js";
 import type { ApprovalRequestInput, ChannelApprovalKind } from "./approval-types.js";

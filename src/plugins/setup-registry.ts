@@ -7,7 +7,7 @@ import {
   normalizeStringEntries,
   normalizeUniqueStringEntries,
 } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { buildPluginApi, createUnavailableRuntime } from "./api-builder.js";
 import { hasPluginConfigMigrationSource } from "./config-contract-matches.js";

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { sessionClassificationForRow } from "./session-classification.js";
 
 function entry(overrides: Partial<SessionEntry> = {}): SessionEntry {

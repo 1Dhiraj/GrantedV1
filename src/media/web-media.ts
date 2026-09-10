@@ -26,13 +26,13 @@ import {
 import { assertNoWindowsNetworkPath, safeFileURLToPath } from "../infra/local-file-access.js";
 import type { PinnedDispatcherPolicy, SsrFPolicy } from "../infra/net/ssrf.js";
 import { isNotFoundPathError, isPathInside } from "../infra/path-guards.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { getActivePluginHttpRouteRegistry } from "../plugins/runtime.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { resolveUserPath } from "../utils.js";
 import { chunkItems } from "../utils/chunk-items.js";
 import { readOutboundMediaFile } from "./bounded-read-file.js";
@@ -358,7 +358,7 @@ async function resolveTrustedGeneratedHostReadHtml(
   }
   const [resolvedFilePath, tmpRoot, outboundRoot] = await Promise.all([
     realpath(filePath).catch(() => undefined),
-    realpath(resolvePreferredOpenClawTmpDir()).catch(() => undefined),
+    realpath(resolvePreferredGrantedTmpDir()).catch(() => undefined),
     realpath(path.join(getMediaDir(), "outbound")).catch(() => undefined),
   ]);
   if (!resolvedFilePath) {

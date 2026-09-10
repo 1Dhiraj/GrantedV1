@@ -21,7 +21,7 @@ import {
   withOwnedSessionTranscriptWrites,
 } from "../../../config/sessions/transcript-write-context.js";
 import { buildTimestampPrefix } from "../../../gateway/server-methods/agent-timestamp.js";
-import { withOpenClawTestState } from "../../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../../test-utils/granted-test-state.js";
 import type { AgentMessage } from "../../runtime/index.js";
 import type { guardSessionManager } from "../../session-tool-result-guard-wrapper.js";
 import type { AgentSession } from "../../sessions/index.js";

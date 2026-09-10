@@ -4,7 +4,7 @@ import { getLoadedChannelPlugin, normalizeChannelId } from "../channels/plugins/
 import { resolveReadOnlyChannelCommandDefaults } from "../channels/plugins/read-only-command-defaults.js";
 import type { ChannelId } from "../channels/plugins/types.public.js";
 import type { NativeCommandsSetting } from "./types.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 function resolveAutoDefault(
   providerId: ChannelId | undefined,

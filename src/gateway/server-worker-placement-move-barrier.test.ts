@@ -5,7 +5,7 @@ import { getWorkerPlacementStartupMocks } from "./server-worker-placement-startu
 const { runtimeFactoryMocks } = getWorkerPlacementStartupMocks();
 
 import { beginSessionWorkAdmission } from "../sessions/session-lifecycle-admission.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { createGatewayWorkerPlacementMoveBarrier } from "./server-worker-placement-move-barrier.js";
 import { createGatewayWorkerPlacementRuntime } from "./server-worker-placement-startup.js";
 import {

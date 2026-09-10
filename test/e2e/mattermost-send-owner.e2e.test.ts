@@ -12,7 +12,7 @@ import { withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import mattermostEntry from "../../extensions/mattermost/index.js";
 import * as bootstrapRegistry from "../../src/channels/plugins/bootstrap-registry.js";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import { runMessageAction } from "../../src/infra/outbound/message-action-runner.js";
 
 const mattermostPlugin = mattermostEntry.loadChannelPlugin();

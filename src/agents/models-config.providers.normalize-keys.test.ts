@@ -7,7 +7,7 @@ import type { GrantedConfig } from "../config/config.js";
 import { createConfigIoContext } from "../config/io.context.js";
 import { readConfigFileSnapshotFromContext } from "../config/io.snapshot.js";
 import { ModelsConfigSchema } from "../config/zod-schema.core.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { NON_ENV_SECRETREF_MARKER } from "./model-auth-markers.js";
 import {
   normalizeProviderCatalogModelsForConfig,

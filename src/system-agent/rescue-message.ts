@@ -6,7 +6,7 @@ import {
 } from "@granted/normalization-core/number-coercion";
 import { hasNonEmptyString as isNonEmptyString } from "@granted/normalization-core/string-coerce";
 import type { CommandContext } from "../auto-reply/reply/commands-types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createCorePluginStateSyncKeyedStore } from "../plugin-state/plugin-state-store.js";
 import type { RuntimeEnv } from "../runtime.js";
 import {

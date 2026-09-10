@@ -100,7 +100,7 @@ suite.define(() => {
         const input = page.locator(".cmd-palette__input");
         await input.fill("Needle");
         await page.getByRole("option", { name: "Needle Bravo", exact: true }).waitFor();
-        const options = page.locator("openclaw-command-palette").getByRole("option");
+        const options = page.locator("granted-command-palette").getByRole("option");
         await expect
           .poll(async () =>
             (await options.allTextContents()).map((text) => text.replace(/\s+/g, " ").trim()),

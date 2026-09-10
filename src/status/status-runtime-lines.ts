@@ -4,7 +4,7 @@ import {
   resolveSessionFilePathCore,
   resolveSessionFilePathOptions,
 } from "../config/sessions/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatDurationCompact } from "../infra/format-time/format-duration.ts";
 import { formatMissingCostEntries } from "../infra/session-cost-usage-totals.js";
 import {

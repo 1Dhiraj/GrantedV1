@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import { GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON } from "../state/openclaw-agent-db-migration-required.js";
+import { GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON } from "../state/granted-agent-db-migration-required.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+} from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import {
   completeGatewayBootLifecycle,
   inspectGatewayCrashLoopBreaker,

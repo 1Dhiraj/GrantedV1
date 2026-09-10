@@ -1,7 +1,7 @@
 // Shared video-generation request, provider, capability, and normalization contracts.
 import type { MediaNormalizationEntry } from "../../packages/media-generation-core/src/normalization.js";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /** Video asset returned by a provider after generation or transformation. */
 export type GeneratedVideoAsset = {

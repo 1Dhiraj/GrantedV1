@@ -4,7 +4,7 @@ import { mapAllowFromEntries } from "granted/plugin-sdk/channel-config-helpers";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.public.js";
 import { formatCliCommand } from "../../cli/command-format.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel-constants.js";
 import { validateTargetProviderPrefix } from "./channel-target-prefix.js";
 import { missingTargetError, reservedTargetLiteralError } from "./target-errors.js";

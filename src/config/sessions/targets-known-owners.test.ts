@@ -1,7 +1,7 @@
 import path from "node:path";
 import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
-import { unregisterOpenClawAgentDatabase } from "../../state/openclaw-agent-db-registry.js";
+import { unregisterOpenClawAgentDatabase } from "../../state/granted-agent-db-registry.js";
 import type { GrantedConfig } from "../config.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";

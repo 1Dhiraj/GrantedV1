@@ -1,5 +1,5 @@
 /** Process-local index of session keys that enabled cron jobs are bound to. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveCronJobBoundSessionKeys } from "../cron/job-session-bindings.js";
 import type { CronJob } from "../cron/types.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";

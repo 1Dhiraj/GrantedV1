@@ -1,6 +1,6 @@
 /** Resolves manifest-declared command and tool ownership at runtime. */
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveManifestActivationPluginIds } from "./activation-planner.js";
 import {
   resolveManifestCommandAliasOwnerInRegistry,

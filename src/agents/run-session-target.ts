@@ -10,7 +10,7 @@ import {
   type SessionTranscriptRuntimeTarget,
 } from "../config/sessions/session-accessor.js";
 import { resolvePersistedSessionStoreOwnerForTarget } from "../config/sessions/session-store-owner.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseAgentSessionKey, toAgentStoreSessionKey } from "../routing/session-key.js";
 import { resolvePreferredSessionKeyForSessionIdMatches } from "../sessions/session-id-resolution.js";
 import { resolveSessionAgentId } from "./agent-scope.js";

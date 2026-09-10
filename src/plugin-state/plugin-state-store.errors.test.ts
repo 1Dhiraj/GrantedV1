@@ -3,18 +3,18 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import {
   clearOpenClawDatabaseQuarantine,
   recordOpenClawDatabaseQuarantine,
-} from "../state/openclaw-quarantine-store.js";
-import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+} from "../state/granted-quarantine-store.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/granted-state-db-contract.js";
 import {
   clearOpenClawStateDatabaseOpenFailure,
   openOpenClawStateDatabase,
   recordOpenClawStateDatabaseOpenFailure,
-} from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+} from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import {
   closePluginStateDatabase,
   createPluginStateKeyedStore,

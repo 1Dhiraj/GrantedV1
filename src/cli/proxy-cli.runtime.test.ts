@@ -49,7 +49,7 @@ import {
   closeDebugProxyCaptureStore,
   getDebugProxyCaptureStore,
 } from "../proxy-capture/store.sqlite.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import * as proxyCliRuntime from "./proxy-cli.runtime.js";
 
 describe("proxy cli runtime", () => {

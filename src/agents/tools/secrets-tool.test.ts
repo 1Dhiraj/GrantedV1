@@ -2,7 +2,7 @@ import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { Value } from "typebox/value";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { SecretRefSchema } from "../../config/zod-schema.core.js";
 import { isBuiltInDefaultSecretProviderRef } from "../../secrets/ref-contract.js";
 import { claimPendingAgentQuestionAnswer } from "../harness/gateway-question.js";

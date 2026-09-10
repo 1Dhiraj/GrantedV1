@@ -1,6 +1,6 @@
 /** Canonical memory-only migration planning and apply policy for embedded surfaces. */
 import { MAX_MEMORY_MIGRATION_ITEMS } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { bindMemoryMigrationPlanSources } from "../../plugin-sdk/memory-migration-source.js";
 import { summarizeMigrationItems } from "../../plugin-sdk/migration.js";
 import {

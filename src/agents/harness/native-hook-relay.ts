@@ -5,7 +5,7 @@ import {
   resolveExpiresAtMsFromDurationMs,
 } from "@granted/normalization-core/number-coercion";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import { retainBeforeToolCallForNativeHookRelay } from "./host-capability.js";
 import {
   clearNativeHookRelayBridgesForTests,

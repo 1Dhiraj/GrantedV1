@@ -2,7 +2,7 @@
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { SessionScope } from "../config/types.base.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAgentRoute } from "../routing/resolve-route.js";
 import {
   buildAgentMainSessionKey,

@@ -1,5 +1,5 @@
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as StateDatabase } from "../../state/openclaw-state-db.generated.js";
+import type { DB as StateDatabase } from "../../state/granted-state-db.generated.js";
 import {
   placementTurnOwner,
   required,

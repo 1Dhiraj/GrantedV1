@@ -3,7 +3,7 @@ import {
   refreshPreparedModelRuntimeSnapshots,
 } from "../agents/prepared-model-runtime.js";
 import { copyConfigResolutionFacts } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { applyLoggingConfig } from "../logging/logger.js";
 import { runWithGatewayIndependentRootWorkAdmission } from "../process/gateway-work-admission.js";
 import { getActiveSecretsRuntimeSnapshotRevisionState } from "../secrets/runtime-state.js";
@@ -180,7 +180,7 @@ export function startManagedGatewayConfigReloader(
       ? { requestRecoveryRestart: params.requestRecoveryRestart }
       : {}),
     assertRestartReady: () =>
-      import("../state/openclaw-database-preflight.js").then(({ assertOpenClawDatabasesReady }) =>
+      import("../state/granted-database-preflight.js").then(({ assertOpenClawDatabasesReady }) =>
         assertOpenClawDatabasesReady({ env: process.env, operation: "gateway-restart" }),
       ),
     restartRecoveryAvailable,

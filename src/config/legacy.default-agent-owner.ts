@@ -4,7 +4,7 @@ import {
   getRetainedLegacyDefaultAgentId,
   setRetainedLegacyDefaultAgentId,
 } from "./legacy.default-agent-owner-state.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 export function retainLegacyDefaultAgentId(
   config: GrantedConfig,

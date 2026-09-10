@@ -16,7 +16,7 @@ import {
   resolveSessionStoreTargets,
 } from "../config/sessions/targets.js";
 import type { SessionScope } from "../config/sessions/types.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   collectRelevantDoctorPluginIds,
   listPluginDoctorSessionStoreAgentIds,

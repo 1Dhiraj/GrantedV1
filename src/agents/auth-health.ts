@@ -9,7 +9,7 @@ import {
 } from "@granted/model-catalog-core/provider-id";
 import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
 import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   DEFAULT_OAUTH_REFRESH_MARGIN_MS,
   type AuthCredentialReasonCode,

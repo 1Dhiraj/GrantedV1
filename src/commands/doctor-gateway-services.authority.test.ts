@@ -16,7 +16,7 @@ import { withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 
 const edges = vi.hoisted(() => ({

@@ -20,7 +20,7 @@ import {
 } from "../../utils/delivery-context.shared.js";
 import type { ReplyPayload } from "../types.js";
 import { rejectNonOwnerCommand } from "./command-gates.js";
-import { buildCurrentOpenClawCliExecRequest } from "./commands-openclaw-cli.js";
+import { buildCurrentOpenClawCliExecRequest } from "./commands-granted-cli.js";
 import {
   deliverPrivateCommandReply,
   readCommandDeliveryTarget,

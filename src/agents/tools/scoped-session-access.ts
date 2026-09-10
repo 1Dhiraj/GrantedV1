@@ -2,7 +2,7 @@ import { resolveSessionStorePathCore } from "../../config/sessions.js";
 import { loadSessionEntry as getSessionEntry } from "../../config/sessions/session-accessor.js";
 import { isPerAgentSessionStoreConfig } from "../../config/sessions/session-store-config.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
 import { resolveSessionAgentIds } from "../agent-scope.js";

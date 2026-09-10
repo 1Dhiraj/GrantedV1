@@ -10,7 +10,7 @@ import { WebSocketServer } from "ws";
 import codexPlugin from "../../extensions/codex/index.js";
 import { createAgentHarnessCatalogEvaluator } from "../../src/agents/harness/model-catalog-readiness.js";
 import type { AgentHarness } from "../../src/agents/harness/types.js";
-import type { GrantedConfig } from "../../src/config/types.openclaw.js";
+import type { GrantedConfig } from "../../src/config/types.granted.js";
 import {
   buildModelsListResult,
   createGatewayAgentModelCatalogProjector,
@@ -28,7 +28,7 @@ import {
   setActivePluginRegistry,
 } from "../../src/plugins/runtime.js";
 import { withEnvAsync } from "../../src/test-utils/env.js";
-import { withOpenClawTestState } from "../../src/test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../src/test-utils/granted-test-state.js";
 
 vi.mock("openclaw/plugin-sdk/simple-completion-runtime", () => ({
   runHostPreparedIsolatedCompletion: vi.fn(),

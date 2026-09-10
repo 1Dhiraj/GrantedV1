@@ -5,7 +5,7 @@ import {
   readConfigFileSnapshotForWrite,
   replaceConfigFile,
 } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
 import { resolveDefaultPluginExtensionsDir } from "../plugins/install-paths.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";

@@ -7,7 +7,7 @@ import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { classifyGatewayConnectFailure } from "../../../packages/gateway-protocol/src/connect-error-details.js";
 import { sanitizeTerminalText } from "../../../packages/terminal-core/src/safe-text.js";
 import { createConfigIO } from "../../config/io.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { PluginHealthErrorSummary } from "../../gateway/health/types.js";
 import {
   createConfiguredGatewayLocalProbe,

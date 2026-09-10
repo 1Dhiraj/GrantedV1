@@ -12,7 +12,7 @@ import {
   type PersistedUserTurnMessage,
   type UserTurnTranscriptRecorder,
 } from "../../sessions/user-turn-transcript.js";
-import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/granted-agent-db.js";
 import { executeAgentTurn } from "./agent-runner-execution.js";
 import { executeFollowupTurn } from "./followup-turn-execution.js";
 import {

@@ -10,7 +10,7 @@ import {
   loadTranscriptEvents,
   replaceSessionEntry,
 } from "../../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import type { callGateway as runtimeCallGateway } from "../../../gateway/call.js";
 import { authorizeGatewaySessionCreation } from "../../../gateway/operator-role-policy.js";
 import type { GatewayContextResolver } from "../../../gateway/server-methods/types.js";

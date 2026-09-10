@@ -332,7 +332,7 @@ function patchRootArchiveWorkspaceDependencies(
     rootArchive,
     workspacePackages,
     outputDir,
-    "openclaw-root",
+    "granted-root",
   );
 }
 

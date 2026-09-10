@@ -4,10 +4,10 @@ import {
   setRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
 import type { ModelDefinitionConfig } from "../config/types.models.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";
 import type { ProviderPlugin } from "../plugins/types.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { planOpenClawModelsJsonSource } from "./models-config.js";
 import { planOpenClawModelsJsonWithDeps } from "./models-config.plan.test-support.js";
 import { createPreparedModelCatalogWorkerInput } from "./prepared-model-catalog-worker.js";

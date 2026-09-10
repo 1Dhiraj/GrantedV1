@@ -5,7 +5,7 @@ import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   CODEX_APP_SERVER_INTERRUPT_TIMEOUT_MS,
   closeCodexStartupClientBestEffort,
@@ -138,7 +138,7 @@ export async function runBoundedCodexAppServerTurn(
   }
   return await withTempWorkspace(
     {
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "codex-bounded-turn-",
     },
     async (workspace) => {

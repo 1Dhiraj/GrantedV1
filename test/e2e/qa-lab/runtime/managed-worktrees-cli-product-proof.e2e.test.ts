@@ -10,7 +10,7 @@ import type {
   ManagedWorktreeRecord,
   RemoveManagedWorktreeResult,
 } from "../../../../src/agents/worktrees/types.js";
-import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../../../../src/state/granted-state-db.js";
 import {
   createOpenClawTestInstance,
   type GrantedTestInstance,

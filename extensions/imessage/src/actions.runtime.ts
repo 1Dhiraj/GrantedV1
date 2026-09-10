@@ -1,7 +1,7 @@
 // Imessage plugin module implements actions behavior.
 import { basename, parse, win32 } from "node:path";
 import { sanitizeUntrustedFileName } from "granted/plugin-sdk/security-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveIMessageActionChatGuid } from "./actions-chat-guid.js";
 import {
@@ -90,7 +90,7 @@ function resolveMessageId(result: Record<string, unknown>): string {
 
 async function withTempFile<T>(input: TempFileInput, fn: (path: string) => Promise<T>): Promise<T> {
   return await withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-imessage-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-imessage-" },
     async (workspace) => {
       const safeFilename = sanitizeUntrustedFileName(input.filename, "upload.bin");
       const { name, ext: safeExtension } = parse(safeFilename);

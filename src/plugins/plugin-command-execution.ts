@@ -3,7 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/str
 import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveBoundAgentIdForSession } from "../agents/session-agent-binding.js";
 import { resolveCommandConversationResolution } from "../channels/conversation-resolution.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { ADMIN_SCOPE, isOperatorScope } from "../gateway/operator-scopes.js";
 import { logVerbose } from "../globals.js";
 import { withPluginCommandExecution } from "./command-execution-lock.js";

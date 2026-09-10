@@ -7,7 +7,7 @@ import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { CONFIG_PATH } from "../config/config.js";
 import { INCLUDE_KEY } from "../config/includes.js";
 import { resolveAgentModelFallbackValues } from "../config/model-input.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { GrantedSchema } from "../config/zod-schema.js";
 import { isRecord } from "../utils.js";
 

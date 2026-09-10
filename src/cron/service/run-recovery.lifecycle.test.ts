@@ -3,7 +3,7 @@ import { createDeferred } from "../../../test/helpers/promise.js";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import {
   advanceCronActiveJobGeneration,
   clearCronJobActive,

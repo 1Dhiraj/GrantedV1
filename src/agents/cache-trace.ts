@@ -6,7 +6,7 @@ import path from "node:path";
 import { sanitizeSurrogates } from "@granted/ai/internal/shared";
 import { stableStringify } from "@granted/normalization-core";
 import { resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveUserPath } from "../utils.js";
 import { parseBooleanValue } from "../utils/boolean.js";
 import { safeJsonStringify } from "../utils/safe-json.js";

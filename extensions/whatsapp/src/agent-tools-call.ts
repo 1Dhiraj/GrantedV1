@@ -12,7 +12,7 @@ import type {
 import { mulawToPcm } from "granted/plugin-sdk/realtime-voice";
 import { detectBinary } from "granted/plugin-sdk/setup-tools";
 import { resolveOAuthDir } from "granted/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import { jsonResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import { resolveWhatsAppAccount } from "./accounts.js";
@@ -275,7 +275,7 @@ function createWhatsAppCallToolWithDependencies(
         const pcm = normalizeTelephonyPcm(speech.audioBuffer, speech.outputFormat);
         const callWindowMs = resolveCallWindowMs(pcm.length, speech.sampleRate);
         const tempDir = await fs.mkdtemp(
-          path.join(resolvePreferredOpenClawTmpDir(), "openclaw-whatsapp-call-"),
+          path.join(resolvePreferredGrantedTmpDir(), "openclaw-whatsapp-call-"),
         );
         const audioPath = path.join(tempDir, "message.wav");
         try {

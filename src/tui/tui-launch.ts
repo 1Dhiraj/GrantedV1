@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { formatErrorMessage } from "../infra/errors.js";
-import { filterOpenClawChildExecArgv } from "../infra/openclaw-cli-invocation.js";
+import { filterOpenClawChildExecArgv } from "../infra/granted-cli-invocation.js";
 import { attachChildProcessBridge } from "../process/child-process-bridge.js";
 import type { TuiOptions } from "./tui.js";
 

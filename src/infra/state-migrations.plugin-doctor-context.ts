@@ -14,7 +14,7 @@ import {
   type SessionStoreTargetsReadCache,
 } from "../config/sessions/targets-read-availability.js";
 import { dedupeSessionStoreTargetsBySqliteTarget } from "../config/sessions/targets.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   MAX_PLUGIN_STATE_BULK_DELETE_ENTRIES,
   createPluginStateKeyedStore,

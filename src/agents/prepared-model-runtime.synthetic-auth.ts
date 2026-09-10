@@ -1,6 +1,6 @@
 /** Synthetic-auth provider ref selection and prepared-catalog resolution for model-runtime builds. */
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ProviderPlugin } from "../plugins/types.js";
 
 // Provider-scoped live builds must not fan ambient synthetic-auth discovery out to every

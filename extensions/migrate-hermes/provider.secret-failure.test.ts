@@ -5,7 +5,7 @@ import { resolveAuthStorePathForDisplay } from "granted/plugin-sdk/agent-runtime
 import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -72,7 +72,7 @@ function authProfileTarget(agentDir: string, profileId: string): string {
 describe("Hermes migration provider secret write failures", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-hermes-secret-failure-",
     });
   });

@@ -7,7 +7,7 @@ import { normalizeAgentId } from "../routing/session-key.js";
 import { isRecord } from "../utils.js";
 import { isPerAgentSessionStoreConfig } from "./sessions/session-store-config.js";
 import type { AgentRouteBinding } from "./types.agents.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 function isChannelWideBinding(binding: AgentRouteBinding, channelId: string): boolean {
   const match = binding.match;

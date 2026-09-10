@@ -15,7 +15,7 @@ import type { SessionEntry } from "../config/sessions/types.js";
 import { createWorkerSessionPlacementStore } from "../gateway/worker-environments/placement-store.js";
 import { prepareSessionWorkerPlacementMutationCheck } from "../gateway/worker-environments/session-placement-lifecycle.js";
 import { getChildLogger } from "../logging/logger.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { runExclusiveSessionLifecycleMutation } from "./session-lifecycle-admission.js";
 
 export class SessionWorktreeLifecycleError extends Error {

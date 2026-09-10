@@ -17,9 +17,9 @@ vi.mock("../agents/utility-model.js", () => ({
   resolveUtilityModelRefForAgent,
 }));
 
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { closeOpenClawAgentDatabases } from "../state/openclaw-agent-db.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { closeOpenClawAgentDatabases } from "../state/granted-agent-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { generateToolCallTitles } from "./chat-tool-titles.js";
 
 const AGENT_ID = "main";

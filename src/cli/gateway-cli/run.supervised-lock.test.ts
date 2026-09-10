@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 import { describe, expect, it, vi } from "vitest";
 import { GatewayLockError } from "../../infra/gateway-lock.js";
 import { TailscaleRouteOwnershipConflictError } from "../../infra/tailscale-route-ownership-error.js";
-import { GrantedAgentDatabaseMediaMigrationRequiredError } from "../../state/openclaw-agent-db-migration-required.js";
+import { GrantedAgentDatabaseMediaMigrationRequiredError } from "../../state/granted-agent-db-migration-required.js";
 import { testing } from "./run.test-support.js";
 
 const loadGatewayTlsServerRuntimeMock = vi.hoisted(() =>

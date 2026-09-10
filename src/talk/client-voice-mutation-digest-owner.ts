@@ -1,8 +1,8 @@
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { buildOutboundSessionContext } from "../infra/outbound/session-context.js";
 import { resolveSessionDeliveryTarget } from "../infra/outbound/targets-session.js";
-import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
+import { runOpenClawAgentWriteTransaction } from "../state/granted-agent-db.js";
 import {
   type ClientVoiceSessionRecord,
   type ClientVoiceToolEffect,

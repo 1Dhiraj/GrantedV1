@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveGatewayHealthProbeToken } from "./onboard-non-interactive/local.test-support.js";
 
 async function withTempDir<T>(run: (dir: string) => Promise<T>): Promise<T> {

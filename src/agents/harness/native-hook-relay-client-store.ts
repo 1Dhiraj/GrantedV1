@@ -13,9 +13,9 @@ import {
 import {
   GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   GRANTED_STATE_SCHEMA_VERSION,
-} from "../../state/openclaw-state-db-contract.js";
-import type { DB as GrantedStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+} from "../../state/granted-state-db-contract.js";
+import type { DB as GrantedStateKyselyDatabase } from "../../state/granted-state-db.generated.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import {
   readNativeHookRelayBridgeRecordRow,
   type NativeHookRelayBridgeRecord,

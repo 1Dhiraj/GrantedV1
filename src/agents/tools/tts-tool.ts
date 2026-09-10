@@ -5,7 +5,7 @@
  */
 import { Type } from "typebox";
 import { getRuntimeConfig } from "../../config/config.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { textToSpeech } from "../../tts/tts.js";
 import type { AnyAgentTool } from "./common.js";
 import { readPositiveIntegerParam, readToolStringParam } from "./common.js";

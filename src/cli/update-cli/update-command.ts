@@ -49,9 +49,9 @@ import {
 } from "../../infra/update-post-core-context.js";
 import { loadInstalledPluginIndexInstallRecords } from "../../plugins/installed-plugin-index-records.js";
 import { defaultRuntime } from "../../runtime.js";
-import type { GrantedSchemaVersions } from "../../state/openclaw-schema-versions.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
-import { assertOpenClawStateWriteAllowedAtPath } from "../../state/openclaw-state-ownership.js";
+import type { GrantedSchemaVersions } from "../../state/granted-schema-versions.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
+import { assertOpenClawStateWriteAllowedAtPath } from "../../state/granted-state-ownership.js";
 import { VERSION } from "../../version.js";
 import { resolveCliName } from "../cli-name.js";
 import { createUpdateProgress } from "./progress.js";

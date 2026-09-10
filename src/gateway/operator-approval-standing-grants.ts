@@ -13,17 +13,17 @@ import {
   getNodeSqliteKysely,
 } from "../infra/kysely-sync.js";
 import { buildSystemRunApprovalEnvBinding } from "../infra/system-run-approval-binding.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   runOpenClawStateWriteTransaction,
   type GrantedStateDatabase,
   type GrantedStateDatabaseOptions,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 
 const STANDING_GRANT_TABLE = "operator_approval_standing_grants";
 
-// Mirrors the canonical declaration in openclaw-state-schema.sql; the table is
+// Mirrors the canonical declaration in granted-state-schema.sql; the table is
 // a first-use lazy additive surface (FIRST_USE_STATE_TABLES) so older readers
 // stay valid without it and no schema-version bump is required.
 const STANDING_GRANT_SCHEMA_SQL = `

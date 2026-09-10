@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 /** Policy gates for ACP availability, dispatch, and allowed agent ids. */
 import { AcpRuntimeError } from "./runtime/errors.js";

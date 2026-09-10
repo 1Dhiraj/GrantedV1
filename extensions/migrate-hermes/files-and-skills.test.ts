@@ -5,7 +5,7 @@ import { DatabaseSync } from "node:sqlite";
 import { loadAuthProfileStoreWithoutExternalProfiles } from "granted/plugin-sdk/agent-runtime";
 import { MIGRATION_REASON_TARGET_EXISTS } from "granted/plugin-sdk/migration";
 import {
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   tempWorkspace,
   type TempWorkspace,
 } from "granted/plugin-sdk/temp-path";
@@ -21,7 +21,7 @@ let testWorkspace: TempWorkspace;
 describe("Hermes migration file and skill items", () => {
   beforeEach(async () => {
     testWorkspace = await tempWorkspace({
-      rootDir: resolvePreferredOpenClawTmpDir(),
+      rootDir: resolvePreferredGrantedTmpDir(),
       prefix: "openclaw-migrate-hermes-",
     });
   });

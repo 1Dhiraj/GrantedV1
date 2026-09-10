@@ -9,7 +9,7 @@ import { beginConversationDeliveryOperation } from "../../config/sessions/conver
 import { upsertSessionEntryCore } from "../../config/sessions/session-accessor.js";
 import { drainPendingDeliveries as drainPluginPendingDeliveries } from "../../plugin-sdk/delivery-queue-runtime.js";
 import { buildConversationRef } from "../../routing/conversation-ref.js";
-import { openOpenClawStateDatabase } from "../../state/openclaw-state-db.js";
+import { openOpenClawStateDatabase } from "../../state/granted-state-db.js";
 import { normalizeSessionDeliveryState } from "../../utils/delivery-context.shared.js";
 import { PlatformMessageNotDispatchedError } from "./deliver-types.js";
 import { OUTBOUND_DELIVERY_QUEUE_NAME } from "./delivery-queue-media-staging.js";

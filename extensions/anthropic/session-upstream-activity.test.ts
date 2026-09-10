@@ -2,12 +2,12 @@ import fs from "node:fs/promises";
 import type { FileHandle } from "node:fs/promises";
 import path from "node:path";
 import type { SessionUpstreamProbe } from "granted/plugin-sdk/session-catalog";
-import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { checkClaudeUpstreamActivity, linkContinued } from "./session-upstream-activity.js";
 
 const CLAUDE_UPSTREAM_SCAN_BYTES = 1024 * 1024;
-const claudeUpstreamWorkspaceRoot = resolvePreferredOpenClawTmpDir();
+const claudeUpstreamWorkspaceRoot = resolvePreferredGrantedTmpDir();
 
 function createClaudeUpstreamWorkspace(label?: string) {
   return tempWorkspace({

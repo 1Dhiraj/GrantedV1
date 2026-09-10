@@ -16,7 +16,7 @@ import {
   resolveSessionTranscriptRuntimeTarget,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import * as workerServer from "../gateway/server/ws-connection/worker-connection.js";
 import type { GatewayWsClient } from "../gateway/server/ws-types.js";
 import type { WorkerConnectionIdentity } from "../gateway/worker-environments/connection-identity.js";
@@ -36,7 +36,7 @@ import { createWorkerTranscriptCommitStore } from "../gateway/worker-environment
 import { createWorkerTranscriptCommitter } from "../gateway/worker-environments/transcript-commit.js";
 import { onAgentRuntimeEvent } from "../infra/agent-events.js";
 import type { WorkerProvider, WorkerSshEndpoint } from "../plugins/types.js";
-import * as stateDb from "../state/openclaw-state-db.js";
+import * as stateDb from "../state/granted-state-db.js";
 import { buildWorkerConnectParams, type WorkerLaunchDescriptor } from "./launch-descriptor.js";
 import { createWorkerConnection, type WorkerConnection } from "./worker-connection.js";
 import { WorkerFaultPlacementLifecycle } from "./worker-fault-placement-lifecycle.test-support.js";

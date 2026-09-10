@@ -310,7 +310,7 @@ describe("package scripts", () => {
   });
 
   it("runs shared-state ownership coverage in Windows CI", () => {
-    expect(readWindowsCiCoverageScript()).toContain("src/state/openclaw-state-ownership.test.ts");
+    expect(readWindowsCiCoverageScript()).toContain("src/state/granted-state-ownership.test.ts");
   });
 
   it("runs mixed-case local media file URL coverage in Windows CI", () => {
@@ -350,7 +350,7 @@ describe("package scripts", () => {
   });
 
   it("runs shared test-state cleanup coverage in Windows CI", () => {
-    expect(readWindowsCiCoverageScript()).toContain("src/test-utils/openclaw-test-state.test.ts");
+    expect(readWindowsCiCoverageScript()).toContain("src/test-utils/granted-test-state.test.ts");
   });
 
   it("runs snapshot repository verification coverage in Windows CI", () => {

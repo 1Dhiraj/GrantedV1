@@ -108,7 +108,7 @@ describe("runtime postbuild static assets", () => {
     expect(payload.outputs).toEqual([
       "dist/extensions/acpx/mcp-command-line.mjs",
       "dist/extensions/acpx/mcp-proxy.mjs",
-      "dist/extensions/crabbox/assets/openclaw-worker-wallpaper.png",
+      "dist/extensions/crabbox/assets/granted-worker-wallpaper.png",
       "dist/extensions/discord/assets/embedded-app-sdk.mjs",
       "dist/extensions/onepassword/onepassword-op-path.js",
       "dist/extensions/onepassword/onepassword-secret-id.js",
@@ -121,7 +121,7 @@ describe("runtime postbuild static assets", () => {
     );
     expect(payload.sources).not.toContain("extensions/diffs/assets/viewer-runtime.js");
     expect(payload.sources).toContain("extensions/discord/assets/embedded-app-sdk.mjs");
-    expect(payload.sources).toContain("extensions/crabbox/assets/openclaw-worker-wallpaper.png");
+    expect(payload.sources).toContain("extensions/crabbox/assets/granted-worker-wallpaper.png");
   });
 
   it("discovers static assets from plugin package metadata", async () => {

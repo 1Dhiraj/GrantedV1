@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { expect, it, vi } from "vitest";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { prepareChatSendAttachments } from "./chat-send-attachments.js";
 import { normalizeChatSendRequest } from "./chat-send-request.js";
 

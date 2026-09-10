@@ -1,6 +1,6 @@
 // Approval-intent tests: closed-list fast path plus model-judged classification.
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   classifySystemAgentApprovalIntent,
   type SystemAgentApprovalIntentDeps,

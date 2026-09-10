@@ -368,7 +368,7 @@ suite.define(() => {
       await page.getByRole("combobox", { name: "Search chats and commands…" }).waitFor();
 
       await expect.poll(failure.chunkRequestCount).toBe(2);
-      expect(await page.locator("openclaw-command-palette").count()).toBe(1);
+      expect(await page.locator("granted-command-palette").count()).toBe(1);
       if (captureUiProof) {
         await page.screenshot({
           animations: "disabled",

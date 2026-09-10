@@ -9,7 +9,7 @@ import {
   isColdPluginRuntimeLoaded,
 } from "../plugins/test-helpers/cold-plugin-fixtures.js";
 import { cleanupTrackedTempDirs, makeTrackedTempDir } from "../plugins/test-helpers/fs-fixtures.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { buildAuthChoiceGroups, formatAuthChoiceChoicesForCli } from "./auth-choice-options.js";
 import { listManifestInstalledChannelIds } from "./channel-setup/discovery.js";
 
@@ -21,7 +21,7 @@ vi.mock("../agents/sandbox/docker.js", () => ({
 }));
 
 function makeTempDir() {
-  return makeTrackedTempDir("openclaw-command-cold-imports", tempDirs);
+  return makeTrackedTempDir("granted-command-cold-imports", tempDirs);
 }
 
 afterEach(() => {

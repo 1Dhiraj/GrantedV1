@@ -1,5 +1,5 @@
 /** Pure configured-model selection helpers safe for config validation. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "./defaults.js";
 import type { ModelManifestNormalizationContext, ModelRef } from "./model-ref-shared.js";

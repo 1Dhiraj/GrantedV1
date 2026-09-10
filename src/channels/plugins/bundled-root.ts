@@ -5,7 +5,7 @@
  */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveOpenClawPackageRootSync } from "../../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootSync } from "../../infra/granted-root.js";
 import { resolveBundledPluginsDir } from "../../plugins/bundled-dir.js";
 
 const GRANTED_PACKAGE_ROOT =

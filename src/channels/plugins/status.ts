@@ -4,7 +4,7 @@
  * Combines plugin status hooks, account inspection, and safe account field projection.
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { inspectChannelAccount } from "../account-inspection.js";
 import {
   projectSafeChannelAccountSnapshotFields,

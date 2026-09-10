@@ -1,7 +1,7 @@
 /**
  * Lazy public SDK facade for active memory search manager lifecycle operations.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { MemorySearchManager } from "../memory-host-sdk/host/types.js";
 
 type ActiveMemorySearchPurpose = "default" | "status";

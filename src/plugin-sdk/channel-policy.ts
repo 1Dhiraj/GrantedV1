@@ -14,7 +14,7 @@ import type { ChannelSecurityAdapter } from "../channels/plugins/types.adapters.
 import type { ChannelSecurityDmPolicy } from "../channels/plugins/types.core.js";
 import { collectProviderDangerousNameMatchingScopes } from "../config/dangerous-name-matching.js";
 import type { GroupPolicy } from "../config/types.base.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createScopedDmSecurityResolver } from "./channel-config-helpers.js";
 /** Shared policy warnings and DM/group policy helpers for channel plugins. */
 export type {

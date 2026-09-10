@@ -1,7 +1,7 @@
 // Checks install policy constraints for package and plugin operations.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig, SecurityConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig, SecurityConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { normalizePositiveInt, normalizePositiveTimerMs } from "../secrets/shared.js";

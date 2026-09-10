@@ -1,10 +1,10 @@
 // Durable local onboarding ownership; inference configuration alone does not prove setup finished.
 import path from "node:path";
 import { isRecord } from "@granted/normalization-core/record-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { sha256Hex } from "../infra/crypto-digest.js";
 import { readConfigMachineState, updateConfigMachineState } from "./config-machine-state.js";
-import type { GrantedStateDatabaseOptions } from "./openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "./granted-state-db.js";
 
 export type LocalOnboardingState = {
   version: 1;

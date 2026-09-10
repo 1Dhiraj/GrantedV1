@@ -8,14 +8,14 @@ import { afterAll, describe, expect, it } from "vitest";
 import { createOpenClawTestInstance } from "../../test/helpers/openclaw-test-instance.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveGatewayLockDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { loadCronJobsStoreWithConfigJobsReadOnly, loadCronQuarantinedJobs } from "../cron/store.js";
 import { hasActiveStartupMigrationLease } from "../infra/startup-migration-checkpoint.js";
 import { getFileLockProcessStartTime } from "../shared/pid-alive.js";
 import {
   ensureOpenClawAgentDatabaseSchema,
   GRANTED_AGENT_SCHEMA_VERSION,
-} from "../state/openclaw-agent-db.js";
+} from "../state/granted-agent-db.js";
 import {
   createBuiltRuntime,
   createSourceRuntime,
@@ -478,7 +478,7 @@ describe("gateway startup-migration refusal", () => {
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, JSON.stringify(stableConfig));
     const preflightUrl = new URL("./doctor-config-preflight.ts", import.meta.url).href;
-    const stateDatabaseUrl = new URL("../state/openclaw-state-db.ts", import.meta.url).href;
+    const stateDatabaseUrl = new URL("../state/granted-state-db.ts", import.meta.url).href;
     const script = `
       const fs = await import("node:fs");
       const path = await import("node:path");

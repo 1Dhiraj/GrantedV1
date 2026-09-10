@@ -1,7 +1,7 @@
 // The spend guard must block the call itself, and must fail over per provider
 // rather than ending the whole fallback chain.
 import { describe, expect, it, vi } from "vitest";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resetSpendLimitReadingsForTests } from "../infra/spend-limit.js";
 import type { StreamFn } from "./runtime/index.js";
 import { wrapStreamFnSpendLimit } from "./spend-limit-stream.js";

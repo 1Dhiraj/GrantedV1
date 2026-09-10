@@ -12,7 +12,7 @@ import {
   replaceSessionEntry,
   replaceSessionEntrySync,
 } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createEmptyPluginRegistry } from "../../plugins/registry-empty.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { RealtimeVoiceProviderPlugin } from "../../plugins/types.js";
@@ -29,7 +29,7 @@ import type {
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { registerChatAbortController } from "../chat-abort.js";
 import { handleGatewayRequest } from "../server-methods.js";
 import { resolveSessionMutationAuthorization } from "../session-sharing.js";

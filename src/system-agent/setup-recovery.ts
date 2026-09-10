@@ -1,7 +1,7 @@
 // Machine-local onboarding recovery owns receipt identity and completion validation.
 import { resolveSystemAgentOnboardingTarget } from "../commands/onboard-agent-target.js";
 import { readConfigFileSnapshot, withConfigMutationExclusive } from "../config/config.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   completeLocalOnboarding,
   readLocalOnboardingStateForConfig,

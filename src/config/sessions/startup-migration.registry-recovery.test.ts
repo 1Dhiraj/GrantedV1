@@ -3,18 +3,18 @@ import path from "node:path";
 import { afterEach, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import * as sessionDirs from "../../agents/session-dirs.js";
-import { invalidateRegisteredAgentDatabasesMemo } from "../../state/openclaw-agent-db-registry-listing.js";
-import { unregisterOpenClawAgentDatabase } from "../../state/openclaw-agent-db-registry.js";
+import { invalidateRegisteredAgentDatabasesMemo } from "../../state/granted-agent-db-registry-listing.js";
+import { unregisterOpenClawAgentDatabase } from "../../state/granted-agent-db-registry.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawRegisteredAgentDatabases,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import {
   closeOpenClawStateDatabaseForTest,
   repairOpenClawStateDatabaseSchemaIfNeeded,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import { withEnvAsync } from "../../test-utils/env.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+import type { GrantedConfig } from "../types.granted.js";
 import { loadCombinedSessionStoreForGatewayCore } from "./combined-store-gateway.js";
 import { replaceSessionEntry } from "./session-accessor.js";
 import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target.js";

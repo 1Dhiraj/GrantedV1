@@ -17,7 +17,7 @@ import {
   createRemoteShellSandboxFsBridge,
   disposeSshSandboxSession,
   prepareSshSandboxExec,
-  resolvePreferredOpenClawTmpDir,
+  resolvePreferredGrantedTmpDir,
   runSshSandboxCommand,
   sanitizeEnvVars,
   shellEscape,
@@ -1374,7 +1374,7 @@ async function restoreLocalShadow(params: {
 }
 
 function resolveOpenShellTmpRoot(): string {
-  return path.resolve(resolvePreferredOpenClawTmpDir());
+  return path.resolve(resolvePreferredGrantedTmpDir());
 }
 
 function normalizeRemotePath(remotePath: string): string {

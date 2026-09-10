@@ -10,11 +10,11 @@ import {
 import { loadAgentRuntimePluginRegistryHandle } from "../../agents/runtime-plugins.js";
 import { sanitizeToolUseResultPairingForModel } from "../../agents/session-transcript-repair.js";
 import { withServer } from "../../plugin-sdk/test-helpers/http-test-server.js";
-import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";
+import { openOpenClawAgentDatabase } from "../../state/granted-agent-db.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { createTrackedTempDirs } from "../../test-utils/tracked-temp-dirs.js";
 import { readSkillReviewOutcomes } from "./collection-review-state.js";
 import { assertExperienceReviewDecision } from "./experience-review-decision.test-support.js";

@@ -12,7 +12,7 @@ import {
   throwIfDurableInboundReplyDeliveryFailed,
   type DurableInboundReplyDeliveryOptions,
 } from "../channels/turn/durable-delivery.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   normalizeOutboundReplyPayloadCore,
   type OutboundReplyPayload,

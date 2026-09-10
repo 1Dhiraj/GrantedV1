@@ -1,7 +1,7 @@
 // Gateway/device Ed25519 identity API backed by canonical shared SQLite state.
 import crypto from "node:crypto";
 import path from "node:path";
-import { resolveOpenClawStateDirForDatabasePath } from "../state/openclaw-state-db.paths.js";
+import { resolveOpenClawStateDirForDatabasePath } from "../state/granted-state-db.paths.js";
 import { acquireDeviceIdentityCoordinator } from "./device-identity-coordinator.js";
 import {
   generateStoredDeviceIdentity,

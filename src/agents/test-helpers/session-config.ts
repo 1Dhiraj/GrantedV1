@@ -3,7 +3,7 @@
  *
  * Shared builders for agent/session tests that need configured session scope.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Builds a per-sender session config with optional targeted overrides. */
 export function createPerSenderSessionConfig(

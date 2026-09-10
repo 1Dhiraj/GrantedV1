@@ -56,7 +56,7 @@ vi.mock("../plugins/config-state.js", async (importOriginal) => {
   };
 });
 
-vi.mock("../agents/openclaw-tools.js", () => {
+vi.mock("../agents/granted-tools.js", () => {
   const tools = [
     {
       name: "automations",

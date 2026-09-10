@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createMediaProviderRegistry } from "../media-generation/provider-registry.js";
 import { normalizeCapabilityProviderId } from "../plugins/provider-registry-shared.js";
 import type { RealtimeTranscriptionProviderId } from "./provider-types.js";

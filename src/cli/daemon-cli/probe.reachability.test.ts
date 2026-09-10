@@ -10,7 +10,7 @@ import {
   sendMinimalGatewayResponse,
   startMinimalRealGateway,
 } from "../../gateway/minimal-gateway.test-helpers.js";
-import { createOpenClawTestState } from "../../test-utils/openclaw-test-state.js";
+import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
 import { probeGatewayStatus } from "./probe.js";
 import type { DaemonStatus } from "./status.gather.js";
 

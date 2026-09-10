@@ -1,6 +1,6 @@
 import path from "node:path";
 import { NODE_SERVICE_KIND, resolveNodeLaunchAgentLabel } from "../daemon/constants.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 
 const POSIX_WORKER_ENV_KEYS = new Set([
   "PATH",
@@ -59,7 +59,7 @@ export function snapshotNodeWorkerEnv(source: NodeJS.ProcessEnv): NodeJS.Process
   if (!workerCacheDisabled) {
     const requestedCache = hostCacheFenced ? undefined : source.NODE_COMPILE_CACHE?.trim();
     snapshot.NODE_COMPILE_CACHE =
-      requestedCache || path.join(resolvePreferredOpenClawTmpDir(), "node-worker-compile-cache");
+      requestedCache || path.join(resolvePreferredGrantedTmpDir(), "node-worker-compile-cache");
   } else {
     snapshot.NODE_DISABLE_COMPILE_CACHE = "1";
   }

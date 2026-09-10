@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import { assignSessionOwner, upsertSessionEntryCore } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
-import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
+import type { GrantedConfig } from "../config/types.granted.js";
+import { openOpenClawStateDatabase } from "../state/granted-state-db.js";
 import { ensureProfileForEmail, linkEmail } from "../state/user-profiles.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import type { GatewayClient, GatewayRequestContext } from "./server-methods/types.js";
 import { isSessionCreatorProfile } from "./session-creator.js";
 import {

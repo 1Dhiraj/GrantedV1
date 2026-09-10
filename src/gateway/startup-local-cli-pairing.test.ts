@@ -6,7 +6,7 @@ import {
 } from "../infra/device-identity.js";
 import { approveDevicePairing } from "../infra/device-pairing-approval.js";
 import { getPairedDevice, requestDevicePairing } from "../infra/device-pairing.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 import { withStateDirEnv } from "../test-helpers/state-dir-env.js";
 import { READ_SCOPE } from "./operator-scopes.js";
 import { ensureStartupLocalCliPairing } from "./startup-local-cli-pairing.js";

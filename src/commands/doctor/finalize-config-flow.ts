@@ -1,5 +1,5 @@
 // Final doctor config-write decision after preview/repair mode has collected mutations.
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 
 /** Decide whether doctor should write the repaired candidate config or only print hints. */
 export async function finalizeDoctorConfigFlow(params: {

@@ -3,7 +3,7 @@
  */
 import { listModelRefsFromConfigValue } from "@granted/model-catalog-core/configured-model-refs";
 import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 import {
   GRANTED_AGENT_RUNTIME_ID,

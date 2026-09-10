@@ -14,7 +14,7 @@ import {
   resolveToolProfilePolicy,
 } from "../../../agents/tool-policy.js";
 import type { AgentModelConfig } from "../../../config/types.agents-shared.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { normalizePluginId } from "../../../plugins/config-state.js";
 import { loadManifestMetadataSnapshot } from "../../../plugins/manifest-contract-eligibility.js";
 import type { PluginManifestRegistry } from "../../../plugins/manifest-registry.js";

@@ -5,7 +5,7 @@ import {
 } from "granted/plugin-sdk/inbound-envelope";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { formatAgentEnvelope, resolveEnvelopeFormatOptions } from "../../auto-reply/envelope.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   createChannelInboundEnvelopeBuilder,
   resolveChannelInboundRouteEnvelope,

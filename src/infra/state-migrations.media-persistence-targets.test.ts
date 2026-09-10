@@ -7,18 +7,18 @@ import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/sess
 import {
   registerOpenClawAgentDatabase,
   unregisterOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db-registry.js";
+} from "../state/granted-agent-db-registry.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawRegisteredAgentDatabases,
   GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
-} from "../state/openclaw-agent-db.js";
-import { assertOpenClawDatabasesReady } from "../state/openclaw-database-preflight.js";
+} from "../state/granted-agent-db.js";
+import { assertOpenClawDatabasesReady } from "../state/granted-database-preflight.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { requireNodeSqlite } from "./node-sqlite.js";
 import { migrateLegacyMediaPersistence } from "./state-migrations.media-persistence.js";
 

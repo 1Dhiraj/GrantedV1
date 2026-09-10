@@ -7,7 +7,7 @@ import {
   resolveLegacyStateDirs,
   resolveStateDir,
 } from "../../../config/paths.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { resolveEffectiveHomeDir } from "../../../infra/home-dir.js";
 import { tryReadJsonSync } from "../../../infra/json-files.js";
 import {

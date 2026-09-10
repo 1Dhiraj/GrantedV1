@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { isRecord as isJsonObject } from "@granted/normalization-core/record-coerce";
 import { listAgentIds, resolveAgentDir } from "../agents/agent-scope.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveUserPath } from "../utils.js";
 import { parseEnvValue } from "./shared.js";

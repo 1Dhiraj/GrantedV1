@@ -1,6 +1,6 @@
 // Decides whether a rate-limited run may switch models, or should wait on the
 // one it has.
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 
 /**
  * Whether a 429 on this provider is allowed to escalate to the model fallback

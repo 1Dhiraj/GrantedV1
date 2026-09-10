@@ -6,7 +6,7 @@ import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { toStringifiedError } from "granted/plugin-sdk/error-runtime";
 import { buildQaTarget } from "granted/plugin-sdk/qa-channel-protocol";
 import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   acquireQaCredentialLease,
   startQaCredentialLeaseHeartbeat,
@@ -47,7 +47,7 @@ export async function createWhatsAppQaTransportAdapter(
   let sutAuthDir: string;
   try {
     authRoot = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "openclaw-whatsapp-qa-adapter-"),
+      path.join(resolvePreferredGrantedTmpDir(), "openclaw-whatsapp-qa-adapter-"),
     );
     // Unpack sequentially so rollback cannot remove authRoot while another unpack is writing.
     driverAuthDir = await unpackWhatsAppAuthArchive({

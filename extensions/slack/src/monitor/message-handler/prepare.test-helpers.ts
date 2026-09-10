@@ -7,7 +7,7 @@ import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbo
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir } from "granted/plugin-sdk/temp-path";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import type { SlackChannelConfigEntries } from "../channel-config.js";
 import { createSlackMonitorContext } from "../context.js";
@@ -96,7 +96,7 @@ export function createSlackSessionStoreFixture(prefix: string) {
 
   return {
     setup() {
-      fixtureRoot = fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), prefix));
+      fixtureRoot = fs.mkdtempSync(path.join(resolvePreferredGrantedTmpDir(), prefix));
     },
     cleanup() {
       if (!fixtureRoot) {

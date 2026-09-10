@@ -1,5 +1,5 @@
 /** Env/config-backed credential discovery shared by agent auth discovery modes. */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { AgentCredentialMap } from "./agent-auth-credentials.js";
 import {
   listProviderEnvAuthLookupKeys,

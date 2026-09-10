@@ -5,7 +5,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import { resolveUnsuffixedSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import { isPathInside } from "../infra/path-guards.js";
-import { withOpenClawTestState, type GrantedTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState, type GrantedTestState } from "../test-utils/granted-test-state.js";
 import { withFastReplyConfig } from "./reply/get-reply-fast-path.test-support.js";
 import { loadGetReplyModuleForTest } from "./reply/get-reply.test-loader.js";
 import { createMockTypingController } from "./reply/reply.test-helpers.js";

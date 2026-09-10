@@ -1,5 +1,5 @@
 import type { SecretRef } from "../config/types.secrets.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
 import { providerResolutionError, refResolutionError } from "./resolve-errors.js";
 import { readSecretStoreValue, SECRET_STORE_VALUE_MAX_BYTES } from "./store/secret-store.js";
 

@@ -1,7 +1,7 @@
 // Focused QA evidence for official Codex plugin drift through doctor diagnostics.
 import { describe, expect, it, vi } from "vitest";
 import * as noteModule from "../../packages/terminal-core/src/note.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { detectPluginVersionDrift } from "../plugins/plugin-version-drift.js";
 import {
   collectWorkspaceStatusHealthFindings,

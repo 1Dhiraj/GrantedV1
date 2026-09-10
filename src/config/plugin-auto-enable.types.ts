@@ -1,5 +1,5 @@
 // Defines plugin auto-enable decision and candidate types.
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Reasons a configured surface can cause a plugin to be auto-enabled. */
 export type PluginAutoEnableCandidate =

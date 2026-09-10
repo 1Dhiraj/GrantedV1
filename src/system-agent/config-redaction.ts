@@ -21,7 +21,7 @@ import {
 } from "../config/schema.js";
 import { findWildcardHintMatch } from "../config/schema.shared.js";
 import { isSensitiveConfigPath } from "../config/sensitive-paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { ChannelsSchema } from "../config/zod-schema.channels-config.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";

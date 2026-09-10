@@ -5,7 +5,7 @@ import {
 } from "@granted/normalization-core/string-coerce";
 import { normalizeChatType } from "../channels/chat-type.js";
 import type { SessionChatType, SessionEntry } from "../config/sessions.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { sessionDeliveryChannel } from "../utils/delivery-context.shared.js";
 import {
   hasAmbiguousCanonicalSessionPeerShape,

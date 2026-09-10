@@ -13,8 +13,8 @@ vi.mock("../logging/subsystem.js", () => ({
   createSubsystemLogger: () => ({ warn: mockWarn }),
 }));
 
-vi.mock("../state/openclaw-state-db.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../state/openclaw-state-db.js")>();
+vi.mock("../state/granted-state-db.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../state/granted-state-db.js")>();
   return {
     ...actual,
     openOpenClawStateDatabase: (...args: Parameters<typeof actual.openOpenClawStateDatabase>) => {
@@ -35,11 +35,11 @@ vi.mock("../version.js", async (importOriginal) => {
   return { ...actual, resolveRuntimeServiceCommit: () => "aaaaaaa" };
 });
 
-import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
+import type { DB as GrantedStateKyselyDatabase } from "../state/granted-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {

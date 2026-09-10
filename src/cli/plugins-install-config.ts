@@ -1,6 +1,6 @@
 // Owns config snapshots, include boundaries, and recovery for plugin installation.
 import { readConfigFileSnapshotForWrite } from "../config/config.js";
-import type { ConfigValidationIssue, GrantedConfig } from "../config/types.openclaw.js";
+import type { ConfigValidationIssue, GrantedConfig } from "../config/types.granted.js";
 import {
   resolveInstallConfigMutationPreflights,
   selectInstallMutationWriteOptions,

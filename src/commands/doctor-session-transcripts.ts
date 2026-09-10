@@ -13,7 +13,7 @@ import {
   selectActiveTranscriptEntries,
   type TranscriptEntry,
 } from "../config/sessions/legacy-transcript-repair.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding, HealthRepairEffect } from "../flows/health-checks.js";
 import { replaceFileAtomic } from "../infra/replace-file.js";
 import { runPostSessionPluginDoctorStateRepairs } from "../infra/state-migrations.plugin-doctor.js";

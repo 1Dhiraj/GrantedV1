@@ -9,11 +9,11 @@ import {
   insertOperatorApproval,
   resolveOperatorApproval,
 } from "../gateway/operator-approval-store.js";
-import { tableExists, tableHasColumn } from "../state/openclaw-state-db-schema-helpers.js";
+import { tableExists, tableHasColumn } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import {
   createWebPushVapidKeyPair,

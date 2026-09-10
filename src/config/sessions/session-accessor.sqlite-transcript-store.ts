@@ -12,7 +12,7 @@ import { canonicalizePersistedUserMessageMedia } from "../../media/media-facts.j
 import {
   deferOpenClawAgentPostCommitPublication,
   type GrantedAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import type {
   TranscriptEvent,
   TranscriptMessageAppendOptions,

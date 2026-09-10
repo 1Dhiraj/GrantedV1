@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isManagedGitHubProfileId } from "../config/github-identity-profile-id.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import { listAgentIds, resolveAgentConfig } from "./agent-scope.js";
 import { listGitHubOAuthRecords } from "./github-oauth-records.js";

@@ -1,6 +1,6 @@
 // Official plugin setup helpers install and configure bundled onboarding plugins.
 import { ensureOnboardingPluginInstalled } from "../commands/onboarding-plugin-install.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { PluginPackageInstall } from "../plugins/manifest.js";
 import {
   getOfficialExternalPluginCatalogManifest,

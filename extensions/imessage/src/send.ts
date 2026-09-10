@@ -30,7 +30,7 @@ import {
   asOptionalRecord,
   normalizeOptionalString as stringValue,
 } from "granted/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { resolvePreferredGrantedTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   convertMarkdownTables,
   stripInlineDirectiveTagsForDelivery,
@@ -477,7 +477,7 @@ async function withOriginalIMessageAttachmentPath<T>(
   // The bridge exposes this basename and copies its bytes before returning;
   // keep the UUID-backed media-store file intact while its private alias is live.
   return await withTempWorkspace(
-    { rootDir: resolvePreferredOpenClawTmpDir(), prefix: "openclaw-imessage-outbound-" },
+    { rootDir: resolvePreferredGrantedTmpDir(), prefix: "openclaw-imessage-outbound-" },
     async (workspace) => await send(await workspace.copyIn(filename, filePath)),
   );
 }

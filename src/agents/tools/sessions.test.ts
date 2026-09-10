@@ -14,7 +14,7 @@ import {
   getOwnedSessionTranscriptWriterFence,
   withOwnedSessionTranscriptWrites,
 } from "../../config/sessions/transcript-write-context.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { GatewayClientRequestError } from "../../gateway/client.js";
 import { withTestDir } from "../../test-helpers/temp-dir.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -1989,7 +1989,7 @@ describe("sessions_send agent-main materialization provenance", () => {
       }
       return {};
     });
-    // Mirror production assembly (openclaw-tools.ts): no callGateway override, so
+    // Mirror production assembly (granted-tools.ts): no callGateway override, so
     // ensureConfiguredAgentMainSession takes the trusted in-process branch.
     const tool = createSessionsSendTool({
       agentSessionKey: "agent:main:dashboard:req-provenance",

@@ -6,8 +6,8 @@ import { describe, expect, it } from "vitest";
 import {
   registerOpenClawAgentDatabase,
   unregisterOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db-registry.js";
-import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
+} from "../../state/granted-agent-db-registry.js";
+import { resolveOpenClawStateSqlitePath } from "../../state/granted-state-db.paths.js";
 import type { GrantedConfig } from "../config.js";
 import { resolveSessionStorePathCore } from "./paths.js";
 import { listSessionEntriesReadOnly, replaceSessionEntry } from "./session-accessor.js";

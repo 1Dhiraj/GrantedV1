@@ -15,14 +15,14 @@ import {
 } from "../config/sessions/session-accessor.sqlite-read.js";
 import { sessionMatchesExpectedTranscriptTurn } from "../config/sessions/session-transcript-turn-state.js";
 import { getOwnedSessionTranscriptWriterFence } from "../config/sessions/transcript-write-context.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { getAgentScopedMediaLocalRootsForSources } from "../media/local-roots.js";
 import {
   readAssistantDisplayContent,
   retainAssistantModelContent,
 } from "../shared/assistant-display-content.js";
 import { createKeyedFifoLeaseRegistry } from "../shared/keyed-fifo-lease.js";
-import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-openclaw-assistant.js";
+import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-granted-assistant.js";
 import {
   attachManagedOutgoingMediaToMessage,
   createManagedOutgoingMediaBlocks,

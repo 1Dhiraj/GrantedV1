@@ -7,7 +7,7 @@ import {
   errorShape,
   missingScopeErrorShape,
 } from "../../../packages/gateway-protocol/src/index.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { assertAgentRunLifecycleGenerationCurrent } from "../../infra/agent-events.js";
 import { assertPreparedSkillLibrarySelection } from "../../skills/library/selection.js";
 import { AGENT_SESSION_RESET_COMMAND_RE } from "../agent-command-policy.js";

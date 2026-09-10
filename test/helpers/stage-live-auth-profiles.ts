@@ -14,7 +14,7 @@ import {
   withAuthProfileStoreAgentDir,
 } from "../../src/agents/auth-profiles/store.js";
 import { DEFAULT_AGENT_ID } from "../../src/routing/session-key.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../src/state/openclaw-agent-db-readonly.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../src/state/granted-agent-db-readonly.js";
 
 export function stageLiveAuthProfiles(realStateDir: string, tempStateDir: string): void {
   const agentsDir = path.join(realStateDir, "agents");

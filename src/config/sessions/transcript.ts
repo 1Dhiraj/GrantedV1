@@ -21,8 +21,8 @@ import {
   GRANTED_TRANSCRIPT_ARTIFACT_API,
   GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
   isTranscriptOnlyOpenClawAssistantMessage,
-} from "../../shared/transcript-only-openclaw-assistant.js";
-import type { GrantedConfig } from "../types.openclaw.js";
+} from "../../shared/transcript-only-granted-assistant.js";
+import type { GrantedConfig } from "../types.granted.js";
 import {
   parseSqliteSessionFileMarker,
   type SqliteSessionFileMarker,

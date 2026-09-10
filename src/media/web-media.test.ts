@@ -10,7 +10,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest
 import { createSolidPngBuffer } from "../../test/helpers/image-fixtures.js";
 import { parseReplyDirectives } from "../auto-reply/reply/reply-directives.js";
 import { resolveStateDir } from "../config/paths.js";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../plugins/runtime.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -44,7 +44,7 @@ beforeAll(async () => {
     optimizeImageToJpeg,
     resolveImageCompressionGrid,
   } = await import("./web-media.js"));
-  fixtureRoot = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "web-media-core-"));
+  fixtureRoot = await fs.mkdtemp(path.join(resolvePreferredGrantedTmpDir(), "web-media-core-"));
   tinyPngFile = path.join(fixtureRoot, "tiny.png");
   await fs.writeFile(tinyPngFile, Buffer.from(TINY_PNG_BASE64, "base64"));
   workspaceDir = path.join(fixtureRoot, "workspace");
@@ -936,7 +936,7 @@ describe("loadWebMedia", () => {
 
   it("requires a marker when outbound staging is nested under the trusted temp root", async () => {
     const stateRoot = await fs.mkdtemp(
-      path.join(resolvePreferredOpenClawTmpDir(), "web-media-overlap-state-"),
+      path.join(resolvePreferredGrantedTmpDir(), "web-media-overlap-state-"),
     );
     try {
       await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
@@ -948,7 +948,7 @@ describe("loadWebMedia", () => {
           1024 * 1024,
           "report.html",
         );
-        expect(path.resolve(saved.path)).toContain(path.resolve(resolvePreferredOpenClawTmpDir()));
+        expect(path.resolve(saved.path)).toContain(path.resolve(resolvePreferredGrantedTmpDir()));
         await expectLoadWebMediaErrorCode(
           loadWebMedia(saved.path, {
             maxBytes: 1024 * 1024,
@@ -1044,7 +1044,7 @@ describe("loadWebMedia", () => {
         const { executeSqliteQuerySync, executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } =
           await import("../infra/kysely-sync.js");
         const { openOpenClawStateDatabase, runOpenClawStateWriteTransaction } =
-          await import("../state/openclaw-state-db.js");
+          await import("../state/granted-state-db.js");
         const { pruneStaleTrustedGeneratedHtmlMarkers } = await import("./web-media.js");
         type ProvenanceDb = {
           outbound_media_provenance: {
@@ -1158,7 +1158,7 @@ describe("loadWebMedia", () => {
 
   it("rejects trusted host-read HTML hardlinks to files outside OpenClaw temp root", async () => {
     const outsideRoot = await fs.mkdtemp(
-      path.join(path.dirname(resolvePreferredOpenClawTmpDir()), "web-media-host-html-"),
+      path.join(path.dirname(resolvePreferredGrantedTmpDir()), "web-media-host-html-"),
     );
     const outsideHtml = path.join(outsideRoot, "report.html");
     const htmlLink = path.join(fixtureRoot, "hardlinked-report.html");

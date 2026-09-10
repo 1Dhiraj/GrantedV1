@@ -3,7 +3,7 @@
  *
  * Builds status and text-input helpers for channel setup flows that need local binaries.
  */
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { detectBinary as defaultDetectBinary } from "../../infra/detect-binary.js";
 import type {
   ChannelSetupWizard,

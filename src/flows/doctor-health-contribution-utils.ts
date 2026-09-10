@@ -1,6 +1,6 @@
 import { resolveAgentWorkspaceDir, tryResolveSoleAgentId } from "../agents/agent-scope.js";
 import { isLegacyParentWritableUpdateDoctorPass } from "../commands/doctor/shared/update-phase.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { DoctorHealthFlowContext } from "./doctor-health-contribution-types.js";
 
 export function isUpdateDoctorRun(

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { applyWizardMetadata } from "./onboard-helpers.js";
 
 describe("applyWizardMetadata", () => {

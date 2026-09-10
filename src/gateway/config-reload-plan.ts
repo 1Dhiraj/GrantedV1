@@ -5,7 +5,7 @@ import {
   type ChannelPlugin,
   listChannelPlugins,
 } from "../channels/plugins/index.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   getActivePluginHttpRouteRegistry,
   getActivePluginHttpRouteRegistryVersion,

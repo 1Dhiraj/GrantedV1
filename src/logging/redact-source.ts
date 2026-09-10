@@ -1,5 +1,5 @@
 import { parseExpressionAt, tokenizer, tokTypes, type TokenType } from "acorn";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { redactInputTextWithSourcePolicy, redactToolPayloadTextWithConfig } from "./redact.js";
 
 // This bounds syntax work, not accepted tool input. Oversized or unlexable source

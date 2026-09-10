@@ -5,7 +5,7 @@
  */
 import { estimateBase64DecodedBytes } from "@granted/media-core/base64";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { AssistantMessage } from "../../llm/types.js";
 import { extractEmbeddedAssistantText } from "../embedded-agent-utils.js";
 import { isMinimaxVlmProvider } from "../minimax-vlm.js";

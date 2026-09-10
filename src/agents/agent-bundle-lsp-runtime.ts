@@ -1,7 +1,7 @@
 /** Session-scoped embedded LSP runtime and tool materialization for agent bundles. */
 import type { ChildProcess } from "node:child_process";
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createAbortError } from "../infra/abort-signal.js";
 import { logDebug, logWarn } from "../logger.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";

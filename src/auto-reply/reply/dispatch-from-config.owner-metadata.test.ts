@@ -2,11 +2,11 @@ import { afterEach, expect, it, vi } from "vitest";
 import { buildAcpDatabaseSessionKey } from "../../acp/runtime/session-meta-keys.js";
 import * as sessionMeta from "../../acp/runtime/session-meta.js";
 import { replaceSessionEntrySync } from "../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../../test-utils/openclaw-test-state.js";
+} from "../../test-utils/granted-test-state.js";
 import { gatherDispatchRequest } from "./dispatch-from-config.gather.js";
 import { prepareDispatchDelivery } from "./dispatch-from-config.prepare-delivery.js";
 import * as runtimeLoaders from "./dispatch-from-config.runtime-loaders.js";

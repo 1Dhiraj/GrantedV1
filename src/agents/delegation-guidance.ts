@@ -1,6 +1,6 @@
 import { resolveCanonicalMainSessionKey } from "../config/sessions/main-session-key.js";
 import type { SubagentDelegationMode } from "../config/types.agent-defaults.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { parseCronRunScopeSuffix } from "../sessions/session-key-utils.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 

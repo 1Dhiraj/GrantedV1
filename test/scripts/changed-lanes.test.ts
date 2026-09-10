@@ -2207,13 +2207,13 @@ describe("scripts/changed-lanes", () => {
       name: "runs SQLite sessions/transcripts schema baseline checks for baseline owner surfaces",
       predicate: shouldRunSqliteSessionSchemaBaselineCheck,
       predicatePaths: [
-        "src/state/openclaw-agent-schema.sql",
+        "src/state/granted-agent-schema.sql",
         "scripts/generate-sqlite-session-schema-baseline.ts",
         "scripts/lib/sqlite-session-schema-baseline.ts",
         "test/scripts/sqlite-session-schema-baseline.test.ts",
         "docs/.generated/sqlite-session-transcript-schema-baseline.sha256",
       ],
-      changedPath: "src/state/openclaw-agent-schema.sql",
+      changedPath: "src/state/granted-agent-schema.sql",
       expected: {
         exact: [
           {
@@ -2560,7 +2560,7 @@ describe("scripts/changed-lanes", () => {
   it("runs the native state schema guard for either contract owner", () => {
     for (const changedPath of [
       "apps/shared/OpenClawKit/Sources/OpenClawNativeState/OpenClawNativeStateSQLite.swift",
-      "src/state/openclaw-state-db-contract.ts",
+      "src/state/granted-state-db-contract.ts",
     ]) {
       const plan = createChangedCheckPlan(detectChangedLanes([changedPath]), {
         env: { PATH: "/usr/bin" },

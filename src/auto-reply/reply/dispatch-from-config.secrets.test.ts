@@ -5,7 +5,7 @@ import { createSubscribedSessionHarness } from "../../agents/embedded-agent-subs
 import { claimPendingAgentQuestionAnswer } from "../../agents/harness/gateway-question.js";
 import { resetPendingAskUserQuestionsForTest } from "../../agents/tools/ask-user-tool.test-support.js";
 import { createSecretsTool } from "../../agents/tools/secrets-tool.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import type { ReplyPayload } from "../types.js";
 import { askUserMocks, hookMocks, mocks } from "./dispatch-from-config.shared.test-harness.js";
 import {

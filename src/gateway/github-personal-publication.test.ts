@@ -8,15 +8,15 @@ import {
   resetSessionEntryLifecycle,
   upsertSessionEntryCore,
 } from "../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { createDeferredCore } from "../shared/deferred.js";
-import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
-import { ensurePersonalGitHubPublicationSchema } from "../state/openclaw-state-db-schema-additive.js";
-import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/granted-agent-db.js";
+import { ensurePersonalGitHubPublicationSchema } from "../state/granted-state-db-schema-additive.js";
+import { tableExists } from "../state/granted-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../state/openclaw-state-db.js";
+} from "../state/granted-state-db.js";
 import {
   disconnectUserGitHubConnection,
   readUserGitHubConnection,

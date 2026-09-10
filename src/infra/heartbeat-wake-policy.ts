@@ -1,6 +1,6 @@
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { listAgentIds } from "../agents/agent-scope.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import type { HeartbeatWakeIntent, HeartbeatWakeSource } from "./heartbeat-wake.js";
 

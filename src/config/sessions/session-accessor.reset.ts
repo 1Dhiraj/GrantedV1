@@ -5,7 +5,7 @@ import {
   parseAgentSessionKey,
 } from "../../routing/session-key.js";
 import { createLazyRuntimeModule } from "../../shared/lazy-runtime.js";
-import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
+import { withOpenClawAgentDatabaseReadOnly } from "../../state/granted-agent-db-readonly.js";
 import type { ConversationRouteContext } from "./conversation-route-context.js";
 import {
   cloneSessionEntries,

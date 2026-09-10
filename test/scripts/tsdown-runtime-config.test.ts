@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
-import { GRANTED_AGENT_SCHEMA_SQL } from "../../src/state/openclaw-agent-schema.js";
-import { GRANTED_STATE_SCHEMA_SQL } from "../../src/state/openclaw-state-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../../src/state/granted-agent-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../src/state/granted-state-schema.js";
 import tsdownConfig, {
   createStateSchemaInlinePlugin,
   STATE_SCHEMA_INLINE_PLUGIN_NAME,
@@ -114,14 +114,14 @@ describe("tsdown config", () => {
   it.each([
     {
       exportName: "GRANTED_STATE_SCHEMA_SQL",
-      modulePath: "src/state/openclaw-state-schema.ts",
-      schemaPath: "src/state/openclaw-state-schema.sql",
+      modulePath: "src/state/granted-state-schema.ts",
+      schemaPath: "src/state/granted-state-schema.sql",
       sourceValue: GRANTED_STATE_SCHEMA_SQL,
     },
     {
       exportName: "GRANTED_AGENT_SCHEMA_SQL",
-      modulePath: "src/state/openclaw-agent-schema.ts",
-      schemaPath: "src/state/openclaw-agent-schema.sql",
+      modulePath: "src/state/granted-agent-schema.ts",
+      schemaPath: "src/state/granted-agent-schema.sql",
       sourceValue: GRANTED_AGENT_SCHEMA_SQL,
     },
   ])("inlines canonical schema bytes for $modulePath", (schema) => {
@@ -195,7 +195,7 @@ describe("tsdown config", () => {
       "agents/model-provider-auth.worker",
       "config/sessions/session-accessor.sqlite-archive.worker",
       "infra/sqlite-readonly-location.worker",
-      "state/openclaw-database-verify.worker",
+      "state/granted-database-verify.worker",
       "system-agent/setup-inference-detection.worker",
       "plugins/memory-state",
       "subagent-registry.runtime",
@@ -212,7 +212,7 @@ describe("tsdown config", () => {
       "plugins/runtime/index",
       "plugins/synthetic-auth.runtime",
       "web-fetch/runtime",
-      "mcp/openclaw-tools-serve",
+      "mcp/granted-tools-serve",
       "mcp/plugin-tools-serve",
       bundledEntry("active-memory"),
       "bundled/boot-md/handler",

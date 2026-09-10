@@ -11,7 +11,7 @@ import {
   readMissingScopeError,
   type MissingScopeErrorDetails,
 } from "../../packages/gateway-protocol/src/gateway-error-details.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   loadDeviceAuthTokenReadOnly,
   loadOriginDeviceTokenReadOnly,

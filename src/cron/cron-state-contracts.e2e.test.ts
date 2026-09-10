@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { reloadTaskRegistryFromStore } from "../tasks/task-registry.js";
 import { resetTaskRegistryForTests } from "../tasks/task-runtime.test-helpers.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
 import { CronService } from "./service.js";
 import { createNoopLogger, installCronTestHooks } from "./service.test-harness.js";
 import type { CronServiceDeps } from "./service/state.js";

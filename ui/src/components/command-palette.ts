@@ -664,6 +664,6 @@ export class CommandPalette extends GrantedLightDomContentsElement {
   }
 }
 
-if (!customElements.get("openclaw-command-palette")) {
-  customElements.define("openclaw-command-palette", CommandPalette);
+if (!customElements.get("granted-command-palette")) {
+  customElements.define("granted-command-palette", CommandPalette);
 }

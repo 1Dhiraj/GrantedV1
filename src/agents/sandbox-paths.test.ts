@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { describe, expect, it, vi } from "vitest";
-import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+import { resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { withEnvAsync } from "../test-utils/env.js";
 import {
   assertSandboxPath,
@@ -308,7 +308,7 @@ describe("assertSandboxPath", () => {
 });
 
 describe("resolveSandboxedMediaSource", () => {
-  const openClawTmpDir = resolvePreferredOpenClawTmpDir();
+  const openClawTmpDir = resolvePreferredGrantedTmpDir();
 
   // Group 1: /tmp paths (the bug fix)
   it.each([

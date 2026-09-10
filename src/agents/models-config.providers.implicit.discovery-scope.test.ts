@@ -8,7 +8,7 @@ import { withEnvAsync } from "../test-utils/env.js";
 import {
   createOpenClawTestState,
   type GrantedTestState,
-} from "../test-utils/openclaw-test-state.js";
+} from "../test-utils/granted-test-state.js";
 import { MODELS_CONFIG_IMPLICIT_ENV_VARS } from "./models-config.e2e-harness.js";
 
 const mocks = vi.hoisted(() => ({

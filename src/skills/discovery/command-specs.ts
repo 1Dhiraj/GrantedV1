@@ -4,7 +4,7 @@ import {
   normalizeOptionalLowercaseString,
 } from "@granted/normalization-core/string-coerce";
 import { canonicalizePath } from "../../agents/utils/paths.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { createDedupeCache } from "../../infra/dedupe.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { loadEnabledClaudeBundleCommands } from "../../plugins/bundle-commands.js";

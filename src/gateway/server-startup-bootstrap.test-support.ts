@@ -6,7 +6,7 @@ import {
   resetConfigRuntimeState,
   setAppliedRuntimeConfigSnapshot,
 } from "../config/runtime-snapshot.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { testing } from "./server-startup-bootstrap.js";
 
 const { publishGatewayPluginRuntimeConfigAtStartup } = testing;

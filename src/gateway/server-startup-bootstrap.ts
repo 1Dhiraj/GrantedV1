@@ -22,7 +22,7 @@ import {
 import { captureConfigOverrideApplier } from "../config/runtime-overrides.js";
 import { resolveSystemMainSessionTarget } from "../config/sessions.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isSecretRef } from "../config/types.secrets.js";
 import { getActiveCronJobCount } from "../cron/active-jobs.js";
 import {
@@ -31,7 +31,7 @@ import {
 } from "../infra/diagnostic-events.js";
 import { isVitestRuntimeEnv, logAcceptedEnvOption } from "../infra/env.js";
 import { formatErrorMessage } from "../infra/errors.js";
-import { prepareGatewayAgentCliShim } from "../infra/openclaw-cli-shim.js";
+import { prepareGatewayAgentCliShim } from "../infra/granted-cli-shim.js";
 import { readGatewayRestartHandoffSync } from "../infra/restart-handoff.js";
 import { setGatewaySigusr1RestartPolicy, setPreRestartDeferralCheck } from "../infra/restart.js";
 import { withSystemEventOwner } from "../infra/system-event-ownership.js";
@@ -44,8 +44,8 @@ import { completePluginMetadataSnapshot } from "../plugins/plugin-metadata-snaps
 import { getTotalQueueSize } from "../process/command-queue.js";
 import { getActiveGatewayRootWorkCount } from "../process/gateway-work-admission.js";
 import { createLazyPromise } from "../shared/lazy-runtime.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
-import { assertOpenClawStateWriteAllowedAtPath } from "../state/openclaw-state-ownership.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
+import { assertOpenClawStateWriteAllowedAtPath } from "../state/granted-state-ownership.js";
 import { ADMIN_SCOPE } from "./method-scopes.js";
 import { listCoreGatewayMethodNames } from "./methods/core-descriptors.js";
 import {
@@ -107,9 +107,9 @@ export async function prepareGatewayServerBootstrap(input: {
     stateDatabase,
   ] = await startupTrace.measure("state.runtime-imports", () =>
     Promise.all([
-      import("../state/openclaw-database-preflight.js"),
-      import("../state/openclaw-agent-db.js"),
-      import("../state/openclaw-state-db-contract.js"),
+      import("../state/granted-database-preflight.js"),
+      import("../state/granted-agent-db.js"),
+      import("../state/granted-state-db-contract.js"),
     ]),
   );
   const databaseSchemas = await startupTrace.measure("state.schema-preflight", () =>

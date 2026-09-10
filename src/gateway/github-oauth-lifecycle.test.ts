@@ -18,11 +18,11 @@ import {
   GitHubAccountMismatchError,
   resolveConfiguredGitHubToolIdentity,
 } from "../agents/github-tool-identity.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { GitHubToolIdentityConfig } from "../config/types.tools.js";
 import { writeHiddenGitHubSecretRecord } from "../secrets/store/secret-store.js";
 import { recordAgentProvenance } from "../state/agent-provenance.js";
-import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/granted-state-db.js";
 
 const mocks = vi.hoisted(() => ({
   verifyCredential: vi.fn(),

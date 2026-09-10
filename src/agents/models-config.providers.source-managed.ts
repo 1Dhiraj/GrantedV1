@@ -3,7 +3,7 @@ import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
  * Enforces source-managed provider secret ownership rules.
  */
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { isRecord } from "../utils.js";
 import {
   resolveNonEnvSecretRefApiKeyMarker,

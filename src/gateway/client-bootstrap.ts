@@ -2,7 +2,7 @@
 // Collects URL, auth, and handshake settings before constructing a GatewayClient.
 import { gatewayOriginScope } from "../../packages/gateway-client/src/gateway-origin-scope.js";
 import { resolveGatewayPublicOrigin } from "../config/gateway-public-origin.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   resolveGatewayInteractiveSurfaceAuth,
   resolveGatewayProbeSurfaceAuth,

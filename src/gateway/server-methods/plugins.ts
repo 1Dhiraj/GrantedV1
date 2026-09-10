@@ -17,7 +17,7 @@ import {
   INSTALL_POLICY_WARNING_ACKNOWLEDGEMENT_REQUIRED,
   readInstallPolicyWarningErrorDetails,
 } from "../../../packages/gateway-protocol/src/install-policy-warning-error-details.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { searchInstallablePluginPackages } from "../../plugins/catalog-search.js";
 import { ManagedPluginLifecycleError } from "../../plugins/management-lifecycle-error.js";

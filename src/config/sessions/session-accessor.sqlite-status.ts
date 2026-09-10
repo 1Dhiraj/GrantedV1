@@ -1,7 +1,7 @@
 import { sql } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
-import type { DB as GrantedAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
-import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
+import type { DB as GrantedAgentKyselyDatabase } from "../../state/granted-agent-db.generated.js";
+import type { GrantedAgentDatabase } from "../../state/granted-agent-db.js";
 import type {
   SessionEntryStatus,
   SessionEntrySummary,

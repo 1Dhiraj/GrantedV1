@@ -392,7 +392,7 @@ describe("collectBundledExtensionManifestErrors", () => {
 
 describe("bundled plugin package dependency checks", () => {
   it("does not require root deps for root chunks sourced from the owning installed plugin", () => {
-    const tempRoot = mkdtempSync(join(tmpdir(), "openclaw-root-owned-installed-"));
+    const tempRoot = mkdtempSync(join(tmpdir(), "granted-root-owned-installed-"));
 
     try {
       mkdirSync(join(tempRoot, "dist", "extensions", "memory-lancedb"), { recursive: true });
@@ -419,7 +419,7 @@ describe("bundled plugin package dependency checks", () => {
   });
 
   it("still requires root deps for root-owned installed chunks", () => {
-    const tempRoot = mkdtempSync(join(tmpdir(), "openclaw-root-owned-installed-missing-"));
+    const tempRoot = mkdtempSync(join(tmpdir(), "granted-root-owned-installed-missing-"));
 
     try {
       mkdirSync(join(tempRoot, "dist", "extensions", "memory-lancedb"), { recursive: true });
@@ -718,7 +718,7 @@ describe("collectMissingPackPaths", () => {
       "dist/agents/prepared-model-catalog.worker.js",
       "dist/config/sessions/session-accessor.sqlite-archive.worker.js",
       "dist/config/sessions/session-transcript-reconcile.worker.js",
-      "dist/state/openclaw-database-verify.worker.js",
+      "dist/state/granted-database-verify.worker.js",
       "dist/system-agent/setup-inference-detection.worker.js",
       "dist/task-registry-control.runtime.js",
       "dist/telegram-ingress-worker.runtime.js",
@@ -758,7 +758,7 @@ describe("collectMissingPackPaths", () => {
         "dist/extensions/memory-core/memory-search-knn.child.js",
         "dist/config/sessions/session-accessor.sqlite-archive.worker.js",
         "dist/config/sessions/session-transcript-reconcile.worker.js",
-        "dist/state/openclaw-database-verify.worker.js",
+        "dist/state/granted-database-verify.worker.js",
         "dist/system-agent/setup-inference-detection.worker.js",
         "dist/task-registry-control.runtime.js",
         "dist/telegram-ingress-worker.runtime.js",

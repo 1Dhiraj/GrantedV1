@@ -34,7 +34,7 @@ import {
   closeOpenClawAgentDatabaseByPath,
   listOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { SUBAGENT_KILL_TASK_ERROR } from "../../tasks/detached-task-runtime-contract.js";
 import { cancelTaskById, findTaskByRunId, getTaskById } from "../../tasks/task-registry.js";
 import { finishFailedGatewayHttpResponse } from "../http-common.js";

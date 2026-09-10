@@ -14,7 +14,7 @@ import { tryBeginGatewayRootWorkAdmission } from "../../process/gateway-work-adm
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../state/openclaw-state-db.js";
+} from "../../state/granted-state-db.js";
 import type { WorkerConnectionIdentity } from "./connection-identity.js";
 import { createWorkerSessionPlacementStore } from "./placement-store.js";
 import { bindWorkerTurnOwner } from "./placement-turn-claim-events.js";

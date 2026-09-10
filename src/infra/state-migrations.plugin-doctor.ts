@@ -2,15 +2,15 @@ import os from "node:os";
 import { tryResolveConfiguredAgentWorkspaceDir } from "../agents/agent-scope-config.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace-default.js";
 import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import {
   listPluginDoctorStateMigrationEntries,
   type PluginDoctorStateMigration,
   type PluginDoctorStateMigrationDetection,
 } from "../plugins/doctor-contract-registry.js";
 import { withPluginLifecycleLease } from "../plugins/plugin-lifecycle-lease.js";
-import { withAgentDatabaseMaintenanceLease } from "../state/openclaw-agent-db.js";
-import { repairOpenClawStateDatabaseSchemaIfNeeded } from "../state/openclaw-state-db.js";
+import { withAgentDatabaseMaintenanceLease } from "../state/granted-agent-db.js";
+import { repairOpenClawStateDatabaseSchemaIfNeeded } from "../state/granted-state-db.js";
 import { acquireGatewayLock } from "./gateway-lock.js";
 import { createPluginDoctorStateMigrationContext } from "./state-migrations.plugin-doctor-context.js";
 import { autoMigrateLegacyStateDir } from "./state-migrations.state-dir.js";

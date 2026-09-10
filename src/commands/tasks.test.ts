@@ -6,7 +6,7 @@ import { loadSessionEntry, replaceSessionEntry } from "../config/sessions/sessio
 import type { SessionEntry } from "../config/sessions/types.js";
 import { saveCronStore } from "../cron/store.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { closeOpenClawAgentDatabasesForTest } from "../state/openclaw-agent-db.js";
+import { closeOpenClawAgentDatabasesForTest } from "../state/granted-agent-db.js";
 import { createManagedTaskFlow as createManagedTaskFlowOrNull } from "../tasks/task-flow-registry.js";
 import type { TaskFlowRecord } from "../tasks/task-flow-registry.types.js";
 import {
@@ -29,8 +29,8 @@ import type {
   TaskSystemAuditCode,
   TaskSystemAuditSeverity,
 } from "../tasks/task-system-audit.types.js";
-import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import type { GrantedTestState } from "../test-utils/openclaw-test-state.js";
+import { withOpenClawTestState } from "../test-utils/granted-test-state.js";
+import type { GrantedTestState } from "../test-utils/granted-test-state.js";
 import {
   tasksAuditCommand,
   tasksCancelCommand,

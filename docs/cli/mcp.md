@@ -511,7 +511,7 @@ These examples save server definitions only. Run `openclaw mcp doctor --probe` a
     openclaw mcp add local-tools \
       --command node \
       --arg ./dist/mcp-server.js \
-      --cwd /srv/openclaw-tools \
+      --cwd /srv/granted-tools \
       --env API_BASE=https://internal.example
     openclaw mcp status --verbose
     ```

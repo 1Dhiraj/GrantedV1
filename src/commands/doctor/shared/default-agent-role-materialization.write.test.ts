@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createConfigIO, resetConfigRuntimeState } from "../../../config/io.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../../../config/legacy.default-agent-owner.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { makeCronJob } from "../../../cron/delivery.test-helpers.js";
 import { cronStoreKey } from "../../../cron/store/key.js";
 import { loadCronRows, replaceCronRows } from "../../../cron/store/row-codec.js";
@@ -12,7 +12,7 @@ import { writeConfigMachineState } from "../../../state/config-machine-state.js"
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "../../../state/openclaw-state-db.js";
+} from "../../../state/granted-state-db.js";
 
 const roots: string[] = [];
 

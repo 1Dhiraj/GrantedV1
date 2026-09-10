@@ -16,9 +16,9 @@ import {
   validateSandboxContainerEngineTarget,
 } from "../agents/sandbox/docker.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { HealthFinding, HealthRepairEffect } from "../flows/health-checks.js";
-import { resolveOpenClawPackageRootsSync } from "../infra/openclaw-root.js";
+import { resolveOpenClawPackageRootsSync } from "../infra/granted-root.js";
 import { runCommandWithTimeout, runExec } from "../process/exec.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { shortenHomePath } from "../utils.js";

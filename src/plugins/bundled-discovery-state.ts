@@ -1,7 +1,7 @@
 // Bundled-discovery compatibility is machine-owned upgrade state.
 import { readConfigMachineState } from "../state/config-machine-state.js";
-import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
-import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
+import type { GrantedStateDatabaseOptions } from "../state/granted-state-db.js";
+import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import {
   hasActivePluginInstallRoots,
   resolveActivePluginInstallRoots,

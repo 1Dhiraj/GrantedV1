@@ -5,7 +5,7 @@
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import "./test-helpers/fast-openclaw-tools.js";
+import "./test-helpers/fast-granted-tools.js";
 import { createOpenClawCodingTools } from "./agent-tools.js";
 import { pinExecToolTarget } from "./exec-tool-target-pinning.js";
 import type { AnyAgentTool } from "./tools/common.js";

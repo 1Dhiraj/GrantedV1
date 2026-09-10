@@ -4,7 +4,7 @@ import {
   isSessionIdentityPending,
   resolveSessionIdentityFromMeta,
 } from "@granted/acp-core/runtime/session-identity";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { logVerbose } from "../../globals.js";
 import type {
   AcpSessionManagerDeps,

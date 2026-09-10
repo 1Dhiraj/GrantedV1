@@ -3,7 +3,7 @@ import { DEFAULT_HEARTBEAT_EVERY } from "../../../auto-reply/heartbeat.js";
 import { parseDurationMs } from "../../../cli/parse-duration.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { loadSessionEntryReadOnly } from "../../../config/sessions/session-accessor.js";
-import type { GrantedConfig } from "../../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../../config/types.granted.js";
 import { isHeartbeatEnabledForAgent } from "../../../infra/heartbeat-summary.js";
 import { areHeartbeatsEnabled } from "../../../infra/heartbeat-wake.js";
 import {

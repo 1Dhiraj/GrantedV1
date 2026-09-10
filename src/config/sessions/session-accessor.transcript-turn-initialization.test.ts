@@ -3,7 +3,7 @@ import { onSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "../../state/openclaw-agent-db.js";
+} from "../../state/granted-agent-db.js";
 import { lookupSessionGoalOperation } from "./goals-operations.js";
 import {
   applySessionEntryLifecycleMutation,

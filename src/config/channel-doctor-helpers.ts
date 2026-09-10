@@ -7,7 +7,7 @@ import {
   type NormalizeLegacyChannelAccountParams,
   type RetiredChannelKeyRemoval,
 } from "./channel-compat-normalization.js";
-import type { GrantedConfig } from "./types.openclaw.js";
+import type { GrantedConfig } from "./types.granted.js";
 
 /** Applies one channel-specific doctor migration to every object-shaped account. */
 export function normalizeChannelAccounts(params: {

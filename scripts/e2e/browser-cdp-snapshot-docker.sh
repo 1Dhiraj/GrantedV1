@@ -97,7 +97,7 @@ fi
 echo "Running browser CDP snapshot smoke..."
 if ! docker_e2e_docker_cmd exec "$CONTAINER_NAME" bash -lc "
 set -euo pipefail
-source /tmp/openclaw-test-state-env
+source /tmp/granted-test-state-env
 source scripts/lib/openclaw-e2e-instance.sh
 entry=\"\$(openclaw_e2e_resolve_entrypoint)\"
 base_args=(--url ws://127.0.0.1:$PORT --token '$TOKEN')

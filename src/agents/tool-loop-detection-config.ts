@@ -3,7 +3,7 @@
  * Overlays per-agent loop detection settings on global tool defaults while
  * preserving the per-agent enabled override.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import type { ToolLoopDetectionConfig } from "../config/types.tools.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 

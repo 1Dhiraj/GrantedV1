@@ -4,7 +4,7 @@
  * File sync and cleanup paths use this to enumerate configured agent workspaces
  * plus the default agent workspace without duplicating agent-scope logic.
  */
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveUserPath } from "../utils.js";
 import { tryResolveSoleAgentId } from "./agent-scope-config.js";
 import { listAgentEntries, resolveAgentWorkspaceDir } from "./agent-scope.js";

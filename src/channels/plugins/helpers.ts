@@ -5,7 +5,7 @@
  */
 import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { formatCliCommand } from "../../cli/command-format.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 import type { ChannelSecurityDmPolicy } from "./types.core.js";
 import type { ChannelPlugin } from "./types.plugin.js";

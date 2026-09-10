@@ -1,7 +1,7 @@
 // Ollama probe planning tests cover keyless runtime auth and provider-scoped catalog reads.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
-import type { GrantedConfig } from "../../config/types.openclaw.js";
+import type { GrantedConfig } from "../../config/types.granted.js";
 import { buildProbeCandidateMap, selectProbeModel } from "./list.probe.models.js";
 
 const loadPreparedModelCatalog = vi.fn(

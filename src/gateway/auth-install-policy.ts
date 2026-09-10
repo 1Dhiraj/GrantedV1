@@ -1,7 +1,7 @@
 // Gateway install auth policy used by service/install flows.
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { collectDurableServiceEnvVars } from "../config/state-dir-dotenv.js";
-import type { GrantedConfig } from "../config/types.openclaw.js";
+import type { GrantedConfig } from "../config/types.granted.js";
 import { hasConfiguredSecretInput } from "../config/types.secrets.js";
 
 type GatewayInstallAuthMode = NonNullable<NonNullable<GrantedConfig["gateway"]>["auth"]>["mode"];
