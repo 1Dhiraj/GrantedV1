@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import {
+  applyEconomyModelDefaults,
   createTaskRouter,
   readTaskRouterConfig,
   resolveRouteModelRef,
@@ -114,7 +115,7 @@ describe("createTaskRouter", () => {
     ).resolves.toBeUndefined();
   });
 
-  it("prefers the LLM classifier over keyword heuristics", async () => {
+  it("uses the LLM classifier for ambiguous requests", async () => {
     const classifyWithLlm = vi.fn().mockResolvedValue("browser");
     const router = makeRouter({ classifyWithLlm });
     await expect(
@@ -123,24 +124,28 @@ describe("createTaskRouter", () => {
     expect(classifyWithLlm).toHaveBeenCalledOnce();
   });
 
-  it("trusts the LLM verdict even when keywords disagree", async () => {
-    const classifyWithLlm = vi.fn().mockResolvedValue("chat");
+  it("skips the LLM classifier for confident local signals", async () => {
+    const classifyWithLlm = vi.fn().mockResolvedValue("browser");
     const router = makeRouter({ classifyWithLlm });
     await expect(
       router.route({ prompt: "what does the notepad app do?" }, defaultCtx),
     ).resolves.toBeUndefined();
+    expect(classifyWithLlm).not.toHaveBeenCalled();
   });
 
-  it("falls back to heuristics when the LLM classifier fails", async () => {
+  it("fails open for ambiguous prompts and still uses local signals", async () => {
     const classifyWithLlm = vi.fn().mockRejectedValue(new Error("boom"));
-    const router = makeRouter({ classifyWithLlm });
-    await expect(router.route({ prompt: "hello there" }, defaultCtx)).resolves.toBeUndefined();
+    const log = vi.fn();
+    const router = makeRouter({ classifyWithLlm, log });
+    await expect(router.route({ prompt: "write a poem" }, defaultCtx)).resolves.toBeUndefined();
     await expect(
       router.route(
         { prompt: "open notepad and type hi" },
         { ...defaultCtx, sessionKey: "s-fallback" },
       ),
     ).resolves.toBe("desktop");
+    expect(classifyWithLlm).toHaveBeenCalledOnce();
+    expect(log).toHaveBeenCalledWith("task-router: LLM classification failed: Error: boom");
   });
 });
 
@@ -180,6 +185,8 @@ describe("readTaskRouterConfig", () => {
     expect(readTaskRouterConfig(undefined)).toEqual({
       browserModel: undefined,
       desktopModel: undefined,
+      chatModel: undefined,
+      liteModel: undefined,
       classifierModel: undefined,
       stickyMinutes: 30,
     });
@@ -191,9 +198,51 @@ describe("readTaskRouterConfig", () => {
     ).toEqual({
       browserModel: "together/moonshotai/Kimi-K2.6",
       desktopModel: undefined,
+      chatModel: undefined,
+      liteModel: undefined,
       classifierModel: undefined,
       stickyMinutes: 0,
     });
+  });
+});
+
+describe("applyEconomyModelDefaults", () => {
+  it("uses the economy model for cheap foreground work", () => {
+    expect(
+      applyEconomyModelDefaults(
+        { browserModel: "strong/browser", stickyMinutes: 30 },
+        " cheap/model ",
+      ),
+    ).toEqual({
+      browserModel: "strong/browser",
+      chatModel: "cheap/model",
+      liteModel: "cheap/model",
+      classifierModel: "cheap/model",
+      stickyMinutes: 30,
+    });
+  });
+
+  it("keeps explicit route models ahead of the economy default", () => {
+    expect(
+      applyEconomyModelDefaults(
+        {
+          chatModel: "custom/chat",
+          liteModel: "custom/lite",
+          classifierModel: "custom/classifier",
+          stickyMinutes: 30,
+        },
+        "cheap/model",
+      ),
+    ).toMatchObject({
+      chatModel: "custom/chat",
+      liteModel: "custom/lite",
+      classifierModel: "custom/classifier",
+    });
+  });
+
+  it("ignores an empty economy model", () => {
+    const config = { stickyMinutes: 30 };
+    expect(applyEconomyModelDefaults(config, "   ")).toBe(config);
   });
 });
 

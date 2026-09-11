@@ -15,6 +15,22 @@ export type TaskRouterConfig = {
 
 export const DEFAULT_STICKY_MINUTES = 30;
 
+export function applyEconomyModelDefaults(
+  config: TaskRouterConfig,
+  economyModel: string | undefined,
+): TaskRouterConfig {
+  const model = economyModel?.trim();
+  if (!model) {
+    return config;
+  }
+  return {
+    ...config,
+    chatModel: config.chatModel ?? model,
+    liteModel: config.liteModel ?? model,
+    classifierModel: config.classifierModel ?? model,
+  };
+}
+
 export function readTaskRouterConfig(raw: Record<string, unknown> | undefined): TaskRouterConfig {
   const cfg = raw ?? {};
   const readString = (key: string): string | undefined => {
@@ -169,8 +185,10 @@ export function createTaskRouter(deps: TaskRouterDeps): TaskRouter {
         return undefined;
       }
 
-      let kind: TaskKind | null = null;
-      if (deps.classifyWithLlm) {
+      // Confident local signals avoid a classifier round-trip. Only ambiguous
+      // messages spend tokens on the small classifier model.
+      let kind: TaskKind | null = classifyTaskHeuristic(event.prompt);
+      if (kind === "unknown" && deps.classifyWithLlm) {
         try {
           kind = await deps.classifyWithLlm(event.prompt);
         } catch (err) {
@@ -178,10 +196,6 @@ export function createTaskRouter(deps: TaskRouterDeps): TaskRouter {
           kind = null;
         }
       }
-      if (kind === null || kind === "unknown") {
-        kind = classifyTaskHeuristic(event.prompt);
-      }
-
       if (kind === "browser" || kind === "desktop") {
         writeSticky(ctx.sessionKey, kind);
         return kind;

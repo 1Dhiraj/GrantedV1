@@ -5,7 +5,7 @@
   "activation": {
     "onStartup": true
   },
-  "enabledByDefault": false,
+  "enabledByDefault": true,
   "configSchema": {
     "type": "object",
     "additionalProperties": false,
@@ -20,15 +20,15 @@
       },
       "chatModel": {
         "type": "string",
-        "description": "Cheap model ref for chat-classified runs (questions, conversation, writing). When unset, chat runs stay on the agent's default model."
+        "description": "Cheap model ref for chat-classified runs (questions, conversation, writing). Defaults to agents.defaults.economyModel."
       },
       "liteModel": {
         "type": "string",
-        "description": "Tiny model ref that answers trivial social messages (greetings, thanks) directly, skipping the agent loop, tool schemas, and full system prompt entirely."
+        "description": "Tiny model ref that answers trivial social messages (greetings, thanks) directly, skipping the agent loop, tool schemas, and full system prompt entirely. Defaults to agents.defaults.economyModel."
       },
       "classifierModel": {
         "type": "string",
-        "description": "Cheap/free model ref used to classify messages the keyword heuristics can't decide (e.g. \"google/gemini-3.5-flash\"). When unset, undecided messages are not rerouted."
+        "description": "Cheap/free model ref used only when local heuristics cannot classify a message. Defaults to agents.defaults.economyModel."
       },
       "stickyMinutes": {
         "type": "number",

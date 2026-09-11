@@ -14,6 +14,7 @@ import {
 import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import { isTrivialMessage, type TaskKind } from "./src/classify.js";
 import {
+  applyEconomyModelDefaults,
   createTaskRouter,
   readTaskRouterConfig,
   resolveRouteModelRef,
@@ -91,10 +92,13 @@ export default definePluginEntry({
         ),
       );
 
-    const startupConfig = readLiveRouterConfig();
+    const resolveCurrentRouterConfig = (cfg: GrantedConfig): TaskRouterConfig =>
+      applyEconomyModelDefaults(readLiveRouterConfig(), cfg.agents?.defaults?.economyModel);
+
+    const startupConfig = resolveCurrentRouterConfig(readCurrentConfig());
     if (!hasRouting(startupConfig) && !startupConfig.liteModel) {
       api.logger.warn(
-        "task-router: no browserModel/desktopModel/chatModel/liteModel configured; routing stays idle until one is set",
+        "task-router: no economyModel or explicit route models configured; routing stays idle until one is set",
       );
     }
 
@@ -121,12 +125,11 @@ export default definePluginEntry({
       if (ctx.trigger && ctx.trigger !== "user") {
         return;
       }
-      const routerConfig = readLiveRouterConfig();
-      const liteModel = routerConfig.liteModel;
+      const cfg = readCurrentConfig();
+      const liteModel = resolveCurrentRouterConfig(cfg).liteModel;
       if (!liteModel || !isTrivialMessage(event.cleanedBody)) {
         return;
       }
-      const cfg = readCurrentConfig();
       const prepared = await prepareSimpleCompletionModelForAgent({
         cfg,
         agentId: resolveAgentId(cfg, ctx.agentId),
@@ -261,11 +264,11 @@ export default definePluginEntry({
     };
 
     api.on("before_model_resolve", async (event, ctx) => {
-      const routerConfig = readLiveRouterConfig();
+      const cfg = readCurrentConfig();
+      const routerConfig = resolveCurrentRouterConfig(cfg);
       if (!hasRouting(routerConfig)) {
         return;
       }
-      const cfg = readCurrentConfig();
       const router = resolveRouter(cfg, routerConfig);
       const route = await router.route(
         { prompt: event.prompt },
