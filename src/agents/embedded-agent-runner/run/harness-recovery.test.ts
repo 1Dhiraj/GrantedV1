@@ -66,6 +66,28 @@ describe("harness recovery instruction", () => {
     ).toBeNull();
   });
 
+  it("recovers when desktop verification executes but its postcondition fails", () => {
+    const result = resolveHarnessRecoveryInstruction({
+      attempt: {
+        toolMetas: [
+          { toolName: "desktop", meta: "act", isError: false, mutating: true },
+          {
+            toolName: "desktop",
+            meta: "verify",
+            isError: false,
+            mutating: false,
+            verificationOutcome: { passed: false, error: "Save dialog did not appear" },
+          },
+        ],
+      },
+      replyText: "The Save dialog has been opened.",
+      attempts: 0,
+    });
+
+    expect(result?.kind).toBe("self_heal");
+    expect(result?.prompt).toContain("Save dialog did not appear");
+  });
+
   it("stops after the bounded recovery budget", () => {
     expect(
       resolveHarnessRecoveryInstruction({

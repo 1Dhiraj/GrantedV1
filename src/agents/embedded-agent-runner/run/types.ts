@@ -316,6 +316,8 @@ export type EmbeddedRunAttemptResult = {
     isError?: boolean;
     /** Argument-aware mutation verdict for the turn-end verification gate. */
     mutating?: boolean;
+    /** Explicit postcondition verdict returned by an action=verify tool call. */
+    verificationOutcome?: { passed: boolean; error?: string };
     terminate?: boolean;
     asyncStarted?: boolean;
     asyncTaskRunId?: string;

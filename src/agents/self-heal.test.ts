@@ -57,6 +57,24 @@ describe("buildSelfHealNudge", () => {
     ).toBeNull();
   });
 
+  it("recovers from an explicit postcondition that was not satisfied", () => {
+    const nudge = buildSelfHealNudge({
+      toolCalls: [
+        {
+          name: "desktop",
+          action: "verify",
+          verification: true,
+          isError: true,
+          error: "Save dialog did not appear",
+        },
+      ],
+      replyText: "The Save dialog has been opened.",
+    });
+
+    expect(nudge).toContain("desktop (verify) failed");
+    expect(nudge).toContain("Save dialog did not appear");
+  });
+
   it("stays quiet when a human-gated blocker was already reported honestly", () => {
     expect(
       buildSelfHealNudge({

@@ -2243,6 +2243,36 @@ describe("handleToolExecutionEnd mutating failure recovery", () => {
     });
   });
 
+  it("records an explicit failed postcondition separately from tool execution", async () => {
+    const { ctx } = createTestContext();
+
+    await executeTool(ctx, {
+      toolName: "desktop",
+      toolCallId: "tool-desktop-verify",
+      args: { action: "verify", name: "Save dialog" },
+      isError: false,
+      result: {
+        details: {
+          ok: true,
+          verified: false,
+          hint: "Save dialog did not appear",
+        },
+      },
+    });
+
+    expect(ctx.state.toolMetas).toEqual([
+      expect.objectContaining({
+        toolName: "desktop",
+        isError: false,
+        verificationOutcome: {
+          passed: false,
+          error: "Save dialog did not appear",
+        },
+      }),
+    ]);
+    expect(ctx.state.lastToolError).toBeUndefined();
+  });
+
   it("binds failed side effects to the canonical plugin tool owner", async () => {
     const { ctx } = createTestContext();
     const ownerKey = '["memory-lancedb","memory_store"]';

@@ -107,6 +107,8 @@ export type TurnToolCall = {
   isError?: boolean;
   /** Failure text, so the self-heal gate can tell a fixable error from a hard blocker. */
   error?: string;
+  /** The call explicitly checked a postcondition, even though it did not mutate state. */
+  verification?: boolean;
   /**
    * Caller's own mutation verdict (Granted classifies this per call from the
    * real arguments). It is argument-aware, so it wins over the name/action

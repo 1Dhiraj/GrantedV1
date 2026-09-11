@@ -50,17 +50,22 @@ export function canRunHarnessRecovery(input: HarnessRecoveryEligibility): boolea
 
 function projectToolCalls(attempt: HarnessRecoveryAttempt): TurnToolCall[] {
   const lastError = attempt.lastToolError;
-  return attempt.toolMetas.map((entry) => ({
-    name: entry.toolName,
-    action: entry.meta,
-    command: entry.meta,
-    isError: entry.isError,
-    mutating: entry.mutating,
-    error:
-      entry.isError === true && lastError?.toolName === entry.toolName
-        ? lastError.error
-        : undefined,
-  }));
+  return attempt.toolMetas.map((entry) => {
+    const verificationFailed = entry.verificationOutcome?.passed === false;
+    return {
+      name: entry.toolName,
+      action: entry.meta,
+      command: entry.meta,
+      isError: entry.isError === true || verificationFailed,
+      verification: entry.verificationOutcome !== undefined,
+      mutating: entry.mutating,
+      error: verificationFailed
+        ? entry.verificationOutcome?.error
+        : entry.isError === true && lastError?.toolName === entry.toolName
+          ? lastError.error
+          : undefined,
+    };
+  });
 }
 
 /** Selects one bounded recovery pass, prioritizing an actual failure over missing proof. */

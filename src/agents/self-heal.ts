@@ -70,7 +70,10 @@ export function buildSelfHealNudge(params: SelfHealParams): string | null {
     const call = calls[i];
     // isMutatingCall() reports false for failed calls by design, so ask
     // whether this *would* have been a state change had it succeeded.
-    if (call?.isError && isMutatingCall({ ...call, isError: false })) {
+    if (
+      call?.isError &&
+      (call.verification === true || isMutatingCall({ ...call, isError: false }))
+    ) {
       failureIndex = i;
       break;
     }
