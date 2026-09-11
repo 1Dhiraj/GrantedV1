@@ -1,15 +1,23 @@
 import { describe, expect, it } from "vitest";
 import { resolveEconomyModelRef } from "./economy-model.js";
+import { FIELD_HELP } from "./schema.help.js";
+import { FIELD_LABELS } from "./schema.labels.js";
 import type { GrantedConfig } from "./types.granted.js";
 
 const cfgWith = (economyModel?: string): GrantedConfig =>
   ({ agents: { defaults: { economyModel } } }) as GrantedConfig;
 
 describe("resolveEconomyModelRef", () => {
-  it("returns the configured background model", () => {
+  it("returns the configured routine-work model", () => {
     expect(resolveEconomyModelRef(cfgWith("google/gemini-3.5-flash"))).toBe(
       "google/gemini-3.5-flash",
     );
+  });
+
+  it("describes both foreground routing and background fallback in config metadata", () => {
+    expect(FIELD_LABELS["agents.defaults.economyModel"]).toBe("Economy Model (Routine Work)");
+    expect(FIELD_HELP["agents.defaults.economyModel"]).toContain("ordinary chat");
+    expect(FIELD_HELP["agents.defaults.economyModel"]).toContain("Background turns");
   });
 
   it("trims surrounding whitespace so a padded config value still resolves", () => {

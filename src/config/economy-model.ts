@@ -1,12 +1,12 @@
-// Resolves the economy model: the cheap model background agent turns fall back
-// to when no per-role model is configured.
+// Resolves the economy model used for routine foreground routing and as the
+// background-turn fallback when no more specific model is configured.
 import type { GrantedConfig } from "./types.granted.js";
 
 /**
- * Cheap model configured for background/low-stakes agent turns (heartbeat,
- * sub-agents, isolated cron runs, compaction). Keeps routine work off the
- * expensive primary key when the user only has one provider or wants to
- * protect a premium model budget.
+ * Cheap model configured for routine work. The task router uses it for simple
+ * foreground chat and classification; heartbeat, sub-agent, isolated cron,
+ * and compaction flows use it as their background fallback. This keeps
+ * low-risk work off the expensive primary model.
  *
  * Distinct from `utilityModel`, which routes short *internal* completions
  * (session titles, progress narration) and can derive a provider-declared

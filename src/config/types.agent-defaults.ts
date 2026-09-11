@@ -133,7 +133,7 @@ export type AgentDefaultsConfig = {
   modelSelectionScope?: ModelSelectionScope;
   /** Optional lower-cost model for short internal tasks such as generated session titles. */
   utilityModel?: string;
-  /** Optional cheap model that background agent turns (heartbeat, sub-agents, cron, compaction) fall back to. */
+  /** Optional cheap model for routine foreground routing and background agent turns. */
   economyModel?: string;
   /** Cumulative USD ceiling for all model calls. 0 or unset means no ceiling. */
   spendLimitUsd?: number;
