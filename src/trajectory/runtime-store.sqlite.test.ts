@@ -25,7 +25,7 @@ describe("SQLite trajectory runtime store", () => {
   let storePath: string;
 
   beforeEach(async () => {
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-trajectory-sqlite-"));
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "granted-trajectory-sqlite-"));
     storePath = path.join(tempDir, "agents", "main", "sessions", "sessions.json");
     await replaceSessionEntry(
       { sessionKey: "agent:main:main", storePath },
@@ -304,7 +304,7 @@ function createTrajectoryEvent(options: {
 }): TrajectoryEvent {
   const sessionId = options.sessionId ?? "session-1";
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: "granted-trajectory",
     schemaVersion: 1,
     traceId: sessionId,
     source: "runtime",

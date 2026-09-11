@@ -564,7 +564,7 @@ describe("SQLite historical session disk budget", () => {
 
 function createTrajectoryEvent(sessionId: string, sessionKey: string): TrajectoryEvent {
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: "granted-trajectory",
     schemaVersion: 1,
     traceId: sessionId,
     source: "runtime",

@@ -83,7 +83,7 @@ describe("trajectory runtime", () => {
   });
 
   it("records SQLite marker runtime events without active JSONL sidecars", async () => {
-    const tempDir = tempDirs.make("openclaw-trajectory-runtime-");
+    const tempDir = tempDirs.make("granted-trajectory-runtime-");
     const storePath = path.join(tempDir, "agents", "main", "sessions", "sessions.json");
     const sessionKey = "agent:main:main";
     await replaceSessionEntry({ sessionKey, storePath }, { sessionId: "session-1", updatedAt: 10 });
@@ -126,7 +126,7 @@ describe("trajectory runtime", () => {
     // Attempt dispatch stopped passing legacy `sqlite:` markers and now hands
     // the canonical session key plus a complete target. Recording must not
     // depend on the marker, or every harness capture silently disappears.
-    const tempDir = tempDirs.make("openclaw-trajectory-runtime-");
+    const tempDir = tempDirs.make("granted-trajectory-runtime-");
     const storePath = path.join(tempDir, "agents", "main", "sessions", "sessions.json");
     const sessionKey = "agent:main:main";
     await replaceSessionEntry({ sessionKey, storePath }, { sessionId: "session-1", updatedAt: 10 });
@@ -151,7 +151,7 @@ describe("trajectory runtime", () => {
   });
 
   it("rejects a legacy SQLite marker for another session", () => {
-    const storePath = path.join(tempDirs.make("openclaw-trajectory-runtime-"), "sessions.json");
+    const storePath = path.join(tempDirs.make("granted-trajectory-runtime-"), "sessions.json");
 
     expect(
       createTrajectoryRuntimeRecorder({
@@ -171,7 +171,7 @@ describe("trajectory runtime", () => {
   ])(
     "rejects a complete target that conflicts with the %s",
     (_label, sessionKey, agentId, targetKey) => {
-      const storePath = path.join(tempDirs.make("openclaw-trajectory-runtime-"), "sessions.json");
+      const storePath = path.join(tempDirs.make("granted-trajectory-runtime-"), "sessions.json");
 
       expect(
         createTrajectoryRuntimeRecorder({
@@ -189,7 +189,7 @@ describe("trajectory runtime", () => {
   );
 
   it("rejects a complete target whose key maps to another session", async () => {
-    const storePath = path.join(tempDirs.make("openclaw-trajectory-runtime-"), "sessions.json");
+    const storePath = path.join(tempDirs.make("granted-trajectory-runtime-"), "sessions.json");
     const sessionKey = "agent:main:stored-session";
     await replaceSessionEntry(
       { agentId: "main", sessionKey, storePath },
@@ -214,7 +214,7 @@ describe("trajectory runtime", () => {
   });
 
   it("stores bounded oversized runtime events in SQLite", async () => {
-    const tempDir = tempDirs.make("openclaw-trajectory-runtime-");
+    const tempDir = tempDirs.make("granted-trajectory-runtime-");
     const storePath = path.join(tempDir, "agents", "main", "sessions", "sessions.json");
     const sessionKey = "agent:main:main";
     const usage = {

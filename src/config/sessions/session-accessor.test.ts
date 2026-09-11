@@ -115,7 +115,7 @@ vi.mock("../../gateway/session-archive.runtime.js", async (importOriginal) => {
 
 function createTestTrajectoryEvent(sessionId: string): TrajectoryEvent {
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: "granted-trajectory",
     schemaVersion: 1,
     traceId: sessionId,
     source: "runtime",

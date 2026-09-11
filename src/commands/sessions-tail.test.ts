@@ -35,7 +35,7 @@ function makeEvent(
   params: Partial<TrajectoryEvent> & { type: string; ts: string },
 ): TrajectoryEvent {
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: "granted-trajectory",
     schemaVersion: 1,
     traceId: "trace-1",
     source: "runtime",

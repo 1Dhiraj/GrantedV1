@@ -811,7 +811,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
           { sessionId: "transaction-gap", storePath: paths.sqlitePath },
           [
             {
-              traceSchema: "openclaw-trajectory",
+              traceSchema: "granted-trajectory",
               schemaVersion: 1,
               traceId: "transaction-gap",
               source: "runtime",
@@ -872,7 +872,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
         { sessionId: "shared-writers", storePath: conventionalStorePath },
         [
           {
-            traceSchema: "openclaw-trajectory",
+            traceSchema: "granted-trajectory",
             schemaVersion: 1,
             traceId: "shared-writers",
             source: "runtime",

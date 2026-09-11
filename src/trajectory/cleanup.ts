@@ -14,6 +14,7 @@ import {
   resolveTrajectoryPointerFilePath,
   safeTrajectorySessionFileName,
 } from "./paths.js";
+import { isTrajectoryPointerSchema, isTrajectorySchema } from "./types.js";
 
 type RemovedTrajectoryArtifact = {
   kind: "pointer" | "runtime";
@@ -56,7 +57,7 @@ function readTrajectoryPointerFile(
       return null;
     }
     if (
-      parsed.traceSchema !== "openclaw-trajectory-pointer" ||
+      !isTrajectoryPointerSchema(parsed.traceSchema) ||
       parsed.schemaVersion !== 1 ||
       parsed.sessionId !== sessionId ||
       typeof parsed.runtimeFile !== "string" ||
@@ -111,7 +112,7 @@ function runtimeFileStartsWithSessionEvent(filePath: string, sessionId: string):
     const parsed: unknown = JSON.parse(firstLine);
     return (
       isRecord(parsed) &&
-      parsed.traceSchema === "openclaw-trajectory" &&
+      isTrajectorySchema(parsed.traceSchema) &&
       parsed.schemaVersion === 1 &&
       parsed.source === "runtime" &&
       parsed.sessionId === sessionId

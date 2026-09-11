@@ -460,7 +460,7 @@ describeLive("gateway live trajectory export", () => {
       const { startGatewayServer } = await import("./server.js");
 
       const previousEnv = snapshotEnv();
-      const tempDir = await fs.mkdtemp(path.join(process.cwd(), ".tmp-openclaw-trajectory-live-"));
+      const tempDir = await fs.mkdtemp(path.join(process.cwd(), ".tmp-granted-trajectory-live-"));
       cleanup.push(async () => {
         restoreEnv(previousEnv);
         clearRuntimeConfigSnapshot();
@@ -551,7 +551,7 @@ describeLive("gateway live trajectory export", () => {
       });
       expect(runtimeEvents.length).toBeGreaterThan(0);
 
-      const bundleDir = path.join(workspaceDir, ".openclaw", "trajectory-exports", "bundle");
+      const bundleDir = path.join(workspaceDir, ".granted", "trajectory-exports", "bundle");
       const beforeExport = new Set(await listDirectoryNames(tempDir));
       const exportRunId = `chat-export-${randomUUID()}`;
       const exportEventStartIndex = gatewayEvents.length;

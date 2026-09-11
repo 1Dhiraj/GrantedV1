@@ -9,6 +9,7 @@ import {
   resolveTrajectoryPointerFilePath,
   safeTrajectorySessionFileName,
 } from "./paths.js";
+import { isTrajectoryPointerSchema } from "./types.js";
 
 // Runtime trajectory file discovery for exporters. Pointer files are treated as
 // advisory only and must resolve to regular non-symlink files before use.
@@ -39,7 +40,12 @@ async function readRuntimePointerFile(
     if (!isRecord(parsed)) {
       return undefined;
     }
-    if (parsed.sessionId !== sessionId || typeof parsed.runtimeFile !== "string") {
+    if (
+      !isTrajectoryPointerSchema(parsed.traceSchema) ||
+      parsed.schemaVersion !== 1 ||
+      parsed.sessionId !== sessionId ||
+      typeof parsed.runtimeFile !== "string"
+    ) {
       return undefined;
     }
     const runtimeFile = path.resolve(parsed.runtimeFile);

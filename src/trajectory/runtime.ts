@@ -22,7 +22,7 @@ import {
   TRAJECTORY_RUNTIME_EVENT_MAX_BYTES,
 } from "./paths.js";
 import { appendSqliteTrajectoryRuntimeEvents } from "./runtime-store.sqlite.js";
-import type { TrajectoryEvent, TrajectoryToolDefinition } from "./types.js";
+import { TRAJECTORY_SCHEMA, type TrajectoryEvent, type TrajectoryToolDefinition } from "./types.js";
 
 type TrajectoryRuntimeInit = {
   cfg?: GrantedConfig;
@@ -456,7 +456,7 @@ export function createTrajectoryRuntimeRecorder(
     const nextSeq = seq + 1;
     const sourceSeq = sink.nextSourceSeq?.() ?? nextSeq;
     const event: TrajectoryEvent = {
-      traceSchema: "openclaw-trajectory",
+      traceSchema: TRAJECTORY_SCHEMA,
       schemaVersion: 1,
       traceId,
       source: "runtime",

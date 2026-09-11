@@ -755,7 +755,7 @@ function createTranscriptEventLine(sessionId: string, content: string): string {
 
 function createTestTrajectoryEvent(sessionId: string): TrajectoryEvent {
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: "granted-trajectory",
     schemaVersion: 1,
     traceId: sessionId,
     source: "runtime",

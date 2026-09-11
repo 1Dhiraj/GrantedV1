@@ -3389,7 +3389,7 @@ describe("runDoctorSessionSqlite", () => {
     fs.writeFileSync(
       pointerPath,
       `${JSON.stringify({
-        traceSchema: "openclaw-trajectory-pointer",
+        traceSchema: "granted-trajectory-pointer",
         schemaVersion: 1,
         sessionId: "session-1",
         runtimeFile: store.trajectoryPath,

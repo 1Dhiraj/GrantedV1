@@ -2,6 +2,22 @@
 // all emit this versioned JSONL shape so external debugging tools can replay it.
 type TrajectoryEventSource = "runtime" | "transcript" | "export";
 
+export const TRAJECTORY_SCHEMA = "granted-trajectory" as const;
+export const TRAJECTORY_POINTER_SCHEMA = "granted-trajectory-pointer" as const;
+
+// Existing recordings remain importable across the product rename. New files
+// always use the current schema identifiers above.
+const LEGACY_TRAJECTORY_SCHEMA = "openclaw-trajectory";
+const LEGACY_TRAJECTORY_POINTER_SCHEMA = "openclaw-trajectory-pointer";
+
+export function isTrajectorySchema(value: unknown): boolean {
+  return value === TRAJECTORY_SCHEMA || value === LEGACY_TRAJECTORY_SCHEMA;
+}
+
+export function isTrajectoryPointerSchema(value: unknown): boolean {
+  return value === TRAJECTORY_POINTER_SCHEMA || value === LEGACY_TRAJECTORY_POINTER_SCHEMA;
+}
+
 // Serialized tool definition captured with compiled context events.
 export type TrajectoryToolDefinition = {
   name: string;
@@ -11,7 +27,7 @@ export type TrajectoryToolDefinition = {
 
 // Versioned event envelope for runtime and transcript-derived trajectory rows.
 export type TrajectoryEvent = {
-  traceSchema: "openclaw-trajectory";
+  traceSchema: typeof TRAJECTORY_SCHEMA;
   schemaVersion: 1;
   traceId: string;
   source: TrajectoryEventSource;
@@ -33,7 +49,7 @@ export type TrajectoryEvent = {
 
 // Bundle manifest written beside events.jsonl in trajectory exports.
 export type TrajectoryBundleManifest = {
-  traceSchema: "openclaw-trajectory";
+  traceSchema: typeof TRAJECTORY_SCHEMA;
   schemaVersion: 1;
   generatedAt: string;
   traceId: string;

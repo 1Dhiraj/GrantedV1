@@ -81,8 +81,8 @@ describe("exportTrajectoryCommand", () => {
     );
     mocks.loadSessionEntryReadOnly.mockReturnValue({ sessionId: "session-1", updatedAt: 1 });
     mocks.exportTrajectoryForCommand.mockResolvedValue({
-      outputDir: "/tmp/workspace/.openclaw/trajectory-exports/export",
-      displayPath: ".openclaw/trajectory-exports/export",
+      outputDir: "/tmp/workspace/.granted/trajectory-exports/export",
+      displayPath: ".granted/trajectory-exports/export",
       sessionId: "session-1",
       eventCount: 2,
       runtimeEventCount: 0,

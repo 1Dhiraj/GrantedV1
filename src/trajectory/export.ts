@@ -46,11 +46,13 @@ import { safeJsonStringify } from "../utils/safe-json.js";
 import { TRAJECTORY_RUNTIME_FILE_MAX_BYTES, safeTrajectorySessionFileName } from "./paths.js";
 import { isRegularNonSymlinkFile, resolveTrajectoryRuntimeFile } from "./runtime-file.js";
 import { loadSqliteTrajectoryRuntimeEvents } from "./runtime-store.sqlite.js";
-import type {
-  TrajectoryBundleManifest,
-  TrajectoryBundleWarning,
-  TrajectoryEvent,
-  TrajectoryToolDefinition,
+import {
+  isTrajectorySchema,
+  TRAJECTORY_SCHEMA,
+  type TrajectoryBundleManifest,
+  type TrajectoryBundleWarning,
+  type TrajectoryEvent,
+  type TrajectoryToolDefinition,
 } from "./types.js";
 
 // Trajectory bundle exporter: joins persisted session JSONL with runtime
@@ -489,7 +491,7 @@ async function readRuntimeTrajectoryEvents(params: {
         `Trajectory runtime store has too many events to export (limit ${MAX_TRAJECTORY_RUNTIME_EVENTS})`,
       );
     }
-    return { events, warnings: [] };
+    return { events: events.map(normalizeTrajectorySchema), warnings: [] };
   }
 
   if (!params.sessionFile) {
@@ -509,7 +511,11 @@ async function readRuntimeTrajectoryEvents(params: {
     include: (value) => value.sessionId === params.sessionId,
     validate: isRuntimeTrajectoryEvent,
   });
-  return { ...parsed, runtimeFile };
+  return {
+    ...parsed,
+    events: parsed.events.map(normalizeTrajectorySchema),
+    runtimeFile,
+  };
 }
 
 function isRuntimeTrajectoryEvent(value: unknown): value is TrajectoryEvent {
@@ -517,7 +523,7 @@ function isRuntimeTrajectoryEvent(value: unknown): value is TrajectoryEvent {
     return false;
   }
   return (
-    value.traceSchema === "openclaw-trajectory" &&
+    isTrajectorySchema(value.traceSchema) &&
     value.schemaVersion === 1 &&
     value.source === "runtime" &&
     typeof value.type === "string" &&
@@ -527,6 +533,12 @@ function isRuntimeTrajectoryEvent(value: unknown): value is TrajectoryEvent {
     typeof value.sessionId === "string" &&
     (!("data" in value) || value.data === undefined || isRecord(value.data))
   );
+}
+
+function normalizeTrajectorySchema(event: TrajectoryEvent): TrajectoryEvent {
+  return event.traceSchema === TRAJECTORY_SCHEMA
+    ? event
+    : { ...event, traceSchema: TRAJECTORY_SCHEMA };
 }
 
 function summarizeJsonlWarnings(warnings: JsonlParseWarning[]): TrajectoryBundleWarning[] {
@@ -631,7 +643,7 @@ function buildTranscriptEvents(params: {
   for (const entry of params.entries) {
     const push = (type: string, data?: Record<string, unknown>) => {
       events.push({
-        traceSchema: "openclaw-trajectory",
+        traceSchema: TRAJECTORY_SCHEMA,
         schemaVersion: 1,
         traceId: params.traceId,
         source: "transcript",
@@ -1040,7 +1052,7 @@ function buildMetadataCapture(params: {
     };
   })();
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: TRAJECTORY_SCHEMA,
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     traceId: params.manifest.traceId,
@@ -1105,7 +1117,7 @@ function buildArtifactsCapture(params: {
     return undefined;
   }
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: TRAJECTORY_SCHEMA,
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     traceId: params.manifest.traceId,
@@ -1185,7 +1197,7 @@ function buildPromptsCapture(params: {
     return undefined;
   }
   return {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: TRAJECTORY_SCHEMA,
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     traceId: params.manifest.traceId,
@@ -1209,9 +1221,9 @@ export function resolveDefaultTrajectoryExportDir(params: {
   const sessionFileName = safeTrajectorySessionFileName(params.sessionId);
   return path.join(
     params.workspaceDir,
-    ".openclaw",
+    ".granted",
     "trajectory-exports",
-    `openclaw-trajectory-${sessionFileName.slice(0, 8)}-${timestamp}`,
+    `granted-trajectory-${sessionFileName.slice(0, 8)}-${timestamp}`,
   );
 }
 
@@ -1275,7 +1287,7 @@ export async function exportTrajectoryBundle(params: BuildTrajectoryBundleParams
   const rawEvents = sortTrajectoryEvents([...runtimeEvents, ...transcriptEvents]);
   const events = rawEvents.map((event) => redactEventForExport(event, redaction));
   const manifest: TrajectoryBundleManifest = {
-    traceSchema: "openclaw-trajectory",
+    traceSchema: TRAJECTORY_SCHEMA,
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     traceId: params.sessionId,
