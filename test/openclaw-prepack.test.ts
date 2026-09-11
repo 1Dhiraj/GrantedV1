@@ -102,7 +102,7 @@ function createPrepackLifecycleFixture() {
   const packageJson = JSON.parse(sourceFiles["package.json"]);
   Object.assign(packageJson, {
     packageManager: rootPackageManager,
-    files: ["dist", "docs/docs_map.md", "CHANGELOG.md", ".openclaw-lifecycle-pending"],
+    files: ["dist", "docs/docs_map.md", "CHANGELOG.md", ".granted-lifecycle-pending"],
     devDependencies: { "@granted/session-url-contract": "workspace:*" },
     scripts: {
       "build:package": "node rebuild.mjs",
@@ -170,7 +170,7 @@ process.exit(result.status ?? 1);
       "Source docs-map stub.\n",
     );
     for (const name of [
-      ".openclaw-lifecycle-pending",
+      ".granted-lifecycle-pending",
       ".artifacts/package-docs-map/receipt.json",
       ".artifacts/package-manifest/package.json.prepack-backup",
       ".artifacts/package-changelog/CHANGELOG.md.prepack-backup",
@@ -313,7 +313,7 @@ describe("prepared prepack ownership", () => {
       expect(result.signal).toBeNull();
       expect(result.status).not.toBe(0);
       expect(result.stderr).toContain(invalid ? "AssertionError" : "PACKAGE_DOCS_MAP_ACTIVE");
-      expect(existsSync(path.join(rootDir, ".openclaw-lifecycle-pending"))).toBe(false);
+      expect(existsSync(path.join(rootDir, ".granted-lifecycle-pending"))).toBe(false);
       expect(existsSync(path.join(rootDir, "dist/postinstall-inventory.json"))).toBe(false);
       for (const [name, contents] of Object.entries(sourceFiles)) {
         expect(readFileSync(path.join(rootDir, name), "utf8")).toBe(contents);
@@ -350,7 +350,7 @@ describe("prepack lifecycle", () => {
       prepared ? fixture.sourceFiles["dist/index.js"] : "export const rebuilt = true;\n",
     );
     expect(JSON.parse(readPacked("dist/postinstall-inventory.json"))).toContain("dist/index.js");
-    expect(readPacked(".openclaw-lifecycle-pending")).toBe("pending\n");
+    expect(readPacked(".granted-lifecycle-pending")).toBe("pending\n");
     expect(readPacked("docs/docs_map.md")).toContain("## page.md");
     expect(JSON.parse(readPacked("package.json")).devDependencies).toBeUndefined();
     expect(readPacked("CHANGELOG.md")).toContain("## 2026.8.1");

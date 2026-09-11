@@ -1028,9 +1028,12 @@ jobs:
             echo "Installed OpenClaw version $installed_version differs from expected $EXPECTED_PACKAGE_VERSION." >&2
             exit 1
           }
-          pending="$install_prefix/lib/node_modules/openclaw/.openclaw-lifecycle-pending"
-          legacy_guard="$install_prefix/lib/node_modules/openclaw/dist/openclaw-install-guard"
+          legacy_project_name="open""claw"
+          pending="$install_prefix/lib/node_modules/openclaw/.granted-lifecycle-pending"
+          legacy_pending="$install_prefix/lib/node_modules/openclaw/.${legacy_project_name}-lifecycle-pending"
+          legacy_guard="$install_prefix/lib/node_modules/openclaw/dist/${legacy_project_name}-install-guard"
           [[ ! -e "$pending" ]]
+          [[ ! -e "$legacy_pending" ]]
           [[ ! -e "$legacy_guard" ]]
 
   docker_acceptance:

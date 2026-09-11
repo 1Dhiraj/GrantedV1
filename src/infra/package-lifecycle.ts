@@ -3,11 +3,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {
   LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH,
+  LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
+  PACKAGE_LIFECYCLE_LOCK_RELATIVE_PATH,
   PACKAGE_LIFECYCLE_MARKER_CONTRACT_RELATIVE_PATH,
   PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
 } from "../../scripts/lib/package-lifecycle-marker.mjs";
 
-const PACKAGE_LIFECYCLE_LOCK_RELATIVE_PATH = ".openclaw-lifecycle-lock";
 const DEFAULT_PACKAGE_LIFECYCLE_SCRIPT_TIMEOUT_MS = 20 * 60_000;
 const PACKAGE_LIFECYCLE_LOCK_POLL_MS = 100;
 const PACKAGE_LIFECYCLE_LOCK_RECOVERY_GRACE_MS = 20 * 60_000;
@@ -50,13 +51,18 @@ async function pathExists(filePath: string): Promise<boolean> {
 function resolveLifecyclePaths(packageRoot: string) {
   return {
     pending: path.join(packageRoot, PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH),
-    legacyGuard: path.join(packageRoot, LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH),
+    legacyPending: path.join(packageRoot, LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH),
+    legacyInstallGuard: path.join(packageRoot, LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH),
     lock: path.join(packageRoot, PACKAGE_LIFECYCLE_LOCK_RELATIVE_PATH),
   };
 }
 
 async function isPackageLifecyclePending(paths: ReturnType<typeof resolveLifecyclePaths>) {
-  return (await pathExists(paths.pending)) || (await pathExists(paths.legacyGuard));
+  return (
+    (await pathExists(paths.pending)) ||
+    (await pathExists(paths.legacyPending)) ||
+    (await pathExists(paths.legacyInstallGuard))
+  );
 }
 
 async function ensurePendingMarker(markerPath: string): Promise<void> {
@@ -104,7 +110,7 @@ async function acquireLifecycleLock(
         }
       }
       if (Date.now() >= waitDeadline) {
-        throw new Error("timed out waiting for another OpenClaw package lifecycle", {
+        throw new Error("timed out waiting for another Granted package lifecycle", {
           cause: error,
         });
       }
@@ -133,7 +139,7 @@ function runPackageLifecycleScript(
   }
   if (result.status !== 0) {
     throw new Error(
-      `OpenClaw package ${script.name} failed${result.signal ? ` with ${result.signal}` : ` with exit code ${result.status ?? "unknown"}`}`,
+      `Granted package ${script.name} failed${result.signal ? ` with ${result.signal}` : ` with exit code ${result.status ?? "unknown"}`}`,
     );
   }
 }
@@ -170,13 +176,14 @@ export async function completePendingPackageLifecycle(params: {
     for (const script of PACKAGE_LIFECYCLE_SCRIPTS) {
       await runScript(script);
     }
+    await fs.rm(paths.legacyPending, { force: true });
     if (finalizeLegacyMarker) {
       // Legacy postinstall cannot clear this marker. Package capability survives
       // interrupted promotion, so successful retries can still finalize it.
       await fs.rm(paths.pending, { force: true });
     }
     if (await isPackageLifecyclePending(paths)) {
-      throw new Error("OpenClaw package postinstall did not complete its lifecycle marker");
+      throw new Error("Granted package postinstall did not complete its lifecycle marker");
     }
     return true;
   } catch (error) {

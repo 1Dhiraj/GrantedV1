@@ -326,7 +326,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
                   "export {};\n",
                 ),
                 fs.writeFile(
-                  path.join(newPackageRoot, ".openclaw-lifecycle-pending"),
+                  path.join(newPackageRoot, ".granted-lifecycle-pending"),
                   "pending\n",
                   "utf8",
                 ),
@@ -357,7 +357,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
                 path.join(newPackageRoot, "scripts", "preinstall-package-manager-warning.mjs"),
               ]);
               await expect(
-                fs.readFile(path.join(newPackageRoot, ".openclaw-lifecycle-pending"), "utf8"),
+                fs.readFile(path.join(newPackageRoot, ".granted-lifecycle-pending"), "utf8"),
               ).resolves.toBe("pending\n");
             } else if (name === "pnpm package postinstall") {
               expect(argv).toEqual([
@@ -365,9 +365,9 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
                 path.join(newPackageRoot, "scripts", "postinstall-bundled-plugins.mjs"),
               ]);
               await expect(
-                fs.readFile(path.join(newPackageRoot, ".openclaw-lifecycle-pending"), "utf8"),
+                fs.readFile(path.join(newPackageRoot, ".granted-lifecycle-pending"), "utf8"),
               ).resolves.toBe("pending\n");
-              await fs.rm(path.join(newPackageRoot, ".openclaw-lifecycle-pending"));
+              await fs.rm(path.join(newPackageRoot, ".granted-lifecycle-pending"));
             } else {
               throw new Error(`unexpected step: ${name}`);
             }
@@ -422,7 +422,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
           "pnpm package postinstall",
           "candidate doctor",
         ]);
-        await expectPathMissing(path.join(newPackageRoot, ".openclaw-lifecycle-pending"));
+        await expectPathMissing(path.join(newPackageRoot, ".granted-lifecycle-pending"));
         expect(postVerifyStep).toHaveBeenCalledOnce();
       });
     },
@@ -822,7 +822,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
                 "export {};\n",
               ),
               fs.writeFile(
-                path.join(packageRoot, ".openclaw-lifecycle-pending"),
+                path.join(packageRoot, ".granted-lifecycle-pending"),
                 "pending\n",
                 "utf8",
               ),
@@ -840,7 +840,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
           }
           const exitCode = name === failedLifecycleStep && firstAttempt ? 1 : 0;
           if (name === "pnpm package postinstall" && exitCode === 0) {
-            await fs.rm(path.join(packageRoot, ".openclaw-lifecycle-pending"));
+            await fs.rm(path.join(packageRoot, ".granted-lifecycle-pending"));
           }
           return {
             name,
@@ -872,7 +872,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
           recovery: { serviceRestartSafe: false, reason: "runtime-verification-failed" },
         });
         await expect(
-          fs.readFile(path.join(packageRoot, ".openclaw-lifecycle-pending"), "utf8"),
+          fs.readFile(path.join(packageRoot, ".granted-lifecycle-pending"), "utf8"),
         ).resolves.toBe("pending\n");
 
         firstAttempt = false;
@@ -885,7 +885,7 @@ describe("pnpm isolated install preflight (v11 layout)", () => {
           "pnpm package preinstall",
           "pnpm package postinstall",
         ]);
-        await expectPathMissing(path.join(packageRoot, ".openclaw-lifecycle-pending"));
+        await expectPathMissing(path.join(packageRoot, ".granted-lifecycle-pending"));
       });
     },
   );

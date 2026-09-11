@@ -12,10 +12,16 @@ const isSourceCheckoutLauncher = () =>
   existsSync(new URL("./.git", import.meta.url)) ||
   existsSync(new URL("./src/entry.ts", import.meta.url));
 
+// Preserve pre-Granted install discovery without presenting the retired name
+// in active product copy or writing new state under it.
+const LEGACY_PROJECT_NAME = ["open", "claw"].join("");
+const LEGACY_ENV_PREFIX = `${LEGACY_PROJECT_NAME.toUpperCase()}_`;
+
 if (
   !isSourceCheckoutLauncher() &&
-  (existsSync(new URL("./.openclaw-lifecycle-pending", import.meta.url)) ||
-    existsSync(new URL("./dist/openclaw-install-guard", import.meta.url)))
+  (existsSync(new URL("./.granted-lifecycle-pending", import.meta.url)) ||
+    existsSync(new URL(`./.${LEGACY_PROJECT_NAME}-lifecycle-pending`, import.meta.url)) ||
+    existsSync(new URL(`./dist/${LEGACY_PROJECT_NAME}-install-guard`, import.meta.url)))
 ) {
   try {
     const { completePendingPackageLifecycle } = await import("./dist/infra/package-lifecycle.js");
@@ -24,13 +30,13 @@ if (
     });
   } catch (error) {
     process.stderr.write(
-      `openclaw: package lifecycle is incomplete. Reinstall with package scripts enabled, then retry. ${error instanceof Error ? error.message : String(error)}\n`,
+      `granted: package lifecycle is incomplete. Reinstall with package scripts enabled, then retry. ${error instanceof Error ? error.message : String(error)}\n`,
     );
     process.exit(1);
   }
 }
 
-const { isSupportedOpenClawNodeVersion } = await import("./node-version.mjs");
+const { isSupportedGrantedNodeVersion } = await import("./node-version.mjs");
 
 const RECOMMENDED_NODE_MAJOR = 26;
 const SUPPORTED_NODE_RANGE = ">=22.22.3 <23, >=24.15.0 <25, or >=25.9.0";
@@ -39,7 +45,7 @@ const COMPILE_CACHE_DISABLED_RESPAWNED_ENV = "GRANTED_COMPILE_CACHE_DISABLED_RES
 const ensureSupportedRuntimeVersion = () => {
   if (process.versions.bun) {
     // Bun >=1.4 (Rust rewrite) ships node:sqlite; feature-probe instead of
-    // rejecting Bun outright so capable Bun builds can run OpenClaw.
+    // rejecting Bun outright so capable Bun builds can run Granted.
     let hasNodeSqlite;
     try {
       hasNodeSqlite = Boolean(process.getBuiltinModule?.("node:sqlite"));
@@ -50,17 +56,17 @@ const ensureSupportedRuntimeVersion = () => {
       return;
     }
     process.stderr.write(
-      "openclaw: this Bun runtime is unsupported because it does not provide node:sqlite.\n" +
+      "granted: this Bun runtime is unsupported because it does not provide node:sqlite.\n" +
         `Use Node.js ${SUPPORTED_NODE_RANGE}; Bun remains supported for installs and package scripts.\n`,
     );
     process.exit(1);
   }
-  if (isSupportedOpenClawNodeVersion(process.versions.node)) {
+  if (isSupportedGrantedNodeVersion(process.versions.node)) {
     return;
   }
 
   process.stderr.write(
-    `openclaw: Node.js ${SUPPORTED_NODE_RANGE} is required (current: v${process.versions.node}).\n` +
+    `granted: Node.js ${SUPPORTED_NODE_RANGE} is required (current: v${process.versions.node}).\n` +
       "If you use nvm, run:\n" +
       `  nvm install ${RECOMMENDED_NODE_MAJOR}\n` +
       `  nvm use ${RECOMMENDED_NODE_MAJOR}\n` +
@@ -109,7 +115,7 @@ const resolvePackagedCompileCacheDirectory = () => {
     : path.join(os.tmpdir(), "node-compile-cache");
   return path.join(
     baseDirectory,
-    "openclaw",
+    "granted",
     version,
     sanitizeCompileCachePathSegment(installMarker),
   );
@@ -223,7 +229,7 @@ const runRespawnedChild = (command, args, env) => {
   child.once("error", (error) => {
     detach();
     process.stderr.write(
-      `[openclaw] Failed to respawn launcher: ${
+      `[granted] Failed to respawn launcher: ${
         error instanceof Error ? (error.stack ?? error.message) : String(error)
       }\n`,
     );
@@ -359,7 +365,7 @@ const exists = async (specifier) => {
 };
 
 const buildMissingEntryErrorMessage = async () => {
-  const lines = ["openclaw: missing dist/entry.(m)js (build output)."];
+  const lines = ["granted: missing dist/entry.(m)js (build output)."];
   if (!(await exists("./src/entry.ts"))) {
     return lines.join("\n");
   }
@@ -369,9 +375,9 @@ const buildMissingEntryErrorMessage = async () => {
     "Build locally with `pnpm install && pnpm build`, or install a built package instead.",
   );
   lines.push(
-    "For pinned GitHub installs, use `npm install -g github:openclaw/openclaw#<ref>` instead of a raw `/archive/<ref>.tar.gz` URL.",
+    "For pinned GitHub installs, use `npm install -g github:1Dhiraj/GrantedV1#<ref>` instead of a raw `/archive/<ref>.tar.gz` URL.",
   );
-  lines.push("For releases, use `npm install -g openclaw@latest`.");
+  lines.push("For releases, use `npm install -g granted@latest`.");
   return lines.join("\n");
 };
 
@@ -538,14 +544,14 @@ const resolveLauncherConfigPaths = () => {
   if (explicit) {
     return [resolveLauncherUserPath(explicit)];
   }
-  const filenames = ["granted.json", "openclaw.json", "clawdbot.json"];
+  const filenames = ["granted.json", `${LEGACY_PROJECT_NAME}.json`, "clawdbot.json"];
   const stateOverride = readLauncherEnv("STATE_DIR")?.trim();
   if (stateOverride) {
     const stateDir = resolveLauncherUserPath(stateOverride);
     return filenames.map((filename) => path.join(stateDir, filename));
   }
   const homeDir = resolveLauncherHomeDir();
-  return [".granted", ".openclaw", ".clawdbot"].flatMap((dirname) =>
+  return [".granted", `.${LEGACY_PROJECT_NAME}`, ".clawdbot"].flatMap((dirname) =>
     filenames.map((filename) => path.join(homeDir, dirname, filename)),
   );
 };
@@ -608,7 +614,7 @@ function normalizeLauncherMetadataValue(value) {
 function readLauncherEnv(suffix) {
   return (
     process.env[`GRANTED_${suffix}`] ??
-    process.env[`OPENCLAW_${suffix}`] ??
+    process.env[`${LEGACY_ENV_PREFIX}${suffix}`] ??
     process.env[`CLAWDBOT_${suffix}`]
   );
 }

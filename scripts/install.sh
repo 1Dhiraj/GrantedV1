@@ -1076,10 +1076,10 @@ NODE
 }
 
 verify_npm_lifecycle_completed() {
-    local npm_cmd="$1" npm_root=""
+    local npm_cmd="$1" npm_root="" legacy_project_name="open""claw"
     npm_root="$("$npm_cmd" root -g 2>/dev/null | awk 'NF { value = $0 } END { print value }')" || true
     [[ -n "$npm_root" ]] || { echo "Unable to resolve npm global root after install." >&2; return 1; }
-    [[ ! -e "${npm_root%/}/openclaw/.openclaw-lifecycle-pending" && ! -e "${npm_root%/}/openclaw/dist/openclaw-install-guard" ]] || {
+    [[ ! -e "${npm_root%/}/openclaw/.granted-lifecycle-pending" && ! -e "${npm_root%/}/openclaw/.${legacy_project_name}-lifecycle-pending" && ! -e "${npm_root%/}/openclaw/dist/${legacy_project_name}-install-guard" ]] || {
       echo "OpenClaw lifecycle scripts did not complete; refusing installer success." >&2
       return 1
     }

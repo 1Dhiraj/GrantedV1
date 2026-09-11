@@ -124,7 +124,7 @@ export function writeNpmLifecycleFixture(path: string) {
       'printf "%s\\n" "$*" >> "$NPM_FAKE_ARGS"',
       'mkdir -p "$NPM_FAKE_PACKAGE_DIR/dist"',
       'printf "#!/usr/bin/env node\\n" > "$NPM_FAKE_PACKAGE_DIR/dist/entry.js"',
-      'if [[ "${NPM_FAKE_KEEP_GUARD:-0}" == "1" ]]; then : > "$NPM_FAKE_PACKAGE_DIR/.openclaw-lifecycle-pending"; else rm -f "$NPM_FAKE_PACKAGE_DIR/.openclaw-lifecycle-pending"; fi',
+      'if [[ "${NPM_FAKE_KEEP_GUARD:-0}" == "1" ]]; then : > "$NPM_FAKE_PACKAGE_DIR/.granted-lifecycle-pending"; else rm -f "$NPM_FAKE_PACKAGE_DIR/.granted-lifecycle-pending"; fi',
       "exit 0",
       "",
     ].join("\n"),

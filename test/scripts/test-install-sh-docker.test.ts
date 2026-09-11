@@ -2121,7 +2121,7 @@ syncBuiltinESMExports();
     expect(blocked.stderr).toContain("OpenClaw lifecycle scripts remain blocked by Bun");
 
     writeFileSync(untrustedOutputPath, "");
-    writeFileSync(join(packageRoot, ".openclaw-lifecycle-pending"), "pending\n");
+    writeFileSync(join(packageRoot, ".granted-lifecycle-pending"), "pending\n");
     const skipped = spawnSync(
       process.execPath,
       [

@@ -81,7 +81,7 @@ function withPackedPackage(
     for (const assetPath of CONTROL_UI_ASSETS) {
       writeFixtureFile(packageRoot, assetPath, "shipped Control UI asset\n");
     }
-    writeFixtureFile(packageRoot, ".openclaw-lifecycle-pending", "pending\n");
+    writeFixtureFile(packageRoot, ".granted-lifecycle-pending", "pending\n");
     for (const relativePath of WORKSPACE_TEMPLATE_PACK_PATHS) {
       writeFixtureFile(packageRoot, relativePath, `# ${relativePath}\n`);
     }

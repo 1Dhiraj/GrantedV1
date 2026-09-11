@@ -3,6 +3,8 @@ import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import {
   LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH,
+  LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
+  PACKAGE_LIFECYCLE_LOCK_RELATIVE_PATH,
   PACKAGE_LIFECYCLE_MARKER_CONTRACT_RELATIVE_PATH,
   PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
 } from "../../scripts/lib/package-lifecycle-marker.mjs";
@@ -20,7 +22,7 @@ async function markModernLifecyclePending(packageRoot: string): Promise<string> 
 
 describe("package lifecycle completion", () => {
   it("runs preinstall and postinstall once before releasing concurrent callers", async () => {
-    await withTestDir({ prefix: "openclaw-package-lifecycle-" }, async (packageRoot) => {
+    await withTestDir({ prefix: "granted-package-lifecycle-" }, async (packageRoot) => {
       const markerPath = await markModernLifecyclePending(packageRoot);
       const calls: string[] = [];
       let releasePreinstall: (() => void) | undefined;
@@ -56,7 +58,7 @@ describe("package lifecycle completion", () => {
   it.each(["throws", "leaves the marker"])(
     "retains pending state when modern postinstall %s",
     async (failure) => {
-      await withTestDir({ prefix: "openclaw-package-lifecycle-failure-" }, async (packageRoot) => {
+      await withTestDir({ prefix: "granted-package-lifecycle-failure-" }, async (packageRoot) => {
         const markerPath = await markModernLifecyclePending(packageRoot);
 
         await expect(
@@ -83,7 +85,7 @@ describe("package lifecycle completion", () => {
     ["automatic update", 45 * 60_000],
     ["explicit longer update", 75 * 60_000],
   ])("records the %s lifecycle budget on its lock", async (_name, scriptTimeoutMs) => {
-    await withTestDir({ prefix: "openclaw-package-lifecycle-lock-" }, async (packageRoot) => {
+    await withTestDir({ prefix: "granted-package-lifecycle-lock-" }, async (packageRoot) => {
       const markerPath = await markModernLifecyclePending(packageRoot);
       let releasePreinstall: (() => void) | undefined;
       let preinstallCalls = 0;
@@ -114,7 +116,7 @@ describe("package lifecycle completion", () => {
         timeoutMs: scriptTimeoutMs,
       });
       await firstPreinstall;
-      const lockStat = await fs.stat(path.join(packageRoot, ".openclaw-lifecycle-lock"));
+      const lockStat = await fs.stat(path.join(packageRoot, PACKAGE_LIFECYCLE_LOCK_RELATIVE_PATH));
       expect(lockStat.mtimeMs).toBeGreaterThanOrEqual(startedAt + scriptTimeoutMs * 2 - 1_000);
       const second = completePendingPackageLifecycle({
         packageRoot,
@@ -139,7 +141,7 @@ describe("package lifecycle completion", () => {
   it.each(["none", "preinstall", "postinstall"])(
     "completes the shipped dist guard after %s interruption",
     async (failedScript) => {
-      await withTestDir({ prefix: "openclaw-package-lifecycle-legacy-" }, async (packageRoot) => {
+      await withTestDir({ prefix: "granted-package-lifecycle-legacy-" }, async (packageRoot) => {
         const markerPath = path.join(packageRoot, PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH);
         const legacyGuardPath = path.join(packageRoot, LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH);
         await fs.mkdir(path.dirname(legacyGuardPath), { recursive: true });
@@ -174,4 +176,28 @@ describe("package lifecycle completion", () => {
       });
     },
   );
+
+  it("promotes a pre-Granted pending marker", async () => {
+    await withTestDir({ prefix: "granted-package-lifecycle-migration-" }, async (packageRoot) => {
+      const currentMarkerPath = path.join(packageRoot, PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH);
+      const legacyMarkerPath = path.join(
+        packageRoot,
+        LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
+      );
+      await fs.writeFile(legacyMarkerPath, "pending\n");
+
+      await expect(
+        completePendingPackageLifecycle({
+          packageRoot,
+          runScript: async (script) => {
+            if (script.name === "postinstall") {
+              await fs.rm(currentMarkerPath);
+            }
+          },
+        }),
+      ).resolves.toBe(true);
+      await expect(fs.access(currentMarkerPath)).rejects.toMatchObject({ code: "ENOENT" });
+      await expect(fs.access(legacyMarkerPath)).rejects.toMatchObject({ code: "ENOENT" });
+    });
+  });
 });

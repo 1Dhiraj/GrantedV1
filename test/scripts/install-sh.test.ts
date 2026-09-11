@@ -17,7 +17,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { isSupportedOpenClawNodeVersion } from "../../node-version.mjs";
+import { isSupportedGrantedNodeVersion } from "../../node-version.mjs";
 import { NODE_RELEASE_VERSION_CASES } from "../helpers/node-version-cases.js";
 import { createInstallGitCommitFixtureScript } from "./install-git-fixtures.js";
 import {
@@ -1193,9 +1193,9 @@ mkdir -p "$NPM_FAKE_ROOT/openclaw/dist"
 printf '%s\n' '#!/usr/bin/env node' 'process.stdout.write("npm-version\\n")' > "$NPM_FAKE_ROOT/openclaw/granted.mjs"
 chmod +x "$NPM_FAKE_ROOT/openclaw/granted.mjs"
 if [[ "$NPM_FAKE_MODE" == guard-failure ]]; then
-  : > "$NPM_FAKE_ROOT/openclaw/.openclaw-lifecycle-pending"
+  : > "$NPM_FAKE_ROOT/openclaw/.granted-lifecycle-pending"
 else
-  rm -f "$NPM_FAKE_ROOT/openclaw/.openclaw-lifecycle-pending"
+  rm -f "$NPM_FAKE_ROOT/openclaw/.granted-lifecycle-pending"
 fi
 EOF
         chmod +x "$fake_npm"
@@ -3031,7 +3031,7 @@ EOF
 
     expect(result?.status).toBe(0);
     for (const [index, version] of NODE_RELEASE_VERSION_CASES.entries()) {
-      const expectedStatus = isSupportedOpenClawNodeVersion(version) ? 0 : 1;
+      const expectedStatus = isSupportedGrantedNodeVersion(version) ? 0 : 1;
       expect(result?.stdout, version).toContain(`${index}=${expectedStatus}`);
     }
   });

@@ -36,7 +36,7 @@
     "README.md",
     "THIRD_PARTY_NOTICES.md",
     "dist/",
-    ".openclaw-lifecycle-pending",
+    ".granted-lifecycle-pending",
     "!dist/.buildstamp",
     "!dist/.runtime-postbuildstamp",
     "!dist/**/*.app",

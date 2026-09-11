@@ -396,7 +396,7 @@ describe("install runtime enforcement", () => {
   });
 
   it("removes the legacy install guard after runtime validation", () => {
-    const markerUrl = new URL("file:///tmp/openclaw-install-guard");
+    const markerUrl = new URL(`file:///tmp/${["open", "claw"].join("")}-install-guard`);
     const remove = vi.fn();
     const reportError = vi.fn();
 

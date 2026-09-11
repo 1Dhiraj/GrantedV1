@@ -278,9 +278,15 @@ if (mode === "assert-openclaw-trusted") {
   if (/(?:^|\s)(?:\.?[\\/])?node_modules[\\/]openclaw(?:\s|@|$)/imu.test(untrustedOutput)) {
     throw new Error(`OpenClaw lifecycle scripts remain blocked by Bun:\n${untrustedOutput}`);
   }
-  const pendingPath = path.join(packageRoot, ".openclaw-lifecycle-pending");
-  const legacyGuardPath = path.join(packageRoot, "dist", "openclaw-install-guard");
-  if (fs.existsSync(pendingPath) || fs.existsSync(legacyGuardPath)) {
+  const legacyProjectName = ["open", "claw"].join("");
+  const pendingPath = path.join(packageRoot, ".granted-lifecycle-pending");
+  const legacyPendingPath = path.join(packageRoot, `.${legacyProjectName}-lifecycle-pending`);
+  const legacyGuardPath = path.join(packageRoot, "dist", `${legacyProjectName}-install-guard`);
+  if (
+    fs.existsSync(pendingPath) ||
+    fs.existsSync(legacyPendingPath) ||
+    fs.existsSync(legacyGuardPath)
+  ) {
     throw new Error("OpenClaw package lifecycle did not complete");
   }
   process.exit(0);

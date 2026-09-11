@@ -75,7 +75,7 @@ function createSelectedPluginPackageFixture() {
     version: "2026.8.1",
     files: [
       "dist",
-      ".openclaw-lifecycle-pending",
+      ".granted-lifecycle-pending",
       "!dist/extensions/demo/**",
       "!dist/extensions/other/**",
       "!dist/extensions/*/node_modules/**",
@@ -254,7 +254,7 @@ describe("package-openclaw-for-docker", () => {
     const extractDir = tempDirs.make("openclaw-selected-plugin-extract-");
     await tar.x({ file: selected, cwd: extractDir });
     const packedRoot = path.join(extractDir, "package");
-    expect(fs.readFileSync(path.join(packedRoot, ".openclaw-lifecycle-pending"), "utf8")).toBe(
+    expect(fs.readFileSync(path.join(packedRoot, ".granted-lifecycle-pending"), "utf8")).toBe(
       "pending\n",
     );
     expect(fs.existsSync(path.join(packedRoot, "dist/extensions/demo/index.js"))).toBe(true);
@@ -274,12 +274,12 @@ describe("package-openclaw-for-docker", () => {
       files["package.json"],
     );
     expect(JSON.parse(fs.readFileSync(inventoryPath, "utf8"))).toEqual(["dist/shared-runtime.js"]);
-    expect(fs.existsSync(path.join(sourceDir, ".openclaw-lifecycle-pending"))).toBe(false);
+    expect(fs.existsSync(path.join(sourceDir, ".granted-lifecycle-pending"))).toBe(false);
 
     const ordinary = await packOpenClawPackageForDocker(sourceDir, outputDir, options);
     const ordinaryEntries: string[] = [];
     await tar.t({ file: ordinary, onentry: (entry) => ordinaryEntries.push(entry.path) });
-    expect(ordinaryEntries).toContain("package/.openclaw-lifecycle-pending");
+    expect(ordinaryEntries).toContain("package/.granted-lifecycle-pending");
     expect(ordinaryEntries.some((entry) => entry.startsWith("package/dist/extensions/demo/"))).toBe(
       false,
     );
@@ -617,8 +617,8 @@ describe("package-openclaw-for-docker", () => {
     expect(
       JSON.parse(fs.readFileSync(path.join(sourceDir, "dist/postinstall-inventory.json"), "utf8")),
     ).toEqual(["dist/shared-runtime.js"]);
-    expect(fs.existsSync(path.join(sourceDir, "dist/openclaw-install-guard"))).toBe(false);
-    expect(fs.existsSync(path.join(sourceDir, ".openclaw-lifecycle-pending"))).toBe(false);
+    expect(fs.existsSync(path.join(sourceDir, "dist/granted-install-guard"))).toBe(false);
+    expect(fs.existsSync(path.join(sourceDir, ".granted-lifecycle-pending"))).toBe(false);
   });
 
   it("rejects duplicate package artifact CLI options", () => {
@@ -1342,7 +1342,7 @@ describe("package-openclaw-for-docker", () => {
         "# Changelog\n\n## 2026.8.1\n- Current package notes with enough detail.\n";
       fs.writeFileSync(path.join(sourceDir, "CHANGELOG.md"), sourceChangelog);
       await writePackageDistInventoryForPublish(sourceDir);
-      const markerPath = path.join(sourceDir, ".openclaw-lifecycle-pending");
+      const markerPath = path.join(sourceDir, ".granted-lifecycle-pending");
       const receiptPath = path.join(sourceDir, ".artifacts/package-docs-map/receipt.json");
       const lifecycle = {
         ...skipTarballModeNormalization,

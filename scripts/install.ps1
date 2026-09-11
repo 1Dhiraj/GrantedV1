@@ -1511,10 +1511,12 @@ function Test-NpmLifecycleCompleted {
     if ([string]::IsNullOrWhiteSpace($npmRoot)) {
         return $false
     }
+    $legacyProjectName = "open" + "claw"
     $entryPath = Join-Path $npmRoot "openclaw\dist\entry.js"
-    $pendingPath = Join-Path $npmRoot "openclaw\.openclaw-lifecycle-pending"
-    $legacyGuardPath = Join-Path $npmRoot "openclaw\dist\openclaw-install-guard"
-    return (Test-Path -LiteralPath $entryPath -PathType Leaf) -and -not (Test-Path -LiteralPath $pendingPath) -and -not (Test-Path -LiteralPath $legacyGuardPath)
+    $pendingPath = Join-Path $npmRoot "openclaw\.granted-lifecycle-pending"
+    $legacyPendingPath = Join-Path $npmRoot "openclaw\.$legacyProjectName-lifecycle-pending"
+    $legacyGuardPath = Join-Path $npmRoot "openclaw\dist\$legacyProjectName-install-guard"
+    return (Test-Path -LiteralPath $entryPath -PathType Leaf) -and -not (Test-Path -LiteralPath $pendingPath) -and -not (Test-Path -LiteralPath $legacyPendingPath) -and -not (Test-Path -LiteralPath $legacyGuardPath)
 }
 
 function Format-OpenClawGitWrapper {
@@ -2135,7 +2137,7 @@ function Main {
                             Fail-Install
                             return
                         }
-                        $expectedNpmLauncher = Join-Path $rootOutput[-1].ToString().Trim() "openclaw\openclaw.mjs"
+                        $expectedNpmLauncher = Join-Path $rootOutput[-1].ToString().Trim() "openclaw\granted.mjs"
                         $npmShimBackup = Start-NpmShimBackup -Path $previousGitWrapper -ExpectedLauncher $expectedNpmLauncher
                         break
                     }

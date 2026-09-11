@@ -1,22 +1,27 @@
 #!/usr/bin/env node
 import { existsSync } from "node:fs";
-// Re-exports the OpenClaw CLI entry point for package execution.
 // Package executable entrypoint that forwards to the CLI bootstrap.
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import {
+  LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH,
+  LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
+  PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH,
+} from "../scripts/lib/package-lifecycle-marker.mjs";
 
 const packageRootUrl = new URL("../", import.meta.url);
 if (
   !existsSync(new URL("entry.ts", import.meta.url)) &&
-  (existsSync(new URL(".openclaw-lifecycle-pending", packageRootUrl)) ||
-    existsSync(new URL("dist/openclaw-install-guard", packageRootUrl)))
+  (existsSync(new URL(PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH, packageRootUrl)) ||
+    existsSync(new URL(LEGACY_PACKAGE_LIFECYCLE_PENDING_RELATIVE_PATH, packageRootUrl)) ||
+    existsSync(new URL(LEGACY_PACKAGE_INSTALL_GUARD_RELATIVE_PATH, packageRootUrl)))
 ) {
   const { completePendingPackageLifecycle } = await import("./infra/package-lifecycle.js");
   try {
     await completePendingPackageLifecycle({ packageRoot: fileURLToPath(packageRootUrl) });
   } catch (error) {
     throw new Error(
-      `OpenClaw package lifecycle is incomplete. Reinstall with package scripts enabled, then retry. ${error instanceof Error ? error.message : String(error)}`,
+      `Granted package lifecycle is incomplete. Reinstall with package scripts enabled, then retry. ${error instanceof Error ? error.message : String(error)}`,
       { cause: error },
     );
   }
@@ -145,7 +150,7 @@ if (isMain && !handledRootVersion) {
     }
     if (isBenignUncaughtExceptionError(error)) {
       console.warn(
-        "[openclaw] Non-fatal uncaught exception (continuing):",
+        "[granted] Non-fatal uncaught exception (continuing):",
         formatUncaughtError(error),
       );
       return;
@@ -154,14 +159,14 @@ if (isMain && !handledRootVersion) {
       defaultRuntime.writeJson(formatCliJsonFailure(error));
     }
     for (const line of formatCliFailureLines({
-      title: "OpenClaw hit an unexpected runtime error.",
+      title: "Granted hit an unexpected runtime error.",
       error,
       argv: process.argv,
     })) {
       console.error(line);
     }
     for (const message of runFatalErrorHooks({ reason: "uncaught_exception", error })) {
-      console.error("[openclaw]", message);
+      console.error("[granted]", message);
     }
     restoreRuntimeTerminalState("uncaught exception", { resumeStdinIfPaused: false });
     process.exit(1);
@@ -188,7 +193,7 @@ if (isMain && !handledRootVersion) {
       }
       if (!isExpectedCliError(err)) {
         for (const message of runFatalErrorHooks({ reason: "legacy_cli_failure", error: err })) {
-          console.error("[openclaw]", message);
+          console.error("[granted]", message);
         }
       }
       restoreRuntimeTerminalState("legacy cli failure", { resumeStdinIfPaused: false });

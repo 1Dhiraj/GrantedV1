@@ -18,8 +18,8 @@ if [[ ! -x "$node_bin/pnpm" ]]; then
 fi
 
 node --input-type=module -e '
-  import { isSupportedOpenClawNodeVersion } from "./node-version.mjs";
-  if (!isSupportedOpenClawNodeVersion(process.version)) process.exit(1);
+  import { isSupportedGrantedNodeVersion } from "./node-version.mjs";
+  if (!isSupportedGrantedNodeVersion(process.version)) process.exit(1);
 '
 
 package_manager="$(node -p 'require("./package.json").packageManager')"
