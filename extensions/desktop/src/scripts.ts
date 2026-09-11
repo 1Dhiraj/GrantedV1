@@ -531,33 +531,42 @@ export const WAIT_SCRIPT =
   UIA_HELPERS +
   `
 $timeoutMs = if ($A.timeoutMs) { [Math]::Min([int]$A.timeoutMs, 30000) } else { 10000 }
+$requirePresent = if ($null -ne $A.requirePresent) { [bool]$A.requirePresent } else { $true }
 $deadline = [DateTime]::UtcNow.AddMilliseconds($timeoutMs)
 $start = [DateTime]::UtcNow
 $found = $false
+$verified = $false
 $element = $null
 while ([DateTime]::UtcNow -lt $deadline) {
+  $found = $false
+  $element = $null
   $h = Find-WindowHandle ([string]$A.title)
   if ($h -ne [IntPtr]::Zero) {
     if (-not $A.name) {
       $found = $true
-      break
-    }
-    try {
+    } else { try {
       $root = [System.Windows.Automation.AutomationElement]::FromHandle($h)
       $hits = @(Search-Elements $root ([string]$A.name) ([string]$A.role) 1 18)
       if ($hits.Count -gt 0) {
         $found = $true
         $element = $hits[0]
-        break
       }
-    } catch { }
+    } catch { } }
+  }
+  if ($found -eq $requirePresent) {
+    $verified = $true
+    break
   }
   Start-Sleep -Milliseconds 400
 }
 $elapsed = [int]([DateTime]::UtcNow - $start).TotalMilliseconds
-$payload = @{ ok = $true; found = $found; elapsedMs = $elapsed }
+$condition = if ($requirePresent) { 'element_exists' } else { 'element_absent' }
+$payload = @{ ok = $true; found = $found; verified = $verified; condition = $condition; elapsedMs = $elapsed }
 if ($element) { $payload.element = $element }
-if (-not $found) { $payload.hint = 'not found within ' + $timeoutMs + 'ms — the window/element may not exist yet; re-check with apps or snapshot' }
+if (-not $verified) {
+  $expectation = if ($requirePresent) { 'appear' } else { 'disappear' }
+  $payload.hint = 'verification failed: target did not ' + $expectation + ' within ' + $timeoutMs + 'ms; inspect with apps or snapshot, then retry or recover'
+}
 $payload | ConvertTo-Json -Compress -Depth 5
 `;
 

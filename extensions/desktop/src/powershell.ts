@@ -23,7 +23,7 @@ function resolveScriptFile(script: string): string {
     return cached;
   }
   const hash = crypto.createHash("md5").update(script).digest("hex").slice(0, 12);
-  const dir = path.join(os.tmpdir(), "openclaw-desktop-scripts");
+  const dir = path.join(os.tmpdir(), "granted-desktop-scripts");
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, `desk-${hash}.ps1`);
   if (!fs.existsSync(file)) {

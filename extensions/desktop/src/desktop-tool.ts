@@ -30,6 +30,11 @@ import {
   WAIT_SCRIPT,
   WINDOW_SCRIPT,
 } from "./scripts.js";
+import {
+  buildDesktopVerificationRequest,
+  DESKTOP_VERIFY_CONDITIONS,
+  normalizeDesktopTimeout,
+} from "./verification.js";
 
 const DESKTOP_ACTIONS = [
   "status",
@@ -42,6 +47,7 @@ const DESKTOP_ACTIONS = [
   "read",
   "window",
   "wait",
+  "verify",
   "clipboard",
   "screenshot",
 ] as const;
@@ -62,7 +68,6 @@ const DESKTOP_ACT_KINDS = [
 ] as const;
 
 const WINDOW_OPS = ["maximize", "minimize", "restore", "close", "move", "resize"] as const;
-
 const UIA_PATTERN_KINDS = new Set(["invoke", "toggle", "expand", "collapse", "select"]);
 
 const DesktopToolSchema = Type.Object(
@@ -121,8 +126,15 @@ const DesktopToolSchema = Type.Object(
       Type.String({ description: 'Optional role filter for find/wait (e.g. "Button", "Edit").' }),
     ),
     timeoutMs: Type.Optional(
-      Type.Number({ description: "Wait timeout in ms (default 10000, max 30000)." }),
+      Type.Number({
+        minimum: 1,
+        maximum: 30_000,
+        description: "Wait timeout in ms (default 10000, max 30000).",
+      }),
     ),
+    condition: optionalStringEnum(DESKTOP_VERIFY_CONDITIONS, {
+      description: "Expected postcondition for action=verify (default element_exists).",
+    }),
     maxChars: Type.Optional(
       Type.Number({ description: "Max characters returned by action=read (default 2000)." }),
     ),
@@ -310,23 +322,28 @@ function resolvePoint(
 export function createDesktopTool(opts?: {
   maxSnapshotElements?: number;
   maxSnapshotDepth?: number;
+  platform?: NodeJS.Platform;
+  runPowerShellJson?: typeof runPowerShellJson;
 }): AnyAgentTool {
   const maxElements = opts?.maxSnapshotElements ?? 300;
   const maxDepth = opts?.maxSnapshotDepth ?? 15;
+  const platform = opts?.platform ?? process.platform;
+  const runPowerShell = opts?.runPowerShellJson ?? runPowerShellJson;
   return {
     label: "Desktop",
     name: "desktop",
     description: [
       "Control the local Windows desktop (any app) via UI Automation + synthesized input. Windows only; shares the real mouse/keyboard; cannot reach UAC/elevated prompts.",
-      "Flow: launch or focus the app, then snapshot (NO title = foreground window; pass title only for a background window — never guess a title), then act on refs (e12) from the LATEST snapshot, then verify with read. Prefer keyboard shortcuts (Ctrl+N/S/T/F, Enter) over hunting menus. Use find (name, optional role) instead of a full snapshot in dense apps. Refs go stale after any layout change — re-snapshot.",
-      "ACTIONS: apps (list windows) · launch (app) · focus (title) · snapshot (title optional) · find (name, role) · act · read (ref, maxChars) · window (windowOp=maximize|minimize|restore|close|move|resize) · wait (name/role, timeoutMs) · clipboard (clipboardOp=get|set) · screenshot.",
+      "Flow: launch or focus the app, then snapshot (NO title = foreground window; pass title only for a background window — never guess a title), then act on refs (e12) from the LATEST snapshot, then verify the postcondition. Prefer keyboard shortcuts (Ctrl+N/S/T/F, Enter) over hunting menus. Use find (name, optional role) instead of a full snapshot in dense apps. Refs go stale after any layout change — re-snapshot.",
+      "ACTIONS: apps (list windows) · launch (app) · focus (title) · snapshot (title optional) · find (name, role) · act · read (ref, maxChars) · window (windowOp=maximize|minimize|restore|close|move|resize) · wait (name/role, timeoutMs) · verify (name, role, condition=element_exists|element_absent) · clipboard (clipboardOp=get|set) · screenshot.",
+      "VERIFICATION: after an action, use verify with a specific element name/role. A false result is recoverable: snapshot the current state, retry once with fresh refs, then choose another method or escalate.",
       "SAFETY: launch returns ok:false with reusedExistingWindow=true when the app was ALREADY running — you are looking at the user's own open document, not a blank one. Never type or send keys then: open a fresh document first (act kind=key keys=ctrl+n) and snapshot to confirm it is empty. You share the real keyboard, so a wrong keystroke edits the user's work.",
       'ACT KINDS: click (ref or x/y) · type (SHORT text into focused field) · paste (prefer for long/multiline text) · key (e.g. "ctrl+s") · scroll (scrollDelta) · move · drag (ref→toRef) · invoke/toggle/expand/collapse/select (UIA patterns on a ref — more reliable than click for checkboxes/combos/tree nodes).',
       "SCREENSHOT (only when the tree is empty/insufficient, e.g. canvas/GPU apps): grid=true overlays a coordinate grid → read x,y and act kind=click x/y. window=true title=<app> captures a background window's own pixels. annotate=true labels the latest refs.",
     ].join(" "),
     parameters: DesktopToolSchema,
     execute: async (_toolCallId, args) => {
-      if (process.platform !== "win32") {
+      if (platform !== "win32") {
         throw new Error("desktop: this tool only runs on Windows hosts.");
       }
       const params = args as Record<string, unknown>;
@@ -334,23 +351,23 @@ export function createDesktopTool(opts?: {
 
       switch (action) {
         case "status": {
-          return jsonResult(await runPowerShellJson(STATUS_SCRIPT, {}, 20_000));
+          return jsonResult(await runPowerShell(STATUS_SCRIPT, {}, 20_000));
         }
         case "apps": {
-          return jsonResult(await runPowerShellJson(APPS_SCRIPT, {}, 20_000));
+          return jsonResult(await runPowerShell(APPS_SCRIPT, {}, 20_000));
         }
         case "focus": {
           const title = readStringParam(params, "title") || "";
-          return jsonResult(await runPowerShellJson(FOCUS_SCRIPT, { title }, 20_000));
+          return jsonResult(await runPowerShell(FOCUS_SCRIPT, { title }, 20_000));
         }
         case "launch": {
           const app = readStringParam(params, "app", { required: true });
           const appArgs = readStringParam(params, "appArgs") || undefined;
-          return jsonResult(await runPowerShellJson(LAUNCH_SCRIPT, { app, appArgs }, 30_000));
+          return jsonResult(await runPowerShell(LAUNCH_SCRIPT, { app, appArgs }, 30_000));
         }
         case "snapshot": {
           const title = readStringParam(params, "title") || undefined;
-          const payload = await runPowerShellJson<SnapshotPayload>(
+          const payload = await runPowerShell<SnapshotPayload>(
             SNAPSHOT_SCRIPT,
             { title, maxElements, maxDepth },
             60_000,
@@ -367,9 +384,7 @@ export function createDesktopTool(opts?: {
           const kind = readStringParam(params, "kind", { required: true });
           if (UIA_PATTERN_KINDS.has(kind)) {
             const point = resolvePoint(params, "ref", "x", "y");
-            return jsonResult(
-              await runPowerShellJson(PATTERN_SCRIPT, { ...point, op: kind }, 30_000),
-            );
+            return jsonResult(await runPowerShell(PATTERN_SCRIPT, { ...point, op: kind }, 30_000));
           }
           switch (kind) {
             case "click": {
@@ -377,23 +392,23 @@ export function createDesktopTool(opts?: {
               const button = readStringParam(params, "button") || "left";
               const double = params.doubleClick === true;
               return jsonResult(
-                await runPowerShellJson(CLICK_SCRIPT, { ...point, button, double }, 20_000),
+                await runPowerShell(CLICK_SCRIPT, { ...point, button, double }, 20_000),
               );
             }
             case "type": {
               const text = readStringParam(params, "text", { required: true });
               const timeout = Math.max(20_000, text.length * 30 + 10_000);
-              return jsonResult(await runPowerShellJson(TYPE_SCRIPT, { text }, timeout));
+              return jsonResult(await runPowerShell(TYPE_SCRIPT, { text }, timeout));
             }
             case "paste": {
               const text = readStringParam(params, "text", { required: true });
-              return jsonResult(await runPowerShellJson(PASTE_SCRIPT, { text }, 30_000));
+              return jsonResult(await runPowerShell(PASTE_SCRIPT, { text }, 30_000));
             }
             case "key": {
               const keys = readStringParam(params, "keys", { required: true });
               const combo = parseKeyCombo(keys);
               return jsonResult(
-                await runPowerShellJson(
+                await runPowerShell(
                   KEY_SCRIPT,
                   { modifiers: combo.modifiers, key: combo.key, label: combo.label },
                   20_000,
@@ -404,18 +419,18 @@ export function createDesktopTool(opts?: {
               const delta = requireNumber(params, "scrollDelta");
               const x = typeof params.x === "number" ? params.x : undefined;
               const y = typeof params.y === "number" ? params.y : undefined;
-              return jsonResult(await runPowerShellJson(SCROLL_SCRIPT, { delta, x, y }, 20_000));
+              return jsonResult(await runPowerShell(SCROLL_SCRIPT, { delta, x, y }, 20_000));
             }
             case "move": {
               const x = requireNumber(params, "x");
               const y = requireNumber(params, "y");
-              return jsonResult(await runPowerShellJson(MOVE_SCRIPT, { x, y }, 20_000));
+              return jsonResult(await runPowerShell(MOVE_SCRIPT, { x, y }, 20_000));
             }
             case "drag": {
               const from = resolvePoint(params, "ref", "x", "y");
               const to = resolvePoint(params, "toRef", "toX", "toY");
               return jsonResult(
-                await runPowerShellJson(
+                await runPowerShell(
                   DRAG_SCRIPT,
                   { x: from.x, y: from.y, toX: to.x, toY: to.y },
                   30_000,
@@ -429,7 +444,7 @@ export function createDesktopTool(opts?: {
         case "read": {
           const point = resolvePoint(params, "ref", "x", "y");
           const maxChars = typeof params.maxChars === "number" ? params.maxChars : undefined;
-          return jsonResult(await runPowerShellJson(READ_SCRIPT, { ...point, maxChars }, 30_000));
+          return jsonResult(await runPowerShell(READ_SCRIPT, { ...point, maxChars }, 30_000));
         }
         case "window": {
           const op = readStringParam(params, "windowOp", { required: true });
@@ -443,16 +458,37 @@ export function createDesktopTool(opts?: {
             windowArgs.width = requireNumber(params, "width");
             windowArgs.height = requireNumber(params, "height");
           }
-          return jsonResult(await runPowerShellJson(WINDOW_SCRIPT, windowArgs, 20_000));
+          return jsonResult(await runPowerShell(WINDOW_SCRIPT, windowArgs, 20_000));
         }
         case "wait": {
           const title = readStringParam(params, "title") || "";
           const name = readStringParam(params, "name") || undefined;
           const role = readStringParam(params, "role") || undefined;
           const timeoutMs = typeof params.timeoutMs === "number" ? params.timeoutMs : undefined;
-          const budget = Math.min(typeof timeoutMs === "number" ? timeoutMs : 10_000, 30_000);
+          const budget = normalizeDesktopTimeout(timeoutMs);
           return jsonResult(
-            await runPowerShellJson(WAIT_SCRIPT, { title, name, role, timeoutMs }, budget + 15_000),
+            await runPowerShell(
+              WAIT_SCRIPT,
+              { title, name, role, timeoutMs: budget },
+              budget + 15_000,
+            ),
+          );
+        }
+        case "verify": {
+          const title = readStringParam(params, "title") || "";
+          const name = readStringParam(params, "name", { required: true });
+          const role = readStringParam(params, "role") || undefined;
+          const condition = readStringParam(params, "condition") || "element_exists";
+          const timeoutMs = typeof params.timeoutMs === "number" ? params.timeoutMs : undefined;
+          const verification = buildDesktopVerificationRequest({
+            title,
+            name,
+            role,
+            condition,
+            timeoutMs,
+          });
+          return jsonResult(
+            await runPowerShell(WAIT_SCRIPT, verification.args, verification.processTimeoutMs),
           );
         }
         case "clipboard": {
@@ -461,13 +497,13 @@ export function createDesktopTool(opts?: {
           if (op === "set" && !text) {
             throw new Error('desktop: clipboard set requires "text".');
           }
-          return jsonResult(await runPowerShellJson(CLIPBOARD_SCRIPT, { op, text }, 20_000));
+          return jsonResult(await runPowerShell(CLIPBOARD_SCRIPT, { op, text }, 20_000));
         }
         case "find": {
           const title = readStringParam(params, "title") || "";
           const name = readStringParam(params, "name", { required: true });
           const role = readStringParam(params, "role") || undefined;
-          const payload = await runPowerShellJson<SnapshotPayload>(
+          const payload = await runPowerShell<SnapshotPayload>(
             FIND_SCRIPT,
             { title, name, role, maxResults: 50 },
             60_000,
@@ -483,7 +519,7 @@ export function createDesktopTool(opts?: {
         case "screenshot": {
           const file = path.join(
             os.tmpdir(),
-            `openclaw-desktop-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.png`,
+            `granted-desktop-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.png`,
           );
           const annotate = params.annotate === true;
           const grid = params.grid === true;
@@ -498,7 +534,7 @@ export function createDesktopTool(opts?: {
                 h: entry.h,
               }))
             : undefined;
-          const payload = await runPowerShellJson<{
+          const payload = await runPowerShell<{
             ok: boolean;
             path: string;
             marked?: number;
