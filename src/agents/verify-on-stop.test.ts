@@ -51,6 +51,7 @@ describe("call classification", () => {
     expect(isVerifyingCall({ name: "read" })).toBe(true);
     expect(isVerifyingCall({ name: "desktop", action: "snapshot" })).toBe(true);
     expect(isVerifyingCall({ name: "desktop", action: "read" })).toBe(true);
+    expect(isVerifyingCall({ name: "desktop", action: "verify" })).toBe(true);
     expect(isVerifyingCall({ name: "exec", command: "Get-Content out.txt" })).toBe(true);
   });
 

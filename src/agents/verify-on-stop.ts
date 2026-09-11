@@ -58,6 +58,7 @@ const VERIFYING_ACTIONS = new Set([
   "snapshot",
   "screenshot",
   "find",
+  "verify",
   "apps",
   "text",
   "title",

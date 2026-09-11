@@ -31,6 +31,11 @@ import {
   reportEmbeddedRunSuccessfulAuthBinding,
 } from "./auth-profile-success.js";
 import type { EmbeddedRunContextRecoveryState } from "./context-recovery-state.js";
+import {
+  canRunHarnessRecovery,
+  DEFAULT_MAX_HARNESS_RECOVERY_ATTEMPTS,
+  resolveHarnessRecoveryInstruction,
+} from "./harness-recovery.js";
 import { resolveFinalAssistantVisibleText } from "./helpers.js";
 import {
   resolveEmptyResponseRetryInstruction,
@@ -472,6 +477,45 @@ export async function resolveEmbeddedRunTerminal(input: {
       `before_agent_finalize requested one more pass: ` +
         `runId=${runParams.runId} sessionId=${runParams.sessionId} ` +
         `attempt=${retryState.beforeFinalizeRevisionAttempts}/${MAX_BEFORE_AGENT_FINALIZE_REVISIONS}`,
+    );
+    return { action: "retry" };
+  }
+
+  const recoveryReplyText =
+    input.finalAssistantVisibleText ??
+    resolveFinalAssistantVisibleText(input.attemptAssistant) ??
+    input.finalAssistantRawText ??
+    attempt.assistantTexts.join("\n");
+  const harnessRecoveryEligible = canRunHarnessRecovery({
+    requiresVisibleReply: requiresVisibleTerminalReply(runParams),
+    settledTurnFinalizationAttempted,
+    terminalInterrupted,
+    hasPromptError: Boolean(promptError),
+    hasClientToolCalls: Boolean(attempt.clientToolCalls),
+    yielded: Boolean(attempt.yieldDetected),
+    approvalPromptSent: Boolean(attempt.didSendDeterministicApprovalPrompt),
+    messageDelivered: Boolean(attempt.didSendViaMessagingTool),
+    sourceReplyDelivered: Boolean(attempt.didDeliverSourceReplyViaMessageTool),
+    mediaDelivered: Boolean(attempt.hasToolMediaBlockReply),
+    heartbeatDelivered: Boolean(attempt.heartbeatToolResponse),
+    acceptedSessionSpawnCount: attempt.acceptedSessionSpawns?.length ?? 0,
+    successfulCronAdds: attempt.successfulCronAdds ?? 0,
+    silentReply: emptyAssistantReplyIsSilent,
+  });
+  const harnessRecovery = harnessRecoveryEligible
+    ? resolveHarnessRecoveryInstruction({
+        attempt,
+        replyText: recoveryReplyText,
+        attempts: retryState.harnessRecoveryAttempts,
+      })
+    : null;
+  if (harnessRecovery) {
+    retryState.harnessRecoveryAttempts += 1;
+    input.activateInternalPrompt(harnessRecovery.prompt);
+    log.warn(
+      `harness ${harnessRecovery.kind} pass requested: ` +
+        `runId=${runParams.runId} sessionId=${runParams.sessionId} ` +
+        `attempt=${retryState.harnessRecoveryAttempts}/${DEFAULT_MAX_HARNESS_RECOVERY_ATTEMPTS}`,
     );
     return { action: "retry" };
   }

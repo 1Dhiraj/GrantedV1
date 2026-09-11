@@ -24,6 +24,7 @@ export type EmbeddedRunTerminalRetryState = {
   compactionContinuationAttempts: number;
   compactionContinuationInstruction: string | null;
   beforeFinalizeRevisionAttempts: number;
+  harnessRecoveryAttempts: number;
   codeModeRecovery: CodeModeRecoveryState;
 };
 
@@ -35,6 +36,7 @@ export function createEmbeddedRunTerminalRetryState(): EmbeddedRunTerminalRetryS
     compactionContinuationAttempts: 0,
     compactionContinuationInstruction: null,
     beforeFinalizeRevisionAttempts: 0,
+    harnessRecoveryAttempts: 0,
     codeModeRecovery: { kind: "idle" },
   };
 }
