@@ -46,14 +46,20 @@ const EXPECTED_SELECTABLE_MODELS = [
     maxTokens: 8_192,
   },
   {
-    id: "deepseek-ai/deepseek-v4-pro",
-    name: "DeepSeek V4 Pro",
+    id: "deepseek-ai/deepseek-v4-pro-0813",
+    name: "DeepSeek V4 Pro 0813",
     contextWindow: 262_144,
     maxTokens: 16_384,
   },
 ] as const;
 
 const EXPECTED_DEPRECATED_MODELS = [
+  {
+    id: "deepseek-ai/deepseek-v4-pro",
+    name: "DeepSeek V4 Pro",
+    contextWindow: 262_144,
+    maxTokens: 16_384,
+  },
   {
     id: "qwen/qwen3.5-397b-a17b",
     name: "Qwen3.5 397B A17B",
@@ -317,7 +323,7 @@ describe("nvidia provider catalog", () => {
         input: ["text", "image"],
         reasoning: true,
       },
-      { id: "deepseek-ai/deepseek-v4-pro", input: ["text"], reasoning: true },
+      { id: "deepseek-ai/deepseek-v4-pro-0813", input: ["text"], reasoning: true },
     ]);
     expect(provider.models[0]).toMatchObject({
       contextWindow: 1_048_576,
@@ -340,6 +346,10 @@ describe("nvidia provider catalog", () => {
           "replacedBy" in model ? { id: model.id, replacedBy: model.replacedBy } : { id: model.id },
         ),
     ).toEqual([
+      {
+        id: "deepseek-ai/deepseek-v4-pro",
+        replacedBy: "deepseek-ai/deepseek-v4-pro-0813",
+      },
       { id: "qwen/qwen3.5-397b-a17b" },
       { id: "moonshotai/kimi-k2.5", replacedBy: "moonshotai/kimi-k2.6" },
       { id: "z-ai/glm-5.1", replacedBy: "z-ai/glm-5.2" },

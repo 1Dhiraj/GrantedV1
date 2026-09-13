@@ -130,6 +130,24 @@
             }
           },
           {
+            "id": "deepseek-ai/deepseek-v4-pro-0813",
+            "name": "DeepSeek V4 Pro 0813",
+            "input": ["text"],
+            "reasoning": true,
+            "contextWindow": 262144,
+            "maxTokens": 16384,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "requiresStringContent": true,
+              "codeMode": "capable"
+            }
+          },
+          {
             "id": "deepseek-ai/deepseek-v4-pro",
             "name": "DeepSeek V4 Pro",
             "input": ["text"],
@@ -145,7 +163,10 @@
             "compat": {
               "requiresStringContent": true,
               "codeMode": "capable"
-            }
+            },
+            "status": "deprecated",
+            "statusReason": "Superseded by NVIDIA's DeepSeek V4 Pro 0813 release.",
+            "replacedBy": "deepseek-ai/deepseek-v4-pro-0813"
           },
           {
             "id": "qwen/qwen3.5-397b-a17b",

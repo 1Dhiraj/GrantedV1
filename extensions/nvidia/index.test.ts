@@ -224,7 +224,7 @@ describe("nvidia provider hooks", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro",
+      "deepseek-ai/deepseek-v4-pro-0813",
     ]);
     expect(entries?.every((entry) => entry.provider === "nvidia")).toBe(true);
     expect(ssrfRuntimeMocks.fetchWithSsrFGuard).not.toHaveBeenCalled();
@@ -243,7 +243,7 @@ describe("nvidia provider hooks", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro",
+      "deepseek-ai/deepseek-v4-pro-0813",
     ]);
     expect(entries?.every((entry) => entry.provider === "nvidia")).toBe(true);
     expect(ssrfRuntimeMocks.fetchWithSsrFGuard).toHaveBeenCalledTimes(2);
@@ -327,7 +327,7 @@ describe("nvidia provider hooks", () => {
       "static:nvidia/z-ai/glm-5.2",
       "static:nvidia/moonshotai/kimi-k2.6",
       "static:nvidia/minimaxai/minimax-m3",
-      "static:nvidia/deepseek-ai/deepseek-v4-pro",
+      "static:nvidia/deepseek-ai/deepseek-v4-pro-0813",
     ]);
 
     await expect(catalogProvider?.liveCatalog?.(buildCatalogContext())).resolves.toEqual([]);

@@ -132,11 +132,12 @@ out of model pickers.
 | `nvidia/z-ai/glm-5.2`                          | GLM 5.2                    | 202,752   | 8,192      |
 | `nvidia/moonshotai/kimi-k2.6`                  | Kimi K2.6                  | 262,144   | 65,536     |
 | `nvidia/minimaxai/minimax-m3`                  | Minimax M3                 | 196,608   | 8,192      |
-| `nvidia/deepseek-ai/deepseek-v4-pro`           | DeepSeek V4 Pro            | 262,144   | 16,384     |
+| `nvidia/deepseek-ai/deepseek-v4-pro-0813`      | DeepSeek V4 Pro 0813       | 262,144   | 16,384     |
 
 The full compatibility catalog also retains these shipped refs for existing
 configurations and migration: `nvidia/qwen/qwen3.5-397b-a17b`,
-`nvidia/moonshotai/kimi-k2.5`, `nvidia/z-ai/glm-5.1`, `nvidia/z-ai/glm5`, and
+`nvidia/deepseek-ai/deepseek-v4-pro`, `nvidia/moonshotai/kimi-k2.5`,
+`nvidia/z-ai/glm-5.1`, `nvidia/z-ai/glm5`, and
 `nvidia/minimaxai/minimax-m2.7`. These references stay hidden from bundled and
 offline model pickers unless NVIDIA republishes them in its inference inventory.
 NVIDIA has retired the Qwen endpoint, so requests using its model reference no
