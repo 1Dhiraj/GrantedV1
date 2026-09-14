@@ -310,6 +310,7 @@ describe("createComputerTool v1 execution", () => {
               ok: true,
               effect: "suspected_noop",
               escalation: { recommended: "foreground", reasonCode: "suspected_noop" },
+              details: { route: "accessibility", deliveryMode: "background" },
             },
           }
         : screenshotPayload(),
@@ -322,13 +323,15 @@ describe("createComputerTool v1 execution", () => {
     expect(result.content).toEqual([
       {
         type: "text",
-        text: `{"action":"left_click","ok":true,"effect":"suspected_noop","escalation":{"recommended":"foreground","reasonCode":"suspected_noop"}}\nscreen unchanged since previous frame (frameId ${frameId}); screenshot omitted — keep using this frameId for coordinates`,
+        text: `{"action":"left_click","ok":true,"effect":"suspected_noop","escalation":{"recommended":"foreground","reasonCode":"suspected_noop"},"details":{"route":"accessibility","deliveryMode":"background"}}\nscreen unchanged since previous frame (frameId ${frameId}); screenshot omitted — keep using this frameId for coordinates`,
       },
     ]);
     expect(readFrameId(result)).toBe(frameId);
     expect(result.details).toMatchObject({
       effect: "suspected_noop",
       escalation: { recommended: "foreground", reasonCode: "suspected_noop" },
+      route: "accessibility",
+      deliveryMode: "background",
     });
   });
 

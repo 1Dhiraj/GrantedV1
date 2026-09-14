@@ -517,6 +517,12 @@ export type DiagnosticToolExecutionStartedEvent = DiagnosticToolExecutionBaseEve
 export type DiagnosticToolExecutionCompletedEvent = DiagnosticToolExecutionBaseEvent & {
   type: "tool.execution.completed";
   durationMs: number;
+  computerAction?: string;
+  computerEffect?: "confirmed" | "unverifiable" | "suspected_noop";
+  computerRoute?: string;
+  computerDeliveryMode?: string;
+  computerEscalation?: "window-pixel" | "foreground" | "desktop";
+  computerEscalationReason?: string;
 };
 
 export type DiagnosticToolExecutionErrorEvent = DiagnosticToolExecutionBaseEvent & {

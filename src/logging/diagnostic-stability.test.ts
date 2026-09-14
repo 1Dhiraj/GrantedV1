@@ -147,6 +147,38 @@ describe("diagnostic stability recorder", () => {
     expect(snapshot.events[1]).not.toHaveProperty("reason");
   });
 
+  it("retains content-free computer action outcome metrics", async () => {
+    startDiagnosticStabilityRecorder();
+
+    emitTrustedDiagnosticEvent({
+      type: "tool.execution.completed",
+      toolName: "computer",
+      toolSource: "core",
+      durationMs: 42,
+      computerAction: "set_value",
+      computerEffect: "suspected_noop",
+      computerRoute: "accessibility",
+      computerDeliveryMode: "background",
+      computerEscalation: "foreground",
+      computerEscalationReason: "delivery_failed",
+    });
+    await waitForDiagnosticEventsDrained();
+
+    expect(getDiagnosticStabilitySnapshot({ limit: 1 }).events).toEqual([
+      expect.objectContaining({
+        type: "tool.execution.completed",
+        toolName: "computer",
+        durationMs: 42,
+        computerAction: "set_value",
+        computerEffect: "suspected_noop",
+        computerRoute: "accessibility",
+        computerDeliveryMode: "background",
+        computerEscalation: "foreground",
+        computerEscalationReason: "delivery_failed",
+      }),
+    ]);
+  });
+
   it("records exec approval followup suppression metadata", async () => {
     startDiagnosticStabilityRecorder();
 

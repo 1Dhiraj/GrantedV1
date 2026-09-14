@@ -52,6 +52,7 @@ import {
   recordToolExecutionTracked,
   structuredReplaySafeToolCallIds,
 } from "./agent-tools.before-tool-call.state.js";
+import { projectComputerActionDiagnostic } from "./computer-action-diagnostic.js";
 import type {
   BeforeToolCallFailureDisposition,
   HookBlockedReason,
@@ -601,6 +602,7 @@ export function wrapToolWithBeforeToolCallHook(
             {
               ...eventBase,
               ...resolveToolResultTerminalDiagnostic(result, durationMs),
+              ...projectComputerActionDiagnostic(normalizedToolName, executeParams, result),
             },
             buildToolContentPrivateData(toolContentPolicy, {
               input: executeParams,

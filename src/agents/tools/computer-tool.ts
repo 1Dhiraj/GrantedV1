@@ -120,9 +120,13 @@ export function createComputerTool(options?: {
     actResult?: ComputerActResult;
   }) => {
     const refusal = params.actResult?.details?.refusal;
+    const route = params.actResult?.details?.route;
+    const deliveryMode = params.actResult?.details?.deliveryMode;
     const outcomeDetails = {
       ...(params.actResult?.effect ? { effect: params.actResult.effect } : {}),
       ...(params.actResult?.escalation ? { escalation: params.actResult.escalation } : {}),
+      ...(typeof route === "string" ? { route } : {}),
+      ...(typeof deliveryMode === "string" ? { deliveryMode } : {}),
       ...(refusal !== undefined ? { refusal } : {}),
     };
     const projected = await projectScreenshotResult({

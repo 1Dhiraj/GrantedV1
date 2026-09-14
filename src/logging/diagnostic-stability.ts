@@ -39,6 +39,12 @@ export type DiagnosticStabilityEventRecord = {
   transport?: string;
   brain?: string;
   toolName?: string;
+  computerAction?: string;
+  computerEffect?: string;
+  computerRoute?: string;
+  computerDeliveryMode?: string;
+  computerEscalation?: string;
+  computerEscalationReason?: string;
   approvalId?: string;
   activeWorkKind?: string;
   pairedToolName?: string;
@@ -442,6 +448,12 @@ function sanitizeDiagnosticEvent(event: DiagnosticEventPayload): DiagnosticStabi
       record.source = event.toolSource;
       record.pluginId = event.toolOwner;
       record.durationMs = event.durationMs;
+      record.computerAction = event.computerAction;
+      record.computerEffect = event.computerEffect;
+      record.computerRoute = event.computerRoute;
+      record.computerDeliveryMode = event.computerDeliveryMode;
+      record.computerEscalation = event.computerEscalation;
+      record.computerEscalationReason = event.computerEscalationReason;
       break;
     case "tool.execution.error":
       record.toolName = event.toolName;
@@ -850,9 +862,13 @@ export function startDiagnosticStabilityRecorder(): void {
   state.unsubscribe = onInternalDiagnosticEvent(
     (event, metadata) => {
       // Model-call instrumentation is trusted core telemetry required by recovery.
-      // Other trusted events retain their dedicated owners outside this ring.
+      // Computer outcomes are also safe, bounded metrics used to compare harnesses;
+      // other trusted events retain their dedicated owners outside this ring.
+      const trustedComputerOutcome =
+        event.type === "tool.execution.completed" && event.toolName === "computer";
       if (
         metadata.trusted &&
+        !trustedComputerOutcome &&
         event.type !== "model.call.started" &&
         event.type !== "model.call.completed" &&
         event.type !== "model.call.error"
