@@ -1109,6 +1109,7 @@ export function logToolLoopAction(
     detector:
       | "generic_repeat"
       | "argument_churn"
+      | "computer_no_progress"
       | "unknown_tool_repeat"
       | "known_poll_no_progress"
       | "global_circuit_breaker"

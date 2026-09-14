@@ -122,6 +122,7 @@ export function createComputerTool(options?: {
     const refusal = params.actResult?.details?.refusal;
     const outcomeDetails = {
       ...(params.actResult?.effect ? { effect: params.actResult.effect } : {}),
+      ...(params.actResult?.escalation ? { escalation: params.actResult.escalation } : {}),
       ...(refusal !== undefined ? { refusal } : {}),
     };
     const projected = await projectScreenshotResult({

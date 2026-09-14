@@ -1,8 +1,6 @@
 import { readToolResultDetails } from "./tool-result-error.js";
 
 const DEFAULT_VERIFICATION_FAILURE = "The requested postcondition was not satisfied.";
-const COMPUTER_NOOP_FAILURE =
-  "Computer action produced no observable effect. Take a fresh observation, correct the target or arguments, and try a different safe action.";
 const COMPUTER_REFUSAL_FAILURE =
   "Computer action was refused. Take a fresh observation and try another advertised delivery method.";
 const MAX_VERIFICATION_ERROR_CHARS = 1_000;
@@ -24,10 +22,28 @@ function readBoundedString(value: unknown): string | undefined {
     : undefined;
 }
 
-function describeComputerRefusal(value: unknown): string {
+function describeComputerRecovery(escalation: unknown): string {
+  const record = readRecord(escalation);
+  const recommended = readBoundedString(record?.recommended);
+  const reasonCode = readBoundedString(record?.reasonCode);
+  const instruction =
+    recommended === "window-pixel"
+      ? "Take a fresh `get_window_state` observation and retry using current window pixels."
+      : recommended === "foreground"
+        ? 'Bring the target window to front and retry with `deliveryMode:"foreground"`.'
+        : recommended === "desktop"
+          ? "Take a fresh `screenshot` and retry using current desktop coordinates."
+          : "Take a fresh observation, correct the target or arguments, and try a different safe action.";
+  return reasonCode ? `${instruction} Driver reason: ${reasonCode}.` : instruction;
+}
+
+function describeComputerRefusal(value: unknown, escalation: unknown): string {
   const direct = readBoundedString(value);
   if (direct) {
-    return direct;
+    return `Computer action was refused: ${direct}. ${describeComputerRecovery(escalation)}`.slice(
+      0,
+      MAX_VERIFICATION_ERROR_CHARS,
+    );
   }
   const refusal = readRecord(value);
   if (!refusal) {
@@ -38,7 +54,7 @@ function describeComputerRefusal(value: unknown): string {
     .filter((part): part is string => Boolean(part));
   const explanation = [...new Set(parts)].join(": ");
   return explanation
-    ? `Computer action was refused: ${explanation}. Take a fresh observation and try another advertised delivery method.`.slice(
+    ? `Computer action was refused: ${explanation}. ${describeComputerRecovery(escalation)}`.slice(
         0,
         MAX_VERIFICATION_ERROR_CHARS,
       )
@@ -72,9 +88,10 @@ export function readToolVerificationOutcome(
 
   const nestedResult = readRecord(details.result);
   const nestedDriverDetails = readRecord(nestedResult?.details);
+  const escalation = details.escalation ?? nestedResult?.escalation;
   const refusal = details.refusal ?? nestedResult?.refusal ?? nestedDriverDetails?.refusal;
   if (refusal !== undefined) {
-    return { passed: false, error: describeComputerRefusal(refusal) };
+    return { passed: false, error: describeComputerRefusal(refusal, escalation) };
   }
 
   const effect = details.effect ?? nestedResult?.effect;
@@ -82,7 +99,10 @@ export function readToolVerificationOutcome(
     return { passed: true };
   }
   if (effect === "suspected_noop") {
-    return { passed: false, error: COMPUTER_NOOP_FAILURE };
+    return {
+      passed: false,
+      error: `Computer action produced no observable effect. ${describeComputerRecovery(escalation)}`,
+    };
   }
   return undefined;
 }

@@ -15,6 +15,12 @@ import { createSubsystemLogger } from "../logging/subsystem.js";
 import { isPlainObject } from "../utils.js";
 import { isMessagingToolSendAction } from "./embedded-agent-messaging.js";
 import {
+  COMPUTER_NO_PROGRESS_LIMIT,
+  countConsecutiveComputerNoProgress,
+  isComputerRecoveryObservation,
+  readComputerNoProgressOutcome,
+} from "./tool-loop-computer.js";
+import {
   buildArgumentChurnWarning,
   getArgumentChurnNoProgressStreak,
 } from "./tool-loop-argument-churn.js";
@@ -27,6 +33,7 @@ const log = createSubsystemLogger("agents/loop-detection");
 
 type LoopDetectorKind =
   | "generic_repeat"
+  | "computer_no_progress"
   | "argument_churn"
   | "unknown_tool_repeat"
   | "known_poll_no_progress"
@@ -342,6 +349,12 @@ function hashToolOutcome(
   if (toolName === "write" && isWriteNoProgressOutcome(details)) {
     return { resultHash: digestToolOutcome({ status: "unchanged" }), noProgress: true };
   }
+  if (toolName === "computer") {
+    const computerNoProgress = readComputerNoProgressOutcome(details);
+    if (computerNoProgress) {
+      return { resultHash: digestToolOutcome(computerNoProgress), noProgress: true };
+    }
+  }
   if (isKnownPollToolCall(toolName, params) && toolName === "process" && isPlainObject(params)) {
     const action = params.action;
     if (action === "poll") {
@@ -540,6 +553,10 @@ export function detectToolCallLoop(
   const pingPong = getPingPongStreak(history, currentHash);
   const argumentChurnLivenessSignal =
     argumentChurn.count >= TOOL_LOOP_WARNING_THRESHOLD ? ("argument_churn" as const) : undefined;
+  const computerNoProgressStreak =
+    toolName === "computer" && !isComputerRecoveryObservation(params)
+      ? countConsecutiveComputerNoProgress(history)
+      : 0;
 
   if (unknownToolStreak.count >= UNKNOWN_TOOL_THRESHOLD) {
     return {
@@ -549,6 +566,18 @@ export function detectToolCallLoop(
       count: unknownToolStreak.count,
       message: `CRITICAL: attempted unavailable tool ${unknownToolStreak.unknownToolName ?? toolName} ${unknownToolStreak.count} times. Stop retrying that missing tool and answer without it.`,
       warningKey: `unknown-tool:${toolName}:${unknownToolStreak.unknownToolName ?? "unknown"}`,
+    };
+  }
+
+  if (computerNoProgressStreak >= COMPUTER_NO_PROGRESS_LIMIT) {
+    return {
+      stuck: true,
+      level: "critical",
+      detector: "computer_no_progress",
+      count: computerNoProgressStreak,
+      message:
+        "CRITICAL: consecutive computer actions produced no observable effect. Stop blind input, observe the current window or screen, then retry with corrected targeting or the recommended escalation route.",
+      warningKey: `computer-no-progress:${toolName}`,
     };
   }
 

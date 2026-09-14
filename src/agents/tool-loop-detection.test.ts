@@ -782,6 +782,77 @@ describe("tool-loop-detection", () => {
       expect(state.toolCallHistory?.every((record) => record.noProgress === true)).toBe(true);
     });
 
+    it("blocks a third consecutive ineffective computer action", () => {
+      const state = createState();
+      for (let index = 0; index < 2; index += 1) {
+        recordSuccessfulCall(
+          state,
+          "computer",
+          { action: "left_click", coordinate: [100 + index, 200] },
+          {
+            content: [{ type: "text", text: `unchanged frame ${index}` }],
+            details: {
+              effect: "suspected_noop",
+              escalation: { recommended: "foreground", reasonCode: "suspected_noop" },
+            },
+          },
+          index,
+        );
+      }
+
+      expect(
+        detectToolCallLoop(
+          state,
+          "computer",
+          { action: "left_click", coordinate: [300, 200] },
+          enabledLoopDetectionConfig,
+        ),
+      ).toMatchObject({
+        stuck: true,
+        level: "critical",
+        detector: "computer_no_progress",
+        count: 2,
+      });
+    });
+
+    it("allows an observation to break an ineffective computer-action streak", () => {
+      const state = createState();
+      for (let index = 0; index < 2; index += 1) {
+        recordSuccessfulCall(
+          state,
+          "computer",
+          { action: "left_click", coordinate: [100 + index, 200] },
+          { details: { effect: "suspected_noop" } },
+          index,
+        );
+      }
+
+      expect(
+        detectToolCallLoop(
+          state,
+          "computer",
+          { action: "get_window_state", windowRef: "window-1" },
+          enabledLoopDetectionConfig,
+        ),
+      ).toEqual({ stuck: false });
+
+      recordSuccessfulCall(
+        state,
+        "computer",
+        { action: "get_window_state", windowRef: "window-1" },
+        { details: { observationId: "observation-2" } },
+        2,
+      );
+      expect(
+        detectToolCallLoop(
+          state,
+          "computer",
+          { action: "set_value", elementRef: "element-2", value: "corrected" },
+          enabledLoopDetectionConfig,
+        ),
+      ).toEqual({ stuck: false });
+    });
+
     it("preserves target identity for successful write outcomes", () => {
       const state = createState();
       const content = "same content";

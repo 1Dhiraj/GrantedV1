@@ -2285,6 +2285,7 @@ describe("handleToolExecutionEnd mutating failure recovery", () => {
         details: {
           ok: true,
           effect: "suspected_noop",
+          escalation: { recommended: "foreground", reasonCode: "delivery_failed" },
         },
       },
     });
@@ -2296,7 +2297,7 @@ describe("handleToolExecutionEnd mutating failure recovery", () => {
         verificationOutcome: {
           passed: false,
           error:
-            "Computer action produced no observable effect. Take a fresh observation, correct the target or arguments, and try a different safe action.",
+            'Computer action produced no observable effect. Bring the target window to front and retry with `deliveryMode:"foreground"`. Driver reason: delivery_failed.',
         },
       }),
     ]);

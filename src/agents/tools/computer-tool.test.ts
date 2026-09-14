@@ -305,7 +305,13 @@ describe("createComputerTool v1 execution", () => {
   it("preserves an input action's result when its follow-up screenshot is unchanged", async () => {
     callGatewayToolMock.mockImplementation(async (_method, _opts, body) =>
       (body as ComputerActBody).command === COMPUTER_ACT_COMMAND
-        ? { payload: { ok: true, effect: "suspected_noop" } }
+        ? {
+            payload: {
+              ok: true,
+              effect: "suspected_noop",
+              escalation: { recommended: "foreground", reasonCode: "suspected_noop" },
+            },
+          }
         : screenshotPayload(),
     );
     const tool = createVisionComputerTool({ contextEpoch: { value: 0 } });
@@ -316,11 +322,14 @@ describe("createComputerTool v1 execution", () => {
     expect(result.content).toEqual([
       {
         type: "text",
-        text: `{"action":"left_click","ok":true,"effect":"suspected_noop"}\nscreen unchanged since previous frame (frameId ${frameId}); screenshot omitted — keep using this frameId for coordinates`,
+        text: `{"action":"left_click","ok":true,"effect":"suspected_noop","escalation":{"recommended":"foreground","reasonCode":"suspected_noop"}}\nscreen unchanged since previous frame (frameId ${frameId}); screenshot omitted — keep using this frameId for coordinates`,
       },
     ]);
     expect(readFrameId(result)).toBe(frameId);
-    expect(result.details).toMatchObject({ effect: "suspected_noop" });
+    expect(result.details).toMatchObject({
+      effect: "suspected_noop",
+      escalation: { recommended: "foreground", reasonCode: "suspected_noop" },
+    });
   });
 
   it("preserves wait metadata when its follow-up screenshot is unchanged", async () => {

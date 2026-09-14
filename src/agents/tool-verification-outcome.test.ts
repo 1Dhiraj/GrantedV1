@@ -54,6 +54,21 @@ describe("tool verification outcome", () => {
     });
   });
 
+  it("uses the driver's recommended escalation route for computer recovery", () => {
+    expect(
+      readToolVerificationOutcome("computer", "set_value", {
+        details: {
+          effect: "suspected_noop",
+          escalation: { recommended: "foreground", reasonCode: "delivery_failed" },
+        },
+      }),
+    ).toEqual({
+      passed: false,
+      error:
+        'Computer action produced no observable effect. Bring the target window to front and retry with `deliveryMode:"foreground"`. Driver reason: delivery_failed.',
+    });
+  });
+
   it("reads outcomes nested under the projected computer result", () => {
     expect(
       readToolVerificationOutcome("computer", "set_value", {
@@ -92,7 +107,7 @@ describe("tool verification outcome", () => {
     expect(outcome).toEqual({
       passed: false,
       error:
-        "Computer action was refused: foreground_denied: Window rejected input. Take a fresh observation and try another advertised delivery method.",
+        "Computer action was refused: foreground_denied: Window rejected input. Take a fresh observation, correct the target or arguments, and try a different safe action.",
     });
   });
 });
