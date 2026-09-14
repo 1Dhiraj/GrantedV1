@@ -9,7 +9,10 @@
 import crypto from "node:crypto";
 import type { GrantedConfig } from "../../config/types.granted.js";
 import { formatErrorMessage } from "../../infra/errors.js";
-import type { ComputerUseV2ActionName } from "../../plugins/computer-use-contract.js";
+import type {
+  ComputerActResult,
+  ComputerUseV2ActionName,
+} from "../../plugins/computer-use-contract.js";
 import { sleep } from "../../utils/sleep.js";
 import { resolveImageSanitizationLimits } from "../image-sanitization.js";
 import { type AnyAgentTool, readFiniteNumberParam, readToolStringParam } from "./common.js";
@@ -114,7 +117,13 @@ export function createComputerTool(options?: {
     resolved: ResolvedComputerTarget;
     action: ComputerToolAction;
     toolCallId: string;
+    actResult?: ComputerActResult;
   }) => {
+    const refusal = params.actResult?.details?.refusal;
+    const outcomeDetails = {
+      ...(params.actResult?.effect ? { effect: params.actResult.effect } : {}),
+      ...(refusal !== undefined ? { refusal } : {}),
+    };
     const projected = await projectScreenshotResult({
       capture: params.capture,
       noteLines: params.noteLines,
@@ -142,6 +151,7 @@ export function createComputerTool(options?: {
           screenIndex: params.resolved.target.screenIndex,
           frameId: previousFrame.id,
           refWidth: referenceWidth,
+          ...outcomeDetails,
         },
       };
     }
@@ -153,7 +163,13 @@ export function createComputerTool(options?: {
       imageIdentity: projected.imageIdentity,
       modelHasVision: options?.modelHasVision,
     });
-    return projected.result;
+    return {
+      ...projected.result,
+      details: {
+        ...(projected.result.details as Record<string, unknown>),
+        ...outcomeDetails,
+      },
+    };
   };
 
   const tool: AnyAgentTool = {
@@ -249,6 +265,7 @@ export function createComputerTool(options?: {
             resolved,
             action,
             toolCallId,
+            actResult,
           });
         } catch (err) {
           session.setTarget(resolved.target);

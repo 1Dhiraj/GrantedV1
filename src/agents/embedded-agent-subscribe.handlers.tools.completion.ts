@@ -185,6 +185,7 @@ export async function handleToolExecutionEnd(
   const attemptedPotentialSideEffect = !callSummary.replaySafe && executionStarted;
   const meta = callSummary.meta;
   const verificationOutcome = readToolVerificationOutcome(
+    toolName,
     typeof startArgs.action === "string" ? startArgs.action : undefined,
     sanitizedResult,
   );

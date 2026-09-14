@@ -2273,6 +2273,36 @@ describe("handleToolExecutionEnd mutating failure recovery", () => {
     expect(ctx.state.lastToolError).toBeUndefined();
   });
 
+  it("records a suspected computer no-op for bounded recovery", async () => {
+    const { ctx } = createTestContext();
+
+    await executeTool(ctx, {
+      toolName: "computer",
+      toolCallId: "tool-computer-click",
+      args: { action: "left_click", coordinate: [100, 200] },
+      isError: false,
+      result: {
+        details: {
+          ok: true,
+          effect: "suspected_noop",
+        },
+      },
+    });
+
+    expect(ctx.state.toolMetas).toEqual([
+      expect.objectContaining({
+        toolName: "computer",
+        isError: false,
+        verificationOutcome: {
+          passed: false,
+          error:
+            "Computer action produced no observable effect. Take a fresh observation, correct the target or arguments, and try a different safe action.",
+        },
+      }),
+    ]);
+    expect(ctx.state.lastToolError).toBeUndefined();
+  });
+
   it("binds failed side effects to the canonical plugin tool owner", async () => {
     const { ctx } = createTestContext();
     const ownerKey = '["memory-lancedb","memory_store"]';
