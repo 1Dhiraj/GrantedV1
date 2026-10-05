@@ -1,6 +1,7 @@
 name: Security Sensitive Guard
 
 on:
+  workflow_dispatch:
 
 permissions:
   contents: read

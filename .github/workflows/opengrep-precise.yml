@@ -8,6 +8,7 @@ name: OpenGrep — PR Diff
 # For a repository-wide scan, use the manual OpenGrep — Full workflow.
 
 on:
+  workflow_dispatch:
 
 concurrency:
   group: opengrep-pr-diff-${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
