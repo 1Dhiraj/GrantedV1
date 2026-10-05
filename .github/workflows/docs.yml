@@ -1,12 +1,6 @@
 name: Docs
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**/*.md"
-      - "docs/**"
-      - "!CHANGELOG.md"
 
 permissions:
   contents: read
