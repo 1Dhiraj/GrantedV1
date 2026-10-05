@@ -1,11 +1,11 @@
 ---
 name: verify-release
-description: "Verify regular or extended-stable OpenClaw releases against the exact publication surfaces, workflow identities, package provenance, smoke tests, and live Gateway behavior expected for that release track."
+description: "Verify regular or extended-stable Granted releases against the exact publication surfaces, workflow identities, package provenance, smoke tests, and live Gateway behavior expected for that release track."
 ---
 
 # Verify Release
 
-Use this when asked whether an OpenClaw release is fully released, published,
+Use this when asked whether an Granted release is fully released, published,
 promoted, smoke-tested, or live-verified. This is a verification skill, not a
 publish skill; use `$release-openclaw-maintainer` before changing release state.
 
@@ -58,17 +58,17 @@ Use these checks only for the regular orchestrated release track.
      `dist-tags.latest === <VERSION>`.
 4. ClawHub:
    - Check the Plugin ClawHub Release workflow conclusion and publish job count.
-   - Use OpenClaw itself for live registry proof:
-     `openclaw plugins search <known-plugin> --json`.
+   - Use Granted itself for live registry proof:
+     `granted plugins search <known-plugin> --json`.
    - Install one official plugin from ClawHub in an isolated HOME:
-     `openclaw plugins install clawhub:@granted/matrix --pin`.
+     `granted plugins install clawhub:@granted/matrix --pin`.
      Prefer `matrix` unless that plugin is not in the expected set.
 5. Release workflows:
    - Verify conclusions for release notes evidence links:
-     Full Release Validation, OpenClaw Release Checks, OpenClaw NPM Release,
+     Full Release Validation, Granted Release Checks, Granted NPM Release,
      Plugin NPM Release, Plugin ClawHub Release, mac preflight/validation/publish
      when stable mac assets are expected.
-   - For stable, verify `OpenClaw Stable Main Closeout` succeeded and its
+   - For stable, verify `Granted Stable Main Closeout` succeeded and its
      manifest records the matching release tag, current rollback drill, stable
      soak, and blocking performance evidence.
    - Summarize only relevant successful/failed jobs; ignore routine skipped

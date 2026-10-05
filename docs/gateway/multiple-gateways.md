@@ -53,8 +53,8 @@ The same isolation pattern works for any pair or group of Gateways on one host -
 
 ```bash
 # main (default profile)
-openclaw setup
-openclaw gateway --port 18789
+granted setup
+granted gateway --port 18789
 
 # extra gateway
 openclaw --profile ops setup
@@ -74,7 +74,7 @@ openclaw --profile ops gateway --port 19789
 Services follow the same pattern:
 
 ```bash
-openclaw gateway install
+granted gateway install
 openclaw --profile ops gateway install --port 19789
 ```
 
@@ -122,20 +122,20 @@ Override any of these in config or env and you must keep them unique per instanc
 ```bash
 OPENCLAW_CONFIG_PATH=~/.openclaw/main.json \
 OPENCLAW_STATE_DIR=~/.openclaw \
-openclaw gateway --port 18789
+granted gateway --port 18789
 
 OPENCLAW_CONFIG_PATH=~/.openclaw/rescue.json \
 OPENCLAW_STATE_DIR=~/.openclaw-rescue \
-openclaw gateway --port 19789
+granted gateway --port 19789
 ```
 
 ## Quick checks
 
 ```bash
-openclaw gateway status --deep
+granted gateway status --deep
 openclaw --profile rescue gateway status --deep
 openclaw --profile rescue gateway probe
-openclaw status
+granted status
 openclaw --profile rescue status
 openclaw --profile rescue browser status
 ```

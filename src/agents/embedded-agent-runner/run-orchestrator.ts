@@ -435,6 +435,7 @@ async function runEmbeddedAgentInternal(
             activeProjectKeys: [...activeProjectKeys],
             modelProviderId: provider,
             modelId,
+            modelSelectionExplicit: modelFallbackAvailability.kind === "disabled_by_model_override",
             trigger: params.trigger,
             ...buildAgentHookContextChannelFields(params),
             ...buildAgentHookContextIdentityFields({

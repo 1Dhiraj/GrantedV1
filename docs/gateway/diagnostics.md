@@ -17,19 +17,19 @@ host-level runtime state.
 ## Quick start
 
 ```bash
-openclaw gateway diagnostics export
+granted gateway diagnostics export
 ```
 
 Prints the written zip path. Choose an output path:
 
 ```bash
-openclaw gateway diagnostics export --output openclaw-diagnostics.zip
+granted gateway diagnostics export --output openclaw-diagnostics.zip
 ```
 
 For automation:
 
 ```bash
-openclaw gateway diagnostics export --json
+granted gateway diagnostics export --json
 ```
 
 ## Chat command
@@ -39,7 +39,7 @@ Gateway export as one copy-pasteable support report:
 
 1. Send `/diagnostics`, optionally with a short note (`/diagnostics bad tool choice`).
 2. OpenClaw sends a preamble and asks for one explicit exec approval, which runs
-   `openclaw gateway diagnostics export --json`. Do not approve diagnostics via
+   `granted gateway diagnostics export --json`. Do not approve diagnostics via
    an allow-all rule.
 3. After approval, OpenClaw replies with the local bundle path, manifest
    summary, privacy notes, and relevant session ids.
@@ -118,22 +118,22 @@ embedded run active.
 Inspect the live recorder:
 
 ```bash
-openclaw gateway stability
-openclaw gateway stability --type payload.large
-openclaw gateway stability --json
+granted gateway stability
+granted gateway stability --type payload.large
+granted gateway stability --json
 ```
 
 Inspect the newest persisted bundle after a fatal exit, shutdown timeout, or
 restart startup failure:
 
 ```bash
-openclaw gateway stability --bundle latest
+granted gateway stability --bundle latest
 ```
 
 Create a diagnostics zip from the newest persisted bundle:
 
 ```bash
-openclaw gateway stability --bundle latest --export
+granted gateway stability --bundle latest --export
 ```
 
 Persisted bundles live under `~/.openclaw/logs/stability/` when events exist.
@@ -141,7 +141,7 @@ Persisted bundles live under `~/.openclaw/logs/stability/` when events exist.
 ## Useful options
 
 ```bash
-openclaw gateway diagnostics export \
+granted gateway diagnostics export \
   --output openclaw-diagnostics.zip \
   --log-lines 5000 \
   --log-bytes 1000000

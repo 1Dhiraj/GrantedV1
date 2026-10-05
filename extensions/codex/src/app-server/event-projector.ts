@@ -330,7 +330,7 @@ export class CodexAppServerEventProjector {
           (data) => {
             if (data.modelContextWindow !== undefined) {
               this.contextTokens = data.modelContextWindow;
-              // Codex reports the effective thread window. When OpenClaw supplied an
+              // Codex reports the effective thread window. When Granted supplied an
               // authored cap, retain that fact so removing the cap cannot make the
               // constrained observation look like uncapped native telemetry.
               this.contextTokensSource =
@@ -427,7 +427,7 @@ export class CodexAppServerEventProjector {
     this.toolTranscriptProjection.recordDynamicToolCall(params);
   }
 
-  /** Projects a successful OpenClaw progress_card call through the native plan stream. */
+  /** Projects a successful Granted progress_card call through the native plan stream. */
   async recordDynamicProgressCardUpdate(params: unknown): Promise<void> {
     if (isJsonObject(params)) {
       const projected: JsonObject = {

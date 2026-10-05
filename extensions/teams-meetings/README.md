@@ -1,6 +1,6 @@
 # @granted/teams-meetings
 
-Official Microsoft Teams browser meeting participant plugin for OpenClaw.
+Official Microsoft Teams browser meeting participant plugin for Granted.
 
 This plugin registers the `teams_meetings` tool so agents can join Microsoft
 Teams meetings as a Chrome browser guest.
@@ -8,7 +8,7 @@ Teams meetings as a Chrome browser guest.
 ## Install
 
 ```bash
-openclaw plugins install @granted/teams-meetings
+granted plugins install @granted/teams-meetings
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -25,4 +25,4 @@ routing, and guest join setup:
 - Plugin id: `teams-meetings`
 - Tool: `teams_meetings`
 - Package: `@granted/teams-meetings`
-- Minimum OpenClaw host: `2026.7.2`
+- Minimum Granted host: `2026.7.2`

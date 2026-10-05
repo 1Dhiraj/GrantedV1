@@ -34,6 +34,7 @@ import {
   normalizePendingFinalRecoveryPayloads,
 } from "./pending-final-delivery.js";
 import { readPostCompactionContext } from "./post-compaction-context.js";
+import { readPostCompactionPlan } from "./post-compaction-plan.js";
 import { warnPrivateMessageToolFinal } from "./private-message-tool-final.js";
 import { enqueueFollowupRun, refreshQueuedFollowupSession } from "./queue.js";
 import {
@@ -116,8 +117,11 @@ export async function completeReplyAgentRun(input: {
         cfg,
         agentId: followupRun.run.agentId,
       });
-      if (contextContent) {
-        enqueueSystemEvent(contextContent, { sessionKey });
+      // The plan goes last so the model reads its own open steps closest to the turn.
+      const planContent = await readPostCompactionPlan({ sessionKey });
+      const refreshContent = [contextContent, planContent].filter(Boolean).join("\n\n");
+      if (refreshContent) {
+        enqueueSystemEvent(refreshContent, { sessionKey });
       }
     }
 

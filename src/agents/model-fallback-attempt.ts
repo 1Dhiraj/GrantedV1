@@ -421,7 +421,7 @@ export async function resolveModelFallbackCandidateHarnessAuthPrecheck(
     return result(true);
   }
   if (isCliAgentRuntime(runtime, params.cfg)) {
-    // CLI runtimes own their transport/auth, so stale OpenClaw provider
+    // CLI runtimes own their transport/auth, so stale Granted provider
     // profile state must not block the candidate before the CLI starts.
     return result(true);
   }

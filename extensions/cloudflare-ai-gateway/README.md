@@ -1,12 +1,12 @@
-# OpenClaw Cloudflare AI Gateway Provider
+# Granted Cloudflare AI Gateway Provider
 
-Official OpenClaw provider plugin for Cloudflare AI Gateway.
+Official Granted provider plugin for Cloudflare AI Gateway.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/cloudflare-ai-gateway-provider
-openclaw gateway restart
+granted plugins install @granted/cloudflare-ai-gateway-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/cloudflare-ai-gateway> for setup and configuration.

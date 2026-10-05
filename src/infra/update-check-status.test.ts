@@ -26,7 +26,7 @@ async function runGit(cwd: string, ...args: string[]): Promise<string> {
 async function initGitRepo(root: string): Promise<void> {
   await fs.mkdir(root, { recursive: true });
   await runGit(root, "init", "--initial-branch=main");
-  await runGit(root, "config", "user.name", "OpenClaw Test");
+  await runGit(root, "config", "user.name", "Granted Test");
   await runGit(root, "config", "user.email", "test@openclaw.invalid");
 }
 
@@ -613,7 +613,7 @@ describe("checkUpdateStatus", () => {
     { manager: "npm", expectedLockfile: "package-lock.json" },
     { manager: "bun", expectedLockfile: "bun.lockb" },
   ])(
-    "detects lockless OpenClaw $manager installs despite packed pnpm metadata",
+    "detects lockless Granted $manager installs despite packed pnpm metadata",
     async ({ manager, expectedLockfile }) => {
       await withTestDir({ prefix: `openclaw-update-check-lockless-${manager}-` }, async (base) => {
         const bunInstall = path.join(base, "custom-bun-home");
@@ -649,7 +649,7 @@ describe("checkUpdateStatus", () => {
     },
   );
 
-  it("detects a metadata-free lockless OpenClaw npm install", async () => {
+  it("detects a metadata-free lockless Granted npm install", async () => {
     await withTestDir({ prefix: "openclaw-update-check-lockless-npm-" }, async (base) => {
       const root = path.join(base, "prefix", "node_modules", "openclaw");
       await fs.mkdir(root, { recursive: true });

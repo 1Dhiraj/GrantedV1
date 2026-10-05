@@ -1,5 +1,5 @@
 /**
- * Amazon Bedrock Converse streaming runtime. It maps OpenClaw messages/tools,
+ * Amazon Bedrock Converse streaming runtime. It maps Granted messages/tools,
  * thinking, cache points, images, and usage into Bedrock Converse Stream calls.
  */
 import {
@@ -129,7 +129,7 @@ function normalizeAdaptiveClaudeToolChoice(
   return toolChoice;
 }
 
-// OpenClaw synthesizes these caps when the provider's real output limit is unknown.
+// Granted synthesizes these caps when the provider's real output limit is unknown.
 // Keep them out of Bedrock adaptive requests so Bedrock can use its native default.
 const GRANTED_FALLBACK_MODEL_MAX_TOKENS = new Set([4096, 8192, 16_384]);
 
@@ -446,7 +446,7 @@ function formatBedrockError(error: unknown): string {
   return message;
 }
 
-/** Stream a Bedrock Converse request from the generic OpenClaw stream options. */
+/** Stream a Bedrock Converse request from the generic Granted stream options. */
 export const streamSimpleBedrock: StreamFunction<"bedrock-converse-stream", SimpleStreamOptions> = (
   model: Model<"bedrock-converse-stream">,
   context: Context,

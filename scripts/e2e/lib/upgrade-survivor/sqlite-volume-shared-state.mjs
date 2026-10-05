@@ -107,7 +107,7 @@ async function seedBaselinePluginState(packageRoot) {
   assert.equal(
     manifest.name,
     "openclaw",
-    "baseline SDK must belong to the installed OpenClaw package",
+    "baseline SDK must belong to the installed Granted package",
   );
   assert.equal(
     manifest.version,

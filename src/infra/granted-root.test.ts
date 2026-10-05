@@ -1,4 +1,4 @@
-// Covers OpenClaw package root resolution.
+// Covers Granted package root resolution.
 import actualFs from "node:fs";
 import actualFsPromises from "node:fs/promises";
 import path from "node:path";
@@ -254,6 +254,32 @@ describe("resolveOpenClawPackageRoot", () => {
         const pkgRoot = path.join(project, "node_modules", "openclaw");
         setPackageRoot(pkgRoot);
         return { opts: { argv1: path.join(pkgRoot, "dist", "entry.js") }, expected: pkgRoot };
+      },
+    },
+    {
+      // The package is named "granted"; a finder that only knows the old name
+      // returns null everywhere and every caller silently falls back to cwd.
+      name: "resolves a package root named granted",
+      setup: () => {
+        const pkgRoot = fx("granted-named-package");
+        setPackageRoot(pkgRoot, "granted");
+        return { opts: { argv1: path.join(pkgRoot, "dist", "index.js") }, expected: pkgRoot };
+      },
+    },
+    {
+      name: "still resolves a package root under the retired name",
+      setup: () => {
+        const pkgRoot = fx("legacy-named-package");
+        setPackageRoot(pkgRoot, "openclaw");
+        return { opts: { argv1: path.join(pkgRoot, "dist", "index.js") }, expected: pkgRoot };
+      },
+    },
+    {
+      name: "ignores an unrelated package",
+      setup: () => {
+        const pkgRoot = fx("unrelated-package");
+        setPackageRoot(pkgRoot, "some-other-tool");
+        return { opts: { argv1: path.join(pkgRoot, "dist", "index.js") }, expected: null };
       },
     },
     {

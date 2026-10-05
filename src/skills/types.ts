@@ -37,6 +37,13 @@ export type GrantedSkillMetadata = {
 export type SkillInvocationPolicy = {
   userInvocable: boolean;
   disableModelInvocation: boolean;
+  /**
+   * Where the model meets this skill.
+   * - "always": listed in <available_skills> on every turn (default).
+   * - "search": kept out of that list and found on demand, so a large library
+   *   costs nothing per turn. The model may still use it.
+   */
+  promptListing: "always" | "search";
 };
 
 type SkillCommandDispatchSpec = {

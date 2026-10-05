@@ -1,9 +1,9 @@
-// Pure helpers for the OpenClaw extension: pairing-string parsing, reconnect
+// Pure helpers for the Granted extension: pairing-string parsing, reconnect
 // backoff, and Chrome tab-group color mapping. No chrome.* usage here so the
 // repo's vitest suite can exercise the logic directly.
 
 /** Tab group shown to the user; an ACL in selected mode and an ownership marker in all mode. */
-export const GRANTED_TAB_GROUP_TITLE = "OpenClaw";
+export const GRANTED_TAB_GROUP_TITLE = "Granted";
 export const ACCESS_MODE_ALL = "all";
 export const ACCESS_MODE_SELECTED = "selected";
 const EXTENSION_RELAY_PROTOCOL = "openclaw-extension-relay.v2";

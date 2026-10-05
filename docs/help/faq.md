@@ -13,31 +13,31 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
 <Steps>
   <Step title="Quick status">
     ```bash
-    openclaw status
+    granted status
     ```
     Fast local summary: OS + update, gateway/service reachability, agents/sessions, provider config + runtime issues (when the gateway is reachable).
   </Step>
   <Step title="Pasteable report (safe to share)">
     ```bash
-    openclaw status --all
+    granted status --all
     ```
     Read-only diagnosis with a log tail (tokens redacted).
   </Step>
   <Step title="Daemon + port state">
     ```bash
-    openclaw gateway status
+    granted gateway status
     ```
     Shows supervisor runtime vs RPC reachability, the probe target URL, and which config the service likely used.
   </Step>
   <Step title="Deep probes">
     ```bash
-    openclaw status --deep
+    granted status --deep
     ```
     Live gateway health probe, including channel probes when supported (requires a reachable gateway). See [Health](/gateway/health).
   </Step>
   <Step title="Tail the latest log">
     ```bash
-    openclaw logs --follow
+    granted logs --follow
     ```
     If RPC is down, fall back to:
     ```bash
@@ -49,14 +49,14 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
   </Step>
   <Step title="Run the doctor (repairs)">
     ```bash
-    openclaw doctor
+    granted doctor
     ```
     Repairs/migrates config and state, then runs health checks. See [Doctor](/gateway/doctor).
   </Step>
   <Step title="Gateway snapshot (WS-only)">
     ```bash
-    openclaw health --json
-    openclaw health --verbose   # shows the target URL + config path on errors
+    granted health --json
+    granted health --verbose   # shows the target URL + config path on errors
     ```
     Asks the running gateway for a full snapshot. See [Health](/gateway/health).
   </Step>
@@ -216,7 +216,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     - Invalid or stale targets can also force queue fallback or final delivery failure.
     - If the child's last visible assistant reply is exactly `NO_REPLY` / `no_reply` or `ANNOUNCE_SKIP`, OpenClaw intentionally suppresses the announce instead of posting stale earlier progress.
 
-    Debug: `openclaw tasks show <lookup>` where `<lookup>` is a task id, run id, or session key.
+    Debug: `granted tasks show <lookup>` where `<lookup>` is a task id, run id, or session key.
 
     Docs: [Sub-agents](/tools/subagents), [Background Tasks](/automation/tasks), [Session Tools](/concepts/session-tool).
 
@@ -231,8 +231,8 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
     Debug:
     ```bash
-    openclaw cron run <jobId>
-    openclaw cron runs --id <jobId> --limit 50
+    granted cron run <jobId>
+    granted cron runs --id <jobId> --limit 50
     ```
 
     Docs: [Cron jobs](/automation/cron-jobs), [Automation](/automation).
@@ -251,8 +251,8 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
     Debug:
     ```bash
-    openclaw cron runs --id <jobId> --limit 50
-    openclaw tasks show <lookup>
+    granted cron runs --id <jobId> --limit 50
+    granted tasks show <lookup>
     ```
 
     Docs: [Cron jobs](/automation/cron-jobs), [Background Tasks](/automation/tasks).
@@ -268,7 +268,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
     Debug:
     ```bash
-    openclaw cron runs --id <jobId> --limit 50
+    granted cron runs --id <jobId> --limit 50
     ```
 
     Docs: [Cron jobs](/automation/cron-jobs), [cron CLI](/cli/cron).
@@ -276,22 +276,22 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
   </Accordion>
 
   <Accordion title="How do I install skills on Linux?">
-    Use native `openclaw skills` commands or drop skills into your workspace; the macOS Skills UI is not available on Linux. Browse skills at [https://clawhub.ai](https://clawhub.ai).
+    Use native `granted skills` commands or drop skills into your workspace; the macOS Skills UI is not available on Linux. Browse skills at [https://clawhub.ai](https://clawhub.ai).
 
     ```bash
-    openclaw skills search "calendar"
-    openclaw skills search --limit 20
-    openclaw skills install @owner/<skill-slug>
-    openclaw skills install @owner/<skill-slug> --version <version>
-    openclaw skills install @owner/<skill-slug> --force
-    openclaw skills install @owner/<skill-slug> --global
-    openclaw skills update --all
-    openclaw skills update --all --global
-    openclaw skills list --eligible
-    openclaw skills check
+    granted skills search "calendar"
+    granted skills search --limit 20
+    granted skills install @owner/<skill-slug>
+    granted skills install @owner/<skill-slug> --version <version>
+    granted skills install @owner/<skill-slug> --force
+    granted skills install @owner/<skill-slug> --global
+    granted skills update --all
+    granted skills update --all --global
+    granted skills list --eligible
+    granted skills check
     ```
 
-    Native `openclaw skills install` writes into the active workspace `skills/` directory by default. Add `--global` to install into the shared managed skills directory for all local agents. Install the separate `clawhub` CLI only to publish or sync your own skills. Use `agents.defaults.skills` or `agents.entries.*.skills` to narrow which agents see shared skills.
+    Native `granted skills install` writes into the active workspace `skills/` directory by default. Add `--global` to install into the shared managed skills directory for all local agents. Install the separate `clawhub` CLI only to publish or sync your own skills. Use `agents.defaults.skills` or `agents.entries.*.skills` to narrow which agents see shared skills.
 
   </Accordion>
 
@@ -347,8 +347,8 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     For a native integration, open a feature request or build a skill against those APIs.
 
     ```bash
-    openclaw skills install @owner/<skill-slug>
-    openclaw skills update --all
+    granted skills install @owner/<skill-slug>
+    granted skills update --all
     ```
 
     Native installs land in the active workspace `skills/` directory; use `--global` for all local agents, or configure `agents.defaults.skills` / `agents.entries.*.skills` to limit visibility. Some skills expect Homebrew-installed binaries; on Linux that means Linuxbrew.
@@ -361,15 +361,15 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     Use the built-in `user` browser profile, which attaches through Chrome DevTools MCP:
 
     ```bash
-    openclaw browser --browser-profile user tabs
-    openclaw browser --browser-profile user snapshot
+    granted browser --browser-profile user tabs
+    granted browser --browser-profile user snapshot
     ```
 
     For a custom name, create an explicit MCP profile:
 
     ```bash
-    openclaw browser create-profile --name chrome-live --driver existing-session
-    openclaw browser --browser-profile chrome-live tabs
+    granted browser create-profile --name chrome-live --driver existing-session
+    granted browser --browser-profile chrome-live tabs
     ```
 
     This can use the local host browser or a connected browser node. If the Gateway runs elsewhere, run a node host on the browser machine, or use remote CDP instead.
@@ -468,18 +468,18 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     | Path                                                               | Purpose                                                            |
     | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
     | `$OPENCLAW_STATE_DIR/openclaw.json`                                 | Main config (JSON5)                                                 |
-    | `$OPENCLAW_STATE_DIR/credentials/oauth.json`                        | Legacy OAuth migration source for `openclaw doctor --fix`           |
+    | `$OPENCLAW_STATE_DIR/credentials/oauth.json`                        | Legacy OAuth migration source for `granted doctor --fix`           |
     | `$OPENCLAW_STATE_DIR/state/openclaw.sqlite`                         | Shared SQLite state, including shared auth profiles                 |
     | `$OPENCLAW_STATE_DIR/secrets.json`                                  | Optional file-backed secret payload for `file` SecretRef providers   |
-    | `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/auth.json`              | Legacy auth migration source for `openclaw doctor --fix`             |
+    | `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/auth.json`              | Legacy auth migration source for `granted doctor --fix`             |
     | `$OPENCLAW_STATE_DIR/credentials/`                                  | Provider state (for example `whatsapp/<accountId>/creds.json`)      |
     | `$OPENCLAW_STATE_DIR/agents/`                                       | Per-agent state (agentDir + legacy/archive session artifacts)        |
     | `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/openclaw-agent.sqlite`  | Per-agent SQLite state, including local auth profiles, sessions, and transcripts |
     | `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`                    | Legacy session migration sources and archive/support artifacts      |
 
-    Legacy single-agent path `~/.openclaw/agent/*` is migrated by `openclaw doctor`.
+    Legacy single-agent path `~/.openclaw/agent/*` is migrated by `granted doctor`.
 
-    Legacy `auth-profiles.json` files are imported by `openclaw doctor --fix`;
+    Legacy `auth-profiles.json` files are imported by `granted doctor --fix`;
     new logins write SQLite. Agent-local profiles override the shared read-through
     base. Older installs keep that shared store in the main agent's database until
     doctor relocates it; see [Auth credential semantics](/auth-credential-semantics#agent-copy-portability).
@@ -491,7 +491,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
   <Accordion title="Where should AGENTS.md / SOUL.md / USER.md / MEMORY.md live?">
     These live in the **agent workspace**, not `~/.openclaw`.
 
-    - **Workspace (per agent)**: `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, `memory/YYYY-MM-DD.md`. Lowercase root `memory.md` is legacy repair input only; `openclaw doctor --fix` can merge it into `MEMORY.md` when both exist.
+    - **Workspace (per agent)**: `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, `memory/YYYY-MM-DD.md`. Lowercase root `memory.md` is legacy repair input only; `granted doctor --fix` can merge it into `MEMORY.md` when both exist.
     - **State dir (`~/.openclaw`)**: config, channel/provider state, auth profiles, sessions, logs, shared skills (`~/.openclaw/skills`).
 
     Default workspace is `~/.openclaw/workspace`, configurable:
@@ -602,7 +602,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
     On a fresh loopback start, the Gateway prepares the canonical same-user CLI device credential before `/readyz`, so normal `openclaw` CLI calls can authenticate without persisting the generated token. Other clients still need an explicit shared secret or an approved device pairing.
 
-    Configure `gateway.auth.token`, `gateway.auth.password`, `OPENCLAW_GATEWAY_TOKEN`, or `OPENCLAW_GATEWAY_PASSWORD` explicitly when clients need a stable secret across restarts. You can also choose password mode, or `trusted-proxy` for identity-aware reverse proxies. For open loopback, set `gateway.auth.mode: "none"` explicitly. `openclaw doctor --generate-gateway-token` generates a token any time.
+    Configure `gateway.auth.token`, `gateway.auth.password`, `OPENCLAW_GATEWAY_TOKEN`, or `OPENCLAW_GATEWAY_PASSWORD` explicitly when clients need a stable secret across restarts. You can also choose password mode, or `trusted-proxy` for identity-aware reverse proxies. For open loopback, set `gateway.auth.mode: "none"` explicitly. `granted doctor --generate-gateway-token` generates a token any time.
 
   </Accordion>
 
@@ -628,9 +628,9 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     | SearXNG | Yes (self-hosted) | `SEARXNG_BASE_URL` |
     | Tavily | No | `TAVILY_API_KEY` |
 
-    Grok can also reuse xAI OAuth from model auth (`openclaw onboard --auth-choice xai-oauth`).
+    Grok can also reuse xAI OAuth from model auth (`granted onboard --auth-choice xai-oauth`).
 
-    **Recommended**: `openclaw configure --section web` and pick a provider.
+    **Recommended**: `granted configure --section web` and pick a provider.
 
     ```json5
     {
@@ -680,18 +680,18 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     - OpenClaw-owned config writes validate the full post-change config before writing.
     - Invalid or destructive OpenClaw-owned writes are rejected and saved as `openclaw.json.rejected.*`.
     - Startup can migrate deterministic legacy keys in eligible single-file configs when the whole result validates, keeping the previous config in the `.bak` ring. Other invalid edits make startup fail closed; hot reload skips invalid edits without rewriting `openclaw.json`.
-    - `openclaw doctor --fix` owns repairs beyond that startup migration, can restore last-known-good, and saves the rejected file as `openclaw.json.clobbered.*`.
+    - `granted doctor --fix` owns repairs beyond that startup migration, can restore last-known-good, and saves the rejected file as `openclaw.json.clobbered.*`.
 
     Recover:
 
-    - Check `openclaw logs --follow` for `Invalid config at`, `Config write rejected:`, or `config reload skipped (invalid config)`.
+    - Check `granted logs --follow` for `Invalid config at`, `Config write rejected:`, or `config reload skipped (invalid config)`.
     - Inspect the newest `openclaw.json.clobbered.*` or `openclaw.json.rejected.*` beside the active config.
-    - Run `openclaw config validate` and `openclaw doctor --fix`.
-    - Copy only the intended keys back with `openclaw config set` or `config.patch`.
-    - No last-known-good or rejected payload: restore from backup, or re-run `openclaw doctor` and reconfigure channels/models.
+    - Run `granted config validate` and `granted doctor --fix`.
+    - Copy only the intended keys back with `granted config set` or `config.patch`.
+    - No last-known-good or rejected payload: restore from backup, or re-run `granted doctor` and reconfigure channels/models.
     - Unexpected loss: file a bug with your last known config or a backup. A local coding agent can often reconstruct a working config from logs or history.
 
-    Avoid it: use `openclaw config set` for small changes, `openclaw configure` for interactive edits, `config.schema.lookup` to inspect an unfamiliar path (returns a shallow schema node plus immediate child summaries), and `config.patch` for partial RPC edits - reserve `config.apply` for full-config replacement. The agent-facing `gateway` runtime tool refuses to rewrite `tools.exec.ask` / `tools.exec.security` even via legacy `tools.bash.*` aliases.
+    Avoid it: use `granted config set` for small changes, `granted configure` for interactive edits, `config.schema.lookup` to inspect an unfamiliar path (returns a shallow schema node plus immediate child summaries), and `config.patch` for partial RPC edits - reserve `config.apply` for full-config replacement. The agent-facing `gateway` runtime tool refuses to rewrite `tools.exec.ask` / `tools.exec.security` even via legacy `tools.bash.*` aliases.
 
     Docs: [Config](/cli/config), [Configure](/cli/configure), [Gateway troubleshooting](/gateway/troubleshooting#gateway-rejected-invalid-config), [Doctor](/gateway/doctor).
 
@@ -754,8 +754,8 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     4. Open the macOS app locally and connect in **Remote over SSH** mode (or direct tailnet) so it registers as a node.
     5. Approve the node:
        ```bash
-       openclaw devices list
-       openclaw devices approve <requestId>
+       granted devices list
+       granted devices approve <requestId>
        ```
 
     No separate TCP bridge is required; nodes connect over the Gateway WebSocket.
@@ -770,9 +770,9 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     Check the basics:
 
     ```bash
-    openclaw gateway status
-    openclaw status
-    openclaw channels status
+    granted gateway status
+    granted status
+    granted channels status
     ```
 
     Then verify auth and routing: if you use Tailscale Serve, confirm `gateway.auth.allowTailscale` is set correctly; if you connect via SSH tunnel, confirm the tunnel is up and points at the right port; confirm your DM/group allowlists include your account.
@@ -786,10 +786,10 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
     **Simplest**: use a normal chat channel both bots can access (Slack/Telegram/WhatsApp). Have Bot A message Bot B, then let Bot B reply as usual.
 
-    **CLI bridge (generic)**: run a script that calls the other Gateway with `openclaw agent --message ... --deliver`, targeting a chat where the other bot listens. If one bot is on a remote VPS, point your CLI at that remote Gateway via SSH/Tailscale (see [Remote access](/gateway/remote)):
+    **CLI bridge (generic)**: run a script that calls the other Gateway with `granted agent --message ... --deliver`, targeting a chat where the other bot listens. If one bot is on a remote VPS, point your CLI at that remote Gateway via SSH/Tailscale (see [Remote access](/gateway/remote)):
 
     ```bash
-    openclaw agent --message "Hello from local bot" --deliver --channel telegram --reply-to <chat-id>
+    granted agent --message "Hello from local bot" --deliver --channel telegram --reply-to <chat-id>
     ```
 
     Add a guardrail so the two bots do not loop endlessly (mention-only, channel allowlists, or a "do not reply to bot messages" rule).
@@ -859,7 +859,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     For the Control UI without SSH, use Tailscale Serve on the VPS:
 
     ```bash
-    openclaw gateway --tailscale serve
+    granted gateway --tailscale serve
     ```
 
     This keeps the gateway bound to loopback and exposes HTTPS via Tailscale. See [Tailscale](/gateway/tailscale).
@@ -873,8 +873,8 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     2. Use the macOS app in Remote mode (SSH target can be the tailnet hostname) - it tunnels the Gateway port and connects as a node.
     3. Approve the node:
        ```bash
-       openclaw devices list
-       openclaw devices approve <requestId>
+       granted devices list
+       granted devices approve <requestId>
        ```
 
     Docs: [Gateway protocol](/gateway/protocol), [Discovery](/gateway/discovery), [macOS remote mode](/platforms/mac/remote).
@@ -937,12 +937,12 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
   </Accordion>
 
   <Accordion title='I set COPILOT_GITHUB_TOKEN, but models status shows "Shell env: off." Why?'>
-    `openclaw models status` reports whether **shell env import** is enabled. "Shell env: off" does **not** mean your env vars are missing - it just means OpenClaw will not load your login shell automatically.
+    `granted models status` reports whether **shell env import** is enabled. "Shell env: off" does **not** mean your env vars are missing - it just means OpenClaw will not load your login shell automatically.
 
     If the Gateway runs as a service (launchd/systemd), it will not inherit your shell environment. Fix by putting the token in `~/.openclaw/.env`, enabling `env.shellEnv.enabled: true`, or adding it to config `env` (applies only if missing), then restarting the gateway and rechecking:
 
     ```bash
-    openclaw models status
+    granted models status
     ```
 
     Copilot tokens resolve in this order: `OPENCLAW_GITHUB_TOKEN`, then `COPILOT_GITHUB_TOKEN`, then `GH_TOKEN`, then `GITHUB_TOKEN`.
@@ -1003,22 +1003,22 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
 
   <Accordion title="How do I completely reset OpenClaw but keep it installed?">
     ```bash
-    openclaw reset
+    granted reset
     ```
 
     Non-interactive full reset:
 
     ```bash
-    openclaw reset --scope full --yes --non-interactive
+    granted reset --scope full --yes --non-interactive
     ```
 
     Then re-run setup:
 
     ```bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
-    To reset and immediately re-run onboarding, pass `openclaw onboard --reset`; reset is a command flag, not a **Setup mode** menu choice. See [Onboarding (CLI)](/start/wizard). If you used profiles (`--profile` / `OPENCLAW_PROFILE`), reset each state dir (default `~/.openclaw-<profile>`). Dev-only reset: `openclaw gateway --dev --reset` wipes dev config, credentials, sessions, and workspace.
+    To reset and immediately re-run onboarding, pass `granted onboard --reset`; reset is a command flag, not a **Setup mode** menu choice. See [Onboarding (CLI)](/start/wizard). If you used profiles (`--profile` / `OPENCLAW_PROFILE`), reset each state dir (default `~/.openclaw-<profile>`). Dev-only reset: `granted gateway --dev --reset` wipes dev config, credentials, sessions, and workspace.
 
   </Accordion>
 
@@ -1082,7 +1082,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     Fastest: tail logs and send a test message in the group.
 
     ```bash
-    openclaw logs --follow --json
+    granted logs --follow --json
     ```
 
     Look for `chatId` (or `from`) ending in `@g.us`, like `1234567890-1234567890@g.us`.
@@ -1090,7 +1090,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     If already configured/allowlisted, list groups from config:
 
     ```bash
-    openclaw directory groups list --channel whatsapp
+    granted directory groups list --channel whatsapp
     ```
 
     Docs: [WhatsApp](/channels/whatsapp), [Directory](/cli/directory), [Logs](/cli/logs).
@@ -1115,7 +1115,7 @@ First-run Q&A - install, onboard, auth routes, subscriptions, initial failures -
     - **Token cost**: more agents means more concurrent model usage.
     - **Ops overhead**: per-agent auth profiles, workspaces, and channel routing.
 
-    Keep one **active** workspace per agent (`agents.defaults.workspace`), prune old sessions with `openclaw sessions cleanup` if disk grows (do not edit active SQLite state by hand), and use `openclaw doctor` to spot stray workspaces and profile mismatches.
+    Keep one **active** workspace per agent (`agents.defaults.workspace`), prune old sessions with `granted sessions cleanup` if disk grows (do not edit active SQLite state by hand), and use `granted doctor` to spot stray workspaces and profile mismatches.
 
   </Accordion>
 
@@ -1147,17 +1147,17 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
   </Accordion>
 
-  <Accordion title='Why does openclaw gateway status say "Runtime: running" but "Connectivity probe: failed"?'>
-    "Running" is the **supervisor's** view (launchd/systemd/schtasks); the connectivity probe is the CLI actually connecting to the gateway WebSocket. Trust these lines from `openclaw gateway status`: `Probe target:` (the URL the probe used), `Listening:` (what is actually bound on the port), `Last gateway error:` (common root cause when the process is alive but the port is not listening).
+  <Accordion title='Why does granted gateway status say "Runtime: running" but "Connectivity probe: failed"?'>
+    "Running" is the **supervisor's** view (launchd/systemd/schtasks); the connectivity probe is the CLI actually connecting to the gateway WebSocket. Trust these lines from `granted gateway status`: `Probe target:` (the URL the probe used), `Listening:` (what is actually bound on the port), `Last gateway error:` (common root cause when the process is alive but the port is not listening).
   </Accordion>
 
-  <Accordion title='Why does openclaw gateway status show "Config (cli)" and "Config (service)" different?'>
+  <Accordion title='Why does granted gateway status show "Config (cli)" and "Config (service)" different?'>
     You are editing one config file while the service runs another (often a `--profile` / `OPENCLAW_STATE_DIR` mismatch).
 
     Fix, run from the same `--profile` / environment you want the service to use:
 
     ```bash
-    openclaw gateway install --force
+    granted gateway install --force
     ```
 
   </Accordion>
@@ -1165,7 +1165,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
   <Accordion title='What does "another gateway instance is already listening" mean?'>
     OpenClaw enforces a runtime lock by binding the WebSocket listener immediately on startup (default `ws://127.0.0.1:18789`). If the bind fails with `EADDRINUSE`, it throws `GatewayLockError` ("another gateway instance is already listening").
 
-    Fix: stop the other instance, free the port, or run with `openclaw gateway --port <port>`.
+    Fix: stop the other instance, free the port, or run with `granted gateway --port <port>`.
 
   </Accordion>
 
@@ -1185,7 +1185,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     }
     ```
 
-    - `openclaw gateway` only starts when `gateway.mode` is `local` (or you pass an override flag).
+    - `granted gateway` only starts when `gateway.mode` is `local` (or you pass an override flag).
     - The macOS app watches the config file and switches modes live when these values change.
     - `gateway.remote.token` / `.password` are client-side remote credentials only; they do not enable local gateway auth by themselves.
 
@@ -1204,19 +1204,19 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
     Fix:
 
-    - Fastest: `openclaw dashboard` (prints + copies the dashboard URL, tries to open; shows an SSH hint if headless).
-    - No token yet: `openclaw doctor --generate-gateway-token`.
+    - Fastest: `granted dashboard` (prints + copies the dashboard URL, tries to open; shows an SSH hint if headless).
+    - No token yet: `granted doctor --generate-gateway-token`.
     - Remote: tunnel first with `ssh -N -L 18789:127.0.0.1:18789 user@host`, then open `http://127.0.0.1:18789/`.
     - Shared-secret mode: set `gateway.auth.token` / `OPENCLAW_GATEWAY_TOKEN` or `gateway.auth.password` / `OPENCLAW_GATEWAY_PASSWORD`, then paste the matching secret in Control UI settings.
     - Tailscale Serve mode: confirm `gateway.auth.allowTailscale` is enabled and you are opening the Serve URL, not a raw loopback/tailnet URL that bypasses Tailscale identity headers.
     - Trusted-proxy mode: confirm you are coming through the configured identity-aware proxy. Same-host loopback proxies also need `gateway.auth.trustedProxy.allowLoopback = true`.
     - Mismatch persists after the one retry: rotate/re-approve the paired device token:
       ```bash
-      openclaw devices list
-      openclaw devices rotate --device <id> --role operator
+      granted devices list
+      granted devices rotate --device <id> --role operator
       ```
     - Rotate denied: paired-device sessions can rotate only their **own** device unless they also have `operator.admin`, and explicit `--scope` values cannot exceed the caller's current operator scopes.
-    - Still stuck: `openclaw status --all` plus [Troubleshooting](/gateway/troubleshooting). See [Dashboard](/web/dashboard) for auth details.
+    - Still stuck: `granted status --all` plus [Troubleshooting](/gateway/troubleshooting). See [Dashboard](/web/dashboard) for auth details.
 
   </Accordion>
 
@@ -1248,7 +1248,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     Fix: use the WS URL (`ws://<host>:18789`, or `wss://...` over HTTPS), do not open the WS port in a normal browser tab, and include the token/password in the `connect` frame when auth is on. CLI/TUI example:
 
     ```bash
-    openclaw tui --url ws://<host>:18789 --token <token>
+    granted tui --url ws://<host>:18789 --token <token>
     ```
 
     Protocol details: [Gateway protocol](/gateway/protocol).
@@ -1265,7 +1265,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     Fastest tail:
 
     ```bash
-    openclaw logs --follow
+    granted logs --follow
     ```
 
     Service/supervisor logs (when the gateway runs via launchd/systemd):
@@ -1280,11 +1280,11 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
   <Accordion title="How do I start/stop/restart the Gateway service?">
     ```bash
-    openclaw gateway status
-    openclaw gateway restart
+    granted gateway status
+    granted gateway restart
     ```
 
-    If you run the gateway manually, `openclaw gateway --force` can reclaim the port. See [Gateway](/gateway).
+    If you run the gateway manually, `granted gateway --force` can reclaim the port. See [Gateway](/gateway).
 
   </Accordion>
 
@@ -1296,17 +1296,17 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     **2) Manual WSL2 Gateway**: the Gateway runs inside Linux.
     ```powershell
     wsl
-    openclaw gateway status
-    openclaw gateway restart
+    granted gateway status
+    granted gateway restart
     ```
-    If you never installed the service, start it in the foreground: `openclaw gateway run`.
+    If you never installed the service, start it in the foreground: `granted gateway run`.
 
     **3) Native Windows CLI/Gateway**: runs directly in Windows.
     ```powershell
-    openclaw gateway status
-    openclaw gateway restart
+    granted gateway status
+    granted gateway restart
     ```
-    If you run it manually (no service): `openclaw gateway run`.
+    If you run it manually (no service): `granted gateway run`.
 
     Docs: [Windows](/platforms/windows), [Gateway service runbook](/gateway).
 
@@ -1316,10 +1316,10 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     Quick health sweep:
 
     ```bash
-    openclaw status
-    openclaw models status
-    openclaw channels status
-    openclaw logs --follow
+    granted status
+    granted models status
+    granted channels status
+    granted logs --follow
     ```
 
     Common causes: model auth not loaded on the **gateway host** (check `models status`), channel pairing/allowlist blocking replies (check channel config and logs), or WebChat/Dashboard open without the right token. If remote, confirm the tunnel/Tailscale connection is up and the Gateway WebSocket is reachable.
@@ -1329,12 +1329,12 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
   </Accordion>
 
   <Accordion title='"Disconnected from gateway: no reason" - what now?'>
-    Usually means the UI lost the WebSocket connection. Check: is the Gateway running (`openclaw gateway status`)? Is it healthy (`openclaw status`)? Does the UI have the right token (`openclaw dashboard`)? If remote, is the tunnel/Tailscale link up?
+    Usually means the UI lost the WebSocket connection. Check: is the Gateway running (`granted gateway status`)? Is it healthy (`granted status`)? Does the UI have the right token (`granted dashboard`)? If remote, is the tunnel/Tailscale link up?
 
     Then tail logs:
 
     ```bash
-    openclaw logs --follow
+    granted logs --follow
     ```
 
     Docs: [Dashboard](/web/dashboard), [Remote access](/gateway/remote), [Troubleshooting](/gateway/troubleshooting).
@@ -1343,8 +1343,8 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
   <Accordion title="Telegram setMyCommands fails. What should I check?">
     ```bash
-    openclaw channels status
-    openclaw channels logs --channel telegram
+    granted channels status
+    granted channels logs --channel telegram
     ```
 
     Then match the error:
@@ -1360,9 +1360,9 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
   <Accordion title="TUI shows no output. What should I check?">
     ```bash
-    openclaw status
-    openclaw models status
-    openclaw logs --follow
+    granted status
+    granted models status
+    granted logs --follow
     ```
 
     In the TUI, use `/status` to see the current state. If you expect replies in a chat channel, confirm delivery is enabled (`/deliver on`).
@@ -1375,18 +1375,18 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     If you installed the service (launchd on macOS, systemd on Linux):
 
     ```bash
-    openclaw gateway stop
-    openclaw gateway start
+    granted gateway stop
+    granted gateway start
     ```
 
-    In the foreground, stop with Ctrl-C, then `openclaw gateway run`.
+    In the foreground, stop with Ctrl-C, then `granted gateway run`.
 
     Docs: [Gateway service runbook](/gateway).
 
   </Accordion>
 
-  <Accordion title="ELI5: openclaw gateway restart vs openclaw gateway">
-    `openclaw gateway restart` restarts the **background service** (launchd/systemd). `openclaw gateway` runs the gateway **in the foreground** for this terminal session. Use the gateway subcommands if you installed the service; use the bare foreground run for a one-off.
+  <Accordion title="ELI5: granted gateway restart vs granted gateway">
+    `granted gateway restart` restarts the **background service** (launchd/systemd). `granted gateway` runs the gateway **in the foreground** for this terminal session. Use the gateway subcommands if you installed the service; use the bare foreground run for a one-off.
   </Accordion>
 
   <Accordion title="Fastest way to get more details when something fails">
@@ -1401,7 +1401,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     Outbound attachments from the agent must use structured media fields such as `media`, `mediaUrl`, `path`, or `filePath`. See [OpenClaw assistant setup](/start/openclaw) and [Agent send](/tools/agent-send).
 
     ```bash
-    openclaw message send --target +15555550123 --message "Here you go" --media /path/to/file.png
+    granted message send --target +15555550123 --message "Here you go" --media /path/to/file.png
     ```
 
     Also check: the target channel supports outbound media and is not blocked by allowlists; the file is within the provider's size limits (images resize to a max side of 2048px); `tools.fs.workspaceOnly=true` limits local-path sends to workspace, temp/media-store, and sandbox-validated files; `tools.fs.workspaceOnly=false` (default) lets structured local media sends use host-local files the agent can already read, for media plus safe document types (images, audio, video, PDF, Office docs, and validated text documents such as Markdown/MD, TXT, JSON, YAML/YML). This is not a secret scanner - an agent-readable `secret.txt` or `config.json` can be attached when the extension and content validation match. Keep sensitive files outside agent-readable paths, or keep `tools.fs.workspaceOnly=true` for stricter local-path sends.
@@ -1417,10 +1417,10 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
   <Accordion title="Is it safe to expose OpenClaw to inbound DMs?">
     Yes - on channels that default to **pairing** (most DM-capable channels), a stranger who DMs your bot never reaches the model:
 
-    - With the pairing default, unknown senders receive a pairing code and their message is not processed. Approve with `openclaw pairing approve --channel <channel> [--account <id>] <code>`. Pending requests are capped at **3 per channel**; check `openclaw pairing list --channel <channel> [--account <id>]` if a code did not arrive.
+    - With the pairing default, unknown senders receive a pairing code and their message is not processed. Approve with `granted pairing approve --channel <channel> [--account <id>] <code>`. Pending requests are capped at **3 per channel**; check `granted pairing list --channel <channel> [--account <id>]` if a code did not arrive.
     - Opening DMs publicly requires explicit opt-in (`dmPolicy: "open"` and allowlist `"*"`).
 
-    A few workspace channels ship different defaults - ClickClack, for example, allows workspace members by default. Check your channel's page, and run `openclaw doctor` to confirm your DM policies look the way you expect.
+    A few workspace channels ship different defaults - ClickClack, for example, allows workspace members by default. Check your channel's page, and run `granted doctor` to confirm your DM policies look the way you expect.
 
   </Accordion>
 
@@ -1441,7 +1441,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
   <Accordion title="Is OpenClaw less safe because it uses TypeScript/Node instead of Rust/WASM?">
     Language and runtime matter, but are not the main risk for a personal agent. The practical risks are gateway exposure, who can message the bot, prompt injection, tool scope, credential handling, browser access, exec access, and third-party skill/plugin trust.
 
-    Rust and WASM can provide stronger isolation for some code classes, but do not solve prompt injection, bad allowlists, public gateway exposure, overbroad tools, or a browser profile already logged in to sensitive accounts. Treat these as the primary controls: keep the Gateway private or authenticated, use pairing and allowlists for DMs/groups, deny or sandbox risky tools for untrusted inputs, install only trusted plugins and skills, and run `openclaw security audit --deep` after config changes.
+    Rust and WASM can provide stronger isolation for some code classes, but do not solve prompt injection, bad allowlists, public gateway exposure, overbroad tools, or a browser profile already logged in to sensitive accounts. Treat these as the primary controls: keep the Gateway private or authenticated, use pairing and allowlists for DMs/groups, deny or sandbox risky tools for untrusted inputs, install only trusted plugins and skills, and run `granted security audit --deep` after config changes.
 
     Details: [Security](/gateway/security), [Sandboxing](/gateway/sandboxing).
 
@@ -1449,13 +1449,13 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
 
   <Accordion title="I saw reports about exposed OpenClaw instances. What should I check?">
     ```bash
-    openclaw security audit --deep
-    openclaw gateway status
+    granted security audit --deep
+    granted gateway status
     ```
 
     A safer baseline: Gateway bound to `loopback`, or exposed only through authenticated private access (tailnet, SSH tunnel, token/password auth, or a correctly configured trusted proxy); DMs in `pairing` or `allowlist` mode; group access limited to rooms you chose (group allowlists), with mention gating or sender allowlists where membership is broad or public; high-risk tools (`exec`, `browser`, `gateway`, `cron`) denied or tightly scoped for agents that read untrusted content; sandboxing enabled where tool execution needs a smaller blast radius.
 
-    Public binds without auth, open DMs/groups with tools, and exposed browser control are the findings to fix first. Details: [openclaw security audit](/gateway/security#openclaw-security-audit).
+    Public binds without auth, open DMs/groups with tools, and exposed browser control are the findings to fix first. Details: [granted security audit](/gateway/security#openclaw-security-audit).
 
   </Accordion>
 
@@ -1494,7 +1494,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     Check pending requests:
 
     ```bash
-    openclaw pairing list telegram
+    granted pairing list telegram
     ```
 
     For immediate access, allowlist your sender id or set `dmPolicy: "open"` for that account.
@@ -1505,8 +1505,8 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
     No. Default WhatsApp DM policy is **pairing**. Unknown senders only get a pairing code; their message is **not processed**. OpenClaw only replies to chats it receives or to explicit sends you trigger.
 
     ```bash
-    openclaw pairing approve whatsapp <code>
-    openclaw pairing list whatsapp
+    granted pairing approve whatsapp <code>
+    granted pairing list whatsapp
     ```
 
     The wizard's phone number prompt sets your **allowlist/owner** so your own DMs are permitted - it is not used for auto-sending. On your personal WhatsApp number, use that number and enable `channels.whatsapp.selfChatMode`.
@@ -1535,7 +1535,7 @@ Model Q&A - defaults, selection, aliases, switching, failover, auth profiles - l
   </Accordion>
 
   <Accordion title="How do I stop/cancel a running task?">
-    Send any of these **as a standalone message** (no slash) to trigger an abort: `stop`, `stop action`, `stop current action`, `stop run`, `stop current run`, `stop agent`, `stop the agent`, `stop openclaw`, `openclaw stop`, `stop don't do anything`, `stop do not do anything`, `stop doing anything`, `do not do that`, `please stop`, `stop please`, `abort`, `esc`, `exit`, `interrupt`, `halt`. Common non-English triggers (French, German, Spanish, Chinese, Japanese, Hindi, Arabic, Russian) also work.
+    Send any of these **as a standalone message** (no slash) to trigger an abort: `stop`, `stop action`, `stop current action`, `stop run`, `stop current run`, `stop agent`, `stop the agent`, `stop openclaw`, `granted stop`, `stop don't do anything`, `stop do not do anything`, `stop doing anything`, `do not do that`, `please stop`, `stop please`, `abort`, `esc`, `exit`, `interrupt`, `halt`. Common non-English triggers (French, German, Spanish, Chinese, Japanese, Hindi, Arabic, Russian) also work.
 
     For background processes started by the exec tool, ask the agent to run:
 

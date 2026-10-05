@@ -81,7 +81,7 @@ export async function buildStatusAllReportLines(params: {
       "",
     );
   }
-  lines.push(heading("OpenClaw status --all"));
+  lines.push(heading("Granted status --all"));
   appendStatusReportSections({
     lines,
     heading,

@@ -251,7 +251,8 @@ export function mergeRemoteNodeSkillEntries(
       disableCommandDispatch: true,
       exposure: {
         includeInRuntimeRegistry: true,
-        includeInAvailableSkillsPrompt: !invocation.disableModelInvocation,
+        includeInAvailableSkillsPrompt:
+          !invocation.disableModelInvocation && invocation.promptListing !== "search",
         userInvocable: invocation.userInvocable,
       },
     });

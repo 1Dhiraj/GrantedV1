@@ -348,7 +348,7 @@ function expectLastSetupRegistryCall(params: {
     entries?: Record<string, { enabled?: boolean }>;
   };
 }) {
-  const call = getLastMockCallArg(loadOpenClawPluginsMock, "OpenClaw plugin setup loader");
+  const call = getLastMockCallArg(loadOpenClawPluginsMock, "Granted plugin setup loader");
   const options = expectRecordFields(call, {
     ...(params.onlyPluginIds !== undefined ? { onlyPluginIds: params.onlyPluginIds } : {}),
     ...(params.activate !== undefined ? { activate: params.activate } : {}),
@@ -378,7 +378,7 @@ function expectLastSetupRegistryLoad(params?: {
   env?: NodeJS.ProcessEnv;
   onlyPluginIds?: readonly string[];
 }) {
-  const call = getLastMockCallArg(loadOpenClawPluginsMock, "OpenClaw plugin setup loader");
+  const call = getLastMockCallArg(loadOpenClawPluginsMock, "Granted plugin setup loader");
   expectRecordFields(call, {
     cache: false,
     activate: false,
@@ -400,7 +400,7 @@ function getLastResolvedPluginConfig() {
 
 function getLastSetupLoadedPluginConfig() {
   const call = expectRecordFields(
-    getLastMockCallArg(loadOpenClawPluginsMock, "OpenClaw plugin setup loader"),
+    getLastMockCallArg(loadOpenClawPluginsMock, "Granted plugin setup loader"),
     {},
   );
   return (call.config ?? undefined) as

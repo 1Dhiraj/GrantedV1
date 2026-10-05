@@ -2,7 +2,7 @@
   "name": "@granted/microsoft-foundry",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Microsoft Foundry provider plugin",
+  "description": "Granted Microsoft Foundry provider plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

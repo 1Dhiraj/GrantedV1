@@ -989,7 +989,7 @@ describe("monitorTelegramProvider (grammY)", () => {
       persistedOffset: 549076203,
     });
 
-    // OpenClaw middleware skips duplicates using the persisted update offset.
+    // Granted middleware skips duplicates using the persisted update offset.
     expect(api.getUpdates).not.toHaveBeenCalled();
     expect(order).toEqual(["deleteWebhook", "run"]);
   });

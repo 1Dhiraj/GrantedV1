@@ -1,13 +1,13 @@
-# Z.AI OpenClaw provider
+# Z.AI Granted provider
 
-Official OpenClaw provider plugin for Z.AI.
+Official Granted provider plugin for Z.AI.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/zai-provider
+granted plugins install @granted/zai-provider
 ```
 
 ## Docs
 
-See `docs/providers/zai.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/providers/zai`.
+See `docs/providers/zai.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/providers/zai`.

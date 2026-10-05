@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-02T0836",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A1",
+      "name": "disk space",
+      "result": "PASS",
+      "seconds": 331,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0836-a1",
+      "evidence": "Your free disk space per drive:\n- **C:** 31.9 GB free (total ~495 GB)\n- **D:** 72.8 GB free (total ~239 GB)\n- **E:** 83.4 GB free (total ~203 GB)",
+      "toolCalls": 2,
+      "tokens": 52969
+    }
+  ]
+}

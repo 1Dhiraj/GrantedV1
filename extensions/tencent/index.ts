@@ -1,4 +1,4 @@
-// Tencent plugin entrypoint registers its OpenClaw integration.
+// Tencent plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
 import { buildOpenAICompatibleProviderCatalog } from "granted/plugin-sdk/provider-catalog-live-runtime";

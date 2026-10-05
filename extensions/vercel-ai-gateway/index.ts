@@ -1,7 +1,7 @@
-// Vercel Ai Gateway plugin entrypoint registers its OpenClaw integration.
+// Vercel Ai Gateway plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
-import { applyVercelAiGatewayConfig, VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { applyVercelAiGatewayConfig, VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF } from "./onboard.js";
 import {
   buildStaticVercelAiGatewayProvider,
   buildVercelAiGatewayProvider,

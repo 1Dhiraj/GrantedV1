@@ -42,7 +42,7 @@ Choose your preferred auth method and follow the setup steps.
       </Step>
       <Step title="Verify models are discovered">
         ```bash
-        openclaw models list
+        granted models list
         ```
 
         Discovered models appear under the `amazon-bedrock-mantle` provider. No
@@ -66,7 +66,7 @@ Choose your preferred auth method and follow the setup steps.
       </Step>
       <Step title="Verify models are discovered">
         ```bash
-        openclaw models list
+        granted models list
         ```
 
         OpenClaw generates a Mantle bearer token from the credential chain automatically.
@@ -96,7 +96,7 @@ To keep the Mantle plugin enabled but suppress automatic discovery and IAM
 bearer-token generation, disable the plugin-owned discovery toggle:
 
 ```bash
-openclaw config set plugins.entries.amazon-bedrock-mantle.config.discovery.enabled false
+granted config set plugins.entries.amazon-bedrock-mantle.config.discovery.enabled false
 ```
 
 <Note>

@@ -13,8 +13,8 @@ Sessions can run in three places, and every one of them uses the same session, t
 
 | Destination       | The machine                                                                       | Best for                                                    | Scope to dispatch |
 | ----------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------- | ----------------- |
-| Gateway (default) | The host running `openclaw gateway`                                               | Everyday sessions                                           | —                 |
-| Paired device     | Your own hardware, connected once with `openclaw connect`                         | Spare Macs, build boxes, servers you already own            | `operator.write`  |
+| Gateway (default) | The host running `granted gateway`                                                | Everyday sessions                                           | —                 |
+| Paired device     | Your own hardware, connected once with `granted connect`                          | Spare Macs, build boxes, servers you already own            | `operator.write`  |
 | Cloud worker      | A throwaway machine leased through [Crabbox](https://github.com/openclaw/crabbox) | Burst capacity, long jobs, isolation from your own machines | `operator.admin`  |
 
 In all remote placements, model inference stays proxied through the Gateway — provider credentials never reach the remote machine — and completed work reconciles back into the session's managed worktree. Both the OpenClaw runtime (`worker-turn`) and Codex (`remote-exec`) can use the same destinations.
@@ -40,7 +40,7 @@ Attachment staging uses the existing workspace-result transfer limits (25,000 fi
 Pair any machine with one pasted command, then opt it into session hosting:
 
 ```bash
-openclaw connect <join-url> --service --session-host
+granted connect <join-url> --service --session-host
 ```
 
 The device holds an outbound connection to the Gateway, advertises worker slots (one per CPU core by default, tunable with `nodeHost.workerRuns.capacity`), and can optionally run each hosted session in a Docker-compatible container (`nodeHost.workerRuns.isolation: "container"`). A device that goes offline keeps its active placement — the session waits for it to reconnect rather than losing work.

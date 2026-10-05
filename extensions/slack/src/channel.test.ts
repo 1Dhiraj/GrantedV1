@@ -668,7 +668,7 @@ describe("slackPlugin status", () => {
       ok: true,
       status: 200,
       bot: { id: "B1", name: "openclaw-bot" },
-      team: { id: "T1", name: "OpenClaw" },
+      team: { id: "T1", name: "Granted" },
     });
     const cfg = {
       channels: {
@@ -695,7 +695,7 @@ describe("slackPlugin status", () => {
       ok: true,
       status: 200,
       bot: { id: "B1", name: "openclaw-bot" },
-      team: { id: "T1", name: "OpenClaw" },
+      team: { id: "T1", name: "Granted" },
     });
   });
 
@@ -705,7 +705,7 @@ describe("slackPlugin status", () => {
         ok: true,
         warning: "Slack bot token is a user token",
         bot: { id: "UUSER", name: "human-installer" },
-        team: { id: "T1", name: "OpenClaw" },
+        team: { id: "T1", name: "Granted" },
       },
     });
 
@@ -715,7 +715,7 @@ describe("slackPlugin status", () => {
         tone: "warn",
       },
       { text: "Bot: @human-installer" },
-      { text: "Team: OpenClaw (T1)" },
+      { text: "Team: Granted (T1)" },
     ]);
   });
 
@@ -1846,7 +1846,7 @@ describe("slackPlugin agentPrompt", () => {
       "- Use `presentation` buttons/selects for discrete choices or parameter picks instead of asking the user to type one.",
     );
     expect(hints).toContain(
-      "- Slack plain text sends: write standard Markdown; OpenClaw converts it to Slack mrkdwn, including `**bold**`, headings, lists, and `[label](url)` links.",
+      "- Slack plain text sends: write standard Markdown; Granted converts it to Slack mrkdwn, including `**bold**`, headings, lists, and `[label](url)` links.",
     );
     expect(hints).toContain(
       "- For row-and-column data, use an explicit `presentation` table block; Slack renders it as a native table and retains a linear text summary for accessibility. Markdown pipe tables are not auto-promoted.",

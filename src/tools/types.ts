@@ -1,5 +1,5 @@
 /**
- * Public descriptor contracts for OpenClaw tool metadata.
+ * Public descriptor contracts for Granted tool metadata.
  *
  * These types keep tool ownership, execution, and availability metadata in one
  * shared shape so descriptor producers and the descriptor cache agree.

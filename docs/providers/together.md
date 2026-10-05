@@ -26,7 +26,7 @@ OpenClaw bundles it as the `together` provider.
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice together-api-key
+    granted onboard --auth-choice together-api-key
     ```
   </Step>
   <Step title="Set a default model">
@@ -47,7 +47,7 @@ OpenClaw bundles it as the `together` provider.
 ### Non-interactive example
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice together-api-key \
   --together-api-key "$TOGETHER_API_KEY"
@@ -118,7 +118,7 @@ provider selection, and failover behavior.
   </Accordion>
 
   <Accordion title="Troubleshooting">
-    - Verify your key works: `openclaw models list --provider together`
+    - Verify your key works: `granted models list --provider together`
     - If models are not appearing, confirm the API key is set in the correct
       environment for your Gateway process.
     - Model refs use the form `together/<model-id>`.

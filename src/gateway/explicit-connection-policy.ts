@@ -39,7 +39,7 @@ export function isExplicitGatewayConnection(params: {
   );
 }
 
-/** Returns true when url/auth flags are sufficient and loading OpenClaw config is unnecessary. */
+/** Returns true when url/auth flags are sufficient and loading Granted config is unnecessary. */
 export function canSkipGatewayConfigLoad(params: {
   config?: GrantedConfig;
   urlOverride?: string;

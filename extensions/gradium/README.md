@@ -1,12 +1,12 @@
-# OpenClaw Gradium Plugin
+# Granted Gradium Plugin
 
-Official OpenClaw plugin for Gradium.
+Official Granted plugin for Gradium.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/gradium-speech
-openclaw gateway restart
+granted plugins install @granted/gradium-speech
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/gradium> for setup and configuration.

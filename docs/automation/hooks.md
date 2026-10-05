@@ -42,10 +42,10 @@ you a concrete file to inspect. Run these commands on the **Gateway host**, with
 the same profile and config as that Gateway:
 
 ```bash
-openclaw hooks list
-openclaw hooks info command-logger
-openclaw hooks enable command-logger
-openclaw gateway restart
+granted hooks list
+granted hooks info command-logger
+granted hooks enable command-logger
+granted gateway restart
 ```
 
 `gateway restart` applies to an installed Gateway service. If you run the Gateway
@@ -62,14 +62,14 @@ tail -n 5 ~/.openclaw/logs/commands.log
 Look for a new JSON line with `"action":"new"` or `"action":"reset"`, a recent
 `timestamp`, and that conversation's `sessionKey`. With a custom state directory,
 read `<stateDir>/logs/commands.log` instead. This proves that a handler ran;
-`openclaw hooks check` alone does not.
+`granted hooks check` alone does not.
 
 The log contains session and sender identifiers. Disable the hook after trying
 it if you do not want to retain those records:
 
 ```bash
-openclaw hooks disable command-logger
-openclaw gateway restart
+granted hooks disable command-logger
+granted gateway restart
 ```
 
 ### Eligible, enabled, and loaded
@@ -155,9 +155,9 @@ needed.
 Enable and load it:
 
 ```bash
-openclaw hooks info reset-greeting
-openclaw hooks enable reset-greeting
-openclaw gateway restart
+granted hooks info reset-greeting
+granted hooks enable reset-greeting
+granted gateway restart
 ```
 
 Send `/new` in a disposable conversation on a configured chat channel that can
@@ -175,8 +175,8 @@ can still show that a reset event ran. See
 Disable the example when finished:
 
 ```bash
-openclaw hooks disable reset-greeting
-openclaw gateway restart
+granted hooks disable reset-greeting
+granted gateway restart
 ```
 
 Disabling leaves the files in place. To use a workspace directory instead, put
@@ -328,7 +328,7 @@ examples.
 
 <Warning>
 `hooks.internal.handlers` is retired and fails normal config validation. Before
-running `openclaw doctor --fix`, migrate each registered module into a managed or
+running `granted doctor --fix`, migrate each registered module into a managed or
 workspace hook directory with `HOOK.md` and a handler. Doctor removes the old
 registrations; it does not create executable files. For a legacy-only config
 with `hooks.internal.enabled: true`, it also removes that flag to avoid broad
@@ -391,7 +391,7 @@ A hook pack is a package whose `package.json` declares hook directories in
 unified installer:
 
 ```bash
-openclaw plugins install <path-or-spec>
+granted plugins install <path-or-spec>
 ```
 
 Installation and update flags, npm restrictions, linked-root behavior and trust, and
@@ -408,7 +408,7 @@ the deprecated `hooks install` / `hooks update` aliases are documented in
 | `compaction-notifier`   | `session:compact:before`, `session:compact:after`    | Add compaction status notices on supported delivery paths. |
 | `session-memory`        | `command:new`, `command:reset`, `session:auto-reset` | Save recent conversation excerpts to workspace memory.     |
 
-Enable one with `openclaw hooks enable <hook-name>`, then restart and verify its
+Enable one with `granted hooks enable <hook-name>`, then restart and verify its
 side effect. The following sections describe what to expect.
 
 <a id="boot-md"></a>
@@ -467,7 +467,7 @@ filters. Inspect the actual injected result with `/context detail`; see
 [Context](/concepts/context).
 
 `TOOLS.md` is not a recognized runtime bootstrap basename.
-`openclaw doctor --fix` archives workspace-root `TOOLS.md` and merges customized
+`granted doctor --fix` archives workspace-root `TOOLS.md` and merges customized
 content into the `## Tools` section of `AGENTS.md`. Other `TOOLS.md` files named
 by patterns are not migrated;
 point those patterns at `AGENTS.md` instead.
@@ -727,7 +727,7 @@ with an explicit shutdown lifecycle, not a request/event handler.
 
 ## CLI reference
 
-See [`openclaw hooks`](/cli/hooks) for every public report and toggle option,
+See [`granted hooks`](/cli/hooks) for every public report and toggle option,
 JSON output fields, exit behavior, and install/update aliases.
 
 ## Troubleshooting
@@ -735,7 +735,7 @@ JSON output fields, exit behavior, and install/update aliases.
 ### Hook not discovered
 
 Check the report's `workspaceDir` and `managedHooksDir` with
-`openclaw hooks list --json`. Confirm you are inspecting the intended host,
+`granted hooks list --json`. Confirm you are inspecting the intended host,
 profile, and agent. Each hook needs `HOOK.md` and one supported handler file;
 a metadata file alone is insufficient. Collection locations inspect immediate
 children. An explicit extra path or linked root can itself be a hook or pack.
@@ -751,8 +751,8 @@ linked packs, verify the root layout described under
 ### Hook not eligible
 
 ```bash
-openclaw hooks info my-hook
-openclaw hooks list --verbose
+granted hooks info my-hook
+granted hooks list --verbose
 ```
 
 Check `blockedReason`, missing binaries on the Gateway's `PATH`, environment,
@@ -768,7 +768,7 @@ master switch or name selection and does not mean a non-startup agent's workspac
 was loaded.
 
 ```bash
-openclaw logs --follow
+granted logs --follow
 ```
 
 Look for import/export errors, boundary failures, unknown-event warnings, or

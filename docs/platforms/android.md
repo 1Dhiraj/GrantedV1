@@ -185,7 +185,7 @@ For Tailscale or public hosts, Android requires a secure endpoint:
 ### 1. Start the Gateway
 
 ```bash
-openclaw gateway --port 18789 --verbose
+granted gateway --port 18789 --verbose
 ```
 
 Confirm in logs you see something like:
@@ -195,7 +195,7 @@ Confirm in logs you see something like:
 For remote Android access over Tailscale, prefer Serve/Funnel instead of a raw tailnet bind:
 
 ```bash
-openclaw gateway --tailscale serve
+granted gateway --tailscale serve
 ```
 
 This gives Android a secure `wss://` / `https://` endpoint. A plain `gateway.bind: "tailnet"` setup is not enough for first-time remote Android pairing unless you also terminate TLS separately.
@@ -213,7 +213,7 @@ More debugging notes: [Bonjour](/gateway/bonjour).
 If you also configured a wide-area discovery domain, compare against:
 
 ```bash
-openclaw gateway discover --json
+granted gateway discover --json
 ```
 
 That shows `local.` plus the configured wide-area domain in one pass, using the resolved service endpoint instead of TXT-only hints.
@@ -243,9 +243,9 @@ access by default over `wss://`. Plaintext non-loopback `ws://` setup
 automatically uses limited access for bearer-token safety. **Settings → Gateway**
 shows **Full** or **Limited** access. For a limited connection, configure
 `wss://` or Tailscale Serve, generate a new full-access code in Control UI or
-with `openclaw qr`, then scan or paste it on that page and reconnect. Operators
+with `granted qr`, then scan or paste it on that page and reconnect. Operators
 who want the reduced profile can select **Limited access** in Control UI or run
-`openclaw qr --limited`.
+`granted qr --limited`.
 
 ### Manage paired gateways
 
@@ -268,9 +268,9 @@ The app counts the beacon as successfully recorded only when the gateway respons
 On the gateway machine:
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
-openclaw devices reject <requestId>
+granted devices list
+granted devices approve <requestId>
+granted devices reject <requestId>
 ```
 
 Pairing details: [Pairing](/channels/pairing).
@@ -294,8 +294,8 @@ This is disabled by default. It applies only to fresh `role: node` pairing with 
 ### 5. Verify the node is connected
 
 ```bash
-openclaw nodes status
-openclaw gateway call node.list --params "{}"
+granted nodes status
+granted gateway call node.list --params "{}"
 ```
 
 ### 6. Chat + history

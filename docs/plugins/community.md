@@ -17,23 +17,23 @@ plugins.
 Search ClawHub from the CLI:
 
 ```bash
-openclaw plugins search "calendar"
+granted plugins search "calendar"
 ```
 
 Install a ClawHub plugin with an explicit source prefix:
 
 ```bash
-openclaw plugins install clawhub:<package-name>
+granted plugins install clawhub:<package-name>
 ```
 
 npm remains a supported direct-install path during the launch cutover:
 
 ```bash
-openclaw plugins install npm:<package-name>
+granted plugins install npm:<package-name>
 ```
 
 Use [Manage plugins](/plugins/manage-plugins) for common install, update,
-inspect, and uninstall examples. Use [`openclaw plugins`](/cli/plugins) for
+inspect, and uninstall examples. Use [`granted plugins`](/cli/plugins) for
 the full command reference and source-selection rules.
 
 ## Publish plugins
@@ -56,12 +56,12 @@ download surfaces until review and verification finish.
 
 Checklist before you publish:
 
-| Requirement          | Why                                                 |
-| -------------------- | --------------------------------------------------- |
-| Published on ClawHub | Users need `openclaw plugins install` hints to work |
-| Public GitHub repo   | Source review, issue tracking, transparency         |
-| Setup and usage docs | Users need to know how to configure it              |
-| Active maintenance   | Recent updates or responsive issue handling         |
+| Requirement          | Why                                                |
+| -------------------- | -------------------------------------------------- |
+| Published on ClawHub | Users need `granted plugins install` hints to work |
+| Public GitHub repo   | Source review, issue tracking, transparency        |
+| Setup and usage docs | Users need to know how to configure it             |
+| Active maintenance   | Recent updates or responsive issue handling        |
 
 Full publishing contract:
 

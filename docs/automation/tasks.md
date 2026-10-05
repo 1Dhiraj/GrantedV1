@@ -16,7 +16,7 @@ Background tasks track work that runs **outside your main conversation session**
 
 Tasks do **not** replace sessions, automations, or heartbeats - they are the **activity ledger** that records what detached work happened, when, and whether it succeeded.
 
-For a strict, ephemeral one-shot agent run in CI or a script, use [`openclaw agent exec`](/cli/agent#agent-exec) instead of managed background work.
+For a strict, ephemeral one-shot agent run in CI or a script, use [`granted agent exec`](/cli/agent#agent-exec) instead of managed background work.
 
 <Note>
 Not every agent run creates a task. Heartbeat turns and normal interactive chat do not. All automation runs, ACP spawns, subagent spawns, gateway-dispatched CLI agent commands, and agent-started background `exec` commands do.
@@ -32,7 +32,7 @@ Not every agent run creates a task. Heartbeat turns and normal interactive chat 
 - Isolated automation runs and subagent completions best-effort clean up tracked browser tabs/processes for their child session before final cleanup bookkeeping.
 - Isolated automation delivery suppresses stale interim parent replies while descendant subagent work is still draining, and it prefers final descendant output when that arrives before delivery.
 - Completion notifications are delivered directly to a channel or queued for the next heartbeat.
-- `openclaw tasks list` shows all tasks; `openclaw tasks audit` surfaces issues.
+- `granted tasks list` shows all tasks; `granted tasks audit` surfaces issues.
 - Terminal records are kept for 7 days (`lost` records for 24 hours), then automatically pruned.
 
 ## Quick start
@@ -41,56 +41,56 @@ Not every agent run creates a task. Heartbeat turns and normal interactive chat 
   <Tab title="List and filter">
     ```bash
     # List all tasks (newest first)
-    openclaw tasks list
+    granted tasks list
 
     # Filter by runtime or status
-    openclaw tasks list --runtime acp
-    openclaw tasks list --status running
-    openclaw tasks list --status blocked
+    granted tasks list --runtime acp
+    granted tasks list --status running
+    granted tasks list --status blocked
     ```
 
   </Tab>
   <Tab title="Inspect">
     ```bash
     # Show details for a specific task (by task ID, run ID, or session key)
-    openclaw tasks show <lookup>
+    granted tasks show <lookup>
     ```
   </Tab>
   <Tab title="Cancel and notify">
     ```bash
     # Cancel a running task (kills the child session)
-    openclaw tasks cancel <lookup>
+    granted tasks cancel <lookup>
 
     # Change notification policy for a task
-    openclaw tasks notify <lookup> state_changes
+    granted tasks notify <lookup> state_changes
     ```
 
   </Tab>
   <Tab title="Recover delivery">
     ```bash
     # Retry or dismiss up to 10 blocked completion deliveries
-    openclaw tasks retry <lookup> [lookup...]
-    openclaw tasks dismiss <lookup> [lookup...]
+    granted tasks retry <lookup> [lookup...]
+    granted tasks dismiss <lookup> [lookup...]
     ```
 
   </Tab>
   <Tab title="Audit and maintenance">
     ```bash
     # Run a health audit
-    openclaw tasks audit
+    granted tasks audit
 
     # Preview or apply maintenance
-    openclaw tasks maintenance
-    openclaw tasks maintenance --apply
+    granted tasks maintenance
+    granted tasks maintenance --apply
     ```
 
   </Tab>
   <Tab title="Task flow">
     ```bash
     # Inspect TaskFlow state
-    openclaw tasks flow list
-    openclaw tasks flow show <lookup>
-    openclaw tasks flow cancel <lookup>
+    granted tasks flow list
+    granted tasks flow show <lookup>
+    granted tasks flow cancel <lookup>
     ```
   </Tab>
 </Tabs>
@@ -102,7 +102,7 @@ Not every agent run creates a task. Heartbeat turns and normal interactive chat 
 | ACP background runs         | `acp`        | Spawning a child ACP session                                           | `done_only`           |
 | Subagent orchestration      | `subagent`   | Spawning a subagent via `sessions_spawn`                               | `done_only`           |
 | Automation jobs (all types) | `cron`       | Every automation run (main-session and isolated)                       | `silent`              |
-| CLI operations              | `cli`        | `openclaw agent` commands that run through the gateway                 | `silent`              |
+| CLI operations              | `cli`        | `granted agent` commands that run through the gateway                  | `silent`              |
 | Agent media jobs            | `cli`        | Session-backed `image_generate`/`music_generate`/`video_generate` runs | `silent`              |
 
 <AccordionGroup>
@@ -138,15 +138,15 @@ stateDiagram-v2
     running --> lost : backing state gone > 5 min
 ```
 
-| Status      | What it means                                                               |
-| ----------- | --------------------------------------------------------------------------- |
-| `queued`    | Created, waiting for the agent to start                                     |
-| `running`   | Agent turn is actively executing                                            |
-| `succeeded` | Completed successfully                                                      |
-| `failed`    | Completed with an error                                                     |
-| `timed_out` | Exceeded the configured timeout                                             |
-| `cancelled` | Stopped by the operator via `openclaw tasks cancel`, or the run was aborted |
-| `lost`      | The runtime lost authoritative backing state after a 5-minute grace period  |
+| Status      | What it means                                                              |
+| ----------- | -------------------------------------------------------------------------- |
+| `queued`    | Created, waiting for the agent to start                                    |
+| `running`   | Agent turn is actively executing                                           |
+| `succeeded` | Completed successfully                                                     |
+| `failed`    | Completed with an error                                                    |
+| `timed_out` | Exceeded the configured timeout                                            |
+| `cancelled` | Stopped by the operator via `granted tasks cancel`, or the run was aborted |
+| `lost`      | The runtime lost authoritative backing state after a 5-minute grace period |
 
 Transitions happen automatically - agent run lifecycle events (start, end, error) update the task status; you do not manage it manually.
 
@@ -156,7 +156,7 @@ terminal outcome is `succeeded` after delivery and `blocked` when the work
 finished but the result could not be handed back. This preserves the completed
 result instead of misreporting the child execution as failed.
 
-Use `openclaw tasks list --status blocked` to find these tasks. They also remain
+Use `granted tasks list --status blocked` to find these tasks. They also remain
 in `--status succeeded` results because the underlying execution succeeded, and
 JSON output preserves the stored status plus the `blocked` terminal outcome.
 
@@ -167,7 +167,7 @@ Agent run completion is authoritative for active task records. A successful deta
 - ACP tasks: only a live in-process ACP turn in the Gateway proves the run is alive; persisted session metadata alone does not. Offline CLI audit stays conservative and never reclaims ACP tasks.
 - Subagent tasks: backing child session disappeared from the target agent store (or carries a restart-recovery tombstone).
 - Automation tasks: the automations runtime no longer tracks the job as active and durable run history does not show a terminal result for that run. Offline CLI audit does not treat its own empty in-process automations runtime state as authority.
-- CLI tasks: tasks with a run id/source id use the live run context, so lingering child-session or chat-session rows do not keep them alive after the gateway-owned run disappears. Legacy CLI tasks without run identity still fall back to the child session. Gateway-backed `openclaw agent` runs also finalize from their run result, so completed runs do not sit active until the sweeper marks them `lost`.
+- CLI tasks: tasks with a run id/source id use the live run context, so lingering child-session or chat-session rows do not keep them alive after the gateway-owned run disappears. Legacy CLI tasks without run identity still fall back to the child session. Gateway-backed `granted agent` runs also finalize from their run result, so completed runs do not sit active until the sweeper marks them `lost`.
 
 ## Delivery and notifications
 
@@ -189,8 +189,8 @@ Durable subagent completion handoffs retry for up to 30 minutes with capped
 exponential backoff. A queued handoff is not reported as delivered until the
 queue settles. If delivery reaches its deadline or fails permanently, the task
 shows a blocked terminal outcome and retains its canonical result for 7 days.
-Use `openclaw tasks retry` to create a fenced new delivery generation, or
-`openclaw tasks dismiss` to record intentional non-delivery. Retry can duplicate
+Use `granted tasks retry` to create a fenced new delivery generation, or
+`granted tasks dismiss` to record intentional non-delivery. Retry can duplicate
 a visible result when an earlier provider acknowledgement was ambiguous.
 
 <Tip>
@@ -212,7 +212,7 @@ Control how much you hear about each task:
 Change the policy while a task is running:
 
 ```bash
-openclaw tasks notify <lookup> state_changes
+granted tasks notify <lookup> state_changes
 ```
 
 ## CLI reference
@@ -220,15 +220,15 @@ openclaw tasks notify <lookup> state_changes
 <AccordionGroup>
   <Accordion title="tasks list">
     ```bash
-    openclaw tasks list [--runtime <acp|subagent|cron|cli>] [--status <status>] [--json]
+    granted tasks list [--runtime <acp|subagent|cron|cli>] [--status <status>] [--json]
     ```
 
-    Output columns: Task, Kind, Status, Delivery, Run, Child Session, Summary. Bare `openclaw tasks` behaves like `openclaw tasks list`.
+    Output columns: Task, Kind, Status, Delivery, Run, Child Session, Summary. Bare `granted tasks` behaves like `granted tasks list`.
 
   </Accordion>
   <Accordion title="tasks show">
     ```bash
-    openclaw tasks show <lookup> [--json]
+    granted tasks show <lookup> [--json]
     ```
 
     The lookup token accepts a task ID, run ID, or session key. Shows the full record including timing, delivery state, error, and terminal summary.
@@ -236,7 +236,7 @@ openclaw tasks notify <lookup> state_changes
   </Accordion>
   <Accordion title="tasks cancel">
     ```bash
-    openclaw tasks cancel <lookup>
+    granted tasks cancel <lookup>
     ```
 
     For ACP and subagent tasks, this kills the child session; ACP and automation cancellations route through the running Gateway (`tasks.cancel`). For CLI-tracked tasks, cancellation is recorded in the task registry (there is no separate child runtime handle). Status transitions to `cancelled` and a delivery notification is sent when applicable.
@@ -244,8 +244,8 @@ openclaw tasks notify <lookup> state_changes
   </Accordion>
   <Accordion title="tasks retry | dismiss">
     ```bash
-    openclaw tasks retry <lookup> [lookup...]
-    openclaw tasks dismiss <lookup> [lookup...]
+    granted tasks retry <lookup> [lookup...]
+    granted tasks dismiss <lookup> [lookup...]
     ```
 
     These commands recover blocked subagent completion deliveries. Each request
@@ -256,15 +256,15 @@ openclaw tasks notify <lookup> state_changes
   </Accordion>
   <Accordion title="tasks notify">
     ```bash
-    openclaw tasks notify <lookup> <done_only|state_changes|silent>
+    granted tasks notify <lookup> <done_only|state_changes|silent>
     ```
   </Accordion>
   <Accordion title="tasks audit">
     ```bash
-    openclaw tasks audit [--severity <warn|error>] [--code <name>] [--limit <n>] [--json]
+    granted tasks audit [--severity <warn|error>] [--code <name>] [--limit <n>] [--json]
     ```
 
-    Surfaces operational issues for tasks **and** TaskFlows in one report. Findings also appear in `openclaw status` when issues are detected.
+    Surfaces operational issues for tasks **and** TaskFlows in one report. Findings also appear in `granted status` when issues are detected.
 
     Task findings:
 
@@ -293,8 +293,8 @@ openclaw tasks notify <lookup> state_changes
   </Accordion>
   <Accordion title="tasks maintenance">
     ```bash
-    openclaw tasks maintenance [--json]
-    openclaw tasks maintenance --apply [--json]
+    granted tasks maintenance [--json]
+    granted tasks maintenance --apply [--json]
     ```
 
     Use this to preview or apply reconciliation, cleanup stamping, and pruning for tasks, TaskFlow state, and stale automation run session registry rows.
@@ -319,9 +319,9 @@ openclaw tasks notify <lookup> state_changes
   </Accordion>
   <Accordion title="tasks flow list | show | cancel">
     ```bash
-    openclaw tasks flow list [--status <status>] [--json]
-    openclaw tasks flow show <lookup> [--json]
-    openclaw tasks flow cancel <lookup>
+    granted tasks flow list [--status <status>] [--json]
+    granted tasks flow show <lookup> [--json]
+    granted tasks flow cancel <lookup>
     ```
 
     The flow lookup token accepts a flow id or owner key. Use these when the orchestrating [Task Flow](/automation/taskflow) is the thing you care about rather than one individual background task record.
@@ -335,7 +335,7 @@ Use `/tasks` in any chat session to see background tasks linked to that session.
 
 When the current session has no visible linked tasks, `/tasks` falls back to agent-local task counts so you still get an overview without leaking other-session details.
 
-For the full operator ledger, use the CLI: `openclaw tasks list`.
+For the full operator ledger, use the CLI: `granted tasks list`.
 
 ### Control UI
 
@@ -347,7 +347,7 @@ Select a task to replace the list with a compact detail view inside the rail; us
 
 ## Status integration (task pressure)
 
-`openclaw status` includes an at-a-glance task line:
+`granted status` includes an at-a-glance task line:
 
 ```
 Tasks    2 active · 1 queued · 1 running · 1 issue · audit clean · 6 tracked
@@ -371,7 +371,7 @@ Set `OPENCLAW_STATE_DIR` to move the whole state root (default `~/.openclaw`) el
 
 The registry loads into memory on first use and persists every write back to SQLite, so records survive gateway restarts. WAL growth stays bounded through SQLite's default autocheckpoint threshold plus periodic `PASSIVE` checkpoints. After a checkpoint completes, the next commit resets the WAL and applies a 64 MiB `journal_size_limit` ceiling, so a reader cannot leave the file parked at a pathological high-water mark until restart. Shutdown and explicit maintenance checkpoints use `TRUNCATE` so normal closes reclaim WAL space without making the background sweeper wait on active readers.
 
-Legacy sidecar stores from older installs (`tasks/runs.sqlite`, `flows/registry.sqlite`) are imported into the shared database by `openclaw doctor`.
+Legacy sidecar stores from older installs (`tasks/runs.sqlite`, `flows/registry.sqlite`) are imported into the shared database by `granted doctor`.
 
 ### Automatic maintenance
 
@@ -403,7 +403,7 @@ A sweeper runs every **60 seconds** (first pass about 5 seconds after gateway st
 
 <AccordionGroup>
   <Accordion title="Tasks and Task Flow">
-    [Task Flow](/automation/taskflow) is the flow orchestration layer above background tasks. A single flow may coordinate multiple tasks over its lifetime using managed or mirrored sync modes. Use `openclaw tasks` to inspect individual task records and `openclaw tasks flow` to inspect the orchestrating flow.
+    [Task Flow](/automation/taskflow) is the flow orchestration layer above background tasks. A single flow may coordinate multiple tasks over its lifetime using managed or mirrored sync modes. Use `granted tasks` to inspect individual task records and `granted tasks flow` to inspect the orchestrating flow.
 
   </Accordion>
   <Accordion title="Tasks and automations">
@@ -428,7 +428,7 @@ When execution identity collection is enabled, OpenClaw also binds the exact
 admitted `contextId` and `executionId` to Gateway CLI, ACP, and automation task
 rows and their mirrored flow rows. This is inspection provenance only: `runId`
 remains correlation, task/flow status remains authoritative, and a missing or
-mismatched binding never changes execution or settlement. `openclaw audit
+mismatched binding never changes execution or settlement. `granted audit
 --execution <id> --explain` adapts the existing rows without copying task or
 flow content into the generic decision-fact table.
 </Accordion>

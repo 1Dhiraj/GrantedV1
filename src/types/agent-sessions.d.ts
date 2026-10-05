@@ -3,7 +3,7 @@ export type GrantedAgentSessionSkillSourceAugmentation = never;
 
 declare module "granted/plugin-sdk/agent-sessions" {
   interface Skill {
-    // OpenClaw relies on the source identifier returned by skill loaders.
+    // Granted relies on the source identifier returned by skill loaders.
     source: string;
   }
 }

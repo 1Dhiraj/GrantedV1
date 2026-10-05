@@ -181,7 +181,7 @@ describe("readBestEffortConfig", () => {
 
   it("preserves Windows case-insensitive env lookup in isolated reads", async () => {
     await withTempHome(async (home) => {
-      const mixedCaseKey = "OpenClaw_Config_Path";
+      const mixedCaseKey = "Granted_Config_Path";
       const customConfigPath = `${home}/custom-openclaw.json`;
       await withEnvAsync({ GRANTED_CONFIG_PATH: undefined }, async () => {
         await withEnvAsync({ [mixedCaseKey]: customConfigPath }, async () => {

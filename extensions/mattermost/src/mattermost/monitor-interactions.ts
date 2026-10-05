@@ -62,7 +62,7 @@ export function registerMattermostInteractions(params: {
               message: post.message ?? "",
               props: post.props ?? undefined,
             },
-            ephemeral_text: `OpenClaw ignored this action for ${decision.roomLabel}.`,
+            ephemeral_text: `Granted ignored this action for ${decision.roomLabel}.`,
           },
         };
       },

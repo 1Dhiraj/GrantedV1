@@ -1,11 +1,11 @@
-// Volcengine plugin entrypoint registers its OpenClaw integration.
+// Volcengine plugin entrypoint registers its Granted integration.
 import { buildOpenAICompatibleProviderFamilyCatalog } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider-catalog-shared";
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { ensureModelAllowlistEntry } from "granted/plugin-sdk/provider-onboard";
 import { applyVolcengineToolSchemaCompat } from "./api.js";
-import { VOLCENGINE_PROVIDER_CATALOG } from "./models.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { VOLCENGINE_PROVIDER_CATALOG } from "./models.js";
 import { buildVolcengineSpeechProvider } from "./speech-provider.js";
 
 const PROVIDER_ID = "volcengine";

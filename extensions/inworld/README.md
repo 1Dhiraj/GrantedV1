@@ -1,12 +1,12 @@
-# OpenClaw Inworld Plugin
+# Granted Inworld Plugin
 
-Official OpenClaw plugin for Inworld.
+Official Granted plugin for Inworld.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/inworld-speech
-openclaw gateway restart
+granted plugins install @granted/inworld-speech
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/inworld> for setup and configuration.

@@ -7,11 +7,11 @@ status: active
 
 Manage sandbox runtimes for isolated agent execution: Docker/Podman containers, SSH targets, or OpenShell backends.
 
-[`openclaw agent exec`](/cli/agent#agent-exec) does not use these configured runtimes. Its isolated implicit policy config turns the agent sandbox off, allows full Gateway-host execution, and restricts filesystem tools to `--cwd`.
+[`granted agent exec`](/cli/agent#agent-exec) does not use these configured runtimes. Its isolated implicit policy config turns the agent sandbox off, allows full Gateway-host execution, and restricts filesystem tools to `--cwd`.
 
 ## Commands
 
-### `openclaw sandbox list`
+### `granted sandbox list`
 
 List sandbox runtimes with status, backend, config match, age, idle time, and associated session/agent.
 
@@ -20,21 +20,21 @@ owning backend plugin before checking live runtime status. Browser-only
 operations do not require backend plugin activation.
 
 ```bash
-openclaw sandbox list
-openclaw sandbox list --browser  # browser containers only
-openclaw sandbox list --json
+granted sandbox list
+granted sandbox list --browser  # browser containers only
+granted sandbox list --json
 ```
 
-### `openclaw sandbox recreate`
+### `granted sandbox recreate`
 
 Remove sandbox runtimes to force recreation with current config. Runtimes are recreated automatically the next time the agent is used.
 
 ```bash
-openclaw sandbox recreate --all
-openclaw sandbox recreate --agent mybot        # includes agent:mybot:* sub-sessions
-openclaw sandbox recreate --session "agent:main:main"
-openclaw sandbox recreate --browser --all      # only browser containers
-openclaw sandbox recreate --all --force        # skip confirmation
+granted sandbox recreate --all
+granted sandbox recreate --agent mybot        # includes agent:mybot:* sub-sessions
+granted sandbox recreate --session "agent:main:main"
+granted sandbox recreate --browser --all      # only browser containers
+granted sandbox recreate --all --force        # skip confirmation
 ```
 
 Options:
@@ -49,17 +49,17 @@ Pass exactly one of `--all`, `--session`, or `--agent`.
 
 For `ssh` and OpenShell `remote`, recreate matters more than with Docker: the remote workspace is canonical after the initial seed, `recreate` deletes that canonical remote workspace for the selected scope, and the next run reseeds it from the current local workspace.
 
-### `openclaw sandbox explain`
+### `granted sandbox explain`
 
 Inspect the effective sandbox mode/scope/workspace access, sandbox tool policy, and elevated-tool gates (with fix-it config key paths).
 
 The report keeps `workspaceRoot` as the configured sandbox root and separately shows the effective host workspace, backend runtime workdir, and Docker mount table. For `workspaceAccess: "rw"`, the effective host workspace is the agent workspace rather than a directory below `workspaceRoot`.
 
 ```bash
-openclaw sandbox explain
-openclaw sandbox explain --session agent:main:main
-openclaw sandbox explain --agent work
-openclaw sandbox explain --json
+granted sandbox explain
+granted sandbox explain --session agent:main:main
+granted sandbox explain --agent work
+granted sandbox explain --json
 ```
 
 Unlike `recreate --session`, this accepts short session names (for example `main`) and expands them against the resolved agent.
@@ -67,21 +67,21 @@ An explicit `--agent` is sufficient for multi-agent fleets with no implicit owne
 
 ## Why recreate is needed
 
-Updating sandbox config does not affect running containers: existing runtimes keep their old settings, and idle runtimes are only pruned after `prune.idleHours` (default 24h). Regularly used agents can keep stale runtimes alive indefinitely. `openclaw sandbox recreate` removes the old runtime so the next use rebuilds it from current config.
+Updating sandbox config does not affect running containers: existing runtimes keep their old settings, and idle runtimes are only pruned after `prune.idleHours` (default 24h). Regularly used agents can keep stale runtimes alive indefinitely. `granted sandbox recreate` removes the old runtime so the next use rebuilds it from current config.
 
 <Tip>
-Prefer `openclaw sandbox recreate` over manual backend-specific cleanup. It uses the Gateway's runtime registry and avoids mismatches when scope or session keys change.
+Prefer `granted sandbox recreate` over manual backend-specific cleanup. It uses the Gateway's runtime registry and avoids mismatches when scope or session keys change.
 </Tip>
 
 ## Common triggers
 
-| Change                                                                                                                                                         | Command                                                             |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Container sandbox image update (`agents.defaults.sandbox.docker.image`)                                                                                        | `openclaw sandbox recreate --all`                                   |
-| Sandbox config (`agents.defaults.sandbox.*`)                                                                                                                   | `openclaw sandbox recreate --all`                                   |
-| SSH target/auth (`agents.defaults.sandbox.ssh.{target,workspaceRoot,identityFile,certificateFile,knownHostsFile,identityData,certificateData,knownHostsData}`) | `openclaw sandbox recreate --all`                                   |
-| OpenShell source/policy/mode (`plugins.entries.openshell.config.{from,mode,policy}`)                                                                           | `openclaw sandbox recreate --all`                                   |
-| `setupCommand`                                                                                                                                                 | `openclaw sandbox recreate --all` (or `--agent <id>` for one agent) |
+| Change                                                                                                                                                         | Command                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Container sandbox image update (`agents.defaults.sandbox.docker.image`)                                                                                        | `granted sandbox recreate --all`                                   |
+| Sandbox config (`agents.defaults.sandbox.*`)                                                                                                                   | `granted sandbox recreate --all`                                   |
+| SSH target/auth (`agents.defaults.sandbox.ssh.{target,workspaceRoot,identityFile,certificateFile,knownHostsFile,identityData,certificateData,knownHostsData}`) | `granted sandbox recreate --all`                                   |
+| OpenShell source/policy/mode (`plugins.entries.openshell.config.{from,mode,policy}`)                                                                           | `granted sandbox recreate --all`                                   |
+| `setupCommand`                                                                                                                                                 | `granted sandbox recreate --all` (or `--agent <id>` for one agent) |
 
 <Note>
 Runtimes are automatically recreated when the agent is next used.
@@ -95,7 +95,7 @@ Sandbox runtime metadata lives in the shared SQLite state database. Older instal
 - `~/.openclaw/sandbox/browsers.json`
 - one JSON shard per container/browser under `~/.openclaw/sandbox/containers/` or `~/.openclaw/sandbox/browsers/`
 
-Run `openclaw doctor --fix` to migrate valid legacy entries into SQLite. Invalid legacy files are quarantined so a corrupt old registry cannot hide current runtime entries.
+Run `granted doctor --fix` to migrate valid legacy entries into SQLite. Invalid legacy files are quarantined so a corrupt old registry cannot hide current runtime entries.
 
 ## Configuration
 

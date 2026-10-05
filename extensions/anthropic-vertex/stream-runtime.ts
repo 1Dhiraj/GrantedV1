@@ -1,6 +1,6 @@
 /**
  * Anthropic Vertex stream runtime. It constructs Vertex SDK clients and adapts
- * OpenClaw stream options for the shared Anthropic Messages transport.
+ * Granted stream options for the shared Anthropic Messages transport.
  */
 import { AnthropicVertex as AnthropicVertexSdk } from "@anthropic-ai/vertex-sdk";
 import { GoogleAuth, type GoogleAuthOptions } from "google-auth-library";
@@ -156,7 +156,7 @@ function resolveAnthropicVertexMaxTokens(params: {
 }
 
 /**
- * Create a StreamFn that routes through OpenClaw's generic model stream with an
+ * Create a StreamFn that routes through Granted's generic model stream with an
  * injected `AnthropicVertex` client.  All streaming, message conversion, and
  * event handling is handled by the shared model runtime - we only supply the GCP-authenticated
  * client and provider transport options.

@@ -2,7 +2,7 @@
 summary: "Sign in to GitHub Copilot from OpenClaw using the device flow or non-interactive token import"
 read_when:
   - You want to use GitHub Copilot as a model provider
-  - You need the `openclaw models auth login-github-copilot` flow
+  - You need the `granted models auth login-github-copilot` flow
   - You are choosing between the built-in Copilot provider, Copilot SDK harness, and Copilot Proxy
 title: "GitHub Copilot"
 ---
@@ -24,7 +24,7 @@ provider or agent runtime in three different ways.
     <Steps>
       <Step title="Run the login command">
         ```bash
-        openclaw models auth login-github-copilot
+        granted models auth login-github-copilot
         ```
 
         You will be prompted to visit a URL and enter a one-time code. Keep the
@@ -32,7 +32,7 @@ provider or agent runtime in three different ways.
       </Step>
       <Step title="Set a default model">
         ```bash
-        openclaw models set github-copilot/claude-sonnet-5
+        granted models set github-copilot/claude-sonnet-5
         ```
 
         Or in config:
@@ -55,7 +55,7 @@ provider or agent runtime in three different ways.
     `github-copilot/*` models.
 
     ```bash
-    openclaw plugins install @granted/copilot
+    granted plugins install @granted/copilot
     ```
 
     Then opt a model or provider into the runtime:
@@ -92,7 +92,7 @@ provider or agent runtime in three different ways.
     Configure the base URL and model ids with:
 
     ```bash
-    openclaw models auth login --provider copilot-proxy --set-default
+    granted models auth login --provider copilot-proxy --set-default
     ```
 
     <Note>
@@ -112,7 +112,7 @@ first-class auth choice so you do not have to hand-edit URLs.
 
 <Steps>
   <Step title="Pick the Enterprise auth choice">
-    In onboarding or `openclaw models auth`, choose
+    In onboarding or `granted models auth`, choose
     **GitHub Copilot (Enterprise / data residency)**. You will be prompted for
     your Enterprise domain (for example `your-org.ghe.com`), then the device
     login runs against that tenant.
@@ -122,7 +122,7 @@ first-class auth choice so you do not have to hand-edit URLs.
     OpenClaw derives those endpoints from the tenant root automatically.
 
     ```bash
-    openclaw models auth login --provider github-copilot --method device-enterprise
+    granted models auth login --provider github-copilot --method device-enterprise
     ```
 
   </Step>
@@ -162,7 +162,7 @@ token. Switching back to public `github.com` clears the persisted
 The `COPILOT_GITHUB_DOMAIN` environment variable overrides the resolved domain
 for every Copilot path that resolves it — the Enterprise device login
 (`--method device-enterprise`), the standalone
-`openclaw models auth login-github-copilot` shortcut, account validation,
+`granted models auth login-github-copilot` shortcut, account validation,
 embeddings, and completions. Set it to your `*.ghe.com` host for fully headless
 or CI setups. Leave it unset (and the config param absent) to use public `github.com`.
 Logins persist the domain they minted the token for (and clear it when logging
@@ -202,26 +202,26 @@ does not grant access to models or clients disabled by your organization's polic
 
 ## Optional flags
 
-| Command                                                                | Flag            | Description                                          |
-| ---------------------------------------------------------------------- | --------------- | ---------------------------------------------------- |
-| `openclaw models auth login-github-copilot`                            | `--yes`         | Overwrite an existing auth profile without prompting |
-| `openclaw models auth login --provider github-copilot --method device` | `--set-default` | Also apply the provider's recommended default model  |
+| Command                                                               | Flag            | Description                                          |
+| --------------------------------------------------------------------- | --------------- | ---------------------------------------------------- |
+| `granted models auth login-github-copilot`                            | `--yes`         | Overwrite an existing auth profile without prompting |
+| `granted models auth login --provider github-copilot --method device` | `--set-default` | Also apply the provider's recommended default model  |
 
 ```bash
 # Skip the re-login confirmation
-openclaw models auth login-github-copilot --yes
+granted models auth login-github-copilot --yes
 
 # Login and set the default model in one step
-openclaw models auth login --provider github-copilot --method device --set-default
+granted models auth login --provider github-copilot --method device --set-default
 ```
 
 ## Non-interactive onboarding
 
 The device-login flow requires an interactive TTY. For headless setup, import
-an existing GitHub OAuth access token with `openclaw onboard --non-interactive`:
+an existing GitHub OAuth access token with `granted onboard --non-interactive`:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk \
+granted onboard --non-interactive --accept-risk \
   --auth-choice github-copilot \
   --github-copilot-token "$COPILOT_GITHUB_TOKEN" \
   --skip-channels --skip-health
@@ -323,7 +323,7 @@ configured default model is never replaced.
     | 3        | `GITHUB_TOKEN`        | Standard GitHub token (lowest)   |
 
     When multiple variables are set, OpenClaw uses the highest-priority one.
-    The device-login flow (`openclaw models auth login-github-copilot`) stores a
+    The device-login flow (`granted models auth login-github-copilot`) stores a
     protected-store `tokenRef` in the auth profile and takes precedence over all
     environment variables.
 
@@ -339,7 +339,7 @@ configured default model is never replaced.
 
     Interactive onboarding honors an explicit `--secret-input-mode plaintext`
     choice for compatibility. That mode stores the token inline, reports the
-    choice, and remains visible to `openclaw secrets audit --check`.
+    choice, and remains visible to `granted secrets audit --check`.
 
     The protected store is write-only through OpenClaw's user-facing secret APIs,
     but it is not encrypted at rest; its SQLite file relies on state-directory

@@ -1,9 +1,9 @@
 ---
 name: openclaw-testing
-description: Choose, run, rerun, or debug OpenClaw tests, CI checks, Docker E2E lanes, release validation, and the cheapest safe verification path.
+description: Choose, run, rerun, or debug Granted tests, CI checks, Docker E2E lanes, release validation, and the cheapest safe verification path.
 ---
 
-# OpenClaw Testing
+# Granted Testing
 
 Use this skill when deciding what to test, debugging failures, rerunning CI,
 or validating a change without wasting hours.
@@ -209,7 +209,7 @@ managed dependency path, and do not treat `npm-pack:` as proof of catalog-linked
 official trust.
 
 - For local release-candidate proof, pack the plugin and install it with
-  `openclaw plugins install npm-pack:<path.tgz> --force`. This uses the managed
+  `granted plugins install npm-pack:<path.tgz> --force`. This uses the managed
   per-plugin npm project and is the closest local substitute for the registry
   artifact's dependency behavior.
 - If the behavior depends on bundled-plugin or trusted official plugin status,
@@ -308,7 +308,7 @@ dispatches:
   `include_android=true`
 - `Plugin Prerelease` for release-only plugin static checks, extension shards,
   the release-only `agentic-plugins` shard, and plugin product Docker lanes
-- `OpenClaw Release Checks` for install smoke, cross-OS release checks, package
+- `Granted Release Checks` for install smoke, cross-OS release checks, package
   acceptance, and QA parity; broad live/E2E and QA-live lanes join `all` only
   when release soak is enabled
 - optional post-publish Telegram E2E when a package spec is supplied
@@ -415,7 +415,7 @@ workflow only spends setup and queue time on that suite.
 
 After release-candidate validation or before a release decision, record the
 important run ids in the public `openclaw/releases` evidence ledger.
-Use the manual `OpenClaw Release Evidence`
+Use the manual `Granted Release Evidence`
 (`openclaw-release-evidence.yml`) workflow there. It writes durable summaries
 under `evidence/<release-id>/` and commits:
 
@@ -439,7 +439,7 @@ config in git; raw logs stay in Actions artifacts.
 
 When `Full Release Validation` completes and `OPENCLAW_RELEASES_DISPATCH_TOKEN`
 is configured in the source repo, it requests the public
-`OpenClaw Release Evidence From Full Validation` workflow. That workflow reads
+`Granted Release Evidence From Full Validation` workflow. That workflow reads
 the parent full-validation run, extracts the child CI/release-checks/Telegram
 run ids from the parent logs, and opens the evidence PR automatically. If the
 token is absent or the run predates this wiring, trigger that workflow manually
@@ -447,7 +447,7 @@ with the full-validation run id.
 
 ### Release Checks
 
-`OpenClaw Release Checks` (`openclaw-release-checks.yml`) is the release child
+`Granted Release Checks` (`openclaw-release-checks.yml`) is the release child
 workflow. It is broader than normal CI but narrower than the umbrella because it
 does not dispatch the separate full normal CI child. It runs Package Acceptance
 with artifact-native delta lanes and `telegram_mode=mock-openai`, so the release
@@ -474,7 +474,7 @@ those two concrete groups. Reserve `all` for an intentional whole-child
 validation, never automatic recovery. Non-empty live or cross-OS filters must
 match their owning group; mismatches fail before scheduling and never widen to
 an unfiltered run.
-`OpenClaw Release Checks` uses the trusted workflow ref to resolve the selected
+`Granted Release Checks` uses the trusted workflow ref to resolve the selected
 ref once as `release-package-under-test` and passes that artifact into cross-OS
 release checks, release-path Docker live/E2E checks, and Package Acceptance.
 When `Full Release Validation` dispatches release checks, it passes the requested
@@ -503,13 +503,13 @@ dedicated `openwebui` job; aggregate aliases such as `plugins-runtime-core`,
 
 The release QA parity box is internally split into candidate and baseline lane
 jobs, followed by a report job that downloads both artifacts and runs
-`pnpm openclaw qa parity-report`. For parity failures, inspect the failed lane
+`pnpm granted qa parity-report`. For parity failures, inspect the failed lane
 first; inspect the report job when both lane summaries exist but the comparison
 fails.
 
 ### Reusable Live/E2E Checks
 
-`OpenClaw Live And E2E Checks (Reusable)`
+`Granted Live And E2E Checks (Reusable)`
 (`openclaw-live-and-e2e-checks-reusable.yml`) is the preferred entry point for
 targeted live, Docker, model, and E2E proof. Inputs let you turn off unrelated
 lanes:
@@ -691,7 +691,7 @@ gh workflow run package-acceptance.yml --ref main \
 Npm candidate selection:
 
 - Resolve the registry immediately before dispatch:
-  `npm view openclaw dist-tags --json --prefer-online --cache /tmp/openclaw-npm-cache-verify-$$`
+  `npm view granted dist-tags --json --prefer-online --cache /tmp/openclaw-npm-cache-verify-$$`
   and `npm view openclaw@beta version dist.tarball dist.integrity --json --prefer-online --cache /tmp/openclaw-npm-cache-verify-$$`.
 - If Peter asks for "latest beta", use `source=npm` with
   `package_spec=openclaw@beta`, then record the resolved version from `npm view`
@@ -703,14 +703,14 @@ Npm candidate selection:
   question is explicitly the current stable dist-tag; otherwise pin the exact
   version.
 - `source=npm` only accepts registry specs for `openclaw@extended-stable`,
-  `openclaw@beta`, `openclaw@latest`, or exact OpenClaw release versions. Do
+  `openclaw@beta`, `openclaw@latest`, or exact Granted release versions. Do
   not pass semver ranges, git refs, file paths, tarball URLs, or plugin package
   names there.
 - If the candidate is a tarball URL, use `source=url` with `package_sha256`. If
   it is an Actions tarball artifact, use `source=artifact`. If it is an
   unpublished source candidate, use `source=ref` with a trusted ref or SHA.
 - Package acceptance tests exactly the selected package candidate. Do not apply
-  `openclaw update --channel beta` fallback semantics here; if `beta` is absent,
+  `granted update --channel beta` fallback semantics here; if `beta` is absent,
   stale, older than `latest`, or points at a broken tarball, report that tag
   state instead of silently testing `latest`.
 
@@ -743,7 +743,7 @@ Ref model:
 - `workflow_ref` is the trusted harness/script ref passed to reusable Docker
   E2E.
 - `package_ref` is the source ref to build when `source=ref`. It can be an
-  older branch/tag/SHA as long as it is reachable from an OpenClaw branch or
+  older branch/tag/SHA as long as it is reachable from an Granted branch or
   release tag.
 
 Example: run latest package acceptance harness against an older trusted commit:
@@ -786,7 +786,7 @@ Skill install proof: use `pnpm test:docker:skill-install` or targeted
 `docker_lanes=skill-install` for live ClawHub skill-install validation. The
 lane installs the package tarball in a bare runner, keeps
 `skills.install.allowUploadedArchives=false`, resolves the current live slug
-from `openclaw skills search`, installs it, and verifies `.clawhub` origin/lock
+from `granted skills search`, installs it, and verifies `.clawhub` origin/lock
 metadata. Prefer this checked-in script over inline heredoc Testbox recipes.
 
 ## Cheap Docker Reruns

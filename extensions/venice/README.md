@@ -1,13 +1,13 @@
-# Venice OpenClaw provider
+# Venice Granted provider
 
-Official OpenClaw provider plugin for Venice.
+Official Granted provider plugin for Venice.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/venice-provider
+granted plugins install @granted/venice-provider
 ```
 
 ## Docs
 
-See `docs/providers/venice.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/providers/venice`.
+See `docs/providers/venice.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/providers/venice`.

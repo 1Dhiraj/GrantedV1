@@ -341,7 +341,7 @@ describe("Codex app-server dynamic tool build", () => {
     expect(shouldEnableCodexAppServerNativeToolSurface(params)).toBe(false);
   });
 
-  it("keeps policy-filterable OpenClaw coding replacements when native tools are disabled", () => {
+  it("keeps policy-filterable Granted coding replacements when native tools are disabled", () => {
     const tools = [
       "read",
       "write",
@@ -745,7 +745,7 @@ describe("Codex app-server dynamic tool build", () => {
     });
     const gatewayExec = expectDefined(
       tools.find((tool) => tool.name === "exec"),
-      `${testCase.mode} OpenClaw shell replacement`,
+      `${testCase.mode} Granted shell replacement`,
     );
     expect.soft(gatewayExec.parameters).not.toHaveProperty("properties.security");
     const result = await gatewayExec.execute(`${testCase.mode}-allowlisted`, {
@@ -998,7 +998,7 @@ describe("Codex app-server dynamic tool build", () => {
     },
   );
 
-  it("preserves the host-provided OpenClaw tool through the Codex allowlist", async () => {
+  it("preserves the host-provided Granted tool through the Codex allowlist", async () => {
     const workspaceDir = path.join(tempDir, "workspace");
     const params = createParams(path.join(tempDir, "session.jsonl"), workspaceDir);
     params.disableTools = false;
@@ -1499,7 +1499,7 @@ describe("Codex app-server dynamic tool build", () => {
     ).toEqual({ type: "externalSandbox", networkAccess: "enabled" });
   });
 
-  it("exposes OpenClaw sandbox shell tools under distinct names for non-Docker sandbox backends", async () => {
+  it("exposes Granted sandbox shell tools under distinct names for non-Docker sandbox backends", async () => {
     const execTool = expectDefined(
       createOpenClawCodingTools({ workspaceDir: tempDir }).find((tool) => tool.name === "exec"),
       "assembled exec tool",
@@ -1544,7 +1544,7 @@ describe("Codex app-server dynamic tool build", () => {
     );
   });
 
-  it("exposes Docker sandbox shell tools when OpenClaw sandboxing disables native Code Mode", async () => {
+  it("exposes Docker sandbox shell tools when Granted sandboxing disables native Code Mode", async () => {
     setOpenClawCodingToolsFactoryForTests(() => [
       createRuntimeDynamicTool("exec"),
       createRuntimeDynamicTool("process"),
@@ -1585,7 +1585,7 @@ describe("Codex app-server dynamic tool build", () => {
 
     expect(shellTestToolNames(tools)).toEqual(["message", "gateway_exec", "gateway_process"]);
     const gatewayExec = tools.find((tool) => tool.name === "gateway_exec");
-    expect(gatewayExec?.description).toContain("OpenClaw-managed Gateway environment access");
+    expect(gatewayExec?.description).toContain("Granted-managed Gateway environment access");
     expect(tools.find((tool) => tool.name === "gateway_process")?.description).toContain(
       "gateway_exec",
     );
@@ -1824,7 +1824,7 @@ describe("Codex app-server dynamic tool build", () => {
     });
     expect(nodeList.success).toBe(false);
     expect(nodeList.contentItems).toEqual([
-      { type: "inputText", text: "Unknown OpenClaw tool: node_process" },
+      { type: "inputText", text: "Unknown Granted tool: node_process" },
     ]);
     const nodeExec = tools.find((tool) => tool.name === "node_exec");
     expect(nodeExec?.description).toContain(
@@ -1888,7 +1888,7 @@ describe("Codex app-server dynamic tool build", () => {
     expect(shellTestToolNames(allowlistedTools)).toEqual(["message"]);
   });
 
-  it("restores the policy-filtered OpenClaw shell when a finite allowlist disables native Code Mode", async () => {
+  it("restores the policy-filtered Granted shell when a finite allowlist disables native Code Mode", async () => {
     const execTool = createRuntimeDynamicTool("exec");
     const processTool = createRuntimeDynamicTool("process");
     const messageTool = createRuntimeDynamicTool("message");
@@ -2423,7 +2423,7 @@ describe("Codex app-server dynamic tool build", () => {
   );
 
   it.each(["ultra", "off"] as const)(
-    "passes active %s thinking into shared OpenClaw tool construction",
+    "passes active %s thinking into shared Granted tool construction",
     async (thinkLevel) => {
       const sessionFile = path.join(tempDir, "session.jsonl");
       const workspaceDir = path.join(tempDir, "workspace");
@@ -2659,7 +2659,7 @@ describe("Codex app-server dynamic tool build", () => {
     expect(shouldEnableCodexAppServerNativeToolSurface(runtimePolicyParams)).toBe(false);
   });
 
-  it("disables Codex native tool surfaces whenever an OpenClaw sandbox is active", () => {
+  it("disables Codex native tool surfaces whenever an Granted sandbox is active", () => {
     const workspaceDir = path.join(tempDir, "workspace");
     const params = createParams(path.join(tempDir, "session.jsonl"), workspaceDir);
     params.disableTools = false;

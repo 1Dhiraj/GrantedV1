@@ -255,7 +255,7 @@ describe("llama.cpp managed setup", () => {
 
     expect(ctx.prompter.confirm).toHaveBeenCalledWith({
       message:
-        "OpenClaw can install a verified llama.cpp server and download only the local embedding model (about 0.3 GB). This will not install or change your chat model. Continue?",
+        "Granted can install a verified llama.cpp server and download only the local embedding model (about 0.3 GB). This will not install or change your chat model. Continue?",
       initialValue: false,
     });
     expect(result.defaultModel).toBeUndefined();

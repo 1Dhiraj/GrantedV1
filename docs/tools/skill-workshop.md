@@ -102,7 +102,7 @@ Only a `pending` proposal can be revised, applied, rejected, or quarantined.
 ## Collection review
 
 In `auto` mode, the Gateway runs one system-owned cron job per writable
-workspace each week. The job appears in `openclaw cron list` and runs every
+workspace each week. The job appears in `granted cron list` and runs every
 7 days. Cron owns the cadence; the job is enabled only when
 `skills.workshop.autonomous.mode` is `auto`. The review can only read skills
 and submit one atomic collection reconciliation listing only changes. It keeps distinct useful skills,
@@ -175,7 +175,7 @@ naming requirements. It gathers the sources with its existing tools, then calls
 skill, or create a proposal when neither exists.
 
 The resulting proposal stays `pending`; `/learn` never applies it. Review and
-apply it through the normal approval flow or with `openclaw skills workshop`.
+apply it through the normal approval flow or with `granted skills workshop`.
 
 When the actual turn supports only personal publication, including paired-node
 personal CLI authoring, `/learn` stops without changing a skill. Ask normally
@@ -221,35 +221,35 @@ skill, and shows the proposal description, support-file count, and body size.
 Approval requests are bounded to finish before the agent tool watchdog. If no
 decision arrives before the prompt expires, the lifecycle action does not run:
 the proposal stays pending and unchanged. Decide later in the Skill Workshop UI or run
-`openclaw skills workshop apply|reject|quarantine <proposal-id>`. Agents should
+`granted skills workshop apply|reject|quarantine <proposal-id>`. Agents should
 not retry an expired lifecycle action in a loop.
 
 ## CLI
 
 ```bash
 # Create
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name morning-catchup \
   --description "Daily inbox catch-up: triage, archive, surface, draft, plan" \
   --proposal ./PROPOSAL.md
 
 # Update an existing workspace skill
-openclaw skills workshop propose-update trip-planning --proposal ./PROPOSAL.md
+granted skills workshop propose-update trip-planning --proposal ./PROPOSAL.md
 
 # List and inspect
-openclaw skills workshop list
-openclaw skills workshop inspect <proposal-id>
+granted skills workshop list
+granted skills workshop inspect <proposal-id>
 
 # Revise before approval
-openclaw skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
+granted skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
 
 # Run installed plugin evaluators against the exact current draft
-openclaw skills workshop evaluate <proposal-id>
+granted skills workshop evaluate <proposal-id>
 
 # Close out
-openclaw skills workshop apply <proposal-id>
-openclaw skills workshop reject <proposal-id> --reason "Duplicate"
-openclaw skills workshop quarantine <proposal-id> --reason "Needs security review"
+granted skills workshop apply <proposal-id>
+granted skills workshop reject <proposal-id> --reason "Duplicate"
+granted skills workshop quarantine <proposal-id> --reason "Needs security review"
 ```
 
 Every subcommand takes `--agent <id>` (target workspace; defaults to
@@ -311,7 +311,7 @@ Use `--proposal-dir` when the proposed skill needs files beside
 `PROPOSAL.md`:
 
 ```bash
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name weekly-update \
   --description "Friday wrap-up: stats, highlights, next week's top three" \
   --proposal-dir ./weekly-update-proposal
@@ -549,7 +549,7 @@ Proposals created by older releases can still reference the earlier root-level
 next successful revision moves the proposal onto the generation layout and
 retires the previous bundle.
 
-`openclaw doctor --fix` imports the previous `proposals.json`, `proposal.json`, and
+`granted doctor --fix` imports the previous `proposals.json`, `proposal.json`, and
 `rollback.json` metadata into SQLite after verifying each proposal, then removes
 the migrated JSON files. If an agent's configured workspace changes, its earlier
 proposals remain listed with a previous-workspace marker instead of disappearing.
@@ -580,11 +580,11 @@ proposals remain listed with a previous-workspace marker instead of disappearing
 
 ### Tool-policy diagnostic
 
-In `propose` and `auto` modes, `openclaw doctor` runs the
+In `propose` and `auto` modes, `granted doctor` runs the
 `core/doctor/skill-workshop-tool-policy` check for the default agent. If policy
 hides `skill_workshop`, the warning names the first excluding config layer and
 the exact `allow` or `alsoAllow` change to make. Older runbooks may still use
-`openclaw plugins inspect skill-workshop`; that command now explains that Skill
+`granted plugins inspect skill-workshop`; that command now explains that Skill
 Workshop is built in and prints the same policy hint when applicable.
 
 ## Related
@@ -594,4 +594,4 @@ Workshop is built in and prints the same policy hint when applicable.
 - [Creating skills](/tools/creating-skills) for hand-written `SKILL.md`
   basics
 - [Skills config](/tools/skills-config) for the full `skills.workshop` schema
-- [Skills CLI](/cli/skills) for `openclaw skills` commands
+- [Skills CLI](/cli/skills) for `granted skills` commands

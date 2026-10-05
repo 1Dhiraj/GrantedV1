@@ -314,7 +314,7 @@ export const imessagePlugin: ChannelPlugin<ResolvedIMessageAccount, IMessageProb
       },
       agentPrompt: {
         messageToolHints: () => [
-          "- iMessage current conversation: omit target, to, chatId, chatGuid, and chatIdentifier. OpenClaw resolves the trusted current chat server-side; never copy a redacted display value such as `***` into message actions.",
+          "- iMessage current conversation: omit target, to, chatId, chatGuid, and chatIdentifier. Granted resolves the trusted current chat server-side; never copy a redacted display value such as `***` into message actions.",
         ],
       },
       doctor: imessageDoctor,
@@ -417,7 +417,7 @@ export const imessagePlugin: ChannelPlugin<ResolvedIMessageAccount, IMessageProb
     pairing: {
       text: {
         idLabel: "imessageSenderId",
-        message: "OpenClaw: your access has been approved.",
+        message: "Granted: your access has been approved.",
         notify: async ({ id, cfg }) =>
           await (await loadIMessageChannelRuntime()).notifyIMessageApproval({ id, cfg }),
       },

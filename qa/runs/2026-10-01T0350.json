@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-01T0350",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "C3",
+      "name": "fill and submit a form, verified by the server",
+      "result": "PASS",
+      "seconds": 44,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0350-c3",
+      "evidence": "server received \"Dhiraj Test\"/\"dhiraj@example.com\", code GR-0001, agent quoted code: true",
+      "toolCalls": 7,
+      "tokens": 33792
+    }
+  ]
+}

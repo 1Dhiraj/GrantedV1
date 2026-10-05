@@ -1,13 +1,13 @@
-# OpenClaw Synthetic Provider
+# Granted Synthetic Provider
 
-Official OpenClaw provider plugin for Synthetic's hosted Anthropic-compatible
+Official Granted provider plugin for Synthetic's hosted Anthropic-compatible
 API.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/synthetic-provider
-openclaw gateway restart
+granted plugins install @granted/synthetic-provider
+granted gateway restart
 ```
 
 Configure `SYNTHETIC_API_KEY`, then select a `synthetic/<model-id>` model.

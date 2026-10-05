@@ -35,9 +35,9 @@ data.
 The equivalent CLI workflow is:
 
 ```bash
-openclaw plugins enable workboard
-openclaw gateway restart
-openclaw dashboard
+granted plugins enable workboard
+granted gateway restart
+granted dashboard
 ```
 
 ## Configuration
@@ -59,8 +59,8 @@ plugin entry:
 ```
 
 ```bash
-openclaw plugins disable workboard
-openclaw gateway restart
+granted plugins disable workboard
+granted gateway restart
 ```
 
 ## Card fields
@@ -260,7 +260,7 @@ diagnostics.
 ### Entry points
 
 - Dashboard dispatch action
-- `openclaw workboard dispatch`
+- `granted workboard dispatch`
 - `/workboard dispatch` on a command-capable channel
 
 All three use the Gateway subagent runtime when the Gateway is available. The
@@ -282,11 +282,11 @@ through the normal Workboard tools.
 ## CLI and slash command
 
 ```bash
-openclaw workboard list [--board <id>] [--status <status>] [--include-archived] [--json]
-openclaw workboard create "Fix stale card lifecycle" --priority high --labels bug,workboard
-openclaw workboard show <card-id> [--json]
-openclaw workboard move <card-id> --status <status> [--json]
-openclaw workboard dispatch [--board <id>] [--json]
+granted workboard list [--board <id>] [--status <status>] [--include-archived] [--json]
+granted workboard create "Fix stale card lifecycle" --priority high --labels bug,workboard
+granted workboard show <card-id> [--json]
+granted workboard move <card-id> --status <status> [--json]
+granted workboard dispatch [--board <id>] [--json]
 ```
 
 `list` text output hides archived cards by default (`--include-archived`
@@ -420,7 +420,7 @@ plugin key-value entries). A card export preserves the board narrative
 without inlining attachment blob contents.
 
 Installations that used Workboard in the `.28` release can run
-`openclaw doctor --fix` to migrate the shipped legacy plugin-state namespaces
+`granted doctor --fix` to migrate the shipped legacy plugin-state namespaces
 (`workboard.cards`, `workboard.boards`, `workboard.notify`, and, if present,
 `workboard.attachments`) into the relational database.
 
@@ -429,7 +429,7 @@ Installations that used Workboard in the `.28` release can run
 **The tab says Workboard is unavailable**
 
 ```bash
-openclaw plugins inspect workboard --runtime --json
+granted plugins inspect workboard --runtime --json
 ```
 
 If `plugins.allow` is configured, add `workboard` to it. If `plugins.deny`
@@ -450,7 +450,7 @@ inspect the actual run state.
 Confirm there is at least one `ready` card without an active claim:
 
 ```bash
-openclaw workboard list --status ready
+granted workboard list --status ready
 ```
 
 If the CLI reports data-only dispatch, start or restart the Gateway and

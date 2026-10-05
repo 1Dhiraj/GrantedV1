@@ -1,5 +1,5 @@
 /**
- * OpenClaw-owned tool registration filters.
+ * Granted-owned tool registration filters.
  *
  * Keeps optional tool gating separate from tool construction so config and execution contracts decide exposure.
  */
@@ -32,7 +32,7 @@ function expandProgressCardPolicyNames(
 }
 
 /**
- * Registration helpers for optional OpenClaw-owned tools.
+ * Registration helpers for optional Granted-owned tools.
  *
  * This keeps model/runtime gating separate from tool construction so callers can
  * assemble candidate tools first, then filter by config and execution contract.
@@ -44,7 +44,7 @@ export function collectPresentOpenClawTools(
   return candidates.filter((tool): tool is AnyAgentTool => tool !== null && tool !== undefined);
 }
 
-/** Decides whether progress_card should be included in the assembled OpenClaw tool set. */
+/** Decides whether progress_card should be included in the assembled Granted tool set. */
 export function shouldIncludeProgressCardToolForOpenClawTools(params: {
   agentId?: string;
   agentSessionKey?: string;

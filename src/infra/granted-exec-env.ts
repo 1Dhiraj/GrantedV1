@@ -1,10 +1,10 @@
-/** Process env key that marks child commands as launched by the OpenClaw CLI. */
+/** Process env key that marks child commands as launched by the Granted CLI. */
 export const GRANTED_CLI_ENV_VAR = "GRANTED_CLI";
 
-/** Stable marker value used for OpenClaw-launched subprocess detection. */
+/** Stable marker value used for Granted-launched subprocess detection. */
 const GRANTED_CLI_ENV_VALUE = "1";
 
-/** Returns a cloned env object with the OpenClaw CLI marker set. */
+/** Returns a cloned env object with the Granted CLI marker set. */
 export function markOpenClawExecEnv<T extends Record<string, string | undefined>>(
   /** Source environment to clone before adding the subprocess marker. */
   env: T,

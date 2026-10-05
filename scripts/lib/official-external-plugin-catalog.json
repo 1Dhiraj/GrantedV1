@@ -3,11 +3,11 @@
   "id": "openclaw-official-external-plugins",
   "generatedAt": "2026-06-22T00:00:00.000Z",
   "sequence": 1,
-  "description": "Bundled fallback feed for official external OpenClaw plugins.",
+  "description": "Bundled fallback feed for official external Granted plugins.",
   "entries": [
     {
       "name": "@granted/acpx",
-      "description": "OpenClaw ACP runtime backend",
+      "description": "Granted ACP runtime backend",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -24,7 +24,7 @@
     },
     {
       "name": "@granted/brave-plugin",
-      "description": "OpenClaw Brave plugin",
+      "description": "Granted Brave plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -57,7 +57,7 @@
     },
     {
       "name": "@granted/codex",
-      "description": "OpenClaw Codex app-server harness and native session catalog",
+      "description": "Granted Codex app-server harness and native session catalog",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -77,7 +77,7 @@
     },
     {
       "name": "@granted/copilot",
-      "description": "OpenClaw GitHub Copilot agent runtime plugin",
+      "description": "Granted GitHub Copilot agent runtime plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -95,7 +95,7 @@
     },
     {
       "name": "@granted/diagnostics-otel",
-      "description": "OpenClaw diagnostics OpenTelemetry exporter",
+      "description": "Granted diagnostics OpenTelemetry exporter",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -113,7 +113,7 @@
     },
     {
       "name": "@granted/diagnostics-prometheus",
-      "description": "OpenClaw diagnostics Prometheus exporter",
+      "description": "Granted diagnostics Prometheus exporter",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -131,7 +131,7 @@
     },
     {
       "name": "@granted/diffs",
-      "description": "OpenClaw diff viewer plugin",
+      "description": "Granted diff viewer plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -153,7 +153,7 @@
     },
     {
       "name": "@granted/diffs-language-pack",
-      "description": "OpenClaw diffs viewer syntax highlighting language pack",
+      "description": "Granted diffs viewer syntax highlighting language pack",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -171,7 +171,7 @@
     },
     {
       "name": "@granted/duckduckgo-plugin",
-      "description": "OpenClaw DuckDuckGo plugin.",
+      "description": "Granted DuckDuckGo plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -211,7 +211,7 @@
     },
     {
       "name": "@granted/exa-plugin",
-      "description": "OpenClaw Exa plugin.",
+      "description": "Granted Exa plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -253,7 +253,7 @@
     },
     {
       "name": "@granted/firecrawl-plugin",
-      "description": "OpenClaw Firecrawl plugin.",
+      "description": "Granted Firecrawl plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -317,7 +317,7 @@
     },
     {
       "name": "@granted/fish-audio-speech",
-      "description": "OpenClaw Fish Audio speech plugin.",
+      "description": "Granted Fish Audio speech plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -336,7 +336,7 @@
     },
     {
       "name": "@granted/google-meet",
-      "description": "OpenClaw Google Meet participant plugin",
+      "description": "Granted Google Meet participant plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -353,7 +353,7 @@
     },
     {
       "name": "@granted/gradium-speech",
-      "description": "OpenClaw Gradium speech plugin.",
+      "description": "Granted Gradium speech plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -376,7 +376,7 @@
     },
     {
       "name": "@granted/inworld-speech",
-      "description": "OpenClaw Inworld speech plugin.",
+      "description": "Granted Inworld speech plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -421,7 +421,7 @@
     },
     {
       "name": "@granted/memory-lancedb",
-      "description": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall/capture",
+      "description": "Granted LanceDB-backed long-term memory plugin with auto-recall/capture",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -443,7 +443,7 @@
     },
     {
       "name": "@granted/llama-cpp-provider",
-      "description": "OpenClaw managed llama.cpp server provider plugin",
+      "description": "Granted managed llama.cpp server provider plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -463,7 +463,7 @@
     },
     {
       "name": "@granted/mxc-sandbox",
-      "description": "OpenClaw MXC sandbox execution plugin for MXC-capable hosts",
+      "description": "Granted MXC sandbox execution plugin for MXC-capable hosts",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -480,7 +480,7 @@
     },
     {
       "name": "@granted/openshell-sandbox",
-      "description": "OpenClaw OpenShell sandbox backend",
+      "description": "Granted OpenShell sandbox backend",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -497,7 +497,7 @@
     },
     {
       "name": "@granted/parallel-plugin",
-      "description": "OpenClaw Parallel web search plugin.",
+      "description": "Granted Parallel web search plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -554,7 +554,7 @@
     },
     {
       "name": "@granted/perplexity-plugin",
-      "description": "OpenClaw Perplexity plugin.",
+      "description": "Granted Perplexity plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -597,7 +597,7 @@
     },
     {
       "name": "@granted/searxng-plugin",
-      "description": "OpenClaw SearXNG plugin",
+      "description": "Granted SearXNG plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -641,7 +641,7 @@
     },
     {
       "name": "@granted/tavily-plugin",
-      "description": "OpenClaw Tavily plugin",
+      "description": "Granted Tavily plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -688,7 +688,7 @@
     },
     {
       "name": "@granted/teams-meetings",
-      "description": "OpenClaw Microsoft Teams browser meeting participant plugin.",
+      "description": "Granted Microsoft Teams browser meeting participant plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -714,7 +714,7 @@
     },
     {
       "name": "@granted/tokenjuice",
-      "description": "OpenClaw tokenjuice exec output compaction plugin",
+      "description": "Granted tokenjuice exec output compaction plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -736,7 +736,7 @@
     },
     {
       "name": "@granted/voice-call",
-      "description": "OpenClaw voice-call plugin",
+      "description": "Granted voice-call plugin",
       "source": "official",
       "kind": "plugin",
       "openclaw": {
@@ -753,7 +753,7 @@
     },
     {
       "name": "@granted/zoom-meetings",
-      "description": "OpenClaw Zoom browser meeting participant plugin.",
+      "description": "Granted Zoom browser meeting participant plugin.",
       "source": "official",
       "kind": "plugin",
       "openclaw": {

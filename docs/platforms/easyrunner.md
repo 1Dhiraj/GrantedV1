@@ -84,8 +84,8 @@ the exact proxy path rather than disabling auth checks globally. See
 From your workstation:
 
 ```bash
-openclaw gateway probe --url https://openclaw.example.com --token <token>
-openclaw gateway status --url https://openclaw.example.com --token <token>
+granted gateway probe --url https://openclaw.example.com --token <token>
+granted gateway status --url https://openclaw.example.com --token <token>
 ```
 
 From the EasyRunner host, `GET /healthz` (liveness) and `GET /readyz`
@@ -100,7 +100,7 @@ SecretRef, plugin, or channel auth failures.
   `openclaw.json`, shared auth in `state/openclaw.sqlite`, agent-local profiles
   in `agents/<agentId>/agent/openclaw-agent.sqlite`, and installed plugin package state.
 - Back up `openclaw-workspace` if agents write durable project data there.
-- Run `openclaw doctor` after major updates to catch config migrations and
+- Run `granted doctor` after major updates to catch config migrations and
   service warnings.
 
 ## Troubleshooting

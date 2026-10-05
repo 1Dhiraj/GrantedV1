@@ -8,19 +8,19 @@ title: "ACP"
 
 Run the [Agent Client Protocol (ACP)](https://agentclientprotocol.com/) bridge that talks to an OpenClaw Gateway.
 
-`openclaw acp` speaks ACP over stdio for IDEs and forwards prompts to the Gateway over WebSocket, keeping ACP sessions mapped to Gateway session keys. It is a Gateway-backed ACP bridge, not a full ACP-native editor runtime: it focuses on session routing, prompt delivery, and streaming updates.
+`granted acp` speaks ACP over stdio for IDEs and forwards prompts to the Gateway over WebSocket, keeping ACP sessions mapped to Gateway session keys. It is a Gateway-backed ACP bridge, not a full ACP-native editor runtime: it focuses on session routing, prompt delivery, and streaming updates.
 
-If you want an external MCP client to talk directly to OpenClaw channel conversations instead of hosting an ACP harness session, use [`openclaw mcp serve`](/cli/mcp) instead.
+If you want an external MCP client to talk directly to OpenClaw channel conversations instead of hosting an ACP harness session, use [`granted mcp serve`](/cli/mcp) instead.
 
 ## What this is not
 
-`openclaw acp` means OpenClaw acts as an ACP server: an IDE or ACP client connects to OpenClaw, and OpenClaw forwards that work into a Gateway session.
+`granted acp` means OpenClaw acts as an ACP server: an IDE or ACP client connects to OpenClaw, and OpenClaw forwards that work into a Gateway session.
 
 This is different from [ACP Agents](/tools/acp-agents), where OpenClaw runs an external harness such as Codex or Claude Code through `acpx`.
 
 Quick rule:
 
-- editor/client wants to talk ACP to OpenClaw: use `openclaw acp`
+- editor/client wants to talk ACP to OpenClaw: use `granted acp`
 - OpenClaw should launch Codex/Claude/Gemini as an ACP harness: use `/acp spawn` and [ACP Agents](/tools/acp-agents)
 
 ## Compatibility matrix
@@ -55,22 +55,22 @@ Quick rule:
 ## Usage
 
 ```bash
-openclaw acp
+granted acp
 
 # Remote Gateway
-openclaw acp --url wss://gateway-host:18789 --token <token>
+granted acp --url wss://gateway-host:18789 --token <token>
 
 # Remote Gateway (token from file)
-openclaw acp --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
+granted acp --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
 
 # Attach to an existing session key
-openclaw acp --session agent:main:main
+granted acp --session agent:main:main
 
 # Attach by label (must already exist)
-openclaw acp --session-label "support inbox"
+granted acp --session-label "support inbox"
 
 # Reset the session key before the first prompt
-openclaw acp --session agent:main:main --reset-session
+granted acp --session agent:main:main --reset-session
 ```
 
 ## ACP client (debug)
@@ -78,13 +78,13 @@ openclaw acp --session agent:main:main --reset-session
 Use the built-in ACP client to sanity-check the bridge without an IDE. It spawns the ACP bridge and lets you type prompts interactively.
 
 ```bash
-openclaw acp client
+granted acp client
 
 # Point the spawned bridge at a remote Gateway
-openclaw acp client --server-args --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
+granted acp client --server-args --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
 
 # Override the server command (default: openclaw)
-openclaw acp client --server "node" --server-args granted.mjs acp --url ws://127.0.0.1:19001
+granted acp client --server "node" --server-args granted.mjs acp --url ws://127.0.0.1:19001
 ```
 
 Permission model (client debug mode):
@@ -97,7 +97,7 @@ Permission model (client debug mode):
 
 ## Protocol smoke testing
 
-For protocol-level debugging, start a Gateway with isolated state and drive `openclaw acp` over stdio with an ACP JSON-RPC client. Cover `initialize`, `session/new`, `session/list` with an absolute `cwd`, `session/resume`, `session/close`, duplicate close, and missing resume.
+For protocol-level debugging, start a Gateway with isolated state and drive `granted acp` over stdio with an ACP JSON-RPC client. Cover `initialize`, `session/new`, `session/list` with an absolute `cwd`, `session/resume`, `session/close`, duplicate close, and missing resume.
 
 The proof should include the advertised lifecycle capabilities, a Gateway-backed session row, update notifications, and the Gateway `sessions.list` log:
 
@@ -131,7 +131,7 @@ The proof should include the advertised lifecycle capabilities, a Gateway-backed
 }
 ```
 
-Avoid using `openclaw gateway call sessions.list` as the only ACP proof. That CLI path may request a fresh-token operator scope upgrade; ACP bridge correctness is proven by ACP stdio frames plus the Gateway `sessions.list` log.
+Avoid using `granted gateway call sessions.list` as the only ACP proof. That CLI path may request a fresh-token operator scope upgrade; ACP bridge correctness is proven by ACP stdio frames plus the Gateway `sessions.list` log.
 
 ## How to use this
 
@@ -139,21 +139,21 @@ Use ACP when an IDE (or other client) speaks Agent Client Protocol and you want 
 
 1. Ensure the Gateway is running (local or remote).
 2. Configure the Gateway target (config or flags).
-3. Point your IDE to run `openclaw acp` over stdio.
+3. Point your IDE to run `granted acp` over stdio.
 
 Example config (persisted):
 
 ```bash
-openclaw config set gateway.remote.url wss://gateway-host:18789
-openclaw config set gateway.remote.token <token>
+granted config set gateway.remote.url wss://gateway-host:18789
+granted config set gateway.remote.token <token>
 ```
 
 Example direct run (no config write):
 
 ```bash
-openclaw acp --url wss://gateway-host:18789 --token <token>
+granted acp --url wss://gateway-host:18789 --token <token>
 # preferred for local process safety
-openclaw acp --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
+granted acp --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
 ```
 
 ## Selecting agents
@@ -161,9 +161,9 @@ openclaw acp --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.tok
 ACP does not pick agents directly. It routes by the Gateway session key. Use agent-scoped session keys to target a specific agent:
 
 ```bash
-openclaw acp --session agent:main:main
-openclaw acp --session agent:design:main
-openclaw acp --session agent:qa:bug-123
+granted acp --session agent:main:main
+granted acp --session agent:design:main
+granted acp --session agent:qa:bug-123
 ```
 
 Each ACP session maps to a single Gateway session key. One agent can have many sessions; ACP defaults to an isolated `acp-bridge:<uuid>` session unless you override the key or label.
@@ -179,17 +179,17 @@ If you want a coding agent such as Codex or Claude Code to talk to your OpenClaw
 Typical flow:
 
 1. Run the Gateway and make sure the ACP bridge can reach it.
-2. Point `acpx openclaw` at `openclaw acp`.
+2. Point `acpx openclaw` at `granted acp`.
 3. Target the OpenClaw session key you want the coding agent to use.
 
 Examples:
 
 ```bash
 # One-shot request into your default OpenClaw ACP session
-acpx openclaw exec "Summarize the active OpenClaw session state."
+acpx granted exec "Summarize the active OpenClaw session state."
 
 # Persistent named session for follow-up turns
-acpx openclaw sessions ensure --name codex-bridge
+acpx granted sessions ensure --name codex-bridge
 acpx openclaw -s codex-bridge --cwd /path/to/repo \
   "Ask my OpenClaw work agent for recent context relevant to this repo."
 ```
@@ -200,7 +200,7 @@ If you want `acpx openclaw` to target a specific Gateway and session key every t
 {
   "agents": {
     "openclaw": {
-      "command": "env OPENCLAW_HIDE_BANNER=1 OPENCLAW_SUPPRESS_NOTES=1 openclaw acp --url ws://127.0.0.1:18789 --token-file ~/.openclaw/gateway.token --session agent:main:main"
+      "command": "env OPENCLAW_HIDE_BANNER=1 OPENCLAW_SUPPRESS_NOTES=1 granted acp --url ws://127.0.0.1:18789 --token-file ~/.openclaw/gateway.token --session agent:main:main"
     }
   }
 }
@@ -308,7 +308,7 @@ Security note:
 - `--server-args <args...>`: extra arguments passed to the ACP server.
 - `--server-verbose`: enable verbose logging on the ACP server.
 - `--verbose, -v`: verbose client logging.
-- `openclaw acp client` sets `OPENCLAW_SHELL=acp-client` on the spawned bridge process, which can be used for context-specific shell/profile rules.
+- `granted acp client` sets `OPENCLAW_SHELL=acp-client` on the spawned bridge process, which can be used for context-specific shell/profile rules.
 
 ## Related
 

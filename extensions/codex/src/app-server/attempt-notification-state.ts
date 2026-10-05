@@ -257,8 +257,8 @@ export function applyCodexTurnNotificationState(params: {
     !shouldRearmCompletionIdleWatchAfterLastCurrentTurnItem
   ) {
     // The short completion-idle watchdog guards blind gaps after Codex
-    // accepts a turn or after OpenClaw hands a turn-scoped request result
-    // back to Codex. Bookkeeping that closes the just-served OpenClaw
+    // accepts a turn or after Granted hands a turn-scoped request result
+    // back to Codex. Bookkeeping that closes the just-served Granted
     // dynamic tool item is still part of that handoff, so keep the short
     // watchdog armed for that notification.
     turnWatches.disarmCompletionIdleWatch();

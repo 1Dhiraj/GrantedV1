@@ -155,9 +155,10 @@ export default defineChannelPluginEntry({
 }
 `,
     );
-    const openclawPackagePath = join(consumerRoot, "node_modules", "openclaw");
-    mkdirSync(dirname(openclawPackagePath), { recursive: true });
-    symlinkSync(repoRoot, openclawPackagePath, process.platform === "win32" ? "junction" : "dir");
+    // Install under the published package name the fixture imports from.
+    const grantedPackagePath = join(consumerRoot, "node_modules", "granted");
+    mkdirSync(dirname(grantedPackagePath), { recursive: true });
+    symlinkSync(repoRoot, grantedPackagePath, process.platform === "win32" ? "junction" : "dir");
     symlinkSync(
       join(repoRoot, "node_modules", "zod"),
       join(consumerRoot, "node_modules", "zod"),

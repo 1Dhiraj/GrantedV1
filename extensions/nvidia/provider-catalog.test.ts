@@ -46,14 +46,26 @@ const EXPECTED_SELECTABLE_MODELS = [
     maxTokens: 8_192,
   },
   {
+    id: "google/gemma-4-31b-it",
+    name: "Gemma 4 31B",
+    contextWindow: 131_072,
+    maxTokens: 8_192,
+  },
+  {
+    id: "openai/gpt-oss-20b",
+    name: "GPT-OSS 20B",
+    contextWindow: 131_072,
+    maxTokens: 8_192,
+  },
+] as const;
+
+const EXPECTED_DEPRECATED_MODELS = [
+  {
     id: "deepseek-ai/deepseek-v4-pro-0813",
     name: "DeepSeek V4 Pro 0813",
     contextWindow: 262_144,
     maxTokens: 16_384,
   },
-] as const;
-
-const EXPECTED_DEPRECATED_MODELS = [
   {
     id: "deepseek-ai/deepseek-v4-pro",
     name: "DeepSeek V4 Pro",
@@ -323,7 +335,8 @@ describe("nvidia provider catalog", () => {
         input: ["text", "image"],
         reasoning: true,
       },
-      { id: "deepseek-ai/deepseek-v4-pro-0813", input: ["text"], reasoning: true },
+      { id: "google/gemma-4-31b-it", input: ["text", "image"], reasoning: false },
+      { id: "openai/gpt-oss-20b", input: ["text"], reasoning: true },
     ]);
     expect(provider.models[0]).toMatchObject({
       contextWindow: 1_048_576,
@@ -346,10 +359,8 @@ describe("nvidia provider catalog", () => {
           "replacedBy" in model ? { id: model.id, replacedBy: model.replacedBy } : { id: model.id },
         ),
     ).toEqual([
-      {
-        id: "deepseek-ai/deepseek-v4-pro",
-        replacedBy: "deepseek-ai/deepseek-v4-pro-0813",
-      },
+      { id: "deepseek-ai/deepseek-v4-pro-0813" },
+      { id: "deepseek-ai/deepseek-v4-pro" },
       { id: "qwen/qwen3.5-397b-a17b" },
       { id: "moonshotai/kimi-k2.5", replacedBy: "moonshotai/kimi-k2.6" },
       { id: "z-ai/glm-5.1", replacedBy: "z-ai/glm-5.2" },

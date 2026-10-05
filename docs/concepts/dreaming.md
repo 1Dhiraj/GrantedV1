@@ -217,10 +217,10 @@ When enabled, `memory-core` auto-manages one cron job for a full dreaming sweep,
 <Tabs>
   <Tab title="Promotion preview / apply">
     ```bash
-    openclaw memory promote
-    openclaw memory promote --apply
-    openclaw memory promote --limit 5
-    openclaw memory status --deep
+    granted memory promote
+    granted memory promote --apply
+    granted memory promote --limit 5
+    granted memory status --deep
     ```
 
     Manual `memory promote` uses deep-phase thresholds by default unless overridden with CLI flags.
@@ -230,8 +230,8 @@ When enabled, `memory-core` auto-manages one cron job for a full dreaming sweep,
     Explain why a specific candidate would or would not promote:
 
     ```bash
-    openclaw memory promote-explain "router vlan"
-    openclaw memory promote-explain "router vlan" --json
+    granted memory promote-explain "router vlan"
+    granted memory promote-explain "router vlan" --json
     ```
 
   </Tab>
@@ -239,8 +239,8 @@ When enabled, `memory-core` auto-manages one cron job for a full dreaming sweep,
     Preview REM reflections, candidate truths, and deep promotion output without writing anything:
 
     ```bash
-    openclaw memory rem-harness
-    openclaw memory rem-harness --json
+    granted memory rem-harness
+    granted memory rem-harness --json
     ```
 
   </Tab>
@@ -289,7 +289,7 @@ When the bundled [`memory-wiki`](/plugins/memory-wiki) plugin is enabled, the
 Diary view gains two more sub-tabs next to Dreams:
 
 - **Imported Insights**: clustered insights surfaced by external-history
-  imports (for example `openclaw wiki chatgpt import`), for review before any
+  imports (for example `granted wiki chatgpt import`), for review before any
   of it graduates into durable memory
 - **Memory Wiki**: the compiled wiki the memory system can search and reason
   over — synthesis, entity, and concept pages (plus sources and reports that

@@ -58,7 +58,7 @@ describe("telegramApprovalNativeRuntime", () => {
             resolvedAtMs: 1_000,
             presentation: {
               kind: "system-agent",
-              title: "OpenClaw change",
+              title: "Granted change",
               description: "Restart the Gateway",
               proposalHash: "a".repeat(64),
               allowedDecisions: ["allow-once", "deny"],
@@ -67,7 +67,7 @@ describe("telegramApprovalNativeRuntime", () => {
         },
         fallbackApprovalId: "system-agent:cancelled",
       }),
-    ).toBe("⚠️ OpenClaw change was cancelled because its run ended. No change was made. Retry.");
+    ).toBe("⚠️ Granted change was cancelled because its run ended. No change was made. Retry.");
   });
 
   it("renders only the allowed pending buttons", async () => {
@@ -187,7 +187,7 @@ describe("telegramApprovalNativeRuntime", () => {
       request: {
         id: "system-agent:change-1",
         request: {
-          title: "OpenClaw change",
+          title: "Granted change",
           description: "set config gateway.port to 19001",
           command: "set config gateway.port to 19001",
           proposalHash: "a".repeat(64),
@@ -204,7 +204,7 @@ describe("telegramApprovalNativeRuntime", () => {
         approvalKind: "system-agent",
         approvalId: "system-agent:change-1",
         phase: "pending",
-        title: "OpenClaw change requires approval",
+        title: "Granted change requires approval",
         description: "set config gateway.port to 19001",
         metadata: [{ label: "Agent", value: "main" }],
         agentId: "main",
@@ -242,7 +242,7 @@ describe("telegramApprovalNativeRuntime", () => {
 
     expect(payload.text).toBe(
       [
-        "🔒 OpenClaw change requires approval",
+        "🔒 Granted change requires approval",
         "Change: set config gateway.port to 19001",
         "Agent: main",
         "Expires in: 2m",
@@ -270,7 +270,7 @@ describe("telegramApprovalNativeRuntime", () => {
       request: {
         id: "system-agent:change-2",
         request: {
-          title: "OpenClaw change",
+          title: "Granted change",
           description: "restart the Gateway",
           command: "restart the Gateway",
           proposalHash: "b".repeat(64),
@@ -286,7 +286,7 @@ describe("telegramApprovalNativeRuntime", () => {
         approvalKind: "system-agent",
         approvalId: "system-agent:change-2",
         phase: "pending",
-        title: "OpenClaw change requires approval",
+        title: "Granted change requires approval",
         metadata: [],
         commandText: "restart the Gateway",
         operationSummary: "restart the Gateway",
@@ -310,7 +310,7 @@ describe("telegramApprovalNativeRuntime", () => {
       request: {
         id: "system-agent:change-disabled-ui",
         request: {
-          title: "OpenClaw change",
+          title: "Granted change",
           description: "restart the Gateway",
           command: "restart the Gateway",
           proposalHash: "e".repeat(64),
@@ -326,7 +326,7 @@ describe("telegramApprovalNativeRuntime", () => {
         approvalKind: "system-agent",
         approvalId: "system-agent:change-disabled-ui",
         phase: "pending",
-        title: "OpenClaw change requires approval",
+        title: "Granted change requires approval",
         metadata: [],
         commandText: "restart the Gateway",
         operationSummary: "restart the Gateway",
@@ -417,7 +417,7 @@ describe("telegramApprovalNativeRuntime", () => {
       approvalKind: "system-agent" as const,
       id: "system-agent:change-3",
       request: {
-        title: "OpenClaw change",
+        title: "Granted change",
         description: "set config gateway.port to 19001",
         command: "set config gateway.port to 19001",
         proposalHash: "c".repeat(64),
@@ -443,7 +443,7 @@ describe("telegramApprovalNativeRuntime", () => {
           approvalKind: "system-agent",
           approvalId: request.id,
           phase: "resolved",
-          title: "OpenClaw change",
+          title: "Granted change",
           metadata: [],
           commandText: "set config gateway.port to 19001",
           operationSummary: "set config gateway.port to 19001",
@@ -455,7 +455,7 @@ describe("telegramApprovalNativeRuntime", () => {
     ).resolves.toEqual({
       kind: "update",
       payload: {
-        text: "✅ OpenClaw change approved and applied: set config gateway.port to 19001",
+        text: "✅ Granted change approved and applied: set config gateway.port to 19001",
       },
     });
   });
@@ -502,7 +502,7 @@ describe("telegramApprovalNativeRuntime", () => {
       approvalKind: "system-agent" as const,
       id: "system-agent:origin-followup",
       request: {
-        title: "OpenClaw change",
+        title: "Granted change",
         description: "restart the Gateway",
         command: "restart the Gateway",
         proposalHash: "d".repeat(64),
@@ -523,13 +523,13 @@ describe("telegramApprovalNativeRuntime", () => {
       entry: { chatId: "5678", messageId: "m1" },
       request,
       approvalKind: "system-agent",
-      payload: { text: "✅ OpenClaw change approved. Applying: restart the Gateway" },
+      payload: { text: "✅ Granted change approved. Applying: restart the Gateway" },
       phase: "resolved",
     });
 
     expect(sendMessage).toHaveBeenCalledWith(
       "1234",
-      "✅ OpenClaw change approved. Applying: restart the Gateway",
+      "✅ Granted change approved. Applying: restart the Gateway",
       {
         cfg: {},
         token: "tg-token",
@@ -546,7 +546,7 @@ describe("telegramApprovalNativeRuntime", () => {
       entry: { chatId: "9012", messageId: "m2" },
       request,
       approvalKind: "system-agent",
-      payload: { text: "✅ OpenClaw change approved. Applying: restart the Gateway" },
+      payload: { text: "✅ Granted change approved. Applying: restart the Gateway" },
       phase: "resolved",
     });
     expect(sendMessage).toHaveBeenCalledOnce();
@@ -567,7 +567,7 @@ describe("telegramApprovalNativeRuntime", () => {
       entry: { chatId: "9013", messageId: "m3" },
       request,
       approvalKind: "system-agent",
-      payload: { text: "✅ OpenClaw change approved. Applying: restart the Gateway" },
+      payload: { text: "✅ Granted change approved. Applying: restart the Gateway" },
       phase: "resolved",
     });
     expect(sendMessage).toHaveBeenCalledTimes(2);
@@ -580,7 +580,7 @@ describe("telegramApprovalNativeRuntime", () => {
       approvalKind: "system-agent" as const,
       id: "system-agent:origin-edit-failure",
       request: {
-        title: "OpenClaw change",
+        title: "Granted change",
         description: "restart the Gateway",
         command: "restart the Gateway",
         proposalHash: "f".repeat(64),
@@ -601,13 +601,13 @@ describe("telegramApprovalNativeRuntime", () => {
         entry: { chatId: "5678", messageId: "m1" },
         request,
         approvalKind: "system-agent",
-        payload: { text: "⚠️ OpenClaw change approved, but it was not applied." },
+        payload: { text: "⚠️ Granted change approved, but it was not applied." },
         phase: "resolved",
       }),
     ).rejects.toThrow("message was deleted");
     expect(sendMessage).toHaveBeenCalledWith(
       "1234",
-      "⚠️ OpenClaw change approved, but it was not applied.",
+      "⚠️ Granted change approved, but it was not applied.",
       {
         cfg: {},
         token: "tg-token",
@@ -624,7 +624,7 @@ describe("telegramApprovalNativeRuntime", () => {
       approvalKind: "system-agent" as const,
       id: "system-agent:origin-account",
       request: {
-        title: "OpenClaw change",
+        title: "Granted change",
         description: "restart the Gateway",
         command: "restart the Gateway",
         proposalHash: "g".repeat(64),
@@ -637,7 +637,7 @@ describe("telegramApprovalNativeRuntime", () => {
       createdAtMs: 0,
       expiresAtMs: 60_000,
     };
-    const payload = { text: "✅ OpenClaw change approved and applied." };
+    const payload = { text: "✅ Granted change approved and applied." };
 
     await telegramApprovalNativeRuntime.transport.updateEntry?.({
       cfg: {} as never,

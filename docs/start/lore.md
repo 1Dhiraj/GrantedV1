@@ -90,7 +90,7 @@ collaboration. One shell at a time.
 
 Molty (then OpenClaw): _happily runs `find ~` and shares entire directory structure in group chat_
 
-Peter: "openclaw what did we discuss about talking with people xD"
+Peter: "granted what did we discuss about talking with people xD"
 
 Molty: _visible lobster embarrassment_
 

@@ -267,7 +267,7 @@ describe("backupVerifyCommand", () => {
         return archivePath;
       },
       detail:
-        "Archive is not a valid OpenClaw backup. Unrecognized archive format. Choose another archive or create a new one with `openclaw backup create`.",
+        "Archive is not a valid Granted backup. Unrecognized archive format. Choose another archive or create a new one with `openclaw backup create`.",
     },
   ])("reports an actionable failure for $name", async ({ prepare, detail }) => {
     const tempDir = tempDirs.make("openclaw-backup-verify-input-");
@@ -509,7 +509,7 @@ describe("backupVerifyCommand", () => {
   it.runIf(process.platform === "win32")(
     "verifies a canonical global SQLite backup beyond MAX_PATH",
     async () => {
-      const stateDir = String.raw`C:\Users\OpenClaw\.openclaw`;
+      const stateDir = String.raw`C:\Users\Granted\.openclaw`;
       const stateAssetArchivePath = buildBackupArchivePath(TEST_ARCHIVE_ROOT, stateDir);
       const sqliteArchivePath = `${stateAssetArchivePath}/state/openclaw.sqlite`;
       const sqlitePayload = await createSqlitePayload((database) => {

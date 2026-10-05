@@ -1,4 +1,4 @@
-// Classifies whether a user's chat message approves a pending OpenClaw proposal.
+// Classifies whether a user's chat message approves a pending Granted proposal.
 import { extractEmbeddedAssistantText } from "../agents/embedded-agent-utils.js";
 import {
   completeWithPreparedSimpleCompletionModel,
@@ -27,7 +27,7 @@ export type SystemAgentApprovalClassifier = (params: {
   message: string;
   /** Human-readable proposal description when the host knows it. */
   proposal?: string;
-  /** Exact execution owner that completed the live OpenClaw inference gate. */
+  /** Exact execution owner that completed the live Granted inference gate. */
   verifiedInference: SystemAgentVerifiedInferenceBinding;
 }) => Promise<SystemAgentApprovalIntent>;
 

@@ -1,4 +1,4 @@
-// Human-only arming for delegated OpenClaw changes.
+// Human-only arming for delegated Granted changes.
 import { createHash } from "node:crypto";
 import { stableStringify } from "@granted/normalization-core";
 import { isPersistentSystemAgentOperation, type SystemAgentOperation } from "./operations-parse.js";

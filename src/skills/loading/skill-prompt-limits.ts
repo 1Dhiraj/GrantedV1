@@ -35,6 +35,7 @@ function buildSkillsLimitNote(params: {
 
 function buildRenderedSkillsPrompt(params: {
   remoteNote?: string;
+  searchableNote?: string;
   skills: Skill[];
   total: number;
   format: SkillsPromptFormat;
@@ -58,7 +59,7 @@ function buildRenderedSkillsPrompt(params: {
           descriptionMaxChars: params.format.descriptionMaxChars,
         })
       : formatSkillsForPromptCore(params.skills);
-  return [params.remoteNote, limitNote, catalog].filter(Boolean).join("\n");
+  return [params.remoteNote, params.searchableNote, limitNote, catalog].filter(Boolean).join("\n");
 }
 
 type SkillsPromptParams = {
@@ -66,6 +67,8 @@ type SkillsPromptParams = {
   maxSkillsInPrompt?: number;
   maxSkillsPromptChars?: number;
   remoteNote?: string;
+  /** One line pointing at skills kept out of the catalog; dropped first under budget. */
+  searchableNote?: string;
   preserveOrder?: boolean;
 };
 
@@ -93,10 +96,15 @@ export function prepareSkillsForPrompt(params: SkillsPromptParams): {
     format: SkillsPromptFormat,
     includeLimitNote = true,
   ): string | undefined => {
-    const remoteNotes = params.remoteNote ? [params.remoteNote, undefined] : [undefined];
-    for (const remoteNote of remoteNotes) {
+    // Notes are context, the catalog is the contract: drop the notes together
+    // before shortening or truncating the catalog itself.
+    const noteVariants: Array<{ remoteNote?: string; searchableNote?: string }> =
+      params.remoteNote || params.searchableNote
+        ? [{ remoteNote: params.remoteNote, searchableNote: params.searchableNote }, {}]
+        : [{}];
+    for (const notes of noteVariants) {
       const prompt = buildRenderedSkillsPrompt({
-        remoteNote,
+        ...notes,
         skills,
         total,
         format,

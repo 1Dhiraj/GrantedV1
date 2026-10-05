@@ -13,7 +13,7 @@ import { escapeRegExp } from "../lib/regexp.mjs";
  * @property {string[]} missingSections
  */
 
-/** ClawSweeper-owned labels that OpenClaw preserves but does not mutate. */
+/** ClawSweeper-owned labels that Granted preserves but does not mutate. */
 export const PROOF_OVERRIDE_LABEL = "proof: override";
 export const PROOF_SUFFICIENT_LABEL = "proof: sufficient";
 export const NEEDS_PR_CONTEXT_LABEL = "triage: needs-pr-context";

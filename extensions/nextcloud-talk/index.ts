@@ -1,4 +1,4 @@
-// Nextcloud Talk plugin entrypoint registers its OpenClaw integration.
+// Nextcloud Talk plugin entrypoint registers its Granted integration.
 import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
 
 export default defineBundledChannelEntry({

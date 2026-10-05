@@ -53,7 +53,7 @@ See [Database schemas](/reference/database-schemas) for downgrade precautions.
 
 ## Graceful restarts drain first
 
-A requested restart (`openclaw gateway restart`, a config change that requires
+A requested restart (`granted gateway restart`, a config change that requires
 a restart, or a gateway update) does not kill in-flight work immediately. The
 gateway stops accepting new work, then waits for active agent turns and
 background tasks to finish, up to a drain budget (5 minutes by default). Most
@@ -88,7 +88,7 @@ the gateway.
 ## Recovery after a failed update
 
 After a failed interactive update or repair, OpenClaw finishes cleanup and any
-service recovery, then opens [`openclaw triage`](/cli/triage). Triage immediately
+service recovery, then opens [`granted triage`](/cli/triage). Triage immediately
 starts the first directly launchable coding agent in this order: Claude Code,
 Codex, OpenCode, then Pi. It passes the captured failure before fresh Doctor
 checks or archive collection and asks the agent to diagnose, repair, and verify
@@ -100,12 +100,12 @@ command printed on the Gateway host, or run triage there with the same OpenClaw
 profile and state/config paths. Use `--agent` to select a particular coding agent:
 
 ```bash
-openclaw triage
-openclaw triage --agent codex
+granted triage
+granted triage --agent codex
 ```
 
 JSON, `--yes`, and non-interactive update invocations collect diagnostics without
-starting a coding agent. `openclaw triage --non-interactive` also prepares
+starting a coding agent. `granted triage --non-interactive` also prepares
 diagnostics without launching an agent; `--update-result <path>` includes an
 updater's saved failure artifact. Printed handoff commands preserve installation
 selectors and use PowerShell on Windows or POSIX shells on macOS, Linux, and WSL.
@@ -150,7 +150,7 @@ does not recreate them after the recovering Gateway consumes them. Check the
 final CLI result and the handoff log for the recovery outcome.
 
 Repair the failed Doctor or installation check before restarting. Triage can
-inspect `openclaw gateway status --deep` and the update diagnostics. Avoid blindly installing
+inspect `granted gateway status --deep` and the update diagnostics. Avoid blindly installing
 older code after a newer release has migrated configuration or databases; see
 [Updating and recovery](/install/updating). Restart sentinels report the outcome;
 copying one does not grant permission to restart a service.
@@ -201,7 +201,7 @@ until that work settles.
 
 After the durable budget is exhausted, the session is tombstoned instead of
 looping forever. Inspect the failed session and use `/new` or `/reset` to start a
-replacement. `openclaw doctor --fix` can repair a stale aborted flag that
+replacement. `granted doctor --fix` can repair a stale aborted flag that
 conflicts with a tombstone, but it does not re-enable that recovery cycle.
 
 Every retry reuses one durable dispatch identifier, so an ambiguous connection
@@ -302,15 +302,15 @@ restart handling continues.
   boots. Recovery preserves channels that an operator manually stopped and any
   separate development-mode suppression. Gateway logs look like:
   `channel autostart suppressed by crash-loop breaker; refusing automatic
-start for <channel>… Start a channel manually with: openclaw gateway call
+start for <channel>… Start a channel manually with: granted gateway call
 channels.start --params '{"channel":"<id>"}'`
 
   Operator recovery SOP:
 
-  1. Confirm the gateway process is up (`openclaw gateway status` / LaunchAgent
+  1. Confirm the gateway process is up (`granted gateway status` / LaunchAgent
      or systemd unit still running). A “channel disconnected” symptom often
      means suppressed autostart, not a dead gateway.
-  2. Inspect channel state: `openclaw channels status` (add `--probe` when
+  2. Inspect channel state: `granted channels status` (add `--probe` when
      useful). Look for stopped / not connected accounts while the gateway
      itself is healthy.
   3. Fix the root cause of the unclean boots (bad config, plugin crash on
@@ -318,7 +318,7 @@ channels.start --params '{"channel":"<id>"}'`
   4. Manually start a channel while suppression is active:
 
      ```bash
-     openclaw gateway call channels.start --params '{"channel":"<id>"}'
+     granted gateway call channels.start --params '{"channel":"<id>"}'
      # optional: {"channel":"<id>","accountId":"<account>"}
      ```
 
@@ -329,7 +329,7 @@ channels.start --params '{"channel":"<id>"}'`
      drains. The same process logs that the restart-loop breaker recovered and
      starts the deferred configured channels.
      If that message does not appear after the window plus one health-monitor
-     interval, inspect the gateway logs and run `openclaw doctor` before
+     interval, inspect the gateway logs and run `granted doctor` before
      restarting.
 
   See also [Gateway](/gateway) (safe mode paragraph) for the same control-plane

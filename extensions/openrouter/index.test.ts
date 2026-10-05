@@ -20,8 +20,7 @@ const { getOpenRouterModelCapabilitiesMock, loadOpenRouterModelCapabilitiesMock 
 );
 
 vi.mock("openclaw/plugin-sdk/provider-stream-family", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("granted/plugin-sdk/provider-stream-family")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-stream-family")>();
   return {
     ...actual,
     getOpenRouterModelCapabilities: getOpenRouterModelCapabilitiesMock,
@@ -994,7 +993,7 @@ describe("openrouter provider hooks", () => {
     const headers = new Headers(options?.headers);
     expect(headers.get("authorization")).toBe("Bearer or-test-key");
     expect(headers.get("http-referer")).toBe("https://openclaw.ai");
-    expect(headers.get("x-openrouter-title")).toBe("OpenClaw");
+    expect(headers.get("x-openrouter-title")).toBe("Granted");
   });
 
   it("merges resolved OpenRouter model params into transport params", async () => {

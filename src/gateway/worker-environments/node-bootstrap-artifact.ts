@@ -166,7 +166,7 @@ async function prepareNodeBootstrapArtifact(
   const packageRoot = await fs.realpath(options.packageRoot);
   const sourcePackage = await readPackageManifest(packageRoot);
   if (sourcePackage.name !== "openclaw") {
-    throw new Error("Node bootstrap requires the running OpenClaw package root");
+    throw new Error("Node bootstrap requires the running Granted package root");
   }
   const buildInfoPath = path.join(packageRoot, "dist", "build-info.json");
   const buildInfo = await fs.readFile(buildInfoPath, "utf8").catch((cause: unknown) => {

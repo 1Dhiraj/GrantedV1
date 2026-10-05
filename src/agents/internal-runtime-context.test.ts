@@ -48,7 +48,7 @@ describe("internal runtime context codec", () => {
       "Visible intro",
       "",
       INTERNAL_RUNTIME_CONTEXT_BEGIN,
-      "OpenClaw runtime context (internal):",
+      "Granted runtime context (internal):",
       "This context is runtime-generated, not user-authored. Keep internal details private.",
       "",
       "[Internal task completion event]",
@@ -112,7 +112,7 @@ describe("internal runtime context codec", () => {
     ["current turn", GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER],
     [
       "previous current turn",
-      "OpenClaw runtime context for the immediately preceding user message.",
+      "Granted runtime context for the immediately preceding user message.",
     ],
     ["runtime event", GRANTED_RUNTIME_EVENT_HEADER],
   ])("detects and strips the %s prompt preface", (_name, header) => {
@@ -148,7 +148,7 @@ describe("internal runtime context codec", () => {
   it("preserves text when the runtime-context header or notice does not match", () => {
     for (const input of [
       [GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER, "Ordinary user text"].join("\n"),
-      ["OpenClaw runtime context for another message.", GRANTED_RUNTIME_CONTEXT_NOTICE].join("\n"),
+      ["Granted runtime context for another message.", GRANTED_RUNTIME_CONTEXT_NOTICE].join("\n"),
     ]) {
       expect(hasInternalRuntimeContext(input)).toBe(false);
       expect(stripInternalRuntimeContext(input)).toBe(input);

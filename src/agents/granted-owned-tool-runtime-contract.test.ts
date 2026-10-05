@@ -1,4 +1,4 @@
-// Verifies OpenClaw-owned tool hooks preserve adjusted params and telemetry.
+// Verifies Granted-owned tool hooks preserve adjusted params and telemetry.
 import type { AgentTool } from "granted/plugin-sdk/agent-core";
 import {
   installOpenClawOwnedToolHooks,
@@ -105,7 +105,7 @@ async function waitForAfterToolCall(hooks: {
   return call as [Record<string, unknown>, Record<string, unknown>];
 }
 
-describe("OpenClaw-owned tool runtime contract - embedded agent adapter", () => {
+describe("Granted-owned tool runtime contract - embedded agent adapter", () => {
   afterEach(() => {
     resetOpenClawOwnedToolHooks();
   });

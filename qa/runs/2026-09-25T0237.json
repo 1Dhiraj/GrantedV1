@@ -1,0 +1,23 @@
+{
+  "run": "2026-09-25T0237",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "G1",
+      "name": "GUI: drive Notepad and save a file",
+      "result": "PASS",
+      "seconds": 25,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0237-g1",
+      "evidence": "file on disk: \"hello granted\"",
+      "toolCalls": 5,
+      "tokens": 95570
+    }
+  ]
+}

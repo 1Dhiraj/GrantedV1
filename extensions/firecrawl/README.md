@@ -1,12 +1,12 @@
-# OpenClaw Firecrawl Plugin
+# Granted Firecrawl Plugin
 
-Official OpenClaw plugin for Firecrawl.
+Official Granted plugin for Firecrawl.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/firecrawl-plugin
-openclaw gateway restart
+granted plugins install @granted/firecrawl-plugin
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/tools/firecrawl> for setup and configuration.

@@ -136,7 +136,7 @@ describe("openrouter image generation provider", () => {
       defaultHeaders: {
         Authorization: "Bearer openrouter-key",
         "HTTP-Referer": "https://openclaw.ai",
-        "X-OpenRouter-Title": "OpenClaw",
+        "X-OpenRouter-Title": "Granted",
       },
       request: undefined,
       provider: "openrouter",
@@ -149,7 +149,7 @@ describe("openrouter image generation provider", () => {
     expect(Object.fromEntries(headers.entries())).toEqual({
       authorization: "Bearer openrouter-key",
       "http-referer": "https://openclaw.ai",
-      "x-openrouter-title": "OpenClaw",
+      "x-openrouter-title": "Granted",
     });
     expect(request).toEqual({
       url: "https://custom.openrouter.test/api/v1/chat/completions",

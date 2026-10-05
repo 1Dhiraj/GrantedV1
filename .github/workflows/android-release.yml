@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing stable OpenClaw release tag to receive the signed Android APK
+        description: Existing stable Granted release tag to receive the signed Android APK
         required: true
         type: string
       release_publish_run_id:
-        description: OpenClaw Release Publish run that approved this release
+        description: Granted Release Publish run that approved this release
         required: true
         type: string
       release_publish_branch:
-        description: Branch or protected tag used by the approving OpenClaw Release Publish run
+        description: Branch or protected tag used by the approving Granted Release Publish run
         required: true
         type: string
       release_publish_run_attempt:
-        description: Exact approving OpenClaw Release Publish run attempt
+        description: Exact approving Granted Release Publish run attempt
         required: true
         type: string
       release_publish_full_ref:
@@ -28,7 +28,7 @@ on:
         required: true
         type: string
       release_target_sha:
-        description: Exact release tag commit resolved by OpenClaw Release Publish
+        description: Exact release tag commit resolved by Granted Release Publish
         required: true
         type: string
       direct_release_recovery:
@@ -91,7 +91,7 @@ jobs:
         run: |
           set -euo pipefail
           if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]{4}\.[1-9][0-9]*\.[1-9][0-9]*(-[1-9][0-9]*)?$ ]]; then
-            echo "Android APK publishing requires a final or correction OpenClaw release tag: ${RELEASE_TAG}" >&2
+            echo "Android APK publishing requires a final or correction Granted release tag: ${RELEASE_TAG}" >&2
             exit 1
           fi
           expected_source_ref="refs/tags/${RELEASE_TAG}"
@@ -205,12 +205,12 @@ jobs:
             base_dir="${RUNNER_TEMP}/fallback-android-release"
             mkdir -p "${base_dir}"
             gh release download "${FALLBACK_ANDROID_BASE_TAG}" --repo "${GITHUB_REPOSITORY}" \
-              --pattern OpenClaw-Android.apk \
-              --pattern OpenClaw-Android-SHA256SUMS.txt \
+              --pattern Granted-Android.apk \
+              --pattern Granted-Android-SHA256SUMS.txt \
               --dir "${base_dir}"
             (
               cd "${base_dir}"
-              sha256sum --strict --check OpenClaw-Android-SHA256SUMS.txt
+              sha256sum --strict --check Granted-Android-SHA256SUMS.txt
             )
             gh attestation verify "${base_dir}/OpenClaw-Android.apk" \
               --repo "${GITHUB_REPOSITORY}" \
@@ -263,7 +263,7 @@ jobs:
             cp "${source_apk}" dist/OpenClaw-Android.apk
             (
               cd dist
-              sha256sum OpenClaw-Android.apk > OpenClaw-Android-SHA256SUMS.txt
+              sha256sum Granted-Android.apk > Granted-Android-SHA256SUMS.txt
             )
           fi
 
@@ -293,8 +293,8 @@ jobs:
                 [
                   .[][]
                   | select(.draft == false and .prerelease == false)
-                  | select(any(.assets[]?; .name == "OpenClaw-Android.apk"))
-                  | select(any(.assets[]?; .name == "OpenClaw-Android-SHA256SUMS.txt"))
+                  | select(any(.assets[]?; .name == "Granted-Android.apk"))
+                  | select(any(.assets[]?; .name == "Granted-Android-SHA256SUMS.txt"))
                   | if .tag_name == $base_tag then
                       { tag: .tag_name, number: 0 }
                     elif (.tag_name | startswith($base_tag + "-")) then
@@ -312,12 +312,12 @@ jobs:
               previous_dir="${RUNNER_TEMP}/previous-android-release"
               mkdir -p "${previous_dir}"
               gh release download "${previous_tag}" --repo "${GITHUB_REPOSITORY}" \
-                --pattern OpenClaw-Android.apk \
-                --pattern OpenClaw-Android-SHA256SUMS.txt \
+                --pattern Granted-Android.apk \
+                --pattern Granted-Android-SHA256SUMS.txt \
                 --dir "${previous_dir}"
               (
                 cd "${previous_dir}"
-                sha256sum --strict --check OpenClaw-Android-SHA256SUMS.txt
+                sha256sum --strict --check Granted-Android-SHA256SUMS.txt
               )
               gh attestation verify "${previous_dir}/OpenClaw-Android.apk" \
                 --repo "${GITHUB_REPOSITORY}" \
@@ -375,8 +375,8 @@ jobs:
             gh release upload "${RELEASE_TAG}" "${source_path}#${asset_name}" --repo "${GITHUB_REPOSITORY}"
           }
 
-          attach_or_verify_asset dist/OpenClaw-Android.apk OpenClaw-Android.apk
-          attach_or_verify_asset dist/OpenClaw-Android-SHA256SUMS.txt OpenClaw-Android-SHA256SUMS.txt
+          attach_or_verify_asset dist/OpenClaw-Android.apk Granted-Android.apk
+          attach_or_verify_asset dist/OpenClaw-Android-SHA256SUMS.txt Granted-Android-SHA256SUMS.txt
 
       - name: Verify published Android release assets
         env:
@@ -387,12 +387,12 @@ jobs:
           verify_dir="${RUNNER_TEMP}/verify-android-release"
           mkdir -p "${verify_dir}"
           gh release download "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" \
-            --pattern OpenClaw-Android.apk \
-            --pattern OpenClaw-Android-SHA256SUMS.txt \
+            --pattern Granted-Android.apk \
+            --pattern Granted-Android-SHA256SUMS.txt \
             --dir "${verify_dir}"
           (
             cd "${verify_dir}"
-            sha256sum --strict --check OpenClaw-Android-SHA256SUMS.txt
+            sha256sum --strict --check Granted-Android-SHA256SUMS.txt
           )
           gh attestation verify "${verify_dir}/OpenClaw-Android.apk" \
             --repo "${GITHUB_REPOSITORY}" \
@@ -403,8 +403,8 @@ jobs:
             --verify-apk "${verify_dir}/OpenClaw-Android.apk"
 
           release_json="$(gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" --json assets)"
-          expected_names='["OpenClaw-Android-SHA256SUMS.txt","OpenClaw-Android.apk"]'
-          actual_names="$(printf '%s' "${release_json}" | jq -c '[.assets[]? | select(.name | startswith("OpenClaw-Android")) | .name] | sort')"
+          expected_names='["Granted-Android-SHA256SUMS.txt","Granted-Android.apk"]'
+          actual_names="$(printf '%s' "${release_json}" | jq -c '[.assets[]? | select(.name | startswith("Granted-Android")) | .name] | sort')"
           if [[ "${actual_names}" != "${expected_names}" ]]; then
             echo "Android release asset names do not match the canonical contract." >&2
             exit 1
@@ -423,5 +423,5 @@ jobs:
             echo
             echo "- APK: https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/OpenClaw-Android.apk"
             echo "- Checksums: https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/OpenClaw-Android-SHA256SUMS.txt"
-            echo "- Provenance: \`gh attestation verify OpenClaw-Android.apk --repo ${GITHUB_REPOSITORY} --signer-workflow ${GITHUB_REPOSITORY}/.github/workflows/android-release.yml\`"
+            echo "- Provenance: \`gh attestation verify Granted-Android.apk --repo ${GITHUB_REPOSITORY} --signer-workflow ${GITHUB_REPOSITORY}/.github/workflows/android-release.yml\`"
           } >> "${GITHUB_STEP_SUMMARY}"

@@ -21,15 +21,15 @@ The Volcengine provider gives access to Doubao models and third-party models hos
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/volcengine-provider
-    openclaw gateway restart
+    granted plugins install @granted/volcengine-provider
+    granted gateway restart
     ```
   </Step>
   <Step title="Set the API key">
     Run interactive onboarding:
 
     ```bash
-    openclaw onboard --auth-choice volcengine-api-key
+    granted onboard --auth-choice volcengine-api-key
     ```
 
     This registers both the general (`volcengine`) and coding (`volcengine-plan`) providers from a single API key.
@@ -48,8 +48,8 @@ The Volcengine provider gives access to Doubao models and third-party models hos
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider volcengine
-    openclaw models list --provider volcengine-plan
+    granted models list --provider volcengine
+    granted models list --provider volcengine-plan
     ```
   </Step>
 </Steps>
@@ -58,7 +58,7 @@ The Volcengine provider gives access to Doubao models and third-party models hos
 For non-interactive setup (CI, scripting), pass the key directly:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice volcengine-api-key \
   --volcengine-api-key "$VOLCANO_ENGINE_API_KEY"
@@ -154,7 +154,7 @@ Other optional TTS env vars: `VOLCENGINE_TTS_VOICE`, `VOLCENGINE_TTS_APP_KEY`, a
 
 <AccordionGroup>
   <Accordion title="Default model after onboarding">
-    `openclaw onboard --auth-choice volcengine-api-key` sets `volcengine-plan/ark-code-latest` as the default model while also registering the general `volcengine` catalog.
+    `granted onboard --auth-choice volcengine-api-key` sets `volcengine-plan/ark-code-latest` as the default model while also registering the general `volcengine` catalog.
   </Accordion>
 
   <Accordion title="Model picker fallback behavior">

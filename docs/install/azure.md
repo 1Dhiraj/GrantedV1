@@ -265,8 +265,8 @@ Set up an Azure Linux VM with the Azure CLI, apply Network Security Group (NSG) 
     After onboarding completes:
 
     ```bash
-    openclaw doctor --json
-    openclaw gateway status
+    granted doctor --json
+    granted gateway status
     ```
 
     If your organization already has GitHub Copilot licenses, you can choose the GitHub Copilot provider during onboarding instead of a separate model API key. See [GitHub Copilot provider](/providers/github-copilot).

@@ -364,7 +364,7 @@ async function requireThreadBinding(
 ) {
   const binding = await bindingStore.read(identity);
   if (!binding?.threadId) {
-    throw new Error("No Codex thread is attached to this OpenClaw session yet.");
+    throw new Error("No Codex thread is attached to this Granted session yet.");
   }
   return binding;
 }

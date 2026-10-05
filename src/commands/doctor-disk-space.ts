@@ -1,4 +1,4 @@
-// Doctor contribution for low disk space around the OpenClaw state directory.
+// Doctor contribution for low disk space around the Granted state directory.
 import os from "node:os";
 import { expectDefined, formatByteSize } from "@granted/normalization-core";
 import { note } from "../../packages/terminal-core/src/note.js";
@@ -130,7 +130,7 @@ export function collectDiskSpaceHealthFindings(
  * Doctor health contribution: check free disk space on the partition that
  * holds the state directory and warn when it drops below safe thresholds.
  *
- * This catches a common operational failure mode where OpenClaw silently
+ * This catches a common operational failure mode where Granted silently
  * fails to write config, sessions, or logs because the disk is full.
  *
  * Disk-space probing (statfs + nearest-existing-ancestor resolution) is

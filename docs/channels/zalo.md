@@ -13,9 +13,9 @@ Zalo ships as a bundled plugin in current OpenClaw releases, so packaged builds 
 
 On an older build or a custom install that excludes Zalo, install the npm package directly:
 
-- Install: `openclaw plugins install @granted/zalo`
-- Pinned version: `openclaw plugins install @granted/zalo@2026.6.11`
-- From a local checkout: `openclaw plugins install ./path/to/local/zalo-plugin`
+- Install: `granted plugins install @granted/zalo`
+- Pinned version: `granted plugins install @granted/zalo@2026.6.11`
+- From a local checkout: `granted plugins install ./path/to/local/zalo-plugin`
 - Details: [Plugins](/tools/plugin)
 
 ## Quick setup
@@ -74,8 +74,8 @@ This page covers **Zalo Bot Creator / Marketplace bots**. **Zalo Official Accoun
 
 - `channels.zalo.dmPolicy`: `pairing` (default) | `allowlist` | `open` | `disabled`.
 - Pairing: unknown senders get a pairing code; messages are ignored until approved. Codes expire after 1 hour.
-  - `openclaw pairing list zalo`
-  - `openclaw pairing approve zalo <CODE>`
+  - `granted pairing list zalo`
+  - `granted pairing approve zalo <CODE>`
   - Details: [Pairing](/channels/pairing)
 - `channels.zalo.allowFrom` accepts numeric Zalo user IDs (no username lookup). `open` requires `"*"`.
 
@@ -125,16 +125,16 @@ Group chats are supported by the plugin (`chatTypes: ["direct", "group"]`) and g
 Use a chat ID as the target:
 
 ```bash
-openclaw message send --channel zalo --target 123456789 --message "hi"
+granted message send --channel zalo --target 123456789 --message "hi"
 ```
 
 ## Troubleshooting
 
 **Bot does not respond:**
 
-- Check the token: `openclaw channels status --probe`
+- Check the token: `granted channels status --probe`
 - Verify the sender is approved (pairing or `allowFrom`)
-- Check gateway logs: `openclaw logs --follow`
+- Check gateway logs: `granted logs --follow`
 
 **Webhook not receiving events:**
 

@@ -171,12 +171,12 @@ Use [`defineToolPlugin`](/plugins/tool-plugins) for simple tool-only plugins
 with fixed tool names. Use `api.registerTool(...)` directly for mixed plugins
 or fully dynamic tool registration.
 
-| Method                                   | What it registers                                                                                                                        |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `api.registerTool(tool, opts?)`          | Agent tool (required or `{ optional: true }`)                                                                                            |
-| `api.registerCommand(def)`               | Custom command (bypasses the LLM)                                                                                                        |
-| `api.registerNodeHostCommand(command)`   | Command handled by `openclaw node run`; optional `agentTool` metadata can expose it as an agent-visible tool while the node is connected |
-| `api.registerWidgetPresenter(presenter)` | Explicit or current-channel destination behind the core `show_widget` tool                                                               |
+| Method                                   | What it registers                                                                                                                       |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `api.registerTool(tool, opts?)`          | Agent tool (required or `{ optional: true }`)                                                                                           |
+| `api.registerCommand(def)`               | Custom command (bypasses the LLM)                                                                                                       |
+| `api.registerNodeHostCommand(command)`   | Command handled by `granted node run`; optional `agentTool` metadata can expose it as an agent-visible tool while the node is connected |
+| `api.registerWidgetPresenter(presenter)` | Explicit or current-channel destination behind the core `show_widget` tool                                                              |
 
 Explicit widget presenters declare a unique model-visible target such as `node_panel`. Current-channel presenters use `target: "current_channel"`, provide a synchronous `match(context)` predicate over trusted delivery facts, and declare supported source kinds and delivery limits. Multiple transport presenters may coexist, but core selects an implicit route only when exactly one matches.
 
@@ -252,7 +252,7 @@ advertised node command.
 | `api.registerGatewayMethod(name, handler, opts?)` | Gateway RPC method                                                     |
 | `api.registerGatewayDiscoveryService(service)`    | Local Gateway discovery advertiser                                     |
 | `api.registerCli(registrar, opts?)`               | CLI subcommand                                                         |
-| `api.registerNodeCliFeature(registrar, opts?)`    | Node feature CLI under `openclaw nodes`                                |
+| `api.registerNodeCliFeature(registrar, opts?)`    | Node feature CLI under `granted nodes`                                 |
 | `api.registerService(service)`                    | Background service                                                     |
 | `api.registerInteractiveHandler(registration)`    | Interactive handler                                                    |
 | `api.registerAgentToolResultMiddleware(...)`      | Runtime tool-result middleware                                         |
@@ -263,12 +263,12 @@ advertised node command.
 | `api.registerMcpServerConnectionResolver(...)`    | Per-requester MCP transport (`url`/`headers`) for a static server name |
 | `api.registerTextTransforms(transforms)`          | Plugin-owned prompt/message compatibility text rewrites                |
 | `api.registerConfigMigration(migrate)`            | Lightweight config migration run before plugin runtime loads           |
-| `api.registerMigrationProvider(provider)`         | Importer for `openclaw migrate`                                        |
+| `api.registerMigrationProvider(provider)`         | Importer for `granted migrate`                                         |
 | `api.registerAutoEnableProbe(probe)`              | Config probe that can auto-enable this plugin                          |
 | `api.registerReload(registration)`                | Restart/hot/noop config-prefix policy for reload handling              |
 | `api.registerNodeHostCommand(command)`            | Command handler exposed to paired nodes                                |
 | `api.registerNodeInvokePolicy(policy)`            | Allowlist/approval policy for node-invoked commands                    |
-| `api.registerSecurityAuditCollector(collector)`   | Findings collector for `openclaw security audit`                       |
+| `api.registerSecurityAuditCollector(collector)`   | Findings collector for `granted security audit`                        |
 
 Gateway methods default to `profileAccess: "required"`, so authenticated-profile verification fails closed before plugin dispatch. Set `profileAccess: "independent"` only for an audited method that neither reads nor mutates durable user or session state. Operator scope remains a separate authorization requirement.
 
@@ -621,7 +621,7 @@ own trust.
 For paired-node features, prefer
 `api.registerNodeCliFeature(registrar, opts?)`. It is a small wrapper around
 `api.registerCli(..., { parentPath: ["nodes"] })` and makes commands such as
-`openclaw nodes canvas` explicit plugin-owned node features.
+`granted nodes canvas` explicit plugin-owned node features.
 
 Reuse the core node CLI owners when a plugin-owned node command needs the same
 Gateway flags, invoke envelope, terminal presentation, and authorization hints:

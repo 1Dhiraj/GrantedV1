@@ -78,7 +78,7 @@ This routes through `qa-lab`, starts the in-repo QA bus, boots the `qa-channel` 
 Full repo-backed scenario suite:
 
 ```bash
-pnpm openclaw qa suite
+pnpm granted qa suite
 ```
 
 The isolated `channel-participant-identity-inspection` scenario enables
@@ -87,7 +87,7 @@ mixed-participant collect paths, proves an ingress rejection creates no audit
 rows, and compares JSON plus human CLI inspection across Gateway restart:
 
 ```bash
-pnpm openclaw qa suite --scenario channel-participant-identity-inspection
+pnpm granted qa suite --scenario channel-participant-identity-inspection
 ```
 
 Runs scenarios in parallel against the QA gateway lane. See [QA overview](/concepts/qa-e2e-automation) for scenarios, profiles, and provider modes.

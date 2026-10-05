@@ -9,6 +9,7 @@ import {
   beginChatMetadataPublication,
   type ChatMetadataResult,
 } from "../lib/chat/chat-metadata-store.ts";
+import { loadModelCatalog, peekModelCatalog } from "../lib/model-catalog-store.ts";
 import { makeChatHost } from "../pages/chat/chat-host.test-support.ts";
 import type { ChatPageHost } from "../pages/chat/chat-state-host.ts";
 import {
@@ -148,6 +149,30 @@ it("invalidates chat metadata on config changes and same-client disconnects", ()
   beginChatMetadataPublication(client, { agentId: "main" }).publish({ commands: [], models: [] });
   shell.synchronizeGateway({ ...connected, phase: "reconnecting" });
   expect(peekChatMetadata(client, { agentId: "main" })).toBeUndefined();
+});
+
+it("keeps all-provider discovery across metadata events but retires it on config changes", async () => {
+  const models = [{ id: "gpt-6-sol", name: "GPT-6 Sol", provider: "openai" }];
+  const client = {
+    request: vi.fn(async () => ({ models })),
+  } as unknown as GatewayBrowserClient;
+  const context = {
+    gateway: { snapshot: { client, phase: "connected" } },
+    runtimeConfig: {
+      state: { configFormDirty: false, configSnapshot: null },
+      ensureLoaded: vi.fn(async () => null),
+      refresh: vi.fn(async () => null),
+    },
+  } as unknown as ApplicationContext;
+  const shell = document.createElement("openclaw-app-shell") as unknown as ChatMetadataShell;
+  shell.runtime = { context };
+
+  await loadModelCatalog(client, { agentId: "main", view: "all" });
+  shell.handleGatewayEvent({ event: "chat.metadata.changed", payload: {} });
+  expect(peekModelCatalog(client, { agentId: "main", view: "all" })).toEqual({ models });
+
+  shell.handleGatewayEvent({ event: "config.changed", payload: {} });
+  expect(peekModelCatalog(client, { agentId: "main", view: "all" })).toBeUndefined();
 });
 
 it("rebinds global chat metadata immediately on agent selection and follows later invalidation", async () => {

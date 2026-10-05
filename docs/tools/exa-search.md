@@ -14,8 +14,8 @@ summaries).
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/exa-plugin
-openclaw gateway restart
+granted plugins install @granted/exa-plugin
+granted gateway restart
 ```
 
 ## Get an API key
@@ -29,7 +29,7 @@ openclaw gateway restart
     Set `EXA_API_KEY` in the Gateway environment, or configure via:
 
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
   </Step>

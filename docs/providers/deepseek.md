@@ -20,8 +20,8 @@ read_when:
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/deepseek-provider
-openclaw gateway restart
+granted plugins install @granted/deepseek-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -32,7 +32,7 @@ openclaw gateway restart
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice deepseek-api-key
+    granted onboard --auth-choice deepseek-api-key
     ```
 
     Prompts for your API key and sets `deepseek/deepseek-v4-pro` as the default model.
@@ -40,13 +40,13 @@ openclaw gateway restart
   </Step>
   <Step title="Verify models are available">
     ```bash
-    openclaw models list --provider deepseek
+    granted models list --provider deepseek
     ```
 
     To inspect the plugin's static catalog without a running Gateway:
 
     ```bash
-    openclaw models list --all --provider deepseek
+    granted models list --all --provider deepseek
     ```
 
   </Step>
@@ -57,7 +57,7 @@ openclaw gateway restart
     For scripted or headless installations, pass all flags directly:
 
     ```bash
-    openclaw onboard --non-interactive \
+    granted onboard --non-interactive \
       --mode local \
       --auth-choice deepseek-api-key \
       --deepseek-api-key "$DEEPSEEK_API_KEY" \

@@ -1,5 +1,5 @@
 /**
- * OpenClaw stdio transport wrapper for MCP server subprocesses.
+ * Granted stdio transport wrapper for MCP server subprocesses.
  */
 import { spawn, type ChildProcess } from "node:child_process";
 import fs from "node:fs/promises";

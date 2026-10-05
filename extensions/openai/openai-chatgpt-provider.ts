@@ -32,6 +32,7 @@ import {
 import { OPENAI_CODEX_DEFAULT_MODEL } from "./default-models.js";
 import {
   OPENAI_CHATGPT_MODERN_MODEL_IDS,
+  OPENAI_GPT_6_VARIANT_MODEL_IDS as OPENAI_CODEX_GPT_6_MODEL_IDS,
   OPENAI_GPT_53_CODEX_SPARK_MODEL_ID as OPENAI_CODEX_GPT_53_SPARK_MODEL_ID,
   OPENAI_GPT_54_LEGACY_MODEL_ID as OPENAI_CODEX_GPT_54_LEGACY_MODEL_ID,
   OPENAI_GPT_54_MINI_MODEL_ID as OPENAI_CODEX_GPT_54_MINI_MODEL_ID,
@@ -60,6 +61,7 @@ const OPENAI_CODEX_GPT_56_THINKING_LEVEL_MAP = {
   max: "max",
 } as const;
 const OPENAI_CODEX_GPT_56_NATIVE_CONTEXT_TOKENS = 372_000;
+const OPENAI_CODEX_GPT_6_NATIVE_CONTEXT_WINDOW = 872_000;
 const OPENAI_CODEX_GPT_55_CODEX_CONTEXT_TOKENS = 400_000;
 const OPENAI_CODEX_GPT_55_PRO_NATIVE_CONTEXT_TOKENS = 1_000_000;
 const OPENAI_CODEX_GPT_54_NATIVE_CONTEXT_TOKENS = 1_050_000;
@@ -102,6 +104,7 @@ const OPENAI_CODEX_GPT_55_PRO_TEMPLATE_MODEL_IDS = [
   ...OPENAI_CODEX_GPT_54_TEMPLATE_MODEL_IDS,
 ] as const;
 const OPENAI_CODEX_IMAGE_CAPABLE_MODEL_IDS = [
+  ...OPENAI_CODEX_GPT_6_MODEL_IDS,
   ...OPENAI_CODEX_GPT_56_MODEL_IDS,
   OPENAI_CODEX_GPT_55_MODEL_ID,
   OPENAI_CODEX_GPT_55_PRO_MODEL_ID,
@@ -160,7 +163,7 @@ function matchesOpenAICodexImageCapableModel(modelId: string, modelName?: string
  * Restore native `["text", "image"]` input capability on resolved Codex rows
  * for known image-capable modern model IDs (GPT-5.4 through GPT-5.6).
  * Persisted/configured model rows can omit the `input` field
- * entirely when they were written by older OpenClaw versions. When that row wins
+ * entirely when they were written by older Granted versions. When that row wins
  * the catalog merge, `modelSupportsInput(entry, "image")` returns false and the
  * gateway's `chat.send` handler offloads inbound images as `media://inbound/<id>`
  * claim-check URIs instead of inlining them.
@@ -218,6 +221,43 @@ function resolveCodexForwardCompatModel(ctx: ProviderResolveDynamicModelContext)
   const trimmedModelId = ctx.modelId.trim();
   const lower = normalizeLowercaseStringOrEmpty(trimmedModelId);
   const synthBaseUrl = ctx.providerConfig?.baseUrl ?? OPENAI_CODEX_BASE_URL;
+
+  if (OPENAI_CODEX_GPT_6_MODEL_IDS.some((modelId) => modelId === lower)) {
+    // SAFETY: the provider registry stores the same runtime model contract consumed here.
+    const model = ctx.modelRegistry.find(PROVIDER_ID, trimmedModelId) as
+      | ProviderRuntimeModel
+      | undefined;
+    const registeredModel = withDefaultCodexContextMetadata({
+      model: withCodexTransport(model, synthBaseUrl),
+      contextWindow: OPENAI_CODEX_GPT_6_NATIVE_CONTEXT_WINDOW,
+      contextTokens: OPENAI_DEFAULT_RUNTIME_CONTEXT_TOKENS,
+    });
+    if (registeredModel) {
+      const mergedModel: ProviderRuntimeModel = {
+        ...registeredModel,
+        thinkingLevelMap: {
+          ...OPENAI_CODEX_GPT_56_THINKING_LEVEL_MAP,
+          ...registeredModel.thinkingLevelMap,
+        },
+      };
+      return normalizeModelCompat(mergedModel);
+    }
+    const synthesizedModel: ProviderRuntimeModel = {
+      id: trimmedModelId,
+      name: trimmedModelId,
+      api: "openai-chatgpt-responses",
+      provider: PROVIDER_ID,
+      baseUrl: synthBaseUrl,
+      reasoning: true,
+      input: ["text", "image"],
+      cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+      contextWindow: OPENAI_CODEX_GPT_6_NATIVE_CONTEXT_WINDOW,
+      contextTokens: OPENAI_DEFAULT_RUNTIME_CONTEXT_TOKENS,
+      maxTokens: OPENAI_CODEX_GPT_54_MAX_TOKENS,
+      thinkingLevelMap: OPENAI_CODEX_GPT_56_THINKING_LEVEL_MAP,
+    };
+    return normalizeModelCompat(synthesizedModel);
+  }
 
   if (OPENAI_CODEX_GPT_56_MODEL_IDS.some((modelId) => modelId === lower)) {
     const model = ctx.modelRegistry.find(PROVIDER_ID, trimmedModelId) as

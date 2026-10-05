@@ -1,4 +1,4 @@
-// Duckduckgo plugin entrypoint registers its OpenClaw integration.
+// Duckduckgo plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { createDuckDuckGoWebSearchProvider } from "./src/ddg-search-provider.js";
 

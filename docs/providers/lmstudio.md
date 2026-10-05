@@ -40,7 +40,7 @@ daemon. For install and product docs, see [lmstudio.ai](https://lmstudio.ai/).
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard
+    granted onboard
     ```
 
     Choose `LM Studio`, then pick a model at the `Default model` prompt.
@@ -59,7 +59,7 @@ daemon. For install and product docs, see [lmstudio.ai](https://lmstudio.ai/).
 Change the default model later:
 
 ```bash
-openclaw models set lmstudio/qwen/qwen3.5-9b
+granted models set lmstudio/qwen/qwen3.5-9b
 ```
 
 LM Studio model keys use an `author/model-name` format (e.g. `qwen/qwen3.5-9b`); OpenClaw model refs
@@ -73,13 +73,13 @@ curl http://localhost:1234/api/v1/models
 ## Non-interactive onboarding
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health --auth-choice lmstudio
+granted onboard --non-interactive --accept-risk --skip-health --auth-choice lmstudio
 ```
 
 Or specify base URL, model, and API key explicitly:
 
 ```bash
-openclaw onboard \
+granted onboard \
   --non-interactive \
   --accept-risk \
   --skip-health \

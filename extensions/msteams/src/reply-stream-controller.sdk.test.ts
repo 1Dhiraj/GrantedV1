@@ -151,7 +151,7 @@ function createLoopbackController(scenario: string) {
       },
     } as never,
     {
-      bot: { id: "28:loopback-bot", name: "OpenClaw" },
+      bot: { id: "28:loopback-bot", name: "Granted" },
       conversation: { id: "loopback-conversation", conversationType: "personal" },
       activityId: "loopback-inbound",
     } as never,

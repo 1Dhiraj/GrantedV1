@@ -1,0 +1,55 @@
+{
+  "id": "homeassistant",
+  "activation": {
+    "onStartup": false
+  },
+  "setup": {
+    "providers": [
+      {
+        "id": "homeassistant",
+        "envVars": ["HASS_URL", "HASS_TOKEN"]
+      }
+    ]
+  },
+  "uiHints": {
+    "url": {
+      "label": "Home Assistant URL",
+      "help": "Base URL of your Home Assistant instance (fallback: HASS_URL env var, default http://homeassistant.local:8123). Operator-owned: the agent cannot choose the host.",
+      "placeholder": "http://homeassistant.local:8123"
+    },
+    "token": {
+      "label": "Home Assistant Token",
+      "help": "Long-lived access token from your Home Assistant profile (fallback: HASS_TOKEN env var).",
+      "sensitive": true
+    },
+    "timeoutSeconds": {
+      "label": "Request Timeout (seconds)",
+      "help": "Timeout for each Home Assistant REST call. Default: 15."
+    },
+    "maxEntities": {
+      "label": "Max Entities per Listing",
+      "help": "Upper bound on entities returned by list_entities, so a large install stays answerable. Default: 200."
+    }
+  },
+  "contracts": {
+    "tools": ["homeassistant"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "url": {
+        "type": "string"
+      },
+      "token": {
+        "type": ["string", "object"]
+      },
+      "timeoutSeconds": {
+        "type": "number"
+      },
+      "maxEntities": {
+        "type": "number"
+      }
+    }
+  }
+}

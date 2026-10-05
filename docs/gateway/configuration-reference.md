@@ -13,7 +13,7 @@ Config format is **JSON5** (comments + trailing commas allowed). All fields are 
 
 Code truth beats this page:
 
-- `openclaw config schema` prints the live JSON Schema used for validation and Control UI, with bundled/plugin/channel metadata merged in.
+- `granted config schema` prints the live JSON Schema used for validation and Control UI, with bundled/plugin/channel metadata merged in.
 - Agents should call the `gateway` tool action `config.schema.lookup` for one exact path-scoped schema node before editing config.
 - `pnpm config:docs:check` / `pnpm config:docs:gen` validate this doc's baseline hash against the current schema surface.
 
@@ -105,14 +105,14 @@ The `models` root also owns global model-catalog behavior.
   always wins.
 
 Pricing updates ship in the same hosted catalog file as model metadata. The
-retired `models.pricing` toggle is removed automatically by `openclaw doctor
+retired `models.pricing` toggle is removed automatically by `granted doctor
 --fix`; use `models.catalogRefresh.enabled: false` when OpenClaw must avoid all
 hosted catalog traffic.
 
 ## MCP
 
 OpenClaw-managed MCP server definitions live under `mcp.servers` and are
-consumed by embedded OpenClaw and other runtime adapters. The `openclaw mcp list`,
+consumed by embedded OpenClaw and other runtime adapters. The `granted mcp list`,
 `show`, `set`, and `unset` commands manage this block without connecting to the
 target server during config edits.
 
@@ -159,8 +159,8 @@ target server during config edits.
 - `mcp.servers`: named stdio or remote MCP server definitions for runtimes that
   expose configured MCP tools.
   Remote entries use `transport: "streamable-http"` or `transport: "sse"`;
-  `type: "http"` is a CLI-native alias that `openclaw mcp set` and
-  `openclaw doctor --fix` normalize into the canonical `transport` field.
+  `type: "http"` is a CLI-native alias that `granted mcp set` and
+  `granted doctor --fix` normalize into the canonical `transport` field.
 - `mcp.servers.<name>.enabled`: set `false` to keep a saved server definition
   while excluding it from embedded OpenClaw MCP discovery and tool projection.
 - `mcp.servers.<name>.requestTimeoutMs`: per-server MCP request timeout in milliseconds.
@@ -168,7 +168,7 @@ target server during config edits.
 - `mcp.servers.<name>.supportsParallelToolCalls`: optional concurrency hint for
   adapters that can choose whether to issue parallel MCP tool calls.
 - `mcp.servers.<name>.auth`: set `"oauth"` for HTTP MCP servers that require
-  OAuth. Run `openclaw mcp login <name>` to store tokens under OpenClaw state.
+  OAuth. Run `granted mcp login <name>` to store tokens under OpenClaw state.
 - `mcp.servers.<name>.oauth`: optional OAuth scope, redirect URL, and client
   metadata URL overrides.
 - `mcp.servers.<name>.oauth.identity`: credential ownership. Omit it or set
@@ -631,7 +631,7 @@ On macOS, enable **System Settings → General → Sharing → Screen Sharing**.
 Modern Screen Sharing uses ARD account authentication, so the Gateway performs
 that handshake and gives the browser an already-authenticated no-auth RFB
 stream. The macOS account password is not returned in the observe result, URL,
-or logs. `openclaw doctor` can offer an explicitly confirmed `sudo launchctl`
+or logs. `granted doctor` can offer an explicitly confirmed `sudo launchctl`
 repair when Screen Sharing is off; enabling the macOS system service may expose
 it on other network interfaces according to macOS Sharing settings.
 
@@ -676,8 +676,8 @@ On the Gateway, explicitly arm the dangerous command and restart:
 ```
 
 The node reconnect advertises `desktop.stream` as a pairing-surface upgrade.
-Inspect `openclaw nodes pending`, then approve the new request with
-`openclaw nodes approve <requestId>`. The node appears in the Desktop picker
+Inspect `granted nodes pending`, then approve the new request with
+`granted nodes approve <requestId>`. The node appears in the Desktop picker
 only while it is connected and the effective approved command remains allowed.
 
 For VncAuth, `desktop.host.passwordFile` stays on the node and is delivered only
@@ -697,7 +697,7 @@ Gateway, and reconnect the node.
 If the node is missing from the picker, verify all four gates: the node-local
 desktop config, the loopback RFB listener, the approved pairing update, and the
 Gateway allow/deny policy. After changing any of them, restart the affected
-Gateway or node host and check `openclaw nodes pending` again.
+Gateway or node host and check `granted nodes pending` again.
 
 ---
 
@@ -858,8 +858,8 @@ Gateway or node host and check `openclaw nodes pending` again.
   and plugin-authenticated webhooks retain their own response and authentication
   policies. First configure `gateway.auth.password` (prefer a SecretRef) or
   `OPENCLAW_GATEWAY_PASSWORD`, and set `gateway.auth.mode` to `password`. Then
-  run `openclaw config set gateway.tailscale.mode funnel`, followed by
-  `openclaw config unset gateway.tailscale.preserveFunnel`. Default `false`.
+  run `granted config set gateway.tailscale.mode funnel`, followed by
+  `granted config unset gateway.tailscale.preserveFunnel`. Default `false`.
 - `controlUi.allowedOrigins`: explicit browser-origin allowlist for Gateway WebSocket connects. Required for public non-loopback browser origins. Private same-origin LAN/Tailnet UI loads from loopback, RFC1918/link-local, `.local`, `.ts.net`, or Tailscale CGNAT hosts are accepted without enabling Host-header fallback.
 - `controlUi.environment`: optional visual identity for distinguishing Gateway environments. Set `{ label: "edge", color: "amber" }` to show a matching top stripe, agent-avatar ring, environment pills, browser-title suffix, and tinted favicon. `label` is trimmed and must contain 1–24 characters. `color` must be `teal`, `amber`, `purple`, `coral`, `pink`, `blue`, `green`, `red`, or `gray`. The label and color are visible before sign-in; omit the setting to keep the default appearance unchanged.
 - `controlUi.github.token`: optional SecretRef-backed service credential for Control UI GitHub previews and project discovery. Prefer this explicit setting when the Gateway should own GitHub service access independently of its shared process environment. When omitted, the shipped `GH_TOKEN` then `GITHUB_TOKEN` process-environment fallback remains active. An explicitly configured but unavailable credential fails closed instead of using that fallback. Its exact environment or store name is excluded from agent execution; a custom name does not clear unrelated native `GH_TOKEN` or `GITHUB_TOKEN` values. This credential is separate from `tools.github` agent identities and does not create an OS-user security boundary.
@@ -892,7 +892,7 @@ Gateway or node host and check `openclaw nodes pending` again.
 - `allowRealIpFallback`: when `true`, the gateway accepts `X-Real-IP` if `X-Forwarded-For` is missing. Default `false` for fail-closed behavior.
 - `gateway.nodes.pairing.autoApproveLocal`: silently approves pairing, role upgrades, and scope upgrades from trusted local connections (default: `true`). Scope upgrades additionally require the connection itself to prove local-grade credentials (auth mode `none`, or the shared token/password); Tailscale, trusted-proxy, and device-token connects keep their paired scopes as a durable cap. Set `false` to require explicit approval for every device; metadata-only reconnect refreshes remain automatic.
 - `gateway.nodes.pairing.autoApproveCidrs`: optional CIDR/IP allowlist for auto-approving first-time node device pairing with no requested scopes. It is disabled when unset. This does not auto-approve operator/browser/Control UI/WebChat pairing, and it does not auto-approve role, scope, metadata, or public-key upgrades.
-- `gateway.nodes.pairing.sshVerify`: SSH-verified auto-approval for first-time node device pairing (default: enabled). The gateway SSHes back to the pairing host (BatchMode, strict host keys) and approves only on an exact `openclaw node identity` device-key match. Same eligibility floor as `autoApproveCidrs`; probes are limited to private/CGNAT source addresses unless `cidrs` overrides them. Set `false` to disable, or `{ user, identity, timeoutMs, cidrs }` to tune. See [Node pairing](/gateway/pairing#ssh-verified-device-auto-approval-default).
+- `gateway.nodes.pairing.sshVerify`: SSH-verified auto-approval for first-time node device pairing (default: enabled). The gateway SSHes back to the pairing host (BatchMode, strict host keys) and approves only on an exact `granted node identity` device-key match. Same eligibility floor as `autoApproveCidrs`; probes are limited to private/CGNAT source addresses unless `cidrs` overrides them. Set `false` to disable, or `{ user, identity, timeoutMs, cidrs }` to tune. See [Node pairing](/gateway/pairing#ssh-verified-device-auto-approval-default).
 - `gateway.nodes.commands.allow` / `gateway.nodes.commands.deny`: global allow/deny shaping for declared node commands after pairing and platform allowlist evaluation. `commands.allow` is the persistent enable for classified commands such as `camera.snap`, `camera.clip`, `codex.exec-server.stdio.v1`, `desktop.stream`, `screen.record`, `health.summary`, `sms.search`, and `sms.send`; `commands.deny` removes a command even if a platform default or explicit allow would otherwise include it. Codex remote execution on a paired device or enrolled cloud node additionally requires a separate critical allow-once approval for every exec-server attempt; persistent allowlisting never grants that approval. Computer and mobile UI control instead rely on default-off node-local enablement plus pairing. iOS Health permission, Android SMS permission, and Gateway command authorization are independent. After a node changes its declared command list, reject and re-approve that device pairing so the gateway stores the updated command snapshot.
 - `gateway.tools.deny`: extra tool names blocked for HTTP `POST /tools/invoke` (extends default deny list).
 - `gateway.tools.allow`: remove tool names from the default HTTP deny list for
@@ -923,7 +923,7 @@ Run multiple gateways on one host with unique ports and state dirs:
 ```bash
 OPENCLAW_CONFIG_PATH=~/.openclaw/a.json \
 OPENCLAW_STATE_DIR=~/.openclaw-a \
-openclaw gateway --port 19001
+granted gateway --port 19001
 ```
 
 Convenience flags: `--dev` (uses `~/.openclaw-dev` + port `19001`), `--profile <name>` (uses `~/.openclaw-<name>`).
@@ -970,9 +970,9 @@ Client commands such as `triage`, `gateway status`, and `gateway probe` only rea
   - `"off"`: ignore live edits; changes require an explicit restart.
   - `"hybrid"` (default): apply hot-safe changes in-process, then restart when a change requires it.
 
-The earlier `"restart"` and `"hot"` values are retired; [`openclaw doctor --fix`](/cli/doctor) maps both to `"hybrid"`.
+The earlier `"restart"` and `"hot"` values are retired; [`granted doctor --fix`](/cli/doctor) maps both to `"hybrid"`.
 
-Reload debounce and in-flight operation deferral are no longer configurable and run behind built-in defaults. [`openclaw doctor --fix`](/cli/doctor) removes the retired `debounceMs` and `deferralTimeoutMs` keys from older config files.
+Reload debounce and in-flight operation deferral are no longer configurable and run behind built-in defaults. [`granted doctor --fix`](/cli/doctor) removes the retired `debounceMs` and `deferralTimeoutMs` keys from older config files.
 
 ---
 
@@ -1122,9 +1122,9 @@ data and restrict the target agent's tools and workspace separately.
 `hooks.token` should be distinct from active Gateway shared-secret auth
 (`gateway.auth.token` / `OPENCLAW_GATEWAY_TOKEN` or `gateway.auth.password` /
 `OPENCLAW_GATEWAY_PASSWORD`). Startup logs a non-fatal warning on reuse;
-`openclaw security audit` reports a critical finding, including password auth
+`granted security audit` reports a critical finding, including password auth
 supplied at audit time (`--auth password --password <password>`). Use
-`openclaw doctor --fix` to rotate a persisted reused hook token, then update all
+`granted doctor --fix` to rotate a persisted reused hook token, then update all
 external senders.
 
 ### Hook HTTP contract
@@ -1463,7 +1463,7 @@ reader-to-agent handoff, expose only the required tool and constrain
 
 Setting `discovery.wideArea.domain` enables wide-area discovery and writes a unicast DNS-SD zone under `~/.openclaw/dns/`. For cross-network discovery, pair with a DNS server (CoreDNS recommended) + Tailscale split DNS.
 
-Setup: `openclaw dns setup --apply`.
+Setup: `granted dns setup --apply`.
 
 ---
 
@@ -1619,7 +1619,7 @@ Notes:
 
 - Per-agent profiles are stored in `<agentDir>/openclaw-agent.sqlite` (`auth_profile_store`).
 - Stored auth profiles support value-level refs (`keyRef` for `api_key`, `tokenRef` for `token`) for static credential modes.
-- Legacy flat `auth-profiles.json` maps such as `{ "provider": { "apiKey": "..." } }` are not a runtime format; `openclaw doctor --fix` rewrites them to canonical `provider:default` API-key profiles with a `.legacy-flat.*.bak` backup.
+- Legacy flat `auth-profiles.json` maps such as `{ "provider": { "apiKey": "..." } }` are not a runtime format; `granted doctor --fix` rewrites them to canonical `provider:default` API-key profiles with a `.legacy-flat.*.bak` backup.
 - OAuth-mode profiles (`auth.profiles.<id>.mode = "oauth"`) do not support SecretRef-backed auth-profile credentials.
 - Static runtime credentials come from in-memory resolved snapshots; legacy static `auth.json` entries are scrubbed when discovered.
 - Legacy OAuth imports from `~/.openclaw/credentials/oauth.json`.
@@ -1650,7 +1650,7 @@ error text. Message rows do not store raw platform account, conversation,
 message, and target ids. Run/tool session keys remain available for correlation
 and can themselves contain platform account or peer ids. Records
 expire after 30 days and the ledger is capped at 100,000 rows. Query them with
-[`openclaw audit`](/cli/audit) or the
+[`granted audit`](/cli/audit) or the
 [`audit.activity.list`](/gateway/protocol#audit-ledger-rpc) Gateway RPC. See
 [Audit history](/gateway/audit) for the full data model, privacy semantics,
 and coverage limits.
@@ -1663,7 +1663,7 @@ and coverage limits.
 - `executionIdentity`: retain bounded attribution context for exact execution
   inspection (default: `false`). This privacy-sensitive metadata is disabled
   on fresh installs and upgrades. Collection requires `enabled: true`; use
-  `openclaw config set logging.audit.executionIdentity true`, then restart the
+  `granted config set logging.audit.executionIdentity true`, then restart the
   Gateway. There is no environment-variable alias.
 - `messages`: message metadata scope (default: `"off"`). `"direct"` records
   known direct conversations only. `"all"` also records group, channel, and
@@ -1674,7 +1674,7 @@ and coverage limits.
 
 A root-level `audit` block is retired; the canonical path is `logging.audit`.
 The root config object is strict, so an old top-level `audit` block is rejected.
-Run [`openclaw doctor --fix`](/cli/doctor) to move it to `logging.audit`.
+Run [`granted doctor --fix`](/cli/doctor) to move it to `logging.audit`.
 
 The running Gateway captures `logging.audit.enabled`,
 `logging.audit.executionIdentity`, and `logging.audit.messages` at startup;
@@ -1704,10 +1704,10 @@ writer is best-effort, not a lossless compliance archive.
 - Default log file: `/tmp/openclaw/openclaw-YYYY-MM-DD.log`; named profiles use `/tmp/openclaw/openclaw-<profile>-YYYY-MM-DD.log`.
 - Set `logging.file` for a stable path.
 - `consoleLevel` bumps to `debug` when `--verbose`.
-- `consoleStyle`: `"pretty"` or `"json"`. The earlier `"compact"` value is retired; [`openclaw doctor --fix`](/cli/doctor) maps it to `"pretty"`.
+- `consoleStyle`: `"pretty"` or `"json"`. The earlier `"compact"` value is retired; [`granted doctor --fix`](/cli/doctor) maps it to `"pretty"`.
 - `maxFileBytes`: maximum active log file size in bytes before rotation (positive integer; default: `104857600` = 100 MB). OpenClaw keeps up to five numbered archives beside the active file.
 - `redactPatterns`: regexes for best-effort masking of console output, file logs, OTLP log records, and persisted session transcript text. Setting this **replaces** the built-in default patterns for log and transcript output, so include the defaults you still want; omitting them also turns off form-body and structured auth-header redaction. Tool payload redaction is separate and always merges your patterns with the defaults.
-- Redaction is always on and is no longer configurable. [`openclaw doctor --fix`](/cli/doctor) removes the retired switch from older config files; the runtime always applies `tools`-mode redaction to logs and transcripts. UI, tool, and diagnostic safety surfaces redact secrets independently of this policy.
+- Redaction is always on and is no longer configurable. [`granted doctor --fix`](/cli/doctor) removes the retired switch from older config files; the runtime always applies `tools`-mode redaction to logs and transcripts. UI, tool, and diagnostic safety surfaces redact secrets independently of this policy.
 
 ---
 
@@ -1749,7 +1749,7 @@ writer is best-effort, not a lossless compliance archive.
 - `otel.enabled`: enables the OpenTelemetry export pipeline (default: `false`). For the full configuration, signal catalog, and privacy model, see [OpenTelemetry export](/gateway/opentelemetry).
 - `otel.endpoint`: collector URL for OTel export.
 - `otel.tracesEndpoint` / `otel.metricsEndpoint` / `otel.logsEndpoint`: optional signal-specific OTLP endpoints. When set, they override `otel.endpoint` for that signal only.
-- `otel.protocol`: `"http/protobuf"` (default). gRPC export is retired; run [`openclaw doctor --fix`](/cli/doctor) to repair a persisted legacy value or get source-specific manual-edit guidance.
+- `otel.protocol`: `"http/protobuf"` (default). gRPC export is retired; run [`granted doctor --fix`](/cli/doctor) to repair a persisted legacy value or get source-specific manual-edit guidance.
 - `otel.headers`: extra HTTP request headers sent with OTel export requests.
 - `otel.serviceName`: service name for resource attributes.
 - `otel.traces` / `otel.metrics` / `otel.logs`: enable trace, metrics, or log export.
@@ -1779,7 +1779,7 @@ writer is best-effort, not a lossless compliance archive.
 
 - `enabled`: include anonymous channel names, provider families, plugin count, and recent session count in the existing daily update-check request (default: `false`). Interactive setup offers an explicit opt-in with **No thanks** selected by default; non-interactive setup never enables it. `DO_NOT_TRACK=1` or `DO_NOT_TRACK=true` always disables feature statistics without disabling the update check.
 - `consentedAt`: ISO timestamp recording when the operator accepted or declined feature statistics. Prevents interactive setup from asking again.
-- `openclaw telemetry show` displays the exact current request; `openclaw telemetry on` and `openclaw telemetry off` update the preference and consent timestamp.
+- `granted telemetry show` displays the exact current request; `granted telemetry on` and `granted telemetry off` update the preference and consent timestamp.
 - `OPENCLAW_TELEMETRY_ENDPOINT`: optional full endpoint URL for testing or a self-hosted service. Defaults to `https://telemetry.openclaw.ai/api/latest-version`.
 
 See [Usage telemetry and update checks](/gateway/telemetry) for the complete payload, privacy guarantees, and all opt-out controls.
@@ -1873,7 +1873,7 @@ See `agents.entries` identity fields under [Agent defaults](/gateway/config-agen
 
 ## Bridge (legacy, removed)
 
-Current builds no longer include the TCP bridge. Nodes connect over the Gateway WebSocket. `bridge.*` keys are no longer part of the config schema (validation fails until removed; `openclaw doctor --fix` can strip unknown keys).
+Current builds no longer include the TCP bridge. Nodes connect over the Gateway WebSocket. `bridge.*` keys are no longer part of the config schema (validation fails until removed; `granted doctor --fix` can strip unknown keys).
 
 <Accordion title="Legacy bridge config (historical reference)">
 
@@ -1925,7 +1925,7 @@ The `cron` block is strict; `cron.enabled`, `cron.skipMissedJobs`, `cron.trigger
 `cron.webhookSsrfPolicy`, `cron.sessionRetention`, and `cron.failureAlert` are the only accepted keys. The
 retired `cron.webhook` fallback URL is gone: runtime delivery uses per-job
 `delivery.mode = "webhook"` plus `delivery.to`, or `delivery.completionDestination`
-when preserving announce delivery. `openclaw doctor --fix` strips a leftover
+when preserving announce delivery. `granted doctor --fix` strips a leftover
 `cron.webhook` from existing config files.
 
 ### `cron.failureAlert`
@@ -1952,7 +1952,7 @@ with an existing failure route are covered by default after 2 consecutive
 execution failures with a 1-hour cooldown; a `cron.failureAlert` object explicitly
 activates/tunes the policy even when no route existed. The retired
 `cron.failureDestination` block is merged into it by
-[`openclaw doctor --fix`](/cli/doctor).
+[`granted doctor --fix`](/cli/doctor).
 
 - `enabled`: explicitly enable or disable the global policy. `false` disables inherited notifications unless a job has its own `failureAlert` object; `true` explicitly enables globally. Omitting it preserves route-backed defaults.
 - `after`: consecutive failures before an alert fires (positive integer, min: `1`; default: `2`).

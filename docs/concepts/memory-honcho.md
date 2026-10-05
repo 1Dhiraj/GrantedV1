@@ -47,9 +47,9 @@ Honcho registers tools the agent can use during conversation:
 Install the plugin and run setup:
 
 ```bash
-openclaw plugins install @honcho-ai/openclaw-honcho
-openclaw honcho setup
-openclaw gateway --force
+granted plugins install @honcho-ai/openclaw-honcho
+granted honcho setup
+granted gateway --force
 ```
 
 The setup command prompts for your API credentials, writes the config, and
@@ -87,7 +87,7 @@ For self-hosted instances, point `baseUrl` to your local server (for example
 ## Migrating existing memory
 
 If you have existing workspace memory files (`USER.md`, `MEMORY.md`,
-`IDENTITY.md`, `memory/`), `openclaw honcho setup` detects and offers to
+`IDENTITY.md`, `memory/`), `granted honcho setup` detects and offers to
 migrate them.
 
 <Info>
@@ -122,10 +122,10 @@ local Markdown available alongside Honcho's cross-session memory.
 ## CLI commands
 
 ```bash
-openclaw honcho setup                        # Configure API key and migrate files
-openclaw honcho status                       # Check connection status
-openclaw honcho ask <question>               # Query Honcho about the user
-openclaw honcho search <query> [-k N] [-d D] # Semantic search over memory
+granted honcho setup                        # Configure API key and migrate files
+granted honcho status                       # Check connection status
+granted honcho ask <question>               # Query Honcho about the user
+granted honcho search <query> [-k N] [-d D] # Semantic search over memory
 ```
 
 ## Further reading

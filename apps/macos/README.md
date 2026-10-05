@@ -1,4 +1,4 @@
-# OpenClaw macOS app (dev + signing)
+# Granted macOS app (dev + signing)
 
 ## Quick dev run
 
@@ -44,7 +44,7 @@ Keychain services, duplicate-instance lock, and the CLI-managed Gateway service
 `ai.openclaw.<name>`. Unless config or environment selects a port, each profile
 derives a stable port in the profile `20000...59999` range. The app does not
 install or modify the host-global Mac node
-service or OpenClaw login item while a profile is active. The runtime child node
+service or Granted login item while a profile is active. The runtime child node
 still runs in process as usual. App relocation, Sparkle updates, and post-update
 service repair are disabled in profile mode; update the installed app through
 the normal default-profile workflow.
@@ -104,7 +104,7 @@ notarization credentials, and its archive is not a general-download artifact.
 scripts/mac-elevation-host.sh package \
   --peekaboo-source-commit <full-peekaboo-sha>
 cd dist/elevation-host
-export PREFIX="OpenClaw-<full-openclaw-sha>-Peekaboo-<full-peekaboo-sha>-stable"
+export PREFIX="Granted-<full-openclaw-sha>-Peekaboo-<full-peekaboo-sha>-stable"
 export INSTALLER_SHA256="<authenticated-installer-sha256>"
 export RECEIPT_SHA256="<authenticated-receipt-sha256>"
 [[ "$(shasum -a 256 "$PREFIX-installer.sh" | awk '{print $1}')" == "$INSTALLER_SHA256" ]] || exit 1
@@ -125,7 +125,7 @@ shasum -a 256 -c "$PREFIX-installer.sh.sha256"
 ```
 
 The elevation package is ZIP-only, notarized and stapled, contains exactly
-`OpenClaw.app`, omits Apple Events entitlements, records an immutable receipt,
+`Granted.app`, omits Apple Events entitlements, records an immutable receipt,
 and verifies a freshly extracted copy. The same source-addressed artifact set
 includes a portable installer copied from that exact Git commit plus separate
 archive and installer checksum files. Transfer the archive, receipt, portable

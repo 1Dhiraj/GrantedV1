@@ -1,17 +1,17 @@
 # @granted/twitch
 
-Twitch channel plugin for OpenClaw.
+Twitch channel plugin for Granted.
 
 ## Install (local checkout)
 
 ```bash
-openclaw plugins install ./path/to/local/twitch-plugin
+granted plugins install ./path/to/local/twitch-plugin
 ```
 
 ## Install (npm)
 
 ```bash
-openclaw plugins install @granted/twitch
+granted plugins install @granted/twitch
 ```
 
 Onboarding: select Twitch and confirm the install prompt to fetch the plugin automatically.

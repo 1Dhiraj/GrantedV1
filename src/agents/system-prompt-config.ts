@@ -5,6 +5,7 @@
  * prompt so callers do not duplicate owner, TTS, alias, memory, or FS policy.
  */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { resolveProductCreator, resolveProductName } from "../config/product-name.js";
 import type { GrantedConfig } from "../config/types.granted.js";
 import { buildTtsSystemPromptHint } from "../tts/tts-settings.js";
 import { resolveMainSessionDelegationMode } from "./delegation-guidance.js";
@@ -22,6 +23,8 @@ type ResolvedAgentSystemPromptConfig = Pick<
   | "subagentDelegationMode"
   | "ttsHint"
   | "modelAliasLines"
+  | "productName"
+  | "productCreator"
   | "memoryCitationsMode"
   | "fsWorkspaceOnly"
 >;
@@ -64,6 +67,8 @@ function resolveAgentSystemPromptConfig(params: {
         })
       : undefined,
     modelAliasLines: buildModelAliasLines(config),
+    productName: resolveProductName(config),
+    productCreator: resolveProductCreator(config),
     memoryCitationsMode: config?.memory?.citations,
     fsWorkspaceOnly: resolveEffectiveToolFsWorkspaceOnly({ cfg: config, agentId }),
   };

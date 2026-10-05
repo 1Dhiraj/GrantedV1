@@ -1,6 +1,6 @@
 # Bundled Hooks
 
-These internal hooks ship with OpenClaw. They subscribe to colon-separated events
+These internal hooks ship with Granted. They subscribe to colon-separated events
 such as `command:new`; they are not typed plugin hooks or HTTP webhooks.
 
 For setup, custom hook authoring, event payloads, discovery precedence, and
@@ -28,17 +28,17 @@ Enable the hook in the config used by that Gateway, then reload its handlers by
 restarting the Gateway:
 
 ```bash
-openclaw hooks info command-logger
+granted hooks info command-logger
 ```
 
 ```bash
-openclaw hooks enable command-logger
+granted hooks enable command-logger
 ```
 
 For an installed Gateway service:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 For a foreground development Gateway, stop and restart the process you own. Do

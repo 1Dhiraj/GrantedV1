@@ -2254,7 +2254,7 @@ describe("deliverReplies", () => {
           text: "plain fallback body",
           presentationTextMode: "fallback",
           presentation: {
-            title: "🦞 OpenClaw 2026.7.2",
+            title: "🦞 Granted 2026.7.2",
             blocks: [
               {
                 type: "table",
@@ -2280,7 +2280,7 @@ describe("deliverReplies", () => {
     expect(tableBlock).toBeDefined();
     expect(tableBlock?.cells?.length).toBe(2);
     const flattened = JSON.stringify(richMessage.blocks);
-    expect(flattened).toContain("OpenClaw 2026.7.2");
+    expect(flattened).toContain("Granted 2026.7.2");
     expect(flattened).not.toContain("plain fallback body");
   });
 

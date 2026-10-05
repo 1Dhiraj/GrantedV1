@@ -23,6 +23,7 @@ import type { ChatPageHost } from "./chat-state-host.ts";
 import { createPageState } from "./chat-state-page.ts";
 import {
   applySelectedChatAgent,
+  readChatModelCatalogForPicker,
   refreshChatMetadata,
   refreshChatModelCatalogOnDemand,
   refreshChatModelAuthStatus,
@@ -3775,10 +3776,12 @@ describe("refreshChatMetadata", () => {
       const request = vi.fn((method: string, params?: unknown) => {
         expect(params).toEqual(
           method === "models.list"
-            ? { view: "configured", agentId: "work", refresh: true }
+            ? { view: "all", agentId: "work", refresh: true }
             : { agentId: "work", sessionKey: "agent:work:main" },
         );
-        return discovery.promise;
+        return method === "models.list"
+          ? discovery.promise
+          : Promise.resolve({ commands: [], models: existingModels });
       });
       const state = createMetadataState(request, {
         chatModelCatalog: existingModels,
@@ -3787,13 +3790,14 @@ describe("refreshChatMetadata", () => {
 
       const refresh = refreshChatModelCatalogOnDemand(state);
       expect(state.chatModelCatalog).toEqual(existingModels);
-      expect(state.chatModelsLoading).toBe(existingModels.length === 0);
+      expect(state.chatModelsLoading).toBe(true);
       discovery.resolve({
         models: [{ id: "reasoner", name: "Reasoner", provider: "dynamic-router", reasoning: true }],
       });
       await refresh;
 
       expect(state.chatModelCatalog).toEqual([
+        ...existingModels,
         {
           id: "reasoner",
           name: "Reasoner",
@@ -3805,6 +3809,27 @@ describe("refreshChatMetadata", () => {
         expect.objectContaining({ agentId: "work", force: true }),
       );
       expect(state.chatModelCatalogError).toBeNull();
+      expect(readChatModelCatalogForPicker(state)).toEqual([
+        ...existingModels,
+        {
+          id: "reasoner",
+          name: "Reasoner",
+          provider: "dynamic-router",
+          reasoning: true,
+        },
+      ]);
+
+      // Pane rerenders can disconnect and reattach the presentation component.
+      // The account-scoped browse snapshot must survive that metadata teardown.
+      retireChatMetadataRequests(state);
+      expect(readChatModelCatalogForPicker(state)).toEqual([
+        {
+          id: "reasoner",
+          name: "Reasoner",
+          provider: "dynamic-router",
+          reasoning: true,
+        },
+      ]);
     },
   );
 

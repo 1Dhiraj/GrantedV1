@@ -13,13 +13,13 @@ portable formats, byte limits, and lazy transcoding, see
 
 ## Goals
 
-- Send media with an optional caption via `openclaw message send --media`.
+- Send media with an optional caption via `granted message send --media`.
 - Allow auto-replies from the web inbox to include media alongside text.
 - Keep per-type limits sane and predictable.
 
 ## CLI Surface
 
-`openclaw message send --target <dest> --media <path-or-url> [--message <caption>]`
+`granted message send --target <dest> --media <path-or-url> [--message <caption>]`
 
 - `--media <path-or-url>` — attach media (image/audio/video/document); accepts local paths or URLs. Optional; caption can be empty for media-only sends.
 - `--gif-playback` — treat video media as GIF playback (WhatsApp only).
@@ -57,7 +57,7 @@ The 16MB audio/video and 100MB document figures above are the shared per-kind me
 ## Auto-Reply Pipeline
 
 - `getReplyFromConfig` returns a reply payload (or array of payloads) with `text?`, `mediaUrl?`, and `mediaUrls?` among other fields.
-- When media is present, the web sender resolves local paths or URLs using the same pipeline as `openclaw message send`.
+- When media is present, the web sender resolves local paths or URLs using the same pipeline as `granted message send`.
 - Multiple media entries are sent sequentially if provided.
 
 ## Inbound Media To Commands

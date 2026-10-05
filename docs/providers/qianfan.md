@@ -21,8 +21,8 @@ Qianfan is Baidu's MaaS platform: a unified, OpenAI-compatible API that routes r
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/qianfan-provider
-openclaw gateway restart
+granted plugins install @granted/qianfan-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -36,7 +36,7 @@ openclaw gateway restart
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice qianfan-api-key
+    granted onboard --auth-choice qianfan-api-key
     ```
 
     Non-interactive runs read the key from `--qianfan-api-key <key>` or
@@ -47,7 +47,7 @@ openclaw gateway restart
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider qianfan
+    granted models list --provider qianfan
     ```
   </Step>
 </Steps>

@@ -1,8 +1,8 @@
 ---
-summary: "Step-by-step behavior for openclaw onboard: what each step does, config it writes, and internals"
+summary: "Step-by-step behavior for granted onboard: what each step does, config it writes, and internals"
 doc-schema-version: 1
 read_when:
-  - You need detailed behavior for a specific openclaw onboard step
+  - You need detailed behavior for a specific granted onboard step
   - You are debugging onboarding results or integrating onboarding clients
 title: "CLI setup reference"
 sidebarTitle: "CLI reference"
@@ -11,7 +11,7 @@ sidebarTitle: "CLI reference"
 This page covers step-by-step onboarding behavior, outputs, and internals.
 For a walkthrough, see [Onboarding (CLI)](/start/wizard). For the full CLI flag
 reference (every `--flag`, non-interactive examples, provider-specific
-commands), see [`openclaw onboard`](/cli/onboard).
+commands), see [`granted onboard`](/cli/onboard).
 
 ## What the wizard does
 
@@ -23,7 +23,7 @@ detected AI access, verifies it, saves config, and opens the web
 dashboard with a foreground Gateway. It uses agent name `main` and full access,
 leaves telemetry consent unset, and skips route confirmation, memory import,
 and app recommendations. **Ctrl+C** stops the Gateway without removing config;
-`openclaw gateway install` enables background operation later.
+`granted gateway install` enables background operation later.
 
 Custom setup keeps the full guided prompts. If quick start finds no usable
 route, it continues with manual provider setup and the remaining guided steps,
@@ -31,7 +31,7 @@ including Gateway service installation. The quick-start defaults for agent name
 (`main`), access mode (full access), and telemetry (consent unset) stay.
 See [Guided default](/start/wizard#guided-default).
 
-The classic wizard (`openclaw onboard --classic`) in local mode walks you through:
+The classic wizard (`granted onboard --classic`) in local mode walks you through:
 
 - Workspace location and bootstrap files
 - Model and auth setup (Anthropic, OpenAI Code subscription OAuth, xAI, OpenCode, custom endpoints, and more provider-owned auth flows)
@@ -81,7 +81,7 @@ described [above](/start/wizard-cli-reference#what-the-wizard-does).
       `--import-source`, and `--import-secrets`) cannot be combined with
       `--reset`; run the import without `--reset`.
     - Without `--reset`, invalid config or legacy keys stop the wizard and ask
-      you to run `openclaw doctor` before continuing.
+      you to run `granted doctor` before continuing.
 
   </Step>
   <Step title="Risk acknowledgment">
@@ -137,13 +137,13 @@ described [above](/start/wizard-cli-reference#what-the-wizard-does).
     - Other bundled or separately installed channel plugins can add their own
       onboarding steps. See the complete [channel catalog](/channels).
     - DM security: default is pairing. First DM sends a code; approve via
-      `openclaw pairing approve <channel> <code>` or use allowlists.
+      `granted pairing approve <channel> <code>` or use allowlists.
   </Step>
   <Step title="Web search">
     - Pick a provider (Brave, Codex Hosted Search, DuckDuckGo, Exa, Firecrawl,
       Gemini, Grok, Kimi, MiniMax Search, Ollama Web Search, Parallel,
       Perplexity, SearXNG, or Tavily) or skip.
-    - Skip this step with `--skip-search`; reconfigure later with `openclaw configure --section web`.
+    - Skip this step with `--skip-search`; reconfigure later with `granted configure --section web`.
 
   </Step>
   <Step title="Skills">
@@ -152,7 +152,7 @@ described [above](/start/wizard-cli-reference#what-the-wizard-does).
     - Installs optional dependencies for trusted bundled skills when the required
       installer is available.
     - Skips unavailable Homebrew, uv, and Go installers, then groups the affected
-      skills with manual setup guidance. Run `openclaw doctor` after installing
+      skills with manual setup guidance. Run `granted doctor` after installing
       the missing prerequisites.
 
   </Step>
@@ -175,8 +175,8 @@ described [above](/start/wizard-cli-reference#what-the-wizard-does).
 
   </Step>
   <Step title="Health check">
-    - Starts gateway (if needed) and runs `openclaw health`.
-    - `openclaw status --deep` adds the live gateway health probe to status output, including channel probes when supported.
+    - Starts gateway (if needed) and runs `granted health`.
+    - `granted status --deep` adds the live gateway health probe to status output, including channel probes when supported.
 
   </Step>
   <Step title="Finish">
@@ -241,7 +241,7 @@ instead of exiting. Explicit `--auth-choice` runs still fail fast for automation
   <Accordion title="Anthropic setup token">
     Supports the long-lived token created by `claude setup-token`. Choose
     **Anthropic setup-token** during onboarding, or manage it later with
-    [`openclaw models auth`](/cli/models#auth-profiles).
+    [`granted models auth`](/cli/models#auth-profiles).
   </Accordion>
   <Accordion title="OpenAI Code subscription (OAuth)">
     Browser flow; paste `code#state`.
@@ -360,8 +360,8 @@ Model behavior:
 Credential and profile paths:
 
 - Agent-local auth profiles (API keys, tokens, and OAuth): `~/.openclaw/agents/<agentId>/agent/openclaw-agent.sqlite` (`auth_profile_store`).
-- Shared auth profiles: `~/.openclaw/state/openclaw.sqlite`; agent-local profiles override this read-through base. Older installs keep the shared store in the main agent's database until `openclaw doctor --fix` relocates it.
-- Legacy import only: `auth-profiles.json`, per-agent `auth.json`, and `~/.openclaw/credentials/oauth.json`. Run `openclaw doctor --fix` to import them into SQLite; new logins do not write these files.
+- Shared auth profiles: `~/.openclaw/state/openclaw.sqlite`; agent-local profiles override this read-through base. Older installs keep the shared store in the main agent's database until `granted doctor --fix` relocates it.
+- Legacy import only: `auth-profiles.json`, per-agent `auth.json`, and `~/.openclaw/credentials/oauth.json`. Run `granted doctor --fix` to import them into SQLite; new logins do not write these files.
 
 Paths respect `$OPENCLAW_STATE_DIR`. See [Auth credential semantics](/auth-credential-semantics#agent-copy-portability) for shared-store and agent-local behavior.
 
@@ -382,7 +382,7 @@ Credential storage mode:
   - Existing resolvable named auth profiles are reused unchanged, including existing `env`, `file`, `exec`, and `store` references; no new `apiKey` or `keyRef` is written and no additional provider env var is required.
   - For new custom-provider credentials, non-interactive `ref` mode stores `models.providers.<id>.apiKey` as `{ source: "env", provider: "default", id: "CUSTOM_API_KEY" }`.
   - In that custom-provider case, `--custom-api-key` requires `CUSTOM_API_KEY` to be set; otherwise onboarding fails fast.
-  - Existing plaintext profile credentials remain unchanged; reference mode does not migrate them. Run `openclaw secrets configure --apply`, then `openclaw secrets audit --check`. See [Secrets management](/gateway/secrets).
+  - Existing plaintext profile credentials remain unchanged; reference mode does not migrate them. Run `granted secrets configure --apply`, then `granted secrets audit --check`. See [Secrets management](/gateway/secrets).
 - Gateway auth credentials support plaintext and SecretRef choices in interactive setup:
   - Token mode: **Generate/store plaintext token** (default) or **Use SecretRef**.
   - Password mode: plaintext or SecretRef.
@@ -397,7 +397,7 @@ Run auth setup **on the Gateway host**, using the same OS user and state directo
 as the Gateway. Over SSH, use an interactive terminal:
 
 ```bash
-openclaw configure --section model
+granted configure --section model
 ```
 
 Choose your provider's supported auth method. For a browser OAuth flow, open the
@@ -407,7 +407,7 @@ offers device-code login, complete the displayed URL/code in your local browser
 while the Gateway host's login process waits. The completed login persists the
 credential on that host in SQLite; no credential file handoff is needed.
 
-For a specific agent, run `openclaw models auth login --provider <id> --agent <agentId>`
+For a specific agent, run `granted models auth login --provider <id> --agent <agentId>`
 on the Gateway host. See [Models CLI](/cli/models#auth-profiles) and
 [OAuth](/concepts/oauth).
 
@@ -417,7 +417,7 @@ For unattended setup, use a provider API key with
 the Gateway service as well as the onboarding process. See
 [Authentication](/gateway/authentication).
 
-Verify the result on the Gateway host with `openclaw models status` (add
+Verify the result on the Gateway host with `granted models status` (add
 `--agent <agentId>` for a specific agent). Remote-client onboarding only configures
 the local client connection; it does not set up provider credentials on the server.
 Do not copy `auth-profiles.json` or replace a SQLite database to transfer a login.
@@ -431,7 +431,7 @@ Typical fields in `~/.openclaw/openclaw.json`:
 - `agents.defaults.model` and provider config when the selected provider needs it
 - `tools.profile` (local onboarding defaults to `"coding"` when unset; existing explicit values are preserved)
 - `gateway.*` (mode, bind, auth, tailscale)
-- `session.dmScope` (onboarding preserves explicit values and otherwise leaves it unset, so the `main` default keeps all direct messages across channels in the agent's rolling main session—the personal-agent default. For shared or multi-user inboxes, use `per-channel-peer`; `openclaw security audit` recommends isolation when it detects multi-user DM traffic)
+- `session.dmScope` (onboarding preserves explicit values and otherwise leaves it unset, so the `main` default keeps all direct messages across channels in the agent's rolling main session—the personal-agent default. For shared or multi-user inboxes, use `per-channel-peer`; `granted security audit` recommends isolation when it detects multi-user DM traffic)
 - `channels.telegram.botToken`, `channels.discord.token`, `channels.matrix.*`, `channels.signal.*`, `channels.imessage.*`
 - Channel allowlists when you opt in during prompts. Discord, Matrix,
   Microsoft Teams, and Slack resolve names to IDs when possible; other channels
@@ -446,7 +446,7 @@ Typical fields in `~/.openclaw/openclaw.json`:
 - `wizard.lastRunMode`
 - `wizard.securityAcknowledgedAt`
 
-`openclaw agents add` writes `agents.entries.*` and optional `bindings`.
+`granted agents add` writes `agents.entries.*` and optional `bindings`.
 
 WhatsApp credentials go under `~/.openclaw/credentials/whatsapp/<accountId>/`.
 Active sessions and transcripts are stored in
@@ -471,14 +471,14 @@ The results screen lists the detected applications and shows: "App names were ma
 powerful and full system access is risky):
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice apiKey \
   --anthropic-api-key "$ANTHROPIC_API_KEY"
 ```
 
 `--mode` defaults to `local`. `--json` changes output format but does not imply
 non-interactive mode. For complete flag semantics and Gateway SecretRef
-examples, see [`openclaw onboard`](/cli/onboard). Provider-specific scripts live
+examples, see [`granted onboard`](/cli/onboard). Provider-specific scripts live
 in [CLI automation](/start/wizard-cli-automation).
 
 ## Gateway wizard RPC
@@ -511,4 +511,4 @@ than automatically retrying or claiming successful activation.
 
 - Onboarding hub: [Onboarding (CLI)](/start/wizard)
 - Automation and scripts: [CLI Automation](/start/wizard-cli-automation)
-- Command reference: [`openclaw onboard`](/cli/onboard)
+- Command reference: [`granted onboard`](/cli/onboard)

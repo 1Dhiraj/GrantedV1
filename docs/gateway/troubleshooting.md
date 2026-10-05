@@ -14,36 +14,36 @@ This is the deep runbook. Start at [/help/troubleshooting](/help/troubleshooting
 Run in this order:
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
-openclaw channels status --probe
+granted status
+granted gateway status
+granted logs --follow
+granted doctor
+granted channels status --probe
 ```
 
 Healthy signals:
 
-- `openclaw gateway status` shows `Runtime: running`, `Connectivity probe: ok`, and a `Capability: ...` line.
-- `openclaw doctor` reports no blocking config/service issues.
-- `openclaw channels status --probe` shows live per-account transport status and, where supported, `works` or `audit ok`.
+- `granted gateway status` shows `Runtime: running`, `Connectivity probe: ok`, and a `Capability: ...` line.
+- `granted doctor` reports no blocking config/service issues.
+- `granted channels status --probe` shows live per-account transport status and, where supported, `works` or `audit ok`.
 
 ## After an update
 
 Use when an update finishes but the Gateway is down, channels are empty, or model calls fail with 401s.
 
 ```bash
-openclaw status --all
-openclaw update status --json
-openclaw gateway status --deep
-openclaw doctor --fix
-openclaw gateway restart
+granted status --all
+granted update status --json
+granted gateway status --deep
+granted doctor --fix
+granted gateway restart
 ```
 
 Look for:
 
-- `Update restart` in `openclaw status` / `openclaw status --all`. Pending or failed handoffs include the next command to run.
-- `plugin load failed: dependency tree corrupted; run openclaw doctor --fix` under Channels: the channel config still exists, but plugin registration failed before the channel could load.
-- Provider 401s after re-auth: `openclaw doctor --fix` checks for stale per-agent OAuth auth shadows and removes old copies so all agents resolve the current shared profile.
+- `Update restart` in `granted status` / `granted status --all`. Pending or failed handoffs include the next command to run.
+- `plugin load failed: dependency tree corrupted; run granted doctor --fix` under Channels: the channel config still exists, but plugin registration failed before the channel could load.
+- Provider 401s after re-auth: `granted doctor --fix` checks for stale per-agent OAuth auth shadows and removes old copies so all agents resolve the current shared profile.
 
 ## Split brain installs and newer config guard
 
@@ -54,8 +54,8 @@ OpenClaw stamps config writes with `meta.lastTouchedVersion`. Read-only commands
 ```bash
 which openclaw
 openclaw --version
-openclaw gateway status --deep
-openclaw config get meta.lastTouchedVersion
+granted gateway status --deep
+granted config get meta.lastTouchedVersion
 ```
 
 <Steps>
@@ -66,8 +66,8 @@ openclaw config get meta.lastTouchedVersion
     Reinstall the intended gateway service from the newer install:
 
     ```bash
-    openclaw gateway install --force
-    openclaw gateway restart
+    granted gateway install --force
+    granted gateway restart
     ```
 
   </Step>
@@ -87,22 +87,22 @@ Use when logs keep printing `protocol mismatch` after a downgrade or rollback. A
 ```bash
 openclaw --version
 which -a openclaw
-openclaw gateway status --deep
-openclaw doctor --deep
-openclaw logs --follow
+granted gateway status --deep
+granted doctor --deep
+granted logs --follow
 ```
 
 Look for:
 
 - `protocol mismatch ... client=... v<version> min=<n> max=<n> expected=<n>` in Gateway logs.
-- `Established clients:` in `openclaw gateway status --deep` or `Gateway clients` in `openclaw doctor --deep`: active TCP clients connected to the Gateway port, with PIDs and command lines when the OS allows it.
+- `Established clients:` in `granted gateway status --deep` or `Gateway clients` in `granted doctor --deep`: active TCP clients connected to the Gateway port, with PIDs and command lines when the OS allows it.
 - A client process whose command line points at the newer OpenClaw install or wrapper you rolled back from.
 
 Fix:
 
 1. Stop or restart the stale OpenClaw client process shown by `gateway status --deep`.
-2. Restart apps or wrappers that embed OpenClaw: local dashboards, editors, app-server helpers, or long-running `openclaw logs --follow` shells.
-3. Re-run `openclaw gateway status --deep` or `openclaw doctor --deep` and confirm the stale client PID is gone.
+2. Restart apps or wrappers that embed OpenClaw: local dashboards, editors, app-server helpers, or long-running `granted logs --follow` shells.
+3. Re-run `granted gateway status --deep` or `granted doctor --deep` and confirm the stale client PID is gone.
 
 Do not make an older Gateway accept a newer incompatible protocol. Protocol bumps protect the wire contract; rollback recovery is a process/version cleanup problem.
 
@@ -121,7 +121,7 @@ Inspect the link:
 ```bash
 ls -l ~/.agents/skills/<name>
 realpath ~/.agents/skills/<name>
-openclaw config get skills.load
+granted config get skills.load
 ```
 
 If the target is intentional, configure both the direct skill root and the allowed symlink target:
@@ -153,9 +153,9 @@ Related:
 Use when logs/errors include: `HTTP 429: rate_limit_error: Extra usage is required for long context requests`.
 
 ```bash
-openclaw logs --follow
-openclaw models status
-openclaw config get agents.defaults.models
+granted logs --follow
+granted models status
+granted config get agents.defaults.models
 ```
 
 Look for:
@@ -192,9 +192,9 @@ Use when an upstream LLM provider returns a generic `403` such as `Your request 
 Do not assume this is always an OpenClaw configuration issue. The response can come from an upstream security layer such as a CDN, WAF, bot-management rule, or reverse proxy in front of an OpenAI-compatible endpoint.
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
+granted status
+granted gateway status
+granted logs --follow
 ```
 
 Look for:
@@ -229,8 +229,8 @@ curl http://127.0.0.1:1234/v1/models
 curl http://127.0.0.1:1234/v1/chat/completions \
   -H 'content-type: application/json' \
   -d '{"model":"<id>","messages":[{"role":"user","content":"hi"}],"stream":false}'
-openclaw infer model run --model <provider/model> --prompt "hi" --json
-openclaw logs --follow
+granted infer model run --model <provider/model> --prompt "hi" --json
+granted logs --follow
 ```
 
 Look for:
@@ -271,11 +271,11 @@ Related:
 If channels are up but nothing answers, check routing and policy before reconnecting anything.
 
 ```bash
-openclaw status
-openclaw channels status --probe
-openclaw pairing list --channel <channel> [--account <id>]
-openclaw config get channels
-openclaw logs --follow
+granted status
+granted channels status --probe
+granted pairing list --channel <channel> [--account <id>]
+granted config get channels
+granted logs --follow
 ```
 
 Look for:
@@ -301,11 +301,11 @@ Related:
 When the dashboard/control UI will not connect, validate URL, auth mode, and secure context assumptions.
 
 ```bash
-openclaw gateway status
-openclaw status
-openclaw logs --follow
-openclaw doctor
-openclaw gateway status --json
+granted gateway status
+granted status
+granted logs --follow
+granted doctor
+granted gateway status --json
 ```
 
 Look for:
@@ -317,12 +317,12 @@ Look for:
 If a local browser cannot connect to `127.0.0.1:18789` after an update, first recover the local Gateway service and confirm it is serving the dashboard:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 lsof -i :18789
 curl http://127.0.0.1:18789
 ```
 
-If `curl` returns OpenClaw HTML, the Gateway is working and the remaining issue is likely browser cache, an old deep link, or stale tab state. Open `http://127.0.0.1:18789` directly and navigate from the dashboard. If restart does not leave the service running, run `openclaw gateway start` and recheck `openclaw gateway status`.
+If `curl` returns OpenClaw HTML, the Gateway is working and the remaining issue is likely browser cache, an old deep link, or stale tab state. Open `http://127.0.0.1:18789` directly and navigate from the dashboard. If restart does not leave the service running, run `granted gateway start` and recheck `granted gateway status`.
 
 <AccordionGroup>
   <Accordion title="Connect / auth signatures">
@@ -348,11 +348,11 @@ Use `error.details.code` from the failed `connect` response to pick the next act
 
 | Detail code                  | Meaning                                                                                                                                                                                      | Recommended action                                                                                                                                                                                                                                                                       |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.                                                                                                                                                 | On the Gateway host, run `openclaw gateway auth-token --show` in an interactive terminal, paste the output into the client, and retry.                                                                                                                                                   |
+| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.                                                                                                                                                 | On the Gateway host, run `granted gateway auth-token --show` in an interactive terminal, paste the output into the client, and retry.                                                                                                                                                    |
 | `AUTH_TOKEN_MISMATCH`        | Shared token did not match gateway auth token.                                                                                                                                               | If `canRetryWithDeviceToken=true`, allow one trusted retry. Cached-token retries reuse stored approved scopes; explicit `deviceToken` / `scopes` callers keep requested scopes. If still failing, run the [token drift recovery checklist](/cli/devices#token-drift-recovery-checklist). |
 | `AUTH_DEVICE_TOKEN_MISMATCH` | Cached per-device token is stale or revoked.                                                                                                                                                 | Rotate/re-approve device token using [devices CLI](/cli/devices), then reconnect.                                                                                                                                                                                                        |
 | `AUTH_SCOPE_MISMATCH`        | Device token is valid, but its approved role/scopes do not cover this connect request.                                                                                                       | Re-pair the device or approve the requested scope contract; do not treat this as shared-token drift.                                                                                                                                                                                     |
-| `PAIRING_REQUIRED`           | Device identity needs approval. Check `error.details.reason` for `not-paired`, `scope-upgrade`, `role-upgrade`, or `metadata-upgrade`, and use `requestId` / `remediationHint` when present. | Approve pending request: `openclaw devices list` then `openclaw devices approve <requestId>`. Scope/role upgrades use the same flow after you review the requested access.                                                                                                               |
+| `PAIRING_REQUIRED`           | Device identity needs approval. Check `error.details.reason` for `not-paired`, `scope-upgrade`, `role-upgrade`, or `metadata-upgrade`, and use `requestId` / `remediationHint` when present. | Approve pending request: `granted devices list` then `granted devices approve <requestId>`. Scope/role upgrades use the same flow after you review the requested access.                                                                                                                 |
 
 <Note>
 Direct loopback backend RPCs authenticated with the shared gateway token/password should not depend on the CLI's paired-device scope baseline. If subagents or other internal calls still fail with `scope-upgrade`, verify the caller is using `client.id: "gateway-client"` and `client.mode: "backend"` and is not forcing an explicit `deviceIdentity` or device token.
@@ -362,8 +362,8 @@ Device auth v2 migration check:
 
 ```bash
 openclaw --version
-openclaw doctor
-openclaw gateway status
+granted doctor
+granted gateway status
 ```
 
 If logs show nonce/signature errors, update the connecting client and verify it:
@@ -380,10 +380,10 @@ If logs show nonce/signature errors, update the connecting client and verify it:
   </Step>
 </Steps>
 
-If `openclaw devices rotate` / `revoke` / `remove` is denied unexpectedly:
+If `granted devices rotate` / `revoke` / `remove` is denied unexpectedly:
 
 - Paired-device token sessions can manage only **their own** device unless the caller also has `operator.admin`.
-- `openclaw devices rotate --scope ...` can only request operator scopes that the caller session already holds.
+- `granted devices rotate --scope ...` can only request operator scopes that the caller session already holds.
 
 Related:
 
@@ -398,11 +398,11 @@ Related:
 Use when the service is installed but the process does not stay up.
 
 ```bash
-openclaw gateway status
-openclaw status
-openclaw logs --follow
-openclaw doctor
-openclaw gateway status --deep   # also scan system-level services
+granted gateway status
+granted status
+granted logs --follow
+granted doctor
+granted gateway status --deep   # also scan system-level services
 ```
 
 Look for:
@@ -415,12 +415,12 @@ Look for:
 
 <AccordionGroup>
   <Accordion title="Common signatures">
-    - `Gateway start blocked: set gateway.mode=local` or `existing config is missing gateway.mode` → local gateway mode is not enabled, or the config file was clobbered and lost `gateway.mode`. Fix: set `gateway.mode="local"` in your config, or re-run `openclaw onboard --mode local` / `openclaw setup` to restamp the expected local-mode config. If you are running OpenClaw via Podman, the default config path is `~/.openclaw/openclaw.json`.
+    - `Gateway start blocked: set gateway.mode=local` or `existing config is missing gateway.mode` → local gateway mode is not enabled, or the config file was clobbered and lost `gateway.mode`. Fix: set `gateway.mode="local"` in your config, or re-run `granted onboard --mode local` / `granted setup` to restamp the expected local-mode config. If you are running OpenClaw via Podman, the default config path is `~/.openclaw/openclaw.json`.
     - `refusing to bind gateway ... without auth` → non-loopback bind without a valid gateway auth path (token/password, or trusted-proxy where configured).
     - `another gateway instance is already listening` / `EADDRINUSE` → port conflict.
     - `Other gateway-like services detected (best effort)` → stale or parallel launchd/systemd/schtasks units exist. Most setups should keep one gateway per machine; if you do need more than one, isolate ports + config/state/workspace. See [/gateway#multiple-gateways-same-host](/gateway#multiple-gateways-same-host).
     - `System-level OpenClaw gateway service detected` from doctor → a systemd system unit exists while the user-level service is missing. Remove or disable the duplicate before allowing doctor to install a user service, or set `OPENCLAW_SERVICE_REPAIR_POLICY=external` if the system unit is the intended supervisor.
-    - `Gateway service port does not match current gateway config` → the installed supervisor still pins the old `--port`. Run `openclaw doctor --fix` or `openclaw gateway install --force`, then restart the gateway service.
+    - `Gateway service port does not match current gateway config` → the installed supervisor still pins the old `--port`. Run `granted doctor --fix` or `granted gateway install --force`, then restart the gateway service.
 
   </Accordion>
 </AccordionGroup>
@@ -433,11 +433,11 @@ Related:
 
 ## macOS gateway silently stops responding, then resumes when you touch the dashboard
 
-Use when channels (Telegram, WhatsApp, etc.) on a macOS host go quiet for minutes to hours at a time, and the gateway appears to come back the moment you open the Control UI, SSH in, or otherwise interact with the host. There is usually no obvious symptom in `openclaw status` because by the time you look the gateway is alive again.
+Use when channels (Telegram, WhatsApp, etc.) on a macOS host go quiet for minutes to hours at a time, and the gateway appears to come back the moment you open the Control UI, SSH in, or otherwise interact with the host. There is usually no obvious symptom in `granted status` because by the time you look the gateway is alive again.
 
 ```bash
 ls ~/.openclaw/logs/stability/ | tail -5
-openclaw gateway stability --bundle latest
+granted gateway stability --bundle latest
 pmset -g log | grep -iE "sleep|wake|maintenance" | tail -50
 launchctl print gui/$UID/ai.openclaw.gateway | grep -E "state|last exit|runs"
 ```
@@ -501,8 +501,8 @@ for i in 1 2 3 4; do
   sleep 10
 done
 
-openclaw gateway status --deep
-openclaw node status
+granted gateway status --deep
+granted node status
 launchctl print gui/$UID/ai.openclaw.gateway | grep -E 'state|last exit|runs'
 tail -n 80 ~/Library/Logs/openclaw/gateway.log
 ```
@@ -525,7 +525,7 @@ What to do:
    this host:
 
    ```bash
-   openclaw node uninstall
+   granted node uninstall
    ```
 
 2. Install a persistent Gateway wrapper that clears the inherited launchd
@@ -543,7 +543,7 @@ What to do:
    EOF
    chmod 700 ~/.local/bin/openclaw-launchd-workaround
 
-   openclaw gateway install \
+   granted gateway install \
      --wrapper ~/.local/bin/openclaw-launchd-workaround \
      --force
    ```
@@ -554,7 +554,7 @@ What to do:
 3. Verify that the Gateway is stable and serving RPC, not merely listening:
 
    ```bash
-   openclaw gateway status --deep --require-rpc
+   granted gateway status --deep --require-rpc
 
    for i in 1 2 3 4; do
      ps aux | grep 'openclaw.*index.js' | grep -v grep | awk '{print $2}'
@@ -569,7 +569,7 @@ What to do:
    fixed, remove the workaround and reinstall the normal managed service:
 
    ```bash
-   OPENCLAW_WRAPPER= openclaw gateway install --force
+   OPENCLAW_WRAPPER= granted gateway install --force
    rm ~/.local/bin/openclaw-launchd-workaround
    ```
 
@@ -584,10 +584,10 @@ Related:
 Use when the Gateway disappears under load, the supervisor reports an OOM-style restart, or logs mention `critical memory pressure bundle written`.
 
 ```bash
-openclaw gateway status --deep
-openclaw logs --follow
-openclaw gateway stability --bundle latest
-openclaw gateway diagnostics export
+granted gateway status --deep
+granted logs --follow
+granted gateway stability --bundle latest
+granted gateway diagnostics export
 ```
 
 Look for:
@@ -600,12 +600,12 @@ Look for:
 
 Common signatures:
 
-- `critical memory pressure bundle written` appears shortly before restart → OpenClaw captured a pre-OOM stability bundle. Inspect it with `openclaw gateway stability --bundle latest`.
+- `critical memory pressure bundle written` appears shortly before restart → OpenClaw captured a pre-OOM stability bundle. Inspect it with `granted gateway stability --bundle latest`.
 - `memory pressure: level=critical` appears in gateway logs → OpenClaw detected critical memory pressure and recorded the available in-process memory facts.
 - `Largest session files:` points at a very large redacted transcript path → reduce retained session history, inspect session growth, or move old transcripts out of the active store before restarting.
-- `V8 heap:` used bytes are close to the heap limit → lower prompt/session pressure or reduce concurrent work first. For a managed service, compare the configured controls and install-time recommendation in `Gateway heap:` from `openclaw gateway status` with the runtime measurement. Reinstalling preserves existing stored heap settings; it does not automatically replace an older value with the current recommendation.
+- `V8 heap:` used bytes are close to the heap limit → lower prompt/session pressure or reduce concurrent work first. For a managed service, compare the configured controls and install-time recommendation in `Gateway heap:` from `granted gateway status` with the runtime measurement. Reinstalling preserves existing stored heap settings; it does not automatically replace an older value with the current recommendation.
 - `Memory pressure: critical/rss_growth` → memory grew quickly inside one sampling window. Check the latest logs for a large import, runaway tool output, repeated retries, or a batch of queued agent work.
-- Critical memory pressure appears in logs but no bundle exists → capture `openclaw gateway diagnostics export` after the event for the available operational evidence.
+- Critical memory pressure appears in logs but no bundle exists → capture `granted gateway diagnostics export` after the event for the available operational evidence.
 
 The stability bundle is payload-free. It includes operational memory evidence and redacted relative file paths, not message text, webhook bodies, credentials, tokens, cookies, or raw session ids. Attach the diagnostics export to bug reports instead of copying raw logs.
 
@@ -614,7 +614,7 @@ Node's automatic heap ceiling can be roughly 4 GiB on a large host. That is a de
 For a foreground Node Gateway, set a native heap flag before Node starts, for example on a host with sufficient capacity:
 
 ```bash
-NODE_OPTIONS="--max-old-space-size=16384" openclaw gateway run
+NODE_OPTIONS="--max-old-space-size=16384" granted gateway run
 ```
 
 For a custom supervisor or Docker runtime command, place `--max-old-space-size=16384` immediately after `node`, before the OpenClaw entry script, or set `NODE_OPTIONS` in that process or container's launch environment. Docker image build-time heap options do not configure the runtime Gateway. An OpenClaw config or dotenv value loaded after Node starts cannot resize its heap. `NODE_OPTIONS` can also reach spawned Node children, so prefer a direct Node argument when only the Gateway should receive the budget.
@@ -638,10 +638,10 @@ configs, configs written by a newer version, and configs that still fail validat
 require operator repair. See [Legacy config key migrations](/gateway/doctor#detailed-behavior-and-rationale).
 
 ```bash
-openclaw logs --follow
-openclaw config file
-openclaw config validate
-openclaw doctor
+granted logs --follow
+granted config file
+granted config validate
+granted doctor
 ```
 
 Look for:
@@ -659,17 +659,17 @@ Look for:
     - Gateway startup leaves `openclaw.json` unchanged and fails closed when safe legacy-key migration cannot produce a fully valid config.
     - Hot reload skips invalid external edits and keeps the current runtime config active.
     - OpenClaw-owned writes reject invalid/destructive payloads before commit and save `.rejected.*`.
-    - `openclaw doctor --fix` owns repairs beyond automatic legacy-key migration. It can remove non-JSON prefixes or restore the last-known-good copy while preserving the rejected payload as `.clobbered.*`.
+    - `granted doctor --fix` owns repairs beyond automatic legacy-key migration. It can remove non-JSON prefixes or restore the last-known-good copy while preserving the rejected payload as `.clobbered.*`.
     - When many repairs happen for one config path, OpenClaw rotates older `.clobbered.*` files so the newest repaired payload is still available.
 
   </Accordion>
   <Accordion title="Inspect and repair">
     ```bash
-    CONFIG="$(openclaw config file)"
+    CONFIG="$(granted config file)"
     ls -lt "$CONFIG".clobbered.* "$CONFIG".rejected.* 2>/dev/null | head
     diff -u "$CONFIG" "$(ls -t "$CONFIG".clobbered.* 2>/dev/null | head -n 1)"
-    openclaw config validate
-    openclaw doctor
+    granted config validate
+    granted doctor
     ```
   </Accordion>
   <Accordion title="Common signatures">
@@ -683,11 +683,11 @@ Look for:
 
   </Accordion>
   <Accordion title="Fix options">
-    An interactive startup can offer to run `openclaw doctor --fix` and retry once when automatic legacy-key migration is not enough. Non-interactive startup prints the repair command instead.
+    An interactive startup can offer to run `granted doctor --fix` and retry once when automatic legacy-key migration is not enough. Non-interactive startup prints the repair command instead.
 
-    1. Run `openclaw doctor --fix` to let doctor repair prefixed/clobbered config or restore last-known-good.
-    2. Copy only the intended keys from `.clobbered.*` or `.rejected.*`, then apply them with `openclaw config set` or `config.patch`.
-    3. Run `openclaw config validate` before restarting.
+    1. Run `granted doctor --fix` to let doctor repair prefixed/clobbered config or restore last-known-good.
+    2. Copy only the intended keys from `.clobbered.*` or `.rejected.*`, then apply them with `granted config set` or `config.patch`.
+    3. Run `granted config validate` before restarting.
     4. If you edit by hand, keep the full JSON5 config, not just the partial object you wanted to change.
 
   </Accordion>
@@ -702,12 +702,12 @@ Related:
 
 ## Gateway probe warnings
 
-Use when `openclaw gateway probe` reaches something, but still prints a warning block.
+Use when `granted gateway probe` reaches something, but still prints a warning block.
 
 ```bash
-openclaw gateway probe
-openclaw gateway probe --json
-openclaw gateway probe --ssh user@gateway-host
+granted gateway probe
+granted gateway probe --json
+granted gateway probe --ssh user@gateway-host
 ```
 
 Look for:
@@ -735,11 +735,11 @@ Related:
 If channel state is connected but message flow is dead, focus on policy, permissions, and channel specific delivery rules.
 
 ```bash
-openclaw channels status --probe
-openclaw pairing list --channel <channel> [--account <id>]
-openclaw status --deep
-openclaw logs --follow
-openclaw config get channels
+granted channels status --probe
+granted pairing list --channel <channel> [--account <id>]
+granted status --deep
+granted logs --follow
+granted config get channels
 ```
 
 Look for:
@@ -766,11 +766,11 @@ Related:
 If cron or heartbeat did not run or did not deliver, verify scheduler state first, then delivery target.
 
 ```bash
-openclaw cron status
-openclaw cron list
-openclaw cron runs --id <jobId> --limit 20
-openclaw system heartbeat last
-openclaw logs --follow
+granted cron status
+granted cron list
+granted cron runs --id <jobId> --limit 20
+granted system heartbeat last
+granted logs --follow
 ```
 
 Look for:
@@ -803,11 +803,11 @@ Related:
 If a node is paired but tools fail, isolate foreground, permission, and approval state.
 
 ```bash
-openclaw nodes status
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw approvals get --node <idOrNameOrIp>
-openclaw logs --follow
-openclaw status
+granted nodes status
+granted nodes describe --node <idOrNameOrIp>
+granted approvals get --node <idOrNameOrIp>
+granted logs --follow
+granted status
 ```
 
 Look for:
@@ -834,11 +834,11 @@ Related:
 Use when browser tool actions fail even though the gateway itself is healthy.
 
 ```bash
-openclaw browser status
-openclaw browser start --browser-profile openclaw
-openclaw browser profiles
-openclaw logs --follow
-openclaw doctor
+granted browser status
+granted browser start --browser-profile openclaw
+granted browser profiles
+granted logs --follow
+granted doctor
 ```
 
 Look for:
@@ -874,7 +874,7 @@ Look for:
     - `existing-session dialog handling does not support timeoutMs.` → dialog hooks on Chrome MCP profiles do not support timeout overrides.
     - `existing-session type does not support timeoutMs overrides.` → omit `timeoutMs` for `act:type` on `profile="user"` / Chrome MCP existing-session profiles, or use a managed/CDP browser profile when a custom timeout is required.
     - `response body is not supported for existing-session profiles yet.` → `responsebody` still requires a managed browser or raw CDP profile.
-    - Stale viewport / dark-mode / locale / offline overrides on attach-only or remote CDP profiles → run `openclaw browser stop --browser-profile <name>` to close the active control session and release Playwright/CDP emulation state without restarting the whole gateway.
+    - Stale viewport / dark-mode / locale / offline overrides on attach-only or remote CDP profiles → run `granted browser stop --browser-profile <name>` to close the active control session and release Playwright/CDP emulation state without restarting the whole gateway.
 
   </Accordion>
 </AccordionGroup>
@@ -891,10 +891,10 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
 <AccordionGroup>
   <Accordion title="1. Auth and URL override behavior changed">
     ```bash
-    openclaw gateway status
-    openclaw config get gateway.mode
-    openclaw config get gateway.remote.url
-    openclaw config get gateway.auth.mode
+    granted gateway status
+    granted config get gateway.mode
+    granted config get gateway.remote.url
+    granted config get gateway.auth.mode
     ```
 
     What to check:
@@ -910,11 +910,11 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
   </Accordion>
   <Accordion title="2. Bind and auth guardrails are stricter">
     ```bash
-    openclaw config get gateway.bind
-    openclaw config get gateway.auth.mode
-    openclaw config get gateway.auth.token
-    openclaw gateway status
-    openclaw logs --follow
+    granted config get gateway.bind
+    granted config get gateway.auth.mode
+    granted config get gateway.auth.token
+    granted gateway status
+    granted logs --follow
     ```
 
     What to check:
@@ -930,10 +930,10 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
   </Accordion>
   <Accordion title="3. Pairing and device identity state changed">
     ```bash
-    openclaw devices list
-    openclaw pairing list --channel <channel> [--account <id>]
-    openclaw logs --follow
-    openclaw doctor
+    granted devices list
+    granted pairing list --channel <channel> [--account <id>]
+    granted logs --follow
+    granted doctor
     ```
 
     What to check:
@@ -952,8 +952,8 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
 If the service config and runtime still disagree after checks, reinstall service metadata from the same profile/state directory:
 
 ```bash
-openclaw gateway install --force
-openclaw gateway restart
+granted gateway install --force
+granted gateway restart
 ```
 
 Related:

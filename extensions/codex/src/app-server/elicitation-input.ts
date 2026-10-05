@@ -22,7 +22,7 @@ export function compileCodexOrdinaryElicitation(params: {
       kind: "compiled",
       input: {
         kind: "unsupported",
-        message: "OpenClaw declined a malformed or over-limit MCP elicitation request.",
+        message: "Granted declined a malformed or over-limit MCP elicitation request.",
       },
     };
   }
@@ -35,7 +35,7 @@ export function compileCodexOrdinaryElicitation(params: {
       kind: "compiled",
       input: {
         kind: "unsupported",
-        message: "OpenClaw declined an MCP elicitation with invalid turn correlation.",
+        message: "Granted declined an MCP elicitation with invalid turn correlation.",
       },
     };
   }
@@ -57,7 +57,7 @@ export function compileCodexOrdinaryElicitation(params: {
       kind: "compiled",
       input: {
         kind: "unsupported",
-        message: `OpenClaw does not support MCP elicitation mode ${JSON.stringify(mode ?? "unknown")}.`,
+        message: `Granted does not support MCP elicitation mode ${JSON.stringify(mode ?? "unknown")}.`,
       },
     };
   }

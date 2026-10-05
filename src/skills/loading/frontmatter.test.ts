@@ -287,3 +287,20 @@ user-invocable: true
     });
   });
 });
+
+describe("prompt-listing policy", () => {
+  it("defaults to always and opts in only on the exact value", () => {
+    expect(resolveSkillInvocationPolicy({}).promptListing).toBe("always");
+    expect(resolveSkillInvocationPolicy({ "prompt-listing": "search" }).promptListing).toBe(
+      "search",
+    );
+    expect(resolveSkillInvocationPolicy({ "prompt-listing": " SEARCH " }).promptListing).toBe(
+      "search",
+    );
+    expect(resolveSkillInvocationPolicy({ "prompt-listing": "always" }).promptListing).toBe(
+      "always",
+    );
+    // An unknown value must not silently hide a skill the operator expects listed.
+    expect(resolveSkillInvocationPolicy({ "prompt-listing": "lazy" }).promptListing).toBe("always");
+  });
+});

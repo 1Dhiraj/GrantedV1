@@ -118,7 +118,7 @@ test.each([
           agentId: "main",
           message: "Inspect the remote project",
           ...(attachments ? { attachments } : {}),
-          projectGitUrl: "git@github.com:OpenClaw/OpenClaw.git",
+          projectGitUrl: "git@github.com:Granted/OpenClaw.git",
           ...(worktree ? { worktree: true, worktreeName: "remote-startup" } : {}),
         },
         { ...controlUiClient, context },

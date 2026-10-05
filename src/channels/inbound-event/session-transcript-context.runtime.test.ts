@@ -131,7 +131,7 @@ describe("session transcript inbound context", () => {
     const ctx = context({
       SessionTranscriptContext: {
         historyLimit: 3,
-        senderLabels: { assistant: "OpenClaw", user: "User" },
+        senderLabels: { assistant: "Granted", user: "User" },
       },
       ChannelStructuredContext: [
         {
@@ -144,10 +144,10 @@ describe("session transcript inbound context", () => {
             order: "chronological",
             relation: "selected_for_current_message",
             messages: [
-              { message_id: "42", sender: "OpenClaw (you)", body: "same answer" },
+              { message_id: "42", sender: "Granted (you)", body: "same answer" },
               {
                 message_id: "43",
-                sender: "OpenClaw (you)",
+                sender: "Granted (you)",
                 body: "Legacy answer",
                 timestamp_ms: 2_500,
               },

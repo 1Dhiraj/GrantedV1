@@ -42,14 +42,14 @@ Model refs follow the auth path: `minimax/<model>` for API-key setups, `minimax-
         <Steps>
           <Step title="Run onboarding">
             ```bash
-            openclaw onboard --auth-choice minimax-global-oauth
+            granted onboard --auth-choice minimax-global-oauth
             ```
 
             Resulting provider base URL: `api.minimax.io`.
           </Step>
           <Step title="Verify the model is available">
             ```bash
-            openclaw models list --provider minimax-portal
+            granted models list --provider minimax-portal
             ```
           </Step>
         </Steps>
@@ -58,14 +58,14 @@ Model refs follow the auth path: `minimax/<model>` for API-key setups, `minimax-
         <Steps>
           <Step title="Run onboarding">
             ```bash
-            openclaw onboard --auth-choice minimax-cn-oauth
+            granted onboard --auth-choice minimax-cn-oauth
             ```
 
             Resulting provider base URL: `api.minimaxi.com`.
           </Step>
           <Step title="Verify the model is available">
             ```bash
-            openclaw models list --provider minimax-portal
+            granted models list --provider minimax-portal
             ```
           </Step>
         </Steps>
@@ -86,14 +86,14 @@ Model refs follow the auth path: `minimax/<model>` for API-key setups, `minimax-
         <Steps>
           <Step title="Run onboarding">
             ```bash
-            openclaw onboard --auth-choice minimax-global-api
+            granted onboard --auth-choice minimax-global-api
             ```
 
             This configures `api.minimax.io` as the base URL.
           </Step>
           <Step title="Verify the model is available">
             ```bash
-            openclaw models list --provider minimax
+            granted models list --provider minimax
             ```
           </Step>
         </Steps>
@@ -102,14 +102,14 @@ Model refs follow the auth path: `minimax/<model>` for API-key setups, `minimax-
         <Steps>
           <Step title="Run onboarding">
             ```bash
-            openclaw onboard --auth-choice minimax-cn-api
+            granted onboard --auth-choice minimax-cn-api
             ```
 
             This configures `api.minimaxi.com` as the base URL.
           </Step>
           <Step title="Verify the model is available">
             ```bash
-            openclaw models list --provider minimax
+            granted models list --provider minimax
             ```
           </Step>
         </Steps>
@@ -175,12 +175,12 @@ Model refs follow the auth path: `minimax/<model>` for API-key setups, `minimax-
   </Tab>
 </Tabs>
 
-## Configure via `openclaw configure`
+## Configure via `granted configure`
 
 <Steps>
   <Step title="Launch the wizard">
     ```bash
-    openclaw configure
+    granted configure
     ```
   </Step>
   <Step title="Select Model/auth">
@@ -394,7 +394,7 @@ See [MiniMax Search](/tools/minimax-search) for full web search configuration an
 - Onboarding and direct API-key setup write model definitions for M3 and both M2.7 variants
 - Image understanding uses the plugin-owned `MiniMax-VL-01` media provider
 - Update pricing values in `models.json` if you need exact cost tracking
-- Use `openclaw models list` to confirm the current provider id, then switch with `openclaw models set minimax/MiniMax-M3` or `openclaw models set minimax-portal/MiniMax-M3`
+- Use `granted models list` to confirm the current provider id, then switch with `granted models set minimax/MiniMax-M3` or `granted models set minimax-portal/MiniMax-M3`
 
 <Note>
 See [Model providers](/concepts/model-providers) for provider rules.
@@ -406,7 +406,7 @@ See [Model providers](/concepts/model-providers) for provider rules.
   <Accordion title='"Unknown model: minimax/MiniMax-M3"'>
     This usually means the **MiniMax provider is not configured** (no matching provider entry and no MiniMax auth profile/env key found). Fix by:
 
-    - Running `openclaw configure` and selecting a **MiniMax** auth option, or
+    - Running `granted configure` and selecting a **MiniMax** auth option, or
     - Adding the matching `models.providers.minimax` or `models.providers.minimax-portal` block manually, or
     - Setting `MINIMAX_API_KEY`, `MINIMAX_OAUTH_TOKEN`, or a MiniMax auth profile so the matching provider can be injected.
 
@@ -418,7 +418,7 @@ See [Model providers](/concepts/model-providers) for provider rules.
     Then recheck with:
 
     ```bash
-    openclaw models list
+    granted models list
     ```
 
   </Accordion>

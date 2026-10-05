@@ -159,7 +159,7 @@ describe("buildNodeInstallPlan", () => {
 
     expect(plan.environment.GRANTED_GATEWAY_TOKEN).toBe("node-token");
     expect(plan.environment.GRANTED_GATEWAY_PASSWORD).toBe("node-password");
-    expect(plan.description).toBe("OpenClaw Node Host");
+    expect(plan.description).toBe("Granted Node Host");
     expect(plan.environmentValueSources).toEqual({
       GRANTED_GATEWAY_TOKEN: "file",
       GRANTED_GATEWAY_PASSWORD: "file", // pragma: allowlist secret

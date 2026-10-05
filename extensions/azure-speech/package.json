@@ -2,7 +2,7 @@
   "name": "@granted/azure-speech",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Azure Speech plugin",
+  "description": "Granted Azure Speech plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

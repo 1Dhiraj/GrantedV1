@@ -172,7 +172,7 @@ export function ensureCodexAppServerClientRuntime(
           config: runtime.context.config,
         }),
         CODEX_EXTERNAL_AUTH_REFRESH_TIMEOUT_MS,
-        "Codex app-server ChatGPT token refresh timed out before its external-auth deadline. Retry the request; if it persists, sign in again with OpenClaw.",
+        "Codex app-server ChatGPT token refresh timed out before its external-auth deadline. Retry the request; if it persists, sign in again with Granted.",
       );
       if (previousAccountId && tokens.chatgptAccountId !== previousAccountId) {
         throw new Error(

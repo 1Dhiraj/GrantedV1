@@ -7,7 +7,11 @@ import {
   beginChatMetadataPublication,
   subscribeChatMetadata,
 } from "./chat/chat-metadata-store.ts";
-import { invalidateModelCatalogCache, loadModelCatalog } from "./model-catalog-store.ts";
+import {
+  invalidateModelCatalogCache,
+  loadModelCatalog,
+  peekModelCatalog,
+} from "./model-catalog-store.ts";
 
 const loadModels = async (...args: Parameters<typeof loadModelCatalog>) =>
   (await loadModelCatalog(...args)).models;
@@ -30,6 +34,25 @@ describe("loadModels", () => {
     });
     expect(models).toEqual([
       { id: "MiniMax-M2.7-highspeed", name: "MiniMax M2.7 Highspeed", provider: "minimax" },
+    ]);
+  });
+
+  it("requests and caches the all-provider view independently", async () => {
+    const request = vi.fn(async (_method: string, params: { view: string }) => ({
+      models: [{ id: params.view, name: params.view, provider: "test" }],
+    }));
+    const client = { request } as unknown as GatewayBrowserClient;
+
+    const configured = await loadModels(client, { agentId: "main" });
+    const all = await loadModels(client, { agentId: "main", view: "all" });
+    await loadModels(client, { agentId: "main" });
+    await loadModels(client, { agentId: "main", view: "all" });
+
+    expect(configured[0]?.id).toBe("configured");
+    expect(all[0]?.id).toBe("all");
+    expect(request.mock.calls.map(([, params]) => params)).toEqual([
+      { view: "configured", agentId: "main" },
+      { view: "all", agentId: "main" },
     ]);
   });
 
@@ -380,6 +403,35 @@ describe("loadModels", () => {
       afterReconnect,
     );
     expect(request).toHaveBeenCalledTimes(2);
+  });
+
+  it("keeps the completed all-provider snapshot available without another request", async () => {
+    const models = [{ id: "gpt-6-sol", name: "GPT-6 Sol", provider: "openai" }];
+    const request = vi.fn().mockResolvedValue({ models });
+    const client = { request } as unknown as GatewayBrowserClient;
+
+    expect(peekModelCatalog(client, { agentId: "main", view: "all" })).toBeUndefined();
+    await loadModelCatalog(client, { agentId: "main", view: "all" });
+
+    expect(peekModelCatalog(client, { agentId: "main", view: "all" })).toEqual({ models });
+    expect(request).toHaveBeenCalledTimes(1);
+  });
+
+  it("can invalidate configured models without discarding all-provider discovery", async () => {
+    const configured = [{ id: "configured", name: "Configured", provider: "openai" }];
+    const all = [{ id: "gpt-6-sol", name: "GPT-6 Sol", provider: "openai" }];
+    const request = vi
+      .fn()
+      .mockResolvedValueOnce({ models: configured })
+      .mockResolvedValueOnce({ models: all });
+    const client = { request } as unknown as GatewayBrowserClient;
+
+    await loadModelCatalog(client, { agentId: "main", view: "configured" });
+    await loadModelCatalog(client, { agentId: "main", view: "all" });
+    invalidateModelCatalogCache(client, { view: "configured" });
+
+    expect(peekModelCatalog(client, { agentId: "main", view: "configured" })).toBeUndefined();
+    expect(peekModelCatalog(client, { agentId: "main", view: "all" })).toEqual({ models: all });
   });
 
   it("keeps a failed account catalog refresh retryable", async () => {

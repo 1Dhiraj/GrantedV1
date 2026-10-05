@@ -1,9 +1,9 @@
 ---
 name: openclaw-pr-maintainer
-description: Use immediately for any pasted OpenClaw GitHub issue or PR URL/number, and for OpenClaw issue/PR orchestration, review, triage, root-cause repair, PR rewrite, duplicate search, opener identity/who wrote it, author account age/activity, comments, labels, close, land, or maintainer evidence checks.
+description: Use immediately for any pasted Granted GitHub issue or PR URL/number, and for Granted issue/PR orchestration, review, triage, root-cause repair, PR rewrite, duplicate search, opener identity/who wrote it, author account age/activity, comments, labels, close, land, or maintainer evidence checks.
 ---
 
-# OpenClaw PR Maintainer
+# Granted PR Maintainer
 
 Use this skill for maintainer-facing GitHub workflows and the code changes needed to finish an authorized issue/PR repair; do not invoke it for unrelated ordinary code changes.
 
@@ -48,7 +48,7 @@ Honor the requested action boundary: a fix request authorizes scoped investigati
 
 ## Start issue and PR triage with gitcrawl
 
-- Use `$gitcrawl` first anytime you inspect OpenClaw issues or PRs.
+- Use `$gitcrawl` first anytime you inspect Granted issues or PRs.
 - Check local `gitcrawl` data first for related threads, duplicate attempts, and already-landed fixes.
 - Use `gitcrawl` for candidate discovery and clustering; use `gh`, `gh api`, and the current checkout to verify live state before commenting, labeling, closing, or landing.
 - If `gitcrawl` is missing, stale, lacks the target thread, or has no embeddings for neighbor/search commands, fall back to the GitHub search workflow below.
@@ -65,7 +65,7 @@ gitcrawl cluster-detail openclaw/openclaw --id <cluster-id> --member-limit 20 --
 
 ## Inspect specific targets; claim only when authorized
 
-When a maintainer asks Codex to review, triage, fix, or land a specific OpenClaw issue/PR, have the lead or assigned collaboration worker inspect live assignment before deep work. Assignment itself is a public GitHub write.
+When a maintainer asks Codex to review, triage, fix, or land a specific Granted issue/PR, have the lead or assigned collaboration worker inspect live assignment before deep work. Assignment itself is a public GitHub write.
 
 - Resolve the assignment login from the GitHub account authenticated for the mutation: use `gh api user --jq .login` for direct commands or `gh_plain api user --jq .login` inside `scripts/pr`. Never infer a GitHub login from the chat user's name or identity. If the requester differs from the authenticated account or that relationship cannot be established safely, leave the target unassigned or require an explicit bare login.
 - Read current assignees with live `gh issue view` / `gh pr view`; `gitcrawl` is not enough for assignment state.
@@ -98,7 +98,7 @@ gh api -X POST "repos/openclaw/openclaw/issues/<number>/assignees" -f 'assignees
 - For every reviewed, triaged, closed, or landed issue/PR, show the opener's human name when available, GitHub login, and account age.
 - Get the login from `gh issue view` / `gh pr view` (`author.login`), then fetch profile metadata once with `gh api users/<login> --jq '{login,name,created_at,type}'`.
 - Report opener identity as one compact line:
-  `By: Jane Doe (@jane, acct 2021-04-03) | OpenClaw: 4 PRs, 2 issues, 11 commits/12mo | GitHub contributions: 86 commits, 9 PRs, 3 issues, 12 reviews/12mo`
+  `By: Jane Doe (@jane, acct 2021-04-03) | Granted: 4 PRs, 2 issues, 11 commits/12mo | GitHub contributions: 86 commits, 9 PRs, 3 issues, 12 reviews/12mo`
 - Show activity in two separate lanes: repo search totals for authored PRs/issues and commits, and GitHub contribution-graph totals. State each interval; neither lane is an exhaustive activity history. For linked issue-fixing PRs, include both the PR author and issue opener when they differ.
 - Prefer the bundled helper for activity lookups:
 
@@ -295,7 +295,7 @@ If the best-fix answer is only "maybe", keep reading or state the missing eviden
 
 - Do not close for red CI alone. Require a clear low-signal category plus stale or failed validation.
 - Good manual-close categories:
-  - blank or mostly untouched PR template with no concrete OpenClaw problem/fix
+  - blank or mostly untouched PR template with no concrete Granted problem/fix
   - random docs-only churn such as root README translations, generic wording tweaks, or community-plugin discoverability docs that should go through ClawHub
   - test-only coverage without a linked bug, owner request, or behavior change
   - refactor-only cleanup, variable renames, formatting, or generated/baseline churn without maintainer request

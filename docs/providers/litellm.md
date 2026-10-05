@@ -15,13 +15,13 @@ spend limits, and backend failover without changing OpenClaw config.
 <Tabs>
   <Tab title="Onboarding (recommended)">
     ```bash
-    openclaw onboard --auth-choice litellm-api-key
+    granted onboard --auth-choice litellm-api-key
     ```
 
     For non-interactive setup against a remote proxy, pass the proxy URL explicitly:
 
     ```bash
-    openclaw onboard --non-interactive --accept-risk --skip-health --auth-choice litellm-api-key \
+    granted onboard --non-interactive --accept-risk --skip-health --auth-choice litellm-api-key \
       --litellm-api-key "$LITELLM_API_KEY" --custom-base-url "https://litellm.example/v1"
     ```
 

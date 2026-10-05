@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw triage` (sanitized diagnostics and agent handoff)"
+summary: "CLI reference for `granted triage` (sanitized diagnostics and agent handoff)"
 read_when:
   - OpenClaw is misbehaving and you want an agent-ready debugging prompt
   - An update failed and you want a local coding agent to repair it
@@ -7,12 +7,12 @@ read_when:
 title: "Triage"
 ---
 
-# `openclaw triage`
+# `granted triage`
 
 Collect sanitized diagnostics and open a coding agent on this machine to diagnose, repair, and verify this OpenClaw installation.
 
 ```bash
-openclaw triage
+granted triage
 ```
 
 In an interactive terminal, triage starts the first directly launchable agent on `PATH` in this detection order: Claude Code (`claude`), Codex (`codex`), OpenCode (`opencode`), then Pi (`pi`). It prints the selected agent and passes a bounded repair prompt directly, without a picker. The agent uses its existing authentication, sandbox, and approval settings.
@@ -20,9 +20,9 @@ In an interactive terminal, triage starts the first directly launchable agent on
 Choose a particular agent with `--agent`, or collect diagnostics without starting one with `--json` or `--non-interactive`:
 
 ```bash
-openclaw triage --agent codex
-openclaw triage --json
-openclaw triage --non-interactive
+granted triage --agent codex
+granted triage --json
+granted triage --non-interactive
 ```
 
 The prompt includes the OpenClaw version, platform, Node.js version, prioritized Doctor findings with repair hints, and the diagnostics archive path. The archive contains sanitized config, best-effort Gateway status and health snapshots, operational log summaries, and available stability diagnostics. If the Gateway is unreachable, triage still writes the archive with available local diagnostics and records snapshot failures inside it. Doctor or export failures are recorded in the prompt so the agent can still investigate.
@@ -37,7 +37,7 @@ Interactive update recovery uses this same handoff after the updater releases it
 
 The prompt preserves the original error, before and after versions, and recorded recovery state ahead of current Doctor findings. It includes up to three failed or interrupted steps, excluding advisory Doctor results, with bounded excerpts from both stderr and stdout. It also retains bounded plugin failures and the terminal Doctor warning. The failure record is limited to 4 KiB and the whole prompt to 8 KiB. A healthy Doctor check does not erase the failed attempt, and an absent restart-safety verdict remains unknown.
 
-Updates using `--yes`, JSON output, or a non-interactive session prepare diagnostics without starting a coding agent. Initial argument, ownership, and installation refusals remain outside this recovery flow. For a background or Control UI update failure, use the installation-specific command printed on the Gateway host, or run `openclaw triage` there. Standalone triage reads a pending failed-update notification without consuming it or creating a state database; delivery routes and continuation instructions are excluded.
+Updates using `--yes`, JSON output, or a non-interactive session prepare diagnostics without starting a coding agent. Initial argument, ownership, and installation refusals remain outside this recovery flow. For a background or Control UI update failure, use the installation-specific command printed on the Gateway host, or run `granted triage` there. Standalone triage reads a pending failed-update notification without consuming it or creating a state database; delivery routes and continuation instructions are excluded.
 
 Use `--update-result <path>` to include an updater's saved failure artifact. Triage reads at most 8 KiB of valid UTF-8 JSON and validates the failure record. Its printed embedded handoff command uses a sanitized support export, so it remains usable after a temporary updater input is deleted. Interactive handoffs with a captured failure defer fresh diagnostics; JSON and forced non-interactive runs still collect them.
 
@@ -47,7 +47,7 @@ The repair prompt directs the agent to preserve migrated state, investigate befo
 
 Triage captures the diagnosed installation's resolved state directory, exact config path, and default workspace, including custom paths and named profiles. Local shell commands receive these as `OPENCLAW_STATE_DIR`, `OPENCLAW_CONFIG_PATH`, and `OPENCLAW_WORKSPACE_DIR`, so archive references and default workspace checks resolve against the diagnosed installation even when its selectors were implicit. An authored workspace in the installation's config still takes precedence over its default workspace. The embedded agent keeps its own config snapshot, sessions, execution cwd, and temporary run state separate; in-process config and session tools refer to that temporary run. Use local shell commands to inspect or repair the diagnosed installation.
 
-`openclaw triage --run` explicitly requests one embedded OpenClaw agent turn. It first verifies the configured model with a live inference check. This route requires a working OpenClaw model configuration and an interactive terminal.
+`granted triage --run` explicitly requests one embedded OpenClaw agent turn. It first verifies the configured model with a live inference check. This route requires a working OpenClaw model configuration and an interactive terminal.
 
 Embedded triage supports local OpenClaw tools, local CLI harness children, and local Codex native shells over stdio or a local Unix socket. It refuses WebSocket app-server connections, including loopback URLs that may forward to another host, because they cannot establish where native commands execute. Ordinary Codex runs without a triage installation target retain WebSocket support. Selected ACP turns, OpenClaw-provisioned sandboxes, remote/node execution, and a Codex app-server with `remoteWorkspaceRoot` are also unsupported for this local target. Use stdio, a local Unix socket, or the saved external/manual handoff on this machine. Triage does not redirect unsupported routes onto the host or relax native sandbox and approval policy.
 
@@ -62,10 +62,10 @@ env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCL
 env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCLAW_WORKSPACE_DIR='<default-workspace-dir>' codex exec --skip-git-repo-check - < '<prompt-path>'
 env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCLAW_WORKSPACE_DIR='<default-workspace-dir>' opencode run < '<prompt-path>'
 env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCLAW_WORKSPACE_DIR='<default-workspace-dir>' pi --print < '<prompt-path>'
-env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCLAW_WORKSPACE_DIR='<default-workspace-dir>' openclaw triage --run
+env OPENCLAW_STATE_DIR='<state-dir>' OPENCLAW_CONFIG_PATH='<config-path>' OPENCLAW_WORKSPACE_DIR='<default-workspace-dir>' granted triage --run
 ```
 
-A captured update failure adds `--update-result <saved-failure-path>` to the embedded command. The external commands use their agent's normal non-interactive tool policy; triage does not bypass permission prompts. Use `openclaw triage --agent <name>` to start an interactive session.
+A captured update failure adds `--update-result <saved-failure-path>` to the embedded command. The external commands use their agent's normal non-interactive tool policy; triage does not bypass permission prompts. Use `granted triage --agent <name>` to start an interactive session.
 
 Printed Windows commands target PowerShell, including Windows PowerShell 5.1. They read saved prompts as UTF-8, preserve literal paths, and restore your installation selectors after the command completes. WSL uses POSIX shell commands.
 

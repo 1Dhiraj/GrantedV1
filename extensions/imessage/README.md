@@ -1,6 +1,6 @@
 # @granted/imessage
 
-Official iMessage channel plugin for OpenClaw, using `imsg` on a signed-in Mac.
+Official iMessage channel plugin for Granted, using `imsg` on a signed-in Mac.
 
 The plugin supports iMessage and SMS DMs and groups, media, replies, tapbacks,
 effects, polls, and group management when the `imsg` private API bridge is
@@ -9,7 +9,7 @@ available.
 ## Install
 
 ```bash
-openclaw plugins install @granted/imessage
+granted plugins install @granted/imessage
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -26,4 +26,4 @@ enabling private API actions, and configuring local or remote-Mac operation:
 - Plugin id: `imessage`
 - Channel id: `imessage`
 - Package: `@granted/imessage`
-- Minimum OpenClaw host: `2026.7.2`
+- Minimum Granted host: `2026.7.2`

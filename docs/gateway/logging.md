@@ -35,7 +35,7 @@ Talk, realtime voice, and managed-room code paths use the shared file logger for
 The Control UI Logs tab tails this file via the gateway (`logs.tail`). The CLI does the same:
 
 ```bash
-openclaw logs --follow
+granted logs --follow
 ```
 
 ### Verbose vs. log levels
@@ -52,7 +52,7 @@ The CLI captures `console.log/info/warn/error/debug/trace`, writes them to file 
 Tune console verbosity independently:
 
 - `logging.consoleLevel` (default `info`)
-- `logging.consoleStyle` (`pretty` | `json`). When unset, output is `pretty` on a TTY and the automatic `compact` style otherwise. `compact` is no longer a settable value; `openclaw doctor --fix` maps a stored one to `pretty`.
+- `logging.consoleStyle` (`pretty` | `json`). When unset, output is `pretty` on a TTY and the automatic `compact` style otherwise. `compact` is no longer a settable value; `granted doctor --fix` maps a stored one to `pretty`.
 
 ## Redaction
 
@@ -84,7 +84,7 @@ The gateway prints WebSocket protocol logs in two modes:
 
 ### WS log style
 
-`openclaw gateway` supports a per-gateway style switch:
+`granted gateway` supports a per-gateway style switch:
 
 - `--ws-log auto` (default): normal mode is optimized; verbose mode uses compact output.
 - `--ws-log compact`: compact output (paired request/response) when verbose.
@@ -93,13 +93,13 @@ The gateway prints WebSocket protocol logs in two modes:
 
 ```bash
 # optimized (only errors/slow)
-openclaw gateway
+granted gateway
 
 # show all WS traffic (paired)
-openclaw gateway --verbose --ws-log compact
+granted gateway --verbose --ws-log compact
 
 # show all WS traffic (full meta)
-openclaw gateway --verbose --ws-log full
+granted gateway --verbose --ws-log full
 ```
 
 ## Console formatting (subsystem logging)

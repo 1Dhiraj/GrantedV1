@@ -4,7 +4,7 @@ import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runt
 
 export default definePluginEntry({
   id: "memory-core",
-  name: "OpenClaw Memory",
+  name: "Granted Memory",
   description: "File-backed memory search tools and CLI",
   register(api) {
     api.registerCli(

@@ -14,7 +14,7 @@ import { listAgentEntries } from "./agent-scope-config.js";
 import { resolveAgentHarnessPolicy } from "./harness/policy.js";
 
 // Harness runtime discovery feeds plugin preloading/setup. Only plugin runtimes
-// are selectable here; built-in OpenClaw/default runtime ids are excluded.
+// are selectable here; built-in Granted/default runtime ids are excluded.
 function normalizeConfiguredRuntimeId(value: unknown): string | undefined {
   return normalizeOptionalAgentRuntimeId(value);
 }

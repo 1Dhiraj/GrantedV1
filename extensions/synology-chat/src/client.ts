@@ -175,7 +175,7 @@ export async function sendMessage(
 }
 
 /**
- * Send an OpenClaw-hosted immutable file URL to Synology Chat.
+ * Send an Granted-hosted immutable file URL to Synology Chat.
  */
 export async function sendHostedFileUrl(
   incomingUrl: string,

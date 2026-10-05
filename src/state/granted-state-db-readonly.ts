@@ -46,7 +46,7 @@ function assertSupportedSchemaVersion(db: DatabaseSync, pathname: string): void 
   const userVersion = readSqliteUserVersion(db);
   if (userVersion > GRANTED_STATE_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
-      "OpenClaw state database",
+      "Granted state database",
       pathname,
       userVersion,
       GRANTED_STATE_SCHEMA_VERSION,

@@ -6,30 +6,30 @@ read_when:
 title: "Sessions"
 ---
 
-# `openclaw sessions`
+# `granted sessions`
 
 List stored conversation sessions.
 
 Session lists are not channel/provider liveness checks. They show persisted
 conversation rows from session stores. A quiet Discord, Slack, Telegram, or
 other channel can reconnect successfully without creating a new session row
-until a message is processed. Use `openclaw channels status --probe`,
-`openclaw status --deep`, or `openclaw health --verbose` when you need live
+until a message is processed. Use `granted channels status --probe`,
+`granted status --deep`, or `granted health --verbose` when you need live
 channel connectivity.
 
 ```bash
-openclaw sessions
-openclaw sessions --agent work
-openclaw sessions --all-agents
-openclaw sessions --active 120
-openclaw sessions --limit 25
-openclaw sessions --store ./tmp/sessions.json
-openclaw sessions --json
+granted sessions
+granted sessions --agent work
+granted sessions --all-agents
+granted sessions --active 120
+granted sessions --limit 25
+granted sessions --store ./tmp/sessions.json
+granted sessions --json
 ```
 
 Human-readable lists and cleanup previews use terminal-width tables. Long model
 names and flags wrap without being truncated, and Unicode keys stay aligned.
-Long keys show their beginning and end; use `openclaw sessions --json` for complete
+Long keys show their beginning and end; use `granted sessions --json` for complete
 session keys.
 
 Flags:
@@ -49,7 +49,7 @@ and suffixless custom selectors. OpenClaw resolves that selector to its physical
 SQLite target, verifies the target exists and is usable, and reports the physical
 path it actually read.
 
-`openclaw sessions` and the Gateway `sessions.list` RPC are bounded by default
+`granted sessions` and the Gateway `sessions.list` RPC are bounded by default
 so large long-lived stores cannot monopolize the CLI process or Gateway event
 loop. The CLI returns the newest 100 sessions by default; pass `--limit <n>`
 for a smaller/larger window or `--limit all` when you intentionally need the
@@ -71,7 +71,7 @@ configured agent roots or a templated `session.store` root. Legacy selector
 paths must resolve inside the agent root; symlinks and out-of-root paths are
 skipped.
 
-`openclaw sessions --all-agents --json`:
+`granted sessions --all-agents --json`:
 
 ```json
 {
@@ -98,11 +98,11 @@ skipped.
 Archive one or more sessions through the running Gateway:
 
 ```bash
-openclaw sessions archive "agent:main:scratch-1"
-openclaw sessions archive "agent:main:scratch-1" "agent:main:scratch-2"
-openclaw sessions archive "agent:work:scratch-1" --agent work
-openclaw sessions archive "agent:main:scratch-1" --dry-run
-openclaw sessions archive "agent:main:scratch-1" --json
+granted sessions archive "agent:main:scratch-1"
+granted sessions archive "agent:main:scratch-1" "agent:main:scratch-2"
+granted sessions archive "agent:work:scratch-1" --agent work
+granted sessions archive "agent:main:scratch-1" --dry-run
+granted sessions archive "agent:main:scratch-1" --json
 ```
 
 Archive uses the same `sessions.patch` lifecycle operation as the Control UI.
@@ -120,11 +120,11 @@ validate every key and preview the result without changing session state.
 Delete one or more sessions through the running Gateway:
 
 ```bash
-openclaw sessions delete "agent:main:scratch-1"
-openclaw sessions delete "agent:main:scratch-1" "agent:main:scratch-2" --yes
-openclaw sessions delete "agent:work:scratch-1" --agent work --yes
-openclaw sessions delete "agent:main:scratch-1" --dry-run
-openclaw sessions delete "agent:main:scratch-1" --yes --json
+granted sessions delete "agent:main:scratch-1"
+granted sessions delete "agent:main:scratch-1" "agent:main:scratch-2" --yes
+granted sessions delete "agent:work:scratch-1" --agent work --yes
+granted sessions delete "agent:main:scratch-1" --dry-run
+granted sessions delete "agent:main:scratch-1" --yes --json
 ```
 
 <Warning>
@@ -166,7 +166,7 @@ Example mixed-result JSON:
       "key": "agent:main:missing",
       "ok": false,
       "status": "not_found",
-      "error": "Session not found. Run openclaw sessions list --json to choose a valid key."
+      "error": "Session not found. Run granted sessions list --json to choose a valid key."
     }
   ]
 }
@@ -175,14 +175,14 @@ Example mixed-result JSON:
 ## Tail trajectory progress
 
 ```bash
-openclaw sessions tail
-openclaw sessions tail --follow
-openclaw sessions tail --session-key "agent:main:telegram:direct:123" --tail 25
-openclaw sessions --agent work tail --follow
-openclaw sessions --all-agents tail --follow
+granted sessions tail
+granted sessions tail --follow
+granted sessions tail --session-key "agent:main:telegram:direct:123" --tail 25
+granted sessions --agent work tail --follow
+granted sessions --all-agents tail --follow
 ```
 
-`openclaw sessions tail` renders recent runtime trajectory events as compact
+`granted sessions tail` renders recent runtime trajectory events as compact
 progress lines. Without `--session-key`, it tails running sessions first, then
 the latest stored session. `--tail <count>` controls how many existing events
 print before follow mode; default `80`, and `0` starts at the current end.
@@ -198,8 +198,8 @@ model completion lines show provider/model and terminal status.
 ## Export a trajectory bundle
 
 ```bash
-openclaw sessions export-trajectory --session-key "agent:main:telegram:direct:123" --workspace .
-openclaw sessions export-trajectory --session-key "agent:main:telegram:direct:123" --output bug-123 --json
+granted sessions export-trajectory --session-key "agent:main:telegram:direct:123" --workspace .
+granted sessions export-trajectory --session-key "agent:main:telegram:direct:123" --output bug-123 --json
 ```
 
 This is the command path used by the `/export-trajectory` slash command after
@@ -211,19 +211,19 @@ inside `.openclaw/trajectory-exports/` under the selected workspace.
 Run maintenance now instead of waiting for the next write cycle:
 
 ```bash
-openclaw sessions cleanup --dry-run
-openclaw sessions cleanup --agent work --dry-run
-openclaw sessions cleanup --all-agents --dry-run
-openclaw sessions cleanup --enforce
-openclaw sessions cleanup --enforce --active-key "agent:main:telegram:direct:123"
-openclaw sessions cleanup --dry-run --fix-dm-scope
-openclaw sessions cleanup --json
+granted sessions cleanup --dry-run
+granted sessions cleanup --agent work --dry-run
+granted sessions cleanup --all-agents --dry-run
+granted sessions cleanup --enforce
+granted sessions cleanup --enforce --active-key "agent:main:telegram:direct:123"
+granted sessions cleanup --dry-run --fix-dm-scope
+granted sessions cleanup --json
 ```
 
-`openclaw sessions cleanup` uses `session.maintenance` settings from config
+`granted sessions cleanup` uses `session.maintenance` settings from config
 ([Configuration reference](/gateway/config-agents#session)):
 
-- Scope note: `openclaw sessions cleanup` maintains session stores,
+- Scope note: `granted sessions cleanup` maintains session stores,
   transcripts, trajectory rows, and legacy trajectory sidecars. It does not
   prune cron run history. Task maintenance retains terminal cron history for 7
   days (`lost` rows for 24 hours) and enforces the newest 2000 rows per job and
@@ -279,7 +279,7 @@ other eligible files. Canonical SQLite archive pruning stops after a deletion
 error to retain its database recovery copy. If usage stays above the target,
 check filesystem permissions and retry after resolving the deletion failure.
 
-`openclaw sessions cleanup --all-agents --dry-run --json`:
+`granted sessions cleanup --all-agents --dry-run --json`:
 
 ```json
 {
@@ -313,14 +313,14 @@ check filesystem permissions and retry after resolving the deletion failure.
 
 ## Compact a session
 
-Reclaim context budget for a wedged or oversized session. `openclaw sessions
+Reclaim context budget for a wedged or oversized session. `granted sessions
 compact <key>` is the first-class wrapper around the `sessions.compact`
 Gateway RPC and requires a running Gateway.
 
 ```bash
-openclaw sessions compact "agent:main:main"
-openclaw sessions compact "agent:main:main" --max-lines 200
-openclaw sessions compact "agent:work:main" --agent work --json
+granted sessions compact "agent:main:main"
+granted sessions compact "agent:main:main" --max-lines 200
+granted sessions compact "agent:work:main" --agent work --json
 ```
 
 - Without `--max-lines`, the Gateway LLM-summarizes the transcript. The CLI
@@ -337,7 +337,7 @@ The command exits non-zero when the Gateway reports a failed compaction or is
 unreachable, so crons and scripts never mistake a silent no-op for success.
 
 <Note>
-`openclaw agent --message '/compact ...'` is **not** a compaction path. Slash
+`granted agent --message '/compact ...'` is **not** a compaction path. Slash
 commands from the CLI are rejected by the authorized-sender check; that
 invocation exits non-zero with guidance pointing here instead of silently
 no-opping.
@@ -345,7 +345,7 @@ no-opping.
 
 ### sessions.compact RPC
 
-`openclaw gateway call sessions.compact --params '<json>'` accepts:
+`granted gateway call sessions.compact --params '<json>'` accepts:
 
 | Field      | Type        | Required | Description                                                |
 | ---------- | ----------- | -------- | ---------------------------------------------------------- |

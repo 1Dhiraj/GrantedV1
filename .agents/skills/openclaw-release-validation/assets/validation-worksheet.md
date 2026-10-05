@@ -1,4 +1,4 @@
-# OpenClaw release validation
+# Granted release validation
 
 ## Run identity
 
@@ -16,7 +16,7 @@
 
 ## Upgrade findings
 
-> Automatically populated by the agent with test-target OpenClaw problems
+> Automatically populated by the agent with test-target Granted problems
 > observed while updating or starting the selected test gateway. OCM, backup,
 > and local setup problems are not release findings.
 

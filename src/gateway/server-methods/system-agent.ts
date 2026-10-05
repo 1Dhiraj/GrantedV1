@@ -1,4 +1,4 @@
-// OpenClaw gateway methods host the setup/repair conversation for clients.
+// Granted gateway methods host the setup/repair conversation for clients.
 import {
   buildSystemAgentInferenceUnavailableErrorDetails,
   buildSystemAgentSessionInvalidatedErrorDetails,
@@ -403,7 +403,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
           respond(
             false,
             undefined,
-            errorShape(ErrorCodes.INVALID_REQUEST, "OpenClaw caller identity unavailable."),
+            errorShape(ErrorCodes.INVALID_REQUEST, "Granted caller identity unavailable."),
           );
           return;
         }
@@ -414,7 +414,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
           respond(
             false,
             undefined,
-            errorShape(ErrorCodes.INVALID_REQUEST, "OpenClaw session belongs to another caller.", {
+            errorShape(ErrorCodes.INVALID_REQUEST, "Granted session belongs to another caller.", {
               details: buildSystemAgentSessionInvalidatedErrorDetails(),
             }),
           );
@@ -441,8 +441,8 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
             errorShape(
               ErrorCodes.INVALID_REQUEST,
               params.wizardCancel !== undefined
-                ? "No active OpenClaw chat session is awaiting that wizard cancel."
-                : "No active OpenClaw chat session is awaiting that wizard answer.",
+                ? "No active Granted chat session is awaiting that wizard cancel."
+                : "No active Granted chat session is awaiting that wizard answer.",
               { details: buildSystemAgentSessionInvalidatedErrorDetails() },
             ),
           );
@@ -466,7 +466,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
               undefined,
               errorShape(
                 ErrorCodes.UNAVAILABLE,
-                `OpenClaw requires working inference: ${inference.error}`,
+                `Granted requires working inference: ${inference.error}`,
                 {
                   details: buildSystemAgentInferenceUnavailableErrorDetails(),
                 },
@@ -589,7 +589,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
             respond(
               false,
               undefined,
-              errorShape(ErrorCodes.INVALID_REQUEST, "OpenClaw chat input is missing."),
+              errorShape(ErrorCodes.INVALID_REQUEST, "Granted chat input is missing."),
             );
             return;
           }

@@ -1,12 +1,13 @@
 // Openai tests cover openclaw.plugin plugin behavior.
 import { describe, expect, it } from "vitest";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import {
   OPENAI_GPT_55_MODEL_ID,
   OPENAI_GPT_55_PRO_MODEL_ID,
+  OPENAI_GPT_6_VARIANT_MODEL_IDS,
   OPENAI_GPT_56_VARIANT_MODEL_IDS,
 } from "./model-route-contract.js";
 import { buildOpenAIProvider } from "./openai-provider.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { createOpenAIProvider } from "./provider-contract-api.js";
 import { buildOpenAISetupProvider } from "./setup-api.js";
 
@@ -108,6 +109,7 @@ describe("OpenAI plugin manifest", () => {
   it("keeps million-token OpenAI models on the ordinary runtime budget by default", () => {
     const models = manifest.modelCatalog?.providers?.openai?.models ?? [];
     for (const id of [
+      ...OPENAI_GPT_6_VARIANT_MODEL_IDS,
       ...OPENAI_GPT_56_VARIANT_MODEL_IDS,
       OPENAI_GPT_55_MODEL_ID,
       OPENAI_GPT_55_PRO_MODEL_ID,

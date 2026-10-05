@@ -688,7 +688,7 @@ snapshots; OpenClaw owns all persistence and lifecycle coordination.
     drops them when the node disconnects, and a node can replace them with
     `node.pluginTools.update` after local plugin/MCP inventory changes.
 
-    Inside the Gateway this runtime is in-process. In plugin CLI commands it calls the configured Gateway over RPC, so commands such as `openclaw googlemeet recover-tab` can inspect paired nodes from the terminal. Node commands still go through normal Gateway node pairing, command allowlists, plugin node-invoke policies, and node-local command handling.
+    Inside the Gateway this runtime is in-process. In plugin CLI commands it calls the configured Gateway over RPC, so commands such as `granted googlemeet recover-tab` can inspect paired nodes from the terminal. Node commands still go through normal Gateway node pairing, command allowlists, plugin node-invoke policies, and node-local command handling.
 
     When execution identity auditing is enabled for an admitted run, those
     Gateway gates appear as enforced decision receipts. A successful node

@@ -54,7 +54,7 @@ import path from "node:path";
 const args = process.argv.slice(2);
 const state = process.env.GRANTED_STATE_DIR;
 if (args[0] === "--version") {
-  console.log("OpenClaw 2026.8.1");
+  console.log("Granted 2026.8.1");
 } else if (args[0] === "plugins" && args[1] === "enable") {
   fs.appendFileSync(path.join(state, "enabled"), args[2] + "\\n");
 } else {

@@ -33,9 +33,9 @@ export type SetupInferenceTestPlan = {
   modelRef: string;
   /** Authored/staged config used for route, auth, and persistence decisions. */
   config: GrantedConfig;
-  /** Execution-only projection that admits the reserved OpenClaw agent. */
+  /** Execution-only projection that admits the reserved Granted agent. */
   executionConfig?: GrantedConfig;
-  /** Execution identity used by the real OpenClaw turn. */
+  /** Execution identity used by the real Granted turn. */
   agentId?: string;
   /** Default-agent owner whose model/runtime config is being selected. */
   routeAgentId?: string;
@@ -386,7 +386,7 @@ function findSelectedProviderConfigKey(
 
 /**
  * Provider auth hooks are untrusted setup input. Carry only the selected
- * inference route's config into the probe; OpenClaw owns every other setup
+ * inference route's config into the probe; Granted owns every other setup
  * surface after intelligence exists.
  */
 export function projectManualInferenceConfig(params: {

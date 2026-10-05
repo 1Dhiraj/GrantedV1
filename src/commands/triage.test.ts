@@ -469,7 +469,7 @@ describe("triageCommand", () => {
     }
 
     expect(mocks.agentExecCommand).toHaveBeenCalledExactlyOnceWith(
-      expect.stringContaining("THIS machine's OpenClaw installation"),
+      expect.stringContaining("THIS machine's Granted installation"),
       {},
       runtime,
     );

@@ -44,7 +44,7 @@ Nodes do not run the Gateway service. Only one Gateway should run per host unles
 ssh -N -L 18789:127.0.0.1:18789 user@gateway-host
 ```
 
-With the tunnel up, `openclaw health` and `openclaw status --deep` reach the remote Gateway via `ws://127.0.0.1:18789`. `openclaw gateway status`, `openclaw gateway health`, `openclaw gateway probe`, and `openclaw gateway call` can also target a forwarded URL via `--url`.
+With the tunnel up, `granted health` and `granted status --deep` reach the remote Gateway via `ws://127.0.0.1:18789`. `granted gateway status`, `granted gateway health`, `granted gateway probe`, and `granted gateway call` can also target a forwarded URL via `--url`.
 
 To replace per-client SSH tunnels with one private `wss://` endpoint while keeping the Gateway on loopback, follow [Give your Gateway a stable HTTPS URL](/gateway/stable-https-url).
 
@@ -74,7 +74,7 @@ Persist a remote target so CLI commands use it by default:
 
 When the Gateway is loopback-only, keep the URL at `ws://127.0.0.1:18789` and open the SSH tunnel first. In the macOS app's SSH-tunnel transport, the discovered Gateway hostname goes in `gateway.remote.sshTarget` (`user@host` or `user@host:port`); `gateway.remote.url` stays the local tunnel URL. If the remote port differs from the local one, set `gateway.remote.remotePort`.
 
-Running `openclaw configure --section gateway` or interactive onboarding again
+Running `granted configure --section gateway` or interactive onboarding again
 preserves the remote TLS fingerprint and transport settings when you keep the
 same URL (ignoring surrounding whitespace). Changing the URL clears those
 endpoint settings. A newly confirmed discovery fingerprint replaces the saved
@@ -276,7 +276,7 @@ ssh-copy-id -i ~/.ssh/id_rsa <REMOTE_USER>@<REMOTE_IP>
 #### Step 3: configure the gateway token
 
 ```bash
-openclaw config set gateway.remote.token "<your-token>"
+granted config set gateway.remote.token "<your-token>"
 ```
 
 Use `gateway.remote.password` instead if the remote Gateway uses password auth. `OPENCLAW_GATEWAY_TOKEN` is still valid as a shell-level override, but the durable remote-client setup is `gateway.remote.token` / `gateway.remote.password`.

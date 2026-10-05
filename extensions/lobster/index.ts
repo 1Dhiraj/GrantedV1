@@ -1,4 +1,4 @@
-// Lobster plugin entrypoint registers its OpenClaw integration.
+// Lobster plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import type { AnyAgentTool, GrantedPluginApi, GrantedPluginToolFactory } from "./runtime-api.js";
 import { createLobsterTool } from "./src/lobster-tool.js";

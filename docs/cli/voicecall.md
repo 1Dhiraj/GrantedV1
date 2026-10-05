@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw voicecall` (voice-call plugin command surface)"
+summary: "CLI reference for `granted voicecall` (voice-call plugin command surface)"
 read_when:
   - You use the voice-call plugin and want every CLI entry point
   - You need flag tables and defaults for setup, smoke, call, continue, speak, dtmf, end, status, tail, latency, expose, and start
 title: "Voicecall"
 ---
 
-# `openclaw voicecall`
+# `granted voicecall`
 
 `voicecall` is a plugin-provided command. It only appears when the voice-call
 plugin is installed and enabled.
@@ -19,7 +19,7 @@ runtime.
 
 Fallback is limited to transport-level absence. If the Gateway responds with a
 request or authentication error, or does not answer before the timeout, the
-command exits nonzero and points to `openclaw gateway status`; it does not start
+command exits nonzero and points to `granted gateway status`; it does not start
 a second webhook server. If standalone fallback cannot bind the configured
 `serve.port`, the error identifies the likely running Gateway instead of
 printing a raw `EADDRINUSE` failure.
@@ -27,18 +27,18 @@ printing a raw `EADDRINUSE` failure.
 ## Subcommands
 
 ```bash
-openclaw voicecall setup    [--json]
-openclaw voicecall smoke    [-t <phone>] [--message <text>] [--mode <m>] [--yes] [--json]
-openclaw voicecall call     -m <text> [-t <phone>] [--mode <m>]
-openclaw voicecall start    --to <phone> [--message <text>] [--mode <m>]
-openclaw voicecall continue --call-id <id> --message <text>
-openclaw voicecall speak    --call-id <id> --message <text>
-openclaw voicecall dtmf     --call-id <id> --digits <digits>
-openclaw voicecall end      --call-id <id>
-openclaw voicecall status   [--call-id <id>] [--json]
-openclaw voicecall tail     [--file <path>] [--since <n>] [--poll <ms>]
-openclaw voicecall latency  [--file <path>] [--last <n>]
-openclaw voicecall expose   [--mode <m>] [--path <p>] [--port <port>] [--serve-path <p>]
+granted voicecall setup    [--json]
+granted voicecall smoke    [-t <phone>] [--message <text>] [--mode <m>] [--yes] [--json]
+granted voicecall call     -m <text> [-t <phone>] [--mode <m>]
+granted voicecall start    --to <phone> [--message <text>] [--mode <m>]
+granted voicecall continue --call-id <id> --message <text>
+granted voicecall speak    --call-id <id> --message <text>
+granted voicecall dtmf     --call-id <id> --digits <digits>
+granted voicecall end      --call-id <id>
+granted voicecall status   [--call-id <id>] [--json]
+granted voicecall tail     [--file <path>] [--since <n>] [--poll <ms>]
+granted voicecall latency  [--file <path>] [--last <n>]
+granted voicecall expose   [--mode <m>] [--path <p>] [--port <port>] [--serve-path <p>]
 ```
 
 | Subcommand | Description                                                     |
@@ -63,8 +63,8 @@ openclaw voicecall expose   [--mode <m>] [--path <p>] [--port <port>] [--serve-p
 Prints human-readable readiness checks by default. Pass `--json` for scripts.
 
 ```bash
-openclaw voicecall setup
-openclaw voicecall setup --json
+granted voicecall setup
+granted voicecall setup --json
 ```
 
 ### `smoke`
@@ -81,9 +81,9 @@ Runs the same readiness checks. Places a real phone call only when both
 | `--json`           | `false`                           | Print machine-readable JSON.            |
 
 ```bash
-openclaw voicecall smoke
-openclaw voicecall smoke --to "+15555550123"        # dry run
-openclaw voicecall smoke --to "+15555550123" --yes  # live notify call
+granted voicecall smoke
+granted voicecall smoke --to "+15555550123"        # dry run
+granted voicecall smoke --to "+15555550123" --yes  # live notify call
 ```
 
 <Note>
@@ -103,8 +103,8 @@ Initiate an outbound voice call.
 | `--mode <mode>`        | no       | `conversation`    | Call mode: `notify` (hang up after message) or `conversation` (stay open). |
 
 ```bash
-openclaw voicecall call --to "+15555550123" --message "Hello"
-openclaw voicecall call -m "Heads up" --mode notify
+granted voicecall call --to "+15555550123" --message "Hello"
+granted voicecall call -m "Heads up" --mode notify
 ```
 
 ### `start`
@@ -162,9 +162,9 @@ Inspect active calls.
 | `--json`         | `false` | Print machine-readable JSON. |
 
 ```bash
-openclaw voicecall status
-openclaw voicecall status --json
-openclaw voicecall status --call-id <id>
+granted voicecall status
+granted voicecall status --json
+granted voicecall status --call-id <id>
 ```
 
 ## Logs and metrics
@@ -220,9 +220,9 @@ comes from `tailscale.port` (default `443`); Funnel supports `443`, `8443`, or
 | `--serve-path <path>` | config `serve.path` or `/voice/webhook`   | Local webhook path.                             |
 
 ```bash
-openclaw voicecall expose --mode serve
-openclaw voicecall expose --mode funnel
-openclaw voicecall expose --mode off
+granted voicecall expose --mode serve
+granted voicecall expose --mode funnel
+granted voicecall expose --mode off
 ```
 
 <Warning>

@@ -20,7 +20,7 @@ proxy:
 You can also set the URL through the environment:
 
 ```bash
-OPENCLAW_PROXY_URL=http://127.0.0.1:3128 openclaw gateway run
+OPENCLAW_PROXY_URL=http://127.0.0.1:3128 granted gateway run
 ```
 
 `proxy.proxyUrl` takes precedence over `OPENCLAW_PROXY_URL`. A configured URL activates managed proxy routing; removing both URLs disables it.
@@ -34,9 +34,9 @@ OPENCLAW_PROXY_URL=http://127.0.0.1:3128 openclaw gateway run
 For managed gateway services, store the URL in config so it survives reinstall, rather than relying on foreground env:
 
 ```bash
-openclaw config set proxy.proxyUrl http://127.0.0.1:3128
-openclaw gateway install --force
-openclaw gateway start
+granted config set proxy.proxyUrl http://127.0.0.1:3128
+granted gateway install --force
+granted gateway start
 ```
 
 The `OPENCLAW_PROXY_URL` env fallback is best for foreground runs. To use it with an installed service, put it in the service's durable environment (`$OPENCLAW_STATE_DIR/.env`, default `~/.openclaw/.env`), then reinstall so launchd/systemd/Scheduled Tasks picks it up. This variable is copied into the generated service environment rather than tracked as a managed dotenv key, so systemd's restart-only managed dotenv refresh does not apply.
@@ -53,14 +53,14 @@ proxy:
 `proxy.tls.caFile` verifies the proxy endpoint's own TLS certificate. It is not a destination MITM trust setting, a client certificate, or a substitute for the proxy's destination policy. Use `NODE_EXTRA_CA_CERTS` instead only when the entire Node process must trust an additional CA from startup (for example, an enterprise TLS-inspection system re-signing every HTTPS destination certificate) — that variable is process-global and must be set before Node starts, so OpenClaw cannot apply it mid-run the way it applies `proxy.tls.caFile`. Prefer `proxy.tls.caFile` for HTTPS proxy endpoint trust: it is scoped to managed proxy routing instead of the whole process.
 
 ```bash
-openclaw config set proxy.proxyUrl https://proxy.corp.example:8443
-openclaw config set proxy.tls.caFile /etc/openclaw/proxy-ca.pem
-openclaw gateway run
+granted config set proxy.proxyUrl https://proxy.corp.example:8443
+granted config set proxy.tls.caFile /etc/openclaw/proxy-ca.pem
+granted gateway run
 ```
 
 ## How routing works
 
-With a valid proxy URL, protected runtime processes (`openclaw gateway run`, `openclaw node run`, `openclaw agent --local`) route normal HTTP and WebSocket egress through the proxy:
+With a valid proxy URL, protected runtime processes (`granted gateway run`, `granted node run`, `granted agent --local`) route normal HTTP and WebSocket egress through the proxy:
 
 ```text
 OpenClaw process
@@ -110,7 +110,7 @@ For `openclaw --container ...` commands, OpenClaw forwards `OPENCLAW_PROXY_URL` 
 
 - `proxy.enabled` / `proxy.proxyUrl` — outbound forward-proxy routing for runtime egress. This page.
 - `gateway.auth.mode: "trusted-proxy"` — inbound identity-aware reverse-proxy authentication for Gateway access. See [Trusted proxy auth](/gateway/trusted-proxy-auth).
-- `openclaw proxy` — local debug proxy and capture inspector for development and support. See [openclaw proxy](/cli/proxy).
+- `granted proxy` — local debug proxy and capture inspector for development and support. See [granted proxy](/cli/proxy).
 - `tools.web.fetch.useTrustedEnvProxy` — opt-in for `web_fetch` to let an operator-controlled HTTP(S) env proxy resolve DNS while keeping strict DNS pinning and hostname policy by default. See [Web fetch](/tools/web-fetch#trusted-env-proxy).
 - Channel- or provider-specific proxy settings — owner-specific overrides for one transport. Prefer the managed network proxy for central egress control across the runtime.
 
@@ -128,13 +128,13 @@ The proxy's destination policy is the actual security boundary; OpenClaw cannot 
 Validate from the same host/container/service account that runs OpenClaw:
 
 ```bash
-openclaw proxy validate --proxy-url http://127.0.0.1:3128
+granted proxy validate --proxy-url http://127.0.0.1:3128
 ```
 
 With a private-CA HTTPS proxy endpoint:
 
 ```bash
-openclaw proxy validate --proxy-url https://proxy.corp.example:8443 --proxy-ca-file /etc/openclaw/proxy-ca.pem
+granted proxy validate --proxy-url https://proxy.corp.example:8443 --proxy-ca-file /etc/openclaw/proxy-ca.pem
 ```
 
 | Flag                     | Purpose                                                              |
@@ -168,7 +168,7 @@ With no `--allowed-url`/`--denied-url`, the default checks are: `https://example
 }
 ```
 
-Manual `curl` check (the public request should succeed; the loopback and metadata requests should be blocked by the proxy itself — `curl` alone cannot distinguish a proxy denial from an unreachable origin the way `openclaw proxy validate`'s built-in canary can):
+Manual `curl` check (the public request should succeed; the loopback and metadata requests should be blocked by the proxy itself — `curl` alone cannot distinguish a proxy denial from an unreachable origin the way `granted proxy validate`'s built-in canary can):
 
 ```bash
 curl -x http://127.0.0.1:3128 https://example.com/

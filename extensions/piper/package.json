@@ -2,7 +2,7 @@
   "name": "@granted/piper-speech",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Piper local speech plugin",
+  "description": "Granted Piper local speech plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

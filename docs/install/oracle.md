@@ -85,13 +85,13 @@ Run a persistent OpenClaw Gateway on Oracle Cloud's **Always Free** ARM tier (up
     Use token auth with Tailscale Serve for secure remote access.
 
     ```bash
-    openclaw config set gateway.bind loopback
-    openclaw config set gateway.auth.mode token
-    openclaw doctor --generate-gateway-token
-    openclaw config set gateway.tailscale.mode serve
-    openclaw config set gateway.trustedProxies '["127.0.0.1"]'
+    granted config set gateway.bind loopback
+    granted config set gateway.auth.mode token
+    granted doctor --generate-gateway-token
+    granted config set gateway.tailscale.mode serve
+    granted config set gateway.trustedProxies '["127.0.0.1"]'
 
-    openclaw gateway install
+    granted gateway install
     systemctl --user restart openclaw-gateway.service
     ```
 
@@ -146,7 +146,7 @@ With the VCN locked down (only UDP 41641 open) and the Gateway bound to loopback
 Still recommended:
 
 - `chmod 700 ~/.openclaw` to restrict credential file permissions.
-- `openclaw security audit` for an OpenClaw-specific posture check.
+- `granted security audit` for an OpenClaw-specific posture check.
 - Regular `sudo apt update && sudo apt upgrade` for OS patches.
 - Review devices in the [Tailscale admin console](https://login.tailscale.com/admin) periodically.
 
@@ -183,8 +183,8 @@ OpenClaw state lives under:
 These survive reboots. To take a portable snapshot:
 
 ```bash
-openclaw backup create
-openclaw backup restore <archive.tar.gz> --target <fresh-directory>
+granted backup create
+granted backup restore <archive.tar.gz> --target <fresh-directory>
 ```
 
 Restore verifies and extracts into a fresh staging directory; activation is a
@@ -207,7 +207,7 @@ Then open `http://localhost:18789`.
 
 **Tailscale will not connect** -- Run `sudo tailscale up --ssh --hostname=openclaw --reset` to re-authenticate.
 
-**Gateway will not start** -- Run `openclaw doctor --non-interactive` and check logs with `journalctl --user -u openclaw-gateway.service -n 50`.
+**Gateway will not start** -- Run `granted doctor --non-interactive` and check logs with `journalctl --user -u openclaw-gateway.service -n 50`.
 
 **ARM binary issues** -- Most npm packages work on ARM64. For native binaries, look for `linux-arm64` or `aarch64` releases. Verify architecture with `uname -m`.
 

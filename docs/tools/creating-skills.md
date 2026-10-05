@@ -60,7 +60,7 @@ OpenClaw loads skills from several roots in a defined [precedence order](/tools/
 
   <Step title="Verify the skill loaded">
     ```bash
-    openclaw skills list
+    granted skills list
     ```
 
     OpenClaw watches `SKILL.md` files under skills roots by default. If the
@@ -72,14 +72,14 @@ OpenClaw loads skills from several roots in a defined [precedence order](/tools/
     /new
 
     # Or restart the gateway
-    openclaw gateway restart
+    granted gateway restart
     ```
 
   </Step>
 
   <Step title="Test it">
     ```bash
-    openclaw agent --message "give me a greeting"
+    granted agent --message "give me a greeting"
     ```
 
     Or open a chat and ask the agent directly. Use `/skill hello-world` to
@@ -196,13 +196,13 @@ live, use [Skill Workshop](/tools/skill-workshop) proposals instead of writing
 
 ```bash
 # Propose a brand-new skill
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name "hello-world" \
   --description "A simple skill that prints a greeting." \
   --proposal ./PROPOSAL.md
 
 # Propose an update to an existing skill
-openclaw skills workshop propose-update hello-world \
+granted skills workshop propose-update hello-world \
   --proposal ./PROPOSAL.md \
   --description "Updated greeting skill"
 ```
@@ -210,7 +210,7 @@ openclaw skills workshop propose-update hello-world \
 Use `--proposal-dir` when the proposal includes support files:
 
 ```bash
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name "hello-world" \
   --description "A simple skill that prints a greeting." \
   --proposal-dir ./hello-world-proposal/
@@ -222,9 +222,9 @@ The directory must contain `PROPOSAL.md` at its root. Support files go under
 After review:
 
 ```bash
-openclaw skills workshop inspect <proposal-id>
-openclaw skills workshop evaluate <proposal-id>
-openclaw skills workshop apply <proposal-id>
+granted skills workshop inspect <proposal-id>
+granted skills workshop evaluate <proposal-id>
+granted skills workshop apply <proposal-id>
 ```
 
 See [Skill Workshop](/tools/skill-workshop) for the full proposal lifecycle.
@@ -262,7 +262,7 @@ See [Skill Workshop](/tools/skill-workshop) for the full proposal lifecycle.
   - **Be concise** — instruct the model on *what* to do, not how to be an AI.
   - **Safety first** — if your skill uses `exec`, ensure prompts do not allow
     arbitrary command injection from untrusted input.
-  - **Test locally** — use `openclaw agent --message "..."` before sharing.
+  - **Test locally** — use `granted agent --message "..."` before sharing.
   - **Use ClawHub** — browse community skills at [clawhub.ai](https://clawhub.ai)
     before building from scratch.
 </Tip>

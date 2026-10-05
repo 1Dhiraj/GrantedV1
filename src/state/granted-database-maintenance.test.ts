@@ -20,7 +20,7 @@ import { assertOpenClawStateDatabaseForMaintenance } from "./granted-state-db.js
 import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "./granted-state-schema-compatibility.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "./granted-state-schema.js";
 
-describe("OpenClaw database maintenance schema validation", () => {
+describe("Granted database maintenance schema validation", () => {
   it("accepts the current global and agent schemas", () => {
     const globalDatabase = createGlobalDatabase();
     const agentDatabase = createAgentDatabase();

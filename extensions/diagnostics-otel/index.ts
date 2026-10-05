@@ -1,4 +1,4 @@
-// Diagnostics Otel plugin entrypoint registers its OpenClaw integration.
+// Diagnostics Otel plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { createDiagnosticsOtelService } from "./runtime-api.js";
 

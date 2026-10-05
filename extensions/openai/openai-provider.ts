@@ -41,9 +41,13 @@ import {
   OPENAI_CODEX_DEFAULT_MODEL,
   OPENAI_DEFAULT_MODEL,
 } from "./default-models.js";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import {
   OPENAI_CHAT_LATEST_MODEL_ID,
   OPENAI_GPT_53_CODEX_SPARK_MODEL_ID,
+  OPENAI_GPT_6_ASTRA_MODEL_ID,
+  OPENAI_GPT_6_LUNA_MODEL_ID,
+  OPENAI_GPT_6_SOL_MODEL_ID,
   OPENAI_GPT_54_MINI_MODEL_ID,
   OPENAI_GPT_54_MODEL_ID,
   OPENAI_GPT_54_NANO_MODEL_ID,
@@ -64,7 +68,6 @@ import {
   buildOpenAIChatGPTAuthMethodRuns,
   buildOpenAICodexProviderHooks,
 } from "./openai-chatgpt-provider.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { createOpenAIProvider } from "./provider-contract-api.js";
 import { resolveAuthoredOpenAIProviderConfig } from "./provider-policy-api.js";
 import {
@@ -92,7 +95,7 @@ function classifyOpenAiFailoverCode(code: string | undefined) {
 const OPENAI_MODELS_ENDPOINT = "https://api.openai.com/v1/models";
 // Keep synchronized with extensions/codex's exact @openai/codex dependency;
 // the provider contract test fails when that managed-runtime pin changes.
-const OPENAI_CODEX_CLIENT_VERSION = "0.151.0";
+const OPENAI_CODEX_CLIENT_VERSION = "0.157.1";
 const OPENAI_CODEX_MODELS_ENDPOINT = `${OPENAI_CODEX_RESPONSES_BASE_URL}/models?client_version=${OPENAI_CODEX_CLIENT_VERSION}`;
 const OPENAI_MODELS_CACHE_TTL_MS = 60_000;
 const OPENAI_CODEX_MODELS_CACHE_TTL_MS = 60_000;
@@ -140,6 +143,10 @@ const OPENAI_CHAT_LATEST_TEMPLATE_MODEL_IDS = [
   OPENAI_GPT_54_MODEL_ID,
 ] as const;
 const OPENAI_GPT_56_TEMPLATE_MODEL_IDS = [OPENAI_GPT_55_MODEL_ID] as const;
+const OPENAI_GPT_6_TEMPLATE_MODEL_IDS = [
+  OPENAI_GPT_6_SOL_MODEL_ID,
+  OPENAI_GPT_56_SOL_MODEL_ID,
+] as const;
 const OPENAI_UNKNOWN_MODEL_COST = {
   input: 0,
   output: 0,
@@ -410,6 +417,26 @@ function resolveCodexModelInput(
 function normalizeOpenAICodexCatalogModel(model: ModelDefinitionConfig): ModelDefinitionConfig {
   const modelId = normalizeLowercaseStringOrEmpty(model.id);
   if (
+    modelId === OPENAI_GPT_6_ASTRA_MODEL_ID ||
+    modelId === OPENAI_GPT_6_SOL_MODEL_ID ||
+    modelId === OPENAI_GPT_6_LUNA_MODEL_ID
+  ) {
+    const supportedReasoningEfforts = resolveOpenAICodexReasoningEfforts(
+      modelId,
+      model.compat?.supportedReasoningEfforts,
+    );
+    return {
+      ...model,
+      contextTokens: model.contextTokens ?? OPENAI_DEFAULT_RUNTIME_CONTEXT_TOKENS,
+      thinkingLevelMap: { ...model.thinkingLevelMap, xhigh: "xhigh", max: "max" },
+      compat: {
+        ...model.compat,
+        supportsReasoningEffort: true,
+        ...(supportedReasoningEfforts ? { supportedReasoningEfforts } : {}),
+      },
+    };
+  }
+  if (
     modelId === OPENAI_GPT_56_SOL_MODEL_ID ||
     modelId === OPENAI_GPT_56_TERRA_MODEL_ID ||
     modelId === OPENAI_GPT_56_LUNA_MODEL_ID
@@ -526,6 +553,9 @@ function buildOpenAICodexStaticProviderConfig(): ModelProviderConfig {
     models: OPENAI_MANIFEST_PROVIDER.models.flatMap((model) => {
       const modelId = normalizeLowercaseStringOrEmpty(model.id);
       if (isOpenAIPlatformOnlyRouteModelId(modelId)) {
+        return [];
+      }
+      if (modelId.startsWith("gpt-6")) {
         return [];
       }
       // Static OAuth rows are offline hints, not entitlement claims. Keep only
@@ -793,6 +823,10 @@ function buildOpenAIUnknownModelHint(modelId: string): string | undefined {
 
 const OPENAI_GPT_FORWARD_COMPAT_CASES = [
   {
+    match: [OPENAI_GPT_6_ASTRA_MODEL_ID, OPENAI_GPT_6_SOL_MODEL_ID, OPENAI_GPT_6_LUNA_MODEL_ID],
+    templateIds: OPENAI_GPT_6_TEMPLATE_MODEL_IDS,
+  },
+  {
     match: [OPENAI_CHAT_LATEST_MODEL_ID],
     templateIds: OPENAI_CHAT_LATEST_TEMPLATE_MODEL_IDS,
     patch: { reasoning: false, cost: OPENAI_CHAT_LATEST_COST, contextWindow: 400_000 },
@@ -837,6 +871,9 @@ function resolveOpenAIGptForwardCompatModel(ctx: ProviderResolveDynamicModelCont
   const modelId = normalizeLowercaseStringOrEmpty(trimmedModelId);
   const exactModel = ctx.modelRegistry.find(PROVIDER_ID, trimmedModelId);
   if (
+    modelId === OPENAI_GPT_6_ASTRA_MODEL_ID ||
+    modelId === OPENAI_GPT_6_SOL_MODEL_ID ||
+    modelId === OPENAI_GPT_6_LUNA_MODEL_ID ||
     modelId === OPENAI_GPT_56_SOL_MODEL_ID ||
     modelId === OPENAI_GPT_56_TERRA_MODEL_ID ||
     modelId === OPENAI_GPT_56_LUNA_MODEL_ID

@@ -13,7 +13,7 @@ plugin.
 | Property                   | Value                              |
 | -------------------------- | ---------------------------------- |
 | Provider id                | `meta`                             |
-| Plugin                     | `@granted/meta-provider`          |
+| Plugin                     | `@granted/meta-provider`           |
 | Auth env var               | `MODEL_API_KEY`                    |
 | Onboarding flag            | `--auth-choice meta-api-key`       |
 | Direct CLI flag            | `--meta-api-key <key>`             |
@@ -27,19 +27,19 @@ plugin.
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/meta-provider
-    openclaw gateway restart
+    granted plugins install @granted/meta-provider
+    granted gateway restart
     ```
   </Step>
   <Step title="Set the API key">
     <CodeGroup>
 
 ```bash Onboarding
-openclaw onboard --auth-choice meta-api-key
+granted onboard --auth-choice meta-api-key
 ```
 
 ```bash Direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice meta-api-key \
   --meta-api-key "$MODEL_API_KEY"
 ```
@@ -53,11 +53,11 @@ export MODEL_API_KEY=<key>
   </Step>
   <Step title="Verify models are available">
     ```bash
-    openclaw models list --provider meta
+    granted models list --provider meta
     ```
 
     Lists the static Muse Spark catalog entries. If `MODEL_API_KEY` is unresolved,
-    `openclaw models status --json` reports the missing credential under
+    `granted models status --json` reports the missing credential under
     `auth.unusableProfiles`.
 
   </Step>
@@ -66,7 +66,7 @@ export MODEL_API_KEY=<key>
 ## Non-interactive setup
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice meta-api-key \
   --meta-api-key "$MODEL_API_KEY"

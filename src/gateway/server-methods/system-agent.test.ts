@@ -1,4 +1,4 @@
-// OpenClaw gateway tests cover activation serialization and chat sessions.
+// Granted gateway tests cover activation serialization and chat sessions.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -278,7 +278,7 @@ beforeEach(() => {
     auditSequence: 0,
   });
   greetingMocks.resolveSystemAgentGreeting.mockReset().mockResolvedValue({
-    text: "I'm OpenClaw. All systems nominal.",
+    text: "I'm Granted. All systems nominal.",
     source: "model",
   });
   onboardingWelcomeMocks.buildOnboardingWelcome.mockReset().mockResolvedValue({
@@ -339,7 +339,7 @@ describe("openclaw.setup", () => {
           payload: undefined,
           error: {
             code: "UNAVAILABLE",
-            message: "OpenClaw setup is already in progress; try again when it finishes.",
+            message: "Granted setup is already in progress; try again when it finishes.",
             details: { code: "SETUP_ADMISSION_BUSY" },
             retryable: true,
           },
@@ -378,7 +378,7 @@ describe("openclaw.setup", () => {
           payload: undefined,
           error: {
             code: "UNAVAILABLE",
-            message: "OpenClaw setup is already in progress; try again when it finishes.",
+            message: "Granted setup is already in progress; try again when it finishes.",
             details: { code: "SETUP_ADMISSION_BUSY" },
             retryable: true,
           },
@@ -407,7 +407,7 @@ describe("openclaw.chat", () => {
       ok: false,
       error: {
         code: "UNAVAILABLE",
-        message: "OpenClaw requires working inference: no configured model",
+        message: "Granted requires working inference: no configured model",
         details: {
           code: "system_agent_inference_unavailable",
         },
@@ -973,7 +973,7 @@ describe("openclaw.chat", () => {
 
     expect(first.payload).toMatchObject({
       reply:
-        "OpenClaw change pending approval: restart the Gateway. No change has been made. Expires in 10m.",
+        "Granted change pending approval: restart the Gateway. No change has been made. Expires in 10m.",
       needsApproval: true,
       proposalId: expect.stringMatching(/^system-agent:/),
     });

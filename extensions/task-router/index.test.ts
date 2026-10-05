@@ -76,6 +76,42 @@ describe("task-router defaults", () => {
     ).resolves.toBeUndefined();
   });
 
+  it("preserves a model that already differs from the configured agent default", async () => {
+    const hooks = registerTaskRouter();
+    const route = hooks.get("before_model_resolve");
+
+    await expect(
+      route?.(
+        { prompt: "open paint and draw a circle" },
+        {
+          trigger: "user",
+          agentId: "main",
+          modelProviderId: "openai",
+          modelId: "gpt-5.6-terra",
+        },
+      ),
+    ).resolves.toBeUndefined();
+  });
+
+  it("honors an explicit selection even when it matches the agent default", async () => {
+    const hooks = registerTaskRouter();
+    const context = {
+      trigger: "user",
+      agentId: "main",
+      modelProviderId: "premium",
+      modelId: "model",
+      modelSelectionExplicit: true,
+    };
+
+    await expect(
+      hooks.get("before_model_resolve")?.({ prompt: "open paint and draw a circle" }, context),
+    ).resolves.toBeUndefined();
+    await expect(
+      hooks.get("before_agent_reply")?.({ cleanedBody: "hi" }, context),
+    ).resolves.toBeUndefined();
+    expect(prepareSimpleModel).not.toHaveBeenCalled();
+  });
+
   it("answers trivial messages directly with the economy model", async () => {
     const hooks = registerTaskRouter();
     const reply = hooks.get("before_agent_reply");

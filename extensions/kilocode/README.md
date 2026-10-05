@@ -1,12 +1,12 @@
-# OpenClaw Kilo Gateway Provider
+# Granted Kilo Gateway Provider
 
-Official OpenClaw provider plugin for Kilo Gateway.
+Official Granted provider plugin for Kilo Gateway.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/kilocode-provider
-openclaw gateway restart
+granted plugins install @granted/kilocode-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/kilocode> for setup and configuration.

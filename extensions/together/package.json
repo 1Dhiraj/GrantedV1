@@ -2,7 +2,7 @@
   "name": "@granted/together-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Together provider plugin",
+  "description": "Granted Together provider plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

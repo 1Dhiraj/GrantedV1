@@ -261,7 +261,7 @@ async function resolveSetupPlan(
   const totalmemBytes = os.totalmem();
   if (candidate && meetsLlamaCppDefaultModelRamFloor(totalmemBytes)) {
     const consent = await ctx.prompter.confirm({
-      message: `OpenClaw will install a verified llama.cpp server and download Gemma 4 E4B IT Q4_K_M (about 5.0 GB) plus ${describeEmbeddingDownload(embeddingModelIsDefault)}. Continue?`,
+      message: `Granted will install a verified llama.cpp server and download Gemma 4 E4B IT Q4_K_M (about 5.0 GB) plus ${describeEmbeddingDownload(embeddingModelIsDefault)}. Continue?`,
       initialValue: false,
     });
     if (consent) {
@@ -286,7 +286,7 @@ async function resolveSetupPlan(
 
   if (localMemoryIntent) {
     const consent = await ctx.prompter.confirm({
-      message: `OpenClaw can install a verified llama.cpp server and download only ${describeEmbeddingDownload(embeddingModelIsDefault)}. This will not install or change your chat model. Continue?`,
+      message: `Granted can install a verified llama.cpp server and download only ${describeEmbeddingDownload(embeddingModelIsDefault)}. This will not install or change your chat model. Continue?`,
       initialValue: false,
     });
     if (consent) {

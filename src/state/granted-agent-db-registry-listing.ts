@@ -101,7 +101,7 @@ function hasUnavailableMissingSqlitePath(pathname: string): boolean {
   }
 }
 
-/** List agent databases recorded in the shared OpenClaw state registry. */
+/** List agent databases recorded in the shared Granted state registry. */
 export function listOpenClawRegisteredAgentDatabases(
   options: GrantedStateDatabaseOptions & {
     includeIncompatibleSchemaVersions?: boolean;
@@ -120,7 +120,7 @@ export function listOpenClawRegisteredAgentDatabases(
   const entries = withExistingOpenClawStateDatabaseReadOnly(({ db: database }) => {
     if (detectOpenClawStateDatabaseSchemaMigrationsFromDatabase(database, pathname).length > 0) {
       throw new Error(
-        `OpenClaw state database ${pathname} has a legacy agent database registry schema; run openclaw doctor --fix to migrate it.`,
+        `Granted state database ${pathname} has a legacy agent database registry schema; run openclaw doctor --fix to migrate it.`,
       );
     }
     const registryTable = database
@@ -130,7 +130,7 @@ export function listOpenClawRegisteredAgentDatabases(
       return [];
     }
     if (registryTable.type !== "table") {
-      throw new Error(`OpenClaw state database ${pathname} has an invalid agent registry.`);
+      throw new Error(`Granted state database ${pathname} has an invalid agent registry.`);
     }
     const db = getNodeSqliteKysely<GrantedAgentRegistryDatabase>(database);
     const rows = executeSqliteQuerySync(
@@ -151,7 +151,7 @@ export function listOpenClawRegisteredAgentDatabases(
   }, options);
   if (entries === undefined) {
     if (hasUnavailableMissingSqlitePath(pathname)) {
-      throw new Error(`OpenClaw state database ${pathname} is unavailable.`);
+      throw new Error(`Granted state database ${pathname} is unavailable.`);
     }
     memo.entries = [];
     return [];

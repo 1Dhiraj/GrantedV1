@@ -66,7 +66,7 @@ DigitalOcean is a straightforward paid VPS path. For cheaper or free options:
 
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
     The wizard walks you through model auth, channel setup, gateway token generation, and daemon installation (systemd user service).
@@ -85,7 +85,7 @@ DigitalOcean is a straightforward paid VPS path. For cheaper or free options:
 
   <Step title="Verify the gateway">
     ```bash
-    openclaw status
+    granted status
     systemctl --user status openclaw-gateway.service
     journalctl --user -u openclaw-gateway.service -f
     ```
@@ -108,8 +108,8 @@ DigitalOcean is a straightforward paid VPS path. For cheaper or free options:
     ```bash
     curl -fsSL https://tailscale.com/install.sh | sudo sh
     sudo tailscale up
-    openclaw config set gateway.tailscale.mode serve
-    openclaw gateway restart
+    granted config set gateway.tailscale.mode serve
+    granted gateway restart
     ```
 
     Then open `https://<magicdns>/` from any device on your tailnet.
@@ -129,11 +129,11 @@ OpenClaw state lives under:
 These survive Droplet reboots. To take a portable snapshot:
 
 ```bash
-openclaw backup create
-openclaw backup restore <archive.tar.gz> --target <fresh-directory>
+granted backup create
+granted backup restore <archive.tar.gz> --target <fresh-directory>
 ```
 
-DigitalOcean snapshots back up the whole Droplet; `openclaw backup create` is
+DigitalOcean snapshots back up the whole Droplet; `granted backup create` is
 portable across hosts. Restore verifies and extracts into a fresh staging
 directory; activation is a separate offline step. See [Restore a full archive](/install/backups#restore-a-full-archive)
 for the rollback warnings and activation sequence.
@@ -149,7 +149,7 @@ The $6 Droplet only has 1 GB RAM. To keep things smooth:
 
 ## Troubleshooting
 
-**Gateway will not start** -- Run `openclaw doctor --non-interactive` and check logs with `journalctl --user -u openclaw-gateway.service -n 50`.
+**Gateway will not start** -- Run `granted doctor --non-interactive` and check logs with `journalctl --user -u openclaw-gateway.service -n 50`.
 
 **Port already in use** -- Run `lsof -i :18789` to find the process, then stop it.
 

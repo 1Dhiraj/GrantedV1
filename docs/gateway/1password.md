@@ -28,7 +28,7 @@ OpenClaw pairs with **1Password** in four independent ways:
 Enable the bundled plugin and create its service-account token file:
 
 ```bash
-openclaw plugins enable onepassword
+granted plugins enable onepassword
 mkdir -p ~/.openclaw/credentials/onepassword
 chmod 700 ~/.openclaw/credentials/onepassword
 printf '%s' "$OP_SERVICE_ACCOUNT_TOKEN" > \
@@ -41,16 +41,16 @@ When `OPENCLAW_STATE_DIR` is set, use that directory instead of
 `~/.openclaw`. Then generate and apply a SecretRef plan:
 
 ```bash
-openclaw onepassword secretref setup \
+granted onepassword secretref setup \
   --openai-id op://Automation/OpenAI/credential \
   --anthropic-id op://Automation/Anthropic/credential \
   --plan-out ./openclaw-1password-secrets-plan.json
 
-openclaw onepassword secretref status
-openclaw secrets apply --from ./openclaw-1password-secrets-plan.json --dry-run --allow-exec
-openclaw secrets apply --from ./openclaw-1password-secrets-plan.json --allow-exec
-openclaw secrets audit --check --allow-exec
-openclaw secrets reload
+granted onepassword secretref status
+granted secrets apply --from ./openclaw-1password-secrets-plan.json --dry-run --allow-exec
+granted secrets apply --from ./openclaw-1password-secrets-plan.json --allow-exec
+granted secrets audit --check --allow-exec
+granted secrets reload
 ```
 
 The setup command requires at least one target. Before the plan is applied,
@@ -134,7 +134,7 @@ One-time passcodes are filled by 1Password on the same page; never relay verific
 - `op` is not trusted: use an executable owned by the current user or root and
   remove group/other write access from the executable and its parent chain.
 - Authentication fails: check the plugin token file, its contents, and the
-  service account's vault permissions with `openclaw onepassword status`.
+  service account's vault permissions with `granted onepassword status`.
 - A reference is rejected: include the vault explicitly and use stable vault,
   item, section, and field IDs when names are long or contain unsupported
   1Password reference characters.
@@ -166,7 +166,7 @@ Create the plugin token file as shown above, then generate a plan with explicit
 mappings, for example:
 
 ```bash
-openclaw onepassword secretref setup \
+granted onepassword secretref setup \
   --target 'models.providers.anthropic.apiKey=op://Automation/Anthropic/credential' \
   --target 'models.providers.openai.apiKey=op://Automation/OpenAI/credential' \
   --plan-out ./openclaw-1password-secrets-plan.json

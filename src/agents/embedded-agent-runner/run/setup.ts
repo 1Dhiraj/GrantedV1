@@ -284,7 +284,7 @@ function resolveEffectiveRuntimeModel(params: {
   };
 }
 
-/** Resolves only OpenClaw-owned context policy; native model owners keep that policy private. */
+/** Resolves only Granted-owned context policy; native model owners keep that policy private. */
 export function resolveEmbeddedRuntimeModelPolicy(params: {
   cfg: GrantedConfig | undefined;
   provider: string;

@@ -1,11 +1,11 @@
 # Fish Audio speech plugin
 
-Official OpenClaw speech provider for Fish Audio's hosted S2.1 API.
+Official Granted speech provider for Fish Audio's hosted S2.1 API.
 
 Install it with:
 
 ```bash
-openclaw plugins install @granted/fish-audio-speech
+granted plugins install @granted/fish-audio-speech
 ```
 
 The plugin id is `fish-audio-speech`; the speech provider and TTS config id

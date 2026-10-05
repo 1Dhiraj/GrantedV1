@@ -1,4 +1,4 @@
-// OpenClaw system-agent approval payload kept live until operator decision.
+// Granted system-agent approval payload kept live until operator decision.
 import type { ExecApprovalDecision } from "./exec-approvals.js";
 
 export type SystemAgentApprovalRequestPayload = {

@@ -108,7 +108,7 @@ type GrantedExecServerLease = {
   cleanupTasks: Set<Promise<void>>;
 };
 
-/** Locally interpreted exec-server protocol backed by an OpenClaw sandbox. */
+/** Locally interpreted exec-server protocol backed by an Granted sandbox. */
 export type GrantedExecServer = GrantedExecServerLease & {
   backend: NonNullable<SandboxContext["backend"]>;
   fsBridge: NonNullable<SandboxContext["fsBridge"]>;

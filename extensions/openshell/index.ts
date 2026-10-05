@@ -1,4 +1,4 @@
-// Openshell plugin entrypoint registers its OpenClaw integration.
+// Openshell plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { registerSandboxBackend } from "granted/plugin-sdk/sandbox";
 import {

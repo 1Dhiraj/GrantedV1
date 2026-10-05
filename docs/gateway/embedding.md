@@ -75,7 +75,7 @@ Gateway startup uses exit code `78` (`EX_CONFIG`) for configuration-class startu
 failures, including an invalid config. Branch on the exit code instead of scraping
 human-readable stderr:
 
-1. Run `openclaw doctor --fix --yes --non-interactive` against the same config and
+1. Run `granted doctor --fix --yes --non-interactive` against the same config and
    state environment as the Gateway child.
 2. Retry Gateway startup once after doctor exits successfully.
 3. If the child exits `78` again, stop the repair loop and surface the config

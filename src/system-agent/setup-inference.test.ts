@@ -943,7 +943,7 @@ describe("detectSetupInference", () => {
     } as never);
 
     await expect(detectSetupInference()).rejects.toThrow(
-      "OpenClaw config /tmp/openclaw.json is invalid (agents.defaults.model: Expected a model reference)",
+      "Granted config /tmp/openclaw.json is invalid (agents.defaults.model: Expected a model reference)",
     );
   });
 
@@ -1626,7 +1626,7 @@ describe("activateSetupInference", () => {
         },
       }),
     ).rejects.toThrow(
-      "OpenClaw config /tmp/openclaw.json is invalid (gateway.port: Expected a number). Fix it before running setup.",
+      "Granted config /tmp/openclaw.json is invalid (gateway.port: Expected a number). Fix it before running setup.",
     );
     expect(runEmbeddedAgent).not.toHaveBeenCalled();
     expect(transformConfig).not.toHaveBeenCalled();
@@ -1658,11 +1658,11 @@ describe("activateSetupInference", () => {
       ok: true,
       lines: [
         "Inference verified: claude-cli/claude-opus-5",
-        "Inference setup completed, but OpenClaw could not record its audit entry: audit directory is read-only",
+        "Inference setup completed, but Granted could not record its audit entry: audit directory is read-only",
       ],
     });
     expect(error).toHaveBeenCalledWith(
-      "Inference setup completed, but OpenClaw could not record its audit entry: audit directory is read-only",
+      "Inference setup completed, but Granted could not record its audit entry: audit directory is read-only",
     );
   });
 
@@ -1810,7 +1810,7 @@ describe("activateSetupInference", () => {
     expect(configHarness.current()).toEqual({});
   });
 
-  it("rejects an unattested existing route before handing off to OpenClaw", async () => {
+  it("rejects an unattested existing route before handing off to Granted", async () => {
     const config = {
       agents: { defaults: { model: "openai/gpt-5.5" } },
     } satisfies GrantedConfig;
@@ -1944,7 +1944,7 @@ describe("activateSetupInference", () => {
     expect(committedConfig?.agents?.defaults?.model).toBe("anthropic/claude-opus-5");
   });
 
-  it("persists only the verified model before OpenClaw configures the rest", async () => {
+  it("persists only the verified model before Granted configures the rest", async () => {
     const configHarness = createPreRosterConfigTransformHarness();
 
     const result = await activateSetupInference({
@@ -5892,7 +5892,7 @@ describe("verifySetupInference", () => {
     expect(result).toMatchObject({ ok: true, modelRef: "openai/gpt-5.5" });
   });
 
-  it("locks the exact winning profile into a bound OpenClaw session", async () => {
+  it("locks the exact winning profile into a bound Granted session", async () => {
     const config = {
       agents: {
         defaults: {
@@ -6105,7 +6105,7 @@ describe("verifySetupInference", () => {
     expect(createChangedVerifiedInferenceBinding).toHaveBeenCalledOnce();
   });
 
-  it("binds a runtime-only Codex profile after activation and runs the first OpenClaw turn", async () => {
+  it("binds a runtime-only Codex profile after activation and runs the first Granted turn", async () => {
     const stateDir = await suiteTempRootTracker.make("case");
     vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const profileId = "openai:default";

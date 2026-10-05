@@ -1,7 +1,7 @@
 {
   "name": "@granted/fireworks-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Fireworks provider plugin",
+  "description": "Granted Fireworks provider plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

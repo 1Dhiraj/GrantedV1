@@ -28,6 +28,7 @@ import { OAuthRefreshFailureError } from "./auth-profiles/oauth-refresh-failure.
 import { isNonSecretApiKeyMarker } from "./model-auth-markers.js";
 import { assertAuthModeAllowedForModel, isAuthModeAllowedForModel } from "./model-auth-openai.js";
 import * as authConfig from "./model-auth-provider-config.js";
+import { registerResolvedProviderApiKey } from "./model-auth-redaction.js";
 import {
   assertRuntimeProviderSecretOwnerAvailable,
   resolveManagedSecretRefRuntimeProviderAuth,
@@ -155,8 +156,19 @@ export async function resolveProviderEntryApiKeyAuth(params: {
   return undefined;
 }
 
-/** Resolves the credential that should be used for one provider request. */
-export async function resolveApiKeyForProviderCore(params: {
+/**
+ * Resolves the credential that should be used for one provider request, and
+ * registers the returned key so it is masked wherever logs redact secrets.
+ */
+export async function resolveApiKeyForProviderCore(
+  params: Parameters<typeof resolveProviderAuthUnregistered>[0],
+): Promise<ResolvedProviderAuth> {
+  const auth = await resolveProviderAuthUnregistered(params);
+  registerResolvedProviderApiKey(auth.apiKey);
+  return auth;
+}
+
+async function resolveProviderAuthUnregistered(params: {
   provider: string;
   cfg?: GrantedConfig;
   profileId?: string;

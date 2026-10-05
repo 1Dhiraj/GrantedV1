@@ -238,7 +238,7 @@ describe("tailscale helpers", () => {
       process.env.GRANTED_TEST_TAILSCALE_BINARY = fixture;
 
       await expect(claimTailscaleRoute("serve", 18789)).rejects.toThrow(
-        "ownership OpenClaw cannot prove; it was not modified",
+        "ownership Granted cannot prove; it was not modified",
       );
     },
   );

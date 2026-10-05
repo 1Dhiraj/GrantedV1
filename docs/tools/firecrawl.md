@@ -22,8 +22,8 @@ It is a hosted extraction/search service that supports bot circumvention and cac
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/firecrawl-plugin
-openclaw gateway restart
+granted plugins install @granted/firecrawl-plugin
+granted gateway restart
 ```
 
 ## Keyless access and API keys
@@ -69,7 +69,7 @@ explicit `firecrawl_search` and `firecrawl_scrape` tools require an API key. Add
 
 Notes:
 
-- Choosing Firecrawl in onboarding or `openclaw configure --section web` enables the installed Firecrawl plugin automatically.
+- Choosing Firecrawl in onboarding or `granted configure --section web` enables the installed Firecrawl plugin automatically.
 - Pick **Firecrawl Search (Free)** in onboarding (or set `provider: "firecrawl-free"`) to run keyless with no API key. The keyed **Firecrawl Search** provider sends `plugins.entries.firecrawl.config.webSearch.apiKey` or `FIRECRAWL_API_KEY`.
 - `web_search` with Firecrawl supports `query` and `count`.
 - For Firecrawl-specific controls like `sources`, `categories`, or result scraping, use `firecrawl_search`.
@@ -115,11 +115,11 @@ This setting does not change Firecrawl's upstream scrape caching.
 Notes:
 
 - The explicitly selected Firecrawl `web_fetch` fallback works without an API key. When configured, OpenClaw sends `plugins.entries.firecrawl.config.webFetch.apiKey` or `FIRECRAWL_API_KEY` for higher limits.
-- Choosing Firecrawl during onboarding or `openclaw configure --section web` enables the plugin and selects Firecrawl for `web_fetch` unless another fetch provider is already configured.
+- Choosing Firecrawl during onboarding or `granted configure --section web` enables the plugin and selects Firecrawl for `web_fetch` unless another fetch provider is already configured.
 - `firecrawl_scrape` requires an API key.
 - `maxAgeMs` controls how old cached results can be (ms). Default is 172,800,000 ms (2 days).
 - `onlyMainContent` defaults to `true`; `timeoutSeconds` defaults to 60.
-- Legacy `tools.web.fetch.firecrawl.*` and `tools.web.search.firecrawl.*` config is auto-migrated by `openclaw doctor --fix`.
+- Legacy `tools.web.fetch.firecrawl.*` and `tools.web.search.firecrawl.*` config is auto-migrated by `granted doctor --fix`.
 - Firecrawl scrape/base URL overrides follow the same hosted/private rule as search: public hosted traffic uses `https://api.firecrawl.dev`; self-hosted overrides must resolve to private/internal endpoints.
 - `firecrawl_scrape` rejects obvious private, loopback, metadata, and non-HTTP(S) target URLs before forwarding them to Firecrawl, matching the `web_fetch` target-safety contract for explicit Firecrawl scrape calls.
 

@@ -16,7 +16,7 @@ Guarded end-to-end encrypted claw channel.
 
 ## Surface
 
-channels: `reef`; CLI commands: `openclaw reef`
+channels: `reef`; CLI commands: `granted reef`
 
 ## Related docs
 

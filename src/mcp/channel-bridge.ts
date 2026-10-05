@@ -1,11 +1,11 @@
 // Channel MCP bridge translates MCP tool calls into channel runtime operations.
 import { randomUUID } from "node:crypto";
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { resolveIntegerOption } from "@granted/normalization-core/number-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
 } from "@granted/normalization-core/string-coerce";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { EventFrame } from "../../packages/gateway-protocol/src/index.js";
 import type { GrantedConfig } from "../config/types.granted.js";
 import type { GatewayClient } from "../gateway/client.js";
@@ -36,7 +36,7 @@ import {
 } from "./channel-shared.js";
 
 /**
- * Runtime bridge between MCP tools and the OpenClaw Gateway channel APIs.
+ * Runtime bridge between MCP tools and the Granted Gateway channel APIs.
  *
  * The bridge owns readiness, event cursoring, pending approval state, and the
  * narrow request methods that channel MCP tools expose to external clients.
@@ -154,7 +154,7 @@ export class GrantedChannelBridge {
       preauthHandshakeTimeoutMs: bootstrap.preauthHandshakeTimeoutMs,
       tlsFingerprint: bootstrap.tlsFingerprint,
       clientName: GATEWAY_CLIENT_NAMES.CLI,
-      clientDisplayName: "OpenClaw MCP",
+      clientDisplayName: "Granted MCP",
       clientVersion: VERSION,
       mode: GATEWAY_CLIENT_MODES.CLI,
       caps: [GATEWAY_CLIENT_CAPS.APPROVALS],

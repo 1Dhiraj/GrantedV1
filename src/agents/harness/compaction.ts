@@ -51,7 +51,7 @@ import type { AgentHarness, AgentHarnessNativeCompactionRequest } from "./types.
 /**
  * Delegates session compaction to the selected agent harness when that runtime owns compaction.
  *
- * CLI runtimes and OpenClaw-native compaction stay on the embedded runner path; plugin harnesses
+ * CLI runtimes and Granted-native compaction stay on the embedded runner path; plugin harnesses
  * can opt in through their `compact` hook.
  */
 type InternalAgentHarnessCompactionOptions = {

@@ -2350,7 +2350,7 @@ describe("dispatchPreparedSlackMessage preview fallback", () => {
       "session card final edit",
     );
     expect(JSON.stringify(finalEdit.blocks)).toContain("Completed: *Shelling*");
-    expect(JSON.stringify(finalEdit.blocks)).toContain("Open in OpenClaw");
+    expect(JSON.stringify(finalEdit.blocks)).toContain("Open in Granted");
     expect(JSON.stringify(finalEdit.blocks)).toContain(
       "https://team.openclaw.ai/openclaw/chat/agent-1/slack/C123",
     );
@@ -2494,7 +2494,7 @@ describe("dispatchPreparedSlackMessage preview fallback", () => {
       "progress final edit",
     );
     expect(finalEdit.text).not.toBe(FINAL_REPLY_TEXT);
-    expect(JSON.stringify(finalEdit.blocks)).not.toContain("Open in OpenClaw");
+    expect(JSON.stringify(finalEdit.blocks)).not.toContain("Open in Granted");
     expect(finalizeSlackPreviewEditMock).toHaveBeenCalledTimes(1);
     expect(draftStream.clear).not.toHaveBeenCalled();
   });

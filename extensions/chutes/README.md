@@ -1,12 +1,12 @@
-# OpenClaw Chutes Provider
+# Granted Chutes Provider
 
-Official OpenClaw provider plugin for Chutes.
+Official Granted provider plugin for Chutes.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/chutes-provider
-openclaw gateway restart
+granted plugins install @granted/chutes-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/chutes> for setup and configuration.

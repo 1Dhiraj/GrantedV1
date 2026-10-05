@@ -39,6 +39,16 @@ describe("google provider catalog", () => {
     expect(provider.models.find((model) => model.id === "gemini-3.6-flash")).not.toHaveProperty(
       "thinkingLevelMap",
     );
+    // Free-tier workhorse: the newest Flash, and the only free model measured
+    // here that calls tools and reads screenshots. It rejects reasoning_effort
+    // "minimal" with 400, so that level maps to null like 3.7.
+    expect(provider.models.find((model) => model.id === "gemini-3.8-flash")).toMatchObject({
+      contextWindow: 1_048_576,
+      maxTokens: 65_536,
+      reasoning: true,
+      input: ["text", "image"],
+      thinkingLevelMap: { minimal: null },
+    });
   });
 
   it("keeps Google AI Studio and Vertex model ids aligned", () => {

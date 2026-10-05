@@ -26,8 +26,8 @@ This page covers the Perplexity **provider** setup. For the Perplexity **tool** 
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/perplexity-plugin
-openclaw gateway restart
+granted plugins install @granted/perplexity-plugin
+granted gateway restart
 ```
 
 ## Getting started
@@ -35,13 +35,13 @@ openclaw gateway restart
 <Steps>
   <Step title="Set the API key">
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
     Or set the key directly:
 
     ```bash
-    openclaw config set plugins.entries.perplexity.config.webSearch.apiKey "pplx-xxxxxxxxxxxx"
+    granted config set plugins.entries.perplexity.config.webSearch.apiKey "pplx-xxxxxxxxxxxx"
     ```
 
     A key exported as `PERPLEXITY_API_KEY` or `OPENROUTER_API_KEY` in the Gateway
@@ -53,7 +53,7 @@ openclaw gateway restart
     credential; no further setup is required. To pin the provider explicitly:
 
     ```bash
-    openclaw config set tools.web.search.provider perplexity
+    granted config set tools.web.search.provider perplexity
     ```
 
   </Step>

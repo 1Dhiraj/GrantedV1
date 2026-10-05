@@ -16,6 +16,16 @@ export const PROJECT_NAME = "granted" as const;
  */
 export const PRODUCT_DISPLAY_NAME = "Granted" as const;
 
+/**
+ * Who built this product, for when someone asks the assistant who made it.
+ *
+ * Distinct from the upstream copyright in LICENSE: that is a legal attribution
+ * for the inherited code and does not change. This is the answer to a question
+ * a user asks in chat, and an operator shipping under their own brand overrides
+ * it with `branding.creator`.
+ */
+export const PRODUCT_CREATOR = "Dhiraj" as const;
+
 // Accepted on read so plugins and configs written for the previous names keep
 // working; nothing is written under them.
 export const LEGACY_PROJECT_NAMES = ["openclaw", "clawdbot"] as const;

@@ -504,7 +504,7 @@ function validateResetNonInteractiveGateway(params: {
  * them with Boolean(). False-valued explicit choices preserve undefined when
  * omitted, so daemon, Tailscale-reset, and custom-model input overrides are
  * special-cased. `--modern` never reaches this dispatch; the command layer
- * routes it through the inference-gated OpenClaw.
+ * routes it through the inference-gated Granted.
  */
 const GUIDED_SAFE_ONBOARD_KEYS = new Set([
   "workspace",
@@ -651,7 +651,7 @@ export async function setupWizardCommand(
   if (process.platform === "win32") {
     runtime.log(
       [
-        "Windows detected - OpenClaw runs great on WSL2!",
+        "Windows detected - Granted runs great on WSL2!",
         "Native Windows might be trickier.",
         "Quick setup: wsl --install (one command, one reboot)",
         "Guide: https://docs.openclaw.ai/windows",

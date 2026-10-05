@@ -2,7 +2,7 @@
   "name": "@granted/migrate-claude",
   "version": "2026.8.1",
   "private": true,
-  "description": "Claude to OpenClaw migration provider",
+  "description": "Claude to Granted migration provider",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*",

@@ -1,4 +1,4 @@
-// Resolves transcript source configuration from OpenClaw config.
+// Resolves transcript source configuration from Granted config.
 import { normalizeOptionalString as readString } from "@granted/normalization-core/string-coerce";
 
 /**

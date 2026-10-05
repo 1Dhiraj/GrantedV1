@@ -35,7 +35,7 @@ title: "OpenClaw"
     Install OpenClaw and bring up the Gateway in minutes.
   </Card>
   <Card title="Run Onboarding" href="/start/wizard" icon="list-checks">
-    Guided setup with `openclaw onboard` and pairing flows.
+    Guided setup with `granted onboard` and pairing flows.
   </Card>
   <Card title="Connect a Channel" href="/channels" icon="message-circle">
     Link Discord, Signal, Telegram, WhatsApp, and more to chat from anywhere.
@@ -155,14 +155,14 @@ The Gateway is the single source of truth for sessions, routing, and channel con
   </Step>
   <Step title="Onboard and install the service">
     ```bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
   </Step>
   <Step title="Chat">
     Open the Control UI in your browser and send a message:
 
     ```bash
-    openclaw dashboard
+    granted dashboard
     ```
 
     Or connect a channel ([Telegram](/channels/telegram) is fastest) and chat from your phone.

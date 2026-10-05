@@ -16,7 +16,7 @@ Persistent wiki compiler and Obsidian-friendly knowledge vault for OpenClaw.
 
 ## Surface
 
-CLI commands: `openclaw wiki`; contracts: `tools`; skills
+CLI commands: `granted wiki`; contracts: `tools`; skills
 
 ## Related docs
 

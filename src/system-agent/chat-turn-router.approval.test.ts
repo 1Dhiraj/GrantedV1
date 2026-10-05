@@ -357,14 +357,14 @@ describe("SystemAgentChatEngine approval", () => {
     expect(reply.handoff).toBeUndefined();
     expect(reply.sensitive).toBeUndefined();
     expect(reply.text).toContain("replace the inference route powering this session");
-    // A gateway reader is in a browser or the app and cannot "exit OpenClaw"
+    // A gateway reader is in a browser or the app and cannot "exit Granted"
     // into a shell; the copy must name where the command runs instead.
     expect(reply.text).toContain("`openclaw onboard`");
-    expect(reply.text).toContain("machine running OpenClaw");
-    expect(reply.text).toContain("Stop the OpenClaw host");
+    expect(reply.text).toContain("machine running Granted");
+    expect(reply.text).toContain("Stop the Granted host");
     expect(reply.text).toContain("restart the host");
-    expect(reply.text).toContain("return to OpenClaw");
-    expect(reply.text).not.toContain("Exit OpenClaw");
+    expect(reply.text).toContain("return to Granted");
+    expect(reply.text).not.toContain("Exit Granted");
   });
 
   it("drops the proposal when the user declines", async () => {
@@ -1032,7 +1032,7 @@ describe("SystemAgentChatEngine approval", () => {
 
     expect(runAgentTurn).toHaveBeenCalledOnce();
     expect(planner).not.toHaveBeenCalled();
-    expect(reply.text).toContain("OpenClaw operator UI");
+    expect(reply.text).toContain("Granted operator UI");
     expect(reply.text).toContain("cannot be applied from this chat");
     expect(reply.text).not.toContain("ask the user to reply yes");
     expect(reply.action).toBe("none");
@@ -1059,7 +1059,7 @@ describe("SystemAgentChatEngine approval", () => {
     const reply = await engine.handle("actually use an openai model");
 
     expect(reply.text).toContain("cannot be applied from this chat");
-    expect(reply.text).toContain("OpenClaw operator UI");
+    expect(reply.text).toContain("Granted operator UI");
     expect(reply.text).toContain("Refused:");
     expect(reply.text).toContain("was not applied from this chat");
     expect(reply.text).not.toContain("Say yes to apply");

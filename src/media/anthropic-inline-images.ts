@@ -8,7 +8,7 @@ const ANTHROPIC_SUPPORTED_IMAGE_MIMES = [
   "image/gif",
   "image/webp",
 ] as const;
-// Match OpenClaw's decoded inbound-image hard cap before any copy or native decode.
+// Match Granted's decoded inbound-image hard cap before any copy or native decode.
 const ANTHROPIC_INLINE_IMAGE_DECODE_SAFETY_BYTES = 10 * 1024 * 1024;
 
 type AnthropicSupportedImageMime = (typeof ANTHROPIC_SUPPORTED_IMAGE_MIMES)[number];

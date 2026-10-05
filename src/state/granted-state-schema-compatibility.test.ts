@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getOpenClawStateRuntimeSchema } from "./granted-state-schema-compatibility.js";
 
-describe("OpenClaw state runtime schema projection", () => {
+describe("Granted state runtime schema projection", () => {
   it("omits lazy additive tables and their unique indexes before first use", () => {
     const schema = getOpenClawStateRuntimeSchema({ includeVersionLazyAdditiveTables: false });
 

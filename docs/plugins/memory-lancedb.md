@@ -18,7 +18,7 @@ a memory store outside the default built-in memory backend.
 ## Installation
 
 ```bash
-openclaw plugins install @granted/memory-lancedb
+granted plugins install @granted/memory-lancedb
 ```
 
 The plugin is published to npm; it is not bundled into the OpenClaw runtime
@@ -36,7 +36,7 @@ LanceDB's `memory_recall` does not receive the protected private transcript
 authorization used by `memory.search.rememberAcrossConversations`. Use LanceDB's
 `autoRecall` or its `memory_recall` tool through
 [advanced Active Memory](/concepts/active-memory#lancedb-memory).
-`openclaw doctor` reports when Remember across conversations is unavailable
+`granted doctor` reports when Remember across conversations is unavailable
 with the current memory provider.
 </Note>
 
@@ -68,8 +68,8 @@ with the current memory provider.
 Restart the Gateway after installation, then verify it loaded:
 
 ```bash
-openclaw gateway restart
-openclaw plugins list
+granted gateway restart
+granted plugins list
 ```
 
 ## Embedding config
@@ -210,7 +210,7 @@ local server returns context-length errors.
 | `customTriggers`  | `[]`    | 0-50 items, each ≤100 chars | Literal phrases that make auto-capture consider a message.        |
 
 `recallMaxChars` bounds the `before_prompt_build` auto-recall query, the
-`memory_recall` tool, the `memory_forget` query path, and `openclaw ltm search`.
+`memory_recall` tool, the `memory_forget` query path, and `granted ltm search`.
 Auto-recall embeds the latest user message from the turn and falls back to the
 full prompt only when no user message is present, keeping channel metadata and
 large prompt blocks out of the embedding request. It also bounds each recalled
@@ -255,16 +255,16 @@ capture, even when the plugin-level `autoRecall`/`autoCapture` flags are on.
 (not only when it owns the active memory slot):
 
 ```bash
-openclaw ltm list [--agent <id>] [--limit <n>] [--order-by-created-at]
-openclaw ltm search <query> [--agent <id>] [--limit <n>]
-openclaw ltm stats [--agent <id>]
+granted ltm list [--agent <id>] [--limit <n>] [--order-by-created-at]
+granted ltm search <query> [--agent <id>] [--limit <n>]
+granted ltm stats [--agent <id>]
 ```
 
 `ltm query` runs a non-vector query directly against the LanceDB table:
 
 ```bash
-openclaw ltm query --agent research --cols id,text,createdAt --limit 20
-openclaw ltm query --filter "category = 'preference'" --order-by createdAt:desc
+granted ltm query --agent research --cols id,text,createdAt --limit 20
+granted ltm query --filter "category = 'preference'" --order-by createdAt:desc
 ```
 
 | Flag                              | Default                                 | Notes                                                                                                                                     |
@@ -317,7 +317,7 @@ mandatory owner predicate, so a filter cannot widen the query to another
 agent.
 
 Databases created before per-agent ownership have no reliable row provenance.
-On upgrade, `openclaw doctor --fix` assigns those legacy rows once to the
+On upgrade, `granted doctor --fix` assigns those legacy rows once to the
 configured default agent. Runtime access fails closed until that migration has
 completed; other agents never inherit the old shared rows.
 
@@ -407,8 +407,8 @@ model, set `embedding.dimensions` to the vector size that model reports.
 Confirm `plugins.slots.memory` points at `memory-lancedb`, then run:
 
 ```bash
-openclaw ltm stats
-openclaw ltm search "recent preference"
+granted ltm stats
+granted ltm search "recent preference"
 ```
 
 If `autoCapture` is disabled, the plugin still recalls existing memories but

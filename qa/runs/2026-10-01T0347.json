@@ -1,0 +1,49 @@
+{
+  "run": "2026-10-01T0347",
+  "score": "2/3",
+  "pass": 2,
+  "blocked": 0,
+  "attempted": 3,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "C3",
+      "name": "fill and submit a form, verified by the server",
+      "result": "FAIL",
+      "seconds": 78,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0347-c3",
+      "evidence": "server received undefined/\"dhiraj@example.com\\\"\", code GR-0001, agent quoted code: true",
+      "toolCalls": 10,
+      "tokens": 73497
+    },
+    {
+      "id": "C5",
+      "name": "navigate and extract an exact sentence",
+      "result": "PASS",
+      "seconds": 25,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0347-c5",
+      "evidence": "wanted: Every claim in this report was verified against the recorded server lo... | said: Every claim in this report was verified against the recorded server log, not the assistant's summary.",
+      "toolCalls": 3,
+      "tokens": 30853
+    },
+    {
+      "id": "C6",
+      "name": "download a CSV and count its rows",
+      "result": "PASS",
+      "seconds": 14,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0347-c6",
+      "evidence": "want 6 data rows; agent said: 6",
+      "toolCalls": 1,
+      "tokens": 23758
+    }
+  ]
+}

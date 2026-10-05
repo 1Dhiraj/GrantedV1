@@ -10,12 +10,12 @@ This playbook is read-only: no config writes, no service restarts, no `doctor --
 ## Gather
 
 ```
-openclaw doctor --non-interactive
-openclaw gateway status --deep
-openclaw config validate
-openclaw channels status
-openclaw models status
-openclaw channels logs --channel <id>
+granted doctor --non-interactive
+granted gateway status --deep
+granted config validate
+granted channels status
+granted models status
+granted channels logs --channel <id>
 ```
 
 On managed installs, bounded recent logs: `./scripts/clawlog.sh` (repo checkout) or the log path printed at gateway startup (`/tmp/openclaw/openclaw-<date>.log` by default).
@@ -36,15 +36,15 @@ Nothing. This skill changes no state.
 
 ## Repair
 
-Translate each finding into the next action, naming the responsible skill when one exists: `configure-channel`, `add-model-provider`, or `cloud-image-bake`. Recommend `openclaw doctor --fix --non-interactive` only as a separately approved step.
+Translate each finding into the next action, naming the responsible skill when one exists: `configure-channel`, `add-model-provider`, or `cloud-image-bake`. Recommend `granted doctor --fix --non-interactive` only as a separately approved step.
 
 ## Prove
 
 Repeat the smallest read-only probe that exposes the condition and record its output, for example:
 
 ```
-openclaw gateway status --deep
-openclaw channels status --deep
+granted gateway status --deep
+granted channels status --deep
 ```
 
 If access, logs, or the gateway are unavailable, report that exact blocker rather than declaring a cause.

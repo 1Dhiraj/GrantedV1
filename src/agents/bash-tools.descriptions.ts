@@ -18,6 +18,12 @@ function deriveExecShortName(fullPath: string): string {
   return base.replace(/\.exe$/i, "") || base;
 }
 
+// Weaker models given a shell tool still answer "run this command" or claim to
+// be on a remote server. Where the command lands (this host, a sandbox, or a
+// paired node) is decided per call, so this says only what is always true.
+const EXEC_OPERATOR_FRAMING =
+  "Commands really run (this host, or a sandbox/node when routed). Asked to run, open, install, or check something: do it here; never tell the user what to type.";
+
 /** Builds the model-facing exec tool description for the current platform/config. */
 export function describeExecTool(params?: {
   agentId?: string;
@@ -33,6 +39,7 @@ export function describeExecTool(params?: {
           "Long run: automatic completion wake when enabled and output/failure occurs; otherwise process confirms completion.",
         ];
   const base = [
+    EXEC_OPERATOR_FRAMING,
     ...continuation,
     params?.hasCronTool ? "No sleep loops for reminders/follow-ups; use automations." : undefined,
     "TTY CLI/UI/coding agent: pty=true.",

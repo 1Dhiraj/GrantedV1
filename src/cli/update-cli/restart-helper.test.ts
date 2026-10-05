@@ -677,7 +677,7 @@ exit 0
       expect(content).not.toContain("powershell -NoProfile -ExecutionPolicy Bypass -File");
       expect(content).toContain('$ErrorActionPreference = "Continue"');
       expect(content).toContain("gateway-restart.log");
-      expect(content).toContain("$taskName = 'OpenClaw Gateway'");
+      expect(content).toContain("$taskName = 'Granted Gateway'");
       expect(content).toContain("function Invoke-GrantedSchtasksWithTimeout");
       expect(content).toContain("function Get-GrantedScheduledTaskState");
       expect(content).toContain("function Get-GrantedListenerKillDecision");
@@ -902,9 +902,9 @@ Write-Output "GRANTED_RESTART_POLICY_OK"
 
       const { scriptPath, content } = await prepareAndReadScript({
         GRANTED_PROFILE: "default",
-        GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (custom)",
+        GRANTED_WINDOWS_TASK_NAME: "Granted Gateway (custom)",
       });
-      expect(content).toContain("$taskName = 'OpenClaw Gateway (custom)'");
+      expect(content).toContain("$taskName = 'Granted Gateway (custom)'");
       expect(content).toContain("Get-GrantedScheduledTaskState -TaskName $taskName");
       expect(content).toContain(
         'Invoke-GrantedSchtasksWithTimeout -Arguments @("/End", "/TN", $taskName) -TimeoutSeconds 10',
@@ -960,7 +960,7 @@ Write-Output "GRANTED_RESTART_POLICY_OK"
       const { scriptPath, content } = await prepareAndReadScript({
         GRANTED_PROFILE: "production",
       });
-      expect(content).toContain("$taskName = 'OpenClaw Gateway (production)'");
+      expect(content).toContain("$taskName = 'Granted Gateway (production)'");
       expectWindowsRestartWaitOrdering(content);
       await cleanupScript(scriptPath);
     });

@@ -73,7 +73,7 @@ Choose your preferred auth method and follow the setup steps.
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list
+        granted models list
         ```
       </Step>
     </Steps>
@@ -92,12 +92,12 @@ Choose your preferred auth method and follow the setup steps.
         When using IMDS, OpenClaw cannot detect AWS auth from env markers alone, so you must opt in:
 
         ```bash
-        openclaw config set plugins.entries.amazon-bedrock.config.discovery.enabled true
-        openclaw config set plugins.entries.amazon-bedrock.config.discovery.region us-east-1
+        granted config set plugins.entries.amazon-bedrock.config.discovery.enabled true
+        granted config set plugins.entries.amazon-bedrock.config.discovery.region us-east-1
         ```
       </Step>
       <Step title="Optionally add an env marker for auto mode">
-        If you also want the env-marker auto-detection path to work (for example, for `openclaw status` surfaces):
+        If you also want the env-marker auto-detection path to work (for example, for `granted status` surfaces):
 
         ```bash
         export AWS_PROFILE=default
@@ -108,7 +108,7 @@ Choose your preferred auth method and follow the setup steps.
       </Step>
       <Step title="Verify models are discovered">
         ```bash
-        openclaw models list
+        granted models list
         ```
       </Step>
     </Steps>
@@ -237,8 +237,8 @@ aws ec2 associate-iam-instance-profile \
   --iam-instance-profile Name=EC2-Bedrock-Access
 
 # 3. On the EC2 instance, enable discovery explicitly
-openclaw config set plugins.entries.amazon-bedrock.config.discovery.enabled true
-openclaw config set plugins.entries.amazon-bedrock.config.discovery.region us-east-1
+granted config set plugins.entries.amazon-bedrock.config.discovery.enabled true
+granted config set plugins.entries.amazon-bedrock.config.discovery.region us-east-1
 
 # 4. Optional: add an env marker if you want auto mode without explicit enable
 echo 'export AWS_PROFILE=default' >> ~/.bashrc
@@ -246,7 +246,7 @@ echo 'export AWS_REGION=us-east-1' >> ~/.bashrc
 source ~/.bashrc
 
 # 5. Verify models are discovered
-openclaw models list
+granted models list
 ```
 
 ## Advanced configuration
@@ -259,7 +259,7 @@ openclaw models list
     reasoning, vision) and the correct Bedrock request region is injected
     automatically. This means cross-region Claude profiles work without manual
     provider overrides. Global cross-region profiles (`global.*`) are listed
-    first in `openclaw models list` since they generally offer better capacity
+    first in `granted models list` since they generally offer better capacity
     and automatic failover.
 
     Inference profile IDs look like `us.anthropic.claude-opus-4-6-v1` (regional)
@@ -269,7 +269,7 @@ openclaw models list
 
     No extra configuration is needed. As long as discovery is enabled and the IAM
     principal has `bedrock:ListInferenceProfiles`, profiles appear alongside
-    foundation models in `openclaw models list`.
+    foundation models in `granted models list`.
 
   </Accordion>
 

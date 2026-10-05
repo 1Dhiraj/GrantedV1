@@ -12,10 +12,10 @@ the commands, global flags, and output styling rules that apply across the CLI.
 
 Setup commands by intent:
 
-- `openclaw setup` and `openclaw onboard` verify inference first, then start OpenClaw for Gateway, workspace, channels, skills, and health setup.
-- `openclaw setup --baseline` creates the baseline config and workspace without walking the guided onboarding flow.
-- `openclaw configure` changes targeted parts of an existing setup: model auth, gateway, channels, plugins, or skills.
-- `openclaw channels add` configures channel accounts after the baseline exists; a channel selection alone uses guided setup, while account, credential, or channel-config flags use the direct path for scripts.
+- `granted setup` and `granted onboard` verify inference first, then start OpenClaw for Gateway, workspace, channels, skills, and health setup.
+- `granted setup --baseline` creates the baseline config and workspace without walking the guided onboarding flow.
+- `granted configure` changes targeted parts of an existing setup: model auth, gateway, channels, plugins, or skills.
+- `granted channels add` configures channel accounts after the baseline exists; a channel selection alone uses guided setup, while account, credential, or channel-config flags use the direct path for scripts.
 
 ## Command pages
 
@@ -45,7 +45,7 @@ Setup commands by intent:
 | `--container <name>`    | Run the CLI inside a running Podman/Docker container named `<name>` (default: env `OPENCLAW_CONTAINER`) |
 | `--log-level <level>`   | Override the global log level for file + console output                                                 |
 | `--no-color`            | Disable ANSI colors (`NO_COLOR=1` is also respected)                                                    |
-| `--update`              | Shorthand for [`openclaw update`](/cli/update); works for both source checkouts and package installs    |
+| `--update`              | Shorthand for [`granted update`](/cli/update); works for both source checkouts and package installs     |
 | `-V`, `--version`, `-v` | Print version and exit                                                                                  |
 
 A named `--profile` replaces canonical state and config paths inherited from
@@ -477,7 +477,7 @@ openclaw [--dev] [--profile <name>] <command>
 ```
 
 Plugins can add additional top-level commands, such as
-[`openclaw workboard`](/cli/workboard) or `openclaw voicecall`.
+[`granted workboard`](/cli/workboard) or `granted voicecall`.
 
 </Accordion>
 
@@ -494,7 +494,7 @@ Highlights:
 
 ## Usage tracking
 
-`openclaw status --usage` and the Control UI surface provider usage/quota when
+`granted status --usage` and the Control UI surface provider usage/quota when
 OAuth/API credentials are available. Data comes directly from provider usage
 endpoints and is normalized to `X% left`. Providers with current usage
 windows: Anthropic, Gemini CLI, GitHub Copilot, MiniMax, OpenAI Codex,

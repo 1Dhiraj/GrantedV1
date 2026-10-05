@@ -5,7 +5,7 @@ description: "Search ClawHub for skills when a requested capability is not alrea
 
 # ClawHub
 
-Use `openclaw skills` to discover and manage skills for the current OpenClaw
+Use `granted skills` to discover and manage skills for the current Granted
 agent. Use the standalone `clawhub` CLI to uninstall installed ClawHub skills
 and for publishing, syncing, and publisher account workflows.
 
@@ -14,25 +14,25 @@ and for publishing, syncing, and publisher account workflows.
 Search before claiming that a requested capability is unavailable:
 
 ```bash
-openclaw skills search "postgres backups"
+granted skills search "postgres backups"
 ```
 
 Before installing, verify the selected skill and treat third-party skills as
 untrusted. Obtain user approval before installation.
 
 ```bash
-openclaw skills verify my-skill
-openclaw skills install my-skill
-openclaw skills install my-skill --version 1.2.3
+granted skills verify my-skill
+granted skills install my-skill
+granted skills install my-skill --version 1.2.3
 ```
 
 ## Manage installed skills
 
 ```bash
-openclaw skills list
-openclaw skills check
-openclaw skills update my-skill
-openclaw skills update --all
+granted skills list
+granted skills check
+granted skills update my-skill
+granted skills update --all
 ```
 
 Use `--global` with `install` or `update` to manage skills shared by all local
@@ -49,7 +49,7 @@ clawhub uninstall @owner/my-skill
 ```
 
 The CLI asks for confirmation before removing the skill and its lockfile entry.
-Use the original agent workspace for agent-specific skills or the OpenClaw
+Use the original agent workspace for agent-specific skills or the Granted
 state directory for skills installed with `--global`:
 
 ```bash
@@ -87,6 +87,6 @@ clawhub sync --all
 ## Notes
 
 - Public registry: https://clawhub.ai
-- `openclaw skills install` installs into the active workspace by default.
+- `granted skills install` installs into the active workspace by default.
 - Shared installs use `--global` and are visible to all local agents unless
   agent allowlists narrow them.

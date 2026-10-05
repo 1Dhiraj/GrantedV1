@@ -59,7 +59,7 @@ You need:
 Enable the bundled plugin:
 
 ```bash
-openclaw plugins enable onepassword
+granted plugins enable onepassword
 ```
 
 Create the token directory and file under the OpenClaw state directory:
@@ -82,7 +82,7 @@ other users.
 Create a secrets apply plan for common model provider keys:
 
 ```bash
-openclaw onepassword secretref setup \
+granted onepassword secretref setup \
   --anthropic-id op://Automation/Anthropic/credential \
   --openrouter-id op://Automation/OpenRouter/credential \
   --plan-out ./openclaw-1password-secrets-plan.json
@@ -95,11 +95,11 @@ The command requires at least one target and writes a plan. Inspect it, check
 the local `op` and token-file prerequisites, then apply and reload:
 
 ```bash
-openclaw onepassword secretref status
-openclaw secrets apply --from ./openclaw-1password-secrets-plan.json --dry-run --allow-exec
-openclaw secrets apply --from ./openclaw-1password-secrets-plan.json --allow-exec
-openclaw secrets audit --check --allow-exec
-openclaw secrets reload
+granted onepassword secretref status
+granted secrets apply --from ./openclaw-1password-secrets-plan.json --dry-run --allow-exec
+granted secrets apply --from ./openclaw-1password-secrets-plan.json --allow-exec
+granted secrets audit --check --allow-exec
+granted secrets reload
 ```
 
 Before apply, status can report that the provider itself is not configured yet;
@@ -158,7 +158,7 @@ Windows ACL verification must also succeed. Check provider wiring and local
 readiness with:
 
 ```bash
-openclaw onepassword secretref status --json
+granted onepassword secretref status --json
 ```
 
 ## Configure registered secrets
@@ -269,7 +269,7 @@ cached values.
 Show readiness and registry counts:
 
 ```bash
-openclaw onepassword status
+granted onepassword status
 ```
 
 This reports whether the token file exists, whether `op` resolved and its path,
@@ -279,8 +279,8 @@ token or secret values.
 Show the 50 most recent audit rows:
 
 ```bash
-openclaw onepassword audit
-openclaw onepassword audit --limit 100
+granted onepassword audit
+granted onepassword audit --limit 100
 ```
 
 Rows are newest first and show timestamp, agent, slug, outcome, an `errorCode`

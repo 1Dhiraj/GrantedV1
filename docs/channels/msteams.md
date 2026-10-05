@@ -14,7 +14,7 @@ Microsoft Teams ships as a bundled plugin in current OpenClaw releases; no separ
 On an older build or a custom install that excludes bundled Teams, install the npm package directly:
 
 ```bash
-openclaw plugins install @granted/msteams
+granted plugins install @granted/msteams
 ```
 
 Use the bare package to follow the current official release tag. Pin an exact version only when you need a reproducible install.
@@ -22,7 +22,7 @@ Use the bare package to follow the current official release tag. Pin an exact ve
 Local checkout (running from a git repo):
 
 ```bash
-openclaw plugins install ./path/to/local/msteams-plugin
+granted plugins install ./path/to/local/msteams-plugin
 ```
 
 Details: [Plugins](/tools/plugin)
@@ -940,9 +940,9 @@ No Teams-specific approval configuration is required. The existing `/approve <id
 
 OpenClaw sends Teams polls as Adaptive Cards (there is no native Teams poll API).
 
-- CLI: `openclaw message poll --channel msteams --target conversation:<id> --poll-question "..." --poll-option "..." --poll-option "..."`.
+- CLI: `granted message poll --channel msteams --target conversation:<id> --poll-question "..." --poll-option "..." --poll-option "..."`.
 - Votes are recorded by the gateway in OpenClaw plugin-state SQLite under `state/openclaw.sqlite`.
-- Existing `msteams-polls.json` files are imported by `openclaw doctor --fix`, not by the running plugin.
+- Existing `msteams-polls.json` files are imported by `granted doctor --fix`, not by the running plugin.
 - The gateway must stay online to record votes.
 - Polls do not auto-post result summaries, and there is no poll-results CLI yet.
 
@@ -969,7 +969,7 @@ The `presentation` parameter accepts semantic blocks. When `presentation` is pro
 **CLI:**
 
 ```bash
-openclaw message send --channel msteams \
+granted message send --channel msteams \
   --target "conversation:19:abc...@thread.tacv2" \
   --presentation '{"title":"Hello","blocks":[{"type":"text","text":"Hello!"}]}'
 ```
@@ -991,16 +991,16 @@ MSTeams targets use prefixes to distinguish between users and conversations:
 
 ```bash
 # Send to a user by ID
-openclaw message send --channel msteams --target "user:40a1a0ed-..." --message "Hello"
+granted message send --channel msteams --target "user:40a1a0ed-..." --message "Hello"
 
 # Send to a user by display name (triggers Graph API lookup)
-openclaw message send --channel msteams --target "user:John Smith" --message "Hello"
+granted message send --channel msteams --target "user:John Smith" --message "Hello"
 
 # Send to a group chat or channel
-openclaw message send --channel msteams --target "conversation:19:abc...@thread.tacv2" --message "Hello"
+granted message send --channel msteams --target "conversation:19:abc...@thread.tacv2" --message "Hello"
 
 # Send a presentation card to a conversation
-openclaw message send --channel msteams --target "conversation:19:abc...@thread.tacv2" \
+granted message send --channel msteams --target "conversation:19:abc...@thread.tacv2" \
   --presentation '{"title":"Hello","blocks":[{"type":"text","text":"Hello"}]}'
 ```
 

@@ -1,4 +1,4 @@
-/** Provider auth-pin policy for credentials discovered outside OpenClaw storage. */
+/** Provider auth-pin policy for credentials discovered outside Granted storage. */
 import { findNormalizedProviderValue } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../../config/types.granted.js";
 import {

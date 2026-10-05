@@ -454,6 +454,15 @@ export const GrantedSchemaShape = {
     })
     .optional(),
   talk: TalkSchema.optional(),
+  // Operators reselling this install need their own name on it, in the UI and in
+  // the assistant's own self-description. One value covers both; colours and
+  // icons stay out until someone actually asks for them.
+  branding: z
+    .strictObject({
+      productName: z.string().trim().min(1).max(60).optional(),
+      creator: z.string().trim().min(1).max(80).optional(),
+    })
+    .optional(),
   gateway: GatewayConfigSchema,
   cloudWorkers: CloudWorkersConfigSchema,
   desktop: DesktopConfigSchema,

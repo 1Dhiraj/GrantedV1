@@ -16,7 +16,7 @@ Cloud worker provider backed by the Crabbox CLI.
 
 ## Surface
 
-CLI commands: `openclaw crabbox`; contracts: `workerProviders`
+CLI commands: `granted crabbox`; contracts: `workerProviders`
 
 <!-- openclaw-plugin-reference:manual-start -->
 

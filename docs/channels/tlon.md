@@ -19,7 +19,7 @@ Tlon ships bundled in current OpenClaw releases; packaged builds do not need a s
 On an older build or custom install that excludes it, install from npm:
 
 ```bash
-openclaw plugins install @granted/tlon
+granted plugins install @granted/tlon
 ```
 
 Use the bare package name to track the current release tag. Pin a version (`@granted/tlon@x.y.z`)
@@ -28,7 +28,7 @@ only for reproducible installs.
 From a local checkout:
 
 ```bash
-openclaw plugins install ./path/to/local/tlon-plugin
+granted plugins install ./path/to/local/tlon-plugin
 ```
 
 Details: [Plugins](/tools/plugin)
@@ -36,7 +36,7 @@ Details: [Plugins](/tools/plugin)
 ## Setup
 
 ```bash
-openclaw channels add --channel tlon --ship ~sampel-palnet --url https://your-ship-host --code lidlut-tabwed-pillex-ridrup
+granted channels add --channel tlon --ship ~sampel-palnet --url https://your-ship-host --code lidlut-tabwed-pillex-ridrup
 ```
 
 Or edit config directly:
@@ -87,7 +87,7 @@ Applies to targets like `http://localhost:8080`, `http://192.168.x.x:8080`, and
 protection for that account's HTTP requests.
 
 <Note>
-`channels.tlon.allowPrivateNetwork` (flat key) is retired. `openclaw doctor --fix` moves it to
+`channels.tlon.allowPrivateNetwork` (flat key) is retired. `granted doctor --fix` moves it to
 `channels.tlon.network.dangerouslyAllowPrivateNetwork` automatically.
 </Note>
 
@@ -234,7 +234,7 @@ config stays the source of truth for values never written to the settings store.
 
 ## Delivery targets (CLI/cron)
 
-Use with `openclaw message send` or cron delivery:
+Use with `granted message send` or cron delivery:
 
 - DM: `~sampel-palnet` or `dm/~sampel-palnet`
 - Group: `chat/~host-ship/channel` or `group:~host-ship/channel`
@@ -280,10 +280,10 @@ the image cannot be downloaded within that ceiling.
 ## Troubleshooting
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
+granted status
+granted gateway status
+granted logs --follow
+granted doctor
 ```
 
 Common failures:

@@ -2,7 +2,7 @@
   "name": "@granted/google-plugin",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Google plugin",
+  "description": "Granted Google plugin",
   "type": "module",
   "dependencies": {
     "@google/genai": "2.18.0",

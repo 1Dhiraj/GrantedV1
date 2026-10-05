@@ -117,7 +117,7 @@ describe("resolveSearchItems", () => {
     const result = firecrawlClient.resolveSearchItems({
       data: [
         { url: "https://example.com", title: "Example" },
-        { url: "https://openclaw.ai", title: "OpenClaw" },
+        { url: "https://openclaw.ai", title: "Granted" },
       ],
     });
 
@@ -128,7 +128,7 @@ describe("resolveSearchItems", () => {
     });
     expect(requireSearchResult(result, 1)).toMatchObject({
       url: "https://openclaw.ai",
-      title: "OpenClaw",
+      title: "Granted",
     });
   });
 

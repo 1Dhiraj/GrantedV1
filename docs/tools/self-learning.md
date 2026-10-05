@@ -130,9 +130,9 @@ The reviewer should abstain for:
 Set the mode with the CLI:
 
 ```bash
-openclaw config set skills.workshop.autonomous.mode auto
-openclaw config set skills.workshop.autonomous.mode propose
-openclaw config set skills.workshop.autonomous.mode off
+granted config set skills.workshop.autonomous.mode auto
+granted config set skills.workshop.autonomous.mode propose
+granted config set skills.workshop.autonomous.mode off
 ```
 
 Or edit `~/.openclaw/openclaw.json`:
@@ -188,17 +188,17 @@ Every learned skill receives these controls:
 Reject a pending miscapture with one command:
 
 ```bash
-openclaw skills workshop reject <proposal-id> --reason "Not reusable"
+granted skills workshop reject <proposal-id> --reason "Not reusable"
 ```
 
-Applied captures remain visible in `openclaw skills workshop list` and retain
+Applied captures remain visible in `granted skills workshop list` and retain
 their rollback metadata. The weekly collection review can later improve, merge,
 or remove them. This makes
 approval-free learning reversible and observable rather than silent.
 
 Residual risk remains: learned content comes from conversation and tool output,
 and the scanner blocks recognized dangerous patterns, not every possible piece
-of bad advice. Review `openclaw skills workshop list` when in doubt.
+of bad advice. Review `granted skills workshop list` when in doubt.
 
 ## Runtime support
 
@@ -260,15 +260,15 @@ transcript content into scan state.
 List and inspect every pending, applied, rejected, quarantined, or stale capture:
 
 ```bash
-openclaw skills workshop list
-openclaw skills workshop inspect <proposal-id>
+granted skills workshop list
+granted skills workshop inspect <proposal-id>
 ```
 
 Stop a pending capture from becoming active or quarantine it for safety review:
 
 ```bash
-openclaw skills workshop reject <proposal-id> --reason "Too specific"
-openclaw skills workshop quarantine <proposal-id> --reason "Needs security review"
+granted skills workshop reject <proposal-id> --reason "Too specific"
+granted skills workshop quarantine <proposal-id> --reason "Needs security review"
 ```
 
 Use `/learn` when you want an explicit proposal from the current conversation or
@@ -318,14 +318,14 @@ Check the following:
 
 An eligible experience review can still abstain. No proposal is the expected
 result when the evidence does not clear the reusable-procedure bar.
-Use `openclaw skills curator status` to inspect the last collection and
+Use `granted skills curator status` to inspect the last collection and
 experience review outcomes alongside live skill usage. Age-based curation is
 retired; the `curator pin`, `unpin`, and `restore` commands return an error
 explaining that weekly collection review manages the skill collection.
 
 ### Doctor reports that Workshop is hidden
 
-In `propose` and `auto` modes, `openclaw doctor` checks whether the default agent
+In `propose` and `auto` modes, `granted doctor` checks whether the default agent
 tool policy permits `skill_workshop`. Apply the reported `tools.allow` or
 `tools.alsoAllow` change, or set the autonomous mode to `off`.
 
@@ -334,7 +334,7 @@ tool policy permits `skill_workshop`. Apply the reported `tools.allow` or
 Automatic apply runs once. Inspect the proposal and its scanner state:
 
 ```bash
-openclaw skills workshop inspect <proposal-id>
+granted skills workshop inspect <proposal-id>
 ```
 
 A user-authored target or normal write failure leaves it pending for manual review. A critical
@@ -347,8 +347,8 @@ Switch to `propose` to review every capture, or `off` to disable autonomous
 capture:
 
 ```bash
-openclaw config set skills.workshop.autonomous.mode propose
-openclaw config set skills.workshop.autonomous.mode off
+granted config set skills.workshop.autonomous.mode propose
+granted config set skills.workshop.autonomous.mode off
 ```
 
 Existing proposals and applied skills remain visible after the mode changes.

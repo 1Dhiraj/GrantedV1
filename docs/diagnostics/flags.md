@@ -77,19 +77,19 @@ Profiler flags gate lightweight timing spans; they add no overhead when off.
 Enable all profiler-gated spans for one gateway run:
 
 ```bash
-OPENCLAW_DIAGNOSTICS=profiler openclaw gateway run
+OPENCLAW_DIAGNOSTICS=profiler granted gateway run
 ```
 
 Enable only reply-dispatch profiler spans:
 
 ```bash
-OPENCLAW_DIAGNOSTICS=reply.profiler openclaw gateway run
+OPENCLAW_DIAGNOSTICS=reply.profiler granted gateway run
 ```
 
 Enable only Codex app-server startup/tool/thread profiler spans:
 
 ```bash
-OPENCLAW_DIAGNOSTICS=codex.profiler openclaw gateway run
+OPENCLAW_DIAGNOSTICS=codex.profiler granted gateway run
 ```
 
 `profiler` enables both the reply profiler and the Codex profiler; use the
@@ -117,7 +117,7 @@ and runtime timing events as JSONL, for external QA harnesses:
 ```bash
 OPENCLAW_DIAGNOSTICS=timeline \
 OPENCLAW_DIAGNOSTICS_TIMELINE_PATH=/tmp/openclaw-timeline.jsonl \
-openclaw gateway run
+granted gateway run
 ```
 
 Or enable it in config:
@@ -177,7 +177,7 @@ redaction model.
 Read the active profile's latest log file:
 
 ```bash
-openclaw logs --plain
+granted logs --plain
 # Named profile example:
 openclaw --profile work logs --plain
 ```
@@ -185,22 +185,22 @@ openclaw --profile work logs --plain
 Filter for Telegram HTTP diagnostics:
 
 ```bash
-openclaw logs --plain --limit 5000 | rg "telegram http error"
+granted logs --plain --limit 5000 | rg "telegram http error"
 ```
 
 Filter for Brave Search HTTP diagnostics:
 
 ```bash
-openclaw logs --plain --limit 5000 | rg "brave http"
+granted logs --plain --limit 5000 | rg "brave http"
 ```
 
 Or tail while reproducing:
 
 ```bash
-openclaw logs --follow --plain | rg "telegram http error"
+granted logs --follow --plain | rg "telegram http error"
 ```
 
-For remote gateways, use `openclaw logs --follow` instead (see
+For remote gateways, use `granted logs --follow` instead (see
 [/cli/logs](/cli/logs)).
 
 ## Notes

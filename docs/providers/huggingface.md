@@ -31,7 +31,7 @@ title: "Hugging Face (inference)"
     Choose **Hugging Face** in the provider dropdown, then enter your API key when prompted:
 
     ```bash
-    openclaw onboard --auth-choice huggingface-api-key
+    granted onboard --auth-choice huggingface-api-key
     ```
 
   </Step>
@@ -51,7 +51,7 @@ title: "Hugging Face (inference)"
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider huggingface
+    granted models list --provider huggingface
     ```
   </Step>
 </Steps>
@@ -59,7 +59,7 @@ title: "Hugging Face (inference)"
 ### Non-interactive setup
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice huggingface-api-key \
   --huggingface-api-key "$HF_TOKEN"
@@ -99,7 +99,7 @@ When your token is valid, OpenClaw also discovers any other model from **GET** `
     Disable discovery without removing the provider:
 
     ```bash
-    openclaw config set plugins.entries.huggingface.config.discovery.enabled false
+    granted config set plugins.entries.huggingface.config.discovery.enabled false
     ```
 
   </Accordion>

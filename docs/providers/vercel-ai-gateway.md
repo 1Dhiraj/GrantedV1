@@ -9,19 +9,19 @@ read_when:
 The [Vercel AI Gateway](https://vercel.com/ai-gateway) provides a unified API to
 access hundreds of models through a single endpoint.
 
-| Property      | Value                                  |
-| ------------- | -------------------------------------- |
-| Provider      | `vercel-ai-gateway`                    |
+| Property      | Value                                 |
+| ------------- | ------------------------------------- |
+| Provider      | `vercel-ai-gateway`                   |
 | Package       | `@granted/vercel-ai-gateway-provider` |
-| Auth          | `AI_GATEWAY_API_KEY`                   |
-| API           | Anthropic Messages compatible          |
-| Base URL      | `https://ai-gateway.vercel.sh`         |
-| Model catalog | Auto-discovered via `/v1/models`       |
+| Auth          | `AI_GATEWAY_API_KEY`                  |
+| API           | Anthropic Messages compatible         |
+| Base URL      | `https://ai-gateway.vercel.sh`        |
+| Model catalog | Auto-discovered via `/v1/models`      |
 
 <Tip>
 OpenClaw auto-discovers the Gateway `/v1/models` catalog, so both the
 `/models vercel-ai-gateway` chat command and
-`openclaw models list --provider vercel-ai-gateway` include current model
+`granted models list --provider vercel-ai-gateway` include current model
 refs such as `vercel-ai-gateway/openai/gpt-5.5` and
 `vercel-ai-gateway/moonshotai/kimi-k2.6`.
 </Tip>
@@ -31,12 +31,12 @@ refs such as `vercel-ai-gateway/openai/gpt-5.5` and
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/vercel-ai-gateway-provider
+    granted plugins install @granted/vercel-ai-gateway-provider
     ```
   </Step>
   <Step title="Set the API key">
     ```bash
-    openclaw onboard --auth-choice ai-gateway-api-key
+    granted onboard --auth-choice ai-gateway-api-key
     ```
   </Step>
   <Step title="Set a default model">
@@ -52,7 +52,7 @@ refs such as `vercel-ai-gateway/openai/gpt-5.5` and
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider vercel-ai-gateway
+    granted models list --provider vercel-ai-gateway
     ```
   </Step>
 </Steps>
@@ -60,7 +60,7 @@ refs such as `vercel-ai-gateway/openai/gpt-5.5` and
 ## Non-interactive example
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice ai-gateway-api-key \
   --ai-gateway-api-key "$AI_GATEWAY_API_KEY"

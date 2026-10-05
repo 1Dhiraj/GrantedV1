@@ -9,14 +9,14 @@ export class GrantedAgentDatabaseMediaMigrationRequiredError extends Error {
     readonly schemaVersion: number,
   ) {
     super(
-      `OpenClaw agent database ${pathname} uses schema version ${schemaVersion}; run openclaw doctor --fix to migrate persisted media before using it.`,
+      `Granted agent database ${pathname} uses schema version ${schemaVersion}; run openclaw doctor --fix to migrate persisted media before using it.`,
     );
     this.name = "GrantedAgentDatabaseMediaMigrationRequiredError";
   }
 }
 
 const AGENT_MEDIA_MIGRATION_REQUIRED_MESSAGE =
-  /^OpenClaw agent database (.+) uses schema version (\d+); run openclaw doctor --fix to migrate persisted media before using it\.$/u;
+  /^Granted agent database (.+) uses schema version (\d+); run openclaw doctor --fix to migrate persisted media before using it\.$/u;
 
 function parseAgentMediaMigrationRequiredMessage(
   message: unknown,

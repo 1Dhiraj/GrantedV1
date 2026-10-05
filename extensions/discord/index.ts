@@ -1,4 +1,4 @@
-// Discord plugin entrypoint registers its OpenClaw integration.
+// Discord plugin entrypoint registers its Granted integration.
 import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
 import { registerDiscordActivities } from "./activities-api.js";
 import { registerDiscordSubagentHooks } from "./subagent-hooks-api.js";

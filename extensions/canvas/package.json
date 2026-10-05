@@ -2,7 +2,7 @@
   "name": "@granted/canvas-plugin",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Canvas plugin",
+  "description": "Granted Canvas plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

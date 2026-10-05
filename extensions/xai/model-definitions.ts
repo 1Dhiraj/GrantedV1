@@ -55,7 +55,7 @@ const XAI_GROK_43_COST = {
 } satisfies XaiCost;
 
 // xAI publishes separate short-context cached-input rates for Grok 4.5 and 4.6.
-// The flat OpenClaw catalog stores short-context rates; xAI doubles input,
+// The flat Granted catalog stores short-context rates; xAI doubles input,
 // cached-input, and output pricing at its documented 200k-token long-context threshold.
 const XAI_GROK_45_COST = {
   input: 2,

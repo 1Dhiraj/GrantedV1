@@ -12,7 +12,7 @@ function sessionTranscriptArchiveSchemaSql(): string {
   const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(ARCHIVE_SCHEMA_START);
   const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(ARCHIVE_SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw session transcript archive schema markers are missing.");
+    throw new Error("Granted session transcript archive schema markers are missing.");
   }
   return GRANTED_AGENT_SCHEMA_SQL.slice(start, end);
 }

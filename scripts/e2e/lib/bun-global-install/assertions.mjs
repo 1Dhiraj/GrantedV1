@@ -272,11 +272,11 @@ if (mode === "assert-openclaw-trusted") {
   }
   const globalManifest = JSON.parse(fs.readFileSync(globalManifestPath, "utf8"));
   if (!globalManifest.trustedDependencies?.includes?.("openclaw")) {
-    throw new Error("Bun global manifest does not trust OpenClaw lifecycle scripts");
+    throw new Error("Bun global manifest does not trust Granted lifecycle scripts");
   }
   const untrustedOutput = fs.readFileSync(untrustedOutputPath, "utf8");
   if (/(?:^|\s)(?:\.?[\\/])?node_modules[\\/]openclaw(?:\s|@|$)/imu.test(untrustedOutput)) {
-    throw new Error(`OpenClaw lifecycle scripts remain blocked by Bun:\n${untrustedOutput}`);
+    throw new Error(`Granted lifecycle scripts remain blocked by Bun:\n${untrustedOutput}`);
   }
   const legacyProjectName = ["open", "claw"].join("");
   const pendingPath = path.join(packageRoot, ".granted-lifecycle-pending");
@@ -287,7 +287,7 @@ if (mode === "assert-openclaw-trusted") {
     fs.existsSync(legacyPendingPath) ||
     fs.existsSync(legacyGuardPath)
   ) {
-    throw new Error("OpenClaw package lifecycle did not complete");
+    throw new Error("Granted package lifecycle did not complete");
   }
   process.exit(0);
 }

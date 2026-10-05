@@ -1,11 +1,11 @@
-# OpenClaw Matrix
+# Granted Matrix
 
-Official OpenClaw channel plugin for Matrix rooms and direct messages.
+Official Granted channel plugin for Matrix rooms and direct messages.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/matrix
+granted plugins install @granted/matrix
 ```
 
-Configure the Matrix homeserver and bot credentials in OpenClaw. The plugin lets agents join configured rooms, receive messages, and reply through Matrix.
+Configure the Matrix homeserver and bot credentials in Granted. The plugin lets agents join configured rooms, receive messages, and reply through Matrix.

@@ -24,17 +24,17 @@ function createContext(
     env: { PATH: "/usr/local/bin:/usr/bin" },
     prompt: "Remember the launch code.",
     modelId: "claude-sonnet-4-6",
-    systemPrompt: "Follow the OpenClaw execution policy.",
+    systemPrompt: "Follow the Granted execution policy.",
     useResume: false,
     timeoutMs: 30_000,
     executionMode: "agent",
     requestToolPermission: vi.fn(async () => ({
       behavior: "deny" as const,
-      message: "OpenClaw denied this action.",
+      message: "Granted denied this action.",
     })),
     requestUserInput: vi.fn(async () => ({
       status: "cancelled" as const,
-      message: "OpenClaw cancelled this question.",
+      message: "Granted cancelled this question.",
     })),
     ...overrides,
   };
@@ -117,7 +117,7 @@ describe("Anthropic Agent SDK native permission bridge", () => {
               header: "Approach",
               question: "Which implementation should Claude use?",
               options: [
-                { label: "Shared flow", description: "Use OpenClaw's existing question flow." },
+                { label: "Shared flow", description: "Use Granted's existing question flow." },
                 { label: "Claude-only", description: "Build a provider-specific path." },
               ],
               multiSelect: false,
@@ -202,7 +202,7 @@ describe("Anthropic Agent SDK native permission bridge", () => {
       hookSpecificOutput: {
         hookEventName: "PreToolUse",
         permissionDecision: "deny",
-        permissionDecisionReason: "OpenClaw rejected malformed native tool input.",
+        permissionDecisionReason: "Granted rejected malformed native tool input.",
       },
     });
     expect(requestToolPermission).toHaveBeenCalledOnce();
@@ -261,16 +261,16 @@ describe("Anthropic Agent SDK native permission bridge", () => {
       name: "preserves a denied host decision",
       resolve: async () => ({
         behavior: "deny" as const,
-        message: "OpenClaw exec policy denied this action.",
+        message: "Granted exec policy denied this action.",
       }),
-      expected: { behavior: "deny", message: "OpenClaw exec policy denied this action." },
+      expected: { behavior: "deny", message: "Granted exec policy denied this action." },
     },
     {
       name: "fails closed when the host approval owner is unavailable",
       resolve: async () => {
         throw new Error("The Gateway approval owner is unavailable.");
       },
-      expected: { behavior: "deny", message: "OpenClaw could not authorize this tool call." },
+      expected: { behavior: "deny", message: "Granted could not authorize this tool call." },
     },
   ])("$name and fences the retained callback after closure", async ({ resolve, expected }) => {
     const requestToolPermission = vi.fn(resolve);
@@ -307,7 +307,7 @@ describe("Anthropic Agent SDK native permission bridge", () => {
       ),
     ).resolves.toEqual({
       behavior: "deny",
-      message: "The OpenClaw run is no longer active.",
+      message: "The Granted run is no longer active.",
     });
     expect(requestToolPermission).toHaveBeenCalledOnce();
   });

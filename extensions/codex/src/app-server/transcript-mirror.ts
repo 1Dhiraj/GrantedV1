@@ -74,7 +74,7 @@ function readMirroredAssistantText(message: MirroredAgentMessage | undefined): s
   return text || undefined;
 }
 
-/** Imports a bounded, user-visible Codex history tail into a new OpenClaw transcript. */
+/** Imports a bounded, user-visible Codex history tail into a new Granted transcript. */
 export async function importCodexThreadHistoryToTranscript(params: {
   assertCurrent?: () => void;
   thread: CodexThread;

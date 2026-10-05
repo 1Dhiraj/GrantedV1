@@ -96,7 +96,7 @@ describe("1Password SecretRef setup", () => {
     ]);
   });
 
-  it("builds arbitrary known OpenClaw and auth-profile targets", async () => {
+  it("builds arbitrary known Granted and auth-profile targets", async () => {
     const plan = await createSetupPlan([
       "--target",
       "channels.telegram.botToken=op://openclaw/Telegram/botToken",

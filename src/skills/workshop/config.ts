@@ -1,4 +1,4 @@
-// Workshop config helpers resolve skill workshop settings from OpenClaw config.
+// Workshop config helpers resolve skill workshop settings from Granted config.
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedConfig } from "../../config/types.granted.js";
 import type { SkillsWorkshopAutonomousMode } from "../../config/types.skills.js";

@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { SkillSnapshot } from "../skills/types.js";
 import { bindAgentToolActionDescriptor } from "./agent-tool-metadata.js";
+import { wrapReadToolWithDirectoryListing } from "./agent-tools.read.directory-listing.js";
 import {
   createHostWorkspaceEditTool,
   createHostWorkspaceWriteTool,
@@ -52,9 +53,10 @@ function resolveSkillReadRoots(skillsSnapshot?: SkillSnapshot): string[] | undef
 
 function guardHostWorkspaceTool(
   tool: AnyAgentTool,
-  options: Pick<CoreCodingToolsOptions, "codingRoot" | "containmentRoot">,
+  options: Pick<CoreCodingToolsOptions, "codingRoot" | "containmentRoot" | "workspaceAllowPaths">,
 ): AnyAgentTool {
   return wrapToolWorkspaceRootGuardWithOptions(tool, options.containmentRoot, {
+    additionalRoots: options.workspaceAllowPaths,
     resolutionCwd: options.codingRoot,
     normalizeGuardedPathParams: true,
   });
@@ -64,6 +66,8 @@ type CoreCodingToolsOptions = {
   abortSignal?: AbortSignal;
   codingRoot: string;
   containmentRoot: string;
+  /** tools.fs.allowPaths: extra host folders a workspace-only agent may read and write. */
+  workspaceAllowPaths?: readonly string[];
   includeBaseCodingTools: boolean;
   includeShellTools: boolean;
   workspaceOnly: boolean;
@@ -121,11 +125,16 @@ export function createCoreCodingTools(options: CoreCodingToolsOptions): AnyAgent
           imageSanitization: options.imageSanitization,
           modelHasVision: options.modelHasVision,
         })
-      : createReadTool(options.codingRoot, {
-          maxBytes: resolveAdaptiveReadMaxBytes(options),
-          modelBudget: resolveToolResultBudget(options.modelContextWindowTokens),
-          modelHasVision: options.modelHasVision,
-        });
+      : // Listing wraps the host reader inside the workspace guard below, so a
+        // workspace-only policy still decides which folders can be listed.
+        wrapReadToolWithDirectoryListing(
+          createReadTool(options.codingRoot, {
+            maxBytes: resolveAdaptiveReadMaxBytes(options),
+            modelBudget: resolveToolResultBudget(options.modelContextWindowTokens),
+            modelHasVision: options.modelHasVision,
+          }),
+          options.codingRoot,
+        );
     const guarded = options.workspaceOnly
       ? wrapToolWorkspaceRootGuardWithOptions(
           read,
@@ -137,7 +146,10 @@ export function createCoreCodingTools(options: CoreCodingToolsOptions): AnyAgent
                 bridge: sandboxFsBridge,
               }
             : {
-                additionalRoots: skillReadRoots,
+                additionalRoots: [
+                  ...(skillReadRoots ?? []),
+                  ...(options.workspaceAllowPaths ?? []),
+                ],
                 resolutionCwd: options.codingRoot,
                 normalizeGuardedPathParams: true,
               },
@@ -165,6 +177,7 @@ export function createCoreCodingTools(options: CoreCodingToolsOptions): AnyAgent
     if (!options.readOnly && !sandboxRoot) {
       const edit = createHostWorkspaceEditTool(options.codingRoot, {
         containmentRoot: options.containmentRoot,
+        additionalRoots: options.workspaceAllowPaths,
         workspaceOnly: options.workspaceOnly,
         memoryWriteProvenance: options.memoryWriteProvenance,
         abortSignal: options.abortSignal,
@@ -172,6 +185,7 @@ export function createCoreCodingTools(options: CoreCodingToolsOptions): AnyAgent
       base.push(options.workspaceOnly ? guardHostWorkspaceTool(edit, options) : edit);
       const write = createHostWorkspaceWriteTool(options.codingRoot, {
         containmentRoot: options.containmentRoot,
+        additionalRoots: options.workspaceAllowPaths,
         workspaceOnly: options.workspaceOnly,
         memoryWriteProvenance: options.memoryWriteProvenance,
         abortSignal: options.abortSignal,

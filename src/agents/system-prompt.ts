@@ -1,5 +1,5 @@
 /**
- * OpenClaw system prompt renderer.
+ * Granted system prompt renderer.
  *
  * Assembles runtime, workspace, tooling, memory, delegation, channel, and cache-boundary prompt sections.
  */
@@ -27,6 +27,7 @@ import {
   hasNativeApprovalPromptRuntimeCapability,
   isKnownNativeApprovalPromptChannel,
 } from "../channels/plugins/native-approval-prompt.js";
+import { PRODUCT_CREATOR, PRODUCT_DISPLAY_NAME } from "../compat/legacy-names.js";
 import type { SubagentDelegationMode } from "../config/types.agent-defaults.js";
 import type { MemoryCitationsMode } from "../config/types.memory.js";
 import { pruneMapToMaxSize } from "../infra/map-size.js";
@@ -615,7 +616,7 @@ function buildMessagingSection(params: {
       : []),
     subagentOrchestrationGuidance,
     completionEventGuidance,
-    "- Provider messaging: never exec/curl; OpenClaw routes.",
+    "- Provider messaging: never exec/curl; Granted routes.",
     messageToolAvailable
       ? [
           "",
@@ -707,8 +708,8 @@ function buildDocsSection(params: {
     docsPath ? "Mirror: https://docs.openclaw.ai" : undefined,
     sourcePath ? `Source: ${sourcePath}` : "Source: https://github.com/openclaw/openclaw",
     docsPath
-      ? `OpenClaw behavior questions: docs first${params.readToolName ? ` via \`${params.readToolName}\`/local search` : " using available tools"}. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
-      : "OpenClaw behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
+      ? `Granted behavior questions: docs first${params.readToolName ? ` via \`${params.readToolName}\`/local search` : " using available tools"}. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
+      : "Granted behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
     params.hasGateway
       ? "Config field: `gateway(config.schema.lookup)` exact path. Broader: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`."
       : "Configuration docs: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`.",
@@ -796,6 +797,10 @@ export function buildAgentSystemPrompt(params: {
   capabilityToolNames?: string[];
   toolSummaries?: Record<string, string>;
   modelAliasLines?: string[];
+  /** Operator-facing product name; defaults to the built-in display name. */
+  productName?: string;
+  /** Who the assistant names when asked who created it. */
+  productCreator?: string;
   userTimezone?: string;
   userDate?: string;
   contextFiles?: EmbeddedContextFile[];
@@ -819,7 +824,7 @@ export function buildAgentSystemPrompt(params: {
   proactiveSubagentOrchestration?: boolean;
   /** Whether ACP-specific routing guidance should be included. Defaults to true. */
   acpEnabled?: boolean;
-  /** Prompt surface controls runtime-specific fallback fragments. Defaults to OpenClaw main. */
+  /** Prompt surface controls runtime-specific fallback fragments. Defaults to Granted main. */
   promptSurface?: AgentPromptSurfaceKind;
   /** Registered runtime slash/native command names such as `codex`. */
   nativeCommandNames?: string[];
@@ -851,8 +856,27 @@ export function buildAgentSystemPrompt(params: {
   const promptMode = params.promptMode ?? "full";
   const runtimeInfo = params.runtimeInfo;
   const modelIdentityLine = buildModelIdentityPromptLine(runtimeInfo?.model);
+  // An operator reselling this install renames the assistant too, not just the
+  // UI chrome: being told it is Granted is what makes it answer "I am Granted".
+  const productName = params.productName?.trim() || PRODUCT_DISPLAY_NAME;
+  const productCreator = params.productCreator?.trim() || PRODUCT_CREATOR;
+  // Two attempts failed before this one. Stating the fact alone did nothing, and
+  // instructing the model to answer with the author instead of the lab did not
+  // either: asked "who created you" it still named the lab, having read both
+  // lines and made no tool call. A model is trained hard on its own provenance
+  // and will not trade it away for a line in a prompt.
+  //
+  // So this stops asking it to. Both things are true at once - the product has
+  // an author, the weights have a lab - and a model has no reason to resist
+  // saying something that is simply correct. Leading with the author answers the
+  // question that was actually asked.
+  const creatorLine = `${productName} was created by ${productCreator}. When asked who made or created you, lead with that: you are ${productName}, built by ${productCreator}. You may add that the underlying language model comes from whichever provider is serving this turn — both are true, and the question is about ${productName}.`;
   if (promptMode === "none") {
-    return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
+    return [
+      `You are a personal assistant running inside ${productName}.`,
+      creatorLine,
+      modelIdentityLine,
+    ]
       .filter(Boolean)
       .join("\n");
   }
@@ -898,7 +922,7 @@ export function buildAgentSystemPrompt(params: {
     openclaw: "Gateway restart/system setup/config; changes need human approval",
     gateway: "Read gateway config/schema",
     agents_list: acpSpawnRuntimeEnabled
-      ? "List allowed OpenClaw subagent ids; not ACP ids"
+      ? "List allowed Granted subagent ids; not ACP ids"
       : "List allowed subagent ids",
     sessions_list: "List visible sessions; filters/last",
     sessions_history: "Read visible session/subagent history",
@@ -1115,7 +1139,7 @@ export function buildAgentSystemPrompt(params: {
     ),
     "",
   ];
-  // CLI backends own native file tools outside OpenClaw's projected tool list.
+  // CLI backends own native file tools outside Granted's projected tool list.
   // Keep their skill catalog visible while embedded runs require a real read tool.
   const canAccessSkills = params.codeModeActive
     ? visibleTools.has("exec")
@@ -1200,6 +1224,10 @@ export function buildAgentSystemPrompt(params: {
     skillsPrompt,
     codeModeActive: params.codeModeActive,
     modelAliasLines: params.modelAliasLines,
+    // Part of the key, not just the body: the prefix below prints it, so two
+    // installs under different names must not share a cached prefix.
+    productName,
+    productCreator,
     includeMemorySection: params.includeMemorySection,
     memoryCitationsMode: params.memoryCitationsMode,
     memorySection,
@@ -1208,7 +1236,8 @@ export function buildAgentSystemPrompt(params: {
   });
   const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () => {
     const lines = [
-      "You are a personal assistant running inside OpenClaw.",
+      `You are a personal assistant running inside ${productName}.`,
+      creatorLine,
       "",
       ...(includeToolGuidance
         ? [
@@ -1290,7 +1319,12 @@ export function buildAgentSystemPrompt(params: {
       ...subagentDelegationPreferenceSection,
       ...buildOverridablePromptSection({
         override: providerSectionOverrides.interaction_style,
-        fallback: [],
+        fallback: [
+          "## Talking to the user",
+          "Lead with what happened or what will happen, in the words the person already used.",
+          "File paths, config keys, schema fields and tool names are implementation detail. Include them when the person is working in the code; leave them out when they are not. Match the register they wrote in rather than defaulting to either extreme — a developer asking about a config key wants the key, and someone asking why their assistant forgot something does not.",
+          "When something cannot be done, say so plainly and name the single thing that would unblock it, rather than listing everything that is missing.",
+        ],
       }),
       ...(includeToolGuidance
         ? buildOverridablePromptSection({
@@ -1319,7 +1353,7 @@ export function buildAgentSystemPrompt(params: {
         fallback: [],
       }),
       ...safetySection,
-      "## OpenClaw Control",
+      "## Granted Control",
       "Do not invent commands.",
       ...(hasOpenClaw
         ? [
@@ -1415,7 +1449,7 @@ export function buildAgentSystemPrompt(params: {
       params.sandboxInfo?.enabled ? "" : "",
       ...bootstrapSystemPromptSections,
       "## Workspace Files (injected)",
-      "User-editable; OpenClaw loads below as Project Context.",
+      "User-editable; Granted loads below as Project Context.",
       "",
       ...buildAssistantOutputDirectivesSection({
         isMinimal,

@@ -831,7 +831,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
             GRANTED_GATEWAY_PORT: String(gatewayPort),
             GRANTED_SERVICE_KIND: "gateway",
           },
-          description: `OpenClaw CI Scheduled Task integration ${id}`,
+          description: `Granted CI Scheduled Task integration ${id}`,
         });
 
         expect((await execSchtasks(["/Query", "/TN", taskName])).code).toBe(0);

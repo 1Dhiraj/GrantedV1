@@ -48,6 +48,7 @@ import {
 import { createCronTool } from "./tools/cron-tool.js";
 import { createDashboardTool } from "./tools/dashboard-tool.js";
 import { createEmbeddedCallGateway } from "./tools/embedded-gateway-stub.js";
+import { createFileEditTool, createFileReadTool, createFileWriteTool } from "./tools/file-tools.js";
 import { createGatewayToolCallerWrapper } from "./tools/gateway-caller-context.js";
 import { createGatewayTool } from "./tools/gateway-tool.js";
 import { createGitHubIdentityStatusTool } from "./tools/github-identity-status-tool.js";
@@ -57,6 +58,7 @@ import {
   createGetGoalTool,
   createUpdateGoalTool,
 } from "./tools/goal-tools.js";
+import { createOpenClawDelegateToolsForRun } from "./tools/granted-delegate-tool.js";
 import { createHeartbeatResponseTool } from "./tools/heartbeat-response-tool.js";
 import { createImageGenerateTool } from "./tools/image-generate-tool.js";
 import { createImageTool } from "./tools/image-tool.js";
@@ -65,7 +67,6 @@ import { createMessageTool } from "./tools/message-tool-execution.js";
 import { createMobileUiTool } from "./tools/mobile-ui-tool.js";
 import { createMusicGenerateTool } from "./tools/music-generate-tool.js";
 import { createNodesTool } from "./tools/nodes-tool.js";
-import { createOpenClawDelegateToolsForRun } from "./tools/granted-delegate-tool.js";
 import { createPdfTool } from "./tools/pdf-tool.js";
 import { createPortalTool } from "./tools/portal-tool.js";
 import { createProgressCardTool } from "./tools/progress-card-tool.js";
@@ -326,11 +327,21 @@ export function createOpenClawTools(options?: GrantedToolsOptions): AnyAgentTool
       })
     : null;
   const transcriptsTool = resolveTranscriptsTool(resolvedConfig, sessionAgentId, options);
+  const fileToolSession = options?.runSessionKey ?? options?.agentSessionKey;
   const tools: AnyAgentTool[] = [
     createDashboardTool({
       agentSessionKey: options?.runSessionKey ?? options?.agentSessionKey,
       agentId: sessionAgentId,
     }),
+    // File work with no shell in the way. Session-scoped because edit_file only
+    // touches a file this session has actually read.
+    ...(fileToolSession
+      ? [
+          createFileReadTool({ agentSessionKey: fileToolSession }),
+          createFileWriteTool({ agentSessionKey: fileToolSession }),
+          createFileEditTool({ agentSessionKey: fileToolSession }),
+        ]
+      : []),
     ...(embedded
       ? []
       : [

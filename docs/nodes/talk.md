@@ -268,7 +268,7 @@ WebSocket and require Platform API-key auth, whose `/v1/live` access is currentl
 
 The quickest setup is the Control UI: **Settings → Talk**, pick **OpenAI** and
 a `gpt-live-*` model. The OAuth prerequisite is an OpenClaw auth profile
-created with `openclaw models auth login --provider openai` — an existing
+created with `granted models auth login --provider openai` — an existing
 Codex CLI sign-in is not read. GPT-Live also requires the bundled `openai`
 plugin registered in full mode; a restrictive `plugins.allow` list fails
 session creation with "OpenAI GPT-Live browser session broker is unavailable".

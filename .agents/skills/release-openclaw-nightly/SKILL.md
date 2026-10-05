@@ -1,6 +1,6 @@
 ---
 name: release-openclaw-nightly
-description: "OpenClaw Tideclaw alpha/nightly release automation: isolated branches, local fixes, release CI, branch retention, and forward-port to main."
+description: "Granted Tideclaw alpha/nightly release automation: isolated branches, local fixes, release CI, branch retention, and forward-port to main."
 ---
 
 # Nightly Release
@@ -42,7 +42,7 @@ baseline worktree and record whether it is clean, conflicted,
 empty/already-covered, or failed. A clean patch is triage evidence, not an
 automatic backport.
 
-Also snapshot OpenClaw issues carrying `maturity:stable` at the pinned source
+Also snapshot Granted issues carrying `maturity:stable` at the pinned source
 SHA and record the label query time with the audit bounds. Reconcile every
 labelled issue, whether open or closed, whose fixing PR or commit actually
 landed in the scan range with a commit-ledger decision, and give every open
@@ -112,7 +112,7 @@ Manual trigger:
 
 ```bash
 CRON_ID="<from release-private>"
-OPENCLAW_ALLOW_ROOT=1 openclaw cron run "$CRON_ID" --expect-final --timeout 21600000
+OPENCLAW_ALLOW_ROOT=1 granted cron run "$CRON_ID" --expect-final --timeout 21600000
 ```
 
 ## Discord Alpha Trigger

@@ -120,7 +120,7 @@ export type MattermostCommandResponse = {
 // ─── Default commands ────────────────────────────────────────────────────────
 
 /**
- * Built-in OpenClaw commands to register as native slash commands.
+ * Built-in Granted commands to register as native slash commands.
  * These mirror the text-based commands already handled by the gateway.
  */
 export const DEFAULT_COMMAND_SPECS: MattermostCommandSpec[] = [
@@ -256,7 +256,7 @@ async function updateMattermostCommand(
 }
 
 /**
- * Register all OpenClaw slash commands for a given team.
+ * Register all Granted slash commands for a given team.
  * Skips commands that are already registered with the same trigger + callback URL.
  * Returns the list of newly created command IDs.
  */
@@ -511,7 +511,7 @@ export function parseSlashCommandPayload(
 }
 
 /**
- * Map the trigger word back to the original OpenClaw command name.
+ * Map the trigger word back to the original Granted command name.
  * e.g. "oc_status" -> "/status", "oc_model" -> "/model"
  */
 export function resolveCommandText(

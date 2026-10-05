@@ -29,10 +29,10 @@ The WeChat code does not live in the OpenClaw core repo. OpenClaw provides the
 generic channel plugin contract, and the external plugin provides the
 WeChat-specific runtime:
 
-1. `openclaw plugins install` installs `@tencent-weixin/openclaw-weixin`.
+1. `granted plugins install` installs `@tencent-weixin/openclaw-weixin`.
 2. The Gateway discovers the plugin manifest and loads the plugin entrypoint.
 3. The plugin registers channel id `openclaw-weixin`.
-4. `openclaw channels login --channel openclaw-weixin` starts QR login.
+4. `granted channels login --channel openclaw-weixin` starts QR login.
 5. The plugin stores account credentials under the OpenClaw state directory
    (`~/.openclaw` by default).
 6. When the Gateway starts, the plugin starts its Weixin monitor for each
@@ -55,14 +55,14 @@ npx -y @tencent-weixin/openclaw-weixin-cli install
 Manual install:
 
 ```bash
-openclaw plugins install "@tencent-weixin/openclaw-weixin"
-openclaw config set plugins.entries.openclaw-weixin.enabled true
+granted plugins install "@tencent-weixin/openclaw-weixin"
+granted config set plugins.entries.openclaw-weixin.enabled true
 ```
 
 Restart the Gateway after install:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 ## Login
@@ -70,7 +70,7 @@ openclaw gateway restart
 Run QR login on the same machine that runs the Gateway:
 
 ```bash
-openclaw channels login --channel openclaw-weixin
+granted channels login --channel openclaw-weixin
 ```
 
 Scan the QR code with WeChat on your phone and confirm the login. The plugin saves
@@ -80,7 +80,7 @@ To add another WeChat account, run the same login command again. For multiple
 accounts, isolate direct-message sessions by account, channel, and sender:
 
 ```bash
-openclaw config set session.dmScope per-account-channel-peer
+granted config set session.dmScope per-account-channel-peer
 ```
 
 ## Access control
@@ -91,8 +91,8 @@ plugins.
 Approve new senders:
 
 ```bash
-openclaw pairing list openclaw-weixin
-openclaw pairing approve openclaw-weixin <CODE>
+granted pairing list openclaw-weixin
+granted pairing approve openclaw-weixin <CODE>
 ```
 
 For the full access-control model, see [Pairing](/channels/pairing).
@@ -110,7 +110,7 @@ If the plugin reports that your OpenClaw version is too old, either update
 OpenClaw or install the legacy plugin line:
 
 ```bash
-openclaw plugins install @tencent-weixin/openclaw-weixin@legacy
+granted plugins install @tencent-weixin/openclaw-weixin@legacy
 ```
 
 Plugin 2.4.6 imports the retired `openclaw/plugin-sdk/channel-runtime` path and
@@ -118,8 +118,8 @@ cannot load on OpenClaw 2026.8.1. If startup reports that this subpath is not
 exported, update to plugin 2.4.8, which uses the available SDK path:
 
 ```bash
-openclaw plugins update @tencent-weixin/openclaw-weixin@2.4.8
-openclaw gateway restart
+granted plugins update @tencent-weixin/openclaw-weixin@2.4.8
+granted gateway restart
 ```
 
 ## Sidecar process
@@ -138,8 +138,8 @@ generic; it is not a WeChat-specific path in core.
 Check install and status:
 
 ```bash
-openclaw plugins list
-openclaw channels status --probe
+granted plugins list
+granted channels status --probe
 openclaw --version
 ```
 
@@ -147,8 +147,8 @@ If the channel shows as installed but does not connect, confirm that the plugin 
 enabled and restart:
 
 ```bash
-openclaw config set plugins.entries.openclaw-weixin.enabled true
-openclaw gateway restart
+granted config set plugins.entries.openclaw-weixin.enabled true
+granted gateway restart
 ```
 
 If the Gateway restarts repeatedly after enabling WeChat, update both OpenClaw and
@@ -156,8 +156,8 @@ the plugin:
 
 ```bash
 npm view @tencent-weixin/openclaw-weixin version
-openclaw plugins install "@tencent-weixin/openclaw-weixin" --force
-openclaw gateway restart
+granted plugins install "@tencent-weixin/openclaw-weixin" --force
+granted gateway restart
 ```
 
 If startup reports that the installed plugin package `requires compiled runtime
@@ -168,8 +168,8 @@ publisher ships a fixed package, or temporarily disable/uninstall the plugin.
 Temporary disable:
 
 ```bash
-openclaw config set plugins.entries.openclaw-weixin.enabled false
-openclaw gateway restart
+granted config set plugins.entries.openclaw-weixin.enabled false
+granted gateway restart
 ```
 
 ## Related docs

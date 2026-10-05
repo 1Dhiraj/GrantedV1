@@ -32,7 +32,7 @@ Most days:
 - Direct file targeting routes plugin/channel paths too: `pnpm test extensions/discord/src/monitor/message-handler.preflight.test.ts`
 - Prefer targeted runs first when iterating on a single failure.
 - Docker-backed QA site: `pnpm qa:lab:up`
-- Linux VM-backed QA lane: `pnpm openclaw qa suite --runner multipass --scenario channel-chat-baseline`
+- Linux VM-backed QA lane: `pnpm granted qa suite --runner multipass --scenario channel-chat-baseline`
 
 When you touch tests or want extra confidence:
 
@@ -143,17 +143,17 @@ When debugging real providers/models (requires real creds):
     path.
 - OpenClaw first-run Docker smoke: `pnpm test:docker:system-agent-first-run`
   - Starts from an empty OpenClaw state dir and first proves the packaged
-    `openclaw setup` CLI fails closed without inference. It then
+    `granted setup` CLI fails closed without inference. It then
     tests and activates fake Claude through the packaged activation module.
     Only afterward does a fuzzy packaged CLI request reach the planner and
     resolve to typed setup, followed by one-shot model, agent, Discord config,
     and SecretRef operations. It validates config and audit entries. This is
     supporting gate/operation evidence, not an interactive onboarding or
     OpenClaw agent/tool/approval proof. The same lane is exposed in QA Lab by
-    `pnpm openclaw qa suite --scenario system-agent-ring-zero-setup`.
+    `pnpm granted qa suite --scenario system-agent-ring-zero-setup`.
 - Moonshot/Kimi cost smoke: with `MOONSHOT_API_KEY` set, run
-  `openclaw models list --provider moonshot --json`, then run an isolated
-  `openclaw agent --local --session-id live-kimi-cost --message 'Reply exactly: KIMI_LIVE_OK' --thinking off --json`
+  `granted models list --provider moonshot --json`, then run an isolated
+  `granted agent --local --session-id live-kimi-cost --message 'Reply exactly: KIMI_LIVE_OK' --thinking off --json`
   against `moonshot/kimi-k2.6`. Verify the JSON reports Moonshot/K2.6 and the
   assistant transcript stores normalized `usage.cost`.
 
@@ -189,12 +189,12 @@ Full release live media shards use
 commit, then pull it with `OPENCLAW_SKIP_DOCKER_BUILD=1` instead of rebuilding
 inside every shard.
 
-- `pnpm openclaw qa suite`
+- `pnpm granted qa suite`
   - Runs repo-backed QA scenarios directly on the host.
   - Writes top-level `qa-evidence.json`, `qa-suite-summary.json`, and
     `qa-suite-report.md` artifacts for the selected scenario set, including
     mixed flow, Vitest, and Playwright scenario selections.
-  - When dispatched by `pnpm openclaw qa run --qa-profile <profile>`, embeds
+  - When dispatched by `pnpm granted qa run --qa-profile <profile>`, embeds
     the selected taxonomy profile scorecard in the same `qa-evidence.json`.
     `smoke-ci` writes slim evidence (`evidenceMode: "slim"`, no per-entry
     `execution`). `release` covers the curated release-readiness slice; `all`
@@ -210,7 +210,7 @@ inside every shard.
     `aimock` starts a local AIMock-backed provider server for experimental
     fixture and protocol-mock coverage without replacing the scenario-aware
     `mock-openai` lane.
-- `pnpm openclaw qa coverage --match <query>`
+- `pnpm granted qa coverage --match <query>`
   - Searches scenario IDs, titles, surfaces, coverage IDs, docs refs, code
     refs, plugins, and provider requirements, then prints matching suite
     targets.
@@ -237,7 +237,7 @@ inside every shard.
     gateway peg regression.
   - Runs against built `dist` artifacts; run a build first when the checkout
     does not already have fresh runtime output.
-- `pnpm openclaw qa suite --runner multipass`
+- `pnpm granted qa suite --runner multipass`
   - Runs the same QA suite inside a disposable Multipass Linux VM, keeping
     the same scenario-selection and provider/model flags as `qa suite`.
   - Live runs forward the QA auth inputs practical for the guest:
@@ -262,7 +262,7 @@ inside every shard.
     transcripts. Verifies hidden OpenClaw runtime context persists as a
     non-display custom message instead of leaking into the visible user
     turn, then seeds an affected broken session JSONL and verifies
-    `openclaw doctor --fix` rewrites it to the active branch with a backup.
+    `granted doctor --fix` rewrites it to the active branch with a backup.
 - `pnpm test:docker:npm-telegram-live`
   - Installs an OpenClaw package candidate in Docker, runs installed-package
     onboarding, configures Telegram through the installed CLI, then reuses
@@ -291,7 +291,7 @@ inside every shard.
     the first position before the remaining taxonomy-backed fail-fast release
     scenarios.
   - Uses the same Convex-leased Test Server userbot credentials as
-    `pnpm openclaw qa telegram`. Set `OPENCLAW_QA_CONVEX_SITE_URL` and the
+    `pnpm granted qa telegram`. Set `OPENCLAW_QA_CONVEX_SITE_URL` and the
     secret for the selected role. The Docker wrapper selects Convex by default.
   - The wrapper validates Convex credential env on the host before Docker
     build/install work. Set
@@ -368,13 +368,13 @@ gh workflow run package-acceptance.yml --ref main \
     downloadable plugin explicitly, and a second restart does not run
     hidden dependency repair.
   - Also installs a known older npm baseline, enables Telegram before
-    running `openclaw update --tag <candidate>`, and verifies the
+    running `granted update --tag <candidate>`, and verifies the
     candidate's post-update doctor cleans legacy plugin dependency debris
     without a harness-side postinstall repair.
 - `pnpm test:parallels:npm-update`
   - Runs the native packaged-install update smoke across Parallels guests.
     Each selected platform first installs the requested baseline package,
-    then runs the installed `openclaw update` command in the same guest and
+    then runs the installed `granted update` command in the same guest and
     verifies the installed version, update status, gateway readiness, and
     one local agent turn.
   - Use `--platform macos`, `--platform windows`, or `--platform linux`
@@ -406,10 +406,10 @@ gh workflow run package-acceptance.yml --ref main \
     understanding load through bundled runtime APIs even when the agent
     turn itself only checks a simple text response.
 
-- `pnpm openclaw qa aimock`
+- `pnpm granted qa aimock`
   - Starts only the local AIMock provider server for direct protocol smoke
     testing.
-- `pnpm openclaw qa buzz`
+- `pnpm granted qa buzz`
   - Runs the Buzz live QA lane against a real relay room using dedicated driver
     and SUT identities.
   - Local runs use `--credential-file <path>` with `relayUrl`, `roomId`,
@@ -421,13 +421,13 @@ gh workflow run package-acceptance.yml --ref main \
   - Supports `--credential-source convex` with a pooled `kind: "buzz"` row.
     Both public keys must be relay/room members, and the SUT must have the
     **Bot** room role. Never use a human owner or admin private key.
-- `pnpm openclaw qa matrix`
+- `pnpm granted qa matrix`
   - Runs the Matrix live QA lane against a disposable Docker-backed Tuwunel
     homeserver. Source-checkout only - packaged installs do not ship
     `qa-lab`.
   - Full CLI, profile/scenario catalog, env vars, and artifact layout:
     [Matrix smoke lanes](/concepts/qa-e2e-automation#matrix-live-lane).
-- `pnpm openclaw qa telegram`
+- `pnpm granted qa telegram`
   - Runs the Telegram live QA lane on Telegram's Test Server with one
     Convex-leased SUT bot and one independent TDLib user session.
   - Uses `--credential-source convex` by default and rejects `env`. Provide
@@ -490,10 +490,10 @@ Maintainer admin commands (pool add/remove/list) require
 CLI helpers for maintainers:
 
 ```bash
-pnpm openclaw qa credentials doctor
-pnpm openclaw qa credentials add --kind telegram --payload-file qa/telegram-credential.json
-pnpm openclaw qa credentials list --kind telegram
-pnpm openclaw qa credentials remove --credential-id <credential-id>
+pnpm granted qa credentials doctor
+pnpm granted qa credentials add --kind telegram --payload-file qa/telegram-credential.json
+pnpm granted qa credentials list --kind telegram
+pnpm granted qa credentials remove --credential-id <credential-id>
 ```
 
 Use `doctor` before live runs to check the Convex site URL, broker secrets,
@@ -552,7 +552,7 @@ The architecture and scenario-helper names for new channel adapters live in
 [QA overview - Adding a channel](/concepts/qa-e2e-automation#adding-a-channel).
 The minimum bar: implement the transport runner on the shared `qa-lab` host
 seam, add an `adapterFactory` for shared scenarios, declare `qaRunners` in the
-plugin manifest, mount as `openclaw qa <runner>`, and author scenarios under
+plugin manifest, mount as `granted qa <runner>`, and author scenarios under
 `qa/scenarios/`.
 
 ## Test suites (what runs where)
@@ -871,11 +871,11 @@ without mutating the host auth store:
 - Npm tarball onboarding/channel/agent smoke: `pnpm test:docker:npm-onboard-channel-agent` installs the packed OpenClaw tarball globally in Docker, configures OpenAI via env-ref onboarding plus Telegram by default, runs doctor, and runs one mocked OpenAI agent turn. Reuse a prebuilt tarball with `OPENCLAW_CURRENT_PACKAGE_TGZ=/path/to/openclaw-*.tgz`, skip the host rebuild with `OPENCLAW_NPM_ONBOARD_HOST_BUILD=0`, or switch channel with `OPENCLAW_NPM_ONBOARD_CHANNEL=discord` or `OPENCLAW_NPM_ONBOARD_CHANNEL=slack`.
 
 - Release user journey smoke: `pnpm test:docker:release-user-journey` installs the packed OpenClaw tarball globally in a clean Docker home, runs onboarding, configures a mocked OpenAI provider, runs an agent turn, installs/uninstalls external plugins, configures ClickClack against a local fixture, verifies outbound/inbound messaging, restarts Gateway, and runs doctor.
-- Release typed onboarding smoke: `pnpm test:docker:release-typed-onboarding` installs the packed tarball, drives `openclaw onboard` through a real TTY, configures OpenAI as an env-ref provider, verifies no raw key persistence, and runs a mocked agent turn.
+- Release typed onboarding smoke: `pnpm test:docker:release-typed-onboarding` installs the packed tarball, drives `granted onboard` through a real TTY, configures OpenAI as an env-ref provider, verifies no raw key persistence, and runs a mocked agent turn.
 - Release media/memory smoke: `pnpm test:docker:release-media-memory` installs the packed tarball, verifies image understanding from a PNG attachment, OpenAI-compatible image generation output, memory search recall, and recall survival across Gateway restart.
 - Release upgrade user journey smoke: `pnpm test:docker:release-upgrade-user-journey` installs the newest published stable baseline older than the candidate tarball by default, onboards and installs a CLI plugin on the published package, then replaces the package and runs the documented Doctor migration step. It verifies the existing plugin still works and configures candidate-compatible mock provider/ClickClack settings for the agent/channel journey. If no older stable baseline exists, it reuses the candidate version only when that version is published and stable; otherwise it fails and requires an explicit baseline. Override the baseline with `OPENCLAW_RELEASE_UPGRADE_BASELINE_SPEC=openclaw@<version>`.
 - Release plugin marketplace smoke: `pnpm test:docker:release-plugin-marketplace` installs from a local fixture marketplace, updates the installed plugin, uninstalls it, and verifies the plugin CLI disappears with install metadata pruned.
-- Skill install smoke: `pnpm test:docker:skill-install` installs the packed OpenClaw tarball globally in Docker, disables uploaded archive installs in config, resolves the current live ClawHub skill slug from search, installs it with `openclaw skills install`, and verifies the installed skill plus `.clawhub` origin/lock metadata.
+- Skill install smoke: `pnpm test:docker:skill-install` installs the packed OpenClaw tarball globally in Docker, disables uploaded archive installs in config, resolves the current live ClawHub skill slug from search, installs it with `granted skills install`, and verifies the installed skill plus `.clawhub` origin/lock metadata.
 - Update channel switch smoke: `pnpm test:docker:update-channel-switch` installs the packed OpenClaw tarball globally in Docker, switches from package `stable` to git `dev`, verifies the persisted channel and plugin post-update work, then switches back to package `stable` and checks update status.
 - Upgrade survivor smoke: `pnpm test:docker:upgrade-survivor` installs the packed OpenClaw tarball over a dirty old-user fixture with agents, channel config, plugin allowlists, stale plugin dependency state, and existing workspace/session files. It runs package update plus non-interactive doctor without live provider or channel keys, then starts a loopback Gateway and checks config/state preservation plus startup/status budgets.
 - Published upgrade survivor smoke: `pnpm test:docker:published-upgrade-survivor` installs `openclaw@latest` by default, seeds realistic existing-user files, configures that baseline with a baked command recipe, validates the resulting config, updates that published install to the candidate tarball, runs non-interactive doctor, writes `.artifacts/upgrade-survivor/summary.json`, then starts a loopback Gateway and checks configured intents, state preservation, startup, `/healthz`, `/readyz`, and RPC status budgets. Override one baseline with `OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC`, ask the aggregate scheduler to expand exact local baselines with `OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS` such as `openclaw@2026.5.2 openclaw@2026.4.23 openclaw@2026.4.15`, and expand issue-shaped fixtures with `OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS` such as `reported-issues`; the reported-issues set includes `configured-plugin-installs` for automatic external OpenClaw plugin install repair. Package Acceptance exposes those as `published_upgrade_survivor_baseline`, `published_upgrade_survivor_baselines`, and `published_upgrade_survivor_scenarios`, resolves meta baseline tokens such as `last-stable-4` or `all-since-2026.4.23`, and Full Release Validation runs all `reported-issues` scenarios against the latest stable baseline, resolved once to an exact package before fanout. Historical matrices remain explicit manual overrides.
@@ -935,7 +935,7 @@ the process environment, staged auth profiles, or an explicit
 
 `test:docker:mcp-channels` is intentionally deterministic and does not need a
 real Telegram, Discord, or iMessage account. It boots a seeded Gateway
-container, starts a second container that spawns `openclaw mcp serve`, then
+container, starts a second container that spawns `granted mcp serve`, then
 verifies routed conversation discovery, transcript reads, attachment
 metadata, live event queue behavior, outbound send routing, and Claude-style
 channel + permission notifications over the real stdio MCP bridge. The

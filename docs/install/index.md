@@ -79,7 +79,7 @@ It supports npm installs by default, plus git-checkout installs under the same
 prefix flow. Full reference: [Installer internals](/install/installer#install-clish).
 
 Already installed? Switch between package and git installs with
-`openclaw update --channel dev` and `openclaw update --channel stable`. See
+`granted update --channel dev` and `granted update --channel stable`. See
 [Updating](/install/updating#switch-between-npm-and-git-installs).
 
 ### npm, pnpm, or bun
@@ -92,7 +92,7 @@ If you already manage Node yourself:
 
     ```bash
     npm install -g openclaw@latest --allow-scripts=openclaw
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
     On npm 11.15 and earlier, use the same command without
@@ -121,8 +121,8 @@ If you already manage Node yourself:
   </Tab>
   <Tab title="pnpm">
     ```bash
-    pnpm add -g --allow-build=openclaw openclaw@latest
-    openclaw onboard --install-daemon
+    pnpm add -g --allow-build=granted openclaw@latest
+    granted onboard --install-daemon
     ```
 
     <Note>
@@ -133,7 +133,7 @@ If you already manage Node yourself:
   <Tab title="bun">
     ```bash
     bun add -g --trust openclaw@latest
-    bun run --bun openclaw onboard --install-daemon --daemon-runtime bun
+    bun run --bun granted onboard --install-daemon --daemon-runtime bun
     ```
 
     <Note>
@@ -157,7 +157,7 @@ cd openclaw
 corepack enable
 pnpm install && pnpm build && pnpm ui:build
 pnpm add --global "openclaw@link:$PWD"
-openclaw onboard --install-daemon
+granted onboard --install-daemon
 ```
 
 `pnpm add --global "openclaw@link:$PWD"` links the CLI to this checkout without changing its package files. If pnpm reports that its global bin directory is not on `PATH`, run `pnpm setup`, reopen your shell, and retry.
@@ -199,13 +199,13 @@ curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash -s -
 
 ```bash
 openclaw --version      # confirm the CLI is available
-openclaw doctor         # check for config issues
-openclaw gateway status # verify the Gateway is running
+granted doctor         # check for config issues
+granted gateway status # verify the Gateway is running
 ```
 
 If you want managed startup after install:
 
-- macOS: LaunchAgent via `openclaw onboard --install-daemon` or `openclaw gateway install`
+- macOS: LaunchAgent via `granted onboard --install-daemon` or `granted gateway install`
 - Linux/WSL2: systemd user service via the same commands
 - Native Windows: Scheduled Task first, with a per-user Startup-folder login item fallback if task creation is denied
 

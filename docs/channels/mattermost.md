@@ -14,12 +14,12 @@ Status: downloadable plugin (bot token + WebSocket events). Channels, private ch
 <Tabs>
   <Tab title="npm registry">
     ```bash
-    openclaw plugins install @granted/mattermost
+    granted plugins install @granted/mattermost
     ```
   </Tab>
   <Tab title="Local checkout">
     ```bash
-    openclaw plugins install ./path/to/local/mattermost-plugin
+    granted plugins install ./path/to/local/mattermost-plugin
     ```
   </Tab>
 </Tabs>
@@ -57,7 +57,7 @@ Details: [Plugins](/tools/plugin)
     Non-interactive alternative:
 
     ```bash
-    openclaw channels add --channel mattermost --bot-token <token> --http-url https://chat.example.com
+    granted channels add --channel mattermost --bot-token <token> --http-url https://chat.example.com
     ```
 
   </Step>
@@ -208,8 +208,8 @@ Notes:
 
 - Default: `channels.mattermost.dmPolicy = "pairing"` (unknown senders get a pairing code). Other values: `allowlist`, `open`, `disabled`.
 - Approve via:
-  - `openclaw pairing list mattermost`
-  - `openclaw pairing approve mattermost <CODE>`
+  - `granted pairing list mattermost`
+  - `granted pairing approve mattermost <CODE>`
 - Public DMs: `channels.mattermost.dmPolicy="open"` plus `channels.mattermost.allowFrom=["*"]` (the config schema enforces the wildcard).
 - `channels.mattermost.allowFrom` accepts user ids (recommended) and `accessGroup:<name>` entries. See [Access groups](/channels/access-groups).
 
@@ -242,7 +242,7 @@ Example:
 
 ## Targets for outbound delivery
 
-Use these target formats with `openclaw message send` or cron/webhooks:
+Use these target formats with `granted message send` or cron/webhooks:
 
 | Target                              | Delivers to                                                   |
 | ----------------------------------- | ------------------------------------------------------------- |
@@ -303,7 +303,7 @@ Notes:
 
 Mattermost streams thinking, tool activity, and partial reply text into a **draft preview post** that finalizes in place when the final answer is safe to send. In `partial` mode the preview updates on the same post id instead of spamming the channel with per-chunk messages. In `block` mode the preview rotates between completed text and tool-activity blocks, so earlier blocks stay visible as their own posts instead of being overwritten by the next one. Media/error finals cancel pending preview edits and use normal delivery instead of flushing a throwaway preview post.
 
-Preview streaming is **on by default** in `partial` mode. Configure via `channels.mattermost.streaming.mode` (legacy scalar/boolean `streaming` values are migrated by `openclaw doctor --fix`):
+Preview streaming is **on by default** in `partial` mode. Configure via `channels.mattermost.streaming.mode` (legacy scalar/boolean `streaming` values are migrated by `granted doctor --fix`):
 
 ```json5
 {
@@ -336,7 +336,7 @@ Preview streaming is **on by default** in `partial` mode. Configure via `channel
 Use `message action=read` or the CLI to read posts from a channel that the configured Mattermost bot can access:
 
 ```bash
-openclaw message read --channel mattermost --target channel:<channelId> --limit 5 --json
+granted message read --channel mattermost --target channel:<channelId> --limit 5 --json
 ```
 
 - Results follow Mattermost's ordered post list and include normalized `timestampMs` and `timestampUtc` fields.
@@ -536,7 +536,7 @@ context = {**ctx, "_token": token}
 
 ## Directory adapter
 
-The Mattermost plugin includes a directory adapter that resolves channel and user names via the Mattermost API. This enables `#channel-name` and `@username` targets in `openclaw message send` and cron/webhook deliveries.
+The Mattermost plugin includes a directory adapter that resolves channel and user names via the Mattermost API. This enables `#channel-name` and `@username` targets in `granted message send` and cron/webhook deliveries.
 
 No configuration is needed - the adapter uses the bot token from the account config.
 

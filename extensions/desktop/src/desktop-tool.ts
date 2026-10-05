@@ -9,6 +9,7 @@ import {
 import type { AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { Type } from "typebox";
 import { runPowerShellJson } from "./powershell.js";
+import { SET_VALUE_SCRIPT } from "./scripts-set-value.js";
 import {
   APPS_SCRIPT,
   CLICK_SCRIPT,
@@ -334,11 +335,12 @@ export function createDesktopTool(opts?: {
     name: "desktop",
     description: [
       "Control the local Windows desktop (any app) via UI Automation + synthesized input. Windows only; shares the real mouse/keyboard; cannot reach UAC/elevated prompts.",
+      "LAST RESORT, NOT FIRST CHOICE: this tool takes over the screen the user is working on — it raises windows, steals focus, and types with their keyboard, so they cannot use the machine while it runs. Before reaching for it, ask whether the goal can be met without a GUI: write the file directly, run a CLI, call an API, edit config on disk. 'Put this text in Notepad' is usually satisfied by writing the .txt file; use the GUI only when the user explicitly wants to watch it happen, or when the app genuinely has no file, CLI or API route (legacy desktop software, a portal with no API). When you do use it, say so first, and keep the foreground session as short as possible.",
       "Flow: launch or focus the app, then snapshot (NO title = foreground window; pass title only for a background window — never guess a title), then act on refs (e12) from the LATEST snapshot, then verify the postcondition. Prefer keyboard shortcuts (Ctrl+N/S/T/F, Enter) over hunting menus. Use find (name, optional role) instead of a full snapshot in dense apps. Refs go stale after any layout change — re-snapshot.",
       "ACTIONS: apps (list windows) · launch (app) · focus (title) · snapshot (title optional) · find (name, role) · act · read (ref, maxChars) · window (windowOp=maximize|minimize|restore|close|move|resize) · wait (name/role, timeoutMs) · verify (name, role, condition=element_exists|element_absent) · clipboard (clipboardOp=get|set) · screenshot.",
       "VERIFICATION: after an action, use verify with a specific element name/role. A false result is recoverable: snapshot the current state, retry once with fresh refs, then choose another method or escalate.",
       "SAFETY: launch returns ok:false with reusedExistingWindow=true when the app was ALREADY running — you are looking at the user's own open document, not a blank one. Never type or send keys then: open a fresh document first (act kind=key keys=ctrl+n) and snapshot to confirm it is empty. You share the real keyboard, so a wrong keystroke edits the user's work.",
-      'ACT KINDS: click (ref or x/y) · type (SHORT text into focused field) · paste (prefer for long/multiline text) · key (e.g. "ctrl+s") · scroll (scrollDelta) · move · drag (ref→toRef) · invoke/toggle/expand/collapse/select (UIA patterns on a ref — more reliable than click for checkboxes/combos/tree nodes).',
+      'ACT KINDS: settext (PREFERRED for entering text: title=window, text=value, optional name/role to pick the control — writes via UI Automation into a BACKGROUND window, so it never raises the app, never takes the keyboard, and cannot collide with what the user is doing; reads the value back to confirm. Falls back to type only when it reports no writable control) · click (ref or x/y) · type (synthesized keystrokes: TAKES THE FOREGROUND and the real keyboard — use only when settext says the control is not writable; pass title to name the window you mean so it refuses with aborted="wrong-window" rather than typing into whatever the user clicked into) · paste (prefer for long/multiline text) · key (e.g. "ctrl+s") · scroll (scrollDelta) · move · drag (ref→toRef) · invoke/toggle/expand/collapse/select (UIA patterns on a ref — more reliable than click for checkboxes/combos/tree nodes).',
       "SCREENSHOT (only when the tree is empty/insufficient, e.g. canvas/GPU apps): grid=true overlays a coordinate grid → read x,y and act kind=click x/y. window=true title=<app> captures a background window's own pixels. annotate=true labels the latest refs.",
     ].join(" "),
     parameters: DesktopToolSchema,
@@ -382,6 +384,18 @@ export function createDesktopTool(opts?: {
         }
         case "act": {
           const kind = readStringParam(params, "kind", { required: true });
+          if (kind === "settext") {
+            // Routed before the point-based patterns: this one addresses a
+            // window by title rather than by screen position, because a
+            // background window has no useful coordinates.
+            const text = readStringParam(params, "text", { required: true });
+            const title = readStringParam(params, "title", { required: true });
+            const name = readStringParam(params, "name") || "";
+            const role = readStringParam(params, "role") || "";
+            return jsonResult(
+              await runPowerShell(SET_VALUE_SCRIPT, { text, title, name, role }, 30_000),
+            );
+          }
           if (UIA_PATTERN_KINDS.has(kind)) {
             const point = resolvePoint(params, "ref", "x", "y");
             return jsonResult(await runPowerShell(PATTERN_SCRIPT, { ...point, op: kind }, 30_000));
@@ -398,7 +412,11 @@ export function createDesktopTool(opts?: {
             case "type": {
               const text = readStringParam(params, "text", { required: true });
               const timeout = Math.max(20_000, text.length * 30 + 10_000);
-              return jsonResult(await runPowerShell(TYPE_SCRIPT, { text }, timeout));
+              // Naming the target window turns a silent misfire into a refusal:
+              // without it the script types into whatever is in front, which is
+              // the user's own window whenever they clicked away after focus.
+              const expectTitle = readStringParam(params, "title") || "";
+              return jsonResult(await runPowerShell(TYPE_SCRIPT, { text, expectTitle }, timeout));
             }
             case "paste": {
               const text = readStringParam(params, "text", { required: true });

@@ -8,7 +8,7 @@ metadata:
       {
         "emoji": "📝",
         "events": ["command"],
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with OpenClaw" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Granted" }],
       },
   }
 ---
@@ -19,7 +19,7 @@ Logs emitted command events to a centralized audit log file for debugging and mo
 
 ## What It Does
 
-Every time OpenClaw emits a command event:
+Every time Granted emits a command event:
 
 1. **Captures event details** - Command action, timestamp, session key, sender ID, source
 2. **Appends to log file** - Writes a JSON line to `~/.openclaw/logs/commands.log`
@@ -62,7 +62,7 @@ No configuration needed. The hook automatically:
 To disable this hook:
 
 ```bash
-openclaw hooks disable command-logger
+granted hooks disable command-logger
 ```
 
 Or via config:

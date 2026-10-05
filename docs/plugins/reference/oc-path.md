@@ -1,5 +1,5 @@
 ---
-summary: "Adds the openclaw path CLI for oc:// workspace file addressing."
+summary: "Adds the granted path CLI for oc:// workspace file addressing."
 read_when:
   - You are installing, configuring, or auditing the oc-path plugin
 title: "Oc Path plugin"
@@ -7,7 +7,7 @@ title: "Oc Path plugin"
 
 # Oc Path plugin
 
-Adds the openclaw path CLI for oc:// workspace file addressing.
+Adds the granted path CLI for oc:// workspace file addressing.
 
 ## Distribution
 
@@ -16,7 +16,7 @@ Adds the openclaw path CLI for oc:// workspace file addressing.
 
 ## Surface
 
-CLI commands: `openclaw path`
+CLI commands: `granted path`
 
 ## Related docs
 

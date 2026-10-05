@@ -1,4 +1,4 @@
-// Formats OpenClaw CLI command snippets for chat-facing command responses.
+// Formats Granted CLI command snippets for chat-facing command responses.
 import { resolveCurrentOpenClawCliInvocation } from "../../infra/granted-cli-invocation.js";
 
 const TEST_RUNNER_ENV_PREFIXES = ["VITEST_", "GRANTED_VITEST_"];

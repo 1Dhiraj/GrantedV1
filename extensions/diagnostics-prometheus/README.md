@@ -1,13 +1,13 @@
 # @granted/diagnostics-prometheus
 
-Official Prometheus diagnostics exporter for OpenClaw.
+Official Prometheus diagnostics exporter for Granted.
 
-This plugin exposes OpenClaw Gateway runtime metrics in Prometheus text format for Prometheus, Grafana, VictoriaMetrics, and compatible scrapers.
+This plugin exposes Granted Gateway runtime metrics in Prometheus text format for Prometheus, Grafana, VictoriaMetrics, and compatible scrapers.
 
 ## Install
 
 ```bash
-openclaw plugins install @granted/diagnostics-prometheus
+granted plugins install @granted/diagnostics-prometheus
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -24,4 +24,4 @@ The full config surface, metric names, and scrape examples live in the docs:
 
 - Plugin id: `diagnostics-prometheus`
 - Package: `@granted/diagnostics-prometheus`
-- Minimum OpenClaw host: `2026.4.25`
+- Minimum Granted host: `2026.4.25`

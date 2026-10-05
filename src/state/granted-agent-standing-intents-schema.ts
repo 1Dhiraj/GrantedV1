@@ -19,7 +19,7 @@ function standingIntentsSchemaSql(): string {
   const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_START);
   const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw standing-intents schema markers are missing.");
+    throw new Error("Granted standing-intents schema markers are missing.");
   }
   return GRANTED_AGENT_SCHEMA_SQL.slice(start, end);
 }

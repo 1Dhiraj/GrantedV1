@@ -1,9 +1,9 @@
 ---
 name: release-openclaw-mac
-description: "Run or recover OpenClaw macOS release signing, notarization, appcast, and asset promotion."
+description: "Run or recover Granted macOS release signing, notarization, appcast, and asset promotion."
 ---
 
-# OpenClaw Mac Release
+# Granted Mac Release
 
 Use with `$release-openclaw-maintainer`, `$release-openclaw-ci`, `$one-password`, and `$release-private` if it exists when stable macOS assets, release-ops mac preflight, notarization, appcast promotion, or mac release recovery is involved.
 
@@ -61,7 +61,7 @@ Do not update these from mixed sources. All three ASC fields must come from the 
 
 ## Notarization
 
-- OpenClaw uses `scripts/notarize-mac-artifact.sh`.
+- Granted uses `scripts/notarize-mac-artifact.sh`.
 - `xcrun notarytool submit` should use `--no-s3-acceleration`; accelerated upload can surface misleading 401s even when `notarytool history` succeeds.
 - If signing succeeds but notarization fails immediately with 401, check ASC key freshness first.
 - If notarization stays in progress for several minutes after key-file write, that is normal Apple wait time; do not edit blindly.
@@ -132,11 +132,11 @@ publish run before it promotes assets.
 
 - Release-ops `openclaw/releases` publish/validate workflows run from their own
   trusted `main` workflow ref. Real publish has a guard that rejects any other
-  workflow ref. That displayed `main` ref is expected; the public OpenClaw
+  workflow ref. That displayed `main` ref is expected; the public Granted
   source is selected by `tag` and optional `source_ref`.
 
 ## Verify
 
 - `gh release view vYYYY.M.PATCH --repo openclaw/openclaw` shows zip, dmg, dSYM zip, not draft, not prerelease.
-- Public `main` `appcast.xml` points at `OpenClaw-YYYY.M.PATCH.zip`.
+- Public `main` `appcast.xml` points at `Granted-YYYY.M.PATCH.zip`.
 - Appcast entry has `sparkle:version`, `sparkle:shortVersionString`, length, and `sparkle:edSignature`.

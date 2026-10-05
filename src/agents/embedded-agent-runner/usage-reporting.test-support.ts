@@ -335,7 +335,7 @@ describe("runEmbeddedAgent usage reporting", () => {
     expect(result.meta.agentMeta?.promptTokens).toBe(86_876);
   });
 
-  it("reports the resolved model provider when OpenClaw marks the assistant message as the native runtime", async () => {
+  it("reports the resolved model provider when Granted marks the assistant message as the native runtime", async () => {
     mockedResolveModelAsync.mockResolvedValueOnce({
       model: {
         id: "openai/gpt-5.4",

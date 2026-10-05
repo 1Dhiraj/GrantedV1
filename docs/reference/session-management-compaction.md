@@ -19,9 +19,9 @@ Overview docs first: [Session management](/concepts/session), [Compaction](/conc
 Older installs may still have `sessions.json` files under the agent `sessions/`
 directory. Treat those files as legacy session-row migration inputs or explicit
 offline-maintenance targets. Gateway startup does not import them. Stop the
-Gateway, back up its state, and use `openclaw doctor --fix` to import legacy rows
+Gateway, back up its state, and use `granted doctor --fix` to import legacy rows
 and transcript history into the per-agent SQLite store. Run
-`openclaw doctor --session-sqlite inspect --session-sqlite-all-agents`, then
+`granted doctor --session-sqlite inspect --session-sqlite-all-agents`, then
 follow the [Doctor migration sequence](/cli/doctor#session-sqlite-migration)
 for inspection and validation. If a migration fails after legacy transcript
 artifacts were archived, use the Doctor recovery mode from that sequence.
@@ -67,22 +67,22 @@ Committed writes and deletion first land in the WAL. Cleanup checkpoints it so t
 Run maintenance on demand:
 
 ```bash
-openclaw sessions cleanup --dry-run
-openclaw sessions cleanup --enforce
+granted sessions cleanup --dry-run
+granted sessions cleanup --enforce
 ```
 
 `maxEntries` counts every live session row. Archived or pinned sessions, active or admitted work, model-locked sessions, and durable external conversation pointers such as group sessions and thread-scoped chat sessions are never automatic eviction targets, but they still consume the cap. Cleanup removes the oldest unprotected rows until the total reaches `maxEntries` or no eligible victims remain. The store can therefore remain above the cap when protected rows alone exceed it or active work temporarily blocks eviction. Synthetic runtime entries (cron, hooks, heartbeat, ACP, sub-agents) can still be removed once they exceed the configured age, count, or disk budget. Isolated cron runs use a separate `cron.sessionRetention` control, independent of model-run probe retention.
 
 `--dry-run` previews the total-row cap and identifies the unprotected rows that would satisfy it; `--enforce` applies that cleanup immediately but does not remove protection. To reduce protected history, unarchive, unpin, wait for active work to finish, or explicitly delete sessions you no longer want to retain.
 
-Normal Gateway writes flow through the session accessor, which serializes per-agent SQLite mutations through the runtime writer path. Runtime code should prefer the accessor helpers in `src/config/sessions/session-accessor.ts`; legacy `sessions.json` helpers are migration and offline-maintenance tools. When a Gateway is reachable, non-dry-run `openclaw sessions cleanup` and `openclaw agents delete` delegate store mutations to the Gateway so cleanup joins the same writer queue; `--store <path>` is the explicit offline repair path for a selected legacy store and always stays local (as does `--dry-run`). `maxEntries` cleanup is batched for production-sized stores, so the total population may briefly exceed the configured cap before the next high-water cleanup rewrites it down. Reads never prune or cap entries during Gateway startup - only writes or `openclaw sessions cleanup --enforce` do, and the latter also applies the cap immediately and prunes old unreferenced legacy transcript, checkpoint, and trajectory artifacts even with no disk budget configured.
+Normal Gateway writes flow through the session accessor, which serializes per-agent SQLite mutations through the runtime writer path. Runtime code should prefer the accessor helpers in `src/config/sessions/session-accessor.ts`; legacy `sessions.json` helpers are migration and offline-maintenance tools. When a Gateway is reachable, non-dry-run `granted sessions cleanup` and `granted agents delete` delegate store mutations to the Gateway so cleanup joins the same writer queue; `--store <path>` is the explicit offline repair path for a selected legacy store and always stays local (as does `--dry-run`). `maxEntries` cleanup is batched for production-sized stores, so the total population may briefly exceed the configured cap before the next high-water cleanup rewrites it down. Reads never prune or cap entries during Gateway startup - only writes or `granted sessions cleanup --enforce` do, and the latter also applies the cap immediately and prunes old unreferenced legacy transcript, checkpoint, and trajectory artifacts even with no disk budget configured.
 
-OpenClaw no longer creates automatic `sessions.json.bak.*` rotation backups during Gateway writes. The current schema rejects the legacy `session.maintenance.rotateBytes` key, and `openclaw doctor --fix` removes it from older configs.
+OpenClaw no longer creates automatic `sessions.json.bak.*` rotation backups during Gateway writes. The current schema rejects the legacy `session.maintenance.rotateBytes` key, and `granted doctor --fix` removes it from older configs.
 
 Migration recovery originals and exact pre-Doctor recovery files are separate
 from ordinary session retention: they are excluded from the live session disk
 budget and have no automatic expiration. After verifying the upgrade, use
-`openclaw update cleanup --dry-run` to inspect them online. Explicit offline
+`granted update cleanup --dry-run` to inspect them online. Explicit offline
 [update cleanup](/cli/update#update-cleanup) can retire verified originals
 without removing current SQLite history; exclusion from the disk budget is not
 deletion authority.
@@ -98,7 +98,7 @@ version, restore archived legacy session stores and transcript artifacts before
 starting an older file-backed version:
 
 ```bash
-openclaw doctor --session-sqlite restore --session-sqlite-all-agents
+granted doctor --session-sqlite restore --session-sqlite-all-agents
 ```
 
 The migration archives imported hot transcript JSONL files and verified, fully
@@ -111,7 +111,7 @@ Restore uses migration manifests, moves only recorded archived artifacts whose
 original paths are missing, reports conflicts rather than overwriting existing
 files, and leaves the SQLite database in place for forward recovery.
 
-Originals retired by `openclaw update cleanup` can no longer be restored from
+Originals retired by `granted update cleanup` can no longer be restored from
 the migration archive. Restore reports intentional disposal or pending cleanup
 instead of treating either as an unexpectedly missing file. An independent
 backup containing the legacy artifacts is required if you need them after
@@ -154,7 +154,7 @@ Each `sessionKey` points at a current `sessionId` (the SQLite transcript identit
 - **Idle expiry** (`session.reset.mode: "idle"` with `session.reset.idleMinutes`, or legacy `session.idleMinutes`) creates a new `sessionId` when a message arrives after the idle window. If daily and idle are both configured, whichever expires first wins.
 - **Control UI reconnect resume** preserves the currently visible session for one reconnect send when the Gateway receives the matching `sessionId` from an operator UI client. This is a one-shot signal; ordinary stale sends still create a new `sessionId`.
 - **System events** (heartbeat, cron wakeups, exec notifications, gateway bookkeeping) may mutate the session row but never extend daily/idle reset freshness. Reset rollover discards queued system-event notices for the previous session before the fresh prompt is built.
-- **Automatic parent fork policy** uses OpenClaw's active branch when creating a thread or subagent fork. If that branch is too large (over a fixed internal cap, currently 100K tokens), OpenClaw starts the child with isolated context instead of failing or inheriting unusable history. Sizing is automatic and not configurable; legacy `session.parentForkMaxTokens` config is removed by `openclaw doctor --fix`.
+- **Automatic parent fork policy** uses OpenClaw's active branch when creating a thread or subagent fork. If that branch is too large (over a fixed internal cap, currently 100K tokens), OpenClaw starts the child with isolated context instead of failing or inheriting unusable history. Sizing is automatic and not configurable; legacy `session.parentForkMaxTokens` config is removed by `granted doctor --fix`.
 - **Operator forks**: `sessions.create { parentSessionKey, fork: true }` branches from the parent's current state. Admission uses the selected child model's effective usable input capacity, falling back to the 100K safety cap when model capacity is unavailable. A normal fork is refused while the parent has an active run; adding `forkFrom: "last-completed"` copies only through the last completed assistant message, excluding the in-progress tail. Unlike automatic parent forks, an operator fork over its capacity limit is rejected rather than accepted with isolated context. The child inherits the parent's model selection unless one is passed explicitly. The response marks it `forkedFromParent`, and token counters start fresh.
 - **Message forks**: `sessions.fork { sessionKey, entryId }` creates a child from the active-path prefix before the selected user message and returns that message to the composer for editing. The parent remains unchanged. Incognito forks retain the parent's in-memory storage class; restarting the Gateway removes both sessions. Codex fork verification compares complete attested submitted prompts, including whitespace; the bounded display-import projection is not a substitute for that evidence. See [Control UI](/web/control-ui) for fork and rewind actions.
 
@@ -183,7 +183,7 @@ The runtime store keeps `SessionEntry` values in per-agent SQLite. The value typ
 
 The Gateway is the authority: it may rewrite or rehydrate entries as sessions
 run. For legacy file-backed installs, migrate with
-`openclaw doctor --session-sqlite import --session-sqlite-all-agents` instead of
+`granted doctor --session-sqlite import --session-sqlite-all-agents` instead of
 editing `sessions.json` and expecting runtime to keep reading that file.
 
 ## Transcript event structure
@@ -303,9 +303,9 @@ Source: `src/plugins/compaction-provider.ts`, `src/agents/agent-hooks/compaction
 ## User-visible surfaces
 
 - `/status` in any chat session
-- `openclaw status` (CLI)
-- `openclaw sessions` / `openclaw sessions --json`
-- Gateway logs (`pnpm gateway:watch` or `openclaw logs --follow`): `embedded run auto-compaction start` + `complete`
+- `granted status` (CLI)
+- `granted sessions` / `granted sessions --json`
+- Gateway logs (`pnpm gateway:watch` or `granted logs --follow`): `embedded run auto-compaction start` + `complete`
 - Verbose mode: `🧹 Auto-compaction complete` plus the compaction count
 
 ## Silent housekeeping (`NO_REPLY`)
@@ -352,7 +352,7 @@ OpenClaw exposes a `session_before_compact` hook in the extension API, but the f
 ## Troubleshooting checklist
 
 - **Session key wrong?** Start with [/concepts/session](/concepts/session) and confirm the `sessionKey` in `/status`.
-- **Store vs transcript mismatch?** Confirm the Gateway host and the store path from `openclaw status`.
+- **Store vs transcript mismatch?** Confirm the Gateway host and the store path from `granted status`.
 - **Compaction spam?** Check the model's context window (too small forces frequent compaction) and tool-result bloat (tune session pruning).
 - **Every prompt seems to overflow on a small local model?** Confirm the provider reports the correct model context window. OpenClaw can cap the effective reserve only when that window is known.
 - **Silent turns leaking?** Confirm the reply starts with the exact silent token `NO_REPLY` (case-insensitive) and you are on a build that includes the streaming-suppression fix (`2026.1.10`+).

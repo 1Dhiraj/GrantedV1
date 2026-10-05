@@ -370,7 +370,7 @@ export function prepareAgentRuntimeAuth(
       )
     : null;
   // OpenAI native account discovery is harness-owned synthetic auth, not a
-  // bearer credential for an OpenClaw request route.
+  // bearer credential for an Granted request route.
   const directPlanningEvidence =
     directPlanningCandidate?.kind === "setup-provider" &&
     authProfileSelectionProvider.trim().toLowerCase() === "openai"

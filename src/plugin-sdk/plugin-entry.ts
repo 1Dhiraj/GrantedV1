@@ -211,7 +211,7 @@ type DefinePluginEntryOptions = {
   register: NonNullable<GrantedPluginDefinition["register"]>;
 };
 
-/** Normalized object shape that OpenClaw loads from a plugin entry module. */
+/** Normalized object shape that Granted loads from a plugin entry module. */
 type DefinedPluginEntry = Omit<DefinePluginEntryOptions, "configSchema"> & {
   configSchema: GrantedPluginConfigSchema;
 };

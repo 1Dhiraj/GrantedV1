@@ -10,8 +10,8 @@ read_when:
 Install the official `comfy` plugin for workflow-driven ComfyUI runs:
 
 ```bash
-openclaw plugins install @granted/comfy-provider
-openclaw gateway restart
+granted plugins install @granted/comfy-provider
+granted gateway restart
 ```
 
 The plugin is entirely workflow-driven: OpenClaw does not map generic `size`,
@@ -90,7 +90,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       </Step>
       <Step title="Verify">
         ```bash
-        openclaw models list --provider comfy
+        granted models list --provider comfy
         ```
       </Step>
     </Steps>
@@ -109,7 +109,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
 
         ```bash
         # Onboarding flag
-        openclaw onboard --comfy-api-key "your-key"
+        granted onboard --comfy-api-key "your-key"
 
         # Environment variable (preferred for daemons)
         export COMFY_API_KEY="your-key"
@@ -118,7 +118,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
         export COMFY_CLOUD_API_KEY="your-key"
 
         # Or inline in config
-        openclaw config set plugins.entries.comfy.config.apiKey "your-key"
+        granted config set plugins.entries.comfy.config.apiKey "your-key"
         ```
       </Step>
       <Step title="Prepare your workflow JSON">
@@ -167,7 +167,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       </Step>
       <Step title="Verify">
         ```bash
-        openclaw models list --provider comfy
+        granted models list --provider comfy
         ```
       </Step>
     </Steps>

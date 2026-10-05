@@ -1,6 +1,6 @@
 /**
  * Confirms admitted plugin and account apps against their actual Codex thread before
- * OpenClaw commits a binding or starts a turn.
+ * Granted commits a binding or starts a turn.
  */
 import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
 import {

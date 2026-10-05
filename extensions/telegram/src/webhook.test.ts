@@ -43,7 +43,7 @@ const stopSpy = vi.hoisted(() => vi.fn());
 const webhookBotInfo = vi.hoisted(() => ({
   id: 123,
   is_bot: true as const,
-  first_name: "OpenClaw",
+  first_name: "Granted",
   username: "openclaw_bot",
   has_topics_enabled: false,
 }));
@@ -223,7 +223,7 @@ function createTelegramPrivateTopicCallback(updateId: number) {
     message: {
       chat: { id: 1234, type: "private" as const },
       date: 1_736_380_800,
-      from: { id: webhookBotInfo.id, is_bot: true as const, first_name: "OpenClaw" },
+      from: { id: webhookBotInfo.id, is_bot: true as const, first_name: "Granted" },
       message_id: 10,
       message_thread_id: 42,
     },

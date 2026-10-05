@@ -1,11 +1,11 @@
 import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
-// Moonshot plugin entrypoint registers its OpenClaw integration.
+// Moonshot plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildOpenAICompatibleReplayPolicy } from "granted/plugin-sdk/provider-model-shared";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { moonshotMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { wrapMoonshotStream } from "./native-video.js";
 import { applyMoonshotConfig, applyMoonshotConfigCn } from "./onboard.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildMoonshotProvider, MOONSHOT_DEFAULT_MODEL_REF } from "./provider-catalog.js";
 import {
   isMoonshotAlwaysThinkingModelId,

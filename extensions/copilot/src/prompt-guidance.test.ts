@@ -28,7 +28,7 @@ function buildGuidance(
 }
 
 describe("buildCopilotPromptGuidance", () => {
-  it("composes ordered OpenClaw policy from the final callable capabilities", () => {
+  it("composes ordered Granted policy from the final callable capabilities", () => {
     const guidance = buildGuidance();
 
     expect(guidance).toContain("policy-filtered for this turn");

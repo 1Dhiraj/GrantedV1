@@ -66,7 +66,7 @@ async function readStartedPid(
   throw new Error(`process ${processId} did not report its PID`);
 }
 
-describe("OpenClaw Codex sandbox exec-server", () => {
+describe("Granted Codex sandbox exec-server", () => {
   it("rejects an incomplete sandbox environment before publishing an exec-server", async () => {
     const sandbox = createSandboxContext({});
     sandbox.fsBridge = undefined;
@@ -774,7 +774,7 @@ describe("OpenClaw Codex sandbox exec-server", () => {
     for (const method of ["fs/walk", "process/signal", "unsupported/method"]) {
       await expect(rpc(socket, method, {})).rejects.toMatchObject({
         code: -32601,
-        message: `Unsupported OpenClaw sandbox exec-server method: ${method}`,
+        message: `Unsupported Granted sandbox exec-server method: ${method}`,
       });
     }
     await expect(

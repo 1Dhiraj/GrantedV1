@@ -62,7 +62,7 @@ export function projectCodexThreadUsageUpdate(
 export function normalizeCodexResponseTokenUsage(
   record: JsonObject,
 ): ReturnType<typeof normalizeUsage> {
-  // v2 TokenUsageBreakdown. inputTokens includes cached input; OpenClaw usage
+  // v2 TokenUsageBreakdown. inputTokens includes cached input; Granted usage
   // tracks uncached input, cache reads, and cache writes separately.
   const totalTokens = readTokenCount(record, "totalTokens");
   const inputTokens = readTokenCount(record, "inputTokens");

@@ -33,10 +33,10 @@ You need:
 The resolver talks to Vault over HTTP from Node. The Gateway does not need the
 Vault CLI to resolve SecretRefs.
 
-Enable the bundled plugin before running the `openclaw vault` commands:
+Enable the bundled plugin before running the `granted vault` commands:
 
 ```bash
-openclaw plugins enable vault
+granted plugins enable vault
 ```
 
 ## Store a provider key in Vault
@@ -148,17 +148,17 @@ export OPENCLAW_VAULT_KV_VERSION=2
 Check what the current shell can see:
 
 ```bash
-openclaw vault status
+granted vault status
 ```
 
 When more than one Vault-backed secret provider is configured, select one by
 alias:
 
 ```bash
-openclaw vault status --provider-alias corp-vault
+granted vault status --provider-alias corp-vault
 ```
 
-`openclaw vault status` never prints `VAULT_TOKEN`; it reports only whether the
+`granted vault status` never prints `VAULT_TOKEN`; it reports only whether the
 token, token file, and JWT file are set.
 
 <Warning>
@@ -173,7 +173,7 @@ already-running Gateway.
 Create a plan that maps OpenRouter's model provider API key to Vault:
 
 ```bash
-openclaw vault setup \
+granted vault setup \
   --plan-out ./vault-secrets-plan.json \
   --openrouter-id providers/openrouter/apiKey
 ```
@@ -181,32 +181,32 @@ openclaw vault setup \
 Apply and verify the plan:
 
 ```bash
-openclaw secrets apply --from ./vault-secrets-plan.json --dry-run --allow-exec
-openclaw secrets apply --from ./vault-secrets-plan.json --allow-exec
-openclaw secrets audit --check --allow-exec
-openclaw secrets reload
+granted secrets apply --from ./vault-secrets-plan.json --dry-run --allow-exec
+granted secrets apply --from ./vault-secrets-plan.json --allow-exec
+granted secrets audit --check --allow-exec
+granted secrets reload
 ```
 
 Use `--allow-exec` because the Vault plugin resolves through an OpenClaw-managed
 exec SecretRef provider.
 
 If the Gateway is not running yet, start it normally after applying the plan
-instead of running `openclaw secrets reload`.
+instead of running `granted secrets reload`.
 
 ## Configure more provider keys
 
 Built-in shortcuts:
 
 ```bash
-openclaw vault setup --openai-id providers/openai/apiKey
-openclaw vault setup --anthropic-id providers/anthropic/apiKey
-openclaw vault setup --openrouter-id providers/openrouter/apiKey
+granted vault setup --openai-id providers/openai/apiKey
+granted vault setup --anthropic-id providers/anthropic/apiKey
+granted vault setup --openrouter-id providers/openrouter/apiKey
 ```
 
 Multiple provider keys in one plan:
 
 ```bash
-openclaw vault setup \
+granted vault setup \
   --plan-out ./vault-secrets-plan.json \
   --openai-id providers/openai/apiKey \
   --anthropic-id providers/anthropic/apiKey \
@@ -217,7 +217,7 @@ Bundled providers without shortcuts, or already-configured OpenAI-compatible and
 custom model providers, use `--provider-key`:
 
 ```bash
-openclaw vault setup \
+granted vault setup \
   --plan-out ./vault-secrets-plan.json \
   --provider-key local-openai=providers/local-openai/apiKey \
   --provider-key groq=providers/groq/apiKey
@@ -230,7 +230,7 @@ the provider's `baseUrl`, `api`, or `models` settings; configure those first.
 Use `--target <path=id>` for any known SecretRef target path:
 
 ```bash
-openclaw vault setup \
+granted vault setup \
   --target channels.telegram.botToken=channels/telegram/botToken \
   --target models.providers.openai.headers.x-api-key=providers/openai/proxyKey \
   --target auth-profiles:main:profiles.openai.key=providers/openai/apiKey
@@ -328,5 +328,5 @@ environments with separate Vault env.
 ## Related
 
 - [Secrets management](/gateway/secrets)
-- [`openclaw secrets`](/cli/secrets)
+- [`granted secrets`](/cli/secrets)
 - [Plugin inventory](/plugins/plugin-inventory)

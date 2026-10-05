@@ -1,5 +1,5 @@
 // Minimal @granted/ai consumer: one isolated runtime, built-in providers,
-// one streamed completion. Uses only the public package surface — no OpenClaw
+// one streamed completion. Uses only the public package surface — no Granted
 // application code. See README.md for build prerequisites and run commands.
 import { createLlmRuntime } from "@granted/ai";
 import { registerBuiltInApiProviders } from "@granted/ai/providers";

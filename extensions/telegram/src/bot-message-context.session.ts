@@ -745,7 +745,7 @@ export async function buildTelegramInboundContextPayload(params: {
       historyLimit: isGroup ? historyLimit : dmHistoryLimit,
       beforeTimestampMs: options?.receivedAtMs ?? (msg.date ? msg.date * 1000 : undefined),
       minTimestampMs: options?.promptContextMinTimestampMs,
-      senderLabels: { assistant: "OpenClaw", user: "User" },
+      senderLabels: { assistant: "Granted", user: "User" },
     },
     access: {
       commands: {

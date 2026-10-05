@@ -507,9 +507,7 @@ describe("plugin authoring commands", () => {
         packageManifest,
       }),
     ).toEqual(
-      stale
-        ? ["granted.plugin.json generated metadata is stale. Run openclaw plugins build."]
-        : [],
+      stale ? ["granted.plugin.json generated metadata is stale. Run openclaw plugins build."] : [],
     );
   });
 
@@ -610,7 +608,7 @@ describe("plugin authoring commands", () => {
     );
   });
 
-  it("loads source entries that import the OpenClaw plugin SDK package subpath", async () => {
+  it("loads source entries that import the Granted plugin SDK package subpath", async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-plugin-source-"));
     const entryPath = writeSourceToolPluginProject({
       tmpDir,

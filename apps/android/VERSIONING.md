@@ -1,4 +1,4 @@
-# OpenClaw Android Versioning
+# Granted Android Versioning
 
 Android release builds use pinned app metadata instead of auto-bumping `build.gradle.kts`.
 
@@ -56,7 +56,7 @@ Recommended workflow:
    emulators.
 7. Run `pnpm android:release:archive` to produce the signed phone Play AAB, Wear AAB, and third-party APK.
 8. Run `pnpm android:release:upload` to upload metadata, screenshots, the phone AAB, and the Wear AAB to their phone and `wear:` tracks in one atomic Google Play edit.
-9. For a regular final or correction OpenClaw release, let `OpenClaw Release Publish` dispatch the protected `Android Release` workflow. It builds the signed third-party APK from the exact tag and attaches the verified APK, checksum manifest, and GitHub provenance before the release draft can publish. Before tagging a correction with its own package version, increment the pinned `versionCode`; the workflow verifies it is higher than the preceding final or correction APK. A same-commit fallback correction reuses the base release's verified APK and adds provenance for the correction tag.
+9. For a regular final or correction Granted release, let `Granted Release Publish` dispatch the protected `Android Release` workflow. It builds the signed third-party APK from the exact tag and attaches the verified APK, checksum manifest, and GitHub provenance before the release draft can publish. Before tagging a correction with its own package version, increment the pinned `versionCode`; the workflow verifies it is higher than the preceding final or correction APK. A same-commit fallback correction reuses the base release's verified APK and adds provenance for the correction tag.
 10. Complete production rollout manually in Google Play Console when needed.
 
 If `pnpm android:release:upload` fails, stop at that failure. Do not continue by
@@ -65,7 +65,7 @@ uploading archived artifacts through `pnpm android:release:archive`,
 Google Play API mutation commands, or Play Console mutation commands. Fix the
 failing release-lane step, then rerun `pnpm android:release:upload`.
 
-The third-party flavor is archived as a signed APK for non-Play distribution. The Play release lane never uploads it. Official GitHub distribution is owned only by `.github/workflows/android-release.yml`, which publishes regular final and correction tags through the protected `android-release` environment as `OpenClaw-Android.apk`.
+The third-party flavor is archived as a signed APK for non-Play distribution. The Play release lane never uploads it. Official GitHub distribution is owned only by `.github/workflows/android-release.yml`, which publishes regular final and correction tags through the protected `android-release` environment as `Granted-Android.apk`.
 
 ## Release SHA tracking
 
@@ -84,7 +84,7 @@ refs/openclaw/mobile-releases/android/2026.6.10-2026061008
 
 These refs are intentionally outside `refs/tags/*` and `refs/heads/*`. They do
 not appear on GitHub release or tag pages, and they do not participate in the
-core OpenClaw release machinery.
+core Granted release machinery.
 
 `pnpm android:release:upload` checks the ref before uploading the Play build and
 records it only after the atomic phone and Wear Play edit commits. Existing refs are

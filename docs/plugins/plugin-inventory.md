@@ -36,9 +36,9 @@ Official external packages need one install, then a Gateway restart.
 For example, Discord is an official external package:
 
 ```bash
-openclaw plugins install @granted/discord
-openclaw gateway restart
-openclaw plugins inspect discord --runtime --json
+granted plugins install @granted/discord
+granted gateway restart
+granted plugins inspect discord --runtime --json
 ```
 
 During the launch cutover, ordinary bare package specs still install from npm.
@@ -130,7 +130,7 @@ Each entry lists the package, distribution route, and description.
 
 - **[nvidia](/plugins/reference/nvidia)** (`@granted/nvidia-provider`) - included in OpenClaw. Adds NVIDIA model provider support to OpenClaw.
 
-- **[oc-path](/plugins/reference/oc-path)** (`@granted/oc-path`) - included in OpenClaw. Adds the openclaw path CLI for oc:// workspace file addressing.
+- **[oc-path](/plugins/reference/oc-path)** (`@granted/oc-path`) - included in OpenClaw. Adds the granted path CLI for oc:// workspace file addressing.
 
 - **[ollama](/plugins/reference/ollama)** (`@granted/ollama-provider`) - included in OpenClaw. Adds Ollama, Ollama Cloud model provider support to OpenClaw.
 

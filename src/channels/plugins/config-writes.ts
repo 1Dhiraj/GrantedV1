@@ -1,7 +1,7 @@
 /**
  * Channel config-write policy facade.
  *
- * Applies shared config write authorization to concrete OpenClaw channel config.
+ * Applies shared config write authorization to concrete Granted channel config.
  */
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.granted.js";

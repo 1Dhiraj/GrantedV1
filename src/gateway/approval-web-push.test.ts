@@ -205,8 +205,8 @@ describe("approval Web Push delivery", () => {
     expect(preparedWebPushSendMock).toHaveBeenCalledWith({
       subscriptions: [allowed],
       payload: {
-        title: "OpenClaw approval requested",
-        body: "Open OpenClaw to review this request.",
+        title: "Granted approval requested",
+        body: "Open Granted to review this request.",
         renotify: false,
         tag: "openclaw-approval-exec:approval.1",
         url: "approve/exec%3Aapproval.1#gatewayUrl=wss%3A%2F%2Fgateway.example.test%2Foperator",
@@ -251,8 +251,8 @@ describe("approval Web Push delivery", () => {
       expect(preparedWebPushSendMock).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: expect.objectContaining({
-            title: "Phone\\u{202E} · OpenClaw approval requested",
-            body: `Open OpenClaw to review an approval for ${label}.`,
+            title: "Phone\\u{202E} · Granted approval requested",
+            body: `Open Granted to review an approval for ${label}.`,
           }),
         }),
       );
@@ -547,7 +547,7 @@ describe("approval Web Push delivery", () => {
     expect(preparedWebPushSendMock).toHaveBeenCalledTimes(2);
     expect(preparedWebPushSendMock.mock.calls[1]?.[0]).toMatchObject({
       subscriptions: [ambiguous],
-      payload: { title: "OpenClaw approval updated" },
+      payload: { title: "Granted approval updated" },
     });
     expect(deleteWebPushApprovalDeliveryTargetsMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -611,7 +611,7 @@ describe("approval Web Push delivery", () => {
       expect(preparedWebPushSendMock).toHaveBeenNthCalledWith(2, {
         subscriptions: [delivered],
         payload: {
-          title: "OpenClaw approval updated",
+          title: "Granted approval updated",
           body: "This approval is no longer pending.",
           renotify: false,
           tag: `openclaw-approval-${record.id}`,
@@ -700,7 +700,7 @@ describe("approval Web Push delivery", () => {
       expect.objectContaining({
         subscriptions: [delivered],
         payload: expect.objectContaining({
-          title: "OpenClaw approval updated",
+          title: "Granted approval updated",
           tag: "openclaw-approval-" + record.id,
         }),
       }),

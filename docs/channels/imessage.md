@@ -25,7 +25,7 @@ For the common local setup, OpenClaw setup can offer a user-confirmed Homebrew i
 Install the official iMessage plugin on the Gateway host, then restart the Gateway:
 
 ```bash
-openclaw plugins install @granted/imessage
+granted plugins install @granted/imessage
 ```
 
 <CardGroup cols={3}>
@@ -55,7 +55,7 @@ brew install steipete/tap/imsg
 brew update && brew upgrade imsg
 imsg rpc --help
 imsg launch
-openclaw channels status --probe
+granted channels status --probe
 ```
 
         When the local setup wizard detects a missing default `imsg` command, it can prompt to install `steipete/tap/imsg` through Homebrew. If it detects a Homebrew-managed `imsg`, it can prompt to reinstall or update it. Custom `cliPath` wrappers are not modified.
@@ -81,7 +81,7 @@ openclaw channels status --probe
       <Step title="Start gateway">
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
       </Step>
@@ -89,8 +89,8 @@ openclaw gateway
       <Step title="Approve first DM pairing (default dmPolicy)">
 
 ```bash
-openclaw pairing list imessage
-openclaw pairing approve imessage <CODE>
+granted pairing list imessage
+granted pairing approve imessage <CODE>
 ```
 
         Pairing requests expire after 1 hour.
@@ -256,12 +256,12 @@ Treat this as a deliberate operational choice, especially on a primary personal 
 4. **Verify the bridge from OpenClaw:**
 
    ```bash
-   openclaw channels status --probe
+   granted channels status --probe
    ```
 
    The iMessage entry should report `works`, and `imsg status --json | jq '{rpc_methods, selectors}'` should show the capabilities exposed by your macOS build. Poll creation requires `selectors.pollPayloadMessage`; voting requires both `selectors.pollVoteMessage` and the `poll.vote` RPC method. The OpenClaw plugin advertises only actions supported by the cached probe, while an empty cache stays optimistic and probes on first dispatch.
 
-If `openclaw channels status --probe` reports the channel as `works` but specific actions throw "iMessage `<action>` requires the imsg private API bridge" at dispatch time, run `imsg launch` again — the helper can fall out (Messages.app restart, OS update, etc.) and the cached `available: true` status will keep advertising actions until the next probe refreshes.
+If `granted channels status --probe` reports the channel as `works` but specific actions throw "iMessage `<action>` requires the imsg private API bridge" at dispatch time, run `imsg launch` again — the helper can fall out (Messages.app restart, OS update, etc.) and the cached `available: true` status will keep advertising actions until the next probe refreshes.
 
 ### When SIP stays enabled
 
@@ -567,7 +567,7 @@ See [ACP Agents](/tools/acp-agents) for shared ACP binding behavior.
 
 ## Private API actions
 
-When `imsg launch` is running and `openclaw channels status --probe` reports `privateApi.available: true`, the message tool can use iMessage-native actions in addition to normal text sends.
+When `imsg launch` is running and `granted channels status --probe` reports `privateApi.available: true`, the message tool can use iMessage-native actions in addition to normal text sends.
 
 All actions are enabled by default; use `channels.imessage.actions` to turn individual actions off:
 
@@ -701,7 +701,7 @@ Disable:
 
 Apple can store a command and its URL preview as separate physical `chat.db` rows. `imsg` 0.13.1 and newer coalesces those rows before watch, history, or search returns the message, so OpenClaw receives one logical inbound message without adding channel-specific DM latency.
 
-No iMessage coalescing setting is needed. The retired `channels.imessage.coalesceSameSenderDms` key is removed by `openclaw doctor --fix`. Generic `messages.inbound` debounce remains available when you intentionally want to batch rapid text messages across a channel.
+No iMessage coalescing setting is needed. The retired `channels.imessage.coalesceSameSenderDms` key is removed by `granted doctor --fix`. Generic `messages.inbound` debounce remains available when you intentionally want to batch rapid text messages across a channel.
 
 If command-plus-URL sends arrive as separate agent turns, update `imsg` on the Messages Mac:
 
@@ -729,7 +729,7 @@ imessage: suppressed stale inbound backlog account=<id> sent=<iso> recovery=<boo
 
 ### Migration
 
-`channels.imessage.catchup.*` is deprecated — downtime recovery is automatic and needs no config for new setups. Existing configs with `catchup.enabled: true` remain honored as a compatibility profile for the recovery replay window. Disabled catchup blocks (`enabled: false` or no `enabled: true`) are retired; `openclaw doctor --fix` removes those.
+`channels.imessage.catchup.*` is deprecated — downtime recovery is automatic and needs no config for new setups. Existing configs with `catchup.enabled: true` remain honored as a compatibility profile for the recovery replay window. Disabled catchup blocks (`enabled: false` or no `enabled: true`) are retired; `granted doctor --fix` removes those.
 
 ## Troubleshooting
 
@@ -740,7 +740,7 @@ imessage: suppressed stale inbound backlog account=<id> sent=<iso> recovery=<boo
     ```bash
     imsg rpc --help
     imsg status --json
-    openclaw channels status --probe
+    granted channels status --probe
     ```
 
     If the probe reports RPC unsupported, update `imsg`. If private API actions are unavailable, run `imsg launch` in the logged-in macOS user session and probe again. If the Gateway is not running on macOS, use the Remote Mac over SSH setup above instead of the default local `imsg` path.
@@ -765,7 +765,7 @@ launchctl kickstart -k gui/$(id -u)/com.apple.CommCenter
 launchctl kickstart -k gui/$(id -u)/com.apple.identityservicesd
 launchctl kickstart -k gui/$(id -u)/com.apple.imagent
 imsg launch
-openclaw gateway restart
+granted gateway restart
 ```
 
     Send a fresh iMessage from the phone and confirm a new `chat.db` row or `imsg watch` event before debugging OpenClaw sessions. Do not run this as a periodic bridge-relaunch loop; repeated `imsg launch` plus gateway restarts during active work can interrupt deliveries and strand in-flight channel runs.
@@ -783,7 +783,7 @@ exec ssh -T messages-mac imsg "$@"
     Then run:
 
 ```bash
-openclaw channels status --probe --channel imessage
+granted channels status --probe --channel imessage
 ```
 
   </Accordion>
@@ -793,7 +793,7 @@ openclaw channels status --probe --channel imessage
 
     - `channels.imessage.dmPolicy`
     - `channels.imessage.allowFrom`
-    - pairing approvals (`openclaw pairing list imessage`)
+    - pairing approvals (`granted pairing list imessage`)
 
   </Accordion>
 

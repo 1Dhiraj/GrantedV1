@@ -45,7 +45,7 @@ async function initializeRepository(
   const repo = path.join(root, name);
   await fs.mkdir(repo, { recursive: true });
   await execFileAsync("git", ["init", "-b", "main", repo]);
-  await execFileAsync("git", ["-C", repo, "config", "user.name", "OpenClaw Tests"]);
+  await execFileAsync("git", ["-C", repo, "config", "user.name", "Granted Tests"]);
   await execFileAsync("git", ["-C", repo, "config", "user.email", "tests@openclaw.invalid"]);
   await execFileAsync("git", ["-C", repo, "remote", "add", "origin", originUrl]);
   await fs.writeFile(path.join(repo, "README.md"), "registered\n");
@@ -321,7 +321,7 @@ test("projects.add returns an existing project for the same canonical remote", a
     const repo = await initializeRepository(
       state.root,
       "existing",
-      "git@github.com:OpenClaw/OpenClaw.git",
+      "git@github.com:Granted/OpenClaw.git",
     );
     const existing = await registerProjectRegistry({ path: repo, name: "Existing" });
 

@@ -91,7 +91,7 @@ export async function applyPostPluginUpdateReadiness(params: {
   if (!entryPath) {
     return createPostPluginReadinessExecutionFailure(
       params.pluginUpdate,
-      "Updated OpenClaw entrypoint not found for post-plugin readiness checks",
+      "Updated Granted entrypoint not found for post-plugin readiness checks",
     );
   }
   const args = [entryPath, "doctor", "--lint", "--json", "--severity-min", "error"];

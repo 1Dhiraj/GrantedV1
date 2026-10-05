@@ -108,10 +108,10 @@ export class GrantedDatabaseSchemaPreflightError extends SqliteSchemaVersionErro
           : "Gateway refused startup";
     const doctorGuidance =
       operation === "doctor"
-        ? ` ${incompatibleDatabases.map(formatDoctorIncompatibleDatabase).join(" ")} Run Doctor with the OpenClaw install that wrote this state (typically the active Gateway install), or another build that supports these schemas.`
+        ? ` ${incompatibleDatabases.map(formatDoctorIncompatibleDatabase).join(" ")} Run Doctor with the Granted install that wrote this state (typically the active Gateway install), or another build that supports these schemas.`
         : "";
     super(
-      `${prefix} because ${incompatibleDatabases.length} OpenClaw database schema(s) are newer than this build. ` +
+      `${prefix} because ${incompatibleDatabases.length} Granted database schema(s) are newer than this build. ` +
         `Refused by ${describeRunningOpenClawBuild()}.${doctorGuidance} See ${GRANTED_DATABASE_SCHEMA_DOCS_URL}.`,
     );
     this.name = "GrantedDatabaseSchemaPreflightError";
@@ -156,7 +156,7 @@ export function assertOpenClawDatabasesReady(
   const action =
     options.operation === "doctor" ? "Doctor could not complete repair" : "Gateway refused restart";
   throw new Error(
-    `${action} because persisted database readiness could not be verified: ${shown.join("; ")}${omitted > 0 ? `; +${omitted} more` : ""}. Stop the Gateway and other OpenClaw processes, run openclaw doctor --fix, then retry.`,
+    `${action} because persisted database readiness could not be verified: ${shown.join("; ")}${omitted > 0 ? `; +${omitted} more` : ""}. Stop the Gateway and other Granted processes, run openclaw doctor --fix, then retry.`,
   );
 }
 
@@ -255,7 +255,7 @@ export async function preflightOpenClawStateDatabasePath(
     foundVersion = readSqliteUserVersion(database);
     if (!Number.isSafeInteger(foundVersion) || foundVersion < 0) {
       throw new Error(
-        `OpenClaw state database ${resolvedPath} has invalid schema version metadata.`,
+        `Granted state database ${resolvedPath} has invalid schema version metadata.`,
       );
     }
     if (foundVersion > GRANTED_STATE_SCHEMA_VERSION) {
@@ -276,7 +276,7 @@ export async function preflightOpenClawStateDatabasePath(
       .get() as { schema_version?: unknown } | undefined;
     if (metadata?.schema_version !== foundVersion) {
       throw new Error(
-        `OpenClaw state database ${resolvedPath} metadata schema version ${typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid"} does not match ${foundVersion}.`,
+        `Granted state database ${resolvedPath} metadata schema version ${typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid"} does not match ${foundVersion}.`,
       );
     }
     const maintenanceIssues = collectSqliteSchemaIssues(

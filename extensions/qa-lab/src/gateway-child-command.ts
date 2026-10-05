@@ -47,9 +47,7 @@ export function resolveQaGatewayChildCommand(repoRoot: string): QaGatewayChildCo
     }
   }
 
-  throw new Error(
-    "OpenClaw CLI entry not found: expected scripts/run-node.mjs or dist/index.(m)js",
-  );
+  throw new Error("Granted CLI entry not found: expected scripts/run-node.mjs or dist/index.(m)js");
 }
 
 export async function runQaGatewayCliCommand(params: {
@@ -146,7 +144,7 @@ async function readQaGatewayCliCommand(
   if (exitCode !== 0 && !failure) {
     const stderrText = formatQaChildOutputTail(stderr, "stderr");
     failure = createQaGatewayCliError(
-      `OpenClaw CLI exited ${exitCode}: ${[stderrText, stdoutText].filter(Boolean).join("\n")}`,
+      `Granted CLI exited ${exitCode}: ${[stderrText, stdoutText].filter(Boolean).join("\n")}`,
     );
   }
   if (stopped.errors.length) {

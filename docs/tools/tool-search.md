@@ -299,7 +299,7 @@ Normal OpenClaw behavior still applies to final calls:
 Enable Tool Search for OpenClaw runs with the default code bridge:
 
 ```bash
-openclaw config set tools.toolSearch true
+granted config set tools.toolSearch true
 ```
 
 Equivalent JSON:
@@ -397,7 +397,7 @@ Session logs therefore still answer:
 The QA Lab gateway scenario proves all three paths with the OpenClaw runtime:
 
 ```bash
-pnpm openclaw qa suite --provider-mode mock-openai --scenario tool-search-gateway-e2e
+pnpm granted qa suite --provider-mode mock-openai --scenario tool-search-gateway-e2e
 ```
 
 It creates a temporary fake plugin with a large tool catalog, starts the mock

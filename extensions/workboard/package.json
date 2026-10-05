@@ -2,7 +2,7 @@
   "name": "@granted/workboard",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw dashboard workboard plugin",
+  "description": "Granted dashboard workboard plugin",
   "type": "module",
   "dependencies": {
     "typebox": "1.3.17"

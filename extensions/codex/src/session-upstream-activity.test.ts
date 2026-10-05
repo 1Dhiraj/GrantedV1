@@ -299,7 +299,7 @@ describe("Codex upstream activity", () => {
     ]);
   });
 
-  it("filters OpenClaw-authored user items by normalized transcript text", async () => {
+  it("filters Granted-authored user items by normalized transcript text", async () => {
     await expect(
       checkTurns({
         probe: probe({
@@ -330,7 +330,7 @@ describe("Codex upstream activity", () => {
     ]);
   });
 
-  it("filters a batched OpenClaw steer by its component transcript texts", async () => {
+  it("filters a batched Granted steer by its component transcript texts", async () => {
     await expect(
       checkTurns({
         probe: probe({

@@ -210,7 +210,7 @@ export function closeWaSocket(
 ): void {
   try {
     if (typeof sock?.end === "function") {
-      void Promise.resolve(sock.end(new Error("OpenClaw WhatsApp socket close"))).catch(
+      void Promise.resolve(sock.end(new Error("Granted WhatsApp socket close"))).catch(
         async () => await closeWebSocketBestEffort(sock),
       );
       return;
@@ -947,7 +947,7 @@ export class WhatsAppConnectionController {
 
   private async finishSocketCleanup(cleanup: WhatsAppSocketCleanup): Promise<void> {
     if (!cleanup.socketClosed) {
-      await closeWhatsAppSocketAndWait(cleanup.sock, "OpenClaw WhatsApp socket close");
+      await closeWhatsAppSocketAndWait(cleanup.sock, "Granted WhatsApp socket close");
       cleanup.socketClosed = true;
     }
     const queueResult = await waitForCredsSaveQueueWithTimeout(this.authDir);

@@ -10,13 +10,13 @@ Google Chat runs as the official `@granted/googlechat` plugin: DMs and spaces th
 ## Install
 
 ```bash
-openclaw plugins install @granted/googlechat
+granted plugins install @granted/googlechat
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-openclaw plugins install ./path/to/local/googlechat-plugin
+granted plugins install ./path/to/local/googlechat-plugin
 ```
 
 ## Quick setup (beginner)
@@ -42,7 +42,7 @@ openclaw plugins install ./path/to/local/googlechat-plugin
 6. Enable the app status: refresh the page, find **App status**, set it to **Live - available to users**, and **Save** again.
 7. Configure OpenClaw with the service account and the webhook audience (must match the Chat app config):
    - Env: `GOOGLE_CHAT_SERVICE_ACCOUNT_FILE=/path/to/service-account.json` (default account only), or
-   - Config: see [Config highlights](#config-highlights). `openclaw channels add --channel googlechat` also accepts `--audience-type`, `--audience`, `--webhook-path`, and `--webhook-url`.
+   - Config: see [Config highlights](#config-highlights). `granted channels add --channel googlechat` also accepts `--audience-type`, `--audience`, `--webhook-path`, and `--webhook-url`.
 8. Start the gateway. Google Chat will POST to your webhook path (default `/googlechat`).
 
 ## Add to Google Chat
@@ -137,7 +137,7 @@ Configure the tunnel ingress rules to route only the webhook path:
    - Spaces get per-space sessions `agent:<agentId>:googlechat:group:<spaceId>`; replies go to the message thread.
    - DMs collapse into the agent's main session by default; set `session.dmScope` for per-peer DM sessions (see [Session](/concepts/session)).
 5. DM access is pairing by default. Unknown senders receive a pairing code; approve with:
-   - `openclaw pairing approve googlechat <code>`
+   - `granted pairing approve googlechat <code>`
 6. Group spaces require @-mention by default. Mentions are detected from Chat `USER_MENTION` annotations targeting the app; set `botUser` (e.g., `users/1234567890`) if detection needs the app's user resource name.
 7. When an exec or plugin approval starts from Google Chat and a stable `users/<id>` approver is configured, OpenClaw posts a native approval card (`cardsV2`) in the originating space or thread. Card buttons carry opaque callback tokens; the manual `/approve <id> <decision>` prompt appears only when native delivery is unavailable.
 
@@ -197,7 +197,7 @@ Notes:
 - Default webhook path is `/googlechat` when `webhookPath` is unset; `webhookUrl` can supply the path instead.
 - Group keys must be stable space ids (`spaces/<spaceId>`). Display-name keys are deprecated and logged as such.
 - `dangerouslyAllowNameMatching` re-enables mutable email principal matching for allowlists (break-glass compatibility mode); doctor warns about email entries.
-- Google Chat reaction actions are not exposed. The plugin uses service-account authentication, while Google Chat reaction endpoints require user authentication. Remove unsupported legacy reaction settings with `openclaw doctor --fix`.
+- Google Chat reaction actions are not exposed. The plugin uses service-account authentication, while Google Chat reaction endpoints require user authentication. Remove unsupported legacy reaction settings with `granted doctor --fix`.
 - Native approval cards use Google Chat `cardsV2` button clicks, not reaction events. Approvers come from `allowFrom` or `defaultTo` and must be stable numeric `users/<id>` values.
 - Message actions expose text `send` only. Google Chat attachment upload requires user authentication, while this plugin uses service-account authentication, so outbound file upload is not exposed.
 - `typingIndicator`: `message` (default) posts a `_<Bot> is typing..._` placeholder and edits it into the first reply; `none` disables it; `reaction` requires user OAuth and currently falls back to `message` with a logged error under service-account auth.
@@ -223,7 +223,7 @@ The webhook handler is not registered. Common causes:
 1. **Channel not configured**: the `channels.googlechat` section is missing. Verify with:
 
    ```bash
-   openclaw config get channels.googlechat
+   granted config get channels.googlechat
    ```
 
    If it returns "Config path not found", add the configuration (see [Config highlights](#config-highlights)).
@@ -231,7 +231,7 @@ The webhook handler is not registered. Common causes:
 2. **Plugin not enabled**: check plugin status:
 
    ```bash
-   openclaw plugins list | grep googlechat
+   granted plugins list | grep googlechat
    ```
 
    If it shows "disabled", add `plugins.entries.googlechat.enabled: true` to your config.
@@ -239,22 +239,22 @@ The webhook handler is not registered. Common causes:
 3. **Gateway not restarted** after config changes:
 
    ```bash
-   openclaw gateway restart
+   granted gateway restart
    ```
 
 Verify the channel is running:
 
 ```bash
-openclaw channels status
+granted channels status
 # Should show: Google Chat default: enabled, configured, ...
 ```
 
 ### Other issues
 
-- `openclaw channels status --probe` surfaces auth errors and missing audience config (`audience` and `audienceType` are both required).
+- `granted channels status --probe` surfaces auth errors and missing audience config (`audience` and `audienceType` are both required).
 - If no messages arrive, confirm the Chat app's webhook URL and trigger configuration.
 - If mention gating blocks replies, set `botUser` to the app's user resource name and check `requireMention`.
-- `openclaw logs --follow` while sending a test message shows whether requests reach the gateway.
+- `granted logs --follow` while sending a test message shows whether requests reach the gateway.
 
 ## Related
 

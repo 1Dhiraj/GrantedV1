@@ -1,4 +1,4 @@
-// Validates normalized OpenClaw config and reports user-facing errors.
+// Validates normalized Granted config and reports user-facing errors.
 import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";

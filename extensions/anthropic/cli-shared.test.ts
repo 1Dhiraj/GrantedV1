@@ -111,7 +111,7 @@ describe("Claude CLI adapter equivalence", () => {
 });
 
 describe("resolveClaudeCliAutoCompactEnv", () => {
-  it("maps the effective OpenClaw context budget into Claude Code compaction", () => {
+  it("maps the effective Granted context budget into Claude Code compaction", () => {
     expect(resolveClaudeCliAutoCompactEnv(100_000.9)).toEqual({
       CLAUDE_CODE_AUTO_COMPACT_WINDOW: "100000",
     });
@@ -257,7 +257,7 @@ describe("resolveClaudeCliExecutionArgs", () => {
     expect(argv).not.toContain("--disable-slash-commands");
   });
 
-  it("isolates OpenClaw from Claude user customizations while preserving exact MCP", () => {
+  it("isolates Granted from Claude user customizations while preserving exact MCP", () => {
     expect(
       resolveClaudeCliExecutionArgs({
         workspaceDir: "/tmp",
@@ -644,7 +644,7 @@ describe("normalizeClaudeBackendConfig", () => {
     expect(normalized.input).toBe("stdin");
   });
 
-  it("derives Claude bypass from OpenClaw YOLO policy and disables it for safer policy", () => {
+  it("derives Claude bypass from Granted YOLO policy and disables it for safer policy", () => {
     expect(normalizeClaudeArgs(["-p"], { backendId: "claude-cli" })).toContain("bypassPermissions");
     expect(
       normalizeClaudeArgs(["-p"], {
@@ -660,7 +660,7 @@ describe("normalizeClaudeBackendConfig", () => {
     ).not.toContain("bypassPermissions");
   });
 
-  it("derives Claude bypass from per-agent OpenClaw exec policy", () => {
+  it("derives Claude bypass from per-agent Granted exec policy", () => {
     expect(
       normalizeClaudeArgs(["-p"], {
         backendId: "claude-cli",
@@ -748,7 +748,7 @@ describe("normalizeClaudeBackendConfig", () => {
 
   it("passes system prompt on every turn (issue #80374 — systemPromptWhen must be 'always')", () => {
     // Before fix this was hardcoded to "first", which silently dropped updated
-    // OpenClaw system prompt context on resumed / compacted claude-cli sessions.
+    // Granted system prompt context on resumed / compacted claude-cli sessions.
     const backend = buildAnthropicCliBackend();
     expect(backend.config.systemPromptWhen).toBe("always");
   });

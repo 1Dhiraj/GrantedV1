@@ -209,6 +209,14 @@ export type ToolLoopRecoveryState = {
   criticalToolLoopSeen: boolean;
 };
 
+/** @internal Mutable step spend shared by prompt retries in one Agent run. */
+export type ToolStepBudgetState = {
+  /** Assistant turns that dispatched tools so far in this run. */
+  usedSteps: number;
+  /** Set once the tool-free closing turn has been requested. */
+  summaryRequested?: boolean;
+};
+
 export interface AgentLoopConfig extends SimpleStreamOptions {
   model: Model;
   /** Logical thinking level retained across model changes before provider mapping. */
@@ -361,6 +369,18 @@ export interface AgentLoopConfig extends SimpleStreamOptions {
 
   /** @internal Preserves the one-shot recovery budget across Agent.continue() retries. */
   toolLoopRecoveryState?: ToolLoopRecoveryState;
+
+  /**
+   * Maximum assistant turns that may dispatch tools in one run.
+   *
+   * On exhaustion the loop withholds tools for one closing turn and asks the
+   * model to report what it did, verified, and what remains, instead of looping
+   * until the caller's timeout. Unset, zero, or negative means unlimited.
+   */
+  maxToolSteps?: number;
+
+  /** @internal Preserves step spend across Agent.continue() retries. */
+  toolStepBudgetState?: ToolStepBudgetState;
 
   /**
    * Hydrates an already-authorized tool that was deferred out of the current

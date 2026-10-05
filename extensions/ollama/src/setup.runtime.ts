@@ -1,11 +1,7 @@
 // Ollama setup runtime handles plugin onboarding behavior.
 import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import type { ProviderAuthMethod } from "granted/plugin-sdk/plugin-entry";
-import type {
-  GrantedConfig,
-  SecretInput,
-  SecretInputMode,
-} from "granted/plugin-sdk/provider-auth";
+import type { GrantedConfig, SecretInput, SecretInputMode } from "granted/plugin-sdk/provider-auth";
 import {
   ensureApiKeyFromOptionEnvOrPrompt,
   isNonSecretApiKeyMarker,
@@ -96,7 +92,7 @@ function buildOllamaUnreachableLines(baseUrl: string, retry: boolean): string[] 
     `Ollama could not be reached at ${baseUrl}.`,
     "Start or restart the Ollama server for this address.",
     "If Ollama is not installed on that machine, download it at https://ollama.com/download",
-    ...(retry ? ["", "Continue when it is running. OpenClaw will retry this address."] : []),
+    ...(retry ? ["", "Continue when it is running. Granted will retry this address."] : []),
   ];
 }
 

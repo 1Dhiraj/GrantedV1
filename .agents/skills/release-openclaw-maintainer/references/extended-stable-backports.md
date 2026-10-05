@@ -152,7 +152,7 @@ Use an isolated npm config for unauthenticated registry reads:
 ```bash
 npm_userconfig=$(mktemp)
 trap 'rm -f "$npm_userconfig"' EXIT
-dist_tags=$(npm view openclaw dist-tags --json --userconfig "$npm_userconfig")
+dist_tags=$(npm view granted dist-tags --json --userconfig "$npm_userconfig")
 published_version=$(printf '%s' "$dist_tags" | jq -r '."extended-stable" // empty')
 if [[ -n "$published_version" ]]; then
   npm view "openclaw@${published_version}" version \

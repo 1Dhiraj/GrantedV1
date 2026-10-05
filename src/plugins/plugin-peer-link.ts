@@ -3,9 +3,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { hasErrnoCode } from "../infra/errors.js";
+import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { resolveUserPath } from "../infra/home-dir.js";
 import { readRootJsonObjectSync } from "../infra/json-files.js";
-import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { resolvePluginInstallDir } from "./install-paths.js";
 
@@ -238,7 +238,7 @@ export async function auditOpenClawPeerDependencyLink(params: {
   });
 }
 
-/** Audit the installed host only when the package actually declares an OpenClaw dependency. */
+/** Audit the installed host only when the package actually declares an Granted dependency. */
 export async function auditDeclaredOpenClawHostDependency(params: {
   packageDir: string;
   packageName?: string;

@@ -34,7 +34,7 @@ For local embeddings with no API key, install and configure the official
 llama.cpp provider, then set `provider: "local"`:
 
 ```bash
-openclaw plugins install @granted/llama-cpp-provider
+granted plugins install @granted/llama-cpp-provider
 ```
 
 Choose llama.cpp once in interactive setup. OpenClaw installs a verified
@@ -194,18 +194,18 @@ incognito exclusions still apply.
 
 ## Troubleshooting
 
-**No results?** Run `openclaw memory status` to check the index. If empty, run
-`openclaw memory index --force`.
+**No results?** Run `granted memory status` to check the index. If empty, run
+`granted memory index --force`.
 
 **Only keyword matches?** Your embedding provider may not be configured. Check
-`openclaw memory status --deep`.
+`granted memory status --deep`.
 
 **Local embeddings time out?** `ollama`, `lmstudio`, and `local` use longer
-provider-owned batch deadlines. Run `openclaw memory status --deep` to inspect
+provider-owned batch deadlines. Run `granted memory status --deep` to inspect
 the managed server endpoints before rebuilding the index.
 
 **CJK text not found?** Rebuild the FTS index with
-`openclaw memory index --force`.
+`granted memory index --force`.
 
 ## Related
 

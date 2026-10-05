@@ -35,6 +35,7 @@ import type {
   QueueMode,
   StreamFn,
   ToolExecutionMode,
+  ToolStepBudgetState,
 } from "./types.js";
 
 export type { QueueMode } from "./types.js";
@@ -160,6 +161,12 @@ export interface AgentOptions {
   maxRetryDelayMs?: number;
   /** Default strategy for executing multiple tool calls in one assistant message. */
   toolExecution?: ToolExecutionMode;
+  /**
+   * Maximum tool-dispatching turns per run. On exhaustion the run spends one
+   * tool-free turn on a closing report instead of looping until a timeout.
+   * Unset, zero, or negative means unlimited.
+   */
+  maxToolSteps?: number;
 }
 
 class PendingMessageQueue {
@@ -251,6 +258,8 @@ export class Agent {
   private readonly steeringQueue: PendingMessageQueue;
   private readonly followUpQueue: PendingMessageQueue;
   private readonly toolLoopRecoveryState = { criticalToolLoopSeen: false };
+  // Spend survives continue() retries and resets per prompt: one user task, one budget.
+  private readonly toolStepBudgetState: ToolStepBudgetState = { usedSteps: 0 };
 
   public convertToLlm: (messages: AgentMessage[]) => Message[] | Promise<Message[]>;
   public transformContext?: (
@@ -293,6 +302,7 @@ export class Agent {
   public maxRetryDelayMs?: number;
   /** Tool execution strategy for assistant messages that contain multiple tool calls. */
   public toolExecution: ToolExecutionMode;
+  public maxToolSteps?: number;
 
   constructor(options: AgentOptions = {}) {
     this.mutableState = createMutableAgentState(options.initialState);
@@ -316,6 +326,7 @@ export class Agent {
     this.transport = options.transport ?? "auto";
     this.maxRetryDelayMs = options.maxRetryDelayMs;
     this.toolExecution = options.toolExecution ?? "parallel";
+    this.maxToolSteps = options.maxToolSteps;
   }
 
   /**
@@ -428,6 +439,7 @@ export class Agent {
     this.mutableState.pendingToolCalls = new Set<string>();
     this.mutableState.errorMessage = undefined;
     this.toolLoopRecoveryState.criticalToolLoopSeen = false;
+    this.resetToolStepBudget();
     this.clearAllQueues();
   }
 
@@ -444,6 +456,7 @@ export class Agent {
       );
     }
     this.toolLoopRecoveryState.criticalToolLoopSeen = false;
+    this.resetToolStepBudget();
     const messages = this.normalizePromptInput(input, images);
     await this.runPromptMessages(messages);
   }
@@ -478,6 +491,11 @@ export class Agent {
     }
 
     await this.runContinuation();
+  }
+
+  private resetToolStepBudget(): void {
+    this.toolStepBudgetState.usedSteps = 0;
+    this.toolStepBudgetState.summaryRequested = false;
   }
 
   private normalizePromptInput(
@@ -565,6 +583,8 @@ export class Agent {
       beforeToolCall: this.beforeToolCall,
       beforeToolBatch: getInternalBeforeToolBatch(this),
       toolLoopRecoveryState: this.toolLoopRecoveryState,
+      maxToolSteps: this.maxToolSteps,
+      toolStepBudgetState: this.toolStepBudgetState,
       resolveDeferredTool: this.resolveDeferredTool,
       afterToolCall: this.afterToolCall,
       afterToolOutcome: this.afterToolOutcome,

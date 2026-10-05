@@ -1,5 +1,5 @@
 /**
- * Runtime store for host-provided OpenClaw services used by the ClickClack
+ * Runtime store for host-provided Granted services used by the ClickClack
  * bundled plugin.
  */
 import { createPluginRuntimeStore } from "granted/plugin-sdk/runtime-store";

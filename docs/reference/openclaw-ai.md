@@ -4,7 +4,7 @@ title: "@granted/ai package"
 read_when:
   - You want to reuse OpenClaw's model transports in another application
   - You are changing packages/ai or the AI transport host ports
-  - You are reviewing what the openclaw release publishes to npm besides the root package
+  - You are reviewing what the granted release publishes to npm besides the root package
 ---
 
 `@granted/ai` is the publishable library form of OpenClaw's model execution

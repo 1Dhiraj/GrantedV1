@@ -196,7 +196,7 @@ export async function handleNativeGoal(
   }
   const binding = await deps.bindingStore.read(target.identity);
   if (!binding?.threadId) {
-    return "No Codex thread is attached to this OpenClaw session yet.";
+    return "No Codex thread is attached to this Granted session yet.";
   }
   const connection = resolveCodexBindingAppServerConnection({
     binding,
@@ -457,7 +457,7 @@ export async function startThreadAction(
   }
   const binding = await deps.bindingStore.read(target.identity);
   if (!binding?.threadId) {
-    return `No Codex thread is attached to this OpenClaw session yet.`;
+    return `No Codex thread is attached to this Granted session yet.`;
   }
   if (kind === "compact") {
     const sessionTarget = ctx.sessionTarget;
@@ -480,7 +480,7 @@ export async function startThreadAction(
       currentSession?.sessionId !== ctx.sessionId ||
       resolvePersistedSessionRuntimeId(currentSession) !== "codex"
     ) {
-      return "Codex compaction is unavailable because the current OpenClaw session is not using the Codex runtime.";
+      return "Codex compaction is unavailable because the current Granted session is not using the Codex runtime.";
     }
     if (target.identity.kind === "conversation") {
       const sessionBinding = ctx.sessionId

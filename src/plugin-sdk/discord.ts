@@ -43,7 +43,7 @@ export {
   resolveConfiguredFromCredentialStatuses,
 } from "./channel-status.js";
 
-/** Discord channel config shape for one account in OpenClaw config. */
+/** Discord channel config shape for one account in Granted config. */
 export type DiscordAccountConfig = NonNullable<NonNullable<GrantedConfig["channels"]>["discord"]>;
 
 /** Component-message request accepted by the deprecated Discord SDK facade. */
@@ -242,7 +242,7 @@ export function inspectDiscordAccount(params: {
   return loadDiscordApiFacadeModule().inspectDiscordAccount(params);
 }
 
-/** List configured Discord account ids from OpenClaw config. */
+/** List configured Discord account ids from Granted config. */
 export function listDiscordAccountIds(cfg: GrantedConfig): string[] {
   return loadDiscordApiFacadeModule().listDiscordAccountIds(cfg);
 }

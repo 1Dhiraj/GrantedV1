@@ -100,7 +100,7 @@ export async function executeTelegramLoginCommand(params: {
     !dispatch.senderIsOwner ||
     !codexChannelLoginRuntime.hasConfiguredCommandOwnerAllowlist(dispatch.runtimeCfg)
   ) {
-    await sendLoginMessage("Only a configured OpenClaw owner can start Codex login from Telegram.");
+    await sendLoginMessage("Only a configured Granted owner can start Codex login from Telegram.");
     return false;
   }
   if (dispatch.isGroup) {

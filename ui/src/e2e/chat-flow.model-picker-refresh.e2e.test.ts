@@ -216,19 +216,23 @@ suite.define(() => {
       await gateway.deferNext("models.list", { refresh: true });
       await picker.locator('[data-chat-model-select="true"]').click();
       const request = await gateway.waitForRequest("models.list");
-      expect(requireRecord(request.params)).toMatchObject({ refresh: true, view: "configured" });
+      expect(requireRecord(request.params)).toMatchObject({ refresh: true, view: "all" });
 
-      // The warm list stays rendered and selectable with no refresh/loading interstitial.
+      // The warm list stays rendered and selectable while the menu makes the
+      // all-provider discovery visible as an in-progress expansion.
       await expect
         .poll(() => picker.locator("[data-chat-model-option]:visible").count())
         .toBeGreaterThanOrEqual(3);
       await screenshot(page, "01-picker-open-refresh-in-flight.png");
-      expect(await picker.locator("[data-chat-model-catalog-state]").count()).toBe(0);
+      await expect
+        .poll(() => picker.locator('[data-chat-model-catalog-state="loading"]').count())
+        .toBe(1);
       expect(
         await picker.locator('[data-chat-model-option="openai/gpt-5.6-luna"]').isDisabled(),
       ).toBe(false);
 
-      // Discovery invalidates the session projection; only that projection can update readiness.
+      // All-provider discovery expands the picker immediately while the session projection
+      // remains responsible for readiness and thinking metadata.
       await gateway.deferNext("chat.metadata");
       await gateway.resolveDeferred("models.list", {
         models: [
@@ -236,6 +240,12 @@ suite.define(() => {
           { id: "gpt-5.6-terra", name: "GPT-5.6 Terra", provider: "openai" },
         ],
       });
+      await picker
+        .locator('[data-chat-model-option="openai/gpt-5.6-terra"]')
+        .waitFor({ state: "visible" });
+      expect(
+        await picker.locator('[data-chat-model-option="openai/gpt-5.6-luna"]').isVisible(),
+      ).toBe(true);
       const metadataRequest = await gateway.waitForRequest("chat.metadata");
       expect(metadataRequest.params).toEqual({ agentId: "main", sessionKey: "agent:main:main" });
       expect(
@@ -248,9 +258,6 @@ suite.define(() => {
           { id: "gpt-5.6-terra", name: "GPT-5.6 Terra", provider: "openai" },
         ],
       });
-      await picker
-        .locator('[data-chat-model-option="openai/gpt-5.6-terra"]')
-        .waitFor({ state: "visible" });
       expect(await picker.locator("[data-chat-model-catalog-state]").count()).toBe(0);
       await screenshot(page, "02-picker-after-background-apply.png");
     } finally {

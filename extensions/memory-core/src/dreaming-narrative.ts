@@ -101,10 +101,20 @@ const NARRATIVE_SYSTEM_PROMPT = [
 // many minutes after the reports have already been written. The previous 15 s
 // limit was empirically too tight for warm-gateway runs across light, REM, and
 // deep phases — even unblocked LLM calls hit it on the first sweep after a
-// restart. 60 s gives realistic latency headroom while still capping the
-// worst case at one minute, well below the multi-minute stall the original
-// comment warned against.
-const NARRATIVE_TIMEOUT_MS = 60_000;
+// restart.
+//
+// 60 s was then too tight in turn, for a reason that note could not see: it is
+// a budget for a whole multi-turn subagent run, but it was sized against the
+// latency of a single call. A gateway whose model answers in 10-60 s per turn
+// cannot write a diary inside it, so every phase logged `status=timeout` and
+// wrote synthetic text instead — silently, because a fallback entry reads like
+// a real one. Dreaming had not actually run on this machine for as far back as
+// the logs go.
+//
+// 180 s is sized to the run rather than the call. The multi-minute stall the
+// original comment feared is now held off by DETACHED_NARRATIVE_CONCURRENCY
+// below, which did not exist when the one-minute cap was chosen.
+const NARRATIVE_TIMEOUT_MS = 180_000;
 const NARRATIVE_MESSAGE_FETCH_LIMIT = 5;
 // A completed run can reach the session reader before the final assistant text
 // is visible, so retry briefly before falling back to synthetic diary text.

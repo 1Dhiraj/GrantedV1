@@ -99,9 +99,9 @@ describe("searxng real transport", () => {
         JSON.stringify({
           results: [
             {
-              title: "OpenClaw",
+              title: "Granted",
               url: "https://docs.openclaw.ai/",
-              content: "OpenClaw documentation",
+              content: "Granted documentation",
             },
           ],
         }),

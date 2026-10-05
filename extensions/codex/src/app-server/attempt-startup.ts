@@ -168,7 +168,7 @@ export async function startCodexAttemptThread(params: {
   nativeHookRelayGeneration?: string;
   nativeHookRelayRequired?: boolean;
   bundleMcpThreadConfig: CodexBundleMcpThreadConfig;
-  /** OpenClaw owns configured MCP dynamically for this scheduled turn. */
+  /** Granted owns configured MCP dynamically for this scheduled turn. */
   configuredMcpOwnershipVersion?: 1;
   nativeToolSurfaceEnabled: boolean;
   nativeProviderWebSearchSupport: CodexNativeWebSearchSupport;
@@ -410,7 +410,7 @@ export async function startCodexAttemptThread(params: {
               }
               if (sandboxEnvironmentRequired && !startupSandboxEnvironment) {
                 throw new Error(
-                  "Codex app-server did not register an OpenClaw sandbox exec-server environment.",
+                  "Codex app-server did not register an Granted sandbox exec-server environment.",
                 );
               }
             } catch (error) {

@@ -1,6 +1,6 @@
 # @granted/zoom-meetings
 
-Official Zoom browser meeting participant plugin for OpenClaw.
+Official Zoom browser meeting participant plugin for Granted.
 
 This plugin registers the `zoom_meetings` tool so agents can join Zoom meetings
 as a Chrome browser guest.
@@ -8,7 +8,7 @@ as a Chrome browser guest.
 ## Install
 
 ```bash
-openclaw plugins install @granted/zoom-meetings
+granted plugins install @granted/zoom-meetings
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -25,4 +25,4 @@ and guest join setup:
 - Plugin id: `zoom-meetings`
 - Tool: `zoom_meetings`
 - Package: `@granted/zoom-meetings`
-- Minimum OpenClaw host: `2026.7.2`
+- Minimum Granted host: `2026.7.2`

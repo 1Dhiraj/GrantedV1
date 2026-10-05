@@ -1,4 +1,4 @@
-// Implements channel-scoped tailing of the OpenClaw log file.
+// Implements channel-scoped tailing of the Granted log file.
 import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { theme } from "../../../packages/terminal-core/src/theme.js";

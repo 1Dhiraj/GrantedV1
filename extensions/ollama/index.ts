@@ -1,4 +1,4 @@
-// Ollama plugin entrypoint registers its OpenClaw integration.
+// Ollama plugin entrypoint registers its Granted integration.
 import { collectConfiguredModelRefValues } from "@granted/model-catalog-core/configured-model-refs";
 import { findNormalizedProviderKey } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";

@@ -578,7 +578,7 @@ describe("buildEmbeddedRunPayloads tool-error warnings", () => {
         config: { messages: { suppressToolErrors } },
         lastToolError: {
           toolName: "gateway_exec",
-          error: "OpenClaw dynamic tool call aborted.",
+          error: "Granted dynamic tool call aborted.",
           executionStarted: true,
         },
         runAborted: true,

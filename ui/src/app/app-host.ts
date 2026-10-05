@@ -516,7 +516,13 @@ class GrantedShell
     if (event.event === "config.changed" || event.event === "chat.metadata.changed") {
       const client = this.context?.gateway?.snapshot.client;
       if (client) {
-        invalidateModelCatalogCache(client);
+        // Metadata refreshes can follow an all-provider discovery request. Keep
+        // that expensive browse snapshot while retiring the configured view it
+        // may have made stale. Real config changes invalidate both views.
+        invalidateModelCatalogCache(
+          client,
+          event.event === "chat.metadata.changed" ? { view: "configured" } : undefined,
+        );
         invalidateChatMetadataStore(client);
       }
     }

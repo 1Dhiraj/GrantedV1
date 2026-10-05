@@ -22,7 +22,7 @@ rate limits, and any provider-side routing policy.
 | Property      | Value                                    |
 | ------------- | ---------------------------------------- |
 | Provider id   | `gmi` (aliases: `gmi-cloud`, `gmicloud`) |
-| Package       | `@granted/gmi-provider`                 |
+| Package       | `@granted/gmi-provider`                  |
 | Auth env var  | `GMI_API_KEY`                            |
 | API           | OpenAI-compatible (`openai-completions`) |
 | Base URL      | `https://api.gmi-serving.com/v1`         |
@@ -34,14 +34,14 @@ Install the plugin, restart the gateway, then create an API key in GMI Cloud
 (`https://www.gmicloud.ai/`):
 
 ```bash
-openclaw plugins install @granted/gmi-provider
-openclaw gateway restart
+granted plugins install @granted/gmi-provider
+granted gateway restart
 ```
 
 Then run:
 
 ```bash
-openclaw onboard --auth-choice gmi-api-key
+granted onboard --auth-choice gmi-api-key
 ```
 
 Non-interactive setups can pass `--gmi-api-key <key>`, or set:
@@ -80,7 +80,7 @@ The catalog is a seed, not a promise that every account can call every model at
 all times. List what the configured provider reports in your environment:
 
 ```bash
-openclaw models list --provider gmi
+granted models list --provider gmi
 ```
 
 ## Troubleshooting
@@ -88,7 +88,7 @@ openclaw models list --provider gmi
 - `401` or `403`: check that `GMI_API_KEY` is set for the process running
   OpenClaw, or re-run onboarding to store the key in the provider auth profile.
 - Unknown model errors: confirm the model exists in your GMI account and use the
-  full `gmi/<route-id>` ref shown by `openclaw models list --provider gmi`.
+  full `gmi/<route-id>` ref shown by `granted models list --provider gmi`.
 - Intermittent provider errors: try a different GMI route or configure GMI as a
   fallback rather than the only primary model provider.
 

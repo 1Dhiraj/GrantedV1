@@ -180,7 +180,7 @@ export function buildHttp1EnvHttpProxyAgentOptions(
   options?: UndiciEnvHttpProxyAgentOptions,
   timeoutMs?: number,
 ): NonNullable<UndiciEnvHttpProxyAgentOptions> {
-  // Undici 8.7 began forwarding plain HTTP by default. OpenClaw keeps CONNECT
+  // Undici 8.7 began forwarding plain HTTP by default. Granted keeps CONNECT
   // tunneling so managed and explicit proxies retain one target-isolation contract.
   const proxyOptions = { proxyTunnel: true, ...options };
   return withHttp1OnlyDispatcherOptions(

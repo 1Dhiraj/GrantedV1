@@ -2,7 +2,7 @@
   "name": "@granted/crabbox-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw cloud worker provider backed by the Crabbox CLI",
+  "description": "Granted cloud worker provider backed by the Crabbox CLI",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

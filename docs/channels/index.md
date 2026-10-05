@@ -11,8 +11,8 @@ Text is supported everywhere; media and reactions vary by channel.
 
 Entries marked "bundled plugin" or "included in core" ship with the core
 install. Channels marked "official plugin" install with one command
-(`openclaw plugins install @granted/<id>`) or on demand during
-`openclaw onboard` / `openclaw channels add`, then need a Gateway restart.
+(`granted plugins install @granted/<id>`) or on demand during
+`granted onboard` / `granted channels add`, then need a Gateway restart.
 "External plugin" channels are maintained outside the OpenClaw repo.
 
 ## Supported channels

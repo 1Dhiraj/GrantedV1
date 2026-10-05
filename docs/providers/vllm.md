@@ -51,7 +51,7 @@ vLLM serves open-source (and some custom) models through an **OpenAI-compatible*
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider vllm
+    granted models list --provider vllm
     ```
   </Step>
 </Steps>
@@ -60,7 +60,7 @@ vLLM serves open-source (and some custom) models through an **OpenAI-compatible*
 For non-interactive setup (CI, scripting), pass the base URL, key, and model directly:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice vllm \
   --custom-base-url "http://127.0.0.1:8000/v1" \
@@ -236,10 +236,10 @@ To keep the provider dynamic without listing every model, add a wildcard to the 
     }
     ```
 
-    Replace the model id with the exact id from `openclaw models list --provider vllm`, or apply the same override from the CLI:
+    Replace the model id with the exact id from `granted models list --provider vllm`, or apply the same override from the CLI:
 
     ```bash
-    openclaw config set agents.defaults.models '{"vllm/Qwen-Qwen2.5-Coder-32B-Instruct":{"params":{"extra_body":{"tool_choice":"required"}}}}' --strict-json --merge
+    granted config set agents.defaults.models '{"vllm/Qwen-Qwen2.5-Coder-32B-Instruct":{"params":{"extra_body":{"tool_choice":"required"}}}}' --strict-json --merge
     ```
 
     This is an opt-in workaround: it forces every turn with tools to make a tool call, so use it only for a dedicated model entry where that is acceptable. Do not set it as a global default for all vLLM models, and do not pair it with a proxy that converts arbitrary assistant text into executable tool calls.
@@ -331,7 +331,7 @@ To keep the provider dynamic without listing every model, add a wildcard to the 
     If a Qwen model prints JSON/XML tool syntax instead of executing a skill:
 
     - Start vLLM with the correct parser/template for that model.
-    - Confirm the exact model id with `openclaw models list --provider vllm`.
+    - Confirm the exact model id with `granted models list --provider vllm`.
     - Add a dedicated per-model `params.extra_body.tool_choice: "required"` override only if `tool_choice: "auto"` still returns empty or text-only tool calls.
 
   </Accordion>

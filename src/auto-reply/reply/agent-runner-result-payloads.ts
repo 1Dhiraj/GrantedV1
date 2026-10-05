@@ -18,7 +18,7 @@ import {
 } from "../../infra/diagnostic-trace-context.js";
 import { isSubagentSessionKey } from "../../routing/session-key.js";
 import { estimateAggregateUsageCost, resolveModelCostConfig } from "../../utils/usage-format.js";
-import { buildFallbackClearedNotice, buildFallbackNotice } from "../fallback-state.js";
+import { buildFallbackNotice } from "../fallback-state.js";
 import {
   getReplyPayloadMetadata,
   isReplyPayloadStatusNotice,
@@ -317,7 +317,7 @@ export async function prepareReplyAgentPayloads(state: {
   const fallbackNoticeChanged =
     !fallbackExhausted &&
     !preserveUserFacingSessionState &&
-    (fallbackTransition.fallbackTransitioned || fallbackTransition.fallbackCleared);
+    fallbackTransition.fallbackTransitioned;
   const fallbackNoticeChatType = fallbackNoticeChanged
     ? normalizeChatType(sessionCtx.ChatType)
     : undefined;
@@ -351,28 +351,9 @@ export async function prepareReplyAgentPayloads(state: {
       });
     }
   }
-  if (fallbackNoticeChanged && fallbackTransition.fallbackCleared) {
-    emitAgentEvent({
-      runId,
-      sessionKey,
-      stream: "lifecycle",
-      data: {
-        phase: "fallback_cleared",
-        selectedProvider,
-        selectedModel,
-        activeProvider: providerUsed,
-        activeModel: modelUsed,
-        previousActiveModel: fallbackTransition.previousState.activeModel,
-      },
-    });
-    if (shouldDeliverFallbackNotice) {
-      fallbackNoticeText = buildFallbackClearedNotice({
-        selectedProvider,
-        selectedModel,
-        previousActiveModel: fallbackTransition.previousState.activeModel,
-      });
-    }
-  }
+  // Clearing stale fallback state is bookkeeping, not a user-facing model switch.
+  // Announcing it as a chat message and toast made an empty fallback configuration
+  // look active again immediately after the selected model recovered.
   const fallbackNoticePayloads: ReplyPayload[] = fallbackNoticeText
     ? [
         markReplyPayloadForSourceSuppressionDelivery({

@@ -1,7 +1,7 @@
 /**
  * Channel conversation kind normalization.
  *
- * Maps channel-specific direct/group/channel labels into OpenClaw chat types.
+ * Maps channel-specific direct/group/channel labels into Granted chat types.
  */
 import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 
@@ -11,7 +11,7 @@ import { normalizeOptionalLowercaseString } from "@granted/normalization-core/st
 export type ChatType = "direct" | "group" | "channel";
 
 /**
- * Normalizes channel-specific chat type labels into OpenClaw conversation kinds.
+ * Normalizes channel-specific chat type labels into Granted conversation kinds.
  */
 export function normalizeChatType(raw?: string): ChatType | undefined {
   const value = normalizeOptionalLowercaseString(raw);

@@ -8,11 +8,11 @@ title: "Hooks"
 doc-schema-version: 1
 ---
 
-# `openclaw hooks`
+# `granted hooks`
 
 Inspect and configure [internal hooks](/automation/hooks): handlers for command,
-message, session, and Gateway events. Bare `openclaw hooks` runs the same report
-as `openclaw hooks list`. These commands do not manage HTTP
+message, session, and Gateway events. Bare `granted hooks` runs the same report
+as `granted hooks list`. These commands do not manage HTTP
 [Webhooks](/automation/cron-jobs#webhooks) or the typed `api.on(...)` hook catalog in
 [Plugin hooks](/plugins/hooks).
 
@@ -42,8 +42,8 @@ for the distinction between workspace inventory and Gateway loading.
 ## List hooks
 
 ```bash
-openclaw hooks [--agent <id>] [--json]
-openclaw hooks list [--agent <id>] [--eligible] [--json] [-v|--verbose]
+granted hooks [--agent <id>] [--json]
+granted hooks list [--agent <id>] [--eligible] [--json] [-v|--verbose]
 ```
 
 Discovery includes bundled hooks, active plugin hooks, managed hooks, extra
@@ -90,7 +90,7 @@ advisory: they do not by themselves make a hook unloadable.
 ## Get hook info
 
 ```bash
-openclaw hooks info <name> [--agent <id>] [--json]
+granted hooks info <name> [--agent <id>] [--json]
 ```
 
 Accepts a hook name or its metadata `hookKey`. Exact hook names take precedence
@@ -108,7 +108,7 @@ a command to install dependencies automatically.
 ## Check eligibility
 
 ```bash
-openclaw hooks check [--agent <id>] [--json]
+granted hooks check [--agent <id>] [--json]
 ```
 
 Prints totals for ready/not-ready hooks and lists blocking reasons. JSON has
@@ -122,7 +122,7 @@ exit code as an all-hooks-ready result. This still does not test actual loading.
 ## Enable a hook
 
 ```bash
-openclaw hooks enable <name> [--agent <id>]
+granted hooks enable <name> [--agent <id>]
 ```
 
 Discovers the hook locally, then writes
@@ -143,7 +143,7 @@ selection. See [Configuration](/automation/hooks#configuration).
 Restart after enabling:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 For a foreground Gateway, stop and start the process instead. Restart is not
@@ -152,7 +152,7 @@ performed automatically by `hooks enable`.
 ## Disable a hook
 
 ```bash
-openclaw hooks disable <name> [--agent <id>]
+granted hooks disable <name> [--agent <id>]
 ```
 
 Writes `hooks.internal.entries.<hookKey>.enabled = false`. It does not remove the
@@ -161,20 +161,20 @@ hooks are rejected; missing runtime requirements do not prevent disabling.
 Restart the Gateway afterward.
 
 Plugin-managed hooks cannot be toggled by these commands. Enable or disable the
-owning plugin through [`openclaw plugins`](/cli/plugins).
+owning plugin through [`granted plugins`](/cli/plugins).
 
 ## Install and update hook packs
 
 Use the unified plugin installer for reviewed hook packs:
 
 ```bash
-openclaw plugins install npm:<package>
-openclaw plugins install npm:<package>@<version> --pin
-openclaw plugins install ./my-hook-pack
-openclaw plugins install ./my-hook-pack.tgz
+granted plugins install npm:<package>
+granted plugins install npm:<package>@<version> --pin
+granted plugins install ./my-hook-pack
+granted plugins install ./my-hook-pack.tgz
 
-openclaw plugins update <id> --dry-run
-openclaw plugins update <id>
+granted plugins update <id> --dry-run
+granted plugins update <id>
 ```
 
 A pack declares hook directories in `package.json` under `openclaw.hooks`.
@@ -190,7 +190,7 @@ ranges are not npm registry specs. Bare specs and `@latest` stay on the stable
 track; a prerelease resolution requires an explicit prerelease version or a
 non-latest tag such as `@beta` or `@rc`. Use `npm:` to select npm explicitly; the
 unified installer supports other plugin sources described in
-[`openclaw plugins`](/cli/plugins).
+[`granted plugins`](/cli/plugins).
 
 Supported local archives are `.zip`, `.tgz`, `.tar.gz`, and `.tar`. npm pack and
 project-local dependency installation use `--ignore-scripts`; this does not
@@ -244,8 +244,8 @@ bypass operator policy blocks or replace the dedicated policy-warning flag.
 These commands print a deprecation warning and forward to the unified owners:
 
 ```bash
-openclaw hooks install <path-or-spec> [-l|--link] [--pin] [--force] [--acknowledge-install-policy-warning]
-openclaw hooks update [id] [--all] [--dry-run] [--acknowledge-install-policy-warning]
+granted hooks install <path-or-spec> [-l|--link] [--pin] [--force] [--acknowledge-install-policy-warning]
+granted hooks update [id] [--all] [--dry-run] [--acknowledge-install-policy-warning]
 ```
 
 For update, provide `id` or `--all`. The aliases do not accept `--agent` and are

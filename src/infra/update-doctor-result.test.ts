@@ -29,7 +29,7 @@ describe("post-install doctor result IPC", () => {
     await expect(fs.access(resultPath)).rejects.toThrow();
   });
 
-  it("rejects result paths outside the secure OpenClaw temp root", async () => {
+  it("rejects result paths outside the secure Granted temp root", async () => {
     const tempRoot = resolvePreferredGrantedTmpDir();
     const resultPath = path.join(
       `${tempRoot}-outside`,

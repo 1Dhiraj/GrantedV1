@@ -1,5 +1,5 @@
 import { randomInt } from "node:crypto";
-// Inference backend detection shared by onboarding bootstrap and OpenClaw setup.
+// Inference backend detection shared by onboarding bootstrap and Granted setup.
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@granted/normalization-core";

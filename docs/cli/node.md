@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `openclaw node` (headless node host)"
+summary: "CLI reference for `granted node` (headless node host)"
 read_when:
   - Running the headless node host
   - Pairing a non-macOS node for system.run
 title: "Node"
 ---
 
-# `openclaw node`
+# `granted node`
 
 Run a **headless node host** that connects to the Gateway WebSocket and exposes
 `system.run` / `system.which` on this machine.
 
 On macOS, the menu bar app already embeds this node-host runtime into its own
-node connection and adds native Mac capabilities. Use `openclaw node run` on a
+node connection and adds native Mac capabilities. Use `granted node run` on a
 Mac only when you intentionally want a headless node without the app. Running
 both creates two node identities for the same machine.
 
@@ -30,7 +30,7 @@ Common use cases:
 Execution is still guarded by **exec approvals** and per-agent allowlists on the
 node host, so you can keep command access scoped and explicit.
 
-`openclaw node run` can publish plugin or MCP-backed tools after it connects.
+`granted node run` can publish plugin or MCP-backed tools after it connects.
 The Gateway trusts descriptors from the paired node by default, while requiring
 each descriptor's command to remain in the node's approved command surface. The
 agent sees each accepted descriptor as a normal plugin tool, but execution still
@@ -70,18 +70,18 @@ Disable it on the node if needed:
 
 ## Run (foreground)
 
-For one-paste onboarding, use [`openclaw connect`](/cli/connect). It accepts a
+For one-paste onboarding, use [`granted connect`](/cli/connect). It accepts a
 single-use join URL or the same setup code forms as `--pair`, then runs this
 node-host runtime.
 
 ```bash
-openclaw node run --host <gateway-host> --port 18789
+granted node run --host <gateway-host> --port 18789
 ```
 
 Or paste a short-lived node setup link from the Control UI Devices page:
 
 ```bash
-openclaw node run --pair "oc-pair://<setup-code>"
+granted node run --pair "oc-pair://<setup-code>"
 ```
 
 Options:
@@ -108,7 +108,7 @@ does not pre-approve `system.run`; normal node approval and SSH verification
 remain in force. `node install --pair` is intentionally unavailable because a
 short-lived bearer setup link must not be persisted in service arguments.
 
-`openclaw node run` and `openclaw node install` resolve gateway auth from config/env (no `--token`/`--password` flags on node commands):
+`granted node run` and `granted node install` resolve gateway auth from config/env (no `--token`/`--password` flags on node commands):
 
 - `OPENCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD` are checked first.
 - Then local config fallback: `gateway.auth.token` / `gateway.auth.password`.
@@ -118,8 +118,8 @@ short-lived bearer setup link must not be persisted in service arguments.
 - Node host auth resolution only honors `OPENCLAW_GATEWAY_*` env vars.
 
 For a Gateway behind Cloudflare Access, set `CF_ACCESS_CLIENT_ID` and
-`CF_ACCESS_CLIENT_SECRET` together before `openclaw connect`, `openclaw node
-run`, or `openclaw node install`. The node stores env SecretRefs under its
+`CF_ACCESS_CLIENT_SECRET` together before `granted connect`, `granted node
+run`, or `granted node install`. The node stores env SecretRefs under its
 canonical `gateway.cloudflareAccess.clientId` and `clientSecret` connection
 keys. Installed services keep the values in the managed service environment
 file, not in service arguments or inline supervisor definitions. Access
@@ -133,7 +133,7 @@ trusted private-DNS names, set `OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1`; without
 it, node startup fails closed and asks you to use `wss://`, an SSH tunnel, or
 Tailscale. This is a process-environment opt-in, not an `openclaw.json` config
 key.
-`openclaw node install` persists it into the supervised node service when it is
+`granted node install` persists it into the supervised node service when it is
 present in the install command environment.
 
 ## Service (background)
@@ -142,7 +142,7 @@ Install a headless node host as a user service (launchd on macOS, systemd on
 Linux, Windows Task Scheduler on Windows).
 
 ```bash
-openclaw node install --host <gateway-host> --port 18789
+granted node install --host <gateway-host> --port 18789
 ```
 
 Options:
@@ -173,24 +173,24 @@ advice is reserved for missing or unsupported runtimes.
 > **Linux (systemd user service):** Run `sudo loginctl enable-linger <user>` after
 > install. Without lingering, `systemd --user` tears down the node service when
 > your last SSH session ends, so the node silently goes offline after logout.
-> `openclaw node install` prints this warning when it detects lingering is
+> `granted node install` prints this warning when it detects lingering is
 > disabled.
 
 Manage the service:
 
 ```bash
-openclaw node status
-openclaw node start
-openclaw node stop
-openclaw node restart
-openclaw node uninstall
+granted node status
+granted node start
+granted node stop
+granted node restart
+granted node uninstall
 ```
 
-Use `openclaw node run` for a foreground node host (no service).
+Use `granted node run` for a foreground node host (no service).
 
 Service commands accept `--json` for machine-readable output.
 `node start` and `node restart` print install hints and exit nonzero when no
-managed node service is installed; run `openclaw node install` first. Stopping
+managed node service is installed; run `granted node install` first. Stopping
 an absent service remains a successful no-op.
 
 The node host retries Gateway restart and network closes in-process. If the
@@ -205,7 +205,7 @@ The first connection creates a pending device pairing request (`role: node`) on 
 
 When the Gateway host can SSH to the node host non-interactively (same user,
 trusted host key), the pending request is approved automatically: the Gateway
-runs `openclaw node identity --json` on the node host over SSH and approves on
+runs `granted node identity --json` on the node host over SSH and approves on
 an exact device-key match. This is on by default; see
 [SSH-verified device auto-approval](/gateway/pairing#ssh-verified-device-auto-approval-default)
 for requirements and how to disable it (`gateway.nodes.pairing.sshVerify: false`).
@@ -213,14 +213,14 @@ for requirements and how to disable it (`gateway.nodes.pairing.sshVerify: false`
 Otherwise approve manually via:
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
+granted devices list
+granted devices approve <requestId>
 ```
 
 Inspect the local node identity the Gateway verifies against:
 
 ```bash
-openclaw node identity --json
+granted node identity --json
 ```
 
 It prints the device ID and public key from the `primary` row in
@@ -248,7 +248,7 @@ scope, metadata, or public-key upgrades still require manual approval.
 
 If the node retries pairing with changed auth details (role/scopes/public key),
 the previous pending request is superseded and a new `requestId` is created.
-Run `openclaw devices list` again before approval.
+Run `granted devices list` again before approval.
 
 ### Identity and pairing state
 
@@ -265,23 +265,23 @@ when set):
 
 `--node-id` changes only the client instance ID in shared SQLite state. It does
 not change the cryptographic device ID or clear pairing auth. Migrating a retired
-`node.json` with `openclaw doctor --fix` likewise does not reset pairing. To
+`node.json` with `granted doctor --fix` likewise does not reset pairing. To
 revoke and re-pair a node:
 
-1. On the Gateway, run `openclaw nodes remove --node <id|name|ip>`.
-2. On the node, restart the installed service with `openclaw node restart`, or
-   stop and rerun the foreground `openclaw node run` command. This starts the
-   device-pairing flow. If `openclaw devices list` does not show a request
+1. On the Gateway, run `granted nodes remove --node <id|name|ip>`.
+2. On the node, restart the installed service with `granted node restart`, or
+   stop and rerun the foreground `granted node run` command. This starts the
+   device-pairing flow. If `granted devices list` does not show a request
    and the node reports `AUTH_DEVICE_TOKEN_MISMATCH`, restart or rerun it once
    more. The rejected attempt clears the now-revoked local token; the next
    attempt can request pairing.
-3. On the Gateway, run `openclaw devices list`, then
-   `openclaw devices approve <deviceRequestId>`.
+3. On the Gateway, run `granted devices list`, then
+   `granted devices approve <deviceRequestId>`.
 4. Restart or rerun the node again. A client paused for pairing does not resume
    automatically after approval; this reconnect creates the separate
    command-surface request.
-5. On the Gateway, run `openclaw nodes pending`, then
-   `openclaw nodes approve <nodeRequestId>`.
+5. On the Gateway, run `granted nodes pending`, then
+   `granted nodes approve <nodeRequestId>`.
 
 The two request IDs are distinct. An applicable trusted-CIDR policy can
 auto-approve the first-time device-pairing step; command-surface approval remains
@@ -290,7 +290,7 @@ a separate check.
 Older OpenClaw releases stored node-host state in `node.json`, the signed
 identity in `identity/device.json`, and paired auth in
 `identity/device-auth.json`. Stop the node host and run
-`openclaw doctor --fix` once; Doctor claims each retired source, validates it,
+`granted doctor --fix` once; Doctor claims each retired source, validates it,
 imports and verifies the canonical SQLite row, then removes the old file. Normal
 node commands fail closed with this repair instruction while either retired file
 or an interrupted Doctor claim remains. Keep `state/openclaw.sqlite` private;
@@ -303,7 +303,7 @@ it contains the device keypair and auth tokens.
 - `$OPENCLAW_STATE_DIR/state/openclaw.sqlite#exec_approvals_config`, or
   `~/.openclaw/state/openclaw.sqlite#exec_approvals_config` when the variable is unset
 - [Exec approvals](/tools/exec-approvals)
-- `openclaw approvals --node <id|name|ip>` (edit from the Gateway)
+- `granted approvals --node <id|name|ip>` (edit from the Gateway)
 
 For approved async node exec, OpenClaw prepares a canonical `systemRunPlan`
 before prompting. The later approved `system.run` forward reuses that stored

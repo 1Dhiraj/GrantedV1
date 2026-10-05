@@ -555,7 +555,8 @@ function loadSkillEntries(
         invocation,
         exposure: {
           includeInRuntimeRegistry: true,
-          includeInAvailableSkillsPrompt: !invocation.disableModelInvocation,
+          includeInAvailableSkillsPrompt:
+            !invocation.disableModelInvocation && invocation.promptListing !== "search",
           userInvocable: invocation.userInvocable ?? true,
         },
       };
@@ -645,7 +646,7 @@ export function loadWorkspaceSkills(
   );
 }
 
-/** Loads agent-workspace skills first, then execution-directory OpenClaw skills. */
+/** Loads agent-workspace skills first, then execution-directory Granted skills. */
 export function loadMergedWorkspaceSkills(
   params: WorkspaceSkillRoots & WorkspaceSkillLoadOptions,
 ): SkillEntry[] {

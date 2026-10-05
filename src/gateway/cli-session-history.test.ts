@@ -71,7 +71,7 @@ function augmentBoundClaudeHistory(params: {
 
 function buildLegacyReseedPrompt(current = "current"): string {
   return [
-    "Continue this conversation using the OpenClaw transcript below as prior session history.",
+    "Continue this conversation using the Granted transcript below as prior session history.",
     "Treat it as authoritative context for this fresh CLI session.",
     "",
     "<conversation_history>",

@@ -8,7 +8,7 @@ import {
   deriveDurableFinalDeliveryRequirements,
 } from "granted/plugin-sdk/channel-outbound";
 /**
- * Converts authorized ClickClack messages into OpenClaw agent/model replies and
+ * Converts authorized ClickClack messages into Granted agent/model replies and
  * routes resulting outbound text back to ClickClack.
  */
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";

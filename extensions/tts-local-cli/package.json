@@ -2,7 +2,7 @@
   "name": "@granted/tts-local-cli",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw local CLI TTS plugin",
+  "description": "Granted local CLI TTS plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

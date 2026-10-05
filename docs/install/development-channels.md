@@ -29,10 +29,10 @@ directly to `latest`. Dist-tags are the source of truth for npm installs.
 ## Switching channels
 
 ```bash
-openclaw update --channel stable
-openclaw update --channel extended-stable
-openclaw update --channel beta
-openclaw update --channel dev
+granted update --channel stable
+granted update --channel extended-stable
+granted update --channel beta
+granted update --channel dev
 ```
 
 `--channel` persists the choice to `update.channel` in config and drives both
@@ -46,7 +46,7 @@ install paths:
 | `dev`             | switches to a Git checkout, builds it, and reinstalls the global CLI                                                                                                                   | fetches, rebases the checkout on the upstream `main` branch, builds, and reinstalls the global CLI |
 
 An explicit `--channel stable` or `--channel beta` switches a Git installation
-to a package installation. A bare `openclaw update` in a Git checkout with a
+to a package installation. A bare `granted update` in a Git checkout with a
 previously stored stable or beta channel instead selects the corresponding Git tag.
 For managed Gateways, successful switches refresh the service to the verified
 installation before checking readiness. A refused switch or verified rollback
@@ -58,7 +58,7 @@ For `dev` git installs, the default checkout is `~/openclaw` (or
 Automatic update campaigns pin the upstream commit they announce, so the
 displayed list previews up to five commits from the exact target installed even
 if `main` advances during the countdown. A manual
-`openclaw update --channel dev` still targets the current upstream `main`.
+`granted update --channel dev` still targets the current upstream `main`.
 
 <Tip>
 To keep stable and dev in parallel, use two separate checkouts and point each gateway at its own.
@@ -71,30 +71,30 @@ single update **without** changing the persisted channel:
 
 ```bash
 # Install a specific version
-openclaw update --tag 2026.4.1-beta.1
+granted update --tag 2026.4.1-beta.1
 
 # Install from the beta dist-tag (one-off, does not persist)
-openclaw update --tag beta
+granted update --tag beta
 
 # Switch to the moving GitHub main checkout (persistent)
-openclaw update --channel dev
+granted update --channel dev
 
 # Install a specific npm package spec
-openclaw update --tag openclaw@2026.4.1-beta.1
+granted update --tag openclaw@2026.4.1-beta.1
 
 ```
 
 Notes:
 
 - `--tag` applies to **package (npm) installs only**; git installs ignore it.
-- The tag is not persisted; the next `openclaw update` uses the configured
+- The tag is not persisted; the next `granted update` uses the configured
   channel.
 - A package install with stored `update.channel: "dev"` still honors a one-off
   `--tag` without switching to Git. An explicit `--channel dev` takes precedence
   over `--tag` and selects the Git checkout flow.
 - The `--tag main` shorthand is rejected for package installs because the
   workspace checkout is not a self-contained package artifact. Use
-  `openclaw update --channel dev` (package installs switch to a git checkout)
+  `granted update --channel dev` (package installs switch to a git checkout)
   or reinstall with the installer's git method:
   `curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git --version main`.
 - Downgrade protection: if the target version is older than the current
@@ -108,13 +108,13 @@ Notes:
 
 ## Dry run
 
-Preview what `openclaw update` would do without making changes:
+Preview what `granted update` would do without making changes:
 
 ```bash
-openclaw update --dry-run
-openclaw update --channel beta --dry-run
-openclaw update --tag 2026.4.1-beta.1 --dry-run
-openclaw update --dry-run --json
+granted update --dry-run
+granted update --channel beta --dry-run
+granted update --tag 2026.4.1-beta.1 --dry-run
+granted update --dry-run --json
 ```
 
 The dry run reports the effective channel, target version, planned actions,
@@ -122,7 +122,7 @@ and whether a downgrade confirmation would be required.
 
 ## Plugins and channels
 
-Switching channels with `openclaw update` also syncs plugin sources:
+Switching channels with `granted update` also syncs plugin sources:
 
 - `dev` switches installed plugins that have a bundled counterpart back to
   their bundled (git checkout) source.
@@ -138,7 +138,7 @@ Switching channels with `openclaw update` also syncs plugin sources:
 ## Checking current status
 
 ```bash
-openclaw update status
+granted update status
 ```
 
 Shows the active channel (with the source that decided it: config, git tag,

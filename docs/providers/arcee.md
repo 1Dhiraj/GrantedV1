@@ -20,8 +20,8 @@ Access Arcee models directly through the Arcee platform or through [OpenRouter](
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/arcee-provider
-openclaw gateway restart
+granted plugins install @granted/arcee-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -34,7 +34,7 @@ openclaw gateway restart
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice arceeai-api-key
+        granted onboard --auth-choice arceeai-api-key
         ```
       </Step>
       <Step title="Set a default model">
@@ -58,7 +58,7 @@ openclaw gateway restart
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice arceeai-openrouter
+        granted onboard --auth-choice arceeai-openrouter
         ```
       </Step>
       <Step title="Set a default model">
@@ -84,7 +84,7 @@ openclaw gateway restart
 <Tabs>
   <Tab title="Direct (Arcee platform)">
     ```bash
-    openclaw onboard --non-interactive --accept-risk --skip-health \
+    granted onboard --non-interactive --accept-risk --skip-health \
       --mode local \
       --auth-choice arceeai-api-key \
       --arceeai-api-key "$ARCEEAI_API_KEY"
@@ -93,7 +93,7 @@ openclaw gateway restart
 
   <Tab title="Via OpenRouter">
     ```bash
-    openclaw onboard --non-interactive --accept-risk --skip-health \
+    granted onboard --non-interactive --accept-risk --skip-health \
       --mode local \
       --auth-choice arceeai-openrouter \
       --openrouter-api-key "$OPENROUTER_API_KEY"

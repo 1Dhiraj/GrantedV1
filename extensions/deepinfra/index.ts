@@ -1,4 +1,4 @@
-// Deepinfra plugin entrypoint registers its OpenClaw integration.
+// Deepinfra plugin entrypoint registers its Granted integration.
 import {
   type ProviderCatalogContext,
   type ConfiguredProviderCatalogEntry,

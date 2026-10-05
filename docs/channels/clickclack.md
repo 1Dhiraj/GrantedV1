@@ -16,14 +16,14 @@ In ClickClack, open **Workspace settings → Integrations → OpenClaw**, create
 bot using **Setup code (recommended)**, and copy the generated command:
 
 ```bash
-openclaw channels add clickclack --code 'https://clickclack.example.com/#XXXX-XXXX-XXXX'
+granted channels add clickclack --code 'https://clickclack.example.com/#XXXX-XXXX-XXXX'
 ```
 
 For separate frontend and API origins or a path-mounted API, ClickClack emits an
 exact claim endpoint instead:
 
 ```bash
-openclaw channels add clickclack --code 'https://api.example.com/services/clickclack/api/bot-setup-codes/claim#XXXX-XXXX-XXXX'
+granted channels add clickclack --code 'https://api.example.com/services/clickclack/api/bot-setup-codes/claim#XXXX-XXXX-XXXX'
 ```
 
 The setup code is single-use and expires after 10 minutes. OpenClaw claims it,
@@ -40,19 +40,19 @@ If OpenClaw is already running, ClickClack connects automatically and no second
 command is needed. Otherwise, start it with:
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
 You can also pass the code separately from the server URL:
 
 ```bash
-openclaw channels add clickclack --code XXXX-XXXX-XXXX --base-url https://clickclack.example.com
+granted channels add clickclack --code XXXX-XXXX-XXXX --base-url https://clickclack.example.com
 ```
 
 For guided setup, run:
 
 ```bash
-openclaw onboard
+granted onboard
 ```
 
 Select ClickClack, then enter the server URL, bot token, and workspace when
@@ -65,7 +65,7 @@ Choose **Manual token** in ClickClack when configuring a non-OpenClaw client or
 when you explicitly need to manage the token yourself:
 
 ```bash
-openclaw channels add clickclack --base-url https://clickclack.example.com --token ccb_... --workspace default
+granted channels add clickclack --base-url https://clickclack.example.com --token ccb_... --workspace default
 ```
 
 `workspace` accepts a workspace id (`wsp_...`), slug, or display name.
@@ -78,8 +78,8 @@ in config:
 
 ```bash
 export CLICKCLACK_BOT_TOKEN="ccb_..."
-openclaw channels add clickclack --base-url https://clickclack.example.com --workspace default --use-env
-openclaw gateway
+granted channels add clickclack --base-url https://clickclack.example.com --workspace default --use-env
+granted gateway
 ```
 
 Named accounts must use a configured token or token file; the shared env
@@ -159,11 +159,11 @@ use the public `baseUrl`. If `apiBaseUrl` is omitted, all traffic uses
 `baseUrl`, preserving existing behavior.
 
 If `plugins.allow` is a non-empty restrictive list, explicitly selecting
-ClickClack in channel setup or running `openclaw plugins enable clickclack`
+ClickClack in channel setup or running `granted plugins enable clickclack`
 appends `clickclack` to that list. Onboarding installation uses the same
 explicit-selection behavior. These paths do not override `plugins.deny` or a
 global `plugins.enabled: false` setting. Direct
-`openclaw plugins install @granted/clickclack` follows the normal
+`granted plugins install @granted/clickclack` follows the normal
 plugin-install policy and also records ClickClack in an existing allowlist.
 
 ## Multiple bots
@@ -544,9 +544,9 @@ contract and recovery behavior.
 Examples:
 
 ```bash
-openclaw message send --channel clickclack --target channel:general --message "hello"
-openclaw message send --channel clickclack --target dm:usr_123 --message "hello"
-openclaw message send --channel clickclack --target thread:msg_123 --message "following up"
+granted message send --channel clickclack --target channel:general --message "hello"
+granted message send --channel clickclack --target dm:usr_123 --message "hello"
+granted message send --channel clickclack --target thread:msg_123 --message "following up"
 ```
 
 ## Permissions

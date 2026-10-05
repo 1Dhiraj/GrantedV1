@@ -1,5 +1,5 @@
 import { readPackageVersion } from "./package-json.js";
-// Runs OpenClaw package update checks, package steps, and restart handoff.
+// Runs Granted package update checks, package steps, and restart handoff.
 import { detectGlobalInstallManagerForRoot, verifyPackageUpdateRecovery } from "./update-global.js";
 import {
   resolveGitRoot,

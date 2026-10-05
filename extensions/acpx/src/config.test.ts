@@ -159,7 +159,7 @@ describe("embedded acpx plugin config", () => {
     });
   });
 
-  it("injects the built-in OpenClaw tools MCP server only when explicitly enabled", () => {
+  it("injects the built-in Granted tools MCP server only when explicitly enabled", () => {
     const resolved = resolveAcpxPluginConfig({
       rawConfig: {
         openClawToolsMcpBridge: true,

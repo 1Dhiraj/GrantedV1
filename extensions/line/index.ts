@@ -1,4 +1,4 @@
-// Line plugin entrypoint registers its OpenClaw integration.
+// Line plugin entrypoint registers its Granted integration.
 import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
 import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 

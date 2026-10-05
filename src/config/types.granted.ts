@@ -1,4 +1,4 @@
-// Defines the top-level OpenClaw configuration type.
+// Defines the top-level Granted configuration type.
 import type { SilentReplyPolicyShape } from "../shared/silent-reply-policy.js";
 import type { TranscriptsConfig } from "../transcripts/config.js";
 import type { ConfigIncludeOwnership } from "./includes.js";
@@ -78,14 +78,14 @@ export type SurfaceConfigEntry = {
   silentReply?: SilentReplyPolicyShape;
 };
 
-/** Top-level OpenClaw config as read from user/project config files. */
+/** Top-level Granted config as read from user/project config files. */
 export type GrantedConfig = {
   /** @deprecated Doctor-only legacy input. */
   audit?: AuditConfig;
   /** JSON schema URL used by editors and generated config files. */
   $schema?: string;
   meta?: {
-    /** Last OpenClaw version that wrote this config. */
+    /** Last Granted version that wrote this config. */
     lastTouchedVersion?: string;
     /** One-time doctor migrations already applied to this config. */
     migrations?: { modelPolicyAllowlist?: true };
@@ -147,7 +147,7 @@ export type GrantedConfig = {
   /** Browser automation and browser plugin integration settings. */
   browser?: BrowserConfig;
   ui?: {
-    /** Accent color for OpenClaw UI chrome (hex). */
+    /** Accent color for Granted UI chrome (hex). */
     seamColor?: string;
     /**
      * Operator display preferences. Canonical config home so agents can
@@ -243,6 +243,8 @@ export type GrantedConfig = {
   cloudWorkers?: CloudWorkersConfig;
   /** Experimental desktop sources owned by the gateway host. */
   desktop?: DesktopConfig;
+  /** Operator-facing product identity for installs shipping under their own name. */
+  branding?: { productName?: string; creator?: string };
   /** Memory indexing/search configuration. */
   memory?: MemoryConfig;
   /** MCP client/server and Codex MCP approval configuration. */

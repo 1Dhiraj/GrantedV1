@@ -1,12 +1,12 @@
-# OpenClaw Cerebras Provider
+# Granted Cerebras Provider
 
-Official OpenClaw provider plugin for Cerebras.
+Official Granted provider plugin for Cerebras.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/cerebras-provider
-openclaw gateway restart
+granted plugins install @granted/cerebras-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/cerebras> for setup and configuration.

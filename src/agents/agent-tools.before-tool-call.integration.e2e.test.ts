@@ -865,7 +865,7 @@ describe("before_tool_call hook deduplication (#15502)", () => {
     expect(execute).not.toHaveBeenCalled();
   });
 
-  it("passes agent context to outer code-mode exec hooks through OpenClaw custom tools", async () => {
+  it("passes agent context to outer code-mode exec hooks through Granted custom tools", async () => {
     beforeToolCallHook = installBeforeToolCallHook({
       runBeforeToolCallImpl: async () => ({
         block: true,

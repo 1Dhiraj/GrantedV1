@@ -22,7 +22,7 @@ instead of a broad search query.
 
 ## Onboarding and configure
 
-Choosing **Grok** during `openclaw onboard` or `openclaw configure --section
+Choosing **Grok** during `granted onboard` or `granted configure --section
 web` lets OpenClaw reuse an existing xAI OAuth profile without prompting for
 a separate web-search key. Without OAuth, it falls back to xAI API-key setup.
 
@@ -43,8 +43,8 @@ Skip it to enable or change `x_search` later in config.
     Grok as the `web_search` provider. No separate API key is required:
 
     ```bash
-    openclaw onboard --auth-choice xai-oauth
-    openclaw config set tools.web.search.provider grok
+    granted onboard --auth-choice xai-oauth
+    granted config set tools.web.search.provider grok
     ```
 
   </Step>
@@ -56,7 +56,7 @@ Skip it to enable or change `x_search` later in config.
     Set `XAI_API_KEY` in the Gateway environment, or configure via:
 
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
   </Step>
@@ -88,7 +88,7 @@ Skip it to enable or change `x_search` later in config.
 }
 ```
 
-**Credential alternatives:** `openclaw models auth login --provider xai
+**Credential alternatives:** `granted models auth login --provider xai
 --method oauth`, `XAI_API_KEY` in the Gateway environment, or
 `plugins.entries.xai.config.webSearch.apiKey`. For a gateway install, put env
 vars in `~/.openclaw/.env`.

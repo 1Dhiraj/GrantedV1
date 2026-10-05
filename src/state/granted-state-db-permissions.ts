@@ -39,7 +39,7 @@ export function ensureOpenClawStatePermissions(pathname: string, env: NodeJS.Pro
   const isDefaultStateDatabase =
     path.resolve(pathname) === path.resolve(resolveOpenClawStateSqlitePath(env));
   if (isDefaultStateDatabase && dir !== defaultDir) {
-    throw new Error(`OpenClaw state database path resolved outside its state dir: ${pathname}`);
+    throw new Error(`Granted state database path resolved outside its state dir: ${pathname}`);
   }
   const dirExisted = existsSync(dir);
   mkdirSync(dir, { recursive: true, mode: GRANTED_STATE_DIR_MODE });

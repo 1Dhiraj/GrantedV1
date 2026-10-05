@@ -1,4 +1,4 @@
-// Gmi plugin entrypoint registers its OpenClaw integration.
+// Gmi plugin entrypoint registers its Granted integration.
 import { readConfiguredProviderCatalogEntries } from "granted/plugin-sdk/provider-catalog-shared";
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";

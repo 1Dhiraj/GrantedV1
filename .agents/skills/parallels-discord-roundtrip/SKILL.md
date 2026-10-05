@@ -60,4 +60,4 @@ pnpm test:parallels:macos \
 - fresh lane or upgrade lane requested passes
 - summary reports `discord=pass` for that lane
 - guest outbound nonce appears in channel history
-- host inbound nonce appears in `openclaw message read` output
+- host inbound nonce appears in `granted message read` output

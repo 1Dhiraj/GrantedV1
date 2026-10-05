@@ -2096,7 +2096,7 @@ describe("doctor health contributions", () => {
     });
   });
 
-  it("silently skips the host-service contribution in a container without an OpenClaw service", async () => {
+  it("silently skips the host-service contribution in a container without an Granted service", async () => {
     mocks.isContainerEnvironment.mockReturnValue(true);
     mocks.findInstalledSystemdGatewayScope.mockResolvedValue(null);
     const contribution = requireDoctorContribution("doctor:gateway-services");
@@ -2715,7 +2715,7 @@ describe("doctor health contributions", () => {
     expect(JSON.stringify(lintResult)).not.toContain("loginctl enable-linger");
   });
 
-  it("never probes systemd linger inside a container without an OpenClaw service", async () => {
+  it("never probes systemd linger inside a container without an Granted service", async () => {
     mocks.isContainerEnvironment.mockReturnValue(true);
     mocks.findInstalledSystemdGatewayScope.mockResolvedValue(null);
     const checks = await resolveDoctorContributionHealthChecks();

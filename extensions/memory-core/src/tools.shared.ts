@@ -1,9 +1,6 @@
 // Memory Core plugin module implements tools.shared behavior.
 import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
-import type {
-  AnyAgentTool,
-  GrantedConfig,
-} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { AnyAgentTool, GrantedConfig } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveMemoryToolContext,
@@ -118,7 +115,7 @@ export function buildMemorySearchUnavailableResult(
       : isQuotaError
         ? "Memory search is unavailable because the embedding provider quota is exhausted."
         : isMissingNodeSqlite
-          ? "Memory search is unavailable because this OpenClaw Node runtime does not provide SQLite support."
+          ? "Memory search is unavailable because this Granted Node runtime does not provide SQLite support."
           : isSearchDeadline
             ? "Memory search did not finish within its time limit."
             : "Memory search is unavailable due to an embedding/provider error.");
@@ -129,7 +126,7 @@ export function buildMemorySearchUnavailableResult(
       : isQuotaError
         ? "Top up or switch embedding provider, then retry memory_search."
         : isMissingNodeSqlite
-          ? "Run OpenClaw with a Node runtime that includes node:sqlite, then retry memory_search."
+          ? "Run Granted with a Node runtime that includes node:sqlite, then retry memory_search."
           : isSearchDeadline
             ? deadlineAction
             : "Check embedding provider configuration and retry memory_search.");

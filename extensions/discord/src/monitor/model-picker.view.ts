@@ -221,8 +221,8 @@ function getRuntimeChoices(params: {
   return [
     {
       id: "openclaw",
-      label: "OpenClaw Default",
-      description: "Use the built-in OpenClaw runtime.",
+      label: "Granted Default",
+      description: "Use the built-in Granted runtime.",
     },
   ];
 }

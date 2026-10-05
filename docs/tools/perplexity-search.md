@@ -15,8 +15,8 @@ For compatibility, OpenClaw also supports legacy Perplexity Sonar/OpenRouter set
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/perplexity-plugin
-openclaw gateway restart
+granted plugins install @granted/perplexity-plugin
+granted gateway restart
 ```
 
 ## Getting a Perplexity API key
@@ -90,7 +90,7 @@ Optional compatibility controls:
 
 ## Where to set the key
 
-**Via config:** run `openclaw configure --section web`. It stores the key in `~/.openclaw/openclaw.json` under `plugins.entries.perplexity.config.webSearch.apiKey`. That field also accepts SecretRef objects.
+**Via config:** run `granted configure --section web`. It stores the key in `~/.openclaw/openclaw.json` under `plugins.entries.perplexity.config.webSearch.apiKey`. That field also accepts SecretRef objects.
 
 **Via environment:** set `PERPLEXITY_API_KEY` or `OPENROUTER_API_KEY` in the Gateway process environment. For a gateway install, put it in `~/.openclaw/.env` (or your service environment). See [Env vars](/help/faq#env-vars-and-env-loading).
 

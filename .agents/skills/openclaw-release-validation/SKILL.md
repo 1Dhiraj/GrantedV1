@@ -1,16 +1,16 @@
 ---
 name: openclaw-release-validation
-description: "Test the latest OpenClaw main commit through an isolated OCM copy or an explicitly approved in-place gateway update, then guide structured release feedback."
+description: "Test the latest Granted main commit through an isolated OCM copy or an explicitly approved in-place gateway update, then guide structured release feedback."
 user-invocable: true
 disable-model-invocation: true
 ---
 
-# OpenClaw Release Validation
+# Granted Release Validation
 
 Help a human validate the latest main commit against a real gateway's state. By
 default, protect the source with an isolated OCM copy; allow an explicitly
 approved in-place update when the tester prefers less setup. Automate only
-preparation, finding triage, and reporting. Let the human drive OpenClaw and
+preparation, finding triage, and reporting. Let the human drive Granted and
 judge quality.
 
 For a ready gateway, use one editable Markdown worksheet as the entire
@@ -234,7 +234,7 @@ SHA supplied in `RELEASE_VALIDATION_TAG`,
    `{{RESTART_GATEWAY}}` for its restart command. Do not assume OCM, add other
    execution placeholders, or say only "use" or "verify."
 
-6. Replace the issue title with `OpenClaw <YYYY.M.D> beta feedback`. Render the
+6. Replace the issue title with `Granted <YYYY.M.D> beta feedback`. Render the
    body in this order, with no beta-history section:
 
    ```md
@@ -275,7 +275,7 @@ SHA supplied in `RELEASE_VALIDATION_TAG`,
      "releaseUrl": "https://github.com/openclaw/openclaw/releases/tag/<tag>",
      "releaseCommit": "<exact supplied release commit>",
      "guidanceMainSha": "<exact supplied guidance SHA>",
-     "title": "OpenClaw <YYYY.M.D> beta feedback",
+     "title": "Granted <YYYY.M.D> beta feedback",
      "body": "<rendered body>"
    }
    ```
@@ -306,11 +306,11 @@ release orchestration does not launch overlapping update tasks.
 Gateway discovery does not require OCM. Check whether `ocm` is available. If it
 is, read `ocm --version` and discover managed environments once with `ocm env
 list --json`; otherwise continue without installing it. In parallel, inspect
-the plain personal gateway with `openclaw --version` and `openclaw gateway
+the plain personal gateway with `openclaw --version` and `granted gateway
 status --json --no-probe`. When OCM is available, also use `ocm adopt inspect
 ~/.openclaw --json` to resolve aliases safely.
 
-Read only each gateway's display name, OpenClaw version, and running/stopped
+Read only each gateway's display name, Granted version, and running/stopped
 state. Do not expose commands, paths, configuration, credentials, plugins, or
 other internals. If the plain home's resolved path is an OCM environment's
 `stateDir`, show it once as that environment's personal-state alias. Otherwise
@@ -342,7 +342,7 @@ If OCM is unavailable only after the tester chooses isolation, say:
 ```text
 OCM is required for the isolated-copy option and is not installed.
 
-Reply exactly `install OCM` to let me install the OpenClaw Manager CLI, or
+Reply exactly `install OCM` to let me install the Granted Manager CLI, or
 install it yourself and reply `OCM installed`.
 ```
 
@@ -387,7 +387,7 @@ tracked in `openclaw/ocm#98`.
 
 Before activating copied channel credentials, stop the current credential
 owner and restore it when validation ends. For an OCM source, use `ocm service
-stop <source-env>`; for the plain source, use `openclaw gateway stop`. There is
+stop <source-env>`; for the plain source, use `granted gateway stop`. There is
 no `ocm stop` command.
 
 ### In-place gateway
@@ -451,13 +451,13 @@ reachability.
 
 ### Plain in-place lane
 
-First inspect `openclaw update status --json`. Create a full verified backup in
+First inspect `granted update status --json`. Create a full verified backup in
 a private owner-only directory outside `~/.openclaw`, retain its resulting
 archive path, and never expose that path in GitHub output:
 
 ```sh
-openclaw backup create --output <private-backup-dir> --verify
-OPENCLAW_UPDATE_DEV_TARGET_REF="$main_sha" openclaw update --channel dev --dry-run --json
+granted backup create --output <private-backup-dir> --verify
+OPENCLAW_UPDATE_DEV_TARGET_REF="$main_sha" granted update --channel dev --dry-run --json
 ```
 
 Explain that the update switches this real installation to the dev channel,
@@ -469,11 +469,11 @@ mutate the gateway.
 Apply and verify:
 
 ```sh
-OPENCLAW_UPDATE_DEV_TARGET_REF="$main_sha" openclaw update --channel dev --yes --json
-openclaw update status --json
+OPENCLAW_UPDATE_DEV_TARGET_REF="$main_sha" granted update --channel dev --yes --json
+granted update status --json
 openclaw --version
-openclaw gateway status --json
-openclaw plugins list --json
+granted gateway status --json
+granted plugins list --json
 ```
 
 Require the update result to succeed, its `after.sha` and the status result's
@@ -483,7 +483,7 @@ missing or disagree, do not call the gateway ready.
 For every lane, record `origin/main` and the full `main_sha` as the tested target
 and commit. Keep the stable train, current beta tag, and beta commit separate.
 
-Report every error immediately, including errors recovered by a retry. OpenClaw
+Report every error immediately, including errors recovered by a retry. Granted
 config migration, update, plugin convergence, startup, and readiness failures
 from the selected test target are eligible **Upgrade findings**. Add them to the
 worksheet only when readiness is later verified. OCM tooling, copying, backup
@@ -526,7 +526,7 @@ the tester's real gateway. For an isolated target, say:
 
 ```text
 Optional local diagnostics can capture traces, metrics, and logs from this
-test gateway. It installs OpenClaw's diagnostics-otel plugin only in the
+test gateway. It installs Granted's diagnostics-otel plugin only in the
 disposable copy and sends OTLP only to a collector on this machine. Content
 capture stays off. Nothing is sent to a hosted endpoint, and you will review
 the exact release-report draft before any GitHub comment is posted.
@@ -642,7 +642,7 @@ When the tester replies `enable local diagnostics`:
 
 Keep the collector running only while the fixture is under test. It captures
 traces, metrics, and logs locally with bounded file rotation. The source
-gateway, personal OpenClaw home, and shared GitHub issue remain untouched.
+gateway, personal Granted home, and shared GitHub issue remain untouched.
 
 ## 5. Create and reveal the worksheet (ready runs only)
 
@@ -655,7 +655,7 @@ stable and current beta. Insert the campaign body's exact marked guidance bytes
 at `{{VALIDATION_GUIDANCE}}`. In those bytes, replace `{{OPENCLAW}}` with
 `ocm @<test-env> --` for either OCM lane or `openclaw` for the plain in-place
 lane. Replace `{{RESTART_GATEWAY}}` with `ocm service restart <test-env>` for
-either OCM lane or `openclaw gateway restart` for the plain in-place lane. Use
+either OCM lane or `granted gateway restart` for the plain in-place lane. Use
 the actual environment name. No placeholder may remain.
 
 Do not regenerate or reformat the two priority sections. They are the current
@@ -777,7 +777,7 @@ When the tester says `finish validation`:
    attributes, resource values, timestamps, trace/span IDs, hostnames, file
    paths, session identifiers, request identifiers, prompts, responses, tool
    inputs, tool outputs, or credentials. A permitted snippet contains only an
-   aggregate signal count, a known OpenClaw operation name, a span status, or a
+   aggregate signal count, a known Granted operation name, a span status, or a
    low-cardinality error category. If relevance or redaction is uncertain, omit
    the telemetry. Label included prose **Local telemetry evidence** and keep it
    immediately below the finding it corroborates. Do not put telemetry in the

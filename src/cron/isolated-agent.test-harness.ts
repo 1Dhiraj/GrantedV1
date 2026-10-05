@@ -7,7 +7,7 @@ import type { GrantedConfig } from "../config/types.granted.js";
 import { withTempHome as withTempHomeBase } from "../plugin-sdk/test-env.js";
 import type { CronJob } from "./types.js";
 
-/** Runs a test callback with an isolated OpenClaw home for cron tests. */
+/** Runs a test callback with an isolated Granted home for cron tests. */
 export async function withTempCronHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   return withTempHomeBase(fn, { prefix: "openclaw-cron-" });
 }

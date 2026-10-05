@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { readEnvWithLegacyNames } from "../infra/env-legacy-aliases.js";
 import { isGatewayArgv } from "../infra/gateway-process-argv.js";
 import { inspectPortUsage } from "../infra/ports-inspect.js";
 import type { PortListener } from "../infra/ports-types.js";
@@ -29,10 +30,13 @@ export function resolveScheduledTaskCommandPort(
     environment?: GatewayServiceEnv;
   } | null,
 ): number | null {
+  // The installed script's environment was parsed off disk, so it still carries
+  // whatever names were current when it was written: a launcher from before the
+  // rename sets OPENCLAW_GATEWAY_PORT, which would otherwise read as "no port".
   return (
     parseTcpPortFromArgs(command?.programArguments) ??
-    parseTcpPort(command?.environment?.GRANTED_GATEWAY_PORT) ??
-    parseTcpPort(env.GRANTED_GATEWAY_PORT)
+    parseTcpPort(readEnvWithLegacyNames(command?.environment, "GRANTED_GATEWAY_PORT")) ??
+    parseTcpPort(readEnvWithLegacyNames(env, "GRANTED_GATEWAY_PORT"))
   );
 }
 
@@ -107,7 +111,7 @@ async function resolveScheduledTaskProcess(
   if (!snapshot) {
     return null;
   }
-  // Match full persisted argv so a same-port OpenClaw process cannot impersonate this task.
+  // Match full persisted argv so a same-port Granted process cannot impersonate this task.
   const pid = findInstalledProcessPid(snapshot, port, installedArguments, matchesProcess);
   return pid ? { pid, port } : null;
 }

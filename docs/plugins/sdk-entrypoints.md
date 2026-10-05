@@ -72,7 +72,7 @@ built entries:
 For plugins that only add agent tools. Keeps the source small, infers config
 and tool-parameter types from TypeBox schemas, wraps plain return values in
 the OpenClaw tool-result format, and exposes static metadata that
-`openclaw plugins build` writes into the plugin manifest (`contracts.tools`,
+`granted plugins build` writes into the plugin manifest (`contracts.tools`,
 `configSchema`).
 
 ```typescript
@@ -117,7 +117,7 @@ export default defineToolPlugin({
   and validate the final value before returning it.
 - For custom tool results, `openclaw/plugin-sdk/tool-results` exports
   `textResult` and `jsonResult`.
-- Tool names are static, so `openclaw plugins build` derives
+- Tool names are static, so `granted plugins build` derives
   `contracts.tools` from the declared tools without hand-duplicated names.
 - Runtime loading stays strict: installed plugins still need
   `granted.plugin.json` and `package.json` `openclaw.extensions`. OpenClaw
@@ -378,7 +378,7 @@ CLI registration:
   Meeting runtime shells accept that descriptor through `cli.descriptor`.
   Nested descriptors do not expose `machineOutput`.
 - Use `api.registerNodeCliFeature(...)` for paired-node feature commands so
-  they land under `openclaw nodes` (equivalent to
+  they land under `granted nodes` (equivalent to
   `registerCli(registrar, { parentPath: ["nodes"], ... })`).
 - For other nested plugin commands, add `parentPath` and register commands
   on the `program` object passed to the registrar; OpenClaw resolves it to
@@ -544,7 +544,7 @@ OpenClaw classifies loaded plugins by their registration behavior:
 | **hook-only**         | Only hooks, no capabilities                        |
 | **non-capability**    | Tools/commands/services but no capabilities        |
 
-Use `openclaw plugins inspect <id>` to see a plugin's shape.
+Use `granted plugins inspect <id>` to see a plugin's shape.
 
 ## Related
 

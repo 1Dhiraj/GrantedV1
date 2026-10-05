@@ -44,13 +44,13 @@ describe("session tab registry", () => {
       sessionKey: "Agent:Main:Main",
       targetId: "tab-a",
       route: { kind: "browser-control", baseUrl: "http://127.0.0.1:9222" },
-      profile: "OpenClaw",
+      profile: "Granted",
     });
     trackSessionBrowserTab({
       sessionKey: "agent:main:main",
       targetId: "tab-b",
       route: { kind: "browser-control", baseUrl: "http://127.0.0.1:9222" },
-      profile: "OpenClaw",
+      profile: "Granted",
     });
     const closeTab = vi.fn(async () => {});
 
@@ -77,7 +77,7 @@ describe("session tab registry", () => {
       sessionKey: "agent:main:main",
       targetId: "RAW_TARGET",
       route: { kind: "browser-control", baseUrl: "http://127.0.0.1:9222" },
-      profile: "OpenClaw",
+      profile: "Granted",
     });
 
     await expect(

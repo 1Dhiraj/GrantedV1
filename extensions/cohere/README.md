@@ -1,13 +1,13 @@
-# OpenClaw Cohere Provider
+# Granted Cohere Provider
 
-Official OpenClaw provider plugin for Cohere's OpenAI-compatible Compatibility
+Official Granted provider plugin for Cohere's OpenAI-compatible Compatibility
 API.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/cohere-provider
-openclaw gateway restart
+granted plugins install @granted/cohere-provider
+granted gateway restart
 ```
 
 Configure a Cohere API key, then select `cohere/command-a-plus-05-2026`,

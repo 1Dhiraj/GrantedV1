@@ -231,6 +231,11 @@ export function resolveSkillInvocationPolicy(
       getFrontmatterString(frontmatter, "disable-model-invocation"),
       false,
     ),
+    // Anything but the exact opt-in keeps the current always-listed behavior.
+    promptListing:
+      getFrontmatterString(frontmatter, "prompt-listing")?.trim().toLowerCase() === "search"
+        ? "search"
+        : "always",
   };
 }
 

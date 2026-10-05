@@ -327,7 +327,7 @@ describe("projectContextEngineAssemblyForCodex", () => {
   it("bounds output when the non-context text alone exceeds the turn limit", () => {
     // A large older-context header prefix pushes before + after over maxChars
     // while the trailing user request stays small enough to keep its label.
-    const before = `OpenClaw assembled context for this turn:\n${"prefix ".repeat(120)}`;
+    const before = `Granted assembled context for this turn:\n${"prefix ".repeat(120)}`;
     const context = "older context ".repeat(40);
     const prompt = `urgent request ${"q".repeat(120)}`;
     const after = `\n</conversation_context>\n\nCurrent user request:\n${prompt}`;
@@ -353,7 +353,7 @@ describe("projectContextEngineAssemblyForCodex", () => {
   });
 
   it("keeps the current request and fitting hook context after projecting history", () => {
-    const before = "OpenClaw assembled context for this turn:\n<conversation_context>\n";
+    const before = "Granted assembled context for this turn:\n<conversation_context>\n";
     const context = `recent context ${"c".repeat(800)}`;
     const request = "\n</conversation_context>\n\nCurrent user request:\nkeep this request";
     const hookAppend = "\n\nhook context survives";
@@ -432,7 +432,7 @@ describe("projectContextEngineAssemblyForCodex", () => {
     // Drive the non-positive-budget path with an emoji (surrogate pair) sitting
     // across the kept-tail cut. A naive code-unit slice would orphan the low
     // surrogate into U+FFFD; the boundary must stay on a whole code point.
-    const before = `OpenClaw assembled context for this turn:\n${"H".repeat(300)}`;
+    const before = `Granted assembled context for this turn:\n${"H".repeat(300)}`;
     const context = "older context ".repeat(20);
     // Emoji immediately before the user text so the cut can fall mid-pair.
     const prompt = `\u{1F600}${"U".repeat(60)}`;

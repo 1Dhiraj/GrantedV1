@@ -20,13 +20,13 @@ Reactions and threads are not supported.
 Install LINE before configuring the channel:
 
 ```bash
-openclaw plugins install @granted/line
+granted plugins install @granted/line
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-openclaw plugins install ./path/to/local/line-plugin
+granted plugins install ./path/to/local/line-plugin
 ```
 
 ## Setup
@@ -214,8 +214,8 @@ Direct messages default to pairing. Unknown senders get a pairing code and their
 messages are ignored until approved:
 
 ```bash
-openclaw pairing list line
-openclaw pairing approve line <CODE>
+granted pairing list line
+granted pairing approve line <CODE>
 ```
 
 Allowlists and policies:
@@ -240,9 +240,9 @@ LINE IDs are case-sensitive. Valid IDs look like:
 
 ## Directory
 
-`openclaw directory peers list --channel line` lists user IDs from the selected
+`granted directory peers list --channel line` lists user IDs from the selected
 account's `allowFrom`, `groupAllowFrom`, and per-group `allowFrom` entries.
-`openclaw directory groups list --channel line` lists configured group and room
+`granted directory groups list --channel line` lists configured group and room
 IDs. Prefixes normalize to sendable IDs, duplicates appear once, and `*` and
 `accessGroup:<name>` entries are omitted. Use `--account`, `--query`, `--limit`,
 and `--json` as described in [Directory](/cli/directory).
@@ -418,18 +418,18 @@ link-local, and private-network targets.
   and that the gateway is reachable from LINE.
 - **Media download errors:** raise `channels.line.mediaMaxMb` if media exceeds the
   default limit.
-- **Bot silently skips messages (events dead-lettered):** `openclaw logs` shows
+- **Bot silently skips messages (events dead-lettered):** `granted logs` shows
   `line: spooled update <id> ... dead-lettered` lines with the failure reason.
-  Inspect with `openclaw channels dead-letters list --channel line --account default`
+  Inspect with `granted channels dead-letters list --channel line --account default`
   and check the failure reason before recovering: `resubmit` re-enqueues by event
   id without checking why the event failed. After fixing the cause of a failure
   with no committed side effects (for example `retry-limit-exceeded` after a
   provider outage), re-enqueue one event with
-  `openclaw channels dead-letters resubmit <event-id> --channel line --account default`.
+  `granted channels dead-letters resubmit <event-id> --channel line --account default`.
   Never resubmit a `delivery-side-effects-committed` event: that reason means the
   delivery already adopted an agent turn or consumed its reply token, so
   re-enqueuing repeats the committed work — for example a second visible reply.
-  `openclaw health` reports dead-letter counts and `openclaw doctor` names
+  `granted health` reports dead-letter counts and `granted doctor` names
   affected accounts.
 - **`handler-timeout` retries:** the delivery was claimed but neither reached
   agent-turn adoption nor reported deferred progress for 5 minutes. This is a
@@ -438,12 +438,12 @@ link-local, and private-network targets.
   cause and is never cut off by it. Look at the dispatch path instead: the
   delivery preparation that runs between claim and adoption, such as inbound
   media download or a Gateway that is not accepting new work. This does not
-  dead-letter the event; `openclaw logs` shows
+  dead-letter the event; `granted logs` shows
   `applying retry policy (handler-timeout)` and the event waits out its backoff
   with `handler-timeout` as its last error. A stall that keeps repeating is what
   eventually exhausts the retry limit, so an event that stalls its way to a dead
   letter lands under `retry-limit-exceeded`, not under a timeout reason. Check
-  `openclaw logs --follow` around the affected event id.
+  `granted logs --follow` around the affected event id.
 
 ## Related
 

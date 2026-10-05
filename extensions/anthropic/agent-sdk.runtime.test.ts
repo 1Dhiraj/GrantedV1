@@ -59,18 +59,18 @@ function createContext(
     },
     prompt: "Remember the launch code.",
     modelId: "claude-sonnet-4-6",
-    systemPrompt: "Follow the OpenClaw execution policy.",
+    systemPrompt: "Follow the Granted execution policy.",
     sessionId: SESSION_ID,
     useResume: false,
     timeoutMs: 30_000,
     executionMode: "agent",
     requestToolPermission: vi.fn(async () => ({
       behavior: "deny" as const,
-      message: "OpenClaw denied this action.",
+      message: "Granted denied this action.",
     })),
     requestUserInput: vi.fn(async () => ({
       status: "cancelled" as const,
-      message: "OpenClaw cancelled this question.",
+      message: "Granted cancelled this question.",
     })),
     ...overrides,
   };
@@ -360,7 +360,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
     [
       {
         name: "denies",
-        decision: { behavior: "deny" as const, message: "OpenClaw denied restricted Bash." },
+        decision: { behavior: "deny" as const, message: "Granted denied restricted Bash." },
       },
       {
         name: "allows",
@@ -391,7 +391,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
         ...(credential ? { authCredential: credential } : {}),
       } as Parameters<NonNullable<typeof backend.prepareExecution>>[0]);
       if (!prepared?.execute) {
-        throw new Error("Restricted native Bash must use OpenClaw's SDK approval owner.");
+        throw new Error("Restricted native Bash must use Granted's SDK approval owner.");
       }
 
       const args = backend.resolveExecutionArgs?.({
@@ -496,7 +496,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
   it.each([
     {
       name: "the caller's cancellation reason",
-      reason: new Error("OpenClaw cancelled the run before SDK startup."),
+      reason: new Error("Granted cancelled the run before SDK startup."),
     },
     { name: "the default AbortError", reason: undefined },
   ])("preserves $name without starting an already-aborted SDK run", async ({ reason }) => {
@@ -511,7 +511,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
 
   it("rejects cancellation that races the SDK's asynchronous module load", async () => {
     const controller = new AbortController();
-    const reason = new Error("OpenClaw cancelled the run while the SDK was loading.");
+    const reason = new Error("Granted cancelled the run while the SDK was loading.");
     const running = collect(createContext({ abortSignal: controller.signal }));
 
     controller.abort(reason);
@@ -708,7 +708,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
     const changedCapability = createLiveCapability("changed-system-prompt", shared);
     const changed = collect(
       createContext({
-        systemPrompt: "A changed authoritative OpenClaw system prompt.",
+        systemPrompt: "A changed authoritative Granted system prompt.",
         useResume: true,
         liveSession: changedCapability,
       }),
@@ -725,7 +725,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
       expect.objectContaining({
         resume: SESSION_ID,
         systemPrompt: expect.objectContaining({
-          append: "A changed authoritative OpenClaw system prompt.",
+          append: "A changed authoritative Granted system prompt.",
         }),
       }),
     );
@@ -733,7 +733,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
 
   it("refuses to start a live process when its owner will not activate the admitted turn", async () => {
     const capability = createLiveCapability();
-    const reason = new Error("OpenClaw rejected a stale execution owner.");
+    const reason = new Error("Granted rejected a stale execution owner.");
     vi.spyOn(capability, "activate").mockImplementation(() => {
       throw reason;
     });
@@ -755,7 +755,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
     );
     await vi.waitFor(() => expect(queryMock).toHaveBeenCalledOnce());
     const canUseTool = sdkNativeTool(sdkOptions());
-    const reason = new Error("OpenClaw cancelled the active warm turn.");
+    const reason = new Error("Granted cancelled the active warm turn.");
 
     controller.abort(reason);
 
@@ -771,7 +771,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
           toolUseID: "cancelled-native-tool",
         },
       ),
-    ).resolves.toEqual({ behavior: "deny", message: "The OpenClaw run is no longer active." });
+    ).resolves.toEqual({ behavior: "deny", message: "The Granted run is no longer active." });
 
     const resumed = collect(
       createContext({
@@ -819,7 +819,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
 
     await expect(canUseTool("Bash", { command: "echo stale" }, firstRequest)).resolves.toEqual({
       behavior: "deny",
-      message: "The OpenClaw run is no longer active.",
+      message: "The Granted run is no longer active.",
     });
 
     const second = collect(
@@ -878,7 +878,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
 
     await expect(approval).resolves.toEqual({
       behavior: "deny",
-      message: "The OpenClaw run is no longer active.",
+      message: "The Granted run is no longer active.",
     });
   });
 
@@ -1018,7 +1018,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
     expect(queryMock).not.toHaveBeenCalled();
   });
 
-  it("expands wildcard MCP grants into only the exact tools admitted by OpenClaw", async () => {
+  it("expands wildcard MCP grants into only the exact tools admitted by Granted", async () => {
     useSdkMessages();
 
     await collect(

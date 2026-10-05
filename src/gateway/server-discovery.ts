@@ -13,16 +13,16 @@ type ResolveBonjourCliPathOptions = {
   statSync?: (path: string) => fs.Stats;
 };
 
-/** Formats the Bonjour instance name while preserving user-provided OpenClaw names. */
+/** Formats the Bonjour instance name while preserving user-provided Granted names. */
 export function formatBonjourInstanceName(displayName: string) {
   const trimmed = displayName.trim();
   if (!trimmed) {
-    return "OpenClaw";
+    return "Granted";
   }
   if (/openclaw/i.test(trimmed)) {
     return trimmed;
   }
-  return `${trimmed} (OpenClaw)`;
+  return `${trimmed} (Granted)`;
 }
 
 /** Resolves the CLI path advertised to Bonjour clients, preferring explicit env config. */

@@ -6,9 +6,9 @@ read_when:
 title: "Fleet"
 ---
 
-# `openclaw fleet`
+# `granted fleet`
 
-`openclaw fleet` manages complete OpenClaw instances called **cells**. Each cell has its own Gateway, state, credentials, channel accounts, container, and loopback-only host port. Use one cell for each tenant trust boundary; do not use one shared Gateway as a hostile multi-tenant boundary.
+`granted fleet` manages complete OpenClaw instances called **cells**. Each cell has its own Gateway, state, credentials, channel accounts, container, and loopback-only host port. Use one cell for each tenant trust boundary; do not use one shared Gateway as a hostile multi-tenant boundary.
 
 Fleet is **experimental**. Command names, flags, output shapes, and the container profile can change between releases without a deprecation window.
 
@@ -19,9 +19,9 @@ Fleet is tested on Linux and macOS hosts. Windows hosts are currently untested.
 ## Quick start
 
 ```bash
-openclaw fleet create acme
-openclaw fleet status acme
-openclaw fleet list
+granted fleet create acme
+granted fleet status acme
+granted fleet list
 ```
 
 `fleet create` prints the generated Gateway token once along with the cell URL. Store the token immediately, then configure each tenant's channel accounts inside that tenant's cell.
@@ -43,13 +43,13 @@ The ID becomes part of the container name: `openclaw-cell-<tenant>`.
 Create a cell and start it:
 
 ```bash
-openclaw fleet create acme
+granted fleet create acme
 ```
 
 Create a Podman cell on a fixed port without starting it:
 
 ```bash
-openclaw fleet create acme \
+granted fleet create acme \
   --runtime podman \
   --port 19125 \
   --no-start
@@ -58,7 +58,7 @@ openclaw fleet create acme \
 Pass tenant-specific environment variables by repeating `--env`:
 
 ```bash
-openclaw fleet create acme \
+granted fleet create acme \
   --env TZ=America/Los_Angeles \
   --env OPENCLAW_DISABLE_BONJOUR=1
 ```
@@ -121,9 +121,9 @@ For Docker, keep the bridge mode and enforce outbound policy with host firewall 
 List cells in tenant-ID order:
 
 ```bash
-openclaw fleet list
-openclaw fleet ls
-openclaw fleet list --json
+granted fleet list
+granted fleet ls
+granted fleet list --json
 ```
 
 The table contains:
@@ -143,8 +143,8 @@ Registry rows remain visible when Docker or Podman is unavailable; only live sta
 Inspect one cell:
 
 ```bash
-openclaw fleet status acme
-openclaw fleet status acme --json
+granted fleet status acme
+granted fleet status acme --json
 ```
 
 Status combines the fleet registry row, live container inspection, and a short best-effort request to:
@@ -160,10 +160,10 @@ The health result is `ok`, `failed`, or `skipped`. `/healthz` proves Gateway liv
 Stream a cell's container logs directly to the terminal:
 
 ```bash
-openclaw fleet logs acme
-openclaw fleet logs acme --follow
-openclaw fleet logs acme --tail 200
-openclaw fleet logs acme --since 10m
+granted fleet logs acme
+granted fleet logs acme --follow
+granted fleet logs acme --tail 200
+granted fleet logs acme --since 10m
 ```
 
 Fleet verifies the registered container's ownership labels before reading any logs, so it refuses a foreign container using the expected cell name. The stream is pinned to that inspected container ID, so a concurrent replacement cannot redirect it to a newer generation. Press Ctrl-C to end `--follow` without treating the operator stop as a command failure. Log output is piped through a redaction filter that replaces the cell's current Gateway token with `<redacted>` before anything reaches the terminal.
@@ -175,9 +175,9 @@ Fleet verifies the registered container's ownership labels before reading any lo
 Control an existing cell with its recorded runtime:
 
 ```bash
-openclaw fleet start acme
-openclaw fleet stop acme
-openclaw fleet restart acme
+granted fleet start acme
+granted fleet stop acme
+granted fleet restart acme
 ```
 
 These commands operate on the registered container name. They fail if the tenant is unknown or the recorded runtime cannot perform the operation.
@@ -187,13 +187,13 @@ These commands operate on the registered container name. They fail if the tenant
 Re-pull the recorded image and replace the cell container:
 
 ```bash
-openclaw fleet upgrade acme
+granted fleet upgrade acme
 ```
 
 Move the cell to another image:
 
 ```bash
-openclaw fleet upgrade acme --image ghcr.io/openclaw/openclaw:<version>
+granted fleet upgrade acme --image ghcr.io/openclaw/openclaw:<version>
 ```
 
 Upgrade pulls the target image, inspects the existing container and per-cell network, stops and removes the container, then recreates and starts it. The replacement preserves the same host port, data directories, per-cell bridge network, runtime profile, resource limits, restart policy, Fleet-managed environment, and values originally supplied with `--env`. Mounted state survives container replacement; image-default environment can change with the target image.
@@ -207,14 +207,14 @@ The Gateway token is intentionally not stored in the fleet registry. Before remo
 Back up one stopped cell:
 
 ```bash
-openclaw fleet stop acme
-openclaw fleet backup acme --out ./acme.tgz
+granted fleet stop acme
+granted fleet backup acme --out ./acme.tgz
 ```
 
 Restore that archive into the registered cell:
 
 ```bash
-openclaw fleet restore acme --from ./acme.tgz
+granted fleet restore acme --from ./acme.tgz
 ```
 
 These are host-operator-privileged commands. Archives contain tenant state and auth secrets, are created with mode `0600`, and must be stored like credentials. Backup refuses a running cell so SQLite state is captured consistently. Restore refuses a running cell unless `--force` is supplied, replaces only that tenant's state, rotates the Gateway token, and prints the new token once. Fleet backs up one tenant at a time; all-tenant backup is a separate operator action.
@@ -230,8 +230,8 @@ Archives contain regular files and directories only. Backup never follows or sto
 Audit every cell or one tenant without changing runtime or filesystem state:
 
 ```bash
-openclaw fleet doctor
-openclaw fleet doctor acme --json
+granted fleet doctor
+granted fleet doctor acme --json
 ```
 
 Doctor checks runtime locality, ownership labels, health, hardening, resource limits, loopback port binding, token presence, network ownership and egress mode, and private state-directory permissions. Warnings describe stopped cells or ownership differences; any failed finding sets a nonzero process exit code.
@@ -241,19 +241,19 @@ Doctor checks runtime locality, ownership labels, health, hardening, resource li
 Remove a stopped cell from the runtime and registry while keeping tenant data:
 
 ```bash
-openclaw fleet rm acme
+granted fleet rm acme
 ```
 
 A running container requires `--force`:
 
 ```bash
-openclaw fleet rm acme --force
+granted fleet rm acme --force
 ```
 
 Permanently remove the cell data as well:
 
 ```bash
-openclaw fleet rm acme --purge-data --force
+granted fleet rm acme --purge-data --force
 ```
 
 Fleet removes the cell container before removing its dedicated bridge network. `--purge-data` requires `--force`. Before recursive deletion, Fleet resolves both Fleet-owned roots and both per-tenant directories. Each target must be the exact expected tenant leaf, strictly inside its root, and not a symlink. These containment checks prevent a corrupted registry path or cross-tenant symlink from redirecting deletion elsewhere.
@@ -318,7 +318,7 @@ By default, `fleet create` generates a cryptographically random 32-character hex
 
 `--gateway-token` places a custom token in the local process arguments, which may be retained in shell history or visible in process listings. Prefer the generated token unless an existing secret-management workflow requires a supplied value.
 
-The token and every value passed with `--env` live in the container environment. Fleet writes them to a short-lived mode-`0600` environment file, passes only that file's path to Docker or Podman, and removes it after the runtime command finishes. Values explicitly typed in `openclaw fleet create --gateway-token ...` or `--env KEY=VALUE` can still be visible in the outer `openclaw` process arguments and shell history.
+The token and every value passed with `--env` live in the container environment. Fleet writes them to a short-lived mode-`0600` environment file, passes only that file's path to Docker or Podman, and removes it after the runtime command finishes. Values explicitly typed in `granted fleet create --gateway-token ...` or `--env KEY=VALUE` can still be visible in the outer `openclaw` process arguments and shell history.
 
 Container environment values are not hidden from the trusted host operator: Docker or Podman administrators can read them with container inspection. Fleet's "shown once" note describes normal CLI output, not resistance to a host administrator.
 

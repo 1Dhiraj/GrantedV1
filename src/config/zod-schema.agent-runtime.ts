@@ -562,6 +562,7 @@ const ToolExecSchema = z
 const ToolFsSchema = z
   .object({
     workspaceOnly: z.boolean().optional(),
+    allowPaths: z.array(z.string()).optional(),
   })
   .strict()
   .optional();
@@ -934,6 +935,12 @@ export const AgentEntrySchema = z
       .enum(["off", "minimal", "low", "medium", "high", "xhigh", "adaptive", "max", "ultra"])
       .optional(),
     verboseDefault: z.enum(["off", "on", "full"]).optional(),
+    maxToolSteps: z
+      .number()
+      .int()
+      .min(0)
+      .optional()
+      .describe("Per-agent tool-step cap for one run (0 = no cap)."),
     toolProgressDetail: z.enum(["explain", "raw"]).optional(),
     reasoningDefault: z.enum(["on", "off", "stream"]).optional(),
     fastModeDefault: z.union([z.boolean(), z.literal("auto")]).optional(),

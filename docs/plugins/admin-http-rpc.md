@@ -31,8 +31,8 @@ Enable the bundled plugin:
 <Tabs>
   <Tab title="CLI">
     ```bash
-    openclaw plugins enable admin-http-rpc
-    openclaw gateway restart
+    granted plugins enable admin-http-rpc
+    granted gateway restart
     ```
   </Tab>
   <Tab title="Config">
@@ -53,8 +53,8 @@ The route is registered during plugin startup, so restart the Gateway after chan
 Disable it when you no longer need the HTTP surface:
 
 ```bash
-openclaw plugins disable admin-http-rpc
-openclaw gateway restart
+granted plugins disable admin-http-rpc
+granted gateway restart
 ```
 
 ## Verify the route

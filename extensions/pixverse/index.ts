@@ -1,4 +1,4 @@
-// Pixverse plugin entrypoint registers its OpenClaw integration.
+// Pixverse plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { PIXVERSE_PROVIDER_ID } from "./constants.js";
 import { buildPixVerseApiKeyAuthMethod } from "./onboard.js";

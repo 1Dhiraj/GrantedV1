@@ -1,6 +1,6 @@
 /**
  * Stdio MCP launch config normalization.
- * Accepts OpenClaw and upstream MCP config field names, keeping only
+ * Accepts Granted and upstream MCP config field names, keeping only
  * command/args/env/cwd needed to spawn a stdio server.
  */
 import { isRecord } from "@granted/normalization-core/record-coerce";

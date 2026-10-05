@@ -23,7 +23,7 @@ OpenClaw connects to Zalo ClawBot through the catalog-listed external `@zalo-pla
 ## Install with onboard (recommended)
 
 ```bash
-openclaw onboard
+granted onboard
 ```
 
 Pick **Zalo ClawBot** from the channel menu. The wizard installs the plugin from the official catalog (integrity-verified), renders the login QR in the terminal, and finishes the channel once you scan it with the Zalo app.
@@ -35,7 +35,7 @@ To add the channel to an already-onboarded gateway:
 ### 1. Install the plugin
 
 ```bash
-openclaw plugins install "@zalo-platforms/openclaw-zaloclawbot@0.1.4"
+granted plugins install "@zalo-platforms/openclaw-zaloclawbot@0.1.4"
 ```
 
 Use the exact pinned version so OpenClaw verifies the package against the catalog integrity hash during install.
@@ -43,13 +43,13 @@ Use the exact pinned version so OpenClaw verifies the package against the catalo
 ### 2. Enable the plugin in config
 
 ```bash
-openclaw config set plugins.entries.openclaw-zaloclawbot.enabled true
+granted config set plugins.entries.openclaw-zaloclawbot.enabled true
 ```
 
 ### 3. Generate a QR code and log in
 
 ```bash
-openclaw channels login --channel openclaw-zaloclawbot
+granted channels login --channel openclaw-zaloclawbot
 ```
 
 Scan the terminal-rendered QR code with the Zalo mobile app, accept the Terms of Use inside the Zalo Mini App, and authorize the session.
@@ -57,7 +57,7 @@ Scan the terminal-rendered QR code with the Zalo mobile app, accept the Terms of
 ### 4. Restart the gateway
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 ## How it works

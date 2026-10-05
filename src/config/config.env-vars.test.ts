@@ -366,7 +366,7 @@ describe("config env vars", () => {
       );
 
       expect(merged.GRANTED_LOAD_SHELL_ENV).toBe("0");
-      expect(Object.keys(merged)).toEqual(["OpenClaw_Load_Shell_Env"]);
+      expect(Object.keys(merged)).toEqual(["Granted_Load_Shell_Env"]);
     } finally {
       platformSpy.mockRestore();
     }
@@ -417,7 +417,7 @@ describe("config env vars", () => {
 
   it("does not adopt a concurrent Windows case-only rename as config-owned", () => {
     const platformSpy = vi.spyOn(process, "platform", "get").mockReturnValue("win32");
-    const originalKey = "OpenClaw_Test_Windows_Owned_Case";
+    const originalKey = "Granted_Test_Windows_Owned_Case";
     const concurrentKey = originalKey.toLowerCase();
     const config = { env: { vars: { [originalKey]: "owned" } } };
     try {

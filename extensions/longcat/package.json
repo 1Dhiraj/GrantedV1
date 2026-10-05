@@ -1,7 +1,7 @@
 {
   "name": "@granted/longcat-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw LongCat provider plugin.",
+  "description": "Granted LongCat provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

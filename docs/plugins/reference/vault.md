@@ -16,7 +16,7 @@ HashiCorp Vault SecretRef provider integration.
 
 ## Surface
 
-CLI commands: `openclaw vault`
+CLI commands: `granted vault`
 
 ## Related docs
 

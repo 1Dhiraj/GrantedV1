@@ -24,8 +24,34 @@ type ModelCatalogPendingRequest = {
 
 const modelCatalogCache = new WeakMap<GatewayBrowserClient, Map<string, ModelCatalogCacheEntry>>();
 
-export function invalidateModelCatalogCache(client: GatewayBrowserClient): void {
-  modelCatalogCache.delete(client);
+function modelCatalogCacheKey(
+  agentId: string,
+  view: "configured" | "all",
+  preparedOnly: boolean,
+): string {
+  return `${agentId.trim()}\0${view}\0${preparedOnly ? "prepared" : "exact"}`;
+}
+
+export function invalidateModelCatalogCache(
+  client: GatewayBrowserClient,
+  opts?: { view?: "configured" | "all" },
+): void {
+  if (!opts?.view) {
+    modelCatalogCache.delete(client);
+    return;
+  }
+  const cache = modelCatalogCache.get(client);
+  if (!cache) {
+    return;
+  }
+  for (const key of cache.keys()) {
+    if (key.split("\0", 3)[1] === opts.view) {
+      cache.delete(key);
+    }
+  }
+  if (cache.size === 0) {
+    modelCatalogCache.delete(client);
+  }
 }
 
 function modelCatalogCacheFor(client: GatewayBrowserClient): Map<string, ModelCatalogCacheEntry> {
@@ -37,10 +63,22 @@ function modelCatalogCacheFor(client: GatewayBrowserClient): Map<string, ModelCa
   return cache;
 }
 
+/** Read the latest completed catalog without starting another Gateway request. */
+export function peekModelCatalog(
+  client: GatewayBrowserClient,
+  opts: { agentId: string; view?: "configured" | "all"; preparedOnly?: boolean },
+): ModelCatalogResult | undefined {
+  return modelCatalogCache
+    .get(client)
+    ?.get(modelCatalogCacheKey(opts.agentId, opts.view ?? "configured", opts.preparedOnly === true))
+    ?.result;
+}
+
 export async function loadModelCatalog(
   client: GatewayBrowserClient,
   opts: {
     agentId: string;
+    view?: "configured" | "all";
     preparedOnly?: boolean;
     refresh?: boolean;
     refreshIfDue?: boolean;
@@ -51,9 +89,10 @@ export async function loadModelCatalog(
   opts.signal?.throwIfAborted();
   const cache = modelCatalogCacheFor(client);
   const agentId = opts.agentId.trim();
+  const view = opts.view ?? "configured";
   const rejectOnFailure = opts?.rejectOnFailure === true;
-  const cacheKey = `${agentId}\0${opts.preparedOnly ? "prepared" : "exact"}`;
-  const preparedCacheKey = `${agentId}\0prepared`;
+  const cacheKey = modelCatalogCacheKey(agentId, view, opts.preparedOnly === true);
+  const preparedCacheKey = modelCatalogCacheKey(agentId, "configured", true);
   const cached = cache.get(cacheKey);
   const now = Date.now();
   // Abort is synchronous, but cache cleanup runs in a promise reaction. A
@@ -100,6 +139,7 @@ export async function loadModelCatalog(
       client,
       cached?.result,
       agentId,
+      view,
       opts.preparedOnly === true,
       refresh,
       rejectOnFailure,
@@ -119,7 +159,7 @@ export async function loadModelCatalog(
             result: result.value,
           };
           cache.set(cacheKey, entry);
-          if (result.fresh && opts.preparedOnly !== true) {
+          if (result.fresh && opts.preparedOnly !== true && view === "configured") {
             // An exact catalog supersedes the prepared projection. Reusing it for
             // automatic reads prevents route re-entry from restoring stale data.
             cache.set(preparedCacheKey, entry);
@@ -197,6 +237,7 @@ async function requestModels(
   client: GatewayBrowserClient,
   fallback: ModelCatalogResult | undefined,
   agentId: string,
+  view: "configured" | "all",
   preparedOnly: boolean,
   refresh: boolean,
   rejectOnFailure: boolean,
@@ -204,7 +245,7 @@ async function requestModels(
 ): Promise<{ value: ModelCatalogResult; fresh: boolean }> {
   try {
     const params = {
-      view: "configured",
+      view,
       agentId,
       ...(preparedOnly ? { preparedOnly: true } : {}),
       ...(refresh ? { refresh: true } : {}),

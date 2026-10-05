@@ -55,8 +55,8 @@ export function createNodeExecAliasDynamicTool(
     ...pinnedTool,
     name: CODEX_NODE_EXEC_DYNAMIC_TOOL_NAME,
     description: pinnedNode
-      ? "Run a shell command to completion on the OpenClaw configured remote node for this session. This tool always uses OpenClaw host=node internally and follows the existing node exec approval and allowlist policy. Remote-node background follow-up is unavailable. Use Codex's native shell for local app-server work."
-      : "Run a shell command to completion on an OpenClaw remote node. The sole connected node that can execute commands is selected automatically; select by name or id when several can. This tool always uses OpenClaw host=node internally and follows the existing node exec approval and allowlist policy. Remote-node background follow-up is unavailable. Use Codex's native shell for local app-server work.",
+      ? "Run a shell command to completion on the Granted configured remote node for this session. This tool always uses Granted host=node internally and follows the existing node exec approval and allowlist policy. Remote-node background follow-up is unavailable. Use Codex's native shell for local app-server work."
+      : "Run a shell command to completion on an Granted remote node. The sole connected node that can execute commands is selected automatically; select by name or id when several can. This tool always uses Granted host=node internally and follows the existing node exec approval and allowlist policy. Remote-node background follow-up is unavailable. Use Codex's native shell for local app-server work.",
     execute,
   };
 }
@@ -70,7 +70,7 @@ export function createGatewayExecProjection(
     kind: "exec",
     name: CODEX_GATEWAY_EXEC_DYNAMIC_TOOL_NAME,
     description:
-      "Run a shell command through OpenClaw on the Gateway host for OpenClaw-managed Gateway environment access, including Secret Store agent-readable environment values and protected egress sentinels. Native Codex shell remains preferred for ordinary local work. This tool always uses OpenClaw host=gateway internally and follows Gateway exec approval and allowlist policy.",
+      "Run a shell command through Granted on the Gateway host for Granted-managed Gateway environment access, including Secret Store agent-readable environment values and protected egress sentinels. Native Codex shell remains preferred for ordinary local work. This tool always uses Granted host=gateway internally and follows Gateway exec approval and allowlist policy.",
     followupText: params.processAliasAvailable
       ? "Use gateway_process (list/poll/log/write/send-keys/submit/paste/kill/clear/remove) for follow-up."
       : "Background session follow-up is unavailable because gateway_process is not exposed. Rerun without background=true and set yieldMs high enough to wait for completion.",
@@ -86,6 +86,6 @@ export function createGatewayProcessProjection(
     kind: "process",
     name: CODEX_GATEWAY_PROCESS_DYNAMIC_TOOL_NAME,
     description:
-      "Manage background shell sessions in the existing per-session OpenClaw process scope: list, poll, log, write, send-keys, submit, paste, kill, clear, or remove. Use for gateway_exec follow-up; use native Codex shell session handling for ordinary local work.",
+      "Manage background shell sessions in the existing per-session Granted process scope: list, poll, log, write, send-keys, submit, paste, kill, clear, or remove. Use for gateway_exec follow-up; use native Codex shell session handling for ordinary local work.",
   });
 }

@@ -2,7 +2,7 @@
   "name": "@granted/deepgram-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Deepgram media-understanding provider",
+  "description": "Granted Deepgram media-understanding provider",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

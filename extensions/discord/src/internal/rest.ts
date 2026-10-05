@@ -76,7 +76,7 @@ const defaultOptions = {
   tokenHeader: "Bot" as const,
   baseUrl: "https://discord.com/api",
   apiVersion: 10,
-  userAgent: "OpenClaw Discord",
+  userAgent: "Granted Discord",
   timeout: 15_000,
   queueRequests: true,
   maxQueueSize: 1000,

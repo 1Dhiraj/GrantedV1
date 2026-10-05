@@ -61,7 +61,7 @@ approval.
 ## Install
 
 ```bash
-openclaw plugins install @granted/buzz
+granted plugins install @granted/buzz
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -71,7 +71,7 @@ Restart the Gateway after installing or updating the plugin.
 Run:
 
 ```bash
-openclaw channels add --channel buzz
+granted channels add --channel buzz
 ```
 
 The setup flow walks through the following steps:
@@ -196,7 +196,7 @@ Gateway solely to send an ephemeral event.
 Humans and automations can test the same outbound path from the CLI:
 
 ```bash
-openclaw message send \
+granted message send \
   --channel buzz \
   --target buzz:<ROOM_UUID> \
   --message "Hello from OpenClaw"
@@ -212,7 +212,7 @@ relay-signed membership and bounded profile snapshot.
 For an explicit identity, include its NIP-27 reference in the message:
 
 ```bash
-openclaw message send \
+granted message send \
   --channel buzz \
   --target engineering \
   --message "Please review this, nostr:npub1..."
@@ -246,10 +246,10 @@ identity.
 Inspect the same data from the CLI:
 
 ```bash
-openclaw directory self --channel buzz
-openclaw directory peers list --channel buzz --query "alice"
-openclaw directory groups list --channel buzz --query "engineering"
-openclaw directory groups members \
+granted directory self --channel buzz
+granted directory peers list --channel buzz --query "alice"
+granted directory groups list --channel buzz --query "engineering"
+granted directory groups members \
   --channel buzz \
   --group-id buzz:<ROOM_UUID>
 ```
@@ -476,7 +476,7 @@ an account-level `""` suppresses the inherited root prefix.
 ### Multiple bot identities
 
 One Gateway can run independent Buzz accounts, each with its own relay, bot key,
-authorization value, and selected rooms. Run `openclaw channels add --channel buzz`
+authorization value, and selected rooms. Run `granted channels add --channel buzz`
 and choose a new account to configure it interactively. Adding a named account
 does not move or replace the existing root identity.
 
@@ -542,7 +542,7 @@ export BUZZ_PRIVATE_KEY="nsec1..."
 With `BUZZ_PRIVATE_KEY` set, non-interactive setup can also save an account name:
 
 ```bash
-openclaw channels add --channel buzz --name "Support bot" \
+granted channels add --channel buzz --name "Support bot" \
   --relay-url wss://buzz.example.com --use-env
 ```
 
@@ -573,7 +573,7 @@ buzz-admin generate-key
 Run the authenticated channel probe:
 
 ```bash
-openclaw channels status --channel buzz --probe
+granted channels status --channel buzz --probe
 ```
 
 A successful probe confirms that the bot can authenticate and that Buzz reports
@@ -582,7 +582,7 @@ the selected room with the **Bot** role.
 Then send a real message:
 
 ```bash
-openclaw message send \
+granted message send \
   --channel buzz \
   --target buzz:<ROOM_UUID> \
   --message "OpenClaw Buzz test"
@@ -597,7 +597,7 @@ Source checkouts can exercise the production Buzz channel path with two
 dedicated test identities:
 
 ```bash
-pnpm openclaw qa buzz \
+pnpm granted qa buzz \
   --credential-file /secure/path/buzz-qa-credentials.json \
   --provider-mode mock-openai
 ```
@@ -649,7 +649,7 @@ These follow-up areas are planned but are not part of the current plugin:
 | Authentication fails                         | Check the relay URL, bot private key, closed-relay membership, and any authorization value supplied by the operator. |
 | A message cannot be sent                     | Confirm the bot is a room member with the **Bot** role and that the UUID is configured.                              |
 | The bot receives messages but does not reply | Confirm the sender is still a room member, then check the optional sender allowlist and mention requirement.         |
-| Setup says the Gateway is not running        | Start it with `openclaw gateway`, then run `openclaw channels status --probe`.                                       |
+| Setup says the Gateway is not running        | Start it with `granted gateway`, then run `granted channels status --probe`.                                         |
 | Automatic room discovery expires             | Grant the Bot role, then choose Retry; the same identity remains active.                                             |
 
 ## Related

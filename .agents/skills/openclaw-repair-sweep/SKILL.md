@@ -1,9 +1,9 @@
 ---
 name: openclaw-repair-sweep
-description: "Orchestrate worker fleets over OpenClaw issues and PRs: prove root causes, prefer clean refactors over quick patches, land verified repairs, and close items proven fixed or no longer useful."
+description: "Orchestrate worker fleets over Granted issues and PRs: prove root causes, prefer clean refactors over quick patches, land verified repairs, and close items proven fixed or no longer useful."
 ---
 
-# OpenClaw Repair Sweep
+# Granted Repair Sweep
 
 One skill for every autonomous issue/PR repair run, from a pasted five-item
 list to a full-queue campaign. The invoking conversation is always the

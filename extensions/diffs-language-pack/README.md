@@ -1,6 +1,6 @@
 # @granted/diffs-language-pack
 
-Official extended syntax highlighting pack for the OpenClaw Diffs plugin.
+Official extended syntax highlighting pack for the Granted Diffs plugin.
 
 The base `@granted/diffs` plugin ships a curated language set. Install this package when you want the full Shiki language catalog available in rendered diff viewers and diff image/PDF output.
 
@@ -9,7 +9,7 @@ The pack adds highlighting for languages outside the default diffs viewer set, i
 ## Install
 
 ```bash
-openclaw plugins install @granted/diffs-language-pack
+granted plugins install @granted/diffs-language-pack
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -27,4 +27,4 @@ Install `@granted/diffs` first, then install this language pack. The language pa
 
 - Plugin id: `diffs-language-pack`
 - Package: `@granted/diffs-language-pack`
-- Minimum OpenClaw host: `2026.5.27`
+- Minimum Granted host: `2026.5.27`

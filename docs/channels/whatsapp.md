@@ -9,10 +9,10 @@ Status: production-ready via WhatsApp Web (Baileys). The gateway owns the linked
 
 ## Install
 
-`openclaw onboard` and `openclaw channels add --channel whatsapp` prompt to install the plugin the first time you select it; `openclaw channels login --channel whatsapp` offers the same install flow if the plugin is missing. Dev checkouts use the local plugin path; stable/beta installs `@granted/whatsapp` from ClawHub first, falling back to npm. The WhatsApp runtime ships outside the core OpenClaw npm package, so its runtime dependencies stay with the external plugin. Manual install:
+`granted onboard` and `granted channels add --channel whatsapp` prompt to install the plugin the first time you select it; `granted channels login --channel whatsapp` offers the same install flow if the plugin is missing. Dev checkouts use the local plugin path; stable/beta installs `@granted/whatsapp` from ClawHub first, falling back to npm. The WhatsApp runtime ships outside the core OpenClaw npm package, so its runtime dependencies stay with the external plugin. Manual install:
 
 ```bash
-openclaw plugins install clawhub:@granted/whatsapp
+granted plugins install clawhub:@granted/whatsapp
 ```
 
 Use the bare npm package (`@granted/whatsapp`) only for the registry fallback; pin an exact version only for a reproducible install.
@@ -52,7 +52,7 @@ Use the bare npm package (`@granted/whatsapp`) only for the registry fallback; p
   <Step title="Link WhatsApp (QR)">
 
 ```bash
-openclaw channels login --channel whatsapp
+granted channels login --channel whatsapp
 ```
 
     Login is QR-only. On remote or headless hosts, have a reliable path to deliver the live QR to the phone before starting login; terminal-rendered QRs, screenshots, or chat attachments can expire in transit.
@@ -60,14 +60,14 @@ openclaw channels login --channel whatsapp
     For a specific account:
 
 ```bash
-openclaw channels login --channel whatsapp --account work
+granted channels login --channel whatsapp --account work
 ```
 
     To attach an existing/custom auth directory before login:
 
 ```bash
-openclaw channels add --channel whatsapp --account work --auth-dir /path/to/wa-auth
-openclaw channels login --channel whatsapp --account work
+granted channels add --channel whatsapp --account work --auth-dir /path/to/wa-auth
+granted channels login --channel whatsapp --account work
 ```
 
   </Step>
@@ -75,7 +75,7 @@ openclaw channels login --channel whatsapp --account work
   <Step title="Start the gateway">
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
   </Step>
@@ -86,8 +86,8 @@ openclaw gateway
     and approve the sender. If you prefer the CLI:
 
 ```bash
-openclaw pairing list whatsapp
-openclaw pairing approve whatsapp <CODE>
+granted pairing list whatsapp
+granted pairing approve whatsapp <CODE>
 ```
 
     DM access requests expire after 1 hour; pending requests are capped at 3 per
@@ -532,7 +532,7 @@ opt-in status surface described above.
   </Accordion>
 
   <Accordion title="Logout behavior">
-    `openclaw channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account. When a gateway is reachable, logout stops the live listener for that account first, so the linked session stops receiving messages before the next restart. `openclaw channels remove --channel whatsapp` also stops the live listener before disabling or deleting account config.
+    `granted channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account. When a gateway is reachable, logout stops the live listener for that account first, so the linked session stops receiving messages before the next restart. `granted channels remove --channel whatsapp` also stops the live listener before disabling or deleting account config.
 
     In legacy auth directories, `oauth.json` is preserved while Baileys auth files are removed.
 
@@ -552,8 +552,8 @@ opt-in status surface described above.
     Symptom: channel status reports not linked.
 
 ```bash
-openclaw channels login --channel whatsapp
-openclaw channels status
+granted channels login --channel whatsapp
+granted channels status
 ```
 
   </Accordion>
@@ -566,10 +566,10 @@ openclaw channels status
     Fix:
 
     ```bash
-    openclaw channels status --probe
-    openclaw doctor
-    openclaw logs --follow
-    openclaw gateway status
+    granted channels status --probe
+    granted doctor
+    granted logs --follow
+    granted gateway status
     ```
 
     If the loop persists after host connectivity and timing are fixed, back up the account auth directory and re-link:
@@ -577,16 +577,16 @@ openclaw channels status
     ```bash
     cp -a ~/.openclaw/credentials/whatsapp/<accountId> \
       ~/.openclaw/credentials/whatsapp/<accountId>.bak
-    openclaw channels logout --channel whatsapp --account <accountId>
-    openclaw channels login --channel whatsapp --account <accountId>
+    granted channels logout --channel whatsapp --account <accountId>
+    granted channels login --channel whatsapp --account <accountId>
     ```
 
-    If `~/.openclaw/logs/whatsapp-health.log` says `Gateway inactive` but `openclaw gateway status` and `openclaw channels status --probe` both show healthy, run `openclaw doctor`. On Linux, doctor warns about legacy crontab entries invoking the retired `~/.openclaw/bin/ensure-whatsapp.sh` script; remove those entries with `crontab -e` — cron can lack the systemd user-bus environment and make that old script misreport gateway health.
+    If `~/.openclaw/logs/whatsapp-health.log` says `Gateway inactive` but `granted gateway status` and `granted channels status --probe` both show healthy, run `granted doctor`. On Linux, doctor warns about legacy crontab entries invoking the retired `~/.openclaw/bin/ensure-whatsapp.sh` script; remove those entries with `crontab -e` — cron can lack the systemd user-bus environment and make that old script misreport gateway health.
 
   </Accordion>
 
   <Accordion title="QR login times out behind a proxy">
-    Symptom: `openclaw channels login --channel whatsapp` fails before showing a usable QR with `status=408 Request Time-out` or a TLS socket disconnect.
+    Symptom: `granted channels login --channel whatsapp` fails before showing a usable QR with `status=408 Request Time-out` or a TLS socket disconnect.
 
     WhatsApp Web login uses the gateway host's standard proxy environment (`HTTPS_PROXY`, `HTTP_PROXY`, lowercase variants, `NO_PROXY`). Verify the gateway process inherits the proxy env and that `NO_PROXY` does not match `mmg.whatsapp.net`.
 

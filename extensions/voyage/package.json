@@ -1,7 +1,7 @@
 {
   "name": "@granted/voyage-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Voyage embedding provider plugin.",
+  "description": "Granted Voyage embedding provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

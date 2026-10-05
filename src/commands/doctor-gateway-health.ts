@@ -64,11 +64,11 @@ function noteCliGatewayVersionSkew(status: StatusSummary | undefined): void {
   }
   note(
     [
-      `This command is OpenClaw ${VERSION}; the running Gateway is OpenClaw ${gatewayVersion}.`,
+      `This command is Granted ${VERSION}; the running Gateway is Granted ${gatewayVersion}.`,
       "Check `openclaw --version`, `which openclaw`, and `openclaw gateway status --deep`.",
-      "If this mismatch is unexpected, update PATH so `openclaw` points to the version you want, or reinstall the Gateway service from that same OpenClaw install.",
+      "If this mismatch is unexpected, update PATH so `openclaw` points to the version you want, or reinstall the Gateway service from that same Granted install.",
     ].join("\n"),
-    "OpenClaw version mismatch",
+    "Granted version mismatch",
   );
 }
 

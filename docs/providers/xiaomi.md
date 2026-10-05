@@ -29,8 +29,8 @@ Xiaomi MiMo is the API platform for **MiMo** models. The official external
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/xiaomi-provider
-    openclaw gateway restart
+    granted plugins install @granted/xiaomi-provider
+    granted gateway restart
     ```
   </Step>
 
@@ -42,27 +42,27 @@ Xiaomi MiMo is the API platform for **MiMo** models. The official external
     Pay-as-you-go:
 
     ```bash
-    openclaw onboard --auth-choice xiaomi-api-key
+    granted onboard --auth-choice xiaomi-api-key
     ```
 
     Token Plan:
 
     ```bash
-    openclaw onboard --auth-choice xiaomi-token-plan-sgp
+    granted onboard --auth-choice xiaomi-token-plan-sgp
     ```
 
     Or pass the keys directly:
 
     ```bash
-    openclaw onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
-    openclaw onboard --auth-choice xiaomi-token-plan-sgp --xiaomi-token-plan-api-key "$XIAOMI_TOKEN_PLAN_API_KEY"
+    granted onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
+    granted onboard --auth-choice xiaomi-token-plan-sgp --xiaomi-token-plan-api-key "$XIAOMI_TOKEN_PLAN_API_KEY"
     ```
 
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider xiaomi
-    openclaw models list --provider xiaomi-token-plan
+    granted models list --provider xiaomi
+    granted models list --provider xiaomi-token-plan
     ```
   </Step>
 </Steps>

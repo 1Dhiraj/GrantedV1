@@ -309,7 +309,7 @@ export class DiscordRealtimeVoiceSession implements VoiceRealtimeSession {
       base:
         this.realtimeConfig?.instructions ??
         [
-          "You are OpenClaw's Discord voice interface.",
+          "You are Granted's Discord voice interface.",
           "Keep spoken replies concise, natural, and suitable for a live Discord voice channel.",
         ].join("\n"),
       isAgentProxy,

@@ -1,13 +1,13 @@
 # @granted/tokenjuice
 
-Official Tokenjuice output compaction plugin for OpenClaw.
+Official Tokenjuice output compaction plugin for Granted.
 
 Tokenjuice compacts noisy `exec` and `bash` tool results after commands run, before the result is fed back into the active agent session. It does not rewrite commands, rerun commands, or change exit codes.
 
 ## Install
 
 ```bash
-openclaw plugins install @granted/tokenjuice
+granted plugins install @granted/tokenjuice
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -15,13 +15,13 @@ Restart the Gateway after installing or updating the plugin.
 ## Enable
 
 ```bash
-openclaw config set plugins.entries.tokenjuice.enabled true
+granted config set plugins.entries.tokenjuice.enabled true
 ```
 
 Equivalent:
 
 ```bash
-openclaw plugins enable tokenjuice
+granted plugins enable tokenjuice
 ```
 
 ## Docs
@@ -32,4 +32,4 @@ openclaw plugins enable tokenjuice
 
 - Plugin id: `tokenjuice`
 - Package: `@granted/tokenjuice`
-- Minimum OpenClaw host: `2026.5.28`
+- Minimum Granted host: `2026.5.28`

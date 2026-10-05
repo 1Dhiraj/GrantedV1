@@ -24,8 +24,8 @@ read_when:
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/groq-provider
-openclaw gateway restart
+granted plugins install @granted/groq-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -52,7 +52,7 @@ export GROQ_API_KEY=gsk_...
   </Step>
   <Step title="Verify the catalog is reachable">
     ```bash
-    openclaw models list --provider groq
+    granted models list --provider groq
     ```
   </Step>
 </Steps>
@@ -72,7 +72,7 @@ export GROQ_API_KEY=gsk_...
 
 ## Built-in catalog
 
-OpenClaw ships a manifest-backed Groq catalog with both reasoning and non-reasoning entries. Run `openclaw models list --provider groq` to see the static rows for your installed version, or check [console.groq.com/docs/models](https://console.groq.com/docs/models) for Groq's authoritative list.
+OpenClaw ships a manifest-backed Groq catalog with both reasoning and non-reasoning entries. Run `granted models list --provider groq` to see the static rows for your installed version, or check [console.groq.com/docs/models](https://console.groq.com/docs/models) for Groq's authoritative list.
 
 | Model ref                           | Name               | Reasoning | Input        | Context |
 | ----------------------------------- | ------------------ | --------- | ------------ | ------- |
@@ -86,7 +86,7 @@ OpenClaw ships a manifest-backed Groq catalog with both reasoning and non-reason
 The manifest also retains `groq/llama-3.1-8b-instant` and `groq/llama-3.3-70b-versatile` as hidden deprecated compatibility rows until Groq's August 16, 2026 shutdown. Use `groq/openai/gpt-oss-20b` and `groq/openai/gpt-oss-120b`, respectively, for new configurations.
 
 <Tip>
-  The catalog evolves with each OpenClaw release. `openclaw models list --provider groq` shows the rows known to your installed version; cross-check with [console.groq.com/docs/models](https://console.groq.com/docs/models) for newly-added or deprecated models.
+  The catalog evolves with each OpenClaw release. `granted models list --provider groq` shows the rows known to your installed version; cross-check with [console.groq.com/docs/models](https://console.groq.com/docs/models) for newly-added or deprecated models.
 </Tip>
 
 ## Reasoning models

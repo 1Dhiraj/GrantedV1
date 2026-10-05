@@ -1,4 +1,4 @@
-// OpenClaw-owned tool runtime contract helpers mock agent tool runtimes in SDK tests.
+// Granted-owned tool runtime contract helpers mock agent tool runtimes in SDK tests.
 import { vi } from "vitest";
 import { resetAdjustedParamsByToolCallIdForTests } from "../../../agents/agent-tools.before-tool-call.state.js";
 import { buildEmbeddedRunPayloads } from "../../../agents/embedded-agent-runner/run/payloads.js";

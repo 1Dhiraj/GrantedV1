@@ -70,8 +70,8 @@ The [operator scopes reference](https://docs.openclaw.ai/gateway/operator-scopes
 defines the complete method and approval-time rules.
 
 Do not create a per-client bearer token by hand-editing `openclaw.json`. Configure
-the Gateway's shared bootstrap authentication with `openclaw configure --section
-gateway` or the `openclaw onboard --gateway-auth ...` options, then let device
+the Gateway's shared bootstrap authentication with `granted configure --section
+gateway` or the `granted onboard --gateway-auth ...` options, then let device
 pairing mint the client token:
 
 1. Persist an Ed25519 device identity in the client.
@@ -83,8 +83,8 @@ pairing mint the client token:
    `connect.challenge` existed may use local time only on their no-challenge path.
 3. If the Gateway returns structured `PAIRING_REQUIRED` details, show the request
    ID and pause or retry according to `error.details.recommendedNextStep`.
-4. On the Gateway host, review the request with `openclaw devices list`, then
-   approve that exact current request with `openclaw devices approve <requestId>`.
+4. On the Gateway host, review the request with `granted devices list`, then
+   approve that exact current request with `granted devices approve <requestId>`.
 5. Reconnect and persist `hello-ok.auth.deviceToken` with the negotiated role and
    scopes. Use that device token for later connections.
 

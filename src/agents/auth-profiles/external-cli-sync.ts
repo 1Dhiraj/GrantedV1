@@ -279,7 +279,7 @@ function listScopedExternalCliProfileIds(params: {
   options?: ExternalCliAuthProfileOptions;
 }): string[] {
   const { options, providerConfig, store } = params;
-  // Bootstrap-only CLI state must not enter any sibling slot once OpenClaw
+  // Bootstrap-only CLI state must not enter any sibling slot once Granted
   // owns OAuth for the provider, regardless of how discovery was scoped.
   if (providerConfig.bootstrapOnly && hasManagedProviderOAuth(store, providerConfig)) {
     return [];

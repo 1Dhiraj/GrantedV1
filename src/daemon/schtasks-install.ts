@@ -299,7 +299,14 @@ export async function installScheduledTask(
   args: GatewayServiceInstallArgs,
 ): Promise<{ scriptPath: string }> {
   const installedCommand = await readScheduledTaskCommand(args.env).catch(() => null);
-  const fallbackEnv = resolveScheduledTaskActivationEnv(args.env, installedCommand?.environment);
+  // The environment being installed is layered over the one already on disk, so
+  // an install that states a port (`--port`) can locate and replace the running
+  // service. Reading only the installed script left a fresh install, or one whose
+  // script predates the rename, reporting "gateway port unknown" and failing.
+  const fallbackEnv = resolveScheduledTaskActivationEnv(
+    resolveScheduledTaskActivationEnv(args.env, installedCommand?.environment),
+    args.environment,
+  );
   // Capture ownership before repair changes the port/profile that locates the old process.
   const startupEntryInstalled = await isStartupEntryInstalled(fallbackEnv);
   let startupRuntime = startupEntryInstalled

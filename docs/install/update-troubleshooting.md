@@ -20,9 +20,9 @@ latest 32 investigated attempt identities, scoped to their Gateway and profile.
 Status checks, switching between those scopes, and reloading the same tab do not
 automatically send those investigations again. If the browser cannot read or
 save that history, the failure details remain visible without an automatic
-diagnostic request. Ask OpenClaw manually or run `openclaw triage` on the host.
+diagnostic request. Ask OpenClaw manually or run `granted triage` on the host.
 If the Gateway or agent is
-unavailable, use `openclaw triage` on the Gateway host. Automatic diagnosis keeps
+unavailable, use `granted triage` on the Gateway host. Automatic diagnosis keeps
 your unsent composer draft, including when its conversation session must restart.
 
 **Control UI → Settings → Updates** keeps the latest recorded attempt visible,
@@ -88,17 +88,17 @@ Run these commands on the Gateway host, not on the computer that merely has the
 Control UI open:
 
 ```bash
-openclaw update status --json
-openclaw triage
+granted update status --json
+granted triage
 ```
 
-Use `openclaw update --dry-run` to preview a new attempt. If a package update
+Use `granted update --dry-run` to preview a new attempt. If a package update
 failed after installation began, follow the installer recovery steps in
 [Updating](/install/updating#alternative-re-run-the-installer).
 
 If the installed CLI is damaged or the filesystem cannot write diagnostics,
 automatic triage reports that failure and preserves the original update error.
-Repair the installed command, then run `openclaw triage`. Managed updates retain
+Repair the installed command, then run `granted triage`. Managed updates retain
 their detached helper log even when the Gateway cannot start; the recorded
 outcome points to the available diagnostics or the failed collection attempt.
 Restart notices summarize the diagnostic outcome. Saved artifact paths and exact,
@@ -107,8 +107,8 @@ managed update helper log rather than the notice sent to an agent or channel.
 
 If the updater crashes or is killed after the Gateway stops, the Gateway stays
 stopped unless the updater completed and verified recovery. Inspect
-`openclaw gateway status --deep`, repair the reported dependency or installation
-failure, and rerun `openclaw update`. A failed Git dependency install restores
+`granted gateway status --deep`, repair the reported dependency or installation
+failure, and rerun `granted update`. A failed Git dependency install restores
 and rebuilds the previous runtime before allowing an automatic restart. Restarts
 after verified recovery still check the installed configuration, service ownership,
 and Gateway health.
@@ -128,6 +128,6 @@ process output:
 - OpenClaw version and install type;
 - update timestamp, target, phase, and reason code from Settings → Updates;
 - the bounded failure detail shown by **View details**;
-- `openclaw update status --json`;
-- `openclaw gateway status --deep --json`;
+- `granted update status --json`;
+- `granted gateway status --deep --json`;
 - relevant redacted Gateway log lines.

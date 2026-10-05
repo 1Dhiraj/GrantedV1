@@ -1,6 +1,9 @@
 // OpenAI model route membership shared by catalog and policy surfaces.
 
 export const OPENAI_CHAT_LATEST_MODEL_ID = "chat-latest";
+export const OPENAI_GPT_6_ASTRA_MODEL_ID = "gpt-6-astra";
+export const OPENAI_GPT_6_SOL_MODEL_ID = "gpt-6-sol";
+export const OPENAI_GPT_6_LUNA_MODEL_ID = "gpt-6-luna";
 export const OPENAI_GPT_56_MODEL_ID = "gpt-5.6";
 export const OPENAI_GPT_56_SOL_MODEL_ID = "gpt-5.6-sol";
 export const OPENAI_GPT_56_TERRA_MODEL_ID = "gpt-5.6-terra";
@@ -20,6 +23,12 @@ export const OPENAI_GPT_56_VARIANT_MODEL_IDS = [
   OPENAI_GPT_56_LUNA_MODEL_ID,
 ] as const;
 
+export const OPENAI_GPT_6_VARIANT_MODEL_IDS = [
+  OPENAI_GPT_6_ASTRA_MODEL_ID,
+  OPENAI_GPT_6_SOL_MODEL_ID,
+  OPENAI_GPT_6_LUNA_MODEL_ID,
+] as const;
+
 const OPENAI_CODEX_REASONING_EFFORT_ORDER = [
   "low",
   "medium",
@@ -34,6 +43,9 @@ const OPENAI_CODEX_REASONING_EFFORTS_BY_MODEL = new Map<
   string,
   readonly OpenAICodexReasoningEffort[]
 >([
+  [OPENAI_GPT_6_ASTRA_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER],
+  [OPENAI_GPT_6_SOL_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER],
+  [OPENAI_GPT_6_LUNA_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER.slice(0, -1)],
   [OPENAI_GPT_56_SOL_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER],
   [OPENAI_GPT_56_TERRA_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER],
   [OPENAI_GPT_56_LUNA_MODEL_ID, OPENAI_CODEX_REASONING_EFFORT_ORDER.slice(0, -1)],
@@ -41,6 +53,7 @@ const OPENAI_CODEX_REASONING_EFFORTS_BY_MODEL = new Map<
 
 /** Models with known first-party Platform and ChatGPT transports. */
 const OPENAI_DUAL_ROUTE_MODEL_IDS = [
+  ...OPENAI_GPT_6_VARIANT_MODEL_IDS,
   ...OPENAI_GPT_56_VARIANT_MODEL_IDS,
   OPENAI_GPT_55_MODEL_ID,
   OPENAI_GPT_55_PRO_MODEL_ID,

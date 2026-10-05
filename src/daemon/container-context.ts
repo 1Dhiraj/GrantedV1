@@ -1,4 +1,4 @@
-/** Detects whether a daemon was launched by OpenClaw's container-aware service wrapper. */
+/** Detects whether a daemon was launched by Granted's container-aware service wrapper. */
 import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 
 /** Resolves the daemon container hint exposed by managed service environments. */

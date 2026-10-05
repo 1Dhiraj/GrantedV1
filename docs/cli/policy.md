@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw policy` conformance checks"
+summary: "CLI reference for `granted policy` conformance checks"
 read_when:
   - You want to check OpenClaw settings against an authored policy.jsonc
   - You want policy findings in doctor lint
@@ -7,9 +7,9 @@ read_when:
 title: "Policy"
 ---
 
-# `openclaw policy`
+# `granted policy`
 
-`openclaw policy` is provided by the bundled Policy plugin. It is an enterprise
+`granted policy` is provided by the bundled Policy plugin. It is an enterprise
 conformance layer over existing OpenClaw settings, not a second configuration
 system. You author requirements in `policy.jsonc`; OpenClaw observes the active
 workspace as evidence; policy reports drift through `doctor --lint`. Policy
@@ -26,14 +26,14 @@ not be enabled" or "governed tools must declare risk and owner metadata." If
 you only need local behavior with no attestation or drift detection, plain
 config is enough.
 
-Separately, [`openclaw agent exec`](/cli/agent#agent-exec) applies an isolated
+Separately, [`granted agent exec`](/cli/agent#agent-exec) applies an isolated
 implicit policy config for each run: the agent sandbox is off, Gateway-host
 execution is fully allowed, and filesystem tools are restricted to `--cwd`.
 
 ## Quick start
 
 ```bash
-openclaw plugins enable policy
+granted plugins enable policy
 ```
 
 The plugin stays enabled even when `policy.jsonc` is missing, so doctor can
@@ -527,15 +527,15 @@ only reviewed exec approval posture for selected agents.
 Run policy-only checks during authoring:
 
 ```bash
-openclaw policy check
-openclaw policy check --agent ops
-openclaw policy check --json
-openclaw policy check --severity-min error
+granted policy check
+granted policy check --agent ops
+granted policy check --json
+granted policy check --severity-min error
 ```
 
 `policy check` runs only the policy check set and emits evidence, findings,
 and attestation hashes. The same findings also appear in
-`openclaw doctor --lint` when the Policy plugin is enabled.
+`granted doctor --lint` when the Policy plugin is enabled.
 In a multi-agent fleet with explicit ownership, pass `--agent <id>` so the
 command reads governed declarations and `policy.jsonc` from that agent's
 workspace. A sole-agent or retained legacy-owner configuration still resolves
@@ -544,9 +544,9 @@ without the flag; OpenClaw never selects an arbitrary first agent.
 Compare an operator policy file against an authored baseline:
 
 ```bash
-openclaw policy compare --baseline official.policy.jsonc
-openclaw policy compare --baseline official.policy.jsonc --agent ops
-openclaw policy compare --baseline official.policy.jsonc --policy policy.jsonc --json
+granted policy compare --baseline official.policy.jsonc
+granted policy compare --baseline official.policy.jsonc --agent ops
+granted policy compare --baseline official.policy.jsonc --policy policy.jsonc --json
 ```
 
 `policy compare` checks policy-file syntax against policy-file syntax; it does
@@ -786,10 +786,10 @@ stable hash.
 Lifecycle for accepting policy state:
 
 1. Author or review `policy.jsonc`.
-2. Run `openclaw policy check --json`.
+2. Run `granted policy check --json`.
 3. If clean, record `attestation.policy.hash` as `expectedHash`.
 4. Record `attestation.attestationHash` as `expectedAttestationHash`.
-5. Re-run `openclaw doctor --lint` in CI or release gates.
+5. Re-run `granted doctor --lint` in CI or release gates.
 
 If policy rules change intentionally, update both accepted hashes from a
 clean check. If only workspace settings change (policy stays the same),
@@ -800,12 +800,12 @@ to the workspace hash and attestation hash; review the new evidence and
 refresh accepted attestation hashes after enabling. Enabling or upgrading
 tool posture rules adds `toolPosture` evidence the same way.
 
-`openclaw policy watch` re-runs the check and reports when current evidence no
+`granted policy watch` re-runs the check and reports when current evidence no
 longer matches `expectedAttestationHash`:
 
 ```bash
-openclaw policy watch --json
-openclaw policy watch --agent ops --json
+granted policy watch --json
+granted policy watch --agent ops --json
 ```
 
 Use `--once` in CI or scripts that need a single drift evaluation. Without
@@ -900,7 +900,7 @@ Example findings:
   "severity": "error",
   "message": "Channel 'telegram' uses denied provider 'telegram'.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/channels/telegram",
   "target": "oc://openclaw.config/channels/telegram",
   "requirement": "oc://policy.jsonc/channels/denyRules/#0",
@@ -928,7 +928,7 @@ Example findings:
   "severity": "error",
   "message": "MCP server 'remote' is not in the policy allowlist.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/mcp/servers/remote",
   "target": "oc://openclaw.config/mcp/servers/remote",
   "requirement": "oc://policy.jsonc/mcp/servers/allow"
@@ -941,7 +941,7 @@ Example findings:
   "severity": "error",
   "message": "Model ref 'anthropic/claude-sonnet-4.7' uses unapproved provider 'anthropic'.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/agents/defaults/model/fallbacks/#0",
   "target": "oc://openclaw.config/agents/defaults/model/fallbacks/#0",
   "requirement": "oc://policy.jsonc/models/providers/allow"
@@ -954,7 +954,7 @@ Example findings:
   "severity": "error",
   "message": "Network setting 'browser-private-network' allows private-network access.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/browser/ssrfPolicy/dangerouslyAllowPrivateNetwork",
   "target": "oc://openclaw.config/browser/ssrfPolicy/dangerouslyAllowPrivateNetwork",
   "requirement": "oc://policy.jsonc/network/privateNetwork/allow"
@@ -967,7 +967,7 @@ Example findings:
   "severity": "error",
   "message": "Gateway bind setting 'gateway-bind' permits non-loopback exposure.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/gateway/bind",
   "target": "oc://openclaw.config/gateway/bind",
   "requirement": "oc://policy.jsonc/gateway/exposure/allowNonLoopbackBind"
@@ -980,7 +980,7 @@ Example findings:
   "severity": "error",
   "message": "Gateway node command 'system.run' is denied by policy but not denied by OpenClaw config.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/gateway/nodes/commands/deny",
   "target": "oc://openclaw.config/gateway/nodes/commands/deny",
   "requirement": "oc://policy.jsonc/gateway/nodes/denyCommands",
@@ -994,7 +994,7 @@ Example findings:
   "severity": "error",
   "message": "agents.defaults sandbox workspaceAccess 'rw' is not allowed by policy.",
   "source": "policy",
-  "path": "openclaw config",
+  "path": "granted config",
   "ocPath": "oc://openclaw.config/agents/defaults/sandbox/workspaceAccess",
   "target": "oc://openclaw.config/agents/defaults/sandbox/workspaceAccess",
   "requirement": "oc://policy.jsonc/agents/workspace/allowedAccess"
@@ -1035,9 +1035,9 @@ the shared setting would affect more than the scoped policy target.
 
 `dataHandling.sensitiveLogging.requireRedaction` has no check and no repair.
 Sensitive log redaction is unconditional in OpenClaw, so nothing can report it
-as disabled. The key stays a supported policy rule: `openclaw policy` validates
-its shape, `openclaw policy compare` still requires a candidate policy to be at
-least as strict as the baseline for it, and `openclaw policy check` records the
+as disabled. The key stays a supported policy rule: `granted policy` validates
+its shape, `granted policy compare` still requires a candidate policy to be at
+least as strict as the baseline for it, and `granted policy check` records the
 runtime invariant `oc://openclaw.invariant/logging/redaction` in the
 `dataHandling` evidence and attestation as proof the requirement is satisfied.
 

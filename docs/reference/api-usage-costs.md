@@ -35,7 +35,7 @@ Map of OpenClaw features that can call paid provider APIs, where each reads its 
 
 **CLI usage windows** (provider quotas, not per-message cost)
 
-- `openclaw status --usage` and `openclaw channels list` show provider **usage windows** as `X% left`.
+- `granted status --usage` and `granted channels list` show provider **usage windows** as `X% left`.
 - Current usage-window providers: Anthropic, ClawRouter, DeepSeek, GitHub Copilot, MiniMax, OpenAI (covers ChatGPT/Codex OAuth/token auth), Xiaomi, and z.ai. See [Models CLI](/cli/models) and [Channels CLI](/cli/channels) for the full provider/flag list.
 - MiniMax's raw `usage_percent` / `usagePercent` fields report remaining quota, so OpenClaw inverts them; count-based fields win when present. If the response includes a `model_remains` array, OpenClaw picks the chat-model entry, derives the window label from timestamps when needed, and includes the model name in the plan label.
 - Usage auth comes from provider-specific hooks when available, otherwise OpenClaw falls back to matching OAuth/API-key credentials from auth profiles, env, or config.
@@ -111,7 +111,7 @@ See [Web tools](/tools/web).
 
 ### Provider usage snapshots (status/health)
 
-`openclaw status --usage` and `openclaw models status --json` call provider usage endpoints to show quota windows or auth health. Calls are low-volume but still hit provider APIs.
+`granted status --usage` and `granted models status --json` call provider usage endpoints to show quota windows or auth health. Calls are low-volume but still hit provider APIs.
 
 See [Models CLI](/cli/models).
 
@@ -123,7 +123,7 @@ See [Session management and compaction](/reference/session-management-compaction
 
 ### Model scan / probe
 
-`openclaw models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when probing is enabled.
+`granted models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when probing is enabled.
 
 See [Models CLI](/cli/models).
 

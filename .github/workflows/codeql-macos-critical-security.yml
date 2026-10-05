@@ -2,8 +2,6 @@ name: CodeQL macOS Critical Security
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 8 * * 1"
 
 concurrency:
   group: codeql-macos-critical-security-${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && format('manual-{0}', github.run_id) || format('ref-{0}', github.ref) }}
@@ -57,7 +55,7 @@ jobs:
           config-file: ./.github/codeql/codeql-macos-critical-security.yml
 
       - name: Build macOS for CodeQL
-        run: swift build --package-path apps/macos --product OpenClaw
+        run: swift build --package-path apps/macos --product Granted
 
       - name: Analyze
         id: analyze

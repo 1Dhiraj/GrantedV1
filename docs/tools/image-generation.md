@@ -99,7 +99,7 @@ backend emits it.
 OpenAI supports `low` and `auto` moderation for both text-to-image generation
 and reference-image edits through the direct Images API or the Codex Responses
 backend. For CLI requests, pass `--openai-moderation low|auto` to either
-`openclaw infer image generate` or `openclaw infer image edit`.
+`granted infer image generate` or `granted infer image edit`.
 
 ## Supported providers
 
@@ -512,7 +512,7 @@ and ComfyUI support 1.
 Equivalent CLI:
 
 ```bash
-openclaw infer image generate \
+granted infer image generate \
   --model openai/gpt-image-1.5 \
   --output-format png \
   --background transparent \
@@ -529,7 +529,7 @@ openclaw infer image generate \
 Equivalent CLI:
 
 ```bash
-openclaw infer image generate \
+granted infer image generate \
   --model openai/gpt-image-2 \
   --quality low \
   --openai-moderation low \
@@ -561,7 +561,7 @@ openclaw infer image generate \
 </Tabs>
 
 The same `--output-format`, `--background`, and `--quality` flags are available
-on `openclaw infer image edit`; `--openai-background` remains as an
+on `granted infer image edit`; `--openai-background` remains as an
 OpenAI-specific alias. Use `--openai-moderation low|auto` with both OpenAI image
 generation and reference-image edits. The direct OpenAI Images API and the
 ChatGPT/Codex OAuth Responses backend both support the moderation hint.

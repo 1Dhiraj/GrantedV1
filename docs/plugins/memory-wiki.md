@@ -20,8 +20,8 @@ knowledge into a maintained wiki layer.
 Enable the plugin before using its CLI, tools, or runtime integration:
 
 ```bash
-openclaw plugins enable memory-wiki
-openclaw gateway restart
+granted plugins enable memory-wiki
+granted gateway restart
 ```
 
 | Layer                | Owns                                                                              |
@@ -40,7 +40,7 @@ A common local-first setup uses builtin memory for recall and `memory-wiki` in
 [Configuration](#configuration).
 
 If bridge mode reports zero exported artifacts, the active memory plugin is
-not currently exposing public bridge inputs. Run `openclaw wiki doctor` first,
+not currently exposing public bridge inputs. Run `granted wiki doctor` first,
 then confirm the active memory plugin supports public artifacts.
 
 ## Vault modes
@@ -69,7 +69,7 @@ Bridge mode can index, per `bridge.*` config toggle:
 - memory event logs (`followMemoryEvents`)
 
 When bridge mode is active and `bridge.readMemoryArtifacts` is enabled,
-`openclaw wiki status`, `openclaw wiki doctor`, and `openclaw wiki bridge
+`granted wiki status`, `granted wiki doctor`, and `granted wiki bridge
 import` route through the running Gateway so they see the same active memory
 plugin context as agent/runtime memory. If bridge is disabled or artifact
 reads are off, those commands keep local/offline behavior.
@@ -104,7 +104,7 @@ preserved across regeneration.
 ## Open Knowledge Format imports
 
 ```bash
-openclaw wiki okf import ./bundles/ga4
+granted wiki okf import ./bundles/ga4
 ```
 
 Import an unpacked Open Knowledge Format bundle into wiki concept pages. Good
@@ -320,7 +320,7 @@ Dashboard requests never scan raw vault pages or wait for a full vault compile.
 During automatic recovery, the UI reports that the dashboards are rebuilding;
 reload the tab shortly. When
 `ingest.autoCompile` is `false`, a source change or older cache reports that a
-compile is required instead. Run `openclaw wiki compile`, then reload the tab.
+compile is required instead. Run `granted wiki compile`, then reload the tab.
 
 ## Prompt and context behavior
 
@@ -523,17 +523,17 @@ intentionally enable compiled digest prompts.
 ## CLI
 
 ```bash
-openclaw wiki status
-openclaw wiki doctor
-openclaw wiki init
-openclaw wiki ingest ./notes/alpha.md
-openclaw wiki compile
-openclaw wiki lint
-openclaw wiki search "alpha"
-openclaw wiki get entity.alpha
-openclaw wiki apply synthesis "Alpha Summary" --body "..." --source-id source.alpha
-openclaw wiki bridge import
-openclaw wiki obsidian status
+granted wiki status
+granted wiki doctor
+granted wiki init
+granted wiki ingest ./notes/alpha.md
+granted wiki compile
+granted wiki lint
+granted wiki search "alpha"
+granted wiki get entity.alpha
+granted wiki apply synthesis "Alpha Summary" --body "..." --source-id source.alpha
+granted wiki bridge import
+granted wiki obsidian status
 ```
 
 See [CLI: wiki](/cli/wiki) for the full command reference, including

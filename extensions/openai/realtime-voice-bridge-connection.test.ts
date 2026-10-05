@@ -64,7 +64,7 @@ describe("OpenAI realtime voice bridge connection", () => {
     restoreTestEnvironment();
   });
 
-  it("adds OpenClaw attribution headers to native realtime websocket requests", () => {
+  it("adds Granted attribution headers to native realtime websocket requests", () => {
     vi.stubEnv("GRANTED_VERSION", "2026.3.22");
     const provider = buildOpenAIRealtimeVoiceProvider();
     const bridge = provider.createBridge({

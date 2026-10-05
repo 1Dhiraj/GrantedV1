@@ -60,14 +60,14 @@ export function buildChannelApprovalResolvedText(params: {
 }): string {
   if (params.view.approvalKind === "system-agent") {
     return params.view.terminalStatus === "cancelled"
-      ? "⚠️ OpenClaw change was cancelled because its run ended. No change was made. Retry."
+      ? "⚠️ Granted change was cancelled because its run ended. No change was made. Retry."
       : params.resolved.decision === "deny"
-        ? "❌ OpenClaw change denied. No change was made."
+        ? "❌ Granted change denied. No change was made."
         : params.view.applicationStatus === "applied"
-          ? `✅ OpenClaw change approved and applied: ${params.view.operationSummary}`
+          ? `✅ Granted change approved and applied: ${params.view.operationSummary}`
           : params.view.applicationStatus === "not-applied"
-            ? "⚠️ OpenClaw change approved, but it was not applied. Check the Gateway and retry."
-            : `✅ OpenClaw change approved. Applying: ${params.view.operationSummary}`;
+            ? "⚠️ Granted change approved, but it was not applied. Check the Gateway and retry."
+            : `✅ Granted change approved. Applying: ${params.view.operationSummary}`;
   }
   if (params.view.approvalKind === "plugin") {
     return buildPluginApprovalResolvedMessage(params.resolved as PluginApprovalResolved);
@@ -90,7 +90,7 @@ export function buildChannelApprovalExpiredText(params: {
 }): string {
   const request = normalizeApprovalRequest(params.request);
   if (request.approvalKind === "system-agent") {
-    return "⏱️ OpenClaw change expired. No change was made.";
+    return "⏱️ Granted change expired. No change was made.";
   }
   if (request.approvalKind === "plugin") {
     return buildPluginApprovalExpiredMessage(request);

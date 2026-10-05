@@ -16,7 +16,7 @@ Plaintext still works. SecretRefs are opt-in per credential.
 </Note>
 
 <Warning>
-Plaintext credentials remain agent-readable when they sit in files the agent can inspect, including `openclaw.json`, `.env`, retired auth-profile JSON archives, or generated `agents/*/agent/models.json` files. SecretRefs reduce that local blast radius once every supported credential is migrated and `openclaw secrets audit --check` reports no plaintext residue.
+Plaintext credentials remain agent-readable when they sit in files the agent can inspect, including `openclaw.json`, `.env`, retired auth-profile JSON archives, or generated `agents/*/agent/models.json` files. SecretRefs reduce that local blast radius once every supported credential is migrated and `granted secrets audit --check` reports no plaintext residue.
 </Warning>
 
 ## Runtime model
@@ -56,7 +56,7 @@ For production deployments where agent-accessible files are in scope, treat migr
 
 - Supported credentials use SecretRefs instead of plaintext values.
 - Legacy plaintext residue is scrubbed from `openclaw.json`, the SQLite auth-profile store, `.env`, and generated `models.json` files. Retired auth JSON is doctor-owned migration input and is never rewritten by `secrets apply`.
-- `openclaw secrets audit --check` is clean after migration.
+- `granted secrets audit --check` is clean after migration.
 - Any remaining unsupported or rotating credentials are protected by OS isolation, container isolation, or an external credential proxy.
 
 This is why the audit/configure/apply workflow is a security migration gate, not just a convenience helper.
@@ -282,7 +282,7 @@ but are not displayed because resolver output can contain credential material.
 
 ## Shared secret store
 
-The shared secret store is a Gateway-wide, team-scoped place for secrets and environment values that should be available to every Gateway process using the same state database. Manage it from **Settings → Secrets** in the Control UI or locally with `openclaw secrets store`. The CLI commands operate on the local state database and do not accept Gateway URL or token options.
+The shared secret store is a Gateway-wide, team-scoped place for secrets and environment values that should be available to every Gateway process using the same state database. Manage it from **Settings → Secrets** in the Control UI or locally with `granted secrets store`. The CLI commands operate on the local state database and do not accept Gateway URL or token options.
 
 Entries have two explicit access modes. Both retain the existing `secret` and `env` storage kinds, and either kind can back a SecretRef:
 
@@ -309,11 +309,11 @@ Reference an entry from `openclaw.json` with the `store` source:
 }
 ```
 
-Control UI set/delete operations automatically refresh the active secrets runtime when the changed name is referenced by a `store` SecretRef in the active source config or auth-profile snapshot. Names that are not referenced skip that work. Direct CLI writes remain an offline/local path; after changing a referenced value with the CLI, run `openclaw secrets reload` so the active in-memory snapshot picks it up.
+Control UI set/delete operations automatically refresh the active secrets runtime when the changed name is referenced by a `store` SecretRef in the active source config or auth-profile snapshot. Names that are not referenced skip that work. Direct CLI writes remain an offline/local path; after changing a referenced value with the CLI, run `granted secrets reload` so the active in-memory snapshot picks it up.
 
 The agent can also ask you to add an entry with the [`secrets` tool](/tools/secrets): it names the entry and the reason, you type the value into a masked prompt, and the Gateway writes it directly into the store. The value never enters the chat, the transcript, or the model's context, and the same automatic runtime refresh applies.
 
-Credential prompts are bound to the exact requesting authority and cancel when it closes. A committed answer is terminal even if the subsequent runtime refresh fails. The saved value remains; resolve the provider error and retry `openclaw secrets reload`, not the answer. Use the tool's returned full SecretRef, including its provider alias.
+Credential prompts are bound to the exact requesting authority and cancel when it closes. A committed answer is terminal even if the subsequent runtime refresh fails. The saved value remains; resolve the provider error and retry `granted secrets reload`, not the answer. Use the tool's returned full SecretRef, including its provider alias.
 
 <Warning>
 Store values are not encrypted at rest. They are stored unencrypted in the shared state SQLite database (`state/openclaw.sqlite`), protected by the same `0600` file and `0700` directory permissions as other credentials in that database. Operators who need stronger storage isolation should use an external exec provider such as the [1Password plugin](/plugins/onepassword) or [Vault SecretRefs](/plugins/vault).
@@ -326,7 +326,7 @@ The secret egress proxy lets Gateway-hosted agent subprocesses use shared-store 
 Each secret must also name the exact HTTPS hosts where substitution is allowed. Hostnames are stored lowercase in ASCII/punycode form and matched exactly; wildcards, suffix matching, and ports are not supported. A secret with no allowed hosts is never substituted. Bind a host without replacing the stored value:
 
 ```bash
-openclaw secrets store set OPENAI_API_KEY --allow-host api.openai.com
+granted secrets store set OPENAI_API_KEY --allow-host api.openai.com
 ```
 
 Repeat `--allow-host` to replace the binding with multiple hosts, or use `--clear-allowed-hosts` to remove every binding. A refused request names the secret and prints the exact `store set ... --allow-host ...` command needed for that destination.
@@ -334,15 +334,15 @@ Repeat `--allow-host` to replace the binding with multiple hosts, or use `--clea
 Enable it explicitly, then restart the Gateway:
 
 ```bash
-openclaw config set secrets.egressProxy.enabled true --strict-json
-openclaw gateway restart
+granted config set secrets.egressProxy.enabled true --strict-json
+granted gateway restart
 ```
 
 For example, bind an OpenAI key to its API host and enable the proxy:
 
 ```bash
-openclaw secrets store set OPENAI_API_KEY --allow-host api.openai.com
-openclaw config set secrets.egressProxy.enabled true --strict-json
+granted secrets store set OPENAI_API_KEY --allow-host api.openai.com
+granted config set secrets.egressProxy.enabled true --strict-json
 ```
 
 After restarting the Gateway, a Gateway-hosted agent can run:
@@ -351,7 +351,7 @@ After restarting the Gateway, a Gateway-hosted agent can run:
 curl -sS https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY"
 ```
 
-In the agent environment, `$OPENAI_API_KEY` is an `oc-sent-v2...end` sentinel. The proxy replaces it with the stored value only for `api.openai.com`. A request to an unbound host is refused with `Secret "OPENAI_API_KEY" is not allowed for host "<host>". Run: openclaw secrets store set OPENAI_API_KEY --allow-host <host>`.
+In the agent environment, `$OPENAI_API_KEY` is an `oc-sent-v2...end` sentinel. The proxy replaces it with the stored value only for `api.openai.com`. A request to an unbound host is refused with `Secret "OPENAI_API_KEY" is not allowed for host "<host>". Run: granted secrets store set OPENAI_API_KEY --allow-host <host>`.
 
 Equivalent config:
 
@@ -393,10 +393,10 @@ The CA is generated once per Gateway start under the state directory. Its direct
 Destination binding protects secrets, not traffic: a request that carries no sentinel can reach any host once a run holds proxy credentials. Set `secrets.egressProxy.allowedHosts` to also restrict where non-sentinel traffic may go:
 
 ```bash
-openclaw config set secrets.egressProxy.allowedHosts '["api.openai.com"]' --strict-json
+granted config set secrets.egressProxy.allowedHosts '["api.openai.com"]' --strict-json
 ```
 
-When the list is present, the proxy forwards only to hostnames in the list, hosts bound to a secret registered for the current agent run, and `bypassHosts`, so an existing `--allow-host` binding keeps working without listing its host twice. A request or CONNECT tunnel to any other host is refused with `Host "<host>" is not in the secret egress proxy traffic allowlist. Add it to secrets.egressProxy.allowedHosts or bind a store secret to it with: openclaw secrets store set <NAME> --allow-host <host>, then restart the Gateway.`
+When the list is present, the proxy forwards only to hostnames in the list, hosts bound to a secret registered for the current agent run, and `bypassHosts`, so an existing `--allow-host` binding keeps working without listing its host twice. A request or CONNECT tunnel to any other host is refused with `Host "<host>" is not in the secret egress proxy traffic allowlist. Add it to secrets.egressProxy.allowedHosts or bind a store secret to it with: granted secrets store set <NAME> --allow-host <host>, then restart the Gateway.`
 
 An empty array is lockdown mode: only per-secret bound hosts and `bypassHosts` remain reachable. Omitting `allowedHosts` leaves traffic unrestricted. Hostnames follow the same rules as secret bindings: exact lowercase ASCII/punycode match, no wildcards or ports. Restart the Gateway after changing the allowlist.
 
@@ -530,7 +530,7 @@ For a dedicated 1Password guide covering service accounts, the bundled agent ski
     The resolver batches requested ids, runs `bws secret list`, and returns values for matching secret `key` fields. Use keys that satisfy the exec SecretRef id contract, such as `openclaw/providers/openai/apiKey`; env-var-style keys with underscores are rejected before the resolver runs. If more than one visible Bitwarden secret shares the requested key, the resolver fails that id as ambiguous instead of guessing. After updating config, verify the resolver path:
 
     ```bash
-    openclaw secrets audit --allow-exec
+    granted secrets audit --allow-exec
     ```
 
   </Accordion>
@@ -636,8 +636,8 @@ For a dedicated 1Password guide covering service accounts, the bundled agent ski
     Keep the secret on the first line of the `pass` entry, or customize the wrapper to return the full `pass show` output instead. After updating config, verify both the static audit and the exec resolver path:
 
     ```bash
-    openclaw secrets audit --check
-    openclaw secrets audit --allow-exec
+    granted secrets audit --check
+    granted secrets audit --allow-exec
     ```
 
   </Accordion>
@@ -788,9 +788,9 @@ Behavior:
 - Recovered: emitted once after the next successful activation.
 - Repeated failures while already degraded log warnings but do not re-emit the event.
 - A strict startup failure never emits a degraded event, because runtime never became active. A successful startup with cold owners logs the owner degradation but does not emit a reloader event.
-- Ref-scoped startup and reload failures emit a structured `SECRETS_DEGRADED` warning for each affected owner. Provider-scoped outages emit one `SECRETS_PROVIDER_DEGRADED` warning with the provider and complete affected-owner list instead of repeating the provider failure per owner. Warnings include a redacted reason, `cold` or `stale` owner state, and the `openclaw secrets reload` retry hint. They never include resolved values or SecretRef ids.
-- `openclaw doctor` lists cold and stale owners with their affected config paths, redacted reason, and retry guidance.
-- Channel health and status keep cold accounts visible as configured but unavailable, alongside healthy accounts. Read-only inspection does not resolve inactive credentials or probe cold accounts. `/healthz` still reports Gateway liveness; `/readyz` may report the affected channel as failing until it recovers. Restore the secret, then run `openclaw secrets reload`.
+- Ref-scoped startup and reload failures emit a structured `SECRETS_DEGRADED` warning for each affected owner. Provider-scoped outages emit one `SECRETS_PROVIDER_DEGRADED` warning with the provider and complete affected-owner list instead of repeating the provider failure per owner. Warnings include a redacted reason, `cold` or `stale` owner state, and the `granted secrets reload` retry hint. They never include resolved values or SecretRef ids.
+- `granted doctor` lists cold and stale owners with their affected config paths, redacted reason, and retry guidance.
+- Channel health and status keep cold accounts visible as configured but unavailable, alongside healthy accounts. Read-only inspection does not resolve inactive credentials or probe cold accounts. `/healthz` still reports Gateway liveness; `/readyz` may report the affected channel as failing until it recovers. Restore the secret, then run `granted secrets reload`.
 
 ## Command-path resolution
 
@@ -798,10 +798,10 @@ Command paths can opt into supported SecretRef resolution via a gateway snapshot
 
 <Tabs>
   <Tab title="Strict command paths">
-    For example `openclaw memory` remote-memory paths and `openclaw qr --remote` when it needs remote shared-secret refs. They read from the active snapshot and fail fast when a required SecretRef is unavailable.
+    For example `granted memory` remote-memory paths and `granted qr --remote` when it needs remote shared-secret refs. They read from the active snapshot and fail fast when a required SecretRef is unavailable.
   </Tab>
   <Tab title="Read-only command paths">
-    For example `openclaw status`, `openclaw status --all`, `openclaw channels status`, `openclaw channels resolve`, `openclaw security audit`, and read-only doctor/config repair flows. They also prefer the active snapshot, but degrade instead of aborting when a targeted SecretRef is unavailable.
+    For example `granted status`, `granted status --all`, `granted channels status`, `granted channels resolve`, `granted security audit`, and read-only doctor/config repair flows. They also prefer the active snapshot, but degrade instead of aborting when a targeted SecretRef is unavailable.
 
     Read-only behavior:
 
@@ -819,7 +819,7 @@ Standalone agent commands without config-ref preparation and calls with a differ
 
 Other notes:
 
-- Snapshot refresh after backend secret rotation is handled by `openclaw secrets reload`.
+- Snapshot refresh after backend secret rotation is handled by `granted secrets reload`.
 - Gateway RPC method used by these command paths: `secrets.resolve`.
 
 ## Audit and configure workflow
@@ -829,24 +829,24 @@ Default operator flow:
 <Steps>
   <Step title="Audit current state">
     ```bash
-    openclaw secrets audit --check
+    granted secrets audit --check
     ```
   </Step>
   <Step title="Configure and apply SecretRefs">
     ```bash
-    openclaw secrets configure --apply
+    granted secrets configure --apply
     ```
   </Step>
   <Step title="Re-audit">
     ```bash
-    openclaw secrets audit --check
+    granted secrets audit --check
     ```
   </Step>
 </Steps>
 
 Do not treat the migration as complete until the re-audit is clean. If the audit still reports plaintext values at rest, the agent-access risk remains even when runtime APIs return redacted values.
 
-If you save a plan instead of applying during `configure`, apply that saved plan with `openclaw secrets apply --from <plan-path>` before the re-audit.
+If you save a plan instead of applying during `configure`, apply that saved plan with `granted secrets apply --from <plan-path>` before the re-audit.
 
 <AccordionGroup>
   <Accordion title="secrets audit">
@@ -858,7 +858,7 @@ If you save a plan instead of applying during `configure`, apply that saved plan
     - Precedence shadowing (SQLite auth profiles taking priority over `openclaw.json` refs).
     - Store residue (a stored name still has an equivalent plaintext value in config).
 
-    Exec note: by default, audit skips exec SecretRef resolvability checks to avoid command side effects. Use `openclaw secrets audit --allow-exec` to execute exec providers during audit.
+    Exec note: by default, audit skips exec SecretRef resolvability checks to avoid command side effects. Use `granted secrets audit --allow-exec` to execute exec providers during audit.
 
     Header residue note: sensitive provider header detection is name-heuristic based (common auth/credential header names and fragments such as `authorization`, `x-api-key`, `token`, `secret`, `password`, and `credential`).
 
@@ -876,14 +876,14 @@ If you save a plan instead of applying during `configure`, apply that saved plan
 
     Helpful modes:
 
-    - `openclaw secrets configure --providers-only`
-    - `openclaw secrets configure --skip-provider-setup`
-    - `openclaw secrets configure --agent <id>`
+    - `granted secrets configure --providers-only`
+    - `granted secrets configure --skip-provider-setup`
+    - `granted secrets configure --agent <id>`
 
     `configure` apply defaults:
 
     - Scrub matching static credentials from SQLite auth-profile rows for targeted providers.
-    - Leave retired `auth.json` untouched; run `openclaw doctor --fix` to migrate and archive it.
+    - Leave retired `auth.json` untouched; run `granted doctor --fix` to migrate and archive it.
     - Scrub matching known secret lines from the effective state and active-config `.env` files (deduplicated when both paths match).
 
   </Accordion>
@@ -891,10 +891,10 @@ If you save a plan instead of applying during `configure`, apply that saved plan
     Apply a saved plan:
 
     ```bash
-    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
-    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
-    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
-    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run --allow-exec
+    granted secrets apply --from /tmp/openclaw-secrets-plan.json
+    granted secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
+    granted secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
+    granted secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run --allow-exec
     ```
 
     Exec note: dry-run skips exec checks unless `--allow-exec` is set; write mode rejects plans containing exec SecretRefs/providers unless `--allow-exec` is set.

@@ -1,4 +1,4 @@
-// Installs OpenClaw-owned transport and diagnostic policy before package helpers;
+// Installs Granted-owned transport and diagnostic policy before package helpers;
 // direct imports need the same wiring as the process-default stream facade.
 import { configureAiTransportHost } from "@granted/ai";
 import { configureProviderErrorRedactor } from "@granted/ai/diagnostics";

@@ -16,7 +16,7 @@ Fetch, list, and write files on paired nodes via dedicated node commands. Bypass
 
 ## Surface
 
-CLI commands: `openclaw file-transfer`; contracts: `tools`
+CLI commands: `granted file-transfer`; contracts: `tools`
 
 <!-- openclaw-plugin-reference:manual-start -->
 
@@ -34,7 +34,7 @@ you review them. Deny rules, size limits, and symlink settings continue to
 apply. Run this command on the Gateway host in an interactive terminal:
 
 ```bash
-openclaw file-transfer approvals migrate
+granted file-transfer approvals migrate
 ```
 
 For each older path, choose one outcome:

@@ -128,18 +128,18 @@ OpenClaw applies these cleanup rules:
 - Snapshot records remain restorable for 30 days. Cleanup then deletes the snapshot ref and registry row.
 - A live OpenClaw process lock and any foreign or unrecognized git worktree lock protect a worktree from garbage collection.
 
-Run-end cleanup records its outcome on the worktree record: lossless removal, retention because the checkout is busy, dirty, unpushed, or has provisioned-file drift, or failure with an error reason. Inspect the recorded outcome with `openclaw worktrees list --json` or `worktrees.list`.
+Run-end cleanup records its outcome on the worktree record: lossless removal, retention because the checkout is busy, dirty, unpushed, or has provisioned-file drift, or failure with an error reason. Inspect the recorded outcome with `granted worktrees list --json` or `worktrees.list`.
 
 Restore recreates `openclaw/<name>` at the original pre-snapshot commit, then rebuilds the snapshot differences as unstaged modifications and untracked files. This keeps the synthetic snapshot commit out of branch history. The snapshot ref remains recorded as provenance.
 
 ## CLI
 
 ```bash
-openclaw worktrees list [--json]
-openclaw worktrees create <repo-root> [--name <name>] [--base-ref <ref>] [--json]
-openclaw worktrees remove <id> [--force] [--json]
-openclaw worktrees restore <id> [--json]
-openclaw worktrees gc [--json]
+granted worktrees list [--json]
+granted worktrees create <repo-root> [--name <name>] [--base-ref <ref>] [--json]
+granted worktrees remove <id> [--force] [--json]
+granted worktrees restore <id> [--json]
+granted worktrees gc [--json]
 ```
 
 The Control UI **Worktrees** page under Settings provides the same actions plus creation with a base-branch picker, shows each worktree's owner (manual, Workboard, or the owning session with a link into its chat), and offers a force retry when a removal reports a failed snapshot.

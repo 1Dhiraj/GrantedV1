@@ -18,8 +18,8 @@ Kilo Gateway routes requests to many models behind a single OpenAI-compatible en
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/kilocode-provider
-openclaw gateway restart
+granted plugins install @granted/kilocode-provider
+granted gateway restart
 ```
 
 ## Setup
@@ -30,7 +30,7 @@ openclaw gateway restart
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice kilocode-api-key
+    granted onboard --auth-choice kilocode-api-key
     ```
 
     Or set the environment variable directly:
@@ -42,7 +42,7 @@ openclaw gateway restart
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider kilocode
+    granted models list --provider kilocode
     ```
   </Step>
 </Steps>
@@ -60,7 +60,7 @@ ahead of a static fallback catalog. The static fallback contains only
 
 Any model on the gateway is addressable as `kilocode/<upstream-id>` (for example
 `kilocode/anthropic/claude-sonnet-4`, `kilocode/openai/gpt-5.5`). Run `/models kilocode` or
-`openclaw models list --provider kilocode` to see the full discovered list.
+`granted models list --provider kilocode` to see the full discovered list.
 
 ## Config example
 

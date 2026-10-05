@@ -54,8 +54,8 @@ onboarding.
     <Steps>
       <Step title="Install the plugin">
         ```bash
-        openclaw plugins install @granted/moonshot-provider
-        openclaw gateway restart
+        granted plugins install @granted/moonshot-provider
+        granted gateway restart
         ```
       </Step>
       <Step title="Choose your endpoint region">
@@ -66,25 +66,25 @@ onboarding.
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice moonshot-api-key
+        granted onboard --auth-choice moonshot-api-key
         ```
 
         Or for the China endpoint:
 
         ```bash
-        openclaw onboard --auth-choice moonshot-api-key-cn
+        granted onboard --auth-choice moonshot-api-key-cn
         ```
       </Step>
       <Step title="Confirm the Kimi K3 default">
         Fresh onboarding selects Kimi K3. Existing installations can switch explicitly:
 
         ```bash
-        openclaw models set moonshot/kimi-k3
+        granted models set moonshot/kimi-k3
         ```
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list --provider moonshot
+        granted models list --provider moonshot
         ```
       </Step>
       <Step title="Run a live smoke test">
@@ -94,7 +94,7 @@ onboarding.
         ```bash
         OPENCLAW_CONFIG_PATH=/tmp/openclaw-kimi/openclaw.json \
         OPENCLAW_STATE_DIR=/tmp/openclaw-kimi \
-        openclaw agent --local \
+        granted agent --local \
           --session-id live-kimi-cost \
           --message 'Reply exactly: KIMI_LIVE_OK' \
           --thinking max \
@@ -206,13 +206,13 @@ onboarding.
     <Steps>
       <Step title="Install the plugin">
         ```bash
-        openclaw plugins install @granted/kimi-provider
-        openclaw gateway restart
+        granted plugins install @granted/kimi-provider
+        granted gateway restart
         ```
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice kimi-code-api-key
+        granted onboard --auth-choice kimi-code-api-key
         ```
       </Step>
       <Step title="Set a default model">
@@ -228,7 +228,7 @@ onboarding.
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider kimi
+        granted models list --provider kimi
         ```
       </Step>
     </Steps>
@@ -266,7 +266,7 @@ The Moonshot plugin also registers **Kimi** as a `web_search` provider, backed b
 <Steps>
   <Step title="Run interactive web search setup">
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
     Choose **Kimi** in the web-search section to store

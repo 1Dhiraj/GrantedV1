@@ -1,13 +1,13 @@
-# Signal OpenClaw channel
+# Signal Granted channel
 
-Official OpenClaw channel plugin for Signal.
+Official Granted channel plugin for Signal.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/signal
+granted plugins install @granted/signal
 ```
 
 ## Docs
 
-See `docs/channels/signal.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/channels/signal`.
+See `docs/channels/signal.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/channels/signal`.

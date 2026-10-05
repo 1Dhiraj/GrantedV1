@@ -22,19 +22,19 @@ trims the output before it goes back into the active harness session.
 Install once:
 
 ```bash
-openclaw plugins install clawhub:@granted/tokenjuice
+granted plugins install clawhub:@granted/tokenjuice
 ```
 
 Then enable it:
 
 ```bash
-openclaw config set plugins.entries.tokenjuice.enabled true
+granted config set plugins.entries.tokenjuice.enabled true
 ```
 
 Equivalent:
 
 ```bash
-openclaw plugins enable tokenjuice
+granted plugins enable tokenjuice
 ```
 
 If you prefer editing config directly:
@@ -68,13 +68,13 @@ If you prefer editing config directly:
 ## Disable the plugin
 
 ```bash
-openclaw config set plugins.entries.tokenjuice.enabled false
+granted config set plugins.entries.tokenjuice.enabled false
 ```
 
 Or:
 
 ```bash
-openclaw plugins disable tokenjuice
+granted plugins disable tokenjuice
 ```
 
 ## Related

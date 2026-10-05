@@ -10,7 +10,7 @@ Use this page when a node is visible in status but node tools fail.
 
 ## Node goes offline after SSH logout (Linux)
 
-On Linux, `openclaw node install` creates a **user-level** systemd service. The
+On Linux, `granted node install` creates a **user-level** systemd service. The
 `systemd --user` instance is torn down when your last login session ends, so the
 node service stops the moment you log out — even though it looked healthy
 (`enabled` + `running`) while you were connected.
@@ -30,12 +30,12 @@ sudo loginctl enable-linger "$USER"
 Then restart the node service and verify it survives logout:
 
 ```bash
-openclaw node restart
+granted node restart
 # log out, then from another machine:
-openclaw nodes status
+granted nodes status
 ```
 
-`openclaw node install` prints a warning with this recovery command when it
+`granted node install` prints a warning with this recovery command when it
 detects lingering is disabled. Don't mix a user-level service with a
 system-level one for the same node. The duplicate-scope guard that prevents
 two managers from running the same unit name is enforced for gateway units
@@ -47,19 +47,19 @@ before switching.
 ## Command ladder
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
-openclaw channels status --probe
+granted status
+granted gateway status
+granted logs --follow
+granted doctor
+granted channels status --probe
 ```
 
 Then run node-specific checks:
 
 ```bash
-openclaw nodes status
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw approvals get --node <idOrNameOrIp>
+granted nodes status
+granted nodes describe --node <idOrNameOrIp>
+granted approvals get --node <idOrNameOrIp>
 ```
 
 Healthy signals:
@@ -82,8 +82,8 @@ restart the node host. Explicitly disabled hosting produces no such diagnostic.
 Quick check and fix:
 
 ```bash
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw logs --follow
+granted nodes describe --node <idOrNameOrIp>
+granted logs --follow
 ```
 
 If you see `NODE_BACKGROUND_UNAVAILABLE`, bring the node app to the foreground and retry.
@@ -106,15 +106,15 @@ Three separate gates control whether a node command succeeds:
 2. **Gateway node command policy**: is the RPC command ID allowed by `gateway.nodes.commands.allow` / `gateway.nodes.commands.deny` and platform defaults?
 3. **Exec approvals**: can this node run a specific shell command locally?
 
-Node pairing is an identity/trust gate, not a per-command approval surface. For `system.run`, the per-node policy lives in that node's exec approvals file (`openclaw approvals get --node ...`), not in the gateway pairing record.
+Node pairing is an identity/trust gate, not a per-command approval surface. For `system.run`, the per-node policy lives in that node's exec approvals file (`granted approvals get --node ...`), not in the gateway pairing record.
 
 Quick checks:
 
 ```bash
-openclaw devices list
-openclaw nodes status
-openclaw approvals get --node <idOrNameOrIp>
-openclaw approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
+granted devices list
+granted nodes status
+granted approvals get --node <idOrNameOrIp>
+granted approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
 ```
 
 - Pairing missing: approve the node device first.
@@ -141,10 +141,10 @@ For approval-backed `host=node` runs, the gateway also binds execution to the pr
 ## Fast recovery loop
 
 ```bash
-openclaw nodes status
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw approvals get --node <idOrNameOrIp>
-openclaw logs --follow
+granted nodes status
+granted nodes describe --node <idOrNameOrIp>
+granted approvals get --node <idOrNameOrIp>
+granted logs --follow
 ```
 
 If still stuck:

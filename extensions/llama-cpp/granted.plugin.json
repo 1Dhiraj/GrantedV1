@@ -48,7 +48,7 @@
       "appGuidedDiscovery": true,
       "appGuidedActionLabel": "Set up model",
       "choiceLabel": "Managed local server",
-      "choiceHint": "Install a verified llama.cpp server and run a private GGUF model managed by OpenClaw",
+      "choiceHint": "Install a verified llama.cpp server and run a private GGUF model managed by Granted",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
       "groupHint": "Managed or external llama.cpp server"
@@ -60,7 +60,7 @@
       "appGuidedDiscovery": true,
       "appGuidedSecret": true,
       "choiceLabel": "Existing llama-server",
-      "choiceHint": "Connect to a llama.cpp server managed outside OpenClaw",
+      "choiceHint": "Connect to a llama.cpp server managed outside Granted",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
       "groupHint": "Managed or external llama.cpp server",

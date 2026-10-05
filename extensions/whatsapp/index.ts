@@ -1,4 +1,4 @@
-// Whatsapp plugin entrypoint registers its OpenClaw integration.
+// Whatsapp plugin entrypoint registers its Granted integration.
 import {
   defineBundledChannelEntry,
   loadBundledEntryExportSync,

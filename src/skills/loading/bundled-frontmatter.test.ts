@@ -7,6 +7,25 @@ import { parseSkillFrontmatter } from "./frontmatter.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
+describe("bundled skill library frontmatter", () => {
+  it("keeps every shipped skill parseable, named after its directory, and described", async () => {
+    const skillsDir = path.join(repoRoot, "skills");
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const directories = entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+
+    expect(directories.length).toBeGreaterThan(0);
+    for (const directory of directories) {
+      const relativePath = path.join("skills", directory, "SKILL.md");
+      const raw = await fs.readFile(path.join(repoRoot, relativePath), "utf8");
+      const frontmatter = parseSkillFrontmatter(raw);
+
+      // A skill whose name drifts from its directory loads under the wrong id.
+      expect(frontmatter.name, relativePath).toBe(directory);
+      expect(frontmatter.description?.trim(), relativePath).toBeTruthy();
+    }
+  });
+});
+
 describe("bundled taskflow skill frontmatter", () => {
   it("keeps the taskflow skills parseable from their shipped files", async () => {
     const skillPaths = [

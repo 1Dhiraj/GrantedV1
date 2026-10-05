@@ -1,11 +1,11 @@
-# OpenClaw LINE
+# Granted LINE
 
-Official OpenClaw channel plugin for LINE Bot API chats.
+Official Granted channel plugin for LINE Bot API chats.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/line
+granted plugins install @granted/line
 ```
 
-Configure LINE channel credentials in OpenClaw, then connect the bot to the chats where agents should receive and send messages.
+Configure LINE channel credentials in Granted, then connect the bot to the chats where agents should receive and send messages.

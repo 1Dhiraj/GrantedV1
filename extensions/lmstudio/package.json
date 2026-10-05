@@ -2,7 +2,7 @@
   "name": "@granted/lmstudio-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw LM Studio provider plugin",
+  "description": "Granted LM Studio provider plugin",
   "type": "module",
   "openclaw": {
     "extensions": [

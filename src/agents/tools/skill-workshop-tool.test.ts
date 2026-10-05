@@ -277,7 +277,7 @@ describe("skill_workshop tool", () => {
     expect(schema).toContain("Proposal frontmatter is added automatically");
   });
 
-  it("is exposed in the OpenClaw tool set", async () => {
+  it("is exposed in the Granted tool set", async () => {
     const workspaceDir = await tempDirs.make("openclaw-skill-workshop-tool-");
     const tools = createOpenClawTools({
       workspaceDir,
@@ -519,7 +519,7 @@ describe("skill_workshop tool", () => {
     expect(proposalMutationBudget.successfulMutations).toBe(3);
   });
 
-  it("is not exposed from sandboxed OpenClaw tool sets", async () => {
+  it("is not exposed from sandboxed Granted tool sets", async () => {
     const workspaceDir = await tempDirs.make("openclaw-skill-workshop-tool-");
     const tools = createOpenClawTools({
       workspaceDir,

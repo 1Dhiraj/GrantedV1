@@ -1,2 +1,2 @@
-// Msteams plugin entrypoint registers its OpenClaw integration.
+// Msteams plugin entrypoint registers its Granted integration.
 export { monitorMSTeamsProvider } from "./monitor.js";

@@ -26,8 +26,8 @@ official LongCat plugin for LongCat's OpenAI-compatible endpoint.
 Install the official package, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/longcat-provider
-openclaw gateway restart
+granted plugins install @granted/longcat-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -40,12 +40,12 @@ openclaw gateway restart
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice longcat-api-key
+    granted onboard --auth-choice longcat-api-key
     ```
   </Step>
   <Step title="Verify the model">
     ```bash
-    openclaw models list --provider longcat
+    granted models list --provider longcat
     ```
   </Step>
 </Steps>
@@ -56,7 +56,7 @@ primary model is already configured.
 ### Non-interactive setup
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice longcat-api-key \
   --longcat-api-key "$LONGCAT_API_KEY"
@@ -106,8 +106,8 @@ do not route a local deployment through `longcat/LongCat-2.0`.
   </Accordion>
 
   <Accordion title="The model does not appear">
-    Run `openclaw plugins list` and confirm the `longcat` plugin is
-    enabled, then run `openclaw models list --provider longcat`.
+    Run `granted plugins list` and confirm the `longcat` plugin is
+    enabled, then run `granted models list --provider longcat`.
   </Accordion>
 </AccordionGroup>
 

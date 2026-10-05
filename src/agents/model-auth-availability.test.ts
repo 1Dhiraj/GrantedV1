@@ -948,7 +948,7 @@ describe("createModelAuthAvailabilityResolver", () => {
     });
   });
 
-  it("does not let Codex synthetic auth own an OpenClaw-only route", () => {
+  it("does not let Codex synthetic auth own an Granted-only route", () => {
     const openClawOnlyRoute = {
       ...platformRoute,
       runtimePolicy: { compatibleIds: ["openclaw"] },

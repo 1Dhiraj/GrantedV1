@@ -134,7 +134,7 @@ docker compose up -d openclaw-gateway
 
 The channel command fails before changing config if a plugin-declared environment variable is missing. Keep `TELEGRAM_BOT_TOKEN` in `.env` after bootstrap: `--use-env` leaves credential lookup to the environment without copying the token into `openclaw.json`, and the running Gateway needs the same variable. When channel config changes after startup, the Gateway's config watcher hot-reloads the affected channel automatically.
 
-See [`openclaw channels`](/cli/channels) for credential-flag alternatives and other channel plugins.
+See [`granted channels`](/cli/channels) for credential-flag alternatives and other channel plugins.
 
 ### Manual flow
 
@@ -166,17 +166,17 @@ Run `docker compose` from the repo root. If you enabled `OPENCLAW_EXTRA_MOUNTS` 
 When you replace the OpenClaw image but keep the same mounted state/config, the
 new gateway runs startup-safe upgrade migrations and plugin convergence before
 readiness. Routine image upgrades should not require a separate
-`openclaw doctor --fix` pass.
+`granted doctor --fix` pass.
 
 If startup cannot complete those repairs safely, the gateway exits instead of
 reporting healthy. With a restart policy, Docker, Podman, or Kubernetes may show
 the gateway container restarting. Keep the mounted state volume, then run the
-same image once with `openclaw doctor --fix` as the container command, using the
+same image once with `granted doctor --fix` as the container command, using the
 same state/config mounts the gateway uses:
 
 ```bash
-docker run --rm -v <openclaw-state>:/home/node/.openclaw <image> openclaw doctor --fix
-podman run --rm -v <openclaw-state>:/home/node/.openclaw <image> openclaw doctor --fix
+docker run --rm -v <openclaw-state>:/home/node/.openclaw <image> granted doctor --fix
+podman run --rm -v <openclaw-state>:/home/node/.openclaw <image> granted doctor --fix
 ```
 
 After doctor finishes, restart the gateway container with its default command.
@@ -542,7 +542,7 @@ does not reveal the full token.
   </Accordion>
 
   <Accordion title="Docker Desktop DNS failures in openclaw-cli">
-    Some Docker Desktop setups fail DNS lookups from the shared-network `openclaw-cli` sidecar after `NET_RAW` is dropped, showing up as `EAI_AGAIN` during npm-backed commands like `openclaw plugins install`. Keep the default hardened compose file for normal operation. The override below restores default capabilities for the `openclaw-cli` container only — use it for the one-off command that needs registry access, not as your default invocation:
+    Some Docker Desktop setups fail DNS lookups from the shared-network `openclaw-cli` sidecar after `NET_RAW` is dropped, showing up as `EAI_AGAIN` during npm-backed commands like `granted plugins install`. Keep the default hardened compose file for normal operation. The override below restores default capabilities for the `openclaw-cli` container only — use it for the one-off command that needs registry access, not as your default invocation:
 
     ```bash
     printf '%s\n' \

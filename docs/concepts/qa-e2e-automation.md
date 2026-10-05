@@ -26,7 +26,7 @@ Pieces:
 
 ## Command surface
 
-Every QA flow runs under `pnpm openclaw qa <subcommand>`. Many have `pnpm qa:*`
+Every QA flow runs under `pnpm granted qa <subcommand>`. Many have `pnpm qa:*`
 script aliases; both forms work.
 
 | Command                                             | Purpose                                                                                                                                                                                                                                                             |
@@ -82,7 +82,7 @@ Slim evidence omits per-entry `execution` and sets `evidenceMode: "slim"`;
 `smoke-ci` defaults to slim, and `--evidence-mode full` restores full entries:
 
 ```bash
-pnpm openclaw qa run \
+pnpm granted qa run \
   --qa-profile smoke-ci \
   --category channels.conversation-routing-and-delivery \
   --provider-mode mock-openai \
@@ -140,7 +140,7 @@ For faster QA Lab UI iteration without rebuilding the Docker image each time,
 start the stack with a bind-mounted QA Lab bundle:
 
 ```bash
-pnpm openclaw qa docker-build-image
+pnpm granted qa docker-build-image
 pnpm qa:lab:build
 pnpm qa:lab:up:fast
 pnpm qa:lab:watch
@@ -194,7 +194,7 @@ For a transport-real Matrix lane that does not require model-provider
 credentials, use the deterministic mock OpenAI provider:
 
 ```bash
-pnpm openclaw qa matrix --provider-mode mock-openai
+pnpm granted qa matrix --provider-mode mock-openai
 ```
 
 For the live-frontier provider lane, supply OpenAI-compatible credentials
@@ -202,10 +202,10 @@ explicitly:
 
 ```bash
 OPENCLAW_LIVE_OPENAI_KEY="${OPENAI_API_KEY}" \
-  pnpm openclaw qa matrix --provider-mode live-frontier
+  pnpm granted qa matrix --provider-mode live-frontier
 ```
 
-Plain `pnpm openclaw qa matrix` runs every flow scenario that explicitly
+Plain `pnpm granted qa matrix` runs every flow scenario that explicitly
 declares Matrix eligibility through `execution.channel` or
 `execution.channels`, and it continues after scenario failures. Use
 `--fail-fast` for a shorter feedback loop or repeat `--scenario <id>` for an
@@ -265,7 +265,7 @@ end: mention gating, allow-bot policies, allowlists, top-level and threaded
 replies, DM routing, reaction handling, inbound edit suppression, restart
 replay dedupe, homeserver interruption recovery, approval metadata delivery,
 media handling, and Matrix E2EE bootstrap/recovery/verification flows. The
-E2EE CLI scenarios also drive `openclaw matrix encryption setup` and
+E2EE CLI scenarios also drive `granted matrix encryption setup` and
 verification commands through the same disposable homeserver before checking
 gateway replies.
 
@@ -275,7 +275,7 @@ manual runs execute the catalog-derived selection in one job with up to four
 isolated host workers. Each worker owns its disposable homeserver, Gateway,
 state, and artifacts. Scenario membership stays catalog-owned; `--fail-fast`
 keeps execution serial and stops after the first failure.
-Use `openclaw qa matrix --concurrency <count>` to request fewer workers;
+Use `granted qa matrix --concurrency <count>` to request fewer workers;
 values above the transport limit stay capped.
 
 ### Discord Mantis scenarios
@@ -296,11 +296,11 @@ decision still comes from the Discord REST oracle.
 For the other transport-real smoke lanes:
 
 ```bash
-pnpm openclaw qa buzz
-pnpm openclaw qa discord
-pnpm openclaw qa slack
-pnpm openclaw qa telegram
-pnpm openclaw qa whatsapp
+pnpm granted qa buzz
+pnpm granted qa discord
+pnpm granted qa slack
+pnpm granted qa telegram
+pnpm granted qa whatsapp
 ```
 
 They target a pre-existing real channel with two bots or accounts (driver +
@@ -314,7 +314,7 @@ below.
 For a full Slack desktop VM run with VNC rescue, run:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --gateway-setup \
   --scenario slack-canary \
   --keep-lease
@@ -344,7 +344,7 @@ To prove native Slack approval UI with desktop evidence, run the Mantis
 approval checkpoint mode:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --approval-checkpoints \
   --credential-source convex \
   --credential-role maintainer
@@ -376,7 +376,7 @@ handling steps live in
 For an agent/CV style desktop task, run:
 
 ```bash
-pnpm openclaw qa mantis visual-task \
+pnpm granted qa mantis visual-task \
   --browser-url https://example.net \
   --expect-text "Example Domain" \
   --vision-model openai/gpt-5.6-luna
@@ -384,7 +384,7 @@ pnpm openclaw qa mantis visual-task \
 
 `visual-task` leases or reuses a Crabbox desktop/browser machine, starts
 `crabbox record --while`, drives the visible browser through a nested
-`visual-driver`, captures `visual-task.png`, runs `openclaw infer image
+`visual-driver`, captures `visual-task.png`, runs `granted infer image
 describe` against the screenshot when `--vision-mode image-describe` is
 selected, and writes `visual-task.mp4`, `mantis-visual-task-summary.json`,
 `mantis-visual-task-driver-result.json`, and
@@ -405,7 +405,7 @@ and `--keep-lease` was not set.
 Before using pooled live credentials, run:
 
 ```bash
-pnpm openclaw qa credentials doctor
+pnpm granted qa credentials doctor
 ```
 
 The doctor checks Convex broker env (`OPENCLAW_QA_CONVEX_SITE_URL`,
@@ -438,7 +438,7 @@ eligibility axes.
 For a disposable Linux VM lane without bringing Docker into the QA path, run:
 
 ```bash
-pnpm openclaw qa suite --runner multipass --scenario channel-chat-baseline
+pnpm granted qa suite --runner multipass --scenario channel-chat-baseline
 ```
 
 This boots a fresh Multipass guest, installs dependencies, builds OpenClaw
@@ -500,7 +500,7 @@ do not expose that flag.
 ### Buzz QA
 
 ```bash
-pnpm openclaw qa buzz \
+pnpm granted qa buzz \
   --credential-file /secure/path/buzz-qa-credentials.json
 ```
 
@@ -534,7 +534,7 @@ the real Buzz relay path but omits credential values.
 ### Telegram QA
 
 ```bash
-pnpm openclaw qa telegram
+pnpm granted qa telegram
 ```
 
 Targets one shared private group on Telegram's Test Server. One Convex lease
@@ -557,7 +557,7 @@ use production Telegram credentials or Bot-to-Bot Communication Mode.
 The `release` profile selects taxonomy-owned Telegram scenarios that declare
 the channel, use the flow execution kind, and match the requested provider and
 model lane. Explicit `--scenario` values narrow that same selection instead of
-bypassing its constraints. Use `pnpm openclaw qa telegram --list-scenarios
+bypassing its constraints. Use `pnpm granted qa telegram --list-scenarios
 --provider-mode mock-openai` to print the current selection with regression
 refs. Supplying `--model` applies the same model constraint to listing and
 execution.
@@ -596,7 +596,7 @@ creating a separate RTT command or Telegram-specific summary format.
 ### Discord QA
 
 ```bash
-pnpm openclaw qa discord
+pnpm granted qa discord
 ```
 
 Targets one real private Discord guild channel with two bots: a driver bot
@@ -657,7 +657,7 @@ Discord YAML module scenarios (`qa/scenarios/channels/discord-*.yaml`):
 Run the Discord voice auto-join scenario explicitly:
 
 ```bash
-pnpm openclaw qa discord \
+pnpm granted qa discord \
   --scenario discord-voice-autojoin \
   --provider-mode mock-openai
 ```
@@ -670,7 +670,7 @@ Run the transcript authorization scenario with a Convex lease whose payload
 contains the reserved QA room's `voiceChannelId`:
 
 ```bash
-pnpm openclaw qa discord \
+pnpm granted qa discord \
   --scenario discord-transcripts-voice-authorization \
   --provider-mode live-frontier \
   --credential-source convex \
@@ -680,7 +680,7 @@ pnpm openclaw qa discord \
 Run the Mantis status-reaction scenario explicitly:
 
 ```bash
-pnpm openclaw qa discord \
+pnpm granted qa discord \
   --scenario discord-status-reactions-tool-only \
   --provider-mode live-frontier \
   --model openai/gpt-5.6-luna \
@@ -700,7 +700,7 @@ Output artifacts:
 ### Slack QA
 
 ```bash
-pnpm openclaw qa slack
+pnpm granted qa slack
 ```
 
 Targets one real private Slack channel with two distinct bots: a driver bot
@@ -981,12 +981,12 @@ With `OPENCLAW_QA_CONVEX_SITE_URL` and `OPENCLAW_QA_CONVEX_SECRET_MAINTAINER`
 exported in your shell, register and verify:
 
 ```bash
-pnpm openclaw qa credentials add \
+pnpm granted qa credentials add \
   --kind slack \
   --payload-file slack-creds.json \
   --note "QA Slack pool seed"
 
-pnpm openclaw qa credentials list --kind slack --status all --json
+pnpm granted qa credentials list --kind slack --status all --json
 ```
 
 Expect `count: 1`, `status: "active"`, no `lease` field.
@@ -997,7 +997,7 @@ Run the lane locally to confirm both bots can talk to each other through the
 broker:
 
 ```bash
-pnpm openclaw qa slack \
+pnpm granted qa slack \
   --credential-source convex \
   --credential-role maintainer \
   --output-dir .artifacts/qa-e2e/slack-local
@@ -1012,7 +1012,7 @@ credentials list --kind slack --status all --json` will tell you which.
 ### WhatsApp QA
 
 ```bash
-pnpm openclaw qa whatsapp
+pnpm granted qa whatsapp
 ```
 
 Targets two dedicated WhatsApp Web accounts: a driver account controlled by
@@ -1209,7 +1209,7 @@ Seed assets live in `qa/`:
 Identity-sensitive channel changes use the isolated
 `channel-participant-identity-inspection` QA Channel flow. It drives a real
 ephemeral Gateway and mock provider, then inspects admitted runs with the same
-`openclaw audit --run ... --explain` JSON and human surfaces operators use.
+`granted audit --run ... --explain` JSON and human surfaces operators use.
 The flow includes lifecycle-owned restart and a row-count check for rejected
 pre-run ingress.
 
@@ -1296,7 +1296,7 @@ own the flow.
 
 `qa-lab` owns the shared host mechanics:
 
-- the `openclaw qa` command root
+- the `granted qa` command root
 - suite startup and teardown
 - worker concurrency
 - artifact writing
@@ -1306,7 +1306,7 @@ own the flow.
 
 Runner plugins own the transport contract:
 
-- how `openclaw qa <runner>` is mounted beneath the shared `qa` root
+- how `granted qa <runner>` is mounted beneath the shared `qa` root
 - how the gateway is configured for that transport
 - how readiness is checked
 - how inbound events are injected
@@ -1321,7 +1321,7 @@ The minimum adoption bar for a new channel:
 2. Implement the transport runner on the shared `qa-lab` host seam.
 3. Keep transport-specific mechanics inside the runner plugin or channel
    harness.
-4. Mount the runner as `openclaw qa <runner>` instead of registering a
+4. Mount the runner as `granted qa <runner>` instead of registering a
    competing root command. Runner plugins should declare `qaRunners` in
    `granted.plugin.json` and export a matching `qaRunnerCliRegistrations`
    array from a lightweight `qa-runner-api.ts` surface. Installed plugins using
@@ -1383,9 +1383,9 @@ The report should answer:
 - What follow-up scenarios are worth adding
 
 For the inventory of available scenarios - useful when sizing follow-up work
-or wiring a new transport - run `pnpm openclaw qa coverage` (add `--json`
+or wiring a new transport - run `pnpm granted qa coverage` (add `--json`
 for machine-readable output). When choosing focused proof for a touched
-behavior or file path, run `pnpm openclaw qa coverage --match <query>`. The
+behavior or file path, run `pnpm granted qa coverage --match <query>`. The
 match report searches scenario metadata, docs refs, code refs, coverage IDs,
 plugins, and provider requirements, then prints matching `qa suite
 --scenario ...` targets. Generated commands preserve declared channel-driver
@@ -1415,7 +1415,7 @@ For character and style checks, run the same scenario across multiple live
 model refs and write a judged Markdown report:
 
 ```bash
-pnpm openclaw qa character-eval \
+pnpm granted qa character-eval \
   --model openai/gpt-5.6-luna,thinking=medium,fast \
   --model openai/gpt-5.2,thinking=xhigh \
   --model openai/gpt-5,thinking=xhigh \

@@ -112,7 +112,7 @@ async function withRealTeamsSdkHttp<T>(
   try {
     const port = (server.address() as AddressInfo).port;
     const api = new TeamsApiClient(serviceUrl);
-    // OpenClaw's minimal SDK ambient declaration omits the real client's public HTTP transport.
+    // Granted's minimal SDK ambient declaration omits the real client's public HTTP transport.
     const transport = (api as unknown as { http: TeamsSdkHttpTransport }).http;
     vi.spyOn(transport, "post").mockImplementation(async (destination, data) => {
       const destinationUrl = new URL(destination);
@@ -298,7 +298,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
           conversationId,
           ref: {
             serviceUrl,
-            agent: { id: "28:bot", name: "OpenClaw", role: "bot" },
+            agent: { id: "28:bot", name: "Granted", role: "bot" },
             user: { id: "29:user" },
             conversation: { id: conversationId, conversationType },
             ...(threadId ? { threadId } : {}),
@@ -369,7 +369,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
           conversationId,
           ref: {
             serviceUrl,
-            agent: { id: "28:bot", name: "OpenClaw", role: "bot" },
+            agent: { id: "28:bot", name: "Granted", role: "bot" },
             user: { id: "29:user" },
             conversation: { id: conversationId, conversationType: "channel" },
             threadId: "workspace-thread-root",
@@ -431,7 +431,7 @@ describe("Microsoft Teams SharePoint attachment thread routing", () => {
         conversationId,
         ref: {
           serviceUrl,
-          agent: { id: "28:bot", name: "OpenClaw", role: "bot" },
+          agent: { id: "28:bot", name: "Granted", role: "bot" },
           user: { id: "29:user" },
           conversation: { id: conversationId, conversationType: "personal" },
         },
@@ -479,7 +479,7 @@ describe.each(structuredSenders)("Microsoft Teams $label thread routing", ({ sen
           conversationId,
           ref: {
             serviceUrl,
-            agent: { id: "28:bot", name: "OpenClaw", role: "bot" },
+            agent: { id: "28:bot", name: "Granted", role: "bot" },
             user: { id: "29:user" },
             conversation: { id: conversationId, conversationType },
             activityId: "incoming-activity-1",

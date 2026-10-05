@@ -31,6 +31,8 @@ describe("computer tool guidance", () => {
     expect(description).toContain('`effect:"confirmed"` > `unverifiable` > `suspected_noop`');
     expect(description).toContain("never blind-retry a mutation");
     expect(description).toContain("untrusted input");
+    expect(description).toContain("remote paired");
+    expect(description).toContain("local `desktop` tool");
     expect(description).not.toMatch(
       /cua|peekaboo|\b(?:cli|mcp|daemon|socket|install(?:ation|ing)?)\b|verify_state|start_session|end_session|element_token|snapshot_id|window_id|delivery_mode/iu,
     );

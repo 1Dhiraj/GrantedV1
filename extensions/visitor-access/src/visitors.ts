@@ -93,7 +93,7 @@ export class VisitorAccessService {
         {
           headers: {
             Accept: "application/vnd.github+json",
-            "User-Agent": "OpenClaw-visitor-access",
+            "User-Agent": "Granted-visitor-access",
           },
           redirect: "error",
           signal: this.signal

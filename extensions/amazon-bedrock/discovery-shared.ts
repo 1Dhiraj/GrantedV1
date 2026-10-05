@@ -5,7 +5,7 @@
 import { resolveAwsSdkEnvVarName } from "granted/plugin-sdk/provider-auth-runtime";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 
-/** Resolve the config auth marker that tells OpenClaw to use AWS SDK credentials. */
+/** Resolve the config auth marker that tells Granted to use AWS SDK credentials. */
 export function resolveBedrockConfigApiKey(
   env: NodeJS.ProcessEnv = process.env,
 ): string | undefined {

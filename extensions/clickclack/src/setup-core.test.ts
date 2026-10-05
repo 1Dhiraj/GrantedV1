@@ -72,7 +72,7 @@ describe("ClickClack setup adapter", () => {
   it("claims a full setup URL and prepares the token, workspace, and defaults", async () => {
     claimClickClackSetupCode.mockResolvedValue({
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",
@@ -111,7 +111,7 @@ describe("ClickClack setup adapter", () => {
       contract_version: 1,
       api_base_url: "https://api.clickclack.example/services/clickclack",
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",
@@ -142,7 +142,7 @@ describe("ClickClack setup adapter", () => {
   it("claims a bare setup code with an explicit HTTPS base URL", async () => {
     claimClickClackSetupCode.mockResolvedValue({
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",
@@ -171,7 +171,7 @@ describe("ClickClack setup adapter", () => {
   it("claims setup codes through an existing private API base", async () => {
     claimClickClackSetupCode.mockResolvedValue({
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",
@@ -206,7 +206,7 @@ describe("ClickClack setup adapter", () => {
       contract_version: 1,
       api_base_url: "https://api.clickclack.example/services/clickclack",
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",
@@ -239,7 +239,7 @@ describe("ClickClack setup adapter", () => {
   it("accepts setup-code URLs for local HTTP installations", async () => {
     claimClickClackSetupCode.mockResolvedValue({
       token: "test-token",
-      bot: { id: "usr_bot", handle: "openclaw", display_name: "OpenClaw" },
+      bot: { id: "usr_bot", handle: "openclaw", display_name: "Granted" },
       workspace: {
         id: "wsp_1",
         route_id: "clickclack",

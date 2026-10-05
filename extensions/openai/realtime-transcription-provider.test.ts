@@ -187,7 +187,7 @@ describe("buildOpenAIRealtimeTranscriptionProvider", () => {
           openai: {
             language: "en",
             model: "gpt-4o-transcribe",
-            prompt: "expect OpenClaw product names",
+            prompt: "expect Granted product names",
             silenceDurationMs: 900,
             vadThreshold: 0.45,
           },
@@ -198,7 +198,7 @@ describe("buildOpenAIRealtimeTranscriptionProvider", () => {
     expect(resolved).toEqual({
       language: "en",
       model: "gpt-4o-transcribe",
-      prompt: "expect OpenClaw product names",
+      prompt: "expect Granted product names",
       silenceDurationMs: 900,
       vadThreshold: 0.45,
     });
@@ -403,7 +403,7 @@ describe("buildOpenAIRealtimeTranscriptionProvider", () => {
         apiKey: "sk-test", // pragma: allowlist secret
         language: "en",
         model: "gpt-4o-transcribe",
-        prompt: "expect OpenClaw product names",
+        prompt: "expect Granted product names",
         silenceDurationMs: 900,
         vadThreshold: 0.45,
       },
@@ -428,7 +428,7 @@ describe("buildOpenAIRealtimeTranscriptionProvider", () => {
             transcription: {
               model: "gpt-4o-transcribe",
               language: "en",
-              prompt: "expect OpenClaw product names",
+              prompt: "expect Granted product names",
             },
             turn_detection: {
               type: "server_vad",

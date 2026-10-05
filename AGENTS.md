@@ -8,10 +8,10 @@ Skills own workflows; root owns hard policy and routing. Product direction and m
 - Repo: `https://github.com/openclaw/openclaw`
 - Replies: repo-root refs only: `extensions/telegram/src/bot-access.ts:80`. No absolute paths, no `~/`.
 - Docs/user-visible work: `pnpm docs:list`, then read relevant docs only.
-- Existing-solutions preflight: before proposing or building anything custom, briefly check for OSS projects, maintained libraries, existing OpenClaw plugins, or free platforms that already solve it; prefer those when adequate. Custom only when existing options are unsuitable or the user explicitly asks. No paid-service recommendations without explicitly approved spend. A brief gate, not a research assignment.
+- Existing-solutions preflight: before proposing or building anything custom, briefly check for OSS projects, maintained libraries, existing Granted plugins, or free platforms that already solve it; prefer those when adequate. Custom only when existing options are unsuitable or the user explicitly asks. No paid-service recommendations without explicitly approved spend. A brief gate, not a research assignment.
 - Fix/triage/review: Repair Doctrine applies. Verdicts need source, tests, current/shipped behavior, and (when dependencies are involved) dependency contract proof; diff-only review is insufficient.
 - Dependency work: direct inspection mandatory when feasible — read upstream source/docs/types first. External API work: live test required; search for additional proof; cite current proof. No API/default/error/timing claims from assumptions, wrappers, or memory.
-- Codex hard gate: the acting agent must personally inspect sibling `../codex` source (clone `https://github.com/openai/codex.git` there if missing) for the exact protocol/runtime behavior before any verdict, comment, approval, merge recommendation, code change, or `proof sufficient` claim. Subagent reports, PR text, OpenClaw wrappers, generated schemas, memory, and prior bot reviews do not satisfy it — no direct `../codex` check means no Codex verdict. Cite Codex files/lines checked.
+- Codex hard gate: the acting agent must personally inspect sibling `../codex` source (clone `https://github.com/openai/codex.git` there if missing) for the exact protocol/runtime behavior before any verdict, comment, approval, merge recommendation, code change, or `proof sufficient` claim. Subagent reports, PR text, Granted wrappers, generated schemas, memory, and prior bot reviews do not satisfy it — no direct `../codex` check means no Codex verdict. Cite Codex files/lines checked.
 - Provider model changes: update the owning plugin manifest; after landing, verify `openclaw/catalog/models/v1/catalog.json` refreshes and dispatch the catalog publish workflow when needed.
 - Live-verify is the default, not a nicety: user-facing behavior gets live-tested through the real flow before landing. Skipping requires a concrete infeasibility stated in the PR, not convenience. Never print secrets.
 - Telegram-visible proof: use `$telegram-e2e-userbot`; all routine local, team, and CI runs lease Test Server credentials from Convex. Local maintainers use an authenticated `convex` CLI; CI workers receive the broker pair through GitHub Secrets.
@@ -54,7 +54,7 @@ Skills own workflows; root owns hard policy and routing. Product direction and m
 
 ## ClawSweeper Review Policy
 
-- OpenClaw-specific review rules live here; generic ClawSweeper prompts stay repo-agnostic.
+- Granted-specific review rules live here; generic ClawSweeper prompts stay repo-agnostic.
 - ClawSweeper-owned schema, labels, close reasons, protected-label gates, maintainer-item gates, and mutation rules live in `openclaw/clawsweeper`.
 - Review workers read this full root `AGENTS.md` (no search snippets, `head`, partial ranges, or truncated copies), then every scoped `AGENTS.md` owning touched paths.
 - Optional integrations, providers, channels, skill bundles, MCP surfaces, and service workflows route to plugins, ClawHub, or owner repos when current seams suffice. Keep core items for missing core/plugin APIs, bundled regressions, security/core hardening, or maintainer product decisions.
@@ -99,11 +99,11 @@ Skills own workflows; root owns hard policy and routing. Product direction and m
 - Internal bundled plugins ship in core dist; bundled-only facade loader ok only for them.
 - External official plugins own package/deps and are excluded from core dist; core uses registry-aware `facade-runtime` or generic contracts.
 - Externalizing a bundled plugin: update package excludes, official catalogs, docs, tests, and prove core runtime paths resolve installed plugin roots before root-dep removal.
-- If a config change invalidates existing files, add a matching `openclaw doctor --fix` migration. Core/auth config repairs live in core doctor; plugin-owned config repairs live in that plugin's doctor contract (`legacyConfigRules` / `normalizeCompatibilityConfig`).
+- If a config change invalidates existing files, add a matching `granted doctor --fix` migration. Core/auth config repairs live in core doctor; plugin-owned config repairs live in that plugin's doctor contract (`legacyConfigRules` / `normalizeCompatibilityConfig`).
 - OpenAI Codex = `openai`. No new/live `openai-codex` routes — legacy input only; runtime/setup/auth/catalog use `openai` + `openai/*`, doctor/migrations repair stale `openai-codex/*` profiles/metadata.
 - Adding any configuration option requires explicit approval in chat before implementation.
 - Config/env surface bar is high; `openclaw.json` and env vars are already large. Before adding an option or env var, prove existing product behavior, provider selection, defaults, or doctor migration cannot solve it; prefer removing/consolidating options when touching these surfaces.
-- CLI setup flows (`openclaw onboard`/`configure`, documented flags, non-interactive behavior, generated config shape) are shipped public API once external docs/installers can copy them: prefer additive flags/aliases, deprecation windows, and backward-preserving migrations over breaking existing snippets.
+- CLI setup flows (`granted onboard`/`configure`, documented flags, non-interactive behavior, generated config shape) are shipped public API once external docs/installers can copy them: prefer additive flags/aliases, deprecation windows, and backward-preserving migrations over breaking existing snippets.
 - Nested CLI options: when a parent option semantically applies to a leaf subcommand, declare it on both the parent and every applicable leaf so positional parsing accepts the option before or after the subcommand. Resolve the leaf value only when its source is non-default, then inherit from ancestors with `inheritOptionFromParent`. Do not expose inherited options on leaves where the semantics differ. Add real-parser coverage that enumerates every applicable leaf.
 - New binary fallible-operation results use `Result` from `@granted/normalization-core/result`; domain-rich outcomes keep named discriminated unions.
 - Tests may use observed examples, but prod literals need a short contract reason.
@@ -111,8 +111,8 @@ Skills own workflows; root owns hard policy and routing. Product direction and m
 - Refactor default: one canonical path — delete the old one. Keep old behavior only when the user explicitly asks or for an explicit public API/config/plugin SDK/data contract, tagged upgrade path, security/migration boundary, dependency contract, or observed prod state; cite it.
 - Reuse canonical coercion guards (`@granted/normalization-core/record-coerce`; plugins: `openclaw/plugin-sdk/string-coerce-runtime`) — no local `isRecord` copies. CI guard `pnpm check:coercion-helpers` owns the carve-outs; intentionally different semantics or a file that cannot use workspace resolution gets a reasoned carve-out entry there.
 - Core runtime consumes only current canonical shapes/config/data. Legacy or retired shapes normalize only in doctor/migration code before runtime; no runtime shims, aliases, or fallback readers.
-- State/storage migrations are database-first. Runtime reads/writes the canonical store only. Old file stores, sidecars, aliases, and fallback readers belong in `openclaw doctor --fix` migration code only, never steady-state runtime.
-- Storage default: SQLite only. Do not add JSON/JSONL/TXT/sidecar files for OpenClaw-owned runtime state, caches, queues, registries, indexes, cursors, checkpoints, or plugin scratch data. File storage is only for named product artifacts: import/export, user attachment, log, backup, or external tool contract. Schema and migration reference: `docs/reference/database-schemas.md`.
+- State/storage migrations are database-first. Runtime reads/writes the canonical store only. Old file stores, sidecars, aliases, and fallback readers belong in `granted doctor --fix` migration code only, never steady-state runtime.
+- Storage default: SQLite only. Do not add JSON/JSONL/TXT/sidecar files for Granted-owned runtime state, caches, queues, registries, indexes, cursors, checkpoints, or plugin scratch data. File storage is only for named product artifacts: import/export, user attachment, log, backup, or external tool contract. Schema and migration reference: `docs/reference/database-schemas.md`.
 - Any SQLite schema change requires explicit approval in chat before implementation.
 - Material SQLite or persistent-store changes need explicit user or maintainer discussion and acceptance before implementation. This includes schema-version bumps and same-version changes to tables, projections, indexing, retention, concurrency, recovery, or user-visible persistence semantics. Agents must not advance SQLite schema versions or implement a material store design autonomously. Follow `docs/reference/database-schemas.md#review-checkpoint-for-material-changes`.
 - Routing existing canonical identifiers and owners to the correct store is an implementation repair, not a database or protocol change, when schemas, stored representations, migrations, and public contracts stay unchanged. Continue under existing fix authorization; do not ask for additional approval merely because the repair touches persistence code.
@@ -187,7 +187,7 @@ Review invariants; full doctrine: `docs/gateway/audit.md`.
 ## Validation
 
 - Use `$openclaw-testing` for test/CI choice and `$crabbox` for remote-environment, isolation, and clean-machine E2E proof.
-- The Crabbox skill is a snapshot of `https://github.com/openclaw/agent-skills/tree/main/skills/crabbox`; edit that source, then sync the snapshot. OpenClaw-specific setup lives in `docs/reference/test.md#crabbox-repository-setup`, outside the shared skill.
+- The Crabbox skill is a snapshot of `https://github.com/openclaw/agent-skills/tree/main/skills/crabbox`; edit that source, then sync the snapshot. Granted-specific setup lives in `docs/reference/test.md#crabbox-repository-setup`, outside the shared skill.
 - Proof routing: source trust first, required environment second. Trusted development tests, changed gates, typecheck/lint, builds, and full suites run locally with scope proportional to the touched contract. Use Crabbox/Testbox only when the environment is part of the proof: clean-machine, install/package, Docker, E2E, live, desktop, cross-OS, CI parity, or explicit operator-requested remote work. Do not use it merely as generic compute offload. Lease/procedure mechanics: `$crabbox`.
 - Untrusted (contributor/fork) source: never run its scripts, tests, checks, wrappers, config, or package hooks locally, regardless of proof size, and never fall back to local. Use secretless fork CI or the sanitized direct AWS Crabbox procedure in `$crabbox`, never a credential-hydrated Testbox. Maintainer approval of credentialed execution after review makes it trusted; an explicit owner/maintainer instruction to land named, reviewed PRs is that approval — do not ask twice.
 - Visual proof: use a real isolated browser/desktop on the current host when capable; otherwise use Crabbox. Set up like a user, then screenshot-verify. No harness/bypass/shortcut unless explicitly asked.
@@ -215,7 +215,7 @@ Review invariants; full doctrine: `docs/gateway/audit.md`.
 - Fresh GitHub items: read `CONTRIBUTING.md`, the issue chooser/form, PR template, and `.github/CODEOWNERS`; blank issues are disabled; preserve templates and evidence requirements.
 - Issue first for bugs, user-facing features, architecture/product decisions, or work needing durable discussion. Bounded maintainer-requested refactor may go direct; agent decides whether an issue adds value. PRs use the template, link context, and keep durable problem/impact/evidence sections.
 - Route support to Discord and security through `SECURITY.md`. Use listed maintainer areas/`CODEOWNERS`; never guess mentions.
-- Use `$openclaw-pr-maintainer` immediately for maintainer-side OpenClaw issue/PR review, triage, duplicates, labels, comments, close, land, or evidence. Contributor PR creation/refresh follows the requested contributor workflow; linked refs alone do not require maintainer archive tooling.
+- Use `$openclaw-pr-maintainer` immediately for maintainer-side Granted issue/PR review, triage, duplicates, labels, comments, close, land, or evidence. Contributor PR creation/refresh follows the requested contributor workflow; linked refs alone do not require maintainer archive tooling.
 - Issue/PR start: `git status -sb`; if clean, `git pull --ff-only`; if dirty, yell before pull/rebase.
 - PR refs: `gh pr view/diff` or `gh api`, not web search. Prefer `gitcrawl` for maintainer discovery; missing/stale `gitcrawl` falls through to live `gh`, not contributor setup. Verify live with `gh` before mutation.
 - Bare issue/PR URL/number: inspect live and take the efficient maintainer path; switch branches/refs when useful.
@@ -291,7 +291,7 @@ Mechanics only; policy lives above.
 - Provider tool schemas: prefer flat string enum helpers over `Type.Union([Type.Literal(...)])`; some providers reject `anyOf`.
 - Split files around ~700 LOC when clarity/testability improves.
 - Never add a `max-lines` suppression. Existing suppressions are grandfathered TODOs; split the file and remove its suppression plus baseline entry.
-- Naming: **OpenClaw** product/docs; `openclaw` CLI/package/path/config.
+- Naming: **Granted** product/docs; `openclaw` CLI/package/path/config.
 - Agents navigate by grep: exported symbols use 2-3 word unique names; no generic single-word exports (`get`, `run`, `create`, `handle`).
 - New modules/dirs concept-named; no new `utils/`, `helpers/`, `common/`. One spelling per concept repo-wide.
 - English: American spelling.
@@ -353,7 +353,7 @@ Mechanics only; policy lives above.
 
 - Before simulator/emulator testing, check real iOS/Android devices.
 - "restart iOS/Android apps" = rebuild/reinstall/relaunch, not kill/launch.
-- Mac gateway: dev watch = `pnpm gateway:watch`; managed installs = `openclaw gateway restart/status --deep`; logs = `./scripts/clawlog.sh`. No launchd/ad-hoc tmux.
+- Mac gateway: dev watch = `pnpm gateway:watch`; managed installs = `granted gateway restart/status --deep`; logs = `./scripts/clawlog.sh`. No launchd/ad-hoc tmux.
 - Mac app permission testing: stable app path + real signing identity, or TCC prompts/listing won't stick; doctrine: `docs/platforms/mac/signing.md`.
 - Parallels: `$openclaw-parallels-smoke`; Discord roundtrip: `$parallels-discord-roundtrip`.
 - ClawSweeper ops: `$clawsweeper`. Deployed ClawSweeper hook sessions may post one concise `#clawsweeper` note only when surprising/actionable/risky; if using message tool, reply exactly `NO_REPLY`.

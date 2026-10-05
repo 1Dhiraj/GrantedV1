@@ -1,4 +1,4 @@
-// Verifies OpenClaw tool registration, availability, and construction policy.
+// Verifies Granted tool registration, availability, and construction policy.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import { setEmbeddedMode } from "../infra/embedded-mode.js";
@@ -88,7 +88,7 @@ describe("granted-tools progress_card gating", () => {
     setEmbeddedMode(false);
   });
 
-  it("keeps concrete OpenClaw tool names in the factory descriptor catalog", () => {
+  it("keeps concrete Granted tool names in the factory descriptor catalog", () => {
     const emittedNames = createFastToolNames({
       agentSessionKey: "agent:main:main",
       config: {

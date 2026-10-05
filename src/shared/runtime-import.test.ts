@@ -44,7 +44,7 @@ describe("runtime-import", () => {
     expect(
       await captureRuntimeImportSpecifier(
         "file:///C:/Users/alice/openclaw/dist/subagent-registry.js",
-        ["D:\\OpenClaw\\dist\\subagent-registry.runtime.js"],
+        ["D:\\Granted\\dist\\subagent-registry.runtime.js"],
       ),
     ).toBe("file:///D:/OpenClaw/dist/subagent-registry.runtime.js");
   });

@@ -9,7 +9,7 @@ title: "Security"
 OpenClaw ships with conservative defaults. On a regular host install the Gateway binds to loopback; most chat channels answer an unknown DM sender with a pairing code instead of processing the message; and group access is allowlisted, usually behind a mention gate. The exceptions are deliberate and documented: container images default to an exposed bind (pair that with auth - see the [exposure runbook](/gateway/security/exposure-runbook)), and a few workspace channels such as ClickClack trust workspace membership by default - each channel page states its exact defaults. Run on those defaults and you are in good shape, and one command tells you if you have drifted:
 
 ```bash
-openclaw security audit
+granted security audit
 ```
 
 The rest of this page is the deep end: the trust model, what the audit checks, and how to harden further as you expose more surface.
@@ -39,15 +39,15 @@ Hosting multiple users or organizations? Run one isolated Gateway cell per tenan
 
 Before changing remote access, DM policy, reverse proxy, or public exposure, run through the [Gateway exposure runbook](/gateway/security/exposure-runbook) as a pre-flight/rollback checklist.
 
-## `openclaw security audit`
+## `granted security audit`
 
 Run this after any config change or before exposing network surfaces:
 
 ```bash
-openclaw security audit
-openclaw security audit --deep    # attempts a live Gateway probe
-openclaw security audit --fix     # apply safe remediations
-openclaw security audit --json
+granted security audit
+granted security audit --deep    # attempts a live Gateway probe
+granted security audit --fix     # apply safe remediations
+granted security audit --json
 ```
 
 `--fix` is intentionally narrow: it flips open group policies to allowlists, tightens state/config/include-file permissions (`600` files, `700` dirs), and on Windows uses ACL resets instead of POSIX `chmod`.
@@ -178,8 +178,8 @@ Every DM-capable channel supports `dmPolicy` (or `*.dm.policy`), which gates inb
 | `disabled`  | Inbound DMs ignored entirely.                                                                                                                                                                                        |
 
 ```bash
-openclaw pairing list <channel>
-openclaw pairing approve <channel> <code>
+granted pairing list <channel>
+granted pairing approve <channel> <code>
 ```
 
 Details + files on disk: [Pairing](/channels/pairing)
@@ -214,7 +214,7 @@ By default, OpenClaw routes all DMs into the main session for cross-device conti
 | `per-account-channel-peer` | Like above, split further by account (multi-account channels).         |
 | `per-peer`                 | Each sender gets one session across all channels of the same type.     |
 
-Local CLI onboarding preserves an explicit `session.dmScope` and otherwise leaves it unset, so the `"main"` default applies: all direct messages across channels share the agent's rolling main session (the personal-agent default). For shared or multi-user inboxes, set `session.dmScope: "per-channel-peer"`; `openclaw security audit` recommends isolation when it detects multi-user DM traffic.
+Local CLI onboarding preserves an explicit `session.dmScope` and otherwise leaves it unset, so the `"main"` default applies: all direct messages across channels share the agent's rolling main session (the personal-agent default). For shared or multi-user inboxes, set `session.dmScope: "per-channel-peer"`; `granted security audit` recommends isolation when it detects multi-user DM traffic.
 
 This is a messaging-context boundary, not a host-admin boundary. If users are mutually adversarial and share the same Gateway host/config, run separate gateways per trust boundary instead.
 
@@ -351,7 +351,7 @@ Plugins run in-process with the Gateway - treat them as trusted code.
 - Installing/updating plugins runs executable code:
   - The install path is the per-plugin directory under the active plugin install root.
   - ClawHub packages and OpenClaw's bundled/official catalog are trusted sources. A new arbitrary npm, `npm-pack:`, git, local path/archive, or marketplace source warns before install; noninteractive installs require `--force` after you review and trust that source. `--force` confirms provenance and permits overwrite; it does not bypass `security.installPolicy` or remaining install safety checks. Updates reuse the already selected source.
-  - OpenClaw does not run built-in local dangerous-code blocking during install/update. Use `security.installPolicy` for operator-owned local allow/warn/block decisions and `openclaw security audit --deep` for diagnostic scanning.
+  - OpenClaw does not run built-in local dangerous-code blocking during install/update. Use `security.installPolicy` for operator-owned local allow/warn/block decisions and `granted security audit --deep` for diagnostic scanning.
   - npm and git plugin installs run package-manager dependency convergence only during the explicit install/update flow. Local paths and archives are treated as self-contained packages; OpenClaw copies/references them without running `npm install`.
   - Prefer pinned exact versions (`@scope/pkg@1.2.3`) and inspect the unpacked code before enabling.
   - `security.installPolicy` lets operators run a trusted local command to return `allow`, `warn`, or `block` for skill and plugin installs. It runs after source material is staged but before install continues and applies to ClawHub skills too.
@@ -398,6 +398,7 @@ Build a read-only profile by combining `agents.defaults.sandbox.workspaceAccess:
 
 - `tools.exec.applyPatch.workspaceOnly: true` (default): keeps `apply_patch` from writing/deleting outside the workspace directory even with sandboxing off. Set `false` only if you intentionally want `apply_patch` to touch files outside the workspace.
 - `tools.fs.workspaceOnly: true` (optional): restricts `read`/`write`/`edit`/`apply_patch` paths and native prompt image auto-load paths to the workspace directory.
+- `tools.fs.allowPaths` (optional): extra absolute folders (or `~/...`) that `read`/`write`/`edit` may also use while `tools.fs.workspaceOnly` is on. Agent entries add to the global list; relative entries are ignored. It does not widen `apply_patch`, media sends, memory-flush runs, session permission modes, or sandboxes.
 - Keep filesystem roots narrow - avoid broad roots like your home directory for agent/sandbox workspaces, which can expose sensitive local files (for example state/config under `~/.openclaw`) to filesystem tools.
 
 ## Per-agent access profiles (multi-agent)
@@ -629,7 +630,7 @@ Gateway auth is required by default - with no valid auth path configured, the Ga
 { gateway: { auth: { mode: "token", token: "your-token" } } }
 ```
 
-`openclaw doctor --generate-gateway-token` can generate one for you.
+`granted doctor --generate-gateway-token` can generate one for you.
 
 <Note>
 `gateway.remote.token` and `gateway.remote.password` are client credential sources - they do not protect local WS access by themselves. Local call paths use `gateway.remote.*` only as fallback when `gateway.auth.*` is unset. If `gateway.auth.token` or `gateway.auth.password` is explicitly configured via SecretRef and unresolved, resolution fails closed (no remote-fallback masking).
@@ -716,12 +717,12 @@ Trusted proxy headers do not make node device pairing automatically trusted - `g
 The Control UI generates device identity with pure-JS Ed25519, so pairing works on any origin, including plain HTTP.
 
 - Token/password auth does not replace browser device identity: HTTP browsers still pair with a signed device key, which never crosses the wire. Prefer HTTPS (for example, Tailscale Serve) — plaintext transport still exposes the page and the shared secret to on-path attackers.
-- `gateway.controlUi.dangerouslyDisableDeviceAuth`: retired break-glass input, now fully inert. Control UI browsers pair through the normal device flow; `openclaw doctor --fix` removes the legacy key.
+- `gateway.controlUi.dangerouslyDisableDeviceAuth`: retired break-glass input, now fully inert. Control UI browsers pair through the normal device flow; `granted doctor --fix` removes the legacy key.
 - Separately, successful `gateway.auth.mode: "trusted-proxy"` authentication can admit **operator** Control UI sessions without device identity when the browser cannot supply one. Browsers that can mint an identity (any origin, including plain HTTP) follow the normal pairing flow instead — automatic with `deviceAutoApprove`, otherwise a one-time approval. This does not extend to node-role Control UI sessions.
 
 ### Insecure/dangerous flags
 
-`openclaw security audit` raises `config.insecure_or_dangerous_flags` for each enabled known insecure/dangerous debug switch (one finding per flag). Keep these unset in production. If audit suppressions are configured, `security.audit.suppressions.active` stays in the active output even when matching findings move to `suppressedFindings`.
+`granted security audit` raises `config.insecure_or_dangerous_flags` for each enabled known insecure/dangerous debug switch (one finding per flag). Keep these unset in production. If audit suppressions are configured, `security.audit.suppressions.active` stays in the active output even when matching findings move to `suppressedFindings`.
 
 <AccordionGroup>
   <Accordion title="Flags tracked by the audit today">
@@ -810,7 +811,7 @@ Hardening: keep permissions tight (`700` on dirs, `600` on files); use full-disk
 - `~/.openclaw/openclaw.json`: `600` (user read/write only)
 - `~/.openclaw`: `700` (user only)
 
-`openclaw doctor` can warn and offer to tighten these.
+`granted doctor` can warn and offer to tighten these.
 
 ### Workspace `.env` files
 
@@ -831,7 +832,7 @@ Gateway logs may include tool summaries, errors, and URLs; session transcripts c
 
 - Log/transcript redaction is always on and cannot be disabled by config.
 - Add custom patterns for your environment via `logging.redactPatterns` (tokens, hostnames, internal URLs).
-- When sharing diagnostics, prefer `openclaw status --all` (pasteable, secrets redacted) over raw logs.
+- When sharing diagnostics, prefer `granted status --all` (pasteable, secrets redacted) over raw logs.
 - Prune old session transcripts and log files if you do not need long retention.
 
 Details: [Logging](/gateway/logging)
@@ -865,7 +866,7 @@ For phone-number-based channels, consider running the assistant on a separate nu
 
 ### Contain
 
-1. Stop it: stop the macOS app (if it supervises the Gateway) or terminate your `openclaw gateway` process.
+1. Stop it: stop the macOS app (if it supervises the Gateway) or terminate your `granted gateway` process.
 2. Close exposure: set `gateway.bind: "loopback"` (or disable Tailscale Funnel/Serve) until you understand what happened.
 3. Freeze access: switch risky DMs/groups to `dmPolicy: "disabled"` / require mentions, and remove any `"*"` allow-all entries.
 
@@ -877,10 +878,10 @@ For phone-number-based channels, consider running the assistant on a separate nu
 
 ### Audit
 
-1. Check Gateway logs with `openclaw logs` (or `openclaw --profile <profile> logs` for a named profile). The default path is `/tmp/openclaw/openclaw-YYYY-MM-DD.log`; named profiles use `/tmp/openclaw/openclaw-<profile>-YYYY-MM-DD.log`, unless `logging.file` overrides it.
+1. Check Gateway logs with `granted logs` (or `openclaw --profile <profile> logs` for a named profile). The default path is `/tmp/openclaw/openclaw-YYYY-MM-DD.log`; named profiles use `/tmp/openclaw/openclaw-<profile>-YYYY-MM-DD.log`, unless `logging.file` overrides it.
 2. Review the relevant transcript(s): `~/.openclaw/agents/<agentId>/sessions/*.jsonl`.
 3. Review recent config changes that could have widened access: `gateway.bind`, `gateway.auth`, DM/group policies, `tools.elevated`, plugin changes.
-4. Re-run `openclaw security audit --deep` and confirm critical findings are resolved.
+4. Re-run `granted security audit --deep` and confirm critical findings are resolved.
 
 ### Collect for a report
 

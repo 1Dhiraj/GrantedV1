@@ -1,12 +1,12 @@
-# OpenClaw Kimi Coding Provider
+# Granted Kimi Coding Provider
 
-Official OpenClaw provider plugin for Kimi Coding.
+Official Granted provider plugin for Kimi Coding.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/kimi-provider
-openclaw gateway restart
+granted plugins install @granted/kimi-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/moonshot> for setup and configuration.

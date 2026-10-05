@@ -1,13 +1,13 @@
 # @granted/diagnostics-otel
 
-Official OpenTelemetry diagnostics exporter for OpenClaw.
+Official OpenTelemetry diagnostics exporter for Granted.
 
-This plugin exports OpenClaw Gateway traces, metrics, and logs to an OTLP collector for observability stacks such as Grafana, Datadog, Honeycomb, New Relic, Tempo, and compatible collectors. It can also write diagnostic log records as stdout JSONL for container log pipelines.
+This plugin exports Granted Gateway traces, metrics, and logs to an OTLP collector for observability stacks such as Grafana, Datadog, Honeycomb, New Relic, Tempo, and compatible collectors. It can also write diagnostic log records as stdout JSONL for container log pipelines.
 
 ## Install
 
 ```bash
-openclaw plugins install @granted/diagnostics-otel
+granted plugins install @granted/diagnostics-otel
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -24,4 +24,4 @@ The full config surface, metric names, span names, and collector examples live i
 
 - Plugin id: `diagnostics-otel`
 - Package: `@granted/diagnostics-otel`
-- Minimum OpenClaw host: `2026.4.25`
+- Minimum Granted host: `2026.4.25`

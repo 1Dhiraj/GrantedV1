@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw dns` (wide-area discovery helpers)"
+summary: "CLI reference for `granted dns` (wide-area discovery helpers)"
 read_when:
   - You want wide-area discovery (DNS-SD) via Tailscale + CoreDNS
   - You're setting up split DNS for a custom discovery domain (example: openclaw.internal)
 title: "DNS"
 ---
 
-# `openclaw dns`
+# `granted dns`
 
 DNS helpers for wide-area discovery (Tailscale + CoreDNS). Currently macOS + Homebrew CoreDNS only.
 
@@ -20,9 +20,9 @@ Related:
 Plan or apply CoreDNS setup for unicast DNS-SD discovery.
 
 ```bash
-openclaw dns setup
-openclaw dns setup --domain openclaw.internal
-openclaw dns setup --apply
+granted dns setup
+granted dns setup --domain openclaw.internal
+granted dns setup --apply
 ```
 
 | Option              | Effect                                                                              |

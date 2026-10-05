@@ -367,7 +367,7 @@ sender policy continues to apply to channel messages.
 ## Install
 
 ```bash
-openclaw plugins install @granted/slack
+granted plugins install @granted/slack
 ```
 
 `plugins install` registers and enables the plugin. It does nothing until you configure the Slack app and channel settings below. See [Plugins](/tools/plugin) for general plugin install rules.
@@ -569,8 +569,8 @@ cat > slack.socket.patch.json5 <<'JSON5'
   },
 }
 JSON5
-openclaw config patch --file ./slack.socket.patch.json5 --dry-run
-openclaw config patch --file ./slack.socket.patch.json5
+granted config patch --file ./slack.socket.patch.json5 --dry-run
+granted config patch --file ./slack.socket.patch.json5
 ```
 
         Default-account credential fallback after `channels.slack` is configured:
@@ -585,7 +585,7 @@ SLACK_BOT_TOKEN=slack-bot-token-example
       <Step title="Start gateway">
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
       </Step>
@@ -800,8 +800,8 @@ cat > slack.http.patch.json5 <<'JSON5'
   },
 }
 JSON5
-openclaw config patch --file ./slack.http.patch.json5 --dry-run
-openclaw config patch --file ./slack.http.patch.json5
+granted config patch --file ./slack.http.patch.json5 --dry-run
+granted config patch --file ./slack.http.patch.json5
 ```
 
         <Note>
@@ -815,7 +815,7 @@ openclaw config patch --file ./slack.http.patch.json5
       <Step title="Start gateway">
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
       </Step>
@@ -894,7 +894,7 @@ OpenClaw sets the Slack SDK client pong timeout to 15 seconds for Socket Mode. T
 
 Notes:
 
-- The `channels.slack.socketMode` object, including `clientPingTimeout`, `serverPingTimeout`, and `pingPongLoggingEnabled`, is retired and is no longer read at runtime. `openclaw doctor` flags retired layout tuning knobs with a general notice rather than a per-key path. `openclaw doctor --fix` removes those three fields wherever they appear, at the channel root and under `accounts.<accountId>`, and drops the `socketMode` object once it is empty. Any other key you added inside it is left alone, so delete it by hand.
+- The `channels.slack.socketMode` object, including `clientPingTimeout`, `serverPingTimeout`, and `pingPongLoggingEnabled`, is retired and is no longer read at runtime. `granted doctor` flags retired layout tuning knobs with a general notice rather than a per-key path. `granted doctor --fix` removes those three fields wherever they appear, at the channel root and under `accounts.<accountId>`, and drops the `socketMode` object once it is empty. Any other key you added inside it is left alone, so delete it by hand.
 - App messages and events remain application state, not transport liveness signals.
 - Socket Mode restart backoff starts around 2 seconds and caps around 30 seconds. Recoverable start, start-wait, and disconnect failures retry until the channel stops. Permanent account and credential errors such as invalid auth, revoked tokens, or missing scopes fail fast instead of retrying forever.
 
@@ -1322,9 +1322,9 @@ Use an entry's `identifier` directly as the `react` emoji; surrounding colons ar
     - Named accounts inherit `channels.slack.allowFrom` when their own `allowFrom` is unset.
     - Named accounts do not inherit `channels.slack.accounts.default.allowFrom`.
 
-    Legacy `channels.slack.dm.policy` and `channels.slack.dm.allowFrom` still read for compatibility. `openclaw doctor --fix` migrates them to `dmPolicy` and `allowFrom` when it can do so without changing access.
+    Legacy `channels.slack.dm.policy` and `channels.slack.dm.allowFrom` still read for compatibility. `granted doctor --fix` migrates them to `dmPolicy` and `allowFrom` when it can do so without changing access.
 
-    Pairing in DMs uses `openclaw pairing approve slack <code>`.
+    Pairing in DMs uses `granted pairing approve slack <code>`.
 
   </Tab>
 
@@ -1456,7 +1456,7 @@ Use `accountId` to select a configured Slack account and `teamId` for an explici
 - `channels.slack.thread.historyScope` default is `thread`; `thread.inheritParent` default is `false`.
 - `channels.slack.thread.initialHistoryLimit` controls how many existing thread messages are fetched when a new thread session starts (default `20`; set `0` to disable).
 - `channels.slack.implicitMentions.replyToBot` controls whether a reply to the bot's own message bypasses mention gating (default `true`).
-- `channels.slack.implicitMentions.threadParticipation` controls whether follow-ups in a thread where the bot has replied bypass mention gating (default `true`). Set it to `false` to require a new explicit mention in those follow-ups. `openclaw doctor --fix` migrates the former `channels.slack.thread.requireExplicitMention` key to this positive canonical flag.
+- `channels.slack.implicitMentions.threadParticipation` controls whether follow-ups in a thread where the bot has replied bypass mention gating (default `true`). Set it to `false` to require a new explicit mention in those follow-ups. `granted doctor --fix` migrates the former `channels.slack.thread.requireExplicitMention` key to this positive canonical flag.
 - Account overrides live at `channels.slack.accounts.<id>.implicitMentions`; shared defaults live at `channels.defaults.implicitMentions`.
 
 Reply threading controls:
@@ -1627,7 +1627,7 @@ Legacy keys:
 - `channels.slack.streamMode` (`replace | status_final | append`) is a legacy alias for `channels.slack.streaming.mode`.
 - boolean `channels.slack.streaming` is a legacy alias for `channels.slack.streaming.mode` and `channels.slack.streaming.nativeTransport`.
 - top-level `channels.slack.chunkMode` and `channels.slack.nativeStreaming` are legacy aliases for `channels.slack.streaming.chunkMode` and `channels.slack.streaming.nativeTransport`.
-- Legacy aliases are not read at runtime; run `openclaw doctor --fix` to rewrite persisted Slack streaming config to the canonical keys.
+- Legacy aliases are not read at runtime; run `granted doctor --fix` to rewrite persisted Slack streaming config to the canonical keys.
 
 ## Typing reaction fallback
 
@@ -2038,9 +2038,9 @@ Primary reference: [Configuration reference - Slack](/gateway/config-channels#sl
     Useful commands:
 
 ```bash
-openclaw channels status --probe
-openclaw logs --follow
-openclaw doctor
+granted channels status --probe
+granted logs --follow
+granted doctor
 ```
 
     When preparation rejects an inbound event, the info-level log records
@@ -2062,7 +2062,7 @@ openclaw doctor
       recoverable human sender in message metadata
 
 ```bash
-openclaw pairing list slack
+granted pairing list slack
 ```
 
   </Accordion>
@@ -2072,7 +2072,7 @@ openclaw pairing list slack
     The App-Level Token needs `connections:write`, and the Bot User OAuth Token
     bot token must belong to the same Slack app/workspace as the app token.
 
-    If `openclaw channels status --probe --json` shows `botTokenStatus` or
+    If `granted channels status --probe --json` shows `botTokenStatus` or
     `appTokenStatus: "configured_unavailable"`, the Slack account is
     configured but the current runtime could not resolve the SecretRef-backed
     value.

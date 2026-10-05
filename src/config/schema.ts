@@ -1,4 +1,4 @@
-// Builds and validates the canonical OpenClaw configuration schema.
+// Builds and validates the canonical Granted configuration schema.
 import crypto from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { CHANNEL_IDS } from "../channels/ids.js";

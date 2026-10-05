@@ -38,13 +38,13 @@ Run every command below inside that Terminal.
 2. Onboard and install the service:
 
    ```bash
-   openclaw onboard --install-daemon
+   granted onboard --install-daemon
    ```
 
 3. Confirm the Gateway is running:
 
    ```bash
-   openclaw gateway status
+   granted gateway status
    ```
 
 Full server guidance lives in the [Linux guide](/platforms/linux) and the
@@ -93,7 +93,7 @@ DEEPSEEK_API_KEY=your-key-here
 Then restart so the service picks them up:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 See [Environment variables](/help/environment) for the full precedence and
@@ -107,7 +107,7 @@ Do not treat Crostini as an always-on host. After a ChromeOS reboot, open the
 Then verify the service:
 
 ```bash
-openclaw gateway status
+granted gateway status
 ```
 
 ## Related

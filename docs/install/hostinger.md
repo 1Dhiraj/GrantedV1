@@ -84,7 +84,7 @@ Send "Hi" to your assistant on the channel you connected. OpenClaw replies and w
 
 **Docker container keeps restarting** -- Open Docker Manager logs and look for configuration errors (missing tokens, invalid API keys).
 
-**Telegram bot not responding** -- If DM pairing is required, an unknown sender gets a short pairing code instead of a reply. Approve it from the OpenClaw dashboard chat, or with `openclaw pairing approve telegram <CODE>` if you have shell access to the container. See [Pairing](/channels/pairing).
+**Telegram bot not responding** -- If DM pairing is required, an unknown sender gets a short pairing code instead of a reply. Approve it from the OpenClaw dashboard chat, or with `granted pairing approve telegram <CODE>` if you have shell access to the container. See [Pairing](/channels/pairing).
 
 ## Next steps
 

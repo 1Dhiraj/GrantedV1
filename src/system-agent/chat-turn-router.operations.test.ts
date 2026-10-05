@@ -642,7 +642,7 @@ describe("SystemAgentChatEngine operations", () => {
     expect(reply).toContain("openclaw doctor --fix");
   });
 
-  it("keeps doctor repair outside OpenClaw when no post-write repair is proposed", async () => {
+  it("keeps doctor repair outside Granted when no post-write repair is proposed", async () => {
     mocks.readConfigFileSnapshot.mockResolvedValue({
       exists: true,
       valid: false,
@@ -655,7 +655,7 @@ describe("SystemAgentChatEngine operations", () => {
 
     const reply = await verifyConfigAfterSystemAgentWrite(async () => ({ text: "" }));
 
-    expect(reply).toContain("with OpenClaw stopped");
+    expect(reply).toContain("with Granted stopped");
     expect(reply).toContain("openclaw doctor --fix");
     expect(reply).toContain("machine running it");
   });

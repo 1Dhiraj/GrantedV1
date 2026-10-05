@@ -17,26 +17,26 @@ Before a significant update, [create a verified backup](#before-updating-create-
 Automatic config copies and migration recovery originals are not a full-state
 backup.
 
-## Recommended: `openclaw update`
+## Recommended: `granted update`
 
-Detects your install type (npm, pnpm, Bun, or git), fetches the latest version, runs `openclaw doctor`, and restarts a managed Gateway service.
+Detects your install type (npm, pnpm, Bun, or git), fetches the latest version, runs `granted doctor`, and restarts a managed Gateway service.
 
 ```bash
-openclaw update
+granted update
 ```
 
 Switch channels or target a specific version:
 
 ```bash
-openclaw update --channel beta
-openclaw update --channel extended-stable
-openclaw update --channel dev
-openclaw update --dry-run   # preview without applying
+granted update --channel beta
+granted update --channel extended-stable
+granted update --channel dev
+granted update --dry-run   # preview without applying
 ```
 
-`openclaw update` has no `--verbose` flag (the installer does). For diagnostics use
+`granted update` has no `--verbose` flag (the installer does). For diagnostics use
 `--dry-run` to preview planned actions, `--json` for structured results, or
-`openclaw update status --json` to inspect channel and availability state.
+`granted update status --json` to inspect channel and availability state.
 
 `--channel beta` prefers the beta npm dist-tag, but falls back to stable/latest
 when the beta tag is missing or its version is older than the latest stable
@@ -70,12 +70,12 @@ core is a correction release (for example, `YYYY.M.P-2` uses plugin
 Catalog installs created by current OpenClaw versions retain that default
 intent. Older records that contain only an exact version remain pinned because
 OpenClaw cannot safely distinguish an old automatic pin from a user pin. For npm
-installs, run `openclaw plugins update @granted/name` once on the extended-stable
+installs, run `granted plugins update @granted/name` once on the extended-stable
 channel to opt that plugin back into exact-core tracking.
 
 `--channel dev` gives a persistent moving GitHub `main` checkout. Package
 installs reject the `--tag main` shorthand because the workspace checkout is
-not a self-contained package artifact. Use `openclaw update --channel dev` to
+not a self-contained package artifact. Use `granted update --channel dev` to
 switch to the supported checkout and build flow. Other explicit package specs
 keep their package-manager behavior.
 
@@ -93,13 +93,13 @@ Once you have verified the update and your conversations, preview retained
 migration originals:
 
 ```bash
-openclaw update cleanup --dry-run
+granted update cleanup --dry-run
 ```
 
 Use the same profile and state/config overrides as the update, and check the
 state directory printed in the report. The metadata-only preview can run while
 the Gateway is active. To apply, stop that Gateway yourself, wait for other
-SQLite maintenance to finish, then run `openclaw update cleanup`. Cleanup never
+SQLite maintenance to finish, then run `granted update cleanup`. Cleanup never
 stops or restarts the Gateway. Confirmation defaults to **No**; automation must
 explicitly pass `--yes`, including when using `--json`.
 
@@ -112,7 +112,7 @@ resuming interrupted deletion.
 
 ## Switch between npm and git installs
 
-Installer-driven switches verify the replacement before the working owner is retired. Source wrappers are published atomically; same-path npm shim transitions use an identity-checked backup that is restored on failure, so a failed candidate leaves the previous command runnable. The `openclaw update` command prints its final success result only after post-core convergence and requested restart health checks succeed.
+Installer-driven switches verify the replacement before the working owner is retired. Source wrappers are published atomically; same-path npm shim transitions use an identity-checked backup that is restored on failure, so a failed candidate leaves the previous command runnable. The `granted update` command prints its final success result only after post-core convergence and requested restart health checks succeed.
 
 If a CLI update fails after installing a verified replacement, recovery uses the
 newly installed CLI to restart the Gateway it stopped, preserving the managed
@@ -126,7 +126,7 @@ This deliberately limits automatic recovery after hooks; file rollback does not
 roll back state. Incomplete file rollback retains its backups for inspection.
 If an older target does not support preserving the service definition, automatic
 recovery stops and reports the error without retrying with weaker options. Repair
-the reported failure, rerun `openclaw update`, and check `openclaw gateway status --deep`.
+the reported failure, rerun `granted update`, and check `granted gateway status --deep`.
 See [Failed update recovery](/gateway/restart-recovery#recovery-after-a-failed-update).
 
 Use channels to change the install type. The updater keeps your state, config,
@@ -135,23 +135,23 @@ code install the CLI and gateway use.
 
 ```bash
 # npm package install -> editable git checkout
-openclaw update --channel dev
+granted update --channel dev
 
 # git checkout -> npm package install
-openclaw update --channel stable
+granted update --channel stable
 ```
 
 Preview the install-mode switch first:
 
 ```bash
-openclaw update --channel dev --dry-run
-openclaw update --channel stable --dry-run
+granted update --channel dev --dry-run
+granted update --channel stable --dry-run
 ```
 
 `dev` ensures a git checkout, builds it, and installs the global CLI from that
 checkout. The `stable`, `extended-stable`, and `beta` channels use package
 installs. Extended-stable is rejected on a git checkout without mutating or
-converting it. If the gateway is already installed, `openclaw update` refreshes
+converting it. If the gateway is already installed, `granted update` refreshes
 the service metadata and restarts it unless you pass `--no-restart`.
 
 Dev updates build the complete runtime, including plugins and the Control UI,
@@ -159,7 +159,7 @@ without generating TypeScript declarations. Preflight still validates the
 candidate, and the final checkout is rebuilt after checkout or rebase. Ordinary
 `pnpm build` and package builds continue to generate declarations.
 
-For package installs with a managed Gateway service, `openclaw update` targets
+For package installs with a managed Gateway service, `granted update` targets
 the package root used by that service. If the shell `openclaw` command comes
 from a different install, the updater prints both roots and the managed
 service's Node path, and checks that Node version against the target release's
@@ -219,7 +219,7 @@ OPENCLAW_UPDATE_RESTART_CMD='systemctl --user restart openclaw-gateway.service' 
 OPENCLAW_UPDATE_RESTART_CMD='' scripts/update-gateway.sh
 ```
 
-For a plain single-user source install, prefer `openclaw update --channel dev`
+For a plain single-user source install, prefer `granted update --channel dev`
 instead — it manages the checkout, build, and gateway restart for you.
 
 ## Alternative: re-run the installer
@@ -231,7 +231,7 @@ curl -fsSL https://openclaw.ai/install.sh | bash
 Add `--no-onboard` to skip onboarding. To force a specific install type, pass
 `--install-method git --no-onboard` or `--install-method npm --no-onboard`.
 
-If `openclaw triage` cannot start after a failed npm package replacement, re-run
+If `granted triage` cannot start after a failed npm package replacement, re-run
 the installer. It runs the global package install directly and can recover a
 partially updated npm install. Keep an unverified Gateway stopped while repairing it.
 
@@ -254,14 +254,14 @@ omit `--allow-scripts=openclaw`.
 npm i -g openclaw@latest --allow-scripts=openclaw
 ```
 
-Prefer `openclaw update` for supervised installs: it can coordinate the package
+Prefer `granted update` for supervised installs: it can coordinate the package
 swap with the running Gateway service. If you update manually on a supervised
 install, stop the managed Gateway first. Package managers replace files in
 place, and a running Gateway can otherwise try to load core or plugin files
 mid-swap. Restart the Gateway after the package manager finishes so it picks up
 the new install.
 
-For a root-owned Linux system-global install, if `openclaw update` fails with
+For a root-owned Linux system-global install, if `granted update` fails with
 `EACCES`, recover with system npm while keeping the Gateway stopped for the
 manual replacement. Use the same profile flags/environment you normally use for
 that Gateway. Replace `/usr/bin/npm` with the system npm that owns the
@@ -271,10 +271,10 @@ The npm command below follows the same version contract: use the flag on npm 12
 or npm 11.16+, and omit it on npm 11.15 and earlier.
 
 ```bash
-openclaw gateway stop
+granted gateway stop
 sudo /usr/bin/npm i -g openclaw@latest --allow-scripts=openclaw
-openclaw gateway install --force
-openclaw gateway restart
+granted gateway install --force
+granted gateway restart
 ```
 
 Then verify:
@@ -282,12 +282,12 @@ Then verify:
 ```bash
 openclaw --version
 curl -fsS http://127.0.0.1:18789/readyz
-openclaw plugins list --json
-openclaw gateway status --deep --json
-openclaw doctor --lint --json
+granted plugins list --json
+granted gateway status --deep --json
+granted doctor --lint --json
 ```
 
-When `openclaw update` manages a global npm install, it installs the target
+When `granted update` manages a global npm install, it installs the target
 into a temporary npm prefix first. The candidate package validates the host
 Node version during `preinstall`; only then does OpenClaw verify the packaged
 `dist` inventory and swap the clean package tree into the real global prefix. A
@@ -307,7 +307,7 @@ for the child npm process. That policy exists for general protection, but an
 explicit OpenClaw update means "install the selected release now."
 
 ```bash
-pnpm add -g --allow-build=openclaw openclaw@latest
+pnpm add -g --allow-build=granted openclaw@latest
 ```
 
 If pnpm 11 installed OpenClaw 2026.7.1, run that manual command once. That
@@ -331,7 +331,7 @@ intact.
 bun add -g --trust openclaw@latest
 ```
 
-`--trust` allows OpenClaw's lifecycle scripts. The canonical `openclaw update`
+`--trust` allows OpenClaw's lifecycle scripts. The canonical `granted update`
 path applies the same OpenClaw-only Bun trust when it owns the install.
 
 ### Advanced npm install topics
@@ -390,7 +390,7 @@ install time until their next verified successful update.
 Automatic installation requires a managed Gateway service that can hand off
 the update and restart safely. A Gateway running directly in a terminal can
 still show update hints, but it does not automatically replace its running
-installation. Stop that Gateway, run `openclaw update`, and launch it again
+installation. Stop that Gateway, run `granted update`, and launch it again
 afterward, or [install a managed service](/cli/gateway#manage-the-gateway-service) for
 unattended updates.
 
@@ -440,7 +440,7 @@ automatic installation, handoff, restart, stable delay/jitter, or beta polling.
 Package-manager updates requested through the live Gateway control-plane
 (`update.run`) do not replace the package tree inside the running Gateway
 process. On managed service installs, the Gateway starts a detached handoff,
-exits, and lets the normal `openclaw update --yes --json` CLI path stop the
+exits, and lets the normal `granted update --yes --json` CLI path stop the
 service, replace the package, refresh service metadata, restart, verify the
 Gateway version and reachability, and recover an installed-but-unloaded macOS
 LaunchAgent when possible. If the Gateway cannot make that handoff safely,
@@ -460,7 +460,7 @@ campaigns, the CLI, and `update.run` API clients are unaffected.
 
 In the signed macOS app, a local app-owned Gateway changes that card to
 **Update Mac app + Gateway**. Sparkle updates the app first; after relaunch, the
-app runs `openclaw update --tag <app-version> --json`, restarts its Gateway,
+app runs `granted update --tag <app-version> --json`, restarts its Gateway,
 and verifies health in a setup-style progress window. The window appears only
 when that managed Gateway needs update, repair, or installation; app-only updates relaunch
 directly into the app. Failure details stay visible with Retry, [Update guide](/install/updating), and
@@ -481,25 +481,25 @@ only when the connected remote Gateway is at least as new as the app.
 ### Run doctor
 
 ```bash
-openclaw doctor
+granted doctor
 ```
 
 Migrates config, audits DM policies, and checks gateway health. Details: [Doctor](/gateway/doctor)
 
-If you use the unpacked Chrome extension, also run `openclaw browser doctor --browser-profile chrome`.
+If you use the unpacked Chrome extension, also run `granted browser doctor --browser-profile chrome`.
 For a version-mismatch warning, reload the extension from `chrome://extensions`;
 fully restart Chrome if the warning remains.
 
 ### Restart the gateway
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 ### Verify
 
 ```bash
-openclaw health
+granted health
 ```
 
 </Steps>
@@ -517,13 +517,13 @@ the backup.
 
 ### Before updating: create a verified backup
 
-`openclaw update` preserves an automatic pre-update config copy, but it does not
+`granted update` preserves an automatic pre-update config copy, but it does not
 create a full state recovery point. Before a significant update, create one
 explicitly:
 
 ```bash
 mkdir -p ~/Backups/openclaw
-openclaw backup create --output ~/Backups/openclaw --verify
+granted backup create --output ~/Backups/openclaw --verify
 ```
 
 The archive manifest records the OpenClaw version and the source paths included
@@ -550,12 +550,12 @@ for staging and memory details.
 List published versions, then preview and install the known-good version:
 
 ```bash
-npm view openclaw versions --json
-openclaw update --tag <known-good-version> --dry-run
-openclaw update --tag <known-good-version>
+npm view granted versions --json
+granted update --tag <known-good-version> --dry-run
+granted update --tag <known-good-version>
 ```
 
-`openclaw update --tag` is preferred over a direct package-manager install. It
+`granted update --tag` is preferred over a direct package-manager install. It
 detects the downgrade, asks for confirmation, runs managed plugin convergence
 and compatibility checks against the installed target, refreshes service
 metadata, restarts the Gateway, and verifies the running version. If the stored
@@ -583,14 +583,14 @@ The npm command below is for npm 12 or npm 11.16+. On npm 11.15 and earlier,
 omit `--allow-scripts=openclaw`.
 
 ```bash
-openclaw gateway stop
+granted gateway stop
 npm i -g openclaw@<known-good-version> --allow-scripts=openclaw
-openclaw gateway install --force
-openclaw gateway restart
+granted gateway install --force
+granted gateway restart
 ```
 
 For a pnpm-owned install, use
-`pnpm add -g --allow-build=openclaw openclaw@<known-good-version>` instead. For
+`pnpm add -g --allow-build=granted openclaw@<known-good-version>` instead. For
 a Bun-owned install, use
 `bun add -g --trust openclaw@<known-good-version>`; `--trust` allows OpenClaw's
 lifecycle scripts. During incident recovery, prevent an enabled auto-updater
@@ -615,7 +615,7 @@ git checkout --detach <known-good-tag-or-commit>
   export PNPM_CONFIG_LOCKFILE_DIR="$PWD" pnpm_config_lockfile_dir="$PWD"
   "$pnpm_shims/pnpm" install --frozen-lockfile || exit
   "$pnpm_shims/pnpm" build
-) && openclaw gateway restart
+) && granted gateway restart
 ```
 
 To return to latest: `git checkout main && git pull`.
@@ -632,8 +632,8 @@ Before starting an older file-backed OpenClaw release, use the current CLI to
 restore archived legacy transcript artifacts:
 
 ```bash
-openclaw gateway stop
-openclaw doctor --session-sqlite restore --session-sqlite-all-agents
+granted gateway stop
+granted doctor --session-sqlite restore --session-sqlite-all-agents
 ```
 
 This does not delete SQLite data. Sessions created after the SQLite migration
@@ -650,19 +650,19 @@ changes made after the snapshot.
 Restore a broad archive to a fresh staging directory with the current CLI:
 
 ```bash
-openclaw backup restore <archive.tar.gz> --target <fresh-directory>
+granted backup restore <archive.tar.gz> --target <fresh-directory>
 ```
 
 The command verifies the archive and its SQLite databases before extraction.
 Activation remains an explicit offline step: stop the Gateway, move the
 restored asset tree into place or point `OPENCLAW_STATE_DIR` at the restored
-state asset, run `openclaw doctor`, then restart.
+state asset, run `granted doctor`, then restart.
 
 Treat a state restore as time travel. Ratcheting channel credentials, especially
 WhatsApp, can desynchronize and require relinking. Approvals and
 delivery/dedupe state roll back too, and plugin `node_modules` trees are not
 archived. See [Restore a full archive](/install/backups#restore-a-full-archive)
-for the complete activation and recovery sequence. `openclaw backup sqlite
+for the complete activation and recovery sequence. `granted backup sqlite
 restore` likewise writes a verified database to a fresh target; activating that
 target remains an explicit offline operator step.
 
@@ -670,34 +670,34 @@ target remains an explicit offline operator step.
 
 ```bash
 openclaw --version
-openclaw health
-openclaw plugins list --json
-openclaw gateway status --deep --json
-openclaw doctor --lint --json
+granted health
+granted plugins list --json
+granted gateway status --deep --json
+granted doctor --lint --json
 ```
 
 ## If you are stuck
 
-Run `openclaw triage` in a terminal on the Gateway host, using the printed
+Run `granted triage` in a terminal on the Gateway host, using the printed
 installation-specific command or keeping the same profile and state/config
 overrides. It opens the first directly launchable coding agent in this order:
 Claude Code, Codex, OpenCode, then Pi. The agent receives local diagnostics and
 any recorded failed-update outcome so it can repair the installation and verify
 Gateway health, using its normal authentication, sandbox, and approval settings.
-Use `openclaw triage --agent codex` to select a particular agent.
+Use `granted triage --agent codex` to select a particular agent.
 
 Failed interactive updates open triage automatically after updater cleanup and
 pass the captured failure to the agent before fresh diagnostics can delay the
 handoff. JSON, `--yes`, and non-interactive update invocations collect diagnostics
 and print handoff commands without starting an agent. For diagnostic collection
-alone, use `openclaw triage --non-interactive`; add `--update-result <path>` to
+alone, use `granted triage --non-interactive`; add `--update-result <path>` to
 include a saved update-failure artifact. See [Triage](/cli/triage) for command
 formatting and installation targeting.
 
 Keep an unverified Gateway stopped and preserve migrated state during repair.
 The failed update retains its nonzero exit code even if the agent repairs it.
 
-- For `openclaw update --channel dev` on source checkouts, the updater auto-bootstraps `pnpm` when needed. If you see a pnpm/corepack bootstrap error, install `pnpm` manually (or re-enable `corepack`) and rerun the update.
+- For `granted update --channel dev` on source checkouts, the updater auto-bootstraps `pnpm` when needed. If you see a pnpm/corepack bootstrap error, install `pnpm` manually (or re-enable `corepack`) and rerun the update.
 - Check: [Troubleshooting](/gateway/troubleshooting)
 - Ask in Discord: [https://discord.gg/clawd](https://discord.gg/clawd)
 

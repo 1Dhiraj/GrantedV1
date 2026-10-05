@@ -12,7 +12,7 @@ OpenClaw provides `pixverse` as an official external plugin for hosted PixVerse 
 | Property           | Value                                                                |
 | ------------------ | -------------------------------------------------------------------- |
 | Provider id        | `pixverse`                                                           |
-| Plugin package     | `@granted/pixverse-provider`                                        |
+| Plugin package     | `@granted/pixverse-provider`                                         |
 | Auth env var       | `PIXVERSE_API_KEY`                                                   |
 | Onboarding flag    | `--auth-choice pixverse-api-key`                                     |
 | Direct CLI flag    | `--pixverse-api-key <key>`                                           |
@@ -25,13 +25,13 @@ OpenClaw provides `pixverse` as an official external plugin for hosted PixVerse 
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/pixverse-provider
-    openclaw gateway restart
+    granted plugins install @granted/pixverse-provider
+    granted gateway restart
     ```
   </Step>
   <Step title="Set the API key">
     ```bash
-    openclaw onboard --auth-choice pixverse-api-key
+    granted onboard --auth-choice pixverse-api-key
     ```
 
     The wizard prompts for the International or CN endpoint (see API region
@@ -45,7 +45,7 @@ OpenClaw provides `pixverse` as an official external plugin for hosted PixVerse 
   </Step>
   <Step title="Switch an existing default video provider (optional)">
     ```bash
-    openclaw config set agents.defaults.mediaModels.video.primary "pixverse/v6"
+    granted config set agents.defaults.mediaModels.video.primary "pixverse/v6"
     ```
   </Step>
   <Step title="Generate a video">
@@ -115,7 +115,7 @@ The video provider accepts these optional provider-specific keys:
 
     Set `models.providers.pixverse.region` manually when your key belongs to a
     specific PixVerse platform region, or run
-    `openclaw onboard --auth-choice pixverse-api-key` to choose one in the
+    `granted onboard --auth-choice pixverse-api-key` to choose one in the
     setup wizard:
 
     ```json5

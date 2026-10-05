@@ -266,15 +266,21 @@ $sb = New-Object System.Text.StringBuilder 512
 export const TYPE_SCRIPT =
   PREAMBLE +
   `
-$r = [DeskNative]::TypeText([string]$A.text)
+$expect = if ($A.expectTitle) { [string]$A.expectTitle } else { '' }
+$r = [DeskNative]::TypeTextInto([string]$A.text, $expect)
 $parts = $r.Split('|')
 $typed = [int]$parts[0]
 $status = $parts[1]
 if ($status -eq 'ok') {
   @{ ok = $true; typedChars = $typed } | ConvertTo-Json -Compress
 } else {
-  $why = if ($status -eq 'focus-changed') { 'foreground window changed mid-type (popup or app stole focus) — keystrokes stopped to avoid typing into the wrong window; re-focus and retry' } else { 'the human moved the mouse — typing stopped to yield control; retry when the user is idle' }
-  @{ ok = $false; typedChars = $typed; aborted = $status; error = $why } | ConvertTo-Json -Compress
+  $fg = Get-ForegroundInfo
+  $why = switch ($status) {
+    'wrong-window' { "the foreground window is '" + $fg.title + "', not the requested '" + $expect + "' - nothing was typed; focus the right window and retry" }
+    'focus-changed' { 'foreground window changed mid-type (popup or app stole focus) - keystrokes stopped to avoid typing into the wrong window; re-focus and retry' }
+    default { 'the human moved the mouse - typing stopped to yield control; retry when the user is idle' }
+  }
+  @{ ok = $false; typedChars = $typed; aborted = $status; error = $why; foregroundTitle = $fg.title } | ConvertTo-Json -Compress
 }
 `;
 

@@ -52,19 +52,19 @@ OpenClaw release:
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard
+        granted onboard
         # choose: Anthropic API key
         ```
 
         Or pass the key directly:
 
         ```bash
-        openclaw onboard --anthropic-api-key "$ANTHROPIC_API_KEY"
+        granted onboard --anthropic-api-key "$ANTHROPIC_API_KEY"
         ```
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider anthropic
+        granted models list --provider anthropic
         ```
       </Step>
     </Steps>
@@ -108,7 +108,7 @@ OpenClaw release:
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard
+        granted onboard
         # choose: Claude CLI
         ```
 
@@ -129,7 +129,7 @@ OpenClaw release:
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider anthropic
+        granted models list --provider anthropic
         ```
       </Step>
     </Steps>
@@ -158,7 +158,7 @@ OpenClaw release:
     **Anthropic setup-token** under **Connect with an API key or token**, or use:
 
     ```bash
-    openclaw models auth login --provider anthropic --method setup-token
+    granted models auth login --provider anthropic --method setup-token
     ```
 
     ### Config example
@@ -217,7 +217,7 @@ OpenClaw release:
 After setting up either auth route above, select the canonical model ref:
 
 ```bash
-openclaw models set anthropic/claude-fable-5-1
+granted models set anthropic/claude-fable-5-1
 ```
 
 For Claude CLI authentication, keep that same ref and select the CLI runtime:
@@ -739,7 +739,7 @@ OpenClaw supports Anthropic's prompt caching feature for API-key auth.
     ```bash
     claude auth status --text
     claude auth login
-    openclaw gateway restart
+    granted gateway restart
     ```
 
     Claude Code owns its login and refresh lifecycle; do not copy an OAuth token into OpenClaw.
@@ -751,15 +751,15 @@ OpenClaw supports Anthropic's prompt caching feature for API-key auth.
   </Accordion>
 
   <Accordion title='No API key found for provider "anthropic"'>
-    Anthropic auth is **per agent**; new agents do not inherit the main agent's keys. Re-run onboarding for that agent (or configure an API key on the gateway host), then verify with `openclaw models status`.
+    Anthropic auth is **per agent**; new agents do not inherit the main agent's keys. Re-run onboarding for that agent (or configure an API key on the gateway host), then verify with `granted models status`.
   </Accordion>
 
   <Accordion title='No credentials found for profile "anthropic:default"'>
-    Run `openclaw models status` to see which auth profile is active. Re-run onboarding, or configure an API key for that profile path.
+    Run `granted models status` to see which auth profile is active. Re-run onboarding, or configure an API key for that profile path.
   </Accordion>
 
   <Accordion title="No available auth profile (all in cooldown)">
-    Check `openclaw models status --json` for `auth.unusableProfiles`. Anthropic rate-limit cooldowns can be model-scoped, so a sibling Anthropic model may still be usable. Add another Anthropic profile or wait for cooldown.
+    Check `granted models status --json` for `auth.unusableProfiles`. Anthropic rate-limit cooldowns can be model-scoped, so a sibling Anthropic model may still be usable. Add another Anthropic profile or wait for cooldown.
   </Accordion>
 </AccordionGroup>
 

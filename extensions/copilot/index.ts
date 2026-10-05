@@ -1,4 +1,4 @@
-// Copilot plugin entrypoint registers its OpenClaw integration.
+// Copilot plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";

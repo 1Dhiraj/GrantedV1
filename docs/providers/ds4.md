@@ -68,7 +68,7 @@ Think Max.
     check:
 
     ```bash
-    openclaw infer model run \
+    granted infer model run \
       --local \
       --model ds4/deepseek-v4-flash \
       --thinking off \
@@ -232,7 +232,7 @@ curl http://127.0.0.1:18000/v1/chat/completions \
 OpenClaw model routing (same as the Quickstart check):
 
 ```bash
-openclaw infer model run \
+granted infer model run \
   --local \
   --model ds4/deepseek-v4-flash \
   --thinking off \
@@ -243,7 +243,7 @@ openclaw infer model run \
 Full agent and tool-call smoke test, with context of at least 32768:
 
 ```bash
-openclaw agent \
+granted agent \
   --local \
   --session-id ds4-tool-smoke \
   --model ds4/deepseek-v4-flash \

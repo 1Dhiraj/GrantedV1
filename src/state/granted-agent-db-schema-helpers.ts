@@ -138,19 +138,17 @@ export function assertOpenClawAgentCurrentRuntimeSchema(
   const agentId = normalizeAgentId(options.agentId);
   const metadata = readExistingAgentSchemaMeta(database);
   if (!metadata) {
-    throw new Error(
-      `OpenClaw agent database ${options.pathname} has no schema ownership metadata.`,
-    );
+    throw new Error(`Granted agent database ${options.pathname} has no schema ownership metadata.`);
   }
   assertExistingAgentSchemaOwner(metadata, agentId, options.pathname);
   if (metadata.schemaVersion !== GRANTED_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${GRANTED_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before using it.`,
+      `Granted agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${GRANTED_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before using it.`,
     );
   }
   if (hasRetiredAgentStateLeaseSchema(database)) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} retains retired state_leases storage; run openclaw doctor --fix before using it.`,
+      `Granted agent database ${options.pathname} retains retired state_leases storage; run openclaw doctor --fix before using it.`,
     );
   }
   assertOpenClawAgentSchemaContains(database, options.pathname, GRANTED_AGENT_SCHEMA_SQL);
@@ -189,7 +187,7 @@ export function ensureSessionKeyContractSchemaInTransaction(db: DatabaseSync): v
   const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_START);
   const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw agent session-key contract schema markers are missing.");
+    throw new Error("Granted agent session-key contract schema markers are missing.");
   }
   db.exec(GRANTED_AGENT_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- Idempotent additive lazy ensure.
 }
@@ -201,20 +199,18 @@ export function repairAndAssertOpenClawAgentV14SchemaForMigration(
   const userVersion = readSqliteUserVersion(database);
   if (userVersion !== 14) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} uses schema version ${userVersion}; expected 14 before migrating it.`,
+      `Granted agent database ${options.pathname} uses schema version ${userVersion}; expected 14 before migrating it.`,
     );
   }
   const agentId = normalizeAgentId(options.agentId);
   const metadata = readExistingAgentSchemaMeta(database);
   if (!metadata) {
-    throw new Error(
-      `OpenClaw agent database ${options.pathname} has no schema ownership metadata.`,
-    );
+    throw new Error(`Granted agent database ${options.pathname} has no schema ownership metadata.`);
   }
   assertExistingAgentSchemaOwner(metadata, agentId, options.pathname);
   if (metadata.schemaVersion !== 14) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match 14; repair the ownership metadata before migrating it.`,
+      `Granted agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match 14; repair the ownership metadata before migrating it.`,
     );
   }
 
@@ -253,7 +249,7 @@ export function assertSupportedAgentSchemaVersion(db: DatabaseSync, pathname: st
   const userVersion = readSqliteUserVersion(db);
   if (userVersion > GRANTED_AGENT_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
-      "OpenClaw agent database",
+      "Granted agent database",
       pathname,
       userVersion,
       GRANTED_AGENT_SCHEMA_VERSION,
@@ -278,7 +274,7 @@ export function assertCanonicalAgentPersistenceVersion(
   }
   if (userVersion < GRANTED_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new Error(
-      `OpenClaw agent database ${pathname} uses schema version ${userVersion}; stop active agents and run openclaw doctor --fix to migrate session identities before using it.`,
+      `Granted agent database ${pathname} uses schema version ${userVersion}; stop active agents and run openclaw doctor --fix to migrate session identities before using it.`,
     );
   }
 }
@@ -314,15 +310,15 @@ export function assertExistingAgentSchemaOwner(
   // Agent DB files are not interchangeable; opening another role/id would corrupt ownership.
   if (existing.role !== "agent") {
     throw new Error(
-      `OpenClaw agent database ${pathname} has schema role ${existing.role ?? "unknown"}; expected agent.`,
+      `Granted agent database ${pathname} has schema role ${existing.role ?? "unknown"}; expected agent.`,
     );
   }
   if (!existing.agentId) {
-    throw new Error(`OpenClaw agent database ${pathname} has no agent owner.`);
+    throw new Error(`Granted agent database ${pathname} has no agent owner.`);
   }
   if (normalizeAgentId(existing.agentId) !== agentId) {
     throw new Error(
-      `OpenClaw agent database ${pathname} belongs to agent ${existing.agentId}; requested agent ${agentId}.`,
+      `Granted agent database ${pathname} belongs to agent ${existing.agentId}; requested agent ${agentId}.`,
     );
   }
 }
@@ -366,7 +362,7 @@ export function assertAgentSchemaVersion(
   const userVersion = readSqliteUserVersion(db);
   if (userVersion !== options.version || metadata?.schemaVersion !== options.version) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} did not converge on schema version ${options.version}.`,
+      `Granted agent database ${options.pathname} did not converge on schema version ${options.version}.`,
     );
   }
   assertOpenClawAgentSchemaContains(

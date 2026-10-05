@@ -8,7 +8,7 @@ import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-describe.skipIf(process.platform === "win32")("OpenClaw stdio process-group ownership", () => {
+describe.skipIf(process.platform === "win32")("Granted stdio process-group ownership", () => {
   it(
     "kills same-group descendants after the leader exits spontaneously",
     { timeout: 10_000 },

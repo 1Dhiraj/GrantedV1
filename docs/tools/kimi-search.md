@@ -21,13 +21,13 @@ grounded-response providers, rather than returning a ranked result list.
     gateway install, add it to `~/.openclaw/.env`), or configure via:
 
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
   </Step>
 </Steps>
 
-Choosing **Kimi** during `openclaw onboard` or `openclaw configure --section web`
+Choosing **Kimi** during `granted onboard` or `granted configure --section web`
 also prompts for:
 
 - the Moonshot API region: `https://api.moonshot.ai/v1` or `https://api.moonshot.cn/v1`

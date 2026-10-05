@@ -62,7 +62,7 @@ You can override the path in `~/.openclaw/openclaw.json`:
 Tail the gateway log file via RPC:
 
 ```bash
-openclaw logs --follow
+granted logs --follow
 openclaw --dev logs --follow
 openclaw --profile work logs --follow
 ```
@@ -105,9 +105,9 @@ In JSON mode, the CLI emits `type`-tagged objects:
 - `error`: gateway connection failures (written to stderr)
 
 If the implicit local loopback Gateway asks for pairing, closes during connect,
-or times out before `logs.tail` answers, `openclaw logs` falls back to the
+or times out before `logs.tail` answers, `granted logs` falls back to the
 configured Gateway file log automatically. Explicit `--url` targets do not use
-this fallback. `openclaw logs --follow` is stricter: on Linux it uses the active
+this fallback. `granted logs --follow` is stricter: on Linux it uses the active
 user-systemd Gateway journal by PID when available, and otherwise retries the
 live Gateway with backoff instead of following a potentially stale side-by-side
 file.
@@ -115,7 +115,7 @@ file.
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-openclaw doctor
+granted doctor
 ```
 
 ### Control UI (web)
@@ -128,7 +128,7 @@ See [Control UI](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-openclaw channels logs --channel whatsapp
+granted channels logs --channel whatsapp
 ```
 
 `--channel` defaults to `all`; `--lines <n>` (default 200) and `--json` are also
@@ -170,7 +170,7 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 ### Gateway WebSocket logs
 
-`openclaw gateway` also has WebSocket protocol logging for RPC traffic:
+`granted gateway` also has WebSocket protocol logging for RPC traffic:
 
 - normal mode: only interesting results (errors, parse errors, slow calls)
 - `--verbose`: all request/response traffic
@@ -180,9 +180,9 @@ Console formatting is controlled by `logging.consoleStyle`.
 Examples:
 
 ```bash
-openclaw gateway
-openclaw gateway --verbose --ws-log compact
-openclaw gateway --verbose --ws-log full
+granted gateway
+granted gateway --verbose --ws-log compact
+granted gateway --verbose --ws-log full
 ```
 
 ## Configuring logging
@@ -219,8 +219,8 @@ When debugging provider calls, use targeted environment flags instead of raising
 all logs to `debug`:
 
 ```bash
-OPENCLAW_DEBUG_MODEL_TRANSPORT=1 openclaw gateway
-OPENCLAW_DEBUG_MODEL_PAYLOAD=tools OPENCLAW_DEBUG_SSE=events openclaw gateway
+OPENCLAW_DEBUG_MODEL_TRANSPORT=1 granted gateway
+OPENCLAW_DEBUG_MODEL_PAYLOAD=tools OPENCLAW_DEBUG_SSE=events granted gateway
 ```
 
 Available flags:
@@ -242,7 +242,7 @@ Available flags:
   including bounded activation facts, the final visible surface, and names of
   provider-native tools filtered because code mode owns the tool surface.
 
-These flags log through normal OpenClaw logging, so `openclaw logs --follow`
+These flags log through normal OpenClaw logging, so `granted logs --follow`
 and the Control UI Logs tab show them. For backward compatibility,
 `OPENCLAW_DEBUG_CODE_MODE` also promotes general model-transport diagnostics to
 `info`; dedicated code-mode diagnostics are emitted only when that flag is
@@ -297,7 +297,7 @@ OTEL model-call spans/metrics when diagnostics export is enabled.
 
 A third rendering style, `compact` (tighter output, best for long sessions), is
 applied automatically when stdout is not a TTY. It is no longer a settable
-config value; `openclaw doctor --fix` maps a stored `consoleStyle: "compact"`
+config value; `granted doctor --fix` maps a stored `consoleStyle: "compact"`
 to `"pretty"`.
 
 ### Redaction
@@ -364,7 +364,7 @@ For OTLP export to a collector, see [OpenTelemetry export](/gateway/opentelemetr
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `openclaw doctor` first.
+- **Gateway not reachable?** Run `granted doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

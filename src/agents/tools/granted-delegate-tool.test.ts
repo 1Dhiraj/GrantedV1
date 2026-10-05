@@ -2,8 +2,8 @@ import { Value } from "typebox/value";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { GATEWAY_OWNER_ONLY_CORE_TOOLS } from "../../security/dangerous-tools.js";
 import { compactToolOutputHint } from "../tool-schema-hints.js";
-import { callInProcessGatewayTool } from "./in-process-gateway.js";
 import { createOpenClawDelegateToolsForRun } from "./granted-delegate-tool.js";
+import { callInProcessGatewayTool } from "./in-process-gateway.js";
 
 vi.mock("./in-process-gateway.js", () => ({
   callInProcessGatewayTool: vi.fn(),
@@ -30,7 +30,7 @@ describe("openclaw delegation tool", () => {
       agentChannel: "webchat",
     })[0];
     if (!tool) {
-      throw new Error("expected OpenClaw delegation tool");
+      throw new Error("expected Granted delegation tool");
     }
     expect(tool.description).toContain("Gateway restart");
     expect(tool.description).toContain("human approval");
@@ -69,7 +69,7 @@ describe("openclaw delegation tool", () => {
       runSessionKey: "agent:main:main",
     })[0];
     if (!tool) {
-      throw new Error("expected OpenClaw delegation tool");
+      throw new Error("expected Granted delegation tool");
     }
 
     await tool.execute("call-1", { message: "First." });

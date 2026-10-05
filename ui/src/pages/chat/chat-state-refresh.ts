@@ -1,4 +1,5 @@
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
+import type { ModelCatalogEntry } from "../../api/types.ts";
 import {
   loadChatMetadata,
   revalidateChatMetadata,
@@ -9,7 +10,7 @@ import {
 } from "../../lib/chat/chat-metadata-store.ts";
 import { formatUiError } from "../../lib/format-error.ts";
 import { loadModelAuthStatus } from "../../lib/model-auth.ts";
-import { loadModelCatalog } from "../../lib/model-catalog-store.ts";
+import { loadModelCatalog, peekModelCatalog } from "../../lib/model-catalog-store.ts";
 import { isSessionRunActive } from "../../lib/session-run-state.ts";
 import { reconcileSessionHistory } from "../../lib/sessions/reconcile.ts";
 import {
@@ -54,6 +55,56 @@ type ChatMetadataBinding = {
   unsubscribe: () => void;
 };
 const metadataBindings = new WeakMap<ChatPageHost, ChatMetadataBinding>();
+
+function modelCatalogEntryKey(entry: ModelCatalogEntry): string {
+  return `${entry.provider.trim().toLowerCase()}\0${entry.id.trim().toLowerCase()}`;
+}
+
+function mergePickerCatalog(
+  configured: readonly ModelCatalogEntry[],
+  discovered: readonly ModelCatalogEntry[],
+): ModelCatalogEntry[] {
+  const seen = new Set(configured.map(modelCatalogEntryKey));
+  return [
+    ...configured,
+    ...discovered.filter((entry) => {
+      const key = modelCatalogEntryKey(entry);
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    }),
+  ];
+}
+
+/** Return the fast configured projection plus the last complete all-provider browse result. */
+export function readChatModelCatalogForPicker(host: ChatPageHost): ModelCatalogEntry[] {
+  if (!host.client) {
+    return host.chatModelCatalog;
+  }
+  const discovered = peekModelCatalog(host.client, {
+    agentId: resolveChatAgentId(host) ?? "",
+    view: "all",
+  });
+  return discovered
+    ? mergePickerCatalog(host.chatModelCatalog, discovered.models)
+    : host.chatModelCatalog;
+}
+
+/** Whether the picker has a completed all-provider inventory, not just fast session metadata. */
+export function hasCompleteChatModelCatalogForPicker(host: ChatPageHost): boolean {
+  if (!host.client) {
+    return false;
+  }
+  const discovered = peekModelCatalog(host.client, {
+    agentId: resolveChatAgentId(host) ?? "",
+    view: "all",
+  });
+  // A first in-flight request seeds an empty cache entry. Do not present that
+  // placeholder as a completed inventory while discovery is still running.
+  return (discovered?.models.length ?? 0) > 0;
+}
 
 export function retireChatMetadataRequests(host: ChatPageHost): void {
   metadataBindings.get(host)?.unsubscribe();
@@ -134,7 +185,14 @@ function applyChatMetadataResult(
 ): void {
   const models = Array.isArray(result.models) ? result.models : undefined;
   if (models) {
-    host.chatModelCatalog = models;
+    const discovered = peekModelCatalog(client, {
+      agentId: agentId ?? "",
+      view: "all",
+    });
+    // Session metadata intentionally carries the fast configured projection.
+    // Once an operator has requested the full inventory, never let a later
+    // metadata refresh collapse the open picker back to that small projection.
+    host.chatModelCatalog = discovered ? mergePickerCatalog(models, discovered.models) : models;
     host.chatModelCatalogError = null;
   }
   // Missing commands keep the built-ins: commands.list uses the same server builder and fails too.
@@ -258,17 +316,25 @@ export async function refreshChatModelCatalogOnDemand(host: ChatPageHost): Promi
   } = binding;
   const version = binding.version;
   const ownsRequest = () => binding.isCurrent() && binding.version === version;
-  host.chatModelsLoading = host.chatModelCatalog.length === 0;
+  // Keep an existing configured snapshot interactive, but expose that the
+  // all-provider browse result is still expanding the picker.
+  host.chatModelsLoading = true;
   host.chatModelCatalogError = null;
   host.requestUpdate?.();
   try {
-    await loadModelCatalog(client, {
+    const discovered = await loadModelCatalog(client, {
       agentId: agentId ?? "",
+      view: "all",
       refreshIfDue: true,
       rejectOnFailure: true,
     });
     if (binding.isCurrent()) {
-      await refreshChatMetadata(host);
+      // Persist the browse result on the page before any configured-metadata
+      // refresh can publish. The cache remains an optimization, not the owner
+      // of the picker inventory.
+      host.chatModelCatalog = mergePickerCatalog(host.chatModelCatalog, discovered.models);
+      host.requestUpdate?.();
+      await revalidateChatMetadata(binding.client, binding.scope).catch(() => undefined);
       // Full model discovery can complete after the session projection used at mount time.
       // Refresh through the normal session owner so thinking/context metadata converges without
       // letting the UI guess which provider- or runtime-specific levels are valid.

@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw memory` (status/index/search/forget/promote/promote-explain/rem-harness/rem-backfill/session-backfill)"
+summary: "CLI reference for `granted memory` (status/index/search/forget/promote/promote-explain/rem-harness/rem-backfill/session-backfill)"
 read_when:
   - You want to index or search semantic memory
   - You're debugging memory availability or indexing
@@ -9,7 +9,7 @@ title: "Memory"
 doc-schema-version: 1
 ---
 
-# `openclaw memory`
+# `granted memory`
 
 Manage semantic memory indexing, search, promotion into `MEMORY.md`, and
 provenance-based deletion.
@@ -24,7 +24,7 @@ Related: [Memory](/concepts/memory) concept, [Dreaming](/concepts/dreaming),
 ## `memory status`
 
 ```bash
-openclaw memory status [--agent <id>] [--deep] [--index] [--fix] [--json] [--verbose]
+granted memory status [--agent <id>] [--deep] [--index] [--fix] [--json] [--verbose]
 ```
 
 Without `--agent`, runs for every agent in `agents.entries`; if no agent list is
@@ -51,7 +51,7 @@ the provider and verify the model and provider settings against the existing ind
 ## `memory index`
 
 ```bash
-openclaw memory index [--agent <id>] [--force] [--verbose]
+granted memory index [--agent <id>] [--force] [--verbose]
 ```
 
 Same per-agent scoping as `status`. `--force` runs a full reindex instead of
@@ -72,12 +72,12 @@ If status reports an index identity warning after changing embedding settings,
 check the affected agent's provider, model, sources, and extra paths, then rebuild:
 
 ```bash
-openclaw memory status --deep --agent <id>
-openclaw memory index --force --agent <id>
-openclaw memory status --agent <id>
+granted memory status --deep --agent <id>
+granted memory index --force --agent <id>
+granted memory status --agent <id>
 ```
 
-`openclaw memory status --index --agent <id>` also rebuilds an incompatible index.
+`granted memory status --index --agent <id>` also rebuilds an incompatible index.
 Both repair commands replace the derived memory index while preserving other agent
 state. Use `--agent` to limit the repair to the affected agent.
 
@@ -91,7 +91,7 @@ sidecars to reset memory. Use `memory index --force` to rebuild the index; see
 ## `memory search`
 
 ```bash
-openclaw memory search [query] [--query <text>] [--agent <id>] [--max-results <n>] [--min-score <n>] [--json]
+granted memory search [query] [--query <text>] [--agent <id>] [--max-results <n>] [--min-score <n>] [--json]
 ```
 
 - Query: positional `[query]` or `--query <text>`. If both are set, `--query`
@@ -121,9 +121,9 @@ confirmation prompt or `--apply` flag. Source session transcripts are retained.
 Start with a preview:
 
 ```bash
-openclaw memory forget --agent <agent-id> --session <id-or-key> --dry-run --json
-openclaw memory forget --agent <agent-id> --hook-source gmail --dry-run --json
-openclaw memory forget --agent <agent-id> --participant <actor-id> --dry-run --json
+granted memory forget --agent <agent-id> --session <id-or-key> --dry-run --json
+granted memory forget --agent <agent-id> --hook-source gmail --dry-run --json
+granted memory forget --agent <agent-id> --participant <actor-id> --dry-run --json
 ```
 
 After checking the report, repeat the intended command without `--dry-run`.
@@ -288,7 +288,7 @@ Rank short-term candidates from `memory/YYYY-MM-DD.md` and optionally append
 top entries to `MEMORY.md`.
 
 ```bash
-openclaw memory promote [--agent <id>] [--limit <n>] [--min-score <n>] \
+granted memory promote [--agent <id>] [--limit <n>] [--min-score <n>] \
   [--min-recall-count <n>] [--min-unique-queries <n>] [--apply] [--include-promoted] [--json]
 ```
 
@@ -317,7 +317,7 @@ since ranking are respected instead of promoting from a stale snapshot.
 Explain one promotion candidate's score breakdown.
 
 ```bash
-openclaw memory promote-explain <selector> [--agent <id>] [--include-promoted] [--json]
+granted memory promote-explain <selector> [--agent <id>] [--include-promoted] [--json]
 ```
 
 `<selector>` matches a candidate's key (exact or substring), path, or snippet
@@ -329,7 +329,7 @@ Preview REM reflections, candidate truths, and deep-phase promotion output
 without writing anything.
 
 ```bash
-openclaw memory rem-harness [--agent <id>] [--path <file-or-dir>] [--grounded] [--include-promoted] [--json]
+granted memory rem-harness [--agent <id>] [--path <file-or-dir>] [--grounded] [--include-promoted] [--json]
 ```
 
 - `--path <file-or-dir>`: seed the harness from historical `YYYY-MM-DD.md`
@@ -343,8 +343,8 @@ Write grounded historical REM summaries into `DREAMS.md` for UI review.
 Reversible.
 
 ```bash
-openclaw memory rem-backfill --path <file-or-dir> [--agent <id>] [--stage-short-term] [--json]
-openclaw memory rem-backfill --rollback [--rollback-short-term] [--json]
+granted memory rem-backfill --path <file-or-dir> [--agent <id>] [--stage-short-term] [--json]
+granted memory rem-backfill --rollback [--rollback-short-term] [--json]
 ```
 
 - `--path <file-or-dir>`: required unless `--rollback`/`--rollback-short-term`
@@ -367,9 +367,9 @@ The default is a read-only preview, ordered
 from the oldest unprocessed day to the newest.
 
 ```bash
-openclaw memory session-backfill --agent <id> [--from YYYY-MM-DD] [--to YYYY-MM-DD] \
+granted memory session-backfill --agent <id> [--from YYYY-MM-DD] [--to YYYY-MM-DD] \
   [--limit-days <n>] [--archive-files <path...>] [--rem | --apply] [--json]
-openclaw memory session-backfill --agent <id> --rollback [--json]
+granted memory session-backfill --agent <id> --rollback [--json]
 ```
 
 | Flag                        | Default      | Effect                                                                                                        |
@@ -426,7 +426,7 @@ facts into `MEMORY.md`). Only deep writes to `MEMORY.md`.
 
 - Enable with `plugins.entries.memory-core.config.dreaming.enabled: true`
   (default `true`); `memory-core` auto-manages the sweep cron job, no manual
-  `openclaw cron add` required.
+  `granted cron add` required.
 - Toggle from chat with `/dreaming on|off`; inspect with `/dreaming status`
   (or `/dreaming`/`/dreaming help`). `on`/`off` requires channel owner status
   or gateway `operator.admin`; `status` and help stay available to anyone who

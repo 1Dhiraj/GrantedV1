@@ -1,12 +1,12 @@
-# OpenClaw Qianfan Provider
+# Granted Qianfan Provider
 
-Official OpenClaw provider plugin for Qianfan.
+Official Granted provider plugin for Qianfan.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/qianfan-provider
-openclaw gateway restart
+granted plugins install @granted/qianfan-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/qianfan> for setup and configuration.

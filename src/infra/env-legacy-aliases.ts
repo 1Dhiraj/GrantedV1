@@ -42,6 +42,39 @@ export function applyLegacyEnvAliases(env: NodeJS.ProcessEnv = process.env): str
   return applied;
 }
 
+/**
+ * Reads one GRANTED_* variable out of an environment this process does not own,
+ * falling back to the names it was written under before the rename.
+ *
+ * applyLegacyEnvAliases only rewrites the live process environment. Environments
+ * parsed from elsewhere - an installed service script, a captured snapshot - are
+ * never aliased, so a launcher written before the rename reads back as empty and
+ * the caller concludes the setting was never made.
+ */
+export function readEnvWithLegacyNames(
+  env: NodeJS.ProcessEnv | undefined,
+  currentKey: string,
+): string | undefined {
+  if (!env) {
+    return undefined;
+  }
+  const current = env[currentKey];
+  if (current !== undefined) {
+    return current;
+  }
+  if (!currentKey.startsWith(CURRENT_ENV_PREFIX)) {
+    return undefined;
+  }
+  const suffix = currentKey.slice(CURRENT_ENV_PREFIX.length);
+  for (const prefix of LEGACY_ENV_PREFIXES) {
+    const legacy = env[`${prefix}${suffix}`];
+    if (legacy !== undefined) {
+      return legacy;
+    }
+  }
+  return undefined;
+}
+
 /** True when any legacy-prefixed variable is present, for upgrade hints. */
 export function hasLegacyEnvVars(env: NodeJS.ProcessEnv = process.env): boolean {
   return Object.keys(env).some((key) =>

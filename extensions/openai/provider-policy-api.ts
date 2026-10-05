@@ -354,7 +354,7 @@ function resolveSingleObservedModelRoute(
   const sourceBaseUrl = effectiveBaseUrl;
   // An authored Completions adapter is a concrete transport contract, not an
   // alias for Responses. Codex does not execute that adapter, so preserve it
-  // and let the OpenClaw runtime own the request.
+  // and let the Granted runtime own the request.
   const platformApi =
     configuredRoute && effectiveApi === OPENAI_COMPLETIONS_API
       ? OPENAI_COMPLETIONS_API

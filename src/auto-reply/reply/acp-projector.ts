@@ -1,4 +1,4 @@
-// Projects ACP runtime events into OpenClaw-visible session update records.
+// Projects ACP runtime events into Granted-visible session update records.
 import type { AcpRuntimeEvent, AcpSessionUpdateTag } from "@granted/acp-core/runtime/types";
 import {
   normalizeOptionalLowercaseString,

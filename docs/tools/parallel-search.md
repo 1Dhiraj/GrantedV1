@@ -31,8 +31,8 @@ one explicitly; neither is auto-detected.
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/parallel-plugin
-openclaw gateway restart
+granted plugins install @granted/parallel-plugin
+granted gateway restart
 ```
 
 ## API key (paid provider)
@@ -49,7 +49,7 @@ openclaw gateway restart
     Set `PARALLEL_API_KEY` in the Gateway environment, or configure via:
 
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
   </Step>

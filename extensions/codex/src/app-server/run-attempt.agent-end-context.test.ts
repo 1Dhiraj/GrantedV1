@@ -1,4 +1,4 @@
-// Codex tests cover the agent-end context handed to OpenClaw side effects.
+// Codex tests cover the agent-end context handed to Granted side effects.
 import path from "node:path";
 import * as agentHarnessRuntime from "granted/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it, vi } from "vitest";

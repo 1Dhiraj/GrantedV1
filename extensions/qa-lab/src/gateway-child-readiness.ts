@@ -14,7 +14,7 @@ import { formatQaGatewayLogsForError } from "./gateway-log-redaction.js";
 export const QA_GATEWAY_CHILD_STARTUP_MAX_ATTEMPTS = 5;
 const QA_GATEWAY_CHILD_RESTART_BOUNDARY_TIMEOUT_MS = 90_000;
 const QA_GATEWAY_MIGRATION_CONVERGENCE_RESTART_PREFIX =
-  "OpenClaw plugin migration inputs changed during startup convergence;";
+  "Granted plugin migration inputs changed during startup convergence;";
 
 type QaGatewayStartupRetryKind = "bind-collision" | "migration-convergence-restart";
 

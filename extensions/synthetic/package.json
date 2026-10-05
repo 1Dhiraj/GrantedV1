@@ -1,7 +1,7 @@
 {
   "name": "@granted/synthetic-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Synthetic provider plugin.",
+  "description": "Granted Synthetic provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

@@ -18,49 +18,49 @@ The command attempts independent requested cleanup scopes and returns a nonzero 
 Recommended: use the built-in uninstaller:
 
 ```bash
-openclaw uninstall
+granted uninstall
 ```
 
 The interactive prompt preselects only the Gateway service. For complete local
 removal, also select state, workspace, and app in the prompt, or run
-`openclaw uninstall --all`. State removal preserves configured workspace
+`granted uninstall --all`. State removal preserves configured workspace
 directories unless you also select `--workspace`.
 
 Preview what will be removed (safe):
 
 ```bash
-openclaw uninstall --dry-run --all
+granted uninstall --dry-run --all
 ```
 
 Non-interactive (automation / npx). Use with caution and only after confirming scopes:
 
 ```bash
-openclaw uninstall --all --yes --non-interactive
-npx -y openclaw uninstall --all --yes --non-interactive
+granted uninstall --all --yes --non-interactive
+npx -y granted uninstall --all --yes --non-interactive
 ```
 
 Flags: `--service`, `--state`, `--workspace`, `--app` select individual scopes; `--all` selects all four.
 
 Manual steps provide a complete removal path, but a raw state-directory deletion
 does not have the built-in uninstaller's workspace-preservation behavior. If
-you want the equivalent of `openclaw uninstall --state`, preserve every
+you want the equivalent of `granted uninstall --state`, preserve every
 configured workspace before deleting state.
 
 1. Stop the gateway service:
 
 ```bash
-openclaw gateway stop
+granted gateway stop
 ```
 
 2. Uninstall the gateway service (launchd/systemd/schtasks):
 
 ```bash
-openclaw gateway uninstall
+granted gateway uninstall
 ```
 
 3. Decide whether to preserve the workspace.
 
-`openclaw uninstall --state` deliberately preserves configured workspace
+`granted uninstall --state` deliberately preserves configured workspace
 directories, including the default `~/.openclaw/workspace`. Before using the
 manual `rm -rf` below, move any workspace you want to keep outside the state
 directory. If you want to remove it too, no separate deletion is needed when it
@@ -119,7 +119,7 @@ If you used a profile, replace the label and plist name with `ai.openclaw.<profi
 
 ### Linux (systemd user unit)
 
-Default unit name is `openclaw-gateway.service` (or `openclaw-gateway-<profile>.service`). A pre-rename `clawdbot-gateway.service` unit may still exist on machines upgraded from very old installs; `openclaw uninstall` / `openclaw gateway uninstall` detects and removes it automatically.
+Default unit name is `openclaw-gateway.service` (or `openclaw-gateway-<profile>.service`). A pre-rename `clawdbot-gateway.service` unit may still exist on machines upgraded from very old installs; `granted uninstall` / `granted gateway uninstall` detects and removes it automatically.
 
 ```bash
 systemctl --user disable --now openclaw-gateway.service

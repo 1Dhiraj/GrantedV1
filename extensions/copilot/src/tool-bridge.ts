@@ -670,26 +670,26 @@ function convertOpenClawToolToSdkTool(
     defer: sourceTool.catalogMode === "direct-only" ? "never" : undefined,
     handler,
     name: sourceTool.name,
-    // OpenClaw owns its bridged tools by design (the harness docs:
-    // "OpenClaw still owns ... OpenClaw dynamic tools (bridged)"). The bundled
+    // Granted owns its bridged tools by design (the harness docs:
+    // "Granted still owns ... Granted dynamic tools (bridged)"). The bundled
     // Copilot CLI ships built-in tools whose names (edit, read, write, bash,
-    // ...) collide with OpenClaw's coding-tool set. Mark every bridged tool as
+    // ...) collide with Granted's coding-tool set. Mark every bridged tool as
     // an explicit override so the SDK accepts the registration rather than
     // throwing "External tool 'edit' conflicts with a built-in tool of the
-    // same name." OpenClaw's tool layer is the source of truth for these
+    // same name." Granted's tool layer is the source of truth for these
     // names within a copilot attempt.
     overridesBuiltInTool: true,
     parameters: sourceTool.parameters as Record<string, unknown> | undefined,
-    // Bridged OpenClaw tools enforce their own permission/policy decisions
+    // Bridged Granted tools enforce their own permission/policy decisions
     // inside `wrapToolWithBeforeToolCallHook` (see
     // `src/agents/pi-tools.before-tool-call.ts` — the same hook PI itself
     // uses, providing loop detection, trusted plugin policies,
     // before-tool-call hooks, and two-phase plugin approvals via the
     // gateway). Asking the SDK to fire `onPermissionRequest` for
-    // `kind: "custom-tool"` would either short-circuit OpenClaw's richer
+    // `kind: "custom-tool"` would either short-circuit Granted's richer
     // enforcement (if we allow-all) or block every call (if we
     // reject-all) — neither matches PI parity. The in-tree codex harness
-    // takes the same approach: bridged OpenClaw tools are wrapped with
+    // takes the same approach: bridged Granted tools are wrapped with
     // `wrapToolWithBeforeToolCallHook` and the SDK gate is bypassed
     // (see `extensions/codex/src/app-server/dynamic-tools.ts`).
     skipPermission: true,

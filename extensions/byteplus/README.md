@@ -1,13 +1,13 @@
-# OpenClaw BytePlus Provider
+# Granted BytePlus Provider
 
-Official OpenClaw provider plugin for BytePlus model inference and Seedance
+Official Granted provider plugin for BytePlus model inference and Seedance
 video generation.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/byteplus-provider
-openclaw gateway restart
+granted plugins install @granted/byteplus-provider
+granted gateway restart
 ```
 
 Set `BYTEPLUS_API_KEY`, then select a `byteplus/*` or `byteplus-plan/*` model.

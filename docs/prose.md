@@ -17,7 +17,7 @@ remain yours; the removed plugin did not store state in OpenClaw's SQLite databa
 1. Clean stale bundled-plugin configuration:
 
    ```bash
-   openclaw doctor --fix
+   granted doctor --fix
    ```
 
    Doctor removes `open-prose` from plugin allowlists, denylists, and plugin

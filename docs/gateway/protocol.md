@@ -1076,7 +1076,7 @@ only when the method was not advertised. A client may then retry `audit.list`
 only when its filters do not require message kind, direction, or channel
 support.
 
-Use [`openclaw audit`](/cli/audit) for text queries and bounded JSON exports.
+Use [`granted audit`](/cli/audit) for text queries and bounded JSON exports.
 
 ## Task ledger RPCs
 
@@ -1257,7 +1257,7 @@ while the other requests it.
 - Final `agent` results may include `result.deliveryStatus` when delivery was
   requested, using the same `sent`, `suppressed`, `partial_failed`, and
   `failed` statuses documented for
-  [`openclaw agent --json --deliver`](/cli/agent#json-delivery-status).
+  [`granted agent --json --deliver`](/cli/agent#json-delivery-status).
 
 ## Versioning
 

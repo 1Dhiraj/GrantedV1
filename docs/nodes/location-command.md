@@ -8,7 +8,7 @@ title: "Location command"
 
 ## TL;DR
 
-- `location.get` is a node command, invoked via `node.invoke` or `openclaw nodes location get`.
+- `location.get` is a node command, invoked via `node.invoke` or `granted nodes location get`.
 - Off by default.
 - Android third-party builds use a selector: Off / While Using / Always. Play builds remain Off / While Using.
 - Precise Location is a separate toggle.
@@ -40,8 +40,8 @@ Optional. The macOS node reports `location` via the `permissions` map on `node.l
 Called via `node.invoke`, or the CLI helper:
 
 ```bash
-openclaw nodes location get --node <idOrNameOrIp>
-openclaw nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
+granted nodes location get --node <idOrNameOrIp>
+granted nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
 ```
 
 Params:
@@ -88,7 +88,7 @@ Errors (stable codes):
 
 ## Linux node host
 
-The bundled Linux Node plugin adds `location.get` to the CLI `openclaw node` service, including headless hosts without the Linux desktop app. Location defaults to off. Enable it under the plugin entry, then restart the node service:
+The bundled Linux Node plugin adds `location.get` to the CLI `granted node` service, including headless hosts without the Linux desktop app. Location defaults to off. Enable it under the plugin entry, then restart the node service:
 
 ```json5
 {
@@ -115,7 +115,7 @@ Linux uses the same stable errors: `LOCATION_DISABLED`, `LOCATION_TIMEOUT`, and 
 ## Model/tooling integration
 
 - Agent tool: the `nodes` tool's `location_get` action (node required).
-- CLI: `openclaw nodes location get --node <id>`.
+- CLI: `granted nodes location get --node <id>`.
 - Agent guidelines: only call when the user enabled location and understands the scope.
 
 ## UX copy (suggested)

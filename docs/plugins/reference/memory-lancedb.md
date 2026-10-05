@@ -16,7 +16,7 @@ OpenClaw LanceDB-backed long-term memory plugin with auto-recall, auto-capture, 
 
 ## Surface
 
-CLI commands: `openclaw ltm`; contracts: `tools`
+CLI commands: `granted ltm`; contracts: `tools`
 
 ## Related docs
 

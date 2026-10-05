@@ -43,7 +43,7 @@ OpenClaw also **auto-discovers** available models from SGLang when you opt in wi
   </Step>
   <Step title="Run onboarding or set a model directly">
     ```bash
-    openclaw onboard
+    granted onboard
     ```
 
     Or configure the model manually:

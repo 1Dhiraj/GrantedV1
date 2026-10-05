@@ -742,7 +742,7 @@ describe("tasks gateway handlers", () => {
     emitAgentEvent({
       runId: "run-sanitized",
       stream: "assistant",
-      data: { text: "OpenClaw runtime context (internal): Keep internal details private." },
+      data: { text: "Granted runtime context (internal): Keep internal details private." },
     });
     markTaskTerminalById({
       taskId: task.taskId,
@@ -760,7 +760,7 @@ describe("tasks gateway handlers", () => {
     expect(payload?.task?.error).toBe("Tool failed");
     expect(payload?.task).not.toHaveProperty("lastActivity");
     expect(payload?.task?.prompt).toBe("Compile artifact");
-    expect(JSON.stringify(calls[0]?.[1])).not.toContain("OpenClaw runtime context");
+    expect(JSON.stringify(calls[0]?.[1])).not.toContain("Granted runtime context");
   });
 
   it("exposes tool activity in task summaries", async () => {

@@ -2,7 +2,7 @@
   "name": "@granted/oc-path",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw oc:// workspace path plugin",
+  "description": "Granted oc:// workspace path plugin",
   "type": "module",
   "dependencies": {
     "jsonc-parser": "3.3.1",

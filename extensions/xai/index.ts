@@ -1,5 +1,5 @@
 import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
-// Xai plugin entrypoint registers its OpenClaw integration.
+// Xai plugin entrypoint registers its Granted integration.
 import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";

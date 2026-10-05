@@ -1,4 +1,4 @@
-// Tests isolated OpenClaw test-state setup and cleanup behavior.
+// Tests isolated Granted test-state setup and cleanup behavior.
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -329,9 +329,7 @@ describe("openclaw test state", () => {
 
   it("closes only fixture-owned databases before restoring env", async () => {
     const previousStateDir = process.env.GRANTED_STATE_DIR;
-    const unrelatedRoot = await fs.mkdtemp(
-      path.join(os.tmpdir(), "granted-test-state-unrelated-"),
-    );
+    const unrelatedRoot = await fs.mkdtemp(path.join(os.tmpdir(), "granted-test-state-unrelated-"));
     const unrelatedEnv = {
       ...process.env,
       GRANTED_STATE_DIR: path.join(unrelatedRoot, "state"),

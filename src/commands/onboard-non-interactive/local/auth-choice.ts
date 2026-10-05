@@ -37,7 +37,7 @@ type ResolvedNonInteractiveApiKey = NonNullable<
   Awaited<ReturnType<typeof resolveNonInteractiveApiKey>>
 >;
 
-/** Applies a local non-interactive auth choice to the pending OpenClaw config. */
+/** Applies a local non-interactive auth choice to the pending Granted config. */
 export async function applyNonInteractiveAuthChoice(params: {
   nextConfig: GrantedConfig;
   authChoice: AuthChoice;

@@ -1,7 +1,7 @@
 {
   "name": "@granted/qianfan-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Qianfan provider plugin.",
+  "description": "Granted Qianfan provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

@@ -1,11 +1,11 @@
-# OpenClaw Nextcloud Talk
+# Granted Nextcloud Talk
 
-Official OpenClaw channel plugin for Nextcloud Talk conversations.
+Official Granted channel plugin for Nextcloud Talk conversations.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/nextcloud-talk
+granted plugins install @granted/nextcloud-talk
 ```
 
-Configure the Nextcloud server and Talk credentials in OpenClaw, then enable the conversations where agents should receive and send messages.
+Configure the Nextcloud server and Talk credentials in Granted, then enable the conversations where agents should receive and send messages.

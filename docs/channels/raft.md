@@ -17,8 +17,8 @@ uses the Raft CLI to check and send messages. Direct chat only (no groups).
 Raft is an official external plugin. Install it on the Gateway host:
 
 ```bash
-openclaw plugins install @granted/raft
-openclaw gateway restart
+granted plugins install @granted/raft
+granted gateway restart
 ```
 
 Details: [Plugins](/tools/plugin)
@@ -78,7 +78,7 @@ Use a named account when one Gateway connects to more than one Raft External Age
 Interactive setup records the same profile:
 
 ```bash
-openclaw channels add --channel raft
+granted channels add --channel raft
 ```
 
 ## How it works
@@ -103,8 +103,8 @@ receives only a wake notice, not a copied Raft message body. It uses the CLI
 to read pending messages and to send its response:
 
 ```bash
-raft --profile openclaw message check
-raft --profile openclaw message send
+raft --profile granted message check
+raft --profile granted message send
 ```
 
 <Note>
@@ -116,8 +116,8 @@ Raft is not a push-message transport. OpenClaw does not automatically send the m
 Check that OpenClaw can find the CLI and has a configured profile:
 
 ```bash
-openclaw channels status --probe
-openclaw plugins inspect raft --runtime --json
+granted channels status --probe
+granted plugins inspect raft --runtime --json
 ```
 
 Then send a message to the Raft External Agent. The Gateway log should show

@@ -36,7 +36,7 @@ async function runClaudeUserInput(
 ): Promise<ClaudeAgentSdkPermissionResult> {
   const questions = readClaudeUserInputQuestions(params.input);
   if (!questions) {
-    return { behavior: "deny", message: "OpenClaw rejected malformed Claude user questions." };
+    return { behavior: "deny", message: "Granted rejected malformed Claude user questions." };
   }
   const result = await context.requestUserInput({
     toolName: "AskUserQuestion",

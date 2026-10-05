@@ -16,8 +16,8 @@ import {
   type ExecPolicyOverrides,
   type ExecSessionDefaults,
 } from "../agents/exec-defaults.js";
-import { createLazyExecTool, resolveExecToolConfig } from "../agents/lazy-exec-tool.js";
 import { createOpenClawTools } from "../agents/granted-tools.js";
+import { createLazyExecTool, resolveExecToolConfig } from "../agents/lazy-exec-tool.js";
 import { resolveRequesterToolPolicies } from "../agents/requester-tool-policy.js";
 import { resolveSandboxRuntimeStatus } from "../agents/sandbox/runtime-status.js";
 import {
@@ -504,7 +504,7 @@ export function resolveGatewayScopedTools(params: {
           },
           {
             description:
-              "Execute a shell command on a connected OpenClaw node. This tool is node-only; use the CLI native shell for Gateway-local commands. Commands run synchronously. The sole connected node that can execute commands is selected automatically; set node when several can.",
+              "Execute a shell command on a connected Granted node. This tool is node-only; use the CLI native shell for Gateway-local commands. Commands run synchronously. The sole connected node that can execute commands is selected automatically; set node when several can.",
             displaySummary: "Run commands on a connected node",
             parameters: nodeExecSchema,
           },

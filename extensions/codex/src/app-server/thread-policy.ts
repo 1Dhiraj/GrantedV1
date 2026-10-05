@@ -45,11 +45,11 @@ export async function refreshCodexThreadPolicy(params: {
   assertCurrent: () => void;
 }): Promise<void> {
   const notice =
-    "The following is the complete current OpenClaw-supplied generic instruction policy. It replaces earlier OpenClaw-supplied generic policy, including OpenClaw-carried workspace text and sections now absent. Independently supplied native managed, guardian, security, collaboration, and project instructions retain their authority. User requests retain their own authority.\n\n";
+    "The following is the complete current Granted-supplied generic instruction policy. It replaces earlier Granted-supplied generic policy, including Granted-carried workspace text and sections now absent. Independently supplied native managed, guardian, security, collaboration, and project instructions retain their authority. User requests retain their own authority.\n\n";
   const text =
     notice +
     (params.developerInstructions === ""
-      ? "The current OpenClaw generic policy is empty; earlier OpenClaw generic policy is withdrawn."
+      ? "The current Granted generic policy is empty; earlier Granted generic policy is withdrawn."
       : params.developerInstructions);
   let outcome: CodexThreadPolicyHandoffError["outcome"] = "unknown";
   try {

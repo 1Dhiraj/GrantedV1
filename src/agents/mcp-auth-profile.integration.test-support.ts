@@ -1,4 +1,4 @@
-// Fresh-process fixture: value imports stay outside OpenClaw until each scenario demands them.
+// Fresh-process fixture: value imports stay outside Granted until each scenario demands them.
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { createServer, type IncomingHttpHeaders } from "node:http";
@@ -631,8 +631,7 @@ async function main(): Promise<void> {
       // A rejected cold import must not load auth owners merely to clean them up.
       if (authRuntimeEntered) {
         const { closeAuthProfileReadPool } = await import("./auth-profiles/sqlite.js");
-        const { closeOpenClawAgentDatabasesForTest } =
-          await import("../state/granted-agent-db.js");
+        const { closeOpenClawAgentDatabasesForTest } = await import("../state/granted-agent-db.js");
         const { closeOpenClawStateDatabaseForTest } = await import("../state/granted-state-db.js");
         closeAuthProfileReadPool();
         // Agent closure releases leases through shared state; close that owner last.

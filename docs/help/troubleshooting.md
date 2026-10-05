@@ -13,41 +13,41 @@ Triage front door. 2 minutes to a diagnosis, then jump to the deep page.
 Run this ladder in order:
 
 ```bash
-openclaw triage
-openclaw status
-openclaw status --all
-openclaw gateway probe
-openclaw gateway status
-openclaw doctor
-openclaw channels status --probe
-openclaw logs --follow
+granted triage
+granted status
+granted status --all
+granted gateway probe
+granted gateway status
+granted doctor
+granted channels status --probe
+granted logs --follow
 ```
 
 Good output, one line each:
 
-- `openclaw triage` writes a sanitized, agent-ready diagnosis and, when the Gateway is reachable, a support archive. See [Triage](/cli/triage) for agent handoff options.
-- `openclaw status` shows configured channels, no auth errors.
-- `openclaw status --all` produces a full, shareable report.
-- `openclaw gateway probe` shows `Reachable: yes`. `Capability: ...` is the
+- `granted triage` writes a sanitized, agent-ready diagnosis and, when the Gateway is reachable, a support archive. See [Triage](/cli/triage) for agent handoff options.
+- `granted status` shows configured channels, no auth errors.
+- `granted status --all` produces a full, shareable report.
+- `granted gateway probe` shows `Reachable: yes`. `Capability: ...` is the
   auth level the probe proved; `Read probe: limited - missing scope:
 operator.read` is degraded diagnostics, not a connect failure.
-- `openclaw gateway status` shows `Runtime: running`, `Connectivity probe:
+- `granted gateway status` shows `Runtime: running`, `Connectivity probe:
 ok`, and a plausible `Capability: ...`. Add `--require-rpc` to also require
   read-scope RPC proof.
-- `openclaw doctor` reports no blocking config/service errors.
-- `openclaw channels status --probe` returns live per-account transport state
+- `granted doctor` reports no blocking config/service errors.
+- `granted channels status --probe` returns live per-account transport state
   (`works` / `audit ok`) when the gateway is reachable; falls back to
   config-only summaries when it is not.
-- `openclaw logs --follow` shows steady activity, no repeating fatal errors.
+- `granted logs --follow` shows steady activity, no repeating fatal errors.
 
 ## Assistant feels limited or missing tools
 
 Check the effective tool profile:
 
 ```bash
-openclaw status
-openclaw status --all
-openclaw doctor
+granted status
+granted status --all
+granted doctor
 ```
 
 Common causes:
@@ -62,7 +62,7 @@ Common causes:
   for one agent.
 
 Change the profile, restart or reload the Gateway, then recheck with
-`openclaw status --all`. Full profile/group table: [Tool profiles](/gateway/config-tools#tool-profiles).
+`granted status --all`. Full profile/group table: [Tool profiles](/gateway/config-tools#tool-profiles).
 
 ## Anthropic long context 429
 
@@ -72,7 +72,7 @@ Change the profile, restart or reload the Gateway, then recheck with
 ## Local OpenAI-compatible backend works directly but fails in OpenClaw
 
 Your local/self-hosted `/v1` backend answers direct `/v1/chat/completions`
-probes but fails on `openclaw infer model run` or normal agent turns:
+probes but fails on `granted infer model run` or normal agent turns:
 
 1. Error mentions `messages[].content` expecting a string: set
    `models.providers.<provider>.models[].compat.requiresStringContent: true`.
@@ -82,7 +82,7 @@ probes but fails on `openclaw infer model run` or normal agent turns:
    is an upstream model/server limit, not an OpenClaw bug. Continue in
    [Local OpenAI-compatible backend passes direct probes but agent runs fail](/gateway/troubleshooting#local-openai-compatible-backend-passes-direct-probes-but-agent-runs-fail).
 
-## Plugin install fails with missing openclaw extensions
+## Plugin install fails with missing granted extensions
 
 `package.json missing openclaw.extensions` means the plugin package uses a
 shape OpenClaw no longer accepts.
@@ -91,7 +91,7 @@ Fix in the plugin package:
 
 1. Add `openclaw.extensions` to `package.json`, pointing at built runtime
    files (usually `./dist/index.js`).
-2. Republish, then run `openclaw plugins install <package>` again.
+2. Republish, then run `granted plugins install <package>` again.
 
 ```json
 {
@@ -135,25 +135,25 @@ trust rule to `request.mode: "update"` as to installs.
 Recovery:
 
 ```bash
-openclaw doctor --deep
-openclaw plugins update --all
-openclaw status --all
+granted doctor --deep
+granted plugins update --all
+granted status --all
 ```
 
 If the policy is intentionally strict, relax it for the trusted upgrade
-window, rerun `openclaw plugins update --all`, then restore the stricter rule.
+window, rerun `granted plugins update --all`, then restore the stricter rule.
 If update failure disabled a plugin, inspect before re-enabling:
 
 ```bash
-openclaw plugins inspect <plugin-id> --runtime --json
-openclaw plugins enable <plugin-id>
+granted plugins inspect <plugin-id> --runtime --json
+granted plugins enable <plugin-id>
 ```
 
 Reference: [Operator install policy](/tools/skills-config#operator-install-policy-security-installpolicy)
 
 ## Plugin present but blocked by suspicious ownership
 
-`openclaw doctor`, setup, or startup warnings show:
+`granted doctor`, setup, or startup warnings show:
 
 ```text
 blocked plugin candidate: suspicious ownership (... uid=1000, expected uid=0 or root)
@@ -168,7 +168,7 @@ Docker installs run as `node` (uid `1000`). Repair the host bind mounts:
 
 ```bash
 sudo chown -R 1000:1000 /path/to/openclaw-config /path/to/openclaw-workspace
-openclaw doctor --fix
+granted doctor --fix
 ```
 
 If you intentionally run OpenClaw as root, repair the managed plugin root
@@ -176,7 +176,7 @@ instead:
 
 ```bash
 sudo chown -R root:root /path/to/openclaw-config/npm
-openclaw doctor --fix
+granted doctor --fix
 ```
 
 Deeper docs: [Blocked plugin path ownership](/tools/plugin#blocked-plugin-path-ownership), [Docker: Permissions and EACCES](/install/docker#shell-helpers-optional)
@@ -206,11 +206,11 @@ flowchart TD
 <AccordionGroup>
   <Accordion title="No replies">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw channels status --probe
-    openclaw pairing list --channel <channel> [--account <id>]
-    openclaw logs --follow
+    granted status
+    granted gateway status
+    granted channels status --probe
+    granted pairing list --channel <channel> [--account <id>]
+    granted logs --follow
     ```
 
     Good output:
@@ -234,16 +234,16 @@ flowchart TD
 
   <Accordion title="Dashboard or Control UI will not connect">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw logs --follow
-    openclaw doctor
-    openclaw channels status --probe
+    granted status
+    granted gateway status
+    granted logs --follow
+    granted doctor
+    granted channels status --probe
     ```
 
     Good output:
 
-    - `Dashboard: http://...` shown in `openclaw gateway status`
+    - `Dashboard: http://...` shown in `granted gateway status`
     - `Connectivity probe: ok`
     - `Capability: read-only`, `write-capable`, or `admin-capable`
     - No auth loop in logs
@@ -263,11 +263,11 @@ flowchart TD
 
   <Accordion title="Gateway will not start or service installed but not running">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw logs --follow
-    openclaw doctor
-    openclaw channels status --probe
+    granted status
+    granted gateway status
+    granted logs --follow
+    granted doctor
+    granted channels status --probe
     ```
 
     Good output:
@@ -289,11 +289,11 @@ flowchart TD
 
   <Accordion title="Channel connects but messages do not flow">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw logs --follow
-    openclaw doctor
-    openclaw channels status --probe
+    granted status
+    granted gateway status
+    granted logs --follow
+    granted doctor
+    granted channels status --probe
     ```
 
     Good output:
@@ -314,12 +314,12 @@ flowchart TD
 
   <Accordion title="Cron or heartbeat did not fire or did not deliver">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw cron status
-    openclaw cron list
-    openclaw cron runs --id <jobId> --limit 20
-    openclaw logs --follow
+    granted status
+    granted gateway status
+    granted cron status
+    granted cron list
+    granted cron runs --id <jobId> --limit 20
+    granted logs --follow
     ```
 
     Good output:
@@ -343,11 +343,11 @@ flowchart TD
 
   <Accordion title="Node is paired but tool fails camera canvas screen exec">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw nodes status
-    openclaw nodes describe --node <idOrNameOrIp>
-    openclaw logs --follow
+    granted status
+    granted gateway status
+    granted nodes status
+    granted nodes describe --node <idOrNameOrIp>
+    granted logs --follow
     ```
 
     Good output:
@@ -369,10 +369,10 @@ flowchart TD
 
   <Accordion title="Exec suddenly asks for approval">
     ```bash
-    openclaw config get tools.exec.host
-    openclaw config get tools.exec.security
-    openclaw config get tools.exec.ask
-    openclaw gateway restart
+    granted config get tools.exec.host
+    granted config get tools.exec.security
+    granted config get tools.exec.ask
+    granted gateway restart
     ```
 
     What changed:
@@ -389,10 +389,10 @@ flowchart TD
     Restore the current no-approval defaults:
 
     ```bash
-    openclaw config set tools.exec.host gateway
-    openclaw config set tools.exec.security full
-    openclaw config set tools.exec.ask off
-    openclaw gateway restart
+    granted config set tools.exec.host gateway
+    granted config set tools.exec.security full
+    granted config set tools.exec.ask off
+    granted gateway restart
     ```
 
     Safer alternatives:
@@ -414,11 +414,11 @@ flowchart TD
 
   <Accordion title="Browser tool fails">
     ```bash
-    openclaw status
-    openclaw gateway status
-    openclaw browser status
-    openclaw logs --follow
-    openclaw doctor
+    granted status
+    granted gateway status
+    granted browser status
+    granted logs --follow
+    granted doctor
     ```
 
     Good output:
@@ -436,7 +436,7 @@ flowchart TD
     - `No Chrome tabs found for profile="user"` → the Chrome MCP attach profile has no open local Chrome tabs.
     - `Remote CDP for profile "<name>" is not reachable` → configured remote CDP endpoint unreachable from this host.
     - `Browser attachOnly is enabled ... not reachable` → attach-only profile has no live CDP target.
-    - Stale viewport/dark-mode/locale/offline overrides on attach-only or remote CDP profiles → run `openclaw browser stop --browser-profile <name>` to close the control session and release emulation state without restarting the gateway.
+    - Stale viewport/dark-mode/locale/offline overrides on attach-only or remote CDP profiles → run `granted browser stop --browser-profile <name>` to close the control session and release emulation state without restarting the gateway.
 
     Deep pages: [Browser tool fails](/gateway/troubleshooting#browser-tool-fails), [Missing browser command or tool](/tools/browser#missing-browser-command-or-tool), [Browser: Linux troubleshooting](/tools/browser-linux-troubleshooting), [Browser: WSL2/Windows remote CDP troubleshooting](/tools/browser-wsl2-windows-remote-cdp-troubleshooting)
 

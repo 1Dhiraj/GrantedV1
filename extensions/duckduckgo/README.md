@@ -1,12 +1,12 @@
-# OpenClaw DuckDuckGo Plugin
+# Granted DuckDuckGo Plugin
 
-Official OpenClaw plugin for DuckDuckGo web search.
+Official Granted plugin for DuckDuckGo web search.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/duckduckgo-plugin
-openclaw gateway restart
+granted plugins install @granted/duckduckgo-plugin
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/tools/duckduckgo-search> for setup and configuration.

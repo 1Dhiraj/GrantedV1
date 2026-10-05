@@ -4,7 +4,9 @@ import { createFixtureSkillEntry } from "../test-support/test-helpers.js";
 import {
   buildSkillIndexEntries,
   filterPromptVisibleSkillEntries,
+  filterSearchListedSkillEntries,
   filterUserInvocableSkillEntries,
+  isSkillPromptVisible,
   normalizeSkillIndexName,
 } from "./skill-index.js";
 
@@ -119,5 +121,52 @@ describe("skill index", () => {
       { name: "unknown-bundle", bundled: true, agentAllowed: false },
       { name: "workspace", bundled: false, agentAllowed: true },
     ]);
+  });
+});
+
+describe("search-listed skills", () => {
+  function entry(name: string, invocation: Record<string, unknown>) {
+    return createFixtureSkillEntry(name, {
+      invocation: {
+        userInvocable: true,
+        disableModelInvocation: false,
+        promptListing: "always",
+        ...invocation,
+      } as never,
+    });
+  }
+
+  it("keeps a search-listed skill out of the catalog but still model-usable", () => {
+    const listed = entry("listed", {});
+    const searchable = entry("searchable", { promptListing: "search" });
+
+    expect(isSkillPromptVisible(listed)).toBe(true);
+    expect(isSkillPromptVisible(searchable)).toBe(false);
+    expect(filterPromptVisibleSkillEntries([listed, searchable])).toEqual([listed]);
+    expect(filterSearchListedSkillEntries([listed, searchable])).toEqual([searchable]);
+  });
+
+  it("never advertises a skill the model may not invoke at all", () => {
+    const disabled = entry("disabled", { promptListing: "search", disableModelInvocation: true });
+
+    expect(isSkillPromptVisible(disabled)).toBe(false);
+    expect(filterSearchListedSkillEntries([disabled])).toEqual([]);
+  });
+
+  it("honors an explicit exposure decision over the invocation policy", () => {
+    const forced = createFixtureSkillEntry("forced", {
+      invocation: {
+        userInvocable: true,
+        disableModelInvocation: false,
+        promptListing: "search",
+      } as never,
+      exposure: {
+        includeInRuntimeRegistry: true,
+        includeInAvailableSkillsPrompt: true,
+        userInvocable: true,
+      },
+    });
+
+    expect(isSkillPromptVisible(forced)).toBe(true);
   });
 });

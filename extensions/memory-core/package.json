@@ -2,7 +2,7 @@
   "name": "@granted/memory-core",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw core memory search plugin",
+  "description": "Granted core memory search plugin",
   "type": "module",
   "exports": {
     "./api.js": "./api.ts"

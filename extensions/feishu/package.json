@@ -1,7 +1,7 @@
 {
   "name": "@granted/feishu",
   "version": "2026.8.1",
-  "description": "OpenClaw Feishu/Lark channel plugin for chats and workplace tools (community maintained by @m1heng).",
+  "description": "Granted Feishu/Lark channel plugin for chats and workplace tools (community maintained by @m1heng).",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

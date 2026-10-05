@@ -1,4 +1,4 @@
-// Talk Voice plugin entrypoint registers its OpenClaw integration.
+// Talk Voice plugin entrypoint registers its Granted integration.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";

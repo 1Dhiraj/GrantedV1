@@ -1317,7 +1317,7 @@ describe("parseNdjsonStream", () => {
     const reader = mockNdjsonReader([`${prefix}😀tail`]);
 
     await expect(expectNoParsedChunks(reader)).rejects.toThrow(
-      "OpenClaw transport error: malformed_streaming_fragment",
+      "Granted transport error: malformed_streaming_fragment",
     );
     expect(ollamaStreamWarnMock).not.toHaveBeenCalled();
   });
@@ -1327,7 +1327,7 @@ describe("parseNdjsonStream", () => {
     const reader = mockNdjsonReader([`${prefix}😀tail`], { trailingNewline: false });
 
     await expect(expectNoParsedChunks(reader)).rejects.toThrow(
-      "OpenClaw transport error: malformed_streaming_fragment",
+      "Granted transport error: malformed_streaming_fragment",
     );
     expect(ollamaStreamWarnMock).not.toHaveBeenCalled();
   });
@@ -1390,7 +1390,7 @@ describe("parseNdjsonStream", () => {
 
   it.each(["null", "[]", "42"])("rejects non-object NDJSON records: %s", async (record) => {
     await expect(expectNoParsedChunks(mockNdjsonReader([record]))).rejects.toThrow(
-      "OpenClaw transport error: malformed_streaming_fragment",
+      "Granted transport error: malformed_streaming_fragment",
     );
   });
 
@@ -1551,7 +1551,7 @@ describe("parseNdjsonStream", () => {
     ]);
 
     await expect(expectNoParsedChunks(stream.getReader())).rejects.toThrow(
-      "OpenClaw transport error: malformed_streaming_fragment",
+      "Granted transport error: malformed_streaming_fragment",
     );
     expect(ollamaStreamWarnMock).not.toHaveBeenCalled();
     expect(stream.locked).toBe(false);
@@ -2118,7 +2118,7 @@ describe("createOllamaStreamFn streaming events", () => {
     expect(events.map((event) => event.type)).toEqual(["error"]);
     expect(events[0]).toMatchObject({
       type: "error",
-      error: { errorMessage: "OpenClaw transport error: malformed_streaming_fragment" },
+      error: { errorMessage: "Granted transport error: malformed_streaming_fragment" },
     });
   });
 

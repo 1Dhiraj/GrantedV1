@@ -52,8 +52,8 @@ not a permanent block; the sender can request access again later.
 ### Approve from the CLI
 
 ```bash
-openclaw pairing list telegram
-openclaw pairing approve telegram <CODE>
+granted pairing list telegram
+granted pairing approve telegram <CODE>
 ```
 
 Add `--notify` to tell the requester on the same channel. Multi-account channels
@@ -116,7 +116,7 @@ Account scoping behavior:
 
 Older gateways wrote `<channel>-pairing.json` and
 `<channel>-<accountId>-allowFrom.json` under `~/.openclaw/credentials/`.
-Startup migration and `openclaw doctor --fix` import those files into SQLite and
+Startup migration and `granted doctor --fix` import those files into SQLite and
 remove each source after a successful import. Treat the SQLite database as
 sensitive because these rows gate access to your assistant.
 
@@ -182,7 +182,7 @@ That bootstrap token carries the built-in pairing bootstrap profile:
 - the default handed-off `operator` token includes `operator.admin`,
   `operator.approvals`, `operator.read`, `operator.talk.secrets`, and
   `operator.write`
-- Control UI **Limited access** and `openclaw qr --limited` omit
+- Control UI **Limited access** and `granted qr --limited` omit
   `operator.admin` while keeping the other operator scopes
 - plaintext LAN `ws://` setup automatically uses the same limited profile;
   configure `wss://` or Tailscale Serve and generate a new code for full access
@@ -206,8 +206,8 @@ QR/setup-code issuance.
 OpenClaw advertises Tailscale setup URLs only when it owns the route through
 `gateway.tailscale.mode=serve|funnel`. Legacy external Serve routes that proxy a
 `gateway.bind=lan` listener are not advertised because the ordinary listener
-rejects Tailscale-shaped proxy ingress. Run `openclaw doctor` to preview the
-safe default-route migration, then `openclaw doctor --fix` and restart the
+rejects Tailscale-shaped proxy ingress. Run `granted doctor` to preview the
+safe default-route migration, then `granted doctor --fix` and restart the
 Gateway. Custom Serve ports and Tailscale Services require manual migration.
 For a retired `gateway.tailscale.serviceName` config, Doctor disables managed
 ingress and prints the command needed to clear the retained Service route.
@@ -215,9 +215,9 @@ ingress and prints the command needed to clear the retained Service route.
 ### Approve a node device
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
-openclaw devices reject <requestId>
+granted devices list
+granted devices approve <requestId>
+granted devices reject <requestId>
 ```
 
 When an explicit approval is denied because the approving paired-device session
@@ -232,7 +232,7 @@ role/scopes/public key), the previous pending request is superseded and a new
 `requestId` is created.
 
 <Note>
-An already paired device does not get broader access silently. If it reconnects asking for more scopes or a broader role, OpenClaw keeps the existing approval as-is and creates a fresh pending upgrade request. Use `openclaw devices list` to compare the currently approved access with the newly requested access before you approve.
+An already paired device does not get broader access silently. If it reconnects asking for more scopes or a broader role, OpenClaw keeps the existing approval as-is and creates a fresh pending upgrade request. Use `granted devices list` to compare the currently approved access with the newly requested access before you approve.
 </Note>
 
 ### Optional trusted-CIDR node auto-approve
@@ -269,7 +269,7 @@ imported into SQLite at gateway startup and archived with a `.migrated` suffix.
 
 ### Notes
 
-- The `node.pair.*` API (CLI: `openclaw nodes pending|approve|reject|remove|rename`) manages
+- The `node.pair.*` API (CLI: `granted nodes pending|approve|reject|remove|rename`) manages
   node capability approvals stored on the same paired device records. WS nodes
   still require device pairing; see [Node pairing](/gateway/pairing).
 - The pairing record is the durable source of truth for approved roles. Active

@@ -1,4 +1,4 @@
-// Configured OpenClaw assistant tests cover route-owned, tool-free planning.
+// Configured Granted assistant tests cover route-owned, tool-free planning.
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { RunCliAgentParams } from "../agents/cli-runner/types.js";
 import type { RunEmbeddedAgentParams } from "../agents/embedded-agent-runner/run/params.js";
@@ -108,7 +108,7 @@ function snapshot(config: GrantedConfig) {
   };
 }
 
-describe("OpenClaw configured-model planner", () => {
+describe("Granted configured-model planner", () => {
   it("rejects a low-level missing binding before config lookup or model execution", async () => {
     const readConfigFileSnapshot = vi.fn();
     const runCliAgent = vi.fn();

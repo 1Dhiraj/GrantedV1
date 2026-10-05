@@ -20,14 +20,14 @@ import {
 } from "./extension-install-layout.js";
 import { BROWSER_NATIVE_HOST_NAME } from "./extension-native-host.js";
 
-const OWNED_LAUNCHER_MARKER = "# OpenClaw native messaging bootstrap v1";
+const OWNED_LAUNCHER_MARKER = "# Granted native messaging bootstrap v1";
 const BROWSER_EXTENSION_INSTALL_WAIT_DEFAULT_MS = 30_000;
 const BROWSER_EXTENSION_INSTALL_WAIT_MIN_MS = 1_000;
 const BROWSER_EXTENSION_INSTALL_WAIT_MAX_MS = 120_000;
-const NATIVE_HOST_DESCRIPTION = "OpenClaw browser extension bootstrap";
+const NATIVE_HOST_DESCRIPTION = "Granted browser extension bootstrap";
 // Chrome authorizes native messaging by extension ID. This trust grant intentionally
 // includes user-loaded unpacked builds that preserve the Store ID; those builds must be trusted.
-// The ID is never proof that an arbitrary extension path is OpenClaw-owned.
+// The ID is never proof that an arbitrary extension path is Granted-owned.
 const FOUNDATION_CHROME_WEB_STORE_EXTENSION_ID = "kcdjddhmeafeomebliikmbpblkmkfoig";
 export const FOUNDATION_CHROME_WEB_STORE_URL = `https://chromewebstore.google.com/detail/openclaw/${FOUNDATION_CHROME_WEB_STORE_EXTENSION_ID}`;
 
@@ -465,7 +465,7 @@ export async function installChromeExtensionBootstrap(params: {
   }
   if (preRegisteredRoots > 0) {
     params.onProgress?.(
-      `Native bootstrap is ready. Add OpenClaw from the Chrome Web Store: ${FOUNDATION_CHROME_WEB_STORE_URL}. For development, load unpacked from ${installed}.`,
+      `Native bootstrap is ready. Add Granted from the Chrome Web Store: ${FOUNDATION_CHROME_WEB_STORE_URL}. For development, load unpacked from ${installed}.`,
     );
   } else {
     preRegistrationIssues.push(
@@ -493,7 +493,7 @@ export async function installChromeExtensionBootstrap(params: {
     now() < deadline
   ) {
     if (!announcedWait) {
-      params.onProgress?.("Waiting for Chrome to verify the OpenClaw extension…");
+      params.onProgress?.("Waiting for Chrome to verify the Granted extension…");
       announcedWait = true;
     }
     await sleep(Math.min(500, Math.max(1, deadline - now())));
@@ -563,7 +563,7 @@ export async function browserExtensionStatus(params: {
       unavailableRegistration,
     issues: [
       ...(installedCopy.present && !installedCopy.owned
-        ? [`Chrome extension copy is not OpenClaw-owned: ${installedPath}`]
+        ? [`Chrome extension copy is not Granted-owned: ${installedPath}`]
         : []),
       ...discovery.issues,
       ...registrations.flatMap((entry) =>
@@ -573,7 +573,7 @@ export async function browserExtensionStatus(params: {
   };
 }
 
-/** Remove only registrations and launchers that carry OpenClaw ownership. */
+/** Remove only registrations and launchers that carry Granted ownership. */
 export async function uninstallChromeExtensionNativeHosts(
   params: { deps?: ExtensionInstallDeps } = {},
 ): Promise<{ removed: string[]; refused: string[]; manualRequired: boolean }> {
@@ -696,7 +696,7 @@ export async function repairOwnedChromeExtensionNativeHosts(params: {
         pluginRoot: params.pluginRoot,
         deps,
       });
-      changes.push(`Repaired ${root.label} OpenClaw native messaging registration.`);
+      changes.push(`Repaired ${root.label} Granted native messaging registration.`);
     } catch (error) {
       warnings.push(`${root.label} native host repair failed: ${String(error)}`);
     }

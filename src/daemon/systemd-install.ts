@@ -145,14 +145,14 @@ function sanitizeSystemdUnitBackupContent(params: {
   if (params.fileManagedKeys.size === 0) {
     return params.content;
   }
-  // Backups should not retain file-managed secrets that OpenClaw moved into the
+  // Backups should not retain file-managed secrets that Granted moved into the
   // generated EnvironmentFile during this rewrite.
   return removeSystemdInlineEnvironmentKeys(params.content, params.fileManagedKeys);
 }
 
 function removeLegacyGatewayVersionMetadata(content: string): string {
   const description =
-    /^Description=(?:Granted|OpenClaw) Gateway \((?:(profile: [^,)\r\n]+), )?v([^)\r\n]+)\)$/mu.exec(
+    /^Description=(?:Granted|Granted) Gateway \((?:(profile: [^,)\r\n]+), )?v([^)\r\n]+)\)$/mu.exec(
       content,
     );
   if (!description) {

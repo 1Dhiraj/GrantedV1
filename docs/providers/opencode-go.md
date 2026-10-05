@@ -30,17 +30,17 @@ interactive onboarding or pass the shared OpenCode API key directly.
     <Steps>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice opencode-go
+        granted onboard --auth-choice opencode-go
         ```
       </Step>
       <Step title="Set a Go model as default">
         ```bash
-        openclaw config set agents.defaults.model.primary "opencode-go/kimi-k3"
+        granted config set agents.defaults.model.primary "opencode-go/kimi-k3"
         ```
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list --provider opencode-go
+        granted models list --provider opencode-go
         ```
       </Step>
     </Steps>
@@ -50,12 +50,12 @@ interactive onboarding or pass the shared OpenCode API key directly.
     <Steps>
       <Step title="Pass the key directly">
         ```bash
-        openclaw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+        granted onboard --opencode-go-api-key "$OPENCODE_API_KEY"
         ```
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list --provider opencode-go
+        granted models list --provider opencode-go
         ```
       </Step>
     </Steps>
@@ -73,7 +73,7 @@ interactive onboarding or pass the shared OpenCode API key directly.
 
 ## Catalog
 
-Run `openclaw models list --provider opencode-go` for the current model list.
+Run `granted models list --provider opencode-go` for the current model list.
 OpenClaw combines Go's advertised model IDs with authoritative metadata from
 `https://models.opencode.ai/api.json`, so new upstream models appear without an
 OpenClaw update when they use a supported transport on the trusted OpenCode

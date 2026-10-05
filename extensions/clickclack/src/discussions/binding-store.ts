@@ -22,7 +22,7 @@ export type ClickClackDiscussionBinding = {
   archived: boolean;
   label: string;
   displayTitle?: string;
-  /** Set only while the owning OpenClaw session entry is absent. */
+  /** Set only while the owning Granted session entry is absent. */
   detachedAt?: number;
 };
 

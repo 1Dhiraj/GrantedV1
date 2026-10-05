@@ -66,7 +66,7 @@ Removing them only shortens the direct tool list. The model still has `read`, `w
 
 Enable lean mode once you have proved the model can talk to the Gateway but full agent turns misbehave:
 
-1. `openclaw infer model run --gateway --model <ref> --prompt "Reply with exactly: pong"` succeeds.
+1. `granted infer model run --gateway --model <ref> --prompt "Reply with exactly: pong"` succeeds.
 2. A normal agent turn fails with malformed tool calls, oversized prompts, or the model ignoring its tools.
 3. Toggling `localModelLean: true` clears the failure.
 

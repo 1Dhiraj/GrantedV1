@@ -28,23 +28,23 @@ provider ids split so upstream per-model routing stays correct.
     <Steps>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice opencode-zen
+        granted onboard --auth-choice opencode-zen
         ```
 
         Or pass the key directly:
 
         ```bash
-        openclaw onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
+        granted onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
         ```
       </Step>
       <Step title="Set a Zen model as the default">
         ```bash
-        openclaw config set agents.defaults.model.primary "opencode/gpt-5.6-sol"
+        granted config set agents.defaults.model.primary "opencode/gpt-5.6-sol"
         ```
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list --provider opencode
+        granted models list --provider opencode
         ```
       </Step>
     </Steps>
@@ -62,23 +62,23 @@ provider ids split so upstream per-model routing stays correct.
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice opencode-go
+        granted onboard --auth-choice opencode-go
         ```
 
         Or pass the key directly:
 
         ```bash
-        openclaw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+        granted onboard --opencode-go-api-key "$OPENCODE_API_KEY"
         ```
       </Step>
       <Step title="Set a Go model as the default">
         ```bash
-        openclaw config set agents.defaults.model.primary "opencode-go/kimi-k3"
+        granted config set agents.defaults.model.primary "opencode-go/kimi-k3"
         ```
       </Step>
       <Step title="Verify models are available">
         ```bash
-        openclaw models list --provider opencode-go
+        granted models list --provider opencode-go
         ```
       </Step>
     </Steps>
@@ -104,7 +104,7 @@ provider ids split so upstream per-model routing stays correct.
 | Runtime provider | `opencode`                                                               |
 | Example models   | `opencode/gpt-5.6-sol`, `opencode/kimi-k3`, `opencode/deepseek-v4-flash` |
 
-Run `openclaw models list --provider opencode` for the current active list.
+Run `granted models list --provider opencode` for the current active list.
 Model availability and promotional routes can change independently of OpenClaw.
 
 Live discovery combines the models available to your OpenCode account with

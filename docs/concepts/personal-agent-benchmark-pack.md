@@ -35,7 +35,7 @@ semantic coverage IDs. QA Lab resolves every primary owner from the catalog;
 there is no second scenario-ID list. Run it with:
 
 ```bash
-OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm openclaw qa run \
+OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm granted qa run \
   --qa-profile personal-agent \
   --provider-mode mock-openai \
   --concurrency 1

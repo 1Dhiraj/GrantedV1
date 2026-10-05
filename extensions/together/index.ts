@@ -1,7 +1,7 @@
-// Together plugin entrypoint registers its OpenClaw integration.
+// Together plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
-import { applyTogetherConfig } from "./onboard.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { applyTogetherConfig } from "./onboard.js";
 import { buildTogetherVideoGenerationProvider } from "./video-generation-provider.js";
 
 const PROVIDER_ID = "together";

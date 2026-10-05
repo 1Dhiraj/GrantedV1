@@ -39,8 +39,8 @@ saved. If no detected route works, onboarding opens manual provider setup.
 Choose **Custom setup** to walk through all guided options instead.
 
 To keep the Gateway running in the background later, install the CLI below and
-run `openclaw gateway install`. Run `openclaw` for the TUI or
-`openclaw dashboard` to reopen the web UI.
+run `granted gateway install`. Run `openclaw` for the TUI or
+`granted dashboard` to reopen the web UI.
 
 ## Quick setup
 
@@ -73,16 +73,16 @@ run `openclaw gateway install`. Run `openclaw` for the TUI or
     The installer starts the onboarding wizard automatically. Choose **Quick
     start** to reuse detected AI access and open the dashboard, or **Custom
     setup** for the full guided flow. Provider sign-in and optional setup can
-    take longer; return later with `openclaw configure` for additional settings.
+    take longer; return later with `granted configure` for additional settings.
     Quick start keeps the Gateway in the foreground. For background operation,
-    stop it with **Ctrl+C**, then run `openclaw gateway install`.
+    stop it with **Ctrl+C**, then run `granted gateway install`.
 
     See [Onboarding (CLI)](/start/wizard) for the full reference.
 
   </Step>
   <Step title="Verify the Gateway is running">
     ```bash
-    openclaw gateway status
+    granted gateway status
     ```
 
     You should see the Gateway listening on port 18789.
@@ -90,7 +90,7 @@ run `openclaw gateway install`. Run `openclaw` for the TUI or
   </Step>
   <Step title="Open the dashboard">
     ```bash
-    openclaw dashboard
+    granted dashboard
     ```
 
     This opens the Control UI in your browser. If it loads, everything is working.
@@ -132,8 +132,8 @@ Then set:
 Restart the gateway and reopen the dashboard:
 
 ```bash
-openclaw gateway restart
-openclaw dashboard
+granted gateway restart
+granted dashboard
 ```
 
 </Accordion>
@@ -143,14 +143,14 @@ openclaw dashboard
 One command turns the current state of your install into a diagnosis you can act on:
 
 ```bash
-openclaw triage
+granted triage
 ```
 
 It runs read-only health checks, writes a sanitized prompt describing what it found, and then offers to hand that prompt to a coding agent it detects on your machine — Claude Code, Codex CLI, or the built-in OpenClaw agent — so the agent starts with the diagnosis already loaded. Pick "just print the commands" if you would rather run the handoff yourself.
 
 Nothing leaves your machine until you choose an agent, and secrets, tokens, raw chat payloads, and raw logs are excluded from the prompt.
 
-To read the findings yourself instead, run [`openclaw doctor`](/cli/doctor). For symptom-first routes, see [Troubleshooting](/help/troubleshooting).
+To read the findings yourself instead, run [`granted doctor`](/cli/doctor). For symptom-first routes, see [Troubleshooting](/help/troubleshooting).
 
 ## What to do next
 

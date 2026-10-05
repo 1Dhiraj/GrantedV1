@@ -122,7 +122,7 @@ export default definePluginEntry({
     // directly: no agent run, no tool schemas, no full system prompt. Anything
     // uncertain (task intent, acks like "yes"/"ok") falls through to the agent.
     api.on("before_agent_reply", async (event, ctx) => {
-      if (ctx.trigger && ctx.trigger !== "user") {
+      if (ctx.modelSelectionExplicit || (ctx.trigger && ctx.trigger !== "user")) {
         return;
       }
       const cfg = readCurrentConfig();
@@ -264,9 +264,25 @@ export default definePluginEntry({
     };
 
     api.on("before_model_resolve", async (event, ctx) => {
+      if (ctx.modelSelectionExplicit) {
+        return;
+      }
       const cfg = readCurrentConfig();
       const routerConfig = resolveCurrentRouterConfig(cfg);
       if (!hasRouting(routerConfig)) {
+        return;
+      }
+      const configuredDefault = resolveModelSelection(cfg, ctx.agentId);
+      if (
+        configuredDefault &&
+        ctx.modelProviderId &&
+        ctx.modelId &&
+        (ctx.modelProviderId !== configuredDefault.provider ||
+          ctx.modelId !== configuredDefault.modelId)
+      ) {
+        // The resolved model already differs from the agent default, which means a
+        // session/user/channel/runtime selection owns this run. Automatic economy
+        // routing must never replace an explicit choice.
         return;
       }
       const router = resolveRouter(cfg, routerConfig);

@@ -1,13 +1,13 @@
-# Vercel AI Gateway OpenClaw provider
+# Vercel AI Gateway Granted provider
 
-Official OpenClaw provider plugin for Vercel AI Gateway.
+Official Granted provider plugin for Vercel AI Gateway.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/vercel-ai-gateway-provider
+granted plugins install @granted/vercel-ai-gateway-provider
 ```
 
 ## Docs
 
-See `docs/providers/vercel-ai-gateway.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/providers/vercel-ai-gateway`.
+See `docs/providers/vercel-ai-gateway.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/providers/vercel-ai-gateway`.

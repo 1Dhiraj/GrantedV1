@@ -2,7 +2,7 @@
   "name": "@granted/imap",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw inbound IMAP email trigger plugin",
+  "description": "Granted inbound IMAP email trigger plugin",
   "type": "module",
   "dependencies": {
     "imapflow": "1.7.2",

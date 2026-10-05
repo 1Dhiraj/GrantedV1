@@ -7,7 +7,7 @@ read_when:
 title: "Claws"
 ---
 
-# `openclaw claws`
+# `granted claws`
 
 A Claw is a versioned setup for one new OpenClaw agent. It can describe the
 agent's portable identity, workspace files, skills, plugins, MCP servers, and
@@ -273,10 +273,10 @@ Create a minimal project, validate its publishable inputs, preview its complete
 OpenClaw add plan offline, and build an immutable package artifact:
 
 ```bash
-openclaw claws create ./incident-triage
-openclaw claws validate ./incident-triage
-openclaw claws dev ./incident-triage
-openclaw claws build ./incident-triage --out ./incident-triage-1.0.0.tgz
+granted claws create ./incident-triage
+granted claws validate ./incident-triage
+granted claws dev ./incident-triage
+granted claws build ./incident-triage --out ./incident-triage-1.0.0.tgz
 ```
 
 `create` writes only `package.json` and `CLAW.md` and refuses to merge into a
@@ -307,13 +307,13 @@ extensions, inspect also performs the canonical read-only artifact probe and
 reports mapped and unavailable components:
 
 ```bash
-openclaw claws inspect ./incident-triage.claw.json
+granted claws inspect ./incident-triage.claw.json
 ```
 
 Preview all proposed lifecycle actions:
 
 ```bash
-openclaw claws add ./incident-triage.claw.json --dry-run --json
+granted claws add ./incident-triage.claw.json --dry-run --json
 ```
 
 The plan reports the derived agent and workspace, every proposed action,
@@ -322,7 +322,7 @@ digest. Capability records show the exact package, MCP, scheduled-work, sandbox,
 tool, or heartbeat effect. Review the plan before creating the agent:
 
 ```bash
-openclaw claws add ./incident-triage.claw.json \
+granted claws add ./incident-triage.claw.json \
   --yes \
   --plan-integrity <SHA256_FROM_DRY_RUN>
 ```
@@ -343,15 +343,15 @@ and retries fail closed when owned content drifted.
 ## Inspect installed state
 
 ```bash
-openclaw claws status
-openclaw claws status incident-triage --json
-openclaw doctor
+granted claws status
+granted claws status incident-triage --json
+granted doctor
 ```
 
 `status` compares the installed agent and its recorded workspace, package, MCP,
 and cron provenance with current state. It also reports whether native
 first-run bootstrap remains pending. It reports incomplete installs, missing
-resources, and drift without changing local state. `openclaw doctor` adds
+resources, and drift without changing local state. `granted doctor` adds
 Claw-specific diagnostics for incomplete ownership records, unsafe managed
 files, and cron jobs that cannot be corroborated with live Gateway inventory.
 
@@ -372,8 +372,8 @@ By default, update uses the source recorded when the Claw was added. Use
 `--from` when that source moved or when testing another package directory:
 
 ```bash
-openclaw claws update incident-triage --dry-run --json
-openclaw claws update incident-triage \
+granted claws update incident-triage --dry-run --json
+granted claws update incident-triage \
   --from ./incident-triage-next \
   --dry-run --json
 ```
@@ -391,7 +391,7 @@ aggregate multi-agent review. Apply the exact reviewed plan with explicit
 consent:
 
 ```bash
-openclaw claws update incident-triage \
+granted claws update incident-triage \
   --yes \
   --plan-integrity <SHA256_FROM_DRY_RUN>
 ```
@@ -403,7 +403,7 @@ stop on operator drift. Package installers, source-config writers, and the Gatew
 are not one transaction. If compensation cannot be proven after an external
 mutation, OpenClaw reports error code `update_partial` with structured
 `status: partial`, preserves uncertain provenance,
-and stops. Inspect `claws status`, the affected resource, and `openclaw doctor`;
+and stops. Inspect `claws status`, the affected resource, and `granted doctor`;
 then preview again before retrying or removing anything.
 
 ## Remove an installed Claw
@@ -411,8 +411,8 @@ then preview again before retrying or removing anything.
 Preview removal before selecting cleanup:
 
 ```bash
-openclaw claws remove incident-triage --dry-run --json
-openclaw claws remove incident-triage \
+granted claws remove incident-triage --dry-run --json
+granted claws remove incident-triage \
   --yes \
   --plan-integrity <SHA256_FROM_DRY_RUN>
 ```
@@ -430,7 +430,7 @@ owner, include `--remove-unused` in both preview and apply. To select exact
 referenced resources instead, repeat `--remove-referenced`:
 
 ```bash
-openclaw claws remove incident-triage \
+granted claws remove incident-triage \
   --dry-run \
   --remove-referenced 'plugin:@acme/audit-plugin@2.0.0'
 ```
@@ -445,7 +445,7 @@ Export creates a new package directory and fails if the destination exists or
 managed state has drifted:
 
 ```bash
-openclaw claws export incident-triage --out ./incident-triage-export --json
+granted claws export incident-triage --out ./incident-triage-export --json
 ```
 
 Use `--bootstrap <path>` to attach an explicitly reviewed Markdown file as the
@@ -488,7 +488,7 @@ Use `--json` for experimental machine-readable output.
 Successful commands exit `0`. Validation errors, blocked plans, missing
 targets, and both `failed` and `partial` mutation results exit `1`. Inspect the
 JSON `status` and `error.code` fields to distinguish a failure that made no
-change from a partial result that requires `claws status`, `openclaw doctor`,
+change from a partial result that requires `claws status`, `granted doctor`,
 and a new preview before retrying.
 
 ## See also

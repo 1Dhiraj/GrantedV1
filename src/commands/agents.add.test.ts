@@ -496,7 +496,7 @@ describe("agents add command", () => {
     expect(terminalMocks.isTerminalInteractive).toHaveBeenCalledOnce();
     expect(terminalMocks.isTerminalInteractive).toHaveBeenCalledWith(process.stdout);
     expect(wizardMocks.createClackPrompter).toHaveBeenCalledWith(process.stdout);
-    expect(prompter.intro).toHaveBeenCalledWith("Add OpenClaw agent");
+    expect(prompter.intro).toHaveBeenCalledWith("Add Granted agent");
     expect(authChoiceMocks.warnIfModelConfigLooksOff).toHaveBeenCalledOnce();
     expect(authChoiceMocks.warnIfModelConfigLooksOff).toHaveBeenCalledWith(
       expect.objectContaining({ agents: expect.any(Object) }),

@@ -19,7 +19,7 @@ Status: official downloadable plugin.
 ## Install
 
 ```bash
-openclaw plugins install @tencent-connect/openclaw-qqbot
+granted plugins install @tencent-connect/openclaw-qqbot
 ```
 
 ## Setup
@@ -36,7 +36,7 @@ AppSecret is not stored in plaintext. If you leave the page without saving it, y
 4. Add the channel:
 
 ```bash
-openclaw channels add --channel qqbot --token "AppID:AppSecret"
+granted channels add --channel qqbot --token "AppID:AppSecret"
 ```
 
 5. Restart the Gateway.
@@ -50,7 +50,7 @@ If durable admission fails, OpenClaw terminates the current gateway socket witho
 Interactive setup:
 
 ```bash
-openclaw channels add
+granted channels add
 ```
 
 The wizard also offers QR-code binding as an alternative to typing AppID/AppSecret
@@ -95,7 +95,7 @@ File-backed AppSecret:
 
 Notes:
 
-- `openclaw channels add --channel qqbot --token-file ...` sets the AppSecret
+- `granted channels add --channel qqbot --token-file ...` sets the AppSecret
   only; `appId` must already be set in config or `QQBOT_APP_ID`.
 - `clientSecret` accepts a plaintext string or a file path (`clientSecretFile`).
 - Known limitation: the external `@tencent-connect/openclaw-qqbot` package does
@@ -122,7 +122,7 @@ Notes:
 - `streaming.nativeTransport: true` streams C2C (DM) replies through QQ's
   official `stream_messages` API; group/channel targets are unaffected.
 - Legacy `streaming: true|false` scalars and the `streaming.c2cStreamApi` key
-  migrate to this shape via `openclaw doctor --fix`.
+  migrate to this shape via `granted doctor --fix`.
 - `/bot-streaming on|off` toggles the same config from a DM.
 
 ### Access policy
@@ -172,7 +172,7 @@ diagnostics stay separable when you run several bots under one Gateway.
 Add a second bot via CLI:
 
 ```bash
-openclaw channels add --channel qqbot --account bot2 --token "222222222:secret-of-bot-2"
+granted channels add --channel qqbot --account bot2 --token "222222222:secret-of-bot-2"
 ```
 
 ### Group chats
@@ -229,7 +229,7 @@ entry overrides those defaults for one group. Group settings:
 | `safety` | `/help`, `/btw`, `/stop` stay visible in the group; sensitive commands (`/config`, `/tools`, `/bash`, etc.) must be run in private chat.      |
 | `strict` | Only group-session controls needed for strict operation are allowed. `/stop` still works so an authorized sender can interrupt an active run. |
 
-Old QQBot `toolPolicy` entries are retired. Run `openclaw doctor --fix` to migrate them to `tools`.
+Old QQBot `toolPolicy` entries are retired. Run `granted doctor --fix` to migrate them to `tools`.
 
 Activation modes are `mention` and `always`. `requireMention: true` maps to
 `mention`; `requireMention: false` maps to `always`. A session-level activation

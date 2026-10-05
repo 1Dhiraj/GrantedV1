@@ -118,14 +118,14 @@
       "kind": "html-attribute",
       "name": "aria-label",
       "path": "ui/src/components/app-topbar.ts",
-      "text": "OpenClaw"
+      "text": "Granted"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/components/app-topbar.ts",
-      "text": "OpenClaw"
+      "text": "Granted"
     },
     {
       "count": 1,
@@ -202,7 +202,7 @@
       "kind": "html-attribute",
       "name": "alt",
       "path": "ui/src/components/login-gate.ts",
-      "text": "OpenClaw"
+      "text": "Granted"
     },
     {
       "count": 1,
@@ -223,7 +223,7 @@
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/components/login-gate.ts",
-      "text": "OpenClaw"
+      "text": "Granted"
     },
     {
       "count": 1,
@@ -461,7 +461,7 @@
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/profile/profile-page.ts",
-      "text": "OpenClaw"
+      "text": "Granted"
     },
     {
       "count": 2,

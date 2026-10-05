@@ -1,4 +1,4 @@
-// Verifies chat-facing CLI snippets execute the OpenClaw CLI even from harness-hosted gateways.
+// Verifies chat-facing CLI snippets execute the Granted CLI even from harness-hosted gateways.
 import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import {

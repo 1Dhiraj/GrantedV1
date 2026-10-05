@@ -40,7 +40,7 @@ OpenAI-SDK-style examples, but new config should use `baseUrl`.
     A custom provider with `api: "ollama"` follows the same rules. For example, an `ollama-remote` provider pointed at a private LAN host can use `apiKey: "ollama-local"`; sub-agents resolve that marker through the Ollama provider hook instead of treating it as a missing credential. `memory.search.provider` can also point at a custom provider id so embeddings use that Ollama endpoint.
   </Accordion>
   <Accordion title="Auth profiles">
-    SQLite auth stores hold the credential for a provider id; put endpoint settings (`baseUrl`, `api`, models, headers, timeouts) in `models.providers.<id>`. Older flat `auth-profiles.json` files such as `{ "ollama-windows": { "apiKey": "ollama-local" } }` are not a runtime format; `openclaw doctor --fix` imports them into SQLite as a canonical `ollama-windows:default` API-key profile with a backup. A `baseUrl` value in that legacy file is noise and should move to provider config.
+    SQLite auth stores hold the credential for a provider id; put endpoint settings (`baseUrl`, `api`, models, headers, timeouts) in `models.providers.<id>`. Older flat `auth-profiles.json` files such as `{ "ollama-windows": { "apiKey": "ollama-local" } }` are not a runtime format; `granted doctor --fix` imports them into SQLite as a canonical `ollama-windows:default` API-key profile with a backup. A `baseUrl` value in that legacy file is noise and should move to provider config.
   </Accordion>
   <Accordion title="Memory embedding scope">
     Bearer auth for Ollama memory embeddings is scoped to the host it was declared for:
@@ -59,7 +59,7 @@ OpenAI-SDK-style examples, but new config should use `baseUrl`.
     <Steps>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard
+        granted onboard
         ```
 
         Select **Ollama**, then pick a mode: **Cloud + Local**, **Cloud only**, or **Local only**.
@@ -82,7 +82,7 @@ OpenAI-SDK-style examples, but new config should use `baseUrl`.
       </Step>
       <Step title="Verify">
         ```bash
-        openclaw models list --provider ollama
+        granted models list --provider ollama
         ```
       </Step>
     </Steps>
@@ -90,7 +90,7 @@ OpenAI-SDK-style examples, but new config should use `baseUrl`.
     Non-interactive:
 
     ```bash
-    openclaw onboard --non-interactive --accept-risk --skip-health \
+    granted onboard --non-interactive --accept-risk --skip-health \
       --auth-choice ollama \
       --custom-base-url "http://ollama-host:11434" \
       --custom-model-id "qwen3.5:27b"
@@ -117,12 +117,12 @@ OpenAI-SDK-style examples, but new config should use `baseUrl`.
         export OLLAMA_API_KEY="your-real-key"   # https://ollama.com only
         ```
 
-        Or in config: `openclaw config set models.providers.ollama.apiKey "OLLAMA_API_KEY"`.
+        Or in config: `granted config set models.providers.ollama.apiKey "OLLAMA_API_KEY"`.
       </Step>
       <Step title="Select the model">
         ```bash
-        openclaw models list
-        openclaw models set ollama/gemma4
+        granted models list
+        granted models set ollama/gemma4
         ```
 
         Or in config:
@@ -153,14 +153,14 @@ OpenClaw prompts for the base URL, discovers local models, and checks
 (`kimi-k2.5:cloud`, `minimax-m2.7:cloud`, `glm-5.1:cloud`, `glm-5.2:cloud`). If
 not signed in, setup stays local-only until you run `ollama signin`.
 
-For cloud-only access without a local daemon, use `openclaw onboard --auth-choice ollama-cloud` and see [Ollama Cloud](/providers/ollama-cloud) — that path does not need `ollama signin` or a running server:
+For cloud-only access without a local daemon, use `granted onboard --auth-choice ollama-cloud` and see [Ollama Cloud](/providers/ollama-cloud) — that path does not need `ollama signin` or a running server:
 
 ```bash
-openclaw onboard --auth-choice ollama-cloud
-openclaw models set ollama-cloud/kimi-k2.5:cloud
+granted onboard --auth-choice ollama-cloud
+granted models set ollama-cloud/kimi-k2.5:cloud
 ```
 
-The cloud model list shown during `openclaw onboard` is populated live from
+The cloud model list shown during `granted onboard` is populated live from
 `https://ollama.com/api/tags`, capped at 500 entries, so the picker reflects
 the current hosted catalog. If `ollama.com` is unreachable or returns no
 models at setup time, OpenClaw falls back to its hardcoded suggested list so
@@ -183,7 +183,7 @@ defined, OpenClaw discovers models from `http://127.0.0.1:11434`:
 
 ```bash
 ollama list
-openclaw models list
+granted models list
 ```
 
 A **nonempty** `models.providers.ollama.models` list selects manual models and
@@ -211,7 +211,7 @@ For a narrow text probe that skips the full agent tool surface:
 
 ```bash
 OLLAMA_API_KEY=ollama-local \
-  openclaw infer model run \
+  granted infer model run \
     --local \
     --model ollama/llama3.2:latest \
     --prompt "Reply with exactly: pong" \
@@ -220,11 +220,11 @@ OLLAMA_API_KEY=ollama-local \
 
 Add `--file` with an image for a lean vision-model probe (accepts PNG/JPEG/WebP;
 non-image files are rejected before Ollama is called — use
-`openclaw infer audio transcribe` for audio):
+`granted infer audio transcribe` for audio):
 
 ```bash
 OLLAMA_API_KEY=ollama-local \
-  openclaw infer model run \
+  granted infer model run \
     --local \
     --model ollama/qwen2.5vl:7b \
     --prompt "Describe this image in one sentence." \
@@ -289,7 +289,7 @@ endpoint (`http://127.0.0.1:11434`).
   </Step>
   <Step title="Connect the node host">
     ```bash
-    openclaw node run \
+    granted node run \
       --host <gateway-host> \
       --port 18789 \
       --display-name "Local inference"
@@ -298,16 +298,16 @@ endpoint (`http://127.0.0.1:11434`).
     Approve the device and its node commands on the Gateway host, then verify:
 
     ```bash
-    openclaw devices list
-    openclaw devices approve <deviceRequestId>
-    openclaw nodes pending
-    openclaw nodes approve <nodeRequestId>
-    openclaw nodes status --connected
+    granted devices list
+    granted devices approve <deviceRequestId>
+    granted nodes pending
+    granted nodes approve <nodeRequestId>
+    granted nodes status --connected
     ```
 
     A first connection, or an upgrade that adds Ollama commands, can trigger
     node-command approval. If the node connects without advertising
-    `ollama.models` and `ollama.chat`, check `openclaw nodes pending` again.
+    `ollama.models` and `ollama.chat`, check `granted nodes pending` again.
 
   </Step>
   <Step title="Use it from an agent">
@@ -330,26 +330,26 @@ do not support disabling thinking and may still emit reasoning tokens.
 To keep Ollama running on a node without exposing it to agents:
 
 ```bash
-openclaw config set plugins.entries.ollama.config.nodeInference.enabled false
+granted config set plugins.entries.ollama.config.nodeInference.enabled false
 ```
 
-Restart the node (`openclaw node restart`, or stop/rerun `openclaw node run`
+Restart the node (`granted node restart`, or stop/rerun `granted node run`
 for a foreground session). The node stops advertising `ollama.models` and
 `ollama.chat`; Ollama itself and the Gateway's Ollama provider are unaffected.
 Set the value back to `true` and restart to re-enable; a changed command
-surface may need `openclaw nodes pending` approval again after reconnect.
+surface may need `granted nodes pending` approval again after reconnect.
 
 Verify the node commands directly, without an agent turn:
 
 ```bash
-openclaw nodes invoke \
+granted nodes invoke \
   --node "Local inference" \
   --command ollama.models \
   --params '{}' \
   --invoke-timeout 90000 \
   --timeout 100000
 
-openclaw nodes invoke \
+granted nodes invoke \
   --node "Local inference" \
   --command ollama.chat \
   --params '{"model":"qwen3:0.6b","prompt":"Reply with exactly: pong","maxTokens":32,"timeoutMs":120000}' \
@@ -375,7 +375,7 @@ vision models.
 ```bash
 ollama pull qwen2.5vl:7b
 export OLLAMA_API_KEY="ollama-local"
-openclaw infer image describe --file ./photo.jpg --model ollama/qwen2.5vl:7b --json
+granted infer image describe --file ./photo.jpg --model ollama/qwen2.5vl:7b --json
 ```
 
 `--model` must be a full `<provider/model>` ref; when set, `infer image
@@ -555,7 +555,7 @@ capability.
 ## Common recipes
 
 Replace model IDs with exact names from `ollama list` or
-`openclaw models list --provider ollama`.
+`granted models list --provider ollama`.
 
 <AccordionGroup>
   <Accordion title="Local model with auto-discovery">
@@ -565,8 +565,8 @@ Replace model IDs with exact names from `ollama list` or
     ollama serve
     ollama pull gemma4
     export OLLAMA_API_KEY="ollama-local"
-    openclaw models list --provider ollama
-    openclaw models set ollama/gemma4
+    granted models list --provider ollama
+    granted models set ollama/gemma4
     ```
 
     Leave `models.providers.ollama` unset to use the default local endpoint, or
@@ -842,11 +842,11 @@ model when first-turn load time is the bottleneck.
 curl http://127.0.0.1:11434/api/tags
 
 # OpenClaw catalog and selected model
-openclaw models list --provider ollama
-openclaw models status
+granted models list --provider ollama
+granted models status
 
 # Direct model smoke
-openclaw infer model run \
+granted infer model run \
   --model ollama/gemma4 \
   --prompt "Reply with exactly: ok"
 ```
@@ -865,7 +865,7 @@ OpenClaw bundles **Ollama Web Search** as a `web_search` provider.
 | Auth        | Key-free for a signed-in local host; `OLLAMA_API_KEY` or configured provider auth for direct `https://ollama.com` search or auth-protected hosts           |
 | Requirement | Local/self-hosted hosts must be running and signed in with `ollama signin`; direct hosted search needs `baseUrl: "https://ollama.com"` plus a real API key |
 
-Choose it during `openclaw onboard` or `openclaw configure --section web`, or set:
+Choose it during `granted onboard` or `granted configure --section web`, or set:
 
 ```json5
 {
@@ -980,7 +980,7 @@ For full setup and behavior, see [Ollama Web Search](/tools/ollama-search).
     does Ollama choose its own model, Modelfile, `OLLAMA_CONTEXT_LENGTH`, or
     VRAM-based default; the native adapter does not fall back directly to the
     advertised `contextWindow`. After upgrading an older configuration, run
-    `openclaw doctor --fix`. Use `params.num_ctx` to override the native request
+    `granted doctor --fix`. Use `params.num_ctx` to override the native request
     context explicitly. The
     OpenAI-compatible adapter still injects `options.num_ctx` by default from
     `params.num_ctx`, then the matching model entry's `contextTokens` or
@@ -1036,8 +1036,8 @@ For full setup and behavior, see [Ollama Web Search](/tools/ollama-search).
     and `/think max`; non-thinking models expose only `/think off`.
 
     ```bash
-    openclaw agent --model ollama/gemma4 --thinking off
-    openclaw agent --model ollama/gemma4 --thinking low
+    granted agent --model ollama/gemma4 --thinking off
+    granted agent --model ollama/gemma4 --thinking low
     ```
 
     Or set a model default:
@@ -1135,7 +1135,7 @@ For full setup and behavior, see [Ollama Web Search](/tools/ollama-search).
     streaming and tool calling together — no special config needed.
 
     For native requests, thinking control is forwarded directly: `/think off`
-    and `openclaw agent --thinking off` send top-level `think: false` unless
+    and `granted agent --thinking off` send top-level `think: false` unless
     an explicit `params.think`/`params.thinking` is configured; `/think
     low|medium|high` send the matching effort string. Verified full-effort
     Ollama Cloud families such as GLM 5.2 and DeepSeek V4 also send native
@@ -1233,7 +1233,7 @@ For full setup and behavior, see [Ollama Web Search](/tools/ollama-search).
     Verify from the same machine and runtime that runs the Gateway:
 
     ```bash
-    openclaw gateway status --deep
+    granted gateway status --deep
     curl http://ollama-host:11434/api/tags
     ```
 
@@ -1279,8 +1279,8 @@ For full setup and behavior, see [Ollama Web Search](/tools/ollama-search).
     session and a fallback model:
 
     ```bash
-    openclaw infer model run --model ollama/kimi-k2.5:cloud --prompt "Reply with exactly: ok" --json
-    openclaw models set ollama/gemma4
+    granted infer model run --model ollama/kimi-k2.5:cloud --prompt "Reply with exactly: ok" --json
+    granted models set ollama/gemma4
     ```
 
   </Accordion>

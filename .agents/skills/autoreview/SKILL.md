@@ -242,7 +242,7 @@ Recommended model defaults:
 
 | Engine              | Default model                                      | Source note                                           |
 | ------------------- | -------------------------------------------------- | ----------------------------------------------------- |
-| **codex** (default) | `gpt-5.6-sol` -> `gpt-5.6-terra` on access failure | OpenClaw org review default                           |
+| **codex** (default) | `gpt-5.6-sol` -> `gpt-5.6-terra` on access failure | Granted org review default                            |
 | **claude**          | `claude-fable-5`                                   | Anthropic's most capable widely released Claude model |
 | **amp**             | `openai/gpt-5.6-sol`                               | Amp structured-generation review default              |
 

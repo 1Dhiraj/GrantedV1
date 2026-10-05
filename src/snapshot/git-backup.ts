@@ -19,8 +19,8 @@ import {
   type GitBackupManifest,
   type GitBackupRestoreResult,
 } from "./git-backup-codec.js";
-import { ensurePrivateSnapshotRepositoryRoot } from "./local-repository.js";
 import { createOpenClawSnapshotCopy } from "./granted-snapshot-copy.js";
+import { ensurePrivateSnapshotRepositoryRoot } from "./local-repository.js";
 import type { SnapshotDatabaseRef } from "./snapshot-provider.js";
 
 const GIT_BACKUP_MATERIALIZE_MAX_BYTES = 1024 * 1024 * 1024;
@@ -84,7 +84,7 @@ export async function initializeGitBackupRepository(params: {
     isPathInside(canonicalRepositoryPath, canonicalStateDir)
   ) {
     throw new Error(
-      `Git backup repository must be outside the OpenClaw state directory: ${stateDir}`,
+      `Git backup repository must be outside the Granted state directory: ${stateDir}`,
     );
   }
   try {
@@ -151,7 +151,7 @@ async function isBackupOwnedScope(scopePath: string): Promise<boolean> {
 async function assertBackupOwnedScope(scopePath: string): Promise<void> {
   if (!(await isBackupOwnedScope(scopePath))) {
     throw new Error(
-      `Refusing to replace non-backup-owned path ${scopePath}; the repository must be dedicated to OpenClaw backups.`,
+      `Refusing to replace non-backup-owned path ${scopePath}; the repository must be dedicated to Granted backups.`,
     );
   }
 }
@@ -198,7 +198,7 @@ async function commitGitBackup(params: {
   const identityArgs =
     email.code === 0 && email.stdout.trim()
       ? []
-      : ["-c", "user.name=OpenClaw", "-c", "user.email=backup@openclaw.local"];
+      : ["-c", "user.name=Granted", "-c", "user.email=backup@openclaw.local"];
   await requireGit(
     params.repositoryPath,
     [...identityArgs, "commit", "-m", params.message, "--", ...params.scopes],

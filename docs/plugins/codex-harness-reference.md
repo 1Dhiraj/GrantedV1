@@ -170,7 +170,7 @@ falling back to the agent-home harness. The default connection shares stored
 sessions with native Codex clients, not their process-local activity state.
 
 Legacy `plugins.entries.codex-supervisor` settings are retired. Run
-`openclaw doctor --fix` to migrate the old entry, endpoint definitions, policy
+`granted doctor --fix` to migrate the old entry, endpoint definitions, policy
 flags, and plugin allow/deny references into this block. Explicit canonical
 `codex.config.supervision` values win conflicts.
 
@@ -199,7 +199,7 @@ Before cutting over a staged OpenClaw package, run the opt-in managed-binary
 check against the candidate installation:
 
 ```bash
-openclaw doctor --lint --only codex/managed-app-server --json
+granted doctor --lint --only codex/managed-app-server --json
 ```
 
 The check is read-only. For every configured Codex agent it applies the same
@@ -432,7 +432,7 @@ are available.
 
 <Note>
 On Docker-backed OpenClaw sandbox hosts (`agents.defaults.sandbox.mode` set to
-a Docker backend), `openclaw doctor` probes whether the host allows the
+a Docker backend), `granted doctor` probes whether the host allows the
 unprivileged user (and, when Docker sandbox network egress is disabled,
 network) namespaces that nested Codex `bwrap` needs for `workspace-write`
 shell execution inside the sandbox container. A failed probe usually surfaces
@@ -562,7 +562,7 @@ not answer within the app-server's timeout fails that turn rather than falling
 back to another credential. A failed refresh retires the shared client from
 reuse; existing leases drain, and the next request starts a fresh client. If the
 workspace changed, retry the request. If credentials cannot refresh, sign in
-again with `openclaw models auth login --provider openai` and select that profile.
+again with `granted models auth login --provider openai` and select that profile.
 Shared clients recheck the selected profile before reuse so changing accounts
 under the same profile ID also selects a new client.
 
@@ -623,8 +623,8 @@ plugins from a Codex home that should become part of an isolated OpenClaw
 agent, inventory them explicitly:
 
 ```bash
-openclaw migrate codex --dry-run
-openclaw migrate apply codex --yes
+granted migrate codex --dry-run
+granted migrate apply codex --yes
 ```
 
 Credentials need the sensitive migration path because the default agent scope
@@ -632,8 +632,8 @@ does not consume a copied or mounted `codex-home/auth.json` directly. Replace
 `<agent-id>` with the configured agent that owns this Codex home:
 
 ```bash
-openclaw migrate plan codex --from <codex-home> --agent <agent-id> --include-secrets --item auth:openai
-openclaw migrate apply codex --from <codex-home> --agent <agent-id> --include-secrets --item auth:openai --yes
+granted migrate plan codex --from <codex-home> --agent <agent-id> --include-secrets --item auth:openai
+granted migrate apply codex --from <codex-home> --agent <agent-id> --include-secrets --item auth:openai --yes
 ```
 
 If a deployment needs additional environment isolation, add those variables

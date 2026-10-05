@@ -22,7 +22,7 @@ For Anthropic, the practical split is:
 OpenClaw stores both OpenAI API-key auth and ChatGPT/Codex OAuth under the
 canonical provider id `openai`. Older `openai-codex:*` profile ids and
 `auth.order.openai-codex` entries are legacy state repaired by
-`openclaw doctor --fix`; use `openai:*` profile ids and `auth.order.openai` for
+`granted doctor --fix`; use `openai:*` profile ids and `auth.order.openai` for
 new config.
 
 This page covers:
@@ -35,7 +35,7 @@ Provider plugins that ship their own OAuth or API-key flow run through the
 same entry point:
 
 ```bash
-openclaw models auth login --provider <id>
+granted models auth login --provider <id>
 ```
 
 ## The token sink (why it exists)
@@ -70,7 +70,7 @@ Secrets and auth-routing state live in each agent's canonical SQLite database:
 
 Older installations may still contain `auth-profiles.json`, `auth-state.json`,
 per-agent `auth.json`, or shared `credentials/oauth.json`. Run
-`openclaw doctor --fix` once after upgrading. Doctor imports verified values,
+`granted doctor --fix` once after upgrading. Doctor imports verified values,
 records a migration receipt, and renames the original file to a timestamped
 archive.
 
@@ -145,13 +145,13 @@ OpenAI Codex OAuth is explicitly supported for use outside the Codex CLI, includ
 The login command uses the canonical OpenAI provider id:
 
 ```bash
-openclaw models auth login --provider openai
+granted models auth login --provider openai
 ```
 
 Use `--profile-id openai:<name>` for multiple ChatGPT/Codex OAuth accounts in
 one agent. Do not use `openai-codex:<name>` for new profiles. Doctor migrates
 that older prefix to a collision-free `openai:*` profile id; run
-`openclaw models auth list --provider openai` after repair before copying
+`granted models auth list --provider openai` after repair before copying
 profile ids into `auth.order` or `/model ...@<profileId>`.
 
 Flow shape (PKCE):
@@ -169,7 +169,7 @@ Flow shape (PKCE):
 5. exchange the code at `https://auth.openai.com/oauth/token`
 6. extract `accountId` from the access token and store `{ access, refresh, expires, accountId }`
 
-Wizard path is `openclaw onboard` → auth choice `openai`.
+Wizard path is `granted onboard` → auth choice `openai`.
 
 ## Refresh + expiry
 
@@ -197,8 +197,8 @@ Two patterns:
 If you want "personal" and "work" to never interact, use isolated agents (separate sessions + credentials + workspace):
 
 ```bash
-openclaw agents add work
-openclaw agents add personal
+granted agents add work
+granted agents add personal
 ```
 
 Then configure auth per-agent (wizard) and route chats to the right agent.
@@ -218,7 +218,7 @@ Example (session override):
 List existing profile IDs with:
 
 ```bash
-openclaw models auth list --provider <id>
+granted models auth list --provider <id>
 ```
 
 Related docs:

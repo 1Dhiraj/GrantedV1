@@ -1,4 +1,4 @@
-// Litellm plugin entrypoint registers its OpenClaw integration.
+// Litellm plugin entrypoint registers its Granted integration.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   definePluginEntry,

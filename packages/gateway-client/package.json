@@ -1,7 +1,7 @@
 {
   "name": "@granted/gateway-client",
   "version": "2026.8.1",
-  "description": "Reference WebSocket client for the OpenClaw Gateway protocol",
+  "description": "Reference WebSocket client for the Granted Gateway protocol",
   "keywords": [
     "client",
     "gateway",

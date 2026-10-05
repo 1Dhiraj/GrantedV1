@@ -528,7 +528,7 @@ describe("runGatewayUpdate", () => {
     const sourceRoot = await fixtureRootTracker.make("tracked-source");
     const localRoot = await fixtureRootTracker.make("tracked-local");
     await runRealGit(sourceRoot, "init", "--initial-branch=main");
-    await runRealGit(sourceRoot, "config", "user.name", "OpenClaw Test");
+    await runRealGit(sourceRoot, "config", "user.name", "Granted Test");
     await runRealGit(sourceRoot, "config", "user.email", "openclaw@example.com");
     await fs.writeFile(
       path.join(sourceRoot, "package.json"),
@@ -540,7 +540,7 @@ describe("runGatewayUpdate", () => {
     await runRealGit(sourceRoot, "commit", "-m", "base");
     const baseSha = await runRealGit(sourceRoot, "rev-parse", "HEAD");
     await runRealGit(path.dirname(localRoot), "clone", "--quiet", sourceRoot, localRoot);
-    await runRealGit(localRoot, "config", "user.name", "OpenClaw Test");
+    await runRealGit(localRoot, "config", "user.name", "Granted Test");
     await runRealGit(localRoot, "config", "user.email", "openclaw@example.com");
     if (detached) {
       await runRealGit(localRoot, "checkout", "--detach", baseSha);
@@ -1749,7 +1749,7 @@ describe("runGatewayUpdate", () => {
       await writePreflightPackageManagerFixture(checkout);
       await fs.copyFile(path.join(tempDir, "granted.mjs"), path.join(checkout, "granted.mjs"));
       await runRealGit(checkout, "init", "--initial-branch=main");
-      await runRealGit(checkout, "config", "user.name", "OpenClaw Test");
+      await runRealGit(checkout, "config", "user.name", "Granted Test");
       await runRealGit(checkout, "config", "user.email", "openclaw@example.com");
       await fs.symlink(checkout, alias, "dir");
       await fs.mkdir(artifacts);
@@ -3321,20 +3321,13 @@ describe("runGatewayUpdate", () => {
     const localAppData = path.join(tempDir, "local-app-data");
     const portableGitMingw = path.join(
       localAppData,
-      "OpenClaw",
+      "Granted",
       "deps",
       "portable-git",
       "mingw64",
       "bin",
     );
-    const portableGitUsr = path.join(
-      localAppData,
-      "OpenClaw",
-      "deps",
-      "portable-git",
-      "usr",
-      "bin",
-    );
+    const portableGitUsr = path.join(localAppData, "Granted", "deps", "portable-git", "usr", "bin");
     await fs.mkdir(portableGitMingw, { recursive: true });
     await fs.mkdir(portableGitUsr, { recursive: true });
 

@@ -1,6 +1,6 @@
-# OpenClaw for Linux
+# Granted for Linux
 
-The Linux companion is a Tauri v2 desktop shell for local and remote OpenClaw Gateways. It discovers nearby Gateways over Bonjour, installs the CLI when local setup needs it, delegates local Gateway service management to `openclaw gateway`, opens the selected Gateway's Control UI, and stays available in the system tray.
+The Linux companion is a Tauri v2 desktop shell for local and remote Granted Gateways. It discovers nearby Gateways over Bonjour, installs the CLI when local setup needs it, delegates local Gateway service management to `granted gateway`, opens the selected Gateway's Control UI, and stays available in the system tray.
 
 ## Linux prerequisites
 
@@ -49,7 +49,7 @@ Desktop notifications use each platform's system notification service. macOS 13+
 
 ## First-run setup
 
-The welcome screen explains what OpenClaw can do and asks where your assistant
+The welcome screen explains what Granted can do and asks where your assistant
 should live:
 
 - **On this computer** installs the CLI and managed Node runtime when needed,

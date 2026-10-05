@@ -10,8 +10,8 @@ import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shar
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { OPENAI_API_BASE_URL, OPENAI_CODEX_RESPONSES_BASE_URL } from "./base-url.js";
 import { OPENAI_DEFAULT_MODEL } from "./default-models.js";
-import { buildOpenAIProvider } from "./openai-provider.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { buildOpenAIProvider } from "./openai-provider.js";
 import { resolveModelRoutes } from "./provider-policy-api.js";
 
 const mocks = vi.hoisted(() => ({
@@ -126,8 +126,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-stream-family", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("granted/plugin-sdk/provider-stream-family")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-stream-family")>();
   const wrapStreamFn: NonNullable<typeof actual.OPENAI_RESPONSES_STREAM_HOOKS.wrapStreamFn> = (
     ctx,
   ) => {
@@ -948,6 +947,90 @@ describe("buildOpenAIProvider", () => {
     expect(new URL(requestUrl ?? "https://placeholder").searchParams.get("client_version")).toBe(
       pinnedVersion,
     );
+  });
+
+  it("publishes GPT-6 models returned by the current ChatGPT account catalog", async () => {
+    const fetchGuard: LiveModelCatalogFetchGuard = vi.fn(async () => ({
+      response: Response.json({
+        models: [
+          {
+            slug: "gpt-6-astra",
+            display_name: "GPT-6-Astra",
+            visibility: "list",
+            supported_reasoning_levels: [
+              { effort: "low" },
+              { effort: "medium" },
+              { effort: "high" },
+              { effort: "xhigh" },
+              { effort: "max" },
+              { effort: "ultra" },
+            ],
+            input_modalities: ["text", "image"],
+            context_window: 272_000,
+            max_context_window: 872_000,
+          },
+          {
+            slug: "gpt-6-sol",
+            display_name: "GPT-6-Sol",
+            visibility: "list",
+            supported_reasoning_levels: [
+              { effort: "low" },
+              { effort: "medium" },
+              { effort: "high" },
+              { effort: "xhigh" },
+              { effort: "max" },
+              { effort: "ultra" },
+            ],
+            input_modalities: ["text", "image"],
+            context_window: 272_000,
+            max_context_window: 872_000,
+          },
+          {
+            slug: "gpt-6-luna",
+            display_name: "GPT-6-Luna",
+            visibility: "list",
+            supported_reasoning_levels: [
+              { effort: "low" },
+              { effort: "medium" },
+              { effort: "high" },
+              { effort: "xhigh" },
+              { effort: "max" },
+            ],
+            input_modalities: ["text", "image"],
+            context_window: 272_000,
+            max_context_window: 872_000,
+          },
+        ],
+      }),
+      finalUrl: OPENAI_CODEX_MODELS_URL,
+      release: async () => undefined,
+    }));
+
+    const catalog = await buildOpenAICodexLiveProviderConfig({
+      discoveryApiKey: "oauth-token",
+      fetchGuard,
+    });
+    const provider = buildOpenAIProvider();
+
+    expect(catalog.models.map((model) => model.id)).toEqual([
+      "gpt-6-astra",
+      "gpt-6-sol",
+      "gpt-6-luna",
+    ]);
+    expect(catalog.models[0]).toMatchObject({
+      api: "openai-chatgpt-responses",
+      contextWindow: 872_000,
+      contextTokens: 272_000,
+      input: ["text", "image"],
+      compat: {
+        supportedReasoningEfforts: ["low", "medium", "high", "xhigh", "max", "ultra"],
+      },
+    });
+    for (const modelId of ["gpt-6-astra", "gpt-6-sol", "gpt-6-luna"]) {
+      expect(provider.preferRuntimeResolvedModel?.({ provider: "openai", modelId } as never)).toBe(
+        true,
+      );
+    }
   });
 
   it("uses runtime OAuth profiles when catalog auth resolution is empty", async () => {

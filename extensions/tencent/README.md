@@ -1,13 +1,13 @@
-# Tencent Cloud OpenClaw provider
+# Tencent Cloud Granted provider
 
-Official OpenClaw provider plugin for Tencent Cloud.
+Official Granted provider plugin for Tencent Cloud.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/tencent-provider
+granted plugins install @granted/tencent-provider
 ```
 
 ## Docs
 
-See `docs/providers/tencent.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/providers/tencent`.
+See `docs/providers/tencent.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/providers/tencent`.

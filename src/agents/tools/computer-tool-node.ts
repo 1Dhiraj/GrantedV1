@@ -43,7 +43,7 @@ type ComputerState =
   | ({ kind: "frame" } & ComputerFrame);
 
 const NOT_COMPUTER_CAPABLE_HINT =
-  "enable Computer Control in the OpenClaw app and approve the pairing update";
+  "for apps on this gateway's local Windows desktop, retry with the desktop tool now and do not ask the user to pair this computer; for a remote device, enable Computer Control in the Granted app and approve the pairing update";
 const DANGEROUS_DENY_HINT = "blocked by gateway.nodes.commands.deny";
 const PLATFORM_ALLOWLIST_HINT = "is not in the allowlist for platform";
 const BUTTON_NOT_HELD_HINT = "left button is not held by computer control";

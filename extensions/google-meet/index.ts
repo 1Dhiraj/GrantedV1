@@ -1,4 +1,4 @@
-// Google Meet plugin entrypoint registers its OpenClaw integration.
+// Google Meet plugin entrypoint registers its Granted integration.
 import type { GatewayRequestHandlerOptions } from "granted/plugin-sdk/gateway-runtime";
 import { definePluginEntry, type GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";

@@ -33,8 +33,8 @@ title: "Features"
 **Channels:**
 
 - Telegram and WebChat ship with the core install; every other channel is an
-  official plugin installed with `openclaw plugins install @granted/<id>` (or on demand
-  during `openclaw onboard` / `openclaw channels add`)
+  official plugin installed with `granted plugins install @granted/<id>` (or on demand
+  during `granted onboard` / `granted channels add`)
 - Official plugin channels: Discord, Feishu, Google Chat, iMessage, IRC, LINE, Matrix, Mattermost,
   Microsoft Teams, Nextcloud Talk, Nostr, QQ Bot, Raft, Signal, Slack, SMS, Synology Chat,
   Tlon, Twitch, Voice Call, WhatsApp, Zalo, and Zalo Personal

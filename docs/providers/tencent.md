@@ -11,7 +11,7 @@ Install the official Tencent Cloud provider plugin to access Tencent Hy3 through
 | Property                  | Value                                                 |
 | ------------------------- | ----------------------------------------------------- |
 | Provider ids              | `tencent-tokenhub`, `tencent-tokenplan`               |
-| Package                   | `@granted/tencent-provider`                          |
+| Package                   | `@granted/tencent-provider`                           |
 | TokenHub auth env var     | `TOKENHUB_API_KEY`                                    |
 | TokenPlan auth env var    | `TOKENPLAN_API_KEY`                                   |
 | TokenHub onboarding flag  | `--auth-choice tokenhub-api-key`                      |
@@ -34,21 +34,21 @@ Install the official Tencent Cloud provider plugin to access Tencent Hy3 through
     <CodeGroup>
 
 ```bash TokenHub onboarding
-openclaw onboard --auth-choice tokenhub-api-key
+granted onboard --auth-choice tokenhub-api-key
 ```
 
 ```bash TokenHub direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice tokenhub-api-key \
   --tokenhub-api-key "$TOKENHUB_API_KEY"
 ```
 
 ```bash TokenPlan onboarding
-openclaw onboard --auth-choice tokenplan-api-key
+granted onboard --auth-choice tokenplan-api-key
 ```
 
 ```bash TokenPlan direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice tokenplan-api-key \
   --tokenplan-api-key "$TOKENPLAN_API_KEY"
 ```
@@ -63,8 +63,8 @@ export TOKENPLAN_API_KEY=...
   </Step>
   <Step title="Verify the model">
     ```bash
-    openclaw models list --provider tencent-tokenhub
-    openclaw models list --provider tencent-tokenplan
+    granted models list --provider tencent-tokenhub
+    granted models list --provider tencent-tokenplan
     ```
   </Step>
 </Steps>
@@ -73,7 +73,7 @@ export TOKENPLAN_API_KEY=...
 
 ```bash
 # TokenHub
-openclaw onboard --non-interactive \
+granted onboard --non-interactive \
   --mode local \
   --auth-choice tokenhub-api-key \
   --tokenhub-api-key "$TOKENHUB_API_KEY" \
@@ -81,7 +81,7 @@ openclaw onboard --non-interactive \
   --accept-risk
 
 # TokenPlan
-openclaw onboard --non-interactive \
+granted onboard --non-interactive \
   --mode local \
   --auth-choice tokenplan-api-key \
   --tokenplan-api-key "$TOKENPLAN_API_KEY" \
@@ -114,7 +114,7 @@ hy3 is Tencent Hunyuan's large MoE language model for reasoning, long-context in
     OpenClaw's built-in catalog uses Tencent Cloud's `https://tokenhub.tencentmaas.com/v1` endpoint. Override it only if your TokenHub account or region requires a different one:
 
     ```bash
-    openclaw config set models.providers.tencent-tokenhub.baseUrl "https://your-endpoint/v1"
+    granted config set models.providers.tencent-tokenhub.baseUrl "https://your-endpoint/v1"
     ```
 
   </Accordion>

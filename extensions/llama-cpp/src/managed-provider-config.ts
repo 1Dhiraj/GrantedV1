@@ -3,7 +3,7 @@ import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shar
 import { LLAMA_CPP_PROVIDER_ID } from "./defaults.js";
 
 export const MANAGED_LLAMA_CPP_CONFIG_REQUIRED_MESSAGE =
-  "Local embeddings need the managed llama.cpp server config. Run `openclaw configure`, choose llama.cpp once, then retry `openclaw memory status --deep`.";
+  "Local embeddings need the managed llama.cpp server config. Run `granted configure`, choose llama.cpp once, then retry `granted memory status --deep`.";
 
 export function resolveManagedLlamaCppProviderConfig(config: GrantedConfig): ModelProviderConfig {
   const provider = config.models?.providers?.[LLAMA_CPP_PROVIDER_ID];

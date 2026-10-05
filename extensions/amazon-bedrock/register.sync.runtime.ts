@@ -199,7 +199,7 @@ function isBedrockAppInferenceProfile(modelId: string): boolean {
 /**
  * The shared runtime's `supportsPromptCaching` checks `model.id` for specific Claude
  * model name patterns, which fails for application inference profile ARNs (opaque
- * IDs that may not contain the model name). When OpenClaw's `isAnthropicBedrockModel`
+ * IDs that may not contain the model name). When Granted's `isAnthropicBedrockModel`
  * identifies the model but the shared runtime won't inject cache points, we do it via onPayload.
  *
  * Gated to application inference profile ARNs only — regular Claude model IDs and
@@ -214,7 +214,7 @@ function needsCachePointInjection(modelId: string): boolean {
   if (sharedRuntimeWouldInjectCachePoints(modelId)) {
     return false;
   }
-  // Check if OpenClaw identifies this as an Anthropic model via the ARN heuristic.
+  // Check if Granted identifies this as an Anthropic model via the ARN heuristic.
   if (isAnthropicBedrockModel(modelId)) {
     return true;
   }
@@ -233,7 +233,7 @@ function extractRegionFromArn(arn: string): string | undefined {
 
 /**
  * Check if a resolved foundation model ARN supports prompt caching using the
- * same matcher OpenClaw uses for direct model IDs.
+ * same matcher Granted uses for direct model IDs.
  */
 function resolvedModelSupportsCaching(modelArn: string): boolean {
   return supportsBedrockPromptCaching(modelArn);
@@ -246,7 +246,7 @@ function resolvedModelSupportsCaching(modelArn: string): boolean {
  * otherwise opaque.
  *
  * Region is extracted from the profile ARN itself to avoid mismatches when
- * the OpenClaw config region differs from the profile's home region.
+ * the Granted config region differs from the profile's home region.
  */
 type BedrockAppProfileTraits = {
   cacheEligible: boolean;

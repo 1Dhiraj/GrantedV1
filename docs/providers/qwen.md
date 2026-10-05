@@ -29,8 +29,8 @@ The older Coding Plan does not include these models. `qwen3.7-max` and
 `qwen` ships as an official external plugin, not bundled with core. Install it and restart Gateway:
 
 ```bash
-openclaw plugins install @granted/qwen-provider
-openclaw gateway restart
+granted plugins install @granted/qwen-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -49,13 +49,13 @@ Choose your plan type and follow the setup steps.
         For the **Global** endpoint:
 
         ```bash
-        openclaw onboard --auth-choice qwen-api-key
+        granted onboard --auth-choice qwen-api-key
         ```
 
         For the **China** endpoint:
 
         ```bash
-        openclaw onboard --auth-choice qwen-api-key-cn
+        granted onboard --auth-choice qwen-api-key-cn
         ```
       </Step>
       <Step title="Set a default model">
@@ -71,7 +71,7 @@ Choose your plan type and follow the setup steps.
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider qwen
+        granted models list --provider qwen
         ```
       </Step>
     </Steps>
@@ -98,13 +98,13 @@ Choose your plan type and follow the setup steps.
         For the **Global** endpoint:
 
         ```bash
-        openclaw onboard --auth-choice qwen-standard-api-key
+        granted onboard --auth-choice qwen-standard-api-key
         ```
 
         For the **China** endpoint:
 
         ```bash
-        openclaw onboard --auth-choice qwen-standard-api-key-cn
+        granted onboard --auth-choice qwen-standard-api-key-cn
         ```
       </Step>
       <Step title="Set a default model">
@@ -120,7 +120,7 @@ Choose your plan type and follow the setup steps.
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider qwen
+        granted models list --provider qwen
         ```
       </Step>
     </Steps>
@@ -147,19 +147,19 @@ Choose your plan type and follow the setup steps.
         For the **Global / International** endpoint in Singapore:
 
         ```bash
-        openclaw onboard --auth-choice qwen-token-plan
+        granted onboard --auth-choice qwen-token-plan
         ```
 
         For the **China** endpoint in Beijing:
 
         ```bash
-        openclaw onboard --auth-choice qwen-token-plan-cn
+        granted onboard --auth-choice qwen-token-plan-cn
         ```
       </Step>
       <Step title="Verify the provider">
         ```bash
-        openclaw models list --provider qwen-token-plan
-        openclaw agent --model qwen-token-plan/qwen3.7-plus --message "Reply with: token plan ready"
+        granted models list --provider qwen-token-plan
+        granted agent --model qwen-token-plan/qwen3.7-plus --message "Reply with: token plan ready"
         ```
       </Step>
     </Steps>

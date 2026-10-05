@@ -29,9 +29,9 @@ OpenClaw locates the Tailscale CLI automatically. It checks `tailscale` on `PATH
 Run these commands on the Gateway host:
 
 ```bash
-openclaw config set gateway.bind loopback
-openclaw config set gateway.tailscale.mode serve
-openclaw gateway restart
+granted config set gateway.bind loopback
+granted config set gateway.tailscale.mode serve
+granted gateway restart
 ```
 
 The equivalent configuration is:
@@ -54,7 +54,7 @@ OpenClaw configures Tailscale to serve HTTPS on port `443` and proxy to a privat
 To explicitly allow Tailscale identity headers for Control UI WebSocket auth:
 
 ```bash
-openclaw config set gateway.auth.allowTailscale true
+granted config set gateway.auth.allowTailscale true
 ```
 
 For Serve with token auth, OpenClaw enables this behavior by default unless you set it to `false`. Password and trusted-proxy modes keep their explicit auth boundary unless you opt in.

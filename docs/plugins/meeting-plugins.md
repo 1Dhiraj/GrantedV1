@@ -39,7 +39,7 @@ In `bidi` mode, recoverable provider diagnostics are logged without stopping the
 The bounded live transcript remains available only in `transcribe` mode. In all
 three modes, browser joins also persist completed caption rows and a derived
 summary to the shared state database. Leaving the meeting finalizes visible
-captions and writes the summary; use [`openclaw transcripts`](/cli/transcripts)
+captions and writes the summary; use [`granted transcripts`](/cli/transcripts)
 to list, inspect, or export it. This durable notes path does not change the live
 agent-consult transcript or create an audio/video recording.
 
@@ -125,29 +125,29 @@ The Gateway host still owns the OpenClaw agent and model credentials when Chrome
 Install the meeting plugins you need. Each is enabled by default after installation:
 
 ```bash
-openclaw plugins install npm:@granted/google-meet
-openclaw plugins install @granted/teams-meetings
-openclaw plugins install @granted/zoom-meetings
-openclaw gateway restart
+granted plugins install npm:@granted/google-meet
+granted plugins install @granted/teams-meetings
+granted plugins install @granted/zoom-meetings
+granted gateway restart
 ```
 
 Disable any meeting plugin you do not use:
 
 ```bash
-openclaw plugins disable google-meet
-openclaw plugins disable teams-meetings
-openclaw plugins disable zoom-meetings
+granted plugins disable google-meet
+granted plugins disable teams-meetings
+granted plugins disable zoom-meetings
 ```
 
 Restart the Gateway if your plugin-management path does not restart it automatically. Then run the platform setup check before joining.
 
 ## Verify and join
 
-| Platform        | Setup check                    | Join command                                                                  |
-| --------------- | ------------------------------ | ----------------------------------------------------------------------------- |
-| Google Meet     | `openclaw googlemeet setup`    | `openclaw googlemeet join 'https://meet.google.com/abc-defg-hij'`             |
-| Microsoft Teams | `openclaw teamsmeetings setup` | `openclaw teamsmeetings join 'https://teams.microsoft.com/l/meetup-join/...'` |
-| Zoom            | `openclaw zoommeetings setup`  | `openclaw zoommeetings join 'https://zoom.us/j/1234567890'`                   |
+| Platform        | Setup check                   | Join command                                                                 |
+| --------------- | ----------------------------- | ---------------------------------------------------------------------------- |
+| Google Meet     | `granted googlemeet setup`    | `granted googlemeet join 'https://meet.google.com/abc-defg-hij'`             |
+| Microsoft Teams | `granted teamsmeetings setup` | `granted teamsmeetings join 'https://teams.microsoft.com/l/meetup-join/...'` |
+| Zoom            | `granted zoommeetings setup`  | `granted zoommeetings join 'https://zoom.us/j/1234567890'`                   |
 
 Treat any failed setup check as a blocker for that transport and mode. For an observe-only smoke test, select `transcribe` mode and confirm that status reports an in-call session before expecting caption text.
 

@@ -558,7 +558,7 @@ describe("createTelegramBot", () => {
     const botInfo = {
       id: 123456,
       is_bot: true,
-      first_name: "OpenClaw",
+      first_name: "Granted",
       username: "openclaw_bot",
       can_join_groups: true,
       can_read_all_group_messages: false,
@@ -1801,7 +1801,7 @@ describe("createTelegramBot", () => {
         ctx: {
           update: { update_id: 104 },
           message: {
-            chat: { id: chatId, type: "supergroup", title: "OpenClaw Ops" },
+            chat: { id: chatId, type: "supergroup", title: "Granted Ops" },
             text: "first",
             date: 1736380804,
             message_id: 104,
@@ -1819,7 +1819,7 @@ describe("createTelegramBot", () => {
         ctx: {
           update: { update_id: 105 },
           message: {
-            chat: { id: chatId, type: "supergroup", title: "OpenClaw Ops" },
+            chat: { id: chatId, type: "supergroup", title: "Granted Ops" },
             text: "stop",
             date: 1736380805,
             message_id: 105,
@@ -2224,7 +2224,7 @@ describe("createTelegramBot", () => {
     expect(replySpy).not.toHaveBeenCalled();
     expect(sendMessageSpy).toHaveBeenCalledWith(
       1234,
-      "Only a configured OpenClaw owner can start Codex login from Telegram.",
+      "Only a configured Granted owner can start Codex login from Telegram.",
       {},
     );
   });
@@ -2657,16 +2657,16 @@ describe("createTelegramBot", () => {
         chat: { id: 1234, type: "private", first_name: "Harold" },
         message_id: 1884,
         date: 1736380800,
-        from: { id: 7, is_bot: true, first_name: "OpenClaw", username: "openclaw_bot" },
+        from: { id: 7, is_bot: true, first_name: "Granted", username: "openclaw_bot" },
         pinned_message: {
           message_id: 1883,
           date: 1736380799,
           chat: { id: 1234, type: "private", first_name: "Harold" },
-          from: { id: 7, is_bot: true, first_name: "OpenClaw", username: "openclaw_bot" },
+          from: { id: 7, is_bot: true, first_name: "Granted", username: "openclaw_bot" },
           text: "Binding: Review pull request 54118 (openclaw)",
         },
       },
-      me: { id: 7, is_bot: true, first_name: "OpenClaw", username: "openclaw_bot" },
+      me: { id: 7, is_bot: true, first_name: "Granted", username: "openclaw_bot" },
       getFile: async () => ({ download: async () => new Uint8Array() }),
     });
 
@@ -2929,13 +2929,13 @@ describe("createTelegramBot", () => {
 
     await handler({
       message: {
-        chat: { id: chatId, type: "supergroup", title: "OpenClaw Ops" },
+        chat: { id: chatId, type: "supergroup", title: "Granted Ops" },
         message_id: 1884,
         date: 1736380800,
-        from: { id: 7, is_bot: true, first_name: "OpenClaw", username: "openclaw_bot" },
+        from: { id: 7, is_bot: true, first_name: "Granted", username: "openclaw_bot" },
         text: "approval card update",
       },
-      me: { id: 7, is_bot: true, first_name: "OpenClaw", username: "openclaw_bot" },
+      me: { id: 7, is_bot: true, first_name: "Granted", username: "openclaw_bot" },
       getFile: async () => ({ download: async () => new Uint8Array() }),
     });
 

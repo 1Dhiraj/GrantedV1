@@ -377,7 +377,7 @@ export async function ensureControlUiAssetsBuilt(
         ? `Missing Control UI assets at ${indexFromDist}`
         : "Missing Control UI assets";
     return controlUiAssetsFailure(
-      `${hint}. Reinstall OpenClaw to restore bundled Control UI assets.`,
+      `${hint}. Reinstall Granted to restore bundled Control UI assets.`,
     );
   }
 

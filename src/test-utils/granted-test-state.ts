@@ -1,4 +1,4 @@
-// Creates isolated OpenClaw state directories for integration-style tests.
+// Creates isolated Granted state directories for integration-style tests.
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -342,7 +342,7 @@ export async function createOpenClawTestState(
         // A later write can throw after earlier keys changed; restoration still owns them.
         envApplied = true;
         for (const [key, value] of Object.entries(envVars)) {
-          // Test fixtures apply a fixed OpenClaw env set, not plugin-provided host env.
+          // Test fixtures apply a fixed Granted env set, not plugin-provided host env.
           if (value === undefined) {
             Reflect.deleteProperty(process.env, key);
           } else {

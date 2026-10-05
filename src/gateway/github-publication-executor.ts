@@ -54,7 +54,7 @@ import {
 import { prepareGitHubPublicationTarget } from "./github-publication-target.js";
 import { SessionMutationAuthorizationChangedError } from "./session-sharing.js";
 
-const PUBLICATION_MARKER = "OpenClaw-Publication";
+const PUBLICATION_MARKER = "Granted-Publication";
 
 type PublicationRow = GitHubPublicationExecutionRow;
 
@@ -471,7 +471,7 @@ export async function executeGitHubPublication<Row extends PublicationRow>(param
       const description = (
         row.body?.trim() || "Published by the Gateway after authoritative workspace reconciliation."
       )
-        .replace(/(?:\s*---\s*\n\[View the OpenClaw team session\]\([^\r\n)]*\)\s*)+$/u, "")
+        .replace(/(?:\s*---\s*\n\[View the Granted team session\]\([^\r\n)]*\)\s*)+$/u, "")
         .replace(
           /(?:^|\n\n)## Worked on by\n\n(?:- @[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})\n)*- @[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})(?=\n\n|$)/gu,
           "",
@@ -481,7 +481,7 @@ export async function executeGitHubPublication<Row extends PublicationRow>(param
         ? `\n\n## Worked on by\n\n${contributorCredit}`
         : "";
       const footer = sessionUrl?.startsWith("https://")
-        ? `\n\n---\n[View the OpenClaw team session](${sessionUrl})`
+        ? `\n\n---\n[View the Granted team session](${sessionUrl})`
         : "";
       const body = `${description}${participantCredit}\n\n${pullRequestMarker}${footer}`;
       identity = await refreshIdentity();

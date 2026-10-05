@@ -276,7 +276,7 @@ describeLive("subagent announce live", () => {
           deliver: false,
           timeout: 240,
           message: [
-            "Run this exact OpenClaw busy-parent subagent scenario. Use tool calls, not prose.",
+            "Run this exact Granted busy-parent subagent scenario. Use tool calls, not prose.",
             `Use nonce ${nonce}.`,
             `Step 1: call sessions_spawn with exactly this JSON input: ${JSON.stringify({
               task: `Reply exactly ${childToken} and nothing else.`,
@@ -398,7 +398,7 @@ describeLive("subagent announce live", () => {
       );
       await fs.writeFile(
         path.join(state.workspaceDir, "AGENTS.md"),
-        "OpenClaw live stress test workspace. Keep responses concise.\n",
+        "Granted live stress test workspace. Keep responses concise.\n",
         "utf8",
       );
       await state.writeConfig(
@@ -434,7 +434,7 @@ describeLive("subagent announce live", () => {
           deliver: false,
           timeout: 420,
           message: [
-            "Run this exact OpenClaw Gemini subagent stress scenario. Use tool calls, not prose.",
+            "Run this exact Granted Gemini subagent stress scenario. Use tool calls, not prose.",
             `Use nonce ${nonce}.`,
             "Spawn all three children before waiting for any child result.",
             ...childTokens.map((childToken, index) => {

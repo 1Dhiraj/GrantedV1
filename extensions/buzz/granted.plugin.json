@@ -1,7 +1,7 @@
 {
   "id": "buzz",
   "name": "Buzz",
-  "description": "Connect OpenClaw agents to Buzz rooms.",
+  "description": "Connect Granted agents to Buzz rooms.",
   "activation": {
     "onStartup": false
   },
@@ -17,7 +17,7 @@
   "channelConfigs": {
     "buzz": {
       "label": "Buzz",
-      "description": "Connect OpenClaw agents to Buzz team rooms."
+      "description": "Connect Granted agents to Buzz team rooms."
     }
   },
   "configSchema": {

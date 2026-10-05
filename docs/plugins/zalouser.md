@@ -30,7 +30,7 @@ install/configure it on that host, then restart the Gateway.
 ### From npm
 
 ```bash
-openclaw plugins install @granted/zalouser
+granted plugins install @granted/zalouser
 ```
 
 Use the bare package to follow the current official release tag; pin an exact
@@ -41,7 +41,7 @@ afterwards.
 
 ```bash
 PLUGIN_SRC=./path/to/local/zalouser-plugin
-openclaw plugins install "$PLUGIN_SRC"
+granted plugins install "$PLUGIN_SRC"
 cd "$PLUGIN_SRC" && pnpm install
 ```
 
@@ -68,15 +68,15 @@ control, multi-account setup, environment variables, and troubleshooting.
 ## CLI
 
 ```bash
-openclaw channels login --channel zalouser
-openclaw channels login --channel zalouser --account <name>
-openclaw channels logout --channel zalouser
-openclaw channels status --probe
-openclaw message send --channel zalouser --target <threadId> --message "Hello from OpenClaw"
-openclaw directory self --channel zalouser
-openclaw directory peers list --channel zalouser --query "name"
-openclaw directory groups list --channel zalouser --query "name"
-openclaw directory groups members --channel zalouser --group-id <id>
+granted channels login --channel zalouser
+granted channels login --channel zalouser --account <name>
+granted channels logout --channel zalouser
+granted channels status --probe
+granted message send --channel zalouser --target <threadId> --message "Hello from OpenClaw"
+granted directory self --channel zalouser
+granted directory peers list --channel zalouser --query "name"
+granted directory groups list --channel zalouser --query "name"
+granted directory groups members --channel zalouser --group-id <id>
 ```
 
 ## Agent tool

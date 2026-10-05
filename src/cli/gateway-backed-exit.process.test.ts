@@ -536,7 +536,7 @@ describe("gateway-backed CLI process exit", () => {
   );
 
   it.runIf(process.platform !== "win32")(
-    "runs gateway status through one OpenClaw entry process",
+    "runs gateway status through one Granted entry process",
     async () => {
       const root = tempDirs.make("openclaw-gateway-status-entry-process-");
       const stateDir = path.join(root, "state");
@@ -763,7 +763,7 @@ describe("gateway-backed CLI process exit", () => {
       ok: false,
       error: {
         type: "cli_error",
-        message: expect.stringContaining("OpenClaw config is invalid:"),
+        message: expect.stringContaining("Granted config is invalid:"),
       },
       issues: [
         {
@@ -773,7 +773,7 @@ describe("gateway-backed CLI process exit", () => {
         },
       ],
     });
-    expect(result.stderr).toContain("OpenClaw config is invalid");
+    expect(result.stderr).toContain("Granted config is invalid");
     expect(result.stderr).toContain("gateway.mode");
     expect(gateway.calls).toEqual([]);
     await expect(fs.stat(path.join(stateDir, "state", "openclaw.sqlite"))).rejects.toMatchObject({

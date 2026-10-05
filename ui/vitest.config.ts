@@ -62,6 +62,10 @@ const workspaceSourceAliases = [
     replacement: path.resolve(repoRoot, "packages/normalization-core/src/$1"),
   },
   {
+    find: /^@granted\/normalization-core\/(.+)$/u,
+    replacement: path.resolve(repoRoot, "packages/normalization-core/src/$1"),
+  },
+  {
     find: "@granted/normalization-core",
     replacement: path.resolve(repoRoot, "packages/normalization-core/src/index.ts"),
   },

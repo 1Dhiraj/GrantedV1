@@ -55,11 +55,11 @@ Exec approvals are enforced locally on the execution host:
 
 ## Inspecting the effective policy
 
-| Command                                                          | What it shows                                                                              |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `openclaw approvals get` / `--gateway` / `--node <id\|name\|ip>` | Requested policy, host policy sources, and the effective result.                           |
-| `openclaw exec-policy show`                                      | Local-machine merged view.                                                                 |
-| `openclaw exec-policy set` / `preset`                            | Synchronize the local requested policy with the local host approvals document in one step. |
+| Command                                                         | What it shows                                                                              |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `granted approvals get` / `--gateway` / `--node <id\|name\|ip>` | Requested policy, host policy sources, and the effective result.                           |
+| `granted exec-policy show`                                      | Local-machine merged view.                                                                 |
+| `granted exec-policy set` / `preset`                            | Synchronize the local requested policy with the local host approvals document in one step. |
 
 <Note>
 Per-session `/exec` overrides are not included. Run `/exec` in the relevant session to inspect its current defaults. See [session overrides](/tools/exec#session-overrides-%2Fexec).
@@ -112,7 +112,7 @@ State directories are independent trust scopes. When `OPENCLAW_STATE_DIR`
 points somewhere else, OpenClaw never imports or archives approvals from the
 default state directory; configure approvals separately for the custom state
 directory. After upgrading from a file-backed release, stop the Gateway and run
-`openclaw doctor --fix` once to import the active state directory's retired
+`granted doctor --fix` once to import the active state directory's retired
 `exec-approvals.json`. Doctor also imports legacy
 `plugin-binding-approvals.json` only when it belongs to the active state
 directory.
@@ -123,7 +123,7 @@ import, including when the config still needs repair. This does not relax
 canonical policy validation: other malformed fields or conflicting legacy
 policies remain preserved for operator recovery, and exec approvals stay
 blocked until the legacy file is resolved. After repair, verify with
-`openclaw approvals get` using the same state directory.
+`granted approvals get` using the same state directory.
 
 Example schema:
 
@@ -289,14 +289,14 @@ If you want a more conservative setup, tighten OpenClaw exec policy back to
 <Steps>
   <Step title="Set the requested config policy">
     ```bash
-    openclaw config set tools.exec.host gateway
-    openclaw config set tools.exec.mode full
-    openclaw gateway restart
+    granted config set tools.exec.host gateway
+    granted config set tools.exec.mode full
+    granted gateway restart
     ```
   </Step>
   <Step title="Match the host approvals document">
     ```bash
-    openclaw approvals set --stdin <<'EOF'
+    granted approvals set --stdin <<'EOF'
     {
       version: 1,
       defaults: {
@@ -313,28 +313,28 @@ If you want a more conservative setup, tighten OpenClaw exec policy back to
 ### Local shortcut
 
 ```bash
-openclaw exec-policy preset yolo
+granted exec-policy preset yolo
 ```
 
 Updates both local `tools.exec.host/security/ask` and the local approvals
 file defaults (including `askFallback: "full"`). It is intentionally
 local-only. To change gateway-host or node-host approvals remotely, use
-`openclaw approvals set --gateway` or
-`openclaw approvals set --node <id|name|ip>`.
+`granted approvals set --gateway` or
+`granted approvals set --node <id|name|ip>`.
 
 Other built-in presets: `cautious` (`host=gateway`, `security=allowlist`,
 `ask=on-miss`, `askFallback=deny`) and `deny-all` (`host=gateway`,
 `security=deny`, `ask=off`, `askFallback=deny`). Apply the same way:
-`openclaw exec-policy preset cautious`.
+`granted exec-policy preset cautious`.
 
-To set individual fields instead of a full preset, use `openclaw exec-policy set --host <auto|sandbox|gateway|node> --security <deny|allowlist|full> --ask <off|on-miss|always> --ask-fallback <deny|allowlist|full>` with any subset of those flags.
+To set individual fields instead of a full preset, use `granted exec-policy set --host <auto|sandbox|gateway|node> --security <deny|allowlist|full> --ask <off|on-miss|always> --ask-fallback <deny|allowlist|full>` with any subset of those flags.
 
 ### Node host
 
 Apply the same approvals document on the node instead:
 
 ```bash
-openclaw approvals set --node <id|name|ip> --stdin <<'EOF'
+granted approvals set --node <id|name|ip> --stdin <<'EOF'
 {
   version: 1,
   defaults: {
@@ -349,9 +349,9 @@ EOF
 <Note>
 **Local-only limitations:**
 
-- `openclaw exec-policy` does not synchronize node approvals.
-- `openclaw exec-policy set --host node` is rejected.
-- Node exec approvals are fetched from the node at runtime, so node-targeted updates must use `openclaw approvals --node ...`.
+- `granted exec-policy` does not synchronize node approvals.
+- `granted exec-policy set --host node` is rejected.
+- Node exec approvals are fetched from the node at runtime, so node-targeted updates must use `granted approvals --node ...`.
 
 </Note>
 
@@ -427,8 +427,8 @@ directory where you approved them. Choosing **Always allow here** authorizes the
 same command only in that directory; running it elsewhere is an allowlist miss.
 
 Older generated entries that were not directory-bound are inactive after an
-upgrade. `openclaw update` removes them during its automatic Doctor pass, or you
-can run `openclaw doctor --fix` yourself. Rerun an affected workflow and choose
+upgrade. `granted update` removes them during its automatic Doctor pass, or you
+can run `granted doctor --fix` yourself. Rerun an affected workflow and choose
 **Always allow here** to create the replacement. Manual allowlist rules are not
 changed. For a manual path-only rule, omit both `source` and `argPattern`.
 
@@ -492,7 +492,7 @@ change retroactively:
   knob for managed deployments that require periodic re-approval.
 - A resolving surface may override the default per grant with the
   `grantExpiresInDays` field on `approval.resolve` /
-  `exec.approval.resolve`, or `openclaw approvals resolve <id> allow-always
+  `exec.approval.resolve`, or `granted approvals resolve <id> allow-always
 --expires-in-days <n>`. The override wins over the config default.
 - Expired grants fall back to prompting and are pruned opportunistically.
 
@@ -503,8 +503,8 @@ Every standing grant is visible and revocable:
 - **Control UI**: Settings → Approvals shows the standing-grant ledger —
   automation, exact command, use count, and state (until revoked, expires in
   N days, expired, revoked) — with a Revoke action per active row.
-- **CLI**: `openclaw approvals grants list` renders the same ledger;
-  `openclaw approvals grants revoke <grant-id>` revokes one grant. Revocation
+- **CLI**: `granted approvals grants list` renders the same ledger;
+  `granted approvals grants revoke <grant-id>` revokes one grant. Revocation
   is idempotent and takes effect at the next occurrence's spawn boundary —
   that occurrence prompts again.
 - Deleting or editing the automation, or reversing the minting approval,
@@ -550,10 +550,10 @@ local approvals document directly.
 
 Some node hosts, including the Windows companion, own a different approval
 policy format. Control UI shows these host-native policies read-only. Use the
-companion app or `openclaw approvals set --node <id|name|ip>` with the native
+companion app or `granted approvals set --node <id|name|ip>` with the native
 policy shape to edit them; see [Approvals CLI](/cli/approvals).
 
-CLI: `openclaw approvals` supports gateway or node editing - see
+CLI: `granted approvals` supports gateway or node editing - see
 [Approvals CLI](/cli/approvals).
 
 ## Approval flow

@@ -35,7 +35,7 @@ a script launcher or registry key without a proven binary framing path.
 Launch Chrome, then pre-register the native host before adding the extension:
 
 ```bash
-openclaw browser extension install
+granted browser extension install
 ```
 
 Keep the command running. It pre-registers an origin-locked native host for the
@@ -81,7 +81,7 @@ host name are not overwritten unless they are verifiably OpenClaw-owned.
 Use a different bounded wait when needed:
 
 ```bash
-openclaw browser extension install --wait-ms 60000
+granted browser extension install --wait-ms 60000
 ```
 
 For automation, use `--json`. The result reports Store discovery separately
@@ -94,7 +94,7 @@ string.
 Select the built-in `chrome` profile, or make it the default:
 
 ```bash
-openclaw config set browser.defaultProfile chrome
+granted config set browser.defaultProfile chrome
 ```
 
 ```json5
@@ -114,7 +114,7 @@ For fresh local setup, native bootstrap connects the extension through the local
 Gateway's exact `/browser/extension` route. That first authenticated connection
 wakes the lazy browser-control service and starts the profile's loopback relay;
 OpenClaw and local clients such as mcporter then use that profile relay port.
-Keep `openclaw gateway run` or the managed Gateway service running. A separate
+Keep `granted gateway run` or the managed Gateway service running. A separate
 browser request or prewarm step is not required.
 
 Browser-node setup remains different: the extension connects to the relay on
@@ -249,28 +249,28 @@ the Store extension. For development, pre-register before **Load unpacked**.
 Inspect the installation without printing credentials:
 
 ```bash
-openclaw browser extension status
-openclaw browser extension status --json
+granted browser extension status
+granted browser extension status --json
 ```
 
 An `owned` registration is not necessarily launchable. Status reports a filesystem
 readiness snapshot of its registered runtime and native entry. It does not execute
 either target or verify that its code will run successfully. If an upgrade removes
-either target, rerun `openclaw browser extension install` to repair the owned
+either target, rerun `granted browser extension install` to repair the owned
 registration. Ownership checks still refuse foreign or malformed manifests and
 launchers.
 
 Remove only OpenClaw-owned native-host manifests and launchers:
 
 ```bash
-openclaw browser extension uninstall-host
+granted browser extension uninstall-host
 ```
 
 This does not remove the Store or unpacked extension from Chrome. Use
 `chrome://extensions` for that. It also does not delete the stable development
 copy or an existing relay key.
 
-`openclaw browser extension path` is read-only. It prints the stable installed
+`granted browser extension path` is read-only. It prints the stable installed
 copy when present and the bundled source directory otherwise.
 
 ## Advanced manual pairing
@@ -278,7 +278,7 @@ copy when present and the bundled source directory otherwise.
 The Settings page owns manual pairing. Generate a host-local pairing string:
 
 ```bash
-openclaw browser extension pair
+granted browser extension pair
 ```
 
 Manual pairing remains useful on Windows and for recovery. Treat the complete
@@ -294,7 +294,7 @@ For a laptop that has Chrome but does not run OpenClaw or a browser node, pair
 directly to a remote Gateway:
 
 ```bash
-openclaw browser extension pair \
+granted browser extension pair \
   --gateway-url wss://gateway.example.com
 ```
 
@@ -358,14 +358,14 @@ against a replacement session.
 
 The connection-lifetime protections require updated extension code as well as
 an updated OpenClaw installation. Update the Store extension when available.
-For an unpacked development copy, rerun `openclaw browser extension install`
+For an unpacked development copy, rerun `granted browser extension install`
 and reload the installed copy from `chrome://extensions`.
 
 Print non-secret endpoint metadata:
 
 ```bash
-openclaw browser extension cdp
-openclaw browser extension cdp --json
+granted browser extension cdp
+granted browser extension cdp --json
 ```
 
 The output includes the loopback endpoint, protocol version, key ID, and fixed
@@ -440,9 +440,9 @@ if tightening fails, the key is refused. Windows uses its existing ACL policy.
 ## Troubleshooting
 
 ```bash
-openclaw browser extension status --json
-openclaw browser doctor --browser-profile chrome
-openclaw doctor
+granted browser extension status --json
+granted browser doctor --browser-profile chrome
+granted doctor
 ```
 
 - **No native host was pre-registered:** check the preceding per-browser refusal

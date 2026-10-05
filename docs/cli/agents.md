@@ -1,13 +1,13 @@
 ---
-summary: "CLI reference for `openclaw agents` (list/add/delete/bindings/bind/unbind/set identity)"
+summary: "CLI reference for `granted agents` (list/add/delete/bindings/bind/unbind/set identity)"
 read_when:
   - You want multiple isolated agents (workspaces + routing + auth)
 title: "Agents"
 ---
 
-# `openclaw agents`
+# `granted agents`
 
-Manage isolated agents (workspaces + auth + routing). Running `openclaw agents` with no subcommand is equivalent to `openclaw agents list`.
+Manage isolated agents (workspaces + auth + routing). Running `granted agents` with no subcommand is equivalent to `granted agents list`.
 
 Related:
 
@@ -18,17 +18,17 @@ Related:
 ## Examples
 
 ```bash
-openclaw agents list
-openclaw agents list --bindings
-openclaw agents add work --workspace ~/.openclaw/workspace-work
-openclaw agents add work --workspace ~/.openclaw/workspace-work --bind telegram:*
-openclaw agents add ops --workspace ~/.openclaw/workspace-ops --bind telegram:ops --non-interactive
-openclaw agents bindings
-openclaw agents bind --agent work --bind telegram:ops
-openclaw agents unbind --agent work --bind telegram:ops
-openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity
-openclaw agents set-identity --agent main --avatar avatars/openclaw.png
-openclaw agents delete work
+granted agents list
+granted agents list --bindings
+granted agents add work --workspace ~/.openclaw/workspace-work
+granted agents add work --workspace ~/.openclaw/workspace-work --bind telegram:*
+granted agents add ops --workspace ~/.openclaw/workspace-ops --bind telegram:ops --non-interactive
+granted agents bindings
+granted agents bind --agent work --bind telegram:ops
+granted agents unbind --agent work --bind telegram:ops
+granted agents set-identity --workspace ~/.openclaw/workspace --from-identity
+granted agents set-identity --agent main --avatar avatars/openclaw.png
+granted agents delete work
 ```
 
 ## Command surface
@@ -43,7 +43,7 @@ Options: `--workspace <dir>`, `--model <id>`, `--agent-dir <dir>`, `--bind <chan
 
 - The automation flags `--workspace`, `--model`, `--agent-dir`, `--bind`, and `--non-interactive` select the non-interactive path. Non-interactive mode requires both an agent name and `--workspace`.
 - `--json` alone keeps the guided wizard interactive. Prompts and status are written to stderr, and stdout contains one JSON summary after setup completes.
-- `main` is an ordinary agent id. Recreating it after another agent owns the installation can require `openclaw doctor --fix` to repair legacy session or shared-auth ownership first.
+- `main` is an ordinary agent id. Recreating it after another agent owns the installation can require `granted doctor --fix` to repair legacy session or shared-auth ownership first.
 - Interactive mode offers optional auth copying. When the fleet has no default agent, choose a source agent or **Skip copying auth profiles** (the default). Selecting a source still requires confirmation before copying. Only portable static credentials (`api_key` and static `token` profiles) are copied unless a credential opts out with `copyToAgents: false`; OAuth refresh-token profiles are not copied unless a provider opts in with `copyToAgents: true`. Without a copy, OAuth stays available through the shared auth base. If the source agent has its own local OAuth profile, sign in separately for the new agent.
 
 ### `agents bindings`
@@ -69,7 +69,7 @@ Options: `--force`, `--json`.
 - The only configured agent cannot be deleted.
 - Without `--force`, interactive confirmation is required (fails in a non-TTY session; re-run with `--force`).
 - Workspace, agent state, and session transcript directories move to Trash, not hard-deleted. If Trash is unavailable, agent config deletion still succeeds and reports paths requiring manual cleanup; `--json` exposes path outcomes in `removed` and `failed` arrays.
-- On installations that have not migrated shared auth yet, the legacy owner cannot be deleted. Run `openclaw doctor --fix`; after relocation into shared state SQLite, `main` follows the same deletion rules as any other agent.
+- On installations that have not migrated shared auth yet, the legacy owner cannot be deleted. Run `granted doctor --fix`; after relocation into shared state SQLite, `main` follows the same deletion rules as any other agent.
 - When the Gateway is reachable, deletion routes through the Gateway so config and session-store cleanup share the same writer as runtime traffic. If the Gateway is unreachable, the CLI falls back to the offline local path and removes the agent's scheduled jobs transactionally. If Gateway credentials are unavailable before the CLI can test reachability, deletion still falls back locally but warns that cron cleanup was skipped because a live scheduler may own the store.
 - If another agent's workspace is the same path, inside this workspace, or contains this workspace, the workspace is retained, and `--json` reports `workspaceRetained`, `workspaceRetainedReason`, and `workspaceSharedWith`.
 
@@ -82,21 +82,21 @@ If you also want different visible skills per agent, configure `agents.defaults.
 List bindings:
 
 ```bash
-openclaw agents bindings
-openclaw agents bindings --agent work
-openclaw agents bindings --json
+granted agents bindings
+granted agents bindings --agent work
+granted agents bindings --json
 ```
 
 Add bindings:
 
 ```bash
-openclaw agents bind --agent work --bind telegram:ops --bind discord:guild-a
+granted agents bind --agent work --bind telegram:ops --bind discord:guild-a
 ```
 
 You can also add bindings when creating an agent:
 
 ```bash
-openclaw agents add work --workspace ~/.openclaw/workspace-work --bind telegram:* --bind discord:*
+granted agents add work --workspace ~/.openclaw/workspace-work --bind telegram:* --bind discord:*
 ```
 
 If you omit `accountId` (`--bind <channel>`), OpenClaw resolves it from plugin setup hooks, forced account binding, or the channel's configured account count.
@@ -121,16 +121,16 @@ Examples:
 
 ```bash
 # match all accounts on the channel
-openclaw agents bind --agent work --bind telegram:*
+granted agents bind --agent work --bind telegram:*
 
 # match a specific account
-openclaw agents bind --agent work --bind telegram:ops
+granted agents bind --agent work --bind telegram:ops
 
 # initial channel-only binding
-openclaw agents bind --agent work --bind telegram
+granted agents bind --agent work --bind telegram
 
 # later upgrade to account-scoped binding
-openclaw agents bind --agent work --bind telegram:alerts
+granted agents bind --agent work --bind telegram:alerts
 ```
 
 After the upgrade, routing for that binding is scoped to `telegram:alerts`. If you also want default-account routing, add it explicitly (for example `--bind telegram:default`).
@@ -138,8 +138,8 @@ After the upgrade, routing for that binding is scoped to `telegram:alerts`. If y
 Remove bindings:
 
 ```bash
-openclaw agents unbind --agent work --bind telegram:ops
-openclaw agents unbind --agent work --all
+granted agents unbind --agent work --bind telegram:ops
+granted agents unbind --agent work --all
 ```
 
 ## Identity files
@@ -162,13 +162,13 @@ Avatar paths resolve relative to the workspace root and cannot escape it, even t
 Load from `IDENTITY.md`:
 
 ```bash
-openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity
+granted agents set-identity --workspace ~/.openclaw/workspace --from-identity
 ```
 
 Override fields explicitly:
 
 ```bash
-openclaw agents set-identity --agent main --name "OpenClaw" --emoji "🦞" --avatar avatars/openclaw.png
+granted agents set-identity --agent main --name "OpenClaw" --emoji "🦞" --avatar avatars/openclaw.png
 ```
 
 Config sample:

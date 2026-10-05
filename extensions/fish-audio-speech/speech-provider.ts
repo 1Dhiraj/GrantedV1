@@ -1,4 +1,4 @@
-// Fish Audio provider maps OpenClaw speech contracts to the hosted S2.1 API.
+// Fish Audio provider maps Granted speech contracts to the hosted S2.1 API.
 import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
 import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import type {

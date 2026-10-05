@@ -21,7 +21,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "OpenClaw",
+      "Granted",
       ".openclaw",
     );
 
@@ -37,7 +37,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("detects state dir under Library/CloudStorage", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "OpenClaw", ".openclaw");
+    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "Granted", ".openclaw");
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
       platform: "darwin",
@@ -57,7 +57,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "OpenClaw",
+      "Granted",
       ".openclaw",
     );
 
@@ -79,7 +79,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "OpenClaw",
+      "Granted",
       ".openclaw",
     );
     const resolvedLocalPath = path.join(home, ".openclaw");
@@ -103,7 +103,7 @@ describe("detectMacCloudSyncedStateDir", () => {
     const syncedLink = path.join(cloudStorage, "OneDrive-Personal");
     fs.symlinkSync(localTarget, syncedLink, process.platform === "win32" ? "junction" : "dir");
 
-    const stateDir = path.join(syncedLink, "OpenClaw", ".openclaw");
+    const stateDir = path.join(syncedLink, "Granted", ".openclaw");
     expect(fs.existsSync(stateDir)).toBe(false);
 
     expect(
@@ -122,7 +122,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "OpenClaw",
+      "Granted",
     );
     fs.mkdirSync(syncedDir, { recursive: true });
 
@@ -170,7 +170,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "OpenClaw",
+      "Granted",
       ".openclaw",
     );
 

@@ -29,10 +29,10 @@ describe("requestTelemetryConsent", () => {
     expect(config.telemetry).toEqual({ enabled, consentedAt: expect.any(String) });
     expect(prompter.note).toHaveBeenCalledWith(
       expect.stringContaining("Never messages, never identifiers"),
-      "Help make OpenClaw better?",
+      "Help make Granted better?",
     );
     expect(select).toHaveBeenCalledWith({
-      message: "Help make OpenClaw better?",
+      message: "Help make Granted better?",
       options: [
         { value: false, label: "No thanks" },
         { value: true, label: "Yes, share feature stats" },

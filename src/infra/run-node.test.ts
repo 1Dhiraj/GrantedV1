@@ -644,7 +644,7 @@ describe("run-node script", () => {
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain(childStderr);
   });
 
-  it("adds Node CPU profiling flags to the launched OpenClaw child when requested", async ({
+  it("adds Node CPU profiling flags to the launched Granted child when requested", async ({
     tmp,
   }) => {
     await setupStampedProject(tmp, {
@@ -734,7 +734,7 @@ describe("run-node script", () => {
     expect(fsSync.existsSync(path.join(profileDir, "openclaw-models-old.cpuprofile"))).toBe(true);
   });
 
-  it("adds Node sync I/O tracing flag to the launched OpenClaw child when requested", async ({
+  it("adds Node sync I/O tracing flag to the launched Granted child when requested", async ({
     tmp,
   }) => {
     await setupStampedProject(tmp, { oldPaths: [ROOT_SRC, ROOT_TSCONFIG, ROOT_PACKAGE] });
@@ -1843,7 +1843,7 @@ describe("run-node script", () => {
     });
   });
 
-  it("does not require OpenClaw SDK alias outputs when dist extensions are absent", async ({
+  it("does not require Granted SDK alias outputs when dist extensions are absent", async ({
     tmp,
   }) => {
     await setupStampedProject(tmp, {
@@ -1865,7 +1865,7 @@ describe("run-node script", () => {
     });
   });
 
-  it("reports missing OpenClaw SDK alias outputs when runtime stamps match HEAD", async ({
+  it("reports missing Granted SDK alias outputs when runtime stamps match HEAD", async ({
     tmp,
   }) => {
     await setupTrackedProject(tmp, {
@@ -1899,7 +1899,7 @@ describe("run-node script", () => {
     });
   });
 
-  it("does not require private OpenClaw SDK dist files that package exports omit", async ({
+  it("does not require private Granted SDK dist files that package exports omit", async ({
     tmp,
   }) => {
     await setupStampedProject(tmp, {

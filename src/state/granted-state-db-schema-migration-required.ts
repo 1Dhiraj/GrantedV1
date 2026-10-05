@@ -12,14 +12,14 @@ export class GrantedStateDatabaseSchemaMigrationRequiredError extends Error {
     readonly pathname: string,
   ) {
     super(
-      `OpenClaw state database schema migration required (${kind}) at ${pathname}; run openclaw doctor --fix to migrate it.`,
+      `Granted state database schema migration required (${kind}) at ${pathname}; run openclaw doctor --fix to migrate it.`,
     );
     this.name = "GrantedStateDatabaseSchemaMigrationRequiredError";
   }
 }
 
 const STATE_SCHEMA_MIGRATION_REQUIRED_MESSAGE =
-  /^OpenClaw state database schema migration required \((agent-databases-composite-primary-key|audit-events-v2)\) at (.+); run openclaw doctor --fix to migrate it\.$/u;
+  /^Granted state database schema migration required \((agent-databases-composite-primary-key|audit-events-v2)\) at (.+); run openclaw doctor --fix to migrate it\.$/u;
 
 function parseStateSchemaMigrationRequiredMessage(
   message: unknown,

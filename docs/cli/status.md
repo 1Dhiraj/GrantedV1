@@ -1,20 +1,20 @@
 ---
-summary: "CLI reference for `openclaw status` (diagnostics, probes, usage snapshots)"
+summary: "CLI reference for `granted status` (diagnostics, probes, usage snapshots)"
 read_when:
   - You want a quick diagnosis of channel health + recent session recipients
   - You want a pasteable "all" status for debugging
-title: "openclaw status"
+title: "granted status"
 ---
 
 Diagnostics for channels + sessions.
 
 ```bash
-openclaw status
-openclaw status --all
-openclaw status --deep
-openclaw status --usage
-openclaw status --all --usage
-openclaw status --usage --agent work
+granted status
+granted status --all
+granted status --deep
+granted status --usage
+granted status --all --usage
+granted status --usage --agent work
 ```
 
 | Flag                    | Description                                                                                                     |
@@ -36,11 +36,11 @@ and pressured inbound lanes. These warnings include pending, claimed, and blocke
 message counts even when a channel connection is healthy. See
 [Queue warnings](/gateway/health#queue-warnings).
 
-Plain `openclaw status` stays on the fast read-only path and marks memory as
+Plain `granted status` stays on the fast read-only path and marks memory as
 `not checked` instead of unavailable when it skips memory inspection. Heavy
 security audit, plugin compatibility, and memory-vector probes are left to
-`openclaw status --all`, `openclaw status --deep`, `openclaw security audit`,
-and `openclaw memory status --deep`.
+`granted status --all`, `granted status --deep`, `granted security audit`,
+and `granted memory status --deep`.
 
 ## Session and model resolution
 
@@ -93,7 +93,7 @@ and `openclaw memory status --deep`.
   available, plus compact Gateway process uptime and host system uptime.
 - Overview includes update channel + git SHA (for source checkouts).
 - Update info surfaces in the Overview; if an update is available, status
-  prints a hint to run `openclaw update` (see [Updating](/install/updating)).
+  prints a hint to run `granted update` (see [Updating](/install/updating)).
 - `status --all` includes a **Telemetry exporters** diagnosis with the latest
   trusted per-signal exporter state and transport. Endpoint values, headers,
   certificates, payloads, and raw errors are not shown.

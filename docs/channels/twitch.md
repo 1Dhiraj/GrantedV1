@@ -15,17 +15,17 @@ Twitch ships as an official plugin; it is not part of the core install.
 <Tabs>
   <Tab title="npm registry">
     ```bash
-    openclaw plugins install @granted/twitch
+    granted plugins install @granted/twitch
     ```
   </Tab>
   <Tab title="Local checkout">
     ```bash
-    openclaw plugins install ./path/to/local/twitch-plugin
+    granted plugins install ./path/to/local/twitch-plugin
     ```
   </Tab>
 </Tabs>
 
-`plugins install` registers and enables the plugin. Picking Twitch during `openclaw onboard` or `openclaw channels add` installs it on demand. Use the bare package name to follow the current release; pin an exact version only for reproducible installs. Requires OpenClaw 2026.4.10 or newer.
+`plugins install` registers and enables the plugin. Picking Twitch during `granted onboard` or `granted channels add` installs it on demand. Use the bare package name to follow the current release; pin an exact version only for reproducible installs. Requires OpenClaw 2026.4.10 or newer.
 
 Details: [Plugins](/tools/plugin)
 
@@ -58,7 +58,7 @@ Details: [Plugins](/tools/plugin)
   </Step>
   <Step title="Start the gateway">
     ```bash
-    openclaw gateway run
+    granted gateway run
     ```
   </Step>
 </Steps>
@@ -244,8 +244,8 @@ access decisions.
 First, run diagnostic commands:
 
 ```bash
-openclaw doctor
-openclaw channels status --probe
+granted doctor
+granted channels status --probe
 ```
 
 <AccordionGroup>

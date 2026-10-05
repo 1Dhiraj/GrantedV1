@@ -36,8 +36,8 @@ you only need an issued ClawRouter credential.
   <Step title="Configure OpenClaw">
     ```bash
     export CLAWROUTER_API_KEY="..."
-    openclaw onboard --auth-choice clawrouter-api-key
-    openclaw plugins enable clawrouter
+    granted onboard --auth-choice clawrouter-api-key
+    granted plugins enable clawrouter
     ```
 
     `clawrouter` is bundled and enabled by default. If your configuration sets
@@ -48,7 +48,7 @@ you only need an issued ClawRouter credential.
   </Step>
   <Step title="List granted models">
     ```bash
-    openclaw models list --all --provider clawrouter
+    granted models list --all --provider clawrouter
     ```
 
     Use the returned model refs exactly as shown. They retain the upstream
@@ -60,11 +60,11 @@ you only need an issued ClawRouter credential.
   </Step>
   <Step title="Select a model">
     ```bash
-    openclaw models set clawrouter/<provider>/<model>
+    granted models set clawrouter/<provider>/<model>
     ```
 
     You can also select a returned model for one run with
-    `openclaw agent --model clawrouter/<provider>/<model> --message "..."`.
+    `granted agent --model clawrouter/<provider>/<model> --message "..."`.
 
   </Step>
 </Steps>
@@ -116,8 +116,8 @@ If the deployment sets `plugins.allow`, preserve its existing entries and add
 `clawrouter`. Validate and apply without an interactive wizard:
 
 ```bash
-openclaw config patch --file ./clawrouter.patch.json5 --dry-run --json
-openclaw config patch --file ./clawrouter.patch.json5
+granted config patch --file ./clawrouter.patch.json5 --dry-run --json
+granted config patch --file ./clawrouter.patch.json5
 ```
 
 The dry run resolves the SecretRef but never prints its value. To rotate the
@@ -144,13 +144,13 @@ curl -fsS https://clawrouter.internal.example/v1/health
 curl -fsS http://127.0.0.1:18789/readyz
 
 # Credential-scoped catalog discovery.
-openclaw models list --all --provider clawrouter --json
+granted models list --all --provider clawrouter --json
 
 # Minimal real inference probe through the configured ClawRouter provider.
-openclaw models status --probe --probe-provider clawrouter --probe-max-tokens 8 --json
+granted models status --probe --probe-provider clawrouter --probe-max-tokens 8 --json
 
 # Workload canary using an exact granted model ref.
-openclaw agent --agent main \
+granted agent --agent main \
   --model clawrouter/openai/gpt-5.5 \
   --message "Reply exactly: CLAWROUTER_CANARY_OK" \
   --json
@@ -246,8 +246,8 @@ lookup does not block model execution.
 Check the live snapshot with:
 
 ```bash
-openclaw status --usage
-openclaw models status
+granted status --usage
+granted models status
 ```
 
 The same provider snapshot is available to `/status` in chat and OpenClaw's

@@ -26,7 +26,7 @@ describe("Windows Gateway task supervisor", () => {
     });
     process.argv = [
       process.execPath,
-      "C:\\OpenClaw\\dist\\entry.js",
+      "C:\\Granted\\dist\\entry.js",
       "gateway",
       "--task-supervisor",
     ];

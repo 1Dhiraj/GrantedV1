@@ -29,7 +29,7 @@ type ResolveManagedCodexNativeCommandOptions = {
   resolvePackageJson?: (packageName: string, root: string) => string | undefined;
 };
 
-/** Records the process-stable plugin root prepared by OpenClaw's plugin loader. */
+/** Records the process-stable plugin root prepared by Granted's plugin loader. */
 export function setManagedCodexPluginRoot(pluginRoot: string | undefined): void {
   registeredCodexPluginRoot = pluginRoot;
 }
@@ -348,7 +348,7 @@ async function findManagedCodexAppServerCommandPaths(params: {
   throw new Error(
     [
       `Managed Codex app-server binary was not found for ${MANAGED_CODEX_APP_SERVER_PACKAGE}.`,
-      "Reinstall or update OpenClaw, or run pnpm install in a source checkout.",
+      "Reinstall or update Granted, or run pnpm install in a source checkout.",
       "Set plugins.entries.codex.config.appServer.command or GRANTED_CODEX_APP_SERVER_BIN to use a custom Codex binary.",
     ].join(" "),
   );

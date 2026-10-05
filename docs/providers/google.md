@@ -29,13 +29,13 @@ the Gateway already runs inside a managed Google Cloud environment.
       </Step>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice gemini-api-key
+        granted onboard --auth-choice gemini-api-key
         ```
 
         Or pass the key directly:
 
         ```bash
-        openclaw onboard --non-interactive --accept-risk --skip-health \
+        granted onboard --non-interactive --accept-risk --skip-health \
           --mode local \
           --auth-choice gemini-api-key \
           --gemini-api-key "$GEMINI_API_KEY"
@@ -54,7 +54,7 @@ the Gateway already runs inside a managed Google Cloud environment.
       </Step>
       <Step title="Verify the model is available">
         ```bash
-        openclaw models list --provider google
+        granted models list --provider google
         ```
       </Step>
     </Steps>
@@ -66,7 +66,7 @@ the Gateway already runs inside a managed Google Cloud environment.
     With a configured API key, OpenClaw refreshes Google AI Studio's text-model
     catalog from the Gemini `models.list` API. Newly released Gemini 3 Pro, Flash,
     and Flash-Lite variants therefore appear in
-    `openclaw models list --provider google` without waiting for an OpenClaw
+    `granted models list --provider google` without waiting for an OpenClaw
     release. If discovery is unavailable, OpenClaw keeps the bundled fallback
     catalog.
 
@@ -138,7 +138,7 @@ the Gateway already runs inside a managed Google Cloud environment.
 </Tabs>
 
 <Note>
-`google/gemini-3-pro-preview` was retired on 2026-03-09; use `google/gemini-3.1-pro-preview` instead. Re-running Gemini API key setup (`openclaw onboard --auth-choice gemini-api-key` or `openclaw models auth login --provider google`) rewrites a stale configured default to the current model.
+`google/gemini-3-pro-preview` was retired on 2026-03-09; use `google/gemini-3.1-pro-preview` instead. Re-running Gemini API key setup (`granted onboard --auth-choice gemini-api-key` or `granted models auth login --provider google`) rewrites a stale configured default to the current model.
 </Note>
 
 ## Capabilities

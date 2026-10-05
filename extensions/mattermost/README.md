@@ -1,13 +1,13 @@
-# Mattermost OpenClaw channel
+# Mattermost Granted channel
 
-Official OpenClaw channel plugin for Mattermost.
+Official Granted channel plugin for Mattermost.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/mattermost
+granted plugins install @granted/mattermost
 ```
 
 ## Docs
 
-See `docs/channels/mattermost.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/channels/mattermost`.
+See `docs/channels/mattermost.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/channels/mattermost`.

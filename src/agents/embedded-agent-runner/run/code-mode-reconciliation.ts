@@ -30,13 +30,13 @@ export function isCodeModeRecoveryResumeTool(tool: { name?: string }): boolean {
 }
 
 const CODE_MODE_POST_RECONCILIATION_INSTRUCTION =
-  "The previous uncertain Code Mode mutation was inspected. Code Mode is disabled for this bounded recovery. Use the available normal tools and their real schemas. OpenClaw permits at most one mutation attempt, blocks exact repeats whose earlier effect was committed or uncertain, and keeps reads and schema discovery available so you can verify and report the result.";
+  "The previous uncertain Code Mode mutation was inspected. Code Mode is disabled for this bounded recovery. Use the available normal tools and their real schemas. Granted permits at most one mutation attempt, blocks exact repeats whose earlier effect was committed or uncertain, and keeps reads and schema discovery available so you can verify and report the result.";
 
 function reconciliationPrompt(canResume: boolean): string {
   const resume =
     " If work remains, call recovery_resume by itself after the read result. It performs no mutation and starts one bounded recovery with the normal tool surface.";
   return (
-    "OpenClaw activated this temporary read-only recovery because the previous Code Mode mutation may have partially applied. First use read by itself to determine the authoritative current state." +
+    "Granted activated this temporary read-only recovery because the previous Code Mode mutation may have partially applied. First use read by itself to determine the authoritative current state." +
     (canResume ? resume : "") +
     " If no work remains, report the authoritative state. Do not repeat or finish a mutation during inspection."
   );

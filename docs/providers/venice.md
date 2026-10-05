@@ -26,7 +26,7 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/venice-provider
+    granted plugins install @granted/venice-provider
     ```
   </Step>
   <Step title="Get your API key">
@@ -38,7 +38,7 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
     <Tabs>
       <Tab title="Interactive (recommended)">
         ```bash
-        openclaw onboard --auth-choice venice-api-key
+        granted onboard --auth-choice venice-api-key
         ```
 
         Prompts for the API key (or reuses an existing `VENICE_API_KEY`), lists available Venice models, and sets your default model.
@@ -50,7 +50,7 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
       </Tab>
       <Tab title="Non-interactive">
         ```bash
-        openclaw onboard --non-interactive --accept-risk --skip-health \
+        granted onboard --non-interactive --accept-risk --skip-health \
           --auth-choice venice-api-key \
           --venice-api-key "vapi_xxxxxxxxxxxx"
         ```
@@ -60,7 +60,7 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
   </Step>
   <Step title="Verify setup">
     ```bash
-    openclaw agent --model venice/zai-org-glm-4.7 --message "Hello, are you working?"
+    granted agent --model venice/zai-org-glm-4.7 --message "Hello, are you working?"
     ```
   </Step>
 </Steps>
@@ -71,11 +71,11 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
 - **Strongest anonymized option**: `venice/claude-opus-5`.
 
 ```bash
-openclaw models set venice/zai-org-glm-4.7
-openclaw models list --all --provider venice
+granted models set venice/zai-org-glm-4.7
+granted models list --all --provider venice
 ```
 
-You can also run `openclaw configure` and pick **Model/auth provider > Venice AI**.
+You can also run `granted configure` and pick **Model/auth provider > Venice AI**.
 
 <Tip>
 | Use case              | Model                                        | Why                                    |
@@ -209,19 +209,19 @@ unchanged. See [Token use and costs](/reference/token-use).
 
 ```bash
 # Default private model
-openclaw agent --model venice/zai-org-glm-4.7 --message "Quick health check"
+granted agent --model venice/zai-org-glm-4.7 --message "Quick health check"
 
 # Claude Opus via Venice (anonymized)
-openclaw agent --model venice/claude-opus-5 --message "Summarize this task"
+granted agent --model venice/claude-opus-5 --message "Summarize this task"
 
 # Uncensored model
-openclaw agent --model venice/venice-uncensored-1-2 --message "Draft options"
+granted agent --model venice/venice-uncensored-1-2 --message "Draft options"
 
 # Vision model with image
-openclaw agent --model venice/qwen3-vl-235b-a22b --message "Review attached image"
+granted agent --model venice/qwen3-vl-235b-a22b --message "Review attached image"
 
 # Coding model
-openclaw agent --model venice/qwen3-coder-480b-a35b-instruct-turbo --message "Refactor this function"
+granted agent --model venice/qwen3-coder-480b-a35b-instruct-turbo --message "Refactor this function"
 ```
 
 ## Troubleshooting
@@ -229,7 +229,7 @@ openclaw agent --model venice/qwen3-coder-480b-a35b-instruct-turbo --message "Re
 <AccordionGroup>
   <Accordion title="API key not recognized">
     ```bash
-    openclaw models list --provider venice
+    granted models list --provider venice
     ```
 
     Confirm the API key is configured and starts with `vapi_`; do not print or
@@ -238,7 +238,7 @@ openclaw agent --model venice/qwen3-coder-480b-a35b-instruct-turbo --message "Re
   </Accordion>
 
   <Accordion title="Model not available">
-    Run `openclaw models list --all --provider venice` to see currently
+    Run `granted models list --all --provider venice` to see currently
     available models; the catalog changes as Venice adds or retires models.
   </Accordion>
 

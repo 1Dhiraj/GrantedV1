@@ -308,6 +308,8 @@ export type PluginHookAgentContext = {
   activeProjectKeys?: string[];
   modelProviderId?: string;
   modelId?: string;
+  /** The operator explicitly selected this run's model, even if it matches the default. */
+  modelSelectionExplicit?: boolean;
   messageProvider?: string;
   /** Channel/plugin id for channel-originated runs, e.g. `discord`. */
   channel?: string;

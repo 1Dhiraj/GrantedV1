@@ -50,7 +50,7 @@ you to safe external setup, never ask for the value in chat.
 
 There is deliberately no action that writes a value the agent supplies. If a
 value must enter the store, it arrives through the human prompt, the
-`/settings/secrets` page, or the [`openclaw secrets store` CLI](/cli/secrets).
+`/settings/secrets` page, or the [`granted secrets store` CLI](/cli/secrets).
 
 ## Answering a request
 
@@ -71,7 +71,7 @@ egress substitution while keeping the credential usable through config SecretRef
 
 Once the store write commits, the question is answered and cannot be submitted
 again. A later runtime refresh failure does not undo that write: resolve the
-reported provider error and run `openclaw secrets reload`, rather than resubmitting.
+reported provider error and run `granted secrets reload`, rather than resubmitting.
 
 The same tool result reports `status: "stored"`, the SecretRef, and `currentPolicy`
 from one follow-up metadata read. This is the entry's current host list, which you

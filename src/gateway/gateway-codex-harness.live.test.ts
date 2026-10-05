@@ -881,7 +881,7 @@ async function verifyCodexCodeModeOnlyDynamicToolProbe(params: {
     sessionKey: params.sessionKey,
     message: [
       "Code-mode-only bridge probe.",
-      "Before replying, call the OpenClaw sessions_list tool exactly once.",
+      "Before replying, call the Granted sessions_list tool exactly once.",
       "Use limit=1 and includeLastMessage=false.",
       `After the tool result returns, reply exactly ${expectedToken} and nothing else.`,
     ].join("\n"),
@@ -1652,7 +1652,7 @@ async function verifyCodexGuardianProbe(params: {
   const allowStatus = findGuardianReviewStatus(allowResult.events);
   if (allowStatus === "denied") {
     // Guardian policy is owned by Codex and may reject even low-risk escalations.
-    // The OpenClaw contract is that the review completes and the agent receives
+    // The Granted contract is that the review completes and the agent receives
     // a final response instead of hanging on approval plumbing.
     expect(allowResult.text.toLowerCase()).toMatch(/approv|permission|guardian|reject|denied/);
     expect(allowReview?.data?.status).toBe("denied");
@@ -1699,7 +1699,7 @@ async function verifyCodexGuardianProbe(params: {
     requireEvents: false,
   });
   // The approve/deny call is Codex policy-owned and may change independently.
-  // OpenClaw's strict projection contract is covered by the allow probe above.
+  // Granted's strict projection contract is covered by the allow probe above.
   // Riskier prompts may be refused or ask back before Codex creates a review
   // event, depending on current policy/model behavior.
   if (review?.data?.status === "denied") {
@@ -2089,7 +2089,7 @@ async function verifyCodexSessionDeletion(params: {
     events,
     sessionKey,
     command: `/codex resume ${siblingThreadId}`,
-    expectedText: "owned by another OpenClaw session or conversation",
+    expectedText: "owned by another Granted session or conversation",
   });
   expect(readBindings().find((row) => row.key === before?.key)).toEqual(before);
   expect(readBindings().find((row) => row.key === siblingBinding?.key)).toEqual(siblingBinding);
@@ -2108,7 +2108,7 @@ async function verifyCodexSessionDeletion(params: {
   });
   expect(observedCodexThreadIds.get(siblingKey)).toBe(siblingThreadId);
 
-  // Session deletion releases OpenClaw ownership, not the native Codex history.
+  // Session deletion releases Granted ownership, not the native Codex history.
   // Attach that existing thread to a new session and complete a real turn.
   await selectModel(sessionKey);
   const attached = await requestCodexCommandText({
@@ -2116,7 +2116,7 @@ async function verifyCodexSessionDeletion(params: {
     events,
     sessionKey,
     command: `/codex resume ${threadId}`,
-    expectedText: "Attached this OpenClaw session",
+    expectedText: "Attached this Granted session",
   });
   expect(attached).toContain(threadId);
   expect(await readCodexHarnessSessionId({ client, sessionKey })).not.toBe(sessionId);
@@ -2308,7 +2308,7 @@ describeLive("gateway live (Codex harness)", () => {
               expect(secondText).toContain(secondToken);
               logCodexLiveStep("second-turn", { secondText });
 
-              // `/new` deliberately retains the physical OpenClaw session id. Prove the
+              // `/new` deliberately retains the physical Granted session id. Prove the
               // retired Codex thread does not poison the next app-server turn (#116022).
               const preResetSessionId = await readCodexHarnessSessionId({
                 client: activeClient,

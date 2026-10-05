@@ -38,7 +38,7 @@ function createTurns(): WakeNameFollowupTestTurns {
     recordInputAudio: () => false,
     stopped: () => false,
     wakeNamePolicy: () => "always",
-    wakeNames: () => ["OpenClaw"],
+    wakeNames: () => ["Granted"],
   } as never) as unknown as WakeNameFollowupTestTurns;
 }
 

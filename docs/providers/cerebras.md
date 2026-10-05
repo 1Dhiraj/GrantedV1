@@ -8,22 +8,22 @@ read_when:
 
 [Cerebras](https://www.cerebras.ai) provides high-speed OpenAI-compatible inference on custom inference hardware. The plugin discovers native model metadata and pricing, with a bundled catalog for offline fallback.
 
-| Property        | Value                                                     |
-| --------------- | --------------------------------------------------------- |
-| Provider id     | `cerebras`                                                |
+| Property        | Value                                                    |
+| --------------- | -------------------------------------------------------- |
+| Provider id     | `cerebras`                                               |
 | Plugin          | official external package (`@granted/cerebras-provider`) |
-| Auth env var    | `CEREBRAS_API_KEY`                                        |
-| Onboarding flag | `--auth-choice cerebras-api-key`                          |
-| Direct CLI flag | `--cerebras-api-key <key>`                                |
-| API             | OpenAI-compatible (`openai-completions`)                  |
-| Base URL        | `https://api.cerebras.ai/v1`                              |
-| Default model   | `cerebras/gemma-4-31b`                                    |
+| Auth env var    | `CEREBRAS_API_KEY`                                       |
+| Onboarding flag | `--auth-choice cerebras-api-key`                         |
+| Direct CLI flag | `--cerebras-api-key <key>`                               |
+| API             | OpenAI-compatible (`openai-completions`)                 |
+| Base URL        | `https://api.cerebras.ai/v1`                             |
+| Default model   | `cerebras/gemma-4-31b`                                   |
 
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/cerebras-provider
-openclaw gateway restart
+granted plugins install @granted/cerebras-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -36,11 +36,11 @@ openclaw gateway restart
     <CodeGroup>
 
 ```bash Onboarding
-openclaw onboard --auth-choice cerebras-api-key
+granted onboard --auth-choice cerebras-api-key
 ```
 
 ```bash Direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice cerebras-api-key \
   --cerebras-api-key "$CEREBRAS_API_KEY"
 ```
@@ -54,10 +54,10 @@ export CEREBRAS_API_KEY=csk-...
   </Step>
   <Step title="Verify models are available">
     ```bash
-    openclaw models list --provider cerebras
+    granted models list --provider cerebras
     ```
 
-    Lists the configured Cerebras models. If `CEREBRAS_API_KEY` is unresolved, `openclaw models status --json` reports the missing credential under `auth.unusableProfiles`.
+    Lists the configured Cerebras models. If `CEREBRAS_API_KEY` is unresolved, `granted models status --json` reports the missing credential under `auth.unusableProfiles`.
 
   </Step>
 </Steps>
@@ -65,7 +65,7 @@ export CEREBRAS_API_KEY=csk-...
 ## Non-interactive setup
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice cerebras-api-key \
   --cerebras-api-key "$CEREBRAS_API_KEY"

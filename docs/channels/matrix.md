@@ -11,10 +11,10 @@ Matrix is a downloadable channel plugin (`@granted/matrix`) built on the officia
 ## Install
 
 ```bash
-openclaw plugins install @granted/matrix
+granted plugins install @granted/matrix
 ```
 
-Bare plugin specs try ClawHub first, then npm fallback. Force a source with `openclaw plugins install clawhub:@granted/matrix` or `npm:@granted/matrix`. From a local checkout: `openclaw plugins install ./path/to/local/matrix-plugin`.
+Bare plugin specs try ClawHub first, then npm fallback. Force a source with `granted plugins install clawhub:@granted/matrix` or `npm:@granted/matrix`. From a local checkout: `granted plugins install ./path/to/local/matrix-plugin`.
 
 `plugins install` registers and enables the plugin; no separate `enable` step is needed. The channel still does nothing until configured below. See [Plugins](/tools/plugin) for general install rules.
 
@@ -28,11 +28,11 @@ Bare plugin specs try ClawHub first, then npm fallback. Force a source with `ope
 ### Interactive setup
 
 ```bash
-openclaw channels add
-openclaw configure --section channels
+granted channels add
+granted configure --section channels
 ```
 
-The wizard asks for homeserver URL, auth method (token or password), user ID (password auth only), optional device name, whether to enable E2EE, and room access/auto-join. If matching `MATRIX_*` env vars already exist and the account has no saved auth, the wizard offers an env-var shortcut. Resolve room names before saving an allowlist with `openclaw channels resolve --channel matrix "Project Room"`. Enabling E2EE in the wizard runs the same bootstrap as [`openclaw matrix encryption setup`](#encryption-and-verification).
+The wizard asks for homeserver URL, auth method (token or password), user ID (password auth only), optional device name, whether to enable E2EE, and room access/auto-join. If matching `MATRIX_*` env vars already exist and the account has no saved auth, the wizard offers an env-var shortcut. Resolve room names before saving an allowlist with `granted channels resolve --channel matrix "Project Room"`. Enabling E2EE in the wizard runs the same bootstrap as [`granted matrix encryption setup`](#encryption-and-verification).
 
 ### Minimal config
 
@@ -126,7 +126,7 @@ The wizard converts a friendly name into a normalized account ID (`Ops Bot` -> `
 
 ### Cached credentials
 
-Matrix caches account credentials in the shared `state/openclaw.sqlite` plugin state. When cached credentials exist, OpenClaw treats Matrix as configured even without an `accessToken` in the config file - this covers setup, `openclaw doctor`, and channel-status probes. Upgrades import the retired `~/.openclaw/credentials/matrix/credentials*.json` files through `openclaw doctor --fix`, verify the SQLite rows, then archive the files.
+Matrix caches account credentials in the shared `state/openclaw.sqlite` plugin state. When cached credentials exist, OpenClaw treats Matrix as configured even without an `accessToken` in the config file - this covers setup, `granted doctor`, and channel-status probes. Upgrades import the retired `~/.openclaw/credentials/matrix/credentials*.json` files through `granted doctor --fix`, verify the SQLite rows, then archive the files.
 
 ### Environment variables
 
@@ -260,7 +260,7 @@ Notes:
 - Media replies always send attachments normally. If a visible preview cannot be reused safely, OpenClaw keeps it until the complete replacement is confirmed and then redacts it. If replacement delivery fails, is partial, or produces no visible event, the preview remains visible.
 - Tool-progress preview updates are on by default when preview streaming is active. Set `streaming.preview.toolProgress: false` to keep preview edits for answer text but leave tool progress on the normal delivery path.
 - Preview edits cost extra Matrix API calls. Leave `streaming.mode: "off"` for the most conservative rate-limit profile.
-- Legacy scalar/boolean `streaming` values and the flat `blockStreaming` / `chunkMode` keys are rewritten to this nested shape by `openclaw doctor --fix`.
+- Legacy scalar/boolean `streaming` values and the flat `blockStreaming` / `chunkMode` keys are rewritten to this nested shape by `granted doctor --fix`.
 
 ## Voice messages
 
@@ -327,13 +327,13 @@ Use strict room allowlists and mention requirements when enabling bot-to-bot tra
 
 In encrypted (E2EE) rooms, outbound image events use `thumbnail_file` so image previews are encrypted alongside the full attachment; unencrypted rooms use plain `thumbnail_url`. No configuration is needed - the plugin detects E2EE state automatically.
 
-All `openclaw matrix` commands accept `--verbose` (full diagnostics), `--json` (machine-readable output), and `--account <id>` (multi-account setups). Output is concise by default.
+All `granted matrix` commands accept `--verbose` (full diagnostics), `--json` (machine-readable output), and `--account <id>` (multi-account setups). Output is concise by default.
 
 ### Enable encryption
 
 ```bash
-openclaw matrix encryption setup
-printf '%s\n' "$MATRIX_RECOVERY_KEY" | openclaw matrix encryption setup --recovery-key-stdin
+granted matrix encryption setup
+printf '%s\n' "$MATRIX_RECOVERY_KEY" | granted matrix encryption setup --recovery-key-stdin
 ```
 
 Bootstraps secret storage and cross-signing, creates a room-key backup if needed, then prints status and next steps. Useful flags:
@@ -344,7 +344,7 @@ Bootstraps secret storage and cross-signing, creates a room-key backup if needed
 For a new account, enable E2EE at creation time:
 
 ```bash
-openclaw matrix account add \
+granted matrix account add \
   --homeserver https://matrix.example.org \
   --access-token syt_xxx \
   --enable-e2ee
@@ -369,8 +369,8 @@ openclaw matrix account add \
 ### Status and trust signals
 
 ```bash
-openclaw matrix verify status
-openclaw matrix verify status --include-recovery-key --json
+granted matrix verify status
+granted matrix verify status --include-recovery-key --json
 ```
 
 With `--include-recovery-key`, text output confirms when a raw recovery key is available and directs you to add `--json`. Text output never prints the key itself; keep JSON output containing a recovery key private.
@@ -390,7 +390,7 @@ With `--include-recovery-key`, text output confirms when a raw recovery key is a
 Pipe the recovery key via stdin instead of passing it on the command line:
 
 ```bash
-printf '%s\n' "$MATRIX_RECOVERY_KEY" | openclaw matrix verify device --recovery-key-stdin
+printf '%s\n' "$MATRIX_RECOVERY_KEY" | granted matrix verify device --recovery-key-stdin
 ```
 
 The command reports three states:
@@ -402,17 +402,17 @@ The command reports three states:
 It exits non-zero when full identity trust is incomplete, even if the recovery key unlocked backup material. In that case, finish self-verification from another Matrix client:
 
 ```bash
-openclaw matrix verify self
+granted matrix verify self
 ```
 
 `verify self` waits for `Cross-signing verified: yes` before exiting successfully. Use `--timeout-ms <ms>` to tune the wait.
 
-The literal-key form `openclaw matrix verify device "<recovery-key>"` also works, but the key ends up in shell history.
+The literal-key form `granted matrix verify device "<recovery-key>"` also works, but the key ends up in shell history.
 
 ### Bootstrap or repair cross-signing
 
 ```bash
-openclaw matrix verify bootstrap
+granted matrix verify bootstrap
 ```
 
 The repair/setup command for encrypted accounts. In order, it:
@@ -432,8 +432,8 @@ Useful flags:
 ### Room-key backup
 
 ```bash
-openclaw matrix verify backup status
-printf '%s\n' "$MATRIX_RECOVERY_KEY" | openclaw matrix verify backup restore --recovery-key-stdin
+granted matrix verify backup status
+printf '%s\n' "$MATRIX_RECOVERY_KEY" | granted matrix verify backup restore --recovery-key-stdin
 ```
 
 `backup status` shows whether a server-side backup exists and whether this device can decrypt it. `backup restore` imports backed-up room keys into the local crypto store; omit `--recovery-key-stdin` if the recovery key is already on disk.
@@ -441,7 +441,7 @@ printf '%s\n' "$MATRIX_RECOVERY_KEY" | openclaw matrix verify backup restore --r
 To replace a broken backup with a fresh baseline (accepts losing unrecoverable old history; can also recreate secret storage if the current backup secret is unloadable):
 
 ```bash
-openclaw matrix verify backup reset --yes
+granted matrix verify backup reset --yes
 ```
 
 Add `--rotate-recovery-key` only when the previous recovery key should intentionally stop unlocking the fresh backup baseline.
@@ -449,28 +449,28 @@ Add `--rotate-recovery-key` only when the previous recovery key should intention
 ### Listing, requesting, and responding to verifications
 
 ```bash
-openclaw matrix verify list
+granted matrix verify list
 ```
 
 Lists pending verification requests for the selected account.
 
 ```bash
-openclaw matrix verify request --own-user
-openclaw matrix verify request --user-id @ops:example.org --device-id ABCDEF
+granted matrix verify request --own-user
+granted matrix verify request --user-id @ops:example.org --device-id ABCDEF
 ```
 
 Sends a verification request from this account. `--own-user` requests self-verification (accept the prompt in another Matrix client of the same user); `--user-id`/`--device-id`/`--room-id` target someone else. `--own-user` cannot combine with the other targeting flags.
 
 For lower-level lifecycle handling - typically while shadowing inbound requests from another client - these commands act on a specific request `<id>` (printed by `verify list` and `verify request`):
 
-| Command                                    | Purpose                                                             |
-| ------------------------------------------ | ------------------------------------------------------------------- |
-| `openclaw matrix verify accept <id>`       | Accept an inbound request                                           |
-| `openclaw matrix verify start <id>`        | Start the SAS flow                                                  |
-| `openclaw matrix verify sas <id>`          | Print the SAS emoji or decimals                                     |
-| `openclaw matrix verify confirm-sas <id>`  | Confirm that the SAS matches what the other client shows            |
-| `openclaw matrix verify mismatch-sas <id>` | Reject the SAS when the emoji or decimals do not match              |
-| `openclaw matrix verify cancel <id>`       | Cancel; takes optional `--reason <text>` and `--code <matrix-code>` |
+| Command                                   | Purpose                                                             |
+| ----------------------------------------- | ------------------------------------------------------------------- |
+| `granted matrix verify accept <id>`       | Accept an inbound request                                           |
+| `granted matrix verify start <id>`        | Start the SAS flow                                                  |
+| `granted matrix verify sas <id>`          | Print the SAS emoji or decimals                                     |
+| `granted matrix verify confirm-sas <id>`  | Confirm that the SAS matches what the other client shows            |
+| `granted matrix verify mismatch-sas <id>` | Reject the SAS when the emoji or decimals do not match              |
+| `granted matrix verify cancel <id>`       | Cancel; takes optional `--reason <text>` and `--code <matrix-code>` |
 
 `accept`, `start`, `sas`, `confirm-sas`, `mismatch-sas`, and `cancel` all accept `--user-id` and `--room-id` as DM follow-up hints when the verification is anchored to a specific direct-message room.
 
@@ -501,7 +501,7 @@ Without `--account <id>`, Matrix CLI commands use the implicit default account. 
     If `verify status` says the current device is no longer listed on the homeserver, create a new OpenClaw Matrix device. For password login:
 
 ```bash
-openclaw matrix account add \
+granted matrix account add \
   --account assistant \
   --homeserver https://matrix.example.org \
   --user-id '@assistant:example.org' \
@@ -512,7 +512,7 @@ openclaw matrix account add \
     For token auth, create a fresh access token in your Matrix client or admin UI, then update OpenClaw:
 
 ```bash
-openclaw matrix account add \
+granted matrix account add \
   --account assistant \
   --homeserver https://matrix.example.org \
   --access-token '<token>'
@@ -526,8 +526,8 @@ openclaw matrix account add \
     Old OpenClaw-managed devices can accumulate. List and prune:
 
 ```bash
-openclaw matrix devices list
-openclaw matrix devices prune-stale
+granted matrix devices list
+granted matrix devices prune-stale
 ```
 
   </Accordion>
@@ -545,8 +545,8 @@ openclaw matrix devices prune-stale
 ## Profile management
 
 ```bash
-openclaw matrix profile set --name "OpenClaw Assistant"
-openclaw matrix profile set --avatar-url https://cdn.example.org/avatar.png
+granted matrix profile set --name "OpenClaw Assistant"
+granted matrix profile set --avatar-url https://cdn.example.org/avatar.png
 ```
 
 Pass both options in one call. Matrix accepts `mxc://` avatar URLs directly; passing `http://`/`https://` uploads the file first and stores the resolved `mxc://` URL into `channels.matrix.avatarUrl` (or the per-account override).
@@ -607,7 +607,7 @@ Matrix inherits global defaults from `session.threadBindings` and supports per-c
 - `threadBindings.idleHours`
 - `threadBindings.maxAgeHours`
 - `threadBindings.spawnSessions`: gates both subagent and ACP thread spawns.
-- Deprecated `threadBindings.spawnSubagentSessions` / `threadBindings.spawnAcpSessions` keys are migrated to `spawnSessions` by `openclaw doctor --fix`.
+- Deprecated `threadBindings.spawnSubagentSessions` / `threadBindings.spawnAcpSessions` keys are migrated to `spawnSessions` by `granted doctor --fix`.
 - `threadBindings.defaultSpawnContext`
 
 Matrix thread-bound session spawns default on. Set `threadBindings.spawnSessions: false` to block native subagent and ACP thread spawns from creating/binding Matrix threads. Set `threadBindings.defaultSpawnContext: "isolated"` when native subagent thread spawns should not fork the parent transcript.
@@ -694,8 +694,8 @@ See [Groups](/channels/groups) for mention-gating and allowlist behavior.
 Pairing example for Matrix DMs:
 
 ```bash
-openclaw pairing list matrix
-openclaw pairing approve matrix <CODE>
+granted pairing list matrix
+granted pairing approve matrix <CODE>
 ```
 
 If an unapproved Matrix user keeps messaging before approval, OpenClaw reuses the same pending pairing code and may send a reminder reply after a short cooldown instead of minting a new code.
@@ -707,13 +707,13 @@ See [Pairing](/channels/pairing) for the shared DM pairing flow and storage layo
 If direct-message state drifts, OpenClaw can end up with stale `m.direct` mappings pointing at old solo rooms instead of the live DM. Inspect the current mapping for a peer:
 
 ```bash
-openclaw matrix direct inspect --user-id @alice:example.org
+granted matrix direct inspect --user-id @alice:example.org
 ```
 
 Repair it:
 
 ```bash
-openclaw matrix direct repair --user-id @alice:example.org
+granted matrix direct repair --user-id @alice:example.org
 ```
 
 Both commands accept `--account <id>` for multi-account setups. The repair flow:
@@ -827,7 +827,7 @@ If your homeserver runs on localhost, a LAN/Tailscale IP, or an internal hostnam
 CLI setup example:
 
 ```bash
-openclaw matrix account add \
+granted matrix account add \
   --account ops \
   --homeserver http://matrix-synapse:8008 \
   --allow-private-network \
@@ -922,7 +922,7 @@ Room allowlist keys (`groups`, legacy `rooms`) should be room IDs or aliases. Pl
 - `replyToMode`: `"off"` (default), `"first"`, `"all"`, or `"batched"`.
 - `threadReplies`: `"off"` (top-level default resolves to `"inbound"` unless explicitly set), `"inbound"`, or `"always"`.
 - `threadBindings`: per-channel overrides for thread-bound session routing and lifecycle.
-- `streaming`: nested object `{ mode, chunkMode, block: { enabled, coalesce }, preview: { toolProgress }, progress: { label, labels, maxLines, maxLineChars, toolProgress } }`. `mode` is `"off"` (default), `"partial"`, `"quiet"`, or `"progress"`. Legacy scalar/boolean spellings migrate via `openclaw doctor --fix`.
+- `streaming`: nested object `{ mode, chunkMode, block: { enabled, coalesce }, preview: { toolProgress }, progress: { label, labels, maxLines, maxLineChars, toolProgress } }`. `mode` is `"off"` (default), `"partial"`, `"quiet"`, or `"progress"`. Legacy scalar/boolean spellings migrate via `granted doctor --fix`.
 - `streaming.block.enabled`: when `true`, completed assistant blocks are kept as separate progress messages. Default: `false`.
 - `markdown`: optional Markdown rendering config for outbound text.
 - `responsePrefix`: optional string prepended to outbound replies.

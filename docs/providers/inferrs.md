@@ -179,7 +179,7 @@ OpenClaw can start `inferrs` itself only when an `inferrs/...` model is selected
     ```
 
     ```bash
-    openclaw infer model run \
+    granted infer model run \
       --model inferrs/google/gemma-4-E2B-it \
       --prompt "What is 2 + 2? Reply with one short sentence." \
       --json
@@ -205,7 +205,7 @@ OpenClaw can start `inferrs` itself only when an `inferrs/...` model is selected
     Set `compat.requiresStringContent: true` in the model entry (see above).
   </Accordion>
 
-  <Accordion title="Direct /v1/chat/completions calls pass but openclaw infer model run fails">
+  <Accordion title="Direct /v1/chat/completions calls pass but granted infer model run fails">
     Set `compat.supportsTools: false` to disable the tool schema surface (see the Gemma caveat above).
   </Accordion>
 

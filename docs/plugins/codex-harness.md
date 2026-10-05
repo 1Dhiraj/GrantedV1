@@ -27,7 +27,7 @@ Uploads always use the Gateway's configured channel identity and request timeout
 Use canonical OpenAI model refs such as `openai/gpt-5.6-sol`. Do not configure
 legacy Codex GPT refs; put OpenAI agent auth order under `auth.order.openai`.
 Legacy Codex auth profile ids and legacy Codex auth order entries are
-repaired by `openclaw doctor --fix`.
+repaired by `granted doctor --fix`.
 
 With provider/model runtime policy unset or `auto`, the `openai/*` prefix alone
 never selects this harness. OpenAI may select Codex implicitly only for an
@@ -100,15 +100,15 @@ channel is the communication surface.
 
 - The official `@granted/codex` plugin installed. Include `codex` in
   `plugins.allow` if your config uses an allowlist.
-- Managed Codex app-server `0.151.0`. The plugin ships and manages
-  `@openai/codex` `0.151.0` by default, so a `codex` command on `PATH` does not
+- Managed Codex app-server `0.157.1`. The plugin ships and manages
+  `@openai/codex` `0.157.1` by default, so a `codex` command on `PATH` does not
   affect normal startup. Explicit custom, remote, and macOS desktop-owned
   app-servers must report a parseable semantic version of `0.149.0` or newer.
   Newer versions continue with a compatibility warning and normal runtime
   validation.
 - Node.js on the remote Codex app-server host when `remoteWorkspaceRoot` is set
   and cross-machine workspace attachments must be transferred.
-- Codex auth through `openclaw models auth login --provider openai`, an
+- Codex auth through `granted models auth login --provider openai`, an
   app-server account already present in the agent's Codex home, or an
   explicit Codex API-key auth profile.
 
@@ -121,8 +121,8 @@ model discovery, and the full config field list, see
 Install the official plugin, then sign in with Codex OAuth:
 
 ```bash
-openclaw plugins install @granted/codex
-openclaw models auth login --provider openai
+granted plugins install @granted/codex
+granted models auth login --provider openai
 ```
 
 Enable the `codex` plugin and select an OpenAI agent model:
@@ -198,8 +198,8 @@ the high-risk node command:
 The paired node must enable session hosting and advertise the `codex.exec-server`
 capability and `codex.exec-server.stdio.v1` command. If enabling the plugin
 changes an existing node's command surface, reconnect the node, inspect
-`openclaw nodes pending`, and approve the updated pairing with
-`openclaw nodes approve <requestId>`. The persistent command allowlist does not
+`granted nodes pending`, and approve the updated pairing with
+`granted nodes approve <requestId>`. The persistent command allowlist does not
 replace launch authorization. The critical prompt offers two approval scopes:
 
 - **Allow once** authorizes one exec-server launch.
@@ -240,7 +240,7 @@ Choose the paired device in the Control UI **Place** picker, or dispatch an
 existing managed-worktree session explicitly:
 
 ```bash
-openclaw gateway call sessions.dispatch \
+granted gateway call sessions.dispatch \
   --params '{"key":"agent:main:device-work","deviceId":"<paired-device-id>"}'
 ```
 
@@ -342,8 +342,8 @@ the route instead, in both directions:
 
 A stored OpenAI profile is fine alongside `homeScope: "user"`; OpenClaw keeps it
 for agent-scoped connections and simply does not hand it to the native home. Use
-`openclaw models auth list --provider openai` to inspect stored profiles and
-`openclaw models auth logout <profileId> --yes` to remove one you no longer want.
+`granted models auth list --provider openai` to inspect stored profiles and
+`granted models auth logout <profileId> --yes` to remove one you no longer want.
 
 Owner turns gain the `codex_threads` tool: list, search, read, fork, rename,
 archive, and restore native threads. Fork a thread to continue it in
@@ -398,7 +398,7 @@ rules, paired-node limits, metadata exposure, and troubleshooting.
 | Include additional local Codex stores (stdio only)  | `plugins.entries.codex.config.sessionCatalog.homes`                                                       | Codex plugin config                |
 | Keep an allowlisted plugin install                  | Include `codex` in `plugins.allow`                                                                        | OpenClaw config                    |
 | Allow eligible OpenAI turns to use Codex implicitly | Exact official HTTPS Responses/ChatGPT route, no authored provider request override, runtime unset/`auto` | OpenAI provider/model config       |
-| Sign in with ChatGPT/Codex OAuth                    | `openclaw models auth login --provider openai`                                                            | CLI auth profile                   |
+| Sign in with ChatGPT/Codex OAuth                    | `granted models auth login --provider openai`                                                             | CLI auth profile                   |
 | Add API-key backup for Codex runs                   | `openai:*` API-key profile listed after subscription auth in `auth.order.openai`                          | CLI auth profile + OpenClaw config |
 | Fail closed when Codex is unavailable               | Provider or model `agentRuntime.id: "codex"`                                                              | OpenClaw model/provider config     |
 | Use direct OpenAI API traffic                       | Provider or model `agentRuntime.id: "openclaw"` with normal OpenAI auth                                   | OpenClaw model/provider config     |
@@ -497,7 +497,7 @@ whether any individual file was fully loaded or truncated.
 Do not set `compaction.model` or `compaction.provider` on Codex-backed
 agents. Codex compacts through its native app-server thread state, so
 OpenClaw ignores those local summarizer overrides at runtime, and
-`openclaw doctor --fix` removes them when the agent uses Codex.
+`granted doctor --fix` removes them when the agent uses Codex.
 
 An authored `models.providers.*.models[].contextTokens` cap is forwarded to
 Codex thread start and resume as `model_context_window`. Codex clamps the value
@@ -508,7 +508,7 @@ Lossless remains supported as a context engine for assembly, ingestion, and
 maintenance around Codex turns, configured through
 `plugins.slots.contextEngine: "lossless-claw"` and
 `plugins.entries.lossless-claw.config.summaryModel`, not through
-`agents.defaults.compaction.provider`. `openclaw doctor --fix` migrates the
+`agents.defaults.compaction.provider`. `granted doctor --fix` migrates the
 old `compaction.provider: "lossless-claw"` shape to the Lossless
 context-engine slot when Codex is the active runtime, but native Codex still
 owns compaction. The native app-server harness supports context engines
@@ -715,7 +715,7 @@ After installing or updating OpenClaw, explicitly verify the managed package
 binary before cutover:
 
 ```bash
-openclaw doctor --lint --only codex/managed-app-server --json
+granted doctor --lint --only codex/managed-app-server --json
 ```
 
 For an effective Codex route using the managed stdio app-server, this
@@ -743,7 +743,7 @@ Keep provider refs and runtime policy separate:
   or ChatGPT Responses route with no authored provider request override may
   select Codex implicitly. Valid model-scoped Fast-mode and cutoff controls do
   not count as authored request params.
-- Do not use legacy Codex GPT refs in config; run `openclaw doctor --fix` to
+- Do not use legacy Codex GPT refs in config; run `granted doctor --fix` to
   repair legacy refs and stale session route pins.
 - `agentRuntime.id: "codex"` makes Codex a fail-closed requirement for a
   compatible route. It does not make an incompatible effective route compatible.
@@ -777,7 +777,7 @@ Keep provider refs and runtime policy separate:
 | Eligible OpenAI route with native Codex runtime | Exact official HTTPS Responses/ChatGPT route with no authored provider request override, plus enabled `codex` plugin | `/status` shows `Runtime: OpenAI Codex` | Valid Fast runtime controls do not disqualify this path    |
 | Fail closed if Codex is unavailable             | Provider or model `agentRuntime.id: "codex"`                                                                         | Missing harness fails the turn          | Authored request overrides may still use declared fallback |
 | Direct OpenAI API-key traffic through OpenClaw  | Provider or model `agentRuntime.id: "openclaw"` and normal OpenAI auth                                               | `/status` shows OpenClaw runtime        | Use only when OpenClaw is intentional                      |
-| Legacy config                                   | legacy Codex GPT refs                                                                                                | `openclaw doctor --fix` rewrites it     | Do not write new config this way                           |
+| Legacy config                                   | legacy Codex GPT refs                                                                                                | `granted doctor --fix` rewrites it      | Do not write new config this way                           |
 | ACP/acpx Codex adapter                          | ACP `sessions_spawn({ runtime: "acp" })`                                                                             | ACP task/session status                 | Separate from native Codex harness                         |
 
 `agents.defaults.imageModel` follows the same prefix split. Use `openai/gpt-*`
@@ -981,7 +981,7 @@ one-shot and session approval.
 Terminal operator decisions reuse the Gateway's authoritative approval row and
 its exact execution binding. When execution identity collection is enabled,
 inspect the admitted run with
-[`openclaw audit --run <run-id> --explain`](/cli/audit). The resulting receipt
+[`granted audit --run <run-id> --explain`](/cli/audit). The resulting receipt
 can report allow-once, allow-always, denial, no-route, expiry, or cancellation
 without exposing command text, patch content, paths, or native request ids.
 
@@ -1113,7 +1113,7 @@ For upload mechanics and runtime-level diagnostics boundaries, see
 In the default per-agent home, auth is selected in this order:
 
 1. Ordered OpenAI auth profiles for the agent, preferably under
-   `auth.order.openai`. Run `openclaw doctor --fix` to migrate older legacy
+   `auth.order.openai`. Run `granted doctor --fix` to migrate older legacy
    Codex auth profile ids and legacy Codex auth order.
 2. The app-server's existing account in that agent's Codex home.
 3. For local stdio app-server launches only, `CODEX_API_KEY`, then
@@ -1596,7 +1596,7 @@ Useful excerpts usually include `openai/gpt-5.6-sol` or `openai/gpt-5.6-luna`,
 `No API key` result. A corrected run should show the OpenAI OAuth path
 instead of a plain OpenAI API-key failure.
 
-**Legacy Codex model refs config remains:** run `openclaw doctor --fix`.
+**Legacy Codex model refs config remains:** run `granted doctor --fix`.
 Doctor rewrites legacy model refs to `openai/*`, removes stale session and
 whole-agent runtime pins, and preserves existing auth-profile overrides.
 
@@ -1660,9 +1660,9 @@ allocation. An OS hard limit can terminate Codex rather than backpressure it.
 `plugins.entries.codex.config.discovery.timeoutMs` or disable discovery.
 See [Codex harness reference](/plugins/codex-harness-reference#model-discovery).
 
-**Codex plugin state has reached its row limit:** run `openclaw doctor` to
+**Codex plugin state has reached its row limit:** run `granted doctor` to
 check for bindings left behind by deleted or expired OpenClaw sessions. Stop
-the Gateway, then run `openclaw doctor --fix` to remove proven orphaned session
+the Gateway, then run `granted doctor --fix` to remove proven orphaned session
 bindings after session repair. Doctor preserves supervised bindings, active
 leases, ambiguous ownership, and bindings whose session store cannot be read.
 This cleanup does not delete native Codex thread history or managed-thread

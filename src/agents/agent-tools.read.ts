@@ -969,7 +969,7 @@ type SandboxToolParams = {
   modelHasVision?: boolean;
 };
 
-/** Create a sandbox-backed read tool with OpenClaw result normalization. */
+/** Create a sandbox-backed read tool with Granted result normalization. */
 export function createSandboxedReadTool(params: SandboxToolParams) {
   const base = eraseSessionFileTool(
     createReadTool(params.root, {
@@ -1012,6 +1012,8 @@ export function createHostWorkspaceWriteTool(
   root: string,
   options?: {
     containmentRoot?: string;
+    /** Extra directories a workspace-only writer may also use (tools.fs.allowPaths). */
+    additionalRoots?: readonly string[];
     workspaceOnly?: boolean;
     abortSignal?: AbortSignal;
     memoryWriteProvenance?: MemoryWriteProvenanceObserver;
@@ -1030,6 +1032,8 @@ export function createHostWorkspaceEditTool(
   root: string,
   options?: {
     containmentRoot?: string;
+    /** Extra directories a workspace-only editor may also use (tools.fs.allowPaths). */
+    additionalRoots?: readonly string[];
     workspaceOnly?: boolean;
     abortSignal?: AbortSignal;
     memoryWriteProvenance?: MemoryWriteProvenanceObserver;
@@ -1043,7 +1047,7 @@ export function createHostWorkspaceEditTool(
   return wrapToolParamValidation(base, REQUIRED_PARAM_GROUPS.edit, root);
 }
 
-/** Wrap the base read tool with OpenClaw paging, MIME, and image handling. */
+/** Wrap the base read tool with Granted paging, MIME, and image handling. */
 export function createOpenClawReadTool(
   base: AnyAgentTool,
   options?: GrantedReadToolOptions,
@@ -1392,6 +1396,7 @@ async function writeWorkspaceFile(
 function createHostWriteOperations(
   root: string,
   options?: {
+    additionalRoots?: readonly string[];
     workspaceOnly?: boolean;
     abortSignal?: AbortSignal;
     memoryWriteProvenance?: MemoryWriteProvenanceObserver;
@@ -1423,29 +1428,39 @@ function createHostWriteOperations(
   // root lazily on first use: constructing the tool (e.g. doctor projecting tool
   // schemas) must not open an fs handle, and a missing workspace dir must not
   // orphan a rejecting promise as "Unhandled promise rejection: root dir not found".
-  let rootPromise: ReturnType<typeof fsRoot> | undefined;
-  const getRoot = () => (rootPromise ??= fsRoot(root));
+  const roots = createWorkspaceRootSet(root, options?.additionalRoots);
   return withMemoryWriteProvenance(
     {
       mkdir: async (dir: string) => {
-        const relative = toRelativeWorkspacePath(root, dir, { allowRoot: true });
-        const resolved = relative ? path.resolve(root, relative) : path.resolve(root);
-        await assertSandboxPath({ filePath: resolved, cwd: root, root });
+        const located = roots.locate(dir, { allowRoot: true });
+        const resolved = located.relative
+          ? path.resolve(located.dir, located.relative)
+          : path.resolve(located.dir);
+        await assertSandboxPath({ filePath: resolved, cwd: located.dir, root: located.dir });
         options?.abortSignal?.throwIfAborted();
         await fs.mkdir(resolved, { recursive: true });
       },
-      writeFile: (absolutePath: string, content: string) =>
-        writeWorkspaceFile(root, getRoot, absolutePath, content, options?.abortSignal),
+      writeFile: (absolutePath: string, content: string) => {
+        const located = roots.locate(absolutePath);
+        return writeWorkspaceFile(
+          located.dir,
+          located.getRoot,
+          absolutePath,
+          content,
+          options?.abortSignal,
+        );
+      },
       readFile: async (absolutePath: string) => {
         // Canonicalize symlink parents like the write path: fs-safe 0.5.2
         // rejects intermediate symlinks by default, but in-workspace symlink
         // parents are part of the workspace contract.
-        const relative = await toCanonicalRelativeWorkspacePath(root, absolutePath);
-        return (await (await getRoot()).read(relative)).buffer;
+        const located = roots.locate(absolutePath);
+        const relative = await toCanonicalRelativeWorkspacePath(located.dir, absolutePath);
+        return (await (await located.getRoot()).read(relative)).buffer;
       },
       statFile: async (absolutePath: string) => {
-        const relative = toRelativeWorkspacePath(root, absolutePath);
-        return statHostFile(path.resolve(root, relative));
+        const located = roots.locate(absolutePath);
+        return statHostFile(path.resolve(located.dir, located.relative));
       },
     } as const,
     options?.memoryWriteProvenance,
@@ -1455,6 +1470,7 @@ function createHostWriteOperations(
 function createHostEditOperations(
   root: string,
   options?: {
+    additionalRoots?: readonly string[];
     workspaceOnly?: boolean;
     abortSignal?: AbortSignal;
     memoryWriteProvenance?: MemoryWriteProvenanceObserver;
@@ -1484,29 +1500,39 @@ function createHostEditOperations(
   // root lazily on first use: constructing the tool (e.g. doctor projecting tool
   // schemas) must not open an fs handle, and a missing workspace dir must not
   // orphan a rejecting promise as "Unhandled promise rejection: root dir not found".
-  let rootPromise: ReturnType<typeof fsRoot> | undefined;
-  const getRoot = () => (rootPromise ??= fsRoot(root));
+  const roots = createWorkspaceRootSet(root, options?.additionalRoots);
   return withMemoryWriteProvenance(
     {
       readFile: async (absolutePath: string) => {
         // Canonicalize symlink parents like the write path: fs-safe 0.5.2
         // rejects intermediate symlinks by default, but in-workspace symlink
         // parents are part of the workspace contract.
-        const relative = await toCanonicalRelativeWorkspacePath(root, absolutePath);
-        const safeRead = await (await getRoot()).read(relative);
+        const located = roots.locate(absolutePath);
+        const relative = await toCanonicalRelativeWorkspacePath(located.dir, absolutePath);
+        const safeRead = await (await located.getRoot()).read(relative);
         return safeRead.buffer;
       },
-      writeFile: (absolutePath: string, content: string) =>
-        writeWorkspaceFile(root, getRoot, absolutePath, content, options?.abortSignal),
+      writeFile: (absolutePath: string, content: string) => {
+        const located = roots.locate(absolutePath);
+        return writeWorkspaceFile(
+          located.dir,
+          located.getRoot,
+          absolutePath,
+          content,
+          options?.abortSignal,
+        );
+      },
       statFile: async (absolutePath: string) => {
-        const relative = toRelativeWorkspacePath(root, absolutePath);
-        return statHostFile(path.resolve(root, relative));
+        const located = roots.locate(absolutePath);
+        return statHostFile(path.resolve(located.dir, located.relative));
       },
       access: async (absolutePath: string) => {
         let relative: string;
+        let located: WorkspaceRootLocation;
         try {
           // Canonicalized like readFile so in-workspace symlink parents pass.
-          relative = await toCanonicalRelativeWorkspacePath(root, absolutePath);
+          located = roots.locate(absolutePath);
+          relative = await toCanonicalRelativeWorkspacePath(located.dir, absolutePath);
         } catch {
           // Path escapes workspace root.  Don't throw here – the upstream
           // library replaces any `access` error with a misleading "File not
@@ -1516,7 +1542,7 @@ function createHostEditOperations(
           return;
         }
         try {
-          const opened = await (await getRoot()).open(relative);
+          const opened = await (await located.getRoot()).open(relative);
           await opened.handle.close().catch(() => {});
         } catch (error) {
           if (error instanceof FsSafeError && error.code === "not-found") {
@@ -1533,6 +1559,41 @@ function createHostEditOperations(
     } as const,
     options?.memoryWriteProvenance,
   );
+}
+
+type WorkspaceRootLocation = {
+  dir: string;
+  relative: string;
+  getRoot: () => ReturnType<typeof fsRoot>;
+};
+
+/**
+ * The workspace plus any tools.fs.allowPaths directories, each with its own
+ * lazily opened fs-safe root. A path belongs to the first directory that
+ * contains it, so the workspace wins when an allowed folder sits inside it; a
+ * path outside every directory keeps the workspace's escape error.
+ */
+function createWorkspaceRootSet(primaryRoot: string, additionalRoots?: readonly string[]) {
+  const entries = [primaryRoot, ...(additionalRoots ?? [])].map((dir) => {
+    // Open lazily: constructing the tool (e.g. doctor projecting tool schemas)
+    // must not open an fs handle, and a missing directory must not orphan a
+    // rejecting promise as an unhandled rejection.
+    let rootPromise: ReturnType<typeof fsRoot> | undefined;
+    return { dir, getRoot: () => (rootPromise ??= fsRoot(dir)) };
+  });
+  return {
+    locate(candidate: string, options?: { allowRoot?: boolean }): WorkspaceRootLocation {
+      let firstError: unknown;
+      for (const entry of entries) {
+        try {
+          return { ...entry, relative: toRelativeWorkspacePath(entry.dir, candidate, options) };
+        } catch (error) {
+          firstError ??= error;
+        }
+      }
+      throw firstError;
+    },
+  };
 }
 
 async function toCanonicalRelativeWorkspacePath(

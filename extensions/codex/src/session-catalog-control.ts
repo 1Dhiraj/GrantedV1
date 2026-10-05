@@ -274,7 +274,7 @@ function createCodexSessionCatalogControlFromRequests(params: {
             limit: limit - sessions.length,
             modelProviders: [],
             // Match Codex's resume picker/latest-session ordering so a session
-            // created outside OpenClaw enters the first catalog page immediately.
+            // created outside Granted enters the first catalog page immediately.
             sortKey: "updated_at",
             sortDirection: "desc",
             ...(cwd ? { cwd } : {}),

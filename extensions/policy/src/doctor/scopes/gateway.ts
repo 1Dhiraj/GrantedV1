@@ -316,7 +316,7 @@ function gatewayNodeCommandFindings(
       return {
         checkId: CHECK_IDS.policyGatewayNodeCommandDenied,
         severity: "error",
-        message: `Gateway node command '${command}' is denied by policy but not denied by OpenClaw config.`,
+        message: `Gateway node command '${command}' is denied by policy but not denied by Granted config.`,
         source: "policy",
         path: "openclaw config",
         ocPath: "oc://openclaw.config/gateway/nodes/commands/deny",

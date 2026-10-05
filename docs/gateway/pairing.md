@@ -44,7 +44,7 @@ In the Control UI Devices page, open the pairing dialog, choose **Node host**,
 and copy the generated command to the device:
 
 ```bash
-openclaw node run --pair "oc-pair://<setup-code>"
+granted node run --pair "oc-pair://<setup-code>"
 ```
 
 The setup link carries the Gateway endpoint, a short-lived single-use bootstrap
@@ -63,12 +63,12 @@ folder sync. Those operations still use pending approval or
 ## CLI workflow (headless friendly)
 
 ```bash
-openclaw nodes pending
-openclaw nodes approve <requestId>
-openclaw nodes reject <requestId>
-openclaw nodes status
-openclaw nodes remove --node <id|name|ip>
-openclaw nodes rename --node <id|name|ip> --name "Living Room iPad"
+granted nodes pending
+granted nodes approve <requestId>
+granted nodes reject <requestId>
+granted nodes status
+granted nodes remove --node <id|name|ip>
+granted nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` shows paired/connected nodes and their capabilities.
@@ -202,7 +202,7 @@ do not create approval churn.
 First-time `role: node` device pairing from a private/CGNAT address is
 auto-approved when the gateway can **prove machine ownership over SSH**: it
 connects back to the pairing host (`BatchMode`, `StrictHostKeyChecking=yes`),
-runs `openclaw node identity --json` there, and approves only when the remote
+runs `granted node identity --json` there, and approves only when the remote
 device id and public key match the pending request exactly. The key match is
 what makes this safe: reachability alone never approves, so NAT co-tenants,
 other users on a shared host, and LAN spoofing all fall through to the normal
@@ -313,7 +313,7 @@ Boundaries:
   eligible, as trigger and as target. Trusted-CIDR and SSH-verified pairings
   cross hosts where display metadata is not a machine identity, so they are
   never removed automatically — use the Control UI cleanup or
-  `openclaw nodes remove` for those.
+  `granted nodes remove` for those.
 - Owner-approved and QR/setup-code (bootstrap) pairings are never removed
   automatically. Records approved before provenance existed stay protected,
   even after a later silent re-approval of the same device id.
@@ -371,7 +371,7 @@ upgraded from releases with JSON stores import them at startup and leave
 Security notes:
 
 - Device tokens are secrets; treat the state database as sensitive.
-- Rotating a device token uses `openclaw devices rotate` /
+- Rotating a device token uses `granted devices rotate` /
   `device.token.rotate`.
 
 ## Transport behavior

@@ -6,7 +6,7 @@ import { migrateVoiceCallLegacyConfigInput } from "./src/config-migration.js";
 
 // Setup-time entrypoint for voice-call config migrations.
 
-/** Migrate voice-call plugin config inside the full OpenClaw config object. */
+/** Migrate voice-call plugin config inside the full Granted config object. */
 function migrateVoiceCallPluginConfig(config: GrantedConfig): {
   config: GrantedConfig;
   changes: string[];

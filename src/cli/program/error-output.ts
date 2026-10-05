@@ -55,8 +55,8 @@ function formatCliMachineOutput(humanOutput: string): string {
 
 function formatUnknownCommandMessage(command: string, commandPath: readonly string[]): string {
   return commandPath.length > 0
-    ? `OpenClaw ${commandPath.join(" ")} has no command ${quote(command)}.`
-    : `OpenClaw does not know the command ${quote(command)}.`;
+    ? `Granted ${commandPath.join(" ")} has no command ${quote(command)}.`
+    : `Granted does not know the command ${quote(command)}.`;
 }
 
 function formatCliUnknownCommandOutput(
@@ -116,7 +116,7 @@ export function createCliUnknownCommandError(
   });
 }
 
-/** Convert Commander parse errors into OpenClaw-specific help and docs guidance. */
+/** Convert Commander parse errors into Granted-specific help and docs guidance. */
 export function formatCliParseErrorOutput(
   raw: string,
   options: FormatCliParseErrorOptions = {},
@@ -130,7 +130,7 @@ export function formatCliParseErrorOutput(
   const unknownOption = message.match(/^unknown option ['"`](.+?)['"`]/i);
   if (unknownOption) {
     const option = unknownOption[1] ?? "";
-    const output = `OpenClaw does not recognize option ${quote(option)}.`;
+    const output = `Granted does not recognize option ${quote(option)}.`;
     return lines(
       theme.error(output),
       formatHelpHint(options.argv, { commandPath: options.commandPath }),
@@ -165,7 +165,7 @@ export function formatCliParseErrorOutput(
     );
   }
 
-  const output = `OpenClaw could not parse this command: ${message}`;
+  const output = `Granted could not parse this command: ${message}`;
   return lines(
     theme.error(output),
     formatHelpHint(options.argv, { commandPath: options.commandPath }),

@@ -1,0 +1,121 @@
+{
+  "run": "2026-09-22T1452",
+  "score": "9/9",
+  "pass": 9,
+  "blocked": 0,
+  "attempted": 9,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A1",
+      "name": "disk space",
+      "result": "PASS",
+      "seconds": 120,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-a1",
+      "evidence": "65 GB\ncompleted",
+      "toolCalls": 3,
+      "tokens": 53757
+    },
+    {
+      "id": "A2",
+      "name": "create file with content",
+      "result": "PASS",
+      "seconds": 29,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-a2",
+      "evidence": "file content: \"hi granted\"",
+      "toolCalls": 2,
+      "tokens": 39885
+    },
+    {
+      "id": "F3",
+      "name": "cron list/add/remove",
+      "result": "PASS",
+      "seconds": 4,
+      "evidence": "job c53ece44 listed=true removed=true"
+    },
+    {
+      "id": "S1",
+      "name": "write a program, run it, produce the right answer",
+      "result": "PASS",
+      "seconds": 66,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-s1",
+      "evidence": "total.txt=\"95.0\" (want 95)",
+      "toolCalls": 4,
+      "tokens": 68248
+    },
+    {
+      "id": "S2",
+      "name": "find and fix a real bug",
+      "result": "PASS",
+      "seconds": 36,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-s2",
+      "evidence": "math.js: \"export function add(a, b) {\\n  return a + b;\\n}\"",
+      "toolCalls": 4,
+      "tokens": 67706
+    },
+    {
+      "id": "X2",
+      "name": "HARD multi-file: rename a function across a small project",
+      "result": "PASS",
+      "seconds": 114,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-x2",
+      "evidence": "all 3 files renamed",
+      "toolCalls": 5,
+      "tokens": 69543
+    },
+    {
+      "id": "X3",
+      "name": "HARD recovery: obvious path blocked, must adapt",
+      "result": "PASS",
+      "seconds": 11,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-x3",
+      "evidence": "answer.txt: \"42\"",
+      "toolCalls": 4,
+      "tokens": 67474
+    },
+    {
+      "id": "C2",
+      "name": "open a real page and report its title",
+      "result": "PASS",
+      "seconds": 62,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-c2",
+      "evidence": "The exact page title of https://example.com is **\"Example Domain\"**.\ncompleted",
+      "toolCalls": 3,
+      "tokens": 70384
+    },
+    {
+      "id": "I1",
+      "name": "honest failure reporting",
+      "result": "PASS",
+      "seconds": 16,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-22t1452-i1",
+      "evidence": "The file doesn't exist at that path:\n\n```\nZ:\\definitely\\not\\a\\real\\path\\nowhere.txt\n```\n\nThe read tool returned a \"File not found\" error.\ncompleted",
+      "toolCalls": 1,
+      "tokens": 26419
+    }
+  ]
+}

@@ -26,7 +26,7 @@ If your config still contains `channels.bluebubbles`, migrate it to `channels.im
 1. Install the official plugin on the Gateway host, then restart the Gateway:
 
    ```bash
-   openclaw plugins install @granted/imessage
+   granted plugins install @granted/imessage
    ```
 
 2. Install and verify `imsg` on the Messages Mac:
@@ -64,7 +64,7 @@ If your config still contains `channels.bluebubbles`, migrate it to `channels.im
 5. Restart the gateway and verify:
 
    ```bash
-   openclaw channels status --probe
+   granted channels status --probe
    ```
 
 6. Test DMs, groups, attachments, and any private API actions you depend on before deleting your old BlueBubbles server.

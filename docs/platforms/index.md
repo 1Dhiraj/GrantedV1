@@ -43,16 +43,16 @@ Linux-compatible Gateway runtime.
 - Windows Hub: [Windows](/platforms/windows)
 - Gateway runbook: [Gateway](/gateway)
 - Gateway configuration: [Configuration](/gateway/configuration)
-- Service status: `openclaw gateway status`
+- Service status: `granted gateway status`
 
 ## Gateway service install (CLI)
 
 Use one of these (all supported):
 
-- Wizard (recommended): `openclaw onboard --install-daemon`
-- Direct: `openclaw gateway install`
-- Configure flow: `openclaw configure` → select **Gateway service**
-- Repair/migrate: `openclaw doctor` (offers to install or fix the service)
+- Wizard (recommended): `granted onboard --install-daemon`
+- Direct: `granted gateway install`
+- Configure flow: `granted configure` → select **Gateway service**
+- Repair/migrate: `granted doctor` (offers to install or fix the service)
 
 The service target depends on OS:
 

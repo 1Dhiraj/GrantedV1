@@ -1,4 +1,4 @@
-// Openai plugin entrypoint registers its OpenClaw integration.
+// Openai plugin entrypoint registers its Granted integration.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";

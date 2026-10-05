@@ -43,9 +43,25 @@ export function isSkillPromptVisible(entry: SkillEntry): boolean {
     return entry.exposure.includeInAvailableSkillsPrompt ?? true;
   }
   if (entry.invocation) {
-    return !entry.invocation.disableModelInvocation;
+    return !entry.invocation.disableModelInvocation && entry.invocation.promptListing !== "search";
   }
   return !entry.skill.disableModelInvocation;
+}
+
+/**
+ * Skills the model may use but that are deliberately absent from the catalog.
+ *
+ * These are the ones a search hint should point at. Skills disabled for model
+ * invocation are excluded: they are missing from the catalog because the model
+ * must not reach for them at all.
+ */
+export function filterSearchListedSkillEntries(entries: readonly SkillEntry[]): SkillEntry[] {
+  return entries.filter(
+    (entry) =>
+      entry.invocation?.promptListing === "search" &&
+      !entry.invocation.disableModelInvocation &&
+      (entry.exposure?.includeInRuntimeRegistry ?? true),
+  );
 }
 
 function isSkillUserInvocable(entry: SkillEntry): boolean {

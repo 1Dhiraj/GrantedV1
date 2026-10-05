@@ -52,16 +52,16 @@ If you want "100% tailored to me" _and_ easy updates, keep your customization in
 Bootstrap the config/workspace folders once, without running the full onboarding wizard:
 
 ```bash
-openclaw setup --baseline
+granted setup --baseline
 ```
 
 No global install yet? Run it from this repo instead:
 
 ```bash
-pnpm openclaw setup --baseline
+pnpm granted setup --baseline
 ```
 
-(Bare `openclaw setup`, without `--baseline`, is an alias for `openclaw onboard` and runs the full interactive wizard.)
+(Bare `granted setup`, without `--baseline`, is an alias for `granted onboard` and runs the full interactive wizard.)
 
 ## Run the Gateway from this repo
 
@@ -79,18 +79,18 @@ node granted.mjs gateway --port 18789 --verbose
 4. Link surfaces (example: WhatsApp):
 
 ```bash
-openclaw channels login
+granted channels login
 ```
 
 5. Sanity check:
 
 ```bash
-openclaw health
+granted health
 ```
 
 If onboarding is not available in your build:
 
-- Run `openclaw setup`, then `openclaw channels login`, then start the Gateway manually (`openclaw gateway`).
+- Run `granted setup`, then `granted channels login`, then start the Gateway manually (`granted gateway`).
 
 ## Bleeding edge workflow (Gateway in a terminal)
 
@@ -109,7 +109,7 @@ If you also want the macOS app on the bleeding edge:
 ```bash
 pnpm install
 # First run only (or after resetting local OpenClaw config/workspace)
-pnpm openclaw setup
+pnpm granted setup
 pnpm gateway:watch
 ```
 
@@ -121,12 +121,12 @@ terminals. Non-interactive shells stay detached and print
 detached, or `pnpm gateway:watch:raw` for foreground watch mode. The watcher
 stops the active profile's installed Gateway service before taking over its
 configured/default port, preventing the service supervisor from replacing the
-source process. The service stays installed; run `pnpm openclaw gateway start`
+source process. The service stays installed; run `pnpm granted gateway start`
 when you finish watching. The tmux pane remains available after startup failure
 so another terminal or agent can attach or capture its logs. The watcher
 reloads on relevant source, config, and bundled-plugin metadata changes. If the
 watched Gateway exits during startup, `gateway:watch` runs
-`openclaw doctor --fix --non-interactive` once and retries; set
+`granted doctor --fix --non-interactive` once and retries; set
 `OPENCLAW_GATEWAY_WATCH_AUTO_DOCTOR=0` to disable that dev-only repair pass.
 TypeScript rebuilds triggered by `pnpm openclaw ...` or `pnpm gateway:watch` preserve existing `dist/control-ui` assets but do not rebuild them. Run `pnpm ui:build` once and again after `ui/` changes, or use `pnpm ui:dev` while developing the Control UI.
 
@@ -143,7 +143,7 @@ In **OpenClaw.app**:
 - Or via CLI:
 
 ```bash
-openclaw health
+granted health
 ```
 
 ### Common footguns

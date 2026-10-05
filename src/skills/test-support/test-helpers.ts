@@ -48,6 +48,7 @@ export function createFixtureSkillEntry(
     invocation: opts?.invocation ?? {
       userInvocable: true,
       disableModelInvocation: false,
+      promptListing: "always",
     },
     exposure: opts?.exposure,
   };

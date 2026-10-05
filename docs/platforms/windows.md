@@ -88,9 +88,9 @@ Node mode requires Gateway pairing. If the app shows a pairing request,
 approve it from the Gateway host:
 
 ```powershell
-openclaw devices list
-openclaw devices approve <requestId>
-openclaw nodes status
+granted devices list
+granted devices approve <requestId>
+granted nodes status
 ```
 
 The Gateway only forwards commands the node declares and server policy
@@ -127,8 +127,8 @@ Verify:
 
 ```powershell
 openclaw --version
-openclaw doctor
-openclaw gateway status --json
+granted doctor
+granted gateway status --json
 ```
 
 Managed startup uses Windows Scheduled Tasks when available. The task keeps
@@ -140,15 +140,15 @@ falls back to a per-user Startup-folder login item.
 Install the Gateway service:
 
 ```powershell
-openclaw gateway install
-openclaw gateway status --json
+granted gateway install
+granted gateway status --json
 ```
 
 For CLI-only use without a managed Gateway service:
 
 ```powershell
-openclaw onboard --non-interactive --accept-risk --skip-health
-openclaw gateway run
+granted onboard --non-interactive --accept-risk --skip-health
+granted gateway run
 ```
 
 ## WSL2 Gateway
@@ -185,7 +185,7 @@ Then install OpenClaw inside WSL with the Linux quickstart:
 
 ```bash
 curl -fsSL https://openclaw.ai/install.sh | bash
-openclaw gateway status
+granted gateway status
 ```
 
 ## Gateway auto-start before Windows login
@@ -198,7 +198,7 @@ Inside WSL:
 ```bash
 sudo apt-get install -y dbus-x11
 sudo loginctl enable-linger "$(whoami)"
-openclaw gateway install
+granted gateway install
 ```
 
 In PowerShell as Administrator:
@@ -288,8 +288,8 @@ state, or a network failure while installing the Gateway package.
 Approve the operator or node request from the Gateway:
 
 ```powershell
-openclaw devices list
-openclaw devices approve <requestId>
+granted devices list
+granted devices approve <requestId>
 ```
 
 If the device already had a token, reconnect from the Connections tab after

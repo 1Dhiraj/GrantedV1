@@ -1,4 +1,4 @@
-// Raft plugin entrypoint registers its OpenClaw integration.
+// Raft plugin entrypoint registers its Granted integration.
 import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
 
 export default defineBundledChannelEntry({

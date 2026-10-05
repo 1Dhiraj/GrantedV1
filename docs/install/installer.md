@@ -19,7 +19,7 @@ All three support Node **22.22.3+, 24.15+, or 25.9+** with a WAL-reset-safe link
 
 Before changing packages, every installer probes the exact npm executable it will use. npm 11.15 and earlier installs normally; npm 11.16 and later, including npm 12, receives `--allow-scripts` for only the npm-resolved OpenClaw candidate identity. An unreadable npm version stops before package mutation. A remaining `.openclaw-lifecycle-pending` marker or legacy `dist/openclaw-install-guard` makes the install fail instead of reporting a lifecycle-skipped package as successful.
 
-Install-method switches verify the replacement before retiring the current owner. Source wrappers use a same-directory atomic replacement; when an npm shim shares that path, the installer moves only an identity-matched source wrapper aside and restores it if npm installation, lifecycle checks, or candidate verification fails. On upgrades, `install.sh` and `install.ps1` run `openclaw doctor --fix`; repair or final verification failure exits nonzero, and the success banner appears only after those steps complete.
+Install-method switches verify the replacement before retiring the current owner. Source wrappers use a same-directory atomic replacement; when an npm shim shares that path, the installer moves only an identity-matched source wrapper aside and restores it if npm installation, lifecycle checks, or candidate verification fails. On upgrades, `install.sh` and `install.ps1` run `granted doctor --fix`; repair or final verification failure exits nonzero, and the success banner appears only after those steps complete.
 
 ## Source build toolchain
 
@@ -249,7 +249,7 @@ by default, plus git-checkout installs under the same prefix flow.
   </Step>
   <Step title="Refresh loaded gateway service">
     If a gateway service is already loaded from that same prefix, the script runs
-    `openclaw gateway install --force`, which activates the replacement service,
+    `granted gateway install --force`, which activates the replacement service,
     and then probes gateway health best-effort.
   </Step>
 </Steps>
@@ -299,7 +299,7 @@ by default, plus git-checkout installs under the same prefix flow.
 | `--compatible-with <ver>`               | Refuse a CLI that cannot modify config written by `<ver>`                       |
 | `--node-version <ver>`                  | Node version (default: `24.19.0`; `22.23.2` on Linux ARMv7)                     |
 | `--json`                                | Emit NDJSON events                                                              |
-| `--onboard`                             | Run `openclaw onboard` after install                                            |
+| `--onboard`                             | Run `granted onboard` after install                                             |
 | `--no-onboard`                          | Skip onboarding (default)                                                       |
 | `--set-npm-prefix`                      | On Linux, force npm prefix to `~/.npm-global` if current prefix is not writable |
 | `--help \| -h`                          | Show usage                                                                      |
@@ -349,8 +349,8 @@ by default, plus git-checkout installs under the same prefix flow.
   </Step>
   <Step title="Post-install tasks">
     - Adds needed bin directory to user PATH when possible
-    - Refreshes a loaded gateway service best-effort (`openclaw gateway install --force`, then restart)
-    - Runs `openclaw doctor --fix --non-interactive` on upgrades and git installs; failure prevents an upgrade-success result
+    - Refreshes a loaded gateway service best-effort (`granted gateway install --force`, then restart)
+    - Runs `granted doctor --fix --non-interactive` on upgrades and git installs; failure prevents an upgrade-success result
 
   </Step>
   <Step title="Handle failures">
@@ -471,7 +471,7 @@ Use non-interactive flags/env vars for predictable runs.
     Rerun the installer so it can bootstrap user-local MinGit, or install Git for Windows and reopen PowerShell.
   </Accordion>
 
-  <Accordion title='Windows: "openclaw is not recognized"'>
+  <Accordion title='Windows: "granted is not recognized"'>
     Run `npm config get prefix` and add that directory to your user PATH (no `\bin` suffix needed on Windows), then reopen PowerShell.
   </Accordion>
 
@@ -486,7 +486,7 @@ Use non-interactive flags/env vars for predictable runs.
 
   </Accordion>
 
-  <Accordion title="openclaw not found after install">
+  <Accordion title="granted not found after install">
     Usually a PATH issue. See [Node.js troubleshooting](/install/node#troubleshooting).
   </Accordion>
 </AccordionGroup>

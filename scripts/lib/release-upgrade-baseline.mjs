@@ -12,7 +12,7 @@ function parseVersion(version) {
 function compareOpenClawVersions(leftVersion, rightVersion) {
   const comparison = compareReleaseVersions(leftVersion, rightVersion);
   if (comparison === null) {
-    throw new Error(`cannot compare OpenClaw versions: ${leftVersion} ${rightVersion}`);
+    throw new Error(`cannot compare Granted versions: ${leftVersion} ${rightVersion}`);
   }
   return comparison;
 }
@@ -114,7 +114,7 @@ export function resolveDefaultReleaseUpgradeBaseline(candidateVersion, published
   const candidate = parseVersion(candidateVersion);
   if (!candidate) {
     const candidateText = typeof candidateVersion === "string" ? candidateVersion.trim() : "";
-    throw new Error(`invalid candidate OpenClaw version: ${candidateText}`);
+    throw new Error(`invalid candidate Granted version: ${candidateText}`);
   }
 
   const versions = normalizePublishedVersions(publishedVersions);
@@ -130,7 +130,7 @@ export function resolveDefaultReleaseUpgradeBaseline(candidateVersion, published
     return `openclaw@${same}`;
   }
 
-  throw new Error(`no published stable OpenClaw baseline is <= candidate ${candidate.version}`);
+  throw new Error(`no published stable Granted baseline is <= candidate ${candidate.version}`);
 }
 
 export function parseArgs(argv) {

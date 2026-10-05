@@ -1,4 +1,4 @@
-// Xiaomi plugin entrypoint registers its OpenClaw integration.
+// Xiaomi plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import type {
   GrantedConfig,

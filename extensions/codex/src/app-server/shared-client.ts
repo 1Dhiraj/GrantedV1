@@ -367,7 +367,7 @@ async function resolveCodexAppServerClientStartContext(
   }
   if (preparedAuth?.kind === "profile" && !preparedAuth.store.profiles[preparedAuth.profileId]) {
     throw new Error(
-      `Prepared Codex auth profile "${preparedAuth.profileId}" was not found. Select an existing OpenAI profile or sign in again with OpenClaw, then retry.`,
+      `Prepared Codex auth profile "${preparedAuth.profileId}" was not found. Select an existing OpenAI profile or sign in again with Granted, then retry.`,
     );
   }
   if (preparedAuth?.kind === "api-key" && !preparedApiKey) {
@@ -1389,7 +1389,7 @@ export function captureExclusiveSharedCodexAppServerClient(
     (start?.transport !== "stdio" || isCodexAppServerProxyLaunch(start.args))
   ) {
     throw new AgentHarnessPreflightError(
-      "Codex ordinary configuration refresh requires an OpenClaw-managed local stdio process, not an external socket or app-server proxy. No turn was sent; reconnect through managed local stdio before continuing.",
+      "Codex ordinary configuration refresh requires an Granted-managed local stdio process, not an external socket or app-server proxy. No turn was sent; reconnect through managed local stdio before continuing.",
     );
   }
   if (requiredOwnership === "native-process" && state.isolatedClients.has(client)) {
@@ -1409,7 +1409,7 @@ export function captureExclusiveSharedCodexAppServerClient(
     }
     const generation = entry.leaseGeneration;
     const assertExclusive = () => {
-      // A sibling can resume native children without OpenClaw's thread queue.
+      // A sibling can resume native children without Granted's thread queue.
       // Even a completed intervening lease invalidates this configuration proof.
       if (
         state.clients.get(key) !== entry ||

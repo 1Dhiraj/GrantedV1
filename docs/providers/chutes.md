@@ -10,14 +10,14 @@ read_when:
 [Chutes](https://chutes.ai) exposes open-source model catalogs through an
 OpenAI-compatible API. OpenClaw supports both browser OAuth and API-key auth.
 
-| Property         | Value                                                   |
-| ---------------- | ------------------------------------------------------- |
-| Provider         | `chutes`                                                |
+| Property         | Value                                                  |
+| ---------------- | ------------------------------------------------------ |
+| Provider         | `chutes`                                               |
 | Plugin           | official external package (`@granted/chutes-provider`) |
-| API              | OpenAI-compatible                                       |
-| Base URL         | `https://llm.chutes.ai/v1`                              |
-| Auth             | OAuth or API key (see below)                            |
-| Runtime env vars | `CHUTES_API_KEY`, `CHUTES_OAUTH_TOKEN`                  |
+| API              | OpenAI-compatible                                      |
+| Base URL         | `https://llm.chutes.ai/v1`                             |
+| Auth             | OAuth or API key (see below)                           |
+| Runtime env vars | `CHUTES_API_KEY`, `CHUTES_OAUTH_TOKEN`                 |
 
 `CHUTES_OAUTH_TOKEN` supplies an already-obtained OAuth access token directly
 (for example in CI), bypassing the interactive browser flow below.
@@ -25,8 +25,8 @@ OpenAI-compatible API. OpenClaw supports both browser OAuth and API-key auth.
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/chutes-provider
-openclaw gateway restart
+granted plugins install @granted/chutes-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -39,7 +39,7 @@ the Chutes catalog.
     <Steps>
       <Step title="Run the OAuth onboarding flow">
         ```bash
-        openclaw onboard --auth-choice chutes
+        granted onboard --auth-choice chutes
         ```
         OpenClaw launches the browser flow locally, or shows a URL + redirect-paste
         flow on remote/headless hosts. OAuth tokens auto-refresh through OpenClaw auth
@@ -55,7 +55,7 @@ the Chutes catalog.
       </Step>
       <Step title="Run the API key onboarding flow">
         ```bash
-        openclaw onboard --auth-choice chutes-api-key
+        granted onboard --auth-choice chutes-api-key
         ```
       </Step>
     </Steps>
@@ -109,7 +109,7 @@ pickers:
 | `chutes/moonshotai/Kimi-K2.5-TEE`      | Hidden        |
 | `chutes/Qwen/Qwen3.5-397B-A17B-TEE`    | Hidden        |
 
-Run `openclaw models list --all --provider chutes` for the full list.
+Run `granted models list --all --provider chutes` for the full list.
 
 Fallback prices for starter models still listed by the native endpoint were
 refreshed from its August 31, 2026 response. An absent model keeps its previous

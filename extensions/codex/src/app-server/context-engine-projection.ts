@@ -1,5 +1,5 @@
 /**
- * Projects OpenClaw context-engine assemblies into Codex prompt text while
+ * Projects Granted context-engine assemblies into Codex prompt text while
  * preserving safety boundaries and redacting tool payloads.
  */
 import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
@@ -19,7 +19,7 @@ export type CodexProjectedContextRange = {
   end: number;
 };
 
-const CONTEXT_HEADER = "OpenClaw assembled context for this turn:";
+const CONTEXT_HEADER = "Granted assembled context for this turn:";
 const CONTEXT_OPEN = "<conversation_context>";
 const CONTEXT_CLOSE = "</conversation_context>";
 const REQUEST_HEADER = "Current user request:";
@@ -49,7 +49,7 @@ export function neutralizeCodexExplicitMentionSigils(text: string): string {
     .replace(/\[@(?=[A-Za-z0-9_:-]+\]\()/gu, "[＠");
 }
 
-/** Projects assembled OpenClaw context-engine messages into Codex prompt inputs. */
+/** Projects assembled Granted context-engine messages into Codex prompt inputs. */
 export function projectContextEngineAssemblyForCodex(params: {
   assembledMessages: AgentMessage[];
   originalHistoryMessages: AgentMessage[];

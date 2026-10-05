@@ -3,8 +3,8 @@ import { Command } from "commander";
 import type { Mock } from "vitest";
 import { vi } from "vitest";
 import { getRuntimeConfig } from "../config/config.js";
-import type { HookInstallRecord } from "../config/types.hooks.js";
 import type { GrantedConfig } from "../config/types.granted.js";
+import type { HookInstallRecord } from "../config/types.hooks.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { PLUGIN_INSTALL_ERROR_CODE } from "../plugins/install-types.js";
 import type { InstalledPluginIndex } from "../plugins/installed-plugin-index.js";
@@ -261,10 +261,10 @@ vi.mock("../config/config.js", () => ({
     if (process.env.GRANTED_NIX_MODE === "1") {
       throw new Error(
         [
-          "Config is managed by Nix (`GRANTED_NIX_MODE=1`), so OpenClaw treats openclaw.json as immutable.",
+          "Config is managed by Nix (`GRANTED_NIX_MODE=1`), so Granted treats openclaw.json as immutable.",
           "Do not run setup, onboarding, openclaw update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
           "Agent-first Nix setup: https://github.com/openclaw/nix-openclaw#quick-start",
-          "OpenClaw Nix overview: https://docs.openclaw.ai/install/nix",
+          "Granted Nix overview: https://docs.openclaw.ai/install/nix",
         ].join("\n"),
       );
     }

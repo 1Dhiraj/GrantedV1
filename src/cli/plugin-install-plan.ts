@@ -291,7 +291,7 @@ function resolveBundledInstallPlanBeforeNpm(params: {
   }
   return {
     bundledSource,
-    warning: `Using bundled plugin "${bundledSource.pluginId}" from ${shortenHomePath(bundledSource.localPath)} for npm install spec "${rawSpec}" because this plugin ships with the current OpenClaw build. To force an external npm override, use npm:${rawSpec}.`,
+    warning: `Using bundled plugin "${bundledSource.pluginId}" from ${shortenHomePath(bundledSource.localPath)} for npm install spec "${rawSpec}" because this plugin ships with the current Granted build. To force an external npm override, use npm:${rawSpec}.`,
   };
 }
 

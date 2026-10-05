@@ -89,7 +89,7 @@ omit `--allow-scripts=openclaw`.
 npm install -g openclaw@<version> --allow-scripts=openclaw
 ```
 
-`pnpm add -g --allow-build=openclaw openclaw@<version>` and
+`pnpm add -g --allow-build=granted openclaw@<version>` and
 `bun add -g --trust openclaw@<version>` also work. Bun's `--trust` allows the
 OpenClaw lifecycle scripts for that install. Node remains the recommended
 runtime for the Gateway itself.
@@ -229,8 +229,8 @@ If the app crashes when you try to allow **Speech Recognition** or
 Check whether a zombie process holds the port:
 
 ```bash
-openclaw gateway status
-openclaw gateway stop
+granted gateway status
+granted gateway stop
 
 # If you're not using a LaunchAgent (dev mode / manual runs), find the listener:
 lsof -nP -iTCP:18789 -sTCP:LISTEN

@@ -1,5 +1,5 @@
-import { compareEvents, finalizeEvent } from "nostr-tools";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { compareEvents, finalizeEvent } from "nostr-tools";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("nostr-tools", async (importOriginal) => {
@@ -139,7 +139,7 @@ describe("Buzz profile lifecycle", () => {
       const onProfilePublished = vi.fn();
       const onProfileError = vi.fn();
       const bus = await startTestBus({
-        profileName: "OpenClaw",
+        profileName: "Granted",
         onMessage,
         onProfilePublished,
         onProfileError,

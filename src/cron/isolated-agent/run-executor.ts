@@ -610,7 +610,7 @@ function createCronPromptExecutor(params: {
         const bootstrapPromptWarningSignature =
           bootstrapPromptWarningSignaturesSeen[bootstrapPromptWarningSignaturesSeen.length - 1];
         // CLI providers can resume provider-native sessions; embedded providers
-        // use OpenClaw's transcript/session file plus prompt-cache affinity.
+        // use Granted's transcript/session file plus prompt-cache affinity.
         if (cliExecution) {
           const cliSessionBinding = params.cronSession.isNewSession
             ? undefined

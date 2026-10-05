@@ -1,11 +1,6 @@
 // Behavior coverage for replay-history sanitization across provider policies.
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
-import type {
-  AssistantMessage,
-  ThinkingContent,
-  UserMessage,
-  Usage,
-} from "granted/plugin-sdk/llm";
+import type { AssistantMessage, ThinkingContent, UserMessage, Usage } from "granted/plugin-sdk/llm";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { markInboundContextLabel } from "../auto-reply/reply/inbound-context-marker.js";
 import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-granted-assistant.js";
@@ -1594,7 +1589,7 @@ describe("sanitizeSessionHistory", () => {
           text: [
             markInboundContextLabel("Conversation info:"),
             "```json",
-            '{"chat_id":"channel:123","sender":"OpenClaw"}',
+            '{"chat_id":"channel:123","sender":"Granted"}',
             "```",
             "",
             "Pong",
@@ -1629,7 +1624,7 @@ describe("sanitizeSessionHistory", () => {
     const metadataOnlyText = [
       markInboundContextLabel("Conversation info:"),
       "```json",
-      '{"chat_id":"channel:123","sender":"OpenClaw"}',
+      '{"chat_id":"channel:123","sender":"Granted"}',
       "```",
     ].join("\n");
     const messages = castAgentMessages([

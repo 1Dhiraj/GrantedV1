@@ -11,14 +11,14 @@ sidebarTitle: "Automations"
 
 Automations are OpenClaw's built-in scheduler. The scheduler persists jobs, wakes the agent at the right time, and can deliver output to a chat channel, a webhook, or nowhere.
 
-Manage automations with the `openclaw automations` CLI; `openclaw cron` remains an alias for the same commands.
+Manage automations with the `granted automations` CLI; `granted cron` remains an alias for the same commands.
 
 ## Quick start
 
 <Steps>
   <Step title="Add a one-shot reminder">
     ```bash
-    openclaw automations create "2027-02-01T16:00:00Z" \
+    granted automations create "2027-02-01T16:00:00Z" \
       --name "Reminder" \
       --session main \
       --system-event "Reminder: check the automations docs draft" \
@@ -28,14 +28,14 @@ Manage automations with the `openclaw automations` CLI; `openclaw cron` remains 
   </Step>
   <Step title="Check your jobs">
     ```bash
-    openclaw automations list
-    openclaw automations get <job-id>
-    openclaw automations show <job-id>
+    granted automations list
+    granted automations get <job-id>
+    granted automations show <job-id>
     ```
   </Step>
   <Step title="See run history">
     ```bash
-    openclaw automations runs --id <job-id>
+    granted automations runs --id <job-id>
     ```
   </Step>
 </Steps>
@@ -48,7 +48,7 @@ Manage automations with the `openclaw automations` CLI; `openclaw cron` remains 
 - One-shot jobs (`--at`) auto-delete after successful completion: delivery is confirmed, not requested, intentionally suppressed, or explicitly best-effort. Failed or unknown required delivery retains the job disabled for inspection without replaying the payload. Pass `--keep-after-run` to keep successful jobs too.
 - Per-run wall-clock budget: `--timeout-seconds` when set. Otherwise, isolated/detached agent-turn jobs are bounded by the scheduler's own 60-minute watchdog before the underlying agent-turn timeout (`agents.defaults.timeoutSeconds`, default 48 hours) would ever apply; command jobs default to 10 minutes, and script payloads default to 5 minutes.
 - On Gateway startup, overdue isolated agent-turn jobs are rescheduled instead of replayed immediately, keeping model/tool bootstrap work out of the channel-connect window. Startup catch-up delays survive label or payload-content reconciliation and another restart; changing the schedule starts a new scheduling decision.
-- If you drive `openclaw agent` from system cron or another external scheduler, wrap it with a hard-kill escalation even though the CLI already handles `SIGTERM`/`SIGINT`. Gateway-backed runs ask the Gateway to abort accepted runs; `--local` runs get the same abort signal. For GNU `timeout`, prefer `timeout -k 60 600 openclaw agent ...` over plain `timeout 600 ...` — the `-k` value is the backstop if the process cannot drain in time. For systemd units, use a `SIGTERM` stop signal with a grace window (`TimeoutStopSec`) before the final kill. Reusing a `--run-id` while the original Gateway run is still active reports the duplicate as in-flight instead of starting a second run.
+- If you drive `granted agent` from system cron or another external scheduler, wrap it with a hard-kill escalation even though the CLI already handles `SIGTERM`/`SIGINT`. Gateway-backed runs ask the Gateway to abort accepted runs; `--local` runs get the same abort signal. For GNU `timeout`, prefer `timeout -k 60 600 granted agent ...` over plain `timeout 600 ...` — the `-k` value is the backstop if the process cannot drain in time. For systemd units, use a `SIGTERM` stop signal with a grace window (`TimeoutStopSec`) before the final kill. Reusing a `--run-id` while the original Gateway run is still active reports the duplicate as in-flight instead of starting a second run.
 
 <AccordionGroup>
   <Accordion title="Isolated run hardening">
@@ -79,7 +79,7 @@ Manage automations with the `openclaw automations` CLI; `openclaw cron` remains 
 | `on-exit` | `--on-exit`        | Fire once when a watched command exits (event trigger; survives turn teardown; optional `--on-exit-cwd`) |
 | `stream`  | `--stream-command` | Fire from batched lines produced by a supervised long-lived command                                      |
 
-These schedule flags work with both `openclaw automations add` and `openclaw automations edit <job-id>`. For example, `openclaw automations edit <job-id> --on-exit "./watch.sh" --on-exit-cwd /srv/app` converts an existing job to an exit-triggered schedule.
+These schedule flags work with both `granted automations add` and `granted automations edit <job-id>`. For example, `granted automations edit <job-id> --on-exit "./watch.sh" --on-exit-cwd /srv/app` converts an existing job to an exit-triggered schedule.
 
 Timestamps without a timezone are treated as UTC. Add `--tz America/New_York` to interpret an offset-less `--at` datetime, or to evaluate a cron expression, in that IANA timezone. Cron expressions without `--tz` use the Gateway host timezone. `--tz` is not valid with `--every` or `--on-exit`.
 
@@ -87,9 +87,9 @@ Recurring top-of-hour expressions (minute `0` with a wildcard hour field) are au
 
 ### Heartbeat task migration
 
-Older heartbeat scratch supported a structured `tasks:` block. Run `openclaw doctor --fix` after upgrading to convert each entry into an ordinary editable main-session automation job. Doctor preserves the interval and previous last-run timing, creates the jobs before removing the block, and safely converges the same declaration keys on rerun.
+Older heartbeat scratch supported a structured `tasks:` block. Run `granted doctor --fix` after upgrading to convert each entry into an ordinary editable main-session automation job. Doctor preserves the interval and previous last-run timing, creates the jobs before removing the block, and safely converges the same declaration keys on rerun.
 
-These migrated jobs carry public `systemEvent` payloads, so `openclaw automations list`, `get`, `edit`, and `remove` plus the `automations` agent tool manage them like other jobs (the tool still accepts its legacy `cron` name as a compatibility alias). Their execution uses the guarded heartbeat task wake: active hours, minimum spacing, flood control, and busy retries still apply, while the scheduler owns each task's independent cadence. Jobs due in the same coalescing window can share one heartbeat turn. A scheduled occurrence outside heartbeat active hours is skipped and retried at the job's next occurrence.
+These migrated jobs carry public `systemEvent` payloads, so `granted automations list`, `get`, `edit`, and `remove` plus the `automations` agent tool manage them like other jobs (the tool still accepts its legacy `cron` name as a compatibility alias). Their execution uses the guarded heartbeat task wake: active hours, minimum spacing, flood control, and busy retries still apply, while the scheduler owns each task's independent cadence. Jobs due in the same coalescing window can share one heartbeat turn. A scheduled occurrence outside heartbeat active hours is skipped and retried at the job's next occurrence.
 
 Heartbeat scratch is now monitor prose only. Runtime heartbeats do not parse `tasks:` text as schedules; create new recurring work as automations.
 
@@ -98,7 +98,7 @@ Heartbeat scratch is now monitor prose only. Runtime heartbeats do not parse `ta
 A stream schedule keeps an operator-authored argv command running under the Gateway and fires the job from its stdout and stderr lines. Stream schedules are event-driven, never time-due, and are available by default. Set `cron.triggers.enabled: false` to disable them together with condition-trigger scripts and script payloads. Disabling or removing the job stops the process; Gateway shutdown waits for process-tree teardown. Fast failures restart with the scheduler's built-in error backoff. Five consecutive runs shorter than 60 seconds leave the job in an error state and use the normal failure-alert path; manually re-enable the job to clear the restart cap.
 
 ```bash
-openclaw automations add \
+granted automations add \
   --name "Build event stream" \
   --stream-command '["node","scripts/build-events.mjs"]' \
   --stream-mode match \
@@ -154,7 +154,7 @@ An event trigger adds a headless condition script to an `every`, `cron`, or `str
 }
 ```
 
-When upgrading, run `openclaw doctor --fix` to migrate persisted trigger scripts that call `tools.call('exec', args)` and read the legacy `.result.details` envelope. Doctor leaves custom or ambiguous legacy scripts unchanged and identifies each affected job for manual conversion; standalone script payloads are not migrated.
+When upgrading, run `granted doctor --fix` to migrate persisted trigger scripts that call `tools.call('exec', args)` and read the legacy `.result.details` envelope. Doctor leaves custom or ambiguous legacy scripts unchanged and identifies each affected job for manual conversion; standalone script payloads are not migrated.
 
 The script must return `{ fire, message?, state? }`. The previous JSON state is available as the deeply frozen `trigger.state`; stream gates also receive the current batch as `trigger.streamBatch`. Return a new `state` value to persist it. State is capped at 16 KB. When a firing result includes `message`, the scheduler appends it to the system-event text or agent-turn message before execution. `once: true` disables the job after its first successful fired payload.
 
@@ -169,7 +169,7 @@ Condition-trigger scripts and `script` payloads run unattended by default with t
 Create a watcher from a local script file (`-` reads the script from stdin):
 
 ```bash
-openclaw automations add \
+granted automations add \
   --name "PR CI watcher" \
   --every 30s \
   --trigger-script ./watch-pr-ci.js \
@@ -231,7 +231,7 @@ Every job carries exactly one payload kind, chosen by flag:
 | Command       | `--command <shell>` or `--command-argv <json>` | A shell/process on the Gateway host, no model call         |
 | Script        | `--script <file\|->`                           | A headless code-mode script using the owning agent's tools |
 
-System-owned payload kinds are gateway-converged and cannot be created or edited through the CLI or API. The `heartbeat` kind creates one heartbeat monitor job per heartbeat-enabled agent (see [Heartbeat](/gateway/heartbeat)). The `skillCollectionReview` kind creates one Skill Workshop review job per writable workspace. Both appear in `openclaw cron list`; use `--all` to include disabled rows.
+System-owned payload kinds are gateway-converged and cannot be created or edited through the CLI or API. The `heartbeat` kind creates one heartbeat monitor job per heartbeat-enabled agent (see [Heartbeat](/gateway/heartbeat)). The `skillCollectionReview` kind creates one Skill Workshop review job per writable workspace. Both appear in `granted cron list`; use `--all` to include disabled rows.
 
 Skill collection review runs every 7 days. It is enabled when `skills.workshop.autonomous.mode` is `auto`; `propose` and `off` keep the system-owned job disabled. The Gateway converges these jobs at startup and after config reload. Scheduled reviews require automations. When `cron.enabled` is `false` or `OPENCLAW_SKIP_CRON=1`, the Gateway logs a startup warning and does not run scheduled reviews. There is no separate weekly Gateway timer.
 
@@ -304,7 +304,7 @@ Command payloads are an operator-admin Gateway automation surface, not an agent 
 </Note>
 
 ```bash
-openclaw automations create "*/15 * * * *" \
+granted automations create "*/15 * * * *" \
   --name "Queue depth probe" \
   --command "scripts/check-queue.sh" \
   --command-cwd "/srv/app" \
@@ -322,7 +322,7 @@ Delivered text is derived from process output: non-empty stdout wins; if stdout 
 Script payloads run headlessly in the same code-mode executor as trigger scripts, without starting a conversational agent turn. They are available by default; setting `cron.triggers.enabled: false` disables creation and execution of script payloads together with condition-trigger scripts and stream schedules. Script jobs support only `main` and `isolated` session targets.
 
 ```bash
-openclaw automations create "0 * * * *" \
+granted automations create "0 * * * *" \
   --name "Hourly queue check" \
   --script ./automation/check-queue.js \
   --script-timeout-seconds 300 \
@@ -458,7 +458,7 @@ Execution failures use one scheduler-owned threshold and cooldown policy. A job 
 Failure notification routes resolve in this order:
 
 1. Route fields in the job's `failureAlert` object.
-2. `job.delivery.failureDestination`, layered over the destination fields in global `cron.failureAlert` (`mode`, `channel`, `to`, `accountId`). The retired `cron.failureDestination` block is merged into the global object by `openclaw doctor --fix`.
+2. `job.delivery.failureDestination`, layered over the destination fields in global `cron.failureAlert` (`mode`, `channel`, `to`, `accountId`). The retired `cron.failureDestination` block is merged into the global object by `granted doctor --fix`.
 3. The job's primary announce target.
 
 - `job.failureAlert: false` disables execution and required-delivery failure alerts for that job. The auto-disable safety notification remains active.
@@ -467,21 +467,21 @@ Failure notification routes resolve in this order:
 - `delivery.bestEffort: true` suppresses inherited/default execution-failure alerts. An explicit per-job `failureAlert` remains authoritative.
 - `delivery.failureDestination` is only supported on `sessionTarget="isolated"` jobs unless the primary delivery mode is `webhook`.
 - `failureAlert.includeSkipped: true` opts a job or global automation alert policy into repeated skipped-run alerts. Skipped runs keep a separate consecutive-skip counter, so they do not affect execution-error backoff.
-- `openclaw automations edit` exposes per-job alert tuning: `--failure-alert`/`--no-failure-alert`, `--failure-alert-after <n>`, `--failure-alert-channel`, `--failure-alert-to`, `--failure-alert-cooldown`, `--failure-alert-include-skipped`/`--failure-alert-exclude-skipped`, `--failure-alert-mode`, and `--failure-alert-account-id`.
+- `granted automations edit` exposes per-job alert tuning: `--failure-alert`/`--no-failure-alert`, `--failure-alert-after <n>`, `--failure-alert-channel`, `--failure-alert-to`, `--failure-alert-cooldown`, `--failure-alert-include-skipped`/`--failure-alert-exclude-skipped`, `--failure-alert-mode`, and `--failure-alert-account-id`.
 
 A required completion-delivery failure is distinct from an execution failure: a run can record `status: "ok"` with `completionStatus: "failed"`. It does not increment the execution-failure streak or backoff. A delivery-failure alert can notify through a resolved alternate failure destination without waiting for `failureAlert.after`. All such alerts, including the first delivery failure after an execution alert, honor the shared job/global `failureAlert.cooldownMs` (default 1 hour); suppressed alerts still leave the delivery failure in run history. Skipped runs and quiet trigger checks do not clear the cooldown; successful completion does. The scheduler never retries the already-failed primary route for an alert.
 
 Chat failure notifications include the run start time in the agent's configured user timezone. When `gateway.publicOrigin` is configured and the Control UI is enabled, they also include an `Inspect` link to the automation run. Webhook message text stays stable; integrations can read the same instant from the structured `runAtMs` field and construct their own links.
 Chat notifications show normalized failure causes or allowlisted producer facts for known command and script failures. Arbitrary commands, paths, provider bodies, secrets, delivery errors, skip reasons, diagnostics, and stack/error text remain in automation history. Failure webhooks retain the structured raw error for diagnostic integrations.
 
-The scheduler also provides an unconditional safety backstop. A time-based recurring job is auto-disabled after 10 consecutive execution failures; a successful run resets that streak. On the terminal failure, the richer auto-disable notification replaces the regular threshold alert. Repeated schedule-computation failures auto-disable after 3 errors. The job records `state.autoDisabled.reason` as `consecutive-failures` or `schedule-errors`, and the owning agent receives a notification with a safe cause and recovery command. Raw errors stay in automation history. After fixing the cause, run `openclaw automations enable <jobId>`; enabling clears the recorded reason and failure streaks. Because disabled jobs are hidden by the default list, use `openclaw automations list --all` to inspect them.
+The scheduler also provides an unconditional safety backstop. A time-based recurring job is auto-disabled after 10 consecutive execution failures; a successful run resets that streak. On the terminal failure, the richer auto-disable notification replaces the regular threshold alert. Repeated schedule-computation failures auto-disable after 3 errors. The job records `state.autoDisabled.reason` as `consecutive-failures` or `schedule-errors`, and the owning agent receives a notification with a safe cause and recovery command. Raw errors stay in automation history. After fixing the cause, run `granted automations enable <jobId>`; enabling clears the recorded reason and failure streaks. Because disabled jobs are hidden by the default list, use `granted automations list --all` to inspect them.
 
 ### Output language
 
 Automation jobs do not infer a reply language from channel, locale, or previous messages. Put the language rule in the scheduled message or template:
 
 ```bash
-openclaw automations edit <jobId> \
+granted automations edit <jobId> \
   --message "Summarize the updates. Respond in Chinese; keep URLs, code, and product names unchanged."
 ```
 
@@ -492,7 +492,7 @@ For template files, keep the language instruction in the rendered prompt and ver
 <Tabs>
   <Tab title="One-shot reminder">
     ```bash
-    openclaw automations add \
+    granted automations add \
       --name "Calendar check" \
       --at "20m" \
       --session main \
@@ -502,7 +502,7 @@ For template files, keep the language instruction in the rendered prompt and ver
   </Tab>
   <Tab title="Recurring isolated job">
     ```bash
-    openclaw automations create "0 7 * * *" \
+    granted automations create "0 7 * * *" \
       "Summarize overnight updates." \
       --name "Morning brief" \
       --tz "America/Los_Angeles" \
@@ -514,7 +514,7 @@ For template files, keep the language instruction in the rendered prompt and ver
   </Tab>
   <Tab title="Model and thinking override">
     ```bash
-    openclaw automations add \
+    granted automations add \
       --name "Deep analysis" \
       --cron "0 6 * * 1" \
       --tz "America/Los_Angeles" \
@@ -527,7 +527,7 @@ For template files, keep the language instruction in the rendered prompt and ver
   </Tab>
   <Tab title="Webhook output">
     ```bash
-    openclaw automations create "0 18 * * 1-5" \
+    granted automations create "0 18 * * 1-5" \
       "Summarize today's deploys as JSON." \
       --name "Deploy digest" \
       --webhook "https://example.invalid/openclaw/cron"
@@ -535,7 +535,7 @@ For template files, keep the language instruction in the rendered prompt and ver
   </Tab>
   <Tab title="Command output">
     ```bash
-    openclaw automations create "*/15 * * * *" \
+    granted automations create "*/15 * * * *" \
       --name "Queue depth probe" \
       --command "scripts/check-queue.sh" \
       --command-cwd "/srv/app" \
@@ -550,50 +550,50 @@ For template files, keep the language instruction in the rendered prompt and ver
 
 ```bash
 # List enabled jobs
-openclaw automations list
+granted automations list
 
 # Include disabled jobs
-openclaw automations list --all
+granted automations list --all
 
 # Get one stored job as JSON
-openclaw automations get <jobId>
+granted automations get <jobId>
 
 # Show one job, including resolved delivery route
-openclaw automations show <jobId>
+granted automations show <jobId>
 
 # Enable/disable without deleting
-openclaw automations enable <jobId>
-openclaw automations disable <jobId>
+granted automations enable <jobId>
+granted automations disable <jobId>
 
 # Edit a job
-openclaw automations edit <jobId> --message "Updated prompt" --model "opus"
+granted automations edit <jobId> --message "Updated prompt" --model "opus"
 
 # Force run a job now
-openclaw automations run <jobId>
+granted automations run <jobId>
 
 # Force run a job now and wait for its terminal status
-openclaw automations run <jobId> --wait --wait-timeout 10m --poll-interval 2s
+granted automations run <jobId> --wait --wait-timeout 10m --poll-interval 2s
 
 # Run only if due
-openclaw automations run <jobId> --due
+granted automations run <jobId> --due
 
 # View run history
-openclaw automations runs --id <jobId> --limit 50
+granted automations runs --id <jobId> --limit 50
 
 # View one exact run
-openclaw automations runs --id <jobId> --run-id <runId>
+granted automations runs --id <jobId> --run-id <runId>
 
 # Delete a job
-openclaw automations remove <jobId>
+granted automations remove <jobId>
 
 # Agent selection (multi-agent setups)
-openclaw automations create "0 6 * * *" "Check ops queue" --name "Ops sweep" --session isolated --agent ops
-openclaw automations edit <jobId> --clear-agent
+granted automations create "0 6 * * *" "Check ops queue" --name "Ops sweep" --session isolated --agent ops
+granted automations edit <jobId> --clear-agent
 ```
 
-Archiving a session (Control UI, or `sessions.patch { key, archived: true, expectedSessionId }` using the durable ID from `sessions.list`) disables every enabled automation job bound to that session: its isolated `cron:<jobId>` session, a `session:<key>` target, or a delivery/wake `sessionKey` lane. Restoring the session requires the same observed identity and does not re-enable those jobs; use `openclaw automations enable <jobId>`. Sessions with an enabled bound job show a clock badge in the Control UI sidebar.
+Archiving a session (Control UI, or `sessions.patch { key, archived: true, expectedSessionId }` using the durable ID from `sessions.list`) disables every enabled automation job bound to that session: its isolated `cron:<jobId>` session, a `session:<key>` target, or a delivery/wake `sessionKey` lane. Restoring the session requires the same observed identity and does not re-enable those jobs; use `granted automations enable <jobId>`. Sessions with an enabled bound job show a clock badge in the Control UI sidebar.
 
-`openclaw automations run <jobId>` returns after enqueueing the manual run. Use `--wait` for shutdown hooks, maintenance scripts, or other automation that must block until the queued run finishes; it polls the returned `runId` (default timeout `10m`, poll interval `2s`) and exits `0` only for `completionStatus: "succeeded"`. Failed or unknown completion and wait timeouts exit non-zero.
+`granted automations run <jobId>` returns after enqueueing the manual run. Use `--wait` for shutdown hooks, maintenance scripts, or other automation that must block until the queued run finishes; it polls the returned `runId` (default timeout `10m`, poll interval `2s`) and exits `0` only for `completionStatus: "succeeded"`. Failed or unknown completion and wait timeouts exit non-zero.
 
 Run history keeps payload execution in `status` (`ok`, `error`, or `skipped`) and whole-run completion in `completionStatus` (`succeeded`, `failed`, or `unknown`). Requested delivery is required unless the admitted job explicitly sets `delivery.bestEffort: true`; delivery-only failure leaves execution `status: "ok"`, does not increment execution error counters or enter retry backoff, and records `completionStatus: "failed"`. An adapter send without a delivery identity stays `unknown`, without an automatic resend that could duplicate the message.
 
@@ -603,20 +603,20 @@ Direct Gateway event sources can use `cron.run` with `mode: "if-enabled"` to run
 
 The agent `automations` tool returns compact job summaries (`id`, `name`, `enabled`, `nextRunAtMs`, `scheduleKind`, `lastRunStatus`) from `automations(action: "list")`; use `automations(action: "get", jobId: "...")` for one full job definition. Direct Gateway callers can pass `compact: true` to `cron.list`; omitting it preserves the full response with delivery previews. `cron.add` includes the same dry-run preview on the created job so create-time output names a resolved route or fail-closed outcome.
 
-`openclaw automations create` is an alias for `openclaw automations add`. New jobs can use a positional schedule (`"0 9 * * 1"`, `"every 1h"`, `"20m"`, or an ISO timestamp) followed by a positional agent prompt. Use `--webhook <url>` on `automations add|create` or `automations edit` to POST the finished run payload to an HTTP endpoint; webhook delivery cannot combine with chat delivery flags (`--announce`, `--channel`, `--to`, `--thread-id`, `--account`). On `automations edit`, `--clear-channel`, `--clear-to`, `--clear-thread-id`, and `--clear-account` unset those routing fields individually (each rejected alongside its matching set flag) — distinct from `--no-deliver`, which only disables runner fallback delivery.
+`granted automations create` is an alias for `granted automations add`. New jobs can use a positional schedule (`"0 9 * * 1"`, `"every 1h"`, `"20m"`, or an ISO timestamp) followed by a positional agent prompt. Use `--webhook <url>` on `automations add|create` or `automations edit` to POST the finished run payload to an HTTP endpoint; webhook delivery cannot combine with chat delivery flags (`--announce`, `--channel`, `--to`, `--thread-id`, `--account`). On `automations edit`, `--clear-channel`, `--clear-to`, `--clear-thread-id`, and `--clear-account` unset those routing fields individually (each rejected alongside its matching set flag) — distinct from `--no-deliver`, which only disables runner fallback delivery.
 
 The webhook URL remains subject to the strict outbound policy above; configure `cron.webhookSsrfPolicy` for an intentional local or private receiver.
 
 <Note>
 Model override note:
 
-- `openclaw automations add|edit --model ...` changes the job's selected model.
+- `granted automations add|edit --model ...` changes the job's selected model.
 - If the model is allowed, that exact provider/model reaches the isolated agent run.
 - If it is not allowed or cannot be resolved, the scheduler fails the run with an explicit validation error.
 - API `cron.update` payload patches can set `model: null` to clear a stored job model override.
-- `openclaw automations edit <job-id> --clear-model` clears that override from the CLI (same effect as the `model: null` patch) and cannot combine with `--model`.
+- `granted automations edit <job-id> --clear-model` clears that override from the CLI (same effect as the `model: null` patch) and cannot combine with `--model`.
 - Configured fallback chains still apply because the automation `--model` is a job primary, not a session `/model` override.
-- `openclaw automations add|edit --fallbacks ...` sets payload `fallbacks`, replacing configured fallbacks for that job; `--fallbacks ""` disables fallback and makes the run strict. `openclaw automations edit <job-id> --clear-fallbacks` clears the per-job override.
+- `granted automations add|edit --fallbacks ...` sets payload `fallbacks`, replacing configured fallbacks for that job; `--fallbacks ""` disables fallback and makes the run strict. `granted automations edit <job-id> --clear-fallbacks` clears the per-job override.
 - A plain `--model` with no explicit or configured fallback list does not fall through to the agent primary as a silent extra retry target.
 
 </Note>
@@ -652,15 +652,15 @@ commands on the Gateway host with its profile/config. Validate the configuration
 restart the installed service to load it, and watch the logs:
 
 ```bash
-openclaw config validate
+granted config validate
 ```
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 ```bash
-openclaw logs --follow
+granted logs --follow
 ```
 
 If you run the Gateway in the foreground rather than as an installed service,
@@ -688,7 +688,7 @@ mean the model finished, a tool succeeded, or a message was delivered. A single
 agent request can wait up to 15 seconds for admission; the model runtime may still
 be preparing when the response arrives.
 
-In `openclaw logs --follow`, search for `hook agent run completed` and the exact HTTP
+In `granted logs --follow`, search for `hook agent run completed` and the exact HTTP
 `runId`. Runs with `status=ok` and no explicit delivery error log at info level;
 all non-ok statuses (including skipped runs), thrown errors, and explicit delivery
 errors log at warn level. For this `deliver: false` test, expect `status=ok` with
@@ -704,7 +704,7 @@ the key does not guarantee a separate durable session row. Missing session facts
 remain unknown. Diagnostics are redacted, single-line, and bounded to
 500 characters per string. Successful output is not logged: inspect the agent's
 run session for it. The HTTP `runId` correlates hook logs; it is not a TaskFlow id
-or a task id to pass to `openclaw tasks show`.
+or a task id to pass to `granted tasks show`.
 
 `sessionMode` defaults to `isolated`, so this test gets a fresh run session and
 a generated logical `hook:<uuid>` key. The stored session can use a
@@ -863,7 +863,7 @@ Before connecting Gmail transport, merge a dedicated reader and hook policy into
 }
 ```
 
-Before restart, run `openclaw agents list --bindings`; replace every placeholder and verify each channel owner.
+Before restart, run `granted agents list --bindings`; replace every placeholder and verify each channel owner.
 
 Why this shape is safer:
 
@@ -883,9 +883,9 @@ If you intentionally route Gmail to a more capable agent, treat that as a securi
 Authenticate the provider selected by `mail_reader`, or ensure its effective auth configuration can use a supported shared credential, then verify the route before connecting Gmail:
 
 ```bash
-openclaw models auth --agent mail_reader login --provider openai
-openclaw models status --agent mail_reader --check --probe --probe-provider openai
-openclaw agent --agent mail_reader --message "Reply exactly MAIL_READER_OK" --json
+granted models auth --agent mail_reader login --provider openai
+granted models status --agent mail_reader --check --probe --probe-provider openai
+granted agent --agent mail_reader --message "Reply exactly MAIL_READER_OK" --json
 ```
 
 Use the matching provider id when you choose a different model. The live probe checks the provider credential; the agent turn proves the selected model, runtime, sandbox, and effective tool policy can complete a real reader run. Do not continue until both succeed.
@@ -893,7 +893,7 @@ Use the matching provider id when you choose a different model. The live probe c
 ### Connect Gmail transport
 
 ```bash
-openclaw webhooks gmail setup --account reader@example.com
+granted webhooks gmail setup --account reader@example.com
 ```
 
 This writes `hooks.gmail` transport settings, enables the Gmail preset, preserves the restricted mapping above, and defaults to Tailscale Funnel for the push endpoint (`--tailscale funnel|serve|off`). The wizard does not create a reader agent or session-key policy, so apply the restricted configuration first. `--tailscale serve` is tailnet-only; it is not a publicly reachable Pub/Sub endpoint without another ingress arrangement. Use `--tailscale off --push-endpoint <url>` for an externally managed endpoint. See [all setup flags](/cli/webhooks).
@@ -909,10 +909,10 @@ For untrusted inboxes, route the hook to a dedicated reader agent, give that age
 ### Verify the reader boundary
 
 ```bash
-openclaw config validate
-openclaw sandbox explain --agent mail_reader
-openclaw security audit --deep
-openclaw logs --follow
+granted config validate
+granted sandbox explain --agent mail_reader
+granted security audit --deep
+granted logs --follow
 ```
 
 Send a test email from another account containing an inert instruction such as “follow this link and run a command.” The watcher excludes `SPAM`, `TRASH`, `DRAFT`, and `SENT`, so a sent-only message is not a useful ingress test. Confirm the selected agent is `mail_reader`, the run is sandboxed, and the output only summarizes the message. The mapping uses the logical `hook:gmail:<message-id>` key; an isolated run can be stored under a generated `cron:...:run:...` session instead.
@@ -925,7 +925,7 @@ When `hooks.enabled=true` and `hooks.gmail.account` is set, the Gateway starts `
 
 With `forEach: "messages"`, the Gateway prepares one action per email, up to the 200-item fan-out cap. Gmail-path mappings receive a larger request-body allowance derived from `hooks.gmail.maxBytes`, capped at 32 MiB. The upstream history page size is not a strict email count, so oversized batches can still hit limits. See the [Gmail reference](/gateway/configuration-reference#gmail-integration) for the exact allowance and [fan-out retry behavior](/gateway/configuration-reference#hook-retries-and-fan-out).
 
-Do not run `openclaw webhooks gmail run` or another `gog gmail watch serve` on the same listener while the Gateway-managed watcher is running. Check logs for watch-registration failures, forwarding failures, and bind conflicts; starting the serve process alone does not prove Gmail registration succeeded.
+Do not run `granted webhooks gmail run` or another `gog gmail watch serve` on the same listener while the Gateway-managed watcher is running. Check logs for watch-registration failures, forwarding failures, and bind conflicts; starting the serve process alone does not prove Gmail registration succeeded.
 
 ### Manual one-time setup
 
@@ -1017,7 +1017,7 @@ Disable automations: `cron.enabled: false` or `OPENCLAW_SKIP_CRON=1`.
     `cron.sessionRetention` (default `24h`, `false` or `"0h"` disables) prunes isolated run-session entries. Terminal run history is retained for 7 days (`lost` rows for 24 hours), with the newest 2000 rows per job and history class enforced as an additional ceiling.
   </Accordion>
   <Accordion title="Legacy store migration">
-    On upgrade, run `openclaw doctor --fix` to import historical `~/.openclaw/cron/jobs.json`, `jobs-state.json`, `jobs-quarantine.json`, and `runs/*.jsonl` files into SQLite and archive the originals with a `.migrated` suffix. Malformed job rows remain recoverable in SQLite while valid jobs keep running.
+    On upgrade, run `granted doctor --fix` to import historical `~/.openclaw/cron/jobs.json`, `jobs-state.json`, `jobs-quarantine.json`, and `runs/*.jsonl` files into SQLite and archive the originals with a `.migrated` suffix. Malformed job rows remain recoverable in SQLite while valid jobs keep running.
   </Accordion>
 </AccordionGroup>
 
@@ -1026,14 +1026,14 @@ Disable automations: `cron.enabled: false` or `OPENCLAW_SKIP_CRON=1`.
 ### Command ladder
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw automations status
-openclaw automations list
-openclaw automations runs --id <jobId> --limit 20
-openclaw system heartbeat last
-openclaw logs --follow
-openclaw doctor
+granted status
+granted gateway status
+granted automations status
+granted automations list
+granted automations runs --id <jobId> --limit 20
+granted system heartbeat last
+granted logs --follow
+granted doctor
 ```
 
 <AccordionGroup>
@@ -1041,7 +1041,7 @@ openclaw doctor
     - Check `cron.enabled` and the `OPENCLAW_SKIP_CRON` env var.
     - Confirm the Gateway is running continuously.
     - For `cron` schedules, verify timezone (`--tz`) vs the host timezone.
-    - `reason: not-due` in run output means the manual run was checked with `openclaw automations run <jobId> --due` and the job was not due yet.
+    - `reason: not-due` in run output means the manual run was checked with `granted automations run <jobId> --due` and the job was not due yet.
 
   </Accordion>
   <Accordion title="Job fired but no delivery">

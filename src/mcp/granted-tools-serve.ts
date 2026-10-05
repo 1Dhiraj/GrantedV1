@@ -1,5 +1,5 @@
 /**
- * Standalone MCP server for selected built-in OpenClaw tools.
+ * Standalone MCP server for selected built-in Granted tools.
  *
  * Run via: node --import tsx src/mcp/granted-tools-serve.ts
  * Or: bun src/mcp/granted-tools-serve.ts

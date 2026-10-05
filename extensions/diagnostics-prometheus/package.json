@@ -1,7 +1,7 @@
 {
   "name": "@granted/diagnostics-prometheus",
   "version": "2026.8.1",
-  "description": "OpenClaw diagnostics Prometheus exporter for runtime metrics.",
+  "description": "Granted diagnostics Prometheus exporter for runtime metrics.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

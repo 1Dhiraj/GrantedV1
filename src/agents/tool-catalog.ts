@@ -1,7 +1,7 @@
 /**
  * Core tool catalog and profile defaults.
  * Drives built-in profile allowlists, group expansion, and UI section metadata
- * for OpenClaw-owned tools.
+ * for Granted-owned tools.
  *
  * This module is bundled into the Control UI via tool-policy-shared. Keep it
  * pure data + tiny pure functions: a value import of server config/runtime
@@ -356,7 +356,8 @@ const CORE_TOOL_DEFINITIONS: CoreToolDefinition[] = [
   },
   {
     id: "computer",
-    description: "Control a paired computer node desktop",
+    description:
+      "Control a remote paired computer node desktop; use desktop for apps on the local Windows gateway",
     sectionId: "nodes",
     profiles: [],
     includeInOpenClawGroup: true,

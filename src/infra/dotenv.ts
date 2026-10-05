@@ -226,7 +226,7 @@ const BLOCKED_WORKSPACE_DOTENV_PREFIXES = [
   // AWS SDK endpoint overrides redirect signed provider traffic by service id.
   "AWS_ENDPOINT_URL_",
   "OPENAI_API_KEY_",
-  // Workspace .env is untrusted; reserve the full OpenClaw runtime namespace
+  // Workspace .env is untrusted; reserve the full Granted runtime namespace
   // for shell/global config so new GRANTED_* controls are fail-closed by default.
   "GRANTED_",
   "GRANTED_DISABLE_",

@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw transcripts` (list, show, and export stored transcripts)"
+summary: "CLI reference for `granted transcripts` (list, show, and export stored transcripts)"
 read_when:
   - You want to read stored transcript summaries from the terminal
   - You need the path to a transcripts markdown summary
@@ -7,7 +7,7 @@ read_when:
 title: "Transcripts CLI"
 ---
 
-# `openclaw transcripts`
+# `granted transcripts`
 
 Inspector and export command for durable meeting transcripts. Google Meet,
 Microsoft Teams, and Zoom browser participants capture notes automatically;
@@ -34,17 +34,17 @@ derived from the session id.
 ## Commands
 
 ```bash
-openclaw transcripts list
-openclaw transcripts show <session>
-openclaw transcripts show YYYY-MM-DD/<session>
-openclaw transcripts path <session>
-openclaw transcripts path YYYY-MM-DD/<session>
-openclaw transcripts path <session> --dir
-openclaw transcripts path <session> --metadata
-openclaw transcripts path <session> --transcript
-openclaw transcripts list --json
-openclaw transcripts show <session> --json
-openclaw transcripts path <session> --json
+granted transcripts list
+granted transcripts show <session>
+granted transcripts show YYYY-MM-DD/<session>
+granted transcripts path <session>
+granted transcripts path YYYY-MM-DD/<session>
+granted transcripts path <session> --dir
+granted transcripts path <session> --metadata
+granted transcripts path <session> --transcript
+granted transcripts list --json
+granted transcripts show <session> --json
+granted transcripts path <session> --json
 ```
 
 | Command                       | Description                                          |
@@ -63,7 +63,7 @@ Otherwise, `show` and `path` accept `YYYY-MM-DD/<raw-session-id>`, keeping the
 entire suffix literal, including punctuation and slashes. For example:
 
 ```bash
-openclaw transcripts show '2026-05-22/notes: room/one'
+granted transcripts show '2026-05-22/notes: room/one'
 ```
 
 If neither qualified form finds a capture, the complete input is matched as a
@@ -78,7 +78,7 @@ to a prefix plus a deterministic SHA-256 hash of the complete original session
 ID. Only the derived export name and its selector change; the raw session ID,
 provider stop handle, and stored notes stay intact. Names that already fit
 remain unchanged. Use the selector printed by `list` for the shortened name.
-For existing sessions with oversized stored names, run `openclaw doctor --fix`
+For existing sessions with oversized stored names, run `granted doctor --fix`
 to repair their derived selectors without changing stored notes.
 
 ## Output
@@ -115,7 +115,7 @@ raw ID.
 Legacy `sessionId` input considers qualified and raw/slug meanings together. If
 they identify different captures, the tool reports ambiguity without listing
 candidate details. This stays ambiguous after a capture ends. Use a selector
-returned by start, import, or authorized status, or inspect `openclaw transcripts
+returned by start, import, or authorized status, or inspect `granted transcripts
 list` locally and pass the desired value in the `selector` field. Both sides of
 a raw-ID/selector collision remain addressable by their own canonical selector.
 
@@ -182,7 +182,7 @@ Summaries are saved in SQLite before optional artifact export. If export fails,
 the saved summary remains available even when `summary.md` is missing. Configured
 auto-start captures log warnings during shutdown for failed exports or provider
 stop errors. Correct the export destination problem, then run
-`openclaw transcripts path <session>` or `openclaw transcripts show <session>`
+`granted transcripts path <session>` or `granted transcripts show <session>`
 to retry the export; an intended path in a warning is not proof of an exported file.
 
 Historical sessions without complete account-owner metadata remain on a local
@@ -193,7 +193,7 @@ providers, partial owner metadata, and accountless historical sources also stay
 on this local recovery path.
 
 ```bash
-openclaw agent --agent <owning-agent-or-main> --local --message \
+granted agent --agent <owning-agent-or-main> --local --message \
   "Use transcripts summarize for session <session>."
 ```
 
@@ -203,7 +203,7 @@ OpenClaw releases that predate the SQLite store wrote canonical runtime state
 directly beneath `$OPENCLAW_STATE_DIR/transcripts/`. Run:
 
 ```bash
-openclaw doctor --fix
+granted doctor --fix
 ```
 
 Doctor imports the complete legacy tree into SQLite, verifies row counts and

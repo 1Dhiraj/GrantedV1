@@ -168,7 +168,7 @@ function readLinuxPosixLocksForPath(pathname: string): string[] {
     .filter((line) => line.includes(" POSIX ") && lockInode.test(line));
 }
 
-describe("OpenClaw database integrity verifier", () => {
+describe("Granted database integrity verifier", () => {
   it.each(["absent", "installed"])(
     "verifies the %s additive transcript eligibility projection",
     async (shape) => {
@@ -216,7 +216,7 @@ describe("OpenClaw database integrity verifier", () => {
         expect(baseLocksBefore.length).toBeGreaterThan(0);
       }
       const targets: GrantedDatabaseVerifyTarget[] = [
-        { kind: "agent", label: "OpenClaw agent database worker-1", path: agent.path },
+        { kind: "agent", label: "Granted agent database worker-1", path: agent.path },
       ];
 
       await expect(runDatabaseVerifyWorker(targets)).resolves.toEqual([
@@ -263,7 +263,7 @@ describe("OpenClaw database integrity verifier", () => {
     const agentPath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
     createUnsafeIndexDrift(agentPath);
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agentPath },
+      { kind: "agent", label: "Granted agent database worker-1", path: agentPath },
     ];
 
     const results = await runDatabaseVerifyWorker(targets);
@@ -318,7 +318,7 @@ describe("OpenClaw database integrity verifier", () => {
     fs.copyFileSync(agentPath, healthyReplacementPath);
     createUnsafeIndexDrift(agentPath);
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agentPath },
+      { kind: "agent", label: "Granted agent database worker-1", path: agentPath },
     ];
     const results = preparedVerificationResults(targets);
 
@@ -341,7 +341,7 @@ describe("OpenClaw database integrity verifier", () => {
       await copyHealthyDatabase(agent.path, healthyReplacementPath);
       createUnsafeIndexDrift(agent.path);
       const targets: GrantedDatabaseVerifyTarget[] = [
-        { kind: "agent", label: "OpenClaw agent database worker-1", path: agent.path },
+        { kind: "agent", label: "Granted agent database worker-1", path: agent.path },
       ];
       const results = preparedVerificationResults(targets);
 
@@ -366,7 +366,7 @@ describe("OpenClaw database integrity verifier", () => {
       await copyHealthyDatabase(state.path, healthyReplacementPath);
       createUnsafeIndexDrift(state.path);
       const targets: GrantedDatabaseVerifyTarget[] = [
-        { kind: "state", label: "OpenClaw state database", path: state.path },
+        { kind: "state", label: "Granted state database", path: state.path },
       ];
       const results = preparedVerificationResults(targets);
 
@@ -388,7 +388,7 @@ describe("OpenClaw database integrity verifier", () => {
     closeOpenClawStateDatabaseForTest();
     createUnsafeIndexDrift(agentPath);
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agentPath },
+      { kind: "agent", label: "Granted agent database worker-1", path: agentPath },
     ];
     const results = preparedVerificationResults(targets);
 
@@ -410,7 +410,7 @@ describe("OpenClaw database integrity verifier", () => {
     closeOpenClawStateDatabaseForTest();
     createUnsafeIndexDrift(agentPath);
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agentPath },
+      { kind: "agent", label: "Granted agent database worker-1", path: agentPath },
     ];
     const results = preparedVerificationResults(targets);
 
@@ -430,8 +430,8 @@ describe("OpenClaw database integrity verifier", () => {
     const state = openOpenClawStateDatabase({ env });
     const agent = openOpenClawAgentDatabase({ agentId: "worker-1", env });
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "state", label: "OpenClaw state database", path: state.path },
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agent.path },
+      { kind: "state", label: "Granted state database", path: state.path },
+      { kind: "agent", label: "Granted agent database worker-1", path: agent.path },
     ];
 
     applyOpenClawDatabaseVerificationResults({
@@ -465,7 +465,7 @@ describe("OpenClaw database integrity verifier", () => {
     fs.rmSync(agent.path);
     fs.renameSync(replacementPath, agent.path);
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agent.path },
+      { kind: "agent", label: "Granted agent database worker-1", path: agent.path },
     ];
 
     applyOpenClawDatabaseVerificationResults({
@@ -751,7 +751,7 @@ describe("OpenClaw database integrity verifier", () => {
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
     const targets: GrantedDatabaseVerifyTarget[] = [
-      { kind: "agent", label: "OpenClaw agent database worker-1", path: agentPath },
+      { kind: "agent", label: "Granted agent database worker-1", path: agentPath },
     ];
 
     applyOpenClawDatabaseVerificationResults({

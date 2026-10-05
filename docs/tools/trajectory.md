@@ -58,7 +58,7 @@ For local inspection or support workflows, run the underlying CLI command
 directly:
 
 ```bash
-openclaw sessions export-trajectory --session-key "agent:main:telegram:direct:123" --workspace .
+granted sessions export-trajectory --session-key "agent:main:telegram:direct:123" --workspace .
 ```
 
 Other flags: `--output <path>` (directory name inside

@@ -34,7 +34,7 @@ works for you.
 Run this command before or after changing your preference:
 
 ```bash
-openclaw telemetry show
+granted telemetry show
 ```
 
 Add `--json` to get the same state and payload as one machine-readable
@@ -122,7 +122,7 @@ counted but never named because a private plugin name could identify its
 organization. Subtract `features.plugins.length` from `features.pluginsEnabled`
 to find the number of unnamed private plugins.
 
-The sender and `openclaw telemetry show` use the same payload builder, so the
+The sender and `granted telemetry show` use the same payload builder, so the
 JSON displayed by the CLI is the same payload the sender would use at that
 moment.
 
@@ -148,8 +148,8 @@ Anonymous feature statistics are separate from optional, operator-configured
 Enable or disable anonymous feature statistics at any time:
 
 ```bash
-openclaw telemetry on
-openclaw telemetry off
+granted telemetry on
+granted telemetry off
 ```
 
 You can also configure the same preference directly:

@@ -203,7 +203,7 @@ catalog, API-key auth, and dynamic model resolution.
     shape, source labels, and help rendering.
 
     That is a working provider. Users can now run
-    `openclaw onboard --acme-ai-api-key <key>` and select
+    `granted onboard --acme-ai-api-key <key>` and select
     `acme-ai/acme-large` as their model.
 
     For provider-key lookup and selection from an already loaded auth store,

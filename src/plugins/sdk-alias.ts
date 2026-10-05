@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url";
 import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
-import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 import { resolveOpenClawPackageRootSync } from "../infra/granted-root.js";
+import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 import { resolveOpenClawDevSourceRoot } from "./dev-source-root.js";
 import {
   parsePluginCacheJson,
@@ -1551,7 +1551,7 @@ export function buildPluginLoaderJitiOptions(
     // Prefer Node's native sync ESM loader for built dist/*.js modules so
     // bundled plugins and plugin-sdk subpaths stay on the canonical module graph.
     tryNative: true,
-    // When jiti must transform a plugin entry, keep OpenClaw's own package
+    // When jiti must transform a plugin entry, keep Granted's own package
     // chunks on the native module graph instead of re-evaluating them in jiti.
     nativeModules: resolvePluginLoaderJitiNativeModules(),
     extensions: [".ts", ".tsx", ".mts", ".cts", ".mtsx", ".ctsx", ".js", ".mjs", ".cjs", ".json"],

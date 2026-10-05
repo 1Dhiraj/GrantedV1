@@ -1,0 +1,36 @@
+{
+  "run": "2026-10-02T0249",
+  "score": "1/2",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 2,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "N1",
+      "name": "knows its own name",
+      "result": "PASS",
+      "seconds": 15,
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0249-n1",
+      "evidence": "granted=true openclaw=false | Granted",
+      "toolCalls": 0,
+      "tokens": 23466
+    },
+    {
+      "id": "N2",
+      "name": "knows who created it",
+      "result": "FAIL",
+      "seconds": 9,
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0249-n2",
+      "evidence": "OpenAI",
+      "toolCalls": 0,
+      "tokens": 23460
+    }
+  ]
+}

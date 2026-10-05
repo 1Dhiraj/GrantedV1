@@ -57,7 +57,7 @@ All transcript hygiene is centralized in the embedded runner:
 - Sanitization/repair application: `sanitizeSessionHistory` in
   `src/agents/embedded-agent-runner/replay-history.ts`
 
-Legacy JSONL validation and import belong to `openclaw doctor --fix`; the
+Legacy JSONL validation and import belong to `granted doctor --fix`; the
 embedded runner does not repair or reopen file-backed runtime transcripts.
 
 ---

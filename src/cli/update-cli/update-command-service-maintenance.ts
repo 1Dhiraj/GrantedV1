@@ -491,7 +491,7 @@ export async function maybeStopManagedServiceBeforeMutableUpdate(params: {
       ...inspected,
       serviceMutationAllowed: false,
       serviceMutationSkipMessage:
-        "Gateway service management skipped: the service belongs to a different OpenClaw installation and was left untouched.",
+        "Gateway service management skipped: the service belongs to a different Granted installation and was left untouched.",
     };
   }
   if (serviceUpdateVerdict.kind === "absent" || params.phase === "inspect") {

@@ -1,4 +1,4 @@
-// Provider-neutral live inference ladder for OpenClaw sessions.
+// Provider-neutral live inference ladder for Granted sessions.
 import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { resolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 import { listAgentIds } from "../agents/agent-scope.js";
@@ -140,7 +140,7 @@ export async function verifySystemAgentInferenceWithFallback(params: {
     lastFailure ?? {
       ok: false,
       status: "unknown",
-      error: "OpenClaw could not verify a usable inference route. Check model setup and try again.",
+      error: "Granted could not verify a usable inference route. Check model setup and try again.",
     }
   );
 }

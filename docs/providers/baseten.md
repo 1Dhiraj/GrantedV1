@@ -8,22 +8,22 @@ read_when:
 
 [Baseten Model APIs](https://docs.baseten.co/inference/model-apis/overview) provide hosted, OpenAI-compatible access to frontier models. The official external plugin uses authenticated discovery, so OpenClaw follows the complete model set enabled for your Baseten account. Its offline fallback contains every Model API available when this OpenClaw release was built.
 
-| Property        | Value                                                    |
-| --------------- | -------------------------------------------------------- |
-| Provider id     | `baseten`                                                |
+| Property        | Value                                                   |
+| --------------- | ------------------------------------------------------- |
+| Provider id     | `baseten`                                               |
 | Plugin          | official external package (`@granted/baseten-provider`) |
-| Auth env var    | `BASETEN_API_KEY`                                        |
-| Onboarding flag | `--auth-choice baseten-api-key`                          |
-| Direct CLI flag | `--baseten-api-key <key>`                                |
-| API             | OpenAI-compatible (`openai-completions`)                 |
-| Base URL        | `https://inference.baseten.co/v1`                        |
-| Default model   | `baseten/thinkingmachines/inkling`                       |
+| Auth env var    | `BASETEN_API_KEY`                                       |
+| Onboarding flag | `--auth-choice baseten-api-key`                         |
+| Direct CLI flag | `--baseten-api-key <key>`                               |
+| API             | OpenAI-compatible (`openai-completions`)                |
+| Base URL        | `https://inference.baseten.co/v1`                       |
+| Default model   | `baseten/thinkingmachines/inkling`                      |
 
 ## Install plugin
 
 ```bash
-openclaw plugins install @granted/baseten-provider
-openclaw gateway restart
+granted plugins install @granted/baseten-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -36,11 +36,11 @@ openclaw gateway restart
     <CodeGroup>
 
 ```bash Onboarding
-openclaw onboard --auth-choice baseten-api-key
+granted onboard --auth-choice baseten-api-key
 ```
 
 ```bash Direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice baseten-api-key \
   --baseten-api-key "$BASETEN_API_KEY"
 ```
@@ -54,7 +54,7 @@ export BASETEN_API_KEY=...
   </Step>
   <Step title="Verify the live catalog">
     ```bash
-    openclaw models list --provider baseten
+    granted models list --provider baseten
     ```
 
     With usable auth, the plugin requests `GET /v1/models` and lists every model returned for the account. Without auth, it stays offline and uses the bundled fallback.

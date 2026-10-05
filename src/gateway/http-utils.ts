@@ -55,7 +55,7 @@ export {
 } from "./http-auth-utils.js";
 
 export const GRANTED_MODEL_ID = "openclaw";
-/** Default OpenAI-compatible model alias that targets the default OpenClaw agent. */
+/** Default OpenAI-compatible model alias that targets the default Granted agent. */
 export const GRANTED_DEFAULT_MODEL_ID = "openclaw/default";
 
 class UnknownGatewayAgentError extends Error {
@@ -141,7 +141,7 @@ export function resolveAgentIdFromModel(
   return normalizeAgentId(agentId);
 }
 
-/** Checks OpenClaw routing-model syntax without resolving fleet ownership. */
+/** Checks Granted routing-model syntax without resolving fleet ownership. */
 export function isOpenClawAgentModelId(model: string | undefined): boolean {
   const raw = model?.trim();
   if (!raw) {

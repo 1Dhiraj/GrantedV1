@@ -13,7 +13,7 @@ OpenClaw uses the `zai` provider with a Z.AI API key.
 | Property | Value                                        |
 | -------- | -------------------------------------------- |
 | Provider | `zai`                                        |
-| Package  | `@granted/zai-provider`                     |
+| Package  | `@granted/zai-provider`                      |
 | Auth     | `ZAI_API_KEY` (legacy alias: `Z_AI_API_KEY`) |
 | API      | Z.AI Chat Completions (Bearer auth)          |
 
@@ -27,7 +27,7 @@ refs such as `zai/glm-5.3`: provider `zai`, model id `glm-5.3`.
 Install the provider plugin first:
 
 ```bash
-openclaw plugins install @granted/zai-provider
+granted plugins install @granted/zai-provider
 ```
 
 <Tabs>
@@ -37,12 +37,12 @@ openclaw plugins install @granted/zai-provider
     <Steps>
       <Step title="Run onboarding">
         ```bash
-        openclaw onboard --auth-choice zai-api-key
+        granted onboard --auth-choice zai-api-key
         ```
       </Step>
       <Step title="Verify the model is listed">
         ```bash
-        openclaw models list --all --provider zai
+        granted models list --all --provider zai
         ```
       </Step>
     </Steps>
@@ -56,21 +56,21 @@ openclaw plugins install @granted/zai-provider
       <Step title="Pick the right onboarding choice">
         ```bash
         # Coding Plan Global (recommended for Coding Plan users)
-        openclaw onboard --auth-choice zai-coding-global
+        granted onboard --auth-choice zai-coding-global
 
         # Coding Plan CN (China region)
-        openclaw onboard --auth-choice zai-coding-cn
+        granted onboard --auth-choice zai-coding-cn
 
         # General API
-        openclaw onboard --auth-choice zai-global
+        granted onboard --auth-choice zai-global
 
         # General API CN (China region)
-        openclaw onboard --auth-choice zai-cn
+        granted onboard --auth-choice zai-cn
         ```
       </Step>
       <Step title="Verify the model is listed">
         ```bash
-        openclaw models list --all --provider zai
+        granted models list --all --provider zai
         ```
       </Step>
     </Steps>
@@ -121,8 +121,8 @@ occur for one endpoint, model, or request shape, check the configured endpoint
 and model first:
 
 ```bash
-openclaw models list --all --provider zai
-openclaw config get models.providers.zai.baseUrl
+granted models list --all --provider zai
+granted config get models.providers.zai.baseUrl
 ```
 
 Coding Plan keys should use a Coding Plan endpoint such as
@@ -160,7 +160,7 @@ The `zai` provider plugin ships its catalog in the plugin manifest, so read-only
 listing can show known GLM rows without loading provider runtime:
 
 ```bash
-openclaw models list --all --provider zai
+granted models list --all --provider zai
 ```
 
 The manifest-backed catalog currently includes:
@@ -191,7 +191,7 @@ Fresh Coding Plan setup defaults to `zai/glm-5.3`; general API setup remains on
 `glm-5.1` and `glm-4.7` when a key or regional endpoint does not expose GLM-5.3
 directly. Z.AI currently routes Coding Plan requests for GLM-5.2 and GLM-5.1 to
 GLM-5.3. Run
-`openclaw models list --all --provider zai` to see the catalog known to your
+`granted models list --all --provider zai` to see the catalog known to your
 installed version.
 </Note>
 

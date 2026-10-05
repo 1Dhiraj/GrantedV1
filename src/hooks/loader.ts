@@ -69,7 +69,7 @@ function resetLoadedInternalHooks(): void {
  *
  * Loads hooks from directory-based discovery (bundled, managed, workspace).
  *
- * @param cfg - OpenClaw configuration
+ * @param cfg - Granted configuration
  * @param workspaceDir - Workspace directory for hook discovery
  * @returns Number of handlers successfully loaded
  *
@@ -173,7 +173,7 @@ export async function loadInternalHooks(
         if (unknownEvents.length > 0) {
           log.warn(
             `Hook '${safeLogValue(entry.hook.name)}' subscribes to event${unknownEvents.length === 1 ? "" : "s"} ` +
-              `${unknownEvents.map((event) => safeLogValue(event)).join(", ")} not emitted by OpenClaw core — ` +
+              `${unknownEvents.map((event) => safeLogValue(event)).join(", ")} not emitted by Granted core — ` +
               `likely a typo; unless a plugin emits it, the hook never fires. ` +
               `Known events: https://docs.openclaw.ai/automation/hooks`,
           );

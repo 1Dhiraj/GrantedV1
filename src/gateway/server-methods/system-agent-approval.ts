@@ -64,7 +64,7 @@ export function queueDelegatedApproval(params: {
 }): string {
   const manager = params.context.systemAgentApprovalManager;
   if (!manager) {
-    throw new Error("OpenClaw approval registry unavailable");
+    throw new Error("Granted approval registry unavailable");
   }
   const callerIdentity = getGatewayToolCallerIdentity();
   const approvalAuthority =
@@ -73,7 +73,7 @@ export function queueDelegatedApproval(params: {
       ? getActiveAgentRunDelegatedAuthority(callerIdentity.operationalRunInstance)
       : undefined);
   if (!approvalAuthority) {
-    throw new Error("delegated OpenClaw approval requires an active run authority");
+    throw new Error("delegated Granted approval requires an active run authority");
   }
   const runtimeApprovalAuthority: AgentRuntimeDelegatedAuthority = callerIdentity?.workerTurnClaim
     ? { kind: "worker", ...approvalAuthority, turnClaim: callerIdentity.workerTurnClaim }
@@ -95,7 +95,7 @@ export function queueDelegatedApproval(params: {
   }
   const description = describeSystemAgentPersistentOperation(params.proposal.operation);
   const request: SystemAgentApprovalRequestPayload = {
-    title: "OpenClaw change",
+    title: "Granted change",
     description,
     command: description,
     proposalHash: params.proposal.hash,
@@ -218,7 +218,7 @@ export function queueDelegatedApproval(params: {
         throw error;
       }
     },
-    afterDecisionErrorLabel: "OpenClaw approval apply failed",
+    afterDecisionErrorLabel: "Granted approval apply failed",
   });
   return record.id;
 }

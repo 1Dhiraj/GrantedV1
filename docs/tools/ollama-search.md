@@ -33,7 +33,7 @@ configured host.
   </Step>
   <Step title="Choose Ollama Web Search">
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
     Select **Ollama Web Search** as the provider.
@@ -47,7 +47,7 @@ configured host.
    and set `OLLAMA_API_KEY` in the Gateway environment.
 2. Set `models.providers.ollama.baseUrl` to `https://ollama.com`; see
    [Config](#config).
-3. Run `openclaw configure --section web` and select **Ollama Web Search**.
+3. Run `granted configure --section web` and select **Ollama Web Search**.
 
 Hosted search does not require a local Ollama daemon or `ollama signin`.
 

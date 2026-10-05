@@ -107,6 +107,24 @@ function workspacePathEntryExists(workspaceDir: string): boolean {
   }
 }
 
+/**
+ * Two spellings of one directory are not conflicting state.
+ *
+ * Moving the state directory leaves the old path behind as a link to the new
+ * one, so a stored alias can name a path that still resolves to the current
+ * workspace. Comparing the recorded string against the canonical one calls that
+ * a conflict and refuses every agent run; comparing what the paths resolve to
+ * keeps the refusal for the case it is meant for - a genuinely different target.
+ */
+function pointsAtSameDirectory(
+  stored: WorkspaceStateIdentity,
+  canonical: WorkspaceStateIdentity,
+): boolean {
+  return (
+    resolveWorkspaceStateIdentity(stored.workspacePath).workspaceKey === canonical.workspaceKey
+  );
+}
+
 type WorkspaceIdentityResolution = {
   identity: WorkspaceStateIdentity;
   aliases: WorkspaceStateIdentity[];
@@ -150,7 +168,8 @@ function resolveWorkspaceIdentityFromDatabase(params: {
   if (
     storedIdentity &&
     workspacePathEntryExists(params.workspaceDir) &&
-    storedIdentity.workspaceKey !== canonicalIdentity.workspaceKey
+    storedIdentity.workspaceKey !== canonicalIdentity.workspaceKey &&
+    !pointsAtSameDirectory(storedIdentity, canonicalIdentity)
   ) {
     throw new Error("workspace path alias points to a different current target");
   }
@@ -341,7 +360,8 @@ export function readWorkspaceStateSnapshot(
     const currentCanonicalIdentity = currentAliases.at(-1)!;
     if (
       workspacePathEntryExists(workspaceDir) &&
-      currentCanonicalIdentity.workspaceKey !== initial.resolution.identity.workspaceKey
+      currentCanonicalIdentity.workspaceKey !== initial.resolution.identity.workspaceKey &&
+      !pointsAtSameDirectory(initial.resolution.identity, currentCanonicalIdentity)
     ) {
       throw new Error("workspace path alias points to a different current target");
     }

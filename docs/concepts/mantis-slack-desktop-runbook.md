@@ -65,7 +65,7 @@ The PR comment is updated in place via the hidden `<!-- mantis-slack-desktop-smo
 Cold source proof:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --provider aws \
   --class standard \
   --gateway-setup \
@@ -81,7 +81,7 @@ pnpm openclaw qa mantis slack-desktop-smoke \
 Keep the VM for VNC rescue:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --provider aws \
   --class standard \
   --gateway-setup \
@@ -98,7 +98,7 @@ crabbox vnc --provider aws --id <cbx_id> --open
 Reuse a warm lease:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --provider aws \
   --lease-id <cbx_id-or-slug> \
   --gateway-setup \
@@ -112,7 +112,7 @@ has `node_modules` and a built `dist/`; Mantis fails closed otherwise.
 Prove native Slack approval UI:
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --provider aws \
   --class standard \
   --approval-checkpoints \

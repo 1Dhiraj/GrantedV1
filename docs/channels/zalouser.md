@@ -17,18 +17,18 @@ This is an unofficial integration and may result in account suspension or ban. U
 Zalo Personal is an official external plugin, not bundled in core. Install it before use:
 
 ```bash
-openclaw plugins install @granted/zalouser
+granted plugins install @granted/zalouser
 ```
 
-- Pin a version: `openclaw plugins install @granted/zalouser@<version>`
-- From a source checkout: `openclaw plugins install ./path/to/local/zalouser-plugin`
+- Pin a version: `granted plugins install @granted/zalouser@<version>`
+- From a source checkout: `granted plugins install ./path/to/local/zalouser-plugin`
 - Details: [Plugins](/tools/plugin)
 
 ## Quick setup
 
 1. Install the plugin (above).
 2. Login (QR, on the Gateway machine):
-   - `openclaw channels login --channel zalouser`
+   - `granted channels login --channel zalouser`
    - Scan the QR code with the Zalo mobile app.
 3. Enable the channel:
 
@@ -60,9 +60,9 @@ Channel id is `zalouser` to make it explicit this automates a **personal Zalo us
 ## Finding IDs (directory)
 
 ```bash
-openclaw directory self --channel zalouser
-openclaw directory peers list --channel zalouser --query "name"
-openclaw directory groups list --channel zalouser --query "work"
+granted directory self --channel zalouser
+granted directory peers list --channel zalouser --query "name"
+granted directory groups list --channel zalouser --query "work"
 ```
 
 ## Limits
@@ -94,8 +94,8 @@ If a raw name remains in config, startup resolves it only when `channels.zalouse
 
 Approve via:
 
-- `openclaw pairing list zalouser`
-- `openclaw pairing approve zalouser <code>`
+- `granted pairing list zalouser`
+- `granted pairing approve zalouser <code>`
 
 ## Group access (optional)
 
@@ -128,7 +128,7 @@ Example:
 ```
 
 <Note>
-`channels.zalouser.groups.<id>.allow` is a legacy field name; current config uses `enabled`. `openclaw doctor --fix` migrates `allow` to `enabled` automatically.
+`channels.zalouser.groups.<id>.allow` is a legacy field name; current config uses `enabled`. `granted doctor --fix` migrates `allow` to `enabled` automatically.
 </Note>
 
 ### Group mention gating
@@ -206,8 +206,8 @@ For multi-account setups, prefer setting `profile` on each account in config so 
 
 **Login doesn't stick:**
 
-- `openclaw channels status --probe`
-- Re-login: `openclaw channels logout --channel zalouser && openclaw channels login --channel zalouser`
+- `granted channels status --probe`
+- Re-login: `granted channels logout --channel zalouser && granted channels login --channel zalouser`
 
 **Allowlist/group name didn't resolve:**
 

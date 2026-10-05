@@ -416,7 +416,7 @@ describe("preflightDiscordMessage", () => {
       author: {
         id: "relay-bot-1",
         bot: true,
-        username: "OpenClaw",
+        username: "Granted",
       },
     });
 
@@ -1374,7 +1374,7 @@ describe("preflightDiscordMessage", () => {
       get: vi.fn(async () => ({
         id: message.id,
         content: message.content,
-        mentions: [{ id: botId, username: "OpenClaw", bot: true }],
+        mentions: [{ id: botId, username: "Granted", bot: true }],
         mention_roles: [],
         mention_everyone: false,
       })),
@@ -1984,7 +1984,7 @@ describe("preflightDiscordMessage", () => {
         id: "m-current-bot",
         channelId,
         content: "earlier answer",
-        author: { id: "openclaw-bot", bot: true, username: "OpenClaw" },
+        author: { id: "openclaw-bot", bot: true, username: "Granted" },
       }),
     });
 
@@ -2803,7 +2803,7 @@ describe("shouldIgnoreBoundThreadWebhookMessage", () => {
       author: {
         id: "relay-bot-1",
         bot: true,
-        username: "OpenClaw",
+        username: "Granted",
       },
     });
     const result = await preflightDiscordMessage({

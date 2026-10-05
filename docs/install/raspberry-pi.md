@@ -97,7 +97,7 @@ Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi. Since the Pi is 
 
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
     Follow the wizard. API keys are recommended over OAuth for headless devices. Telegram is the easiest channel to start with.
@@ -106,7 +106,7 @@ Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi. Since the Pi is 
 
   <Step title="Verify">
     ```bash
-    openclaw status
+    granted status
     systemctl --user status openclaw-gateway.service
     journalctl --user -u openclaw-gateway.service -f
     ```
@@ -116,7 +116,7 @@ Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi. Since the Pi is 
     On your computer, get a dashboard URL from the Pi:
 
     ```bash
-    ssh user@gateway-host 'openclaw dashboard --no-open'
+    ssh user@gateway-host 'granted dashboard --no-open'
     ```
 
     Then create an SSH tunnel in another terminal:
@@ -200,8 +200,8 @@ OpenClaw state lives under:
 These survive reboots and benefit from SSD over SD card for both performance and longevity. Take a portable snapshot with:
 
 ```bash
-openclaw backup create
-openclaw backup restore <archive.tar.gz> --target <fresh-directory>
+granted backup create
+granted backup restore <archive.tar.gz> --target <fresh-directory>
 ```
 
 Restore verifies and extracts into a fresh staging directory; activation is a
@@ -214,7 +214,7 @@ for the rollback warnings and activation sequence.
 
 **Slow performance** -- Use a USB SSD instead of an SD card. Check for CPU throttling with `vcgencmd get_throttled` (should return `0x0`).
 
-**Service will not start** -- Check logs with `journalctl --user -u openclaw-gateway.service --no-pager -n 100` and run `openclaw doctor --non-interactive`. If this is a headless Pi, also verify lingering is enabled: `sudo loginctl enable-linger "$(whoami)"`.
+**Service will not start** -- Check logs with `journalctl --user -u openclaw-gateway.service --no-pager -n 100` and run `granted doctor --non-interactive`. If this is a headless Pi, also verify lingering is enabled: `sudo loginctl enable-linger "$(whoami)"`.
 
 **ARM binary issues** -- If a skill fails with "exec format error", check whether the binary has an ARM64 build. Verify architecture with `uname -m` (should show `aarch64`).
 

@@ -1,4 +1,4 @@
-// Built-in OpenClaw harness tests cover logical thinking-mode boundaries.
+// Built-in Granted harness tests cover logical thinking-mode boundaries.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const runEmbeddedAttempt = vi.hoisted(() => vi.fn());

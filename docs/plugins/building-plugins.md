@@ -17,7 +17,7 @@ You do not need to add an external plugin to the OpenClaw repository. Publish
 the package to [ClawHub](/clawhub) and users install it with:
 
 ```bash
-openclaw plugins install clawhub:<package-name>
+granted plugins install clawhub:<package-name>
 ```
 
 Bare package specs still install from npm during the launch cutover. Use the
@@ -162,11 +162,11 @@ local proof.
     For an installed or external plugin, inspect the loaded runtime:
 
     ```bash
-    openclaw plugins inspect my-plugin --runtime --json
+    granted plugins inspect my-plugin --runtime --json
     ```
 
     If the plugin registers a CLI command, run that command too and confirm
-    output, for example `openclaw demo-plugin ping`.
+    output, for example `granted demo-plugin ping`.
 
     For a bundled plugin in this repository, OpenClaw discovers source-checkout
     plugin packages from the `extensions/*` workspace. Run the closest targeted
@@ -190,8 +190,8 @@ local proof.
 
     ```bash
     npm pack --pack-destination /tmp
-    openclaw plugins install npm-pack:/tmp/<plugin-package>.tgz --force
-    openclaw plugins inspect my-plugin --runtime --json
+    granted plugins install npm-pack:/tmp/<plugin-package>.tgz --force
+    granted plugins inspect my-plugin --runtime --json
     ```
 
     `npm-pack:` uses OpenClaw's managed per-plugin npm project, so it catches
@@ -228,7 +228,7 @@ local proof.
     Install the published package through ClawHub:
 
     ```bash
-    openclaw plugins install clawhub:your-org/your-plugin
+    granted plugins install clawhub:your-org/your-plugin
     ```
 
   </Step>

@@ -382,7 +382,7 @@ describe("dynamic tool execution helpers", () => {
       contentItems: [
         {
           type: "inputText",
-          text: "OpenClaw dynamic tool call timed out after 1ms while running tool message.",
+          text: "Granted dynamic tool call timed out after 1ms while running tool message.",
         },
       ],
     });
@@ -397,12 +397,12 @@ describe("dynamic tool execution helpers", () => {
         content: [
           {
             type: "text",
-            text: "OpenClaw dynamic tool call timed out after 1ms while running tool message.",
+            text: "Granted dynamic tool call timed out after 1ms while running tool message.",
           },
         ],
         details: {
           status: "timed_out",
-          error: "OpenClaw dynamic tool call timed out after 1ms while running tool message.",
+          error: "Granted dynamic tool call timed out after 1ms while running tool message.",
         },
       },
       isError: true,
@@ -633,7 +633,7 @@ describe("dynamic tool execution helpers", () => {
     expect(result).toEqual({
       success: false,
       contentItems: [
-        { type: "inputText", text: "OpenClaw dynamic tool call aborted before execution." },
+        { type: "inputText", text: "Granted dynamic tool call aborted before execution." },
       ],
     });
     expect(result.diagnosticTerminalReason).toBe("cancelled");
@@ -643,10 +643,10 @@ describe("dynamic tool execution helpers", () => {
     expect(onAgentToolResult).toHaveBeenCalledWith({
       toolName: "memory_search",
       result: {
-        content: [{ type: "text", text: "OpenClaw dynamic tool call aborted before execution." }],
+        content: [{ type: "text", text: "Granted dynamic tool call aborted before execution." }],
         details: {
           status: "cancelled",
-          error: "OpenClaw dynamic tool call aborted before execution.",
+          error: "Granted dynamic tool call aborted before execution.",
         },
       },
       isError: true,
@@ -780,7 +780,7 @@ describe("dynamic tool execution helpers", () => {
     expect(result).toMatchObject({
       success: false,
       diagnosticTerminalReason: "failed",
-      contentItems: [{ type: "inputText", text: "OpenClaw dynamic tool call failed." }],
+      contentItems: [{ type: "inputText", text: "Granted dynamic tool call failed." }],
     });
     expect(onAgentToolResult).toHaveBeenCalledOnce();
   });

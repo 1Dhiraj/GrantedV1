@@ -1,9 +1,9 @@
-// OpenClaw probes check local tools and Gateway health with bounded subprocess/network work.
+// Granted probes check local tools and Gateway health with bounded subprocess/network work.
 import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { runCommandWithTimeout } from "../process/exec.js";
 
 /**
- * Local environment probes used by OpenClaw overview loading.
+ * Local environment probes used by Granted overview loading.
  *
  * Probes are bounded by output and timeout limits so setup/status commands do
  * not hang or retain unbounded child output.

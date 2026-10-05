@@ -47,7 +47,7 @@ function resolveEventWebPushNotification(
     const id = normalizeWebPushDisplayLabel(value.id) ?? "pending";
     return {
       category: "agent-question",
-      title: "OpenClaw needs an answer",
+      title: "Granted needs an answer",
       body: "An agent has a question for you.",
       tag: `openclaw-question-${id}`,
     };
@@ -60,7 +60,7 @@ function resolveEventWebPushNotification(
     const runId = normalizeWebPushDisplayLabel(value.runId) ?? "finished";
     return {
       category: "agent-finished",
-      title: "OpenClaw agent finished",
+      title: "Granted agent finished",
       body: "An agent completed its response.",
       tag: `openclaw-agent-finished-${runId}`,
     };
@@ -74,7 +74,7 @@ function resolveEventWebPushNotification(
     const taskTitle = normalizeWebPushDisplayLabel(task.title);
     return {
       category: "background-task-failed",
-      title: "OpenClaw background task failed",
+      title: "Granted background task failed",
       body: "A background task needs attention.",
       ...(taskTitle ? { identifiedBody: `${taskTitle} needs attention.` } : {}),
       tag: `openclaw-task-failed-${taskId}`,
@@ -86,7 +86,7 @@ function resolveEventWebPushNotification(
     const jobName = normalizeWebPushDisplayLabel(job?.name);
     return {
       category: "scheduled-task-failed",
-      title: "OpenClaw scheduled task failed",
+      title: "Granted scheduled task failed",
       body: "A scheduled task needs attention.",
       ...(jobName ? { identifiedBody: `${jobName} needs attention.` } : {}),
       tag: `openclaw-cron-failed-${jobId}`,

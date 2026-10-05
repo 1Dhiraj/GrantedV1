@@ -1,7 +1,7 @@
 {
   "name": "@granted/gateway-protocol",
   "version": "2026.8.1",
-  "description": "Typed schemas and runtime validators for the OpenClaw Gateway WebSocket protocol",
+  "description": "Typed schemas and runtime validators for the Granted Gateway WebSocket protocol",
   "keywords": [
     "gateway",
     "openclaw",

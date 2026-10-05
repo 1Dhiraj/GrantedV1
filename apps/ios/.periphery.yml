@@ -1,6 +1,6 @@
-project: OpenClaw.xcodeproj
+project: Granted.xcodeproj
 schemes:
-  - OpenClaw
+  - Granted
 retain_codable_properties: true
 retain_swift_ui_previews: true
 retain_objc_accessible: true

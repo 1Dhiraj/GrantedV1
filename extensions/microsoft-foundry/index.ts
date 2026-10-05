@@ -1,4 +1,4 @@
-// Microsoft Foundry plugin entrypoint registers its OpenClaw integration.
+// Microsoft Foundry plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { buildMicrosoftFoundryImageGenerationProvider } from "./image-generation-provider.js";
 import { buildMicrosoftFoundryProvider } from "./provider.js";

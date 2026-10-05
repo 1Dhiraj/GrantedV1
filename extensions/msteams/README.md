@@ -1,11 +1,11 @@
-# OpenClaw Microsoft Teams
+# Granted Microsoft Teams
 
-Official OpenClaw channel plugin for Microsoft Teams bot conversations.
+Official Granted channel plugin for Microsoft Teams bot conversations.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/msteams
+granted plugins install @granted/msteams
 ```
 
-Configure the Teams bot credentials and trusted service URLs in OpenClaw, then connect the bot to the teams or chats where agents should operate.
+Configure the Teams bot credentials and trusted service URLs in Granted, then connect the bot to the teams or chats where agents should operate.

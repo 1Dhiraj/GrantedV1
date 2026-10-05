@@ -64,6 +64,32 @@ function insertPersistedAttestationHash(filename: string, sha256: string): void 
 }
 
 describe("workspace state store", () => {
+  it("still serves a workspace whose directory moved behind a link", () => {
+    // Moving the state directory (~/.openclaw -> ~/.granted) leaves the old path
+    // as a link to the new one. The stored alias still names the old path, so
+    // comparing the recorded string against the canonical one called that a
+    // conflicting target and refused every agent run.
+    const originalDir = path.join(path.dirname(workspaceDir()), "workspace-before-move");
+    fs.mkdirSync(originalDir, { recursive: true });
+    mergeWorkspaceSetupState(originalDir, { setupCompletedAt: "2026-09-24T02:00:00.000Z" });
+
+    const movedDir = path.join(path.dirname(workspaceDir()), "workspace-after-move");
+    fs.renameSync(originalDir, movedDir);
+    fs.symlinkSync(movedDir, originalDir, process.platform === "win32" ? "junction" : "dir");
+
+    // Neither spelling may be refused: they name one directory.
+    expect(() => readWorkspaceStateSnapshot(movedDir, { env: testState!.env })).not.toThrow();
+    // Reached through the path the state was recorded under, the state is there,
+    // and that read registers the new spelling as an alias of the same identity.
+    expect(readWorkspaceStateSnapshot(originalDir, { env: testState!.env })).toMatchObject({
+      setupExists: true,
+    });
+    // So the moved directory now serves the same state rather than starting over.
+    expect(readWorkspaceStateSnapshot(movedDir, { env: testState!.env })).toMatchObject({
+      setupExists: true,
+    });
+  });
+
   it("does not create shared state for a read-only snapshot", () => {
     const statePath = resolveOpenClawStateSqlitePath(testState!.env);
     expect(fs.existsSync(statePath)).toBe(false);

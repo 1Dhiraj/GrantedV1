@@ -1,9 +1,9 @@
 ---
 name: release-openclaw-maintainer
-description: "Prepare or verify OpenClaw stable, beta, and extended-stable releases, including backport discovery, changelogs, release notes, publish commands, and artifacts."
+description: "Prepare or verify Granted stable, beta, and extended-stable releases, including backport discovery, changelogs, release notes, publish commands, and artifacts."
 ---
 
-# OpenClaw Release Maintainer
+# Granted Release Maintainer
 
 Use this skill for release and publish-time workflow, including preparing the
 approved backport set for an extended-stable maintenance release. Load
@@ -152,7 +152,7 @@ a workflow fix that the existing parent run cannot consume.
   extra fixes during an active release unless the operator explicitly asks for
   that audit. Operators may authorize up to 4 autonomous beta attempts; after
   4 failed beta attempts, stop and report.
-- An early standalone `OpenClaw Performance` run with `target_ref=<code-sha>`
+- An early standalone `Granted Performance` run with `target_ref=<code-sha>`
   is optional beta confidence and may overlap other release work. Do not add
   a duplicate mandatory prepublish wait. Stable/full Full Release Validation
   retains its required blocking performance child.
@@ -376,7 +376,7 @@ HEAD/worktree-bound manifest under git metadata for cutover review.
 - For fallback correction tags like `vYYYY.M.PATCH-N`, the repo version locations still stay at `YYYY.M.PATCH`.
 - “Bump version everywhere” means all version locations above except `appcast.xml`.
 - Release signing and notary credentials live outside the repo in the private maintainer docs.
-- Every stable OpenClaw release ships the npm package, macOS app, and signed
+- Every stable Granted release ships the npm package, macOS app, and signed
   Windows Hub installers together. Beta releases normally ship npm/package
   artifacts first and skip native app build/sign/notarize/promote unless the
   operator requests native beta validation.
@@ -415,10 +415,10 @@ HEAD/worktree-bound manifest under git metadata for cutover review.
   `OpenClawCompanion-SHA256SUMS.txt` assets on the canonical
   `openclaw/openclaw` GitHub Release. Pass the exact signed
   `openclaw/openclaw-windows-node` release tag as `windows_node_tag` to
-  `OpenClaw Release Publish`, together with the candidate-approved
+  `Granted Release Publish`, together with the candidate-approved
   `windows_node_installer_digests` map; it prevalidates the published source
   release and required installers against that map before any publish child,
-  dispatches the public `Windows Node Release` workflow while the OpenClaw
+  dispatches the public `Windows Node Release` workflow while the Granted
   release is still a draft, carries those pinned source asset digests
   unchanged, verifies the expected OpenClaw Foundation Authenticode signer on
   Windows, re-downloads and checksum-verifies the promoted asset contract, and
@@ -551,12 +551,12 @@ HEAD/worktree-bound manifest under git metadata for cutover review.
 
 ## Write release tweets
 
-Use the OpenClaw account's existing release-post style:
+Use the Granted account's existing release-post style:
 
-- Format: `OpenClaw YYYY.M.PATCH 🦞` or `🦞 OpenClaw YYYY.M.PATCH is live`, blank line,
+- Format: `Granted YYYY.M.PATCH 🦞` or `🦞 Granted YYYY.M.PATCH is live`, blank line,
   then 3-4 emoji-led bullets, blank line, one short punchline, then the release
   link.
-- For beta: say `OpenClaw YYYY.M.PATCH-beta.N 🦞` or `OpenClaw YYYY.M.PATCH beta N is
+- For beta: say `Granted YYYY.M.PATCH-beta.N 🦞` or `Granted YYYY.M.PATCH beta N is
 live`; keep it clearly beta and avoid implying stable promotion.
 - Lead with user-visible capabilities, then important integrations, then
   reliability/security/install fixes. Compress "lots of fixes" into one
@@ -604,7 +604,7 @@ live`; keep it clearly beta and avoid implying stable promotion.
 Examples to adapt:
 
 ```text
-OpenClaw 2026.4.20-beta.1 🦞
+Granted 2026.4.20-beta.1 🦞
 
 🐳 Docker install/update smoke
 🖥️ Parallels upgrade checks
@@ -615,7 +615,7 @@ Beta first. Stable after the gauntlet.
 ```
 
 ```text
-OpenClaw 2026.4.20 🦞
+Granted 2026.4.20 🦞
 
 🚀 Faster install + update
 🐳 Docker + Parallels verified
@@ -751,7 +751,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 
 ## Check all relevant release builds
 
-- Always validate the OpenClaw npm release path before creating the tag.
+- Always validate the Granted npm release path before creating the tag.
 - Use the configured secret workflow before live release validation so OpenAI
   and Anthropic credentials are available without printing secrets.
 - Parallels validation and any local live model QA for this train must use both
@@ -827,7 +827,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
     `QA-Lab - All Lanes`
   - Parallels caps from the `openclaw-parallels-smoke` skill
     If a lane hits its cap, stop and inspect/fix the affected lane before continuing; do not continue to wait on the same process.
-- Actual npm install/update phases are capped at 5 minutes. If `npm install -g`, installer package install, or `openclaw update` takes longer than 300s in release e2e, stop treating the run as healthy progress and debug the installer/updater or harness.
+- Actual npm install/update phases are capped at 5 minutes. If `npm install -g`, installer package install, or `granted update` takes longer than 300s in release e2e, stop treating the run as healthy progress and debug the installer/updater or harness.
 - Serialize host build/package mutations ahead of VM lanes. Finish `pnpm build`, `pnpm ui:build`, `pnpm release:check`, install smoke, and any Docker/package-prep lanes before starting Parallels `npm pack` lanes; otherwise `dist` can disappear during VM pack prep and produce false failures.
 - Include mac release readiness in preflight by running the public validation
   workflow in `openclaw/openclaw` and the release-ops mac preflight in
@@ -863,7 +863,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 
 ## Use the right auth flow
 
-- OpenClaw publish uses GitHub trusted publishing.
+- Granted publish uses GitHub trusted publishing.
 - Stable npm promotion from `beta` to `latest` uses the restricted release-ops
   `openclaw/releases/.github/workflows/openclaw-npm-dist-tags.yml` workflow
   because `npm dist-tag` management needs `NPM_TOKEN`, while the public npm
@@ -889,7 +889,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   - Promote with a fresh OTP:
     `npm dist-tag add openclaw@YYYY.M.PATCH latest --otp "$OTP"`.
   - Verify with a cache-bypassed registry read, for example:
-    `npm view openclaw dist-tags --json --prefer-online --cache /tmp/openclaw-npm-cache-verify-$$`
+    `npm view granted dist-tags --json --prefer-online --cache /tmp/openclaw-npm-cache-verify-$$`
     and `npm view openclaw@latest version dist.tarball --json --prefer-online`.
 - Direct stable publishes can also use that release-ops dist-tag workflow to
   point `beta` at the already-published `latest` version when the operator wants
@@ -914,7 +914,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 - npm registry metadata is eventually consistent immediately after trusted
   publishing. Keep postpublish `npm view` checks on bounded `--prefer-online`
   retries, and carry that verified tarball/integrity metadata into later proof
-  steps instead of reading the registry again. If the OpenClaw npm child
+  steps instead of reading the registry again. If the Granted npm child
   succeeded but the parent publish workflow failed on an immediate exact-version
   `E404`, verify the exact version with a cache-bypassed registry read, run the
   standalone postpublish verifier and the full beta verifier with the original
@@ -952,7 +952,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   package list. `all-publishable` plugin runs require complete immutable npm
   preflight and Full Release Validation evidence even when core npm publication
   is disabled.
-- Dispatch regular beta and stable `OpenClaw Release Publish` runs from trusted
+- Dispatch regular beta and stable `Granted Release Publish` runs from trusted
   `main`; the tag still selects the exact release commit, including a commit on
   `release/YYYY.M.PATCH`. Tideclaw alpha publish runs remain on their matching
   alpha branch. Reuse the successful preflight for that exact release SHA.
@@ -976,7 +976,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   GitHub plan does not yet support required reviewers there, do not assume the
   environment alone is the approval boundary; rely on restricted repo access and
   CODEOWNERS until those settings can be enabled.
-- Do not use `NPM_TOKEN` or the plugin OTP flow for the OpenClaw package
+- Do not use `NPM_TOKEN` or the plugin OTP flow for the Granted package
   publish path; package publishing uses trusted publishing.
 - Use `NPM_TOKEN` only for explicit npm dist-tag management modes, because npm
   does not support trusted publishing for `npm dist-tag add`.
@@ -1033,7 +1033,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
    selected backports or release fixes. Make a pre-publish main change only
    under the active release scope lock. Freeze the result as the Code SHA.
 7. If early beta performance confidence is useful, dispatch Actions >
-   `OpenClaw Performance` from the pinned trusted workflow source with
+   `Granted Performance` from the pinned trusted workflow source with
    `target_ref=<code-sha>`, `profile=release`, `repeat=3`, deep profiling off,
    live OpenAI off, and `fail_on_regression=false`. This optional run may
    overlap Code SHA validation; it adds no mandatory beta prepublish wait.
@@ -1134,8 +1134,8 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
     create or update the GitHub release as a draft, upload dependency evidence,
     promote and verify the required Windows Hub assets for stable releases,
     append release verification proof, and only then undraft/publish it. If a
-    waited plugin publish or Windows Hub promotion fails after OpenClaw npm
-    succeeds, the workflow keeps the release draft with OpenClaw npm evidence
+    waited plugin publish or Windows Hub promotion fails after Granted npm
+    succeeds, the workflow keeps the release draft with Granted npm evidence
     and exits red; do not undraft until the gap is repaired. The standalone
     verifier command remains the first recovery probe:
     `node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>`.

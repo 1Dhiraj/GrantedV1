@@ -1,7 +1,7 @@
 {
   "name": "@granted/venice-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Venice provider plugin",
+  "description": "Granted Venice provider plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

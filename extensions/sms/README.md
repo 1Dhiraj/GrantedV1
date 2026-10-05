@@ -1,13 +1,13 @@
-# SMS/MMS OpenClaw channel
+# SMS/MMS Granted channel
 
-Official OpenClaw channel plugin for Twilio SMS and MMS.
+Official Granted channel plugin for Twilio SMS and MMS.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/sms
+granted plugins install @granted/sms
 ```
 
 ## Docs
 
-See `docs/channels/sms.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/channels/sms`.
+See `docs/channels/sms.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/channels/sms`.

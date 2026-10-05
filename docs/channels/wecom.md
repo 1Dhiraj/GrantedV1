@@ -14,9 +14,9 @@ with the core install.
 ## Install
 
 ```bash
-openclaw channels add --channel wecom
-openclaw gateway restart
-openclaw channels status --channel wecom
+granted channels add --channel wecom
+granted gateway restart
+granted channels status --channel wecom
 ```
 
 The OpenClaw catalog installs an exact version of

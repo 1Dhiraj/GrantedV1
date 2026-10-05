@@ -453,7 +453,7 @@ describe("policy commands", () => {
     }
   });
 
-  it("fails closed when the OpenClaw config is invalid", async () => {
+  it("fails closed when the Granted config is invalid", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
     vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, "{");

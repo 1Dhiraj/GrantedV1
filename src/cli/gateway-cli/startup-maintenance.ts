@@ -11,7 +11,7 @@ const gatewayLog = createSubsystemLogger("gateway");
 
 export function resolveGatewayStartupMaintenanceReason(error: unknown) {
   if (collectNestedErrorCandidates(error).some(isSqliteSchemaVersionError)) {
-    return "a newer OpenClaw build";
+    return "a newer Granted build";
   }
   if (findOpenClawAgentDatabaseMediaMigrationRequiredError(error)) {
     return "offline media migration";
@@ -28,7 +28,7 @@ export async function handleGatewayStartupMaintenance(error: unknown): Promise<b
     return false;
   }
   const guidance =
-    reason === "a newer OpenClaw build"
+    reason === "a newer Granted build"
       ? "Start the Gateway with a build that supports these database schemas. This install cannot repair a newer database."
       : `Run ${formatCliCommand("openclaw doctor --fix")} to repair and restart it.`;
   let parked = false;

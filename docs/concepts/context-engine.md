@@ -17,7 +17,7 @@ OpenClaw ships with a built-in `legacy` engine and uses it by default. Install a
 <Steps>
   <Step title="Check which engine is active">
     ```bash
-    openclaw doctor
+    granted doctor
     # or inspect config directly:
     cat ~/.openclaw/openclaw.json | jq '.plugins.slots.contextEngine'
     ```
@@ -28,12 +28,12 @@ OpenClaw ships with a built-in `legacy` engine and uses it by default. Install a
     <Tabs>
       <Tab title="From npm">
         ```bash
-        openclaw plugins install @martian-engineering/lossless-claw
+        granted plugins install @martian-engineering/lossless-claw
         ```
       </Tab>
       <Tab title="From a local path">
         ```bash
-        openclaw plugins install -l ./my-context-engine
+        granted plugins install -l ./my-context-engine
         ```
       </Tab>
     </Tabs>
@@ -423,10 +423,10 @@ The slot is exclusive at run time - only one registered context engine is resolv
 
 ## Tips
 
-- Use `openclaw doctor` to verify your engine is loading correctly.
+- Use `granted doctor` to verify your engine is loading correctly.
 - If switching engines, existing sessions continue with their current history. The new engine takes over for future runs.
 - Engine errors are logged and the selected plugin engine is quarantined for the current Gateway process. OpenClaw falls back to `legacy` for user turns so replies can continue, but you should still repair, update, disable, or uninstall the broken plugin.
-- For development, use `openclaw plugins install -l ./my-engine` to link a local plugin directory without copying.
+- For development, use `granted plugins install -l ./my-engine` to link a local plugin directory without copying.
 
 ## Related
 

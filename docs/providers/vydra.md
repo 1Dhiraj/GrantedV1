@@ -17,7 +17,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
 | Property        | Value                                                                     |
 | --------------- | ------------------------------------------------------------------------- |
 | Provider id     | `vydra`                                                                   |
-| Plugin          | `@granted/vydra-provider`                                                |
+| Plugin          | `@granted/vydra-provider`                                                 |
 | Auth env var    | `VYDRA_API_KEY`                                                           |
 | Onboarding flag | `--auth-choice vydra-api-key`                                             |
 | Direct CLI flag | `--vydra-api-key <key>`                                                   |
@@ -33,14 +33,14 @@ Use `https://www.vydra.ai/api/v1` as the base URL. Vydra's apex host (`https://v
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/vydra-provider
-    openclaw gateway restart
+    granted plugins install @granted/vydra-provider
+    granted gateway restart
     ```
 
   </Step>
   <Step title="Run interactive onboarding">
     ```bash
-    openclaw onboard --auth-choice vydra-api-key
+    granted onboard --auth-choice vydra-api-key
     ```
 
     Or set the env var directly:

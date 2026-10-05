@@ -7,15 +7,15 @@ read_when:
 title: "Resume"
 ---
 
-# `openclaw resume`
+# `granted resume`
 
 Attach the terminal UI to an existing Gateway session. The session stays on
 the Gateway; `resume` selects it and opens the existing [TUI](/cli/tui).
 
 ```bash
-openclaw resume
-openclaw resume <query>
-openclaw resume --handoff <payload>
+granted resume
+granted resume <query>
+granted resume --handoff <payload>
 ```
 
 With no query, OpenClaw displays up to 50 sessions active in the last seven
@@ -24,11 +24,11 @@ unique substring or fuzzy match across session keys, display names, and labels.
 
 The picker omits bare `global` rows because they do not identify an owning
 agent. To attach one, pass a fully qualified key such as
-`openclaw resume agent:main:global`.
+`granted resume agent:main:global`.
 
 If a query is ambiguous, OpenClaw prints the matching candidates and exits with
 status 1. If no recent session matches, it suggests the picker and
-[`openclaw sessions`](/cli/sessions), then exits with status 1.
+[`granted sessions`](/cli/sessions), then exits with status 1.
 
 ## Options
 
@@ -81,7 +81,7 @@ flags and credentials owned by an exact configured target remain eligible.
 ## Continue from the Control UI
 
 Open the selected session's header menu and choose **Continue in terminal…**.
-The dialog shows one copyable `openclaw resume --handoff <payload>` command.
+The dialog shows one copyable `granted resume --handoff <payload>` command.
 The opaque payload is versioned, bounded, and encoded with an unpadded URL-safe
 base64 alphabet, so the command needs no quoting and is safe to paste in common
 POSIX shells, PowerShell, and `cmd.exe`. The encoded argument is limited to 4096
@@ -113,19 +113,19 @@ payload.
 
 ```bash
 # Choose from recent sessions
-openclaw resume
+granted resume
 
 # Exact key
-openclaw resume agent:main:bugfix
+granted resume agent:main:bugfix
 
 # Unique display-name or label fragment
-openclaw resume bugfix
+granted resume bugfix
 
 # Remote Gateway override
-openclaw resume bugfix --url wss://gateway.example.com --token <token>
+granted resume bugfix --url wss://gateway.example.com --token <token>
 
 # Opaque command copied from the Control UI
-openclaw resume --handoff <payload>
+granted resume --handoff <payload>
 ```
 
 ## Related

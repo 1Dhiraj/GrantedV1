@@ -1,4 +1,4 @@
-/** Tests projecting OpenClaw user MCP servers into Codex app-server config. */
+/** Tests projecting Granted user MCP servers into Codex app-server config. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/types.granted.js";
 import {
@@ -152,7 +152,7 @@ describe("buildCodexUserMcpServersThreadConfigPatch", () => {
     });
   });
 
-  it("projects exact OpenClaw MCP tool filters into Codex-native tool filters", () => {
+  it("projects exact Granted MCP tool filters into Codex-native tool filters", () => {
     const patch = buildCodexUserMcpServersThreadConfigPatch({
       mcp: {
         servers: {
@@ -178,7 +178,7 @@ describe("buildCodexUserMcpServersThreadConfigPatch", () => {
     });
   });
 
-  it("rejects wildcard OpenClaw MCP tool filters that Codex cannot project exactly", () => {
+  it("rejects wildcard Granted MCP tool filters that Codex cannot project exactly", () => {
     expect(() =>
       buildCodexUserMcpServersThreadConfigPatch({
         mcp: {
@@ -218,8 +218,8 @@ describe("buildCodexUserMcpServersThreadConfigPatch", () => {
     });
   });
 
-  it("filters Codex-scoped user MCP servers by OpenClaw agent id", () => {
-    // Agent-scoped MCP servers should follow the active OpenClaw agent, while
+  it("filters Codex-scoped user MCP servers by Granted agent id", () => {
+    // Agent-scoped MCP servers should follow the active Granted agent, while
     // unscoped servers remain global.
     const cfg = {
       mcp: {
@@ -361,7 +361,7 @@ describe("buildCodexUserMcpServersThreadConfigPatch", () => {
     });
   });
 
-  it("omits scoped Codex MCP servers when no OpenClaw agent id is available", () => {
+  it("omits scoped Codex MCP servers when no Granted agent id is available", () => {
     const patch = buildCodexUserMcpServersThreadConfigPatch({
       mcp: {
         servers: {

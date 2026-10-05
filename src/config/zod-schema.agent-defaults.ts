@@ -223,6 +223,14 @@ export const AgentDefaultsSchema = z
       .strict()
       .optional(),
     maxConcurrent: z.number().int().positive().optional(),
+    maxToolSteps: z
+      .number()
+      .int()
+      .min(0)
+      .optional()
+      .describe(
+        "Maximum tool-dispatching turns per agent run before the run must report and stop (default: 400, 0 = no cap).",
+      ),
     subagents: z
       .object({
         delegationMode: z.enum(["suggest", "prefer"]).optional(),
@@ -247,6 +255,14 @@ export const AgentDefaultsSchema = z
             "Maximum number of active children a single agent session can spawn (default: 5).",
           ),
         archiveAfterMinutes: z.number().int().min(0).optional(),
+        maxToolSteps: z
+          .number()
+          .int()
+          .min(0)
+          .optional()
+          .describe(
+            "Maximum tool-dispatching turns per spawned sub-agent run (default: 150, 0 = no cap).",
+          ),
         model: AgentModelSchema.optional(),
         thinking: z.string().optional(),
         runTimeoutSeconds: z.number().int().min(0).optional(),

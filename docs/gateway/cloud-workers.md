@@ -7,7 +7,7 @@ status: active
 doc-schema-version: 1
 ---
 
-Cloud workers move a session's coding work onto a throwaway cloud machine while the session stays visible in the sidebar and its transcript remains owned by the Gateway. The bundled Crabbox provider boots the box, runs profile setup, and starts `openclaw connect --ephemeral`. With warm images enabled, it prepares the project's committed checkout and node runtime for capture before enrolling the node. One configured Crabbox profile supports both OpenClaw `worker-turn` and Codex `remote-exec` over the same enrolled outbound-node transport. OpenClaw launches a restricted `openclaw worker` child; Codex runs its managed exec-server on the node while keeping app-server and model authentication on the Gateway.
+Cloud workers move a session's coding work onto a throwaway cloud machine while the session stays visible in the sidebar and its transcript remains owned by the Gateway. The bundled Crabbox provider boots the box, runs profile setup, and starts `granted connect --ephemeral`. With warm images enabled, it prepares the project's committed checkout and node runtime for capture before enrolling the node. One configured Crabbox profile supports both OpenClaw `worker-turn` and Codex `remote-exec` over the same enrolled outbound-node transport. OpenClaw launches a restricted `granted worker` child; Codex runs its managed exec-server on the node while keeping app-server and model authentication on the Gateway.
 
 Enrollment is environment-owned and replay-safe. The Gateway persists one setup identity before node enrollment, binds the first authenticated device identity to that exact environment, and reuses the durable device token when provisioning resumes. Initial enrollment and replay both enable worker hosting only for that node process; they do not change durable worker-host configuration. Reclaim or destroy releases the cloud lease and removes the environment-owned node pairing. If provisioning fails before returning a lease, cleanup resolves the original operation’s handle without rerunning provisioning, setup, or enrollment. The handle may refer to an operation that never created a machine; cleanup completes only after the provider confirms release or absence. This does not shorten an in-flight provider operation: teardown waits for that operation to settle.
 
@@ -23,7 +23,7 @@ Cloud workers are opt-in. Until you configure a profile, clients hide the Cloud 
 
 | Concern                            | OpenClaw `worker-turn` mode                          | Codex `remote-exec` mode                                |
 | ---------------------------------- | ---------------------------------------------------- | ------------------------------------------------------- |
-| Agent runtime and turn loop        | Cloud box (`openclaw worker`)                        | Gateway (Codex app-server)                              |
+| Agent runtime and turn loop        | Cloud box (`granted worker`)                         | Gateway (Codex app-server)                              |
 | Command, filesystem, and HTTP work | Cloud box                                            | Cloud node, paired device, or SSH-backed provider       |
 | Model inference and provider auth  | Gateway, proxied by `{provider, model}` reference    | Gateway, including ChatGPT subscription or API-key auth |
 | Transcript and live session state  | Gateway, fed by the worker's replayable event stream | Gateway through the normal local harness path           |
@@ -143,7 +143,7 @@ Project preparation checks for the exact pristine seed before building or upload
 Inspect local ownership without contacting the cloud:
 
 ```bash
-openclaw crabbox warm-images --json
+granted crabbox warm-images --json
 ```
 
 The bounded status includes checkpoint IDs, project keys, allocation choices and phases, capture selectors, source lease IDs, backend names, and timestamps; it does not include setup commands or environment values. Doctor reports pending captures and retirements but never clears them through `doctor --fix`. A capture older than 20 minutes produces a warning, not permission to take over. The same reservation remains authoritative across restarts; older empty reservation markers also require explicit recovery. If inspection asks for a migration, follow [Upgrade warm-image state](/gateway/cloud-workers#upgrade-warm-image-state) first.
@@ -151,7 +151,7 @@ The bounded status includes checkpoint IDs, project keys, allocation choices and
 Before recovery, stop the owning Gateway, any original capture processes, and the recovered worker. Use the source lease and capture time to reconcile the uncertain operation in Crabbox's checkpoint catalog, and resolve any untracked provider artifact. Only after those steps, copy the exact capture selector from status:
 
 ```bash
-openclaw crabbox warm-images --recover <capture-selector> --acknowledge-provider-cleanup
+granted crabbox warm-images --recover <capture-selector> --acknowledge-provider-cleanup
 ```
 
 The acknowledgement attests that the original capture and worker are stopped and untracked artifacts are resolved; elapsed time alone does not establish those facts. Recovery clears only that capture reservation, preserves known checkpoint references and allocation choices, and rejects a replaced selector. It does not stop processes, run provider commands, delete snapshots, or allocate a worker. Restart the Gateway afterward; the next eligible worker can capture again. Failed checkpoint retirements retry during later capture maintenance or warm-image-enabled worker teardown after provider deletion errors are resolved; they do not use capture recovery.
@@ -161,7 +161,7 @@ The acknowledgement attests that the original capture and worker are stopped and
 Warm profiles use a version-2 envelope in the existing `warm-images` plugin-state namespace; the SQLite schema version does not change. Stop the owning Gateway and original capture processes, then run:
 
 ```bash
-openclaw doctor --fix
+granted doctor --fix
 ```
 
 Doctor performs this migration under the Gateway's exclusive maintenance lock. It preserves legacy image metadata, capture selectors, and retirement obligations, but does not invent allocation choices. Older empty capture markers become explicitly uncertain captures with their original recovery selector. Unsupported records stay unchanged and produce a warning. Runtime provisioning requires the canonical envelope; it does not silently convert old rows.
@@ -169,8 +169,8 @@ Doctor performs this migration under the Gateway's exclusive maintenance lock. I
 Older `warm-leases` rows record an enrolled class but cannot establish whether a lease originally started cold or from a checkpoint. These rows block new warm-image allocations until resolved. Doctor reports their count and exact recovery commands. Resolve each lease through its original Gateway or provider, stop its worker and owning processes, and reconcile provider artifacts before using the reported selector:
 
 ```bash
-openclaw crabbox warm-images --recover <legacy-allocation-selector> --acknowledge-provider-cleanup
-openclaw doctor --fix
+granted crabbox warm-images --recover <legacy-allocation-selector> --acknowledge-provider-cleanup
+granted doctor --fix
 ```
 
 This recovery deletes only the unchanged legacy row matching that selector. It does not establish provider absence or clean up a machine for you. Keep the row when cleanup is uncertain. Checkpoints already forgotten by older code are not rediscovered; reconcile those manually through Crabbox. Do not run older and newer writers against the same state or downgrade while allocations, captures, or retirements remain unresolved.
@@ -250,18 +250,18 @@ Native dependencies are declared at the distribution root and installed for the 
 Validate before restarting the Gateway:
 
 ```bash
-openclaw config validate --json
-openclaw plugins inspect crabbox --runtime --json
+granted config validate --json
+granted plugins inspect crabbox --runtime --json
 ```
 
-Changes under `cloudWorkers.profiles` require a Gateway restart. The default `gateway.reload.mode: "hybrid"` watches the config and performs that restart automatically; with reload watching disabled, run `openclaw gateway restart`.
+Changes under `cloudWorkers.profiles` require a Gateway restart. The default `gateway.reload.mode: "hybrid"` watches the config and performs that restart automatically; with reload watching disabled, run `granted gateway restart`.
 
 To use the same profile with Codex, enable a trusted Codex plugin installation on the Gateway and explicitly add `codex.exec-server.stdio.v1` to `gateway.nodes.commands.allow`. Bootstrap includes and enables the required plugin in the cloud node's isolated state automatically. Installing the runtime does not grant execution authority: persistent command enablement does not replace the critical launch approval. **Allow once** covers one exec-server launch; **Allow always** covers later launches only while the exact placement, node pairing, environment owner, command approval scope, and workspace stay current.
 
 After the Gateway is back, prove the profile is advertised and compare it with Crabbox's read-only lease inventory:
 
 ```bash
-openclaw gateway call environments.list --params '{}'
+granted gateway call environments.list --params '{}'
 crabbox list --provider aws --json
 ```
 
@@ -294,7 +294,7 @@ While that call is waiting, the parent remains an active turn under its existing
 
 ### Runtime support
 
-- **OpenClaw** uses `worker-turn` placement. The restricted `openclaw worker` process runs each turn on the leased node and proxies inference through the Gateway.
+- **OpenClaw** uses `worker-turn` placement. The restricted `granted worker` process runs each turn on the leased node and proxies inference through the Gateway.
 - **Codex** uses `remote-exec` placement on the same bundled Crabbox cloud profile, an eligible paired device, or a provider that advertises an SSH-backed execution carrier. The Gateway keeps the Codex app-server and authentication local; an enrolled cloud node runs only the explicitly authorized Codex exec-server and does not start an OpenClaw worker child.
 
 The Control UI checks each cloud destination's advertised execution modes in both New Session and Move Session. One Crabbox **Cloud · profile** row is selectable for OpenClaw and Codex, while a genuinely single-mode provider stays disabled for the other runtime. An incompatible move is rejected before the active source starts draining or changes its durable placement.
@@ -325,7 +325,7 @@ Choose the device in the Control UI **Place** picker or dispatch a
 managed-worktree session with an authorized operator connection:
 
 ```bash
-openclaw gateway call sessions.dispatch \
+granted gateway call sessions.dispatch \
   --params '{"key":"agent:main:device-work","deviceId":"<paired-device-id>"}'
 ```
 
@@ -351,10 +351,10 @@ For cloud-profile placement, the equivalent RPC flow is:
 Create a session with a managed worktree, then dispatch it. Profile dispatch requires `operator.admin` and is available only while at least one worker profile is configured:
 
 ```bash
-openclaw gateway call sessions.create \
+granted gateway call sessions.create \
   --params '{"key":"agent:main:big-refactor","worktree":true,"cwd":"/path/to/repo","worktreeName":"big-refactor"}'
 
-openclaw gateway call sessions.dispatch \
+granted gateway call sessions.dispatch \
   --timeout 1500000 \
   --params '{"key":"agent:main:big-refactor","profileId":"aws"}'
 ```
@@ -364,7 +364,7 @@ openclaw gateway call sessions.dispatch \
 A worker profile's `settings.class`, when configured, remains its default. In the Control UI, selecting a **Cloud · profile** destination in the Place picker reveals a machine section listing the profile's advertised classes, with reported vCPU and RAM when available and the default marked; picking one updates the place chip (for example `hetzner · Fast`) and carries the choice into dispatch. To choose a different size for one new placement over RPC instead, pass `machineClass` with `profileId`:
 
 ```bash
-openclaw gateway call sessions.dispatch \
+granted gateway call sessions.dispatch \
   --timeout 1500000 \
   --params '{"key":"agent:main:big-refactor","profileId":"aws","machineClass":"large"}'
 ```
@@ -412,7 +412,7 @@ For a broken or runaway cloud environment, an administrator can call the admin-o
 The equivalent write-scoped session RPC is:
 
 ```bash
-openclaw gateway call sessions.reclaim \
+granted gateway call sessions.reclaim \
   --timeout 600000 \
   --params '{"key":"agent:main:big-refactor"}'
 ```
@@ -434,7 +434,7 @@ An ended or unusable provider lease is not proof that its machine was deleted. O
 For automation, read the active placement's `generation`, `environmentId`, and `activeOwnerEpoch` from `sessions.describe`, then supply those exact source facts to `sessions.move`:
 
 ```bash
-openclaw gateway call sessions.move \
+granted gateway call sessions.move \
   --timeout 1500000 \
   --params '{"key":"agent:main:big-refactor","expected":{"generation":5,"environmentId":"worker:source","ownerEpoch":2},"target":{"kind":"gateway"}}'
 ```
@@ -467,7 +467,7 @@ After a failed placement, redispatch the session and retry the turn. A reclaimed
 
 Cloud Worker Desktop lets an administrator watch or control a capable worker from the Control UI without exposing its cloud node as an ordinary paired node. Enable the **Cloud Worker Desktop** lab, then set `settings.desktop: true` on a Crabbox profile. Desktop capability is fixed at warm time: changing the setting affects newly provisioned workers, while an existing non-desktop lease must be stopped and reprovisioned.
 
-The bundled Crabbox plugin supports direct AWS profiles. Coordinator-backed AWS and Hetzner profiles are supported when the selected coordinator advertises Desktop and Browser capability. OpenClaw keeps worker execution node-only: `openclaw worker`, workspace transfer, desktop observation, and app launch all use the authenticated outbound node connection. It does not restore SSH execution, a reverse tunnel, or rsync. Direct Hetzner rejects OpenClaw's fixed lease ID, so desktop profiles fail before allocation unless Hetzner uses a capable managed coordinator.
+The bundled Crabbox plugin supports direct AWS profiles. Coordinator-backed AWS and Hetzner profiles are supported when the selected coordinator advertises Desktop and Browser capability. OpenClaw keeps worker execution node-only: `granted worker`, workspace transfer, desktop observation, and app launch all use the authenticated outbound node connection. It does not restore SSH execution, a reverse tunnel, or rsync. Direct Hetzner rejects OpenClaw's fixed lease ID, so desktop profiles fail before allocation unless Hetzner uses a capable managed coordinator.
 
 Crabbox provisions XFCE on display `:99`, an authenticated RFB server on `127.0.0.1:5900`, a fresh lease-scoped browser profile with CDP on `127.0.0.1:9222`, and fixed zero-argument Browser and Terminal launchers. The provider also installs an OpenClaw worker wallpaper so the disposable desktop is easy to identify. Setup is idempotent and runs before node enrollment on every provisioning replay.
 
@@ -491,7 +491,7 @@ The Gateway sends WebSocket keepalives on desktop observer and node desktop or p
 
 ## Troubleshooting
 
-- **No cloud profile is advertised** — run the `operator.read`-scoped `openclaw gateway call environments.list --params '{}'`. If the response has no `profiles`, ask an administrator to validate `cloudWorkers.profiles`, inspect the provider plugin, and restart the Gateway. This is a configuration or provider-activation problem, not an authorization result.
+- **No cloud profile is advertised** — run the `operator.read`-scoped `granted gateway call environments.list --params '{}'`. If the response has no `profiles`, ask an administrator to validate `cloudWorkers.profiles`, inspect the provider plugin, and restart the Gateway. This is a configuration or provider-activation problem, not an authorization result.
 - **Cloud destinations are hidden or an RPC is denied** — cloud profile dispatch and profile-target moves require `operator.admin`. `operator.write` can dispatch or move to an eligible paired device, move to the Gateway, and reclaim a placement; `operator.read` alone can discover profiles but cannot start, stop, or move a session. Profile configuration, infrastructure pairing, Connect machine, raw environment lifecycle, direct `execNode` execution, incognito sessions, and arbitrary host or node paths remain `operator.admin`.
 - **The selected runtime lacks cloud placement support** — choose a model whose advertised runtime supports cloud placement. The bundled OpenClaw and Codex runtimes are supported; undeclared runtimes remain local-only.
 - **Codex cannot use a cloud profile** — verify that the profile advertises `remote-exec`, the Gateway enables a trusted Codex plugin installation, and `gateway.nodes.commands.allow` includes `codex.exec-server.stdio.v1` without a matching deny rule. Bootstrap supplies the cloud-node plugin automatically. Approve the exact node invocation when prompted. Codex does not require an available OpenClaw worker slot; a missing plugin or denied command must be corrected rather than bypassed with Gateway or SSH execution.
@@ -502,10 +502,10 @@ The Gateway sends WebSocket keepalives on desktop observer and node desktop or p
 - **Crabbox setup cannot reach the lease** — check the selected backend's networking and setup-transport requirements in the [Crabbox provider reference](https://crabbox.sh/providers/index.html). Correct Crabbox's configuration and rerun `crabbox doctor --provider <backend> --json` before retrying.
 - **Session shows a reclaimed or suspended badge after being idle** — this is expected when its profile sets `suspendAfter`. The next message provisions a replacement worker, warm when an image exists.
 - **A warm image is unavailable** — a new allocation can select cold provisioning before its choice is recorded. An already admitted allocation keeps its original cold/checkpoint choice through retries. If its checkpoint cannot be forked, resolve the provider error or stop that allocation before starting a replacement; retry does not switch images silently.
-- **Warm-image migration or capacity blocks dispatch** — run `openclaw doctor --fix` for legacy state and follow its exact cleanup guidance. For capacity, stop outstanding workers or resolve pending image cleanup with `openclaw crabbox warm-images`; allocation choices and cleanup obligations are never evicted to make room.
+- **Warm-image migration or capacity blocks dispatch** — run `granted doctor --fix` for legacy state and follow its exact cleanup guidance. For capacity, stop outstanding workers or resolve pending image cleanup with `granted crabbox warm-images`; allocation choices and cleanup obligations are never evicted to make room.
 - **Cloud bootstrap requests a rebuild** — run `pnpm build` in the Gateway source checkout, then restart the Gateway and retry. The running build, its package metadata, and the built plugin outputs must agree; editing source or matching the displayed version alone is insufficient.
 - **Node enrollment times out** — inspect the bootstrap download or install error, node process state, and bounded node-log tail included in the enrollment error. Verify that profile setup installed a supported Node.js release and npm, that npm can reach the dependency registry, and that the box can reach the Gateway's advertised TLS URL. Forward `/__openclaw__/worker-bootstrap/artifacts/<sha256>` as well as the public worker/node WebSocket routes through your proxy. If the error contains `proxy_attribution_required`, add the reverse proxy's source address to `gateway.trustedProxies`.
-- **Client timeout while dispatching** — `openclaw gateway call` defaults to a 10s timeout; pass `--timeout` generously. Dispatch keeps running server-side either way, and an identical retry on the same Gateway joins that in-flight operation instead of provisioning another worker. A retry with a different profile or session identity is rejected.
+- **Client timeout while dispatching** — `granted gateway call` defaults to a 10s timeout; pass `--timeout` generously. Dispatch keeps running server-side either way, and an identical retry on the same Gateway joins that in-flight operation instead of provisioning another worker. A retry with a different profile or session identity is rejected.
 - **Provider authorization fails after `doctor` passes** — read-only readiness does not prove permission to allocate or tear down a lease. Inspect the denied action and follow the selected provider's provisioning and cleanup requirements in the [Crabbox provider reference](https://crabbox.sh/providers/index.html).
 - **Worker reclaimed after upgrading from a 2026.7.2 beta** — those betas used the older worker launch contract. On restart, OpenClaw destroys an idle incompatible worker, keeps the session and workspace, marks the placement reclaimed, and provisions a current worker on the next dispatch or turn. A beta worker interrupted while still starting is marked failed after cleanup; retry the dispatch to provision it with the current contract.
 - **Cloud workspace conflict notice** — the turn completed and kept the local version of each listed path. Use the staged-ref commands in the notice to inspect or take the cloud version; no retry is required for the non-conflicting changes, which are already applied.

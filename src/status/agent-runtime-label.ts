@@ -12,7 +12,7 @@ import type { GrantedConfig } from "../config/types.granted.js";
 // Status runtime labels turn harness/provider/session state into a short
 // operator-facing name, sanitizing any persisted ACP/backend text.
 const AGENT_RUNTIME_LABELS: Readonly<Record<string, string>> = {
-  openclaw: "OpenClaw Default",
+  openclaw: "Granted Default",
   codex: "OpenAI Codex",
   "codex-cli": "OpenAI Codex",
   "claude-cli": "Claude CLI",
@@ -57,5 +57,5 @@ export function resolveAgentRuntimeLabel(args: {
     );
   }
 
-  return expectDefined(AGENT_RUNTIME_LABELS.openclaw, "OpenClaw runtime label");
+  return expectDefined(AGENT_RUNTIME_LABELS.openclaw, "Granted runtime label");
 }

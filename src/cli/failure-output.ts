@@ -2,6 +2,7 @@
 import { isGatewayTransportError } from "../gateway/transport-error.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { formatErrorMessage, formatUncaughtError } from "../infra/errors.js";
+import { resolveCliName } from "./cli-name.js";
 import { formatCliCommand } from "./command-format.js";
 
 type FormatCliFailureOptions = {
@@ -111,6 +112,16 @@ export function formatCliJsonFailure(
   };
 }
 
+/**
+ * The bracketed program name these lines carry.
+ *
+ * Follows the same resolver the commands in the message body use, so a failure
+ * cannot print "[openclaw] Try: granted doctor" and contradict itself.
+ */
+function cliTag(): string {
+  return `[${resolveCliName()}]`;
+}
+
 function hasDebugArg(argv: string[] | undefined): boolean {
   for (const arg of argv ?? []) {
     // Arguments after the terminator belong to the child, not root stack-trace policy.
@@ -144,7 +155,7 @@ export function formatCliOperatorError(
 function pushPrefixed(out: string[], value: string): void {
   for (const line of value.split("\n")) {
     if (line.trim().length > 0) {
-      out.push(`[openclaw] ${line}`);
+      out.push(`${cliTag()} ${line}`);
     }
   }
 }
@@ -159,23 +170,23 @@ export function formatCliFailureLines(options: FormatCliFailureOptions): string[
   const env = options.env ?? process.env;
   const showDebugDetails = shouldShowDebugDetails(options.argv, env);
   const lines = [
-    `[openclaw] ${options.title}`,
-    `[openclaw] Reason: ${formatCliOperatorError(options.error, {
+    `${cliTag()} ${options.title}`,
+    `${cliTag()} Reason: ${formatCliOperatorError(options.error, {
       argv: options.argv,
       env,
     })}`,
   ];
 
   if (showDebugDetails) {
-    lines.push("[openclaw] Stack:");
+    lines.push(`${cliTag()} Stack:`);
     pushPrefixed(lines, formatUncaughtError(options.error));
   } else {
-    lines.push("[openclaw] Debug: set GRANTED_DEBUG=1 to include the stack trace.");
+    lines.push(`${cliTag()} Debug: set GRANTED_DEBUG=1 to include the stack trace.`);
   }
 
   if (options.includeDoctorHint !== false) {
-    lines.push(`[openclaw] Try: ${formatCliCommand("openclaw doctor", env)}`);
+    lines.push(`${cliTag()} Try: ${formatCliCommand("openclaw doctor", env)}`);
   }
-  lines.push(`[openclaw] Help: ${formatCliCommand("openclaw --help", env)}`);
+  lines.push(`${cliTag()} Help: ${formatCliCommand("openclaw --help", env)}`);
   return lines;
 }

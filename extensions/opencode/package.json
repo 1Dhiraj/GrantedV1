@@ -1,7 +1,7 @@
 {
   "name": "@granted/opencode-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw OpenCode Zen provider plugin",
+  "description": "Granted OpenCode Zen provider plugin",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

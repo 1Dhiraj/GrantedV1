@@ -22,10 +22,10 @@ OpenClaw:
   to call it, shares one short soul/vibe line, and asks whether you want the
   minimal recommended plugin set or maximum convenience.
 - Persists the agreed identity twice: into `IDENTITY.md` and `SOUL.md` (what the
-  agent reads about itself) and via `openclaw agents set-identity` (what channels
+  agent reads about itself) and via `granted agents set-identity` (what channels
   and the UI display).
 - Reads app recommendations already stored during onboarding without rescanning.
-  Official plugins use `openclaw plugins install <id>`; third-party ClawHub
+  Official plugins use `granted plugins install <id>`; third-party ClawHub
   skills remain explicit opt-ins. After the choice is handled, the agent
   acknowledges the stored offer so it never asks again.
 - Deletes `BOOTSTRAP.md` once the workspace looks configured, so the ritual only runs once.
@@ -52,7 +52,7 @@ note instead of a generic greeting.
 To skip this on a pre-seeded workspace, run:
 
 ```bash
-openclaw onboard --skip-bootstrap
+granted onboard --skip-bootstrap
 ```
 
 ## Where it runs

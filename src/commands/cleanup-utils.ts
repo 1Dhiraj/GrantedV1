@@ -235,7 +235,7 @@ async function acquireStateCleanupOwnership(cleanup: CleanupResolvedPaths) {
       allowInTests: true,
       env,
       pollIntervalMs: STATE_CLEANUP_LOCK_POLL_INTERVAL_MS,
-      // Shipped readers validate this role as any live OpenClaw process. A new
+      // Shipped readers validate this role as any live Granted process. A new
       // wire role would let mixed-version Gateways misclassify cleanup as stale.
       role: "agent-embedded",
       timeoutMs: STATE_CLEANUP_LOCK_TIMEOUT_MS,
@@ -243,14 +243,14 @@ async function acquireStateCleanupOwnership(cleanup: CleanupResolvedPaths) {
   } catch (error) {
     if (error instanceof GatewayLockError) {
       throw new Error(
-        "Cannot remove OpenClaw state while the Gateway or another state maintenance command owns this state directory. Stop the Gateway and retry.",
+        "Cannot remove Granted state while the Gateway or another state maintenance command owns this state directory. Stop the Gateway and retry.",
         { cause: error },
       );
     }
     throw error;
   }
   if (!lock) {
-    throw new Error("Cannot remove OpenClaw state without exclusive state ownership.");
+    throw new Error("Cannot remove Granted state without exclusive state ownership.");
   }
   return lock;
 }
@@ -326,7 +326,7 @@ async function detachStateLockDirectory(
     await fs.rename(lockDir, tombstone);
     return tombstone;
   } catch (error) {
-    const message = `Failed to finalize OpenClaw state cleanup because the lock directory changed: ${String(error)}`;
+    const message = `Failed to finalize Granted state cleanup because the lock directory changed: ${String(error)}`;
     runtime.error(message);
     throw new Error(message, { cause: error });
   }
@@ -444,7 +444,7 @@ export async function removeStateAndLinkedPaths(
     }
     const lockDir = path.dirname(lock.stateLockPath);
     if (!isPathWithin(lockDir, stateDir)) {
-      throw new Error("Cannot remove OpenClaw state because its active lock is outside state.");
+      throw new Error("Cannot remove Granted state because its active lock is outside state.");
     }
     const databasePath = resolveOpenClawStateSqlitePath({
       ...process.env,
@@ -466,7 +466,7 @@ export async function removeStateAndLinkedPaths(
     );
     if (overlappingPreservePath) {
       throw new Error(
-        `Cannot remove OpenClaw state while preserving ${shortenHomeInString(overlappingPreservePath)} because it overlaps the active state lock. Move the workspace outside the lock directory and retry.`,
+        `Cannot remove Granted state while preserving ${shortenHomeInString(overlappingPreservePath)} because it overlaps the active state lock. Move the workspace outside the lock directory and retry.`,
       );
     }
     const stateRemoval = await removePathPreserving(
@@ -476,7 +476,7 @@ export async function removeStateAndLinkedPaths(
       { label: cleanup.stateDir },
     );
     if (!stateRemoval.ok) {
-      throw new Error("Failed to remove non-preserved OpenClaw state while ownership was held.");
+      throw new Error("Failed to remove non-preserved Granted state while ownership was held.");
     }
 
     // Drop only the removable in-tree handles; external Gateway presence stays held
@@ -492,7 +492,7 @@ export async function removeStateAndLinkedPaths(
       (await pathExists(lockDir)) || (preservePaths.length === 0 && !stateDirRemoved);
     if (newStateOperationStarted) {
       throw new Error(
-        "OpenClaw state cleanup was interrupted by a new state operation. Stop other OpenClaw commands and retry.",
+        "Granted state cleanup was interrupted by a new state operation. Stop other Granted commands and retry.",
       );
     }
     if (stateDirRemoved) {

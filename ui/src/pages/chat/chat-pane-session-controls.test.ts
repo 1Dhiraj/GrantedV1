@@ -583,18 +583,17 @@ describe("chat pane composer controls", () => {
       expect(state.chatModelPickerOpenSessionKey).toBe("main");
       expect(request).toHaveBeenCalledOnce();
       expect(request).toHaveBeenCalledWith("models.list", {
-        view: "configured",
+        view: "all",
         agentId: "main",
         refresh: true,
       });
-      expect(state.chatModelsLoading).toBe(cachedModels.length === 0);
+      expect(state.chatModelsLoading).toBe(true);
       render(renderChatPaneComposerControls(controlParams).composerControls, container);
       if (cachedModels.length > 0) {
-        expect(container.querySelector("[data-chat-model-catalog-state]")).toBeNull();
-        expect(
-          container.querySelector<HTMLButtonElement>("[data-chat-model-option]")?.disabled,
-        ).toBe(false);
-        expect(container.textContent).toContain("Cached Model");
+        expect(container.querySelector('[data-chat-model-catalog-state="loading"]')).not.toBeNull();
+        expect(container.textContent).toContain("Loading models…");
+        expect(container.querySelector("[data-chat-model-option]")).toBeNull();
+        expect(container.textContent).not.toContain("Cached Model");
       } else {
         expect(container.querySelector('[data-chat-model-catalog-state="loading"]')).not.toBeNull();
         expect(container.textContent).toContain("Loading models…");

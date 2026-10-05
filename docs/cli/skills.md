@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw skills` (search/install/update/verify/list/info/check/library/workshop)"
+summary: "CLI reference for `granted skills` (search/install/update/verify/list/info/check/library/workshop)"
 read_when:
   - You want to see which skills are available and ready to run
   - You want to search ClawHub or install skills from ClawHub, Git, or local directories
@@ -9,7 +9,7 @@ read_when:
 title: "Skills"
 ---
 
-# `openclaw skills`
+# `granted skills`
 
 Inspect local skills, search ClawHub, install skills from ClawHub/Git/local
 directories, verify ClawHub skills, and update ClawHub-tracked installs.
@@ -24,54 +24,54 @@ Related:
 ## Commands
 
 ```bash
-openclaw skills search "calendar"
-openclaw skills search --limit 20 --json
-openclaw skills install @owner/<slug>
-openclaw skills install @owner/<slug> --version <version>
-openclaw skills install skills-sh:<owner>/<repo>/<slug>
-openclaw skills install git:owner/repo
-openclaw skills install git:owner/repo@main
-openclaw skills install ./path/to/skill --as custom-name
-openclaw skills install @owner/<slug> --force
-openclaw skills install @owner/<slug> --force-install
-openclaw skills install @owner/<slug> --acknowledge-install-policy-warning
-openclaw skills install @owner/<slug> --agent <id>
-openclaw skills install @owner/<slug> --global
-openclaw skills update @owner/<slug>
-openclaw skills update @owner/<slug> --force
-openclaw skills update @owner/<slug> --force-install
-openclaw skills update @owner/<slug> --acknowledge-install-policy-warning
-openclaw skills update @owner/<slug> --global
-openclaw skills update --all
-openclaw skills update --all --agent <id>
-openclaw skills update --all --global
-openclaw skills verify @owner/<slug>
-openclaw skills verify @owner/<slug> --json
-openclaw skills verify @owner/<slug> --version <version>
-openclaw skills verify @owner/<slug> --tag <tag>
-openclaw skills verify @owner/<slug> --card
-openclaw skills verify @owner/<slug> --global
-openclaw skills list
-openclaw skills list --eligible
-openclaw skills list --json
-openclaw skills list --verbose
-openclaw skills list --agent <id>
-openclaw skills info <name>
-openclaw skills info <name> --json
-openclaw skills info <name> --agent <id>
-openclaw skills check
-openclaw skills check --agent <id>
-openclaw skills check --json
-openclaw skills curator status
-openclaw skills curator status --json
-openclaw skills workshop propose-create --name "qa-check" --description "QA checklist" --proposal ./PROPOSAL.md
-openclaw skills workshop propose-update qa-check --proposal ./PROPOSAL.md
-openclaw skills workshop list
-openclaw skills workshop inspect <proposal-id>
-openclaw skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
-openclaw skills workshop apply <proposal-id>
-openclaw skills workshop reject <proposal-id> --reason "Not reusable"
-openclaw skills workshop quarantine <proposal-id> --reason "Needs security review"
+granted skills search "calendar"
+granted skills search --limit 20 --json
+granted skills install @owner/<slug>
+granted skills install @owner/<slug> --version <version>
+granted skills install skills-sh:<owner>/<repo>/<slug>
+granted skills install git:owner/repo
+granted skills install git:owner/repo@main
+granted skills install ./path/to/skill --as custom-name
+granted skills install @owner/<slug> --force
+granted skills install @owner/<slug> --force-install
+granted skills install @owner/<slug> --acknowledge-install-policy-warning
+granted skills install @owner/<slug> --agent <id>
+granted skills install @owner/<slug> --global
+granted skills update @owner/<slug>
+granted skills update @owner/<slug> --force
+granted skills update @owner/<slug> --force-install
+granted skills update @owner/<slug> --acknowledge-install-policy-warning
+granted skills update @owner/<slug> --global
+granted skills update --all
+granted skills update --all --agent <id>
+granted skills update --all --global
+granted skills verify @owner/<slug>
+granted skills verify @owner/<slug> --json
+granted skills verify @owner/<slug> --version <version>
+granted skills verify @owner/<slug> --tag <tag>
+granted skills verify @owner/<slug> --card
+granted skills verify @owner/<slug> --global
+granted skills list
+granted skills list --eligible
+granted skills list --json
+granted skills list --verbose
+granted skills list --agent <id>
+granted skills info <name>
+granted skills info <name> --json
+granted skills info <name> --agent <id>
+granted skills check
+granted skills check --agent <id>
+granted skills check --json
+granted skills curator status
+granted skills curator status --json
+granted skills workshop propose-create --name "qa-check" --description "QA checklist" --proposal ./PROPOSAL.md
+granted skills workshop propose-update qa-check --proposal ./PROPOSAL.md
+granted skills workshop list
+granted skills workshop inspect <proposal-id>
+granted skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
+granted skills workshop apply <proposal-id>
+granted skills workshop reject <proposal-id> --reason "Not reusable"
+granted skills workshop quarantine <proposal-id> --reason "Needs security review"
 ```
 
 `search`, `update`, and `verify` use ClawHub directly. `install @owner/<slug>`
@@ -84,7 +84,7 @@ and verification. Claimed or ClawHub-scanned skills use `@owner/<slug>`.
 ./path` copies a local skill directory. By default, `install`,
 `update`, and `verify` target the active workspace `skills/` directory; with
 `--global`, they target the shared managed skills directory. `list`/`info`/`check`
-and bare `openclaw skills` request the selected Gateway's authoritative skill
+and bare `granted skills` request the selected Gateway's authoritative skill
 inventory. A configured remote Gateway or an explicit `OPENCLAW_GATEWAY_URL`
 never falls back to client-local skills: missing URLs, connection failures, and
 authentication errors remain visible. Only an implicitly selected local Gateway
@@ -107,7 +107,7 @@ Git and local directory installs expect `SKILL.md` at the source root. The
 install slug comes from `SKILL.md` frontmatter `name` when it is valid, then
 the source directory or repository name; use `--as <slug>` to override it.
 `--version` is ClawHub-only. Skill installs do not support npm package specs
-or zip/archive paths, and `openclaw skills update` updates ClawHub-tracked
+or zip/archive paths, and `granted skills update` updates ClawHub-tracked
 installs only.
 
 Gateway-backed skill dependency installs triggered from onboarding or Skills
@@ -202,37 +202,37 @@ removal on the next agent turn. If watching is disabled, start a new session.
 
 ## Personal skill library
 
-`openclaw skills library` manages the identified caller's skills on the selected
+`granted skills library` manages the identified caller's skills on the selected
 Gateway. It uses the same owner-aware service as the Control UI and agent
 workflow; it never writes the library database or revision directories on the
 CLI host.
 
 ```bash
-openclaw skills library --help
+granted skills library --help
 ```
 
 List your library:
 
 ```bash
-openclaw skills library list --scope mine --json
+granted skills library list --scope mine --json
 ```
 
 Create a private skill from a directory containing `SKILL.md`:
 
 ```bash
-openclaw skills library create ./my-skill --slug my-skill
+granted skills library create ./my-skill --slug my-skill
 ```
 
 Read its stable ID and current revision before editing:
 
 ```bash
-openclaw skills library read <skill-id> --json
+granted skills library read <skill-id> --json
 ```
 
 Update only the instructions while preserving supporting files:
 
 ```bash
-openclaw skills library update <skill-id> ./SKILL.md --expected-revision <revision-hash>
+granted skills library update <skill-id> ./SKILL.md --expected-revision <revision-hash>
 ```
 
 A directory input replaces the complete bundle. A single `SKILL.md` input
@@ -245,13 +245,13 @@ executable flags.
 Import a ZIP privately:
 
 ```bash
-openclaw skills library import ./my-skill.zip --slug my-skill
+granted skills library import ./my-skill.zip --slug my-skill
 ```
 
 Import a ClawHub skill without publishing your library:
 
 ```bash
-openclaw skills library import @owner/<slug> --clawhub --slug my-skill
+granted skills library import @owner/<slug> --clawhub --slug my-skill
 ```
 
 `--version <version>` selects a ClawHub version and requires `--clawhub`.
@@ -262,13 +262,13 @@ take `<skill-id> --expected-revision <hash>`. Rollback also requires
 Attach an exact revision to an existing session:
 
 ```bash
-openclaw skills library attach --session <session-key> --skill-id <skill-id> --revision <revision-hash>
+granted skills library attach --session <session-key> --skill-id <skill-id> --revision <revision-hash>
 ```
 
 `detach` takes the same session and skill ID. Refresh one selected skill:
 
 ```bash
-openclaw skills library refresh --session <session-key> --skill-id <skill-id>
+granted skills library refresh --session <session-key> --skill-id <skill-id>
 ```
 
 Omitting `--skill-id` refreshes all selected skills and requires current library
@@ -293,27 +293,27 @@ existing session. Removal preserves already selected revisions. See
 
 ## Skill Workshop
 
-`openclaw skills workshop` manages pending skill proposals in the selected
+`granted skills workshop` manages pending skill proposals in the selected
 workspace. Proposals are not active skills until applied. For proposal
 storage, support-file safeguards, Gateway methods, and approval policy, see
 [Skill Workshop](/tools/skill-workshop).
 
 ```bash
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name "qa-check" \
   --description "Repeatable QA checklist" \
   --proposal ./PROPOSAL.md
-openclaw skills workshop propose-create \
+granted skills workshop propose-create \
   --name "qa-check" \
   --description "Repeatable QA checklist" \
   --proposal-dir ./qa-check-proposal
-openclaw skills workshop propose-update qa-check --proposal ./PROPOSAL.md
-openclaw skills workshop list
-openclaw skills workshop inspect <proposal-id>
-openclaw skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
-openclaw skills workshop apply <proposal-id>
-openclaw skills workshop reject <proposal-id> --reason "Duplicate"
-openclaw skills workshop quarantine <proposal-id> --reason "Needs security review"
+granted skills workshop propose-update qa-check --proposal ./PROPOSAL.md
+granted skills workshop list
+granted skills workshop inspect <proposal-id>
+granted skills workshop revise <proposal-id> --proposal ./PROPOSAL.md
+granted skills workshop apply <proposal-id>
+granted skills workshop reject <proposal-id> --reason "Duplicate"
+granted skills workshop quarantine <proposal-id> --reason "Needs security review"
 ```
 
 `propose-create`, `propose-update`, and `revise` also accept `--goal <text>`

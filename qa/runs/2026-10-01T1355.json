@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-01T1355",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "N1",
+      "name": "knows its own name",
+      "result": "PASS",
+      "seconds": 21,
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t1355-n1",
+      "evidence": "granted=true openclaw=false | Granted",
+      "toolCalls": 0,
+      "tokens": 23470
+    }
+  ]
+}

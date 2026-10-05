@@ -7,10 +7,7 @@ import type {
 } from "granted/plugin-sdk/approval-handler-runtime";
 import { createChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
 import type { ExecApprovalActionDescriptor } from "granted/plugin-sdk/approval-reply-runtime";
-import type {
-  DiscordExecApprovalConfig,
-  GrantedConfig,
-} from "granted/plugin-sdk/config-contracts";
+import type { DiscordExecApprovalConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { logDebug, logError } from "granted/plugin-sdk/logging-core";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { buildExecApprovalCustomId } from "./approval-custom-id.js";
@@ -253,7 +250,7 @@ function createApprovalContainer(params: {
   const plugin = view.approvalKind === "plugin";
   const systemAgent = view.approvalKind === "system-agent";
   const pending = view.phase === "pending";
-  const approvalLabel = plugin ? "Plugin" : systemAgent ? "OpenClaw Change" : "Exec";
+  const approvalLabel = plugin ? "Plugin" : systemAgent ? "Granted Change" : "Exec";
   const { commandPreview, commandSecondaryPreview } = plugin
     ? {
         commandPreview: formatCommandPreview(view.title, 700),
@@ -286,7 +283,7 @@ function createApprovalContainer(params: {
     ? plugin
       ? "A plugin action needs your approval."
       : systemAgent
-        ? "An OpenClaw change needs your approval."
+        ? "An Granted change needs your approval."
         : "A command needs your approval."
     : view.phase === "expired"
       ? "This approval request has expired."

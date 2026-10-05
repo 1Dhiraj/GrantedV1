@@ -1,9 +1,9 @@
 ---
 name: openclaw-qa-testing
-description: Run, watch, debug, extend, or explain OpenClaw qa-lab and qa-channel scenarios, artifacts, and live lanes.
+description: Run, watch, debug, extend, or explain Granted qa-lab and qa-channel scenarios, artifacts, and live lanes.
 ---
 
-# OpenClaw QA Testing
+# Granted QA Testing
 
 Use this skill for `qa-lab` / `qa-channel` work. Repo-local QA only.
 
@@ -36,7 +36,7 @@ Use this skill for `qa-lab` / `qa-channel` work. Repo-local QA only.
 3. For a normal live suite, use:
 
 ```bash
-pnpm openclaw qa suite \
+pnpm granted qa suite \
   --provider-mode live-frontier \
   --output-dir .artifacts/qa-e2e/run-all-live-frontier-<tag>
 ```
@@ -70,7 +70,7 @@ op account list
 ```
 
 - Direct Telegram npm live test secrets currently live in 1Password item:
-  - vault: `OpenClaw`
+  - vault: `Granted`
   - item: `Telegram E2E`
 - That item is the first place to look for:
   - `OPENCLAW_QA_TELEGRAM_DRIVER_BOT_TOKEN`
@@ -78,7 +78,7 @@ op account list
   - `OPENCLAW_QA_PROVIDER_MODE`
   - `OPENCLAW_NPM_TELEGRAM_PACKAGE_SPEC`
 - Convex QA secrets currently live in 1Password items:
-  - vault: `OpenClaw`
+  - vault: `Granted`
   - item: `OPENCLAW_QA_CONVEX_SITE_URL`
   - item: `OPENCLAW_QA_CONVEX_SECRET_MAINTAINER`
   - item: `OPENCLAW_QA_CONVEX_SECRET_CI`
@@ -90,7 +90,7 @@ op account list
   - ask the maintainer/operator for the current value or the current 1Password item name
   - for Telegram direct runs, `OPENCLAW_QA_TELEGRAM_GROUP_ID` may be stored separately from `Telegram E2E`
   - for Convex runs, the leased Telegram credential should provide the Telegram group id and bot tokens together; do not require a separate `OPENCLAW_QA_TELEGRAM_GROUP_ID`
-  - for Convex runs, prefer `OpenClaw/OPENCLAW_QA_CONVEX_SITE_URL`; if that is stale or unclear, ask for the active pool URL before running
+  - for Convex runs, prefer `Granted/OPENCLAW_QA_CONVEX_SITE_URL`; if that is stale or unclear, ask for the active pool URL before running
 - Prefer direct Telegram envs for the npm Telegram Docker lane when available:
 
 ```bash
@@ -139,13 +139,13 @@ gh api repos/openclaw/openclaw/actions/runs/<run-id>/artifacts
 Use this when setting up or replacing Convex `kind=whatsapp` credentials.
 
 - Treat WhatsApp QA credentials as operator-owned live accounts, not generated fixtures.
-- Use two dedicated WhatsApp-capable test numbers: one driver account and one SUT account. Do not use personal numbers or personal OpenClaw WhatsApp accounts in the shared pool.
+- Use two dedicated WhatsApp-capable test numbers: one driver account and one SUT account. Do not use personal numbers or personal Granted WhatsApp accounts in the shared pool.
 - Register and link each account manually with WhatsApp or WhatsApp Business, storing Web auth only in isolated local auth dirs outside the repo.
 - For group coverage, create a dedicated test group that includes both QA accounts and store its JID as `groupJid`; otherwise the group mention-gating scenario should be skipped by default and fail when explicitly requested.
 - Package the two Baileys auth dirs into base64 `.tgz` payload fields and add a new active Convex credential row. Prefer adding a fresh row and disabling stale/broken rows over overwriting credentials in place.
 - Expected payload fields: `driverPhoneE164`, `sutPhoneE164`, `driverAuthArchiveBase64`, `sutAuthArchiveBase64`, and optional `groupJid`.
 - Keep credential material out of the repo, logs, PRs, and screenshots. Redact phone numbers unless the operator explicitly asks for local debugging.
-- Validate with `pnpm openclaw qa whatsapp --credential-source convex --credential-role maintainer --provider-mode mock-openai` and preserve artifact paths plus redacted pass/fail summaries.
+- Validate with `pnpm granted qa whatsapp --credential-source convex --credential-role maintainer --provider-mode mock-openai` and preserve artifact paths plus redacted pass/fail summaries.
 - If WhatsApp expires or invalidates a linked Web session, relink locally, package fresh auth archives, add a new Convex row, then disable the stale row.
 
 ## Character evals
@@ -153,13 +153,13 @@ Use this when setting up or replacing Convex `kind=whatsapp` credentials.
 Use `qa character-eval` for style/persona/vibe checks across multiple live models.
 
 ```bash
-pnpm openclaw qa character-eval \
+pnpm granted qa character-eval \
   --output-dir .artifacts/qa-e2e/character-eval-<tag>
 ```
 
 - Runs local QA gateway child processes, not Docker.
 - Packaged `pnpm build` omits QA Lab + qa-channel by design (source-checkout
-  only). To exercise `openclaw qa`/qa-channel from a built dist, build with
+  only). To exercise `granted qa`/qa-channel from a built dist, build with
   `OPENCLAW_BUILD_PRIVATE_QA=1 pnpm build` (emits `dist/plugin-sdk/qa-lab.js`,
   `qa-runtime.js`, `dist/extensions/{qa-lab,qa-channel}`) or run via `pnpm dev`.
 - With no model flags, character eval uses its current source-defined candidate,
@@ -172,7 +172,7 @@ pnpm openclaw qa character-eval \
 - Scenario source is YAML-only under `qa/scenarios/`: use `index.yaml` and
   per-scenario `*.yaml` files with top-level `title`, `scenario`, and optional
   `flow`. Never add fenced `qa-scenario` / `qa-flow` Markdown files.
-- For isolated character/persona evals, write the persona into `SOUL.md` and blank `IDENTITY.md` in the scenario flow. Use `SOUL.md + IDENTITY.md` only when intentionally testing how the normal OpenClaw identity combines with the character.
+- For isolated character/persona evals, write the persona into `SOUL.md` and blank `IDENTITY.md` in the scenario flow. Use `SOUL.md + IDENTITY.md` only when intentionally testing how the normal Granted identity combines with the character.
 - Keep prompts natural and task-shaped. The candidate model should receive character setup through `SOUL.md`, then normal user turns such as chat, workspace help, and small file tasks; do not ask "how would you react?" or tell the model it is in an eval.
 - Prefer at least one real task, such as creating or editing a tiny workspace artifact, so the transcript captures character under normal tool use instead of pure roleplay.
 
@@ -183,7 +183,7 @@ Use model refs shaped like `codex-cli/<codex-model>` whenever QA should exercise
 Examples:
 
 ```bash
-pnpm openclaw qa suite \
+pnpm granted qa suite \
   --provider-mode live-frontier \
   --model codex-cli/<codex-model> \
   --alt-model codex-cli/<codex-model> \
@@ -192,7 +192,7 @@ pnpm openclaw qa suite \
 ```
 
 ```bash
-pnpm openclaw qa manual \
+pnpm granted qa manual \
   --model codex-cli/<codex-model> \
   --message "Reply exactly: CODEX_OK"
 ```

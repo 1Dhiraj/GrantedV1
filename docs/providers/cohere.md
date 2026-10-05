@@ -11,7 +11,7 @@ read_when:
 | Property        | Value                                    |
 | --------------- | ---------------------------------------- |
 | Provider id     | `cohere`                                 |
-| Plugin          | `@granted/cohere-provider`              |
+| Plugin          | `@granted/cohere-provider`               |
 | Auth env var    | `COHERE_API_KEY`                         |
 | Onboarding flag | `--auth-choice cohere-api-key`           |
 | Direct CLI flag | `--cohere-api-key <key>`                 |
@@ -37,15 +37,15 @@ Reasoning-capable Cohere models support two Compatibility API reasoning modes. O
 1. Install the official plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @granted/cohere-provider
-openclaw gateway restart
+granted plugins install @granted/cohere-provider
+granted gateway restart
 ```
 
 2. Create a Cohere API key.
 3. Run onboarding:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice cohere-api-key \
   --cohere-api-key "$COHERE_API_KEY"
 ```
@@ -53,7 +53,7 @@ openclaw onboard --non-interactive --accept-risk --skip-health \
 4. Confirm the catalog is available:
 
 ```bash
-openclaw models list --provider cohere
+granted models list --provider cohere
 ```
 
 Onboarding only sets Cohere as the primary model when no primary model is already configured.

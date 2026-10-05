@@ -1,40 +1,40 @@
 ---
-summary: "CLI reference for `openclaw backup` (archives, SQLite snapshots, and Git history)"
+summary: "CLI reference for `granted backup` (archives, SQLite snapshots, and Git history)"
 read_when:
   - You want a first-class backup archive for local OpenClaw state
   - You need a compact, verified snapshot of one OpenClaw SQLite database
   - You want scheduled, versioned database backups in an operator-owned Git repository
   - You want to preview which paths would be included before reset or uninstall
-  - You want to restore from a `.tar.gz` archive previously created by `openclaw backup`
+  - You want to restore from a `.tar.gz` archive previously created by `granted backup`
 title: "Backup"
 ---
 
-# `openclaw backup`
+# `granted backup`
 
 Create a local backup archive for OpenClaw state, config, auth profiles, channel/provider credentials, sessions, and optionally workspaces.
 
 ```bash
-openclaw backup create
-openclaw backup create --output ~/Backups
-openclaw backup create --dry-run --json
-openclaw backup create --verify
-openclaw backup create --no-include-workspace
-openclaw backup create --only-config
-openclaw backup verify ./2026-03-09T08-00-00.000+08-00-openclaw-backup.tar.gz
-openclaw backup restore ./2026-03-09T08-00-00.000+08-00-openclaw-backup.tar.gz --target ./restored-openclaw
-openclaw backup sqlite create --global --repository ~/Backups/openclaw-sqlite
-openclaw backup sqlite create --agent main --repository ~/Backups/openclaw-sqlite
-openclaw backup sqlite list --repository ~/Backups/openclaw-sqlite
-openclaw backup sqlite verify ~/Backups/openclaw-sqlite/<snapshot-id>
-openclaw backup sqlite verify ~/Backups/openclaw-sqlite/<snapshot-id> --scratch ~/Private/openclaw-scratch
-openclaw backup sqlite restore ~/Backups/openclaw-sqlite/<snapshot-id> --target ./restored/openclaw.sqlite
-openclaw backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
-openclaw backup git create --repository ~/Backups/openclaw-git --all --push
-openclaw backup git log --repository ~/Backups/openclaw-git
-openclaw backup git verify --repository ~/Backups/openclaw-git --global
-openclaw backup git restore --repository ~/Backups/openclaw-git --agent main --target ./restored/agent.sqlite
-openclaw backup enable --repository ~/Backups/openclaw-git --every 24h --push
-openclaw backup disable
+granted backup create
+granted backup create --output ~/Backups
+granted backup create --dry-run --json
+granted backup create --verify
+granted backup create --no-include-workspace
+granted backup create --only-config
+granted backup verify ./2026-03-09T08-00-00.000+08-00-openclaw-backup.tar.gz
+granted backup restore ./2026-03-09T08-00-00.000+08-00-openclaw-backup.tar.gz --target ./restored-openclaw
+granted backup sqlite create --global --repository ~/Backups/openclaw-sqlite
+granted backup sqlite create --agent main --repository ~/Backups/openclaw-sqlite
+granted backup sqlite list --repository ~/Backups/openclaw-sqlite
+granted backup sqlite verify ~/Backups/openclaw-sqlite/<snapshot-id>
+granted backup sqlite verify ~/Backups/openclaw-sqlite/<snapshot-id> --scratch ~/Private/openclaw-scratch
+granted backup sqlite restore ~/Backups/openclaw-sqlite/<snapshot-id> --target ./restored/openclaw.sqlite
+granted backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
+granted backup git create --repository ~/Backups/openclaw-git --all --push
+granted backup git log --repository ~/Backups/openclaw-git
+granted backup git verify --repository ~/Backups/openclaw-git --global
+granted backup git restore --repository ~/Backups/openclaw-git --agent main --target ./restored/agent.sqlite
+granted backup enable --repository ~/Backups/openclaw-git --every 24h --push
+granted backup disable
 ```
 
 Archive `create`, `verify`, and `restore`, plus SQLite `create`, `list`, `verify`, and
@@ -45,8 +45,8 @@ Archive `create`, `verify`, and `restore`, plus SQLite `create`, `list`, `verify
 - The archive embeds a schema-version-1 `manifest.json` with the resolved source paths and archive layout. Additive ownership metadata records configured agent ids and roots, including agent roots already covered by another asset; existing archive layout and older archives remain supported.
 - Default output is a timestamped `.tar.gz` archive in the current working directory. Timestamped filenames use your machine's local timezone and include the UTC offset. If the current working directory is inside a backed-up source tree, OpenClaw falls back to your home directory for the default archive location.
 - Existing archive files are never overwritten. Output paths inside the source state/workspace trees are rejected to avoid self-inclusion.
-- `openclaw backup verify <archive>` checks that the archive contains exactly one root manifest, rejects traversal-style archive paths, unsafe symbolic links, and SQLite sidecars, confirms every manifest-declared payload exists, validates every SQLite snapshot's file shape, and runs full integrity and role checks on canonical OpenClaw databases. Dedicated plugin schemas remain opaque because they may require owner-defined SQLite capabilities. `openclaw backup create --verify` runs that validation immediately after writing the archive.
-- `openclaw backup create --only-config` backs up just the active JSON config file.
+- `granted backup verify <archive>` checks that the archive contains exactly one root manifest, rejects traversal-style archive paths, unsafe symbolic links, and SQLite sidecars, confirms every manifest-declared payload exists, validates every SQLite snapshot's file shape, and runs full integrity and role checks on canonical OpenClaw databases. Dedicated plugin schemas remain opaque because they may require owner-defined SQLite capabilities. `granted backup create --verify` runs that validation immediately after writing the archive.
+- `granted backup create --only-config` backs up just the active JSON config file.
 
 ## Restore a full archive
 
@@ -54,7 +54,7 @@ Restore a complete archive into a fresh staging directory without touching the
 live state directory:
 
 ```bash
-openclaw backup restore <archive.tar.gz> --target <fresh-directory>
+granted backup restore <archive.tar.gz> --target <fresh-directory>
 ```
 
 The target must not exist or must be an empty directory, and it cannot be inside
@@ -70,15 +70,15 @@ exactly as recorded in the archive.
   ratchet state, especially WhatsApp, may desynchronize after rollback and need
   relinking. Approvals and delivery/dedupe state also roll back, so review
   pending approvals before resuming the Gateway. Plugin `node_modules` trees
-  are not archived; after activation, run `openclaw plugins update <id>` or
-  reinstall with `openclaw plugins install <spec> --force`. The generated
-  `plugin-skills/` symlink index is also omitted; run `openclaw skills list` or
+  are not archived; after activation, run `granted plugins update <id>` or
+  reinstall with `granted plugins install <spec> --force`. The generated
+  `plugin-skills/` symlink index is also omitted; run `granted skills list` or
   start an agent session after activation to rebuild it from plugin metadata.
 </Warning>
 
 Activation is a separate offline operator step. Stop the Gateway, move the
 restored state asset into place or point `OPENCLAW_STATE_DIR` at that asset,
-then run `openclaw doctor` before restarting. Use `manifest.json` as the source
+then run `granted doctor` before restarting. Use `manifest.json` as the source
 of truth for the state, config, credentials, workspace, and configured agent
 paths. Restore custom agent roots to the locations configured by `agentDir`, or
 update those settings to their new locations before restarting. See
@@ -87,16 +87,16 @@ disaster-recovery sequence.
 
 ## SQLite snapshots
 
-Use `openclaw backup sqlite` when you need a portable artifact for one OpenClaw-owned SQLite database instead of a broad state archive.
+Use `granted backup sqlite` when you need a portable artifact for one OpenClaw-owned SQLite database instead of a broad state archive.
 
 Snapshot creation accepts exactly one named source. Agent sources always use
 the current configuration's resolved `<agentDir>/openclaw-agent.sqlite`, even
 when `agentDir` is outside the state directory:
 
-| Command                                                         | Database               |
-| --------------------------------------------------------------- | ---------------------- |
-| `openclaw backup sqlite create --global --repository <dir>`     | Shared OpenClaw state  |
-| `openclaw backup sqlite create --agent <id> --repository <dir>` | One per-agent database |
+| Command                                                        | Database               |
+| -------------------------------------------------------------- | ---------------------- |
+| `granted backup sqlite create --global --repository <dir>`     | Shared OpenClaw state  |
+| `granted backup sqlite create --agent <id> --repository <dir>` | One per-agent database |
 
 The repository contains one directory per committed snapshot. Each snapshot directory contains exactly:
 
@@ -112,8 +112,8 @@ SQLite snapshots can contain auth profiles, session state, plugin state, and oth
 ### Verify and restore
 
 ```bash
-openclaw backup sqlite verify <snapshot-directory>
-openclaw backup sqlite restore <snapshot-directory> --target <new-database-path>
+granted backup sqlite verify <snapshot-directory>
+granted backup sqlite restore <snapshot-directory> --target <new-database-path>
 ```
 
 Verification checks the strict manifest shape, artifact size and SHA-256, SQLite integrity, foreign keys, schema version, database role and owner, and OpenClaw-owned index definitions.
@@ -128,7 +128,7 @@ Snapshot repositories are local directories. Scheduling, upload, retention, incr
 
 ## Versioned Git backups
 
-`openclaw backup git` stores deterministic, per-table JSONL dumps in a plain Git repository owned by the operator. One repository can hold the shared database and every per-agent database:
+`granted backup git` stores deterministic, per-table JSONL dumps in a plain Git repository owned by the operator. One repository can hold the shared database and every per-agent database:
 
 ```text
 global/manifest.json
@@ -143,8 +143,8 @@ Initialize the repository, then create a snapshot of the shared database and
 all configured agent databases:
 
 ```bash
-openclaw backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
-openclaw backup git create --repository ~/Backups/openclaw-git --all --push
+granted backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
+granted backup git create --repository ~/Backups/openclaw-git --all --push
 ```
 
 The repository root must be owned by the current user and must not be group- or
@@ -159,7 +159,7 @@ scope. With `--all`, it validates every existing entry under `agents/` before
 removing stale backup-owned agent scopes, so an unowned entry aborts the cleanup
 before anything is deleted.
 
-You can also select `--global`, repeat `--agent <id>`, or combine the shared database with selected agents. Explicit agent selections, `--all`, and scheduled backups resolve each database from its configured `agentDir`; historical artifact verification and restore use the artifact's recorded agent id without requiring that agent to remain in the current configuration. Snapshot creation uses the same online backup, sanitizer, `VACUUM`, owner validation, and integrity checks as `backup sqlite create`; it never reads live SQLite files directly. Rows and schema entries have deterministic ordering, and integers and blobs use lossless encodings. The command creates one commit named `openclaw backup <ISO8601>`. If the database content is unchanged, it prints `no changes` and creates no commit.
+You can also select `--global`, repeat `--agent <id>`, or combine the shared database with selected agents. Explicit agent selections, `--all`, and scheduled backups resolve each database from its configured `agentDir`; historical artifact verification and restore use the artifact's recorded agent id without requiring that agent to remain in the current configuration. Snapshot creation uses the same online backup, sanitizer, `VACUUM`, owner validation, and integrity checks as `backup sqlite create`; it never reads live SQLite files directly. Rows and schema entries have deterministic ordering, and integers and blobs use lossless encodings. The command creates one commit named `granted backup <ISO8601>`. If the database content is unchanged, it prints `no changes` and creates no commit.
 
 Git staging is restricted to the backup-owned `global` and `agents` paths;
 unrelated files elsewhere in an adopted repository are never staged.
@@ -209,15 +209,15 @@ mistaken for a complete credential backup.
 Inspect or verify history without changing the live databases:
 
 ```bash
-openclaw backup git log --repository ~/Backups/openclaw-git --limit 20
-openclaw backup git verify --repository ~/Backups/openclaw-git --ref <commit> --global
-openclaw backup git verify --repository ~/Backups/openclaw-git --ref <commit> --agent main
+granted backup git log --repository ~/Backups/openclaw-git --limit 20
+granted backup git verify --repository ~/Backups/openclaw-git --ref <commit> --global
+granted backup git verify --repository ~/Backups/openclaw-git --ref <commit> --agent main
 ```
 
 Verification restores the selected snapshot into private scratch space, checks each table's row count and SHA-256, runs `PRAGMA integrity_check` and `PRAGMA foreign_key_check`, and removes the scratch copy. Restore writes only to a fresh target and refuses existing `-wal`, `-shm`, and `-journal` sidecars:
 
 ```bash
-openclaw backup git restore --repository ~/Backups/openclaw-git --ref <commit> --global --target ./restored/openclaw.sqlite
+granted backup git restore --repository ~/Backups/openclaw-git --ref <commit> --global --target ./restored/openclaw.sqlite
 ```
 
 Restore rebuilds content-backed FTS5 indexes after loading their content tables. It deliberately omits the derived `session_transcript_index_state` projection so Gateway startup reconciliation rebuilds transcript search. `vec0` virtual tables are not materialized because the extension is unavailable in the restore process; memory indexing recreates them and schedules a full reindex.
@@ -227,22 +227,22 @@ Restore rebuilds content-backed FTS5 indexes after loading their content tables.
 Provision one Gateway-owned automation with a fixed name:
 
 ```bash
-openclaw backup enable --repository ~/Backups/openclaw-git --every 24h --push
+granted backup enable --repository ~/Backups/openclaw-git --every 24h --push
 ```
 
 The interval defaults to `24h` when `--every` is omitted. An explicitly empty or whitespace-only interval is rejected before a schedule is created or updated.
 
-The default scope is every database. Use `--global-only` or `--agent <id>` to narrow it, and add `--exclude-secrets` for a redacted history. Pushed schedules (`--push`) redact credential-bearing tables and secret-prefixed machine-state rows by default because an unattended recurring push retains them durably in remote history; pass `--include-secrets` for explicit full-fidelity remote backups (restores from redacted history need device re-pairing and provider re-authentication). `--push` also requires the repository to already have an `origin` remote. Re-running `backup enable` updates the existing automation instead of creating a duplicate. `openclaw backup disable` removes it; disabling an already-missing job is a successful no-op. Backup scheduling currently requires a local Gateway because the command job runs on the Gateway host; for a remote Gateway, create the cron job manually with `openclaw cron add`.
+The default scope is every database. Use `--global-only` or `--agent <id>` to narrow it, and add `--exclude-secrets` for a redacted history. Pushed schedules (`--push`) redact credential-bearing tables and secret-prefixed machine-state rows by default because an unattended recurring push retains them durably in remote history; pass `--include-secrets` for explicit full-fidelity remote backups (restores from redacted history need device re-pairing and provider re-authentication). `--push` also requires the repository to already have an `origin` remote. Re-running `backup enable` updates the existing automation instead of creating a duplicate. `granted backup disable` removes it; disabling an already-missing job is a successful no-op. Backup scheduling currently requires a local Gateway because the command job runs on the Gateway host; for a remote Gateway, create the cron job manually with `granted cron add`.
 
 ## Recorded runs and freshness
 
 Every real archive, SQLite snapshot, and Git create attempt records a compact outcome in the existing shared state database. Dry runs are not recorded. The log retains the newest 200 attempts, so frequent schedules remain bounded.
 
-`openclaw status` shows one `Backups` overview row, and `openclaw status --json` includes the latest attempt and latest successful run. `openclaw doctor` prints an informational hint when no successful backup is recorded or the newest successful backup is more than 14 days old. Recording is best-effort: a record-write failure prints a warning but never changes a successful backup into a failed command.
+`granted status` shows one `Backups` overview row, and `granted status --json` includes the latest attempt and latest successful run. `granted doctor` prints an informational hint when no successful backup is recorded or the newest successful backup is more than 14 days old. Recording is best-effort: a record-write failure prints a warning but never changes a successful backup into a failed command.
 
 ## What gets backed up
 
-`openclaw backup create` plans sources from your local OpenClaw install:
+`granted backup create` plans sources from your local OpenClaw install:
 
 - The state directory (usually `~/.openclaw`)
 - The active config file path
@@ -298,9 +298,9 @@ SQLite capabilities also fails closed rather than falling back to a direct file
 copy. Other workspace SQLite files outside configured agent roots remain raw
 workspace files and do not receive the SQLite snapshot or compaction guarantee.
 
-Installed plugin source and manifest files under the state directory's `extensions/` tree are included, but their nested `node_modules/` dependency trees are skipped as rebuildable install artifacts. After restoring an archive, use `openclaw plugins update <id>` or reinstall with `openclaw plugins install <spec> --force` if a restored plugin reports missing dependencies.
+Installed plugin source and manifest files under the state directory's `extensions/` tree are included, but their nested `node_modules/` dependency trees are skipped as rebuildable install artifacts. After restoring an archive, use `granted plugins update <id>` or reinstall with `granted plugins install <spec> --force` if a restored plugin reports missing dependencies.
 
-The state directory's `plugin-skills/` root is a generated, OpenClaw-owned symlink index, not authoritative state. Backup creation reports and omits that root because its absolute targets are specific to the source installation. After activating restored state, run `openclaw skills list` or start an agent session to rebuild the links from current plugin metadata.
+The state directory's `plugin-skills/` root is a generated, OpenClaw-owned symlink index, not authoritative state. Backup creation reports and omits that root because its absolute targets are specific to the source installation. After activating restored state, run `granted skills list` or start an agent session to rebuild the links from current plugin metadata.
 
 Agent-scoped temporary trees under `agents/<agentId>/agent/**/{tmp,.tmp}/` are also omitted and reported as regenerable. This includes temporary files directly below an agent directory and temporary trees inside agent runtime homes; durable sibling directories remain included. An explicitly configured config file, credentials directory, or workspace nested below an omitted temporary root remains included.
 
@@ -324,7 +324,7 @@ Local edits inside a managed `dev/` checkout are developer source, not OpenClaw 
 
 ## Invalid config behavior
 
-`openclaw backup` bypasses the normal config preflight so it can still help during recovery. Workspace discovery depends on a valid config, so `openclaw backup create` fails fast when the config file exists but is invalid and workspace backup is still enabled.
+`granted backup` bypasses the normal config preflight so it can still help during recovery. Workspace discovery depends on a valid config, so `granted backup create` fails fast when the config file exists but is invalid and workspace backup is still enabled.
 
 For a partial backup in that situation, rerun with
 `--no-include-workspace`: it keeps state, config, and the external credentials
@@ -341,7 +341,7 @@ OpenClaw does not enforce a built-in maximum backup size or per-file size limit.
 
 - Available space for the temporary archive write plus the final archive
 - Time to walk large workspace trees and compress them into a `.tar.gz`
-- Time to rescan the archive with `--verify` or `openclaw backup verify`
+- Time to rescan the archive with `--verify` or `granted backup verify`
 - Destination filesystem behavior: OpenClaw requires no-overwrite hard-link publication so a final archive path never exposes an in-progress copy; unsupported filesystems fail with an actionable error
 
 If final-directory durability confirmation fails after publication, the command reports failure but preserves the complete final entry rather than risk deleting a concurrent replacement.

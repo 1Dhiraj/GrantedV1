@@ -12,7 +12,7 @@ read_when:
 | Property        | Value                                               |
 | --------------- | --------------------------------------------------- |
 | Provider id     | `fireworks` (alias: `fireworks-ai`)                 |
-| Package         | `@granted/fireworks-provider`                      |
+| Package         | `@granted/fireworks-provider`                       |
 | Auth env var    | `FIREWORKS_API_KEY`                                 |
 | Onboarding flag | `--auth-choice fireworks-api-key`                   |
 | Direct CLI flag | `--fireworks-api-key <key>`                         |
@@ -26,18 +26,18 @@ read_when:
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/fireworks-provider
+    granted plugins install @granted/fireworks-provider
     ```
   </Step>
   <Step title="Set the Fireworks API key">
     <CodeGroup>
 
 ```bash Onboarding
-openclaw onboard --auth-choice fireworks-api-key
+granted onboard --auth-choice fireworks-api-key
 ```
 
 ```bash Direct flag
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --auth-choice fireworks-api-key \
   --fireworks-api-key "$FIREWORKS_API_KEY"
 ```
@@ -53,10 +53,10 @@ export FIREWORKS_API_KEY=fw-...
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider fireworks
+    granted models list --provider fireworks
     ```
 
-    The list should include `GLM 5.2 Fast`, `Kimi K2.6`, and `Kimi K2.6 Fast`. If `FIREWORKS_API_KEY` is unresolved, `openclaw models status --json` reports the missing credential under `auth.unusableProfiles`.
+    The list should include `GLM 5.2 Fast`, `Kimi K2.6`, and `Kimi K2.6 Fast`. If `FIREWORKS_API_KEY` is unresolved, `granted models status --json` reports the missing credential under `auth.unusableProfiles`.
 
   </Step>
 </Steps>
@@ -66,7 +66,7 @@ export FIREWORKS_API_KEY=fw-...
 For scripted or CI installs, pass everything on the command line:
 
 ```bash
-openclaw onboard --non-interactive \
+granted onboard --non-interactive \
   --mode local \
   --auth-choice fireworks-api-key \
   --fireworks-api-key "$FIREWORKS_API_KEY" \
@@ -127,7 +127,7 @@ OpenClaw accepts any Fireworks model or router id at runtime. Use the exact id s
       A key exported only in an interactive shell will not help a launchd or systemd daemon unless that environment is imported there too. Set the key in `~/.openclaw/.env` or via `env.shellEnv` to make it readable from the gateway process.
     </Warning>
 
-    OpenClaw loads `~/.openclaw/.env` when it loads config, so keys stored there reach managed gateway services on every platform. Restart the gateway (or re-run `openclaw doctor --fix`) after rotating the key.
+    OpenClaw loads `~/.openclaw/.env` when it loads config, so keys stored there reach managed gateway services on every platform. Restart the gateway (or re-run `granted doctor --fix`) after rotating the key.
 
   </Accordion>
 </AccordionGroup>

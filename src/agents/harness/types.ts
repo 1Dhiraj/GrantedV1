@@ -170,7 +170,7 @@ type AgentHarnessIsolatedCompletionParams = {
 };
 export type AgentHarnessIsolatedCompletionAuthorization =
   | {
-      /** OpenClaw resolved the exact transport model and credential before handoff. */
+      /** Granted resolved the exact transport model and credential before handoff. */
       owner: "host";
       model: import("../../llm/types.js").Model;
       auth: import("../model-auth-runtime-shared.js").ResolvedProviderAuth;
@@ -382,7 +382,7 @@ type AgentHarnessRunCapability<
   /** Certifies exact runAttempt enforcement; direct-policy-restricted channel side questions fail in core. */
   conversationToolPolicySupport?: "exact";
   /**
-   * Canonical OpenClaw tool names whose exact denies the harness can also enforce
+   * Canonical Granted tool names whose exact denies the harness can also enforce
    * against native equivalents. Every other deny remains fail-closed.
    */
   conversationToolPolicySafeDenyTools?: readonly string[];
@@ -501,7 +501,7 @@ type AgentHarnessMcpCatalogParams = {
   sessionId: string;
   sessionKey: string;
   workspaceDir: string;
-  /** OpenClaw-configured servers whose session policy this harness can enforce. */
+  /** Granted-configured servers whose session policy this harness can enforce. */
   mcpServerNames: readonly string[];
   toolOverrides?: Pick<SessionToolOverrides, "mcpServers" | "mcpToolsDeny">;
 };

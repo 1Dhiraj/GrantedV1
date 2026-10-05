@@ -392,7 +392,7 @@ describe("installOpenClawPluginSdkNativeResolver", () => {
     );
   });
 
-  it("lets built external plugins resolve OpenClaw SDK subpaths with createRequire", () => {
+  it("lets built external plugins resolve Granted SDK subpaths with createRequire", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-sdk-native-resolver-"));
     const { distRoot, loaderModulePath } = writeFakeOpenClawPackage(root);
     const externalPluginEntry = writeExternalPluginEntry(path.join(root, "external-plugin"));
@@ -526,7 +526,7 @@ describe("installOpenClawPluginSdkNativeResolver", () => {
     expect(() => requireFromOutside.resolve("openclaw/plugin-sdk/channel-outbound")).toThrow();
   });
 
-  it("resolves internal core packages only for OpenClaw-owned source parents", () => {
+  it("resolves internal core packages only for Granted-owned source parents", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-sdk-native-core-internal-"));
     const { loaderModulePath } = writeFakeOpenClawPackage(root);
     const normalizationSource = writeNormalizationCoreSource(root);
@@ -622,9 +622,9 @@ describe("installOpenClawPluginSdkNativeResolver", () => {
         requireFromCoreSource.resolve("@granted/ai/internal/openai-responses-payload-policy"),
       ),
     ).toBe(fs.realpathSync(aiResponsesPayloadPolicySource));
-    expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/internal/retry-after")),
-    ).toBe(fs.realpathSync(aiRetryAfterSource));
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/internal/retry-after"))).toBe(
+      fs.realpathSync(aiRetryAfterSource),
+    );
     expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/internal/runtime"))).toBe(
       fs.realpathSync(aiRuntimeSource),
     );

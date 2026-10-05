@@ -45,7 +45,7 @@ export class GrantedStateOwnershipMetadataError extends GrantedStateOwnershipErr
     message: string,
   ) {
     super(
-      `OpenClaw shared state ownership metadata is invalid at ${databasePath}: ${message}. ` +
+      `Granted shared state ownership metadata is invalid at ${databasePath}: ${message}. ` +
         "Repair it with GRANTED_SUPERVISOR_MODE=external openclaw database ownership claim --manager <manager-id>.",
     );
     this.name = "GrantedStateOwnershipMetadataError";
@@ -58,7 +58,7 @@ class GrantedStateExternalOwnershipError extends GrantedStateOwnershipError {
     readonly managerId: string,
   ) {
     super(
-      `OpenClaw shared state database ${databasePath} is externally supervised by ${managerId}. ` +
+      `Granted shared state database ${databasePath} is externally supervised by ${managerId}. ` +
         "Use that external supervisor with GRANTED_SUPERVISOR_MODE=external for writable operations.",
     );
     this.name = "GrantedStateExternalOwnershipError";

@@ -68,12 +68,12 @@ change granted access later in the iOS Settings app.
    Serve is the recommended remote path:
 
 ```bash
-openclaw gateway --port 18789 --tailscale serve
+granted gateway --port 18789 --tailscale serve
 ```
 
 For a trusted same-LAN setup, use an authenticated `gateway.bind: "lan"`
 instead. The default loopback bind is not reachable from a phone. If the
-Gateway has not been configured yet, run `openclaw onboard` first so setup-code
+Gateway has not been configured yet, run `granted onboard` first so setup-code
 creation has a token or password auth path.
 
 2. Open the [Control UI](/web/control-ui), select **Nodes**, and click
@@ -98,7 +98,7 @@ creation has a token or password auth path.
    **Settings → Gateway** shows whether the saved operator connection has
    **Full** or **Limited** access. Plaintext LAN `ws://` setup is automatically
    limited for bearer-token safety. If it is limited, configure `wss://` or
-   Tailscale Serve, scan a new full-access code from Control UI or `openclaw qr`,
+   Tailscale Serve, scan a new full-access code from Control UI or `granted qr`,
    then reconnect to enable settings and upgrades.
 
 The Control UI button requires an already paired session with `operator.admin`.
@@ -106,11 +106,11 @@ As a terminal fallback, pick a discovered gateway in the iOS app (or enable
 Manual Host and enter host/port), then approve the request on the Gateway host:
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
+granted devices list
+granted devices approve <requestId>
 ```
 
-If the app retries pairing with changed auth details (role/scopes/public key), the previous pending request is superseded and a new `requestId` is created. Run `openclaw devices list` again before approval.
+If the app retries pairing with changed auth details (role/scopes/public key), the previous pending request is superseded and a new `requestId` is created. Run `granted devices list` again before approval.
 
 Optional: if the iOS node always connects from a tightly controlled subnet, you can opt in to first-time node auto-approval with explicit CIDRs or exact IPs:
 
@@ -131,8 +131,8 @@ This is disabled by default. It applies only to fresh `role: node` pairing with 
 5. Verify connection:
 
 ```bash
-openclaw nodes status
-openclaw gateway call node.list --params "{}"
+granted nodes status
+granted gateway call node.list --params "{}"
 ```
 
 ## Health summaries
@@ -248,7 +248,7 @@ Setup:
 1. On iPhone, open **Settings -> Apple Watch**.
 2. Tap **Enable Direct Gateway Connection**.
 3. Open OpenClaw on the watch before the short-lived setup code expires.
-4. Verify the separate Apple Watch row with `openclaw nodes status`.
+4. Verify the separate Apple Watch row with `granted nodes status`.
 
 The setup code contains a short-lived, node-only bootstrap credential; treat it
 like a password until it expires. It never contains the iPhone's saved Gateway
@@ -393,8 +393,8 @@ Agents can still operate the iOS app through OpenClaw by invoking node commands,
 ## Common errors
 
 - `NODE_BACKGROUND_UNAVAILABLE`: bring the iOS app to the foreground (camera/screen commands require it).
-- Pairing prompt never appears: run `openclaw devices list` and approve manually.
-- `Gateway setup incomplete`: the Gateway did not provide both node and operator credentials. Generate a new iPhone setup code from **Devices -> Pair device** in the Control UI or `openclaw qr`, then scan it in **Settings -> Gateway**. Automatic reconnect stays paused until you retry setup; this is not a device-storage error.
+- Pairing prompt never appears: run `granted devices list` and approve manually.
+- `Gateway setup incomplete`: the Gateway did not provide both node and operator credentials. Generate a new iPhone setup code from **Devices -> Pair device** in the Control UI or `granted qr`, then scan it in **Settings -> Gateway**. Automatic reconnect stays paused until you retry setup; this is not a device-storage error.
 - Watch shows no iPhone state: confirm the iPhone reports `watchPaired: true`
   and `watchAppInstalled: true` in `watch.status`. If pairing is false, pair the
   Watch in Apple's Watch app. If installation is false, install the companion

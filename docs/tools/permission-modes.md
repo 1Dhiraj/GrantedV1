@@ -20,15 +20,15 @@ Permission modes decide how much authority an agent has before it runs host comm
 Use `auto` for coding agents that need useful host access without making every miss a human prompt:
 
 ```bash
-openclaw config set tools.exec.mode auto
-openclaw approvals get
-openclaw gateway restart
+granted config set tools.exec.mode auto
+granted approvals get
+granted gateway restart
 ```
 
 Then verify the effective policy:
 
 ```bash
-openclaw exec-policy show
+granted exec-policy show
 ```
 
 ## OpenClaw host exec modes
@@ -79,9 +79,9 @@ uses separate harness-level settings under `plugins.entries.acpx.config`:
 Set ACPX permissions separately from OpenClaw exec approvals:
 
 ```bash
-openclaw config set plugins.entries.acpx.config.permissionMode approve-all
-openclaw config set plugins.entries.acpx.config.nonInteractivePermissions fail
-openclaw gateway restart
+granted config set plugins.entries.acpx.config.permissionMode approve-all
+granted config set plugins.entries.acpx.config.nonInteractivePermissions fail
+granted gateway restart
 ```
 
 Use `approve-all` as the ACPX break-glass equivalent of a no-prompt harness session. For setup details and failure modes, see [ACP agents setup](/tools/acp-agents-setup#permission-configuration).
@@ -100,8 +100,8 @@ Use `approve-all` as the ACPX break-glass equivalent of a no-prompt harness sess
 If a command still prompts or fails after changing mode, inspect both layers:
 
 ```bash
-openclaw approvals get
-openclaw exec-policy show
+granted approvals get
+granted exec-policy show
 ```
 
 Host exec uses the stricter result of OpenClaw config and the host-local approvals file. ACPX harness permissions do not loosen host exec approvals, and host exec approvals do not loosen ACPX harness prompts.

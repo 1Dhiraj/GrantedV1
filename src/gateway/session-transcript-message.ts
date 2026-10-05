@@ -12,7 +12,7 @@ export type SessionMessageProjectionState = {
   turnBoundaryPending: boolean;
 };
 
-/** Attach OpenClaw metadata to a transcript message without dropping existing metadata. */
+/** Attach Granted metadata to a transcript message without dropping existing metadata. */
 export function attachOpenClawTranscriptMeta(
   message: unknown,
   meta: Record<string, unknown>,

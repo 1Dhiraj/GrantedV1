@@ -2,7 +2,6 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import OpenAI from "openai";
 import type { ResolvedTtsConfig } from "granted/plugin-sdk/agent-runtime";
 import { AuthStorage, ModelRegistry } from "granted/plugin-sdk/agent-sessions";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
@@ -18,6 +17,7 @@ import {
   isServerErrorMessage,
   isTimeoutErrorMessage,
 } from "granted/plugin-sdk/test-live";
+import OpenAI from "openai";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 
@@ -244,7 +244,7 @@ describeLive("openai plugin live", () => {
     const ttsConfig = createLiveTtsConfig();
 
     const audioFile = await speechProvider.synthesize({
-      text: "OpenClaw integration test OK.",
+      text: "Granted integration test OK.",
       cfg,
       providerConfig: ttsConfig.providerConfigs.openai ?? {},
       target: "audio-file",
@@ -328,7 +328,7 @@ describeLive("openai plugin live", () => {
     const speechProvider = requireRegisteredProvider(speechProviders, "openai");
     const cfg = createLiveConfig();
     const ttsConfig = createLiveTtsConfig();
-    const phrase = "Testing OpenClaw OpenAI realtime transcription integration test OK.";
+    const phrase = "Testing Granted OpenAI realtime transcription integration test OK.";
 
     const telephony = await speechProvider.synthesizeTelephony?.({
       text: phrase,

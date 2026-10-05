@@ -5,9 +5,9 @@
  */
 import { escapeRegExp } from "../shared/regexp.js";
 
-/** Opening delimiter for protected OpenClaw runtime context blocks. */
+/** Opening delimiter for protected Granted runtime context blocks. */
 export const INTERNAL_RUNTIME_CONTEXT_BEGIN = "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>";
-/** Closing delimiter for protected OpenClaw runtime context blocks. */
+/** Closing delimiter for protected Granted runtime context blocks. */
 export const INTERNAL_RUNTIME_CONTEXT_END = "<<<END_GRANTED_INTERNAL_CONTEXT>>>";
 
 const ESCAPED_INTERNAL_RUNTIME_CONTEXT_BEGIN = "[[GRANTED_INTERNAL_CONTEXT_BEGIN]]";
@@ -18,14 +18,14 @@ export const GRANTED_RUNTIME_CONTEXT_NOTICE =
   "This context is runtime-generated, not user-authored. Keep internal details private.";
 /** Position-independent instructions for context belonging to the active user turn. */
 export const GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER =
-  "OpenClaw runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
+  "Granted runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
 /** Header for runtime events passed as prompt context. */
-export const GRANTED_RUNTIME_EVENT_HEADER = "OpenClaw runtime event.";
+export const GRANTED_RUNTIME_EVENT_HEADER = "Granted runtime event.";
 /** Custom message type used for structured runtime-context messages. */
 export const GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE = "openclaw.runtime-context";
 
 const LEGACY_INTERNAL_CONTEXT_HEADER =
-  ["OpenClaw runtime context (internal):", GRANTED_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
+  ["Granted runtime context (internal):", GRANTED_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
 
 const LEGACY_INTERNAL_EVENT_MARKER = "[Internal task completion event]";
 const LEGACY_INTERNAL_EVENT_SEPARATOR = "\n\n---\n\n";
@@ -214,7 +214,7 @@ function stripLegacyInternalRuntimeContext(text: string): string {
 
 const RUNTIME_CONTEXT_PROMPT_HEADERS: readonly string[] = [
   GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER,
-  "OpenClaw runtime context for the immediately preceding user message.",
+  "Granted runtime context for the immediately preceding user message.",
   GRANTED_RUNTIME_EVENT_HEADER,
 ];
 

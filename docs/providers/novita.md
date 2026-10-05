@@ -16,14 +16,14 @@ OpenClaw provides NovitaAI through the official external
 Install the plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @granted/novita-provider
-openclaw gateway restart
+granted plugins install @granted/novita-provider
+granted gateway restart
 ```
 
 Create an API key at [novita.ai/settings/key-management](https://novita.ai/settings/key-management), then run:
 
 ```bash
-openclaw onboard --auth-choice novita-api-key
+granted onboard --auth-choice novita-api-key
 ```
 
 Or set:
@@ -36,7 +36,7 @@ export NOVITA_API_KEY="<your-novita-api-key>" # pragma: allowlist secret
 
 | Setting       | Value                             |
 | ------------- | --------------------------------- |
-| Plugin        | `@granted/novita-provider`       |
+| Plugin        | `@granted/novita-provider`        |
 | Provider id   | `novita`                          |
 | Aliases       | `novita-ai`, `novitaai`           |
 | Base URL      | `https://api.novita.ai/openai/v1` |
@@ -61,7 +61,7 @@ Novita's current offering may add, remove, or restrict routes. Check before
 setting a long-lived default:
 
 ```bash
-openclaw models list --provider novita
+granted models list --provider novita
 ```
 
 ## When to choose Novita
@@ -81,10 +81,10 @@ run on your own hardware or network boundary.
 ## Troubleshooting
 
 - `401`/`403`: verify the key in Novita's key management page and re-run
-  `openclaw onboard --auth-choice novita-api-key` if the stored profile is
+  `granted onboard --auth-choice novita-api-key` if the stored profile is
   stale.
 - Unknown model errors: use the exact `novita/<route-id>` returned by
-  `openclaw models list --provider novita`.
+  `granted models list --provider novita`.
 - Slow or failed routes: try another Novita model route, or set Novita as a
   fallback provider for workloads that can tolerate provider-specific
   variance.

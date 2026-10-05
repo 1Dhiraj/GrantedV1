@@ -16,7 +16,7 @@ OpenClaw Matrix channel plugin for rooms and direct messages.
 
 ## Surface
 
-channels: `matrix`; CLI commands: `openclaw matrix`
+channels: `matrix`; CLI commands: `granted matrix`
 
 ## Related docs
 

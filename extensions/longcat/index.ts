@@ -1,10 +1,10 @@
-// LongCat plugin entrypoint registers its OpenClaw integration.
+// LongCat plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { LONGCAT_DEFAULT_MODEL_REF } from "./models.js";
 import { applyLongCatConfig } from "./onboard.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { createLongCatThinkingWrapper } from "./stream.js";
 
 const PROVIDER_ID = "longcat";

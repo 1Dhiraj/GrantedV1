@@ -109,17 +109,17 @@ type AgentHarnessSelectionDecision = {
   selectedReason:
     | "forced_openclaw"
     | "forced_plugin"
-    // Implicit Codex preference found no registered Codex harness, so OpenClaw handled the run.
+    // Implicit Codex preference found no registered Codex harness, so Granted handled the run.
     | "implicit_plugin_unavailable_openclaw"
-    // Implicit Codex preference cannot reproduce the prepared transport, so OpenClaw handled it.
+    // Implicit Codex preference cannot reproduce the prepared transport, so Granted handled it.
     | "implicit_plugin_unsupported_openclaw"
-    // The requested plugin declared OpenClaw as a lossless fallback for this prepared request.
+    // The requested plugin declared Granted as a lossless fallback for this prepared request.
     | "plugin_declared_fallback_openclaw"
     // Provider-owned CLI runtime aliases have no agent harness plugin counterpart.
     | "cli_runtime_passthrough_openclaw"
     // Auto mode chose a registered plugin harness that supports the provider/model.
     | "auto_plugin"
-    // Auto mode found no supporting plugin harness, so OpenClaw handled the run.
+    // Auto mode found no supporting plugin harness, so Granted handled the run.
     | "auto_openclaw";
   candidates: AgentHarnessSelectionCandidate[];
 };
@@ -208,12 +208,12 @@ export function selectAgentHarnessForPreparedModelProviders(
   );
 }
 
-/** Returns whether a plugin harness constructs OpenClaw tools inside its runtime. */
+/** Returns whether a plugin harness constructs Granted tools inside its runtime. */
 export function agentHarnessBuildsOpenClawTools(harnessId: string): boolean {
   return harnessId === "codex" || harnessId === "copilot";
 }
 
-/** Returns whether the selected harness exposes OpenClaw's agent-tool surface. */
+/** Returns whether the selected harness exposes Granted's agent-tool surface. */
 export function agentHarnessExposesOpenClawTools(harnessId: string): boolean {
   return harnessId === "openclaw" || agentHarnessBuildsOpenClawTools(harnessId);
 }
@@ -232,8 +232,8 @@ function selectAgentHarnessDecision(
       }),
   });
   const policy = availability.policy;
-  // OpenClaw's built-in harness is intentionally not part of the plugin candidate list. Explicit plugin
-  // runtimes fail closed unless the selected plugin declares OpenClaw as a lossless fallback.
+  // Granted's built-in harness is intentionally not part of the plugin candidate list. Explicit plugin
+  // runtimes fail closed unless the selected plugin declares Granted as a lossless fallback.
   const openClawHarness = createOpenClawAgentHarness();
   const runtime = policy.runtime;
   if (runtime === "openclaw") {
@@ -383,7 +383,7 @@ export async function runAgentHarnessSettledTurnFinalization(
     throw new Error(`Agent harness ${harness.id} cannot safely finalize a settled tool turn.`);
   }
   if (internalParams.systemAgentTool && !isSystemAgentOnlyAllowlist(internalParams.toolsAllow)) {
-    throw new Error('OpenClaw host authority requires toolsAllow: ["openclaw"]');
+    throw new Error('Granted host authority requires toolsAllow: ["openclaw"]');
   }
   const attemptParams = prepareHarnessFinalizationParams(
     {
@@ -434,7 +434,7 @@ async function runSelectedAgentHarnessAttempt(
     };
   }
   if (internalParams.systemAgentTool && !isSystemAgentOnlyAllowlist(internalParams.toolsAllow)) {
-    throw new Error('OpenClaw host authority requires toolsAllow: ["openclaw"]');
+    throw new Error('Granted host authority requires toolsAllow: ["openclaw"]');
   }
   const ringZeroTools = internalParams.systemAgentTool
     ? [
@@ -550,7 +550,7 @@ async function runAgentHarnessOperation<T>(
   try {
     return await runWithDiagnosticTraceContext(harnessTrace, execute);
   } catch (error) {
-    log.warn(`${harness.label} failed; not falling back to embedded OpenClaw backend`, {
+    log.warn(`${harness.label} failed; not falling back to embedded Granted backend`, {
       harnessId: harness.id,
       provider: params.provider,
       modelId: params.modelId,
@@ -872,7 +872,7 @@ export function resolvePluginHarnessToolPolicies(
       requestedToolPolicy,
     ],
     safeDeniedToolNames: collectHarnessSafeDeniedToolNames(explicitPolicies, safeDenyToolNameSet),
-    // Native tools bypass the collector's noninteractive OpenClaw wrappers.
+    // Native tools bypass the collector's noninteractive Granted wrappers.
     // Keep policy-allowed host replacements, without ambient input or approval surfaces.
     toolPolicyRestricted:
       params.swarmCollector === true ||

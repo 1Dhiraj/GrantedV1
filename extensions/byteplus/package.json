@@ -1,7 +1,7 @@
 {
   "name": "@granted/byteplus-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw BytePlus provider plugin.",
+  "description": "Granted BytePlus provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

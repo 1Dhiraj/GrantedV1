@@ -32,7 +32,7 @@ Setting `discovery.wideArea.domain` enables wide-area discovery. OpenClaw also a
 ### One-time DNS server setup (gateway host, macOS only)
 
 ```bash
-openclaw dns setup --apply
+granted dns setup --apply
 ```
 
 This command is macOS-only and requires Homebrew and a running Tailscale connection. It installs CoreDNS (`brew install coredns`) and configures it to:
@@ -135,7 +135,7 @@ Bonjour auto-starts for empty-config gateway startup on macOS hosts, since the l
 Enable it explicitly when same-LAN auto-discovery is useful on Linux, Windows, or another non-macOS host:
 
 ```bash
-openclaw plugins enable bonjour
+granted plugins enable bonjour
 ```
 
 When enabled, Bonjour uses `discovery.mdns.mode` to decide how much TXT metadata to publish; the same mode controls optional TXT hints in wide-area DNS-SD records. Modes:
@@ -159,7 +159,7 @@ OPENCLAW_DISABLE_BONJOUR=1
 Use plugin configuration when you intentionally want to turn off the bundled LAN discovery plugin for that OpenClaw config:
 
 ```bash
-openclaw plugins disable bonjour
+granted plugins disable bonjour
 ```
 
 ## Docker gotchas
@@ -220,8 +220,8 @@ Bonjour/DNS-SD often escapes bytes in service instance names as decimal `\DDD` s
 
 | Setting                                              | Effect                                                                            |
 | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `openclaw plugins enable bonjour`                    | Enables the bundled LAN discovery plugin on hosts where it isn't default-enabled. |
-| `openclaw plugins disable bonjour`                   | Disables LAN multicast advertising by disabling the bundled plugin.               |
+| `granted plugins enable bonjour`                     | Enables the bundled LAN discovery plugin on hosts where it isn't default-enabled. |
+| `granted plugins disable bonjour`                    | Disables LAN multicast advertising by disabling the bundled plugin.               |
 | `OPENCLAW_DISABLE_BONJOUR=1` (or `true`/`yes`/`on`)  | Disables LAN multicast advertising without changing plugin config.                |
 | `OPENCLAW_DISABLE_BONJOUR=0` (or `false`/`no`/`off`) | Forces LAN multicast advertising on, including inside detected containers.        |
 | `discovery.mdns.mode`                                | `off` \| `minimal` (default) \| `full` — see modes above.                         |

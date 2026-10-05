@@ -14,7 +14,7 @@ agent loop: native tool execution, native compaction (`infiniteSessions`), and
 CLI-managed thread state under `copilotHome`. OpenClaw still owns chat
 channels, session files, model selection, dynamic tools (bridged), approvals,
 media delivery, the visible chat transcript, `/btw` side questions (see
-[Side questions (`/btw`)](/plugins/copilot#side-questions-%2Fbtw)), and `openclaw doctor`.
+[Side questions (`/btw`)](/plugins/copilot#side-questions-%2Fbtw)), and `granted doctor`.
 
 For the broader model/provider/runtime split, start with
 [Agent runtimes](/concepts/agent-runtimes).
@@ -32,7 +32,7 @@ For the broader model/provider/runtime split, start with
   OpenClaw provides an agent directory, otherwise
   `~/.openclaw/agents/<agentId>/copilot`.
 
-`openclaw doctor` runs the plugin's [doctor contract](#doctor) for
+`granted doctor` runs the plugin's [doctor contract](#doctor) for
 session-state ownership and future config migrations. It does not probe the
 Copilot CLI environment.
 
@@ -44,7 +44,7 @@ package does not carry `@github/copilot-sdk` or its platform-specific
 Install it only for agents that opt into this runtime:
 
 ```bash
-openclaw plugins install @granted/copilot
+granted plugins install @granted/copilot
 ```
 
 The setup wizard installs the plugin automatically the first time you select

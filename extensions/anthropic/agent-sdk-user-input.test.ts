@@ -134,7 +134,7 @@ describe("Claude Agent SDK user input adapter", () => {
       }),
     ).resolves.toEqual({
       behavior: "deny",
-      message: "OpenClaw rejected malformed Claude user questions.",
+      message: "Granted rejected malformed Claude user questions.",
     });
     expect(requestUserInput).not.toHaveBeenCalled();
   });

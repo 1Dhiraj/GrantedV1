@@ -1,12 +1,12 @@
-# OpenClaw DeepInfra Provider
+# Granted DeepInfra Provider
 
-Official OpenClaw provider plugin for DeepInfra.
+Official Granted provider plugin for DeepInfra.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/deepinfra-provider
-openclaw gateway restart
+granted plugins install @granted/deepinfra-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/deepinfra> for setup and configuration.

@@ -17,10 +17,10 @@ Signal is a downloadable channel plugin (`@granted/signal`). The gateway talks t
 ## Install
 
 ```bash
-openclaw plugins install @granted/signal
+granted plugins install @granted/signal
 ```
 
-Bare plugin specs try ClawHub first, then npm fallback. Force a source with `openclaw plugins install clawhub:@granted/signal` or `npm:@granted/signal`. `plugins install` registers and enables the plugin; no separate `enable` step is needed. See [Plugins](/tools/plugin) for general install rules.
+Bare plugin specs try ClawHub first, then npm fallback. Force a source with `granted plugins install clawhub:@granted/signal` or `npm:@granted/signal`. `plugins install` registers and enables the plugin; no separate `enable` step is needed. See [Plugins](/tools/plugin) for general install rules.
 
 ## Quick setup
 
@@ -30,16 +30,16 @@ Bare plugin specs try ClawHub first, then npm fallback. Force a source with `ope
   </Step>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/signal
+    granted plugins install @granted/signal
     ```
   </Step>
   <Step title="Run the guided setup">
     ```bash
-    openclaw channels add
+    granted channels add
     ```
     The wizard detects whether `signal-cli` is on `PATH` and, when missing, offers to install it: downloads the official native GraalVM build on Linux x86-64, or installs via Homebrew on macOS and other architectures. It then prompts for the bot number and `signal-cli` path.
 
-    For non-interactive setup, `openclaw channels add --channel signal` also accepts `--signal-number <e164>` for the bot phone number, plus `--http-host <host>` and `--http-port <port>` for the Signal daemon endpoint (default `127.0.0.1:8080`).
+    For non-interactive setup, `granted channels add --channel signal` also accepts `--signal-number <e164>` for the bot phone number, plus `--http-host <host>` and `--http-port <port>` for the Signal daemon endpoint (default `127.0.0.1:8080`).
 
   </Step>
   <Step title="Link or register the account">
@@ -49,9 +49,9 @@ Bare plugin specs try ClawHub first, then npm fallback. Force a source with `ope
   </Step>
   <Step title="Verify and pair">
     ```bash
-    openclaw gateway call channels.status --params '{"probe":true}'
+    granted gateway call channels.status --params '{"probe":true}'
     ```
-    Send a first DM and approve pairing: `openclaw pairing approve signal <CODE>`.
+    Send a first DM and approve pairing: `granted pairing approve signal <CODE>`.
   </Step>
 </Steps>
 
@@ -93,7 +93,7 @@ Omitted account `dmPolicy` and `groupPolicy` inherit the channel root; explicit 
 
 ## Setup path A: link existing Signal account (QR)
 
-1. Install `signal-cli` (JVM or native build), or let `openclaw channels add` install it for you.
+1. Install `signal-cli` (JVM or native build), or let `granted channels add` install it for you.
 2. Link a bot account: `signal-cli link -n "OpenClaw"`, then scan the QR in Signal.
 3. Configure Signal and start the gateway.
 
@@ -139,13 +139,13 @@ signal-cli -a +<BOT_PHONE_NUMBER> verify <VERIFICATION_CODE>
 systemctl --user restart openclaw-gateway.service
 
 # Then verify:
-openclaw doctor
-openclaw channels status --probe
+granted doctor
+granted channels status --probe
 ```
 
 5. Pair your DM sender:
    - Send any message to the bot number.
-   - Approve on the server: `openclaw pairing approve signal <PAIRING_CODE>`.
+   - Approve on the server: `granted pairing approve signal <PAIRING_CODE>`.
    - Save the bot number as a contact on your phone to avoid "Unknown contact".
 
 <Warning>
@@ -165,7 +165,7 @@ To manage `signal-cli` yourself (slow JVM cold starts, container init, shared CP
 For non-interactive setup, select the endpoint kind explicitly when needed:
 
 ```bash
-openclaw channels add --channel signal --signal-number +15551234567 \
+granted channels add --channel signal --signal-number +15551234567 \
   --http-url http://127.0.0.1:8080 --signal-transport external-native
 ```
 
@@ -189,7 +189,7 @@ This skips auto-spawn and OpenClaw's startup wait. For a managed daemon with a s
 Instead of running `signal-cli` natively, use the [bbernhard/signal-cli-rest-api](https://github.com/bbernhard/signal-cli-rest-api) Docker container, which wraps `signal-cli` behind a REST + WebSocket interface.
 
 ```bash
-openclaw channels add --channel signal --signal-number +15551234567 \
+granted channels add --channel signal --signal-number +15551234567 \
   --http-url http://signal-cli:8080 --signal-transport container
 ```
 
@@ -236,7 +236,7 @@ OpenClaw config:
 | `"external-native"` | Connect to an already-running native signal-cli daemon                                                                                                       |
 | `"container"`       | Connect to bbernhard REST at `/v2/send` and WebSocket at `/v1/receive/{account}`                                                                             |
 
-Setup and `openclaw doctor --fix` may probe an existing endpoint once to identify its concrete kind. Runtime operations do not auto-detect or switch protocols.
+Setup and `granted doctor --fix` may probe an existing endpoint once to identify its concrete kind. Runtime operations do not auto-detect or switch protocols.
 
 Container mode supports the same Signal operations as native mode where the container exposes matching APIs: sends, receives, attachments, typing indicators, read/viewed receipts, reactions, groups, and styled text. OpenClaw translates native Signal RPC calls into the container's REST payloads, including `group.{base64(internal_id)}` group IDs and `text_mode: "styled"` for formatted text.
 
@@ -252,7 +252,7 @@ DMs:
 
 - Default: `channels.signal.dmPolicy = "pairing"`.
 - Unknown senders get a pairing code; messages are ignored until approved (codes expire after 1 hour).
-- Approve via `openclaw pairing list signal` and `openclaw pairing approve signal <CODE>`.
+- Approve via `granted pairing list signal` and `granted pairing approve signal <CODE>`.
 - Pairing is the default token exchange for Signal DMs. Details: [Pairing](/channels/pairing)
 - UUID-only senders (from `sourceUuid`) are stored as `uuid:<id>` in `channels.signal.allowFrom`.
 
@@ -390,7 +390,7 @@ Configure aliases for stable names on recurring Signal targets. Aliases are Open
 Use aliases anywhere Signal delivery targets are accepted:
 
 ```bash
-openclaw message send --channel signal --target signal:ops --message "Deployment is complete"
+granted message send --channel signal --target signal:ops --message "Deployment is complete"
 ```
 
 Per-account aliases inherit the top-level aliases and can add or override names:
@@ -414,24 +414,24 @@ Per-account aliases inherit the top-level aliases and can add or override names:
 }
 ```
 
-`openclaw directory peers list --channel signal` and `openclaw directory groups list --channel signal` list configured aliases. The Signal directory is config-backed; it does not live-query Signal contacts or mutate the Signal account.
+`granted directory peers list --channel signal` and `granted directory groups list --channel signal` list configured aliases. The Signal directory is config-backed; it does not live-query Signal contacts or mutate the Signal account.
 
 ## Troubleshooting
 
 Run this ladder first:
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
-openclaw channels status --probe
+granted status
+granted gateway status
+granted logs --follow
+granted doctor
+granted channels status --probe
 ```
 
 Then confirm DM pairing state if needed:
 
 ```bash
-openclaw pairing list signal
+granted pairing list signal
 ```
 
 Common failures:
@@ -439,15 +439,15 @@ Common failures:
 - Daemon reachable but no replies: verify `account`, `transport.kind`, the transport URL, and receive mode.
 - DMs ignored: sender is pending pairing approval.
 - Group messages ignored: group sender/mention gating blocks delivery.
-- Config validation errors after edits: run `openclaw doctor --fix`.
+- Config validation errors after edits: run `granted doctor --fix`.
 - Signal missing from diagnostics: confirm `channels.signal.enabled: true`.
 
 Extra checks:
 
 ```bash
-openclaw pairing list signal
+granted pairing list signal
 pgrep -af signal-cli
-openclaw logs --plain --limit 500 | grep -i "signal" | tail -20
+granted logs --plain --limit 500 | grep -i "signal" | tail -20
 ```
 
 For triage flow: [Channels Troubleshooting](/channels/troubleshooting).

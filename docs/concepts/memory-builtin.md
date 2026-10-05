@@ -51,7 +51,7 @@ To force local GGUF embeddings, install and configure the official llama.cpp
 provider, then point `local.modelPath` at a GGUF file:
 
 ```bash
-openclaw plugins install @granted/llama-cpp-provider
+granted plugins install @granted/llama-cpp-provider
 ```
 
 ```json5
@@ -114,7 +114,7 @@ which support selective deletion after promotion. For coverage and limits, see
 - **Index compatibility:** changing the embedding provider, model, settings,
   configured sources, or scope can pause search until you explicitly rebuild.
   See [provider selection](/reference/memory-config#provider-selection).
-- **Reindex on demand:** `openclaw memory index --force --agent <id>`
+- **Reindex on demand:** `granted memory index --force --agent <id>`
 
 Full reindexes build a replacement in a temporary database and publish the
 memory tables atomically. Concurrent searches and status reads keep using the
@@ -126,7 +126,7 @@ Other agent state, including sessions and transcripts in the same database,
 is retained. Use the [memory index command](/cli/memory#memory-index) for
 memory-only repair.
 
-`openclaw memory status` reports stored chunk text and JSON embedding bytes
+`granted memory status` reports stored chunk text and JSON embedding bytes
 for each source (`sourceCounts[].chunkBytes` in JSON). These are payload sizes,
 not total disk usage: embedding cache, FTS/vector tables, SQLite overhead, and
 WAL/free pages are excluded.
@@ -146,7 +146,7 @@ You can also index Markdown files outside the workspace with
 QMD has been removed; builtin is the only memory engine. After upgrading, run:
 
 ```bash
-openclaw doctor --fix
+granted doctor --fix
 ```
 
 Doctor removes the retired `memory.backend`, `memory.qmd`, and
@@ -201,25 +201,25 @@ with automatic user modeling.
 
 ## Troubleshooting
 
-**Memory search disabled?** Check `openclaw memory status`. If no provider is
+**Memory search disabled?** Check `granted memory status`. If no provider is
 detected, set one explicitly or add an API key.
 
 **Local provider not detected?** Run interactive llama.cpp setup once, confirm
 the local path exists, and run:
 
 ```bash
-openclaw memory status --deep --agent main
-openclaw memory index --force --agent main
+granted memory status --deep --agent main
+granted memory index --force --agent main
 ```
 
 Both standalone CLI commands and the Gateway use the same `local` provider id.
 Set `memory.search.provider: "local"` when you want local embeddings.
 
-**Stale results?** Run `openclaw memory index --force` to rebuild. The watcher
+**Stale results?** Run `granted memory index --force` to rebuild. The watcher
 may miss changes in rare edge cases.
 
 **sqlite-vec not loading?** OpenClaw falls back to in-process cosine
-similarity automatically. `openclaw memory status --deep` reports the local
+similarity automatically. `granted memory status --deep` reports the local
 vector store separately from the embedding provider, so `Vector store:
 unavailable` points at sqlite-vec loading while `Embeddings: unavailable`
 points at provider/auth or model readiness. Check logs for the specific load
@@ -231,9 +231,9 @@ To rebuild after stale results or an embedding-provider change, select the
 affected agent explicitly:
 
 ```bash
-openclaw memory status --agent <agent-id> --deep
-openclaw memory index --agent <agent-id> --force --verbose
-openclaw memory status --agent <agent-id> --deep
+granted memory status --agent <agent-id> --deep
+granted memory index --agent <agent-id> --force --verbose
+granted memory status --agent <agent-id> --deep
 ```
 
 The index shares `openclaw-agent.sqlite` with session history and other durable

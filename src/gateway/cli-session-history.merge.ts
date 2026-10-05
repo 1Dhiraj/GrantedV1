@@ -1,5 +1,5 @@
 // Imported CLI history merge helpers.
-// Deduplicates external history messages against local OpenClaw transcripts.
+// Deduplicates external history messages against local Granted transcripts.
 import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import {

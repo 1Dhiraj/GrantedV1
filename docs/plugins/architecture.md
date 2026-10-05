@@ -87,11 +87,11 @@ OpenClaw classifies every loaded plugin into a shape based on its actual registr
   </Accordion>
 </AccordionGroup>
 
-Use `openclaw plugins inspect <id>` to see a plugin's shape and capability breakdown. See [CLI reference](/cli/plugins#inspect) for details.
+Use `granted plugins inspect <id>` to see a plugin's shape and capability breakdown. See [CLI reference](/cli/plugins#inspect) for details.
 
 ### Compatibility signals
 
-`openclaw doctor`, `openclaw plugins inspect <id>`, `openclaw status --all`, and `openclaw plugins doctor` surface these compatibility notices:
+`granted doctor`, `granted plugins inspect <id>`, `granted status --all`, and `granted plugins doctor` surface these compatibility notices:
 
 | Signal                                     | Meaning                                                                                                       |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
@@ -100,7 +100,7 @@ Use `openclaw plugins inspect <id>` to see a plugin's shape and capability break
 | **deprecated memory-embedding API** (warn) | Non-bundled plugin uses the old memory-specific embedding provider API instead of `registerEmbeddingProvider` |
 | **hard error**                             | Config is invalid or plugin failed to load                                                                    |
 
-None of the advisory/warn signals break your plugin today. These signals also appear in `openclaw status --all` and `openclaw plugins doctor`.
+None of the advisory/warn signals break your plugin today. These signals also appear in `granted status --all` and `granted plugins doctor`.
 
 ## Architecture overview
 

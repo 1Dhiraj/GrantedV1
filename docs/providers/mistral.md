@@ -14,7 +14,7 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
 | Property         | Value                                       |
 | ---------------- | ------------------------------------------- |
 | Provider id      | `mistral`                                   |
-| Plugin           | `@granted/mistral-provider`                |
+| Plugin           | `@granted/mistral-provider`                 |
 | Auth env var     | `MISTRAL_API_KEY`                           |
 | Onboarding flag  | `--auth-choice mistral-api-key`             |
 | Direct CLI flag  | `--mistral-api-key <key>`                   |
@@ -30,8 +30,8 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/mistral-provider
-    openclaw gateway restart
+    granted plugins install @granted/mistral-provider
+    granted gateway restart
     ```
   </Step>
   <Step title="Get your API key">
@@ -39,13 +39,13 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice mistral-api-key
+    granted onboard --auth-choice mistral-api-key
     ```
 
     Or pass the key directly:
 
     ```bash
-    openclaw onboard --mistral-api-key "$MISTRAL_API_KEY"
+    granted onboard --mistral-api-key "$MISTRAL_API_KEY"
     ```
 
   </Step>
@@ -59,7 +59,7 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider mistral
+    granted models list --provider mistral
     ```
   </Step>
 </Steps>
@@ -79,13 +79,13 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
 Browse the plugin catalog row before changing config:
 
 ```bash
-openclaw models list --all --provider mistral --plain
+granted models list --all --provider mistral --plain
 ```
 
 Smoke-test a model without starting the Gateway:
 
 ```bash
-openclaw infer model run --local \
+granted infer model run --local \
   --model mistral/mistral-medium-3-5 \
   --prompt "Reply with exactly: mistral-ok" \
   --json

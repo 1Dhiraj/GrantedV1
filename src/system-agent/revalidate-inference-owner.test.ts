@@ -147,7 +147,7 @@ describe("revalidateSetupInferenceOwner", () => {
     });
   });
 
-  it("does not reload the built-in OpenClaw harness", async () => {
+  it("does not reload the built-in Granted harness", async () => {
     const binding = {} as SystemAgentVerifiedInferenceBinding;
     mocks.loadAgentRuntimePluginRegistryHandle.mockClear();
 

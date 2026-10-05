@@ -2,7 +2,7 @@
   "name": "@granted/ollama-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw Ollama provider plugin",
+  "description": "Granted Ollama provider plugin",
   "type": "module",
   "dependencies": {
     "typebox": "1.3.17"

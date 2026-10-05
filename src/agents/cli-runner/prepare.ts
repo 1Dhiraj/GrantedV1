@@ -166,7 +166,7 @@ type PrivateCliBackendPreparedExecution = CliBackendPreparedExecution & {
 
 function unsupportedIsolatedCompletionError(backendId: string): Error & { code: "unsupported" } {
   const error = new Error(
-    `CLI backend "${backendId}" does not support isolated completion; OpenClaw did not start the run.`,
+    `CLI backend "${backendId}" does not support isolated completion; Granted did not start the run.`,
   ) as Error & { code: "unsupported" };
   error.name = "IsolatedCompletionUnsupportedError";
   error.code = "unsupported";
@@ -179,7 +179,7 @@ function resolveClaudeCliContextModelId(modelId: string): string {
   return CLAUDE_CLI_CONTEXT_MODEL_ALIASES[lower] ?? trimmed;
 }
 type RunCliAgentPrepareParams = RunCliAgentParams & {
-  /** Ring-zero tool transport supplied only by the OpenClaw orchestrator. */
+  /** Ring-zero tool transport supplied only by the Granted orchestrator. */
   systemAgentTool?: import("../tools/system-agent-tool.js").SystemAgentToolOptions;
 };
 
@@ -255,7 +255,7 @@ function buildCliSessionDriftUserContext(
   if (reusableCliSession.mode !== "reuse-with-drift") {
     return undefined;
   }
-  return `OpenClaw resumed this CLI session after prompt content changed. Follow the current turn's instructions; changed=${reusableCliSession.drift.reasons.join(",")}.`;
+  return `Granted resumed this CLI session after prompt content changed. Follow the current turn's instructions; changed=${reusableCliSession.drift.reasons.join(",")}.`;
 }
 
 function prependCliSessionDriftUserContext(
@@ -448,7 +448,7 @@ function buildCliAuthProfileResolutionError(params: {
   });
   const reason = describeCliAuthProfileResolutionFailure(params.profileId, params.failure);
   return new CliAuthProfilePreparationError({
-    message: `CLI backend "${params.backendId}" ${reason}. Re-authenticate with: ${loginCommand}. OpenClaw did not start the run.`,
+    message: `CLI backend "${params.backendId}" ${reason}. Re-authenticate with: ${loginCommand}. Granted did not start the run.`,
     profileId: params.profileId,
     provider: params.provider,
     agentDir: params.agentDir,
@@ -615,7 +615,7 @@ export async function prepareCliRunContext(
     // Cron persists this verbatim and failure alerts truncate at 200 characters,
     // so keep the upgrade recovery and fail-closed outcome compact.
     throw new Error(
-      `CLI backend "${backendResolved.id}" cannot enforce this run's tool cap. Upgrade its plugin and retry; if current, ask its maintainer to add exact-cap support. OpenClaw did not start the run.`,
+      `CLI backend "${backendResolved.id}" cannot enforce this run's tool cap. Upgrade its plugin and retry; if current, ask its maintainer to add exact-cap support. Granted did not start the run.`,
     );
   }
   const sideQuestionDisablesNativeTools =
@@ -671,7 +671,7 @@ export async function prepareCliRunContext(
     }
   }
   // Claude owns its native login and single-use refresh-token family. Never
-  // preflight, refresh, or forward OpenClaw's snapshot; the installed Claude
+  // preflight, refresh, or forward Granted's snapshot; the installed Claude
   // process validates and refreshes its own current login.
   const usesNativeAuthProfile =
     backendAuthPolicy?.nativeAuthProfileIds !== undefined &&
@@ -940,7 +940,7 @@ export async function prepareCliRunContext(
         }),
       });
   // Mirror the embedded runner's bootstrap routing for backends that transport
-  // OpenClaw's system prompt. Only a declared native-tool backend can complete
+  // Granted's system prompt. Only a declared native-tool backend can complete
   // the file-based ritual; other backends receive limited guidance.
   const canonicalWorkspace = resolveUserPath(
     resolveAgentWorkspaceDir(params.config ?? {}, workspaceResolution.agentId),
@@ -994,7 +994,7 @@ export async function prepareCliRunContext(
     previousSignature: params.bootstrapPromptWarningSignature,
   });
   const bootstrapTruncationNotice = buildBootstrapPromptWarningNotice(bootstrapPromptWarning.lines);
-  // Ring-zero OpenClaw runs replace the bundle MCP surface entirely: no
+  // Ring-zero Granted runs replace the bundle MCP surface entirely: no
   // loopback server, no plugin/user servers. A selectable backend also removes
   // its native tools, leaving only this openclaw stdio server.
   const systemAgentMcpConfig = internalParams.systemAgentTool
@@ -1012,7 +1012,7 @@ export async function prepareCliRunContext(
       await prepareDeps.ensureMcpLoopbackServer();
     } catch (error) {
       throw new Error(
-        `Bundled MCP is enabled, but the OpenClaw MCP loopback server failed to start: ${String(error)}`,
+        `Bundled MCP is enabled, but the Granted MCP loopback server failed to start: ${String(error)}`,
         { cause: error },
       );
     }
@@ -1020,7 +1020,7 @@ export async function prepareCliRunContext(
   }
   if (bundleMcpEnabled && !mcpLoopbackRuntime) {
     throw new Error(
-      "Bundled MCP is enabled, but the OpenClaw MCP loopback server did not publish a runtime after startup.",
+      "Bundled MCP is enabled, but the Granted MCP loopback server did not publish a runtime after startup.",
     );
   }
   const mcpDeliveryCaptureEnabled = bundleMcpEnabled && Boolean(mcpLoopbackRuntime);
@@ -1103,7 +1103,7 @@ export async function prepareCliRunContext(
       (backendResolved.nativeToolMode === "selectable" && !canEnforceExactToolAvailability))
   ) {
     throw new Error(
-      `CLI backend "${backendResolved.id}" cannot enforce before_prompt_build tool restrictions. Use a backend with exact tool availability or remove the hook restriction. OpenClaw did not start the run.`,
+      `CLI backend "${backendResolved.id}" cannot enforce before_prompt_build tool restrictions. Use a backend with exact tool availability or remove the hook restriction. Granted did not start the run.`,
     );
   }
   if (promptBuildRestrictsTools && params.cliToolAvailability === undefined) {
@@ -1851,7 +1851,7 @@ export async function prepareCliRunContext(
       backendResolved.config.reseedFromRawTranscriptWhenUncompacted === true;
     const rawTranscriptReseedReason = reusableCliSessionId ? "session-expired" : invalidatedReason;
     // Node placement keeps this: the history prompt is built from the
-    // gateway-side OpenClaw transcript, so a fresh remote CLI session still
+    // gateway-side Granted transcript, so a fresh remote CLI session still
     // receives prior conversation context via stdin.
     const shouldPrepareOpenClawHistoryPrompt =
       !skipsTurnPreparation && (!reusableCliSessionId || allowRawTranscriptReseed);

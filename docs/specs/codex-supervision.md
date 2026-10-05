@@ -175,9 +175,9 @@ previews. The returned native cursor lets callers continue the scan.
 The plugin registers three Gateway-backed shell commands:
 
 ```text
-openclaw codex sessions [--search <text>] [--host <id>] [--limit <count>] [--cursor <cursor>] [--json] [gateway-options]
-openclaw codex continue <thread-id> [--agent <id>] [--host <id>] [--json] [gateway-options]
-openclaw codex archive <thread-id> --confirm-no-other-runner [--agent <id>] [--host <id>] [--json] [gateway-options]
+granted codex sessions [--search <text>] [--host <id>] [--limit <count>] [--cursor <cursor>] [--json] [gateway-options]
+granted codex continue <thread-id> [--agent <id>] [--host <id>] [--json] [gateway-options]
+granted codex archive <thread-id> --confirm-no-other-runner [--agent <id>] [--host <id>] [--json] [gateway-options]
 ```
 
 `[gateway-options]` is `--url <url>`, `--token <token>`, `--timeout <ms>`, and
@@ -528,7 +528,7 @@ disabled.
 
 ## Compatibility
 
-`openclaw doctor --fix` migrates shipped `plugins.entries.codex-supervisor`
+`granted doctor --fix` migrates shipped `plugins.entries.codex-supervisor`
 configuration, including endpoints and transcript/write policies, plus plugin
 allow/deny references into
 `plugins.entries.codex.config.supervision`. Explicit canonical destination

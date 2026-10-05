@@ -22,7 +22,7 @@ generation.
 <Steps>
   <Step title="Set the API key">
     ```bash
-    openclaw onboard --auth-choice fal-api-key
+    granted onboard --auth-choice fal-api-key
     ```
 
     Non-interactive setups can pass `--fal-api-key <key>` or export `FAL_KEY`.

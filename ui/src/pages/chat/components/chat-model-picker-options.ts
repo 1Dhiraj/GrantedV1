@@ -103,10 +103,13 @@ export function renderChatModelPickerOption(params: {
     (params.entry.unavailableReason === "missing-auth" ||
       params.entry.unavailableReason === "auth-failed");
   const onModelSetup = needsAuth ? params.onModelSetup : undefined;
+  const unavailableLabel =
+    params.entry.disabled && !needsAuth ? t("modelSetup.failure.unavailable") : "";
   const modelMeta = [
     formatModelContextMeta(params.entry),
     params.entry.agentRuntimeId ? formatAgentRuntimeLabel(params.entry.agentRuntimeId) : "",
     needsAuth ? t("modelSetup.candidates.signInNeeded") : "",
+    unavailableLabel,
   ]
     .filter(Boolean)
     .join(" · ");
@@ -126,9 +129,13 @@ export function renderChatModelPickerOption(params: {
     ).toLocaleLowerCase()}
     role="option"
     aria-selected=${selected ? "true" : "false"}
-    aria-label=${params.entry.supportsTools === false
-      ? `${modelLabel}. ${t("chat.modelControls.chatOnlyHelp")}`
-      : modelLabel}
+    aria-label=${[
+      modelLabel,
+      unavailableLabel,
+      params.entry.supportsTools === false ? t("chat.modelControls.chatOnlyHelp") : "",
+    ]
+      .filter(Boolean)
+      .join(". ")}
     type="button"
     ?disabled=${params.disabled || (params.entry.disabled && !onModelSetup)}
     data-chat-model-setup=${onModelSetup ? "true" : nothing}

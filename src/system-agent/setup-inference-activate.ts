@@ -498,7 +498,7 @@ async function activateSetupInferenceUnredacted(
         ok: false,
         status: "unknown",
         error:
-          "Inference succeeded, but its runtime did not report an owner that OpenClaw can safely reuse. No model or credential route was saved.",
+          "Inference succeeded, but its runtime did not report an owner that Granted can safely reuse. No model or credential route was saved.",
       };
     }
     if (
@@ -636,7 +636,7 @@ async function activateSetupInferenceUnredacted(
       try {
         await appendSystemAgentAuditEntry({
           operation: "openclaw.setup",
-          summary: "Verified and configured AI access through OpenClaw setup",
+          summary: "Verified and configured AI access through Granted setup",
           configPath: after?.path ?? snapshot.path,
           configHashBefore: snapshot.hash ?? null,
           configHashAfter: after?.hash ?? null,
@@ -645,7 +645,7 @@ async function activateSetupInferenceUnredacted(
       } catch (error) {
         // Inference is already verified and its route may already be durable.
         // Surface audit failure as a warning instead of misreporting setup failure.
-        const warning = `Inference setup completed, but OpenClaw could not record its audit entry: ${formatErrorMessage(error)}`;
+        const warning = `Inference setup completed, but Granted could not record its audit entry: ${formatErrorMessage(error)}`;
         params.runtime.error?.(warning);
         lines = [...lines, warning];
       }

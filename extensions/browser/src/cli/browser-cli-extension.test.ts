@@ -85,7 +85,7 @@ describe("browser extension pairing Gateway URL", () => {
       async (params: Parameters<typeof installChromeExtensionBootstrap>[0]) => {
         params.onProgress?.("Pre-registered the native host for Chromium.");
         params.onProgress?.(
-          "Native bootstrap is ready. Add OpenClaw from the Chrome Web Store. For development, load unpacked from /stable/openclaw-extension.",
+          "Native bootstrap is ready. Add Granted from the Chrome Web Store. For development, load unpacked from /stable/openclaw-extension.",
         );
         return {
           platform: "linux",

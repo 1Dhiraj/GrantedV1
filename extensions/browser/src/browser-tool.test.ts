@@ -199,9 +199,9 @@ const configMocks = vi.hoisted(() => ({
   >(() => ({ browser: {} })),
 }));
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
-  const actual = await vi.importActual<
-    typeof import("granted/plugin-sdk/runtime-config-snapshot")
-  >("openclaw/plugin-sdk/runtime-config-snapshot");
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-config-snapshot")>(
+    "openclaw/plugin-sdk/runtime-config-snapshot",
+  );
   return {
     ...actual,
     getRuntimeConfig: configMocks.loadConfig,
@@ -1317,7 +1317,7 @@ describe("browser tool snapshot maxChars", () => {
     mockSingleBrowserProxyNode();
     gatewayMocks.callGatewayTool.mockRejectedValueOnce(
       new Error(
-        "Browser control host is not reachable on 127.0.0.1:18791. Start the local OpenClaw browser control host.",
+        "Browser control host is not reachable on 127.0.0.1:18791. Start the local Granted browser control host.",
       ),
     );
     const tool = createBrowserTool();

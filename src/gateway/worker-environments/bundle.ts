@@ -5,8 +5,8 @@ import os from "node:os";
 import path from "node:path";
 import * as tar from "tar";
 import { resolveStateDir } from "../../config/paths.js";
-import { isExactSemverVersion, resolveNpmJsonEntries } from "../../infra/npm-registry-spec.js";
 import { resolveOpenClawPackageRootSync } from "../../infra/granted-root.js";
+import { isExactSemverVersion, resolveNpmJsonEntries } from "../../infra/npm-registry-spec.js";
 import { runCommandWithTimeout } from "../../process/exec.js";
 import {
   DEFAULT_WORKER_BUNDLE_ARCHIVE_LIMITS,
@@ -94,7 +94,7 @@ function resolvePackageRoot(packageRoot: string | undefined): string {
     cwd: process.cwd(),
   });
   if (!resolved) {
-    throw new Error("Unable to locate the running OpenClaw package root for worker bundling");
+    throw new Error("Unable to locate the running Granted package root for worker bundling");
   }
   return resolved;
 }
@@ -212,7 +212,7 @@ async function verifyPublishedNpmRelease(params: {
             `--registry=${GRANTED_NPM_REGISTRY}`,
           ],
           cwd: temporaryRoot,
-          failureMessage: `OpenClaw ${params.version} is not published; use the worker bundle install`,
+          failureMessage: `Granted ${params.version} is not published; use the worker bundle install`,
           runCommand,
         }),
       ),
@@ -239,7 +239,7 @@ async function verifyPublishedNpmRelease(params: {
       ],
       cwd: temporaryRoot,
       failureMessage:
-        "Unable to verify the installed OpenClaw package; use the worker bundle install",
+        "Unable to verify the installed Granted package; use the worker bundle install",
       runCommand,
     });
     const packed = parseNpmPackageIdentity(unwrapNpmJsonEntry(packedValue));
@@ -252,7 +252,7 @@ async function verifyPublishedNpmRelease(params: {
       packedTarballIntegrity = await hashNpmTarballIntegrity(packedTarballPath);
     } catch {
       throw new Error(
-        "Unable to verify the installed OpenClaw package; use the worker bundle install",
+        "Unable to verify the installed Granted package; use the worker bundle install",
       );
     }
     if (
@@ -262,7 +262,7 @@ async function verifyPublishedNpmRelease(params: {
       packedTarballIntegrity !== published.integrity
     ) {
       throw new Error(
-        `Installed OpenClaw ${params.version} does not match the published package; use the worker bundle install`,
+        `Installed Granted ${params.version} does not match the published package; use the worker bundle install`,
       );
     }
     const extractedRoot = path.join(temporaryRoot, "package");
@@ -281,7 +281,7 @@ async function verifyPublishedNpmRelease(params: {
     });
     if (packedBundle.bundleHash !== params.bundleHash) {
       throw new Error(
-        `Published OpenClaw ${params.version} does not match the prepared worker bundle; use the worker bundle install`,
+        `Published Granted ${params.version} does not match the prepared worker bundle; use the worker bundle install`,
       );
     }
     return published.integrity;
@@ -448,7 +448,7 @@ async function prepareWorkerBundle(
   const cacheDir = resolveBundleCacheDir(options.cacheDir);
   const openclawVersion = (options.openclawVersion ?? VERSION).trim();
   if (!openclawVersion) {
-    throw new Error("Worker bundle requires a non-empty OpenClaw version");
+    throw new Error("Worker bundle requires a non-empty Granted version");
   }
   const protocolFeatures = normalizeProtocolFeatures(options.protocolFeatures ?? []);
   await fs.mkdir(cacheDir, { recursive: true });

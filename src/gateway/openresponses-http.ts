@@ -1,7 +1,7 @@
 /**
  * OpenResponses HTTP Handler
  *
- * Implements the OpenResponses `/v1/responses` endpoint for OpenClaw Gateway.
+ * Implements the OpenResponses `/v1/responses` endpoint for Granted Gateway.
  *
  * @see https://www.open-responses.com/
  */
@@ -827,7 +827,7 @@ export async function handleOpenResponsesHttpRequest(
         output: [
           createAssistantOutputItem({
             id: outputItemId,
-            text: assistantText || "No response from OpenClaw.",
+            text: assistantText || "No response from Granted.",
             phase: "final_answer",
             status: "completed",
           }),
@@ -1132,7 +1132,7 @@ export async function handleOpenResponsesHttpRequest(
       const phase = evt.data?.phase;
       if (phase === "end" || phase === "error") {
         const finalText =
-          accumulatedText || bufferedReplaceableAssistantContent || "No response from OpenClaw.";
+          accumulatedText || bufferedReplaceableAssistantContent || "No response from Granted.";
         const finalStatus = phase === "error" ? "failed" : "completed";
         const errorMessage =
           phase === "error" && typeof evt.data?.error === "string"
@@ -1334,7 +1334,7 @@ export async function handleOpenResponsesHttpRequest(
       // Fallback: if no streaming deltas were received, send the full response as text
       if (!sawAssistantDelta) {
         const content =
-          resultPayloadText || bufferedReplaceableAssistantContent || "No response from OpenClaw.";
+          resultPayloadText || bufferedReplaceableAssistantContent || "No response from Granted.";
 
         accumulatedText = content;
         sawAssistantDelta = true;

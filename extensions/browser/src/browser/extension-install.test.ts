@@ -452,7 +452,7 @@ describe("native host registration", () => {
     });
 
     expect(repair).toEqual({
-      changes: ["Repaired Google Chrome OpenClaw native messaging registration."],
+      changes: ["Repaired Google Chrome Granted native messaging registration."],
       warnings: [],
     });
     const repaired = JSON.parse(await fs.readFile(manifestPath, "utf8")) as {
@@ -568,7 +568,7 @@ describe("native host registration", () => {
     });
 
     expect(repair).toEqual({
-      changes: ["Repaired Google Chrome OpenClaw native messaging registration."],
+      changes: ["Repaired Google Chrome Granted native messaging registration."],
       warnings: [],
     });
     await expect(fs.readFile(manifest.path, "utf8")).resolves.toContain(movedNativeHost);
@@ -721,7 +721,7 @@ describe("native host registration", () => {
       }
       if (recovery === "repair") {
         await expect(repairOwnedChromeExtensionNativeHosts({ ...params, deps })).resolves.toEqual({
-          changes: ["Repaired Chromium OpenClaw native messaging registration."],
+          changes: ["Repaired Chromium Granted native messaging registration."],
           warnings: [],
         });
       } else {
@@ -767,7 +767,7 @@ describe("native host registration", () => {
     const broken = await browserExtensionStatus({ ...params, deps });
     expect(broken.manualSetupRequired).toBe(true);
     await expect(repairOwnedChromeExtensionNativeHosts({ ...params, deps })).resolves.toEqual({
-      changes: ["Repaired Chromium OpenClaw native messaging registration."],
+      changes: ["Repaired Chromium Granted native messaging registration."],
       warnings: [],
     });
     const repaired = await browserExtensionStatus({ ...params, deps });

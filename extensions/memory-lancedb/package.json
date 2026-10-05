@@ -1,7 +1,7 @@
 {
   "name": "@granted/memory-lancedb",
   "version": "2026.8.1",
-  "description": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall, auto-capture, and vector search.",
+  "description": "Granted LanceDB-backed long-term memory plugin with auto-recall, auto-capture, and vector search.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

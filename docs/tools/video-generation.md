@@ -42,7 +42,7 @@ active mode before submission and reports supported modes in `action=list`.
   </Step>
   <Step title="Pick a default model (optional)">
     ```bash
-    openclaw config set agents.defaults.mediaModels.video.primary "google/veo-3.1-fast-generate-preview"
+    granted config set agents.defaults.mediaModels.video.primary "google/veo-3.1-fast-generate-preview"
     ```
   </Step>
   <Step title="Ask the agent">
@@ -70,7 +70,7 @@ Video generation is asynchronous:
 While a job is in flight, duplicate `video_generate` calls in the same
 session return the current task status instead of starting another
 generation. Use `action: "status"` to check without triggering a new
-generation, or `openclaw tasks list` / `openclaw tasks show <lookup>` from the
+generation, or `granted tasks list` / `granted tasks show <lookup>` from the
 CLI (see [Background tasks](/automation/tasks)).
 
 Outside of session-backed agent runs (for example, direct tool invocations),
@@ -95,9 +95,9 @@ of failing the task if local persistence rejects an oversized file.
 Check status from the CLI:
 
 ```bash
-openclaw tasks list
-openclaw tasks show <lookup>
-openclaw tasks cancel <lookup>
+granted tasks list
+granted tasks show <lookup>
+granted tasks cancel <lookup>
 ```
 
 ## Supported providers
@@ -541,7 +541,7 @@ Set the default video-generation model in your OpenClaw config:
 Or via the CLI:
 
 ```bash
-openclaw config set agents.defaults.mediaModels.video.primary "qwen/wan2.6-t2v"
+granted config set agents.defaults.mediaModels.video.primary "qwen/wan2.6-t2v"
 ```
 
 ## Related

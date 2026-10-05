@@ -20,7 +20,7 @@ OpenAI-compatible, so OpenClaw talks to it over the same
     <Steps>
       <Step title="Run OAuth onboarding">
         ```bash
-        openclaw onboard --auth-choice openrouter-oauth
+        granted onboard --auth-choice openrouter-oauth
         ```
 
         OpenClaw opens OpenRouter's browser sign-in flow (PKCE), exchanges the
@@ -32,7 +32,7 @@ OpenAI-compatible, so OpenClaw talks to it over the same
         Onboarding defaults to `openrouter/auto`. Pick a concrete model later:
 
         ```bash
-        openclaw models set openrouter/<provider>/<model>
+        granted models set openrouter/<provider>/<model>
         ```
 
       </Step>
@@ -46,14 +46,14 @@ OpenAI-compatible, so OpenClaw talks to it over the same
       </Step>
       <Step title="Run API-key onboarding">
         ```bash
-        openclaw onboard --auth-choice openrouter-api-key
+        granted onboard --auth-choice openrouter-api-key
         ```
       </Step>
       <Step title="(Optional) Switch to a specific model">
         Onboarding defaults to `openrouter/auto`. Pick a concrete model later:
 
         ```bash
-        openclaw models set openrouter/<provider>/<model>
+        granted models set openrouter/<provider>/<model>
         ```
 
       </Step>
@@ -248,7 +248,7 @@ through the normal OpenRouter endpoint. The upstream model slug is
 provider prefix and the upstream OpenRouter namespace:
 
 ```bash
-openclaw models set openrouter/openrouter/fusion
+granted models set openrouter/openrouter/fusion
 ```
 
 Configure Fusion's panel and judge through the model's `params.extraBody`;
@@ -304,7 +304,7 @@ pick faster analysis/judge models for quicker responses.
 Test a configured ref with a one-shot local call:
 
 ```bash
-openclaw infer model run --local \
+granted infer model run --local \
   --model openrouter/openrouter/fusion \
   --prompt "Reply with exactly: FUSION_OK" \
   --json
@@ -321,8 +321,8 @@ To sign in or rotate the stored key on an existing install without rerunning
 full onboarding:
 
 ```bash
-openclaw models auth login --provider openrouter --method oauth
-openclaw models auth login --provider openrouter --method api-key
+granted models auth login --provider openrouter --method oauth
+granted models auth login --provider openrouter --method api-key
 ```
 
 On verified OpenRouter requests (`https://openrouter.ai/api/v1`), OpenClaw adds

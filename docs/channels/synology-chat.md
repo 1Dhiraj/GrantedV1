@@ -13,13 +13,13 @@ Status: official plugin, installed separately. Direct messages only; text and ho
 ## Install
 
 ```bash
-openclaw plugins install @granted/synology-chat
+granted plugins install @granted/synology-chat
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-openclaw plugins install ./path/to/local/synology-chat-plugin
+granted plugins install ./path/to/local/synology-chat-plugin
 ```
 
 Details: [Plugins](/tools/plugin)
@@ -35,8 +35,8 @@ Details: [Plugins](/tools/plugin)
    - Or your custom `channels.synology-chat.webhookPath`.
    - Record that exact externally reachable HTTPS URL as `channels.synology-chat.webhookUrl` so the NAS can retrieve hosted attachments.
 4. Finish setup in OpenClaw. Synology Chat appears in the same channel setup list in both flows:
-   - Guided: `openclaw onboard` or `openclaw channels add`
-   - Direct: `openclaw channels add --channel synology-chat --token <token> --url <incoming-webhook-url> --webhook-url <public-outgoing-webhook-url>`
+   - Guided: `granted onboard` or `granted channels add`
+   - Direct: `granted channels add --channel synology-chat --token <token> --url <incoming-webhook-url> --webhook-url <public-outgoing-webhook-url>`
 5. Restart the Gateway and send a DM to the Synology Chat bot.
 
 Webhook auth details:
@@ -108,9 +108,9 @@ Use numeric Synology Chat user IDs as targets. The `synology-chat:`, `synology_c
 Examples:
 
 ```bash
-openclaw message send --channel synology-chat --target 123456 --message "Hello from OpenClaw"
-openclaw message send --channel synology-chat --target synology-chat:123456 --message "Hello again"
-openclaw message send --channel synology-chat --target synology:123456 --message "Short prefix"
+granted message send --channel synology-chat --target 123456 --message "Hello from OpenClaw"
+granted message send --channel synology-chat --target synology-chat:123456 --message "Hello again"
+granted message send --channel synology-chat --target synology:123456 --message "Short prefix"
 ```
 
 Outbound text is chunked at 2000 characters, and ordinary links remain intact. Keep **Hide URL previews in conversations and channels** enabled in Synology Chat Admin Console on a supported Chat Server release.

@@ -14,7 +14,7 @@ import {
   normalizeAnthropicProviderConfigForProvider,
 } from "./config-defaults.js";
 
-/** Profile ids that native Claude auth has retired from OpenClaw ownership. */
+/** Profile ids that native Claude auth has retired from Granted ownership. */
 export const deprecatedProfileIds = [CLAUDE_CLI_PROFILE_ID] as const;
 
 /** Normalize Anthropic provider config without importing runtime registration. */

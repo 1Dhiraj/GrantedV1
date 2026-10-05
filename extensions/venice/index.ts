@@ -1,13 +1,13 @@
-// Venice plugin entrypoint registers its OpenClaw integration.
+// Venice plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   applyModelCompatPatch,
   type ModelCompatConfig,
 } from "granted/plugin-sdk/provider-model-shared";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { VENICE_MODEL_DISCOVERY_OPTIONS } from "./models.js";
 import { applyVeniceConfig } from "./onboard.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildStaticVeniceProvider } from "./provider-catalog.js";
 import { createVeniceStreamWrapper } from "./stream.js";
 import { fetchVeniceUsage } from "./usage.js";

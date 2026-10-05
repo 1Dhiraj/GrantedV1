@@ -24,8 +24,8 @@ import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import type { PluginHookRegistration } from "../../plugins/types.js";
 import { createDeferredCore } from "../../shared/deferred.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
-import { createInternalHookEventPayload } from "../../test-utils/internal-hook-event-payload.js";
 import { createOpenClawTestState } from "../../test-utils/granted-test-state.js";
+import { createInternalHookEventPayload } from "../../test-utils/internal-hook-event-payload.js";
 import {
   onInternalDiagnosticEvent,
   resetDiagnosticEventsForTest,
@@ -4135,7 +4135,7 @@ describe("deliverOutboundPayloads", () => {
     expect(afterCommit).toHaveBeenCalledTimes(1);
   });
 
-  it("includes OpenClaw tmp root in plugin mediaLocalRoots", async () => {
+  it("includes Granted tmp root in plugin mediaLocalRoots", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-media", roomId: "!room" });
 
     await deliverMatrix({
@@ -4920,7 +4920,7 @@ describe("deliverOutboundPayloads", () => {
           text: [
             "visible",
             "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
-            "OpenClaw runtime context (internal):",
+            "Granted runtime context (internal):",
             "<<<BEGIN_UNTRUSTED_CHILD_RESULT>>>",
             "raw child output",
             "<<<END_UNTRUSTED_CHILD_RESULT>>>",
@@ -4994,7 +4994,7 @@ describe("deliverOutboundPayloads", () => {
   it("queues a spool copy while the live send keeps the producer's path", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-spool", roomId: "!room:example" });
     // Production shape: no explicit mediaAccess, and the source sits in the
-    // OpenClaw temp root that TTS actually writes to. Staging must resolve the
+    // Granted temp root that TTS actually writes to. Staging must resolve the
     // same capability the live send resolves, so a fabricated localRoots here
     // would hide whether the two gates agree.
     const sourceDir = await fsPromises.realpath(
@@ -5055,7 +5055,7 @@ describe("deliverOutboundPayloads", () => {
       ...matrixChunkConfig,
       tools: { fs: { workspaceOnly: true } },
     } as GrantedConfig;
-    // Deliberately outside the OpenClaw temp root: that root is itself a default
+    // Deliberately outside the Granted temp root: that root is itself a default
     // media root, so a state dir inside it would admit the source by containment
     // and hide whether the agent-scoped capability is what grants access.
     const openClawState = await createOpenClawTestState({

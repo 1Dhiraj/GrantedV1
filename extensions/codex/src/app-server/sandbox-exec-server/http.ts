@@ -1,6 +1,6 @@
 /**
  * Implements sandboxed HTTP requests for Codex native tools by routing network
- * access through the active OpenClaw sandbox backend.
+ * access through the active Granted sandbox backend.
  */
 import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
 import { SsrFBlockedError, isBlockedHostnameOrIp } from "granted/plugin-sdk/ssrf-runtime";

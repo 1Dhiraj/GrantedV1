@@ -123,7 +123,7 @@ function buildRuntimeChoice(params: {
     label,
     description:
       id === "openclaw"
-        ? "Use the built-in OpenClaw runtime."
+        ? "Use the built-in Granted runtime."
         : params.cli
           ? `Run ${params.provider} models through ${label}.`
           : `Use the ${label} runtime selected by the effective harness policy.`,

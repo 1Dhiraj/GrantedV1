@@ -35,14 +35,14 @@ last-seen state, but they do not compete for the active-computer designation.
 2. Confirm the Mac node is connected:
 
    ```bash
-   openclaw nodes status --connected
+   granted nodes status --connected
    ```
 
 3. Move the mouse or press a key on that Mac, then run:
 
    ```bash
-   openclaw nodes status
-   openclaw nodes describe --node <node-id-or-name>
+   granted nodes status
+   granted nodes describe --node <node-id-or-name>
    ```
 
 The freshest eligible Mac is marked `active`. Status output shows its last-input
@@ -122,8 +122,8 @@ longer connected when delivery runs, the alert is canceled.
 
 | Symptom                                   | Check                                                                                                                                                                |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| No row is marked `active`                 | Confirm active computer detection is enabled, a native macOS node is connected, and `openclaw nodes describe --node <id>` shows `permissions.accessibility: true`.   |
-| The wrong Mac remains active              | Use that Mac physically, wait for the coalescing window, then rerun `openclaw nodes status`. Synthetic computer-control actions do not count.                        |
+| No row is marked `active`                 | Confirm active computer detection is enabled, a native macOS node is connected, and `granted nodes describe --node <id>` shows `permissions.accessibility: true`.    |
+| The wrong Mac remains active              | Use that Mac physically, wait for the coalescing window, then rerun `granted nodes status`. Synthetic computer-control actions do not count.                         |
 | Last-input data disappears                | Check whether the Mac disconnected, its node session was replaced, or Accessibility was revoked. Each condition intentionally clears activity.                       |
 | The alert appears on several Macs         | Primary delivery was unavailable or failed, so the delayed fallback ran. Verify that the active Mac is connected, allows notifications, and exposes `system.notify`. |
 | The agent does not mention the active Mac | Start a new turn after activity changes. The runtime hint is stable and compact; use the `nodes` tool for exact current metadata.                                    |

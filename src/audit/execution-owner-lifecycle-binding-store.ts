@@ -36,7 +36,7 @@ function ensureExecutionOwnerLifecycleBindingSchema(db: DatabaseSync): void {
   const start = GRANTED_STATE_SCHEMA_SQL.indexOf(SCHEMA_START);
   const end = start < 0 ? -1 : GRANTED_STATE_SCHEMA_SQL.indexOf(SCHEMA_END, start);
   if (start < 0 || end < start) {
-    throw new Error("OpenClaw execution owner lifecycle binding schema marker is missing.");
+    throw new Error("Granted execution owner lifecycle binding schema marker is missing.");
   }
   // sqlite-allow-raw -- Canonical feature-local additive DDL only; metadata rows use Kysely.
   db.exec(GRANTED_STATE_SCHEMA_SQL.slice(start, end + SCHEMA_END.length));

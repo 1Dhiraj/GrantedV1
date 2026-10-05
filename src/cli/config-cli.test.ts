@@ -1486,7 +1486,7 @@ describe("config cli", () => {
         ok: false,
         error: {
           type: "cli_error",
-          message: expect.stringContaining("OpenClaw config is invalid"),
+          message: expect.stringContaining("Granted config is invalid"),
         },
         issues: [{ path: "gateway.bind", message: "Invalid enum value" }],
       });
@@ -1765,7 +1765,7 @@ describe("config cli", () => {
             ok: false,
             error: {
               type: "cli_error",
-              message: expect.stringContaining("OpenClaw config is invalid"),
+              message: expect.stringContaining("Granted config is invalid"),
             },
             valid: false,
             path: "/tmp/openclaw.json",
@@ -2478,7 +2478,7 @@ describe("config cli", () => {
             appId: "app-id",
             appSecret: "secret",
             replyMode: "thread",
-            footer: "OpenClaw",
+            footer: "Granted",
           },
         },
       });

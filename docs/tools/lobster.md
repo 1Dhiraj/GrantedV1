@@ -9,7 +9,7 @@ read_when:
 Lobster runs multi-step tool pipelines as one deterministic tool call, with
 explicit approval checkpoints and resume tokens. It sits one layer above
 detached background work: for orchestrating flows across many detached tasks,
-see [Task Flow](/automation/taskflow) (`openclaw tasks flow`); for the task
+see [Task Flow](/automation/taskflow) (`granted tasks flow`); for the task
 activity ledger, see [Background Tasks](/automation/tasks).
 
 ## Why
@@ -37,12 +37,12 @@ Without Lobster, a recurring email triage looks like:
 
 ```text
 User: "Check my email and draft replies"
-→ openclaw calls gmail.list
+→ granted calls gmail.list
 → LLM summarizes
 → User: "draft replies to #2 and #5"
 → LLM drafts
 → User: "send #2"
-→ openclaw calls gmail.send
+→ granted calls gmail.send
 (repeat daily, no memory of what was triaged)
 ```
 

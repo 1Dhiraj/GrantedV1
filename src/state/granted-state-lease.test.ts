@@ -17,14 +17,12 @@ afterEach(() => {
   closeOpenClawStateDatabaseForTest();
 });
 
-describe("OpenClaw state lease", () => {
+describe("Granted state lease", () => {
   it.each([undefined, "worker"] as const)(
     "releases ownership when a CLI exits with %s renewal",
     async (heartbeat) => {
       await withOpenClawTestState({ label: "core-state-lease-process-exit" }, async (state) => {
-        const leaseModuleUrl = pathToFileURL(
-          path.resolve("src/state/granted-state-lease.ts"),
-        ).href;
+        const leaseModuleUrl = pathToFileURL(path.resolve("src/state/granted-state-lease.ts")).href;
         const childScript = await state.writeText(
           "lease-process-exit-child.mts",
           `

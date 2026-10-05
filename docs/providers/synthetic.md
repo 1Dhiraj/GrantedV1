@@ -22,8 +22,8 @@ plugin and uses the Anthropic Messages API.
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/synthetic-provider
-    openclaw gateway restart
+    granted plugins install @granted/synthetic-provider
+    granted gateway restart
     ```
   </Step>
   <Step title="Get an API key">
@@ -32,7 +32,7 @@ plugin and uses the Anthropic Messages API.
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --auth-choice synthetic-api-key
+    granted onboard --auth-choice synthetic-api-key
     ```
   </Step>
   <Step title="Verify the default model">
@@ -103,7 +103,7 @@ discovery URL so a proxy credential is not sent to Synthetic.
 
 <Tip>
 Model refs use the form `synthetic/<modelId>`. Use
-`openclaw models list --provider synthetic` to inspect your configured models.
+`granted models list --provider synthetic` to inspect your configured models.
 </Tip>
 
 <AccordionGroup>

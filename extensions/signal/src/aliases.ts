@@ -1,4 +1,4 @@
-// Signal alias helpers keep OpenClaw-side names inside the Signal plugin boundary.
+// Signal alias helpers keep Granted-side names inside the Signal plugin boundary.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { ChannelDirectoryEntry } from "granted/plugin-sdk/core";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";

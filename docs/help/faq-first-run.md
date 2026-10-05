@@ -36,13 +36,13 @@ and troubleshooting see the main [FAQ](/help/faq).
 
     | Command | Shows |
     | --- | --- |
-    | `openclaw status` | Gateway/agent health + basic config snapshot |
-    | `openclaw status --all` | Full read-only diagnosis, pasteable |
-    | `openclaw models status` | Provider auth + model availability |
-    | `openclaw doctor` | Validates and repairs common config/state issues |
-    | `openclaw logs --follow` | Live log tail |
-    | `openclaw gateway status --deep` | Deep gateway/config/plugin health check |
-    | `openclaw health --verbose` | Detailed health report |
+    | `granted status` | Gateway/agent health + basic config snapshot |
+    | `granted status --all` | Full read-only diagnosis, pasteable |
+    | `granted models status` | Provider auth + model availability |
+    | `granted doctor` | Validates and repairs common config/state issues |
+    | `granted logs --follow` | Live log tail |
+    | `granted gateway status --deep` | Deep gateway/config/plugin health check |
+    | `granted health --verbose` | Detailed health report |
 
     Found a real bug or fix? File an issue or send a PR:
     [Issues](https://github.com/openclaw/openclaw/issues) /
@@ -60,7 +60,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     | `empty-heartbeat-file` | Heartbeat monitor scratch exists but only has blank, comment, header, fence, or empty-checklist scaffolding |
     | `alerts-disabled` | All heartbeat visibility is off (`showOk`, `showAlerts`, and `useIndicator` all disabled) |
 
-    Older heartbeat `tasks:` blocks migrate to independently scheduled cron jobs with `openclaw doctor --fix`.
+    Older heartbeat `tasks:` blocks migrate to independently scheduled cron jobs with `granted doctor --fix`.
 
     Docs: [Heartbeat](/gateway/heartbeat), [Automation](/automation).
 
@@ -69,7 +69,7 @@ and troubleshooting see the main [FAQ](/help/faq).
   <Accordion title="Recommended way to install and set up OpenClaw">
     ```bash
     curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
     From source (contributors/dev):
@@ -80,10 +80,10 @@ and troubleshooting see the main [FAQ](/help/faq).
     pnpm install
     pnpm build
     pnpm ui:build
-    openclaw onboard
+    granted onboard
     ```
 
-    No global install yet? Run `pnpm openclaw onboard` instead. If Control UI assets are
+    No global install yet? Run `pnpm granted onboard` instead. If Control UI assets are
     missing, onboarding tries to build them itself, falling back to `pnpm ui:build`.
 
   </Accordion>
@@ -101,11 +101,11 @@ and troubleshooting see the main [FAQ](/help/faq).
     - If it asks for shared-secret auth, paste the configured token or password into Control UI settings.
     - Token source: `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`).
     - Password source: `gateway.auth.password` (or `OPENCLAW_GATEWAY_PASSWORD`).
-    - No shared secret configured yet? Run `openclaw doctor --generate-gateway-token` (or `openclaw doctor --fix --generate-gateway-token`).
+    - No shared secret configured yet? Run `granted doctor --generate-gateway-token` (or `granted doctor --fix --generate-gateway-token`).
 
     **Not on localhost:**
 
-    - **Tailscale Serve** (recommended): keep bind loopback, run `openclaw gateway --tailscale serve`, open `https://<magicdns>/`. With `gateway.auth.allowTailscale: true`, identity headers satisfy Control UI/WebSocket auth (no pasted shared secret, assumes a trusted gateway host); HTTP APIs still need shared-secret auth unless you deliberately use private-ingress `none` or trusted-proxy HTTP auth.
+    - **Tailscale Serve** (recommended): keep bind loopback, run `granted gateway --tailscale serve`, open `https://<magicdns>/`. With `gateway.auth.allowTailscale: true`, identity headers satisfy Control UI/WebSocket auth (no pasted shared secret, assumes a trusted gateway host); HTTP APIs still need shared-secret auth unless you deliberately use private-ingress `none` or trusted-proxy HTTP auth.
       Concurrent bad-auth Serve attempts from the same client are serialized before the failed-auth limiter records them, so a second bad retry can already show `retry later`.
     - **Identity-aware reverse proxy**: keep the Gateway behind a trusted proxy, set `gateway.auth.mode: "trusted-proxy"`, open the proxy URL. Same-host loopback proxies need explicit `gateway.auth.trustedProxy.allowLoopback: true`.
     - **SSH tunnel**: `ssh -N -L 18789:127.0.0.1:18789 user@gateway-host`, then open `http://127.0.0.1:18789/`. Shared-secret auth still applies over the tunnel; paste the configured token or password if prompted.
@@ -181,27 +181,27 @@ and troubleshooting see the main [FAQ](/help/faq).
     That screen depends on the Gateway being reachable and authenticated. The TUI also sends
     "Wake up, my friend!" automatically on first hatch when a model provider is configured. If
     you skipped model/auth setup, onboarding shows a "Model auth missing" note and opens the
-    TUI without sending anything — add a provider with `openclaw configure --section model`.
+    TUI without sending anything — add a provider with `granted configure --section model`.
     If you see the wake-up line with **no reply** and tokens stay at 0, the agent never ran.
 
     1. Restart the Gateway:
 
     ```bash
-    openclaw gateway restart
+    granted gateway restart
     ```
 
     2. Check status + auth:
 
     ```bash
-    openclaw status
-    openclaw models status
-    openclaw logs --follow
+    granted status
+    granted models status
+    granted logs --follow
     ```
 
     3. Still hanging? Run:
 
     ```bash
-    openclaw doctor
+    granted doctor
     ```
 
     If the Gateway is remote, confirm the tunnel/Tailscale connection is up and the UI
@@ -215,7 +215,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     1. Install OpenClaw on the new machine.
     2. Copy `$OPENCLAW_STATE_DIR` (default: `~/.openclaw`) from the old machine.
     3. Copy your workspace (default: `~/.openclaw/workspace`).
-    4. Run `openclaw doctor` and restart the Gateway service.
+    4. Run `granted doctor` and restart the Gateway service.
 
     This preserves config, auth profiles, WhatsApp creds, sessions, and memory - it keeps
     your bot exactly the same, as long as you copy **both** locations. In remote mode, the
@@ -294,7 +294,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     1. **Dev channel (existing install):**
 
     ```bash
-    openclaw update --channel dev
+    granted update --channel dev
     ```
 
     This switches to a git checkout of `main`, rebases on upstream, builds, and installs
@@ -327,7 +327,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     - **Advanced/full onboarding:** longer when provider sign-in, channel pairing, daemon install, network downloads, or skills need extra setup.
 
     The wizard shows this timeline up front. Skip optional steps and return later with
-    `openclaw configure`.
+    `granted configure`.
 
     Hanging? See [I am stuck](#quick-start-and-first-run-setup) above.
 
@@ -347,7 +347,7 @@ and troubleshooting see the main [FAQ](/help/faq).
 
   </Accordion>
 
-  <Accordion title="Windows install says git not found or openclaw not recognized">
+  <Accordion title="Windows install says git not found or granted not recognized">
     Two common Windows issues:
 
     **1) npm error spawn git / git not found**
@@ -355,7 +355,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     - Install **Git for Windows**, make sure `git` is on PATH.
     - Close and reopen PowerShell, then re-run the installer.
 
-    **2) openclaw is not recognized after install**
+    **2) granted is not recognized after install**
 
     - Your npm global bin folder is not on PATH.
     - Check it: `npm config get prefix`.
@@ -385,7 +385,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     Then restart the Gateway and retry:
 
     ```powershell
-    openclaw gateway restart
+    granted gateway restart
     ```
 
     Still reproducing this on latest OpenClaw? Track/report it: [Issue #30640](https://github.com/openclaw/openclaw/issues/30640).
@@ -446,18 +446,18 @@ and troubleshooting see the main [FAQ](/help/faq).
     Safer to run updates from a shell as the operator.
 
     ```bash
-    openclaw update
-    openclaw update status
-    openclaw update --channel stable|extended-stable|beta|dev
-    openclaw update --tag <dist-tag|version>
-    openclaw update --no-restart
+    granted update
+    granted update status
+    granted update --channel stable|extended-stable|beta|dev
+    granted update --tag <dist-tag|version>
+    granted update --no-restart
     ```
 
     Automating from an agent:
 
     ```bash
-    openclaw update --yes --no-restart
-    openclaw gateway restart
+    granted update --yes --no-restart
+    granted gateway restart
     ```
 
     Docs: [Update](/cli/update), [Updating](/install/updating).
@@ -465,7 +465,7 @@ and troubleshooting see the main [FAQ](/help/faq).
   </Accordion>
 
   <Accordion title="What does onboarding actually do?">
-    `openclaw onboard` is the recommended setup path. In **local mode** it walks through:
+    `granted onboard` is the recommended setup path. In **local mode** it walks through:
 
     1. **Model/Auth** - provider OAuth, API keys, or manual auth (including local options like LM Studio); pick a default model.
     2. **Workspace** - location + bootstrap files.
@@ -563,7 +563,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     Reauthentication preserves an existing explicit model, including
     `openai/gpt-5.5`. If the Codex workspace does not expose GPT-5.6, select
     `openai/gpt-5.5` explicitly; OpenClaw does not silently downgrade. Legacy
-    Codex-prefixed model refs are legacy config repaired by `openclaw doctor
+    Codex-prefixed model refs are legacy config repaired by `granted doctor
     --fix`. Direct OpenAI API-key access remains available for non-agent OpenAI
     API surfaces and, through an ordered `openai` API-key profile, for agent
     models too. See [Model providers](/concepts/model-providers) and
@@ -577,12 +577,12 @@ and troubleshooting see the main [FAQ](/help/faq).
 
     - `openai/gpt-5.6-sol` = fresh ChatGPT/Codex subscription setup with the native Codex runtime for agent turns.
     - `openai/gpt-5.5` = explicit supported selection for existing config or accounts without GPT-5.6 access.
-    - Legacy `openai-codex/*` model refs = legacy route repaired by `openclaw doctor --fix`.
+    - Legacy `openai-codex/*` model refs = legacy route repaired by `granted doctor --fix`.
     - `openai/gpt-5.5` plus an ordered `openai` API-key profile = API-key auth for an OpenAI agent model.
-    - Legacy `openai-codex` auth profile ids = legacy ids migrated by `openclaw doctor --fix`.
+    - Legacy `openai-codex` auth profile ids = legacy ids migrated by `granted doctor --fix`.
 
     Want direct OpenAI Platform billing? Set `OPENAI_API_KEY`. Want ChatGPT/Codex
-    subscription auth? Run `openclaw models auth login --provider openai`. Keep
+    subscription auth? Run `granted models auth login --provider openai`. Keep
     model refs under the canonical `openai/*` provider. Fresh subscription
     setup uses exact `openai/gpt-5.6-sol`; doctor repairs legacy Codex-prefixed
     refs without upgrading an explicit `openai/gpt-5.5` selection.
@@ -593,7 +593,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     Codex OAuth uses OpenAI-managed, plan-dependent quota windows that can differ from the
     ChatGPT website/app experience, even on the same account.
 
-    `openclaw models status` shows the currently visible provider usage/quota windows, but
+    `granted models status` shows the currently visible provider usage/quota windows, but
     does not invent or normalize ChatGPT-web entitlements into direct API access. For the
     direct OpenAI Platform billing/limit path, use `openai/*` with an API key.
 
@@ -668,7 +668,7 @@ and troubleshooting see the main [FAQ](/help/faq).
     hosted widgets in its native panel.
 
     Common pattern: Gateway on the always-on Mac mini; MacBook Pro runs the macOS app or a
-    node host and pairs to the Gateway. Check with `openclaw nodes status` / `openclaw nodes list`.
+    node host and pairs to the Gateway. Check with `granted nodes status` / `granted nodes list`.
 
     Docs: [Nodes](/nodes), [Nodes CLI](/cli/nodes).
 
@@ -683,10 +683,10 @@ and troubleshooting see the main [FAQ](/help/faq).
 
   <Accordion title="Telegram: what goes in allowFrom?">
     `channels.telegram.allowFrom` is the **human sender's Telegram user ID** (numeric),
-    not the bot username. Setup asks for numeric user IDs only; `openclaw doctor --fix`
+    not the bot username. Setup asks for numeric user IDs only; `granted doctor --fix`
     can try to resolve legacy `@username` entries.
 
-    Safer (no third-party bot): DM your bot, run `openclaw logs --follow`, read `from.id`.
+    Safer (no third-party bot): DM your bot, run `granted logs --follow`, read `from.id`.
 
     Official Bot API: DM your bot, call `https://api.telegram.org/bot<bot_token>/getUpdates`, read `message.from.id`.
 
@@ -735,20 +735,20 @@ and troubleshooting see the main [FAQ](/help/faq).
   </Accordion>
 
   <Accordion title="Can I switch between npm and git installs later?">
-    Yes, with `openclaw update --channel ...` on an existing install. This does **not
+    Yes, with `granted update --channel ...` on an existing install. This does **not
     delete your data** - only the OpenClaw code install changes. State (`~/.openclaw`) and
     workspace (`~/.openclaw/workspace`) stay untouched.
 
     npm to git:
 
     ```bash
-    openclaw update --channel dev
+    granted update --channel dev
     ```
 
     git to npm:
 
     ```bash
-    openclaw update --channel stable
+    granted update --channel stable
     ```
 
     Add `--dry-run` to preview the planned mode switch first. The updater runs Doctor

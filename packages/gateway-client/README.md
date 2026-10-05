@@ -1,7 +1,7 @@
 # `@granted/gateway-client`
 
-Reference WebSocket client for the OpenClaw Gateway protocol. It provides the
-connection state machine used by OpenClaw's own Node and browser clients:
+Reference WebSocket client for the Granted Gateway protocol. It provides the
+connection state machine used by Granted's own Node and browser clients:
 challenge-based authentication, typed protocol frames, request correlation,
 timeouts, reconnect backoff, device-token handling, and event delivery.
 
@@ -19,8 +19,8 @@ same bounded negotiation.
 
 ## Versioning
 
-Package versions follow the OpenClaw calendar release train: `YYYY.M.PATCH`,
-including the OpenClaw prerelease suffix when applicable. The package version is
+Package versions follow the Granted calendar release train: `YYYY.M.PATCH`,
+including the Granted prerelease suffix when applicable. The package version is
 separate from the Gateway's current wire protocol number reported in `hello-ok`.
 
 ## Install
@@ -43,7 +43,7 @@ WebSocket through the browser-safe protocol client surface.
 For device-authenticated Node connections, supply `deviceIdentity` (or
 `hostDeps.loadOrCreateDeviceIdentity`) and the `hostDeps.signDevicePayload` and
 `hostDeps.publicKeyRawBase64UrlFromPem` callbacks. The host also owns device-token
-storage through `GatewayClientHostDeps`; the package does not load OpenClaw's
+storage through `GatewayClientHostDeps`; the package does not load Granted's
 local identity or credentials automatically.
 
 ## Entry points

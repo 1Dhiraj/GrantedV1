@@ -22,7 +22,7 @@ Advantages:
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/searxng-plugin
+    granted plugins install @granted/searxng-plugin
     ```
   </Step>
   <Step title="Run a SearXNG instance">
@@ -36,7 +36,7 @@ Advantages:
   </Step>
   <Step title="Configure">
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     # Select "searxng" as the provider
     ```
 

@@ -1,6 +1,6 @@
 /**
- * Builds the effective OpenClaw agent tool surface.
- * Assembles core, shell, channel, OpenClaw, plugin, and Tool Search tools, then
+ * Builds the effective Granted agent tool surface.
+ * Assembles core, shell, channel, Granted, plugin, and Tool Search tools, then
  * applies sandbox, profile, provider, sender, group, and sub-agent policy.
  */
 import type {
@@ -12,8 +12,8 @@ import { messageToolOwnsVisibleReply } from "../auto-reply/source-reply-delivery
 import type { ThinkLevel } from "../auto-reply/thinking.shared.js";
 import type { ChatType } from "../channels/chat-type.js";
 import type { InboundEventKind } from "../channels/inbound-event/kind.js";
-import type { ModelCompatConfig } from "../config/types.models.js";
 import type { GrantedConfig } from "../config/types.granted.js";
+import type { ModelCompatConfig } from "../config/types.models.js";
 import type { GroupToolPolicyConfig } from "../config/types.tools.js";
 import type { DiagnosticTraceContext } from "../infra/diagnostic-trace-context.js";
 import { resolveEventSessionRoutingPolicy } from "../infra/event-session-routing.js";
@@ -73,6 +73,8 @@ import { bindActiveCronCreatorAuthorityResolver } from "./cron-creator-authority
 import { applyDelegationCapability, type DelegationCapability } from "./delegation-capability.js";
 import { pinExecToolTarget } from "./exec-tool-target-pinning.js";
 import { prepareGitHubToolEnvironment } from "./github-tool-identity.js";
+import { resolveOpenClawPluginToolsForOptions } from "./granted-plugin-tools.js";
+import { createOpenClawTools, filterToolsByClientCaps } from "./granted-tools.js";
 import { resolveImageSanitizationLimits } from "./image-sanitization.js";
 import { resolveExecToolConfig } from "./lazy-exec-tool.js";
 import {
@@ -81,8 +83,6 @@ import {
 } from "./local-model-lean.js";
 import { createMemoryWriteProvenanceObserver } from "./memory-write-provenance.js";
 import type { ModelAuthMode } from "./model-auth.js";
-import { resolveOpenClawPluginToolsForOptions } from "./granted-plugin-tools.js";
-import { createOpenClawTools, filterToolsByClientCaps } from "./granted-tools.js";
 import type { PreparedModelRuntimeSnapshot } from "./prepared-model-runtime.js";
 import type { SandboxContext } from "./sandbox.js";
 import { resolveSandboxFileIdentity } from "./sandbox/file-mutation-identity.js";
@@ -267,7 +267,7 @@ type GrantedCodingToolsOptions = {
   modelContextWindowTokens?: number;
   /** Resolved runtime model compatibility hints. */
   modelCompat?: ModelCompatConfig;
-  /** If false, keep OpenClaw web_search even when a provider-native search tool is active. */
+  /** If false, keep Granted web_search even when a provider-native search tool is active. */
   suppressManagedWebSearch?: boolean;
   webFetchHostnameAllowlistRef?: { value?: string[] };
   webSearchEnabled?: boolean;
@@ -363,7 +363,7 @@ type GrantedCodingToolsOptions = {
   toolSearchCatalogRef?: ToolSearchCatalogRef;
   /** Limits which tool families are materialized before the shared policy pipeline runs. */
   toolConstructionPlan?: GrantedCodingToolConstructionPlan;
-  /** Ring-zero OpenClaw tool; set only by the OpenClaw agent runner. */
+  /** Ring-zero Granted tool; set only by the Granted agent runner. */
   systemAgentTool?: import("./tools/system-agent-tool.js").SystemAgentToolOptions;
   /** Trusted sender identity bit for command/channel-action auth and owner-gated plugin tools. */
   senderIsOwner?: boolean;
@@ -581,6 +581,13 @@ function createOpenClawCodingToolsInternal(options?: GrantedCodingToolsOptions):
   const includePluginTools = toolConstructionPlan.includePluginTools;
   const workspaceOnly =
     isMemoryFlushRun || (sessionCoreToolPolicy?.workspaceOnly ?? fsConfig.workspaceOnly === true);
+  // Extra folders widen only the operator's own workspace-only setting. Memory
+  // flushes and session permission modes confine tighter on purpose, and a
+  // sandbox cannot see host folders at all.
+  const workspaceAllowPaths =
+    !isMemoryFlushRun && sessionCoreToolPolicy?.workspaceOnly === undefined && !sandboxRoot
+      ? fsConfig.allowPaths
+      : undefined;
   const fsPolicy = {
     workspaceOnly,
     ...(sessionPermissionPolicy ? { root: sessionPermissionPolicy.root } : {}),
@@ -617,6 +624,7 @@ function createOpenClawCodingToolsInternal(options?: GrantedCodingToolsOptions):
     abortSignal: options?.abortSignal,
     codingRoot,
     containmentRoot,
+    workspaceAllowPaths,
     includeBaseCodingTools,
     includeShellTools,
     workspaceOnly,

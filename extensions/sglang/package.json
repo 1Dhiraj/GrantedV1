@@ -2,7 +2,7 @@
   "name": "@granted/sglang-provider",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw SGLang provider plugin",
+  "description": "Granted SGLang provider plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

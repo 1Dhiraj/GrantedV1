@@ -1,4 +1,4 @@
-// Memory Core plugin entrypoint registers its OpenClaw integration.
+// Memory Core plugin entrypoint registers its Granted integration.
 export {
   closeAllMemorySearchManagers,
   closeMemorySearchManager,

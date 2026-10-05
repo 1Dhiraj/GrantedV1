@@ -11,7 +11,7 @@ read_when:
 | Property      | Value                                                                                    |
 | ------------- | ---------------------------------------------------------------------------------------- |
 | Provider      | `cloudflare-ai-gateway`                                                                  |
-| Plugin        | official external package (`@granted/cloudflare-ai-gateway-provider`)                   |
+| Plugin        | official external package (`@granted/cloudflare-ai-gateway-provider`)                    |
 | Base URL      | `https://gateway.ai.cloudflare.com/v1/<account_id>/<gateway_id>/anthropic`               |
 | Default model | `cloudflare-ai-gateway/claude-sonnet-4-6`                                                |
 | API key       | `CLOUDFLARE_AI_GATEWAY_API_KEY` (your provider API key for requests through the Gateway) |
@@ -30,8 +30,8 @@ non-thinking prefill remains available.
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @granted/cloudflare-ai-gateway-provider
-openclaw gateway restart
+granted plugins install @granted/cloudflare-ai-gateway-provider
+granted gateway restart
 ```
 
 ## Getting started
@@ -41,7 +41,7 @@ openclaw gateway restart
     Run onboarding and choose the Cloudflare AI Gateway auth option:
 
     ```bash
-    openclaw onboard --auth-choice cloudflare-ai-gateway-api-key
+    granted onboard --auth-choice cloudflare-ai-gateway-api-key
     ```
 
     This prompts for your account ID, gateway ID, and API key.
@@ -63,7 +63,7 @@ openclaw gateway restart
   </Step>
   <Step title="Verify the model is available">
     ```bash
-    openclaw models list --provider cloudflare-ai-gateway
+    granted models list --provider cloudflare-ai-gateway
     ```
   </Step>
 </Steps>
@@ -73,7 +73,7 @@ openclaw gateway restart
 For scripted or CI setups, pass all values on the command line:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice cloudflare-ai-gateway-api-key \
   --cloudflare-ai-gateway-account-id "your-account-id" \

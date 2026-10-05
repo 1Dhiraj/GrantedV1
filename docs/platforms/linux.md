@@ -194,7 +194,7 @@ SSH tunnel when connecting without the Linux desktop companion:
 
 1. Install Node 26 (recommended), or another supported release: Node 22.22.3+, Node 24.15+, or Node 25.9+.
 2. On npm 12 or npm 11.16+, run `npm i -g openclaw@latest --allow-scripts=openclaw`. On npm 11.15 and earlier, omit `--allow-scripts=openclaw`.
-3. `openclaw onboard --install-daemon`
+3. `granted onboard --install-daemon`
 4. From your laptop: `ssh -N -L 18789:127.0.0.1:18789 <user>@<host>`
 5. Open `http://127.0.0.1:18789/` and authenticate with the configured shared
    secret (token by default; password if `gateway.auth.mode` is `"password"`).
@@ -204,7 +204,7 @@ Full server guide: [Linux Server](/vps). Step-by-step VPS example:
 
 ## Node capabilities
 
-The bundled Linux Node plugin gives the CLI `openclaw node` service device capabilities without requiring the desktop app. Commands are advertised to the Gateway only when their capability is enabled and the required local tool exists.
+The bundled Linux Node plugin gives the CLI `granted node` service device capabilities without requiring the desktop app. Commands are advertised to the Gateway only when their capability is enabled and the required local tool exists.
 
 | Capability                              | Default | Requirement                                                           |
 | --------------------------------------- | ------- | --------------------------------------------------------------------- |
@@ -235,8 +235,8 @@ Restart the node service after changing these settings. Availability is determin
 The Gateway approves the node's command and capability surface separately from device pairing. On first start, or after enabling more capabilities, approve the pending surface:
 
 ```bash
-openclaw nodes pending
-openclaw nodes approve <requestId>
+granted nodes pending
+granted nodes approve <requestId>
 ```
 
 A node can be connected and device-paired while its effective `caps` and `commands` remain empty until this approval completes.
@@ -264,18 +264,18 @@ Canvas bridge or its A2UI push commands.
 Install with one of:
 
 ```bash
-openclaw onboard --install-daemon
-openclaw gateway install
-openclaw configure   # select "Gateway service" when prompted
+granted onboard --install-daemon
+granted gateway install
+granted configure   # select "Gateway service" when prompted
 ```
 
 Repair or migrate an existing install:
 
 ```bash
-openclaw doctor
+granted doctor
 ```
 
-`openclaw gateway install` renders a systemd **user** unit by default. Full
+`granted gateway install` renders a systemd **user** unit by default. Full
 service guidance, including the **system**-level unit variant for shared or
 always-on hosts, lives in the [Gateway runbook](/gateway#supervision-and-service-lifecycle).
 
@@ -305,7 +305,7 @@ KillMode=control-group
 WantedBy=default.target
 ```
 
-Hand-written units do not inherit the adaptive heap sizing that `openclaw gateway install` writes for managed Gateway services. Prefer the managed installer, or set an explicit heap limit in the custom supervisor after accounting for native-memory headroom.
+Hand-written units do not inherit the adaptive heap sizing that `granted gateway install` writes for managed Gateway services. Prefer the managed installer, or set an explicit heap limit in the custom supervisor after accounting for native-memory headroom.
 
 Enable it:
 

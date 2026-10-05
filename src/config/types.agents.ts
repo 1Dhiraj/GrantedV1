@@ -106,6 +106,8 @@ export type AgentConfig = {
   compaction?: AgentDefaultsConfig["compaction"];
   /** Optional per-agent default thinking level (overrides agents.defaults.thinkingDefault). */
   thinkingDefault?: AgentDefaultsConfig["thinkingDefault"];
+  /** Optional per-agent tool-step cap (overrides agents.defaults.maxToolSteps). */
+  maxToolSteps?: AgentDefaultsConfig["maxToolSteps"];
   /** Optional per-agent default verbosity level. */
   verboseDefault?: "off" | "on" | "full";
   /** Optional per-agent tool progress detail mode. */
@@ -155,7 +157,7 @@ export type AgentConfig = {
     /** Require explicit agentId in sessions_spawn (no default same-as-caller). */
     requireAgentId?: boolean;
   };
-  /** Optional per-agent embedded OpenClaw overrides. */
+  /** Optional per-agent embedded Granted overrides. */
   embeddedAgent?: {
     /** Optional per-agent execution contract override. */
     executionContract?: EmbeddedAgentExecutionContract;

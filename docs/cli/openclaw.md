@@ -7,7 +7,7 @@ read_when:
 title: "OpenClaw setup agent"
 ---
 
-# `openclaw setup`
+# `granted setup`
 
 OpenClaw ships with a built-in system agent — it speaks as "OpenClaw" — for
 local setup, repair, and configuration (formerly called Crestodian). It starts only after the effective default model completes a real turn.
@@ -19,21 +19,21 @@ classic doctor path.
 Running `openclaw` with no subcommand routes based on config state:
 
 - Config missing, or exists with no authored settings (empty, or only `$schema`/`meta` keys): starts guided onboarding with live AI verification.
-- Config exists but fails validation: starts classic onboarding, which reports the issues and directs you to `openclaw doctor`.
+- Config exists but fails validation: starts classic onboarding, which reports the issues and directs you to `granted doctor`.
 - Config exists and is valid: opens the normal agent TUI. A reachable
   configured Gateway whose default agent has a model goes directly to that UI
   without onboarding or OpenClaw. Use `/openclaw` inside the TUI, or run
-  `openclaw setup` directly, to reach OpenClaw later.
+  `granted setup` directly, to reach OpenClaw later.
 
-Running `openclaw setup` first live-tests the configured default model. A passing turn starts OpenClaw. An interactive failure opens guided inference setup and hands off to OpenClaw after a candidate passes. One-shot, JSON, and other noninteractive requests fail with instructions to run `openclaw onboard` when inference is unavailable. `openclaw --help` and `openclaw --version` keep their normal fast paths.
+Running `granted setup` first live-tests the configured default model. A passing turn starts OpenClaw. An interactive failure opens guided inference setup and hands off to OpenClaw after a candidate passes. One-shot, JSON, and other noninteractive requests fail with instructions to run `granted onboard` when inference is unavailable. `openclaw --help` and `openclaw --version` keep their normal fast paths.
 
-Noninteractive bare `openclaw` (no TTY) exits with a short message instead of printing root help: it points to non-interactive onboarding on a fresh or invalid install, or to `openclaw agent --local ...` when config is valid.
+Noninteractive bare `openclaw` (no TTY) exits with a short message instead of printing root help: it points to non-interactive onboarding on a fresh or invalid install, or to `granted agent --local ...` when config is valid.
 
-`openclaw onboard --modern` remains a compatibility alias for OpenClaw, but uses the same inference gate: working inference opens the chat, interactive failures start guided inference setup, and noninteractive failures exit with onboarding guidance. `openclaw onboard --classic` opens the full step-by-step wizard.
+`granted onboard --modern` remains a compatibility alias for OpenClaw, but uses the same inference gate: working inference opens the chat, interactive failures start guided inference setup, and noninteractive failures exit with onboarding guidance. `granted onboard --classic` opens the full step-by-step wizard.
 
 ## What OpenClaw shows
 
-Interactive OpenClaw opens the same TUI shell as `openclaw tui`, with an OpenClaw chat backend. The startup greeting covers:
+Interactive OpenClaw opens the same TUI shell as `granted tui`, with an OpenClaw chat backend. The startup greeting covers:
 
 - config validity and the default agent
 - the verified model OpenClaw is using
@@ -50,13 +50,13 @@ OpenClaw uses the same reference discovery as regular agents: in a Git checkout 
 
 ```bash
 openclaw
-openclaw setup
-openclaw setup --json
-openclaw setup --message "models"
-openclaw setup --message "validate config"
-openclaw setup --message "setup workspace ~/Projects/work" --yes
-openclaw setup --message "set default model openai/gpt-5.6" --yes
-openclaw onboard --modern
+granted setup
+granted setup --json
+granted setup --message "models"
+granted setup --message "validate config"
+granted setup --message "setup workspace ~/Projects/work" --yes
+granted setup --message "set default model openai/gpt-5.6" --yes
+granted onboard --modern
 ```
 
 Inside the OpenClaw TUI:
@@ -104,7 +104,7 @@ Read-only operations run immediately: show overview, list agents, list installed
 
 Starting a guided setup flow also runs immediately: channel setup (`connect telegram`), workspace skills setup (`configure skills`), web-search provider setup (`configure web search`), and local Gateway setup (`configure gateway`). Each config-backed hosted wizard collects explicit answers and owns the resulting writes; completions append audit entries and re-validate config. A web-search provider that needs a plugin install writes config only after the install succeeds — a failed or timed-out install stops setup and reports it instead of claiming the provider is configured.
 
-`configure gateway` guides you through the local Gateway's port, bind address, token or password auth, and Tailscale exposure. It saves config without applying it to the running Gateway, because changing the active address or credential could disconnect the setup chat. Say `restart gateway` after chat setup, or run `openclaw gateway restart` after a terminal-wizard handoff. Remote mode is guidance-only: use `openclaw onboard` for a fresh setup or `openclaw configure` to change the mode.
+`configure gateway` guides you through the local Gateway's port, bind address, token or password auth, and Tailscale exposure. It saves config without applying it to the running Gateway, because changing the active address or credential could disconnect the setup chat. Say `restart gateway` after chat setup, or run `granted gateway restart` after a terminal-wizard handoff. Remote mode is guidance-only: use `granted onboard` for a fresh setup or `granted configure` to change the mode.
 
 `import memory` is copy-only rather than a config write. It detects supported local agent homes, lets you choose the available sources, and copies new memory files into the existing default agent workspace without importing config, credentials, or skills. It requires completed onboarding and reports confirmed imports, nothing-to-import results, provider failures, and failures where some files may already have been copied. No Gateway restart is needed. Use the Control UI's [Import Memory page](/web/control-ui#import-assistant-memory) when you need to target another agent or replace an existing import.
 
@@ -112,8 +112,8 @@ Persistent operations require conversational approval (or `--yes` for a direct c
 
 Changes delegated by a regular agent, including requests from messaging channels,
 require approval in the OpenClaw operator UI. Replying "yes" in that chat cannot
-approve the change. Run `openclaw dashboard` on the Gateway host to review the
-pending approval, or run the change directly with `openclaw setup` there.
+approve the change. Run `granted dashboard` on the Gateway host to review the
+pending approval, or run the change directly with `granted setup` there.
 Interactive setup and agent handoffs require a direct operator session;
 delegated chat cannot start a wizard, even when a model proposes it.
 
@@ -123,7 +123,7 @@ operator approval flow used by Ask OpenClaw; the approval summary names the
 requesting agent. OpenClaw remains the executor, and approved creation records
 that requesting agent as the new agent's creator.
 
-Doctor repairs are unavailable inside OpenClaw because they can rewrite the provider, authentication, or default-agent inference route powering the session. Exit OpenClaw and run `openclaw doctor --fix` in a terminal. Read-only `doctor` remains available inside OpenClaw.
+Doctor repairs are unavailable inside OpenClaw because they can rewrite the provider, authentication, or default-agent inference route powering the session. Exit OpenClaw and run `granted doctor --fix` in a terminal. Read-only `doctor` remains available inside OpenClaw.
 
 New agents inherit the live-verified default inference route. The agent ids `openclaw` and `crestodian` are reserved for the system agent and cannot be created as normal agents. The retired id remains blocked so an old config cannot claim it.
 
@@ -139,14 +139,14 @@ other agents remain writable behind approval. Gateway and channel auth remain
 normal config surfaces. Use `set default model <provider/model>` for an
 already configured route; it live-tests the route before saving it. To
 configure or repair provider/auth access, exit OpenClaw and run
-`openclaw onboard`.
+`granted onboard`.
 
 `plugins.entries.<id>.*` writes (enable/disable/config of installed plugins)
 are allowed unless that plugin backs the active inference route. Plugin
 install sources and load policy keep their trust boundary in the typed
 plugin-install workflow. Plugin uninstall of the route-backing plugin is
 refused for the same reason; exit OpenClaw and run
-`openclaw plugins uninstall <id>` from a terminal.
+`granted plugins uninstall <id>` from a terminal.
 
 Approval is given in your own words: unambiguous replies ("yes", "sure", "go ahead", "not now") resolve from a closed deterministic list. When the configured route supports a separate completion call, other replies can be classified from only your message and the pending proposal — never by the conversation model itself, which cannot self-approve. Unclassified or ambiguous replies keep the proposal pending and the conversation asks again.
 
@@ -170,8 +170,8 @@ until they reach a secret. The local OpenClaw TUI does not accept sensitive wiza
 because terminal chat input is visible. It offers `open channel wizard`
 (carrying the selected channel), `open search wizard`, or `open gateway wizard`
 immediately, handing off to the masked terminal wizard; you can also run
-`openclaw channels add --channel <channel>` or
-`openclaw configure --section web` or `openclaw configure --section gateway`
+`granted channels add --channel <channel>` or
+`granted configure --section web` or `granted configure --section gateway`
 later.
 
 ### Switching to a masked terminal wizard
@@ -190,7 +190,7 @@ TUI closes. Use `channel info <channel>` first for the channel label, setup
 state, prerequisites summary, and docs link. `open search wizard` works the
 same way for web-search provider setup, opening the masked search wizard after
 the chat TUI closes. `open gateway wizard` opens masked local Gateway setup;
-when it finishes, run `openclaw gateway restart` to apply the saved settings.
+when it finishes, run `granted gateway restart` to apply the saved settings.
 
 OpenClaw never changes provider/auth access from inside its own session: the
 session already depends on that inference route. For model-provider setup or
@@ -211,7 +211,7 @@ setup workspace ~/Projects/work
 `setup` preserves the verified effective model. It does not configure or
 replace inference.
 
-If inference is missing or its live check fails, leave OpenClaw and run `openclaw onboard`. Guided onboarding tries the configured model first, then authenticated subscription CLIs, API keys, and remaining supported CLIs; it asks each candidate for a real reply and persists only a passing route. OpenClaw starts immediately after that boundary and can then configure the workspace, Gateway, channels, agents, plugins, and other optional features.
+If inference is missing or its live check fails, leave OpenClaw and run `granted onboard`. Guided onboarding tries the configured model first, then authenticated subscription CLIs, API keys, and remaining supported CLIs; it asks each candidate for a real reply and persists only a passing route. OpenClaw starts immediately after that boundary and can then configure the workspace, Gateway, channels, agents, plugins, and other optional features.
 
 The macOS app skips this ladder entirely when it reaches a configured Gateway
 whose default agent already has a configured model; it opens the normal agent
@@ -233,7 +233,7 @@ supervision opt-outs remain untouched during inference setup.
 
 ## AI conversation
 
-Interactive OpenClaw's free-form conversation runs through the same agent loop as regular OpenClaw agents, restricted to one ring-zero OpenClaw authority tool, `openclaw`, that wraps the typed operations. Read actions run freely, mutations require your conversational approval for that exact operation (see Operations and approval), and every applied write is audited and re-validated. The agent session persists, so OpenClaw has real multi-turn memory. If the verified inference route later stops working, return to `openclaw onboard` and repair it before continuing.
+Interactive OpenClaw's free-form conversation runs through the same agent loop as regular OpenClaw agents, restricted to one ring-zero OpenClaw authority tool, `openclaw`, that wraps the typed operations. Read actions run freely, mutations require your conversational approval for that exact operation (see Operations and approval), and every applied write is audited and re-validated. The agent session persists, so OpenClaw has real multi-turn memory. If the verified inference route later stops working, return to `granted onboard` and repair it before continuing.
 
 The host does not parse natural-language requests into operations. Free-form
 messages — including command-looking text and questions such as "why did my
@@ -292,7 +292,7 @@ talk to work agent
 switch to main agent
 ```
 
-`openclaw tui`, `openclaw chat`, and `openclaw terminal` open the normal agent TUI directly; they do not start OpenClaw. After switching into the normal TUI, `/openclaw` returns to OpenClaw, optionally with a follow-up request:
+`granted tui`, `granted chat`, and `granted terminal` open the normal agent TUI directly; they do not start OpenClaw. After switching into the normal TUI, `/openclaw` returns to OpenClaw, optionally with a follow-up request:
 
 ```text
 /openclaw
@@ -336,7 +336,7 @@ Security contract for remote rescue:
 - Default effective state is `auto`: allow remote rescue only in trusted YOLO operation, where the runtime already has unsandboxed local authority (`tools.exec.security` resolves to `full` and `tools.exec.ask` resolves to `off`, with sandbox mode `off`).
 - Requires an explicit owner identity; no wildcard sender rules, open group policy, unauthenticated webhooks, or anonymous channels.
 - Rescue is limited to owner DMs.
-- Plugin search and list are read-only. Plugin install is always local-only (blocked in rescue, even when otherwise enabled) because it downloads executable code. Plugin uninstall is refused in both local OpenClaw and rescue; run `openclaw plugins uninstall <id>` from a terminal.
+- Plugin search and list are read-only. Plugin install is always local-only (blocked in rescue, even when otherwise enabled) because it downloads executable code. Plugin uninstall is refused in both local OpenClaw and rescue; run `granted plugins uninstall <id>` from a terminal.
 - Remote rescue cannot open the local TUI or switch into an interactive agent session; use local `openclaw` for agent handoff.
 - Persistent writes still require approval, even in rescue mode.
 - Pending approvals are one-use. Any newer rescue command for the same account, channel, and sender revokes the older plan; failed execution also consumes approval, so resend the command to retry.
@@ -346,7 +346,7 @@ Security contract for remote rescue:
 
 Rescue policy is built in: it is available only when the effective runtime is
 YOLO, sandboxing is off, and the request is an owner DM. Pending write approvals
-expire after 15 minutes. `openclaw doctor --fix` removes the retired
+expire after 15 minutes. `granted doctor --fix` removes the retired
 `systemAgent` and `crestodian` config blocks.
 
 Remote rescue is covered by the Docker lane:
@@ -378,7 +378,7 @@ OpenClaw agent/tool/approval conversation. The QA Lab scenario below redirects
 to the same Docker lane:
 
 ```bash
-pnpm openclaw qa suite --scenario system-agent-ring-zero-setup
+pnpm granted qa suite --scenario system-agent-ring-zero-setup
 ```
 
 ## Related

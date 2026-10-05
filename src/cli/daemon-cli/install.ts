@@ -173,7 +173,7 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
   if (process.platform === "linux" && hasSudoToRootSystemdUserManagerMismatch(process.env)) {
     fail(
       "Gateway install blocked: Refusing a sudo-to-root systemd user-service install because " +
-        "OpenClaw state and service files would belong to root while systemctl targets the " +
+        "Granted state and service files would belong to root while systemctl targets the " +
         "invoking user's manager. Rerun the same command without sudo. If [unsafe-permissions] " +
         "blocked the non-sudo command, repair the reported directory with `chmod go-w <path>` " +
         "and retry; do not use sudo or --force to bypass it. " +

@@ -10,7 +10,7 @@ Nextcloud Talk is a downloadable channel plugin (`@granted/nextcloud-talk`) that
 ## Install
 
 ```bash
-openclaw plugins install @granted/nextcloud-talk
+granted plugins install @granted/nextcloud-talk
 ```
 
 Use the bare package spec to follow the current official release tag. Pin an exact version only when you need a reproducible install.
@@ -18,7 +18,7 @@ Use the bare package spec to follow the current official release tag. Pin an exa
 From a local checkout (dev workflows):
 
 ```bash
-openclaw plugins install ./path/to/local/nextcloud-talk-plugin
+granted plugins install ./path/to/local/nextcloud-talk-plugin
 ```
 
 Restart the gateway after installing. Details: [Plugins](/tools/plugin)
@@ -42,7 +42,7 @@ Restart the gateway after installing. Details: [Plugins](/tools/plugin)
    CLI setup (`--url`/`--token` are aliases for the explicit fields; `nc-talk` and `nc` work as channel aliases):
 
    ```bash
-   openclaw channels add --channel nextcloud-talk \
+   granted channels add --channel nextcloud-talk \
      --url https://cloud.example.com \
      --token "<shared-secret>"
    ```
@@ -50,7 +50,7 @@ Restart the gateway after installing. Details: [Plugins](/tools/plugin)
    Equivalent explicit fields:
 
    ```bash
-   openclaw channels add --channel nextcloud-talk \
+   granted channels add --channel nextcloud-talk \
      --base-url https://cloud.example.com \
      --secret "<shared-secret>"
    ```
@@ -58,7 +58,7 @@ Restart the gateway after installing. Details: [Plugins](/tools/plugin)
    File-backed secret:
 
    ```bash
-   openclaw channels add --channel nextcloud-talk \
+   granted channels add --channel nextcloud-talk \
      --base-url https://cloud.example.com \
      --secret-file /path/to/nextcloud-talk-secret
    ```
@@ -88,14 +88,14 @@ Minimal config:
 - Media uploads are not supported by the bot API; outbound media is appended as an `Attachment: <url>` line.
 - The webhook payload does not distinguish DMs from rooms; set `apiUser` + `apiPassword` to enable room-type lookups (cached about 5 minutes). Without them, every conversation is treated as a room.
 - Outbound requests go through the SSRF guard. For a Nextcloud host on a trusted private/internal network, opt in with `channels.nextcloud-talk.network.dangerouslyAllowPrivateNetwork: true`.
-- With `apiUser`/`apiPassword` and `webhookPublicUrl` set, `openclaw channels status` probes the bot and warns when the `response` feature is missing.
+- With `apiUser`/`apiPassword` and `webhookPublicUrl` set, `granted channels status` probes the bot and warns when the `response` feature is missing.
 
 ## Access control (DMs)
 
 - Default: `channels.nextcloud-talk.dmPolicy = "pairing"`. Unknown senders get a pairing code.
 - Approve via:
-  - `openclaw pairing list nextcloud-talk`
-  - `openclaw pairing approve nextcloud-talk <CODE>`
+  - `granted pairing list nextcloud-talk`
+  - `granted pairing approve nextcloud-talk <CODE>`
 - Public DMs: `channels.nextcloud-talk.dmPolicy="open"` plus `channels.nextcloud-talk.allowFrom=["*"]`.
 - `allowFrom` matches Nextcloud user IDs only (lowercased); display names are ignored.
 

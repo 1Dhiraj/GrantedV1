@@ -17,8 +17,8 @@ Beam ships with OpenClaw but is disabled by default. When enabled, it registers:
 ## Enable
 
 ```bash
-openclaw plugins enable beam
-openclaw gateway restart
+granted plugins enable beam
+granted gateway restart
 ```
 
 Equivalent config:
@@ -36,8 +36,8 @@ Equivalent config:
 Disable the plugin when the ingest route is not needed:
 
 ```bash
-openclaw plugins disable beam
-openclaw gateway restart
+granted plugins disable beam
+granted gateway restart
 ```
 
 ## Authentication

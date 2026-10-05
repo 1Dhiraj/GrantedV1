@@ -1,12 +1,12 @@
-# OpenClaw DeepSeek Provider
+# Granted DeepSeek Provider
 
-Official OpenClaw provider plugin for DeepSeek.
+Official Granted provider plugin for DeepSeek.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/deepseek-provider
-openclaw gateway restart
+granted plugins install @granted/deepseek-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/deepseek> for setup and configuration.

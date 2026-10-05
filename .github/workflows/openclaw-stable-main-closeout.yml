@@ -1,4 +1,4 @@
-name: OpenClaw Stable Main Closeout
+name: Granted Stable Main Closeout
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Stable OpenClaw tag to replay or repair, for example v2026.6.8 or v2026.6.8-2
+        description: Stable Granted tag to replay or repair, for example v2026.6.8 or v2026.6.8-2
         required: false
         type: string
       rollback_drill_id:
@@ -431,12 +431,12 @@ jobs:
           import { readFileSync } from "node:fs";
           const run = JSON.parse(readFileSync(process.argv[2], "utf8"));
           for (const [key, expected] of [
-            ["workflowName", "OpenClaw Release Publish"],
+            ["workflowName", "Granted Release Publish"],
             ["event", "workflow_dispatch"],
             ["status", "completed"],
           ]) {
             if (run[key] !== expected) {
-              throw new Error(`OpenClaw Release Publish must have ${key}=${expected}, got ${run[key] ?? "<missing>"}.`);
+              throw new Error(`Granted Release Publish must have ${key}=${expected}, got ${run[key] ?? "<missing>"}.`);
             }
           }
           const recoveryRequested = process.env.ALLOW_FAILED_PUBLISH_RECOVERY === "true";
@@ -448,7 +448,7 @@ jobs:
           const failedRecovery = recoveryRequested && run.conclusion === "failure";
           if (run.conclusion !== "success" && !failedRecovery) {
             throw new Error(
-              `OpenClaw Release Publish must have conclusion=success, got ${run.conclusion ?? "<missing>"}.`,
+              `Granted Release Publish must have conclusion=success, got ${run.conclusion ?? "<missing>"}.`,
             );
           }
           if (failedRecovery) {
@@ -498,7 +498,7 @@ jobs:
               for (const name of [
                 "Validate inputs",
                 "Verify Authenticode signatures",
-                "Upload to OpenClaw release",
+                "Upload to Granted release",
                 "Verify promoted release asset contract",
               ]) {
                 const steps = (jobs[0].steps ?? []).filter(
@@ -611,8 +611,8 @@ jobs:
             recovery_dir="$CLOSEOUT_DIR/platform-recovery"
             mkdir -p "$recovery_dir"
             gh_with_retry release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" \
-              --pattern OpenClaw-Android.apk \
-              --pattern OpenClaw-Android-SHA256SUMS.txt \
+              --pattern Granted-Android.apk \
+              --pattern Granted-Android-SHA256SUMS.txt \
               --pattern OpenClawCompanion-Setup-arm64.exe \
               --pattern OpenClawCompanion-Setup-x64.exe \
               --pattern OpenClawCompanion-SHA256SUMS.txt \
@@ -633,8 +633,8 @@ jobs:
                 sha256sum --strict --check "$normalized"
                 rm -f "$normalized"
               }
-              verify_checksum_manifest OpenClaw-Android-SHA256SUMS.txt \
-                OpenClaw-Android.apk
+              verify_checksum_manifest Granted-Android-SHA256SUMS.txt \
+                Granted-Android.apk
               verify_checksum_manifest OpenClawCompanion-SHA256SUMS.txt \
                 OpenClawCompanion-Setup-arm64.exe \
                 OpenClawCompanion-Setup-x64.exe

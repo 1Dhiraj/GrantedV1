@@ -90,7 +90,7 @@ describeLive("OpenAI GPT-Live gateway WebRTC peer", () => {
         model: "gpt-live-1-codex",
         voice: "spruce",
         instructions:
-          "This is a live transport check. Immediately say: OpenClaw gateway relay test OK.",
+          "This is a live transport check. Immediately say: Granted gateway relay test OK.",
         audioFormat: { encoding: "pcm16", sampleRateHz: 24_000, channels: 1 },
         onAudio: (audio) => {
           if (audio.length > 0) {

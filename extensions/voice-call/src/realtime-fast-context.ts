@@ -25,7 +25,7 @@ export async function resolveRealtimeFastContextConsult(params: {
     ...params,
     labels: {
       audienceLabel: "caller",
-      contextName: "OpenClaw memory or session context",
+      contextName: "Granted memory or session context",
     },
   });
 }

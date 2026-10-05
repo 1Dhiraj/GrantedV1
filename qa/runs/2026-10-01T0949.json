@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-01T0949",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A1",
+      "name": "disk space",
+      "result": "PASS",
+      "seconds": 18,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0949-a1",
+      "evidence": "77.8 GB free on C:",
+      "toolCalls": 1,
+      "tokens": 23818
+    }
+  ]
+}

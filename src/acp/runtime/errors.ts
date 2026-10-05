@@ -1,4 +1,4 @@
-/** ACP runtime error exports wired to OpenClaw secret redaction. */
+/** ACP runtime error exports wired to Granted secret redaction. */
 import { configureAcpErrorRedactor } from "@granted/acp-core";
 import { redactToolPayloadText } from "../../logging/redact.js";
 

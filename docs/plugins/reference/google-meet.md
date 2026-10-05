@@ -16,7 +16,7 @@ OpenClaw Google Meet participant plugin for joining calls through Chrome or Twil
 
 ## Surface
 
-CLI commands: `openclaw googlemeet`; contracts: `tools`, `transcriptSourceProviders`
+CLI commands: `granted googlemeet`; contracts: `tools`, `transcriptSourceProviders`
 
 ## Related docs
 

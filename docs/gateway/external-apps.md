@@ -38,8 +38,8 @@ for results, cancel work, or inspect Gateway resources.
 | [Embedding guide](https://docs.openclaw.ai/gateway/embedding) | Release train   | Child-process environment, readiness, lifecycle, recovery, RPC ownership, and packaging.      |
 | [Gateway protocol](/gateway/protocol)                         | Ready           | WebSocket transport, connect handshake, auth scopes, protocol versioning, and events.         |
 | [Gateway RPC reference](/reference/rpc)                       | Ready           | Current Gateway methods for agents, sessions, tasks, models, tools, artifacts, and approvals. |
-| [`openclaw agent`](/cli/agent)                                | Ready           | One-shot script integration when shelling out to the CLI is enough.                           |
-| [`openclaw message`](/cli/message)                            | Ready           | Sending messages or channel actions from scripts.                                             |
+| [`granted agent`](/cli/agent)                                 | Ready           | One-shot script integration when shelling out to the CLI is enough.                           |
+| [`granted message`](/cli/message)                             | Ready           | Sending messages or channel actions from scripts.                                             |
 
 ## Recommended path
 
@@ -68,8 +68,8 @@ host-neutral suspension handshake:
    snapshot the process before `expiresAtMs`.
 5. After thaw, or if suspension is abandoned, call `gateway.suspend.resume`
    with that `suspensionId` over the existing or a newly authenticated
-   WebSocket. The CLI equivalents are `openclaw gateway suspend` and
-   `openclaw gateway resume <suspensionId>`.
+   WebSocket. The CLI equivalents are `granted gateway suspend` and
+   `granted gateway resume <suspensionId>`.
 
 A draining or prepared Gateway accepts authenticated operator WebSocket
 connections, allowing a controller to reconnect and check, renew, or release
@@ -157,25 +157,25 @@ different active lease returns a conflict without exposing its identifiers.
 Resume returns `{"ok":true,"status":"running","resumed":true}`; repeating it
 after a successful resume returns `resumed: false`.
 
-The dedicated `openclaw gateway suspend` command retains its existing
+The dedicated `granted gateway suspend` command retains its existing
 refuse-only behavior. Controllers can request drain mode through any Gateway
 client or the generic CLI RPC command:
 
 ```bash
-openclaw gateway call gateway.suspend.prepare \
+granted gateway call gateway.suspend.prepare \
   --params '{"requestId":"host-operation-1","terminalPolicy":"preserve","drain":true}' \
   --json
-openclaw gateway call gateway.suspend.status \
+granted gateway call gateway.suspend.status \
   --params '{"suspensionId":"<suspension-id>"}' \
   --json
-openclaw gateway resume '<suspension-id>'
+granted gateway resume '<suspension-id>'
 ```
 
 For a release update, use the same handshake with `terminalPolicy: "terminate"`
 so an open terminal cannot hold the drain indefinitely:
 
 ```bash
-openclaw gateway call gateway.suspend.prepare \
+granted gateway call gateway.suspend.prepare \
   --params '{"requestId":"release-update-1","terminalPolicy":"terminate","drain":true}' \
   --json
 ```

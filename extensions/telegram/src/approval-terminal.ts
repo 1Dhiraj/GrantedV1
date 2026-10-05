@@ -84,16 +84,16 @@ export function buildTelegramCanonicalApprovalTerminalText(params: {
   const approval = params.result.approval;
   if (approval.presentation?.kind === "system-agent" && params.result.applied) {
     if (approval.status === "allowed") {
-      return `✅ OpenClaw change approved. Applying: ${truncateDetail(approval.presentation.description)}`;
+      return `✅ Granted change approved. Applying: ${truncateDetail(approval.presentation.description)}`;
     }
     if (approval.status === "cancelled") {
-      return "⚠️ OpenClaw change was cancelled because its run ended. No change was made. Retry.";
+      return "⚠️ Granted change was cancelled because its run ended. No change was made. Retry.";
     }
     if (approval.status === "denied") {
-      return "❌ OpenClaw change denied. No change was made.";
+      return "❌ Granted change denied. No change was made.";
     }
     if (approval.status === "expired") {
-      return "⏱️ OpenClaw change expired. No change was made.";
+      return "⏱️ Granted change expired. No change was made.";
     }
   }
   const approvalId = approval.id || params.fallbackApprovalId;
@@ -154,14 +154,14 @@ function appendViewSubject(
 export function buildTelegramNativeResolvedApprovalText(view: ResolvedApprovalView): string {
   if (view.approvalKind === "system-agent") {
     return view.terminalStatus === "cancelled"
-      ? "⚠️ OpenClaw change was cancelled because its run ended. No change was made. Retry."
+      ? "⚠️ Granted change was cancelled because its run ended. No change was made. Retry."
       : view.decision === "deny"
-        ? "❌ OpenClaw change denied. No change was made."
+        ? "❌ Granted change denied. No change was made."
         : view.applicationStatus === "applied"
-          ? `✅ OpenClaw change approved and applied: ${truncateDetail(view.operationSummary)}`
+          ? `✅ Granted change approved and applied: ${truncateDetail(view.operationSummary)}`
           : view.applicationStatus === "not-applied"
-            ? "⚠️ OpenClaw change approved, but it was not applied. Check the Gateway and retry."
-            : `✅ OpenClaw change approved. Applying: ${truncateDetail(view.operationSummary)}`;
+            ? "⚠️ Granted change approved, but it was not applied. Check the Gateway and retry."
+            : `✅ Granted change approved. Applying: ${truncateDetail(view.operationSummary)}`;
   }
   const label = view.approvalKind === "exec" ? "Exec" : "Plugin";
   const lines = [
@@ -179,7 +179,7 @@ export function buildTelegramNativeResolvedApprovalText(view: ResolvedApprovalVi
 /** Render a canonical native expiration event while retaining safe request context. */
 export function buildTelegramNativeExpiredApprovalText(view: ExpiredApprovalView): string {
   if (view.approvalKind === "system-agent") {
-    return "⏱️ OpenClaw change expired. No change was made.";
+    return "⏱️ Granted change expired. No change was made.";
   }
   const label = view.approvalKind === "exec" ? "Exec" : "Plugin";
   const lines = [

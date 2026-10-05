@@ -60,7 +60,7 @@ if (approvalPath) {
     expectedApproval = {
       version: 2,
       repository: process.env.GITHUB_REPOSITORY,
-      workflow: "OpenClaw Release Publish",
+      workflow: "Granted Release Publish",
       parentRunId: releasePublishRunId,
       parentRunAttempt: positiveRunAttempt(expectedRunAttempt),
       workflowBranch: expectedBranch,
@@ -78,7 +78,7 @@ if (approvalPath) {
       version: 2,
       kind: "clawhub-bootstrap",
       repository: process.env.GITHUB_REPOSITORY,
-      workflow: "OpenClaw Release Publish",
+      workflow: "Granted Release Publish",
       parentRunId: releasePublishRunId,
       parentRunAttempt: positiveRunAttempt(expectedRunAttempt),
       workflowBranch: expectedBranch,
@@ -169,7 +169,7 @@ if (approvalPath) {
 }
 
 const checks = [
-  ["workflowName", "OpenClaw Release Publish"],
+  ["workflowName", "Granted Release Publish"],
   ["headBranch", expectedBranch],
   ["event", "workflow_dispatch"],
 ];

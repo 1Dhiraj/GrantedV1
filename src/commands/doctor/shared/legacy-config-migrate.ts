@@ -4,7 +4,7 @@ import type { GrantedConfig } from "../../../config/types.js";
 import { validateConfigObjectWithPlugins } from "../../../config/validation.js";
 import { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 
-/** Apply legacy migrations and validate the resulting OpenClaw config shape when possible. */
+/** Apply legacy migrations and validate the resulting Granted config shape when possible. */
 export function migrateLegacyConfig(
   raw: unknown,
   context?: LegacyConfigMigrationContext,

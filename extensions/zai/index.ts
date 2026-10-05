@@ -1,4 +1,4 @@
-// Zai plugin entrypoint registers its OpenClaw integration.
+// Zai plugin entrypoint registers its Granted integration.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -32,10 +32,10 @@ import {
 import { fetchZaiUsage } from "granted/plugin-sdk/provider-usage";
 import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { detectZaiEndpoint, type ZaiEndpointId } from "./detect.js";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { zaiMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { buildZaiModelDefinition, resolveZaiBaseUrl } from "./model-definitions.js";
 import { applyZaiConfig, applyZaiProviderConfig, resolveZaiModelId } from "./onboard.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import { resolveThinkingProfile, resolveZaiReasoningEffort } from "./provider-policy-api.js";
 
 const PROVIDER_ID = "zai";

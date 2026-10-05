@@ -6494,6 +6494,13 @@ button.chat-pr__diff {
   color: var(--muted);
 }
 
+.chat-controls__model-catalog-summary {
+  padding: 0 10px 7px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.2;
+}
+
 .chat-controls__locked-model {
   display: flex;
   align-items: center;

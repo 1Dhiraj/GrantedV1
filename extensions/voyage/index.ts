@@ -1,4 +1,4 @@
-// Voyage plugin entrypoint registers its OpenClaw integration.
+// Voyage plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { voyageMemoryEmbeddingProviderAdapter } from "./memory-embedding-adapter.js";
 

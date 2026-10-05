@@ -1,12 +1,12 @@
-# OpenClaw Qwen Cloud Provider
+# Granted Qwen Cloud Provider
 
-Official OpenClaw provider plugin for Qwen Cloud.
+Official Granted provider plugin for Qwen Cloud.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/qwen-provider
-openclaw gateway restart
+granted plugins install @granted/qwen-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/qwen> for setup and configuration.

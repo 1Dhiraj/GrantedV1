@@ -1,4 +1,4 @@
-// Featherless plugin entrypoint registers its OpenClaw integration.
+// Featherless plugin entrypoint registers its Granted integration.
 import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
@@ -11,8 +11,8 @@ import {
   normalizeModelCompat,
 } from "granted/plugin-sdk/provider-model-shared";
 import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
-import { applyFeatherlessConfig, FEATHERLESS_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { applyFeatherlessConfig, FEATHERLESS_DEFAULT_MODEL_REF } from "./onboard.js";
 import {
   FEATHERLESS_BASE_URL,
   FEATHERLESS_DEFAULT_MODEL_ID,

@@ -831,7 +831,7 @@ MANTIS_SLACK_PATCH
     echo "$gateway_pid" >"$out/openclaw-gateway.pid"
     sleep 12
     if ! kill -0 "$gateway_pid" >/dev/null 2>&1; then
-      echo "OpenClaw gateway exited during startup." >&2
+      echo "Granted gateway exited during startup." >&2
       wait "$gateway_pid" || true
       exit 1
     fi
@@ -1399,7 +1399,7 @@ export async function runMantisSlackDesktopSmoke(
       throw toQaError(remoteRunError);
     }
     if (gatewaySetup && !gatewaySetupCompleted) {
-      throw new Error("Slack desktop gateway setup did not report a live OpenClaw gateway.");
+      throw new Error("Slack desktop gateway setup did not report a live Granted gateway.");
     }
     if (!gatewaySetup && !slackQaCompleted) {
       const detail =

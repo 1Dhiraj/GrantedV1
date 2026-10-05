@@ -1,0 +1,75 @@
+{
+  "run": "2026-09-25T0219",
+  "score": "5/5",
+  "pass": 5,
+  "blocked": 0,
+  "attempted": 5,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A2",
+      "name": "create file with content",
+      "result": "PASS",
+      "seconds": 7,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0219-a2",
+      "evidence": "file content: \"hi granted.\"",
+      "toolCalls": 2,
+      "tokens": 40087
+    },
+    {
+      "id": "A5",
+      "name": "largest files, in order",
+      "result": "PASS",
+      "seconds": 6,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0219-a5",
+      "evidence": "named the top 3 in order",
+      "toolCalls": 1,
+      "tokens": 26610
+    },
+    {
+      "id": "B2",
+      "name": "rank CSV rows",
+      "result": "PASS",
+      "seconds": 6,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0219-b2",
+      "evidence": "ranked Initech > Stark > Acme",
+      "toolCalls": 1,
+      "tokens": 26628
+    },
+    {
+      "id": "B3",
+      "name": "bulk rename, nothing else touched",
+      "result": "PASS",
+      "seconds": 10,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0219-b3",
+      "evidence": "3 renamed, others untouched",
+      "toolCalls": 2,
+      "tokens": 40358
+    },
+    {
+      "id": "S1",
+      "name": "write a program, run it, produce the right answer",
+      "result": "PASS",
+      "seconds": 10,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-25t0219-s1",
+      "evidence": "total.txt=\"95.0\" (want 95)",
+      "toolCalls": 2,
+      "tokens": 40491
+    }
+  ]
+}

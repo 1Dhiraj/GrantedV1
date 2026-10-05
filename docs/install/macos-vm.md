@@ -121,7 +121,7 @@ and earlier, omit `--allow-scripts=openclaw`.
 
 ```bash
 npm install -g openclaw@latest --allow-scripts=openclaw
-openclaw onboard --install-daemon
+granted onboard --install-daemon
 ```
 
 Follow the onboarding prompts to set up your model provider (Anthropic, OpenAI, etc.).
@@ -134,16 +134,16 @@ Keep the Telegram token in the Gateway environment rather than copying it into
 
 ```bash
 export TELEGRAM_BOT_TOKEN="<bot-token>"
-openclaw channels add --channel telegram --use-env
+granted channels add --channel telegram --use-env
 ```
 
 The managed Gateway reads the same state-directory `.env` after restart. For
 WhatsApp, configure your allowlist and then scan the login QR code:
 
 ```bash
-openclaw config set channels.whatsapp.dmPolicy allowlist
-openclaw config set channels.whatsapp.allowFrom '["+15551234567"]' --strict-json
-openclaw channels login --channel whatsapp
+granted config set channels.whatsapp.dmPolicy allowlist
+granted config set channels.whatsapp.allowFrom '["+15551234567"]' --strict-json
+granted channels login --channel whatsapp
 ```
 
 ## 8) Run the VM headlessly
@@ -158,7 +158,7 @@ lume run openclaw --no-display
 The VM runs in the background; OpenClaw's daemon keeps the gateway running. To check status:
 
 ```bash
-ssh youruser@192.168.64.X "openclaw status"
+ssh youruser@192.168.64.X "granted status"
 ```
 
 ## Bonus: iMessage integration
@@ -194,7 +194,7 @@ Before customizing further, snapshot your clean state:
 
 ```bash
 lume stop openclaw
-lume clone openclaw openclaw-golden
+lume clone granted openclaw-golden
 ```
 
 Reset anytime:
@@ -217,12 +217,12 @@ For true always-on, consider a dedicated Mac mini or a small VPS. See [VPS hosti
 
 ## Troubleshooting
 
-| Problem                  | Solution                                                                            |
-| ------------------------ | ----------------------------------------------------------------------------------- |
-| Cannot SSH into VM       | Check "Remote Login" is enabled in the VM's System Settings                         |
-| VM IP not showing        | Wait for VM to fully boot, run `lume get openclaw` again                            |
-| Lume command not found   | Add `~/.local/bin` to your PATH                                                     |
-| WhatsApp QR not scanning | Ensure you are logged into the VM (not host) when running `openclaw channels login` |
+| Problem                  | Solution                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| Cannot SSH into VM       | Check "Remote Login" is enabled in the VM's System Settings                        |
+| VM IP not showing        | Wait for VM to fully boot, run `lume get openclaw` again                           |
+| Lume command not found   | Add `~/.local/bin` to your PATH                                                    |
+| WhatsApp QR not scanning | Ensure you are logged into the VM (not host) when running `granted channels login` |
 
 ## Related docs
 

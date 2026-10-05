@@ -9,10 +9,7 @@ import type {
   AgentHarnessV2,
 } from "granted/plugin-sdk/agent-harness-runtime";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
-import {
-  initializeGlobalHookRunner,
-  resetGlobalHookRunner,
-} from "granted/plugin-sdk/hook-runtime";
+import { initializeGlobalHookRunner, resetGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
 import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createCopilotAgentHarness, type CopilotSessionBinding } from "./harness.js";
@@ -1204,7 +1201,7 @@ describe("createCopilotAgentHarness", () => {
     expect(abort).toHaveBeenCalledTimes(1);
   });
 
-  it("aborts deferred compaction cleanup when the OpenClaw session resets", async () => {
+  it("aborts deferred compaction cleanup when the Granted session resets", async () => {
     const cleanup = createDeferred<"aborted" | "completed" | "deadline">();
     const abort = vi.fn(() => cleanup.resolve("aborted"));
     mocks.runCopilotAttempt.mockImplementation(async (_params, deps) => {
@@ -1345,7 +1342,7 @@ describe("createCopilotAgentHarness", () => {
 
   describe("session reuse across turns (dogfood finding #4)", () => {
     // These tests pin the harness's session-reuse contract: subsequent
-    // `runAttempt` calls within the same OpenClaw session should pass
+    // `runAttempt` calls within the same Granted session should pass
     // the tracked `sdkSessionId` to the attempt via `initialReplayState`
     // so the SDK can `resumeSession` and keep its prompt cache + thread
     // history warm. Compatibility-fingerprint mismatch (provider/model/

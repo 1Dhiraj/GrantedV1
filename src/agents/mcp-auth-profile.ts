@@ -2,8 +2,8 @@
  * Auth-profile backed bearer injection for remote MCP servers.
  */
 import crypto from "node:crypto";
-import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { filterStringRecord, isRecord } from "@granted/normalization-core/record-coerce";
+import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import type { GrantedConfig } from "../config/types.granted.js";
 import type { BundleMcpConfig, BundleMcpServerConfig } from "../plugins/bundle-mcp.js";
 import { createLazyRuntimeMethod } from "../shared/lazy-runtime.js";
@@ -32,7 +32,7 @@ export function resolveMcpAuthProfileId(rawServer: unknown): string | undefined 
     : undefined;
 }
 
-/** Returns whether a server needs an OpenClaw-managed bearer projected externally. */
+/** Returns whether a server needs an Granted-managed bearer projected externally. */
 export function requiresMcpBearerProjection(rawServer: unknown): boolean {
   if (!isRecord(rawServer) || rawServer.auth !== "oauth") {
     return false;

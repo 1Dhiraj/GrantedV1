@@ -18,7 +18,7 @@ WhatsApp and Matrix are unimplemented.
 
 ## Ownership
 
-- OpenClaw (`extensions/qa-lab/src/mantis/*`): scenario runtime, `pnpm openclaw qa mantis <command>` CLI, evidence schema.
+- OpenClaw (`extensions/qa-lab/src/mantis/*`): scenario runtime, `pnpm granted qa mantis <command>` CLI, evidence schema.
 - QA Lab (`extensions/qa-lab/src/live-transports/*`): live transport harness, driver/SUT bots, report/evidence writers.
 - Crabbox (`openclaw/crabbox`): warmed Linux machines, leases, VNC, `crabbox media preview`.
 - GitHub Actions (`.github/workflows/mantis-*.yml`): remote entrypoints, artifact retention.
@@ -26,7 +26,7 @@ WhatsApp and Matrix are unimplemented.
 
 ## CLI commands
 
-All commands are `pnpm openclaw qa mantis <command>`, defined in
+All commands are `pnpm granted qa mantis <command>`, defined in
 `extensions/qa-lab/src/mantis/cli.ts`. Requires `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1`
 at build/run time (bundled workflows set `OPENCLAW_BUILD_PRIVATE_QA=1` and
 `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1` before building).
@@ -48,7 +48,7 @@ usually override both.
 ### `discord-smoke`
 
 ```bash
-pnpm openclaw qa mantis discord-smoke \
+pnpm granted qa mantis discord-smoke \
   --output-dir .artifacts/qa-e2e/mantis/discord-smoke
 ```
 
@@ -69,7 +69,7 @@ and names with `<redacted>` in the published summary and report.
 ### `run`
 
 ```bash
-pnpm openclaw qa mantis run \
+pnpm granted qa mantis run \
   --transport discord \
   --scenario discord-status-reactions-tool-only \
   --baseline origin/main \
@@ -93,7 +93,7 @@ labels (`extensions/qa-lab/src/mantis/run.runtime.ts`):
 The runner creates detached `git worktree` checkouts for baseline and
 candidate under `<output-dir>/worktrees/`, runs `pnpm install`/`pnpm build` in
 each (unless skipped), then runs
-`pnpm openclaw qa discord --scenario <id> --model openai/gpt-5.4 --alt-model openai/gpt-5.4 --allow-failures`
+`pnpm granted qa discord --scenario <id> --model openai/gpt-5.4 --alt-model openai/gpt-5.4 --allow-failures`
 against each worktree. Each lane writes `discord-qa-reaction-timelines.json`
 plus a `<scenario-id>-timeline.html`/`.png` pair; the runner copies this
 evidence back under `baseline/`/`candidate/`, writes `comparison.json`,
@@ -110,7 +110,7 @@ named `mantis-thread-report.md`.
 ### `desktop-browser-smoke`
 
 ```bash
-pnpm openclaw qa mantis desktop-browser-smoke \
+pnpm granted qa mantis desktop-browser-smoke \
   --output-dir .artifacts/qa-e2e/mantis/desktop-browser
 ```
 
@@ -145,7 +145,7 @@ skipped.
 ### `slack-desktop-smoke`
 
 ```bash
-pnpm openclaw qa mantis slack-desktop-smoke \
+pnpm granted qa mantis slack-desktop-smoke \
   --output-dir .artifacts/qa-e2e/mantis/slack-desktop \
   --gateway-setup \
   --scenario slack-canary \
@@ -153,7 +153,7 @@ pnpm openclaw qa mantis slack-desktop-smoke \
 ```
 
 Leases or reuses a Crabbox desktop, syncs the checkout into the VM, runs
-`pnpm openclaw qa slack` inside it, opens Slack Web in the VNC browser,
+`pnpm granted qa slack` inside it, opens Slack Web in the VNC browser,
 captures the desktop, and copies both the Slack QA artifacts (`slack-qa/`) and
 the VNC screenshot/video back locally. This is the only Mantis shape where the
 SUT gateway and the browser both run inside the same VM.
@@ -161,7 +161,7 @@ SUT gateway and the browser both run inside the same VM.
 With `--gateway-setup`, the command creates a persistent disposable OpenClaw
 home at `$HOME/.openclaw-mantis/slack-openclaw` in the VM, patches Slack
 Socket Mode config for the target channel, starts
-`openclaw gateway run --dev --allow-unconfigured --port 38973`, and leaves
+`granted gateway run --dev --allow-unconfigured --port 38973`, and leaves
 Chrome running in the VNC session; omitting `--gateway-setup` runs the normal
 bot-to-bot Slack QA lane instead.
 

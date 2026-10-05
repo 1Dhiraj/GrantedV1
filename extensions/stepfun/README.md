@@ -1,12 +1,12 @@
-# OpenClaw StepFun Provider
+# Granted StepFun Provider
 
-Official OpenClaw provider plugin for StepFun.
+Official Granted provider plugin for StepFun.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/stepfun-provider
-openclaw gateway restart
+granted plugins install @granted/stepfun-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/stepfun> for setup and configuration.

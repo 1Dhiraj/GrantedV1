@@ -1,9 +1,13 @@
 // Workspace skill prompt helpers render bounded catalogs and reusable snapshots.
+import path from "node:path";
 import type { GrantedConfig } from "../../config/types.granted.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import type { PluginMetadataSnapshot } from "../../plugins/plugin-metadata-snapshot.types.js";
 import { resolveEffectiveAgentSkillsLimits } from "../discovery/agent-filter.js";
-import { filterPromptVisibleSkillEntries } from "../discovery/skill-index.js";
+import {
+  filterPromptVisibleSkillEntries,
+  filterSearchListedSkillEntries,
+} from "../discovery/skill-index.js";
 import type { SkillEligibilityContext, SkillEntry, SkillSnapshot } from "../types.js";
 import { WORKSPACE_SKILLS_PROMPT_FORMAT_VERSION } from "../types.js";
 import { hasUnavailableSkillSecretOwners, isSkillSecretOwnerUnavailable } from "./config.js";
@@ -28,6 +32,32 @@ type WorkspaceSkillBuildOptions = {
   pluginMetadataSnapshot?: PluginMetadataSnapshot;
 };
 
+const MAX_LISTED_SEARCH_ROOTS = 2;
+
+/**
+ * One line for skills the model may use that the catalog deliberately omits.
+ *
+ * Every catalog entry costs tokens on every turn, so a large library cannot be
+ * listed up front. Naming the count and the directory lets the model find the
+ * rest with the search tools it already has instead of guessing that they exist.
+ */
+function buildSearchableSkillsNote(entries: readonly SkillEntry[]): string | undefined {
+  const searchable = filterSearchListedSkillEntries(entries);
+  if (searchable.length === 0) {
+    return undefined;
+  }
+  const roots = [
+    ...new Set(searchable.map((entry) => path.dirname(path.dirname(entry.skill.filePath)))),
+  ];
+  const listedRoots = roots.slice(0, MAX_LISTED_SEARCH_ROOTS).join(", ");
+  const remainder = roots.length > MAX_LISTED_SEARCH_ROOTS ? " and other skill roots" : "";
+  const plural = searchable.length === 1 ? "skill" : "skills";
+  return (
+    `${searchable.length} more ${plural} are installed but not listed here, under ${listedRoots}${remainder}. ` +
+    "When nothing above fits, search those SKILL.md files for a keyword and read the best match."
+  );
+}
+
 function resolveWorkspaceSkillPromptState(
   workspaceDir: string,
   opts?: WorkspaceSkillBuildOptions,
@@ -38,11 +68,13 @@ function resolveWorkspaceSkillPromptState(
   const resolvedSkills = promptEntries.map((entry) => entry.skill);
   const limits = opts?.config?.skills?.limits;
   const agentLimits = resolveEffectiveAgentSkillsLimits(opts?.config, opts?.agentId);
+  const searchableNote = buildSearchableSkillsNote(eligible);
   const prepared = prepareSkillsForPrompt({
     skills: compactPromptSkills(resolvedSkills),
     maxSkillsInPrompt: limits?.maxSkillsInPrompt,
     maxSkillsPromptChars: agentLimits?.maxSkillsPromptChars ?? limits?.maxSkillsPromptChars,
     remoteNote,
+    ...(searchableNote ? { searchableNote } : {}),
     preserveOrder: opts?.preserveEntryOrder,
   });
   const byName = new Map(resolvedSkills.map((skill) => [skill.name, skill]));

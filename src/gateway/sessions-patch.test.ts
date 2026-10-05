@@ -1453,7 +1453,7 @@ describe("gateway sessions patch", () => {
     expect(entry.thinkingLevel).toBe("xhigh");
   });
 
-  test("persists OpenClaw Luna Ultra through the runtime-aware provider profile", async () => {
+  test("persists Granted Luna Ultra through the runtime-aware provider profile", async () => {
     const entry = expectPatchOk(
       await runPatch({
         cfg: {
@@ -1496,7 +1496,7 @@ describe("gateway sessions patch", () => {
     expect(entry.thinkingLevel).toBe("max");
   });
 
-  test("honors an explicit OpenClaw session runtime override for Luna Ultra", async () => {
+  test("honors an explicit Granted session runtime override for Luna Ultra", async () => {
     const entry = expectPatchOk(
       await runPatch({
         cfg: {

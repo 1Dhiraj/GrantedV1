@@ -5,6 +5,7 @@ import path from "node:path";
 import type { Model } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.granted.js";
+import { redactSensitiveText } from "../logging/redact.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import { resolveOpenClawStateSqlitePath } from "../state/granted-state-db.paths.js";
 import { withEnvAsync } from "../test-utils/env.js";
@@ -870,9 +871,9 @@ describe("getApiKeyForModelCore", () => {
           `Auth store: ${resolveOpenClawStateSqlitePath(state.env)} (agentDir: ${state.agentDir()}).`,
         );
         expect((error as Error).message).toContain(
-          "openclaw models auth paste-api-key --provider openai",
+          "granted models auth paste-api-key --provider openai",
         );
-        expect((error as Error).message).not.toContain("openclaw agents add");
+        expect((error as Error).message).not.toContain("granted agents add");
       },
     );
 
@@ -1037,6 +1038,32 @@ describe("getApiKeyForModelCore", () => {
       expect(resolved.source).toContain("OPENAI_API_KEY");
       expect(resolved.profileId).toBeUndefined();
     });
+  });
+
+  it("registers resolved stored and env keys for log redaction", async () => {
+    // Neither key passes through the protected secret store, so without this a
+    // bare key echoed in a tool result or error would be logged in full.
+    const storedKey = "stored-openai-key-must-not-reach-logs";
+    const envKey = "env-openai-key-must-not-reach-logs";
+    await withEnvAsync({ OPENAI_API_KEY: envKey }, async () => {
+      const store: AuthProfileStore = {
+        version: 1,
+        profiles: {
+          "openai:default": { type: "api_key", provider: "openai", key: storedKey },
+        },
+      };
+      await resolveApiKeyForProviderCore({ provider: "openai", store });
+      await resolveApiKeyForProviderCore({
+        provider: "openai",
+        credentialPrecedence: "env-first",
+        store,
+      });
+    });
+
+    const logged = redactSensitiveText(`stored=${storedKey} env=${envKey}`, { mode: "off" });
+
+    expect(logged).not.toContain(storedKey);
+    expect(logged).not.toContain(envKey);
   });
 
   it("uses trusted workspace manifest auth evidence in runtime auth checks", async () => {

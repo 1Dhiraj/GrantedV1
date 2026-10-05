@@ -96,7 +96,7 @@ describe("CUA Driver artifact verification", () => {
     });
 
     expect(result).toMatchObject({ ok: false, code: "COMPUTER_DRIVER_PACKAGE_MISSING" });
-    expect(result.ok ? "" : result.diagnostic).toContain("Reinstall OpenClaw on this node host");
+    expect(result.ok ? "" : result.diagnostic).toContain("Reinstall Granted on this node host");
   });
 
   it("refuses SDK and platform package version skew", () => {

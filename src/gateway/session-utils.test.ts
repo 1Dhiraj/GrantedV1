@@ -1715,7 +1715,7 @@ describe("gateway session utils", () => {
 
   test.each([
     {
-      name: "a locked Codex session under OpenClaw config",
+      name: "a locked Codex session under Granted config",
       configuredRuntime: "openclaw",
       expectedRuntime: "codex",
       entry: {
@@ -1770,7 +1770,7 @@ describe("gateway session utils", () => {
   });
 
   test.each([true, false])(
-    "does not reuse stale transcript context after an OpenClaw to Codex change (lightweight=%s)",
+    "does not reuse stale transcript context after an Granted to Codex change (lightweight=%s)",
     async (lightweightListRow) => {
       await withStateDirEnv("session-utils-stale-transcript-context-", async ({ stateDir }) => {
         const sessionId = "stale-transcript-context";
@@ -1791,7 +1791,7 @@ describe("gateway session utils", () => {
           messages: [
             {
               role: "assistant",
-              content: "old OpenClaw turn",
+              content: "old Granted turn",
               provider: "openai",
               model: "gpt-5.5",
               usage: { input: 1, output: 1 },

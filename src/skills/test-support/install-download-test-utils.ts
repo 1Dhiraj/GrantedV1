@@ -4,7 +4,7 @@ import {
   type GrantedTestState,
 } from "../../test-utils/granted-test-state.js";
 
-/** Creates isolated OpenClaw state for install download tests. */
+/** Creates isolated Granted state for install download tests. */
 export async function createInstallDownloadTestState(): Promise<GrantedTestState> {
   return await createOpenClawTestState({
     layout: "state-only",

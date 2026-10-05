@@ -26,7 +26,7 @@ Status: official plugin, installed separately. SMS text and MMS attachments, dir
 
 You need:
 
-- The official SMS plugin installed with `openclaw plugins install @granted/sms`.
+- The official SMS plugin installed with `granted plugins install @granted/sms`.
 - A Twilio account with an SMS-capable phone number, or a Twilio Messaging Service. MMS requires an MMS-capable sender; native MMS delivery also depends on the destination country and carrier.
 - The Twilio Account SID and Auth Token.
 - A public HTTPS URL that reaches your OpenClaw Gateway.
@@ -58,7 +58,7 @@ If Twilio rejects the Brand or Campaign during registration review, fix that in 
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @granted/sms
+    granted plugins install @granted/sms
     ```
   </Step>
   <Step title="Create or choose a Twilio sender">
@@ -94,8 +94,8 @@ Save this as `sms.patch.json5` and change the placeholders:
 Apply it:
 
 ```bash
-openclaw config patch --file ./sms.patch.json5 --dry-run
-openclaw config patch --file ./sms.patch.json5
+granted config patch --file ./sms.patch.json5 --dry-run
+granted config patch --file ./sms.patch.json5
 ```
 
   </Step>
@@ -126,14 +126,14 @@ tailscale funnel status
   <Step title="Start the Gateway and approve first sender">
 
 ```bash
-openclaw gateway
+granted gateway
 ```
 
 Send a text message to the Twilio number. The first message creates a pairing request. Approve it:
 
 ```bash
-openclaw pairing list sms
-openclaw pairing approve sms <CODE>
+granted pairing list sms
+granted pairing approve sms <CODE>
 ```
 
     Pairing codes expire after 1 hour.
@@ -281,7 +281,7 @@ Set `defaultTo` when automation or agent-initiated delivery should have a defaul
 
 `channels.sms.dmPolicy` controls direct SMS access:
 
-- `pairing` (default): unknown senders get a pairing code; approve with `openclaw pairing approve sms <CODE>`.
+- `pairing` (default): unknown senders get a pairing code; approve with `granted pairing approve sms <CODE>`.
 - `allowlist`: only senders in `allowFrom` are processed. An empty `allowFrom` rejects every sender (the Gateway logs a startup warning).
 - `open`: config validation requires `allowFrom` to include `"*"`. Without the wildcard, only listed numbers can chat.
 - `disabled`: all inbound DMs are dropped.
@@ -309,13 +309,13 @@ Set `defaultTo` when automation or agent-initiated delivery should have a defaul
 With the SMS channel selected, targets accept bare E.164 numbers or the `sms:` prefix:
 
 ```bash
-openclaw message send --channel sms --target sms:+15551234567 --message "hello"
+granted message send --channel sms --target sms:+15551234567 --message "hello"
 ```
 
 When channel selection is implicit, the `twilio-sms:` prefix selects this channel without taking over the `sms:` service prefix, which iMessage uses to pick carrier SMS delivery for its own targets:
 
 ```bash
-openclaw message send --target twilio-sms:+15551234567 --message "hello"
+granted message send --target twilio-sms:+15551234567 --message "hello"
 ```
 
 The CLI requires an explicit `--target`. `defaultTo` is for automation and agent-initiated delivery paths where the target can be resolved from channel config.
@@ -329,7 +329,7 @@ SMS output is plain text. OpenClaw strips markdown, flattens fenced code blocks,
 Use the normal structured media field or the CLI `--media` option:
 
 ```bash
-openclaw message send \
+granted message send \
   --channel sms \
   --target sms:+15551234567 \
   --message "photo" \
@@ -364,19 +364,19 @@ After the Gateway starts:
 2. Run a Twilio-side probe (checks the configured Twilio webhook URL/method, recent inbound errors, and the most recent stored outbound delivery state):
 
 ```bash
-openclaw channels capabilities --channel sms
-openclaw channels status --channel sms --probe --json
+granted channels capabilities --channel sms
+granted channels status --channel sms --probe --json
 ```
 
 3. Send an SMS to the Twilio number from your phone.
-4. Run `openclaw pairing list sms`.
-5. Approve the pairing code with `openclaw pairing approve sms <CODE>`.
+4. Run `granted pairing list sms`.
+5. Approve the pairing code with `granted pairing approve sms <CODE>`.
 6. Send another SMS and confirm the agent replies.
 
 For outbound-only testing, use:
 
 ```bash
-openclaw message send --channel sms --target sms:+15557654321 --message "OpenClaw SMS test"
+granted message send --channel sms --target sms:+15557654321 --message "OpenClaw SMS test"
 ```
 
 ### End-to-end test from macOS iMessage/SMS
@@ -385,8 +385,8 @@ On a Mac that can send carrier SMS through Messages, you can use `imsg` to drive
 
 ```bash
 imsg send --to "+15551234567" --service sms --text "OpenClaw SMS E2E $(date -u +%Y%m%dT%H%M%SZ)" --json
-openclaw pairing list sms
-openclaw pairing approve sms <CODE>
+granted pairing list sms
+granted pairing approve sms <CODE>
 imsg send --to "+15551234567" --service sms --text "reply exactly SMS pong" --json
 ```
 
@@ -474,7 +474,7 @@ If the Twilio message log shows error `11200`, Twilio accepted the inbound SMS b
 - The tunnel or reverse proxy exposes the exact `webhookPath`; for Tailscale Funnel, run `tailscale funnel status` and confirm `/webhooks/sms` is listed.
 - `publicWebhookUrl` uses the same scheme, host, path, and query string Twilio sends, so signature validation can reproduce the signed URL.
 
-`openclaw channels status --channel sms --probe` surfaces both mismatched Twilio webhook settings and recent `11200` errors.
+`granted channels status --channel sms --probe` surfaces both mismatched Twilio webhook settings and recent `11200` errors.
 
 ### Outbound sends fail
 
@@ -485,7 +485,7 @@ Confirm `accountSid`, `authToken`, and either `fromNumber` or `messagingServiceS
 Start with OpenClaw's stored delivery observation:
 
 ```bash
-openclaw channels status --channel sms --probe --json
+granted channels status --channel sms --probe --json
 ```
 
 If the recent outbound status is `failed` or `undelivered`, use its `messageSid` to inspect the final Message status and error code in Twilio. [`30034`](https://www.twilio.com/docs/api/errors/30034) means the sender is unregistered or is not in the Sender Pool of the Messaging Service associated with the approved Campaign. [`30035`](https://www.twilio.com/docs/api/errors/30035) means Twilio is still registering, deregistering, or reassigning the number; wait until its status is `REGISTERED` before sending.

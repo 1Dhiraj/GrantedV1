@@ -1,4 +1,3 @@
-import { getPublicKey, nip19 } from "nostr-tools";
 import { createAccountListHelpers, mergeAccountConfig } from "granted/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
@@ -9,6 +8,7 @@ import { assertSecretOwnerAvailable } from "granted/plugin-sdk/channel-secret-ow
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveSecretInputString } from "granted/plugin-sdk/secret-input";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { getPublicKey, nip19 } from "nostr-tools";
 import { BuzzAccountIdSchema, type BuzzConfig, type BuzzConfigInput } from "./config-schema.js";
 import { parseBuzzTarget } from "./target.js";
 
@@ -138,7 +138,7 @@ export function resolveBuzzAccount(params: {
   }
   return {
     accountId,
-    name: normalizeOptionalString(config.name) ?? "OpenClaw",
+    name: normalizeOptionalString(config.name) ?? "Granted",
     enabled: config.enabled !== false,
     configured: Boolean(relayUrl && (privateKey || privateKeyResolution.ref)),
     relayUrl,

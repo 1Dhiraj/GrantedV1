@@ -1,6 +1,6 @@
 import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
 import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
-// Memory Core plugin entrypoint registers its OpenClaw integration.
+// Memory Core plugin entrypoint registers its Granted integration.
 import {
   jsonResult,
   type MemoryPluginRuntime,
@@ -228,7 +228,7 @@ function createLazyMemoryRuntime(host: MemoryCoreRuntimeHost): MemoryPluginRunti
 
 export default definePluginEntry({
   id: "memory-core",
-  name: "OpenClaw Memory",
+  name: "Granted Memory",
   description: "File-backed memory search tools and CLI",
   kind: "memory",
   register(api) {

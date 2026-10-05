@@ -107,6 +107,19 @@ function buildAugmentCatalogContext(apiKey?: string) {
 }
 
 describe("nvidia provider hooks", () => {
+  it("asks NVIDIA for token usage on streamed completions", () => {
+    // NVIDIA's endpoint omits usage from a streamed reply unless the request sets
+    // stream_options.include_usage, so without this flag every NVIDIA turn records
+    // zero tokens and cost tracking cannot see it.
+    const manifest = JSON.parse(
+      fs.readFileSync(new URL("./granted.plugin.json", import.meta.url), "utf8"),
+    );
+
+    expect(manifest.providerRequest?.providers?.nvidia).toMatchObject({
+      openAICompletions: { supportsStreamingUsage: true },
+    });
+  });
+
   it("registers the nvidia provider with correct metadata", async () => {
     const provider = await registerNvidiaProvider();
 
@@ -224,7 +237,8 @@ describe("nvidia provider hooks", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro-0813",
+      "google/gemma-4-31b-it",
+      "openai/gpt-oss-20b",
     ]);
     expect(entries?.every((entry) => entry.provider === "nvidia")).toBe(true);
     expect(ssrfRuntimeMocks.fetchWithSsrFGuard).not.toHaveBeenCalled();
@@ -243,7 +257,8 @@ describe("nvidia provider hooks", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro-0813",
+      "google/gemma-4-31b-it",
+      "openai/gpt-oss-20b",
     ]);
     expect(entries?.every((entry) => entry.provider === "nvidia")).toBe(true);
     expect(ssrfRuntimeMocks.fetchWithSsrFGuard).toHaveBeenCalledTimes(2);
@@ -327,7 +342,8 @@ describe("nvidia provider hooks", () => {
       "static:nvidia/z-ai/glm-5.2",
       "static:nvidia/moonshotai/kimi-k2.6",
       "static:nvidia/minimaxai/minimax-m3",
-      "static:nvidia/deepseek-ai/deepseek-v4-pro-0813",
+      "static:nvidia/google/gemma-4-31b-it",
+      "static:nvidia/openai/gpt-oss-20b",
     ]);
 
     await expect(catalogProvider?.liveCatalog?.(buildCatalogContext())).resolves.toEqual([]);

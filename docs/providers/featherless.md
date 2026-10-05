@@ -14,7 +14,7 @@ model ids from Featherless at runtime.
 | Property        | Value                                    |
 | --------------- | ---------------------------------------- |
 | Provider id     | `featherless`                            |
-| Package         | `@granted/featherless-provider`         |
+| Package         | `@granted/featherless-provider`          |
 | Auth env var    | `FEATHERLESS_API_KEY`                    |
 | Onboarding flag | `--auth-choice featherless-api-key`      |
 | Direct CLI flag | `--featherless-api-key <key>`            |
@@ -27,20 +27,20 @@ model ids from Featherless at runtime.
 Install the plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @granted/featherless-provider
-openclaw gateway restart
+granted plugins install @granted/featherless-provider
+granted gateway restart
 ```
 
 Run onboarding:
 
 ```bash
-openclaw onboard --auth-choice featherless-api-key
+granted onboard --auth-choice featherless-api-key
 ```
 
 For non-interactive setup:
 
 ```bash
-openclaw onboard --non-interactive --accept-risk --skip-health \
+granted onboard --non-interactive --accept-risk --skip-health \
   --mode local \
   --auth-choice featherless-api-key \
   --featherless-api-key "$FEATHERLESS_API_KEY"
@@ -55,7 +55,7 @@ export FEATHERLESS_API_KEY="<your-featherless-api-key>" # pragma: allowlist secr
 Verify the provider:
 
 ```bash
-openclaw models list --provider featherless
+granted models list --provider featherless
 ```
 
 ## Default model

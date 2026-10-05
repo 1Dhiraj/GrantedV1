@@ -1,12 +1,12 @@
-# OpenClaw Exa Plugin
+# Granted Exa Plugin
 
-Official OpenClaw plugin for Exa.
+Official Granted plugin for Exa.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/exa-plugin
-openclaw gateway restart
+granted plugins install @granted/exa-plugin
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/tools/exa-search> for setup and configuration.

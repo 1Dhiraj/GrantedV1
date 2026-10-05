@@ -1,6 +1,6 @@
-import { finalizeEvent, getPublicKey, verifyEvent, type Event } from "nostr-tools";
 import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { finalizeEvent, getPublicKey, verifyEvent, type Event } from "nostr-tools";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("nostr-tools", async (importOriginal) => {
@@ -217,7 +217,7 @@ describe("Buzz bus lifecycle", () => {
       setBuzzRuntime(runtime);
       const account: ResolvedBuzzAccount = {
         accountId: ACCOUNT_ID,
-        name: "OpenClaw",
+        name: "Granted",
         enabled: true,
         configured: true,
         relayUrl: "wss://buzz.example.com",
@@ -712,7 +712,7 @@ describe("Buzz bus lifecycle", () => {
     ];
 
     const bus = await startTestBus({
-      profileName: "OpenClaw",
+      profileName: "Granted",
     });
 
     await vi.waitFor(() =>

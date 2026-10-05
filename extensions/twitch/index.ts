@@ -1,4 +1,4 @@
-// Twitch plugin entrypoint registers its OpenClaw integration.
+// Twitch plugin entrypoint registers its Granted integration.
 import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
 
 export default defineBundledChannelEntry({

@@ -1,12 +1,12 @@
-# OpenClaw Groq Provider
+# Granted Groq Provider
 
-Official OpenClaw provider plugin for Groq.
+Official Granted provider plugin for Groq.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/groq-provider
-openclaw gateway restart
+granted plugins install @granted/groq-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/groq> for setup and configuration.

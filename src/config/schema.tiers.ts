@@ -171,6 +171,8 @@ wizard.accessMode wizard.appRecommendations
 const ADVANCED_TUNING_PATHS = new Set([
   "agents.defaults.heartbeat.every",
   "session.maintenance.preserveRecent",
+  // An absolute allowlist under the otherwise-common tools.fs container.
+  "tools.fs.allowPaths",
 ]);
 const CHANNEL_KERNEL_TIER_PREFIXES = ["channels.defaults", "channels.modelByChannel"] as const;
 

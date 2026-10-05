@@ -173,7 +173,7 @@ export async function triageCommand(
     ? { kind: "deferred" }
     : await collectTriageBundle(options.noExport === true, redaction);
   const prompt = renderTriagePrompt({ findings, bundle, redaction, updateFailure });
-  // Packaged OpenClaw/Bun hosts cannot interpret npm shim entrypoints. Reuse the
+  // Packaged Granted/Bun hosts cannot interpret npm shim entrypoints. Reuse the
   // active Node runtime or require an installed node.exe before choosing a shim.
   const nodeExecutable = isNodeRuntime(process.execPath)
     ? process.execPath

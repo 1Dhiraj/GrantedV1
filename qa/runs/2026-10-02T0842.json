@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-02T0842",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A1",
+      "name": "disk space",
+      "result": "PASS",
+      "seconds": 78,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0842-a1",
+      "evidence": "2.83 GB | 221.62 GB |\n| E: | 83.42 GB | 221.62 GB |\n**Total free: ~188 GB** across all drives. The C: drive is getting somewhat tight at ~32 GB free — you might want to clean up if it keeps shrinking.",
+      "toolCalls": 7,
+      "tokens": 123970
+    }
+  ]
+}

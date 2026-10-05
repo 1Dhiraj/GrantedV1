@@ -1,5 +1,5 @@
 /**
- * Synology Chat Channel Plugin for OpenClaw.
+ * Synology Chat Channel Plugin for Granted.
  *
  * Implements the ChannelPlugin interface following the LINE pattern.
  */
@@ -381,7 +381,7 @@ function createSynologyChatPlugin(): SynologyChatPlugin {
         selectionLabel: "Synology Chat (Webhook)",
         detailLabel: "Synology Chat (Webhook)",
         docsPath: "/channels/synology-chat",
-        blurb: "Connect your Synology NAS Chat to OpenClaw",
+        blurb: "Connect your Synology NAS Chat to Granted",
         order: 90,
       },
       capabilities: {
@@ -502,7 +502,7 @@ function createSynologyChatPlugin(): SynologyChatPlugin {
           "  Example: `<https://example.com|Click here>` renders as a clickable link.",
           "",
           "**File sharing**: Send files through the media attachment field.",
-          "  OpenClaw freezes the bytes and gives the NAS a short-lived download capability (max 32 MB).",
+          "  Granted freezes the bytes and gives the NAS a short-lived download capability (max 32 MB).",
           "",
           "**Limitations**:",
           "- No markdown, bold, italic, or code blocks",
@@ -522,7 +522,7 @@ function createSynologyChatPlugin(): SynologyChatPlugin {
     pairing: {
       text: {
         idLabel: "synologyChatUserId",
-        message: "OpenClaw: your access has been approved.",
+        message: "Granted: your access has been approved.",
         normalizeAllowEntry: (entry: string) => normalizeLowercaseStringOrEmpty(entry),
         notify: async ({ cfg, id, message }) => {
           const account = resolveAccount(cfg);

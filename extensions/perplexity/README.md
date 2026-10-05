@@ -1,12 +1,12 @@
-# OpenClaw Perplexity Plugin
+# Granted Perplexity Plugin
 
-Official OpenClaw plugin for Perplexity.
+Official Granted plugin for Perplexity.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/perplexity-plugin
-openclaw gateway restart
+granted plugins install @granted/perplexity-plugin
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/tools/perplexity-search> for setup and configuration.

@@ -250,13 +250,13 @@ async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } 
       const issues = normalizeConfigIssues(snapshot.issues);
       if (opts.json) {
         writeRuntimeJson(runtime, {
-          ...formatCliJsonFailure(`OpenClaw config is invalid: ${shortPath}`),
+          ...formatCliJsonFailure(`Granted config is invalid: ${shortPath}`),
           valid: false,
           path: outputPath,
           issues,
         });
       } else {
-        runtime.error(danger(`OpenClaw config is invalid: ${shortPath}`));
+        runtime.error(danger(`Granted config is invalid: ${shortPath}`));
         for (const line of renderConfigValidationIssueLines(snapshot, danger("×"))) {
           runtime.error(`  ${line}`);
         }

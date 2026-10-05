@@ -582,7 +582,7 @@ export const handleRestartCommand: CommandHandler = async (params, allowTextComm
         : undefined,
     });
     return sessionCommandReply(
-      "⚙️ Restarting OpenClaw in-process (SIGUSR1); back in a few seconds.",
+      "⚙️ Restarting Granted in-process (SIGUSR1); back in a few seconds.",
     );
   }
   let sentinelWritten = false;
@@ -606,7 +606,7 @@ export const handleRestartCommand: CommandHandler = async (params, allowTextComm
     return sessionCommandReply(`⚠️ Restart failed (${restartMethod.method}).${detail}`);
   }
   return sessionCommandReply(
-    `⚙️ Restarting OpenClaw via ${restartMethod.method}; give me a few seconds to come back online.`,
+    `⚙️ Restarting Granted via ${restartMethod.method}; give me a few seconds to come back online.`,
   );
 };
 

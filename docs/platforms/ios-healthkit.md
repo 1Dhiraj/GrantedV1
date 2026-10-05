@@ -66,15 +66,15 @@ Enabling Health summaries adds `health.summary` to the node's declared command
 surface. Approve the resulting node pairing update:
 
 ```bash
-openclaw nodes pending
-openclaw nodes approve <requestId>
+granted nodes pending
+granted nodes approve <requestId>
 ```
 
 Then verify that the connected iOS device exposes an effective `health.summary`
 command:
 
 ```bash
-openclaw nodes describe --node "<iOS device name>"
+granted nodes describe --node "<iOS device name>"
 ```
 
 ## Request today's summary
@@ -83,7 +83,7 @@ Only `today` is supported. It covers local midnight through the request time,
 using the iOS device's current calendar and time zone.
 
 ```bash
-openclaw nodes invoke \
+granted nodes invoke \
   --node "<iOS device name>" \
   --command health.summary \
   --params '{"period":"today"}' \
@@ -144,8 +144,8 @@ surface. You can also remove `health.summary` from
 ### Command is not declared by the node
 
 Confirm Apple Health summaries are enabled in the iOS app and the device is connected.
-Run `openclaw nodes pending` and approve any capability update, then inspect
-`openclaw nodes describe --node "<iOS device name>"` again.
+Run `granted nodes pending` and approve any capability update, then inspect
+`granted nodes describe --node "<iOS device name>"` again.
 
 ### Command requires explicit opt-in
 

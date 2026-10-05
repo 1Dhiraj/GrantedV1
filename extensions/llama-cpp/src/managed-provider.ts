@@ -44,13 +44,13 @@ export function registerLlamaCppProvider(api: GrantedPluginApi): void {
       {
         id: "local",
         label: LLAMA_CPP_PROVIDER_LABEL,
-        hint: "Install a verified llama.cpp server and run a private GGUF model managed by OpenClaw",
+        hint: "Install a verified llama.cpp server and run a private GGUF model managed by Granted",
         kind: "custom",
         wizard: {
           choiceId: LLAMA_CPP_PROVIDER_ID,
           choiceLabel: "Managed local server",
           choiceHint:
-            "Install a verified llama.cpp server and run a private GGUF model managed by OpenClaw",
+            "Install a verified llama.cpp server and run a private GGUF model managed by Granted",
           groupId: LLAMA_CPP_PROVIDER_ID,
           groupLabel: "Local llama.cpp",
           groupHint: "Managed or external llama.cpp server",
@@ -70,7 +70,7 @@ export function registerLlamaCppProvider(api: GrantedPluginApi): void {
         wizard: {
           choiceId: "llama-cpp-existing-server",
           choiceLabel: "Existing llama-server",
-          choiceHint: "Connect to a llama.cpp server managed outside OpenClaw",
+          choiceHint: "Connect to a llama.cpp server managed outside Granted",
           groupId: LLAMA_CPP_PROVIDER_ID,
           groupLabel: "Local llama.cpp",
           groupHint: "Managed or external llama.cpp server",

@@ -1,12 +1,12 @@
-# OpenClaw Arcee AI Provider
+# Granted Arcee AI Provider
 
-Official OpenClaw provider plugin for Arcee AI.
+Official Granted provider plugin for Arcee AI.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/arcee-provider
-openclaw gateway restart
+granted plugins install @granted/arcee-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/arcee> for setup and configuration.

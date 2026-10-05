@@ -1,13 +1,13 @@
-# OpenClaw Xiaomi Provider
+# Granted Xiaomi Provider
 
-Official OpenClaw provider plugin for Xiaomi MiMo pay-as-you-go and Token Plan
+Official Granted provider plugin for Xiaomi MiMo pay-as-you-go and Token Plan
 models, usage tracking, and text-to-speech.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/xiaomi-provider
-openclaw gateway restart
+granted plugins install @granted/xiaomi-provider
+granted gateway restart
 ```
 
 Configure `XIAOMI_API_KEY` for `xiaomi/*` models and speech, or

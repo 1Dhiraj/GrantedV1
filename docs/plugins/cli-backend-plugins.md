@@ -30,11 +30,11 @@ providers are unavailable.
 
 A CLI backend plugin has three contracts:
 
-| Contract             | File                   | Purpose                                                   |
-| -------------------- | ---------------------- | --------------------------------------------------------- |
-| Package entry        | `package.json`         | Points OpenClaw at the plugin runtime module              |
+| Contract             | File                  | Purpose                                                   |
+| -------------------- | --------------------- | --------------------------------------------------------- |
+| Package entry        | `package.json`        | Points OpenClaw at the plugin runtime module              |
 | Manifest ownership   | `granted.plugin.json` | Declares the backend id before runtime loads              |
-| Runtime registration | `index.ts`             | Calls `api.registerCliBackend(...)` with command defaults |
+| Runtime registration | `index.ts`            | Calls `api.registerCliBackend(...)` with command defaults |
 
 The manifest is discovery metadata: it does not execute the CLI or register
 runtime behavior. Runtime behavior starts when the plugin entry calls
@@ -449,8 +449,8 @@ pnpm test extensions/acme-cli
 For local or installed plugins, verify discovery and one real model run:
 
 ```bash
-openclaw plugins inspect acme-cli --runtime --json
-openclaw agent --message "reply exactly: backend ok" --model acme-cli/acme-large
+granted plugins inspect acme-cli --runtime --json
+granted agent --message "reply exactly: backend ok" --model acme-cli/acme-large
 ```
 
 If the backend supports images or MCP, add a live smoke that proves those

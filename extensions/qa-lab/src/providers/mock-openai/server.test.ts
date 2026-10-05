@@ -385,7 +385,7 @@ const WHATSAPP_STRUCTURED_CASES = [
 ];
 
 const TEST_RUNTIME_CONTEXT_CARRIER = [
-  "OpenClaw runtime context for the immediately preceding user message.",
+  "Granted runtime context for the immediately preceding user message.",
   "This context is runtime-generated, not user-authored. Keep internal details private.",
   "",
   "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
@@ -1262,7 +1262,7 @@ describe("qa mock openai server", () => {
         makeUserInput(prompt),
         makeToolOutputWithCallId(
           "call_mock_read_1",
-          JSON.stringify({ text: "QA mission: understand this OpenClaw repo." }),
+          JSON.stringify({ text: "QA mission: understand this Granted repo." }),
         ),
       ],
     });
@@ -1281,7 +1281,7 @@ describe("qa mock openai server", () => {
         makeUserInput("Read QA_KICKOFF_TASK.md, then summarize what you found."),
         makeToolOutputWithCallId(
           "call_mock_read_1",
-          JSON.stringify({ text: "QA mission: understand this OpenClaw repo." }),
+          JSON.stringify({ text: "QA mission: understand this Granted repo." }),
         ),
       ],
     });
@@ -1761,7 +1761,7 @@ describe("qa mock openai server", () => {
             `[Slack Driver (user) Fri 2026-07-31 10:00 UTC] ${seedPrompt}`,
             "[slack message id: 1.000000 channel: C123]",
             "",
-            `[Slack OpenClaw (this assistant) (assistant) Fri 2026-07-31 10:01 UTC] ${botReplyMarker}`,
+            `[Slack Granted (this assistant) (assistant) Fri 2026-07-31 10:01 UTC] ${botReplyMarker}`,
             "[slack message id: 1.500000 channel: C123]",
             "",
             `[Slack Driver (user) Fri 2026-07-31 10:02 UTC] ${recallPrompt}`,
@@ -2334,7 +2334,7 @@ describe("qa mock openai server", () => {
           "# Personal task ledger\n\nRequired status contract:\n1. Read PERSONAL_TASK_LEDGER.md.\n2. Read FOLLOWTHROUGH_NOTE.md.\n3. Write ./personal-task-status.txt.\n",
         ),
         makeUserInput(
-          "Task: prepare a local OpenClaw PR readiness note.\nPending: wait for maintainer feedback before publishing.\nBlocked: publishing needs explicit user approval.\nDone: local evidence captured in personal-task-status.txt.\n",
+          "Task: prepare a local Granted PR readiness note.\nPending: wait for maintainer feedback before publishing.\nBlocked: publishing needs explicit user approval.\nDone: local evidence captured in personal-task-status.txt.\n",
         ),
       ],
     });
@@ -2930,7 +2930,7 @@ Update and merge these partial structured summaries.`,
     ).toBe(true);
   });
 
-  it("plans the write from an OpenClaw compacted retry payload", async () => {
+  it("plans the write from an Granted compacted retry payload", async () => {
     const server = await startMockServer();
     const runtimeSessionId = "compaction-openclaw-retry";
     const initial = await postNonStreamingResponses(server, {
@@ -4337,7 +4337,7 @@ Update and merge these partial structured summaries.`,
       ];
       const usesCodexDelivery = instructionSource.startsWith("Codex");
       const instructions = usesCodexDelivery
-        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; OpenClaw stops after confirming delivery."
+        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; Granted stops after confirming delivery."
         : "Current source visible reply MUST use `message(action=send)`; final text is private. Skip tool = user gets nothing.";
       const withDeliveryInstructions = (input: unknown[]) =>
         instructionSource === "body instructions"
@@ -4386,7 +4386,7 @@ Update and merge these partial structured summaries.`,
         "Subagent fanout synthesis check: delegate two bounded subagents sequentially, then report both results together.";
       const usesCodexDelivery = instructionSource.startsWith("Codex");
       const instructions = usesCodexDelivery
-        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; OpenClaw stops after confirming delivery."
+        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; Granted stops after confirming delivery."
         : "Current source visible reply MUST use `message(action=send)`; final text is private. Skip tool = user gets nothing.";
 
       const firstSpawn = await expectNonStreamingResponsesJson(server, {
@@ -4444,7 +4444,7 @@ Update and merge these partial structured summaries.`,
         "Subagent fanout synthesis check: delegate two bounded subagents sequentially, then report both results together.";
       const usesCodexDelivery = instructionSource.startsWith("Codex");
       const instructions = usesCodexDelivery
-        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; OpenClaw stops after confirming delivery."
+        ? "Visible source replies are not automatically delivered for this run. Use `message(action=send)` for user-visible source-channel output. For progress, set `final=false`. When the message is the completed reply to the current source conversation, set `final=true`; Granted stops after confirming delivery."
         : "Current source visible reply MUST use `message(action=send)`; final text is private. Skip tool = user gets nothing.";
 
       const firstSpawn = await expectNonStreamingResponsesJson(server, {
@@ -5290,7 +5290,7 @@ Update and merge these partial structured summaries.`,
     const callId = outputToolCallId(imageCall, "call_mock_image_generate_unavailable");
     const completionEvent = [
       "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
-      "OpenClaw runtime context (internal):",
+      "Granted runtime context (internal):",
       "",
       "[Internal task completion event]",
       "source: image_generation",
@@ -5359,7 +5359,7 @@ Update and merge these partial structured summaries.`,
     const server = await startMockServer();
 
     const response = await expectNonStreamingResponses(server, {
-      instructions: "Codex dynamic OpenClaw tools available in this turn: web_search.",
+      instructions: "Codex dynamic Granted tools available in this turn: web_search.",
       input: [
         makeUserInput(
           "tool search qa check target=web_search. Call exactly that tool once and then summarize.",
@@ -5370,7 +5370,7 @@ Update and merge these partial structured summaries.`,
     const toolPlanOutput = outputItem(await response.json());
     expect(toolPlanOutput.type).toBe("function_call");
     expect(toolPlanOutput.name).toBe("web_search");
-    expect(String(toolPlanOutput.arguments)).toContain("OpenClaw runtime parity fixed query");
+    expect(String(toolPlanOutput.arguments)).toContain("Granted runtime parity fixed query");
   });
 
   it("plans QA tool-search calls from explicit fixture targets even without Responses tools", async () => {
@@ -6332,7 +6332,7 @@ Update and merge these partial structured summaries.`,
           "Switch models now. Tool continuity check: reread QA_KICKOFF_TASK.md and mention the handoff in one short sentence.",
         ),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8050,7 +8050,7 @@ Update and merge these partial structured summaries.`,
       input: [
         makeUserInput(QA_REASONING_ONLY_RECOVERY_PROMPT),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8069,7 +8069,7 @@ Update and merge these partial structured summaries.`,
         makeUserInput(QA_REASONING_ONLY_RECOVERY_PROMPT),
         makeUserInput(QA_REASONING_ONLY_RETRY_INSTRUCTION),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8201,7 +8201,7 @@ Update and merge these partial structured summaries.`,
       input: [
         makeUserInput(QA_EMPTY_RESPONSE_RECOVERY_PROMPT),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8216,7 +8216,7 @@ Update and merge these partial structured summaries.`,
         makeUserInput(QA_EMPTY_RESPONSE_RECOVERY_PROMPT),
         makeUserInput(QA_SETTLED_TOOL_TERMINAL_CONTINUATION_INSTRUCTION),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8236,7 +8236,7 @@ Update and merge these partial structured summaries.`,
       input: [
         makeUserInput(QA_EMPTY_RESPONSE_EXHAUSTION_PROMPT),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });
@@ -8249,7 +8249,7 @@ Update and merge these partial structured summaries.`,
         makeUserInput(QA_EMPTY_RESPONSE_EXHAUSTION_PROMPT),
         makeUserInput(QA_EMPTY_RESPONSE_RETRY_INSTRUCTION),
         makeToolOutput(
-          "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          "QA mission: Understand this Granted repo from source + docs before acting.",
         ),
       ],
     });

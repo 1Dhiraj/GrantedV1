@@ -1,5 +1,5 @@
 /**
- * Hosts the local OpenClaw sandbox exec-server that Codex app-server native
+ * Hosts the local Granted sandbox exec-server that Codex app-server native
  * execution can register as an external environment.
  */
 import { createHash, randomUUID } from "node:crypto";
@@ -62,7 +62,7 @@ export async function ensureCodexSandboxExecServerEnvironment(params: {
   }
   if (!canExposeLocalExecServerToAppServer(params.appServerStartOptions)) {
     throw new Error(
-      "OpenClaw Codex exec-server uses a local loopback URL and cannot be registered with a remote Codex app-server.",
+      "Granted Codex exec-server uses a local loopback URL and cannot be registered with a remote Codex app-server.",
     );
   }
   const { server: execServer, nodeLease } = await acquireOpenClawExecServer({
@@ -244,7 +244,7 @@ async function startOpenClawExecServer(sandbox: SandboxContext): Promise<Granted
     connection = { kind: "node", id: placementNodeId };
   } else {
     if (!backend) {
-      throw new Error("OpenClaw sandbox backend is unavailable.");
+      throw new Error("Granted sandbox backend is unavailable.");
     }
     if (!fsBridge) {
       throw new Error("Sandbox filesystem bridge is unavailable.");
@@ -264,7 +264,7 @@ async function startOpenClawExecServer(sandbox: SandboxContext): Promise<Granted
   await once(server, "listening");
   const address = server.address();
   if (!address || typeof address === "string") {
-    throw new Error("OpenClaw Codex exec-server did not bind to a TCP port.");
+    throw new Error("Granted Codex exec-server did not bind to a TCP port.");
   }
   const environmentId = buildEnvironmentId(sandbox);
   const authPath = `/openclaw-${randomUUID()}`;

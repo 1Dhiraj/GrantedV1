@@ -653,8 +653,8 @@ describe("Discord model picker rendering", () => {
           },
           {
             id: "openclaw",
-            label: "OpenClaw Default",
-            description: "Use the built-in OpenClaw runtime.",
+            label: "Granted Default",
+            description: "Use the built-in Granted runtime.",
           },
         ],
       ],
@@ -706,8 +706,8 @@ describe("Discord model picker rendering", () => {
           },
           {
             id: "openclaw",
-            label: "OpenClaw Default",
-            description: "Use the built-in OpenClaw runtime.",
+            label: "Granted Default",
+            description: "Use the built-in Granted runtime.",
           },
         ],
       ],
@@ -1042,8 +1042,8 @@ describe("Discord model picker rendering", () => {
           },
           {
             id: "openclaw",
-            label: "OpenClaw Default",
-            description: "Use the built-in OpenClaw runtime.",
+            label: "Granted Default",
+            description: "Use the built-in Granted runtime.",
           },
         ],
       ],
@@ -1102,8 +1102,8 @@ describe("Discord model picker rendering", () => {
           },
           {
             id: "openclaw",
-            label: "OpenClaw Default",
-            description: "Use the built-in OpenClaw runtime.",
+            label: "Granted Default",
+            description: "Use the built-in Granted runtime.",
           },
         ],
       ],

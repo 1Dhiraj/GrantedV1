@@ -49,7 +49,7 @@ sudo npm install -g openclaw --allow-scripts=openclaw
 ## Run onboarding
 
 ```bash
-openclaw onboard --no-install-daemon
+granted onboard --no-install-daemon
 ```
 
 Follow the prompts. Copy the dashboard URL and token when onboarding finishes.
@@ -60,9 +60,9 @@ Keep the Gateway on loopback for the SSH tunnel, then start one unsupervised
 process in the background:
 
 ```bash
-openclaw config set gateway.bind loopback
-nohup openclaw gateway run > gateway.log 2>&1 &
-openclaw doctor --json
+granted config set gateway.bind loopback
+nohup granted gateway run > gateway.log 2>&1 &
+granted doctor --json
 ```
 
 With the SSH tunnel active, open the dashboard URL locally:
@@ -77,7 +77,7 @@ Set this command as the Box init script so the Gateway restarts when the Box
 starts:
 
 ```bash
-nohup openclaw gateway run > gateway.log 2>&1 &
+nohup granted gateway run > gateway.log 2>&1 &
 ```
 
 Onboarding deliberately skips daemon installation in this guide. The Box init

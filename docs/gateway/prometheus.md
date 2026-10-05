@@ -31,7 +31,7 @@ For traces, logs, OTLP push, and OpenTelemetry GenAI semantic attributes, see [O
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install clawhub:@granted/diagnostics-prometheus
+    granted plugins install clawhub:@granted/diagnostics-prometheus
     ```
   </Step>
   <Step title="Enable the plugin">
@@ -53,7 +53,7 @@ For traces, logs, OTLP push, and OpenTelemetry GenAI semantic attributes, see [O
       </Tab>
       <Tab title="CLI">
         ```bash
-        openclaw plugins enable diagnostics-prometheus
+        granted plugins enable diagnostics-prometheus
         ```
       </Tab>
     </Tabs>
@@ -238,7 +238,7 @@ OpenClaw supports both surfaces independently. You can run either, both, or neit
 <AccordionGroup>
   <Accordion title="Empty response body">
     - Check that `diagnostics.enabled` is not set to `false` in config (it defaults to `true`).
-    - Confirm the plugin is enabled and loaded with `openclaw plugins list --enabled`.
+    - Confirm the plugin is enabled and loaded with `granted plugins list --enabled`.
     - Generate some traffic; counters and histograms only emit lines after at least one event.
 
   </Accordion>

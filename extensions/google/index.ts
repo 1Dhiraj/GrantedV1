@@ -1,4 +1,4 @@
-// Google plugin entrypoint registers its OpenClaw integration.
+// Google plugin entrypoint registers its Granted integration.
 import type { ImageGenerationProvider } from "granted/plugin-sdk/image-generation";
 import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
 import type { MusicGenerationProvider } from "granted/plugin-sdk/music-generation";

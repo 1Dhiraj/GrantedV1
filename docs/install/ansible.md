@@ -54,7 +54,7 @@ backend. See [Sandboxing](/gateway/sandboxing) for other backends.
 ## Post-install setup
 
 <Steps>
-  <Step title="Switch to the openclaw user">
+  <Step title="Switch to the granted user">
     ```bash
     sudo -i -u openclaw
     ```
@@ -65,7 +65,7 @@ backend. See [Sandboxing](/gateway/sandboxing) for other backends.
   <Step title="Connect messaging channels">
     Log in to WhatsApp, Telegram, Discord, or Signal:
     ```bash
-    openclaw channels login --channel <name>
+    granted channels login --channel <name>
     ```
   </Step>
   <Step title="Verify the installation">
@@ -88,15 +88,15 @@ sudo systemctl status openclaw
 # View live logs
 sudo journalctl -u openclaw -f
 
-# Restart gateway (run as openclaw user)
-openclaw gateway restart
+# Restart gateway (run as granted user)
+granted gateway restart
 
-# Channel login (run as openclaw user)
+# Channel login (run as granted user)
 sudo -i -u openclaw
-openclaw channels login --channel <name>
+granted channels login --channel <name>
 ```
 
-`openclaw gateway restart` records managed restart intent. For a system-scope service, follow the exact `sudo systemctl restart <unit>` command it prints.
+`granted gateway restart` records managed restart intent. For a system-scope service, follow the exact `sudo systemctl restart <unit>` command it prints.
 
 ## Security architecture
 
@@ -182,7 +182,7 @@ This is idempotent and safe to run multiple times.
     # Test manual start
     sudo -i -u openclaw
     cd ~/openclaw
-    openclaw gateway run
+    granted gateway run
     ```
 
   </Accordion>
@@ -206,7 +206,7 @@ This is idempotent and safe to run multiple times.
     Make sure you are running as the `openclaw` user:
     ```bash
     sudo -i -u openclaw
-    openclaw channels login --channel <name>
+    granted channels login --channel <name>
     ```
   </Accordion>
 </AccordionGroup>

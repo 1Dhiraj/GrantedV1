@@ -2,10 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type {
-  GrantedPluginCommandDefinition,
-  PluginCommandContext,
-} from "granted/plugin-sdk/core";
+import type { GrantedPluginCommandDefinition, PluginCommandContext } from "granted/plugin-sdk/core";
 import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
@@ -331,7 +328,7 @@ describe("device-pair /pair qr", () => {
 
     expect(pluginApiMocks.renderQrPngDataUrl).toHaveBeenCalledTimes(1);
     expect(pluginApiMocks.issueDeviceBootstrapToken).toHaveBeenCalledWith(FULL_SETUP_REQUEST);
-    expect(text).toContain("Scan this QR code with the OpenClaw iOS app:");
+    expect(text).toContain("Scan this QR code with the Granted iOS app:");
     expect(payload.mediaUrl).toBeUndefined();
     expect(payload.channelData?.openclawPairingQr).toEqual({
       setupCode: expect.any(String),
@@ -341,7 +338,7 @@ describe("device-pair /pair qr", () => {
     expect(text).toContain("- Security: single-use bootstrap token");
     expect(text).toContain("**Important:** Run `/pair cleanup` after pairing finishes.");
     expect(text).toContain("If this QR code leaks, run `/pair cleanup` immediately.");
-    expect(text).not.toContain("![OpenClaw pairing QR]");
+    expect(text).not.toContain("![Granted pairing QR]");
   });
 
   it.each`
@@ -408,7 +405,7 @@ describe("device-pair /pair qr", () => {
       >,
     ];
     expect(actualTarget).toBe(target);
-    expect(caption).toContain("Scan this QR code with the OpenClaw iOS app:");
+    expect(caption).toContain("Scan this QR code with the Granted iOS app:");
     expect(caption).toContain("IMPORTANT: After pairing finishes, run /pair cleanup.");
     expect(caption).toContain("If this QR code leaks, run /pair cleanup immediately.");
     const mediaUrl = requireMediaUrl(sendOpts);

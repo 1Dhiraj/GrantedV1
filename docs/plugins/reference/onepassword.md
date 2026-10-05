@@ -16,7 +16,7 @@ title: "Onepassword plugin"
 
 ## Surface
 
-CLI commands: `openclaw onepassword`; contracts: `tools`
+CLI commands: `granted onepassword`; contracts: `tools`
 
 ## Related docs
 

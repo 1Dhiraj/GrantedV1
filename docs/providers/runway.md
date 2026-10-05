@@ -24,12 +24,12 @@ OpenClaw ships a bundled `runway` provider for hosted video generation, enabled 
 <Steps>
   <Step title="Set the API key">
     ```bash
-    openclaw onboard --auth-choice runway-api-key
+    granted onboard --auth-choice runway-api-key
     ```
   </Step>
   <Step title="Set Runway as the default video provider">
     ```bash
-    openclaw config set agents.defaults.mediaModels.video.primary "runway/gen4.5"
+    granted config set agents.defaults.mediaModels.video.primary "runway/gen4.5"
     ```
   </Step>
   <Step title="Generate a video">

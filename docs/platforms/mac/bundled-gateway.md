@@ -77,7 +77,7 @@ Plist location (per-user): `~/Library/LaunchAgents/ai.openclaw.gateway.plist`
 (or `ai.openclaw.<profile>.plist`).
 
 The macOS app owns LaunchAgent install/update for the default profile in
-Local mode. The CLI can also install it directly: `openclaw gateway install`
+Local mode. The CLI can also install it directly: `granted gateway install`
 (named profiles are selected via the `OPENCLAW_PROFILE` env var).
 
 Behavior:
@@ -90,8 +90,8 @@ Behavior:
 Use the CLI for lifecycle checks and recovery:
 
 ```bash
-openclaw gateway status --deep
-openclaw gateway restart
+granted gateway status --deep
+granted gateway restart
 ```
 
 Launchd provides auto-start at login, crash restarts, and one predictable log
@@ -141,7 +141,7 @@ cloud-synced folders; sync latency and file locks can affect sessions,
 credentials, and Gateway state.
 
 Set `OPENCLAW_STATE_DIR` to a local path only when you need an override.
-`openclaw doctor` warns about common cloud-synced state paths and recommends
+`granted doctor` warns about common cloud-synced state paths and recommends
 moving back to local storage. See
 [environment variables](/help/environment#path-related-env-vars) and
 [Doctor](/gateway/doctor).
@@ -160,7 +160,7 @@ swift run openclaw-mac discover --timeout 3000 --json
 `connect` accepts `--url`, `--token`, `--timeout`, `--probe`, and `--json`
 (plus client-identity overrides; run with `--help` for the full list).
 `discover` accepts `--timeout`, `--json`, and `--include-local`. Compare
-discovery output with `openclaw gateway discover --json` when you need to
+discovery output with `granted gateway discover --json` when you need to
 separate CLI discovery from app-side connection issues.
 
 ## Smoke check
@@ -170,13 +170,13 @@ openclaw --version
 
 OPENCLAW_SKIP_CHANNELS=1 \
 OPENCLAW_SKIP_CANVAS_HOST=1 \
-openclaw gateway --port 18999 --bind loopback
+granted gateway --port 18999 --bind loopback
 ```
 
 Then:
 
 ```bash
-openclaw gateway call health --port 18999 --timeout 3000
+granted gateway call health --port 18999 --timeout 3000
 ```
 
 ## Related

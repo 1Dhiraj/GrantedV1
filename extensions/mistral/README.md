@@ -1,13 +1,13 @@
-# OpenClaw Mistral Provider
+# Granted Mistral Provider
 
-Official OpenClaw provider plugin for Mistral models, Voxtral transcription, and
+Official Granted provider plugin for Mistral models, Voxtral transcription, and
 Mistral memory embeddings.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/mistral-provider
-openclaw gateway restart
+granted plugins install @granted/mistral-provider
+granted gateway restart
 ```
 
 Set `MISTRAL_API_KEY`, then select a `mistral/*` model or configure Mistral for

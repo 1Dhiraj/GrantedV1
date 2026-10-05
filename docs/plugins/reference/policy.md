@@ -16,7 +16,7 @@ Adds policy-backed doctor checks for workspace conformance.
 
 ## Surface
 
-CLI commands: `openclaw policy`
+CLI commands: `granted policy`
 
 <!-- openclaw-plugin-reference:manual-start -->
 
@@ -32,15 +32,15 @@ provider/auth profile posture.
 
 Policy stores authored requirements in `policy.jsonc`, observes existing
 OpenClaw settings and workspace declarations as evidence, and reports drift
-through `openclaw policy check` and `openclaw doctor --lint`. A clean policy
+through `granted policy check` and `granted doctor --lint`. A clean policy
 check emits policy, evidence, findings, and attestation hashes that operators
 can record for audit.
 
-`openclaw policy check`, `watch`, and workspace-relative `compare` accept
+`granted policy check`, `watch`, and workspace-relative `compare` accept
 `--agent <id>`. Explicit multi-agent fleets must select the workspace owner;
 the plugin does not infer one from roster order.
 
-`openclaw policy compare --baseline <file>` compares one policy file to another
+`granted policy compare --baseline <file>` compares one policy file to another
 policy file. It is config-level conformance only: it uses policy rule metadata
 to verify that the checked policy is not missing or weaker than the authored
 baseline, and it does not inspect runtime state, credentials, or secret values.

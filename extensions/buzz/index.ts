@@ -3,7 +3,7 @@ import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-cont
 export default defineBundledChannelEntry({
   id: "buzz",
   name: "Buzz",
-  description: "Connect OpenClaw agents to Buzz rooms",
+  description: "Connect Granted agents to Buzz rooms",
   importMetaUrl: import.meta.url,
   plugin: {
     specifier: "./channel-plugin-api.js",

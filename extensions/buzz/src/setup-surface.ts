@@ -1,5 +1,4 @@
 import { isIP } from "node:net";
-import { generateSecretKey, nip19 } from "nostr-tools";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   patchTopLevelChannelConfigSection,
@@ -8,6 +7,7 @@ import {
   type ChannelSetupWizardAdapter,
   type SecretInput,
 } from "granted/plugin-sdk/setup";
+import { generateSecretKey, nip19 } from "nostr-tools";
 import { waitForBuzzRoomAccess } from "./room-access-wait.js";
 import { discoverBuzzRooms, type BuzzDiscoveredRoom } from "./room-discovery.js";
 import { patchBuzzAccountConfig } from "./setup-core.js";
@@ -260,10 +260,10 @@ async function noteBuzzAccessInstructions(params: {
       "Run as the existing human room owner/admin:",
       `buzz channels add-member --channel <ROOM_UUID> --pubkey ${params.publicKey} --role bot`,
       "",
-      "OpenClaw is waiting for Buzz to confirm the Bot role automatically.",
+      "Granted is waiting for Buzz to confirm the Bot role automatically.",
       "Local `just dev` needs no separate community-member step.",
       `Closed relay only: first run buzz-admin add-member --pubkey ${params.publicKey} --role member.`,
-      "Never paste that human private key into OpenClaw.",
+      "Never paste that human private key into Granted.",
     ].join("\n"),
     "Buzz room access required",
   );

@@ -52,7 +52,7 @@ for the OpenAI account and admin model.
 Preview migration from the source Codex home:
 
 ```bash
-openclaw migrate codex --dry-run
+granted migrate codex --dry-run
 ```
 
 Add `--verify-plugin-apps` to make migration read the source installed app
@@ -60,13 +60,13 @@ snapshot and app metadata, requiring every owned app to be present, enabled,
 and accessible before planning native activation:
 
 ```bash
-openclaw migrate codex --dry-run --verify-plugin-apps
+granted migrate codex --dry-run --verify-plugin-apps
 ```
 
 Apply the migration when the plan looks right:
 
 ```bash
-openclaw migrate apply codex --yes
+granted migrate apply codex --yes
 ```
 
 Migration writes explicit `codexPlugins` entries for eligible plugins and

@@ -21,7 +21,7 @@ serving real traffic (yours or another operator's):
   dev instance with an isolated state dir (`OPENCLAW_STATE_DIR=<scratch>`) and a
   free port. Do not bind the default gateway port (18789) while a real gateway
   is running on it.
-- Do not `openclaw gateway stop`/`restart` (or `launchctl`/`systemctl`/tmux
+- Do not `granted gateway stop`/`restart` (or `launchctl`/`systemctl`/tmux
   equivalents) a service you did not start in this session — that is the
   operator's live instance. Get explicit approval first.
 - Need realistic data? Copy the live state/DB into your dev state dir and test
@@ -36,7 +36,7 @@ checks.
 Safe media smoke:
 
 ```bash
-pnpm openclaw infer tts convert --local --json \
+pnpm granted infer tts convert --local --json \
   --text "OpenClaw live smoke." \
   --output /tmp/openclaw-live-smoke.mp3
 ```
@@ -44,8 +44,8 @@ pnpm openclaw infer tts convert --local --json \
 Safe voice-call readiness smoke:
 
 ```bash
-pnpm openclaw voicecall setup --json
-pnpm openclaw voicecall smoke --to "+15555550123"
+pnpm granted voicecall setup --json
+pnpm granted voicecall smoke --to "+15555550123"
 ```
 
 `voicecall smoke` is a dry run unless `--yes` is also present; use `--yes` only
@@ -151,8 +151,8 @@ MiniMax M3 uses `minimax/MiniMax-M3` as its default provider/model reference.
 To see what you can test on your machine (and the exact `provider/model` ids), run:
 
 ```bash
-openclaw models list
-openclaw models list --json
+granted models list
+granted models list --json
 ```
 
 </Tip>
@@ -570,8 +570,8 @@ Narrow, explicit allowlists are fastest and least flaky:
   - Gemini (API key): `OPENCLAW_LIVE_GATEWAY_MODELS="google/gemini-3.5-flash" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
 
 - Google adaptive thinking smoke (`qa manual` from the private QA CLI - requires `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1` and a source checkout; see [QA overview](/concepts/qa-e2e-automation)):
-  - Gemini 3 dynamic default: `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm openclaw qa manual --provider-mode live-frontier --model google/gemini-3.1-pro-preview --alt-model google/gemini-3.1-pro-preview --message '/think adaptive Reply exactly: GEMINI_ADAPTIVE_OK' --timeout-ms 180000`
-  - Gemini 2.5 dynamic budget: `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm openclaw qa manual --provider-mode live-frontier --model google/gemini-2.5-flash --alt-model google/gemini-2.5-flash --message '/think adaptive Reply exactly: GEMINI25_ADAPTIVE_OK' --timeout-ms 180000`
+  - Gemini 3 dynamic default: `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm granted qa manual --provider-mode live-frontier --model google/gemini-3.1-pro-preview --alt-model google/gemini-3.1-pro-preview --message '/think adaptive Reply exactly: GEMINI_ADAPTIVE_OK' --timeout-ms 180000`
+  - Gemini 2.5 dynamic budget: `OPENCLAW_ENABLE_PRIVATE_QA_CLI=1 pnpm granted qa manual --provider-mode live-frontier --model google/gemini-2.5-flash --alt-model google/gemini-2.5-flash --message '/think adaptive Reply exactly: GEMINI25_ADAPTIVE_OK' --timeout-ms 180000`
 
 Notes:
 
@@ -648,7 +648,7 @@ Optional additional coverage outside the curated lists (nice to have, pick a "to
 
 If you have keys enabled, you can also test via:
 
-- OpenRouter: `openrouter/...` (hundreds of models; use `openclaw models scan` to find tool+image capable candidates)
+- OpenRouter: `openrouter/...` (hundreds of models; use `granted models scan` to find tool+image capable candidates)
 - OpenCode: `opencode/...` for Zen and `opencode-go/...` for Go (auth via `OPENCODE_API_KEY` / `OPENCODE_ZEN_API_KEY`)
 
 More providers you can include in the live matrix (if you have creds/config):
@@ -665,7 +665,7 @@ Do not hardcode "all models" in docs. The authoritative list is whatever `discov
 Live tests discover credentials the same way the CLI does. Practical implications:
 
 - If the CLI works, live tests should find the same keys.
-- If a live test says "no creds", debug the same way you'd debug `openclaw models list` / model selection.
+- If a live test says "no creds", debug the same way you'd debug `granted models list` / model selection.
 
 - Per-agent auth profiles: SQLite credential rows in `~/.openclaw/agents/<agentId>/agent/openclaw-agent.sqlite` (this is what "profile keys" means in the live tests)
 - Config: `~/.openclaw/openclaw.json` (or `OPENCLAW_CONFIG_PATH`)
@@ -730,8 +730,8 @@ test passes:
 
 ```bash
 OPENCLAW_LIVE_TEST=1 OPENCLAW_LIVE_INFER_CLI_TEST=1 pnpm test:live -- test/image-generation.infer-cli.live.test.ts
-openclaw infer image providers --json
-openclaw infer image generate \
+granted infer image providers --json
+granted infer image generate \
   --model google/gemini-3.1-flash-image \
   --prompt "Minimal flat test image: one blue square on a white background, no text." \
   --output ./openclaw-infer-image-smoke.png \

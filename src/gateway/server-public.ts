@@ -11,7 +11,7 @@ export type GatewayCloseOptions = {
 };
 
 export type GatewayServer = {
-  /** Process-local endpoint used by OpenClaw-managed Tailscale proxying. */
+  /** Process-local endpoint used by Granted-managed Tailscale proxying. */
   getTailscaleIngressEndpoint: () => GatewayTailscaleIngressEndpoint | undefined;
   close: (opts?: GatewayCloseOptions) => Promise<void>;
   /**

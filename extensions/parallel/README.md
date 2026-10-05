@@ -1,12 +1,12 @@
-# OpenClaw Parallel Plugin
+# Granted Parallel Plugin
 
-Official OpenClaw plugin for Parallel.
+Official Granted plugin for Parallel.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/parallel-plugin
-openclaw gateway restart
+granted plugins install @granted/parallel-plugin
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/tools/parallel-search> for setup and configuration.

@@ -2,7 +2,7 @@
   "name": "@granted/browser-plugin",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw browser tool plugin",
+  "description": "Granted browser tool plugin",
   "type": "module",
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

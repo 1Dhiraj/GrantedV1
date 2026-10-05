@@ -2,10 +2,7 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
 import type { GrantedConfig } from "../config/types.js";
-import {
-  DEFAULT_POSIX_TMP_ROOT,
-  resolvePreferredGrantedTmpDir,
-} from "../infra/tmp-granted-dir.js";
+import { DEFAULT_POSIX_TMP_ROOT, resolvePreferredGrantedTmpDir } from "../infra/tmp-granted-dir.js";
 import { canUseNodeFs, formatLocalDate, LOG_PREFIX, LOG_SUFFIX } from "./log-file-shared.js";
 
 const ROLLING_LOG_FILE_RE = /^(openclaw(?:-[a-z0-9-]+)?)-(\d{4}-\d{2}-\d{2})\.log$/u;
@@ -64,7 +61,7 @@ export function resolveConfiguredLogFilePath(
   return config?.logging?.file ?? resolveDefaultRollingLogFile(options);
 }
 
-/** Returns whether a path is one of OpenClaw's dated rolling log files. */
+/** Returns whether a path is one of Granted's dated rolling log files. */
 export function isRollingLogFilePath(file: string): boolean {
   return ROLLING_LOG_FILE_RE.test(path.basename(file));
 }

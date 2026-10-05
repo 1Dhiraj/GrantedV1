@@ -43,19 +43,19 @@ For local execution, use [`exec`](/tools/exec) instead.
     localhost callback):
 
     ```bash
-    openclaw models auth login --provider xai --method oauth
+    granted models auth login --provider xai --method oauth
     ```
 
     During a fresh install, the same choice is available in onboarding:
 
     ```bash
-    openclaw onboard --install-daemon --auth-choice xai-oauth
+    granted onboard --install-daemon --auth-choice xai-oauth
     ```
 
     Or an API key:
 
     ```bash
-    openclaw models auth login --provider xai --method api-key
+    granted models auth login --provider xai --method api-key
     export XAI_API_KEY=xai-...
     ```
 
@@ -115,7 +115,7 @@ For local execution, use [`exec`](/tools/exec) instead.
 
   <Step title="Restart the Gateway">
     ```bash
-    openclaw gateway restart
+    granted gateway restart
     ```
 
     `code_execution` appears in the agent's tool list once the xAI plugin
@@ -149,7 +149,7 @@ exception), so the agent can self-correct:
 ```json
 {
   "error": "missing_xai_api_key",
-  "message": "code_execution needs xAI credentials. Run `openclaw onboard --auth-choice xai-oauth` to sign in with Grok, run `openclaw onboard --auth-choice xai-api-key`, set `XAI_API_KEY` in the Gateway environment, or configure `plugins.entries.xai.config.webSearch.apiKey`.",
+  "message": "code_execution needs xAI credentials. Run `granted onboard --auth-choice xai-oauth` to sign in with Grok, run `granted onboard --auth-choice xai-api-key`, set `XAI_API_KEY` in the Gateway environment, or configure `plugins.entries.xai.config.webSearch.apiKey`.",
   "docs": "https://docs.openclaw.ai/tools/code-execution"
 }
 ```

@@ -2,7 +2,7 @@
   "name": "@granted/elevenlabs-speech",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw ElevenLabs speech plugin",
+  "description": "Granted ElevenLabs speech plugin",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

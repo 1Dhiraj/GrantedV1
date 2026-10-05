@@ -2,7 +2,7 @@
 summary: "Integrated browser control service + action commands"
 read_when:
   - Adding agent-controlled browser automation
-  - Debugging why openclaw is interfering with your own Chrome
+  - Debugging why granted is interfering with your own Chrome
   - Implementing browser settings + lifecycle in the macOS app
 title: "Browser (OpenClaw-managed)"
 ---
@@ -29,23 +29,23 @@ OpenClaw can run a **dedicated Chrome/Brave/Edge/Chromium profile** that the age
 This browser is **not** your daily driver. It is a safe, isolated surface for
 agent automation and verification.
 
-On macOS, you can explicitly copy cookies from a Chrome-family system profile into a separate managed profile. The managed browser still uses its own user data directory; only the selected cookies are copied, and local storage and IndexedDB stay behind. See [Profiles](#profiles-multi-browser) or the [`openclaw browser` CLI reference](/cli/browser) for import commands and limitations.
+On macOS, you can explicitly copy cookies from a Chrome-family system profile into a separate managed profile. The managed browser still uses its own user data directory; only the selected cookies are copied, and local storage and IndexedDB stay behind. See [Profiles](#profiles-multi-browser) or the [`granted browser` CLI reference](/cli/browser) for import commands and limitations.
 
 ## Quick start
 
 ```bash
-openclaw browser --browser-profile openclaw doctor
-openclaw browser --browser-profile openclaw doctor --deep
-openclaw browser --browser-profile openclaw status
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+granted browser --browser-profile granted doctor
+granted browser --browser-profile granted doctor --deep
+granted browser --browser-profile granted status
+granted browser --browser-profile granted start
+granted browser --browser-profile granted open https://example.com
+granted browser --browser-profile granted snapshot
 ```
 
 "Browser disabled" means the plugin or `browser.enabled` is off; see
 [Configuration](#configuration) and [Plugin control](#plugin-control).
 
-If `openclaw browser` is missing entirely, or the agent says the browser tool
+If `granted browser` is missing entirely, or the agent says the browser tool
 is unavailable, jump to [Missing browser command or tool](#missing-browser-command-or-tool).
 
 ## Plugin control
@@ -64,7 +64,7 @@ The default `browser` tool is a bundled plugin. Disable it to replace it with an
 }
 ```
 
-Defaults need both `plugins.entries.browser.enabled` **and** `browser.enabled=true`. Disabling only the plugin removes the `openclaw browser` CLI, `browser.request` gateway method, agent tool, and control service as one unit; your `browser.*` config stays intact for a replacement.
+Defaults need both `plugins.entries.browser.enabled` **and** `browser.enabled=true`. Disabling only the plugin removes the `granted browser` CLI, `browser.request` gateway method, agent tool, and control service as one unit; your `browser.*` config stays intact for a replacement.
 
 Browser config changes require a Gateway restart so the plugin can re-register its service.
 
@@ -109,7 +109,7 @@ action discovery; they intentionally omit most non-interactive prose.
 
 ## Missing browser command or tool
 
-If `openclaw browser` is unknown after an upgrade, `browser.request` is missing, or the agent reports the browser tool as unavailable, the usual cause is a `plugins.allow` list that omits `browser` and no root `browser` config block exists. Add it:
+If `granted browser` is unknown after an upgrade, `browser.request` is missing, or the agent reports the browser tool as unavailable, the usual cause is a `plugins.allow` list that omits `browser` and no root `browser` config block exists. Add it:
 
 ```json5
 {
@@ -317,7 +317,7 @@ main model can read the screenshot directly.
 - Control service binds to loopback on a port derived from `gateway.port` (default `18791` = gateway + 2). `OPENCLAW_GATEWAY_PORT` takes priority over `gateway.port`; either shifts the derived ports in the same family.
 - Local `openclaw` profiles use a CDP port range starting 9 ports above the control port (default `18800`-`18899`). OpenClaw allocates from that range for
   the implicit default profile and for profiles created with
-  `openclaw browser create-profile`, writing the chosen `cdpPort` into the
+  `granted browser create-profile`, writing the chosen `cdpPort` into the
   config. A profile you declare by hand must set `cdpPort` itself, or `cdpUrl`
   for a remote endpoint: the schema rejects an `openclaw` or `clawd` profile
   that sets neither with `Profile must set cdpPort or cdpUrl`.
@@ -354,7 +354,7 @@ main model can read the screenshot directly.
   returned hostname is not enough; the WebSocket transport must use the endpoint
   that passed policy validation.
 - Gateway/provider `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, and `NO_PROXY` environment variables do not automatically proxy the OpenClaw-managed browser. Managed Chrome launches direct by default so provider proxy settings do not weaken browser SSRF checks.
-- OpenClaw-managed local CDP readiness probes and DevTools WebSocket connections bypass the managed network proxy for the exact launched loopback endpoint, so `openclaw browser start` still works when an operator proxy blocks loopback egress.
+- OpenClaw-managed local CDP readiness probes and DevTools WebSocket connections bypass the managed network proxy for the exact launched loopback endpoint, so `granted browser start` still works when an operator proxy blocks loopback egress.
 - To proxy the managed browser itself, pass explicit Chrome proxy flags through `browser.extraArgs`, such as `--proxy-server=...` or `--proxy-pac-url=...`. Strict SSRF mode blocks explicit browser proxy routing unless private-network browser access is intentionally enabled.
 - `browser.ssrfPolicy.dangerouslyAllowPrivateNetwork` is off by default; enable only when private-network browser access is intentionally trusted.
 - `browser.ssrfPolicy.allowedHostnames` grants exact hosts while the rest of the private network remains blocked.
@@ -367,7 +367,7 @@ main model can read the screenshot directly.
 
 - `attachOnly: true` means never launch a local browser; only attach if one is already running.
 - `headless` can be set globally or per local managed profile. Per-profile values override `browser.headless`, so one locally launched profile can stay headless while another remains visible.
-- `POST /start?headless=true` and `openclaw browser start --headless` request a
+- `POST /start?headless=true` and `granted browser start --headless` request a
   one-shot headless launch for local managed profiles without rewriting
   `browser.headless` or profile config. Existing-session, attach-only, and
   remote CDP profiles reject the override because OpenClaw does not launch those
@@ -375,7 +375,7 @@ main model can read the screenshot directly.
 - On Linux hosts without `DISPLAY` or `WAYLAND_DISPLAY`, local managed profiles
   default to headless automatically when neither the environment nor profile/global
   config explicitly chooses headed mode. Use the unambiguous browser-level form
-  `openclaw browser --json status`; trailing `openclaw browser status --json`
+  `granted browser --json status`; trailing `granted browser status --json`
   also works because `status` does not define its own `--json`. The command reports
   `headlessSource` as `env`, `profile`, `config`,
   `request`, `linux-display-fallback`, or `default`.
@@ -392,7 +392,7 @@ main model can read the screenshot directly.
   browser-level CDP endpoint for renderer, backend, device/driver, feature
   status, driver workarounds, and accelerated video capabilities. The result is
   cached for that browser process and exposed in full by
-  `openclaw browser --json status`. A passive status call does not launch Chrome.
+  `granted browser --json status`. A passive status call does not launch Chrome.
   Existing-session, extension, remote CDP, and sandbox browsers remain separate
   and are not inspected through this managed-host path.
 - Headless managed Chrome still uses the conservative `--disable-gpu` default.
@@ -417,8 +417,8 @@ auto-detection. Top-level and per-profile `executablePath` values accept `~`
 for your OS home directory:
 
 ```bash
-openclaw config set browser.executablePath "/usr/bin/google-chrome"
-openclaw config set browser.profiles.work.executablePath "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+granted config set browser.executablePath "/usr/bin/google-chrome"
+granted config set browser.profiles.work.executablePath "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 ```
 
 Or set it in config, per platform:
@@ -473,9 +473,9 @@ instead, and remote CDP profiles use the browser behind `cdpUrl`.
 
 Stopping behavior differs by profile mode:
 
-- local managed profiles: `openclaw browser stop` stops the browser process that
+- local managed profiles: `granted browser stop` stops the browser process that
   OpenClaw launched
-- attach-only and remote CDP profiles: `openclaw browser stop` closes the active
+- attach-only and remote CDP profiles: `granted browser stop` closes the active
   control session and releases Playwright/CDP emulation overrides (viewport,
   color scheme, locale, timezone, offline mode, and similar state), even
   though no browser process was launched by OpenClaw
@@ -497,7 +497,7 @@ This is the default path for remote gateways. Automatic host fallback is allowed
 only before the selected node handles a request. Once an action reaches the node,
 its follow-up snapshot or settings stay on that node instead of switching browsers.
 
-Standalone runs such as `openclaw agent exec` use the host browser when no
+Standalone runs such as `granted agent exec` use the host browser when no
 Gateway or node route is selected. They do not need Gateway credentials for
 local browser control. Sandbox routing and host-control restrictions still apply.
 To discover browser nodes through a local Gateway from a standalone run, set
@@ -606,7 +606,7 @@ CDP URL shapes and picks the right connection strategy automatically:
   providers can still use their root WebSocket endpoint when their discovery
   endpoint advertises a short-lived URL that is not suitable for Playwright CDP.
 
-`openclaw browser doctor` uses the same discovery-first, WebSocket-fallback
+`granted browser doctor` uses the same discovery-first, WebSocket-fallback
 logic as runtime attach, so a bare-root URL that connects successfully is not
 reported as unreachable by diagnostics.
 
@@ -767,10 +767,10 @@ Common inspect pages:
 Live attach smoke test:
 
 ```bash
-openclaw browser --browser-profile user start
-openclaw browser --browser-profile user status
-openclaw browser --browser-profile user tabs
-openclaw browser --browser-profile user snapshot --format ai
+granted browser --browser-profile user start
+granted browser --browser-profile user status
+granted browser --browser-profile user tabs
+granted browser --browser-profile user snapshot --format ai
 ```
 
 What success looks like:
@@ -789,7 +789,7 @@ What to check if attach does not work:
 - if Chrome was started with an explicit `--remote-debugging-port`, set
   `browser.profiles.<name>.cdpUrl` to that DevTools endpoint instead of relying
   on Chrome MCP auto-connect
-- `openclaw doctor` migrates old extension-based browser config and checks that
+- `granted doctor` migrates old extension-based browser config and checks that
   Chrome is installed locally for default auto-connect profiles, but it cannot
   enable browser-side remote debugging for you
 
@@ -889,7 +889,7 @@ Platforms:
 ## Control API (optional)
 
 For scripting and debugging, the Gateway exposes a small **loopback-only HTTP
-control API** plus a matching `openclaw browser` CLI (snapshots, refs, wait
+control API** plus a matching `granted browser` CLI (snapshots, refs, wait
 power-ups, JSON output, debug workflows). See
 [Browser control API](/tools/browser-control) for the full reference.
 
@@ -921,9 +921,9 @@ Common examples:
 Use this minimal sequence to separate the two:
 
 ```bash
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw tabs
-openclaw browser --browser-profile openclaw open https://example.com
+granted browser --browser-profile granted start
+granted browser --browser-profile granted tabs
+granted browser --browser-profile granted open https://example.com
 ```
 
 How to read the results:

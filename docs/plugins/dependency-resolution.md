@@ -47,7 +47,7 @@ cd ~/.openclaw/npm/projects/<encoded-package>
 npm install --omit=dev --omit=peer --legacy-peer-deps --ignore-scripts --no-audit --no-fund
 ```
 
-`openclaw plugins install npm-pack:<path.tgz>` uses the same per-plugin npm
+`granted plugins install npm-pack:<path.tgz>` uses the same per-plugin npm
 project root for a local npm-pack tarball: OpenClaw reads the tarball's npm
 metadata, adds it to the managed project as a copied `file:` dependency, runs
 the normal npm install above, then verifies the installed lockfile metadata
@@ -182,9 +182,9 @@ A missing dependency at runtime fails plugin load with an error that points
 the operator to an explicit fix:
 
 ```bash
-openclaw plugins update <id>
-openclaw plugins install <source>
-openclaw doctor --fix
+granted plugins update <id>
+granted plugins install <source>
+granted doctor --fix
 ```
 
 `doctor --fix` cleans legacy OpenClaw-generated dependency state and can
@@ -226,7 +226,7 @@ Rebuild to pick up source edits when using a built tree. Source checkout develop
 | Global npm install                              | Built runtime tree inside the package                | Root OpenClaw package for internal bundled runtime     |
 | Git checkout plus `pnpm install` + `pnpm build` | `dist/extensions`, then `dist-runtime/extensions`    | Root runtime declarations plus plugin manifests        |
 | Unbuilt source checkout                         | `extensions/<id>` fallback when no built tree exists | pnpm workspace with explicit root runtime dependencies |
-| `openclaw plugins install ...`                  | Managed npm project/git/ClawHub root                 | The plugin install/update flow                         |
+| `granted plugins install ...`                   | Managed npm project/git/ClawHub root                 | The plugin install/update flow                         |
 
 For the global npm row, use
 `npm install -g openclaw --allow-scripts=openclaw` on npm 12 or npm 11.16+.

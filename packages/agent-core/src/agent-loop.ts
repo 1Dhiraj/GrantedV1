@@ -29,6 +29,7 @@ import {
   type AgentToolExecutionContext,
   runWithAgentToolExecutionContext,
 } from "./tool-execution-context.js";
+import { createToolStepBudget } from "./tool-step-budget.js";
 import {
   appendInterruptedTurnMessage,
   createFailureMessage,
@@ -309,6 +310,12 @@ async function runLoop(
   const toolLoopRecoveryState = initialConfig.toolLoopRecoveryState ?? {
     criticalToolLoopSeen: false,
   };
+  const stepBudget = createToolStepBudget({
+    maxToolSteps: initialConfig.maxToolSteps,
+    state: initialConfig.toolStepBudgetState,
+  });
+  // Held so a queued follow-up task gets its tools back after a budget stop.
+  let toolsWithheldForClosing: AgentTool[] | undefined;
   // Check for steering messages at start (user may have typed while waiting)
   const initialSteering = getSteeringAtCheckpoint(config);
   let pendingMessages: AgentMessage[] = Array.isArray(initialSteering)
@@ -430,6 +437,7 @@ async function runLoop(
           emit,
           toolLoopRecoveryState.criticalToolLoopSeen,
         );
+        stepBudget.recordToolStep();
         toolResults.push(...executedToolBatch.messages);
         turnTainted ||= toolResults.some(toolResultTaintsTurn);
         hasMoreToolCalls = !executedToolBatch.terminate;
@@ -503,6 +511,26 @@ async function runLoop(
         return;
       }
 
+      switch (stepBudget.afterToolBatch(hasMoreToolCalls)) {
+        case "request-summary": {
+          // Spend the closing turn on a report: offered no tools, the model has
+          // to say what it did instead of starting more work.
+          const summaryRequest = stepBudget.createSummaryRequest();
+          toolsWithheldForClosing = currentContext.tools;
+          currentContext = { ...currentContext, tools: [] };
+          currentContext.messages.push(summaryRequest);
+          newMessages.push(summaryRequest);
+          await emit({ type: "message_start", message: summaryRequest });
+          await emit({ type: "message_end", message: summaryRequest });
+          break;
+        }
+        case "stop":
+          hasMoreToolCalls = false;
+          break;
+        default:
+          break;
+      }
+
       if (pendingMessages.length === 0) {
         if (
           await config.shouldStopAfterTurn?.({
@@ -532,6 +560,13 @@ async function runLoop(
     }
     if (pendingMessages.length === 0) {
       break;
+    }
+    if (stepBudget.isClosing()) {
+      // The run stopped on the budget and a queued message arrived after it.
+      // That is a new task, so it gets the withheld tools and a full budget.
+      currentContext = { ...currentContext, tools: toolsWithheldForClosing };
+      toolsWithheldForClosing = undefined;
+      stepBudget.resetForNextTask();
     }
   }
 

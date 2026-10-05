@@ -12,7 +12,7 @@ title: "ClawHub CLI"
 
 Two command-line surfaces talk to ClawHub:
 
-- `openclaw skills` / `openclaw plugins` - discover, install, and update
+- `granted skills` / `granted plugins` - discover, install, and update
   packages for a local OpenClaw agent or Gateway.
 - The standalone `clawhub` CLI - remove installed skills and handle publisher
   workflows including login, publish, sync, and transfer.
@@ -20,25 +20,25 @@ Two command-line surfaces talk to ClawHub:
 ## Discover and install
 
 ```bash
-openclaw skills search "calendar"
-openclaw skills install @owner/<slug>
-openclaw skills install @owner/<slug> --version <version> --global
-openclaw skills install skills-sh:<owner>/<repo>/<slug>
-openclaw skills update @owner/<slug>
-openclaw skills update --all
-openclaw skills verify @owner/<slug> --card
+granted skills search "calendar"
+granted skills install @owner/<slug>
+granted skills install @owner/<slug> --version <version> --global
+granted skills install skills-sh:<owner>/<repo>/<slug>
+granted skills update @owner/<slug>
+granted skills update --all
+granted skills verify @owner/<slug> --card
 
-openclaw plugins search "calendar"
-openclaw plugins install clawhub:<package>
-openclaw plugins update <id-or-npm-spec>
-openclaw plugins update --all
+granted plugins search "calendar"
+granted plugins install clawhub:<package>
+granted plugins update <id-or-npm-spec>
+granted plugins update --all
 ```
 
 Skill installs target the active workspace `skills/` directory by default; add
 `--global` for the shared managed skills directory. Plugin installs need the
 explicit `clawhub:` prefix to force ClawHub resolution over npm, git, or a
-local path. Full flag reference: [`openclaw skills`](/cli/skills) and
-[`openclaw plugins`](/cli/plugins).
+local path. Full flag reference: [`granted skills`](/cli/skills) and
+[`granted plugins`](/cli/plugins).
 
 `skills-sh:` is an explicitly external catalog reference. OpenClaw sends it to
 ClawHub and installs the exact commit-pinned GitHub source returned by the
@@ -117,9 +117,9 @@ clawhub explore --sort trending                              # browse the regist
 
 ## Related
 
-- [`openclaw skills`](/cli/skills) - local skill search, install, update, and
+- [`granted skills`](/cli/skills) - local skill search, install, update, and
   verification
-- [`openclaw plugins`](/cli/plugins) - plugin search, install, update, and
+- [`granted plugins`](/cli/plugins) - plugin search, install, update, and
   inspection
 - [ClawHub publishing](/clawhub/publishing) - owner scope, release validation,
   and review flow

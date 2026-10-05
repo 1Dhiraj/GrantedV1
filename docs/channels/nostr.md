@@ -11,7 +11,7 @@ Nostr is a downloadable channel plugin (`@granted/nostr`) that lets OpenClaw rec
 ## Install
 
 ```bash
-openclaw plugins install @granted/nostr
+granted plugins install @granted/nostr
 ```
 
 Use the bare package spec to follow the current official release tag. Pin an exact version only when you need a reproducible install.
@@ -19,16 +19,16 @@ Use the bare package spec to follow the current official release tag. Pin an exa
 From a local checkout (dev workflows):
 
 ```bash
-openclaw plugins install --link <path-to-local-nostr-plugin>
+granted plugins install --link <path-to-local-nostr-plugin>
 ```
 
-Restart the gateway after installing or enabling plugins. Onboarding (`openclaw onboard`) and `openclaw channels add` surface Nostr from the shared channel catalog once the plugin is installed.
+Restart the gateway after installing or enabling plugins. Onboarding (`granted onboard`) and `granted channels add` surface Nostr from the shared channel catalog once the plugin is installed.
 
 ### Non-interactive setup
 
 ```bash
-openclaw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
-openclaw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY" --relay-urls "wss://relay.damus.io,wss://relay.primal.net"
+granted channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
+granted channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY" --relay-urls "wss://relay.damus.io,wss://relay.primal.net"
 ```
 
 Use `--use-env` to keep `NOSTR_PRIVATE_KEY` in the environment instead of storing the key in config (default account only).
@@ -194,7 +194,7 @@ docker run -p 7777:7777 ghcr.io/hoytech/strfry
 
 ### Manual test
 
-1. Note the bot pubkey from gateway logs or `openclaw channels status` (hex; convert to npub in your client if needed).
+1. Note the bot pubkey from gateway logs or `granted channels status` (hex; convert to npub in your client if needed).
 2. Open a Nostr client (Amethyst, Damus, etc.).
 3. DM the bot pubkey.
 4. Verify the response.

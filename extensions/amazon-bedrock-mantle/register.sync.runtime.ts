@@ -45,7 +45,7 @@ function normalizeMantleResolvedModel(params: {
   return { ...params.model, cost };
 }
 
-/** Register the Amazon Bedrock Mantle provider with OpenClaw. */
+/** Register the Amazon Bedrock Mantle provider with Granted. */
 export function registerBedrockMantlePlugin(api: GrantedPluginApi): void {
   const providerId = "amazon-bedrock-mantle";
   const startupPluginConfig = (api.pluginConfig ?? {}) as BedrockMantlePluginConfig;

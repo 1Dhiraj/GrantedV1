@@ -64,7 +64,7 @@ Active Memory must remain enabled. Retrieval adds a bounded blocking step to
 eligible replies; timeout, unavailable search, and empty results all continue
 the reply without recalled transcript context. OpenClaw's built-in memory
 provider supports this protected transcript-recall path. Other memory providers keep their own recall behavior but do
-not automatically receive private transcript authorization. `openclaw doctor`
+not automatically receive private transcript authorization. `granted doctor`
 reports an unsupported provider or missing `memory_search` tool.
 
 ## Advanced Active Memory quick start
@@ -103,7 +103,7 @@ the Gateway reloads the plugin runtime automatically and no manual restart is
 needed. If you want to force a full restart anyway, run:
 
 ```bash
-openclaw gateway restart
+granted gateway restart
 ```
 
 To inspect it live in a conversation:
@@ -523,7 +523,7 @@ configuration above when LanceDB is the active memory provider.
 ### Lossless Claw
 
 [Lossless Claw](https://github.com/martian-engineering/lossless-claw) is an
-external context-engine plugin (`openclaw plugins install
+external context-engine plugin (`granted plugins install
 @martian-engineering/lossless-claw`) with its own recall tools. Set it up as
 a context engine first; see [Context engine](/concepts/context-engine). Then
 point active memory at its tools:
@@ -756,14 +756,14 @@ If active memory is not showing up where you expect:
 1. Confirm the plugin is enabled under `plugins.entries.active-memory.enabled`.
 2. For Remember across conversations, confirm the agent's effective
    `memory.search.rememberAcrossConversations` setting is enabled, run
-   `openclaw doctor` to verify the current memory provider supports protected
+   `granted doctor` to verify the current memory provider supports protected
    transcript recall, and confirm `config.toolsAllow` includes `memory_search`
    when explicitly configured. For advanced Active Memory, confirm the agent ID
    is listed in `config.agents`.
 3. Confirm you are testing through an eligible interactive persistent conversation.
 4. Remember that groups and channels never use cross-conversation transcript recall.
 5. Turn on `config.logging: true` and watch the gateway logs.
-6. Verify memory search itself works with `openclaw status --deep`.
+6. Verify memory search itself works with `granted status --deep`.
 
 If memory hits are noisy, tighten `maxSummaryChars`. If active memory is too
 slow, lower `queryMode`, lower `timeoutMs`, or reduce recent turn counts and
@@ -802,7 +802,7 @@ path.
       after each reply.
     - Watch gateway logs for `active-memory: ... start|done`,
       `memory sync failed (search-bootstrap)`, or provider embedding errors.
-    - Run `openclaw status --deep` to inspect the memory-search backend and
+    - Run `granted status --deep` to inspect the memory-search backend and
       index health.
     - If you use `ollama`, confirm the embedding model is installed
       (`ollama list`).

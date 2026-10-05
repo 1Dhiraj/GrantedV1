@@ -227,8 +227,8 @@ describe("control UI assets helpers (fs-mocked)", () => {
 
   it("recognizes macOS packaged assets without trying to build the unused dist root", async () => {
     const root = abs("fixtures/packaged-app");
-    const execPath = path.join(root, "OpenClaw.app", "Contents", "MacOS", "OpenClaw");
-    const bundledUiDir = path.join(root, "OpenClaw.app", "Contents", "Resources", "control-ui");
+    const execPath = path.join(root, "Granted.app", "Contents", "MacOS", "Granted");
+    const bundledUiDir = path.join(root, "Granted.app", "Contents", "Resources", "control-ui");
     state.realpaths.set(execPath, execPath);
     setFile(path.join(bundledUiDir, "index.html"), "<html>packaged</html>");
 
@@ -251,7 +251,7 @@ describe("control UI assets helpers (fs-mocked)", () => {
     ).resolves.toEqual({
       ok: false,
       built: false,
-      message: `Missing Control UI assets at ${indexPath}. Reinstall OpenClaw to restore bundled Control UI assets.`,
+      message: `Missing Control UI assets at ${indexPath}. Reinstall Granted to restore bundled Control UI assets.`,
     });
   });
 
@@ -263,7 +263,7 @@ describe("control UI assets helpers (fs-mocked)", () => {
     await expect(ensureControlUiAssetsBuilt(undefined, { root })).resolves.toEqual({
       ok: false,
       built: false,
-      message: `Incomplete Control UI assets at ${indexPath} (missing assets/startup.js). Reinstall OpenClaw to restore bundled Control UI assets.`,
+      message: `Incomplete Control UI assets at ${indexPath} (missing assets/startup.js). Reinstall Granted to restore bundled Control UI assets.`,
     });
     expect(state.runCommandWithTimeout).not.toHaveBeenCalled();
   });

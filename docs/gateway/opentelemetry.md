@@ -29,7 +29,7 @@ OTLP/HTTP works without code changes. For local file logs, see
 ## Quick start
 
 ```bash
-openclaw plugins install clawhub:@granted/diagnostics-otel
+granted plugins install clawhub:@granted/diagnostics-otel
 ```
 
 ```json5
@@ -57,13 +57,13 @@ openclaw plugins install clawhub:@granted/diagnostics-otel
 }
 ```
 
-Or enable the plugin from the CLI: `openclaw plugins enable diagnostics-otel`.
+Or enable the plugin from the CLI: `granted plugins enable diagnostics-otel`.
 
 <Note>
 `diagnostics.otel.protocol` accepts only `http/protobuf`. If a persisted config,
 including a value supplied through `${VAR}` interpolation, still resolves this
 field to the retired `grpc` value, run
-[`openclaw doctor --fix`](/cli/doctor). Doctor repairs directly authored values
+[`granted doctor --fix`](/cli/doctor). Doctor repairs directly authored values
 and a sole internal single-file include that owns the top-level `diagnostics`
 section. For root or array includes, nested include chains, sibling overrides,
 external include targets, or another ambiguous source, Doctor leaves the files
@@ -108,9 +108,9 @@ paths.
 ## Which processes export
 
 - **Gateway** starts the exporter at startup and exports from the Gateway
-  process for every run it executes, including `openclaw agent` turns
+  process for every run it executes, including `granted agent` turns
   dispatched to it.
-- **One-shot local runs** (`openclaw agent --local`) execute in the CLI
+- **One-shot local runs** (`granted agent --local`) execute in the CLI
   process. When OTel export is configured and
   the plugin is enabled, that same CLI process starts one exporter instance for
   the run and flushes buffered spans, metrics, and logs before the process exits.
@@ -121,14 +121,14 @@ paths.
   In JSON output mode, these one-shot runs suppress only the stdout JSONL log
   sink so command stdout stays reserved for the JSON response; OTLP traces,
   metrics, and logs continue when configured.
-- `openclaw agent exec` also runs the agent embedded in the CLI process, but
+- `granted agent exec` also runs the agent embedded in the CLI process, but
   does not yet start this exporter, so its runs export no telemetry. Dispatch
-  through the Gateway, or use `openclaw agent --local`, when you need traces
+  through the Gateway, or use `granted agent --local`, when you need traces
   from a headless run.
 
 ## Exporter health
 
-`openclaw doctor` and `openclaw status --all` show a bounded, redacted snapshot
+`granted doctor` and `granted status --all` show a bounded, redacted snapshot
 of the running Gateway's latest trusted exporter state for each signal and
 transport. For `diagnostics-otel`, the snapshot distinguishes:
 
@@ -660,8 +660,8 @@ For an external integration that needs session-correlated usage, query the
 authenticated Gateway instead:
 
 ```bash
-openclaw gateway call sessions.usage --params '{"range":"30d","agentScope":"all"}' --json
-openclaw gateway usage-cost --days 30 --all-agents --json
+granted gateway call sessions.usage --params '{"range":"30d","agentScope":"all"}' --json
+granted gateway usage-cost --days 30 --all-agents --json
 ```
 
 Both commands require `operator.read`. `sessions.usage` can include per-session
@@ -732,7 +732,7 @@ flags. Flags are case-insensitive and support wildcards (`telegram.*` or
 Or as a one-off env override:
 
 ```bash
-OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload openclaw gateway
+OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload granted gateway
 ```
 
 Flag output goes to the standard log file (`logging.file`) and is still
@@ -748,13 +748,13 @@ redacted by the always-on log redaction policy. Full guide:
 ```
 
 Or leave `diagnostics-otel` out of `plugins.allow`, or run
-`openclaw plugins disable diagnostics-otel`.
+`granted plugins disable diagnostics-otel`.
 
 When the plugin would otherwise own NodeSDK, keep propagation available while
 disabling every plugin-owned exporter, listener, health route, and stdout sink:
 
 ```bash
-OTEL_SDK_DISABLED=true openclaw gateway
+OTEL_SDK_DISABLED=true granted gateway
 ```
 
 ## Related

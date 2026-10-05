@@ -1,4 +1,4 @@
-// Webhooks plugin entrypoint registers its OpenClaw integration.
+// Webhooks plugin entrypoint registers its Granted integration.
 import { definePluginEntry, type GrantedPluginApi } from "./api.js";
 import { resolveWebhooksPluginConfig } from "./src/config.js";
 import { createTaskFlowWebhookRequestHandler, type TaskFlowWebhookTarget } from "./src/http.js";
@@ -45,8 +45,7 @@ function registerWebhookRoutes(api: GrantedPluginApi): void {
 export default definePluginEntry({
   id: "webhooks",
   name: "Webhooks",
-  description:
-    "Authenticated inbound webhooks that bind external automation to OpenClaw TaskFlows.",
+  description: "Authenticated inbound webhooks that bind external automation to Granted TaskFlows.",
   register(api: GrantedPluginApi) {
     registerWebhookRoutes(api);
   },

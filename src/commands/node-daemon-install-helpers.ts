@@ -89,6 +89,6 @@ export async function buildNodeInstallPlan(params: {
     workingDirectory,
     environment,
     environmentValueSources: buildNodeInstallEnvironmentValueSources(),
-    description: "OpenClaw Node Host",
+    description: "Granted Node Host",
   };
 }

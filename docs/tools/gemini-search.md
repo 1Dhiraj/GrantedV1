@@ -25,7 +25,7 @@ citations.
     `models.providers.google.apiKey`, or configure a dedicated web-search key via:
 
     ```bash
-    openclaw configure --section web
+    granted configure --section web
     ```
 
   </Step>

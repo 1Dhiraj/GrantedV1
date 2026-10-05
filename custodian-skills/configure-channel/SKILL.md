@@ -10,15 +10,15 @@ Never print or persist secret values; channel tokens enter config only as Secret
 ## Gather
 
 ```
-openclaw channels list --all
-openclaw channels status
-openclaw config get channels --json        # "Config path not found" is normal before first setup
+granted channels list --all
+granted channels status
+granted config get channels --json        # "Config path not found" is normal before first setup
 ```
 
 Confirm the exact config path before writing — key names differ per channel (`channels.telegram.botToken`, `channels.discord.token`, ...):
 
 ```
-openclaw config schema --json | jq '.properties.channels.properties.telegram'
+granted config schema --json | jq '.properties.channels.properties.telegram'
 ```
 
 ## Mutate
@@ -26,36 +26,36 @@ openclaw config schema --json | jq '.properties.channels.properties.telegram'
 Preferred shell path — token staged as an env var on the gateway process or in a `0600` file, wired as a SecretRef (Telegram example):
 
 ```
-openclaw config set channels.telegram.botToken --ref-provider default --ref-source env --ref-id TELEGRAM_BOT_TOKEN
-openclaw config set channels.telegram.allowFrom '["+15555550123"]' --strict-json
+granted config set channels.telegram.botToken --ref-provider default --ref-source env --ref-id TELEGRAM_BOT_TOKEN
+granted config set channels.telegram.allowFrom '["+15555550123"]' --strict-json
 ```
 
 Multi-field changes in one validated write:
 
 ```
-openclaw config patch --stdin <<'JSON'
+granted config patch --stdin <<'JSON'
 { channels: { telegram: { enabled: true, groupPolicy: "allowlist" } } }
 JSON
 ```
 
-In-session alternative: call the `connect_channel` tool action with the channel id — the operator enters the token in a masked prompt, never in chat. Avoid `openclaw channels add --token <value>`: it puts the secret in argv and process listings.
+In-session alternative: call the `connect_channel` tool action with the channel id — the operator enters the token in a masked prompt, never in chat. Avoid `granted channels add --token <value>`: it puts the secret in argv and process listings.
 
 ## Repair
 
 ```
-openclaw doctor --non-interactive
-openclaw channels status --deep
+granted doctor --non-interactive
+granted channels status --deep
 ```
 
-Apply `openclaw doctor --fix --non-interactive` only after approval, then re-check status.
+Apply `granted doctor --fix --non-interactive` only after approval, then re-check status.
 
 ## Prove
 
 Send one real, clearly labeled test message and confirm delivery from the command result (use `--dry-run` first to inspect the payload):
 
 ```
-openclaw message send --channel telegram --target <chatId> --message "OpenClaw channel test — please ignore" --dry-run
-openclaw message send --channel telegram --target <chatId> --message "OpenClaw channel test — please ignore"
+granted message send --channel telegram --target <chatId> --message "Granted channel test — please ignore" --dry-run
+granted message send --channel telegram --target <chatId> --message "Granted channel test — please ignore"
 ```
 
 If sending fails, report the exact account, permission, destination, or network blocker without exposing credentials.

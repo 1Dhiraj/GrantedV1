@@ -30,6 +30,7 @@ import {
 import { resolveCronSkillsSnapshot } from "../../skills/runtime/cron-snapshot.js";
 import type { SkillSnapshot } from "../../skills/types.js";
 import { resolveCronJobEffectiveAgentId } from "../agent-id.js";
+import { expandCronDailyDigest } from "../daily-digest.js";
 import type { CronDeliveryPlan } from "../delivery-plan.js";
 import { createCronRunDiagnosticsFromError } from "../run-diagnostics.js";
 import { resolveCronScheduledToolPolicy } from "../scheduled-tool-policy.js";
@@ -510,7 +511,11 @@ export async function prepareCronRunContext(params: {
       });
 
     const { formattedTime, timeLine } = resolveCronStyleNow(runtimeCfg, now);
-    const originalMessage = resolveCronAgentTurnMessage(input);
+    const originalMessage = await expandCronDailyDigest(
+      resolveCronAgentTurnMessage(input),
+      input.cfg,
+      now,
+    );
     // Current jobs stay detached; a bounded tail preserves context without transcript continuation.
     const currentConversationContext =
       input.job.sessionTarget === "current" && agentPayload && sourceSessionKey && sourceEntry

@@ -68,7 +68,7 @@ describe("Slack progress presentation", () => {
             {
               type: "button",
               action_id: "openclaw:session_link",
-              text: { type: "plain_text", text: "Open in OpenClaw" },
+              text: { type: "plain_text", text: "Open in Granted" },
               url: "https://example.test/chat/main",
             },
           ],
@@ -227,7 +227,7 @@ describe("Slack progress presentation", () => {
       expect(final.chunks).toEqual([
         taskUpdate("openclaw_summary", "Checking the workspace", status, {
           sources: [
-            { type: "url_source", url: "https://example.test/chat/main", text: "Open in OpenClaw" },
+            { type: "url_source", url: "https://example.test/chat/main", text: "Open in Granted" },
           ],
         }),
       ]);

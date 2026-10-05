@@ -1,4 +1,4 @@
-// Bridges OpenClaw-managed proxy TLS trust into Undici EnvHttpProxyAgent and
+// Bridges Granted-managed proxy TLS trust into Undici EnvHttpProxyAgent and
 // explicit ProxyAgent options without changing unrelated operator proxies.
 import { isRecord as isProxyTlsRecord } from "@granted/normalization-core/record-coerce";
 import type { EnvHttpProxyAgent } from "undici";

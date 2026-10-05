@@ -1,7 +1,7 @@
-// Synthetic plugin entrypoint registers its OpenClaw integration.
+// Synthetic plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
-import { applySyntheticConfig, SYNTHETIC_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { applySyntheticConfig, SYNTHETIC_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildSyntheticProvider, SYNTHETIC_MODEL_DISCOVERY } from "./provider-catalog.js";
 
 const PROVIDER_ID = "synthetic";

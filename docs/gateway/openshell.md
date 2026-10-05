@@ -57,7 +57,7 @@ reach a background service.
 ## Quick start
 
 ```bash
-openclaw plugins install @granted/openshell-sandbox
+granted plugins install @granted/openshell-sandbox
 ```
 
 ```json5
@@ -89,21 +89,21 @@ openclaw plugins install @granted/openshell-sandbox
 Validate the configuration and restart the OpenClaw Gateway:
 
 ```bash
-openclaw config validate
-openclaw gateway restart
+granted config validate
+granted gateway restart
 ```
 
 On the next agent turn OpenClaw creates an OpenShell sandbox and routes tool
 execution through it. Verify both the plugin and the effective sandbox:
 
 ```bash
-openclaw plugins inspect openshell --runtime --json
-openclaw sandbox list
-openclaw sandbox explain
+granted plugins inspect openshell --runtime --json
+granted sandbox list
+granted sandbox explain
 openshell sandbox list
 ```
 
-`openclaw sandbox list` is empty until a sandboxed agent turn first needs a
+`granted sandbox list` is empty until a sandboxed agent turn first needs a
 runtime.
 
 ## Workspace modes
@@ -174,7 +174,7 @@ Best for long-running agents and CI: lower per-turn overhead, and host-local
 edits cannot silently clobber remote state.
 
 <Warning>
-Editing files on the host outside OpenClaw after the initial seed is invisible to the remote sandbox. Run `openclaw sandbox recreate` to re-seed.
+Editing files on the host outside OpenClaw after the initial seed is invisible to the remote sandbox. Run `granted sandbox recreate` to re-seed.
 </Warning>
 
 ### Choosing a mode
@@ -354,17 +354,17 @@ OpenShell providers or another dedicated secret-delivery mechanism.
 
 ```bash
 # List all sandbox runtimes (Docker + OpenShell)
-openclaw sandbox list
+granted sandbox list
 
 # Inspect effective policy
-openclaw sandbox explain
+granted sandbox explain
 
 # Recreate (deletes remote workspace, re-seeds on next use)
-openclaw sandbox recreate --all
+granted sandbox recreate --all
 
 # Recreate only one agent or the exact session scope shown by sandbox list
-openclaw sandbox recreate --agent researcher
-openclaw sandbox recreate --session "agent:researcher:main"
+granted sandbox recreate --agent researcher
+granted sandbox recreate --session "agent:researcher:main"
 ```
 
 For `remote` mode, recreate is especially important: it deletes the canonical
@@ -385,7 +385,7 @@ runtime name.
 OpenShell v0.0.92 can still locate a sandbox record created by v0.0.68, but a
 Docker-backed sandbox may remain in a non-Ready phase after the gateway
 upgrade. OpenClaw preserves the registered runtime identity, refuses to create
-a replacement implicitly, and reports the scoped `openclaw sandbox recreate`
+a replacement implicitly, and reports the scoped `granted sandbox recreate`
 command. Treat that recreation as destructive in `remote` mode because the
 remote workspace is canonical.
 
@@ -407,7 +407,7 @@ If OpenShell cannot delete a sandbox, OpenClaw reports the failure and keeps the
 runtime registry entry so recreation or pruning can be retried safely. Restore
 the original gateway, workspace, authentication, and connectivity, inspect the
 runtime with `openshell --workspace <workspace-name> sandbox get <sandbox-name>`,
-and rerun the scoped `openclaw sandbox recreate` command. Do not switch the
+and rerun the scoped `granted sandbox recreate` command. Do not switch the
 configured workspace or delete the registry entry to hide the failure.
 
 ## Security hardening
@@ -490,19 +490,19 @@ First separate OpenClaw Gateway health, plugin activation, and OpenShell
 gateway connectivity:
 
 ```bash
-openclaw gateway status --deep --require-rpc
-openclaw plugins inspect openshell --runtime --json
-openclaw sandbox explain
-openclaw sandbox list
+granted gateway status --deep --require-rpc
+granted plugins inspect openshell --runtime --json
+granted sandbox explain
+granted sandbox list
 openshell gateway list
 openshell sandbox list
-openclaw logs --follow
+granted logs --follow
 ```
 
 - **Plugin missing or backend unavailable:** Install
   `@granted/openshell-sandbox`, set `plugins.entries.openshell.enabled: true`,
   validate the config, and restart the OpenClaw Gateway. Run
-  `openclaw plugins inspect openshell --runtime --json` to check the running
+  `granted plugins inspect openshell --runtime --json` to check the running
   Gateway rather than only the on-disk plugin registration.
 - **`openshell` not found:** Install the CLI for the user running the Gateway,
   or set `plugins.entries.openshell.config.command` to its absolute executable
@@ -563,4 +563,4 @@ openclaw logs --follow
 - [Sandboxing](/gateway/sandboxing) - modes, scopes, and backend comparison
 - [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) - debugging blocked tools
 - [Multi-Agent Sandbox and Tools](/tools/multi-agent-sandbox-tools) - per-agent overrides
-- [Sandbox CLI](/cli/sandbox) - `openclaw sandbox` commands
+- [Sandbox CLI](/cli/sandbox) - `granted sandbox` commands

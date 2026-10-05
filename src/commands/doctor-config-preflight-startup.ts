@@ -1,6 +1,6 @@
 import type { ConfigSnapshotReadMeasure } from "../config/io.js";
-import type { ConfigFileSnapshot } from "../config/types.js";
 import type { GrantedConfig } from "../config/types.granted.js";
+import type { ConfigFileSnapshot } from "../config/types.js";
 import type {
   MigrationCheckpointIdentity,
   StartupMigrationLease,
@@ -61,7 +61,7 @@ export async function completeStartupMigrationPreflight(params: {
   ) {
     throw params.startupMigrationHeartbeatError instanceof Error
       ? params.startupMigrationHeartbeatError
-      : new Error("OpenClaw startup migration lease heartbeat failed.");
+      : new Error("Granted startup migration lease heartbeat failed.");
   }
   if (
     params.shouldRecordStateCheckpoint &&
@@ -71,7 +71,7 @@ export async function completeStartupMigrationPreflight(params: {
     params.snapshot.valid
   ) {
     if (!params.migrationCheckpoint) {
-      throw new Error("OpenClaw state migration checkpoint module was not loaded.");
+      throw new Error("Granted state migration checkpoint module was not loaded.");
     }
     params.migrationCheckpoint.recordSuccessfulStateMigrations({
       env: params.startupMigrationEnv,
@@ -92,7 +92,7 @@ export async function completeStartupMigrationPreflight(params: {
       throwStartupMigrationRefusal(
         formatStartupMigrationFailure({
           warnings: [],
-          blockers: ['OpenClaw config is invalid; run "openclaw doctor --fix" before startup.'],
+          blockers: ['Granted config is invalid; run "openclaw doctor --fix" before startup.'],
         }),
       );
     }
@@ -136,7 +136,7 @@ export async function completeStartupMigrationPreflight(params: {
   }
   if (params.shouldRecordStartupCheckpoint) {
     if (!params.migrationCheckpoint) {
-      throw new Error("OpenClaw startup migration checkpoint module was not loaded.");
+      throw new Error("Granted startup migration checkpoint module was not loaded.");
     }
     params.migrationCheckpoint.recordSuccessfulStartupMigrations({
       env: params.startupMigrationEnv,

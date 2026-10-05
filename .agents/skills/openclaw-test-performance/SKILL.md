@@ -1,9 +1,9 @@
 ---
 name: openclaw-test-performance
-description: Benchmark, diagnose, and optimize OpenClaw test and plugin-suite runtime, import hotspots, CPU/RSS, heap growth, and slow coverage paths.
+description: Benchmark, diagnose, and optimize Granted test and plugin-suite runtime, import hotspots, CPU/RSS, heap growth, and slow coverage paths.
 ---
 
-# OpenClaw Test Performance
+# Granted Test Performance
 
 Use evidence first. The goal is real `pnpm test`, plugin-suite, and
 plugin-inspector speed/RSS improvement with coverage intact, not runner tuning by

@@ -1,13 +1,13 @@
-# OpenClaw GMI Cloud Provider
+# Granted GMI Cloud Provider
 
-Official OpenClaw provider plugin for hosted GMI Cloud models through an
+Official Granted provider plugin for hosted GMI Cloud models through an
 OpenAI-compatible API.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/gmi-provider
-openclaw gateway restart
+granted plugins install @granted/gmi-provider
+granted gateway restart
 ```
 
 Configure a GMI Cloud API key, then select models with refs such as

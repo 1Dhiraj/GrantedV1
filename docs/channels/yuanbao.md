@@ -12,19 +12,19 @@ Tencent Yuanbao is Tencent's AI assistant platform. The community-maintained `op
 
 ## Quick start
 
-Requires OpenClaw 2026.4.10 or above. Check with `openclaw --version`; upgrade with `openclaw update`.
+Requires OpenClaw 2026.4.10 or above. Check with `openclaw --version`; upgrade with `granted update`.
 
 <Steps>
   <Step title="Add the Yuanbao channel with your credentials">
   ```bash
-  openclaw channels add --channel yuanbao --token "appKey:appSecret"
+  granted channels add --channel yuanbao --token "appKey:appSecret"
   ```
   `--token` uses colon-separated `appKey:appSecret`. Get these from the Yuanbao app by creating a bot in your application settings.
   </Step>
 
   <Step title="Restart the gateway to apply the change">
   ```bash
-  openclaw gateway restart
+  granted gateway restart
   ```
   </Step>
 </Steps>
@@ -32,7 +32,7 @@ Requires OpenClaw 2026.4.10 or above. Check with `openclaw --version`; upgrade w
 ### Interactive setup (alternative)
 
 ```bash
-openclaw channels login --channel yuanbao
+granted channels login --channel yuanbao
 ```
 
 Follow the prompts to enter your App ID and App Secret.
@@ -53,8 +53,8 @@ Follow the prompts to enter your App ID and App Secret.
 Approve a pairing request:
 
 ```bash
-openclaw pairing list yuanbao
-openclaw pairing approve yuanbao <CODE>
+granted pairing list yuanbao
+granted pairing approve yuanbao <CODE>
 ```
 
 ### Group chats
@@ -144,14 +144,14 @@ Yuanbao supports native slash-command menus; commands sync to the platform autom
 
 1. Confirm the bot is added to the group
 2. Confirm you @mention the bot (required by default)
-3. Check logs: `openclaw logs --follow`
+3. Check logs: `granted logs --follow`
 
 **Bot does not receive messages:**
 
 1. Confirm the bot is created and approved in the Yuanbao app
 2. Confirm `appKey` and `appSecret` are correctly configured
-3. Confirm the gateway is running: `openclaw gateway status`
-4. Check logs: `openclaw logs --follow`
+3. Confirm the gateway is running: `granted gateway status`
+4. Check logs: `granted logs --follow`
 
 **Bot sends empty or fallback replies:**
 
@@ -163,7 +163,7 @@ Yuanbao supports native slash-command menus; commands sync to the platform autom
 
 1. Reset the App Secret in the Yuanbao app
 2. Update the value in your config
-3. Restart the gateway: `openclaw gateway restart`
+3. Restart the gateway: `granted gateway restart`
 
 ## Advanced configuration
 

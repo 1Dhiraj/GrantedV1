@@ -14,7 +14,7 @@ Install the official IRC plugin, then configure it under `channels.irc`.
 1. Install the plugin:
 
 ```bash
-openclaw plugins install @granted/irc
+granted plugins install @granted/irc
 ```
 
 2. Set at least host, nick, and the channels to join in `~/.openclaw/openclaw.json`:
@@ -37,7 +37,7 @@ openclaw plugins install @granted/irc
 3. Start/restart the Gateway:
 
 ```bash
-openclaw gateway run
+granted gateway run
 ```
 
 Prefer a private IRC server for bot coordination. If you intentionally use a public IRC network, common choices include Libera.Chat, OFTC, and Snoonet. Avoid predictable public channels for bot or swarm backchannel traffic.
@@ -68,7 +68,7 @@ Named accounts inherit the channel-wide reply mode; override it with `channels.i
 ## Security defaults
 
 - IRC uses raw TCP/TLS sockets outside OpenClaw operator-managed forward proxy routing. In deployments that require all egress through that forward proxy, set `channels.irc.enabled=false` unless direct IRC egress is explicitly approved.
-- `channels.irc.dmPolicy` defaults to `"pairing"`: unknown DM senders get a pairing code you approve with `openclaw pairing approve irc <code>`.
+- `channels.irc.dmPolicy` defaults to `"pairing"`: unknown DM senders get a pairing code you approve with `granted pairing approve irc <code>`.
 - `channels.irc.groupPolicy` defaults to `"allowlist"`.
 - With `groupPolicy="allowlist"`, set `channels.irc.groups` to define allowed channels.
 - Use TLS (`channels.irc.tls=true`) unless you intentionally accept plaintext transport.

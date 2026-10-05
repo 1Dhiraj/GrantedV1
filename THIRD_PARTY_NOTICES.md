@@ -1,12 +1,12 @@
 # Third-party notices
 
 This file records third-party notices for code or substantial implementation
-portions incorporated into OpenClaw source, beyond normal package-manager
+portions incorporated into Granted source, beyond normal package-manager
 dependency metadata.
 
 ## Pi / pi-mono
 
-Portions of OpenClaw were adapted from Pi / pi-mono, and OpenClaw also depends
+Portions of Granted were adapted from Pi / pi-mono, and Granted also depends
 on `@earendil-works/pi-tui` for terminal UI rendering.
 
 - Upstream: https://github.com/earendil-works/pi-mono

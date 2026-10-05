@@ -1,7 +1,7 @@
 {
   "name": "@granted/file-transfer",
   "version": "2026.8.1",
-  "description": "OpenClaw file transfer plugin (file_fetch, dir_list, dir_fetch, file_write)",
+  "description": "Granted file transfer plugin (file_fetch, dir_list, dir_fetch, file_write)",
   "type": "module",
   "dependencies": {
     "minimatch": "10.2.6",

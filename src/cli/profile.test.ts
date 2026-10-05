@@ -327,8 +327,8 @@ describe("applyCliProfileEnv", () => {
         ? `openclaw-gateway-${inheritedProfile}.service`
         : "openclaw-gateway.service",
       GRANTED_WINDOWS_TASK_NAME: inheritedProfile
-        ? `OpenClaw Gateway (${inheritedProfile})`
-        : "OpenClaw Gateway",
+        ? `Granted Gateway (${inheritedProfile})`
+        : "Granted Gateway",
       GRANTED_SERVICE_MARKER: "openclaw",
       GRANTED_SERVICE_KIND: "gateway",
     };
@@ -352,7 +352,7 @@ describe("applyCliProfileEnv", () => {
       GRANTED_GATEWAY_PORT: "18789",
       GRANTED_LAUNCHD_LABEL: "ai.openclaw.main",
       GRANTED_SYSTEMD_UNIT: "openclaw-gateway-main.service",
-      GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
+      GRANTED_WINDOWS_TASK_NAME: "Granted Gateway (main)",
       GRANTED_SERVICE_MARKER: "openclaw",
       GRANTED_SERVICE_KIND: "gateway",
     };
@@ -386,7 +386,7 @@ describe("applyCliProfileEnv", () => {
       GRANTED_GATEWAY_PORT: "19999",
       GRANTED_LAUNCHD_LABEL: "ai.openclaw.node",
       GRANTED_SYSTEMD_UNIT: "openclaw-node.service",
-      GRANTED_WINDOWS_TASK_NAME: "OpenClaw Node",
+      GRANTED_WINDOWS_TASK_NAME: "Granted Node",
       GRANTED_SERVICE_MARKER: "openclaw",
       GRANTED_SERVICE_KIND: "node",
     };
@@ -396,7 +396,7 @@ describe("applyCliProfileEnv", () => {
     expect(env.GRANTED_GATEWAY_PORT).toBe("19999");
     expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.openclaw.node");
     expect(env.GRANTED_SYSTEMD_UNIT).toBe("openclaw-node.service");
-    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("OpenClaw Node");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Granted Node");
   });
 
   it.each([
@@ -460,7 +460,7 @@ describe("applyCliProfileEnv", () => {
         GRANTED_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
         GRANTED_LAUNCHD_LABEL: "ai.openclaw.main",
         GRANTED_SYSTEMD_UNIT: systemdUnit,
-        GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
+        GRANTED_WINDOWS_TASK_NAME: "Granted Gateway (main)",
       };
 
       applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });

@@ -33,7 +33,7 @@ OpenClaw assembles its own system prompt on every run. It includes:
     the active workspace differs from the agent memory workspace, `MEMORY.md`
     falls back to the normal bounded turn-context path.
   - Lowercase root `memory.md` is never injected. It is legacy repair input
-    for `openclaw doctor --fix`, which migrates it into `MEMORY.md`.
+    for `granted doctor --fix`, which migrates it into `MEMORY.md`.
   - `memory/*.md` daily files are not part of the normal bootstrap prompt;
     they stay on-demand via memory tools on ordinary turns. Reset/startup
     model runs can prepend a one-shot startup-context block with recent
@@ -128,7 +128,7 @@ Other surfaces:
   count. This counter excludes input tokens and is separate from the composer
   context-window meter and persisted billing summaries.
 - **TUI/Web TUI:** `/status` and `/usage` are supported.
-- **CLI:** `openclaw status --usage` and `openclaw channels list` show
+- **CLI:** `granted status --usage` and `granted channels list` show
   normalized provider quota windows (`X% left`, not per-response costs).
   Current usage-window providers: Claude (Anthropic), ClawRouter, Copilot
   (GitHub), DeepSeek, MiniMax, OpenAI, Xiaomi, Xiaomi Token Plan, and z.ai.

@@ -1,9 +1,9 @@
 ---
 name: openclaw-changelog-update
-description: Regenerate OpenClaw release changelog sections from git history before beta, stable, or extended-stable releases.
+description: Regenerate Granted release changelog sections from git history before beta, stable, or extended-stable releases.
 ---
 
-# OpenClaw Changelog Update
+# Granted Changelog Update
 
 Use this for changelog rewrites and GitHub release-note source text. For regular
 beta/stable, run it after the Code SHA passes Full Release Validation. For

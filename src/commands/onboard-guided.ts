@@ -53,7 +53,7 @@ export type GuidedOnboardingDeps = {
   /**
    * "hatch" (default) runs the local custodian flow: question zero, quiet
    * failure collection, deterministic setup apply, then the agent TUI.
-   * "chat" preserves the legacy handoff into the OpenClaw system-agent chat —
+   * "chat" preserves the legacy handoff into the Granted system-agent chat —
    * remote-gateway onboarding requires it because setup must apply remotely.
    */
   handoffMode?: "hatch" | "chat";
@@ -239,8 +239,8 @@ async function runGuidedOnboardingFlow(
     await (deps.persistAccessMode ?? persistAccessMode)(accessMode);
   }
 
-  // Inference is the only prerequisite for OpenClaw. Use the caller's or
-  // current default workspace as isolated probe context; OpenClaw owns any
+  // Inference is the only prerequisite for Granted. Use the caller's or
+  // current default workspace as isolated probe context; Granted owns any
   // workspace choice and persistence after the live completion succeeds.
   const workspace = resolveUserPath(
     opts.workspace?.trim() ||
@@ -556,7 +556,7 @@ async function runGuidedOnboardingFlow(
     }
   } else {
     // Announced default: apply the same setup plan the conversational "yes"
-    // would, then hand off to the hatch instead of parking in the OpenClaw chat.
+    // would, then hand off to the hatch instead of parking in the Granted chat.
     const applyProgress = prompter.progress(t("wizard.guided.settingUp"));
     try {
       if (localSetup?.status === "pending") {
@@ -615,7 +615,7 @@ async function runGuidedOnboardingFlow(
             })
           : await readConfigFileSnapshot();
       if (!appliedSnapshot.valid) {
-        throw new Error("Setup wrote an invalid OpenClaw config.");
+        throw new Error("Setup wrote an invalid Granted config.");
       }
       persistedConfig = appliedSnapshot.sourceConfig ?? appliedSnapshot.config;
       applyProgress.stop(t("wizard.guided.setupDone"));

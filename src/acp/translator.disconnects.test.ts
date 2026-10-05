@@ -133,7 +133,7 @@ describe("acp translator reconnect settlement", () => {
     reconnect(harness);
 
     await expect(harness.promptPromise).rejects.toThrow("boom");
-    expect(messageChunks(harness)).toEqual(["final answer", "[OpenClaw interruption] boom"]);
+    expect(messageChunks(harness)).toEqual(["final answer", "[Granted interruption] boom"]);
   });
 
   it("claims recovery before a late final event can emit the suffix twice", async () => {

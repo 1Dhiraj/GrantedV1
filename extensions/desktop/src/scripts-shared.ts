@@ -71,12 +71,31 @@ public static class DeskNative {
   // Guarded: aborts when the foreground window changes mid-type (a popup stole
   // focus, keystrokes would land in the wrong app) or when the physical cursor
   // moves (the human grabbed the mouse — yield immediately).
-  public static string TypeText(string text) {
+  static bool ForegroundTitleContains(string needle) {
+    if (string.IsNullOrEmpty(needle)) { return true; }
+    StringBuilder sb = new StringBuilder(512);
+    GetWindowText(GetForegroundWindow(), sb, 512);
+    return sb.ToString().ToLowerInvariant().Contains(needle.ToLowerInvariant());
+  }
+
+  public static string TypeText(string text) { return TypeTextInto(text, ""); }
+
+  // expectTitle is the window the caller *asked* to type into, which is not the
+  // same as whatever is in front when typing starts. They diverge in exactly the
+  // case that hurts: the user clicks into their own editor or the chat box
+  // between the focus call and the first keystroke, and the entire message lands
+  // there. Guarding only against *changes* cannot catch it, because by then the
+  // wrong window is already the baseline.
+  public static string TypeTextInto(string text, string expectTitle) {
+    if (!ForegroundTitleContains(expectTitle)) { return "0|wrong-window"; }
     IntPtr startFg = GetForegroundWindow();
     POINT startPos; GetCursorPos(out startPos);
     int typed = 0;
     foreach (char c in text) {
-      if (typed % 10 == 9) {
+      // Every 4th rather than every 10th: at 10 the first check only ran after
+      // the 9th character, so a whole word could reach the wrong window before
+      // the guard looked even once.
+      if (typed % 4 == 3) {
         if (GetForegroundWindow() != startFg) { return typed + "|focus-changed"; }
         POINT now; GetCursorPos(out now);
         if (Math.Abs(now.X - startPos.X) > 40 || Math.Abs(now.Y - startPos.Y) > 40) { return typed + "|user-mouse-moved"; }
@@ -136,7 +155,7 @@ $deskLoaded = $false
 try {
   $md5 = [System.Security.Cryptography.MD5]::Create()
   $hashHex = ([System.BitConverter]::ToString($md5.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($DeskSrc))) -replace '-', '').Substring(0, 12)
-  $deskDir = Join-Path $env:LOCALAPPDATA 'OpenClaw\\desknative'
+  $deskDir = Join-Path $env:LOCALAPPDATA 'Granted\\desknative'
   $deskDll = Join-Path $deskDir ('DeskNative-' + $hashHex + '.dll')
   if (Test-Path $deskDll) {
     Add-Type -Path $deskDll

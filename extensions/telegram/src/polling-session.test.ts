@@ -327,7 +327,7 @@ function makeIsolatedBot(params?: {
     botInfo: {
       id: 123,
       is_bot: true,
-      first_name: "OpenClaw",
+      first_name: "Granted",
       username: "openclaw_bot",
       has_topics_enabled: false,
     } as NonNullable<ConstructorParameters<typeof TelegramPollingSession>[0]["botInfo"]>,
@@ -1108,7 +1108,7 @@ describe("TelegramPollingSession", () => {
     await session.runUntilAbort();
 
     // Offset confirmation was removed because it could self-conflict with the runner.
-    // OpenClaw middleware still skips duplicates using the persisted update offset.
+    // Granted middleware still skips duplicates using the persisted update offset.
     expect(bot.api.getUpdates).not.toHaveBeenCalled();
   });
 
@@ -1416,7 +1416,7 @@ describe("TelegramPollingSession", () => {
         const botInfo = {
           id: 123,
           is_bot: true,
-          first_name: "OpenClaw",
+          first_name: "Granted",
           username: "openclaw_bot",
           has_topics_enabled: topicsEnabled,
         } as NonNullable<ConstructorParameters<typeof TelegramPollingSession>[0]["botInfo"]>;
@@ -4339,12 +4339,12 @@ describe("TelegramPollingSession", () => {
       expect(deleteWebhook).toHaveBeenCalledTimes(2);
       // The conflict marks the transport dirty so the next cycle gets a fresh socket.
       expect(createTelegramTransport).toHaveBeenCalledTimes(1);
-      expectLogIncludes(log, "Another OpenClaw gateway, script, or Telegram poller");
+      expectLogIncludes(log, "Another Granted gateway, script, or Telegram poller");
       expect(
         statusPatches(setStatus).some(
           (patch) =>
             patch.connected === false &&
-            String(patch.lastError).includes("Another OpenClaw gateway"),
+            String(patch.lastError).includes("Another Granted gateway"),
         ),
       ).toBe(true);
     } finally {
@@ -5147,14 +5147,14 @@ describe("TelegramPollingSession", () => {
 
     await session.runUntilAbort();
 
-    expectLogIncludes(log, "Another OpenClaw gateway, script, or Telegram poller");
+    expectLogIncludes(log, "Another Granted gateway, script, or Telegram poller");
     // The hint must reach channel status, not just the gateway log.
     expect(
       statusPatches(setStatus).some(
         (patch) =>
           patch.connected === false &&
           patch.lifecycle === "recovering" &&
-          String(patch.lastError).includes("Another OpenClaw gateway"),
+          String(patch.lastError).includes("Another Granted gateway"),
       ),
     ).toBe(true);
   });

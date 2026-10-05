@@ -1,4 +1,4 @@
-// Web Readability plugin entrypoint registers its OpenClaw integration.
+// Web Readability plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 
 export default definePluginEntry({

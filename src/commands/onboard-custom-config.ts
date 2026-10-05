@@ -13,8 +13,8 @@ import { CONTEXT_WINDOW_HARD_MIN_TOKENS } from "../agents/context-window-guard.j
 import { DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { normalizeConfiguredProviderCatalogModelId } from "../agents/model-ref-shared.js";
 import { buildModelAliasIndex, modelKey, type ModelRef } from "../agents/model-selection.js";
-import type { ModelProviderConfig } from "../config/types.models.js";
 import type { GrantedConfig } from "../config/types.granted.js";
+import type { ModelProviderConfig } from "../config/types.models.js";
 import { isSecretRef, type SecretInput } from "../config/types.secrets.js";
 import type { PluginManifestRecord } from "../plugins/manifest-registry.js";
 import { applyPrimaryModel } from "../plugins/provider-model-primary.js";
@@ -187,7 +187,7 @@ export type CustomApiResult = {
   providerIdRenamedFrom?: string;
 };
 
-/** Inputs used to persist a custom provider in the OpenClaw config. */
+/** Inputs used to persist a custom provider in the Granted config. */
 type ApplyCustomApiConfigParams = {
   config: GrantedConfig;
   baseUrl: string;

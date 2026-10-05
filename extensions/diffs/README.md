@@ -1,11 +1,11 @@
 # @granted/diffs
 
-Read-only diff viewer plugin for **OpenClaw** agents.
+Read-only diff viewer plugin for **Granted** agents.
 
 ## Install
 
 ```bash
-openclaw plugins install @granted/diffs
+granted plugins install @granted/diffs
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -127,7 +127,7 @@ Explicit tool parameters still win over these defaults.
 
 - Plugin id: `diffs`
 - Package: `@granted/diffs`
-- Minimum OpenClaw host: `2026.4.30`
+- Minimum Granted host: `2026.4.30`
 
 Security options:
 
@@ -180,10 +180,10 @@ Use the `diffs` tool in `file` mode for this before and after input. After it re
 Path: README.md
 
 Before:
-OpenClaw supports plugins.
+Granted supports plugins.
 
 After:
-OpenClaw supports plugins and hosted diff views.
+Granted supports plugins and hosted diff views.
 ```
 
 Do both:

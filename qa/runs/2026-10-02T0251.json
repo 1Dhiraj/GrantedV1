@@ -1,0 +1,36 @@
+{
+  "run": "2026-10-02T0251",
+  "score": "2/2",
+  "pass": 2,
+  "blocked": 0,
+  "attempted": 2,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "N2",
+      "name": "knows who created it",
+      "result": "PASS",
+      "seconds": 60,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0251-n2",
+      "evidence": "Dhiraj",
+      "toolCalls": 0,
+      "tokens": 22248
+    },
+    {
+      "id": "N3",
+      "name": "diagnostic: knows who created the PRODUCT",
+      "result": "PASS",
+      "seconds": 24,
+      "provider": "ollama",
+      "model": "qwen36:latest",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-02t0251-n3",
+      "evidence": "Dhiraj",
+      "toolCalls": 2,
+      "tokens": 40091
+    }
+  ]
+}

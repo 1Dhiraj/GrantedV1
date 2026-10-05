@@ -1,4 +1,4 @@
-// Minimax plugin entrypoint registers its OpenClaw integration.
+// Minimax plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import {
   buildMinimaxImageGenerationProvider,

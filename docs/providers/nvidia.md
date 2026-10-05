@@ -22,12 +22,12 @@ active reasoning model for long-context agentic work.
   <Step title="Export the key and run onboarding">
     ```bash
     export NVIDIA_API_KEY="nvapi-..."
-    openclaw onboard --auth-choice nvidia-api-key
+    granted onboard --auth-choice nvidia-api-key
     ```
   </Step>
   <Step title="Set an NVIDIA model">
     ```bash
-    openclaw models set nvidia/nvidia/nemotron-3-ultra-550b-a55b
+    granted models set nvidia/nvidia/nemotron-3-ultra-550b-a55b
     ```
   </Step>
 </Steps>
@@ -35,7 +35,7 @@ active reasoning model for long-context agentic work.
 For non-interactive setup, pass the key directly:
 
 ```bash
-openclaw onboard --auth-choice nvidia-api-key --nvidia-api-key "nvapi-..."
+granted onboard --auth-choice nvidia-api-key --nvidia-api-key "nvapi-..."
 ```
 
 <Warning>
@@ -97,7 +97,7 @@ bundled row records its 1M context and a 16,384-token output budget matching
 NVIDIA's hosted example. Select it with:
 
 ```bash
-openclaw models set nvidia/nvidia/nemotron-3.5-lightning-30b-a3b
+granted models set nvidia/nvidia/nemotron-3.5-lightning-30b-a3b
 ```
 
 Lightning is selectable when the live inventory lists it even if it is absent
@@ -132,16 +132,18 @@ out of model pickers.
 | `nvidia/z-ai/glm-5.2`                          | GLM 5.2                    | 202,752   | 8,192      |
 | `nvidia/moonshotai/kimi-k2.6`                  | Kimi K2.6                  | 262,144   | 65,536     |
 | `nvidia/minimaxai/minimax-m3`                  | Minimax M3                 | 196,608   | 8,192      |
-| `nvidia/deepseek-ai/deepseek-v4-pro-0813`      | DeepSeek V4 Pro 0813       | 262,144   | 16,384     |
+| `nvidia/google/gemma-4-31b-it`                 | Gemma 4 31B                | 131,072   | 8,192      |
+| `nvidia/openai/gpt-oss-20b`                    | GPT-OSS 20B                | 131,072   | 8,192      |
 
 The full compatibility catalog also retains these shipped refs for existing
 configurations and migration: `nvidia/qwen/qwen3.5-397b-a17b`,
-`nvidia/deepseek-ai/deepseek-v4-pro`, `nvidia/moonshotai/kimi-k2.5`,
+`nvidia/deepseek-ai/deepseek-v4-pro-0813`, `nvidia/deepseek-ai/deepseek-v4-pro`, `nvidia/moonshotai/kimi-k2.5`,
 `nvidia/z-ai/glm-5.1`, `nvidia/z-ai/glm5`, and
 `nvidia/minimaxai/minimax-m2.7`. These references stay hidden from bundled and
 offline model pickers unless NVIDIA republishes them in its inference inventory.
-NVIDIA has retired the Qwen endpoint, so requests using its model reference no
-longer work. Migrate existing Qwen configurations to an active model.
+NVIDIA has retired the Qwen and DeepSeek V4 Pro endpoints, so requests using
+those model references no longer work (DeepSeek V4 Pro 0813 returns 410 Gone).
+Migrate existing configurations to an active model.
 
 ## Advanced configuration
 

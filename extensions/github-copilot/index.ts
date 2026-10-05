@@ -1,4 +1,4 @@
-// Github Copilot plugin entrypoint registers its OpenClaw integration.
+// Github Copilot plugin entrypoint registers its Granted integration.
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import {

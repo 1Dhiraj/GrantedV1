@@ -2,10 +2,10 @@ import type { Context, Model } from "@granted/ai";
 import { streamOpenAICompletions, streamOpenAIResponses } from "@granted/ai/internal/openai";
 // OpenAI-compatible auth tests cover API key and base URL normalization.
 // Lives in core: it proves the facade-installed guarded fetch routes provider
-// requests through OpenClaw's SSRF guard.
+// requests through Granted's SSRF guard.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { captureEnv } from "../test-utils/env.js";
-// Importing the facade installs the OpenClaw AI transport host ports.
+// Importing the facade installs the Granted AI transport host ports.
 import "./stream.js";
 
 const mocks = vi.hoisted(() => ({

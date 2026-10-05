@@ -6,6 +6,7 @@ import type {
 import { normalizeLowercaseStringOrEmpty as normalizeModelId } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   OPENAI_GPT_53_CODEX_SPARK_MODEL_ID,
+  OPENAI_GPT_6_VARIANT_MODEL_IDS,
   OPENAI_GPT_54_MINI_MODEL_ID,
   OPENAI_GPT_54_MODEL_ID,
   OPENAI_GPT_54_NANO_MODEL_ID,
@@ -40,6 +41,7 @@ const OPENAI_THINKING_LEVEL_ORDER = [
 type OpenAIThinkingLevelId = (typeof OPENAI_THINKING_LEVEL_ORDER)[number];
 
 const OPENAI_CODEX_XHIGH_MODEL_IDS = [
+  ...OPENAI_GPT_6_VARIANT_MODEL_IDS,
   OPENAI_GPT_56_MODEL_ID,
   OPENAI_GPT_55_MODEL_ID,
   OPENAI_GPT_55_PRO_MODEL_ID,
@@ -98,15 +100,14 @@ function buildOpenAIThinkingProfile(params: {
       ? resolveOpenAICodexReasoningEfforts(modelId, codexEfforts)
       : undefined;
   const knownCodexEfforts = resolveOpenAICodexReasoningEfforts(modelId, undefined);
-  const isGpt56Variant = knownCodexEfforts !== undefined;
+  const isKnownCodexVariant = knownCodexEfforts !== undefined;
   const codexSupportsMax = (resolvedCodexEfforts ?? knownCodexEfforts)?.includes("max");
-  const supportsMax =
-    modelId.startsWith("gpt-5.6") && (agentRuntime !== "codex" || codexSupportsMax);
+  const supportsMax = isKnownCodexVariant && (agentRuntime !== "codex" || codexSupportsMax);
   const codexSupportsUltra = (resolvedCodexEfforts ?? knownCodexEfforts)?.includes("ultra");
-  // OpenClaw owns its logical Ultra orchestration. Native Codex capabilities
+  // Granted owns its logical Ultra orchestration. Native Codex capabilities
   // come only from the selected ChatGPT route's catalog metadata.
   const supportsUltra =
-    (modelId === OPENAI_GPT_56_MODEL_ID || isGpt56Variant) &&
+    (modelId === OPENAI_GPT_56_MODEL_ID || isKnownCodexVariant) &&
     (agentRuntime === "openclaw" ||
       agentRuntime === "auto" ||
       (agentRuntime === "codex" && codexSupportsUltra));
@@ -115,8 +116,8 @@ function buildOpenAIThinkingProfile(params: {
     params.compat?.supportedReasoningEfforts === undefined &&
     (params.api === undefined || params.api === "openai-chatgpt-responses") &&
     !matchesExactOrPrefix(params.modelId, params.xhighModelIds) &&
-    !modelId.startsWith("gpt-5.6");
-  const defaultLevel = isGpt56Variant ? "medium" : undefined;
+    !isKnownCodexVariant;
+  const defaultLevel = isKnownCodexVariant ? "medium" : undefined;
   const fallbackLevels: ProviderThinkingProfile["levels"] = [
     ...OPENAI_THINKING_BASE_LEVELS,
     ...(matchesExactOrPrefix(params.modelId, params.xhighModelIds)

@@ -1,15 +1,15 @@
-# OpenClaw NovitaAI provider
+# Granted NovitaAI provider
 
-Official OpenClaw provider plugin for NovitaAI's OpenAI-compatible API.
+Official Granted provider plugin for NovitaAI's OpenAI-compatible API.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/novita-provider
-openclaw gateway restart
+granted plugins install @granted/novita-provider
+granted gateway restart
 ```
 
 ## Docs
 
-See `docs/providers/novita.md` in the OpenClaw repository, or the published
+See `docs/providers/novita.md` in the Granted repository, or the published
 docs at `https://docs.openclaw.ai/providers/novita`.

@@ -1,0 +1,43 @@
+{
+  "run": "2026-09-24T1006",
+  "score": "2/2",
+  "pass": 2,
+  "blocked": 1,
+  "attempted": 2,
+  "spend": "spend: not measured (gateway-only)",
+  "results": [
+    {
+      "id": "G1",
+      "name": "GUI: drive Notepad and save a file",
+      "result": "PASS",
+      "seconds": 73,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-24t1006-g1",
+      "evidence": "file on disk: \"hello granted\""
+    },
+    {
+      "id": "S2",
+      "name": "find and fix a real bug",
+      "result": "BLOCKED",
+      "seconds": 83,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-24t1006-s2",
+      "evidence": "math.js unchanged; agent said: The AI service is temporarily overloaded. Please try again in a moment."
+    },
+    {
+      "id": "C2",
+      "name": "open a real page and report its title",
+      "result": "PASS",
+      "seconds": 18,
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-09-24t1006-c2",
+      "evidence": "ispatcher=reused contentType=text/event-stream; charset=utf-8\n[agents/agent-command] [agent] run 37e02645-ea59-4014-9ddd-31bc91e2bc92 ended with stopReason=stop"
+    }
+  ]
+}

@@ -28,11 +28,11 @@ You need:
 
 - A connected node that exposes `screen.snapshot` or `logbook.snapshot`. The
   macOS app node needs Screen Recording permission. A headless macOS node host
-  (`openclaw node host run`) gets the plugin-provided `logbook.snapshot`
+  (`granted node host run`) gets the plugin-provided `logbook.snapshot`
   command backed by the system `screencapture` tool.
 - The bundled Codex plugin enabled and authenticated. Codex currently provides
   the structured image-extraction contract Logbook requires. Sign in with
-  `openclaw models auth login --provider openai`; see
+  `granted models auth login --provider openai`; see
   [Codex harness](/plugins/codex-harness) for other auth paths.
 - A working default agent model. Logbook uses it to synthesize cards, standup
   notes, and day Q&A after the vision pass.
@@ -42,8 +42,8 @@ You need:
 Enable the Codex and Logbook plugins:
 
 ```bash
-openclaw plugins enable codex
-openclaw plugins enable logbook
+granted plugins enable codex
+granted plugins enable logbook
 ```
 
 Configure an explicit vision model for deterministic startup:
@@ -71,11 +71,11 @@ Gateway after changing plugin configuration, then inspect the registrations
 and open the dashboard:
 
 ```bash
-openclaw gateway restart
-openclaw plugins inspect logbook --runtime --json
-openclaw nodes status --connected
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw dashboard
+granted gateway restart
+granted plugins inspect logbook --runtime --json
+granted nodes status --connected
+granted nodes describe --node <idOrNameOrIp>
+granted dashboard
 ```
 
 The node description must include `screen.snapshot` or `logbook.snapshot`.
@@ -239,7 +239,7 @@ the derived-text methods directly.
 
 Check all three gates:
 
-1. `openclaw plugins list --enabled` includes `logbook`.
+1. `granted plugins list --enabled` includes `logbook`.
 2. The Gateway restarted after the plugin or allowlist change.
 3. The Control UI connection has `operator.write`; read-only sessions do not
    receive the interactive tab descriptor.
@@ -250,9 +250,9 @@ recommended configuration.
 ### Capture reports an error
 
 ```bash
-openclaw nodes status --connected
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw logs --follow
+granted nodes status --connected
+granted nodes describe --node <idOrNameOrIp>
+granted logs --follow
 ```
 
 - Confirm the node exposes `screen.snapshot` or `logbook.snapshot`.

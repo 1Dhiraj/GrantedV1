@@ -57,11 +57,11 @@ The iOS node only allows `camera.*` commands in the **foreground**. Background i
 The easiest way to get media files is via the CLI helper, which writes decoded media to a temp file and prints the saved path.
 
 ```bash
-openclaw nodes camera snap --node <id>                 # default: one node-selected photo
-openclaw nodes camera snap --node <id> --facing front
-openclaw nodes camera snap --node <id> --facing both   # front then back (2 saved paths)
-openclaw nodes camera clip --node <id> --duration 3000
-openclaw nodes camera clip --node <id> --no-audio
+granted nodes camera snap --node <id>                 # default: one node-selected photo
+granted nodes camera snap --node <id> --facing front
+granted nodes camera snap --node <id> --facing both   # front then back (2 saved paths)
+granted nodes camera clip --node <id> --duration 3000
+granted nodes camera clip --node <id> --no-audio
 ```
 
 Without `--facing`, `nodes camera snap` captures one photo using the node's default camera and labels the saved artifact `unknown`. On non-Linux nodes, `--facing both` captures front then back and prints two saved paths. `--device-id` is valid without `--facing`; on non-Linux nodes, it cannot be combined with `--facing both`. Linux always sends one facing-less request and labels the artifact `unknown`, regardless of `--facing`. Output files are temporary (in the OS temp directory) unless you build your own wrapper.
@@ -115,18 +115,18 @@ The macOS companion app exposes a checkbox:
 Use the main `openclaw` CLI to invoke camera commands on the macOS node.
 
 ```bash
-openclaw nodes camera list --node <id>                     # list camera ids
-openclaw nodes camera snap --node <id>                     # prints saved path
-openclaw nodes camera snap --node <id> --max-width 1280
-openclaw nodes camera snap --node <id> --delay-ms 2000
-openclaw nodes camera snap --node <id> --device-id <id>
-openclaw nodes camera clip --node <id> --duration 10s       # prints saved path
-openclaw nodes camera clip --node <id> --duration-ms 3000   # prints saved path (legacy flag)
-openclaw nodes camera clip --node <id> --device-id <id>
-openclaw nodes camera clip --node <id> --no-audio
+granted nodes camera list --node <id>                     # list camera ids
+granted nodes camera snap --node <id>                     # prints saved path
+granted nodes camera snap --node <id> --max-width 1280
+granted nodes camera snap --node <id> --delay-ms 2000
+granted nodes camera snap --node <id> --device-id <id>
+granted nodes camera clip --node <id> --duration 10s       # prints saved path
+granted nodes camera clip --node <id> --duration-ms 3000   # prints saved path (legacy flag)
+granted nodes camera clip --node <id> --device-id <id>
+granted nodes camera clip --node <id> --no-audio
 ```
 
-- `openclaw nodes camera snap` defaults to `maxWidth=1600` unless overridden.
+- `granted nodes camera snap` defaults to `maxWidth=1600` unless overridden.
 - `camera.snap` waits `delayMs` (default 2000ms, clamped to `[0, 10000]`) after warm-up/exposure settle before capturing.
 - Photo payloads are recompressed to keep base64 under 5MB.
 
@@ -166,13 +166,13 @@ Pan/tilt and zoom use separate hardware writes and cannot be atomic. OpenClaw ve
 }
 ```
 
-The allow entry alone does not widen an existing node approval. After the updated Mac reconnects and declares PTZ control, run `openclaw nodes pending`, then approve the widened surface with `openclaw nodes approve <requestId>`.
+The allow entry alone does not widen an existing node approval. After the updated Mac reconnects and declares PTZ control, run `granted nodes pending`, then approve the widened surface with `granted nodes approve <requestId>`.
 
 In the agent `nodes` tool, use `action: "camera_ptz"`, the selected Mac node, `deviceId`, and `ptzOperation: "status" | "set" | "move" | "home"`. Axis inputs are `panDegrees`, `tiltDegrees`, and `zoomPercent`.
 
 ## Linux node host
 
-The bundled Linux Node plugin adds camera capture to the CLI `openclaw node` service. It works on a headless host and does not require the Linux desktop app.
+The bundled Linux Node plugin adds camera capture to the CLI `granted node` service. It works on a headless host and does not require the Linux desktop app.
 
 Camera access defaults to off. Enable it under the plugin entry, then restart the node service so its Gateway advertisement is rebuilt:
 
@@ -212,7 +212,7 @@ The plugin uses `libx264` for MP4 video and does not silently change codecs. An 
 For _screen_ video (not camera), use the macOS companion:
 
 ```bash
-openclaw nodes screen record --node <id> --duration 10s --fps 15   # prints saved path
+granted nodes screen record --node <id> --duration 10s --fps 15   # prints saved path
 ```
 
 Requires macOS **Screen Recording** permission (TCC).

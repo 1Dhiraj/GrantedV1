@@ -1,17 +1,17 @@
 # @granted/zalo
 
-Zalo channel plugin for OpenClaw (Bot API).
+Zalo channel plugin for Granted (Bot API).
 
 ## Install (local checkout)
 
 ```bash
-openclaw plugins install ./path/to/local/zalo-plugin
+granted plugins install ./path/to/local/zalo-plugin
 ```
 
 ## Install (npm)
 
 ```bash
-openclaw plugins install @granted/zalo
+granted plugins install @granted/zalo
 ```
 
 Onboarding: select Zalo and confirm the install prompt to fetch the plugin automatically.

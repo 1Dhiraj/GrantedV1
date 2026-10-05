@@ -54,9 +54,9 @@ currently selects only a connected macOS node that declares `canvas.present`.
 The paired-node command surface contains three commands:
 
 ```bash
-openclaw nodes canvas present --node <id>
-openclaw nodes canvas navigate --node <id> "/__openclaw__/canvas/documents/<document-id>/index.html"
-openclaw nodes canvas hide --node <id>
+granted nodes canvas present --node <id>
+granted nodes canvas navigate --node <id> "/__openclaw__/canvas/documents/<document-id>/index.html"
+granted nodes canvas hide --node <id>
 ```
 
 - `canvas.present` shows the panel. It also accepts the existing optional
@@ -91,7 +91,7 @@ automatically navigate to an A2UI page.
 
 ## Migrating documents from a custom root
 
-Run `openclaw doctor --fix` to move documents from the retired
+Run `granted doctor --fix` to move documents from the retired
 `plugins.entries.canvas.config.host.root` (or the older `canvasHost.root`) into
 the state directory's `canvas/documents` folder. An explicit plugin root takes
 precedence over the older setting. Doctor removes the root setting only after no

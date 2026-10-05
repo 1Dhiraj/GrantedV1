@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw path` (inspect and edit workspace files via the `oc://` addressing scheme)"
+summary: "CLI reference for `granted path` (inspect and edit workspace files via the `oc://` addressing scheme)"
 read_when:
   - You want to read or write a leaf inside a workspace file from the terminal
   - You're scripting against workspace state and want a stable, kind-agnostic addressing scheme
@@ -7,7 +7,7 @@ read_when:
 title: "Path"
 ---
 
-# `openclaw path`
+# `granted path`
 
 Shell access to the `oc://` addressing scheme: one kind-dispatched path syntax
 for inspecting and editing addressable workspace files (markdown, jsonc,
@@ -19,7 +19,7 @@ per-file parser.
 first use:
 
 ```bash
-openclaw plugins enable oc-path
+granted plugins enable oc-path
 ```
 
 The CLI verbs mirror the addressing model:
@@ -40,7 +40,7 @@ and agents often need one small value from those files: a frontmatter key, a
 plugin setting, a log record field, a YAML step, or a bullet item under a
 named section.
 
-`openclaw path` gives those callers a stable address instead of a one-off
+`granted path` gives those callers a stable address instead of a one-off
 grep, regex, or parser per file kind. The same `oc://` path can be validated,
 resolved, searched, dry-run, and written from the terminal, which keeps narrow
 automation reviewable and replayable. It preserves the rest of the file, so
@@ -59,7 +59,7 @@ varies:
 - An agent dry-runs a small workspace edit before applying it, with the
   changed bytes visible in review.
 
-Skip `openclaw path` for ordinary whole-file edits, rich config migrations, or
+Skip `granted path` for ordinary whole-file edits, rich config migrations, or
 memory-specific writes; those should use the owner command or plugin. `path`
 is for small, addressable file operations where a repeatable terminal command
 beats another bespoke parser.
@@ -69,33 +69,33 @@ beats another bespoke parser.
 Read one value from a human-edited config file:
 
 ```bash
-openclaw path resolve 'oc://config.jsonc/plugins/github/enabled'
+granted path resolve 'oc://config.jsonc/plugins/github/enabled'
 ```
 
 Preview a write without touching disk:
 
 ```bash
-openclaw path set 'oc://config.jsonc/plugins/github/enabled' 'true' --dry-run
+granted path set 'oc://config.jsonc/plugins/github/enabled' 'true' --dry-run
 ```
 
 Find matching records in an append-only JSONL log:
 
 ```bash
-openclaw path find 'oc://session.jsonl/[event=tool_call]/name'
+granted path find 'oc://session.jsonl/[event=tool_call]/name'
 ```
 
 Address an instruction in markdown by section and item instead of by line
 number:
 
 ```bash
-openclaw path resolve 'oc://AGENTS.md/runtime-safety/openclaw-gateway'
+granted path resolve 'oc://AGENTS.md/runtime-safety/openclaw-gateway'
 ```
 
 Validate a path in CI or a preflight script before the script reads or
 writes:
 
 ```bash
-openclaw path validate 'oc://AGENTS.md/tools/$last/risk'
+granted path validate 'oc://AGENTS.md/tools/$last/risk'
 ```
 
 These commands are meant to be copyable into shell scripts. Use `--json` when
@@ -237,71 +237,71 @@ as a focused before/after patch instead of the full rendered file.
 
 ```bash
 # Validate a path (no filesystem access)
-openclaw path validate 'oc://AGENTS.md/Tools/$last/risk'
+granted path validate 'oc://AGENTS.md/Tools/$last/risk'
 
 # Read a leaf
-openclaw path resolve 'oc://gateway.jsonc/version'
+granted path resolve 'oc://gateway.jsonc/version'
 
 # Wildcard search
-openclaw path find 'oc://session.jsonl/*/event' --file ./logs/session.jsonl
+granted path find 'oc://session.jsonl/*/event' --file ./logs/session.jsonl
 
 # Dry-run a write
-openclaw path set 'oc://gateway.jsonc/version' '2.0' --dry-run
+granted path set 'oc://gateway.jsonc/version' '2.0' --dry-run
 
 # Dry-run a write as a unified diff
-openclaw path set 'oc://gateway.jsonc/version' '2.0' --dry-run --diff
+granted path set 'oc://gateway.jsonc/version' '2.0' --dry-run --diff
 
 # Apply the write
-openclaw path set 'oc://gateway.jsonc/version' '2.0'
+granted path set 'oc://gateway.jsonc/version' '2.0'
 
 # Byte-fidelity round-trip (diagnostic)
-openclaw path emit ./AGENTS.md
+granted path emit ./AGENTS.md
 ```
 
 More grammar examples:
 
 ```bash
 # Quote keys containing / or .
-openclaw path resolve 'oc://config.jsonc/agents.defaults.models/"anthropic/claude-opus-4-7"/alias'
+granted path resolve 'oc://config.jsonc/agents.defaults.models/"anthropic/claude-opus-4-7"/alias'
 
 # Deep JSON/JSONC paths can use slash segments; they normalize to dotted subsegments
-openclaw path set 'oc://openclaw.json/agents/list/0/tools/exec/security' 'allowlist' --dry-run
+granted path set 'oc://openclaw.json/agents/list/0/tools/exec/security' 'allowlist' --dry-run
 
 # Replace a JSONC leaf with a parsed object
-openclaw path set 'oc://openclaw.json/gateway/auth/token' '{"source":"file","provider":"secrets","id":"/test"}' --value-json --dry-run
+granted path set 'oc://openclaw.json/gateway/auth/token' '{"source":"file","provider":"secrets","id":"/test"}' --value-json --dry-run
 
 # Predicate search over JSONC children
-openclaw path find 'oc://config.jsonc/plugins/[enabled=true]/id'
+granted path find 'oc://config.jsonc/plugins/[enabled=true]/id'
 
 # Insert into a JSONC array
-openclaw path set 'oc://config.jsonc/items/+1' '{"id":"new","enabled":true}' --dry-run
+granted path set 'oc://config.jsonc/items/+1' '{"id":"new","enabled":true}' --dry-run
 
 # Insert a JSONC object key
-openclaw path set 'oc://config.jsonc/plugins/+github' '{"enabled":true}' --dry-run
+granted path set 'oc://config.jsonc/plugins/+github' '{"enabled":true}' --dry-run
 
 # Append a JSONL event
-openclaw path set 'oc://session.jsonl/+' '{"event":"checkpoint","ok":true}' --file ./logs/session.jsonl
+granted path set 'oc://session.jsonl/+' '{"event":"checkpoint","ok":true}' --file ./logs/session.jsonl
 
 # Resolve the last JSONL value line
-openclaw path resolve 'oc://session.jsonl/$last/event' --file ./logs/session.jsonl
+granted path resolve 'oc://session.jsonl/$last/event' --file ./logs/session.jsonl
 
 # Resolve a YAML workflow step
-openclaw path resolve 'oc://workflow.yaml/steps/0/id'
+granted path resolve 'oc://workflow.yaml/steps/0/id'
 
 # Update a YAML scalar
-openclaw path set 'oc://workflow.yaml/steps/$last/id' 'classify-renamed' --dry-run
+granted path set 'oc://workflow.yaml/steps/$last/id' 'classify-renamed' --dry-run
 
 # Address markdown frontmatter
-openclaw path resolve 'oc://AGENTS.md/[frontmatter]/name'
+granted path resolve 'oc://AGENTS.md/[frontmatter]/name'
 
 # Insert markdown frontmatter
-openclaw path set 'oc://AGENTS.md/[frontmatter]/+description' 'Agent instructions' --dry-run
+granted path set 'oc://AGENTS.md/[frontmatter]/+description' 'Agent instructions' --dry-run
 
 # Find markdown item fields
-openclaw path find 'oc://SKILL.md/Tools/*/send_email'
+granted path find 'oc://SKILL.md/Tools/*/send_email'
 
 # Validate a session-scoped path
-openclaw path validate 'oc://AGENTS.md/Tools/$last/risk?session=cron-daily'
+granted path validate 'oc://AGENTS.md/Tools/$last/risk?session=cron-daily'
 ```
 
 ## Recipes by file kind
@@ -325,13 +325,13 @@ tier: core
 ```
 
 ```bash
-$ openclaw path resolve 'oc://x.md/[frontmatter]/tier' --file frontmatter.md --human
+$ granted path resolve 'oc://x.md/[frontmatter]/tier' --file frontmatter.md --human
 leaf @ L4: "core" (string)
 
-$ openclaw path resolve 'oc://x.md/tools/gh/gh' --file frontmatter.md --human
+$ granted path resolve 'oc://x.md/tools/gh/gh' --file frontmatter.md --human
 leaf @ L9: "GitHub CLI" (string)
 
-$ openclaw path find 'oc://x.md/tools/*' --file frontmatter.md --human
+$ granted path find 'oc://x.md/tools/*' --file frontmatter.md --human
 3 matches for oc://x.md/tools/*:
   oc://x.md/tools/gh           →  node @ L9 [md-item]
   oc://x.md/tools/curl         →  node @ L10 [md-item]
@@ -355,10 +355,10 @@ even when the source uses underscores (`send_email` becomes `send-email`).
 ```
 
 ```bash
-$ openclaw path resolve 'oc://config.jsonc/plugins/github/enabled' --file config.jsonc --human
+$ granted path resolve 'oc://config.jsonc/plugins/github/enabled' --file config.jsonc --human
 leaf @ L4: "true" (boolean)
 
-$ openclaw path set 'oc://config.jsonc/plugins/slack/enabled' 'true' --file config.jsonc --dry-run
+$ granted path set 'oc://config.jsonc/plugins/slack/enabled' 'true' --file config.jsonc --dry-run
 --dry-run: would write 142 bytes to /…/config.jsonc
 {
   "plugins": {
@@ -381,11 +381,11 @@ JSONC edits go through `jsonc-parser`, so comments and whitespace survive a
 ```
 
 ```bash
-$ openclaw path find 'oc://session.jsonl/[event=action]/userId' --file session.jsonl --human
+$ granted path find 'oc://session.jsonl/[event=action]/userId' --file session.jsonl --human
 1 match for oc://session.jsonl/[event=action]/userId:
   oc://session.jsonl/L2/userId  →  leaf @ L2: "u1" (string)
 
-$ openclaw path resolve 'oc://session.jsonl/L2/ts' --file session.jsonl --human
+$ granted path resolve 'oc://session.jsonl/L2/ts' --file session.jsonl --human
 leaf @ L2: "2" (number)
 ```
 
@@ -406,10 +406,10 @@ steps:
 ```
 
 ```bash
-$ openclaw path resolve 'oc://workflow.yaml/steps/0/id' --file workflow.yaml --human
+$ granted path resolve 'oc://workflow.yaml/steps/0/id' --file workflow.yaml --human
 leaf @ L3: "fetch" (string)
 
-$ openclaw path set 'oc://workflow.yaml/steps/$last/id' 'classify-renamed' --file workflow.yaml --dry-run
+$ granted path set 'oc://workflow.yaml/steps/$last/id' 'classify-renamed' --file workflow.yaml --dry-run
 --dry-run: would write 99 bytes to /…/workflow.yaml
 name: inbox-triage
 steps:
@@ -433,8 +433,8 @@ Exits `0` on a match, `1` on a clean miss, `2` on a parse error or refused
 pattern.
 
 ```bash
-openclaw path resolve 'oc://AGENTS.md/tools/gh/risk' --human
-openclaw path resolve 'oc://gateway.jsonc/server/port' --json
+granted path resolve 'oc://AGENTS.md/tools/gh/risk' --human
+granted path resolve 'oc://gateway.jsonc/server/port' --json
 ```
 
 ### `find <pattern>`
@@ -445,9 +445,9 @@ on at least one match, `1` on zero. File-slot wildcards are rejected with
 globbing is a follow-up feature).
 
 ```bash
-openclaw path find 'oc://AGENTS.md/tools/**/risk'
-openclaw path find 'oc://session.jsonl/[event=action]/userId'
-openclaw path find 'oc://config.jsonc/plugins/{github,slack}/enabled'
+granted path find 'oc://AGENTS.md/tools/**/risk'
+granted path find 'oc://session.jsonl/[event=action]/userId'
+granted path find 'oc://config.jsonc/plugins/{github,slack}/enabled'
 ```
 
 ### `set <oc-path> <value>`
@@ -458,10 +458,10 @@ Exits `0` on a successful write, `1` if the substrate refuses (for example, a
 sentinel guard hit), `2` on parse errors.
 
 ```bash
-openclaw path set 'oc://gateway.jsonc/version' '2.0' --dry-run
-openclaw path set 'oc://gateway.jsonc/version' '2.0' --dry-run --diff
-openclaw path set 'oc://gateway.jsonc/version' '2.0'
-openclaw path set 'oc://AGENTS.md/Tools/+gh/risk' 'low'
+granted path set 'oc://gateway.jsonc/version' '2.0' --dry-run
+granted path set 'oc://gateway.jsonc/version' '2.0' --dry-run --diff
+granted path set 'oc://gateway.jsonc/version' '2.0'
+granted path set 'oc://AGENTS.md/Tools/+gh/risk' 'low'
 ```
 
 The `+key` insertion marker creates the named child if it does not already
@@ -475,7 +475,7 @@ template path is well-formed before substituting variables, or when you want
 the structural breakdown for debugging:
 
 ```bash
-$ openclaw path validate 'oc://AGENTS.md/tools/gh' --human
+$ granted path validate 'oc://AGENTS.md/tools/gh' --human
 valid: oc://AGENTS.md/tools/gh
   file:    AGENTS.md
   section: tools
@@ -493,8 +493,8 @@ parser bug or a sentinel hit. Useful for debugging substrate behavior on
 real-world inputs.
 
 ```bash
-openclaw path emit ./AGENTS.md
-openclaw path emit ./gateway.jsonc --json
+granted path emit ./AGENTS.md
+granted path emit ./gateway.jsonc --json
 ```
 
 ## Exit codes
@@ -507,7 +507,7 @@ openclaw path emit ./gateway.jsonc --json
 
 ## Output mode
 
-`openclaw path` is TTY-aware: human-readable output on a terminal, JSON when
+`granted path` is TTY-aware: human-readable output on a terminal, JSON when
 stdout is piped or redirected. `--json` and `--human` override the
 auto-detection.
 

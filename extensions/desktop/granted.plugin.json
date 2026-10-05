@@ -5,7 +5,10 @@
   "activation": {
     "onStartup": true
   },
-  "enabledByDefault": false,
+  "contracts": {
+    "tools": ["desktop"]
+  },
+  "enabledByDefaultOnPlatforms": ["win32"],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

@@ -1,4 +1,4 @@
-// Microsoft plugin entrypoint registers its OpenClaw integration.
+// Microsoft plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { buildMicrosoftSpeechProvider } from "./speech-provider.js";
 

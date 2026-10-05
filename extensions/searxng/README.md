@@ -1,13 +1,13 @@
-# SearXNG OpenClaw plugin
+# SearXNG Granted plugin
 
-Official OpenClaw plugin for SearXNG.
+Official Granted plugin for SearXNG.
 
 ## Install
 
 ```sh
-openclaw plugins install @granted/searxng-plugin
+granted plugins install @granted/searxng-plugin
 ```
 
 ## Docs
 
-See `docs/tools/searxng-search.md` in the OpenClaw repository, or the published docs at `https://docs.openclaw.ai/tools/searxng-search`.
+See `docs/tools/searxng-search.md` in the Granted repository, or the published docs at `https://docs.openclaw.ai/tools/searxng-search`.

@@ -1,7 +1,7 @@
-// Nvidia plugin entrypoint registers its OpenClaw integration.
+// Nvidia plugin entrypoint registers its Granted integration.
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
-import { applyNvidiaConfig, NVIDIA_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./granted.plugin.json" with { type: "json" };
+import { applyNvidiaConfig, NVIDIA_DEFAULT_MODEL_REF } from "./onboard.js";
 import {
   buildLiveNvidiaProvider,
   buildSelectableNvidiaProvider,

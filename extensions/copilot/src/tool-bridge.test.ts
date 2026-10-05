@@ -443,7 +443,7 @@ describe("createCopilotToolBridge", () => {
     ]);
   });
 
-  it("preserves direct-only OpenClaw through the exact Copilot allowlist", async () => {
+  it("preserves direct-only Granted through the exact Copilot allowlist", async () => {
     const systemAgentTool = makeTool({
       name: "openclaw",
       catalogMode: "direct-only",
@@ -777,7 +777,7 @@ describe("createCopilotToolBridge", () => {
     ).rejects.toThrow("duplicate tool names: alpha, beta");
   });
 
-  // F6: PI-parity tool context. The bridged OpenClaw tools register
+  // F6: PI-parity tool context. The bridged Granted tools register
   // with the SDK as `overridesBuiltInTool: true, skipPermission: true`,
   // so the wrapped-tool enforcement layer
   // (src/agents/pi-tools.before-tool-call.ts) is the single gate for
@@ -1059,7 +1059,7 @@ describe("createCopilotToolBridge", () => {
       }
     });
 
-    it("prefers the unscoped toolAuthProfileStore when building OpenClaw tools", async () => {
+    it("prefers the unscoped toolAuthProfileStore when building Granted tools", async () => {
       const { createOpenClawCodingTools, getOpts } = captureCall();
       const authProfileStore = { kind: "transport-scoped-store" } as never;
       const toolAuthProfileStore = { kind: "tool-store" } as never;
@@ -1379,7 +1379,7 @@ describe("createCopilotToolBridge", () => {
   // gates locally (codex-precedent at
   // extensions/codex/src/app-server/run-attempt.ts:3813,3906-3939,4220-4234)
   // so a Copilot run cannot expose the SDK any tool that the same
-  // OpenClaw attempt would suppress. These tests pin the contract.
+  // Granted attempt would suppress. These tests pin the contract.
   describe("tool-surface gating (PR #86155 [P1] round-6)", () => {
     it.each([
       { toolsAllow: undefined, codeMode: false },
@@ -1855,16 +1855,16 @@ describe("createCopilotToolBridge tool conversion", () => {
     expect(result.parameters).toBe(parameters);
   });
 
-  it("sets skipPermission: true so OpenClaw's wrapped-tool internal enforcement handles permission decisions (PI-parity model)", async () => {
-    // Per the harness docs: every bridged OpenClaw tool comes from
+  it("sets skipPermission: true so Granted's wrapped-tool internal enforcement handles permission decisions (PI-parity model)", async () => {
+    // Per the harness docs: every bridged Granted tool comes from
     // `createOpenClawCodingTools`, which already wraps each tool with
     // `wrapToolWithBeforeToolCallHook` (loop detection, trusted plugin
     // policies, before-tool-call hooks, two-phase plugin approvals via
     // the gateway). Asking the SDK to run its own `onPermissionRequest`
-    // for kind: "custom-tool" would either short-circuit OpenClaw's
+    // for kind: "custom-tool" would either short-circuit Granted's
     // richer enforcement (allow-all) or block every call (reject-all).
     // Setting `skipPermission: true` lets the wrapped execute() run
-    // OpenClaw's hook with the right context — mirrors codex
+    // Granted's hook with the right context — mirrors codex
     // (`extensions/codex/src/app-server/dynamic-tools.ts`).
     const result = (await convertOpenClawToolToSdkToolForTest(makeTool(), {})) as SdkTool & {
       skipPermission?: boolean;
@@ -1873,7 +1873,7 @@ describe("createCopilotToolBridge tool conversion", () => {
     expect(result.skipPermission).toBe(true);
   });
 
-  it("marks every bridged tool as overridesBuiltInTool so OpenClaw owns names that collide with Copilot CLI built-ins (edit/read/write/bash/...)", async () => {
+  it("marks every bridged tool as overridesBuiltInTool so Granted owns names that collide with Copilot CLI built-ins (edit/read/write/bash/...)", async () => {
     // Real-world dogfood found that openclaw's createOpenClawCodingTools
     // returns a tool named `edit`, which the bundled Copilot CLI also ships
     // as a built-in. The SDK rejects the registration unless the external
@@ -2227,7 +2227,7 @@ describe("createCopilotToolBridge tool conversion", () => {
     ).toHaveLength(1);
   });
 
-  it("reports returned OpenClaw error results to both tool observers", async () => {
+  it("reports returned Granted error results to both tool observers", async () => {
     const onAgentToolResult = vi.fn();
     const onToolCompleted = vi.fn();
     const sourceResult = {

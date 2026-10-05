@@ -14,8 +14,8 @@ manage a local `llama-server` or connect to one that you operate. Both choices
 use `llama-cpp/<model>` references and the OpenAI-compatible transport.
 
 ```bash
-openclaw plugins install @granted/llama-cpp-provider
-openclaw onboard
+granted plugins install @granted/llama-cpp-provider
+granted onboard
 ```
 
 ## Choose server ownership
@@ -99,15 +99,15 @@ manager, or machine owns the process.
 
   </Step>
   <Step title="Configure OpenClaw">
-    Run `openclaw onboard`, choose **Existing llama-server**, and enter the
+    Run `granted onboard`, choose **Existing llama-server**, and enter the
     endpoint. Enable API-key authentication only when the server or proxy
     requires it.
 
   </Step>
   <Step title="Select the model">
     ```bash
-    openclaw models list --provider llama-cpp
-    openclaw models set llama-cpp/my-model
+    granted models list --provider llama-cpp
+    granted models set llama-cpp/my-model
     ```
   </Step>
 </Steps>
@@ -128,7 +128,7 @@ URLs containing a username or password are rejected.
 
 ```bash
 export LLAMA_SERVER_API_KEY="<API_KEY>"
-openclaw onboard
+granted onboard
 ```
 
 When the endpoint changes, setup does not send the old endpoint's environment,
@@ -139,7 +139,7 @@ and the managed request timeout before discovery.
 For non-interactive setup:
 
 ```bash
-openclaw onboard \
+granted onboard \
   --non-interactive \
   --accept-risk \
   --auth-choice llama-cpp-existing-server \
@@ -200,12 +200,12 @@ Local memory embeddings require managed mode:
 ```
 
 The plugin preserves the historical `local` embedding provider and index
-identity. Run `openclaw memory status --index` after intentionally changing the
+identity. Run `granted memory status --index` after intentionally changing the
 embedding model.
 
 ## Troubleshooting
 
-- Managed setup: run `openclaw doctor` and `openclaw memory status --deep`.
+- Managed setup: run `granted doctor` and `granted memory status --deep`.
 - Existing server: inspect `/health`, `/models`, and `/props`; HTTP 503 means
   the model is still loading.
 - Missing tools: verify both tool capability flags in `/props` and use a

@@ -1,12 +1,12 @@
-# OpenClaw Vydra Provider
+# Granted Vydra Provider
 
-Official OpenClaw provider plugin for Vydra image, video, and speech generation.
+Official Granted provider plugin for Vydra image, video, and speech generation.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/vydra-provider
-openclaw gateway restart
+granted plugins install @granted/vydra-provider
+granted gateway restart
 ```
 
 Set `VYDRA_API_KEY`, then configure an image, video, or speech model. See

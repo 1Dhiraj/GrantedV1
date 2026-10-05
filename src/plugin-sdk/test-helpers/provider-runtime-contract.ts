@@ -719,7 +719,7 @@ export function describeOpenAIProviderRuntimeContract(
       });
     });
 
-    it("keeps OpenClaw cost metadata but applies Codex context metadata for gpt-5.5 models", () => {
+    it("keeps Granted cost metadata but applies Codex context metadata for gpt-5.5 models", () => {
       const provider = requireProviderContractProvider("openai");
       const manifestModel = createManifestModel("gpt-5.5", {
         api: "openai-chatgpt-responses",

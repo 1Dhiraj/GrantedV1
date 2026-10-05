@@ -5344,7 +5344,7 @@ describe("runReplyAgent typing (heartbeat)", () => {
     { label: "group chats", chatType: "group" as const, noticeVisible: false },
     { label: "channels", chatType: "channel" as const, noticeVisible: false },
   ])(
-    "controls fallback notices for $label without changing state or lifecycle",
+    "shows active fallback notices for $label and silently clears recovered state",
     async ({ chatType, noticeVisible }) => {
       const { sessionEntry, sessionStore, storePath } = await makeSessionFixture();
       let callCount = 0;
@@ -5420,14 +5420,14 @@ describe("runReplyAgent typing (heartbeat)", () => {
         const secondText = Array.isArray(second) ? second[0]?.text : second?.text;
         const thirdText = Array.isArray(third) ? third[0]?.text : third?.text;
         expect(firstText?.includes("Model Fallback:")).toBe(noticeVisible);
-        expect(secondText?.includes("Model Fallback cleared:")).toBe(noticeVisible);
+        expect(secondText).toBe("final");
         expect(thirdText).not.toContain("Model Fallback cleared:");
         if (!noticeVisible) {
           expect(firstText).toBe("final");
           expect(secondText).toBe("final");
         }
         expect(countMatching(phases, (phase) => phase === "fallback")).toBe(1);
-        expect(countMatching(phases, (phase) => phase === "fallback_cleared")).toBe(1);
+        expect(countMatching(phases, (phase) => phase === "fallback_cleared")).toBe(0);
         expect(sessionEntry.fallbackNotice).toBeUndefined();
         expect(requireStoredSessionEntry(storePath).fallbackNotice).toBeUndefined();
       } finally {
@@ -5436,7 +5436,7 @@ describe("runReplyAgent typing (heartbeat)", () => {
     },
   );
 
-  it("announces fallback transitions and emits lifecycle events while verbose is off", async () => {
+  it("announces active fallback and silently clears recovered state while verbose is off", async () => {
     const sessionEntry = makeSessionEntry();
     const sessionStore = { main: sessionEntry };
     let callCount = 0;
@@ -5500,9 +5500,9 @@ describe("runReplyAgent typing (heartbeat)", () => {
       const firstText = Array.isArray(first) ? first[0]?.text : first?.text;
       const secondText = Array.isArray(second) ? second[0]?.text : second?.text;
       expect(firstText).toContain("Model Fallback:");
-      expect(secondText).toContain("Model Fallback cleared:");
+      expect(secondText).toBe("final");
       expect(countMatching(phases, (phase) => phase === "fallback")).toBe(1);
-      expect(countMatching(phases, (phase) => phase === "fallback_cleared")).toBe(1);
+      expect(countMatching(phases, (phase) => phase === "fallback_cleared")).toBe(0);
     } finally {
       fallbackSpy.mockRestore();
     }

@@ -32,7 +32,7 @@ describe("gateway supervision", () => {
         [GATEWAY_SUPERVISOR_MODE_ENV]: "external",
       }),
     ).toThrow(
-      "OpenClaw gateway lifecycle is managed by an external supervisor " +
+      "Granted gateway lifecycle is managed by an external supervisor " +
         "(GRANTED_SUPERVISOR_MODE=external). Use that supervisor to restart the gateway.",
     );
   });
@@ -81,7 +81,7 @@ describe("gateway supervision", () => {
       platform: "win32" as const,
       platformName: "Windows",
       envKey: "GRANTED_WINDOWS_TASK_NAME",
-      value: "OpenClaw Gateway",
+      value: "Granted Gateway",
     },
   ])(
     "rejects named-profile $envKey overrides on $platformName",

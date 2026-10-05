@@ -209,7 +209,7 @@ describe("status usage routing through Commander", () => {
     if (args.includes("--json")) {
       expect(JSON.parse(output).usage).toEqual(summary);
     } else {
-      expect(output).toContain("OpenClaw status");
+      expect(output).toContain("Granted status");
       if (args.includes("--all")) {
         expect(output).toContain("Diagnosis (read-only)");
       }

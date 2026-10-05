@@ -4,6 +4,8 @@ import { t } from "../../../i18n/index.ts";
 
 export type ChatModelCatalogState = {
   hasSnapshot: boolean;
+  /** True only after the complete all-provider picker inventory has loaded. */
+  hasCompleteSnapshot?: boolean;
   status: "idle" | "loading" | "ready" | "error" | "offline";
 };
 

@@ -87,6 +87,7 @@ import {
   shouldRunPreflightCompaction,
 } from "./memory-flush.js";
 import { readPostCompactionContext } from "./post-compaction-context.js";
+import { readPostCompactionPlan, stripPostCompactionPlan } from "./post-compaction-plan.js";
 import { refreshQueuedFollowupSession, type FollowupRun } from "./queue.js";
 import { isRenderablePayload } from "./reply-payloads-base.js";
 import type { ReplyOperation } from "./reply-run-registry.js";
@@ -338,7 +339,7 @@ function resolveFollowupAgentRuntimeId(params: FollowupRuntimeParams): string {
 
 function followupOwnsNativeCompaction(params: FollowupRuntimeParams, runtimeId: string): boolean {
   // Backends that persist resumable native transcripts must remain the sole
-  // compaction owner; OpenClaw maintenance would corrupt that runtime state.
+  // compaction owner; Granted maintenance would corrupt that runtime state.
   return (
     resolveCliBackendConfig(runtimeId, params.cfg, {
       agentId: params.followupRun.run.agentId,
@@ -566,15 +567,23 @@ async function appendPostCompactionRefreshPrompt(params: {
   cfg: GrantedConfig;
   followupRun: FollowupRun;
 }): Promise<void> {
-  const refreshPrompt = await readPostCompactionContext(params.followupRun.run.workspaceDir, {
+  const contextPrompt = await readPostCompactionContext(params.followupRun.run.workspaceDir, {
     cfg: params.cfg,
     agentId: params.followupRun.run.agentId,
   });
+  // The plan goes last so the model reads its own open steps closest to the turn.
+  const planPrompt = await readPostCompactionPlan({
+    sessionKey: params.followupRun.run.sessionKey,
+  });
+  const refreshPrompt = [contextPrompt, planPrompt].filter(Boolean).join("\n\n");
   if (!refreshPrompt) {
     return;
   }
 
-  const existingPrompt = normalizeOptionalString(params.followupRun.run.extraSystemPrompt);
+  // A second compaction must refresh the plan, not stack another copy of it.
+  const existingPrompt = stripPostCompactionPlan(
+    normalizeOptionalString(params.followupRun.run.extraSystemPrompt),
+  );
   if (existingPrompt?.includes(refreshPrompt)) {
     return;
   }
@@ -917,7 +926,7 @@ export async function runSessionCompactionIfNeeded(params: {
   const shouldCompactByTranscriptBytes =
     exceedsTranscriptByteThreshold && !transcriptByteCompactionLatched;
   if (isCodexRuntime && !shouldCompactByTranscriptBytes) {
-    // Codex owns native-thread token pressure; OpenClaw owns the host transcript byte fuse
+    // Codex owns native-thread token pressure; Granted owns the host transcript byte fuse
     // that bounds fresh-thread bootstrap seeds.
     logVerbose(
       `preflightCompaction skipped: sessionKey=${params.sessionKey} runtime=codex ` +

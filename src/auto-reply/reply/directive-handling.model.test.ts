@@ -1280,7 +1280,7 @@ describe("/model chat UX", () => {
     expect(reply?.text).not.toContain("via codex runtime");
   });
 
-  it("does not borrow Codex auth when OpenAI model policy pins OpenClaw runtime", async () => {
+  it("does not borrow Codex auth when OpenAI model policy pins Granted runtime", async () => {
     setAuthProfiles({
       "openai:patrick@example.test": {
         type: "oauth",

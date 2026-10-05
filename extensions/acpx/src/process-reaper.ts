@@ -1,6 +1,6 @@
 /**
  * ACPX process ownership checks and cleanup. The reaper only terminates
- * OpenClaw-owned wrapper trees after validating paths, packages, and lease ids.
+ * Granted-owned wrapper trees after validating paths, packages, and lease ids.
  */
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -24,7 +24,7 @@ const ACPX_PROCESS_LIST_TIMEOUT_MS = 2_000;
 const OWNED_ACP_PACKAGE_NAMES = [
   CODEX_ACP_PACKAGE,
   // Shipped Zed adapter processes can survive a gateway upgrade. Keep cleanup
-  // recognition until their OpenClaw-owned wrapper/process tree is gone.
+  // recognition until their Granted-owned wrapper/process tree is gone.
   LEGACY_CODEX_ACP_PACKAGE,
   "@zed-industries/codex-acp-darwin-arm64",
   "@zed-industries/codex-acp-darwin-x64",
@@ -157,7 +157,7 @@ function wrapperPathBelongsToRoot(wrapperPath: string, wrapperRoot: string): boo
   );
 }
 
-/** Check whether a command references an OpenClaw-generated ACPX wrapper path. */
+/** Check whether a command references an Granted-generated ACPX wrapper path. */
 export function isOpenClawLeaseAwareAcpxProcessCommand(params: {
   command: string | undefined;
   wrapperRoot?: string;
@@ -207,7 +207,7 @@ function liveCommandMatchesLeaseIdentity(params: {
   );
 }
 
-/** Check whether a command is owned by OpenClaw ACPX runtime packages or wrappers. */
+/** Check whether a command is owned by Granted ACPX runtime packages or wrappers. */
 function isOpenClawOwnedAcpxProcessCommand(params: {
   command: string | undefined;
   wrapperRoot?: string;
@@ -341,7 +341,7 @@ async function terminatePids(
   return terminated;
 }
 
-/** Terminate one validated OpenClaw-owned ACPX wrapper process tree. */
+/** Terminate one validated Granted-owned ACPX wrapper process tree. */
 export async function cleanupOpenClawOwnedAcpxProcessTree(params: {
   rootPid?: number;
   rootCommand?: string;
@@ -371,7 +371,7 @@ export async function cleanupOpenClawOwnedAcpxProcessTree(params: {
 
   const listedTree = collectProcessTree(processes, rootPid);
   // Session-store PIDs are stale data. If the live process table cannot prove
-  // that this PID still belongs to an OpenClaw-owned wrapper, fail closed to
+  // that this PID still belongs to an Granted-owned wrapper, fail closed to
   // avoid killing an unrelated process after PID reuse.
   if (listedTree.length === 0) {
     return { inspectedPids: [], terminatedPids: [], skippedReason: "unverified-root" };
@@ -487,7 +487,7 @@ export async function cleanupOpenClawOwnedAcpxPendingLease(params: {
   };
 }
 
-/** Reap orphaned OpenClaw-owned ACPX wrapper trees during runtime startup. */
+/** Reap orphaned Granted-owned ACPX wrapper trees during runtime startup. */
 export async function reapStaleOpenClawOwnedAcpxOrphans(params: {
   wrapperRoot: string;
   deps?: AcpxProcessCleanupDeps;

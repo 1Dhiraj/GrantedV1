@@ -8,7 +8,7 @@ import {
 
 describe.each([
   ["cli", "Use /openclaw to come back."],
-  ["gateway", "You can return through Settings → Ask OpenClaw."],
+  ["gateway", "You can return through Settings → Ask Granted."],
 ] as const)("SystemAgentChatEngine %s handoff", (surface, returnHint) => {
   it("handles the exact agent handoff without consulting a model", async () => {
     const runAgentTurn = vi.fn(async () => ({ text: "model reply without a directive" }));

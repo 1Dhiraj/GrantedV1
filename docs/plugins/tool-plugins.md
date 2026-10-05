@@ -1,5 +1,5 @@
 ---
-summary: "Build simple typed agent tools with defineToolPlugin and openclaw plugins init/build/validate"
+summary: "Build simple typed agent tools with defineToolPlugin and granted plugins init/build/validate"
 title: "Tool plugins"
 sidebarTitle: "Tool Plugins"
 read_when:
@@ -31,7 +31,7 @@ or [Provider Plugins](/plugins/sdk-provider-plugins) instead.
 ## Quickstart
 
 ```bash
-openclaw plugins init stock-quotes --name "Stock Quotes"
+granted plugins init stock-quotes --name "Stock Quotes"
 cd stock-quotes
 npm install
 npm run plugin:build
@@ -41,25 +41,25 @@ npm test
 
 `plugins init` scaffolds:
 
-| File                   | Purpose                                                           |
-| ---------------------- | ----------------------------------------------------------------- |
-| `src/index.ts`         | `defineToolPlugin` entry with one `echo` tool                     |
-| `src/index.test.ts`    | Metadata test asserting the tool list                             |
-| `tsconfig.json`        | NodeNext TypeScript output to `dist/`                             |
-| `vitest.config.ts`     | Vitest config for `src/**/*.test.ts`                              |
-| `package.json`         | Scripts, runtime deps, `openclaw.extensions: ["./dist/index.js"]` |
+| File                  | Purpose                                                           |
+| --------------------- | ----------------------------------------------------------------- |
+| `src/index.ts`        | `defineToolPlugin` entry with one `echo` tool                     |
+| `src/index.test.ts`   | Metadata test asserting the tool list                             |
+| `tsconfig.json`       | NodeNext TypeScript output to `dist/`                             |
+| `vitest.config.ts`    | Vitest config for `src/**/*.test.ts`                              |
+| `package.json`        | Scripts, runtime deps, `openclaw.extensions: ["./dist/index.js"]` |
 | `granted.plugin.json` | Generated manifest metadata for the initial tool                  |
 
 `npm run plugin:build` runs `npm run build` (tsc) then
-`openclaw plugins build --entry ./dist/index.js`. `npm run plugin:validate`
-rebuilds and runs `openclaw plugins validate --entry ./dist/index.js`.
+`granted plugins build --entry ./dist/index.js`. `npm run plugin:validate`
+rebuilds and runs `granted plugins validate --entry ./dist/index.js`.
 Successful validation prints:
 
 ```text
 Plugin stock-quotes is valid.
 ```
 
-`openclaw plugins init <id>` options:
+`granted plugins init <id>` options:
 
 | Flag                 | Default            | Effect                                 |
 | -------------------- | ------------------ | -------------------------------------- |
@@ -121,7 +121,7 @@ specific enough to avoid collisions with core tools or other plugins.
 ## Optional and factory tools
 
 Set `optional: true` when users should explicitly allowlist the tool before it
-is sent to a model. `openclaw plugins build` writes the matching
+is sent to a model. `granted plugins build` writes the matching
 `toolMetadata.<tool>.optional` manifest entry, so OpenClaw can see that the
 tool is optional without loading plugin runtime code.
 
@@ -303,13 +303,13 @@ variables, or SecretRefs per the plugin's security model.
 
 OpenClaw must read the plugin manifest before importing plugin runtime code.
 `defineToolPlugin` exposes static metadata for this, and
-`openclaw plugins build` writes it into the package. Rerun the generator after
+`granted plugins build` writes it into the package. Rerun the generator after
 changing plugin id, name, description, config schema, activation, or tool
 names:
 
 ```bash
 npm run build
-openclaw plugins build --entry ./dist/index.js
+granted plugins build --entry ./dist/index.js
 ```
 
 Generated manifest for a one-tool plugin:
@@ -341,7 +341,7 @@ error gets blamed on the wrong plugin.
 
 ## Package metadata
 
-`openclaw plugins build` also aligns `package.json` to the selected runtime
+`granted plugins build` also aligns `package.json` to the selected runtime
 entry:
 
 ```json
@@ -370,8 +370,8 @@ is stale:
 
 ```bash
 npm run build
-openclaw plugins build --entry ./dist/index.js --check
-openclaw plugins validate --entry ./dist/index.js
+granted plugins build --entry ./dist/index.js --check
+granted plugins validate --entry ./dist/index.js
 npm test
 ```
 
@@ -395,16 +395,16 @@ Oxlint is not type-aware, so it cannot enforce these annotations. The generated
 From a separate OpenClaw checkout or installed CLI, install the package path:
 
 ```bash
-openclaw plugins install ./stock-quotes
-openclaw plugins inspect stock-quotes --runtime
+granted plugins install ./stock-quotes
+granted plugins inspect stock-quotes --runtime
 ```
 
 For a packaged smoke test, pack first and install the tarball:
 
 ```bash
 npm pack
-openclaw plugins install npm-pack:./openclaw-plugin-stock-quotes-0.1.0.tgz
-openclaw plugins inspect stock-quotes --runtime --json
+granted plugins install npm-pack:./openclaw-plugin-stock-quotes-0.1.0.tgz
+granted plugins inspect stock-quotes --runtime --json
 ```
 
 After installing, restart or reload the Gateway and ask the agent to use the
@@ -425,7 +425,7 @@ clawhub package publish ./stock-quotes
 Install with an explicit ClawHub locator:
 
 ```bash
-openclaw plugins install clawhub:your-org/stock-quotes
+granted plugins install clawhub:your-org/stock-quotes
 ```
 
 Bare npm package specs still install from npm during the launch cutover, but
@@ -438,8 +438,8 @@ release review.
 ### `plugin entry not found: ./dist/index.js`
 
 The selected entry file does not exist. Run `npm run build`, then rerun
-`openclaw plugins build --entry ./dist/index.js` or
-`openclaw plugins validate --entry ./dist/index.js`.
+`granted plugins build --entry ./dist/index.js` or
+`granted plugins validate --entry ./dist/index.js`.
 
 ### `plugin entry does not expose defineToolPlugin metadata`
 
@@ -453,7 +453,7 @@ The manifest no longer matches the entry metadata. Run:
 
 ```bash
 npm run build
-openclaw plugins build --entry ./dist/index.js
+granted plugins build --entry ./dist/index.js
 ```
 
 Commit both `granted.plugin.json` and `package.json` changes.
@@ -461,7 +461,7 @@ Commit both `granted.plugin.json` and `package.json` changes.
 ### `package.json openclaw.extensions must include ./dist/index.js`
 
 The package metadata points at a different runtime entry. Run
-`openclaw plugins build --entry ./dist/index.js` so the generator aligns
+`granted plugins build --entry ./dist/index.js` so the generator aligns
 package metadata with the entry you intend to ship.
 
 ### `Cannot find package 'typebox'`
@@ -473,8 +473,8 @@ reinstall, rebuild, and rerun validation.
 
 Check these in order:
 
-1. `openclaw plugins inspect <plugin-id> --runtime`
-2. `openclaw plugins validate --root <plugin-root> --entry ./dist/index.js`
+1. `granted plugins inspect <plugin-id> --runtime`
+2. `granted plugins validate --root <plugin-root> --entry ./dist/index.js`
 3. `granted.plugin.json` has `contracts.tools` with the expected tool names.
 4. `package.json` has `openclaw.extensions: ["./dist/index.js"]`.
 5. The Gateway was restarted or reloaded after installing the plugin.

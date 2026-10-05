@@ -29,13 +29,13 @@ Gateway, then restart the Gateway to load it.
     <Tabs>
       <Tab title="From npm">
         ```bash
-        openclaw plugins install @granted/voice-call
+        granted plugins install @granted/voice-call
         ```
       </Tab>
       <Tab title="From a local folder (dev)">
         ```bash
         PLUGIN_SRC=./path/to/local/voice-call-plugin
-        openclaw plugins install "$PLUGIN_SRC"
+        granted plugins install "$PLUGIN_SRC"
         cd "$PLUGIN_SRC" && pnpm install
         ```
       </Tab>
@@ -60,8 +60,8 @@ Gateway, then restart the Gateway to load it.
   </Step>
   <Step title="Verify setup">
     ```bash
-    openclaw voicecall setup
-    openclaw voicecall setup --json
+    granted voicecall setup
+    granted voicecall setup --json
     ```
 
     Checks plugin enablement, provider credentials, webhook exposure, agent
@@ -70,15 +70,15 @@ Gateway, then restart the Gateway to load it.
   </Step>
   <Step title="Smoke test">
     ```bash
-    openclaw voicecall smoke
-    openclaw voicecall smoke --to "+15555550123"
+    granted voicecall smoke
+    granted voicecall smoke --to "+15555550123"
     ```
 
     Both are dry runs by default. Add `--yes` to place a short outbound
     notify call:
 
     ```bash
-    openclaw voicecall smoke --to "+15555550123" --yes
+    granted voicecall smoke --to "+15555550123" --yes
     ```
 
   </Step>
@@ -181,8 +181,8 @@ a multi-agent fleet. Per-number routes may choose different agents for inbound
 calls, but do not replace the plugin's startup owner.
 
 If startup reports that Voice Call has no explicit owner, list your agents with
-`openclaw agents list`, set the existing `agentId` field, and rerun
-`openclaw voicecall setup`. Restart the Gateway after updating its configuration.
+`granted agents list`, set the existing `agentId` field, and rerun
+`granted voicecall setup`. Restart the Gateway after updating its configuration.
 Existing legacy default-agent selection is preserved; new multi-agent setups
 should use an explicit owner. See [Agent configuration](/gateway/config-agents).
 
@@ -235,7 +235,7 @@ that Region. See
 
   </Accordion>
   <Accordion title="Legacy config migrations">
-    Run `openclaw doctor --fix` to rewrite these legacy keys to the canonical
+    Run `granted doctor --fix` to rewrite these legacy keys to the canonical
     shape. The Voice Call plugin owns the migration; runtime config parsing
     accepts only the current keys. When both old and current settings exist,
     Doctor keeps the current setting, removes the legacy key, and reports which
@@ -579,7 +579,7 @@ fallback chain are tried instead.
 
 Behavior notes:
 
-- Legacy `tts.<provider>` keys inside plugin config (`openai`, `elevenlabs`, `microsoft`, `edge`) are repaired by `openclaw doctor --fix`; committed config should use `tts.providers.<provider>`.
+- Legacy `tts.<provider>` keys inside plugin config (`openai`, `elevenlabs`, `microsoft`, `edge`) are repaired by `granted doctor --fix`; committed config should use `tts.providers.<provider>`.
 - Core TTS is used when Twilio media streaming is enabled; otherwise calls fall back to provider-native voices.
 - If a Twilio media stream is already active, Voice Call does not fall back to TwiML `<Say>`. If telephony TTS is unavailable in that state, the playback request fails instead of mixing two playback paths.
 - When telephony TTS falls back to a secondary provider, Voice Call logs a warning with the provider chain (`from`, `to`, `attempts`) for debugging.
@@ -834,16 +834,16 @@ Example with a stable public host:
 ## CLI
 
 ```bash
-openclaw voicecall call --to "+15555550123" --message "Hello from OpenClaw"
-openclaw voicecall start --to "+15555550123"   # alias for call
-openclaw voicecall continue --call-id <id> --message "Any questions?"
-openclaw voicecall speak --call-id <id> --message "One moment"
-openclaw voicecall dtmf --call-id <id> --digits "ww123456#"
-openclaw voicecall end --call-id <id>
-openclaw voicecall status --call-id <id>
-openclaw voicecall tail
-openclaw voicecall latency                      # summarize turn latency from logs
-openclaw voicecall expose --mode funnel
+granted voicecall call --to "+15555550123" --message "Hello from OpenClaw"
+granted voicecall start --to "+15555550123"   # alias for call
+granted voicecall continue --call-id <id> --message "Any questions?"
+granted voicecall speak --call-id <id> --message "One moment"
+granted voicecall dtmf --call-id <id> --digits "ww123456#"
+granted voicecall end --call-id <id>
+granted voicecall status --call-id <id>
+granted voicecall tail
+granted voicecall latency                      # summarize turn latency from logs
+granted voicecall expose --mode funnel
 ```
 
 When the Gateway is already running, operational `voicecall` commands
@@ -904,8 +904,8 @@ failed placement does not consume `maxConcurrentCalls` capacity.
 Run setup from the same environment that runs the Gateway:
 
 ```bash
-openclaw voicecall setup
-openclaw voicecall setup --json
+granted voicecall setup
+granted voicecall setup --json
 ```
 
 For `twilio`, `telnyx`, and `plivo`, `webhook-exposure` must be green. A
@@ -944,8 +944,8 @@ Use one public exposure path:
 After changing config, restart or reload the Gateway, then run:
 
 ```bash
-openclaw voicecall setup
-openclaw voicecall smoke
+granted voicecall setup
+granted voicecall smoke
 ```
 
 `voicecall smoke` is a dry run unless you pass `--yes`.
@@ -983,15 +983,15 @@ Twilio Console:
 Media Streams `stop`/WebSocket close handling is the primary auto-end path and
 does not depend on the HTTP status callback. Twilio's optional `<Stream
 statusCallback>` is a separate stream-diagnostic signal and is not required for
-teardown. `openclaw voicecall setup` validates local configuration and webhook
+teardown. `granted voicecall setup` validates local configuration and webhook
 exposure; it cannot inspect or change Twilio Console settings.
 
 Then inspect runtime state:
 
 ```bash
-openclaw voicecall status --call-id <id>
-openclaw voicecall tail
-openclaw logs --follow
+granted voicecall status --call-id <id>
+granted voicecall tail
+granted logs --follow
 ```
 
 Common causes:
@@ -1026,14 +1026,14 @@ Google Meet uses this plugin for Twilio dial-in joins. First verify Voice
 Call:
 
 ```bash
-openclaw voicecall setup
-openclaw voicecall smoke --to "+15555550123"
+granted voicecall setup
+granted voicecall smoke --to "+15555550123"
 ```
 
 Then verify the Google Meet transport explicitly:
 
 ```bash
-openclaw googlemeet setup --transport twilio
+granted googlemeet setup --transport twilio
 ```
 
 If Voice Call is green but the Meet participant never joins, check the Meet
@@ -1046,7 +1046,7 @@ plugin's `voiceCall.dtmfDelayMs` (default **12000 ms**) as leading Twilio
 wait digits, because Meet dial-in prompts can arrive late. Voice Call then
 redirects back to realtime handling before the intro greeting is requested.
 
-Use `openclaw logs --follow` for the live phase trace. A healthy Twilio Meet
+Use `granted logs --follow` for the live phase trace. A healthy Twilio Meet
 join logs this order:
 
 - Google Meet delegates the Twilio join to Voice Call.
@@ -1055,7 +1055,7 @@ join logs this order:
 - Voice Call serves realtime TwiML for the Twilio call.
 - Google Meet requests intro speech with `voicecall.speak` after the post-DTMF delay.
 
-`openclaw voicecall tail` still shows persisted call records; useful for
+`granted voicecall tail` still shows persisted call records; useful for
 call state and transcripts, but not every webhook/realtime transition
 appears there.
 
@@ -1069,7 +1069,7 @@ For realtime Twilio/Telnyx calls, also verify:
 - A realtime provider plugin is loaded and registered.
 - `realtime.provider` is unset or names a registered provider.
 - The provider API key is available to the Gateway process.
-- `openclaw logs --follow` shows realtime TwiML served, the realtime bridge started, and the initial greeting queued.
+- `granted logs --follow` shows realtime TwiML served, the realtime bridge started, and the initial greeting queued.
 
 ## Related
 

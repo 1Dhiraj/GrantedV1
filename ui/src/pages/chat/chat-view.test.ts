@@ -6788,7 +6788,11 @@ describe("chat model controls", () => {
   it("renders an accessible skeleton and reserves hidden effort geometry before the snapshot", () => {
     const { state } = createChatHeaderState();
     const container = renderModelControls(state, {
-      modelCatalogState: { hasSnapshot: false, status: "loading" },
+      modelCatalogState: {
+        hasSnapshot: false,
+        hasCompleteSnapshot: false,
+        status: "loading",
+      },
       modelsLoading: true,
     });
     const trigger = getChatModelSelect(container);
@@ -6797,9 +6801,28 @@ describe("chat model controls", () => {
     expect(trigger.getAttribute("aria-disabled")).toBe("false");
     expect(trigger.querySelector(".chat-controls__model-trigger-skeleton")).not.toBeNull();
     expect(trigger.textContent).not.toContain("Loading models");
+    expect(container.querySelector("[data-chat-model-option]")).toBeNull();
+    expect(container.querySelector("[data-chat-model-catalog-summary]")).toBeNull();
+    expect(container.textContent).toContain("Loading models…");
     const effort = container.querySelector(".chat-controls__effort-picker");
     expect(effort?.getAttribute("aria-hidden")).toBe("true");
     expect(effort?.hasAttribute("inert")).toBe(true);
+  });
+
+  it("keeps a complete all-provider inventory visible while it refreshes", () => {
+    const { state } = createChatHeaderState();
+    const container = renderModelControls(state, {
+      modelCatalogState: {
+        hasSnapshot: true,
+        hasCompleteSnapshot: true,
+        status: "loading",
+      },
+      modelsLoading: true,
+    });
+
+    expect(container.querySelector("[data-chat-model-option]")).not.toBeNull();
+    expect(container.querySelector("[data-chat-model-catalog-summary]")).not.toBeNull();
+    expect(container.textContent).toContain("Loading models…");
   });
 
   it("shows disabled configured models and model setup when no model has authentication", () => {
@@ -6881,6 +6904,7 @@ describe("chat model controls", () => {
     expect(cold?.dataset.chatModelSetup).toBe("true");
     expect(recovering?.disabled).toBe(true);
     expect(recovering?.textContent).not.toContain("Sign-in needed");
+    expect(recovering?.textContent).toContain("Unavailable");
     recovering?.click();
     expect(onModelSetup).not.toHaveBeenCalled();
     cold?.click();
@@ -6957,6 +6981,32 @@ describe("chat model controls", () => {
     modelOption?.click();
 
     expect(onModelSelect).toHaveBeenCalledWith(modelOption?.dataset.chatModelOption, "main");
+  });
+
+  it("discloses the complete model and provider inventory in the picker", () => {
+    const { state } = createChatHeaderState({
+      models: [
+        { id: "gpt-5.6-sol", name: "GPT-5.6 Sol", provider: "openai", available: true },
+        { id: "claude-fable-5", name: "Claude Fable 5", provider: "claude-cli", available: true },
+        { id: "gemini-3.8-flash", name: "Gemini 3.8 Flash", provider: "google", available: true },
+      ],
+    });
+    const container = renderModelControls(state);
+
+    expect(container.querySelector("[data-chat-model-catalog-summary]")?.textContent).toContain(
+      "3 models · 3 providers",
+    );
+    expect(
+      [...container.querySelectorAll("[data-chat-model-option]")].map(
+        (option) => (option as HTMLElement).dataset.chatModelOption,
+      ),
+    ).toEqual(
+      expect.arrayContaining([
+        "openai/gpt-5.6-sol",
+        "claude-cli/claude-fable-5",
+        "google/gemini-3.8-flash",
+      ]),
+    );
   });
 
   it.each([
@@ -8633,6 +8683,28 @@ describe("chat model controls", () => {
         .querySelector<HTMLButtonElement>('[data-chat-model-option="openai/gpt-5.5"]')
         ?.getAttribute("aria-selected"),
     ).toBe("true");
+  });
+
+  it("naturally orders newer model versions first within each provider", () => {
+    const { state } = createChatHeaderState({
+      model: "gpt-5.6-luna",
+      modelProvider: "openai",
+      models: [
+        { id: "gpt-5.6-luna", name: "GPT-5.6 Luna", provider: "openai" },
+        { id: "gpt-5.4", name: "GPT-5.4", provider: "openai" },
+        { id: "gpt-6-sol", name: "GPT-6 Sol", provider: "openai" },
+        { id: "gpt-6-astra", name: "GPT-6 Astra", provider: "openai" },
+      ],
+    });
+    const container = renderModelControls(state);
+
+    expect(
+      [
+        ...container.querySelectorAll<HTMLElement>(
+          '[data-chat-model-provider-group="openai"] [data-chat-model-option]',
+        ),
+      ].map((row) => row.dataset.chatModelOption),
+    ).toEqual(["openai/gpt-6-sol", "openai/gpt-6-astra", "openai/gpt-5.6-luna", "openai/gpt-5.4"]);
   });
 
   it("keeps the speed toggle visible and disabled for unsupported providers", () => {

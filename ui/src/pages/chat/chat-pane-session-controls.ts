@@ -16,7 +16,11 @@ import {
 } from "./chat-session.ts";
 import { patchChatSessionSettings } from "./chat-settings-patches.ts";
 import type { ChatPageHost } from "./chat-state-host.ts";
-import { refreshChatModelCatalogOnDemand } from "./chat-state-refresh.ts";
+import {
+  hasCompleteChatModelCatalogForPicker,
+  readChatModelCatalogForPicker,
+  refreshChatModelCatalogOnDemand,
+} from "./chat-state-refresh.ts";
 import type { ChatProps } from "./chat-view.ts";
 import {
   renderChatModelControls,
@@ -72,6 +76,7 @@ function resolveChatModelCatalogState(
     state.chatModelCatalog.length > 0 || (!state.chatModelsLoading && !state.chatModelCatalogError);
   return {
     hasSnapshot,
+    hasCompleteSnapshot: hasCompleteChatModelCatalogForPicker(state),
     status: !state.connected
       ? "offline"
       : state.chatModelCatalogError
@@ -125,6 +130,7 @@ export function renderChatPaneComposerControls(params: {
   const currentChange = pendingChange?.ownsSelection() ? pendingChange : undefined;
   const permissionApplying = Boolean(currentChange || selectedSession?.permissionModePending);
   const modelCatalogState = resolveChatModelCatalogState(state);
+  const pickerModelCatalog = readChatModelCatalogForPicker(state);
   const thinkingLevelOverride = state.sessions.think(sessionKey, agentScope.agentId);
   const thinkingSession = thinkingLevelOverride
     ? { ...selectedSession, thinkingLevel: thinkingLevelOverride }
@@ -138,7 +144,7 @@ export function renderChatPaneComposerControls(params: {
           connected: state.connected,
           gatewayAvailable: Boolean(state.client),
           loading: state.chatLoading,
-          modelCatalog: state.chatModelCatalog,
+          modelCatalog: pickerModelCatalog,
           modelCatalogState,
           modelOverrides: state.sessions.state.modelOverrides,
           thinkingSession,

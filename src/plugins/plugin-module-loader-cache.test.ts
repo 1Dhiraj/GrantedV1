@@ -749,7 +749,7 @@ describe("getCachedPluginModuleLoader", () => {
     ]);
   });
 
-  it("can transform OpenClaw dependencies on a forced source fallback", async () => {
+  it("can transform Granted dependencies on a forced source fallback", async () => {
     const fromSourceTransformer = vi.fn(() => ({ fromSourceTransform: true }));
     const createJiti = vi.fn(() => fromSourceTransformer);
     const nativeStub = vi.fn(() => ({ ok: true, moduleExport: { fromNative: true } }));

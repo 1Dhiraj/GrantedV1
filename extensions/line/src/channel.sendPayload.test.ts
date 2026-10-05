@@ -258,7 +258,7 @@ describe("line outbound sendPayload", () => {
 
     const result = await lineOutboundAdapter.sendText!({
       to: "line:user:U123",
-      text: "| Name | Status |\n|---|---|\n| OpenClaw | ready |",
+      text: "| Name | Status |\n|---|---|\n| Granted | ready |",
       accountId: "default",
       cfg,
       onDeliveryResult,

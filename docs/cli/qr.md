@@ -1,23 +1,23 @@
 ---
-summary: "CLI reference for `openclaw qr` (generate mobile pairing QR + setup code)"
+summary: "CLI reference for `granted qr` (generate mobile pairing QR + setup code)"
 read_when:
   - You want to pair a mobile node app with a gateway quickly
   - You need setup-code output for remote/manual sharing
 title: "QR"
 ---
 
-# `openclaw qr`
+# `granted qr`
 
 Generate a mobile pairing QR and setup code from your current Gateway configuration.
 
 ```bash
-openclaw qr
-openclaw qr --setup-code-only
-openclaw qr --json
-openclaw qr --remote
-openclaw qr --limited
-openclaw qr --voice-node
-openclaw qr --url wss://gateway.example/ws
+granted qr
+granted qr --setup-code-only
+granted qr --json
+granted qr --remote
+granted qr --limited
+granted qr --voice-node
+granted qr --url wss://gateway.example/ws
 ```
 
 Official OpenClaw iOS and Android apps connect automatically when their
@@ -25,8 +25,8 @@ setup-code metadata matches. If a request remains pending (for example, for a
 non-official client or mismatched metadata), review and approve it:
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
+granted devices list
+granted devices approve <requestId>
 ```
 
 ## Options
@@ -67,8 +67,8 @@ Mobile pairing fails closed for Tailscale/public `ws://` gateway URLs: use Tails
 The QR command advertises Tailscale URLs only when OpenClaw owns the route through `gateway.tailscale.mode=serve|funnel`. Legacy external Serve routes that target the ordinary Gateway listener are not advertised because that listener rejects Tailscale-shaped proxy ingress.
 
 If an older setup used `gateway.bind=lan` with a persistent default HTTPS Serve
-route, run `openclaw doctor` to preview migration to managed ingress. Apply it
-with `openclaw doctor --fix`, then restart the Gateway. Doctor leaves custom
+route, run `granted doctor` to preview migration to managed ingress. Apply it
+with `granted doctor --fix`, then restart the Gateway. Doctor leaves custom
 Serve ports unchanged. Retired named-Service config is removed with managed
 ingress disabled, and Doctor prints manual route-cleanup guidance.
 

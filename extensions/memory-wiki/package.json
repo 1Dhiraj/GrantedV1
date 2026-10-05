@@ -2,7 +2,7 @@
   "name": "@granted/memory-wiki",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw persistent wiki plugin",
+  "description": "Granted persistent wiki plugin",
   "type": "module",
   "dependencies": {
     "mdast-util-from-markdown": "2.0.3",

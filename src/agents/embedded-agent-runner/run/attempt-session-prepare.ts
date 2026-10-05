@@ -2,6 +2,7 @@
  * Prepares transcript boundaries, session management, and active resources.
  * It may assume attempt configuration and tool inputs are ready.
  */
+import { resolveMaxToolSteps } from "../../../config/agent-step-budget.js";
 import type { SessionTranscriptRuntimeTarget } from "../../../config/sessions/session-accessor.js";
 import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import {
@@ -134,7 +135,7 @@ export async function prepareEmbeddedAttemptAgentSession(input: {
     extensionFactories,
   });
   await resourceLoader.reload();
-  // reload() rehydrates disk settings. Reapply OpenClaw's context budget and
+  // reload() rehydrates disk settings. Reapply Granted's context budget and
   // auto-compaction guards before the session can submit a prompt (#75799).
   applyAgentCompactionSettingsFromConfig({
     settingsManager,
@@ -230,6 +231,12 @@ export async function prepareEmbeddedAttemptAgentSession(input: {
   // the session if tool activation or terminal-hook installation fails.
   input.onSessionCreated(activeSession);
   installToolLoopRecoveryCleanup({ agent: activeSession.agent, runId: attempt.runId });
+  // A run that spins must report and stop rather than burn the caller's timeout.
+  activeSession.agent.maxToolSteps = resolveMaxToolSteps({
+    cfg: attempt.config,
+    agentId: input.sessionAgentId,
+    isSubagent: Boolean(attempt.spawnedBy),
+  });
   activeSession.setActiveToolsByName(sessionToolAllowlist);
   let permissionPreparation:
     | { prepare: () => Promise<(prompt: string) => string>; controller: AbortController }

@@ -1,4 +1,4 @@
-// Openrouter plugin entrypoint registers its OpenClaw integration.
+// Openrouter plugin entrypoint registers its Granted integration.
 import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
@@ -18,6 +18,7 @@ import {
 } from "granted/plugin-sdk/provider-stream-family";
 import { asOptionalRecord as readRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
+import manifest from "./granted.plugin.json" with { type: "json" };
 import { buildOpenRouterImageGenerationProvider } from "./image-generation-provider.js";
 import { openrouterMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import {
@@ -28,7 +29,6 @@ import {
 import { buildOpenRouterMusicGenerationProvider } from "./music-generation-provider.js";
 import { createOpenRouterOAuthAuthMethod } from "./oauth.js";
 import { applyOpenrouterConfig, OPENROUTER_DEFAULT_MODEL_REF } from "./onboard.js";
-import manifest from "./granted.plugin.json" with { type: "json" };
 import {
   buildOpenrouterLiveProvider,
   buildOpenrouterProvider,

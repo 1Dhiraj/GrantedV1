@@ -48,15 +48,22 @@ for file in "${files[@]}"; do
   fi
 done
 
+# Every list below goes through xargs rather than expanding inline. A sweeping
+# change - a rename across the tree, say - stages thousands of paths, and the
+# expanded argument list then exceeds the OS limit: the hook dies with
+# "Argument list too long" and the commit is refused for a reason that has
+# nothing to do with the code. xargs splits each list into chunks that fit, and
+# -0 keeps paths with spaces intact.
 format_files=()
 while IFS= read -r -d '' file; do
   format_files+=("$file")
-done < <(node "$FILTER_FILES" format -- "${restage_files[@]}")
+done < <(printf '%s\0' "${restage_files[@]}" | xargs -0 node "$FILTER_FILES" format --)
 
 if [ "${#format_files[@]}" -gt 0 ]; then
-  "$RUN_NODE_TOOL" oxfmt --write --no-error-on-unmatched-pattern "${format_files[@]}"
+  printf '%s\0' "${format_files[@]}" |
+    xargs -0 "$RUN_NODE_TOOL" oxfmt --write --no-error-on-unmatched-pattern
 fi
 
 if [ "${#restage_files[@]}" -gt 0 ]; then
-  git add -- "${restage_files[@]}"
+  printf '%s\0' "${restage_files[@]}" | xargs -0 git add --
 fi

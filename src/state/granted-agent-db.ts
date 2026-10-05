@@ -1,4 +1,4 @@
-// OpenClaw agent database stores agent-scoped persisted runtime state.
+// Granted agent database stores agent-scoped persisted runtime state.
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
@@ -101,7 +101,7 @@ export {
  *
  * Each opened agent database is schema-owned by one normalized agent id, cached
  * per pathname, protected with private file modes, and registered in the shared
- * OpenClaw state database for discovery and maintenance.
+ * Granted state database for discovery and maintenance.
  */
 const GRANTED_AGENT_DB_SLOW_OPEN_MS = 1_000;
 
@@ -184,7 +184,7 @@ function logSlowAgentDatabaseOpen(params: {
   if (params.elapsedMs < GRANTED_AGENT_DB_SLOW_OPEN_MS) {
     return;
   }
-  agentDbLog.warn("slow OpenClaw agent database open", {
+  agentDbLog.warn("slow Granted agent database open", {
     agentId: params.agentId,
     elapsedMs: params.elapsedMs,
     path: params.path,
@@ -240,7 +240,7 @@ export function openOpenClawAgentDatabase(
     }
     if (cached.agentId !== agentId) {
       throw new Error(
-        `OpenClaw agent database ${pathname} is already open for agent ${cached.agentId}; requested agent ${agentId}.`,
+        `Granted agent database ${pathname} is already open for agent ${cached.agentId}; requested agent ${agentId}.`,
       );
     }
     cachedDatabases.delete(pathname);
@@ -514,7 +514,7 @@ function evictLruAgentDatabaseHandles(): void {
       closeCachedOpenClawAgentDatabase(database, { eviction: true });
       cachedDatabases.delete(pathname);
       cachedDatabaseOpenFailures.delete(pathname);
-      agentDbLog.debug("evicted OpenClaw agent database handle", {
+      agentDbLog.debug("evicted Granted agent database handle", {
         agentId: database.agentId,
         openHandles: cachedDatabases.size,
         path: pathname,
@@ -559,7 +559,7 @@ export function getOpenClawAgentDatabaseIfOpen(
   }
   if (database.agentId !== agentId) {
     throw new Error(
-      `OpenClaw agent database ${pathname} is already open for agent ${database.agentId}; requested agent ${agentId}.`,
+      `Granted agent database ${pathname} is already open for agent ${database.agentId}; requested agent ${agentId}.`,
     );
   }
   return database;

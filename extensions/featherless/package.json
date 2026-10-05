@@ -1,7 +1,7 @@
 {
   "name": "@granted/featherless-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw Featherless AI provider plugin.",
+  "description": "Granted Featherless AI provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

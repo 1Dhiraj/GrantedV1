@@ -428,7 +428,7 @@ class ClientTurnRouter implements CodexAppServerTurnRouter {
       return undefined;
     }
     // Open routes service a resumed native turn. Arming starts the handoff to a
-    // new OpenClaw turn, whose requests must wait for its accepted turn id.
+    // new Granted turn, whose requests must wait for its accepted turn id.
     while (route.gate === "armed") {
       const binding = route.binding?.promise;
       if (!binding || !(await waitForPromiseOrAbort(binding, requestSignal))) {

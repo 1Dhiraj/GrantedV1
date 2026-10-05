@@ -55,6 +55,21 @@ type ChatModelPickerParams = {
   onRequestUpdate?: () => void;
 };
 
+const modelLabelCollator = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: "base",
+});
+
+function compareModelOptionsNewestFirst(
+  left: ChatModelPickerOption,
+  right: ChatModelPickerOption,
+): number {
+  // Provider catalogs do not all return newest-first. Natural descending order
+  // keeps versioned families such as GPT-6 ahead of GPT-5 without naming or
+  // special-casing any provider or model family.
+  return -modelLabelCollator.compare(left.label, right.label);
+}
+
 function pickerMenu(target: EventTarget | null): HTMLElement | null {
   return target instanceof Element
     ? target.closest<HTMLElement>(".chat-controls__model-menu")
@@ -248,11 +263,19 @@ function handleModelPickerKeydown(event: KeyboardEvent): void {
 }
 
 export function renderChatModelPicker(params: ChatModelPickerParams) {
-  const defaultModelOption = params.modelOptions.find((option) => option.isDefault);
+  // Session metadata arrives quickly but contains only configured models. On a
+  // cold open, keep that partial projection out of the picker until the complete
+  // all-provider inventory arrives; otherwise the menu appears to lose and gain
+  // hundreds of models while the operator is trying to select one.
+  const awaitingCompleteCatalog =
+    params.modelCatalogState?.status === "loading" &&
+    params.modelCatalogState.hasCompleteSnapshot === false;
+  const modelOptions = awaitingCompleteCatalog ? [] : params.modelOptions;
+  const defaultModelOption = modelOptions.find((option) => option.isDefault);
   const activeModelOption =
     params.selectedModelValue === ""
       ? defaultModelOption
-      : params.modelOptions.find((option) => option.value === params.selectedModelValue);
+      : modelOptions.find((option) => option.value === params.selectedModelValue);
   const modelToolsUnavailable = activeModelOption?.supportsTools === false;
   const selectedContextWindowOption = params.contextWindow?.options.find(
     (option) => option.id === params.contextWindow?.selected,
@@ -282,13 +305,16 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
         })
       : nothing;
   const providerGroups = new Map<string, ChatModelPickerOption[]>();
-  for (const option of params.modelOptions) {
+  for (const option of modelOptions) {
     const existing = providerGroups.get(option.provider);
     if (existing) {
       existing.push(option);
     } else {
       providerGroups.set(option.provider, [option]);
     }
+  }
+  for (const options of providerGroups.values()) {
+    options.sort(compareModelOptionsNewestFirst);
   }
   const orderedProviderGroups = [...providerGroups];
   const defaultProviderIndex = orderedProviderGroups.findIndex(
@@ -302,12 +328,12 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
   }
   const orderedOptions = orderedProviderGroups.flatMap(([, options]) => options);
   const optionIndex = new Map(orderedOptions.map((option, index) => [option.value, index]));
-  const targetGroups = params.targetGroups ?? [];
+  const targetGroups = awaitingCompleteCatalog ? [] : (params.targetGroups ?? []);
   const targetOptionCount = targetGroups.reduce((count, group) => count + group.options.length, 0);
   const hasOptions =
-    params.modelOptions.length + targetOptionCount > 0 ||
+    modelOptions.length + targetOptionCount > 0 ||
     targetGroups.some((group) => group.status !== "ready");
-  const hasSelectableModelOptions = params.modelOptions.some((option) => !option.disabled);
+  const hasSelectableModelOptions = modelOptions.some((option) => !option.disabled);
   const commitModel = (value: string) => {
     if (params.modelSelectionLocked) {
       return;
@@ -462,7 +488,7 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
                 </div>
               `
             : html`
-                ${params.modelOptions.length > 0
+                ${modelOptions.length > 0
                   ? html`
                       <div class="chat-controls__model-search-wrap">
                         ${icons.search}
@@ -482,11 +508,20 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
                           @keydown=${handleModelSearchKeydown}
                         />
                       </div>
+                      <div
+                        class="chat-controls__model-catalog-summary"
+                        data-chat-model-catalog-summary
+                      >
+                        ${t("chat.modelControls.catalogSummary", {
+                          models: String(modelOptions.length),
+                          providers: String(providerGroups.size),
+                        })}
+                      </div>
                     `
                   : nothing}
                 ${renderChatModelCatalogState(
                   params.modelCatalogState,
-                  params.modelOptions.length > 0,
+                  modelOptions.length > 0,
                   hasSelectableModelOptions,
                   params.onModelSetup,
                 )}
@@ -596,7 +631,7 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
                         : nothing}
                       ${selectionTargetLabel ||
                       sessionPinProvenanceLabel ||
-                      (params.sessionModelPinned && params.modelOptions.length > 0)
+                      (params.sessionModelPinned && modelOptions.length > 0)
                         ? html`<footer class="chat-controls__model-provenance">
                             ${selectionTargetLabel || sessionPinProvenanceLabel
                               ? html`<span>
@@ -615,7 +650,7 @@ export function renderChatModelPicker(params: ChatModelPickerParams) {
                                     : nothing}
                                 </span>`
                               : nothing}
-                            ${params.sessionModelPinned && params.modelOptions.length > 0
+                            ${params.sessionModelPinned && modelOptions.length > 0
                               ? html`<button
                                   class="chat-controls__model-reset"
                                   data-chat-model-reset="true"

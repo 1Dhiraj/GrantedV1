@@ -22,7 +22,8 @@ describe("nvidia onboard", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro-0813",
+      "google/gemma-4-31b-it",
+      "openai/gpt-oss-20b",
     ]);
     // Config stores the canonical form; the picker label shows the literal
     // form via preserveLiteralProviderPrefix.
@@ -50,7 +51,8 @@ describe("nvidia onboard", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro-0813",
+      "google/gemma-4-31b-it",
+      "openai/gpt-oss-20b",
     ]);
   });
 
@@ -76,7 +78,8 @@ describe("nvidia onboard", () => {
       "z-ai/glm-5.2",
       "moonshotai/kimi-k2.6",
       "minimaxai/minimax-m3",
-      "deepseek-ai/deepseek-v4-pro-0813",
+      "google/gemma-4-31b-it",
+      "openai/gpt-oss-20b",
     ]);
   });
 });

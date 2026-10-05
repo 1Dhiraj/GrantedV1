@@ -1,5 +1,5 @@
 /**
- * OpenClaw plugin tool resolver.
+ * Granted plugin tool resolver.
  *
  * This module builds runtime plugin tools from config/options, delivery context,
  * auth profiles, and the current runtime config snapshot.
@@ -23,15 +23,15 @@ import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { resolveApiKeyForProfile, resolveAuthProfileOrder } from "./auth-profiles.js";
 import type { AuthProfileStore } from "./auth-profiles/types.js";
 import {
+  resolveOpenClawPluginToolInputs,
+  type GrantedPluginToolOptions,
+} from "./granted-tools.plugin-context.js";
+import {
   createRuntimeProviderAuthLookup,
   hasRuntimeAvailableProviderAuth,
   resolveApiKeyForProviderCore as resolveProviderAuth,
 } from "./model-auth.js";
 import { createNodePluginTools } from "./node-plugin-tools.js";
-import {
-  resolveOpenClawPluginToolInputs,
-  type GrantedPluginToolOptions,
-} from "./granted-tools.plugin-context.js";
 import type { PreparedModelRuntimeSnapshot } from "./prepared-model-runtime.types.js";
 import { resolveAgentRuntimeToolConfig } from "./tool-runtime-config.js";
 import type { AnyAgentTool } from "./tools/common.js";

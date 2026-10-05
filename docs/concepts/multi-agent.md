@@ -71,7 +71,7 @@ If you configure nothing, OpenClaw runs one agent:
 Add a new isolated agent:
 
 ```bash
-openclaw agents add work
+granted agents add work
 ```
 
 Flags: `--workspace <dir>`, `--model <id>`, `--agent-dir <dir>`, `--bind <channel[:accountId]>` (repeatable), `--non-interactive` (requires `--workspace`).
@@ -79,7 +79,7 @@ Flags: `--workspace <dir>`, `--model <id>`, `--agent-dir <dir>`, `--bind <channe
 Add `bindings` to route inbound messages (the wizard offers to do this for you), then verify:
 
 ```bash
-openclaw agents list --bindings
+granted agents list --bindings
 ```
 
 ### Agent provenance
@@ -93,7 +93,7 @@ shows the requesting agent id to the operator, and creates the agent only after
 operator approval. Inspect the current creation hierarchy with:
 
 ```bash
-openclaw agents list --tree
+granted agents list --tree
 ```
 
 Deleted creators remain historical provenance. If the creator is no longer in
@@ -104,8 +104,8 @@ the configured roster, its children appear at the root of the tree.
 <Steps>
   <Step title="Create each agent workspace">
     ```bash
-    openclaw agents add coding
-    openclaw agents add social
+    granted agents add coding
+    granted agents add social
     ```
 
     Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and optional `USER.md`, plus a dedicated `agentDir` and session store. By default, those agent files live under `~/.openclaw/agents/<agentId>`.
@@ -119,7 +119,7 @@ the configured roster, its children appear at the root of the tree.
     - WhatsApp: link each phone number per account.
 
     ```bash
-    openclaw channels login --channel whatsapp --account work
+    granted channels login --channel whatsapp --account work
     ```
 
     See channel guides: [Discord](/channels/discord), [Telegram](/channels/telegram), [WhatsApp](/channels/whatsapp).
@@ -130,9 +130,9 @@ the configured roster, its children appear at the root of the tree.
   </Step>
   <Step title="Restart and verify">
     ```bash
-    openclaw gateway restart
-    openclaw agents list --bindings
-    openclaw channels status --probe
+    granted gateway restart
+    granted agents list --bindings
+    granted channels status --probe
     ```
   </Step>
 </Steps>
@@ -232,7 +232,7 @@ Bindings are deterministic and most-specific wins. See [Channel routing](/channe
 - If a binding sets multiple match fields (for example `peer` + `guildId`), all specified fields must match (`AND` semantics).
 - A binding that omits `accountId` matches only the default account, not every account. Use `accountId: "*"` for a channel-wide fallback, or `accountId: "<name>"` for one account. Adding the same binding again with an explicit account id upgrades the existing channel-only binding instead of duplicating it.
 
-For existing multi-agent configs, `openclaw doctor --fix` materializes legacy ambient default routing into channel-wide bindings plus explicit heartbeat, Custodian, and Talk targets. Single-agent configs are unchanged.
+For existing multi-agent configs, `granted doctor --fix` materializes legacy ambient default routing into channel-wide bindings plus explicit heartbeat, Custodian, and Talk targets. Single-agent configs are unchanged.
 
 For a multi-agent roster defined directly in the main config file without a
 legacy `default: true` marker, Doctor adds `agents.ownership: "explicit"` for
@@ -358,8 +358,8 @@ Channels supporting multiple accounts: `discord`, `feishu`, `googlechat`, `imess
     Link each account before starting the gateway:
 
     ```bash
-    openclaw channels login --channel whatsapp --account personal
-    openclaw channels login --channel whatsapp --account biz
+    granted channels login --channel whatsapp --account personal
+    granted channels login --channel whatsapp --account biz
     ```
 
     `~/.openclaw/openclaw.json` (JSON5):

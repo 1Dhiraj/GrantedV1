@@ -1,4 +1,4 @@
-// Tavily plugin entrypoint registers its OpenClaw integration.
+// Tavily plugin entrypoint registers its Granted integration.
 import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { createTavilyExtractTool } from "./src/tavily-extract-tool.js";
 import { createTavilyWebSearchProvider } from "./src/tavily-search-provider.js";

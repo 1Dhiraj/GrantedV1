@@ -75,7 +75,7 @@ override. Any configured DM isolation defaults it off. An explicit `true` or
 OpenClaw's built-in memory provider supports this protected path. Alternate memory providers can keep using their own
 recall hooks and advanced Active Memory tools, but this setting is skipped
 unless the current provider supports protected private transcript recall.
-`openclaw doctor` reports an unsupported provider or an explicit Active Memory
+`granted doctor` reports an unsupported provider or an explicit Active Memory
 `toolsAllow` list that omits `memory_search`.
 
 The retrieval boundary is narrower than general session search:
@@ -113,8 +113,8 @@ Changing the embedding provider, model, provider settings, sources, scope,
 chunking, or tokenizer can make the existing SQLite vector index incompatible.
 OpenClaw pauses vector search and reports an index identity warning instead of
 automatically re-embedding everything. Rebuild when you are ready with
-`openclaw memory status --index --agent <id>` or
-`openclaw memory index --force --agent <id>`.
+`granted memory status --index --agent <id>` or
+`granted memory index --force --agent <id>`.
 </Warning>
 
 When `provider` is unset, legacy `provider: "auto"` is present, or
@@ -170,7 +170,7 @@ Remote embeddings require an API key. Bedrock uses the AWS SDK default credentia
 | Voyage         | `VOYAGE_API_KEY`                                    | `models.providers.voyage.apiKey`    |
 
 For custom OpenAI-compatible providers, `models.providers.<id>.apiKey` can name
-an API-key or bearer-token profile saved with [`openclaw models auth`](/cli/models#auth-profiles),
+an API-key or bearer-token profile saved with [`granted models auth`](/cli/models#auth-profiles),
 such as `my-embeddings:default`. Literal keys keep their configured value even
 when other profiles are saved for the provider. Empty keys do not select a saved profile.
 
@@ -237,8 +237,8 @@ Use `provider: "openai-compatible"` for a generic OpenAI-compatible
     default `gemini-embedding-001` keeps its existing identity when this setting
     is absent; an explicitly configured value that was previously ignored now
     also changes the identity. For either path, check the affected agent with
-    `openclaw memory status --deep --agent <id>`, then rebuild when ready with
-    `openclaw memory index --force --agent <id>`.
+    `granted memory status --deep --agent <id>`, then rebuild when ready with
+    `granted memory index --force --agent <id>`.
     </Warning>
 
   </Accordion>
@@ -350,11 +350,11 @@ Use `provider: "openai-compatible"` for a generic OpenAI-compatible
     Use the standalone CLI to verify the same provider path the Gateway uses:
 
     ```bash
-    openclaw memory status --deep --agent main
-    openclaw memory index --force --agent main
+    granted memory status --deep --agent main
+    granted memory index --force --agent main
     ```
 
-    Cache placement is provider-owned. `openclaw memory status --deep` reports
+    Cache placement is provider-owned. `granted memory status --deep` reports
     server build, model path, capability, and endpoint facts observed from the
     managed server after it has handled an embedding request.
 
@@ -493,7 +493,7 @@ Internal dreaming-narrative, cron, and heartbeat session transcripts are not
 indexed, including retained compressed narrative archives whose live session
 metadata is gone. They may quote fragments from user conversations but are not
 searchable memory sources. Sessions purged with
-[`openclaw memory forget`](/cli/memory#memory-forget) are also durably excluded,
+[`granted memory forget`](/cli/memory#memory-forget) are also durably excluded,
 even though their source transcripts remain in the session store. A forced
 reindex removes stale transcript records without readmitting either group.
 Ordinary user-session transcripts, including retained, reset, and
@@ -507,7 +507,7 @@ both `memory` and `sessions`, resulting in overlapping search results and
 additional embedding work. For hook-only recall, set `sources: ["memory"]` and
 `rememberAcrossConversations: false`; `sources` alone is insufficient because
 cross-conversation recall automatically adds `sessions`. For full-transcript
-recall instead, run `openclaw hooks disable session-memory`. Enable both only
+recall instead, run `granted hooks disable session-memory`. Enable both only
 when you intentionally want both representations.
 </Note>
 

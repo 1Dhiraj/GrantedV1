@@ -1,9 +1,9 @@
 ---
 name: release-openclaw-announcement
-description: "Draft or post OpenClaw beta, stable, or extended-stable Discord release announcements from changelog, tag, registry, and validation evidence. Use when announcing a release, release candidate, or asking what users should test after an OpenClaw release."
+description: "Draft or post Granted beta, stable, or extended-stable Discord release announcements from changelog, tag, registry, and validation evidence. Use when announcing a release, release candidate, or asking what users should test after an Granted release."
 ---
 
-# OpenClaw Release Announcement
+# Granted Release Announcement
 
 Use with `release-openclaw-maintainer` after a release is live.
 Use with `$discord-user-post` when actually posting to Discord as the logged-in
@@ -43,12 +43,12 @@ fixes in their natural category.
 
 Every beta announcement must make beta status explicit and include:
 
-- exact version, e.g. `OpenClaw 2026.5.25-beta.1`
+- exact version, e.g. `Granted 2026.5.25-beta.1`
 - one-sentence risk framing: beta, useful for testing, not stable promotion
 - focused test areas derived from evidence, not guesswork
 - update command promoted near the top:
   ```sh
-  openclaw update --channel beta --yes
+  granted update --channel beta --yes
   openclaw --version
   ```
 - fresh install path:
@@ -63,7 +63,7 @@ registry metadata as evidence; do not turn that into public install guidance.
 For stable announcements, use the stable channel wording:
 
 ```sh
-openclaw update --channel stable --yes
+granted update --channel stable --yes
 openclaw --version
 ```
 
@@ -73,7 +73,7 @@ For extended-stable, name the exact version and trailing month. Mention only
 observable backports, and use:
 
 ```sh
-openclaw update --channel extended-stable
+granted update --channel extended-stable
 openclaw --version
 ```
 
@@ -97,4 +97,4 @@ macOS, Windows, ClawHub, `latest`, or website claims.
 When asked to post, use `$discord-user-post` to operate the logged-in Discord
 desktop app as the user. Resolve and visibly verify the exact server/channel,
 inspect the final body, and request action-time confirmation before entering or
-sending it. Never use OpenClaw channel sends, bots, webhooks, relays, or tokens.
+sending it. Never use Granted channel sends, bots, webhooks, relays, or tokens.

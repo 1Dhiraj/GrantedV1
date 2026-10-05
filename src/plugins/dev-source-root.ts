@@ -6,7 +6,7 @@ import { isPluginInPackageBundledRoots } from "./bundled-dir.js";
 import { pluginCacheExistsSync, pluginCacheRealpathSync } from "./plugin-cache-files.js";
 import { getPluginCache } from "./plugin-cache.js";
 
-/** Env var that points bundled-plugin lookup at an OpenClaw source checkout. */
+/** Env var that points bundled-plugin lookup at an Granted source checkout. */
 const GRANTED_DEV_SOURCE_ROOT_ENV = "GRANTED_DEV_SOURCE_ROOT";
 
 function readPackageName(packageJsonPath: string): string | null {
@@ -18,7 +18,7 @@ function readPackageName(packageJsonPath: string): string | null {
   }
 }
 
-/** Resolves and validates the configured OpenClaw development source root. */
+/** Resolves and validates the configured Granted development source root. */
 export function resolveOpenClawDevSourceRoot(env: NodeJS.ProcessEnv = process.env): string | null {
   const rawRoot = env[GRANTED_DEV_SOURCE_ROOT_ENV]?.trim();
   if (!rawRoot) {

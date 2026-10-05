@@ -67,6 +67,30 @@ describe("resolveWorkspaceTemplateSearchDirs", () => {
     }
   });
 
+  it("finds templates when the process cwd is unrelated to the package", async () => {
+    // A service launcher (Windows Startup item, systemd unit) runs with whatever
+    // cwd it inherits. Resolution that leans on cwd leaves the agent with no
+    // template directories at all, and every run fails on a missing AGENTS.md.
+    const { resolveWorkspaceTemplateSearchDirs } = await loadWorkspaceTemplateResolvers();
+    const root = tempDirs.make("granted-templates-");
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "granted" }));
+    const templatesDir = path.join(root, "docs", "reference", "templates");
+    await fs.mkdir(templatesDir, { recursive: true });
+    await fs.writeFile(path.join(templatesDir, "AGENTS.md"), "# ok\n");
+    const distDir = path.join(root, "dist");
+    await fs.mkdir(distDir, { recursive: true });
+    const moduleUrl = pathToFileURL(path.join(distDir, "index.js")).toString();
+    const foreignCwd = tempDirs.make("granted-foreign-cwd-");
+
+    const resolved = await resolveWorkspaceTemplateSearchDirs({
+      cwd: foreignCwd,
+      argv1: path.join(distDir, "index.js"),
+      moduleUrl,
+    });
+
+    expect(resolved).toContain(templatesDir);
+  });
+
   it("does not ship a retired runtime heartbeat template", async () => {
     const heartbeatTemplate = path.resolve("src", "agents", "templates", "HEARTBEAT.md");
 

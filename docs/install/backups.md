@@ -34,9 +34,9 @@ committed state safely.
 
 ## Choose a path
 
-- One-off, everything, portable: `openclaw backup create` archive.
-- One database, compact and verified: `openclaw backup sqlite create`.
-- Versioned and incremental by content: `openclaw backup git create`.
+- One-off, everything, portable: `granted backup create` archive.
+- One database, compact and verified: `granted backup sqlite create`.
+- Versioned and incremental by content: `granted backup git create`.
 - Regular protection: provision the Gateway-owned backup automation.
 - Continuous, incremental, seconds of data loss: replicate the databases with
   Litestream.
@@ -46,7 +46,7 @@ committed state safely.
 ## Full archives
 
 ```bash
-openclaw backup create --output ~/Backups/openclaw --verify
+granted backup create --output ~/Backups/openclaw --verify
 ```
 
 This writes a timestamped `.tar.gz` covering state, config, credentials, every
@@ -71,21 +71,21 @@ daily routine for small installs. For large workspaces or frequent backups,
 prefer snapshots or continuous replication below.
 
 On ephemeral container hosts, keep the archive outside the container and use
-`openclaw backup restore` as the disaster-recovery primitive for rebuilding a
+`granted backup restore` as the disaster-recovery primitive for rebuilding a
 fresh persistent state tree. Restore stages files only; activation remains an
 explicit offline deployment step.
 
 ## Per-database snapshots
 
 ```bash
-openclaw backup sqlite create --global --repository ~/Backups/openclaw-sqlite
-openclaw backup sqlite create --agent main --repository ~/Backups/openclaw-sqlite
+granted backup sqlite create --global --repository ~/Backups/openclaw-sqlite
+granted backup sqlite create --agent main --repository ~/Backups/openclaw-sqlite
 ```
 
 Each run publishes one verified snapshot directory (`manifest.json` plus
 `database.sqlite`) into the repository directory. Snapshots are vacuumed, so
 deleted-page remnants do not inflate them, and every snapshot records a
-SHA-256 that `openclaw backup sqlite verify` rechecks later.
+SHA-256 that `granted backup sqlite verify` rechecks later.
 
 `--agent <id>` resolves the database from that agent's configured `agentDir`,
 including roots outside the state directory. The same owner-derived lookup
@@ -106,8 +106,8 @@ Pushing requires the repository to have an `origin` remote first, so
 initialize it once before enabling a pushed schedule:
 
 ```bash
-openclaw backup git init --repository ~/Backups/openclaw-git --remote git@github.com:you/openclaw-backups.git
-openclaw backup enable --repository ~/Backups/openclaw-git --every 24h --push
+granted backup git init --repository ~/Backups/openclaw-git --remote git@github.com:you/openclaw-backups.git
+granted backup enable --repository ~/Backups/openclaw-git --every 24h --push
 ```
 
 `backup enable --push` refuses to schedule when no `origin` remote is
@@ -127,7 +127,7 @@ Use `--global-only` or `--agent <id>` to narrow the scope. Add
 the fixed scheduled job instead of creating another one. Disable it with:
 
 ```bash
-openclaw backup disable
+granted backup disable
 ```
 
 The Gateway must be reachable while enabling or disabling the schedule. There
@@ -138,8 +138,8 @@ example that snapshots the control-plane database and the `main` agent
 database:
 
 ```bash
-0 3 * * * openclaw backup sqlite create --global --repository "$HOME/Backups/openclaw-sqlite" --json >> "$HOME/Backups/openclaw-backup.log" 2>&1
-5 3 * * * openclaw backup sqlite create --agent main --repository "$HOME/Backups/openclaw-sqlite" --json >> "$HOME/Backups/openclaw-backup.log" 2>&1
+0 3 * * * granted backup sqlite create --global --repository "$HOME/Backups/openclaw-sqlite" --json >> "$HOME/Backups/openclaw-backup.log" 2>&1
+5 3 * * * granted backup sqlite create --agent main --repository "$HOME/Backups/openclaw-sqlite" --json >> "$HOME/Backups/openclaw-backup.log" 2>&1
 ```
 
 On macOS, a `launchd` job works the same way; on servers provisioned from the
@@ -148,8 +148,8 @@ emits one machine-readable result per run, so the log doubles as a backup
 audit trail. Prune old snapshot directories on your own retention schedule.
 
 Every non-dry-run archive, local SQLite snapshot, and Git backup attempt is
-also recorded in the shared state database. `openclaw status` shows the newest
-attempt, and `openclaw doctor` suggests a one-off or scheduled backup when no
+also recorded in the shared state database. `granted status` shows the newest
+attempt, and `granted doctor` suggests a one-off or scheduled backup when no
 successful run is recorded or the newest success is more than 14 days old.
 
 ## Copy backups offsite
@@ -177,9 +177,9 @@ backup-owned `global` and `agents` paths, not unrelated files elsewhere in the
 repository.
 
 ```bash
-openclaw backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
-openclaw backup git create --repository ~/Backups/openclaw-git --all --push
-openclaw backup git log --repository ~/Backups/openclaw-git
+granted backup git init --repository ~/Backups/openclaw-git --remote <private-git-url>
+granted backup git create --repository ~/Backups/openclaw-git --all --push
+granted backup git log --repository ~/Backups/openclaw-git
 ```
 
 Use a repository dedicated to OpenClaw backups. Existing `global/` and
@@ -202,8 +202,8 @@ than a credential-complete backup; see
 Verify or restore one database at any commit without overwriting a live file:
 
 ```bash
-openclaw backup git verify --repository ~/Backups/openclaw-git --ref <commit> --global
-openclaw backup git restore --repository ~/Backups/openclaw-git --ref <commit> --agent main --target ./restored-agent.sqlite
+granted backup git verify --repository ~/Backups/openclaw-git --ref <commit> --global
+granted backup git restore --repository ~/Backups/openclaw-git --ref <commit> --agent main --target ./restored-agent.sqlite
 ```
 
 Git restore converges derived search state: it rebuilds content-backed FTS5
@@ -302,7 +302,7 @@ Restore is deliberately explicit; nothing overwrites live state in place.
 
 ### Restore a full archive
 
-Start only from an archive you created or otherwise trust. `openclaw backup
+Start only from an archive you created or otherwise trust. `granted backup
 verify` checks archive structure and payload layout, but it does not
 authenticate the archive or make untrusted content safe.
 
@@ -312,7 +312,7 @@ staging directory with one command:
 
 ```bash
 ARCHIVE=./2026-03-09T08-00-00.000+08-00-openclaw-backup.tar.gz
-openclaw backup restore "$ARCHIVE" --target ./restored-openclaw
+granted backup restore "$ARCHIVE" --target ./restored-openclaw
 ```
 
 The target must not exist or must be empty, and it must not be inside the live
@@ -329,8 +329,8 @@ sessions, and workspace data.
   ratchet state, especially WhatsApp, may desynchronize after rollback and need
   relinking. Approvals and delivery/dedupe state also roll back, so review
   pending approvals before resuming the Gateway. Plugin `node_modules` trees
-  are not archived; after activation, run `openclaw plugins update <id>` or
-  reinstall with `openclaw plugins install <spec> --force`. Run `openclaw
+  are not archived; after activation, run `granted plugins update <id>` or
+  reinstall with `granted plugins install <spec> --force`. Run `openclaw
   skills list` or start an agent session to regenerate the omitted
   `plugin-skills/` symlink index from current plugin metadata.
 </Warning>
@@ -361,21 +361,21 @@ every custom agent root using its recorded agent id and original source path;
 either preserve its configured `agentDir` or update that setting to its new
 location. On a new machine or under a different home directory, also use the
 manifest to map config, credentials, and workspace assets to their new paths.
-Run `openclaw doctor` before restarting the Gateway. See
+Run `granted doctor` before restarting the Gateway. See
 [Updating](/install/updating#rollback) for the rollback workflow.
 
 ### Restore a database
 
-For a snapshot, `openclaw backup sqlite restore <snapshot-directory> --target
+For a snapshot, `granted backup sqlite restore <snapshot-directory> --target
 <new-database-path>` writes a re-verified database to a fresh target. For Git
-history, `openclaw backup git restore --repository <dir> --ref <commit>
+history, `granted backup git restore --repository <dir> --ref <commit>
 (--global | --agent <id>) --target <new-database-path>` materializes and
 verifies a fresh database. For Litestream, `litestream restore` writes a fresh
 database file. Move the result into place while the Gateway is stopped, then
-start the Gateway and check `openclaw health` and `openclaw doctor`.
+start the Gateway and check `granted health` and `granted doctor`.
 
 After restoring onto a different OpenClaw version, preflight the database
-first with `openclaw database preflight`; see
+first with `granted database preflight`; see
 [Database schemas](/reference/database-schemas#preflight-a-target-release).
 
 ## Related

@@ -23,14 +23,14 @@ OAuth client.
     model/auth step:
 
     ```bash
-    openclaw onboard --install-daemon
+    granted onboard --install-daemon
     ```
 
     On a VPS or over SSH, select xAI OAuth directly; it uses device-code
     verification and does not need a localhost callback:
 
     ```bash
-    openclaw onboard --install-daemon --auth-choice xai-oauth
+    granted onboard --install-daemon --auth-choice xai-oauth
     ```
 
   </Step>
@@ -38,7 +38,7 @@ OAuth client.
     Sign in to xAI only; do not rerun full onboarding just to connect Grok:
 
     ```bash
-    openclaw models auth login --provider xai --method oauth
+    granted models auth login --provider xai --method oauth
     ```
 
     With no existing primary model, OAuth setup selects `xai/auto`. The plugin
@@ -47,7 +47,7 @@ OAuth client.
     It preserves an existing primary; opt in explicitly when needed:
 
     ```bash
-    openclaw models set xai/auto
+    granted models set xai/auto
     ```
 
     Rerun full onboarding only if you intentionally want to change Gateway,
@@ -60,7 +60,7 @@ OAuth client.
     regional-safe setup default:
 
     ```bash
-    openclaw models auth login --provider xai --method api-key
+    granted models auth login --provider xai --method api-key
     export XAI_API_KEY=xai-...
     ```
 
@@ -76,7 +76,7 @@ OAuth client.
 
 <Note>
 OpenClaw uses the xAI Responses API as the bundled xAI transport. The same
-credential from `openclaw models auth login --provider xai --method oauth` or
+credential from `granted models auth login --provider xai --method oauth` or
 `--method api-key` also powers `web_search` (provider id `grok`), `x_search`,
 `code_execution`, speech/transcription, and xAI image/video generation. If you
 store an xAI key under `plugins.entries.xai.config.webSearch.apiKey`, the
@@ -86,16 +86,16 @@ bundled xAI model provider reuses it as a fallback too.
 ## OAuth troubleshooting
 
 - For SSH, Docker, VPS, or other remote setups, use
-  `openclaw models auth login --provider xai --method oauth`; it uses
+  `granted models auth login --provider xai --method oauth`; it uses
   device-code verification, not a localhost callback.
 - If sign-in succeeds but Grok is not the default model, run
-  `openclaw models set xai/auto`. OAuth login preserves an existing
+  `granted models set xai/auto`. OAuth login preserves an existing
   primary model unless you explicitly change it.
 - Inspect saved xAI auth profiles:
 
   ```bash
-  openclaw models auth list --provider xai
-  openclaw models status
+  granted models auth list --provider xai
+  granted models status
   ```
 
 - xAI decides which accounts can receive OAuth API tokens. If an account is
@@ -205,7 +205,7 @@ redirect targets:
 | `grok-code-fast-1`                                                   | Grok Build 0.1                   |
 | `grok-imagine-image-pro`                                             | Grok Imagine Image Quality       |
 
-`openclaw doctor --fix` updates persisted xAI server-tool defaults and the
+`granted doctor --fix` updates persisted xAI server-tool defaults and the
 retired quality image slug, removes stale generated catalog rows, and repairs
 stale context metadata on active 4.20 rows. It does not pin active 4.20
 `beta-latest` aliases to a dated snapshot.
@@ -227,8 +227,8 @@ stale context metadata on active 4.20 rows. It does not pin active 4.20
     to `XAI_API_KEY` or a plugin web-search key:
 
     ```bash
-    openclaw models auth login --provider xai --method oauth
-    openclaw config set tools.web.search.provider grok
+    granted models auth login --provider xai --method oauth
+    granted config set tools.web.search.provider grok
     ```
 
   </Accordion>
@@ -338,7 +338,7 @@ stale context metadata on active 4.20 rows. It does not pin active 4.20
     provider surface.
 
     - Voices: authenticated live catalog from xAI; list it with
-      `openclaw infer tts voices --provider xai`
+      `granted infer tts voices --provider xai`
     - Offline fallback voices: `ara`, `eve`, `leo`, `rex`, `sal`
     - Default voice: `eve`
     - Account custom voice IDs are forwarded even when they are absent from the

@@ -1,4 +1,4 @@
-/** Thin regular-agent client for the OpenClaw system agent. */
+/** Thin regular-agent client for the Granted system agent. */
 import { createHash, randomUUID } from "node:crypto";
 import { Type } from "typebox";
 import { SYSTEM_AGENT_ID } from "../../system-agent/agent-id.js";
@@ -7,7 +7,7 @@ import { callInProcessGatewayTool, type InProcessGatewayCaller } from "./in-proc
 
 const GrantedDelegateSchema = Type.Object({
   message: Type.String({ description: "What system must do." }),
-  sessionId: Type.Optional(Type.String({ description: "Continue prior OpenClaw talk." })),
+  sessionId: Type.Optional(Type.String({ description: "Continue prior Granted talk." })),
 });
 
 const GrantedDelegateOutputSchema = Type.Object(
@@ -52,7 +52,7 @@ function createOpenClawDelegateTool(options?: {
   );
   return {
     name: "openclaw",
-    label: "OpenClaw",
+    label: "Granted",
     description:
       "Ask system expert. Gateway restart, config, channels, plugins, agents, models/providers, updates. Changes need human approval.",
     parameters: GrantedDelegateSchema,

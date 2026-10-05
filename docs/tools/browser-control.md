@@ -2,13 +2,13 @@
 summary: "OpenClaw browser control API, CLI reference, and scripting actions"
 read_when:
   - Scripting or debugging the agent browser via the local control API
-  - Looking for the `openclaw browser` CLI reference
+  - Looking for the `granted browser` CLI reference
   - Adding custom browser automation with snapshots and refs
 title: "Browser control API"
 ---
 
 For setup, configuration, and troubleshooting, see [Browser](/tools/browser).
-This page is the reference for the local control HTTP API, the `openclaw browser`
+This page is the reference for the local control HTTP API, the `granted browser`
 CLI, and scripting patterns (snapshots, refs, waits, debug flows).
 
 ## Control API (optional)
@@ -168,23 +168,23 @@ All commands accept `--browser-profile <name>` to target a specific profile, and
 <Accordion title="Basics: status, tabs, open/focus/close">
 
 ```bash
-openclaw browser status
-openclaw browser doctor
-openclaw browser doctor --deep    # add a live snapshot probe
-openclaw browser start
-openclaw browser start --headless # one-shot local managed headless launch
-openclaw browser stop            # also clears emulation on attach-only/remote CDP
-openclaw browser reset-profile   # moves the profile's browser data to Trash
-openclaw browser tabs
-openclaw browser tab             # shortcut for current tab
-openclaw browser tab new
-openclaw browser tab new --label research
-openclaw browser tab label abcd1234 research
-openclaw browser tab select 2
-openclaw browser tab close 2
-openclaw browser open https://example.com
-openclaw browser focus abcd1234
-openclaw browser close abcd1234
+granted browser status
+granted browser doctor
+granted browser doctor --deep    # add a live snapshot probe
+granted browser start
+granted browser start --headless # one-shot local managed headless launch
+granted browser stop            # also clears emulation on attach-only/remote CDP
+granted browser reset-profile   # moves the profile's browser data to Trash
+granted browser tabs
+granted browser tab             # shortcut for current tab
+granted browser tab new
+granted browser tab new --label research
+granted browser tab label abcd1234 research
+granted browser tab select 2
+granted browser tab close 2
+granted browser open https://example.com
+granted browser focus abcd1234
+granted browser close abcd1234
 ```
 
 </Accordion>
@@ -192,10 +192,10 @@ openclaw browser close abcd1234
 <Accordion title="Profiles: list, create, delete">
 
 ```bash
-openclaw browser profiles
-openclaw browser create-profile --name research --color "#0066CC"
-openclaw browser create-profile --name attach --driver existing-session --cdp-url http://127.0.0.1:9222
-openclaw browser delete-profile --name research
+granted browser profiles
+granted browser create-profile --name research --color "#0066CC"
+granted browser create-profile --name attach --driver existing-session --cdp-url http://127.0.0.1:9222
+granted browser delete-profile --name research
 ```
 
 </Accordion>
@@ -203,24 +203,24 @@ openclaw browser delete-profile --name research
 <Accordion title="Inspection: screenshot, snapshot, console, errors, requests">
 
 ```bash
-openclaw browser screenshot
-openclaw browser screenshot --full-page
-openclaw browser screenshot --ref 12        # or --ref e12
-openclaw browser screenshot --labels
-openclaw browser snapshot
-openclaw browser snapshot --format aria --limit 200
-openclaw browser snapshot --interactive --compact --depth 6
-openclaw browser snapshot --efficient
-openclaw browser snapshot --labels
-openclaw browser snapshot --urls
-openclaw browser snapshot --selector "#main" --interactive
-openclaw browser snapshot --frame "iframe#main" --interactive
-openclaw browser snapshot --out snapshot.txt
-openclaw browser console --level error
-openclaw browser errors --clear
-openclaw browser requests --filter api --clear
-openclaw browser pdf
-openclaw browser responsebody "**/api" --max-chars 5000
+granted browser screenshot
+granted browser screenshot --full-page
+granted browser screenshot --ref 12        # or --ref e12
+granted browser screenshot --labels
+granted browser snapshot
+granted browser snapshot --format aria --limit 200
+granted browser snapshot --interactive --compact --depth 6
+granted browser snapshot --efficient
+granted browser snapshot --labels
+granted browser snapshot --urls
+granted browser snapshot --selector "#main" --interactive
+granted browser snapshot --frame "iframe#main" --interactive
+granted browser snapshot --out snapshot.txt
+granted browser console --level error
+granted browser errors --clear
+granted browser requests --filter api --clear
+granted browser pdf
+granted browser responsebody "**/api" --max-chars 5000
 ```
 
 </Accordion>
@@ -228,32 +228,32 @@ openclaw browser responsebody "**/api" --max-chars 5000
 <Accordion title="Actions: navigate, click, type, drag, wait, evaluate">
 
 ```bash
-openclaw browser navigate https://example.com
-openclaw browser resize 1280 720
-openclaw browser click 12 --double           # or e12 for role refs
-openclaw browser click-coords 120 340        # viewport coordinates
-openclaw browser type 23 "hello" --submit
-openclaw browser press Enter
-openclaw browser hover 44
-openclaw browser scrollintoview e12
-openclaw browser drag 10 11
-openclaw browser select 9 OptionA OptionB
-openclaw browser download e12 report.pdf
-openclaw browser waitfordownload report.pdf
-openclaw browser upload /tmp/openclaw/uploads/file.pdf
-openclaw browser upload /tmp/openclaw/uploads/file.pdf --ref e12
-openclaw browser upload media://inbound/file.pdf
-openclaw browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'
-openclaw browser dialog --accept
-openclaw browser dialog --dismiss --dialog-id d1
-openclaw browser wait --text "Done"
-openclaw browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"
-openclaw browser evaluate --fn '(el) => el.textContent' --ref 7
-openclaw browser evaluate --fn 'const title = document.title; return title;'
-openclaw browser evaluate --timeout-ms 30000 --fn 'async () => { await window.ready; return true; }'
-openclaw browser highlight e12
-openclaw browser trace start
-openclaw browser trace stop
+granted browser navigate https://example.com
+granted browser resize 1280 720
+granted browser click 12 --double           # or e12 for role refs
+granted browser click-coords 120 340        # viewport coordinates
+granted browser type 23 "hello" --submit
+granted browser press Enter
+granted browser hover 44
+granted browser scrollintoview e12
+granted browser drag 10 11
+granted browser select 9 OptionA OptionB
+granted browser download e12 report.pdf
+granted browser waitfordownload report.pdf
+granted browser upload /tmp/openclaw/uploads/file.pdf
+granted browser upload /tmp/openclaw/uploads/file.pdf --ref e12
+granted browser upload media://inbound/file.pdf
+granted browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'
+granted browser dialog --accept
+granted browser dialog --dismiss --dialog-id d1
+granted browser wait --text "Done"
+granted browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"
+granted browser evaluate --fn '(el) => el.textContent' --ref 7
+granted browser evaluate --fn 'const title = document.title; return title;'
+granted browser evaluate --timeout-ms 30000 --fn 'async () => { await window.ready; return true; }'
+granted browser highlight e12
+granted browser trace start
+granted browser trace stop
 ```
 
 </Accordion>
@@ -261,20 +261,20 @@ openclaw browser trace stop
 <Accordion title="State: cookies, storage, offline, headers, geo, device">
 
 ```bash
-openclaw browser cookies
-openclaw browser cookies set session abc123 --url "https://example.com"
-openclaw browser cookies clear
-openclaw browser storage local get
-openclaw browser storage local set theme dark
-openclaw browser storage session clear
-openclaw browser set offline on
-openclaw browser set headers --headers-json '{"X-Debug":"1"}'
-openclaw browser set credentials user pass            # --clear to remove
-openclaw browser set geo 37.7749 -122.4194 --origin "https://example.com"
-openclaw browser set media dark
-openclaw browser set timezone America/New_York
-openclaw browser set locale en-US
-openclaw browser set device "iPhone 14"
+granted browser cookies
+granted browser cookies set session abc123 --url "https://example.com"
+granted browser cookies clear
+granted browser storage local get
+granted browser storage local set theme dark
+granted browser storage session clear
+granted browser set offline on
+granted browser set headers --headers-json '{"X-Debug":"1"}'
+granted browser set credentials user pass            # --clear to remove
+granted browser set geo 37.7749 -122.4194 --origin "https://example.com"
+granted browser set media dark
+granted browser set timezone America/New_York
+granted browser set locale en-US
+granted browser set device "iPhone 14"
 ```
 
 </Accordion>
@@ -310,7 +310,7 @@ Snapshot flags at a glance:
 - `--format aria`: accessibility tree with `axN` refs. When Playwright is available, OpenClaw binds refs with backend DOM ids to the live page so follow-up actions can use them; otherwise treat the output as inspection-only.
 - `--efficient` (or `--mode efficient`): compact role snapshot preset. Set `browser.snapshotDefaults.mode: "efficient"` to make this the default (see [Gateway configuration](/gateway/configuration-reference#browser)).
 - `--interactive`, `--compact`, `--depth`, `--selector` force a role snapshot with `ref=e12` refs. `--frame "<iframe>"` scopes role snapshots to an iframe.
-- A selector-scoped snapshot is a point-in-time observation: if no element matches when the snapshot is requested, it returns an empty snapshot immediately instead of waiting for the snapshot timeout. Use `openclaw browser wait "<selector>"` when the page is expected to add the element later.
+- A selector-scoped snapshot is a point-in-time observation: if no element matches when the snapshot is requested, it returns an empty snapshot immediately instead of waiting for the snapshot timeout. Use `granted browser wait "<selector>"` when the page is expected to add the element later.
 - `--selector` does not change the behavior of page-wide or frame-scoped transport failures; those still use the configured snapshot timeout and diagnostics.
 - With Playwright, `--labels` adds a screenshot with overlayed ref labels
   (prints `MEDIA:<path>`) plus an `annotations` array with each ref's bounding
@@ -326,14 +326,14 @@ Snapshot flags at a glance:
 
 OpenClaw supports three "snapshot" styles:
 
-- **AI snapshot (native refs)**: `openclaw browser snapshot` (default; `--format ai`)
+- **AI snapshot (native refs)**: `granted browser snapshot` (default; `--format ai`)
   - Output: a text snapshot with refs such as `f1e12` and matching `refs` metadata.
-  - Actions: `openclaw browser click f1e12`, `openclaw browser type f1e23 "hello"` (use your snapshot's refs).
+  - Actions: `granted browser click f1e12`, `granted browser type f1e23 "hello"` (use your snapshot's refs).
   - Internally, the ref is resolved via Playwright's `aria-ref`.
 
-- **Role snapshot (role refs like `e12`)**: `openclaw browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
+- **Role snapshot (role refs like `e12`)**: `granted browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
   - Output: a role-based list/tree with `[ref=e12]` (and optional `[nth=1]`).
-  - Actions: `openclaw browser click e12`, `openclaw browser highlight e12`.
+  - Actions: `granted browser click e12`, `granted browser highlight e12`.
   - Internally, the ref is resolved via `getByRole(...)` (plus `nth()` for duplicates).
   - Names containing quotes, backslashes, or YAML punctuation remain actionable; use the ref rather than reconstructing a locator from the displayed name.
   - A missing displayed name can mean an empty accessible name or one above Playwright's 900 UTF-16-unit limit; keep using the returned ref.
@@ -343,9 +343,9 @@ OpenClaw supports three "snapshot" styles:
   - Add `--urls` when link text is ambiguous and the agent needs concrete
     navigation targets.
 
-- **ARIA snapshot (ARIA refs like `ax12`)**: `openclaw browser snapshot --format aria`
+- **ARIA snapshot (ARIA refs like `ax12`)**: `granted browser snapshot --format aria`
   - Output: the accessibility tree as structured nodes.
-  - Actions: `openclaw browser click ax12` works when the snapshot path can bind
+  - Actions: `granted browser click ax12` works when the snapshot path can bind
     the ref through Playwright and Chrome backend DOM ids.
 - If Playwright is unavailable, ARIA snapshots can still be useful for
   inspection, but refs may not be actionable. Re-snapshot with `--format ai`
@@ -378,19 +378,19 @@ Ref behavior:
 
 ## Browser batch CLI
 
-`openclaw browser batch` runs an array of nested `/act` actions in one `/act`
+`granted browser batch` runs an array of nested `/act` actions in one `/act`
 call (the same `kind="batch"` runtime reached through the agent tool), so CLI
 users and scripts can combine actions like `wait`, `click`, `type`, and
 `evaluate` into a single replayable plan without per-action round trips. Each
 entry in `actions[]` is a `BrowserActRequest` — the closed union the `/act`
 route accepts (`click`, `clickCoords`, `type`, `press`, `hover`,
 `scrollIntoView`, `drag`, `select`, `fill`, `resize`, `wait`, `evaluate`,
-`close`, `batch`) — not arbitrary `openclaw browser` subcommands. `batch` is
+`close`, `batch`) — not arbitrary `granted browser` subcommands. `batch` is
 not supported on `profile="user"` and other existing-session (chrome-mcp)
 profiles; send actions individually there.
 
-- CLI: `openclaw browser batch --actions '<json>'`, `openclaw browser batch
---actions-file plan.json`, or `openclaw browser batch --actions-file -` to
+- CLI: `granted browser batch --actions '<json>'`, `granted browser batch
+--actions-file plan.json`, or `granted browser batch --actions-file -` to
   read the JSON array from stdin. `--continue` sets `stopOnError=false`; the
   default is to stop on first error. `--target-id` scopes the whole batch to
   one tab. `--actions-file` and stdin input are capped at 1,000,000 bytes;
@@ -400,7 +400,7 @@ profiles; send actions individually there.
   `click` that triggers navigation, or an `evaluate` that mutates the DOM — can
   invalidate earlier refs for the rest of the batch. Put state-changing actions
   first, or split into a follow-up batch after re-snapshotting. Navigation and
-  re-snapshotting happen outside the batch (`openclaw browser navigate` /
+  re-snapshotting happen outside the batch (`granted browser navigate` /
   `snapshot`), since `open`, `navigate`, and `snapshot` are not `/act` kinds.
 - Target id conflicts: a nested action may omit `targetId` or repeat the
   request-level `targetId`; an explicit nested `targetId` that resolves to a
@@ -421,19 +421,19 @@ profiles; send actions individually there.
 You can wait on more than just time/text:
 
 - Wait for URL (globs supported by Playwright):
-  - `openclaw browser wait --url "**/dash"`
+  - `granted browser wait --url "**/dash"`
 - Wait for load state:
-  - `openclaw browser wait --load networkidle`
+  - `granted browser wait --load networkidle`
   - Supported on managed `openclaw` and raw/remote CDP profiles. Profiles using the `existing-session` driver (including the default `user` profile) reject `networkidle`; use `--url`, `--text`, a selector, or `--fn` waits there.
 - Wait for a JS predicate:
-  - `openclaw browser wait --fn "window.ready===true"`
+  - `granted browser wait --fn "window.ready===true"`
 - Wait for a selector to become visible:
-  - `openclaw browser wait "#main"`
+  - `granted browser wait "#main"`
 
 These can be combined:
 
 ```bash
-openclaw browser wait "#main" \
+granted browser wait "#main" \
   --url "**/dash" \
   --load networkidle \
   --fn "window.ready===true" \
@@ -444,16 +444,16 @@ openclaw browser wait "#main" \
 
 When an action fails (e.g. "not visible", "strict mode violation", "covered"):
 
-1. `openclaw browser snapshot --interactive`
+1. `granted browser snapshot --interactive`
 2. Use `click <ref>` / `type <ref>` (prefer role refs in interactive mode)
-3. If it still fails: `openclaw browser highlight <ref>` to see what Playwright is targeting
+3. If it still fails: `granted browser highlight <ref>` to see what Playwright is targeting
 4. If the page behaves oddly:
-   - `openclaw browser errors --clear`
-   - `openclaw browser requests --filter api --clear`
+   - `granted browser errors --clear`
+   - `granted browser requests --filter api --clear`
 5. For deep debugging: record a trace:
-   - `openclaw browser trace start`
+   - `granted browser trace start`
    - reproduce the issue
-   - `openclaw browser trace stop` (prints `TRACE:<path>`)
+   - `granted browser trace stop` (prints `TRACE:<path>`)
 
 ## JSON output
 
@@ -462,10 +462,10 @@ When an action fails (e.g. "not visible", "strict mode violation", "covered"):
 Examples:
 
 ```bash
-openclaw browser --json status
-openclaw browser --json snapshot --interactive
-openclaw browser --json requests --filter api
-openclaw browser --json cookies
+granted browser --json status
+granted browser --json snapshot --interactive
+granted browser --json requests --filter api
+granted browser --json cookies
 ```
 
 Role snapshots in JSON include `refs` plus a small `stats` block (lines/chars/refs/interactive) so tools can reason about payload size and density.
@@ -488,11 +488,11 @@ These are useful for "make the site behave like X" workflows:
 
 ## Security and privacy
 
-- The openclaw browser profile may contain logged-in sessions; treat it as sensitive.
-- `browser act kind=evaluate` / `openclaw browser evaluate` and `wait --fn`
+- The granted browser profile may contain logged-in sessions; treat it as sensitive.
+- `browser act kind=evaluate` / `granted browser evaluate` and `wait --fn`
   execute arbitrary JavaScript in the page context. Prompt injection can steer
   this. Disable it with `browser.evaluateEnabled=false` if you do not need it.
-- `openclaw browser evaluate --fn` accepts a function source, an expression, or
+- `granted browser evaluate --fn` accepts a function source, an expression, or
   a statement body. Statement bodies are wrapped as async functions, so use
   `return` for the value you want back. Use `--timeout-ms <ms>` when the
   page-side function may need longer than the default evaluate timeout.

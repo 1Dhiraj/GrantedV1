@@ -13,13 +13,13 @@ OpenClaw connects to Feishu/Lark (the all-in-one collaboration platform) through
 ## Quick start
 
 <Note>
-Requires OpenClaw 2026.5.29 or above. Run `openclaw --version` to check. Upgrade with `openclaw update`.
+Requires OpenClaw 2026.5.29 or above. Run `openclaw --version` to check. Upgrade with `granted update`.
 </Note>
 
 <Steps>
   <Step title="Run the channel setup wizard">
   ```bash
-  openclaw channels login --channel feishu
+  granted channels login --channel feishu
   ```
   This installs the `@granted/feishu` plugin if it is missing, then walks through setup:
 
@@ -31,7 +31,7 @@ The wizard also asks for the API domain (Feishu vs Lark) and the group policy. I
 
   <Step title="After setup completes, restart the gateway to apply the changes">
   ```bash
-  openclaw gateway restart
+  granted gateway restart
   ```
   </Step>
 </Steps>
@@ -57,8 +57,8 @@ Configure `channels.feishu.dmPolicy` (default: `pairing`) to control who can DM 
 **Approve a pairing request:**
 
 ```bash
-openclaw pairing list feishu
-openclaw pairing approve feishu <CODE>
+granted pairing list feishu
+granted pairing approve feishu <CODE>
 ```
 
 ### Group chats
@@ -187,13 +187,13 @@ Open the group in Feishu/Lark, click the menu icon in the top-right corner, and 
 Start the gateway, send a DM to the bot, then check the logs:
 
 ```bash
-openclaw logs --follow
+granted logs --follow
 ```
 
 Look for `open_id` in the log output. You can also check pending pairing requests:
 
 ```bash
-openclaw pairing list feishu
+granted pairing list feishu
 ```
 
 ## Common commands
@@ -215,7 +215,7 @@ Feishu/Lark does not support native slash-command menus, so send these as plain 
 1. Ensure the bot is added to the group
 2. Ensure you @mention the bot (required by default)
 3. Verify `groupPolicy` is not `"disabled"`
-4. Check logs: `openclaw logs --follow`
+4. Check logs: `granted logs --follow`
 
 ### Bot does not receive messages
 
@@ -224,8 +224,8 @@ Feishu/Lark does not support native slash-command menus, so send these as plain 
 3. For meeting invite auto-join, also subscribe to `vc.bot.meeting_invited_v1`
 4. Ensure **persistent connection** (WebSocket) is selected
 5. Ensure all required permission scopes are granted
-6. Ensure the gateway is running: `openclaw gateway status`
-7. Check logs: `openclaw logs --follow`
+6. Ensure the gateway is running: `granted gateway status`
+7. Check logs: `granted logs --follow`
 
 Subscribing to `vc.bot.meeting_invited_v1` only delivers the event. Automatic joins are
 default-off. To enable them globally:
@@ -267,7 +267,7 @@ The official `lark-cli` VC agent skill currently marks meeting-bot actions as a 
 
 ### QR setup does not react in the Feishu mobile app
 
-1. Rerun setup: `openclaw channels login --channel feishu`
+1. Rerun setup: `granted channels login --channel feishu`
 2. Choose manual setup
 3. In Feishu Open Platform, create a self-built app and copy its App ID and App Secret
 4. Paste those credentials into the setup wizard
@@ -276,7 +276,7 @@ The official `lark-cli` VC agent skill currently marks meeting-bot actions as a 
 
 1. Reset the App Secret in Feishu Open Platform / Lark Developer
 2. Update the value in your config
-3. Restart the gateway: `openclaw gateway restart`
+3. Restart the gateway: `granted gateway restart`
 
 ## Advanced configuration
 
@@ -341,7 +341,7 @@ Feishu/Lark supports streaming replies via interactive cards (Card Kit streaming
 }
 ```
 
-Set `streaming.mode: "off"` to send the completed reply without streaming updates; long replies still split at the message limits above. `renderMode: "raw"` (plain text instead of cards) also disables streaming cards. `streaming.block.enabled` is off by default; enable it only when you want completed assistant blocks flushed before the final reply. Legacy boolean `streaming` and the flat `blockStreaming` / `blockStreamingCoalesce` / `chunkMode` keys migrate to this nested shape via `openclaw doctor --fix`.
+Set `streaming.mode: "off"` to send the completed reply without streaming updates; long replies still split at the message limits above. `renderMode: "raw"` (plain text instead of cards) also disables streaming cards. `streaming.block.enabled` is off by default; enable it only when you want completed assistant blocks flushed before the final reply. Legacy boolean `streaming` and the flat `blockStreaming` / `blockStreamingCoalesce` / `chunkMode` keys migrate to this nested shape via `granted doctor --fix`.
 
 ### Quota optimization
 
@@ -698,7 +698,7 @@ In webhook mode, both `channels.feishu.webhookPath` and
 beginning with `/`, such as `/feishu/events`. An optional query string is
 supported and must match exactly. Full URLs, relative paths, URL fragments, dot
 segments, and unencoded spaces or Unicode are rejected. If an existing
-configuration contains a noncanonical path, run `openclaw doctor --fix` to
+configuration contains a noncanonical path, run `granted doctor --fix` to
 repair it before starting the gateway.
 
 ## Supported message types

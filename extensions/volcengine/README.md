@@ -1,13 +1,13 @@
-# OpenClaw Volcengine Provider
+# Granted Volcengine Provider
 
-Official OpenClaw provider plugin for Volcengine models, the Volcengine coding
+Official Granted provider plugin for Volcengine models, the Volcengine coding
 plan, and Volcengine Speech text-to-speech.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/volcengine-provider
-openclaw gateway restart
+granted plugins install @granted/volcengine-provider
+granted gateway restart
 ```
 
 See <https://docs.openclaw.ai/providers/volcengine> for model and speech setup.

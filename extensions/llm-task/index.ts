@@ -1,4 +1,4 @@
-// Llm Task plugin entrypoint registers its OpenClaw integration.
+// Llm Task plugin entrypoint registers its Granted integration.
 import { optionalPositiveIntegerSchema } from "granted/plugin-sdk/channel-actions";
 import { defineToolPlugin } from "granted/plugin-sdk/tool-plugin";
 import { Type } from "typebox";

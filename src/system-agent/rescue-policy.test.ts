@@ -1,4 +1,4 @@
-// OpenClaw rescue policy tests cover eligibility and safety decisions.
+// Granted rescue policy tests cover eligibility and safety decisions.
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../config/types.granted.js";
 import { resolveSystemAgentRescuePolicy } from "./rescue-policy.js";

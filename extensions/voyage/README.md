@@ -1,12 +1,12 @@
-# OpenClaw Voyage Provider
+# Granted Voyage Provider
 
-Official OpenClaw memory embedding provider plugin for Voyage AI.
+Official Granted memory embedding provider plugin for Voyage AI.
 
-Install from OpenClaw:
+Install from Granted:
 
 ```bash
-openclaw plugins install @granted/voyage-provider
-openclaw gateway restart
+granted plugins install @granted/voyage-provider
+granted gateway restart
 ```
 
 Set `VOYAGE_API_KEY`, then configure memory search with `provider: "voyage"`.

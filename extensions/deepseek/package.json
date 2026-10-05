@@ -1,7 +1,7 @@
 {
   "name": "@granted/deepseek-provider",
   "version": "2026.8.1",
-  "description": "OpenClaw DeepSeek provider plugin.",
+  "description": "Granted DeepSeek provider plugin.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

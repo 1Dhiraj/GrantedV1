@@ -13,7 +13,7 @@ doc-schema-version: 1
 The Control UI covers the common discovery, install, enable, and disable
 workflow. The CLI adds update, uninstall, advanced configuration, and explicit
 install-source controls. For its full command contract, flags, source-selection
-rules, and edge cases, see [`openclaw plugins`](/cli/plugins).
+rules, and edge cases, see [`granted plugins`](/cli/plugins).
 
 Typical CLI workflow: find a package, install it from ClawHub, npm, git, or a
 local path, let the managed Gateway auto-restart (or restart it manually), then
@@ -55,7 +55,7 @@ Installing, updating, or removing plugin code requires a Gateway restart.
 Enablement changes for plugins in the startup inventory can be applied without
 a restart when the plugin and current Gateway runtime support it; otherwise
 the UI tells you a restart is required.
-OAuth-backed MCP connectors still need a one-time `openclaw mcp login <name>`
+OAuth-backed MCP connectors still need a one-time `granted mcp login <name>`
 from the CLI after they are added.
 
 The Control UI does not install from arbitrary npm, git, or local-path sources,
@@ -65,17 +65,17 @@ below for those operations.
 ## List and search plugins
 
 ```bash
-openclaw plugins list
-openclaw plugins list --enabled
-openclaw plugins list --verbose
-openclaw plugins list --json
-openclaw plugins search "calendar"
+granted plugins list
+granted plugins list --enabled
+granted plugins list --verbose
+granted plugins list --json
+granted plugins search "calendar"
 ```
 
 `--json` for scripts:
 
 ```bash
-openclaw plugins list --json \
+granted plugins list --json \
   | jq '.plugins[] | {id, enabled, format, source, dependencyStatus}'
 ```
 
@@ -86,13 +86,13 @@ registry diagnostics and each plugin's `dependencyStatus` (whether declared
 `dependencies`/`optionalDependencies` resolve on disk).
 
 `plugins search` queries ClawHub for installable plugin packages and prints
-an install hint (`openclaw plugins install clawhub:<package>`) per result.
+an install hint (`granted plugins install clawhub:<package>`) per result.
 
 ## Enable and disable plugins
 
 ```bash
-openclaw plugins enable <plugin-id>
-openclaw plugins disable <plugin-id>
+granted plugins enable <plugin-id>
+granted plugins disable <plugin-id>
 ```
 
 Toggles a plugin's config entry without touching installed files. Some
@@ -128,7 +128,7 @@ surfaces can refresh an existing valid acceptance. Updating a disabled
 plugin preserves disablement and defers any required consent until enablement.
 Reinstalling through `plugins install` also preserves an authored `enabled: false`,
 but requires consent before committing the install when no valid acceptance can
-be reused. Run `openclaw plugins enable <plugin-id>` to activate it afterward.
+be reused. Run `granted plugins enable <plugin-id>` to activate it afterward.
 
 Already-enabled third-party legacy installations remain usable without an initial review;
 disabling and re-enabling them requires consent. Setup rechecks consent when
@@ -153,9 +153,9 @@ retry setup. Noninteractive plugin install, update, and enable commands also
 require the explicit flag when consent is needed:
 
 ```bash
-openclaw plugins install clawhub:<package> --accept-capabilities
-openclaw plugins update <plugin-id> --accept-capabilities
-openclaw plugins enable <plugin-id> --accept-capabilities
+granted plugins install clawhub:<package> --accept-capabilities
+granted plugins update <plugin-id> --accept-capabilities
+granted plugins enable <plugin-id> --accept-capabilities
 ```
 
 Doctor uses the same source checks and review before installing or adopting a replacement plugin.
@@ -178,7 +178,7 @@ in a workspace or through `plugins.load.paths`, without a managed install
 record, cannot persist capability acceptance. Their details in the Control UI
 still show declared capabilities.
 
-`openclaw plugins install --link <path>` creates a managed install record and
+`granted plugins install --link <path>` creates a managed install record and
 requires capability consent even though it loads the plugin from its source
 directory. It is not the same as adding a bare `plugins.load.paths` entry.
 
@@ -186,25 +186,25 @@ directory. It is not the same as adding a bare `plugins.load.paths` entry.
 
 ```bash
 # Search ClawHub for plugin packages.
-openclaw plugins search "calendar"
+granted plugins search "calendar"
 
 # Install from ClawHub.
-openclaw plugins install clawhub:<package>
-openclaw plugins install clawhub:<package>@1.2.3
-openclaw plugins install clawhub:<package>@beta
+granted plugins install clawhub:<package>
+granted plugins install clawhub:<package>@1.2.3
+granted plugins install clawhub:<package>@beta
 
 # Install from npm.
-openclaw plugins install npm:<package>
-openclaw plugins install npm:@scope/openclaw-plugin@1.2.3
-openclaw plugins install npm:@granted/codex
+granted plugins install npm:<package>
+granted plugins install npm:@scope/openclaw-plugin@1.2.3
+granted plugins install npm:@granted/codex
 
 # Install from a local npm-pack artifact.
-openclaw plugins install npm-pack:<path.tgz>
+granted plugins install npm-pack:<path.tgz>
 
 # Install from git or a local development checkout.
-openclaw plugins install git:github.com/acme/openclaw-plugin@v1.0.0
-openclaw plugins install ./my-plugin
-openclaw plugins install --link ./my-plugin
+granted plugins install git:github.com/acme/openclaw-plugin@v1.0.0
+granted plugins install ./my-plugin
+granted plugins install --link ./my-plugin
 ```
 
 Bare package specs install from npm during the launch cutover, unless the
@@ -218,13 +218,13 @@ and trust the source.
 
 `--force` confirms a non-ClawHub source without prompting and overwrites an
 existing install target when needed. For routine upgrades of a tracked npm,
-ClawHub, or hook-pack install, use `openclaw plugins update` instead. With
+ClawHub, or hook-pack install, use `granted plugins update` instead. With
 `--link`, `--force` only confirms the source; the linked directory is not
 copied or overwritten.
 
 If a newly installed plugin requires configuration that is not present yet,
 OpenClaw records the install but leaves the plugin disabled. Configure
-`plugins.entries.<id>.config`, then run `openclaw plugins enable <id>`. If an
+`plugins.entries.<id>.config`, then run `granted plugins enable <id>`. If an
 existing config entry is present but invalid, install fails without rewriting it.
 
 A plugin package can expose multiple child entries. Installation tracks that
@@ -241,8 +241,8 @@ unmanaged or reload is disabled, restart it yourself before checking live
 runtime surfaces:
 
 ```bash
-openclaw gateway restart
-openclaw plugins inspect <plugin-id> --runtime --json
+granted gateway restart
+granted plugins inspect <plugin-id> --runtime --json
 ```
 
 The Gateway keeps the plugin inventory it discovered at startup. Management
@@ -264,10 +264,10 @@ checks only.
 ## Update plugins
 
 ```bash
-openclaw plugins update <plugin-id>
-openclaw plugins update <npm-package-or-spec>
-openclaw plugins update --all
-openclaw plugins update <plugin-id> --dry-run
+granted plugins update <plugin-id>
+granted plugins update <npm-package-or-spec>
+granted plugins update --all
+granted plugins update <plugin-id> --dry-run
 ```
 
 Passing a plugin id reuses its tracked install spec: stored dist-tags
@@ -280,11 +280,11 @@ state commits; retained/new children and unrelated plugins are preserved.
 
 If OpenClaw cannot prove exactly one package owner and a complete child list,
 update and uninstall fail closed without changing package files, config, or the
-installed index. Run `openclaw plugins registry --refresh`, inspect
-`openclaw plugins doctor`, and use `openclaw doctor --fix` for repairable legacy
+installed index. Run `granted plugins registry --refresh`, inspect
+`granted plugins doctor`, and use `granted doctor --fix` for repairable legacy
 index state. If the ambiguity remains, reinstall the package before retrying.
 
-`openclaw plugins update --all` is the bulk maintenance path. It still
+`granted plugins update --all` is the bulk maintenance path. It still
 respects ordinary tracked install specs, but trusted official OpenClaw
 plugin records sync to the current official catalog target instead of
 staying pinned to a stale exact official package. The canonical channel
@@ -297,22 +297,22 @@ For npm installs, pass an explicit package spec to switch the tracked
 record:
 
 ```bash
-openclaw plugins update @scope/openclaw-plugin@beta
-openclaw plugins update @scope/openclaw-plugin
+granted plugins update @scope/openclaw-plugin@beta
+granted plugins update @scope/openclaw-plugin
 ```
 
 The second command moves a plugin back to the registry's default release
 line when it was previously pinned to an exact version or tag.
 
-See [`openclaw plugins`](/cli/plugins#update) for the exact fallback and
+See [`granted plugins`](/cli/plugins#update) for the exact fallback and
 pinning rules.
 
 ## Uninstall plugins
 
 ```bash
-openclaw plugins uninstall <plugin-id> --dry-run
-openclaw plugins uninstall <plugin-id>
-openclaw plugins uninstall <plugin-id> --keep-files
+granted plugins uninstall <plugin-id> --dry-run
+granted plugins uninstall <plugin-id>
+granted plugins uninstall <plugin-id> --keep-files
 ```
 
 Uninstall removes the package's persisted install record and every owned child
@@ -325,7 +325,7 @@ uninstall changes plugin source.
 
 If an installed Claw references the plugin, preview and uninstall print the
 affected Claw package names. Ordinary plugin uninstall can still proceed and
-may break those Claws; use `openclaw claws status` to review ownership first.
+may break those Claws; use `granted claws status` to review ownership first.
 Removing a Claw releases its plugin reference but retains the process-wide
 plugin by default.
 
@@ -335,14 +335,14 @@ for the install instead.
 
 ## Choose a source
 
-| Source      | Use when                                                                    | Example                                                        |
-| ----------- | --------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| ClawHub     | You want OpenClaw-native discovery, scan summaries, versions, and hints     | `openclaw plugins install clawhub:<package>`                   |
-| git         | You want a branch, tag, or commit from a repository                         | `openclaw plugins install git:github.com/<owner>/<repo>@<ref>` |
-| local path  | You are developing or testing a plugin on the same machine                  | `openclaw plugins install --link ./my-plugin`                  |
-| marketplace | You are installing a Claude-compatible marketplace plugin                   | `openclaw plugins install <plugin> --marketplace <source>`     |
-| npm pack    | You are proving a local package artifact through npm install semantics      | `openclaw plugins install npm-pack:<path.tgz>`                 |
-| npmjs.com   | You already ship JavaScript packages or need npm dist-tags/private registry | `openclaw plugins install npm:@acme/openclaw-plugin`           |
+| Source      | Use when                                                                    | Example                                                       |
+| ----------- | --------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| ClawHub     | You want OpenClaw-native discovery, scan summaries, versions, and hints     | `granted plugins install clawhub:<package>`                   |
+| git         | You want a branch, tag, or commit from a repository                         | `granted plugins install git:github.com/<owner>/<repo>@<ref>` |
+| local path  | You are developing or testing a plugin on the same machine                  | `granted plugins install --link ./my-plugin`                  |
+| marketplace | You are installing a Claude-compatible marketplace plugin                   | `granted plugins install <plugin> --marketplace <source>`     |
+| npm pack    | You are proving a local package artifact through npm install semantics      | `granted plugins install npm-pack:<path.tgz>`                 |
+| npmjs.com   | You already ship JavaScript packages or need npm dist-tags/private registry | `granted plugins install npm:@acme/openclaw-plugin`           |
 
 Managed local path installs must be plugin directories or archives. Put
 standalone plugin files in `plugins.load.paths` instead of installing them
@@ -378,9 +378,9 @@ Native npm plugins must ship a plugin manifest (`granted.plugin.json`) plus
 
 ```bash
 npm publish --access public
-openclaw plugins install npm:@acme/openclaw-plugin
-openclaw plugins install npm:@acme/openclaw-plugin@beta
-openclaw plugins install npm:@acme/openclaw-plugin@1.0.0
+granted plugins install npm:@acme/openclaw-plugin
+granted plugins install npm:@acme/openclaw-plugin@beta
+granted plugins install npm:@acme/openclaw-plugin@1.0.0
 ```
 
 Use these pages for the full publishing contract instead of treating this
@@ -400,7 +400,7 @@ If the same package is available on both ClawHub and npm, use the explicit
 ## Related
 
 - [Plugins](/tools/plugin) - install, configure, restart, and troubleshoot
-- [`openclaw plugins`](/cli/plugins) - full CLI reference
+- [`granted plugins`](/cli/plugins) - full CLI reference
 - [Community plugins](/plugins/community) - public discovery and ClawHub publishing
 - [ClawHub](/clawhub/cli) - registry CLI operations
 - [Building plugins](/plugins/building-plugins) - create a plugin package

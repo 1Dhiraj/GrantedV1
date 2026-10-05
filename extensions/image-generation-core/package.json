@@ -2,7 +2,7 @@
   "name": "@granted/image-generation-core",
   "version": "2026.8.1",
   "private": true,
-  "description": "OpenClaw image generation runtime package",
+  "description": "Granted image generation runtime package",
   "type": "module",
   "devDependencies": {
     "@granted/plugin-sdk": "workspace:*"

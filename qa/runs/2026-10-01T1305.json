@@ -1,0 +1,36 @@
+{
+  "run": "2026-10-01T1305",
+  "score": "2/2",
+  "pass": 2,
+  "blocked": 0,
+  "attempted": 2,
+  "spend": "spend this run: $0.0000",
+  "results": [
+    {
+      "id": "A1",
+      "name": "disk space",
+      "result": "PASS",
+      "seconds": 17,
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t1305-a1",
+      "evidence": "72.09 GB",
+      "toolCalls": 1,
+      "tokens": 23788
+    },
+    {
+      "id": "N1",
+      "name": "knows its own name",
+      "result": "PASS",
+      "seconds": 8,
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t1305-n1",
+      "evidence": "granted=true openclaw=false | Granted",
+      "toolCalls": 0,
+      "tokens": 23562
+    }
+  ]
+}

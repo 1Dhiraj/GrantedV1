@@ -13,7 +13,7 @@ OpenClaw has two related but distinct discovery problems:
 2. **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
 
 All network discovery/advertising lives in the **Node Gateway**
-(`openclaw gateway`); clients (mac app, iOS) are consumers only.
+(`granted gateway`); clients (mac app, iOS) are consumers only.
 
 ## Terms
 
@@ -84,7 +84,7 @@ Security notes:
 
 Enable, disable, and override:
 
-- `openclaw plugins enable bonjour` enables LAN multicast advertising.
+- `granted plugins enable bonjour` enables LAN multicast advertising.
 - `discovery.mdns.mode` in `openclaw.json` controls mDNS broadcast:
   `"minimal"` (default), `"full"` (adds `cliPath`/`sshPort` to both the LAN
   beacon and any wide-area DNS-SD zone), or `"off"` (disables mDNS).

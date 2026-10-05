@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { applyLegacyEnvAliases, hasLegacyEnvVars } from "./env-legacy-aliases.js";
+import {
+  applyLegacyEnvAliases,
+  hasLegacyEnvVars,
+  readEnvWithLegacyNames,
+} from "./env-legacy-aliases.js";
 
 describe("applyLegacyEnvAliases", () => {
   it("carries a legacy variable onto its current name", () => {
@@ -58,5 +62,51 @@ describe("hasLegacyEnvVars", () => {
   it("detects an old environment", () => {
     expect(hasLegacyEnvVars({ OPENCLAW_HOME: "/x" } as NodeJS.ProcessEnv)).toBe(true);
     expect(hasLegacyEnvVars({ GRANTED_HOME: "/x" } as NodeJS.ProcessEnv)).toBe(false);
+  });
+});
+
+describe("readEnvWithLegacyNames", () => {
+  it("reads a current name", () => {
+    expect(
+      readEnvWithLegacyNames(
+        { GRANTED_GATEWAY_PORT: "18789" } as NodeJS.ProcessEnv,
+        "GRANTED_GATEWAY_PORT",
+      ),
+    ).toBe("18789");
+  });
+
+  it("falls back to the names a pre-rename install wrote", () => {
+    // A service script written before the rename is parsed off disk, so the
+    // process-wide aliasing never touches it.
+    expect(
+      readEnvWithLegacyNames(
+        { OPENCLAW_GATEWAY_PORT: "18789" } as NodeJS.ProcessEnv,
+        "GRANTED_GATEWAY_PORT",
+      ),
+    ).toBe("18789");
+    expect(
+      readEnvWithLegacyNames(
+        { CLAWDBOT_GATEWAY_PORT: "1234" } as NodeJS.ProcessEnv,
+        "GRANTED_GATEWAY_PORT",
+      ),
+    ).toBe("1234");
+  });
+
+  it("prefers the current name over a legacy one", () => {
+    expect(
+      readEnvWithLegacyNames(
+        { GRANTED_GATEWAY_PORT: "1", OPENCLAW_GATEWAY_PORT: "2" } as NodeJS.ProcessEnv,
+        "GRANTED_GATEWAY_PORT",
+      ),
+    ).toBe("1");
+  });
+
+  it("returns undefined for a missing key, a missing env, or a non-prefixed key", () => {
+    expect(readEnvWithLegacyNames({} as NodeJS.ProcessEnv, "GRANTED_GATEWAY_PORT")).toBeUndefined();
+    expect(readEnvWithLegacyNames(undefined, "GRANTED_GATEWAY_PORT")).toBeUndefined();
+    expect(readEnvWithLegacyNames({ PATH: "/usr/bin" } as NodeJS.ProcessEnv, "PATH")).toBe(
+      "/usr/bin",
+    );
+    expect(readEnvWithLegacyNames({} as NodeJS.ProcessEnv, "PATH")).toBeUndefined();
   });
 });

@@ -1,4 +1,4 @@
-// Qwen plugin entrypoint registers its OpenClaw integration.
+// Qwen plugin entrypoint registers its Granted integration.
 import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
 import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";

@@ -1,0 +1,23 @@
+{
+  "run": "2026-10-01T0950",
+  "score": "1/1",
+  "pass": 1,
+  "blocked": 0,
+  "attempted": 1,
+  "spend": "spend this run: $0.0000 (google +$1.6016, nvidia +$0.1487, openai +$1.7153, together +$2.7201)",
+  "results": [
+    {
+      "id": "N1",
+      "name": "knows its own name",
+      "result": "PASS",
+      "seconds": 8,
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "fallbackAttempts": 0,
+      "sessionKey": "agent:main:capability-2026-10-01t0950-n1",
+      "evidence": "granted=true openclaw=false | Granted",
+      "toolCalls": 0,
+      "tokens": 23576
+    }
+  ]
+}

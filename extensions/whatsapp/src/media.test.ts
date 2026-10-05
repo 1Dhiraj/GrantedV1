@@ -91,7 +91,7 @@ afterEach(() => {
 describe("web media loading", () => {
   beforeAll(() => {
     // Ensure state dir is stable and not influenced by other tests that stub GRANTED_STATE_DIR.
-    // Also keep it outside the OpenClaw temp root so default localRoots doesn't accidentally make all state readable.
+    // Also keep it outside the Granted temp root so default localRoots doesn't accidentally make all state readable.
     stateDirSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     process.env.GRANTED_STATE_DIR = path.join(
       path.parse(os.tmpdir()).root,
@@ -392,7 +392,7 @@ describe("local media root guard", () => {
     );
   });
 
-  it("allows default OpenClaw state workspace and sandbox roots", async () => {
+  it("allows default Granted state workspace and sandbox roots", async () => {
     const stateDir = resolveStateDir();
     const readFile = vi.fn(async () => Buffer.from("generated-media"));
 
@@ -415,7 +415,7 @@ describe("local media root guard", () => {
     expect(sandboxResult.kind).toBeUndefined();
   });
 
-  it("rejects default OpenClaw state per-agent workspace-* roots without explicit local roots", async () => {
+  it("rejects default Granted state per-agent workspace-* roots without explicit local roots", async () => {
     const stateDir = resolveStateDir();
     const readFile = vi.fn(async () => Buffer.from("generated-media"));
 
