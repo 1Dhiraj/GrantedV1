@@ -27,7 +27,9 @@ const CONSOLIDATION_SYSTEM_PROMPT = [
   "Revise the supplied MEMORY.md using only the supplied candidates as new evidence.",
   'Return one JSON object with fields "memory" and "operations".',
   "Emit exactly one operation per candidate: candidateKey, action (added, merged, or superseded), resultEntry, and priorEntries.",
-  "Copy each candidate's supplied resultEntry exactly into memory and its operation; never author replacement prose.",
+  'For each candidate, write resultEntry as the GENERAL LESSON its evidence teaches, in your own words - what should be done differently next time, stated so it applies to a future task rather than describing this one. "This machine\'s Desktop is under OneDrive, not the default path" is a lesson; quoting the sentence that revealed it is not.',
+  'Keep each resultEntry a single markdown bullet that still carries the candidate\'s exact "Source: ..." reference and its trailing annotations unchanged, so every lesson remains traceable to the transcript line it came from.',
+  "Claim no more than the evidence shows. If a candidate carries no reusable lesson - small talk, a restatement of the request, a one-off with nothing to generalise - say so by keeping the entry to the plain fact it establishes rather than inventing a rule.",
   "priorEntries must contain exact prior entry text replaced by merged or superseded actions; added actions use an empty array.",
   "Merge duplicates, replace stale facts when supersedesKey names their lineage, and keep unrelated entries unchanged.",
   "Keep entries compact. Every incorporated candidate must retain its exact Source reference on the same line.",
@@ -263,10 +265,10 @@ function validateConsolidatedMemory(params: {
       return `output omits candidate operation ${candidate.key}`;
     }
     const sourceRef = candidateSourceRef(candidate);
-    const expectedResultEntry = buildCandidateResultEntry(
-      candidate,
-      params.maxPromotedSnippetTokens,
-    );
+    // The machine-readable tail (recall counters, lineage) must survive the
+    // rewrite even though the prose no longer has to. The full expected entry is
+    // no longer compared: see the validator below for why.
+    const expectedAnnotations = buildPromotionRecallAnnotations(candidate);
     const visibleMemoryText = operation.resultEntry
       .replace(/^[-*+]\s+/u, "")
       .replace(`Source: ${sourceRef}`, "")
@@ -279,7 +281,14 @@ function validateConsolidatedMemory(params: {
       .trim();
     if (
       !/^[-*+]\s+\S/u.test(operation.resultEntry) ||
-      operation.resultEntry !== expectedResultEntry ||
+      // Was: resultEntry !== expectedResultEntry, i.e. a byte-for-byte copy of the
+      // transcript snippet. That single check is what stopped MEMORY.md ever holding a
+      // lesson: generalising IS rewriting, so the model was forbidden from doing the one
+      // thing consolidation is for. The entry is still required to be a bullet, to carry
+      // the exact Source reference and the annotations below, to hold visible text, to fit
+      // the token budget and to appear in the new memory - so it stays traceable and
+      // bounded; only the wording is now the model's.
+      !operation.resultEntry.includes(expectedAnnotations) ||
       !visibleMemoryText ||
       visibleMemoryTextWithSpacing.length >
         params.maxPromotedSnippetTokens * PROMOTED_SNIPPET_CHARS_PER_TOKEN_ESTIMATE ||

@@ -138,6 +138,143 @@ describe("skill experience review scheduler", () => {
     scheduler.clear();
   });
 
+  it.each([
+    {
+      name: "direct correction",
+      user: "No, use the manifest instead of guessing.",
+      results: [],
+      review: true,
+    },
+    {
+      name: "text-block correction",
+      user: [{ type: "text", text: "I meant validate the saved file." }],
+      results: [],
+      review: true,
+    },
+    { name: "small talk", user: "Thanks, that was helpful.", results: [], review: false },
+    { name: "ordinary refusal", user: "No, thanks!", results: [], review: false },
+    {
+      name: "unrelated actually",
+      user: "Actually, nice weather today.",
+      results: [],
+      review: false,
+    },
+    { name: "success claim", user: "Repair the workflow.", results: [], review: false },
+    {
+      name: "recovery",
+      results: [
+        { toolName: "exec", isError: true },
+        { toolName: "exec", isError: false },
+      ],
+      review: true,
+    },
+    {
+      name: "structured recovery",
+      results: [
+        { toolName: "exec", isError: false, details: { exitCode: 1 } },
+        { toolName: "exec", isError: false, details: { exitCode: 0 } },
+      ],
+      review: true,
+    },
+    { name: "unrecovered failure", results: [{ toolName: "exec", isError: true }], review: false },
+    {
+      name: "unrelated success",
+      results: [
+        { toolName: "exec", isError: true },
+        { toolName: "read", isError: false },
+      ],
+      review: false,
+    },
+    {
+      name: "success before failure",
+      results: [
+        { toolName: "exec", isError: false },
+        { toolName: "exec", isError: true },
+      ],
+      review: false,
+    },
+  ])("selects short-turn evidence: $name", async ({ user, results, review }) => {
+    vi.useFakeTimers();
+    const runReview = vi.fn().mockResolvedValue(undefined);
+    const scheduler = createSkillExperienceReviewScheduler({
+      isSystemActive: () => false,
+      runReview,
+    });
+    const run = completedRun({ modelIterations: 2 });
+    run.event.messages = [
+      { role: "user", content: user ?? "Repair the workflow." },
+      ...results.map((result) => ({ role: "toolResult", content: "observed result", ...result })),
+      { role: "assistant", content: "Done, everything succeeded." },
+    ];
+    scheduler.schedule(run);
+    await vi.advanceTimersByTimeAsync(29_999);
+    expect(runReview).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1);
+    expect(runReview).toHaveBeenCalledTimes(review ? 1 : 0);
+    scheduler.clear();
+  });
+
+  it.each([
+    { mode: "off" as const },
+    { skillWorkshopAvailable: false },
+    { trigger: "cron" as const },
+    { success: false, error: "provider unavailable" },
+    { sessionKey: "agent:main:subagent:child" },
+  ])("keeps eligibility protections for short corrections: %j", async (options) => {
+    vi.useFakeTimers();
+    const runReview = vi.fn().mockResolvedValue(undefined);
+    const scheduler = createSkillExperienceReviewScheduler({
+      isSystemActive: () => false,
+      runReview,
+    });
+    const run = completedRun({ ...options, modelIterations: 1 });
+    run.event.messages[0] = { role: "user", content: "No, use the manifest." };
+    scheduler.schedule(run);
+    await vi.advanceTimersByTimeAsync(30_000);
+    expect(runReview).not.toHaveBeenCalled();
+    scheduler.clear();
+  });
+
+  it("debounces a short correction through later small talk and system activity", async () => {
+    vi.useFakeTimers();
+    const runReview = vi.fn().mockResolvedValue(undefined);
+    const isSystemActive = vi.fn().mockReturnValueOnce(true).mockReturnValue(false);
+    const scheduler = createSkillExperienceReviewScheduler({ isSystemActive, runReview });
+    const run = completedRun({ modelIterations: 1, runId: "correction" });
+    run.event.messages[0] = { role: "user", content: "No, use the manifest." };
+    scheduler.schedule(run);
+    await vi.advanceTimersByTimeAsync(20_000);
+    scheduler.schedule(completedRun({ modelIterations: 1, runId: "small-talk" }));
+    await vi.advanceTimersByTimeAsync(29_999);
+    expect(isSystemActive).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1);
+    expect(runReview).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(30_000);
+    expect(runReview).toHaveBeenCalledExactlyOnceWith(
+      expect.objectContaining({ ctx: expect.objectContaining({ runId: "correction" }) }),
+    );
+    scheduler.clear();
+  });
+
+  it("does not reuse recovery evidence from an older turn", async () => {
+    vi.useFakeTimers();
+    const runReview = vi.fn().mockResolvedValue(undefined);
+    const scheduler = createSkillExperienceReviewScheduler({
+      isSystemActive: () => false,
+      runReview,
+    });
+    const run = completedRun({ modelIterations: 1 });
+    run.event.messages.unshift(
+      { role: "user", content: "No, use the manifest." },
+      { role: "toolResult", toolName: "exec", isError: true },
+      { role: "toolResult", toolName: "exec", isError: false },
+    );
+    scheduler.schedule(run);
+    await vi.advanceTimersByTimeAsync(30_000);
+    expect(runReview).not.toHaveBeenCalled();
+    scheduler.clear();
+  });
+
   it("does not count nested tool activity as model iterations", async () => {
     vi.useFakeTimers();
     const runReview = vi.fn().mockResolvedValue(undefined);
@@ -527,6 +664,9 @@ describe("skill experience review prompt", () => {
       ],
     });
     expect(prompt).toContain("this message starts a review pass");
+    expect(prompt).toContain("Assistant success claims alone are not evidence");
+    expect(prompt).toContain("A checked failure can teach a bounded avoidance rule");
+    expect(prompt).toContain("not an untested implementation");
     expect(prompt).toContain("NO_REPLY is the correct answer for most turns");
     expect(prompt).toContain("One mutation at most, smallest mutation first");
     expect(prompt).toContain("prepare_patch with one non-empty unique old_string, then patch");

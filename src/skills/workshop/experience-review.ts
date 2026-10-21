@@ -23,6 +23,7 @@ import { resolveSkillWorkshopConfig } from "./config.js";
 import {
   buildSkillExperienceReviewPrompt,
   countSkillModelIterations,
+  hasSkillTurnLearningEvidence,
   selectCurrentSkillTurnMessages,
 } from "./experience-review-prompt.js";
 import { assertSkillReviewRunSucceeded } from "./review-outcome.js";
@@ -308,7 +309,10 @@ export function createSkillExperienceReviewScheduler(deps: ExperienceReviewSched
           : Number.isSafeInteger(reportedModelIterations) && reportedModelIterations >= 0
             ? reportedModelIterations
             : 0;
-      if (modelIterations < EXPERIENCE_REVIEW_MIN_MODEL_ITERATIONS) {
+      if (
+        modelIterations < EXPERIENCE_REVIEW_MIN_MODEL_ITERATIONS &&
+        !hasSkillTurnLearningEvidence(turnMessages)
+      ) {
         log.debug(
           `experience review skipped: reason=below-depth-bar iterations=${modelIterations} session=${sessionKey}`,
         );
