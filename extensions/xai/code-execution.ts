@@ -22,7 +22,7 @@ export function createCodeExecutionTool(options?: {
   config?: unknown;
   runtimeConfig?: Record<string, unknown> | null;
   auth?: XaiToolAuthContext;
-}) {
+}): ReturnType<typeof createCodeExecutionToolDefinition> | null {
   const runtimeConfig = options?.runtimeConfig ?? getRuntimeConfigSnapshot();
   const codeExecutionConfig =
     readPluginCodeExecutionConfig(runtimeConfig ?? undefined) ??

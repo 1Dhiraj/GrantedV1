@@ -66,12 +66,7 @@ export function readChatPaneMutationAccess(
   };
 }
 
-function resolveChatModelCatalogState(
-  state: Pick<
-    ChatPageHost,
-    "chatModelCatalog" | "chatModelCatalogError" | "chatModelsLoading" | "connected"
-  >,
-): ChatModelCatalogState {
+function resolveChatModelCatalogState(state: ChatPageHost): ChatModelCatalogState {
   const hasSnapshot =
     state.chatModelCatalog.length > 0 || (!state.chatModelsLoading && !state.chatModelCatalogError);
   return {

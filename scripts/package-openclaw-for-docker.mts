@@ -201,7 +201,8 @@ function resolvePackedOpenClawFileName(value: string) {
   const filename = value.trim();
   if (
     !filename.endsWith(".tgz") ||
-    (!filename.startsWith("openclaw-") &&
+    (!filename.startsWith("granted-") &&
+      !filename.startsWith("openclaw-") &&
       !filename.includes(":") &&
       !filename.includes("/") &&
       !filename.includes("\\"))
@@ -209,7 +210,7 @@ function resolvePackedOpenClawFileName(value: string) {
     return "";
   }
   if (
-    !/^openclaw-[A-Za-z0-9._-]+\.tgz$/u.test(filename) ||
+    !/^(?:granted|openclaw)-[A-Za-z0-9._-]+\.tgz$/u.test(filename) ||
     filename.includes("\0") ||
     filename !== path.basename(filename) ||
     filename !== path.win32.basename(filename)
@@ -560,7 +561,10 @@ async function cleanPackedOpenClawTarballs(outputDir: string) {
 }
 
 function isPackedAiRuntimeTarball(filename: string) {
-  return /^openclaw-ai-[A-Za-z0-9._-]+\.tgz$/u.test(filename);
+  // The package is @granted/ai, so pnpm emits granted-ai-<version>.tgz.
+  // openclaw-ai- stays accepted so a tarball packed before the rename, or by
+  // an older checkout, is still recognised here.
+  return /^(?:granted|openclaw)-ai-[A-Za-z0-9._-]+\.tgz$/u.test(filename);
 }
 
 export async function prepareBundledAiRuntimePackage(
@@ -585,9 +589,19 @@ export async function prepareBundledAiRuntimePackage(
       // Source-ref validation runs this trusted harness outside the candidate's dependency tree.
       // Keep extraction on the system tar contract so only the candidate checkout needs install.
       // Use an archive basename so GNU tar cannot treat a Windows drive as a remote host.
+      // The same applies to -C: an absolute Windows destination reaches tar as
+      // "D:\repo\node_modules\..." and its backslashes are read as escapes, so the
+      // directory is never found. Both tar builds on Windows accept a relative
+      // forward-slash path, and the run cwd is already the archive's directory.
       run(
         "tar",
-        ["-xzf", path.basename(tarballPath), "-C", destination, "--strip-components=1"],
+        [
+          "-xzf",
+          path.basename(tarballPath),
+          "-C",
+          path.relative(path.dirname(tarballPath), destination).split(path.sep).join("/"),
+          "--strip-components=1",
+        ],
         path.dirname(tarballPath),
         {
           timeoutMs: resolveTimeoutMs(

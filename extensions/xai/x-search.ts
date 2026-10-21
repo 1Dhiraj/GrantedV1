@@ -125,7 +125,7 @@ export function createXSearchTool(options?: {
   config?: unknown;
   runtimeConfig?: Record<string, unknown> | null;
   auth?: XaiToolAuthContext;
-}) {
+}): ReturnType<typeof createXSearchToolDefinition> | null {
   const xSearchConfig = resolveEffectiveXSearchConfig(options?.config as never);
   const runtimeConfig = options?.runtimeConfig ?? getRuntimeConfigSnapshot();
   if (
