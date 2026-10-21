@@ -115,3 +115,20 @@ describe("harness recovery eligibility", () => {
     expect(canRunHarnessRecovery({ ...SAFE_RECOVERY, ...override })).toBe(false);
   });
 });
+
+describe("resource-aware recovery", () => {
+  it("retains structured resource identities when projecting attempt metadata", () => {
+    expect(
+      resolveHarnessRecoveryInstruction({
+        attempt: {
+          toolMetas: [
+            { toolName: "write", mutating: true, verificationTargets: ["file:/work/a.txt"] },
+            { toolName: "read", mutating: false, verificationTargets: ["file:/work/b.txt"] },
+          ],
+        },
+        replyText: "Saved the file.",
+        attempts: 0,
+      })?.kind,
+    ).toBe("verify");
+  });
+});

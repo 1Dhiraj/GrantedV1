@@ -54,7 +54,8 @@ function projectToolCalls(attempt: HarnessRecoveryAttempt): TurnToolCall[] {
     const verificationFailed = entry.verificationOutcome?.passed === false;
     return {
       name: entry.toolName,
-      action: entry.meta,
+      action: entry.toolAction ?? entry.meta,
+      verificationTargets: entry.verificationTargets,
       command: entry.meta,
       isError: entry.isError === true || verificationFailed,
       verification: entry.verificationOutcome !== undefined,

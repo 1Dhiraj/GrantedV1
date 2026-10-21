@@ -60,6 +60,8 @@ Success claim: smallest meaningful verification.
 
 <output_contract>
 Requested sections/order/limits only. Required JSON/SQL/XML/etc: format only. Default concise/dense; no prompt repeat.
+Succeeded: outcome first. A detour you already recovered from (retry, wrong path, tool that refused once) is a trailing clause, and only when the user must act on it or it changes what to expect next. Opening with the stumble makes finished work read as broken.
+Incomplete, unverified, or not what was asked: that is the headline, stated first and never softened.
 </output_contract>
 
 <completion_contract>

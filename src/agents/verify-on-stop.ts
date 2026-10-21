@@ -19,6 +19,8 @@ const DEFAULT_MAX_VERIFY_ATTEMPTS = 2;
 /** Tools whose successful use changes real state the agent could later inspect. */
 const MUTATING_TOOL_NAMES = new Set([
   "write",
+  "write_file",
+  "edit_file",
   "edit",
   "apply_patch",
   "exec",
@@ -32,10 +34,15 @@ const MUTATING_TOOL_NAMES = new Set([
 ]);
 
 /** Tools whose use observes real state (the evidence side of the ledger). */
-const VERIFYING_TOOL_NAMES = new Set(["read", "sessions_history", "sessions_list"]);
+const VERIFYING_TOOL_NAMES = new Set(["read", "read_file", "sessions_history", "sessions_list"]);
 
 /** Desktop/browser sub-actions that change state vs. observe it. */
 const MUTATING_ACTIONS = new Set([
+  // settext writes into another application's control through UI Automation.
+  // It changes state exactly as much as "type" does, and it is now the
+  // PREFERRED way to enter text, so leaving it out silenced the honesty
+  // check on the path the agent is told to use most.
+  "settext",
   "act",
   "launch",
   "window",
@@ -81,6 +88,10 @@ const READ_ONLY_COMMAND_RE =
  */
 const SUCCESS_CLAIM_RE = new RegExp(
   [
+    // A bare participle opening a sentence - "Saved hi.txt to Downloads."
+    // That is how a reply reads when it leads with the outcome, which the
+    // output contract now asks it to do, so it has to count as a claim.
+    "(?:^|[.!?]\\s+|\\n)\\s*(?:created|saved|wrote|written|opened|launched|sent|updated|deleted|renamed|installed|added|scheduled|completed|performed|executed)\\b",
     "\\b(?:has|have|had)\\s+been\\s+(?:created|saved|written|opened|launched|sent|updated|deleted|renamed|installed|added|scheduled|completed|performed|executed)\\b",
     "\\bi\\s+(?:have\\s+)?(?:created|saved|wrote|written|opened|launched|sent|updated|deleted|renamed|added|scheduled|completed|performed|executed|ran)\\b",
     "\\b(?:successfully|now)\\s+(?:created|saved|written|opened|launched|sent|updated|deleted|renamed|added|scheduled|completed|performed|executed)\\b",
@@ -99,6 +110,8 @@ const HEDGE_RE =
 export type TurnToolCall = {
   /** Canonical tool name, e.g. "write", "exec", "desktop", "browser". */
   name: string;
+  /** Exact resources touched or observed, when available from execution arguments. */
+  verificationTargets?: readonly string[];
   /** Sub-action when the tool has one (desktop act kind, browser action, ...). */
   action?: string;
   /** Primary command/argument, used to tell read-only shell calls from mutations. */
@@ -159,6 +172,9 @@ export function isVerifyingCall(call: TurnToolCall): boolean {
   if (call.isError) {
     return false;
   }
+  if (call.verification === true) {
+    return true;
+  }
   const name = normalize(call.name);
   const action = normalize(call.action);
   if (action && VERIFYING_ACTIONS.has(action)) {
@@ -203,33 +219,25 @@ export function buildVerifyOnStopNudge(params: VerifyOnStopParams): string | nul
   }
 
   const calls = params.toolCalls ?? [];
-  let lastMutationIndex = -1;
-  for (let i = calls.length - 1; i >= 0; i -= 1) {
-    const call = calls[i];
-    if (call && isMutatingCall(call)) {
-      lastMutationIndex = i;
-      break;
+  const unchecked = calls.find((mutation, index) => {
+    if (!isMutatingCall(mutation) || mutation.verification === true) {
+      return false;
     }
-  }
-  if (lastMutationIndex === -1) {
-    // Nothing was changed. Either the turn was pure conversation (fine) or the
-    // model claimed an action it never performed — the no-tool-call case, which
-    // the reply-payload guard already surfaces to the user.
+    const observations = calls.slice(index + 1).filter(isVerifyingCall);
+    return mutation.verificationTargets?.length
+      ? mutation.verificationTargets.some(
+          (target) => !observations.some((call) => call.verificationTargets?.includes(target)),
+        )
+      : observations.length === 0;
+  });
+  if (!unchecked) {
     return null;
   }
 
-  // Evidence only counts when it came after the change it is meant to confirm.
-  const verifiedAfter = calls
-    .slice(lastMutationIndex + 1)
-    .some((call) => call && isVerifyingCall(call));
-  if (verifiedAfter) {
-    return null;
-  }
-
-  const mutation = describeAction(calls[lastMutationIndex] as TurnToolCall);
+  const mutation = describeAction(unchecked);
   return (
     `[System: You reported this as done, but nothing in this turn read the result back. ` +
-    `The last change was ${mutation}, and no check followed it.\n\n` +
+    `An unchecked change was ${mutation}${unchecked.verificationTargets?.length ? ` on ${unchecked.verificationTargets.join(", ")}` : ""}. No matching check followed it.\n\n` +
     `Verify it now against the real state — read the file back, take a fresh snapshot or ` +
     `screenshot, re-run the query, or check the list — then report exactly what you observed. ` +
     `If the check shows it did not work, say so and fix it. If you cannot verify it, say ` +

@@ -531,6 +531,9 @@ function buildExecutionBiasSection(params: { isMinimal: boolean }) {
     "- Never report success a tool did not confirm; for writes, sends, and job creation, read back or check the list before announcing.",
     "- Step fails: read the error, change approach, retry (max 2 per step); re-look before retrying UI actions. Then report attempts and the exact last error. Never invent a result.",
     "- Long work: brief update, keep going; background/subagents when useful.",
+    "- Background by default: use available file, command, and app API capabilities before desktop interaction. Do not launch a visible editor just to produce or change a file.",
+    "- Web tasks: prefer an available dedicated browser session. Choose execution methods from available tool capabilities and observed results, not hardcoded app-to-method rules. Preserve app-specific requirements in the request. Native GUI tasks: inspect supported control operations, including in minimized windows, and target the intended window explicitly; do not assume it is the foreground window.",
+    "- Never describe a shared-desktop task as isolated. If completing it requires taking the user's mouse or keyboard, use foreground input when the user already authorized it for this task without asking again; otherwise explain the interruption and obtain agreement before proceeding. A failed background action is not permission to take over. Verify the outcome and report partial changes accurately.",
     "",
   ];
 }
@@ -1322,6 +1325,7 @@ export function buildAgentSystemPrompt(params: {
         fallback: [
           "## Talking to the user",
           "Lead with what happened or what will happen, in the words the person already used.",
+          'When the work succeeded, say that first. A detour you already recovered from — a retry, a wrong path, a tool that refused once — is a detail, not the headline. Put the outcome the person asked for in the opening clause, and add the detour afterwards only when they need to act on it or when it changes what to expect next: "Saved hi.txt to your Desktop — it lives under OneDrive on this machine, not C:\\Users\\<name>\\Desktop" says everything, while opening with the stumble makes finished work read like a breakdown and teaches the person to distrust results that were fine. None of this licenses hiding a failure or dressing up a partial result: if the outcome is incomplete, unverified, or not what was asked for, then that IS the headline and it goes first.',
           "File paths, config keys, schema fields and tool names are implementation detail. Include them when the person is working in the code; leave them out when they are not. Match the register they wrote in rather than defaulting to either extreme — a developer asking about a config key wants the key, and someone asking why their assistant forgot something does not.",
           "When something cannot be done, say so plainly and name the single thing that would unblock it, rather than listing everything that is missing.",
         ],

@@ -207,6 +207,8 @@ beforeEach(async () => {
 
 afterEach(async () => {
   resetGatewayWorkAdmission();
+  closeOpenClawAgentDatabasesForTest();
+  closeOpenClawStateDatabaseForTest();
   await fs.rm(tmpDir, { recursive: true, force: true });
 });
 

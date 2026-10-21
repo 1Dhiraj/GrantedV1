@@ -31,6 +31,7 @@ import type { SandboxContext } from "../../sandbox/types.js";
 import type { AuthStorage, ModelRegistry } from "../../sessions/index.js";
 import type { ToolEffectReceipt } from "../../tool-effect-receipt.js";
 import type { ToolErrorSummary } from "../../tool-error-summary.js";
+import type { ToolVerificationMetadata } from "../../tool-verification-targets.js";
 import type { NormalizedUsage } from "../../usage.js";
 import type { EmbeddedRunReplayMetadata, EmbeddedRunReplayState } from "../replay-state.js";
 import type { EmbeddedRunLivenessState } from "../types.js";
@@ -308,23 +309,25 @@ export type EmbeddedRunAttemptResult = {
   latestMcpAppChannelView?: McpAppChannelView;
   latestMcpConnectAction?: McpConnectAction;
   lastAssistantTextMessageIndex?: number;
-  toolMetas: Array<{
-    toolName: string;
-    toolCallId?: string;
-    meta?: string;
-    replaySafe?: boolean;
-    isError?: boolean;
-    /** Argument-aware mutation verdict for the turn-end verification gate. */
-    mutating?: boolean;
-    /** Explicit postcondition verdict returned by an action=verify tool call. */
-    verificationOutcome?: { passed: boolean; error?: string };
-    terminate?: boolean;
-    asyncStarted?: boolean;
-    asyncTaskRunId?: string;
-    asyncTaskId?: string;
-    /** Producer-recorded: this exec result parked a Code Mode run (status "waiting"). */
-    codeModeSuspended?: boolean;
-  }>;
+  toolMetas: Array<
+    ToolVerificationMetadata & {
+      toolName: string;
+      toolCallId?: string;
+      meta?: string;
+      replaySafe?: boolean;
+      isError?: boolean;
+      /** Argument-aware mutation verdict for the turn-end verification gate. */
+      mutating?: boolean;
+      /** Explicit postcondition verdict returned by an action=verify tool call. */
+      verificationOutcome?: { passed: boolean; error?: string };
+      terminate?: boolean;
+      asyncStarted?: boolean;
+      asyncTaskRunId?: string;
+      asyncTaskId?: string;
+      /** Producer-recorded: this exec result parked a Code Mode run (status "waiting"). */
+      codeModeSuspended?: boolean;
+    }
+  >;
   acceptedSessionSpawns?: AcceptedSessionSpawn[];
   /** This attempt accepted work whose future output has a runtime-owned delivery path. */
   runtimeContinuationStarted?: boolean;

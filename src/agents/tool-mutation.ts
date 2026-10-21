@@ -66,6 +66,7 @@ const REPLAY_SAFE_TOOL_NAMES = new Set([
   "memory_get",
   "pdf",
   "read",
+  "read_file",
   "search",
   "sessions_history",
   "sessions_list",
@@ -269,6 +270,8 @@ export function isMutatingToolCall(toolName: string, args: unknown): boolean {
 
   switch (normalized) {
     case "write":
+    case "write_file":
+    case "edit_file":
     case "edit":
     case "apply_patch":
     case "sessions_spawn":

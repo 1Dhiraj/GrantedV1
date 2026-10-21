@@ -180,3 +180,115 @@ describe("buildUnverifiedClaimWarning", () => {
     ).toBeNull();
   });
 });
+
+describe("buildUnverifiedClaimWarning: the two holes a real false claim went through", () => {
+  // Granted reported "it did the job" on a run that wrote no file anywhere.
+  // Two independent gaps let that through, and both had just been widened:
+  // settext became the preferred way to type, and the output contract started
+  // asking replies to lead with the outcome.
+  it("counts settext as a change, not just type", () => {
+    expect(
+      buildUnverifiedClaimWarning({
+        toolCalls: [{ name: "desktop", action: "settext" }],
+        replyText: "It's done.",
+      }),
+    ).toContain("Unverified");
+  });
+
+  it('hears a bare participle as a claim, not only "I saved" or "has been saved"', () => {
+    for (const replyText of [
+      "Saved hi.txt to Downloads.",
+      "Created the file.",
+      "Opened Notepad and saved it.",
+    ]) {
+      expect(
+        buildUnverifiedClaimWarning({ toolCalls: [{ name: "write" }], replyText }),
+        replyText,
+      ).toContain("Unverified");
+    }
+  });
+
+  it("still says nothing when the participle is not a claim about this turn", () => {
+    // A warning on every sentence containing "saved" would be noise, and noise
+    // is how a safety check gets switched off.
+    const quiet: Array<[string, Parameters<typeof buildUnverifiedClaimWarning>[0]]> = [
+      [
+        "noun, read-only tool",
+        {
+          toolCalls: [{ name: "exec", command: "Get-Content x" }],
+          replyText: "Saved searches are listed above.",
+        },
+      ],
+      [
+        "mid-sentence past reference",
+        { toolCalls: [{ name: "read" }], replyText: "The file I saved earlier is fine." },
+      ],
+      [
+        "hedged intent",
+        { toolCalls: [{ name: "write" }], replyText: "This will create the file." },
+      ],
+      ["admitted failure", { toolCalls: [{ name: "write" }], replyText: "I couldn't save it." }],
+      [
+        "verified by a read",
+        {
+          toolCalls: [{ name: "desktop", action: "settext" }, { name: "read" }],
+          replyText: "Saved hi.txt to Downloads.",
+        },
+      ],
+    ];
+    for (const [label, params] of quiet) {
+      expect(buildUnverifiedClaimWarning(params), label).toBeNull();
+    }
+  });
+});
+
+describe("verification resource matching", () => {
+  it("does not let an unrelated file read verify a write", () => {
+    expect(
+      buildVerifyOnStopNudge({
+        replyText: "Saved the file.",
+        toolCalls: [
+          { name: "write", verificationTargets: ["file:/work/report.txt"] },
+          { name: "read", verificationTargets: ["file:/work/other.txt"] },
+        ],
+      }),
+    ).not.toBeNull();
+  });
+
+  it("accepts a read of the changed file across file tool names", () => {
+    expect(
+      buildVerifyOnStopNudge({
+        replyText: "Saved the file.",
+        toolCalls: [
+          { name: "write_file", verificationTargets: ["file:/work/report.txt"] },
+          { name: "read_file", verificationTargets: ["file:/work/report.txt"] },
+        ],
+      }),
+    ).toBeNull();
+  });
+
+  it("requires evidence for each changed resource, not just the last one", () => {
+    expect(
+      buildVerifyOnStopNudge({
+        replyText: "Saved both files.",
+        toolCalls: [
+          { name: "write", verificationTargets: ["file:/work/a.txt"] },
+          { name: "write", verificationTargets: ["file:/work/b.txt"] },
+          { name: "read", verificationTargets: ["file:/work/b.txt"] },
+        ],
+      }),
+    ).not.toBeNull();
+  });
+
+  it("does not count a failed postcondition as proof", () => {
+    expect(
+      buildVerifyOnStopNudge({
+        replyText: "Saved the file.",
+        toolCalls: [
+          { name: "write", verificationTargets: ["file:/work/a.txt"] },
+          { name: "read", verificationTargets: ["file:/work/a.txt"], isError: true },
+        ],
+      }),
+    ).not.toBeNull();
+  });
+});

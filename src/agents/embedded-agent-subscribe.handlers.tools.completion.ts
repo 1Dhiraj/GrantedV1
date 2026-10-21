@@ -103,7 +103,7 @@ import {
 import { resolveFileMutationToolName } from "./tool-mutation-names.js";
 import { normalizeToolPolicyName } from "./tool-policy.js";
 import { isToolResultError, readToolResultDetails } from "./tool-result-error.js";
-import { readToolVerificationOutcome } from "./tool-verification-outcome.js";
+import { buildVerificationReceipt } from "./tool-verification-receipt.js";
 import { cancelAskUserPromptDelivery } from "./tools/ask-user-tool.js";
 import { isAutomationsToolName } from "./tools/automations-tool-name.js";
 
@@ -184,11 +184,6 @@ export async function handleToolExecutionEnd(
     (trackedExecutionStarted ?? evt.executionStarted ?? true) && !executionPrevented;
   const attemptedPotentialSideEffect = !callSummary.replaySafe && executionStarted;
   const meta = callSummary.meta;
-  const verificationOutcome = readToolVerificationOutcome(
-    toolName,
-    typeof startArgs.action === "string" ? startArgs.action : undefined,
-    sanitizedResult,
-  );
   const asyncStarted = !isToolError && isAsyncStartedToolResult(sanitizedResult);
   const asyncTaskIds = asyncStarted ? readAsyncStartedTaskIds(sanitizedResult) : {};
   // A Code Mode exec that returns "waiting" parked a run the model resumes via
@@ -203,9 +198,8 @@ export async function handleToolExecutionEnd(
     toolCallId,
     meta,
     replaySafe: callSummary.replaySafe,
-    mutating: callSummary.mutatingAction,
+    ...buildVerificationReceipt(toolName, startArgs, sanitizedResult, callSummary.mutatingAction),
     isError: observerIsError,
-    ...(verificationOutcome ? { verificationOutcome } : {}),
     ...(isToolTerminateResult(result) ? { terminate: true } : {}),
     ...(asyncStarted ? { asyncStarted: true, ...asyncTaskIds } : {}),
     ...(codeModeSuspended ? { codeModeSuspended: true } : {}),

@@ -124,7 +124,16 @@ function resolveRawAssistantAnswerText(lastAssistant: AssistantMessage | undefin
  * errors, preserves directive metadata, and decides when tool failures must be
  * surfaced to the user.
  */
-type HonestyToolMeta = { toolName: string; meta?: string; isError?: boolean; mutating?: boolean };
+type HonestyToolMeta = Pick<
+  import("./types.js").EmbeddedRunAttemptResult["toolMetas"][number],
+  | "toolName"
+  | "meta"
+  | "isError"
+  | "mutating"
+  | "verificationTargets"
+  | "toolAction"
+  | "verificationOutcome"
+>;
 
 /**
  * Turn-end honesty checks. A turn can mislead without any tool erroring: it
@@ -147,9 +156,11 @@ function buildHonestyWarning(params: {
   return buildUnverifiedClaimWarning({
     toolCalls: params.toolMetas.map((entry) => ({
       name: entry.toolName,
-      action: entry.meta,
+      action: entry.toolAction ?? entry.meta,
+      verificationTargets: entry.verificationTargets,
+      verification: entry.verificationOutcome?.passed === true,
       command: entry.meta,
-      isError: entry.isError,
+      isError: entry.isError || entry.verificationOutcome?.passed === false,
       mutating: entry.mutating,
     })),
     replyText,

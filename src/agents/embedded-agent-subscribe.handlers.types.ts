@@ -30,6 +30,7 @@ import type { McpAppChannelView } from "./mcp-ui-resource.js";
 import type { AgentRunTimeoutPhase } from "./run-timeout-attribution.js";
 import type { AgentMessage } from "./runtime/index.js";
 import type { ToolErrorSummary } from "./tool-error-summary.js";
+import type { ToolVerificationMetadata } from "./tool-verification-targets.js";
 import type { NormalizedUsage } from "./usage.js";
 
 type EmbeddedSubscribeLogger = {
@@ -73,22 +74,24 @@ type AssistantStreamDelivery = {
 /** Mutable subscription state shared by embedded-agent event handlers. */
 export type EmbeddedAgentSubscribeState = {
   assistantTexts: string[];
-  toolMetas: Array<{
-    toolName?: string;
-    toolCallId?: string;
-    meta?: string;
-    replaySafe?: boolean;
-    isError?: boolean;
-    /** Argument-aware mutation verdict for the turn-end verification gate. */
-    mutating?: boolean;
-    /** Explicit postcondition verdict returned by an action=verify tool call. */
-    verificationOutcome?: { passed: boolean; error?: string };
-    terminate?: boolean;
-    asyncStarted?: boolean;
-    asyncTaskRunId?: string;
-    asyncTaskId?: string;
-    codeModeSuspended?: boolean;
-  }>;
+  toolMetas: Array<
+    ToolVerificationMetadata & {
+      toolName?: string;
+      toolCallId?: string;
+      meta?: string;
+      replaySafe?: boolean;
+      isError?: boolean;
+      /** Argument-aware mutation verdict for the turn-end verification gate. */
+      mutating?: boolean;
+      /** Explicit postcondition verdict returned by an action=verify tool call. */
+      verificationOutcome?: { passed: boolean; error?: string };
+      terminate?: boolean;
+      asyncStarted?: boolean;
+      asyncTaskRunId?: string;
+      asyncTaskId?: string;
+      codeModeSuspended?: boolean;
+    }
+  >;
   acceptedSessionSpawns: AcceptedSessionSpawn[];
   toolMetaById: Map<string, ToolCallSummary>;
   toolSummaryById: Set<string>;

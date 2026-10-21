@@ -111,3 +111,20 @@ describe("tool verification outcome", () => {
     });
   });
 });
+
+describe("owner-reported inline postcondition checks", () => {
+  it("accepts a successful readback from a tool that verifies its own mutation", () => {
+    expect(
+      readToolVerificationOutcome("desktop", "act", {
+        details: { ok: true, verification: { passed: true } },
+      }),
+    ).toEqual({ passed: true });
+  });
+  it("does not confuse execution success with a failed readback", () => {
+    expect(
+      readToolVerificationOutcome("desktop", "act", {
+        details: { verification: { passed: false }, error: "readback mismatch" },
+      }),
+    ).toEqual({ passed: false, error: "readback mismatch" });
+  });
+});

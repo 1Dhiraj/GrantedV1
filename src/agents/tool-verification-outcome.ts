@@ -68,6 +68,19 @@ export function readToolVerificationOutcome(
   result: unknown,
 ): ToolVerificationOutcome | undefined {
   const details = readToolResultDetails(result);
+  // Tools that inspect their own effect can return an explicit owner verdict.
+  const verification = readRecord(details?.verification);
+  if (typeof verification?.passed === "boolean") {
+    return verification.passed
+      ? { passed: true }
+      : {
+          passed: false,
+          error:
+            readBoundedString(verification.error) ??
+            readBoundedString(details?.error) ??
+            DEFAULT_VERIFICATION_FAILURE,
+        };
+  }
   if (action?.trim().toLowerCase() === "verify") {
     if (typeof details?.verified !== "boolean") {
       return undefined;

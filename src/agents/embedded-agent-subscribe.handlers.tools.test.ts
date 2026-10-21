@@ -4419,3 +4419,38 @@ describe("control UI credential redaction (issue #72283)", () => {
   });
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */
+
+describe("verification evidence captured at tool completion", () => {
+  it("keeps exact file targets through final user warnings", async () => {
+    const { ctx } = createTestContext();
+    await executeTool(ctx, {
+      toolName: "write",
+      toolCallId: "write-target",
+      args: { path: "/work/report.txt" },
+      isError: false,
+      result: { content: [], details: { ok: true } },
+    });
+    await executeTool(ctx, {
+      toolName: "read",
+      toolCallId: "read-unrelated",
+      args: { path: "/work/other.txt" },
+      isError: false,
+      result: { content: [], details: { ok: true } },
+    });
+    expect(ctx.state.toolMetas[0]).toMatchObject({
+      verificationTargets: ["file:/work/report.txt"],
+    });
+    const payloads = buildEmbeddedRunPayloads({
+      assistantTexts: ["Saved the file."],
+      lastAssistant: undefined,
+      sessionKey: "agent:unit-session",
+      verboseLevel: "off",
+      reasoningLevel: "off",
+      toolResultFormat: "plain",
+      toolMetas: ctx.state.toolMetas.flatMap(({ toolName, ...entry }) =>
+        toolName ? [{ ...entry, toolName }] : [],
+      ),
+    });
+    expect(payloads.some((payload) => payload.text?.includes("Unverified"))).toBe(true);
+  });
+});
