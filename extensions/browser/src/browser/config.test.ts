@@ -36,6 +36,7 @@ describe("browser config", () => {
   it("defaults to enabled with loopback defaults and lobster-orange color", () => {
     const resolved = resolveBrowserConfig(undefined);
     expect(resolved.enabled).toBe(true);
+    expect(resolved.headless).toBe(true);
     expect(resolved.controlPort).toBe(18791);
     expect(resolved.color).toBe("#FF4500");
     expect(resolved.cdpHost).toBe("127.0.0.1");
@@ -359,6 +360,20 @@ describe("browser config", () => {
       [BROWSER_HEADLESS_ENV_KEY]: undefined,
     };
 
+    it.each(["win32", "darwin", "linux"] as const)(
+      "defaults managed %s browsing to the background",
+      (platform) => {
+        const resolved = resolveBrowserConfig({});
+        const profile = resolveProfile(resolved, "openclaw")!;
+        expect(
+          resolveManagedBrowserHeadlessMode(resolved, profile, {
+            platform,
+            env: { DISPLAY: ":1", [BROWSER_HEADLESS_ENV_KEY]: undefined },
+          }),
+        ).toEqual({ headless: true, source: "default" });
+      },
+    );
+
     it.each([
       {
         name: "falls back to headless for local managed Linux profiles without display",
@@ -370,7 +385,7 @@ describe("browser config", () => {
         name: "does not apply the no-display fallback to remote CDP profiles",
         config: withProfile("remote", { cdpUrl: "http://10.0.0.42:9222" }),
         profileName: "remote",
-        expected: { headless: false, source: "default" },
+        expected: { headless: true, source: "default" },
       },
       {
         name: "lets explicit profile headless=false beat the Linux no-display fallback",
@@ -744,7 +759,7 @@ describe("browser config", () => {
         cdpIsLoopback: true,
         color: "#FF4500",
         executablePath: undefined,
-        headless: false,
+        headless: true,
         headlessSource: "default",
         mcpArgs: undefined,
         mcpCommand: undefined,

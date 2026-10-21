@@ -416,7 +416,8 @@ export function resolveBrowserConfig(
     };
   }
 
-  const headless = cfg?.headless === true;
+  // Managed work stays inside the browser panel unless a visible browser is explicitly requested.
+  const headless = cfg?.headless ?? true;
   const headlessSource = typeof cfg?.headless === "boolean" ? "config" : "default";
   const noSandbox = cfg?.noSandbox === true;
   const attachOnly = cfg?.attachOnly === true;

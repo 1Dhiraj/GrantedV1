@@ -1,5 +1,6 @@
 import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { expect, it } from "vitest";
+import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";
 import {
   defaultControlUiFeatureMethods,
   installMockGateway,
@@ -253,8 +254,14 @@ suite.define(() => {
   it.each(["panel", "older card"])(
     "preserves browser routes when first opened through %s",
     async (firstOpen) => {
+      const proof = createControlUiE2eArtifactDir("background-browser");
       await suite.withPage(
-        { locale: "en-US", serviceWorkers: "block", viewport: { height: 900, width: 1280 } },
+        {
+          locale: "en-US",
+          serviceWorkers: "block",
+          viewport: { height: 900, width: 1280 },
+          recordVideo: { dir: proof },
+        },
         async ({ page }) => {
           await page.route("**/__openclaw__/assistant-media**", (route) =>
             route.fulfill({
@@ -372,22 +379,17 @@ suite.define(() => {
             ),
           ).toBe(false);
           const panel = page.locator("section.bp");
+          await page.screenshot({ path: proof + "/before.png" });
           if (firstOpen === "panel") {
             await openChatSidePanelType(page, "Browser");
             await panel.locator('.bp-shot[alt="Node tab"]').waitFor();
             expect(await panel.locator(".bp-profile").textContent()).toBe("work");
-            await expect
-              .poll(async () =>
-                (await gateway.getRequests("browser.request")).map((request) => request.params),
-              )
-              .toContainEqual({
-                method: "POST",
-                path: "/tabs/focus",
-                target: "node",
-                node: "node-a",
-                query: { profile: "work" },
-                body: { targetId: "t1" },
-              });
+            expect(
+              (await gateway.getRequests("browser.request")).some(
+                (request) => asNullableRecord(request.params)?.path === "/tabs/focus",
+              ),
+            ).toBe(false);
+            await page.screenshot({ path: proof + "/passive-preview.png" });
           }
           const beforeHostOpen = (await gateway.getRequests("browser.request")).length;
           await hostCard.getByRole("button", { name: "Open", exact: true }).click();

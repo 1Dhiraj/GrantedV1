@@ -50,7 +50,7 @@ export type BrowserConfig = {
   cdpUrl?: string;
   /** Override the browser executable path (all platforms). */
   executablePath?: string;
-  /** Start Chrome headless (best-effort). Default: false */
+  /** Start locally managed Chrome without a desktop window. Default: true. */
   headless?: boolean;
   /** Pass --no-sandbox to Chrome (Linux containers). Default: false */
   noSandbox?: boolean;

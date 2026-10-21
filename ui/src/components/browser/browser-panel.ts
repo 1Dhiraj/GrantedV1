@@ -209,7 +209,7 @@ class GrantedBrowserPanel extends GrantedLitElement implements BrowserPanelContr
     this.consumedPreferredRevision = revision;
     const tab = readBrowserTabTarget(this.preferredTab.tab);
     if (tab) {
-      void this.browserPanelController.selectTab(tab.targetId, tab);
+      void this.browserPanelController.selectTab(tab.targetId, tab, "observe");
     }
     return true;
   }

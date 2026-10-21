@@ -366,6 +366,7 @@ main model can read the screenshot directly.
 <Accordion title="Profile behavior">
 
 - `attachOnly: true` means never launch a local browser; only attach if one is already running.
+- Local managed browsers run headless by default, so tasks appear in the Control UI Browser panel without opening a window on your desktop. Set `browser.headless: false` or `browser.profiles.<name>.headless: false` when you explicitly want a visible browser. Existing-session, extension-relay, and remote browsers keep running where they already are.
 - `headless` can be set globally or per local managed profile. Per-profile values override `browser.headless`, so one locally launched profile can stay headless while another remains visible.
 - `POST /start?headless=true` and `granted browser start --headless` request a
   one-shot headless launch for local managed profiles without rewriting

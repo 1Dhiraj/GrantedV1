@@ -535,7 +535,11 @@ export class BrowserPanelController implements ReactiveController {
     }
   }
 
-  async selectTab(targetId: string, route?: BrowserRoute): Promise<void> {
+  async selectTab(
+    targetId: string,
+    route?: BrowserRoute,
+    presentation: "observe" | "activate" = "activate",
+  ): Promise<void> {
     if (route && browserRouteKey(this.operations.route) !== browserRouteKey(route)) {
       this.operations.resetRoute(route);
       this.resetBrowserState();
@@ -552,7 +556,7 @@ export class BrowserPanelController implements ReactiveController {
     if (!route && this.clearUnavailableView()) {
       return;
     }
-    const focused = await this.runAction(async (actionClient) => {
+    const presented = await this.runAction(async (actionClient) => {
       if (route) {
         // Listing is safe for blocked tabs; focus is not. Resolve the alias and
         // current access observation before attempting to activate the target.
@@ -570,7 +574,11 @@ export class BrowserPanelController implements ReactiveController {
       if (!selectedTargetId) {
         return;
       }
-      await focusBrowserTab(actionClient, selectedTargetId);
+      // Agent-result following updates only our preview; it must not activate
+      // the external browser while the operator is working in another app.
+      if (presentation === "activate") {
+        await focusBrowserTab(actionClient, selectedTargetId);
+      }
       if (!this.operations.isLive(epoch, actionClient)) {
         return;
       }
@@ -583,7 +591,7 @@ export class BrowserPanelController implements ReactiveController {
         this.operations.markNavigationReconciled(actionClient, selectedTargetId);
       }
     }, false);
-    if (!focused && this.operations.isLive(epoch) && this.activeTargetId === targetId) {
+    if (!presented && this.operations.isLive(epoch) && this.activeTargetId === targetId) {
       if (this.operations.hasPendingNavigation(client, previous.targetId)) {
         // The prior remote document changed while selection failed. Expose an
         // unavailable state instead of restoring a screenshot that no longer owns it.

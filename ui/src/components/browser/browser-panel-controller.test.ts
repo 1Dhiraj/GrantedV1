@@ -21,6 +21,29 @@ import { BrowserPanelController } from "./browser-panel-controller.ts";
 setupBrowserPanelTestCleanup();
 
 describe("BrowserPanelController tab and lifecycle ownership", () => {
+  it("follows an agent tab in the preview without activating its browser window", async () => {
+    stubScreenshotMedia();
+    const url = "https://example.test/background";
+    const { client, request } = createBrowserClient(async (envelope) => {
+      if (envelope.path === "/screenshot") {
+        return { path: "/background.png", targetId: "tab-b", url };
+      }
+      if (envelope.path === "/act") {
+        return createBrowserPanelTestMetrics(url, "Background");
+      }
+      throw new Error("Unexpected route: " + envelope.path);
+    });
+    const controller = createBrowserPanelTestController(client, "tab-a");
+    await controller.selectTab("tab-b", undefined, "observe");
+    expect(controller.view).toMatchObject({ targetId: "tab-b", url });
+    expect(controller.errorText).toBeNull();
+    expect(
+      request.mock.calls.some(
+        ([, params]) => (params as BrowserRequestEnvelope).path === "/tabs/focus",
+      ),
+    ).toBe(false);
+  });
+
   it("keeps rejected capture state and replaces stale feedback with the limit error", async () => {
     vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
       drawImage: vi.fn(),
