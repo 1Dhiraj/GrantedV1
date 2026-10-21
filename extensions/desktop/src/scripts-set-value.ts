@@ -3,16 +3,10 @@ import { PREAMBLE, UIA_HELPERS } from "./scripts-shared.js";
 // Sets text through UI Automation instead of the keyboard.
 //
 // The type action synthesizes keystrokes, which go to whatever window has focus.
-// That forces the app in front of the user, takes their keyboard for the
-// duration, and corrupts the result if they touch anything meanwhile. For any
-// control that exposes ValuePattern - most edit boxes, address bars, form fields
-// - UIA can write the value directly into a background window: no focus, no
-// keystrokes, no collision, and it completes in one call instead of one per
-// character.
-//
-// Not every control supports it (canvas editors and some modern rich-text
-// surfaces do not), so the failure says so plainly and names the keystroke path
-// as the fallback rather than pretending nothing happened.
+// UI Automation avoids synthesized keystrokes, but providers can activate their
+// own windows. Read the value back and verify foreground preservation rather
+// than assuming the action is safe to run alongside the user's work.
+// Unsupported controls and focus changes must select another execution route.
 export const SET_VALUE_SCRIPT =
   PREAMBLE +
   UIA_HELPERS +
@@ -37,11 +31,13 @@ $cands = @(Search-Elements $root $name $role 40 12)
 $target = $null
 foreach ($c in $cands) {
   try {
-    $vp = $c.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
-    if (-not $vp.Current.IsReadOnly) { $target = $c; break }
+    $el = Resolve-Element $c
+    if ($null -eq $el) { continue }
+    $vp = $el.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
+    if (-not $vp.Current.IsReadOnly) { $target = $el; break }
   } catch { }
 }
-if ($null -eq $target) {
+if ($null -eq $target -and -not $name -and -not $role) {
   try {
     $vp = $root.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
     if (-not $vp.Current.IsReadOnly) { $target = $root }
@@ -50,24 +46,32 @@ if ($null -eq $target) {
 if ($null -eq $target) {
   @{
     ok = $false
-    error = 'no writable ValuePattern control found in that window - this app cannot be typed into without focus; fall back to act kind=type (which takes the foreground)'
+    refused = 'background-pattern-unavailable'
+    error = 'No writable ValuePattern control found in the inspected window. Inspect other controls or available app capabilities; this does not establish that every route requires foreground input.'
   } | ConvertTo-Json -Compress
   exit 0
 }
 
 $vp = $target.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
+$foregroundBefore = [DeskNative]::GetForegroundWindow()
 $vp.SetValue([string]$A.text)
 Start-Sleep -Milliseconds 80
 # Read it back: SetValue can silently no-op on a control that accepted the call.
 $after = ''
 try { $after = [string]$vp.Current.Value } catch { }
 $info = Get-ElementInfo $target 120
-@{
-  ok = ($after -eq [string]$A.text)
+$verified = ($after -eq [string]$A.text)
+$result = @{
+  ok = $verified
+  verification = @{ passed = $verified }
+  valueVerified = $verified
   wrote = [string]$A.text
   readBack = $after
   target = @{ name = $info.name; role = $info.role }
-  foregroundUnchanged = $true
-  note = 'Set via UI Automation: the window was not focused and the keyboard was not used.'
-} | ConvertTo-Json -Compress -Depth 4
+  foregroundUnchanged = ([DeskNative]::GetForegroundWindow() -eq $foregroundBefore)
+  note = 'Set via UI Automation without requesting focus or sending keyboard input.'
+}
+if (-not $verified) { $result.error = 'ValuePattern accepted the write but readback did not match; inspect the control before retrying.' }
+Confirm-BackgroundForeground $result $foregroundBefore $h ($A.foreground -eq $true)
+$result | ConvertTo-Json -Compress -Depth 4
 `;

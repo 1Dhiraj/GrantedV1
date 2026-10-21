@@ -126,6 +126,68 @@ public static class DeskNative {
     mouse_event(0x0004, 0, 0, 0, UIntPtr.Zero);
   }
 
+  // Launch an app WITHOUT taking the user's foreground.
+  //
+  // Start-Process cannot express this. Its -WindowStyle Minimized maps to
+  // SW_SHOWMINIMIZED (2), which minimizes *and activates*; the one that does
+  // not activate is SW_SHOWMINNOACTIVE (7), reachable only through
+  // CreateProcess with STARTF_USESHOWWINDOW. Measured on Windows 11: with (7)
+  // the caller keeps focus while the app's window still appears on the taskbar
+  // with a usable UI Automation tree.
+  //
+  // lpApplicationName needs a real executable path - which also sidesteps the
+  // Store app execution alias: a bare "notepad" resolves to a Store host that
+  // ignores the requested show state entirely, while
+  // C:/Windows/System32/notepad.exe is the ordinary Win32 binary that honours it.
+  [StructLayout(LayoutKind.Sequential)] public struct STARTUPINFO {
+    public int cb; public string lpReserved, lpDesktop, lpTitle;
+    public int dwX, dwY, dwXSize, dwYSize, dwXCountChars, dwYCountChars, dwFillAttribute, dwFlags;
+    public short wShowWindow; public short cbReserved2;
+    public IntPtr lpReserved2, hStdInput, hStdOutput, hStdError;
+  }
+  [StructLayout(LayoutKind.Sequential)] public struct PROCESS_INFORMATION {
+    public IntPtr hProcess, hThread; public int dwProcessId, dwThreadId;
+  }
+  [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
+  public static extern bool CreateProcessW(string lpApplicationName, string lpCommandLine,
+    IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, bool bInheritHandles, uint dwCreationFlags,
+    IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO si, out PROCESS_INFORMATION pi);
+  [DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr h);
+
+  /** Returns the new process id, or -1 when the launch could not be started. */
+  public static int StartWithoutActivating(string exePath, string commandLine) {
+    var si = new STARTUPINFO();
+    si.cb = Marshal.SizeOf(si);
+    si.dwFlags = 0x00000001;   // STARTF_USESHOWWINDOW
+    si.wShowWindow = 7;        // SW_SHOWMINNOACTIVE
+    PROCESS_INFORMATION pi;
+    bool ok = CreateProcessW(exePath, commandLine, IntPtr.Zero, IntPtr.Zero, false, 0,
+                             IntPtr.Zero, null, ref si, out pi);
+    if (!ok) { return -1; }
+    CloseHandle(pi.hThread);
+    CloseHandle(pi.hProcess);
+    return pi.dwProcessId;
+  }
+
+  // How long since the user last touched the keyboard or mouse, in ms.
+  //
+  // This is what makes the launch considerate rather than merely quiet. A user
+  // mid-sentence must never lose the caret; a user who has stepped back from
+  // the keyboard is better served by being shown the finished window. Both
+  // ChatGPT and Claude Code behave this way, and GetLastInputInfo is the signal
+  // that tells them apart. Note it is session-wide input, not per-window.
+  [StructLayout(LayoutKind.Sequential)] public struct LASTINPUTINFO {
+    public uint cbSize; public uint dwTime;
+  }
+  [DllImport("user32.dll")] public static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+  public static uint IdleMilliseconds() {
+    var info = new LASTINPUTINFO();
+    info.cbSize = (uint)Marshal.SizeOf(typeof(LASTINPUTINFO));
+    if (!GetLastInputInfo(ref info)) { return 0; }
+    return unchecked((uint)Environment.TickCount - info.dwTime);
+  }
+
   public static bool FocusWindow(IntPtr hWnd) {
     if (IsIconic(hWnd)) { ShowWindowAsync(hWnd, 9); System.Threading.Thread.Sleep(250); }
     uint pidIgnored;
@@ -215,6 +277,29 @@ Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type -AssemblyName WindowsBase
 
+function Get-BackgroundActions($el) {
+  # Report provider capabilities, not guesses based on app name or control role.
+  $actions = New-Object System.Collections.ArrayList
+  foreach ($entry in @(
+    @('invoke', [System.Windows.Automation.InvokePattern]::Pattern),
+    @('toggle', [System.Windows.Automation.TogglePattern]::Pattern),
+    @('expand', [System.Windows.Automation.ExpandCollapsePattern]::Pattern),
+    @('collapse', [System.Windows.Automation.ExpandCollapsePattern]::Pattern),
+    @('select', [System.Windows.Automation.SelectionItemPattern]::Pattern),
+    @('settext', [System.Windows.Automation.ValuePattern]::Pattern)
+  )) {
+    try {
+      $pattern = $null
+      if ($el.TryGetCurrentPattern($entry[1], [ref]$pattern)) {
+        if ($entry[0] -ne 'settext' -or -not $pattern.Current.IsReadOnly) {
+          [void]$actions.Add($entry[0])
+        }
+      }
+    } catch { }
+  }
+  return $actions.ToArray()
+}
+
 function Get-ElementInfo($el, [int]$maxValueChars) {
   $cur = $el.Current
   $role = ''
@@ -238,15 +323,54 @@ function Get-ElementInfo($el, [int]$maxValueChars) {
   $rect = $cur.BoundingRectangle
   $hasRect = -not ([double]::IsNaN($rect.X) -or [double]::IsInfinity($rect.X) -or $rect.Width -le 0)
   return @{
+    runtimeId = ($el.GetRuntimeId() -join ',')
+    processId = $cur.ProcessId
     role = $role
     name = $name
     value = $value
+    backgroundActions = @(Get-BackgroundActions $el)
     enabled = $enabled
     x = $(if ($hasRect) { [int]($rect.X + $rect.Width / 2) } else { 0 })
     y = $(if ($hasRect) { [int]($rect.Y + $rect.Height / 2) } else { 0 })
     w = $(if ($hasRect) { [int]$rect.Width } else { 0 })
     h = $(if ($hasRect) { [int]$rect.Height } else { 0 })
     hasRect = $hasRect
+  }
+}
+
+function Resolve-Element($request) {
+  if ($request.runtimeId) {
+    $condition = New-Object System.Windows.Automation.PropertyCondition -ArgumentList ([System.Windows.Automation.AutomationElement]::ProcessIdProperty), ([int]$request.processId)
+    $elements = [System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Descendants, $condition)
+    foreach ($candidate in $elements) {
+      try {
+        if (($candidate.GetRuntimeId() -join ',') -eq [string]$request.runtimeId) { return $candidate }
+      } catch { }
+    }
+    return $null
+  }
+  if ($null -ne $request.x -and $null -ne $request.y) {
+    return Get-ElementAtPoint ([int]$request.x) ([int]$request.y)
+  }
+  return $null
+}
+
+function Confirm-BackgroundForeground($result, [IntPtr]$before, [IntPtr]$targetWindow, [bool]$foregroundAllowed) {
+  $after = [DeskNative]::GetForegroundWindow()
+  $result.foregroundUnchanged = ($after -eq $before)
+  if (-not $foregroundAllowed -and $after -ne $before) {
+    # Restore only when the action's own target is still foreground, never over
+    # another window the user may have selected in the meantime.
+    $restored = $false
+    if ($before -ne [IntPtr]::Zero -and $after -eq $targetWindow) {
+      [void][DeskNative]::SetForegroundWindow($before)
+      $restored = ([DeskNative]::GetForegroundWindow() -eq $before)
+    }
+    $result.ok = $false
+    $result.refused = 'background-focus-changed'
+    $result.focusRestored = $restored
+    $result.error = 'This UI Automation provider changed foreground focus. Foreground access requires approval; use a file/API route or isolated desktop instead. The action may already have changed the target; inspect it and do not repeat blindly.'
+    if ($result.ContainsKey('verification')) { $result.verification.passed = $false }
   }
 }
 
@@ -274,9 +398,8 @@ function Search-Elements($root, [string]$nameQuery, [string]$roleQuery, [int]$ma
     $depth = [int]$pair[1]
     $visited++
     if ($visited -gt 4000) { break }
-    $offscreen = $false
-    try { $offscreen = $el.Current.IsOffscreen } catch { }
-    if (-not ($offscreen -and $depth -gt 0)) {
+    # UIA identities remain useful when a window is minimized or covered.
+    if ($null -ne $el) {
       $info = Get-ElementInfo $el 120
       $matchesName = $true
       if ($nq) {
@@ -285,7 +408,7 @@ function Search-Elements($root, [string]$nameQuery, [string]$roleQuery, [int]$ma
       }
       $matchesRole = $true
       if ($rq) { $matchesRole = ([string]$info.role).ToLowerInvariant().Contains($rq) }
-      if ($depth -gt 0 -and $info.hasRect -and $matchesName -and $matchesRole) {
+      if ($depth -gt 0 -and $matchesName -and $matchesRole) {
         $info.Remove('hasRect')
         [void]$results.Add($info)
       }

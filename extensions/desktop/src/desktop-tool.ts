@@ -54,6 +54,7 @@ const DESKTOP_ACTIONS = [
 ] as const;
 
 const DESKTOP_ACT_KINDS = [
+  "settext",
   "click",
   "type",
   "paste",
@@ -71,13 +72,36 @@ const DESKTOP_ACT_KINDS = [
 const WINDOW_OPS = ["maximize", "minimize", "restore", "close", "move", "resize"] as const;
 const UIA_PATTERN_KINDS = new Set(["invoke", "toggle", "expand", "collapse", "select"]);
 
+// The kinds that reach the desktop through synthesized input rather than UI
+// Automation. They take the user's real mouse and keyboard for as long as they
+// run, so each one is gated behind an explicit foreground=true.
+const FOREGROUND_ACT_KINDS = new Set(["click", "type", "paste", "key", "scroll", "move", "drag"]);
+
+// Named per kind, because a refusal that only says "not allowed" invites a
+// retry with the flag set; one that names the replacement gets the job done.
+const FOREGROUND_ALTERNATIVES: Record<string, string> = {
+  type: 'Use act kind=settext (title=<window>, text=<value>) instead - it writes through UI Automation into a background window, confirms by reading the value back, and leaves the user their keyboard. Only if settext answers "no writable ValuePattern control" is type justified.',
+  paste:
+    "Use act kind=settext instead; it handles long and multiline text without the clipboard and without taking the foreground.",
+  click:
+    "Snapshot or find the element, then use act kind=invoke on its ref (or toggle/select/expand for checkboxes, combos and tree nodes). Invoking a control through UI Automation avoids screen hit-testing. If its provider changes focus, the tool reports background-focus-changed; choose another route.",
+  key: "If this is an app shortcut, look for the same command as a control in the snapshot and invoke it on its ref. Keyboard shortcuts go to whatever window is focused, which may not be the one you mean.",
+  scroll:
+    "Prefer read on the element ref, which returns content without scrolling. Scrolling only matters when something must be brought on-screen for a human to see.",
+  move: "Pointer movement alone rarely accomplishes anything; drive the control directly with invoke/toggle/select on its ref.",
+  drag: "Check whether the target exposes a UI Automation pattern first - many drag interactions have an invoke or select equivalent that cannot miss.",
+};
+
+const FOREGROUND_DEFAULT_HINT =
+  "Prefer the background actions: settext for text, invoke/toggle/select on a ref for controls, read for content.";
+
 const DesktopToolSchema = Type.Object(
   {
     action: stringEnum(DESKTOP_ACTIONS),
     title: Type.Optional(
       Type.String({
         description:
-          'Window title substring (optional everywhere). Omit it to target the FOREGROUND window — which is what you want right after launching or focusing an app. Note: a window\'s title is often the document/workspace name, not the app name (e.g. Notion shows your workspace name, not "Notion"), so prefer omitting title over guessing it. Use action=apps to read real titles.',
+          "Window title substring. Required for background window operations; use action=apps to discover actual titles. Omit only with foreground=true to deliberately inspect the active window. Never guess a title or assume a background launch changed the foreground.",
       }),
     ),
     app: Type.Optional(
@@ -89,6 +113,12 @@ const DesktopToolSchema = Type.Object(
     kind: optionalStringEnum(DESKTOP_ACT_KINDS, {
       description: "Interaction kind for act.",
     }),
+    foreground: Type.Optional(
+      Type.Boolean({
+        description:
+          "Explicit opt-in to target the active window without a title or use real mouse/keyboard input (click, type, paste, key, scroll, move, drag). Input requires task permission for desktop interruption; explicit permission already given does not need to be requested again. A failed background action alone does not authorize taking over. While a foreground action runs the user cannot use their machine, and it aborts if they move the mouse.",
+      }),
+    ),
     ref: Type.Optional(
       Type.String({ description: "Element ref from the LATEST snapshot (e.g. e12)." }),
     ),
@@ -240,6 +270,9 @@ type SnapshotElement = {
   w: number;
   h: number;
   enabled: boolean;
+  backgroundActions?: string[];
+  runtimeId?: string;
+  processId?: number;
 };
 
 type SnapshotPayload = {
@@ -251,7 +284,16 @@ type SnapshotPayload = {
   hint?: string;
 };
 
-type RefEntry = { x: number; y: number; w: number; h: number; role: string; name: string };
+type RefEntry = {
+  runtimeId?: string;
+  processId?: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  role: string;
+  name: string;
+};
 
 // Refs from the most recent snapshot. The gateway process is long-lived, so a
 // module-level cache survives across tool calls within a run. Refs go stale on
@@ -269,11 +311,25 @@ function formatSnapshot(payload: SnapshotPayload): string {
   for (const el of elements) {
     n += 1;
     const ref = `e${n}`;
-    refs.set(ref, { x: el.x, y: el.y, w: el.w, h: el.h, role: el.role, name: el.name });
+    refs.set(ref, {
+      x: el.x,
+      y: el.y,
+      w: el.w,
+      h: el.h,
+      role: el.role,
+      name: el.name,
+      runtimeId: el.runtimeId,
+      processId: el.processId,
+    });
     const valuePart = el.value ? ` value=${JSON.stringify(el.value)}` : "";
-    const disabledPart = el.enabled === false ? " [disabled]" : "";
+    const capabilityPart = el.backgroundActions
+      ? ` backgroundActions=${JSON.stringify(el.backgroundActions)}`
+      : " backgroundActions=unknown";
+    const disabledPart = !el.enabled ? " [disabled]" : "";
     const namePart = el.name ? ` ${JSON.stringify(el.name)}` : "";
-    lines.push(`- ${ref} ${el.role}${namePart}${valuePart} (${el.x},${el.y})${disabledPart}`);
+    lines.push(
+      `- ${ref} ${el.role}${namePart}${valuePart} (${el.x},${el.y})${disabledPart}${capabilityPart}`,
+    );
   }
   lastRefs = refs;
   lastRefsWindowTitle = win?.title ?? "";
@@ -287,7 +343,9 @@ function formatSnapshot(payload: SnapshotPayload): string {
         : "(no readable elements — the app renders via canvas/GPU; VISION FALLBACK: action=screenshot grid=true, read the target's x,y from the grid labels, then act kind=click x=.. y=..)",
     );
   } else {
-    lines.push(`Interact with: act kind=click ref=eN, then re-snapshot after UI changes.`);
+    lines.push(
+      `Interact with: act kind=invoke/toggle/select ref=eN, then re-snapshot after UI changes.`,
+    );
   }
   return lines.join("\n");
 }
@@ -315,9 +373,26 @@ function resolvePoint(
         `desktop: unknown ref "${ref}" — take a new snapshot first (refs are valid only for the latest snapshot${lastRefsWindowTitle ? ` of "${lastRefsWindowTitle}"` : ""}).`,
       );
     }
+    if (entry.w <= 0 || entry.h <= 0) {
+      throw new Error(
+        "desktop: this control has no visible screen rectangle; use its UI Automation ref with invoke/read instead.",
+      );
+    }
     return { x: entry.x, y: entry.y };
   }
   return { x: requireNumber(params, xKey), y: requireNumber(params, yKey) };
+}
+
+/** Resolve UI Automation identity without hit-testing an overlapping window. */
+function resolveElement(params: Record<string, unknown>): { runtimeId: string; processId: number } {
+  const ref = readStringParam(params, "ref", { required: true });
+  const entry = lastRefs.get(ref);
+  if (!entry?.runtimeId || !entry.processId) {
+    throw new Error(
+      `desktop: ref "${ref}" has no current UI Automation identity; take a new snapshot.`,
+    );
+  }
+  return { runtimeId: entry.runtimeId, processId: entry.processId };
 }
 
 export function createDesktopTool(opts?: {
@@ -334,13 +409,13 @@ export function createDesktopTool(opts?: {
     label: "Desktop",
     name: "desktop",
     description: [
-      "Control the local Windows desktop (any app) via UI Automation + synthesized input. Windows only; shares the real mouse/keyboard; cannot reach UAC/elevated prompts.",
-      "LAST RESORT, NOT FIRST CHOICE: this tool takes over the screen the user is working on — it raises windows, steals focus, and types with their keyboard, so they cannot use the machine while it runs. Before reaching for it, ask whether the goal can be met without a GUI: write the file directly, run a CLI, call an API, edit config on disk. 'Put this text in Notepad' is usually satisfied by writing the .txt file; use the GUI only when the user explicitly wants to watch it happen, or when the app genuinely has no file, CLI or API route (legacy desktop software, a portal with no API). When you do use it, say so first, and keep the foreground session as short as possible.",
-      "Flow: launch or focus the app, then snapshot (NO title = foreground window; pass title only for a background window — never guess a title), then act on refs (e12) from the LATEST snapshot, then verify the postcondition. Prefer keyboard shortcuts (Ctrl+N/S/T/F, Enter) over hunting menus. Use find (name, optional role) instead of a full snapshot in dense apps. Refs go stale after any layout change — re-snapshot.",
-      "ACTIONS: apps (list windows) · launch (app) · focus (title) · snapshot (title optional) · find (name, role) · act · read (ref, maxChars) · window (windowOp=maximize|minimize|restore|close|move|resize) · wait (name/role, timeoutMs) · verify (name, role, condition=element_exists|element_absent) · clipboard (clipboardOp=get|set) · screenshot.",
+      "Control the local Windows desktop (any app) via UI Automation. Windows only; cannot reach UAC/elevated prompts. Use file, command, app API, or dedicated browser capabilities first when they can satisfy the request. For native Windows UI work, prefer this tool over screenshot-and-click input: its background actions drive apps through UI Automation without touching the real mouse or keyboard, so the user keeps working while the task runs. A screenshot-and-click tool uses the shared mouse and keyboard. UI Automation is preferable when supported, but app providers can still activate their own windows.",
+      "BACKGROUND FIRST, FOREGROUND LAST. The background actions - settext, invoke, toggle, expand, collapse, select, read, find, snapshot with an explicit title - do not request focus or synthesize input, so reach for them immediately and without apology. launch is background by default too: the script minimizes its window and checks foreground restoration; apps may take focus transiently during launch. Do not call focus to 'make sure' - raising a window moves the user's caret mid-sentence, and snapshot/find/settext accept a title and read/pattern actions use refs. UI Automation providers that change focus report a background failure and must use another route. The foreground actions - type, key, click, move, drag, paste, scroll, and focus - take over the real mouse and keyboard; those are the genuine last resort, because they stop the user working and they abort if the user touches the mouse. Before any FOREGROUND action, ask what replaces it: settext instead of type, invoke on a ref instead of click, or no GUI at all - write the file directly, run a CLI, call an API, edit config on disk. Preserve the requested outcome and app constraints; choose a file/API route only when it satisfies them. Explicit task permission to use foreground mouse/keyboard already counts; do not ask for the same permission again. Otherwise use foreground input only when the user has agreed to desktop interruption; a background failure alone is not authorization. Keep that session as short as possible.",
+      "Flow: inspect available capabilities for the requested outcome, without app-specific rules. Snapshot/find/read report backgroundActions supported by each control. Use only advertised operations; an empty list means no supported mutation pattern, while unknown means inspect further. These are provider capabilities, not a guarantee of focus preservation; verify action results. A minimized window can still expose controls; do not restore it merely to inspect or use supported patterns. First determine whether the request needs a native app. If it does, launch without foreground, list apps to discover its actual title, then snapshot with that title, act on refs (e12) from the LATEST snapshot, and verify the postcondition. Never inspect the foreground as a substitute for locating the launched window. Prefer UI Automation controls over keyboard shortcuts. Use find (name, optional role) instead of a full snapshot in dense apps. Refs go stale after any layout change — re-snapshot.",
+      "ACTIONS: apps (list windows) · launch (app) · focus (title) · snapshot (title for background) · find (name, role) · act · read (ref, maxChars) · window (windowOp=maximize|minimize|restore|close|move|resize) · wait (name/role, timeoutMs) · verify (name, role, condition=element_exists|element_absent) · clipboard (clipboardOp=get|set) · screenshot.",
       "VERIFICATION: after an action, use verify with a specific element name/role. A false result is recoverable: snapshot the current state, retry once with fresh refs, then choose another method or escalate.",
       "SAFETY: launch returns ok:false with reusedExistingWindow=true when the app was ALREADY running — you are looking at the user's own open document, not a blank one. Never type or send keys then: open a fresh document first (act kind=key keys=ctrl+n) and snapshot to confirm it is empty. You share the real keyboard, so a wrong keystroke edits the user's work.",
-      'ACT KINDS: settext (PREFERRED for entering text: title=window, text=value, optional name/role to pick the control — writes via UI Automation into a BACKGROUND window, so it never raises the app, never takes the keyboard, and cannot collide with what the user is doing; reads the value back to confirm. Falls back to type only when it reports no writable control) · click (ref or x/y) · type (synthesized keystrokes: TAKES THE FOREGROUND and the real keyboard — use only when settext says the control is not writable; pass title to name the window you mean so it refuses with aborted="wrong-window" rather than typing into whatever the user clicked into) · paste (prefer for long/multiline text) · key (e.g. "ctrl+s") · scroll (scrollDelta) · move · drag (ref→toRef) · invoke/toggle/expand/collapse/select (UIA patterns on a ref — more reliable than click for checkboxes/combos/tree nodes).',
+      'ACT KINDS: settext (PREFERRED for entering text: title=window, text=value, optional name/role to pick the control — writes via UI Automation into a BACKGROUND window, without synthesizing keystrokes; reads the value back and checks foreground focus. Some providers activate themselves: a background-focus-changed result means use a file/API or isolated route, not a blind retry. Falls back to type only when it reports no writable control) · click (ref or x/y) · type (synthesized keystrokes: TAKES THE FOREGROUND and the real keyboard — use only when settext says the control is not writable; pass title to name the window you mean so it refuses with aborted="wrong-window" rather than typing into whatever the user clicked into) · paste (prefer for long/multiline text) · key (e.g. "ctrl+s") · scroll (scrollDelta) · move · drag (ref→toRef) · invoke/toggle/expand/collapse/select (UIA patterns on a ref — more reliable than click for checkboxes/combos/tree nodes).',
       "SCREENSHOT (only when the tree is empty/insufficient, e.g. canvas/GPU apps): grid=true overlays a coordinate grid → read x,y and act kind=click x/y. window=true title=<app> captures a background window's own pixels. annotate=true labels the latest refs.",
     ].join(" "),
     parameters: DesktopToolSchema,
@@ -351,6 +426,24 @@ export function createDesktopTool(opts?: {
       const params = args as Record<string, unknown>;
       const action = readStringParam(params, "action", { required: true });
 
+      // A background launch leaves the user's own window in front. Never let
+      // target discovery silently turn that window into the task's next target.
+      const targetsWindow =
+        ["snapshot", "find", "wait", "verify", "window"].includes(action) ||
+        (action === "screenshot" && params.window === true);
+      if (
+        targetsWindow &&
+        !readStringParam(params, "title")?.trim() &&
+        params.foreground !== true
+      ) {
+        return jsonResult({
+          ok: false,
+          refused: "background-target-required",
+          action,
+          hint: "List apps, then pass the intended window title. A background launch does not make that app the foreground window. Use foreground=true only when deliberately targeting the user's active window.",
+        });
+      }
+
       switch (action) {
         case "status": {
           return jsonResult(await runPowerShell(STATUS_SCRIPT, {}, 20_000));
@@ -359,13 +452,32 @@ export function createDesktopTool(opts?: {
           return jsonResult(await runPowerShell(APPS_SCRIPT, {}, 20_000));
         }
         case "focus": {
+          // Raising a window IS seizing the screen: the user's caret moves
+          // mid-sentence into whatever was raised. Nothing that only reads or
+          // writes through UI Automation needs focus, so this is gated like the
+          // foreground act kinds rather than being free.
+          if (params.foreground !== true) {
+            return jsonResult({
+              ok: false,
+              refused: "foreground-not-requested",
+              action: "focus",
+              hint: "Focus is rarely needed: snapshot, find, read and act kind=settext/invoke all take a title and work on a background window. Pass the window title to those instead of raising it.",
+              retryWith:
+                "Re-send with foreground=true only when the user has agreed to desktop interruption. A failed background action alone does not authorize it.",
+            });
+          }
           const title = readStringParam(params, "title") || "";
           return jsonResult(await runPowerShell(FOCUS_SCRIPT, { title }, 20_000));
         }
         case "launch": {
           const app = readStringParam(params, "app", { required: true });
           const appArgs = readStringParam(params, "appArgs") || undefined;
-          return jsonResult(await runPowerShell(LAUNCH_SCRIPT, { app, appArgs }, 30_000));
+          // Apps can activate themselves during launch; the script minimizes
+          // and checks restoration of the original foreground afterward.
+          const foreground = params.foreground === true;
+          return jsonResult(
+            await runPowerShell(LAUNCH_SCRIPT, { app, appArgs, foreground }, 30_000),
+          );
         }
         case "snapshot": {
           const title = readStringParam(params, "title") || undefined;
@@ -393,12 +505,39 @@ export function createDesktopTool(opts?: {
             const name = readStringParam(params, "name") || "";
             const role = readStringParam(params, "role") || "";
             return jsonResult(
-              await runPowerShell(SET_VALUE_SCRIPT, { text, title, name, role }, 30_000),
+              await runPowerShell(
+                SET_VALUE_SCRIPT,
+                { text, title, name, role, foreground: params.foreground === true },
+                30_000,
+              ),
             );
           }
           if (UIA_PATTERN_KINDS.has(kind)) {
-            const point = resolvePoint(params, "ref", "x", "y");
-            return jsonResult(await runPowerShell(PATTERN_SCRIPT, { ...point, op: kind }, 30_000));
+            const element = resolveElement(params);
+            return jsonResult(
+              await runPowerShell(
+                PATTERN_SCRIPT,
+                { ...element, op: kind, foreground: params.foreground === true },
+                30_000,
+              ),
+            );
+          }
+          // Everything past this point drives the real mouse and keyboard, which
+          // stops the user working and aborts the moment they touch the mouse.
+          // A description asking the model to prefer the background actions was
+          // not enough on its own - it read the warning, decided the GUI route
+          // was simpler, and took the foreground anyway. So the refusal is
+          // structural: the caller has to say foreground=true, and the message
+          // names the background action that would have worked instead.
+          if (FOREGROUND_ACT_KINDS.has(kind) && params.foreground !== true) {
+            return jsonResult({
+              ok: false,
+              refused: "foreground-not-requested",
+              kind,
+              hint: FOREGROUND_ALTERNATIVES[kind] ?? FOREGROUND_DEFAULT_HINT,
+              retryWith:
+                "Re-send with foreground=true only when the user has agreed to desktop interruption. Otherwise use a file, command, app API, or isolated execution route.",
+            });
           }
           switch (kind) {
             case "click": {
@@ -460,7 +599,7 @@ export function createDesktopTool(opts?: {
           }
         }
         case "read": {
-          const point = resolvePoint(params, "ref", "x", "y");
+          const point = params.ref ? resolveElement(params) : resolvePoint(params, "ref", "x", "y");
           const maxChars = typeof params.maxChars === "number" ? params.maxChars : undefined;
           return jsonResult(await runPowerShell(READ_SCRIPT, { ...point, maxChars }, 30_000));
         }

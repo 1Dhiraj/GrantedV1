@@ -3,9 +3,9 @@
   "activation": {
     "onStartup": true
   },
-  "enabledByDefault": true,
+  "enabledByDefaultOnPlatforms": ["darwin", "linux"],
   "name": "CUA Computer",
-  "description": "Experimental CUA Driver computer control for macOS, Windows, and Linux node hosts.",
+  "description": "Experimental CUA Driver computer control for macOS and Linux node hosts. Off by default on Windows, where the `desktop` plugin supersedes it: this driver types through synthesized keystrokes, which are inherently foreground and abort when the user moves the mouse, while `desktop` writes through UI Automation in the background and leaves the machine usable. Still installable on Windows with plugins.entries.cua-computer.enabled=true.",
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

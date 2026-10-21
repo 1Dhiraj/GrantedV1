@@ -1,6 +1,7 @@
 // Desktop action scripts. Each constant is a complete PowerShell program built on
 // the shared preamble and UI Automation helpers in ./scripts-shared.ts.
 import { PREAMBLE, UIA_HELPERS } from "./scripts-shared.js";
+export { READ_SCRIPT, PATTERN_SCRIPT } from "./scripts-element.js";
 
 export const STATUS_SCRIPT =
   PREAMBLE +
@@ -59,6 +60,11 @@ foreach ($p in @(Get-Process | Where-Object { $_.MainWindowHandle -ne 0 })) {
   $preExistingWindows[[int64]$p.MainWindowHandle] = $true
 }
 
+# Windows apps may activate themselves transiently during launch. Honor the
+# requested background mode regardless of idle time, then observe restoration.
+$background = -not ($A.foreground -eq $true)
+$userForeground = [DeskNative]::GetForegroundWindow()
+
 if ($A.appArgs) {
   $proc = Start-Process -FilePath ([string]$A.app) -ArgumentList ([string]$A.appArgs) -PassThru
 } else {
@@ -85,34 +91,72 @@ while ((Get-Date) -lt $deadline) {
 }
 
 $focused = $false
+$focusRestored = $false
 if ($h -ne [IntPtr]::Zero) {
-  $focused = [DeskNative]::FocusWindow($h)
-  Start-Sleep -Milliseconds 250
+  if ($background) {
+    # SW_SHOWMINNOACTIVE (7): put it on the taskbar without activating it.
+    # Measured on Windows 11 Notepad: applied after the window exists this
+    # leaves it iconic, and settext still reaches its UI Automation tree.
+    [DeskNative]::ShowWindowAsync($h, 7) | Out-Null
+    Start-Sleep -Milliseconds 300
+    # Hand the foreground back to the window the user was typing into. Measured
+    # on Windows 11 Notepad: the launch takes focus regardless of window style,
+    # and this returns it. Not instantaneous - a keystroke or two during the
+    # handover can still land in the launched app - so prefer no GUI at all when
+    # a file, CLI or API route exists.
+    $fgNow = [DeskNative]::GetForegroundWindow()
+    if ($userForeground -ne [IntPtr]::Zero -and $fgNow -ne $userForeground) {
+      [DeskNative]::SetForegroundWindow($userForeground) | Out-Null
+      Start-Sleep -Milliseconds 400
+      $focusRestored = ([DeskNative]::GetForegroundWindow() -eq $userForeground)
+    } else {
+      $focusRestored = ($userForeground -ne [IntPtr]::Zero -and $fgNow -eq $userForeground)
+    }
+  } else {
+    $focused = [DeskNative]::FocusWindow($h)
+    Start-Sleep -Milliseconds 250
+  }
 }
 $fg = Get-ForegroundInfo
-# Only claim success when the launched window is genuinely in front. Anything
-# else must be reported so the caller focuses or snapshots before acting.
+# In foreground mode, only claim success when the launched window is genuinely
+# in front, because the caller is about to send keystrokes to whatever is.
+# In background mode being in front is not the goal - having a window to address
+# by title is - so requiring it would report every correct launch as a failure.
 $isFront = ($h -ne [IntPtr]::Zero) -and ($fg.hwnd -eq [int64]$h)
+$opened = ($h -ne [IntPtr]::Zero)
+$hidden = $opened -and [DeskNative]::IsIconic($h)
+$focusRestored = ($userForeground -ne [IntPtr]::Zero -and $fg.hwnd -eq [int64]$userForeground)
 $reusedExisting = ($h -ne [IntPtr]::Zero) -and $preExistingWindows.ContainsKey([int64]$h)
 $result = @{
-  ok = ($isFront -and -not $reusedExisting)
+  ok = (($(if ($background) { $opened -and $hidden -and $focusRestored } else { $isFront })) -and -not $reusedExisting)
   launched = [string]$A.app
   focused = $isFront
+  background = $background
+  hidden = $hidden
+  focusRestored = $focusRestored
   reusedExistingWindow = $reusedExisting
   foreground = $fg
 }
 if ($h -ne [IntPtr]::Zero) { $result.windowHandle = [int64]$h }
-if (-not $isFront) {
-  $result.error = 'launched "' + [string]$A.app + '" but its window is not in the foreground (front window: "' + $fg.title + '"). DO NOT type yet - it would go to that window. Use action=focus with the app title, then snapshot to confirm, before acting.'
+if (-not $opened) {
+  $result.error = 'launched process but no window appeared within 10s; inspect apps before acting.'
 } elseif ($reusedExisting) {
-  # Typing here would edit whatever the user already had open. Refuse loudly.
-  $result.error = 'no new window was created - "' + [string]$A.app + '" was already running and this focused an EXISTING window ("' + $fg.title + '") that may contain the user''s own unsaved work. DO NOT type or send keys into it. Open a fresh document first (for a text editor, act kind=key keys=ctrl+n), then snapshot to confirm the new window is empty before typing.'
+  $result.error = 'no new window was created; the existing window may contain user work. Do not edit it without confirming a safe target.'
+} elseif ($background -and -not $focusRestored) {
+  $result.error = 'could not confirm restoration of the original foreground window; inspect foreground before doing anything else.'
+} elseif ($background -and -not $hidden) {
+  $result.error = 'the launched window did not minimize; background launch was not confirmed.'
+} elseif ($background) {
+  $result.note = 'Window is minimized and original foreground is restored. Launch may have taken focus transiently. Use apps for its title, then snapshot/settext without keystrokes.'
+} elseif (-not $isFront) {
+  $result.error = 'launched window is not in the foreground; do not send keystrokes until focus is confirmed.'
 }
 $result | ConvertTo-Json -Compress -Depth 5
 `;
 
 export const SNAPSHOT_SCRIPT =
   PREAMBLE +
+  UIA_HELPERS +
   `
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
@@ -126,11 +170,7 @@ if ($h -eq [IntPtr]::Zero) {
   exit 0
 }
 
-# When a title is given, bring that window to the foreground before reading it
-# so the refs the model acts on belong to the window that will receive input.
-if ($A.title) {
-  [void][DeskNative]::FocusWindow($h)
-}
+# Read the target tree without activating its window. Refs retain UIA identity.
 
 $root = [System.Windows.Automation.AutomationElement]::FromHandle($h)
 $walker = [System.Windows.Automation.TreeWalker]::ControlViewWalker
@@ -157,9 +197,6 @@ while ($queue.Count -gt 0) {
   if ($visited -gt 3000) { $truncated = $true; break }
 
   $cur = $el.Current
-  $offscreen = $false
-  try { $offscreen = $cur.IsOffscreen } catch { }
-  if ($offscreen -and $depth -gt 0) { continue }
 
   $role = ''
   try { $role = $cur.ControlType.ProgrammaticName -replace '^ControlType\\.', '' } catch { }
@@ -183,18 +220,21 @@ while ($queue.Count -gt 0) {
   $rect = $cur.BoundingRectangle
   $hasRect = -not ([double]::IsNaN($rect.X) -or [double]::IsInfinity($rect.X) -or $rect.Width -le 0)
 
-  $include = $depth -gt 0 -and $hasRect -and (($name -ne '') -or ($interactive -contains $role) -or ($null -ne $value))
+  $include = $depth -gt 0 -and (($name -ne '') -or ($interactive -contains $role) -or ($null -ne $value))
   if ($include) {
     $enabled = $true
     try { $enabled = $cur.IsEnabled } catch { }
     [void]$elements.Add(@{
+      runtimeId = ($el.GetRuntimeId() -join ',')
+      processId = $cur.ProcessId
       role = $role
       name = $name
       value = $value
-      x = [int]($rect.X + $rect.Width / 2)
-      y = [int]($rect.Y + $rect.Height / 2)
-      w = [int]$rect.Width
-      h = [int]$rect.Height
+      x = $(if ($hasRect) { [int]($rect.X + $rect.Width / 2) } else { 0 })
+      y = $(if ($hasRect) { [int]($rect.Y + $rect.Height / 2) } else { 0 })
+      w = $(if ($hasRect) { [int]$rect.Width } else { 0 })
+      h = $(if ($hasRect) { [int]$rect.Height } else { 0 })
+      backgroundActions = @(Get-BackgroundActions $el)
       enabled = $enabled
     })
   }
@@ -438,66 +478,6 @@ $sb = New-Object System.Text.StringBuilder 512
 } | ConvertTo-Json -Compress
 `;
 
-export const READ_SCRIPT =
-  PREAMBLE +
-  UIA_HELPERS +
-  `
-$maxChars = if ($A.maxChars) { [int]$A.maxChars } else { 2000 }
-$el = Get-ElementAtPoint ([int]$A.x) ([int]$A.y)
-if ($null -eq $el) {
-  @{ ok = $false; error = 'no UI element at that point' } | ConvertTo-Json -Compress
-  exit 0
-}
-$info = Get-ElementInfo $el $maxChars
-$info.Remove('hasRect')
-@{ ok = $true; element = $info } | ConvertTo-Json -Compress -Depth 5
-`;
-
-export const PATTERN_SCRIPT =
-  PREAMBLE +
-  UIA_HELPERS +
-  `
-$op = [string]$A.op
-$el = Get-ElementAtPoint ([int]$A.x) ([int]$A.y)
-if ($null -eq $el) {
-  @{ ok = $false; error = 'no UI element at that point' } | ConvertTo-Json -Compress
-  exit 0
-}
-$result = @{ ok = $true; op = $op }
-try {
-  switch ($op) {
-    'invoke' {
-      $p = $el.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern)
-      $p.Invoke()
-    }
-    'toggle' {
-      $p = $el.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
-      $p.Toggle()
-      Start-Sleep -Milliseconds 150
-      $result.state = [string]$p.Current.ToggleState
-    }
-    'expand' {
-      $p = $el.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern)
-      $p.Expand()
-    }
-    'collapse' {
-      $p = $el.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern)
-      $p.Collapse()
-    }
-    'select' {
-      $p = $el.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
-      $p.Select()
-    }
-    default {
-      $result = @{ ok = $false; error = ('unknown pattern op: ' + $op) }
-    }
-  }
-} catch {
-  $result = @{ ok = $false; error = ('element does not support ' + $op + ' (' + $_.Exception.Message + ') — fall back to act kind=click') }
-}
-$result | ConvertTo-Json -Compress -Depth 4
-`;
-
 export const WINDOW_SCRIPT =
   PREAMBLE +
   `
@@ -585,7 +565,6 @@ if ($h -eq [IntPtr]::Zero) {
   @{ ok = $false; error = 'window not found: ' + [string]$A.title } | ConvertTo-Json -Compress
   exit 0
 }
-if ($A.title) { [void][DeskNative]::FocusWindow($h) }
 $sb = New-Object System.Text.StringBuilder 512
 [void][DeskNative]::GetWindowText($h, $sb, 512)
 $procId = [uint32]0
